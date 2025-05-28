@@ -637,15 +637,20 @@
               button.classList.add('bg-purple-600', 'text-white');
             });
         });
-
         // Expand/collapse for albums and characters
         document.querySelectorAll('.album-header, .character-header').forEach(header => {
             header.addEventListener('click', () => {
-                const content = header.nextElementSibling;
+                const container = header.parentNode;
+                const content = container.querySelector('.expandable-content');
                 const icon = header.querySelector('.expand-icon');
-                content.classList.toggle('expanded');
-                content.classList.toggle('hidden');
-                icon.classList.toggle('rotate-90');
+
+                if (content) {
+                    content.classList.toggle('expanded');
+                    content.classList.toggle('hidden');
+                }
+                if (icon) {
+                    icon.classList.toggle('rotate-90');
+                }
             });
         });
     });
