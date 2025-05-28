@@ -40,15 +40,14 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
-        /* Enhanced gradient text */
         .gradient-header {
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(0 0 8px rgba(124, 58, 237, 0.3));
+          background: var(--primary-gradient);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          color: white; /* fallback for browsers or in case background-clip fails */
         }
-
+        
         /* Smooth animations */
         .animate-fade-in {
             animation: fadeIn 0.6s ease-out;
@@ -605,7 +604,6 @@
                     </div>
                 </div>
             </div> <!-- End of Game Development Section -->
-
         </div> <!-- End of max-w-6xl container -->
     </div> <!-- End of main container -->
     <!-- JavaScript for section switching -->
@@ -614,14 +612,28 @@
         // Tab Navigation
         document.querySelectorAll('[data-section]').forEach(button => {
             button.addEventListener('click', () => {
-                const sectionId = `${button.getAttribute('data-section')}-section`;
-                document.querySelectorAll('.content-section').forEach(section => {
-                    section.classList.add('hidden');
-                });
-                const target = document.getElementById(sectionId);
-                if (target) {
-                    target.classList.remove('hidden');
-                }
+            const sectionId = `${button.getAttribute('data-section')}-section`;
+
+              // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Show the selected section
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.classList.remove('hidden');
+            }
+
+              // Reset all button styles
+            document.querySelectorAll('[data-section]').forEach(btn => {
+                btn.classList.remove('bg-purple-600', 'text-white');
+                btn.classList.add('glass-card', 'text-gray-300', 'hover:text-white');
+            });
+
+            // Highlight the active button
+            button.classList.remove('glass-card', 'text-gray-300', 'hover:text-white');
+              button.classList.add('bg-purple-600', 'text-white');
             });
         });
 
