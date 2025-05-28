@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arcane Majesty Compendium</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+    <script type="module">
+      import { createIcons } from "https://cdn.jsdelivr.net/npm/lucide@latest/+esm";
+      createIcons();
+      // Add your logic that depends on Lucide here if needed
+    </script>
     <style>
         /* Enhanced CSS Variables for consistent theming */
         :root {
