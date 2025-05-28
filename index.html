@@ -4,10 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arcane Majesty Compendium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#7c3aed',
+              secondary: '#3b82f6',
+              accent: '#06b6d4'
+            }
+          }
+        }
+      };
+    </script>
     <script type="module">
-      import { createIcons } from "https://cdn.jsdelivr.net/npm/lucide@latest/+esm";
+      import { createIcons } from 'https://cdn.jsdelivr.net/npm/lucide@latest/+esm';
       createIcons();
-      // Add your logic that depends on Lucide here if needed
     </script>
     <style>
         /* Enhanced CSS Variables for consistent theming */
@@ -595,17 +608,10 @@
 
         </div> <!-- End of max-w-6xl container -->
     </div> <!-- End of main container -->
-
-    <!-- JavaScript for icon initialization and section switching -->
+    <!-- JavaScript for section switching -->
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        } else {
-            console.error('Lucide not loaded!');
-        }
-
-        // Tab Navigation: Show only the clicked section
+        // Tab Navigation
         document.querySelectorAll('[data-section]').forEach(button => {
             button.addEventListener('click', () => {
                 const sectionId = `${button.getAttribute('data-section')}-section`;
@@ -619,7 +625,7 @@
             });
         });
 
-        // Expand/collapse logic for albums and characters
+        // Expand/collapse for albums and characters
         document.querySelectorAll('.album-header, .character-header').forEach(header => {
             header.addEventListener('click', () => {
                 const content = header.nextElementSibling;
