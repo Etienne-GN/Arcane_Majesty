@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcane Majesty Universe - Interactive Compendium</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Arcane Majesty Compendium</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
     <style>
         /* Enhanced CSS Variables for consistent theming */
         :root {
@@ -595,33 +594,38 @@
 
     <!-- JavaScript for icon initialization and section switching -->
     <script>
-	    // Initialize Lucide icons
-	    lucide.createIcons();
-	
-	    // Tab Navigation: Show only the clicked section
-	    document.querySelectorAll('[data-section]').forEach(button => {
-	        button.addEventListener('click', () => {
-	            const sectionId = `${button.getAttribute('data-section')}-section`;
-	            document.querySelectorAll('.content-section').forEach(section => {
-	                section.classList.add('hidden');
-	            });
-	            const target = document.getElementById(sectionId);
-	            if (target) {
-	                target.classList.remove('hidden');
-	            }
-	        });
-	    });
-	
-	    // Expand/collapse logic for albums and characters
-	    document.querySelectorAll('.album-header, .character-header').forEach(header => {
-	        header.addEventListener('click', () => {
-	            const content = header.nextElementSibling;
-	            const icon = header.querySelector('.expand-icon');
-	            content.classList.toggle('expanded');
-	            content.classList.toggle('hidden');
-	            icon.classList.toggle('rotate-90');
-	        });
-	    });
+    document.addEventListener('DOMContentLoaded', function () {
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        } else {
+            console.error('Lucide not loaded!');
+        }
+
+        // Tab Navigation: Show only the clicked section
+        document.querySelectorAll('[data-section]').forEach(button => {
+            button.addEventListener('click', () => {
+                const sectionId = `${button.getAttribute('data-section')}-section`;
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                const target = document.getElementById(sectionId);
+                if (target) {
+                    target.classList.remove('hidden');
+                }
+            });
+        });
+
+        // Expand/collapse logic for albums and characters
+        document.querySelectorAll('.album-header, .character-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const icon = header.querySelector('.expand-icon');
+                content.classList.toggle('expanded');
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-90');
+            });
+        });
+    });
     </script>
 </body>
 </html>
