@@ -595,29 +595,33 @@
 
     <!-- JavaScript for icon initialization and section switching -->
     <script>
-        lucide.createIcons();
-
-        // Section Navigation
-        document.querySelectorAll('[data-section]').forEach(button => {
-            button.addEventListener('click', () => {
-                const targetId = `${button.dataset.section}-section`;
-                document.querySelectorAll('.content-section').forEach(section => {
-                    section.classList.add('hidden');
-                });
-                document.getElementById(targetId).classList.remove('hidden');
-            });
-        });
-
-        // Expandable Elements (Albums & Characters)
-        document.querySelectorAll('.album-header, .character-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const content = header.nextElementSibling;
-                const icon = header.querySelector('.expand-icon');
-                content.classList.toggle('expanded');
-                content.classList.toggle('hidden');
-                icon.classList.toggle('rotate-90');
-            });
-        });
+	    // Initialize Lucide icons
+	    lucide.createIcons();
+	
+	    // Tab Navigation: Show only the clicked section
+	    document.querySelectorAll('[data-section]').forEach(button => {
+	        button.addEventListener('click', () => {
+	            const sectionId = `${button.getAttribute('data-section')}-section`;
+	            document.querySelectorAll('.content-section').forEach(section => {
+	                section.classList.add('hidden');
+	            });
+	            const target = document.getElementById(sectionId);
+	            if (target) {
+	                target.classList.remove('hidden');
+	            }
+	        });
+	    });
+	
+	    // Expand/collapse logic for albums and characters
+	    document.querySelectorAll('.album-header, .character-header').forEach(header => {
+	        header.addEventListener('click', () => {
+	            const content = header.nextElementSibling;
+	            const icon = header.querySelector('.expand-icon');
+	            content.classList.toggle('expanded');
+	            content.classList.toggle('hidden');
+	            icon.classList.toggle('rotate-90');
+	        });
+	    });
     </script>
 </body>
 </html>
