@@ -41,13 +41,14 @@
         }
 
         .gradient-header {
-          background: var(--primary-gradient);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          color: white; /* fallback for browsers or in case background-clip fails */
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: white;
+            text-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
         }
-        
+
         /* Smooth animations */
         .animate-fade-in {
             animation: fadeIn 0.6s ease-out;
