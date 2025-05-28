@@ -1,79 +1,623 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Arcane Majesty Compendium</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #121212;
-      color: #f5f5f5;
-      padding: 20px;
-    }
-    h1, h2, h3, h4 {
-      color: #ffd700;
-    }
-    .section {
-      margin-bottom: 40px;
-    }
-    .album {
-      margin: 20px 0;
-      padding: 20px;
-      border: 1px solid #444;
-      border-radius: 10px;
-      background: #1e1e1e;
-    }
-    .act {
-      margin-top: 10px;
-      padding-left: 20px;
-    }
-    .track {
-      margin-left: 20px;
-      padding-left: 10px;
-      border-left: 2px solid #666;
-      margin-bottom: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcane Majesty Universe - Interactive Compendium</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Enhanced CSS Variables for consistent theming */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #7c3aed 0%, #3b82f6 50%, #06b6d4 100%);
+            --secondary-gradient: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+            --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+            --glass-bg: rgba(31, 41, 55, 0.7);
+            --glass-border: rgba(156, 163, 175, 0.2);
+        }
+
+        /* Glassmorphism effects */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Enhanced gradient text */
+        .gradient-header {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 8px rgba(124, 58, 237, 0.3));
+        }
+
+        /* Smooth animations */
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out;
+        }
+
+        .animate-bounce-gentle {
+            animation: bounceGentle 2s ease-in-out infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounceGentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Enhanced hover effects */
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Interactive button effects */
+        .btn-interactive {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn-interactive::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-interactive:hover::before {
+            left: 100%;
+        }
+
+        .btn-interactive:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+        }
+
+        /* Particle background effect */
+        .particle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(124, 58, 237, 0.5);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Enhanced content transitions */
+        .content-section {
+            transition: all 0.5s ease-in-out;
+        }
+
+        .content-section.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        .content-section:not(.hidden) {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Dynamic expand/collapse animations */
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .expandable-content.expanded {
+            max-height: 1000px;
+        }
+
+        /* Enhanced scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(31, 41, 55, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #7c3aed, #3b82f6);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #6d28d9, #2563eb);
+        }
+
+        /* Loading animation for dynamic content */
+        .loading-shimmer {
+            background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Responsive enhancements */
+        @media (max-width: 768px) {
+            .particle { display: none; }
+            .hover-lift:hover { transform: none; }
+        }
+    </style>
 </head>
-<body>
-  <h1>Arcane Majesty Compendium</h1>
+<body class="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-white overflow-x-hidden">
+    <!-- Animated particle background -->
+    <div class="particle-bg" id="particleContainer"></div>
 
-  <div class="section" id="albums">
-    <h2>Albums</h2>
-    <div class="album">
-      <h3>A Tapestry of Souls</h3>
-      <p><strong>Storyline:</strong> Anya's epic journey through the Empire of the Void, her alliance with rebels, and her ultimate sacrifice to prevent Nychtoros' return.</p>
+    <div class="container mx-auto px-4 py-8 relative z-10">
+        <!-- Enhanced Header -->
+        <div class="text-center mb-12 animate-fade-in">
+            <h1 class="text-5xl md:text-6xl font-bold gradient-header mb-4 animate-bounce-gentle">
+                [PROJECT TITLE]
+            </h1>
+            <p class="text-xl text-gray-300 mb-6">[PROJECT SUBTITLE]</p>
+            <div class="w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-500 mx-auto rounded-full"></div>
+        </div>
 
-      <div class="act">
-        <h4>Act I: The Empire of Shadows</h4>
-        <div class="track"><strong>Empire of the Void:</strong> Anya, a young scholar from Thaloria, is mysteriously transported to the ominous Empire of the Void ruled by Nychtoros.</div>
-        <div class="track"><strong>Eternal Nightfall:</strong> Anya joins Valen's rebel forces, forming alliances and hearing tales of loss and tyranny.</div>
-        <div class="track"><strong>After the Snowfall:</strong> In a frozen wasteland, Anya and Seraphina meet and bond over shared grief and resilience.</div>
-      </div>
+        <!-- Enhanced Navigation -->
+        <div class="flex flex-wrap justify-center gap-3 mb-12" id="navigation">
+            <button class="btn-interactive flex items-center gap-2 px-6 py-3 rounded-full bg-purple-600 text-white font-medium shadow-lg" data-section="overview">
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+                Overview
+            </button>
+            <button class="btn-interactive flex items-center gap-2 px-6 py-3 rounded-full glass-card text-gray-300 hover:text-white font-medium" data-section="albums">
+                <i data-lucide="music" class="w-4 h-4"></i>
+                Albums
+            </button>
+            <button class="btn-interactive flex items-center gap-2 px-6 py-3 rounded-full glass-card text-gray-300 hover:text-white font-medium" data-section="characters">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Characters
+            </button>
+            <button class="btn-interactive flex items-center gap-2 px-6 py-3 rounded-full glass-card text-gray-300 hover:text-white font-medium" data-section="realms">
+                <i data-lucide="map" class="w-4 h-4"></i>
+                Realms
+            </button>
+            <button class="btn-interactive flex items-center gap-2 px-6 py-3 rounded-full glass-card text-gray-300 hover:text-white font-medium" data-section="artifacts">
+                <i data-lucide="star" class="w-4 h-4"></i>
+                Artifacts
+            </button>
+            <button class="btn-interactive flex items-center gap-2 px-6 py-3 rounded-full glass-card text-gray-300 hover:text-white font-medium" data-section="game">
+                <i data-lucide="gamepad-2" class="w-4 h-4"></i>
+                Game Dev
+            </button>
+        </div>
 
-      <div class="act">
-        <h4>Act II: Symphony of Suffering</h4>
-        <div class="track"><strong>Symphony of Suffering:</strong> A massive battle erupts between rebels and Nychtoros' forces.</div>
-        <div class="track"><strong>Mystic Horizon:</strong> The allies discover a mystical realm where Elara reveals the true nature of darkness.</div>
-        <div class="track"><strong>Learning to Fly:</strong> Under Elara's mentorship, Anya undergoes transformation to harness her latent powers.</div>
-      </div>
+        <!-- Content Container -->
+        <div class="max-w-6xl mx-auto">
+            
+            <!-- Overview Section -->
+            <div id="overview-section" class="content-section animate-slide-up">
+                <div class="space-y-8">
+                    <div class="glass-card p-8 rounded-2xl hover-lift">
+                        <div class="bg-gradient-to-r from-purple-600 to-blue-600 p-6 rounded-xl mb-6">
+                            <h2 class="text-3xl font-bold text-white mb-4">[PROJECT UNIVERSE NAME]</h2>
+                            <div class="grid gap-4">
+                                <p class="text-purple-100">
+                                    <span class="font-semibold text-white">Concept:</span> [PROJECT CONCEPT DESCRIPTION]
+                                </p>
+                                <p class="text-purple-100">
+                                    <span class="font-semibold text-white">Medium:</span> [CREATION MEDIUM/TOOLS]
+                                </p>
+                                <p class="text-purple-100">
+                                    <span class="font-semibold text-white">Universe:</span> [UNIVERSE DESCRIPTION]
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="glass-card p-6 rounded-xl hover-lift">
+                            <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                                <i data-lucide="activity" class="w-5 h-5 text-green-400"></i>
+                                Current Status
+                            </h3>
+                            <ul class="text-gray-300 space-y-2">
+                                <li class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                                    [STATUS ITEM 1]
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                                    [STATUS ITEM 2]
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                    [STATUS ITEM 3]
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                                    [STATUS ITEM 4]
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <div class="w-2 h-2 bg-red-400 rounded-full"></div>
+                                    [STATUS ITEM 5]
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="glass-card p-6 rounded-xl hover-lift">
+                            <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                                <i data-lucide="sparkles" class="w-5 h-5 text-yellow-400"></i>
+                                [SPECIAL PROJECT SECTION]
+                            </h3>
+                            <p class="text-gray-300 leading-relaxed">
+                                [SPECIAL PROJECT DESCRIPTION]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      <div class="act">
-        <h4>Act III: Shadows and Stardust</h4>
-        <div class="track"><strong>Shadows and Stardust:</strong> Venturing into the cosmos, they explore ancient ruins and encounter celestial beings.</div>
-        <div class="track"><strong>Stormbringer:</strong> A mysterious figure emerges with raw power. Anya struggles between trust and caution.</div>
-        <div class="track"><strong>Eclipse of Destiny:</strong> As a cosmic event looms, Anya faces pivotal decisions in her confrontation with Nychtoros.</div>
-      </div>
+            <!-- Albums Section -->
+            <div id="albums-section" class="content-section hidden">
+                <div class="space-y-6">
+                    <!-- Album Template -->
+                    <div class="glass-card rounded-xl hover-lift album-item" data-album="1">
+                        <div class="p-6 cursor-pointer flex items-center justify-between album-header">
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold text-white mb-2">[ALBUM TITLE 1]</h3>
+                                <p class="text-yellow-400 font-medium mb-2">[SPECIAL NOTE - OPTIONAL]</p>
+                                <p class="text-gray-300">[ALBUM STORYLINE]</p>
+                            </div>
+                            <div class="ml-4 p-2 rounded-full bg-purple-600/20">
+                                <i data-lucide="chevron-right" class="w-6 h-6 text-purple-400 expand-icon transition-transform duration-300"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="expandable-content album-content border-t border-gray-600/30">
+                            <div class="p-6 space-y-6">
+                                <!-- Act Template -->
+                                <div class="act-item">
+                                    <h4 class="text-xl font-bold text-purple-300 mb-4 flex items-center gap-2">
+                                        <i data-lucide="play-circle" class="w-5 h-5"></i>
+                                        [ACT TITLE]
+                                    </h4>
+                                    <div class="space-y-3">
+                                        <!-- Track Template -->
+                                        <div class="bg-gradient-to-r from-purple-900/30 to-blue-900/30 p-4 rounded-lg border-l-4 border-purple-500 hover:border-purple-400 transition-colors duration-300">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <h5 class="text-lg font-semibold text-white">[TRACK TITLE]</h5>
+                                                <span class="text-xs px-3 py-1 bg-purple-600 text-purple-200 rounded-full font-medium">
+                                                    [TONE - OPTIONAL]
+                                                </span>
+                                            </div>
+                                            <p class="text-gray-300 leading-relaxed">[TRACK DESCRIPTION]</p>
+                                        </div>
+                                        <!-- Add more tracks here -->
+                                    </div>
+                                </div>
+                                <!-- Add more acts here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional album template -->
+                    <div class="glass-card rounded-xl hover-lift album-item" data-album="2">
+                        <div class="p-6 cursor-pointer flex items-center justify-between album-header">
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold text-white mb-2">[ALBUM TITLE 2]</h3>
+                                <p class="text-gray-300">[ALBUM STORYLINE]</p>
+                            </div>
+                            <div class="ml-4 p-2 rounded-full bg-purple-600/20">
+                                <i data-lucide="chevron-right" class="w-6 h-6 text-purple-400 expand-icon transition-transform duration-300"></i>
+                            </div>
+                        </div>
+                        <div class="expandable-content album-content border-t border-gray-600/30">
+                            <div class="p-6">
+                                <!-- Add acts and tracks here -->
+                                <p class="text-gray-400 italic">Content to be added...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      <div class="act">
-        <h4>Act IV: Haunting Life and Celestial Rebellion</h4>
-        <div class="track"><strong>Shadows in the Rain:</strong> Anya confronts her vampiric heritage while battling inner demons.</div>
-        <div class="track"><strong>Endless Night:</strong> The universe plunges into despair as Nychtoros' power grows.</div>
-        <div class="track"><strong>Celestical Rebellion:</strong> In the climactic battle, Anya unites with celestial allies for a final stand.</div>
-      </div>
-    </div>
-  </div>
+            <!-- Characters Section -->
+            <div id="characters-section" class="content-section hidden">
+                <div class="space-y-8">
+                    <!-- Protagonists -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                            <i data-lucide="shield" class="w-6 h-6 text-green-400"></i>
+                            Protagonists & Allies
+                        </h3>
+                        <div class="space-y-4">
+                            <!-- Character Template -->
+                            <div class="glass-card rounded-xl hover-lift character-item" data-character="1">
+                                <div class="p-6 cursor-pointer flex items-center justify-between character-header">
+                                    <div class="flex items-center gap-4 flex-1">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full flex items-center justify-center">
+                                            <i data-lucide="user" class="w-6 h-6 text-white"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-xl font-bold text-green-400">[CHARACTER NAME]</h4>
+                                            <p class="text-gray-300">[CHARACTER ROLE]</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-2 rounded-full bg-green-600/20">
+                                        <i data-lucide="chevron-right" class="w-6 h-6 text-green-400 expand-icon transition-transform duration-300"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="expandable-content character-content border-t border-gray-600/30">
+                                    <div class="p-6 space-y-4">
+                                        <div class="bg-green-900/20 p-4 rounded-lg">
+                                            <span class="text-green-300 font-semibold text-lg">Background</span>
+                                            <p class="text-gray-300 mt-2 leading-relaxed">[CHARACTER BACKGROUND]</p>
+                                        </div>
+                                        <div class="bg-green-900/20 p-4 rounded-lg">
+                                            <span class="text-green-300 font-semibold text-lg">Abilities</span>
+                                            <p class="text-gray-300 mt-2 leading-relaxed">[CHARACTER ABILITIES]</p>
+                                        </div>
+                                        <div class="bg-green-900/20 p-4 rounded-lg">
+                                            <span class="text-green-300 font-semibold text-lg">Relationships</span>
+                                            <p class="text-gray-300 mt-2 leading-relaxed">[CHARACTER RELATIONSHIPS]</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Antagonists -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                            <i data-lucide="skull" class="w-6 h-6 text-red-400"></i>
+                            Antagonists & Ambiguous Figures
+                        </h3>
+                        <div class="space-y-4">
+                            <!-- Antagonist Template -->
+                            <div class="glass-card rounded-xl hover-lift character-item" data-character="ant_1">
+                                <div class="p-6 cursor-pointer flex items-center justify-between character-header">
+                                    <div class="flex items-center gap-4 flex-1">
+                                        <div class="w-12 h-12 bg-gradient-to-br from-red-400 to-red-600 rounded-full flex items-center justify-center">
+                                            <i data-lucide="user-x" class="w-6 h-6 text-white"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="text-xl font-bold text-red-400">[ANTAGONIST NAME]</h4>
+                                            <p class="text-gray-300">[ANTAGONIST ROLE]</p>
+                                        </div>
+                                    </div>
+                                    <div class="p-2 rounded-full bg-red-600/20">
+                                        <i data-lucide="chevron-right" class="w-6 h-6 text-red-400 expand-icon transition-transform duration-300"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="expandable-content character-content border-t border-gray-600/30">
+                                    <div class="p-6 space-y-4">
+                                        <div class="bg-red-900/20 p-4 rounded-lg">
+                                            <span class="text-red-300 font-semibold text-lg">Background</span>
+                                            <p class="text-gray-300 mt-2 leading-relaxed">[ANTAGONIST BACKGROUND]</p>
+                                        </div>
+                                        <div class="bg-red-900/20 p-4 rounded-lg">
+                                            <span class="text-red-300 font-semibold text-lg">Abilities</span>
+                                            <p class="text-gray-300 mt-2 leading-relaxed">[ANTAGONIST ABILITIES]</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Realms Section -->
+            <div id="realms-section" class="content-section hidden">
+                <div class="space-y-6">
+                    <!-- Realm Template -->
+                    <div class="glass-card p-6 rounded-xl hover-lift">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-cyan-600 rounded-full flex items-center justify-center">
+                                <i data-lucide="globe" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-blue-400">[REALM NAME]</h3>
+                        </div>
+                        
+                        <p class="text-gray-300 mb-6 leading-relaxed text-lg">[REALM DESCRIPTION]</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-blue-900/20 p-4 rounded-lg">
+                                <span class="text-blue-300 font-semibold">Population</span>
+                                <p class="text-gray-300 mt-1">[REALM POPULATION]</p>
+                            </div>
+                            
+                            <div class="bg-blue-900/20 p-4 rounded-lg">
+                                <span class="text-blue-300 font-semibold">Culture</span>
+                                <p class="text-gray-300 mt-1">[REALM CULTURE]</p>
+                            </div>
+                            
+                            <div class="bg-blue-900/20 p-4 rounded-lg">
+                                <span class="text-blue-300 font-semibold">Significance</span>
+                                <p class="text-gray-300 mt-1">[REALM SIGNIFICANCE]</p>
+                            </div>
+                            
+                            <div class="bg-blue-900/20 p-4 rounded-lg">
+                                <span class="text-blue-300 font-semibold">Key Locations</span>
+                                <p class="text-gray-300 mt-1">[LOCATION 1], [LOCATION 2], [LOCATION 3]</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional realm template -->
+                    <div class="glass-card p-6 rounded-xl hover-lift">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center">
+                                <i data-lucide="mountain" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-purple-400">[REALM NAME 2]</h3>
+                        </div>
+                        <p class="text-gray-300 leading-relaxed text-lg">[REALM DESCRIPTION 2]</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Artifacts Section -->
+            <div id="artifacts-section" class="content-section hidden">
+                <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    <!-- Artifact Template -->
+                    <div class="glass-card p-6 rounded-xl hover-lift">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-600 rounded-full flex items-center justify-center">
+                                <i data-lucide="gem" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-yellow-400">[ARTIFACT NAME 1]</h3>
+                        </div>
+                        <p class="text-gray-300 leading-relaxed">[ARTIFACT DESCRIPTION 1]</p>
+                    </div>
+                    
+                    <div class="glass-card p-6 rounded-xl hover-lift">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-full flex items-center justify-center">
+                                <i data-lucide="crown" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-emerald-400">[ARTIFACT NAME 2]</h3>
+                        </div>
+                        <p class="text-gray-300 leading-relaxed">[ARTIFACT DESCRIPTION 2]</p>
+                    </div>
+                    
+                    <div class="glass-card p-6 rounded-xl hover-lift">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-rose-400 to-pink-600 rounded-full flex items-center justify-center">
+                                <i data-lucide="zap" class="w-5 h-5 text-white"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-rose-400">[ARTIFACT NAME 3]</h3>
+                        </div>
+                        <p class="text-gray-300 leading-relaxed">[ARTIFACT DESCRIPTION 3]</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Development Section -->
+            <div id="game-section" class="content-section hidden">
+                <div class="space-y-6">
+                    <div class="glass-card p-8 rounded-xl hover-lift">
+                        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 rounded-xl mb-6">
+                            <h3 class="text-3xl font-bold text-white mb-4 flex items-center gap-3">
+                                <i data-lucide="monitor-play" class="w-8 h-8"></i>
+                                [GAME PROJECT TITLE]
+                            </h3>
+                            <p class="text-indigo-100 text-lg leading-relaxed">
+                                [GAME PROJECT DESCRIPTION]
+                            </p>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-indigo-900/20 p-6 rounded-xl">
+                                <h4 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                                    <i data-lucide="settings" class="w-5 h-5 text-indigo-400"></i>
+                                    Development Status
+                                </h4>
+                                <ul class="text-gray-300 space-y-2">
+                                    <li class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-indigo-400 rounded-full"></div>
+                                        Game Type: [GAME TYPE]
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-purple-400 rounded-full"></div>
+                                        Platform: [PLATFORM]
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-blue-400 rounded-full"></div>
+                                        Main Characters: [CHARACTERS]
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
+                                        Game Engine: [GAME ENGINE]
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="bg-indigo-900/20 p-6 rounded-xl">
+                                <h4 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                                    <i data-lucide="code" class="w-5 h-5 text-indigo-400"></i>
+                                    Technologies
+                                </h4>
+                                <p class="text-gray-300 leading-relaxed">
+                                    [TECHNOLOGIES USED IN GAME DEVELOPMENT]
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End of Game Development Section -->
+
+        </div> <!-- End of max-w-6xl container -->
+    </div> <!-- End of main container -->
+
+    <!-- JavaScript for icon initialization and section switching -->
+    <script>
+        lucide.createIcons();
+
+        // Section Navigation
+        document.querySelectorAll('[data-section]').forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = `${button.dataset.section}-section`;
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                document.getElementById(targetId).classList.remove('hidden');
+            });
+        });
+
+        // Expandable Elements (Albums & Characters)
+        document.querySelectorAll('.album-header, .character-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                const icon = header.querySelector('.expand-icon');
+                content.classList.toggle('expanded');
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-90');
+            });
+        });
+    </script>
 </body>
 </html>
-
