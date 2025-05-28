@@ -19,9 +19,9 @@
       };
     </script>
     <script type="module">
-      import { createIcons, icons } from 'https://cdn.jsdelivr.net/npm/lucide@latest/+esm';
-      createIcons({ icons });
-    </script>
+  import { createIcons, icons } from 'https://cdn.jsdelivr.net/npm/lucide@latest/+esm';
+  createIcons({ icons });
+</script>
     <style>
         /* Enhanced CSS Variables for consistent theming */
         :root {
@@ -40,13 +40,13 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
+        /* Enhanced gradient text */
         .gradient-header {
             background: var(--primary-gradient);
             -webkit-background-clip: text;
-            background-clip: text;
             -webkit-text-fill-color: transparent;
-            color: white;
-            text-shadow: 0 0 10px rgba(124, 58, 237, 0.5);
+            background-clip: text;
+            filter: drop-shadow(0 0 8px rgba(124, 58, 237, 0.3));
         }
 
         /* Smooth animations */
@@ -203,7 +203,23 @@
             .particle { display: none; }
             .hover-lift:hover { transform: none; }
         }
-    </style>
+    
+.expandable-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.expandable-content.expanded {
+    max-height: 1000px;
+}
+
+.rotate-90 {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+}
+
+</style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-white overflow-x-hidden">
     <!-- Animated particle background -->
@@ -605,6 +621,7 @@
                     </div>
                 </div>
             </div> <!-- End of Game Development Section -->
+
         </div> <!-- End of max-w-6xl container -->
     </div> <!-- End of main container -->
     <!-- JavaScript for section switching -->
@@ -613,45 +630,35 @@
         // Tab Navigation
         document.querySelectorAll('[data-section]').forEach(button => {
             button.addEventListener('click', () => {
-            const sectionId = `${button.getAttribute('data-section')}-section`;
-
-              // Hide all sections
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.add('hidden');
-            });
-
-            // Show the selected section
-            const target = document.getElementById(sectionId);
-            if (target) {
-                target.classList.remove('hidden');
-            }
-
-              // Reset all button styles
-            document.querySelectorAll('[data-section]').forEach(btn => {
-                btn.classList.remove('bg-purple-600', 'text-white');
-                btn.classList.add('glass-card', 'text-gray-300', 'hover:text-white');
-            });
-
-            // Highlight the active button
-            button.classList.remove('glass-card', 'text-gray-300', 'hover:text-white');
-              button.classList.add('bg-purple-600', 'text-white');
+                const sectionId = `${button.getAttribute('data-section')}-section`;
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                const target = document.getElementById(sectionId);
+                if (target) {
+                    target.classList.remove('hidden');
+                }
             });
         });
-        // Expand/collapse for albums and characters
-        document.querySelectorAll('.album-header, .character-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const container = header.parentNode;
-                const content = container.querySelector('.expandable-content');
-                const icon = header.querySelector('.expand-icon');
 
-                if (content) {
-                    content.classList.toggle('expanded');
-                    content.classList.toggle('hidden');
-                }
-                if (icon) {
-                    icon.classList.toggle('rotate-90');
-                }
-            });
+        
+// Expand/collapse for albums and characters
+document.querySelectorAll('.album-header, .character-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const container = header.parentNode;
+    const content = container.querySelector('.expandable-content');
+    const icon = header.querySelector('.expand-icon');
+
+    if (content) {
+      content.classList.toggle('expanded');
+    }
+
+    if (icon) {
+      icon.classList.toggle('rotate-90');
+    }
+  });
+});
+
         });
     });
     </script>
