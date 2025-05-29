@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcane Majesty - Dynamic Music Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e, #16213e);
+            color: #e8e8e8;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(45deg, #ffd700, #ffb347, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b8b8b8;
+            font-style: italic;
+        }
+
+        .albums-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .album {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .album:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .album-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .album-cover {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #ffd700, #ffb347);
+            border-radius: 10px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #1a1a2e;
+            font-weight: bold;
+        }
+
+        .album-info h2 {
+            color: #ffd700;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .album-year {
+            color: #b8b8b8;
+            font-size: 0.9rem;
+        }
+
+        .songs-list {
+            list-style: none;
+        }
+
+        .song-item {
+            background: rgba(255, 255, 255, 0.03);
+            margin-bottom: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .song-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 215, 0, 0.2);
+        }
+
+        .song-header {
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .song-title {
+            color: #e8e8e8;
+            font-weight: 500;
+        }
+
+        .song-duration {
+            color: #ffd700;
+            font-size: 0.9rem;
+        }
+
+        .song-details {
+            display: none;
+            padding: 0 15px 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .song-details.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .lyrics-section, .plot-section {
+            margin-top: 15px;
+        }
+
+        .section-title {
+            color: #ffd700;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: '♪';
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        .plot-section .section-title::before {
+            content: '📖';
+        }
+
+        .lyrics-content, .plot-content {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            line-height: 1.6;
+            white-space: pre-line;
+        }
+
+        .loading {
+            text-align: center;
+            color: #ffd700;
+            font-size: 1.2rem;
+            margin: 50px 0;
+        }
+
+        .error {
+            text-align: center;
+            color: #ff6b6b;
+            padding: 20px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .albums-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .album-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .album-cover {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Arcane Majesty</h1>
+            <p class="subtitle">Dynamic Music Collection</p>
+        </header>
+
+        <div id="loading" class="loading">
+            Loading music collection...
+        </div>
+
+        <div id="error" class="error" style="display: none;">
+            Error loading music data. Please check your XML file.
+        </div>
+
+        <div id="albums-container" class="albums-grid">
+            <!-- Albums will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <script>
+        class MusicSite {
+            constructor() {
+                this.xmlFile = 'music_data.xml'; // Your XML file path
+                this.albumsContainer = document.getElementById('albums-container');
+                this.loadingElement = document.getElementById('loading');
+                this.errorElement = document.getElementById('error');
+                
+                this.loadMusicData();
+            }
+
+            async loadMusicData() {
+                try {
+                    const response = await fetch(this.xmlFile);
+                    if (!response.ok) {
+                        throw new Error('Failed to load XML file');
+                    }
+                    
+                    const xmlText = await response.text();
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+                    
+                    // Check for parsing errors
+                    if (xmlDoc.querySelector('parsererror')) {
+                        throw new Error('XML parsing error');
+                    }
+                    
+                    this.renderAlbums(xmlDoc);
+                    this.hideLoading();
+                } catch (error) {
+                    console.error('Error loading music data:', error);
+                    this.showError();
+                }
+            }
+
+            renderAlbums(xmlDoc) {
+                const albums = xmlDoc.querySelectorAll('album');
+                
+                if (albums.length === 0) {
+                    this.albumsContainer.innerHTML = '<p style="text-align: center; color: #b8b8b8;">No albums found in XML file.</p>';
+                    return;
+                }
+
+                albums.forEach(album => {
+                    const albumElement = this.createAlbumElement(album);
+                    this.albumsContainer.appendChild(albumElement);
+                });
+            }
+
+            createAlbumElement(album) {
+                const albumDiv = document.createElement('div');
+                albumDiv.className = 'album';
+
+                const title = album.getAttribute('title') || 'Unknown Album';
+                const year = album.getAttribute('year') || '';
+                const cover = album.getAttribute('cover') || title.charAt(0);
+
+                albumDiv.innerHTML = `
+                    <div class="album-header">
+                        <div class="album-cover">${cover}</div>
+                        <div class="album-info">
+                            <h2>${title}</h2>
+                            <div class="album-year">${year}</div>
+                        </div>
+                    </div>
+                    <ul class="songs-list">
+                        ${this.renderSongs(album)}
+                    </ul>
+                `;
+
+                return albumDiv;
+            }
+
+            renderSongs(album) {
+                const songs = album.querySelectorAll('song');
+                let songsHtml = '';
+
+                songs.forEach((song, index) => {
+                    const title = song.getAttribute('title') || `Track ${index + 1}`;
+                    const duration = song.getAttribute('duration') || '';
+                    const track = song.getAttribute('track') || index + 1;
+
+                    const lyrics = this.getTextContent(song.querySelector('lyrics'));
+                    const plot = this.getTextContent(song.querySelector('plot'));
+
+                    songsHtml += `
+                        <li class="song-item">
+                            <div class="song-header" onclick="this.parentElement.querySelector('.song-details').classList.toggle('active')">
+                                <span class="song-title">${track}. ${title}</span>
+                                <span class="song-duration">${duration}</span>
+                            </div>
+                            <div class="song-details">
+                                ${lyrics ? `
+                                    <div class="lyrics-section">
+                                        <div class="section-title">Lyrics</div>
+                                        <div class="lyrics-content">${lyrics}</div>
+                                    </div>
+                                ` : ''}
+                                ${plot ? `
+                                    <div class="plot-section">
+                                        <div class="section-title">Story & Themes</div>
+                                        <div class="plot-content">${plot}</div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </li>
+                    `;
+                });
+
+                return songsHtml || '<li style="padding: 15px; color: #b8b8b8;">No songs found</li>';
+            }
+
+            getTextContent(element) {
+                if (!element) return '';
+                
+                // Handle both simple text content and nested elements
+                let content = '';
+                
+                // If it has child elements, process them
+                if (element.children.length > 0) {
+                    Array.from(element.children).forEach(child => {
+                        const tagName = child.tagName.toLowerCase();
+                        const text = child.textContent.trim();
+                        
+                        if (text) {
+                            // Add some formatting based on tag names
+                            switch (tagName) {
+                                case 'verse':
+                                    content += `[Verse]\n${text}\n\n`;
+                                    break;
+                                case 'chorus':
+                                    content += `[Chorus]\n${text}\n\n`;
+                                    break;
+                                case 'bridge':
+                                    content += `[Bridge]\n${text}\n\n`;
+                                    break;
+                                case 'summary':
+                                    content += `Summary: ${text}\n\n`;
+                                    break;
+                                case 'themes':
+                                    content += `Themes: ${text}\n\n`;
+                                    break;
+                                case 'narrative':
+                                    content += `Narrative: ${text}\n\n`;
+                                    break;
+                                default:
+                                    content += `${text}\n\n`;
+                            }
+                        }
+                    });
+                } else {
+                    // Simple text content
+                    content = element.textContent.trim();
+                }
+                
+                return content.trim();
+            }
+
+            hideLoading() {
+                this.loadingElement.style.display = 'none';
+            }
+
+            showError() {
+                this.loadingElement.style.display = 'none';
+                this.errorElement.style.display = 'block';
+            }
+        }
+
+        // Initialize the music site when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new MusicSite();
+        });
+    </script>
+</body>
+</html>
