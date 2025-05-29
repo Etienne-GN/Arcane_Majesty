@@ -474,7 +474,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="glass-card rounded-xl hover-lift album-item" data-album="2">
                         <div class="p-6 cursor-pointer flex items-center justify-between album-header">
                             <div class="flex-1">
@@ -1064,13 +1064,27 @@
         document.querySelectorAll('[data-section]').forEach(button => {
             button.addEventListener('click', () => {
                 const sectionId = `${button.getAttribute('data-section')}-section`;
+
+                // Hide all sections
                 document.querySelectorAll('.content-section').forEach(section => {
                     section.classList.add('hidden');
                 });
+
+                // Show the selected section
                 const target = document.getElementById(sectionId);
                 if (target) {
                     target.classList.remove('hidden');
                 }
+
+                // Remove active styling from all buttons
+                document.querySelectorAll('#navigation button').forEach(btn => {
+                    btn.classList.remove('bg-purple-600', 'text-white');
+                    btn.classList.add('glass-card', 'text-gray-300', 'hover:text-white');
+                });
+
+                // Add active styling to clicked button
+                button.classList.remove('glass-card', 'text-gray-300', 'hover:text-white');
+                button.classList.add('bg-purple-600', 'text-white');
             });
         });
     });
