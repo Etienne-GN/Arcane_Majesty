@@ -1,5 +1,5 @@
 <Universe universe="Arcane Majesty">
-	<story_elements>
+	<albums>
 		<album album="A Tapestry of Souls">
 			<Act act="I: The Empire of Shadows">
 				<Song song="Empire of the Void">
@@ -5465,8 +5465,7 @@ into the distance</Lyrics>
 				</Song>
 		  	</Act>
 		</album>
-	</story_elements>
-	<world_elements>
+	</albums>
 	<Locations>
     	<Location name="Nythoria">
         	<Description>A kingdom of perpetual twilight, steeped in dark magic and ruled by Malakar. The land is filled with shadow creatures, and its people live in fear, struggling to thrive under Malakar's oppressive reign. This realm is marked by ancient prophecies and a looming sense of rebellion.</Description>
@@ -5489,7 +5488,7 @@ into the distance</Lyrics>
             	</Location>
 	        </ChildLocations>
     	</Location>
-    	<Location name="Ravenspire">
+   		<Location name="Ravenspire">
         	<Description>A fierce and cunning kingdom ruled by Queen Seraphina. Known for its warrior culture and strategic prowess, Ravenspire stands ready to conquer, driven by ambition and a desire for power.</Description>
         	<KeyThemes>Ambition, strength, betrayal, warfare</KeyThemes>
         	<NotableResidents>Queen Seraphina</NotableResidents>
@@ -5498,7 +5497,7 @@ into the distance</Lyrics>
             	<Relation with="Underworld">Seraphina might seek dark knowledge or alliances from the Underworld.</Relation>
 	        </Relations>
     	</Location>
-    	<Location name="Underworld (Empire of the Void)">
+   		<Location name="Underworld (Empire of the Void)">
         	<Description>A realm of shadows and dark forces, ruled by Nychtoros. This realm represents the cycle of life and death, filled with secrets and dark magic that influence the mortal world. It is a place where lost souls wander, and only the strongest survive.</Description>
 	        <KeyThemes>Life and death, power, secrets, fate</KeyThemes>
         	<NotableResidents>Nychtoros, shadow creatures, spirits</NotableResidents>
@@ -5528,7 +5527,7 @@ into the distance</Lyrics>
             	</Location>
 	        </ChildLocations>
     	</Location>
-    	<Location name="Eldoria">
+   		<Location name="Eldoria">
         	<Description>A mystical realm filled with ancient ruins and rich in magical history, Eldoria is known for its profound knowledge and secrets of the universe. It is a sanctuary for scholars and mages, where the Heartstone of Creation is sought after for its immense power.</Description>
         	<KeyThemes>Knowledge, creation, hope, balance</KeyThemes>
         	<NotableResidents>Kael, Eldrin</NotableResidents>
@@ -5538,7 +5537,7 @@ into the distance</Lyrics>
             	<Relation with="Ravenspire">Seraphina could seek to exploit Eldoria’s resources in her ambitions.</Relation>
 	        </Relations>
     	</Location>
-    	<Location name="Thaloria">
+   		<Location name="Thaloria">
         	<Description>A scholarly and vibrant realm known for its extensive libraries and magical studies, Thaloria is a beacon of light and knowledge. Its people value curiosity and enlightenment, making it a stark contrast to the darkness of Nythoria.</Description>
 	        <KeyThemes>Knowledge, curiosity, enlightenment, hope</KeyThemes>
         	<NotableResidents>Anya</NotableResidents>
@@ -5557,7 +5556,6 @@ into the distance</Lyrics>
 	        </ChildLocations>
 	    </Location>
 	</Locations>
-	</world_elements>
 	<races>
 		<race name="Human">
 			<appearance>Normal human appearance</appearance>
