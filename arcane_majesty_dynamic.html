@@ -12,16 +12,12 @@
             <div class="hero-content">
                 <h1 class="hero-title">Arcane Majesty</h1>
                 <p class="hero-subtitle">A multi-dimensional fantasy saga across music, lore, and digital realms</p>
-                <div class="universe-info">
-                    <p><strong>Concept:</strong> <span id="universe-concept">Loading...</span></p>
-                    <p><strong>Medium:</strong> <span id="universe-medium">Loading...</span></p>
-                    <p><strong>Universe:</strong> <span id="universe-description">Loading...</span></p>
-                </div>
             </div>
         </header>
 
         <nav class="nav-tabs">
-            <button class="nav-tab active" data-tab="albums">Albums & Music</button>
+            <button class="nav-tab active" data-tab="overview">Overview</button>
+            <button class="nav-tab" data-tab="albums">Albums & Music</button>
             <button class="nav-tab" data-tab="characters">Characters</button>
             <button class="nav-tab" data-tab="locations">Locations</button>
             <button class="nav-tab" data-tab="artifacts">Artifacts</button>
@@ -36,8 +32,22 @@
             Error loading data. Please check your XML file.
         </div>
 
+        <!-- Overview Tab -->
+        <div id="overview-tab" class="tab-content active">
+            <section class="section">
+                <h2 class="section-title">Universe Overview</h2>
+                <div class="overview-container">
+                    <div class="universe-info">
+                        <p><strong>Concept:</strong> <span id="universe-concept">Loading...</span></p>
+                        <p><strong>Medium:</strong> <span id="universe-medium">Loading...</span></p>
+                        <p><strong>Universe:</strong> <span id="universe-description">Loading...</span></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
         <!-- Albums Tab -->
-        <div id="albums-tab" class="tab-content active">
+        <div id="albums-tab" class="tab-content">
             <section class="section">
                 <h2 class="section-title">Albums & Musical Chronicles</h2>
                 <div id="albums-container" class="albums-grid">
