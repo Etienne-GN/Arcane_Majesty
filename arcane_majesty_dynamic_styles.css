@@ -538,7 +538,7 @@ body {
 }
 
 .song-details.active {
-    max-height: 1500px;
+    max-height: 5000px;
     padding: 30px;
 }
 
