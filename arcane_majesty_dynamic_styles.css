@@ -653,11 +653,6 @@ body {
     font-size: 1.2rem;
 }
 
-/* Hide Overview Tab - Make it not appear as a tab */
-.nav-tab[data-tab="overview"] {
-    display: none;
-}
-
 /* Make Overview content always visible at top instead of as tab */
 #overview-content {
     display: block !important;
