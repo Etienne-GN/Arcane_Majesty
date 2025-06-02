@@ -197,6 +197,64 @@
             transition: transform 0.3s ease;
         }
 
+        /* Lyrics Toggle Styles */
+.lyrics-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.lyrics-container.show {
+    max-height: 1000px; /* Adjust based on content */
+    opacity: 1;
+}
+
+.lyrics-container.hidden {
+    display: none;
+}
+
+.lyrics-content .verse,
+.lyrics-content .chorus,
+.lyrics-content .pre-chorus,
+.lyrics-content .bridge,
+.lyrics-content .outro {
+    padding: 8px 0;
+    border-left: 2px solid transparent;
+    padding-left: 8px;
+    margin-bottom: 8px;
+}
+
+.lyrics-content .chorus {
+    border-left-color: #fbbf24; /* Yellow accent for chorus */
+    background: rgba(251, 191, 36, 0.05);
+}
+
+.lyrics-content .verse {
+    border-left-color: #ef4444; /* Red accent for verses */
+}
+
+.lyrics-content .pre-chorus {
+    border-left-color: #f97316; /* Orange accent for pre-chorus */
+}
+
+.lyrics-content .bridge {
+    border-left-color: #a855f7; /* Purple accent for bridge */
+}
+
+.lyrics-content .outro {
+    border-left-color: #3b82f6; /* Blue accent for outro */
+}
+
+.verse-label {
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+.lyrics-toggle:hover {
+    transform: translateY(-1px);
+}
+
 </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#200000] to-[#0a0a0a] text-white overflow-x-hidden">
@@ -310,14 +368,14 @@
         <!-- Albums Section -->
         <div id="albums-section" class="content-section hidden">
             <div class="space-y-6">
-		<div class="glass-card rounded-xl hover-lift album-item" data-album="1">
-    		    <div class="p-6 cursor-pointer flex items-center justify-between album-header">
-          		<div class="flex-1">
-            		    <h3 class="text-2xl font-bold text-white mb-2">A Tapestry of Souls</h3>
-            		    <p class="text-gray-300">An epic journey through darkness and light, following Anya's transformation from scholar to hero in the Empire of the Void</p>
-        		</div>
-        	        <div class="ml-4 p-2 rounded-full bg-red-700/20">
-            		    <i data-lucide="chevron-right" class="w-6 h-6 text-red-400 expand-icon transition-transform duration-300"></i>
+                <div class="glass-card rounded-xl hover-lift album-item" data-album="1">
+                    <div class="p-6 cursor-pointer flex items-center justify-between album-header">
+          		        <div class="flex-1">
+            		      <h3 class="text-2xl font-bold text-white mb-2">A Tapestry of Souls</h3>
+            		      <p class="text-gray-300">An epic journey through darkness and light, following Anya's transformation from scholar to hero in the Empire of the Void</p>
+                        </div>
+                        <div class="ml-4 p-2 rounded-full bg-red-700/20">
+                            <i data-lucide="chevron-right" class="w-6 h-6 text-red-400 expand-icon transition-transform duration-300"></i>
                         </div>
                     </div>
                     <div class="expandable-content album-content border-t border-gray-600/30">
@@ -330,13 +388,106 @@
                                 </h4>
                                 <div class="space-y-3">
                                     <!-- Empire of the Void -->
-                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                                        <div class="flex justify-between items-start mb-2">
-                                            <h5 class="text-lg font-semibold text-white">Empire of the Void</h5>
-                                            <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Mysterious, Intriguing</span>
-                                        </div>
-                                        <p class="text-gray-300 leading-relaxed">Anya, a young and inquisitive scholar from the distant land of Thaloria, finds herself mysteriously transported to the ominous Empire of the Void, a realm steeped in darkness and ruled by the enigmatic Nychtoros, a being that patrols the borders between the night and day. As she navigates this foreboding land, she encounters shadowy landscapes filled with whispers of despair and haunted echoes of lost souls. Anya discovers hidden chambers containing ancient prophecies that foretell the rise of a hero amidst the empire's suffocating oppression. During her journey, she learns about Seraphina, a fierce warrior queen fighting against Nychtoros, whose own tragic losses drive her determination to liberate her people. Anya grapples with her own fears while deciphering the cryptic symbols that hint at her significant role in the unfolding events, igniting a spark of determination within her to uncover the truth about this malevolent empire.</p>
-                                    </div>
+<!-- Updated Empire of the Void section with lyrics -->
+<div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+    <div class="flex justify-between items-start mb-2">
+        <h5 class="text-lg font-semibold text-white">Empire of the Void</h5>
+        <div class="flex items-center gap-2">
+            <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Mysterious, Intriguing</span>
+            <button class="lyrics-toggle px-3 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full hover:bg-blue-600/50 transition-colors duration-300" data-target="lyrics-empire-void">
+                Show Lyrics
+            </button>
+        </div>
+    </div>
+    <p class="text-gray-300 leading-relaxed mb-4">Anya, a young and inquisitive scholar from the distant land of Thaloria, finds herself mysteriously transported to the ominous Empire of the Void, a realm steeped in darkness and ruled by the enigmatic Nychtoros, a being that patrols the borders between the night and day. As she navigates this foreboding land, she encounters shadowy landscapes filled with whispers of despair and haunted echoes of lost souls. Anya discovers hidden chambers containing ancient prophecies that foretell the rise of a hero amidst the empire's suffocating oppression. During her journey, she learns about Seraphina, a fierce warrior queen fighting against Nychtoros, whose own tragic losses drive her determination to liberate her people. Anya grapples with her own fears while deciphering the cryptic symbols that hint at her significant role in the unfolding events, igniting a spark of determination within her to uncover the truth about this malevolent empire.</p>
+    
+    <!-- Lyrics Section -->
+    <div id="lyrics-empire-void" class="lyrics-container hidden">
+        <div class="bg-black/30 p-4 rounded-lg border border-gray-600/30 mt-4">
+            <h6 class="text-md font-semibold text-red-300 mb-3 flex items-center gap-2">
+                <i data-lucide="music" class="w-4 h-4"></i>
+                Lyrics
+            </h6>
+            <div class="lyrics-content text-gray-300 text-sm leading-relaxed space-y-3">
+                <div class="verse">
+                    <span class="verse-label text-red-400 font-semibold">[Verse 1]</span><br>
+                    In the shadow of the night, where the stars refuse to glow,<br>
+                    A kingdom forged in darkness, where the ancient whispers flow.<br>
+                    Rising from the ashes of a world that once was bright,<br>
+                    A symphony of silence in the everlasting night.
+                </div>
+                
+                <div class="pre-chorus">
+                    <span class="verse-label text-orange-400 font-semibold">[Pre-Chorus]</span><br>
+                    Beyond the edge of time and space, where legends dare to dream,<br>
+                    A force beyond imagining, where nothing's what it seems.
+                </div>
+                
+                <div class="chorus">
+                    <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                    In the Empire of the Void, where shadows reign supreme,<br>
+                    We're bound by chains of destiny, within this dark regime.<br>
+                    A realm where echoes linger, where silence speaks in screams,<br>
+                    In the Empire of the Void, we live within our dreams.
+                </div>
+                
+                <div class="verse">
+                    <span class="verse-label text-red-400 font-semibold">[Verse 2]</span><br>
+                    Eclipsing suns and galaxies, our power knows no bounds,<br>
+                    Eternal night embraces all, in darkness, we are crowned.<br>
+                    Through cosmic storms and nebulas, our legions march as one,<br>
+                    An empire built on silence, beneath a blackened sun.
+                </div>
+                
+                <div class="pre-chorus">
+                    <span class="verse-label text-orange-400 font-semibold">[Pre-Chorus]</span><br>
+                    Beyond the edge of time and space, where legends dare to dream,<br>
+                    A force beyond imagining, where nothing's what it seems.
+                </div>
+                
+                <div class="chorus">
+                    <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                    In the Empire of the Void, where shadows reign supreme,<br>
+                    We're bound by chains of destiny, within this dark regime.<br>
+                    A realm where echoes linger, where silence speaks in screams,<br>
+                    In the Empire of the Void, we live within our dreams.
+                </div>
+                
+                <div class="bridge">
+                    <span class="verse-label text-purple-400 font-semibold">[Bridge]</span><br>
+                    Through the endless dark, we rise, our spirits never fade,<br>
+                    In the heart of nothingness, our legacy is made.<br>
+                    We conquer through the silence, our banners waving high,<br>
+                    In the Empire of the Void, where stars go to die.
+                </div>
+                
+                <div class="chorus">
+                    <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                    In the Empire of the Void, where shadows reign supreme,<br>
+                    We're bound by chains of destiny, within this dark regime.<br>
+                    A realm where echoes linger, where silence speaks in screams,<br>
+                    In the Empire of the Void, we live within our dreams.
+                </div>
+                
+                <div class="verse">
+                    <span class="verse-label text-red-400 font-semibold">[Verse 3]</span><br>
+                    As the final light extinguishes, we embrace the endless night,<br>
+                    In the Empire of the Void, we find our strength and might.<br>
+                    Through the silence, we are rulers, in the darkness, we are free,<br>
+                    In the Empire of the Void, our reign will ever be.
+                </div>
+                
+                <div class="outro">
+                    <span class="verse-label text-blue-400 font-semibold">[Outro]</span><br>
+                    Through the endless dark, we rise, our spirits never fade,<br>
+                    In the heart of nothingness, our legacy is made.<br>
+                    We conquer through the silence, our banners waving high,<br>
+                    In the Empire of the Void, where stars go to die.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                                     <!-- Eternal Nightfall -->
                                     <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
                                         <div class="flex justify-between items-start mb-2">
@@ -462,11 +613,11 @@
                                     </div>
                                 </div>
                             </div>
-        </div>
-    </div>
-</div>
+                        </div>
+                    </div>
+                </div>
 
-<div class="glass-card rounded-xl hover-lift album-item" data-album="2">
+                <div class="glass-card rounded-xl hover-lift album-item" data-album="2">
     <div class="p-6 cursor-pointer flex items-center justify-between album-header">
         <div class="flex-1">
             <h3 class="text-2xl font-bold text-white mb-2">Queen of Carnage</h3>
@@ -1123,6 +1274,34 @@
             }
         });
     });
+
+    // Lyrics Toggle Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const lyricsToggles = document.querySelectorAll('.lyrics-toggle');
+    
+    lyricsToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const lyricsContainer = document.getElementById(targetId);
+            
+            if (lyricsContainer.classList.contains('hidden')) {
+                // Show lyrics
+                lyricsContainer.classList.remove('hidden');
+                lyricsContainer.classList.add('show');
+                this.textContent = 'Hide Lyrics';
+                this.classList.remove('bg-blue-600/30', 'text-blue-300');
+                this.classList.add('bg-red-600/30', 'text-red-300');
+            } else {
+                // Hide lyrics
+                lyricsContainer.classList.remove('show');
+                lyricsContainer.classList.add('hidden');
+                this.textContent = 'Show Lyrics';
+                this.classList.remove('bg-red-600/30', 'text-red-300');
+                this.classList.add('bg-blue-600/30', 'text-blue-300');
+            }
+        });
+    });
+});
     </script>
 </body>
 </html>
