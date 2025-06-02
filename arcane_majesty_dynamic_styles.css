@@ -36,7 +36,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(ellipse at center, rgba(138, 43, 226, 0.15) 0%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(230, 57, 70, 0.15) 0%, transparent 70%);
     pointer-events: none;
 }
 
@@ -48,8 +48,8 @@ body {
 .hero-title {
     font-size: 4.5rem;
     font-weight: 700;
-    color: #8a2be2;
-    text-shadow: 0 0 30px rgba(138, 43, 226, 0.6);
+    color: #e63946;
+    text-shadow: 0 0 30px rgba(230, 57, 70, 0.6);
     margin-bottom: 20px;
     letter-spacing: 3px;
 }
@@ -79,7 +79,7 @@ body {
 }
 
 .universe-info strong {
-    color: #8a2be2;
+    color: #e63946;
     font-weight: 600;
 }
 
@@ -118,11 +118,11 @@ body {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #8a2be2, #9932cc, #b19cd9);
+    background: linear-gradient(90deg, #e63946, #ff6b6b, #f28b82);
 }
 
 .overview-universe-details h3 {
-    color: #8a2be2;
+    color: #e63946;
     font-size: 1.8rem;
     margin-bottom: 25px;
     font-weight: 600;
@@ -141,11 +141,11 @@ body {
     padding: 15px;
     background: rgba(15, 15, 35, 0.5);
     border-radius: 8px;
-    border-left: 3px solid #8a2be2;
+    border-left: 3px solid #e63946;
 }
 
 .universe-details-grid strong {
-    color: #8a2be2;
+    color: #e63946;
     font-weight: 600;
 }
 
@@ -174,17 +174,17 @@ body {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #8a2be2, #9932cc, #b19cd9);
+    background: linear-gradient(90deg, #e63946, #ff6b6b, #f28b82);
 }
 
 .stat-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(138, 43, 226, 0.2);
-    border-color: #8a2be2;
+    box-shadow: 0 10px 30px rgba(230, 57, 70, 0.2);
+    border-color: #e63946;
 }
 
 .stat-card h3 {
-    color: #8a2be2;
+    color: #e63946;
     font-size: 1.2rem;
     margin-bottom: 15px;
     font-weight: 600;
@@ -194,7 +194,7 @@ body {
     font-size: 2.5rem;
     font-weight: 700;
     color: #e0e6ed;
-    text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+    text-shadow: 0 0 10px rgba(230, 57, 70, 0.3);
 }
 
 .overview-description {
@@ -214,11 +214,11 @@ body {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #8a2be2, #9932cc, #b19cd9);
+    background: linear-gradient(90deg, #e63946, #ff6b6b, #f28b82);
 }
 
 .overview-description h3 {
-    color: #8a2be2;
+    color: #e63946;
     font-size: 1.8rem;
     margin-bottom: 20px;
     font-weight: 600;
@@ -291,7 +291,7 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(230, 57, 70, 0.3), transparent);
     transition: left 0.5s;
 }
 
@@ -301,16 +301,16 @@ body {
 
 .nav-tab:hover {
     background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
-    border-color: #8a2be2;
+    border-color: #e63946;
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4);
+    box-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
 }
 
 .nav-tab.active {
-    background: linear-gradient(135deg, #8a2be2 0%, #9932cc 100%);
+    background: linear-gradient(135deg, #e63946 0%, #ff6b6b 100%);
     color: white;
-    border-color: #b19cd9;
-    box-shadow: 0 0 25px rgba(138, 43, 226, 0.5);
+    border-color: #f28b82;
+    box-shadow: 0 0 25px rgba(230, 57, 70, 0.5);
     transform: translateY(-2px);
 }
 
@@ -322,7 +322,7 @@ body {
 }
 
 .loading {
-    color: #8a2be2;
+    color: #e63946;
     animation: pulse 2s infinite;
 }
 
@@ -355,10 +355,10 @@ body {
 
 .section-title {
     font-size: 3rem;
-    color: #8a2be2;
+    color: #e63946;
     text-align: center;
     margin-bottom: 50px;
-    text-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+    text-shadow: 0 0 15px rgba(230, 57, 70, 0.4);
     position: relative;
 }
 
@@ -367,7 +367,7 @@ body {
     display: block;
     width: 150px;
     height: 4px;
-    background: linear-gradient(90deg, transparent, #8a2be2, transparent);
+    background: linear-gradient(90deg, transparent, #e63946, transparent);
     margin: 20px auto 0;
 }
 
@@ -399,13 +399,13 @@ body {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #8a2be2, #9932cc, #b19cd9);
+    background: linear-gradient(90deg, #e63946, #ff6b6b, #f28b82);
 }
 
 .album-card:hover, .character-card:hover, .location-card:hover, .artifact-card:hover, .race-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(138, 43, 226, 0.3);
-    border-color: #8a2be2;
+    box-shadow: 0 15px 40px rgba(230, 57, 70, 0.3);
+    border-color: #e63946;
 }
 
 /* Header Styles - Larger and with icons */
@@ -420,7 +420,7 @@ body {
 
 .album-title, .character-name, .location-name, .artifact-name, .race-name {
     font-size: 2rem;
-    color: #8a2be2;
+    color: #e63946;
     margin: 0;
     font-weight: 600;
     display: flex;
@@ -438,10 +438,10 @@ body {
 .album-id, .character-id, .location-id, .race-id {
     font-size: 1rem;
     color: #b8c5d1;
-    background: rgba(138, 43, 226, 0.25);
+    background: rgba(230, 57, 70, 0.25);
     padding: 8px 16px;
     border-radius: 20px;
-    border: 1px solid rgba(138, 43, 226, 0.4);
+    border: 1px solid rgba(230, 57, 70, 0.4);
 }
 
 /* Act Sections - Larger and more prominent */
@@ -455,7 +455,7 @@ body {
 
 .act-title {
     font-size: 1.6rem;
-    color: #b19cd9;
+    color: #f28b82;
     margin-bottom: 25px;
     padding-bottom: 15px;
     border-bottom: 2px solid #4a5568;
@@ -481,13 +481,13 @@ body {
 }
 
 .song-header:hover {
-    background: rgba(138, 43, 226, 0.15);
+    background: rgba(230, 57, 70, 0.15);
 }
 
 .song-header::after {
     content: '▼';
     font-size: 1rem;
-    color: #8a2be2;
+    color: #e63946;
     transition: transform 0.3s ease;
 }
 
@@ -514,18 +514,18 @@ body {
 .song-title::after {
     content: "song";
     font-size: 0.8rem;
-    color: #8a2be2;
-    background: rgba(138, 43, 226, 0.2);
+    color: #e63946;
+    background: rgba(230, 57, 70, 0.2);
     padding: 4px 12px;
     border-radius: 15px;
-    border: 1px solid rgba(138, 43, 226, 0.3);
+    border: 1px solid rgba(230, 57, 70, 0.3);
     margin-left: auto;
 }
 
 .song-id {
     font-size: 0.95rem;
     color: #b8c5d1;
-    background: rgba(138, 43, 226, 0.25);
+    background: rgba(230, 57, 70, 0.25);
     padding: 6px 12px;
     border-radius: 15px;
 }
@@ -548,7 +548,7 @@ body {
     padding: 15px;
     background: rgba(26, 26, 46, 0.6);
     border-radius: 10px;
-    border-left: 4px solid #8a2be2;
+    border-left: 4px solid #e63946;
 }
 
 .plot-section, .lyrics-section {
@@ -556,7 +556,7 @@ body {
 }
 
 .plot-section h5, .lyrics-section h5 {
-    color: #8a2be2;
+    color: #e63946;
     margin-bottom: 15px;
     font-size: 1.2rem;
     font-weight: 600;
@@ -566,13 +566,13 @@ body {
     background: rgba(26, 26, 46, 0.9);
     padding: 20px;
     border-radius: 12px;
-    border-left: 4px solid #8a2be2;
+    border-left: 4px solid #e63946;
     line-height: 1.8;
     font-size: 1.05rem;
 }
 
 .lyrics-section-label {
-    color: #b19cd9;
+    color: #f28b82;
     font-weight: 600;
     margin: 20px 0 12px 0;
     font-size: 1.1rem;
@@ -593,7 +593,7 @@ body {
     padding: 20px;
     background: rgba(15, 15, 35, 0.6);
     border-radius: 12px;
-    border-left: 4px solid #8a2be2;
+    border-left: 4px solid #e63946;
 }
 
 /* Location Specific Styles */
@@ -606,7 +606,7 @@ body {
 }
 
 .relations-section h4, .child-locations-section h4 {
-    color: #8a2be2;
+    color: #e63946;
     margin-bottom: 20px;
     font-size: 1.3rem;
 }
@@ -616,7 +616,7 @@ body {
     padding: 15px;
     background: rgba(26, 26, 46, 0.7);
     border-radius: 10px;
-    border-left: 3px solid #b19cd9;
+    border-left: 3px solid #f28b82;
 }
 
 .child-location {
@@ -628,7 +628,7 @@ body {
 }
 
 .child-location h4 {
-    color: #b19cd9;
+    color: #f28b82;
     margin-bottom: 15px;
     font-size: 1.2rem;
 }
@@ -638,7 +638,7 @@ body {
     padding: 20px;
     background: rgba(15, 15, 35, 0.6);
     border-radius: 12px;
-    border-left: 4px solid #8a2be2;
+    border-left: 4px solid #e63946;
 }
 
 /* No Content Message */
@@ -752,36 +752,36 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #8a2be2;
+    background: #e63946;
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #9932cc;
+    background: #ff6b6b;
 }
 
 /* Selection Styling */
 ::selection {
-    background: rgba(138, 43, 226, 0.4);
+    background: rgba(230, 57, 70, 0.4);
     color: #ffffff;
 }
 
 /* Focus Styles for Accessibility */
 .nav-tab:focus, .song-header:focus {
-    outline: 3px solid #8a2be2;
+    outline: 3px solid #e63946;
     outline-offset: 3px;
 }
 
 /* Additional enhancements for better visual hierarchy */
 .album-card h3, .character-card h3, .location-card h3, .artifact-card h3, .race-card h3 {
     font-size: 1.4rem;
-    color: #b19cd9;
+    color: #f28b82;
     margin-bottom: 15px;
 }
 
 .album-card h4, .character-card h4, .location-card h4, .artifact-card h4, .race-card h4 {
     font-size: 1.2rem;
-    color: #8a2be2;
+    color: #e63946;
     margin-bottom: 12px;
 }
 
@@ -792,6 +792,6 @@ body {
 
 /* Improved visual separation */
 .section + .section {
-    border-top: 1px solid rgba(138, 43, 226, 0.2);
+    border-top: 1px solid rgba(230, 57, 70, 0.2);
     padding-top: 50px;
 }
