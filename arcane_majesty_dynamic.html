@@ -12,12 +12,16 @@
             <div class="hero-content">
                 <h1 class="hero-title">Arcane Majesty</h1>
                 <p class="hero-subtitle">A multi-dimensional fantasy saga across music, lore, and digital realms</p>
+                <div class="universe-info">
+                    <p><strong>Concept:</strong> <span id="universe-concept">Loading...</span></p>
+                    <p><strong>Medium:</strong> <span id="universe-medium">Loading...</span></p>
+                    <p><strong>Universe:</strong> <span id="universe-description">Loading...</span></p>
+                </div>
             </div>
         </header>
 
         <nav class="nav-tabs">
-            <button class="nav-tab active" data-tab="overview">Overview</button>
-            <button class="nav-tab" data-tab="albums">Albums & Music</button>
+            <button class="nav-tab active" data-tab="albums">Albums & Music</button>
             <button class="nav-tab" data-tab="characters">Characters</button>
             <button class="nav-tab" data-tab="locations">Locations</button>
             <button class="nav-tab" data-tab="artifacts">Artifacts</button>
@@ -32,32 +36,8 @@
             Error loading data. Please check your XML file.
         </div>
 
-<!-- Overview Tab -->
-<div id="overview-tab" class="tab-content active">
-    <section class="section">
-        <h2 class="section-title">Universe Overview</h2>
-        <div class="overview-container">
-            <!-- Universe Details Section -->
-            <div class="overview-universe-details">
-                <h3>Universe Information</h3>
-                <div class="universe-details-grid">
-                    <p><strong>Concept:</strong> <span id="overview-concept">An epic fantasy multiverse chronicling the struggle between light and darkness through characters, realms, songs, and arcane powers.</span></p>
-                    <p><strong>Medium:</strong> <span id="overview-medium">Music albums, game development (Solarus, RPG Maker MZ), narrative fiction.</span></p>
-                    <p><strong>Universe:</strong> <span id="overview-universe">The saga includes characters like Eldrin Nightshade, Anya, Nychtoros, and Malakar across interconnected realms.</span></p>
-                </div>
-            </div>
-            
-            <!-- Welcome Description -->
-            <div class="overview-description">
-                <h3>About the Compendium</h3>
-                <p id="overview-text">Welcome to the Arcane Majesty compendium. This comprehensive guide chronicles the epic fantasy multiverse through its characters, locations, artifacts, and musical narratives. Explore the interconnected stories, discover the rich lore, and immerse yourself in this magical universe.</p>
-            </div>
-        </div>
-    </section>
-</div>
-
         <!-- Albums Tab -->
-        <div id="albums-tab" class="tab-content">
+        <div id="albums-tab" class="tab-content active">
             <section class="section">
                 <h2 class="section-title">Albums & Musical Chronicles</h2>
                 <div id="albums-container" class="albums-grid">
@@ -131,7 +111,10 @@
                         // Add active to clicked tab and corresponding content
                         tab.classList.add('active');
                         const tabId = tab.getAttribute('data-tab') + '-tab';
-                        document.getElementById(tabId).classList.add('active');
+                        const tabContent = document.getElementById(tabId);
+                        if (tabContent) {
+                            tabContent.classList.add('active');
+                        }
                     });
                 });
             }
@@ -140,34 +123,36 @@
                 try {
                     const response = await fetch(this.xmlFile);
                     if (!response.ok) {
-                        throw new Error('Failed to load XML file');
+                        throw new Error(`Failed to load XML file: ${response.status} ${response.statusText}`);
                     }
                     
                     const xmlText = await response.text();
                     const parser = new DOMParser();
                     const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
                     
-                    if (xmlDoc.querySelector('parsererror')) {
-                        throw new Error('XML parsing error');
+                    // Check for parsing errors
+                    const parseError = xmlDoc.querySelector('parsererror');
+                    if (parseError) {
+                        throw new Error(`XML parsing error: ${parseError.textContent}`);
                     }
                     
                     this.renderCompendium(xmlDoc);
                     this.hideLoading();
                 } catch (error) {
                     console.error('Error loading compendium data:', error);
-                    this.showError();
+                    this.showError(error.message);
                 }
             }
 
             renderCompendium(xmlDoc) {
                 const universe = xmlDoc.querySelector('Universe');
                 if (!universe) {
-                    this.showError();
+                    this.showError('Universe element not found in XML');
                     return;
                 }
 
                 // Load universe info
-                setTimeout(() => this.loadUniverseInfo(), 0);
+                this.loadUniverseInfo(universe);
                 
                 // Load each section
                 this.renderAlbums(universe);
@@ -175,21 +160,59 @@
                 this.renderLocations(universe);
                 this.renderArtifacts(universe);
                 this.renderRaces(universe);
+                
+                // Update overview stats
                 this.updateOverviewStats(universe);
             }
 
             loadUniverseInfo(universe) {
-                const universeName = universe.getAttribute('universe') || 'Unknown Universe';
-                document.querySelector('.hero-title').textContent = universeName;
-                
-                // Set placeholder info - these would come from the XML if available
-                document.getElementById('universe-concept').textContent = 'An epic fantasy multiverse chronicling the struggle between light and darkness through characters, realms, songs, and arcane powers.';
-                document.getElementById('universe-medium').textContent = 'Music albums, game development (Solarus, RPG Maker MZ), narrative fiction.';
-                document.getElementById('universe-description').textContent = 'The saga includes characters like Eldrin Nightshade, Anya, Nychtoros, and Malakar across interconnected realms.';
+                try {
+                    const universeName = universe.getAttribute('universe') || universe.getAttribute('name') || 'Arcane Majesty';
+                    const titleElement = document.querySelector('.hero-title');
+                    if (titleElement) {
+                        titleElement.textContent = universeName;
+                    }
+                    
+                    // Set universe info with safe element access
+                    const conceptElement = document.getElementById('universe-concept');
+                    const mediumElement = document.getElementById('universe-medium');
+                    const descriptionElement = document.getElementById('universe-description');
+                    
+                    if (conceptElement) {
+                        conceptElement.textContent = 'An epic fantasy multiverse chronicling the struggle between light and darkness through characters, realms, songs, and arcane powers.';
+                    }
+                    
+                    if (mediumElement) {
+                        mediumElement.textContent = 'Music albums, game development (Solarus, RPG Maker MZ), narrative fiction.';
+                    }
+                    
+                    if (descriptionElement) {
+                        descriptionElement.textContent = 'The saga includes characters like Eldrin Nightshade, Anya, Nychtoros, and Malakar across interconnected realms.';
+                    }
+                } catch (error) {
+                    console.error('Error loading universe info:', error);
+                }
+            }
+
+            updateOverviewStats(universe) {
+                try {
+                    // Count different elements
+                    const albumCount = universe.querySelectorAll('albums > album').length;
+                    const characterCount = universe.querySelectorAll('characters > character').length;
+                    const locationCount = universe.querySelectorAll('Locations > Location').length;
+                    const artifactCount = universe.querySelectorAll('artifacts > artifact').length;
+                    const raceCount = universe.querySelectorAll('races > race').length;
+                    
+                    console.log(`Loaded compendium with: ${albumCount} albums, ${characterCount} characters, ${locationCount} locations, ${artifactCount} artifacts, ${raceCount} races`);
+                } catch (error) {
+                    console.error('Error updating overview stats:', error);
+                }
             }
 
             renderAlbums(universe) {
                 const albumsContainer = document.getElementById('albums-container');
+                if (!albumsContainer) return;
+                
                 const albums = universe.querySelectorAll('albums > album');
                 
                 if (albums.length === 0) {
@@ -208,19 +231,19 @@
                 const albumDiv = document.createElement('div');
                 albumDiv.className = 'album-card';
 
-                const albumName = album.getAttribute('album') || 'Unknown Album';
+                const albumName = album.getAttribute('album') || album.getAttribute('name') || 'Unknown Album';
                 const albumId = album.querySelector('album_id')?.textContent || '';
 
                 const acts = album.querySelectorAll('Act');
                 let actsHtml = '';
 
                 acts.forEach(act => {
-                    const actName = act.getAttribute('act') || 'Unknown Act';
+                    const actName = act.getAttribute('act') || act.getAttribute('name') || 'Unknown Act';
                     const songs = act.querySelectorAll('Song');
                     
                     let songsHtml = '';
                     songs.forEach(song => {
-                        const songName = song.getAttribute('song') || 'Unknown Song';
+                        const songName = song.getAttribute('song') || song.getAttribute('name') || 'Unknown Song';
                         const songId = song.querySelector('song_id')?.textContent || '';
                         const tone = song.querySelector('Tone')?.textContent || '';
                         const plot = song.querySelector('Plot')?.textContent || '';
@@ -229,15 +252,15 @@
                         songsHtml += `
                             <div class="song-item">
                                 <div class="song-header" onclick="this.parentElement.querySelector('.song-details').classList.toggle('active')">
-                                    <h4 class="song-title">${songName}</h4>
-                                    <span class="song-id">${songId}</span>
+                                    <h4 class="song-title">${this.escapeHtml(songName)}</h4>
+                                    <span class="song-id">${this.escapeHtml(songId)}</span>
                                 </div>
                                 <div class="song-details">
-                                    ${tone ? `<div class="song-tone"><strong>Tone:</strong> ${tone}</div>` : ''}
+                                    ${tone ? `<div class="song-tone"><strong>Tone:</strong> ${this.escapeHtml(tone)}</div>` : ''}
                                     ${plot ? `
                                         <div class="plot-section">
                                             <h5>Plot</h5>
-                                            <div class="plot-content">${plot}</div>
+                                            <div class="plot-content">${this.escapeHtml(plot)}</div>
                                         </div>
                                     ` : ''}
                                     ${lyrics ? `
@@ -253,7 +276,7 @@
 
                     actsHtml += `
                         <div class="act-section">
-                            <h3 class="act-title">${actName}</h3>
+                            <h3 class="act-title">${this.escapeHtml(actName)}</h3>
                             <div class="songs-list">${songsHtml}</div>
                         </div>
                     `;
@@ -261,8 +284,8 @@
 
                 albumDiv.innerHTML = `
                     <div class="album-header">
-                        <h2 class="album-title">${albumName}</h2>
-                        <span class="album-id">${albumId}</span>
+                        <h2 class="album-title">${this.escapeHtml(albumName)}</h2>
+                        <span class="album-id">${this.escapeHtml(albumId)}</span>
                     </div>
                     <div class="acts-container">${actsHtml}</div>
                 `;
@@ -271,7 +294,7 @@
             }
 
             formatLyrics(lyrics) {
-                return lyrics
+                return this.escapeHtml(lyrics)
                     .replace(/\[([^\]]+)\]/g, '<div class="lyrics-section-label">[$1]</div>')
                     .replace(/\n\n/g, '<br><br>')
                     .replace(/\n/g, '<br>');
@@ -279,6 +302,8 @@
 
             renderCharacters(universe) {
                 const charactersContainer = document.getElementById('characters-container');
+                if (!charactersContainer) return;
+                
                 const characters = universe.querySelectorAll('characters > character');
                 
                 if (characters.length === 0) {
@@ -311,18 +336,18 @@
 
                 characterDiv.innerHTML = `
                     <div class="character-header">
-                        <h3 class="character-name">${name}</h3>
-                        <span class="character-id">${characterId}</span>
+                        <h3 class="character-name">${this.escapeHtml(name)}</h3>
+                        <span class="character-id">${this.escapeHtml(characterId)}</span>
                     </div>
                     <div class="character-content">
-                        ${firstname || lastname ? `<p><strong>Full Name:</strong> ${firstname} ${lastname}</p>` : ''}
-                        ${race ? `<p><strong>Race:</strong> ${race}</p>` : ''}
-                        ${role ? `<p><strong>Role:</strong> ${role}</p>` : ''}
-                        ${description ? `<div class="character-description"><strong>Description:</strong><br>${description}</div>` : ''}
-                        ${physicalTraits ? `<div class="character-traits"><strong>Physical Traits:</strong><br>${physicalTraits}</div>` : ''}
-                        ${capacities ? `<div class="character-capacities"><strong>Abilities:</strong><br>${capacities}</div>` : ''}
-                        ${backstory ? `<div class="character-backstory"><strong>Backstory:</strong><br>${backstory}</div>` : ''}
-                        ${characterLink ? `<div class="character-links"><strong>Connections:</strong><br>${characterLink}</div>` : ''}
+                        ${firstname || lastname ? `<p><strong>Full Name:</strong> ${this.escapeHtml(firstname)} ${this.escapeHtml(lastname)}</p>` : ''}
+                        ${race ? `<p><strong>Race:</strong> ${this.escapeHtml(race)}</p>` : ''}
+                        ${role ? `<p><strong>Role:</strong> ${this.escapeHtml(role)}</p>` : ''}
+                        ${description ? `<div class="character-description"><strong>Description:</strong><br>${this.escapeHtml(description)}</div>` : ''}
+                        ${physicalTraits ? `<div class="character-traits"><strong>Physical Traits:</strong><br>${this.escapeHtml(physicalTraits)}</div>` : ''}
+                        ${capacities ? `<div class="character-capacities"><strong>Abilities:</strong><br>${this.escapeHtml(capacities)}</div>` : ''}
+                        ${backstory ? `<div class="character-backstory"><strong>Backstory:</strong><br>${this.escapeHtml(backstory)}</div>` : ''}
+                        ${characterLink ? `<div class="character-links"><strong>Connections:</strong><br>${this.escapeHtml(characterLink)}</div>` : ''}
                     </div>
                 `;
 
@@ -331,6 +356,8 @@
 
             renderLocations(universe) {
                 const locationsContainer = document.getElementById('locations-container');
+                if (!locationsContainer) return;
+                
                 const locations = universe.querySelectorAll('Locations > Location');
                 
                 if (locations.length === 0) {
@@ -361,7 +388,7 @@
                 relations.forEach(relation => {
                     const withLocation = relation.getAttribute('with') || '';
                     const relationText = relation.textContent || '';
-                    relationsHtml += `<div class="relation-item"><strong>${withLocation}:</strong> ${relationText}</div>`;
+                    relationsHtml += `<div class="relation-item"><strong>${this.escapeHtml(withLocation)}:</strong> ${this.escapeHtml(relationText)}</div>`;
                 });
 
                 // Handle child locations
@@ -375,23 +402,23 @@
                     
                     childLocationsHtml += `
                         <div class="child-location">
-                            <h4>${childName}</h4>
-                            ${childDescription ? `<p>${childDescription}</p>` : ''}
-                            ${childThemes ? `<p><strong>Themes:</strong> ${childThemes}</p>` : ''}
-                            ${childResidents ? `<p><strong>Notable Residents:</strong> ${childResidents}</p>` : ''}
+                            <h4>${this.escapeHtml(childName)}</h4>
+                            ${childDescription ? `<p>${this.escapeHtml(childDescription)}</p>` : ''}
+                            ${childThemes ? `<p><strong>Themes:</strong> ${this.escapeHtml(childThemes)}</p>` : ''}
+                            ${childResidents ? `<p><strong>Notable Residents:</strong> ${this.escapeHtml(childResidents)}</p>` : ''}
                         </div>
                     `;
                 });
 
                 locationDiv.innerHTML = `
                     <div class="location-header">
-                        <h3 class="location-name">${name}</h3>
-                        <span class="location-id">${locationId}</span>
+                        <h3 class="location-name">${this.escapeHtml(name)}</h3>
+                        <span class="location-id">${this.escapeHtml(locationId)}</span>
                     </div>
                     <div class="location-content">
-                        ${description ? `<div class="location-description">${description}</div>` : ''}
-                        ${keyThemes ? `<p><strong>Key Themes:</strong> ${keyThemes}</p>` : ''}
-                        ${notableResidents ? `<p><strong>Notable Residents:</strong> ${notableResidents}</p>` : ''}
+                        ${description ? `<div class="location-description">${this.escapeHtml(description)}</div>` : ''}
+                        ${keyThemes ? `<p><strong>Key Themes:</strong> ${this.escapeHtml(keyThemes)}</p>` : ''}
+                        ${notableResidents ? `<p><strong>Notable Residents:</strong> ${this.escapeHtml(notableResidents)}</p>` : ''}
                         ${relationsHtml ? `<div class="relations-section"><h4>Relations</h4>${relationsHtml}</div>` : ''}
                         ${childLocationsHtml ? `<div class="child-locations-section"><h4>Sub-Locations</h4>${childLocationsHtml}</div>` : ''}
                     </div>
@@ -402,6 +429,8 @@
 
             renderArtifacts(universe) {
                 const artifactsContainer = document.getElementById('artifacts-container');
+                if (!artifactsContainer) return;
+                
                 const artifacts = universe.querySelectorAll('artifacts > artifact');
                 
                 if (artifacts.length === 0) {
@@ -425,10 +454,10 @@
 
                 artifactDiv.innerHTML = `
                     <div class="artifact-header">
-                        <h3 class="artifact-name">${name}</h3>
+                        <h3 class="artifact-name">${this.escapeHtml(name)}</h3>
                     </div>
                     <div class="artifact-content">
-                        ${properties ? `<div class="artifact-properties"><strong>Properties:</strong> ${properties}</div>` : ''}
+                        ${properties ? `<div class="artifact-properties"><strong>Properties:</strong> ${this.escapeHtml(properties)}</div>` : ''}
                     </div>
                 `;
 
@@ -437,6 +466,8 @@
 
             renderRaces(universe) {
                 const racesContainer = document.getElementById('races-container');
+                if (!racesContainer) return;
+                
                 const races = universe.querySelectorAll('races > race');
                 
                 if (races.length === 0) {
@@ -463,49 +494,41 @@
 
                 raceDiv.innerHTML = `
                     <div class="race-header">
-                        <h3 class="race-name">${name}</h3>
-                        <span class="race-id">${raceId}</span>
+                        <h3 class="race-name">${this.escapeHtml(name)}</h3>
+                        <span class="race-id">${this.escapeHtml(raceId)}</span>
                     </div>
                     <div class="race-content">
-                        ${appearance ? `<p><strong>Appearance:</strong> ${appearance}</p>` : ''}
-                        ${capabilities ? `<p><strong>Capabilities:</strong> ${capabilities}</p>` : ''}
-                        ${specialAttributes ? `<p><strong>Special Attributes:</strong> ${specialAttributes}</p>` : ''}
+                        ${appearance ? `<p><strong>Appearance:</strong> ${this.escapeHtml(appearance)}</p>` : ''}
+                        ${capabilities ? `<p><strong>Capabilities:</strong> ${this.escapeHtml(capabilities)}</p>` : ''}
+                        ${specialAttributes ? `<p><strong>Special Attributes:</strong> ${this.escapeHtml(specialAttributes)}</p>` : ''}
                     </div>
                 `;
 
                 return raceDiv;
             }
 
-updateOverviewStats(universe) {
-    const albumsCount = universe.querySelectorAll('albums > album').length;
-    const charactersCount = universe.querySelectorAll('characters > character').length;
-    const locationsCount = universe.querySelectorAll('Locations > Location').length;
-    const artifactsCount = universe.querySelectorAll('artifacts > artifact').length;
-    const racesCount = universe.querySelectorAll('races > race').length;
-
-    document.getElementById('albums-count').textContent = albumsCount;
-    document.getElementById('characters-count').textContent = charactersCount;
-    document.getElementById('locations-count').textContent = locationsCount;
-    document.getElementById('artifacts-count').textContent = artifactsCount;
-    document.getElementById('races-count').textContent = racesCount;
-
-    // Sync overview details with header
-    const conceptText = document.getElementById('universe-concept').textContent;
-    const mediumText = document.getElementById('universe-medium').textContent;
-    const universeText = document.getElementById('universe-description').textContent;
-    
-    document.getElementById('overview-concept').textContent = conceptText;
-    document.getElementById('overview-medium').textContent = mediumText;
-    document.getElementById('overview-universe').textContent = universeText;
-}
-
-            hideLoading() {
-                this.loadingElement.style.display = 'none';
+            // Utility function to escape HTML and prevent XSS
+            escapeHtml(text) {
+                if (!text) return '';
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
             }
 
-            showError() {
-                this.loadingElement.style.display = 'none';
-                this.errorElement.style.display = 'block';
+            hideLoading() {
+                if (this.loadingElement) {
+                    this.loadingElement.style.display = 'none';
+                }
+            }
+
+            showError(message = 'Error loading data. Please check your XML file.') {
+                if (this.loadingElement) {
+                    this.loadingElement.style.display = 'none';
+                }
+                if (this.errorElement) {
+                    this.errorElement.style.display = 'block';
+                    this.errorElement.textContent = message;
+                }
             }
         }
 
