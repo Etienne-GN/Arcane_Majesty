@@ -23,7 +23,7 @@
             <button class="nav-tab" data-tab="artifacts">Artifacts</button>
             <button class="nav-tab" data-tab="races">Races</button>
         </nav>
-        
+
         <div id="loading" class="loading">
             Loading compendium data...
         </div>
@@ -32,19 +32,53 @@
             Error loading data. Please check your XML file.
         </div>
 
-        <!-- Overview Tab -->
-        <div id="overview-tab" class="tab-content active">
-            <section class="section">
-                <h2 class="section-title">Universe Overview</h2>
-                <div class="overview-content">
-                    <div class="universe-info">
-                        <p><strong>Concept:</strong> <span id="universe-concept">Loading...</span></p>
-                        <p><strong>Medium:</strong> <span id="universe-medium">Loading...</span></p>
-                        <p><strong>Universe:</strong> <span id="universe-description">Loading...</span></p>
-                    </div>
+<!-- Overview Tab -->
+<div id="overview-tab" class="tab-content active">
+    <section class="section">
+        <h2 class="section-title">Universe Overview</h2>
+        <div class="overview-container">
+            <!-- Universe Details Section -->
+            <div class="overview-universe-details">
+                <h3>Universe Information</h3>
+                <div class="universe-details-grid">
+                    <p><strong>Concept:</strong> <span id="overview-concept">An epic fantasy multiverse chronicling the struggle between light and darkness through characters, realms, songs, and arcane powers.</span></p>
+                    <p><strong>Medium:</strong> <span id="overview-medium">Music albums, game development (Solarus, RPG Maker MZ), narrative fiction.</span></p>
+                    <p><strong>Universe:</strong> <span id="overview-universe">The saga includes characters like Eldrin Nightshade, Anya, Nychtoros, and Malakar across interconnected realms.</span></p>
                 </div>
-            </section>
+            </div>
+            
+            <!-- Statistics Section -->
+            <div class="overview-stats">
+                <div class="stat-card">
+                    <h3>Albums</h3>
+                    <span id="albums-count">0</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Characters</h3>
+                    <span id="characters-count">0</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Locations</h3>
+                    <span id="locations-count">0</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Artifacts</h3>
+                    <span id="artifacts-count">0</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Races</h3>
+                    <span id="races-count">0</span>
+                </div>
+            </div>
+            
+            <!-- Welcome Description -->
+            <div class="overview-description">
+                <h3>About the Compendium</h3>
+                <p id="overview-text">Welcome to the Arcane Majesty compendium. This comprehensive guide chronicles the epic fantasy multiverse through its characters, locations, artifacts, and musical narratives. Explore the interconnected stories, discover the rich lore, and immerse yourself in this magical universe.</p>
+            </div>
         </div>
+    </section>
+</div>
 
         <!-- Albums Tab -->
         <div id="albums-tab" class="tab-content">
@@ -165,6 +199,7 @@
                 this.renderLocations(universe);
                 this.renderArtifacts(universe);
                 this.renderRaces(universe);
+                this.updateOverviewStats(universe);
             }
 
             loadUniverseInfo(universe) {
@@ -464,6 +499,29 @@
 
                 return raceDiv;
             }
+
+updateOverviewStats(universe) {
+    const albumsCount = universe.querySelectorAll('albums > album').length;
+    const charactersCount = universe.querySelectorAll('characters > character').length;
+    const locationsCount = universe.querySelectorAll('Locations > Location').length;
+    const artifactsCount = universe.querySelectorAll('artifacts > artifact').length;
+    const racesCount = universe.querySelectorAll('races > race').length;
+
+    document.getElementById('albums-count').textContent = albumsCount;
+    document.getElementById('characters-count').textContent = charactersCount;
+    document.getElementById('locations-count').textContent = locationsCount;
+    document.getElementById('artifacts-count').textContent = artifactsCount;
+    document.getElementById('races-count').textContent = racesCount;
+
+    // Sync overview details with header
+    const conceptText = document.getElementById('universe-concept').textContent;
+    const mediumText = document.getElementById('universe-medium').textContent;
+    const universeText = document.getElementById('universe-description').textContent;
+    
+    document.getElementById('overview-concept').textContent = conceptText;
+    document.getElementById('overview-medium').textContent = mediumText;
+    document.getElementById('overview-universe').textContent = universeText;
+}
 
             hideLoading() {
                 this.loadingElement.style.display = 'none';
