@@ -191,7 +191,7 @@
                 }
 
                 // Load universe info
-                this.loadUniverseInfo(universe);
+                setTimeout(() => this.loadUniverseInfo(), 0);
                 
                 // Load each section
                 this.renderAlbums(universe);
