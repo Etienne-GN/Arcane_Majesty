@@ -19,11 +19,10 @@
       };
     </script>
     <script type="module">
-  import { createIcons, icons } from 'https://cdn.jsdelivr.net/npm/lucide@latest/+esm';
-  createIcons({ icons });
-</script>
+        import { createIcons, icons } from 'https://cdn.jsdelivr.net/npm/lucide@latest/+esm';
+        createIcons({ icons });
+    </script>
     <style>
-        /* Enhanced CSS Variables for consistent theming */
         :root {
             --primary-gradient: linear-gradient(135deg, #8b0000 0%, #b22222 50%, #aa0000 100%);
             --secondary-gradient: linear-gradient(135deg, #111111 0%, #1f1f1f 100%);
@@ -32,8 +31,6 @@
             --glass-border: rgba(255, 0, 0, 0.1);
         }
 
-
-        /* Glassmorphism effects */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
@@ -41,7 +38,6 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
-        /* Enhanced gradient text */
         .gradient-header {
             background: var(--primary-gradient);
             -webkit-background-clip: text;
@@ -50,7 +46,6 @@
             "filter: drop-shadow(0 0 8px rgba(178, 34, 34, 0.4));"
         }
 
-        /* Smooth animations */
         .animate-fade-in {
             animation: fadeIn 0.6s ease-out;
         }
@@ -78,7 +73,6 @@
             50% { transform: translateY(-5px); }
         }
 
-        /* Enhanced hover effects */
         .hover-lift {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -88,7 +82,6 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-        /* Interactive button effects */
         .btn-interactive {
             position: relative;
             overflow: hidden;
@@ -115,7 +108,6 @@
             box-shadow: 0 8px 25px rgba(178, 34, 34, 0.4);
         }
 
-        /* Particle background effect */
         .particle-bg {
             position: fixed;
             top: 0;
@@ -142,7 +134,6 @@
             100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Enhanced content transitions */
         .content-section {
             transition: all 0.5s ease-in-out;
         }
@@ -158,7 +149,6 @@
             transform: translateY(0);
         }
 
-        /* Dynamic expand/collapse animations */
         .expandable-content {
             max-height: 0;
             overflow: hidden;
@@ -169,7 +159,6 @@
             max-height: 10000px;
         }
 
-        /* Enhanced scrollbar styling */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -187,7 +176,6 @@
             background: linear-gradient(135deg, #aa0000, #ff4500);
         }
 
-        /* Loading animation for dynamic content */
         .loading-shimmer {
             background: linear-gradient(90deg, #374151 25%, #4b5563 50%, #374151 75%);
             background-size: 200% 100%;
@@ -199,7 +187,6 @@
             100% { background-position: 200% 0; }
         }
 
-        /* Responsive enhancements */
         @media (max-width: 768px) {
             .particle { display: none; }
             .hover-lift:hover { transform: none; }
@@ -320,161 +307,161 @@
             </div>
         </div>
 
-            <!-- Albums Section -->
-            <div id="albums-section" class="content-section hidden">
-                <div class="space-y-6">
-<div class="glass-card rounded-xl hover-lift album-item" data-album="1">
-    <div class="p-6 cursor-pointer flex items-center justify-between album-header">
-        <div class="flex-1">
-            <h3 class="text-2xl font-bold text-white mb-2">A Tapestry of Souls</h3>
-            <p class="text-gray-300">An epic journey through darkness and light, following Anya's transformation from scholar to hero in the Empire of the Void</p>
-        </div>
-        <div class="ml-4 p-2 rounded-full bg-red-700/20">
-            <i data-lucide="chevron-right" class="w-6 h-6 text-red-400 expand-icon transition-transform duration-300"></i>
-        </div>
-    </div>
-    <div class="expandable-content album-content border-t border-gray-600/30">
-        <div class="p-6 space-y-6">
-            <!-- Act I: The Empire of Shadows -->
-            <div class="act-item">
-                <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
-                    <i data-lucide="play-circle" class="w-5 h-5"></i>
-                    Act I: The Empire of Shadows
-                </h4>
-                <div class="space-y-3">
-                    <!-- Empire of the Void -->
-                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                        <div class="flex justify-between items-start mb-2">
-                            <h5 class="text-lg font-semibold text-white">Empire of the Void</h5>
-                            <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Mysterious, Intriguing</span>
+        <!-- Albums Section -->
+        <div id="albums-section" class="content-section hidden">
+            <div class="space-y-6">
+		<div class="glass-card rounded-xl hover-lift album-item" data-album="1">
+    		    <div class="p-6 cursor-pointer flex items-center justify-between album-header">
+          		<div class="flex-1">
+            		    <h3 class="text-2xl font-bold text-white mb-2">A Tapestry of Souls</h3>
+            		    <p class="text-gray-300">An epic journey through darkness and light, following Anya's transformation from scholar to hero in the Empire of the Void</p>
+        		</div>
+        	        <div class="ml-4 p-2 rounded-full bg-red-700/20">
+            		    <i data-lucide="chevron-right" class="w-6 h-6 text-red-400 expand-icon transition-transform duration-300"></i>
                         </div>
-                        <p class="text-gray-300 leading-relaxed">Anya, a young and inquisitive scholar from the distant land of Thaloria, finds herself mysteriously transported to the ominous Empire of the Void, a realm steeped in darkness and ruled by the enigmatic Nychtoros, a being that patrols the borders between the night and day. As she navigates this foreboding land, she encounters shadowy landscapes filled with whispers of despair and haunted echoes of lost souls. Anya discovers hidden chambers containing ancient prophecies that foretell the rise of a hero amidst the empire's suffocating oppression. During her journey, she learns about Seraphina, a fierce warrior queen fighting against Nychtoros, whose own tragic losses drive her determination to liberate her people. Anya grapples with her own fears while deciphering the cryptic symbols that hint at her significant role in the unfolding events, igniting a spark of determination within her to uncover the truth about this malevolent empire.</p>
                     </div>
-                    <!-- Eternal Nightfall -->
-                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                        <div class="flex justify-between items-start mb-2">
-                            <h5 class="text-lg font-semibold text-white">Eternal Nightfall</h5>
-                            <span class="px-2 py-1 text-xs bg-orange-600/30 text-orange-300 rounded-full">Dramatic, Adventurous</span>
-                        </div>
-                        <p class="text-gray-300 leading-relaxed">In her quest for allies, Anya joins forces with a band of rebels led by the courageous Valen, who share her yearning for freedom and justice. Together, they embark on a treacherous journey through perilous terrains, evading Nychtoros' vigilant forces. As they traverse dark forests and crumbling ruins, they hear whispers of Seraphina's bravery, and the rebels reveal heart-wrenching stories of their loved ones lost to tyranny, each tale strengthening Anya's resolve. When Seraphina eventually crosses paths with Anya and the rebels, her presence ignites a newfound hope within the group. The camaraderie deepens as they strategize ways to confront their shared enemies, igniting a flicker of defiance against the Empire of the Void.</p>
-                    </div>
-                    <!-- After the Snowfall -->
-                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                        <div class="flex justify-between items-start mb-2">
-                            <h5 class="text-lg font-semibold text-white">After the Snowfall</h5>
-                            <span class="px-2 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full">Solitary, Reflective</span>
-                        </div>
-                        <p class="text-gray-300 leading-relaxed">Amidst a desolate frozen wasteland, Anya unexpectedly crosses paths with Seraphina, who has been battling the weight of her past losses and the toll of leadership. As snowflakes dance around them, they share intimate stories of grief and resilience, forging an unexpected bond. Seraphina, impressed by Anya's courage, finds in her a kindred spirit. Together, they reflect on their struggles and recognize their intertwined destinies. Through their conversations, they uncover the strength found in shared pain and the possibility of hope in the face of adversity. This bond inspires Seraphina to rethink her approach to leadership, embracing vulnerability as a source of strength.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Act II: Symphony of Suffering -->
-            <div class="act-item">
-                <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
-                    <i data-lucide="play-circle" class="w-5 h-5"></i>
-                    Act II: Symphony of Suffering
-                </h4>
-                <div class="space-y-3">
-                    <!-- Symphony of Suffering -->
-                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                        <div class="flex justify-between items-start mb-2">
-                            <h5 class="text-lg font-semibold text-white">Symphony of Suffering</h5>
-                            <span class="px-2 py-1 text-xs bg-red-600/30 text-red-300 rounded-full">Intense, Chaotic</span>
-                        </div>
-                        <p class="text-gray-300 leading-relaxed">A colossal battle erupts between the rebels and Nychtoros' formidable forces, echoing with the sounds of clashing steel and cries of defiance. Amidst the chaos, Anya, Valen, and Seraphina fight valiantly, each showcasing their unique strengths. As the prophecy unfolds, it speaks of a hero who will rise to challenge the darkness, illuminating Anya's path. Seraphina steps up as a formidable leader, rallying her troops with passionate speeches that inspire courage in the face of overwhelming odds. The rebels unite under her banner, forming a fierce alliance that forges a symphony of hope amidst the suffering, each heartbeat resonating with the promise of a brighter future as they fight for their freedom.</p>
-                    </div>
-                    <!-- Mystic Horizon -->
-                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                        <div class="flex justify-between items-start mb-2">
-                            <h5 class="text-lg font-semibold text-white">Mystic Horizon</h5>
-                            <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Mysterious, Revealing</span>
-                        </div>
-                        <p class="text-gray-300 leading-relaxed">Seeking refuge from the turmoil, Anya and her allies stumble upon a mystical realm filled with ethereal landscapes and shimmering lights. Here, they encounter Elara, a wise and enigmatic figure who unveils the true nature of the darkness threatening the universe. Elara shares tales of ancient battles, forgotten legends, and the interconnectedness of all realms, offering guidance that resonates deeply with Anya and Seraphina. As they learn about the choices that shaped their destinies, Anya feels a profound sense of purpose awaken within her, recognizing the urgency of their mission against Nychtoros' reign. Seraphina, inspired by the legends, reflects on her own leadership and the legacy she wishes to create, fueling her resolve to lead her people toward freedom.</p>
-                    </div>
-                    <!-- Learning to Fly -->
-                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                        <div class="flex justify-between items-start mb-2">
-                            <h5 class="text-lg font-semibold text-white">Learning to Fly</h5>
-                            <span class="px-2 py-1 text-xs bg-green-600/30 text-green-300 rounded-full">Empowering, Uplifting</span>
-                        </div>
-                        <p class="text-gray-300 leading-relaxed">Under Elara's mentorship, Anya embarks on a transformative journey to harness her latent powers. Through rigorous trials that challenge her courage and self-belief, she confronts her deepest fears and insecurities. Each test reveals a new facet of her abilities, from mastering elemental forces to unlocking her inner strength. Elara's teachings inspire Anya to trust in her intuition and embrace her potential fully. Simultaneously, Seraphina undergoes her own transformation, realizing that her own past and experiences have prepared her for this moment. As Anya learns to embrace her true potential, she finds the courage to lead her allies in their fight against the Empire of the Void, igniting a flame of hope within the hearts of those around her.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Act III: Shadows and Stardust -->
-            <div class="act-item">
-                <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
-                    <i data-lucide="play-circle" class="w-5 h-5"></i>
-                    Act III: Shadows and Stardust
-                </h4>
-                <div class="space-y-3">
-                    <!-- Shadows and Stardust -->
-                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                        <div class="flex justify-between items-start mb-2">
-                            <h5 class="text-lg font-semibold text-white">Shadows and Stardust</h5>
-                            <span class="px-2 py-1 text-xs bg-yellow-600/30 text-yellow-300 rounded-full">Adventurous, Discovery</span>
-                        </div>
-                        <p class="text-gray-300 leading-relaxed">Venturing into the cosmos, Anya and her companions explore ancient ruins that whisper secrets of the universe's creation. Surrounded by celestial beings, they uncover the origins of the darkness threatening their existence. Each encounter reveals the fragility of light against encroaching shadows. Amidst breathtaking starfields and swirling galaxies, Anya contemplates her place within this grand tapestry, realizing that her actions could tip the balance between hope and despair. Meanwhile, Seraphina reflects on her role as a leader and her connection to the cosmos, understanding that her past losses are part of a larger story that can inspire others to rise against darkness.</p>
-                    </div>
-                    <!-- Stormbringer -->
-                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                        <div class="flex justify-between items-start mb-2">
-                            <h5 class="text-lg font-semibold text-white">Stormbringer</h5>
-                            <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Mysterious, Intriguing</span>
-                        </div>
-                        <p class="text-gray-300 leading-relaxed">As the conflict escalates, a mysterious figure known as the Stormbringer emerges, shrouded in an aura of raw power. Anya is drawn to this enigmatic presence but is torn between trust and caution. Whispers surround the Stormbringer, hinting at their potential to shift the tide of war. Seraphina observes Anya's internal struggle and offers her support, emphasizing the importance of trust within their ranks. As they journey together, Anya learns of the Stormbringer's tragic past and their connection to the darkness. In a world where alliances are fragile, Anya and Seraphina must discern whether to embrace this powerful force or stand alone against the encroaching shadows that threaten them all.</p>
-                    </div>
-                    <!-- Eclipse of Destiny -->
-                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                        <div class="flex justify-between items-start mb-2">
-                            <h5 class="text-lg font-semibold text-white">Eclipse of Destiny</h5>
-                            <span class="px-2 py-1 text-xs bg-orange-600/30 text-orange-300 rounded-full">Dramatic, Decisive</span>
-                        </div>
-                        <p class="text-gray-300 leading-relaxed">With a cosmic event looming, the stakes reach an all-time high as Anya faces a pivotal decision that could determine the universe's fate. As darkness envelops the land, she confronts Nychtoros, the embodiment of oppression and despair. Seraphina stands beside her, embodying the fierce determination that has grown throughout their journey. Together, they grapple with the weight of their choices, knowing that every decision could resonate across time. The choices they make in this moment will define their legacy, and they must summon every ounce of strength to embrace their roles as beacons of hope and protectors of those they love.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Act IV: Haunting Life and Celestial Rebellion -->
-            <div class="act-item">
-                <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
-                    <i data-lucide="play-circle" class="w-5 h-5"></i>
-                    Act IV: Haunting Life and Celestial Rebellion
-                </h4>
-                <div class="space-y-3">
-                    <!-- Shadows in the Rain -->
-                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                        <div class="flex justify-between items-start mb-2">
-                            <h5 class="text-lg font-semibold text-white">Shadows in the Rain</h5>
-                            <span class="px-2 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full">Introspective, Challenging</span>
-                        </div>
-                        <p class="text-gray-300 leading-relaxed">As the battle intensifies, Anya confronts her inner demons, delving into her past and uncovering the truth about her heritage as a descendant of ancient vampires. In a rain-soaked battlefield, Seraphina stands by her side, confronting her own fears and past mistakes. Together, they face the duality of their existence, grappling with the darkness within them. Each raindrop serves as a reminder of the lives lost and the sacrifices made. Through this reflection, Anya and Seraphina gain clarity, learning to embrace their lineage and struggles as sources of strength rather than burdens. This newfound understanding empowers them to fight against Nychtoros' tyranny with renewed vigor.</p>
-                    </div>
-                    <!-- Endless Night -->
-                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                        <div class="flex justify-between items-start mb-2">
-                            <h5 class="text-lg font-semibold text-white">Endless Night</h5>
-                            <span class="px-2 py-1 text-xs bg-red-600/30 text-red-300 rounded-full">Desperate, Intense</span>
-                        </div>
-                        <p class="text-gray-300 leading-relaxed">The universe plunges into despair as Nychtoros' power grows unchecked, casting a shadow over all realms. Anya and her allies rally together for their greatest battle yet, knowing that the fate of countless lives hangs in the balance. Seraphina, now fully embracing her role as a leader, inspires her people with her unwavering courage and conviction. As they face overwhelming odds, they harness the strength of their bond, each warrior drawing from their shared determination. The skies darken, and the air crackles with tension as they prepare to confront their greatest enemy, aware that every sacrifice they make could be the key to reclaiming their light and restoring hope to the universe.</p>
-                    </div>
-                    <!-- Celestial Rebellion -->
-                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                        <div class="flex justify-between items-start mb-2">
-                            <h5 class="text-lg font-semibold text-white">Celestial Rebellion</h5>
-                            <span class="px-2 py-1 text-xs bg-gold-600/30 text-gold-300 rounded-full">Triumphant, Bittersweet</span>
-                        </div>
-                        <p class="text-gray-300 leading-relaxed">In a climactic battle that transcends realms, Anya and her companions unite with celestial forces to confront Nychtoros. As the conflict reaches its zenith, alliances are forged, and ancient prophecies come to life. Amidst the chaos, Anya makes the ultimate sacrifice, choosing to remain in exile in the underworld to prevent Nychtoros' return. Her selflessness resonates with her allies, especially Seraphina, who is profoundly affected by the loss of her friend. Inspired by Anya's sacrifice, Seraphina vows to carry on Anya's legacy, becoming a beacon of hope for those left behind. In the heat of battle, she channels her grief into strength, fighting fiercely to protect the future they envisioned together.</p>
-                    </div>
-                    <!-- Haunting Life -->
-                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                        <div class="flex justify-between items-start mb-2">
-                            <h5 class="text-lg font-semibold text-white">Haunting Life</h5>
-                            <span class="px-2 py-1 text-xs bg-green-600/30 text-green-300 rounded-full">Reflective, Hopeful</span>
-                        </div>
-                        <p class="text-gray-300 leading-relaxed">In the aftermath of the epic struggle, Anya reflects on her arduous journey, filled with trials and tribulations. As she stands in the quiet remnants of what was once a battlefield, she acknowledges the profound changes she has undergone. Seraphina emerges as a leader committed to honoring Anya's sacrifice, uniting her people and continuing the fight against Nychtoros' lingering influence. She realizes that her legacy will endure as a guiding light for future generations, inspiring others to rise against tyranny. Though Anya remains in exile, her spirit becomes a haunting echo of hope, reminding Seraphina and the universe that even in the darkest times, the flame of resistance can never be extinguished.</p>
-                    </div>
-                </div>
-            </div>
+                    <div class="expandable-content album-content border-t border-gray-600/30">
+                        <div class="p-6 space-y-6">
+                            <!-- Act I: The Empire of Shadows -->
+                            <div class="act-item">
+                                <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
+                                    <i data-lucide="play-circle" class="w-5 h-5"></i>
+                                    Act I: The Empire of Shadows
+                                </h4>
+                                <div class="space-y-3">
+                                    <!-- Empire of the Void -->
+                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h5 class="text-lg font-semibold text-white">Empire of the Void</h5>
+                                            <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Mysterious, Intriguing</span>
+                                        </div>
+                                        <p class="text-gray-300 leading-relaxed">Anya, a young and inquisitive scholar from the distant land of Thaloria, finds herself mysteriously transported to the ominous Empire of the Void, a realm steeped in darkness and ruled by the enigmatic Nychtoros, a being that patrols the borders between the night and day. As she navigates this foreboding land, she encounters shadowy landscapes filled with whispers of despair and haunted echoes of lost souls. Anya discovers hidden chambers containing ancient prophecies that foretell the rise of a hero amidst the empire's suffocating oppression. During her journey, she learns about Seraphina, a fierce warrior queen fighting against Nychtoros, whose own tragic losses drive her determination to liberate her people. Anya grapples with her own fears while deciphering the cryptic symbols that hint at her significant role in the unfolding events, igniting a spark of determination within her to uncover the truth about this malevolent empire.</p>
+                                    </div>
+                                    <!-- Eternal Nightfall -->
+                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h5 class="text-lg font-semibold text-white">Eternal Nightfall</h5>
+                                            <span class="px-2 py-1 text-xs bg-orange-600/30 text-orange-300 rounded-full">Dramatic, Adventurous</span>
+                                        </div>
+                                        <p class="text-gray-300 leading-relaxed">In her quest for allies, Anya joins forces with a band of rebels led by the courageous Valen, who share her yearning for freedom and justice. Together, they embark on a treacherous journey through perilous terrains, evading Nychtoros' vigilant forces. As they traverse dark forests and crumbling ruins, they hear whispers of Seraphina's bravery, and the rebels reveal heart-wrenching stories of their loved ones lost to tyranny, each tale strengthening Anya's resolve. When Seraphina eventually crosses paths with Anya and the rebels, her presence ignites a newfound hope within the group. The camaraderie deepens as they strategize ways to confront their shared enemies, igniting a flicker of defiance against the Empire of the Void.</p>
+                                    </div>
+                                    <!-- After the Snowfall -->
+                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h5 class="text-lg font-semibold text-white">After the Snowfall</h5>
+                                            <span class="px-2 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full">Solitary, Reflective</span>
+                                        </div>
+                                        <p class="text-gray-300 leading-relaxed">Amidst a desolate frozen wasteland, Anya unexpectedly crosses paths with Seraphina, who has been battling the weight of her past losses and the toll of leadership. As snowflakes dance around them, they share intimate stories of grief and resilience, forging an unexpected bond. Seraphina, impressed by Anya's courage, finds in her a kindred spirit. Together, they reflect on their struggles and recognize their intertwined destinies. Through their conversations, they uncover the strength found in shared pain and the possibility of hope in the face of adversity. This bond inspires Seraphina to rethink her approach to leadership, embracing vulnerability as a source of strength.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Act II: Symphony of Suffering -->
+                            <div class="act-item">
+                                <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
+                                    <i data-lucide="play-circle" class="w-5 h-5"></i>
+                                    Act II: Symphony of Suffering
+                                </h4>
+                                <div class="space-y-3">
+                                    <!-- Symphony of Suffering -->
+                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h5 class="text-lg font-semibold text-white">Symphony of Suffering</h5>
+                                            <span class="px-2 py-1 text-xs bg-red-600/30 text-red-300 rounded-full">Intense, Chaotic</span>
+                                        </div>
+                                        <p class="text-gray-300 leading-relaxed">A colossal battle erupts between the rebels and Nychtoros' formidable forces, echoing with the sounds of clashing steel and cries of defiance. Amidst the chaos, Anya, Valen, and Seraphina fight valiantly, each showcasing their unique strengths. As the prophecy unfolds, it speaks of a hero who will rise to challenge the darkness, illuminating Anya's path. Seraphina steps up as a formidable leader, rallying her troops with passionate speeches that inspire courage in the face of overwhelming odds. The rebels unite under her banner, forming a fierce alliance that forges a symphony of hope amidst the suffering, each heartbeat resonating with the promise of a brighter future as they fight for their freedom.</p>
+                                    </div>
+                                    <!-- Mystic Horizon -->
+                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h5 class="text-lg font-semibold text-white">Mystic Horizon</h5>
+                                            <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Mysterious, Revealing</span>
+                                        </div>
+                                        <p class="text-gray-300 leading-relaxed">Seeking refuge from the turmoil, Anya and her allies stumble upon a mystical realm filled with ethereal landscapes and shimmering lights. Here, they encounter Elara, a wise and enigmatic figure who unveils the true nature of the darkness threatening the universe. Elara shares tales of ancient battles, forgotten legends, and the interconnectedness of all realms, offering guidance that resonates deeply with Anya and Seraphina. As they learn about the choices that shaped their destinies, Anya feels a profound sense of purpose awaken within her, recognizing the urgency of their mission against Nychtoros' reign. Seraphina, inspired by the legends, reflects on her own leadership and the legacy she wishes to create, fueling her resolve to lead her people toward freedom.</p>
+                                    </div>
+                                    <!-- Learning to Fly -->
+                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h5 class="text-lg font-semibold text-white">Learning to Fly</h5>
+                                            <span class="px-2 py-1 text-xs bg-green-600/30 text-green-300 rounded-full">Empowering, Uplifting</span>
+                                        </div>
+                                        <p class="text-gray-300 leading-relaxed">Under Elara's mentorship, Anya embarks on a transformative journey to harness her latent powers. Through rigorous trials that challenge her courage and self-belief, she confronts her deepest fears and insecurities. Each test reveals a new facet of her abilities, from mastering elemental forces to unlocking her inner strength. Elara's teachings inspire Anya to trust in her intuition and embrace her potential fully. Simultaneously, Seraphina undergoes her own transformation, realizing that her own past and experiences have prepared her for this moment. As Anya learns to embrace her true potential, she finds the courage to lead her allies in their fight against the Empire of the Void, igniting a flame of hope within the hearts of those around her.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Act III: Shadows and Stardust -->
+                            <div class="act-item">
+                                <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
+                                    <i data-lucide="play-circle" class="w-5 h-5"></i>
+                                    Act III: Shadows and Stardust
+                                </h4>
+                                <div class="space-y-3">
+                                    <!-- Shadows and Stardust -->
+                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h5 class="text-lg font-semibold text-white">Shadows and Stardust</h5>
+                                            <span class="px-2 py-1 text-xs bg-yellow-600/30 text-yellow-300 rounded-full">Adventurous, Discovery</span>
+                                        </div>
+                                        <p class="text-gray-300 leading-relaxed">Venturing into the cosmos, Anya and her companions explore ancient ruins that whisper secrets of the universe's creation. Surrounded by celestial beings, they uncover the origins of the darkness threatening their existence. Each encounter reveals the fragility of light against encroaching shadows. Amidst breathtaking starfields and swirling galaxies, Anya contemplates her place within this grand tapestry, realizing that her actions could tip the balance between hope and despair. Meanwhile, Seraphina reflects on her role as a leader and her connection to the cosmos, understanding that her past losses are part of a larger story that can inspire others to rise against darkness.</p>
+                                    </div>
+                                    <!-- Stormbringer -->
+                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h5 class="text-lg font-semibold text-white">Stormbringer</h5>
+                                            <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Mysterious, Intriguing</span>
+                                        </div>
+                                        <p class="text-gray-300 leading-relaxed">As the conflict escalates, a mysterious figure known as the Stormbringer emerges, shrouded in an aura of raw power. Anya is drawn to this enigmatic presence but is torn between trust and caution. Whispers surround the Stormbringer, hinting at their potential to shift the tide of war. Seraphina observes Anya's internal struggle and offers her support, emphasizing the importance of trust within their ranks. As they journey together, Anya learns of the Stormbringer's tragic past and their connection to the darkness. In a world where alliances are fragile, Anya and Seraphina must discern whether to embrace this powerful force or stand alone against the encroaching shadows that threaten them all.</p>
+                                    </div>
+                                    <!-- Eclipse of Destiny -->
+                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h5 class="text-lg font-semibold text-white">Eclipse of Destiny</h5>
+                                            <span class="px-2 py-1 text-xs bg-orange-600/30 text-orange-300 rounded-full">Dramatic, Decisive</span>
+                                        </div>
+                                        <p class="text-gray-300 leading-relaxed">With a cosmic event looming, the stakes reach an all-time high as Anya faces a pivotal decision that could determine the universe's fate. As darkness envelops the land, she confronts Nychtoros, the embodiment of oppression and despair. Seraphina stands beside her, embodying the fierce determination that has grown throughout their journey. Together, they grapple with the weight of their choices, knowing that every decision could resonate across time. The choices they make in this moment will define their legacy, and they must summon every ounce of strength to embrace their roles as beacons of hope and protectors of those they love.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Act IV: Haunting Life and Celestial Rebellion -->
+                            <div class="act-item">
+                                <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
+                                    <i data-lucide="play-circle" class="w-5 h-5"></i>
+                                    Act IV: Haunting Life and Celestial Rebellion
+                                </h4>
+                                <div class="space-y-3">
+                                    <!-- Shadows in the Rain -->
+                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h5 class="text-lg font-semibold text-white">Shadows in the Rain</h5>
+                                            <span class="px-2 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full">Introspective, Challenging</span>
+                                        </div>
+                                        <p class="text-gray-300 leading-relaxed">As the battle intensifies, Anya confronts her inner demons, delving into her past and uncovering the truth about her heritage as a descendant of ancient vampires. In a rain-soaked battlefield, Seraphina stands by her side, confronting her own fears and past mistakes. Together, they face the duality of their existence, grappling with the darkness within them. Each raindrop serves as a reminder of the lives lost and the sacrifices made. Through this reflection, Anya and Seraphina gain clarity, learning to embrace their lineage and struggles as sources of strength rather than burdens. This newfound understanding empowers them to fight against Nychtoros' tyranny with renewed vigor.</p>
+                                    </div>
+                                    <!-- Endless Night -->
+                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h5 class="text-lg font-semibold text-white">Endless Night</h5>
+                                            <span class="px-2 py-1 text-xs bg-red-600/30 text-red-300 rounded-full">Desperate, Intense</span>
+                                        </div>
+                                        <p class="text-gray-300 leading-relaxed">The universe plunges into despair as Nychtoros' power grows unchecked, casting a shadow over all realms. Anya and her allies rally together for their greatest battle yet, knowing that the fate of countless lives hangs in the balance. Seraphina, now fully embracing her role as a leader, inspires her people with her unwavering courage and conviction. As they face overwhelming odds, they harness the strength of their bond, each warrior drawing from their shared determination. The skies darken, and the air crackles with tension as they prepare to confront their greatest enemy, aware that every sacrifice they make could be the key to reclaiming their light and restoring hope to the universe.</p>
+                                    </div>
+                                    <!-- Celestial Rebellion -->
+                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h5 class="text-lg font-semibold text-white">Celestial Rebellion</h5>
+                                            <span class="px-2 py-1 text-xs bg-gold-600/30 text-gold-300 rounded-full">Triumphant, Bittersweet</span>
+                                        </div>
+                                        <p class="text-gray-300 leading-relaxed">In a climactic battle that transcends realms, Anya and her companions unite with celestial forces to confront Nychtoros. As the conflict reaches its zenith, alliances are forged, and ancient prophecies come to life. Amidst the chaos, Anya makes the ultimate sacrifice, choosing to remain in exile in the underworld to prevent Nychtoros' return. Her selflessness resonates with her allies, especially Seraphina, who is profoundly affected by the loss of her friend. Inspired by Anya's sacrifice, Seraphina vows to carry on Anya's legacy, becoming a beacon of hope for those left behind. In the heat of battle, she channels her grief into strength, fighting fiercely to protect the future they envisioned together.</p>
+                                    </div>
+                                    <!-- Haunting Life -->
+                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h5 class="text-lg font-semibold text-white">Haunting Life</h5>
+                                            <span class="px-2 py-1 text-xs bg-green-600/30 text-green-300 rounded-full">Reflective, Hopeful</span>
+                                        </div>
+                                        <p class="text-gray-300 leading-relaxed">In the aftermath of the epic struggle, Anya reflects on her arduous journey, filled with trials and tribulations. As she stands in the quiet remnants of what was once a battlefield, she acknowledges the profound changes she has undergone. Seraphina emerges as a leader committed to honoring Anya's sacrifice, uniting her people and continuing the fight against Nychtoros' lingering influence. She realizes that her legacy will endure as a guiding light for future generations, inspiring others to rise against tyranny. Though Anya remains in exile, her spirit becomes a haunting echo of hope, reminding Seraphina and the universe that even in the darkest times, the flame of resistance can never be extinguished.</p>
+                                    </div>
+                                </div>
+                            </div>
         </div>
     </div>
 </div>
