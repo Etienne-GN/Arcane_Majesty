@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML to HTML Song Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen p-6">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center">XML to HTML Song Converter</h1>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- Input Section -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-semibold">XML Input</h2>
+                <textarea 
+                    id="xmlInput" 
+                    placeholder="Paste your XML here..."
+                    class="w-full h-64 p-4 bg-gray-800 border border-gray-600 rounded-lg font-mono text-sm resize-none"
+                ></textarea>
+                <button 
+                    onclick="convertXML()" 
+                    class="w-full bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors duration-300"
+                >
+                    Convert to HTML
+                </button>
+            </div>
+            
+            <!-- Output Section -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-semibold">HTML Output</h2>
+                <textarea 
+                    id="htmlOutput" 
+                    placeholder="HTML output will appear here..."
+                    class="w-full h-64 p-4 bg-gray-800 border border-gray-600 rounded-lg font-mono text-sm resize-none"
+                    readonly
+                ></textarea>
+                <button 
+                    onclick="copyToClipboard()" 
+                    class="w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg transition-colors duration-300"
+                >
+                    Copy HTML
+                </button>
+            </div>
+        </div>
+        
+        <!-- Preview Section -->
+        <div class="mt-8">
+            <h2 class="text-xl font-semibold mb-4">Preview</h2>
+            <div id="preview" class="bg-gray-800 p-6 rounded-lg border border-gray-600">
+                <p class="text-gray-400 text-center">Preview will appear here after conversion</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function convertXML() {
+            const xmlInput = document.getElementById('xmlInput').value.trim();
+            if (!xmlInput) {
+                alert('Please enter XML content');
+                return;
+            }
+
+            try {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlInput, 'text/xml');
+                
+                // Check for parsing errors
+                if (xmlDoc.getElementsByTagName('parsererror').length > 0) {
+                    throw new Error('Invalid XML format');
+                }
+                
+                const songs = xmlDoc.getElementsByTagName('Song');
+                let htmlOutput = '';
+                
+                for (let song of songs) {
+                    htmlOutput += convertSongToHTML(song);
+                }
+                
+                document.getElementById('htmlOutput').value = htmlOutput;
+                document.getElementById('preview').innerHTML = htmlOutput;
+                
+                // Initialize Lucide icons and event listeners
+                setTimeout(() => {
+                    lucide.createIcons();
+                    initializeLyricsToggles();
+                }, 100);
+                
+            } catch (error) {
+                alert('Error converting XML: ' + error.message);
+            }
+        }
+
+        function convertSongToHTML(songElement) {
+            const songName = songElement.getAttribute('song') || 'Unknown Song';
+            const songId = songElement.getElementsByTagName('song_id')[0]?.textContent || '1';
+            const tone = songElement.getElementsByTagName('Tone')[0]?.textContent || 'Unknown';
+            const plot = songElement.getElementsByTagName('Plot')[0]?.textContent || 'No plot available';
+            const lyrics = songElement.getElementsByTagName('Lyrics')[0]?.textContent || 'No lyrics available';
+            
+            // Create a safe ID for the lyrics container
+            const safeId = `lyrics-${songName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+            
+            // Format lyrics with proper styling
+            const formattedLyrics = formatLyrics(lyrics);
+            
+            // Build the HTML with proper concatenation to control formatting
+            let html = '';
+            html += '                                        <!-- ' + songName + ' -->\n';
+            html += '                                        <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">\n';
+            html += '                                            <div class="flex justify-between items-start mb-2">\n';
+            html += '                                                <h5 class="text-lg font-semibold text-white">' + songName + '</h5>\n';
+            html += '                                                <div class="flex items-center gap-2">\n';
+            html += '                                                    <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">' + tone + '</span>\n';
+            html += '                                                    <button class="lyrics-toggle px-3 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full hover:bg-blue-600/50 transition-colors duration-300" data-target="' + safeId + '">\n';
+            html += '                                                        Show Lyrics\n';
+            html += '                                                    </button>\n';
+            html += '                                                </div>\n';
+            html += '                                            </div>\n';
+            html += '                                            <p class="text-gray-300 leading-relaxed mb-4">' + plot.trim() + '</p>\n';
+            html += '            \n';
+            html += '                                            <!-- Lyrics Section -->\n';
+            html += '                                            <div id="' + safeId + '" class="lyrics-container hidden">\n';
+            html += '                                                <div class="bg-black/30 p-4 rounded-lg border border-gray-600/30 mt-4">\n';
+            html += '                                                    <h6 class="text-md font-semibold text-red-300 mb-3 flex items-center gap-2">\n';
+            html += '                                                        <i data-lucide="music" class="w-4 h-4"></i>\n';
+            html += '                                                        Lyrics\n';
+            html += '                                                    </h6>\n';
+            html += '                                                    <div class="lyrics-content text-gray-300 text-sm leading-relaxed space-y-3">\n';
+            html += formattedLyrics;
+            html += '\n                                                    </div>\n';
+            html += '                                                </div>\n';
+            html += '                                            </div>\n';
+            html += '                                        </div>\n';
+            
+            return html;
+        }
+
+        function formatLyrics(lyrics) {
+            const lines = lyrics.split('\n').map(line => line.trim()).filter(line => line);
+            let formattedLyrics = '';
+            let currentSection = '';
+            
+            const sectionColors = {
+                'verse': 'text-red-400',
+                'chorus': 'text-yellow-400',
+                'pre-chorus': 'text-orange-400',
+                'bridge': 'text-purple-400',
+                'outro': 'text-blue-400'
+            };
+            
+            for (let line of lines) {
+                if (line.startsWith('[') && line.endsWith(']')) {
+                    // This is a section header
+                    if (currentSection) {
+                        formattedLyrics += '                                                        </div>\n\n';
+                    }
+                    
+                    // Get the section type without numbers (e.g., "Verse 1" becomes "verse")
+                    const sectionText = line.toLowerCase().replace(/[\[\]]/g, '');
+                    const sectionType = sectionText.replace(/\s+\d+/, '').replace(/\s+/g, '-');
+                    const sectionClass = sectionColors[sectionType] || 'text-gray-400';
+                    
+                    formattedLyrics += `                                                        <div class="${sectionType}">\n`;
+                    formattedLyrics += `                                                            <span class="verse-label ${sectionClass} font-semibold">${line}</span><br>\n`;
+                    currentSection = sectionType;
+                } else {
+                    // This is a lyric line
+                    formattedLyrics += `                                                            ${line}<br>\n`;
+                }
+            }
+            
+            if (currentSection) {
+                formattedLyrics += '                                                        </div>';
+            }
+            
+            return formattedLyrics;
+        }
+
+        function initializeLyricsToggles() {
+            const toggleButtons = document.querySelectorAll('.lyrics-toggle');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const lyricsContainer = document.getElementById(targetId);
+                    
+                    if (lyricsContainer) {
+                        if (lyricsContainer.classList.contains('hidden')) {
+                            lyricsContainer.classList.remove('hidden');
+                            this.textContent = 'Hide Lyrics';
+                        } else {
+                            lyricsContainer.classList.add('hidden');
+                            this.textContent = 'Show Lyrics';
+                        }
+                    }
+                });
+            });
+        }
+
+        function copyToClipboard() {
+            const htmlOutput = document.getElementById('htmlOutput');
+            htmlOutput.select();
+            document.execCommand('copy');
+            
+            // Visual feedback
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.classList.add('bg-green-700');
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('bg-green-700');
+            }, 2000);
+        }
+
+        // Sample XML for demonstration
+        document.getElementById('xmlInput').value = `<Song song="Empire of the Void">
+    <song_id>1</song_id>
+    <Tone>Mysterious, Intriguing</Tone>
+    <Plot>Anya, a young and inquisitive scholar from the distant land of Thaloria, finds herself mysteriously transported to the ominous Empire of the Void, a realm steeped in darkness and ruled by the enigmatic Nychtoros, a being that patrols the borders between the night and day. As she navigates this foreboding land, she encounters shadowy landscapes filled with whispers of despair and haunted echoes of lost souls. Anya discovers hidden chambers containing ancient prophecies that foretell the rise of a hero amidst the empire's suffocating oppression. During her journey, she learns about Seraphina, a fierce warrior queen fighting against Nychtoros, whose own tragic losses drive her determination to liberate her people. Anya grapples with her own fears while deciphering the cryptic symbols that hint at her significant role in the unfolding events, igniting a spark of determination within her to uncover the truth about this malevolent empire.</Plot>
+    <Lyrics>[Verse 1]
+In the shadow of the night, where the stars refuse to glow,
+A kingdom forged in darkness, where the ancient whispers flow.
+Rising from the ashes of a world that once was bright,
+A symphony of silence in the everlasting night.
+
+[Pre-Chorus]
+Beyond the edge of time and space, where legends dare to dream,
+A force beyond imagining, where nothing's what it seems.
+
+[Chorus]
+In the Empire of the Void, where shadows reign supreme,
+We're bound by chains of destiny, within this dark regime.
+A realm where echoes linger, where silence speaks in screams,
+In the Empire of the Void, we live within our dreams.
+
+[Verse 2]
+Eclipsing suns and galaxies, our power knows no bounds,
+Eternal night embraces all, in darkness, we are crowned.
+Through cosmic storms and nebulas, our legions march as one,
+An empire built on silence, beneath a blackened sun.
+
+[Bridge]
+Through the endless dark, we rise, our spirits never fade,
+In the heart of nothingness, our legacy is made.
+We conquer through the silence, our banners waving high,
+In the Empire of the Void, where stars go to die.
+
+[Outro]
+Through the endless dark, we rise, our spirits never fade,
+In the heart of nothingness, our legacy is made.
+We conquer through the silence, our banners waving high,
+In the Empire of the Void, where stars go to die.</Lyrics>
+    <analysis>...</analysis>
+</Song>`;
+    </script>
+</body>
+</html>
