@@ -1571,131 +1571,1135 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="glass-card rounded-xl hover-lift album-item" data-album="2">
-                    <div class="p-6 cursor-pointer flex items-center justify-between album-header">
-                        <div class="flex-1">
-                            <h3 class="text-2xl font-bold text-white mb-2">Queen of Carnage</h3>
-                            <p class="text-gray-300">An epic tale of power, conquest, and the burden of absolute rule</p>
+                        <div class="p-6 cursor-pointer flex items-center justify-between album-header">
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold text-white mb-2">Queen of Carnage</h3>
+                                <p class="text-gray-300">An epic tale of power, conquest, and the burden of absolute rule</p>
+                            </div>
+                            <div class="ml-4 p-2 rounded-full bg-red-700/20">
+                                <i data-lucide="chevron-right" class="w-6 h-6 text-red-400 expand-icon transition-transform duration-300"></i>
+                            </div>
                         </div>
-                        <div class="ml-4 p-2 rounded-full bg-red-700/20">
-                            <i data-lucide="chevron-right" class="w-6 h-6 text-red-400 expand-icon transition-transform duration-300"></i>
-                        </div>
-                    </div>
-                    <div class="expandable-content album-content border-t border-gray-600/30">
-                        <div class="p-6 space-y-6">
-                            <!-- Act I: The Queen's Ascent -->
-                            <div class="act-item">
-                                <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
-                                    <i data-lucide="play-circle" class="w-5 h-5"></i>
-                                    Act I: The Queen's Ascent
-                                </h4>
-                                <div class="space-y-3">
-                                    <!-- Queen of Carnage -->
-                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                                        <div class="flex justify-between items-start mb-2">
-                                            <h5 class="text-lg font-semibold text-white">Queen of Carnage</h5>
-                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-purple-600 text-white">Dramatic, Powerful</span>
+                        <div class="expandable-content album-content border-t border-gray-600/30">
+                            <div class="p-6 space-y-6">
+                                <!-- Act I: The Queen's Ascent -->
+                                <div class="act-item">
+                                    <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
+                                        <i data-lucide="play-circle" class="w-5 h-5"></i>
+                                        Act I: The Queen's Ascent
+                                    </h4>
+                                    <div class="space-y-3">
+                                        <!-- Queen of Carnage -->
+                                        <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <h5 class="text-lg font-semibold text-white">Queen of Carnage</h5>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Dramatic, Powerful</span>
+                                                    <button class="lyrics-toggle px-3 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full hover:bg-blue-600/50 transition-colors duration-300" data-target="lyrics-queen-of-carnage">
+                                                        Show Lyrics
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="text-gray-300 leading-relaxed mb-4">Introduces Queen Seraphina, the Queen of Carnage. It describes her rise to power, her throne forged in fury, and her reign over a kingdom born from the ashes of a fallen empire.</p>
+            
+                                            <!-- Lyrics Section -->
+                                            <div id="lyrics-queen-of-carnage" class="lyrics-container hidden">
+                                                <div class="bg-black/30 p-4 rounded-lg border border-gray-600/30 mt-4">
+                                                    <h6 class="text-md font-semibold text-red-300 mb-3 flex items-center gap-2">
+                                                        <i data-lucide="music" class="w-4 h-4"></i>
+                                                        Lyrics
+                                                    </h6>
+                                                    <div class="lyrics-content text-gray-300 text-sm leading-relaxed space-y-3">
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 1]</span><br>
+                                                            In the heart of the tempest, where shadows entwine,<br>
+                                                            A throne forged in fury, where the damned dare not shine.<br>
+                                                            She rises in splendor, with eyes cold as steel,<br>
+                                                            A queen crowned in chaos, her reign is revealed.<br>
+                                                        </div>
+
+                                                        <div class="pre-chorus">
+                                                            <span class="verse-label text-orange-400 font-semibold">[Pre-Chorus]</span><br>
+                                                            From the ashes of empire, her kingdom is born,<br>
+                                                            With a voice like the thunder, she summons the storm.<br>
+                                                            Her whispers are poison, her touch is a blade,<br>
+                                                            In the dance of destruction, her legend is made.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            Hail to the Queen of Carnage, ruler of night,<br>
+                                                            In the land of the broken, she is the light.<br>
+                                                            With her scepter of shadows and crown of despair,<br>
+                                                            She reigns over ruin, in the dark, we declare.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 2]</span><br>
+                                                            In the wake of her passage, the earth splits in two,<br>
+                                                            A chasm of sorrow where hope bids adieu.<br>
+                                                            The legions of darkness bend knee to her will,<br>
+                                                            Their voices like thunder, her name they fulfill.<br>
+                                                        </div>
+
+                                                        <div class="pre-chorus">
+                                                            <span class="verse-label text-orange-400 font-semibold">[Pre-Chorus]</span><br>
+                                                            In the heart of the fire, her power takes flight,<br>
+                                                            As the heavens are shattered, she claims the night.<br>
+                                                            Her laughter like daggers, her smile like sin,<br>
+                                                            In the court of destruction, her reign shall begin.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            Hail to the Queen of Carnage, ruler of night,<br>
+                                                            In the land of the broken, she is the light.<br>
+                                                            With her scepter of shadows and crown of despair,<br>
+                                                            She reigns over ruin, in the dark, we declare.<br>
+                                                        </div>
+
+                                                        <div class="bridge">
+                                                            <span class="verse-label text-purple-400 font-semibold">[Bridge]</span><br>
+                                                            A symphony of sorrow, a melody of pain,<br>
+                                                            In the kingdom of chaos, her rule shall remain.<br>
+                                                            Her eyes like the void, her heart like the flame,<br>
+                                                            In the chronicles of darkness, they whisper her name.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            Hail to the Queen of Carnage, ruler of night,<br>
+                                                            In the land of the broken, she is the light.<br>
+                                                            With her scepter of shadows and crown of despair,<br>
+                                                            She reigns over ruin, in the dark, we declare.<br>
+                                                        </div>
+
+                                                        <div class="outro">
+                                                            <span class="verse-label text-blue-400 font-semibold">[Outro]</span><br>
+                                                            So rise, oh, Queen, oh Queen of Carnage, let your darkness reign,<br>
+                                                            In the halls of forever, your power will remain.<br>
+                                                            With your scepter of shadows, and crown of despair,<br>
+                                                            Eternal and ruthless, in your dark lair.<br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p class="text-gray-300 leading-relaxed">Introduces Queen Seraphina, the Queen of Carnage. It describes her rise to power, her throne forged in fury, and her reign over a kingdom born from the ashes of a fallen empire.</p>
-                                    </div>
-                                    <!-- The Whispering Shadows -->
-                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                                        <div class="flex justify-between items-start mb-2">
-                                            <h5 class="text-lg font-semibold text-white">The Whispering Shadows</h5>
-                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-indigo-600 text-white">Intriguing, Mysterious</span>
+                                        <!-- The Whispering Shadows -->
+                                        <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <h5 class="text-lg font-semibold text-white">The Whispering Shadows</h5>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Intriguing, Mysterious</span>
+                                                    <button class="lyrics-toggle px-3 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full hover:bg-blue-600/50 transition-colors duration-300" data-target="lyrics-the-whispering-shadows">
+                                                        Show Lyrics
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="text-gray-300 leading-relaxed mb-4">Queen Seraphina learns of the Lord of Shadows, a powerful ruler of a neighboring realm. Intrigued by his dominion and the potential to expand her own, she sends her spies to gather information about his strengths and weaknesses.</p>
+            
+                                            <!-- Lyrics Section -->
+                                            <div id="lyrics-the-whispering-shadows" class="lyrics-container hidden">
+                                                <div class="bg-black/30 p-4 rounded-lg border border-gray-600/30 mt-4">
+                                                    <h6 class="text-md font-semibold text-red-300 mb-3 flex items-center gap-2">
+                                                        <i data-lucide="music" class="w-4 h-4"></i>
+                                                        Lyrics
+                                                    </h6>
+                                                    <div class="lyrics-content text-gray-300 text-sm leading-relaxed space-y-3">
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 1]</span><br>
+                                                            In the halls of her palace, where secrets reside,<br>
+                                                            Queen Seraphina listens, with shadows as guides.<br>
+                                                            Whispers of power, a realm cloaked in night,<br>
+                                                            The Lord of Shadows, a new target in sight.<br>
+                                                            Through the veil of the darkness, her spies weave their tale,<br>
+                                                            Of a kingdom in twilight, where the shadows prevail.<br>
+                                                            With eyes like the moonlight, she plots her next move,<br>
+                                                            In the dance of deception, her prowess to prove.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            Whispering shadows, secrets untold,<br>
+                                                            In the heart of the night, her ambitions unfold.<br>
+                                                            With a mind sharp as daggers, and a heart cold as stone,<br>
+                                                            She seeks to conquer, to claim as her own.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 2]</span><br>
+                                                            In the depths of the night, her agents take flight,<br>
+                                                            To the land of the shadows, where darkness is might.<br>
+                                                            They gather the whispers, the fears and the lies,<br>
+                                                            To bring to their queen, the truth in disguise.<br>
+                                                            From the shadows they come, with secrets in hand,<br>
+                                                            Of a lord who commands, a dark, twisted land.<br>
+                                                            With a voice like the silence, she plans her attack,<br>
+                                                            In the game of dominion, there’s no turning back.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            Whispering shadows, secrets untold,<br>
+                                                            In the heart of the night, her ambitions unfold.<br>
+                                                            With a mind sharp as daggers, and a heart cold as stone,<br>
+                                                            She seeks to conquer, to claim as her own.<br>
+                                                        </div>
+
+                                                        <div class="bridge">
+                                                            <span class="verse-label text-purple-400 font-semibold">[Bridge]</span><br>
+                                                            In the still of the night, her resolve is like steel,<br>
+                                                            With the whispers of shadows, her fate is sealed.<br>
+                                                            A queen on a mission, with darkness as her guide,<br>
+                                                            In the realm of the shadows, her power will bide.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            Whispering shadows, secrets untold,<br>
+                                                            In the heart of the night, her ambitions unfold.<br>
+                                                            With a mind sharp as daggers, and a heart cold as stone,<br>
+                                                            She seeks to conquer, to claim as her own.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            Whispering shadows, secrets untold,<br>
+                                                            In the heart of the night, her ambitions unfold.<br>
+                                                            With a mind sharp as daggers, and a heart cold as stone,<br>
+                                                            She seeks to conquer, to claim as her own.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 3]</span><br>
+                                                            So rise, oh, Queen Seraphina<br>
+                                                            let your shadows spread wide<br>
+                                                            In the land of the whispers<br>
+                                                            Your power won’t hide.<br>
+                                                            With your mind and your might<br>
+                                                            And your heart cold as stone,<br>
+                                                            The realm of the shadows<br>
+                                                            You shall call your own.<br>
+                                                        </div>
+
+                                                        <div class="outro">
+                                                            <span class="verse-label text-blue-400 font-semibold">[Outro]</span><br>
+                                                            In the still of the night, her agents take flight,<br>
+                                                            To the land of the shadows, where darkness is might.<br>
+                                                            They gather the whispers, the fears and the lies,<br>
+                                                            To bring to their queen, the truth in disguise.<br>
+                                                            In the still of the night, her agents take flight<br>
+                                                            With the whispers of shadows, her fate is sealed.<br>
+                                                            A queen on a mission, with darkness as her guide,<br>
+                                                            In the realm of the shadows, her power will bide<br>
+                                                            In the realm of the shadows, her power will bide<br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p class="text-gray-300 leading-relaxed">Queen Seraphina learns of the Lord of Shadows, a powerful ruler of a neighboring realm. Intrigued by his dominion and the potential to expand her own, she sends her spies to gather information about his strengths and weaknesses.</p>
-                                    </div>
-                                    <!-- The Gathering Storm -->
-                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                                        <div class="flex justify-between items-start mb-2">
-                                            <h5 class="text-lg font-semibold text-white">The Gathering Storm</h5>
-                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-orange-600 text-white">Dramatic, Epic</span>
+                                        <!-- The Gathering Storm -->
+                                        <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <h5 class="text-lg font-semibold text-white">The Gathering Storm</h5>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Dramatic, Epic</span>
+                                                    <button class="lyrics-toggle px-3 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full hover:bg-blue-600/50 transition-colors duration-300" data-target="lyrics-the-gathering-storm">
+                                                        Show Lyrics
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="text-gray-300 leading-relaxed mb-4">As Seraphina prepares for war, she rallies her legions of darkness. Her generals and advisors debate strategies, and the queen's resolve to conquer the Lord of Shadows' territory grows stronger. The chapter ends with the first skirmishes at the border.</p>
+            
+                                            <!-- Lyrics Section -->
+                                            <div id="lyrics-the-gathering-storm" class="lyrics-container hidden">
+                                                <div class="bg-black/30 p-4 rounded-lg border border-gray-600/30 mt-4">
+                                                    <h6 class="text-md font-semibold text-red-300 mb-3 flex items-center gap-2">
+                                                        <i data-lucide="music" class="w-4 h-4"></i>
+                                                        Lyrics
+                                                    </h6>
+                                                    <div class="lyrics-content text-gray-300 text-sm leading-relaxed space-y-3">
+                                                            ∴<br>
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 1]</span><br>
+                                                            In the heart of her kingdom, the drums start to beat,<br>
+                                                            Queen Seraphina gathers her forces, her power complete.<br>
+                                                            With banners of darkness, they march through the night,<br>
+                                                            A storm on the horizon, ready to fight.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 2]</span><br>
+                                                            Her generals assemble, with strategies in hand,<br>
+                                                            To conquer the shadows, to claim the dark land.<br>
+                                                            With a voice like the thunder, she rallies her kin,<br>
+                                                            In the dance of destruction, the war will begin.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The gathering storm, a force to be reckoned,<br>
+                                                            In the heart of the night, her power is beckoned.<br>
+                                                            With legions of darkness, and a will made of steel,<br>
+                                                            She marches to battle, her fate to reveal.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 3]</span><br>
+                                                            The borderlands tremble, as her army draws near,<br>
+                                                            The Lord of Shadows senses the coming of fear.<br>
+                                                            With swords sharp as whispers, and shields like the night,<br>
+                                                            They clash in the darkness, a fierce, brutal fight.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 4]</span><br>
+                                                            Through the chaos and carnage, her voice cuts the air,<br>
+                                                            A queen in her element, with a cold, ruthless stare.<br>
+                                                            With a heart full of fury, and a mind sharp as blades,<br>
+                                                            In the storm of the battle, her legend cascades.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The gathering storm, a force to be reckoned,<br>
+                                                            In the heart of the night, her power is beckoned.<br>
+                                                            With legions of darkness, and a will made of steel,<br>
+                                                            She marches to battle, her fate to reveal.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 4]</span><br>
+                                                            Through the chaos and carnage, her voice cuts the air,<br>
+                                                            A queen in her element, with a cold, ruthless stare.<br>
+                                                            With a heart full of fury, and a mind sharp as blades,<br>
+                                                            In the storm of the battle, her legend cascades.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The gathering storm, a force to be reckoned,<br>
+                                                            In the heart of the night, her power is beckoned.<br>
+                                                            With legions of darkness, and a will made of steel,<br>
+                                                            She marches to battle, her fate to reveal.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The gathering storm, a force to be reckoned,<br>
+                                                            In the heart of the night, her power is beckoned.<br>
+                                                            With legions of darkness, and a will made of steel,<br>
+                                                            She marches to battle, her fate to reveal.<br>
+                                                        </div>
+
+                                                        <div class="outro">
+                                                            <span class="verse-label text-blue-400 font-semibold">[Outro]</span><br>
+                                                            So rise, oh, Queen Seraphina, let your storm rage on,<br>
+                                                            In the heart of the darkness, your power is drawn.<br>
+                                                            With your legions and might, and your will made of steel,<br>
+                                                            The gathering storm, your fate to reveal.<br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p class="text-gray-300 leading-relaxed">As Seraphina prepares for war, she rallies her legions of darkness. Her generals and advisors debate strategies, and the queen's resolve to conquer the Lord of Shadows' territory grows stronger. The chapter ends with the first skirmishes at the border.</p>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Act II: The War for Dominance -->
-                            <div class="act-item">
-                                <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
-                                    <i data-lucide="play-circle" class="w-5 h-5"></i>
-                                    Act II: The War for Dominance
-                                </h4>
-                                <div class="space-y-3">
-                                    <!-- The Siege of Silence -->
-                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                                        <div class="flex justify-between items-start mb-2">
-                                            <h5 class="text-lg font-semibold text-white">The Siege of Silence</h5>
-                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-red-700 text-white">Intense, Brutal</span>
+                                <!-- Act II: The War for Dominance -->
+                                <div class="act-item">
+                                    <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
+                                        <i data-lucide="play-circle" class="w-5 h-5"></i>
+                                        Act II: The War for Dominance
+                                    </h4>
+                                    <div class="space-y-3">
+                                        <!-- The Siege of Silence -->
+                                        <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <h5 class="text-lg font-semibold text-white">The Siege of Silence</h5>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Intense, Brutal</span>
+                                                    <button class="lyrics-toggle px-3 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full hover:bg-blue-600/50 transition-colors duration-300" data-target="lyrics-the-siege-of-silence">
+                                                        Show Lyrics
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="text-gray-300 leading-relaxed mb-4">Queen Seraphina's forces lay siege to the first stronghold of the Lord of Shadows. The battle is fierce, with both sides suffering heavy losses. Seraphina's cunning and ruthlessness begin to turn the tide in her favor.</p>
+            
+                                            <!-- Lyrics Section -->
+                                            <div id="lyrics-the-siege-of-silence" class="lyrics-container hidden">
+                                                <div class="bg-black/30 p-4 rounded-lg border border-gray-600/30 mt-4">
+                                                    <h6 class="text-md font-semibold text-red-300 mb-3 flex items-center gap-2">
+                                                        <i data-lucide="music" class="w-4 h-4"></i>
+                                                        Lyrics
+                                                    </h6>
+                                                    <div class="lyrics-content text-gray-300 text-sm leading-relaxed space-y-3">
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 1]</span><br>
+                                                            In the dead of the night, her forces advance,<br>
+                                                            Queen Seraphina leads with a cold, steely glance.<br>
+                                                            The stronghold of shadows, their target in sight,<br>
+                                                            A siege in the silence, the prelude to fight.<br>
+                                                            With walls tall and mighty, the fortress stands strong,<br>
+                                                            But the queen’s dark resolve will not be wronged.<br>
+                                                            With whispers of power, and shadows as guides,<br>
+                                                            In the siege of the silence, the prelude to fight.<br>
+                                                        </div>
+
+                                                        <div class="pre-chorus">
+                                                            <span class="verse-label text-orange-400 font-semibold">[Pre-Chorus]</span><br>
+                                                            With walls tall and mighty, the fortress stands strong,<br>
+                                                            But the queen’s dark resolve will not be wronged.<br>
+                                                            With whispers of power, and shadows as guides,<br>
+                                                            In the siege of the silence, her fury abides.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The siege of silence, a battle of will,<br>
+                                                            In the heart of the night, the air becomes still.<br>
+                                                            With legions of darkness, and a queen’s iron hand,<br>
+                                                            They breach the defenses, to conquer the land.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 2]</span><br>
+                                                            The clash of the steel, the cries of the night,<br>
+                                                            The fortress of shadows, now caught in the fight.<br>
+                                                            With arrows like whispers, and swords like the wind,<br>
+                                                            The siege of the silence, where battles begin.<br>
+                                                            Through the chaos and carnage, her voice leads the way,<br>
+                                                            A queen in her element, with shadows at play.<br>
+                                                            With a heart full of fury, and a mind sharp as blades,<br>
+                                                            In the siege of the silence, her legend cascades.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The siege of silence, a battle of will,<br>
+                                                            In the heart of the night, the air becomes still.<br>
+                                                            With legions of darkness, and a queen’s iron hand,<br>
+                                                            They breach the defenses, to conquer the land.<br>
+                                                        </div>
+
+                                                        <div class="bridge">
+                                                            <span class="verse-label text-purple-400 font-semibold">[Bridge]</span><br>
+                                                            In the still of the night, her power takes flight,<br>
+                                                            With the siege as her weapon, she claims the night.<br>
+                                                            A queen on a mission, with darkness as her guide,<br>
+                                                            In the siege of the silence, her power won’t hide.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The siege of silence, a battle of will,<br>
+                                                            In the heart of the night, the air becomes still.<br>
+                                                            With legions of darkness, and a queen’s iron hand,<br>
+                                                            They breach the defenses, to conquer the land.<br>
+                                                        </div>
+
+                                                        <div class="outro">
+                                                            <span class="verse-label text-blue-400 font-semibold">[Outro]</span><br>
+                                                            So rise, oh, Queen Seraphina, let your siege rage on,<br>
+                                                            In the heart of the darkness, your power is drawn.<br>
+                                                            With your legions and might, and your will made of steel,<br>
+                                                            The siege of the silence, your fate to reveal.<br>
+                                                            In the dead of the night, her forces advance,<br>
+                                                            Queen Seraphina leads with a cold, steely glance.<br>
+                                                            The stronghold of shadows, their target in sight,<br>
+                                                            A siege in the silence, the prelude to fight.<br>
+                                                            In the still of the night, her power takes flight,<br>
+                                                            With the siege as her weapon, she claims the night.<br>
+                                                            A queen on a mission, with darkness as her guide,<br>
+                                                            In the siege of the silence, her power won’t hide.<br>
+                                                            The siege of silence, a battle of will,<br>
+                                                            In the heart of the night, the air becomes still.<br>
+                                                            With legions of darkness, and a queen’s iron hand,<br>
+                                                            They breach the defenses, to conquer the land.<br>
+                                                            So rise, oh, Queen Seraphina, let your siege rage on,<br>
+                                                            In the heart of the darkness, your power is drawn.<br>
+                                                            With your legions and might, and your will made of steel,<br>
+                                                            The siege of the silence, your fate to reveal.<br>
+                                                            To conquer the Land.<br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p class="text-gray-300 leading-relaxed">Queen Seraphina's forces lay siege to the first stronghold of the Lord of Shadows. The battle is fierce, with both sides suffering heavy losses. Seraphina's cunning and ruthlessness begin to turn the tide in her favor.</p>
-                                    </div>
-                                    <!-- The Betrayal Within -->
-                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                                        <div class="flex justify-between items-start mb-2">
-                                            <h5 class="text-lg font-semibold text-white">The Betrayal Within</h5>
-                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-yellow-600 text-white">Dramatic, Suspenseful</span>
+                                        <!-- The Betrayal Within -->
+                                        <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <h5 class="text-lg font-semibold text-white">The Betrayal Within</h5>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Dramatic, Suspenseful</span>
+                                                    <button class="lyrics-toggle px-3 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full hover:bg-blue-600/50 transition-colors duration-300" data-target="lyrics-the-betrayal-within">
+                                                        Show Lyrics
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="text-gray-300 leading-relaxed mb-4">Amidst the chaos of war, a trusted advisor betrays Queen Seraphina, revealing critical information to the Lord of Shadows. The queen must deal with the traitor and find a way to counter the unexpected setback.</p>
+            
+                                            <!-- Lyrics Section -->
+                                            <div id="lyrics-the-betrayal-within" class="lyrics-container hidden">
+                                                <div class="bg-black/30 p-4 rounded-lg border border-gray-600/30 mt-4">
+                                                    <h6 class="text-md font-semibold text-red-300 mb-3 flex items-center gap-2">
+                                                        <i data-lucide="music" class="w-4 h-4"></i>
+                                                        Lyrics
+                                                    </h6>
+                                                    <div class="lyrics-content text-gray-300 text-sm leading-relaxed space-y-3">
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 1]</span><br>
+                                                            In the shadows of power, where trust is a game,<br>
+                                                            A whisper of treason, a spark to the flame.<br>
+                                                            Queen Seraphina, with eyes cold as ice,<br>
+                                                            Faces betrayal, a deadly device.<br>
+                                                            A trusted advisor, with secrets to sell,<br>
+                                                            To the Lord of Shadows, a story to tell.<br>
+                                                            With a heart full of malice, and a mind sharp as blades,<br>
+                                                            In the dance of deception, the trust slowly fades.<br>
+                                                        </div>
+
+                                                        <div class="pre-chorus">
+                                                            <span class="verse-label text-orange-400 font-semibold">[Pre-Chorus]</span><br>
+                                                            A trusted advisor, with secrets to sell,<br>
+                                                            To the Lord of Shadows, a story to tell.<br>
+                                                            With a heart full of malice, and a mind sharp as blades,<br>
+                                                            In the dance of deception, the trust slowly fades.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The betrayal within, a dagger in the dark,<br>
+                                                            In the heart of the night, it leaves its mark.<br>
+                                                            With whispers of treason, and shadows that lie,<br>
+                                                            The queen must uncover, the truth in disguise.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 2]</span><br>
+                                                            In the halls of her palace, the tension runs high,<br>
+                                                            As Seraphina searches, with a keen, watchful eye.<br>
+                                                            The traitor’s deception, a wound deep and raw,<br>
+                                                            In the court of the queen, the seeds of war.<br>
+                                                        </div>
+
+                                                        <div class="pre-chorus">
+                                                            <span class="verse-label text-orange-400 font-semibold">[Pre-Chorus]</span><br>
+                                                            Through the web of the lies, her fury takes flight,<br>
+                                                            With a voice like the thunder, she claims the night.<br>
+                                                            With a heart full of vengeance, and a mind sharp as blades,<br>
+                                                            In the dance of retribution, her power cascades.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The betrayal within, a dagger in the dark,<br>
+                                                            In the heart of the night, it leaves its mark.<br>
+                                                            With whispers of treason, and shadows that lie,<br>
+                                                            The queen must uncover, the truth in disguise.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The betrayal within, a dagger in the dark,<br>
+                                                            In the heart of the night, it leaves its mark.<br>
+                                                            With whispers of treason, and shadows that lie,<br>
+                                                            The queen must uncover, the truth in disguise.<br>
+                                                        </div>
+
+                                                        <div class="bridge">
+                                                            <span class="verse-label text-purple-400 font-semibold">[Bridge]</span><br>
+                                                            In the still of the night, her resolve is like steel,<br>
+                                                            With the whispers of shadows, the traitor’s fate is sealed.<br>
+                                                            A queen on a mission, with darkness as her guide,<br>
+                                                            In the betrayal within, her power won’t hide.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The betrayal within, a dagger in the dark,<br>
+                                                            In the heart of the night, it leaves its mark.<br>
+                                                            With whispers of treason, and shadows that lie,<br>
+                                                            The queen must uncover, the truth in disguise.<br>
+                                                        </div>
+
+                                                        <div class="outro">
+                                                            <span class="verse-label text-blue-400 font-semibold">[Outro]</span><br>
+                                                            So rise, oh, Queen Seraphina, let your vengeance be known,<br>
+                                                            In the heart of the darkness, your power has grown.<br>
+                                                            With your mind and your might, and your heart cold as stone,<br>
+                                                            The betrayal within, you shall overthrow.<br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p class="text-gray-300 leading-relaxed">Amidst the chaos of war, a trusted advisor betrays Queen Seraphina, revealing critical information to the Lord of Shadows. The queen must deal with the traitor and find a way to counter the unexpected setback.</p>
-                                    </div>
-                                    <!-- The Dark Alliance -->
-                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                                        <div class="flex justify-between items-start mb-2">
-                                            <h5 class="text-lg font-semibold text-white">The Dark Alliance</h5>
-                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-gray-700 text-white">Dark, Sinister</span>
+                                        <!-- The Dark Alliance -->
+                                        <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <h5 class="text-lg font-semibold text-white">The Dark Alliance</h5>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Dark, Sinister</span>
+                                                    <button class="lyrics-toggle px-3 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full hover:bg-blue-600/50 transition-colors duration-300" data-target="lyrics-the-dark-alliance">
+                                                        Show Lyrics
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="text-gray-300 leading-relaxed mb-4">To strengthen her position, Queen Seraphina forms an alliance with a powerful sorcerer. This new ally brings dark magic to her cause, tipping the balance of power. Together, they plan a decisive strike against the Lord of Shadows.</p>
+            
+                                            <!-- Lyrics Section -->
+                                            <div id="lyrics-the-dark-alliance" class="lyrics-container hidden">
+                                                <div class="bg-black/30 p-4 rounded-lg border border-gray-600/30 mt-4">
+                                                    <h6 class="text-md font-semibold text-red-300 mb-3 flex items-center gap-2">
+                                                        <i data-lucide="music" class="w-4 h-4"></i>
+                                                        Lyrics
+                                                    </h6>
+                                                    <div class="lyrics-content text-gray-300 text-sm leading-relaxed space-y-3">
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 1]</span><br>
+                                                            In the heart of the kingdom, where shadows lie,<br>
+                                                            Queen Seraphina, with a fire in her eye.<br>
+                                                            She sought the power, to rule the night,<br>
+                                                            Found a sorcerer, with magic dark as night.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The Dark Alliance, forged in flame,<br>
+                                                            Together they rise, to stake their claim.<br>
+                                                            With spells and swords, they take their stand,<br>
+                                                            To conquer the shadows, and rule the land.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 2]</span><br>
+                                                            The sorcerer whispered, secrets of old,<br>
+                                                            Dark incantations, power to behold.<br>
+                                                            With every spell, the balance tipped,<br>
+                                                            The Lord of Shadows, his power slipped.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The Dark Alliance, forged in flame,<br>
+                                                            Together they rise, to stake their claim.<br>
+                                                            With spells and swords, they take their stand,<br>
+                                                            To conquer the shadows, and rule the land.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 3]</span><br>
+                                                            The sorcerer whispered, secrets of old,<br>
+                                                            Dark incantations, power to behold.<br>
+                                                            With every spell, the balance tipped,<br>
+                                                            The Lord of Shadows, his power slipped.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The Dark Alliance, forged in flame,<br>
+                                                            Together they rise, to stake their claim.<br>
+                                                            With spells and swords, they take their stand,<br>
+                                                            To conquer the shadows, and rule the land.<br>
+                                                        </div>
+
+                                                        <div class="bridge">
+                                                            <span class="verse-label text-purple-400 font-semibold">[Bridge]</span><br>
+                                                            In the dead of night, their armies march,<br>
+                                                            Under the moon, through forests arch.<br>
+                                                            A final strike, the battle’s near,<br>
+                                                            The Lord of Shadows, will taste their fear.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The Dark Alliance, forged in flame,<br>
+                                                            Together they rise, to stake their claim.<br>
+                                                            With spells and swords, they take their stand,<br>
+                                                            To conquer the shadows, and rule the land.<br>
+                                                        </div>
+
+                                                        <div class="outro">
+                                                            <span class="verse-label text-blue-400 font-semibold">[Outro]</span><br>
+                                                            Queen Seraphina, with her sorcerer by her side,<br>
+                                                            In the darkened halls, their power won’t hide.<br>
+                                                            The Dark Alliance, their legend grows,<br>
+                                                            In the annals of time, their story flows.<br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p class="text-gray-300 leading-relaxed">To strengthen her position, Queen Seraphina forms an alliance with a powerful sorcerer. This new ally brings dark magic to her cause, tipping the balance of power. Together, they plan a decisive strike against the Lord of Shadows.</p>
-                                    </div>
-                                    <!-- Battle of the Broken Dreams -->
-                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                                        <div class="flex justify-between items-start mb-2">
-                                            <h5 class="text-lg font-semibold text-white">Battle of the Broken Dreams</h5>
-                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-amber-600 text-white">Epic, Climactic</span>
+                                        <!-- Battle of the Broken Dreams -->
+                                        <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <h5 class="text-lg font-semibold text-white">Battle of the Broken Dreams</h5>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Epic, Climactic</span>
+                                                    <button class="lyrics-toggle px-3 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full hover:bg-blue-600/50 transition-colors duration-300" data-target="lyrics-battle-of-the-broken-dreams">
+                                                        Show Lyrics
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="text-gray-300 leading-relaxed mb-4">The climactic battle between Queen Seraphina's forces and the Lord of Shadows' army takes place. The battlefield is a scene of carnage and destruction, with both sides fighting desperately for victory. Seraphina's leadership and the sorcerer's magic play crucial roles.</p>
+            
+                                            <!-- Lyrics Section -->
+                                            <div id="lyrics-battle-of-the-broken-dreams" class="lyrics-container hidden">
+                                                <div class="bg-black/30 p-4 rounded-lg border border-gray-600/30 mt-4">
+                                                    <h6 class="text-md font-semibold text-red-300 mb-3 flex items-center gap-2">
+                                                        <i data-lucide="music" class="w-4 h-4"></i>
+                                                        Lyrics
+                                                    </h6>
+                                                    <div class="lyrics-content text-gray-300 text-sm leading-relaxed space-y-3">
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 1]</span><br>
+                                                            On the fields of despair, where dreams lay shattered,<br>
+                                                            Queen Seraphina’s call, her voice unbattered.<br>
+                                                            With steel and magic, they march to fight,<br>
+                                                            Against the shadows, in the dead of night.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            Battle of the broken dreams, where heroes rise,<br>
+                                                            In the clash of swords, under darkened skies.<br>
+                                                            With Seraphina’s might, and sorcerer’s spell,<br>
+                                                            They fight for glory, in the depths or not, of hell.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 2]</span><br>
+                                                            The Lord of Shadows, his army vast,<br>
+                                                            In the chaos of war, their shadows cast.<br>
+                                                            But Seraphina’s courage, and magic’s flame,<br>
+                                                            Turn the tide of battle, in the depths of hell<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            Battle of the broken dreams, where heroes rise,<br>
+                                                            In the clash of swords, under darkened skies.<br>
+                                                            With Seraphina’s might, and sorcerer’s spell,<br>
+                                                            They fight for glory, in the depths of hell.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 3]</span><br>
+                                                            The Lord of Shadows, his army vast,<br>
+                                                            In the chaos of war, their shadows cast.<br>
+                                                            But Seraphina’s courage, and magic’s flame,<br>
+                                                            Turn the tide of battle, in the depths of hell<br>
+                                                        </div>
+
+                                                        <div class="bridge">
+                                                            <span class="verse-label text-purple-400 font-semibold">[Bridge]</span><br>
+                                                            Amidst the carnage, a beacon of light,<br>
+                                                            Seraphina’s banner, shining bright.<br>
+                                                            With every strike, the shadows wane,<br>
+                                                            Victory’s near, in the blood and rain.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            Battle of the broken dreams, where heroes rise,<br>
+                                                            In the clash of swords, under darkened skies.<br>
+                                                            With Seraphina’s might, and sorcerer’s spell,<br>
+                                                            They fight for glory, in the depths of hell, of hell.<br>
+                                                            ... of hell...<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 4]</span><br>
+                                                            The battlefield quiets, the shadows flee,<br>
+                                                            Seraphina’s triumph, for all to see.<br>
+                                                            In the annals of time, their story gleams,<br>
+                                                            The battle won, in the land of broken dreams.<br>
+                                                        </div>
+
+                                                        <div class="outro">
+                                                            <span class="verse-label text-blue-400 font-semibold">[Outro]</span><br>
+                                                            The Lord of Shadows, his army vast,<br>
+                                                            In the chaos of war, their shadows cast.<br>
+                                                            But Seraphina’s courage, and magic’s flame,<br>
+                                                            Turn the tide of battle, in the depths of hell<br>
+                                                            The Lord of Shadows, his army vast,<br>
+                                                            In the chaos of war, their shadows cast.<br>
+                                                            But Seraphina’s courage, and magic’s flame,<br>
+                                                            Turn the tide of battle, in the depths of hell<br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p class="text-gray-300 leading-relaxed">The climactic battle between Queen Seraphina's forces and the Lord of Shadows' army takes place. The battlefield is a scene of carnage and destruction, with both sides fighting desperately for victory. Seraphina's leadership and the sorcerer's magic play crucial roles.</p>
-                                    </div>
-                                    <!-- The Fall of the Lord -->
-                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                                        <div class="flex justify-between items-start mb-2">
-                                            <h5 class="text-lg font-semibold text-white">The Fall of the Lord</h5>
-                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-green-600 text-white">Triumphant, Bittersweet</span>
+                                        <!-- The Fall of the Lord -->
+                                        <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <h5 class="text-lg font-semibold text-white">The Fall of the Lord</h5>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Triumphant, Bittersweet</span>
+                                                    <button class="lyrics-toggle px-3 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full hover:bg-blue-600/50 transition-colors duration-300" data-target="lyrics-the-fall-of-the-lord">
+                                                        Show Lyrics
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="text-gray-300 leading-relaxed mb-4">The Lord of Shadows is defeated, and his realm falls into chaos. Queen Seraphina claims his throne, but the victory comes at a great cost. The chapter explores the aftermath of the battle and the toll it takes on Seraphina and her kingdom.</p>
+            
+                                            <!-- Lyrics Section -->
+                                            <div id="lyrics-the-fall-of-the-lord" class="lyrics-container hidden">
+                                                <div class="bg-black/30 p-4 rounded-lg border border-gray-600/30 mt-4">
+                                                    <h6 class="text-md font-semibold text-red-300 mb-3 flex items-center gap-2">
+                                                        <i data-lucide="music" class="w-4 h-4"></i>
+                                                        Lyrics
+                                                    </h6>
+                                                    <div class="lyrics-content text-gray-300 text-sm leading-relaxed space-y-3">
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 1]</span><br>
+                                                            In the wake of battle, the shadows fade,<br>
+                                                            The Lord of Shadows, in darkness laid.<br>
+                                                            Queen Seraphina, with a heavy heart,<br>
+                                                            Claims the throne, but the kingdom’s torn apart.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            Fall of the Lord, the realm in disarray,<br>
+                                                            Victory’s price, in the light of day.<br>
+                                                            With a crown of sorrow, she takes her place,<br>
+                                                            In the ruins of war, she finds her grace.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 2]</span><br>
+                                                            The sorcerer’s magic, the final blow,<br>
+                                                            Brought the Lord of Shadows, to his low.<br>
+                                                            But the cost of power, a heavy toll,<br>
+                                                            Left the kingdom fractured, and hearts with holes.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            Fall of the Lord, the realm in disarray,<br>
+                                                            Victory’s price, in the light of day.<br>
+                                                            With a crown of sorrow, she takes her place,<br>
+                                                            In the ruins of war, she finds her grace.<br>
+                                                        </div>
+
+                                                        <div class="bridge">
+                                                            <span class="verse-label text-purple-400 font-semibold">[Bridge 1]</span><br>
+                                                            Amidst the chaos, a queen stands tall,<br>
+                                                            With the weight of loss, she bears it all.<br>
+                                                            Her people look to her, for hope and light,<br>
+                                                            In the aftermath, she leads the fight.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            Fall of the Lord, the realm in disarray,<br>
+                                                            Victory’s price, in the light of day.<br>
+                                                            With a crown of sorrow, she takes her place,<br>
+                                                            In the ruins of war, she finds her grace.<br>
+                                                        </div>
+
+                                                        <div class="bridge">
+                                                            <span class="verse-label text-purple-400 font-semibold">[Bridge 2]</span><br>
+                                                            Amidst the chaos, a queen stands tall,<br>
+                                                            With the weight of loss, she bears it all.<br>
+                                                            Her people look to her, for hope and light,<br>
+                                                            In the aftermath, she leads the fight.<br>
+                                                        </div>
+
+                                                        <div class="outro">
+                                                            <span class="verse-label text-blue-400 font-semibold">[Outro]</span><br>
+                                                            Queen Seraphina, with strength anew,<br>
+                                                            Rebuilds her kingdom, with a vision true.<br>
+                                                            The fall of the Lord, a chapter's closed,<br>
+                                                            In the annals of time, her story’s composed.<br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p class="text-gray-300 leading-relaxed">The Lord of Shadows is defeated, and his realm falls into chaos. Queen Seraphina claims his throne, but the victory comes at a great cost. The chapter explores the aftermath of the battle and the toll it takes on Seraphina and her kingdom.</p>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- Act III: The Queen's Burden -->
-                            <div class="act-item">
-                                <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
-                                    <i data-lucide="play-circle" class="w-5 h-5"></i>
-                                    Act III: The Queen's Burden
-                                </h4>
-                                <div class="space-y-3">
-                                    <!-- The Reign of Ruin -->
-                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                                        <div class="flex justify-between items-start mb-2">
-                                            <h5 class="text-lg font-semibold text-white">The Reign of Ruin</h5>
-                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-blue-600 text-white">Melancholy, Reflective</span>
+                                <!-- Act III: The Queen's Burden -->
+                                <div class="act-item">
+                                    <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
+                                        <i data-lucide="play-circle" class="w-5 h-5"></i>
+                                        Act III: The Queen's Burden
+                                    </h4>
+                                    <div class="space-y-3">
+                                        <!-- The Reign of Ruin -->
+                                        <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <h5 class="text-lg font-semibold text-white">The Reign of Ruin</h5>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Melancholy, Reflective</span>
+                                                    <button class="lyrics-toggle px-3 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full hover:bg-blue-600/50 transition-colors duration-300" data-target="lyrics-the-reign-of-ruin">
+                                                        Show Lyrics
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="text-gray-300 leading-relaxed mb-4">With her new territory under control, Queen Seraphina faces the challenges of ruling over a broken and rebellious land. She must deal with dissent, rebuild her forces, and solidify her power. Her reign is marked by both triumph and tragedy.</p>
+            
+                                            <!-- Lyrics Section -->
+                                            <div id="lyrics-the-reign-of-ruin" class="lyrics-container hidden">
+                                                <div class="bg-black/30 p-4 rounded-lg border border-gray-600/30 mt-4">
+                                                    <h6 class="text-md font-semibold text-red-300 mb-3 flex items-center gap-2">
+                                                        <i data-lucide="music" class="w-4 h-4"></i>
+                                                        Lyrics
+                                                    </h6>
+                                                    <div class="lyrics-content text-gray-300 text-sm leading-relaxed space-y-3">
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 1]</span><br>
+                                                            In the aftermath of war, the land lies torn,<br>
+                                                            Queen Seraphina, with a crown of thorns.<br>
+                                                            Her kingdom broken, rebellion in the air,<br>
+                                                            She stands alone, with a burden to bear.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The Reign of Ruin, a queen’s lament,<br>
+                                                            In the shadow of victory, her strength is spent.<br>
+                                                            With iron will, she faces the storm,<br>
+                                                            To rebuild her realm, and keep it warm.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 2]</span><br>
+                                                            Dissent and whispers, in the halls of power,<br>
+                                                            Enemies within, in the darkest hour.<br>
+                                                            She rallies her forces, with a heart of steel,<br>
+                                                            To heal the wounds, and make the kingdom heal.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The Reign of Ruin, a queen’s lament,<br>
+                                                            In the shadow of victory, her strength is spent.<br>
+                                                            With iron will, she faces the storm,<br>
+                                                            To rebuild her realm, and keep it warm.<br>
+                                                        </div>
+
+                                                        <div class="bridge">
+                                                            <span class="verse-label text-purple-400 font-semibold">[Bridge]</span><br>
+                                                            Through the trials and the tears, she stands tall,<br>
+                                                            In the face of despair, she won’t fall.<br>
+                                                            Her triumphs and tragedies, etched in time,<br>
+                                                            A legacy forged, in the harshest clime.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The Reign of Ruin, a queen’s lament,<br>
+                                                            In the shadow of victory, her strength is spent.<br>
+                                                            With iron will, she faces the storm,<br>
+                                                            To rebuild her realm, and keep it warm.<br>
+                                                        </div>
+
+                                                        <div class="bridge">
+                                                            <span class="verse-label text-purple-400 font-semibold">[Bridge]</span><br>
+                                                            Through the trials and the tears, she stands tall,<br>
+                                                            In the face of despair, she won’t fall.<br>
+                                                            Her triumphs and tragedies, etched in time,<br>
+                                                            A legacy forged, in the harshest clime.<br>
+                                                        </div>
+
+                                                        <div class="outro">
+                                                            <span class="verse-label text-blue-400 font-semibold">[Outro]</span><br>
+                                                            The Reign of Ruin, a queen’s lament,<br>
+                                                            Leads her people, through the mire.<br>
+                                                            The Reign of Ruin, her story told,<br>
+                                                            In the annals of time, her legacy bold.<br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p class="text-gray-300 leading-relaxed">With her new territory under control, Queen Seraphina faces the challenges of ruling over a broken and rebellious land. She must deal with dissent, rebuild her forces, and solidify her power. Her reign is marked by both triumph and tragedy.</p>
-                                    </div>
-                                    <!-- The Echoes of Despair -->
-                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                                        <div class="flex justify-between items-start mb-2">
-                                            <h5 class="text-lg font-semibold text-white">The Echoes of Despair</h5>
-                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-slate-600 text-white">Haunting, Emotional</span>
+                                        <!-- The Echoes of Despair -->
+                                        <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <h5 class="text-lg font-semibold text-white">The Echoes of Despair</h5>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Haunting, Emotional</span>
+                                                    <button class="lyrics-toggle px-3 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full hover:bg-blue-600/50 transition-colors duration-300" data-target="lyrics-the-echoes-of-despair">
+                                                        Show Lyrics
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="text-gray-300 leading-relaxed mb-4">As Queen Seraphina's rule continues, she is haunted by the ghosts of those she has conquered and lost. The chapter delves into her inner turmoil and the sacrifices she has made. Her resolve is tested as new threats emerge.</p>
+            
+                                            <!-- Lyrics Section -->
+                                            <div id="lyrics-the-echoes-of-despair" class="lyrics-container hidden">
+                                                <div class="bg-black/30 p-4 rounded-lg border border-gray-600/30 mt-4">
+                                                    <h6 class="text-md font-semibold text-red-300 mb-3 flex items-center gap-2">
+                                                        <i data-lucide="music" class="w-4 h-4"></i>
+                                                        Lyrics
+                                                    </h6>
+                                                    <div class="lyrics-content text-gray-300 text-sm leading-relaxed space-y-3">
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 1]</span><br>
+                                                            In the shadows of her throne, she sits alone,<br>
+                                                            Queen Seraphina, heart turned to stone.<br>
+                                                            Whispers of the fallen, echoes in the night,<br>
+                                                            Haunted by the faces, lost in the fight.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The echoes of despair, they call her name,<br>
+                                                            Through the halls of power, they whisper shame.<br>
+                                                            Every victory, a ghost she must bear,<br>
+                                                            In the silence, she hears the echoes of despair.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 2]</span><br>
+                                                            Battles won, but at what cost?<br>
+                                                            In her dreams, she sees the lost.<br>
+                                                            Sacrifices made, a crown of thorns,<br>
+                                                            In her heart, a kingdom mourns.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The echoes of despair, they call her name,<br>
+                                                            Through the halls of power, they whisper shame.<br>
+                                                            Every victory, a ghost she must bear,<br>
+                                                            In the silence, she hears the echoes of despair.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 3]</span><br>
+                                                            Battles won, but at what cost?<br>
+                                                            In her dreams, she sees the lost.<br>
+                                                            Sacrifices made, a crown of thorns,<br>
+                                                            In her heart, a kingdom mourns.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The echoes of despair, they call her name,<br>
+                                                            Through the halls of power, they whisper shame.<br>
+                                                            Every victory, a ghost she must bear,<br>
+                                                            In the silence, she hears the echoes of despair.<br>
+                                                        </div>
+
+                                                        <div class="bridge">
+                                                            <span class="verse-label text-purple-400 font-semibold">[Bridge]</span><br>
+                                                            New threats arise, testing her resolve,<br>
+                                                            In the darkness, her fears evolve.<br>
+                                                            Will she stand or will she fall?<br>
+                                                            In the echoes, she hears it all.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The echoes of despair, they call her name,<br>
+                                                            Through the halls of power, they whisper shame.<br>
+                                                            Every victory, a ghost she must bear,<br>
+                                                            In the silence, she hears the echoes of despair.<br>
+                                                        </div>
+
+                                                        <div class="outro">
+                                                            <span class="verse-label text-blue-400 font-semibold">[Outro]</span><br>
+                                                            The echoes of despair, they call her name,<br>
+                                                            Through the halls of power, they whisper shame.<br>
+                                                            Through the night, she fights the pain,<br>
+                                                            In the end, will she remain?<br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p class="text-gray-300 leading-relaxed">As Queen Seraphina's rule continues, she is haunted by the ghosts of those she has conquered and lost. The chapter delves into her inner turmoil and the sacrifices she has made. Her resolve is tested as new threats emerge.</p>
-                                    </div>
-                                    <!-- The Eternal Queen -->
-                                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
-                                        <div class="flex justify-between items-start mb-2">
-                                            <h5 class="text-lg font-semibold text-white">The Eternal Queen</h5>
-                                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-emerald-600 text-white">Triumphant, Definitive</span>
+                                        <!-- The Eternal Queen -->
+                                        <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <h5 class="text-lg font-semibold text-white">The Eternal Queen</h5>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">Triumphant, Definitive</span>
+                                                    <button class="lyrics-toggle px-3 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full hover:bg-blue-600/50 transition-colors duration-300" data-target="lyrics-the-eternal-queen">
+                                                        Show Lyrics
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <p class="text-gray-300 leading-relaxed mb-4">In the final chapter, Queen Seraphina solidifies her legacy as the Queen of Carnage. Her power is unmatched, and her name is whispered in fear and awe. The story concludes with her standing triumphant, her reign eternal and unchallenged.</p>
+            
+                                            <!-- Lyrics Section -->
+                                            <div id="lyrics-the-eternal-queen" class="lyrics-container hidden">
+                                                <div class="bg-black/30 p-4 rounded-lg border border-gray-600/30 mt-4">
+                                                    <h6 class="text-md font-semibold text-red-300 mb-3 flex items-center gap-2">
+                                                        <i data-lucide="music" class="w-4 h-4"></i>
+                                                        Lyrics
+                                                    </h6>
+                                                    <div class="lyrics-content text-gray-300 text-sm leading-relaxed space-y-3">
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 1]</span><br>
+                                                            In the twilight of her reign, she stands tall,<br>
+                                                            Queen Seraphina, ruler of them all.<br>
+                                                            Her power unmatched, her name in the air,<br>
+                                                            Whispered in fear, in awe, everywhere.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The Eternal Queen, her legacy untold,<br>
+                                                            In the annals of history, her story unfolds.<br>
+                                                            Unchallenged, triumphant, her reign supreme,<br>
+                                                            Queen of Carnage, living the dream.<br>
+                                                        </div>
+
+                                                        <div class="verse">
+                                                            <span class="verse-label text-red-400 font-semibold">[Verse 2]</span><br>
+                                                            Battles fought, victories won,<br>
+                                                            Her empire vast, second to none.<br>
+                                                            In the shadows, her enemies fall,<br>
+                                                            Her name a legend, echoing through the hall.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The Eternal Queen, her legacy untold,<br>
+                                                            In the annals of history, her story unfolds.<br>
+                                                            Unchallenged, triumphant, her reign supreme,<br>
+                                                            Queen of Carnage, living the dream.<br>
+                                                        </div>
+
+                                                        <div class="bridge">
+                                                            <span class="verse-label text-purple-400 font-semibold">[Bridge]</span><br>
+                                                            Through the ages, her power remains,<br>
+                                                            In the hearts of many, her name sustains.<br>
+                                                            Will she ever fade, will her light dim?<br>
+                                                            In the chronicles of time, she will always win.<br>
+                                                        </div>
+
+                                                        <div class="chorus">
+                                                            <span class="verse-label text-yellow-400 font-semibold">[Chorus]</span><br>
+                                                            The Eternal Queen, her legacy untold,<br>
+                                                            In the annals of history, her story unfolds.<br>
+                                                            Unchallenged, triumphant, her reign supreme,<br>
+                                                            Queen of Carnage, living the dream.<br>
+                                                        </div>
+
+                                                        <div class="outro">
+                                                            <span class="verse-label text-blue-400 font-semibold">[Outro]</span><br>
+                                                            Through the ages, her power remains,<br>
+                                                            In the hearts of many, her name sustains.<br>
+                                                            Will she ever fade, will her light dim?<br>
+                                                            In the chronicles of time, she will always win.<br>
+                                                            Through the ages, her power remains,<br>
+                                                            In the hearts of many, her name sustains.<br>
+                                                            Will she ever fade, will her light dim?<br>
+                                                            In the chronicles of time, she will always win.<br>
+                                                            Through the ages, her power remains,<br>
+                                                            In the hearts of many, her name sustains.<br>
+                                                            Will she ever fade, will her light dim?<br>
+                                                            In the chronicles of time, she will always win.<br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <p class="text-gray-300 leading-relaxed">In the final chapter, Queen Seraphina solidifies her legacy as the Queen of Carnage. Her power is unmatched, and her name is whispered in fear and awe. The story concludes with her standing triumphant, her reign eternal and unchallenged.</p>
                                     </div>
                                 </div>
                             </div>
@@ -1703,7 +2707,6 @@
                     </div>
                 </div>
             </div>
-        </div>
             <!-- Characters Section -->
             <div id="characters-section" class="content-section hidden">
                 <div class="space-y-8">
