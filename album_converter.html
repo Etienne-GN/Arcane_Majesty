@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML to Album HTML Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .hover-lift:hover {
+            transform: translateY(-2px);
+        }
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .expandable-content.expanded {
+            max-height: none;
+        }
+        .expand-icon.rotated {
+            transform: rotate(90deg);
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        /* Additional preview styles */
+        #preview .glass-card {
+            background: rgba(55, 65, 81, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(156, 163, 175, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 min-h-screen">
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold text-white mb-6 text-center">XML to Album HTML Converter</h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Input Section -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-white">XML Input</h2>
+                <textarea 
+                    id="xmlInput" 
+                    class="w-full h-96 p-4 bg-gray-800 text-white rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none font-mono text-sm"
+                    placeholder="Paste your XML here..."
+                ></textarea>
+                <button 
+                    onclick="convertXML()" 
+                    class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                    Convert to HTML
+                </button>
+            </div>
+            
+            <!-- Output Section -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-semibold text-white">HTML Output</h2>
+                <textarea 
+                    id="htmlOutput" 
+                    class="w-full h-96 p-4 bg-gray-800 text-white rounded-lg border border-gray-600 font-mono text-sm"
+                    readonly
+                ></textarea>
+                <button 
+                    onclick="copyToClipboard()" 
+                    class="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                >
+                    Copy HTML
+                </button>
+            </div>
+        </div>
+        
+        <!-- Preview Section -->
+        <div class="mt-8">
+            <h2 class="text-xl font-semibold text-white mb-4">Preview</h2>
+            <div id="preview" class="bg-gray-900 p-6 rounded-lg border border-gray-600 min-h-32"></div>
+        </div>
+    </div>
+
+    <script>
+        function convertXML() {
+            const xmlInput = document.getElementById('xmlInput').value;
+            const htmlOutput = document.getElementById('htmlOutput');
+            const preview = document.getElementById('preview');
+            
+            try {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlInput, "text/xml");
+                
+                // Check for parsing errors
+                const parseError = xmlDoc.querySelector('parsererror');
+                if (parseError) {
+                    throw new Error('XML parsing error: ' + parseError.textContent);
+                }
+                
+                const album = xmlDoc.querySelector('album');
+                if (!album) {
+                    throw new Error('No album element found in XML');
+                }
+                
+                const albumTitle = album.getAttribute('album') || 'Untitled Album';
+                const albumNumber = Math.floor(Math.random() * 1000); // Generate random album number
+                
+                let html = generateAlbumHTML(album, albumTitle, albumNumber);
+                
+                htmlOutput.value = html;
+                preview.innerHTML = html;
+                
+                // Add event listeners to the preview
+                addPreviewInteractivity();
+                
+            } catch (error) {
+                htmlOutput.value = 'Error: ' + error.message;
+                preview.innerHTML = '<div class="text-red-400 p-4">Error: ' + error.message + '</div>';
+            }
+        }
+        
+        function generateAlbumHTML(albumElement, albumTitle, albumNumber) {
+            const acts = albumElement.querySelectorAll('Act');
+            let actsHTML = '';
+            
+            acts.forEach(act => {
+                const actTitle = act.getAttribute('act') || 'Untitled Act';
+                const songs = act.querySelectorAll('Song');
+                let songsHTML = '';
+                
+                songs.forEach(song => {
+                    const songTitle = song.getAttribute('song') || 'Untitled Song';
+                    const songId = song.querySelector('song_id')?.textContent || '1';
+                    const tone = song.querySelector('Tone')?.textContent || 'Unknown tone';
+                    const plot = song.querySelector('Plot')?.textContent || 'No description available';
+                    const lyrics = song.querySelector('Lyrics')?.textContent || 'No lyrics available';
+                    
+                    const lyricsId = 'lyrics-' + songTitle.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
+                    const formattedLyrics = formatLyrics(lyrics);
+                    
+                    songsHTML += `
+                    <div class="bg-gradient-to-r from-red-900/30 to-red-800/30 p-4 rounded-lg border-l-4 border-red-500 hover:border-red-400 transition-colors duration-300">
+                        <div class="flex justify-between items-start mb-2">
+                            <h5 class="text-lg font-semibold text-white">${songTitle}</h5>
+                            <div class="flex items-center gap-2">
+                                <span class="px-2 py-1 text-xs bg-purple-600/30 text-purple-300 rounded-full">${tone}</span>
+                                <button class="lyrics-toggle px-3 py-1 text-xs bg-blue-600/30 text-blue-300 rounded-full hover:bg-blue-600/50 transition-colors duration-300" data-target="${lyricsId}">
+                                    Show Lyrics
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 leading-relaxed mb-4">${plot}</p>
+
+                        <!-- Lyrics Section -->
+                        <div id="${lyricsId}" class="lyrics-container hidden">
+                            <div class="bg-black/30 p-4 rounded-lg border border-gray-600/30 mt-4">
+                                <h6 class="text-md font-semibold text-red-300 mb-3 flex items-center gap-2">
+                                    <span class="w-4 h-4">♪</span>
+                                    Lyrics
+                                </h6>
+                                <div class="lyrics-content text-gray-300 text-sm leading-relaxed space-y-3">
+                                    ${formattedLyrics}
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                });
+                
+                actsHTML += `
+                <div class="act-item">
+                    <h4 class="text-xl font-bold text-red-300 mb-4 flex items-center gap-2">
+                        <span class="w-5 h-5">▶</span>
+                        ${actTitle}
+                    </h4>
+                    <div class="space-y-3">
+                        ${songsHTML}
+                    </div>
+                </div>`;
+            });
+            
+            return `<div class="glass-card rounded-xl hover-lift album-item" data-album="${albumNumber}">
+    <div class="p-6 cursor-pointer flex items-center justify-between album-header">
+        <div class="flex-1">
+            <h3 class="text-2xl font-bold text-white mb-2">${albumTitle}</h3>
+            <p class="text-gray-300">Generated from XML</p>
+        </div>
+        <div class="ml-4 p-2 rounded-full bg-red-700/20">
+            <span class="w-6 h-6 text-red-400 expand-icon transition-transform duration-300">▶</span>
+        </div>
+    </div>
+    <div class="expandable-content album-content border-t border-gray-600/30">
+        <div class="p-6 space-y-6">
+            ${actsHTML}
+        </div>
+    </div>
+</div>`;
+        }
+        
+        function formatLyrics(lyrics) {
+            if (!lyrics) return '';
+            
+            const sections = lyrics.split(/\[([^\]]+)\]/);
+            let formattedLyrics = '';
+            
+            for (let i = 0; i < sections.length; i += 2) {
+                if (i + 1 < sections.length) {
+                    const sectionType = sections[i + 1];
+                    const sectionContent = sections[i + 2] || '';
+                    
+                    let sectionClass = 'text-red-400';
+                    if (sectionType.toLowerCase().includes('chorus')) {
+                        sectionClass = 'text-yellow-400';
+                    } else if (sectionType.toLowerCase().includes('bridge')) {
+                        sectionClass = 'text-purple-400';
+                    } else if (sectionType.toLowerCase().includes('pre-chorus')) {
+                        sectionClass = 'text-orange-400';
+                    } else if (sectionType.toLowerCase().includes('outro')) {
+                        sectionClass = 'text-blue-400';
+                    }
+                    
+                    formattedLyrics += `
+                        <div class="verse">
+                            <span class="verse-label ${sectionClass} font-semibold">[${sectionType}]</span><br>
+                            ${sectionContent.trim().replace(/\n/g, '<br>')}
+                        </div>`;
+                }
+            }
+            
+            return formattedLyrics;
+        }
+        
+        function addPreviewInteractivity() {
+            // Album expand/collapse
+            const albumHeader = document.querySelector('.album-header');
+            if (albumHeader) {
+                albumHeader.addEventListener('click', function() {
+                    const content = this.parentElement.querySelector('.expandable-content');
+                    const icon = this.querySelector('.expand-icon');
+                    
+                    content.classList.toggle('expanded');
+                    icon.classList.toggle('rotated');
+                });
+            }
+            
+            // Lyrics toggle
+            const lyricsButtons = document.querySelectorAll('.lyrics-toggle');
+            lyricsButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const targetId = this.getAttribute('data-target');
+                    const lyricsContainer = document.getElementById(targetId);
+                    
+                    if (lyricsContainer) {
+                        lyricsContainer.classList.toggle('hidden');
+                        this.textContent = lyricsContainer.classList.contains('hidden') ? 'Show Lyrics' : 'Hide Lyrics';
+                    }
+                });
+            });
+        }
+        
+        function copyToClipboard() {
+            const htmlOutput = document.getElementById('htmlOutput');
+            htmlOutput.select();
+            document.execCommand('copy');
+            
+            // Visual feedback
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.classList.add('bg-green-800');
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('bg-green-800');
+            }, 2000);
+        }
+        
+        // Add sample XML on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const sampleXML = `<album album="Lord of Shadows">
+    <Act act="I: The Emergence">
+        <Song song="The Forbidden Tome">
+            <song_id>1</song_id>
+            <Tone>Soft, haunting melody</Tone>
+            <Plot>Malakar, a young sorcerer with an insatiable thirst for knowledge, stumbles upon a forbidden tome hidden deep within the ancient ruins of Nythoria. The tome, written in an ancient language, contains powerful dark magic. Despite the warnings and the fear it inspires, Malakar is drawn to its secrets. He spends countless hours studying the tome, deciphering its cryptic language and understanding the immense power it holds.</Plot>
+            <Lyrics>[Verse 1]
+In ancient ruins, shrouded in night
+A hidden tome, a forbidden sight
+Its pages whispered secrets deep
+A power dormant, waiting to leap
+
+[Chorus]
+The forbidden tome, a dangerous prize
+A path to darkness, where shadows rise
+With caution tread, for knowledge is a blade
+That cuts both ways, a price to be paid
+
+[Verse 2]
+I touched its cover, felt its cold embrace
+A shiver ran down my spine, a chilling trace
+I opened its pages, with trembling hand
+And ventured into a forbidden land
+
+[Chorus]
+The forbidden tome, a dangerous prize
+A path to darkness, where shadows rise
+With caution tread, for knowledge is a blade
+That cuts both ways, a price to be paid</Lyrics>
+            <analysis></analysis>
+        </Song>
+    </Act>
+</album>`;
+            
+            document.getElementById('xmlInput').value = sampleXML;
+        });
+    </script>
+</body>
+</html>
