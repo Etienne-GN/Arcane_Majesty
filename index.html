@@ -141,39 +141,7 @@
             <!-- Characters Section -->
             <div id="characters-section" class="content-section hidden">
                 <div class="space-y-6">
-                    <div class="glass-card rounded-xl hover-lift character-item">
-                        <div class="p-6 cursor-pointer flex items-center justify-between character-header">
-                            <div class="flex-1">
-                                <h3 class="text-2xl font-bold text-white mb-2">Eldrin Nightshade</h3>
-                                <p class="text-gray-300">A solitary wizard of immense power, haunted by visions of a world in peril. He is the reluctant hero of Eldoria's Prophecy.</p>
-                            </div>
-                            <div class="ml-4 p-2 rounded-full bg-red-700/20">
-                                <i data-lucide="chevron-right" class="w-6 h-6 text-red-400 expand-icon transition-transform"></i>
-                            </div>
-                        </div>
-                        <div class="expandable-content border-t border-gray-600/30">
-                            <div class="p-6">
-                                <p class="text-gray-300 leading-relaxed">Eldrin is a master of ancient magic, but his reclusive nature makes him an unlikely savior. His journey is one of self-discovery as he confronts his fears and embraces his destiny.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="glass-card rounded-xl hover-lift character-item">
-                        <div class="p-6 cursor-pointer flex items-center justify-between character-header">
-                            <div class="flex-1">
-                                <h3 class="text-2xl font-bold text-white mb-2">Anya</h3>
-                                <p class="text-gray-300">A young scholar who becomes a hero in the Empire of the Void. Her story is one of transformation and sacrifice.</p>
-                            </div>
-                            <div class="ml-4 p-2 rounded-full bg-red-700/20">
-                                <i data-lucide="chevron-right" class="w-6 h-6 text-red-400 expand-icon transition-transform"></i>
-                            </div>
-                        </div>
-                        <div class="expandable-content border-t border-gray-600/30">
-                            <div class="p-6">
-                                <p class="text-gray-300 leading-relaxed">Anya's quest for knowledge leads her to a dark and dangerous world. She must embrace her own inner darkness to save the ones she loves.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Character data will be loaded here dynamically -->
                 </div>
             </div>
 
@@ -391,8 +359,57 @@
             }
         };
 
+        const loadCharacterData = async () => {
+            try {
+                const response = await fetch('Arcane_Majesty.xml');
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
+                const xmlText = await response.text();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlText, "application/xml");
+                
+                const charactersContainer = document.querySelector('#characters-section .space-y-6');
+                if (!charactersContainer) return;
+                
+                charactersContainer.innerHTML = ''; // Clear hardcoded content
+
+                const characters = xmlDoc.querySelectorAll("Character");
+                characters.forEach(character => {
+                    const name = character.querySelector('Name')?.textContent || 'N/A';
+                    const description = character.querySelector('Description')?.textContent || 'No description available.';
+                    const details = character.querySelector('Details')?.textContent || 'No details available.';
+
+                    const characterHtml = `
+                        <div class="glass-card rounded-xl hover-lift character-item">
+                            <div class="p-6 cursor-pointer flex items-center justify-between character-header">
+                                <div class="flex-1">
+                                    <h3 class="text-2xl font-bold text-white mb-2">${name}</h3>
+                                    <p class="text-gray-300">${description}</p>
+                                </div>
+                                <div class="ml-4 p-2 rounded-full bg-red-700/20">
+                                    <i data-lucide="chevron-right" class="w-6 h-6 text-red-400 expand-icon transition-transform"></i>
+                                </div>
+                            </div>
+                            <div class="expandable-content border-t border-gray-600/30">
+                                <div class="p-6">
+                                    <p class="text-gray-300 leading-relaxed">${details}</p>
+                                </div>
+                            </div>
+                        </div>`;
+                    charactersContainer.innerHTML += characterHtml;
+                });
+                
+                if (window.lucide) window.lucide.createIcons();
+
+            } catch (error) {
+                console.error('Error loading character data:', error);
+                const charactersContainer = document.querySelector('#characters-section .space-y-6');
+                if(charactersContainer) charactersContainer.innerHTML = '<p class="text-center text-red-400">Could not load character data.</p>';
+            }
+        };
+
         // Event delegation for dynamic content
-        document.querySelector('#albums-section').addEventListener('click', (event) => {
+        document.addEventListener('click', (event) => {
             const albumHeader = event.target.closest('.album-header');
             if (albumHeader) {
                 const albumItem = albumHeader.closest('.album-item');
@@ -430,6 +447,7 @@
         });
 
         loadAlbumData();
+        loadCharacterData();
     });
     </script>
 </body>
