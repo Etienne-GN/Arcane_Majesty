@@ -64,44 +64,41 @@ function create() {
     // --- Player Animations ---
     const anims = this.anims;
 
-    // Walking animations (assuming 8 frames wide spritesheet)
+    // Walking animations (6 frames each, 6 frames wide spritesheet)
     anims.create({
         key: 'walk-down',
-        frames: anims.generateFrameNumbers('player', { start: 24, end: 29 }),
-        frameRate: 10,
-        repeat: -1
-    });
-    anims.create({
-        key: 'walk-up',
-        frames: anims.generateFrameNumbers('player', { start: 32, end: 37 }),
+        frames: anims.generateFrameNumbers('player', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
     anims.create({
         key: 'walk-right',
-        frames: anims.generateFrameNumbers('player', { start: 40, end: 45 }),
+        frames: anims.generateFrameNumbers('player', { start: 6, end: 11 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    anims.create({
+        key: 'walk-up',
+        frames: anims.generateFrameNumbers('player', { start: 12, end: 17 }),
         frameRate: 10,
         repeat: -1
     });
 
-    // Idle animations
+    // Idle animations (single frame)
     anims.create({
         key: 'idle-down',
-        frames: anims.generateFrameNumbers('player', { start: 0, end: 5 }),
-        frameRate: 5,
-        repeat: -1
-    });
-    anims.create({
-        key: 'idle-up',
-        frames: anims.generateFrameNumbers('player', { start: 8, end: 13 }),
-        frameRate: 5,
-        repeat: -1
+        frames: [{ key: 'player', frame: 0 }],
+        frameRate: 20
     });
     anims.create({
         key: 'idle-right',
-        frames: anims.generateFrameNumbers('player', { start: 16, end: 21 }),
-        frameRate: 5,
-        repeat: -1
+        frames: [{ key: 'player', frame: 6 }],
+        frameRate: 20
+    });
+    anims.create({
+        key: 'idle-up',
+        frames: [{ key: 'player', frame: 12 }],
+        frameRate: 20
     });
 
 
@@ -145,7 +142,7 @@ function update() {
             if (animName.startsWith('walk-')) {
                 const direction = animName.split('-')[1];
                 if (direction === 'right') {
-                    player.anims.play('idle-right', true);
+                    player.anims.play(player.flipX ? 'idle-right' : 'idle-right', true);
                 } else {
                     player.anims.play(`idle-${direction}`, true);
                 }
