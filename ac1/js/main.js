@@ -35,15 +35,31 @@ function preload() {
         frameWidth: 16,
         frameHeight: 16
     });
+
+    // Load the tilemap
+    this.load.tilemapTiledXML('map', 'maps/level1.tmx');
+    // Load the tileset image
+    this.load.image('grass', 'mystic_woods_free_2.2/sprites/tilesets/grass.png');
 }
 
 /**
  * Creates game objects and initializes the scene.
  */
 function create() {
+    // Create the map
+    const map = this.make.tilemap({ key: 'map' });
+    const tileset = map.addTilesetImage('grass', 'grass');
+    const layer = map.createLayer('Tile Layer 1', tileset, 0, 0);
+
+    // Set collision based on the 'collides' property
+    layer.setCollisionByProperty({ collides: true });
+
     // Add the player sprite with physics
-    player = this.physics.add.sprite(400, 300, 'player');
+    player = this.physics.add.sprite(100, 100, 'player');
     player.setCollideWorldBounds(true); // Don't let the player walk off-screen
+
+    // Add collision between the player and the map layer
+    this.physics.add.collider(player, layer);
 
     // --- Player Animations ---
     // Based on the Mystic Woods asset pack, the player animations are on specific rows.
@@ -101,6 +117,10 @@ function create() {
 
     // Initialize keyboard controls
     cursors = this.input.keyboard.createCursorKeys();
+
+    // Make the camera follow the player
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.cameras.main.startFollow(player);
 }
 
 /**

@@ -1,0 +1,200 @@
+Arcane Majesty Game
+
+		<album album="Eldoria's Prophecy">
+		  	<Act act="I: The Call">
+				<Song song="Echoes of Stone">
+			  		<song_id>1</song_id>
+			  		<Tone>Introspective, Atmospheric</Tone>
+			  		<Plot>Eldrin Nightshade, a solitary wizard, lives in a secluded tower nestled amidst a dense, ancient forest. His days are filled with the monotonous routine of studying ancient texts and tending to his garden. The tower is a place of solitude and reflection, a sanctuary from the chaos of the outside world. However, a sense of unease has been gnawing at him, a premonition of impending doom that he cannot shake.
+			  		</Plot>
+				</Song>
+				<Song song="Dreamweaver's Call">
+			  		<song_id>2</song_id>
+			  		<Tone>Ethereal, Building Tension</Tone>
+			  		<Plot>Nightmares plague Eldrin, visions of a dying world and a desperate need for his intervention. The skies are ablaze, the land is ravaged, and the people are suffering. A voice, ethereal and haunting, calls out to him, urging him to rise and save the world. Eldrin, initially hesitant, is eventually compelled to heed the call. The weight of responsibility is heavy upon him, but he knows that he must act.
+			  		</Plot>
+				</Song>
+				<Song song="Odyssey's Dawn">
+			  		<song_id>3</song_id>
+			  		<Tone>Adventurous, Upbeat</Tone>
+			  		<Plot>Leaving behind the familiar confines of his tower, Eldrin embarks on a perilous journey. The world outside is both beautiful and dangerous, a stark contrast to the quiet solitude he has grown accustomed to. He traverses vast forests, climbs towering mountains, and crosses raging rivers. The journey is filled with both wonder and danger, as Eldrin encounters strange creatures, treacherous terrain, and the occasional hostile encounter.
+			  		</Plot>
+				</Song>
+		  	</Act>
+		  	<Act act="II: Trials and Tribulations">
+				<Song song="Summit of Despair">
+			  		<song_id>4</song_id>
+			  		<Tone>Melancholic, Powerful</Tone>
+			  		<Plot>As Eldrin climbs a treacherous mountain pass, the weight of his mission begins to bear down on him. The cold wind bites at his bones, and the snow-covered peaks seem to loom over him like menacing giants. Doubt and fear creep into his mind, and he questions his ability to save the world. The physical and emotional toll of the journey is taking its toll on him, but he must press on.
+			  		</Plot>
+				</Song>
+				<Song song="Sylvan Sanctuary">
+			  		<song_id>5</song_id>
+			  		<Tone>Mystical, Enchanting</Tone>
+			  		<Plot>Lost and weary, Eldrin stumbles upon a hidden forest. As he explores its depths, he encounters strange creatures and magical plants. The forest seems to have a life of its own, and Eldrin feels a sense of peace and tranquility as he wanders through its paths. He eventually comes across a wise old hermit, who offers him guidance and wisdom. The hermit reveals that the forest is a sacred place, and that it holds secrets that could aid Eldrin in his quest.
+			  		</Plot>
+				</Song>
+				<Song song="Treachery's Bite">
+			  		<song_id>6</song_id>
+			  		<Tone>Dark, Intense</Tone>
+			  		<Plot>A trusted companion betrays Eldrin, shattering his trust and leaving him feeling betrayed and alone. The betrayal is a devastating blow, and Eldrin struggles to cope with the pain and anger that consume him. The betrayal has shaken his faith in humanity, and he questions his own judgment.
+			  		</Plot>
+				</Song>
+				<Song song="Inferno's Trial">
+			  		<song_id>7</song_id>
+			  		<Tone>Dramatic, Contrasting</Tone>
+			  		<Plot>Eldrin is confronted with a fiery trial, a test of his courage and determination. He must navigate through a treacherous labyrinth of flames, dodging traps and avoiding deadly obstacles. The heat is intense, and the air is thick with smoke. Eldrin's physical and mental endurance are pushed to their limits, but he refuses to give up. The trial is a crucible that will test his resolve and prepare him for the challenges that lie ahead.
+			  		</Plot>
+				</Song>
+		  	</Act>
+		  	<Act act="III: The Heartstone’s Legacy">
+				<Song song="Eldoria's Heartbeat">
+			  		<song_id>8</song_id>
+			  		<Tone>Epic, Triumphant</Tone>
+					<Plot>After overcoming countless challenges, Eldrin finally reaches the ancient realm of Eldoria. The land is filled with ancient ruins and hidden secrets. Eldrin must explore the realm and find the Heartstone of Creation, a powerful artifact that holds the key to saving the world. The search is fraught with danger, and Eldrin must face a series of trials and tribulations before he can claim the Heartstone.
+					</Plot>
+				</Song>
+				<Song song="Heart of War">
+			  		<song_id>9</song_id>
+			  		<Tone>Intense, Climatic</Tone>
+			  		<Plot>A powerful adversary, corrupted by dark forces, seeks to claim the Heartstone for his own evil purposes. A final confrontation ensues, a battle that will determine the fate of the world. The stakes are high, and Eldrin knows that he must do everything in his power to stop the adversary.
+			  		</Plot>
+				</Song>
+				<Song song="Dawn's Embrace">
+			  		<song_id>10</song_id>
+			  		<Tone>Hopeful, Uplifting</Tone>
+			  		<Plot>Eldrin emerges victorious, having defeated his adversary and secured the Heartstone. The world is healed, and the people rejoice. Eldrin, having fulfilled his destiny, can finally find peace. He returns to his tower, a changed man, and spends his remaining days sharing his wisdom with the next generation.
+			  		</Plot>
+				</Song>
+		  	</Act>
+		</album>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		Prologue: The Forest Hunt (Tutorial Level)
+
+    Setting: A dense, ancient forest surrounding Eldrin’s secluded tower. The trees are gnarled, the air thick with the scent of damp earth.
+    Gameplay Introduction:
+        Basic movement & interaction: Eldrin tracks a deer.
+        Basic combat: A shadowy wolf (lesser dark creature) ambushes him, teaching the player attack mechanics.
+        Magic system introduction: Eldrin casts a basic firebolt spell to drive the beast away.
+        Gathering system: Eldrin collects herbs and returns home.
+
+Act I: The Call
+Chapter 1: Echoes of Stone (Eldrin’s Tower)
+
+    Setting: A secluded wizard’s tower, filled with books, scrolls, and ancient artifacts.
+    Events:
+        The player explores, interacting with Eldrin’s possessions (books, alchemy table, a locked chest).
+        An enchanted mirror reflects eerie distortions—subtle foreshadowing.
+        Eldrin senses unease; whispers seem to emerge from the tower walls.
+
+Chapter 2: Dreamweaver’s Call (Vision Sequence)
+
+    Setting: A dreamlike, burning landscape—a city in ruin, screams echoing.
+    Events:
+        Eldrin sees shadowy figures engulfed in flames, a dying king clutching a glowing heart-shaped crystal (the Heartstone).
+        A spectral figure, the Dreamweaver, warns him: "You must awaken. Eldoria is falling. The Heartstone must not break."
+        Eldrin jolts awake, the words burned into his mind.
+
+Chapter 3: Odyssey’s Dawn (The Journey Begins)
+
+    Setting: The forest outside Eldrin’s tower, now eerily different—twisted trees, strange markings on the ground.
+    Events:
+        Eldrin arms himself and sets off, leaving his tower behind.
+        First major combat encounter: corrupted creatures roam the land.
+        Eldrin stumbles upon a fallen traveler, who whispers of Eldoria’s collapse before dying.
+        Upon reaching the forest’s edge, Eldrin gazes at the vast world of Eldoria, determined to uncover the truth.
+
+Act II: Trials and Tribulations
+Chapter 4: Summit of Despair (Mountain Pass)
+
+    Setting: A frigid, treacherous mountain pass battered by howling winds.
+    Events:
+        Eldrin struggles against the elements; movement is slowed by deep snow.
+        Survival mechanic: The player must find fire sources to avoid freezing.
+        Nightfall brings spectral wraiths haunting the peaks.
+        Eldrin questions his strength, nearly turning back, but presses forward.
+
+Chapter 5: Sylvan Sanctuary (The Hidden Forest)
+
+    Setting: A mystical, glowing forest untouched by time. Floating lights and ancient runes are carved into trees.
+    Events:
+        Eldrin meets The Hermit, an ancient guardian who knows of the prophecy.
+        A side quest allows Eldrin to learn a powerful new spell or gain insight into the Heartstone’s origins.
+        The player must navigate an enchanted maze, unlocking the forest’s secrets.
+
+Chapter 6: Treachery’s Bite (Betrayal)
+
+    Setting: A war-torn village where survivors whisper of a traitor.
+    Events:
+        Eldrin joins forces with a trusted companion (a rogue or knight), who aids him in battle.
+        The betrayal: The companion steals an important artifact from Eldrin, leaving him for dead.
+        Wounded and enraged, Eldrin loses some abilities (mechanic: temporary debuff to strength or magic).
+
+Chapter 7: Inferno’s Trial (The Fire Labyrinth)
+
+    Setting: A burning labyrinth of molten rock and shifting walls of flame.
+    Events:
+        Eldrin fights to recover his strength, regaining lost abilities.
+        The Companion-turned-Adversary returns, now corrupted by dark forces.
+        A duel ensues, forcing Eldrin to choose:
+            Mercy: Spare the traitor, who may redeem themselves later.
+            Retribution: Strike them down, but bear the weight of the act.
+
+Act III: The Heartstone’s Legacy
+Chapter 8: Eldoria’s Heartbeat (The Ruins of Eldoria)
+
+    Setting: A forgotten kingdom, now an eerie wasteland of fallen towers and silent ghosts.
+    Events:
+        Eldrin must navigate an ancient dungeon containing traps and puzzles.
+        The Heartstone’s resting place is revealed—a grand chamber filled with golden light.
+        As Eldrin reaches for it, the final adversary appears.
+
+Chapter 9: Heart of War (Final Battle)
+
+    Setting: A crumbling cathedral where light and darkness clash.
+    Events:
+        The adversary, a former hero now corrupted, seeks to use the Heartstone for dominion.
+        The final battle consists of three phases:
+            Melee combat—Eldrin fights against the adversary’s mortal form.
+            Magic duel—The adversary channels dark magic, forcing Eldrin to counter with spells.
+            The Heartstone’s Trial—The player must make a crucial choice:
+                Destroy the Heartstone (risking an uncertain future).
+                Purify the Heartstone (restoring balance to Eldoria).
+
+Chapter 10: Dawn’s Embrace (Epilogue)
+
+    Setting: Eldrin’s tower, now bathed in golden light.
+    Events:
+        Eldrin returns home, forever changed, the world at peace.
+        He records his journey in a book, ensuring his wisdom is passed down.
+        The final scene fades to a young apprentice reading Eldrin’s words, hinting that the cycle may begin again.
+
+Possible Alternate Endings:
+
+    Sacrificial Victory: Eldrin perishes in battle, but the world is saved.
+    Corruption Ending: Eldrin takes the Heartstone for himself, becoming the next adversary.
+    Restored Balance (True Ending): Eldrin purifies the Heartstone and lives to share his wisdom.
+
+Gameplay Mechanics Summary:
+
+    ARPG combat with magic-based abilities and swordplay.
+    Upgradeable magic system—spells tied to Eldrin’s emotional state.
+    Exploration-heavy gameplay—hidden secrets, puzzles, and lore pieces.
+    Dynamic choices affecting relationships and the final battle.
+    Pixel-art aesthetic inspired by Zelda: Minish Cap and Crystalis.
