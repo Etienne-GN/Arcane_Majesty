@@ -32,14 +32,14 @@ let cursors;
 function preload() {
     // Load the spritesheet
     this.load.spritesheet('player', 'assets/player_spritesheet.png', {
-        frameWidth: 16,
-        frameHeight: 16
+        frameWidth: 48,
+        frameHeight: 48
     });
 
     // Load the tilemap
-    this.load.tilemapTiledXML('map', 'maps/level1.tmx');
+    // this.load.tilemapTiledXML('map', 'maps/level1.tmx');
     // Load the tileset image
-    this.load.image('grass', 'mystic_woods_free_2.2/sprites/tilesets/grass.png');
+    // this.load.image('grass', 'mystic_woods_free_2.2/sprites/tilesets/grass.png');
 }
 
 /**
@@ -47,71 +47,61 @@ function preload() {
  */
 function create() {
     // Create the map
-    const map = this.make.tilemap({ key: 'map' });
-    const tileset = map.addTilesetImage('grass', 'grass');
-    const layer = map.createLayer('Tile Layer 1', tileset, 0, 0);
+    // const map = this.make.tilemap({ key: 'map' });
+    // const tileset = map.addTilesetImage('grass', 'grass');
+    // const layer = map.createLayer('Tile Layer 1', tileset, 0, 0);
 
     // Set collision based on the 'collides' property
-    layer.setCollisionByProperty({ collides: true });
+    // layer.setCollisionByProperty({ collides: true });
 
     // Add the player sprite with physics
     player = this.physics.add.sprite(100, 100, 'player');
     player.setCollideWorldBounds(true); // Don't let the player walk off-screen
 
     // Add collision between the player and the map layer
-    this.physics.add.collider(player, layer);
+    // this.physics.add.collider(player, layer);
 
     // --- Player Animations ---
-    // Based on the Mystic Woods asset pack, the player animations are on specific rows.
-    // These frame numbers are based on a 20-tile wide spritesheet.
     const anims = this.anims;
 
-    // Walking animations
+    // Walking animations (assuming 8 frames wide spritesheet)
     anims.create({
         key: 'walk-down',
-        frames: anims.generateFrameNumbers('player', { start: 120, end: 125 }),
+        frames: anims.generateFrameNumbers('player', { start: 24, end: 29 }),
         frameRate: 10,
         repeat: -1
     });
     anims.create({
         key: 'walk-up',
-        frames: anims.generateFrameNumbers('player', { start: 140, end: 145 }),
-        frameRate: 10,
-        repeat: -1
-    });
-    anims.create({
-        key: 'walk-left',
-        frames: anims.generateFrameNumbers('player', { start: 160, end: 165 }),
+        frames: anims.generateFrameNumbers('player', { start: 32, end: 37 }),
         frameRate: 10,
         repeat: -1
     });
     anims.create({
         key: 'walk-right',
-        frames: anims.generateFrameNumbers('player', { start: 180, end: 185 }),
+        frames: anims.generateFrameNumbers('player', { start: 40, end: 45 }),
         frameRate: 10,
         repeat: -1
     });
 
-    // Idle animations (using the first frame of each walking animation)
+    // Idle animations
     anims.create({
         key: 'idle-down',
-        frames: [{ key: 'player', frame: 120 }],
-        frameRate: 20
+        frames: anims.generateFrameNumbers('player', { start: 0, end: 5 }),
+        frameRate: 5,
+        repeat: -1
     });
     anims.create({
         key: 'idle-up',
-        frames: [{ key: 'player', frame: 140 }],
-        frameRate: 20
-    });
-    anims.create({
-        key: 'idle-left',
-        frames: [{ key: 'player', frame: 160 }],
-        frameRate: 20
+        frames: anims.generateFrameNumbers('player', { start: 8, end: 13 }),
+        frameRate: 5,
+        repeat: -1
     });
     anims.create({
         key: 'idle-right',
-        frames: [{ key: 'player', frame: 180 }],
-        frameRate: 20
+        frames: anims.generateFrameNumbers('player', { start: 16, end: 21 }),
+        frameRate: 5,
+        repeat: -1
     });
 
 
@@ -119,7 +109,7 @@ function create() {
     cursors = this.input.keyboard.createCursorKeys();
 
     // Make the camera follow the player
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    // // this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     this.cameras.main.startFollow(player);
 }
 
@@ -133,9 +123,11 @@ function update() {
     // Horizontal movement
     if (cursors.left.isDown) {
         player.setVelocityX(-speed);
-        player.anims.play('walk-left', true);
+        player.flipX = true;
+        player.anims.play('walk-right', true);
     } else if (cursors.right.isDown) {
         player.setVelocityX(speed);
+        player.flipX = false;
         player.anims.play('walk-right', true);
     }
     // Vertical movement
@@ -147,16 +139,19 @@ function update() {
         player.anims.play('walk-down', true);
     } else {
         // If no keys are pressed, play the idle animation corresponding to the last direction.
-        // This requires storing the last direction, for now we'll just default to idle-down.
         const currentAnim = player.anims.currentAnim;
         if (currentAnim) {
             const animName = currentAnim.key;
             if (animName.startsWith('walk-')) {
                 const direction = animName.split('-')[1];
-                player.anims.play(`idle-${direction}`);
+                if (direction === 'right') {
+                    player.anims.play('idle-right', true);
+                } else {
+                    player.anims.play(`idle-${direction}`, true);
+                }
             }
         } else {
-            player.anims.play('idle-down');
+            player.anims.play('idle-down', true);
         }
     }
 }
