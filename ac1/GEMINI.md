@@ -2,9 +2,9 @@
 
 This project is a 2D top-down Action RPG (ARPG) inspired by classic 16-bit console games like "The Legend of Zelda". It is being built using the **Phaser 3** game engine, with **JavaScript** as the primary language. Levels are designed externally using the **Tiled Map Editor**.
 
-The project is being developed iteratively through a phased approach. The current implementation is at the end of **Phase 2**, which features a player character that can be moved around an empty screen with keyboard controls and has walking/idle animations.
+The project is being developed iteratively through a phased approach. **Phase 2** is now complete. The game features a player character that is displayed on the screen and can be moved in four directions using the arrow keys. The character has walking and idle animations.
 
-The next step is **Phase 3**, which involves creating a game map in Tiled and implementing world collision.
+The next step is **Phase 3**: creating a game map in Tiled and implementing world collision.
 
 ### Building and Running
 
