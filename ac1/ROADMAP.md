@@ -1,41 +1,43 @@
-# Roadmap
+# Arcane Majesty: Development Roadmap
 
-This roadmap outlines the development plan for creating a 2D top-down Action RPG inspired by "Heartwood Online".
+---
 
-## Phase 1: Foundation (Complete)
+### **Phase 1: Foundations & Learning (Your First Week)**
 
-*   [x] Player character created with basic movement (up, down, left, right).
-*   [x] Walking and idle animations implemented.
+This phase is about getting you comfortable with Godot's editor while I set up the project's skeleton.
 
-## Phase 2: World and Collision (In Progress)
+*   **Milestone 1.1: Godot Setup & Basic Training**
+    *   **Your Task:** Install Godot. Then, work through the official **"Your First 2D Game (Dodge the Creeps!)"** tutorial in the Godot documentation. This is the single best way to understand the editor, scenes, and scripting.
+    *   **My Task:** While you're learning, I will create the initial Godot project structure for "Arcane Majesty" and configure the basic project settings for a high-quality pixel art game.
 
-*   [ ] Create the initial game map using the Tiled Map Editor, drawing inspiration from "Heartwood Online"'s world design.
-*   [ ] Load the Tiled map into Phaser.
-*   [ ] Implement world collision based on tile properties defined in Tiled. The player should not be able to walk through solid objects.
+*   **Milestone 1.2: Asset Integration**
+    *   **Your Task:** Create your first test map. Import the Pipoya tilesets into the project and use Godot's `TileSet` editor to create a tileset resource. Try painting a simple map. This is the core skill for your role.
+    *   **My Task:** I will be on standby to assist with any questions and to prepare the scripts for the next phase.
 
-## Phase 3: Core Combat Mechanics
+---
 
-*   [ ] Implement a basic player attack (e.g., sword swing).
-*   [ ] Add enemy sprites to the game.
-*   [ ] Implement simple enemy AI (e.g., patrol or chase behavior).
-*   [ ] Create a health and damage system for both the player and enemies.
+### **Phase 2: Core Gameplay Development (The First Playable Build)**
 
-## Phase 4: Interaction and Items
+In this phase, I will implement the core features, bringing the game to life.
 
-*   [ ] Add NPCs (Non-Player Characters) with simple dialogue interactions.
-*   [ ] Implement interactive objects like chests that can be opened.
-*   [ ] Create a basic inventory system to manage collected items.
-*   [ ] Implement item pickup and drop functionality.
+*   **Milestone 2.1: The Player**
+    *   I will create the player character scene.
+    *   Implement top-down movement (8-directional).
+    *   Implement basic animations (e.g., idle and walking).
 
-## Phase 5: User Interface (UI)
+*   **Milestone 2.2: The World**
+    *   We will use your test map from Milestone 1.2.
+    *   I will add a camera that follows the player.
+    *   I will implement tile-based collision so the player can't walk through walls or obstacles.
 
-*   [ ] Design and implement a main menu/title screen.
-*   [ ] Create a Heads-Up Display (HUD) to show player health, and other relevant info.
-*   [ ] Develop UI panels for inventory and character stats.
+*   **Milestone 2.3: Interaction**
+    *   I will create a basic system for interacting with objects (e.g., reading signs, opening chests).
 
-## Phase 6: Polish and Expansion
+*   **Milestone 2.4: NPCs and Dialogue**
+    *   I will create a basic NPC character.
+    *   I will implement a simple, placeholder dialogue system.
 
-*   [ ] Add sound effects for actions like attacks, footsteps, and UI interactions.
-*   [ ] Incorporate background music.
-*   [ ] Expand the world with more maps and quests.
-*   [ ] Refine gameplay mechanics and visual effects.
+*   **Milestone 2.5: Inventory & Items**
+    *   I will create the underlying system for an inventory.
+    *   I will implement the ability to pick up items from the ground.
+    *   I will create a basic UI to show the inventory.
