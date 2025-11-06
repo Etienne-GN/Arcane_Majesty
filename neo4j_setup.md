@@ -58,6 +58,69 @@ To connect Gemini to the Neo4j database, you will need to provide the following 
 
 This information will be used to configure the Neo4j connection within the Gemini application.
 
+## Database Management: Exporting and Importing Data
+
+### Database File Location
+
+When running Neo4j in Docker with a named volume (e.g., `-v neo4j_data:/data`), your database files are stored within that Docker volume. The actual location on your host machine depends on your Docker setup, but the data is managed by Docker. Inside the container, the database files for the `neo4j` database are typically located at `/data/databases/neo4j`.
+
+### Exporting Data from a Running Container
+
+To export your database, you can use the `neo4j-admin dump` command from within your running Docker container.
+
+1.  **Start your Neo4j container (if not already running):**
+    ```bash
+    docker run --name neo4j-apoc -p 7474:7474 -p 7687:7687 -v neo4j_data:/data -v ./apoc.conf:/etc/neo4j/apoc.conf -e NEO4J_AUTH=neo4j/your_password -e NEO4J_PLUGINS='["apoc"]' neo4j:latest
+    ```
+
+2.  **Execute the dump command inside the container:**
+    ```bash
+    docker exec neo4j-apoc neo4j-admin dump --database=neo4j --to=/data/databases/neo4j.dump
+    ```
+    This will create a `neo4j.dump` file inside your `neo4j_data` Docker volume.
+
+3.  **Copy the dump file from the Docker volume to your host machine (optional):**
+    ```bash
+    docker cp neo4j-apoc:/data/databases/neo4j.dump /path/to/your/host/directory/neo4j.dump
+    ```
+    Replace `/path/to/your/host/directory/` with your desired location on the host.
+
+### Importing Data into a New Docker Container
+
+To import a database dump into a new Neo4j Docker container:
+
+1.  **Transfer the dump file** to the host machine where you will run the new Docker container.
+
+2.  **Create a Docker volume (if you haven't already):**
+    ```bash
+    docker volume create neo4j_data
+    ```
+
+3.  **Run a temporary container to load the dump file:**
+    ```bash
+    docker run \
+        --name neo4j-import \
+        -e NEO4J_AUTH=neo4j/your_password \
+        -v /path/to/your/host/directory/neo4j.dump:/var/lib/neo4j/data/databases/neo4j.dump \
+        -v neo4j_data:/data \
+        neo4j:latest \
+        neo4j-admin load --from=/var/lib/neo4j/data/databases/neo4j.dump --database=neo4j --force
+    ```
+    Replace `/path/to/your/host/directory/neo4j.dump` with the actual path to your dump file on the host machine. This command will load the data into the `neo4j_data` volume.
+
+4.  **Start your main Neo4j Docker container** using the loaded volume:
+    ```bash
+    docker run \
+        --name neo4j-apoc \
+        -p 7474:7474 -p 7687:7687 \
+        -v neo4j_data:/data \
+        -v ./apoc.conf:/etc/neo4j/apoc.conf \
+        -e NEO4J_AUTH=neo4j/your_password \
+        -e NEO4J_PLUGINS='["apoc"]' \
+        neo4j:latest
+    ```
+    Your Neo4j instance will now be running with the imported data.
+
 ### Gemini Extension Configuration
 
 To enable Gemini to interact with Neo4j, you need to configure the `mcp-neo4j` extension. Create or update the file `~/.gemini/extensions/mcp-neo4j/gemini-extension.json` with the following content:
