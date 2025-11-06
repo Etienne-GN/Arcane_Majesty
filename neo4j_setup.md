@@ -5,6 +5,18 @@ This document outlines the steps to set up a local Neo4j database using Docker. 
 ## Prerequisites
 
 *   [Docker](https://docs.docker.com/get-docker/) installed on your system.
+*   [uvx](https://github.com/uv-labs/uvx) installed on your system.
+
+## Installing uv (and uvx)
+
+`uvx` is not a standalone package; it's an alias for `uv tool run`. To use `uvx`, you first need to install `uv`. `uv` is an extremely fast Python package and project manager.
+
+You can install `uv` using the standalone installer for macOS and Linux:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
 
 ## Running the Neo4j Container
 
