@@ -20,9 +20,11 @@ Forced to grapple with this new, "impure" identity, Anya learns to control her d
 Anya, now fully accepting of her dual nature, makes the ultimate sacrifice. In a heartbreaking farewell, she uses her unique powers of both light and dark to seal Nychtoros and herself away in the underworld. The album closes with Seraphina, devastated but inspired. She makes a vow to honor Anya's sacrifice by forging a kingdom strong enough to protect the world, setting her on the path to become the leader we see in later sagas.
 		]]>
 	</AlbumPlot>
-			<Act act="I: The Empire of Shadows">
+	<TimelineEvent>0 GD</TimelineEvent>
+			<Act act="I: The Shadow's Fall">
 				<Song song="Empire of the Void">
 						<song_id>1</song_id>
+						<timestamp>-30</timestamp>
 						<Tone>Mysterious, Intriguing</Tone>
 						<Plot>The song serves as an anthem to the 'Empire of the Void,' a vast and powerful realm of eternal night ruled by the newly awakened ancient evil, Nychtoros. The lyrics describe a kingdom forged in darkness, where its legions embrace the silence and find strength in a destiny bound to their dark regime. It's a declaration of the Empire's supreme, cosmic power and its inhabitants' unwavering belief in their enduring legacy.</Plot>
 						<Lyrics>[Verse 1]
@@ -84,6 +86,7 @@ Anya, now fully accepting of her dual nature, makes the ultimate sacrifice. In a
 					</Song>
 				<Song song="Eternal Nightfall">
 						<song_id>2</song_id>
+						<timestamp>0</timestamp>
 						<Tone>Dramatic, Adventurous</Tone>
 						<Plot>As Nychtoros's 'Empire of the Void' casts an 'Eternal Nightfall' over the land, a desperate struggle for survival unfolds. Amidst this chaos, Anya, a brilliant but sheltered Aurorian scholar, is violently transported from her home by the chaotic energies of the emerging Stormbringer. Believing herself to be a being of pure light, she is terrified by the raw darkness she is thrust into. Disoriented but armed with her extensive academic knowledge of Nychtoros, Anya quickly grasps the dire situation. She encounters a band of mortal rebels, led by the courageous Valen, and together, they embark on a perilous journey through the shadowed lands, with Anya seeking to apply her theoretical knowledge to a brutal reality she was never meant to face.</Plot>
 						<Lyrics>[Verse 1]
@@ -167,6 +170,7 @@ Anya, now fully accepting of her dual nature, makes the ultimate sacrifice. In a
 					</Song>
 				<Song song="After the Snowfall">
 						<song_id>3</song_id>
+						<timestamp>7</timestamp>
 						<Tone>Solitary, Reflective</Tone>
 						<Plot>After a devastating skirmish against Nychtoros's forces, Anya, Valen, and the rebels find themselves in a desolate, frozen wasteland. Seraphina, burdened by her own losses, is also present. Amidst the 'long and cold winter' of their struggle, Anya and Seraphina unexpectedly cross paths. In the quiet aftermath, they share their burdens, forging a deep bond. Seraphina, a mortal queen, is impressed by the Aurorian scholar's resilience, while Anya is moved by Seraphina's unwavering dedication despite her grief. This shared moment of vulnerability strengthens their resolve and inspires Seraphina, even as Anya grapples with her place in this dark, unfamiliar world.</Plot>
 						<Lyrics>[Verse 1]
@@ -239,9 +243,10 @@ Anya, now fully accepting of her dual nature, makes the ultimate sacrifice. In a
 						<analysis>...</analysis>
 					</Song>
 				</Act>
-			<Act act="II: Symphony of Suffering">
+			<Act act="II: The Alliance of Hope">
 				<Song song="Symphony of Suffering">
 						<song_id>4</song_id>
+						<timestamp>30</timestamp>
 						<Tone>Intense, Chaotic</Tone>
 						<Plot>A colossal battle erupts as the newly formed alliance confronts Nychtoros's forces. The battlefield becomes a 'Symphony of Suffering.' Amidst the brutal conflict, Anya uses her Aurorian knowledge of light to fight, but realizes it's not enough against the overwhelming void. In a heroic act of defiance, Valen sacrifices himself to protect his comrades, his loss deeply felt by both Anya and Seraphina. As the battle rages, the prophecy of a hero rising to challenge the darkness begins to unfold, illuminating Anya's path and inspiring Seraphina to rally her troops with renewed fervor.</Plot>
 						<Lyrics>[Verse]
@@ -312,6 +317,7 @@ Anya, now fully accepting of her dual nature, makes the ultimate sacrifice. In a
 					</Song>
 				<Song song="Mystic Horizon">
 						<song_id>5</song_id>
+						<timestamp>35</timestamp>
 						<Tone>Mysterious, Revealing</Tone>
 						<Plot>Reeling from the battle and the loss of Valen, Anya and Seraphina seek out the enigmatic keeper, Elara, in the legendary realm of the 'Mystic Horizon.' Here, Elara reveals the shattering truth to Anya: she is not a pure Aurorian, but the last Nephilim—a hybrid of Aurorian and Original Vampire. Her lifelong, secret fascination with darkness was her dormant heritage calling to her. The revelation is terrifying for Anya, who has been raised to believe in the purity of light. Seraphina, however, stands by her, seeing not a tainted bloodline, but a friend in need and a potential key to victory.</Plot>
 						<Lyrics>[Verse 1]
@@ -367,6 +373,7 @@ Anya, now fully accepting of her dual nature, makes the ultimate sacrifice. In a
 					</Song>
 				<Song song="Learning to Fly">
 						<song_id>6</song_id>
+						<timestamp>45</timestamp>
 						<Tone>Empowering, Uplifting</Tone>
 						<Plot>Under Elara's guidance, Anya begins a transformative and agonizing journey to accept her new identity. She is not just honing skills; she is 'learning to fly' by grappling with the 'impure' vampiric powers she never knew she had. The process is one of fear and self-doubt, but with Seraphina's unwavering support, Anya starts to see her duality not as a curse, but as a unique strength. This struggle to embrace her full Nephilim nature prepares her for the trials ahead.</Plot>
 						<Lyrics>[Verse 1]
@@ -444,9 +451,10 @@ Anya, now fully accepting of her dual nature, makes the ultimate sacrifice. In a
 						<analysis>...</analysis>
 					</Song>
 				</Act>
-			<Act act="III: Shadows and Stardust">
+			<Act act="III: The Storm and the Prophecy">
 				<Song song="Shadows and Stardust">
 						<song_id>7</song_id>
+						<timestamp>60</timestamp>
 						<Tone>Adventurous, Discover</Tone>
 						<Plot>Now beginning to accept her dual nature, Anya leads her companions on a perilous journey through the cosmos, to a place where 'shadows and stardust' collide. Using her newfound understanding of both light and dark, she navigates the celestial ruins. They uncover the ultimate secret of the prophecy: Nychtoros cannot be destroyed, only contained by a being of perfect balance—a Nephilim. Anya now understands that her entire existence has been leading to this single, terrible purpose.</Plot>
 						<Lyrics>[Verse 1]
@@ -502,6 +510,7 @@ Anya, now fully accepting of her dual nature, makes the ultimate sacrifice. In a
 					</Song>
 				<Song song="Stormbringer">
 						<song_id>8</song_id>
+						<timestamp>65</timestamp>
 						<Tone>Mysterious, Intriguing</Tone>
 						<Plot>As the war reaches its zenith, the 'Stormbringer' fully manifests. Anya, now understanding her true nature, realizes why she has a connection to the chaotic entity. Drawing upon her full Nephilim power—the authority of her Aurorian light and the instinct of her vampiric shadow—she is the only one who can face the Stormbringer. She doesn't command it, but communes with it, convincing the ancient entity to lend its power to their cause, turning the tide of a critical battle.</Plot>
 						<Lyrics>[Verse 1]
@@ -558,6 +567,7 @@ Anya, now fully accepting of her dual nature, makes the ultimate sacrifice. In a
 					</Song>
 				<Song song="Eclipse of Destiny">
 						<song_id>9</song_id>
+						<timestamp>70</timestamp>
 						<Tone>Dramatic, Decisive</Tone>
 						<Plot>With the Stormbringer's aid, the alliance confronts Nychtoros under a looming 'Eclipse of Destiny.' In this 'cosmic dance of dark and light,' Anya fully accepts her fate as the last Nephilim. She understands that to imprison the void of Nychtoros, she must become the lock—an eternal, living paradox of light and shadow. She grapples with the immense weight of this choice, knowing her sacrifice will save the world but cost her everything.</Plot>
 						<Lyrics>[Verse 1]
@@ -630,9 +640,10 @@ Anya, now fully accepting of her dual nature, makes the ultimate sacrifice. In a
 						<analysis>...</analysis>
 					</Song>
 				</Act>
-			<Act act="IV: Haunting Life and Celestial Rebellion">
+			<Act act="IV: The Queen's Vow">
 				<Song song="Shadows in the Rain">
 						<song_id>10</song_id>
+						<timestamp>72</timestamp>
 						<Tone>Introspective, Challenging</Tone>
 						<Plot>In the moments leading up to the final ritual, a heavy rain falls. This is a moment of quiet introspection. Surrounded by the 'shadows in the rain,' Anya and Seraphina share a final, somber moment. Anya is no longer a frightened scholar or a confused hybrid; she is the Nephilim, calm and resolute in her purpose. She has found peace in her dual nature, understanding it is the only thing that can save the world. The scene is a quiet farewell between two friends on the precipice of destiny.</Plot>
 						<Lyrics>[Verse]
@@ -686,6 +697,7 @@ Anya, now fully accepting of her dual nature, makes the ultimate sacrifice. In a
 					</Song>
 				<Song song="Endless Night">
 						<song_id>11</song_id>
+						<timestamp>73</timestamp>
 						<Tone>Desperate, Intense</Tone>
 						<Plot>The 'Endless Night' of Nychtoros's power threatens to consume all. With Seraphina by her side, Anya begins the final ritual. She unleashes her full Nephilim power, weaving her Aurorian light and her vampiric darkness together. In a heartbreaking act of selflessness, she creates the eternal prison, sealing Nychtoros and herself away in the underworld. The raw power of her sacrifice is a 'symphony of despair' that ends the immediate threat, but at the ultimate cost.</Plot>
 						<Lyrics>[Verse 1]
@@ -771,6 +783,7 @@ Anya, now fully accepting of her dual nature, makes the ultimate sacrifice. In a
 					</Song>
 				<Song song="Celestial Rebellion">
 						<song_id>12</song_id>
+						<timestamp>74</timestamp>
 						<Tone>Triumphant, Bittersweet</Tone>
 						<Plot>In the immediate aftermath of Anya's profound sacrifice, the universe reverberates with the echoes of a 'Celestial Rebellion.' Though Nychtoros is contained, the battle has left its scars, and the realms are in turmoil. Seraphina, profoundly affected by the loss of her friend and comrade, channels her grief into a fierce resolve. Inspired by Anya’s selflessness and the legacy she left behind, Seraphina vows to carry on the fight. She rallies the remaining forces, becoming a beacon of hope for those left behind, fighting fiercely to protect the future Anya envisioned. This moment marks Seraphina's true transformation into a leader driven by a solemn promise: to build a kingdom strong enough to withstand any future darkness, and to be ready for the day Nychtoros inevitably returns.</Plot>
 						<Lyrics>[Verse 1]
@@ -836,6 +849,7 @@ Anya, now fully accepting of her dual nature, makes the ultimate sacrifice. In a
 					</Song>
 				<Song song="Haunting Life">
 						<song_id>13</song_id>
+						<timestamp>75</timestamp>
 						<Tone>Reflective, Hopeful</Tone>
 						<Plot>From her eternal exile, Anya, the last Nephilim, reflects on her 'haunting life'—her cursed fate as the eternal warden. Though her existence is now one of endless waiting in a world of shadows, her spirit endures as a 'haunting echo of hope.' In the realms above, Seraphina, now a queen forged in loss and inspired by Anya's sacrifice, begins to build a kingdom worthy of that sacrifice, her new core motivation set in stone.</Plot>
 						<Lyrics>[Verse 1]

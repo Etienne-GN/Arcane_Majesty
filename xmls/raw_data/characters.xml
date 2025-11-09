@@ -1,0 +1,92 @@
+	<characters>
+		<character name="Kael">
+			<surname></surname>
+			<description>Kael is a young swordsman from Eldoria who discovers his cursed vampire lineage. His journey revolves around battling his inner darkness while trying to redeem himself from the curse that haunts him.</description>
+			<physical_traits>Kael has a strong, athletic build, enhanced by the vampiric curse. His eyes show signs of internal struggle, occasionally glowing red during moments of thirst.</physical_traits>
+			<capacities_description>Kael has enhanced physical strength, agility, and combat skills due to his vampiric bloodline. However, he also struggles with controlling his thirst for blood, which makes him unpredictable.</capacities_description>
+			<backstory>Kael starts as a rising star in the city guard of Eldoria but is plagued by nightmares and the discovery of his cursed vampire lineage. His journey is marked by self-discovery, battles with inner demons, and the quest to break the curse.</backstory>
+			<race>Human/Vampire hybrid</race>
+			<role>Protagonist; Cursed Swordsman</role>
+			<character_link>Anya (love interest and eventual betrayer)</character_link>
+		</character>
+		<character name="Anya">
+			<surname></surname>
+			<description>Anya is a scholar who becomes embroiled in the dark forces of the universe. Initially curious and compassionate, she eventually discovers her heritage as a descendant of an ancient vampire.</description>
+			<physical_traits>Anya is of average height with sharp features. As her vampiric heritage surfaces, her eyes sometimes glow a haunting red, and she exhibits an ethereal, dark beauty.</physical_traits>
+			<capacities_description>Anya has knowledge of ancient magic and can tap into powerful dark forces due to her vampiric lineage. Her abilities grow over time, making her a formidable force with dark magic.</capacities_description>
+			<backstory>Anya begins as an inquisitive scholar but learns of her vampiric heritage. After separating from Seraphina, she becomes involved in darker forces and betrays Kael. She is eventually trapped in an underworld sanctuary to prevent Nychtoros’ return.</backstory>
+			<race>Human/Vampire hybrid</race>
+			<role>Scholar turned dark sorceress</role>
+			<character_link>Kael (love interest and eventual betrayer); Seraphina (travel companion)</character_link>
+		</character>
+		<character name="Seraphina">
+			<surname>Queen of Carnage</surname>
+			<description>Seraphina is a ruthless warrior queen known as the Queen of Carnage. She seeks to expand her kingdom by conquering Nythoria, manipulating others for her own gain.</description>
+			<physical_traits>Seraphina is tall and imposing with cold, steely eyes that reveal her cunning nature. She wears a crown of despair and wields a scepter of shadows, symbolizing her reign over ruin.</physical_traits>
+			<capacities_description>Seraphina is a master of manipulation, strategy, and combat. She leads legions of darkness and wields immense political and military power. She is also a powerful sorceress with control over shadows.</capacities_description>
+			<backstory>Seraphina rises from a solitary survivor in a frozen wasteland to the feared Queen of Carnage. Her early loss of family hardened her resolve, and she eventually plots to overthrow Malakar by sowing discord within his kingdom.</backstory>
+			<race>Human</race>
+			<role>Queen of Carnage; Antagonist</role>
+			<character_link>Draven (ally); Anya (travel companion)</character_link>
+		</character>
+		<character name="Malakar">
+			<surname>Lord of Shadows</surname>
+			<description>Malakar is the Lord of Shadows, the ruler of Nythoria. He masters dark magic and rules with an iron fist, keeping his kingdom in a perpetual state of twilight and fear.</description>
+			<physical_traits>Malakar is a tall, intimidating figure shrouded in darkness. His eyes glow with a sinister light, and he is often depicted surrounded by shadowy creatures.</physical_traits>
+			<capacities_description>Malakar is a master sorcerer with control over shadows and dark magic. His abilities allow him to manipulate fear and maintain his control over Nythoria.</capacities_description>
+			<backstory>Malakar rose to power by mastering a forbidden tome of dark magic, overthrowing the tyrant king of Nythoria. His rule is marked by fear and oppression, and he faces rebellion from within his kingdom, orchestrated by Seraphina and Draven.</backstory>
+			<race>Human/Sorcerer</race>
+			<role>Lord of Shadows; Antagonist</role>
+			<character_link>Seraphina (enemy); Draven (betrayer)</character_link>
+		</character>
+		<character name="Draven">
+			<surname></surname>
+			<description>Draven is a former warrior of Nythoria who betrays his homeland after being manipulated by Seraphina. He leads a rebellion against Malakar, hoping to gain power in Seraphina's new order.</description>
+			<physical_traits>Draven is rugged and battle-hardened, with scars from many battles. His appearance becomes more unkempt and dark as he falls deeper into his role as a traitor.</physical_traits>
+			<capacities_description>Draven is a skilled warrior and leader of the rebellion. He is highly persuasive and charismatic, which allows him to gather followers and create chaos within Nythoria.</capacities_description>
+			<backstory>Once a loyal warrior of Nythoria, Draven is swayed by Queen Seraphina’s promise of power. He agrees to betray Malakar and lead a rebellion from within to weaken Nythoria for Seraphina’s invasion.</backstory>
+			<race>Human</race>
+			<role>Rebel leader; Betrayer</role>
+			<character_link>Seraphina (ally and manipulator); Malakar (enemy)</character_link>
+		</character>
+		<character name="Nychtoros">
+			<surname></surname>
+			<description>Nychtoros is an ancient, malevolent entity that patrols the borders between night and day, life and death. He rules the Empire of the Void, a realm shrouded in perpetual darkness.</description>
+			<physical_traits>Nychtoros appears as a towering, shadowy figure with glowing eyes that pierce through the darkness. His presence alone creates a chilling aura of death and decay.</physical_traits>
+			<capacities_description>Nychtoros wields immense power over life, death, and time. He can manipulate shadows, control death, and maintain the balance between the realms of the living and the dead. His power is feared across dimensions.</capacities_description>
+			<backstory>As an ancient being tasked with maintaining the balance between night and day, Nychtoros’ power has grown over millennia. His empire is one of silence and darkness, where he controls the boundaries between life and death.</backstory>
+			<race>Ancient Entity</race>
+			<role>Ruler of the Empire of the Void; Antagonist</role>
+			<character_link>Anya (whom he lures into the Empire of the Void)</character_link>
+		</character>
+		<character name="Eldrin">
+			<surname></surname>
+			<description>Eldrin is a wise and skilled mage from the kingdom of Thaloria. He plays a guiding role for Kael and others, offering his wisdom and magical expertise to help them navigate the dangers they face.</description>
+			<physical_traits>Eldrin is an older man with long silver hair and a weathered face. He carries an aura of calm, and his eyes are often described as piercing, reflecting his vast knowledge of magic.</physical_traits>
+			<capacities_description>Eldrin is a master of ancient magic, capable of casting powerful protective spells and unraveling complex arcane mysteries. He is also known for his strategic thinking and wisdom.</capacities_description>
+			<backstory>Eldrin has lived through many wars and upheavals in the magical realms. He has served various rulers but remains independent, devoted to the preservation of knowledge and balance. He plays a key role in guiding Kael on his journey to control the vampiric curse.</backstory>
+			<race>Human/Mage</race>
+			<role>Mentor and Guide</role>
+			<character_link>Kael (student and ally)</character_link>
+		</character>
+		<character name="Valen">
+			<surname></surname>
+			<description>Valen is a skilled warrior and the leader of a group of rebels who seek to overthrow the oppressive forces ruling the Empire of the Void. He has a tragic past that fuels his determination to bring down Nychtoros.</description>
+			<physical_traits>Valen is tall and muscular, with battle-worn armor and scars that tell of many hard-fought battles. His intense gaze reveals his unshakable resolve to protect those who follow him.</physical_traits>
+			<capacities_description>Valen is a master of hand-to-hand combat and battlefield tactics. His leadership inspires fierce loyalty, and he’s able to rally even the most hopeless of causes into formidable resistance movements.</capacities_description>
+			<backstory>Valen’s family was destroyed by the forces of Nychtoros, driving him to seek revenge. He has gathered a group of rebels who share his goal of freeing the Empire of the Void from darkness, and he leads them with iron discipline.</backstory>
+			<race>Human</race>
+			<role>Leader of the Rebels; Ally of Anya</role>
+			<character_link>Anya (companion in the fight against Nychtoros)</character_link>
+		</character>
+		<character name="Elara">
+			<surname></surname>
+			<description>Elara is a wise and ancient being who dwells in the mystical realm known as the Celestial Gardens. She serves as a guide to Anya, revealing the true nature of the darkness plaguing the universe.</description>
+			<physical_traits>Elara has a graceful, ethereal appearance, with silver hair that glows faintly. Her eyes are like starlight, reflecting the timeless knowledge she possesses.</physical_traits>
+			<capacities_description>Elara has control over cosmic forces and possesses deep wisdom of the universe. Her abilities allow her to manipulate starlight, time, and dimensions, making her a powerful ally in the fight against Nychtoros.</capacities_description>
+			<backstory>Elara has existed since ancient times, serving as a guardian of cosmic knowledge. She is dedicated to preserving balance and helps Anya unlock her true potential as they fight against the darkness threatening the universe.</backstory>
+			<race>Ancient Being</race>
+			<role>Mentor and Guardian of Cosmic Knowledge</role>
+			<character_link>Anya (whom she helps to harness her powers)</character_link>
+		</character>
+	</characters>

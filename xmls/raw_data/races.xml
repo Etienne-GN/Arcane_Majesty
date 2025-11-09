@@ -1,0 +1,17 @@
+	<races>
+		<race name="Human">
+			<appearance>Normal human appearance</appearance>
+			<capabilities>Varying based on individual</capabilities>
+			<special_attributes>None</special_attributes>
+		</race>
+		<race name="Vampire">
+			<appearance>Pale skin, sharp fangs, often wears dark clothing</appearance>
+			<capabilities>Enhanced strength, speed, and senses; immortality; can control other vampires</capabilities>
+			<special_attributes>Vulnerability to sunlight, weakness to holy symbols</special_attributes>
+		</race>
+		<race name="Werewolf">
+			<appearance>Human-like when not transformed; transformed form is typically large, muscular, and covered in fur</appearance>
+			<capabilities>Enhanced strength, speed, and senses; can transform into a werewolf</capabilities>
+			<special_attributes>Vulnerability to silver, full moon transformations</special_attributes>
+		</race>
+	</races>

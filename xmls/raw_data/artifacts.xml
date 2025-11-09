@@ -1,0 +1,11 @@
+	<artifacts>
+		<artifact name="The Celestial Key">
+			<properties>="Unlocks the secrets of the Celestial Gardens"</properties>
+		</artifact>
+		<artifact name="The Forbidden Tome">
+			<properties></properties>
+		</artifact>
+		<artifact name="The Heartstone of Creation">
+			<properties></properties>
+		</artifact>
+	</artifacts>
