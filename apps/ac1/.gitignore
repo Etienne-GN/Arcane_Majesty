@@ -1,0 +1,11 @@
+# Godot 4+ specific ignores (Legacy)
+.godot/
+/android/
+*.import
+Godot_v4.5-stable_linux.x86_64
+
+# Node.js
+node_modules/
+dist/
+.DS_Store
+*.local
