@@ -75,6 +75,8 @@ Once the plots for an album and its individual songs are finalized, we apply the
 
 12. **Persona & Context Definition:** For each song, define the "Speaker" and "Context" to establish the vocal persona for Suno.
 13. **Narrative Anchoring:** Modify the verses to include proper nouns (characters, locations, artifacts) and specific actions from the refined plots.
-14. **Syllabic Alignment:** Ensure all modifications strictly respect the original syllable count and rhythmic meter.
+14. **Structural Integrity:** NEVER remove a verse, pre-chorus, bridge, or outro. The reworked song must maintain the exact same arrangement as the original.
+15. **Preservation of Variations:** Maintain all subtle differences in repeating sections (choruses, pre-choruses) to preserve the original phrasing nuances.
+16. **Syllabic Alignment:** Ensure all modifications strictly respect the original syllable count and rhythmic meter.
 15. **Thematic Hook Preservation:** Keep the original choruses intact to maintain the atmospheric "vibe" and musical consistency.
 16. **Bridge Climax:** Use the bridge to deliver the narrative pivot or specific story reveal identified in the plot refinement phase.

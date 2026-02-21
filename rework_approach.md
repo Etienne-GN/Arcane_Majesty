@@ -4,7 +4,15 @@ The **Rework Approach** is a specialized method for converting atmospheric "vibe
 
 ## Core Principles
 
-### 1. Rhythmic & Syllabic Preservation
+### 1. Structural Integrity (CRITICAL)
+- **Constraint:** NEVER remove a verse, pre-chorus, bridge, or outro. The new version must have the exact same number of structural elements as the original.
+- **Goal:** Ensure Suno can generate a remake that matches the original track's length and arrangement perfectly.
+
+### 2. Preservation of Variations
+- **Constraint:** If repeating sections (like Pre-Choruses or Choruses) have subtle differences in the original text, these variations must be preserved or adapted narratively in the rework. 
+- **Goal:** Maintain the unique lyrical phrasing of each specific instance in the song.
+
+### 3. Rhythmic & Syllabic Preservation
 - **Constraint:** New lyrics must match the syllable count and rhythmic meter of the original lyrics as closely as possible.
 - **Goal:** Ensure the song can be "covered" by Suno without breaking the vocal phrasing or timing established in previous versions.
 
