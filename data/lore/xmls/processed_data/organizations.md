@@ -1,45 +1,34 @@
-# Organizations of Arcane Majesty
+# Organizations of Arcane Majesty (Linear Era: 0 GD)
 
-This document defines the primary military, political, and scholarly organizations inhabiting the realms, refined for the Neo4j graph and narrative consistency.
+This document defines the primary military and scholarly organizations established during the era of "A Tapestry of Souls."
 
 ## The Void Forces
 
 ### Legion of Souls
 - **Nature:** The spectral army of Nyktoros.
-- **Composition:** Void-wraiths, shadow-beings, and corrupted spirits.
 - **Leader:** Nyktoros.
 - **Objective:** The total consumption of all light and the expansion of the Empire of the Void.
-- **Status:** Primary antagonist force during the Great Darkness (0 GD).
 
 ---
 
 ## The Nythorian Factions
 
 ### Nythorian Resistance
-- **Nature:** A rebel movement formed within the kingdom of Nythoria.
+- **Nature:** A rebel movement formed within the Underworld to survive the onslaught of the Void.
 - **Leader:** Seraphina and Valen.
-- **Objective:** Originally formed to overthrow the tyranny of Malakar; later pivoted to survive the onslaught of the Void.
-- **Status:** Precursor to the Shadow Legion.
+- **Objective:** Survival and the containment of Nyktoros.
 
 ### Shadow Legion
 - **Nature:** The elite, militarized successor to the Resistance.
 - **Leader:** The Queen of Carnage (Seraphina).
-- **Objective:** Protecting the world from future Void incursions through overwhelming military might.
-- **Status:** Founded in the wake of Anya's sacrifice; based in Ravenspire.
-
-### Malakar's Royal Guard
-- **Nature:** The sorcerous enforcers of the Lord of Shadows.
-- **Leader:** Malakar.
-- **Objective:** Maintaining order in Nythoria through fear and shadow-sorcery.
-- **Status:** Active antagonists during the civil war preceding the Great Darkness.
+- **Objective:** Protecting the world from future Void incursions.
+- **Status:** Founded in the wake of Anya's sacrifice.
 
 ---
 
 ## The Light Orders
 
-### The Seers of Thaloria
+### The Seers of Auroria
 - **Nature:** An ancient order of Aurorian high elves.
-- **Composition:** Scholars, cosmic mages, and keepers of history.
 - **Notable Member:** Anya (before her vigil).
-- **Objective:** The study of cosmic rifts, preservation of light magic, and guarding the Celestial Gardens.
-- **Status:** Keepers of the prophecies regarding the Void-Echo and the Living Lock.
+- **Objective:** The study of cosmic rifts and guarding the Celestial Gardens.

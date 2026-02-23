@@ -5,7 +5,7 @@
 
 **Act I: The Shadow's Fall**
 
-The ancient evil, **Nyktoros**, awakens. Among the **Aurorians**—high elves who wield the power of Light—a young scholar named **Anya** is known for her brilliance. Born during a rare Celestial Eclipse, her soul was spirit-stained by the Void, making her a **Void-Echo**, uniquely immune to Nyktoros's magic. As the war against the Void rages, the chaotic **Stormbringer** entity creates a rift in reality that violently pulls Anya from her home in Thaloria into the heart of the Underworld.
+The ancient evil, **Nyktoros**, awakens. Among the **Aurorians**—high elves who wield the power of Light—a young scholar named **Anya** is known for her brilliance. Born during a rare Celestial Eclipse, her soul was spirit-stained by the Void, making her a **Void-Echo**, uniquely immune to Nyktoros's magic. As the war against the Void rages, the chaotic entity **Aetheros the Stormbringer** creates a rift in reality that violently pulls Anya from her home in Auroria into the heart of the Underworld.
 
 **Act II: The Alliance of Hope**
 
@@ -13,7 +13,7 @@ A disoriented Anya encounters the **Nythorian** resistance, led by **Valen**, an
 
 **Act III: The Storm and the Prophecy**
 
-Anya learns to master her dual nature, walking through the Void untouched. She communicates with the **Stormbringer**, swaying the chaos-entity to aid the resistance. They discover the prophecy: Nyktoros cannot be destroyed, only contained by a being of perfect balance who must become his eternal warden.
+Anya learns to master her dual nature, walking through the Void untouched. She communicates with **Aetheros**, swaying the chaos-entity to aid the resistance. They discover the prophecy: Nyktoros cannot be destroyed, only contained by a being of perfect balance who must become his eternal warden.
 
 **Act IV: The Queen's Vow**
 
@@ -26,7 +26,7 @@ Anya makes the ultimate sacrifice, weaving a prison of light and shadow to seal 
 						<song_id>1</song_id>
 						<timestamp>-30</timestamp>
 						<Tone>Mysterious, Intriguing</Tone>
-						<Plot>This song is the triumphant anthem of the Legion of Souls, sung by the heralds of the Void as Nyktoros awakens from his eons-long slumber. It establishes the Empire of the Void as a primordial force rising to reclaim the realms. The "we" in the lyrics represents the shadow-beings declaring the end of the Aurorian era and the beginning of a regime where "stars go to die." It sets the scale of the cosmic threat.</Plot>
+						<Plot>This song is the triumphant anthem of the Legion of Souls, sung by the heralds of the Void as Nyktoros awakens. The spectral army is built from the "bank" of tormented souls sent to the Underworld by centuries of hidden vampire predation in the Material Plane. It establishes the Empire of the Void as a primordial force rising to reclaim the realms, fueled by the very life-force stolen from the world of light.</Plot>
 						<Lyrics>[Verse 1]
 	Where Aurorian suns are dim, and the stars refuse to glow,
 	In Nythoria’s kingdom where the darkest whispers flow.
@@ -88,9 +88,9 @@ Anya makes the ultimate sacrifice, weaving a prison of light and shadow to seal 
 						<song_id>2</song_id>
 						<timestamp>0</timestamp>
 						<Tone>Dramatic, Adventurous</Tone>
-						<Plot>The "Great Darkness" begins (0 GD). As Nyktoros's influence reaches the mortal plane, the Stormbringer creates a violent rift in reality. Anya, a sheltered Aurorian scholar in Thaloria, is pulled through the rift and thrust into the war-torn Underworld. Terrified and disoriented, she is discovered by Valen and a band of Nythorian rebels. For the first time, Anya realizes her "spirit-stained" soul allows her to survive the raw darkness that would consume any other Aurorian.</Plot>
+						<Plot>The "Great Darkness" begins (0 GD). As Nyktoros's influence reaches the mortal plane, Aetheros the Stormbringer creates a violent rift in reality. Anya, a sheltered Aurorian scholar in Auroria, is pulled through the rift and thrust into the war-torn Underworld. Terrified and disoriented, she is discovered by Valen and a band of Nythorian rebels. For the first time, Anya realizes her "spirit-stained" soul allows her to survive the raw darkness that would consume any other Aurorian.</Plot>
 						<Lyrics>[Verse 1]
-	From Thaloria’s golden sun,
+	From Auroria’s golden sun,
 	To a world that’s been undone.
 	Through the rift of static gray,
 	To the void where shadows play.
@@ -248,7 +248,7 @@ Anya makes the ultimate sacrifice, weaving a prison of light and shadow to seal 
 						<song_id>4</song_id>
 						<timestamp>30</timestamp>
 						<Tone>Intense, Chaotic</Tone>
-						<Plot>A colossal battle erupts as the Legion of Souls attempts to crush the last Nythorian resistance. Battlefield is a "Symphony of Suffering" where pure Light and pure Shadow clash. Anya attempts to use her Aurorian magic, but the Void swallows it whole. In a desperate final stand to buy Anya and Seraphina time to escape, Valen sacrifices himself, his soul consumed by the darkness. This tragedy forces Anya to realize that being a "scholar of light" is no longer enough.</Plot>
+						<Plot>A colossal battle erupts as the Legion of Souls attempts to crush the last Nythorian resistance. The battlefield is a "Symphony of Suffering," as the Legion unleashes the power of the millions of souls "banked" in the Underworld by the Crimson Covenant. Anya attempts to use her Aurorian magic, but the Void swallows it whole. In a desperate final stand, Valen sacrifices himself, his soul joining the very army he fought to stop. This tragedy forces Anya to realize that being a "scholar of light" is no longer enough.</Plot>
 						<Lyrics>[Verse 1]
 	Blood stained sky
 	Infinite cries
@@ -511,10 +511,10 @@ Anya makes the ultimate sacrifice, weaving a prison of light and shadow to seal 
 						<song_id>8</song_id>
 						<timestamp>65</timestamp>
 						<Tone>Mysterious, Intriguing</Tone>
-						<Plot>As the war reaches its peak, the chaotic entity Stormbringer manifests fully, tearing the sky apart. Anya alone can stand in the center of the atmospheric fury. She doesn't fight the chaos; she communes with it, using her spirit-stained frequency to convince the Stormbringer to lend its power to the Nythorian resistance. This turns the tide of the final battle, clearing a path to Nyktoros's throne.</Plot>
+						<Plot>As the war reaches its peak, the chaotic entity Aetheros manifests fully, tearing the sky apart. Anya alone can stand in the center of the atmospheric fury. She doesn't fight the chaos; she communes with it, using her spirit-stained frequency to convince the Stormbringer to lend its power to the Nythorian resistance. This turns the tide of the final battle, clearing a path to Nyktoros's throne.</Plot>
 						<Lyrics>[Verse 1]
 	In the dark of the night I hear the call of the rift
-	The Stormbringer's essence is the only sacred gift
+	The Stormbringer Aetheros is my sacred gift
 	I feel the fire in my veins The Void-Echo in my eyes
 	I’m ready to face the unknown
 
