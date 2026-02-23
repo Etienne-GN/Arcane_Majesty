@@ -49,6 +49,19 @@ This file contains the character data established during the era of "A Tapestry 
     - `WARDEN_IS` Anya
 - **Origin:** Empire of the Void
 
+### Malakar
+- **Name:** Malakar
+- **Surname:** Lord of Shadows
+- **Race:** Nythorian
+- **Role:** Sorcerer King of Nythoria; Disciple of the Void
+- **Description:** An iron-fisted ruler mastering dark shadow magic to summon his god.
+- **Backstory:** Overthrew a tyrant using the **Forbidden Tome**. He secretly dedicated his reign to Nyktoros, using his victims to fuel the Void's awakening. He tracked and destroyed the physical body of Acheron to stop the vampire from siphoning his god's power.
+- **Relationships:**
+    - `ENMITY_WITH` Seraphina
+    - `KILLED` Acheron (Physical Form)
+    - `SERVANT_OF` Nyktoros
+- **Origin:** Nythoria
+
 ### Legion Herald
 - **Name:** Legion Herald
 - **Race:** Nythorian (Corrupted)
@@ -81,6 +94,6 @@ This file contains the character data established during the era of "A Tapestry 
 - **Name:** Acheron
 - **Race:** Fallen Aurorian (The First Vampire)
 - **Role:** Founder of the Crimson Covenant; The Great Manipulator
-- **Description:** An exiled High Elf who used Nyktoros's blueprints to harvest the dormant Void.
-- **Backstory:** Formerly a Seer of Auroria, he used forbidden knowledge to transform himself into the first predator. He managed the "bank of souls" for Nyktoros while siphoning his own divine light into his human servants for safety. Now a spirit, he plans to use Kael to unlock the Void so he can harvest its power and achieve absolute godhood.
+- **Description:** An exiled High Elf whose physical form was destroyed by Malakar.
+- **Backstory:** Formerly a Seer of Auroria. After his physical body was destroyed by Malakar’s cross-dimensional strike, his spirit endured. He stored his divine essence in the Kael bloodline and now seeks to use Kael to unlock the Void and finish his parasitic harvest.
 - **Origin:** Auroria (Exiled)
