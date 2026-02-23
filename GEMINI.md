@@ -1,5 +1,14 @@
 # Arcane Majesty Compendium
 
+> [!IMPORTANT]
+> **Instructions for AI Sessions:**
+> 1.  **Contextualize:** At the start of a new session, you MUST read the following files to align with our established lore and progress:
+>     - `GEMINI.md` (Project Overview & Tech Stack)
+>     - `current_progress.md` (Current Status & Next Steps)
+>     - `world_lore.md` (Cosmic Structure & Mechanics)
+>     - `data/lore/xmls/project_summary.md` (Linear Rework Workflow)
+> 2.  **Update Records:** As milestones are achieved, you are responsible for updating `current_progress.md` and this section of `GEMINI.md` to ensure continuity for future sessions.
+
 ## Project Overview
 
 This project, "Arcane Majesty," is a multi-dimensional fantasy saga that combines music, lore, and game development to create a rich, immersive universe. The project is presented as a web-based compendium that serves as a central hub for all its components.
