@@ -73,7 +73,8 @@ This process ensures we always know which files are complete and which are pendi
 
 Once the plots for an album and its individual songs are finalized, we apply the **Rework Approach** to the lyrics to ensure the story is reflected in the music.
 
-12. **Persona & Context Definition:** For each song, define the "Speaker" and "Context" to establish the vocal persona for Suno.
+12. **Master Narrator:** A single, consistent vocal persona is assigned to the entire saga: **Aetheros the Stormbringer**. All songs are sung from his perspective as the Eternal Sentinel, though the lyrical POV may shift between characters.
+13. **Persona & Context Definition:** For each song, define the specific "Lyrical POV" (e.g., Acheron, Anya, Seraphina) to provide context for the narrator's performance.
 13. **Narrative Anchoring:** Modify the verses to include proper nouns (characters, locations, artifacts) and specific actions from the refined plots.
 14. **Structural Integrity:** NEVER remove a verse, pre-chorus, bridge, or outro. The reworked song must maintain the exact same arrangement as the original.
 15. **Preservation of Variations:** Maintain all subtle differences in repeating sections (choruses, pre-choruses) to preserve the original phrasing nuances.

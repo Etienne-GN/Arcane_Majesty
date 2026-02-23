@@ -28,11 +28,13 @@ The **Rework Approach** is a specialized method for converting atmospheric "vibe
 - **Constraint:** Use the Bridge of the song to reveal a specific plot twist, a character's internal choice, or a major story climax.
 - **Goal:** This is the most narrative-heavy section of the track, providing the "Why" behind the "What."
 
-### 5. Persona & Context (The Suno Prompt)
-Every song Rework must include a **Persona & Context** block to guide Suno's performance:
-- **Speaker:** Who is singing? (e.g., A herald of Nyktoros, a terrified Anya, a stoic Valen). This defines the "Persona" for the vocal delivery.
-- **Context:** Where and when is this happening in the timeline? What is the character's motivation at this exact moment?
-- **Phonetic Spelling:** Use phonetic variants (e.g., "Nyktoros" instead of "Nychtoros") to ensure correct AI pronunciation.
+### 5. Narrator & Perspective (The Suno Setup)
+To ensure vocal consistency across an entire album while maintaining narrative depth, we use a two-layer persona model:
+
+- **Album Narrator (The Voice):** A single, consistent vocal persona assigned to the entire album (e.g., "The Seer of Auroria" or "The Shadow Historian"). This ensures Suno maintains the same singer, style, and tone across all tracks.
+- **Song Perspective (The POV):** The specific character or entity whose viewpoint is being shared in that song. The lyrics may use first-person ("I") if the narrator is "roleplaying" the character, or third-person ("She/He") if they are recounting the event.
+
+**Workflow Requirement:** Every album must have a defined **Album Narrator** block, and every song must specify its **Perspective (POV)**.
 
 ## Implementation Workflow
 1. **Identify the Plot:** Extract the specific `<Plot>` from the master XML.
