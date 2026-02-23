@@ -48,6 +48,13 @@ This file contains the character data established during the era of "A Tapestry 
     - `WARDEN_IS` Anya
 - **Origin:** Empire of the Void
 
+### Legion Herald
+- **Name:** Legion Herald
+- **Race:** Nythorian (Corrupted)
+- **Role:** Voice of the Legion
+- **Description:** A Nythorian who fell to the Void's influence, serving as the speaker for Nyktoros.
+- **Origin:** Nythoria
+
 ### Elara
 - **Name:** Elara
 - **Race:** Ancient Being
