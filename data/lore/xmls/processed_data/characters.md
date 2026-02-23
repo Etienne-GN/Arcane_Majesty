@@ -13,18 +13,19 @@ This file contains the character data established during the era of "A Tapestry 
 - **Relationships:**
     - `ALLY_OF` Seraphina
     - `MENTORED_BY` Elara
-- **Origin:** Auroria
+- **Origin:** The Crystal Sanctum (Auroria)
 
 ### Seraphina
 - **Name:** Seraphina
 - **Race:** Nythorian
 - **Role:** Leader of the Resistance; Future Queen of Carnage
-- **Description:** A battle-hardened warrior of the Underworld resistance.
-- **Backstory:** Leads the Nythorian resistance against the Void. Witnessing Anya's sacrifice transforms her resolve, leading her to found the Shadow Legion.
+- **Description:** A battle-hardened warrior who lost her home to the Void.
+- **Backstory:** A survivor of the ancestral ruins of Ravenspire. Witnessing Anya's sacrifice transforms her grief into resolve, leading her to found the new kingdom of Ravenspire and the Shadow Legion to protect the future.
 - **Relationships:**
     - `ALLY_OF` Anya
     - `ALLY_OF` Valen
-- **Origin:** Ravenspire
+    - `FOUNDED` Ravenspire (New)
+- **Origin:** Ravenspire (Ancestral Ruins)
 
 ### Valen
 - **Name:** Valen
