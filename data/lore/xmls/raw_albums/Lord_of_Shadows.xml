@@ -1,207 +1,192 @@
 <album album="Lord of Shadows">
-		  	<Act act="I: The Emergence">
-				<Song song="The Forbidden Tome">
-			  		<song_id>1</song_id>
-			  		<Tone>Soft, haunting melody</Tone>
-			  		<Plot>Malakar, a young sorcerer with an insatiable thirst for knowledge, stumbles upon a forbidden tome hidden deep within the ancient ruins of Nythoria.The tome, written in an ancient language, contains powerful dark magic. Despite the warnings and the fear it inspires, Malakar is drawn to its secrets.He spends countless hours studying the tome, deciphering its cryptic language and understanding the immense power it holds.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
-In ancient ruins, shrouded in night
-A hidden tome, a forbidden sight
-Its pages whispered secrets deep
-A power dormant, waiting to leap
+    <AlbumPlot>
+        <![CDATA[
+### "Lord of Shadows" - The Fall and the Hiding (Era III)
+
+**Context:** Takes place simultaneously with *Queen of Carnage* (~75 AGD to 150 AGD).
+
+After the Great Darkness, the wounded Sorcerer King **Malakar** is haunted by the silence of his god and the ruins of his ambition. This album tells the story of his desperate attempt to hold his remaining power, his eventual defeat by the **Queen of Carnage**, and his retreat into the **Shadow Realm**. It is a narrative of an exiled king rebuilding his resolve in the absolute dark, planning his return while the world above celebrates his fall.
+        ]]>
+    </AlbumPlot>
+    <TimelineEvent>Post-0 GD</TimelineEvent>
+    <Act act="I: The Bitter Peace">
+        <Song song="The Hollow Crown">
+            <song_id>1</song_id>
+            <timestamp>80</timestamp>
+            <Tone>Melancholic, Orchestral</Tone>
+            <Plot>In the wake of Anya's sacrifice, Malakar sits in his damaged throne room. He realized that the Void he worshipped has destroyed his world. He wears a crown that feels like a weight of lead.</Plot>
+            <Lyrics>[Verse 1]
+The dust has settled on the obsidian floor,
+I hear the echoes of the closing door.
+I gave my kingdom to the master's name,
+Now I am standing in the ash and shame.
+The Great Darkness left me with a leaden weight,
+A broken vessel of a cruel fate.
 
 [Chorus]
-The forbidden tome, a dangerous prize
-A path to darkness, where shadows rise
-With caution tread, for knowledge is a blade
-That cuts both ways, a price to be paid
+The hollow crown, upon a haunted head,
+Feeding the ghosts of the billions dead.
+I am the King of Nothing and the lord of none,
+Beneath the shadow of the darkened sun.
+The victory is cold and the world is still,
+Within the circle of my broken will.
 
 [Verse 2]
-I touched its cover, felt its cold embrace
-A shiver ran down my spine, a chilling trace
-I opened its pages, with trembling hand
-And ventured into a forbidden land
-
-[Chorus]
-The forbidden tome, a dangerous prize
-A path to darkness, where shadows rise
-With caution tread, for knowledge is a blade
-That cuts both ways, a price to be paid
+I am the priest who opened up the gate,
+To give the universe its final state.
+But Nyktoros is silent in his cell,
+Leaving me here in this sunless hell.
+My magic flickers like a dying spark,
+Lost in the center of the absolute dark.
 
 [Bridge]
-The tome revealed its secrets, dark and deep
-A power that could make my spirit weep
-I wrestled with temptation, fear and doubt
-But curiosity pulled me in, no turning about
+I see the ruins from my window high,
+A jagged landscape and a lightless sky.
+I sold the souls to buy a divine throne,
+But I am sitting in the dark alone.
+The price of godhood was a total loss,
+I am the shadow on the ancient cross.
 
 [Chorus]
-The forbidden tome, a dangerous prize
-A path to darkness, where shadows rise
-With caution tread, for knowledge is a blade
-That cuts both ways, a price to be paid
-
-[Verse 3]
-I delved deeper, into the unknown
-A world of magic, where shadows roam
-I learned of ancient spells, forgotten lore
-A power that could shape the world, forevermore
-
-[Chorus]
-The forbidden tome, a dangerous prize
-A path to darkness, where shadows rise
-With caution tread, for knowledge is a blade
-That cuts both ways, a price to be paid
-
-[Verse 4]
-With immense power comes a significant duty
-A heavy load, a burden to bear
-I understood the path I chose and the cost it entailed
-Yet I remained resolute, no matter the challenges ahead.
-
-[Chorus]
-The forbidden tome, a dangerous prize
-A path to darkness, where shadows rise
-With caution tread, for knowledge is a blade
-That cuts both ways, a price to be paid</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="The Rise of Malakar">
-			  		<song_id>2</song_id>
-			  		<Tone>Dark, Powerful</Tone>
-			  		<Plot>In the ancient realm of Nythoria, a young sorcerer named Malakar discovers a forbidden tome of dark magic. Through relentless study and sacrifice, he masters the shadows, overthrowing the tyrant king and claiming the throne. His realm, now shrouded in eternal twilight, becomes a haven for those who embrace the darkness.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
-In the ancient land of Nythoria, where shadows softly creep,
-A young sorcerer named Malakar, his destiny to keep.
-He found a tome of darkness, hidden deep within the night,
-With every page he turned, he felt the surge of might.
-
-[Chorus]
-Rise, oh Malakar, master of the dark,
-From the depths of shadows, ignite the spark.
-With the power of the night, claim your throne,
-In the realm of twilight, you stand alone.
-
-[Verse 2]
-Through sacrifice and secrets, he learned the shadow’s art,
-Casting spells of power, he tore the world apart.
-The tyrant king was overthrown, his reign came to an end,
-Malakar ascended, the shadows now his friend.
-
-[Chorus]
-Rise, oh Malakar, master of the dark,
-From the depths of shadows, ignite the spark.
-With the power of the night, claim your throne,
-In the realm of twilight, you stand alone.
-
-[Bridge]
-Eternal twilight blankets the land,
-A haven for those who understand.
-In the whispers of the night, his name is known,
-Malakar, the Lord of Shadows, has claimed his own.
-
-[Chorus]
-Rise, oh Malakar, master of the dark,
-From the depths of shadows, ignite the spark.
-With the power of the night, claim your throne,
-In the realm of twilight, you stand alone.
-
-[Verse 3]
-In the realm of Nythoria, where shadows softly creep,
-The Lord of Shadows reigns, his destiny to keep.
-Malakar, the sorcerer, with darkness in his hand,
-Rules the realm of twilight, the shadows at his command.
-
-[Interlude]
-The Shadow's now his friend
-
-[Chorus]
-Rise, oh Malakar, master of the dark,
-From the depths of shadows, ignite the spark.
-With the power of the night, claim your throne,
-In the realm of twilight, you stand alone.
-You stand alone</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="Reign of the Shadow Lord">
-			  		<song_id>3</song_id>
-			  		<Tone>Intense, Dominant</Tone>
-			  		<Plot>As the Lord of Shadows, Malakar rules Nythoria with an iron fist, his power unmatched. He enforces strict laws, ensuring loyalty through fear and respect. The people of Nythoria, though living in perpetual dusk, thrive under his protection, their loyalty unwavering. Malakar’s spies and shadow creatures keep the realm secure, but whispers of rebellion begin to stir.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
-In twilight's hush, where darkness reigns
-A mastermind weaves his subtle pains
-Malakar, the Lord of Shadows, holds sway
-As Nythoria trembles beneath his gray
-
-[Chorus]
-Reign of the Shadow Lord, a kingdom of fear
-Where loyalty is bought with tears and cheers
-His power unmatched, his rule divine
-The people thrive, but whispers begin to shine
-
-[Verse 2]
-Spies and shadows creep, in every place
-Watching eyes, a silent, deadly pace
-Malakar's will, the realm's foundation laid
-But rumors spread, of rebels unafraid
-
-[Chorus]
-Reign of the Shadow Lord, a kingdom of fear
-Where loyalty is bought with tears and cheers
-His power unmatched, his rule divine
-The people thrive, but whispers begin to shine
-
-[Screaming guitar solo]
-
-[Bridge]
-In perpetual dusk, where shadows play
-Malakar's grip tightens, night by day
-Yet amidst the darkness, seeds are sown
-Of revolution's spark, a fire soon grown
-
-[Verse 3]
-In hidden chambers, secrets unfold
-Whispers of a prophecy, yet untold
-A chosen one, with fate's design
-Will rise against Malakar, and claim their divine
-
-[Chorus]
-Reign of the Shadow Lord, a kingdom of fear
-Where loyalty is bought with tears and cheers
-His power unmatched, his rule divine
-The people thrive, but whispers begin to shine
-
-[Verse 4]
-Through midnight streets, where silence falls
-A lone figure walks, with purpose stands tall
-The wind whispers truths, of ancient lore
-The Shadow Lord's power, will soon be no more
-
-[Chorus]
-Reign of the Shadow Lord, a kingdom of fear
-Where loyalty is bought with tears and cheers
-His power unmatched, his rule divine
-The people thrive, but whispers begin to shine
-
-[Screaming guitar solo]
+The hollow crown, upon a haunted head,
+Feeding the ghosts of the billions dead.
+I am the King of Nothing and the lord of none,
+Beneath the shadow of the darkened sun.
+The victory is cold and the world is still,
+Within the circle of my broken will.
 
 [Outro]
-As shadows dance, beneath the moon's pale light
-Malakar's reign, a balance of might
-But in the hearts of those who dare to dream
-A rebellion stirs, an end to the Shadow Lord's scheme.</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-		  	</Act>
-		  	<Act act="II: The Betrayal and the Assault">
-		  		<Song song="Veil of Betrayal">
-			  		<song_id>4</song_id>
-			  		<Tone>dark, intense, dramati</Tone>
-			  		<Plot>Queen Seraphina, a ruthless warrior queen from a neighboring kingdom, sees Nythoria as a prize to be conquered. She has been secretly gathering intelligence on Nythoria and plotting her invasion. Seraphina is a cunning strategist, and she knows that a direct assault on Nythoria would be difficult. Instead, she plans to sow discord within the kingdom and weaken it from within. To do so, she contacted a rebel among Nythoria's warrior named Draven, she gave him a mission to rise a rebellion to weakened Malakar's forces. Draven is promised to have a Glorious position after the war beside Seraphina.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
+It is empty...
+It is cold...
+The crown is hollow.
+The crown is hollow.</Lyrics>
+        </Song>
+        <Song song="Ghosts of the Citadel">
+            <song_id>2</song_id>
+            <timestamp>85</timestamp>
+            <Tone>Haunting, Choral</Tone>
+            <Plot>As Malakar walks through his capital, he is haunted by the spectral remnants of those he sacrificed to wake Nyktoros. Their voices fill his mind.</Plot>
+            <Lyrics>[Verse 1]
+I hear them calling from the cracks in the wall,
+The restless spirits in the sunless hall.
+A million whispers in a single breath,
+The choral music of the final death.
+They are the tithing that I gave away,
+To bring the ending of the elven day.
+
+[Verse 2]
+Their eyes are hollow and their skin is gray,
+They have no bodies and they have no way.
+They follow me into the deep of night,
+The silent victims of my sacred fight.
+I see the faces that I used to know,
+In the reflections of the shadow's glow.
+
+[Chorus]
+Ghosts of the Citadel, they scream my name,
+The burning record of my holy shame.
+I am the architect of their despair,
+I feel their presence in the very air.
+They are the currency of my new reign,
+The living memory of the shadow's pain.
+
+[Verse 3]
+I try to hide within the Forbidden Tome,
+But in the pages they have found a home.
+Every ritual and every spell,
+Is just a window to their private hell.
+They ask me why I broke the universal gate,
+To seal them in this lightless and divine fate.
+
+[Bridge]
+The more I kill, the more the silence grows,
+The final secret that the Disciple knows.
+I am the guardian of a graveyard land,
+With the weight of millions in my sorcerer's hand.
+They are my subjects and they are my judge,
+Within the darkness of the shadow's grudge.
+
+[Chorus]
+Ghosts of the Citadel, they scream my name,
+The burning record of my holy shame.
+I am the architect of their despair,
+I feel their presence in the very air.
+They are the currency of my new reign,
+The living memory of the shadow's pain.
+
+[Outro]
+I hear you...
+I see you...
+The ghosts are everywhere.
+The ghosts are everywhere.</Lyrics>
+        </Song>
+        <Song song="The Iron Peace">
+            <song_id>3</song_id>
+            <timestamp>90</timestamp>
+            <Tone>Brutal, Disciplined</Tone>
+            <Plot>Malakar attempts to restore order. He enforces a strict 'Iron Peace' in Nythoria, using his Royal Guard to crush any sign of the growing rebellion before Seraphina arrives.</Plot>
+            <Lyrics>[Verse 1]
+The war is over but the struggle starts,
+To bind the pieces of the elven hearts.
+I am the law within this lightless place,
+The iron master of the shadow race.
+No more the chaos and no more the fear,
+The hand of Malakar is always near.
+
+[Verse 2]
+My Royal Guard will walk the broken street,
+Enforcing order through the master's heat.
+Any resistance will be turned to ash,
+Where the rebellion and the scepter clash.
+I’ll build a wall around the Umbral plane,
+To shield the kingdom from the starlight's rain.
+
+[Chorus]
+The Iron Peace, the silence of the blade,
+By the hard choices that I have made.
+We will not falter and we will not fall,
+Beneath the shadow of the Citadel wall.
+The world is quiet and the world is mine,
+The final triumph of the shadow line.
+
+[Verse 3]
+The survivors labor in the mines of stone,
+To build a palace for the Master's throne.
+I trade the freedom for the absolute life,
+Beyond the reach of the external strife.
+I am the anchor in the lightless sea,
+The only hope for our dark destiny.
+
+[Bridge]
+I sense a storm on the horizon's edge,
+A different queen and a different pledge.
+But I have sorcery and I have time,
+To stop the ringing of the rebel's chime.
+I’ll crush the sparks before the fire grows,
+The iron secret that the Shadow knows.
+
+[Chorus]
+The Iron Peace, the silence of the blade,
+By the hard choices that I have made.
+We will not falter and we will not fall,
+Beneath the shadow of the Citadel wall.
+The world is quiet and the world is mine,
+The final triumph of the shadow line.
+
+[Outro]
+Keep the order...
+Enforce the law...
+The peace is iron.
+The peace is iron.</Lyrics>
+        </Song>
+    </Act>
+    <Act act="II: The Fall of Nythoria">
+        <Song song="Veil of Betrayal">
+            <song_id>4</song_id>
+            <timestamp>100</timestamp>
+            <Tone>dark, intense, dramatic</Tone>
+            <Plot>Seraphina's forces launch their assault. From Malakar's perspective, he sees the betrayal of Draven and the collapse of his Iron Peace.</Plot>
+            <Lyrics>[Verse 1]
 In the shadow of the throne, a storm is rising,
 Seraphina's whispers weave through halls of trust.
 With a heart of steel and eyes so cold,
@@ -282,14 +267,13 @@ In ashes of betrayal, all will burn.
 [Outro]
 The queen’s command, the rebel’s fall,
 In the end, betrayal conquers all.</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-		  		<Song song="Hidden Insurrection">
-			  		<song_id>5</song_id>
-			  		<Tone>defiant, intense, determined</Tone>
-			  		<Plot>A small group of rebels, led by a charismatic young warrior named Anya, begin to organize resistance against Malakar's rule. They believe that Malakar's reliance on dark magic is corrupting the kingdom and that he is no better than the tyrant king he replaced. The rebels are determined to overthrow Malakar and restore Nythoria to its former glory.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
+        </Song>
+        <Song song="Hidden Insurrection">
+            <song_id>5</song_id>
+            <timestamp>105</timestamp>
+            <Tone>defiant, intense, determined</Tone>
+            <Plot>The rebellion grows within the city. Malakar is forced to realize that his own people have turned against him, led by the charismatic rebels.</Plot>
+            <Lyrics>[Verse 1]
 In the shadows they gather, hearts beating as one,
 Led by a warrior, fierce as the sun.
 Draven stands tall, with fire in his eyes,
@@ -362,14 +346,13 @@ From ashes they will rise, from darkness they will break,
 With every step they take, the tyrant’s rule will shake.
 The Hidden Insurrection marches, their fate is in their hands,
 To restore the glory of Nythoria’s lands.</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="The Queen’s Deception">
-			  		<song_id>6</song_id>
-			  		<Tone>Dramatic, Suspenseful</Tone>
-			  		<Plot>Malakar's trusted advisor, a shadowy figure named Vesper, uncovers a plot against the throne. The Queen of Carnage, a ruthless warrior queen from a neighboring realm, has been secretly gathering intelligence on Nythoria. Just as Malakar prepares to confront her, he realizes her spies have infiltrated deeper than he imagined, setting the stage for a devastating attack.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
+        </Song>
+        <Song song="The Queen’s Deception">
+            <song_id>6</song_id>
+            <timestamp>110</timestamp>
+            <Tone>Dramatic, Suspenseful</Tone>
+            <Plot>Malakar realizes Seraphina's plan was more than just a direct attack; she has poisoned the very frequency of his magic using the Shadow Legion's tactical knowledge.</Plot>
+            <Lyrics>[Verse 1]
 In the shadows, whispers spread
 Of treachery and plots, in every head
 Vesper watches close, with eyes so keen
@@ -424,14 +407,13 @@ As Malakar prepares, for war's dark design
 He realizes too late, the Queen's deceit is divine
 His power wanes, as Vesper's secrets unfold
 The Queen's Deception, a tale of blood and gold</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="The Fall of Nythoria">
-			  		<song_id>7</song_id>
-			  		<Tone>Tragic, Epic</Tone>
-			  		<Plot>The Queen of Carnage launches a surprise assault on Nythoria, her forces overwhelming Malakar’s defenses. Despite his formidable magic, Malakar is forced to retreat as his kingdom falls. The once-mighty realm of shadows is left in ruins, and the Queen of Carnage claims victory, her reign of terror beginning.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
+        </Song>
+        <Song song="The Fall of Nythoria">
+            <song_id>7</song_id>
+            <timestamp>115</timestamp>
+            <Tone>Tragic, Epic</Tone>
+            <Plot>The capital falls. Malakar witnesses the destruction of the Obsidian Throne and is forced to flee into the wilderness.</Plot>
+            <Lyrics>[Verse 1]
 In the obsidian halls of Nythoria, shadows danced on a king's despair
 Malakar, the sorcerer, with a crown of night, sensed a darkness chilling the air
 Spies returned with whispers of dread, the Queen of Carnage, her crimson tide bled
@@ -484,16 +466,15 @@ Now ruins whisper of a kingdom's demise,
 Nythoria's legacy lost beneath bloodshot skies
 The Carnage Queen ascends, a throne built on fear,
 Her reign of terror, a chilling atmosphere</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-		  	</Act>
-		  	<Act act="III: The Hiding">
-				<Song song="Survival in the Shadows">
-			  		<song_id>8</song_id>
-			  		<Tone>Resilient, Determined</Tone>
-			  		<Plot>Malakar, wounded and in hiding, gathers his remaining loyalists. Through sheer willpower and cunning, he survives the aftermath of the battle. He discovers a hidden sanctuary deep within the shadowy forests of Nythoria, where he begins to rebuild his strength. Luck and the loyalty of his followers play crucial roles in his survival.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
+        </Song>
+    </Act>
+    <Act act="III: The Hiding">
+        <Song song="Survival in the Shadows">
+            <song_id>8</song_id>
+            <timestamp>125</timestamp>
+            <Tone>Resilient, Determined</Tone>
+            <Plot>Wounded and alone, Malakar learns to survive in the wilderness using his raw shadow-magic. He finds a hidden sanctuary.</Plot>
+            <Lyrics>[Verse 1]
 Blood on the crown, a kingdom in flames
 Malakar the fallen, whispers his name
 Wounded and weary, pursued and alone
@@ -544,14 +525,131 @@ Weakened but resolute, vengeance won't wait
 He gathers the remnants, a kingdom's lost fate
 Each whisper a promise, a fire renewed
 From the shadows they'll rise, vengeance pursued</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="The Council">
-			  		<song_id>9</song_id>
-			  		<Tone>dark, ominous, vengeful</Tone>
-			  		<Plot>Malakar gathers his remaining loyalists and forms a secret council to plan his revenge. The council is made up of a diverse group of individuals, each with their own unique skills and abilities. They work tirelessly to rebuild Malakar's forces and prepare for their counterattack.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
+        </Song>
+        <Song song="The Shadow Realm">
+            <song_id>9</song_id>
+            <timestamp>135</timestamp>
+            <Tone>Atmospheric, Cold</Tone>
+            <Plot>Malakar enters the Shadow Realm, a desolate dimension. He realizes he must adapt his magic to this even lower frequency to survive.</Plot>
+            <Lyrics>[Verse 1]
+Beyond the borders of the physical world,
+Where the banners of shadow are finally unfurled.
+I step into the realm of the absolute cold,
+To find the power that the ancients have told.
+The frequency is low and the silence is deep,
+Waking the horrors that the memories keep.
+
+[Verse 2]
+The light of Auroria is a fading dream,
+In this dimension where nothing is what it seems.
+I walk through the vacuum of the lightless plane,
+Drowning my spirit in the shadow's rain.
+I am the exile and I am the ghost,
+Seeking the power that I wanted the most.
+
+[Chorus]
+The Shadow Realm, where the nothingness reigns,
+Breaking the physical and elven chains.
+I am the master of the lightless land,
+With the Void-magic in my sorcerer's hand.
+I will adapt and I will survive,
+The only disciple who is still alive.
+
+[Verse 3]
+The shadow-beasts are my only kin,
+Born of the Void and the elven sin.
+I learn the language of the absolute dark,
+To find the energy and ignite the spark.
+The Queen of Carnage is a world away,
+While I am building a different day.
+
+[Bridge]
+I see the planes from the center of the Void,
+The universal balance has been destroyed.
+But in the silence, I find my true might,
+The final evolution of the final night.
+I won't be broken and I won't be tamed,
+By the shadow-magic that I have claimed.
+
+[Chorus]
+The Shadow Realm, where the nothingness reigns,
+Breaking the physical and elven chains.
+I am the master of the lightless land,
+With the Void-magic in my sorcerer's hand.
+I will adapt and I will survive,
+The only disciple who is still alive.
+
+[Outro]
+Into the dark...
+Into the deep...
+The Shadow Realm is home.
+The Shadow Realm is home.</Lyrics>
+        </Song>
+        <Song song="Whispers of the Void">
+            <song_id>10</song_id>
+            <timestamp>140</timestamp>
+            <Tone>Spiritual, Desperate</Tone>
+            <Plot>Malakar attempts to commune with Nyktoros, but his god is silent. He realizes he must find his own path to power.</Plot>
+            <Lyrics>[Verse 1]
+I pray to the Master in the lightless room,
+To find the reason for the shadow's doom.
+I gave my kingdom and I gave my soul,
+To give the Void its absolute control.
+But there is no answer and there is no sound,
+Only the silence of the holy ground.
+
+[Verse 2]
+The blueprints are active but the voice is gone,
+I am the priest of the darkened sun.
+I feel the hunger but I don't feel the love,
+From the ancient entity in the planes above.
+I am alone in the heart of the night,
+The final defender of the master's light.
+
+[Chorus]
+Whispers of the Void, a silent cry,
+Underneath the surface of the empty sky.
+The god is sleeping or the god is dead,
+Leaving the Disciple with the words unsaid.
+I search for meaning in the shadow's rain,
+Finding the power in the absolute pain.
+
+[Verse 3]
+I realize now that the Master is cold,
+He doesn't care for the stories told.
+He is the hunger and he is the end,
+He is not a father and he's not a friend.
+I must be the master of my own design,
+The final architect of the shadow line.
+
+[Bridge]
+I’ll use the Tome to find a different way,
+To end the era of the elven day.
+I don't need the whispers and I don't need the sign,
+To make the universal power mine.
+I am the Disciple who was left behind,
+The strongest spirit of the elven kind.
+
+[Chorus]
+Whispers of the Void, a silent cry,
+Underneath the surface of the empty sky.
+The god is sleeping or the god is dead,
+Leaving the Disciple with the words unsaid.
+I search for meaning in the shadow's rain,
+Finding the power in the absolute pain.
+
+[Outro]
+Silent god...
+Broken vow...
+I walk alone.
+I walk alone.</Lyrics>
+        </Song>
+        <Song song="The Council">
+            <song_id>11</song_id>
+            <timestamp>145</timestamp>
+            <Tone>dark, ominous, vengeful</Tone>
+            <Plot>Malakar gathers his remaining loyalists and forms a secret council to plan his revenge.</Plot>
+            <Lyrics>[Verse 1]
 In the silence of the night, they gather once again,
 Shadows move like whispers, plotting in the den.
 Malakar stands tall, eyes burning with his rage,
@@ -612,14 +710,13 @@ The shadows shift, the hour draws near,
 Malakar’s voice whispers, "They will know fear."
 The Council stands ready, with vengeance in their sight,
 To rise from the ashes and reclaim the night.</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="Prelude to Vengeance">
-			  		<song_id>10</song_id>
-			  		<Tone>Vengeful, Intriguing</Tone>
-			  		<Plot>As Malakar regains his power, he prepares for revenge against the Queen of Carnage. He trains tirelessly, honing his dark magic and strategizing his return. The shadows whisper of his resurgence, and his loyalists spread word of his impending comeback. The stage is set for an epic confrontation, as the Lord of Shadows readies himself to reclaim his throne.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
+        </Song>
+        <Song song="Prelude to Vengeance">
+            <song_id>12</song_id>
+            <timestamp>150</timestamp>
+            <Tone>Vengeful, Intriguing</Tone>
+            <Plot>As Malakar regains his power, he prepares for revenge against the Queen of Carnage. The stage is set for an epic confrontation.</Plot>
+            <Lyrics>[Verse 1]
 Deep in the heartwood, where shadows convene
 Malakar stirs, a storm yet unseen
 Scars etched in magic, a kingdom's demise
@@ -690,7 +787,6 @@ From the shadows he'll emerge, a storm in his wake
 Vengeance his purpose, no mercy to take
 The prelude is over, the battle's at hand
 Malakar returns, to reclaim his...</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-		  	</Act>
-		</album>
+        </Song>
+    </Act>
+</album>

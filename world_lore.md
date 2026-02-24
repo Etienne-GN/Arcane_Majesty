@@ -47,7 +47,7 @@ To ensure narrative consistency across albums, the history of the planes is divi
 - **Primary Conflict:** The Nythorian internal struggle for the Forbidden Tome.
 - **Key Event:** Malakar overthrows the old tyrant to become the Lord of Shadows.
 - **Status of Characters:** Seraphina and Valen are **Rebels** fighting Malakar's iron-fisted rule.
-- **Relevant Albums:** *Lord of Shadows (Act I)*, *Crimson Covenant*.
+- **Relevant Albums:** *Rite of the Darkened Sun*, *Crimson Covenant*.
 
 ### Era II: The Great Darkness (0 GD)
 - **Primary Conflict:** The awakening of Nyktoros and the universal threat of the Void.
@@ -59,4 +59,4 @@ To ensure narrative consistency across albums, the history of the planes is divi
 - **Primary Conflict:** The rise of new empires and the hunt for the Lord of Shadows.
 - **Key Event:** Seraphina founds the **Shadow Legion** and builds the new **Ravenspire**.
 - **Status of Characters:** Seraphina is now the **Queen of Carnage**. Malakar is a wounded exile plotting revenge from the Shadow Realm.
-- **Relevant Albums:** *Queen of Carnage*, *Lord of Shadows (Act II & III)*.
+- **Relevant Albums:** *Queen of Carnage*, *Lord of Shadows*.

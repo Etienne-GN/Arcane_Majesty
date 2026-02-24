@@ -18,4 +18,9 @@ This document tracks the current state of the project and serves as a quick-refe
 - **Naming Symmetry:** Perfected (Auroria/Aurorians vs. Nythoria/Nythorians).
 
 ## 3. Active Objective
-- We have established the foundation. The next step is to move either into **Era I (Shadow Civil War / Prequels)** or **Era III (The Reconstruction / Sequels starting with *Beyond the Veil Twilight*)**.
+- We have established the foundation. The next step is to move into **Era I (Shadow Civil War / Prequels)**.
+
+## 4. Album Restructuring (Linear Alignment)
+To maintain strict chronological consistency, the original **Lord of Shadows** album has been split:
+- **Rite of the Darkened Sun (Era I):** A new prequel album focused on Malakar’s origins, his discovery of the Forbidden Tome, and his rise as the "Void Disciple." (Includes migrated Act I from LoS).
+- **Lord of Shadows (Era III):** Repurposed as the "Sister Album" to *Queen of Carnage*. Focuses on Malakar’s downfall, his defeat by Seraphina, and his exile to the Shadow Realm.
