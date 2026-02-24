@@ -79,8 +79,8 @@ This file contains the character data established during the era of "A Tapestry 
     - `ALLY_OF` Anya
 - **Origin:** Celestial Gardens
 
-### Aetheros
-- **Name:** Aetheros
+### Vorgos
+- **Name:** Vorgos
 - **Surname:** The Stormbringer
 - **Race:** Ancient Entity
 - **Role:** Universal Sentinel; Force of Equilibrium

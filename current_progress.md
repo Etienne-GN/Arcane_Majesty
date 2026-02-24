@@ -14,7 +14,7 @@ This document tracks the current state of the project and serves as a quick-refe
 ## 2. Established Lore Constants
 - **Acheron:** Established as a Fallen Aurorian Seer and the "First Vampire."
 - **Threshold Assassination:** Malakar confirmed as the one who destroyed Acheron's physical body.
-- **Aetheros:** Identified as the Universal Sentinel of the Aether.
+- **Vorgos:** Identified as the Universal Sentinel of the Aether.
 - **Naming Symmetry:** Perfected (Auroria/Aurorians vs. Nythoria/Nythorians).
 
 ## 3. Active Objective

@@ -25,5 +25,5 @@ Primordial beings who predate the elven races, tied to fundamental cosmic forces
 ### Elara (The Starlight)
 - **Dominion:** Cosmic knowledge, time, and the guidance of fate.
 
-### Aetheros (The Stormbringer)
+### Vorgos (The Stormbringer)
 - **Dominion:** Raw atmospheric power, rifts in reality, and the force of change.
