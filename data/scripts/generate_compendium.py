@@ -32,11 +32,12 @@ def get_lore_data():
             ORDER BY c.name
         """).data()
 
-        # Fetch Locations
-        locations = session.run("""
+        # Fetch Locations with Hierarchy
+        locations_data = session.run("""
             MATCH (l:Location)
-            RETURN l.name AS name, l.description AS description
-            ORDER BY l.name
+            OPTIONAL MATCH (l)-[:PART_OF_REALM]->(parent)
+            RETURN l.name AS name, l.description AS description, parent.name AS parent
+            ORDER BY parent DESC, l.name ASC
         """).data()
 
         # Fetch Artifacts
@@ -50,7 +51,7 @@ def get_lore_data():
     return {
         "albums": albums_data,
         "characters": characters,
-        "locations": locations,
+        "locations": locations_data,
         "artifacts": artifacts
     }
 
@@ -118,13 +119,39 @@ def generate_html(data):
         </div>
         '''
 
-    loc_html = ""
+    # Organize Locations by Realm
+    realms = {}
     for l in data['locations']:
+        parent = l['parent'] if l['parent'] else "Prime Realms"
+        if parent not in realms:
+            realms[parent] = []
+        realms[parent].append(l)
+
+    loc_html = ""
+    for realm, sub_locs in realms.items():
+        sub_html = ""
+        for sl in sub_locs:
+            # If it's a prime realm, we display it as a header later
+            if sl['parent'] is None: continue
+            sub_html += f'''
+            <div class="pl-6 border-l border-white/10 py-4">
+                <h4 class="text-xl font-bold text-white mb-2">{sl["name"]}</h4>
+                <p class="text-gray-400 text-sm leading-relaxed">{sl["description"]}</p>
+            </div>
+            '''
+        
+        # Find the realm description if it's a main node
+        realm_desc = next((l['description'] for l in data['locations'] if l['name'] == realm), "A major dimension of the axis.")
+        
         loc_html += f'''
-        <div class="glass-card p-8 rounded-3xl border-b border-white/5 hover:border-primary/50 transition-all">
-            <div class="w-12 h-1 bg-primary/30 mb-6 rounded-full"></div>
-            <h3 class="text-2xl font-black text-white mb-4 tracking-tight">{l["name"]}</h3>
-            <p class="text-gray-400 text-sm leading-relaxed font-medium">{l["description"]}</p>
+        <div class="glass-card p-8 rounded-3xl mb-8">
+            <div class="mb-6">
+                <h3 class="text-3xl font-black text-primary mb-2 tracking-tight uppercase">{realm}</h3>
+                <p class="text-gray-300 italic font-light">{realm_desc}</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                {sub_html}
+            </div>
         </div>
         '''
 
@@ -166,7 +193,7 @@ def generate_html(data):
             color: white;
             background-image: radial-gradient(circle at 50% -20%, #200000 0%, #050505 80%);
         }}
-        h1, h2, h3 {{ font-family: 'Cinzel', serif; }}
+        h1, h2, h3, h4 {{ font-family: 'Cinzel', serif; }}
         
         .glass-card {{ 
             background: rgba(255, 255, 255, 0.02); 
@@ -224,8 +251,8 @@ def generate_html(data):
         <div id="sections">
             <section id="albums" class="content-section space-y-12">{album_html}</section>
             <section id="characters" class="content-section hidden grid md:grid-cols-2 gap-8">{char_html}</section>
-            <section id="locations" class="content-section hidden grid md:grid-cols-3 gap-8">{loc_html}</section>
-            <section id="artifacts" class="content-section hidden grid md:grid-cols-3 gap-8">{art_html}</section>
+            <section id="locations" class="content-section hidden space-y-12">{loc_html}</section>
+            <section id="artifacts" class="content-section hidden grid md:grid-cols-2 gap-8">{art_html}</section>
         </div>
     </div>
 
