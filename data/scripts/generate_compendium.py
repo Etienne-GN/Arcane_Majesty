@@ -58,14 +58,14 @@ def get_lore_data():
 def generate_html(data):
     # Constructing segments
     album_html = ""
-    for a in data['albums']:
+    for i, a in enumerate(data['albums']):
         song_html = ""
         valid_songs = [s for s in a['songs'] if s['title'] is not None]
         for s in valid_songs:
             song_html += f'''
-            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group/song">
                 <div class="flex justify-between items-start">
-                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover/song:text-primary transition-colors">
                         <span class="text-primary/50 text-sm font-mono mr-2">{s["track_index"]}</span>{s["title"]}
                     </h3>
                 </div>
@@ -81,20 +81,34 @@ def generate_html(data):
             </div>
             '''
         
+        # Use a slugified title for ID
+        album_id = f"album-{i}"
+        
         album_html += f'''
-        <div class="glass-card p-10 rounded-[2.5rem] mb-12 relative overflow-hidden">
+        <div class="glass-card p-10 rounded-[2.5rem] mb-8 relative overflow-hidden border-white/10">
             <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] -mr-32 -mt-32"></div>
-            <div class="flex flex-col md:flex-row justify-between items-baseline mb-8 border-b border-white/10 pb-6 gap-4">
-                <h2 class="text-4xl font-black tracking-tighter text-white">{a["title"]}</h2>
-                <span class="px-4 py-1 bg-primary/20 text-primary rounded-full text-xs font-black tracking-widest uppercase border border-primary/30">
-                    {a["timeline"]}
-                </span>
+            
+            <div class="cursor-pointer" onclick="toggleAlbum('{album_id}')">
+                <div class="flex flex-col md:flex-row justify-between items-baseline mb-6 gap-4">
+                    <div class="flex items-center gap-4">
+                        <div id="icon-{album_id}" class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-transform duration-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                        <h2 class="text-4xl font-black tracking-tighter text-white">{a["title"]}</h2>
+                    </div>
+                    <span class="px-4 py-1 bg-primary/20 text-primary rounded-full text-[10px] font-black tracking-widest uppercase border border-primary/30">
+                        {a["timeline"]}
+                    </span>
+                </div>
+                <p class="text-lg text-gray-400 mb-2 leading-relaxed italic font-light border-l-2 border-primary/30 pl-6">
+                    {a["summary"]}
+                </p>
             </div>
-            <p class="text-lg text-gray-400 mb-10 leading-relaxed italic font-light border-l-2 border-primary/30 pl-6">
-                {a["summary"]}
-            </p>
-            <div class="grid gap-6">
-                {song_html}
+
+            <div id="{album_id}" class="hidden mt-10 space-y-6 pt-10 border-t border-white/5">
+                <div class="grid gap-6">
+                    {song_html}
+                </div>
             </div>
         </div>
         '''
@@ -131,7 +145,6 @@ def generate_html(data):
     for realm, sub_locs in realms.items():
         sub_html = ""
         for sl in sub_locs:
-            # If it's a prime realm, we display it as a header later
             if sl['parent'] is None: continue
             sub_html += f'''
             <div class="pl-6 border-l border-white/10 py-4">
@@ -140,7 +153,6 @@ def generate_html(data):
             </div>
             '''
         
-        # Find the realm description if it's a main node
         realm_desc = next((l['description'] for l in data['locations'] if l['name'] == realm), "A major dimension of the axis.")
         
         loc_html += f'''
@@ -228,7 +240,7 @@ def generate_html(data):
 
     <div class="container mx-auto px-4 py-12 max-w-6xl">
         <header class="text-center mb-20">
-            <h1 class="text-6xl md:text-7xl font-black mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20">
+            <h1 class="text-6xl md:text-7xl font-black mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20 text-shadow">
                 ARCANE MAJESTY
             </h1>
             <div class="flex items-center justify-center gap-4 mb-4">
@@ -240,7 +252,7 @@ def generate_html(data):
         </header>
 
         <nav class="flex flex-wrap justify-center gap-3 mb-20 sticky top-8 z-50">
-            <div class="glass-card p-2 rounded-full flex gap-2 border-white/10">
+            <div class="glass-card p-2 rounded-full flex gap-2 border-white/10 shadow-2xl">
                 <button onclick="showSection('albums')" id="btn-albums" class="nav-btn active px-8 py-3 rounded-full hover:bg-white/5">Albums</button>
                 <button onclick="showSection('characters')" id="btn-characters" class="nav-btn px-8 py-3 rounded-full hover:bg-white/5">Characters</button>
                 <button onclick="showSection('locations')" id="btn-locations" class="nav-btn px-8 py-3 rounded-full hover:bg-white/5">Realms</button>
@@ -249,7 +261,7 @@ def generate_html(data):
         </nav>
 
         <div id="sections">
-            <section id="albums" class="content-section space-y-12">{album_html}</section>
+            <section id="albums" class="content-section space-y-8">{album_html}</section>
             <section id="characters" class="content-section hidden grid md:grid-cols-2 gap-8">{char_html}</section>
             <section id="locations" class="content-section hidden space-y-12">{loc_html}</section>
             <section id="artifacts" class="content-section hidden grid md:grid-cols-2 gap-8">{art_html}</section>
@@ -258,21 +270,24 @@ def generate_html(data):
 
     <script>
         function showSection(id) {{
-            // Hide all sections
-            document.querySelectorAll('.content-section').forEach(s => {{
-                s.classList.add('hidden');
-            }});
-            
-            // Show selected section
-            const target = document.getElementById(id);
-            target.classList.remove('hidden');
-            
-            // Update button states
+            document.querySelectorAll('.content-section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-' + id).classList.add('active');
-            
-            // Smooth scroll to top of content
             window.scrollTo({{ top: 0, behavior: 'smooth' }});
+        }}
+
+        function toggleAlbum(id) {{
+            const el = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            
+            if (el.classList.contains('hidden')) {{
+                el.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            }} else {{
+                el.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }}
         }}
     </script>
 </body>

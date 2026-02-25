@@ -62,7 +62,7 @@
 
     <div class="container mx-auto px-4 py-12 max-w-6xl">
         <header class="text-center mb-20">
-            <h1 class="text-6xl md:text-7xl font-black mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20">
+            <h1 class="text-6xl md:text-7xl font-black mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20 text-shadow">
                 ARCANE MAJESTY
             </h1>
             <div class="flex items-center justify-center gap-4 mb-4">
@@ -74,7 +74,7 @@
         </header>
 
         <nav class="flex flex-wrap justify-center gap-3 mb-20 sticky top-8 z-50">
-            <div class="glass-card p-2 rounded-full flex gap-2 border-white/10">
+            <div class="glass-card p-2 rounded-full flex gap-2 border-white/10 shadow-2xl">
                 <button onclick="showSection('albums')" id="btn-albums" class="nav-btn active px-8 py-3 rounded-full hover:bg-white/5">Albums</button>
                 <button onclick="showSection('characters')" id="btn-characters" class="nav-btn px-8 py-3 rounded-full hover:bg-white/5">Characters</button>
                 <button onclick="showSection('locations')" id="btn-locations" class="nav-btn px-8 py-3 rounded-full hover:bg-white/5">Realms</button>
@@ -83,39 +83,60 @@
         </nav>
 
         <div id="sections">
-            <section id="albums" class="content-section space-y-12">
-        <div class="glass-card p-10 rounded-[2.5rem] mb-12 relative overflow-hidden">
+            <section id="albums" class="content-section space-y-8">
+        <div class="glass-card p-10 rounded-[2.5rem] mb-8 relative overflow-hidden border-white/10">
             <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] -mr-32 -mt-32"></div>
-            <div class="flex flex-col md:flex-row justify-between items-baseline mb-8 border-b border-white/10 pb-6 gap-4">
-                <h2 class="text-4xl font-black tracking-tighter text-white">Vows of Silence</h2>
-                <span class="px-4 py-1 bg-primary/20 text-primary rounded-full text-xs font-black tracking-widest uppercase border border-primary/30">
-                    Era I
-                </span>
+            
+            <div class="cursor-pointer" onclick="toggleAlbum('album-0')">
+                <div class="flex flex-col md:flex-row justify-between items-baseline mb-6 gap-4">
+                    <div class="flex items-center gap-4">
+                        <div id="icon-album-0" class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-transform duration-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                        <h2 class="text-4xl font-black tracking-tighter text-white">Vows of Silence</h2>
+                    </div>
+                    <span class="px-4 py-1 bg-primary/20 text-primary rounded-full text-[10px] font-black tracking-widest uppercase border border-primary/30">
+                        Era I
+                    </span>
+                </div>
+                <p class="text-lg text-gray-400 mb-2 leading-relaxed italic font-light border-l-2 border-primary/30 pl-6">
+                    Centuries before the Great Darkness, two architects of ruin set the stage for the end of the world. The Fallen Seer Acheron discards the blueprints of the Void to build his own immortal empire, while the zealot Malakar hunts for the lost truth to wake his master. A chronicle of spiritual warfare, dimensional assassination, and the birth of the resistance in the shadow of a darkening sun.
+                </p>
             </div>
-            <p class="text-lg text-gray-400 mb-10 leading-relaxed italic font-light border-l-2 border-primary/30 pl-6">
-                Centuries before the Great Darkness, two architects of ruin set the stage for the end of the world. The Fallen Seer Acheron discards the blueprints of the Void to build his own immortal empire, while the zealot Malakar hunts for the lost truth to wake his master. A chronicle of spiritual warfare, dimensional assassination, and the birth of the resistance in the shadow of a darkening sun.
-            </p>
-            <div class="grid gap-6">
-                
+
+            <div id="album-0" class="hidden mt-10 space-y-6 pt-10 border-t border-white/5">
+                <div class="grid gap-6">
+                    
+                </div>
             </div>
         </div>
         
-        <div class="glass-card p-10 rounded-[2.5rem] mb-12 relative overflow-hidden">
+        <div class="glass-card p-10 rounded-[2.5rem] mb-8 relative overflow-hidden border-white/10">
             <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] -mr-32 -mt-32"></div>
-            <div class="flex flex-col md:flex-row justify-between items-baseline mb-8 border-b border-white/10 pb-6 gap-4">
-                <h2 class="text-4xl font-black tracking-tighter text-white">A Tapestry of Souls</h2>
-                <span class="px-4 py-1 bg-primary/20 text-primary rounded-full text-xs font-black tracking-widest uppercase border border-primary/30">
-                    Era II
-                </span>
+            
+            <div class="cursor-pointer" onclick="toggleAlbum('album-1')">
+                <div class="flex flex-col md:flex-row justify-between items-baseline mb-6 gap-4">
+                    <div class="flex items-center gap-4">
+                        <div id="icon-album-1" class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-transform duration-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                        <h2 class="text-4xl font-black tracking-tighter text-white">A Tapestry of Souls</h2>
+                    </div>
+                    <span class="px-4 py-1 bg-primary/20 text-primary rounded-full text-[10px] font-black tracking-widest uppercase border border-primary/30">
+                        Era II
+                    </span>
+                </div>
+                <p class="text-lg text-gray-400 mb-2 leading-relaxed italic font-light border-l-2 border-primary/30 pl-6">
+                    When the primordial entity Nyktoros awakens, the universal balance is shattered. Vorgos the Stormbringer plucks a young scholar named Anya from the Celestial Plane and thrusts her into the war-torn Underworld. Discovering she is a Void-Echo, Anya must join the Nythorian resistance to seal the Void before existence is consumed by the absolute dark. A story of sacrifice, forbidden lineage, and the weight of cosmic destiny.
+                </p>
             </div>
-            <p class="text-lg text-gray-400 mb-10 leading-relaxed italic font-light border-l-2 border-primary/30 pl-6">
-                When the primordial entity Nyktoros awakens, the universal balance is shattered. Vorgos the Stormbringer plucks a young scholar named Anya from the Celestial Plane and thrusts her into the war-torn Underworld. Discovering she is a Void-Echo, Anya must join the Nythorian resistance to seal the Void before existence is consumed by the absolute dark. A story of sacrifice, forbidden lineage, and the weight of cosmic destiny.
-            </p>
-            <div class="grid gap-6">
-                
-            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+
+            <div id="album-1" class="hidden mt-10 space-y-6 pt-10 border-t border-white/5">
+                <div class="grid gap-6">
+                    
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group/song">
                 <div class="flex justify-between items-start">
-                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover/song:text-primary transition-colors">
                         <span class="text-primary/50 text-sm font-mono mr-2">1</span>Empire of the Void
                     </h3>
                 </div>
@@ -184,9 +205,9 @@
                 </details>
             </div>
             
-            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group/song">
                 <div class="flex justify-between items-start">
-                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover/song:text-primary transition-colors">
                         <span class="text-primary/50 text-sm font-mono mr-2">2</span>Eternal Nightfall
                     </h3>
                 </div>
@@ -277,9 +298,9 @@
                 </details>
             </div>
             
-            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group/song">
                 <div class="flex justify-between items-start">
-                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover/song:text-primary transition-colors">
                         <span class="text-primary/50 text-sm font-mono mr-2">3</span>After the Snowfall
                     </h3>
                 </div>
@@ -360,9 +381,9 @@
                 </details>
             </div>
             
-            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group/song">
                 <div class="flex justify-between items-start">
-                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover/song:text-primary transition-colors">
                         <span class="text-primary/50 text-sm font-mono mr-2">4</span>Symphony of Suffering
                     </h3>
                 </div>
@@ -439,9 +460,9 @@
                 </details>
             </div>
             
-            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group/song">
                 <div class="flex justify-between items-start">
-                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover/song:text-primary transition-colors">
                         <span class="text-primary/50 text-sm font-mono mr-2">5</span>Mystic Horizon
                     </h3>
                 </div>
@@ -504,9 +525,9 @@
                 </details>
             </div>
             
-            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group/song">
                 <div class="flex justify-between items-start">
-                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover/song:text-primary transition-colors">
                         <span class="text-primary/50 text-sm font-mono mr-2">6</span>Learning to Fly
                     </h3>
                 </div>
@@ -592,9 +613,9 @@
                 </details>
             </div>
             
-            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group/song">
                 <div class="flex justify-between items-start">
-                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover/song:text-primary transition-colors">
                         <span class="text-primary/50 text-sm font-mono mr-2">7</span>Shadows and Stardust
                     </h3>
                 </div>
@@ -657,9 +678,9 @@
                 </details>
             </div>
             
-            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group/song">
                 <div class="flex justify-between items-start">
-                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover/song:text-primary transition-colors">
                         <span class="text-primary/50 text-sm font-mono mr-2">8</span>Stormbringer
                     </h3>
                 </div>
@@ -723,9 +744,9 @@
                 </details>
             </div>
             
-            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group/song">
                 <div class="flex justify-between items-start">
-                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover/song:text-primary transition-colors">
                         <span class="text-primary/50 text-sm font-mono mr-2">9</span>Eclipse of Destiny
                     </h3>
                 </div>
@@ -806,9 +827,9 @@
                 </details>
             </div>
             
-            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group/song">
                 <div class="flex justify-between items-start">
-                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover/song:text-primary transition-colors">
                         <span class="text-primary/50 text-sm font-mono mr-2">10</span>Shadows in the Rain
                     </h3>
                 </div>
@@ -869,9 +890,9 @@
                 </details>
             </div>
             
-            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group/song">
                 <div class="flex justify-between items-start">
-                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover/song:text-primary transition-colors">
                         <span class="text-primary/50 text-sm font-mono mr-2">11</span>Endless Night
                     </h3>
                 </div>
@@ -964,9 +985,9 @@
                 </details>
             </div>
             
-            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group/song">
                 <div class="flex justify-between items-start">
-                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover/song:text-primary transition-colors">
                         <span class="text-primary/50 text-sm font-mono mr-2">12</span>Celestial Rebellion
                     </h3>
                 </div>
@@ -1039,9 +1060,9 @@
                 </details>
             </div>
             
-            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group/song">
                 <div class="flex justify-between items-start">
-                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover/song:text-primary transition-colors">
                         <span class="text-primary/50 text-sm font-mono mr-2">13</span>Haunting Life
                     </h3>
                 </div>
@@ -1125,38 +1146,61 @@
                 </details>
             </div>
             
+                </div>
             </div>
         </div>
         
-        <div class="glass-card p-10 rounded-[2.5rem] mb-12 relative overflow-hidden">
+        <div class="glass-card p-10 rounded-[2.5rem] mb-8 relative overflow-hidden border-white/10">
             <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] -mr-32 -mt-32"></div>
-            <div class="flex flex-col md:flex-row justify-between items-baseline mb-8 border-b border-white/10 pb-6 gap-4">
-                <h2 class="text-4xl font-black tracking-tighter text-white">Lord of Shadows</h2>
-                <span class="px-4 py-1 bg-primary/20 text-primary rounded-full text-xs font-black tracking-widest uppercase border border-primary/30">
-                    Era III
-                </span>
+            
+            <div class="cursor-pointer" onclick="toggleAlbum('album-2')">
+                <div class="flex flex-col md:flex-row justify-between items-baseline mb-6 gap-4">
+                    <div class="flex items-center gap-4">
+                        <div id="icon-album-2" class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-transform duration-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                        <h2 class="text-4xl font-black tracking-tighter text-white">Lord of Shadows</h2>
+                    </div>
+                    <span class="px-4 py-1 bg-primary/20 text-primary rounded-full text-[10px] font-black tracking-widest uppercase border border-primary/30">
+                        Era III
+                    </span>
+                </div>
+                <p class="text-lg text-gray-400 mb-2 leading-relaxed italic font-light border-l-2 border-primary/30 pl-6">
+                    In the wake of the Great Darkness, the Sorcerer King Malakar sits upon a hollow throne. Haunted by the ghosts of his sacrifices and the silence of his god, he must face the rising tide of the Queen of Carnage. A narrative of a fallen tyrant's exile into the Shadow Realm and the slow rebuilding of a vengeful resolve.
+                </p>
             </div>
-            <p class="text-lg text-gray-400 mb-10 leading-relaxed italic font-light border-l-2 border-primary/30 pl-6">
-                In the wake of the Great Darkness, the Sorcerer King Malakar sits upon a hollow throne. Haunted by the ghosts of his sacrifices and the silence of his god, he must face the rising tide of the Queen of Carnage. A narrative of a fallen tyrant's exile into the Shadow Realm and the slow rebuilding of a vengeful resolve.
-            </p>
-            <div class="grid gap-6">
-                
+
+            <div id="album-2" class="hidden mt-10 space-y-6 pt-10 border-t border-white/5">
+                <div class="grid gap-6">
+                    
+                </div>
             </div>
         </div>
         
-        <div class="glass-card p-10 rounded-[2.5rem] mb-12 relative overflow-hidden">
+        <div class="glass-card p-10 rounded-[2.5rem] mb-8 relative overflow-hidden border-white/10">
             <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] -mr-32 -mt-32"></div>
-            <div class="flex flex-col md:flex-row justify-between items-baseline mb-8 border-b border-white/10 pb-6 gap-4">
-                <h2 class="text-4xl font-black tracking-tighter text-white">Queen of Carnage</h2>
-                <span class="px-4 py-1 bg-primary/20 text-primary rounded-full text-xs font-black tracking-widest uppercase border border-primary/30">
-                    Era III
-                </span>
+            
+            <div class="cursor-pointer" onclick="toggleAlbum('album-3')">
+                <div class="flex flex-col md:flex-row justify-between items-baseline mb-6 gap-4">
+                    <div class="flex items-center gap-4">
+                        <div id="icon-album-3" class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary transition-transform duration-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                        <h2 class="text-4xl font-black tracking-tighter text-white">Queen of Carnage</h2>
+                    </div>
+                    <span class="px-4 py-1 bg-primary/20 text-primary rounded-full text-[10px] font-black tracking-widest uppercase border border-primary/30">
+                        Era III
+                    </span>
+                </div>
+                <p class="text-lg text-gray-400 mb-2 leading-relaxed italic font-light border-l-2 border-primary/30 pl-6">
+                    Seraphina, once a resistance leader, emerges from the ruins of the Underworld as a ruthless sovereign. Driven by the memory of Anya's sacrifice, she builds the Shadow Legion to ensure the world is never again defenseless—even if she must become the very monster she once fought. A tale of conquest, absolute power, and the hardening of a hero's heart.
+                </p>
             </div>
-            <p class="text-lg text-gray-400 mb-10 leading-relaxed italic font-light border-l-2 border-primary/30 pl-6">
-                Seraphina, once a resistance leader, emerges from the ruins of the Underworld as a ruthless sovereign. Driven by the memory of Anya's sacrifice, she builds the Shadow Legion to ensure the world is never again defenseless—even if she must become the very monster she once fought. A tale of conquest, absolute power, and the hardening of a hero's heart.
-            </p>
-            <div class="grid gap-6">
-                
+
+            <div id="album-3" class="hidden mt-10 space-y-6 pt-10 border-t border-white/5">
+                <div class="grid gap-6">
+                    
+                </div>
             </div>
         </div>
         </section>
@@ -1392,21 +1436,24 @@
 
     <script>
         function showSection(id) {
-            // Hide all sections
-            document.querySelectorAll('.content-section').forEach(s => {
-                s.classList.add('hidden');
-            });
-            
-            // Show selected section
-            const target = document.getElementById(id);
-            target.classList.remove('hidden');
-            
-            // Update button states
+            document.querySelectorAll('.content-section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             document.getElementById('btn-' + id).classList.add('active');
-            
-            // Smooth scroll to top of content
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleAlbum(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                el.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
         }
     </script>
 </body>
