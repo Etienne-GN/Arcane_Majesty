@@ -18,53 +18,98 @@
         }
       };
     </script>
-    <script type="module">
-        import { createIcons, icons } from 'https://cdn.jsdelivr.net/npm/lucide@latest/+esm';
-        createIcons({ icons });
-    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;900&family=Inter:wght@300;400;600;800&display=swap');
         
-        body { font-family: 'Inter', sans-serif; background-color: #050505; color: white; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #050505; 
+            color: white;
+            background-image: radial-gradient(circle at 50% -20%, #200000 0%, #050505 80%);
+        }
         h1, h2, h3 { font-family: 'Cinzel', serif; }
-        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .content-section { display: none; }
-        .content-section.active { display: block; }
+        
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.02); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        
+        .nav-btn {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+        
+        .nav-btn.active {
+            background: #8b0000;
+            color: white;
+            box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #200000; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8b0000; }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-[#0a0a0a] via-[#200000] to-[#0a0a0a]">
+<body class="min-h-screen pb-20">
 
-    <div class="container mx-auto px-4 py-8">
-        <header class="text-center mb-12">
-            <h1 class="text-5xl font-bold mb-2 tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">
-                ARCANE MAJESTY COMPENDIUM
+    <div class="container mx-auto px-4 py-12 max-w-6xl">
+        <header class="text-center mb-20">
+            <h1 class="text-6xl md:text-7xl font-black mb-4 tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20">
+                ARCANE MAJESTY
             </h1>
-            <p class="text-gray-400 uppercase tracking-widest text-sm">Synchronized with Scarif Lore-Graph</p>
+            <div class="flex items-center justify-center gap-4 mb-4">
+                <div class="h-px w-12 bg-primary/50"></div>
+                <p class="text-primary font-black tracking-[0.4em] text-[10px] uppercase">Lore Compendium</p>
+                <div class="h-px w-12 bg-primary/50"></div>
+            </div>
+            <p class="text-gray-500 font-medium italic text-sm">Direct Uplink: Scarif Knowledge-Graph</p>
         </header>
 
-        <nav class="flex flex-wrap justify-center gap-4 mb-12">
-            <button onclick="showSection('albums')" class="px-6 py-2 rounded-full glass-card hover:bg-primary transition-all">Albums</button>
-            <button onclick="showSection('characters')" class="px-6 py-2 rounded-full glass-card hover:bg-primary transition-all">Characters</button>
-            <button onclick="showSection('locations')" class="px-6 py-2 rounded-full glass-card hover:bg-primary transition-all">Realms</button>
-            <button onclick="showSection('artifacts')" class="px-6 py-2 rounded-full glass-card hover:bg-primary transition-all">Artifacts</button>
+        <nav class="flex flex-wrap justify-center gap-3 mb-20 sticky top-8 z-50">
+            <div class="glass-card p-2 rounded-full flex gap-2 border-white/10">
+                <button onclick="showSection('albums')" id="btn-albums" class="nav-btn active px-8 py-3 rounded-full hover:bg-white/5">Albums</button>
+                <button onclick="showSection('characters')" id="btn-characters" class="nav-btn px-8 py-3 rounded-full hover:bg-white/5">Characters</button>
+                <button onclick="showSection('locations')" id="btn-locations" class="nav-btn px-8 py-3 rounded-full hover:bg-white/5">Realms</button>
+                <button onclick="showSection('artifacts')" id="btn-artifacts" class="nav-btn px-8 py-3 rounded-full hover:bg-white/5">Artifacts</button>
+            </div>
         </nav>
 
         <div id="sections">
-            <section id="albums" class="content-section active space-y-8">
-        <div class="glass-card p-8 rounded-3xl mb-8">
-            <div class="flex justify-between items-baseline mb-4 border-b border-white/10 pb-4">
-                <h2 class="text-3xl font-bold text-primary">A Tapestry of Souls</h2>
-                <span class="text-gray-500 font-mono italic">0 GD</span>
+            <section id="albums" class="content-section space-y-12">
+        <div class="glass-card p-10 rounded-[2.5rem] mb-12 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] -mr-32 -mt-32"></div>
+            <div class="flex flex-col md:flex-row justify-between items-baseline mb-8 border-b border-white/10 pb-6 gap-4">
+                <h2 class="text-4xl font-black tracking-tighter text-white">A Tapestry of Souls</h2>
+                <span class="px-4 py-1 bg-primary/20 text-primary rounded-full text-xs font-black tracking-widest uppercase border border-primary/30">
+                    0 GD
+                </span>
             </div>
-            <p class="text-gray-300 mb-8 leading-relaxed italic">"The awakening of Nyktoros and the sacrifice of the Void-Echo."</p>
-            <div class="grid gap-4">
+            <p class="text-lg text-gray-400 mb-10 leading-relaxed italic font-light border-l-2 border-primary/30 pl-6">
+                The awakening of Nyktoros and the sacrifice of the Void-Echo.
+            </p>
+            <div class="grid gap-6">
                 
-            <div class="bg-black/20 p-4 rounded-xl border border-white/5">
-                <h3 class="text-lg font-bold text-gray-200">1. Empire of the Void</h3>
-                <p class="text-gray-400 text-sm mt-2">This song is the triumphant anthem of the Legion of Souls, sung by the heralds of the Void as Nyktoros awakens. The spectral army is built from the "bank" of tormented souls sent to the Underworld by centuries of hidden vampire predation in the Material Plane. It establishes the Empire of the Void as a primordial force rising to reclaim the realms, fueled by the very life-force stolen from the world of light.</p>
-                <details class="mt-4">
-                    <summary class="text-xs text-primary cursor-pointer uppercase tracking-widest font-bold">View Lyrics</summary>
-                    <pre class="mt-4 text-xs text-gray-500 leading-relaxed whitespace-pre-wrap font-sans bg-black/40 p-4 rounded-lg">[Verse 1]
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                        <span class="text-primary/50 text-sm font-mono mr-2">1</span>Empire of the Void
+                    </h3>
+                </div>
+                <p class="text-gray-400 text-sm mt-3 leading-relaxed">This song is the triumphant anthem of the Legion of Souls, sung by the heralds of the Void as Nyktoros awakens. The spectral army is built from the "bank" of tormented souls sent to the Underworld by centuries of hidden vampire predation in the Material Plane. It establishes the Empire of the Void as a primordial force rising to reclaim the realms, fueled by the very life-force stolen from the world of light.</p>
+                <details class="mt-4 group/details">
+                    <summary class="text-[10px] text-primary/70 cursor-pointer uppercase tracking-[0.2em] font-black list-none flex items-center gap-2 hover:text-primary transition-colors">
+                        <div class="w-1 h-1 bg-primary rounded-full"></div> View Lyrics
+                    </summary>
+                    <div class="mt-4 p-6 text-sm text-gray-400 leading-relaxed whitespace-pre-wrap font-sans bg-black/60 rounded-xl border border-white/5 shadow-inner">
+                        [Verse 1]
 	Where Aurorian suns are dim, and the stars refuse to glow,
 	In Nythoria’s kingdom where the darkest whispers flow.
 	Rising from the ashes of the world of mortal light,
@@ -118,16 +163,24 @@
 	Through the endless dark, we rise, our spirits never fade,
 	In the name of Nyktoros, our legacy is made.
 	We conquer through the silence, our banners waving high,
-	His dark throne is reaching now, to the blackened sky.</pre>
+	His dark throne is reaching now, to the blackened sky.
+                    </div>
                 </details>
             </div>
             
-            <div class="bg-black/20 p-4 rounded-xl border border-white/5">
-                <h3 class="text-lg font-bold text-gray-200">2. Eternal Nightfall</h3>
-                <p class="text-gray-400 text-sm mt-2">The "Great Darkness" begins (0 GD). As Nyktoros's influence reaches the mortal plane, Aetheros the Stormbringer creates a violent rift in reality. Anya, a sheltered Aurorian scholar in Auroria, is pulled through the rift and thrust into the war-torn Underworld. Terrified and disoriented, she is discovered by Valen and a band of Nythorian rebels. For the first time, Anya realizes her "spirit-stained" soul allows her to survive the raw darkness that would consume any other Aurorian.</p>
-                <details class="mt-4">
-                    <summary class="text-xs text-primary cursor-pointer uppercase tracking-widest font-bold">View Lyrics</summary>
-                    <pre class="mt-4 text-xs text-gray-500 leading-relaxed whitespace-pre-wrap font-sans bg-black/40 p-4 rounded-lg">[Verse 1]
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                        <span class="text-primary/50 text-sm font-mono mr-2">2</span>Eternal Nightfall
+                    </h3>
+                </div>
+                <p class="text-gray-400 text-sm mt-3 leading-relaxed">The "Great Darkness" begins (0 GD). As Nyktoros's influence reaches the mortal plane, Aetheros the Stormbringer creates a violent rift in reality. Anya, a sheltered Aurorian scholar in Auroria, is pulled through the rift and thrust into the war-torn Underworld. Terrified and disoriented, she is discovered by Valen and a band of Nythorian rebels. For the first time, Anya realizes her "spirit-stained" soul allows her to survive the raw darkness that would consume any other Aurorian.</p>
+                <details class="mt-4 group/details">
+                    <summary class="text-[10px] text-primary/70 cursor-pointer uppercase tracking-[0.2em] font-black list-none flex items-center gap-2 hover:text-primary transition-colors">
+                        <div class="w-1 h-1 bg-primary rounded-full"></div> View Lyrics
+                    </summary>
+                    <div class="mt-4 p-6 text-sm text-gray-400 leading-relaxed whitespace-pre-wrap font-sans bg-black/60 rounded-xl border border-white/5 shadow-inner">
+                        [Verse 1]
 	From Auroria’s golden sun,
 	To a world that’s been undone.
 	Through the rift of static gray,
@@ -203,16 +256,24 @@
 	Nythorians, we rise as one,
 	Fighting 'til the war is done.
 	In the abyss, we will thrive,
-	Together, we will survive.</pre>
+	Together, we will survive.
+                    </div>
                 </details>
             </div>
             
-            <div class="bg-black/20 p-4 rounded-xl border border-white/5">
-                <h3 class="text-lg font-bold text-gray-200">3. After the Snowfall</h3>
-                <p class="text-gray-400 text-sm mt-2">Following a brutal skirmish against the Legion of Souls, Anya and the rebels retreat to a Frozen Wasteland in the deep Underworld. Here, Anya first meets Seraphina, the embattled leader of the Nythorian resistance. As they share a moment of quiet in the cold, Seraphina is shocked to see that Anya—a creature of Light—does not shiver or fade in the Void’s chill. This shared moment of vulnerability and Anya's inexplicable resilience forge the first link in their bond.</p>
-                <details class="mt-4">
-                    <summary class="text-xs text-primary cursor-pointer uppercase tracking-widest font-bold">View Lyrics</summary>
-                    <pre class="mt-4 text-xs text-gray-500 leading-relaxed whitespace-pre-wrap font-sans bg-black/40 p-4 rounded-lg">[Verse 1]
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                        <span class="text-primary/50 text-sm font-mono mr-2">3</span>After the Snowfall
+                    </h3>
+                </div>
+                <p class="text-gray-400 text-sm mt-3 leading-relaxed">Following a brutal skirmish against the Legion of Souls, Anya and the rebels retreat to a Frozen Wasteland in the deep Underworld. Here, Anya first meets Seraphina, the embattled leader of the Nythorian resistance. As they share a moment of quiet in the cold, Seraphina is shocked to see that Anya—a creature of Light—does not shiver or fade in the Void’s chill. This shared moment of vulnerability and Anya's inexplicable resilience forge the first link in their bond.</p>
+                <details class="mt-4 group/details">
+                    <summary class="text-[10px] text-primary/70 cursor-pointer uppercase tracking-[0.2em] font-black list-none flex items-center gap-2 hover:text-primary transition-colors">
+                        <div class="w-1 h-1 bg-primary rounded-full"></div> View Lyrics
+                    </summary>
+                    <div class="mt-4 p-6 text-sm text-gray-400 leading-relaxed whitespace-pre-wrap font-sans bg-black/60 rounded-xl border border-white/5 shadow-inner">
+                        [Verse 1]
 	The winter has been long and cold
 	The frozen land has lost its soul
 	I see the fire in your eyes
@@ -278,16 +339,24 @@
 	I don't know how to live without peace
 	Maybe someday we'll find release
 	Maybe someday we will be free
-	But until then....</pre>
+	But until then....
+                    </div>
                 </details>
             </div>
             
-            <div class="bg-black/20 p-4 rounded-xl border border-white/5">
-                <h3 class="text-lg font-bold text-gray-200">4. Symphony of Suffering</h3>
-                <p class="text-gray-400 text-sm mt-2">A colossal battle erupts as the Legion of Souls attempts to crush the last Nythorian resistance. The battlefield is a "Symphony of Suffering," as the Legion unleashes the power of the millions of souls "banked" in the Underworld by the Crimson Covenant. Anya attempts to use her Aurorian magic, but the Void swallows it whole. In a desperate final stand, Valen sacrifices himself, his soul joining the very army he fought to stop. This tragedy forces Anya to realize that being a "scholar of light" is no longer enough.</p>
-                <details class="mt-4">
-                    <summary class="text-xs text-primary cursor-pointer uppercase tracking-widest font-bold">View Lyrics</summary>
-                    <pre class="mt-4 text-xs text-gray-500 leading-relaxed whitespace-pre-wrap font-sans bg-black/40 p-4 rounded-lg">[Verse 1]
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                        <span class="text-primary/50 text-sm font-mono mr-2">4</span>Symphony of Suffering
+                    </h3>
+                </div>
+                <p class="text-gray-400 text-sm mt-3 leading-relaxed">A colossal battle erupts as the Legion of Souls attempts to crush the last Nythorian resistance. The battlefield is a "Symphony of Suffering," as the Legion unleashes the power of the millions of souls "banked" in the Underworld by the Crimson Covenant. Anya attempts to use her Aurorian magic, but the Void swallows it whole. In a desperate final stand, Valen sacrifices himself, his soul joining the very army he fought to stop. This tragedy forces Anya to realize that being a "scholar of light" is no longer enough.</p>
+                <details class="mt-4 group/details">
+                    <summary class="text-[10px] text-primary/70 cursor-pointer uppercase tracking-[0.2em] font-black list-none flex items-center gap-2 hover:text-primary transition-colors">
+                        <div class="w-1 h-1 bg-primary rounded-full"></div> View Lyrics
+                    </summary>
+                    <div class="mt-4 p-6 text-sm text-gray-400 leading-relaxed whitespace-pre-wrap font-sans bg-black/60 rounded-xl border border-white/5 shadow-inner">
+                        [Verse 1]
 	Blood stained sky
 	Infinite cries
 	Valen falls now
@@ -349,16 +418,24 @@
 	Anya is screaming
 	Her fate is revealed
 	Hear the death call
-	Hear the death call</pre>
+	Hear the death call
+                    </div>
                 </details>
             </div>
             
-            <div class="bg-black/20 p-4 rounded-xl border border-white/5">
-                <h3 class="text-lg font-bold text-gray-200">5. Mystic Horizon</h3>
-                <p class="text-gray-400 text-sm mt-2">Reeling from the loss of Valen, Anya and Seraphina journey to the Celestial Gardens to find the ancient entity, Elara. In the shimmering mists of the Mystic Horizon, Elara reveals the truth: Anya is a Void-Echo. Born during the Great Eclipse, her soul is spirit-stained by the Void itself. She is a cosmic paradox—an Aurorian whose frequency matches the Empire of the Void. Seraphina realizes that Anya is the only "Impossible Key" that can stand before Nyktoros.</p>
-                <details class="mt-4">
-                    <summary class="text-xs text-primary cursor-pointer uppercase tracking-widest font-bold">View Lyrics</summary>
-                    <pre class="mt-4 text-xs text-gray-500 leading-relaxed whitespace-pre-wrap font-sans bg-black/40 p-4 rounded-lg">[Verse 1]
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                        <span class="text-primary/50 text-sm font-mono mr-2">5</span>Mystic Horizon
+                    </h3>
+                </div>
+                <p class="text-gray-400 text-sm mt-3 leading-relaxed">Reeling from the loss of Valen, Anya and Seraphina journey to the Celestial Gardens to find the ancient entity, Elara. In the shimmering mists of the Mystic Horizon, Elara reveals the truth: Anya is a Void-Echo. Born during the Great Eclipse, her soul is spirit-stained by the Void itself. She is a cosmic paradox—an Aurorian whose frequency matches the Empire of the Void. Seraphina realizes that Anya is the only "Impossible Key" that can stand before Nyktoros.</p>
+                <details class="mt-4 group/details">
+                    <summary class="text-[10px] text-primary/70 cursor-pointer uppercase tracking-[0.2em] font-black list-none flex items-center gap-2 hover:text-primary transition-colors">
+                        <div class="w-1 h-1 bg-primary rounded-full"></div> View Lyrics
+                    </summary>
+                    <div class="mt-4 p-6 text-sm text-gray-400 leading-relaxed whitespace-pre-wrap font-sans bg-black/60 rounded-xl border border-white/5 shadow-inner">
+                        [Verse 1]
 	With Seraphina by my side, we leave the blood behind,
 	Valen’s ghost is in the silence, and the peace we cannot find.
 	Through the mists of time we wander, to the Keeper of the way,
@@ -406,16 +483,24 @@
 	When the final dawn approaches, and the journey meets its end,
 	We’ll look back on the horizons, where the stars and dreams ascend.
 	For in the Mystic Horizons, our hearts and souls will blend,
-	Eternal in the cosmos, where our spirits transcend.</pre>
+	Eternal in the cosmos, where our spirits transcend.
+                    </div>
                 </details>
             </div>
             
-            <div class="bg-black/20 p-4 rounded-xl border border-white/5">
-                <h3 class="text-lg font-bold text-gray-200">6. Learning to Fly</h3>
-                <p class="text-gray-400 text-sm mt-2">Under Elara's guidance and Seraphina’s battle-hardened mentorship, Anya begins the agonizing process of mastering her dual nature. She is "learning to fly" by walking through currents of pure shadow that would kill anyone else. The song captures her transformation from a frightened scholar into a disciplined weapon. She learns to use her Aurorian light while letting the Void pass through her like wind, accepting her dark origin as her greatest strength.</p>
-                <details class="mt-4">
-                    <summary class="text-xs text-primary cursor-pointer uppercase tracking-widest font-bold">View Lyrics</summary>
-                    <pre class="mt-4 text-xs text-gray-500 leading-relaxed whitespace-pre-wrap font-sans bg-black/40 p-4 rounded-lg">[Verse 1]
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                        <span class="text-primary/50 text-sm font-mono mr-2">6</span>Learning to Fly
+                    </h3>
+                </div>
+                <p class="text-gray-400 text-sm mt-3 leading-relaxed">Under Elara's guidance and Seraphina’s battle-hardened mentorship, Anya begins the agonizing process of mastering her dual nature. She is "learning to fly" by walking through currents of pure shadow that would kill anyone else. The song captures her transformation from a frightened scholar into a disciplined weapon. She learns to use her Aurorian light while letting the Void pass through her like wind, accepting her dark origin as her greatest strength.</p>
+                <details class="mt-4 group/details">
+                    <summary class="text-[10px] text-primary/70 cursor-pointer uppercase tracking-[0.2em] font-black list-none flex items-center gap-2 hover:text-primary transition-colors">
+                        <div class="w-1 h-1 bg-primary rounded-full"></div> View Lyrics
+                    </summary>
+                    <div class="mt-4 p-6 text-sm text-gray-400 leading-relaxed whitespace-pre-wrap font-sans bg-black/60 rounded-xl border border-white/5 shadow-inner">
+                        [Verse 1]
 	I've always yearned to touch the sky
 	To soar above the clouds and fly
 	But I was shackled by my fears
@@ -486,16 +571,24 @@
 	We're learning to fly
 	Learning to fly...
 	Learning to fly...
-	Learning to fly...</pre>
+	Learning to fly...
+                    </div>
                 </details>
             </div>
             
-            <div class="bg-black/20 p-4 rounded-xl border border-white/5">
-                <h3 class="text-lg font-bold text-gray-200">7. Shadows and Stardust</h3>
-                <p class="text-gray-400 text-sm mt-2">Master of her dual nature, Anya leads Seraphina and the remaining rebels through celestial ruins. As "shadows and stardust" collide, they find the ancient tables of the prophecy. They learn the truth: Nyktoros cannot be destroyed, only contained. To save reality, a being of perfect balance—a Void-Echo—must become the "Living Lock." Anya accepts that her entire life has been leading to this moment of eternal exile.</p>
-                <details class="mt-4">
-                    <summary class="text-xs text-primary cursor-pointer uppercase tracking-widest font-bold">View Lyrics</summary>
-                    <pre class="mt-4 text-xs text-gray-500 leading-relaxed whitespace-pre-wrap font-sans bg-black/40 p-4 rounded-lg">[Verse 1]
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                        <span class="text-primary/50 text-sm font-mono mr-2">7</span>Shadows and Stardust
+                    </h3>
+                </div>
+                <p class="text-gray-400 text-sm mt-3 leading-relaxed">Master of her dual nature, Anya leads Seraphina and the remaining rebels through celestial ruins. As "shadows and stardust" collide, they find the ancient tables of the prophecy. They learn the truth: Nyktoros cannot be destroyed, only contained. To save reality, a being of perfect balance—a Void-Echo—must become the "Living Lock." Anya accepts that her entire life has been leading to this moment of eternal exile.</p>
+                <details class="mt-4 group/details">
+                    <summary class="text-[10px] text-primary/70 cursor-pointer uppercase tracking-[0.2em] font-black list-none flex items-center gap-2 hover:text-primary transition-colors">
+                        <div class="w-1 h-1 bg-primary rounded-full"></div> View Lyrics
+                    </summary>
+                    <div class="mt-4 p-6 text-sm text-gray-400 leading-relaxed whitespace-pre-wrap font-sans bg-black/60 rounded-xl border border-white/5 shadow-inner">
+                        [Verse 1]
 	In the ruins of the stars, where the shadows softly creep,
 	Where the Ancient Master's secrets and the stardust dreams still sleep.
 	Through the cosmic waves we travel, to a place where time stands still,
@@ -543,16 +636,24 @@
 	When the final stars have faded, and the shadows claim the sky,
 	We’ll rise as one together, with stardust in our eyes.
 	For in the land of Shadows and Stardust, our spirits will ascend,
-	Eternal in the cosmos, where our dreams and journeys blend.</pre>
+	Eternal in the cosmos, where our dreams and journeys blend.
+                    </div>
                 </details>
             </div>
             
-            <div class="bg-black/20 p-4 rounded-xl border border-white/5">
-                <h3 class="text-lg font-bold text-gray-200">8. Stormbringer</h3>
-                <p class="text-gray-400 text-sm mt-2">As the war reaches its peak, the chaotic entity Aetheros manifests fully, tearing the sky apart. Anya alone can stand in the center of the atmospheric fury. She doesn't fight the chaos; she communes with it, using her spirit-stained frequency to convince the Stormbringer to lend its power to the Nythorian resistance. This turns the tide of the final battle, clearing a path to Nyktoros's throne.</p>
-                <details class="mt-4">
-                    <summary class="text-xs text-primary cursor-pointer uppercase tracking-widest font-bold">View Lyrics</summary>
-                    <pre class="mt-4 text-xs text-gray-500 leading-relaxed whitespace-pre-wrap font-sans bg-black/40 p-4 rounded-lg">[Verse 1]
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                        <span class="text-primary/50 text-sm font-mono mr-2">8</span>Stormbringer
+                    </h3>
+                </div>
+                <p class="text-gray-400 text-sm mt-3 leading-relaxed">As the war reaches its peak, the chaotic entity Aetheros manifests fully, tearing the sky apart. Anya alone can stand in the center of the atmospheric fury. She doesn't fight the chaos; she communes with it, using her spirit-stained frequency to convince the Stormbringer to lend its power to the Nythorian resistance. This turns the tide of the final battle, clearing a path to Nyktoros's throne.</p>
+                <details class="mt-4 group/details">
+                    <summary class="text-[10px] text-primary/70 cursor-pointer uppercase tracking-[0.2em] font-black list-none flex items-center gap-2 hover:text-primary transition-colors">
+                        <div class="w-1 h-1 bg-primary rounded-full"></div> View Lyrics
+                    </summary>
+                    <div class="mt-4 p-6 text-sm text-gray-400 leading-relaxed whitespace-pre-wrap font-sans bg-black/60 rounded-xl border border-white/5 shadow-inner">
+                        [Verse 1]
 	In the dark of the night I hear the call of the rift
 	The Stormbringer Aetheros is my sacred gift
 	I feel the fire in my veins The Void-Echo in my eyes
@@ -601,16 +702,24 @@
 	I wield the sword of justice I fight for freedom’s reign
 
 	[Outro]
-	I am the stormbringer…</pre>
+	I am the stormbringer…
+                    </div>
                 </details>
             </div>
             
-            <div class="bg-black/20 p-4 rounded-xl border border-white/5">
-                <h3 class="text-lg font-bold text-gray-200">9. Eclipse of Destiny</h3>
-                <p class="text-gray-400 text-sm mt-2">Under a world-ending eclipse, Anya confronts Nyktoros. She steps into the heart of his power, her "Void-Proof" soul allowing her to walk where light is unmade. In this "cosmic dance," she prepares the final ritual. She realizes that by sealing Nyktoros, she will be erased from memory, becoming a literal echo in the dark. She shares a final look with Seraphina before the ritual begins.</p>
-                <details class="mt-4">
-                    <summary class="text-xs text-primary cursor-pointer uppercase tracking-widest font-bold">View Lyrics</summary>
-                    <pre class="mt-4 text-xs text-gray-500 leading-relaxed whitespace-pre-wrap font-sans bg-black/40 p-4 rounded-lg">[Verse 1]
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                        <span class="text-primary/50 text-sm font-mono mr-2">9</span>Eclipse of Destiny
+                    </h3>
+                </div>
+                <p class="text-gray-400 text-sm mt-3 leading-relaxed">Under a world-ending eclipse, Anya confronts Nyktoros. She steps into the heart of his power, her "Void-Proof" soul allowing her to walk where light is unmade. In this "cosmic dance," she prepares the final ritual. She realizes that by sealing Nyktoros, she will be erased from memory, becoming a literal echo in the dark. She shares a final look with Seraphina before the ritual begins.</p>
+                <details class="mt-4 group/details">
+                    <summary class="text-[10px] text-primary/70 cursor-pointer uppercase tracking-[0.2em] font-black list-none flex items-center gap-2 hover:text-primary transition-colors">
+                        <div class="w-1 h-1 bg-primary rounded-full"></div> View Lyrics
+                    </summary>
+                    <div class="mt-4 p-6 text-sm text-gray-400 leading-relaxed whitespace-pre-wrap font-sans bg-black/60 rounded-xl border border-white/5 shadow-inner">
+                        [Verse 1]
 	In the twilight's fleeting grace,
 	I face the Master, face to face,
 	A cosmic dance of dark and light,
@@ -676,16 +785,24 @@
 	Beyond the horizon, our path we find,
 	In the eclipse, our souls aligned,
 	Eclipse of destiny, our guiding light,
-	In the darkness, we conquer the night.</pre>
+	In the darkness, we conquer the night.
+                    </div>
                 </details>
             </div>
             
-            <div class="bg-black/20 p-4 rounded-xl border border-white/5">
-                <h3 class="text-lg font-bold text-gray-200">10. Shadows in the Rain</h3>
-                <p class="text-gray-400 text-sm mt-2">Moments before the final sealing, a spectral rain falls across the battlefield. This is a quiet moment of mourning between Anya and Seraphina. The war is over, but the cost is here. Anya is calm, having found peace in her identity as the Eternal Warden. She gives Seraphina a final charge: to protect the light while she holds back the night.</p>
-                <details class="mt-4">
-                    <summary class="text-xs text-primary cursor-pointer uppercase tracking-widest font-bold">View Lyrics</summary>
-                    <pre class="mt-4 text-xs text-gray-500 leading-relaxed whitespace-pre-wrap font-sans bg-black/40 p-4 rounded-lg">[Verse 1]
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                        <span class="text-primary/50 text-sm font-mono mr-2">10</span>Shadows in the Rain
+                    </h3>
+                </div>
+                <p class="text-gray-400 text-sm mt-3 leading-relaxed">Moments before the final sealing, a spectral rain falls across the battlefield. This is a quiet moment of mourning between Anya and Seraphina. The war is over, but the cost is here. Anya is calm, having found peace in her identity as the Eternal Warden. She gives Seraphina a final charge: to protect the light while she holds back the night.</p>
+                <details class="mt-4 group/details">
+                    <summary class="text-[10px] text-primary/70 cursor-pointer uppercase tracking-[0.2em] font-black list-none flex items-center gap-2 hover:text-primary transition-colors">
+                        <div class="w-1 h-1 bg-primary rounded-full"></div> View Lyrics
+                    </summary>
+                    <div class="mt-4 p-6 text-sm text-gray-400 leading-relaxed whitespace-pre-wrap font-sans bg-black/60 rounded-xl border border-white/5 shadow-inner">
+                        [Verse 1]
 	Shadows in the rain
 	Anya calls my name
 	Softly calling out
@@ -731,16 +848,24 @@
 	Glowing in the dark
 	Stars that never fade
 	Holding to a spark
-	Dreams that we have made</pre>
+	Dreams that we have made
+                    </div>
                 </details>
             </div>
             
-            <div class="bg-black/20 p-4 rounded-xl border border-white/5">
-                <h3 class="text-lg font-bold text-gray-200">11. Endless Night</h3>
-                <p class="text-gray-400 text-sm mt-2">The ritual reaches its climax. Anya weaves her Aurorian light into a web of infinite shadow, dragging Nyktoros back into the deepest reaches of the Underworld. In a "symphony of despair," the rift closes. Anya becomes the warden of the eternal prison, sealing herself and the ancient evil away from the world. The Great Darkness ends, but Anya is lost forever.</p>
-                <details class="mt-4">
-                    <summary class="text-xs text-primary cursor-pointer uppercase tracking-widest font-bold">View Lyrics</summary>
-                    <pre class="mt-4 text-xs text-gray-500 leading-relaxed whitespace-pre-wrap font-sans bg-black/40 p-4 rounded-lg">[Verse 1]
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                        <span class="text-primary/50 text-sm font-mono mr-2">11</span>Endless Night
+                    </h3>
+                </div>
+                <p class="text-gray-400 text-sm mt-3 leading-relaxed">The ritual reaches its climax. Anya weaves her Aurorian light into a web of infinite shadow, dragging Nyktoros back into the deepest reaches of the Underworld. In a "symphony of despair," the rift closes. Anya becomes the warden of the eternal prison, sealing herself and the ancient evil away from the world. The Great Darkness ends, but Anya is lost forever.</p>
+                <details class="mt-4 group/details">
+                    <summary class="text-[10px] text-primary/70 cursor-pointer uppercase tracking-[0.2em] font-black list-none flex items-center gap-2 hover:text-primary transition-colors">
+                        <div class="w-1 h-1 bg-primary rounded-full"></div> View Lyrics
+                    </summary>
+                    <div class="mt-4 p-6 text-sm text-gray-400 leading-relaxed whitespace-pre-wrap font-sans bg-black/60 rounded-xl border border-white/5 shadow-inner">
+                        [Verse 1]
 	Dark night
 	Cold and silent
 	Nyktoros cries
@@ -818,16 +943,24 @@
 	Melancholy's embrace
 	Violent strain
 	In this anguished realm
-	We remain</pre>
+	We remain
+                    </div>
                 </details>
             </div>
             
-            <div class="bg-black/20 p-4 rounded-xl border border-white/5">
-                <h3 class="text-lg font-bold text-gray-200">12. Celestial Rebellion</h3>
-                <p class="text-gray-400 text-sm mt-2">In the immediate wake of the sacrifice, the world reels. Seraphina stands alone on the battlefield, devastated but forged in fire. She channels her grief into resolve, vowing that Anya's sacrifice will not be in vain. She rallies the survivors, forming the Shadow Legion and declaring herself the Queen of Carnage. She will build a kingdom (Ravenspire) strong enough to withstand any darkness.</p>
-                <details class="mt-4">
-                    <summary class="text-xs text-primary cursor-pointer uppercase tracking-widest font-bold">View Lyrics</summary>
-                    <pre class="mt-4 text-xs text-gray-500 leading-relaxed whitespace-pre-wrap font-sans bg-black/40 p-4 rounded-lg">[Verse 1]
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                        <span class="text-primary/50 text-sm font-mono mr-2">12</span>Celestial Rebellion
+                    </h3>
+                </div>
+                <p class="text-gray-400 text-sm mt-3 leading-relaxed">In the immediate wake of the sacrifice, the world reels. Seraphina stands alone on the battlefield, devastated but forged in fire. She channels her grief into resolve, vowing that Anya's sacrifice will not be in vain. She rallies the survivors, forming the Shadow Legion and declaring herself the Queen of Carnage. She will build a kingdom (Ravenspire) strong enough to withstand any darkness.</p>
+                <details class="mt-4 group/details">
+                    <summary class="text-[10px] text-primary/70 cursor-pointer uppercase tracking-[0.2em] font-black list-none flex items-center gap-2 hover:text-primary transition-colors">
+                        <div class="w-1 h-1 bg-primary rounded-full"></div> View Lyrics
+                    </summary>
+                    <div class="mt-4 p-6 text-sm text-gray-400 leading-relaxed whitespace-pre-wrap font-sans bg-black/60 rounded-xl border border-white/5 shadow-inner">
+                        [Verse 1]
 	In the darkened void of heaven, where the silent cosmos cry,
 	Anya's gone into the shadows, but she touched the astral sky.
 	With the fire of rebellion, and the courage to defy,
@@ -885,16 +1018,24 @@
 
 	[Outro]
 	In the Celestial Rebellion, where the shadows meet the light,
-	We'll fight against the darkness, with the echo of our name.</pre>
+	We'll fight against the darkness, with the echo of our name.
+                    </div>
                 </details>
             </div>
             
-            <div class="bg-black/20 p-4 rounded-xl border border-white/5">
-                <h3 class="text-lg font-bold text-gray-200">13. Haunting Life</h3>
-                <p class="text-gray-400 text-sm mt-2">From her eternal vigil in the Underworld, Anya reflects on her "haunting life" as the echo that saved the world. Above, Seraphina begins her reign. Though separated by realms, their bond remains the foundation of the new era. Anya remains the "haunting echo of hope" that allows the light to exist.</p>
-                <details class="mt-4">
-                    <summary class="text-xs text-primary cursor-pointer uppercase tracking-widest font-bold">View Lyrics</summary>
-                    <pre class="mt-4 text-xs text-gray-500 leading-relaxed whitespace-pre-wrap font-sans bg-black/40 p-4 rounded-lg">[Verse 1]
+            <div class="bg-black/40 p-5 rounded-2xl border border-white/5 hover:border-primary/30 transition-all group">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-xl font-bold text-gray-100 group-hover:text-primary transition-colors">
+                        <span class="text-primary/50 text-sm font-mono mr-2">13</span>Haunting Life
+                    </h3>
+                </div>
+                <p class="text-gray-400 text-sm mt-3 leading-relaxed">From her eternal vigil in the Underworld, Anya reflects on her "haunting life" as the echo that saved the world. Above, Seraphina begins her reign. Though separated by realms, their bond remains the foundation of the new era. Anya remains the "haunting echo of hope" that allows the light to exist.</p>
+                <details class="mt-4 group/details">
+                    <summary class="text-[10px] text-primary/70 cursor-pointer uppercase tracking-[0.2em] font-black list-none flex items-center gap-2 hover:text-primary transition-colors">
+                        <div class="w-1 h-1 bg-primary rounded-full"></div> View Lyrics
+                    </summary>
+                    <div class="mt-4 p-6 text-sm text-gray-400 leading-relaxed whitespace-pre-wrap font-sans bg-black/60 rounded-xl border border-white/5 shadow-inner">
+                        [Verse 1]
 	I live in a world of shadows
 	Where I am the Warden now
 	I live in a world of pain
@@ -963,164 +1104,228 @@
 	[Outro]
 	Haunting life...
 	Haunting life...
-	Haunting life...</pre>
+	Haunting life...
+                    </div>
                 </details>
             </div>
             
             </div>
         </div>
         </section>
-            <section id="characters" class="content-section grid md:grid-cols-2 gap-6">
-        <div class="glass-card p-6 rounded-2xl border-l-4 border-primary">
-            <h3 class="text-2xl font-bold mb-1">Acheron</h3>
-            <div class="text-xs text-primary font-bold uppercase tracking-tighter mb-3">Fallen Aurorian | The First Vampire</div>
-            <p class="text-gray-400 text-sm leading-relaxed mb-4">A malevolent spirit whose physical form was destroyed by Malakar.</p>
-            <details>
-                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-bold italic">Read Backstory</summary>
-                <p class="mt-3 text-sm text-gray-500 italic leading-relaxed">Formerly a Seer of Auroria; founder of the Crimson Covenant. Used Nyktoros blueprints to harvest Void energy.</p>
+            <section id="characters" class="content-section hidden grid md:grid-cols-2 gap-8">
+        <div class="glass-card p-8 rounded-3xl border-t border-white/5 hover:border-primary/50 transition-all group">
+            <h3 class="text-3xl font-black mb-1 text-white group-hover:text-primary transition-colors">Acheron</h3>
+            <div class="text-[10px] text-primary font-black uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                Fallen Aurorian <span class="text-white/20">/</span> The First Vampire
+            </div>
+            <p class="text-gray-400 leading-relaxed mb-6 font-medium">A malevolent spirit whose physical form was destroyed by Malakar.</p>
+            <details class="group/backstory">
+                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-black italic tracking-widest list-none hover:text-white transition-colors">
+                    + Reveal Chronicle
+                </summary>
+                <div class="mt-4 p-6 text-sm text-gray-500 italic leading-relaxed bg-white/5 rounded-2xl border border-white/5">
+                    Formerly a Seer of Auroria; founder of the Crimson Covenant. Used Nyktoros blueprints to harvest Void energy.
+                </div>
             </details>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl border-l-4 border-primary">
-            <h3 class="text-2xl font-bold mb-1">Anya</h3>
-            <div class="text-xs text-primary font-bold uppercase tracking-tighter mb-3">None | Scholar / Void-Echo</div>
-            <p class="text-gray-400 text-sm leading-relaxed mb-4">None</p>
-            <details>
-                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-bold italic">Read Backstory</summary>
-                <p class="mt-3 text-sm text-gray-500 italic leading-relaxed">None</p>
+        <div class="glass-card p-8 rounded-3xl border-t border-white/5 hover:border-primary/50 transition-all group">
+            <h3 class="text-3xl font-black mb-1 text-white group-hover:text-primary transition-colors">Anya</h3>
+            <div class="text-[10px] text-primary font-black uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                None <span class="text-white/20">/</span> Scholar / Void-Echo
+            </div>
+            <p class="text-gray-400 leading-relaxed mb-6 font-medium">None</p>
+            <details class="group/backstory">
+                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-black italic tracking-widest list-none hover:text-white transition-colors">
+                    + Reveal Chronicle
+                </summary>
+                <div class="mt-4 p-6 text-sm text-gray-500 italic leading-relaxed bg-white/5 rounded-2xl border border-white/5">
+                    None
+                </div>
             </details>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl border-l-4 border-primary">
-            <h3 class="text-2xl font-bold mb-1">Elara</h3>
-            <div class="text-xs text-primary font-bold uppercase tracking-tighter mb-3">None | Keeper of Starlight</div>
-            <p class="text-gray-400 text-sm leading-relaxed mb-4">None</p>
-            <details>
-                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-bold italic">Read Backstory</summary>
-                <p class="mt-3 text-sm text-gray-500 italic leading-relaxed">None</p>
+        <div class="glass-card p-8 rounded-3xl border-t border-white/5 hover:border-primary/50 transition-all group">
+            <h3 class="text-3xl font-black mb-1 text-white group-hover:text-primary transition-colors">Elara</h3>
+            <div class="text-[10px] text-primary font-black uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                None <span class="text-white/20">/</span> Keeper of Starlight
+            </div>
+            <p class="text-gray-400 leading-relaxed mb-6 font-medium">None</p>
+            <details class="group/backstory">
+                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-black italic tracking-widest list-none hover:text-white transition-colors">
+                    + Reveal Chronicle
+                </summary>
+                <div class="mt-4 p-6 text-sm text-gray-500 italic leading-relaxed bg-white/5 rounded-2xl border border-white/5">
+                    None
+                </div>
             </details>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl border-l-4 border-primary">
-            <h3 class="text-2xl font-bold mb-1">Legion Herald</h3>
-            <div class="text-xs text-primary font-bold uppercase tracking-tighter mb-3">None | Corrupted Nythorian; Voice of the Legion</div>
-            <p class="text-gray-400 text-sm leading-relaxed mb-4">None</p>
-            <details>
-                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-bold italic">Read Backstory</summary>
-                <p class="mt-3 text-sm text-gray-500 italic leading-relaxed">None</p>
+        <div class="glass-card p-8 rounded-3xl border-t border-white/5 hover:border-primary/50 transition-all group">
+            <h3 class="text-3xl font-black mb-1 text-white group-hover:text-primary transition-colors">Legion Herald</h3>
+            <div class="text-[10px] text-primary font-black uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                None <span class="text-white/20">/</span> Corrupted Nythorian; Voice of the Legion
+            </div>
+            <p class="text-gray-400 leading-relaxed mb-6 font-medium">None</p>
+            <details class="group/backstory">
+                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-black italic tracking-widest list-none hover:text-white transition-colors">
+                    + Reveal Chronicle
+                </summary>
+                <div class="mt-4 p-6 text-sm text-gray-500 italic leading-relaxed bg-white/5 rounded-2xl border border-white/5">
+                    None
+                </div>
             </details>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl border-l-4 border-primary">
-            <h3 class="text-2xl font-bold mb-1">Malakar</h3>
-            <div class="text-xs text-primary font-bold uppercase tracking-tighter mb-3">Nythorian | Sorcerer King; Disciple of the Void</div>
-            <p class="text-gray-400 text-sm leading-relaxed mb-4">None</p>
-            <details>
-                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-bold italic">Read Backstory</summary>
-                <p class="mt-3 text-sm text-gray-500 italic leading-relaxed">Sorcerer King who secretly dedicated his reign to Nyktoros. He destroyed Acheron to stop the vampire from harvesting his god.</p>
+        <div class="glass-card p-8 rounded-3xl border-t border-white/5 hover:border-primary/50 transition-all group">
+            <h3 class="text-3xl font-black mb-1 text-white group-hover:text-primary transition-colors">Malakar</h3>
+            <div class="text-[10px] text-primary font-black uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                Nythorian <span class="text-white/20">/</span> Sorcerer King; Disciple of the Void
+            </div>
+            <p class="text-gray-400 leading-relaxed mb-6 font-medium">None</p>
+            <details class="group/backstory">
+                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-black italic tracking-widest list-none hover:text-white transition-colors">
+                    + Reveal Chronicle
+                </summary>
+                <div class="mt-4 p-6 text-sm text-gray-500 italic leading-relaxed bg-white/5 rounded-2xl border border-white/5">
+                    Sorcerer King who secretly dedicated his reign to Nyktoros. He destroyed Acheron to stop the vampire from harvesting his god.
+                </div>
             </details>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl border-l-4 border-primary">
-            <h3 class="text-2xl font-bold mb-1">Nyktoros</h3>
-            <div class="text-xs text-primary font-bold uppercase tracking-tighter mb-3">None | Ruler of the Void</div>
-            <p class="text-gray-400 text-sm leading-relaxed mb-4">None</p>
-            <details>
-                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-bold italic">Read Backstory</summary>
-                <p class="mt-3 text-sm text-gray-500 italic leading-relaxed">None</p>
+        <div class="glass-card p-8 rounded-3xl border-t border-white/5 hover:border-primary/50 transition-all group">
+            <h3 class="text-3xl font-black mb-1 text-white group-hover:text-primary transition-colors">Nyktoros</h3>
+            <div class="text-[10px] text-primary font-black uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                None <span class="text-white/20">/</span> Ruler of the Void
+            </div>
+            <p class="text-gray-400 leading-relaxed mb-6 font-medium">None</p>
+            <details class="group/backstory">
+                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-black italic tracking-widest list-none hover:text-white transition-colors">
+                    + Reveal Chronicle
+                </summary>
+                <div class="mt-4 p-6 text-sm text-gray-500 italic leading-relaxed bg-white/5 rounded-2xl border border-white/5">
+                    None
+                </div>
             </details>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl border-l-4 border-primary">
-            <h3 class="text-2xl font-bold mb-1">Seraphina</h3>
-            <div class="text-xs text-primary font-bold uppercase tracking-tighter mb-3">None | Resistance Leader</div>
-            <p class="text-gray-400 text-sm leading-relaxed mb-4">None</p>
-            <details>
-                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-bold italic">Read Backstory</summary>
-                <p class="mt-3 text-sm text-gray-500 italic leading-relaxed">None</p>
+        <div class="glass-card p-8 rounded-3xl border-t border-white/5 hover:border-primary/50 transition-all group">
+            <h3 class="text-3xl font-black mb-1 text-white group-hover:text-primary transition-colors">Seraphina</h3>
+            <div class="text-[10px] text-primary font-black uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                None <span class="text-white/20">/</span> Resistance Leader
+            </div>
+            <p class="text-gray-400 leading-relaxed mb-6 font-medium">None</p>
+            <details class="group/backstory">
+                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-black italic tracking-widest list-none hover:text-white transition-colors">
+                    + Reveal Chronicle
+                </summary>
+                <div class="mt-4 p-6 text-sm text-gray-500 italic leading-relaxed bg-white/5 rounded-2xl border border-white/5">
+                    None
+                </div>
             </details>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl border-l-4 border-primary">
-            <h3 class="text-2xl font-bold mb-1">Valen</h3>
-            <div class="text-xs text-primary font-bold uppercase tracking-tighter mb-3">None | Resistance Warrior</div>
-            <p class="text-gray-400 text-sm leading-relaxed mb-4">None</p>
-            <details>
-                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-bold italic">Read Backstory</summary>
-                <p class="mt-3 text-sm text-gray-500 italic leading-relaxed">None</p>
+        <div class="glass-card p-8 rounded-3xl border-t border-white/5 hover:border-primary/50 transition-all group">
+            <h3 class="text-3xl font-black mb-1 text-white group-hover:text-primary transition-colors">Valen</h3>
+            <div class="text-[10px] text-primary font-black uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                None <span class="text-white/20">/</span> Resistance Warrior
+            </div>
+            <p class="text-gray-400 leading-relaxed mb-6 font-medium">None</p>
+            <details class="group/backstory">
+                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-black italic tracking-widest list-none hover:text-white transition-colors">
+                    + Reveal Chronicle
+                </summary>
+                <div class="mt-4 p-6 text-sm text-gray-500 italic leading-relaxed bg-white/5 rounded-2xl border border-white/5">
+                    None
+                </div>
             </details>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl border-l-4 border-primary">
-            <h3 class="text-2xl font-bold mb-1">Vorgos</h3>
-            <div class="text-xs text-primary font-bold uppercase tracking-tighter mb-3">None | Universal Sentinel; Master Narrator</div>
-            <p class="text-gray-400 text-sm leading-relaxed mb-4">None</p>
-            <details>
-                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-bold italic">Read Backstory</summary>
-                <p class="mt-3 text-sm text-gray-500 italic leading-relaxed">None</p>
+        <div class="glass-card p-8 rounded-3xl border-t border-white/5 hover:border-primary/50 transition-all group">
+            <h3 class="text-3xl font-black mb-1 text-white group-hover:text-primary transition-colors">Vorgos</h3>
+            <div class="text-[10px] text-primary font-black uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+                None <span class="text-white/20">/</span> Universal Sentinel; Master Narrator
+            </div>
+            <p class="text-gray-400 leading-relaxed mb-6 font-medium">None</p>
+            <details class="group/backstory">
+                <summary class="text-[10px] text-gray-500 cursor-pointer uppercase font-black italic tracking-widest list-none hover:text-white transition-colors">
+                    + Reveal Chronicle
+                </summary>
+                <div class="mt-4 p-6 text-sm text-gray-500 italic leading-relaxed bg-white/5 rounded-2xl border border-white/5">
+                    None
+                </div>
             </details>
         </div>
         </section>
-            <section id="locations" class="content-section grid md:grid-cols-3 gap-6">
-        <div class="glass-card p-6 rounded-2xl">
-            <h3 class="text-xl font-bold text-primary mb-2">Astral Archives</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">Celestial ruins containing ancient prophecies.</p>
+            <section id="locations" class="content-section hidden grid md:grid-cols-3 gap-8">
+        <div class="glass-card p-8 rounded-3xl border-b border-white/5 hover:border-primary/50 transition-all">
+            <div class="w-12 h-1 bg-primary/30 mb-6 rounded-full"></div>
+            <h3 class="text-2xl font-black text-white mb-4 tracking-tight">Astral Archives</h3>
+            <p class="text-gray-400 text-sm leading-relaxed font-medium">Celestial ruins containing ancient prophecies.</p>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl">
-            <h3 class="text-xl font-bold text-primary mb-2">Auroria</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">The Celestial Plane of Light.</p>
+        <div class="glass-card p-8 rounded-3xl border-b border-white/5 hover:border-primary/50 transition-all">
+            <div class="w-12 h-1 bg-primary/30 mb-6 rounded-full"></div>
+            <h3 class="text-2xl font-black text-white mb-4 tracking-tight">Auroria</h3>
+            <p class="text-gray-400 text-sm leading-relaxed font-medium">The Celestial Plane of Light.</p>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl">
-            <h3 class="text-xl font-bold text-primary mb-2">Eldoria</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">The Material Plane of physical life.</p>
+        <div class="glass-card p-8 rounded-3xl border-b border-white/5 hover:border-primary/50 transition-all">
+            <div class="w-12 h-1 bg-primary/30 mb-6 rounded-full"></div>
+            <h3 class="text-2xl font-black text-white mb-4 tracking-tight">Eldoria</h3>
+            <p class="text-gray-400 text-sm leading-relaxed font-medium">The Material Plane of physical life.</p>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl">
-            <h3 class="text-xl font-bold text-primary mb-2">Nythoria</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">The Umbral Plane of shadow and silence.</p>
+        <div class="glass-card p-8 rounded-3xl border-b border-white/5 hover:border-primary/50 transition-all">
+            <div class="w-12 h-1 bg-primary/30 mb-6 rounded-full"></div>
+            <h3 class="text-2xl font-black text-white mb-4 tracking-tight">Nythoria</h3>
+            <p class="text-gray-400 text-sm leading-relaxed font-medium">The Umbral Plane of shadow and silence.</p>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl">
-            <h3 class="text-xl font-bold text-primary mb-2">Ravenspire (Ancestral Ruins)</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">The destroyed home of Seraphina.</p>
+        <div class="glass-card p-8 rounded-3xl border-b border-white/5 hover:border-primary/50 transition-all">
+            <div class="w-12 h-1 bg-primary/30 mb-6 rounded-full"></div>
+            <h3 class="text-2xl font-black text-white mb-4 tracking-tight">Ravenspire (Ancestral Ruins)</h3>
+            <p class="text-gray-400 text-sm leading-relaxed font-medium">The destroyed home of Seraphina.</p>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl">
-            <h3 class="text-xl font-bold text-primary mb-2">Ravenspire (New)</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">The fortified kingdom founded by the Queen of Carnage.</p>
+        <div class="glass-card p-8 rounded-3xl border-b border-white/5 hover:border-primary/50 transition-all">
+            <div class="w-12 h-1 bg-primary/30 mb-6 rounded-full"></div>
+            <h3 class="text-2xl font-black text-white mb-4 tracking-tight">Ravenspire (New)</h3>
+            <p class="text-gray-400 text-sm leading-relaxed font-medium">The fortified kingdom founded by the Queen of Carnage.</p>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl">
-            <h3 class="text-xl font-bold text-primary mb-2">The Aether</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">The dimension between planes.</p>
+        <div class="glass-card p-8 rounded-3xl border-b border-white/5 hover:border-primary/50 transition-all">
+            <div class="w-12 h-1 bg-primary/30 mb-6 rounded-full"></div>
+            <h3 class="text-2xl font-black text-white mb-4 tracking-tight">The Aether</h3>
+            <p class="text-gray-400 text-sm leading-relaxed font-medium">The dimension between planes.</p>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl">
-            <h3 class="text-xl font-bold text-primary mb-2">The Crystal Sanctum</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">Anya’s ancestral archive and library.</p>
+        <div class="glass-card p-8 rounded-3xl border-b border-white/5 hover:border-primary/50 transition-all">
+            <div class="w-12 h-1 bg-primary/30 mb-6 rounded-full"></div>
+            <h3 class="text-2xl font-black text-white mb-4 tracking-tight">The Crystal Sanctum</h3>
+            <p class="text-gray-400 text-sm leading-relaxed font-medium">Anya’s ancestral archive and library.</p>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl">
-            <h3 class="text-xl font-bold text-primary mb-2">The Shadow-Vale</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">The battlefield where Valen made his final stand.</p>
+        <div class="glass-card p-8 rounded-3xl border-b border-white/5 hover:border-primary/50 transition-all">
+            <div class="w-12 h-1 bg-primary/30 mb-6 rounded-full"></div>
+            <h3 class="text-2xl font-black text-white mb-4 tracking-tight">The Shadow-Vale</h3>
+            <p class="text-gray-400 text-sm leading-relaxed font-medium">The battlefield where Valen made his final stand.</p>
         </div>
         </section>
-            <section id="artifacts" class="content-section grid md:grid-cols-3 gap-6">
-        <div class="glass-card p-6 rounded-2xl border-b-2 border-accent">
-            <h3 class="text-xl font-bold text-accent mb-2">The Crystal Focus</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">Sentinel tool used to monitor planar frequencies.</p>
+            <section id="artifacts" class="content-section hidden grid md:grid-cols-3 gap-8">
+        <div class="glass-card p-8 rounded-3xl border-l-2 border-accent/30 hover:border-accent transition-all">
+            <h3 class="text-2xl font-black text-accent mb-4 tracking-tight">The Crystal Focus</h3>
+            <p class="text-gray-400 text-sm leading-relaxed font-medium">Sentinel tool used to monitor planar frequencies.</p>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl border-b-2 border-accent">
-            <h3 class="text-xl font-bold text-accent mb-2">The Forbidden Tome</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">Blueprints of the Void used to create vampires.</p>
+        <div class="glass-card p-8 rounded-3xl border-l-2 border-accent/30 hover:border-accent transition-all">
+            <h3 class="text-2xl font-black text-accent mb-4 tracking-tight">The Forbidden Tome</h3>
+            <p class="text-gray-400 text-sm leading-relaxed font-medium">Blueprints of the Void used to create vampires.</p>
         </div>
         
-        <div class="glass-card p-6 rounded-2xl border-b-2 border-accent">
-            <h3 class="text-xl font-bold text-accent mb-2">The Heartstone of Creation</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">Lost anchor of Eldoria’s life-force.</p>
+        <div class="glass-card p-8 rounded-3xl border-l-2 border-accent/30 hover:border-accent transition-all">
+            <h3 class="text-2xl font-black text-accent mb-4 tracking-tight">The Heartstone of Creation</h3>
+            <p class="text-gray-400 text-sm leading-relaxed font-medium">Lost anchor of Eldoria’s life-force.</p>
         </div>
         </section>
         </div>
@@ -1128,8 +1333,21 @@
 
     <script>
         function showSection(id) {
-            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(s => {
+                s.classList.add('hidden');
+            });
+            
+            // Show selected section
+            const target = document.getElementById(id);
+            target.classList.remove('hidden');
+            
+            // Update button states
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-' + id).classList.add('active');
+            
+            // Smooth scroll to top of content
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
