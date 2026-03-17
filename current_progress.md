@@ -10,6 +10,26 @@ This document tracks the current state of the project and serves as a quick-refe
     - Song plots refined for linear consistency.
     - Lyrics reworked using the "Narrative Anchoring" approach.
     - Full album data synchronized with the Neo4j database.
+- **Processed Album:** **"Vows of Silence"**
+    - Song plots refined for linear consistency.
+    - Lyrics reworked using the "Narrative Anchoring" approach.
+    - Full album data synchronized with the Neo4j database.
+- **Processed Album:** **"Lord of Shadows"**
+    - Song plots refined for linear consistency.
+    - Lyrics reworked using the "Narrative Anchoring" approach.
+    - Full album data synchronized with the Neo4j database.
+- **Processed Album:** **"Queen of Carnage"**
+    - Song plots refined for linear consistency.
+    - Lyrics reworked using the "Narrative Anchoring" approach.
+    - Full album data synchronized with the Neo4j database.
+- **Processed Album:** **"Crimson Covenant"**
+    - Song plots refined for linear consistency.
+    - Lyrics reworked using the "Narrative Anchoring" approach.
+    - Full album data synchronized with the Neo4j database.
+- **Processed Album:** **"Beyond the Veil of Twilight"**
+    - Song plots refined for linear consistency.
+    - Lyrics reworked using the "Narrative Anchoring" approach.
+    - Full album data synchronized with the Neo4j database.
 
 ## 2. Established Lore Constants
 - **Acheron:** Established as a Fallen Aurorian Seer and the "First Vampire."
@@ -22,5 +42,9 @@ This document tracks the current state of the project and serves as a quick-refe
 
 ## 4. Album Restructuring (Linear Alignment)
 To maintain strict chronological consistency, the original **Lord of Shadows** album has been split:
-- **Rite of the Darkened Sun (Era I):** A new prequel album focused on Malakar’s origins, his discovery of the Forbidden Tome, and his rise as the "Void Disciple." (Includes migrated Act I from LoS).
+- **Vows of Silence (Era I):** A new prequel album focused on Malakar’s origins, his    discovery of the Forbidden Tome, and his rise as the "Void Disciple." (Includes migrated Act I from LoS).
 - **Lord of Shadows (Era III):** Repurposed as the "Sister Album" to *Queen of Carnage*. Focuses on Malakar’s downfall, his defeat by Seraphina, and his exile to the Shadow Realm.
+
+## 5. Unprocessed Albums
+- **"Bound by Blood"**
+- **"Eldoria's Prophecy"**
