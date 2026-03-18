@@ -1,215 +1,188 @@
 <album album="Eldoria's Prophecy">
-		  	<Act act="I: The Call">
-				<Song song="Echoes of Stone">
-			  		<song_id>1</song_id>
-			  		<Tone>Introspective, Atmospheric</Tone>
-			  		<Plot>Eldrin Nightshade, a solitary wizard, lives in a secluded tower nestled amidst a dense, ancient forest. His days are filled with the monotonous routine of studying ancient texts and tending to his garden. The tower is a place of solitude and reflection, a sanctuary from the chaos of the outside world. However, a sense of unease has been gnawing at him, a premonition of impending doom that he cannot shake.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
-A solitary figure, cloaked in shadow,
-Wandering through the night, so hollow.
-Towering spires, ancient scripts unfold,
-Whispers of the past, stories untold.
+    <AlbumPlot><![CDATA[
+### High-Level Album Plot (V1 - Refined)
+
+**Timeline:** `~500 AGD` (The Mid-Point of the Silent Century)
+
+**Narrative Arc:** "The Blind Prophet / The Cosmic Contingency"
+
+Two centuries after Kael became the "Living Lock," the cosmic Architect, **Vorgos the Stormbringer**, foresees the eventual failure of the containment. The resonance is slowly killing Kael. To ensure the universe survives the inevitable breach in 900 AGD, Vorgos activates a sleeper agent in 500 AGD: **Eldrin Nightshade**.
+
+Eldrin is a scholar obsessed with the "Gap" in history—the missing records of the Great Darkness. He receives a vision of a future violet sky and a Star-Guard shattering. Guided by the Stormbringer, he embarks on a quest not for glory, but for **Insurance**: The Heart Stone of Creation, a "Cosmic Insulator" capable of stabilizing the Lock.
+
+The album follows Eldrin's journey to retrieve the artifact, his betrayal by false allies, and his ultimate acceptance of a tragic destiny: to become the immortal, solitary guardian of a cure he cannot use for another 400 years. He is the bridge between the tragedy of the past and the salvation of the future.
+    ]]></AlbumPlot>
+    <Act act="I: The Call of the Architect">
+        <Song song="Echoes of Stone">
+            <song_id>1</song_id>
+            <Tone>Introspective, Atmospheric</Tone>
+            <Plot>Eldrin Nightshade sits in his tower, surrounded by dust and silence. He studies the geological strata of the world, noticing a terrifying anomaly—"Echoes" in the stone that suggest the world has ended before. He feels the weight of a history he cannot read, and a premonition that the cycle is about to repeat.</Plot>
+            <Lyrics>[Verse 1]
+The dust of ages on the marble floor,
+I read the strata, wanting something more.
+A gap in time, a silence in the rock,
+The world was broken by a unseen shock.
 
 [Chorus]
 Echoes of stone, in the silence they cry,
 Secrets of ages, beneath the sky.
-Time stands still, in this frozen echo,
-A heart heavy with secrets, longing to let go.
+The mountain remembers what history forgot,
+A cosmic trauma, a Gordian knot.
 
 [Verse 2]
-Wind whispers through empty halls, so cold,
-Memories linger, in the walls of old.
-Footsteps fade, in the dust of time,
-Lost in the echoes, a forgotten rhyme.
+I trace the veins of silver in the wall,
+A map of ruin, waiting for the fall.
+The scholars say the Darkness passed us by,
+But stone don't lie, and stone don't testify.
 
 [Chorus]
 Echoes of stone, in the silence they cry,
 Secrets of ages, beneath the sky.
-Time stands still, in this frozen echo,
-A heart heavy with secrets, longing to let go.
+The mountain remembers what history forgot,
+A cosmic trauma, a Gordian knot.
 
 [Verse 3]
-Wind whispers through empty halls, so cold,
-Memories linger, in the walls of old.
-Footsteps fade, in the dust of time,
-Lost in the echoes, a forgotten rhyme.
+The wind is howling through the broken spire,
+I feel the heat of a forgotten fire.
+The silence screams, the shadows start to creep,
+The earth is waking from a fitful sleep.
 
 [Chorus]
 Echoes of stone, in the silence they cry,
 Secrets of ages, beneath the sky.
-Time stands still, in this frozen echo,
-A heart heavy with secrets, longing to let go.
-
-[Bridge]
-In the shadows, where the light can’t reach,
-A soul searching, for the truth to breach.
-Through the darkness, a glimmer of hope,
-In the echoes of stone, we learn to cope.
-
-[Chorus]
-Echoes of stone, in the silence they cry,
-Secrets of ages, beneath the sky.
-Time stands still, in this frozen echo,
-A heart heavy with secrets, longing to let go.
+The mountain remembers what history forgot,
+A cosmic trauma, a Gordian knot.
 
 [Outro]
-A solitary figure, cloaked in shadow,
-Finding peace, in the night so shallow.
-Echoes of stone, fade into the night,
-A heart unburdened, taking flight.</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="Dreamweaver's Call">
-			  		<song_id>2</song_id>
-			  		<Tone>Ethereal, Building Tension</Tone>
-			  		<Plot>Nightmares plague Eldrin, visions of a dying world and a desperate need for his intervention. The skies are ablaze, the land is ravaged, and the people are suffering. A voice, ethereal and haunting, calls out to him, urging him to rise and save the world. Eldrin, initially hesitant, is eventually compelled to heed the call. The weight of responsibility is heavy upon him, but he knows that he must act.
-			  		</Plot>
-			  		<Lyrics>[Verse 1] 
-Visions dance, a cosmic ballet,
-Stars align, in a celestial array.
-A world in peril, a fading light,
-Shadows creep, in the dead of night.
+A solitary figure, clock and tome,
+Searching for truth in this forgotten home.
+Echoes of stone, a warning clear and bright,
+Prepare the way, against the coming night.</Lyrics>
+            <analysis></analysis>
+        </Song>
+        <Song song="Dreamweaver's Call">
+            <song_id>2</song_id>
+            <Tone>Ethereal, Terrifying</Tone>
+            <Plot>The vision strikes. Eldrin is pulled out of time by Vorgos. He sees the "Violet Sky" of 900 AGD—the moment Kael explodes. He sees a woman (Anya) weeping over a broken man. The "Dreamweaver" (Vorgos) speaks: "The Lock will fail. Find the Anchor." It is not a request; it is a command from the Aether.</Plot>
+            <Lyrics>[Verse 1]
+The candle flickers and the room dissolves,
+The logic fades, the mystery resolves.
+I stand upon a precipice of time,
+And hear the rhythm of a cosmic rhyme.
 
 [Verse 2]
-A whisper carried on astral winds,
-Echoes of time, where the story begins.
-A hero’s heart, with courage to fight,
-In the darkness, seeking the light.
-
-[Pre-Chorus] 
-Through the mist, a guiding star, 
-A voice that whispers, “Here you are.” 
-In the silence, hear the plea, 
-A call to rise, to set us free.
-
-[Chorus]
-Dreamweaver’s call, through the astral winds,
-A whisper of fate, where the journey begins.
-Destiny’s hand, with an iron grip,
-Rise, Eldrin, let your spirit slip.
-
-[Bridge] 
-In the void, where dreams take flight,
-A beacon of hope, in the endless night.
-Through the chaos, a path to find,
-In the Dreamweaver’s call, our fates are intertwined.
-
-[Verse 3]
-The ground is shaking, the skies ablaze,
-The end draws near in this final phase.
-Yet from the ashes, a voice remains,
-"Rise, Eldrin, break these chains."
-
-[Verse 4]
-A dying world, yet a heart beats still,
-With every breath, the air grows chill.
-The Dreamweaver speaks, the world awaits,
-Eldrin stands now, against the fates.
+I see a sky of violet and blood,
+A Star-Guard dying in the rising flood.
+A woman weeps, a seal begins to crack,
+There is no future if we don't go back.
 
 [Pre-Chorus]
-Through the mist, a guiding star, 
-A voice that whispers, “Here you are.” 
-In the silence, hear the plea, 
-A call to rise, to set us free.
-
-[Chorus] 
-Dreamweaver’s call, through the astral winds,
-A whisper of fate, where the journey begins.
-Destiny’s hand, with an iron grip,
-Rise, Eldrin, let your spirit slip.
-
-[Outro]
-Rise, Eldrin, answer the call,
-In the cosmic dance, we stand tall.
-Dreamweaver’s call, echoes through the night,
-A world reborn, in the morning light.</Lyrics>
-				  	<analysis></analysis>
-				</Song>
-				<Song song="Odyssey's Dawn">
-			  		<song_id>3</song_id>
-			  		<Tone>Adventurous, Upbeat</Tone>
-			  		<Plot>Leaving behind the familiar confines of his tower, Eldrin embarks on a perilous journey. The world outside is both beautiful and dangerous, a stark contrast to the quiet solitude he has grown accustomed to. He traverses vast forests, climbs towering mountains, and crosses raging rivers. The journey is filled with both wonder and danger, as Eldrin encounters strange creatures, treacherous terrain, and the occasional hostile encounter.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
-Beyond the tower, a world unknown,
-Mountains call, where the wild winds have blown.
-Forests whisper, secrets of old,
-A heart aflame, with a purpose bold.
+Through the mist, the Giant's eye,
+A storm of aether in the sky.
+"The Lock will fail," the thunder speaks,
+"Find the Anchor, ere it breaks."
 
 [Chorus]
-Odyssey’s dawn, where dreams take flight,
-With staff in hand, we chase the light.
-Hope’s ember, a guiding star,
-On this journey, we’ll go far.
+Dreamweaver’s call, a summons from the deep,
+A promise made that I am bound to keep.
+The Architect has moved a pawn today,
+And I must walk the solitary way.
 
-[Verse 2]
-Rivers flow, through valleys deep,
-In the adventure, our spirits leap.
-Fields of gold, under skies so blue,
-Every step, a story new.
-
-[Chorus]
-Odyssey’s dawn, where dreams take flight,
-With staff in hand, we chase the light.
-Hope’s ember, a guiding star,
-On this journey, we’ll go far.
+[Bridge]
+I see the shards of light upon the ground,
+A resonance that makes a killing sound.
+To save the future from the past's mistake,
+I must repair what destiny will break.
 
 [Verse 3]
-In shadowed woods, strange eyes gleam,
-Echoes twist through the twilight’s beam.
-Creatures stir, with silent grace,
-Testing resolve in this untamed place.
-
-[Verse 4]
-Through storm and stone, the path unclear,
-Each challenge faced, without a fear.
-A world of wonders, vast and wide,
-With every breath, the fates collide.
+The vision fades, the candle burns again,
+But I am changed, I am no longer then.
+The coordinates are burned into my mind,
+The Heart Stone is the thing I have to find.
 
 [Chorus]
-Odyssey’s dawn, where dreams take flight,
-With staff in hand, we chase the light.
-Hope’s ember, a guiding star,
-On this journey, we’ll go far.
+Dreamweaver’s call, a summons from the deep,
+A promise made that I am bound to keep.
+The Architect has moved a pawn today,
+And I must walk the solitary way.
+
+[Outro]
+Rise, Eldrin, the century is late,
+You are the keeper of the broken gate.
+Dreamweaver’s call, echoes in the bone,
+I leave the tower, I walk alone.</Lyrics>
+            <analysis></analysis>
+        </Song>
+        <Song song="Odyssey's Dawn">
+            <song_id>3</song_id>
+            <Tone>Adventurous, Resolute</Tone>
+            <Plot>Eldrin packs his staff and his journals. He locks his tower, knowing he may never return. The "Odyssey" begins. He steps out into the world of 500 AGD, a place of rebuilding and ignorance, guided only by the "Compass of the Storm" Vorgos implanted in his mind.</Plot>
+            <Lyrics>[Verse 1]
+I turn the key and seal the iron door,
+The scholar's life is mine to live no more.
+The staff is heavy but my step is light,
+I walk into the morning, from the night.
+
+[Chorus]
+Odyssey’s dawn, the path is clear and true,
+Under a sky of terrifying blue.
+The compass spins, the needle points the way,
+To save a world that hasn't seen the day.
+
+[Verse 2]
+I pass the villages of wood and thatch,
+Where simple lives in simple moments match.
+They do not know the fire in the sky,
+They do not know the reason why I fly.
+
+[Chorus]
+Odyssey’s dawn, the path is clear and true,
+Under a sky of terrifying blue.
+The compass spins, the needle points the way,
+To save a world that hasn't seen the day.
+
+[Verse 3]
+The forest opens like a hungry mouth,
+The wind is shifting from the bitter south.
+I fear no beast, I fear no bandit's blade,
+I fear the failure of the plan we made.
 
 [Bridge]
 Through the trials, and the unknown,
-With courage, we have grown.
-In the odyssey, we find our way,
-In the dawn of a brand new day.
+The seeds of destiny are sown.
+I am the messenger of time,
+Commiting to a holy crime.
 
 [Chorus]
-Odyssey’s dawn, where dreams take flight,
-With staff in hand, we chase the light.
-Hope’s ember, a guiding star,
-On this journey, we’ll go far.
+Odyssey’s dawn, the path is clear and true,
+Under a sky of terrifying blue.
+The compass spins, the needle points the way,
+To save a world that hasn't seen the day.
 
 [Outro]
-Beyond the tower, a world unknown,
-Mountains call, where the wild winds have blown.
+Beyond the tower, the mountains wait,
+To test the bearer of this heavy fate.
 With hearts aflame, and spirits high,
 In Odyssey’s dawn, we reach the sky.</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-		  	</Act>
-		  	<Act act="II: Trials and Tribulations">
-				<Song song="Summit of Despair">
-			  		<song_id>4</song_id>
-			  		<Tone>Melancholic, Powerful</Tone>
-			  		<Plot>As Eldrin climbs a treacherous mountain pass, the weight of his mission begins to bear down on him. The cold wind bites at his bones, and the snow-covered peaks seem to loom over him like menacing giants. Doubt and fear creep into his mind, and he questions his ability to save the world. The physical and emotional toll of the journey is taking its toll on him, but he must press on.
-			  		</Plot>
-			  		<Lyrics>[Intro]
+            <analysis></analysis>
+        </Song>
+    </Act>
+    <Act act="II: Trials and Tribulations">
+        <Song song="Summit of Despair">
+            <song_id>4</song_id>
+            <Tone>Melancholic, Powerful</Tone>
+            <Plot>As Eldrin climbs a treacherous mountain pass, the weight of his mission begins to bear down on him. The cold wind bites at his bones, and the snow-covered peaks seem to loom over him like menacing giants. Doubt and fear creep into his mind, and he questions his ability to save the world. The physical and emotional toll of the journey is taking its toll on him, but he must press on.</Plot>
+            <Lyrics>[Intro]
 Ice-kissed peaks, a barren expanse,
 Solitude’s embrace, in a chilling trance.
 A heart so heavy, with shadows of doubt,
 In the silence, a muted shout.
 
 [Verse 1]
-Chilled emotions, on a rugged face,
-In the frost, we find our trace.
-A trek so vast, through the tempest’s chase,
-Finding comfort, in this empty space.
+The air is thin, the path is steep,
+A promise that I have to keep.
+The wind it screams a thousand names,
+Of those who played these cosmic games.
 
 [Verse 2]
 Frozen tears, on a weathered face,
@@ -218,10 +191,10 @@ A journey long, through the storm’s embrace,
 Seeking solace, in this desolate space.
 
 [Chorus]
-Summit of despair, where the winds howl,
-A battle within, beneath the icy cowl.
-Yet, a flicker of hope, in a distant land,
-A dream of warmth, where we stand.
+Summit of despair, the icy crown,
+Where even gods are looking down.
+I climb for those who are not born,
+Upon this cold and jagged morn.
 
 [Verse 3]
 In the shadows, where the light is thin,
@@ -231,11 +204,10 @@ In the summit’s grip, we won’t sway.
 Frozen tears...
 
 [Chorus]
-Summit of despair, where the winds howl,
-A battle within, beneath the icy cowl.
-Yet, a flicker of hope, in a distant land,
-A dream of warmth, where we stand.
-Frozen tears...
+Summit of despair, the icy crown,
+Where even gods are looking down.
+I climb for those who are not born,
+Upon this cold and jagged morn.
 
 [Bridge]
 In the shadows, where the light is thin,
@@ -248,10 +220,10 @@ A path so steep, through the snow’s bite,
 Finding peace, in the quiet night.
 
 [Chorus]
-Summit of despair, where the winds howl,
-A battle within, beneath the icy cowl.
-Yet, a flicker of hope, in a distant land,
-A dream of warmth, where we stand.
+Summit of despair, the icy crown,
+Where even gods are looking down.
+I climb for those who are not born,
+Upon this cold and jagged morn.
 
 [Verse 4]
 In the dusk, where whispers meet,
@@ -275,32 +247,31 @@ A glimpse of hope, beyond despair.
 Beyond despair!
 
 [Chorus]
-Summit of despair, where the winds howl,
-A battle within, beneath the icy cowl.
-Yet, a flicker of hope, in a distant land,
-A dream of warmth, where we stand.
+Summit of despair, the icy crown,
+Where even gods are looking down.
+I climb for those who are not born,
+Upon this cold and jagged morn.
 
 [Chorus]
-Summit of despair, where the winds howl,
-A battle within, beneath the icy cowl.
-Yet, a flicker of hope, in a distant land,
-A dream of warmth, where we stand.
+Summit of despair, the icy crown,
+Where even gods are looking down.
+I climb for those who are not born,
+Upon this cold and jagged morn.
 
 [Outro]
 Ice-kissed peaks, a barren expanse,
 Solitude’s embrace, in a chilling trance.</Lyrics>		
-			  		<analysis></analysis>
-				</Song>
-				<Song song="Sylvan Sanctuary">
-			  		<song_id>5</song_id>
-			  		<Tone>Mystical, Enchanting</Tone>
-			  		<Plot>Lost and weary, Eldrin stumbles upon a hidden forest. As he explores its depths, he encounters strange creatures and magical plants. The forest seems to have a life of its own, and Eldrin feels a sense of peace and tranquility as he wanders through its paths. He eventually comes across a wise old hermit, who offers him guidance and wisdom. The hermit reveals that the forest is a sacred place, and that it holds secrets that could aid Eldrin in his quest.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
-In the heart of the forest, where the ancient trees stand tall,
-A verdant embrace, a sanctuary for all.
-Whispering spirits, they dance in the breeze,
-Nature’s lore, carried on the leaves.
+            <analysis></analysis>
+        </Song>
+        <Song song="Sylvan Sanctuary">
+            <song_id>5</song_id>
+            <Tone>Mystical, Enchanting</Tone>
+            <Plot>Lost and weary, Eldrin stumbles upon a hidden forest. As he explores its depths, he encounters strange creatures and magical plants. The forest seems to have a life of its own, and Eldrin feels a sense of peace and tranquility as he wanders through its paths. He eventually comes across a wise old hermit, who offers him guidance and wisdom. The hermit reveals that the forest is a sacred place, and that it holds secrets that could aid Eldrin in his quest.</Plot>
+            <Lyrics>[Verse 1]
+A valley green amidst the snow,
+Where ancient, magic rivers flow.
+An Elemental blocks the way,
+"Why do you seek the light of day?"
 
 [Verse 2]
 A wise old soul, a guiding light,
@@ -328,6 +299,12 @@ The path forward, for our future’s sake.
 Ancient trees, a verdant embrace,
 In the sanctuary, we find our place.
 
+[Chorus]
+Sylvan sanctuary, a test of heart,
+Before the journey's hardest part.
+I seek the Stone to save the Lock,
+To withstand the coming shock.
+
 [Outro]
 Whispering spirits, nature’s lore,
 In the sanctuary, forevermore.
@@ -337,24 +314,23 @@ Through the shadows, and the light,
 We walk together, hearts burning bright.
 In the sanctuary, we find our way,
 A timeless haven, where we choose to stay.</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="Treachery's Bite">
-			  		<song_id>6</song_id>
-			  		<Tone>Dark, Intense</Tone>
-			  		<Plot>A trusted companion betrays Eldrin, shattering his trust and leaving him feeling betrayed and alone. The betrayal is a devastating blow, and Eldrin struggles to cope with the pain and anger that consume him. The betrayal has shaken his faith in humanity, and he questions his own judgment.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
-A trusted friend, a viper’s kiss,
-Betrayal’s sting, a bitter pill.
-A heart shattered, a soul in pain,
-Vengeance’s fire, a dangerous dance.
+            <analysis></analysis>
+        </Song>
+        <Song song="Treachery's Bite">
+            <song_id>6</song_id>
+            <Tone>Dark, Intense</Tone>
+            <Plot>A trusted companion betrays Eldrin, shattering his trust and leaving him feeling betrayed and alone. The betrayal is a devastating blow, and Eldrin struggles to cope with the pain and anger that consume him. The betrayal has shaken his faith in humanity, and he questions his own judgment.</Plot>
+            <Lyrics>[Verse 1]
+I met a traveler on the road,
+Who helped to bear the heavy load.
+He spoke of lore and ancient kings,
+And all the joy that knowledge brings.
 
 [Chorus]
-In the shadows, where secrets lie,
-Treachery’s bite, a silent cry.
-Trust is broken, darkness falls,
-In the night, the serpent calls.
+Treachery's bite, a sudden sting,
+The dagger that the shadows bring.
+He seeks the Stone to break the seal,
+A wound that time will never heal.
 
 [Verse 2]
 Whispers of deceit, a twisted game,
@@ -369,10 +345,10 @@ In the ashes, we find our way,
 Treachery’s bite, we won’t obey.
 
 [Chorus]
-In the shadows, where secrets lie,
-Treachery’s bite, a silent cry.
-Trust is broken, darkness falls,
-In the night, the serpent calls.
+Treachery's bite, a sudden sting,
+The dagger that the shadows bring.
+He seeks the Stone to break the seal,
+A wound that time will never heal.
 
 [Verse 3]
 A mask of lies, a hidden face,
@@ -399,18 +375,64 @@ A trusted friend, a viper’s kiss,
 Betrayal’s sting, a bitter pill.
 A heart shattered, a soul in pain,
 Vengeance’s fire, a dangerous dance.</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="Inferno's Trial">
-			  		<song_id>7</song_id>
-			  		<Tone>Dramatic, Contrasting</Tone>
-			  		<Plot>Eldrin is confronted with a fiery trial, a test of his courage and determination. He must navigate through a treacherous labyrinth of flames, dodging traps and avoiding deadly obstacles. The heat is intense, and the air is thick with smoke. Eldrin's physical and mental endurance are pushed to their limits, but he refuses to give up. The trial is a crucible that will test his resolve and prepare him for the challenges that lie ahead.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
-Flames engulf, a fiery test,
-A battle waged, against the heat.
-Strength tested, will unbroken,
-Through the inferno, a rebirth.
+            <analysis></analysis>
+        </Song>
+        <Song song="The Solitary Path">
+            <song_id>7</song_id>
+            <Tone>Resolute, Lonely</Tone>
+            <Plot>After the betrayal, Eldrin realizes he must walk this path alone. The stakes are too high for trust. He embraces his isolation, becoming the 'Silent Guardian' in spirit before he even finds the stone.</Plot>
+            <Lyrics>[Verse 1]
+I leave him bleeding in the snow,
+The friend who turned into a foe.
+The lesson learned, the price is paid,
+A foundation for the future laid.
+
+[Chorus]
+The solitary path, I walk alone,
+To find the heart of silent stone.
+No friends to lose, no trust to break,
+I do this for the future's sake.
+
+[Verse 2]
+The mountain silence is my guide,
+With no one walking by my side.
+The burden heavy on my back,
+Upon this cold and lonely track.
+
+[Chorus]
+The solitary path, I walk alone,
+To find the heart of silent stone.
+No friends to lose, no trust to break,
+I do this for the future's sake.
+
+[Bridge]
+Vorgos watches from the sky,
+He knows the reason why I try.
+A pawn upon a cosmic board,
+Protecting what cannot be stored.
+
+[Chorus]
+The solitary path, I walk alone,
+To find the heart of silent stone.
+No friends to lose, no trust to break,
+I do this for the future's sake.
+
+[Outro]
+I walk alone, I walk alone,
+To find the heart of silent stone.
+The solitary path, my only friend,
+Until the journey's bitter end.</Lyrics>
+            <analysis></analysis>
+        </Song>
+        <Song song="Inferno's Trial">
+            <song_id>8</song_id>
+            <Tone>Dramatic, Contrasting</Tone>
+            <Plot>Eldrin is confronted with a fiery trial, a test of his courage and determination. He must navigate through a treacherous labyrinth of flames, dodging traps and avoiding deadly obstacles. The heat is intense, and the air is thick with smoke. Eldrin's physical and mental endurance are pushed to their limits, but he refuses to give up. The trial is a crucible that will test his resolve and prepare him for the challenges that lie ahead.</Plot>
+            <Lyrics>[Verse 1]
+The ice gives way to burning heat,
+The magma flows beneath my feet.
+A wall of fire, a gate of flame,
+That calls me by my given name.
 
 [Pre-Chorus]
 In the heart of the blaze, we stand tall,
@@ -419,14 +441,10 @@ Embers rise, shadows dance,
 In the inferno, we take our chance.
 
 [Chorus]
-Inferno’s trial, a test of might,
-Through the flames, we fight the night.
-Burning bright, our spirits soar,
-In the fire, we take our chance
-Inferno’s trial, a test of might,
-Through the flames, we fight the night.
-Burning bright, our spirits soar,
-In the fire, we find our core.
+Inferno's trial, the burning gate,
+To seal my own and others' fate.
+It burns the fear, it burns the doubt,
+And lets the inner fire out.
 
 [Verse 2]
 Heat surrounds, a searing pain,
@@ -441,10 +459,10 @@ Rising from the ashes, we prevail,
 Inferno’s trial, we will not fail.
 
 [Chorus]
-Inferno’s trial, a test of might,
-Through the flames, we fight the night.
-Burning bright, our spirits soar,
-In the fire, we take our chance
+Inferno's trial, the burning gate,
+To seal my own and others' fate.
+It burns the fear, it burns the doubt,
+And lets the inner fire out.
 
 [Interlude]
 Inferno’s trial, a test of might,
@@ -463,41 +481,35 @@ Strength renewed, a spirit free,
 In the inferno, our destiny.
 
 [Chorus]
-Inferno’s trial, a test of might,
-Through the flames, we fight the night.
-Burning bright, our spirits soar,
-In the fire, we take our chance
-Flames engulf, a fiery test,
-A battle waged, against the heat.
-Strength tested, will unbroken,
-Through the inferno, a rebirth.
+Inferno's trial, the burning gate,
+To seal my own and others' fate.
+It burns the fear, it burns the doubt,
+And lets the inner fire out.
 
 [Outro]
 Flames engulf, a fiery test,
 A battle waged, against the heat.
 Strength tested, will unbroken,
 Through the inferno, a rebirth.</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-		  	</Act>
-		  	<Act act="III: The Heartstone’s Legacy">
-				<Song song="Eldoria's Heartbeat">
-			  		<song_id>8</song_id>
-			  		<Tone>Epic, Triumphant</Tone>
-					<Plot>After overcoming countless challenges, Eldrin finally reaches the ancient realm of Eldoria. The land is filled with ancient ruins and hidden secrets. Eldrin must explore the realm and find the Heartstone of Creation, a powerful artifact that holds the key to saving the world. The search is fraught with danger, and Eldrin must face a series of trials and tribulations before he can claim the Heartstone.
-					</Plot>
-			  		<Lyrics>∴
+            <analysis></analysis>
+        </Song>
+    </Act>
+        <Song song="Eldoria's Heartbeat">
+            <song_id>9</song_id>
+            <Tone>Epic, Triumphant</Tone>
+            <Plot>After overcoming countless challenges, Eldrin finally reaches the ancient realm of Eldoria. The land is filled with ancient ruins and hidden secrets. Eldrin must explore the realm and find the Heartstone of Creation, a powerful artifact that holds the key to saving the world. The search is fraught with danger, and Eldrin must face a series of trials and tribulations before he can claim the Heartstone.</Plot>
+            <Lyrics>∴
 [Verse 1]
-Ancient ruins, a forgotten realm,
-Echoes of glory, a hallowed ground.
-Trials endured, a worthy soul,
-The Heartstone’s pulse, a world’s hope.
+The ancient ruins hum a tune,
+Beneath the pale and silent moon.
+A pulse of light, a rhythm slow,
+The Heart Stone's magic starts to flow.
 
 [Chorus]
-Eldoria’s heartbeat, strong and true,
-Guiding the hero, through and through.
-With the Heartstone’s light, our dreams ignite,
-A legend born, in the darkest night.
+Eldoria's heartbeat, strong and true,
+The Architect's design in view.
+A power vast, a cosmic seed,
+To answer future's desperate need.
 
 [Verse 2]
 Whispers of legends, in the winds they soar,
@@ -512,10 +524,10 @@ For in the Heartstone, a power untold,
 A beacon of light, a story of old.
 
 [Chorus]
-Eldoria’s heartbeat, strong and true,
-Guiding the hero, through and through.
-With the Heartstone’s light, our dreams ignite,
-A legend born, in the darkest night.
+Eldoria's heartbeat, strong and true,
+The Architect's design in view.
+A power vast, a cosmic seed,
+To answer future's desperate need.
 
 [Verse 3]
 Mountains climbed, and rivers crossed,
@@ -530,18 +542,17 @@ A hero’s journey, a tale retold,
 The Heartstone’s pulse, a heart of gold.
 Ancient ruins, a forgotten realm,
 In the Heartstone's light no path is lost</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="Heart of War">
-			  		<song_id>9</song_id>
-			  		<Tone>Intense, Climatic</Tone>
-			  		<Plot>A powerful adversary, corrupted by dark forces, seeks to claim the Heartstone for his own evil purposes. A final confrontation ensues, a battle that will determine the fate of the world. The stakes are high, and Eldrin knows that he must do everything in his power to stop the adversary.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
-Darkness gathers, a looming threat,
-A final stand, a desperate fight.
-Magic unleashed, a cosmic clash,
-Sacrifice demanded, a heavy toll.
+            <analysis></analysis>
+        </Song>
+        <Song song="Heart of War">
+            <song_id>10</song_id>
+            <Tone>Intense, Climatic</Tone>
+            <Plot>A powerful adversary, corrupted by dark forces, seeks to claim the Heartstone for his own evil purposes. A final confrontation ensues, a battle that will determine the fate of the world. The stakes are high, and Eldrin knows that he must do everything in his power to stop the adversary.</Plot>
+            <Lyrics>[Verse 1]
+A shadow rises from the floor,
+The guardian of the ancient door.
+It hungers for the light I hold,
+A story of destruction told.
 
 [Pre-Chorus]
 In the shadows, whispers grow,
@@ -551,9 +562,9 @@ In the night, their spirits higher.
 
 [Chorus]
 Heart of War, the battle’s cry,
-In the darkness, we defy.
-With magic’s might, and courage bold,
-A tale of legends, fierce and old.
+I will not yield, I will not die.
+With magic’s might, and will of steel,
+I force the shadow entity to kneel.
 
 [Verse 2]
 Armies clash, in the midnight hour,
@@ -578,9 +589,9 @@ A world reborn, from shadow’s bane.
 
 [Chorus]
 Heart of War, the battle’s cry,
-In the darkness, we defy.
-With magic’s might, and courage bold,
-A tale of legends, fierce and old.
+I will not yield, I will not die.
+With magic’s might, and will of steel,
+I force the shadow entity to kneel.
 
 [Verse 4]
 Echoes of valor, in the night,
@@ -596,9 +607,9 @@ In the night, their spirits higher.
 
 [Chorus]
 Heart of War, the battle’s cry,
-In the darkness, we defy.
-With magic’s might, and courage bold,
-A tale of legends, fierce and old.
+I will not yield, I will not die.
+With magic’s might, and will of steel,
+I force the shadow entity to kneel.
 
 [Verse 5]
 In the ashes, hope will bloom,
@@ -617,27 +628,67 @@ Heart of war
 
 [Chorus]
 Heart of War, the battle’s cry,
-In the darkness, we defy.
-With magic’s might, and courage bold,
-A tale of legends, fierce and old.
+I will not yield, I will not die.
+With magic’s might, and will of steel,
+I force the shadow entity to kneel.
 
 [Outro]
 Darkness gathers, a looming threat,
 A final stand, a desperate fight.
 Magic unleashed, a cosmic clash,
 Sacrifice demanded, a heavy toll.</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="Dawn's Embrace">
-			  		<song_id>10</song_id>
-			  		<Tone>Hopeful, Uplifting</Tone>
-			  		<Plot>Eldrin emerges victorious, having defeated his adversary and secured the Heartstone. The world is healed, and the people rejoice. Eldrin, having fulfilled his destiny, can finally find peace. He returns to his tower, a changed man, and spends his remaining days sharing his wisdom with the next generation.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
-Light conquers dark, a world reborn,
-Healing winds, a gentle touch.
-Hope’s banner, flying high,
-A new era dawns, a brighter day.
+            <analysis></analysis>
+        </Song>
+        <Song song="The Weight of Eternity">
+            <song_id>11</song_id>
+            <Tone>Heavy, Burdened</Tone>
+            <Plot>Victory is won, but the reward is a curse. Vorgos reveals the final condition: Eldrin must guard the stone for 400 years. He grapples with the crushing weight of a life paused, waiting for a hero who isn't born yet.</Plot>
+            <Lyrics>[Verse 1]
+The beast is tamed, the Stone is mine,
+I wait for Vorgos's design.
+He steps from time, a storm of grey,
+"Put down the Stone, and walk away."
+
+[Chorus]
+The weight of eternity, a heavy crown,
+To guard the light and settle down.
+A hundred years, and then three more,
+To wait behind the iron door.
+
+[Verse 2]
+I thought I fought to save the day,
+To keep the darkness far away.
+But now I see the longer game,
+A hero with another name.
+
+[Bridge]
+Time will pass like grains of sand,
+While I protect this silent land.
+My friends will die, my world will change,
+While I remain within this range.
+
+[Chorus]
+The weight of eternity, a heavy crown,
+To guard the light and settle down.
+A hundred years, and then three more,
+To wait behind the iron door.
+
+[Outro]
+The weight of time, the weight of stone,
+I face the centuries alone.
+For Kael's sake, for future's plea,
+I bear the weight of eternity.</Lyrics>
+            <analysis></analysis>
+        </Song>
+        <Song song="Dawn's Embrace">
+            <song_id>12</song_id>
+            <Tone>Hopeful, Uplifting</Tone>
+            <Plot>Eldrin emerges victorious, having defeated his adversary and secured the Heartstone. The world is healed, and the people rejoice. Eldrin, having fulfilled his destiny, can finally find peace. He returns to his tower, a changed man, and spends his remaining days sharing his wisdom with the next generation.</Plot>
+            <Lyrics>[Verse 1]
+I seal the sanctum, lock the gate,
+And accept my solitary fate.
+The world will turn, the stars will spin,
+While I protect the light within.
 
 [Verse 2]
 In the morning light, dreams take flight,
@@ -646,10 +697,10 @@ Hearts united, spirits soar,
 Together we embrace, a brighter day.
 
 [Chorus]
-Dawn’s embrace, a new beginning,
-In the light, our hearts are singing.
-With hope’s flame, we’ll find our way,
-A brighter tomorrow, starts today.
+Dawn’s embrace, a silent vow,
+I am the watcher, here and now.
+Until the Star-Guard needs the key,
+The Heart Stone stays right here with me.
 
 [Verse 3]
 Whispers of peace, in the air they dance,
@@ -664,10 +715,10 @@ Now we stand, hand in hand,
 In the dawn’s embrace, a promised land.
 
 [Chorus]
-Dawn’s embrace, a new beginning,
-In the light, our hearts are singing.
-With hope’s flame, we’ll find our way,
-A brighter tomorrow, starts today.
+Dawn’s embrace, a silent vow,
+I am the watcher, here and now.
+Until the Star-Guard needs the key,
+The Heart Stone stays right here with me.
 
 [Verse 4]
 Mountains climbed, and rivers crossed,
@@ -680,7 +731,7 @@ Light conquers dark, a world reborn,
 Healing winds, a gentle touch.
 Hope’s banner, flying high,
 A new era dawns, a brighter day.</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-		  	</Act>
-		</album>
+            <analysis></analysis>
+        </Song>
+    </Act>
+</album>

@@ -34,6 +34,10 @@ This document tracks the current state of the project and serves as a quick-refe
     - Song plots refined for linear consistency ("Secret Garden" arc).
     - Lyrics reworked using the "Narrative Anchoring" approach.
     - Full album data synchronized with the Neo4j database.
+- **Processed Album:** **"Eldoria's Prophecy"**
+    - Song plots refined for linear consistency ("Vorgos Contingency" arc ~500 AGD).
+    - Lyrics reworked using the "Narrative Anchoring" approach.
+    - Full album data synchronized with the Neo4j database.
 
 ## 2. Established Lore Constants
 - **Acheron:** Established as a Fallen Aurorian Seer and the "First Vampire."
@@ -41,14 +45,12 @@ This document tracks the current state of the project and serves as a quick-refe
 - **Vorgos:** Identified as the Universal Sentinel of the Aether.
 - **Naming Symmetry:** Perfected (Auroria/Aurorians vs. Nythoria/Nythorians).
 - **The Living Lock:** Kael confirmed as the vessel of the Aurorian Spark, hiding in the Emerald Fields.
+- **Vorgos's Grand Design:** The Stormbringer is revealed as the Architect of the entire timeline, setting up Anya (0 GD), Kael (~300 AGD), and Eldrin (~500 AGD) as pieces to prevent the collapse in ~900 AGD.
 
 ## 3. Active Objective
-- We have established the foundation. The next step is to move into **Era I (Shadow Civil War / Prequels)**.
+- **ALL ALBUMS PROCESSED.** The foundation is complete. The next step is to initiate the **"Prophecy of Darkness"** arc (~900 AGD) or refine the Compendium UI.
 
 ## 4. Album Restructuring (Linear Alignment)
 To maintain strict chronological consistency, the original **Lord of Shadows** album has been split:
 - **Vows of Silence (Era I):** A new prequel album focused on Malakar’s origins, his    discovery of the Forbidden Tome, and his rise as the "Void Disciple." (Includes migrated Act I from LoS).
 - **Lord of Shadows (Era III):** Repurposed as the "Sister Album" to *Queen of Carnage*. Focuses on Malakar’s downfall, his defeat by Seraphina, and his exile to the Shadow Realm.
-
-## 5. Unprocessed Albums
-- **"Eldoria's Prophecy"**
