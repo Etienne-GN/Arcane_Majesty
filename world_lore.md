@@ -34,20 +34,20 @@ The Great Darkness was a **Threshold Event** caused by the shift in planar balan
 - **The Sentinel's Response:** **Vorgos (The Stormbringer)**, the sentinel of the Aether, sensed the cosmic tilt. He created the **Great Rift** and plucked **Anya** from Auroria, thrusting her into the Underworld to act as a cosmic stop-gap.
 - **The Result:** Anya's sacrifice sealed the awakened Nyktoros, buying the universe time to restore the balance.
 
-## 5. The Transference & The Harvest
+## 6. The Transference & The Harvest
 - **The Insurance:** Fearing the loss of his original divine light to the Thirst, Acheron siphoned his **Aurorian Spark** and bound it to his most loyal human servant (the ancestor of **Kael**).
 - **The Cosmic Harvest:** Acheron’s true goal is to use Kael (the battery of his light) to reach the sealed Nyktoros, break the lock, and siphon the Void’s awakened power into himself to achieve transcendent godhood.
 
 ---
 
-## 6. Timeline of the Saga (The Three Eras)
+## 7. Timeline of the Saga (The Three Eras)
 To ensure narrative consistency across albums, the history of the planes is divided into three distinct eras:
 
 ### Era I: The Shadow Civil War (Pre-0 GD)
 - **Primary Conflict:** The Nythorian internal struggle for the Forbidden Tome.
 - **Key Event:** Malakar overthrows the old tyrant to become the Lord of Shadows.
 - **Status of Characters:** Seraphina and Valen are **Rebels** fighting Malakar's iron-fisted rule.
-- **Relevant Albums:** *Rite of the Darkened Sun*, *Crimson Covenant*.
+- **Relevant Albums:** *Vows of Silence*, *Crimson Covenant*.
 
 ### Era II: The Great Darkness (0 GD)
 - **Primary Conflict:** The awakening of Nyktoros and the universal threat of the Void.
@@ -55,8 +55,14 @@ To ensure narrative consistency across albums, the history of the planes is divi
 - **Status of Characters:** The Civil War is eclipsed by survival. Seraphina and Malakar both lose their domains to the Void.
 - **Relevant Albums:** *A Tapestry of Souls*.
 
-### Era III: The Reconstruction (Post-0 GD)
-- **Primary Conflict:** The rise of new empires and the hunt for the Lord of Shadows.
-- **Key Event:** Seraphina founds the **Shadow Legion** and builds the new **Ravenspire**.
-- **Status of Characters:** Seraphina is now the **Queen of Carnage**. Malakar is a wounded exile plotting revenge from the Shadow Realm.
-- **Relevant Albums:** *Queen of Carnage*, *Lord of Shadows*.
+### Era III: The Age of Shadows (~150 - 400 AGD)
+- **Primary Conflict:** The rise of new empires, the hunt for the Lord of Shadows, and the protection of the Lock.
+- **Key Event:** Seraphina founds the **Shadow Legion**. Kael reclaims the Spark (~300 AGD) and goes into exile with Anya.
+- **Status of Characters:** Seraphina is the **Queen of Carnage**. Kael becomes the **Living Lock**. Anya is the **Silent Guardian**.
+- **Relevant Albums:** *Queen of Carnage*, *Lord of Shadows*, *Beyond the Veil of Twilight*, *Bound by Blood*.
+
+### Era III (Mid): The Epoch of Silence (~500 AGD)
+- **Primary Conflict:** The struggle to maintain the fragile peace as the Resonance begins to threaten the Lock.
+- **Key Event:** Vorgos activates **Eldrin Nightshade** to secure the Heart Stone of Creation as a contingency.
+- **Status of Characters:** Eldrin becomes the **Blind Prophet**, guarding the cure for a disease that hasn't killed the world yet.
+- **Relevant Albums:** *Eldoria's Prophecy*.
