@@ -1,230 +1,240 @@
 <album album="Bound by Blood">
-		  	<Act act="I: The Calm Before the Storm">
-				<Song song="A Peaceful Dawn">
-			  		<song_id>1</song_id>
-			  		<Tone>Uplifting, nostalgic</Tone>
-			  		<Plot>Kael and Anya are shown living a tranquil life in a world where vampires and humans coexist. The song highlights their love and the beauty of their newfound peace. However, subtle undertones of unease and longing for the past hint at the potential challenges to come.
-			  		</Plot>
-			  		<Lyrics>[Intro]
+    <AlbumPlot><![CDATA[
+### High-Level Album Plot (V1 - Refined)
+
+**Timeline:** `~300 - 400 AGD` (The First Century of Exile)
+
+**Narrative Arc:** "The Secret Garden / The Home Invasion"
+
+Following the events of *Beyond the Veil of Twilight*, Kael (now the "Living Lock") and Anya have emerged from the Underworld. However, upon their exit, they discovered a catastrophic truth: Kael's containment of the Aurorian Spark is destabilized by the presence of Seraphina, the Queen of Carnage. To prevent a cosmic resonance collapse that would shatter the seal on Nychtoros, they are forced to flee from their greatest ally.
+
+They settle in the **Emerald Fields**, a remote, untamed wilderness, living in a hidden cabin. For a century, they maintain a fragile peace, hiding Kael's energy signature.
+
+The conflict arises from two fronts:
+1.  **The Guardians of the Wild:** A local pack of **Werewolves** senses the "Void-Wrongness" of Kael's nature. They view him as a cancer on their territory and begin to hunt him.
+2.  **The Inquisitor:** **Vexis the Faceless**, a shapeshifting assassin working for the **Crimson Remnants** (Old Vampire Families who oppose Seraphina), tracks the "Energy Anomaly" to the woods, hoping to find a weapon to overthrow the Queen.
+
+The album is a tense thriller about a couple trying to protect their domestic peace against a world that wants to pry their secrets open. It culminates in Kael realizing that to keep his peaceful dawn, he must be willing to spill blood in the shadows.
+    ]]></AlbumPlot>
+    <Act act="I: The Sanctuary of Two">
+        <Song song="A Peaceful Dawn">
+            <song_id>1</song_id>
+            <Tone>Nostalgic, Melancholic</Tone>
+            <Plot>Kael and Anya live a quiet, hidden life in a cabin in the Emerald Fields. They find joy in simple things, but the lyrics reveal the trauma of their "Near-Miss" with Seraphina—the memory of fleeing from their friend to save the world. It establishes their "Silent Vow" of isolation.</Plot>
+            <Lyrics>[Intro]
 Soft morning light, a gentle kiss
 Nature's embrace, a world of bliss
 Whispers of hope, a distant chime
 A new day dawns, a peaceful time
 
 [Verse 1]
-Golden sun paints the morning sky
-A gentle breeze, a soft lullaby
-Shadows retreat, as day unfolds
-A world reborn, stories untold
+The golden sun on Emerald leaves,
+A gentle wind, the forest breathes.
+Kael sleeps in peace, the Spark is still,
+A quiet life, by sheer force of will.
 
 [Pre-Chorus]
-A whisper of hope, a distant chime
-A longing heart, a peaceful time
-Yearning for moments, pure and true
-A world in harmony, a brand new view
+But I recall the violet sky,
+The day we heard the Raven's cry.
+We ran from friends to save the land,
+A tragic mercy, by my hand.
 
 [Chorus]
-Peaceful dawn, a tranquil scene
-Hearts entwined, a lover’s dream
-Whispers of hope, a promise kept
-In shadows of past, memories slept
+A peaceful dawn, a silent lie,
+We hide our hearts beneath the sky.
+To save the Queen, we stay apart,
+A heavy secret in my heart.
 
 [Verse 2]
-Emerald fields, a verdant sea
-Where creatures roam wild and free
-A symphony of nature's art
-Mending souls, a brand new start
+I saw her banners on the ridge,
+A burning gap, a broken bridge.
+She mourns a ghost within the stone,
+While we must live this life alone.
 
 [Pre-Chorus]
-A whisper of hope, a distant chime
-A longing heart, a peaceful time
-Yearning for moments, pure and true
-A world in harmony, a brand new view
+But I recall the violet sky,
+The day we heard the Raven's cry.
+We ran from friends to save the land,
+A tragic mercy, by my hand.
 
 [Chorus]
-Peaceful dawn, a tranquil scene
-Hearts entwined, a lover’s dream
-Whispers of hope, a promise kept
-In shadows of past, memories slept
+A peaceful dawn, a silent lie,
+We hide our hearts beneath the sky.
+To save the Queen, we stay apart,
+A heavy secret in my heart.
 
 [Bridge]
-Hand in hand, we walk the path
-Through trials faced, a stronger wrath
-With every step, our bond grows deep
-In this new world, our love we’ll keep
+Hand in hand, we walk the path,
+To spare the world the Resonance wrath.
+He thinks he's safe, he thinks he's free,
+But he is bound by blood to me.
 
 [Chorus]
-Peaceful dawn, a tranquil scene
-Hearts entwined, a lover’s dream
-Whispers of hope, a promise kept
-In shadows of past, memories slept
+A peaceful dawn, a silent lie,
+We hide our hearts beneath the sky.
+To save the Queen, we stay apart,
+A heavy secret in my heart.
 
 [Outro]
-Hand in hand, we walk the path
-Through trials faced, a stronger wrath
-With every step, our bond grows deep
-In this new world, our love we’ll keep</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="Shadows Gathering">
-			  		<song_id>2</song_id>
-			  		<Tone>Mysterious, suspenseful</Tone>
-			  		<Plot>A sense of unease creeps into the world. Strange occurrences begin to disrupt the peace. The song captures the growing fear and uncertainty among the supernatural communities. The lyrics focus on the shadows lengthening and the darkness creeping in.
-			  		</Plot>
-			  		<Lyrics>[Intro]
+Hand in hand, we walk the path,
+To spare the world the Resonance wrath.
+He thinks he's safe, he thinks he's free,
+But he is bound by blood to me.</Lyrics>
+            <analysis></analysis>
+        </Song>
+        <Song song="Shadows Gathering">
+            <song_id>2</song_id>
+            <Tone>Tense, Suspenseful</Tone>
+            <Plot>The illusion of safety cracks. Kael begins to sense eyes in the forest. He finds tracks that are too large for wolves and too organized for animals. The local Werewolf pack has picked up his scent. The "Shadows" here are the literal wolves circling their perimeter.</Plot>
+            <Lyrics>[Intro]
 A whisper in the night, a chilling fear
 Shadows dance, a growing unease near
 A sense of dread, a haunting sigh
 An unseen force, questioning why
 
 [Verse 1]
-Calm waters ripple, a stormy sea
-Unsettling dreams, a dark decree
-Nature's balance, a fragile art
-A growing darkness, a troubled heart
+I chop the wood, the axe descends,
+A rhythm that my spirit mends.
+But in the silence of the trees,
+A whisper floats upon the breeze.
 
 [Pre-Chorus]
-Whispers carried on the wind
-A hidden threat, a twist of mind
-Unseen forces, a sinister play
-A world in shadow, come what may
+A scent of musk, a heavy air,
+A primal warning, lurking there.
+My blood reacts, the Spark ignites,
+A warning of the coming fights.
 
 [Chorus]
-Shadows gathering, a creeping fear
-Uncertain future, a world unclear
-A haunting silence, a chilling breath
-Darkness descends, a fateful death
+Shadows gathering, a creeping fear,
+The end of peace is drawing near.
+A haunting silence, a chilling breath,
+The forest waits, a scent of death.
 
 [Verse 2]
-Innocence lost, a fading light
-A world in chaos, a fearful night
-A desperate search, a fading hope
-A twisted path, a shadowed scope
+I find the tracks in mud and clay,
+Too large for wolves who hunt by day.
+They circle round our hidden gate,
+The guardians of a wilder fate.
 
 [Pre-Chorus]
-Whispers carried on the wind
-A hidden threat, a twist of mind
-Unseen forces, a sinister play
-A world in shadow, come what may
+A scent of musk, a heavy air,
+A primal warning, lurking there.
+My blood reacts, the Spark ignites,
+A warning of the coming fights.
 
 [Chorus]
-Shadows gathering, a creeping fear
-Uncertain future, a world unclear
-A haunting silence, a chilling breath
-Darkness descends, a fateful death
+Shadows gathering, a creeping fear,
+The end of peace is drawing near.
+A haunting silence, a chilling breath,
+The forest waits, a scent of death.
 
 [Verse 3]
-A storm is brewing, a tempest's call
-A battle for souls, to rise or fall
-A clash of forces, a final stand
-A world in peril, at nature's hand
+The birds are gone, the woods are still,
+A predator upon the hill.
+They watch us now, with eyes of gold,
+A story that is yet untold.
 
 [Chorus]
-Shadows gathering, a creeping fear
-Uncertain future, a world unclear
-A haunting silence, a chilling breath
-Darkness descends, a fateful death
+Shadows gathering, a creeping fear,
+The end of peace is drawing near.
+A haunting silence, a chilling breath,
+The forest waits, a scent of death.
 
 [Outro]
 A chilling silence, a haunting plea
-Unanswered questions, mystery
+They know the truth, they know of me.
 A world in darkness, a desperate plea
-For light to break, and souls to free</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="Unveiling the Truth">
-			  		<song_id>3</song_id>
-			  		<Tone>Intriguing, determined</Tone>
-			  		<Plot>Kael and Anya start investigating the strange occurrences. The song reflects their determination to uncover the truth. It's a blend of hope and curiosity as they delve deeper into the mystery.
-			  		</Plot>
-			  		<Lyrics>[Intro]
+For light to break, and souls to free.</Lyrics>
+            <analysis></analysis>
+        </Song>
+        <Song song="Unveiling the Truth">
+            <song_id>3</song_id>
+            <Tone>Realization, Dread</Tone>
+            <Plot>Anya analyzes the wards around their cabin and realizes they are being probed. She reveals to Kael that these are not just beasts, but Guardians of the Wild—Werewolves who hunt "Void-Corruption." Kael realizes he is the villain in their story.</Plot>
+            <Lyrics>[Intro]
 A puzzle unfolds, pieces unseen
 A quest for answers, a hidden scene
 Intuition whispers, a guiding light
 Unveiling secrets, with all our might
 
 [Verse 1]
-Clues scattered, like grains of sand
-A cryptic message, from a distant land
-A hidden history, a forgotten lore
-Searching for answers, to unlock the core
+I walk the perimeter, the unseen line,
+Where magic weaves a grand design.
+A ripple in the ether's flow,
+A breach where only shadows go.
 
 [Pre-Chorus]
-A trail of shadows, a winding path
-A hidden message, from a distant land
-A hidden history, a forgotten lore
-Searching for answers, to unlock the core
-A trail of shadows, a winding path
-A hidden truth, beneath the wrath
-A desperate search, a relentless chase
-To uncover secrets, at any pace
+Not random beasts, nor wandering souls,
+But hunters with specific goals.
+They track the Void, they smell the stain,
+They come to cleanse the forest's pain.
 
 [Chorus]
-Unveiling the truth, a sacred quest
-To break the chains, and put to rest
-The shadows of doubt, the fear unknown
-A journey of discovery, no longer alone
+Unveiling the truth, a bitter sting,
+To see the message that they bring.
+We are the plague they seek to cure,
+A darkness they cannot endure.
 
 [Verse 2]
-A hidden chamber, a cryptic sign
-A ancient knowledge, a divine design
-A battle of wits, a mental fray
-Unraveling secrets, come what may
+The runes are burnt, the wards are torn,
+A warning from the pack, reborn.
+Guardians of the wild domain,
+They see us as a cursed stain.
 
 [Pre-Chorus]
-A trail of shadows, a winding path
-A hidden truth, beneath the wrath
-A desperate search, a relentless chase
-To uncover secrets, at any pace
+Not random beasts, nor wandering souls,
+But hunters with specific goals.
+They track the Void, they smell the stain,
+They come to cleanse the forest's pain.
 
 [Chorus]
-Unveiling the truth, a sacred quest
-To break the chains, and put to rest
-The shadows of doubt, the fear unknown
-A journey of discovery, no longer alone
+Unveiling the truth, a bitter sting,
+To see the message that they bring.
+We are the plague they seek to cure,
+A darkness they cannot endure.
 
 [Bridge]
-A breakthrough moment, a revelation's spark
-A hidden connection, a cosmic mark
-A tapestry woven, of fate and time
-Unveiling the truth, a divine design
+We thought we hid from human sight,
+But nature sees the stolen light.
+The balance shifts, the scales tip,
+We're caught within a tightening grip.
 
-[Chorus:]
-Unveiling the truth, a sacred quest
-To break the chains, and put to rest
-The shadows of doubt, the fear unknown
-A journey of discovery, no longer alone
+[Chorus]
+Unveiling the truth, a bitter sting,
+To see the message that they bring.
+We are the plague they seek to cure,
+A darkness they cannot endure.
 
 [Outro]
 A new dawn emerges, a brighter day
-With knowledge as our guide, we'll find our way
+But we must find another way.
 A world transformed, by truth unveiled
-A story of courage, forever hailed</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-		  	</Act>
-		  	<Act act="II: Rising Conflict">
-				<Song song="Feral Howl">
-			  		<song_id>4</song_id>
-			  		<Tone>Despair, anger</Tone>
-			  		<Plot>The werewolf transformations become more frequent and violent. The song captures the pain and rage of the werewolves as they struggle to control their instincts. The lyrics express the fear and isolation felt by those affected.</Plot>
-			  		<Lyrics>[Intro]
+Our sanctuary has truly failed.</Lyrics>
+            <analysis></analysis>
+        </Song>
+    </Act>
+    <Act act="II: The Hunter and The Hunted">
+        <Song song="Feral Howl">
+            <song_id>4</song_id>
+            <Tone>Primal, Dangerous</Tone>
+            <Plot>Kael is caught outside the wards. The Pack attacks. Kael must survive the hunt using only his soldier's training, refusing to use his Vampiric/Spark powers lest he alert the wider world (or Seraphina). It is a physical, brutal chase through the moonlit woods.</Plot>
+            <Lyrics>[Intro]
 Once a man, I walked the earth, a soul untamed
 Now a beast, by darkness claimed, forever maimed
 A creature of shadows, a feral heart
 Torn from humanity, a painful start
 
 [Chorus]
-A howl of despair, echoes through the night
-A tormented spirit, lost in the fight
-Claws and teeth, my only defense
-A cursed existence, a bitter offense
+A feral howl, a closing ring,
+The song of death the guardians sing.
+My sword is drawn, my magic bound,
+I fight as man on bloodied ground.
 
 [Verse 1]
-I roam the night, a hunted soul
-Driven by instinct, a wild control
-The moon my guide, a silvered path
-Trapped in this nightmare, a bitter offense
+I step beyond the circle's edge,
+A fool upon a rocky ledge.
+The wind shifts south, the silence breaks,
+The forest screams, the hunter wakes.
 
 [Bridge]
 I roam the night, a hunted soul
@@ -239,16 +249,16 @@ A battle rages, within my core
 Trapped in this nightmare of darkness, forevermore
 
 [Verse 2]
-I crave the blood, a primal thirst
-A savage hunger, a deadly curse
-Haunted by memories, a fading light
-Lost in the shadows, a endless night
+They do not know the thing I hold,
+A fire bright, a story old.
+One spark would turn them all to ash,
+But silence is the price of cash.
 
 [Chorus]
-A howl of despair, echoes through the night
-A tormented spirit, lost in the fight
-Claws and teeth, my only defense
-A cursed existence, a bitter offense
+A feral howl, a closing ring,
+The song of death the guardians sing.
+My sword is drawn, my magic bound,
+I fight as man on bloodied ground.
 
 [Verse 3]
 I yearn for freedom, a chance to be free
@@ -257,34 +267,33 @@ To find redemption, a glimmer of hope
 To break these chains, and leave the scope
 
 [Chorus]
-A howl of despair, echoes through the night
-A tormented spirit, lost in the fight
-Claws and teeth, my only defense
-A cursed existence, a bitter offense
+A feral howl, a closing ring,
+The song of death the guardians sing.
+My sword is drawn, my magic bound,
+I fight as man on bloodied ground.
 
 [Outro]
 A mournful cry, carried by the wind
 A solitary soul, left behind
 In the shadows I dwell, a fading light
 A cursed existence, an endless night</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="The Shapeshifter's Shadow">
-			  		<song_id>5</song_id>
-			  		<Tone>Menacing, ominous</Tone>
-			  		<Plot>The introduction of the shapeshifter. The song creates a dark and sinister atmosphere. The lyrics focus on the shapeshifter's power and their growing influence.
-			  		</Plot>
-			  		<Lyrics>[Verse 1]
-A darkness creeps, a sinister force
-A shadow looms, a twisted course
-A master of disguise, a cunning art
-A malevolent spirit, tearing hearts apart
+            <analysis></analysis>
+        </Song>
+        <Song song="The Shapeshifter's Shadow">
+            <song_id>5</song_id>
+            <Tone>Eerie, Deceptive</Tone>
+            <Plot>Enter Vexis the Faceless. He arrives in the nearby village, sensing the disturbance caused by the wolves. He murders a traveler and takes his face. He begins closing in on the cabin, intrigued by a "monster" that the wolves fear but cannot kill.</Plot>
+            <Lyrics>[Verse 1]
+A stranger walks the village street,
+With hollow eyes and silent feet.
+He wears a face he stole today,
+A merchant lost along the way.
 
 [Verse 2]
-A whisper in the wind, a chilling fear
-An unseen enemy, drawing near
-A master of deception, a chameleon's guise
-A threat to all, a wicked prize
+The birds are quiet where he treads,
+He walks among the living deads.
+I sense the Void within his skin,
+The Crimson Remnant's dark kin.
 
 [Pre-Chorus]
 A shape-shifting menace, a haunting sight
@@ -293,10 +302,10 @@ A puppet master, pulling the strings
 Unleashing chaos, where darkness...
 
 [Chorus]
-The shapeshifter's shadow, a creeping dread
-A force of evil, a haunting thread
-A master of illusion, a twisted mind
-A reign of terror, for all mankind
+The Shapeshifter, a shadow's guise,
+The Faceless One with stolen eyes.
+He tracks the energy we hide,
+With murder walking by his side.
 
 [Verse 3]
 A chameleon's game, a deadly art
@@ -311,33 +320,32 @@ A puppet master, pulling the strings
 Unleashing chaos, where darkness clings
 
 [Chorus]
-The shapeshifter's shadow, a creeping dread
-A force of evil, a haunting thread
-A master of illusion, a twisted mind
-A reign of terror, for all mankind
+The Shapeshifter, a shadow's guise,
+The Faceless One with stolen eyes.
+He tracks the energy we hide,
+With murder walking by his side.
 
 [Bridge]
 A shadow war, a battle unseen
 A fight for survival, a desperate scene
 A clash of wills, a final...</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="A Dangerous Alliance">
-			  		<song_id>6</song_id>
-			  		<Tone>Betrayal, distrust</Tone>
-			  		<Plot>The alliance between the shapeshifter and the old vampire order is revealed. The song conveys a sense of betrayal and shattered trust. The lyrics explore the themes of loyalty and the darkness within.
-			  		</Plot>
-			  		<Lyrics>[Intro]
+            <analysis></analysis>
+        </Song>
+        <Song song="A Dangerous Alliance">
+            <song_id>6</song_id>
+            <Tone>Sinister, Manipulative</Tone>
+            <Plot>Vexis approaches the Werewolf Alpha. Disguised as a druid or ranger, he convinces the pack that the "Entity" in the cabin (Kael) is a plague that will devour the forest. He weaponizes the wolves' noble duty to use them as cannon fodder to test Kael's defenses.</Plot>
+            <Lyrics>[Intro]
 In the shadows, a pact was made
 A sinister bond, in darkness laid.
 Two forces met, with evil intent,
 A chilling night, where shadows bent.
 
 [Verse 1]
-I remember the storm, the plot so vile
-A deadly alliance, hidden all the while.
-Power was their thirst, a relentless chase
-In this dangerous game, none could keep pace.
+I watch them meet beneath the pine,
+The Druid's cloak, a false design.
+He speaks of poison in the earth,
+To give their holy war a birth.
 
 [Pre-Chorus]
 Trust was betrayed, vows were broken
@@ -346,16 +354,16 @@ A pact was sealed, a choice so fateful
 Destiny turned tragic, voices hateful.
 
 [Chorus]
-This alliance, dangerous and grim
-A game of death, where shadows swim.
-A land engulfed in fear, a haunting dread
-Darkness spread, as souls were bled.
+A dangerous alliance made,
+A trap within the forest shade.
+The Guardian Pack, the Faceless spy,
+United by a clever lie.
 
-[Verse 2, haunting, clean vocals]
-In the ruins, whispers of the past
-Echoes of a time, that couldn’t last.
-Shadows danced, in the moon’s pale light
-A tale of woe, in the shadows bent.
+[Verse 2]
+He points his finger to our door,
+"The source of rot, the cancer's core."
+The Alpha growls, the pact is sealed,
+Our fate upon the Emerald field.
 
 [Verse 2]
 Titans clashed, in a fight so grand
@@ -370,10 +378,10 @@ A pact was sealed, a choice so fateful
 Destiny turned tragic, voices hateful.
 
 [Chorus]
-This alliance, dangerous and grim
-A game of death, where shadows swim.
-A land engulfed in fear, a haunting dread
-Darkness spread, as souls were bled.
+A dangerous alliance made,
+A trap within the forest shade.
+The Guardian Pack, the Faceless spy,
+United by a clever lie.
 
 [Verse 3]
 Betrayal’s mark, on every face
@@ -393,30 +401,29 @@ A twisted game, in a darkened place.
 A land engulfed in fear, a haunting dread
 Darkness spread, as souls were bled.
 A souls were bled !</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="Love Under Siege">
-			  		<song_id>7</song_id>
-			  		<Tone>Heartbreak, longing</Tone>
-			  		<Plot>Kael and Anya's relationship faces its first major test. The song captures their emotional turmoil as they struggle to balance their love with their responsibilities. The lyrics convey the pain of sacrifice and the fear of losing each other.
-			  		</Plot>
-			  		<Lyrics>[Intro]
+            <analysis></analysis>
+        </Song>
+        <Song song="Love Under Siege">
+            <song_id>7</song_id>
+            <Tone>Desperate, Romantic</Tone>
+            <Plot>The cabin is surrounded. The wards are failing under the combined assault of the pack and Vexis's dark magic. Kael prepares to unleash the Spark to save Anya, but she begs him to stop, terrified that breaking the seal is worse than death. They face the end together, trapped in their sanctuary.</Plot>
+            <Lyrics>[Intro]
 In the quiet of the night, Kael and Anya stood apart,
 Their hearts heavy with the weight of unspoken words.
 Shadows danced around them, whispering tales of love and loss,
 A love once bright, now feeling the cost.
 
 [Verse 1]
-Kael remembered the first time he saw Anya’s face,
-Her eyes filled with dreams, her smile a warm embrace.
-But now those dreams seemed distant, the smile a mere memory,
-Caught in a storm, waves pulling them to the sea.
+The wards are cracking, hear the sound,
+The wolves are digging at the ground.
+I have the power in my veins,
+To break these walls and break these chains.
 
 [Verse 2]
-Anya felt the burden, choices like daggers to her heart,
-Longing for simpler days, now every step a painful start.
-Warriors in a battle they never wished to fight,
-Their love the only shield in the encroaching night.
+You must not strike, you must not break,
+For Seraphina's very sake.
+If you release the stolen Spark,
+You doom us all to endless dark.
 
 [Verse 3]
 Their love was under siege, a fortress battered by fate,
@@ -430,49 +437,54 @@ Vowing to face the storm, together they would stand.
 Hope flickered like a candle, fragile yet bright,
 A vow to rebuild, to hold on tight.
 
+[Chorus]
+Love under siege, a desperate night,
+To choose the darkness or the light.
+If I unleash the burning sun,
+The Resonance has just begun.
+
 [Outro]
 As dawn broke, the first rays touched their faces,
 A new beginning, a love that embraces.
 Their love, though tested, had endured the fight,
 Walking forward, hand in hand, into the light.</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-		  	</Act>
-		  	<Act act="III: Climax and Resolution">
-				<Song song="Eclipse of Hope">
-			  		<song_id>8</song_id>
-			  		<Tone>Despair, urgency</Tone>
-			  		<Plot>The full extent of the shapeshifter's power is revealed. The world is plunged into darkness, both literally and metaphorically. The song captures the fear and desperation of the characters as they realize the magnitude of the threat.
-			  		</Plot>
-			  		<Lyrics>[Intro]
+            <analysis></analysis>
+        </Song>
+    </Act>
+    <Act act="III: The Silent War">
+        <Song song="Eclipse of Hope">
+            <song_id>8</song_id>
+            <Tone>Dark, Urgent</Tone>
+            <Plot>The breach. The wolves break through the door. Vexis slips in amidst the chaos. The "Eclipse" refers to the moment Kael stops holding back his physical strength, moving as a blur of death to defend Anya, but still keeping the Spark contained.</Plot>
+            <Lyrics>[Intro]
 In the dead of night, shadows rise
 A world consumed, beneath dark skies
 Whispers of dread, a chilling tale
 A fight for hope, where heroes fail
 
 [Verse 1]
-Once a land of light, now cast in gloom
-A shapeshifter’s curse, a world in doom
-Heroes gather, hearts filled with dread
-To face the darkness, where angels tread
+The timbers crack, the hinges fly,
+The wolves pour in beneath the sky.
+I draw my blade, I take my stand,
+A bloody line upon the sand.
 
 [Pre-Chorus]
 A prophecy told, of light’s return
 In the darkest hour, where fires burn
 A quest begins, with courage frail
-To break the curse, and lift...
+To break the curse, and lift the veil
 
 [Chorus]
 Eclipse of hope, shadows reign
 A world in peril, hearts in pain
-A battle fierce, to end the night
-To bring back dawn, with all our might
+I fight for her, I fight for life,
+To end this dark and sudden strife.
 
 [Verse 2]
-Through haunted woods, and valleys deep
-They journey on, no time to sleep
-With every step, the shadows grow
-But in their hearts, a fire glows
+I move like smoke, I strike like stone,
+A dance of death I fight alone.
+I spare no mercy, give no ground,
+As bodies pile upon the mound.
 
 [Bridge]
 In the heart of dark, a spark ignites
@@ -489,8 +501,8 @@ To break the curse, and lift the veil
 [Chorus]
 Eclipse of hope, shadows reign
 A world in peril, hearts in pain
-A battle fierce, to end the night
-To bring back dawn, with all our might
+I fight for her, I fight for life,
+To end this dark and sudden strife.
 
 [Verse 3]
 The final stand, the end in sight
@@ -503,25 +515,23 @@ As dawn approaches, shadows flee
 A tale of courage, for all to see
 The light returns, the darkness fades
 A new beginning, where hope invades</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="Trials of Courage">
-			  		<song_id>9</song_id>
-			  		<Tone>Determined, hopeful</Tone>
-			  		<Plot>Kael and Anya, along with their allies, prepare for the final battle. The song focuses on their inner strength and determination. Despite the overwhelming odds, they find hope and courage to face the enemy.
-			  		</Plot>
-			  		<Lyrics>[Intro]
+            <analysis></analysis>
+        </Song>
+        <Song song="Trials of Courage">
+            <song_id>9</song_id>
+            <Tone>Heroic, Magical</Tone>
+            <Plot>Anya steps up. She cannot use huge Void-magic, so she uses the subtle, blinding light of the Sanctuary's teachings. She fights back-to-back with Kael, blinding the wolves and exposing Vexis's true form.</Plot>
+            <Lyrics>[Intro]
 In a land of shadows, Kael and Anya,
 With their allies, prepare for the final fight.
 Their hearts beat strong, ready to face
 The overwhelming odds tonight.
 
 [Verse 1]
-Kael stood tall, eyes on the horizon.
-Anya, by his side, whispered courage.
-Together, they walked a perilous path,
-Each step testing their endurance.
-With warrior hearts, they embraced a new start.
+The cabin fills with fur and teeth,
+I summon light from underneath.
+A flash of gold, a blinding ray,
+To keep the snapping jaws at bay.
 
 [Pre-Chorus]
 The battle for freedom was near,
@@ -532,15 +542,15 @@ They vowed to conquer fear and rise again.
 
 [Chorus]
 Trials of courage, a test of will.
-Their fighting spirit would fulfill
-A destiny forged in fire and steel.
-They dreamed of victory, a world healed.
+To stand my ground and hold the hill.
+I weave the wards to shield his back,
+Against the relentless wolf attack.
 
 [Verse 2]
-With hearts united, they stood as one,
-A force under the sun.
-Their legacy forged for generations,
-A brighter future where hope began to bloom.
+Then Vexis shifts, a shadow tall,
+He steps straight through the cabin wall.
+He ignores the wolf, he ignores the blade,
+A beeline for the role I played.
 
 [Verse 3]
 As the battle raged, Kael and Anya faced trials.
@@ -558,9 +568,9 @@ They vowed to conquer fear and rise again.
 
 [Chorus]
 Trials of courage, a test of will.
-Their fighting spirit would fulfill
-A destiny forged in fire and steel.
-They dreamed of victory, a world healed.
+To stand my ground and hold the hill.
+I weave the wards to shield his back,
+Against the relentless wolf attack.
 
 [Bridge]
 In the final moments, hope seemed lost.
@@ -575,24 +585,23 @@ Courage prevailed, a victory won.
 A new dawn rose as the battle was done.
 The world reborn in harmony and grace,
 A brighter future for the human race.</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="Heart of Darkness">
-			  		<song_id>10</song_id>
-			  		<Tone>Intense, chaotic</Tone>
-			  		<Plot>The epic confrontation between Kael, Anya, and the shapeshifter. The song is a whirlwind of emotions and actions, reflecting the chaos of the battle.
-			  		</Plot>
-			  		<Lyrics>[Intro]
+            <analysis></analysis>
+        </Song>
+        <Song song="Heart of Darkness">
+            <song_id>10</song_id>
+            <Tone>Terrifying, Unleashed</Tone>
+            <Plot>Vexis corners Anya. Kael snaps. For a split second, he lets the "Lock" open. The Spark flares with the Void—a "Heart of Darkness" that is paradoxically blindingly bright. The sheer cosmic weight of his aura crushes the will of the wolves and paralyzes Vexis.</Plot>
+            <Lyrics>[Intro]
 In a land where shadows reign,
 Kael and Anya face their bane.
 A shapeshifter, dark and sly,
 In the heart of chaos, they must try.
 
 [Verse 1]
-Kael, a warrior with a void inside,
-A hunger for power, he cannot hide.
-Anya, with a heart so pure,
-Together they fight, their fate unsure.
+I see his blade at Anya's throat,
+The Faceless One, in shapeless coat.
+The world goes red, the world goes still,
+I break the seal, I break the will.
 
 [Pre-Chorus]
 A battle for sanity, a desperate plea,
@@ -602,9 +611,9 @@ To reclaim the soul...
 
 [Chorus]
 Heart of darkness, a haunting fear,
-A soul consumed, year after year.
-A battle for sanity, a desperate fight,
-To break free from shadows, and find the light.
+The Void itself is standing here.
+The wolves all freeze, the air turns cold,
+A power ancient, dark, and old.
 
 [Verse 2]
 The shapeshifter strikes with a wicked grin,
@@ -619,10 +628,10 @@ A bond unbroken, a love so strong,
 In the heart of darkness, they belong.
 
 [Bridge]
-A flicker of hope, a distant gleam,
-A fight for redemption, a fading dream.
-A battle within, a final stand,
-To reclaim the soul, across the land.
+I am the Lock, I am the Key,
+The Spark of God resides in me.
+You touched the one I swore to save,
+And dug yourself a shallow grave.
 
 [Verse 3]
 With every strike, the shapeshifter fades,
@@ -638,31 +647,30 @@ In the heart of darkness, they heal their heart.
 
 [Chorus]
 Heart of darkness, a haunting fear,
-A soul consumed, year after year.
-A battle for sanity, a desperate fight,
-To break free from shadows, and find the light.
+The Void itself is standing here.
+The wolves all freeze, the air turns cold,
+A power ancient, dark, and old.
 
 [Outro]
 A shattered mind, a broken heart,
 A new beginning, a brand new start.</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="Sacrifice and Redemption">
-			  		<song_id>11</song_id>
-			  		<Tone>Heartbreaking, uplifting</Tone>
-			  		<Plot>The ultimate sacrifice is made to defeat the shapeshifter. The song is a rollercoaster of emotions, from deep sorrow to triumphant hope. It explores the themes of loss and redemption.
-			  		</Plot>
-			  		<Lyrics>[Intro]
+            <analysis></analysis>
+        </Song>
+        <Song song="Sacrifice and Redemption">
+            <song_id>11</song_id>
+            <Tone>Grim, Necessary</Tone>
+            <Plot>Vexis realizes *what* Kael is. "You are the Lock." He tries to flee to sell this information to the Crimson Remnants. Kael realizes he cannot let the secret escape. He hunts Vexis down and executes him cold-bloodedly—his "Sacrifice" is his innocence; his "Redemption" is Anya's safety.</Plot>
+            <Lyrics>[Intro]
 In a land where shadows loom, a hero rises
 With a heart weighed down by sorrow, and a mission that surprises
 A shapeshifter’s threat, a darkness so profound
 A sacrifice must be made, to turn things around
 
 [Verse 1]
-Once there was a hero, faced with a dire choice
-To save the ones they loved, they had to find their voice
-Through valleys deep and mountains high, they journeyed far and wide
-With every step, the burden grew, but hope was their guide
+He drops the knife, his face goes pale,
+He sees the truth behind the veil.
+"The Living Lock," he whispers low,
+"The Crimson Lords will need to know."
 
 [Pre-Chorus]
 The hero’s spirit, though broken, sought a way to mend
@@ -671,16 +679,16 @@ A selfless act awaited, a deed so pure and true
 Redemption was the goal, and they knew what they must do
 
 [Chorus]
-In the tale of sacrifice and redemption, hearts begin to heal
-A spirit once shattered, now finds strength to feel
-Through selfless acts and noble hearts, humanity is defined
-A peaceful soul emerges, leaving darkness behind
+A sacrifice of innocence,
+To keep the world in its defense.
+I silence him to save the Queen,
+The darkest act I've ever seen.
 
 [Verse 2]
-The battle raged on fiercely, the hero stood their ground
-Against the shapeshifter’s fury, no fear could be found
-With every clash and every strike, the hero’s resolve grew strong
-For in their heart, they knew this fight would right the wrong
+I strike him down, no second breath,
+A swift and silent, sudden death.
+The secret dies upon the floor,
+He'll speak of Locks and Keys no more.
 
 [Bridge]
 As the final blow was struck, the hero fell but smiled
@@ -695,46 +703,45 @@ From the depths of sorrow, hope had found its way
 A world transformed forever, by the hero’s final day
 
 [Chorus]
-In the tale of sacrifice and redemption, hearts begin to heal
-A spirit once shattered, now finds strength to feel
-Through selfless acts and noble hearts, humanity is defined
-A peaceful soul emerges, leaving darkness behind
+A sacrifice of innocence,
+To keep the world in its defense.
+I silence him to save the Queen,
+The darkest act I've ever seen.
 
 [Chorus]
-In the tale of sacrifice and redemption, hearts begin to heal
-A spirit once shattered, now finds strength to feel
-Through selfless acts and noble hearts, humanity is defined
-A peaceful soul emerges, leaving darkness behind
+A sacrifice of innocence,
+To keep the world in its defense.
+I silence him to save the Queen,
+The darkest act I've ever seen.
 
 [Outro]
 And so the story ends, but the journey carries on
 A world reborn from sacrifice, a brighter dawn has shone
 With hope and love as guiding lights, the future now is clear
 A new beginning, a journey on, with nothing left to fear</Lyrics>
-			  		<analysis></analysis>
-				</Song>
-				<Song song="A New Dawn">
-			  		<song_id>12</song_id>
-			  		<Tone>Hopeful, triumphant</Tone>
-			  		<Plot>The world begins to heal after the battle. The song celebrates the victory and the beginning of a new era. It focuses on rebuilding and the hope for a brighter future.
-			  		</Plot>
-			  		<Lyrics>[Intro]
+            <analysis></analysis>
+        </Song>
+        <Song song="A New Dawn">
+            <song_id>12</song_id>
+            <Tone>Uneasy, Quiet</Tone>
+            <Plot>The Wolf Alpha, witnessing Kael destroy the "true monster" (Vexis), recognizes that Kael is a predator, but not a plague. An uneasy, silent truce is formed. The pack retreats, leaving the "Sanctuary of Two" alone. The dawn comes, but the blood is still on the grass.</Plot>
+            <Lyrics>[Intro]
 As the sun rises, hope fills the air
 The world begins to heal, from the depths of despair
 Gentle breezes whisper through the trees
 Life’s symphony begins, carried on the breeze
 
 [Verse 1]
-In the aftermath of battle, the world starts anew
-People come together, with dreams to pursue
-Rebuilding homes and hearts, with tender care
-A future bright and hopeful, beyond compare
+The silence falls, the aura fades,
+The sun cuts through the forest shades.
+The Alpha stands amidst the dead,
+With lowered eyes and bowed head.
 
 [Verse 2]
-In the aftermath of battle, the world starts anew
-People come together, with dreams to pursue
-Rebuilding homes and hearts, with tender care
-A future bright and hopeful, beyond compare
+They drag their fallen to the trees,
+Carried on the morning breeze.
+We stand alone, the door unhinged,
+Our sanctuary, burned and singed.
 
 [Pre-Chorus]
 With spirits renewed, and hearts growing strong
@@ -743,10 +750,10 @@ United in harmony, with grace in their stride
 A peaceful future, spreading far and wide
 
 [Chorus]
-A new dawn breaks, with a radiant glow
-The world transforms, as hope starts to grow
-Life’s joyous symphony, echoes all around
-Love reborn, in every heart it’s found
+A new dawn breaks, a truce is born,
+Upon this bloody, broken morn.
+He sees the monster killed the beast,
+And grants us peace, to say the least.
 
 [Verse 3]
 Through the ruins, they walk hand in hand
@@ -787,9 +794,8 @@ United they soar, reaching high</Lyrics>
 				</Song>
 				<Song song="Endless Horizons">
 			  		<song_id>13</song_id>
-			  		<Tone>Reflective, optimistic</Tone>
-			  		<Plot>The story concludes with a look back at the journey and a glimpse into the future. The song is a celebration of love, friendship, and the enduring spirit of hope.
-			  		</Plot>
+			  		<Tone>Resolute, Eternal</Tone>
+			  		<Plot>Kael and Anya repair the cabin. They know they are safe for now, but the world is getting smaller. They look out at the "Endless Horizons," knowing they must be vigilant forever. They renew their vow: "We are the ghosts who guard the world."</Plot>
 			  		<Lyrics>[Intro]
 A boundless expanse, a celestial sea
 A journey of discovery, wild and free
@@ -797,10 +803,10 @@ A horizon calling, a distant shore
 A quest for knowledge, forevermore
 
 [Verse 1]
-With hearts aflame, we soar and fly
-Exploring new worlds, beneath the sky
-A thirst for knowledge, a burning desire
-To reach for the stars, and touch the fire
+We scrub the blood from wooden floors,
+And fix the hinges on the doors.
+We do not speak of what we did,
+The monster that we keep well hid.
 
 [Pre-Chorus]
 A universe vast, a cosmic sea
@@ -809,10 +815,10 @@ A quest for meaning, a purpose found
 A cosmic dance, on sacred ground
 
 [Chorus]
-Endless horizons, a calling bright
-A universe of hope, a guiding light
-A journey of discovery, without end
-A cosmic odyssey, a faithful friend
+Endless horizons, a calling bright,
+We vigil keep, through day and night.
+A journey of a thousand years,
+Through silent joys and silent tears.
 
 [Verse 2]
 Through trials and triumphs, we find our way
@@ -833,17 +839,17 @@ A quest for knowledge, a never-ending quest
 A cosmic journey, put to the test
 
 [Chorus]
-Endless horizons, a calling bright
-A universe of hope, a guiding light
-A journey of discovery, without end
-A cosmic odyssey, a faithful friend
+Endless horizons, a calling bright,
+We vigil keep, through day and night.
+A journey of a thousand years,
+Through silent joys and silent tears.
 
 [Outro]
-Endless horizons, a cosmic sea
-A universe of wonder, wild and free
-A journey of discovery, forevermore
-A cosmic symphony, to explore</Lyrics>
+We are the ghosts who guard the gate,
+The masters of a silent fate.
+For Seraphina, for the land,
+We walk together, hand in hand.</Lyrics>
 			  		<analysis></analysis>
 				</Song>
-		  	</Act>
-		</album>
+    </Act>
+</album>

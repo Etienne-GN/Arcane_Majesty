@@ -30,12 +30,17 @@ This document tracks the current state of the project and serves as a quick-refe
     - Song plots refined for linear consistency.
     - Lyrics reworked using the "Narrative Anchoring" approach.
     - Full album data synchronized with the Neo4j database.
+- **Processed Album:** **"Bound by Blood"**
+    - Song plots refined for linear consistency ("Secret Garden" arc).
+    - Lyrics reworked using the "Narrative Anchoring" approach.
+    - Full album data synchronized with the Neo4j database.
 
 ## 2. Established Lore Constants
 - **Acheron:** Established as a Fallen Aurorian Seer and the "First Vampire."
 - **Threshold Assassination:** Malakar confirmed as the one who destroyed Acheron's physical body.
 - **Vorgos:** Identified as the Universal Sentinel of the Aether.
 - **Naming Symmetry:** Perfected (Auroria/Aurorians vs. Nythoria/Nythorians).
+- **The Living Lock:** Kael confirmed as the vessel of the Aurorian Spark, hiding in the Emerald Fields.
 
 ## 3. Active Objective
 - We have established the foundation. The next step is to move into **Era I (Shadow Civil War / Prequels)**.
@@ -46,5 +51,4 @@ To maintain strict chronological consistency, the original **Lord of Shadows** a
 - **Lord of Shadows (Era III):** Repurposed as the "Sister Album" to *Queen of Carnage*. Focuses on Malakar’s downfall, his defeat by Seraphina, and his exile to the Shadow Realm.
 
 ## 5. Unprocessed Albums
-- **"Bound by Blood"**
 - **"Eldoria's Prophecy"**
