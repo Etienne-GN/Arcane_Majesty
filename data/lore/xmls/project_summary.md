@@ -69,15 +69,13 @@ To maintain a clear overview of our progress, all XML files are organized into a
 
 This process ensures we always know which files are complete and which are pending review.
 
-## Phase 5: Narrative Song Rework (The Rework Approach)
+## Phase 5: Systematic Lyrics Rework (Approved Protocol)
 
-Once the plots for an album and its individual songs are finalized, we apply the **Rework Approach** to the lyrics to ensure the story is reflected in the music.
+Once the plots for an album and its individual songs are finalized, we apply a strict rework process to the lyrics. This phase ensures the narrative is anchored in the music without compromising the original track's rhythm or quality.
 
-12. **Master Narrator:** A single, consistent vocal persona is assigned to the entire saga: **Vorgos the Stormbringer**. All songs are sung from his perspective as the Eternal Sentinel, though the lyrical POV may shift between characters.
-13. **Persona & Context Definition:** For each song, define the specific "Lyrical POV" (e.g., Acheron, Anya, Seraphina) to provide context for the narrator's performance.
-13. **Narrative Anchoring:** Modify the verses to include proper nouns (characters, locations, artifacts) and specific actions from the refined plots.
-14. **Structural Integrity:** NEVER remove a verse, pre-chorus, bridge, or outro. The reworked song must maintain the exact same arrangement as the original.
-15. **Preservation of Variations:** Maintain all subtle differences in repeating sections (choruses, pre-choruses) to preserve the original phrasing nuances.
-16. **Syllabic Alignment:** Ensure all modifications strictly respect the original syllable count and rhythmic meter.
-15. **Thematic Hook Preservation:** Keep the original choruses intact to maintain the atmospheric "vibe" and musical consistency.
-16. **Bridge Climax:** Use the bridge to deliver the narrative pivot or specific story reveal identified in the plot refinement phase.
+12. **Musical Integrity (Priority #1):** Syllable counts and rhythmic meter **must** be preserved. The song must remain singable to the original Suno track's melody.
+13. **Minimalist Anchoring:** Integrate key character names (e.g., Eldrin, Kael, Anya), locations, or artifacts only where they fit naturally within the existing meter. Modify as little as possible.
+14. **Chorus Preservation:** Choruses should be kept as intact as possible to maintain the song's thematic hook and "vibe."
+15. **Vocabulary Refinement:** Eliminate generic "AI tropes" (e.g., "shadows in the night," "echoes of time") in favor of more specific, evocative, and lore-consistent language.
+16. **Master Narrator Context:** All songs are performed from the perspective of **Vorgos the Stormbringer**, though the "Lyrical POV" may shift between specific characters.
+17. **Step-by-Step Approval:** Every song's reworked lyrics must be presented individually and approved by the user before being committed to the master files or the Neo4j database.
