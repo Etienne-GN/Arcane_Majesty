@@ -1,11 +1,10 @@
-// src/systems/PlayerStats.js
+import { ITEMS } from '../data/items.js';
 
-// Enum adaptations from your snippets
 export const SKILL_TYPE = {
     AOE: 'aoe',
-    INFIGHT: 'infight', // Melee?
+    INFIGHT: 'infight',
     CRIT: 'crit',
-    SUBTLE: 'subtle',   // Stealth?
+    SUBTLE: 'subtle',
     NORMAL_ATTACK: 'normalattack'
 };
 
@@ -16,24 +15,23 @@ export const SKILL_CATEGORY = {
 
 export class PlayerStats {
     constructor() {
-        // Base Stats
         this.level = 1;
         this.xp = 0;
         this.xpToNextLevel = 100;
+
         this.health = 100;
         this.maxHealth = 100;
         this.mana = 50;
         this.maxMana = 50;
 
-        // Core Attributes (RPGs usually have these)
+        this.gold = 0;
+
         this.attributes = {
-            strength: 5,  // Affects Normal/Infight
-            agility: 5,   // Affects Crit/Subtle
-            wisdom: 5     // Affects AoE/Mana
+            strength: 5,
+            agility:  5,
+            wisdom:   5
         };
 
-        // Skill Tree Data
-        // Structure inspired by your snippets, adapted for JS
         this.skills = {
             'basic_strike': {
                 id: 'basic_strike',
@@ -43,7 +41,7 @@ export class PlayerStats {
                 level: 1,
                 maxLevel: 5,
                 description: 'A simple melee attack.',
-                requirements: null // No requirements, starting skill
+                requirements: null
             },
             'power_slash': {
                 id: 'power_slash',
@@ -74,57 +72,123 @@ export class PlayerStats {
                 maxLevel: 5,
                 description: 'Increases critical hit chance.',
                 requirements: { agility: 8 }
+            },
+            'arcane_ward': {
+                id: 'arcane_ward',
+                name: 'Arcane Ward',
+                type: SKILL_TYPE.SUBTLE,
+                category: SKILL_CATEGORY.PASSIVE,
+                level: 0,
+                maxLevel: 3,
+                description: 'Reduces damage taken by 10% per level.',
+                requirements: { level: 2, wisdom: 8 }
             }
         };
 
         this.skillPoints = 0;
+
+        // Inventory: array of { id, name, description, color, qty, stackable }
+        this.inventory = [];
     }
 
     gainXp(amount) {
         this.xp += amount;
-        if (this.xp >= this.xpToNextLevel) {
-            this.levelUp();
+        while (this.xp >= this.xpToNextLevel) {
+            this.xp -= this.xpToNextLevel;
+            this._levelUp();
         }
     }
 
-    levelUp() {
+    _levelUp() {
         this.level++;
-        this.xp -= this.xpToNextLevel;
         this.xpToNextLevel = Math.floor(this.xpToNextLevel * 1.5);
         this.skillPoints++;
-        
-        // Auto-heal on level up
+        this.maxHealth += 10;
+        this.maxMana += 5;
         this.health = this.maxHealth;
         this.mana = this.maxMana;
-        
-        console.log(`Level Up! You are now level ${this.level}. Skill Points: ${this.skillPoints}`);
+        // Distribute a stat point automatically by class tendency
+        this.attributes.strength++;
+        this.attributes.wisdom++;
     }
 
     canUnlock(skillId) {
         const skill = this.skills[skillId];
-        if (!skill) return false;
-        if (skill.level >= skill.maxLevel) return false;
-        
-        // Check requirements
-        if (skill.requirements) {
-            if (skill.requirements.level && this.level < skill.requirements.level) return false;
-            if (skill.requirements.strength && this.attributes.strength < skill.requirements.strength) return false;
-            if (skill.requirements.wisdom && this.attributes.wisdom < skill.requirements.wisdom) return false;
-            if (skill.requirements.agility && this.attributes.agility < skill.requirements.agility) return false;
-        }
+        if (!skill || skill.level >= skill.maxLevel) return false;
+        if (!skill.requirements) return true;
 
+        const r = skill.requirements;
+        if (r.level     && this.level                    < r.level)     return false;
+        if (r.strength  && this.attributes.strength      < r.strength)  return false;
+        if (r.wisdom    && this.attributes.wisdom         < r.wisdom)    return false;
+        if (r.agility   && this.attributes.agility        < r.agility)   return false;
         return true;
     }
 
     upgradeSkill(skillId) {
-        if (this.skillPoints <= 0) return false;
-        if (!this.canUnlock(skillId)) return false;
-
+        if (this.skillPoints <= 0 || !this.canUnlock(skillId)) return false;
         this.skills[skillId].level++;
         this.skillPoints--;
         return true;
     }
+
+    addItem(itemId, qty = 1) {
+        const def = ITEMS[itemId];
+        if (!def) return;
+
+        if (def.stackable) {
+            const existing = this.inventory.find(i => i.id === itemId);
+            if (existing) { existing.qty += qty; return; }
+        }
+        this.inventory.push({
+            id:          itemId,
+            name:        def.name,
+            description: def.description,
+            color:       def.color ?? 0x8855ff,
+            stackable:   def.stackable,
+            qty
+        });
+    }
+
+    useItem(itemId) {
+        const def = ITEMS[itemId];
+        if (!def) return false;
+
+        const idx = this.inventory.findIndex(i => i.id === itemId);
+        if (idx < 0) return false;
+
+        const success = def.onUse(this);
+        if (!success) return false;
+
+        const slot = this.inventory[idx];
+        slot.qty--;
+        if (slot.qty <= 0) this.inventory.splice(idx, 1);
+        return true;
+    }
+
+    removeItem(itemId, qty = 1) {
+        const idx = this.inventory.findIndex(i => i.id === itemId);
+        if (idx < 0) return;
+        this.inventory[idx].qty -= qty;
+        if (this.inventory[idx].qty <= 0) this.inventory.splice(idx, 1);
+    }
+
+    reset() {
+        this.level = 1;
+        this.xp = 0;
+        this.xpToNextLevel = 100;
+        this.health = 100;
+        this.maxHealth = 100;
+        this.mana = 50;
+        this.maxMana = 50;
+        this.gold = 0;
+        this.skillPoints = 0;
+        this.inventory = [];
+        this.attributes = { strength: 5, agility: 5, wisdom: 5 };
+        Object.values(this.skills).forEach(s => {
+            s.level = s.id === 'basic_strike' ? 1 : 0;
+        });
+    }
 }
 
-// Export a singleton instance so state persists across scenes
 export const playerStats = new PlayerStats();

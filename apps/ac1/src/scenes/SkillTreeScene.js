@@ -1,95 +1,101 @@
 import Phaser from 'phaser';
-import { playerStats } from '../systems/PlayerStats';
+import { playerStats } from '../systems/PlayerStats.js';
 
 export default class SkillTreeScene extends Phaser.Scene {
-    constructor() {
-        super('SkillTreeScene');
-    }
+    constructor() { super('SkillTreeScene'); }
 
     create() {
-        // Semi-transparent background
-        this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x000000, 0.8).setOrigin(0);
+        const w = this.scale.width, h = this.scale.height;
 
-        // Header
-        this.add.text(20, 20, 'SKILL TREE & STATS', { font: '24px monospace', fill: '#ffd700' });
-        
-        // Stats Display
-        this.add.text(20, 60, `Level: ${playerStats.level}`, { font: '16px monospace', fill: '#fff' });
-        this.add.text(20, 80, `XP: ${playerStats.xp} / ${playerStats.xpToNextLevel}`, { font: '16px monospace', fill: '#fff' });
-        this.add.text(20, 100, `Skill Points: ${playerStats.skillPoints}`, { font: '16px monospace', fill: '#00ff00' });
+        // Dimmer
+        this.add.rectangle(0, 0, w, h, 0x000000, 0.82).setOrigin(0);
 
-        this.add.text(200, 60, `STR: ${playerStats.attributes.strength}`, { font: '14px monospace', fill: '#aaa' });
-        this.add.text(200, 80, `AGI: ${playerStats.attributes.agility}`, { font: '14px monospace', fill: '#aaa' });
-        this.add.text(200, 100, `WIS: ${playerStats.attributes.wisdom}`, { font: '14px monospace', fill: '#aaa' });
+        // Panel
+        const px = 10, py = 10, pw = w - 20, ph = h - 20;
+        this.add.rectangle(px, py, pw, ph, 0x0a0a1e).setOrigin(0);
+        const bdr = this.add.graphics();
+        bdr.lineStyle(2, 0x4444aa);
+        bdr.strokeRect(px, py, pw, ph);
 
-        // Render Skills
-        this.renderSkillNodes();
+        this.add.text(w / 2, py + 10, 'SKILLS & STATS', { font: 'bold 14px monospace', fill: '#ffd700' }).setOrigin(0.5, 0);
 
-        // Close Instructions
-        this.add.text(this.scale.width - 20, 20, '[ESC] Close', { font: '16px monospace', fill: '#fff' }).setOrigin(1, 0);
+        // Stats column
+        const sx = px + 14, sy = py + 32;
+        this.add.text(sx, sy,      `Level:  ${playerStats.level}`,                               { font: '11px monospace', fill: '#ffffff' });
+        this.add.text(sx, sy + 14, `XP:     ${playerStats.xp} / ${playerStats.xpToNextLevel}`,  { font: '11px monospace', fill: '#aaaaff' });
+        this.add.text(sx, sy + 28, `Points: ${playerStats.skillPoints}`,                         { font: '11px monospace', fill: '#00ff88' });
+        this.add.text(sx, sy + 46, `STR ${playerStats.attributes.strength}  AGI ${playerStats.attributes.agility}  WIS ${playerStats.attributes.wisdom}`, { font: '10px monospace', fill: '#888888' });
+        this.add.text(sx, sy + 60, `HP ${playerStats.health}/${playerStats.maxHealth}   MP ${playerStats.mana}/${playerStats.maxMana}`, { font: '10px monospace', fill: '#888888' });
 
-        // Input to close
-        this.input.keyboard.on('keydown-ESC', () => {
-            this.scene.stop();
-            this.scene.resume('GameScene');
-        });
-        
-        // Input to close (S key toggle)
-        this.input.keyboard.on('keydown-S', () => {
-            this.scene.stop();
-            this.scene.resume('GameScene');
-        });
+        // Skill list
+        this._renderSkills(px + 14, py + 130, pw - 28);
+
+        // Close hint
+        this.add.text(w / 2, ph + py - 10, '[ESC] or [K] Close', {
+            font: '9px monospace', fill: '#555555'
+        }).setOrigin(0.5, 1);
+
+        // Only ESC/K to close — avoid S-key conflict with WASD
+        this.input.keyboard.on('keydown-ESC', () => this._close());
+        this.input.keyboard.on('keydown-K',   () => this._close());
     }
 
-    renderSkillNodes() {
-        const startX = 50;
-        const startY = 160;
-        const gapY = 50;
-        
-        let index = 0;
+    _renderSkills(startX, startY, width) {
+        const rowH = 38;
+        let i = 0;
         for (const [key, skill] of Object.entries(playerStats.skills)) {
-            const y = startY + (index * gapY);
-            
-            // Determine Color
-            let color = 0x555555; // Locked
-            let textColor = '#888';
-            if (skill.level > 0) {
-                color = 0x00aa00; // Learned
-                textColor = '#fff';
-            } else if (playerStats.canUnlock(key)) {
-                color = 0xaaaa00; // Available
-                textColor = '#ff0';
+            const y = startY + i * rowH;
+
+            const canUp = playerStats.canUnlock(key);
+            const learned = skill.level > 0;
+            const bgColor = learned ? 0x0a2a0a : (canUp ? 0x1a1a00 : 0x111122);
+            const border   = learned ? 0x00aa44 : (canUp ? 0xaaaa00 : 0x333366);
+            const textColor = learned ? '#88ff88' : (canUp ? '#ffff44' : '#555577');
+
+            const bg = this.add.rectangle(startX, y, width, rowH - 4, bgColor).setOrigin(0).setInteractive();
+            const bdrG = this.add.graphics();
+            bdrG.lineStyle(1, border);
+            bdrG.strokeRect(startX, y, width, rowH - 4);
+
+            const cat = skill.category === 'passive' ? '[P]' : '[A]';
+            this.add.text(startX + 6, y + 4, `${cat} ${skill.name}`, {
+                font: 'bold 11px monospace', fill: textColor
+            });
+            this.add.text(startX + 6, y + 18, skill.description, {
+                font: '8px monospace', fill: '#888888'
+            });
+
+            // Level pips
+            for (let lv = 0; lv < skill.maxLevel; lv++) {
+                const filled = lv < skill.level;
+                this.add.rectangle(
+                    startX + width - 10 - (skill.maxLevel - lv) * 12, y + rowH / 2 - 5,
+                    10, 10,
+                    filled ? 0x44cc44 : 0x333333
+                ).setOrigin(0);
             }
 
-            // Draw Box
-            const bg = this.add.rectangle(startX, y, 380, 40, color).setOrigin(0, 0.5).setInteractive();
-            
-            // Draw Text
-            const text = this.add.text(startX + 10, y, `${skill.name} (Lv ${skill.level}/${skill.maxLevel})`, { 
-                font: '16px monospace', 
-                fill: textColor 
-            }).setOrigin(0, 0.5);
+            if (canUp && playerStats.skillPoints > 0) {
+                const btn = this.add.text(startX + width - 28, y + 4, '[+]', {
+                    font: 'bold 10px monospace', fill: '#ffff00'
+                }).setInteractive();
+                btn.on('pointerdown', () => {
+                    if (playerStats.upgradeSkill(key)) this.scene.restart();
+                    else this.cameras.main.shake(100, 0.008);
+                });
+                btn.on('pointerover', () => btn.setStyle({ fill: '#ffffff' }));
+                btn.on('pointerout',  () => btn.setStyle({ fill: '#ffff00' }));
+            }
 
-            // Interaction
-            bg.on('pointerdown', () => {
-                if (playerStats.upgradeSkill(key)) {
-                    // Refresh scene to show update
-                    this.scene.restart();
-                } else {
-                    // Feedback for fail
-                    this.cameras.main.shake(100, 0.01);
-                }
-            });
+            bg.on('pointerover', () => bg.setFillStyle(bgColor + 0x050505));
+            bg.on('pointerout',  () => bg.setFillStyle(bgColor));
 
-            // Hover tooltip (simple console log for now, can be UI text later)
-            bg.on('pointerover', () => {
-                this.add.text(startX + 250, y, 'Click to Upgrade', { font: '10px monospace', fill: '#fff' }).setName('tooltip');
-            });
-            bg.on('pointerout', () => {
-                this.children.getByName('tooltip')?.destroy();
-            });
-
-            index++;
+            i++;
         }
+    }
+
+    _close() {
+        this.scene.stop();
+        this.scene.resume('GameScene');
     }
 }

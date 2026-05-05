@@ -9,3 +9,6 @@ node_modules/
 dist/
 .DS_Store
 *.local
+
+# Raw asset sources — original zips and extracted files (game-ready copies live in public/assets/)
+ressources/
