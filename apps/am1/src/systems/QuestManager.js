@@ -1,6 +1,37 @@
 import { QUESTS } from '../data/quests.js';
 import { playerStats } from './PlayerStats.js';
 
+const MEMORY_FRAGMENTS = {
+    main_forest_hunt: {
+        title: 'Hunt Log',
+        text:  "Eldrin's Journal — 'The wolves moved as shadows, drawn not by hunger but by void-taint. Whatever befouled this forest ran deeper than root or soil. The Void General was only the surface of something far older.'"
+    },
+    side_supply_run: {
+        title: "Scout's Report",
+        text:  "Recovered note — 'Supplies retrieved from the eastern cache. The roads are less safe than the merchants admit. Three caravans vanished along the ridge trail this season. No bodies found.'"
+    },
+    side_read_the_signs: {
+        title: 'Stone Inscription (Translated)',
+        text:  "Runic carving — 'Here walked the first architects of the Rift-Gate network. Their names have been removed — not by time, but by design. Someone does not want them remembered.'"
+    },
+    hidden_shadow_initiation: {
+        title: 'Void Whisper',
+        text:  "Heard in the veil — 'You have walked in my shadow. The veil remembers every soul it touches. You are marked now, scholar. The darkness knows your name.'"
+    },
+    hidden_covenant_scholar: {
+        title: 'Covenant Fragment I',
+        text:  "Arcane inscription — 'The Staff of First Covenant was not forged. It grew — from the first seed of structured arcane intention ever placed in Eldoria. The Covenant did not make it. It made the Covenant.'"
+    },
+    hidden_hunters_trial: {
+        title: "Hunter's Mark",
+        text:  "Etched on the bow — 'Every arrow loosed in righteous purpose finds its mark. Eternal Draw earns its name not through magic but through the hunter's unbroken will.'"
+    },
+    hidden_void_fragment: {
+        title: 'Void Shard Memory',
+        text:  "Fragment resonance — 'Vorgos the Stormbringer shattered the Void Gate at 0 GD. The cleaver you carry is a remnant of that cataclysm — a shard of an event the historians erased from the record entirely.'"
+    },
+};
+
 class QuestManager {
     constructor() {
         this._callbacks = [];
@@ -49,6 +80,12 @@ class QuestManager {
         if (r.glint) playerStats.glint += r.glint;
         if (r.xp)    playerStats.gainXp(r.xp);
         r.items?.forEach(id => playerStats.addItem(id));
+
+        // Archive of Souls — push lore memory fragment on completion
+        const fragment = MEMORY_FRAGMENTS[quest.id];
+        if (fragment && !playerStats.recoveredMemories.find(m => m.id === quest.id)) {
+            playerStats.recoveredMemories.push({ id: quest.id, ...fragment, timestamp: Date.now() });
+        }
     }
 
     // ── Event hooks ───────────────────────────────────────────────────────────

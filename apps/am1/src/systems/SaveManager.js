@@ -24,8 +24,9 @@ export class SaveManager {
             spellCooldowns: { ...stats.spellCooldowns },
             skillSlots:    [...stats.skillSlots],
             attunedGates:  [...(stats.attunedGates ?? [])],
-            questLog:      JSON.parse(JSON.stringify(stats.questLog ?? {})),
-            inventory:     stats.inventory.map(i => ({ ...i })),
+            questLog:          JSON.parse(JSON.stringify(stats.questLog ?? {})),
+            recoveredMemories: JSON.parse(JSON.stringify(stats.recoveredMemories ?? [])),
+            inventory:         stats.inventory.map(i => ({ ...i })),
             timestamp:     Date.now()
         };
         try {
@@ -61,7 +62,8 @@ export class SaveManager {
             if (d.spellCooldowns) Object.assign(stats.spellCooldowns, d.spellCooldowns);
             if (d.skillSlots)     stats.skillSlots  = [...d.skillSlots];
             if (d.attunedGates)   stats.attunedGates = [...d.attunedGates];
-            if (d.questLog)       stats.questLog = JSON.parse(JSON.stringify(d.questLog));
+            if (d.questLog)            stats.questLog          = JSON.parse(JSON.stringify(d.questLog));
+            if (d.recoveredMemories)   stats.recoveredMemories = JSON.parse(JSON.stringify(d.recoveredMemories));
             return true;
         } catch { return false; }
     }

@@ -6,11 +6,13 @@ import CombatManager from '../systems/CombatManager.js';
 import { playerStats } from '../systems/PlayerStats.js';
 import { SaveManager } from '../systems/SaveManager.js';
 import { soundManager } from '../systems/SoundManager.js';
+import { musicManager } from '../systems/MusicManager.js';
 import { questManager } from '../systems/QuestManager.js';
 import { ITEMS } from '../data/items.js';
 import { PROLOGUE_MAP, TILE_SIZE, PLAYER_START, ENEMY_SPAWNS, ENEMY_TYPES, NPC_POSITIONS, CHEST_POSITIONS, CAMPFIRE_POSITIONS, SIGN_POSITIONS, BOSS_SPAWN, BOSS_ARENA_BOUNDS, CRACKED_BOULDER_POSITIONS, PILLAR_GATE_POSITIONS, RIFT_GATE_POSITIONS, GATHERING_NODES } from '../data/worldMap.js';
 import { DIALOGUES } from '../data/dialogues.js';
 import { SPELLS, TIER_NAMES, RESONANCE_GAINS } from '../data/spells.js';
+import { statusManager } from '../systems/StatusManager.js';
 
 export default class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
@@ -381,6 +383,13 @@ export default class GameScene extends Phaser.Scene {
                 this.scene.launch('DialogueScene', { lines: DIALOGUES['eldrin_premonition'] });
             });
         }
+
+        // Start procedural music (mood updates every 500ms from update())
+        this._musicMoodTimer = 0;
+        musicManager.start();
+
+        // Scholar's Eye — proximity echo zones near ruins and ancient markers
+        this._initScholarsEye();
     }
 
     _ensureNpcAnims(key) {
@@ -545,6 +554,8 @@ export default class GameScene extends Phaser.Scene {
         }
 
         // Player-side cast (validation, mana, cooldown, tint)
+        // Self-effect spells with special player logic get explicit handlers;
+        // everything else routes through castGeneric.
         let castOk = false;
         switch (spellId) {
             case 'fire_nova':    castOk = this.player.castFireNova();    break;
@@ -553,6 +564,13 @@ export default class GameScene extends Phaser.Scene {
             case 'shadow_veil':  castOk = this.player.castShadowVeil();  break;
             case 'earth_pillar': castOk = this.player.castEarthPillar(); break;
             case 'quagmire':     castOk = this.player.castQuagmire();    break;
+            case 'cleanse':      castOk = this.player.castCleanse();     break;
+            case 'warmth_aura':  castOk = this.player.castWarmthAura();  break;
+            case 'benediction':  castOk = this.player.castBenediction(); break;
+            case 'vessel_mend':  castOk = this.player.castVesselMend();  break;
+            case 'aetheric_ward':castOk = this.player.castAethericWard();break;
+            case 'tempest_step': castOk = this.player.castTempestStep(); break;
+            default:             castOk = this.player.castGeneric(spellId); break;
         }
         if (!castOk) return;
 
@@ -563,6 +581,18 @@ export default class GameScene extends Phaser.Scene {
     // ── All world-space VFX ────────────────────────────────────────────────
 
     _spellVFX(id, tx, ty) {
+        const ELEMENT_VFX = {
+            fire:      { tints: [0xff6600, 0xff4400, 0xffaa00], flash: [200, 80, 0], qty: 18 },
+            arcane:    { tints: [0xcc88ff, 0xffffff, 0x8844cc], flash: null, qty: 14 },
+            lightning: { tints: [0xffee00, 0xffffff, 0xaaddff], flash: [180, 180, 80], qty: 20 },
+            shadow:    { tints: [0x6600cc, 0x440088, 0xcc00ff], flash: null, qty: 14 },
+            earth:     { tints: [0x8b6914, 0xaa8833, 0x6b5011], flash: null, qty: 16 },
+            ice:       { tints: [0x88ddff, 0xffffff, 0xaaeeff], flash: null, qty: 14 },
+            nature:    { tints: [0x44cc44, 0x88ff44, 0x226622], flash: null, qty: 14 },
+            wind:      { tints: [0xccffaa, 0xeeffdd, 0x88ccaa], flash: null, qty: 12 },
+        };
+
+        // Custom VFX for spells that deserve it
         switch (id) {
             case 'fire_nova':
                 this.add.particles(tx, ty, 'particle', {
@@ -576,33 +606,43 @@ export default class GameScene extends Phaser.Scene {
                     tint: [0xffffff, 0xffeeaa], quantity: 16, explode: true,
                 }).setDepth(61);
                 this.cameras.main.flash(150, 255, 100, 0, true);
-                break;
+                return;
 
-            case 'mana_dart': {
+            case 'mana_dart':
+            case 'triple_dart':
+            case 'needle_volley':
+            case 'seeker_dart':
+            case 'phantom_dart': {
+                const count = SPELLS[id]?.projectileCount ?? 1;
                 const steps = 5;
-                for (let s = 1; s <= steps; s++) {
-                    const px = this.player.x + (tx - this.player.x) * (s / steps);
-                    const py = this.player.y + (ty - this.player.y) * (s / steps);
-                    this.time.delayedCall(s * 22, () => {
-                        if (!this.player.active) return;
-                        this.add.particles(px, py, 'particle', {
-                            speed: { min: 20, max: 60 }, angle: { min: 0, max: 360 },
-                            scale: { start: 0.7, end: 0 }, lifespan: { min: 100, max: 200 },
-                            tint: [0xcc88ff, 0xffffff, 0x8844cc], quantity: 5, explode: true,
-                        }).setDepth(62);
-                    });
+                for (let p = 0; p < count; p++) {
+                    const offset = (p - Math.floor(count / 2)) * 10;
+                    for (let s = 1; s <= steps; s++) {
+                        const vx = this.player.x + (tx - this.player.x) * (s / steps) + offset;
+                        const vy = this.player.y + (ty - this.player.y) * (s / steps);
+                        this.time.delayedCall(s * 20 + p * 30, () => {
+                            if (!this.player.active) return;
+                            this.add.particles(vx, vy, 'particle', {
+                                speed: { min: 20, max: 60 }, angle: { min: 0, max: 360 },
+                                scale: { start: 0.7, end: 0 }, lifespan: { min: 100, max: 200 },
+                                tint: [0xcc88ff, 0xffffff, 0x8844cc], quantity: 5, explode: true,
+                            }).setDepth(62);
+                        });
+                    }
                 }
-                break;
+                return;
             }
 
             case 'arc_bolt':
+            case 'chain_lightning':
+            case 'lightning_lance':
                 this.add.particles(tx, ty, 'particle', {
                     speed: { min: 50, max: 150 }, angle: { min: 0, max: 360 },
                     scale: { start: 1.2, end: 0 }, lifespan: { min: 120, max: 300 },
                     tint: [0xffee00, 0xffffff, 0xaaddff], quantity: 22, explode: true,
                 }).setDepth(62);
                 this.cameras.main.flash(80, 220, 220, 100, true);
-                break;
+                return;
 
             case 'shadow_veil':
                 this.add.particles(this.player.x, this.player.y, 'particle', {
@@ -610,85 +650,308 @@ export default class GameScene extends Phaser.Scene {
                     scale: { start: 1.0, end: 0 }, lifespan: { min: 400, max: 800 },
                     tint: [0x6600cc, 0x440088, 0xcc00ff], quantity: 18, explode: true,
                 }).setDepth(62);
-                break;
+                return;
 
-            case 'earth_pillar': break; // handled inside _earthPillarPlatform / _earthPillarAssault
-            case 'quagmire':     break; // handled inside _applySpellEffects quagmire case
+            case 'stone_cannon':
+            case 'rock_bullet': {
+                // Heavy earth projectile trail
+                const steps = 6;
+                for (let s = 1; s <= steps; s++) {
+                    const vx = this.player.x + (tx - this.player.x) * (s / steps);
+                    const vy = this.player.y + (ty - this.player.y) * (s / steps);
+                    this.time.delayedCall(s * 18, () => {
+                        this.add.particles(vx, vy, 'particle', {
+                            speed: { min: 15, max: 45 }, angle: { min: 0, max: 360 },
+                            scale: { start: 1.1, end: 0 }, lifespan: { min: 100, max: 250 },
+                            tint: [0x8b6914, 0xaa8833, 0xc4a35a], quantity: 6, explode: true,
+                        }).setDepth(58);
+                    });
+                }
+                this.add.particles(tx, ty, 'particle', {
+                    speed: { min: 40, max: 120 }, angle: { min: 0, max: 360 },
+                    scale: { start: 1.5, end: 0 }, lifespan: { min: 200, max: 500 },
+                    tint: [0x8b6914, 0x6b5011, 0x554010], quantity: 20, explode: true,
+                }).setDepth(60);
+                this.cameras.main.shake(80, 0.006);
+                return;
+            }
+
+            case 'mud_wall':
+            case 'mud_trap': {
+                const g = this.add.graphics().setDepth(3);
+                g.fillStyle(0x5a3d10, 0.85);
+                g.fillEllipse(tx, ty, 64, 28);
+                g.fillStyle(0x7a5520, 0.6);
+                g.fillEllipse(tx, ty, 44, 18);
+                this.add.particles(tx, ty, 'particle', {
+                    speed: { min: 10, max: 40 }, angle: { min: -130, max: -50 },
+                    scale: { start: 0.9, end: 0 }, lifespan: { min: 300, max: 700 },
+                    tint: [0x5a3d10, 0x7a5520, 0x3d2810], quantity: 12, explode: true,
+                }).setDepth(60);
+                const dur = SPELLS[id]?.duration?.[playerStats.getSpellLevel(id) - 1] ?? 4000;
+                this.time.delayedCall(dur, () => this.tweens.add({ targets: g, alpha: 0, duration: 500, onComplete: () => g.destroy() }));
+                return;
+            }
+
+            case 'water_blade':
+            case 'water_conjure': {
+                const g = this.add.graphics().setDepth(62);
+                g.lineStyle(4, 0x88ddff, 0.9);
+                g.lineBetween(this.player.x, this.player.y, tx, ty);
+                this.add.particles(tx, ty, 'particle', {
+                    speed: { min: 30, max: 80 }, angle: { min: 0, max: 360 },
+                    scale: { start: 1.0, end: 0 }, lifespan: { min: 200, max: 500 },
+                    tint: [0x88ddff, 0xffffff, 0x4488ff], quantity: 16, explode: true,
+                }).setDepth(63);
+                this.tweens.add({ targets: g, alpha: 0, duration: 180, onComplete: () => g.destroy() });
+                return;
+            }
+
+            case 'petal_storm': {
+                for (let i = 0; i < 24; i++) {
+                    const angle = (i / 24) * Math.PI * 2;
+                    const r = Phaser.Math.Between(20, 80);
+                    this.time.delayedCall(i * 30, () => {
+                        this.add.particles(tx + Math.cos(angle) * r, ty + Math.sin(angle) * r, 'particle', {
+                            speed: { min: 8, max: 25 }, angle: { min: 0, max: 360 },
+                            scale: { start: 0.8, end: 0 }, lifespan: { min: 600, max: 1200 },
+                            tint: [0xff88bb, 0xffaadd, 0xff66aa, 0xffddee], quantity: 3, explode: true,
+                        }).setDepth(65);
+                    });
+                }
+                return;
+            }
+
+            case 'aetheric_inscription': {
+                // Recursive spiral — golden arcane rune burst
+                const g2 = this.add.graphics().setDepth(66);
+                for (let ring = 1; ring <= 3; ring++) {
+                    g2.lineStyle(2, 0xffd700, 0.8 / ring);
+                    g2.strokeCircle(tx, ty, ring * 18);
+                }
+                g2.lineStyle(2, 0xcc88ff, 0.9);
+                g2.lineBetween(tx - 20, ty, tx + 20, ty);
+                g2.lineBetween(tx, ty - 20, tx, ty + 20);
+                this.add.particles(tx, ty, 'particle', {
+                    speed: { min: 80, max: 220 }, angle: { min: 0, max: 360 },
+                    scale: { start: 1.4, end: 0 }, lifespan: { min: 350, max: 800 },
+                    tint: [0xffd700, 0xcc88ff, 0xffffff, 0x8844cc], quantity: 32, explode: true,
+                }).setDepth(67);
+                this.cameras.main.flash(200, 180, 100, 255, true);
+                this.tweens.add({ targets: g2, alpha: 0, duration: 400, onComplete: () => g2.destroy() });
+                return;
+            }
+
+            case 'eclipse_mark': {
+                const g3 = this.add.graphics().setDepth(64);
+                g3.fillStyle(0xcc00cc, 0.7);
+                g3.fillCircle(tx, ty, 12);
+                g3.lineStyle(2, 0xff00ff, 0.9);
+                g3.strokeCircle(tx, ty, 16);
+                this.tweens.add({ targets: g3, alpha: 0, scaleX: 1.5, scaleY: 1.5, duration: 500,
+                    onComplete: () => g3.destroy() });
+                return;
+            }
+
+            case 'cleanse': {
+                this.add.particles(this.player.x, this.player.y, 'particle', {
+                    speed: { min: 20, max: 60 }, angle: { min: 0, max: 360 },
+                    scale: { start: 1.0, end: 0 }, lifespan: { min: 400, max: 900 },
+                    tint: [0xaaddff, 0xffffff, 0x88aaff], quantity: 22, explode: true,
+                }).setDepth(65);
+                return;
+            }
+
+            case 'earth_pillar':
+            case 'quagmire':
+                return; // handled in bespoke methods
         }
+
+        // Element-based default VFX fallback
+        const element = SPELLS[id]?.element ?? 'arcane';
+        const ev = ELEMENT_VFX[element] ?? ELEMENT_VFX.arcane;
+        const vfxTarget = SPELLS[id]?.targetingType === 'self' ? { x: this.player.x, y: this.player.y } : { x: tx, y: ty };
+        this.add.particles(vfxTarget.x, vfxTarget.y, 'particle', {
+            speed: { min: 40, max: 140 }, angle: { min: 0, max: 360 },
+            scale: { start: 1.1, end: 0 }, lifespan: { min: 200, max: 500 },
+            tint: ev.tints, quantity: ev.qty, explode: true,
+        }).setDepth(62);
+        if (ev.flash) this.cameras.main.flash(80, ...ev.flash, true);
     }
 
     // ── Spell damage + effects ─────────────────────────────────────────────
 
     _spellDamage(id) {
-        const level = playerStats.getSpellLevel(id);
-        const wis   = this.player.stats.attributes.intelligence;
-        const hasAmp = ITEMS[playerStats.equipment.weapon]?.passive === 'spell_amplifier';
-        const ampMult = hasAmp ? 1.25 : 1;
+        const spell       = SPELLS[id];
+        const level       = playerStats.getSpellLevel(id);
+        const int         = this.player.stats.attributes.intelligence;
+        const hasAmp      = ITEMS[playerStats.equipment.weapon]?.passive === 'spell_amplifier';
+        const ampMult     = hasAmp ? 1.25 : 1;
+        const masteryMult = 1 + (playerStats.skills['arcane_mastery']?.level ?? 0) * 0.10;
         let base;
-        switch (id) {
-            case 'fire_nova':    base = Math.floor(18 + level * 14 + wis * 2.5); break;
-            case 'mana_dart':    base = Math.floor(12 + level * 10 + wis * 3);   break;
-            case 'arc_bolt':     base = Math.floor(15 + level * 12 + wis * 2);   break;
-            case 'earth_pillar': base = Math.floor(20 + level * 16 + wis * 2.8); break;
-            default: base = 10;
+        if (spell?.baseDmg) {
+            const [b, perLv, perInt] = spell.baseDmg;
+            base = b + perLv * (level - 1) + perInt * int;
+        } else {
+            base = 10;
         }
-        return Math.floor(base * ampMult);
+        return Math.floor(base * ampMult * masteryMult);
     }
 
     _applySpellEffects(id, tx, ty) {
         const spell = SPELLS[id];
         const level = playerStats.getSpellLevel(id);
         const dmg   = this._spellDamage(id);
+        const range = spell?.range?.[level - 1] ?? 80;
 
+        // Spells with bespoke mechanics first
         switch (id) {
-            case 'fire_nova': {
-                const range = spell.range[level - 1];
-                this._damageInRadius(tx, ty, range, dmg);
-                break;
-            }
-            case 'mana_dart': {
-                const range = spell.range[level - 1];
-                this._damageSingleNearest(tx, ty, range, dmg);
-                break;
-            }
-            case 'arc_bolt': {
-                const range = spell.range[level - 1];
-                this._damageInCone(tx, ty, range, 38, dmg);
-                break;
-            }
             case 'earth_pillar': {
                 const distToPlayer = Phaser.Math.Distance.Between(this.player.x, this.player.y, tx, ty);
-                if (distToPlayer < 60) {
-                    this._earthPillarPlatform(tx, ty);
-                } else {
-                    this._earthPillarAssault(tx, ty);
-                }
-                break;
+                if (distToPlayer < 60) this._earthPillarPlatform(tx, ty);
+                else                   this._earthPillarAssault(tx, ty);
+                return;
             }
             case 'quagmire': {
-                const radius   = spell.range[level - 1];
                 const duration = spell.duration[level - 1];
                 this._quagmireZones = this._quagmireZones ?? [];
-                this._quagmireZones.push({ x: tx, y: ty, r: radius, expiry: this.time.now + duration });
-
+                this._quagmireZones.push({ x: tx, y: ty, r: range, expiry: this.time.now + duration });
                 const g = this.add.graphics().setDepth(3);
-                g.fillStyle(0x2a4a0a, 0.72);  g.fillEllipse(tx, ty, radius * 2, radius * 1.3);
-                g.fillStyle(0x3d6614, 0.38);  g.fillEllipse(tx, ty, radius * 1.5, radius * 0.9);
-
+                g.fillStyle(0x2a4a0a, 0.72);  g.fillEllipse(tx, ty, range * 2, range * 1.3);
+                g.fillStyle(0x3d6614, 0.38);  g.fillEllipse(tx, ty, range * 1.5, range * 0.9);
                 const em = this.add.particles(tx, ty, 'particle', {
                     speed: { min: 5, max: 18 }, angle: { min: 0, max: 360 },
                     scale: { start: 0.8, end: 0 }, lifespan: { min: 700, max: 1500 },
                     tint: [0x2a4a0a, 0x3d6614, 0x1a3a05], quantity: 1, frequency: 180,
                 }).setDepth(4);
-
                 this.time.delayedCall(duration, () => {
                     em.stop();
                     this.tweens.add({ targets: [g, em], alpha: 0, duration: 600,
                         onComplete: () => { g.destroy(); em.destroy(); } });
                 });
-                break;
+                this._applyStatusInRadius(tx, ty, range, spell.applyStatus);
+                return;
             }
-            case 'shadow_veil': break; // no damage, caster effect only
+            case 'shadow_veil':
+            case 'cleanse':
+            case 'warmth_aura':
+            case 'benediction':
+            case 'vessel_mend':
+            case 'aetheric_ward':
+            case 'tempest_step':
+                return; // handled entirely on player side
+            case 'eclipse_mark': {
+                // Apply marked status AND set the eclipse mark timer for 2× damage
+                this._applyStatusNearest(tx, ty, range, spell.applyStatus);
+                const nearest = this._nearestEnemy(tx, ty, range);
+                if (nearest) nearest._eclipseMarkTimer = 1500;
+                return;
+            }
+            case 'life_drain': {
+                const target = this._nearestEnemy(tx, ty, range);
+                if (target) {
+                    const actualDmg = Math.min(dmg, target.health);
+                    target.takeDamage(actualDmg);
+                    this._checkSteamEvent(target);
+                    const healAmt = Math.floor(actualDmg * (spell.healFraction ?? 0.5));
+                    playerStats.health = Math.min(playerStats.maxHealth, playerStats.health + healAmt);
+                    if (healAmt > 0) this._spawnNumber(this.player.x, this.player.y - 20, `+${healAmt}`, '#44ff88', false);
+                }
+                return;
+            }
+        }
+
+        // Data-driven routing by targetingType
+        if (!spell || spell.passive) return;
+
+        const targeting = spell.targetingType;
+
+        if (targeting === 'targeted_aoe') {
+            if (dmg > 0) this._damageInRadius(tx, ty, range, dmg);
+            if (spell.applyStatus) this._applyStatusInRadius(tx, ty, range, spell.applyStatus);
+        } else if (targeting === 'targeted_directional') {
+            if (spell.projectileCount && spell.projectileCount > 1) {
+                // Multi-projectile: hit single nearest per projectile (simplified)
+                const spread = 18;
+                for (let p = 0; p < spell.projectileCount; p++) {
+                    const angle = -Math.atan2(ty - this.player.y, tx - this.player.x) +
+                        ((p - Math.floor(spell.projectileCount / 2)) * Phaser.Math.DegToRad(spread));
+                    const etx = this.player.x - Math.cos(angle) * range;
+                    const ety = this.player.y + Math.sin(angle) * range;
+                    if (dmg > 0) this._damageSingleNearest(etx, ety, range, dmg);
+                    if (spell.applyStatus) this._applyStatusNearest(etx, ety, range, spell.applyStatus);
+                }
+            } else if (spell.piercing) {
+                if (dmg > 0) this._damageInCone(tx, ty, range, 15, dmg);
+                if (spell.applyStatus) this._applyStatusInCone(tx, ty, range, 15, spell.applyStatus);
+            } else {
+                if (dmg > 0) this._damageSingleNearest(tx, ty, range, dmg);
+                if (spell.applyStatus) this._applyStatusNearest(tx, ty, range, spell.applyStatus);
+            }
+        }
+        // 'self' spells with applyStatus target the player
+        else if (targeting === 'self' && spell.applyStatus && Math.random() < spell.applyStatus.chance) {
+            statusManager.apply(this.player, spell.applyStatus.id, { duration: spell.applyStatus.duration });
+        }
+    }
+
+    _nearestEnemy(tx, ty, range) {
+        let best = null, bestDist = range;
+        const check = (e) => {
+            if (!e?.active) return;
+            const d = Phaser.Math.Distance.Between(tx, ty, e.x, e.y);
+            if (d < bestDist) { bestDist = d; best = e; }
+        };
+        this.enemies.getChildren().forEach(check);
+        if (this.boss?.active) check(this.boss);
+        return best;
+    }
+
+    _applyStatusInRadius(cx, cy, range, statusDef) {
+        if (!statusDef) return;
+        const apply = (e) => {
+            if (!e?.active) return;
+            if (Phaser.Math.Distance.Between(cx, cy, e.x, e.y) <= range)
+                if (Math.random() < statusDef.chance)
+                    statusManager.apply(e, statusDef.id, { duration: statusDef.duration });
+        };
+        this.enemies.getChildren().forEach(apply);
+        if (this.boss?.active) apply(this.boss);
+    }
+
+    _applyStatusNearest(tx, ty, range, statusDef) {
+        if (!statusDef) return;
+        const e = this._nearestEnemy(tx, ty, range);
+        if (e && Math.random() < statusDef.chance)
+            statusManager.apply(e, statusDef.id, { duration: statusDef.duration });
+    }
+
+    _applyStatusInCone(tx, ty, range, coneHalf, statusDef) {
+        if (!statusDef) return;
+        const px = this.player.x, py = this.player.y;
+        const facingAngle = Phaser.Math.RadToDeg(Math.atan2(ty - py, tx - px));
+        const apply = (e) => {
+            if (!e?.active) return;
+            const dist = Phaser.Math.Distance.Between(px, py, e.x, e.y);
+            if (dist > range) return;
+            const ang = Phaser.Math.RadToDeg(Math.atan2(e.y - py, e.x - px));
+            if (Math.abs(Phaser.Math.Angle.ShortestBetween(facingAngle, ang)) <= coneHalf)
+                if (Math.random() < statusDef.chance)
+                    statusManager.apply(e, statusDef.id, { duration: statusDef.duration });
+        };
+        this.enemies.getChildren().forEach(apply);
+        if (this.boss?.active) apply(this.boss);
+    }
+
+    _checkSteamEvent(entity) {
+        if (entity._steamEvent) {
+            entity._steamEvent = false;
+            this.add.particles(entity.x, entity.y, 'particle', {
+                speed: { min: 20, max: 60 }, angle: { min: -130, max: -50 },
+                scale: { start: 1.0, end: 0 }, lifespan: { min: 300, max: 700 },
+                tint: [0xffffff, 0xddddff, 0xaabbff], quantity: 14, explode: true,
+            }).setDepth(65);
+            this.cameras.main.flash(50, 200, 220, 255, true);
         }
     }
 
@@ -1253,6 +1516,53 @@ export default class GameScene extends Phaser.Scene {
         soundManager.collect();
     }
 
+    // ── Scholar's Eye ─────────────────────────────────────────────────────────
+
+    _initScholarsEye() {
+        this._scholarZones = [
+            { wx: 5  * TILE_SIZE, wy: 2  * TILE_SIZE, range: 90,  triggered: false,
+              echo: 'Scholar\'s Eye: "These warnings predate the current era. Someone knew the Void would return long before it did."' },
+            { wx: 10 * TILE_SIZE, wy: 4  * TILE_SIZE, range: 90,  triggered: false,
+              echo: 'Scholar\'s Eye: "The Hermit they speak of — Vorgos? Or one of his disciples from the Covenant era?"' },
+            { wx: 27 * TILE_SIZE, wy: 19 * TILE_SIZE, range: 90,  triggered: false,
+              echo: 'Scholar\'s Eye: "Void Wraith corruption this close to the Crossroads Monolith. The Rift-Gate network itself is at risk."' },
+            { wx: 15 * TILE_SIZE, wy: 15 * TILE_SIZE, range: 85,  triggered: false,
+              echo: 'Scholar\'s Eye: "Aetheric discharge. Something was torn through here at immense force — a rift, sealed centuries ago."' },
+            { wx: 25 * TILE_SIZE, wy: 10 * TILE_SIZE, range: 85,  triggered: false,
+              echo: 'Scholar\'s Eye: "Covenant stonework. These markers were part of the original Rift-Gate survey — 500 years before the current network."' },
+            { wx: 42 * TILE_SIZE, wy: 14 * TILE_SIZE, range: 85,  triggered: false,
+              echo: 'Scholar\'s Eye: "These carvings are not decorative. The same sigil appears in the Gap records: the Void Seal. Someone placed this deliberately."' },
+        ];
+    }
+
+    _updateScholarsEye() {
+        if (!this._scholarZones) return;
+        for (const zone of this._scholarZones) {
+            if (zone.triggered) continue;
+            const dist = Phaser.Math.Distance.Between(this.player.x, this.player.y, zone.wx, zone.wy);
+            if (dist <= zone.range) {
+                zone.triggered = true;
+                this.scene.get('UIScene')?.showNotification?.(zone.echo, 4500);
+
+                // Ghost ruin overlay — faint blue rectangle echoing the structure
+                const g = this.add.graphics().setDepth(4);
+                g.lineStyle(1, 0x88aaff, 0.5);
+                g.fillStyle(0x4466cc, 0.12);
+                g.fillRect(zone.wx - 20, zone.wy - 20, 40, 40);
+                g.strokeRect(zone.wx - 20, zone.wy - 20, 40, 40);
+                // Inner runic cross
+                g.lineStyle(1, 0xaaccff, 0.35);
+                g.lineBetween(zone.wx - 12, zone.wy, zone.wx + 12, zone.wy);
+                g.lineBetween(zone.wx, zone.wy - 12, zone.wx, zone.wy + 12);
+
+                this.tweens.add({
+                    targets: g, alpha: 0, duration: 3500, delay: 800, ease: 'Power1',
+                    onComplete: () => g.destroy()
+                });
+            }
+        }
+    }
+
     _buildWorld(mapW, mapH) {
         // Floor layer — real Pipoya BaseChip tileset via Phaser Tilemap
         // Data tile IDs: 0=empty, 1=BaseChip[0] grass, 5=BaseChip[4] path stone
@@ -1279,6 +1589,14 @@ export default class GameScene extends Phaser.Scene {
 
     update(time, delta) {
         if (!this.player?.active) return;
+
+        // Music mood — throttled to every 500ms
+        this._musicMoodTimer = (this._musicMoodTimer ?? 0) + delta;
+        if (this._musicMoodTimer >= 500) {
+            this._musicMoodTimer = 0;
+            musicManager.updateMood(playerStats.manaScent, !!this.boss?.active);
+            this._updateScholarsEye();
+        }
 
         this.player.update(this.cursors, this.wasd, this.attackKey, this.powerKey, delta);
         this.player.setDepth(this.player.y + 1);

@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { soundManager } from '../systems/SoundManager.js';
 import { playerStats } from '../systems/PlayerStats.js';
+import { statusManager } from '../systems/StatusManager.js';
 
 const STATE = { PATROL: 'patrol', CHASE: 'chase', ATTACK: 'attack', STUNNED: 'stunned', DEAD: 'dead' };
 
@@ -82,7 +83,14 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 
         this.attackCooldown = Math.max(0, this.attackCooldown - delta);
         if (this._eclipseMarkTimer > 0) this._eclipseMarkTimer = Math.max(0, this._eclipseMarkTimer - delta);
+        statusManager.tick(this, delta);
         this._drawHealthBar();
+
+        // Status stuns take priority over AI state
+        if (statusManager.isStunned(this)) {
+            this.setVelocity(0);
+            return;
+        }
 
         if (this.state === STATE.STUNNED) {
             this.stunTimer -= delta;
@@ -108,7 +116,9 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         }
 
         // Aetheric Sight: GameScene flags _aethericSightActive to slow enemies
-        const speedMult = this.scene._aethericSightActive ? 0.25 : 1;
+        const sightSlow   = this.scene._aethericSightActive ? 0.25 : 1;
+        const statusSlow  = statusManager.speedMult(this);
+        const speedMult   = sightSlow * statusSlow;
 
         switch (this.state) {
             case STATE.PATROL: this._patrol(delta, speedMult); break;
@@ -166,7 +176,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.setTint(0xffffff);
         this.scene.time.delayedCall(80, () => {
             if (!this.active) return;
-            if (this._baseTint) this.setTint(this._baseTint); else this.clearTint();
+            statusManager._updateTint(this);
         });
 
         this.state = STATE.STUNNED;

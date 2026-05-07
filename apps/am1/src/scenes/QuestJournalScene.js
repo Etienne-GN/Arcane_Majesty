@@ -10,30 +10,54 @@ export default class QuestJournalScene extends Phaser.Scene {
 
         this.add.rectangle(0, 0, w, h, 0x000000, 0.90).setOrigin(0);
 
-        this.add.text(w / 2, 8, 'QUEST JOURNAL', {
-            font: 'bold 12px monospace', fill: '#ffd700',
-            stroke: '#000', strokeThickness: 2
+        // Tab headers
+        this._tab = 'quests'; // 'quests' | 'archive'
+        this._tabQuestLabel   = this.add.text(w / 2 - 50, 6, '[ QUESTS ]', {
+            font: 'bold 9px monospace', fill: '#ffd700', stroke: '#000', strokeThickness: 2
+        }).setOrigin(0.5, 0);
+        this._tabArchiveLabel = this.add.text(w / 2 + 50, 6, '[ ARCHIVE ]', {
+            font: 'bold 9px monospace', fill: '#334455', stroke: '#000', strokeThickness: 2
         }).setOrigin(0.5, 0);
 
         const divX = 162;
-        this.add.rectangle(divX, 20, 1, h - 28, 0x334455, 0.8).setOrigin(0, 0);
+        this._divLine = this.add.rectangle(divX, 20, 1, h - 28, 0x334455, 0.8).setOrigin(0, 0);
 
         this._selectedIndex = 0;
-        this._listGfx  = [];
+        this._archiveIndex  = 0;
+        this._listGfx   = [];
         this._detailGfx = [];
 
         this._buildQuestList();
-        this._drawList();
-        this._drawDetail();
+        this._render();
 
         this.input.keyboard.on('keydown-N',    () => this._close());
         this.input.keyboard.on('keydown-ESC',  () => this._close());
         this.input.keyboard.on('keydown-UP',   () => this._navigate(-1));
         this.input.keyboard.on('keydown-DOWN', () => this._navigate(1));
+        this.input.keyboard.on('keydown-A',    () => this._toggleTab());
 
-        this.add.text(w / 2, h - 8, '[N]/[ESC] Close   [↑↓] Navigate', {
+        this._hintText = this.add.text(w / 2, h - 8, '[N]/[ESC] Close   [↑↓] Navigate   [A] Archive', {
             font: '7px monospace', fill: '#334455'
         }).setOrigin(0.5, 1);
+    }
+
+    _toggleTab() {
+        this._tab = this._tab === 'quests' ? 'archive' : 'quests';
+        const activeColor  = '#ffd700';
+        const inactiveColor = '#334455';
+        this._tabQuestLabel.setStyle({ fill: this._tab === 'quests' ? activeColor : inactiveColor });
+        this._tabArchiveLabel.setStyle({ fill: this._tab === 'archive' ? activeColor : inactiveColor });
+        this._divLine.setVisible(this._tab === 'quests');
+        this._render();
+    }
+
+    _render() {
+        if (this._tab === 'quests') {
+            this._drawList();
+            this._drawDetail();
+        } else {
+            this._drawArchive();
+        }
     }
 
     _buildQuestList() {
@@ -145,7 +169,74 @@ export default class QuestJournalScene extends Phaser.Scene {
         }
     }
 
+    _drawArchive() {
+        this._listGfx.forEach(o => o.destroy());
+        this._detailGfx.forEach(o => o.destroy());
+        this._listGfx = [];
+        this._detailGfx = [];
+
+        const w = this.scale.width, h = this.scale.height;
+        const memories = playerStats.recoveredMemories;
+
+        if (!memories.length) {
+            this._listGfx.push(this.add.text(8, 26, 'No recovered memories yet.\nComplete quests to unlock\nfragments of lost history.', {
+                font: '8px monospace', fill: '#334455'
+            }));
+            return;
+        }
+
+        // Left: memory list
+        const pad = 6, startY = 26;
+        memories.forEach((mem, i) => {
+            const sel = i === this._archiveIndex;
+            const bg  = this.add.rectangle(pad - 2, startY + i * 18, 470, 17, sel ? 0x1a2a3a : 0x000000, sel ? 0.9 : 0).setOrigin(0);
+            bg.setInteractive();
+            bg.on('pointerdown', () => { this._archiveIndex = i; this._drawArchive(); });
+
+            const dot  = this.add.circle(pad + 3, startY + i * 18 + 9, 3, 0x9966cc);
+            const text = this.add.text(pad + 10, startY + i * 18 + 3, mem.title, {
+                font: `${sel ? 'bold ' : ''}7px monospace`,
+                fill: sel ? '#cc99ff' : '#556677'
+            });
+            this._listGfx.push(bg, dot, text);
+        });
+
+        // Detail panel for selected memory
+        const mem = memories[this._archiveIndex];
+        if (!mem) return;
+
+        const detX = 8, detY = startY + memories.length * 18 + 10;
+        this._detailGfx.push(this.add.graphics().lineStyle(1, 0x334455, 0.6).lineBetween(0, detY - 4, w, detY - 4));
+        this._detailGfx.push(this.add.text(detX, detY, mem.title, { font: 'bold 8px monospace', fill: '#cc99ff' }));
+
+        let ty = detY + 13;
+        const words = mem.text.split(' ');
+        let line = '';
+        const maxChars = Math.floor((w - 16) / 5.5);
+        words.forEach(word => {
+            const test = line ? `${line} ${word}` : word;
+            if (test.length > maxChars) {
+                this._detailGfx.push(this.add.text(detX, ty, line, { font: '7px monospace', fill: '#667788' }));
+                ty += 10;
+                line = word;
+            } else line = test;
+        });
+        if (line) this._detailGfx.push(this.add.text(detX, ty, line, { font: '7px monospace', fill: '#667788' }));
+
+        // Timestamp
+        const date = new Date(mem.timestamp);
+        const ts = `${date.getMonth()+1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2,'0')}`;
+        this._detailGfx.push(this.add.text(w - 6, detY, ts, { font: '6px monospace', fill: '#223333' }).setOrigin(1, 0));
+    }
+
     _navigate(dir) {
+        if (this._tab === 'archive') {
+            const len = playerStats.recoveredMemories.length;
+            if (!len) return;
+            this._archiveIndex = (this._archiveIndex + dir + len) % len;
+            this._drawArchive();
+            return;
+        }
         if (!this._questIds.length) return;
         this._selectedIndex = (this._selectedIndex + dir + this._questIds.length) % this._questIds.length;
         this._drawList();

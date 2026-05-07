@@ -28,6 +28,9 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
         this.burstCooldown = 0;
         this.BURST_COOLDOWN = 4200;
         this.enraged = false;
+        this._d75 = false;
+        this._d50 = false;
+        this._d25 = false;
 
         this._setupAnims(scene.anims);
         this.play('boss_idle');
@@ -158,6 +161,12 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
             if (!this.active) return;
             this.enraged ? this.setTint(0xff3300) : this.clearTint();
         });
+
+        const pct = this.health / this.maxHealth;
+        const ui  = this.scene.scene.get('UIScene');
+        if (!this._d75 && pct <= 0.75) { this._d75 = true; ui?.showNotification?.('Void Wraith: "You carry the scent of failure, scholar."', 3200); }
+        if (!this._d50 && pct <= 0.50) { this._d50 = true; ui?.showNotification?.('Void Wraith: "The Void does not yield. Neither do I."', 3200); }
+        if (!this._d25 && pct <= 0.25) { this._d25 = true; ui?.showNotification?.('Void Wraith: "ENOUGH! I will consume your soul!"', 3200); }
 
         if (!this.enraged && this.health <= this.maxHealth * 0.5) this._enrage();
         if (this.health <= 0) this._die();

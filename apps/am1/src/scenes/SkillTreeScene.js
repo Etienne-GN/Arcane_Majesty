@@ -86,6 +86,22 @@ export default class SkillTreeScene extends Phaser.Scene {
                 font: '8px monospace', fill: '#888888'
             });
 
+            // Resonance requirements
+            if (skill.requirements?.resonance) {
+                const RES_COLORS = { arcane: '#aa44ff', shadow: '#8800cc', fire: '#ff6600', earth: '#44aa22', lightning: '#ffdd00' };
+                const reqParts = Object.entries(skill.requirements.resonance).map(([el, val]) => {
+                    const cur  = playerStats.resonance[el] ?? 0;
+                    const met  = cur >= val;
+                    const col  = met ? '#446633' : (RES_COLORS[el] ?? '#888888');
+                    return { text: `${el[0].toUpperCase()}${el.slice(1)} ≥${val}${met ? '✓' : ''}`, col };
+                });
+                let rx = startX + width - 8;
+                for (let ri = reqParts.length - 1; ri >= 0; ri--) {
+                    const t = this.add.text(rx, y + 18, reqParts[ri].text, { font: '7px monospace', fill: reqParts[ri].col }).setOrigin(1, 0);
+                    rx -= t.width + 6;
+                }
+            }
+
             // Level pips
             for (let lv = 0; lv < skill.maxLevel; lv++) {
                 const filled = lv < skill.level;

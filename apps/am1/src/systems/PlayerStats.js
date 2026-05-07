@@ -93,7 +93,7 @@ export class PlayerStats {
                 level: 0,
                 maxLevel: 3,
                 description: 'Aether dash in facing direction. 8 MP. [SPACE]',
-                requirements: { level: 3, agility: 8 }
+                requirements: { level: 3, agility: 8, resonance: { arcane: 3 } }
             },
             'mana_shield': {
                 id: 'mana_shield',
@@ -103,7 +103,7 @@ export class PlayerStats {
                 level: 0,
                 maxLevel: 3,
                 description: 'Absorbs 30/50/70% of incoming damage using mana.',
-                requirements: { level: 2, intelligence: 8 }
+                requirements: { level: 2, intelligence: 8, resonance: { arcane: 5 } }
             },
             'aetheric_sight': {
                 id: 'aetheric_sight',
@@ -113,7 +113,27 @@ export class PlayerStats {
                 level: 0,
                 maxLevel: 3,
                 description: 'Slow enemies for 2/3/4s. Reveals detection ranges. [V]',
-                requirements: { level: 4, intelligence: 12 }
+                requirements: { level: 4, intelligence: 12, resonance: { arcane: 8 } }
+            },
+            'shadow_step': {
+                id: 'shadow_step',
+                name: 'Shadow Step',
+                type: SKILL_TYPE.SUBTLE,
+                category: SKILL_CATEGORY.PASSIVE,
+                level: 0,
+                maxLevel: 3,
+                description: 'Shadow Veil lasts +1s/lv, costs 10% less MP/lv.',
+                requirements: { resonance: { shadow: 10 } }
+            },
+            'arcane_mastery': {
+                id: 'arcane_mastery',
+                name: 'Arcane Mastery',
+                type: SKILL_TYPE.SUBTLE,
+                category: SKILL_CATEGORY.PASSIVE,
+                level: 0,
+                maxLevel: 3,
+                description: '+10% spell damage per level.',
+                requirements: { resonance: { arcane: 15 } }
             }
         };
 
@@ -141,7 +161,9 @@ export class PlayerStats {
         this.attunedGates = [];
 
         // Quest log: { questId: { status: 'active'|'completed', progress: { stepId: n } } }
-        this.questLog = {};
+        this.questLog          = {};
+        // Archive of Souls: [{ id, title, text, timestamp }]
+        this.recoveredMemories = [];
 
         // Resonance change listeners
         this._resonanceGainCallbacks = [];
@@ -247,11 +269,16 @@ export class PlayerStats {
         if (!skill.requirements) return true;
 
         const r = skill.requirements;
-        if (r.level     && this.level                    < r.level)     return false;
-        if (r.strength     && this.attributes.strength     < r.strength)     return false;
-        if (r.intelligence && this.attributes.intelligence < r.intelligence) return false;
-        if (r.stamina      && this.attributes.stamina      < r.stamina)      return false;
-        if (r.agility      && this.attributes.agility      < r.agility)      return false;
+        if (r.level        && this.level                    < r.level)        return false;
+        if (r.strength     && this.attributes.strength      < r.strength)     return false;
+        if (r.intelligence && this.attributes.intelligence  < r.intelligence) return false;
+        if (r.stamina      && this.attributes.stamina       < r.stamina)      return false;
+        if (r.agility      && this.attributes.agility       < r.agility)      return false;
+        if (r.resonance) {
+            for (const [el, val] of Object.entries(r.resonance)) {
+                if ((this.resonance[el] ?? 0) < val) return false;
+            }
+        }
         return true;
     }
 
@@ -482,8 +509,9 @@ export class PlayerStats {
         RESONANCE_ELEMENTS.forEach(e => { this.resonance[e] = 0; });
         Object.keys(SPELLS).forEach(id => { this.spells[id] = 0; this.spellCooldowns[id] = 0; });
         this.skillSlots = [null, null, null, null];
-        this.attunedGates     = [];
-        this.questLog         = {};
+        this.attunedGates      = [];
+        this.questLog          = {};
+        this.recoveredMemories = [];
         this.manaScent        = 0;
         this.manaExhausted    = false;
         this.manaCollapsed    = false;

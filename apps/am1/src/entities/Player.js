@@ -2,6 +2,8 @@ import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { soundManager } from '../systems/SoundManager.js';
 import { ITEMS } from '../data/items.js';
+import { statusManager } from '../systems/StatusManager.js';
+import { SPELLS } from '../data/spells.js';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
@@ -81,6 +83,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.powerCooldown  = Math.max(0, this.powerCooldown  - delta);
         this.stats.tickSpellCooldowns(delta);
         this.stats.tickMana(delta);
+        statusManager.tick(this, delta);
 
         // ── Mana Exhaustion / Collapse ───────────────────────────────────────
         if (this.stats.manaCollapsed) {
@@ -135,9 +138,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             return;
         }
 
-        // Speed: full AGI-based speed, reduced by fatigue
-        const baseSpeed = 100 + this.stats.attributes.agility * 4;
-        const speed = Math.floor(baseSpeed * (1 - this.stats.fatigueFraction * 0.75));
+        // Stunned statuses lock movement
+        if (statusManager.isStunned(this)) {
+            this.setVelocity(0);
+            this._updateAuxBoxes();
+            return;
+        }
+
+        // Speed: full AGI-based speed, reduced by fatigue and status debuffs
+        const baseSpeed  = 100 + this.stats.attributes.agility * 4;
+        const statusMult = statusManager.speedMult(this);
+        const speed = Math.floor(baseSpeed * (1 - this.stats.fatigueFraction * 0.75) * statusMult);
         let vx = 0, vy = 0;
 
         if (cursors.left.isDown || wasd.left.isDown)        { vx = -speed; this.facing = 'left'; }
@@ -216,6 +227,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         const tintMap = { staff: 0xffee88, spell_blade: 0x44eeff, umbral_dagger: 0xcc44ff, resonance_bow: 0x88ffaa };
         this.setTint(tintMap[wt] ?? 0xffee88);
         this.scene.time.delayedCall(100, () => { if (this.active && !this.invincible) this.clearTint(); });
+        this._spawnAttackArc(wt, this.facing);
         soundManager.attack();
 
         if (wt === 'resonance_bow') {
@@ -290,6 +302,40 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.attackHitbox.setPosition(this.x + ox, this.y + oy);
     }
 
+    _spawnAttackArc(wt, facing) {
+        const offsets = { down: [0, 22], up: [0, -22], left: [-22, 0], right: [22, 0] };
+        const [ox, oy] = offsets[facing] ?? [0, 22];
+        const cx = this.x + ox, cy = this.y + oy;
+        const g  = this.scene.add.graphics().setDepth(55);
+
+        if (wt === 'staff') {
+            g.fillStyle(0x4488ff, 0.45);
+            g.fillCircle(cx, cy, 26);
+            g.lineStyle(2, 0xaaddff, 0.75);
+            g.strokeCircle(cx, cy, 26);
+        } else if (wt === 'spell_blade') {
+            g.lineStyle(3, 0x44eeff, 0.9);
+            g.lineBetween(cx - 18, cy - 18, cx + 18, cy + 18);
+            g.lineStyle(2, 0xaa44ff, 0.75);
+            g.lineBetween(cx + 18, cy - 18, cx - 18, cy + 18);
+        } else if (wt === 'umbral_dagger') {
+            g.fillStyle(0xcc44ff, 0.8);
+            g.fillTriangle(cx + ox * 0.4 - 4, cy + oy * 0.4 - 4, cx + ox * 0.4 + 4, cy + oy * 0.4 + 4, cx + ox * 1.4, cy + oy * 1.4);
+            g.lineStyle(1, 0xff88ff, 0.6);
+            g.strokeTriangle(cx + ox * 0.4 - 4, cy + oy * 0.4 - 4, cx + ox * 0.4 + 4, cy + oy * 0.4 + 4, cx + ox * 1.4, cy + oy * 1.4);
+        }
+
+        if (wt !== 'resonance_bow') {
+            this.scene.tweens.add({
+                targets: g, alpha: 0, scaleX: 1.15, scaleY: 1.15,
+                duration: 200, ease: 'Power2',
+                onComplete: () => g.destroy()
+            });
+        } else {
+            g.destroy();
+        }
+    }
+
     // ── Spell casting ────────────────────────────────────────────────────────
 
     _spellCheck(id) {
@@ -297,6 +343,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.scene.get('UIScene')?.showNotification?.(`${id.replace(/_/g,' ')} not yet comprehended.`, 1400);
             this.setTint(0x4455bb);
             this.scene.time.delayedCall(130, () => { if (this.active && !this.invincible) this.clearTint(); });
+            return false;
+        }
+        if (statusManager.isSilenced(this) || statusManager.has(this, 'hushed')) {
+            this.scene.get('UIScene')?.showNotification?.('Silenced — spells refuse to form.', 1400);
+            this.scene.cameras.main.shake(50, 0.003);
             return false;
         }
         // Exhaustion: body refuses to cast
@@ -348,8 +399,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     castShadowVeil() {
         if (!this._spellCheck('shadow_veil')) return false;
-        const level = this.stats.getSpellLevel('shadow_veil');
-        const duration = [1600, 2400, 3500][level - 1];
+        const level      = this.stats.getSpellLevel('shadow_veil');
+        const shadowStep = this.stats.skills['shadow_step']?.level ?? 0;
+        const duration   = [1600, 2400, 3500][level - 1] + shadowStep * 1000;
         this.setAlpha(0.35);
         this.setTint(0x9900cc);
         this._shadowVeilActive = true;
@@ -373,6 +425,86 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.scene.time.delayedCall(250, () => { if (this.active && !this.invincible) this.clearTint(); });
         soundManager.spell();
         this.stats.gainResonance('earth', 1);
+        return true;
+    }
+
+    // Generic cast — used for all spells that don't need special player-side logic
+    castGeneric(id) {
+        if (!this._spellCheck(id)) return false;
+        const ELEMENT_TINTS = {
+            fire: 0xff6600, arcane: 0xcc88ff, lightning: 0xffee44,
+            shadow: 0x9900cc, earth: 0x88aa44, ice: 0x88ddff,
+            nature: 0x44cc44, wind: 0xccffaa,
+        };
+        const tint = ELEMENT_TINTS[SPELLS[id]?.element] ?? 0xccccff;
+        this.setTint(tint);
+        this.scene.time.delayedCall(180, () => { if (this.active && !this.invincible) this.clearTint(); });
+        soundManager.spell();
+        return true;
+    }
+
+    castCleanse() {
+        if (!this._spellCheck('cleanse')) return false;
+        const negativeStatuses = ['burning','cold','frozen','shocked','poison','dirty','silenced','entangled','cursed','void_tainted','marked','hushed'];
+        for (const s of negativeStatuses) statusManager.remove(this, s);
+        this.setTint(0xaaddff);
+        this.scene.time.delayedCall(300, () => { if (this.active && !this.invincible) this.clearTint(); });
+        this.scene.cameras.main.flash(60, 100, 180, 255, true);
+        soundManager.spell();
+        return true;
+    }
+
+    castWarmthAura() {
+        if (!this._spellCheck('warmth_aura')) return false;
+        statusManager.remove(this, 'cold');
+        statusManager.remove(this, 'frozen');
+        statusManager.apply(this, 'regen', { duration: 10000 });
+        this.setTint(0xff8844);
+        this.scene.time.delayedCall(220, () => { if (this.active && !this.invincible) this.clearTint(); });
+        soundManager.spell();
+        return true;
+    }
+
+    castBenediction() {
+        if (!this._spellCheck('benediction')) return false;
+        statusManager.apply(this, 'blessed', { duration: 20000 });
+        this.setTint(0xffee66);
+        this.scene.cameras.main.flash(50, 255, 220, 80, true);
+        this.scene.time.delayedCall(250, () => { if (this.active && !this.invincible) this.clearTint(); });
+        soundManager.spell();
+        return true;
+    }
+
+    castVesselMend() {
+        if (!this._spellCheck('vessel_mend')) return false;
+        statusManager.apply(this, 'regen', { duration: 20000 });
+        this.setTint(0x44ff88);
+        this.scene.time.delayedCall(200, () => { if (this.active && !this.invincible) this.clearTint(); });
+        soundManager.spell();
+        return true;
+    }
+
+    castAethericWard() {
+        if (!this._spellCheck('aetheric_ward')) return false;
+        statusManager.apply(this, 'warded', { duration: Infinity });
+        this.setTint(0x4444ff);
+        this.scene.cameras.main.flash(80, 40, 40, 255, true);
+        this.scene.time.delayedCall(300, () => { if (this.active && !this.invincible) this.clearTint(); });
+        soundManager.spell();
+        return true;
+    }
+
+    castTempestStep() {
+        if (!this._spellCheck('tempest_step')) return false;
+        const level = this.stats.getSpellLevel('tempest_step');
+        const dist  = [80, 110, 145][level - 1] ?? 80;
+        const offsets = { down: [0, dist], up: [0, -dist], left: [-dist, 0], right: [dist, 0] };
+        const [ox, oy] = offsets[this.facing];
+        this.setPosition(this.x + ox, this.y + oy);
+        this.setTint(0xccffaa);
+        this.scene.cameras.main.flash(30, 180, 255, 120, true);
+        this.scene.time.delayedCall(100, () => { if (this.active && !this.invincible) this.clearTint(); });
+        soundManager.spell();
         return true;
     }
 
@@ -441,7 +573,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             ? [0.08, 0.14, 0.20][this.stats.getSpellLevel('stone_skin') - 1]
             : 0;
         const totalRed = Math.min(0.75, ward + skin);
-        let reduced    = totalRed > 0 ? Math.max(1, Math.round(amount * (1 - totalRed))) : amount;
+        const inMult   = statusManager.incomingDmgMult(this, 'physical');
+        let reduced    = totalRed > 0 ? Math.max(1, Math.round(amount * (1 - totalRed) * inMult)) : Math.round(amount * inMult);
 
         // Mana-Shield: absorb a portion with mana instead of HP
         const shieldLevel = this.stats.skills['mana_shield']?.level ?? 0;

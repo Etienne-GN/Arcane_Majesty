@@ -2,10 +2,12 @@ import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { PROLOGUE_MAP, TILE_SIZE } from '../data/worldMap.js';
 import { SPELLS } from '../data/spells.js';
+import { statusManager } from '../systems/StatusManager.js';
+import { STATUS_DEFS } from '../data/statuses.js';
 
 const ELEMENT_COLORS = {
     fire: 0xff6600, arcane: 0xaa44ff, lightning: 0xffdd00,
-    shadow: 0x8800cc, earth: 0x44aa22,
+    shadow: 0x8800cc, earth: 0x44aa22, ice: 0x88ddff, nature: 0x44cc44, wind: 0xccffaa,
 };
 const SLOT_KEYS = ['Q', 'R', 'F', 'T'];
 
@@ -41,6 +43,15 @@ export default class UIScene extends Phaser.Scene {
         this.add.text(pad, pad + 28, 'PG', { font: '7px monospace', fill: '#556655' });
         this.pingBg  = this.add.rectangle(pad + 16, pad + 32, barW, 5, 0x111111).setOrigin(0, 0.5);
         this.pingBar = this.add.rectangle(pad + 16, pad + 32, 0, 5, 0x44aa44).setOrigin(0, 0.5);
+
+        // Status effect label strip (below ping bar)
+        this._statusLabels = [];
+        for (let i = 0; i < 10; i++) {
+            const lbl = this.add.text(0, 0, '', {
+                font: '7px monospace', fill: '#aaaaaa', stroke: '#000', strokeThickness: 1
+            }).setAlpha(0);
+            this._statusLabels.push(lbl);
+        }
 
         // Exhaustion overlay (full screen — shown during collapse, depth above game)
         this.exhaustionOverlay = this.add.rectangle(0, 0, w, h, 0x888888, 0).setOrigin(0).setDepth(48);
@@ -231,6 +242,28 @@ export default class UIScene extends Phaser.Scene {
         this.pingBar.width = barW * ping;
         const pingColor = ping < 0.4 ? 0x44aa44 : ping < 0.75 ? 0xdd8800 : 0xcc2222;
         this.pingBar.setFillStyle(pingColor);
+
+        // Status effect labels
+        const player = this.scene.get('GameScene')?.player;
+        if (player) {
+            const activeIds = Object.keys(player._statuses ?? {});
+            let lx = 8, ly = 40;
+            this._statusLabels.forEach((lbl, i) => {
+                const sid = activeIds[i];
+                if (sid && STATUS_DEFS[sid]) {
+                    const hexColor = STATUS_DEFS[sid].tint
+                        ? `#${STATUS_DEFS[sid].tint.toString(16).padStart(6, '0')}`
+                        : '#aaaaaa';
+                    lbl.setText(STATUS_DEFS[sid].label)
+                       .setStyle({ fill: hexColor })
+                       .setPosition(lx, ly)
+                       .setAlpha(1);
+                    lx += lbl.width + 4;
+                } else {
+                    lbl.setAlpha(0);
+                }
+            });
+        }
 
         // Exhaustion / collapse overlay
         if (s.manaCollapsed) {
