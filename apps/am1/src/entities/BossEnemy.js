@@ -28,15 +28,23 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
         this.burstCooldown = 0;
         this.BURST_COOLDOWN = 4200;
         this.enraged = false;
+        this._phase = 1;
         this._d75 = false;
         this._d50 = false;
         this._d25 = false;
+
+        // Phase 3 attack timers
+        this.voidRainCooldown = 0;
+        this.VOID_RAIN_COOLDOWN = 5500;
+        this.teleportCooldown = 0;
+        this.TELEPORT_COOLDOWN = 7000;
+        this._teleporting = false;
 
         this._setupAnims(scene.anims);
         this.play('boss_idle');
 
         this.healthBar = scene.add.graphics().setDepth(22);
-        this._nameText = scene.add.text(x, y - 70, 'VOID WRAITH', {
+        this._nameText = scene.add.text(x, y - 70, 'VOID GENERAL', {
             font: 'bold 9px monospace', fill: '#cc88ff', stroke: '#000', strokeThickness: 2
         }).setOrigin(0.5).setDepth(22);
 
@@ -79,6 +87,7 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
 
     update(player, delta) {
         if (this.state === S.DEAD || !this.active) return;
+        if (this._teleporting) return;
 
         this.attackCooldown = Math.max(0, this.attackCooldown - delta);
         this.burstCooldown  = Math.max(0, this.burstCooldown  - delta);
@@ -87,6 +96,22 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
         this._aura.setPosition(this.x, this.y - 10);
 
         const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
+
+        // Phase 3 special attacks — highest priority
+        if (this._phase >= 3) {
+            this.voidRainCooldown  = Math.max(0, this.voidRainCooldown  - delta);
+            this.teleportCooldown  = Math.max(0, this.teleportCooldown  - delta);
+            if (this.voidRainCooldown <= 0) {
+                this._voidRain(player);
+                this.voidRainCooldown = this.VOID_RAIN_COOLDOWN;
+                return;
+            }
+            if (this.teleportCooldown <= 0) {
+                this._voidTeleport(player);
+                this.teleportCooldown = this.TELEPORT_COOLDOWN;
+                return;
+            }
+        }
 
         // Shadow burst overrides normal state
         if (dist <= 130 && this.burstCooldown <= 0) {
@@ -153,26 +178,29 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
 
     takeDamage(amount) {
         if (this.state === S.DEAD) return;
+        if (this._teleporting) return;
         this.health -= amount;
         soundManager.hit();
 
         this.setTint(0xffffff);
         this.scene.time.delayedCall(80, () => {
             if (!this.active) return;
-            this.enraged ? this.setTint(0xff3300) : this.clearTint();
+            if (this._phase >= 3)  this.setTint(0xff00aa);
+            else if (this.enraged) this.setTint(0xff3300);
+            else                   this.clearTint();
         });
 
         const pct = this.health / this.maxHealth;
         const ui  = this.scene.scene.get('UIScene');
-        if (!this._d75 && pct <= 0.75) { this._d75 = true; ui?.showNotification?.('Void Wraith: "You carry the scent of failure, scholar."', 3200); }
-        if (!this._d50 && pct <= 0.50) { this._d50 = true; ui?.showNotification?.('Void Wraith: "The Void does not yield. Neither do I."', 3200); }
-        if (!this._d25 && pct <= 0.25) { this._d25 = true; ui?.showNotification?.('Void Wraith: "ENOUGH! I will consume your soul!"', 3200); }
+        if (!this._d75 && pct <= 0.75) { this._d75 = true; ui?.showNotification?.('Void General: "You carry the scent of failure, scholar."', 3200); }
+        if (!this._d50 && pct <= 0.50) { this._d50 = true; ui?.showNotification?.('Void General: "The Void does not yield. Neither do I."', 3200); this._enrage(); }
+        if (!this._d25 && pct <= 0.25) { this._d25 = true; ui?.showNotification?.('Void General: "ENOUGH! The Collapse begins — your soul is MINE!"', 3500); this._enterPhase3(); }
 
-        if (!this.enraged && this.health <= this.maxHealth * 0.5) this._enrage();
         if (this.health <= 0) this._die();
     }
 
     _enrage() {
+        if (this.enraged) return;
         this.enraged = true;
         this.speed = Math.floor(this.speed * 1.6);
         this.damage = Math.floor(this.damage * 1.5);
@@ -181,10 +209,103 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
         this.setTint(0xff3300);
 
         this.scene.cameras.main.flash(500, 255, 30, 0);
-        this.scene.get('UIScene')?.showNotification?.('The Void Wraith ENRAGES!', 2500);
-
-        // Intensify aura colour
+        this.scene.cameras.main.shake(280, 0.014);
+        this.scene.scene.get('UIScene')?.showNotification?.('The Void General ENRAGES!', 2500);
         this._aura.setParticleColor([0xff4400, 0xff2200, 0xcc1100]);
+    }
+
+    _enterPhase3() {
+        this._phase = 3;
+        this.speed = Math.floor(this.speed * 1.25);
+        this.BURST_COOLDOWN  *= 0.65;
+        this.voidRainCooldown  = 1200;
+        this.teleportCooldown  = 3800;
+
+        this.scene.cameras.main.flash(900, 80, 0, 200);
+        this.scene.cameras.main.shake(500, 0.022);
+        this.scene.add.particles(this.x, this.y - 20, 'particle', {
+            speed: { min: 80, max: 260 }, angle: { min: 0, max: 360 },
+            scale: { start: 2.2, end: 0 }, lifespan: { min: 400, max: 1000 },
+            tint: [0x8800ff, 0xcc00ff, 0xff0088, 0x000022], quantity: 60, explode: true,
+        }).setDepth(26);
+
+        this.setTint(0xff00aa);
+        this._nameText?.setText('VOID GENERAL [COLLAPSE]');
+        this._aura.setParticleColor([0xff0088, 0xcc0044, 0x880022]);
+    }
+
+    _voidRain(player) {
+        const COUNT = 6;
+        const WARNING_MS = 520;
+
+        this.scene.cameras.main.shake(100, 0.007);
+
+        const positions = [];
+        for (let i = 0; i < COUNT; i++) {
+            const angle  = (i / COUNT) * Math.PI * 2 + Math.random() * 0.9;
+            const radius = 36 + Math.random() * 68;
+            positions.push({ x: player.x + Math.cos(angle) * radius, y: player.y + Math.sin(angle) * radius });
+        }
+
+        // Telegraphed warning circles
+        const warns = positions.map(pos => {
+            const g = this.scene.add.graphics().setDepth(30);
+            g.fillStyle(0x440000, 0.55);
+            g.fillCircle(pos.x, pos.y, 22);
+            g.lineStyle(1, 0xff2200, 0.9);
+            g.strokeCircle(pos.x, pos.y, 22);
+            return g;
+        });
+
+        this.scene.time.delayedCall(WARNING_MS, () => {
+            warns.forEach(g => g.destroy());
+            positions.forEach(pos => {
+                this.scene.add.particles(pos.x, pos.y, 'particle', {
+                    speed: { min: 30, max: 100 }, angle: { min: 0, max: 360 },
+                    scale: { start: 1.3, end: 0 }, lifespan: { min: 200, max: 500 },
+                    tint: [0x6600cc, 0x220044, 0xff00cc], quantity: 18, explode: true,
+                }).setDepth(28);
+                if (player.active && Phaser.Math.Distance.Between(player.x, player.y, pos.x, pos.y) <= 28)
+                    player.takeDamage(Math.floor(this.damage * 0.60));
+            });
+        });
+    }
+
+    _voidTeleport(player) {
+        if (this._teleporting) return;
+        this._teleporting = true;
+
+        // Dissolve at current position
+        this.scene.add.particles(this.x, this.y - 20, 'particle', {
+            speed: { min: 60, max: 160 }, angle: { min: 0, max: 360 },
+            scale: { start: 1.5, end: 0 }, lifespan: { min: 300, max: 700 },
+            tint: [0x220044, 0x6600cc, 0x000011], quantity: 26, explode: true,
+        }).setDepth(26);
+        this.setAlpha(0);
+        this.setVelocity(0);
+
+        const offsetX = Phaser.Math.Between(-40, 40);
+        const offsetY = Phaser.Math.Between(-40, 40);
+        const tx = player.x + offsetX;
+        const ty = player.y + offsetY;
+
+        this.scene.time.delayedCall(300, () => {
+            if (!this.active) return;
+            this.setPosition(tx, ty);
+            this.setAlpha(1);
+            this._teleporting = false;
+
+            // Materialize VFX
+            this.scene.add.particles(tx, ty - 20, 'particle', {
+                speed: { min: 80, max: 220 }, angle: { min: 0, max: 360 },
+                scale: { start: 2.0, end: 0 }, lifespan: { min: 300, max: 700 },
+                tint: [0xff00cc, 0x9900ff, 0x440088], quantity: 36, explode: true,
+            }).setDepth(26);
+            this.scene.cameras.main.shake(220, 0.016);
+
+            // Immediate burst after landing
+            this._shadowBurst(player);
+        });
     }
 
     _die() {
