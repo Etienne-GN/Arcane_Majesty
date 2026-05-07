@@ -68,11 +68,15 @@ export const STATUS_DEFS = {
     hushed: {
         id: 'hushed', label: 'Hushed', duration: 15000, tint: null,
     },
+    resonance_stun: {
+        id: 'resonance_stun', label: 'Resonance Stun', duration: 2000, tint: 0xdd88ff,
+        speedMult: 0, stunned: true,
+    },
 };
 
 // Tint priority (highest to lowest) for rendering when multiple statuses active
 export const STATUS_TINT_PRIORITY = [
-    'frozen', 'shocked', 'burning', 'cold', 'entangled',
+    'frozen', 'shocked', 'resonance_stun', 'burning', 'cold', 'entangled',
     'cursed', 'blessed', 'warded', 'wet', 'poison',
     'dirty', 'silenced', 'void_tainted', 'marked',
 ];

@@ -213,6 +213,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 this.stats.mana -= manaCost;
                 this.stats.addManaScent(Math.round(manaCost * 0.3));
                 this._augmentedStrike = true;
+            } else if (this.stats.manaExhausted) {
+                // Magic Burn — augmented strike attempted while soul is collapsed
+                const burnDmg = Math.max(1, Math.floor(manaCost * 0.5));
+                this.stats.health = Math.max(0, this.stats.health - burnDmg);
+                this.scene.get('UIScene')?.showNotification?.(`Magic Burn — the vessel frays! −${burnDmg} HP`, 1800);
+                this.setTint(0xff0000);
+                this.scene.cameras.main.shake(80, 0.008);
+                this.scene.cameras.main.flash(60, 255, 0, 0, true);
+                this.scene.time.delayedCall(180, () => { if (this.active && !this.invincible) this.clearTint(); });
+                if (this.stats.health <= 0) this.emit('died');
             }
         }
 
@@ -350,10 +360,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.scene.cameras.main.shake(50, 0.003);
             return false;
         }
-        // Exhaustion: body refuses to cast
+        // Exhaustion: vessel frays — take Magic Burn damage proportional to the cost
         if (this.stats.manaExhausted) {
-            this.scene.get('UIScene')?.showNotification?.('Too exhausted to cast — rest and recover.', 1600);
-            this.scene.cameras.main.shake(60, 0.004);
+            const cost     = this.stats.getSpellManaCost(id);
+            const burnDmg  = Math.max(1, Math.floor(cost * 0.5));
+            this.stats.health = Math.max(0, this.stats.health - burnDmg);
+            this.scene.get('UIScene')?.showNotification?.(`Magic Burn — the vessel frays! −${burnDmg} HP`, 1800);
+            this.setTint(0xff0000);
+            this.scene.cameras.main.shake(80, 0.008);
+            this.scene.cameras.main.flash(60, 255, 0, 0, true);
+            this.scene.time.delayedCall(180, () => { if (this.active && !this.invincible) this.clearTint(); });
+            if (this.stats.health <= 0) this.emit('died');
             return false;
         }
         if (!this.stats.canCastSpell(id)) return false;

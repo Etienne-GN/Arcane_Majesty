@@ -1384,14 +1384,14 @@ export default class GameScene extends Phaser.Scene {
             this.scene.get('UIScene')?.showNotification?.(`Aetheric Tear on cooldown (${sec}s)`, 1200);
             return;
         }
-        const manaCost = Math.floor(this.player.stats.maxMana * 0.90);
+        const manaCost = Math.floor(this.player.stats.maxMana * 0.85);
         if (this.player.stats.manaExhausted || this.player.stats.mana < manaCost) {
-            this.scene.get('UIScene')?.showNotification?.('Insufficient mana for Aetheric Tear (90% required)', 1400);
+            this.scene.get('UIScene')?.showNotification?.('Insufficient mana for Aetheric Tear (85% required)', 1400);
             return;
         }
         this._tearTargeting = true;
         this._tearReticle   = this.add.graphics().setDepth(200);
-        this.scene.get('UIScene')?.showNotification?.('Aetheric Tear — click anywhere to tear through space (90% MP)', 5000);
+        this.scene.get('UIScene')?.showNotification?.('Aetheric Tear — click anywhere to tear through space (85% MP)', 5000);
     }
 
     _updateTearReticle() {
@@ -1416,12 +1416,12 @@ export default class GameScene extends Phaser.Scene {
         this._tearReticle = null;
 
         const stats    = this.player.stats;
-        const manaCost = Math.floor(stats.maxMana * 0.90);
+        const manaCost = Math.floor(stats.maxMana * 0.85);
         if (stats.mana < manaCost) return;
 
         stats.mana    -= manaCost;
         stats.manaExhausted = stats.mana === 0;
-        stats.addManaScent(60);
+        stats.manaScent = 100;
         this.player._tearCooldown = 60000;
 
         // VFX — void rift at origin
@@ -1444,7 +1444,10 @@ export default class GameScene extends Phaser.Scene {
         this.player.setPosition(tx, ty);
         this.cameras.main.centerOn(tx, ty);
 
-        this.scene.get('UIScene')?.showNotification?.('Aetheric Tear — space was torn asunder!', 2000);
+        // Resonance Stun — 2 seconds of disorientation upon arrival
+        statusManager.apply(this.player, 'resonance_stun', { duration: 2000 });
+
+        this.scene.get('UIScene')?.showNotification?.('Aetheric Tear — the resonance stuns you upon arrival!', 2200);
     }
 
     _cancelPlacement() {
@@ -1543,24 +1546,111 @@ export default class GameScene extends Phaser.Scene {
             if (dist <= zone.range) {
                 zone.triggered = true;
                 this.scene.get('UIScene')?.showNotification?.(zone.echo, 4500);
-
-                // Ghost ruin overlay — faint blue rectangle echoing the structure
-                const g = this.add.graphics().setDepth(4);
-                g.lineStyle(1, 0x88aaff, 0.5);
-                g.fillStyle(0x4466cc, 0.12);
-                g.fillRect(zone.wx - 20, zone.wy - 20, 40, 40);
-                g.strokeRect(zone.wx - 20, zone.wy - 20, 40, 40);
-                // Inner runic cross
-                g.lineStyle(1, 0xaaccff, 0.35);
-                g.lineBetween(zone.wx - 12, zone.wy, zone.wx + 12, zone.wy);
-                g.lineBetween(zone.wx, zone.wy - 12, zone.wx, zone.wy + 12);
-
-                this.tweens.add({
-                    targets: g, alpha: 0, duration: 3500, delay: 800, ease: 'Power1',
-                    onComplete: () => g.destroy()
-                });
+                this._spawnGhostRuinEcho(zone.wx, zone.wy);
             }
         }
+    }
+
+    _spawnGhostRuinEcho(cx, cy) {
+        // Flicker parameters: ghost of the ruin as it stood in 0 GD (The Great Darkness)
+        const COL_WALL   = 0xaaccff;
+        const COL_PILLAR = 0x88aaff;
+        const COL_RUNE   = 0xccddff;
+        const DEPTH      = 4;
+
+        // Left pillar
+        const pillarL = this.add.graphics().setDepth(DEPTH).setAlpha(0);
+        pillarL.lineStyle(1, COL_PILLAR, 0.75);
+        pillarL.fillStyle(COL_PILLAR, 0.18);
+        pillarL.fillRect(cx - 26, cy - 36, 10, 36);
+        pillarL.strokeRect(cx - 26, cy - 36, 10, 36);
+
+        // Right pillar
+        const pillarR = this.add.graphics().setDepth(DEPTH).setAlpha(0);
+        pillarR.lineStyle(1, COL_PILLAR, 0.75);
+        pillarR.fillStyle(COL_PILLAR, 0.18);
+        pillarR.fillRect(cx + 16, cy - 36, 10, 36);
+        pillarR.strokeRect(cx + 16, cy - 36, 10, 36);
+
+        // Lintel spanning the top
+        const lintel = this.add.graphics().setDepth(DEPTH).setAlpha(0);
+        lintel.lineStyle(1, COL_WALL, 0.80);
+        lintel.fillStyle(COL_WALL, 0.22);
+        lintel.fillRect(cx - 28, cy - 42, 56, 8);
+        lintel.strokeRect(cx - 28, cy - 42, 56, 8);
+
+        // Foundation / floor rubble
+        const rubble = this.add.graphics().setDepth(DEPTH).setAlpha(0);
+        rubble.lineStyle(1, COL_WALL, 0.50);
+        rubble.fillStyle(COL_WALL, 0.10);
+        rubble.fillRect(cx - 28, cy + 1,  20, 5);
+        rubble.fillRect(cx +  8, cy + 1,  18, 4);
+        rubble.fillRect(cx - 10, cy - 2,  12, 3);
+
+        // Runic sigil in the arch centre — the Void Seal from 0 GD
+        const sigil = this.add.graphics().setDepth(DEPTH + 1).setAlpha(0);
+        sigil.lineStyle(1, COL_RUNE, 0.70);
+        sigil.strokeCircle(cx, cy - 18, 9);
+        sigil.lineBetween(cx - 6, cy - 18, cx + 6, cy - 18);
+        sigil.lineBetween(cx, cy - 24, cx, cy - 12);
+        // diagonal cross arms
+        sigil.lineBetween(cx - 5, cy - 23, cx + 5, cy - 13);
+        sigil.lineBetween(cx + 5, cy - 23, cx - 5, cy - 13);
+
+        const pieces = [pillarL, pillarR, lintel, rubble, sigil];
+
+        // Flicker in — each piece at a slightly different rate to feel like unstable resonance
+        const flickerIn = (g, delay, peak) => {
+            this.tweens.add({
+                targets: g, alpha: peak, duration: 180 + Math.random() * 120,
+                delay, ease: 'Sine.easeIn',
+                onComplete: () => this._ghostFlicker(g, peak),
+            });
+        };
+        flickerIn(pillarL, 0,   0.80);
+        flickerIn(pillarR, 60,  0.80);
+        flickerIn(lintel,  120, 0.90);
+        flickerIn(rubble,  40,  0.55);
+        flickerIn(sigil,   200, 1.00);
+
+        // Ghostly particle mist rising through the structure
+        const mist = this.add.particles(cx, cy - 10, 'particle', {
+            speed: { min: 4, max: 16 }, angle: { min: 250, max: 290 },
+            scale: { start: 0.5, end: 0 }, lifespan: { min: 1200, max: 2400 },
+            tint: [0xaaccff, 0xccddff, 0xffffff], alpha: { start: 0.28, end: 0 },
+            quantity: 1, frequency: 180,
+        }).setDepth(DEPTH + 2);
+
+        // Fade everything out after 3.8 s
+        this.time.delayedCall(3800, () => {
+            pieces.forEach(g => {
+                this.tweens.add({
+                    targets: g, alpha: 0, duration: 700, ease: 'Power2',
+                    onComplete: () => g.destroy(),
+                });
+            });
+            mist.stop();
+            this.time.delayedCall(800, () => mist.destroy());
+        });
+    }
+
+    _ghostFlicker(g, peak) {
+        if (!g.active) return;
+        // Random flicker: dip to a low alpha then back up, loop while visible
+        const dip      = peak * (0.25 + Math.random() * 0.35);
+        const holdMs   = 80  + Math.random() * 220;
+        const flickerMs = 60 + Math.random() * 100;
+        this.tweens.add({
+            targets: g, alpha: dip, duration: flickerMs, ease: 'Sine.easeOut',
+            onComplete: () => {
+                if (!g.active) return;
+                this.tweens.add({
+                    targets: g, alpha: peak, duration: flickerMs, ease: 'Sine.easeIn',
+                    delay: holdMs,
+                    onComplete: () => this._ghostFlicker(g, peak),
+                });
+            },
+        });
     }
 
     _buildWorld(mapW, mapH) {
@@ -1748,24 +1838,45 @@ export default class GameScene extends Phaser.Scene {
             });
         });
 
-        // Campfire
+        // Campfire — basic rest always available; Full Rest requires Traveler's Tent
         this.physics.overlap(this.player.interactBox, this.campfires, (box, cf) => {
-            const healHp = Math.ceil((playerStats.maxHealth - playerStats.health) * 0.6);
-            const healMp = Math.ceil((playerStats.maxMana - playerStats.mana) * 0.6);
-            if (healHp === 0 && healMp === 0) {
+            const tentIdx  = playerStats.inventory.findIndex(i => i.id === 'tent');
+            const hasTent  = tentIdx !== -1;
+
+            if (hasTent) {
+                // Full Rest: 100% HP+MP, clear exhaustion, +50 XP, consume tent
+                playerStats.health        = playerStats.maxHealth;
+                playerStats.mana          = playerStats.maxMana;
+                playerStats.manaExhausted = false;
+                playerStats.inventory.splice(tentIdx, 1);
+                playerStats.gainXp(50);
+                playerStats.gainResonance('fire', RESONANCE_GAINS.rest_campfire.fire);
+                soundManager.collect();
+                SaveManager.save(playerStats);
                 this.scene.pause();
-                this.scene.launch('DialogueScene', { lines: [{ speaker: null, text: 'You sit by the fire. You feel rested, but you are already at full strength.' }] });
-                return;
+                this.scene.launch('DialogueScene', {
+                    lines: [{ speaker: null, text: 'You pitch the Traveler\'s Tent and sleep deeply.\nFull rest restores your body and soul.\n+50 XP  |  HP and MP fully restored.' }]
+                });
+            } else {
+                // Basic Rest: partial heal (30%), no exhaustion clear, no buff
+                const healHp = Math.ceil(playerStats.maxHealth * 0.30);
+                const healMp = Math.ceil(playerStats.maxMana  * 0.30);
+                const alreadyFull = playerStats.health >= playerStats.maxHealth && playerStats.mana >= playerStats.maxMana;
+                if (alreadyFull) {
+                    this.scene.pause();
+                    this.scene.launch('DialogueScene', { lines: [{ speaker: null, text: 'You warm your hands by the fire. You are already at full strength.\n(A Traveler\'s Tent would allow a Full Rest.)' }] });
+                    return;
+                }
+                playerStats.health = Math.min(playerStats.maxHealth, playerStats.health + healHp);
+                playerStats.mana   = Math.min(playerStats.maxMana,   playerStats.mana   + healMp);
+                playerStats.gainResonance('fire', RESONANCE_GAINS.rest_campfire.fire);
+                soundManager.collect();
+                SaveManager.save(playerStats);
+                this.scene.pause();
+                this.scene.launch('DialogueScene', {
+                    lines: [{ speaker: null, text: `You warm your hands by the fire. The heat eases your wounds.\n+${healHp} HP   +${healMp} MP\n(A Traveler\'s Tent would allow a Full Rest.)` }]
+                });
             }
-            playerStats.health = Math.min(playerStats.maxHealth, playerStats.health + healHp);
-            playerStats.mana   = Math.min(playerStats.maxMana, playerStats.mana + healMp);
-            playerStats.gainResonance('fire', RESONANCE_GAINS.rest_campfire.fire);
-            soundManager.collect();
-            SaveManager.save(playerStats);
-            this.scene.pause();
-            this.scene.launch('DialogueScene', {
-                lines: [{ speaker: null, text: `You rest by the campfire. The warmth restores your strength.\n+${healHp} HP   +${healMp} MP` }]
-            });
         });
 
         // Sign
