@@ -8,10 +8,14 @@ const ELEMENT_COLORS = {
     lightning: 0xffdd00,
     shadow:    0x8800cc,
     earth:     0x44aa22,
+    ice:       0x88ddff,
+    nature:    0x44cc44,
+    wind:      0xccffaa,
 };
 
 const ELEMENT_LABELS = {
     fire: 'Fire', arcane: 'Arcane', lightning: 'Lightning', shadow: 'Shadow', earth: 'Earth',
+    ice: 'Ice', nature: 'Nature', wind: 'Wind',
 };
 
 const SLOT_KEYS = ['Q', 'R', 'F', 'T'];

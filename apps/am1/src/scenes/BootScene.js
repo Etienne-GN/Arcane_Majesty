@@ -22,9 +22,12 @@ export default class BootScene extends Phaser.Scene {
         this.load.spritesheet('player', 'assets/characters/Male/Male 08-1.png', { frameWidth: 32, frameHeight: 32 });
 
         // Enemy sprites — 96×128, 32×32 per frame, RPG Maker layout (3 walk × 4 directions)
-        this.load.spritesheet('spr_wisp',   'assets/characters/Enemy/Enemy 01-1.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('spr_scout',  'assets/characters/Enemy/Enemy 07-1.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('spr_treant', 'assets/characters/Enemy/Enemy 12-1.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('spr_wisp',          'assets/characters/Enemy/Enemy 01-1.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('spr_wolf',          'assets/characters/Enemy/Enemy 02-1.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('spr_shadow_sprite', 'assets/characters/Enemy/Enemy 04-1.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('spr_void_stalker',  'assets/characters/Enemy/Enemy 06-1.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('spr_scout',         'assets/characters/Enemy/Enemy 07-1.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('spr_treant',        'assets/characters/Enemy/Enemy 12-1.png', { frameWidth: 32, frameHeight: 32 });
 
         // NPC sprites
         this.load.spritesheet('spr_hermit', 'assets/characters/Male/Male 07-1.png',   { frameWidth: 32, frameHeight: 32 });

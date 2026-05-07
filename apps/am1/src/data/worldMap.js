@@ -95,6 +95,36 @@ export const ENEMY_TYPES = {
         tint: 0xcc44ff,
         lootTable: [{ id: 'mana_potion', chance: 0.30 }]
     },
+    wolf: {
+        spriteKey: 'spr_wolf',
+        health: 28, damage: 8, speed: 95, sightRange: 115,
+        attackRange: 28, xpReward: 20, patrolRadius: 72,
+        tint: null,
+        lootTable: [
+            { id: 'forest_herb',   chance: 0.35 },
+            { id: 'health_potion', chance: 0.20 }
+        ]
+    },
+    shadow_sprite: {
+        spriteKey: 'spr_shadow_sprite',
+        health: 22, damage: 13, speed: 72, sightRange: 130,
+        attackRange: 26, xpReward: 25, patrolRadius: 60,
+        tint: 0x660099,
+        lootTable: [
+            { id: 'mana_potion',    chance: 0.35 },
+            { id: 'ancient_scroll', chance: 0.15 }
+        ]
+    },
+    void_stalker: {
+        spriteKey: 'spr_void_stalker',
+        health: 55, damage: 18, speed: 48, sightRange: 140,
+        attackRange: 30, xpReward: 38, patrolRadius: 48,
+        tint: 0x220044,
+        lootTable: [
+            { id: 'mana_potion',   chance: 0.45 },
+            { id: 'eldritch_tome', chance: 0.15 }
+        ]
+    },
     scout: {
         spriteKey: 'spr_scout',
         health: 32, damage: 9, speed: 56, sightRange: 115,
@@ -125,23 +155,46 @@ export const NPC_POSITIONS = [
 ];
 
 export const ENEMY_SPAWNS = [
-    // Wisps — eastern ruins
-    { x: 38, y: 3,  type: 'wisp'   },
-    { x: 42, y: 2,  type: 'wisp'   },
-    { x: 45, y: 6,  type: 'wisp'   },
-    { x: 40, y: 9,  type: 'wisp'   },
-    { x: 47, y: 4,  type: 'wisp'   },
-    // Scouts — mid forest
-    { x: 7,  y: 7,  type: 'scout'  },
-    { x: 20, y: 12, type: 'scout'  },
-    { x: 27, y: 15, type: 'scout'  },
-    { x: 35, y: 24, type: 'scout'  },
-    { x: 13, y: 22, type: 'scout'  },
+    // Wisps — eastern ruins fringe
+    { x: 38, y: 3,  type: 'wisp'          },
+    { x: 42, y: 2,  type: 'wisp'          },
+    { x: 45, y: 6,  type: 'wisp'          },
+    { x: 40, y: 9,  type: 'wisp'          },
+    { x: 47, y: 4,  type: 'wisp'          },
+
+    // Wolves — northern and western forest pack (quest target: 5 required)
+    { x: 4,  y: 12, type: 'wolf'          },
+    { x: 8,  y: 16, type: 'wolf'          },
+    { x: 16, y: 18, type: 'wolf'          },
+    { x: 6,  y: 20, type: 'wolf'          },
+    { x: 12, y: 26, type: 'wolf'          },
+    { x: 18, y: 28, type: 'wolf'          },
+    { x: 3,  y: 30, type: 'wolf'          },
+
+    // Shadow Sprites — eastern ruins interior (quest target: 3 + 10 hidden)
+    { x: 34, y: 6,  type: 'shadow_sprite' },
+    { x: 36, y: 11, type: 'shadow_sprite' },
+    { x: 32, y: 16, type: 'shadow_sprite' },
+    { x: 44, y: 13, type: 'shadow_sprite' },
+    { x: 37, y: 19, type: 'shadow_sprite' },
+
+    // Scouts — mid forest patrol
+    { x: 7,  y: 7,  type: 'scout'         },
+    { x: 20, y: 12, type: 'scout'         },
+    { x: 27, y: 15, type: 'scout'         },
+    { x: 35, y: 24, type: 'scout'         },
+    { x: 13, y: 22, type: 'scout'         },
+
     // Treants — south forest
-    { x: 5,  y: 25, type: 'treant' },
-    { x: 10, y: 29, type: 'treant' },
-    { x: 14, y: 33, type: 'treant' },
-    { x: 6,  y: 37, type: 'treant' },
+    { x: 5,  y: 25, type: 'treant'        },
+    { x: 10, y: 29, type: 'treant'        },
+    { x: 14, y: 33, type: 'treant'        },
+    { x: 6,  y: 37, type: 'treant'        },
+
+    // Void Stalkers — southern approach to boss arena
+    { x: 36, y: 27, type: 'void_stalker'  },
+    { x: 39, y: 31, type: 'void_stalker'  },
+    { x: 42, y: 25, type: 'void_stalker'  },
 ];
 
 export const CHEST_POSITIONS = [

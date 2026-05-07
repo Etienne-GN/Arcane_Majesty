@@ -1037,6 +1037,9 @@ export const SPELLS = {
 // Resonance gain values for game events
 export const RESONANCE_GAINS = {
     kill_wisp:          { lightning: 3 },
+    kill_wolf:          { nature: 2, fire: 1 },
+    kill_shadow_sprite: { shadow: 4 },
+    kill_void_stalker:  { shadow: 5, arcane: 2 },
     kill_scout:         { arcane: 2 },
     kill_treant:        { earth: 4, nature: 2 },
     kill_boss:          { shadow: 10, arcane: 5 },
