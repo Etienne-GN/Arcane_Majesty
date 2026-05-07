@@ -81,6 +81,11 @@ class QuestManager {
         if (r.xp)    playerStats.gainXp(r.xp);
         r.items?.forEach(id => playerStats.addItem(id));
 
+        // Resonance Insights: hidden quests give 3, main give 2, side give 1
+        const insightMap = { hidden: 3, main: 2, side: 1 };
+        const insights = insightMap[quest.type] ?? 1;
+        playerStats.gainResonanceInsight(insights);
+
         // Archive of Souls — push lore memory fragment on completion
         const fragment = MEMORY_FRAGMENTS[quest.id];
         if (fragment && !playerStats.recoveredMemories.find(m => m.id === quest.id)) {

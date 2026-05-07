@@ -1384,14 +1384,17 @@ export default class GameScene extends Phaser.Scene {
             this.scene.get('UIScene')?.showNotification?.(`Aetheric Tear on cooldown (${sec}s)`, 1200);
             return;
         }
-        const manaCost = Math.floor(this.player.stats.maxMana * 0.85);
+        const hasMastery  = playerStats.masteries?.aetheric_comprehension;
+        const manaPct     = hasMastery ? 0.75 : 0.85;
+        const manaCost    = Math.floor(this.player.stats.maxMana * manaPct);
+        const pctLabel    = hasMastery ? '75%' : '85%';
         if (this.player.stats.manaExhausted || this.player.stats.mana < manaCost) {
-            this.scene.get('UIScene')?.showNotification?.('Insufficient mana for Aetheric Tear (85% required)', 1400);
+            this.scene.get('UIScene')?.showNotification?.(`Insufficient mana for Aetheric Tear (${pctLabel} required)`, 1400);
             return;
         }
         this._tearTargeting = true;
         this._tearReticle   = this.add.graphics().setDepth(200);
-        this.scene.get('UIScene')?.showNotification?.('Aetheric Tear — click anywhere to tear through space (85% MP)', 5000);
+        this.scene.get('UIScene')?.showNotification?.(`Aetheric Tear — click anywhere to tear through space (${pctLabel} MP)`, 5000);
     }
 
     _updateTearReticle() {
@@ -1416,13 +1419,14 @@ export default class GameScene extends Phaser.Scene {
         this._tearReticle = null;
 
         const stats    = this.player.stats;
-        const manaCost = Math.floor(stats.maxMana * 0.85);
+        const manaPct  = stats.masteries?.aetheric_comprehension ? 0.75 : 0.85;
+        const manaCost = Math.floor(stats.maxMana * manaPct);
         if (stats.mana < manaCost) return;
 
         stats.mana    -= manaCost;
         stats.manaExhausted = stats.mana === 0;
         stats.manaScent = 100;
-        this.player._tearCooldown = 60000;
+        this.player._tearCooldown = stats.masteries?.aetheric_comprehension ? 45000 : 60000;
 
         // VFX — void rift at origin
         this.add.particles(this.player.x, this.player.y, 'particle', {
@@ -1543,9 +1547,11 @@ export default class GameScene extends Phaser.Scene {
         for (const zone of this._scholarZones) {
             if (zone.triggered) continue;
             const dist = Phaser.Math.Distance.Between(this.player.x, this.player.y, zone.wx, zone.wy);
-            if (dist <= zone.range) {
+            const zoneRange = zone.range * (playerStats.masteries?.scholars_vigilance ? 1.30 : 1);
+            if (dist <= zoneRange) {
                 zone.triggered = true;
-                this.scene.get('UIScene')?.showNotification?.(zone.echo, 4500);
+                playerStats.gainResonanceInsight(1);
+                this.scene.get('UIScene')?.showNotification?.(`${zone.echo}\n[+1 Resonance Insight]`, 4800);
                 this._spawnGhostRuinEcho(zone.wx, zone.wy);
             }
         }

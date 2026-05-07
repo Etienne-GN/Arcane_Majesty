@@ -1,6 +1,40 @@
 import { ITEMS, SATCHEL_TIERS } from '../data/items.js';
 import { SPELLS, RESONANCE_ELEMENTS } from '../data/spells.js';
 
+// Mastery skills — unlocked with Resonance Insights earned through lore/quests
+export const MASTERY_DEFS = {
+    aetheric_comprehension: {
+        id: 'aetheric_comprehension', cost: 3,
+        name: 'Aetheric Comprehension',
+        description: 'Aetheric Tear cooldown 60s → 45s, mana cost 85% → 75%.',
+        lore: '"The first record of spatial tearing predates the Covenant by 200 years." — Archive Fragment',
+    },
+    scholars_vigilance: {
+        id: 'scholars_vigilance', cost: 2,
+        name: "Scholar's Vigilance",
+        description: "Scholar's Eye echo zones extend 30% further.",
+        lore: '"The closer you walk to history, the louder it speaks." — Hermit',
+    },
+    mana_efficiency: {
+        id: 'mana_efficiency', cost: 2,
+        name: 'Mana Efficiency',
+        description: 'All spells cost 10% less mana.',
+        lore: '"The masters wasted nothing." — Covenant Training Manual',
+    },
+    void_sense: {
+        id: 'void_sense', cost: 3,
+        name: 'Void Sense',
+        description: 'Aetheric Scent dissipates 25% faster.',
+        lore: '"Learning to walk quietly through rift-threads is a discipline unto itself." — Vorgos, Fragment IV',
+    },
+    resonant_mind: {
+        id: 'resonant_mind', cost: 4,
+        name: 'Resonant Mind',
+        description: 'Spell discovery resonance thresholds reduced by 15%.',
+        lore: '"The scholars who read the most discovered spells fastest." — Archive, Index VII',
+    },
+};
+
 export const SKILL_TYPE = {
     AOE: 'aoe',
     INFIGHT: 'infight',
@@ -154,6 +188,10 @@ export class PlayerStats {
 
         this.skillPoints = 0;
 
+        // Resonance Insights — earned via quests and lore discovery; spent on masteries
+        this.resonanceInsights = 0;
+        this.masteries = Object.fromEntries(Object.keys(MASTERY_DEFS).map(k => [k, false]));
+
         // Inventory: array of { id, name, description, color, qty, stackable }
         this.inventory = [];
 
@@ -210,8 +248,9 @@ export class PlayerStats {
             this._exhaustionTimer = 0;
         }
 
-        // Scent decay: -12/sec
-        this.manaScent = Math.max(0, this.manaScent - 12 * delta / 1000);
+        // Scent decay: -12/sec (void_sense mastery: -25% faster = -15/sec)
+        const scentDecay = this.masteries?.void_sense ? 15 : 12;
+        this.manaScent = Math.max(0, this.manaScent - scentDecay * delta / 1000);
     }
 
     // Spike ManaScent on spell cast (amount proportional to mana cost)
@@ -325,7 +364,9 @@ export class PlayerStats {
             const current = this.spells[id];
             if (current >= 3) continue;
 
-            const res = this.resonance[element];
+            const rawRes = this.resonance[element];
+            // resonant_mind mastery: treat resonance as 15% higher for threshold checks
+            const res = this.masteries?.resonant_mind ? Math.floor(rawRes * 1.15) : rawRes;
             const thresholds = [spell.discoverCondition.threshold, ...(spell.masteryThresholds ?? [])];
 
             let newLevel = 0;
@@ -360,11 +401,26 @@ export class PlayerStats {
         this.spellCooldowns[id] = spell.cooldown?.[tier] ?? 2000;
     }
 
+    gainResonanceInsight(amount = 1) {
+        this.resonanceInsights = (this.resonanceInsights ?? 0) + amount;
+    }
+
+    unlockMastery(id) {
+        const def = MASTERY_DEFS[id];
+        if (!def || this.masteries[id]) return false;
+        if ((this.resonanceInsights ?? 0) < def.cost) return false;
+        this.resonanceInsights -= def.cost;
+        this.masteries[id] = true;
+        return true;
+    }
+
     getSpellManaCost(id) {
         const spell = SPELLS[id];
         if (!spell) return 0;
         const tier = Math.max(0, this.spells[id] - 1);
-        return spell.manaCost?.[tier] ?? 0;
+        const base = spell.manaCost?.[tier] ?? 0;
+        const disc = this.masteries?.mana_efficiency ? Math.floor(base * 0.10) : 0;
+        return Math.max(1, base - disc);
     }
 
     getSatchelCapacity() {
@@ -517,6 +573,8 @@ export class PlayerStats {
         this.manaCollapsed    = false;
         this._exhaustionTimer = 0;
         this._manaRegenAcc    = 0;
+        this.resonanceInsights = 0;
+        this.masteries = Object.fromEntries(Object.keys(MASTERY_DEFS).map(k => [k, false]));
     }
 }
 

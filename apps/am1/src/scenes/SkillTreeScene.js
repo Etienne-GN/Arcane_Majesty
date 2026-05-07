@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { playerStats } from '../systems/PlayerStats.js';
+import { playerStats, MASTERY_DEFS } from '../systems/PlayerStats.js';
 
 export default class SkillTreeScene extends Phaser.Scene {
     constructor() { super('SkillTreeScene'); }
@@ -27,6 +27,7 @@ export default class SkillTreeScene extends Phaser.Scene {
         this.add.text(sx, sy + 14, `XP:     ${playerStats.xp} / ${playerStats.xpToNextLevel}`, { font: '11px monospace', fill: '#aaaaff' });
         this.add.text(sx, sy + 28, `Skill Points:  ${playerStats.skillPoints}`,                 { font: '10px monospace', fill: '#00ff88' });
         this.add.text(sx, sy + 41, `Attr Points:   ${playerStats.attributePoints}`,             { font: '10px monospace', fill: '#ffcc44' });
+        this.add.text(sx, sy + 54, `Insights:      ${playerStats.resonanceInsights ?? 0}`,      { font: '10px monospace', fill: '#cc99ff' });
         this.add.text(sx, sy + 58, `HP ${playerStats.health}/${playerStats.maxHealth}   MP ${playerStats.mana}/${playerStats.maxMana}`, { font: '10px monospace', fill: '#888888' });
 
         // 4-stat block with [+] distribution buttons
@@ -48,8 +49,10 @@ export default class SkillTreeScene extends Phaser.Scene {
             }
         });
 
-        // Skill list
-        this._renderSkills(px + 14, py + 134, pw - 28);
+        // Skill list (left column) + Mastery panel (right column)
+        const colW = Math.floor((pw - 28) * 0.55);
+        this._renderSkills(px + 14, py + 148, colW);
+        this._renderMasteries(px + 14 + colW + 10, py + 148, pw - 28 - colW - 10);
 
         // Close hint
         this.add.text(w / 2, ph + py - 10, '[ESC/K] Close   [J] Spellbook', {
@@ -127,6 +130,63 @@ export default class SkillTreeScene extends Phaser.Scene {
             bg.on('pointerover', () => bg.setFillStyle(bgColor + 0x050505));
             bg.on('pointerout',  () => bg.setFillStyle(bgColor));
 
+            i++;
+        }
+    }
+
+    _renderMasteries(startX, startY, width) {
+        const insights = playerStats.resonanceInsights ?? 0;
+        const rowH = 52;
+        let i = 0;
+
+        this.add.text(startX, startY - 14, '— MASTERY SKILLS —', {
+            font: 'bold 8px monospace', fill: '#886699'
+        });
+
+        for (const [key, def] of Object.entries(MASTERY_DEFS)) {
+            const y        = startY + i * rowH;
+            const unlocked = playerStats.masteries?.[key] ?? false;
+            const canAfford = insights >= def.cost;
+            const bgCol    = unlocked ? 0x0a1a2a : (canAfford ? 0x1a1a00 : 0x0f0f1a);
+            const border   = unlocked ? 0x7744cc : (canAfford ? 0xaaaa00 : 0x2a2a44);
+
+            const bg = this.add.rectangle(startX, y, width, rowH - 4, bgCol).setOrigin(0);
+            if (!unlocked) bg.setInteractive();
+            const bdrG = this.add.graphics();
+            bdrG.lineStyle(1, border);
+            bdrG.strokeRect(startX, y, width, rowH - 4);
+
+            // Cost pip
+            this.add.text(startX + 4, y + 4, unlocked ? '✓' : `${def.cost}✦`, {
+                font: 'bold 8px monospace',
+                fill: unlocked ? '#7744cc' : (canAfford ? '#ffcc44' : '#444455'),
+            });
+
+            this.add.text(startX + 22, y + 4, def.name, {
+                font: `${unlocked ? 'bold ' : ''}8px monospace`,
+                fill: unlocked ? '#aa77ff' : (canAfford ? '#ccccaa' : '#555566'),
+            });
+            this.add.text(startX + 4, y + 18, def.description, {
+                font: '7px monospace', fill: unlocked ? '#667788' : '#333344',
+                wordWrap: { width: width - 8 },
+            });
+
+            if (!unlocked && canAfford) {
+                const btn = this.add.text(startX + width - 4, y + 4, '[UNLOCK]', {
+                    font: 'bold 7px monospace', fill: '#ffff44'
+                }).setOrigin(1, 0).setInteractive();
+                btn.on('pointerdown', () => {
+                    if (playerStats.unlockMastery(key)) this.scene.restart();
+                    else this.cameras.main.shake(80, 0.006);
+                });
+                btn.on('pointerover', () => btn.setStyle({ fill: '#ffffff' }));
+                btn.on('pointerout',  () => btn.setStyle({ fill: '#ffff44' }));
+            }
+
+            if (!unlocked) {
+                bg.on('pointerover', () => bg.setFillStyle(bgCol + 0x0a0a00));
+                bg.on('pointerout',  () => bg.setFillStyle(bgCol));
+            }
             i++;
         }
     }

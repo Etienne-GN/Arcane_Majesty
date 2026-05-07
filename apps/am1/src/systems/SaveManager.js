@@ -27,6 +27,8 @@ export class SaveManager {
             questLog:          JSON.parse(JSON.stringify(stats.questLog ?? {})),
             recoveredMemories: JSON.parse(JSON.stringify(stats.recoveredMemories ?? [])),
             inventory:         stats.inventory.map(i => ({ ...i })),
+            resonanceInsights: stats.resonanceInsights ?? 0,
+            masteries:         { ...(stats.masteries ?? {}) },
             timestamp:     Date.now()
         };
         try {
@@ -64,6 +66,8 @@ export class SaveManager {
             if (d.attunedGates)   stats.attunedGates = [...d.attunedGates];
             if (d.questLog)            stats.questLog          = JSON.parse(JSON.stringify(d.questLog));
             if (d.recoveredMemories)   stats.recoveredMemories = JSON.parse(JSON.stringify(d.recoveredMemories));
+            if (d.resonanceInsights != null) stats.resonanceInsights = d.resonanceInsights;
+            if (d.masteries)           Object.assign(stats.masteries, d.masteries);
             return true;
         } catch { return false; }
     }

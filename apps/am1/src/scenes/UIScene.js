@@ -87,6 +87,11 @@ export default class UIScene extends Phaser.Scene {
             font: '9px monospace', fill: '#ffcc44'
         }).setOrigin(1, 0);
 
+        // Resonance Insight counter
+        this.insightText = this.add.text(w - pad, MM_H + pad + 19, '', {
+            font: '8px monospace', fill: '#cc99ff'
+        }).setOrigin(1, 0);
+
         // Subtle screen vignette (dark corners)
         const vig = this.add.graphics().setDepth(5);
         vig.fillStyle(0x000000, 0.22);
@@ -224,6 +229,7 @@ export default class UIScene extends Phaser.Scene {
         this.hpNum.setText(`${s.health}/${s.maxHealth}`);
         this.lvlText.setText(`LV ${s.level}`);
         this.goldText?.setText(`${s.glint ?? 0} gl`);
+        this.insightText?.setText(`${s.resonanceInsights ?? 0} ✦`);
 
         // MP bar — grey when exhausted, pale when fatigued
         const mpPct = Math.max(0, s.mana / s.maxMana);
