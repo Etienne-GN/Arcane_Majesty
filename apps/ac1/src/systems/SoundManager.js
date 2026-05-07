@@ -74,6 +74,12 @@ class SoundManager {
     gameOver()     { [220, 180, 140, 100].forEach((f, i) => setTimeout(() => this._tone(f, 0.3, 'sawtooth', 0.25), i * 200)); }
     save()         { this._tone(660, 0.06, 'square', 0.12); setTimeout(() => this._tone(880, 0.1, 'square', 0.1), 60); }
     critHit()      { this._noise(0.05, 0.3, 800); this._tone(320, 0.08, 'square', 0.25); }
+
+    spell() {
+        this._tone(220, 0.06, 'sine', 0.15, 440);
+        setTimeout(() => this._tone(440, 0.12, 'sine', 0.2, 880), 55);
+        setTimeout(() => this._noise(0.18, 0.22, 1200), 90);
+    }
 }
 
 export const soundManager = new SoundManager();

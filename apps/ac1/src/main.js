@@ -1,12 +1,17 @@
 import Phaser from 'phaser';
-import BootScene      from './scenes/BootScene.js';
-import MenuScene      from './scenes/MenuScene.js';
-import GameScene      from './scenes/GameScene.js';
-import UIScene        from './scenes/UIScene.js';
-import SkillTreeScene from './scenes/SkillTreeScene.js';
-import InventoryScene from './scenes/InventoryScene.js';
-import DialogueScene  from './scenes/DialogueScene.js';
-import GameOverScene  from './scenes/GameOverScene.js';
+import BootScene       from './scenes/BootScene.js';
+import MenuScene       from './scenes/MenuScene.js';
+import GameScene       from './scenes/GameScene.js';
+import UIScene         from './scenes/UIScene.js';
+import SkillTreeScene  from './scenes/SkillTreeScene.js';
+import InventoryScene  from './scenes/InventoryScene.js';
+import DialogueScene   from './scenes/DialogueScene.js';
+import GameOverScene   from './scenes/GameOverScene.js';
+import SpellbookScene  from './scenes/SpellbookScene.js';
+import ShopScene       from './scenes/ShopScene.js';
+import FastTravelScene    from './scenes/FastTravelScene.js';
+import WorldMapScene      from './scenes/WorldMapScene.js';
+import QuestJournalScene  from './scenes/QuestJournalScene.js';
 
 const config = {
     type: Phaser.AUTO,
@@ -28,7 +33,12 @@ const config = {
         SkillTreeScene,
         InventoryScene,
         DialogueScene,
-        GameOverScene
+        GameOverScene,
+        SpellbookScene,
+        ShopScene,
+        FastTravelScene,
+        WorldMapScene,
+        QuestJournalScene,
     ]
 };
 

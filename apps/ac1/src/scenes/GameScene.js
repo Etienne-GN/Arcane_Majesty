@@ -1,12 +1,16 @@
 import Phaser from 'phaser';
 import Player from '../entities/Player.js';
 import Enemy from '../entities/Enemy.js';
+import BossEnemy from '../entities/BossEnemy.js';
 import CombatManager from '../systems/CombatManager.js';
 import { playerStats } from '../systems/PlayerStats.js';
 import { SaveManager } from '../systems/SaveManager.js';
 import { soundManager } from '../systems/SoundManager.js';
-import { PROLOGUE_MAP, TILE_SIZE, PLAYER_START, ENEMY_SPAWNS, ENEMY_TYPES, NPC_POSITIONS, CHEST_POSITIONS, CAMPFIRE_POSITIONS, SIGN_POSITIONS } from '../data/worldMap.js';
+import { questManager } from '../systems/QuestManager.js';
+import { ITEMS } from '../data/items.js';
+import { PROLOGUE_MAP, TILE_SIZE, PLAYER_START, ENEMY_SPAWNS, ENEMY_TYPES, NPC_POSITIONS, CHEST_POSITIONS, CAMPFIRE_POSITIONS, SIGN_POSITIONS, BOSS_SPAWN, BOSS_ARENA_BOUNDS, CRACKED_BOULDER_POSITIONS, PILLAR_GATE_POSITIONS, RIFT_GATE_POSITIONS, GATHERING_NODES } from '../data/worldMap.js';
 import { DIALOGUES } from '../data/dialogues.js';
+import { SPELLS, TIER_NAMES, RESONANCE_GAINS } from '../data/spells.js';
 
 export default class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
@@ -29,6 +33,35 @@ export default class GameScene extends Phaser.Scene {
         this.player = new Player(this, px, py);
         this.player.on('died', () => this._onPlayerDied());
 
+        // Spell discovery notifications + quest hooks
+        playerStats.onSpellEvent((id, level, isDiscovery) => {
+            const spell = SPELLS[id];
+            if (!spell) return;
+            const tierName = TIER_NAMES[level - 1];
+            const verb = isDiscovery ? 'comprehends' : 'deepens understanding of';
+            const ui = this.scene.get('UIScene');
+            ui?.showNotification?.(`Eldrin ${verb}:\n${spell.name} — ${tierName}`, 3500);
+            soundManager.levelUp();
+            this.cameras.main.flash(400, 100, 0, 200, true);
+            // Trigger hidden quest for shadow_veil
+            if (id === 'shadow_veil' && isDiscovery) questManager.startQuest('hidden_shadow_initiation');
+            questManager.onSpellLearned(id);
+        });
+
+        // Resonance gain → quest hook + hidden quest trigger
+        playerStats.onResonanceGain((element, value) => {
+            questManager.onResonanceReached(element, value);
+            if (element === 'arcane' && value >= 10 && !questManager.isActive('hidden_covenant_scholar') && !questManager.isCompleted('hidden_covenant_scholar')) {
+                questManager.startQuest('hidden_covenant_scholar');
+                this.scene.get('UIScene')?.showNotification?.('New hidden quest discovered!', 2500);
+            }
+        });
+
+        // Auto-start main and side quests
+        questManager.startQuest('main_forest_hunt');
+        questManager.startQuest('side_supply_run');
+        questManager.startQuest('side_read_the_signs');
+
         // Enemies
         this.enemies = this.physics.add.group({ runChildUpdate: false });
         ENEMY_SPAWNS.forEach(spawn => {
@@ -37,16 +70,35 @@ export default class GameScene extends Phaser.Scene {
             const typeDef = ENEMY_TYPES[spawn.type] ?? {};
             const enemy = new Enemy(this, ex, ey, typeDef);
 
+            enemy.enemyType = spawn.type;
+
             enemy.on('died', (xp) => {
                 playerStats.gainXp(xp);
                 this._spawnXpText(enemy.x, enemy.y, xp);
                 this._checkLevelUp();
+                const gains = RESONANCE_GAINS[`kill_${spawn.type}`] ?? {};
+                Object.entries(gains).forEach(([el, amt]) => playerStats.gainResonance(el, amt));
+                // Quest kill hooks
+                questManager.onKill(spawn.type, {
+                    inVeil:     this.player._shadowVeilActive,
+                    weaponType: playerStats.activeWeaponType,
+                    isBoss:     false,
+                });
+                // Trigger hidden hunter's trial on first bow kill
+                if (playerStats.activeWeaponType === 'resonance_bow' &&
+                    !questManager.isActive('hidden_hunters_trial') &&
+                    !questManager.isCompleted('hidden_hunters_trial')) {
+                    questManager.startQuest('hidden_hunters_trial');
+                }
                 SaveManager.save(playerStats);
             });
 
             enemy.on('gold', (amount) => {
-                playerStats.gold += amount;
-                const txt = this.add.text(enemy.x + 8, enemy.y - 10, `+${amount}g`, {
+                // shadow_harvest legendary passive: +50% Glint when killed in Shadow Veil
+                const hasSH = ITEMS[playerStats.equipment.weapon]?.passive === 'shadow_harvest';
+                const gold  = hasSH && enemy._killedInVeil ? Math.floor(amount * 1.5) : amount;
+                playerStats.glint += gold;
+                const txt = this.add.text(enemy.x + 8, enemy.y - 10, `+${gold}gl`, {
                     font: 'bold 10px monospace', fill: '#ffcc00',
                     stroke: '#000', strokeThickness: 2
                 }).setDepth(100).setOrigin(0.5);
@@ -112,27 +164,31 @@ export default class GameScene extends Phaser.Scene {
             pickup.destroy();
         });
 
-        // NPCs — use real sprite, idle animation from RPG Maker layout
-        this._ensureNpcAnims('spr_hermit');
+        // NPCs — use sprite key from def (default spr_hermit), tint optional
+        const npcKeys = [...new Set(NPC_POSITIONS.map(d => d.spriteKey ?? 'spr_hermit'))];
+        npcKeys.forEach(k => this._ensureNpcAnims(k));
         this.npcs = this.physics.add.staticGroup();
         NPC_POSITIONS.forEach(def => {
-            const nx = def.x * TILE_SIZE + TILE_SIZE / 2;
-            const ny = def.y * TILE_SIZE + TILE_SIZE / 2;
-            const sprite = this.npcs.create(nx, ny, 'spr_hermit', 1);
+            const nx  = def.x * TILE_SIZE + TILE_SIZE / 2;
+            const ny  = def.y * TILE_SIZE + TILE_SIZE / 2;
+            const key = def.spriteKey ?? 'spr_hermit';
+            const sprite = this.npcs.create(nx, ny, key, 1);
             sprite.setDepth(8);
             sprite.npcDef = def;
             sprite.talked = false;
             sprite.body.setSize(20, 20);
+            if (def.tint) sprite.setTint(def.tint);
 
-            // Gentle idle bob
-            sprite.play('spr_hermit_idle');
+            sprite.play(`${key}_idle`);
             this.tweens.add({ targets: sprite, y: ny - 2, yoyo: true, repeat: -1, duration: 1200, ease: 'Sine.easeInOut' });
 
+            const nameColor = def.isShop ? '#ffdd88' : '#aaffaa';
             this.add.text(nx, ny - TILE_SIZE / 2 - 2, def.name, {
-                font: '7px monospace', fill: '#aaffaa', stroke: '#000', strokeThickness: 1
+                font: '7px monospace', fill: nameColor, stroke: '#000', strokeThickness: 1
             }).setOrigin(0.5, 1).setDepth(25);
 
-            sprite.ePrompt = this.add.text(nx, ny - TILE_SIZE / 2 - 12, '[E]', {
+            const promptLabel = def.isShop ? '[E] Shop' : '[E]';
+            sprite.ePrompt = this.add.text(nx, ny - TILE_SIZE / 2 - 12, promptLabel, {
                 font: '7px monospace', fill: '#ffff88'
             }).setOrigin(0.5, 1).setDepth(25).setAlpha(0);
         });
@@ -152,14 +208,72 @@ export default class GameScene extends Phaser.Scene {
             }).setOrigin(0.5, 1).setDepth(25).setAlpha(0);
         });
 
+        // Gathering nodes — require iron_axe (wood) or iron_pickaxe (minerals)
+        this.gatheringGroup = this.physics.add.staticGroup();
+        GATHERING_NODES.forEach(def => {
+            const nx  = def.x * TILE_SIZE + TILE_SIZE / 2;
+            const ny  = def.y * TILE_SIZE + TILE_SIZE / 2;
+            const key = def.type === 'wood' ? 'wood_pile' : 'mineral_node';
+            const spr = this.gatheringGroup.create(nx, ny, key);
+            spr.setDepth(ny + 0.5);
+            spr.nodeDef  = def;
+            spr.gathered = false;
+            spr.ePrompt  = this.add.text(nx, ny - TILE_SIZE / 2 - 4, '[E]', {
+                font: '7px monospace', fill: def.type === 'wood' ? '#886633' : '#667788'
+            }).setOrigin(0.5, 1).setDepth(25).setAlpha(0);
+        });
+
+        // Cracked boulders — Earth Pillar shatters them, revealing paths
+        this.crackedBoulders = this.physics.add.staticGroup();
+        CRACKED_BOULDER_POSITIONS.forEach(def => {
+            const bx = def.x * TILE_SIZE + TILE_SIZE / 2;
+            const by = def.y * TILE_SIZE + TILE_SIZE / 2;
+            const spr = this.crackedBoulders.create(bx, by, 'tile_tree');
+            spr.setTint(0x887744).setDepth(by + 0.5);
+            spr.refreshBody();
+            spr.isBreakable = true;
+            spr.boulderDef = def;
+            spr.ePrompt = this.add.text(bx, by - TILE_SIZE / 2 - 4, '[E]', {
+                font: '7px monospace', fill: '#aa8844'
+            }).setOrigin(0.5, 1).setDepth(25).setAlpha(0);
+        });
+
+        // Boss
+        this._bossArenaTriggered = false;
+        this._bossDefeated = false;
+        const bx = BOSS_SPAWN.x * TILE_SIZE + TILE_SIZE / 2;
+        const by = BOSS_SPAWN.y * TILE_SIZE + TILE_SIZE / 2;
+        this.boss = new BossEnemy(this, bx, by);
+        this.boss.enemyType = 'void_general';
+
+        this.boss.on('died', (xp) => {
+            this._bossDefeated = true;
+            playerStats.gainXp(xp);
+            this._spawnXpText(bx, by, xp);
+            this._checkLevelUp();
+            Object.entries(RESONANCE_GAINS.kill_boss).forEach(([el, amt]) => playerStats.gainResonance(el, amt));
+            questManager.onKill('void_general', {
+                inVeil:     this.player._shadowVeilActive,
+                weaponType: playerStats.activeWeaponType,
+                isBoss:     true,
+            });
+            SaveManager.save(playerStats);
+            this.time.delayedCall(1200, () => {
+                this.scene.pause();
+                this.scene.launch('DialogueScene', { lines: DIALOGUES['boss_defeated'] });
+            });
+        });
+
         // Physics
         this.physics.add.collider(this.player, this.wallGroup);
         this.physics.add.collider(this.enemies, this.wallGroup);
         this.physics.add.collider(this.pickups, this.wallGroup);
         this.physics.add.collider(this.player, this.campfires);
         this.physics.add.collider(this.player, this.signs);
+        this.physics.add.collider(this.player, this.crackedBoulders);
+        this.physics.add.collider(this.enemies, this.crackedBoulders);
 
-        // Combat
+        // Combat — enemies group AND boss share the same attack hitbox check
         this.combatManager = new CombatManager(this, this.player, this.enemies);
 
         // Camera
@@ -174,13 +288,64 @@ export default class GameScene extends Phaser.Scene {
             left:  Phaser.Input.Keyboard.KeyCodes.A,
             right: Phaser.Input.Keyboard.KeyCodes.D
         });
-        this.attackKey    = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
-        this.interactKey  = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
-        this.powerKey     = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+        this.attackKey   = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
+        this.interactKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        this.powerKey    = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+
+        // Skill bar slots — Q / R / F / T
+        this.slotKeys = [
+            this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q),
+            this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R),
+            this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F),
+            this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T),
+        ];
+
+        // Augmentation keys
+        this.blinkKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.sightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.V);
+
+        // Targeting state
+        this._targeting   = false;
+        this._targetSpell = null;
+        this._reticle     = null;
+
+        // Aetheric Sight state
+        this._aethericSightActive = false;
+
+        // Pillar ledge gates
+        this._setupPillarGates();
+        // Rift-Gates (save/fast-travel monoliths)
+        this._setupRiftGates();
+
+        // Pointer — confirm cast / tear / campfire placement, or cancel
+        this.input.on('pointerdown', (ptr) => {
+            const wp = this.cameras.main.getWorldPoint(ptr.x, ptr.y);
+            if (ptr.rightButtonDown()) {
+                this._cancelTargeting();
+                this._cancelPlacement();
+                return;
+            }
+            if (this._tearTargeting) { this._confirmAethericTear(wp.x, wp.y); return; }
+            if (this._campfirePlacing) { this._confirmCampfire(wp.x, wp.y); return; }
+            if (this._targeting) { this._confirmCast(wp.x, wp.y); }
+        });
+
+        // Aetheric Tear + Campfire placement state
+        this._tearTargeting    = false;
+        this._tearReticle      = null;
+        this._campfirePlacing  = false;
+        this._campfireReticle  = null;
+        this._placedCampfires  = [];  // runtime campfire objects
 
         this.input.keyboard.on('keydown-K', () => { this.scene.pause(); this.scene.launch('SkillTreeScene'); });
+        this.input.keyboard.on('keydown-J', () => { this.scene.pause(); this.scene.launch('SpellbookScene'); });
         this.input.keyboard.on('keydown-I', () => { this.scene.pause(); this.scene.launch('InventoryScene'); });
+        this.input.keyboard.on('keydown-M', () => { this.scene.pause(); this.scene.launch('WorldMapScene'); });
+        this.input.keyboard.on('keydown-N', () => { this.scene.pause(); this.scene.launch('QuestJournalScene'); });
+        this.input.keyboard.on('keydown-G', () => this._startAethericTear());
+        this.input.keyboard.on('keydown-C', () => this._startCampfirePlacement());
         this.input.keyboard.on('keydown-ESC', () => {
+            if (this._targeting) { this._cancelTargeting(); return; }
             SaveManager.save(playerStats);
             soundManager.save();
             this.scene.stop('UIScene');
@@ -190,6 +355,17 @@ export default class GameScene extends Phaser.Scene {
         if (!this.scene.isActive('UIScene')) this.scene.launch('UIScene');
 
         this._lastLevel = playerStats.level;
+
+        // Quest completion notifications
+        questManager.onQuestEvent((questId, stepId, progress) => {
+            if (progress === -1) {
+                this.scene.get('UIScene')?.showNotification?.(`Quest complete!\n${questId.replace(/_/g,' ')}`, 3500);
+                soundManager.levelUp();
+                this.cameras.main.flash(300, 160, 200, 80, true);
+            } else if (stepId) {
+                this.scene.get('UIScene')?.showNotification?.('Quest updated — [N] to view journal', 1600);
+            }
+        });
 
         // Ambient firefly particles
         this._spawnFireflies(mapW, mapH);
@@ -218,20 +394,884 @@ export default class GameScene extends Phaser.Scene {
         anims.create({ key: `${key}_walk_up`,    frames: anims.generateFrameNumbers(key, { frames: [10,9,10,11] }), frameRate: 6, repeat: -1 });
     }
 
-    _buildWorld(mapW, mapH) {
-        this.add.tileSprite(0, 0, mapW, mapH, 'tile_floor').setOrigin(0).setDepth(0);
+    // ── Targeting system ─────────────────────────────────────────────────────
 
+    _setupPillarGates() {
+        this._pillarGates = [];
+        PILLAR_GATE_POSITIONS.forEach(def => {
+            const gx = def.x * TILE_SIZE + TILE_SIZE / 2;
+            const gy = def.y * TILE_SIZE + TILE_SIZE / 2;
+
+            // Visual: stone ledge drawn as a graphics object
+            const gfx = this.add.graphics().setDepth(gy + 1);
+            gfx.fillStyle(0x5a4a30, 1);
+            gfx.fillRect(gx - 16, gy - 12, 32, 24);
+            gfx.fillStyle(0x8a7a55, 1);
+            gfx.fillRect(gx - 14, gy - 14, 28, 6);
+            gfx.lineStyle(1, 0x3a2a18, 1);
+            gfx.strokeRect(gx - 16, gy - 12, 32, 24);
+            // Subtle pulse to hint it's special
+            this.tweens.add({ targets: gfx, alpha: 0.70, yoyo: true, repeat: -1, duration: 1800 });
+
+            // [E] hint
+            const hint = this.add.text(gx, gy - 20, '[E]', {
+                font: '7px monospace', fill: '#998855'
+            }).setOrigin(0.5, 1).setDepth(25).setAlpha(0);
+
+            // Physics zone blocking the gate
+            const zone = this.add.zone(gx, gy, def.w, def.h);
+            this.physics.add.existing(zone, true);
+            const pc = this.physics.add.collider(this.player, zone);
+            const ec = this.physics.add.collider(this.enemies, zone);
+
+            this._pillarGates.push({ zone, gfx, hint, def, pc, ec, gx, gy, open: false });
+        });
+    }
+
+    _tryActivateSlot(i) {
+        const spellId = playerStats.getSlotSpell(i);
+        if (!spellId) {
+            this.scene.get('UIScene')?.showNotification?.('No skill in that slot. Assign one in the Spellbook [J].', 1600);
+            return;
+        }
+        const spell = SPELLS[spellId];
+        if (!spell) return;
+
+        if (spell.passive) return; // passive — no cast
+        if (spell.targetingType === 'self') {
+            // Instant self-cast — no targeting needed
+            this._castSpell(spellId, this.player.x, this.player.y);
+        } else {
+            this._enterTargetingMode(spellId);
+        }
+    }
+
+    _enterTargetingMode(spellId) {
+        if (this._targeting) this._cancelTargeting();
+        this._targeting   = true;
+        this._targetSpell = spellId;
+
+        const spell = SPELLS[spellId];
+        const level = playerStats.getSpellLevel(spellId);
+        const range = spell.range?.[Math.max(0, level - 1)] ?? 120;
+        const col   = { fire: 0xff6600, arcane: 0xaa44ff, lightning: 0xffdd00, shadow: 0x8800cc, earth: 0x44aa22 }[spell.element] ?? 0xffffff;
+
+        // Reticle: range circle from player + aim marker
+        this._reticle = this.add.graphics().setDepth(200);
+        this._reticle._range = range;
+        this._reticle._col   = col;
+        this._reticle._type  = spell.targetingType;
+        this._reticle._aoeR  = spell.range?.[Math.max(0, level - 1)] ?? 80;
+
+        // Show a "selecting" ring on the skill bar slot
+        this.scene.get('UIScene')?.showNotification?.(`Aim ${spell.name} — click to cast, [ESC/RMB] cancel`, 5000);
+    }
+
+    _updateReticle() {
+        if (!this._reticle || !this._targeting) return;
+        const ptr = this.input.activePointer;
+        const wp  = this.cameras.main.getWorldPoint(ptr.x, ptr.y);
+
+        // Clamp to max range
+        const dx = wp.x - this.player.x, dy = wp.y - this.player.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const range = this._reticle._range;
+        const scale = dist > range ? range / dist : 1;
+        const tx = this.player.x + dx * scale;
+        const ty = this.player.y + dy * scale;
+        const col = this._reticle._col;
+
+        const g = this._reticle;
+        g.clear();
+
+        // Range boundary
+        g.lineStyle(1, col, 0.25);
+        g.strokeCircle(this.player.x, this.player.y, range);
+
+        if (this._reticle._type === 'targeted_aoe') {
+            // AoE: filled circle at target
+            g.fillStyle(col, 0.18);
+            g.fillCircle(tx, ty, this._reticle._aoeR);
+            g.lineStyle(2, col, 0.80);
+            g.strokeCircle(tx, ty, this._reticle._aoeR);
+            // Crosshair
+            g.lineStyle(1, col, 0.90);
+            g.lineBetween(tx - 8, ty, tx + 8, ty);
+            g.lineBetween(tx, ty - 8, tx, ty + 8);
+        } else {
+            // Directional: line from player to target + arc
+            g.lineStyle(2, col, 0.75);
+            g.lineBetween(this.player.x, this.player.y, tx, ty);
+            g.fillStyle(col, 0.20);
+            g.fillCircle(tx, ty, 18);
+            g.lineStyle(2, col, 0.80);
+            g.strokeCircle(tx, ty, 18);
+        }
+    }
+
+    _confirmCast(worldX, worldY) {
+        const spellId = this._targetSpell;
+        this._cancelTargeting();
+        this._castSpell(spellId, worldX, worldY);
+    }
+
+    _cancelTargeting() {
+        this._targeting   = false;
+        this._targetSpell = null;
+        this._reticle?.destroy();
+        this._reticle = null;
+    }
+
+    _castSpell(spellId, targetX, targetY) {
+        if (!this.player?.active) return;
+
+        // Clamp to spell range
+        const spell = SPELLS[spellId];
+        const level = playerStats.getSpellLevel(spellId);
+        const range = spell.range?.[Math.max(0, level - 1)] ?? 999;
+        const dx = targetX - this.player.x, dy = targetY - this.player.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist > 0) {
+            const sc = Math.min(1, range / dist);
+            targetX = this.player.x + dx * sc;
+            targetY = this.player.y + dy * sc;
+        }
+
+        // Turn player to face target
+        if (Math.abs(dx) > Math.abs(dy)) {
+            this.player.facing = dx > 0 ? 'right' : 'left';
+        } else {
+            this.player.facing = dy > 0 ? 'down' : 'up';
+        }
+
+        // Player-side cast (validation, mana, cooldown, tint)
+        let castOk = false;
+        switch (spellId) {
+            case 'fire_nova':    castOk = this.player.castFireNova();    break;
+            case 'mana_dart':    castOk = this.player.castManaDart();    break;
+            case 'arc_bolt':     castOk = this.player.castArcBolt();     break;
+            case 'shadow_veil':  castOk = this.player.castShadowVeil();  break;
+            case 'earth_pillar': castOk = this.player.castEarthPillar(); break;
+            case 'quagmire':     castOk = this.player.castQuagmire();    break;
+        }
+        if (!castOk) return;
+
+        this._spellVFX(spellId, targetX, targetY);
+        this._applySpellEffects(spellId, targetX, targetY);
+    }
+
+    // ── All world-space VFX ────────────────────────────────────────────────
+
+    _spellVFX(id, tx, ty) {
+        switch (id) {
+            case 'fire_nova':
+                this.add.particles(tx, ty, 'particle', {
+                    speed: { min: 60, max: 200 }, angle: { min: 0, max: 360 },
+                    scale: { start: 1.6, end: 0 }, lifespan: { min: 300, max: 700 },
+                    tint: [0xff6600, 0xff4400, 0xffaa00, 0xffdd44], quantity: 28, explode: true,
+                }).setDepth(60);
+                this.add.particles(tx, ty, 'particle', {
+                    speed: { min: 110, max: 250 }, angle: { min: 0, max: 360 },
+                    scale: { start: 0.8, end: 0 }, lifespan: { min: 150, max: 350 },
+                    tint: [0xffffff, 0xffeeaa], quantity: 16, explode: true,
+                }).setDepth(61);
+                this.cameras.main.flash(150, 255, 100, 0, true);
+                break;
+
+            case 'mana_dart': {
+                const steps = 5;
+                for (let s = 1; s <= steps; s++) {
+                    const px = this.player.x + (tx - this.player.x) * (s / steps);
+                    const py = this.player.y + (ty - this.player.y) * (s / steps);
+                    this.time.delayedCall(s * 22, () => {
+                        if (!this.player.active) return;
+                        this.add.particles(px, py, 'particle', {
+                            speed: { min: 20, max: 60 }, angle: { min: 0, max: 360 },
+                            scale: { start: 0.7, end: 0 }, lifespan: { min: 100, max: 200 },
+                            tint: [0xcc88ff, 0xffffff, 0x8844cc], quantity: 5, explode: true,
+                        }).setDepth(62);
+                    });
+                }
+                break;
+            }
+
+            case 'arc_bolt':
+                this.add.particles(tx, ty, 'particle', {
+                    speed: { min: 50, max: 150 }, angle: { min: 0, max: 360 },
+                    scale: { start: 1.2, end: 0 }, lifespan: { min: 120, max: 300 },
+                    tint: [0xffee00, 0xffffff, 0xaaddff], quantity: 22, explode: true,
+                }).setDepth(62);
+                this.cameras.main.flash(80, 220, 220, 100, true);
+                break;
+
+            case 'shadow_veil':
+                this.add.particles(this.player.x, this.player.y, 'particle', {
+                    speed: { min: 30, max: 80 }, angle: { min: 0, max: 360 },
+                    scale: { start: 1.0, end: 0 }, lifespan: { min: 400, max: 800 },
+                    tint: [0x6600cc, 0x440088, 0xcc00ff], quantity: 18, explode: true,
+                }).setDepth(62);
+                break;
+
+            case 'earth_pillar': break; // handled inside _earthPillarPlatform / _earthPillarAssault
+            case 'quagmire':     break; // handled inside _applySpellEffects quagmire case
+        }
+    }
+
+    // ── Spell damage + effects ─────────────────────────────────────────────
+
+    _spellDamage(id) {
+        const level = playerStats.getSpellLevel(id);
+        const wis   = this.player.stats.attributes.intelligence;
+        const hasAmp = ITEMS[playerStats.equipment.weapon]?.passive === 'spell_amplifier';
+        const ampMult = hasAmp ? 1.25 : 1;
+        let base;
+        switch (id) {
+            case 'fire_nova':    base = Math.floor(18 + level * 14 + wis * 2.5); break;
+            case 'mana_dart':    base = Math.floor(12 + level * 10 + wis * 3);   break;
+            case 'arc_bolt':     base = Math.floor(15 + level * 12 + wis * 2);   break;
+            case 'earth_pillar': base = Math.floor(20 + level * 16 + wis * 2.8); break;
+            default: base = 10;
+        }
+        return Math.floor(base * ampMult);
+    }
+
+    _applySpellEffects(id, tx, ty) {
+        const spell = SPELLS[id];
+        const level = playerStats.getSpellLevel(id);
+        const dmg   = this._spellDamage(id);
+
+        switch (id) {
+            case 'fire_nova': {
+                const range = spell.range[level - 1];
+                this._damageInRadius(tx, ty, range, dmg);
+                break;
+            }
+            case 'mana_dart': {
+                const range = spell.range[level - 1];
+                this._damageSingleNearest(tx, ty, range, dmg);
+                break;
+            }
+            case 'arc_bolt': {
+                const range = spell.range[level - 1];
+                this._damageInCone(tx, ty, range, 38, dmg);
+                break;
+            }
+            case 'earth_pillar': {
+                const distToPlayer = Phaser.Math.Distance.Between(this.player.x, this.player.y, tx, ty);
+                if (distToPlayer < 60) {
+                    this._earthPillarPlatform(tx, ty);
+                } else {
+                    this._earthPillarAssault(tx, ty);
+                }
+                break;
+            }
+            case 'quagmire': {
+                const radius   = spell.range[level - 1];
+                const duration = spell.duration[level - 1];
+                this._quagmireZones = this._quagmireZones ?? [];
+                this._quagmireZones.push({ x: tx, y: ty, r: radius, expiry: this.time.now + duration });
+
+                const g = this.add.graphics().setDepth(3);
+                g.fillStyle(0x2a4a0a, 0.72);  g.fillEllipse(tx, ty, radius * 2, radius * 1.3);
+                g.fillStyle(0x3d6614, 0.38);  g.fillEllipse(tx, ty, radius * 1.5, radius * 0.9);
+
+                const em = this.add.particles(tx, ty, 'particle', {
+                    speed: { min: 5, max: 18 }, angle: { min: 0, max: 360 },
+                    scale: { start: 0.8, end: 0 }, lifespan: { min: 700, max: 1500 },
+                    tint: [0x2a4a0a, 0x3d6614, 0x1a3a05], quantity: 1, frequency: 180,
+                }).setDepth(4);
+
+                this.time.delayedCall(duration, () => {
+                    em.stop();
+                    this.tweens.add({ targets: [g, em], alpha: 0, duration: 600,
+                        onComplete: () => { g.destroy(); em.destroy(); } });
+                });
+                break;
+            }
+            case 'shadow_veil': break; // no damage, caster effect only
+        }
+    }
+
+    // ── Damage utilities ──────────────────────────────────────────────────
+
+    _damageInRadius(cx, cy, range, dmg) {
+        this.enemies.getChildren().forEach(e => {
+            if (e.active && Phaser.Math.Distance.Between(cx, cy, e.x, e.y) <= range)
+                e.takeDamage(dmg);
+        });
+        if (this.boss?.active && Phaser.Math.Distance.Between(cx, cy, this.boss.x, this.boss.y) <= range)
+            this.boss.takeDamage(Math.floor(dmg * 0.65));
+    }
+
+    _damageSingleNearest(tx, ty, range, dmg) {
+        const px = this.player.x, py = this.player.y;
+        const facingAngle = Phaser.Math.RadToDeg(Math.atan2(ty - py, tx - px));
+        const hits = [];
+        const check = (e) => {
+            if (!e?.active) return;
+            const dist = Phaser.Math.Distance.Between(px, py, e.x, e.y);
+            if (dist > range) return;
+            const ang = Phaser.Math.RadToDeg(Math.atan2(e.y - py, e.x - px));
+            if (Math.abs(Phaser.Math.Angle.ShortestBetween(facingAngle, ang)) <= 30)
+                hits.push({ e, dist });
+        };
+        this.enemies.getChildren().forEach(check);
+        if (this.boss?.active) check(this.boss);
+        hits.sort((a, b) => a.dist - b.dist);
+        if (hits[0]) hits[0].e.takeDamage(hits[0].e === this.boss ? Math.floor(dmg * 0.65) : dmg);
+    }
+
+    _damageInCone(tx, ty, range, coneHalf, dmg) {
+        const px = this.player.x, py = this.player.y;
+        const facingAngle = Phaser.Math.RadToDeg(Math.atan2(ty - py, tx - px));
+        const check = (e, mult) => {
+            if (!e?.active) return;
+            const dist = Phaser.Math.Distance.Between(px, py, e.x, e.y);
+            if (dist > range) return;
+            const ang = Phaser.Math.RadToDeg(Math.atan2(e.y - py, e.x - px));
+            if (Math.abs(Phaser.Math.Angle.ShortestBetween(facingAngle, ang)) <= coneHalf)
+                e.takeDamage(Math.floor(dmg * mult));
+        };
+        this.enemies.getChildren().forEach(e => check(e, 1));
+        if (this.boss?.active) check(this.boss, 0.65);
+    }
+
+    // ── Earth Pillar modes ────────────────────────────────────────────────
+
+    _earthPillarPlatform(tx, ty) {
+        const px = this.player.x, py = this.player.y;
+        const level = playerStats.getSpellLevel('earth_pillar');
+        const duration = [3200, 4200, 5500][level - 1];
+
+        // Rising eruption beneath player
+        this.add.particles(px, py, 'particle', {
+            speed: { min: 40, max: 130 }, angle: { min: -115, max: -65 },
+            scale: { start: 1.5, end: 0 }, lifespan: { min: 350, max: 750 },
+            tint: [0x8b6914, 0xaa8833, 0x6b5011, 0xc4a35a], quantity: 24, explode: true,
+        }).setDepth(60);
+        this.add.particles(px, py + 8, 'particle', {
+            speed: { min: 10, max: 35 }, angle: { min: 0, max: 360 },
+            scale: { start: 0.6, end: 0 }, lifespan: { min: 150, max: 300 },
+            tint: [0x6b5011, 0x554010], quantity: 12, explode: true,
+        }).setDepth(55);
+        this.cameras.main.shake(140, 0.007);
+
+        // Visual pillar under player
+        const g = this.add.graphics().setPosition(px, py).setDepth(py + 1);
+        g.fillStyle(0x7a5c10, 1);  g.fillRect(-12, -4, 24, 32);
+        g.fillStyle(0xaa8833, 1);  g.fillRect(-10, -10, 20, 10);
+
+        // Open nearby pillar gates
+        this._openPillarGates(px, py, 80, duration, g);
+
+        // Also break nearby cracked boulders
+        this._breakNearbyBoulders(px, py, 55);
+
+        // Collapse after duration
+        this.time.delayedCall(duration, () => {
+            this.add.particles(px, py, 'particle', {
+                speed: { min: 15, max: 50 }, angle: { min: 0, max: 360 },
+                scale: { start: 0.6, end: 0 }, lifespan: { min: 150, max: 400 },
+                tint: [0x7a5c10, 0xaa8833], quantity: 10, explode: true,
+            }).setDepth(60);
+            this.tweens.add({ targets: g, alpha: 0, scaleY: 0, duration: 300, onComplete: () => g.destroy() });
+        });
+    }
+
+    _earthPillarAssault(tx, ty) {
+        const level = playerStats.getSpellLevel('earth_pillar');
+        const range = SPELLS.earth_pillar.range[level - 1];
+        const dmg   = this._spellDamage('earth_pillar');
+        const duration = [2800, 3600, 4800][level - 1];
+
+        // Eruption particles at target
+        this.add.particles(tx, ty, 'particle', {
+            speed: { min: 50, max: 160 }, angle: { min: -120, max: -60 },
+            scale: { start: 1.8, end: 0 }, lifespan: { min: 400, max: 900 },
+            tint: [0x8b6914, 0xaa8833, 0x6b5011, 0xc4a35a], quantity: 30, explode: true,
+        }).setDepth(60);
+        this.add.particles(tx, ty + 6, 'particle', {
+            speed: { min: 15, max: 45 }, angle: { min: 0, max: 360 },
+            scale: { start: 0.7, end: 0 }, lifespan: { min: 200, max: 400 },
+            tint: [0x6b5011, 0x887744], quantity: 14, explode: true,
+        }).setDepth(55);
+        this.cameras.main.shake(160, 0.009);
+
+        // Visual pillar at target
+        const g = this.add.graphics().setPosition(tx, ty).setDepth(ty + 2);
+        g.fillStyle(0x7a5c10, 1);  g.fillRect(-12, -28, 24, 42);
+        g.fillStyle(0xaa8833, 1);  g.fillRect(-10, -34, 20, 10);
+        g.fillStyle(0x554008, 1);  g.fillRect(-12, 12, 24, 4);
+        g.lineStyle(1, 0x4a3a18, 1);
+        g.beginPath(); g.moveTo(-2, -28); g.lineTo(2, 0); g.lineTo(-1, 12); g.strokePath();
+
+        // Damage + knockup enemies near target
+        const toKnock = [];
+        this.enemies.getChildren().forEach(e => {
+            if (e.active && Phaser.Math.Distance.Between(tx, ty, e.x, e.y) <= range * 0.6)
+                toKnock.push({ e, isBoss: false });
+        });
+        if (this.boss?.active && Phaser.Math.Distance.Between(tx, ty, this.boss.x, this.boss.y) <= range * 0.6)
+            toKnock.push({ e: this.boss, isBoss: true });
+
+        toKnock.forEach(({ e, isBoss }) => {
+            e.takeDamage(isBoss ? Math.floor(dmg * 0.65) : dmg);
+            this._knockupEnemy(e, isBoss);
+        });
+
+        // Temporary blocking zone
+        const zone = this.add.zone(tx, ty - 4, 22, 36);
+        this.physics.add.existing(zone, true);
+        const col1 = this.physics.add.collider(this.enemies, zone);
+        const col2 = this.boss?.active ? this.physics.add.collider(this.boss, zone) : null;
+
+        this._breakNearbyBoulders(tx, ty, range * 0.7);
+
+        this.time.delayedCall(duration, () => {
+            this.add.particles(tx, ty, 'particle', {
+                speed: { min: 15, max: 55 }, angle: { min: 0, max: 360 },
+                scale: { start: 0.7, end: 0 }, lifespan: { min: 200, max: 500 },
+                tint: [0x7a5c10, 0xaa8833, 0x554008], quantity: 14, explode: true,
+            }).setDepth(60);
+            col1.destroy(); col2?.destroy(); zone.destroy();
+            this.tweens.add({ targets: g, alpha: 0, scaleY: 0, duration: 280, onComplete: () => g.destroy() });
+        });
+    }
+
+    _knockupEnemy(enemy, isBoss = false) {
+        if (!enemy.active) return;
+        const fallDmg = Math.floor(10 + this.player.stats.attributes.strength * 2.2);
+        const origY = enemy.y;
+        const height = isBoss ? 18 : 28;
+
+        // Prevent enemy AI during knockup via duck-typed timer
+        enemy._knockupTimer = 520;
+        enemy._onKnockupLand = () => {
+            if (!enemy.active) return;
+            enemy.takeDamage(isBoss ? Math.floor(fallDmg * 0.5) : fallDmg);
+            this.cameras.main.shake(80, 0.004);
+            this.add.particles(enemy.x, enemy.y + 6, 'particle', {
+                speed: { min: 10, max: 32 }, angle: { min: 0, max: 360 },
+                scale: { start: 0.5, end: 0 }, lifespan: { min: 120, max: 280 },
+                tint: [0x8b6914, 0x887744, 0x6b5011], quantity: 10, explode: true,
+            }).setDepth(60);
+        };
+
+        this.tweens.add({
+            targets: enemy, y: origY - height, duration: 260, ease: 'Power2.Out',
+            onComplete: () => {
+                if (!enemy.active) return;
+                this.tweens.add({
+                    targets: enemy, y: origY, duration: 260, ease: 'Power2.In',
+                });
+            }
+        });
+    }
+
+    _openPillarGates(cx, cy, radius, duration, pillarGfx) {
+        const opened = [];
+        this._pillarGates.forEach(gate => {
+            if (gate.open) return;
+            if (Phaser.Math.Distance.Between(cx, cy, gate.gx, gate.gy) > radius) return;
+            gate.open = true;
+            gate.zone.body.enable = false;
+            gate.pc.active = false;
+            gate.ec.active = false;
+
+            // Visual: gate fades out
+            this.tweens.add({ targets: gate.gfx, alpha: 0.25, duration: 300 });
+            this.scene.get('UIScene')?.showNotification?.('The way is open — the ledge is climbable!', 2800);
+            opened.push(gate);
+        });
+
+        if (opened.length > 0) {
+            this.time.delayedCall(duration, () => {
+                opened.forEach(gate => {
+                    gate.open = false;
+                    gate.zone.body.enable = true;
+                    gate.pc.active = true;
+                    gate.ec.active = true;
+                    this.tweens.add({ targets: gate.gfx, alpha: 1, duration: 400 });
+                });
+            });
+        }
+    }
+
+    _breakNearbyBoulders(x, y, range) {
+        const toBreak = this.crackedBoulders.getChildren().filter(b =>
+            b.active && Phaser.Math.Distance.Between(x, y, b.x, b.y) <= range
+        );
+        if (!toBreak.length) return;
+
+        toBreak.forEach(boulder => {
+            this.add.particles(boulder.x, boulder.y, 'particle', {
+                speed: { min: 30, max: 90 }, angle: { min: 0, max: 360 },
+                scale: { start: 0.9, end: 0 }, lifespan: { min: 300, max: 600 },
+                tint: [0x887744, 0xaa9955, 0x665533], quantity: 18, explode: true,
+            }).setDepth(60);
+            boulder.ePrompt?.setAlpha(0);
+            boulder.ePrompt?.destroy();
+            this.crackedBoulders.remove(boulder, true, true);
+        });
+
+        this.scene.get('UIScene')?.showNotification?.('The stone crumbles — a hidden path opens.', 2500);
+    }
+
+    // ── Resonance Bow ranged strike ───────────────────────────────────────────
+    _bowStrike(px, py, facing, augmented) {
+        const weaponDef  = ITEMS[playerStats.equipment.weapon];
+        const passive    = weaponDef?.passive ?? null;
+        const loreAbil   = weaponDef?.loreAbility ?? null;
+        const isVoidPierce = passive === 'void_piercer';
+        const range      = isVoidPierce ? 220 : 150;
+
+        const dirMap = { right: [1, 0], left: [-1, 0], down: [0, 1], up: [0, -1] };
+        const [dx, dy] = dirMap[facing] ?? [0, 1];
+
+        // Arrow particle trail (longer for void_piercer)
+        const trailColor = isVoidPierce ? [0xcc88ff, 0xffffff] : [0x88ffaa, 0xffffff];
+        for (let s = 1; s <= 6; s++) {
+            const ax = px + dx * (range * s / 6);
+            const ay = py + dy * (range * s / 6);
+            this.time.delayedCall(s * 18, () => {
+                if (!this.player?.active) return;
+                this.add.particles(ax, ay, 'particle', {
+                    speed: { min: 8, max: 25 }, angle: { min: 0, max: 360 },
+                    scale: { start: 0.45, end: 0 }, lifespan: { min: 80, max: 160 },
+                    tint: trailColor, quantity: 3, explode: true,
+                }).setDepth(62);
+            });
+        }
+
+        const stats       = this.player.stats;
+        const shotCount   = this.player._bowShotCount ?? 0;
+        const isTriple    = passive === 'triple_shot' && shotCount % 3 === 0;
+        const base        = Math.floor(8 + stats.attributes.strength * 1.5 + stats.attributes.intelligence * 1.0 + Phaser.Math.Between(-2, 3));
+        let bowDmg        = augmented ? Math.floor(base * 1.20) : base;
+        if (isTriple) {
+            bowDmg = Math.floor(bowDmg * 2);
+            this.combatManager._spawnNumber(px, py - 14, '3×', '#ffd700', true);
+            this.cameras.main.flash(60, 220, 180, 0, true);
+        }
+        const facingAngle = Phaser.Math.RadToDeg(Math.atan2(dy, dx));
+
+        const hits = [];
+        const check = (e) => {
+            if (!e?.active) return;
+            const dist = Phaser.Math.Distance.Between(px, py, e.x, e.y);
+            if (dist > range) return;
+            const ang = Phaser.Math.RadToDeg(Math.atan2(e.y - py, e.x - px));
+            if (Math.abs(Phaser.Math.Angle.ShortestBetween(facingAngle, ang)) <= 28)
+                hits.push({ e, dist });
+        };
+        this.enemies.getChildren().forEach(check);
+        if (this.boss?.active) check(this.boss);
+        hits.sort((a, b) => a.dist - b.dist);
+
+        const applyHit = (e, mult = 1) => {
+            if (!e?.active) return;
+            const dmg = e === this.boss ? Math.floor(bowDmg * 0.65 * mult) : Math.floor(bowDmg * mult);
+            e.takeDamage(dmg);
+            this.combatManager._spawnNumber(e.x, e.y - 20, `${dmg}`, '#88ffaa', false);
+            this.combatManager._spawnSparks(e.x, e.y, 0x88ffaa, 4);
+        };
+
+        if (hits[0]) {
+            applyHit(hits[0].e);
+            // void_piercer: pierce to second enemy
+            if (isVoidPierce && hits[1]) {
+                this.time.delayedCall(80, () => applyHit(hits[1].e, 0.75));
+            }
+            // Lore ability — arrow_bounce
+            if (loreAbil === 'arrow_bounce' && Math.random() < 0.25 && hits[1]) {
+                this.time.delayedCall(120, () => {
+                    applyHit(hits[1].e, 0.60);
+                    this.add.particles(hits[1].e.x, hits[1].e.y, 'particle', {
+                        speed: { min: 20, max: 60 }, angle: { min: 0, max: 360 },
+                        scale: { start: 0.6, end: 0 }, lifespan: { min: 150, max: 300 },
+                        tint: [0x88ffcc, 0xffffff], quantity: 6, explode: true,
+                    }).setDepth(62);
+                });
+            }
+            // Lore ability — storm_burst: AoE at impact
+            if (loreAbil === 'storm_burst' && Math.random() < 0.20) {
+                const ix = hits[0].e.x, iy = hits[0].e.y;
+                this.add.particles(ix, iy, 'particle', {
+                    speed: { min: 40, max: 120 }, angle: { min: 0, max: 360 },
+                    scale: { start: 1.0, end: 0 }, lifespan: { min: 200, max: 450 },
+                    tint: [0xffee00, 0xffffff, 0xaaddff], quantity: 18, explode: true,
+                }).setDepth(63);
+                this.cameras.main.flash(50, 200, 200, 80, true);
+                const stormDmg = Math.floor(bowDmg * 0.5);
+                this.enemies.getChildren().forEach(e => {
+                    if (e !== hits[0].e && e.active && Phaser.Math.Distance.Between(ix, iy, e.x, e.y) <= 55)
+                        e.takeDamage(stormDmg);
+                });
+            }
+        }
+    }
+
+    // ── Aetheric Sight ────────────────────────────────────────────────────────
+    _activateAethericSight(duration) {
+        if (this._aethericSightActive) return;
+        this._aethericSightActive = true;
+
+        // Blue tint overlay (fixed to camera)
+        const overlay = this.add.rectangle(0, 0, this.scale.width, this.scale.height, 0x0033cc, 0.12)
+            .setOrigin(0).setScrollFactor(0).setDepth(200);
+
+        // Draw enemy detection circles at current scent-scaled radius
+        const sightGfx = this.add.graphics().setDepth(201);
+        const scent = this.player?.stats?.manaScent ?? 0;
+        this.enemies.getChildren().forEach(e => {
+            if (!e.active) return;
+            const r = e.sightRange * (1 + scent / 100 * 2);
+            sightGfx.lineStyle(1, 0xff2222, 0.35);
+            sightGfx.strokeCircle(e.x, e.y, r);
+        });
+
+        this.time.delayedCall(duration, () => {
+            this._aethericSightActive = false;
+            overlay.destroy();
+            sightGfx.destroy();
+        });
+
+        this.scene.get('UIScene')?.showNotification?.('Aetheric Sight — time slows around you.', 1800);
+    }
+
+    // ── Rift-Gates (Phase 6) ─────────────────────────────────────────────────
+    _setupRiftGates() {
+        this._riftGates = [];
+        if (typeof RIFT_GATE_POSITIONS === 'undefined' || !RIFT_GATE_POSITIONS?.length) return;
+
+        RIFT_GATE_POSITIONS.forEach(gate => {
+            const wx = gate.x * TILE_SIZE + TILE_SIZE / 2;
+            const wy = gate.y * TILE_SIZE + TILE_SIZE / 2;
+
+            // Visual — pulsing blue column
+            const gfx = this.add.graphics().setDepth(5);
+            gfx.fillStyle(0x3366ff, 0.18);
+            gfx.fillRect(wx - 8, wy - 24, 16, 48);
+            gfx.lineStyle(1, 0x6699ff, 0.5);
+            gfx.strokeRect(wx - 8, wy - 24, 16, 48);
+
+            this.tweens.add({ targets: gfx, alpha: { from: 0.4, to: 1 }, duration: 1400, yoyo: true, repeat: -1 });
+
+            // Label
+            const label = this.add.text(wx, wy - 30, gate.label, {
+                font: '6px monospace', fill: '#6699ff', stroke: '#000', strokeThickness: 1
+            }).setOrigin(0.5, 1).setDepth(6).setAlpha(0);
+
+            // [E] prompt
+            const prompt = this.add.text(wx, wy + 28, '[E]', {
+                font: '7px monospace', fill: '#88aaff'
+            }).setOrigin(0.5).setDepth(6).setAlpha(0);
+
+            // Interaction zone
+            const zone = this.add.zone(wx, wy, 40, 56);
+            this.physics.add.existing(zone, false);
+            zone.body.setAllowGravity(false);
+
+            this._riftGates.push({ zone, label, prompt, id: gate.id, wx, wy, attuned: false });
+        });
+    }
+
+    _interactRiftGate(gate) {
+        const ps = this.player.stats;
+        if (!gate.attuned) {
+            gate.attuned = true;
+            if (!ps.attunedGates.includes(gate.id)) ps.attunedGates.push(gate.id);
+            ps.health = ps.maxHealth;
+            ps.mana   = ps.maxMana;
+            ps.manaExhausted    = false;
+            ps.manaCollapsed    = false;
+            ps._exhaustionTimer = 0;
+            this.scene.get('UIScene')?.showNotification?.(`Attuned to ${gate.label} — fully restored.`, 3000);
+            this.cameras.main.flash(300, 100, 180, 255, false);
+            questManager.onAttune(gate.id);
+            SaveManager.save(ps);
+            soundManager.save();
+        } else if (ps.attunedGates.length >= 2) {
+            // Offer fast travel to other attuned gates
+            this.scene.pause();
+            this.scene.launch('FastTravelScene', { currentGateId: gate.id });
+        } else {
+            this.scene.get('UIScene')?.showNotification?.('Aetheric Monolith — game saved. Attune more gates to fast-travel.', 2500);
+            SaveManager.save(ps);
+            soundManager.save();
+        }
+    }
+
+    _fastTravelTo(gateId) {
+        const gate = this._riftGates?.find(g => g.id === gateId);
+        if (!gate) return;
+        this.player.setPosition(gate.wx, gate.wy);
+        this.cameras.main.centerOn(gate.wx, gate.wy);
+        this.cameras.main.flash(400, 100, 180, 255, false);
+        this.scene.get('UIScene')?.showNotification?.(`Arrived: ${gate.label}`, 2200);
+        SaveManager.save(this.player.stats);
+        soundManager.save();
+    }
+
+    // ── Aetheric Tear ────────────────────────────────────────────────────────
+    _startAethericTear() {
+        if (!this.player?.active) return;
+        if (this.player._tearCooldown > 0) {
+            const sec = Math.ceil(this.player._tearCooldown / 1000);
+            this.scene.get('UIScene')?.showNotification?.(`Aetheric Tear on cooldown (${sec}s)`, 1200);
+            return;
+        }
+        const manaCost = Math.floor(this.player.stats.maxMana * 0.90);
+        if (this.player.stats.manaExhausted || this.player.stats.mana < manaCost) {
+            this.scene.get('UIScene')?.showNotification?.('Insufficient mana for Aetheric Tear (90% required)', 1400);
+            return;
+        }
+        this._tearTargeting = true;
+        this._tearReticle   = this.add.graphics().setDepth(200);
+        this.scene.get('UIScene')?.showNotification?.('Aetheric Tear — click anywhere to tear through space (90% MP)', 5000);
+    }
+
+    _updateTearReticle() {
+        if (!this._tearReticle) return;
+        const ptr = this.input.activePointer;
+        const wp  = this.cameras.main.getWorldPoint(ptr.x, ptr.y);
+        const g   = this._tearReticle;
+        g.clear();
+        g.lineStyle(2, 0xcc00ff, 0.85);
+        g.strokeCircle(wp.x, wp.y, 18);
+        g.lineStyle(1, 0xcc00ff, 0.35);
+        g.lineBetween(wp.x - 24, wp.y, wp.x + 24, wp.y);
+        g.lineBetween(wp.x, wp.y - 24, wp.x, wp.y + 24);
+        // Tear crack lines radiating from player
+        g.lineStyle(1, 0x9900cc, 0.20);
+        g.lineBetween(this.player.x, this.player.y, wp.x, wp.y);
+    }
+
+    _confirmAethericTear(tx, ty) {
+        this._tearTargeting = false;
+        this._tearReticle?.destroy();
+        this._tearReticle = null;
+
+        const stats    = this.player.stats;
+        const manaCost = Math.floor(stats.maxMana * 0.90);
+        if (stats.mana < manaCost) return;
+
+        stats.mana    -= manaCost;
+        stats.manaExhausted = stats.mana === 0;
+        stats.addManaScent(60);
+        this.player._tearCooldown = 60000;
+
+        // VFX — void rift at origin
+        this.add.particles(this.player.x, this.player.y, 'particle', {
+            speed: { min: 80, max: 200 }, angle: { min: 0, max: 360 },
+            scale: { start: 1.4, end: 0 }, lifespan: { min: 400, max: 900 },
+            tint: [0xcc00ff, 0x6600cc, 0x220044, 0xffffff], quantity: 32, explode: true,
+        }).setDepth(60);
+        // VFX — void rift at destination
+        this.add.particles(tx, ty, 'particle', {
+            speed: { min: 60, max: 180 }, angle: { min: 0, max: 360 },
+            scale: { start: 1.2, end: 0 }, lifespan: { min: 350, max: 800 },
+            tint: [0xcc00ff, 0x9900cc, 0x440066], quantity: 28, explode: true,
+        }).setDepth(60);
+        this.cameras.main.flash(250, 160, 0, 220, true);
+        this.cameras.main.shake(180, 0.008);
+        soundManager.spell();
+
+        // Teleport
+        this.player.setPosition(tx, ty);
+        this.cameras.main.centerOn(tx, ty);
+
+        this.scene.get('UIScene')?.showNotification?.('Aetheric Tear — space was torn asunder!', 2000);
+    }
+
+    _cancelPlacement() {
+        if (this._tearTargeting) {
+            this._tearTargeting = false;
+            this._tearReticle?.destroy();
+            this._tearReticle = null;
+        }
+        if (this._campfirePlacing) {
+            this._campfirePlacing = false;
+            this._campfireReticle?.destroy();
+            this._campfireReticle = null;
+        }
+    }
+
+    // ── Dynamic Campfire ─────────────────────────────────────────────────────
+    _startCampfirePlacement() {
+        if (!this.player?.active) return;
+        const WOOD_COST = 3;
+        const woodCount = playerStats.inventory.filter(i => i.id === 'wood').reduce((s, i) => s + i.qty, 0);
+        if (woodCount < WOOD_COST) {
+            this.scene.get('UIScene')?.showNotification?.(`Need ${WOOD_COST} Wood to build a campfire (have ${woodCount})`, 1600);
+            return;
+        }
+        this._campfirePlacing = true;
+        this._campfireReticle = this.add.graphics().setDepth(200);
+        this.scene.get('UIScene')?.showNotification?.('Campfire — click to place (uses 3 Wood), [RMB] cancel', 5000);
+    }
+
+    _updateCampfireReticle() {
+        if (!this._campfireReticle) return;
+        const ptr = this.input.activePointer;
+        const wp  = this.cameras.main.getWorldPoint(ptr.x, ptr.y);
+        const g   = this._campfireReticle;
+        g.clear();
+        g.fillStyle(0xff6600, 0.25);
+        g.fillCircle(wp.x, wp.y, 24);
+        g.lineStyle(2, 0xff6600, 0.75);
+        g.strokeCircle(wp.x, wp.y, 24);
+    }
+
+    _confirmCampfire(tx, ty) {
+        this._campfirePlacing = false;
+        this._campfireReticle?.destroy();
+        this._campfireReticle = null;
+
+        // Consume 3 wood
+        playerStats.removeItem('wood', 3);
+
+        // Spawn campfire
+        const cf = this.campfires.create(tx, ty, 'campfire');
+        cf.setDepth(6);
+        cf.body.setSize(20, 16);
+        cf.healed    = false;
+        cf._placed   = true;
+
+        this.tweens.add({ targets: cf, alpha: 0.75, yoyo: true, repeat: -1, duration: 400 + Math.random() * 200, ease: 'Sine.easeInOut' });
+        this.add.particles(tx, ty - 10, 'particle', {
+            speed: { min: 8, max: 22 }, angle: { min: 250, max: 290 },
+            scale: { start: 0.8, end: 0 }, lifespan: { min: 300, max: 600 },
+            tint: [0xff6600, 0xffaa00, 0xffff44], quantity: 1, frequency: 60,
+        }).setDepth(7);
+
+        cf.ePrompt = this.add.text(tx, ty - TILE_SIZE / 2 - 4, '[E] Rest', {
+            font: '7px monospace', fill: '#ffbb44'
+        }).setOrigin(0.5, 1).setDepth(25).setAlpha(0);
+
+        this.scene.get('UIScene')?.showNotification?.('Campfire placed — rest to restore HP/MP.', 2200);
+        soundManager.collect();
+    }
+
+    _buildWorld(mapW, mapH) {
+        // Floor layer — real Pipoya BaseChip tileset via Phaser Tilemap
+        // Data tile IDs: 0=empty, 1=BaseChip[0] grass, 5=BaseChip[4] path stone
+        const floorData = PROLOGUE_MAP.map(row =>
+            row.map(tile => tile === 2 ? 5 : 1)
+        );
+        const tilemap = this.make.tilemap({ data: floorData, tileWidth: TILE_SIZE, tileHeight: TILE_SIZE });
+        const tileset = tilemap.addTilesetImage('tileset_base', 'tileset_base');
+        tilemap.createLayer(0, tileset, 0, 0).setDepth(0);
+
+        // Tree/wall sprites — individual sprites so Y-depth sorting works
         PROLOGUE_MAP.forEach((row, r) => {
             row.forEach((tile, c) => {
-                const x = c * TILE_SIZE + TILE_SIZE / 2;
-                const y = r * TILE_SIZE + TILE_SIZE / 2;
                 if (tile === 1) {
+                    const x = c * TILE_SIZE + TILE_SIZE / 2;
+                    const y = r * TILE_SIZE + TILE_SIZE / 2;
                     const wall = this.wallGroup.create(x, y, 'tile_tree');
-                    // Y-sort: trees higher on screen appear behind those lower
                     wall.setDepth(y + 0.5);
                     wall.refreshBody();
-                } else if (tile === 2) {
-                    this.add.image(x, y, 'tile_path').setDepth(1);
                 }
             });
         });
@@ -241,17 +1281,84 @@ export default class GameScene extends Phaser.Scene {
         if (!this.player?.active) return;
 
         this.player.update(this.cursors, this.wasd, this.attackKey, this.powerKey, delta);
-
-        // Y-sort: update player depth every frame so they appear behind/in-front of trees correctly
         this.player.setDepth(this.player.y + 1);
 
         this.enemies.getChildren().forEach(e => {
-            if (e.active) {
+            if (!e.active) return;
+            // Knockup: freeze AI, tick timer, fire land callback when done
+            if (e._knockupTimer > 0) {
+                e._knockupTimer -= delta;
+                e.body?.setVelocity(0, 0);
+                if (e._knockupTimer <= 0) {
+                    e._knockupTimer = 0;
+                    e._onKnockupLand?.();
+                }
+            } else {
                 e.update(this.player, delta);
-                e.setDepth(e.y + 1);
-                if (e.healthBar) e.healthBar.setDepth(e.y + 5);
             }
+            e.setDepth(e.y + 1);
+            if (e.healthBar) e.healthBar.setDepth(e.y + 5);
         });
+
+        // Quagmire slow — applied after enemy velocity is set this frame
+        if (this._quagmireZones?.length) {
+            const now = this.time.now;
+            this._quagmireZones = this._quagmireZones.filter(z => z.expiry > now);
+            this._quagmireZones.forEach(z => {
+                this.enemies.getChildren().forEach(e => {
+                    if (!e.active) return;
+                    if (Phaser.Math.Distance.Between(z.x, z.y, e.x, e.y) <= z.r)
+                        e.body.setVelocity(e.body.velocity.x * 0.25, e.body.velocity.y * 0.25);
+                });
+                if (this.boss?.active && Phaser.Math.Distance.Between(z.x, z.y, this.boss.x, this.boss.y) <= z.r)
+                    this.boss.body.setVelocity(this.boss.body.velocity.x * 0.40, this.boss.body.velocity.y * 0.40);
+            });
+        }
+
+        // Boss tick + player attack
+        if (this.boss?.active) {
+            this.boss.update(this.player, delta);
+            if (this.player.isAttacking && this.player.attackHitbox.active) {
+                this.physics.overlap(this.player.attackHitbox, this.boss, () => {
+                    this.combatManager.hitTarget(this.boss);
+                });
+            }
+        }
+
+        // Augmentation keys — Blink-Step [SPACE] / Aetheric Sight [V]
+        if (Phaser.Input.Keyboard.JustDown(this.blinkKey)) this.player.blinkStep();
+        if (Phaser.Input.Keyboard.JustDown(this.sightKey)) this.player.activateAethericSight();
+
+        // Skill slot activation (Q/R/F/T)
+        if (!this.player.isAttacking) {
+            this.slotKeys.forEach((key, i) => {
+                if (Phaser.Input.Keyboard.JustDown(key)) this._tryActivateSlot(i);
+            });
+        }
+
+        // Reticle follows mouse while targeting / tear / campfire
+        if (this._targeting)     this._updateReticle();
+        if (this._tearTargeting) this._updateTearReticle();
+        if (this._campfirePlacing) this._updateCampfireReticle();
+
+        // Aetheric Tear cooldown tick
+        if (this.player._tearCooldown > 0) this.player._tearCooldown -= delta;
+
+        // Boss arena entry trigger
+        if (!this._bossArenaTriggered && this.boss?.active) {
+            const px = this.player.x / TILE_SIZE, py = this.player.y / TILE_SIZE;
+            const b = BOSS_ARENA_BOUNDS;
+            if (px > b.minX && px < b.maxX && py > b.minY && py < b.maxY) {
+                this._bossArenaTriggered = true;
+                // Trigger hidden void fragment quest on boss arena entry
+                if (!questManager.isActive('hidden_void_fragment') && !questManager.isCompleted('hidden_void_fragment')) {
+                    questManager.startQuest('hidden_void_fragment');
+                    this.scene.get('UIScene')?.showNotification?.('A new hidden quest revealed itself...', 2500);
+                }
+                this.scene.pause();
+                this.scene.launch('DialogueScene', { lines: DIALOGUES['boss_encounter'] });
+            }
+        }
 
         this._updateInteractPrompts();
 
@@ -265,19 +1372,48 @@ export default class GameScene extends Phaser.Scene {
         const px = this.player.x, py = this.player.y;
         const near = (obj) => Phaser.Math.Distance.Between(px, py, obj.x, obj.y) < range;
 
-        this.npcs.getChildren().forEach(npc       => npc.ePrompt?.setAlpha(near(npc) ? 1 : 0));
-        this.chests.getChildren().forEach(chest   => chest.ePrompt?.setAlpha(near(chest) && !chest.opened ? 1 : 0));
-        this.campfires.getChildren().forEach(cf   => cf.ePrompt?.setAlpha(near(cf) ? 1 : 0));
-        this.signs.getChildren().forEach(sign     => sign.ePrompt?.setAlpha(near(sign) ? 1 : 0));
+        this.npcs.getChildren().forEach(npc           => npc.ePrompt?.setAlpha(near(npc) ? 1 : 0));
+        this.chests.getChildren().forEach(chest       => chest.ePrompt?.setAlpha(near(chest) && !chest.opened ? 1 : 0));
+        this.campfires.getChildren().forEach(cf       => cf.ePrompt?.setAlpha(near(cf) ? 1 : 0));
+        this.signs.getChildren().forEach(sign         => sign.ePrompt?.setAlpha(near(sign) ? 1 : 0));
+        this.crackedBoulders.getChildren().forEach(b  => b.ePrompt?.setAlpha(near(b) && b.active ? 1 : 0));
+        this.gatheringGroup.getChildren().forEach(nd  => nd.ePrompt?.setAlpha(near(nd) && !nd.gathered ? 1 : 0));
+        this._riftGates?.forEach(g => {
+            const inRange = Phaser.Math.Distance.Between(px, py, g.wx, g.wy) < range;
+            g.prompt?.setAlpha(inRange ? 1 : 0);
+            g.label?.setAlpha(inRange ? 0.8 : 0);
+        });
     }
 
     _checkInteractions() {
         // NPC
         this.physics.overlap(this.player.interactBox, this.npcs, (box, npc) => {
             const def = npc.npcDef;
-            const key = npc.talked ? def.afterDialogue : def.dialogue;
-            const lines = DIALOGUES[key] ?? [{ speaker: def.name, text: '...' }];
             soundManager.interact();
+
+            if (def.isShop) {
+                // Merchant: first interaction shows greeting, then opens shop
+                if (!npc.talked) {
+                    npc.talked = true;
+                    const lines = DIALOGUES[def.dialogue] ?? [{ speaker: def.name, text: '...' }];
+                    this.scene.pause();
+                    this.scene.launch('DialogueScene', {
+                        lines,
+                        onComplete: () => {
+                            this.scene.pause();
+                            this.scene.launch('ShopScene');
+                        }
+                    });
+                } else {
+                    this.scene.pause();
+                    this.scene.launch('ShopScene');
+                }
+                return;
+            }
+
+            const npcId = def.isShop ? 'silvara' : (def.dialogue?.replace(/_greeting$|_prolog$/, '') ?? 'hermit');
+            const key   = npc.talked ? def.afterDialogue : def.dialogue;
+            const lines = DIALOGUES[key] ?? [{ speaker: def.name, text: '...' }];
             this.scene.pause();
             this.scene.launch('DialogueScene', {
                 lines,
@@ -287,6 +1423,7 @@ export default class GameScene extends Phaser.Scene {
                         soundManager.collect();
                         this.scene.get('UIScene')?.showNotification?.(`Received: ${def.reward.replace(/_/g, ' ')}`, 2000);
                     }
+                    if (!npc.talked) questManager.onTalk(npcId);
                     npc.talked = true;
                     SaveManager.save(playerStats);
                 }
@@ -304,6 +1441,7 @@ export default class GameScene extends Phaser.Scene {
             }
             playerStats.health = Math.min(playerStats.maxHealth, playerStats.health + healHp);
             playerStats.mana   = Math.min(playerStats.maxMana, playerStats.mana + healMp);
+            playerStats.gainResonance('fire', RESONANCE_GAINS.rest_campfire.fire);
             soundManager.collect();
             SaveManager.save(playerStats);
             this.scene.pause();
@@ -315,9 +1453,62 @@ export default class GameScene extends Phaser.Scene {
         // Sign
         this.physics.overlap(this.player.interactBox, this.signs, (box, sign) => {
             soundManager.interact();
+            questManager.onReadSign();
             this.scene.pause();
             this.scene.launch('DialogueScene', {
                 lines: sign.signText.split('\n\n').map(t => ({ speaker: null, text: t }))
+            });
+        });
+
+        // Cracked boulder — inspect inscription
+        this.physics.overlap(this.player.interactBox, this.crackedBoulders, (box, boulder) => {
+            if (!boulder.active) return;
+            soundManager.interact();
+            this.scene.pause();
+            this.scene.launch('DialogueScene', {
+                lines: [{ speaker: null, text: `${boulder.boulderDef.label}\n\nEarth Pillar magic might shatter it.` }]
+            });
+        });
+
+        // Gathering nodes
+        this.physics.overlap(this.player.interactBox, this.gatheringGroup, (box, node) => {
+            if (node.gathered) return;
+            const def    = node.nodeDef;
+            const hasTool = playerStats.inventory.some(i => i.id === def.tool);
+            if (!hasTool) {
+                const toolName = def.tool.replace(/_/g, ' ');
+                soundManager.interact();
+                this.scene.pause();
+                this.scene.launch('DialogueScene', {
+                    lines: [{ speaker: null, text: `${def.label}\n\nYou need an ${toolName}.` }]
+                });
+                return;
+            }
+            node.gathered = true;
+            node.ePrompt?.setAlpha(0);
+            node.ePrompt?.destroy();
+            if (playerStats.addItem(def.resource)) {
+                const rName = def.resource.replace(/_/g, ' ');
+                questManager.onGather(def.resource);
+                soundManager.collect();
+                const tint = def.type === 'wood' ? 0x8b5e3c : 0x8888aa;
+                this.add.particles(node.x, node.y, 'particle', {
+                    speed: { min: 20, max: 60 }, angle: { min: 0, max: 360 },
+                    scale: { start: 0.7, end: 0 }, lifespan: { min: 300, max: 600 },
+                    tint: [tint, 0xffffff], quantity: 10, explode: true,
+                }).setDepth(60);
+                this.scene.get('UIScene')?.showNotification?.(`+1 ${rName}`, 1400);
+            }
+            this.tweens.add({
+                targets: node, alpha: 0, duration: 350,
+                onComplete: () => { node.disableBody(true, false); this.tweens.add({ targets: node, alpha: 0 }); }
+            });
+        });
+
+        // Rift-Gates
+        this._riftGates?.forEach(gate => {
+            this.physics.overlap(this.player.interactBox, gate.zone, () => {
+                this._interactRiftGate(gate);
             });
         });
 

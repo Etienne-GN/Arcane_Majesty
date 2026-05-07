@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { soundManager } from '../systems/SoundManager.js';
+import { playerStats } from '../systems/PlayerStats.js';
 
 const STATE = { PATROL: 'patrol', CHASE: 'chase', ATTACK: 'attack', STUNNED: 'stunned', DEAD: 'dead' };
 
@@ -80,6 +81,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         if (this.state === STATE.DEAD || !this.active) return;
 
         this.attackCooldown = Math.max(0, this.attackCooldown - delta);
+        if (this._eclipseMarkTimer > 0) this._eclipseMarkTimer = Math.max(0, this._eclipseMarkTimer - delta);
         this._drawHealthBar();
 
         if (this.state === STATE.STUNNED) {
@@ -92,17 +94,25 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.prevState = this.state;
         const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
 
-        if (dist <= this.attackRange)        this.state = STATE.ATTACK;
-        else if (dist <= this.sightRange)    this.state = STATE.CHASE;
-        else if (this.state === STATE.CHASE) this.state = STATE.PATROL;
+        // ManaScent (Ping): aggro range scales 1× at 0% → 3× at 100% scent
+        const scentMult    = 1 + (playerStats.manaScent / 100) * 2;
+        const effectiveSight = this.sightRange * scentMult;
+
+        if (dist <= this.attackRange)           this.state = STATE.ATTACK;
+        else if (dist <= effectiveSight)        this.state = STATE.CHASE;
+        else if (this.state === STATE.CHASE)    this.state = STATE.PATROL;
 
         if (this.prevState === STATE.PATROL && this.state === STATE.CHASE) {
-            this._showAlert('!', '#ff4444');
+            // Show '?!' when alerted by scent at range beyond normal sight
+            this._showAlert(dist > this.sightRange ? '?!' : '!', '#ff4444');
         }
 
+        // Aetheric Sight: GameScene flags _aethericSightActive to slow enemies
+        const speedMult = this.scene._aethericSightActive ? 0.25 : 1;
+
         switch (this.state) {
-            case STATE.PATROL: this._patrol(delta); break;
-            case STATE.CHASE:  this._chase(player); break;
+            case STATE.PATROL: this._patrol(delta, speedMult); break;
+            case STATE.CHASE:  this._chase(player, speedMult); break;
             case STATE.ATTACK: this._doAttack(player); break;
         }
 
@@ -118,7 +128,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    _patrol(delta) {
+    _patrol(delta, speedMult = 1) {
         this.patrolTimer -= delta;
         const dist = Phaser.Math.Distance.Between(this.x, this.y, this.patrolTarget.x, this.patrolTarget.y);
         if (dist < 8 || this.patrolTimer <= 0) {
@@ -127,11 +137,11 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
             const r = Math.random() * this.patrolRadius;
             this.patrolTarget.set(this.origin.x + Math.cos(angle) * r, this.origin.y + Math.sin(angle) * r);
         }
-        this.scene.physics.moveTo(this, this.patrolTarget.x, this.patrolTarget.y, this.speed * 0.4);
+        this.scene.physics.moveTo(this, this.patrolTarget.x, this.patrolTarget.y, this.speed * 0.4 * speedMult);
     }
 
-    _chase(player) {
-        this.scene.physics.moveTo(this, player.x, player.y, this.speed);
+    _chase(player, speedMult = 1) {
+        this.scene.physics.moveTo(this, player.x, player.y, this.speed * speedMult);
     }
 
     _doAttack(player) {

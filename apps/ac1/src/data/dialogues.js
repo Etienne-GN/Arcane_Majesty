@@ -18,4 +18,22 @@ export const DIALOGUES = {
         { speaker: null, text: 'A chest half-buried in ancient roots, sealed with a corroded iron clasp.' },
         { speaker: null, text: 'You pry it open. Inside: a leather satchel and a vial of shimmering liquid.' },
     ],
+    boss_encounter: [
+        { speaker: null, text: 'The air turns cold. The trees have stopped whispering.' },
+        { speaker: 'Eldrin', text: 'This corruption... it is not natural. Something ancient has taken root here.' },
+        { speaker: null, text: 'From the shadow, two eyes of violet fire open. The Void Wraith awakens.' },
+    ],
+    boss_defeated: [
+        { speaker: 'Eldrin', text: 'It is done. The corruption recedes.' },
+        { speaker: 'Eldrin', text: 'This wraith was only a fragment of something larger. The Void stirs beyond Eldoria.' },
+        { speaker: null, text: 'A faint light pulses from within the creature\'s remains — a shard of crystallized resonance.' },
+    ],
+    merchant_greeting: [
+        { speaker: 'Silvara', text: 'Ah, a scholar in the wild! You look like you could use some proper equipment.' },
+        { speaker: 'Silvara', text: 'I trade in tools, arms, and alchemical sundries. Glint is all I ask in return.' },
+        { speaker: 'Silvara', text: 'The shop is open. Browse, buy, sell. The forest is unkind to the unprepared.' },
+    ],
+    merchant_after: [
+        { speaker: 'Silvara', text: 'Safe travels. And do come back — I restock often.' },
+    ],
 };

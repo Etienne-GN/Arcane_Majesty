@@ -29,6 +29,12 @@ export default class BootScene extends Phaser.Scene {
         // NPC sprites
         this.load.spritesheet('spr_hermit', 'assets/characters/Male/Male 07-1.png',   { frameWidth: 32, frameHeight: 32 });
 
+        // Boss sprite — 288×384, 96×96/frame, 3 cols × 4 rows (4 boss types, 3 walk frames each)
+        this.load.spritesheet('spr_boss', 'assets/characters/Boss/Boss 01.png', { frameWidth: 96, frameHeight: 96 });
+
+        // VFX — light pillar: 960×384, 192×192/frame, 5 cols × 2 rows = 10 frames
+        this.load.spritesheet('vfx_pillar', 'assets/vfx/light_pillar/pipo-mapeffect013a.png', { frameWidth: 192, frameHeight: 192 });
+
         // Tileset — base chip for world (256×4256, 32×32 per tile, 8 cols × 133 rows)
         this.load.image('tileset_base',  'assets/tilesets/SampleMap/[Base]BaseChip_pipo.png');
         this.load.image('tileset_grass', 'assets/tilesets/SampleMap/[A]Grass_pipo.png');
@@ -39,33 +45,24 @@ export default class BootScene extends Phaser.Scene {
 
     create() {
         this._generateTextures();
+        this._createVfxAnims();
         this.scene.start('MenuScene');
+    }
+
+    _createVfxAnims() {
+        // Light pillar: 10 frames (5 cols × 2 rows, 192×192 each)
+        this.anims.create({
+            key: 'vfx_pillar',
+            frames: this.anims.generateFrameNumbers('vfx_pillar', { start: 0, end: 9 }),
+            frameRate: 12,
+            repeat: 0
+        });
     }
 
     _generateTextures() {
         const g = this.make.graphics({ x: 0, y: 0, add: false });
 
-        // Floor tile — dark forest green with subtle variation dots
-        g.fillStyle(0x1e3a14);
-        g.fillRect(0, 0, 32, 32);
-        g.fillStyle(0x1a3412);
-        g.fillRect(3, 3, 2, 2);
-        g.fillRect(18, 20, 3, 2);
-        g.fillRect(26, 8, 2, 3);
-        g.fillRect(10, 26, 2, 2);
-        g.generateTexture('tile_floor', 32, 32);
-        g.clear();
-
-        // Path tile — lighter sandy dirt
-        g.fillStyle(0x5a4a2a);
-        g.fillRect(0, 0, 32, 32);
-        g.fillStyle(0x4e4024);
-        g.fillRect(4, 4, 3, 2);
-        g.fillRect(20, 18, 2, 3);
-        g.generateTexture('tile_path', 32, 32);
-        g.clear();
-
-        // Tree tile — dark canopy with brown trunk at base
+        // Tree tile (wall sprite) — dark canopy with brown trunk at base
         g.fillStyle(0x0e2a0a);
         g.fillRect(0, 0, 32, 32);
         g.fillStyle(0x163d10);
@@ -161,6 +158,33 @@ export default class BootScene extends Phaser.Scene {
         g.fillStyle(0xffffff);
         g.fillRect(0, 0, 4, 4);
         g.generateTexture('particle', 4, 4);
+        g.clear();
+
+        // Wood pile (gathering node — logs)
+        g.fillStyle(0x3a1a00);
+        g.fillRect(2, 20, 28, 10);
+        g.fillStyle(0x5c3a14);
+        g.fillRect(4, 16, 10, 6);
+        g.fillRect(17, 18, 9, 5);
+        g.fillStyle(0x7a5022);
+        g.fillRect(6, 14, 8, 4);
+        g.fillStyle(0x4a2a0a);
+        g.fillRect(2, 28, 28, 2);
+        g.generateTexture('wood_pile', 32, 32);
+        g.clear();
+
+        // Mineral node (gathering node — rocky outcrop)
+        g.fillStyle(0x333344);
+        g.fillRect(4, 14, 24, 14);
+        g.fillStyle(0x555566);
+        g.fillRect(6, 10, 10, 8);
+        g.fillRect(18, 12, 8, 6);
+        g.fillStyle(0x8888aa);
+        g.fillRect(8, 12, 5, 4);
+        g.fillRect(20, 14, 3, 3);
+        g.fillStyle(0xaaaacc);
+        g.fillRect(9, 13, 2, 2);
+        g.generateTexture('mineral_node', 32, 32);
         g.clear();
 
         g.destroy();

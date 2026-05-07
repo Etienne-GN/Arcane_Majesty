@@ -21,23 +21,44 @@ export default class SkillTreeScene extends Phaser.Scene {
 
         // Stats column
         const sx = px + 14, sy = py + 32;
-        this.add.text(sx, sy,      `Level:  ${playerStats.level}`,                               { font: '11px monospace', fill: '#ffffff' });
-        this.add.text(sx, sy + 14, `XP:     ${playerStats.xp} / ${playerStats.xpToNextLevel}`,  { font: '11px monospace', fill: '#aaaaff' });
-        this.add.text(sx, sy + 28, `Points: ${playerStats.skillPoints}`,                         { font: '11px monospace', fill: '#00ff88' });
-        this.add.text(sx, sy + 46, `STR ${playerStats.attributes.strength}  AGI ${playerStats.attributes.agility}  WIS ${playerStats.attributes.wisdom}`, { font: '10px monospace', fill: '#888888' });
-        this.add.text(sx, sy + 60, `HP ${playerStats.health}/${playerStats.maxHealth}   MP ${playerStats.mana}/${playerStats.maxMana}`, { font: '10px monospace', fill: '#888888' });
+        const a = playerStats.attributes;
+
+        this.add.text(sx, sy,      `Level:  ${playerStats.level}`,                              { font: '11px monospace', fill: '#ffffff' });
+        this.add.text(sx, sy + 14, `XP:     ${playerStats.xp} / ${playerStats.xpToNextLevel}`, { font: '11px monospace', fill: '#aaaaff' });
+        this.add.text(sx, sy + 28, `Skill Points:  ${playerStats.skillPoints}`,                 { font: '10px monospace', fill: '#00ff88' });
+        this.add.text(sx, sy + 41, `Attr Points:   ${playerStats.attributePoints}`,             { font: '10px monospace', fill: '#ffcc44' });
+        this.add.text(sx, sy + 58, `HP ${playerStats.health}/${playerStats.maxHealth}   MP ${playerStats.mana}/${playerStats.maxMana}`, { font: '10px monospace', fill: '#888888' });
+
+        // 4-stat block with [+] distribution buttons
+        const stats4 = [
+            { key: 'strength',     label: 'STR', color: '#ff8866' },
+            { key: 'intelligence', label: 'INT', color: '#8888ff' },
+            { key: 'stamina',      label: 'STA', color: '#66dd66' },
+            { key: 'agility',      label: 'AGI', color: '#ffdd44' },
+        ];
+        stats4.forEach(({ key, label, color }, i) => {
+            const row = sy + 74 + Math.floor(i / 2) * 18;
+            const col = sx + (i % 2) * 110;
+            this.add.text(col, row, `${label} ${a[key]}`, { font: '10px monospace', fill: color });
+            if (playerStats.attributePoints > 0) {
+                const btn = this.add.text(col + 46, row, '[+]', { font: 'bold 10px monospace', fill: '#ffff00' }).setInteractive();
+                btn.on('pointerdown', () => { if (playerStats.distributePoint(key)) this.scene.restart(); });
+                btn.on('pointerover', () => btn.setStyle({ fill: '#ffffff' }));
+                btn.on('pointerout',  () => btn.setStyle({ fill: '#ffff00' }));
+            }
+        });
 
         // Skill list
-        this._renderSkills(px + 14, py + 130, pw - 28);
+        this._renderSkills(px + 14, py + 134, pw - 28);
 
         // Close hint
-        this.add.text(w / 2, ph + py - 10, '[ESC] or [K] Close', {
+        this.add.text(w / 2, ph + py - 10, '[ESC/K] Close   [J] Spellbook', {
             font: '9px monospace', fill: '#555555'
         }).setOrigin(0.5, 1);
 
-        // Only ESC/K to close — avoid S-key conflict with WASD
         this.input.keyboard.on('keydown-ESC', () => this._close());
         this.input.keyboard.on('keydown-K',   () => this._close());
+        this.input.keyboard.on('keydown-J',   () => { this.scene.stop(); this.scene.launch('SpellbookScene'); });
     }
 
     _renderSkills(startX, startY, width) {

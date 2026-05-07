@@ -1,102 +1,203 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
+import { ITEMS, SATCHEL_TIERS } from '../data/items.js';
 
-const COLS = 6;
-const ROWS = 4;
-const SLOT = 34;
+const SLOT = 28;
+const EQUIP_PANEL_W = 96;
+
+const EQUIP_SLOTS = [
+    { key: 'head',       label: 'HEAD'  },
+    { key: 'body',       label: 'BODY'  },
+    { key: 'weapon',     label: 'WEAP'  },
+    { key: 'accessory1', label: 'ACC 1' },
+    { key: 'accessory2', label: 'ACC 2' },
+];
+
+// Adaptive grid columns based on satchel capacity
+function gridCols(capacity) {
+    if (capacity <= 20) return 5;
+    if (capacity <= 35) return 7;
+    return 10;
+}
 
 export default class InventoryScene extends Phaser.Scene {
     constructor() { super('InventoryScene'); }
 
     create() {
         const w = this.scale.width, h = this.scale.height;
+        const px = 6, py = 6, pw = w - 12, ph = h - 12;
 
-        // Dimmer
-        this.add.rectangle(0, 0, w, h, 0x000000, 0.80).setOrigin(0);
-
-        const panelW = COLS * SLOT + 28;
-        const panelH = ROWS * SLOT + 90;
-        const px = Math.floor((w - panelW) / 2);
-        const py = Math.floor((h - panelH) / 2);
-
-        // Panel
-        this.add.rectangle(px, py, panelW, panelH, 0x0f0f1e).setOrigin(0);
+        this.add.rectangle(0, 0, w, h, 0x000000, 0.82).setOrigin(0);
+        this.add.rectangle(px, py, pw, ph, 0x080818).setOrigin(0);
         const bdr = this.add.graphics();
         bdr.lineStyle(2, 0x4444aa);
-        bdr.strokeRect(px, py, panelW, panelH);
+        bdr.strokeRect(px, py, pw, ph);
 
-        this.add.text(px + panelW / 2, py + 8, 'INVENTORY', {
-            font: 'bold 12px monospace', fill: '#ffd700'
+        // Header
+        this.add.text(px + pw / 2, py + 5, "SCHOLAR'S SATCHEL", {
+            font: 'bold 11px monospace', fill: '#ffd700'
         }).setOrigin(0.5, 0);
 
-        // Gold
-        this.add.text(px + panelW - 8, py + 8, `Gold: ${playerStats.gold ?? 0}`, {
-            font: '9px monospace', fill: '#ffcc44'
+        // Glint counter (top right)
+        this.add.text(px + pw - 5, py + 5, `Glint: ${playerStats.glint ?? 0}`, {
+            font: '9px monospace', fill: '#c8a820'
         }).setOrigin(1, 0);
 
-        // Grid
-        const gridX = px + 14;
-        const gridY = py + 28;
-        const inventory = playerStats.inventory;
+        // Tier info
+        const tier = SATCHEL_TIERS[(playerStats.satchelTier ?? 1) - 1];
+        const used = playerStats.inventory.length;
+        this.add.text(px + pw / 2, py + 17, `Tier ${playerStats.satchelTier}: ${tier.name} — ${used}/${tier.slots} slots`, {
+            font: '7px monospace', fill: '#887799'
+        }).setOrigin(0.5, 0);
 
-        this.descText = this.add.text(px + 8, py + panelH - 46, '', {
-            font: '8px monospace', fill: '#cccccc',
-            wordWrap: { width: panelW - 16 },
-            lineSpacing: 2
-        });
+        // Vertical divider
+        const divX = px + EQUIP_PANEL_W + 4;
+        const divG = this.add.graphics();
+        divG.lineStyle(1, 0x2a2a44);
+        divG.lineBetween(divX, py + 28, divX, py + ph - 26);
 
-        this.useHint = this.add.text(px + panelW / 2, py + panelH - 14, '', {
-            font: '8px monospace', fill: '#888888'
+        // Equipment panel (left)
+        this._drawEquipPanel(px + 2, py + 28, EQUIP_PANEL_W);
+
+        // Satchel grid + description (right)
+        this._drawSatchelGrid(divX + 4, py + 28, pw - EQUIP_PANEL_W - 14);
+
+        // Close hint
+        this.add.text(px + pw / 2, py + ph - 4, '[ESC / I] Close', {
+            font: '7px monospace', fill: '#443355'
         }).setOrigin(0.5, 1);
+
+        this.input.keyboard.on('keydown-ESC', () => this._close());
+        this.input.keyboard.on('keydown-I',   () => this._close());
+    }
+
+    _drawEquipPanel(x, y, panelW) {
+        this.add.text(x + panelW / 2, y, 'EQUIPMENT', {
+            font: 'bold 7px monospace', fill: '#8888bb'
+        }).setOrigin(0.5, 0);
+
+        const slotH = 38, gap = 3;
+
+        EQUIP_SLOTS.forEach(({ key, label }, i) => {
+            const sy = y + 12 + i * (slotH + gap);
+            const equippedId  = playerStats.equipment[key];
+            const equippedDef = equippedId ? ITEMS[equippedId] : null;
+
+            const bg = this.add.rectangle(x, sy, panelW, slotH,
+                equippedDef ? 0x12122e : 0x0c0c20).setOrigin(0).setInteractive();
+            const bdrG = this.add.graphics();
+            bdrG.lineStyle(1, equippedDef ? 0x5533aa : 0x282840);
+            bdrG.strokeRect(x, sy, panelW, slotH);
+
+            this.add.text(x + 3, sy + 2, label, { font: '6px monospace', fill: '#444466' });
+
+            if (equippedDef) {
+                this.add.rectangle(x + 4, sy + 12, 12, 12, equippedDef.color ?? 0x8855ff).setOrigin(0);
+                this.add.text(x + 20, sy + 11, equippedDef.name, {
+                    font: '7px monospace', fill: '#bbbbdd',
+                    wordWrap: { width: panelW - 22 }
+                });
+                bg.on('pointerdown', () => {
+                    if (playerStats.unequipItem(key)) this.scene.restart();
+                    else this.cameras.main.shake(80, 0.007);
+                });
+                bg.on('pointerover', () => bg.setFillStyle(0x1c1c40));
+                bg.on('pointerout',  () => bg.setFillStyle(0x12122e));
+            } else {
+                this.add.text(x + panelW / 2, sy + slotH / 2 + 3, '—', {
+                    font: '9px monospace', fill: '#2a2a44'
+                }).setOrigin(0.5);
+                bg.on('pointerover', () => bg.setFillStyle(0x111130));
+                bg.on('pointerout',  () => bg.setFillStyle(0x0c0c20));
+            }
+        });
+    }
+
+    _drawSatchelGrid(x, y, availW) {
+        const capacity = playerStats.getSatchelCapacity();
+        const cols     = gridCols(capacity);
+        const rows     = Math.ceil(capacity / cols);
+        const inventory = playerStats.inventory;
 
         this.selectedIdx = -1;
 
-        for (let row = 0; row < ROWS; row++) {
-            for (let col = 0; col < COLS; col++) {
-                const idx = row * COLS + col;
-                const sx = gridX + col * SLOT;
-                const sy = gridY + row * SLOT;
+        // Description area below grid
+        const gridH = rows * SLOT;
+        this.descText = this.add.text(x, y + gridH + 6, '', {
+            font: '7px monospace', fill: '#bbbbcc',
+            wordWrap: { width: availW - 4 }, lineSpacing: 2
+        });
+        this.actionHint = this.add.text(x + availW / 2, y + gridH + 26, '', {
+            font: '7px monospace', fill: '#777788'
+        }).setOrigin(0.5, 0);
 
-                const slotBg = this.add.rectangle(sx, sy, SLOT - 2, SLOT - 2, 0x1a1a30).setOrigin(0).setInteractive();
-                this.add.graphics().lineStyle(1, 0x333355).strokeRect(sx, sy, SLOT - 2, SLOT - 2);
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+                const idx     = row * cols + col;
+                const sx      = x + col * SLOT;
+                const sy      = y + row * SLOT;
+                const locked  = idx >= capacity;
+
+                const slotBg = this.add.rectangle(sx, sy, SLOT - 2, SLOT - 2,
+                    locked ? 0x060610 : 0x0e0e26).setOrigin(0).setInteractive();
+                const slotBdr = this.add.graphics();
+                slotBdr.lineStyle(1, locked ? 0x151520 : 0x1e1e3a);
+                slotBdr.strokeRect(sx, sy, SLOT - 2, SLOT - 2);
+
+                if (locked) {
+                    this.add.text(sx + (SLOT - 2) / 2, sy + (SLOT - 2) / 2, 'X', {
+                        font: '7px monospace', fill: '#1a1a2a'
+                    }).setOrigin(0.5);
+                    continue;
+                }
 
                 const item = inventory[idx];
                 if (item) {
-                    this.add.rectangle(sx + 4, sy + 4, SLOT - 10, SLOT - 10, item.color ?? 0x8855ff).setOrigin(0);
+                    // Item color block
+                    this.add.rectangle(sx + 3, sy + 3, SLOT - 8, SLOT - 8, item.color ?? 0x8855ff).setOrigin(0);
 
+                    // Equipment indicator (small purple pip)
+                    if (item.slot) this.add.rectangle(sx + 2, sy + 2, 4, 4, 0xaa44ff).setOrigin(0);
+
+                    // Stack count
                     if (item.qty > 1) {
-                        this.add.text(sx + SLOT - 10, sy + SLOT - 10, `${item.qty}`, {
-                            font: '7px monospace', fill: '#fff'
+                        this.add.text(sx + SLOT - 5, sy + SLOT - 5, `${item.qty}`, {
+                            font: '6px monospace', fill: '#fff'
                         }).setOrigin(1, 1);
                     }
 
-                    slotBg.on('pointerover', () => slotBg.setFillStyle(0x2a2a44));
-                    slotBg.on('pointerout',  () => slotBg.setFillStyle(idx === this.selectedIdx ? 0x222244 : 0x1a1a30));
+                    slotBg.on('pointerover', () => slotBg.setFillStyle(0x1a1a40));
+                    slotBg.on('pointerout',  () => slotBg.setFillStyle(idx === this.selectedIdx ? 0x141438 : 0x0e0e26));
                     slotBg.on('pointerdown', () => {
                         this.selectedIdx = idx;
-                        this.descText.setText(`${item.name}\n${item.description}`);
-                        this.useHint.setText('[U] Use   [ESC/I] Close');
+                        const def = ITEMS[item.id];
+                        const statStr = def?.stats
+                            ? '  ' + Object.entries(def.stats).map(([k, v]) => `+${v} ${k.substring(0,3).toUpperCase()}`).join(' ')
+                            : '';
+                        this.descText.setText(`${item.name}${statStr}\n${item.description}`);
+                        this.actionHint.setText(
+                            item.slot ? '[E] Equip   [ESC/I] Close' : '[U] Use   [ESC/I] Close'
+                        );
                     });
+                } else {
+                    slotBg.on('pointerover', () => slotBg.setFillStyle(0x111130));
+                    slotBg.on('pointerout',  () => slotBg.setFillStyle(0x0e0e26));
                 }
             }
         }
 
+        // Key handlers
         this.input.keyboard.on('keydown-U', () => {
             if (this.selectedIdx < 0) return;
             const item = inventory[this.selectedIdx];
-            if (!item) return;
-            if (playerStats.useItem(item.id)) {
-                this.scene.restart();
-            }
+            if (item && playerStats.useItem(item.id)) this.scene.restart();
         });
-
-        this.input.keyboard.on('keydown-ESC', () => this._close());
-        this.input.keyboard.on('keydown-I',   () => this._close());
-
-        // Header row label
-        this.add.text(px + panelW / 2, py + panelH - 58, '— Select an item —', {
-            font: '7px monospace', fill: '#444466'
-        }).setOrigin(0.5, 0);
+        this.input.keyboard.on('keydown-E', () => {
+            if (this.selectedIdx < 0) return;
+            const item = inventory[this.selectedIdx];
+            if (item && playerStats.equipItem(item.id)) this.scene.restart();
+            else this.cameras.main.shake(80, 0.007);
+        });
     }
 
     _close() {
