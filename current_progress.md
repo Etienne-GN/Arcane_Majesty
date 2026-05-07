@@ -7,6 +7,13 @@ This document tracks the current state of the project and serves as a quick-refe
 - **Cosmic Balance:** Tri-Planar Axis (Auroria, Eldoria, Nythoria) and Soul-Cycle mechanics documented in `world_lore.md`.
 - **Primary Era Finalized:** **0 GD (The Great Darkness)**.
 - **Narrative Continuity:** All 8 current albums have their song plots refined for strict linear consistency.
+- **AM1 Architecture (The Eldoria Blueprint):** 
+    - **Scenario:** Full level-by-level mapping of *Eldoria's Prophecy* (apps/am1/SCENARIO.md).
+    - **Magic System:** "Resonance & Aether" with Mana Pools and "Scent" mechanics (data/lore/magic_system.md).
+    - **Combat System:** "Aether-Augmentation" for physical weapons (data/lore/combat_system.md).
+    - **Bestiary:** 15+ Biome-specific enemies and 3 Void Generals (data/lore/bestiary.md).
+    - **Economy & Inventory:** Glint currency and Slot-based Satchel system (data/lore/economy_and_inventory.md).
+    - **Alchemy & Healing:** Restoration through stabilization and potion-crafting (data/lore/alchemy_and_healing.md).
 - **Master Knowledge Graph:** Full album metadata (titles, plots, timelines) synchronized with the Neo4j database.
 
 ## 2. Established Lore Constants
