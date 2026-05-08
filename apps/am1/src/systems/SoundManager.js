@@ -8,17 +8,24 @@ class SoundManager {
     }
 
     _ctx() {
+        if (!this._unlocked) return null;
         if (!this.ctx) {
             this.ctx = new (window.AudioContext || window.webkitAudioContext)();
         }
-        // Resume if suspended (browser autoplay policy)
         if (this.ctx.state === 'suspended') this.ctx.resume();
         return this.ctx;
+    }
+
+    // Call once on first user gesture to allow audio
+    unlock() {
+        this._unlocked = true;
+        this._ctx();
     }
 
     _tone(freq, duration, type = 'square', vol = 0.25, freqEnd = null) {
         if (!this.enabled) return;
         const ctx = this._ctx();
+        if (!ctx) return;
         const now = ctx.currentTime;
         const osc  = ctx.createOscillator();
         const gain = ctx.createGain();
@@ -36,6 +43,7 @@ class SoundManager {
     _noise(duration, vol = 0.25, filterFreq = 400) {
         if (!this.enabled) return;
         const ctx = this._ctx();
+        if (!ctx) return;
         const now = ctx.currentTime;
         const samples = Math.ceil(ctx.sampleRate * duration);
         const buf  = ctx.createBuffer(1, samples, ctx.sampleRate);

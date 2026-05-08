@@ -4,51 +4,59 @@ import { PROLOGUE_MAP, TILE_SIZE, RIFT_GATE_POSITIONS } from '../data/worldMap.j
 
 const MAP_ROWS = PROLOGUE_MAP.length;
 const MAP_COLS = PROLOGUE_MAP[0].length;
-const SCALE    = 4;   // px per tile in the map overlay
 
 export default class WorldMapScene extends Phaser.Scene {
     constructor() { super('WorldMapScene'); }
 
     create() {
-        const w = this.scale.width;   // 480
-        const h = this.scale.height;  // 320
+        const w = this.scale.width, h = this.scale.height;
 
-        // Dark overlay
-        this.add.rectangle(0, 0, w, h, 0x000000, 0.90).setOrigin(0);
+        this.add.rectangle(0, 0, w, h, 0x000000, 0.92).setOrigin(0);
 
-        // Title
-        this.add.text(w / 2, 8, 'WORLD MAP', {
+        const HEADER_H = 30;
+        const FOOTER_H = 24;
+        const PAD      = 16;
+
+        // Scale map to fill available space
+        const SCALE = Math.max(2, Math.floor(Math.min(
+            (w - PAD * 2) / MAP_COLS,
+            (h - HEADER_H - FOOTER_H) / MAP_ROWS
+        )));
+
+        const mapPxW = MAP_COLS * SCALE;
+        const mapPxH = MAP_ROWS  * SCALE;
+        const mapX   = Math.floor((w - mapPxW) / 2);
+        const mapY   = HEADER_H;
+
+        // ── Header ───────────────────────────────────────────────────────────
+        this.add.text(w / 2, 7, 'WORLD MAP', {
             font: 'bold 13px monospace', fill: '#ffd700',
             stroke: '#000', strokeThickness: 2
         }).setOrigin(0.5, 0);
 
-        // Map dimensions
-        const mapPxW = MAP_COLS * SCALE;   // 200
-        const mapPxH = MAP_ROWS  * SCALE;  // 160
-        const mapX   = Math.floor((w - mapPxW) / 2);  // 140
-        const mapY   = 26;
+        this.add.text(w - PAD, 7, '[ESC / M] Close', {
+            font: '7px monospace', fill: '#443322'
+        }).setOrigin(1, 0);
 
-        // Draw tile layer into a render texture
-        const rt = this.add.renderTexture(mapX, mapY, mapPxW, mapPxH).setDepth(1);
-        const g  = this.make.graphics({ x: 0, y: 0, add: false });
+        // ── Tile layer (direct world-space draw — no renderTexture offset issues) ─
+        const tileG = this.add.graphics().setDepth(1);
         PROLOGUE_MAP.forEach((row, r) => {
             row.forEach((tile, c) => {
                 const color = tile === 1 ? 0x0d2010 : tile === 2 ? 0x5a4a2a : 0x1e3a14;
-                g.fillStyle(color);
-                g.fillRect(c * SCALE, r * SCALE, SCALE, SCALE);
+                tileG.fillStyle(color);
+                tileG.fillRect(mapX + c * SCALE, mapY + r * SCALE, SCALE, SCALE);
             });
         });
-        rt.draw(g);
-        g.destroy();
 
-        // Map border
+        // Border — exact same origin/size as tile area
         this.add.graphics().setDepth(2)
             .lineStyle(1, 0x334499, 0.8)
-            .strokeRect(mapX - 1, mapY - 1, mapPxW + 2, mapPxH + 2);
+            .strokeRect(mapX, mapY, mapPxW, mapPxH);
 
-        // Rift gate markers
+        // ── Rift gate markers ─────────────────────────────────────────────────
         const worldW = MAP_COLS * TILE_SIZE;
         const worldH = MAP_ROWS  * TILE_SIZE;
+        const dotR   = Math.max(2, Math.floor(SCALE * 0.6));
 
         RIFT_GATE_POSITIONS.forEach(gate => {
             const gx = mapX + (gate.x + 0.5) * SCALE;
@@ -58,43 +66,51 @@ export default class WorldMapScene extends Phaser.Scene {
             const mk = this.add.graphics().setDepth(3);
             if (isAttuned) {
                 mk.fillStyle(0xffd700, 1);
-                mk.fillCircle(gx, gy, 4);
-                mk.lineStyle(1, 0xffffff, 0.7);
-                mk.strokeCircle(gx, gy, 5);
+                mk.fillCircle(gx, gy, dotR + 1);
+                mk.lineStyle(1, 0xffffff, 0.6);
+                mk.strokeCircle(gx, gy, dotR + 2);
             } else {
-                mk.lineStyle(1, 0x336699, 0.8);
-                mk.strokeCircle(gx, gy, 3);
+                mk.lineStyle(1, 0x336699, 0.7);
+                mk.strokeCircle(gx, gy, dotR);
             }
 
-            this.add.text(gx + 7, gy - 3, gate.label, {
-                font: '6px monospace',
+            const fontSize = SCALE >= 5 ? '6px' : '5px';
+            this.add.text(gx + dotR + 3, gy, gate.label, {
+                font: `${fontSize} monospace`,
                 fill: isAttuned ? '#ffd700' : '#335577'
             }).setOrigin(0, 0.5).setDepth(4);
         });
 
-        // Player position dot (from paused GameScene)
+        // ── Player dot ────────────────────────────────────────────────────────
         const game = this.scene.get('GameScene');
         if (game?.player?.active) {
             const ppx = mapX + (game.player.x / worldW) * mapPxW;
             const ppy = mapY + (game.player.y / worldH) * mapPxH;
             const dot = this.add.graphics().setDepth(5);
             dot.fillStyle(0xffffff, 1);
-            dot.fillCircle(ppx, ppy, 2);
+            dot.fillCircle(ppx, ppy, Math.max(2, dotR - 1));
             this.tweens.add({ targets: dot, alpha: 0.2, yoyo: true, repeat: -1, duration: 500 });
         }
 
-        // Legend
+        // ── Legend ────────────────────────────────────────────────────────────
         const legY = mapY + mapPxH + 6;
-        this.add.graphics().setDepth(3)
-            .fillStyle(0xffd700, 1).fillCircle(8, legY + 5, 4)
-            .lineStyle(1, 0x336699, 0.8).strokeCircle(90, legY + 5, 3);
-        this.add.text(16, legY, 'Attuned Gate', { font: '7px monospace', fill: '#ffd700' }).setDepth(4);
-        this.add.text(98, legY, 'Unknown Gate', { font: '7px monospace', fill: '#335577' }).setDepth(4);
-        this.add.text(w - 4, legY, '[ESC]/[M] Close', {
-            font: '7px monospace', fill: '#334455'
-        }).setOrigin(1, 0).setDepth(4);
+        let lx = mapX;
 
-        // Close keys
+        const legMk1 = this.add.graphics().setDepth(3);
+        legMk1.fillStyle(0xffd700, 1).fillCircle(lx + 5, legY + 6, 4);
+        this.add.text(lx + 13, legY + 2, 'Attuned Gate', { font: '7px monospace', fill: '#ffd700' }).setDepth(4);
+        lx += 100;
+
+        const legMk2 = this.add.graphics().setDepth(3);
+        legMk2.lineStyle(1, 0x336699, 0.8).strokeCircle(lx + 5, legY + 6, 4);
+        this.add.text(lx + 13, legY + 2, 'Unknown Gate', { font: '7px monospace', fill: '#335577' }).setDepth(4);
+        lx += 100;
+
+        const legMk3 = this.add.graphics().setDepth(3);
+        legMk3.fillStyle(0xffffff, 1).fillCircle(lx + 5, legY + 6, 3);
+        this.add.text(lx + 13, legY + 2, 'You are here', { font: '7px monospace', fill: '#aaaaaa' }).setDepth(4);
+
+        // ── Input ─────────────────────────────────────────────────────────────
         this.input.keyboard.on('keydown-ESC', () => this._close());
         this.input.keyboard.on('keydown-M',   () => this._close());
     }

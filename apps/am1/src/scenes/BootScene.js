@@ -18,8 +18,8 @@ export default class BootScene extends Phaser.Scene {
 
         this.load.on('progress', (v) => { barFg.width = barW * v; });
 
-        // Player — Pipoya Male 08-1 (robed mage, RPG Maker 96×128, 32×32/frame)
-        this.load.spritesheet('player', 'assets/characters/Male/Male 08-1.png', { frameWidth: 32, frameHeight: 32 });
+        // Player — Eldrin (96×128, 32×32/frame, standard 3-col × 4-row layout)
+        this.load.spritesheet('player', 'assets/characters/eldrin.png', { frameWidth: 32, frameHeight: 32 });
 
         // Enemy sprites — 96×128, 32×32 per frame, RPG Maker layout (3 walk × 4 directions)
         this.load.spritesheet('spr_wisp',          'assets/characters/Enemy/Enemy 01-1.png', { frameWidth: 32, frameHeight: 32 });
@@ -44,6 +44,45 @@ export default class BootScene extends Phaser.Scene {
 
         // UI
         this.load.image('door1', 'assets/ui/doors/Door1_pipo.png');
+
+        // Item icons (16×16 pixel art — Free RPG Asset Pack by ssugmi)
+        const itm = (key, file) => this.load.image(key, `assets/items/${file}`);
+        itm('itm_hp_potion',    'hp_potion.png');
+        itm('itm_mana_potion',  'mana_potion.png');
+        itm('itm_herb',         'herb.png');
+        itm('itm_scroll',       'scroll_leather.png');
+        itm('itm_wooden_box',   'wooden_box.png');
+        itm('itm_log',          'log.png');
+        itm('itm_iron_ore',     'iron_ore.png');
+        itm('itm_copper_ore',   'copper_ore.png');
+        itm('itm_meat',         'meat.png');
+        itm('itm_fur',          'fur_a.png');
+        itm('itm_glowing_dust', 'glowing_dust.png');
+        itm('itm_mushroom',     'green_mushroom.png');
+        itm('itm_stone',        'stone.png');
+        itm('itm_sandwich',     'sandwich.png');
+        itm('itm_fish',         'fish_a.png');
+        itm('itm_feather',      'feather_a.png');
+        itm('itm_ring_01',      'ring_01.png');
+        itm('itm_ring_02',      'ring_02.png');
+        itm('itm_necklace_01',  'necklace_01.png');
+        itm('itm_necklace_02',  'necklace_02.png');
+        itm('itm_leather_armor','leather_armor.png');
+        itm('itm_iron_armor',   'iron_armor.png');
+        itm('itm_sword_01',     'sword_01.png');
+        itm('itm_sword_02',     'sword_02.png');
+        itm('itm_stone_sword',  'stone_sword.png');
+        itm('itm_headgear_01',  'headgear_01.png');
+        itm('itm_mantua',       'mantua.png');
+        itm('itm_pouch',        'pouch.png');
+        itm('itm_pickaxe',      'hi_quality_pickaxe.png');
+        itm('itm_scythe',       'hi_quality_scethe.png');
+        itm('itm_wand_01',      'wand_01.png');
+        itm('itm_wand_02',      'wand_02.png');
+        itm('itm_bow_01',       'bow_01.png');
+        itm('itm_bow_02',       'bow_02.png');
+        itm('itm_book',         'book.png');
+        itm('itm_compass',      'compass.png');
     }
 
     create() {

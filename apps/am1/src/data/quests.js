@@ -83,6 +83,44 @@ export const QUESTS = {
         reward: { glint: 0, xp: 250, items: ['eternal_draw'] },
     },
 
+    side_corrupted_hunt: {
+        id: 'side_corrupted_hunt',
+        title: 'Void-Touched Beasts',
+        type: 'side',
+        description: 'The forest wildlife has been twisted by void-corruption. Hunt the corrupted beasts before the taint spreads further.',
+        steps: [
+            { id: 'kill_c_boar',   type: 'kill', target: 'corrupted_boar',   label: 'Hunt Corrupted Boars (0/3)',   required: 3 },
+            { id: 'kill_c_deer',   type: 'kill', target: 'corrupted_deer',   label: 'Hunt Corrupted Deer (0/2)',    required: 2 },
+            { id: 'kill_c_rabbit', type: 'kill', target: 'corrupted_rabbit', label: 'Hunt Corrupted Rabbits (0/3)', required: 3 },
+        ],
+        reward: { glint: 70, xp: 90, items: ['health_potion', 'void_shard'] },
+    },
+
+    side_void_offering: {
+        id: 'side_void_offering',
+        title: "The Hermit's Offering",
+        type: 'side',
+        description: 'The Hermit spoke of void shards — crystallized corruption that resonates with fire. Collect them and return to him.',
+        steps: [
+            { id: 'collect_shards', type: 'collect', target: 'void_shard', label: 'Collect Void Shards (0/5)', required: 5 },
+            { id: 'talk_hermit',    type: 'talk',    target: 'hermit',     label: 'Return to the Hermit',     required: 1 },
+        ],
+        reward: { glint: 60, xp: 100, items: ['mana_potion', 'mana_potion', 'ancient_scroll'] },
+    },
+
+    side_hunters_larder: {
+        id: 'side_hunters_larder',
+        title: "The Hunter's Larder",
+        type: 'side',
+        description: 'A true hunter wastes nothing. Cook your kills at a campfire to prepare proper provisions for the road ahead.',
+        steps: [
+            { id: 'cook_boar',    type: 'cook', target: 'roasted_boar',    label: 'Cook Roasted Boar',    required: 1 },
+            { id: 'cook_venison', type: 'cook', target: 'roasted_venison', label: 'Cook Roasted Venison', required: 1 },
+            { id: 'cook_rabbit',  type: 'cook', target: 'roasted_rabbit',  label: 'Cook Roasted Rabbit',  required: 1 },
+        ],
+        reward: { glint: 50, xp: 70, items: ['roasted_boar', 'hearty_stew'] },
+    },
+
     hidden_void_fragment: {
         id: 'hidden_void_fragment',
         title: 'The Void Fragment',

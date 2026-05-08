@@ -30,6 +30,18 @@ const MEMORY_FRAGMENTS = {
         title: 'Void Shard Memory',
         text:  "Fragment resonance — 'Vorgos the Stormbringer shattered the Void Gate at 0 GD. The cleaver you carry is a remnant of that cataclysm — a shard of an event the historians erased from the record entirely.'"
     },
+    side_corrupted_hunt: {
+        title: "Hunter's Field Notes",
+        text:  "Eldrin's notation — 'The void-corruption does not kill the animals outright. It twists them — inverts their instincts. A boar that would have fled becomes a thing that charges. Whatever is spreading this corruption is deliberate about it.'"
+    },
+    side_void_offering: {
+        title: 'Hermit Correspondence',
+        text:  "Scrawled on bark — 'The Hermit took the shards without a word and placed them one by one into the campfire. They did not burn. They sang — a low resonance that lasted long after he left the clearing.'"
+    },
+    side_hunters_larder: {
+        title: "Cook's Wisdom",
+        text:  "Margin note in a worn recipe book — 'A hunter who does not eat is a hunter who is already dead. The fire asks nothing of you — only that you bring it something worth cooking.'"
+    },
 };
 
 class QuestManager {
@@ -162,6 +174,28 @@ class QuestManager {
             if (!this.isActive(qId)) continue;
             for (const step of QUESTS[qId].steps) {
                 if (step.type === 'spell' && step.target === spellId) this.advanceStep(qId, step.id);
+            }
+        }
+    }
+
+    onPickup(itemId) {
+        for (const qId of Object.keys(playerStats.questLog)) {
+            if (!this.isActive(qId)) continue;
+            for (const step of QUESTS[qId].steps) {
+                if (step.type === 'collect' && (step.target === itemId || step.target === 'any')) {
+                    this.advanceStep(qId, step.id);
+                }
+            }
+        }
+    }
+
+    onCook(outputId) {
+        for (const qId of Object.keys(playerStats.questLog)) {
+            if (!this.isActive(qId)) continue;
+            for (const step of QUESTS[qId].steps) {
+                if (step.type === 'cook' && (step.target === outputId || step.target === 'any')) {
+                    this.advanceStep(qId, step.id);
+                }
             }
         }
     }

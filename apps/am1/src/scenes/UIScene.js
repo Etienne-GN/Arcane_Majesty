@@ -69,18 +69,13 @@ export default class UIScene extends Phaser.Scene {
             font: 'bold 10px monospace', fill: '#ffd700'
         }).setOrigin(1, 0);
 
-        // Control hints (bottom row — brief)
-        this.add.text(pad, h - 10, '[WASD] Move  [Z] Atk  [X] Slash  [SPACE] Blink  [V] Sight  [Q/R/F/T] Skills  [E] Talk  [I] Inv  [K/J/M] Menu  [N] Journal  [G] Tear  [C] Fire', {
-            font: '7px monospace', fill: '#333344'
-        });
-
-        // Active weapon indicator (left of skill bar)
-        this._weaponLabel = this.add.text(pad, h - 58, '', {
+        // Active weapon indicator (bottom-left)
+        this._weaponLabel = this.add.text(pad, h - 20, '', {
             font: '7px monospace', fill: '#556677'
         });
 
-        // Skill bar — 4 mappable slots Q/R/F/T
-        this._initSkillBar(w, h);
+        // Touch HUD — round ATK button + 4 round skill slots
+        this._initTouchHUD(w, h);
 
         // Gold display (top right, below minimap)
         this.goldText = this.add.text(w - pad, MM_H + pad + 6, '', {
@@ -138,64 +133,128 @@ export default class UIScene extends Phaser.Scene {
         g.destroy();
     }
 
-    _initSkillBar(w, h) {
-        const slotW = 48, slotH = 38, gap = 5;
-        const totalW = 4 * slotW + 3 * gap;
-        const startX = Math.floor((w - totalW) / 2);
-        const slotTop = h - 54;
+    // ── Touch HUD ─────────────────────────────────────────────────────────────
 
+    _hudAlpha() {
+        return parseFloat(localStorage.getItem('hud_alpha') ?? '0.55');
+    }
+
+    _flashButton(cx, cy, radius, color) {
+        const g = this.add.graphics().setDepth(26);
+        g.fillStyle(color, 0.35);
+        g.fillCircle(cx, cy, radius);
+        this.tweens.add({ targets: g, alpha: 0, duration: 180, onComplete: () => g.destroy() });
+    }
+
+    _initTouchHUD(w, h) {
+        const R_ATK = 34;   // attack button radius
+        const R_SK  = 20;   // skill button radius
+        const CG    = R_ATK + R_SK + 6;   // ATK→nearest-skill center gap
+        const SK_SP = R_SK * 2 + 8;       // skill-to-skill center spacing
+
+        // ATK button anchored to bottom-right
+        const atkX = w - 8 - R_ATK;
+        const atkY = h - 8 - R_ATK;
+
+        // 2×2 skill cluster positions, upper-left of ATK:
+        //  [Q][R]
+        //  [F][T]   [ATK]
+        const skPos = [
+            { x: atkX - CG - SK_SP, y: atkY - CG - SK_SP },  // 0 Q — top-left
+            { x: atkX - CG,         y: atkY - CG - SK_SP },  // 1 R — top-right
+            { x: atkX - CG - SK_SP, y: atkY - CG         },  // 2 F — bottom-left
+            { x: atkX - CG,         y: atkY - CG         },  // 3 T — bottom-right
+        ];
+
+        // ATK button — one graphics object, redrawn each frame for live alpha
+        this._atkG = this.add.graphics().setDepth(20);
+        this._atkData = { atkX, atkY, R_ATK };
+
+        // ATK hit zone
+        const atkHit = this.add.rectangle(atkX - R_ATK, atkY - R_ATK, R_ATK * 2, R_ATK * 2, 0, 0)
+            .setOrigin(0).setInteractive().setDepth(23);
+        atkHit.on('pointerdown', () => {
+            if (this.scene.isPaused('GameScene')) return;
+            this.scene.get('GameScene')?._tryMainAction();
+            this._flashButton(atkX, atkY, R_ATK, 0xee8833);
+        });
+
+        // 4 skill buttons
         this._slotData = [];
-
         for (let i = 0; i < 4; i++) {
-            const sx = startX + i * (slotW + gap);
+            const { x: sx, y: sy } = skPos[i];
 
-            this.add.rectangle(sx, slotTop, slotW, slotH, 0x060616, 0.9).setOrigin(0);
+            const slotG = this.add.graphics().setDepth(20);
+            const cdG   = this.add.graphics().setDepth(21);
 
-            const border = this.add.graphics();
+            // Key label — tiny top-left of button
+            this.add.text(sx - R_SK + 3, sy - R_SK + 2, SLOT_KEYS[i], {
+                font: '6px monospace', fill: '#22224a'
+            }).setDepth(22);
 
-            // Dark cooldown fill (shrinks as cooldown expires — fills from top)
-            const cdFill = this.add.rectangle(sx, slotTop, slotW, 0, 0x000000, 0.78).setOrigin(0);
+            const nameLabel = this.add.text(sx, sy, '—', {
+                font: 'bold 9px monospace', fill: '#2a2a50', align: 'center'
+            }).setOrigin(0.5).setDepth(22);
 
-            // Element pip (small colored circle top-right)
-            const pip = this.add.circle(sx + slotW - 7, slotTop + 7, 4, 0x222233);
+            const costLabel = this.add.text(sx, sy + R_SK - 6, '', {
+                font: '6px monospace', fill: '#334466', align: 'center'
+            }).setOrigin(0.5, 1).setDepth(22);
 
-            // Slot key label (corner)
-            this.add.text(sx + 3, slotTop + 2, SLOT_KEYS[i], { font: '7px monospace', fill: '#334466' });
-
-            // Abbreviated spell name
-            const nameLabel = this.add.text(sx + slotW / 2, slotTop + slotH / 2 + 2, '—', {
-                font: '8px monospace', fill: '#333344', align: 'center'
-            }).setOrigin(0.5);
-
-            // Clickable hit area (transparent)
-            const hit = this.add.rectangle(sx, slotTop, slotW, slotH, 0x000000, 0).setOrigin(0).setInteractive();
+            // Hit zone
+            const hit = this.add.rectangle(sx - R_SK, sy - R_SK, R_SK * 2, R_SK * 2, 0, 0)
+                .setOrigin(0).setInteractive().setDepth(23);
             hit.on('pointerdown', () => {
                 if (this.scene.isPaused('GameScene')) return;
                 this.scene.get('GameScene')?._tryActivateSlot(i);
+                this._flashButton(sx, sy, R_SK, 0xffffff);
             });
-            hit.on('pointerover', () => {
-                border.clear();
-                border.lineStyle(2, 0xffffff);
-                border.strokeRect(sx, slotTop, slotW, slotH);
-            });
-            hit.on('pointerout', () => { /* redrawn next update frame */ });
 
-            this._slotData.push({ border, cdFill, pip, nameLabel, sx, slotTop, slotW, slotH });
+            this._slotData.push({ slotG, cdG, nameLabel, costLabel, sx, sy });
         }
     }
 
-    _updateSkillBar() {
+    _updateTouchHUD() {
+        const alpha = this._hudAlpha();
+
+        // ── ATK button ──────────────────────────────────────────────────────
+        const { atkG, atkData } = { atkG: this._atkG, atkData: this._atkData };
+        if (atkG && atkData) {
+            const { atkX, atkY, R_ATK } = atkData;
+            atkG.clear();
+            // Fill
+            atkG.fillStyle(0x0a0814, alpha * 0.92);
+            atkG.fillCircle(atkX, atkY, R_ATK);
+            // Outer ring
+            atkG.lineStyle(2, 0xee8833, alpha);
+            atkG.strokeCircle(atkX, atkY, R_ATK);
+            // Inner ring (accent)
+            atkG.lineStyle(1, 0xee8833, alpha * 0.25);
+            atkG.strokeCircle(atkX, atkY, R_ATK - 7);
+            // Sword icon
+            atkG.lineStyle(1.5, 0xddaa55, alpha * 0.90);
+            atkG.lineBetween(atkX, atkY - 14, atkX, atkY + 11);  // blade
+            atkG.lineStyle(1.5, 0xddaa55, alpha * 0.75);
+            atkG.lineBetween(atkX - 9, atkY - 2, atkX + 9, atkY - 2);  // guard
+            atkG.fillStyle(0xddaa55, alpha * 0.70);
+            atkG.fillCircle(atkX, atkY + 14, 2.5);  // pommel
+        }
+
+        // ── Skill buttons ────────────────────────────────────────────────────
+        const R_SK = 20;
         for (let i = 0; i < 4; i++) {
-            const { border, cdFill, pip, nameLabel, sx, slotTop, slotW, slotH } = this._slotData[i];
+            const { slotG, cdG, nameLabel, costLabel, sx, sy } = this._slotData[i];
             const spellId = playerStats.skillSlots[i];
 
+            slotG.clear();
+            cdG.clear();
+
             if (!spellId) {
-                border.clear();
-                border.lineStyle(1, 0x222233);
-                border.strokeRect(sx, slotTop, slotW, slotH);
-                pip.setFillStyle(0x222233);
-                nameLabel.setText('—').setStyle({ fill: '#333344' });
-                cdFill.setSize(slotW, 0).setVisible(false);
+                slotG.fillStyle(0x080818, alpha * 0.80);
+                slotG.fillCircle(sx, sy, R_SK);
+                slotG.lineStyle(1, 0x1a1a3a, alpha * 0.70);
+                slotG.strokeCircle(sx, sy, R_SK);
+                nameLabel.setText('—').setStyle({ fill: '#252545' });
+                costLabel.setText('');
                 continue;
             }
 
@@ -203,20 +262,27 @@ export default class UIScene extends Phaser.Scene {
             const level = playerStats.getSpellLevel(spellId);
             if (!spell || !level) continue;
 
-            const col = ELEMENT_COLORS[spell.element] ?? 0x555566;
-            border.clear();
-            border.lineStyle(2, col);
-            border.strokeRect(sx, slotTop, slotW, slotH);
-            pip.setFillStyle(col);
+            const col    = ELEMENT_COLORS[spell.element] ?? 0x555566;
+            const hexCol = `#${col.toString(16).padStart(6, '0')}`;
 
-            const abbr = spell.name.split(' ').map(w => w[0]).join('').substring(0, 3);
-            nameLabel.setText(abbr).setStyle({ fill: `#${col.toString(16).padStart(6, '0')}` });
+            slotG.fillStyle(0x080818, alpha * 0.92);
+            slotG.fillCircle(sx, sy, R_SK);
+            slotG.lineStyle(2, col, alpha * 0.90);
+            slotG.strokeCircle(sx, sy, R_SK);
 
-            const cd = playerStats.spellCooldowns[spellId] ?? 0;
-            const maxCd = spell.cooldown?.[Math.max(0, level - 1)] ?? 1;
-            const pct = cd > 0 ? Math.min(1, cd / maxCd) : 0;
-            const fillH = Math.floor(slotH * pct);
-            cdFill.setSize(slotW, fillH).setPosition(sx, slotTop).setVisible(fillH > 1);
+            const cd  = playerStats.spellCooldowns[spellId] ?? 0;
+            if (cd > 0) {
+                cdG.fillStyle(0x000000, 0.62);
+                cdG.fillCircle(sx, sy, R_SK);
+                const secs = Math.ceil(cd / 1000);
+                nameLabel.setText(`${secs}s`).setStyle({ fill: '#777788' });
+                costLabel.setText('');
+            } else {
+                const abbr = spell.name.split(' ').map(ww => ww[0]).join('').toUpperCase().substring(0, 4);
+                nameLabel.setText(abbr).setStyle({ fill: hexCol });
+                const mp = playerStats.getSpellManaCost?.(spellId) ?? 0;
+                costLabel.setText(mp > 0 ? `${mp}` : '').setStyle({ fill: '#334466' });
+            }
         }
     }
 
@@ -289,7 +355,7 @@ export default class UIScene extends Phaser.Scene {
         const wtColor = { staff: '#556677', spell_blade: '#44ccff', umbral_dagger: '#cc44ff', resonance_bow: '#88ddaa' }[wt] ?? '#556677';
         this._weaponLabel?.setText(`[${wtLabel}]`).setStyle({ fill: wtColor });
 
-        this._updateSkillBar();
+        this._updateTouchHUD();
         this._updateMinimap();
     }
 
@@ -306,29 +372,6 @@ export default class UIScene extends Phaser.Scene {
         const toMM = (wx, wy) => ({
             x: this._mmX + (wx / worldW) * MM_W,
             y: this._mmY + (wy / worldH) * MM_H
-        });
-
-        // Enemies
-        game.enemies?.getChildren().forEach(e => {
-            if (!e.active) return;
-            const { x, y } = toMM(e.x, e.y);
-            g.fillStyle(0xff2222);
-            g.fillRect(x - 1, y - 1, 2, 2);
-        });
-
-        // NPCs
-        game.npcs?.getChildren().forEach(npc => {
-            const { x, y } = toMM(npc.x, npc.y);
-            g.fillStyle(0x44ff44);
-            g.fillRect(x - 1, y - 1, 2, 2);
-        });
-
-        // Chests
-        game.chests?.getChildren().forEach(chest => {
-            if (chest.opened) return;
-            const { x, y } = toMM(chest.x, chest.y);
-            g.fillStyle(0xffcc00);
-            g.fillRect(x - 1, y - 1, 2, 2);
         });
 
         // Player (white dot, slightly larger)

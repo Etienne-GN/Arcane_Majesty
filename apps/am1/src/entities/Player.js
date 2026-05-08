@@ -66,14 +66,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         const anims = scene.anims;
         if (anims.exists('walk_down')) return;
 
-        // RPG Maker 3×4 layout — same format as enemy sprites (frameWidth:32, frameHeight:32)
+        // eldrin.png — 96×128, 32×32/frame, 3-col × 4-row layout
         // Row 0: Down (0-2), Row 1: Left (3-5), Row 2: Right (6-8), Row 3: Up (9-11)
         anims.create({ key: 'walk_down',  frames: anims.generateFrameNumbers('player', { frames: [1, 0, 1, 2] }), frameRate: 6, repeat: -1 });
         anims.create({ key: 'walk_left',  frames: anims.generateFrameNumbers('player', { frames: [4, 3, 4, 5] }), frameRate: 6, repeat: -1 });
         anims.create({ key: 'walk_right', frames: anims.generateFrameNumbers('player', { frames: [7, 6, 7, 8] }), frameRate: 6, repeat: -1 });
         anims.create({ key: 'walk_up',    frames: anims.generateFrameNumbers('player', { frames: [10, 9, 10, 11] }), frameRate: 6, repeat: -1 });
-        anims.create({ key: 'idle',       frames: [{ key: 'player', frame: 1 }], frameRate: 1, repeat: 0 });
-        anims.create({ key: 'attack',     frames: [{ key: 'player', frame: 1 }], frameRate: 12, repeat: 0 });
+        anims.create({ key: 'idle_down',  frames: [{ key: 'player', frame: 1  }], frameRate: 1, repeat: 0 });
+        anims.create({ key: 'idle_left',  frames: [{ key: 'player', frame: 4  }], frameRate: 1, repeat: 0 });
+        anims.create({ key: 'idle_right', frames: [{ key: 'player', frame: 7  }], frameRate: 1, repeat: 0 });
+        anims.create({ key: 'idle_up',    frames: [{ key: 'player', frame: 10 }], frameRate: 1, repeat: 0 });
+        anims.create({ key: 'attack',     frames: [{ key: 'player', frame: 1  }], frameRate: 12, repeat: 0 });
     }
 
     update(cursors, wasd, attackKey, powerKey, delta) {
@@ -91,7 +94,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.setVelocity(0);
             if (!this._collapseNotified) {
                 this._collapseNotified = true;
-                this.scene.get('UIScene')?.showNotification?.('Mana Exhaustion — Eldrin collapses...', 3500);
+                this.scene.scene.get('UIScene')?.showNotification?.('Mana Exhaustion — Eldrin collapses...', 3500);
                 this.scene.cameras.main.shake(200, 0.010);
             }
             this.setTint(0xaaaaaa);
@@ -169,7 +172,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 this._stepTimer = 320;
             }
         } else {
-            if (this.anims.currentAnim?.key !== 'idle') this.play('idle');
+            const idleKey = `idle_${this.facing}`;
+            if (this.anims.currentAnim?.key !== idleKey) this.play(idleKey);
         }
 
         // Attacks blocked while exhausted
@@ -190,6 +194,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         const base  = { staff: 400, spell_blade: 480, umbral_dagger: 260, resonance_bow: 650 }[t] ?? 400;
         const swift = ITEMS[this.stats.equipment.weapon]?.enchant === 'swiftness' ? 0.85 : 1;
         return Math.floor(base * swift);
+    }
+
+    triggerAttack() {
+        if (this.attackCooldown > 0) return;
+        if (statusManager.isStunned(this)) return;
+        this._attack();
     }
 
     _attack() {
@@ -217,7 +227,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 // Magic Burn — augmented strike attempted while soul is collapsed
                 const burnDmg = Math.max(1, Math.floor(manaCost * 0.5));
                 this.stats.health = Math.max(0, this.stats.health - burnDmg);
-                this.scene.get('UIScene')?.showNotification?.(`Magic Burn — the vessel frays! −${burnDmg} HP`, 1800);
+                this.scene.scene.get('UIScene')?.showNotification?.(`Magic Burn — the vessel frays! −${burnDmg} HP`, 1800);
                 this.setTint(0xff0000);
                 this.scene.cameras.main.shake(80, 0.008);
                 this.scene.cameras.main.flash(60, 255, 0, 0, true);
@@ -288,13 +298,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.setVelocity(0);
         this.play('attack');
 
+        const wt = this.stats.activeWeaponType;
+
         // Temporarily enlarge the hitbox for Power Slash
         this.attackHitbox.body.setSize(60, 60);
         this.attackHitbox.setActive(true);
         soundManager.attack();
 
-        // Camera flash hint
-        this.scene.cameras.main.flash(80, 255, 180, 0, true);
+        this._spawnAttackArc(wt, this.facing, true);
 
         this.scene.time.delayedCall(this.ATTACK_COOLDOWN * 0.5, () => {
             this.isAttacking = false;
@@ -312,37 +323,109 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.attackHitbox.setPosition(this.x + ox, this.y + oy);
     }
 
-    _spawnAttackArc(wt, facing) {
+    _spawnAttackArc(wt, facing, isPower = false) {
         const offsets = { down: [0, 22], up: [0, -22], left: [-22, 0], right: [22, 0] };
         const [ox, oy] = offsets[facing] ?? [0, 22];
         const cx = this.x + ox, cy = this.y + oy;
-        const g  = this.scene.add.graphics().setDepth(55);
+        const cam = this.scene.cameras.main;
 
         if (wt === 'staff') {
-            g.fillStyle(0x4488ff, 0.45);
-            g.fillCircle(cx, cy, 26);
-            g.lineStyle(2, 0xaaddff, 0.75);
-            g.strokeCircle(cx, cy, 26);
-        } else if (wt === 'spell_blade') {
-            g.lineStyle(3, 0x44eeff, 0.9);
-            g.lineBetween(cx - 18, cy - 18, cx + 18, cy + 18);
-            g.lineStyle(2, 0xaa44ff, 0.75);
-            g.lineBetween(cx + 18, cy - 18, cx - 18, cy + 18);
-        } else if (wt === 'umbral_dagger') {
-            g.fillStyle(0xcc44ff, 0.8);
-            g.fillTriangle(cx + ox * 0.4 - 4, cy + oy * 0.4 - 4, cx + ox * 0.4 + 4, cy + oy * 0.4 + 4, cx + ox * 1.4, cy + oy * 1.4);
-            g.lineStyle(1, 0xff88ff, 0.6);
-            g.strokeTriangle(cx + ox * 0.4 - 4, cy + oy * 0.4 - 4, cx + ox * 0.4 + 4, cy + oy * 0.4 + 4, cx + ox * 1.4, cy + oy * 1.4);
-        }
-
-        if (wt !== 'resonance_bow') {
+            // Arcane pulse rings with a cardinal cross rune
+            const r  = isPower ? 34 : 24;
+            const g  = this.scene.add.graphics().setDepth(55);
+            g.fillStyle(0x2255cc, 0.35);
+            g.fillCircle(cx, cy, r);
+            g.lineStyle(2, 0x88ccff, 0.85);
+            g.strokeCircle(cx, cy, r);
+            g.lineStyle(1, 0x4477ff, 0.55);
+            g.strokeCircle(cx, cy, Math.floor(r * 0.60));
+            g.lineStyle(1, 0x6699ff, 0.50);
+            g.lineBetween(cx - r + 4, cy, cx + r - 4, cy);
+            g.lineBetween(cx, cy - r + 4, cx, cy + r - 4);
             this.scene.tweens.add({
-                targets: g, alpha: 0, scaleX: 1.15, scaleY: 1.15,
-                duration: 200, ease: 'Power2',
-                onComplete: () => g.destroy()
+                targets: g, alpha: 0, scaleX: isPower ? 1.45 : 1.25, scaleY: isPower ? 1.45 : 1.25,
+                duration: isPower ? 300 : 220, ease: 'Power2', onComplete: () => g.destroy(),
             });
-        } else {
-            g.destroy();
+            if (isPower) {
+                // Outer shockwave ring
+                const g2 = this.scene.add.graphics().setDepth(54);
+                g2.lineStyle(3, 0x4488ff, 0.45);
+                g2.strokeCircle(cx, cy, r * 0.5);
+                this.scene.tweens.add({
+                    targets: g2, alpha: 0, scaleX: 2.6, scaleY: 2.6,
+                    duration: 420, ease: 'Power1', onComplete: () => g2.destroy(),
+                });
+                cam.flash(70, 50, 100, 220, true);
+            }
+
+        } else if (wt === 'spell_blade') {
+            // Perpendicular cleave — slash sweeps across the attack plane
+            const isVertical = facing === 'up' || facing === 'down';
+            const len = isPower ? 36 : 24;
+            const [px, py] = isVertical ? [1, 0] : [0, 1];
+            const g = this.scene.add.graphics().setDepth(55);
+            // Main cleave line
+            g.lineStyle(isPower ? 4 : 3, 0x33ddff, 0.95);
+            g.lineBetween(cx - px * len, cy - py * len, cx + px * len, cy + py * len);
+            // Arcane shadow slash (offset toward target)
+            g.lineStyle(isPower ? 3 : 2, 0xaa44ff, 0.70);
+            g.lineBetween(cx - px * len * 0.7 + ox * 0.25, cy - py * len * 0.7 + oy * 0.25,
+                          cx + px * len * 0.7 + ox * 0.25, cy + py * len * 0.7 + oy * 0.25);
+            // Thrust forward pip
+            g.lineStyle(2, 0x66ffff, 0.55);
+            g.lineBetween(cx - ox * 0.4, cy - oy * 0.4, cx + ox * 0.5, cy + oy * 0.5);
+            if (isPower) {
+                // Impact bloom at strike centre
+                g.fillStyle(0x22eeff, 0.30);
+                g.fillCircle(cx, cy, 12);
+                cam.flash(60, 0, 200, 220, true);
+                cam.shake(80, 0.006);
+            }
+            this.scene.tweens.add({
+                targets: g, alpha: 0, duration: isPower ? 220 : 160,
+                ease: 'Power2', onComplete: () => g.destroy(),
+            });
+
+        } else if (wt === 'umbral_dagger') {
+            // Two quick slash marks angled toward facing direction
+            const g = this.scene.add.graphics().setDepth(55);
+            const sz = isPower ? 16 : 10;
+            // Primary slash (diagonal toward facing)
+            g.lineStyle(isPower ? 3 : 2, 0xdd44ff, 0.95);
+            g.lineBetween(cx - sz + ox * 0.2, cy - sz + oy * 0.2,
+                          cx + sz + ox * 0.2, cy + sz + oy * 0.2);
+            // Secondary offset slash
+            g.lineStyle(isPower ? 2 : 1, 0xff88ff, 0.65);
+            g.lineBetween(cx - sz + 5 + ox * 0.35, cy - sz - 5 + oy * 0.35,
+                          cx + sz + 5 + ox * 0.35, cy + sz - 5 + oy * 0.35);
+            // Shadow impact pip
+            g.fillStyle(0xaa22ee, isPower ? 0.85 : 0.65);
+            g.fillCircle(cx + ox * 0.45, cy + oy * 0.45, isPower ? 6 : 4);
+            if (isPower) {
+                // Third slash on power — radiates outward
+                g.lineStyle(2, 0xcc88ff, 0.50);
+                g.lineBetween(cx - sz - 6 + ox * 0.5, cy + sz - 6 + oy * 0.5,
+                              cx + sz - 6 + ox * 0.5, cy - sz - 6 + oy * 0.5);
+                cam.flash(50, 100, 0, 140, true);
+            }
+            this.scene.tweens.add({
+                targets: g, alpha: 0, duration: isPower ? 180 : 120,
+                ease: 'Power3', onComplete: () => g.destroy(),
+            });
+
+        } else if (wt === 'resonance_bow') {
+            // Draw-nock release flash at player position
+            const g = this.scene.add.graphics().setDepth(55);
+            g.fillStyle(0x88ffaa, isPower ? 0.70 : 0.55);
+            g.fillCircle(this.x, this.y, isPower ? 9 : 6);
+            g.lineStyle(isPower ? 2 : 1, 0xaaffcc, 0.80);
+            g.lineBetween(this.x - ox * 0.5, this.y - oy * 0.5,
+                          this.x + ox * 0.5, this.y + oy * 0.5);
+            if (isPower) cam.flash(40, 0, 180, 80, true);
+            this.scene.tweens.add({
+                targets: g, alpha: 0, duration: 110,
+                ease: 'Power3', onComplete: () => g.destroy(),
+            });
         }
     }
 
@@ -350,13 +433,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     _spellCheck(id) {
         if (!this.stats.getSpellLevel(id)) {
-            this.scene.get('UIScene')?.showNotification?.(`${id.replace(/_/g,' ')} not yet comprehended.`, 1400);
+            this.scene.scene.get('UIScene')?.showNotification?.(`${id.replace(/_/g,' ')} not yet comprehended.`, 1400);
             this.setTint(0x4455bb);
             this.scene.time.delayedCall(130, () => { if (this.active && !this.invincible) this.clearTint(); });
             return false;
         }
         if (statusManager.isSilenced(this) || statusManager.has(this, 'hushed')) {
-            this.scene.get('UIScene')?.showNotification?.('Silenced — spells refuse to form.', 1400);
+            this.scene.scene.get('UIScene')?.showNotification?.('Silenced — spells refuse to form.', 1400);
             this.scene.cameras.main.shake(50, 0.003);
             return false;
         }
@@ -365,7 +448,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             const cost     = this.stats.getSpellManaCost(id);
             const burnDmg  = Math.max(1, Math.floor(cost * 0.5));
             this.stats.health = Math.max(0, this.stats.health - burnDmg);
-            this.scene.get('UIScene')?.showNotification?.(`Magic Burn — the vessel frays! −${burnDmg} HP`, 1800);
+            this.scene.scene.get('UIScene')?.showNotification?.(`Magic Burn — the vessel frays! −${burnDmg} HP`, 1800);
             this.setTint(0xff0000);
             this.scene.cameras.main.shake(80, 0.008);
             this.scene.cameras.main.flash(60, 255, 0, 0, true);
@@ -376,7 +459,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         if (!this.stats.canCastSpell(id)) return false;
         const cost = this.stats.getSpellManaCost(id);
         if (this.stats.mana < cost) {
-            this.scene.get('UIScene')?.showNotification?.('Not enough mana!', 1200);
+            this.scene.scene.get('UIScene')?.showNotification?.('Not enough mana!', 1200);
             return false;
         }
         this.stats.mana -= cost;
@@ -530,16 +613,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     blinkStep() {
         const level = this.stats.skills['blink_step']?.level ?? 0;
         if (!level) {
-            this.scene.get('UIScene')?.showNotification?.('Blink-Step not yet learned.', 1200);
+            this.scene.scene.get('UIScene')?.showNotification?.('Blink-Step not yet learned.', 1200);
             return false;
         }
         if (this.stats.manaExhausted) {
-            this.scene.get('UIScene')?.showNotification?.('Too exhausted to Blink-Step.', 1000);
+            this.scene.scene.get('UIScene')?.showNotification?.('Too exhausted to Blink-Step.', 1000);
             return false;
         }
         const cost = 8;
         if (this.stats.mana < cost) {
-            this.scene.get('UIScene')?.showNotification?.('Not enough mana!', 900);
+            this.scene.scene.get('UIScene')?.showNotification?.('Not enough mana!', 900);
             return false;
         }
         const dist = [60, 80, 105][level - 1];
@@ -563,7 +646,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     activateAethericSight() {
         const level = this.stats.skills['aetheric_sight']?.level ?? 0;
         if (!level) {
-            this.scene.get('UIScene')?.showNotification?.('Aetheric Sight not yet learned.', 1200);
+            this.scene.scene.get('UIScene')?.showNotification?.('Aetheric Sight not yet learned.', 1200);
             return false;
         }
         if (this.stats.manaExhausted) return false;
@@ -613,6 +696,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         soundManager.playerHit();
 
         if (this.stats.health <= 0) this.emit('died');
+
+        // Cancel Aetheric Tear channel if hit while casting
+        this.scene._cancelTearCast?.();
     }
 
     destroy(fromScene) {

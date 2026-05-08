@@ -18,6 +18,19 @@ export default class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
 
     create() {
+        // Patch add.particles so one-shot emitters (explode:true) auto-destroy
+        // after their longest particle lifespan. Continuous emitters (frequency-
+        // based, no explode flag) are unaffected.
+        const _origParticles = this.add.particles.bind(this.add);
+        this.add.particles = (x, y, key, config) => {
+            const em = _origParticles(x, y, key, config);
+            if (config?.explode) {
+                const maxLife = config.lifespan?.max ?? config.lifespan ?? 1200;
+                this.time.delayedCall(maxLife + 150, () => { if (em?.active) em.destroy(); });
+            }
+            return em;
+        };
+
         const mapCols = PROLOGUE_MAP[0].length;
         const mapRows = PROLOGUE_MAP.length;
         const mapW = mapCols * TILE_SIZE;
@@ -34,6 +47,9 @@ export default class GameScene extends Phaser.Scene {
         const py = PLAYER_START.y * TILE_SIZE + TILE_SIZE / 2;
         this.player = new Player(this, px, py);
         this.player.on('died', () => this._onPlayerDied());
+
+        // Debug mode — grant full progression for testing
+        if (localStorage.getItem('am1_debug') === '1') this._applyDebugBoost();
 
         // Spell discovery notifications + quest hooks
         playerStats.onSpellEvent((id, level, isDiscovery) => {
@@ -63,55 +79,15 @@ export default class GameScene extends Phaser.Scene {
         questManager.startQuest('main_forest_hunt');
         questManager.startQuest('side_supply_run');
         questManager.startQuest('side_read_the_signs');
+        questManager.startQuest('side_corrupted_hunt');
+        questManager.startQuest('side_hunters_larder');
 
         // Enemies
         this.enemies = this.physics.add.group({ runChildUpdate: false });
         ENEMY_SPAWNS.forEach(spawn => {
             const ex = spawn.x * TILE_SIZE + TILE_SIZE / 2;
             const ey = spawn.y * TILE_SIZE + TILE_SIZE / 2;
-            const typeDef = ENEMY_TYPES[spawn.type] ?? {};
-            const enemy = new Enemy(this, ex, ey, typeDef);
-
-            enemy.enemyType = spawn.type;
-
-            enemy.on('died', (xp) => {
-                playerStats.gainXp(xp);
-                this._spawnXpText(enemy.x, enemy.y, xp);
-                this._checkLevelUp();
-                const gains = RESONANCE_GAINS[`kill_${spawn.type}`] ?? {};
-                Object.entries(gains).forEach(([el, amt]) => playerStats.gainResonance(el, amt));
-                // Quest kill hooks
-                questManager.onKill(spawn.type, {
-                    inVeil:     this.player._shadowVeilActive,
-                    weaponType: playerStats.activeWeaponType,
-                    isBoss:     false,
-                });
-                // Trigger hidden hunter's trial on first bow kill
-                if (playerStats.activeWeaponType === 'resonance_bow' &&
-                    !questManager.isActive('hidden_hunters_trial') &&
-                    !questManager.isCompleted('hidden_hunters_trial')) {
-                    questManager.startQuest('hidden_hunters_trial');
-                }
-                SaveManager.save(playerStats);
-            });
-
-            enemy.on('gold', (amount) => {
-                // shadow_harvest legendary passive: +50% Glint when killed in Shadow Veil
-                const hasSH = ITEMS[playerStats.equipment.weapon]?.passive === 'shadow_harvest';
-                const gold  = hasSH && enemy._killedInVeil ? Math.floor(amount * 1.5) : amount;
-                playerStats.glint += gold;
-                const txt = this.add.text(enemy.x + 8, enemy.y - 10, `+${gold}gl`, {
-                    font: 'bold 10px monospace', fill: '#ffcc00',
-                    stroke: '#000', strokeThickness: 2
-                }).setDepth(100).setOrigin(0.5);
-                this.tweens.add({ targets: txt, y: txt.y - 22, alpha: 0, duration: 800, onComplete: () => txt.destroy() });
-            });
-
-            enemy.on('dropped', (ex2, ey2, itemIds) => {
-                itemIds.forEach((id, i) => this._spawnPickup(ex2 + i * 14, ey2, id));
-            });
-
-            this.enemies.add(enemy);
+            this._spawnEnemy(spawn.type, ex, ey);
         });
 
         // Campfires
@@ -159,10 +135,16 @@ export default class GameScene extends Phaser.Scene {
         // Item pickups group
         this.pickups = this.physics.add.group();
         this.physics.add.overlap(this.player, this.pickups, (player, pickup) => {
-            playerStats.addItem(pickup.itemId);
+            const id = pickup.itemId;
+            playerStats.addItem(id);
             soundManager.collect();
             const ui = this.scene.get('UIScene');
-            ui?.showNotification?.(`Picked up ${pickup.itemId.replace(/_/g, ' ')}`, 1500);
+            ui?.showNotification?.(`Picked up ${id.replace(/_/g, ' ')}`, 1500);
+            questManager.onPickup(id);
+            if (id === 'void_shard' && !questManager.isActive('side_void_offering') && !questManager.isCompleted('side_void_offering')) {
+                questManager.startQuest('side_void_offering');
+                ui?.showNotification?.('New quest: The Hermit\'s Offering', 2000);
+            }
             pickup.destroy();
         });
 
@@ -259,6 +241,10 @@ export default class GameScene extends Phaser.Scene {
                 weaponType: playerStats.activeWeaponType,
                 isBoss:     true,
             });
+            playerStats.trackKill('void_general');
+            // Boss guaranteed drops: void_channel (T4 staff) + arcane_sceptre (T4 staff alt)
+            this._spawnPickup(bx - 14, by + 10, 'void_channel');
+            this._spawnPickup(bx + 14, by + 10, 'arcane_sceptre');
             SaveManager.save(playerStats);
             this.time.delayedCall(1200, () => {
                 this.scene.pause();
@@ -327,14 +313,11 @@ export default class GameScene extends Phaser.Scene {
                 this._cancelPlacement();
                 return;
             }
-            if (this._tearTargeting) { this._confirmAethericTear(wp.x, wp.y); return; }
             if (this._campfirePlacing) { this._confirmCampfire(wp.x, wp.y); return; }
             if (this._targeting) { this._confirmCast(wp.x, wp.y); }
         });
 
-        // Aetheric Tear + Campfire placement state
-        this._tearTargeting    = false;
-        this._tearReticle      = null;
+        // Campfire placement state
         this._campfirePlacing  = false;
         this._campfireReticle  = null;
         this._placedCampfires  = [];  // runtime campfire objects
@@ -344,6 +327,8 @@ export default class GameScene extends Phaser.Scene {
         this.input.keyboard.on('keydown-I', () => { this.scene.pause(); this.scene.launch('InventoryScene'); });
         this.input.keyboard.on('keydown-M', () => { this.scene.pause(); this.scene.launch('WorldMapScene'); });
         this.input.keyboard.on('keydown-N', () => { this.scene.pause(); this.scene.launch('QuestJournalScene'); });
+        this.input.keyboard.on('keydown-L', () => { this.scene.pause(); this.scene.launch('CodexScene'); });
+        this.input.keyboard.on('keydown-C', () => { this.scene.pause(); this.scene.launch('CraftingScene'); });
         this.input.keyboard.on('keydown-G', () => this._startAethericTear());
         this.input.keyboard.on('keydown-C', () => this._startCampfirePlacement());
         this.input.keyboard.on('keydown-ESC', () => {
@@ -435,6 +420,28 @@ export default class GameScene extends Phaser.Scene {
 
             this._pillarGates.push({ zone, gfx, hint, def, pc, ec, gx, gy, open: false });
         });
+    }
+
+    _tryMainAction() {
+        // If anything interactable is nearby, interact — otherwise attack
+        const range = 52;
+        const px = this.player.x, py = this.player.y;
+        const near = (obj) => Phaser.Math.Distance.Between(px, py, obj.x, obj.y) < range;
+
+        const hasInteractable =
+            this.npcs?.getChildren().some(n => near(n)) ||
+            this.chests?.getChildren().some(c => near(c) && !c.opened) ||
+            this.campfires?.getChildren().some(cf => near(cf)) ||
+            this.signs?.getChildren().some(s => near(s)) ||
+            this.gatheringGroup?.getChildren().some(n => near(n) && !n.gathered) ||
+            this.crackedBoulders?.getChildren().some(b => near(b) && b.active) ||
+            this._riftGates?.some(g => Phaser.Math.Distance.Between(px, py, g.wx, g.wy) < range);
+
+        if (hasInteractable) {
+            this._checkInteractions();
+        } else {
+            this.player.triggerAttack();
+        }
     }
 
     _tryActivateSlot(i) {
@@ -1303,6 +1310,40 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // ── Rift-Gates (Phase 6) ─────────────────────────────────────────────────
+    _drawRiftCircle(gfx, wx, wy, attuned) {
+        gfx.clear();
+        const R = 22, Ri = 14;
+        const col  = attuned ? 0x44ccff : 0x2255dd;
+        const col2 = attuned ? 0x88eeff : 0x4477cc;
+
+        // Outer glow fill
+        gfx.fillStyle(col, attuned ? 0.20 : 0.09);
+        gfx.fillCircle(wx, wy, R);
+
+        // Outer ring
+        gfx.lineStyle(attuned ? 2 : 1, col, attuned ? 0.95 : 0.55);
+        gfx.strokeCircle(wx, wy, R);
+
+        // Inner ring
+        gfx.lineStyle(1, col, attuned ? 0.75 : 0.40);
+        gfx.strokeCircle(wx, wy, Ri);
+
+        // Cardinal cross lines (clipped to outer radius)
+        gfx.lineStyle(1, col, attuned ? 0.60 : 0.30);
+        gfx.lineBetween(wx - R, wy, wx + R, wy);
+        gfx.lineBetween(wx, wy - R, wx, wy + R);
+
+        // Diagonal rune lines (inner radius only)
+        const d = Math.round(Ri * 0.707);
+        gfx.lineStyle(1, col, attuned ? 0.45 : 0.22);
+        gfx.lineBetween(wx - d, wy - d, wx + d, wy + d);
+        gfx.lineBetween(wx + d, wy - d, wx - d, wy + d);
+
+        // Center gem
+        gfx.fillStyle(col2, attuned ? 1.0 : 0.60);
+        gfx.fillCircle(wx, wy, attuned ? 4 : 3);
+    }
+
     _setupRiftGates() {
         this._riftGates = [];
         if (typeof RIFT_GATE_POSITIONS === 'undefined' || !RIFT_GATE_POSITIONS?.length) return;
@@ -1311,31 +1352,35 @@ export default class GameScene extends Phaser.Scene {
             const wx = gate.x * TILE_SIZE + TILE_SIZE / 2;
             const wy = gate.y * TILE_SIZE + TILE_SIZE / 2;
 
-            // Visual — pulsing blue column
-            const gfx = this.add.graphics().setDepth(5);
-            gfx.fillStyle(0x3366ff, 0.18);
-            gfx.fillRect(wx - 8, wy - 24, 16, 48);
-            gfx.lineStyle(1, 0x6699ff, 0.5);
-            gfx.strokeRect(wx - 8, wy - 24, 16, 48);
-
-            this.tweens.add({ targets: gfx, alpha: { from: 0.4, to: 1 }, duration: 1400, yoyo: true, repeat: -1 });
+            // Visual — magic circle on the ground
+            const gfx = this.add.graphics().setDepth(wy - 1);
+            this._drawRiftCircle(gfx, wx, wy, false);
+            this.tweens.add({ targets: gfx, alpha: { from: 0.5, to: 1 }, duration: 1600, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
 
             // Label
-            const label = this.add.text(wx, wy - 30, gate.label, {
-                font: '6px monospace', fill: '#6699ff', stroke: '#000', strokeThickness: 1
-            }).setOrigin(0.5, 1).setDepth(6).setAlpha(0);
+            const label = this.add.text(wx, wy - 28, gate.label, {
+                font: '6px monospace', fill: '#66aaff', stroke: '#000022', strokeThickness: 1
+            }).setOrigin(0.5, 1).setDepth(wy + 10).setAlpha(0);
 
             // [E] prompt
-            const prompt = this.add.text(wx, wy + 28, '[E]', {
-                font: '7px monospace', fill: '#88aaff'
-            }).setOrigin(0.5).setDepth(6).setAlpha(0);
+            const prompt = this.add.text(wx, wy + 26, '[E]', {
+                font: '7px monospace', fill: '#88ccff'
+            }).setOrigin(0.5).setDepth(wy + 10).setAlpha(0);
 
             // Interaction zone
-            const zone = this.add.zone(wx, wy, 40, 56);
+            const zone = this.add.zone(wx, wy, 48, 48);
             this.physics.add.existing(zone, false);
             zone.body.setAllowGravity(false);
 
-            this._riftGates.push({ zone, label, prompt, id: gate.id, wx, wy, attuned: false });
+            this._riftGates.push({ zone, gfx, label, prompt, id: gate.id, wx, wy, attuned: false });
+        });
+
+        // Restore attuned visuals from save data
+        this._riftGates.forEach(g => {
+            if (playerStats.attunedGates.includes(g.id)) {
+                g.attuned = true;
+                this._drawRiftCircle(g.gfx, g.wx, g.wy, true);
+            }
         });
     }
 
@@ -1349,6 +1394,8 @@ export default class GameScene extends Phaser.Scene {
             ps.manaExhausted    = false;
             ps.manaCollapsed    = false;
             ps._exhaustionTimer = 0;
+            // Redraw circle in attuned (bright cyan) state
+            this._drawRiftCircle(gate.gfx, gate.wx, gate.wy, true);
             this.scene.get('UIScene')?.showNotification?.(`Attuned to ${gate.label} — fully restored.`, 3000);
             this.cameras.main.flash(300, 100, 180, 255, false);
             questManager.onAttune(gate.id);
@@ -1384,82 +1431,203 @@ export default class GameScene extends Phaser.Scene {
             this.scene.get('UIScene')?.showNotification?.(`Aetheric Tear on cooldown (${sec}s)`, 1200);
             return;
         }
-        const hasMastery  = playerStats.masteries?.aetheric_comprehension;
-        const manaPct     = hasMastery ? 0.75 : 0.85;
-        const manaCost    = Math.floor(this.player.stats.maxMana * manaPct);
-        const pctLabel    = hasMastery ? '75%' : '85%';
+        const hasMastery = playerStats.masteries?.aetheric_comprehension;
+        const manaPct    = hasMastery ? 0.75 : 0.85;
+        const manaCost   = Math.floor(this.player.stats.maxMana * manaPct);
+        const pctLabel   = hasMastery ? '75%' : '85%';
         if (this.player.stats.manaExhausted || this.player.stats.mana < manaCost) {
             this.scene.get('UIScene')?.showNotification?.(`Insufficient mana for Aetheric Tear (${pctLabel} required)`, 1400);
             return;
         }
-        this._tearTargeting = true;
-        this._tearReticle   = this.add.graphics().setDepth(200);
-        this.scene.get('UIScene')?.showNotification?.(`Aetheric Tear — click anywhere to tear through space (${pctLabel} MP)`, 5000);
+        if (!playerStats.attunedGates.length) {
+            this.scene.get('UIScene')?.showNotification?.('No attuned rift gates — find and interact with a Monolith first.', 2200);
+            return;
+        }
+        this.scene.pause();
+        this.scene.launch('AethericTearScene', {
+            manaCost,
+            manaPct,
+            cooldown: hasMastery ? 45000 : 60000,
+        });
     }
 
-    _updateTearReticle() {
-        if (!this._tearReticle) return;
-        const ptr = this.input.activePointer;
-        const wp  = this.cameras.main.getWorldPoint(ptr.x, ptr.y);
-        const g   = this._tearReticle;
-        g.clear();
-        g.lineStyle(2, 0xcc00ff, 0.85);
-        g.strokeCircle(wp.x, wp.y, 18);
-        g.lineStyle(1, 0xcc00ff, 0.35);
-        g.lineBetween(wp.x - 24, wp.y, wp.x + 24, wp.y);
-        g.lineBetween(wp.x, wp.y - 24, wp.x, wp.y + 24);
-        // Tear crack lines radiating from player
-        g.lineStyle(1, 0x9900cc, 0.20);
-        g.lineBetween(this.player.x, this.player.y, wp.x, wp.y);
+    _confirmAethericTearFree(wx, wy) {
+        this._beginAethericTearCast(wx, wy, null);
     }
 
-    _confirmAethericTear(tx, ty) {
-        this._tearTargeting = false;
-        this._tearReticle?.destroy();
-        this._tearReticle = null;
+    _confirmAethericTearGate(gateId) {
+        const gate = this._riftGates?.find(g => g.id === gateId);
+        if (!gate) return;
+        this._beginAethericTearCast(gate.wx, gate.wy, gate.label);
+    }
 
-        const stats    = this.player.stats;
-        const manaPct  = stats.masteries?.aetheric_comprehension ? 0.75 : 0.85;
+    _beginAethericTearCast(tx, ty, label) {
+        const stats   = this.player.stats;
+        const manaPct = stats.masteries?.aetheric_comprehension ? 0.75 : 0.85;
         const manaCost = Math.floor(stats.maxMana * manaPct);
         if (stats.mana < manaCost) return;
 
-        stats.mana    -= manaCost;
+        stats.mana -= manaCost;
         stats.manaExhausted = stats.mana === 0;
         stats.manaScent = 100;
         this.player._tearCooldown = stats.masteries?.aetheric_comprehension ? 45000 : 60000;
 
-        // VFX — void rift at origin
+        this._castDest = { tx, ty, label };
+        this._castVfx  = [];
+
+        // Lock player in place during channel (3400ms covers full cast + small buffer)
+        statusManager.apply(this.player, 'resonance_stun', { duration: 3400 });
+        this.player.setVelocity(0, 0);
+
+        const px = this.player.x, py = this.player.y;
+
+        // Corona emitter — follows player each update tick
+        const emitter = this.add.particles(px, py, 'particle', {
+            speed: { min: 18, max: 55 },
+            angle: { min: 0, max: 360 },
+            scale: { start: 0.9, end: 0 },
+            lifespan: { min: 280, max: 650 },
+            tint: [0xcc00ff, 0x8800cc, 0xffffff, 0x4400aa],
+            quantity: 3,
+            frequency: 55,
+            alpha: { start: 0.9, end: 0 },
+        }).setDepth(60);
+        this._castVfx.push(emitter);
+
+        // Inner pulsing ring
+        const ringInner = this.add.graphics().setDepth(61);
+        const ringObj   = { r: 10 };
+        const ringTween = this.tweens.add({
+            targets: ringObj, r: 36, duration: 700, yoyo: true, repeat: -1,
+            onUpdate: () => {
+                ringInner.clear();
+                ringInner.lineStyle(1, 0xcc00ff, Math.max(0.15, 0.75 - ringObj.r / 50));
+                ringInner.strokeCircle(this.player.x, this.player.y, ringObj.r);
+            },
+        });
+        this._castVfx.push(ringInner);
+        this._castVfx.push({ destroy: () => ringTween.stop() });
+
+        // Outer slow-expanding ring
+        const ringOuter = this.add.graphics().setDepth(61);
+        const outerObj  = { r: 36 };
+        const outerTween = this.tweens.add({
+            targets: outerObj, r: 10, duration: 700, yoyo: true, repeat: -1,
+            onUpdate: () => {
+                ringOuter.clear();
+                ringOuter.lineStyle(1, 0x8844cc, Math.max(0.08, 0.40 - outerObj.r / 90));
+                ringOuter.strokeCircle(this.player.x, this.player.y, outerObj.r);
+            },
+        });
+        this._castVfx.push(ringOuter);
+        this._castVfx.push({ destroy: () => outerTween.stop() });
+
+        // "CHANNELING…" label above player
+        const castLabel = this.add.text(px, py - 36, 'CHANNELING…', {
+            font: 'bold 8px monospace', fill: '#cc88ff', stroke: '#000', strokeThickness: 2,
+        }).setOrigin(0.5).setDepth(70);
+        this._castVfx.push(castLabel);
+
+        // Progress bar
+        const barW  = 52, barH = 5;
+        const barBg = this.add.rectangle(px, py - 23, barW, barH, 0x111111, 0.9)
+            .setOrigin(0.5).setDepth(70);
+        const barFill = this.add.rectangle(px - barW / 2, py - 23, 1, barH, 0xcc00ff)
+            .setOrigin(0, 0.5).setDepth(71);
+        const barTween = this.tweens.add({
+            targets: barFill, width: barW, duration: 2600, ease: 'Linear',
+        });
+        this._castVfx.push(barBg);
+        this._castVfx.push(barFill);
+        this._castVfx.push({ destroy: () => barTween.stop() });
+
+        // Periodic position sync so VFX stays glued to player
+        const syncEvent = this.time.addEvent({
+            delay: 32, repeat: -1,
+            callback: () => {
+                const px2 = this.player.x, py2 = this.player.y;
+                emitter.setPosition(px2, py2);
+                castLabel.setPosition(px2, py2 - 36);
+                barBg.setPosition(px2, py2 - 23);
+                barFill.setPosition(px2 - barW / 2, py2 - 23);
+            },
+        });
+        this._castVfx.push({ destroy: () => syncEvent.remove() });
+
+        // Schedule completion
+        this._castEvent = this.time.delayedCall(2600, this._completeTearCast, [], this);
+    }
+
+    _completeTearCast() {
+        if (!this._castDest) return;
+        const { tx, ty, label } = this._castDest;
+        this._castDest = null;
+        this._castEvent = null;
+        this._cleanCastVfx();
+
+        // Origin burst
         this.add.particles(this.player.x, this.player.y, 'particle', {
             speed: { min: 80, max: 200 }, angle: { min: 0, max: 360 },
             scale: { start: 1.4, end: 0 }, lifespan: { min: 400, max: 900 },
             tint: [0xcc00ff, 0x6600cc, 0x220044, 0xffffff], quantity: 32, explode: true,
         }).setDepth(60);
-        // VFX — void rift at destination
+
+        this.player.setPosition(tx, ty);
+        this.cameras.main.centerOn(tx, ty);
+        this.cameras.main.flash(250, 160, 0, 220, true);
+        this.cameras.main.shake(180, 0.008);
+        soundManager.spell();
+
+        // Destination burst
         this.add.particles(tx, ty, 'particle', {
             speed: { min: 60, max: 180 }, angle: { min: 0, max: 360 },
             scale: { start: 1.2, end: 0 }, lifespan: { min: 350, max: 800 },
             tint: [0xcc00ff, 0x9900cc, 0x440066], quantity: 28, explode: true,
         }).setDepth(60);
-        this.cameras.main.flash(250, 160, 0, 220, true);
-        this.cameras.main.shake(180, 0.008);
-        soundManager.spell();
 
-        // Teleport
-        this.player.setPosition(tx, ty);
-        this.cameras.main.centerOn(tx, ty);
-
-        // Resonance Stun — 2 seconds of disorientation upon arrival
         statusManager.apply(this.player, 'resonance_stun', { duration: 2000 });
+        const msg = label
+            ? `Aetheric Tear — arrived at ${label}. Resonance stuns you!`
+            : 'Aetheric Tear — resonance stuns you upon arrival!';
+        this.scene.get('UIScene')?.showNotification?.(msg, 2500);
+    }
 
-        this.scene.get('UIScene')?.showNotification?.('Aetheric Tear — the resonance stuns you upon arrival!', 2200);
+    _cancelTearCast() {
+        if (!this._castDest) return;
+        const stats    = this.player.stats;
+        const manaPct  = stats.masteries?.aetheric_comprehension ? 0.75 : 0.85;
+        const manaCost = Math.floor(stats.maxMana * manaPct);
+        stats.mana     = Math.min(stats.maxMana, stats.mana + manaCost);
+        stats.manaExhausted = false;
+        this.player._tearCooldown = 0;
+
+        this._castDest = null;
+        this._castEvent?.remove?.();
+        this._castEvent = null;
+        this._cleanCastVfx();
+
+        // Remove channeling stun so player can move again immediately
+        statusManager.remove(this.player, 'resonance_stun');
+
+        // Disruption VFX
+        this.add.particles(this.player.x, this.player.y, 'particle', {
+            speed: { min: 40, max: 120 }, angle: { min: 0, max: 360 },
+            scale: { start: 0.9, end: 0 }, lifespan: { min: 200, max: 500 },
+            tint: [0xff2200, 0xaa0000, 0x550000], quantity: 18, explode: true,
+        }).setDepth(60);
+
+        this.scene.get('UIScene')?.showNotification?.('Cast interrupted!', 1800);
+    }
+
+    _cleanCastVfx() {
+        if (!this._castVfx) return;
+        for (const o of this._castVfx) {
+            try { o?.destroy?.(); } catch (_) {}
+        }
+        this._castVfx = null;
     }
 
     _cancelPlacement() {
-        if (this._tearTargeting) {
-            this._tearTargeting = false;
-            this._tearReticle?.destroy();
-            this._tearReticle = null;
-        }
         if (this._campfirePlacing) {
             this._campfirePlacing = false;
             this._campfireReticle?.destroy();
@@ -1528,16 +1696,22 @@ export default class GameScene extends Phaser.Scene {
     _initScholarsEye() {
         this._scholarZones = [
             { wx: 5  * TILE_SIZE, wy: 2  * TILE_SIZE, range: 90,  triggered: false,
+              codexTitle: 'Northern Marker — Pre-Covenant Warning',
               echo: 'Scholar\'s Eye: "These warnings predate the current era. Someone knew the Void would return long before it did."' },
             { wx: 10 * TILE_SIZE, wy: 4  * TILE_SIZE, range: 90,  triggered: false,
+              codexTitle: 'Western Ruins — The Unnamed Hermit',
               echo: 'Scholar\'s Eye: "The Hermit they speak of — Vorgos? Or one of his disciples from the Covenant era?"' },
             { wx: 27 * TILE_SIZE, wy: 19 * TILE_SIZE, range: 90,  triggered: false,
+              codexTitle: 'Crossroads Monolith — Network Corruption',
               echo: 'Scholar\'s Eye: "Void Wraith corruption this close to the Crossroads Monolith. The Rift-Gate network itself is at risk."' },
             { wx: 15 * TILE_SIZE, wy: 15 * TILE_SIZE, range: 85,  triggered: false,
+              codexTitle: 'Sealed Rift — Ancient Aetheric Discharge',
               echo: 'Scholar\'s Eye: "Aetheric discharge. Something was torn through here at immense force — a rift, sealed centuries ago."' },
             { wx: 25 * TILE_SIZE, wy: 10 * TILE_SIZE, range: 85,  triggered: false,
+              codexTitle: 'Survey Stone — First Gate Architects',
               echo: 'Scholar\'s Eye: "Covenant stonework. These markers were part of the original Rift-Gate survey — 500 years before the current network."' },
             { wx: 42 * TILE_SIZE, wy: 14 * TILE_SIZE, range: 85,  triggered: false,
+              codexTitle: 'Eastern Ruin — The Void Seal Sigil',
               echo: 'Scholar\'s Eye: "These carvings are not decorative. The same sigil appears in the Gap records: the Void Seal. Someone placed this deliberately."' },
         ];
     }
@@ -1553,6 +1727,25 @@ export default class GameScene extends Phaser.Scene {
                 playerStats.gainResonanceInsight(1);
                 this.scene.get('UIScene')?.showNotification?.(`${zone.echo}\n[+1 Resonance Insight]`, 4800);
                 this._spawnGhostRuinEcho(zone.wx, zone.wy);
+
+                // Log echo to Codex
+                const echoId = `echo_${Math.floor(zone.wx / TILE_SIZE)}_${Math.floor(zone.wy / TILE_SIZE)}`;
+                if (!(playerStats.codexEchoes ?? []).find(e => e.id === echoId)) {
+                    (playerStats.codexEchoes ??= []).push({
+                        id: echoId,
+                        title: zone.codexTitle ?? `Echo — (${Math.floor(zone.wx / TILE_SIZE)},${Math.floor(zone.wy / TILE_SIZE)})`,
+                        text: zone.echo.replace(/^Scholar's Eye: "/, '').replace(/"$/, ''),
+                        timestamp: Date.now(),
+                    });
+                }
+                // Second vision fires after discovering 2 echoes
+                if (playerStats.codexEchoes.length === 2 && !this.registry.get('secondVisionSeen')) {
+                    this.registry.set('secondVisionSeen', true);
+                    this.time.delayedCall(5500, () => {
+                        this.scene.pause();
+                        this.scene.launch('DialogueScene', { lines: DIALOGUES['eldrin_second_vision'] });
+                    });
+                }
             }
         }
     }
@@ -1750,13 +1943,41 @@ export default class GameScene extends Phaser.Scene {
             });
         }
 
-        // Reticle follows mouse while targeting / tear / campfire
-        if (this._targeting)     this._updateReticle();
-        if (this._tearTargeting) this._updateTearReticle();
+        // Reticle follows mouse while targeting / campfire placement
+        if (this._targeting)       this._updateReticle();
         if (this._campfirePlacing) this._updateCampfireReticle();
 
         // Aetheric Tear cooldown tick
         if (this.player._tearCooldown > 0) this.player._tearCooldown -= delta;
+
+        // Drain status queues from potion onUse callbacks
+        if (playerStats._statusClearQueue?.length) {
+            playerStats._statusClearQueue.forEach(id => statusManager.remove(this.player, id));
+            playerStats._statusClearQueue = [];
+        }
+        if (playerStats._statusApplyQueue?.length) {
+            playerStats._statusApplyQueue.forEach(({ id, opts }) => statusManager.apply(this.player, id, opts));
+            playerStats._statusApplyQueue = [];
+        }
+
+        // Food regen tick — drains _foodRegen pool at 5 HP/s
+        if ((playerStats._foodRegen ?? 0) > 0 && playerStats.health < playerStats.maxHealth) {
+            const tick = Math.min(playerStats._foodRegen, 5 * delta / 1000);
+            playerStats._foodRegen -= tick;
+            playerStats.health = Math.min(playerStats.maxHealth, playerStats.health + tick);
+        } else if (playerStats._foodRegen < 0) {
+            playerStats._foodRegen = 0;
+        }
+
+        // Explored chunk tracking (4×4 tile chunks, updated every 2 seconds)
+        this._chunkTimer = (this._chunkTimer ?? 0) + delta;
+        if (this._chunkTimer >= 2000) {
+            this._chunkTimer = 0;
+            const cx  = Math.floor(this.player.x / (TILE_SIZE * 4));
+            const cy  = Math.floor(this.player.y / (TILE_SIZE * 4));
+            const key = `${cx}_${cy}`;
+            if (!playerStats.exploredChunks.includes(key)) playerStats.exploredChunks.push(key);
+        }
 
         // Boss arena entry trigger
         if (!this._bossArenaTriggered && this.boss?.active) {
@@ -1845,44 +2066,11 @@ export default class GameScene extends Phaser.Scene {
         });
 
         // Campfire — basic rest always available; Full Rest requires Traveler's Tent
-        this.physics.overlap(this.player.interactBox, this.campfires, (box, cf) => {
-            const tentIdx  = playerStats.inventory.findIndex(i => i.id === 'tent');
-            const hasTent  = tentIdx !== -1;
-
-            if (hasTent) {
-                // Full Rest: 100% HP+MP, clear exhaustion, +50 XP, consume tent
-                playerStats.health        = playerStats.maxHealth;
-                playerStats.mana          = playerStats.maxMana;
-                playerStats.manaExhausted = false;
-                playerStats.inventory.splice(tentIdx, 1);
-                playerStats.gainXp(50);
-                playerStats.gainResonance('fire', RESONANCE_GAINS.rest_campfire.fire);
-                soundManager.collect();
-                SaveManager.save(playerStats);
-                this.scene.pause();
-                this.scene.launch('DialogueScene', {
-                    lines: [{ speaker: null, text: 'You pitch the Traveler\'s Tent and sleep deeply.\nFull rest restores your body and soul.\n+50 XP  |  HP and MP fully restored.' }]
-                });
-            } else {
-                // Basic Rest: partial heal (30%), no exhaustion clear, no buff
-                const healHp = Math.ceil(playerStats.maxHealth * 0.30);
-                const healMp = Math.ceil(playerStats.maxMana  * 0.30);
-                const alreadyFull = playerStats.health >= playerStats.maxHealth && playerStats.mana >= playerStats.maxMana;
-                if (alreadyFull) {
-                    this.scene.pause();
-                    this.scene.launch('DialogueScene', { lines: [{ speaker: null, text: 'You warm your hands by the fire. You are already at full strength.\n(A Traveler\'s Tent would allow a Full Rest.)' }] });
-                    return;
-                }
-                playerStats.health = Math.min(playerStats.maxHealth, playerStats.health + healHp);
-                playerStats.mana   = Math.min(playerStats.maxMana,   playerStats.mana   + healMp);
-                playerStats.gainResonance('fire', RESONANCE_GAINS.rest_campfire.fire);
-                soundManager.collect();
-                SaveManager.save(playerStats);
-                this.scene.pause();
-                this.scene.launch('DialogueScene', {
-                    lines: [{ speaker: null, text: `You warm your hands by the fire. The heat eases your wounds.\n+${healHp} HP   +${healMp} MP\n(A Traveler\'s Tent would allow a Full Rest.)` }]
-                });
-            }
+        this.physics.overlap(this.player.interactBox, this.campfires, () => {
+            playerStats.gainResonance('fire', RESONANCE_GAINS.rest_campfire.fire);
+            soundManager.interact();
+            this.scene.pause();
+            this.scene.launch('CampfireScene');
         });
 
         // Sign
@@ -1980,6 +2168,62 @@ export default class GameScene extends Phaser.Scene {
         });
     }
 
+    _spawnEnemy(type, x, y) {
+        const typeDef = ENEMY_TYPES[type] ?? {};
+        const enemy   = new Enemy(this, x, y, typeDef);
+        enemy.enemyType = type;
+
+        enemy.on('died', (xp) => {
+            playerStats.gainXp(xp);
+            this._spawnXpText(enemy.x, enemy.y, xp);
+            this._checkLevelUp();
+            const gains = RESONANCE_GAINS[`kill_${type}`] ?? {};
+            Object.entries(gains).forEach(([el, amt]) => playerStats.gainResonance(el, amt));
+            questManager.onKill(type, {
+                inVeil:     this.player._shadowVeilActive,
+                weaponType: playerStats.activeWeaponType,
+                isBoss:     false,
+            });
+            if (playerStats.activeWeaponType === 'resonance_bow' &&
+                !questManager.isActive('hidden_hunters_trial') &&
+                !questManager.isCompleted('hidden_hunters_trial')) {
+                questManager.startQuest('hidden_hunters_trial');
+            }
+            playerStats.trackKill(type);
+            SaveManager.save(playerStats);
+        });
+
+        enemy.on('gold', (amount) => {
+            const hasSH = ITEMS[playerStats.equipment.weapon]?.passive === 'shadow_harvest';
+            const gold  = hasSH && enemy._killedInVeil ? Math.floor(amount * 1.5) : amount;
+            playerStats.glint += gold;
+            const txt = this.add.text(enemy.x + 8, enemy.y - 10, `+${gold}gl`, {
+                font: 'bold 10px monospace', fill: '#ffcc00',
+                stroke: '#000', strokeThickness: 2
+            }).setDepth(100).setOrigin(0.5);
+            this.tweens.add({ targets: txt, y: txt.y - 22, alpha: 0, duration: 800, onComplete: () => txt.destroy() });
+        });
+
+        enemy.on('dropped', (ex2, ey2, itemIds) => {
+            itemIds.forEach((id, i) => this._spawnPickup(ex2 + i * 14, ey2, id));
+        });
+
+        enemy.on('split', (splitType, sx, sy) => {
+            this._spawnEnemy(splitType, sx, sy);
+        });
+
+        enemy.on('aoeDeath', (ax, ay, radius, damage) => {
+            const dist = Phaser.Math.Distance.Between(ax, ay, this.player.x, this.player.y);
+            if (dist <= radius) {
+                this.player.takeDamage(damage);
+                this.cameras.main.shake(120, 0.006);
+            }
+        });
+
+        this.enemies.add(enemy);
+        return enemy;
+    }
+
     _spawnFireflies(mapW, mapH) {
         // Scattered ambient glow particles across the whole map
         for (let i = 0; i < 6; i++) {
@@ -2039,6 +2283,45 @@ export default class GameScene extends Phaser.Scene {
             this.scene.stop('UIScene');
             this.scene.stop();
             this.scene.start('GameOverScene');
+        });
+    }
+
+    _applyDebugBoost() {
+        const s = playerStats;
+
+        // Level 15 — covers all skill level requirements (max req: Lv 4)
+        s.level = 15;
+        s.xp    = 0;
+        s.xpToNextLevel = Math.floor(100 * Math.pow(1.5, 14));
+
+        // Attributes — cover all skill unlock requirements
+        // Power Slash: STR 10 | Ward/Shield/Sight: INT 8/8/12 | Blink/Sight: AGI 8
+        s.attributes.strength     = 14;
+        s.attributes.intelligence = 16;
+        s.attributes.stamina      = 12;
+        s.attributes.agility      = 12;
+        s.maxHealth = 60 + s.attributes.stamina      * 8;
+        s.maxMana   = 10 + s.attributes.intelligence * 8;
+        s.health    = s.maxHealth;
+        s.mana      = s.maxMana;
+
+        // Resonance — cover all elemental gates (Arcane ≥15, Shadow ≥10)
+        Object.keys(s.resonance).forEach(el => { s.resonance[el] = 60; });
+
+        // Points — enough to max several skill branches
+        s.skillPoints     = 25;
+        s.attributePoints = 10;
+
+        // Insights — enough for all masteries (total cost = 3+2+2+3+4 = 14)
+        s.resonanceInsights = 15;
+
+        // Gold + consumables for testing
+        s.glint = 2000;
+        s.addItem('health_potion', 10);
+        s.addItem('mana_potion',   10);
+
+        this.time.delayedCall(800, () => {
+            this.scene.get('UIScene')?.showNotification?.('[DEBUG] Lv15 · 25 SP · full attributes · all resonance gates unlocked', 4000);
         });
     }
 }

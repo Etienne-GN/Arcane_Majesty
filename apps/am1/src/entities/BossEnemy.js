@@ -211,7 +211,13 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
         this.scene.cameras.main.flash(500, 255, 30, 0);
         this.scene.cameras.main.shake(280, 0.014);
         this.scene.scene.get('UIScene')?.showNotification?.('The Void General ENRAGES!', 2500);
-        this._aura.setParticleColor([0xff4400, 0xff2200, 0xcc1100]);
+        this._aura.destroy();
+        this._aura = this.scene.add.particles(this.x, this.y - 10, 'particle', {
+            speed: { min: 16, max: 50 }, angle: { min: 0, max: 360 },
+            scale: { start: 1.4, end: 0 }, lifespan: { min: 400, max: 800 },
+            tint: [0xff4400, 0xff2200, 0xcc1100],
+            quantity: 3, frequency: 55, alpha: { start: 0.9, end: 0 },
+        }).setDepth(8);
     }
 
     _enterPhase3() {
@@ -231,7 +237,13 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
 
         this.setTint(0xff00aa);
         this._nameText?.setText('VOID GENERAL [COLLAPSE]');
-        this._aura.setParticleColor([0xff0088, 0xcc0044, 0x880022]);
+        this._aura.destroy();
+        this._aura = this.scene.add.particles(this.x, this.y - 10, 'particle', {
+            speed: { min: 16, max: 55 }, angle: { min: 0, max: 360 },
+            scale: { start: 1.5, end: 0 }, lifespan: { min: 400, max: 900 },
+            tint: [0xff0088, 0xcc0044, 0x880022],
+            quantity: 4, frequency: 45, alpha: { start: 0.9, end: 0 },
+        }).setDepth(8);
     }
 
     _voidRain(player) {

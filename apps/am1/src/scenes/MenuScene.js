@@ -39,13 +39,15 @@ export default class MenuScene extends Phaser.Scene {
         const saveInfo = SaveManager.getSaveInfo();
         const hasSave = !!saveInfo;
 
+        const debugOn = localStorage.getItem('am1_debug') === '1';
+
         const menuItems = [
             hasSave
                 ? { label: 'Continue',   sub: `Level ${saveInfo.level}  —  ${saveInfo.time}`, action: () => this._continue() }
                 : null,
             { label: 'New Game', sub: hasSave ? 'Overwrite save' : null, action: () => this._newGame() },
-            { label: 'Options',  sub: null, action: null },
-            { label: 'Credits',  sub: null, action: null },
+            { label: 'Options',  sub: debugOn ? 'Debug mode ON' : null, action: () => this._options() },
+            { label: 'Credits',  sub: null, action: () => this._credits() },
         ].filter(Boolean);
 
         menuItems.forEach((item, idx) => {
@@ -76,8 +78,9 @@ export default class MenuScene extends Phaser.Scene {
             font: '7px monospace', fill: '#222244'
         }).setOrigin(0.5, 1);
 
-        this.input.keyboard.on('keydown-ENTER', () => hasSave ? this._continue() : this._newGame());
-        this.input.keyboard.on('keydown-SPACE', () => hasSave ? this._continue() : this._newGame());
+        this.input.keyboard.on('keydown-ENTER', () => { soundManager.unlock(); hasSave ? this._continue() : this._newGame(); });
+        this.input.keyboard.on('keydown-SPACE', () => { soundManager.unlock(); hasSave ? this._continue() : this._newGame(); });
+        this.input.on('pointerdown', () => soundManager.unlock());
 
         this.cameras.main.fadeIn(600);
     }
@@ -96,5 +99,17 @@ export default class MenuScene extends Phaser.Scene {
         this.registry.remove('prologueSeen');
         this.cameras.main.fadeOut(300);
         this.time.delayedCall(300, () => this.scene.start('GameScene'));
+    }
+
+    _options() {
+        soundManager.menuSelect();
+        this.cameras.main.fadeOut(200);
+        this.time.delayedCall(200, () => this.scene.start('OptionsScene'));
+    }
+
+    _credits() {
+        soundManager.menuSelect();
+        this.cameras.main.fadeOut(200);
+        this.time.delayedCall(200, () => this.scene.start('CreditsScene'));
     }
 }

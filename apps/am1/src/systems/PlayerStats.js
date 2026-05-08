@@ -9,6 +9,12 @@ export const MASTERY_DEFS = {
         description: 'Aetheric Tear cooldown 60s → 45s, mana cost 85% → 75%.',
         lore: '"The first record of spatial tearing predates the Covenant by 200 years." — Archive Fragment',
     },
+    spatial_attunement: {
+        id: 'spatial_attunement', cost: 5,
+        name: 'Spatial Attunement',
+        description: 'Aetheric Tear tier 2 — freely target any explored location on the world map.',
+        lore: '"A master of the rift does not follow gates. The rift follows the master." — Vorgos, Fragment VII',
+    },
     scholars_vigilance: {
         id: 'scholars_vigilance', cost: 2,
         name: "Scholar's Vigilance",
@@ -198,10 +204,18 @@ export class PlayerStats {
         // Attuned Rift-Gates — enables fast-travel between them
         this.attunedGates = [];
 
+        // Explored map chunks — 4×4 tile cells, key format "cx_cy"
+        this.exploredChunks = [];
+
         // Quest log: { questId: { status: 'active'|'completed', progress: { stepId: n } } }
         this.questLog          = {};
         // Archive of Souls: [{ id, title, text, timestamp }]
         this.recoveredMemories = [];
+
+        // Codex — Scholar's Eye echo discoveries
+        this.codexEchoes = [];
+        // Bestiary — enemy types encountered (array of type-id strings)
+        this.killedEnemyTypes = [];
 
         // Resonance change listeners
         this._resonanceGainCallbacks = [];
@@ -224,7 +238,9 @@ export class PlayerStats {
         const hpFraction  = Math.max(0.08, this.health / this.maxHealth);
         const baseRegen   = 1 + this.attributes.intelligence * 0.15;
         const natureMult  = ITEMS[this.equipment.weapon]?.passive === 'nature_bond' ? 1.5 : 1;
-        const regenRate   = baseRegen * hpFraction * (this.manaCollapsed ? 0.4 : 1) * natureMult;
+        const boostMult   = (this._manaRegenBoost ?? 0) > 0 ? 3 : 1;
+        if ((this._manaRegenBoost ?? 0) > 0) this._manaRegenBoost = Math.max(0, this._manaRegenBoost - delta);
+        const regenRate   = baseRegen * hpFraction * (this.manaCollapsed ? 0.4 : 1) * natureMult * boostMult;
         this._manaRegenAcc += regenRate * delta / 1000;
         if (this._manaRegenAcc >= 1) {
             const gain = Math.floor(this._manaRegenAcc);
@@ -367,6 +383,7 @@ export class PlayerStats {
             const rawRes = this.resonance[element];
             // resonant_mind mastery: treat resonance as 15% higher for threshold checks
             const res = this.masteries?.resonant_mind ? Math.floor(rawRes * 1.15) : rawRes;
+            if (!spell.discoverCondition) continue;
             const thresholds = [spell.discoverCondition.threshold, ...(spell.masteryThresholds ?? [])];
 
             let newLevel = 0;
@@ -399,6 +416,12 @@ export class PlayerStats {
         if (!spell) return;
         const tier = Math.max(0, this.spells[id] - 1);
         this.spellCooldowns[id] = spell.cooldown?.[tier] ?? 2000;
+    }
+
+    trackKill(enemyType) {
+        if (!this.killedEnemyTypes.includes(enemyType)) {
+            this.killedEnemyTypes.push(enemyType);
+        }
     }
 
     gainResonanceInsight(amount = 1) {
@@ -523,9 +546,15 @@ export class PlayerStats {
         }
     }
 
+    // Called by potion onUse callbacks that need status system access
+    _clearStatus(id)              { this._statusClearQueue  = this._statusClearQueue  ?? []; this._statusClearQueue.push(id); }
+    _applyStatus(id, opts = {})   { this._statusApplyQueue  = this._statusApplyQueue  ?? []; this._statusApplyQueue.push({ id, opts }); }
+
     useItem(itemId) {
         const def = ITEMS[itemId];
         if (!def) return false;
+        // Slotted items (weapons, armor) are equipped via [E], not consumed via [U]
+        if (def.slot) return false;
 
         const idx = this.inventory.findIndex(i => i.id === itemId);
         if (idx < 0) return false;
@@ -566,6 +595,7 @@ export class PlayerStats {
         Object.keys(SPELLS).forEach(id => { this.spells[id] = 0; this.spellCooldowns[id] = 0; });
         this.skillSlots = [null, null, null, null];
         this.attunedGates      = [];
+        this.exploredChunks    = [];
         this.questLog          = {};
         this.recoveredMemories = [];
         this.manaScent        = 0;
@@ -575,6 +605,8 @@ export class PlayerStats {
         this._manaRegenAcc    = 0;
         this.resonanceInsights = 0;
         this.masteries = Object.fromEntries(Object.keys(MASTERY_DEFS).map(k => [k, false]));
+        this.codexEchoes      = [];
+        this.killedEnemyTypes = [];
     }
 }
 

@@ -3,7 +3,7 @@ import { soundManager } from '../systems/SoundManager.js';
 import { playerStats } from '../systems/PlayerStats.js';
 import { statusManager } from '../systems/StatusManager.js';
 
-const STATE = { PATROL: 'patrol', CHASE: 'chase', ATTACK: 'attack', STUNNED: 'stunned', DEAD: 'dead' };
+const STATE = { PATROL: 'patrol', CHASE: 'chase', ATTACK: 'attack', FLEE: 'flee', STUNNED: 'stunned', DEAD: 'dead' };
 
 // RPG Maker-style 3×4 walk layout (frameWidth:32, frameHeight:32 from a 96×128 sheet)
 // Row 0: Down (frames 0-2), Row 1: Left (3-5), Row 2: Right (6-8), Row 3: Up (9-11)
@@ -43,6 +43,13 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.patrolRadius = typeDef.patrolRadius ?? 64;
         this.lootTable   = typeDef.lootTable    ?? [];
         this.goldDrop    = typeDef.goldDrop     ?? Phaser.Math.Between(1, 4);
+        this.passive      = typeDef.passive      ?? false;
+        this.fleeRadius   = typeDef.fleeRadius  ?? 80;
+        this.stationary   = typeDef.stationary  ?? false;
+        this.keepDistance = typeDef.keepDistance ?? false;
+        this.minRange     = typeDef.minRange     ?? 70;
+        this.splitOnDeath = typeDef.splitOnDeath ?? null;
+        this.aoeOnDeath   = typeDef.aoeOnDeath   ?? null;
 
         this.state = STATE.PATROL;
         this.prevState = STATE.PATROL;
@@ -102,28 +109,63 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.prevState = this.state;
         const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
 
-        // ManaScent (Ping): aggro range scales 1× at 0% → 3× at 100% scent
-        const scentMult    = 1 + (playerStats.manaScent / 100) * 2;
-        const effectiveSight = this.sightRange * scentMult;
-
-        if (dist <= this.attackRange)           this.state = STATE.ATTACK;
-        else if (dist <= effectiveSight)        this.state = STATE.CHASE;
-        else if (this.state === STATE.CHASE)    this.state = STATE.PATROL;
-
-        if (this.prevState === STATE.PATROL && this.state === STATE.CHASE) {
-            // Show '?!' when alerted by scent at range beyond normal sight
-            this._showAlert(dist > this.sightRange ? '?!' : '!', '#ff4444');
-        }
-
         // Aetheric Sight: GameScene flags _aethericSightActive to slow enemies
-        const sightSlow   = this.scene._aethericSightActive ? 0.25 : 1;
-        const statusSlow  = statusManager.speedMult(this);
-        const speedMult   = sightSlow * statusSlow;
+        const sightSlow  = this.scene._aethericSightActive ? 0.25 : 1;
+        const statusSlow = statusManager.speedMult(this);
+        const speedMult  = sightSlow * statusSlow;
 
-        switch (this.state) {
-            case STATE.PATROL: this._patrol(delta, speedMult); break;
-            case STATE.CHASE:  this._chase(player, speedMult); break;
-            case STATE.ATTACK: this._doAttack(player); break;
+        if (this.passive) {
+            if (dist <= this.fleeRadius) {
+                if (this.prevState !== STATE.FLEE) this._showAlert('!', '#ffcc44');
+                this.state = STATE.FLEE;
+            } else if (this.state === STATE.FLEE) {
+                this.state = STATE.PATROL;
+            }
+            switch (this.state) {
+                case STATE.PATROL: this._patrol(delta, speedMult); break;
+                case STATE.FLEE:   this._flee(player, speedMult);  break;
+            }
+        } else if (this.stationary) {
+            // Stationary: never moves, attacks anything in range
+            this.setVelocity(0);
+            if (dist <= this.attackRange) this._doAttack(player);
+        } else {
+            const scentMult      = 1 + (playerStats.manaScent / 100) * 2;
+            const effectiveSight = this.sightRange * scentMult;
+
+            if (this.keepDistance) {
+                // Ranged: back away if too close, attack from distance
+                if (dist <= this.attackRange)          this.state = STATE.ATTACK;
+                else if (dist <= effectiveSight)       this.state = STATE.CHASE;
+                else if (this.state === STATE.CHASE)   this.state = STATE.PATROL;
+
+                if (this.prevState === STATE.PATROL && this.state === STATE.CHASE) {
+                    this._showAlert('!', '#ff4444');
+                }
+
+                switch (this.state) {
+                    case STATE.PATROL: this._patrol(delta, speedMult); break;
+                    case STATE.CHASE:
+                        if (dist < this.minRange) this._flee(player, speedMult * 0.8);
+                        else this.setVelocity(0); // hold position at ideal range
+                        break;
+                    case STATE.ATTACK: this._doAttack(player); break;
+                }
+            } else {
+                if (dist <= this.attackRange)           this.state = STATE.ATTACK;
+                else if (dist <= effectiveSight)        this.state = STATE.CHASE;
+                else if (this.state === STATE.CHASE)    this.state = STATE.PATROL;
+
+                if (this.prevState === STATE.PATROL && this.state === STATE.CHASE) {
+                    this._showAlert(dist > this.sightRange ? '?!' : '!', '#ff4444');
+                }
+
+                switch (this.state) {
+                    case STATE.PATROL: this._patrol(delta, speedMult); break;
+                    case STATE.CHASE:  this._chase(player, speedMult); break;
+                    case STATE.ATTACK: this._doAttack(player); break;
+                }
+            }
         }
 
         // Play movement animation based on velocity
@@ -154,6 +196,12 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.moveTo(this, player.x, player.y, this.speed * speedMult);
     }
 
+    _flee(player, speedMult = 1) {
+        const angle = Phaser.Math.Angle.Between(player.x, player.y, this.x, this.y);
+        const spd = this.speed * speedMult * (this._panicFlee ? 1.4 : 1);
+        this.setVelocity(Math.cos(angle) * spd, Math.sin(angle) * spd);
+    }
+
     _doAttack(player) {
         this.setVelocity(0);
         if (this.attackCooldown <= 0) {
@@ -179,9 +227,16 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
             statusManager._updateTint(this);
         });
 
-        this.state = STATE.STUNNED;
-        this.stunTimer = 180;
-        this.setVelocity(0);
+        if (this.passive) {
+            // Wildlife panics when hit — no stun, just faster flee
+            this.state = STATE.FLEE;
+            this._panicFlee = true;
+            this.scene.time.delayedCall(2000, () => { this._panicFlee = false; });
+        } else {
+            this.state = STATE.STUNNED;
+            this.stunTimer = 180;
+            this.setVelocity(0);
+        }
 
         if (this.health <= 0) this._die();
     }
@@ -213,6 +268,15 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
             if (Math.random() < entry.chance) drops.push(entry.id);
         });
         if (drops.length) this.emit('dropped', this.x, this.y, drops);
+
+        if (this.aoeOnDeath)   this.emit('aoeDeath', this.x, this.y, this.aoeOnDeath.radius, this.aoeOnDeath.damage);
+        if (this.splitOnDeath) {
+            const offsets = [{ x: -14, y: 0 }, { x: 14, y: 0 }, { x: 0, y: -14 }];
+            for (let i = 0; i < this.splitOnDeath.count; i++) {
+                const off = offsets[i % offsets.length];
+                this.emit('split', this.splitOnDeath.type, this.x + off.x, this.y + off.y);
+            }
+        }
 
         this.scene.tweens.add({
             targets: this,

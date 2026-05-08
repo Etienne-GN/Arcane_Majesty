@@ -13,13 +13,14 @@
 6. [Weapon Families](#6-weapon-families)
 7. [Skill Tree](#7-skill-tree)
 8. [Resonance System](#8-resonance-system)
-9. [Spell System — All 60 Spells](#9-spell-system--all-60-spells)
-10. [Status Effects](#10-status-effects)
-11. [Enemies & Boss](#11-enemies--boss)
-12. [Equipment](#12-equipment)
-13. [Inventory & Items](#13-inventory--items)
-14. [Quests & Archive of Souls](#14-quests--archive-of-souls)
-15. [World Systems](#15-world-systems)
+9. [Resonance Insights & Mastery](#9-resonance-insights--mastery)
+10. [Spell System — All 60 Spells](#10-spell-system--all-60-spells)
+11. [Status Effects](#11-status-effects)
+12. [Enemies & Boss](#12-enemies--boss)
+13. [Equipment](#13-equipment)
+14. [Inventory & Items](#14-inventory--items)
+15. [Quests & Archive of Souls](#15-quests--archive-of-souls)
+16. [World Systems](#16-world-systems)
 
 ---
 
@@ -52,7 +53,7 @@ Equipping items with `stats` values immediately applies them — unequipping rem
 
 ### XP & Levels
 
-- XP is gained by killing enemies. Each kill awards a fixed `xpReward` (15–42 XP per enemy, 200+ for the boss).
+- XP is gained by killing enemies. Each kill awards a fixed `xpReward` (15–42 XP per enemy, 280 for the boss).
 - Level threshold starts at 100 XP and scales by ×1.5 each level (`xpToNextLevel × 1.5`).
 - On level-up: full HP and MP restore, +1 **Skill Point**, +1 **Attribute Point**.
 
@@ -63,6 +64,10 @@ Spent in the Skill Tree (`[K]`) to upgrade combat and passive abilities. Separat
 ### Resonance Points
 
 Not points — a passive accumulation. Each of the 8 elements has its own counter that fills through in-world events (kills, spell use, environmental exposure). Resonance unlocks spells automatically when thresholds are crossed.
+
+### Resonance Insights
+
+Earned through specific lore discoveries (Scholar's Eye echoes, quest completions). Spent on **Mastery** abilities in the Skill Tree. See Section 9.
 
 ---
 
@@ -95,7 +100,7 @@ Below 20% mana, movement speed is penalized linearly: 0–50% fatigue as mana dr
 
 Every spell cast and mana-augmented attack generates **ManaScent** (0–100). This is the enemy aggro amplifier — enemies detect the player from further away when scent is high.
 
-- Scent decays at 12 points/sec
+- Scent decays at 12 points/sec (15 points/sec with **Void Sense** mastery)
 - Spell cost × 0.55 = scent added per cast
 - At 100% scent, enemy sight range is ×3 normal
 
@@ -132,6 +137,8 @@ slashBonus = power_slash skill level × 6
 dmg = (base + strikeBonus + slashBonus) × 1.8
 ```
 
+Power Slash uses the same weapon-family arc VFX as Basic Attack but with `isPower = true` (larger arcs, extra camera effects — see Section 6).
+
 ### Blink-Step `[SPACE]`
 
 Requires `blink_step` skill. Costs 8 MP. Teleports forward `60 / 80 / 105` px depending on level.
@@ -148,8 +155,8 @@ There are 4 weapon types, 5 tiers (T1 Common → T5 Legendary), 2 variants per t
 |------|--------|--------|
 | T1 | Common | Merchant |
 | T2 | Uncommon | Merchant |
-| T3 | Rare | Chests, drops |
-| T4 | Epic | Chest, boss reward |
+| T3 | Rare | Chests, enemy drops |
+| T4 | Epic | Chest, boss guaranteed drops |
 | T5 | Legendary | Hidden quest reward only |
 
 T3+ weapons come with pre-rolled **enchants**.
@@ -175,6 +182,8 @@ T3+ weapons come with pre-rolled **enchants**.
 | `void_stun` | Void-Slicer | 20% | Extends enemy stun timer to 550ms |
 | `shadow_clone` | Midnight Reaver | 25% | Phantom second strike at 50% damage after 140ms |
 | `eclipse_mark` | Ecliptic Stiletto | 20% | Marks enemy — next hit within 1.5s deals ×2 |
+| `arrow_bounce` | Celestial Arc (bow) | 25% | Arrow arcs to a second enemy in range on impact |
+| `storm_burst` | Tempest Bow | 20% | AoE storm burst at impact point |
 
 ### Legendary Passives
 
@@ -192,16 +201,24 @@ T3+ weapons come with pre-rolled **enchants**.
 ---
 
 ### Staff `[cooldown 400ms]`
-Physical hits cost 0 MP. No augmentation bonus on basic attacks. VFX: blue circle arc on swing. Best for pure casters — saves MP entirely for spells.
+Physical hits cost 0 MP. No augmentation bonus on basic attacks. Best for pure casters — saves MP entirely for spells.
+
+**VFX — Basic**: Double concentric rings expand-fade (220ms) + cardinal cross rune. **VFX — Power**: Same rings + outer shockwave ring scaling to ×2.6 + blue camera flash (70ms).
 
 ### Spell-Blade `[cooldown 480ms]`
-Each hit costs **2 MP**. When augmented (mana available), deal **+35% damage + INT × 1.4** bonus arcane damage. VFX: X-cross arc. Hybrid playstyle: melee damage scales with INT.
+Each hit costs **2 MP**. When augmented (mana available), deal **+35% damage + INT × 1.4** bonus arcane damage. Hybrid playstyle: melee damage scales with INT.
+
+**VFX — Basic**: Perpendicular cleave line (horizontal for up/down, vertical for left/right) + arcane shadow slash offset behind + forward thrust pip. **VFX — Power**: Same + impact bloom circle + cyan camera flash + shake (80ms, 0.006).
 
 ### Umbral Dagger `[cooldown 260ms]`
-Each hit costs **1 MP**. When augmented, fires a second hit 70ms later at **78% damage** (smaller hitbox). VFX: triangle spike in facing direction. Fast, stacking, shadow-flavored.
+Each hit costs **1 MP**. When augmented, fires a second hit 70ms later at **78% damage** (smaller hitbox). Fast, stacking, shadow-flavored.
+
+**VFX — Basic**: Two parallel slash marks angled toward facing direction + shadow pip. **VFX — Power**: Adds a third slash mark + purple camera flash.
 
 ### Resonance Bow `[cooldown 650ms]`
-Each shot costs **3 MP**. Ranged strike at **150px** (or 220px for Void-Piercer). No melee hitbox — damage handled by scene's `_bowStrike()` 120ms after animation. No arc VFX.
+Each shot costs **3 MP**. Ranged strike at **150px** (or 220px for Void-Piercer). No melee hitbox — damage handled by `_bowStrike()` 120ms after animation.
+
+**VFX — Basic**: Draw-nock pip at player position + short directional line. **VFX — Power**: Larger nock pip + green camera flash.
 
 ---
 
@@ -218,7 +235,7 @@ Accessed with `[K]`. 9 skills total. Costs 1 Skill Point per level. Shown with `
 | **Blink-Step** | Active | 3 | Lv 3, AGI 8, Arcane ≥3 | Unlocks `[SPACE]` dash; range 60/80/105px |
 | **Mana-Shield** | Passive | 3 | Lv 2, INT 8, Arcane ≥5 | Absorbs 30/50/70% of incoming damage using mana (2 mana per 1 HP shielded) |
 | **Aetheric Sight** | Active | 3 | Lv 4, INT 12, Arcane ≥8 | `[V]` slows all enemies to 25% speed for 2/3/4s; reveals aggro radius |
-| **Shadow Step** | Passive | 3 | Shadow ≥10 | Shadow Veil lasts +1s per level |
+| **Shadow Step** | Passive | 3 | Shadow ≥10 | Shadow Veil lasts +1s per level, costs 10% less MP per level |
 | **Arcane Mastery** | Passive | 3 | Arcane ≥15 | +10% all spell damage per level |
 
 **Resonance-gated skills** (Blink-Step, Mana-Shield, Aetheric Sight, Shadow Step, Arcane Mastery) require specific elemental resonance in addition to any stat/level requirements. The requirement is shown in the skill row with a colored badge (e.g. "Arcane ≥3✓").
@@ -240,6 +257,9 @@ Each element has its own counter (0–999). When a threshold is crossed, spells 
 | Event | Gain |
 |-------|------|
 | Kill wisp | Lightning +3 |
+| Kill wolf | Nature +2, Fire +1 |
+| Kill shadow_sprite | Shadow +4 |
+| Kill void_stalker | Shadow +5, Arcane +2 |
 | Kill scout | Arcane +2 |
 | Kill treant | Earth +4, Nature +2 |
 | Kill boss | Shadow +10, Arcane +5 |
@@ -264,7 +284,25 @@ Some spells have `discoverCondition: null` — they can *only* be learned from N
 
 ---
 
-## 9. Spell System — All 60 Spells
+## 9. Resonance Insights & Mastery
+
+**Resonance Insights** are earned by discovering Scholar's Eye echoes (+1 per unique echo) and completing specific quests. They are a separate resource from regular resonance.
+
+Insights are spent to unlock **Mastery** abilities from the Skill Tree `[K]` lower section. Each mastery is a one-time permanent upgrade.
+
+### 5 Masteries
+
+| Mastery | Cost | Effect |
+|---------|------|--------|
+| **Aetheric Comprehension** | 3 | Aetheric Tear cooldown 60s → 45s, mana cost 85% → 75% of max MP |
+| **Scholar's Vigilance** | 2 | Scholar's Eye echo zones extend 30% further |
+| **Mana Efficiency** | 2 | All spells cost 10% less mana |
+| **Void Sense** | 3 | ManaScent dissipates 25% faster (12 → 15 per sec) |
+| **Resonant Mind** | 4 | Spell discovery resonance thresholds treated as 15% lower |
+
+---
+
+## 10. Spell System — All 60 Spells
 
 ### Casting
 
@@ -276,6 +314,7 @@ Some spells have `discoverCondition: null` — they can *only* be learned from N
 - Spell damage formula: `floor((base + perLevel × (tier−1) + perINT × INT) × ampMult × masteryMult)`
   - `ampMult` = 1.25 with `spell_amplifier` legendary passive
   - `masteryMult` = 1 + (arcane_mastery level × 0.10)
+  - `mana_efficiency` mastery: all mana costs −10%
 
 ### Spell Tiers
 
@@ -409,11 +448,11 @@ Some spells have `discoverCondition: null` — they can *only* be learned from N
 
 ---
 
-## 10. Status Effects
+## 11. Status Effects
 
 Status effects are managed by the `StatusManager` system. They are stored on each entity as `_statuses` — a map of `{ remaining, stacks, dotTimer, regenTimer }`.
 
-### All 17 Statuses
+### All 18 Statuses
 
 | Status | Duration | Tint | Special |
 |--------|----------|------|---------|
@@ -434,10 +473,11 @@ Status effects are managed by the `StatusManager` system. They are stored on eac
 | **Marked** | 1.5s | Magenta | Next hit deals ×2 damage |
 | **Warded** | Permanent | Blue | Defensive aura (story/boss interaction) |
 | **Hushed** | 15s | None | Cannot cast spells (same as Silenced, different source) |
+| **Resonance Stun** | 2s | Lavender (0xdd88ff) | Speed ×0 (stunned). Applied to player on Aetheric Tear arrival. |
 
 ### Stun Types
 
-Three statuses count as **Stunned** for movement: `frozen`, `shocked`, `entangled`. While stunned, the entity cannot move. Enemy AI is overridden. Player movement is blocked.
+Four statuses count as **Stunned** for movement: `frozen`, `shocked`, `entangled`, `resonance_stun`. While stunned, the entity cannot move. Enemy AI is overridden. Player movement is blocked.
 
 ### Status Interactions (Interaction Matrix)
 
@@ -472,15 +512,27 @@ Status labels are shown as a compact colored strip below the Ping bar in the HUD
 
 ---
 
-## 11. Enemies & Boss
+## 12. Enemies & Boss
 
 ### Standard Enemies
 
 | Type | HP | Damage | Speed | Sight | XP | Loot |
 |------|----|--------|-------|-------|----|------|
 | **Wisp** | 18 | 5 | 85 | 100px | 15 | Mana Potion 30% |
+| **Wolf** | 28 | 8 | 95 | 115px | 20 | Forest Herb 35%, Health Potion 20% |
+| **Shadow Sprite** | 22 | 13 | 72 | 130px | 25 | Mana Potion 35%, Ancient Scroll 15%, Mana-Etched Sword 8% |
 | **Scout** | 32 | 9 | 56 | 115px | 22 | Health Potion 35%, Forest Herb 25% |
+| **Void Stalker** | 55 | 18 | 48 | 140px | 38 | Mana Potion 45%, Eldritch Tome 15%, Dusk Fang 10% |
 | **Treant** | 65 | 16 | 30 | 70px | 42 | Health Potion 50%, Forest Herb 40% |
+
+### Enemy Placement
+
+- **Wisps** — eastern ruins fringe (5 spawns)
+- **Wolves** — northern and western forest (7 spawns; main quest target: kill 5)
+- **Shadow Sprites** — eastern ruins interior (5 spawns; hidden quest target: kill 10)
+- **Scouts** — mid-forest patrol (5 spawns)
+- **Void Stalkers** — southern approach to boss arena (3 spawns; sentinels)
+- **Treants** — south forest (4 spawns)
 
 ### Enemy AI States
 
@@ -496,29 +548,46 @@ Status labels are shown as a compact colored strip below the Ping bar in the HUD
 
 When first alerted, enemies show `!` (normal sight) or `?!` (scent-range aggro beyond normal sight).
 
-### Boss — Void Wraith
+### Boss — Void General
 
-Spawned at the arena coordinates in the world map. Separate `BossEnemy` class.
+Spawned at the boss arena (south-east quadrant of the map). Separate `BossEnemy` class.
 
-**Taunt lines (triggered at HP thresholds):**
+**Stats**: HP 350, Damage 20, Speed 42, Sight 260px, XP 280, Attack cooldown 1400ms.
+
+**Shadow Burst**: Every 4200ms (when player within 130px) — AoE void explosion dealing 75% of normal damage. Screen shake 250ms. Cooldown halved in Phase 2+.
+
+**Phase transitions** (triggered by HP thresholds):
+
+| Phase | Trigger | Changes |
+|-------|---------|---------|
+| **Phase 1** | Start | Normal behavior + shadow burst |
+| **Phase 2 — ENRAGE** | 50% HP | Speed ×1.6, damage ×1.5, attack cooldown ×0.65, burst cooldown ×0.6, red tint. Camera flash + shake. |
+| **Phase 3 — COLLAPSE** | 25% HP | Speed ×1.25 further. Unlocks **Void Rain** (6 telegraphed orbs around player every 5500ms, 60% damage each) and **Void Teleport** (blinks adjacent to player every 7000ms, immediate burst on arrival). Name changes to `VOID GENERAL [COLLAPSE]`, magenta-pink tint. Camera shake 500ms. |
+
+**Taunt lines** (HP threshold notifications):
 - 75%: *"You carry the scent of failure, scholar."*
-- 50%: *"The Void does not yield. Neither do I."*
-- 25%: *"ENOUGH! I will consume your soul!"*
+- 50%: *"The Void does not yield. Neither do I."* → triggers ENRAGE
+- 25%: *"ENOUGH! The Collapse begins — your soul is MINE!"* → triggers Phase 3
 
-**Boss kill rewards:** Shadow +10, Arcane +5 resonance, plus quest completion.
+**Death**: Light pillar VFX, purple camera flash (700ms). Drops **Void Channel** (T4 staff) + **Arcane Sceptre** (T4 staff) as guaranteed pickups.
+
+**Boss kill rewards**: Shadow +10, Arcane +5 resonance, plus main quest completion.
 
 ### Post-death Resonance Gains
 
 | Kill | Resonance |
 |------|-----------|
 | Wisp | Lightning +3 |
+| Wolf | Nature +2, Fire +1 |
+| Shadow Sprite | Shadow +4 |
+| Void Stalker | Shadow +5, Arcane +2 |
 | Scout | Arcane +2 |
 | Treant | Earth +4, Nature +2 |
 | Boss | Shadow +10, Arcane +5 |
 
 ---
 
-## 12. Equipment
+## 13. Equipment
 
 ### Slots
 
@@ -540,7 +609,7 @@ Each +1 to Stamina adds 8 Max HP. Each +1 to Intelligence adds 8 Max Mana.
 
 ---
 
-## 13. Inventory & Items
+## 14. Inventory & Items
 
 ### Satchel Tiers
 
@@ -561,9 +630,11 @@ Satchel capacity upgrades via usable items (consumed on use):
 | Mana Potion | Restore 20 MP | 20 | 6 |
 | Forest Herb | Restore 10 HP | 12 | 4 |
 | Heart Crystal | Restore 80 HP + max HP +10 | 100 | 35 |
-| Ancient Scroll | +50 XP, Arcane +4 | 60 | 20 |
-| Eldritch Tome | +150 XP, +1 Skill Point, Arcane +6 | 150 | 50 |
-| Traveler's Tent | Full HP + MP restore, clear exhaustion, +50 XP | 120 | 40 |
+| Ancient Scroll | +50 XP, Arcane +4, unlocks lore entry in Codex | 60 | 20 |
+| Eldritch Tome | +150 XP, +1 Skill Point, Arcane +6, unlocks lore entry in Codex | 150 | 50 |
+| Traveler's Tent | Full HP + MP restore, clear exhaustion, +50 XP (consumed at campfire) | 120 | 40 |
+
+Using Ancient Scroll or Eldritch Tome opens a DialogueScene with lore text, then stores a lore entry in `playerStats.recoveredMemories` (visible in Quest Journal Archive tab and Codex LORE tab).
 
 ### Gathering Tools
 
@@ -585,7 +656,7 @@ Satchel capacity upgrades via usable items (consumed on use):
 
 ---
 
-## 14. Quests & Archive of Souls
+## 15. Quests & Archive of Souls
 
 ### Quest Journal `[N]`
 
@@ -593,41 +664,107 @@ Two tabs, toggled with `[A]`:
 
 **Quests tab**: Lists active and completed quests. Navigate with `[↑↓]`, view detail pane. Shows: title, objectives (with progress where tracked), status.
 
-**Archive of Souls tab**: Lists recovered memory fragments — lore entries unlocked by completing specific quests. Each entry shows: title, full lore text, timestamp of discovery.
+**Archive of Souls tab**: Lists recovered memory fragments — lore entries unlocked by completing specific quests or reading lore items. Each entry shows: title, full lore text, timestamp of discovery.
 
 ### Quest Types
 
 - **Main quests**: Auto-started. Drive the prologue narrative.
 - **Side quests**: Auto-started or triggered by world events.
-- **Hidden quests**: Triggered by specific player actions (first bow kill, first shadow_veil discovery, arcane resonance ≥10, etc.).
+- **Hidden quests**: Triggered by specific player actions (first bow kill, first shadow_veil discovery, arcane resonance ≥10, entering boss arena, etc.).
 
 ### Known Quests (Prologue)
 
-| ID | Title | Trigger |
-|----|-------|---------|
-| `main_forest_hunt` | The Forest Hunt | Auto at game start |
-| `side_supply_run` | Scout's Report | Auto at game start |
-| `side_read_the_signs` | Reading the Signs | Auto at game start |
-| `hidden_shadow_initiation` | The Shadow Initiation | Discovering shadow_veil |
-| `hidden_covenant_scholar` | The Covenant Scholar | Arcane resonance ≥10 |
-| `hidden_hunters_trial` | The Hunter's Trial | First kill with resonance_bow |
+| ID | Title | Trigger | Reward |
+|----|-------|---------|--------|
+| `main_forest_hunt` | The Forest Hunt | Auto at game start | — |
+| `side_supply_run` | Scout's Report | Auto at game start | — |
+| `side_read_the_signs` | Reading the Signs | Auto at game start | — |
+| `hidden_shadow_initiation` | The Shadow Initiation | Discovering shadow_veil | — |
+| `hidden_covenant_scholar` | The Covenant Scholar | Arcane resonance ≥10 | — |
+| `hidden_hunters_trial` | The Hunter's Trial | First kill with resonance_bow | Eternal Draw (T5 legendary bow) |
+| `hidden_void_fragment` | The Void Fragment | Enter the boss arena | Cleaver of Vorgos (T5 legendary) + 250 XP |
+
+**Hidden Void Fragment** — steps: defeat 10 Shadow Sprites + defeat the Void General. Completing this quest grants the `cleaver_of_vorgos` legendary weapon.
 
 ---
 
-## 15. World Systems
+## 16. World Systems
+
+### Controls Summary
+
+| Key | Action |
+|-----|--------|
+| `[WASD]` / Arrows | Move |
+| `[Z]` | Basic attack |
+| `[X]` | Power slash (requires skill) |
+| `[SPACE]` | Blink-Step (requires skill) |
+| `[Q/R/F/T]` | Cast mapped spells |
+| `[E]` | Interact (NPC, campfire, sign, chest, gate) |
+| `[I]` | Inventory |
+| `[I]` | Inventory |
+| `[K]` | Skill Tree & Stats |
+| `[J]` | Spellbook |
+| `[N]` | Quest Journal |
+| `[L]` | Codex — Archive of Eldoria |
+| `[G]` | Aetheric Tear |
+| `[C]` | Build campfire (costs 3 Wood) |
+| `[V]` | Aetheric Sight (requires skill) |
+| `[M]` | World Map |
+| `[ESC]` | Cancel / close overlay |
+
+---
 
 ### Scholar's Eye
 
-Six echo zones placed near ruins and signs in the world. When Eldrin enters one:
-- Screen gets a blue ghostly overlay
-- A lore notification appears with archaeological/historical text
-- Active for the duration of proximity
+Six echo zones placed near ruins and stone markers in the world. Each zone has a named title (e.g., "Northern Marker — Pre-Covenant Warning").
 
-Cooldown between triggers is throttled to every 500ms.
+When Eldrin enters an echo zone:
+- Screen gets a blue ghost-ruin overlay VFX
+- A lore notification appears with archaeological/historical text
+- On first trigger: entry is stored in `playerStats.codexEchoes` (visible in Codex ECHOES tab) + **+1 Resonance Insight** awarded
+
+After the **2nd unique echo** is discovered, Eldrin's mentor-vision (`eldrin_second_vision`) fires as a full dialogue 5.5 seconds later (one-shot, tracked by registry flag).
+
+Zone titles:
+1. Northern Marker — Pre-Covenant Warning
+2. Western Ruins — The Unnamed Hermit
+3. Crossroads Monolith — Network Corruption
+4. Sealed Rift — Ancient Aetheric Discharge
+5. Survey Stone — First Gate Architects
+6. Eastern Ruin — The Void Seal Sigil
+
+### Codex `[L]` — Archive of Eldoria
+
+Full-screen overlay with 4 tabs. Tab hotkeys `[1-4]`. Scroll `[↑/↓]`. Close `[ESC/L]`.
+
+| Tab | Contents |
+|-----|---------|
+| **LORE** | `playerStats.recoveredMemories` — entries from scroll/tome reads |
+| **ECHOES** | `playerStats.codexEchoes` — Scholar's Eye discoveries |
+| **BESTIARY** | One entry per unique enemy type killed — lore description + HP/DMG stats + threat badge |
+| **WORLD** | 6 static world lore entries, always visible (no unlock required) |
+
+World lore entries: The Gap at 0 GD · The Heartstone of Creation · The Rift-Gate Network · Vorgos the Stormbringer · The Staff of First Covenant · The Void: What It Is
+
+The Bestiary tab populates from `playerStats.killedEnemyTypes` — killing an enemy type for the first time unlocks its entry permanently.
 
 ### Campfires
 
-Interact `[E]` to rest: full HP + MP restore. Costs nothing. Grants Fire +1 resonance.
+Static campfires appear at 3 world positions. **Dynamic campfires** can be built anywhere with `[C]` (costs **3 Wood**; requires Iron Axe in inventory to have gathered wood).
+
+Interact `[E]` near any campfire:
+
+- **With Traveler's Tent**: Full Rest — 100% HP+MP restore, clear mana exhaustion, +50 XP, consume tent, Fire +1 resonance.
+- **Without tent**: Partial Rest — +30% HP, +30% MP, Fire +1 resonance. Shows notification suggesting a tent for full rest. No effect if already at full HP+MP.
+
+### Aetheric Tear `[G]`
+
+Spatial tear — teleports Eldrin to any clicked position on the map. Point-and-click targeting with a reticle cursor.
+
+- **Mana cost**: 85% of max MP (75% with Aetheric Comprehension mastery)
+- **Cooldown**: 60 seconds (45s with mastery)
+- **On arrival**: Applies `resonance_stun` (2000ms immobile) + sets ManaScent to 100
+- **VFX**: Void particle explosion at origin and destination + camera flash + shake
 
 ### NPCs
 
@@ -637,9 +774,9 @@ Interact `[E]` within 48px. Open dialogue tree. Some NPCs teach spells, give que
 
 Interact to read. Grants progress toward `side_read_the_signs` quest.
 
-### Rift Gates
+### Rift Gates & Fast Travel
 
-Void-energy portals in the world. Interact to **attune** (one-time). Once attuned, fast-travel between any two attuned gates is available.
+Void-energy portals in the world. Interact to **attune** (one-time). Once 2+ gates are attuned, fast-travel via `[F]` (Fast Travel menu) between any attuned gates.
 
 ### Gathering Nodes
 
@@ -648,7 +785,7 @@ Three node types appear on the map:
 - **Mineral Ore** — requires Iron Pickaxe
 - **Herbs** — no tool required
 
-Interacting with a node (when tool is in inventory for the right type) adds the resource to inventory. Nodes do not respawn in the prologue.
+Interacting with a node (when the right tool is in inventory) adds the resource to inventory. Nodes do not respawn in the prologue.
 
 ### Cracked Boulders
 
@@ -660,16 +797,28 @@ Stone gates that open when **Earth Pillar** is cast near them (within 80px). The
 
 ### Music
 
-Procedural WebAudio music adapts to game state:
-- **Calm**: sine/triangle wave arpeggios (4 patterns)
-- **Intense**: square/sawtooth (4 patterns, triggered when ManaScent > 30 or enemies nearby)
-- **Boss**: sawtooth with sub-bass pulse (single pattern)
+Procedural WebAudio music adapts to game state (MusicManager.js — no audio files):
+- **Calm**: sine/triangle wave arpeggios (8 patterns) — active when ManaScent < 50 and no boss fight
+- **Intense**: square/sawtooth (8 patterns) — triggered when ManaScent ≥ 50
+- **Boss**: sawtooth with sub-bass pulse (1 pattern) — active during boss fight
 
-Mood transitions only happen at the end of the current loop cycle, not mid-phrase.
+Mood transitions only happen at the start of the next loop cycle, not mid-phrase. Sub-bass pulse added on every beat in Intense and Boss moods.
 
 ### Save System
 
-Auto-saves on every enemy kill. Saves: level, XP, stats, resonance, spells, skills, equipment, inventory, quest log, attunement gates, recovered memories, gold.
+Auto-saves on every enemy kill. Saves:
+
+- Level, XP, attributes, attribute points, skill points
+- Skills (levels), resonance (all 8 elements), spells (all 60 levels + cooldowns)
+- Skill slots (4 spell assignments)
+- Equipment (all 5 slots), inventory
+- Quest log + Archive of Souls (recoveredMemories)
+- Attunement gates
+- Glint (gold)
+- Satchel tier
+- Codex echoes (`codexEchoes`)
+- Killed enemy types (`killedEnemyTypes`)
+- Resonance Insights + Masteries (`resonanceInsights`, `masteries`)
 
 ---
 

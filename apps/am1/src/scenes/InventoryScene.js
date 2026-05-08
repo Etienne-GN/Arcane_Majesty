@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { ITEMS, SATCHEL_TIERS } from '../data/items.js';
+import { DIALOGUES } from '../data/dialogues.js';
 
 const SLOT = 28;
 const EQUIP_PANEL_W = 96;
@@ -92,7 +93,12 @@ export default class InventoryScene extends Phaser.Scene {
             this.add.text(x + 3, sy + 2, label, { font: '6px monospace', fill: '#444466' });
 
             if (equippedDef) {
-                this.add.rectangle(x + 4, sy + 12, 12, 12, equippedDef.color ?? 0x8855ff).setOrigin(0);
+                const eIcon = equippedDef.icon;
+                if (eIcon && this.textures.exists(eIcon)) {
+                    this.add.image(x + 10, sy + 18, eIcon).setDisplaySize(12, 12).setOrigin(0.5);
+                } else {
+                    this.add.rectangle(x + 4, sy + 12, 12, 12, equippedDef.color ?? 0x8855ff).setOrigin(0);
+                }
                 this.add.text(x + 20, sy + 11, equippedDef.name, {
                     font: '7px monospace', fill: '#bbbbdd',
                     wordWrap: { width: panelW - 22 }
@@ -153,8 +159,13 @@ export default class InventoryScene extends Phaser.Scene {
 
                 const item = inventory[idx];
                 if (item) {
-                    // Item color block
-                    this.add.rectangle(sx + 3, sy + 3, SLOT - 8, SLOT - 8, item.color ?? 0x8855ff).setOrigin(0);
+                    // Item icon (fallback to color block)
+                    const iIcon = ITEMS[item.id]?.icon;
+                    if (iIcon && this.textures.exists(iIcon)) {
+                        this.add.image(sx + (SLOT - 2) / 2, sy + (SLOT - 2) / 2, iIcon).setDisplaySize(16, 16).setOrigin(0.5);
+                    } else {
+                        this.add.rectangle(sx + 3, sy + 3, SLOT - 8, SLOT - 8, item.color ?? 0x8855ff).setOrigin(0);
+                    }
 
                     // Equipment indicator (small purple pip)
                     if (item.slot) this.add.rectangle(sx + 2, sy + 2, 4, 4, 0xaa44ff).setOrigin(0);
@@ -187,10 +198,27 @@ export default class InventoryScene extends Phaser.Scene {
         }
 
         // Key handlers
+        const LORE_ITEM_KEYS = { ancient_scroll: 'ancient_scroll_read', eldritch_tome: 'eldritch_tome_read' };
         this.input.keyboard.on('keydown-U', () => {
             if (this.selectedIdx < 0) return;
             const item = inventory[this.selectedIdx];
-            if (item && playerStats.useItem(item.id)) this.scene.restart();
+            if (!item) return;
+            const itemId = item.id;
+            if (playerStats.useItem(itemId)) {
+                // Add lore to recoveredMemories so it appears in the Codex
+                const dlgKey = LORE_ITEM_KEYS[itemId];
+                if (dlgKey && DIALOGUES[dlgKey]) {
+                    const memId = `item_${itemId}`;
+                    if (!playerStats.recoveredMemories.find(m => m.id === memId)) {
+                        const text = DIALOGUES[dlgKey].map(l => l.text).join(' ');
+                        playerStats.recoveredMemories.push({ id: memId, title: ITEMS[itemId]?.name ?? itemId, text, timestamp: Date.now() });
+                    }
+                    this.scene.stop();
+                    this.scene.launch('DialogueScene', { lines: DIALOGUES[dlgKey] });
+                } else {
+                    this.scene.restart();
+                }
+            }
         });
         this.input.keyboard.on('keydown-E', () => {
             if (this.selectedIdx < 0) return;

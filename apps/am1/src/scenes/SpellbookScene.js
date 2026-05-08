@@ -3,22 +3,19 @@ import { playerStats } from '../systems/PlayerStats.js';
 import { SPELLS, TIER_NAMES, RESONANCE_ELEMENTS } from '../data/spells.js';
 
 const ELEMENT_COLORS = {
-    fire:      0xff6600,
-    arcane:    0xaa44ff,
-    lightning: 0xffdd00,
-    shadow:    0x8800cc,
-    earth:     0x44aa22,
-    ice:       0x88ddff,
-    nature:    0x44cc44,
-    wind:      0xccffaa,
+    fire: 0xff6600, arcane: 0xaa44ff, lightning: 0xffdd00,
+    shadow: 0x8800cc, earth: 0x44aa22, ice: 0x88ddff,
+    nature: 0x44cc44, wind: 0xccffaa,
 };
-
 const ELEMENT_LABELS = {
-    fire: 'Fire', arcane: 'Arcane', lightning: 'Lightning', shadow: 'Shadow', earth: 'Earth',
-    ice: 'Ice', nature: 'Nature', wind: 'Wind',
+    fire: 'Fire', arcane: 'Arcane', lightning: 'Lightning', shadow: 'Shadow',
+    earth: 'Earth', ice: 'Ice', nature: 'Nature', wind: 'Wind',
 };
-
 const SLOT_KEYS = ['Q', 'R', 'F', 'T'];
+
+const ROW_H   = 52;
+const RES_W   = 200;   // resonance panel width
+const DIV_GAP = 10;    // gap between left and right column
 
 export default class SpellbookScene extends Phaser.Scene {
     constructor() { super('SpellbookScene'); }
@@ -34,120 +31,180 @@ export default class SpellbookScene extends Phaser.Scene {
         bdr.lineStyle(2, 0x6633aa);
         bdr.strokeRect(px, py, pw, ph);
 
-        this.add.text(w / 2, py + 9, "ELDRIN'S SPELLBOOK", {
+        // ── Header ───────────────────────────────────────────────────────────
+        const HEADER_H = 46;
+
+        this.add.text(w / 2, py + 8, "ELDRIN'S SPELLBOOK", {
             font: 'bold 13px monospace', fill: '#cc88ff'
         }).setOrigin(0.5, 0);
 
-        // Slot legend header
-        this.add.text(px + 10, py + 14, `Slots: ${SLOT_KEYS.map(k => `[${k}]`).join(' ')} — click to assign`, {
+        this.add.text(px + pw - 6, py + 8, '[ESC / J] Close', {
             font: '7px monospace', fill: '#443355'
+        }).setOrigin(1, 0);
+
+        this.add.text(px + 10, py + 26, `Slots: ${SLOT_KEYS.map(k => `[${k}]`).join('  ')} — click a button on a spell to assign`, {
+            font: '7px monospace', fill: '#554466'
         });
 
-        // Resonance bars — right column
-        this._drawResonanceBars(pw - 94, py + 24, 86);
+        // Separator under header
+        const sepG = this.add.graphics();
+        sepG.lineStyle(1, 0x2a1a44);
+        sepG.lineBetween(px + 4, py + HEADER_H, px + pw - 4, py + HEADER_H);
 
-        // Spell list — refreshable left column
-        this._sx = px + 10;
-        this._sy = py + 26;
-        this._smaxW = pw - 110;
+        // ── Layout constants ─────────────────────────────────────────────────
+        const FOOTER_H  = 18;
+        const contentY  = py + HEADER_H + 4;
+        const contentH  = ph - HEADER_H - FOOTER_H - 4;
+        const resX      = px + pw - RES_W - 4;
+        const listW     = pw - RES_W - DIV_GAP - 10;
+        const listX     = px + 4;
+
+        // Vertical divider between spell list and resonance panel
+        const divG = this.add.graphics();
+        divG.lineStyle(1, 0x1e1030);
+        divG.lineBetween(listX + listW + DIV_GAP / 2, contentY, listX + listW + DIV_GAP / 2, contentY + contentH);
+
+        // ── Resonance panel (right, static) ──────────────────────────────────
+        this._drawResonanceBars(resX, contentY, RES_W);
+
+        // ── Spell list (left, scrollable) ────────────────────────────────────
+        this._listX   = listX;
+        this._listY   = contentY;
+        this._listW   = listW;
+        this._listH   = contentH;
+        this._rowH    = ROW_H;
+        this._spells  = Object.values(SPELLS);
+        this._scroll  = 0;
+        this._visible = Math.floor(contentH / ROW_H);
+
+        // Clip mask for scroll region
+        const mask = this.make.graphics({ x: 0, y: 0, add: false });
+        mask.fillRect(listX, contentY, listW, contentH);
+        this._listMask = mask.createGeometryMask();
+
+        // Container for scrollable spell rows
+        this._listContainer = this.add.container(0, 0);
+        this._listContainer.setMask(this._listMask);
+
+        this._spellObjs = [];
         this._drawSpells();
 
-        this.add.text(w / 2, ph + py - 8, '[ESC] or [J] Close', {
-            font: '8px monospace', fill: '#443355'
+        // Scroll indicator
+        this._scrollBar = this.add.graphics().setDepth(30);
+        this._drawScrollBar();
+
+        // Footer scroll hint
+        this.add.text(w / 2, py + ph - 4, '[↑ ↓] Scroll  · Mouse Wheel', {
+            font: '7px monospace', fill: '#2a1a44'
         }).setOrigin(0.5, 1);
 
+        // ── Input ─────────────────────────────────────────────────────────────
         this.input.keyboard.on('keydown-ESC', () => this._close());
         this.input.keyboard.on('keydown-J',   () => this._close());
+        this.input.keyboard.on('keydown-UP',   () => this._scrollBy(-1));
+        this.input.keyboard.on('keydown-DOWN', () => this._scrollBy(1));
+        this.input.on('wheel', (ptr, objs, dx, dy) => this._scrollBy(dy > 0 ? 1 : -1));
     }
 
-    _drawResonanceBars(x, y, barW) {
-        this.add.text(x + barW / 2, y, 'RESONANCE', {
+    // ── Resonance bars ────────────────────────────────────────────────────────
+    _drawResonanceBars(x, y, panelW) {
+        this.add.text(x + panelW / 2, y + 2, 'RESONANCE', {
             font: 'bold 8px monospace', fill: '#886699'
         }).setOrigin(0.5, 0);
 
-        let oy = y + 14;
+        let oy = y + 18;
         for (const el of RESONANCE_ELEMENTS) {
-            const val = playerStats.resonance[el];
+            const val   = playerStats.resonance[el];
             const color = ELEMENT_COLORS[el];
             const label = ELEMENT_LABELS[el];
+            const hexC  = `#${color.toString(16).padStart(6, '0')}`;
 
             let maxThreshold = 1;
             for (const spell of Object.values(SPELLS)) {
                 if (spell.element !== el) continue;
-                const top = spell.masteryThresholds?.[spell.masteryThresholds.length - 1] ?? spell.discoverCondition.threshold;
+                const top = spell.masteryThresholds?.[spell.masteryThresholds.length - 1]
+                    ?? spell.discoverCondition?.threshold ?? 0;
                 if (top > maxThreshold) maxThreshold = top;
             }
-            const pct = Math.min(1, val / maxThreshold);
+            const pct  = Math.min(1, val / maxThreshold);
+            const barW = panelW - 28;
 
-            this.add.text(x, oy, label, { font: '7px monospace', fill: `#${color.toString(16).padStart(6, '0')}` });
-            const barH = 5;
-            this.add.rectangle(x, oy + 9, barW, barH, 0x1a1a2a).setOrigin(0);
-            if (pct > 0) this.add.rectangle(x, oy + 9, Math.floor(barW * pct), barH, color).setOrigin(0);
-            this.add.text(x + barW, oy + 9, `${val}`, { font: '7px monospace', fill: '#555566' }).setOrigin(1, 0);
+            this.add.text(x + 4, oy, label, { font: '7px monospace', fill: hexC });
+            this.add.text(x + panelW - 4, oy, `${val}`, { font: '7px monospace', fill: '#555566' }).setOrigin(1, 0);
 
-            oy += 22;
+            this.add.rectangle(x + 4, oy + 10, barW, 5, 0x1a1a2a).setOrigin(0);
+            if (pct > 0) {
+                this.add.rectangle(x + 4, oy + 10, Math.floor(barW * pct), 5, color).setOrigin(0);
+            }
+
+            oy += 24;
         }
     }
 
-    // Destroy and recreate the spell list (called on slot assignment change)
+    // ── Spell list ────────────────────────────────────────────────────────────
     _drawSpells() {
-        const x = this._sx, y = this._sy, maxW = this._smaxW;
-
-        if (this._spellObjs) {
-            this._spellObjs.forEach(o => o?.destroy?.());
-        }
+        this._spellObjs.forEach(o => o?.destroy?.());
         this._spellObjs = [];
-        const track = obj => { this._spellObjs.push(obj); return obj; };
 
-        const spellList = Object.values(SPELLS);
-        const rowH = 48;
+        const { _listX: x, _listY: y, _listW: maxW, _rowH: rowH, _scroll: scroll } = this;
+        const spells = this._spells;
+        const count  = Math.min(this._visible + 1, spells.length - scroll);
 
-        spellList.forEach((spell, i) => {
-            const oy = y + i * rowH;
+        for (let i = 0; i < count; i++) {
+            const spell = spells[scroll + i];
+            if (!spell) break;
+            const oy    = y + i * rowH;
             const level = playerStats.getSpellLevel(spell.id);
-            const known  = level > 0;
-            const color  = ELEMENT_COLORS[spell.element];
+            const known = level > 0;
+            const color = ELEMENT_COLORS[spell.element];
+            const hexC  = `#${color.toString(16).padStart(6, '0')}`;
 
-            // Row background + border
+            const track = obj => {
+                this._spellObjs.push(obj);
+                this._listContainer.add(obj);
+                return obj;
+            };
+
+            // Row bg + border
             track(this.add.rectangle(x, oy, maxW, rowH - 3, known ? 0x0a0a22 : 0x080812).setOrigin(0));
-            const bdrG = track(this.add.graphics());
-            bdrG.lineStyle(1, known ? color : 0x222233);
-            bdrG.strokeRect(x, oy, maxW, rowH - 3);
+            const rg = track(this.add.graphics());
+            rg.lineStyle(1, known ? color : 0x1e1e33);
+            rg.strokeRect(x, oy, maxW, rowH - 3);
 
             // Element side pip
-            track(this.add.rectangle(x + 3, oy + 3, 4, rowH - 9, known ? color : 0x222233).setOrigin(0));
+            track(this.add.rectangle(x + 2, oy + 3, 4, rowH - 9, known ? color : 0x1e1e33).setOrigin(0));
 
             if (known) {
-                const tierName  = TIER_NAMES[level - 1];
+                const tierName  = TIER_NAMES[level - 1] ?? `Tier ${level}`;
                 const isPassive = spell.targetingType === null;
                 const slotIdx   = playerStats.getSpellSlotIndex(spell.id);
                 const slotHint  = isPassive ? '[passive]' : (slotIdx >= 0 ? `[${SLOT_KEYS[slotIdx]}]` : '[ – ]');
                 const costStr   = isPassive ? '' : `  MP:${playerStats.getSpellManaCost(spell.id)}`;
 
-                track(this.add.text(x + 11, oy + 4, spell.name, {
-                    font: 'bold 10px monospace', fill: `#${color.toString(16).padStart(6, '0')}`
+                track(this.add.text(x + 10, oy + 4, spell.name, {
+                    font: 'bold 10px monospace', fill: hexC
                 }));
-                track(this.add.text(x + 11, oy + 16, `${tierName}  ${slotHint}${costStr}`, {
-                    font: '8px monospace', fill: '#887799'
+                track(this.add.text(x + 10, oy + 16, `${tierName}  ${slotHint}${costStr}`, {
+                    font: '7px monospace', fill: '#776688'
                 }));
-                track(this.add.text(x + 11, oy + 27, spell.lore, {
-                    font: '7px monospace', fill: '#666677',
-                    wordWrap: { width: maxW - 76 }
+                track(this.add.text(x + 10, oy + 27, spell.lore ?? '', {
+                    font: '7px monospace', fill: '#555566',
+                    wordWrap: { width: maxW - 90 }
                 }));
 
-                // Tier pips (top-right corner)
+                // Tier pips
                 for (let t = 0; t < 3; t++) {
                     track(this.add.rectangle(
-                        x + maxW - 10 - (2 - t) * 12, oy + 6, 9, 9,
-                        t < level ? color : 0x222233
+                        x + maxW - 8 - (2 - t) * 11, oy + 5, 8, 8,
+                        t < level ? color : 0x1e1e33
                     ).setOrigin(0));
                 }
 
-                // Slot assignment buttons [Q][R][F][T] — active spells only
+                // Slot buttons — active spells only
                 if (!isPassive) {
-                    const btnW = 13, btnH = 10, btnGap = 2;
-                    const btnStartX = x + maxW - (4 * btnW + 3 * btnGap) - 4;
-                    const btnY = oy + 33;
+                    const btnW = 14, btnH = 10, btnGap = 2;
+                    const btnStartX = x + maxW - (4 * btnW + 3 * btnGap) - 6;
+                    const btnY = oy + 36;
 
                     SLOT_KEYS.forEach((key, si) => {
                         const bx       = btnStartX + si * (btnW + btnGap);
@@ -163,39 +220,66 @@ export default class SpellbookScene extends Phaser.Scene {
                         }).setOrigin(0.5));
 
                         btnBg.on('pointerdown', () => {
-                            if (assigned) {
-                                playerStats.assignSkillSlot(si, null);
-                            } else {
-                                playerStats.assignSkillSlot(si, spell.id);
-                            }
+                            playerStats.assignSkillSlot(si, assigned ? null : spell.id);
                             this._drawSpells();
                         });
                         btnBg.on('pointerover', () => btnBg.setFillStyle(assigned ? 0xffffff : 0x2a2a55));
                         btnBg.on('pointerout',  () => btnBg.setFillStyle(fillCol));
                     });
                 }
-
             } else {
-                // Undiscovered
-                const res = playerStats.resonance[spell.element];
-                const need = spell.discoverCondition.threshold;
-                const elLabel = ELEMENT_LABELS[spell.element];
+                // Unknown spell
+                const res  = playerStats.resonance[spell.element];
+                const need = spell.discoverCondition?.threshold ?? null;
 
-                track(this.add.text(x + 11, oy + 8, '??? — Undiscovered', {
-                    font: 'bold 9px monospace', fill: '#333344'
-                }));
-                track(this.add.text(x + 11, oy + 20, `${elLabel} resonance: ${res} / ${need}`, {
-                    font: '8px monospace', fill: '#444455'
+                track(this.add.text(x + 10, oy + 7, '??? — Undiscovered', {
+                    font: 'bold 9px monospace', fill: '#2e2e44'
                 }));
 
-                const barW = maxW - 22;
-                track(this.add.rectangle(x + 11, oy + 32, barW, 4, 0x111122).setOrigin(0));
-                if (res > 0) {
-                    const pct = Math.min(1, res / need);
-                    track(this.add.rectangle(x + 11, oy + 32, Math.floor(barW * pct), 4, color * 0.4 + 0x111111).setOrigin(0));
+                if (need === null) {
+                    track(this.add.text(x + 10, oy + 21, 'Learned from: NPC · Scroll · Tome', {
+                        font: '7px monospace', fill: '#3a3a55'
+                    }));
+                } else {
+                    track(this.add.text(x + 10, oy + 21, `${ELEMENT_LABELS[spell.element]} resonance: ${res} / ${need}`, {
+                        font: '7px monospace', fill: '#3a3a55'
+                    }));
+                    const barW = maxW - 24;
+                    track(this.add.rectangle(x + 10, oy + 33, barW, 4, 0x111122).setOrigin(0));
+                    if (res > 0) {
+                        const pct = Math.min(1, res / need);
+                        track(this.add.rectangle(x + 10, oy + 33, Math.floor(barW * pct), 4, (color & 0x7f7f7f)).setOrigin(0));
+                    }
                 }
             }
-        });
+        }
+    }
+
+    _drawScrollBar() {
+        const g = this._scrollBar;
+        g.clear();
+
+        const total   = this._spells.length;
+        const visible = this._visible;
+        if (total <= visible) return;
+
+        const trackX = this._listX + this._listW + 3;
+        const trackY = this._listY;
+        const trackH = this._listH;
+        const barH   = Math.max(16, Math.floor((visible / total) * trackH));
+        const barY   = trackY + Math.floor((this._scroll / (total - visible)) * (trackH - barH));
+
+        g.fillStyle(0x1a1a33);
+        g.fillRect(trackX, trackY, 4, trackH);
+        g.fillStyle(0x6633aa);
+        g.fillRect(trackX, barY, 4, barH);
+    }
+
+    _scrollBy(delta) {
+        const max = Math.max(0, this._spells.length - this._visible);
+        this._scroll = Phaser.Math.Clamp(this._scroll + delta, 0, max);
+        this._drawSpells();
+        this._drawScrollBar();
     }
 
     _close() {

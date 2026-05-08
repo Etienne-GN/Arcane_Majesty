@@ -23,12 +23,15 @@ export class SaveManager {
             resonance:     { ...stats.resonance },
             spellCooldowns: { ...stats.spellCooldowns },
             skillSlots:    [...stats.skillSlots],
-            attunedGates:  [...(stats.attunedGates ?? [])],
+            attunedGates:   [...(stats.attunedGates   ?? [])],
+            exploredChunks: [...(stats.exploredChunks ?? [])],
             questLog:          JSON.parse(JSON.stringify(stats.questLog ?? {})),
             recoveredMemories: JSON.parse(JSON.stringify(stats.recoveredMemories ?? [])),
             inventory:         stats.inventory.map(i => ({ ...i })),
             resonanceInsights: stats.resonanceInsights ?? 0,
             masteries:         { ...(stats.masteries ?? {}) },
+            codexEchoes:       JSON.parse(JSON.stringify(stats.codexEchoes ?? [])),
+            killedEnemyTypes:  [...(stats.killedEnemyTypes ?? [])],
             timestamp:     Date.now()
         };
         try {
@@ -63,11 +66,14 @@ export class SaveManager {
             if (d.resonance)      Object.assign(stats.resonance, d.resonance);
             if (d.spellCooldowns) Object.assign(stats.spellCooldowns, d.spellCooldowns);
             if (d.skillSlots)     stats.skillSlots  = [...d.skillSlots];
-            if (d.attunedGates)   stats.attunedGates = [...d.attunedGates];
+            if (d.attunedGates)    stats.attunedGates    = [...d.attunedGates];
+            if (d.exploredChunks)  stats.exploredChunks  = [...d.exploredChunks];
             if (d.questLog)            stats.questLog          = JSON.parse(JSON.stringify(d.questLog));
             if (d.recoveredMemories)   stats.recoveredMemories = JSON.parse(JSON.stringify(d.recoveredMemories));
             if (d.resonanceInsights != null) stats.resonanceInsights = d.resonanceInsights;
             if (d.masteries)           Object.assign(stats.masteries, d.masteries);
+            if (d.codexEchoes)      stats.codexEchoes      = JSON.parse(JSON.stringify(d.codexEchoes));
+            if (d.killedEnemyTypes) stats.killedEnemyTypes = [...d.killedEnemyTypes];
             return true;
         } catch { return false; }
     }
