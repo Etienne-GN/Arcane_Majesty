@@ -148,61 +148,53 @@ export default class UIScene extends Phaser.Scene {
 
     _initTouchHUD(w, h) {
         const R_ATK = 34;   // attack button radius
-        const R_SK  = 20;   // skill button radius
-        const CG    = R_ATK + R_SK + 6;   // ATK→nearest-skill center gap
-        const SK_SP = R_SK * 2 + 8;       // skill-to-skill center spacing
+        const R_SK  = 18;   // skill button radius
+        // Arm length chosen so buttons don't overlap: 2*R_ARM*sin(15°) > 2*R_SK+4
+        const R_ARM = 86;   // ATK center → skill button center
 
-        // ATK button anchored to bottom-right
         const atkX = w - 8 - R_ATK;
         const atkY = h - 8 - R_ATK;
 
-        // 2×2 skill cluster positions, upper-left of ATK:
-        //  [Q][R]
-        //  [F][T]   [ATK]
-        const skPos = [
-            { x: atkX - CG - SK_SP, y: atkY - CG - SK_SP },  // 0 Q — top-left
-            { x: atkX - CG,         y: atkY - CG - SK_SP },  // 1 R — top-right
-            { x: atkX - CG - SK_SP, y: atkY - CG         },  // 2 F — bottom-left
-            { x: atkX - CG,         y: atkY - CG         },  // 3 T — bottom-right
-        ];
-
-        // ATK button — one graphics object, redrawn each frame for live alpha
-        this._atkG = this.add.graphics().setDepth(20);
-        this._atkData = { atkX, atkY, R_ATK };
+        this._atkData = { atkX, atkY, R_ATK, R_SK, R_ARM };
+        this._atkG    = this.add.graphics().setDepth(19);
 
         // ATK hit zone
         const atkHit = this.add.rectangle(atkX - R_ATK, atkY - R_ATK, R_ATK * 2, R_ATK * 2, 0, 0)
-            .setOrigin(0).setInteractive().setDepth(23);
+            .setOrigin(0).setInteractive().setDepth(24);
         atkHit.on('pointerdown', () => {
             if (this.scene.isPaused('GameScene')) return;
             this.scene.get('GameScene')?._tryMainAction();
             this._flashButton(atkX, atkY, R_ATK, 0xee8833);
         });
 
-        // 4 skill buttons
+        // 4 skill buttons in a quarter-circle arc around ATK's upper-left quadrant.
+        // Angles in standard math coords (0°=right, 90°=up, 180°=left).
+        // Arc spans 175°→145°→115°→85°: from nearly-left to nearly-up.
+        const ANGLES_DEG = [175, 145, 115, 85];  // Q, R, F, T
+
         this._slotData = [];
         for (let i = 0; i < 4; i++) {
-            const { x: sx, y: sy } = skPos[i];
+            const rad = Phaser.Math.DegToRad(ANGLES_DEG[i]);
+            const sx  = Math.round(atkX + Math.cos(rad) * R_ARM);
+            const sy  = Math.round(atkY - Math.sin(rad) * R_ARM);
 
             const slotG = this.add.graphics().setDepth(20);
             const cdG   = this.add.graphics().setDepth(21);
 
-            // Key label — tiny top-left of button
-            this.add.text(sx - R_SK + 3, sy - R_SK + 2, SLOT_KEYS[i], {
+            this.add.text(sx - R_SK + 2, sy - R_SK + 2, SLOT_KEYS[i], {
                 font: '6px monospace', fill: '#22224a'
             }).setDepth(22);
 
-            const nameLabel = this.add.text(sx, sy, '—', {
+            const nameLabel = this.add.text(sx, sy + 1, '—', {
                 font: 'bold 9px monospace', fill: '#2a2a50', align: 'center'
             }).setOrigin(0.5).setDepth(22);
 
-            const costLabel = this.add.text(sx, sy + R_SK - 6, '', {
+            const costLabel = this.add.text(sx, sy + R_SK - 5, '', {
                 font: '6px monospace', fill: '#334466', align: 'center'
             }).setOrigin(0.5, 1).setDepth(22);
 
-            // Hit zone
             const hit = this.add.rectangle(sx - R_SK, sy - R_SK, R_SK * 2, R_SK * 2, 0, 0)
-                .setOrigin(0).setInteractive().setDepth(23);
+                .setOrigin(0).setInteractive().setDepth(24);
             hit.on('pointerdown', () => {
                 if (this.scene.isPaused('GameScene')) return;
                 this.scene.get('GameScene')?._tryActivateSlot(i);
@@ -215,32 +207,40 @@ export default class UIScene extends Phaser.Scene {
 
     _updateTouchHUD() {
         const alpha = this._hudAlpha();
+        const { atkX, atkY, R_ATK, R_SK, R_ARM } = this._atkData;
+        const g = this._atkG;
 
-        // ── ATK button ──────────────────────────────────────────────────────
-        const { atkG, atkData } = { atkG: this._atkG, atkData: this._atkData };
-        if (atkG && atkData) {
-            const { atkX, atkY, R_ATK } = atkData;
-            atkG.clear();
-            // Fill
-            atkG.fillStyle(0x0a0814, alpha * 0.92);
-            atkG.fillCircle(atkX, atkY, R_ATK);
-            // Outer ring
-            atkG.lineStyle(2, 0xee8833, alpha);
-            atkG.strokeCircle(atkX, atkY, R_ATK);
-            // Inner ring (accent)
-            atkG.lineStyle(1, 0xee8833, alpha * 0.25);
-            atkG.strokeCircle(atkX, atkY, R_ATK - 7);
-            // Sword icon
-            atkG.lineStyle(1.5, 0xddaa55, alpha * 0.90);
-            atkG.lineBetween(atkX, atkY - 14, atkX, atkY + 11);  // blade
-            atkG.lineStyle(1.5, 0xddaa55, alpha * 0.75);
-            atkG.lineBetween(atkX - 9, atkY - 2, atkX + 9, atkY - 2);  // guard
-            atkG.fillStyle(0xddaa55, alpha * 0.70);
-            atkG.fillCircle(atkX, atkY + 14, 2.5);  // pommel
-        }
+        // ── ATK button + connector arc (redrawn every frame for live alpha) ──
+        g.clear();
+
+        // Subtle quarter-circle arc behind skill buttons (nearly-up → nearly-left)
+        // Canvas arc angles: -85° = almost-up, -175° = almost-left; anticlockwise=true
+        g.lineStyle(1, 0x1a1a33, alpha * 0.30);
+        g.beginPath();
+        g.arc(atkX, atkY, R_ARM, Phaser.Math.DegToRad(-85), Phaser.Math.DegToRad(-175), true);
+        g.strokePath();
+
+        // ATK fill
+        g.fillStyle(0x0a0814, alpha * 0.92);
+        g.fillCircle(atkX, atkY, R_ATK);
+        // Outer ring
+        g.lineStyle(2, 0xee8833, alpha);
+        g.strokeCircle(atkX, atkY, R_ATK);
+        // Inner accent ring
+        g.lineStyle(1, 0xee8833, alpha * 0.20);
+        g.strokeCircle(atkX, atkY, R_ATK - 7);
+        // Sword blade
+        g.lineStyle(1.5, 0xddaa55, alpha * 0.88);
+        g.lineBetween(atkX, atkY - 14, atkX, atkY + 11);
+        // Guard
+        g.lineStyle(1.5, 0xddaa55, alpha * 0.72);
+        g.lineBetween(atkX - 9, atkY - 2, atkX + 9, atkY - 2);
+        // Pommel
+        g.fillStyle(0xddaa55, alpha * 0.68);
+        g.fillCircle(atkX, atkY + 14, 2.5);
 
         // ── Skill buttons ────────────────────────────────────────────────────
-        const R_SK = 20;
+        const R_SK_VAL = R_SK;
         for (let i = 0; i < 4; i++) {
             const { slotG, cdG, nameLabel, costLabel, sx, sy } = this._slotData[i];
             const spellId = playerStats.skillSlots[i];
@@ -250,9 +250,9 @@ export default class UIScene extends Phaser.Scene {
 
             if (!spellId) {
                 slotG.fillStyle(0x080818, alpha * 0.80);
-                slotG.fillCircle(sx, sy, R_SK);
+                slotG.fillCircle(sx, sy, R_SK_VAL);
                 slotG.lineStyle(1, 0x1a1a3a, alpha * 0.70);
-                slotG.strokeCircle(sx, sy, R_SK);
+                slotG.strokeCircle(sx, sy, R_SK_VAL);
                 nameLabel.setText('—').setStyle({ fill: '#252545' });
                 costLabel.setText('');
                 continue;
@@ -266,14 +266,14 @@ export default class UIScene extends Phaser.Scene {
             const hexCol = `#${col.toString(16).padStart(6, '0')}`;
 
             slotG.fillStyle(0x080818, alpha * 0.92);
-            slotG.fillCircle(sx, sy, R_SK);
+            slotG.fillCircle(sx, sy, R_SK_VAL);
             slotG.lineStyle(2, col, alpha * 0.90);
-            slotG.strokeCircle(sx, sy, R_SK);
+            slotG.strokeCircle(sx, sy, R_SK_VAL);
 
-            const cd  = playerStats.spellCooldowns[spellId] ?? 0;
+            const cd = playerStats.spellCooldowns[spellId] ?? 0;
             if (cd > 0) {
                 cdG.fillStyle(0x000000, 0.62);
-                cdG.fillCircle(sx, sy, R_SK);
+                cdG.fillCircle(sx, sy, R_SK_VAL);
                 const secs = Math.ceil(cd / 1000);
                 nameLabel.setText(`${secs}s`).setStyle({ fill: '#777788' });
                 costLabel.setText('');
