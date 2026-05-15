@@ -22,12 +22,14 @@ import CreditsScene       from './scenes/CreditsScene.js';
 const ZOOM = 2;
 const config = {
     type: Phaser.AUTO,
-    width:  Math.floor(window.innerWidth  / ZOOM),
-    height: Math.floor(window.innerHeight / ZOOM),
     parent: 'app',
     pixelArt: true,
     zoom: ZOOM,
     backgroundColor: '#000000',
+    scale: {
+        mode: Phaser.Scale.RESIZE,
+        autoCenter: Phaser.Scale.NO_CENTER,
+    },
     physics: {
         default: 'arcade',
         arcade: { gravity: { y: 0 }, debug: false }

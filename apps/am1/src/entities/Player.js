@@ -79,7 +79,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         anims.create({ key: 'attack',     frames: [{ key: 'player', frame: 1  }], frameRate: 12, repeat: 0 });
     }
 
-    update(cursors, wasd, attackKey, powerKey, delta) {
+    update(cursors, wasd, attackKey, powerKey, delta, joyVec = null) {
         if (!this.active) return;
 
         this.attackCooldown = Math.max(0, this.attackCooldown - delta);
@@ -154,12 +154,20 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         const speed = Math.floor(baseSpeed * (1 - this.stats.fatigueFraction * 0.75) * statusMult);
         let vx = 0, vy = 0;
 
-        if (cursors.left.isDown || wasd.left.isDown)        { vx = -speed; this.facing = 'left'; }
-        else if (cursors.right.isDown || wasd.right.isDown) { vx =  speed; this.facing = 'right'; }
-        if (cursors.up.isDown || wasd.up.isDown)            { vy = -speed; this.facing = 'up'; }
-        else if (cursors.down.isDown || wasd.down.isDown)   { vy =  speed; this.facing = 'down'; }
-
-        if (vx !== 0 && vy !== 0) { vx *= 0.707; vy *= 0.707; }
+        const jx = joyVec?.x ?? 0;
+        const jy = joyVec?.y ?? 0;
+        if (jx !== 0 || jy !== 0) {
+            vx = jx * speed;
+            vy = jy * speed;
+            if (Math.abs(jx) >= Math.abs(jy)) this.facing = jx < 0 ? 'left' : 'right';
+            else                               this.facing = jy < 0 ? 'up'   : 'down';
+        } else {
+            if (cursors.left.isDown || wasd.left.isDown)        { vx = -speed; this.facing = 'left'; }
+            else if (cursors.right.isDown || wasd.right.isDown) { vx =  speed; this.facing = 'right'; }
+            if (cursors.up.isDown || wasd.up.isDown)            { vy = -speed; this.facing = 'up'; }
+            else if (cursors.down.isDown || wasd.down.isDown)   { vy =  speed; this.facing = 'down'; }
+            if (vx !== 0 && vy !== 0) { vx *= 0.707; vy *= 0.707; }
+        }
 
         this.setVelocity(vx, vy);
 

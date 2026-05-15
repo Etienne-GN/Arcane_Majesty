@@ -106,8 +106,18 @@ export default class SkillTreeScene extends Phaser.Scene {
         this.input.on('wheel', (_p, _o, _dx, dy) => scrollBy(Math.sign(dy) * 22));
         this.input.keyboard.on('keydown-UP',   () => scrollBy(-24));
         this.input.keyboard.on('keydown-DOWN', () => scrollBy(24));
+
+        let _touchY = null;
+        this.input.on('pointerdown', ptr => { _touchY = ptr.y; });
+        this.input.on('pointermove', ptr => {
+            if (_touchY === null || !ptr.isDown) return;
+            const dy = _touchY - ptr.y;
+            if (Math.abs(dy) > 4) { scrollBy(dy); _touchY = ptr.y; }
+        });
+        this.input.on('pointerup', () => { _touchY = null; });
         this.input.keyboard.on('keydown-ESC',  () => this._close());
         this.input.keyboard.on('keydown-K',    () => this._close());
+        this.add.text(w - 6, 4, '✕', { font: 'bold 14px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
         this.input.keyboard.on('keydown-J',    () => { this.scene.stop(); this.scene.launch('SpellbookScene'); });
     }
 

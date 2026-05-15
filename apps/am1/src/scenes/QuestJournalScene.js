@@ -32,9 +32,23 @@ export default class QuestJournalScene extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-N',    () => this._close());
         this.input.keyboard.on('keydown-ESC',  () => this._close());
+        this.add.text(w - 6, 4, '✕', { font: 'bold 14px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
         this.input.keyboard.on('keydown-UP',   () => this._navigate(-1));
         this.input.keyboard.on('keydown-DOWN', () => this._navigate(1));
         this.input.keyboard.on('keydown-A',    () => this._toggleTab());
+
+        let _touchY = null, _touchAcc = 0;
+        this.input.on('pointerdown', ptr => { _touchY = ptr.y; _touchAcc = 0; });
+        this.input.on('pointermove', ptr => {
+            if (_touchY === null || !ptr.isDown) return;
+            _touchAcc += _touchY - ptr.y;
+            _touchY = ptr.y;
+            while (Math.abs(_touchAcc) >= 28) {
+                this._navigate(_touchAcc > 0 ? 1 : -1);
+                _touchAcc += _touchAcc > 0 ? -28 : 28;
+            }
+        });
+        this.input.on('pointerup', () => { _touchY = null; _touchAcc = 0; });
 
         this._hintText = this.add.text(w / 2, h - 8, '[N]/[ESC] Close   [↑↓] Navigate   [A] Archive', {
             font: '7px monospace', fill: '#334455'

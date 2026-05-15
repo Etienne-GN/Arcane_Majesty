@@ -65,6 +65,7 @@ export default class CraftingScene extends Phaser.Scene {
         }).setOrigin(0.5, 1);
 
         this.input.keyboard.on('keydown-ESC', () => this._close());
+        this.add.text(w - 6, 4, '✕', { font: 'bold 14px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
     }
 
     // ── Recipe list (left column) ─────────────────────────────────────────────

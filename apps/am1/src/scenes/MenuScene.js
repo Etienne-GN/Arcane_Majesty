@@ -8,32 +8,11 @@ export default class MenuScene extends Phaser.Scene {
 
     create() {
         const w = this.scale.width, h = this.scale.height;
-        this.add.rectangle(0, 0, w, h, 0x000000).setOrigin(0);
+        // Cover image — scale to fill screen (CSS cover behaviour)
+        const bg = this.add.image(w / 2, h / 2, 'menu_bg');
+        const coverScale = Math.min(w / bg.width, h / bg.height);
+        bg.setScale(coverScale);
 
-        // Starfield
-        for (let i = 0; i < 70; i++) {
-            const x = Phaser.Math.Between(0, w);
-            const y = Phaser.Math.Between(0, h);
-            const s = Math.random() < 0.3 ? 2 : 1;
-            const a = Math.random() * 0.5 + 0.15;
-            this.add.rectangle(x, y, s, s, 0xffffff, a);
-        }
-
-        // Title
-        const title = this.add.text(w / 2, h / 2 - 88, 'ARCANE MAJESTY', {
-            font: 'bold 26px monospace',
-            fill: '#ffd700',
-            stroke: '#886600',
-            strokeThickness: 3
-        }).setOrigin(0.5);
-
-        this.add.text(w / 2, h / 2 - 60, "Eldoria's Prophecy", {
-            font: '11px monospace', fill: '#7777bb', fontStyle: 'italic'
-        }).setOrigin(0.5);
-
-        this.add.rectangle(w / 2, h / 2 - 44, 200, 1, 0x333355).setOrigin(0.5);
-
-        this.tweens.add({ targets: title, alpha: 0.82, yoyo: true, repeat: -1, duration: 2000, ease: 'Sine.easeInOut' });
 
         // Check for existing save
         const saveInfo = SaveManager.getSaveInfo();
@@ -80,7 +59,12 @@ export default class MenuScene extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-ENTER', () => { soundManager.unlock(); hasSave ? this._continue() : this._newGame(); });
         this.input.keyboard.on('keydown-SPACE', () => { soundManager.unlock(); hasSave ? this._continue() : this._newGame(); });
-        this.input.on('pointerdown', () => soundManager.unlock());
+        this.input.on('pointerdown', () => {
+            soundManager.unlock();
+            if (document.documentElement.requestFullscreen && !document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            }
+        });
 
         this.cameras.main.fadeIn(600);
     }

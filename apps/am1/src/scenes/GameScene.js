@@ -350,7 +350,7 @@ export default class GameScene extends Phaser.Scene {
                 soundManager.levelUp();
                 this.cameras.main.flash(300, 160, 200, 80, true);
             } else if (stepId) {
-                this.scene.get('UIScene')?.showNotification?.('Quest updated — [N] to view journal', 1600);
+                this.scene.get('UIScene')?.showNotification?.('Quest updated — open QUEST in menu', 1600);
             }
         });
 
@@ -447,7 +447,7 @@ export default class GameScene extends Phaser.Scene {
     _tryActivateSlot(i) {
         const spellId = playerStats.getSlotSpell(i);
         if (!spellId) {
-            this.scene.get('UIScene')?.showNotification?.('No skill in that slot. Assign one in the Spellbook [J].', 1600);
+            this.scene.get('UIScene')?.showNotification?.('No skill in that slot — assign one in TOME (menu)', 1600);
             return;
         }
         const spell = SPELLS[spellId];
@@ -480,7 +480,7 @@ export default class GameScene extends Phaser.Scene {
         this._reticle._aoeR  = spell.range?.[Math.max(0, level - 1)] ?? 80;
 
         // Show a "selecting" ring on the skill bar slot
-        this.scene.get('UIScene')?.showNotification?.(`Aim ${spell.name} — click to cast, [ESC/RMB] cancel`, 5000);
+        this.scene.get('UIScene')?.showNotification?.(`Aim ${spell.name} — tap to cast, tap again to cancel`, 5000);
     }
 
     _updateReticle() {
@@ -1646,7 +1646,7 @@ export default class GameScene extends Phaser.Scene {
         }
         this._campfirePlacing = true;
         this._campfireReticle = this.add.graphics().setDepth(200);
-        this.scene.get('UIScene')?.showNotification?.('Campfire — click to place (uses 3 Wood), [RMB] cancel', 5000);
+        this.scene.get('UIScene')?.showNotification?.('Campfire — tap to place (3 Wood), tap again to cancel', 5000);
     }
 
     _updateCampfireReticle() {
@@ -1887,7 +1887,8 @@ export default class GameScene extends Phaser.Scene {
             this._updateScholarsEye();
         }
 
-        this.player.update(this.cursors, this.wasd, this.attackKey, this.powerKey, delta);
+        const joyVec = this.scene.get('UIScene')?._joyVec ?? null;
+        this.player.update(this.cursors, this.wasd, this.attackKey, this.powerKey, delta, joyVec);
         this.player.setDepth(this.player.y + 1);
 
         this.enemies.getChildren().forEach(e => {
@@ -2018,6 +2019,16 @@ export default class GameScene extends Phaser.Scene {
             g.prompt?.setAlpha(inRange ? 1 : 0);
             g.label?.setAlpha(inRange ? 0.8 : 0);
         });
+
+        // Expose for UIScene ATK button context
+        this._nearInteract =
+            this.npcs.getChildren().some(n => near(n)) ||
+            this.chests.getChildren().some(c => near(c) && !c.opened) ||
+            this.campfires.getChildren().some(cf => near(cf)) ||
+            this.signs.getChildren().some(s => near(s)) ||
+            this.crackedBoulders.getChildren().some(b => near(b) && b.active) ||
+            this.gatheringGroup.getChildren().some(nd => near(nd) && !nd.gathered) ||
+            !!this._riftGates?.some(g => Phaser.Math.Distance.Between(px, py, g.wx, g.wy) < range);
     }
 
     _checkInteractions() {

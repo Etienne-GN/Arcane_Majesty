@@ -83,6 +83,8 @@ export default class BootScene extends Phaser.Scene {
         itm('itm_bow_02',       'bow_02.png');
         itm('itm_book',         'book.png');
         itm('itm_compass',      'compass.png');
+
+        this.load.image('menu_bg', 'assets/game_cover.png');
     }
 
     create() {

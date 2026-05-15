@@ -157,8 +157,22 @@ export default class CodexScene extends Phaser.Scene {
         // Key bindings
         this.input.keyboard.on('keydown-ESC', () => this._close());
         this.input.keyboard.on('keydown-L',   () => this._close());
+        this.add.text(w - 6, 4, '✕', { font: 'bold 14px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
         this.input.keyboard.on('keydown-UP',   () => this._scrollBy(-1));
         this.input.keyboard.on('keydown-DOWN', () => this._scrollBy(1));
+
+        let _touchY = null, _touchAcc = 0;
+        this.input.on('pointerdown', ptr => { _touchY = ptr.y; _touchAcc = 0; });
+        this.input.on('pointermove', ptr => {
+            if (_touchY === null || !ptr.isDown) return;
+            _touchAcc += _touchY - ptr.y;
+            _touchY = ptr.y;
+            while (Math.abs(_touchAcc) >= 32) {
+                this._scrollBy(_touchAcc > 0 ? 1 : -1);
+                _touchAcc += _touchAcc > 0 ? -32 : 32;
+            }
+        });
+        this.input.on('pointerup', () => { _touchY = null; _touchAcc = 0; });
 
         // Tab hotkeys 1-4
         for (let i = 0; i < 4; i++) {
