@@ -25,6 +25,17 @@ export const DIALOGUES = {
         { speaker: 'Hermit', text: 'You have done what needed doing. There is no ceremony in this work, scholar. Only the next step.' },
     ],
 
+    hermit_hut_greeting: [
+        { speaker: 'Hermit', text: 'Come in. Mind the books — some of those stacks are older than the Covenant itself.' },
+        { speaker: 'Hermit', text: 'I have spent forty years collecting what the Tower saw fit to burn. The Gap at 0 GD is not a footnote, Eldrin. It is the whole story.' },
+        { speaker: 'Hermit', text: 'Rest if you need it. There is a chest in the corner — take what is useful. You will need your strength for what comes next.' },
+    ],
+
+    hermit_hut_after: [
+        { speaker: 'Hermit', text: 'The resonance lines converge southeast of here. You will feel it before you see it.' },
+        { speaker: 'Hermit', text: 'Trust the pull. That is all the instruction Vorgos left for those who carry his mark.' },
+    ],
+
     // ── Silvara ───────────────────────────────────────────────────────────────
 
     merchant_greeting: [

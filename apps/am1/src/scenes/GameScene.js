@@ -9,7 +9,8 @@ import { soundManager } from '../systems/SoundManager.js';
 import { musicManager } from '../systems/MusicManager.js';
 import { questManager } from '../systems/QuestManager.js';
 import { ITEMS } from '../data/items.js';
-import { PROLOGUE_MAP, TILE_SIZE, PLAYER_START, ENEMY_SPAWNS, ENEMY_TYPES, NPC_POSITIONS, CHEST_POSITIONS, CAMPFIRE_POSITIONS, SIGN_POSITIONS, BOSS_SPAWN, BOSS_ARENA_BOUNDS, CRACKED_BOULDER_POSITIONS, PILLAR_GATE_POSITIONS, RIFT_GATE_POSITIONS, GATHERING_NODES } from '../data/worldMap.js';
+import { TILE_SIZE, ENEMY_TYPES } from '../data/worldMap.js';
+import { getMap } from '../data/maps/index.js';
 import { DIALOGUES } from '../data/dialogues.js';
 import { SPELLS, TIER_NAMES, RESONANCE_GAINS } from '../data/spells.js';
 import { statusManager } from '../systems/StatusManager.js';
@@ -17,7 +18,15 @@ import { statusManager } from '../systems/StatusManager.js';
 export default class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
 
+    init(data) {
+        this._mapId  = data?.mapId  ?? 'prologue_forest';
+        this._spawnX = data?.spawnX ?? null;
+        this._spawnY = data?.spawnY ?? null;
+        this._transitioning = false;
+    }
+
     create() {
+        const mapDef = this._mapDef = getMap(this._mapId);
         // Patch add.particles so one-shot emitters (explode:true) auto-destroy
         // after their longest particle lifespan. Continuous emitters (frequency-
         // based, no explode flag) are unaffected.
@@ -31,8 +40,8 @@ export default class GameScene extends Phaser.Scene {
             return em;
         };
 
-        const mapCols = PROLOGUE_MAP[0].length;
-        const mapRows = PROLOGUE_MAP.length;
+        const mapCols = mapDef.tiles[0].length;
+        const mapRows = mapDef.tiles.length;
         const mapW = mapCols * TILE_SIZE;
         const mapH = mapRows * TILE_SIZE;
 
@@ -42,9 +51,14 @@ export default class GameScene extends Phaser.Scene {
         this.wallGroup = this.physics.add.staticGroup();
         this._buildWorld(mapW, mapH);
 
+        // Interior lighting overlay
+        if (mapDef.lightTint != null) {
+            this.add.rectangle(0, 0, mapW, mapH, mapDef.lightTint, 0.45).setOrigin(0).setDepth(200);
+        }
+
         // Player
-        const px = PLAYER_START.x * TILE_SIZE + TILE_SIZE / 2;
-        const py = PLAYER_START.y * TILE_SIZE + TILE_SIZE / 2;
+        const px = this._spawnX ?? (mapDef.playerStart.x * TILE_SIZE + TILE_SIZE / 2);
+        const py = this._spawnY ?? (mapDef.playerStart.y * TILE_SIZE + TILE_SIZE / 2);
         this.player = new Player(this, px, py);
         this.player.on('died', () => this._onPlayerDied());
 
@@ -75,16 +89,12 @@ export default class GameScene extends Phaser.Scene {
             }
         });
 
-        // Auto-start main and side quests
-        questManager.startQuest('main_forest_hunt');
-        questManager.startQuest('side_supply_run');
-        questManager.startQuest('side_read_the_signs');
-        questManager.startQuest('side_corrupted_hunt');
-        questManager.startQuest('side_hunters_larder');
+        // Auto-start quests defined for this map
+        (mapDef.quests ?? []).forEach(qid => questManager.startQuest(qid));
 
         // Enemies
         this.enemies = this.physics.add.group({ runChildUpdate: false });
-        ENEMY_SPAWNS.forEach(spawn => {
+        (mapDef.spawns.enemies ?? []).forEach(spawn => {
             const ex = spawn.x * TILE_SIZE + TILE_SIZE / 2;
             const ey = spawn.y * TILE_SIZE + TILE_SIZE / 2;
             this._spawnEnemy(spawn.type, ex, ey);
@@ -92,7 +102,7 @@ export default class GameScene extends Phaser.Scene {
 
         // Campfires
         this.campfires = this.physics.add.staticGroup();
-        CAMPFIRE_POSITIONS.forEach(cf => {
+        (mapDef.spawns.campfires ?? []).forEach(cf => {
             const cx = cf.x * TILE_SIZE + TILE_SIZE / 2;
             const cy = cf.y * TILE_SIZE + TILE_SIZE / 2;
             const sprite = this.campfires.create(cx, cy, 'campfire');
@@ -121,7 +131,7 @@ export default class GameScene extends Phaser.Scene {
 
         // Sign posts
         this.signs = this.physics.add.staticGroup();
-        SIGN_POSITIONS.forEach(sign => {
+        (mapDef.spawns.signs ?? []).forEach(sign => {
             const sx = sign.x * TILE_SIZE + TILE_SIZE / 2;
             const sy = sign.y * TILE_SIZE + TILE_SIZE / 2;
             const sprite = this.signs.create(sx, sy, 'sign_post');
@@ -149,10 +159,11 @@ export default class GameScene extends Phaser.Scene {
         });
 
         // NPCs — use sprite key from def (default spr_hermit), tint optional
-        const npcKeys = [...new Set(NPC_POSITIONS.map(d => d.spriteKey ?? 'spr_hermit'))];
+        const npcDefs = mapDef.spawns.npcs ?? [];
+        const npcKeys = [...new Set(npcDefs.map(d => d.spriteKey ?? 'spr_hermit'))];
         npcKeys.forEach(k => this._ensureNpcAnims(k));
         this.npcs = this.physics.add.staticGroup();
-        NPC_POSITIONS.forEach(def => {
+        npcDefs.forEach(def => {
             const nx  = def.x * TILE_SIZE + TILE_SIZE / 2;
             const ny  = def.y * TILE_SIZE + TILE_SIZE / 2;
             const key = def.spriteKey ?? 'spr_hermit';
@@ -179,7 +190,7 @@ export default class GameScene extends Phaser.Scene {
 
         // Chests
         this.chests = this.physics.add.staticGroup();
-        CHEST_POSITIONS.forEach(def => {
+        (mapDef.spawns.chests ?? []).forEach(def => {
             const cx = def.x * TILE_SIZE + TILE_SIZE / 2;
             const cy = def.y * TILE_SIZE + TILE_SIZE / 2;
             const sprite = this.chests.create(cx, cy, 'chest');
@@ -194,7 +205,7 @@ export default class GameScene extends Phaser.Scene {
 
         // Gathering nodes — require iron_axe (wood) or iron_pickaxe (minerals)
         this.gatheringGroup = this.physics.add.staticGroup();
-        GATHERING_NODES.forEach(def => {
+        (mapDef.spawns.gatheringNodes ?? []).forEach(def => {
             const nx  = def.x * TILE_SIZE + TILE_SIZE / 2;
             const ny  = def.y * TILE_SIZE + TILE_SIZE / 2;
             const key = def.type === 'wood' ? 'wood_pile' : 'mineral_node';
@@ -209,7 +220,7 @@ export default class GameScene extends Phaser.Scene {
 
         // Cracked boulders — Earth Pillar shatters them, revealing paths
         this.crackedBoulders = this.physics.add.staticGroup();
-        CRACKED_BOULDER_POSITIONS.forEach(def => {
+        (mapDef.spawns.crackedBoulders ?? []).forEach(def => {
             const bx = def.x * TILE_SIZE + TILE_SIZE / 2;
             const by = def.y * TILE_SIZE + TILE_SIZE / 2;
             const spr = this.crackedBoulders.create(bx, by, 'tile_tree');
@@ -225,8 +236,10 @@ export default class GameScene extends Phaser.Scene {
         // Boss
         this._bossArenaTriggered = false;
         this._bossDefeated = false;
-        const bx = BOSS_SPAWN.x * TILE_SIZE + TILE_SIZE / 2;
-        const by = BOSS_SPAWN.y * TILE_SIZE + TILE_SIZE / 2;
+        this.boss = null;
+        if (mapDef.spawns.boss) {
+        const bx = mapDef.spawns.boss.spawn.x * TILE_SIZE + TILE_SIZE / 2;
+        const by = mapDef.spawns.boss.spawn.y * TILE_SIZE + TILE_SIZE / 2;
         this.boss = new BossEnemy(this, bx, by);
         this.boss.enemyType = 'void_general';
 
@@ -251,6 +264,7 @@ export default class GameScene extends Phaser.Scene {
                 this.scene.launch('DialogueScene', { lines: DIALOGUES['boss_defeated'] });
             });
         });
+        } // end if (mapDef.spawns.boss)
 
         // Physics
         this.physics.add.collider(this.player, this.wallGroup);
@@ -304,6 +318,8 @@ export default class GameScene extends Phaser.Scene {
         this._setupPillarGates();
         // Rift-Gates (save/fast-travel monoliths)
         this._setupRiftGates();
+        // Map portals (transitions to other maps)
+        this._setupPortals();
 
         // Pointer — confirm cast / tear / campfire placement, or cancel
         this.input.on('pointerdown', (ptr) => {
@@ -358,20 +374,21 @@ export default class GameScene extends Phaser.Scene {
         this._spawnFireflies(mapW, mapH);
 
         // Chapter title card
-        this._showChapterTitle('Prologue: The Forest Hunt');
+        if (mapDef.chapterTitle) this._showChapterTitle(mapDef.chapterTitle);
 
-        // Intro dialogue on first play
-        if (!this.registry.get('prologueSeen')) {
-            this.registry.set('prologueSeen', true);
+        // Intro dialogue on first visit (guarded by registry key)
+        if (mapDef.introDialogue && mapDef.introRegistryKey && !this.registry.get(mapDef.introRegistryKey)) {
+            this.registry.set(mapDef.introRegistryKey, true);
             this.time.delayedCall(700, () => {
                 this.scene.pause();
-                this.scene.launch('DialogueScene', { lines: DIALOGUES['eldrin_premonition'] });
+                this.scene.launch('DialogueScene', { lines: DIALOGUES[mapDef.introDialogue] });
             });
         }
 
-        // Start procedural music (mood updates every 500ms from update())
+        // Start procedural music only for maps that use it
         this._musicMoodTimer = 0;
-        musicManager.start();
+        if (mapDef.music) musicManager.start();
+        else musicManager.stop?.();
 
         // Scholar's Eye — proximity echo zones near ruins and ancient markers
         this._initScholarsEye();
@@ -392,7 +409,7 @@ export default class GameScene extends Phaser.Scene {
 
     _setupPillarGates() {
         this._pillarGates = [];
-        PILLAR_GATE_POSITIONS.forEach(def => {
+        (this._mapDef.spawns.pillarGates ?? []).forEach(def => {
             const gx = def.x * TILE_SIZE + TILE_SIZE / 2;
             const gy = def.y * TILE_SIZE + TILE_SIZE / 2;
 
@@ -1346,9 +1363,10 @@ export default class GameScene extends Phaser.Scene {
 
     _setupRiftGates() {
         this._riftGates = [];
-        if (typeof RIFT_GATE_POSITIONS === 'undefined' || !RIFT_GATE_POSITIONS?.length) return;
+        const riftGateDefs = this._mapDef?.spawns.riftGates ?? [];
+        if (!riftGateDefs.length) return;
 
-        RIFT_GATE_POSITIONS.forEach(gate => {
+        riftGateDefs.forEach(gate => {
             const wx = gate.x * TILE_SIZE + TILE_SIZE / 2;
             const wy = gate.y * TILE_SIZE + TILE_SIZE / 2;
 
@@ -1381,6 +1399,36 @@ export default class GameScene extends Phaser.Scene {
                 g.attuned = true;
                 this._drawRiftCircle(g.gfx, g.wx, g.wy, true);
             }
+        });
+    }
+
+    _setupPortals() {
+        this._portals = [];
+        (this._mapDef.portals ?? []).forEach(def => {
+            const wx = def.x * TILE_SIZE + TILE_SIZE / 2;
+            const wy = def.y * TILE_SIZE + TILE_SIZE / 2;
+            const zone = this.add.zone(wx, wy, TILE_SIZE, TILE_SIZE);
+            this.physics.add.existing(zone, false);
+            zone.body.setAllowGravity(false);
+            const prompt = this.add.text(wx, wy - 20, `[E] ${def.label}`, {
+                font: '7px monospace', fill: '#aaffaa', stroke: '#000000', strokeThickness: 1
+            }).setOrigin(0.5, 1).setDepth(wy + 10).setAlpha(0);
+            this._portals.push({ zone, prompt, def, wx, wy });
+        });
+    }
+
+    _enterPortal(portalDef) {
+        if (this._transitioning) return;
+        this._transitioning = true;
+        SaveManager.save(playerStats);
+        this.cameras.main.fadeOut(300);
+        this.time.delayedCall(320, () => {
+            this.scene.stop('UIScene');
+            this.scene.start('GameScene', {
+                mapId:  portalDef.targetMap,
+                spawnX: portalDef.targetX,
+                spawnY: portalDef.targetY,
+            });
         });
     }
 
@@ -1855,7 +1903,8 @@ export default class GameScene extends Phaser.Scene {
     _buildWorld(mapW, mapH) {
         // Floor layer — real Pipoya BaseChip tileset via Phaser Tilemap
         // Data tile IDs: 0=empty, 1=BaseChip[0] grass, 5=BaseChip[4] path stone
-        const floorData = PROLOGUE_MAP.map(row =>
+        const tiles = this._mapDef.tiles;
+        const floorData = tiles.map(row =>
             row.map(tile => tile === 2 ? 5 : 1)
         );
         const tilemap = this.make.tilemap({ data: floorData, tileWidth: TILE_SIZE, tileHeight: TILE_SIZE });
@@ -1863,7 +1912,7 @@ export default class GameScene extends Phaser.Scene {
         tilemap.createLayer(0, tileset, 0, 0).setDepth(0);
 
         // Tree/wall sprites — individual sprites so Y-depth sorting works
-        PROLOGUE_MAP.forEach((row, r) => {
+        tiles.forEach((row, r) => {
             row.forEach((tile, c) => {
                 if (tile === 1) {
                     const x = c * TILE_SIZE + TILE_SIZE / 2;
@@ -1983,7 +2032,7 @@ export default class GameScene extends Phaser.Scene {
         // Boss arena entry trigger
         if (!this._bossArenaTriggered && this.boss?.active) {
             const px = this.player.x / TILE_SIZE, py = this.player.y / TILE_SIZE;
-            const b = BOSS_ARENA_BOUNDS;
+            const b = this._mapDef.spawns.boss?.arenaBounds ?? {};
             if (px > b.minX && px < b.maxX && py > b.minY && py < b.maxY) {
                 this._bossArenaTriggered = true;
                 // Trigger hidden void fragment quest on boss arena entry
@@ -2019,6 +2068,9 @@ export default class GameScene extends Phaser.Scene {
             g.prompt?.setAlpha(inRange ? 1 : 0);
             g.label?.setAlpha(inRange ? 0.8 : 0);
         });
+        this._portals?.forEach(p => {
+            p.prompt?.setAlpha(Phaser.Math.Distance.Between(px, py, p.wx, p.wy) < range ? 1 : 0);
+        });
 
         // Expose for UIScene ATK button context
         this._nearInteract =
@@ -2028,7 +2080,8 @@ export default class GameScene extends Phaser.Scene {
             this.signs.getChildren().some(s => near(s)) ||
             this.crackedBoulders.getChildren().some(b => near(b) && b.active) ||
             this.gatheringGroup.getChildren().some(nd => near(nd) && !nd.gathered) ||
-            !!this._riftGates?.some(g => Phaser.Math.Distance.Between(px, py, g.wx, g.wy) < range);
+            !!this._riftGates?.some(g => Phaser.Math.Distance.Between(px, py, g.wx, g.wy) < range) ||
+            !!this._portals?.some(p => Phaser.Math.Distance.Between(px, py, p.wx, p.wy) < range);
     }
 
     _checkInteractions() {
@@ -2143,6 +2196,13 @@ export default class GameScene extends Phaser.Scene {
         this._riftGates?.forEach(gate => {
             this.physics.overlap(this.player.interactBox, gate.zone, () => {
                 this._interactRiftGate(gate);
+            });
+        });
+
+        // Portals
+        this._portals?.forEach(p => {
+            this.physics.overlap(this.player.interactBox, p.zone, () => {
+                this._enterPortal(p.def);
             });
         });
 
