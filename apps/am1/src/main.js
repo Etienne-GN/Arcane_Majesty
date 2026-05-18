@@ -30,6 +30,7 @@ const config = {
         mode: Phaser.Scale.RESIZE,
         autoCenter: Phaser.Scale.NO_CENTER,
     },
+    input: { gamepad: true },
     physics: {
         default: 'arcade',
         arcade: { gravity: { y: 0 }, debug: false }

@@ -78,6 +78,7 @@ export default class UIScene extends Phaser.Scene {
         this._initVirtualJoystick(w, h);
         this._initTouchHUD(w, h);
         this._initMenuTray(w, h);
+        this._initGamepad();
 
         // Pause / menu button — top center
         const pauseBtn = this.add.text(w / 2, 5, 'II', {
@@ -447,6 +448,7 @@ export default class UIScene extends Phaser.Scene {
         this._updateTouchHUD();
         this._drawJoystick();
         this._drawTrayTab();
+        this._updateGamepad();
         this._updateMinimap();
     }
 
@@ -579,6 +581,64 @@ export default class UIScene extends Phaser.Scene {
     _closeTray() {
         this._trayOpen = false;
         this.tweens.add({ targets: this._trayCont, y: this._trayClosedY, duration: 140, ease: 'Cubic.easeIn' });
+    }
+
+    // ── Gamepad ───────────────────────────────────────────────────────────────
+
+    _initGamepad() {
+        this._padPrev = {};
+        this.input.gamepad.on('connected',    () => this.showNotification('Controller connected', 2000));
+        this.input.gamepad.on('disconnected', () => this.showNotification('Controller disconnected', 2000));
+    }
+
+    _updateGamepad() {
+        if (!this.input.gamepad?.total) return;
+        const pad = this.input.gamepad.getPad(0);
+        if (!pad) return;
+
+        // ── Movement — left stick (priority) then D-pad ───────────────────────
+        if (!this._joyActive) {
+            const DEAD = 0.15;
+            const lx = Math.abs(pad.leftStick?.x ?? 0) > DEAD ? pad.leftStick.x : 0;
+            const ly = Math.abs(pad.leftStick?.y ?? 0) > DEAD ? pad.leftStick.y : 0;
+            if (lx !== 0 || ly !== 0) {
+                this._joyVec.x = lx;
+                this._joyVec.y = ly;
+            } else {
+                const dpx = (pad.right > 0 ? 1 : 0) - (pad.left > 0 ? 1 : 0);
+                const dpy = (pad.down  > 0 ? 1 : 0) - (pad.up   > 0 ? 1 : 0);
+                const dpLen = Math.hypot(dpx, dpy) || 1;
+                this._joyVec.x = dpx !== 0 || dpy !== 0 ? dpx / dpLen : 0;
+                this._joyVec.y = dpx !== 0 || dpy !== 0 ? dpy / dpLen : 0;
+            }
+        }
+
+        // ── Buttons — just-pressed only ───────────────────────────────────────
+        const just = (i) => (pad.buttons[i]?.value > 0.5) && !this._padPrev[i];
+        const gs     = this.scene.get('GameScene');
+        const paused = this.scene.isPaused('GameScene');
+
+        if (gs && !paused) {
+            if (just(0)) {   // A / Cross — attack / interact
+                gs._tryMainAction?.();
+                this._flashButton(this._atkData.atkX, this._atkData.atkY, this._atkData.R_ATK, 0xee8833);
+            }
+            // B / X / Y / RB → skill slots 0-3
+            [1, 2, 3, 5].forEach((btnIdx, slotIdx) => {
+                if (just(btnIdx)) {
+                    gs._tryActivateSlot?.(slotIdx);
+                    const s = this._slotData[slotIdx];
+                    if (s) this._flashButton(s.sx, s.sy, this._atkData.R_SK, 0xffffff);
+                }
+            });
+            if (just(4)) this._toggleTray();              // LB — open/close tray
+            if (just(9)) gs.scene.start('MenuScene');     // Start — pause
+        }
+
+        // Snapshot current state for next frame's just-pressed check
+        const next = {};
+        pad.buttons.forEach((b, i) => { next[i] = b.value > 0.5; });
+        this._padPrev = next;
     }
 
     showNotification(msg, duration = 2500) {
