@@ -56,6 +56,9 @@ export default class CraftingScene extends Phaser.Scene {
         this._selected = null;
         this._rowObjs  = [];
         this._detailObjs = [];
+        this._listScroll    = 0;
+        this._listScrollMax = 0;
+        this._listAvailH    = ph - 46;
 
         this._drawList();
         this._drawDetail();
@@ -66,6 +69,19 @@ export default class CraftingScene extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-ESC', () => this._close());
         this.add.text(w - 6, 4, '✕', { font: 'bold 14px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
+
+        this.input.on('wheel', (_p, _o, _dx, dy) => { this._scrollList(Math.sign(dy) * 22); });
+        this.input.keyboard.on('keydown-UP',   () => this._scrollList(-24));
+        this.input.keyboard.on('keydown-DOWN', () => this._scrollList(24));
+
+        let _touchY = null;
+        this.input.on('pointerdown', ptr => { _touchY = ptr.y; });
+        this.input.on('pointermove', ptr => {
+            if (_touchY === null || !ptr.isDown) return;
+            const dy = _touchY - ptr.y;
+            if (Math.abs(dy) > 4) { this._scrollList(dy); _touchY = ptr.y; }
+        });
+        this.input.on('pointerup', () => { _touchY = null; });
     }
 
     // ── Recipe list (left column) ─────────────────────────────────────────────
@@ -76,7 +92,8 @@ export default class CraftingScene extends Phaser.Scene {
         const track = o => { this._rowObjs.push(o); return o; };
 
         const x = this._leftX, maxW = this._colW;
-        let oy = this._listTop;
+        let oy = this._listTop - this._listScroll;
+        const startOy = oy;
         const ROW_H = 26;
 
         const byCategory = {};
@@ -133,6 +150,12 @@ export default class CraftingScene extends Phaser.Scene {
             }
             oy += 4;
         }
+        this._listScrollMax = Math.max(0, (oy - startOy) - this._listAvailH);
+    }
+
+    _scrollList(delta) {
+        this._listScroll = Phaser.Math.Clamp(this._listScroll + delta, 0, this._listScrollMax);
+        this._drawList();
     }
 
     // ── Detail panel (right column) ───────────────────────────────────────────
