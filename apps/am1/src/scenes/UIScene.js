@@ -202,6 +202,11 @@ export default class UIScene extends Phaser.Scene {
     }
 
     _drawJoystick() {
+        if (localStorage.getItem('show_joystick') === '0') {
+            this._joyBaseG.clear();
+            this._joyKnobG.clear();
+            return;
+        }
         const alpha = this._hudAlpha();
         const { _joyCx: cx, _joyCy: cy, _joyR: R, _joyRKnob: RK,
                 _joyKnobX: kx, _joyKnobY: ky, _joyActive: active } = this;

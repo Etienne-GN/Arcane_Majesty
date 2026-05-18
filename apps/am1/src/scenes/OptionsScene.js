@@ -106,8 +106,31 @@ export default class OptionsScene extends Phaser.Scene {
             font: '7px monospace', fill: '#443355', align: 'center',
         }).setOrigin(0.5, 0);
 
+        // ── Virtual Joystick ──────────────────────────────────────
+        const rowY3 = rowY2 + 84;
+        const joyOn = localStorage.getItem('show_joystick') !== '0';
+
+        this.add.text(cx - 80, rowY3, 'Virtual Joystick', {
+            font: '12px monospace', fill: '#aaaacc',
+        }).setOrigin(0, 0.5);
+
+        this.add.text(cx + 60, rowY3, joyOn ? '[ON]' : '[OFF]', {
+            font: 'bold 11px monospace',
+            fill: joyOn ? '#44ff88' : '#555566',
+        }).setOrigin(0.5);
+
+        mkBtn('Toggle', cx, rowY3 + 18, () => {
+            localStorage.setItem('show_joystick', joyOn ? '0' : '1');
+            soundManager.menuSelect();
+            this.scene.restart();
+        });
+
+        this.add.text(cx, rowY3 + 34, 'Hide on-screen joystick — useful with a gamepad.', {
+            font: '7px monospace', fill: '#443355', align: 'center',
+        }).setOrigin(0.5, 0);
+
         // ── Back button ───────────────────────────────────────────
-        const backBtn = this.add.text(cx, h / 2 + 100, '← Back', {
+        const backBtn = this.add.text(cx, h - 24, '← Back', {
             font: '12px monospace', fill: '#888899',
         }).setOrigin(0.5).setInteractive({ useHandCursor: true });
 
