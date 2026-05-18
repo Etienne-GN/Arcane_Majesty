@@ -19,7 +19,7 @@ import CodexScene         from './scenes/CodexScene.js';
 import OptionsScene       from './scenes/OptionsScene.js';
 import CreditsScene       from './scenes/CreditsScene.js';
 
-const ZOOM = 2;
+const ZOOM = 2; // base renderer zoom (pixel art sharpness on hi-DPI); game world zoom is set via camera in GameScene
 const config = {
     type: Phaser.AUTO,
     parent: 'app',

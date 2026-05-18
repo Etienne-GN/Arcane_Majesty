@@ -22,8 +22,10 @@ export default class UIScene extends Phaser.Scene {
 
     create() {
         this.stats = playerStats;
-        const w = this.scale.width;
-        const h = this.scale.height;
+        this.cameras.main.setZoom(2);
+        const w = this.scale.width  / 2;
+        const h = this.scale.height / 2;
+        this._vw = w; this._vh = h;
         const pad = 8;
         const barW = 88, barH = 8;
 
@@ -172,10 +174,10 @@ export default class UIScene extends Phaser.Scene {
 
         zone.on('pointerdown', (ptr) => {
             this._joyActive = true;
-            this._joyUpdate(ptr.x, ptr.y);
+            this._joyUpdate(ptr.worldX, ptr.worldY);
         });
         this.input.on('pointermove', (ptr) => {
-            if (this._joyActive) this._joyUpdate(ptr.x, ptr.y);
+            if (this._joyActive) this._joyUpdate(ptr.worldX, ptr.worldY);
         });
         this.input.on('pointerup', () => {
             if (!this._joyActive) return;
@@ -386,7 +388,7 @@ export default class UIScene extends Phaser.Scene {
         const barW = 88;
 
         this.hpBar.width = barW * Math.max(0, s.health / s.maxHealth);
-        this.xpBar.width = this.scale.width * Math.min(1, s.xp / s.xpToNextLevel);
+        this.xpBar.width = this._vw * Math.min(1, s.xp / s.xpToNextLevel);
         this.hpNum.setText(`${s.health}/${s.maxHealth}`);
         this.lvlText.setText(`LV ${s.level}`);
         this.goldText?.setText(`${s.glint ?? 0} gl`);
@@ -535,7 +537,7 @@ export default class UIScene extends Phaser.Scene {
             if (!this._trayOpen) return;
             for (const { bx, by, key } of this._trayBtnData) {
                 const worldY = this._trayCont.y + by;
-                const dx = ptr.x - bx, dy = ptr.y - worldY;
+                const dx = ptr.worldX - bx, dy = ptr.worldY - worldY;
                 if (dx * dx + dy * dy <= BTN_R * BTN_R) {
                     const gs = this.scene.get('GameScene');
                     if (!gs || this.scene.isPaused('GameScene')) return;

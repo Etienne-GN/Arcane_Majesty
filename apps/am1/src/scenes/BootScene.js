@@ -18,8 +18,10 @@ export default class BootScene extends Phaser.Scene {
 
         this.load.on('progress', (v) => { barFg.width = barW * v; });
 
-        // Player — Eldrin (96×128, 32×32/frame, standard 3-col × 4-row layout)
-        this.load.spritesheet('player', 'assets/characters/eldrin.png', { frameWidth: 32, frameHeight: 32 });
+        // Player — Eldrin LPC sheets (832×256, 64×64/frame, 13 cols × 4 rows)
+        this.load.spritesheet('eldrin_walk',     'assets/characters/eldrin_walk.png',     { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet('eldrin_spellcast', 'assets/characters/eldrin_spellcast.png', { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet('eldrin_slash',     'assets/characters/eldrin_slash.png',     { frameWidth: 64, frameHeight: 64 });
 
         // Enemy sprites — 96×128, 32×32 per frame, RPG Maker layout (3 walk × 4 directions)
         this.load.spritesheet('spr_wisp',          'assets/characters/Enemy/Enemy 01-1.png', { frameWidth: 32, frameHeight: 32 });

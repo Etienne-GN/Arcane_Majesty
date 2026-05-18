@@ -2,20 +2,9 @@ import Phaser from 'phaser';
 import { soundManager } from '../systems/SoundManager.js';
 import { playerStats } from '../systems/PlayerStats.js';
 import { statusManager } from '../systems/StatusManager.js';
+import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 
 const STATE = { PATROL: 'patrol', CHASE: 'chase', ATTACK: 'attack', FLEE: 'flee', STUNNED: 'stunned', DEAD: 'dead' };
-
-// RPG Maker-style 3×4 walk layout (frameWidth:32, frameHeight:32 from a 96×128 sheet)
-// Row 0: Down (frames 0-2), Row 1: Left (3-5), Row 2: Right (6-8), Row 3: Up (9-11)
-function ensureEnemyAnims(anims, key) {
-    const id = `${key}_`;
-    if (anims.exists(`${id}walk_down`)) return;
-    anims.create({ key: `${id}walk_down`,  frames: anims.generateFrameNumbers(key, { frames: [1, 0, 1, 2] }), frameRate: 6, repeat: -1 });
-    anims.create({ key: `${id}walk_left`,  frames: anims.generateFrameNumbers(key, { frames: [4, 3, 4, 5] }), frameRate: 6, repeat: -1 });
-    anims.create({ key: `${id}walk_right`, frames: anims.generateFrameNumbers(key, { frames: [7, 6, 7, 8] }), frameRate: 6, repeat: -1 });
-    anims.create({ key: `${id}walk_up`,    frames: anims.generateFrameNumbers(key, { frames: [10, 9, 10, 11] }), frameRate: 6, repeat: -1 });
-    anims.create({ key: `${id}idle`,       frames: [{ key, frame: 1 }], frameRate: 1, repeat: 0 });
-}
 
 export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, typeDef = {}) {
@@ -61,7 +50,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.ATTACK_COOLDOWN = 1100;
         this.stunTimer = 0;
 
-        ensureEnemyAnims(scene.anims, spriteKey);
+        buildEntityAnims(scene.anims, spriteKey, typeDef.animProfile ?? 'rpgmaker_32');
         this.play(`${spriteKey}_idle`);
 
         this.healthBar = scene.add.graphics().setDepth(20);

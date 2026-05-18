@@ -14,6 +14,7 @@ import { getMap } from '../data/maps/index.js';
 import { DIALOGUES } from '../data/dialogues.js';
 import { SPELLS, TIER_NAMES, RESONANCE_GAINS } from '../data/spells.js';
 import { statusManager } from '../systems/StatusManager.js';
+import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 
 export default class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
@@ -280,6 +281,7 @@ export default class GameScene extends Phaser.Scene {
 
         // Camera
         this.cameras.main.setBounds(0, 0, mapW, mapH);
+        this.cameras.main.setZoom(3);
         this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
 
         // Controls
@@ -394,15 +396,8 @@ export default class GameScene extends Phaser.Scene {
         this._initScholarsEye();
     }
 
-    _ensureNpcAnims(key) {
-        const anims = this.anims;
-        if (anims.exists(`${key}_idle`)) return;
-        // RPG Maker 3×4 layout: frame 1 = idle down, frame 4 = idle left, etc.
-        anims.create({ key: `${key}_idle`,       frames: [{ key, frame: 1 }], frameRate: 1 });
-        anims.create({ key: `${key}_walk_down`,  frames: anims.generateFrameNumbers(key, { frames: [1,0,1,2] }), frameRate: 6, repeat: -1 });
-        anims.create({ key: `${key}_walk_left`,  frames: anims.generateFrameNumbers(key, { frames: [4,3,4,5] }), frameRate: 6, repeat: -1 });
-        anims.create({ key: `${key}_walk_right`, frames: anims.generateFrameNumbers(key, { frames: [7,6,7,8] }), frameRate: 6, repeat: -1 });
-        anims.create({ key: `${key}_walk_up`,    frames: anims.generateFrameNumbers(key, { frames: [10,9,10,11] }), frameRate: 6, repeat: -1 });
+    _ensureNpcAnims(key, profile = 'rpgmaker_32') {
+        buildEntityAnims(this.anims, key, profile);
     }
 
     // ── Targeting system ─────────────────────────────────────────────────────

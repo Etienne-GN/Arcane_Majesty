@@ -30,17 +30,17 @@ export default class MenuScene extends Phaser.Scene {
         ].filter(Boolean);
 
         menuItems.forEach((item, idx) => {
-            const y = h / 2 - 24 + idx * 30;
+            const y = h / 2 - 30 + idx * 38;
             const enabled = item.action !== null;
             const col = idx === 0 && hasSave ? '#ffd700' : (enabled ? '#dddddd' : '#333355');
 
             const btn = this.add.text(w / 2, y, item.label, {
-                font: '15px monospace', fill: col
+                font: 'bold 22px monospace', fill: col
             }).setOrigin(0.5);
 
             if (item.sub) {
-                this.add.text(w / 2, y + 12, item.sub, {
-                    font: '7px monospace', fill: '#555577'
+                this.add.text(w / 2, y + 16, item.sub, {
+                    font: '9px monospace', fill: '#555577'
                 }).setOrigin(0.5);
             }
 
@@ -54,14 +54,16 @@ export default class MenuScene extends Phaser.Scene {
 
         // Version tag
         this.add.text(w / 2, h - 10, 'Prologue: The Forest Hunt  ·  v0.2', {
-            font: '7px monospace', fill: '#222244'
+            font: '9px monospace', fill: '#222244'
         }).setOrigin(0.5, 1);
 
         this.input.keyboard.on('keydown-ENTER', () => { soundManager.unlock(); hasSave ? this._continue() : this._newGame(); });
         this.input.keyboard.on('keydown-SPACE', () => { soundManager.unlock(); hasSave ? this._continue() : this._newGame(); });
         this.input.on('pointerdown', () => {
             soundManager.unlock();
-            if (document.documentElement.requestFullscreen && !document.fullscreenElement) {
+            if (localStorage.getItem('auto_fullscreen') === '1'
+                && document.documentElement.requestFullscreen
+                && !document.fullscreenElement) {
                 document.documentElement.requestFullscreen().catch(() => {});
             }
         });

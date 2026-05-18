@@ -129,6 +129,29 @@ export default class OptionsScene extends Phaser.Scene {
             font: '7px monospace', fill: '#443355', align: 'center',
         }).setOrigin(0.5, 0);
 
+        // ── Auto Fullscreen ───────────────────────────────────────
+        const rowY4 = rowY3 + 82;
+        const fsOn = localStorage.getItem('auto_fullscreen') === '1';
+
+        this.add.text(cx - 80, rowY4, 'Auto Fullscreen', {
+            font: '12px monospace', fill: '#aaaacc',
+        }).setOrigin(0, 0.5);
+
+        this.add.text(cx + 60, rowY4, fsOn ? '[ON]' : '[OFF]', {
+            font: 'bold 11px monospace',
+            fill: fsOn ? '#44ff88' : '#555566',
+        }).setOrigin(0.5);
+
+        mkBtn('Toggle', cx, rowY4 + 18, () => {
+            localStorage.setItem('auto_fullscreen', fsOn ? '0' : '1');
+            soundManager.menuSelect();
+            this.scene.restart();
+        });
+
+        this.add.text(cx, rowY4 + 34, 'Automatically enter fullscreen on first tap.\nDisabled by default.', {
+            font: '7px monospace', fill: '#443355', align: 'center',
+        }).setOrigin(0.5, 0);
+
         // ── Back button ───────────────────────────────────────────
         const backBtn = this.add.text(cx, h - 24, '← Back', {
             font: '12px monospace', fill: '#888899',

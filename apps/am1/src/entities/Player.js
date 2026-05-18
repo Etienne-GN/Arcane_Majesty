@@ -4,16 +4,17 @@ import { soundManager } from '../systems/SoundManager.js';
 import { ITEMS } from '../data/items.js';
 import { statusManager } from '../systems/StatusManager.js';
 import { SPELLS } from '../data/spells.js';
+import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
-        super(scene, x, y, 'player', 1);
+        super(scene, x, y, 'eldrin_walk', 26); // frame 26 = down idle pose
         scene.add.existing(this);
         scene.physics.add.existing(this);
 
         this.setCollideWorldBounds(true);
-        this.body.setSize(20, 20);
-        this.body.setOffset(6, 12);
+        this.body.setSize(24, 28);
+        this.body.setOffset(20, 32);
         this.setDepth(10);
 
         this.facing = 'down';
@@ -42,8 +43,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.stats = playerStats;
         this._setupAnimations(scene);
 
-        // Drop shadow beneath player (32×32 sprite, feet at ~y+14)
-        this.shadow = scene.add.ellipse(x, y + 14, 18, 6, 0x000000, 0.30);
+        // Drop shadow beneath player (64×64 sprite, feet at ~y+28)
+        this.shadow = scene.add.ellipse(x, y + 28, 28, 8, 0x000000, 0.30);
 
         // Power slash cooldown (separate from basic attack)
         this.powerCooldown = 0;
@@ -63,20 +64,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     _setupAnimations(scene) {
-        const anims = scene.anims;
-        if (anims.exists('walk_down')) return;
-
-        // eldrin.png — 96×128, 32×32/frame, 3-col × 4-row layout
-        // Row 0: Down (0-2), Row 1: Left (3-5), Row 2: Right (6-8), Row 3: Up (9-11)
-        anims.create({ key: 'walk_down',  frames: anims.generateFrameNumbers('player', { frames: [1, 0, 1, 2] }), frameRate: 6, repeat: -1 });
-        anims.create({ key: 'walk_left',  frames: anims.generateFrameNumbers('player', { frames: [4, 3, 4, 5] }), frameRate: 6, repeat: -1 });
-        anims.create({ key: 'walk_right', frames: anims.generateFrameNumbers('player', { frames: [7, 6, 7, 8] }), frameRate: 6, repeat: -1 });
-        anims.create({ key: 'walk_up',    frames: anims.generateFrameNumbers('player', { frames: [10, 9, 10, 11] }), frameRate: 6, repeat: -1 });
-        anims.create({ key: 'idle_down',  frames: [{ key: 'player', frame: 1  }], frameRate: 1, repeat: 0 });
-        anims.create({ key: 'idle_left',  frames: [{ key: 'player', frame: 4  }], frameRate: 1, repeat: 0 });
-        anims.create({ key: 'idle_right', frames: [{ key: 'player', frame: 7  }], frameRate: 1, repeat: 0 });
-        anims.create({ key: 'idle_up',    frames: [{ key: 'player', frame: 10 }], frameRate: 1, repeat: 0 });
-        anims.create({ key: 'attack',     frames: [{ key: 'player', frame: 1  }], frameRate: 12, repeat: 0 });
+        buildEntityAnims(scene.anims, 'eldrin', 'lpc_eldrin');
     }
 
     update(cursors, wasd, attackKey, powerKey, delta, joyVec = null) {
@@ -172,7 +160,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.setVelocity(vx, vy);
 
         if (vx !== 0 || vy !== 0) {
-            const key = `walk_${this.facing}`;
+            const key = `eldrin_walk_${this.facing}`;
             if (this.anims.currentAnim?.key !== key) this.play(key);
 
             this._stepTimer -= delta;
@@ -180,7 +168,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 this._stepTimer = 320;
             }
         } else {
-            const idleKey = `idle_${this.facing}`;
+            const idleKey = `eldrin_idle_${this.facing}`;
             if (this.anims.currentAnim?.key !== idleKey) this.play(idleKey);
         }
 
@@ -216,7 +204,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         const wt = this.stats.activeWeaponType;
         this.attackCooldown = this._weaponCooldown();
         this.setVelocity(0);
-        this.play('attack');
+        this.play(`eldrin_attack_${this.facing}`);
 
         // Mana augmentation for non-staff weapons
         const costMap    = { spell_blade: 2, umbral_dagger: 1, resonance_bow: 3 };
@@ -304,7 +292,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.powerCooldown  = this.POWER_COOLDOWN;
         this.attackCooldown = this.ATTACK_COOLDOWN;
         this.setVelocity(0);
-        this.play('attack');
+        this.play(`eldrin_attack_${this.facing}`);
 
         const wt = this.stats.activeWeaponType;
 
