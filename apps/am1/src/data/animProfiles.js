@@ -89,6 +89,34 @@ export const ANIM_PROFILES = {
         frameRate: { walk: 10, idle: 1, attack: 12 },
     },
 
+    // Rabbit sheet — rabbit.png (288×576, 4 cols × 9 rows, 72×64)
+    // Rows 0-3: normal rabbit (up/left/down/right), rows 4-7: corrupted variant
+    lpc_rabbit: {
+        frameWidth: 72, frameHeight: 64,
+        walk: {
+            up:    [0,  1,  2,  3],
+            left:  [4,  5,  6,  7],
+            down:  [8,  9,  10, 11],
+            right: [12, 13, 14, 15],
+        },
+        idle:   { up: 0, left: 4, down: 8, right: 12 },
+        attack: [8, 9],
+        frameRate: { walk: 8, idle: 1, attack: 10 },
+    },
+
+    lpc_corrupted_rabbit: {
+        frameWidth: 72, frameHeight: 64,
+        walk: {
+            up:    [16, 17, 18, 19],
+            left:  [20, 21, 22, 23],
+            down:  [24, 25, 26, 27],
+            right: [28, 29, 30, 31],
+        },
+        idle:   { up: 16, left: 20, down: 24, right: 28 },
+        attack: [24, 25],
+        frameRate: { walk: 8, idle: 1, attack: 10 },
+    },
+
     // LPC boar walk — boar_walk.png (256×256, 4 cols × 4 rows, 64×64)
     // Row order: south (down) / east (right) / north (up) / west (left)
     lpc_boar: {

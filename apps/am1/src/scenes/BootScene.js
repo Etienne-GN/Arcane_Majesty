@@ -27,9 +27,10 @@ export default class BootScene extends Phaser.Scene {
         this.load.spritesheet('spr_wisp',          'assets/characters/Enemy/Enemy 01-1.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('spr_shadow_sprite', 'assets/characters/Enemy/Enemy 04-1.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('spr_void_stalker',  'assets/characters/Enemy/Enemy 06-1.png', { frameWidth: 32, frameHeight: 32 });
-        // Animal sprites — LPC 64×64 sheets
-        this.load.spritesheet('spr_wolf', 'assets/characters/Animal/wolf.png',      { frameWidth: 64, frameHeight: 64 });
-        this.load.spritesheet('spr_boar', 'assets/characters/Animal/boar_walk.png', { frameWidth: 64, frameHeight: 64 });
+        // Animal sprites
+        this.load.spritesheet('spr_wolf',   'assets/characters/Animal/wolf.png',      { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet('spr_boar',   'assets/characters/Animal/boar_walk.png', { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet('spr_rabbit', 'assets/characters/Animal/rabbit.png',    { frameWidth: 72, frameHeight: 64 });
         this.load.spritesheet('spr_scout',         'assets/characters/Enemy/Enemy 07-1.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('spr_treant',        'assets/characters/Enemy/Enemy 12-1.png', { frameWidth: 32, frameHeight: 32 });
 

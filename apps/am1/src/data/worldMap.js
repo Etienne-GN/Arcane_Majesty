@@ -365,11 +365,11 @@ export const ENEMY_TYPES = {
         ]
     },
     rabbit: {
-        spriteKey: 'spr_wisp',
+        spriteKey: 'spr_rabbit', animProfile: 'lpc_rabbit', tint: null,
+        bodyConfig: { w: 18, h: 14, ox: 27, oy: 44 },
         health: 6, damage: 0, speed: 130, xpReward: 0, goldDrop: 0,
         patrolRadius: 64,
         passive: true, fleeRadius: 70,
-        tint: 0xddccbb,
         lootTable: [
             { id: 'rabbit_meat', chance: 0.90 },
             { id: 'rabbit_foot', chance: 0.25 },
@@ -509,10 +509,10 @@ export const ENEMY_TYPES = {
         ]
     },
     corrupted_rabbit: {
-        spriteKey: 'spr_wisp',
+        spriteKey: 'spr_rabbit', animProfile: 'lpc_corrupted_rabbit', tint: null,
+        bodyConfig: { w: 18, h: 14, ox: 27, oy: 44 },
         health: 12, damage: 5, speed: 110, sightRange: 90,
         attackRange: 24, xpReward: 8, patrolRadius: 60,
-        tint: 0x550088,
         lootTable: [
             { id: 'void_shard', chance: 0.35 },
         ]
