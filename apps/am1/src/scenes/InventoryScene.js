@@ -3,8 +3,8 @@ import { playerStats } from '../systems/PlayerStats.js';
 import { ITEMS, SATCHEL_TIERS } from '../data/items.js';
 import { DIALOGUES } from '../data/dialogues.js';
 
-const SLOT = 28;
-const EQUIP_PANEL_W = 96;
+const SLOT = 56;
+const EQUIP_PANEL_W = 192;
 
 const EQUIP_SLOTS = [
     { key: 'head',       label: 'HEAD'  },
@@ -26,83 +26,86 @@ export default class InventoryScene extends Phaser.Scene {
 
     create() {
         const w = this.scale.width, h = this.scale.height;
-        const px = 6, py = 6, pw = w - 12, ph = h - 12;
+        const px = 12, py = 12, pw = w - 24, ph = h - 24;
 
         this.add.rectangle(0, 0, w, h, 0x000000, 0.82).setOrigin(0);
         this.add.rectangle(px, py, pw, ph, 0x080818).setOrigin(0);
         const bdr = this.add.graphics();
-        bdr.lineStyle(2, 0x4444aa);
+        bdr.lineStyle(4, 0x4444aa);
         bdr.strokeRect(px, py, pw, ph);
 
         // Header
-        this.add.text(px + pw / 2, py + 5, "SCHOLAR'S SATCHEL", {
-            font: 'bold 11px monospace', fill: '#ffd700'
+        this.add.text(px + pw / 2, py + 10, "SCHOLAR'S SATCHEL", {
+            font: 'bold 22px monospace', fill: '#ffd700'
         }).setOrigin(0.5, 0);
 
-        // Glint counter (top right)
-        this.add.text(px + pw - 5, py + 5, `Glint: ${playerStats.glint ?? 0}`, {
-            font: '9px monospace', fill: '#c8a820'
+        // Currency counters (top right)
+        this.add.text(px + pw - 10, py + 10, `gl: ${playerStats.glint ?? 0}`, {
+            font: '16px monospace', fill: '#77ccff'
+        }).setOrigin(1, 0);
+        this.add.text(px + pw - 110, py + 10, `gp: ${playerStats.gold ?? 0}`, {
+            font: '16px monospace', fill: '#ddaa33'
         }).setOrigin(1, 0);
 
         // Tier info
         const tier = SATCHEL_TIERS[(playerStats.satchelTier ?? 1) - 1];
         const used = playerStats.inventory.length;
-        this.add.text(px + pw / 2, py + 17, `Tier ${playerStats.satchelTier}: ${tier.name} — ${used}/${tier.slots} slots`, {
-            font: '7px monospace', fill: '#887799'
+        this.add.text(px + pw / 2, py + 34, `Tier ${playerStats.satchelTier}: ${tier.name} — ${used}/${tier.slots} slots`, {
+            font: '14px monospace', fill: '#887799'
         }).setOrigin(0.5, 0);
 
         // Vertical divider
-        const divX = px + EQUIP_PANEL_W + 4;
+        const divX = px + EQUIP_PANEL_W + 8;
         const divG = this.add.graphics();
-        divG.lineStyle(1, 0x2a2a44);
-        divG.lineBetween(divX, py + 28, divX, py + ph - 26);
+        divG.lineStyle(2, 0x2a2a44);
+        divG.lineBetween(divX, py + 56, divX, py + ph - 52);
 
         // Equipment panel (left)
-        this._drawEquipPanel(px + 2, py + 28, EQUIP_PANEL_W);
+        this._drawEquipPanel(px + 4, py + 56, EQUIP_PANEL_W);
 
         // Satchel grid + description (right)
-        this._drawSatchelGrid(divX + 4, py + 28, pw - EQUIP_PANEL_W - 14);
+        this._drawSatchelGrid(divX + 8, py + 56, pw - EQUIP_PANEL_W - 28);
 
         // Close hint
-        this.add.text(px + pw / 2, py + ph - 4, '[ESC / I] Close', {
-            font: '7px monospace', fill: '#443355'
+        this.add.text(px + pw / 2, py + ph - 8, '[ESC / I] Close', {
+            font: '14px monospace', fill: '#443355'
         }).setOrigin(0.5, 1);
 
         this.input.keyboard.on('keydown-ESC', () => this._close());
         this.input.keyboard.on('keydown-I',   () => this._close());
-        this.add.text(w - 6, 4, '✕', { font: 'bold 14px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
+        this.add.text(w - 12, 8, '✕', { font: 'bold 28px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
     }
 
     _drawEquipPanel(x, y, panelW) {
         this.add.text(x + panelW / 2, y, 'EQUIPMENT', {
-            font: 'bold 7px monospace', fill: '#8888bb'
+            font: 'bold 14px monospace', fill: '#8888bb'
         }).setOrigin(0.5, 0);
 
-        const slotH = 38, gap = 3;
+        const slotH = 76, gap = 6;
 
         EQUIP_SLOTS.forEach(({ key, label }, i) => {
-            const sy = y + 12 + i * (slotH + gap);
+            const sy = y + 24 + i * (slotH + gap);
             const equippedId  = playerStats.equipment[key];
             const equippedDef = equippedId ? ITEMS[equippedId] : null;
 
             const bg = this.add.rectangle(x, sy, panelW, slotH,
                 equippedDef ? 0x12122e : 0x0c0c20).setOrigin(0).setInteractive();
             const bdrG = this.add.graphics();
-            bdrG.lineStyle(1, equippedDef ? 0x5533aa : 0x282840);
+            bdrG.lineStyle(2, equippedDef ? 0x5533aa : 0x282840);
             bdrG.strokeRect(x, sy, panelW, slotH);
 
-            this.add.text(x + 3, sy + 2, label, { font: '6px monospace', fill: '#444466' });
+            this.add.text(x + 6, sy + 4, label, { font: '12px monospace', fill: '#444466' });
 
             if (equippedDef) {
                 const eIcon = equippedDef.icon;
                 if (eIcon && this.textures.exists(eIcon)) {
-                    this.add.image(x + 10, sy + 18, eIcon).setDisplaySize(12, 12).setOrigin(0.5);
+                    this.add.image(x + 20, sy + 36, eIcon).setDisplaySize(24, 24).setOrigin(0.5);
                 } else {
-                    this.add.rectangle(x + 4, sy + 12, 12, 12, equippedDef.color ?? 0x8855ff).setOrigin(0);
+                    this.add.rectangle(x + 8, sy + 24, 24, 24, equippedDef.color ?? 0x8855ff).setOrigin(0);
                 }
-                this.add.text(x + 20, sy + 11, equippedDef.name, {
-                    font: '7px monospace', fill: '#bbbbdd',
-                    wordWrap: { width: panelW - 22 }
+                this.add.text(x + 40, sy + 22, equippedDef.name, {
+                    font: '14px monospace', fill: '#bbbbdd',
+                    wordWrap: { width: panelW - 44 }
                 });
                 bg.on('pointerdown', () => {
                     if (playerStats.unequipItem(key)) this.scene.restart();
@@ -111,8 +114,8 @@ export default class InventoryScene extends Phaser.Scene {
                 bg.on('pointerover', () => bg.setFillStyle(0x1c1c40));
                 bg.on('pointerout',  () => bg.setFillStyle(0x12122e));
             } else {
-                this.add.text(x + panelW / 2, sy + slotH / 2 + 3, '—', {
-                    font: '9px monospace', fill: '#2a2a44'
+                this.add.text(x + panelW / 2, sy + slotH / 2 + 6, '—', {
+                    font: '18px monospace', fill: '#2a2a44'
                 }).setOrigin(0.5);
                 bg.on('pointerover', () => bg.setFillStyle(0x111130));
                 bg.on('pointerout',  () => bg.setFillStyle(0x0c0c20));
@@ -130,12 +133,12 @@ export default class InventoryScene extends Phaser.Scene {
 
         // Description area below grid
         const gridH = rows * SLOT;
-        this.descText = this.add.text(x, y + gridH + 6, '', {
-            font: '7px monospace', fill: '#bbbbcc',
-            wordWrap: { width: availW - 4 }, lineSpacing: 2
+        this.descText = this.add.text(x, y + gridH + 12, '', {
+            font: '14px monospace', fill: '#bbbbcc',
+            wordWrap: { width: availW - 8 }, lineSpacing: 4
         });
-        this.actionHint = this.add.text(x + availW / 2, y + gridH + 26, '', {
-            font: '7px monospace', fill: '#777788'
+        this.actionHint = this.add.text(x + availW / 2, y + gridH + 52, '', {
+            font: '14px monospace', fill: '#777788'
         }).setOrigin(0.5, 0);
 
         for (let row = 0; row < rows; row++) {
@@ -145,15 +148,15 @@ export default class InventoryScene extends Phaser.Scene {
                 const sy      = y + row * SLOT;
                 const locked  = idx >= capacity;
 
-                const slotBg = this.add.rectangle(sx, sy, SLOT - 2, SLOT - 2,
+                const slotBg = this.add.rectangle(sx, sy, SLOT - 4, SLOT - 4,
                     locked ? 0x060610 : 0x0e0e26).setOrigin(0).setInteractive();
                 const slotBdr = this.add.graphics();
-                slotBdr.lineStyle(1, locked ? 0x151520 : 0x1e1e3a);
-                slotBdr.strokeRect(sx, sy, SLOT - 2, SLOT - 2);
+                slotBdr.lineStyle(2, locked ? 0x151520 : 0x1e1e3a);
+                slotBdr.strokeRect(sx, sy, SLOT - 4, SLOT - 4);
 
                 if (locked) {
-                    this.add.text(sx + (SLOT - 2) / 2, sy + (SLOT - 2) / 2, 'X', {
-                        font: '7px monospace', fill: '#1a1a2a'
+                    this.add.text(sx + (SLOT - 4) / 2, sy + (SLOT - 4) / 2, 'X', {
+                        font: '14px monospace', fill: '#1a1a2a'
                     }).setOrigin(0.5);
                     continue;
                 }
@@ -163,18 +166,18 @@ export default class InventoryScene extends Phaser.Scene {
                     // Item icon (fallback to color block)
                     const iIcon = ITEMS[item.id]?.icon;
                     if (iIcon && this.textures.exists(iIcon)) {
-                        this.add.image(sx + (SLOT - 2) / 2, sy + (SLOT - 2) / 2, iIcon).setDisplaySize(16, 16).setOrigin(0.5);
+                        this.add.image(sx + (SLOT - 4) / 2, sy + (SLOT - 4) / 2, iIcon).setDisplaySize(32, 32).setOrigin(0.5);
                     } else {
-                        this.add.rectangle(sx + 3, sy + 3, SLOT - 8, SLOT - 8, item.color ?? 0x8855ff).setOrigin(0);
+                        this.add.rectangle(sx + 6, sy + 6, SLOT - 16, SLOT - 16, item.color ?? 0x8855ff).setOrigin(0);
                     }
 
                     // Equipment indicator (small purple pip)
-                    if (item.slot) this.add.rectangle(sx + 2, sy + 2, 4, 4, 0xaa44ff).setOrigin(0);
+                    if (item.slot) this.add.rectangle(sx + 4, sy + 4, 8, 8, 0xaa44ff).setOrigin(0);
 
                     // Stack count
                     if (item.qty > 1) {
-                        this.add.text(sx + SLOT - 5, sy + SLOT - 5, `${item.qty}`, {
-                            font: '6px monospace', fill: '#fff'
+                        this.add.text(sx + SLOT - 10, sy + SLOT - 10, `${item.qty}`, {
+                            font: '12px monospace', fill: '#fff'
                         }).setOrigin(1, 1);
                     }
 

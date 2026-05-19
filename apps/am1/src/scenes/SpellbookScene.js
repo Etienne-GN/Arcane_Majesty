@@ -13,9 +13,9 @@ const ELEMENT_LABELS = {
 };
 const SLOT_KEYS = ['Q', 'R', 'F', 'T'];
 
-const ROW_H   = 52;
-const RES_W   = 200;   // resonance panel width
-const DIV_GAP = 10;    // gap between left and right column
+const ROW_H   = 104;
+const RES_W   = 400;   // resonance panel width
+const DIV_GAP = 20;    // gap between left and right column
 
 export default class SpellbookScene extends Phaser.Scene {
     constructor() { super('SpellbookScene'); }
@@ -25,43 +25,43 @@ export default class SpellbookScene extends Phaser.Scene {
 
         this.add.rectangle(0, 0, w, h, 0x000000, 0.88).setOrigin(0);
 
-        const px = 8, py = 8, pw = w - 16, ph = h - 16;
+        const px = 16, py = 16, pw = w - 32, ph = h - 32;
         this.add.rectangle(px, py, pw, ph, 0x06061a).setOrigin(0);
         const bdr = this.add.graphics();
-        bdr.lineStyle(2, 0x6633aa);
+        bdr.lineStyle(4, 0x6633aa);
         bdr.strokeRect(px, py, pw, ph);
 
         // ── Header ───────────────────────────────────────────────────────────
-        const HEADER_H = 46;
+        const HEADER_H = 92;
 
-        this.add.text(w / 2, py + 8, "ELDRIN'S SPELLBOOK", {
-            font: 'bold 13px monospace', fill: '#cc88ff'
+        this.add.text(w / 2, py + 16, "ELDRIN'S SPELLBOOK", {
+            font: 'bold 26px monospace', fill: '#cc88ff'
         }).setOrigin(0.5, 0);
 
-        this.add.text(px + pw - 6, py + 8, '[ESC / J] Close', {
-            font: '7px monospace', fill: '#443355'
+        this.add.text(px + pw - 12, py + 16, '[ESC / J] Close', {
+            font: '14px monospace', fill: '#443355'
         }).setOrigin(1, 0);
 
-        this.add.text(px + 10, py + 26, `Slots: ${SLOT_KEYS.map(k => `[${k}]`).join('  ')} — click a button on a spell to assign`, {
-            font: '7px monospace', fill: '#554466'
+        this.add.text(px + 20, py + 52, `Slots: ${SLOT_KEYS.map(k => `[${k}]`).join('  ')} — click a button on a spell to assign`, {
+            font: '14px monospace', fill: '#554466'
         });
 
         // Separator under header
         const sepG = this.add.graphics();
-        sepG.lineStyle(1, 0x2a1a44);
-        sepG.lineBetween(px + 4, py + HEADER_H, px + pw - 4, py + HEADER_H);
+        sepG.lineStyle(2, 0x2a1a44);
+        sepG.lineBetween(px + 8, py + HEADER_H, px + pw - 8, py + HEADER_H);
 
         // ── Layout constants ─────────────────────────────────────────────────
-        const FOOTER_H  = 18;
-        const contentY  = py + HEADER_H + 4;
-        const contentH  = ph - HEADER_H - FOOTER_H - 4;
-        const resX      = px + pw - RES_W - 4;
-        const listW     = pw - RES_W - DIV_GAP - 10;
-        const listX     = px + 4;
+        const FOOTER_H  = 36;
+        const contentY  = py + HEADER_H + 8;
+        const contentH  = ph - HEADER_H - FOOTER_H - 8;
+        const resX      = px + pw - RES_W - 8;
+        const listW     = pw - RES_W - DIV_GAP - 20;
+        const listX     = px + 8;
 
         // Vertical divider between spell list and resonance panel
         const divG = this.add.graphics();
-        divG.lineStyle(1, 0x1e1030);
+        divG.lineStyle(2, 0x1e1030);
         divG.lineBetween(listX + listW + DIV_GAP / 2, contentY, listX + listW + DIV_GAP / 2, contentY + contentH);
 
         // ── Resonance panel (right, static) ──────────────────────────────────
@@ -94,14 +94,14 @@ export default class SpellbookScene extends Phaser.Scene {
         this._drawScrollBar();
 
         // Footer scroll hint
-        this.add.text(w / 2, py + ph - 4, '[↑ ↓] Scroll  · Mouse Wheel', {
-            font: '7px monospace', fill: '#2a1a44'
+        this.add.text(w / 2, py + ph - 8, '[↑ ↓] Scroll  · Mouse Wheel', {
+            font: '14px monospace', fill: '#2a1a44'
         }).setOrigin(0.5, 1);
 
         // ── Input ─────────────────────────────────────────────────────────────
         this.input.keyboard.on('keydown-ESC', () => this._close());
         this.input.keyboard.on('keydown-J',   () => this._close());
-        this.add.text(w - 6, 4, '✕', { font: 'bold 14px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
+        this.add.text(w - 12, 8, '✕', { font: 'bold 28px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
         this.input.keyboard.on('keydown-UP',   () => this._scrollBy(-1));
         this.input.keyboard.on('keydown-DOWN', () => this._scrollBy(1));
         this.input.on('wheel', (ptr, objs, dx, dy) => this._scrollBy(dy > 0 ? 1 : -1));
@@ -112,9 +112,9 @@ export default class SpellbookScene extends Phaser.Scene {
             if (_touchY === null || !ptr.isDown) return;
             _touchAcc += _touchY - ptr.y;
             _touchY = ptr.y;
-            while (Math.abs(_touchAcc) >= 24) {
+            while (Math.abs(_touchAcc) >= 48) {
                 this._scrollBy(_touchAcc > 0 ? 1 : -1);
-                _touchAcc += _touchAcc > 0 ? -24 : 24;
+                _touchAcc += _touchAcc > 0 ? -48 : 48;
             }
         });
         this.input.on('pointerup', () => { _touchY = null; _touchAcc = 0; });
@@ -122,11 +122,11 @@ export default class SpellbookScene extends Phaser.Scene {
 
     // ── Resonance bars ────────────────────────────────────────────────────────
     _drawResonanceBars(x, y, panelW) {
-        this.add.text(x + panelW / 2, y + 2, 'RESONANCE', {
-            font: 'bold 8px monospace', fill: '#886699'
+        this.add.text(x + panelW / 2, y + 4, 'RESONANCE', {
+            font: 'bold 16px monospace', fill: '#886699'
         }).setOrigin(0.5, 0);
 
-        let oy = y + 18;
+        let oy = y + 36;
         for (const el of RESONANCE_ELEMENTS) {
             const val   = playerStats.resonance[el];
             const color = ELEMENT_COLORS[el];
@@ -141,17 +141,17 @@ export default class SpellbookScene extends Phaser.Scene {
                 if (top > maxThreshold) maxThreshold = top;
             }
             const pct  = Math.min(1, val / maxThreshold);
-            const barW = panelW - 28;
+            const barW = panelW - 56;
 
-            this.add.text(x + 4, oy, label, { font: '7px monospace', fill: hexC });
-            this.add.text(x + panelW - 4, oy, `${val}`, { font: '7px monospace', fill: '#555566' }).setOrigin(1, 0);
+            this.add.text(x + 8, oy, label, { font: '14px monospace', fill: hexC });
+            this.add.text(x + panelW - 8, oy, `${val}`, { font: '14px monospace', fill: '#555566' }).setOrigin(1, 0);
 
-            this.add.rectangle(x + 4, oy + 10, barW, 5, 0x1a1a2a).setOrigin(0);
+            this.add.rectangle(x + 8, oy + 20, barW, 10, 0x1a1a2a).setOrigin(0);
             if (pct > 0) {
-                this.add.rectangle(x + 4, oy + 10, Math.floor(barW * pct), 5, color).setOrigin(0);
+                this.add.rectangle(x + 8, oy + 20, Math.floor(barW * pct), 10, color).setOrigin(0);
             }
 
-            oy += 24;
+            oy += 48;
         }
     }
 
@@ -180,13 +180,13 @@ export default class SpellbookScene extends Phaser.Scene {
             };
 
             // Row bg + border
-            track(this.add.rectangle(x, oy, maxW, rowH - 3, known ? 0x0a0a22 : 0x080812).setOrigin(0));
+            track(this.add.rectangle(x, oy, maxW, rowH - 6, known ? 0x0a0a22 : 0x080812).setOrigin(0));
             const rg = track(this.add.graphics());
-            rg.lineStyle(1, known ? color : 0x1e1e33);
-            rg.strokeRect(x, oy, maxW, rowH - 3);
+            rg.lineStyle(2, known ? color : 0x1e1e33);
+            rg.strokeRect(x, oy, maxW, rowH - 6);
 
             // Element side pip
-            track(this.add.rectangle(x + 2, oy + 3, 4, rowH - 9, known ? color : 0x1e1e33).setOrigin(0));
+            track(this.add.rectangle(x + 4, oy + 6, 8, rowH - 18, known ? color : 0x1e1e33).setOrigin(0));
 
             if (known) {
                 const tierName  = TIER_NAMES[level - 1] ?? `Tier ${level}`;
@@ -195,30 +195,30 @@ export default class SpellbookScene extends Phaser.Scene {
                 const slotHint  = isPassive ? '[passive]' : (slotIdx >= 0 ? `[${SLOT_KEYS[slotIdx]}]` : '[ – ]');
                 const costStr   = isPassive ? '' : `  MP:${playerStats.getSpellManaCost(spell.id)}`;
 
-                track(this.add.text(x + 10, oy + 4, spell.name, {
-                    font: 'bold 10px monospace', fill: hexC
+                track(this.add.text(x + 20, oy + 8, spell.name, {
+                    font: 'bold 20px monospace', fill: hexC
                 }));
-                track(this.add.text(x + 10, oy + 16, `${tierName}  ${slotHint}${costStr}`, {
-                    font: '7px monospace', fill: '#776688'
+                track(this.add.text(x + 20, oy + 32, `${tierName}  ${slotHint}${costStr}`, {
+                    font: '14px monospace', fill: '#776688'
                 }));
-                track(this.add.text(x + 10, oy + 27, spell.lore ?? '', {
-                    font: '7px monospace', fill: '#555566',
-                    wordWrap: { width: maxW - 90 }
+                track(this.add.text(x + 20, oy + 54, spell.lore ?? '', {
+                    font: '14px monospace', fill: '#555566',
+                    wordWrap: { width: maxW - 180 }
                 }));
 
                 // Tier pips
                 for (let t = 0; t < 3; t++) {
                     track(this.add.rectangle(
-                        x + maxW - 8 - (2 - t) * 11, oy + 5, 8, 8,
+                        x + maxW - 16 - (2 - t) * 22, oy + 10, 16, 16,
                         t < level ? color : 0x1e1e33
                     ).setOrigin(0));
                 }
 
                 // Slot buttons — active spells only
                 if (!isPassive) {
-                    const btnW = 14, btnH = 10, btnGap = 2;
-                    const btnStartX = x + maxW - (4 * btnW + 3 * btnGap) - 6;
-                    const btnY = oy + 36;
+                    const btnW = 28, btnH = 20, btnGap = 4;
+                    const btnStartX = x + maxW - (4 * btnW + 3 * btnGap) - 12;
+                    const btnY = oy + 72;
 
                     SLOT_KEYS.forEach((key, si) => {
                         const bx       = btnStartX + si * (btnW + btnGap);
@@ -230,7 +230,7 @@ export default class SpellbookScene extends Phaser.Scene {
                             this.add.rectangle(bx, btnY, btnW, btnH, fillCol).setOrigin(0).setInteractive()
                         );
                         track(this.add.text(bx + btnW / 2, btnY + btnH / 2, key, {
-                            font: '7px monospace', fill: txtCol
+                            font: '14px monospace', fill: txtCol
                         }).setOrigin(0.5));
 
                         btnBg.on('pointerdown', () => {
@@ -246,23 +246,23 @@ export default class SpellbookScene extends Phaser.Scene {
                 const res  = playerStats.resonance[spell.element];
                 const need = spell.discoverCondition?.threshold ?? null;
 
-                track(this.add.text(x + 10, oy + 7, '??? — Undiscovered', {
-                    font: 'bold 9px monospace', fill: '#2e2e44'
+                track(this.add.text(x + 20, oy + 14, '??? — Undiscovered', {
+                    font: 'bold 18px monospace', fill: '#2e2e44'
                 }));
 
                 if (need === null) {
-                    track(this.add.text(x + 10, oy + 21, 'Learned from: NPC · Scroll · Tome', {
-                        font: '7px monospace', fill: '#3a3a55'
+                    track(this.add.text(x + 20, oy + 42, 'Learned from: NPC · Scroll · Tome', {
+                        font: '14px monospace', fill: '#3a3a55'
                     }));
                 } else {
-                    track(this.add.text(x + 10, oy + 21, `${ELEMENT_LABELS[spell.element]} resonance: ${res} / ${need}`, {
-                        font: '7px monospace', fill: '#3a3a55'
+                    track(this.add.text(x + 20, oy + 42, `${ELEMENT_LABELS[spell.element]} resonance: ${res} / ${need}`, {
+                        font: '14px monospace', fill: '#3a3a55'
                     }));
-                    const barW = maxW - 24;
-                    track(this.add.rectangle(x + 10, oy + 33, barW, 4, 0x111122).setOrigin(0));
+                    const barW = maxW - 48;
+                    track(this.add.rectangle(x + 20, oy + 66, barW, 8, 0x111122).setOrigin(0));
                     if (res > 0) {
                         const pct = Math.min(1, res / need);
-                        track(this.add.rectangle(x + 10, oy + 33, Math.floor(barW * pct), 4, (color & 0x7f7f7f)).setOrigin(0));
+                        track(this.add.rectangle(x + 20, oy + 66, Math.floor(barW * pct), 8, (color & 0x7f7f7f)).setOrigin(0));
                     }
                 }
             }
@@ -277,16 +277,16 @@ export default class SpellbookScene extends Phaser.Scene {
         const visible = this._visible;
         if (total <= visible) return;
 
-        const trackX = this._listX + this._listW + 3;
+        const trackX = this._listX + this._listW + 6;
         const trackY = this._listY;
         const trackH = this._listH;
-        const barH   = Math.max(16, Math.floor((visible / total) * trackH));
+        const barH   = Math.max(32, Math.floor((visible / total) * trackH));
         const barY   = trackY + Math.floor((this._scroll / (total - visible)) * (trackH - barH));
 
         g.fillStyle(0x1a1a33);
-        g.fillRect(trackX, trackY, 4, trackH);
+        g.fillRect(trackX, trackY, 8, trackH);
         g.fillStyle(0x6633aa);
-        g.fillRect(trackX, barY, 4, barH);
+        g.fillRect(trackX, barY, 8, barH);
     }
 
     _scrollBy(delta) {

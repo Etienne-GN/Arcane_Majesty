@@ -97,6 +97,8 @@ export const ENEMY_TYPES = {
     },
     wolf: {
         spriteKey: 'spr_wolf',
+        animProfile: 'wolf_quad',
+        bodyConfig: { w: 20, h: 16, ox: 22, oy: 40 },
         health: 28, damage: 8, speed: 95, sightRange: 115,
         attackRange: 28, xpReward: 20, patrolRadius: 72,
         tint: null,
@@ -161,7 +163,8 @@ export const ENEMY_TYPES = {
         lootTable: [{ id: 'ancient_scroll', chance: 0.20 }, { id: 'mana_potion', chance: 0.35 }]
     },
     feral_boar: {
-        spriteKey: 'spr_scout', tint: 0x884422,
+        spriteKey: 'spr_boar', animProfile: 'lpc_boar', tint: null,
+        bodyConfig: { w: 24, h: 14, ox: 20, oy: 42 },
         health: 30, damage: 16, speed: 115, sightRange: 100, attackRange: 28, xpReward: 24, patrolRadius: 72,
         lootTable: [{ id: 'boar_meat', chance: 0.70 }, { id: 'boar_tusk', chance: 0.25 }]
     },
@@ -519,8 +522,7 @@ export const ENEMY_TYPES = {
 export const PLAYER_START = { x: 3, y: 4 };
 
 export const NPC_POSITIONS = [
-    { x: 21, y: 7, dialogue: 'hermit_intro', afterDialogue: 'hermit_after', name: 'Hermit', reward: 'forest_herb' },
-    { x: 22, y: 6, dialogue: 'merchant_greeting', afterDialogue: 'merchant_after', name: 'Silvara', isShop: true, tint: 0xffdd88 },
+    { x: 22, y: 6, dialogue: 'merchant_greeting', afterDialogue: 'merchant_after', name: 'Silvara', isShop: true, spriteKey: 'spr_merchant', animProfile: 'lpc_universal' },
 ];
 
 export const ENEMY_SPAWNS = [

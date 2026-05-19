@@ -100,32 +100,32 @@ export default class CodexScene extends Phaser.Scene {
 
     create() {
         const w = this.scale.width, h = this.scale.height;
-        const px = 7, py = 7, pw = w - 14, ph = h - 14;
+        const px = 14, py = 14, pw = w - 28, ph = h - 28;
 
         // Background + panel
         this.add.rectangle(0, 0, w, h, 0x000000, 0.87).setOrigin(0);
         this.add.rectangle(px, py, pw, ph, 0x04040e).setOrigin(0);
         const bdr = this.add.graphics();
-        bdr.lineStyle(2, 0x332266);
+        bdr.lineStyle(4, 0x332266);
         bdr.strokeRect(px, py, pw, ph);
 
         // Title
-        this.add.text(w / 2, py + 7, 'CODEX — ARCHIVE OF ELDORIA', {
-            font: 'bold 10px monospace', fill: '#9966cc',
+        this.add.text(w / 2, py + 14, 'CODEX — ARCHIVE OF ELDORIA', {
+            font: 'bold 20px monospace', fill: '#9966cc',
         }).setOrigin(0.5, 0);
 
         // Tab bar
-        const tabW = Math.floor((pw - 6) / TABS.length);
+        const tabW = Math.floor((pw - 12) / TABS.length);
         TABS.forEach((label, i) => {
             const isActive = i === this._tab;
-            const tx = px + 3 + i * tabW;
-            const ty = py + 21;
-            this.add.rectangle(tx, ty, tabW - 2, 13, isActive ? 0x1a0a2a : 0x080810).setOrigin(0);
+            const tx = px + 6 + i * tabW;
+            const ty = py + 42;
+            this.add.rectangle(tx, ty, tabW - 4, 26, isActive ? 0x1a0a2a : 0x080810).setOrigin(0);
             const bdrG = this.add.graphics();
-            bdrG.lineStyle(1, isActive ? 0x7744aa : 0x1a1a33);
-            bdrG.strokeRect(tx, ty, tabW - 2, 13);
-            const btn = this.add.text(tx + (tabW - 2) / 2, ty + 6, label, {
-                font: `${isActive ? 'bold ' : ''}8px monospace`,
+            bdrG.lineStyle(2, isActive ? 0x7744aa : 0x1a1a33);
+            bdrG.strokeRect(tx, ty, tabW - 4, 26);
+            const btn = this.add.text(tx + (tabW - 4) / 2, ty + 12, label, {
+                font: `${isActive ? 'bold ' : ''}16px monospace`,
                 fill: isActive ? '#cc99ff' : '#444466',
             }).setOrigin(0.5).setInteractive();
             btn.on('pointerdown', () => { if (i !== this._tab) this.scene.start('CodexScene', { tab: i }); });
@@ -135,29 +135,31 @@ export default class CodexScene extends Phaser.Scene {
 
         // Entry count badge on active tab
         const count = this._getEntries().length;
-        if (this._tab !== 3) {  // WORLD is always full
-            this.add.text(px + 3 + this._tab * tabW + tabW - 4, py + 24, `${count}`, {
-                font: '7px monospace', fill: count > 0 ? '#cc99ff' : '#333355',
+        if (this._tab !== 3) {
+            this.add.text(px + 6 + this._tab * tabW + tabW - 8, py + 48, `${count}`, {
+                font: '14px monospace', fill: count > 0 ? '#cc99ff' : '#333355',
             }).setOrigin(1, 0);
         }
 
         // Content area
-        const cx = px + 5;
-        const cy = py + 38;
-        const cw = pw - 10;
-        const ch = ph - 50;
+        const cx = px + 10;
+        const cy = py + 76;
+        const cw = pw - 20;
+        const ch = ph - 100;
 
         this._renderContent(cx, cy, cw, ch);
 
         // Footer hints
-        this.add.text(w / 2, py + ph - 6, '[↑/↓] Scroll   [ESC / L] Close', {
-            font: '7px monospace', fill: '#2a2a44',
+        this.add.text(w / 2, py + ph - 12, '[↑/↓] Scroll   [ESC / L] Close', {
+            font: '14px monospace', fill: '#2a2a44',
         }).setOrigin(0.5, 1);
 
         // Key bindings
         this.input.keyboard.on('keydown-ESC', () => this._close());
         this.input.keyboard.on('keydown-L',   () => this._close());
-        this.add.text(w - 6, 4, '✕', { font: 'bold 14px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
+        this.add.text(w - 12, 8, '✕', {
+            font: 'bold 28px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2
+        }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
         this.input.keyboard.on('keydown-UP',   () => this._scrollBy(-1));
         this.input.keyboard.on('keydown-DOWN', () => this._scrollBy(1));
 
@@ -167,9 +169,9 @@ export default class CodexScene extends Phaser.Scene {
             if (_touchY === null || !ptr.isDown) return;
             _touchAcc += _touchY - ptr.y;
             _touchY = ptr.y;
-            while (Math.abs(_touchAcc) >= 32) {
+            while (Math.abs(_touchAcc) >= 64) {
                 this._scrollBy(_touchAcc > 0 ? 1 : -1);
-                _touchAcc += _touchAcc > 0 ? -32 : 32;
+                _touchAcc += _touchAcc > 0 ? -64 : 64;
             }
         });
         this.input.on('pointerup', () => { _touchY = null; _touchAcc = 0; });
@@ -186,15 +188,14 @@ export default class CodexScene extends Phaser.Scene {
     _renderContent(x, y, w, h) {
         const entries = this._getEntries();
         if (entries.length === 0) {
-            this.add.text(x + 4, y + 16, TAB_EMPTY_MSGS[this._tab], {
-                font: '9px monospace', fill: '#3a3350',
-                wordWrap: { width: w - 8 },
+            this.add.text(x + 8, y + 32, TAB_EMPTY_MSGS[this._tab], {
+                font: '18px monospace', fill: '#3a3350',
+                wordWrap: { width: w - 16 },
             });
             return;
         }
 
-        // Estimate rows to determine scroll range — rough height 54px per entry
-        const ENTRY_H_EST = 56;
+        const ENTRY_H_EST = 112;
         const maxStart   = Math.max(0, entries.length - Math.floor(h / ENTRY_H_EST));
         const start      = Math.min(this._scroll, maxStart);
 
@@ -202,66 +203,63 @@ export default class CodexScene extends Phaser.Scene {
         for (let i = start; i < entries.length; i++) {
             const entry = entries[i];
             const usedH = this._renderEntry(x, curY, w, entry);
-            curY += usedH + 7;
-            if (curY > y + h - 4) break;
+            curY += usedH + 14;
+            if (curY > y + h - 8) break;
         }
 
         // Scroll indicators
         if (start > 0) {
-            this.add.text(x + w, y, '▲', { font: '8px monospace', fill: '#554466' }).setOrigin(1, 0);
+            this.add.text(x + w, y, '▲', { font: '16px monospace', fill: '#554466' }).setOrigin(1, 0);
         }
         if (start < maxStart) {
-            this.add.text(x + w, y + h, '▼', { font: '8px monospace', fill: '#554466' }).setOrigin(1, 1);
+            this.add.text(x + w, y + h, '▼', { font: '16px monospace', fill: '#554466' }).setOrigin(1, 1);
         }
     }
 
     _renderEntry(x, y, w, entry) {
-        const titleColor  = TAB_TITLE_COLORS[this._tab];
-        const bodyColor   = '#556677';
-        const bgColor     = TAB_BORDER_COLORS[this._tab];
+        const titleColor = TAB_TITLE_COLORS[this._tab];
+        const bodyColor  = '#556677';
+        const bgColor    = TAB_BORDER_COLORS[this._tab];
 
-        // Background panel (height expanded after text measure)
-        const bg = this.add.rectangle(x, y, w, 12, bgColor).setOrigin(0);
+        const bg = this.add.rectangle(x, y, w, 24, bgColor).setOrigin(0);
 
         // Title
-        this.add.text(x + 5, y + 3, entry.title, {
-            font: 'bold 9px monospace', fill: titleColor,
+        this.add.text(x + 10, y + 6, entry.title, {
+            font: 'bold 18px monospace', fill: titleColor,
         });
 
         // Threat badge (bestiary only)
         if (entry.threat) {
             const tColor = THREAT_COLORS[entry.threat] ?? '#556677';
-            this.add.text(x + w - 4, y + 3, `[${entry.threat}]`, {
-                font: '7px monospace', fill: tColor,
+            this.add.text(x + w - 8, y + 6, `[${entry.threat}]`, {
+                font: '14px monospace', fill: tColor,
             }).setOrigin(1, 0);
         }
 
         // Body text
-        const bodyText = this.add.text(x + 5, y + 14, entry.text, {
-            font: '8px monospace', fill: bodyColor,
-            wordWrap: { width: w - 10 },
+        const bodyText = this.add.text(x + 10, y + 28, entry.text, {
+            font: '16px monospace', fill: bodyColor,
+            wordWrap: { width: w - 20 },
         });
 
-        const totalH = 14 + bodyText.height + 4;
+        const totalH = 28 + bodyText.height + 8;
         bg.setSize(w, totalH);
 
         // Separator line
         const div = this.add.graphics();
-        div.lineStyle(1, 0x111122);
-        div.lineBetween(x, y + totalH + 3, x + w, y + totalH + 3);
+        div.lineStyle(2, 0x111122);
+        div.lineBetween(x, y + totalH + 6, x + w, y + totalH + 6);
 
         return totalH;
     }
 
     _getEntries() {
         switch (this._tab) {
-            case 0:  // LORE — quest memories + item reads
+            case 0:
                 return (playerStats.recoveredMemories ?? []).map(m => ({ title: m.title, text: m.text }));
-
-            case 1:  // ECHOES — Scholar's Eye discoveries
+            case 1:
                 return (playerStats.codexEchoes ?? []).map(e => ({ title: e.title, text: e.text }));
-
-            case 2:  // BESTIARY — enemies encountered
+            case 2:
                 return (playerStats.killedEnemyTypes ?? [])
                     .map(type => {
                         const lore = BESTIARY_LORE[type];
@@ -275,10 +273,8 @@ export default class CodexScene extends Phaser.Scene {
                         };
                     })
                     .filter(Boolean);
-
-            case 3:  // WORLD — static lore, always visible
+            case 3:
                 return WORLD_LORE.map(e => ({ title: e.title, text: e.text }));
-
             default:
                 return [];
         }

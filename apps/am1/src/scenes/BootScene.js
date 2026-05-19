@@ -9,9 +9,9 @@ export default class BootScene extends Phaser.Scene {
         const barW = 200, barH = 10;
         const bx = (w - barW) / 2, by = h / 2 + 20;
 
-        this.add.rectangle(w/2, h/2 - 20, 300, 40, 0x000000).setOrigin(0.5);
-        this.add.text(w/2, h/2 - 30, 'ARCANE MAJESTY', { font: '18px monospace', fill: '#ffd700' }).setOrigin(0.5);
-        this.add.text(w/2, h/2 - 8,  'Loading...', { font: '10px monospace', fill: '#aaaaaa' }).setOrigin(0.5);
+        this.add.rectangle(w/2, h/2 - 20, 500, 70, 0x000000).setOrigin(0.5);
+        this.add.text(w/2, h/2 - 38, 'ARCANE MAJESTY', { font: '36px monospace', fill: '#ffd700' }).setOrigin(0.5);
+        this.add.text(w/2, h/2 + 6,  'Loading...', { font: '20px monospace', fill: '#aaaaaa' }).setOrigin(0.5);
 
         const barBg  = this.add.rectangle(bx, by, barW, barH, 0x222222).setOrigin(0);
         const barFg  = this.add.rectangle(bx, by, 0,    barH, 0x6644aa).setOrigin(0);
@@ -25,14 +25,18 @@ export default class BootScene extends Phaser.Scene {
 
         // Enemy sprites — 96×128, 32×32 per frame, RPG Maker layout (3 walk × 4 directions)
         this.load.spritesheet('spr_wisp',          'assets/characters/Enemy/Enemy 01-1.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('spr_wolf',          'assets/characters/Enemy/Enemy 02-1.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('spr_shadow_sprite', 'assets/characters/Enemy/Enemy 04-1.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('spr_void_stalker',  'assets/characters/Enemy/Enemy 06-1.png', { frameWidth: 32, frameHeight: 32 });
+        // Animal sprites — LPC 64×64 sheets
+        this.load.spritesheet('spr_wolf', 'assets/characters/Animal/wolf.png',      { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet('spr_boar', 'assets/characters/Animal/boar_walk.png', { frameWidth: 64, frameHeight: 64 });
         this.load.spritesheet('spr_scout',         'assets/characters/Enemy/Enemy 07-1.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('spr_treant',        'assets/characters/Enemy/Enemy 12-1.png', { frameWidth: 32, frameHeight: 32 });
 
         // NPC sprites
-        this.load.spritesheet('spr_hermit', 'assets/characters/Male/Male 07-1.png',   { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('spr_hermit',   'assets/characters/Male/Male 07-1.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('spr_old_dude',  'assets/characters/spr_old_dude.png',   { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet('spr_merchant',  'assets/characters/spr_merchant.png',  { frameWidth: 64, frameHeight: 64 });
 
         // Boss sprite — 288×384, 96×96/frame, 3 cols × 4 rows (4 boss types, 3 walk frames each)
         this.load.spritesheet('spr_boss', 'assets/characters/Boss/Boss 01.png', { frameWidth: 96, frameHeight: 96 });
@@ -43,6 +47,9 @@ export default class BootScene extends Phaser.Scene {
         // Tileset — base chip for world (256×4256, 32×32 per tile, 8 cols × 133 rows)
         this.load.image('tileset_base',  'assets/tilesets/SampleMap/[Base]BaseChip_pipo.png');
         this.load.image('tileset_grass', 'assets/tilesets/SampleMap/[A]Grass_pipo.png');
+        // LPC tree visuals — trunk (192×96, 2×1 @ 96×96) and treetop (192×224, 2×2 @ 96×112)
+        this.load.spritesheet('lpc_trunk',    'assets/tilesets/lpc/trunk.png',   { frameWidth: 96, frameHeight: 96  });
+        this.load.spritesheet('lpc_treetop',  'assets/tilesets/lpc/treetop.png', { frameWidth: 96, frameHeight: 112 });
 
         // UI
         this.load.image('door1', 'assets/ui/doors/Door1_pipo.png');

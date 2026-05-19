@@ -18,29 +18,29 @@ export default class CampfireScene extends Phaser.Scene {
 
     create() {
         const w = this.scale.width, h = this.scale.height;
-        this._px = 32; this._py = 14;
-        this._pw = w - 64; this._ph = h - 28;
+        this._px = 64; this._py = 28;
+        this._pw = w - 128; this._ph = h - 56;
         const { _px: px, _py: py, _pw: pw, _ph: ph } = this;
 
         this.add.rectangle(0, 0, w, h, 0x000000, 0.82).setOrigin(0);
         this.add.rectangle(px, py, pw, ph, 0x0a0800).setOrigin(0);
         this._border = this.add.graphics();
-        this._border.lineStyle(2, 0xcc6622);
+        this._border.lineStyle(4, 0xcc6622);
         this._border.strokeRect(px, py, pw, ph);
 
-        this.add.text(w / 2, py + 8, 'CAMPFIRE', {
-            font: 'bold 12px monospace', fill: '#ff9944'
+        this.add.text(w / 2, py + 16, 'CAMPFIRE', {
+            font: 'bold 24px monospace', fill: '#ff9944'
         }).setOrigin(0.5, 0);
 
         // Tab bar
-        const tabY = py + 24;
+        const tabY = py + 48;
         const tabW = Math.floor(pw / TABS.length);
         this._tabBtns = [];
         TABS.forEach((label, i) => {
             const tx = px + i * tabW;
-            const bg = this.add.rectangle(tx, tabY, tabW, 16, 0x110900).setOrigin(0);
-            const txt = this.add.text(tx + tabW / 2, tabY + 8, label, {
-                font: 'bold 8px monospace', fill: '#664422'
+            const bg = this.add.rectangle(tx, tabY, tabW, 32, 0x110900).setOrigin(0);
+            const txt = this.add.text(tx + tabW / 2, tabY + 16, label, {
+                font: 'bold 16px monospace', fill: '#664422'
             }).setOrigin(0.5);
             bg.setInteractive();
             bg.on('pointerdown', () => this._switchTab(i));
@@ -48,25 +48,27 @@ export default class CampfireScene extends Phaser.Scene {
             bg.on('pointerout',  () => { if (this._tab !== i) bg.setFillStyle(0x110900); });
             this._tabBtns.push({ bg, txt });
         });
-        this._divY = tabY + 18;
+        this._divY = tabY + 36;
 
         const divG = this.add.graphics();
-        divG.lineStyle(1, 0x442200);
-        divG.lineBetween(px + 4, this._divY, px + pw - 4, this._divY);
+        divG.lineStyle(2, 0x442200);
+        divG.lineBetween(px + 8, this._divY, px + pw - 8, this._divY);
 
-        this._contentY = this._divY + 6;
+        this._contentY = this._divY + 12;
         this._contentObjs = [];
         this._feedback = null;
 
-        this.add.text(w / 2, py + ph - 8, '[1] REST  [2] COOK  [3] BREW  [ESC] Close', {
-            font: '7px monospace', fill: '#443322'
+        this.add.text(w / 2, py + ph - 16, '[1] REST  [2] COOK  [3] BREW  [ESC] Close', {
+            font: '14px monospace', fill: '#443322'
         }).setOrigin(0.5, 1);
 
         this._switchTab(0);
 
         this.input.keyboard.on('keydown-ESC',   () => this._close());
         this.input.keyboard.on('keydown-ONE',   () => this._switchTab(0));
-        this.add.text(w - 6, 4, '✕', { font: 'bold 14px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
+        this.add.text(w - 12, 8, '✕', {
+            font: 'bold 28px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2
+        }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
         this.input.keyboard.on('keydown-TWO',   () => this._switchTab(1));
         this.input.keyboard.on('keydown-THREE', () => this._switchTab(2));
         this.input.keyboard.on('keydown-Q',     () => { if (this._tab === 0) this._quickRest(); });
@@ -99,21 +101,21 @@ export default class CampfireScene extends Phaser.Scene {
 
     _drawRest() {
         const px = this._px, pw = this._pw;
-        let oy = this._contentY + 4;
+        let oy = this._contentY + 8;
         const hasTent = playerStats.inventory.some(i => i.id === 'tent');
 
-        const qrBtn = this._track(this.add.text(px + 10, oy, '[Q]  Quick Rest — +30% HP & MP', {
-            font: '9px monospace', fill: '#cc8844'
+        const qrBtn = this._track(this.add.text(px + 20, oy, '[Q]  Quick Rest — +30% HP & MP', {
+            font: '18px monospace', fill: '#cc8844'
         }).setInteractive());
         qrBtn.on('pointerover', () => qrBtn.setStyle({ fill: '#ffffff' }));
         qrBtn.on('pointerout',  () => qrBtn.setStyle({ fill: '#cc8844' }));
         qrBtn.on('pointerdown', () => this._quickRest());
-        oy += 20;
+        oy += 40;
 
         const frCol = hasTent ? '#ffcc44' : '#443322';
         const frTxt = hasTent ? '[F]  Full Rest — consume Tent' : '[F]  Full Rest — no tent in pack';
-        const frBtn = this._track(this.add.text(px + 10, oy, frTxt, {
-            font: '9px monospace', fill: frCol
+        const frBtn = this._track(this.add.text(px + 20, oy, frTxt, {
+            font: '18px monospace', fill: frCol
         }).setInteractive());
         frBtn.on('pointerover', () => frBtn.setStyle({ fill: hasTent ? '#ffffff' : frCol }));
         frBtn.on('pointerout',  () => frBtn.setStyle({ fill: frCol }));
@@ -125,7 +127,7 @@ export default class CampfireScene extends Phaser.Scene {
     _drawRecipes(mode) {
         const px = this._px, pw = this._pw;
         const recipes = mode === 'cook' ? COOKING_RECIPES : POTION_RECIPES;
-        let oy = this._contentY + 2;
+        let oy = this._contentY + 4;
         let any = false;
 
         for (const recipe of recipes) {
@@ -137,9 +139,9 @@ export default class CampfireScene extends Phaser.Scene {
             const rowCol = canMake ? 0x1a1000 : 0x0d0800;
             const txtCol = canMake ? '#ddaa55' : '#443322';
 
-            this._track(this.add.rectangle(px + 8, oy, pw - 16, 20, rowCol).setOrigin(0));
-            this._track(this.add.graphics()).lineStyle(1, canMake ? 0x886622 : 0x221500)
-                .strokeRect(px + 8, oy, pw - 16, 20);
+            this._track(this.add.rectangle(px + 16, oy, pw - 32, 40, rowCol).setOrigin(0));
+            this._track(this.add.graphics()).lineStyle(2, canMake ? 0x886622 : 0x221500)
+                .strokeRect(px + 16, oy, pw - 32, 40);
 
             // Ingredient list
             let ingStr;
@@ -158,32 +160,32 @@ export default class CampfireScene extends Phaser.Scene {
                 ingStr = `${name}×1(${this._countItem(recipe.input)})`;
             }
 
-            this._track(this.add.text(px + 14, oy + 4, `${recipe.label}`, {
-                font: 'bold 8px monospace', fill: txtCol
+            this._track(this.add.text(px + 28, oy + 8, `${recipe.label}`, {
+                font: 'bold 16px monospace', fill: txtCol
             }));
-            this._track(this.add.text(px + 14, oy + 13, ingStr, {
-                font: '6px monospace', fill: '#554433'
+            this._track(this.add.text(px + 28, oy + 26, ingStr, {
+                font: '12px monospace', fill: '#554433'
             }));
 
             if (canMake) {
                 const verb = mode === 'cook' ? '[COOK]' : '[BREW]';
-                const btn = this._track(this.add.text(px + pw - 16, oy + 10, verb, {
-                    font: 'bold 7px monospace', fill: '#ffcc00'
+                const btn = this._track(this.add.text(px + pw - 32, oy + 20, verb, {
+                    font: 'bold 14px monospace', fill: '#ffcc00'
                 }).setOrigin(1, 0.5).setInteractive());
                 btn.on('pointerover', () => btn.setStyle({ fill: '#ffffff' }));
                 btn.on('pointerout',  () => btn.setStyle({ fill: '#ffcc00' }));
                 btn.on('pointerdown', () => this._make(recipe, mode));
             }
 
-            oy += 24;
+            oy += 48;
         }
 
         if (!any) {
             const hint = mode === 'cook'
                 ? 'No meat — hunt wildlife for ingredients.'
                 : 'No ingredients — gather materials and buy empty bottles.';
-            this._track(this.add.text(px + 10, oy + 6, hint, {
-                font: '8px monospace', fill: '#443322'
+            this._track(this.add.text(px + 20, oy + 12, hint, {
+                font: '16px monospace', fill: '#443322'
             }));
         }
     }
@@ -269,8 +271,8 @@ export default class CampfireScene extends Phaser.Scene {
     _showFeedback(msg, color) {
         this._feedback?.destroy();
         const w = this.scale.width, h = this.scale.height;
-        this._feedback = this.add.text(w / 2, this._py + this._ph - 14, msg, {
-            font: '8px monospace', fill: color
+        this._feedback = this.add.text(w / 2, this._py + this._ph - 28, msg, {
+            font: '16px monospace', fill: color
         }).setOrigin(0.5, 1).setDepth(100);
         this.time.delayedCall(2400, () => { this._feedback?.destroy(); this._feedback = null; });
     }

@@ -44,7 +44,7 @@ export const HERMIT_HUT = {
             label: 'Exit to Forest',
             targetMap: 'prologue_forest',
             targetX: 22 * 32 + 16,
-            targetY: 5 * 32 + 16,
+            targetY: 1 * 32 + 16,
         },
     ],
     spawns: {
@@ -55,6 +55,8 @@ export const HERMIT_HUT = {
                 dialogue: 'hermit_hut_greeting',
                 afterDialogue: 'hermit_hut_after',
                 name: 'Hermit',
+                spriteKey: 'spr_old_dude',
+                animProfile: 'lpc_universal',
             },
         ],
         chests: [
@@ -73,6 +75,7 @@ export const HERMIT_HUT = {
         pillarGates: [],
         boss: null,
     },
+    currencyBias: 'outskirt',
     music: null,
     quests: [],
     chapterTitle: null,

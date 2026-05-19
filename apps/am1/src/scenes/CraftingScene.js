@@ -18,34 +18,34 @@ export default class CraftingScene extends Phaser.Scene {
 
     create() {
         const w = this.scale.width, h = this.scale.height;
-        const px = 12, py = 10, pw = w - 24, ph = h - 20;
+        const px = 24, py = 20, pw = w - 48, ph = h - 40;
 
         this._feedback = null;
 
         this.add.rectangle(0, 0, w, h, 0x000000, 0.88).setOrigin(0);
         this.add.rectangle(px, py, pw, ph, 0x080808).setOrigin(0);
         const bdr = this.add.graphics();
-        bdr.lineStyle(2, 0x886622);
+        bdr.lineStyle(4, 0x886622);
         bdr.strokeRect(px, py, pw, ph);
 
-        this.add.text(w / 2, py + 9, 'FORGE & CRAFT', {
-            font: 'bold 13px monospace', fill: '#ddaa44'
+        this.add.text(w / 2, py + 18, 'FORGE & CRAFT', {
+            font: 'bold 26px monospace', fill: '#ddaa44'
         }).setOrigin(0.5, 0);
 
-        this.add.text(w / 2, py + 23, 'Craft gear from materials gathered in the wild', {
-            font: '7px monospace', fill: '#554433'
+        this.add.text(w / 2, py + 46, 'Craft gear from materials gathered in the wild', {
+            font: '14px monospace', fill: '#554433'
         }).setOrigin(0.5, 0);
 
         const divG = this.add.graphics();
-        divG.lineStyle(1, 0x332200);
-        divG.lineBetween(px + 6, py + 33, px + pw - 6, py + 33);
+        divG.lineStyle(2, 0x332200);
+        divG.lineBetween(px + 12, py + 66, px + pw - 12, py + 66);
 
         // ── Two-column layout ─────────────────────────────────────────────────
-        const colW  = Math.floor((pw - 28) * 0.54);
-        const leftX = px + 10;
-        const rightX = leftX + colW + 8;
-        const rightW = pw - 28 - colW - 8;
-        const listTop = py + 38;
+        const colW  = Math.floor((pw - 56) * 0.54);
+        const leftX = px + 20;
+        const rightX = leftX + colW + 16;
+        const rightW = pw - 56 - colW - 16;
+        const listTop = py + 76;
 
         this._leftX  = leftX;
         this._colW   = colW;
@@ -58,28 +58,28 @@ export default class CraftingScene extends Phaser.Scene {
         this._detailObjs = [];
         this._listScroll    = 0;
         this._listScrollMax = 0;
-        this._listAvailH    = ph - 46;
+        this._listAvailH    = ph - 92;
 
         this._drawList();
         this._drawDetail();
 
-        this.add.text(w / 2, py + ph - 8, '[ESC] Close', {
-            font: '8px monospace', fill: '#443322'
+        this.add.text(w / 2, py + ph - 16, '[ESC] Close', {
+            font: '16px monospace', fill: '#443322'
         }).setOrigin(0.5, 1);
 
         this.input.keyboard.on('keydown-ESC', () => this._close());
-        this.add.text(w - 6, 4, '✕', { font: 'bold 14px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
+        this.add.text(w - 12, 8, '✕', { font: 'bold 28px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
 
-        this.input.on('wheel', (_p, _o, _dx, dy) => { this._scrollList(Math.sign(dy) * 22); });
-        this.input.keyboard.on('keydown-UP',   () => this._scrollList(-24));
-        this.input.keyboard.on('keydown-DOWN', () => this._scrollList(24));
+        this.input.on('wheel', (_p, _o, _dx, dy) => { this._scrollList(Math.sign(dy) * 44); });
+        this.input.keyboard.on('keydown-UP',   () => this._scrollList(-48));
+        this.input.keyboard.on('keydown-DOWN', () => this._scrollList(48));
 
         let _touchY = null;
         this.input.on('pointerdown', ptr => { _touchY = ptr.y; });
         this.input.on('pointermove', ptr => {
             if (_touchY === null || !ptr.isDown) return;
             const dy = _touchY - ptr.y;
-            if (Math.abs(dy) > 4) { this._scrollList(dy); _touchY = ptr.y; }
+            if (Math.abs(dy) > 8) { this._scrollList(dy); _touchY = ptr.y; }
         });
         this.input.on('pointerup', () => { _touchY = null; });
     }
@@ -94,7 +94,7 @@ export default class CraftingScene extends Phaser.Scene {
         const x = this._leftX, maxW = this._colW;
         let oy = this._listTop - this._listScroll;
         const startOy = oy;
-        const ROW_H = 26;
+        const ROW_H = 52;
 
         const byCategory = {};
         CRAFTING_RECIPES.forEach(r => {
@@ -103,9 +103,9 @@ export default class CraftingScene extends Phaser.Scene {
 
         for (const [cat, recipes] of Object.entries(byCategory)) {
             track(this.add.text(x, oy, `— ${CATEGORY_LABELS[cat]} —`, {
-                font: 'bold 7px monospace', fill: '#664422'
+                font: 'bold 14px monospace', fill: '#664422'
             }));
-            oy += 12;
+            oy += 24;
 
             for (const recipe of recipes) {
                 const canCraft = this._canCraft(recipe);
@@ -114,27 +114,27 @@ export default class CraftingScene extends Phaser.Scene {
                 const bgCol   = isSelected ? 0x1a1000 : (canCraft ? 0x110c00 : 0x080600);
                 const border  = isSelected ? tierCol  : (canCraft ? 0x553311 : 0x221100);
 
-                const bg = track(this.add.rectangle(x, oy, maxW, ROW_H - 2, bgCol).setOrigin(0).setInteractive());
+                const bg = track(this.add.rectangle(x, oy, maxW, ROW_H - 4, bgCol).setOrigin(0).setInteractive());
                 const bdrG = track(this.add.graphics());
-                bdrG.lineStyle(1, border);
-                bdrG.strokeRect(x, oy, maxW, ROW_H - 2);
+                bdrG.lineStyle(2, border);
+                bdrG.strokeRect(x, oy, maxW, ROW_H - 4);
 
                 // Tier pip
-                track(this.add.rectangle(x + 2, oy + 3, 3, ROW_H - 8, tierCol).setOrigin(0));
+                track(this.add.rectangle(x + 4, oy + 6, 6, ROW_H - 16, tierCol).setOrigin(0));
 
                 const item = ITEMS[recipe.output];
                 const rarCol = RARITY_COLORS[item?.rarity ?? 'common'];
-                track(this.add.text(x + 9, oy + 4, recipe.label, {
-                    font: `${canCraft ? 'bold ' : ''}8px monospace`,
+                track(this.add.text(x + 18, oy + 8, recipe.label, {
+                    font: `${canCraft ? 'bold ' : ''}16px monospace`,
                     fill: canCraft ? rarCol : '#443322'
                 }));
-                track(this.add.text(x + 9, oy + 14, item?.description?.split('.')[0] ?? '', {
-                    font: '6px monospace', fill: '#443322'
+                track(this.add.text(x + 18, oy + 28, item?.description?.split('.')[0] ?? '', {
+                    font: '12px monospace', fill: '#443322'
                 }));
 
                 const statusTxt = canCraft ? '[CRAFT]' : 'missing';
-                track(this.add.text(x + maxW - 4, oy + 10, statusTxt, {
-                    font: '6px monospace',
+                track(this.add.text(x + maxW - 8, oy + 20, statusTxt, {
+                    font: '12px monospace',
                     fill: canCraft ? '#88cc44' : '#331100'
                 }).setOrigin(1, 0.5));
 
@@ -148,7 +148,7 @@ export default class CraftingScene extends Phaser.Scene {
 
                 oy += ROW_H;
             }
-            oy += 4;
+            oy += 8;
         }
         this._listScrollMax = Math.max(0, (oy - startOy) - this._listAvailH);
     }
@@ -169,8 +169,8 @@ export default class CraftingScene extends Phaser.Scene {
         let oy = this._listTop;
 
         if (!this._selected) {
-            track(this.add.text(x + w / 2, oy + 40, 'Select a recipe\nto see details', {
-                font: '8px monospace', fill: '#443322', align: 'center'
+            track(this.add.text(x + w / 2, oy + 80, 'Select a recipe\nto see details', {
+                font: '16px monospace', fill: '#443322', align: 'center'
             }).setOrigin(0.5, 0));
             return;
         }
@@ -183,16 +183,16 @@ export default class CraftingScene extends Phaser.Scene {
 
         // Output item header
         track(this.add.text(x, oy, recipe.label, {
-            font: 'bold 10px monospace', fill: rarCol
+            font: 'bold 20px monospace', fill: rarCol
         }));
-        oy += 13;
+        oy += 26;
 
         if (item?.description) {
             track(this.add.text(x, oy, item.description, {
-                font: '7px monospace', fill: '#776655',
+                font: '14px monospace', fill: '#776655',
                 wordWrap: { width: w }
             }));
-            oy += 22;
+            oy += 44;
         }
 
         // Stat bonuses
@@ -201,18 +201,18 @@ export default class CraftingScene extends Phaser.Scene {
             const statLine = Object.entries(item.stats)
                 .map(([k, v]) => `+${v} ${statLabels[k] ?? k}`).join('  ');
             track(this.add.text(x, oy, statLine, {
-                font: '8px monospace', fill: '#88cc44'
+                font: '16px monospace', fill: '#88cc44'
             }));
-            oy += 13;
+            oy += 26;
         }
 
         const divG = track(this.add.graphics());
-        divG.lineStyle(1, 0x332200);
+        divG.lineStyle(2, 0x332200);
         divG.lineBetween(x, oy, x + w, oy);
-        oy += 8;
+        oy += 16;
 
-        track(this.add.text(x, oy, 'REQUIRES', { font: 'bold 7px monospace', fill: '#664422' }));
-        oy += 12;
+        track(this.add.text(x, oy, 'REQUIRES', { font: 'bold 14px monospace', fill: '#664422' }));
+        oy += 24;
 
         // Ingredient list
         for (const ing of recipe.ingredients) {
@@ -222,14 +222,14 @@ export default class CraftingScene extends Phaser.Scene {
             const nameStr = ingItem?.name ?? ing.id.replace(/_/g, ' ');
             const col = met ? '#88cc44' : '#cc4422';
 
-            track(this.add.rectangle(x, oy, w, 14, met ? 0x0a1500 : 0x150500).setOrigin(0));
-            track(this.add.text(x + 4, oy + 2, nameStr, { font: '7px monospace', fill: col }));
-            track(this.add.text(x + w - 2, oy + 2, `${have}/${ing.qty}`, {
-                font: '7px monospace', fill: col
+            track(this.add.rectangle(x, oy, w, 28, met ? 0x0a1500 : 0x150500).setOrigin(0));
+            track(this.add.text(x + 8, oy + 4, nameStr, { font: '14px monospace', fill: col }));
+            track(this.add.text(x + w - 4, oy + 4, `${have}/${ing.qty}`, {
+                font: '14px monospace', fill: col
             }).setOrigin(1, 0));
-            oy += 16;
+            oy += 32;
         }
-        oy += 6;
+        oy += 12;
 
         // Craft button
         const btnCol  = canCraft ? 0x331a00 : 0x0f0a00;
@@ -237,12 +237,12 @@ export default class CraftingScene extends Phaser.Scene {
         const btnTxt  = canCraft ? 'CRAFT' : 'MISSING MATERIALS';
         const btnTxtC = canCraft ? '#ffcc44' : '#443322';
 
-        const btn = track(this.add.rectangle(x, oy, w, 18, btnCol).setOrigin(0));
+        const btn = track(this.add.rectangle(x, oy, w, 36, btnCol).setOrigin(0));
         const bdrG = track(this.add.graphics());
-        bdrG.lineStyle(1, btnBord);
-        bdrG.strokeRect(x, oy, w, 18);
-        track(this.add.text(x + w / 2, oy + 9, btnTxt, {
-            font: 'bold 8px monospace', fill: btnTxtC
+        bdrG.lineStyle(2, btnBord);
+        bdrG.strokeRect(x, oy, w, 36);
+        track(this.add.text(x + w / 2, oy + 18, btnTxt, {
+            font: 'bold 16px monospace', fill: btnTxtC
         }).setOrigin(0.5));
 
         if (canCraft) {
@@ -254,9 +254,9 @@ export default class CraftingScene extends Phaser.Scene {
 
         // Feedback line
         if (this._feedback) {
-            oy += 26;
+            oy += 52;
             track(this.add.text(x + w / 2, oy, this._feedback.msg, {
-                font: '8px monospace', fill: this._feedback.color
+                font: '16px monospace', fill: this._feedback.color
             }).setOrigin(0.5, 0));
         }
     }

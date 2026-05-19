@@ -15,8 +15,14 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 
         this.spriteKey = spriteKey;
         this.setCollideWorldBounds(true);
-        this.body.setSize(20, 20);
-        this.body.setOffset(6, 12);
+        if (typeDef.bodyConfig) {
+            const { w, h, ox, oy } = typeDef.bodyConfig;
+            this.body.setSize(w, h);
+            this.body.setOffset(ox, oy);
+        } else {
+            this.body.setSize(20, 20);
+            this.body.setOffset(6, 12);
+        }
         this.setDepth(9);
 
         if (typeDef.tint) this.setTint(typeDef.tint);

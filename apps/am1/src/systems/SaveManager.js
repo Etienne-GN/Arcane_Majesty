@@ -11,6 +11,7 @@ export class SaveManager {
             mana:          stats.mana,
             maxMana:       stats.maxMana,
             glint:         stats.glint ?? 0,
+            gold:          stats.gold  ?? 50,
             skillPoints:   stats.skillPoints,
             attributePoints: stats.attributePoints ?? 0,
             satchelTier:   stats.satchelTier ?? 1,
@@ -53,6 +54,7 @@ export class SaveManager {
             stats.mana            = d.mana;
             stats.maxMana         = d.maxMana;
             stats.glint           = d.glint ?? 0;
+            stats.gold            = d.gold  ?? 50;
             stats.skillPoints     = d.skillPoints;
             stats.attributePoints = d.attributePoints ?? 0;
             stats.satchelTier     = d.satchelTier ?? 1;

@@ -15,6 +15,7 @@ import { DIALOGUES } from '../data/dialogues.js';
 import { SPELLS, TIER_NAMES, RESONANCE_GAINS } from '../data/spells.js';
 import { statusManager } from '../systems/StatusManager.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
+import { ANIM_PROFILES } from '../data/animProfiles.js';
 
 export default class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
@@ -127,7 +128,7 @@ export default class GameScene extends Phaser.Scene {
 
             sprite.ePrompt = this.add.text(cx, cy - TILE_SIZE / 2 - 4, '[E] Rest', {
                 font: '7px monospace', fill: '#ffbb44'
-            }).setOrigin(0.5, 1).setDepth(25).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
         });
 
         // Sign posts
@@ -140,7 +141,7 @@ export default class GameScene extends Phaser.Scene {
             sprite.signText = sign.text;
             sprite.ePrompt = this.add.text(sx, sy - TILE_SIZE / 2 - 4, '[E]', {
                 font: '7px monospace', fill: '#ffff88'
-            }).setOrigin(0.5, 1).setDepth(25).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
         });
 
         // Item pickups group
@@ -161,18 +162,19 @@ export default class GameScene extends Phaser.Scene {
 
         // NPCs — use sprite key from def (default spr_hermit), tint optional
         const npcDefs = mapDef.spawns.npcs ?? [];
-        const npcKeys = [...new Set(npcDefs.map(d => d.spriteKey ?? 'spr_hermit'))];
-        npcKeys.forEach(k => this._ensureNpcAnims(k));
         this.npcs = this.physics.add.staticGroup();
         npcDefs.forEach(def => {
-            const nx  = def.x * TILE_SIZE + TILE_SIZE / 2;
-            const ny  = def.y * TILE_SIZE + TILE_SIZE / 2;
-            const key = def.spriteKey ?? 'spr_hermit';
-            const sprite = this.npcs.create(nx, ny, key, 1);
+            const nx      = def.x * TILE_SIZE + TILE_SIZE / 2;
+            const ny      = def.y * TILE_SIZE + TILE_SIZE / 2;
+            const key     = def.spriteKey  ?? 'spr_hermit';
+            const profile = def.animProfile ?? 'rpgmaker_32';
+            this._ensureNpcAnims(key, profile);
+            const idleFrame = ANIM_PROFILES[profile]?.idle?.down ?? 1;
+            const sprite = this.npcs.create(nx, ny, key, idleFrame);
             sprite.setDepth(8);
             sprite.npcDef = def;
             sprite.talked = false;
-            sprite.body.setSize(20, 20);
+            sprite.body.setSize(20, 30);
             if (def.tint) sprite.setTint(def.tint);
 
             sprite.play(`${key}_idle`);
@@ -181,12 +183,12 @@ export default class GameScene extends Phaser.Scene {
             const nameColor = def.isShop ? '#ffdd88' : '#aaffaa';
             this.add.text(nx, ny - TILE_SIZE / 2 - 2, def.name, {
                 font: '7px monospace', fill: nameColor, stroke: '#000', strokeThickness: 1
-            }).setOrigin(0.5, 1).setDepth(25);
+            }).setOrigin(0.5, 1).setDepth(25).setResolution(3);
 
             const promptLabel = def.isShop ? '[E] Shop' : '[E]';
             sprite.ePrompt = this.add.text(nx, ny - TILE_SIZE / 2 - 12, promptLabel, {
                 font: '7px monospace', fill: '#ffff88'
-            }).setOrigin(0.5, 1).setDepth(25).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
         });
 
         // Chests
@@ -201,7 +203,7 @@ export default class GameScene extends Phaser.Scene {
 
             sprite.ePrompt = this.add.text(cx, cy - TILE_SIZE / 2 - 4, '[E]', {
                 font: '7px monospace', fill: '#ffff88'
-            }).setOrigin(0.5, 1).setDepth(25).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
         });
 
         // Gathering nodes — require iron_axe (wood) or iron_pickaxe (minerals)
@@ -216,7 +218,7 @@ export default class GameScene extends Phaser.Scene {
             spr.gathered = false;
             spr.ePrompt  = this.add.text(nx, ny - TILE_SIZE / 2 - 4, '[E]', {
                 font: '7px monospace', fill: def.type === 'wood' ? '#886633' : '#667788'
-            }).setOrigin(0.5, 1).setDepth(25).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
         });
 
         // Cracked boulders — Earth Pillar shatters them, revealing paths
@@ -231,7 +233,7 @@ export default class GameScene extends Phaser.Scene {
             spr.boulderDef = def;
             spr.ePrompt = this.add.text(bx, by - TILE_SIZE / 2 - 4, '[E]', {
                 font: '7px monospace', fill: '#aa8844'
-            }).setOrigin(0.5, 1).setDepth(25).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
         });
 
         // Boss
@@ -271,6 +273,7 @@ export default class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.wallGroup);
         this.physics.add.collider(this.enemies, this.wallGroup);
         this.physics.add.collider(this.pickups, this.wallGroup);
+        this.physics.add.collider(this.player, this.npcs);
         this.physics.add.collider(this.player, this.campfires);
         this.physics.add.collider(this.player, this.signs);
         this.physics.add.collider(this.player, this.crackedBoulders);
@@ -422,7 +425,7 @@ export default class GameScene extends Phaser.Scene {
             // [E] hint
             const hint = this.add.text(gx, gy - 20, '[E]', {
                 font: '7px monospace', fill: '#998855'
-            }).setOrigin(0.5, 1).setDepth(25).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
 
             // Physics zone blocking the gate
             const zone = this.add.zone(gx, gy, def.w, def.h);
@@ -1373,12 +1376,12 @@ export default class GameScene extends Phaser.Scene {
             // Label
             const label = this.add.text(wx, wy - 28, gate.label, {
                 font: '6px monospace', fill: '#66aaff', stroke: '#000022', strokeThickness: 1
-            }).setOrigin(0.5, 1).setDepth(wy + 10).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(wy + 10).setResolution(3).setAlpha(0);
 
             // [E] prompt
             const prompt = this.add.text(wx, wy + 26, '[E]', {
                 font: '7px monospace', fill: '#88ccff'
-            }).setOrigin(0.5).setDepth(wy + 10).setAlpha(0);
+            }).setOrigin(0.5).setDepth(wy + 10).setResolution(3).setAlpha(0);
 
             // Interaction zone
             const zone = this.add.zone(wx, wy, 48, 48);
@@ -1399,16 +1402,27 @@ export default class GameScene extends Phaser.Scene {
 
     _setupPortals() {
         this._portals = [];
+
         (this._mapDef.portals ?? []).forEach(def => {
             const wx = def.x * TILE_SIZE + TILE_SIZE / 2;
             const wy = def.y * TILE_SIZE + TILE_SIZE / 2;
+
+            // Door visual — dark rectangle on the north border wall
+            const doorG = this.add.graphics().setDepth(6);
+            doorG.fillStyle(0x080808, 1);
+            doorG.fillRect(wx - 11, wy - TILE_SIZE / 2 - 14, 22, 32);
+            doorG.lineStyle(3, 0x3a2208, 1);
+            doorG.strokeRect(wx - 11, wy - TILE_SIZE / 2 - 14, 22, 32);
+            doorG.fillStyle(0x998855, 0.8);
+            doorG.fillCircle(wx + 6, wy - TILE_SIZE / 2 + 2, 2);
+
             const zone = this.add.zone(wx, wy, TILE_SIZE, TILE_SIZE);
             this.physics.add.existing(zone, false);
             zone.body.setAllowGravity(false);
-            const prompt = this.add.text(wx, wy - 20, `[E] ${def.label}`, {
-                font: '7px monospace', fill: '#aaffaa', stroke: '#000000', strokeThickness: 1
-            }).setOrigin(0.5, 1).setDepth(wy + 10).setAlpha(0);
-            this._portals.push({ zone, prompt, def, wx, wy });
+
+            // inZone starts true so spawning on the portal doesn't fire it.
+            // Only triggers when player walks INTO the zone from outside.
+            this._portals.push({ zone, def, wx, wy, inZone: true });
         });
     }
 
@@ -1568,7 +1582,7 @@ export default class GameScene extends Phaser.Scene {
         // "CHANNELING…" label above player
         const castLabel = this.add.text(px, py - 36, 'CHANNELING…', {
             font: 'bold 8px monospace', fill: '#cc88ff', stroke: '#000', strokeThickness: 2,
-        }).setOrigin(0.5).setDepth(70);
+        }).setOrigin(0.5).setDepth(70).setResolution(3);
         this._castVfx.push(castLabel);
 
         // Progress bar
@@ -1728,7 +1742,7 @@ export default class GameScene extends Phaser.Scene {
 
         cf.ePrompt = this.add.text(tx, ty - TILE_SIZE / 2 - 4, '[E] Rest', {
             font: '7px monospace', fill: '#ffbb44'
-        }).setOrigin(0.5, 1).setDepth(25).setAlpha(0);
+        }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
 
         this.scene.get('UIScene')?.showNotification?.('Campfire placed — rest to restore HP/MP.', 2200);
         soundManager.collect();
@@ -1906,15 +1920,26 @@ export default class GameScene extends Phaser.Scene {
         const tileset = tilemap.addTilesetImage('tileset_base', 'tileset_base');
         tilemap.createLayer(0, tileset, 0, 0).setDepth(0);
 
-        // Tree/wall sprites — individual sprites so Y-depth sorting works
+        // Tree/wall sprites — invisible physics body + LPC trunk + treetop visuals
         tiles.forEach((row, r) => {
             row.forEach((tile, c) => {
                 if (tile === 1) {
                     const x = c * TILE_SIZE + TILE_SIZE / 2;
                     const y = r * TILE_SIZE + TILE_SIZE / 2;
                     const wall = this.wallGroup.create(x, y, 'tile_tree');
-                    wall.setDepth(y + 0.5);
+                    wall.setAlpha(0);
                     wall.refreshBody();
+
+                    // Trunk: centered at tile, slightly lower
+                    const trunk = this.add.image(x, y + 4, 'lpc_trunk', 0);
+                    trunk.setDisplaySize(20, 24);
+                    trunk.setDepth(y + 0.5);
+
+                    // Treetop: crop bottom ~30% to remove grass tuft below the foliage
+                    const top = this.add.image(x, y - 12, 'lpc_treetop', 0);
+                    top.setCrop(0, 0, 96, 80);
+                    top.setDisplaySize(44, 36);
+                    top.setDepth(y + 2000);
                 }
             });
         });
@@ -1922,6 +1947,13 @@ export default class GameScene extends Phaser.Scene {
 
     update(time, delta) {
         if (!this.player?.active) return;
+
+        // Portal edge-detection — only fires on enter (not on spawn or stay)
+        this._portals?.forEach(p => {
+            const inside = Phaser.Math.Distance.Between(this.player.x, this.player.y, p.wx, p.wy) < TILE_SIZE * 0.7;
+            if (inside && !p.inZone) this._enterPortal(p.def);
+            p.inZone = inside;
+        });
 
         // Music mood — throttled to every 500ms
         this._musicMoodTimer = (this._musicMoodTimer ?? 0) + delta;
@@ -1934,6 +1966,7 @@ export default class GameScene extends Phaser.Scene {
         const joyVec = this.scene.get('UIScene')?._joyVec ?? null;
         this.player.update(this.cursors, this.wasd, this.attackKey, this.powerKey, delta, joyVec);
         this.player.setDepth(this.player.y + 1);
+        this.npcs?.getChildren().forEach(npc => npc.setDepth(npc.y));
 
         this.enemies.getChildren().forEach(e => {
             if (!e.active) return;
@@ -2063,10 +2096,6 @@ export default class GameScene extends Phaser.Scene {
             g.prompt?.setAlpha(inRange ? 1 : 0);
             g.label?.setAlpha(inRange ? 0.8 : 0);
         });
-        this._portals?.forEach(p => {
-            p.prompt?.setAlpha(Phaser.Math.Distance.Between(px, py, p.wx, p.wy) < range ? 1 : 0);
-        });
-
         // Expose for UIScene ATK button context
         this._nearInteract =
             this.npcs.getChildren().some(n => near(n)) ||
@@ -2075,8 +2104,7 @@ export default class GameScene extends Phaser.Scene {
             this.signs.getChildren().some(s => near(s)) ||
             this.crackedBoulders.getChildren().some(b => near(b) && b.active) ||
             this.gatheringGroup.getChildren().some(nd => near(nd) && !nd.gathered) ||
-            !!this._riftGates?.some(g => Phaser.Math.Distance.Between(px, py, g.wx, g.wy) < range) ||
-            !!this._portals?.some(p => Phaser.Math.Distance.Between(px, py, p.wx, p.wy) < range);
+            !!this._riftGates?.some(g => Phaser.Math.Distance.Between(px, py, g.wx, g.wy) < range);
     }
 
     _checkInteractions() {
@@ -2087,6 +2115,7 @@ export default class GameScene extends Phaser.Scene {
 
             if (def.isShop) {
                 // Merchant: first interaction shows greeting, then opens shop
+                const shopData = { currencyBias: this._mapDef?.currencyBias ?? 'neutral' };
                 if (!npc.talked) {
                     npc.talked = true;
                     const lines = DIALOGUES[def.dialogue] ?? [{ speaker: def.name, text: '...' }];
@@ -2095,12 +2124,12 @@ export default class GameScene extends Phaser.Scene {
                         lines,
                         onComplete: () => {
                             this.scene.pause();
-                            this.scene.launch('ShopScene');
+                            this.scene.launch('ShopScene', shopData);
                         }
                     });
                 } else {
                     this.scene.pause();
-                    this.scene.launch('ShopScene');
+                    this.scene.launch('ShopScene', shopData);
                 }
                 return;
             }
@@ -2191,13 +2220,6 @@ export default class GameScene extends Phaser.Scene {
         this._riftGates?.forEach(gate => {
             this.physics.overlap(this.player.interactBox, gate.zone, () => {
                 this._interactRiftGate(gate);
-            });
-        });
-
-        // Portals
-        this._portals?.forEach(p => {
-            this.physics.overlap(this.player.interactBox, p.zone, () => {
-                this._enterPortal(p.def);
             });
         });
 
@@ -2381,8 +2403,9 @@ export default class GameScene extends Phaser.Scene {
         // Insights — enough for all masteries (total cost = 3+2+2+3+4 = 14)
         s.resonanceInsights = 15;
 
-        // Gold + consumables for testing
+        // Currency + consumables for testing
         s.glint = 2000;
+        s.gold  = 500;
         s.addItem('health_potion', 10);
         s.addItem('mana_potion',   10);
 

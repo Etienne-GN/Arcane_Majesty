@@ -74,6 +74,7 @@ export class PlayerStats {
         this.mana      = this.maxMana;
 
         this.glint = 0;
+        this.gold  = 50;
 
         // Points earned on level-up: skillPoints for skill tree, attributePoints for STR/INT/STA/AGI
         this.attributePoints = 0;

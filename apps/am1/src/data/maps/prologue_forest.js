@@ -13,7 +13,7 @@ export const PROLOGUE_FOREST = {
     portals: [
         {
             id: 'hermit_hut_door',
-            x: 22, y: 5,
+            x: 22, y: 1,
             label: "Hermit's Hut",
             targetMap: 'hermit_hut',
             targetX: 10 * 32 + 16,
@@ -32,6 +32,7 @@ export const PROLOGUE_FOREST = {
         pillarGates:    PILLAR_GATE_POSITIONS,
         boss: { spawn: BOSS_SPAWN, arenaBounds: BOSS_ARENA_BOUNDS },
     },
+    currencyBias: 'rural',
     music: 'forest',
     quests: [
         'main_forest_hunt', 'side_supply_run', 'side_read_the_signs',
