@@ -245,6 +245,218 @@ export const ITEMS = {
         onUse: (stats) => { stats.health = Math.min(stats.health + 35, stats.maxHealth); return true; }
     },
 
+    // ── More cooked food ─────────────────────────────────────────────────────
+    mushroom_soup: {
+        id: 'mushroom_soup', name: 'Mushroom Soup',
+        description: 'Earthy and warm. Restores 20 HP and 20 MP, then regenerates 15 HP over time.',
+        color: 0x886633, icon: 'itm_mushroom', stackable: true, buyPrice: 0, sellPrice: 9,
+        onUse: (stats) => {
+            stats.health = Math.min(stats.health + 20, stats.maxHealth);
+            stats.mana   = Math.min(stats.mana   + 20, stats.maxMana);
+            stats._foodRegen = (stats._foodRegen ?? 0) + 15;
+            return true;
+        }
+    },
+    herb_tea: {
+        id: 'herb_tea', name: 'Herb Tea',
+        description: 'Steeped forest herbs. Slowly regenerates 35 HP and boosts mana recovery for 12s.',
+        color: 0x88cc66, icon: 'itm_herb', stackable: true, buyPrice: 0, sellPrice: 8,
+        onUse: (stats) => {
+            stats._foodRegen = (stats._foodRegen ?? 0) + 35;
+            stats._manaRegenBoost = (stats._manaRegenBoost ?? 0) + 12000;
+            return true;
+        }
+    },
+    spiced_venison: {
+        id: 'spiced_venison', name: 'Spiced Venison',
+        description: 'Venison rubbed with forest herbs. Restores 45 HP and regenerates 30 HP over time.',
+        color: 0xbb6633, icon: 'itm_meat', stackable: true, buyPrice: 0, sellPrice: 15,
+        onUse: (stats) => {
+            stats.health = Math.min(stats.health + 45, stats.maxHealth);
+            stats._foodRegen = (stats._foodRegen ?? 0) + 30;
+            return true;
+        }
+    },
+    ember_glazed_boar: {
+        id: 'ember_glazed_boar', name: 'Ember-Glazed Boar',
+        description: 'Boar crust-seared with ember stone. Restores 55 HP instantly.',
+        color: 0xff7733, icon: 'itm_meat', stackable: true, buyPrice: 0, sellPrice: 18,
+        onUse: (stats) => {
+            stats.health = Math.min(stats.health + 55, stats.maxHealth);
+            return true;
+        }
+    },
+    bone_broth: {
+        id: 'bone_broth', name: 'Bone Broth',
+        description: 'Rich marrow broth. Regenerates 60 HP over time and raises max HP by 8 for this session.',
+        color: 0xddbb88, icon: 'itm_sandwich', stackable: true, buyPrice: 0, sellPrice: 13,
+        onUse: (stats) => {
+            stats.maxHealth += 8;
+            stats._foodRegen = (stats._foodRegen ?? 0) + 60;
+            return true;
+        }
+    },
+    forest_salad: {
+        id: 'forest_salad', name: 'Forest Salad',
+        description: 'Fresh herbs tossed together. Restores 18 MP and regenerates 15 HP over time.',
+        color: 0x66bb44, icon: 'itm_herb', stackable: true, buyPrice: 0, sellPrice: 7,
+        onUse: (stats) => {
+            stats.mana = Math.min(stats.mana + 18, stats.maxMana);
+            stats._foodRegen = (stats._foodRegen ?? 0) + 15;
+            return true;
+        }
+    },
+    hunters_feast: {
+        id: 'hunters_feast', name: "Hunter's Feast",
+        description: 'A mixed grill of boar and venison. Restores 50 HP, 18 MP, and regenerates 30 HP.',
+        color: 0xcc7722, icon: 'itm_meat', stackable: true, buyPrice: 0, sellPrice: 22,
+        onUse: (stats) => {
+            stats.health = Math.min(stats.health + 50, stats.maxHealth);
+            stats.mana   = Math.min(stats.mana   + 18, stats.maxMana);
+            stats._foodRegen = (stats._foodRegen ?? 0) + 30;
+            return true;
+        }
+    },
+    void_stew: {
+        id: 'void_stew', name: 'Void Stew',
+        description: 'Tainted meat in corrupted broth. Restores 75 HP but drains 25 MP. Eat at your own risk.',
+        color: 0x7722aa, icon: 'itm_meat', stackable: true, buyPrice: 0, sellPrice: 16,
+        onUse: (stats) => {
+            stats.health = Math.min(stats.health + 75, stats.maxHealth);
+            stats.mana   = Math.max(0, stats.mana - 25);
+            return true;
+        }
+    },
+    mushroom_medley: {
+        id: 'mushroom_medley', name: 'Mushroom Medley',
+        description: 'Sautéed spores and herbs. Restores 15 HP, 30 MP, and triples mana recovery for 10s.',
+        color: 0x997744, icon: 'itm_mushroom', stackable: true, buyPrice: 0, sellPrice: 12,
+        onUse: (stats) => {
+            stats.health = Math.min(stats.health + 15, stats.maxHealth);
+            stats.mana   = Math.min(stats.mana   + 30, stats.maxMana);
+            stats._manaRegenBoost = (stats._manaRegenBoost ?? 0) + 10000;
+            return true;
+        }
+    },
+    spicy_rabbit_skewer: {
+        id: 'spicy_rabbit_skewer', name: 'Spicy Rabbit Skewer',
+        description: 'Rabbit glazed with ember spice. Restores 28 HP and regenerates 22 HP over time.',
+        color: 0xee7744, icon: 'itm_meat', stackable: true, buyPrice: 0, sellPrice: 10,
+        onUse: (stats) => {
+            stats.health = Math.min(stats.health + 28, stats.maxHealth);
+            stats._foodRegen = (stats._foodRegen ?? 0) + 22;
+            return true;
+        }
+    },
+
+    // ── More craftable potions ────────────────────────────────────────────────
+    greater_mana_potion: {
+        id: 'greater_mana_potion', name: 'Greater Mana Potion',
+        description: 'A concentrated spore infusion. Restores 60 MP.',
+        color: 0x3355ff, icon: 'itm_mana_potion', stackable: true, buyPrice: 0, sellPrice: 20,
+        onUse: (stats) => { stats.mana = Math.min(stats.mana + 60, stats.maxMana); return true; }
+    },
+    regen_potion: {
+        id: 'regen_potion', name: 'Regeneration Potion',
+        description: 'Crystallised heart essence in herb tincture. Regenerates 80 HP over 20 seconds.',
+        color: 0xff5566, icon: 'itm_hp_potion', stackable: true, buyPrice: 0, sellPrice: 24,
+        onUse: (stats) => { stats._foodRegen = (stats._foodRegen ?? 0) + 80; return true; }
+    },
+    iron_skin_tonic: {
+        id: 'iron_skin_tonic', name: 'Iron Skin Tonic',
+        description: 'Ground bone dissolved in water. Raises max HP by 15 for this session.',
+        color: 0xaabb99, icon: 'itm_hp_potion', stackable: true, buyPrice: 0, sellPrice: 18,
+        onUse: (stats) => { stats.maxHealth += 15; stats.health = Math.min(stats.health + 15, stats.maxHealth); return true; }
+    },
+    speed_draught: {
+        id: 'speed_draught', name: 'Speed Draught',
+        description: "Lucky charm and frost combined. Applies Blessed for 20s — reflexes sharpened.",
+        color: 0xaaffdd, icon: 'itm_mana_potion', stackable: true, buyPrice: 0, sellPrice: 16,
+        onUse: (stats) => { stats._applyStatus?.('blessed', { duration: 20000 }); return true; }
+    },
+    spectral_veil: {
+        id: 'spectral_veil', name: 'Spectral Veil',
+        description: 'Pure spectral essence bottled. Applies Blessed for 25s and restores 10 MP.',
+        color: 0xccaaff, icon: 'itm_mana_potion', stackable: true, buyPrice: 0, sellPrice: 18,
+        onUse: (stats) => {
+            stats.mana = Math.min(stats.mana + 10, stats.maxMana);
+            stats._applyStatus?.('blessed', { duration: 25000 });
+            return true;
+        }
+    },
+    clarity_elixir: {
+        id: 'clarity_elixir', name: 'Elixir of Clarity',
+        description: 'Spectral dust and heart crystal. Restores 40 MP and triples mana recovery for 20s.',
+        color: 0x88ccff, icon: 'itm_mana_potion', stackable: true, buyPrice: 0, sellPrice: 26,
+        onUse: (stats) => {
+            stats.mana = Math.min(stats.mana + 40, stats.maxMana);
+            stats._manaRegenBoost = (stats._manaRegenBoost ?? 0) + 20000;
+            return true;
+        }
+    },
+    antitoxin: {
+        id: 'antitoxin', name: 'Antitoxin',
+        description: 'Double-strength venom neutraliser. Clears Poisoned, restores 12 HP, and applies Blessed for 15s.',
+        color: 0x44ff77, icon: 'itm_herb', stackable: true, buyPrice: 0, sellPrice: 20,
+        onUse: (stats) => {
+            stats._clearStatus?.('poison');
+            stats.health = Math.min(stats.health + 12, stats.maxHealth);
+            stats._applyStatus?.('blessed', { duration: 15000 });
+            return true;
+        }
+    },
+    corrupted_flask: {
+        id: 'corrupted_flask', name: 'Corrupted Flask',
+        description: 'Distilled corrupted essence. Restores 55 MP but drains 20 HP. Dangerous.',
+        color: 0x9900cc, icon: 'itm_mana_potion', stackable: true, buyPrice: 0, sellPrice: 17,
+        onUse: (stats) => {
+            stats.mana   = Math.min(stats.mana + 55, stats.maxMana);
+            stats.health = Math.max(1, stats.health - 20);
+            return true;
+        }
+    },
+    thorn_potion: {
+        id: 'thorn_potion', name: 'Thorn Potion',
+        description: 'Venom and herb extract. Applies Blessed for 15s and regenerates 20 HP over time.',
+        color: 0x33aa44, icon: 'itm_herb', stackable: true, buyPrice: 0, sellPrice: 14,
+        onUse: (stats) => {
+            stats._foodRegen = (stats._foodRegen ?? 0) + 20;
+            stats._applyStatus?.('blessed', { duration: 15000 });
+            return true;
+        }
+    },
+    moonveil_tonic: {
+        id: 'moonveil_tonic', name: 'Moonveil Tonic',
+        description: 'Ice, spectral dust and luck fused. Restores 22 HP, 22 MP, and applies Blessed for 30s.',
+        color: 0xaaddff, icon: 'itm_mana_potion', stackable: true, buyPrice: 0, sellPrice: 28,
+        onUse: (stats) => {
+            stats.health = Math.min(stats.health + 22, stats.maxHealth);
+            stats.mana   = Math.min(stats.mana   + 22, stats.maxMana);
+            stats._applyStatus?.('blessed', { duration: 30000 });
+            return true;
+        }
+    },
+    wildfire_tonic: {
+        id: 'wildfire_tonic', name: 'Wildfire Tonic',
+        description: 'Ember and venom fused. Restores 30 HP and applies Blessed for 18s.',
+        color: 0xff5500, icon: 'itm_hp_potion', stackable: true, buyPrice: 0, sellPrice: 19,
+        onUse: (stats) => {
+            stats.health = Math.min(stats.health + 30, stats.maxHealth);
+            stats._applyStatus?.('blessed', { duration: 18000 });
+            return true;
+        }
+    },
+    double_down_elixir: {
+        id: 'double_down_elixir', name: 'Double-Down Elixir',
+        description: 'Equal parts health and mana restoration. Restores 35 HP and 35 MP at once.',
+        color: 0xff88aa, icon: 'itm_hp_potion', stackable: true, buyPrice: 0, sellPrice: 22,
+        onUse: (stats) => {
+            stats.health = Math.min(stats.health + 35, stats.maxHealth);
+            stats.mana   = Math.min(stats.mana   + 35, stats.maxMana);
+            return true;
+        }
+    },
+
     // ── Regional materials ────────────────────────────────────────────────────
     bone_fragment: {
         id: 'bone_fragment', name: 'Bone Fragment',
@@ -724,21 +936,51 @@ export const ITEMS = {
 
 // Potion brewing recipes — all require empty_bottle
 export const POTION_RECIPES = [
-    { output: 'health_potion',         label: 'Health Potion',         ingredients: [{ id: 'forest_herb', qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
-    { output: 'greater_health_potion', label: 'Greater Health Potion', ingredients: [{ id: 'forest_herb', qty: 4 }, { id: 'empty_bottle', qty: 1 }] },
+    // ── Basic restoratives ────────────────────────────────────────────────────
+    { output: 'health_potion',         label: 'Health Potion',         ingredients: [{ id: 'forest_herb',    qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'greater_health_potion', label: 'Greater Health Potion', ingredients: [{ id: 'forest_herb',    qty: 4 }, { id: 'empty_bottle', qty: 1 }] },
     { output: 'mana_potion',           label: 'Mana Potion',           ingredients: [{ id: 'mushroom_spore', qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'greater_mana_potion',   label: 'Greater Mana Potion',   ingredients: [{ id: 'mushroom_spore', qty: 4 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'double_down_elixir',    label: 'Double-Down Elixir',    ingredients: [{ id: 'forest_herb', qty: 2 }, { id: 'mushroom_spore', qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
+    // ── Healing over time ─────────────────────────────────────────────────────
+    { output: 'regen_potion',          label: 'Regeneration Potion',   ingredients: [{ id: 'forest_herb', qty: 3 }, { id: 'heart_crystal', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'frost_vial',            label: 'Frost Vial',            ingredients: [{ id: 'ice_crystal',    qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'ember_tonic',           label: 'Ember Tonic',           ingredients: [{ id: 'ember_stone',    qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'iron_skin_tonic',       label: 'Iron Skin Tonic',       ingredients: [{ id: 'bone_fragment', qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
+    // ── Status / utility ──────────────────────────────────────────────────────
     { output: 'antidote',              label: 'Antidote',              ingredients: [{ id: 'venom_sac', qty: 1 }, { id: 'forest_herb', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
-    { output: 'void_tonic',            label: 'Void Tonic',            ingredients: [{ id: 'void_shard', qty: 2 }, { id: 'spectral_dust', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'antitoxin',             label: 'Antitoxin',             ingredients: [{ id: 'venom_sac', qty: 2 }, { id: 'ice_crystal', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
     { output: 'blessing_draught',      label: 'Blessing Draught',      ingredients: [{ id: 'rabbit_foot', qty: 2 }, { id: 'spectral_dust', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
-    { output: 'frost_vial',            label: 'Frost Vial',            ingredients: [{ id: 'ice_crystal', qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
-    { output: 'ember_tonic',           label: 'Ember Tonic',           ingredients: [{ id: 'ember_stone', qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'speed_draught',         label: 'Speed Draught',         ingredients: [{ id: 'rabbit_foot', qty: 1 }, { id: 'ice_crystal', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'thorn_potion',          label: 'Thorn Potion',          ingredients: [{ id: 'venom_sac', qty: 1 }, { id: 'forest_herb', qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'wildfire_tonic',        label: 'Wildfire Tonic',        ingredients: [{ id: 'ember_stone', qty: 2 }, { id: 'venom_sac', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
+    // ── Arcane / mana ─────────────────────────────────────────────────────────
+    { output: 'void_tonic',            label: 'Void Tonic',            ingredients: [{ id: 'void_shard', qty: 2 }, { id: 'spectral_dust', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'spectral_veil',         label: 'Spectral Veil',         ingredients: [{ id: 'spectral_dust', qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'clarity_elixir',        label: 'Elixir of Clarity',     ingredients: [{ id: 'spectral_dust', qty: 1 }, { id: 'heart_crystal', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'moonveil_tonic',        label: 'Moonveil Tonic',        ingredients: [{ id: 'ice_crystal', qty: 1 }, { id: 'spectral_dust', qty: 1 }, { id: 'rabbit_foot', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
+    // ── High risk / void ──────────────────────────────────────────────────────
+    { output: 'corrupted_flask',       label: 'Corrupted Flask',       ingredients: [{ id: 'corrupted_essence', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
 ];
 
 // ingredient → { output, label }
 export const COOKING_RECIPES = [
-    { input: 'boar_meat',   output: 'roasted_boar',     label: 'Roasted Boar'    },
-    { input: 'deer_meat',   output: 'roasted_venison',  label: 'Roasted Venison' },
-    { input: 'rabbit_meat', output: 'roasted_rabbit',   label: 'Roasted Rabbit'  },
-    // Hearty Stew: requires one of each meat
-    { input: ['boar_meat', 'deer_meat', 'rabbit_meat'], output: 'hearty_stew', label: 'Hearty Stew', multi: true },
+    // ── Simple roasts (single meat) ───────────────────────────────────────────
+    { input: 'boar_meat',   output: 'roasted_boar',          label: 'Roasted Boar'         },
+    { input: 'deer_meat',   output: 'roasted_venison',       label: 'Roasted Venison'      },
+    { input: 'rabbit_meat', output: 'roasted_rabbit',        label: 'Roasted Rabbit'       },
+    // ── Veggie & herb dishes ──────────────────────────────────────────────────
+    { input: 'mushroom_spore', output: 'mushroom_soup',      label: 'Mushroom Soup',       ingredients: [{ id: 'mushroom_spore', qty: 2 }] },
+    { input: 'forest_herb',    output: 'herb_tea',           label: 'Herb Tea',            ingredients: [{ id: 'forest_herb',    qty: 3 }] },
+    { input: 'forest_herb',    output: 'forest_salad',       label: 'Forest Salad',        ingredients: [{ id: 'forest_herb',    qty: 4 }] },
+    // ── Meat + ingredient combos ──────────────────────────────────────────────
+    { output: 'spiced_venison',      label: 'Spiced Venison',      ingredients: [{ id: 'deer_meat',    qty: 1 }, { id: 'forest_herb',  qty: 2 }] },
+    { output: 'ember_glazed_boar',   label: 'Ember-Glazed Boar',   ingredients: [{ id: 'boar_meat',    qty: 1 }, { id: 'ember_stone',  qty: 1 }] },
+    { output: 'spicy_rabbit_skewer', label: 'Spicy Rabbit Skewer', ingredients: [{ id: 'rabbit_meat',  qty: 1 }, { id: 'ember_stone',  qty: 1 }] },
+    { output: 'bone_broth',          label: 'Bone Broth',          ingredients: [{ id: 'deer_meat',    qty: 1 }, { id: 'bone_fragment', qty: 2 }] },
+    { output: 'mushroom_medley',     label: 'Mushroom Medley',     ingredients: [{ id: 'mushroom_spore', qty: 3 }, { id: 'forest_herb', qty: 1 }] },
+    { output: 'void_stew',           label: 'Void Stew',           ingredients: [{ id: 'deer_meat',    qty: 1 }, { id: 'void_shard',   qty: 1 }] },
+    // ── Multi-ingredient feasts ───────────────────────────────────────────────
+    { input: ['boar_meat', 'deer_meat', 'rabbit_meat'], output: 'hearty_stew',    label: 'Hearty Stew',     multi: true },
+    { input: ['boar_meat', 'deer_meat'],                output: 'hunters_feast',  label: "Hunter's Feast",  multi: true },
 ];
