@@ -49,8 +49,6 @@ class NetworkManager {
         this.socket.on('player:joined', (state)   => this._fire('joined',     state));
         this.socket.on('player:moved',  (data)    => this._fire('moved',      data));
         this.socket.on('player:left',   (data)    => this._fire('left',       data));
-        this.socket.on('you:authority', ()        => this._fire('authority',  null));
-        this.socket.on('you:follower',  ()        => this._fire('follower',   null));
         this.socket.on('enemy:sync',    (enemies) => this._fire('enemySync',  enemies));
         this.socket.on('enemy:died',    (data)    => this._fire('enemyDied',  data));
     }
@@ -75,11 +73,6 @@ class NetworkManager {
         this._lastX = x; this._lastY = y; this._lastFacing = facing;
 
         this.socket.emit('player:move', { x, y, facing, mapId });
-    }
-
-    sendEnemySync(enemies, mapId) {
-        if (!this.connected) return;
-        this.socket.emit('enemy:sync', { enemies, mapId });
     }
 
     sendEnemyDied(id, mapId) {

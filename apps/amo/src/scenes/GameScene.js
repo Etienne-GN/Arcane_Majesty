@@ -102,9 +102,7 @@ export default class GameScene extends Phaser.Scene {
         (mapDef.quests ?? []).forEach(qid => questManager.startQuest(qid));
 
         // Enemies
-        this._isAuthority   = false;
-        this._enemyById     = new Map();
-        this._enemySyncTimer = 0;
+        this._enemyById = new Map();
         this.enemies = this.physics.add.group({ runChildUpdate: false });
         (mapDef.spawns.enemies ?? []).forEach((spawn, idx) => {
             const ex = spawn.x * TILE_SIZE + TILE_SIZE / 2;
@@ -430,14 +428,9 @@ export default class GameScene extends Phaser.Scene {
             this._remotePlayers.delete(id);
         });
 
-        networkManager.on('authority', () => {
-            this._isAuthority = true;
-            this.enemies.getChildren().forEach(e => { e.isNetworked = false; });
-        });
-        networkManager.on('follower', () => {
-            this._isAuthority = false;
-            this.enemies.getChildren().forEach(e => { e.isNetworked = true; });
-        });
+        // In online mode all enemies are driven by server AI
+        this.enemies.getChildren().forEach(e => { e.isNetworked = true; });
+
         networkManager.on('enemySync', (states) => {
             states.forEach(({ id, x, y, health, facing }) => {
                 const e = this._enemyById.get(id);
@@ -2035,18 +2028,6 @@ export default class GameScene extends Phaser.Scene {
         // Broadcast position to server
         networkManager.tickMove(delta, this.player.x, this.player.y, this.player.facing, this._mapId);
 
-        // Authority: broadcast enemy state to followers at ~10 Hz
-        if (this._isAuthority) {
-            this._enemySyncTimer += delta;
-            if (this._enemySyncTimer >= 100) {
-                this._enemySyncTimer = 0;
-                const states = this.enemies.getChildren()
-                    .filter(e => e.active && e.netId >= 0)
-                    .map(e => ({ id: e.netId, x: Math.round(e.x), y: Math.round(e.y), health: e.health, facing: e.facing }));
-                if (states.length) networkManager.sendEnemySync(states, this._mapId);
-            }
-        }
-
         // Update remote players (interpolate toward last known position)
         this._remotePlayers?.forEach(rp => rp.update());
 
@@ -2346,7 +2327,7 @@ export default class GameScene extends Phaser.Scene {
         enemy.enemyType = type;
 
         enemy.on('died', (xp) => {
-            if (this._isAuthority && enemy.netId >= 0) networkManager.sendEnemyDied(enemy.netId, this._mapId);
+            if (this._serverUrl && enemy.netId >= 0) networkManager.sendEnemyDied(enemy.netId, this._mapId);
             playerStats.gainXp(xp);
             this._spawnXpText(enemy.x, enemy.y, xp);
             this._checkLevelUp();
