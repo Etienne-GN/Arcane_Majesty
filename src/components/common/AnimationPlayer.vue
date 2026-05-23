@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {ref, watch, onMounted, type Ref} from 'vue'
+import {ref, reactive, watch, onMounted, type Ref} from 'vue'
 
-import AnimationControls from '@/components/common/AnimationControls.vue'
+import UIButton from '@/components/ui/Button.vue'
 import {ItemCollection} from "@/types/ItemCollection";
 import {Renderer} from "@/services/Renderer";
 
@@ -30,6 +30,23 @@ const playerSpeed: Ref<number> = ref(8);
 const totalFrames: Ref<number> = ref(0);
 const currentFrame: Ref<number> = ref(0);
 
+const state = reactive({ playerState, playerDirection, playerZoom, playerSpeed, totalFrames, currentFrame })
+
+defineExpose({
+  state,
+  zoomMin,
+  zoomMax,
+  play: () => { playerState.value = 'play' },
+  pause: () => { playerState.value = 'pause' },
+  setDirection: (d: string) => { playerDirection.value = d },
+  setFrame: (f: number) => { currentFrame.value = f },
+  setSpeed: (s: number) => { playerSpeed.value = +s },
+  onZoomIn,
+  onZoomOut,
+  onZoom,
+  onCenter,
+})
+
 function getDirectionOffset() {
   const directionOffsets: any = {
     'up': 0,
@@ -54,8 +71,6 @@ function init() {
 
   currentCanvas.value = animation.value;
   totalFrames.value = (animation.value.width / props.collection.getTileSize(props.current));
-
-  //onZoom();
 }
 
 function animate() {
@@ -106,35 +121,21 @@ function drawFrame(currentFrame: number) {
       size,
       size
   );
-
-  if (!base.value) {
-    return;
-  }
 }
 
 function onZoomIn() {
-  playerZoom.value += zoomStep;
-
-  if (playerZoom.value > zoomMax) {
-    playerZoom.value = zoomMax;
-  }
-
+  playerZoom.value = Math.min(playerZoom.value + zoomStep, zoomMax);
   onZoom();
 }
 
 function onZoomOut() {
-  playerZoom.value -= zoomStep;
-
-  if (playerZoom.value < zoomMin) {
-    playerZoom.value = zoomMin;
-  }
-
+  playerZoom.value = Math.max(playerZoom.value - zoomStep, zoomMin);
   onZoom();
 }
 
-function onZoom(factor = null) {
-  if (factor) {
-    playerZoom.value = factor;
+function onZoom(factor: any = null) {
+  if (factor !== null) {
+    playerZoom.value = +factor;
   }
 
   if(!canvas.value) {
@@ -173,32 +174,34 @@ watch(() => props.current, async () => {
 </script>
 
 <template>
-  <div class="w-full h-full flex gap-5 place-content-around">
-    <div class="grow overflow-scroll scrollbar-thin">
-      <div ref="base"
-           class="text-center leading-[0] flex place-content-center">
+  <div class="w-full h-full flex flex-col">
+    <div class="flex-1 overflow-scroll scrollbar-thin min-h-0">
+      <div ref="base" class="text-center leading-[0] flex place-content-center">
         <canvas
             class="h-fit aspect-square shrink-0 grow-0 relative pointer-events-none origin-center bg-cover bg-zinc-700 rounded inline-block"
             style="image-rendering: pixelated;" ref="canvas" width="192" height="192"></canvas>
       </div>
     </div>
 
-    <AnimationControls
-        @zoom-in="onZoomIn"
-        @zoom-out="onZoomOut"
-        @zoom-change="onZoom"
-        @center="onCenter"
-        :direction-up-disabled="props.current == 'hurt'"
-        :direction-left-disabled="props.current == 'hurt'"
-        :direction-right-disabled="props.current == 'hurt'"
-        :total-frames="totalFrames"
-        :min-zoom="zoomMin"
-        :max-zoom="zoomMax"
-        v-model:current-state="playerState"
-        v-model:current-frame="currentFrame"
-        v-model:current-direction="playerDirection"
-        v-model:current-speed="playerSpeed"
-        v-model:current-zoom="playerZoom"
-    />
+    <!-- Mobile-only control strip -->
+    <div class="md:hidden flex items-center justify-center gap-1.5 py-1.5 shrink-0 border-t border-zinc-700">
+      <!-- Play / Pause -->
+      <UIButton v-if="playerState !== 'play'" @click="playerState = 'play'" ui="primary-square" title="Play" icon="play"></UIButton>
+      <UIButton v-else @click="playerState = 'pause'" ui="primary-square" title="Pause" icon="pause"></UIButton>
+
+      <div class="w-px h-5 bg-zinc-600 mx-0.5"></div>
+
+      <!-- Direction buttons -->
+      <UIButton @click="playerDirection = 'left'" :active="playerDirection === 'left'" :disabled="props.current === 'hurt'" ui="primary-square" title="Look Left" icon="arrow-left"></UIButton>
+      <UIButton @click="playerDirection = 'up'" :active="playerDirection === 'up'" :disabled="props.current === 'hurt'" ui="primary-square" title="Look Up" icon="arrow-up"></UIButton>
+      <UIButton @click="playerDirection = 'down'" :active="playerDirection === 'down'" ui="primary-square" title="Look Down" icon="arrow-down"></UIButton>
+      <UIButton @click="playerDirection = 'right'" :active="playerDirection === 'right'" :disabled="props.current === 'hurt'" ui="primary-square" title="Look Right" icon="arrow-right"></UIButton>
+
+      <div class="w-px h-5 bg-zinc-600 mx-0.5"></div>
+
+      <!-- Zoom -->
+      <UIButton @click="onZoomOut" :disabled="playerZoom <= zoomMin" ui="primary-square" title="Zoom Out" icon="magnify-minus-outline"></UIButton>
+      <UIButton @click="onZoomIn" :disabled="playerZoom >= zoomMax" ui="primary-square" title="Zoom In" icon="magnify-plus-outline"></UIButton>
+    </div>
   </div>
 </template>

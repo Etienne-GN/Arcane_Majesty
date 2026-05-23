@@ -21,6 +21,8 @@ export class Item {
     colors: ItemColors
     credits: ItemCredits
     collection:ItemCollection
+    presets: {[key: string]: { name: string, options: {[key: string]: { name: string, color: string }} }} = {}
+    selectedPresets: {[key: string]: string} = {}
 
     constructor(collection:ItemCollection, itemData:any) {
         this.collection = collection
@@ -33,6 +35,13 @@ export class Item {
         this.animations = itemData.poses
         this.colors = new ItemColors(this)
         this.preview = itemData.preview
+        this.presets = itemData.presets || {}
+
+        for (const [key, preset] of Object.entries(this.presets) as any) {
+            if (preset.default) {
+                this.selectedPresets[key] = preset.default
+            }
+        }
 
         Object.entries(itemData.layers).forEach(([layerIndex, layerData]) => {
             this.layers[layerIndex] = new ItemLayer(this, layerIndex, layerData);
@@ -63,11 +72,26 @@ export class Item {
         return Promise.all(Object.values(this.layers).map(layer => layer.colorize()))
     }
 
+    setPreset(key: string, value: string) {
+        this.selectedPresets[key] = value
+        this.resetLoaded()
+    }
+
+    resetLoaded() {
+        for (const layerId in this.layers) {
+            this.layers[layerId].resetLoaded()
+        }
+    }
+
     /**
-     * Get base path for the image
+     * Get base path for the image (includes selected presets as path segments)
      */
     getPath():string {
-        return 'spritesheets/' + this.path
+        let path = 'spritesheets/' + this.path
+        for (const key in this.selectedPresets) {
+            path += '/' + this.selectedPresets[key]
+        }
+        return path
     }
 
     isAllowed():boolean {

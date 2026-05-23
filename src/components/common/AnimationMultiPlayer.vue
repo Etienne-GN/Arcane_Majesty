@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import {ref, watch, onMounted, type Ref} from 'vue'
+import {ref, reactive, watch, onMounted, type Ref} from 'vue'
 
-import AnimationControls from '@/components/common/AnimationControls.vue'
 import {ItemCollection} from "@/types/ItemCollection";
 import {Renderer} from "@/services/Renderer";
 
@@ -47,6 +46,22 @@ const playerSpeed: Ref<number> = ref(8);
 const totalFrames: Ref<number> = ref(0);
 const currentFrame: Ref<number> = ref(0);
 
+const state = reactive({ playerState, playerDirection, playerZoom, playerSpeed, totalFrames, currentFrame })
+
+defineExpose({
+  state,
+  zoomMin,
+  zoomMax,
+  play: () => { playerState.value = 'play' },
+  pause: () => { playerState.value = 'pause' },
+  setFrame: (f: number) => { currentFrame.value = f },
+  setSpeed: (s: number) => { playerSpeed.value = +s },
+  onZoomIn,
+  onZoomOut,
+  onZoom,
+  onCenter,
+})
+
 function getDirectionOffset(direction: string) {
   const directionOffsets: any = {
     'up': 0,
@@ -71,7 +86,6 @@ function init() {
 
   currentCanvas.value = animation.value;
   totalFrames.value = (animation.value.width / props.collection.getTileSize(props.current));
-  //onZoom();
 }
 
 function animate() {
@@ -97,11 +111,9 @@ function runAnimation(timestamp: number) {
 
   if (props.current == 'hurt') {
     const canvasTileSize: number = 192;
-
     for (let dir of ['up', 'left', 'right']) {
       context[dir].clearRect(0, 0, canvasTileSize, canvasTileSize);
     }
-
     drawFrame(currentFrame.value, 'down');
   } else {
     for (let dir of ['up', 'left', 'right', 'down']) {
@@ -137,28 +149,18 @@ function drawFrame(currentFrame: number, direction: string) {
 }
 
 function onZoomIn() {
-  playerZoom.value += zoomStep;
-
-  if (playerZoom.value > zoomMax) {
-    playerZoom.value = zoomMax;
-  }
-
+  playerZoom.value = Math.min(playerZoom.value + zoomStep, zoomMax);
   onZoom();
 }
 
 function onZoomOut() {
-  playerZoom.value -= zoomStep;
-
-  if (playerZoom.value < zoomMin) {
-    playerZoom.value = zoomMin;
-  }
-
+  playerZoom.value = Math.max(playerZoom.value - zoomStep, zoomMin);
   onZoom();
 }
 
-function onZoom(factor = null) {
-  if (factor) {
-    playerZoom.value = factor;
+function onZoom(factor: any = null) {
+  if (factor !== null) {
+    playerZoom.value = +factor;
   }
 
   for (let dir of ['up', 'left', 'right', 'down']) {
@@ -200,54 +202,33 @@ watch(() => props.current, async () => {
 </script>
 
 <template>
-  <div class="w-full h-full flex gap-5 place-content-around">
-    <div class="grid grid-cols-2 gap-5 grow">
-      <div :ref="base.down" @scroll.passive="onScroll( 'down')"
-           class="overflow-scroll scrollbar-thin text-center leading-[0] flex place-content-center">
-        <canvas
-            class="h-fit aspect-square shrink-0 grow-0 relative pointer-events-none origin-center bg-cover bg-zinc-700 rounded inline-block"
-            style="image-rendering: pixelated;" :ref="canvas.down" width="192" height="192"></canvas>
-      </div>
-
-      <div :ref="base.left" @scroll.passive="onScroll( 'left')"
-           class="overflow-scroll scrollbar-thin text-center leading-[0] flex place-content-center">
-        <canvas
-            class="h-fit aspect-square shrink-0 grow-0 relative pointer-events-none origin-center bg-cover bg-zinc-700 rounded inline-block"
-            style="image-rendering: pixelated;" :ref="canvas.left" width="192" height="192"></canvas>
-      </div>
-
-      <div :ref="base.up" @scroll.passive="onScroll( 'up')"
-           class="overflow-scroll scrollbar-thin text-center leading-[0] flex place-content-center">
-        <canvas
-            class="h-fit aspect-square shrink-0 grow-0 relative pointer-events-none origin-center bg-cover bg-zinc-700 rounded inline-block"
-            style="image-rendering: pixelated;" :ref="canvas.up" width="192" height="192"></canvas>
-      </div>
-
-      <div :ref="base.right" @scroll.passive="onScroll('right')"
-           class="overflow-scroll scrollbar-thin text-center leading-[0] flex place-content-center">
-        <canvas
-            class="h-fit aspect-square shrink-0 grow-0 relative pointer-events-none origin-center bg-cover bg-zinc-700 rounded inline-block"
-            style="image-rendering: pixelated;" :ref="canvas.right" width="192" height="192"></canvas>
-      </div>
+  <div class="w-full h-full grid grid-cols-2 grid-rows-2 gap-5">
+    <div :ref="base.down" @scroll.passive="onScroll('down')"
+         class="overflow-scroll scrollbar-thin text-center leading-[0] flex place-content-center">
+      <canvas
+          class="h-fit aspect-square shrink-0 grow-0 relative pointer-events-none origin-center bg-cover bg-zinc-700 rounded inline-block"
+          style="image-rendering: pixelated;" :ref="canvas.down" width="192" height="192"></canvas>
     </div>
 
-    <AnimationControls
-        @zoom-in="onZoomIn"
-        @zoom-out="onZoomOut"
-        @zoom-change="onZoom"
-        @center="onCenter"
-        :direction-up-hidden="true"
-        :direction-left-hidden="true"
-        :direction-right-hidden="true"
-        :direction-down-hidden="true"
-        :total-frames="totalFrames"
-        :min-zoom="zoomMin"
-        :max-zoom="zoomMax"
-        v-model:current-state="playerState"
-        v-model:current-frame="currentFrame"
-        v-model:current-direction="playerDirection"
-        v-model:current-speed="playerSpeed"
-        v-model:current-zoom="playerZoom"
-    />
+    <div :ref="base.left" @scroll.passive="onScroll('left')"
+         class="overflow-scroll scrollbar-thin text-center leading-[0] flex place-content-center">
+      <canvas
+          class="h-fit aspect-square shrink-0 grow-0 relative pointer-events-none origin-center bg-cover bg-zinc-700 rounded inline-block"
+          style="image-rendering: pixelated;" :ref="canvas.left" width="192" height="192"></canvas>
+    </div>
+
+    <div :ref="base.up" @scroll.passive="onScroll('up')"
+         class="overflow-scroll scrollbar-thin text-center leading-[0] flex place-content-center">
+      <canvas
+          class="h-fit aspect-square shrink-0 grow-0 relative pointer-events-none origin-center bg-cover bg-zinc-700 rounded inline-block"
+          style="image-rendering: pixelated;" :ref="canvas.up" width="192" height="192"></canvas>
+    </div>
+
+    <div :ref="base.right" @scroll.passive="onScroll('right')"
+         class="overflow-scroll scrollbar-thin text-center leading-[0] flex place-content-center">
+      <canvas
+          class="h-fit aspect-square shrink-0 grow-0 relative pointer-events-none origin-center bg-cover bg-zinc-700 rounded inline-block"
+          style="image-rendering: pixelated;" :ref="canvas.right" width="192" height="192"></canvas>
+    </div>
   </div>
 </template>

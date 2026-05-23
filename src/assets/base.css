@@ -5,3 +5,36 @@
 :root {
   /*font-size: 11px;*/
 }
+
+.range-slider {
+  width: 100%;
+  appearance: none;
+  background: transparent;
+}
+.range-slider::-webkit-slider-runnable-track {
+  height: 7px;
+  border-radius: 9999px;
+  background-color: rgb(39 39 42);
+}
+.range-slider::-webkit-slider-thumb {
+  appearance: none;
+  height: 1em;
+  width: 1em;
+  border-radius: 9999px;
+  background-color: rgb(245 158 11);
+  border: 0;
+  margin-top: -3px;
+}
+.range-slider::-moz-range-track {
+  height: 7px;
+  border-radius: 9999px;
+  background-color: rgb(39 39 42);
+}
+.range-slider::-moz-range-thumb {
+  appearance: none;
+  height: 1em;
+  width: 1em;
+  border-radius: 9999px;
+  background-color: rgb(245 158 11);
+  border: 0;
+}

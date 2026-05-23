@@ -3,6 +3,8 @@ import {type Ref, ref, watch, onUnmounted, nextTick} from 'vue';
 
 import {Item} from "@/types/Item";
 
+defineOptions({ inheritAttrs: false })
+
 const props = defineProps<{
   type: string,
   options: any,
@@ -105,7 +107,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="dropdownLabel" :id="'select-' + type.replace('.', '-')" class="relative inline-block cursor-pointer bg-zinc-700 text-zinc-300 w-full overflow-visible" :class="{'rounded-bl': position == 'top' && isDropdownOpen && !isMobile, 'rounded-tl': position == 'bottom' && isDropdownOpen && !isMobile, 'rounded-l': !isDropdownOpen || isMobile}">
+  <div v-bind="$attrs" ref="dropdownLabel" :id="'select-' + type.replace('.', '-')" class="relative inline-block cursor-pointer bg-zinc-700 text-zinc-300 w-full overflow-visible" :class="{'rounded-bl': position == 'top' && isDropdownOpen && !isMobile, 'rounded-tl': position == 'bottom' && isDropdownOpen && !isMobile, 'rounded-l': !isDropdownOpen || isMobile}">
     <div @click="toggleDropdown" class="p-1.5 flex">
       <div class="grow select-none">
         {{(selected && selected.id) ? selected.name : 'Select...'}}

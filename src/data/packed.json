@@ -1567,7 +1567,7 @@
         "urls": [
           "https://opengameart.org/content/lpc-dcss-swords"
         ],
-        "preview": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAB5ElEQVR4nO3Zv0tWURgH8K/R0hC8Km3SDwIbcmwMcWhvEZoKggZ3aamlPdzdipoEF4k2iXpx9C8QIl97NzHdHG+D3LfMV30tTO/x85nO5ZzhPM/3XO6BmwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJxn1Vlv4F9dOusNNNnW+vOkgENAf1WOCXduZvjYNTRT1V0cr44LuLs43vgD4BNwiCv3Hv7+2Dfosem1JBn6T1s6FQ7AQVWS7K4uJUnmZoYz1UqmWn3XNjr8JLl81hs4R6pk72K3u7qUheXN3sTnnSQFhN1PkUWdUJUkb96/S2ejm2d33u4L/9GDaxmbXiu2T8UWNoBe8EnS2ej2Jq5+f50kmZ3fTndxPAvLm5md304K7FdxBQ2gSpL2SjtJ8unLSpLkxvWxJHsH4dXLF/Xaofy6/BXZqyKLOsSRwSfJ08dP6uGF6ctFKFTwRyi54H3Bf/22ns5GV/B/KLHwKkl+7GwlSZY+fEyS3L51s7dg8v5kPSyx/hMpqQGC/wulNKKqg0/2whf8YEpoSNVeaWdi4u6BiZHWaD0soc5T0fR/Afve/NpIa7QOfyjCP1LTm3PYr9im1wUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAZfgIZuoGhshcKhAAAAABJRU5ErkJggg=="
+        "preview": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAB7ElEQVR4nO3YMWsUQRgG4PfExi6XkO5MFCG/wDJEkXQS0gS0UbS7P2Bvo939A0HQKpDGPkUIlpaxMCBGuS5EAhaWa5HbS9TViCYeu/s8zd3ObDHfzHsze5sAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACcppj0AOrswqQH8I+Kg71Hkx4DE1QM+t3TdoAidonGKoYbC79b3GLQ75b3CEGFuh8Bnd7ablX7dwt+6frqfxtQ3Vyc9ADOQOfHhptTR58rd7tJkq9vXpVdRdX9bVb3HaDS1mE6W4fH1+ub+xluLGT0wOg4OKHRv4bhxkKxvrk/vr6zPJtn7x5kfq6Xh/ful82NnoPTNLX4YtDv5s7ybHpruxn0j46CL5eP/zLOz/WSpPVBaHLR5TbfKb8/fvJ0vPAfPw2TJLduLCZJlhaXcuL+1mhVsRkF4fnLF+OGtgehFUVWEISRRhf3ByqDMD/Xy7WrV5I0PwiNLOovFEmy/Xp73PD+w16SZHXldpJkemqm7GrUnDWqmDPQuiA0oohzUBmEMgTJOAi1n7/aF3DOiiT5fHjwU8fOztvy+aDWc9jIV8FnqJOkMz01c3LrHxsFo9avlWud3gn41WKbRwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKp8AwD9dvPStwVSAAAAAElFTkSuQmCC"
       },
       "katana": {
         "id": "equipment.swords.katana",
@@ -1669,6 +1669,93 @@
           "https://opengameart.org/content/lpc-extended-weapon-animations"
         ],
         "preview": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAwklEQVR4nO3TMQoCMRCF4afYrV06IUFBK2HBE2xvKSysjWwvNh5AK3vBQ3kPRa08w1gtwh5g0vxfHXiTN4kEAAAAAAAAAAAAAI5iSJYjd5gjtC+GZPVynKWE7AXk2nwnWwExJIshWd20mhcfSVKOVzDyDJP+G6+bVpJUlRNV5U3Xy0Gr6cJ7HN8Cuo1L0mY9kyRtd2dJ0rzwnCSDGJId9yczM3u979Z9gf4Z77kGXkH9yz2/D7dsAAAAAAAAAAAAAPgBEYYp1oCY+ZEAAAAASUVORK5CYII="
+      },
+      "arming": {
+        "id": "equipment.swords.arming",
+        "name": "Arming Sword",
+        "path": "equipment/swords/arming",
+        "layers": {
+          "fg": {
+            "z": 150,
+            "conditions": {
+              "anatomy.body.male": "fg",
+              "anatomy.body.muscular": "fg",
+              "anatomy.body.female": "fg",
+              "anatomy.body.teen": "fg",
+              "anatomy.body.pregnant": "fg"
+            }
+          },
+          "bg": {
+            "z": 0,
+            "conditions": {
+              "anatomy.body.male": "bg",
+              "anatomy.body.muscular": "bg",
+              "anatomy.body.female": "bg",
+              "anatomy.body.teen": "bg",
+              "anatomy.body.pregnant": "bg"
+            }
+          }
+        },
+        "poses": [
+          "walk",
+          "idle",
+          "hurt",
+          "slash",
+          "thrust",
+          "backslash"
+        ],
+        "sizes": {
+          "slash": "lg",
+          "thrust": "lg",
+          "backslash": "lg"
+        },
+        "presets": {
+          "color": {
+            "name": "Color",
+            "default": "steel",
+            "options": {
+              "brass": {
+                "name": "Brass",
+                "color": "#B5A642"
+              },
+              "bronze": {
+                "name": "Bronze",
+                "color": "#CD7F32"
+              },
+              "ceramic": {
+                "name": "Ceramic",
+                "color": "#C8A882"
+              },
+              "copper": {
+                "name": "Copper",
+                "color": "#B87333"
+              },
+              "gold": {
+                "name": "Gold",
+                "color": "#FFD700"
+              },
+              "iron": {
+                "name": "Iron",
+                "color": "#6E6E6E"
+              },
+              "silver": {
+                "name": "Silver",
+                "color": "#C0C0C0"
+              },
+              "steel": {
+                "name": "Steel",
+                "color": "#8C8C8C"
+              }
+            }
+          }
+        },
+        "materials": {},
+        "colors": {},
+        "notes": [],
+        "authors": [],
+        "licenses": [],
+        "urls": [],
+        "preview": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABDklEQVR4nO3WsUoDQRRG4RPwSWyEJZYKCgp2qWPAKmAlBLs8wKaRtFZiYWlpsLYTFEkRu6yDNumCj7FWs23SzO6C5yunufe/3JldkCRJkiRJkiRJ0v/QabqBaHydlwAhFAC8vD7X0ttOHUW2EUJBlnU5PdmPRyWkH0RrNgCgd9YvAbKsW52FUCQdQisGEINfjq9YLea8vS9Zfv9w0T8H0g6h0SsQ7/1h7xiA1WLO3cMMgPXvVyeEvTJ1D41swKbgdfZSa7E2BY9qKTrNJyXA7sER0I7gUdI3IAYfjgZ8fK6rBw6aDx4la2KaT8rhaADA4/2sCl7XD862km7A7c0TkP5bLkmSJEmSJEmSJGmjP/RVbZe6oXM7AAAAAElFTkSuQmCC"
       },
       "scimitar": {
         "id": "equipment.swords.scimitar",

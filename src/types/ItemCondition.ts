@@ -18,6 +18,12 @@ export class ItemCondition {
         return this.layer.getPath() + '/' + this.path;
     }
 
+    resetLoaded() {
+        for (const anim in this.animations) {
+            this.animations[anim].resetLoaded()
+        }
+    }
+
     async load() {
         return Promise.all(
             Object.values(this.animations)

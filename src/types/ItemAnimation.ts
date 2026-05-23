@@ -27,6 +27,16 @@ export class ItemAnimation {
         }
     }
 
+    resetLoaded() {
+        this.loaded = false
+        this.canvas = null
+        this.context = null
+        this.originalCanvas = null
+        this.originalContext = null
+        this.colorized = false
+        this.image = null
+    }
+
     /**
      * Load the sprite sheet and create canvases
      */

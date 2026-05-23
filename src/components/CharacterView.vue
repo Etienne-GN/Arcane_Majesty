@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {type Ref, ref} from "vue";
+import {type Ref, ref, computed} from "vue";
 
 import SideBar from "@/components/ui/SideBar.vue";
 import ShortBar from "@/components/ui/ShortBar.vue";
@@ -86,6 +86,14 @@ async function onRefresh() {
 const currentPose = ref('walk')
 const mobilePanel = ref<'left'|'right'>('left')
 
+const singlePlayer = ref()
+const multiPlayer = ref()
+const activePlayer = computed(() => {
+  if (centerTab.value === 'preview') return singlePlayer.value
+  if (centerTab.value === 'preview-multiple') return multiPlayer.value
+  return null
+})
+
 function setMobileLeftTab(tab: string) {
   leftTab.value = tab
   mobilePanel.value = 'left'
@@ -140,10 +148,51 @@ function setMobileRightTab(tab: string) {
         <animation-player :current="currentPose" :collection="collection" :renderer="renderer" class="md:hidden"></animation-player>
         <!-- Desktop: view depends on centerTab -->
         <sprite-canvas ref="spriteCanvas" :current="currentPose" :renderer="renderer" class="hidden md:block" :class="{'!hidden': centerTab != 'sprites'}"></sprite-canvas>
-        <animation-multi-player :current="currentPose" :collection="collection" :renderer="renderer" class="hidden md:block" :class="{'!hidden': centerTab != 'preview-multiple'}"></animation-multi-player>
-        <animation-player :current="currentPose" :collection="collection" :renderer="renderer" class="hidden md:block" :class="{'!hidden': centerTab != 'preview'}"></animation-player>
+        <animation-multi-player ref="multiPlayer" :current="currentPose" :collection="collection" :renderer="renderer" class="hidden md:grid" :class="{'!hidden': centerTab != 'preview-multiple'}"></animation-multi-player>
+        <animation-player ref="singlePlayer" :current="currentPose" :collection="collection" :renderer="renderer" class="hidden md:block" :class="{'!hidden': centerTab != 'preview'}"></animation-player>
       </div>
-      <div class="hidden md:flex gap-2 justify-center h-10 max-h-10 grow-0 shrink-0">
+      <!-- Desktop bottom bar: playback controls + view toggles -->
+      <div class="hidden md:flex items-center gap-2 px-3 py-1.5 shrink-0 border-t border-zinc-700 overflow-x-auto scrollbar-thin">
+        <template v-if="centerTab !== 'sprites' && activePlayer">
+          <!-- Play / Pause -->
+          <ui-button v-if="activePlayer.state.playerState !== 'play'" @click="activePlayer.play()" ui="primary-square" title="Play" icon="play"></ui-button>
+          <ui-button v-else @click="activePlayer.pause()" ui="primary-square" title="Pause" icon="pause"></ui-button>
+
+          <!-- Direction buttons: single-player only -->
+          <template v-if="centerTab === 'preview'">
+            <div class="w-px h-5 bg-zinc-600 mx-0.5 shrink-0"></div>
+            <ui-button @click="singlePlayer.setDirection('left')" :active="singlePlayer.state.playerDirection === 'left'" :disabled="currentPose === 'hurt'" ui="primary-square" title="Look Left" icon="arrow-left"></ui-button>
+            <ui-button @click="singlePlayer.setDirection('up')" :active="singlePlayer.state.playerDirection === 'up'" :disabled="currentPose === 'hurt'" ui="primary-square" title="Look Up" icon="arrow-up"></ui-button>
+            <ui-button @click="singlePlayer.setDirection('down')" :active="singlePlayer.state.playerDirection === 'down'" ui="primary-square" title="Look Down" icon="arrow-down"></ui-button>
+            <ui-button @click="singlePlayer.setDirection('right')" :active="singlePlayer.state.playerDirection === 'right'" :disabled="currentPose === 'hurt'" ui="primary-square" title="Look Right" icon="arrow-right"></ui-button>
+          </template>
+
+          <div class="w-px h-5 bg-zinc-600 mx-0.5 shrink-0"></div>
+
+          <!-- Zoom -->
+          <label class="flex items-center gap-1.5 text-xs text-zinc-400 shrink-0">
+            <span>Zoom</span>
+            <input class="range-slider w-20" type="range" :min="activePlayer.zoomMin" :max="activePlayer.zoomMax" :value="activePlayer.state.playerZoom" @input="activePlayer.onZoom(+($event.target as HTMLInputElement).value)">
+          </label>
+
+          <!-- Speed -->
+          <label class="flex items-center gap-1.5 text-xs text-zinc-400 shrink-0">
+            <span>Speed</span>
+            <input class="range-slider w-20" type="range" min="1" max="24" :value="activePlayer.state.playerSpeed" @input="activePlayer.setSpeed(+($event.target as HTMLInputElement).value)">
+          </label>
+
+          <!-- Frame -->
+          <label class="flex items-center gap-1.5 text-xs text-zinc-400 shrink-0">
+            <span>Frame</span>
+            <input class="range-slider w-20" type="range" min="0" :max="Math.max(0, activePlayer.state.totalFrames - 1)" :value="activePlayer.state.currentFrame" @input="activePlayer.setFrame(+($event.target as HTMLInputElement).value)">
+          </label>
+
+          <ui-button @click="activePlayer.onCenter()" ui="primary-square" title="Center" icon="image-filter-center-focus"></ui-button>
+        </template>
+
+        <div class="flex-1"></div>
+
+        <!-- View toggles -->
         <ui-button @click="centerTab = 'preview-multiple'" :active="centerTab == 'preview-multiple'" ui="primary-square" title="Preview Multiple" icon="filmstrip-box-multiple"></ui-button>
         <ui-button @click="centerTab = 'preview'" :active="centerTab == 'preview'" ui="primary-square" title="Preview" icon="filmstrip-box"></ui-button>
         <ui-button @click="centerTab = 'sprites'" :active="centerTab == 'sprites'" ui="primary-square" title="Sprites" icon="grid"></ui-button>

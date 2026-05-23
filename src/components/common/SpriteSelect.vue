@@ -48,6 +48,17 @@ function hasNoColors() {
   return !selected.value || !selected.value.id || Object.keys(selected.value.materials).length == 0;
 }
 
+function hasPresets() {
+  return selected.value?.id && Object.keys(selected.value.presets ?? {}).length > 0
+}
+
+async function onPresetSelected(presetKey: string, optionValue: string) {
+  if (!selected.value?.id) return
+  selected.value.setPreset(presetKey, optionValue)
+  await props.collection.select(selected.value)
+  emit('selected', selected)
+}
+
 function hasOptions() {
   return Object.keys(getOptions()).length > 0;
 }
@@ -85,6 +96,21 @@ watch(() => props.refresh, () => {
           <div class="h-full rounded align-center" :style="{ backgroundColor: getColor(key)}"></div>
         </button>
       </template>
+    </div>
+
+    <!-- Preset swatches (pre-rendered color variants) -->
+    <div v-if="hasPresets()" class="flex flex-wrap gap-x-3 gap-y-1 mt-1 mb-1">
+      <div v-for="(preset, presetKey) in selected.presets" :key="presetKey" class="flex items-center gap-1 flex-wrap">
+        <span class="text-xs text-zinc-500">{{ preset.name }}:</span>
+        <button
+          v-for="(option, optionKey) in preset.options" :key="optionKey"
+          @click="onPresetSelected(presetKey as string, optionKey as string)"
+          :title="option.name"
+          class="w-5 h-5 rounded border-2 transition-colors"
+          :class="selected.selectedPresets[presetKey] === optionKey ? 'border-amber-500' : 'border-zinc-600 hover:border-zinc-400'"
+          :style="{ backgroundColor: option.color }"
+        ></button>
+      </div>
     </div>
 
     <div v-if="false" class="flex my-2">

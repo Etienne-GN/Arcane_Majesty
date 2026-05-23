@@ -55,6 +55,16 @@ export class ItemLayer {
         return this.item.getPath()
     }
 
+    resetLoaded() {
+        if (this.conditions) {
+            this.conditions.forEach(c => c.resetLoaded())
+        } else {
+            for (const anim in this.animations) {
+                this.animations[anim].resetLoaded()
+            }
+        }
+    }
+
     async load() {
         if(this.conditions) {
             return Promise.all(this.conditions.map(condition => condition.load()));
