@@ -35,7 +35,7 @@ The Great Darkness was a **Threshold Event** caused by the shift in planar balan
 - **The Result:** Anya's sacrifice sealed the awakened Nyktoros, buying the universe time to restore the balance.
 
 ## 6. The Transference & The Harvest
-- **The Insurance:** Fearing the loss of his original divine light to the Thirst, Acheron siphoned his **Aurorian Spark** and bound it to his most loyal human servant (the ancestor of **Kael**).
+- **The Insurance:** Fearing the loss of his original divine light to the Thirst, Acheron siphoned his **Aurorian Spark** and bound it to his most loyal human servant (the ancestor of **Kael**). Kael is the unwilling heir of that vessel — a human bloodline carrying divine light it was never meant to hold.
 - **The Cosmic Harvest:** Acheron’s true goal is to use Kael (the battery of his light) to reach the sealed Nyktoros, break the lock, and siphon the Void’s awakened power into himself to achieve transcendent godhood.
 
 ---

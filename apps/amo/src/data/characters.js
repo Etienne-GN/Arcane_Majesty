@@ -1,0 +1,48 @@
+// Each character entry maps to a loaded spritesheet + anim profile.
+// animPrefix is the key prefix used for animation names (e.g. "eldrin" → "eldrin_walk_down").
+export const CHARACTERS = [
+    {
+        id:          'eldrin',
+        name:        'Eldrin',
+        class:       'Blind Prophet',
+        description: 'Activated by Vorgos in the Epoch of Silence to secure the Heart Stone of Creation — a cure for a wound the world has not yet suffered.',
+        animPrefix:  'eldrin',
+        animProfile: 'lpc_eldrin',
+        spriteKey:   'eldrin_walk',
+        idleFrame:   26,
+        tint:        null,
+    },
+    {
+        id:          'kael',
+        name:        'Kael',
+        class:       'Living Lock',
+        description: "Descendant of Acheron's most loyal servant — his bloodline was chosen to carry the Aurorian Spark so the Thirst could never fully consume Acheron's divine light.",
+        animPrefix:  'kael',
+        animProfile: 'lpc_kael',
+        spriteKey:   'kael_idle',
+        idleFrame:   2,
+        tint:        null,
+    },
+    {
+        id:          'anya',
+        name:        'Anya',
+        class:       'Void Echo',
+        description: 'Torn from Auroria by Vorgos at the moment of the Great Darkness and cast into the Underworld — her sacrifice sealed Nyktoros and made her the Silent Guardian of the prison.',
+        animPrefix:  'anya',
+        animProfile: 'lpc_anya',
+        spriteKey:   'anya_idle',
+        idleFrame:   2,
+        tint:        null,
+    },
+    {
+        id:          'seraphina',
+        name:        'Seraphina',
+        class:       'Queen of Carnage',
+        description: 'A rebel who stood against Malakar during the Shadow Civil War. In the Age of Shadows she founds the Shadow Legion and becomes its ruthless queen.',
+        animPrefix:  'seraphina',
+        animProfile: 'lpc_seraphina',
+        spriteKey:   'seraphina_idle',
+        idleFrame:   2,
+        tint:        null,
+    },
+];
