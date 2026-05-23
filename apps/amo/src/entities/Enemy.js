@@ -106,13 +106,19 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     update(player, delta) {
         if (this.state === STATE.DEAD || !this.active) return;
 
-        // Follower mode: skip AI entirely, just lerp toward authority position
+        // Networked mode: server drives position; client still handles local combat
         if (this.isNetworked) {
             if (this._netTargetX !== null) {
                 this.x = Phaser.Math.Linear(this.x, this._netTargetX, 0.20);
                 this.y = Phaser.Math.Linear(this.y, this._netTargetY, 0.20);
             }
             this._drawHealthBar();
+            if (!this.passive) {
+                this.attackCooldown = Math.max(0, this.attackCooldown - delta);
+                statusManager.tick(this, delta);
+                const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
+                if (dist <= this.attackRange) this._doAttack(player);
+            }
             return;
         }
 
