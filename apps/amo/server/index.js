@@ -187,8 +187,12 @@ io.on('connection', (socket) => {
         socket.to(resolvedMap).emit('player:joined', state);
 
         // Send current enemy positions to the joining player
-        const alive = (mapEnemies.get(resolvedMap) ?? []).filter(e => !e.dead);
+        const allEnemies = mapEnemies.get(resolvedMap) ?? [];
+        const alive = allEnemies.filter(e => !e.dead);
         if (alive.length) socket.emit('enemy:sync', alive.map(e => e.toState()));
+
+        // Kill enemies that already died so the client doesn't show frozen corpses
+        allEnemies.filter(e => e.dead).forEach(e => socket.emit('enemy:died', { id: e.id }));
 
         console.log(`  join  ${state.name} → ${resolvedMap} (${others.length} others)`);
     });
