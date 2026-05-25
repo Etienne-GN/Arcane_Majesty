@@ -75,7 +75,8 @@ export default class UIScene extends Phaser.Scene {
             font: '14px monospace', fill: '#556677'
         });
 
-        this._isMobile = isMobile;
+        this._isMobile  = isMobile;
+        this._hudScale  = isMobile ? 0.72 : 1.0;
         this._initVirtualJoystick(w, h);
         this._initTouchHUD(w, h);
         this._initMenuTray(w, h);
@@ -150,9 +151,10 @@ export default class UIScene extends Phaser.Scene {
     // ── Virtual Joystick ──────────────────────────────────────────────────────
 
     _initVirtualJoystick(w, h) {
-        const R_BASE = 88;
-        const R_KNOB = 36;
-        const PAD    = 24;
+        const sc     = this._hudScale;
+        const R_BASE = Math.round(88 * sc);
+        const R_KNOB = Math.round(36 * sc);
+        const PAD    = Math.round(24 * sc);
         const cx = PAD + R_BASE;
         const cy = h - PAD - R_BASE;
 
@@ -171,26 +173,23 @@ export default class UIScene extends Phaser.Scene {
         const zoneSize = (R_BASE + 40) * 2;
         const zone = this.add.rectangle(
             cx - R_BASE - 40, cy - R_BASE - 40, zoneSize, zoneSize, 0, 0
-        ).setOrigin(0).setDepth(16);
+        ).setOrigin(0).setInteractive().setDepth(16);
 
-        if (this._isMobile) {
-            zone.setInteractive();
-            zone.on('pointerdown', (ptr) => {
-                this._joyActive = true;
-                this._joyUpdate(ptr.x, ptr.y);
-            });
-            this.input.on('pointermove', (ptr) => {
-                if (this._joyActive) this._joyUpdate(ptr.x, ptr.y);
-            });
-            this.input.on('pointerup', () => {
-                if (!this._joyActive) return;
-                this._joyActive  = false;
-                this._joyVec.x   = 0;
-                this._joyVec.y   = 0;
-                this._joyKnobX   = this._joyCx;
-                this._joyKnobY   = this._joyCy;
-            });
-        }
+        zone.on('pointerdown', (ptr) => {
+            this._joyActive = true;
+            this._joyUpdate(ptr.x, ptr.y);
+        });
+        this.input.on('pointermove', (ptr) => {
+            if (this._joyActive) this._joyUpdate(ptr.x, ptr.y);
+        });
+        this.input.on('pointerup', () => {
+            if (!this._joyActive) return;
+            this._joyActive  = false;
+            this._joyVec.x   = 0;
+            this._joyVec.y   = 0;
+            this._joyKnobX   = this._joyCx;
+            this._joyKnobY   = this._joyCy;
+        });
     }
 
     _joyUpdate(px, py) {
@@ -208,7 +207,7 @@ export default class UIScene extends Phaser.Scene {
     }
 
     _drawJoystick() {
-        if (!this._isMobile || localStorage.getItem('show_joystick') === '0') {
+        if (localStorage.getItem('show_joystick') === '0') {
             this._joyBaseG.clear();
             this._joyKnobG.clear();
             return;
@@ -246,9 +245,10 @@ export default class UIScene extends Phaser.Scene {
     }
 
     _initTouchHUD(w, h) {
-        const R_ATK = 68;
-        const R_SK  = 36;
-        const R_ARM = 172;
+        const sc    = this._hudScale;
+        const R_ATK = Math.round(68 * sc);
+        const R_SK  = Math.round(36 * sc);
+        const R_ARM = Math.round(172 * sc);
 
         const atkX = w - 16 - R_ATK;
         const atkY = h - 16 - R_ATK;
@@ -257,15 +257,12 @@ export default class UIScene extends Phaser.Scene {
         this._atkG    = this.add.graphics().setDepth(19);
 
         const atkHit = this.add.rectangle(atkX - R_ATK, atkY - R_ATK, R_ATK * 2, R_ATK * 2, 0, 0)
-            .setOrigin(0).setDepth(24);
-        if (this._isMobile) {
-            atkHit.setInteractive();
-            atkHit.on('pointerdown', () => {
-                if (this.scene.isPaused('GameScene')) return;
-                this.scene.get('GameScene')?._tryMainAction();
-                this._flashButton(atkX, atkY, R_ATK, 0xee8833);
-            });
-        }
+            .setOrigin(0).setInteractive().setDepth(24);
+        atkHit.on('pointerdown', () => {
+            if (this.scene.isPaused('GameScene')) return;
+            this.scene.get('GameScene')?._tryMainAction();
+            this._flashButton(atkX, atkY, R_ATK, 0xee8833);
+        });
 
         const ANGLES_DEG = [175, 145, 115, 85];
 
@@ -280,9 +277,9 @@ export default class UIScene extends Phaser.Scene {
 
             this.add.text(sx - R_SK + 4, sy - R_SK + 4, SLOT_KEYS[i], {
                 font: '12px monospace', fill: '#22224a'
-            }).setDepth(22).setVisible(this._isMobile);
+            }).setDepth(22);
 
-            const nameLabel = this.add.text(sx, sy + 2, '', {
+            const nameLabel = this.add.text(sx, sy + 2, '—', {
                 font: 'bold 18px monospace', fill: '#2a2a50', align: 'center'
             }).setOrigin(0.5).setDepth(22);
 
@@ -291,28 +288,18 @@ export default class UIScene extends Phaser.Scene {
             }).setOrigin(0.5, 1).setDepth(22);
 
             const hit = this.add.rectangle(sx - R_SK, sy - R_SK, R_SK * 2, R_SK * 2, 0, 0)
-                .setOrigin(0).setDepth(24);
-            if (this._isMobile) {
-                hit.setInteractive();
-                hit.on('pointerdown', () => {
-                    if (this.scene.isPaused('GameScene')) return;
-                    this.scene.get('GameScene')?._tryActivateSlot(i);
-                    this._flashButton(sx, sy, R_SK, 0xffffff);
-                });
-            }
+                .setOrigin(0).setInteractive().setDepth(24);
+            hit.on('pointerdown', () => {
+                if (this.scene.isPaused('GameScene')) return;
+                this.scene.get('GameScene')?._tryActivateSlot(i);
+                this._flashButton(sx, sy, R_SK, 0xffffff);
+            });
 
             this._slotData.push({ slotG, cdG, nameLabel, costLabel, sx, sy });
         }
     }
 
     _updateTouchHUD() {
-        if (!this._isMobile) {
-            this._atkG.clear();
-            for (const { slotG, cdG, nameLabel, costLabel } of this._slotData) {
-                slotG.clear(); cdG.clear(); nameLabel.setText(''); costLabel.setText('');
-            }
-            return;
-        }
         const alpha = this._hudAlpha();
         const { atkX, atkY, R_ATK, R_SK, R_ARM } = this._atkData;
         const g = this._atkG;
@@ -492,11 +479,12 @@ export default class UIScene extends Phaser.Scene {
             { key: 'CraftingScene',     label: 'FORGE' },
         ];
 
+        const sc     = this._hudScale;
         const N      = SCREENS.length;
-        const BTN_R  = 26;
-        const TRAY_H = 192;
+        const BTN_R  = Math.round(26 * sc);
+        const TRAY_H = Math.round(192 * sc);
 
-        const BTN_GAP  = 12;
+        const BTN_GAP  = Math.round(12 * sc);
         const SLOT_W   = BTN_R * 2 + BTN_GAP;
         const groupW   = N * BTN_R * 2 + (N - 1) * BTN_GAP;
         const startX   = w / 2 - groupW / 2 + BTN_R;
@@ -550,15 +538,11 @@ export default class UIScene extends Phaser.Scene {
         this._trayTabCy = h - 14;
 
         const tabHit = this.add.rectangle(w / 2 - TAB_W / 2, h - TAB_H, TAB_W, TAB_H, 0, 0)
-            .setOrigin(0).setDepth(32);
-        if (this._isMobile) {
-            tabHit.setInteractive();
-            tabHit.on('pointerdown', () => this._toggleTray());
-        }
+            .setOrigin(0).setInteractive().setDepth(32);
+        tabHit.on('pointerdown', () => this._toggleTray());
     }
 
     _drawTrayTab() {
-        if (!this._isMobile) { this._trayTabG.clear(); return; }
         const alpha = this._hudAlpha();
         const { _trayTabCx: cx, _trayTabCy: cy, _trayOpen: open } = this;
         const g = this._trayTabG;
