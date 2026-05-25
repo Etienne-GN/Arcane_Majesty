@@ -13,10 +13,6 @@ const ELEMENT_COLORS = {
 };
 const SLOT_KEYS = ['Q', 'R', 'F', 'T'];
 
-// Fixed minimap viewport — tiles are scaled to fill regardless of map dimensions
-const MM_W = 200;
-const MM_H = 180;
-
 export default class UIScene extends Phaser.Scene {
     constructor() { super('UIScene'); }
 
@@ -25,6 +21,13 @@ export default class UIScene extends Phaser.Scene {
         const w = this.scale.width;
         const h = this.scale.height;
         this._vw = w; this._vh = h;
+
+        // Platform flags — set first so all layout below can reference them
+        this._isMobile = isMobile;
+        this._hudScale = isMobile ? 0.72 : 1.0;
+        this._mmW = Math.round(200 * this._hudScale);
+        this._mmH = Math.round(180 * this._hudScale);
+
         const pad = 16;
         const barW = 176, barH = 16;
 
@@ -66,7 +69,7 @@ export default class UIScene extends Phaser.Scene {
         this.xpBar = this.add.rectangle(0, h - 10, 0,  10, 0xaa44ff).setOrigin(0, 0);
 
         // Level (top right — left of minimap)
-        this.lvlText = this.add.text(w - MM_W - pad - 8, pad, '', {
+        this.lvlText = this.add.text(w - this._mmW - pad - 8, pad, '', {
             font: 'bold 20px monospace', fill: '#ffd700'
         }).setOrigin(1, 0);
 
@@ -75,8 +78,6 @@ export default class UIScene extends Phaser.Scene {
             font: '14px monospace', fill: '#556677'
         });
 
-        this._isMobile  = isMobile;
-        this._hudScale  = isMobile ? 0.72 : 1.0;
         this._initVirtualJoystick(w, h);
         this._initTouchHUD(w, h);
         this._initMenuTray(w, h);
@@ -91,12 +92,12 @@ export default class UIScene extends Phaser.Scene {
         });
 
         // Gold display (top right, below minimap)
-        this.goldText = this.add.text(w - pad, MM_H + pad + 12, '', {
+        this.goldText = this.add.text(w - pad, this._mmH + pad + 12, '', {
             font: '18px monospace', fill: '#ffcc44'
         }).setOrigin(1, 0);
 
         // Resonance Insight counter
-        this.insightText = this.add.text(w - pad, MM_H + pad + 38, '', {
+        this.insightText = this.add.text(w - pad, this._mmH + pad + 38, '', {
             font: '16px monospace', fill: '#cc99ff'
         }).setOrigin(1, 0);
 
@@ -115,15 +116,15 @@ export default class UIScene extends Phaser.Scene {
         }).setOrigin(0.5, 0).setAlpha(0).setDepth(50);
 
         // ---- Minimap ----
-        const mmX = w - MM_W - pad;
+        const mmX = w - this._mmW - pad;
         const mmY = pad;
 
-        this.mmStatic = this.add.renderTexture(mmX, mmY, MM_W, MM_H).setDepth(40).setOrigin(0);
+        this.mmStatic = this.add.renderTexture(mmX, mmY, this._mmW, this._mmH).setDepth(40).setOrigin(0);
         this._currentMapId = null; // forces draw on first _updateMinimap tick
 
         const mmBdr = this.add.graphics().setDepth(42);
         mmBdr.lineStyle(2, 0x4444aa);
-        mmBdr.strokeRect(mmX - 2, mmY - 2, MM_W + 4, MM_H + 4);
+        mmBdr.strokeRect(mmX - 2, mmY - 2, this._mmW + 4, this._mmH + 4);
 
         this.mmDynamic = this.add.graphics().setDepth(41);
         this._mmX = mmX;
@@ -133,8 +134,8 @@ export default class UIScene extends Phaser.Scene {
     _drawMinimapStatic(tiles) {
         const rows = tiles.length;
         const cols = tiles[0].length;
-        const tw = MM_W / cols;   // tile width in minimap pixels
-        const th = MM_H / rows;   // tile height in minimap pixels
+        const tw = this._mmW / cols;   // tile width in minimap pixels
+        const th = this._mmH / rows;   // tile height in minimap pixels
         const g = this.make.graphics({ x: 0, y: 0, add: false });
         this.mmStatic.clear();
         tiles.forEach((row, r) => {
@@ -460,8 +461,8 @@ export default class UIScene extends Phaser.Scene {
 
         const g = this.mmDynamic;
         g.clear();
-        const px = this._mmX + (game.player.x / worldW) * MM_W;
-        const py = this._mmY + (game.player.y / worldH) * MM_H;
+        const px = this._mmX + (game.player.x / worldW) * this._mmW;
+        const py = this._mmY + (game.player.y / worldH) * this._mmH;
         g.fillStyle(0xffffff);
         g.fillRect(px - 2, py - 2, 4, 4);
     }
