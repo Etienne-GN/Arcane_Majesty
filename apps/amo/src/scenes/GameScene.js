@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { isMobile } from '../utils/platform.js';
 import Player from '../entities/Player.js';
 import Enemy from '../entities/Enemy.js';
 import BossEnemy from '../entities/BossEnemy.js';
@@ -294,7 +295,7 @@ export default class GameScene extends Phaser.Scene {
 
         // Camera
         this.cameras.main.setBounds(0, 0, mapW, mapH);
-        this.cameras.main.setZoom(3);
+        this.cameras.main.setZoom(isMobile ? 2 : 3);
         this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
 
         // Controls
