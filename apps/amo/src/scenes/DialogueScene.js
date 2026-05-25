@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { GamepadNav } from '../systems/GamepadNav.js';
 
 export default class DialogueScene extends Phaser.Scene {
     constructor() {
@@ -51,7 +52,14 @@ export default class DialogueScene extends Phaser.Scene {
         this.input.keyboard.on('keydown-E',     () => this._advance());
         this.input.on('pointerdown',            () => this._advance());
 
+        this._gpNav = new GamepadNav(this);
         this._showLine();
+    }
+
+    update(time, delta) {
+        const gp = this._gpNav.poll(delta);
+        if (!gp) return;
+        if (gp.A) this._advance();
     }
 
     _showLine() {

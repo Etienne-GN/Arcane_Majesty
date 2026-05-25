@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
+import { GamepadNav } from '../systems/GamepadNav.js';
 import { ITEMS, SATCHEL_TIERS } from '../data/items.js';
 import { DIALOGUES } from '../data/dialogues.js';
 
@@ -74,6 +75,7 @@ export default class InventoryScene extends Phaser.Scene {
         this.input.keyboard.on('keydown-ESC', () => this._close());
         this.input.keyboard.on('keydown-I',   () => this._close());
         this.add.text(w - 12, 8, '✕', { font: 'bold 28px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
+        this._gpNav = new GamepadNav(this);
     }
 
     _drawEquipPanel(x, y, panelW) {
@@ -230,6 +232,12 @@ export default class InventoryScene extends Phaser.Scene {
             if (item && playerStats.equipItem(item.id)) this.scene.restart();
             else this.cameras.main.shake(80, 0.007);
         });
+    }
+
+    update(time, delta) {
+        const gp = this._gpNav.poll(delta);
+        if (!gp) return;
+        if (gp.B || gp.start) this._close();
     }
 
     _close() {

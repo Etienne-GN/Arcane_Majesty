@@ -19,6 +19,14 @@ export const PROLOGUE_FOREST = {
             targetX: 10 * 32 + 16,
             targetY: 10 * 32 + 16,
         },
+        {
+            id: 'to_eldrin_tower',
+            x: 1, y: 1,
+            label: "Eldrin's Tower",
+            targetMap: 'eldrin_tower',
+            targetX: 24 * 32 + 16,
+            targetY: 42 * 32 + 16,
+        },
     ],
     spawns: {
         enemies:        ENEMY_SPAWNS,

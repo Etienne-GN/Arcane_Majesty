@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { soundManager } from '../systems/SoundManager.js';
+import { GamepadNav } from '../systems/GamepadNav.js';
 
 const DEBUG_KEY = 'am1_debug';
 
@@ -32,7 +33,14 @@ export default class OptionsScene extends Phaser.Scene {
         }).setOrigin(0.5, 1);
 
         this.input.keyboard.on('keydown-ESC', () => this._back());
+        this._gpNav = new GamepadNav(this);
         this.cameras.main.fadeIn(200);
+    }
+
+    update(time, delta) {
+        const gp = this._gpNav.poll(delta);
+        if (!gp) return;
+        if (gp.B) this._back();
     }
 
     _buildRows(w, h) {

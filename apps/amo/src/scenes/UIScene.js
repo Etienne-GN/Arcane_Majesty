@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
-import { PROLOGUE_MAP, TILE_SIZE } from '../data/worldMap.js';
+import { TILE_SIZE } from '../data/worldMap.js';
+import { getMap } from '../data/maps/index.js';
 import { SPELLS } from '../data/spells.js';
 import { statusManager } from '../systems/StatusManager.js';
 import { STATUS_DEFS } from '../data/statuses.js';
@@ -11,11 +12,9 @@ const ELEMENT_COLORS = {
 };
 const SLOT_KEYS = ['Q', 'R', 'F', 'T'];
 
-const MAP_ROWS = PROLOGUE_MAP.length;
-const MAP_COLS = PROLOGUE_MAP[0].length;
-const MM_SCALE = 4;   // 4px per tile (doubled from original — no camera zoom needed)
-const MM_W = MAP_COLS * MM_SCALE;
-const MM_H = MAP_ROWS * MM_SCALE;
+// Fixed minimap viewport — tiles are scaled to fill regardless of map dimensions
+const MM_W = 200;
+const MM_H = 180;
 
 export default class UIScene extends Phaser.Scene {
     constructor() { super('UIScene'); }
@@ -117,7 +116,7 @@ export default class UIScene extends Phaser.Scene {
         const mmY = pad;
 
         this.mmStatic = this.add.renderTexture(mmX, mmY, MM_W, MM_H).setDepth(40).setOrigin(0);
-        this._drawMinimapStatic();
+        this._currentMapId = null; // forces draw on first _updateMinimap tick
 
         const mmBdr = this.add.graphics().setDepth(42);
         mmBdr.lineStyle(2, 0x4444aa);
@@ -128,13 +127,18 @@ export default class UIScene extends Phaser.Scene {
         this._mmY = mmY;
     }
 
-    _drawMinimapStatic() {
+    _drawMinimapStatic(tiles) {
+        const rows = tiles.length;
+        const cols = tiles[0].length;
+        const tw = MM_W / cols;   // tile width in minimap pixels
+        const th = MM_H / rows;   // tile height in minimap pixels
         const g = this.make.graphics({ x: 0, y: 0, add: false });
-        PROLOGUE_MAP.forEach((row, r) => {
+        this.mmStatic.clear();
+        tiles.forEach((row, r) => {
             row.forEach((tile, c) => {
                 const color = tile === 1 ? 0x0d2010 : tile === 2 ? 0x5a4a2a : 0x1e3a14;
                 g.fillStyle(color);
-                g.fillRect(c * MM_SCALE, r * MM_SCALE, MM_SCALE, MM_SCALE);
+                g.fillRect(c * tw, r * th, tw, th);
             });
         });
         this.mmStatic.draw(g);
@@ -438,18 +442,21 @@ export default class UIScene extends Phaser.Scene {
         const game = this.scene.get('GameScene');
         if (!game || !game.player?.active) return;
 
+        // Redraw static layer whenever the player travels to a new map
+        const mapId = game._mapId ?? 'prologue_forest';
+        if (mapId !== this._currentMapId) {
+            this._currentMapId = mapId;
+            this._drawMinimapStatic(getMap(mapId).tiles);
+        }
+
+        const tiles  = getMap(mapId).tiles;
+        const worldW = tiles[0].length * TILE_SIZE;
+        const worldH = tiles.length    * TILE_SIZE;
+
         const g = this.mmDynamic;
         g.clear();
-
-        const worldW = MAP_COLS * TILE_SIZE;
-        const worldH = MAP_ROWS * TILE_SIZE;
-
-        const toMM = (wx, wy) => ({
-            x: this._mmX + (wx / worldW) * MM_W,
-            y: this._mmY + (wy / worldH) * MM_H
-        });
-
-        const { x: px, y: py } = toMM(game.player.x, game.player.y);
+        const px = this._mmX + (game.player.x / worldW) * MM_W;
+        const py = this._mmY + (game.player.y / worldH) * MM_H;
         g.fillStyle(0xffffff);
         g.fillRect(px - 2, py - 2, 4, 4);
     }

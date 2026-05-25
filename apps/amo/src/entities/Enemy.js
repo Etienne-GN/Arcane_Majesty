@@ -41,6 +41,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.lootTable   = typeDef.lootTable    ?? [];
         this.goldDrop    = typeDef.goldDrop     ?? Phaser.Math.Between(1, 4);
         this.passive      = typeDef.passive      ?? false;
+        this.faceVelocity = typeDef.faceVelocity ?? false;
         this.grazes       = typeDef.grazes       ?? false;
         this.fleeRadius   = typeDef.fleeRadius  ?? 80;
         this.stationary   = typeDef.stationary  ?? false;
@@ -64,6 +65,8 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.attackCooldown = 0;
         this.ATTACK_COOLDOWN = 1100;
         this.stunTimer = 0;
+        this._fleeTimer = 0;
+        this._restTimer = 0;
 
         buildEntityAnims(scene.anims, spriteKey, typeDef.animProfile ?? 'rpgmaker_32');
         this.play(`${spriteKey}_idle`);
@@ -150,13 +153,18 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 
         if (this.passive) {
             if (dist <= this.fleeRadius) {
-                if (this.prevState !== STATE.FLEE) this._showAlert('!', '#ffcc44');
+                // Show ! only on a fresh startle (not while already scared)
+                if (this._fleeTimer <= 0) this._showAlert('!', '#ffcc44');
+                this._fleeTimer = 3000;
                 this.state = STATE.FLEE;
-            } else if (this.state === STATE.FLEE) {
+            } else if (this._fleeTimer > 0) {
+                this._fleeTimer = Math.max(0, this._fleeTimer - delta);
+                this.state = STATE.FLEE;  // stay scared until timer expires
+            } else {
                 this.state = STATE.PATROL;
             }
             switch (this.state) {
-                case STATE.PATROL: this._patrol(delta, speedMult); break;
+                case STATE.PATROL: this._patrol(delta, speedMult * 0.5); break;  // calm wander at half speed
                 case STATE.FLEE:   this._flee(player, speedMult);  break;
             }
         } else if (this.stationary) {
@@ -209,17 +217,36 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
             const idleKey  = `${this.spriteKey}_idle`;
             const target = (this.grazes && this.scene.anims.exists(grazeKey)) ? grazeKey : idleKey;
             if (this.anims.currentAnim?.key !== target) this.play(target, true);
-        } else if (Math.abs(vx) > Math.abs(vy)) {
-            this._playAnim(vx > 0 ? 'right' : 'left');
         } else {
-            this._playAnim(vy > 0 ? 'down' : 'up');
+            const dir = Math.abs(vx) > Math.abs(vy)
+                ? (vx > 0 ? 'right' : 'left')
+                : (vy > 0 ? 'down' : 'up');
+            if (this.faceVelocity) {
+                // Birds: update facing every frame — no stale-facing guard
+                if (dir !== this.facing) {
+                    this.facing = dir;
+                    this.play(`${this.spriteKey}_walk_${dir}`, true);
+                } else if (!this.anims.isPlaying) {
+                    this.play(`${this.spriteKey}_walk_${dir}`, true);
+                }
+            } else {
+                this._playAnim(dir);
+            }
         }
     }
 
     _patrol(delta, speedMult = 1) {
+        if (this._restTimer > 0) {
+            this._restTimer -= delta;
+            this.setVelocity(0);
+            return; // standing still — idle/graze animation plays automatically
+        }
+
         this.patrolTimer -= delta;
         const dist = Phaser.Math.Distance.Between(this.x, this.y, this.patrolTarget.x, this.patrolTarget.y);
         if (dist < 8 || this.patrolTimer <= 0) {
+            if (this.passive && Math.random() < 0.4)
+                this._restTimer = Phaser.Math.Between(1500, 4500); // 1.5–4.5 s idle
             this.patrolTimer = Phaser.Math.Between(1500, 3500);
             const angle = Math.random() * Math.PI * 2;
             const r = Math.random() * this.patrolRadius;

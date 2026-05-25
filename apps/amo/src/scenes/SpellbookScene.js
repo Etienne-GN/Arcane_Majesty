@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
+import { GamepadNav } from '../systems/GamepadNav.js';
 import { SPELLS, TIER_NAMES, RESONANCE_ELEMENTS } from '../data/spells.js';
 
 const ELEMENT_COLORS = {
@@ -104,6 +105,7 @@ export default class SpellbookScene extends Phaser.Scene {
         this.add.text(w - 12, 8, '✕', { font: 'bold 28px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
         this.input.keyboard.on('keydown-UP',   () => this._scrollBy(-1));
         this.input.keyboard.on('keydown-DOWN', () => this._scrollBy(1));
+        this._gpNav = new GamepadNav(this);
         this.input.on('wheel', (ptr, objs, dx, dy) => this._scrollBy(dy > 0 ? 1 : -1));
 
         let _touchY = null, _touchAcc = 0;
@@ -267,6 +269,14 @@ export default class SpellbookScene extends Phaser.Scene {
                 }
             }
         }
+    }
+
+    update(time, delta) {
+        const gp = this._gpNav.poll(delta);
+        if (!gp) return;
+        if (gp.up)              this._scrollBy(-1);
+        if (gp.down)            this._scrollBy(1);
+        if (gp.B || gp.start)  this._close();
     }
 
     _drawScrollBar() {

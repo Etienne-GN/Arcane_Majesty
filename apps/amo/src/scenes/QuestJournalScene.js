@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { QUESTS } from '../data/quests.js';
 import { playerStats } from '../systems/PlayerStats.js';
+import { GamepadNav } from '../systems/GamepadNav.js';
 
 export default class QuestJournalScene extends Phaser.Scene {
     constructor() { super('QuestJournalScene'); }
@@ -36,6 +37,7 @@ export default class QuestJournalScene extends Phaser.Scene {
         this.input.keyboard.on('keydown-UP',   () => this._navigate(-1));
         this.input.keyboard.on('keydown-DOWN', () => this._navigate(1));
         this.input.keyboard.on('keydown-A',    () => this._toggleTab());
+        this._gpNav = new GamepadNav(this);
 
         let _touchY = null, _touchAcc = 0;
         this.input.on('pointerdown', ptr => { _touchY = ptr.y; _touchAcc = 0; });
@@ -53,6 +55,15 @@ export default class QuestJournalScene extends Phaser.Scene {
         this._hintText = this.add.text(w / 2, h - 16, '[N]/[ESC] Close   [↑↓] Navigate   [A] Archive', {
             font: '14px monospace', fill: '#334455'
         }).setOrigin(0.5, 1);
+    }
+
+    update(time, delta) {
+        const gp = this._gpNav.poll(delta);
+        if (!gp) return;
+        if (gp.up)              this._navigate(-1);
+        if (gp.down)            this._navigate(1);
+        if (gp.LB || gp.RB)    this._toggleTab();
+        if (gp.B || gp.start)  this._close();
     }
 
     _toggleTab() {

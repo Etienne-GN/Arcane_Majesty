@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { SaveManager } from '../systems/SaveManager.js';
 import { playerStats } from '../systems/PlayerStats.js';
 import { soundManager } from '../systems/SoundManager.js';
+import { GamepadNav } from '../systems/GamepadNav.js';
 
 export default class OfflineMenuScene extends Phaser.Scene {
     constructor() { super('OfflineMenuScene'); }
@@ -36,6 +37,10 @@ export default class OfflineMenuScene extends Phaser.Scene {
             },
         ];
 
+        this._offItems   = items;
+        this._offPanels  = [];
+        this._offCursor  = 0;
+
         const rowW = Math.min(w * 0.60, 380);
         items.forEach((item, i) => {
             const rowY = h / 2 - 30 + i * 80;
@@ -56,8 +61,8 @@ export default class OfflineMenuScene extends Phaser.Scene {
             if (item.enabled) {
                 panel.setInteractive();
                 panel.on('pointerover', () => {
-                    panel.setFillStyle(0x111133, 0.92);
-                    panel.setStrokeStyle(1, 0x4466cc);
+                    this._offCursor = i;
+                    this._offHighlight();
                     soundManager.menuHover();
                 });
                 panel.on('pointerout',  () => {
@@ -66,6 +71,7 @@ export default class OfflineMenuScene extends Phaser.Scene {
                 });
                 panel.on('pointerdown', item.action);
             }
+            this._offPanels.push(panel);
         });
 
         this.add.text(32, h - 32, '< Back', {
@@ -76,8 +82,41 @@ export default class OfflineMenuScene extends Phaser.Scene {
           .on('pointerdown', () => { soundManager.menuSelect(); this.scene.start('MenuScene'); });
 
         this.input.keyboard.on('keydown-ESCAPE', () => this.scene.start('MenuScene'));
+        this.input.keyboard.on('keydown-ENTER',  () => this._offConfirm());
+        this.input.keyboard.on('keydown-UP',     () => this._offMove(-1));
+        this.input.keyboard.on('keydown-DOWN',   () => this._offMove(1));
 
+        this._gpNav = new GamepadNav(this);
         this.cameras.main.fadeIn(400);
+    }
+
+    update(time, delta) {
+        const gp = this._gpNav.poll(delta);
+        if (!gp) return;
+        if (gp.up)   this._offMove(-1);
+        if (gp.down) this._offMove(1);
+        if (gp.A)    this._offConfirm();
+        if (gp.B)    { soundManager.menuSelect(); this.scene.start('MenuScene'); }
+    }
+
+    _offMove(dir) {
+        const enabled = this._offItems.map((it, i) => it.enabled ? i : -1).filter(i => i >= 0);
+        const cur = enabled.indexOf(this._offCursor);
+        const next = enabled[(cur + dir + enabled.length) % enabled.length];
+        if (next !== undefined) { this._offCursor = next; this._offHighlight(); soundManager.menuHover(); }
+    }
+
+    _offConfirm() {
+        const item = this._offItems[this._offCursor];
+        if (item?.enabled) item.action();
+    }
+
+    _offHighlight() {
+        this._offPanels.forEach((p, i) => {
+            const sel = i === this._offCursor && this._offItems[i].enabled;
+            p.setFillStyle(sel ? 0x111133 : 0x0a0a1a, 0.92);
+            p.setStrokeStyle(1, sel ? 0x4466cc : (this._offItems[i].enabled ? 0x222244 : 0x111122));
+        });
     }
 
     _newGame() {

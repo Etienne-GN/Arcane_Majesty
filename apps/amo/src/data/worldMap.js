@@ -5,8 +5,8 @@
 export const TILE_SIZE = 32;
 
 export const PROLOGUE_MAP = [
-    // Row 0 — North border
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    // Row 0 — North border; gap at cols 1-2 → portal to Eldrin's Tower
+    [1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     // Row 1 — Open
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     // Row 2 — Sparse trees; wisp territory begins east
@@ -581,15 +581,15 @@ export const ENEMY_TYPES = {
         lootTable: [{ id: 'deer_meat', chance: 0.50 }, { id: 'bone_fragment', chance: 0.60 }]
     },
     // ── Birds — ambient, passive, scatter across all zones ───────────────────
-    bird_bluejay:  { spriteKey: 'spr_bird_bluejay',  animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 150, xpReward: 0, goldDrop: 0, patrolRadius: 80, passive: true, fleeRadius: 90, lootTable: [] },
-    bird_sparrow:  { spriteKey: 'spr_bird_sparrow',  animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 140, xpReward: 0, goldDrop: 0, patrolRadius: 72, passive: true, fleeRadius: 85, lootTable: [] },
-    bird_robin:    { spriteKey: 'spr_bird_robin',    animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 140, xpReward: 0, goldDrop: 0, patrolRadius: 72, passive: true, fleeRadius: 85, lootTable: [] },
-    bird_cardinal: { spriteKey: 'spr_bird_cardinal', animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 145, xpReward: 0, goldDrop: 0, patrolRadius: 80, passive: true, fleeRadius: 90, lootTable: [] },
-    bird_eagle:    { spriteKey: 'spr_bird_eagle',    animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 18, h: 12, ox: 7, oy: 16 }, health: 18, damage: 8, speed: 130, sightRange: 160, attackRange: 28, xpReward: 12, patrolRadius: 120, lootTable: [{ id: 'deer_hide', chance: 0.25 }] },
-    bird_brown:    { spriteKey: 'spr_bird_brown',    animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 140, xpReward: 0, goldDrop: 0, patrolRadius: 72, passive: true, fleeRadius: 85, lootTable: [] },
-    bird_black:    { spriteKey: 'spr_bird_black',    animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 138, xpReward: 0, goldDrop: 0, patrolRadius: 72, passive: true, fleeRadius: 85, lootTable: [] },
-    bird_blue:     { spriteKey: 'spr_bird_blue',     animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 142, xpReward: 0, goldDrop: 0, patrolRadius: 76, passive: true, fleeRadius: 88, lootTable: [] },
-    bird_white:    { spriteKey: 'spr_bird_white',    animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 140, xpReward: 0, goldDrop: 0, patrolRadius: 72, passive: true, fleeRadius: 85, lootTable: [] },
+    bird_bluejay:  { spriteKey: 'spr_bird_bluejay',  animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 150, xpReward: 0, goldDrop: 0, patrolRadius: 80, passive: true, fleeRadius: 90, faceVelocity: true, lootTable: [] },
+    bird_sparrow:  { spriteKey: 'spr_bird_sparrow',  animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 140, xpReward: 0, goldDrop: 0, patrolRadius: 72, passive: true, fleeRadius: 85, faceVelocity: true, lootTable: [] },
+    bird_robin:    { spriteKey: 'spr_bird_robin',    animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 140, xpReward: 0, goldDrop: 0, patrolRadius: 72, passive: true, fleeRadius: 85, faceVelocity: true, lootTable: [] },
+    bird_cardinal: { spriteKey: 'spr_bird_cardinal', animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 145, xpReward: 0, goldDrop: 0, patrolRadius: 80, passive: true, fleeRadius: 90, faceVelocity: true, lootTable: [] },
+    bird_eagle:    { spriteKey: 'spr_bird_eagle',    animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 18, h: 12, ox: 7, oy: 16 }, health: 18, damage: 8, speed: 130, sightRange: 160, attackRange: 28, xpReward: 12, patrolRadius: 120, faceVelocity: true, lootTable: [{ id: 'deer_hide', chance: 0.25 }] },
+    bird_brown:    { spriteKey: 'spr_bird_brown',    animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 140, xpReward: 0, goldDrop: 0, patrolRadius: 72, passive: true, fleeRadius: 85, faceVelocity: true, lootTable: [] },
+    bird_black:    { spriteKey: 'spr_bird_black',    animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 138, xpReward: 0, goldDrop: 0, patrolRadius: 72, passive: true, fleeRadius: 85, faceVelocity: true, lootTable: [] },
+    bird_blue:     { spriteKey: 'spr_bird_blue',     animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 142, xpReward: 0, goldDrop: 0, patrolRadius: 76, passive: true, fleeRadius: 88, faceVelocity: true, lootTable: [] },
+    bird_white:    { spriteKey: 'spr_bird_white',    animProfile: 'lpc_bird', tint: null, bodyConfig: { w: 14, h: 10, ox: 9, oy: 18 }, health: 4, damage: 0, speed: 140, xpReward: 0, goldDrop: 0, patrolRadius: 72, passive: true, fleeRadius: 85, faceVelocity: true, lootTable: [] },
 
     // ── Regional wildlife — Swamp ─────────────────────────────────────────────
     heron: {

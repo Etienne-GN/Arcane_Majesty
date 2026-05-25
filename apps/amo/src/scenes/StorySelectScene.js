@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { SaveManager } from '../systems/SaveManager.js';
 import { playerStats } from '../systems/PlayerStats.js';
 import { soundManager } from '../systems/SoundManager.js';
+import { GamepadNav } from '../systems/GamepadNav.js';
 
 const STORIES = [
     {
@@ -91,7 +92,16 @@ export default class StorySelectScene extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-ESCAPE', () => this.scene.start('OfflineMenuScene'));
 
+        this._availableStories = STORIES.filter(s => s.available);
+        this._gpNav = new GamepadNav(this);
         this.cameras.main.fadeIn(400);
+    }
+
+    update(time, delta) {
+        const gp = this._gpNav.poll(delta);
+        if (!gp) return;
+        if (gp.A && this._availableStories.length) this._startStory(this._availableStories[0]);
+        if (gp.B) { soundManager.menuSelect(); this.scene.start('OfflineMenuScene'); }
     }
 
     _startStory(story) {

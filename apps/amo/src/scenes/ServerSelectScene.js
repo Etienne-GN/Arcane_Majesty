@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { SERVERS } from '../data/servers.js';
 import { soundManager } from '../systems/SoundManager.js';
+import { GamepadNav } from '../systems/GamepadNav.js';
 
 export default class ServerSelectScene extends Phaser.Scene {
     constructor() { super('ServerSelectScene'); }
@@ -48,9 +49,19 @@ export default class ServerSelectScene extends Phaser.Scene {
         this.input.keyboard.on('keydown-ENTER',  () => this._connect());
         this.input.keyboard.on('keydown-ESCAPE', () => this.scene.start('MenuScene'));
 
+        this._gpNav = new GamepadNav(this);
         this._highlight();
         this._pingAll();
         this.cameras.main.fadeIn(400);
+    }
+
+    update(time, delta) {
+        const gp = this._gpNav.poll(delta);
+        if (!gp) return;
+        if (gp.up)   this._move(-1);
+        if (gp.down) this._move(1);
+        if (gp.A)    this._connect();
+        if (gp.B)    { soundManager.menuSelect(); this.scene.start('MenuScene'); }
     }
 
     _makeRow(srv, i, w, h, rowW) {

@@ -37,9 +37,11 @@ class ServerEnemy {
         this.fleeRadius    = def.fleeRadius   ?? 90;
         this.stationary    = def.stationary   ?? false;
 
-        this._ptx     = x;
-        this._pty     = y;
-        this._ptTimer = 0;
+        this._ptx       = x;
+        this._pty       = y;
+        this._ptTimer   = 0;
+        this._fleeTimer = 0;
+        this._restTimer = 0;
     }
 
     update(dt, playersInMap) {
@@ -49,13 +51,24 @@ class ServerEnemy {
 
         if (this.passive) {
             if (player && dist < this.fleeRadius) {
+                this._fleeTimer = 3000;
                 const dx = this.x - player.x, dy = this.y - player.y;
                 const len = Math.sqrt(dx * dx + dy * dy) || 1;
                 this.x += (dx / len) * this.speed * dt;
                 this.y += (dy / len) * this.speed * dt;
                 this._face(dx, dy);
+            } else if (this._fleeTimer > 0) {
+                this._fleeTimer -= dt * 1000;
+                // Keep drifting away at half speed while still scared
+                if (player) {
+                    const dx = this.x - player.x, dy = this.y - player.y;
+                    const len = Math.sqrt(dx * dx + dy * dy) || 1;
+                    this.x += (dx / len) * this.speed * 0.5 * dt;
+                    this.y += (dy / len) * this.speed * 0.5 * dt;
+                    this._face(dx, dy);
+                }
             } else {
-                this._patrol(dt);
+                this._patrol(dt, 0.5);  // calm wander at half patrol speed
             }
             return;
         }
@@ -72,12 +85,19 @@ class ServerEnemy {
         // within attackRange → stand still (client combatManager handles damage)
     }
 
-    _patrol(dt) {
+    _patrol(dt, speedMult = 1) {
+        if (this._restTimer > 0) {
+            this._restTimer -= dt * 1000;
+            return; // standing still — look around
+        }
+
         this._ptTimer -= dt * 1000;
         const dx = this._ptx - this.x, dy = this._pty - this.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < 4 || this._ptTimer <= 0) {
+            if (this.passive && Math.random() < 0.4)
+                this._restTimer = 1500 + Math.random() * 3000; // 1.5–4.5 s idle
             const angle = Math.random() * Math.PI * 2;
             const r     = Math.random() * this.patrolRadius;
             this._ptx     = this.spawnX + Math.cos(angle) * r;
@@ -85,8 +105,8 @@ class ServerEnemy {
             this._ptTimer = 2000 + Math.random() * 3000;
         } else {
             const len = dist || 1;
-            this.x += (dx / len) * this.speed * 0.4 * dt;
-            this.y += (dy / len) * this.speed * 0.4 * dt;
+            this.x += (dx / len) * this.speed * 0.4 * speedMult * dt;
+            this.y += (dy / len) * this.speed * 0.4 * speedMult * dt;
             this._face(dx, dy);
         }
     }

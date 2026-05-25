@@ -129,6 +129,8 @@ export default class BootScene extends Phaser.Scene {
 
         // Tileset — base chip for world (256×4256, 32×32 per tile, 8 cols × 133 rows)
         this.load.image('tileset_base',  'assets/tilesets/SampleMap/[Base]BaseChip_pipo.png');
+        // LPC Atlas tilesets — 1024×1024, 32×32 grid (32 cols × 32 rows)
+        this.load.image('terrain_atlas', 'assets/tilesets/lpc/terrain_atlas.png');
         this.load.image('tileset_grass', 'assets/tilesets/SampleMap/[A]Grass_pipo.png');
         // LPC tree visuals — trunk (192×96, 2×1 @ 96×96) and treetop (192×224, 2×2 @ 96×112)
         this.load.spritesheet('lpc_trunk',    'assets/tilesets/lpc/trunk.png',   { frameWidth: 96, frameHeight: 96  });

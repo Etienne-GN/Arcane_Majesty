@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { playerStats, MASTERY_DEFS } from '../systems/PlayerStats.js';
+import { GamepadNav } from '../systems/GamepadNav.js';
 
 export default class SkillTreeScene extends Phaser.Scene {
     constructor() { super('SkillTreeScene'); }
@@ -119,6 +120,13 @@ export default class SkillTreeScene extends Phaser.Scene {
         this.input.keyboard.on('keydown-K',    () => this._close());
         this.add.text(w - 12, 8, '✕', { font: 'bold 28px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
         this.input.keyboard.on('keydown-J',    () => { this.scene.stop(); this.scene.launch('SpellbookScene'); });
+        this._gpNav = new GamepadNav(this);
+    }
+
+    update(time, delta) {
+        const gp = this._gpNav.poll(delta);
+        if (!gp) return;
+        if (gp.B || gp.start) this._close();
     }
 
     _updateArrows(maxScroll) {

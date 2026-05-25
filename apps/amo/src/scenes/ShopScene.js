@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { ITEMS, MERCHANT_CATALOG } from '../data/items.js';
+import { GamepadNav } from '../systems/GamepadNav.js';
 
 // Session-persistent buyback list (cleared on page reload, not on shop re-open)
 let _buyback = [];
@@ -120,6 +121,13 @@ export default class ShopScene extends Phaser.Scene {
         }).setOrigin(0.5, 1);
 
         this.input.keyboard.on('keydown-ESC', () => this._close());
+        this._gpNav = new GamepadNav(this);
+    }
+
+    update(time, delta) {
+        const gp = this._gpNav.poll(delta);
+        if (!gp) return;
+        if (gp.B || gp.start) this._close();
     }
 
     _drawBuyPanel() {

@@ -1968,14 +1968,25 @@ export default class GameScene extends Phaser.Scene {
     }
 
     _buildWorld(mapW, mapH) {
-        // Floor layer — real Pipoya BaseChip tileset via Phaser Tilemap
-        // Data tile IDs: 0=empty, 1=BaseChip[0] grass, 5=BaseChip[4] path stone
+        // Floor layer — tileset is per-map (falls back to default Pipoya chip)
+        const tsDef      = this._mapDef.tileset;
+        const tsKey      = tsDef?.key         ?? 'tileset_base';
+        const floorFrame = tsDef?.floorFrame  ?? 1;
+        const pathFrame  = tsDef?.pathFrame   ?? 5;
+        const decorFrames = tsDef?.decorFrames ?? null;
+        const decorRate   = tsDef?.decorRate   ?? 0;
+
         const tiles = this._mapDef.tiles;
         const floorData = tiles.map(row =>
-            row.map(tile => tile === 2 ? 5 : 1)
+            row.map(tile => {
+                if (tile === 2) return pathFrame;
+                if (decorFrames && Math.random() < decorRate)
+                    return decorFrames[Math.floor(Math.random() * decorFrames.length)];
+                return floorFrame;
+            })
         );
         const tilemap = this.make.tilemap({ data: floorData, tileWidth: TILE_SIZE, tileHeight: TILE_SIZE });
-        const tileset = tilemap.addTilesetImage('tileset_base', 'tileset_base');
+        const tileset = tilemap.addTilesetImage(tsKey, tsKey);
         tilemap.createLayer(0, tileset, 0, 0).setDepth(0);
 
         // Tree/wall sprites — invisible physics body + LPC trunk + treetop visuals

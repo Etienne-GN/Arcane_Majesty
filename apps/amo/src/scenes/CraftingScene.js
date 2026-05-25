@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
+import { GamepadNav } from '../systems/GamepadNav.js';
 import { ITEMS } from '../data/items.js';
 import { CRAFTING_RECIPES, CATEGORY_LABELS, TIER_COLORS } from '../data/craftingRecipes.js';
 import { soundManager } from '../systems/SoundManager.js';
@@ -69,6 +70,7 @@ export default class CraftingScene extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-ESC', () => this._close());
         this.add.text(w - 12, 8, '✕', { font: 'bold 28px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
+        this._gpNav = new GamepadNav(this);
 
         this.input.on('wheel', (_p, _o, _dx, dy) => { this._scrollList(Math.sign(dy) * 44); });
         this.input.keyboard.on('keydown-UP',   () => this._scrollList(-48));
@@ -297,6 +299,12 @@ export default class CraftingScene extends Phaser.Scene {
 
     _canCraft(recipe) {
         return recipe.ingredients.every(ing => this._countItem(ing.id) >= ing.qty);
+    }
+
+    update(time, delta) {
+        const gp = this._gpNav.poll(delta);
+        if (!gp) return;
+        if (gp.B || gp.start) this._close();
     }
 
     _close() {

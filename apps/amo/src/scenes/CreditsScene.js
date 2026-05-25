@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { soundManager } from '../systems/SoundManager.js';
+import { GamepadNav } from '../systems/GamepadNav.js';
 
 export default class CreditsScene extends Phaser.Scene {
     constructor() { super('CreditsScene'); }
@@ -64,7 +65,14 @@ export default class CreditsScene extends Phaser.Scene {
         backBtn.on('pointerdown', () => this._back());
 
         this.input.keyboard.on('keydown-ESC', () => this._back());
+        this._gpNav = new GamepadNav(this);
         this.cameras.main.fadeIn(300);
+    }
+
+    update(time, delta) {
+        const gp = this._gpNav.poll(delta);
+        if (!gp) return;
+        if (gp.B || gp.A) this._back();
     }
 
     _section(x, y, text, fill = '#cc99ff') {

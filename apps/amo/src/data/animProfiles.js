@@ -281,19 +281,19 @@ export const ANIM_PROFILES = {
     },
 
     // LPC birds — all bird sheets (96×256, 3 cols × 8 rows, 32×32)
-    // Rows 0-3: fly cycle (up/left/right/down), 3 frames each
-    // Rows 4-7: perched idle (up/left/right/down), 3 frames each
+    // Rows 0-3: fly cycle (left/up/down/right), 3 frames each
+    // Rows 4-7: perched idle (left/up/down/right), single frame per row
     lpc_bird: {
         frameWidth:  32,
         frameHeight: 32,
         walk: {
-            up:    [0,  1,  2],
-            left:  [3,  4,  5],
-            right: [6,  7,  8],
-            down:  [9,  10, 11],
+            left:  [0,  1,  2],
+            up:    [3,  4,  5],
+            down:  [6,  7,  8],
+            right: [9,  10, 11],
         },
-        idle:   { up: 12, left: 15, right: 18, down: 21 },
-        attack: { up: [0], left: [3], right: [6], down: [9] },
+        idle:   { left: 12, up: 15, down: 18, right: 21 },
+        attack: { left: [0], up: [3], down: [6], right: [9] },
         frameRate: { walk: 8, idle: 1, attack: 8 },
     },
 
