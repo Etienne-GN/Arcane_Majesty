@@ -295,7 +295,7 @@ export default class GameScene extends Phaser.Scene {
 
         // Camera
         this.cameras.main.setBounds(0, 0, mapW, mapH);
-        this.cameras.main.setZoom(isMobile ? 2 : 3);
+        this.cameras.main.setZoom(isMobile ? 1.5 : 3);
         this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
 
         // Controls
