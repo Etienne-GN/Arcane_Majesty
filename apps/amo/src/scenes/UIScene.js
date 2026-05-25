@@ -87,9 +87,7 @@ export default class UIScene extends Phaser.Scene {
         const pauseBtn = this.add.text(w / 2, 10, '☰', {
             font: 'bold 18px monospace', fill: '#445566', stroke: '#000000', strokeThickness: 2
         }).setOrigin(0.5, 0).setInteractive().setDepth(50);
-        pauseBtn.on('pointerdown', () => {
-            this.scene.get('GameScene')?.scene.start('MenuScene');
-        });
+        pauseBtn.on('pointerdown', () => this._goToMenu());
 
         // Gold display (top right, below minimap)
         this.goldText = this.add.text(w - pad, this._mmH + pad + 12, '', {
@@ -565,6 +563,11 @@ export default class UIScene extends Phaser.Scene {
         this.tweens.add({ targets: this._trayCont, y: this._trayClosedY, duration: 140, ease: 'Cubic.easeIn' });
     }
 
+    _goToMenu() {
+        this.scene.stop('GameScene');
+        this.scene.start('MenuScene');
+    }
+
     // ── Gamepad ───────────────────────────────────────────────────────────────
 
     _initGamepad() {
@@ -611,7 +614,7 @@ export default class UIScene extends Phaser.Scene {
                 }
             });
             if (just(4)) this._toggleTray();
-            if (just(9)) gs.scene.start('MenuScene');
+            if (just(9)) this._goToMenu();
         }
 
         const next = {};
