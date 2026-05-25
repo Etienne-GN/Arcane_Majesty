@@ -101,14 +101,6 @@ export default class UIScene extends Phaser.Scene {
             font: '16px monospace', fill: '#cc99ff'
         }).setOrigin(1, 0);
 
-        // Subtle screen vignette
-        const vig = this.add.graphics().setDepth(5);
-        vig.fillStyle(0x000000, 0.22);
-        vig.fillRect(0, 0, w, 36);
-        vig.fillRect(0, h - 36, w, 36);
-        vig.fillRect(0, 0, 36, h);
-        vig.fillRect(w - 36, 0, 36, h);
-
         // Notification text center-top
         this.notifText = this.add.text(w / 2, 72, '', {
             font: 'bold 20px monospace', fill: '#ffd700',
