@@ -1,3 +1,3 @@
-// True on phones/tablets (touch-primary); false on mouse-driven desktops.
-// Uses pointer media query rather than UA sniffing — more reliable across devices.
-export const isMobile = window.matchMedia('(pointer: coarse)').matches;
+// True on phones/tablets; false on mouse-driven desktops.
+// maxTouchPoints is the most reliable signal — pointer:coarse can miss inside WebGL.
+export const isMobile = navigator.maxTouchPoints > 0 || ('ontouchstart' in window);
