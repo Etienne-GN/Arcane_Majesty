@@ -84,7 +84,7 @@ export default class UIScene extends Phaser.Scene {
         this._initGamepad();
 
         // Pause button — top center
-        const pauseBtn = this.add.text(w / 2, 10, 'II', {
+        const pauseBtn = this.add.text(w / 2, 10, '☰', {
             font: 'bold 18px monospace', fill: '#445566', stroke: '#000000', strokeThickness: 2
         }).setOrigin(0.5, 0).setInteractive().setDepth(50);
         pauseBtn.on('pointerdown', () => {
