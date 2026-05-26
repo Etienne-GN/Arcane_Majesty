@@ -217,6 +217,11 @@ const ANIMS = [
 export default class CharacterCreatorScene extends Phaser.Scene {
     constructor() { super('CharacterCreatorScene'); }
 
+    init(data) {
+        this._onlineMode = data?.mode === 'online';
+        this._onlineSlot = data?.slot ?? null;
+    }
+
     preload() {
         this._renderer = new CharacterRenderer(this);
         for (const type of ALL_TYPES) {
@@ -1018,7 +1023,7 @@ export default class CharacterCreatorScene extends Phaser.Scene {
 
     _back() {
         this.cameras.main.fadeOut(200);
-        this.time.delayedCall(200, () => this.scene.start('MenuScene'));
+        this.time.delayedCall(200, () => this.scene.start(this._onlineMode ? 'OnlineCharacterScene' : 'MenuScene'));
     }
 
     // ── Export ──────────────────────────────────────────────────────────
@@ -1042,8 +1047,16 @@ export default class CharacterCreatorScene extends Phaser.Scene {
             if (matKey)         { entry.tintMaterial = matKey; entry.tintIdx = tintIdx; entry.tintName = tintName; }
             layers.push(entry);
         }
-        const payload = { version: 1, created: new Date().toISOString(), layers };
-        this._downloadText('character.json', JSON.stringify(payload, null, 2), 'application/json');
+        const charName = localStorage.getItem('amo_name') || 'Hero';
+        const payload  = { version: 1, created: new Date().toISOString(), charName, layers };
+
+        if (this._onlineMode && this._onlineSlot !== null) {
+            localStorage.setItem(`amo_char_slot_${this._onlineSlot}`, JSON.stringify(payload));
+            this.cameras.main.fadeOut(200);
+            this.time.delayedCall(200, () => this.scene.start('OnlineCharacterScene'));
+        } else {
+            this._downloadText('character.json', JSON.stringify(payload, null, 2), 'application/json');
+        }
     }
 
     _exportSpritesheet() {

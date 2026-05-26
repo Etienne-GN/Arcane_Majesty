@@ -130,7 +130,7 @@ export default class ServerSelectScene extends Phaser.Scene {
         const serverUrl = SERVERS[this._selected].url;
         this.cameras.main.fadeOut(300);
         this.time.delayedCall(300, () => {
-            this.scene.start('CharacterSelectScene', { serverUrl });
+            this.scene.start('OnlineCharacterScene', { serverUrl });
         });
     }
 }

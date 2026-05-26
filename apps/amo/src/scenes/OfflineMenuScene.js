@@ -122,13 +122,13 @@ export default class OfflineMenuScene extends Phaser.Scene {
     _newGame() {
         soundManager.menuSelect();
         this.cameras.main.fadeOut(300);
-        this.time.delayedCall(300, () => this.scene.start('StorySelectScene'));
+        this.time.delayedCall(300, () => this.scene.start('CharacterSelectScene'));
     }
 
     _continue() {
         soundManager.menuSelect();
         SaveManager.load(playerStats);
         this.cameras.main.fadeOut(300);
-        this.time.delayedCall(300, () => this.scene.start('GameScene', { characterId: 'eldrin' }));
+        this.time.delayedCall(300, () => this.scene.start('CharacterSelectScene', { isContinue: true }));
     }
 }

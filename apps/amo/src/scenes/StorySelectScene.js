@@ -21,6 +21,11 @@ const STORIES = [
 export default class StorySelectScene extends Phaser.Scene {
     constructor() { super('StorySelectScene'); }
 
+    init(data) {
+        this._characterId = data?.characterId ?? null;
+        this._isContinue  = data?.isContinue  ?? false;
+    }
+
     create() {
         const w = this.scale.width, h = this.scale.height;
 
@@ -79,7 +84,7 @@ export default class StorySelectScene extends Phaser.Scene {
                     panel.setFillStyle(0x0a0a1a, 0.92);
                     panel.setStrokeStyle(1, 0x222244);
                 });
-                panel.on('pointerdown', () => this._startStory(story));
+                panel.on('pointerdown', () => this._startStory(story, this._characterId));
             }
         });
 
@@ -100,18 +105,20 @@ export default class StorySelectScene extends Phaser.Scene {
     update(time, delta) {
         const gp = this._gpNav.poll(delta);
         if (!gp) return;
-        if (gp.A && this._availableStories.length) this._startStory(this._availableStories[0]);
+        if (gp.A && this._availableStories.length) this._startStory(this._availableStories[0], this._characterId);
         if (gp.B) { soundManager.menuSelect(); this.scene.start('OfflineMenuScene'); }
     }
 
-    _startStory(story) {
+    _startStory(story, characterId) {
         soundManager.menuSelect();
-        SaveManager.deleteSave();
-        playerStats.reset();
-        this.registry.remove('prologueSeen');
+        if (!this._isContinue) {
+            SaveManager.deleteSave();
+            playerStats.reset();
+            this.registry.remove('prologueSeen');
+        }
         this.cameras.main.fadeOut(300);
         this.time.delayedCall(300, () => {
-            this.scene.start('GameScene', { characterId: story.characterId });
+            this.scene.start('GameScene', { characterId: characterId ?? story.characterId });
         });
     }
 }

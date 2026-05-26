@@ -8,7 +8,7 @@ export default class CharacterSelectScene extends Phaser.Scene {
     constructor() { super('CharacterSelectScene'); }
 
     init(data) {
-        this._serverUrl = data?.serverUrl ?? 'http://localhost:3002';
+        this._isContinue = data?.isContinue ?? false;
     }
 
     create() {
@@ -106,14 +106,14 @@ export default class CharacterSelectScene extends Phaser.Scene {
           .on('pointerout',  function () { this.setStyle({ fill: '#445566' }); })
           .on('pointerdown', () => {
               soundManager.menuSelect();
-              this.scene.start('ServerSelectScene');
+              this.scene.start('OfflineMenuScene');
           });
 
         // Keyboard
         this.input.keyboard.on('keydown-LEFT',   () => this._prev());
         this.input.keyboard.on('keydown-RIGHT',  () => this._next());
         this.input.keyboard.on('keydown-ENTER',  () => this._enter());
-        this.input.keyboard.on('keydown-ESCAPE', () => this.scene.start('ServerSelectScene'));
+        this.input.keyboard.on('keydown-ESCAPE', () => this.scene.start('OfflineMenuScene'));
 
         this._gpNav = new GamepadNav(this);
         this._refresh();
@@ -193,9 +193,9 @@ export default class CharacterSelectScene extends Phaser.Scene {
         const char = CHARACTERS[this._idx];
         this.cameras.main.fadeOut(400);
         this.time.delayedCall(400, () => {
-            this.scene.start('GameScene', {
-                serverUrl:   this._serverUrl,
+            this.scene.start('StorySelectScene', {
                 characterId: char.id,
+                isContinue:  this._isContinue,
             });
         });
     }
