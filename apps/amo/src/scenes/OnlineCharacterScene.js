@@ -144,8 +144,9 @@ export default class OnlineCharacterScene extends Phaser.Scene {
         const isReady = this._slotData[i] != null;
         this._enterBtn
             .setStyle({ fill: isReady ? '#ffd700' : '#334455' })
-            .setAlpha(isReady ? 1 : 0.4)
-            .setInteractive(isReady);
+            .setAlpha(isReady ? 1 : 0.4);
+        if (isReady) this._enterBtn.setInteractive({ useHandCursor: true });
+        else         this._enterBtn.disableInteractive();
         if (isReady) {
             this._enterBtn.removeAllListeners();
             this._enterBtn.on('pointerover', () => this._enterBtn.setStyle({ fill: '#ffffff' }));

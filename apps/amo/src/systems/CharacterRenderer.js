@@ -33,7 +33,7 @@ export const COLOR_TYPES = new Set(['cape', 'backpack']);
 
 // Animations to preload by default
 export const DEFAULT_ANIMS = [
-    'walk', 'idle', 'hurt', 'slash', 'attack_slash', 'thrust', 'attack_thrust', 'spellcast',
+    'walk', 'idle', 'hurt', 'slash', 'thrust', 'spellcast',
     'run', 'sit', 'jump', 'climb', 'combat_idle', 'emote',
 ];
 
