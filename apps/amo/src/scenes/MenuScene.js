@@ -14,8 +14,9 @@ export default class MenuScene extends Phaser.Scene {
         this._menuItems = [
             { label: 'Play Offline', action: () => this._playOffline() },
             { label: 'Play Online',  action: () => this._playOnline()  },
-            { label: 'Options',      action: () => this._options()     },
-            { label: 'Credits',      action: () => this._credits()     },
+            { label: 'Options',           action: () => this._options()                              },
+            { label: 'Character Creator', action: () => this.scene.start('CharacterCreatorScene') },
+            { label: 'Credits',           action: () => this._credits()                           },
         ];
         this._menuCursor = 0;
         this._menuBtns   = [];

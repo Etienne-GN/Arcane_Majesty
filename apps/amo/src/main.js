@@ -20,8 +20,9 @@ import OptionsScene          from './scenes/OptionsScene.js';
 import CreditsScene          from './scenes/CreditsScene.js';
 import ServerSelectScene     from './scenes/ServerSelectScene.js';
 import CharacterSelectScene  from './scenes/CharacterSelectScene.js';
-import OfflineMenuScene      from './scenes/OfflineMenuScene.js';
-import StorySelectScene      from './scenes/StorySelectScene.js';
+import OfflineMenuScene         from './scenes/OfflineMenuScene.js';
+import StorySelectScene         from './scenes/StorySelectScene.js';
+import CharacterCreatorScene    from './scenes/CharacterCreatorScene.js';
 
 const ZOOM = 2; // base renderer zoom (pixel art sharpness on hi-DPI); game world zoom is set via camera in GameScene
 const config = {
@@ -63,6 +64,7 @@ const config = {
         CharacterSelectScene,
         OfflineMenuScene,
         StorySelectScene,
+        CharacterCreatorScene,
     ]
 };
 

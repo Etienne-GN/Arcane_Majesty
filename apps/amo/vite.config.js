@@ -5,6 +5,10 @@ export default defineConfig({
   server: {
     port: 5174,
     host: '0.0.0.0',
+    watch: {
+      // ressources/ and the public/lpc symlink hold 150K+ LPC sprite PNGs — never watch them
+      ignored: ['**/ressources/**', '**/public/lpc/**'],
+    },
     proxy: {
       // WebSocket + HTTP for Socket.io
       '/socket.io': {
