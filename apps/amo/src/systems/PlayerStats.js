@@ -55,6 +55,11 @@ export const SKILL_CATEGORY = {
 };
 
 export class PlayerStats {
+    _equipListeners = [];
+
+    onEquipChange(cb) { this._equipListeners.push(cb); }
+    _notifyEquipChange(slot, itemId) { for (const cb of this._equipListeners) cb(slot, itemId); }
+
     constructor() {
         this.level = 1;
         this.xp = 0;
@@ -493,6 +498,7 @@ export class PlayerStats {
         this.equipment[eqSlot] = itemId;
         this._applyEquipStats(itemId);
         this.inventory.splice(idx, 1);
+        this._notifyEquipChange(eqSlot, itemId);
         return true;
     }
 
@@ -509,6 +515,7 @@ export class PlayerStats {
             color: def.color ?? 0x8855ff, stackable: false, slot: def.slot ?? null,
             tier: def.tier ?? null, qty: 1
         });
+        this._notifyEquipChange(slot, null);
         return true;
     }
 

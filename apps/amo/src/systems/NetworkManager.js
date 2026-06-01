@@ -49,8 +49,9 @@ class NetworkManager {
         this.socket.on('player:joined', (state)   => this._fire('joined',     state));
         this.socket.on('player:moved',  (data)    => this._fire('moved',      data));
         this.socket.on('player:left',   (data)    => this._fire('left',       data));
-        this.socket.on('enemy:sync',    (enemies) => this._fire('enemySync',  enemies));
-        this.socket.on('enemy:died',    (data)    => this._fire('enemyDied',  data));
+        this.socket.on('enemy:sync',      (enemies) => this._fire('enemySync',     enemies));
+        this.socket.on('enemy:died',      (data)    => this._fire('enemyDied',     data));
+        this.socket.on('enemy:respawned', (data)    => this._fire('enemyRespawned', data));
     }
 
     // Store join payload; fires immediately if already connected, else waits for 'connect' event

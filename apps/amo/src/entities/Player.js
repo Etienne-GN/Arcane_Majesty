@@ -131,6 +131,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             return;
         }
 
+        // Let the attack animation finish before switching to walk/idle
+        const atkKey = `${this._charDef.animPrefix}_attack_${this.facing}`;
+        if (this.anims.currentAnim?.key === atkKey && this.anims.isPlaying) {
+            this._updateAuxBoxes();
+            return;
+        }
+
         // Stunned statuses lock movement
         if (statusManager.isStunned(this)) {
             this.setVelocity(0);

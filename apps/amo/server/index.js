@@ -28,7 +28,8 @@ class ServerEnemy {
         this.dead   = false;
 
         const def          = ENEMY_TYPES[type] ?? {};
-        this.health        = def.health       ?? 20;
+        this.maxHealth     = def.health       ?? 20;
+        this.health        = this.maxHealth;
         this.speed         = def.speed        ?? 60;
         this.sightRange    = def.sightRange   ?? 100;
         this.attackRange   = def.attackRange  ?? 28;
@@ -36,12 +37,28 @@ class ServerEnemy {
         this.passive       = def.passive      ?? false;
         this.fleeRadius    = def.fleeRadius   ?? 90;
         this.stationary    = def.stationary   ?? false;
+        this.respawnDelay  = this.passive ? 0 : (def.xpReward > 20 ? 120000 : 45000);
 
-        this._ptx       = x;
-        this._pty       = y;
+        this._ptx        = x;
+        this._pty        = y;
+        this._ptTimer    = 0;
+        this._fleeTimer  = 0;
+        this._restTimer  = 0;
+        this._respawnAt  = 0;
+    }
+
+    respawn() {
+        this.dead    = false;
+        this.health  = this.maxHealth;
+        this.x       = this.spawnX;
+        this.y       = this.spawnY;
+        this.facing  = 'down';
+        this._ptx    = this.spawnX;
+        this._pty    = this.spawnY;
         this._ptTimer   = 0;
         this._fleeTimer = 0;
         this._restTimer = 0;
+        this._respawnAt = 0;
     }
 
     update(dt, playersInMap) {
@@ -130,13 +147,15 @@ class ServerEnemy {
     }
 
     kill() {
-        this.dead   = true;
-        this.health = 0;
+        this.dead       = true;
+        this.health     = 0;
+        if (this.respawnDelay > 0) this._respawnAt = Date.now() + this.respawnDelay;
     }
 
     toState() {
         return {
             id:     this.id,
+            type:   this.type,
             x:      Math.round(this.x),
             y:      Math.round(this.y),
             health: this.health,
@@ -168,6 +187,14 @@ setInterval(() => {
     for (const [mapId, enemies] of mapEnemies) {
         const inMap = _playersInMap(mapId);
         if (inMap.length === 0) continue;
+
+        const now = Date.now();
+        enemies.forEach(e => {
+            if (e.dead && e._respawnAt > 0 && now >= e._respawnAt) {
+                e.respawn();
+                io.to(mapId).emit('enemy:respawned', e.toState());
+            }
+        });
 
         const alive = enemies.filter(e => !e.dead);
         if (alive.length === 0) continue;

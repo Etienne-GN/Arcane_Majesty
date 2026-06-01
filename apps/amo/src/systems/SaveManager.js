@@ -1,8 +1,12 @@
-const SAVE_KEY = 'arcane_majesty_v2';
+function saveKey(storyId, characterId) {
+    return `amo_save_${storyId}_${characterId}`;
+}
 
 export class SaveManager {
-    static save(stats) {
+    static save(stats, storyId, characterId) {
         const data = {
+            storyId,
+            characterId,
             level:         stats.level,
             xp:            stats.xp,
             xpToNextLevel: stats.xpToNextLevel,
@@ -33,16 +37,16 @@ export class SaveManager {
             masteries:         { ...(stats.masteries ?? {}) },
             codexEchoes:       JSON.parse(JSON.stringify(stats.codexEchoes ?? [])),
             killedEnemyTypes:  [...(stats.killedEnemyTypes ?? [])],
-            timestamp:     Date.now()
+            timestamp:     Date.now(),
         };
         try {
-            localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+            localStorage.setItem(saveKey(storyId, characterId), JSON.stringify(data));
             return true;
         } catch { return false; }
     }
 
-    static load(stats) {
-        const raw = localStorage.getItem(SAVE_KEY);
+    static load(stats, storyId, characterId) {
+        const raw = localStorage.getItem(saveKey(storyId, characterId));
         if (!raw) return false;
         try {
             const d = JSON.parse(raw);
@@ -80,16 +84,16 @@ export class SaveManager {
         } catch { return false; }
     }
 
-    static hasSave() {
-        return !!localStorage.getItem(SAVE_KEY);
+    static hasSave(storyId, characterId) {
+        return !!localStorage.getItem(saveKey(storyId, characterId));
     }
 
-    static deleteSave() {
-        localStorage.removeItem(SAVE_KEY);
+    static deleteSave(storyId, characterId) {
+        localStorage.removeItem(saveKey(storyId, characterId));
     }
 
-    static getSaveInfo() {
-        const raw = localStorage.getItem(SAVE_KEY);
+    static getSaveInfo(storyId, characterId) {
+        const raw = localStorage.getItem(saveKey(storyId, characterId));
         if (!raw) return null;
         try {
             const d = JSON.parse(raw);

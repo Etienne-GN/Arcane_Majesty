@@ -76,7 +76,7 @@ export default class MenuScene extends Phaser.Scene {
     _playOffline() {
         soundManager.menuSelect();
         this.cameras.main.fadeOut(300);
-        this.time.delayedCall(300, () => this.scene.start('OfflineMenuScene'));
+        this.time.delayedCall(300, () => this.scene.start('StorySelectScene'));
     }
 
     _playOnline() {

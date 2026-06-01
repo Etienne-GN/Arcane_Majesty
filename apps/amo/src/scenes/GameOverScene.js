@@ -7,8 +7,10 @@ export default class GameOverScene extends Phaser.Scene {
     constructor() { super('GameOverScene'); }
 
     init(data) {
-        this._serverUrl   = data?.serverUrl   ?? null;
-        this._characterId = data?.characterId ?? 'eldrin';
+        this._serverUrl       = data?.serverUrl       ?? null;
+        this._characterId     = data?.characterId     ?? 'eldrin';
+        this._storyId         = data?.storyId         ?? null;
+        this._onlineCharacter = data?.onlineCharacter ?? null;
     }
 
     create() {
@@ -80,8 +82,10 @@ export default class GameOverScene extends Phaser.Scene {
         this.scene.stop('UIScene');
         this.scene.stop();
         this.scene.start('GameScene', {
-            characterId: this._characterId,
-            serverUrl:   this._serverUrl,
+            characterId:     this._characterId,
+            storyId:         this._storyId,
+            serverUrl:       this._serverUrl,
+            onlineCharacter: this._onlineCharacter,
         });
     }
 }

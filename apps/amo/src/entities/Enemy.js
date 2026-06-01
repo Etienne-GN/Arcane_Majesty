@@ -78,6 +78,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     _drawHealthBar() {
         const g = this.healthBar;
         g.clear();
+        if (this.passive || this.health >= this.maxHealth) return;
         const w = 22, h = 3;
         const bx = this.x - w / 2, by = this.y - 20;
         g.fillStyle(0x222222);
@@ -102,26 +103,39 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     applyNetState(x, y, health, facing) {
         this._netTargetX = x;
         this._netTargetY = y;
-        this.health  = health;
+        // Don't overwrite health — client is authoritative for local combat damage
         this.facing  = facing;
     }
 
     update(player, delta) {
         if (this.state === STATE.DEAD || !this.active) return;
 
-        // Networked mode: server drives position; client still handles local combat
-        if (this.isNetworked) {
+        // Networked mode: server is authoritative for hostile enemies.
+        // Passive critters (birds, deer, etc.) run full local AI — they never fight,
+        // only their death event is synced, so server position tracking is unnecessary.
+        if (this.isNetworked && !this.passive) {
+            const prevX = this.x, prevY = this.y;
             if (this._netTargetX !== null) {
                 this.x = Phaser.Math.Linear(this.x, this._netTargetX, 0.20);
                 this.y = Phaser.Math.Linear(this.y, this._netTargetY, 0.20);
             }
             this._drawHealthBar();
-            if (!this.passive) {
-                this.attackCooldown = Math.max(0, this.attackCooldown - delta);
-                statusManager.tick(this, delta);
-                const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
-                if (dist <= this.attackRange) this._doAttack(player);
+
+            // Animate based on movement
+            const moving = Math.abs(this.x - prevX) > 0.5 || Math.abs(this.y - prevY) > 0.5;
+            const dir = this.facing ?? 'down';
+            if (moving) {
+                const walkKey = `${this.spriteKey}_walk_${dir}`;
+                if (this.anims.currentAnim?.key !== walkKey) this.play(walkKey, true);
+            } else {
+                const idleKey = `${this.spriteKey}_idle`;
+                if (this.anims.currentAnim?.key !== idleKey) this.play(idleKey, true);
             }
+
+            this.attackCooldown = Math.max(0, this.attackCooldown - delta);
+            statusManager.tick(this, delta);
+            const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
+            if (dist <= this.attackRange) this._doAttack(player);
             return;
         }
 

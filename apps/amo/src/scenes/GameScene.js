@@ -19,17 +19,29 @@ import { SPELLS, TIER_NAMES, RESONANCE_GAINS } from '../data/spells.js';
 import { statusManager } from '../systems/StatusManager.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { ANIM_PROFILES } from '../data/animProfiles.js';
+import { CharacterRenderer, DEFAULT_ANIMS } from '../systems/CharacterRenderer.js';
 
 export default class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
 
     init(data) {
-        this._mapId       = data?.mapId       ?? 'prologue_forest';
-        this._spawnX      = data?.spawnX      ?? null;
-        this._spawnY      = data?.spawnY      ?? null;
-        this._serverUrl   = data?.serverUrl   ?? null;
-        this._characterId = data?.characterId ?? 'eldrin';
-        this._transitioning = false;
+        this._mapId           = data?.mapId           ?? 'prologue_forest';
+        this._spawnX          = data?.spawnX          ?? null;
+        this._spawnY          = data?.spawnY          ?? null;
+        this._serverUrl       = data?.serverUrl       ?? null;
+        this._characterId     = data?.characterId     ?? 'eldrin';
+        this._storyId         = data?.storyId         ?? null;
+        this._onlineCharacter = data?.onlineCharacter ?? null;
+        this._transitioning   = false;
+    }
+
+    preload() {
+        if (!this._onlineCharacter?.rendererLayers?.length) return;
+        this._lpcRenderer = new CharacterRenderer(this);
+        this._lpcRenderer.preload({
+            layers:     this._onlineCharacter.rendererLayers,
+            animations: DEFAULT_ANIMS,
+        });
     }
 
     create() {
@@ -68,6 +80,31 @@ export default class GameScene extends Phaser.Scene {
         const py = this._spawnY ?? (mapDef.playerStart.y * TILE_SIZE + TILE_SIZE / 2);
         this.player = new Player(this, px, py, playerStats, this._characterId);
         this.player.on('died', () => this._onPlayerDied());
+
+        // LPC character overlay — replaces the default sprite visually
+        this._lpcContainer = null;
+        if (this._lpcRenderer && this._onlineCharacter?.rendererLayers?.length) {
+            this.player.setVisible(false);
+            this._lpcContainer = this._lpcRenderer.create(px, py, {
+                layers:      this._onlineCharacter.rendererLayers,
+                defaultAnim: 'idle',
+                defaultDir:  'down',
+            });
+            this._lpcContainer.setDepth(this.player.y + 1);
+        }
+
+        if (this._lpcContainer) {
+            for (const [lKey, entry] of Object.entries(this._lpcContainer._lpcLayers)) {
+                if (entry.layer.swapParams) {
+                    this._lpcRenderer.applyLayerSwap(this._lpcContainer, lKey, entry.layer.swapParams);
+                }
+            }
+        }
+
+        playerStats.onEquipChange((slot, itemId) => {
+            if (slot !== 'weapon' || !this._lpcContainer) return;
+            this._updateLpcWeaponLayer(itemId);
+        });
 
         // Remote players from the network
         this._remotePlayers = new Map(); // socketId → RemotePlayer
@@ -272,7 +309,7 @@ export default class GameScene extends Phaser.Scene {
             // Boss guaranteed drops: void_channel (T4 staff) + arcane_sceptre (T4 staff alt)
             this._spawnPickup(bx - 14, by + 10, 'void_channel');
             this._spawnPickup(bx + 14, by + 10, 'arcane_sceptre');
-            SaveManager.save(playerStats);
+            SaveManager.save(playerStats, this._storyId, this._characterId);
             this.time.delayedCall(1200, () => {
                 this.scene.pause();
                 this.scene.launch('DialogueScene', { lines: DIALOGUES['boss_defeated'] });
@@ -365,7 +402,7 @@ export default class GameScene extends Phaser.Scene {
         this.input.keyboard.on('keydown-C', () => this._startCampfirePlacement());
         this.input.keyboard.on('keydown-ESC', () => {
             if (this._targeting) { this._cancelTargeting(); return; }
-            SaveManager.save(playerStats);
+            SaveManager.save(playerStats, this._storyId, this._characterId);
             soundManager.save();
             this.scene.stop('UIScene');
             this.scene.start('MenuScene');
@@ -441,6 +478,15 @@ export default class GameScene extends Phaser.Scene {
         networkManager.on('enemyDied', ({ id }) => {
             const e = this._enemyById.get(id);
             if (e?.active) { e.health = 0; e._die(); }
+        });
+        networkManager.on('enemyRespawned', ({ id, type, x, y }) => {
+            const old = this._enemyById.get(id);
+            if (old?.active) return; // already alive locally (passive critter killed locally)
+            const enemy = this._spawnEnemy(type, x, y);
+            enemy.netId = id;
+            enemy.isNetworked = true;
+            this._enemyById.set(id, enemy);
+            this.physics.add.collider(enemy, this.wallGroup);
         });
     }
 
@@ -1486,16 +1532,18 @@ export default class GameScene extends Phaser.Scene {
     _enterPortal(portalDef) {
         if (this._transitioning) return;
         this._transitioning = true;
-        SaveManager.save(playerStats);
+        SaveManager.save(playerStats, this._storyId, this._characterId);
         this.cameras.main.fadeOut(300);
         this.time.delayedCall(320, () => {
             this.scene.stop('UIScene');
             this.scene.start('GameScene', {
-                mapId:       portalDef.targetMap,
-                spawnX:      portalDef.targetX,
-                spawnY:      portalDef.targetY,
-                characterId: this._characterId,
-                serverUrl:   this._serverUrl,
+                mapId:           portalDef.targetMap,
+                spawnX:          portalDef.targetX,
+                spawnY:          portalDef.targetY,
+                characterId:     this._characterId,
+                storyId:         this._storyId,
+                serverUrl:       this._serverUrl,
+                onlineCharacter: this._onlineCharacter,
             });
         });
     }
@@ -2037,6 +2085,19 @@ export default class GameScene extends Phaser.Scene {
         this.player.update(this.cursors, this.wasd, this.attackKey, this.powerKey, delta, joyVec);
         this.player.setDepth(this.player.y + 1);
 
+        if (this._lpcContainer) {
+            this._lpcContainer.setPosition(this.player.x, this.player.y);
+            this._lpcContainer.setDepth(this.player.y + 1);
+            if (this.player.isAttacking && !this._lpcWasAttacking) {
+                this._lpcSlashUntil = time + 750;
+            }
+            this._lpcWasAttacking = this.player.isAttacking;
+            const showSlash = (this._lpcSlashUntil ?? 0) > time;
+            const lpcAnim = showSlash ? 'slash'
+                : (this.player.body.speed > 5 ? 'walk' : 'idle');
+            this._lpcRenderer.play(this._lpcContainer, lpcAnim, this.player.facing);
+        }
+
         // Broadcast position to server
         networkManager.tickMove(delta, this.player.x, this.player.y, this.player.facing, this._mapId);
 
@@ -2225,7 +2286,7 @@ export default class GameScene extends Phaser.Scene {
                     }
                     if (!npc.talked) questManager.onTalk(npcId);
                     npc.talked = true;
-                    SaveManager.save(playerStats);
+                    SaveManager.save(playerStats, this._storyId, this._characterId);
                 }
             });
         });
@@ -2312,7 +2373,7 @@ export default class GameScene extends Phaser.Scene {
             this.scene.pause();
             this.scene.launch('DialogueScene', {
                 lines: [{ speaker: null, text: `You open the chest and find: ${itemNames}.` }],
-                onComplete: () => SaveManager.save(playerStats)
+                onComplete: () => SaveManager.save(playerStats, this._storyId, this._characterId)
             });
         });
     }
@@ -2356,7 +2417,7 @@ export default class GameScene extends Phaser.Scene {
                 questManager.startQuest('hidden_hunters_trial');
             }
             playerStats.trackKill(type);
-            SaveManager.save(playerStats);
+            SaveManager.save(playerStats, this._storyId, this._characterId);
         });
 
         enemy.on('gold', (amount) => {
@@ -2449,9 +2510,27 @@ export default class GameScene extends Phaser.Scene {
             this.scene.stop('UIScene');
             this.scene.stop();
             this.scene.start('GameOverScene', {
-                serverUrl:   this._serverUrl,
-                characterId: this._characterId,
+                serverUrl:       this._serverUrl,
+                characterId:     this._characterId,
+                storyId:         this._storyId,
+                onlineCharacter: this._onlineCharacter,
             });
+        });
+    }
+
+    _updateLpcWeaponLayer(itemId) {
+        const container = this._lpcContainer;
+        // Remove all existing weapon layers
+        for (const k of Object.keys(container._lpcLayers)) {
+            if (k.startsWith('weapon:')) this._lpcRenderer.removeLayer(container, k);
+        }
+        if (!itemId) return;
+        const lpcLayer = ITEMS[itemId]?.lpcLayer;
+        if (!lpcLayer) return;
+        const layers = Array.isArray(lpcLayer) ? lpcLayer : [lpcLayer];
+        this._lpcRenderer.loadLayers(layers, DEFAULT_ANIMS, () => {
+            if (!this._lpcContainer) return;
+            for (const layer of layers) this._lpcRenderer.addLayer(this._lpcContainer, layer);
         });
     }
 

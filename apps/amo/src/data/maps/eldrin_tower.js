@@ -136,7 +136,9 @@ export const ELDRIN_TOWER = {
             { x: 22, y: 30, type: 'bird_bluejay' },
         ],
         npcs:           [],
-        chests:         [],
+        chests:         [
+            { x: 10, y: 17, items: ['longsword'] },
+        ],
         campfires:      [],
         signs: [
             {

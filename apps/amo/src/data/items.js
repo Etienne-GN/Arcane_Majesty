@@ -880,6 +880,28 @@ export const ITEMS = {
 
     // ── SPELL BLADE — 2 MP per hit, +35% arcane damage when augmented ─────────
 
+    longsword: {
+        id: 'longsword', name: 'Longsword',
+        description: 'A well-balanced longsword. Hits cost 2 MP, deal +35% arcane. +3 STR, +1 INT.',
+        color: 0xaaaacc, stackable: false, icon: 'itm_sword_01', slot: 'weapon', tier: 1, weaponType: 'spell_blade', rarity: 'common',
+        stats: { strength: 3, intelligence: 1 }, buyPrice: 90, sellPrice: 30,
+        lpcLayer: [
+            { type: 'weapon', id: 'sword/longsword',                 zPos: 140 },
+            { type: 'weapon', id: 'sword/longsword', itemName: 'behind/longsword', zPos: 5   },
+        ],
+        onUse: (stats) => stats.equipItem('longsword'),
+    },
+    katana: {
+        id: 'katana', name: 'Katana',
+        description: 'A razor-sharp katana. Swift strikes cost 2 MP, deal +40% arcane. +4 STR, +2 INT.',
+        color: 0xccccaa, stackable: false, icon: 'itm_sword_01', slot: 'weapon', tier: 2, weaponType: 'spell_blade', rarity: 'uncommon',
+        stats: { strength: 4, intelligence: 2 }, buyPrice: 160, sellPrice: 55,
+        lpcLayer: [
+            { type: 'weapon', id: 'sword/katana',                             zPos: 142 },
+            { type: 'weapon', id: 'sword/katana', itemName: 'behind/katana',  zPos: 5   },
+        ],
+        onUse: (stats) => stats.equipItem('katana'),
+    },
     iron_spell_blade: {
         id: 'iron_spell_blade', name: 'Iron Spell-Blade',
         description: 'Iron blade with a mana crystal at the hilt. Hits cost 2 MP, deal +35% arcane. +2 STR, +1 INT.',

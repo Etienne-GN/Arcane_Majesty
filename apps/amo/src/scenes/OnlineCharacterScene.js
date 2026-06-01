@@ -1,9 +1,11 @@
 import Phaser from 'phaser';
 import { soundManager } from '../systems/SoundManager.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
+import { CharacterRenderer } from '../systems/CharacterRenderer.js';
 
 const MAX_SLOTS = 5;
 const SLOT_KEY  = (n) => `amo_char_slot_${n}`;
+const PREVIEW_ANIMS = ['walk', 'idle', 'hurt'];
 
 function loadSlot(n) {
     try { return JSON.parse(localStorage.getItem(SLOT_KEY(n))); } catch { return null; }
@@ -14,13 +16,22 @@ export default class OnlineCharacterScene extends Phaser.Scene {
 
     init(data) {
         this._serverUrl = data?.serverUrl ?? 'http://localhost:3002';
+        this._slotData  = Array.from({ length: MAX_SLOTS }, (_, i) => loadSlot(i));
+    }
+
+    preload() {
+        this._renderer = new CharacterRenderer(this);
+        for (const dat of this._slotData) {
+            if (!dat?.rendererLayers?.length) continue;
+            this._renderer.preload({ layers: dat.rendererLayers, animations: PREVIEW_ANIMS });
+        }
     }
 
     create() {
         const w = this.scale.width, h = this.scale.height;
-        this._selectedSlot = -1;
-        this._slotData     = Array.from({ length: MAX_SLOTS }, (_, i) => loadSlot(i));
-        this._cards        = [];
+        this._selectedSlot  = -1;
+        this._cards         = [];
+        this._previews      = [];
 
         const bg = this.add.image(w / 2, h / 2, 'menu_bg');
         bg.setScale(Math.min(w / bg.width, h / bg.height)).setAlpha(0.25);
@@ -32,11 +43,11 @@ export default class OnlineCharacterScene extends Phaser.Scene {
         }).setOrigin(0.5);
 
         // ── Slot cards ─────────────────────────────────────────────────
-        const cardW   = Math.min(Math.floor((w - 80) / MAX_SLOTS), 130);
-        const cardH   = 120;
-        const totalW  = cardW * MAX_SLOTS + 8 * (MAX_SLOTS - 1);
-        const startX  = Math.round(w / 2 - totalW / 2);
-        const cardY   = Math.round(h / 2 - 60);
+        const cardW  = Math.min(Math.floor((w - 80) / MAX_SLOTS), 130);
+        const cardH  = 160;
+        const totalW = cardW * MAX_SLOTS + 8 * (MAX_SLOTS - 1);
+        const startX = Math.round(w / 2 - totalW / 2);
+        const cardY  = Math.round(h / 2 - 50);
 
         for (let i = 0; i < MAX_SLOTS; i++) {
             const cx  = startX + i * (cardW + 8) + cardW / 2;
@@ -49,21 +60,47 @@ export default class OnlineCharacterScene extends Phaser.Scene {
             let nameText, subText;
 
             if (dat) {
-                nameText = this.add.text(cx, cardY - 22, dat.charName ?? 'Hero', {
-                    font: `bold ${Math.min(12, cardW / 8)}px monospace`, fill: '#ddddff',
+                // Slot label top
+                this.add.text(cx, cardY - cardH / 2 + 8, `SLOT ${i + 1}`, {
+                    font: '7px monospace', fill: '#334455',
+                }).setOrigin(0.5, 0);
+
+                // Character name bottom
+                nameText = this.add.text(cx, cardY + cardH / 2 - 24, dat.charName ?? 'Hero', {
+                    font: `bold ${Math.min(11, cardW / 9)}px monospace`, fill: '#ddddff',
                     wordWrap: { width: cardW - 10 }, align: 'center',
-                }).setOrigin(0.5);
-                subText = this.add.text(cx, cardY + 4, `Slot ${i + 1}`, {
-                    font: '9px monospace', fill: '#445566',
-                }).setOrigin(0.5);
+                }).setOrigin(0.5, 0);
+
+                subText = this.add.text(cx, cardY + cardH / 2 - 10, 'Click to select', {
+                    font: '7px monospace', fill: '#334455',
+                }).setOrigin(0.5, 0);
 
                 // Delete ×
                 const del = this.add.text(cx + cardW / 2 - 8, cardY - cardH / 2 + 8, '×', {
                     font: 'bold 14px monospace', fill: '#442233',
-                }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+                }).setOrigin(0.5, 0).setInteractive({ useHandCursor: true });
                 del.on('pointerover', () => del.setStyle({ fill: '#ff4466' }));
                 del.on('pointerout',  () => del.setStyle({ fill: '#442233' }));
                 del.on('pointerdown', (ptr) => { ptr.event.stopPropagation(); this._deleteSlot(i); });
+
+                // LPC character preview
+                if (dat.rendererLayers?.length) {
+                    const spriteScale = Math.min(1.5, (cardH - 50) / 64);
+                    const preview = this._renderer.create(cx, cardY - 12, {
+                        layers:      dat.rendererLayers,
+                        animations:  PREVIEW_ANIMS,
+                        defaultAnim: 'idle',
+                        defaultDir:  'down',
+                    });
+                    preview.setScale(spriteScale);
+                    // Apply palette swaps
+                    for (const [lKey, entry] of Object.entries(preview._lpcLayers)) {
+                        if (entry.layer.swapParams) {
+                            this._renderer.applyLayerSwap(preview, lKey, entry.layer.swapParams);
+                        }
+                    }
+                    this._previews.push(preview);
+                }
             } else {
                 nameText = this.add.text(cx, cardY - 10, '+', {
                     font: `bold ${Math.min(28, cardW / 4)}px monospace`, fill: '#334455',
@@ -82,7 +119,7 @@ export default class OnlineCharacterScene extends Phaser.Scene {
             panel.on('pointerout', () => {
                 if (this._selectedSlot !== i) panel.setFillStyle(0x0a0a1a, 0.92);
                 nameText.setStyle({ fill: dat ? '#ddddff' : '#334455' });
-                subText.setStyle({ fill: dat ? '#445566' : '#334455' });
+                subText.setStyle({ fill: dat ? '#334455' : '#334455' });
             });
             panel.on('pointerdown', () => this._clickSlot(i));
 
@@ -130,7 +167,6 @@ export default class OnlineCharacterScene extends Phaser.Scene {
         if (this._slotData[i]) {
             this._selectSlot(i);
         } else {
-            // Empty — launch creator for this slot
             this.cameras.main.fadeOut(300);
             this.time.delayedCall(300, () => {
                 this.scene.start('CharacterCreatorScene', { mode: 'online', slot: i });
@@ -167,7 +203,6 @@ export default class OnlineCharacterScene extends Phaser.Scene {
         localStorage.removeItem(SLOT_KEY(i));
         soundManager.menuHover();
         if (this._selectedSlot === i) this._selectedSlot = -1;
-        // Restart scene to rebuild cards cleanly
         this.scene.restart({ serverUrl: this._serverUrl });
     }
 
@@ -180,7 +215,7 @@ export default class OnlineCharacterScene extends Phaser.Scene {
             this.scene.start('GameScene', {
                 serverUrl:       this._serverUrl,
                 onlineCharacter: dat,
-                characterId:     'eldrin',  // fallback until GameScene reads onlineCharacter
+                characterId:     'eldrin',
             });
         });
     }
