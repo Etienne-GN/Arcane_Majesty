@@ -44,7 +44,36 @@ The project will follow this directory structure:
 └── README.md       # This technical description file.
 ```
 
-## 5. Game Story: Arcane Majesty
+## 5. Development
+
+This is the **online** game (`amo`). It is a Vite + Phaser 3 project with a
+Socket.io server.
+
+```bash
+npm install
+npm run dev        # Vite dev server (port 5174)
+npm run server     # game server (Socket.io, port 3002)
+npm run build      # production build (runs catalogue validation first)
+```
+
+Catalogue / character-animation tooling:
+
+```bash
+npm run gen:anims       # annotate the character catalogue with its anim manifest
+npm run test:catalogue  # validate the catalogue (0 phantom sheet references)
+npm run audit:weapons   # per-direction weapon coverage report
+npm run audit:oversize  # oversize sprite-sheet frame-size sanity
+```
+
+The layered LPC character system (renderer, animation manifest, palette swap,
+weapon resolution, tooling) is documented in
+[`documentation/CHARACTER_SYSTEM.md`](documentation/CHARACTER_SYSTEM.md).
+
+> Note: the structure below predates the current `src/`-based layout and is kept
+> for historical context. Source lives in `src/` (scenes, systems, entities,
+> data); maps and assets under `public/`.
+
+## 6. Game Story: Arcane Majesty
 
 This story is divided into a musical album and game chapters.
 
