@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { soundManager } from '../systems/SoundManager.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
 import { CharacterRenderer } from '../systems/CharacterRenderer.js';
+import { enrichLayers } from '../systems/catalogueLayers.js';
 
 const MAX_SLOTS = 5;
 const SLOT_KEY  = (n) => `amo_char_slot_${n}`;
@@ -28,6 +29,8 @@ export default class OnlineCharacterScene extends Phaser.Scene {
         this._renderer = new CharacterRenderer(this);
         for (const dat of this._slotData) {
             if (!dat?.rendererLayers?.length) continue;
+            // Backfill anim manifest from the catalogue for legacy saves.
+            dat.rendererLayers = enrichLayers(dat.rendererLayers);
             this._renderer.preload({ layers: dat.rendererLayers, animations: PREVIEW_ANIMS });
         }
     }

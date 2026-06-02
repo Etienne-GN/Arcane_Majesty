@@ -20,6 +20,7 @@ import { statusManager } from '../systems/StatusManager.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { ANIM_PROFILES } from '../data/animProfiles.js';
 import { CharacterRenderer, DEFAULT_ANIMS } from '../systems/CharacterRenderer.js';
+import { enrichLayers } from '../systems/catalogueLayers.js';
 import { openChest } from './ChestScene.js';
 
 export default class GameScene extends Phaser.Scene {
@@ -44,6 +45,9 @@ export default class GameScene extends Phaser.Scene {
             if (file?.key?.startsWith?.('lpc__')) return;
         });
         if (!this._onlineCharacter?.rendererLayers?.length) return;
+        // Backfill the per-layer anim manifest from the catalogue so legacy saves
+        // (pre-manifest) resolve correctly and never request a missing sheet.
+        this._onlineCharacter.rendererLayers = enrichLayers(this._onlineCharacter.rendererLayers);
         this._lpcRenderer = new CharacterRenderer(this);
         this._lpcRenderer.preload({
             layers:     this._onlineCharacter.rendererLayers,
@@ -2844,7 +2848,9 @@ export default class GameScene extends Phaser.Scene {
         if (!itemId) return;
         const lpcLayer = ITEMS[itemId]?.lpcLayer;
         if (!lpcLayer) return;
-        const layers = Array.isArray(lpcLayer) ? lpcLayer : [lpcLayer];
+        // Enrich with the catalogue anim manifest → correct attack resolution
+        // (slash↔attack_slash) and no phantom 404s for animations the weapon lacks.
+        const layers = enrichLayers(Array.isArray(lpcLayer) ? lpcLayer : [lpcLayer]);
         this._lpcRenderer.loadLayers(layers, DEFAULT_ANIMS, () => {
             if (!this._lpcContainer) return;
             for (const layer of layers) this._lpcRenderer.addLayer(this._lpcContainer, layer);
