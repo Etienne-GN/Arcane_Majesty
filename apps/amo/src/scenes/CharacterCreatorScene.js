@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { CharacterRenderer, DEFAULT_ANIMS, DEFAULT_ZPOS, texKey, layerKey } from '../systems/CharacterRenderer.js';
+import { CharacterRenderer, DEFAULT_ANIMS, DEFAULT_ZPOS, texKey, layerKey, registerSheetFrames, resolveAnim } from '../systems/CharacterRenderer.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
 import CATALOGUE from '../data/character_catalogue.json';
 
@@ -13,6 +13,7 @@ const RENDER_TYPE = {
     wound_arm:       'body',  wound_brain:  'body',
     wound_eye_left:  'body',  wound_eye_right: 'body',
     wound_mouth:     'body',  wound_ribs:   'body',
+    staff_accessory: 'weapon',
 };
 function rType(type) { return RENDER_TYPE[type] ?? type; }
 
@@ -26,14 +27,14 @@ const TAB_COLS = {
     clothes: [['torso_clothes','torso_jacket','torso_mail','torso_armour','torso_waist'],
               ['legs','dress','feet','arms','shoulders']],
     marks:   [['wound_brain','wound_eye_left','wound_eye_right'],         ['wound_mouth','wound_ribs','wound_arm']],
-    equip:   [['hat','neck','cape'],                                      ['backpack','shield','weapon']],
+    equip:   [['hat','neck','cape','staff_accessory'],                    ['backpack','shield','weapon']],
 };
 
 const ALL_TYPES = [
     'head','eyes','nose','ears','horns','fins','hair','beards','facial','body','tail','wings',
     'torso_clothes','torso_jacket','torso_mail','torso_armour','torso_waist',
     'legs','dress','feet','arms','shoulders',
-    'hat','neck','cape','backpack','shield','weapon',
+    'hat','neck','cape','staff_accessory','backpack','shield','weapon',
     'wound_brain','wound_eye_left','wound_eye_right','wound_mouth','wound_ribs','wound_arm',
 ];
 
@@ -47,7 +48,7 @@ const TYPE_LABEL = {
     torso_armour:'ARMR',   torso_waist:'WAIST',
     legs:'LEGS',   dress:'DRESS', feet:'FEET', arms:'ARMS',  shoulders:'SHLDR',
     hat:'HAT',     neck:'NECK',   cape:'CAPE',
-    backpack:'BPACK', shield:'SHILD', weapon:'WEAPN',
+    backpack:'BPACK', shield:'SHILD', weapon:'WEAPN', staff_accessory:'STAFF',
     wound_brain:'HEAD', wound_eye_left:'EYE L', wound_eye_right:'EYE R',
     wound_mouth:'MOUTH', wound_ribs:'RIBS', wound_arm:'ARM',
 };
@@ -62,7 +63,7 @@ const GROUP_COLOR = {
     legs:'#ff8833',   dress:'#ff8866',  feet:'#ff8833',
     arms:'#88bbcc',   shoulders:'#ddbb44',
     hat:'#ddbb44',    neck:'#aa7733',   cape:'#ff8866',
-    backpack:'#ff8866', shield:'#ddbb44', weapon:'#ff5555',
+    backpack:'#ff8866', shield:'#ddbb44', weapon:'#ff5555', staff_accessory:'#aa66ff',
     wound_brain:'#cc3333', wound_eye_left:'#cc3333', wound_eye_right:'#cc3333',
     wound_mouth:'#cc3333', wound_ribs:'#cc3333',     wound_arm:'#cc3333',
 };
@@ -270,10 +271,14 @@ function findIdx(type, id) {
 
 const DEFAULT_SEL = {};
 for (const _t of ALL_TYPES) DEFAULT_SEL[_t] = 0;
+DEFAULT_SEL['staff_accessory'] = -1;  // not equipped by default
 
 const DIRS  = ['up', 'left', 'down', 'right'];
+// Logical animations the user can preview. Weapon-specific realisations
+// (attack_slash / attack_thrust / attack_slash_reverse …) are resolved per layer
+// by the renderer, so they are NOT listed separately here.
 const ANIMS = [
-    'walk','idle','hurt','slash','attack_slash','thrust','attack_thrust','spellcast',
+    'walk','idle','hurt','slash','backslash','halfslash','thrust','shoot','spellcast',
     'run','sit','jump','climb','combat_idle','emote',
 ];
 
@@ -307,11 +312,11 @@ export default class CharacterCreatorScene extends Phaser.Scene {
                         : opt.colors                ? opt.colors[s?.colorIdx ?? 0]
                         : opt.color;
             const layers = [
-                { type: rt, id: opt.id, zPos: opt.zPos, color, itemName: opt.itemName },
+                { type: rt, id: opt.id, zPos: opt.zPos, color, itemName: opt.itemName, anims: opt.anims },
                 ...(opt.companions ?? []).map(c => ({
                     type: rt, id: c.id, zPos: c.zPos,
                     color: c.color ?? ((opt.colors || FORCE_TINT_TYPES.has(type)) ? color : undefined),
-                    itemName: c.itemName,
+                    itemName: c.itemName, anims: c.anims,
                 })),
             ];
             this._renderer.preload({ layers, animations: DEFAULT_ANIMS });
@@ -557,6 +562,13 @@ export default class CharacterCreatorScene extends Phaser.Scene {
         mkExport(RP_CX + f(18), 'SHEET',    () => this._exportSpritesheet());
         mkExport(RP_CX + f(54), 'LICENSES', () => this._exportLicenses());
 
+        // Defensive: with the manifest we only request files that exist, but a
+        // legacy preset/save lacking `anims` could still ask for a missing sheet.
+        // Swallow those quietly so they don't drown out real load errors.
+        this.load.on('loaderror', (file) => {
+            if (file?.key?.startsWith?.('lpc__')) return;
+        });
+
         this.input.keyboard.on('keydown-ESC',   () => this._back());
         this.input.keyboard.on('keydown-SPACE', () => this._togglePlay());
         this._gpNav = new GamepadNav(this);
@@ -760,11 +772,11 @@ export default class CharacterCreatorScene extends Phaser.Scene {
         if (!opt?.id) return [];
         const rt    = opt.renderType ?? rType(type);
         const color = this._getColor(type);
-        const layers = [{ type: rt, id: opt.id, zPos: opt.zPos ?? DEFAULT_ZPOS[rt] ?? 0, color, itemName: opt.itemName }];
+        const layers = [{ type: rt, id: opt.id, zPos: opt.zPos ?? DEFAULT_ZPOS[rt] ?? 0, color, itemName: opt.itemName, anims: opt.anims }];
         for (const c of opt.companions ?? []) {
             layers.push({ type: rt, id: c.id, zPos: c.zPos ?? DEFAULT_ZPOS[rt] ?? 0,
                 color: c.color ?? (opt.colors ? color : undefined),
-                itemName: c.itemName });
+                itemName: c.itemName, anims: c.anims });
         }
         return layers;
     }
@@ -1318,15 +1330,11 @@ export default class CharacterCreatorScene extends Phaser.Scene {
             ctx.putImageData(imgData, 0, 0);
             scene.textures.addCanvas(rcKey, canvas);
 
-            // Register all spritesheet frames — addCanvas only creates frame 0 by default
-            const newTex = scene.textures.get(rcKey);
-            const cols   = Math.floor(w / 64);
-            const rows   = Math.floor(h / 64);
-            for (let r = 0; r < rows; r++) {
-                for (let c = 0; c < cols; c++) {
-                    newTex.add(r * cols + c, 0, c * 64, r * 64, 64, 64);
-                }
-            }
+            // Register frames at the source sheet's real frame size (oversize-safe),
+            // not a hardcoded 64px grid. ensureTextureAnims patches the orig first.
+            this._renderer.ensureTextureAnims(origKey, animName);
+            registerSheetFrames(scene.textures.get(rcKey),
+                tex.customData?.frameW ?? 64, tex.customData?.frameH ?? 64);
         }
 
         this._renderer.ensureTextureAnims(rcKey, animName);
@@ -1598,20 +1606,30 @@ export default class CharacterCreatorScene extends Phaser.Scene {
     }
 
     _generateThumb() {
-        // Composite a 64×64 walk-down frame 0 from all current layers
+        // Composite a 64×64 walk-down frame from all current layers. Oversize
+        // (192/128px) weapon frames are centre-cropped into the 64 cell so the
+        // body stays at native size and everything stays anchored.
+        const CELL = 64;
         const canvas = document.createElement('canvas');
-        canvas.width = canvas.height = 64;
+        canvas.width = canvas.height = CELL;
         const ctx = canvas.getContext('2d', { willReadFrequently: true });
         const sorted = Object.values(this._char._lpcLayers)
             .sort((a, b) => (a.layer.zPos ?? DEFAULT_ZPOS[a.layer.type] ?? 0) - (b.layer.zPos ?? DEFAULT_ZPOS[b.layer.type] ?? 0));
-        for (const { sprite } of sorted) {
-            const tex = sprite.texture;
-            if (!tex || tex.key === '__MISSING') continue;
-            const src = tex.source[0];
-            const cols = Math.floor(src.width  / 64);
-            const rows = Math.floor(src.height / 64);
+        for (const entry of sorted) {
+            const layer    = entry.layer;
+            const concrete = resolveAnim(layer, 'walk');
+            if (!concrete) continue;
+            const swp = entry.swappedKeys?.[concrete];
+            const key = (swp && this.textures.exists(swp)) ? swp : texKey(layer, concrete);
+            if (!this.textures.exists(key)) continue;
+            this._renderer.ensureTextureAnims(key, concrete);
+            const tex  = this.textures.get(key);
+            const fw   = tex.customData?.frameW ?? 64;
+            const fh   = tex.customData?.frameH ?? 64;
+            const rows = Math.floor(tex.source[0].height / fh);
             const rowIdx = rows === 4 ? 2 : 0; // down row
-            ctx.drawImage(src.image, 0, rowIdx * 64, 64, 64, 0, 0, 64, 64);
+            ctx.drawImage(tex.source[0].image, 0, rowIdx * fh, fw, fh,
+                (CELL - fw) / 2, (CELL - fh) / 2, fw, fh);
         }
         return canvas.toDataURL('image/png');
     }
@@ -1828,8 +1846,6 @@ export default class CharacterCreatorScene extends Phaser.Scene {
     }
 
     _exportSpritesheet() {
-        const SHEET_W = 13 * 64;  // 832 — LPC universal standard width
-
         // Build z-sorted layer list from current UI selections, carrying tint info
         const expLayers = [];
         for (const uiType of ALL_TYPES) {
@@ -1842,50 +1858,69 @@ export default class CharacterCreatorScene extends Phaser.Scene {
             const matKey   = this._itemTintMaterial(uiType);
             const palette  = matKey ? TINT_PALETTE[matKey] : null;
             const palEntry = (palette && tintIdx > 0) ? palette[tintIdx] : null;
-            const main     = { type: rt, id: opt.id, zPos: opt.zPos ?? DEFAULT_ZPOS[rt] ?? 0, color, itemName: opt.itemName };
+            const main     = { type: rt, id: opt.id, zPos: opt.zPos ?? DEFAULT_ZPOS[rt] ?? 0, color, itemName: opt.itemName, anims: opt.anims };
             expLayers.push({ layer: main, palEntry, matKey });
             for (const c of opt.companions ?? []) {
                 expLayers.push({
                     layer: { type: rt, id: c.id, zPos: c.zPos ?? DEFAULT_ZPOS[rt] ?? 0,
-                        color: c.color ?? (opt.colors ? color : undefined), itemName: c.itemName },
+                        color: c.color ?? (opt.colors ? color : undefined), itemName: c.itemName, anims: c.anims },
                     palEntry, matKey,
                 });
             }
         }
         expLayers.sort((a, b) => (a.layer.zPos ?? 0) - (b.layer.zPos ?? 0));
 
-        // Determine which animations are actually loaded and their vertical offsets
-        let totalH = 0;
-        const animMeta = [];
-        for (const animName of DEFAULT_ANIMS) {
-            let srcH = 0;
-            for (const { layer } of expLayers) {
-                const k = texKey(layer, animName);
-                if (this.textures.exists(k)) { srcH = this.textures.get(k).source[0].height; break; }
+        // Each logical anim becomes one block of 64px cells. Per layer we resolve
+        // the concrete file it ships (so a Vitruvius weapon's attack_slash lands on
+        // the 'slash' block) and normalise every frame — including oversize 192/128px
+        // weapon frames — into the 64px universal grid, centred on the body anchor.
+        const CELL = 64, MAX_COLS = 13;
+        const blocks = [];
+        let totalH = 0, sheetCols = 1;
+        for (const logical of DEFAULT_ANIMS) {
+            const draws = [];
+            let rows = 0, cols = 0;
+            for (const { layer, palEntry, matKey } of expLayers) {
+                const concrete = resolveAnim(layer, logical);
+                if (!concrete) continue;
+                const key = texKey(layer, concrete);
+                if (!this.textures.exists(key)) continue;
+                const tex = this.textures.get(key);
+                if (!tex || tex.key === '__MISSING') continue;
+                this._renderer.ensureTextureAnims(key, concrete);
+                const fw = tex.customData?.frameW ?? 64;
+                const fh = tex.customData?.frameH ?? 64;
+                const lcols = Math.floor(tex.source[0].width  / fw);
+                const lrows = Math.floor(tex.source[0].height / fh);
+                const img = palEntry?.shades
+                    ? this._paletteSwapImage(tex.source[0].image, matKey, palEntry)
+                    : tex.source[0].image;
+                draws.push({ img, fw, fh, lcols, lrows });
+                rows = Math.max(rows, lrows);
+                cols = Math.max(cols, lcols);
             }
-            if (!srcH) continue;
-            animMeta.push({ animName, dstY: totalH, srcH });
-            totalH += srcH;
+            if (!draws.length) continue;
+            cols = Math.min(cols, MAX_COLS);
+            blocks.push({ draws, rows, cols, dstY: totalH });
+            totalH   += rows * CELL;
+            sheetCols = Math.max(sheetCols, cols);
         }
 
         if (!totalH) return;
 
         const canvas = document.createElement('canvas');
-        canvas.width  = SHEET_W;
+        canvas.width  = sheetCols * CELL;
         canvas.height = totalH;
         const ctx = canvas.getContext('2d');
 
-        for (const { animName, dstY } of animMeta) {
-            for (const { layer, palEntry, matKey } of expLayers) {
-                const origKey = texKey(layer, animName);
-                if (!this.textures.exists(origKey)) continue;
-                const tex = this.textures.get(origKey);
-                if (!tex || tex.key === '__MISSING') continue;
-                const img = tex.source[0].image;
-                if (palEntry?.shades) {
-                    ctx.drawImage(this._paletteSwapImage(img, matKey, palEntry), 0, dstY);
-                } else {
-                    ctx.drawImage(img, 0, dstY);
+        for (const { draws, rows, cols, dstY } of blocks) {
+            for (const { img, fw, fh, lcols, lrows } of draws) {
+                for (let r = 0; r < Math.min(rows, lrows); r++) {
+                    for (let c = 0; c < Math.min(cols, lcols); c++) {
+                        // native frame → 64px cell (scales oversize down, centred)
+                        ctx.drawImage(img, c * fw, r * fh, fw, fh,
+                            c * CELL, dstY + r * CELL, CELL, CELL);
+                    }
                 }
             }
         }

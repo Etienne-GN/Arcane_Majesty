@@ -733,6 +733,22 @@ export const SPELLS = {
         masteryThresholds: [28, 58],
     },
 
+    arcane_circle: {
+        id: 'arcane_circle',
+        name: 'Arcane Circle',
+        element: 'arcane',
+        targetingType: 'self',
+        channelTime: 5000,
+        lore: 'A teleportation circle inscribed in living mana. The geometry must be exact — outer ring first, then inward, then the cardinal meridians, then the diagonals, then the seal at the center. Five seconds of stillness. The circle will carry anyone who steps into it to the nearest attuned rift gate for as long as the mana holds the pattern.',
+        passive: false,
+        manaCost:  [40, 32, 24],
+        cooldown:  [120000, 90000, 60000],
+        duration:  [60000, 90000, 120000],
+        learnFrom: ['tome', 'npc'],
+        discoverCondition: { element: 'arcane', threshold: 40 },
+        masteryThresholds: [58, 90],
+    },
+
     // ── ADDITIONAL FIRE ───────────────────────────────────────────────────────
 
     flame_wall: {

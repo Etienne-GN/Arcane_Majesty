@@ -24,6 +24,7 @@ import OfflineMenuScene         from './scenes/OfflineMenuScene.js';
 import StorySelectScene         from './scenes/StorySelectScene.js';
 import CharacterCreatorScene    from './scenes/CharacterCreatorScene.js';
 import OnlineCharacterScene     from './scenes/OnlineCharacterScene.js';
+import ChestScene               from './scenes/ChestScene.js';
 
 const ZOOM = 2; // base renderer zoom (pixel art sharpness on hi-DPI); game world zoom is set via camera in GameScene
 const config = {
@@ -67,6 +68,7 @@ const config = {
         StorySelectScene,
         CharacterCreatorScene,
         OnlineCharacterScene,
+        ChestScene,
     ]
 };
 

@@ -20,6 +20,7 @@ import { statusManager } from '../systems/StatusManager.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { ANIM_PROFILES } from '../data/animProfiles.js';
 import { CharacterRenderer, DEFAULT_ANIMS } from '../systems/CharacterRenderer.js';
+import { openChest } from './ChestScene.js';
 
 export default class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
@@ -36,6 +37,12 @@ export default class GameScene extends Phaser.Scene {
     }
 
     preload() {
+        // Legacy saves predate the per-layer `anims` manifest, so a layer may ask
+        // for a sheet that doesn't exist. Swallow those misses quietly so they
+        // don't drown out real load errors in the console.
+        this.load.on('loaderror', (file) => {
+            if (file?.key?.startsWith?.('lpc__')) return;
+        });
         if (!this._onlineCharacter?.rendererLayers?.length) return;
         this._lpcRenderer = new CharacterRenderer(this);
         this._lpcRenderer.preload({
@@ -247,7 +254,15 @@ export default class GameScene extends Phaser.Scene {
             const sprite = this.chests.create(cx, cy, 'chest');
             sprite.setDepth(8);
             sprite.chestDef = def;
-            sprite.opened = false;
+            // Mutable contents: convert item-ID list to {id, qty} objects, merging stacks
+            if (!sprite.contents) {
+                const map = new Map();
+                for (const id of (def.items ?? [])) {
+                    map.set(id, (map.get(id) ?? 0) + 1);
+                }
+                sprite.contents = [...map.entries()].map(([id, qty]) => ({ id, qty }));
+            }
+            sprite._wasOpened = false;
 
             sprite.ePrompt = this.add.text(cx, cy - TILE_SIZE / 2 - 4, '[E]', {
                 font: '7px monospace', fill: '#ffff88'
@@ -390,6 +405,7 @@ export default class GameScene extends Phaser.Scene {
         this._campfirePlacing  = false;
         this._campfireReticle  = null;
         this._placedCampfires  = [];  // runtime campfire objects
+        this._teleportCircles  = [];  // runtime arcane circle zones
 
         this.input.keyboard.on('keydown-K', () => { this.scene.pause(); this.scene.launch('SkillTreeScene'); });
         this.input.keyboard.on('keydown-J', () => { this.scene.pause(); this.scene.launch('SpellbookScene'); });
@@ -694,8 +710,9 @@ export default class GameScene extends Phaser.Scene {
             case 'benediction':  castOk = this.player.castBenediction(); break;
             case 'vessel_mend':  castOk = this.player.castVesselMend();  break;
             case 'aetheric_ward':castOk = this.player.castAethericWard();break;
-            case 'tempest_step': castOk = this.player.castTempestStep(); break;
-            default:             castOk = this.player.castGeneric(spellId); break;
+            case 'tempest_step':   castOk = this.player.castTempestStep();   break;
+            case 'arcane_circle':  castOk = this.player.castArcaneCircle();  break;
+            default:               castOk = this.player.castGeneric(spellId); break;
         }
         if (!castOk) return;
 
@@ -890,6 +907,10 @@ export default class GameScene extends Phaser.Scene {
             case 'earth_pillar':
             case 'quagmire':
                 return; // handled in bespoke methods
+
+            case 'arcane_circle':
+                this._beginCircleCast(this.player.x, this.player.y);
+                return;
         }
 
         // Element-based default VFX fallback
@@ -964,7 +985,8 @@ export default class GameScene extends Phaser.Scene {
             case 'vessel_mend':
             case 'aetheric_ward':
             case 'tempest_step':
-                return; // handled entirely on player side
+            case 'arcane_circle':
+                return; // handled entirely on player/scene side
             case 'eclipse_mark': {
                 // Apply marked status AND set the eclipse mark timer for 2× damage
                 this._applyStatusNearest(tx, ty, range, spell.applyStatus);
@@ -1791,6 +1813,268 @@ export default class GameScene extends Phaser.Scene {
         this._castVfx = null;
     }
 
+    // ── Teleportation Circle ─────────────────────────────────────────────────
+    _beginCircleCast(px, py) {
+        const level    = playerStats.getSpellLevel('arcane_circle');
+        const duration = ([60000, 90000, 120000][level - 1]) ?? 60000;
+
+        statusManager.apply(this.player, 'resonance_stun', { duration: 5600 });
+        this.player.setVelocity(0, 0);
+
+        // Ground-level graphics — survives to become the permanent circle
+        const circleGfx = this.add.graphics().setDepth(py + 1);
+
+        // "Pen tip" particle emitter follows the drawing tip
+        const penEmitter = this.add.particles(px, py, 'particle', {
+            speed: { min: 6, max: 24 }, angle: { min: 0, max: 360 },
+            scale: { start: 0.5, end: 0 }, lifespan: { min: 80, max: 200 },
+            tint: [0xffffff, 0xffdd88, 0xcc88ff],
+            quantity: 2, frequency: 22,
+            alpha: { start: 0.9, end: 0 },
+        }).setDepth(63);
+
+        const castLabel = this.add.text(px, py - 50, 'INSCRIBING…', {
+            font: 'bold 8px monospace', fill: '#ffdd88', stroke: '#000', strokeThickness: 2,
+        }).setOrigin(0.5).setDepth(72).setResolution(3);
+
+        const barW = 52, barH = 5;
+        const barBg   = this.add.rectangle(px, py - 38, barW, barH, 0x111111, 0.9).setOrigin(0.5).setDepth(72);
+        const barFill = this.add.rectangle(px - barW / 2, py - 38, 1, barH, 0xffcc44).setOrigin(0, 0.5).setDepth(73);
+
+        const state = { t: 0 };
+        const drawTween = this.tweens.add({
+            targets: state, t: 1, duration: 5000, ease: 'Linear',
+            onUpdate: () => {
+                if (!circleGfx.active) return;
+                const tip = this._drawCircleProgress(circleGfx, px, py, state.t);
+                if (tip) penEmitter.setPosition(tip.x, tip.y);
+                barFill.width = Math.max(1, state.t * barW);
+            },
+        });
+
+        this._circleCastVfx = [penEmitter, castLabel, barBg, barFill, { destroy: () => drawTween.stop() }];
+        this._circleCastEvent = this.time.delayedCall(5000, () => {
+            this._completeCircleCast(px, py, duration, circleGfx);
+        });
+
+        this.scene.get('UIScene')?.showNotification?.('Inscribing Arcane Circle — stay still…', 5500);
+    }
+
+    _drawCircleProgress(gfx, cx, cy, t) {
+        gfx.clear();
+        const R1 = 44, R2 = 30, R3 = 18;
+        const S = -Math.PI / 2; // 12 o'clock
+
+        // Glow grows with progress
+        if (t > 0) {
+            gfx.fillStyle(0x6622cc, t * 0.07);
+            gfx.fillCircle(cx, cy, R1 + 6);
+        }
+
+        let tipX, tipY;
+
+        // Phase 1: Outer ring CW (t 0 → 0.30)
+        if (t > 0.005) {
+            const p1 = Math.min(t / 0.30, 1);
+            gfx.lineStyle(2.5, 0xffcc44, 0.92);
+            if (p1 >= 1) {
+                gfx.strokeCircle(cx, cy, R1);
+            } else {
+                gfx.beginPath();
+                gfx.arc(cx, cy, R1, S, S + p1 * Math.PI * 2, false);
+                gfx.strokePath();
+                tipX = cx + Math.cos(S + p1 * Math.PI * 2) * R1;
+                tipY = cy + Math.sin(S + p1 * Math.PI * 2) * R1;
+            }
+        }
+
+        // Phase 2: Middle ring CCW (t 0.22 → 0.55)
+        if (t > 0.22) {
+            const p2 = Math.min((t - 0.22) / 0.33, 1);
+            gfx.lineStyle(1.5, 0xcc88ff, 0.88);
+            if (p2 >= 1) {
+                gfx.strokeCircle(cx, cy, R2);
+            } else {
+                gfx.beginPath();
+                gfx.arc(cx, cy, R2, S, S - p2 * Math.PI * 2, true);
+                gfx.strokePath();
+                tipX = cx + Math.cos(S - p2 * Math.PI * 2) * R2;
+                tipY = cy + Math.sin(S - p2 * Math.PI * 2) * R2;
+            }
+        }
+
+        // Phase 3: Cardinal lines one by one (t 0.50 → 0.70)
+        if (t > 0.50) {
+            const p3    = Math.min((t - 0.50) / 0.20, 1);
+            const total = p3 * 4;
+            const nDone = Math.min(Math.floor(total), 4);
+            const frac  = total - Math.floor(total);
+            const dirs  = [[0, -1], [1, 0], [0, 1], [-1, 0]];
+            gfx.lineStyle(1.5, 0xffffff, 0.72);
+            for (let i = 0; i < Math.min(nDone + 1, 4); i++) {
+                const [dx, dy] = dirs[i];
+                const f = i < nDone ? 1 : frac;
+                const ex = cx + dx * (R3 + (R1 - R3) * f);
+                const ey = cy + dy * (R3 + (R1 - R3) * f);
+                gfx.lineBetween(cx + dx * R3, cy + dy * R3, ex, ey);
+                if (i === nDone && nDone < 4) { tipX = ex; tipY = ey; }
+            }
+        }
+
+        // Phase 4: Diagonal rune lines (t 0.65 → 0.82)
+        if (t > 0.65) {
+            const p4    = Math.min((t - 0.65) / 0.17, 1);
+            const total = p4 * 4;
+            const nDone = Math.min(Math.floor(total), 4);
+            const frac  = total - Math.floor(total);
+            const D     = 0.707;
+            const diags = [[D, -D], [D, D], [-D, D], [-D, -D]];
+            gfx.lineStyle(1, 0x88eeff, 0.65);
+            for (let i = 0; i < Math.min(nDone + 1, 4); i++) {
+                const [dx, dy] = diags[i];
+                const f = i < nDone ? 1 : frac;
+                const ex = cx + dx * (R3 + (R2 - R3) * f);
+                const ey = cy + dy * (R3 + (R2 - R3) * f);
+                gfx.lineBetween(cx + dx * R3, cy + dy * R3, ex, ey);
+                if (i === nDone && nDone < 4) { tipX = ex; tipY = ey; }
+            }
+        }
+
+        // Phase 5: Inner ring CW (t 0.78 → 0.95)
+        if (t > 0.78) {
+            const p5 = Math.min((t - 0.78) / 0.17, 1);
+            gfx.lineStyle(2, 0xffcc44, 0.85);
+            if (p5 >= 1) {
+                gfx.strokeCircle(cx, cy, R3);
+            } else {
+                gfx.beginPath();
+                gfx.arc(cx, cy, R3, S, S + p5 * Math.PI * 2, false);
+                gfx.strokePath();
+                tipX = cx + Math.cos(S + p5 * Math.PI * 2) * R3;
+                tipY = cy + Math.sin(S + p5 * Math.PI * 2) * R3;
+            }
+        }
+
+        // Phase 6: Center gem (t 0.92 → 1.0)
+        if (t > 0.92) {
+            const p6 = (t - 0.92) / 0.08;
+            gfx.fillStyle(0xffffff, p6 * 0.95);
+            gfx.fillCircle(cx, cy, 5 * p6);
+            gfx.lineStyle(1.5, 0xffcc44, p6 * 0.85);
+            gfx.strokeCircle(cx, cy, 8 * p6);
+            tipX = tipY = undefined;
+        }
+
+        return (tipX != null) ? { x: tipX, y: tipY } : null;
+    }
+
+    _drawTeleportCircle(gfx, cx, cy) {
+        gfx.clear();
+        const R1 = 44, R2 = 30, R3 = 18;
+
+        // Layered glow
+        gfx.fillStyle(0x441188, 0.07);
+        gfx.fillCircle(cx, cy, R1 + 14);
+        gfx.fillStyle(0x6622cc, 0.13);
+        gfx.fillCircle(cx, cy, R1 + 6);
+
+        // Outer ring
+        gfx.lineStyle(2.5, 0xffcc44, 0.95);
+        gfx.strokeCircle(cx, cy, R1);
+
+        // Middle ring
+        gfx.lineStyle(1.5, 0xcc88ff, 0.88);
+        gfx.strokeCircle(cx, cy, R2);
+
+        // Inner ring
+        gfx.lineStyle(2, 0xffcc44, 0.85);
+        gfx.strokeCircle(cx, cy, R3);
+
+        // Cardinal lines (N E S W, clipped R3→R1)
+        gfx.lineStyle(1.5, 0xffffff, 0.72);
+        [[0, -1], [1, 0], [0, 1], [-1, 0]].forEach(([dx, dy]) => {
+            gfx.lineBetween(cx + dx * R3, cy + dy * R3, cx + dx * R1, cy + dy * R1);
+        });
+
+        // Diagonal rune lines (R3→R2)
+        const D = 0.707;
+        gfx.lineStyle(1, 0x88eeff, 0.65);
+        [[D, -D], [D, D], [-D, D], [-D, -D]].forEach(([dx, dy]) => {
+            gfx.lineBetween(cx + dx * R3, cy + dy * R3, cx + dx * R2, cy + dy * R2);
+        });
+
+        // Outer tick marks (8 positions)
+        gfx.lineStyle(1.5, 0xffcc44, 0.70);
+        for (let i = 0; i < 8; i++) {
+            const a = (i / 8) * Math.PI * 2;
+            gfx.lineBetween(
+                cx + Math.cos(a) * (R1 - 4), cy + Math.sin(a) * (R1 - 4),
+                cx + Math.cos(a) * (R1 + 6), cy + Math.sin(a) * (R1 + 6));
+        }
+
+        // Center gem
+        gfx.fillStyle(0xffffff, 0.95);
+        gfx.fillCircle(cx, cy, 5);
+        gfx.lineStyle(1.5, 0xffcc44, 0.90);
+        gfx.strokeCircle(cx, cy, 8);
+    }
+
+    _completeCircleCast(cx, cy, duration, circleGfx) {
+        if (!this.player?.active) { circleGfx.destroy(); this._cleanCircleCastVfx(); return; }
+
+        this._cleanCircleCastVfx();
+        this._drawTeleportCircle(circleGfx, cx, cy);
+
+        // Completion burst
+        this.add.particles(cx, cy, 'particle', {
+            speed: { min: 60, max: 180 }, angle: { min: 0, max: 360 },
+            scale: { start: 1.2, end: 0 }, lifespan: { min: 300, max: 700 },
+            tint: [0xffcc44, 0xcc88ff, 0xffffff, 0x8844cc], quantity: 28, explode: true,
+        }).setDepth(64);
+        this.cameras.main.flash(100, 180, 100, 255, true);
+
+        // Ambient glow particles drifting around the circle perimeter
+        const orbitEmitter = this.add.particles(cx, cy, 'particle', {
+            speed: { min: 2, max: 8 }, angle: { min: 0, max: 360 },
+            scale: { start: 0.4, end: 0 }, lifespan: { min: 700, max: 1600 },
+            tint: [0xffcc44, 0xcc88ff, 0x8844cc],
+            quantity: 1, frequency: 100,
+            x: { min: -44, max: 44 }, y: { min: -18, max: 18 },
+            alpha: { start: 0.85, end: 0 },
+        }).setDepth(63);
+
+        // Pulse tween
+        this.tweens.add({
+            targets: circleGfx, alpha: { from: 0.65, to: 1.0 },
+            duration: 1800, yoyo: true, repeat: -1, ease: 'Sine.easeInOut',
+        });
+
+        const expiry = this.time.now + duration;
+        this._teleportCircles = this._teleportCircles ?? [];
+        this._teleportCircles.push({ gfx: circleGfx, emitter: orbitEmitter, x: cx, y: cy, expiry });
+
+        // Fade out the last 12 seconds as a warning
+        this.time.delayedCall(Math.max(0, duration - 12000), () => {
+            if (!circleGfx.active) return;
+            this.tweens.killTweensOf(circleGfx);
+            this.tweens.add({
+                targets: [circleGfx, orbitEmitter], alpha: 0, duration: 12000,
+                onComplete: () => { circleGfx.destroy(); orbitEmitter.destroy(); },
+            });
+        });
+
+        soundManager.spell();
+        this.scene.get('UIScene')?.showNotification?.('Arcane Circle active — step in to teleport.', 3000);
+    }
+
+    _cleanCircleCastVfx() {
+        if (!this._circleCastVfx) return;
+        for (const o of this._circleCastVfx) { try { o?.destroy?.(); } catch (_) {} }
+        this._circleCastVfx = null;
+        this._circleCastEvent?.remove?.();
+        this._circleCastEvent = null;
+    }
+
     _cancelPlacement() {
         if (this._campfirePlacing) {
             this._campfirePlacing = false;
@@ -2138,6 +2422,46 @@ export default class GameScene extends Phaser.Scene {
             });
         }
 
+        // Teleportation circles — trigger when player steps into center
+        if (this._teleportCircles?.length) {
+            const now = this.time.now;
+            this._teleportCircles = this._teleportCircles.filter(tc => tc.expiry > now && tc.gfx.active);
+            for (const tc of this._teleportCircles) {
+                if (Phaser.Math.Distance.Between(this.player.x, this.player.y, tc.x, tc.y) < 16 &&
+                    now - (tc._lastUsed ?? 0) > 3000) {
+                    const dest = this._riftGates
+                        ?.filter(g => g.attuned)
+                        .sort((a, b) =>
+                            Phaser.Math.Distance.Between(tc.x, tc.y, a.wx, a.wy) -
+                            Phaser.Math.Distance.Between(tc.x, tc.y, b.wx, b.wy)
+                        )[0];
+                    if (!dest) {
+                        this.scene.get('UIScene')?.showNotification?.('The circle finds no anchor — attune a rift gate first.', 2200);
+                        tc._lastUsed = now;
+                        break;
+                    }
+                    tc._lastUsed = now;
+                    this.add.particles(this.player.x, this.player.y, 'particle', {
+                        speed: { min: 60, max: 180 }, angle: { min: 0, max: 360 },
+                        scale: { start: 1.1, end: 0 }, lifespan: { min: 300, max: 700 },
+                        tint: [0xffcc44, 0xcc88ff, 0xffffff], quantity: 22, explode: true,
+                    }).setDepth(64);
+                    this.player.setPosition(dest.wx, dest.wy);
+                    this.cameras.main.centerOn(dest.wx, dest.wy);
+                    this.cameras.main.flash(200, 180, 100, 255, true);
+                    this.add.particles(dest.wx, dest.wy, 'particle', {
+                        speed: { min: 50, max: 160 }, angle: { min: 0, max: 360 },
+                        scale: { start: 1.0, end: 0 }, lifespan: { min: 250, max: 600 },
+                        tint: [0xffcc44, 0xcc88ff, 0xffffff], quantity: 18, explode: true,
+                    }).setDepth(64);
+                    soundManager.spell();
+                    this.scene.get('UIScene')?.showNotification?.(
+                        `Arcane Circle — arrived at ${dest.label ?? 'Rift Gate'}!`, 2500);
+                    break;
+                }
+            }
+        }
+
         // Boss tick + player attack
         if (this.boss?.active) {
             this.boss.update(this.player, delta);
@@ -2224,7 +2548,7 @@ export default class GameScene extends Phaser.Scene {
         const near = (obj) => Phaser.Math.Distance.Between(px, py, obj.x, obj.y) < range;
 
         this.npcs.getChildren().forEach(npc           => npc.ePrompt?.setAlpha(near(npc) ? 1 : 0));
-        this.chests.getChildren().forEach(chest       => chest.ePrompt?.setAlpha(near(chest) && !chest.opened ? 1 : 0));
+        this.chests.getChildren().forEach(chest       => chest.ePrompt?.setAlpha(near(chest) ? 1 : 0));
         this.campfires.getChildren().forEach(cf       => cf.ePrompt?.setAlpha(near(cf) ? 1 : 0));
         this.signs.getChildren().forEach(sign         => sign.ePrompt?.setAlpha(near(sign) ? 1 : 0));
         this.crackedBoulders.getChildren().forEach(b  => b.ePrompt?.setAlpha(near(b) && b.active ? 1 : 0));
@@ -2363,18 +2687,11 @@ export default class GameScene extends Phaser.Scene {
 
         // Chest
         this.physics.overlap(this.player.interactBox, this.chests, (box, chest) => {
-            if (chest.opened) return;
-            chest.opened = true;
-            chest.setTint(0x777777);
-            chest.ePrompt?.setAlpha(0);
+            if (this.scene.isActive('ChestScene')) return;
             soundManager.openChest();
-            chest.chestDef.items.forEach(id => playerStats.addItem(id));
-            const itemNames = chest.chestDef.items.map(i => i.replace(/_/g, ' ')).join(', ');
+            openChest(chest, this._storyId, this._characterId);
             this.scene.pause();
-            this.scene.launch('DialogueScene', {
-                lines: [{ speaker: null, text: `You open the chest and find: ${itemNames}.` }],
-                onComplete: () => SaveManager.save(playerStats, this._storyId, this._characterId)
-            });
+            this.scene.launch('ChestScene');
         });
     }
 

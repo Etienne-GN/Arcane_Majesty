@@ -126,7 +126,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         if (this.isAttacking) {
-            this.setVelocity(0);
+            this._applyMovementVelocity(cursors, wasd, joyVec);
             this._updateAuxBoxes();
             return;
         }
@@ -134,6 +134,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         // Let the attack animation finish before switching to walk/idle
         const atkKey = `${this._charDef.animPrefix}_attack_${this.facing}`;
         if (this.anims.currentAnim?.key === atkKey && this.anims.isPlaying) {
+            this._applyMovementVelocity(cursors, wasd, joyVec);
             this._updateAuxBoxes();
             return;
         }
@@ -318,6 +319,26 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.attackHitbox.setActive(false);
             this.attackHitbox.body.setSize(40, 40);  // restore normal size
         });
+    }
+
+    _applyMovementVelocity(cursors, wasd, joyVec) {
+        const baseSpeed  = 100 + this.stats.attributes.agility * 4;
+        const statusMult = statusManager.speedMult(this);
+        const speed = Math.floor(baseSpeed * (1 - this.stats.fatigueFraction * 0.75) * statusMult);
+        let vx = 0, vy = 0;
+        const jx = joyVec?.x ?? 0;
+        const jy = joyVec?.y ?? 0;
+        if (jx !== 0 || jy !== 0) {
+            vx = jx * speed;
+            vy = jy * speed;
+        } else {
+            if (cursors.left.isDown || wasd.left.isDown)        vx = -speed;
+            else if (cursors.right.isDown || wasd.right.isDown) vx =  speed;
+            if (cursors.up.isDown || wasd.up.isDown)            vy = -speed;
+            else if (cursors.down.isDown || wasd.down.isDown)   vy =  speed;
+            if (vx !== 0 && vy !== 0) { vx *= 0.707; vy *= 0.707; }
+        }
+        this.setVelocity(vx, vy);
     }
 
     _updateAuxBoxes() {
@@ -610,6 +631,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.scene.cameras.main.flash(30, 180, 255, 120, true);
         this.scene.time.delayedCall(100, () => { if (this.active && !this.invincible) this.clearTint(); });
         soundManager.spell();
+        return true;
+    }
+
+    castArcaneCircle() {
+        if (!this._spellCheck('arcane_circle')) return false;
+        this.setTint(0xcc88ff);
+        this.scene.time.delayedCall(300, () => { if (this.active && !this.invincible) this.clearTint(); });
+        soundManager.spell();
+        this.stats.gainResonance('arcane', 3);
         return true;
     }
 

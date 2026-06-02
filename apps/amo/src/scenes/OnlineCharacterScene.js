@@ -20,6 +20,11 @@ export default class OnlineCharacterScene extends Phaser.Scene {
     }
 
     preload() {
+        // Legacy saves predate the per-layer `anims` manifest; swallow any stray
+        // missing-sheet errors so they don't clutter the console.
+        this.load.on('loaderror', (file) => {
+            if (file?.key?.startsWith?.('lpc__')) return;
+        });
         this._renderer = new CharacterRenderer(this);
         for (const dat of this._slotData) {
             if (!dat?.rendererLayers?.length) continue;

@@ -22,6 +22,11 @@
 const FRAME_W = 64;
 const FRAME_H = 64;
 
+// Flip to true to surface "texture not loaded" diagnostics. Off by default so the
+// expected misses (a layer simply not shipping an animation) don't flood the console.
+const DEBUG = false;
+function warn(...args) { if (DEBUG) console.warn(...args); }
+
 // Directions and their row indices in a 4-row spritesheet
 const DIR_ROW = { up: 0, left: 1, down: 2, right: 3 };
 
@@ -31,11 +36,48 @@ const WEAPON_TYPES = new Set(['weapon']);
 // These types use  type/id/anim/{color}.png  (color stored in layer.color)
 export const COLOR_TYPES = new Set(['cape', 'backpack']);
 
-// Animations to preload by default
+// Logical animations the creator/preview works in. Per layer these are resolved
+// to the concrete file a layer actually ships (see ANIM_ALIASES / resolveAnim) —
+// e.g. a Vitruvius weapon realises the logical 'slash' as its 'attack_slash' file.
 export const DEFAULT_ANIMS = [
-    'walk', 'idle', 'hurt', 'slash', 'thrust', 'spellcast',
+    'walk', 'idle', 'hurt', 'slash', 'backslash', 'halfslash', 'thrust', 'shoot', 'spellcast',
     'run', 'sit', 'jump', 'climb', 'combat_idle', 'emote',
 ];
+
+// Logical anim → ordered list of concrete file names that satisfy it. Universal
+// LPC names come first; Vitruvius "attack_*" exports are the fallbacks. A layer
+// resolves to the first candidate present in its manifest (layer.anims).
+export const ANIM_ALIASES = {
+    slash:     ['slash', 'attack_slash'],
+    backslash: ['backslash', 'attack_backslash', 'attack_slash_reverse'],
+    halfslash: ['halfslash', 'attack_halfslash'],
+    thrust:    ['thrust', 'attack_thrust'],
+};
+
+/**
+ * Resolve a logical animation to the concrete file name a layer actually has.
+ * Returns null when the layer ships no file for that motion. Layers without a
+ * manifest (`layer.anims`) fall back to the literal name (legacy behaviour).
+ */
+export function resolveAnim(layer, logical) {
+    const candidates = ANIM_ALIASES[logical] ?? [logical];
+    if (!layer.anims) return candidates[0];
+    for (const c of candidates) if (layer.anims.includes(c)) return c;
+    return null;
+}
+
+/** Concrete anim names a layer needs loaded to cover a logical anim set (deduped). */
+function concreteAnimsFor(layer, logicalAnims) {
+    const out = new Set();
+    for (const logical of logicalAnims) {
+        const c = resolveAnim(layer, logical);
+        if (c) out.add(c);
+    }
+    // Walk is the universal fallback for layers that lack a requested motion.
+    const walk = resolveAnim(layer, 'walk');
+    if (walk) out.add(walk);
+    return out;
+}
 
 // Canonical z-order for layer types (used when zPos is not specified)
 export const DEFAULT_ZPOS = {
@@ -118,7 +160,10 @@ function detectDirMap(tex, rows) {
         const data = ctx.getImageData(0, 0, FRAME_W, FRAME_H).data;
         let found = false;
         for (let i = 3; i < data.length; i += 4) { if (data[i] > 8) { found = true; break; } }
-        if (found) return r < 4 ? DIR_ROW : { up: r, left: r, down: r, right: r };
+        if (found) {
+            if (rows < 4) return { up: r, left: r, down: r, right: r };
+            return r < 4 ? DIR_ROW : { up: r, left: r, down: r, right: r };
+        }
     }
     return { up: 0, left: 0, down: 0, right: 0 };
 }
@@ -172,6 +217,41 @@ function detectRowLayout(tex, rowIdx, cols) {
     // Mixed: consecutive, capped at standard LPC 9 cols
     const eff = Math.min(cols, 9);
     return { step: 1, colStart: 0, frameCount: eff };
+}
+
+/**
+ * Scan each row and return a Set of row indices that contain at least one opaque pixel.
+ * Result is cached on tex.customData.contentRows so we only scan once per texture.
+ */
+function getContentRows(tex, fw, fh) {
+    if (tex.customData?.contentRows) return tex.customData.contentRows;
+
+    const src  = tex.source[0];
+    const img  = src.image || src.canvas;
+    const rows = Math.floor(src.height / fh);
+    const w    = src.width;
+    const set  = new Set();
+
+    if (!img) {
+        for (let r = 0; r < rows; r++) set.add(r);
+    } else {
+        const tmp = document.createElement('canvas');
+        tmp.width  = w;
+        tmp.height = fh;
+        const ctx  = tmp.getContext('2d', { willReadFrequently: true });
+        for (let r = 0; r < rows; r++) {
+            ctx.clearRect(0, 0, w, fh);
+            ctx.drawImage(img, 0, r * fh, w, fh, 0, 0, w, fh);
+            const data = ctx.getImageData(0, 0, w, fh).data;
+            for (let i = 3; i < data.length; i += 4) {
+                if (data[i] > 8) { set.add(r); break; }
+            }
+        }
+    }
+
+    if (!tex.customData) tex.customData = {};
+    tex.customData.contentRows = set;
+    return set;
 }
 
 /**
@@ -251,6 +331,29 @@ function ensureCorrectFrameSize(tex) {
 }
 
 
+/**
+ * Register (or resize) every spritesheet frame on a texture at a given frame
+ * size. `addCanvas` only creates frame 0, so recoloured/oversize canvases need
+ * their frames laid out explicitly. Also stamps customData so ensureAnims and
+ * ensureCorrectFrameSize treat the texture as already-correct.
+ */
+export function registerSheetFrames(tex, fw, fh) {
+    if (!tex || tex.key === '__MISSING') return;
+    const w = tex.source[0].width, h = tex.source[0].height;
+    const cols = Math.floor(w / fw), rows = Math.floor(h / fh);
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            const idx = r * cols + c;
+            if (tex.frames[idx]) tex.frames[idx].setSize(fw, fh, c * fw, r * fh);
+            else                 tex.add(idx, 0, c * fw, r * fh, fw, fh);
+        }
+    }
+    if (!tex.customData) tex.customData = {};
+    tex.customData.framesPatched = true;
+    tex.customData.frameW = fw;
+    tex.customData.frameH = fh;
+}
+
 function ensureAnims(scene, key, animName) {
     const tex = scene.textures.get(key);
     if (!tex || tex.key === '__MISSING') return;
@@ -295,13 +398,27 @@ function ensureAnims(scene, key, animName) {
 
         if (frameCount <= 0) return;
 
-        // Rebuild stale cached animations (e.g. from before a code change)
-        if (scene.anims.exists(animKey)) {
-            if (scene.anims.get(animKey).frames.length === frameCount) return;
-            scene.anims.remove(animKey);
+        const frameStart   = rowIdx * cols + colStart;
+        const contentRows  = getContentRows(tex, fw, fh);
+
+        // Skip directions whose row either doesn't exist in the texture or is
+        // entirely transparent (e.g. longsword behind-layer has no DOWN content).
+        // Phaser silently falls back to frame 0 for missing indices, which always
+        // shows the UP row — creating these animations causes the sticking bug.
+        if (!tex.frames[frameStart] || !contentRows.has(rowIdx)) {
+            if (scene.anims.exists(animKey)) scene.anims.remove(animKey);
+            return;
         }
 
-        const frameStart = rowIdx * cols + colStart;
+        // Rebuild stale cached animations (frame count, start-frame, AND frameRate must match)
+        const expectedRate = animName === 'idle' ? 2 : animName === 'slash' ? 11 : 8;
+        if (scene.anims.exists(animKey)) {
+            const ex = scene.anims.get(animKey);
+            if (ex.frames.length === frameCount &&
+                Number(ex.frames[0]?.textureFrame) === frameStart &&
+                ex.frameRate === expectedRate) return;
+            scene.anims.remove(animKey);
+        }
         const frames = Array.from({ length: frameCount }, (_, i) => ({
             key, frame: frameStart + i * step,
         }));
@@ -309,7 +426,7 @@ function ensureAnims(scene, key, animName) {
         scene.anims.create({
             key:       animKey,
             frames,
-            frameRate: animName === 'idle' ? 4 : 8,
+            frameRate: expectedRate,
             repeat:    -1,
         });
     });
@@ -330,7 +447,7 @@ export class CharacterRenderer {
         const anims = config.animations ?? DEFAULT_ANIMS;
 
         for (const layer of config.layers) {
-            for (const anim of anims) {
+            for (const anim of concreteAnimsFor(layer, anims)) {
                 const key = texKey(layer, anim);
                 if (scene.textures.exists(key)) continue;
                 const url = animUrl(layer, anim);
@@ -359,77 +476,125 @@ export class CharacterRenderer {
         );
 
         for (const layer of sorted) {
-            const key = texKey(layer, startAnim);
-            if (!scene.textures.exists(key)) {
-                console.warn(`[CharacterRenderer] texture not loaded: ${key} (${animUrl(layer, startAnim)})`);
+            // Pick any loaded texture to seed the sprite; _layerTarget then drives
+            // the correct concrete anim/direction (and visibility) below.
+            const startConcrete = resolveAnim(layer, startAnim);
+            let initKey = startConcrete ? texKey(layer, startConcrete) : null;
+            if (!initKey || !scene.textures.exists(initKey)) {
+                const walk = resolveAnim(layer, 'walk');
+                initKey = walk ? texKey(layer, walk) : null;
+            }
+            if (!initKey || !scene.textures.exists(initKey)) {
+                warn(`[CharacterRenderer] texture not loaded: ${layerKey(layer)} @ ${startAnim}`);
                 continue;
             }
 
-            ensureAnims(scene, key, startAnim);
-
-            const sprite = scene.add.sprite(0, 0, key, 0);
-            const animKey = `${key}_${startDir}`;
-            if (scene.anims.exists(animKey)) sprite.play(animKey);
-
+            const sprite = scene.add.sprite(0, 0, initKey, 0);
             container.add(sprite);
-            container._lpcLayers[layerKey(layer)] = { sprite, layer, anim: startAnim };
+            const entry = { sprite, layer, anim: startAnim };
+            container._lpcLayers[layerKey(layer)] = entry;
+
+            const t = this._layerTarget(entry, startAnim, startDir);
+            if (t) { sprite.play(t.animKey); entry.anim = t.effAnim; }
+            else   { sprite.setVisible(false); }
         }
 
         return container;
     }
 
     /**
+     * Resolve what a single layer should display for a (logical anim, direction).
+     * Returns { key, animKey, effAnim } to play, or null when the layer should be
+     * hidden — e.g. it ships no file for the motion AND none for walk, or its
+     * resolved animation simply has no frames for this direction (a real asset
+     * gap such as a weapon with no up-facing slash). We deliberately do NOT fall
+     * back to a walk pose mid-action: a sword frozen in a walk stance during a
+     * slash reads as broken, so hiding is the honest choice.
+     */
+    _layerTarget(entry, useAnim, useDir) {
+        const scene = this._scene;
+        const { layer } = entry;
+        const texOk = (k) => k && scene.textures.exists(k) && scene.textures.get(k)?.key !== '__MISSING';
+
+        // 1. Resolve the requested motion to a concrete file this layer ships.
+        let effAnim  = resolveAnim(layer, useAnim);
+        let isAction = !!(effAnim && texOk(texKey(layer, effAnim)));
+        if (!isAction) {
+            // Layer has no file for this motion — track movement via walk instead
+            // (keeps clothing/body-parts present during idle, spellcast, etc.).
+            effAnim = resolveAnim(layer, 'walk') ?? 'walk';
+            if (!texOk(texKey(layer, effAnim))) return null;
+        }
+
+        // 2. Prefer a palette-swapped texture when one exists for this anim.
+        const swp = entry.swappedKeys?.[effAnim];
+        const key = (swp && texOk(swp)) ? swp : texKey(layer, effAnim);
+
+        ensureAnims(scene, key, effAnim);
+        const animKey = `${key}_${useDir}`;
+        if (!scene.anims.exists(animKey)) return null; // direction row empty → hide
+        return { key, animKey, effAnim };
+    }
+
+    /**
      * Play an animation on all layers of a container.
-     * @param {string} [anim]  animation name, e.g. 'walk', 'slash'
+     * @param {string} [anim]  logical animation name, e.g. 'walk', 'slash'
      * @param {string} [dir]   direction: 'up' | 'left' | 'down' | 'right'
      */
     play(container, anim, dir) {
-        const scene   = this._scene;
         const useAnim = anim ?? container._lpcAnim ?? 'walk';
         const useDir  = dir  ?? container._lpcDir  ?? 'down';
 
         for (const entry of Object.values(container._lpcLayers)) {
-            const { sprite, layer } = entry;
-            const baseKey = texKey(layer, useAnim);
-            const swpKey  = entry.swappedKeys?.[useAnim];
-            const key     = (swpKey && scene.textures.exists(swpKey)) ? swpKey : baseKey;
-
-            if (!scene.textures.exists(key)) continue;
-            ensureAnims(scene, key, useAnim);
-
-            const animKey = `${key}_${useDir}`;
-            if (!scene.anims.exists(animKey)) continue;
-            if (sprite.anims.currentAnim?.key !== animKey || !sprite.anims.isPlaying) {
-                sprite.play(animKey, true);
+            const t = this._layerTarget(entry, useAnim, useDir);
+            if (!t) { entry.sprite.setVisible(false); entry.anim = useAnim; continue; }
+            entry.sprite.setVisible(true);
+            if (entry.sprite.anims.currentAnim?.key !== t.animKey || !entry.sprite.anims.isPlaying) {
+                entry.sprite.play(t.animKey, true);
             }
-            entry.anim = useAnim;
+            entry.anim = t.effAnim;
         }
 
         container._lpcAnim = useAnim;
         container._lpcDir  = useDir;
     }
 
-    /** Number of frames per direction row for the current anim on a container */
+    /** Max frame count (per direction row) across layers for the current anim */
     frameCount(container) {
-        const entry = Object.values(container._lpcLayers)[0];
-        if (!entry) return 1;
-        const key = texKey(entry.layer, container._lpcAnim ?? 'walk');
-        const tex = this._scene.textures.get(key);
-        if (!tex || tex.key === '__MISSING') return 1;
-        const fw = tex.customData?.frameW ?? FRAME_W;
-        return Math.floor(tex.source[0].width / fw);
+        const useAnim = container._lpcAnim ?? 'walk';
+        let max = 1;
+        for (const entry of Object.values(container._lpcLayers)) {
+            const concrete = resolveAnim(entry.layer, useAnim) ?? resolveAnim(entry.layer, 'walk');
+            if (!concrete) continue;
+            const tex = this._scene.textures.get(texKey(entry.layer, concrete));
+            if (!tex || tex.key === '__MISSING') continue;
+            ensureCorrectFrameSize(tex);
+            const fw   = tex.customData?.frameW ?? FRAME_W;
+            const cols = Math.floor(tex.source[0].width / fw);
+            if (cols > max) max = cols;
+        }
+        return max;
     }
 
     /** Pause all layer sprites and show a specific frame index within current dir row */
     freezeFrame(container, frameIdx) {
-        const scene = this._scene;
-        const dir   = container._lpcDir ?? 'down';
+        const scene   = this._scene;
+        const useAnim = container._lpcAnim ?? 'walk';
+        const dir     = container._lpcDir  ?? 'down';
 
         for (const entry of Object.values(container._lpcLayers)) {
-            const { sprite, layer } = entry;
-            const key  = texKey(layer, container._lpcAnim ?? 'walk');
-            const tex  = scene.textures.get(key);
-            if (!tex || tex.key === '__MISSING') continue;
+            const { sprite } = entry;
+            sprite.anims.stop();
+
+            // Resolve the same concrete anim / swapped texture / visibility the
+            // playing path would use — so a paused oversize weapon shows the right
+            // 192px frame (not a 64px mis-slice) and a tinted layer keeps its colour.
+            const t = this._layerTarget(entry, useAnim, dir);
+            if (!t) { sprite.setVisible(false); continue; }
+
+            const tex = scene.textures.get(t.key);
+            if (!tex || tex.key === '__MISSING') { sprite.setVisible(false); continue; }
+            ensureCorrectFrameSize(tex);
 
             const fw      = tex.customData?.frameW ?? FRAME_W;
             const fh      = tex.customData?.frameH ?? FRAME_H;
@@ -438,7 +603,8 @@ export class CharacterRenderer {
             const rowIdx  = rows === 4 ? DIR_ROW[dir] : 0;
             const clamped = Phaser.Math.Clamp(frameIdx, 0, cols - 1);
 
-            sprite.anims.stop();
+            sprite.setVisible(true);
+            if (sprite.texture.key !== t.key) sprite.setTexture(t.key);
             sprite.setFrame(rowIdx * cols + clamped);
         }
     }
@@ -458,21 +624,26 @@ export class CharacterRenderer {
         const { layer } = entry;
         const safe = swapParams.tintName.replace(/\s+/g, '_');
 
-        for (const animName of DEFAULT_ANIMS) {
-            const origKey = texKey(layer, animName);
+        // Key swappedKeys by the CONCRETE anim name (what texKey/_layerTarget use),
+        // resolving each logical anim to the file this layer actually ships.
+        for (const logical of DEFAULT_ANIMS) {
+            const concrete = resolveAnim(layer, logical);
+            if (!concrete) continue;
+            const origKey = texKey(layer, concrete);
             if (!scene.textures.exists(origKey)) continue;
             const rcKey = `${origKey}__rc_${swapParams.sourceKey}_${safe}`;
             if (!scene.textures.exists(rcKey)) {
                 if (!this._buildSwappedTexture(scene, origKey, rcKey, swapParams)) continue;
             }
-            ensureAnims(scene, rcKey, animName);
-            entry.swappedKeys[animName] = rcKey;
+            ensureAnims(scene, rcKey, concrete);
+            entry.swappedKeys[concrete] = rcKey;
         }
 
         // Refresh sprite if it's currently showing this layer's animation
         const useAnim    = container._lpcAnim ?? 'walk';
         const useDir     = container._lpcDir  ?? 'down';
-        const swappedKey = entry.swappedKeys[useAnim];
+        const concreteUse = resolveAnim(layer, useAnim);
+        const swappedKey = concreteUse ? entry.swappedKeys[concreteUse] : null;
         if (swappedKey) {
             const animKey = `${swappedKey}_${useDir}`;
             if (scene.anims.exists(animKey)) entry.sprite.play(animKey, true);
@@ -522,20 +693,20 @@ export class CharacterRenderer {
         ctx.putImageData(imgData, 0, 0);
         scene.textures.addCanvas(rcKey, canvas);
 
-        const newTex = scene.textures.get(rcKey);
-        const cols   = Math.floor(w / 64);
-        const rows   = Math.floor(h / 64);
-        for (let r = 0; r < rows; r++) {
-            for (let c = 0; c < cols; c++) {
-                newTex.add(r * cols + c, 0, c * 64, r * 64, 64, 64);
-            }
-        }
+        // Register frames at the SAME geometry as the source (handles oversize
+        // 128/192px weapon sheets, not just 64px) so the recolour stays aligned.
+        ensureCorrectFrameSize(tex);
+        registerSheetFrames(scene.textures.get(rcKey),
+            tex.customData?.frameW ?? FRAME_W, tex.customData?.frameH ?? FRAME_H);
         return true;
     }
 
-    /** Returns true if every requested animation is already loaded for this layer */
+    /** Returns true if every concrete animation this layer needs is already loaded */
     isLayerLoaded(layer, anims = DEFAULT_ANIMS) {
-        return anims.every(a => this._scene.textures.exists(texKey(layer, a)));
+        for (const a of concreteAnimsFor(layer, anims)) {
+            if (!this._scene.textures.exists(texKey(layer, a))) return false;
+        }
+        return true;
     }
 
     /**
@@ -546,7 +717,7 @@ export class CharacterRenderer {
         const scene = this._scene;
         let queued  = false;
         for (const layer of layers) {
-            for (const anim of anims) {
+            for (const anim of concreteAnimsFor(layer, anims)) {
                 const key = texKey(layer, anim);
                 if (!scene.textures.exists(key)) {
                     scene.load.spritesheet(key, animUrl(layer, anim), { frameWidth: FRAME_W, frameHeight: FRAME_H });
@@ -565,7 +736,8 @@ export class CharacterRenderer {
      */
     loadLayer(layer, anims = DEFAULT_ANIMS, onDone = () => {}) {
         const scene   = this._scene;
-        const needed  = anims.filter(a => !scene.textures.exists(texKey(layer, a)));
+        const concrete = [...concreteAnimsFor(layer, anims)];
+        const needed  = concrete.filter(a => !scene.textures.exists(texKey(layer, a)));
         if (needed.length === 0) { onDone(); return; }
 
         for (const anim of needed) {
@@ -579,21 +751,21 @@ export class CharacterRenderer {
     /** Add a new layer sprite to a container, inserted at the correct z-order position */
     addLayer(container, layer) {
         const scene   = this._scene;
-        const useDir  = container._lpcDir  ?? 'down';
-        // Try the container's current anim first, then walk as fallback
-        let useAnim = container._lpcAnim ?? 'walk';
-        let key     = texKey(layer, useAnim);
-        if (!scene.textures.exists(key)) {
-            useAnim = 'walk';
-            key     = texKey(layer, 'walk');
+        const useAnim = container._lpcAnim ?? 'walk';
+        // Seed the sprite with any loaded texture for this layer; _resyncAll then
+        // drives the correct concrete anim/direction/visibility.
+        const concrete = resolveAnim(layer, useAnim);
+        let initKey = concrete ? texKey(layer, concrete) : null;
+        if (!initKey || !scene.textures.exists(initKey)) {
+            const walk = resolveAnim(layer, 'walk');
+            initKey = walk ? texKey(layer, walk) : null;
         }
-        if (!scene.textures.exists(key)) {
-            console.warn(`[CharacterRenderer] addLayer: texture not loaded: ${key}`);
+        if (!initKey || !scene.textures.exists(initKey)) {
+            warn(`[CharacterRenderer] addLayer: texture not loaded: ${layerKey(layer)}`);
             return;
         }
 
-        ensureAnims(scene, key, useAnim);
-        const sprite  = scene.add.sprite(0, 0, key, 0);
+        const sprite = scene.add.sprite(0, 0, initKey, 0);
 
         // Insert at the right z position
         const zNew   = layer.zPos ?? DEFAULT_ZPOS[layer.type] ?? 0;
@@ -616,19 +788,15 @@ export class CharacterRenderer {
 
     /** Restart all layer animations from frame 0 simultaneously (keeps them in sync) */
     _resyncAll(container) {
-        const scene   = this._scene;
         const useAnim = container._lpcAnim ?? 'walk';
         const useDir  = container._lpcDir  ?? 'down';
+
         for (const entry of Object.values(container._lpcLayers)) {
-            const baseKey = texKey(entry.layer, useAnim);
-            const swpKey  = entry.swappedKeys?.[useAnim];
-            const key     = (swpKey && scene.textures.exists(swpKey)) ? swpKey : baseKey;
-            if (!scene.textures.exists(key)) continue;
-            const animKey = `${key}_${useDir}`;
-            if (scene.anims.exists(animKey)) {
-                entry.sprite.play(animKey);
-                entry.anim = useAnim;
-            }
+            const t = this._layerTarget(entry, useAnim, useDir);
+            if (!t) { entry.sprite.setVisible(false); continue; }
+            entry.sprite.setVisible(true);
+            entry.sprite.play(t.animKey);   // no `true` → always restart from frame 0
+            entry.anim = t.effAnim;
         }
     }
 
@@ -651,15 +819,18 @@ export class CharacterRenderer {
 
         const { sprite } = entry;
         const useAnim = container._lpcAnim ?? 'walk';
-        const useDir  = container._lpcDir  ?? 'down';
-        const key     = texKey(newLayer, useAnim);
+        const concrete = resolveAnim(newLayer, useAnim);
+        let key = concrete ? texKey(newLayer, concrete) : null;
+        if (!key || !scene.textures.exists(key)) {
+            const walk = resolveAnim(newLayer, 'walk');
+            key = walk ? texKey(newLayer, walk) : null;
+        }
 
-        if (!scene.textures.exists(key)) {
-            console.warn(`[CharacterRenderer] replaceLayer: texture not loaded: ${key}`);
+        if (!key || !scene.textures.exists(key)) {
+            warn(`[CharacterRenderer] replaceLayer: texture not loaded: ${layerKey(newLayer)}`);
             return;
         }
 
-        ensureAnims(scene, key, useAnim);
         sprite.setTexture(key, 0);
 
         delete container._lpcLayers[oldLayerKey];
