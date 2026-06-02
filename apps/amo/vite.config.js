@@ -26,5 +26,16 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
+    rollupOptions: {
+      output: {
+        // Split heavy, rarely-changing vendors into their own chunks so the
+        // browser caches them across app deploys and downloads them in parallel
+        // with the app code (instead of one ~2.3MB monolith).
+        manualChunks: {
+          phaser: ['phaser'],
+          socketio: ['socket.io-client'],
+        },
+      },
+    },
   },
 });
