@@ -5,10 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
+    "prebuild": "node tools/validate_catalogue.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "server": "node server/index.js",
-    "server:dev": "node --watch server/index.js"
+    "server:dev": "node --watch server/index.js",
+    "gen:anims": "node tools/annotate_anims.js",
+    "test:catalogue": "node tools/validate_catalogue.mjs",
+    "audit:weapons": "python3 tools/audit_coverage.py",
+    "audit:oversize": "python3 tools/audit_oversize.py"
   },
   "devDependencies": {
     "vite": "^6.0.0"
