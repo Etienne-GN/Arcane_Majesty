@@ -822,4 +822,4 @@ Auto-saves on every enemy kill. Saves:
 
 ---
 
-*Document generated from AM1 source — apps/am1/src/ — accurate to current build.*
+*Document generated from amo source — apps/amo/src/ — accurate to current build.*

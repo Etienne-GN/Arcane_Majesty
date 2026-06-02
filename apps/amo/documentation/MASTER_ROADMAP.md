@@ -1,4 +1,4 @@
-# AC1: Eldoria's Prophecy - Master Implementation Roadmap
+# Arcane Majesty (amo): Eldoria's Prophecy — Master Implementation Roadmap
 
 **Status:** Director's Directive for Claude (Coder)
 **Objective:** Build a high-fidelity ARPG prototype based on the "Silent Century" (~500 AGD) lore.
@@ -79,7 +79,7 @@
 - [ ] **Quest Tracking System:**
     - [ ] UI Journal for Active/Completed quests.
     - [ ] Multi-stage quest logic (Speak -> Fetch/Kill -> Speak).
-    - [ ] Refer to `apps/ac1/CAMPAIGN_SCRIPTURE.md` (Strict Lore Edition) for all quest data and dialogue anchors.
+    - [ ] Refer to `apps/amo/documentation/CAMPAIGN_SCRIPTURE.md` (Strict Lore Edition) for all quest data and dialogue anchors.
 - [ ] **Lore-Driven Quests:** Quests that reward "Resonance Insights" and reveal fragments of Era I/II lore.
 - [ ] **The Archive of Souls:** Integration with the Quest Journal to store "Recovered Memories."
 
