@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { PROLOGUE_MAP, TILE_SIZE, RIFT_GATE_POSITIONS } from '../data/worldMap.js';
+import { MenuFocus } from '../systems/MenuFocus.js';
 
 const MAP_ROWS    = PROLOGUE_MAP.length;
 const MAP_COLS    = PROLOGUE_MAP[0].length;
@@ -130,6 +131,9 @@ export default class AethericTearScene extends Phaser.Scene {
         this._panelW   = panelW;
         this._panelTopY = this._mapY;
         this._panelObjs = [];
+        // Gamepad: gate-list nav + A=tear, B=cancel, LB/RB toggle mode (free-aim
+        // targeting stays on mouse/touch).
+        this._focus = new MenuFocus(this, { onBack: () => this._cancel() });
         this._drawPanel();
 
         // ── Footer ────────────────────────────────────────────────────────────
@@ -176,8 +180,18 @@ export default class AethericTearScene extends Phaser.Scene {
     _track(o) { this._panelObjs.push(o); return o; }
 
     _drawPanel() {
+        this._tearFocus = [];
         if (this._mode === 'gates') this._drawGatePanel();
         else                        this._drawFreePanel();
+        this._focus?.setItems(this._tearFocus, { cols: 1 });
+    }
+
+    update(time, delta) {
+        const gp = this._focus?.poll(delta);
+        if (!gp) return;
+        if (this._hasTier2 && (gp.LB || gp.RB)) {
+            this._setMode(this._mode === 'gates' ? 'free' : 'gates');
+        }
     }
 
     // ── Gate panel (tier 1) ───────────────────────────────────────────────────
@@ -223,6 +237,7 @@ export default class AethericTearScene extends Phaser.Scene {
                 bg.on('pointerover', () => { bg.setFillStyle(0x33005a); verb.setStyle({ fill: '#ff44ff' }); });
                 bg.on('pointerout',  () => { bg.setFillStyle(0x1a0033); verb.setStyle({ fill: '#9900cc' }); });
                 bg.on('pointerdown', () => this._selectGate(gate.id));
+                this._tearFocus.push({ obj: bg, activate: () => this._selectGate(gate.id) });
             } else {
                 this._track(this.add.text(x + w - 5, y + rowH / 2, '[UNKNOWN]', {
                     font: '7px monospace', fill: '#220033'

@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { PROLOGUE_MAP, TILE_SIZE, RIFT_GATE_POSITIONS } from '../data/worldMap.js';
+import { MenuFocus } from '../systems/MenuFocus.js';
 
 const MAP_ROWS = PROLOGUE_MAP.length;
 const MAP_COLS = PROLOGUE_MAP[0].length;
@@ -114,6 +115,13 @@ export default class WorldMapScene extends Phaser.Scene {
         this.input.keyboard.on('keydown-ESC', () => this._close());
         this.input.keyboard.on('keydown-M',   () => this._close());
         this.add.text(w - 6, 4, '✕', { font: 'bold 14px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
+
+        // Gamepad: view-only map — B/Start closes.
+        this._focus = new MenuFocus(this, { onBack: () => this._close() });
+    }
+
+    update(time, delta) {
+        this._focus?.poll(delta);
     }
 
     _close() {

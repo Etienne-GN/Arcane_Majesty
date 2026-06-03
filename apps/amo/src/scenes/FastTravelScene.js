@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { RIFT_GATE_POSITIONS } from '../data/worldMap.js';
+import { MenuFocus } from '../systems/MenuFocus.js';
 
 export default class FastTravelScene extends Phaser.Scene {
     constructor() { super('FastTravelScene'); }
@@ -36,6 +37,7 @@ export default class FastTravelScene extends Phaser.Scene {
         const rowH = 30;
         const listY = panY + 44;
 
+        const focusables = [];
         gates.forEach((gate, i) => {
             const rowY = listY + i * rowH;
             const isCurrent = gate.id === currentGateId;
@@ -69,6 +71,7 @@ export default class FastTravelScene extends Phaser.Scene {
                     btn.setStyle({ fill: '#6699ff' });
                 });
                 rowBg.on('pointerdown', () => this._travel(gate.id));
+                focusables.push({ obj: rowBg, activate: () => this._travel(gate.id) });
             }
         });
 
@@ -79,6 +82,14 @@ export default class FastTravelScene extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-ESC', () => this._cancel());
         this.add.text(w - 6, 4, '✕', { font: 'bold 14px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2 }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._cancel());
+
+        // Gamepad: cycle gates, A = travel, B = cancel
+        this._focus = new MenuFocus(this, { onBack: () => this._cancel() });
+        this._focus.setItems(focusables, { cols: 1 });
+    }
+
+    update(time, delta) {
+        this._focus?.poll(delta);
     }
 
     _travel(gateId) {

@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { ENEMY_TYPES } from '../data/worldMap.js';
+import { MenuFocus } from '../systems/MenuFocus.js';
 
 const TABS = ['LORE', 'ECHOES', 'BESTIARY', 'WORLD'];
 
@@ -183,6 +184,18 @@ export default class CodexScene extends Phaser.Scene {
                 if (i !== this._tab) this.scene.start('CodexScene', { tab: i });
             });
         }
+
+        // Gamepad: LB/RB switch tabs, dpad up/down scrolls, B closes.
+        this._focus = new MenuFocus(this, { onBack: () => this._close() });
+    }
+
+    update(time, delta) {
+        const gp = this._focus?.poll(delta);
+        if (!gp) return;
+        if (gp.up)   this._scrollBy(-1);
+        if (gp.down) this._scrollBy(1);
+        if (gp.RB)   this.scene.start('CodexScene', { tab: (this._tab + 1) % TABS.length });
+        if (gp.LB)   this.scene.start('CodexScene', { tab: (this._tab - 1 + TABS.length) % TABS.length });
     }
 
     _renderContent(x, y, w, h) {

@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { ITEMS } from '../data/items.js';
 import { SaveManager } from '../systems/SaveManager.js';
+import { MenuFocus } from '../systems/MenuFocus.js';
 
 const SLOT       = 52;
 const CHEST_COLS = 5;
@@ -23,6 +24,7 @@ export default class ChestScene extends Phaser.Scene {
 
     create() {
         this._chest = _activeChest;
+        this._focusables = [];   // gamepad focus targets (filled slots + buttons)
         const w = this.scale.width, h = this.scale.height;
         const px = 12, py = 12, pw = w - 24, ph = h - 24;
 
@@ -77,6 +79,7 @@ export default class ChestScene extends Phaser.Scene {
         takeAll.on('pointerover', () => takeAll.setStyle({ fill: '#88ffaa' }));
         takeAll.on('pointerout',  () => takeAll.setStyle({ fill: '#44aa66' }));
         takeAll.on('pointerdown', () => this._takeAll());
+        this._focusables.push({ obj: takeAll, activate: () => this._takeAll() });
 
         this.add.text(px + pw / 2, btnY, '[ESC] Close', {
             font: '12px monospace', fill: '#334455'
@@ -88,8 +91,17 @@ export default class ChestScene extends Phaser.Scene {
         closeBtn.on('pointerover', () => closeBtn.setStyle({ fill: '#ffcc66' }));
         closeBtn.on('pointerout',  () => closeBtn.setStyle({ fill: '#886633' }));
         closeBtn.on('pointerdown', () => this._close());
+        this._focusables.push({ obj: closeBtn, activate: () => this._close() });
 
         this.input.keyboard.on('keydown-ESC', () => this._close());
+
+        // Gamepad: cycle filled slots + buttons, A = take/store/close, B = close
+        this._focus = new MenuFocus(this, { onBack: () => this._close() });
+        this._focus.setItems(this._focusables, { cols: 1 });
+    }
+
+    update(time, delta) {
+        this._focus?.poll(delta);
     }
 
     _drawChestGrid(x, y, availW, availH) {
@@ -117,6 +129,7 @@ export default class ChestScene extends Phaser.Scene {
                     bg.on('pointerover', () => { bg.setFillStyle(0x1c1c30); this._showDesc(item.id, 'chest'); });
                     bg.on('pointerout',  () => bg.setFillStyle(0x0e0e20));
                     bg.on('pointerdown', () => this._takeItem(idx));
+                    this._focusables.push({ obj: bg, activate: () => this._takeItem(idx) });
                 } else {
                     bg.on('pointerover', () => bg.setFillStyle(0x111120));
                     bg.on('pointerout',  () => bg.setFillStyle(0x0e0e20));
@@ -161,6 +174,7 @@ export default class ChestScene extends Phaser.Scene {
                     bg.on('pointerover', () => { bg.setFillStyle(0x1a1a40); this._showDesc(item.id, 'satchel'); });
                     bg.on('pointerout',  () => bg.setFillStyle(0x0e0e26));
                     bg.on('pointerdown', () => this._storeItem(idx));
+                    this._focusables.push({ obj: bg, activate: () => this._storeItem(idx) });
                 } else {
                     bg.on('pointerover', () => bg.setFillStyle(0x111130));
                     bg.on('pointerout',  () => bg.setFillStyle(0x0e0e26));

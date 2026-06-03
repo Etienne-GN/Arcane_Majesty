@@ -4,6 +4,7 @@ import { ITEMS, COOKING_RECIPES, POTION_RECIPES } from '../data/items.js';
 import { soundManager } from '../systems/SoundManager.js';
 import { SaveManager } from '../systems/SaveManager.js';
 import { questManager } from '../systems/QuestManager.js';
+import { MenuFocus } from '../systems/MenuFocus.js';
 
 const TABS = ['REST', 'COOK', 'BREW'];
 const TAB_KEYS = ['ONE', 'TWO', 'THREE'];
@@ -62,6 +63,8 @@ export default class CampfireScene extends Phaser.Scene {
             font: '14px monospace', fill: '#443322'
         }).setOrigin(0.5, 1);
 
+        // Gamepad: LB/RB switch tabs, dpad cycles options, A activates, B closes.
+        this._focus = new MenuFocus(this, { onBack: () => this._close() });
         this._switchTab(0);
 
         this.input.keyboard.on('keydown-ESC',   () => this._close());
@@ -86,13 +89,22 @@ export default class CampfireScene extends Phaser.Scene {
         if (idx === 0) this._drawRest();
         if (idx === 1) this._drawRecipes('cook');
         if (idx === 2) this._drawRecipes('brew');
+        this._focus?.setItems(this._contentFocus, { cols: 1 });
     }
 
     _clearContent() {
         this._contentObjs.forEach(o => o?.destroy?.());
         this._contentObjs = [];
+        this._contentFocus = [];   // gamepad focus targets for the active tab
         this._feedback?.destroy();
         this._feedback = null;
+    }
+
+    update(time, delta) {
+        const gp = this._focus?.poll(delta);
+        if (!gp) return;
+        if (gp.RB) this._switchTab((this._tab + 1) % TABS.length);
+        if (gp.LB) this._switchTab((this._tab - 1 + TABS.length) % TABS.length);
     }
 
     _track(o) { this._contentObjs.push(o); return o; }
@@ -110,6 +122,7 @@ export default class CampfireScene extends Phaser.Scene {
         qrBtn.on('pointerover', () => qrBtn.setStyle({ fill: '#ffffff' }));
         qrBtn.on('pointerout',  () => qrBtn.setStyle({ fill: '#cc8844' }));
         qrBtn.on('pointerdown', () => this._quickRest());
+        this._contentFocus.push({ obj: qrBtn, activate: () => this._quickRest() });
         oy += 40;
 
         const frCol = hasTent ? '#ffcc44' : '#443322';
@@ -120,6 +133,7 @@ export default class CampfireScene extends Phaser.Scene {
         frBtn.on('pointerover', () => frBtn.setStyle({ fill: hasTent ? '#ffffff' : frCol }));
         frBtn.on('pointerout',  () => frBtn.setStyle({ fill: frCol }));
         frBtn.on('pointerdown', () => { if (hasTent) this._fullRest(); });
+        if (hasTent) this._contentFocus.push({ obj: frBtn, activate: () => this._fullRest() });
     }
 
     // ── COOK / BREW shared recipe renderer ───────────────────────────────────
@@ -175,6 +189,7 @@ export default class CampfireScene extends Phaser.Scene {
                 btn.on('pointerover', () => btn.setStyle({ fill: '#ffffff' }));
                 btn.on('pointerout',  () => btn.setStyle({ fill: '#ffcc00' }));
                 btn.on('pointerdown', () => this._make(recipe, mode));
+                this._contentFocus.push({ obj: btn, activate: () => this._make(recipe, mode) });
             }
 
             oy += 48;
