@@ -230,15 +230,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 this.stats.addManaScent(Math.round(manaCost * 0.3));
                 this._augmentedStrike = true;
             } else if (this.stats.manaExhausted) {
-                // Magic Burn — augmented strike attempted while soul is collapsed
-                const burnDmg = Math.max(1, Math.floor(manaCost * 0.5));
-                this.stats.health = Math.max(0, this.stats.health - burnDmg);
-                this.scene.scene.get('UIScene')?.showNotification?.(`Magic Burn — the vessel frays! −${burnDmg} HP`, 1800);
-                this.setTint(0xff0000);
-                this.scene.cameras.main.shake(80, 0.008);
-                this.scene.cameras.main.flash(60, 255, 0, 0, true);
-                this.scene.time.delayedCall(180, () => { if (this.active && !this.invincible) this.clearTint(); });
-                if (this.stats.health <= 0) this.emit('died');
+                // Magic Burn — augmented strike attempted while the vessel is frayed
+                this._magicBurn(manaCost);
             }
         }
 
@@ -471,15 +464,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
         // Exhaustion: vessel frays — take Magic Burn damage proportional to the cost
         if (this.stats.manaExhausted) {
-            const cost     = this.stats.getSpellManaCost(id);
-            const burnDmg  = Math.max(1, Math.floor(cost * 0.5));
-            this.stats.health = Math.max(0, this.stats.health - burnDmg);
-            this.scene.scene.get('UIScene')?.showNotification?.(`Magic Burn — the vessel frays! −${burnDmg} HP`, 1800);
-            this.setTint(0xff0000);
-            this.scene.cameras.main.shake(80, 0.008);
-            this.scene.cameras.main.flash(60, 255, 0, 0, true);
-            this.scene.time.delayedCall(180, () => { if (this.active && !this.invincible) this.clearTint(); });
-            if (this.stats.health <= 0) this.emit('died');
+            this._magicBurn(this.stats.getSpellManaCost(id));
             return false;
         }
         if (!this.stats.canCastSpell(id)) return false;
@@ -693,6 +678,23 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.scene._activateAethericSight(duration);
         soundManager.spell();
         return true;
+    }
+
+    /**
+     * Magic Burn — casting or augmenting a strike while the mana vessel is
+     * exhausted/collapsed frays the soul: direct HP damage proportional to the
+     * mana cost, with red-flash feedback. Returns the damage dealt.
+     */
+    _magicBurn(cost) {
+        const burnDmg = Math.max(1, Math.floor(cost * 0.5));
+        this.stats.health = Math.max(0, this.stats.health - burnDmg);
+        this.scene.scene.get('UIScene')?.showNotification?.(`Magic Burn — the vessel frays! −${burnDmg} HP`, 1800);
+        this.setTint(0xff0000);
+        this.scene.cameras.main.shake(80, 0.008);
+        this.scene.cameras.main.flash(60, 255, 0, 0, true);
+        this.scene.time.delayedCall(180, () => { if (this.active && !this.invincible) this.clearTint(); });
+        if (this.stats.health <= 0) this.emit('died');
+        return burnDmg;
     }
 
     takeDamage(amount) {

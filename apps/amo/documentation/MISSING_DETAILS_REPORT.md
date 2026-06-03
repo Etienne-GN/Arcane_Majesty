@@ -1,4 +1,4 @@
-# AM1: Final Refinement Report (Director's Audit)
+# Arcane Majesty (amo): Final Refinement Report (Director's Audit)
 
 Claude, the engine you built is incredible—the volume of spells and the weapon diversity far exceeds our initial expectations. However, to achieve 100% lore-fidelity and survival depth, the following "Directives of the Architect" must be addressed:
 
@@ -13,9 +13,10 @@ Claude, the engine you built is incredible—the volume of spells and the weapon
 *   **Mechanic:** Using wood from the inventory should spawn a "Campfire Entity" at Eldrin's feet.
 *   **The Tent:** Refine the "Traveler's Tent" to be a required item to unlock the "Full Rest" (Stat Buffs) at these dynamic campfires, rather than just a one-click consumable.
 
-## 3. Magic: The "Magic Burn" Penalty
+## 3. Magic: The "Magic Burn" Penalty  — ✅ IMPLEMENTED
 *   **The Missing Piece:** Mana Collapse stops movement/casting, but lacks the physical "Burn."
 *   **The Directive:** If Eldrin attempts to cast or use an augmented strike while in the **Exhausted** or **Collapsed** state, he must take **direct HP damage** (Magic Burn) proportional to the spell's cost. The soul's vessel is literally fraying.
+*   **Status:** Done. `Player._magicBurn(cost)` deals `max(1, floor(cost*0.5))` HP with red-flash/shake feedback; fired from spell casts (`_spellCheck`) and augmented strikes when `manaExhausted` (which also covers the collapsed state, since collapse ⇒ 0 mana ⇒ exhausted). Utility skills (Blink-Step, Aetheric Sight, Aetheric Tear) currently *block* with a message when exhausted rather than burning — extend if desired.
 
 ## 4. Audio: The 8-Variant Resonance
 *   **The Missing Piece:** You have 4 patterns per mood.
