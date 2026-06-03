@@ -19,6 +19,12 @@
  *   }
  */
 
+// Pure animation-resolution logic lives in animResolve.js (Phaser-free, unit-tested).
+// Imported for internal use and re-exported so existing
+// `import { … } from './CharacterRenderer.js'` call-sites keep working.
+import { DEFAULT_ANIMS, ANIM_ALIASES, resolveAnim, concreteAnimsFor } from './animResolve.js';
+export { DEFAULT_ANIMS, ANIM_ALIASES, resolveAnim };
+
 const FRAME_W = 64;
 const FRAME_H = 64;
 
@@ -35,49 +41,6 @@ const WEAPON_TYPES = new Set(['weapon']);
 
 // These types use  type/id/anim/{color}.png  (color stored in layer.color)
 export const COLOR_TYPES = new Set(['cape', 'backpack']);
-
-// Logical animations the creator/preview works in. Per layer these are resolved
-// to the concrete file a layer actually ships (see ANIM_ALIASES / resolveAnim) —
-// e.g. a Vitruvius weapon realises the logical 'slash' as its 'attack_slash' file.
-export const DEFAULT_ANIMS = [
-    'walk', 'idle', 'hurt', 'slash', 'backslash', 'halfslash', 'thrust', 'shoot', 'spellcast',
-    'run', 'sit', 'jump', 'climb', 'combat_idle', 'emote',
-];
-
-// Logical anim → ordered list of concrete file names that satisfy it. Universal
-// LPC names come first; Vitruvius "attack_*" exports are the fallbacks. A layer
-// resolves to the first candidate present in its manifest (layer.anims).
-export const ANIM_ALIASES = {
-    slash:     ['slash', 'attack_slash'],
-    backslash: ['backslash', 'attack_backslash', 'attack_slash_reverse'],
-    halfslash: ['halfslash', 'attack_halfslash'],
-    thrust:    ['thrust', 'attack_thrust'],
-};
-
-/**
- * Resolve a logical animation to the concrete file name a layer actually has.
- * Returns null when the layer ships no file for that motion. Layers without a
- * manifest (`layer.anims`) fall back to the literal name (legacy behaviour).
- */
-export function resolveAnim(layer, logical) {
-    const candidates = ANIM_ALIASES[logical] ?? [logical];
-    if (!layer.anims) return candidates[0];
-    for (const c of candidates) if (layer.anims.includes(c)) return c;
-    return null;
-}
-
-/** Concrete anim names a layer needs loaded to cover a logical anim set (deduped). */
-function concreteAnimsFor(layer, logicalAnims) {
-    const out = new Set();
-    for (const logical of logicalAnims) {
-        const c = resolveAnim(layer, logical);
-        if (c) out.add(c);
-    }
-    // Walk is the universal fallback for layers that lack a requested motion.
-    const walk = resolveAnim(layer, 'walk');
-    if (walk) out.add(walk);
-    return out;
-}
 
 // Canonical z-order for layer types (used when zPos is not specified)
 export const DEFAULT_ZPOS = {

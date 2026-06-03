@@ -77,12 +77,17 @@ by **concrete** anim name.
 ## Tooling / workflow
 
 ```
+npm test                # anim-resolution unit tests + catalogue validation
 npm run gen:anims       # annotate catalogue with anims[] (non-destructive)
 npm run test:catalogue  # validate: 0 phantom refs, valid frame grids (also runs as prebuild)
+npm run test:anim       # unit-test the Phaser-free resolution logic (animResolve.js)
 npm run audit:weapons   # per-direction coverage report (genuine art gaps)
 npm run audit:oversize  # oversize-sheet frame-size sanity
 npm run build           # prebuild runs test:catalogue first
 ```
+
+The pure resolution logic lives in `src/systems/animResolve.js` (Phaser-free) and is
+re-exported from `CharacterRenderer.js`; `tools/test_anim_resolve.mjs` covers it.
 
 ⚠️ **Do not run `node tools/gen_catalogue.js` to refresh animations.** It
 regenerates the catalogue from scratch and **loses hand-curated weapon structure**
