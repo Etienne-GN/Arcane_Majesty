@@ -575,19 +575,6 @@ export default class CharacterCreatorScene extends Phaser.Scene {
         this.cameras.main.fadeIn(200);
     }
 
-    update(time, delta) {
-        const gp = this._gpNav.poll(delta);
-        if (!gp) return;
-        if (gp.B)     this._back();
-        if (gp.up)    this._setDir('up');
-        if (gp.down)  this._setDir('down');
-        if (gp.left)  this._setDir('left');
-        if (gp.right) this._setDir('right');
-        if (gp.A)     this._togglePlay();
-        if (gp.LB)    this._cycleAnim(-1);
-        if (gp.RB)    this._cycleAnim(+1);
-    }
-
     // ── Tab control ──────────────────────────────────────────────────
 
     _switchTab(newTab) {
@@ -610,6 +597,65 @@ export default class CharacterCreatorScene extends Phaser.Scene {
                 }
             }
         }
+        this._gpRefreshRows();
+    }
+
+    // ── Gamepad navigation ───────────────────────────────────────────────
+    // dpad ↑/↓ moves the focused part row, ←/→ cycles that part (reaches every
+    // option without popups), A/X = next/prev colour-or-tint, Y = remove,
+    // LB/RB = switch tab, B = back (or close picker), Start = save.
+
+    _gpRefreshRows() {
+        const cols = TAB_COLS[this._activeTab];
+        this._gpRows = cols ? [...cols[0], ...cols[1]] : [];
+        this._gpRowIdx = Math.min(this._gpRowIdx ?? 0, Math.max(0, this._gpRows.length - 1));
+        this._gpDrawHighlight();
+    }
+
+    _gpDrawHighlight() {
+        if (!this._gpHL) this._gpHL = this.add.graphics().setDepth(120);
+        this._gpHL.clear();
+        if (!this.input.gamepad?.total) return;   // only show the focus box with a controller
+        const type = this._gpRows?.[this._gpRowIdx];
+        const r = type && this._gpRowRects[type];
+        if (!r) return;
+        this._gpHL.lineStyle(Math.max(1, this._f(2)), 0xffcc44, 1).strokeRect(r.x, r.y, r.w, r.h);
+    }
+
+    _gpCycleColorTint(type, dir) {
+        const opt = CATALOGUE[type]?.[this._sel[type]];
+        if (!opt?.id) return;
+        if (opt.colors?.length > 1 && !FORCE_TINT_TYPES.has(type)) this._cycleColor(type, dir);
+        else if (TINT_MATERIAL[type]) this._cycleTint(type, dir);
+    }
+
+    update(time, delta) {
+        const gp = this._gpNav.poll(delta);
+        if (!gp) return;
+
+        // A picker popup is open → B closes it; ignore row nav underneath.
+        if (this._swatchPicker || this._presetPanel) {
+            if (gp.B) { this._closeSwatchPicker(); this._closePresetPanel?.(); }
+            return;
+        }
+
+        if (gp.B)     { this._back(); return; }
+        if (gp.start) { this._exportCharacter(); return; }
+        if (gp.LB)    { this._switchTab(TABS[(TABS.indexOf(this._activeTab) - 1 + TABS.length) % TABS.length]); return; }
+        if (gp.RB)    { this._switchTab(TABS[(TABS.indexOf(this._activeTab) + 1) % TABS.length]); return; }
+
+        this._gpDrawHighlight();   // keep the focus box visible/tracking while a pad is connected
+        if (!this._gpRows?.length) return;
+        if (gp.up)   this._gpRowIdx = (this._gpRowIdx - 1 + this._gpRows.length) % this._gpRows.length;
+        if (gp.down) this._gpRowIdx = (this._gpRowIdx + 1) % this._gpRows.length;
+        if (gp.up || gp.down) this._gpDrawHighlight();
+
+        const type = this._gpRows[this._gpRowIdx];
+        if (gp.left)  this._cycleLayer(type, -1);
+        if (gp.right) this._cycleLayer(type, +1);
+        if (gp.A)     this._gpCycleColorTint(type, +1);
+        if (gp.X)     this._gpCycleColorTint(type, -1);
+        if (gp.Y)     this._removeLayer(type);
     }
 
     _updateTabBtns() {
@@ -624,6 +670,9 @@ export default class CharacterCreatorScene extends Phaser.Scene {
 
     _mkCell(gfx, baseX, cy, colW, rowH, type, rowIdx, f, S, tabObjs, isLast = false) {
         const push = (obj) => { tabObjs.push(obj); return obj; };
+
+        // Remember the row's screen rect for gamepad focus highlighting.
+        (this._gpRowRects ??= {})[type] = { x: baseX, y: cy - rowH / 2, w: colW, h: rowH };
 
         const color      = GROUP_COLOR[type];
         const colorNum   = Phaser.Display.Color.HexStringToColor(color).color;

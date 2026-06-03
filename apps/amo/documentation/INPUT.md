@@ -30,3 +30,16 @@ Goal: the whole game is playable with **keyboard+mouse**, **touch**, or **gamepa
 
 > Note: gamepad menu navigation is interactive/visual; it follows the established
 > `GamepadNav` pattern but should be play-tested on a real controller.
+
+## Character Creator — gamepad
+Mouse/touch use the on-screen arrows, pickers, sliders, and swatches. Controller:
+- **dpad ↑/↓** — move the focused part row (yellow box; shown only when a pad is connected)
+- **dpad ←/→** — cycle that part (reaches every option, no popup needed)
+- **A / X** — next / previous colour-or-tint for the focused row
+- **Y** — remove the part (the row's ✕)
+- **LB / RB** — switch tab (Body / Clothes / Marks / Equip)
+- **B** — back (or close an open picker/preset popup)
+- **Start** — save / export the character
+
+Picker/swatch *popups* are still tap/mouse only, but every option is reachable by
+dpad ←/→ cycling, so a character can be built start-to-finish on a controller.
