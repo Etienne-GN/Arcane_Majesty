@@ -20,7 +20,7 @@ import { statusManager } from '../systems/StatusManager.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { ANIM_PROFILES } from '../data/animProfiles.js';
 import { CharacterRenderer, DEFAULT_ANIMS } from '../systems/CharacterRenderer.js';
-import { enrichLayers } from '../systems/catalogueLayers.js';
+import { enrichLayers, weaponLayersForItem, WEAPON_ATTACK_ANIM } from '../systems/catalogueLayers.js';
 import { openChest } from './ChestScene.js';
 
 export default class GameScene extends Phaser.Scene {
@@ -2381,7 +2381,9 @@ export default class GameScene extends Phaser.Scene {
             }
             this._lpcWasAttacking = this.player.isAttacking;
             const showSlash = (this._lpcSlashUntil ?? 0) > time;
-            const lpcAnim = showSlash ? 'slash'
+            // Attack reads per weapon type (staves cast, bows shoot, blades slash).
+            const atkAnim = WEAPON_ATTACK_ANIM[ITEMS[playerStats.equipment.weapon]?.weaponType] ?? 'slash';
+            const lpcAnim = showSlash ? atkAnim
                 : (this.player.body.speed > 5 ? 'walk' : 'idle');
             this._lpcRenderer.play(this._lpcContainer, lpcAnim, this.player.facing);
         }
@@ -2852,11 +2854,11 @@ export default class GameScene extends Phaser.Scene {
         const token = (this._lpcWeaponToken = (this._lpcWeaponToken ?? 0) + 1);
 
         if (!itemId) { removeWeaponLayers(); return; }
-        const lpcLayer = ITEMS[itemId]?.lpcLayer;
-        if (!lpcLayer) { removeWeaponLayers(); return; }
-        // Enrich with the catalogue anim manifest → correct attack resolution
-        // (slash↔attack_slash) and no phantom 404s for animations the weapon lacks.
-        const layers = enrichLayers(Array.isArray(lpcLayer) ? lpcLayer : [lpcLayer]);
+        // Build layers from the item's hand-authored lpcLayer, a per-item sprite
+        // override, or the weaponType default — all carry the catalogue anim
+        // manifest, so attacks resolve correctly and nothing 404s.
+        const layers = weaponLayersForItem(ITEMS[itemId]);
+        if (!layers.length) { removeWeaponLayers(); return; }
         this._lpcRenderer.loadLayers(layers, DEFAULT_ANIMS, () => {
             if (!this._lpcContainer || token !== this._lpcWeaponToken) return; // superseded
             // Remove right before adding so the old weapon stays visible until the

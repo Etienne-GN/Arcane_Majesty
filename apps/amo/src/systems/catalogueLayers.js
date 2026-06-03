@@ -48,3 +48,62 @@ export function enrichLayerAnims(layer) {
 export function enrichLayers(layers) {
     return Array.isArray(layers) ? layers.map(enrichLayerAnims) : layers;
 }
+
+// ── In-game weapon visuals ──────────────────────────────────────────────────
+// Most weapon ITEMS have no hand-authored lpcLayer. Map them to a catalogue
+// weapon sprite so they render in-game. Default by weaponType; per-item overrides
+// pick a more specific sprite where the name clearly matches one.
+//
+// EDIT FREELY: assign any item id → catalogue weapon id below to give a weapon its
+// own look. Run `npm run test:catalogue` after — every id must exist on disk.
+const WEAPON_TYPE_SPRITE = {
+    spell_blade:   'sword/longsword',
+    umbral_dagger: 'sword/dagger',
+    staff:         'magic/simple/foreground',
+    resonance_bow: 'ranged/bow/normal',
+};
+const WEAPON_SPRITE_OVERRIDE = {
+    // explicit / unambiguous matches (kept conservative — extend as desired)
+    longsword:        'sword/longsword',
+    katana:           'sword/katana',
+    arcane_saber:     'sword/saber',
+    arcane_war_blade: 'sword/longsword_alt',
+    forest_longbow:   'ranged/bow/great',
+    carved_shortbow:  'ranged/bow/recurve',
+    // NOTE: staves default to magic/simple/foreground because it's the only magic
+    // sprite in the catalogue that ships a `spellcast` animation — other magic
+    // sprites (crystal/gnarled/…) would vanish during a cast, so no overrides here.
+};
+
+// Logical attack animation per weaponType, so the player's attack reads correctly
+// (staves cast, bows shoot) instead of everything playing 'slash'.
+export const WEAPON_ATTACK_ANIM = {
+    staff:         'spellcast',
+    resonance_bow: 'shoot',
+    spell_blade:   'slash',
+    umbral_dagger: 'slash',
+};
+
+/** Renderer layers (main + companions, with anims) for a catalogue weapon id. */
+export function weaponLayersFor(catalogueId) {
+    const e = (CATALOGUE.weapon ?? []).find(w => w.id === catalogueId);
+    if (!e) return [];
+    const z = e.zPos ?? 140;
+    const layers = [{ type: 'weapon', id: e.id, zPos: z, itemName: e.itemName, anims: e.anims }];
+    for (const c of e.companions ?? []) {
+        layers.push({ type: 'weapon', id: c.id, zPos: c.zPos ?? z, itemName: c.itemName, anims: c.anims });
+    }
+    return layers;
+}
+
+/**
+ * Renderer layers for a weapon ITEM. Prefers a hand-authored `item.lpcLayer`,
+ * then a per-item sprite override, then the weaponType default. Returns [] when
+ * nothing maps (weapon simply shows no overlay).
+ */
+export function weaponLayersForItem(item) {
+    if (!item) return [];
+    if (item.lpcLayer) return enrichLayers(Array.isArray(item.lpcLayer) ? item.lpcLayer : [item.lpcLayer]);
+    const catId = WEAPON_SPRITE_OVERRIDE[item.id] ?? WEAPON_TYPE_SPRITE[item.weaponType];
+    return catId ? weaponLayersFor(catId) : [];
+}
