@@ -752,6 +752,12 @@ export class CharacterRenderer {
     addLayer(container, layer) {
         const scene   = this._scene;
         const useAnim = container._lpcAnim ?? 'walk';
+        // Destroy any sprite already registered at this key first. Without this an
+        // overlapping/async add (e.g. rapid weapon equips) would overwrite the
+        // _lpcLayers entry and leave the old sprite orphaned in the container —
+        // never updated by play(), so it stays frozen on its last frame/direction.
+        const lkey = layerKey(layer);
+        if (container._lpcLayers[lkey]) this.removeLayer(container, lkey);
         // Seed the sprite with any loaded texture for this layer; _resyncAll then
         // drives the correct concrete anim/direction/visibility.
         const concrete = resolveAnim(layer, useAnim);
@@ -780,7 +786,7 @@ export class CharacterRenderer {
             }
         }
         container.addAt(sprite, insertIdx);
-        container._lpcLayers[layerKey(layer)] = { sprite, layer, anim: useAnim };
+        container._lpcLayers[lkey] = { sprite, layer, anim: useAnim };
 
         // Restart all layers together so the new sprite is in sync from frame 0
         this._resyncAll(container);

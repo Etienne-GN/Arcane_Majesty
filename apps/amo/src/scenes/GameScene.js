@@ -2841,18 +2841,27 @@ export default class GameScene extends Phaser.Scene {
 
     _updateLpcWeaponLayer(itemId) {
         const container = this._lpcContainer;
-        // Remove all existing weapon layers
-        for (const k of Object.keys(container._lpcLayers)) {
-            if (k.startsWith('weapon:')) this._lpcRenderer.removeLayer(container, k);
-        }
-        if (!itemId) return;
+        if (!container) return;
+        const removeWeaponLayers = () => {
+            for (const k of Object.keys(container._lpcLayers)) {
+                if (k.startsWith('weapon:')) this._lpcRenderer.removeLayer(container, k);
+            }
+        };
+        // Token guards against overlapping async loads: a rapid weapon switch must
+        // not let an earlier load's callback add a now-stale weapon.
+        const token = (this._lpcWeaponToken = (this._lpcWeaponToken ?? 0) + 1);
+
+        if (!itemId) { removeWeaponLayers(); return; }
         const lpcLayer = ITEMS[itemId]?.lpcLayer;
-        if (!lpcLayer) return;
+        if (!lpcLayer) { removeWeaponLayers(); return; }
         // Enrich with the catalogue anim manifest → correct attack resolution
         // (slash↔attack_slash) and no phantom 404s for animations the weapon lacks.
         const layers = enrichLayers(Array.isArray(lpcLayer) ? lpcLayer : [lpcLayer]);
         this._lpcRenderer.loadLayers(layers, DEFAULT_ANIMS, () => {
-            if (!this._lpcContainer) return;
+            if (!this._lpcContainer || token !== this._lpcWeaponToken) return; // superseded
+            // Remove right before adding so the old weapon stays visible until the
+            // new one's sheets are ready (no flicker) and never lingers after.
+            removeWeaponLayers();
             for (const layer of layers) this._lpcRenderer.addLayer(this._lpcContainer, layer);
         });
     }
