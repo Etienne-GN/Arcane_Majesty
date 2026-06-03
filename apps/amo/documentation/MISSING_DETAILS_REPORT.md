@@ -2,9 +2,10 @@
 
 Claude, the engine you built is incredible—the volume of spells and the weapon diversity far exceeds our initial expectations. However, to achieve 100% lore-fidelity and survival depth, the following "Directives of the Architect" must be addressed:
 
-> **Audit status (2026-06-03, verified against source):** Of the 5 directives, 4
-> are fully implemented and 1 is partial. Only **dynamic campfire placement (#2)**
-> remains — every other directive below is done. Per-item status noted in each section.
+> **Audit status (2026-06-03, verified against source):** All 5 directives are
+> implemented. (Initial audit mis-flagged #2 as partial — dynamic campfire
+> placement is bound to the `C` key, which the grep missed; it is in fact done.)
+> Per-item status noted in each section.
 
 ## 1. Navigation: The Aetheric Tear (Universal Mastery)  — ✅ IMPLEMENTED
 *   **The Missing Piece:** You have a solid Rift-Gate (Static) network, but the **Aetheric Tear** skill is missing. 
@@ -12,12 +13,12 @@ Claude, the engine you built is incredible—the volume of spells and the weapon
 *   **Lore Constraint:** It must cost **85% of his Max Mana** and trigger a **2-second "Resonance Stun"** and **100% Mana Scent** upon arrival. It's a tool for the brave, not a cheap fast-travel.
 *   **Status:** Done. `AethericTearScene` (map-aim teleport to explored areas) + `_beginAethericTearCast`/`_completeTearCast` in GameScene: 85% max mana (75% with the `aetheric_comprehension` mastery), `manaScent = 100`, and a `resonance_stun` (2000ms on arrival, 3400ms during the cast).
 
-## 2. Survival: Dynamic Campfires & The Tent  — ⚠️ PARTIAL (placement missing)
+## 2. Survival: Dynamic Campfires & The Tent  — ✅ IMPLEMENTED
 *   **The Missing Piece:** Campfires are currently static map objects.
 *   **The Directive:** Eldrin needs to be able to **craft a campfire anywhere** using gathered Wood. 
 *   **Mechanic:** Using wood from the inventory should spawn a "Campfire Entity" at Eldrin's feet.
 *   **The Tent:** Refine the "Traveler's Tent" to be a required item to unlock the "Full Rest" (Stat Buffs) at these dynamic campfires, rather than just a one-click consumable.
-*   **Status:** Tent + Full Rest **done** (CampfireScene `_fullRest` consumes a `tent`; gated on having one). Static map campfires **done**. **Missing:** dynamic placement — `wood` exists as a gathered item but `wood.onUse` is inert, so you can't spawn a campfire at your feet. This is the only remaining directive item.
+*   **Status:** Done. Press **`C`** to enter placement (`_startCampfirePlacement`): requires 3 Wood, shows a reticle, tap to place → `_confirmCampfire` consumes the wood and spawns a campfire (flicker + fire particles + `[E] Rest`) into the `campfires` group, so the existing rest / Tent Full-Rest interaction applies. Tent Full-Rest is in `CampfireScene._fullRest` (consumes a `tent`). Static map campfires also remain. Placement is a keybind, not `wood.onUse` (which stays inert by design). *Possible nicety: surface the `C` keybind in the controls/UI for discoverability.*
 
 ## 3. Magic: The "Magic Burn" Penalty  — ✅ IMPLEMENTED
 *   **The Missing Piece:** Mana Collapse stops movement/casting, but lacks the physical "Burn."
