@@ -112,10 +112,20 @@ export default class GameScene extends Phaser.Scene {
             }
         }
 
-        playerStats.onEquipChange((slot, itemId) => {
+        // Re-render the weapon overlay on equip changes. Use a stored handler so
+        // it can be removed on shutdown — otherwise every map change (a fresh
+        // GameScene.create) would stack another listener bound to a dead container.
+        this._onEquipChange = (slot, itemId) => {
             if (slot !== 'weapon' || !this._lpcContainer) return;
             this._updateLpcWeaponLayer(itemId);
-        });
+        };
+        playerStats.onEquipChange(this._onEquipChange);
+        this.events.once('shutdown', () => playerStats.offEquipChange(this._onEquipChange));
+
+        // Apply the currently-equipped weapon now — on a map change the container
+        // is rebuilt fresh and no equip event fires, so the weapon must be re-added
+        // here or it stays invisible.
+        if (this._lpcContainer) this._updateLpcWeaponLayer(playerStats.equipment.weapon);
 
         // Remote players from the network
         this._remotePlayers = new Map(); // socketId → RemotePlayer

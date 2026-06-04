@@ -58,6 +58,7 @@ export class PlayerStats {
     _equipListeners = [];
 
     onEquipChange(cb) { this._equipListeners.push(cb); }
+    offEquipChange(cb) { this._equipListeners = this._equipListeners.filter(f => f !== cb); }
     _notifyEquipChange(slot, itemId) { for (const cb of this._equipListeners) cb(slot, itemId); }
 
     constructor() {
