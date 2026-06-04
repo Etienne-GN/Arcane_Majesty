@@ -76,6 +76,25 @@ export default class CampfireScene extends Phaser.Scene {
         this.input.keyboard.on('keydown-THREE', () => this._switchTab(2));
         this.input.keyboard.on('keydown-Q',     () => { if (this._tab === 0) this._quickRest(); });
         this.input.keyboard.on('keydown-F',     () => { if (this._tab === 0 && playerStats.inventory.some(i => i.id === 'tent')) this._fullRest(); });
+        this.input.keyboard.on('keydown-UP',    () => { if (this._tab >= 1) this._scrollRecipes(this._tab === 1 ? 'cook' : 'brew', -1); });
+        this.input.keyboard.on('keydown-DOWN',  () => { if (this._tab >= 1) this._scrollRecipes(this._tab === 1 ? 'cook' : 'brew', 1); });
+
+        // Mouse wheel + touch-drag scroll for the cook/brew recipe lists.
+        this.input.on('wheel', (_p, _o, _dx, dy) => {
+            if (this._tab >= 1) this._scrollRecipes(this._tab === 1 ? 'cook' : 'brew', dy > 0 ? 1 : -1);
+        });
+        let dragY = null, dragAcc = 0;
+        this.input.on('pointerdown', (p) => { dragY = p.y; dragAcc = 0; });
+        this.input.on('pointermove', (p) => {
+            if (dragY === null || !p.isDown || this._tab < 1) return;
+            dragAcc += dragY - p.y; dragY = p.y;
+            const mode = this._tab === 1 ? 'cook' : 'brew';
+            while (Math.abs(dragAcc) >= 48) {
+                this._scrollRecipes(mode, dragAcc > 0 ? 1 : -1);
+                dragAcc += dragAcc > 0 ? -48 : 48;
+            }
+        });
+        this.input.on('pointerup', () => { dragY = null; dragAcc = 0; });
     }
 
     _switchTab(idx) {
@@ -140,16 +159,33 @@ export default class CampfireScene extends Phaser.Scene {
 
     _drawRecipes(mode) {
         const px = this._px, pw = this._pw;
-        const recipes = mode === 'cook' ? COOKING_RECIPES : POTION_RECIPES;
-        let oy = this._contentY + 4;
-        let any = false;
+        // Only recipes the player has some ingredient for are listed.
+        const recipes = (mode === 'cook' ? COOKING_RECIPES : POTION_RECIPES)
+            .filter(r => this._canMake(r) || this._recipeHasAny(r));
 
-        for (const recipe of recipes) {
+        const viewY      = this._contentY + 4;
+        const viewBottom = this._py + this._ph - 30;          // above the footer hint
+        const rowStep    = 48;
+        const perPage    = Math.max(1, Math.floor((viewBottom - viewY) / rowStep));
+
+        this._recipeScroll ??= {};
+        const maxScroll = Math.max(0, recipes.length - perPage);
+        const scroll    = this._recipeScroll[mode] = Math.min(this._recipeScroll[mode] ?? 0, maxScroll);
+
+        if (recipes.length === 0) {
+            const hint = mode === 'cook'
+                ? 'No meat — hunt wildlife for ingredients.'
+                : 'No ingredients — gather materials and buy empty bottles.';
+            this._track(this.add.text(px + 20, viewY + 12, hint, {
+                font: '16px monospace', fill: '#443322'
+            }));
+            return;
+        }
+
+        const visible = recipes.slice(scroll, scroll + perPage);
+        let oy = viewY;
+        for (const recipe of visible) {
             const canMake = this._canMake(recipe);
-            const hasAny  = this._recipeHasAny(recipe);
-            if (!canMake && !hasAny) continue;
-            any = true;
-
             const rowCol = canMake ? 0x1a1000 : 0x0d0800;
             const txtCol = canMake ? '#ddaa55' : '#443322';
 
@@ -195,14 +231,28 @@ export default class CampfireScene extends Phaser.Scene {
             oy += 48;
         }
 
-        if (!any) {
-            const hint = mode === 'cook'
-                ? 'No meat — hunt wildlife for ingredients.'
-                : 'No ingredients — gather materials and buy empty bottles.';
-            this._track(this.add.text(px + 20, oy + 12, hint, {
-                font: '16px monospace', fill: '#443322'
-            }));
+        // Scroll affordances (also gamepad-focusable so a controller can scroll).
+        const arrowX = px + pw - 18;
+        if (scroll > 0) {
+            const up = this._track(this.add.text(arrowX, viewY - 2, '▲', {
+                font: 'bold 16px monospace', fill: '#ffcc66'
+            }).setOrigin(0.5, 0).setInteractive());
+            up.on('pointerdown', () => this._scrollRecipes(mode, -1));
+            this._contentFocus.unshift({ obj: up, activate: () => this._scrollRecipes(mode, -1) });
         }
+        if (scroll < maxScroll) {
+            const dn = this._track(this.add.text(arrowX, viewBottom - 6, '▼', {
+                font: 'bold 16px monospace', fill: '#ffcc66'
+            }).setOrigin(0.5, 1).setInteractive());
+            dn.on('pointerdown', () => this._scrollRecipes(mode, 1));
+            this._contentFocus.push({ obj: dn, activate: () => this._scrollRecipes(mode, 1) });
+        }
+    }
+
+    _scrollRecipes(mode, d) {
+        this._recipeScroll ??= {};
+        this._recipeScroll[mode] = Math.max(0, (this._recipeScroll[mode] ?? 0) + d);
+        this._switchTab(this._tab);   // clamps + re-renders the list
     }
 
     _canMake(recipe) {
