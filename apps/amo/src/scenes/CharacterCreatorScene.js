@@ -1738,16 +1738,24 @@ export default class CharacterCreatorScene extends Phaser.Scene {
                 .setOrigin(0.5, 0.5);
             panel.add(bg);
 
-            // Thumbnail
+            // Thumbnail — register the texture only AFTER the image decodes, else
+            // Phaser uploads a 0-size source and WebGL warns "texImage2D: no image".
             const preset = presets[name];
             if (preset.preview) {
                 const thumbTex = `__preset_thumb_${name}`;
-                if (!this.textures.exists(thumbTex)) {
-                    const img = new Image(); img.src = preset.preview;
-                    this.textures.addImage(thumbTex, img);
-                }
-                if (this.textures.exists(thumbTex)) {
+                const place = () => {
+                    if (!this._presetPanel || !this.textures.exists(thumbTex)) return;
                     panel.add(this.add.image(f(10), ry + rowH / 2, thumbTex).setOrigin(0, 0.5).setDisplaySize(f(14), f(14)));
+                };
+                if (this.textures.exists(thumbTex)) {
+                    place();
+                } else {
+                    const img = new Image();
+                    img.onload = () => {
+                        if (!this.textures.exists(thumbTex)) this.textures.addImage(thumbTex, img);
+                        place();
+                    };
+                    img.src = preset.preview;
                 }
             }
 
