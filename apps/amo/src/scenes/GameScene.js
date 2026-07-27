@@ -134,7 +134,7 @@ export default class GameScene extends Phaser.Scene {
         if (localStorage.getItem('am1_debug') === '1') this._applyDebugBoost();
 
         // Spell discovery notifications + quest hooks
-        playerStats.onSpellEvent((id, level, isDiscovery) => {
+        this._onSpellEvent = (id, level, isDiscovery) => {
             const spell = SPELLS[id];
             if (!spell) return;
             const tierName = TIER_NAMES[level - 1];
@@ -146,16 +146,20 @@ export default class GameScene extends Phaser.Scene {
             // Trigger hidden quest for shadow_veil
             if (id === 'shadow_veil' && isDiscovery) questManager.startQuest('hidden_shadow_initiation');
             questManager.onSpellLearned(id);
-        });
+        };
+        playerStats.onSpellEvent(this._onSpellEvent);
+        this.events.once('shutdown', () => playerStats.offSpellEvent(this._onSpellEvent));
 
         // Resonance gain → quest hook + hidden quest trigger
-        playerStats.onResonanceGain((element, value) => {
+        this._onResonanceGain = (element, value) => {
             questManager.onResonanceReached(element, value);
             if (element === 'arcane' && value >= 10 && !questManager.isActive('hidden_covenant_scholar') && !questManager.isCompleted('hidden_covenant_scholar')) {
                 questManager.startQuest('hidden_covenant_scholar');
                 this.scene.get('UIScene')?.showNotification?.('New hidden quest discovered!', 2500);
             }
-        });
+        };
+        playerStats.onResonanceGain(this._onResonanceGain);
+        this.events.once('shutdown', () => playerStats.offResonanceGain(this._onResonanceGain));
 
         // Auto-start quests defined for this map
         (mapDef.quests ?? []).forEach(qid => questManager.startQuest(qid));
@@ -421,6 +425,7 @@ export default class GameScene extends Phaser.Scene {
         this._placedCampfires  = [];  // runtime campfire objects
         this._teleportCircles  = [];  // runtime arcane circle zones
 
+        this.input.keyboard.on('keydown-P', () => { this.scene.pause(); this.scene.launch('StatScene'); });
         this.input.keyboard.on('keydown-K', () => { this.scene.pause(); this.scene.launch('SkillTreeScene'); });
         this.input.keyboard.on('keydown-J', () => { this.scene.pause(); this.scene.launch('SpellbookScene'); });
         this.input.keyboard.on('keydown-I', () => { this.scene.pause(); this.scene.launch('InventoryScene'); });
@@ -435,10 +440,12 @@ export default class GameScene extends Phaser.Scene {
             SaveManager.save(playerStats, this._storyId, this._characterId);
             soundManager.save();
             this.scene.stop('UIScene');
+            this.scene.stop('ChatScene');
             this.scene.start('MenuScene');
         });
 
         if (!this.scene.isActive('UIScene')) this.scene.launch('UIScene');
+        if (this._serverUrl && !this.scene.isActive('ChatScene')) this.scene.launch('ChatScene');
 
         this._lastLevel = playerStats.level;
 
@@ -517,6 +524,10 @@ export default class GameScene extends Phaser.Scene {
             enemy.isNetworked = true;
             this._enemyById.set(id, enemy);
             this.physics.add.collider(enemy, this.wallGroup);
+        });
+
+        this.events.once('shutdown', () => {
+            ['init', 'joined', 'moved', 'left', 'enemySync', 'enemyDied', 'enemyRespawned'].forEach(e => networkManager.off(e));
         });
     }
 
@@ -633,6 +644,7 @@ export default class GameScene extends Phaser.Scene {
 
     _updateReticle() {
         if (!this._reticle || !this._targeting) return;
+        if (!this.player?.active) { this._cancelTargeting(); return; }
         const ptr = this.input.activePointer;
         const wp  = this.cameras.main.getWorldPoint(ptr.x, ptr.y);
 
@@ -1572,6 +1584,7 @@ export default class GameScene extends Phaser.Scene {
         this.cameras.main.fadeOut(300);
         this.time.delayedCall(320, () => {
             this.scene.stop('UIScene');
+            this.scene.stop('ChatScene');
             this.scene.start('GameScene', {
                 mapId:           portalDef.targetMap,
                 spawnX:          portalDef.targetX,

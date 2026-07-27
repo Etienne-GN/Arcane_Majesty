@@ -270,6 +270,13 @@ io.on('connection', (socket) => {
         console.log(`  enemy ${id} (${enemy.type}) died in ${target}`);
     });
 
+    socket.on('chat:send', ({ text }) => {
+        const state = players.get(socket.id);
+        if (!state || !text?.trim()) return;
+        const msg = { name: state.name, text: text.trim().slice(0, 200) };
+        io.to(state.mapId).emit('chat:message', msg);
+    });
+
     socket.on('disconnect', () => {
         const state = players.get(socket.id);
         if (state) {

@@ -52,6 +52,7 @@ class NetworkManager {
         this.socket.on('enemy:sync',      (enemies) => this._fire('enemySync',     enemies));
         this.socket.on('enemy:died',      (data)    => this._fire('enemyDied',     data));
         this.socket.on('enemy:respawned', (data)    => this._fire('enemyRespawned', data));
+        this.socket.on('chat:message',    (data)    => this._fire('chat',           data));
     }
 
     // Store join payload; fires immediately if already connected, else waits for 'connect' event
@@ -79,6 +80,11 @@ class NetworkManager {
     sendEnemyDied(id, mapId) {
         if (!this.connected) return;
         this.socket.emit('enemy:died', { id, mapId });
+    }
+
+    sendChat(text) {
+        if (!this.connected) return;
+        this.socket.emit('chat:send', { text });
     }
 
     on(event, cb)      { this._callbacks[event] = cb; }

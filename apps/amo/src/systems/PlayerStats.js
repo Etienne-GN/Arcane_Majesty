@@ -208,6 +208,9 @@ export class PlayerStats {
         // Inventory: array of { id, name, description, color, qty, stackable }
         this.inventory = [];
 
+        // Every item ID ever obtained — drives recipe discovery
+        this.seenItems = new Set();
+
         // Attuned Rift-Gates — enables fast-travel between them
         this.attunedGates = [];
 
@@ -369,10 +372,12 @@ export class PlayerStats {
     }
 
     // Register a callback: fn(spellId, newLevel, isDiscovery)
-    onSpellEvent(fn) { this._resonanceCallbacks.push(fn); }
+    onSpellEvent(fn)  { this._resonanceCallbacks.push(fn); }
+    offSpellEvent(fn) { this._resonanceCallbacks = this._resonanceCallbacks.filter(f => f !== fn); }
 
     // Register a callback: fn(element, newValue)
-    onResonanceGain(fn) { this._resonanceGainCallbacks.push(fn); }
+    onResonanceGain(fn)  { this._resonanceGainCallbacks.push(fn); }
+    offResonanceGain(fn) { this._resonanceGainCallbacks = this._resonanceGainCallbacks.filter(f => f !== fn); }
 
     gainResonance(element, amount) {
         if (!(element in this.resonance)) return;
@@ -460,6 +465,8 @@ export class PlayerStats {
     addItem(itemId, qty = 1) {
         const def = ITEMS[itemId];
         if (!def) return false;
+
+        this.seenItems.add(itemId);
 
         if (def.stackable) {
             const existing = this.inventory.find(i => i.id === itemId);

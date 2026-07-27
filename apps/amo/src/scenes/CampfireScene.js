@@ -8,6 +8,7 @@ import { MenuFocus } from '../systems/MenuFocus.js';
 
 const TABS = ['REST', 'COOK', 'BREW'];
 const TAB_KEYS = ['ONE', 'TWO', 'THREE'];
+const RECIPE_ROW_HEIGHT = 48;
 
 export default class CampfireScene extends Phaser.Scene {
     constructor() { super('CampfireScene'); }
@@ -89,9 +90,9 @@ export default class CampfireScene extends Phaser.Scene {
             if (dragY === null || !p.isDown || this._tab < 1) return;
             dragAcc += dragY - p.y; dragY = p.y;
             const mode = this._tab === 1 ? 'cook' : 'brew';
-            while (Math.abs(dragAcc) >= 48) {
+            while (Math.abs(dragAcc) >= RECIPE_ROW_HEIGHT) {
                 this._scrollRecipes(mode, dragAcc > 0 ? 1 : -1);
-                dragAcc += dragAcc > 0 ? -48 : 48;
+                dragAcc += dragAcc > 0 ? -RECIPE_ROW_HEIGHT : RECIPE_ROW_HEIGHT;
             }
         });
         this.input.on('pointerup', () => { dragY = null; dragAcc = 0; });
@@ -151,21 +152,21 @@ export default class CampfireScene extends Phaser.Scene {
         }).setInteractive());
         frBtn.on('pointerover', () => frBtn.setStyle({ fill: hasTent ? '#ffffff' : frCol }));
         frBtn.on('pointerout',  () => frBtn.setStyle({ fill: frCol }));
-        frBtn.on('pointerdown', () => { if (hasTent) this._fullRest(); });
-        if (hasTent) this._contentFocus.push({ obj: frBtn, activate: () => this._fullRest() });
+        frBtn.on('pointerdown', () => { if (hasTent) this._fullRest(); else this._showFeedback('No tent in pack.', '#664422'); });
+        this._contentFocus.push({ obj: frBtn, activate: () => { if (hasTent) this._fullRest(); else this._showFeedback('No tent in pack.', '#664422'); } });
     }
 
     // ── COOK / BREW shared recipe renderer ───────────────────────────────────
 
     _drawRecipes(mode) {
         const px = this._px, pw = this._pw;
-        // Only recipes the player has some ingredient for are listed.
+        // Show recipes where the player has seen at least one ingredient.
         const recipes = (mode === 'cook' ? COOKING_RECIPES : POTION_RECIPES)
-            .filter(r => this._canMake(r) || this._recipeHasAny(r));
+            .filter(r => this._isSeen(r));
 
         const viewY      = this._contentY + 4;
-        const viewBottom = this._py + this._ph - 30;          // above the footer hint
-        const rowStep    = 48;
+        const viewBottom = this._py + this._ph - 30;
+        const rowStep    = RECIPE_ROW_HEIGHT;
         const perPage    = Math.max(1, Math.floor((viewBottom - viewY) / rowStep));
 
         this._recipeScroll ??= {};
@@ -183,52 +184,74 @@ export default class CampfireScene extends Phaser.Scene {
         }
 
         const visible = recipes.slice(scroll, scroll + perPage);
+        const rowGfx = this._track(this.add.graphics());
         let oy = viewY;
         for (const recipe of visible) {
-            const canMake = this._canMake(recipe);
-            const rowCol = canMake ? 0x1a1000 : 0x0d0800;
-            const txtCol = canMake ? '#ddaa55' : '#443322';
+            const discovered = this._isDiscovered(recipe);
+            const canMake    = discovered && this._canMake(recipe);
 
-            this._track(this.add.rectangle(px + 16, oy, pw - 32, 40, rowCol).setOrigin(0));
-            this._track(this.add.graphics()).lineStyle(2, canMake ? 0x886622 : 0x221500)
-                .strokeRect(px + 16, oy, pw - 32, 40);
+            if (discovered) {
+                // ── Fully discovered: show name, ingredients, craft button ──
+                const rowCol = canMake ? 0x1a1000 : 0x0d0800;
+                const txtCol = canMake ? '#ddaa55' : '#443322';
 
-            // Ingredient list
-            let ingStr;
-            if (recipe.multi) {
-                ingStr = recipe.input.map(id => {
-                    const name = ITEMS[id]?.name ?? id.replace(/_/g, ' ');
-                    return `${name}×1(${this._countItem(id)})`;
-                }).join('  ');
-            } else if (recipe.ingredients) {
-                ingStr = recipe.ingredients.map(ing => {
-                    const name = ITEMS[ing.id]?.name ?? ing.id.replace(/_/g, ' ');
-                    return `${name}×${ing.qty}(${this._countItem(ing.id)})`;
-                }).join('  ');
+                this._track(this.add.rectangle(px + 16, oy, pw - 32, 40, rowCol).setOrigin(0));
+                rowGfx.lineStyle(2, canMake ? 0x886622 : 0x221500).strokeRect(px + 16, oy, pw - 32, 40);
+
+                let ingStr;
+                if (recipe.multi) {
+                    ingStr = recipe.input.map(id => {
+                        const name = ITEMS[id]?.name ?? id.replace(/_/g, ' ');
+                        return `${name}×1(${this._countItem(id)})`;
+                    }).join('  ');
+                } else if (recipe.ingredients) {
+                    ingStr = recipe.ingredients.map(ing => {
+                        const name = ITEMS[ing.id]?.name ?? ing.id.replace(/_/g, ' ');
+                        return `${name}×${ing.qty}(${this._countItem(ing.id)})`;
+                    }).join('  ');
+                } else {
+                    const name = ITEMS[recipe.input]?.name ?? recipe.input.replace(/_/g, ' ');
+                    ingStr = `${name}×1(${this._countItem(recipe.input)})`;
+                }
+
+                this._track(this.add.text(px + 28, oy + 8, recipe.label, {
+                    font: 'bold 16px monospace', fill: txtCol
+                }));
+                this._track(this.add.text(px + 28, oy + 26, ingStr, {
+                    font: '12px monospace', fill: '#554433'
+                }));
+
+                if (canMake) {
+                    const verb = mode === 'cook' ? '[COOK]' : '[BREW]';
+                    const btn = this._track(this.add.text(px + pw - 32, oy + 20, verb, {
+                        font: 'bold 14px monospace', fill: '#ffcc00'
+                    }).setOrigin(1, 0.5).setInteractive());
+                    btn.on('pointerover', () => btn.setStyle({ fill: '#ffffff' }));
+                    btn.on('pointerout',  () => btn.setStyle({ fill: '#ffcc00' }));
+                    btn.on('pointerdown', () => this._make(recipe, mode));
+                    this._contentFocus.push({ obj: btn, activate: () => this._make(recipe, mode) });
+                }
             } else {
-                const name = ITEMS[recipe.input]?.name ?? recipe.input.replace(/_/g, ' ');
-                ingStr = `${name}×1(${this._countItem(recipe.input)})`;
+                // ── Partially known: show ??? and hint at what's been seen ──
+                this._track(this.add.rectangle(px + 16, oy, pw - 32, 40, 0x080808).setOrigin(0));
+                rowGfx.lineStyle(1, 0x221100).strokeRect(px + 16, oy, pw - 32, 40);
+
+                const ids     = this._ingredientIds(recipe);
+                const seenStr = ids
+                    .map(id => playerStats.seenItems.has(id)
+                        ? (ITEMS[id]?.name ?? id.replace(/_/g, ' '))
+                        : '???')
+                    .join('  +  ');
+
+                this._track(this.add.text(px + 28, oy + 8, '??? (Unknown Recipe)', {
+                    font: 'bold 16px monospace', fill: '#332211'
+                }));
+                this._track(this.add.text(px + 28, oy + 26, seenStr, {
+                    font: '12px monospace', fill: '#2a1a0a'
+                }));
             }
 
-            this._track(this.add.text(px + 28, oy + 8, `${recipe.label}`, {
-                font: 'bold 16px monospace', fill: txtCol
-            }));
-            this._track(this.add.text(px + 28, oy + 26, ingStr, {
-                font: '12px monospace', fill: '#554433'
-            }));
-
-            if (canMake) {
-                const verb = mode === 'cook' ? '[COOK]' : '[BREW]';
-                const btn = this._track(this.add.text(px + pw - 32, oy + 20, verb, {
-                    font: 'bold 14px monospace', fill: '#ffcc00'
-                }).setOrigin(1, 0.5).setInteractive());
-                btn.on('pointerover', () => btn.setStyle({ fill: '#ffffff' }));
-                btn.on('pointerout',  () => btn.setStyle({ fill: '#ffcc00' }));
-                btn.on('pointerdown', () => this._make(recipe, mode));
-                this._contentFocus.push({ obj: btn, activate: () => this._make(recipe, mode) });
-            }
-
-            oy += 48;
+            oy += RECIPE_ROW_HEIGHT;
         }
 
         // Scroll affordances (also gamepad-focusable so a controller can scroll).
@@ -249,6 +272,24 @@ export default class CampfireScene extends Phaser.Scene {
         }
     }
 
+    // ── Recipe discovery helpers ──────────────────────────────────────────────
+
+    _ingredientIds(recipe) {
+        if (recipe.multi)        return Array.isArray(recipe.input) ? recipe.input : [];
+        if (recipe.ingredients)  return recipe.ingredients.map(i => i.id);
+        return recipe.input ? [recipe.input] : [];
+    }
+
+    // All ingredients have been picked up at least once → recipe is fully revealed.
+    _isDiscovered(recipe) {
+        return this._ingredientIds(recipe).every(id => playerStats.seenItems.has(id));
+    }
+
+    // At least one ingredient has been seen → recipe appears in the list (possibly as ???).
+    _isSeen(recipe) {
+        return this._ingredientIds(recipe).some(id => playerStats.seenItems.has(id));
+    }
+
     _scrollRecipes(mode, d) {
         this._recipeScroll ??= {};
         this._recipeScroll[mode] = Math.max(0, (this._recipeScroll[mode] ?? 0) + d);
@@ -259,12 +300,6 @@ export default class CampfireScene extends Phaser.Scene {
         if (recipe.multi)        return Array.isArray(recipe.input) && recipe.input.every(id => this._countItem(id) >= 1);
         if (recipe.ingredients)  return recipe.ingredients.every(ing => this._countItem(ing.id) >= ing.qty);
         return this._countItem(recipe.input) >= 1;
-    }
-
-    _recipeHasAny(recipe) {
-        if (recipe.multi)        return Array.isArray(recipe.input) && recipe.input.some(id => this._countItem(id) > 0);
-        if (recipe.ingredients)  return recipe.ingredients.some(ing => this._countItem(ing.id) > 0);
-        return this._countItem(recipe.input) > 0;
     }
 
     _countItem(id) {

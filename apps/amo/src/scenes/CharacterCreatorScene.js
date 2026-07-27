@@ -1755,6 +1755,7 @@ export default class CharacterCreatorScene extends Phaser.Scene {
                         if (!this.textures.exists(thumbTex)) this.textures.addImage(thumbTex, img);
                         place();
                     };
+                    img.onerror = () => { console.warn('[CharacterCreator] failed to load preset thumbnail:', preset.preview); };
                     img.src = preset.preview;
                 }
             }
@@ -1903,6 +1904,8 @@ export default class CharacterCreatorScene extends Phaser.Scene {
     }
 
     _exportSpritesheet() {
+        const swapCache = new Map(); // memoize palette-swapped canvases within this export
+
         // Build z-sorted layer list from current UI selections, carrying tint info
         const expLayers = [];
         for (const uiType of ALL_TYPES) {
@@ -1950,7 +1953,7 @@ export default class CharacterCreatorScene extends Phaser.Scene {
                 const lcols = Math.floor(tex.source[0].width  / fw);
                 const lrows = Math.floor(tex.source[0].height / fh);
                 const img = palEntry?.shades
-                    ? this._paletteSwapImage(tex.source[0].image, matKey, palEntry)
+                    ? this._paletteSwapImage(tex.source[0].image, matKey, palEntry, swapCache)
                     : tex.source[0].image;
                 draws.push({ img, fw, fh, lcols, lrows });
                 rows = Math.max(rows, lrows);
@@ -1992,7 +1995,10 @@ export default class CharacterCreatorScene extends Phaser.Scene {
     }
 
     /** Returns a new canvas with the palette swap applied — used by spritesheet export */
-    _paletteSwapImage(image, matKey, paletteEntry) {
+    _paletteSwapImage(image, matKey, paletteEntry, cache) {
+        const cacheKey = `${image.src || ''}|${matKey}|${paletteEntry.shades.join(',')}`;
+        if (cache?.has(cacheKey)) return cache.get(cacheKey);
+
         const src  = PALETTE_SOURCE[matKey];
         const tgt  = paletteEntry.shades;
         const n    = src.length;
@@ -2026,13 +2032,20 @@ export default class CharacterCreatorScene extends Phaser.Scene {
             }
         }
         cx.putImageData(id, 0, 0);
+        cache?.set(cacheKey, c);
         return c;
     }
 
     async _exportLicenses() {
-        const res  = await fetch('./CREDITS.csv');
-        const text = await res.text();
-        this._downloadText('lpc-credits.csv', text, 'text/csv');
+        try {
+            const res = await fetch('./CREDITS.csv');
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const text = await res.text();
+            this._downloadText('lpc-credits.csv', text, 'text/csv');
+        } catch (e) {
+            console.warn('[CharacterCreator] failed to load CREDITS.csv:', e);
+            this.scene.get('UIScene')?.showNotification?.('Could not load credits file.', 2500);
+        }
     }
 
     _downloadText(filename, text, mimeType = 'text/plain') {

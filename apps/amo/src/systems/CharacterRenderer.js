@@ -319,7 +319,7 @@ export function registerSheetFrames(tex, fw, fh) {
 
 function ensureAnims(scene, key, animName) {
     const tex = scene.textures.get(key);
-    if (!tex || tex.key === '__MISSING') return;
+    if (!tex || tex.key === '__MISSING') { console.warn('[CharacterRenderer] texture missing:', key); return; }
 
     ensureCorrectFrameSize(tex);
 
