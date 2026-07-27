@@ -25,8 +25,8 @@ This document tracks the current state of the project and serves as a quick-refe
 - **Vorgos's Grand Design:** The Stormbringer is revealed as the Architect of the entire timeline, setting up Anya (0 GD), Kael (~300 AGD), and Eldrin (~500 AGD) as pieces to prevent the collapse in ~900 AGD.
 
 - **Systematic Lyrics Rework (Phase 5):**
-    - **Completed Albums:** *A Tapestry of Souls* (0 GD) & *Eldoria's Prophecy* (~500 AGD) - full narrative anchoring, meter audits, and populated `<analysis>` blocks.
-    - **Next Focus:** *Vows of Silence* (Era I Prequel).
+    - **Completed Albums:** *A Tapestry of Souls* (0 GD), *Eldoria's Prophecy* (~500 AGD), and *Vows of Silence* (Era I Prequel) - full narrative anchoring, vocabulary enrichment, meter audits, and populated `<analysis>` blocks.
+    - **Next Focus:** *Crimson Covenant* (13 tracks — Era I Vampiric Origins).
 
 ## 4. Album Restructuring (Linear Alignment)
 To maintain strict chronological consistency, the original **Lord of Shadows** album has been split:

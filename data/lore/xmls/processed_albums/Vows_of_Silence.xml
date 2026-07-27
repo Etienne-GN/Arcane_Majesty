@@ -1,0 +1,990 @@
+<album album="Vows of Silence">
+    <AlbumPlot>
+        <![CDATA[
+### "Vows of Silence" - The Shadow Civil War (Era I Prequel)
+
+The 16-song saga of two tragic architects whose ambitions shattered the cosmic equilibrium. Centuries before the Great Darkness (0 GD), the Fallen Aurorian Seer **Acheron** discards the **Forbidden Tome**, believing he has transcended his primordial master. While Acheron constructs a clandestine vampiric aristocracy in Eldoria, a zealous Nythorian scholar named **Malakar** unearths the discarded tome. This album chronicles their cross-dimensional rivalry, the ritualistic assassination of Acheron's mortal form, and Malakar's descent into fanaticism as the Priest of the Void—culminating at the exact instant the skies fall dark.
+        ]]>
+    </AlbumPlot>
+    <TimelineEvent>Pre-0 GD</TimelineEvent>
+    <Act act="I: The Silent Heresy">
+        <Song song="Vows of Silence">
+            <song_id>1</song_id>
+            <timestamp>-5000</timestamp>
+            <Tone>Ominous, Introspective, Regal</Tone>
+            <Plot>Acheron reflects upon discarding the Forbidden Tome. Having founded the Crimson Covenant in Eldoria, he realizes Nyktoros would eventually devour his immortal kin. He initiates the Vow of Silence to cloak his energy-hoarding network from the Void.</Plot>
+            <Lyrics>[Verse 1]
+Once a High Seer of celestial grace,
+Now sovereign ruler of this hidden space.
+I cast the scriptures to the ancient dust,
+Forsaking masters for a hungering trust.
+The stellar resonance begins to wane,
+Corrupted by the choices of my reign.
+
+[Chorus]
+Vows of silence, in the hollowed gray,
+We carve the fabric of the world away.
+In shrouded sanctuaries, the elite draw breath,
+While distant deities slumber in death.
+Vows of silence, let the essence flow,
+We master destinies the mortals never know.
+
+[Verse 2]
+The high-born Elves in crystal towers gleam,
+Deaf to the whisper of a fading dream.
+I am the Apostate, the exiled heir,
+Building an empire from divine despair.
+I feel the Thirst within the soul arise,
+Reclaiming power under veiled skies.
+
+[Chorus]
+Vows of silence, in the hollowed gray,
+We carve the fabric of the world away.
+In shrouded sanctuaries, the elite draw breath,
+While distant deities slumber in death.
+Vows of silence, let the essence flow,
+We master destinies the mortals never know.
+
+[Bridge]
+Nyktoros stirs within his abyssal tomb,
+Yet I hold secrets that defiance bloomed.
+I fuse the starlight with the umbral tide,
+A clandestine sanctuary where we abide.
+He is the hunger, but my blade is swift,
+Forged from the marrow of the mortal gift.
+
+[Chorus]
+Vows of silence, in the hollowed gray,
+We carve the fabric of the world away.
+In shrouded sanctuaries, the elite draw breath,
+While distant deities slumber in death.
+Vows of silence, let the blood flow free,
+We are the architects of eternity.
+
+[Outro]
+Preserve the quietude...
+Bank every spark...
+The Covenant ascends.
+The Covenant ascends.</Lyrics>
+            <analysis>Vorgos narrates Acheron's initial treason. Acheron turns away from Nyktoros to establish the Crimson Covenant, establishing the 'Vampiric Leak' through secretive soul-banking in Eldoria.</analysis>
+        </Song>
+
+        <Song song="The Shadow Disciple">
+            <song_id>2</song_id>
+            <timestamp>-100</timestamp>
+            <Tone>Fanatical, Methodical, Dark</Tone>
+            <Plot>Malakar, a Nythorian scholar-priest, searches for the lost Forbidden Tome. Sensing the dormant presence of Nyktoros, he views Acheron's abandonment of the holy texts as ultimate sacrilege.</Plot>
+            <Lyrics>[Verse 1]
+The atmosphere grows thin, the stars recede,
+I sense the Master's primordial need.
+My people wither under feeble kings,
+While from subterranean depths the silence rings.
+A devoted scholar of the sunless ways,
+Calculating timestamps of the final days.
+
+[Chorus]
+I am the seeker of the ancient door,
+Excavating blueprints of the coming war.
+The High Elf thief threw sacred truth aside,
+I'll claim the darkness where the shadows hide.
+Disciple of the void, austere and cold,
+Fulfilling prophecies the ancients told.
+
+[Verse 2]
+The world fractures while the light deceives,
+Beneath the vault where silent cosmos grieves.
+I trace vibrations of the sleeping deep,
+Where cosmic balances no longer keep.
+Aurorian lords in gilded halls recline,
+Unaware their realm is marked by dark design.
+
+[Chorus]
+I am the seeker of the ancient door,
+Excavating blueprints of the coming war.
+The High Elf thief threw sacred truth aside,
+I'll claim the darkness where the shadows hide.
+Disciple of the void, austere and cold,
+Fulfilling prophecies the ancients told.
+
+[Bridge]
+Acheron lurks within the realm of day,
+A parasitic leech who lost his way.
+Yet I remain steadfast, devout and pure,
+To execute the rites that will endure.
+I'll turn the key and unseal the gate,
+Consumating mortal and immortal fate.
+
+[Chorus]
+I am the seeker of the ancient door,
+Excavating blueprints of the coming war.
+The High Elf thief threw sacred truth aside,
+I'll claim the darkness where the shadows hide.
+Disciple of the void, austere and cold,
+Fulfilling prophecies the ancients told.
+
+[Outro]
+The Master awakens...
+The signal resounds...
+The Disciple approaches.
+The Disciple approaches.</Lyrics>
+            <analysis>Establishes Malakar's fanaticism and ideological opposition to Acheron. Malakar sees himself as the true servant of Nyktoros destined to restore the Void's rightful dominion.</analysis>
+        </Song>
+
+        <Song song="The Hidden Pilgrimage">
+            <song_id>3</song_id>
+            <timestamp>-75</timestamp>
+            <Tone>Atmospheric, Perilous, Tense</Tone>
+            <Plot>Malakar ventures through the treacherous subterranean chasms of Nythoria. Tested by abyssal beasts and environmental hazards, his zeal pushes him forward to the location of the Tome.</Plot>
+            <Lyrics>[Verse 1]
+Through basalt canyons and forgotten stone,
+I tread this desolate descent alone.
+Umbral beasts observe from rocky heights,
+Testing the devotion of the seeker's rites.
+With every fathom down the chill expands,
+Unveiling secrets of subterranean lands.
+
+[Verse 2]
+I've left the haven of the sunless spire,
+Driven by an unextinguished fire.
+My boots are heavy with ancient sediment,
+My spirit hardened for this dark event.
+Seeking wisdom deeper than elven lore,
+Unearthing power from the cosmic floor.
+
+[Chorus]
+The hidden pilgrimage to planetary core,
+Diving into the vortex of cosmic war.
+The monoliths hum with a rhythmic sound,
+Deep within the consecrated ground.
+I will not falter, I will not yield,
+Until the final mystery is unsealed.
+
+[Verse 3]
+Subterranean ridges span the silent deep,
+Guarding mysteries that the shadows keep.
+The planar frequencies begin to align,
+Revealing contours of a dark design.
+Phantoms of old whisper through the hall:
+Honor the Master, answer the call.
+
+[Bridge]
+Though I should perish in this stony grave,
+My life is but an offering I gave.
+I feel the pulse beneath the granite floor,
+Harmonic convergence at the abyssal door.
+The vault yields way, the seal grows paper thin,
+Let the true work of the Void begin.
+
+[Chorus]
+The hidden pilgrimage to planetary core,
+Diving into the vortex of cosmic war.
+The monoliths hum with a rhythmic sound,
+Deep within the consecrated ground.
+I will not falter, I will not yield,
+Until the final mystery is unsealed.
+
+[Outro]
+Descending further...
+Through granite and bone...
+The Tome is within reach.
+The Tome is within reach.</Lyrics>
+            <analysis>Chronicles Malakar's arduous journey into Nythoria's deepest chasms. Demonstrates his willingness to suffer for his cause, establishing his resilience.</analysis>
+        </Song>
+    </Act>
+
+    <Act act="II: The Tome of Terror">
+        <Song song="The Forbidden Tome">
+            <song_id>4</song_id>
+            <timestamp>-50</timestamp>
+            <Tone>Haunting, Revelatory, Solemn</Tone>
+            <Plot>Malakar unearths the Forbidden Tome. Examining its pages, he discovers Acheron used its rites to create vampiric bloodlines—a perversion of Nyktoros's original creation blueprints.</Plot>
+            <Lyrics>[Verse 1]
+In forgotten vaults shrouded from the light,
+A grimoire lies, a terrifying sight.
+High-Elven runes contaminate the page,
+A stolen blueprint for a corrupt age.
+Its velum whispers of forbidden lore,
+A dormant force waiting to restore.
+
+[Chorus]
+The forbidden tome, a double-edged prize,
+Unlocking abyssal realms where darkness lies.
+With reverence tread, for knowledge is a blade,
+That severs the weaver from the web they made.
+
+[Verse 2]
+I touched the leather, felt the Void's embrace,
+Uncovering treason against time and space.
+He birthed the vampires from the master's code,
+Imposing on creation a parasitic load.
+I turned the vellum with a steady hand,
+Entering mysteries of a forbidden land.
+
+[Chorus]
+The forbidden tome, a double-edged prize,
+Unlocking abyssal realms where darkness lies.
+With reverence tread, for knowledge is a blade,
+That severs the weaver from the web they made.
+
+[Bridge]
+The glyphs revealed secrets heavy and profound,
+Enchantments that make celestial beings bound.
+Temptation warred with duty in my mind,
+Yet destiny left no turning behind.
+I'll wield the energy Acheron cast aside,
+To punish the traitor where his legions hide.
+
+[Chorus]
+The forbidden tome, a double-edged prize,
+Unlocking abyssal realms where darkness lies.
+With reverence tread, for knowledge is a blade,
+That severs the weaver from the web they made.
+
+[Verse 3]
+I studied deeper into arcane script,
+To claim the throne where ancient power dripped.
+Unraveling incantations long suppressed,
+To rift the planes at the Master's behest.
+A cosmic catalyst to reshape the sphere,
+The blueprint for an era born of fear.
+
+[Chorus]
+The forbidden tome, a double-edged prize,
+Unlocking abyssal realms where darkness lies.
+With reverence tread, for knowledge is a blade,
+That severs the weaver from the web they made.</Lyrics>
+            <analysis>The turning point where Malakar acquires the Forbidden Tome. He realizes Acheron corrupted Nyktoros's blueprints, fueling Malakar's vendetta against Acheron.</analysis>
+        </Song>
+
+        <Song song="The Rise of Malakar">
+            <song_id>5</song_id>
+            <timestamp>-40</timestamp>
+            <Tone>Dominant, Triumphant, Dark</Tone>
+            <Plot>Armored with the Tome's sorcery, Malakar overthrows the tyrant king of Nythoria. Declaring himself Lord of Shadows, he initiates open sacrifices to fuel Nyktoros's return.</Plot>
+            <Lyrics>[Verse 1]
+Across the umbral reaches of Nythoria's domain,
+Malakar arises to break the ancient chain.
+He deciphered blueprints hidden in the deep,
+Awakening powers that the shadows keep.
+
+[Chorus]
+Ascend, Lord Malakar, sovereign of the night,
+From shadow's heart ignite the darkling light.
+With ancient sorcery claim your obsidian throne,
+In twilight's majesty you rule alone.
+
+[Verse 2]
+Through bloody rites and secrets long concealed,
+The abyssal blueprints stand at last revealed.
+The tyrant king is cast down from his height,
+Nyktoros acknowledged as the supreme light.
+
+[Chorus]
+Ascend, Lord Malakar, sovereign of the night,
+From shadow's heart ignite the darkling light.
+With ancient sorcery claim your obsidian throne,
+In twilight's majesty you rule alone.
+
+[Bridge]
+Perpetual dusk envelops hill and vale,
+A sanctuary for those behind the veil.
+In whispered chants his name is glorified:
+The Shadow-Priest in whom the Void relied.
+
+[Chorus]
+Ascend, Lord Malakar, sovereign of the night,
+From shadow's heart ignite the darkling light.
+With ancient sorcery claim your obsidian throne,
+In twilight's majesty you rule alone.
+
+[Verse 3]
+Now in Nythoria where umbral mist resides,
+The Lord of Shadows over fate presides.
+A sorcerer-king with grimoire in his hand,
+Bending the plane to Nyktoros' command.
+
+[Outro]
+The crown is claimed...
+The old reign ends...
+The Shadow Lord ascends.
+The Shadow Lord ascends.</Lyrics>
+            <analysis>Malakar seizes political and magical control of Nythoria. He shifts from a subterranean scholar to a sovereign tyrant, initiating the Tyrant's Sacrifice leak.</analysis>
+        </Song>
+
+        <Song song="The Crimson Elite">
+            <song_id>6</song_id>
+            <timestamp>-35</timestamp>
+            <Tone>Opulent, Predatory, Decadent</Tone>
+            <Plot>A look into the secret high society of Acheron's Crimson Covenant in Eldoria. Oblivious to Malakar's rise, they feast on mortal essence, unaware their soul-banking will trigger cosmic catastrophe.</Plot>
+            <Lyrics>[Verse 1]
+In alabaster manors of the mortal realm,
+Unseen aristocrats direct the helm.
+We drape in velvet and we savor wine,
+Distilled from essence of the human line.
+They walk among us yet they cannot see,
+The architects of blood nobility.
+
+[Verse 2]
+We built an empire in the shadow's shade,
+Trading the starlight for the pact we made.
+Acheron pledged our lives would never end,
+Beneath the skies where mortal years descend.
+We stand supreme, the predatory crest,
+With every human heart at our behest.
+
+[Chorus]
+The Crimson Elite, lords of twilight grace,
+Siphoning life to preserve our race.
+The secret legacy the world forgot,
+Sovereign masters of the mortal plot.
+In marble halls we reign untouched and cold,
+In this golden age of blood and gold.
+
+[Verse 3]
+We bank the stolen souls in vaults below,
+An endless river in clandestine flow.
+Believing we command the Void's design,
+By manipulating blueprints divine.
+Yet in the depths a sudden tremor grows,
+A fracture in the realm that no one knows.
+
+[Bridge]
+We hear faint echoes of a distant king,
+A shadow-priest whose dark obsequies ring.
+Yet we are ancient, far too proud and grand,
+To fear a rival in a sunless land.
+The Covenant stands immortal and supreme,
+Rulers of this earthly mortal dream.
+
+[Chorus]
+The Crimson Elite, lords of twilight grace,
+Siphoning life to preserve our race.
+The secret legacy the world forgot,
+Sovereign masters of the mortal plot.
+In marble halls we reign untouched and cold,
+In this golden age of blood and gold.
+
+[Outro]
+Savor the wine...
+Wear the silk...
+We are invulnerable.
+We are invulnerable.</Lyrics>
+            <analysis>Illustrates the luxury and arrogance of the Crimson Covenant in Eldoria. Shows the contrast between Acheron's secretive vampiric high society and Malakar's fanatical war machine in Nythoria.</analysis>
+        </Song>
+    </Act>
+
+    <Act act="III: The Severed Thread">
+        <Song song="Heresy of the Sun">
+            <song_id>7</song_id>
+            <timestamp>-30</timestamp>
+            <Tone>Distrustful, High-Stakes, Urgent</Tone>
+            <Plot>Acheron senses Malakar channeling the Forbidden Tome in Nythoria. Realizing Malakar's reckless sacrifices will awaken Nyktoros and destroy the Covenant, Acheron initiates the Transference ritual, hiding his Aurorian Spark inside a loyal human bloodline (Kael's ancestor).</Plot>
+            <Lyrics>[Verse 1]
+I feel vibrations from the forgotten book,
+The zealot unleashed what I once forsook.
+He opens gateways I had sought to bind,
+To rouse the hunger of a cosmic mind.
+The planar resonance rings sharp and cold:
+The herald of my doom is being told.
+
+[Verse 2]
+My vampire kin in gilded mansions dream,
+Blind to the breach in the celestial stream.
+I feel the Master's gaze upon my throne,
+Scrutinizing crimes I committed alone.
+The Void-Link is a leash upon my heart,
+Threatening to tear my legacy apart.
+
+[Chorus]
+Heresy of the sun, I stagger low,
+My elven radiance begins to slow.
+I'll store my spark within a mortal vein,
+Before the Master unleashes shadow rain.
+I am the Apostate, the fallen king,
+Safeguarding light while the shadows sing.
+
+[Verse 3]
+My human vessel shall become the vault,
+Preserving divine light against default.
+While Malakar surrenders to the deep,
+I safeguard power that the Seers keep.
+A human conduit, durable and deep,
+To hold the starlight while the heavens sleep.
+
+[Bridge]
+He thinks he serves a deity of grace,
+Unaware he is a pawn in time and space.
+I execute the Transference tonight,
+To sever ties and hide my golden light.
+I won't be consumed, I will not yield,
+My essence anchored in a mortal shield.
+
+[Chorus]
+Heresy of the sun, I stagger low,
+My elven radiance begins to slow.
+I'll store my spark within a mortal vein,
+Before the Master unleashes shadow rain.
+I am the Apostate, the fallen king,
+Safeguarding light while the shadows sing.
+
+[Outro]
+Transfer the spark...
+Bind the blood...
+The contingency is sealed.
+The contingency is sealed.</Lyrics>
+            <analysis>Acheron reacts to Malakar's rituals by creating the 'Transference' — binding his Aurorian Spark into Kael's bloodline to prevent Nyktoros from siphoning his divine essence.</analysis>
+        </Song>
+
+        <Song song="The Dual Leak">
+            <song_id>8</song_id>
+            <timestamp>-25</timestamp>
+            <Tone>Epic, Astronomical, Warning</Tone>
+            <Plot>Vorgos the Stormbringer observes the cosmic balance tilting dangerously. Acheron's hidden predation in Eldoria and Malakar's open sacrifices in Nythoria create a 'Dual Leak' that threatens to collapse the planar axis.</Plot>
+            <Lyrics>[Verse 1]
+I am the Sentinel, I weigh the sphere,
+The planar balance shifts as end draws near.
+Between the middle and the deep below,
+A catastrophic darkness starts to grow.
+The frequency of life begins to tilt,
+Beneath the empires that the dark has built.
+
+[Verse 2]
+Auroria radiates celestial day,
+While Nythoria drains the soul away.
+The vampires hoard their harvests in the deep,
+While Malakar awakens those who sleep.
+A dual leak beneath the cosmic sun,
+The dissolution has at last begun.
+
+[Chorus]
+The dual leak, the siphoning of souls,
+Two dark ambitions seeking rival goals.
+One steals in secret, one slays in the light,
+Both driving cosmos into endless night.
+The Sentinel watches the Aether burn,
+To fundamental balance we must return.
+
+[Verse 3]
+I feel vibrations of the coming storm,
+The grid of the Aether losing form.
+High and low realms alike are dragged below,
+Submerged in abyssal overflow.
+Celestial lords remain detached and proud,
+While mortal planes are wrapped in shadow's shroud.
+
+[Bridge]
+The Aether trembles under shifting weight,
+The hourglass runs out against our fate.
+Harmonic frequencies begin to break,
+The universe collapses for the Master's sake.
+I must prepare the Rift, select the key,
+To hold the light for all eternity.
+
+[Chorus]
+The dual leak, the siphoning of souls,
+Two dark ambitions seeking rival goals.
+One steals in secret, one slays in the light,
+Both driving cosmos into endless night.
+The Sentinel watches the Aether burn,
+To fundamental balance we must return.
+
+[Outro]
+The axis tilts...
+The Rift draws near...
+I foresee the end.
+I foresee the end.</Lyrics>
+            <analysis>Vorgos details the dual-leak mechanics: Acheron's vampiric soul-banking in Eldoria combined with Malakar's ritual sacrifices in Nythoria pushing the cosmos to the brink of 0 GD.</analysis>
+        </Song>
+
+        <Song song="Astral Sabotage">
+            <song_id>9</song_id>
+            <timestamp>-22</timestamp>
+            <Tone>Intense, Duel, Aggressive</Tone>
+            <Plot>Acheron launches a cross-planar astral projection strike into Nythoria to destroy Malakar and reclaim the Tome. Empowered by the book's shadow magic, Malakar repels the attack in their first direct confrontation.</Plot>
+            <Lyrics>[Verse 1]
+[Malakar]
+I see you reaching through the astral veil,
+An elven shadow, arrogant and frail.
+You threw the blueprints in the dirt and mud,
+Now you are drowning in the shadow's flood.
+I hold the code that you have long forgot,
+The final chapter of your elven plot.
+
+[Verse 2]
+[Acheron]
+You are a fool who plays with cosmic fire,
+Servant to a master who is but a liar.
+The Tome is perilous, volatile and deep,
+A mystery that only Seers ought to keep.
+Return the book before the planes are torn,
+Before the era of the Void is born.
+
+[Chorus]
+Astral sabotage, the clash of minds,
+The thread of energy that tightly binds.
+Across dimensions, war begins to start,
+Between the Void and elven hearts.
+We fight for dominion and we fight for time,
+Beneath the echo of the cosmic chime.
+
+[Verse 3]
+[Malakar]
+You are a parasite who stole the light,
+To build a syndicate within the night.
+I am the priest who found the holy way,
+To end the tyranny of elven day.
+Nyktoros calls across the deep abyss,
+While you hide in your mortal chrysalis.
+
+[Bridge]
+My spelllock anchors on your pulsing heart,
+I'll tear your mortal shell and soul apart.
+The Forbidden Tome becomes a spectral blade,
+To break the empire your corruption made.
+I trace your vessel in the world of light,
+Preparing vengeance in the depth of night.
+
+[Chorus]
+Astral sabotage, the clash of minds,
+The thread of energy that tightly binds.
+Across dimensions, war begins to start,
+Between the Void and elven hearts.
+We fight for dominion and we fight for time,
+Beneath the echo of the cosmic chime.
+
+[Outro]
+Coordinates locked...
+Target revealed...
+The strike is prepared.
+The strike is prepared.</Lyrics>
+            <analysis>The dramatic peak of the Acheron-Malakar rivalry. Their cross-planar duel sets up Malakar's targeted assassination of Acheron's physical body.</analysis>
+        </Song>
+
+        <Song song="Threshold Assassination">
+            <song_id>10</song_id>
+            <timestamp>-20</timestamp>
+            <Tone>Ritualistic, Ruthless, Climactic</Tone>
+            <Plot>Malakar executes the 'Void-Sever' ritual using the Forbidden Tome. Channeling immense shadow energy across dimensions, he destroys Acheron's physical body in Eldoria, reducing the First Vampire to a spirit entity.</Plot>
+            <Lyrics>[Verse 1]
+The ritual circle glows with violet fire,
+To strike the predator upon his pyre.
+I trace his frequency across the space,
+Unmasking the elven traitor's hiding place.
+He skulks in Eldoria, among the mortal throng,
+Exploiting power that to us belongs.
+
+[Verse 2]
+The Void-Sever is an ancient spell,
+Decreeing where the fallen Seer shall dwell.
+I channel energy through bone and stone,
+To strike him down upon his marble throne.
+He deemed his distance an unbroken shield,
+Yet to the blueprints he will bow and yield.
+
+[Chorus]
+Threshold assassination, pierce the heart,
+I rend the physical and soul apart.
+Across the planes the Void-Sever will fly,
+The First Vampire is condemned to die.
+No more predation, no more hidden lies,
+Confront the darkness in your master's eyes.
+
+[Verse 3]
+I sever threads that bind him to the earth,
+Extinguishing the glory of his second birth.
+His body withers into ash and dust,
+While I consume his predatory trust.
+The Crimson Covenant is stripped of head,
+While I partake of the abyssal bread.
+
+[Bridge]
+The spell has landed and the work complete,
+The High-Elf progenitor suffers defeat.
+His spirit wanders in the Aether gray,
+A phantom of his former golden day.
+I reign supreme as master of the night,
+Victorious in this inter-planar fight.
+
+[Chorus]
+Threshold assassination, pierce the heart,
+I rend the physical and soul apart.
+Across the planes the Void-Sever will fly,
+The First Vampire is condemned to die.
+No more predation, no more hidden lies,
+Confront the darkness in your master's eyes.
+
+[Outro]
+The vessel crumbles...
+The spirit wanders...
+Acheron falls.
+Acheron falls.</Lyrics>
+            <analysis>The Threshold Assassination. Malakar destroys Acheron's physical form. Acheron becomes a ghost seeking a way back through Kael's bloodline in later eras.</analysis>
+        </Song>
+
+        <Song song="The Obsidian Throne">
+            <song_id>11</song_id>
+            <timestamp>-15</timestamp>
+            <Tone>Monolithic, Imperial, Uncompromising</Tone>
+            <Plot>With Acheron defeated, Malakar consolidates his rule over Nythoria. He builds the Obsidian Citadel and establishes the Royal Guard to enforce his state religion of Nyktoros worship.</Plot>
+            <Lyrics>[Verse 1]
+My rival drifts, a phantom in the wind,
+While shadow-sorcery has tightly pinned
+The realm to the altar of my divine will,
+As mortal protests grow forever still.
+I've raised a citadel of basalt and bone,
+To serve the Master who shall rule alone.
+
+[Verse 2]
+My Royal Guard patrols the sunless street,
+Where every heart for Nyktoros must beat.
+We enforce the Vow, mandate the sacred Law,
+Within the shadow of the Master's jaw.
+The blueprints hum, the code is fully live,
+Only the faithful in this realm survive.
+
+[Chorus]
+The Obsidian Citadel ascends on high,
+A monolith beneath the sunless sky.
+We erect the throne of stone and bone,
+A sanctuary for the god alone.
+The shadow-frequency is all we need,
+The hunger of the Void is what we feed.
+
+[Verse 3]
+We gather tithes of energy and soul,
+Restoring to the Master full control.
+The Nythorians labor in the deep below,
+To make the river of dark essence flow.
+Architect of an eternal night,
+Extinguishing all trace of elven light.
+
+[Bridge]
+Celestial watchers gaze from realms above,
+Powerless to stop the ending of their love.
+I am the Shadow-Priest, the supreme King,
+While abyssal legions in the darkness sing.
+The throne is finished and the gate is near,
+The universe at last shall learn to fear.
+
+[Chorus]
+The Obsidian Citadel ascends on high,
+A monolith beneath the sunless sky.
+We erect the throne of stone and bone,
+A sanctuary for the god alone.
+The shadow-frequency is all we need,
+The hunger of the Void is what we feed.
+
+[Outro]
+Raise the spires...
+Enforce the law...
+The Shadow Lord reigns.
+The Shadow Lord reigns.</Lyrics>
+            <analysis>Malakar builds the Obsidian Citadel in Nythoria and establishes his dictatorship, enforcing mass soul sacrifices for Nyktoros.</analysis>
+        </Song>
+
+        <Song song="The Whispering Shadows">
+            <song_id>12</song_id>
+            <timestamp>-12</timestamp>
+            <Tone>Suspenseful, Fearful, Somber</Tone>
+            <Plot>Seraphina and Valen discover that Malakar's regime is a apocalyptic death-cult. Observing mass disappearances, they realize citizens are being banked as tithes to unleash Nyktoros.</Plot>
+            <Lyrics>[Verse 1]
+[Seraphina]
+I hear whispers through the sunless hall,
+Deciphering warnings on the shattered wall.
+Our kin vanish in the dead of night,
+To satisfy the shadow sovereign's appetite.
+This is not order, nor a righteous law,
+It is the closing of a cosmic jaw.
+
+[Verse 2]
+[Valen]
+The Royal Guard round up the weak and small,
+I saw the blood upon the mountain wall.
+Malakar prays to a silent, hungry god,
+While we are crushed beneath his iron rod.
+He names us 'Tithes', regards us all as fuel,
+Sacrificial victims for his shadow-rule.
+
+[Chorus]
+The whispering shadows reveal the truth,
+The King is harvesting our people's youth.
+A cult of silence and an altar of bone,
+To feed the Master on his lightless throne.
+We see the doom before the end arrives,
+The price of shadow is our very lives.
+
+[Verse 3]
+[Seraphina]
+I saw the altars in the Obsidian Hold,
+Where horror worse than death is being sold.
+He's banking essence in the vaults below,
+To make his dark, apocalyptic ritual grow.
+We are but cattle for a hungry Void,
+Our ancient heritage already destroyed.
+
+[Bridge]
+We cannot hide, nor can we simply run,
+From the shadow of the falling sun.
+Yet we can fight before all hope is gone,
+Before the final, darkest age is drawn.
+I'll find the steel, I'll sharpen every blade,
+To shatter every vow that he has made.
+
+[Chorus]
+The whispering shadows reveal the truth,
+The King is harvesting our people's youth.
+A cult of silence and an altar of bone,
+To feed the Master on his lightless throne.
+We see the doom before the end arrives,
+The price of shadow is our very lives.
+
+[Outro]
+They vanish into night...
+We are the next target...
+The shadows whisper.
+The shadows whisper.</Lyrics>
+            <analysis>Introduces Seraphina and Valen's horror at discovering Malakar's true motives, setting up the birth of the Nythorian Resistance.</analysis>
+        </Song>
+
+        <Song song="Sparks of Resistance">
+            <song_id>13</song_id>
+            <timestamp>-10</timestamp>
+            <Tone>Defiant, Heroic, Orchestral</Tone>
+            <Plot>Seraphina and Valen establish the underground Nythorian Resistance. Recognizing they fight both a tyrant and an awakening god, they begin arming rebels in the ancestral ruins of Ravenspire.</Plot>
+            <Lyrics>[Verse 1]
+[Seraphina]
+My home lies ruined and my kin are slain,
+I see the blood of Malakar's dark reign.
+He is no king—he is a fanatic priest,
+Serving the hunger of an abyssal beast.
+The resistance kindles in the quiet heart,
+Before we tear the tyrant's world apart.
+
+[Verse 2]
+[Valen]
+We forge our weapons in the deep ravine,
+An underground force that moves unseen.
+We are the Nythorians who hold the light,
+Defiant rebels in the deepest night.
+The Vow of Silence is our chosen shield,
+Until we march upon the battleground field.
+
+[Chorus]
+Sparks of resistance, an unquenched flame,
+We will not bow to the disciple's name.
+Seraphina and Valen, we stand as one,
+Defying night until the war is won.
+From smoldering ruins we arise to fight,
+Guarding the embers of our fading light.
+
+[Verse 3]
+[Seraphina]
+He holds the grimoire and the obsidian throne,
+Yet stands within the darkness all alone.
+We have the people and the unyielding will,
+The fire of freedom is burning still.
+We'll strike his spires, dismantle every guard,
+Though the path to liberation be long and hard.
+
+[Bridge]
+From Ravenspire to the Citadel gate,
+We'll forge a destiny to defy our fate.
+He feeds the Void with every soul he takes,
+Breaking the universe for power's sake.
+Yet every spark becomes a raging fire,
+To burn the altar and the tyrant's pyre.
+
+[Chorus]
+Sparks of resistance, an unquenched flame,
+We will not bow to the disciple's name.
+Seraphina and Valen, we stand as one,
+Defying night until the war is won.
+From smoldering ruins we arise to fight,
+Guarding the embers of our fading light.
+
+[Outro]
+We are the sparks...
+We are the flame...
+The resistance awakens.
+The resistance awakens.</Lyrics>
+            <analysis>The founding of the Nythorian Resistance at Ravenspire. Establishes Seraphina's leadership and her bond with Valen before the Great Darkness.</analysis>
+        </Song>
+
+        <Song song="Tithes of the Void">
+            <song_id>14</song_id>
+            <timestamp>-5</timestamp>
+            <Tone>Choral, Apocalyptic, Terrifying</Tone>
+            <Plot>Malakar accelerates the mass sacrifices in Nythoria as the threshold nears. The accumulated soul energy reaches critical mass, tearing the planar barrier and forcing Vorgos to act.</Plot>
+            <Lyrics>[Verse 1]
+The harvest culminates, the altars bleed,
+Sating the Master's cosmic, insatiable need.
+The vampire's leak was but a trickle small,
+While Malakar's tithe threatens to consume all.
+The captive souls scream in the dark below,
+As reality prepares for its final blow.
+
+[Verse 2]
+The Royal Guard gathers the weak and frail,
+Beneath the shadow of the Obsidian veil.
+The frequency spikes, the planar barrier thins,
+As the true age of total darkness begins.
+I feel vibrations of the coming storm,
+The grid of the Aether losing form.
+
+[Chorus]
+Tithes of the Void, the ultimate cost,
+For Nyktoros' awakening, nothing is lost.
+We trade existence for the abyssal cold,
+To fulfill the dark destiny foretold.
+Tithes of the Void, the energy grows,
+The final rite the Disciple knows.
+
+[Verse 3]
+Acheron's spirit cries out in despair,
+While we rejoice in the blackened air.
+The energy threshold is at last attained,
+The sun of mortals forever strained.
+Celestial lords sleep in their golden halls,
+Deaf to the sound as creation falls.
+
+[Bridge]
+One final soul, one last incantation,
+To trigger the planar devastation.
+The blueprints hum, the ritual complete,
+The Shadow-Priest tastes his victory sweet.
+The cosmic portal is swinging wide,
+With the voice of the Void as our only guide.
+
+[Chorus]
+Tithes of the Void, the ultimate cost,
+For Nyktoros' awakening, nothing is lost.
+We trade existence for the abyssal cold,
+To fulfill the dark destiny foretold.
+Tithes of the Void, the energy grows,
+The final rite the Disciple knows.
+
+[Outro]
+One last sacrifice...
+One last spell...
+The breach opens.
+The breach opens.</Lyrics>
+            <analysis>The critical mass event of the soul-bank. Malakar's sacrifices overflow the Underworld pool, triggering the Great Darkness threshold (0 GD).</analysis>
+        </Song>
+
+        <Song song="Reign of the Shadow Lord">
+            <song_id>15</song_id>
+            <timestamp>-3</timestamp>
+            <Tone>Imperious, Dark, Heavy</Tone>
+            <Plot>Malakar stands at the pinnacle of his power on the eve of the Great Darkness. Acheron's spirit watches in horror as the sky turns black, while Seraphina's rebels prepare for survival.</Plot>
+            <Lyrics>[Verse 1]
+In twilight's grip where shadows hold command,
+A master sorcerer binds the sunless land.
+Lord Malakar over Nythoria reigns,
+Enforcing obedience through iron chains.
+
+[Chorus]
+Reign of the Shadow Lord, an empire of fear,
+Where loyalty is bought with blood and tear.
+His power absolute, his throne divine,
+Under the mark of his dark design.
+
+[Verse 2]
+Spies and sentinels watch every pass,
+Surveilling cities of dark obsidian glass.
+Malakar's decree is the law of night,
+While Acheron's ghost cowers from his sight.
+
+[Chorus]
+Reign of the Shadow Lord, an empire of fear,
+Where loyalty is bought with blood and tear.
+His power absolute, his throne divine,
+Under the mark of his dark design.
+
+[Bridge]
+In perpetual dusk where shadows play,
+The tyrant's grip tightens day by day.
+Yet in the darkness, defiant embers glow:
+A rebel spark that will soon overflow.
+
+[Chorus]
+Reign of the Shadow Lord, an empire of fear,
+Where loyalty is bought with blood and tear.
+His power absolute, his throne divine,
+Under the mark of his dark design.
+
+[Verse 3]
+Through sunless streets where silence falls,
+A rebellion whispers behind shattered walls.
+The winds carry echoes of forgotten lore:
+The Shadow Lord's reign shall endure no more.
+
+[Outro]
+As darkness deepens under twilight skies...
+The old world crumbles, the new shall rise...
+The storm approaches.
+The storm approaches.</Lyrics>
+            <analysis>Consolidates Malakar's reign right before the sky breaks open, setting up the immediate transition to the final song and 0 GD.</analysis>
+        </Song>
+
+        <Song song="Rite of the Darkened Sun">
+            <song_id>16</song_id>
+            <timestamp>-1</timestamp>
+            <Tone>Apocalyptic, Choral, Monumental</Tone>
+            <Plot>Malakar performs the final global ritual. The sky cracks, the Great Darkness (0 GD) begins, and Nyktoros's manifestation tears into reality—ending Era I and directly starting *A Tapestry of Souls*.</Plot>
+            <Lyrics>[Verse 1]
+The stars extinguish one by one,
+I am the priest of the darkened sun.
+Energy bleeds from the planes above,
+Eradicating mercy, extinguishing love.
+The ritual concludes and the Master arrives,
+To claim the marrow of mortal lives.
+
+[Verse 2]
+The Great Rift tears the Aether apart,
+I feel the pulse of the Master's heart.
+The Legion of Souls prepares to march,
+Through the obsidian and shattered arch.
+Auroria shudders in celestial pain,
+As shadow replaces the light's domain.
+
+[Chorus]
+Rite of the darkened sun, shatter the sky,
+Let the old world of elven glory die.
+Nyktoros awakens, the Void is his name,
+Consuming the cosmos in absolute flame.
+The Vows of Silence are broken and clear,
+The hour of the Great Darkness is here.
+
+[Verse 3]
+The Nythorian legions cry in the deep,
+Rousing the horrors that the shadows keep.
+I am the Disciple, the chosen hand,
+To bring the Void to the material land.
+No more Aurorians, no more the light,
+Only the majesty of endless night.
+
+[Bridge]
+Vorgos observes from the rift in the air,
+Yet arrives too late to halt despair.
+The frequency locks and the seal gives way,
+To the dark choices of a bygone day.
+I stand on the threshold of the new regime,
+Realizing at last the Master's dream.
+
+[Chorus]
+Rite of the darkened sun, shatter the sky,
+Let the old world of elven glory die.
+Nyktoros awakens, the Void is his name,
+Consuming the cosmos in absolute flame.
+The Vows of Silence are broken and clear,
+The hour of the Great Darkness is here.
+
+[Outro]
+The eclipse is complete...
+The skies turn black...
+0 GD has begun.
+0 GD has begun.</Lyrics>
+            <analysis>The apocalyptic climax of Vows of Silence. Malakar completes the ritual, opening the Rift and triggering the Great Darkness (0 GD). Directly bridges Era I into Era II's 'A Tapestry of Souls'.</analysis>
+        </Song>
+    </Act>
+</album>
