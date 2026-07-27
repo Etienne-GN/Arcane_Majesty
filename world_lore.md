@@ -10,7 +10,10 @@ Existence consists of three parallel dimensions separated by the **Aether**:
 
 ### Explicit Origin & Location Clarification:
 - **Planes (Dimensions):** Auroria *(Celestial)*, Eldoria *(Material)*, Nythoria *(Umbral)*.
-- **Kingdoms (Within Eldoria):** **Thaloria** is the scholarly kingdom of libraries and archives located inside the Material Plane (Eldoria).
+- **Kingdoms (Within Eldoria):** 
+  - **Thaloria:** The scholarly kingdom of libraries and archives located inside the Material Plane (Eldoria).
+  - **Ravenspire (New):** Founded by **Seraphina** in **Eldoria (Material Plane)** following the destruction of her ancestral home during the Great Darkness (0 GD). It serves as the capital of the **Shadow Legion**.
+- **Cross-Planar Campaign & Gates:** From New Ravenspire (in Eldoria), Seraphina projects power into Nythoria via the **Obsidian Gate / Rift Portal** to wage war against Malakar's exiled cultists. Later in *A Prophecy of Darkness*, **Eldrin** and **Seraphina** depart from Ravenspire in Eldoria to venture into Nythoria.
 - **Anya:** An **Aurorian** high-elf scholar originating from **Auroria** (Celestial Plane).
 - **Eldrin Nightshade:** A human master mage originating from **Thaloria** (Material Plane of Eldoria). After retrieving the Heart Stone of Creation in *Eldoria's Prophecy*, he returns to his tower in Thaloria, setting the stage for his continued storyline in *The Prophecy of Darkness*.
 

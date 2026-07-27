@@ -20,12 +20,12 @@ This file contains the character data established during the era of "A Tapestry 
 - **Race:** Nythorian
 - **Role:** Leader of the Resistance; Future Queen of Carnage
 - **Description:** A battle-hardened warrior who lost her home to the Void.
-- **Backstory:** A survivor of the ancestral ruins of Ravenspire. Witnessing Anya's sacrifice transforms her grief into resolve, leading her to found the new kingdom of Ravenspire and the Shadow Legion to protect the future.
+- **Backstory:** A survivor of the ancestral ruins of Ravenspire in Nythoria. Witnessing Anya's sacrifice transforms her grief into resolve, leading her to lead the Nythorian survivors into Eldoria (Material Plane), where she founds the new kingdom of Ravenspire and the Shadow Legion to protect the future. From Ravenspire in Eldoria, she wages a cross-planar campaign through the Obsidian Gate against Malakar's remnant forces in Nythoria.
 - **Relationships:**
     - `ALLY_OF` Anya
     - `ALLY_OF` Valen
-    - `FOUNDED` Ravenspire (New)
-- **Origin:** Ravenspire (Ancestral Ruins)
+    - `FOUNDED` Ravenspire (New in Eldoria)
+- **Origin:** Ravenspire (Ancestral Ruins, Nythoria)
 
 ### Valen
 - **Name:** Valen
