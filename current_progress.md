@@ -29,8 +29,9 @@ This document tracks the current state of the project and serves as a quick-refe
       - *Crimson Covenant* (~500 to 100 BGD — Era I Vampiric Origins)
       - *Vows of Silence* (~100 to 0 BGD — Era I Malakar & Shadow Civil War)
       - *A Tapestry of Souls* (0 GD — Era II Great Darkness Threshold)
+      - *Queen of Carnage* (~150 to 300 AGD — Era III Shadow Sovereign)
       - *Eldoria's Prophecy* (~500 AGD — Era III Epoch of Silence)
-    - **Next Focus:** Era III Sister Albums (*Queen of Carnage* & *Lord of Shadows*).
+    - **Next Focus:** *Lord of Shadows* (~150 to 300 AGD — Era III Sister Album to Queen of Carnage).
 
 ## 4. Album Restructuring (Linear Alignment)
 To maintain strict chronological consistency, the original **Lord of Shadows** album has been split:
