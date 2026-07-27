@@ -4,9 +4,15 @@ This document defines the fundamental cosmic and social structure of the Arcane 
 
 ## 1. The Tri-Planar Axis
 Existence consists of three parallel dimensions separated by the **Aether**:
-- **Auroria (Celestial Plane):** The high-frequency Source of divine energy. Home of the **Aurorians**.
-- **Eldoria (Material Plane):** The middle-frequency realm of physical matter. Home of **Humans** and the **Crimson Covenant**.
-- **Nythoria (Umbral Plane):** The low-frequency Filter. Home of the **Nythorians** and the **Legion of Souls**.
+- **Auroria (Celestial Plane):** The high-frequency Source of divine energy. Home of the **Aurorians** (including **Anya**, the Void-Echo scholar plucked from Auroria during 0 GD).
+- **Eldoria (Material Plane):** The middle-frequency realm of physical matter. Home of **Humans**, the **Crimson Covenant**, and the ancient scholarly kingdom of **Thaloria** (the home realm and tower of **Eldrin Nightshade**).
+- **Nythoria (Umbral Plane):** The low-frequency Filter / Shadow Realm. Home of the **Nythorians**, **Malakar**, **Seraphina**, and the **Legion of Souls**.
+
+### Explicit Origin & Location Clarification:
+- **Planes (Dimensions):** Auroria *(Celestial)*, Eldoria *(Material)*, Nythoria *(Umbral)*.
+- **Kingdoms (Within Eldoria):** **Thaloria** is the scholarly kingdom of libraries and archives located inside the Material Plane (Eldoria).
+- **Anya:** An **Aurorian** high-elf scholar originating from **Auroria** (Celestial Plane).
+- **Eldrin Nightshade:** A human master mage originating from **Thaloria** (Material Plane of Eldoria). After retrieving the Heart Stone of Creation in *Eldoria's Prophecy*, he returns to his tower in Thaloria, setting the stage for his continued storyline in *The Prophecy of Darkness*.
 
 ## 2. The First Apostate: Acheron's Fall
 Centuries before the Great Darkness (0 GD), the Aurorian Seer **Acheron** attempted to harvest the dormant energy of the Void. He was exiled to the Material Plane for this heresy.
