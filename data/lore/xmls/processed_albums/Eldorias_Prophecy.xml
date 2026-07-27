@@ -70,7 +70,7 @@ A solitary figure, cloaked in shadow,
 Guarding the future, in the night so shallow.
 Echoes of stone, fade into the night,
 A heart burdened with time, taking flight.</Lyrics>
-            <analysis></analysis>
+            <analysis>Eldrin Nightshade uncovers geological anomalies in his tower, realizing history was erased at 0 GD and sensing Vorgos’s call.</analysis>
         </Song>
         <Song song="Dreamweaver's Call">
             <song_id>2</song_id>
@@ -123,7 +123,7 @@ Rise, Eldrin, the century is late,
 You are the keeper of the broken gate.
 Dreamweaver’s call, echoes in the bone,
 I leave the tower, I walk alone.</Lyrics>
-            <analysis></analysis>
+            <analysis>Vorgos grants Eldrin a vision of the 900 AGD catastrophe, ordering him to seek the Heart Stone of Creation to stabilize Kael’s lock.</analysis>
         </Song>
         <Song song="Odyssey's Dawn">
             <song_id>3</song_id>
@@ -176,10 +176,10 @@ Beyond the tower, the mountains wait,
 To test the bearer of this heavy fate.
 With hearts aflame, and spirits high,
 In Odyssey’s dawn, we reach the sky.</Lyrics>
-            <analysis></analysis>
+            <analysis>Eldrin leaves his tower to begin his quest across mid-Silent Century Eldoria, guided by the Stormbringer’s mental compass.</analysis>
         </Song>
     </Act>
-    <Act act="II: Trials and Tribulations">
+	<Act act="II: Trials and Tribulations">
         <Song song="Summit of Despair">
             <song_id>4</song_id>
             <Tone>Melancholic, Powerful</Tone>
@@ -273,7 +273,7 @@ Upon this cold and jagged morn.
 [Outro]
 Ice-kissed peaks, a barren expanse,
 Solitude’s embrace, in a chilling trance.</Lyrics>		
-            <analysis></analysis>
+            <analysis>Eldrin climbs a frozen mountain pass, overcoming physical freezing and internal doubt to stay true to his mission.</analysis>
         </Song>
         <Song song="Sylvan Sanctuary">
             <song_id>5</song_id>
@@ -326,7 +326,7 @@ Through the shadows, and the light,
 We walk together, hearts burning bright.
 In the sanctuary, we find our way,
 A timeless haven, where we choose to stay.</Lyrics>
-            <analysis></analysis>
+            <analysis>Eldrin finds refuge in a mystical forest sanctuary, receiving ancient wisdom and renewed strength before continuing.</analysis>
         </Song>
         <Song song="Treachery's Bite">
             <song_id>6</song_id>
@@ -387,7 +387,7 @@ A trusted friend, a viper’s kiss,
 Betrayal’s sting, a bitter pill.
 A heart shattered, a soul in pain,
 Vengeance’s fire, a dangerous dance.</Lyrics>
-            <analysis></analysis>
+            <analysis>Eldrin is betrayed by a companion seeking to steal the Heart Stone’s location, teaching him a bitter lesson in trust.</analysis>
         </Song>
         <Song song="The Solitary Path">
             <song_id>7</song_id>
@@ -434,7 +434,7 @@ I walk alone, I walk alone,
 To find the heart of silent stone.
 The solitary path, my only friend,
 Until the journey's bitter end.</Lyrics>
-            <analysis></analysis>
+            <analysis>Surviving the betrayal, Eldrin resolves to walk his path alone without reliance on others for the future’s sake.</analysis>
         </Song>
         <Song song="Inferno's Trial">
             <song_id>8</song_id>
@@ -503,15 +503,15 @@ Flames engulf, a fiery test,
 A battle waged, against the heat.
 Strength tested, will unbroken,
 Through the inferno, a rebirth.</Lyrics>
-            <analysis></analysis>
+            <analysis>Eldrin endures a crucible of subterranean flames, burning away fear and forging an unyielding resolve.</analysis>
         </Song>
     </Act>
-        <Song song="Eldoria's Heartbeat">
+	<Act act="III: The Heartstone &amp; The Eternal Guard">
+		<Song song="Eldoria's Heartbeat">
             <song_id>9</song_id>
             <Tone>Epic, Triumphant</Tone>
             <Plot>After overcoming countless challenges, Eldrin finally reaches the ancient realm of Eldoria. The land is filled with ancient ruins and hidden secrets. Eldrin must explore the realm and find the Heartstone of Creation, a powerful artifact that holds the key to saving the world. The search is fraught with danger, and Eldrin must face a series of trials and tribulations before he can claim the Heartstone.</Plot>
-            <Lyrics>∴
-[Verse 1]
+            <Lyrics>[Verse 1]
 The ancient ruins hum a tune,
 Beneath the pale and silent moon.
 A pulse of light, a rhythm slow,
@@ -554,7 +554,7 @@ A hero’s journey, a tale retold,
 The Heartstone’s pulse, a heart of gold.
 Ancient ruins, a forgotten realm,
 In the Heartstone's light no path is lost</Lyrics>
-            <analysis></analysis>
+            <analysis>Eldrin penetrates the ruins of Eldoria and discovers the pulsing Heart Stone of Creation.</analysis>
         </Song>
         <Song song="Heart of War">
             <song_id>10</song_id>
@@ -649,7 +649,7 @@ Darkness gathers, a looming threat,
 A final stand, a desperate fight.
 Magic unleashed, a cosmic clash,
 Sacrifice demanded, a heavy toll.</Lyrics>
-            <analysis></analysis>
+            <analysis>Eldrin engages in a climactic battle against a dark entity guarding the Heart Stone and emerges victorious.</analysis>
         </Song>
         <Song song="The Weight of Eternity">
             <song_id>11</song_id>
@@ -690,7 +690,7 @@ The weight of time, the weight of stone,
 I face the centuries alone.
 For Kael's sake, for future's plea,
 I bear the weight of eternity.</Lyrics>
-            <analysis></analysis>
+            <analysis>Vorgos reveals the tragic price: Eldrin must remain as the 400-year immortal watcher of the Heart Stone until 900 AGD.</analysis>
         </Song>
         <Song song="Dawn's Embrace">
             <song_id>12</song_id>
@@ -743,7 +743,7 @@ Light conquers dark, a world reborn,
 Healing winds, a gentle touch.
 Hope’s banner, flying high,
 A new era dawns, a brighter day.</Lyrics>
-            <analysis></analysis>
+            <analysis>Eldrin seals himself in the sanctum, embracing his eternal vigil to preserve the Heart Stone for the future savior.</analysis>
         </Song>
     </Act>
 </album>

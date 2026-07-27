@@ -24,9 +24,9 @@ This document tracks the current state of the project and serves as a quick-refe
 - **The Living Lock:** Kael confirmed as the vessel of the Aurorian Spark, hiding in the Emerald Fields.
 - **Vorgos's Grand Design:** The Stormbringer is revealed as the Architect of the entire timeline, setting up Anya (0 GD), Kael (~300 AGD), and Eldrin (~500 AGD) as pieces to prevent the collapse in ~900 AGD.
 
-## 3. Active Objective
-- **Systematic Lyrics Rework:** Initiate track-by-track lyrics rework to ensure narrative anchoring while strictly preserving musical meter/syllable counts and improving vocabulary quality. 
-    - **Current Focus:** *Eldoria's Prophecy*.
+- **Systematic Lyrics Rework (Phase 5):**
+    - **Completed Albums:** *A Tapestry of Souls* (0 GD) & *Eldoria's Prophecy* (~500 AGD) - full narrative anchoring, meter audits, and populated `<analysis>` blocks.
+    - **Next Focus:** *Vows of Silence* (Era I Prequel).
 
 ## 4. Album Restructuring (Linear Alignment)
 To maintain strict chronological consistency, the original **Lord of Shadows** album has been split:
