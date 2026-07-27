@@ -30,8 +30,9 @@ This document tracks the current state of the project and serves as a quick-refe
       - *Vows of Silence* (~100 to 0 BGD — Era I Malakar & Shadow Civil War)
       - *A Tapestry of Souls* (0 GD — Era II Great Darkness Threshold)
       - *Queen of Carnage* (~150 to 300 AGD — Era III Shadow Sovereign)
+      - *Lord of Shadows* (~150 to 300 AGD — Era III Sister Album / Exiled Sorcerer)
       - *Eldoria's Prophecy* (~500 AGD — Era III Epoch of Silence)
-    - **Next Focus:** *Lord of Shadows* (~150 to 300 AGD — Era III Sister Album to Queen of Carnage).
+    - **Next Focus:** *Beyond the Veil Twilight* (~300 AGD — Kael's Reclaiming of the Spark).
 
 ## 4. Album Restructuring (Linear Alignment)
 To maintain strict chronological consistency, the original **Lord of Shadows** album has been split:
