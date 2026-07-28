@@ -34,7 +34,11 @@ This document tracks the current state of the project and serves as a quick-refe
       - *Beyond the Veil Twilight* (~300 AGD — Kael's Living Lock Reclamation) ✅
       - *Bound by Blood* (~300 to 400 AGD — The Sanctuary of Two) ✅
       - *Eldoria's Prophecy* (~500 AGD — Era III Epoch of Silence) ✅
-    - **Next Phase:** Vocabulary Variety Cross-Album Audit (ensure no repeated clichés across all 8 albums).
+    - **Next Phase:** Master Knowledge Graph / Neo4j Migration on scarif.lan.
+- **Cross-Album Vocabulary & Lyrics Audit — ✅ COMPLETE:**
+    - All 8 albums audited for phrase duplication, cliché tropes, and structural errors.
+    - All duplicate non-chorus verses across all 8 albums identified and replaced with unique, meter-matched lyrics.
+    - Zero structural verse duplications remaining in the codebase.
 
 ## 4. Album Restructuring (Linear Alignment)
 To maintain strict chronological consistency, the original **Lord of Shadows** album has been split:
