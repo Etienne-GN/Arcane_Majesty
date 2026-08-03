@@ -70,7 +70,7 @@ Formatting: the master uses `[Verse 1]`-style bracket headers inside `<Lyrics>`;
 
 | Album | Status | ACC (Album Canon Checkup) |
 |---|---|---|
-| Eldoria's Prophecy | ✅ DONE — production-ready (in review: ask people to listen) | 🔍 In review — 6 deviations to reconcile (`acc/Eldorias_Prophecy_checkup.md`) |
+| Eldoria's Prophecy | ✅ DONE — production-ready (in review: ask people to listen) | ✅ PASS — 6 deviations resolved as media-model overrides; book revised (`acc/Eldorias_Prophecy_checkup.md`) |
 | Crimson Covenant | 🔄 ACTIVE — in production/review | ⏳ Run ACC after production |
 | A Tapestry of Souls | ⏳ Pending |
 | Vows of Silence | ⏳ Pending |

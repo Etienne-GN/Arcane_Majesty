@@ -33,6 +33,9 @@ Each chapter logged against the album's 12 tracks. Updated per task as chapters 
 | I3 — The Legion | — | Vorgos | ~1.5k | done |
 | I4 — The Warden | — | Kael/Anya | ~1.5k | done |
 
+## Revision log
+- **2026-08-03 — media-model revision.** Scrubbed all character references to "the songs"/"the album" across the manuscript (23 files: prologue/ch01, ch03–06, ch08–18, ch20–21, ch23, i1, i3, epilogue). Replaced with in-world knowledge ("the old tales", "the vision", "the record", "stories"). Added the Balrog magical-duel faceoff to ch20 (Eldrin loses the duel by force, wins the encounter by humility; Balrog never tamed/commanded). Added the long-life hint to ch21 ("the years fold around him without folding him"). Per ACC user decisions: Eldrin IS a mage and fights the Balrog; the Balrog is not tamed as his; Eldrin's immortality is left implicit, covered in a later work. Album XML unchanged — the album is an external medium; the book is canon.
+
 ## Total targets
 - Prologue + Epilogue: ~4k
 - Part I: ~15k

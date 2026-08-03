@@ -34,11 +34,21 @@ text, not around it.
   - Voraun is dealt at the ruins' gates (ch19), burned by the ward.
   - The 400-year vigil (to ~900 AGD) is the price; the book ends on tragic acceptance + sequel seed.
 
+## Media model (2026-08-03 revision)
+
+The album and its songs are one external medium telling the story; the novel is
+Eldrin's story in his own world. **Characters never reference the songs or the
+album.** In-world knowledge comes from books, records, the Archive, chronicles,
+prophecies, rumors, visions, and tales/stories/legends ("the old tales"). All
+"the songs" references were scrubbed from the manuscript in this revision; the
+Balrog faceoff (ch20) and the long-life hint (ch21) were added per ACC decisions.
+The album XML is unchanged.
+
 ## Refinement targets (if we do a revision pass)
 
 - **Negation tic:** ~1,143 negations (`was not` / `did not` / `had not` / `could not` /
   `would not`) ≈ one per 78 words, plus 47 `not … it was` anastrophes. This is the
-  deliberate "the songs lie / the plain truth" voice, but it is the top fatigue risk.
+  deliberate "the old tales lie / the plain truth" voice, but it is the top fatigue risk.
 - Part II pacing (38k of road-and-trial) and Eldrin's stoic, often reactive interiority —
   worth judging in a real read-through.
 - The "we must keep Eldrin alive" logic is Xarathos's; Voraun's secret mission was to

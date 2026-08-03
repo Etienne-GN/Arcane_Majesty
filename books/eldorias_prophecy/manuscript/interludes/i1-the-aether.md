@@ -3,7 +3,7 @@
 
 He had no body to stand in, and he stood anyway. The Aether had no floor and no ceiling and no horizon, and he had never needed them. What it had was the between — the long, living tension where the three frequencies held their distance, and where, for longer than any language had kept a record, he had kept the books.
 
-The books were not books. He read resonance the way the scholars of Thaloria read vellum — by the settled habits of a reader who has outlived every text and learned to read the paper itself. The Aether was not empty. It was the attention between the stations, the silence in which every song was held. It listened, and he was what its listening had become.
+The books were not books. He read resonance the way the scholars of Thaloria read vellum — by the settled habits of a reader who has outlived every text and learned to read the paper itself. The Aether was not empty. It was the attention between the stations, the silence in which every note was held. It listened, and he was what its listening had become.
 
 The three planes lay open around him like accounts, three columns of light without color, because he was past matter. Auroria above, high and gilded, paying interest without ever being spent. Eldoria between, the crowded column — births and burnings and the slow arithmetic of a world that spent without keeping count. And Nythoria below, the dark column, the one that compounded, that never paid a thing but grew.
 

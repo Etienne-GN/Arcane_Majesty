@@ -5,7 +5,7 @@ The legend had stopped being about him.
 
 That was the first thing the century of the vigil taught him, and it was the one thing the legend had gotten right without meaning to: the scholar who had vanished and returned silent had become a figure by then, and the figure was no longer the story of the man who had lived it. The tower stood dark at the edge of the scholar's quarter, and the city had grown past it the way the cities grow past the dead, and the children in the streets told the story of the Blind Prophet the way they told the story of the bell that never struck correctly — the name of a locked thing, repeated until it was worn smooth.
 
-He heard the name through the stone, in the fragments the traders brought and the songs the generations sang below. *The Blind Prophet.* It had outlived the man it was made of, the way names do — the scholar who had looked into the sky until the sky looked back, the old man in the dark tower who seemed to see nothing of the world, a proverb now, a warning about the cost of looking too long.
+He heard the name through the stone, in the fragments the traders brought and the stories the generations told below. *The Blind Prophet.* It had outlived the man it was made of, the way names do — the scholar who had looked into the sky until the sky looked back, the old man in the dark tower who seemed to see nothing of the world, a proverb now, a warning about the cost of looking too long.
 
 He was still sighted.
 
