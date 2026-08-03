@@ -5,10 +5,10 @@ Each chapter logged against the album's 12 tracks. Updated per task as chapters 
 | Chapter | Track(s) covered | POV | Word target | Status |
 |---|---|---|---|---|
 | Prologue / ch01 — Echoes of Stone | 1 | Eldrin | ~2k | done |
-| Part I / ch02 — The Vision | 2 | Eldrin | ~3.5k | pending |
-| Part I / ch03 — The Scholar's Life | 2 | Eldrin | ~3.5k | pending |
-| Part I / ch04 — Odyssey's Dawn | 3 | Eldrin | ~4k | pending |
-| Part I / ch05 — The Oblivious Road | 3 | Eldrin | ~4k | pending |
+| Part I / ch02 — The Vision | 2 | Eldrin | ~3.5k | done |
+| Part I / ch03 — The Scholar's Life | 2 | Eldrin | ~3.5k | done |
+| Part I / ch04 — Odyssey's Dawn | 3 | Eldrin | ~4k | done |
+| Part I / ch05 — The Oblivious Road | 3 | Eldrin | ~4k | done |
 | Part II / ch06 — The Ascent | 4 | Eldrin | ~3k | pending |
 | Part II / ch07 — Whisperer of Doubt | 4 | Eldrin | ~3.5k | pending |
 | Part II / ch08 — Descent | 4 | Eldrin | ~2.5k | pending |
