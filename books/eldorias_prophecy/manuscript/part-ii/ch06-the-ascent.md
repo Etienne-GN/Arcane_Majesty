@@ -1,5 +1,5 @@
 # Ch. 6 — The Ascent
-<!-- Track: 4. Summit of Despair | POV: Eldrin | Date: 501 AGD, winter -->
+<!-- Track: 4. Summit of Despair | POV: Eldrin | Date: 501 AGD, late winter -->
 
 The pass took the air first. That was the thing no map had warned him of — the maps of Thaloria were honest about the shape of mountains and entirely silent about the price of the climb, and the price was a slow, patient thinning of the world until every breath came due with interest. Eldrin had walked east out of a city that had never once asked his lungs for more than a staircase, and the pass asked him for everything at once, in the small hours, when the wind had learned his name and was teaching it to the stone.
 

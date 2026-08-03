@@ -45,4 +45,17 @@ Winter 501 AGD: the resonance steadies for the first time in decades; the violet
 ~600 AGD, a century into the vigil: Vorgos visits Eldrin one last time, in a dream ("I have come to close the last account I owe you"). Glimpses: the door opens onto a rising — the Star-Guard rising; the key (the Heartstone) finally used — the vigil ends not in an ending but a handoff; and the dark beyond the gate — "the Legion is a gate, not the dark"; the Prophecy of Darkness is owed, a debt entered with a term not yet written. Vorgos's one gift: certainty — "You will not see it, but it will come." Eldrin's vow: "I've held it for a hundred years. I'll hold it for three more." Seeded, NOT resolved. (Task 8)
 
 ## Book Canon Summary
-*filled in Task 9*
+Complete set of event facts the novel establishes (handoff payload), in timeline order:
+
+1. 0 GD — Vorgos tears the Great Rift; Anya plucked from Auroria into the Underworld as a cosmic stop-gap; the era of the erasure begins.
+2. ~300 AGD — Kael made the Living Lock at the turn of the age; the Star-Guard carries the stolen light; the Lock decays.
+3. ~500 AGD — Vorgos moves Eldrin: the vision, the Compass; the race begins (Legion agents ask about "the Anchor").
+4. Late winter 501 AGD — Oren joins Eldrin on the road (ch05).
+5. Early 501 AGD — Summit confrontation; Malphas retreats alive (ch07).
+6. Spring 501 AGD — Sylvan Sanctuary: the Elemental's trial; Aether Sight; the Hermit's warnings (ch09-10).
+7. Late spring 501 AGD — the betrayal at the Fire Gate; Oren takes the journal (ch12).
+8. Spring/summer 501 AGD — Inferno Labyrinth; Xarathos destroyed (ch15); the crucible (ch16).
+9. Midsummer 501 AGD — the Ruins; the Heartstone accepted (ch18); Voraun burned by the ward, dying truth seeds the next saga (ch19); the Balrog yields by humility (ch20); Vorgos reveals the 400-year condition (ch21).
+10. Autumn 501 AGD — the return; Legion agents withdraw "for now" (i3); the Lock steadied (i4).
+11. Winter ~501/502 AGD — the vigil begins in the re-sealed sanctum; the world names him the "Blind Prophet" (ch23).
+12. ~600 AGD — Vorgos's final dream-visit: the Star-Guard will rise, the key will finally be used, the Prophecy of Darkness is owed; "You will not see it, but it will come" (epilogue).

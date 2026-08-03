@@ -23,4 +23,15 @@ The third Void General — the tactical mind behind Oren's betrayal, the one "wh
 The guardian of the ancient door beyond the Heartstone chamber. "A shadow rises from the floor" — ancient, untamable, subservient to no one; exists to protect the door from misuse; hungers for light (the Hermit's warning: it cannot be commanded or bargained with). Force fails utterly — it *eats* runes. It yields only to the one the Stone accepts: when Eldrin stops demanding and stands as what the Stone is meant for, the Balrog settles, satisfied — not defeated, not commanded. Mastery through humility. (Task 6)
 
 ## Book Canon Summary
-*filled in Task 9*
+Complete set of character facts the novel establishes (handoff payload for game-doc + Neo4j sync):
+
+- **Eldrin Nightshade** — scholar-historian of Thaloria (the tower), ~60 at the start of the quest; read the erasure in the strata ("Echoes"); granted the vision + Compass of the Storm by Vorgos (ch02); walked east winter 501 AGD; betrayed at the Fire Gate (ch12); destroyed Xarathos (ch15); touched the Heartstone — accepted, resonance synced (ch18); drove Voraun into the ward (ch19); yielded the Balrog by humility (ch20); accepted the 400-year vigil to ~900 AGD (ch21); returned to Thaloria, re-sealed the sanctum, began the vigil (ch23); world names him the "Blind Prophet" — metaphoric only, sight never lost. Endures to ~600 AGD (epilogue) and beyond.
+- **Oren** — Voraun's agent of thirty years; the mask made of true things; betrayed at the Fire Gate's first landing, took the journal (coordinates only, not the compass), descended the labyrinth ahead; fate: "the Warden has the sword."
+- **The Hermit** — failed former Keeper; Balrog-defeated; spirit bound to the Sylvan Sanctuary's Elemental; granted Aether Sight; read Oren coldly.
+- **Malphas (Whisperer of Doubt)** — General; feeds on isolation/doubt; winter-as-instrument; confronted at the Summit (ch07), anchor-thread wounded, retreats ALIVE; the only surviving General.
+- **Xarathos (Pyre-Lord)** — General; fallen Aurorian, Thirst-corrupted; commands the Inferno Labyrinth; destroyed in the crucible (ch15).
+- **Voraun (Silent Executioner)** — General; the subtraction; runic reflection + shadow-blade; sat at the keeping's door; burned by the ward (ch19); dying truth seeds the next saga.
+- **The Shadow Balrog** — ancient guardian of the ancient door; untamable; yields to the Stone's accepted guardian, satisfied (ch20).
+- **Kael (the Star-Guard / Living Lock)** — carries the Lock since ~300 AGD; erosion kills him slowly; steadied by the Stone's placement (i4).
+- **Anya** — plucked from Auroria at 0 GD; five centuries of vigil; the anger that is the shape of her love.
+- **Vorgos (the Stormbringer / Architect)** — entity of the Aether; pragmatic, not omniscient, not cruel; the ledger; moved Anya, Kael, Eldrin; the almost-regret set aside; gives certainty as the one gift (epilogue).

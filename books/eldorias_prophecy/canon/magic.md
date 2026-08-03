@@ -15,4 +15,10 @@ Gift of the Sylvan Sanctuary's Hermit (ch10). Reads "the second hand — the wri
 A "Cosmic Insulator" — it stabilizes, holds, prevents; it is not a weapon and never will be, no matter how the dark hungers for it to be one. It does not shine or save; it holds the space in which saving remains possible. Rejects unworthy hands — reaching to take meets the holding as an enemy and burns; accepts its intended guardian (the whole of the road was the proving). The ward is the field of the keeping; a hand that comes to hold passes through "the way a note passes through a chord." Syncs resonance with its keeper ("the Heartbeat of Eldoria"). Used by Eldrin to burn Voraun (the ward answers any hand that reaches to take). (Task 6)
 
 ## Book Canon Summary
-*filled in Task 9*
+Complete set of magic facts the novel establishes (handoff payload):
+
+- **Scholar-Magic** — runic, geometric, blue/violet, Aether-based; costly ("the Snap" exhaustion); a lit ward is a "lighthouse" drawing shadow-predators; magic is a debt.
+- **Compass of the Storm** — mental compass planted by Vorgos in the vision; always points to the Heartstone; never taken by Oren (he got only the journal); sings when near the target (ch16); quiet/still at arrival (ch17).
+- **Aether Sight** — the Hermit's gift; reads "the second hand — the writing beneath the writing"; hidden paths, life-threads, truth beneath masks, reveals illusions; not a weapon, an eye; mastered at the Sanctuary (ch10), first manifesting in the forest (ch09).
+- **Runic reflection** — Voraun's Legion counter: mirror-marks that return a figure to its maker with its own charge (ch19).
+- **The Heartstone of Creation** — "Cosmic Insulator"; holds, prevents, is not a weapon; rejects unworthy hands (burns); accepts its intended guardian; ward = the field of the keeping; syncs resonance with the keeper; burns Voraun (ch19); steadied the Lock (i4).

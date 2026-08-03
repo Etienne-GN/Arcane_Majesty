@@ -21,4 +21,12 @@ Xarathos's territory beneath the Fire Gate: magma rivers, a gate of flame "that 
 The cradle of the Heartstone of Creation at the heart of the ruins: a plain chamber of black stone, the ward of the keeping running between the cradle and the door, the pulse of the stone in the floor. Voraun is burned here (ch19). Beyond the far wall, after the chamber is read, an ancient door appears — older than the valley, older than the keeping — with unreadable runes; the Shadow Balrog waits beyond it. (Task 6)
 
 ## Book Canon Summary
-*filled in Task 9*
+Complete set of location facts the novel establishes (handoff payload):
+
+- **Thaloria** — the scholar-city on a hill above Silverrun; Eldrin's tower in the scholar's quarter; the sanctum cut in the hill at the founding; the bell that never struck correctly.
+- **Summit of Despair** — Malphas's territory; the frozen camp of fourteen; the ch07 confrontation; the Aether is thin.
+- **Sylvan Sanctuary** — impossible early-spring valley; the Elemental's trial of intent; the Hermit's hut; Aether Sight granted.
+- **Fire Gate** — black-glass entrance to the Inferno Labyrinth; runes hold heat/hunger; Oren's betrayal at the first landing (snow-line/ash).
+- **Inferno Labyrinth** — Xarathos's territory; the flame "that calls me by my given name"; golem/magma-eater/cinder-soul trials; the heart-chamber crucible.
+- **The Ruins of Eldoria** — the ruins of a vigil, not a city; the golden-age echo/Witness; the sealed approach; the Heartstone chamber; the ancient door beyond; the Shadow Balrog's passage.
+- **The Underworld Sanctuary** — one room over the sealed prison of the Void; Anya's vigil; the seam and the violet fissure.
