@@ -1,8 +1,8 @@
 # ACC Report — Eldoria's Prophecy
 
 Per `data/lore/xmls/album_canon_checkup.md`. Run: 2026-08-03, after the first
-AI-written book draft locked the canon. Graph-sync items BLOCKED (Neo4j not
-reachable at 192.168.0.159:7687 — re-run D once it is back).
+AI-written book draft locked the canon. Graph-sync items BLOCKED at the time (Neo4j
+not reachable at 192.168.0.159:7687); **re-run 2026-08-03 — D now PASS** (see below).
 
 ## Revision 2026-08-03 (media model)
 
@@ -21,8 +21,27 @@ keeps its own telling (deviations below are now documented overrides, not bugs).
 | A. AlbumPlot ↔ lore | **PASS** (2 notes) | Timeline ~500 AGD ✓, Kael ~300 AGD ✓, Heartstone as Cosmic Insulator ✓, "bridge between tragedy of the past and salvation of the future" = exact book phrase | Note: "immortal guardian" + "sleeper agent" wording (below) |
 | B. Song plots ↔ album plot | **PASS** | 12 songs in narrative order, clean 3-act mapping (fidelity-log matches track 1-12) | none |
 | C. Lyrics ↔ song plot & lore | **PASS** (6 resolved) | many exact shared phrases; conflicts closed as media-model overrides | see E |
-| D. Graph sync | **BLOCKED** | Neo4j down | re-run queries below when DB is up |
+| D. Graph sync | **PASS** | Neo4j reachable; gaps closed 2026-08-03 (see below) | re-verify on next album/campaign task |
 | E. Book-lore reconciliation | **6 resolved** | all decided by user; book rewritten | see E |
+
+### D — Graph sync results (re-run 2026-08-03, DB up)
+
+Queries from the original checkup, now resolved:
+
+1. `MATCH (a:Album {title:"Eldoria's Prophecy"})<-[:PART_OF]-(s:Song) RETURN s.title, s.track_index, s.origin ORDER BY s.track_index` — **12 songs ✓**, all `origin: album`.
+2. Song→Character/Location + Event→Song completeness — **fixed**. Added:
+   - **G4** `LYRICAL_POV`: Eldrin on all 12 EP songs.
+   - **G3** `LOCATED_AT`: coarse Plane-level links replaced with the specific location per song (Eldrin's Tower, Summit of Despair, Sylvan Sanctuary, Fire Gate, Inferno Labyrinth, Ruins of Eldoria, The Ancient Door, Thaloria).
+   - **G5** `OCCURRED_IN`: linked the 3 album events + added 7 granular book-canon events with a `PRECEDES` chain (`The Race for the Anchor`, `Malphas Forced to Retreat`, `The Elemental's Trial`, `Oren's Betrayal at the Fire Gate`, `Xarathos Destroyed in the Crucible`, `The Shadow Balrog Yields`, `The 400-Year Condition Revealed`).
+3. New book-canon locations/characters with `origin` set — **fixed**. Added **G1** six characters: Oren, The Hermit, Malphas, Xarathos, Voraun, The Shadow Balrog (role/description/backstory from `canon/characters.md`; rels: `SERVANT_OF` Legion of Souls, `ENMITY_WITH` Eldrin, `KILLED` Xarathos+Voraun by Eldrin, `PART_OF_RACE`). Added **G2** four locations: Fire Gate, Inferno Labyrinth, Ruins of Eldoria, The Ancient Door; reparented Heartstone Chamber → Ruins of Eldoria.
+
+Remaining notes (not errors):
+- **G6** "Eldoria's Prophecy" is the album title, not an in-world prophecy node — the
+  in-world prophecy is *The Living Lock*. No node added; keep media vs prophecy distinct.
+- **G7** The Hermit's hut is in **Sylvan Sanctuary**; the DB's **The Hidden Cabin** (in
+  The Emerald Fields) is Kael's exile home — distinct, do not merge.
+
+Campaign review: see `data/lore/campaigns/Eldorias_Prophecy_campaign.md` (ACR, 2026-08-03).
 
 ## C — What is strongly anchored (evidence, no action needed)
 
@@ -62,8 +81,9 @@ Minor (non-blocking) notes:
 
 ## Status
 
-- ACC findings: **PASS (A, B, C) + 6 deviations resolved (E) + BLOCKED (D)**.
+- ACC findings: **PASS (A, B, C) + 6 deviations resolved (E) + D PASS (re-run 2026-08-03)**.
 - Follow-up: all 6 deviations closed as media-model overrides (album = external
   telling; book is canon). Manuscript revised accordingly (song references
-  scrubbed, Balrog duel added to ch20, long-life hint in ch21). Re-run D on graph
-  recovery.
+  scrubbed, Balrog duel added to ch20, long-life hint in ch21). D graph sync
+  complete 2026-08-03 (G1–G5 fixed; G6/G7 documented notes). Campaign bible
+  written — `data/lore/campaigns/Eldorias_Prophecy_campaign.md`.

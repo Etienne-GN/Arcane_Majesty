@@ -16,7 +16,7 @@ The album follows Eldrin's journey to retrieve the artifact, his betrayal by fal
         <Song song="Echoes of Stone">
             <song_id>1</song_id>
             <Tone>Introspective, Atmospheric</Tone>
-            <Plot>Eldrin Nightshade sits in his tower, surrounded by dust and silence. He studies the geological strata of the world, noticing a terrifying anomaly—"Echoes" in the stone that suggest the world has ended before. He feels the weight of a history he cannot read, and a premonition that the cycle is about to repeat.</Plot>
+            <Plot>Eldrin Nightshade, master mage and scholar-historian of Thaloria, sits in his tower above Silverrun, surrounded by dust and silence. Studying the geological strata of the world, he uncovers a terrifying anomaly—"Echoes" in the stone that suggest the world has catastrophically ended before. The records of 0 GD were tidied, not missing; his career's thesis—that the record is a lie—is confirmed. He feels the weight of a history he cannot read, and a premonition that the cycle is about to repeat.</Plot>
                         <OriginalLyrics>
 [Verse 1]
 A solitary figure, cloaked in shadow,
@@ -125,12 +125,12 @@ A solitary figure, cloaked in shadow,
 Guarding the future, in the night so shallow.
 Echoes of stone, fade into the night,
 A heart burdened with time, taking flight.</Lyrics>
-            <analysis>Eldrin Nightshade uncovers geological anomalies in his tower, realizing history was erased at 0 GD and sensing Vorgos’s call.</analysis>
+            <analysis>Eldrin Nightshade, scholar-mage of Thaloria, reads the geological strata in his tower and uncovers the "Echoes"—proof the world has catastrophically ended before. The records of 0 GD were tidied, not missing; his career's thesis—that the record is a lie—is confirmed, and he feels the premonition that the cycle is about to repeat.</analysis>
         </Song>
         <Song song="Dreamweaver's Call">
             <song_id>2</song_id>
             <Tone>Ethereal, Terrifying</Tone>
-            <Plot>The vision strikes. Eldrin is pulled out of time by Vorgos. He sees the "Violet Sky" of 900 AGD—the moment Kael explodes. He sees a woman (Anya) weeping over a broken man. The "Dreamweaver" (Vorgos) speaks: "The Lock will fail. Find the Anchor." It is not a request; it is a command from the Aether.</Plot>
+            <Plot>The vision strikes mid-study. Eldrin is pulled out of time by Vorgos. He sees the "Violet Sky" of 900 AGD—the moment the Star-Guard shatters and the seal begins to crack. He sees a woman (Anya) weeping over a broken man (Kael). The "Dreamweaver" (Vorgos) speaks: "The Lock will fail. Find the Anchor." It is not a request; it is a command from the Aether. When Eldrin wakes, the Compass of the Storm is burned into his mind—coordinates set east, a deadline before the century turns, and a task he only half understands.</Plot>
                         <OriginalLyrics>
 [Verse 1] 
 Visions dance, a cosmic ballet,
@@ -239,12 +239,12 @@ Rise, Eldrin, the century is late,
 You are the keeper of the broken gate.
 Dreamweaver’s call, echoes in the bone,
 I leave the tower, I walk alone.</Lyrics>
-            <analysis>Vorgos grants Eldrin a vision of the 900 AGD catastrophe, ordering him to seek the Heartstone of Creation to stabilize Kael’s lock.</analysis>
+            <analysis>Vorgos grants Eldrin a vision of the 900 AGD catastrophe—the Star-Guard shattering, Anya weeping over Kael—and orders him to seek the Heartstone of Creation to stabilize the failing Lock. The Compass of the Storm is burned into his mind; it is not a request but a command from the Aether.</analysis>
         </Song>
         <Song song="Odyssey's Dawn">
             <song_id>3</song_id>
             <Tone>Adventurous, Resolute</Tone>
-            <Plot>Eldrin packs his staff and his journals. He locks his tower, knowing he may never return. The "Odyssey" begins. He steps out into the world of 500 AGD, a place of rebuilding and ignorance, guided only by the "Compass of the Storm" Vorgos implanted in his mind.</Plot>
+            <Plot>Eldrin packs his staff and his journals and seals his sanctum, locking the tower door knowing he may never return. The "Odyssey" begins. He steps out into the world of 500 AGD, a place of rebuilding and ignorance that does not know it is in danger, guided only by the "Compass of the Storm" Vorgos implanted in his mind. On the East Road the first shadows of the hunt surface—Legion agents asking quiet questions about "the Anchor"—and a learned traveler named Oren joins him, offering knowledge and company. For the first time since the vision, Eldrin is not alone.</Plot>
                         <OriginalLyrics>
 [Verse 1]
 Beyond the tower, a world unknown,
@@ -359,14 +359,14 @@ Beyond the tower, the mountains wait,
 To test the bearer of this heavy fate.
 With hearts aflame, and spirits high,
 In Odyssey’s dawn, we reach the sky.</Lyrics>
-            <analysis>Eldrin leaves his tower to begin his quest across mid-Silent Century Eldoria, guided by the Stormbringer’s mental compass.</analysis>
+            <analysis>Eldrin leaves his tower to begin his quest east across mid-Silent Century Eldoria, guided by the Stormbringer's mental compass. On the East Road he picks up the first Legion rumors about "the Anchor" and gains a learned companion, Oren.</analysis>
         </Song>
     </Act>
 	<Act act="II: Trials and Tribulations">
         <Song song="Summit of Despair">
             <song_id>4</song_id>
             <Tone>Melancholic, Powerful</Tone>
-            <Plot>As Eldrin climbs a treacherous mountain pass, the weight of his mission begins to bear down on him. The cold wind bites at his bones, and the snow-covered peaks seem to loom over him like menacing giants. Doubt and fear creep into his mind, and he questions his ability to save the world. The physical and emotional toll of the journey is taking its toll on him, but he must press on.</Plot>
+            <Plot>Eldrin climbs a treacherous mountain pass east of Thaloria, where the Aether runs thin and the cold wind bites at his bones. The weight of the mission bears down on him—doubt and fear creep into his mind, and he questions his ability to save the world. On the pass he finds the frozen camp of fourteen dead, their silence the work of the Legion's Whisperer. Malphas, the Whisperer of Doubt, feeds on his fear: illusions of allies and past failures crowd the whiteout, and only Aether Sight and the refusal of fear break the anchor-thread. The General retreats alive, vowing to find him where the road is loneliest. Eldrin crests the summit—and below lies an impossible green.</Plot>
                         <OriginalLyrics>
 [Intro]
 Ice-kissed peaks, a barren expanse,
@@ -548,12 +548,12 @@ Upon this cold and jagged morn.
 [Outro]
 Ice-kissed peaks, a barren expanse,
 Solitude’s embrace, in a chilling trance.</Lyrics>		
-            <analysis>Eldrin climbs a frozen mountain pass, overcoming physical freezing and internal doubt to stay true to his mission.</analysis>
+            <analysis>Eldrin climbs a frozen mountain pass and finds the camp of fourteen dead—the work of Malphas, the Whisperer of Doubt, who feeds on his fear with illusions of allies and past failures. Aether Sight and the refusal of fear break the anchor-thread; the General retreats alive.</analysis>
         </Song>
         <Song song="Sylvan Sanctuary">
             <song_id>5</song_id>
             <Tone>Mystical, Enchanting</Tone>
-            <Plot>Lost and weary, Eldrin stumbles upon a hidden forest. As he explores its depths, he encounters strange creatures and magical plants. The forest seems to have a life of its own, and Eldrin feels a sense of peace and tranquility as he wanders through its paths. He eventually comes across a wise old hermit, who offers him guidance and wisdom. The hermit reveals that the forest is a sacred place, and that it holds secrets that could aid Eldrin in his quest.</Plot>
+            <Plot>Lost and weary, Eldrin stumbles into an impossible early-spring valley in the mountain country—a green cathedral that should not exist. As he explores its depths he encounters strange creatures and magical plants, and the forest seems to have a life of its own. At its heart, a forest Elemental blocks the path and trials him on intent: "Why do you seek the light of day?" A wise old hermit—a failed former Keeper, his spirit bound to the Elemental—offers guidance and warnings: the way ahead holds a fire that cannot be passed, and a guardian that cannot be commanded or bargained with. The Hermit grants Eldrin the formal mastery of Aether Sight. It is the only peace on the road, and the price of it—then the trail leads down toward the Fire Gate.</Plot>
                         <OriginalLyrics>
 [Verse 1]
 In the heart of the forest, where the ancient trees stand tall,
@@ -644,12 +644,12 @@ Through the shadows, and the light,
 We walk together, hearts burning bright.
 In the sanctuary, we find our way,
 A timeless haven, where we choose to stay.</Lyrics>
-            <analysis>Eldrin finds refuge in a mystical forest sanctuary, receiving ancient wisdom and renewed strength before continuing.</analysis>
+            <analysis>Eldrin finds refuge in a mystical forest valley, where an Elemental trials him on intent and a Hermit—a failed former Keeper—grants him the formal mastery of Aether Sight and warns that the guardian ahead cannot be commanded or bargained with.</analysis>
         </Song>
         <Song song="Treachery's Bite">
             <song_id>6</song_id>
             <Tone>Dark, Intense</Tone>
-            <Plot>A trusted companion betrays Eldrin, shattering his trust and leaving him feeling betrayed and alone. The betrayal is a devastating blow, and Eldrin struggles to cope with the pain and anger that consume him. The betrayal has shaken his faith in humanity, and he questions his own judgment.</Plot>
+            <Plot>At the first landing of the Fire Gate, where black glass meets the ash-line, Oren's mask comes off. The trusted companion strikes—"the dagger that the shadows bring." He has been Voraun's agent for thirty years; his scholarship and his kindness were real, and that is what makes the wound. Oren does not kill Eldrin—the Stone needs a hand it accepts, and Eldrin is too valuable. He takes the journal of coordinates and descends the labyrinth ahead, leaving Eldrin bleeding on the stair, his trust shattered and his judgment in question. The hardest mask to remove is one made of true things.</Plot>
                         <OriginalLyrics>
 [Verse 1]
 A trusted friend, a viper’s kiss,
@@ -762,12 +762,12 @@ A trusted friend, a viper’s kiss,
 Betrayal’s sting, a bitter pill.
 A heart shattered, a soul in pain,
 Vengeance’s fire, a dangerous dance.</Lyrics>
-            <analysis>Eldrin is betrayed by a companion seeking to steal the Heartstone’s location, teaching him a bitter lesson in trust.</analysis>
+            <analysis>At the Fire Gate, Oren—Voraun's agent of thirty years, his kindness real—betrays Eldrin, taking the journal of coordinates. He does not kill Eldrin: the Stone needs a hand it accepts. It is a bitter lesson in trust, the hardest mask being one made of true things.</analysis>
         </Song>
         <Song song="The Solitary Path">
             <song_id>7</song_id>
             <Tone>Resolute, Lonely</Tone>
-            <Plot>After the betrayal, Eldrin realizes he must walk this path alone. The stakes are too high for trust. He embraces his isolation, becoming the 'Silent Guardian' in spirit before he even finds the stone.</Plot>
+            <Plot>After the betrayal, bleeding and alone in the descent, Eldrin realizes the truth the lesson taught: the stakes are too high for trust, and allies are now a liability. He walks a solitude gauntlet—the cold clings, echoes of doubt whisper, and an old version of himself argues for turning back. Old Eldrin trusts; the warden he must become cannot. He embraces the isolation, becoming the 'Silent Guardian' in spirit before he has even found the stone, and his resolve hardens into something cold and certain. Ahead, the gate of flame calls his name.</Plot>
                         <OriginalLyrics status="none">N/A — song added for narrative completeness; no original audio exists.</OriginalLyrics>
             <Lyrics>[Verse 1]
 I leave him bleeding in the snow,
@@ -810,12 +810,12 @@ I walk alone, I walk alone,
 To find the heart of silent stone.
 The solitary path, my only friend,
 Until the journey's bitter end.</Lyrics>
-            <analysis>Surviving the betrayal, Eldrin resolves to walk his path alone without reliance on others for the future’s sake.</analysis>
+            <analysis>Surviving the betrayal, Eldrin resolves to walk his path alone—the stakes are too high for trust. He endures a solitude gauntlet in the descent and embraces the isolation of the Silent Guardian, his resolve hardening before the gate of flame calls his name.</analysis>
         </Song>
         <Song song="Inferno's Trial">
             <song_id>8</song_id>
             <Tone>Dramatic, Contrasting</Tone>
-            <Plot>Eldrin is confronted with a fiery trial, a test of his courage and determination. He must navigate through a treacherous labyrinth of flames, dodging traps and avoiding deadly obstacles. The heat is intense, and the air is thick with smoke. Eldrin's physical and mental endurance are pushed to their limits, but he refuses to give up. The trial is a crucible that will test his resolve and prepare him for the challenges that lie ahead.</Plot>
+            <Plot>Eldrin descends into the Inferno Labyrinth, the territory of Xarathos, the Pyre-Lord—a Fallen Aurorian whose Legion has seeded the flames with Eldrin's identity. A gate of fire calls him by his given name. He navigates a crucible of golem rune-puzzles, Magma-Eaters, and Cinder-Souls, the heat burning away doubt as surely as it burns the air, his physical and mental endurance pushed to their limits. At the heart of the blaze, Xarathos unleashes a mana-stealing Super-Nova—but the Pyre-Lord's Thirst is his flaw, and Eldrin turns the drain back, destroying the General in the crucible. Xarathos's dying words are a warning: "Voraun will have you at the door." Eldrin climbs out of the mountain into moonlight, and the ruins of the golden age rise ahead.</Plot>
                         <OriginalLyrics>
 [Verse 1]
 Flames engulf, a fiery test,
@@ -952,14 +952,14 @@ Flames engulf, a fiery test,
 A battle waged, against the heat.
 Strength tested, will unbroken,
 Through the inferno, a rebirth.</Lyrics>
-            <analysis>Eldrin endures a crucible of subterranean flames, burning away fear and forging an unyielding resolve.</analysis>
+            <analysis>Eldrin endures a crucible of subterranean flames in the Inferno Labyrinth and destroys Xarathos, the Pyre-Lord, turning the General's mana-stealing Super-Nova back on him through the rune-drain counter. Xarathos's dying words warn that Voraun will have him at the door.</analysis>
         </Song>
     </Act>
 	<Act act="III: The Heartstone &amp; The Eternal Guard">
 		<Song song="Eldoria's Heartbeat">
             <song_id>9</song_id>
             <Tone>Epic, Triumphant</Tone>
-            <Plot>After overcoming countless challenges, Eldrin finally reaches the ancient realm of Eldoria. The land is filled with ancient ruins and hidden secrets. Eldrin must explore the realm and find the Heartstone of Creation, a powerful artifact that holds the key to saving the world. The search is fraught with danger, and Eldrin must face a series of trials and tribulations before he can claim the Heartstone.</Plot>
+            <Plot>Eldrin reaches the Ruins of Eldoria—a graveyard of the golden age, a vigil-keep within the mountain country of Thaloria, not a separate realm. The land is filled with ancient ruins and hidden secrets, and the approach is a rune-dead gate sealed by Voraun's silence. With Aetheric Witness, Eldrin sees the golden age overlaid on the ruins and hears the Heartstone's echo—a pulse in the floor like a heartbeat. Voraun, the Silent Executioner, has been sitting at the door of the keeping for months, waiting to prevent the Stone's use. Eldrin reaches the Heartstone of Creation, and it is accepted—the resonance syncs to him, while Voraun, reaching for it, is burned by the ward. The pulse thrums beneath Eldrin's feet. Beyond the chamber, the ancient door appears—older than the valley.</Plot>
                         <OriginalLyrics>
 ∴
 [Verse 1]
@@ -1049,12 +1049,12 @@ A hero’s journey, a tale retold,
 The Heartstone’s pulse, a heart of gold.
 Ancient ruins, a forgotten realm,
 In the Heartstone's light no path is lost</Lyrics>
-            <analysis>Eldrin penetrates the ruins of Eldoria and discovers the pulsing Heartstone of Creation.</analysis>
+            <analysis>Eldrin penetrates the Ruins of Eldoria—a vigil-keep within Thaloria's mountain country—through a rune-dead gate sealed by Voraun's silence, and with Aetheric Witness discovers the Heartstone of Creation. The Stone is accepted: it syncs to him, while Voraun's reaching hand is burned by the ward.</analysis>
         </Song>
         <Song song="Heart of War">
             <song_id>10</song_id>
             <Tone>Intense, Climatic</Tone>
-            <Plot>Eldrin faces the Shadow Balrog — a powerful adversary corrupted by dark forces who guards the ancient door and seeks the Heartstone. A final confrontation ensues that will determine the fate of the world.</Plot>
+            <Plot>In the Heartstone Chamber, Voraun's reach into the ward is his undoing—the unworthy hand burns, and his dying truth seeds what comes after. But the prize is not yet won. The ancient door appears, older than the valley, and the Shadow Balrog rises from the floor—an ancient guardian that hungers for light and is subservient to no one. Eldrin fights as a mage, with every art he has, and loses the duel by force: the Balrog eats his runes, and the weight of its hunger pins him—placed, not fallen. It cannot be commanded, bargained with, or defeated. In the moment force fails utterly, Eldrin stops demanding and stands as what the Stone is meant for—its intended guardian. The Balrog settles, satisfied—not defeated, not commanded, not tamed—and the door opens.</Plot>
                         <OriginalLyrics>
 [Verse 1]
 Darkness gathers, a looming threat,
@@ -1223,12 +1223,12 @@ Darkness gathers, a looming threat,
 A final stand, a desperate fight.
 Magic unleashed, a cosmic clash,
 Sacrifice demanded, a heavy toll.</Lyrics>
-            <analysis>Eldrin engages in a climactic battle against the Shadow Balrog guarding the Heartstone and emerges victorious. Shortened from the regenerated version: one verse and one chorus removed, and recast in Eldrin's singular voice — no armies, no false sacrifice. The outro's "Sacrifice demanded, a heavy toll" foreshadows The Weight of Eternity.</analysis>
+            <analysis>Eldrin engages the Shadow Balrog at the ancient door and emerges from the encounter by humility, not conquest—the guardian cannot be commanded, bargained with, or defeated, and yields only to the one the Stone accepts. Shortened from the regenerated version: one verse and one chorus removed, and recast in Eldrin's singular voice — no armies, no false sacrifice. The outro's "Sacrifice demanded, a heavy toll" foreshadows The Weight of Eternity.</analysis>
         </Song>
         <Song song="The Weight of Eternity">
             <song_id>11</song_id>
             <Tone>Heavy, Burdened</Tone>
-            <Plot>Victory is won, but the reward is a curse. Vorgos reveals the final condition: Eldrin must guard the stone for 400 years. He grapples with the crushing weight of a life paused, waiting for a hero who isn't born yet.</Plot>
+            <Plot>Victory is won, but the reward is a curse. At the ruins, Vorgos steps from time—a storm of grey—and offers the test: "Put down the Stone, and walk away." Eldrin refuses. The true condition is revealed: he must guard the stone for 400 years, until a hero not yet born needs the key in 900 AGD. He grapples with the crushing weight of a life paused—his friends will die, his world will change, and he will wait behind an iron door while the centuries fold. He accepts it, becoming the bridge between the tragedy of the past and the salvation of the future.</Plot>
                         <OriginalLyrics status="none">N/A — song added for narrative completeness; no original audio exists.</OriginalLyrics>
             <Lyrics>[Verse 1]
 The beast is tamed, the Stone is mine,
@@ -1265,12 +1265,12 @@ The weight of time, the weight of stone,
 I face the centuries alone.
 For Kael's sake, for future's plea,
 I bear the weight of eternity.</Lyrics>
-            <analysis>Vorgos reveals the tragic price: Eldrin must remain as the 400-year immortal watcher of the Heartstone until 900 AGD.</analysis>
+            <analysis>Vorgos reveals the tragic price: Eldrin must remain as the 400-year immortal watcher of the Heartstone until 900 AGD. Offered the test to "put down the Stone and walk away," Eldrin refuses, accepting the weight of a life paused for a hero not yet born.</analysis>
         </Song>
         <Song song="Dawn's Embrace">
             <song_id>12</song_id>
             <Tone>Hopeful, Uplifting</Tone>
-            <Plot>Eldrin emerges victorious, having defeated the dark guardian and secured the Heartstone of Creation. Guided by the wisdom of his journey, he returns to his tower in Thaloria as a master mage, safeguarding the Heartstone and preparing for his continued destiny in the next chapter, The Prophecy of Darkness.</Plot>
+            <Plot>Eldrin returns to Thaloria as a master mage and re-seals his sanctum, drawing the ward of the keeping around the chamber that holds the Heartstone of Creation. The vigil begins; the years fold into decades. The world comes to call him the "Blind Prophet"—a name that is metaphor only, for his sight has never failed. He holds a cure that does nothing yet, for a future he will never see, waiting for a hero who isn't born. Dawn breaks over Thaloria and the Star-Guard is not ready, so he waits. In a dream, Vorgos visits: "You will not see it, but it will come." The campaign closes not as an ending but as a beginning—the seeds of the next chapter, The Prophecy of Darkness.</Plot>
                         <OriginalLyrics>
 [Verse 1]
 Light conquers dark, a world reborn,
@@ -1367,7 +1367,7 @@ Light conquers dark, a world reborn,
 Healing winds, a gentle touch.
 Hope’s banner, flying high,
 A new era dawns, a brighter day.</Lyrics>
-            <analysis>Eldrin secures the Heartstone of Creation and returns to his tower in Thaloria, setting the stage for his continuation in The Prophecy of Darkness.</analysis>
+            <analysis>Eldrin returns to Thaloria, re-seals his sanctum with the ward of the keeping, and begins the 400-year vigil over the Heartstone. Named the "Blind Prophet" in metaphor only, he waits for a future he will never see—setting the stage for his continuation in The Prophecy of Darkness.</analysis>
         </Song>
     </Act>
 </album>

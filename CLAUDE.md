@@ -50,19 +50,19 @@ data/scripts/     Neo4j + conversion scripts
 - New game-only content must set `origin: "game"` (DB nodes carry `origin: "album"` or `"game"`).
 
 ## Neo4j Graph Database — Current State (verified against DB)
-**13 Characters · 8 Albums · 103 Songs · 34 Locations · 10 Organizations · 6 Races · 3 Artifacts · 3 Prophecies · 30 Events · 3 Planes · 10 Regions · 2 TransPlanar**
+**19 Characters · 8 Albums · 103 Songs · 38 Locations · 10 Organizations · 6 Races · 3 Artifacts · 3 Prophecies · 37 Events · 3 Planes · 10 Regions · 2 TransPlanar**
 
 ### Node Labels
 | Label | Count | Key Attributes |
 |---|---|---|
-| `Character` | 13 | name, role, race, description, backstory, origin |
+| `Character` | 19 | name, role, race, description, backstory, origin |
 | `Album` | 8 | title, summary, global_timeline, era, timeline_range, origin |
 | `Song` | 103 | title, track_index, plot, lyrics, origin |
-| `Location` | 34 | name, description, origin, x, y (Phaser px coords) |
+| `Location` | 38 | name, description, origin, x, y (Phaser px coords) |
 | `Plane` | 3 | name, description, origin |
 | `Region` | 10 | name, description, origin |
 | `TransPlanar` | 2 | name, description, origin |
-| `Event` | 30 | name, description, era, timeline_label, origin |
+| `Event` | 37 | name, description, era, timeline_label, origin |
 | `Organization` | 10 | name, description, origin |
 | `Race` | 6 | name, nature, origin |
 | `Artifact` | 3 | name, description, origin |

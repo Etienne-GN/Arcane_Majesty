@@ -68,10 +68,10 @@ Formatting: the master uses `[Verse 1]`-style bracket headers inside `<Lyrics>`;
 
 ## Album Status
 
-| Album | Status | ACC (Album Canon Checkup) |
-|---|---|---|
-| Eldoria's Prophecy | ✅ DONE — production-ready (in review: ask people to listen) | ✅ PASS — 6 deviations resolved as media-model overrides; book revised (`acc/Eldorias_Prophecy_checkup.md`) |
-| Crimson Covenant | 🔄 ACTIVE — in production/review | ⏳ Run ACC after production |
+| Album | Status | ACC (Album Canon Checkup) | Campaign (ACR) |
+|---|---|---|---|
+| Eldoria's Prophecy | ✅ DONE — production-ready (in review: ask people to listen) | ✅ PASS (D re-run 2026-08-03) | ✅ Bible — `campaigns/Eldorias_Prophecy_campaign.md` |
+| Crimson Covenant | 🔄 ACTIVE — in production/review | ⏳ Run ACC after production | ⏳ Pending |
 | A Tapestry of Souls | ⏳ Pending |
 | Vows of Silence | ⏳ Pending |
 | Queen of Carnage | ⏳ Pending |
