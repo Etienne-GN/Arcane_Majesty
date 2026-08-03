@@ -35,5 +35,11 @@ Vorgos steps from time at the ruins ("a storm of grey") and tests Eldrin: "Put d
 ## The vigil
 Eldrin re-seals the sanctum in Thaloria ("I am the watcher, here and now"), draws the ward of the keeping around the chamber. The years fold in montage; his sight remains; his life narrows to the Stone. The world names him the "Blind Prophet" — blind to the ordinary, seeing only the timeline (metaphoric blindness; his eyes never fail). He holds the cure that does nothing yet, for a future he will never see. Ends: dawn breaks, the Star-Guard (Kael) is not ready yet; Eldrin waits. "Until the Star-Guard needs the key." (Task 6)
 
+## The Legion's withdrawal (Interlude 3)
+Autumn 501 AGD: Vorgos reads three General signatures gone — Malphas's cut and fled (not closed), Xarathos's closed, Voraun's burned. A residue in the subtraction: Voraun's dying truth, "The Legion is a gate, not the dark" — entered, unread, a seed. The Legion's high command notices; its surface agents withdraw "for now." The plan held: the Stone is in safe hands, the Lock steadied, four hundred years bought. The cost: Eldrin made a monument to a purpose he cannot share. "The Architect has moved a pawn today." (Task 7)
+
+## The steadied Lock (Interlude 4)
+Winter 501 AGD: the resonance steadies for the first time in decades; the violet fissure stops growing (the Stone is in place far above). Kael and Anya's fragile hope: a stranger they will never meet has bought their future. They know a word (a coin-name, a beginning), not the proof of the man. The reader knows: the guardian is Eldrin Nightshade, the watcher, the warden holding the other end of the seam. (Task 7)
+
 ## Book Canon Summary
 *filled in Task 9*
