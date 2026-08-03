@@ -1,3 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    LEGACY / OUTDATED — RAW ORIGINAL ALBUM DATA
+    These are the pre-rework source exports: original (vibe-based) song plots and the
+    ORIGINAL AUDIO LYRICS as first generated. Kept only as historical reference and
+    for potential easter-eggs. The canonical album lore, plots, and reworked lyrics
+    live in ../processed_albums/ (each song embeds its original lyrics in
+    <OriginalLyrics>). Do NOT edit these files for current work.
+-->
 <album album="Vows of Silence">
     <AlbumPlot>
         <![CDATA[
