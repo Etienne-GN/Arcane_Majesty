@@ -9,17 +9,17 @@ Each chapter logged against the album's 12 tracks. Updated per task as chapters 
 | Part I / ch03 — The Scholar's Life | 2 | Eldrin | ~3.5k | done |
 | Part I / ch04 — Odyssey's Dawn | 3 | Eldrin | ~4k | done |
 | Part I / ch05 — The Oblivious Road | 3 | Eldrin | ~4k | done |
-| Part II / ch06 — The Ascent | 4 | Eldrin | ~3k | pending |
-| Part II / ch07 — Whisperer of Doubt | 4 | Eldrin | ~3.5k | pending |
-| Part II / ch08 — Descent | 4 | Eldrin | ~2.5k | pending |
-| Part II / ch09 — Sylvan Sanctuary | 5 | Eldrin | ~3.5k | pending |
-| Part II / ch10 — The Hermit | 5 | Eldrin | ~4k | pending |
-| Part II / ch11 — The Fire Gate | 5-6 | Eldrin | ~3k | pending |
-| Part II / ch12 — Treachery's Bite | 6 | Eldrin | ~4k | pending |
-| Part II / ch13 — The Solitary Path | 7 | Eldrin | ~3k | pending |
-| Part II / ch14 — Inferno's Trial | 8 | Eldrin | ~3.5k | pending |
-| Part II / ch15 — Pyre-Lord | 8 | Eldrin | ~3.5k | pending |
-| Part II / ch16 — The Crucible | 8 | Eldrin | ~3k | pending |
+| Part II / ch06 — The Ascent | 4 | Eldrin | ~3k | done |
+| Part II / ch07 — Whisperer of Doubt | 4 | Eldrin | ~3.5k | done |
+| Part II / ch08 — Descent | 4 | Eldrin | ~2.5k | done |
+| Part II / ch09 — Sylvan Sanctuary | 5 | Eldrin | ~3.5k | done |
+| Part II / ch10 — The Hermit | 5 | Eldrin | ~4k | done |
+| Part II / ch11 — The Fire Gate | 5-6 | Eldrin | ~3k | done |
+| Part II / ch12 — Treachery's Bite | 6 | Eldrin | ~4k | done |
+| Part II / ch13 — The Solitary Path | 7 | Eldrin | ~3k | done |
+| Part II / ch14 — Inferno's Trial | 8 | Eldrin | ~3.5k | done |
+| Part II / ch15 — Pyre-Lord | 8 | Eldrin | ~3.5k | done |
+| Part II / ch16 — The Crucible | 8 | Eldrin | ~3k | done |
 | Part III / ch17 — Eldoria's Heartbeat | 9 | Eldrin | ~3.5k | pending |
 | Part III / ch18 — The Pulse | 9 | Eldrin | ~3k | pending |
 | Part III / ch19 — The Silent Executioner | 9-10 | Eldrin | ~4k | pending |
