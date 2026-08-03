@@ -26,6 +26,9 @@ The Heartstone reads the hand that reaches for it; it will not be taken by force
 ## The Balrog
 *empty — filled in Task 6*
 
+## Lock decay status — midsummer 501 AGD (Interlude 2)
+In the Underworld Sanctuary, the Lock's resonance is a constant low scream under the floor. A fray appears near the western face of the seal, then grows to a fissure — small, wrong, violet, "a crack someone is making from the other side." Kael is visibly thinner; the erosion is two centuries deep. Anya and Kael stake their survival on the stranger Vorgos named: Eldrin. Kael's creed: "A gate doesn't hold because the man holding it believes it will. It holds because if he doesn't, nothing else does." (Task 5)
+
 ## The vigil
 *empty — filled in Task 6*
 

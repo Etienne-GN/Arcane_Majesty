@@ -29,7 +29,7 @@ Each chapter logged against the album's 12 tracks. Updated per task as chapters 
 | Part III / ch23 — Dawn's Embrace | 12 | Eldrin | ~4k | pending |
 | Epilogue — The Architect's Design | 12 | Eldrin (+Vorgos dream) | ~2k | pending |
 | I1 — The Aether | — | Vorgos | ~1.5k | done |
-| I2 — The Lock | — | Kael/Anya | ~1.5k | pending |
+| I2 — The Lock | — | Kael/Anya | ~1.5k | done |
 | I3 — The Legion | — | Vorgos | ~1.5k | pending |
 | I4 — The Warden | — | Kael/Anya | ~1.5k | pending |
 
