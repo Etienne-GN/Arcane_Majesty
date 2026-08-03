@@ -15,10 +15,10 @@ The black-glass entrance to the Inferno Labyrinth: a stair of black glass worn b
 Xarathos's territory beneath the Fire Gate: magma rivers, a gate of flame "that calls me by my given name" (the Legion seeded its defenses with Eldrin's identity), obsidian golem puzzle-trial (rune-frequencies), Magma-Eaters and Cinder-Souls, and the heart-chamber where the Pyre-Lord waits. The heat burns away doubt — "the crucible of the mountain's core." (Task 4)
 
 ## Ruins of Eldoria
-*empty — filled in Task 6*
+"Ancient ruins hum a tune beneath the pale and silent moon." A graveyard of the golden age — low black-stone walls, foundations, a few standing arches; the ruins of a *vigil*, not a city, where keepers stood so long their standing became architecture. Through the Heartstone's echo, Eldrin "Witnesses" the golden age (Aetheric Witness mechanic in prose). The approach is a rune-dead gate sealed by Voraun's silence. (Task 6)
 
 ## Heartstone Chamber
-*empty — filled in Task 6*
+The cradle of the Heartstone of Creation at the heart of the ruins: a plain chamber of black stone, the ward of the keeping running between the cradle and the door, the pulse of the stone in the floor. Voraun is burned here (ch19). Beyond the far wall, after the chamber is read, an ancient door appears — older than the valley, older than the keeping — with unreadable runes; the Shadow Balrog waits beyond it. (Task 6)
 
 ## Book Canon Summary
 *filled in Task 9*

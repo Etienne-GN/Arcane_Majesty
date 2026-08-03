@@ -17,10 +17,10 @@ One of the three Void Generals hunting the Heartstone. A *feeding* thing — fee
 One of the three Void Generals. A fallen Aurorian corrupted by the Thirst — "was made of light and spent so long being hungry that the light has gone wrong in him." Controls the corruption of the flame; commands the Inferno Labyrinth (obsidian golems, Magma-Eaters, Cinder-Souls); the Legion seeded its defenses with Eldrin's identity. Wants the Stone to unmake the Lock and let the Void in. Cannot take the Stone himself — it rejects unworthy hands and burns them; he needs a hand the Stone accepts (Eldrin) to carry it out. Destroyed by Eldrin in the crucible (ch15) — Eldrin denies his mana-steal with a rune-drain counter, exploiting Thirst-driven arrogance. Dying words: "Voraun will have you at the door. He has been waiting the longest." (Task 4)
 
 ## Voraun (Silent Executioner)
-*empty — filled in Tasks 4 & 6*
+The third Void General — the tactical mind behind Oren's betrayal, the one "who has been waiting the longest." A subtraction in the Aether; quiet, patient, disciplined. He did not burn or whisper — he came ahead and sat at the door of the keeping for months, guarding it with a runic reflection (mirrors magic back) and a shadow-blade that can reach across the ward's line. Defeated at the Ruins of Eldoria (ch19): Eldrin weaponizes his need — Voraun cannot touch the Stone (unworthy hands burn), and when he reaches across the ward to stop the carrying-out, the ward burns him. **Dying truth:** he was never after the prize — on orders from beyond the Legion he was sent to *prevent* the Stone's use, to keep the world's ending shut against its own cure. His final words seed the next saga. (Tasks 4 & 6)
 
 ## The Shadow Balrog
-*empty — filled in Task 6*
+The guardian of the ancient door beyond the Heartstone chamber. "A shadow rises from the floor" — ancient, untamable, subservient to no one; exists to protect the door from misuse; hungers for light (the Hermit's warning: it cannot be commanded or bargained with). Force fails utterly — it *eats* runes. It yields only to the one the Stone accepts: when Eldrin stops demanding and stands as what the Stone is meant for, the Balrog settles, satisfied — not defeated, not commanded. Mastery through humility. (Task 6)
 
 ## Book Canon Summary
 *filled in Task 9*

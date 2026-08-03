@@ -24,13 +24,16 @@ In the crucible at the Inferno Labyrinth's heart, Eldrin denies Xarathos's mana-
 The Heartstone reads the hand that reaches for it; it will not be taken by force or deceived, and it burns the unworthy. This is the catch-22 that keeps Eldrin alive through the road: all three Generals need a hand the Stone accepts (his) to carry it out. (Task 4)
 
 ## The Balrog
-*empty — filled in Task 6*
+The Shadow Balrog guards the ancient door beyond the Heartstone chamber. Eldrin tries force — the Balrog eats the runes, force fails utterly (the Hermit's warning pays off: cannot be commanded or bargained with). Resolution: Eldrin stops demanding and stands as what the Stone is meant for — its intended guardian. The Balrog, which protects the door from misuse, yields the way, *satisfied* — not defeated, not commanded. Mastery through humility. (Task 6)
 
 ## Lock decay status — midsummer 501 AGD (Interlude 2)
 In the Underworld Sanctuary, the Lock's resonance is a constant low scream under the floor. A fray appears near the western face of the seal, then grows to a fissure — small, wrong, violet, "a crack someone is making from the other side." Kael is visibly thinner; the erosion is two centuries deep. Anya and Kael stake their survival on the stranger Vorgos named: Eldrin. Kael's creed: "A gate doesn't hold because the man holding it believes it will. It holds because if he doesn't, nothing else does." (Task 5)
 
+## The 400-year condition
+Vorgos steps from time at the ruins ("a storm of grey") and tests Eldrin: "Put down the Stone, and walk away." Eldrin refuses. Vorgos reveals the true condition: Eldrin must guard the Stone for **400 years**, until a hero not yet born needs it in 900 AGD. "A hundred years, and then three more." His friends will die; his world will change; he will remain. Eldrin accepts — tragic acceptance; he is the bridge between past tragedy and future salvation. The vigil begins winter ~501/502 AGD. (Task 6)
+
 ## The vigil
-*empty — filled in Task 6*
+Eldrin re-seals the sanctum in Thaloria ("I am the watcher, here and now"), draws the ward of the keeping around the chamber. The years fold in montage; his sight remains; his life narrows to the Stone. The world names him the "Blind Prophet" — blind to the ordinary, seeing only the timeline (metaphoric blindness; his eyes never fail). He holds the cure that does nothing yet, for a future he will never see. Ends: dawn breaks, the Star-Guard (Kael) is not ready yet; Eldrin waits. "Until the Star-Guard needs the key." (Task 6)
 
 ## Book Canon Summary
 *filled in Task 9*

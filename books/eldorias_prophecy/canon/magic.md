@@ -12,7 +12,7 @@ Mental compass planted by Vorgos during the vision. Always points to the Heartst
 Gift of the Sylvan Sanctuary's Hermit (ch10). Reads "the second hand — the writing beneath the writing": hidden paths, life-threads, truth beneath masks; reveals illusions; the seer "predicts" the Balrog by reading its presence before it is seen. Not a weapon — an eye. First manifests on its own in the forest (ch09); formally mastered in ch10. (Task 4)
 
 ## Heartstone of Creation
-*empty — filled in Task 6*
+A "Cosmic Insulator" — it stabilizes, holds, prevents; it is not a weapon and never will be, no matter how the dark hungers for it to be one. It does not shine or save; it holds the space in which saving remains possible. Rejects unworthy hands — reaching to take meets the holding as an enemy and burns; accepts its intended guardian (the whole of the road was the proving). The ward is the field of the keeping; a hand that comes to hold passes through "the way a note passes through a chord." Syncs resonance with its keeper ("the Heartbeat of Eldoria"). Used by Eldrin to burn Voraun (the ward answers any hand that reaches to take). (Task 6)
 
 ## Book Canon Summary
 *filled in Task 9*
