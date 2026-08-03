@@ -41,5 +41,8 @@ Autumn 501 AGD: Vorgos reads three General signatures gone — Malphas's cut and
 ## The steadied Lock (Interlude 4)
 Winter 501 AGD: the resonance steadies for the first time in decades; the violet fissure stops growing (the Stone is in place far above). Kael and Anya's fragile hope: a stranger they will never meet has bought their future. They know a word (a coin-name, a beginning), not the proof of the man. The reader knows: the guardian is Eldrin Nightshade, the watcher, the warden holding the other end of the seam. (Task 7)
 
+## The Prophecy of Darkness (Epilogue seed)
+~600 AGD, a century into the vigil: Vorgos visits Eldrin one last time, in a dream ("I have come to close the last account I owe you"). Glimpses: the door opens onto a rising — the Star-Guard rising; the key (the Heartstone) finally used — the vigil ends not in an ending but a handoff; and the dark beyond the gate — "the Legion is a gate, not the dark"; the Prophecy of Darkness is owed, a debt entered with a term not yet written. Vorgos's one gift: certainty — "You will not see it, but it will come." Eldrin's vow: "I've held it for a hundred years. I'll hold it for three more." Seeded, NOT resolved. (Task 8)
+
 ## Book Canon Summary
 *filled in Task 9*

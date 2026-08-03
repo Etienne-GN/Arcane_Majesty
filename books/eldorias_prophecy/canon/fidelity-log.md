@@ -27,7 +27,7 @@ Each chapter logged against the album's 12 tracks. Updated per task as chapters 
 | Part III / ch21 — The Weight of Eternity | 11 | Eldrin | ~3.5k | done |
 | Part III / ch22 — The Return | 11 | Eldrin | ~3k | done |
 | Part III / ch23 — Dawn's Embrace | 12 | Eldrin | ~4k | done |
-| Epilogue — The Architect's Design | 12 | Eldrin (+Vorgos dream) | ~2k | pending |
+| Epilogue — The Architect's Design | 12 | Eldrin (+Vorgos dream) | ~2k | done |
 | I1 — The Aether | — | Vorgos | ~1.5k | done |
 | I2 — The Lock | — | Kael/Anya | ~1.5k | done |
 | I3 — The Legion | — | Vorgos | ~1.5k | done |
