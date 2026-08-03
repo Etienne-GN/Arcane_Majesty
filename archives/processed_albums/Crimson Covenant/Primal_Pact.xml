@@ -1,0 +1,112 @@
+<song name="Primal Pact" status="human_reviewed" version="production_ready">
+    <plot>
+        <![CDATA[
+Cast into Eldoria, Acheron gathers a circle of loyal disciples among early human noble bloodlines. In a subterranean cavern, he proposes a pact to transcend mortality and share divine longevity.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+The original is a generic vampire gathering ("pledging power and loyalty to a new order"). The reworked version anchors it to Acheron's specific recruiting pitch: human noble bloodlines in a subterranean cavern, the sacred vow, and the promise of shared divine longevity. Preserves the Suno meter and 4-verse structure. Suggested song direction: atmospheric, solemn, mysterious — low strings, cavern reverb, chant-like chorus.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original><![CDATA[
+In shadows deep, in misty glade
+The first immortal pact was made
+In granite halls, forgotten, old
+Where dark divine designs unfold
+            ]]></original>
+            <reworked><![CDATA[
+In shadows deep, in misty glade
+The first immortal pact was made
+In granite halls, forgotten, old
+Where dark divine designs unfold
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Primal pact, a sacred vow
+Bound by darkness, here and now
+In ancient tongue, they pledged their might
+To rule Eldoria's quiet night
+            ]]></original>
+            <reworked><![CDATA[
+Primal pact, a sacred vow
+Bound by darkness, here and now
+In ancient tongue, they pledged their might
+To rule Eldoria's quiet night
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original><![CDATA[
+Acheron, leader wise and strong
+United them to right the wrong
+A covenant formed, a bond so deep
+Where quiet soul-vaults secrets keep
+            ]]></original>
+            <reworked><![CDATA[
+Acheron, leader wise and strong
+United them to right the wrong
+A covenant formed, a bond so deep
+Where quiet soul-vaults secrets keep
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Primal pact, a sacred vow
+Bound by darkness, here and now
+In ancient tongue, they pledged their might
+To rule Eldoria's quiet night
+            ]]></original>
+            <reworked><![CDATA[
+Primal pact, a sacred vow
+Bound by darkness, here and now
+In ancient tongue, they pledged their might
+To rule Eldoria's quiet night
+            ]]></reworked>
+        </section>
+        <section name="Verse 3">
+            <original><![CDATA[
+With ancient rites they sealed their fate
+A covenant of noble state
+In shadows deep, their power grows
+As secret blood in silence flows
+            ]]></original>
+            <reworked><![CDATA[
+With ancient rites they sealed their fate
+A covenant of noble state
+In shadows deep, their power grows
+As secret blood in silence flows
+            ]]></reworked>
+        </section>
+        <section name="Verse 4">
+            <original><![CDATA[
+Their legacy in ancient lore
+Established on Eldoria's floor
+The Primal Pact, a sacred sight
+A shadow king within the night
+            ]]></original>
+            <reworked><![CDATA[
+Their legacy in ancient lore
+Established on Eldoria's floor
+The Primal Pact, a sacred sight
+A shadow king within the night
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Primal pact, a sacred vow
+Bound by darkness, here and now
+In ancient tongue, they pledged their might
+To rule Eldoria's quiet night
+            ]]></original>
+            <reworked><![CDATA[
+Primal pact, a sacred vow
+Bound by darkness, here and now
+In ancient tongue, they pledged their might
+To rule Eldoria's quiet night
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

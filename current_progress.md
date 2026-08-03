@@ -35,6 +35,12 @@ This document tracks the current state of the project and serves as a quick-refe
       - *Bound by Blood* (~300 to 400 AGD — The Sanctuary of Two) ✅
       - *Eldoria's Prophecy* (~500 AGD — Era III Epoch of Silence) ✅
     - **Next Phase:** Master Knowledge Graph / Neo4j Migration on scarif.lan.
+- **Album Production & Review (Phase 6) — IN PROGRESS:**
+    - Standardized process documented in `data/lore/xmls/album_production_process.md`.
+    - *Eldoria's Prophecy* (~500 AGD) ✅ **DONE** — final audio production complete; album in review phase (lore/story fully reviewed).
+    - *Crimson Covenant* (~500 to 100 BGD — Era I Vampiric Origins) 🔄 **ACTIVE** — final audio production started.
+    - Remaining albums pending: A Tapestry of Souls, Vows of Silence, Queen of Carnage, Lord of Shadows, Beyond the Veil Twilight, Bound by Blood.
+- **Lore & Story Review (restarting, album by album):** Full lore/story review of all 8 albums restarted one album at a time — foundation consolidation before any future book work.
 - **Cross-Album Vocabulary & Lyrics Audit — ✅ COMPLETE:**
     - All 8 albums audited for phrase duplication, cliché tropes, and structural errors.
     - All duplicate non-chorus verses across all 8 albums identified and replaced with unique, meter-matched lyrics.

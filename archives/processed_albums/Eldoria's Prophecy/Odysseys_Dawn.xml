@@ -1,0 +1,149 @@
+<song name="Odyssey's Dawn" status="human_reviewed" version="production_ready">
+    <plot>
+        <![CDATA[
+Eldrin packs his staff and his journals. He locks his tower, knowing he may never return. The "Odyssey" begins. He steps out into the world of 500 AGD, a place of rebuilding and ignorance, guided only by the "Compass of the Storm" Vorgos implanted in his mind.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+The original lyrics are a generic adventure anthem. The reworked version grounds it in Eldrin's specific journey: leaving the scholar's life, the compass of the Stormbringer, and the weight of saving a world unaware of its danger.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original><![CDATA[
+Beyond the tower, a world unknown,
+Mountains call, where the wild winds have blown.
+Forests whisper, secrets of old,
+A heart aflame, with a purpose bold.
+            ]]></original>
+            <reworked><![CDATA[
+I turn the key and seal the iron door,
+The scholar's life is mine to live no more.
+The staff is heavy but my step is light,
+I walk into the morning, from the night.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Odyssey's dawn, where dreams take flight,
+With staff in hand, we chase the light.
+Hope's ember, a guiding star,
+On this journey, we'll go far.
+            ]]></original>
+            <reworked><![CDATA[
+Odyssey's dawn, the path is clear and true,
+Under a sky of terrifying blue.
+The compass spins, the needle points the way,
+To save a world that hasn't seen the day.
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original><![CDATA[
+Rivers flow, through valleys deep,
+In the adventure, our spirits leap.
+Fields of gold, under skies so blue,
+Every step, a story new.
+            ]]></original>
+            <reworked><![CDATA[
+I pass the villages of wood and thatch,
+Where simple lives in simple moments match.
+They do not know the fire in the sky,
+They do not know the reason why I fly.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Odyssey's dawn, where dreams take flight,
+With staff in hand, we chase the light.
+Hope's ember, a guiding star,
+On this journey, we'll go far.
+            ]]></original>
+            <reworked><![CDATA[
+Odyssey's dawn, the path is clear and true,
+Under a sky of terrifying blue.
+The compass spins, the needle points the way,
+To save a world that hasn't seen the day.
+            ]]></reworked>
+        </section>
+        <section name="Verse 3">
+            <original><![CDATA[
+In shadowed woods, strange eyes gleam,
+Echoes twist through the twilight's beam.
+Creatures stir, with silent grace,
+Testing resolve in this untamed place.
+            ]]></original>
+            <reworked><![CDATA[
+The forest opens like a hungry mouth,
+The wind is shifting from the bitter south.
+I fear no beast, I fear no bandit's blade,
+I fear the failure of the plan we made.
+            ]]></reworked>
+        </section>
+        <section name="Verse 4">
+            <original><![CDATA[
+Through storm and stone, the path unclear,
+Each challenge faced, without a fear.
+A world of wonders, vast and wide,
+With every breath, the fates collide.
+            ]]></original>
+            <reworked not_applicable="true">—</reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Odyssey's dawn, where dreams take flight,
+With staff in hand, we chase the light.
+Hope's ember, a guiding star,
+On this journey, we'll go far.
+            ]]></original>
+            <reworked><![CDATA[
+Odyssey's dawn, the path is clear and true,
+Under a sky of terrifying blue.
+The compass spins, the needle points the way,
+To save a world that hasn't seen the day.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original><![CDATA[
+Through the trials, and the unknown,
+With courage, we have grown.
+In the odyssey, we find our way,
+In the dawn of a brand new day.
+            ]]></original>
+            <reworked><![CDATA[
+Through the trials, and the unknown,
+The seeds of destiny are sown.
+I am the messenger of time,
+Committing to a holy crime.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Odyssey's dawn, where dreams take flight,
+With staff in hand, we chase the light.
+Hope's ember, a guiding star,
+On this journey, we'll go far.
+            ]]></original>
+            <reworked><![CDATA[
+Odyssey's dawn, the path is clear and true,
+Under a sky of terrifying blue.
+The compass spins, the needle points the way,
+To save a world that hasn't seen the day.
+            ]]></reworked>
+        </section>
+        <section name="Outro">
+            <original><![CDATA[
+Beyond the tower, a world unknown,
+Mountains call, where the wild winds have blown.
+With hearts aflame, and spirits high,
+In Odyssey's dawn, we reach the sky.
+            ]]></original>
+            <reworked><![CDATA[
+Beyond the tower, the mountains wait,
+To test the bearer of this heavy fate.
+With hearts aflame, and spirits high,
+In Odyssey's dawn, we reach the sky.
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

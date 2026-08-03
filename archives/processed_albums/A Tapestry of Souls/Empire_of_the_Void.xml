@@ -1,4 +1,4 @@
-<song name="Empire of the Void">
+<song name="Empire of the Void" status="human_reviewed" version="production_ready">
     <plot>
         <![CDATA[
 The song serves as an anthem to the 'Empire of the Void,' a vast and powerful realm of eternal night ruled by the newly awakened ancient evil, Nychtoros. The lyrics describe a kingdom forged in darkness, where its legions embrace the silence and find strength in a destiny bound to their dark regime. It's a declaration of the Empire's supreme, cosmic power and its inhabitants' unwavering belief in their enduring legacy.
@@ -6,7 +6,7 @@ The song serves as an anthem to the 'Empire of the Void,' a vast and powerful re
     </plot>
     <analysis>
         <![CDATA[
-The original lyrics are atmospheric but generic. The goal of the adaptation is to inject the specific narrative of Nychtoros awakening, making the song a direct anthem to him and his new empire. The strict 12-syllable count per line and AABB rhyme scheme must be maintained for the new lyrics to fit the existing music.
+The original lyrics are atmospheric but generic. The production-ready version was human-reviewed to thread Nyktoros into the existing structure surgically, keeping the original's imagery and rhythm intact while anchoring the song to his awakening.
         ]]>
     </analysis>
     <lyrics>
@@ -18,8 +18,8 @@ Rising from the ashes of a world that once was bright,
 A symphony of silence in the everlasting night.
             ]]></original>
             <adapted><![CDATA[
-An ancient evil starts to stir, the stars begin to dim,
-The age of light is ending now, on Nychtoros's whim.
+In the shadow of the night, where the stars begin to dim,
+The age of light is ending soon, on Nyktoros's whim.
 From his deep slumber he will rise, a world once pure and bright,
 Will fall into his endless void, an everlasting night.
             ]]></adapted>
@@ -42,10 +42,10 @@ A realm where echoes linger, where silence speaks in screams,
 In the Empire of the Void, we live within our dreams.
             ]]></original>
             <adapted><![CDATA[
-Behold the Empire of the Void, where Nychtoros reigns supreme,
+In the Empire of the Void, where shadows reign supreme,
 We're bound by chains of shadow now, within his waking dream.
 A realm where terror lingers, where silence softly screams,
-Behold the Empire of the Void, built on forgotten dreams.
+In the Empire of the Void, built on forgotten dreams.
             ]]></adapted>
         </chorus>
         <verse number="2">
@@ -59,7 +59,7 @@ An empire built on silence, beneath a blackened sun.
 He darkens suns and galaxies, his power has no bounds,
 His endless night embraces all, on consecrated grounds.
 Through cosmic storms and nebulas, his legions march as one,
-An empire built from nothingness, beneath a dying sun.
+An empire from nothingness, beneath a dying sun.
             ]]></adapted>
         </verse>
         <bridge>
@@ -73,7 +73,7 @@ In the Empire of the Void, where stars go to die.
 From out the endless dark he'll rise, his essence will not fade,
 Upon a throne of nothingness, a fearsome king is made.
 He conquers with just silence, his banners flying high,
-Within the Empire of the Void, where all the stars will die.
+In the Empire of the Void, where all the stars will die.
             ]]></adapted>
         </bridge>
         <verse number="3">
@@ -87,7 +87,7 @@ In the Empire of the Void, our reign will ever be.
 As the final light extinguishes, we praise the endless night,
 Inside his Empire of the Void, he is our guiding light.
 Through utter silence we are ruled, in darkness we are free,
-In Nychtoros's great empire, our reign will ever be.
+In Nyktoros's great empire, our reign will ever be.
             ]]></adapted>
         </verse>
         <outro>
@@ -101,7 +101,7 @@ In the Empire of the Void, where stars go to die.
 From out the endless dark he'll rise, his essence will not fade,
 Upon a throne of nothingness, a fearsome king is made.
 He conquers with just silence, his banners flying high,
-Within the Empire of the Void, where all the stars will die.
+In the Empire of the Void, where all the stars will die.
             ]]></adapted>
         </outro>
     </lyrics>

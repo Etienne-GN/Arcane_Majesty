@@ -1,0 +1,117 @@
+<song name="Sylvan Sanctuary" status="human_reviewed" version="production_ready">
+    <plot>
+        <![CDATA[
+Lost and weary, Eldrin stumbles upon a hidden forest. He encounters strange creatures and a wise old hermit, who offers guidance and reveals the forest holds secrets that could aid in his quest.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+Original is a serene nature piece with generic imagery. The reworked version adds an Elemental guardian encounter, and introduces a chorus anchoring the song to Eldrin's mission: "I seek the Stone to save the Lock."
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original><![CDATA[
+In the heart of the forest, where the ancient trees stand tall,
+A verdant embrace, a sanctuary for all.
+Whispering spirits, they dance in the breeze,
+Nature's lore, carried on the leaves.
+            ]]></original>
+            <reworked><![CDATA[
+A valley green amidst the snow,
+Where ancient, magic rivers flow.
+An Elemental blocks the way,
+"Why do you seek the light of day?"
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original><![CDATA[
+A wise old soul, a guiding light,
+In the sanctuary, day turns to night.
+Knowledge imparted, a sacred trust,
+In the arms of the forest, we find what's just.
+            ]]></original>
+            <reworked><![CDATA[
+A wise old soul, a guiding light,
+In the sanctuary, day turns to night.
+Knowledge imparted, a sacred trust,
+In the arms of the forest, we find what's just.
+            ]]></reworked>
+        </section>
+        <section name="Interlude">
+            <original><![CDATA[
+Through the shadows, and the light,
+We walk together, hearts burning bright.
+In the sanctuary, we find our way,
+A timeless haven, where we choose to stay.
+Through the shadows, and the light,
+We walk together, hearts burning bright.
+In the sanctuary, we find our way,
+A timeless haven, where we choose to stay.
+Through the shadows, and the light,
+We walk together, hearts burning bright.
+In the sanctuary, we find our way,
+A timeless haven, where we choose to stay.
+            ]]></original>
+            <reworked><![CDATA[
+Through the shadows, and the light,
+We walk together, hearts burning bright.
+In the sanctuary, we find our way,
+A timeless haven, where we choose to stay.
+Through the shadows, and the light,
+We walk together, hearts burning bright.
+In the sanctuary, we find our way,
+A timeless haven, where we choose to stay.
+Through the shadows, and the light,
+We walk together, hearts burning bright.
+In the sanctuary, we find our way,
+A timeless haven, where we choose to stay.
+            ]]></reworked>
+        </section>
+        <section name="Verse 3">
+            <original><![CDATA[
+Strength renewed, with every step we take,
+The path forward, for our future's sake.
+Ancient trees, a verdant embrace,
+In the sanctuary, we find our place.
+            ]]></original>
+            <reworked><![CDATA[
+Strength renewed, with every step we take,
+The path forward, for our future's sake.
+Ancient trees, a verdant embrace,
+In the sanctuary, we find our place.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true">—</original>
+            <reworked><![CDATA[
+Sylvan sanctuary, a test of heart,
+Before the journey's hardest part.
+I seek the Stone to save the Lock,
+To withstand the coming shock.
+            ]]></reworked>
+        </section>
+        <section name="Outro">
+            <original><![CDATA[
+Whispering spirits, nature's lore,
+In the sanctuary, forevermore.
+Whispering spirits, nature's lore,
+In the sanctuary, forevermore.
+Through the shadows, and the light,
+We walk together, hearts burning bright.
+In the sanctuary, we find our way,
+A timeless haven, where we choose to stay.
+            ]]></original>
+            <reworked><![CDATA[
+Whispering spirits, nature's lore,
+In the sanctuary, forevermore.
+Whispering spirits, nature's lore,
+In the sanctuary, forevermore.
+Through the shadows, and the light,
+We walk together, hearts burning bright.
+In the sanctuary, we find our way,
+A timeless haven, where we choose to stay.
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

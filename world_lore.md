@@ -3,19 +3,39 @@
 This document defines the fundamental cosmic and social structure of the Arcane Majesty universe.
 
 ## 1. The Tri-Planar Axis
-Existence consists of three parallel dimensions separated by the **Aether**:
-- **Auroria (Celestial Plane):** The high-frequency Source of divine energy. Home of the **Aurorians** (including **Anya**, the Void-Echo scholar plucked from Auroria during 0 GD).
-- **Eldoria (Material Plane):** The middle-frequency realm of physical matter. Home of **Humans**, the **Crimson Covenant**, and the ancient scholarly kingdom of **Thaloria** (the home realm and tower of **Eldrin Nightshade**).
-- **Nythoria (Umbral Plane):** The low-frequency Filter / Shadow Realm. Home of the **Nythorians**, **Malakar**, **Seraphina**, and the **Legion of Souls**.
+Existence consists of three parallel dimensions occupying the same space at different vibrational frequencies, separated by the **Aether** — like radio stations broadcasting in the same room. The Aether is the "static" between them, the dimensional barrier that normally keeps frequencies from bleeding into each other.
 
-### Explicit Origin & Location Clarification:
-- **Planes (Dimensions):** Auroria *(Celestial)*, Eldoria *(Material)*, Nythoria *(Umbral)*.
-- **Kingdoms (Within Eldoria):** 
-  - **Thaloria:** The scholarly kingdom of libraries and archives located inside the Material Plane (Eldoria).
-  - **Ravenspire (New):** Founded by **Seraphina** in **Eldoria (Material Plane)** following the destruction of her ancestral home during the Great Darkness (0 GD). It serves as the capital of the **Shadow Legion**.
-- **Cross-Planar Campaign & Gates:** From New Ravenspire (in Eldoria), Seraphina projects power into Nythoria via the **Obsidian Gate / Rift Portal** to wage war against Malakar's exiled cultists. Later in *A Prophecy of Darkness*, **Eldrin** and **Seraphina** depart from Ravenspire in Eldoria to venture into Nythoria.
-- **Anya:** An **Aurorian** high-elf scholar originating from **Auroria** (Celestial Plane).
-- **Eldrin Nightshade:** A human master mage originating from **Thaloria** (Material Plane of Eldoria). After retrieving the Heart Stone of Creation in *Eldoria's Prophecy*, he returns to his tower in Thaloria, setting the stage for his continued storyline in *The Prophecy of Darkness*.
+### The Three Planes
+
+- **Auroria (Celestial Plane):** The high-frequency Source of divine energy. Home of the **Aurorians** (including **Anya**). Locations: Astral Archives, Celestial Gardens, Crystal Sanctum, Seer's Library.
+
+- **Eldoria (Material Plane):** The middle-frequency realm of physical matter. Home of **Humans**, the **Crimson Covenant**. Divided into frequency-graded regions:
+  - **Thaloria** (higher-middle): Scholarly kingdom of libraries and archives. Home of Eldrin Nightshade. Contains: Thaloria, The Forbidden Archive.
+  - **New Ravenspire** (cross-frequency anomaly): Built by Nythorian refugees in Eldoria. Capital of the Shadow Legion. Anchors the Obsidian Gate.
+  - **The Emerald Fields** (mid-wild): Remote untamed plains. Kael and Anya's exile.
+  - **Whisper-Wood** (lower-middle): Dark forest where the planar veil thins.
+  - **Sanguine Vaults** (deep subterranean): Built by Acheron for the Crimson Covenant. Frequency dips close to Nythoria.
+
+- **Nythoria (Umbral Plane):** The low-frequency Filter / Shadow Realm. Home of the **Nythorians**, **Malakar**, **Seraphina**. Divided into frequency-graded regions:
+  - **Nythoria Surface** (low-main): Main inhabited realm. Contains: Ravenspire (Ancestral Ruins), The Black Well, The Great Citadel, The Shadow-Vale. Also anchors the Obsidian Gate from the Nythorian side.
+  - **The Shadow Realm** (lower-sub): A desolate sub-zone. Malakar fled here after his defeat and adapted his magic.
+  - **The Underworld** (deepest pit): The lowest frequency stratum of Nythoria. A lightless pit where Nyktoros's monsters roam and no mortal can survive. Contains: The Sanctuary (Anya's vigil, Nyktoros's seal), Underworld Prison.
+
+### The Aether & The Great Rift
+
+**The Aether** is the dimension between planes — the conscious, invisible energy (Living Force) that permeates all things and separates the three frequencies. Vorgos the Stormbringer resides here.
+
+**The Great Rift** is a violent planar scar torn open by Vorgos during the Great Darkness (0 GD). It ruptures the Aether itself, creating a raw frequency bleed where all three planes crash into each other. Seraphina led survivors across it from Nythoria to Eldoria. The **Underworld's Gate** — a natural basalt-stone arch at the Rift's deepest threshold — descends into the Underworld.
+
+### Cross-Planar Travel
+
+Channel | Type | Connects | Used by
+--------|------|----------|--------
+**Great Rift** | Raw planar tear | All three planes | Vorgos (created it), Seraphina's survivors crossed it
+**Obsidian Gate** | Stabilized frequency bridge | New Ravenspire (Eldoria) ↔ Nythoria Surface | Seraphina's Shadow Legion
+**Underworld's Gate** | Natural descent point | Great Rift threshold → Underworld | Kael's descent
+**Rift-Gates** | Ancient attuned monuments | Local hubs within Eldoria | Eldrin's fast-travel network
+**Aetheric Tear** | Master-level space-fold | Any visited coordinate | Eldrin (late-game)
 
 ## 2. The First Apostate: Acheron's Fall
 Centuries before the Great Darkness (0 GD), the Aurorian Seer **Acheron** attempted to harvest the dormant energy of the Void. He was exiled to the Material Plane for this heresy.

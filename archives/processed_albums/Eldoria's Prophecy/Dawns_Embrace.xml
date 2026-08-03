@@ -1,0 +1,126 @@
+<song name="Dawn's Embrace" status="human_reviewed" version="production_ready">
+    <plot>
+        <![CDATA[
+Eldrin emerges victorious, having secured the Heartstone of Creation. He returns to his tower in Thaloria as a master mage, safeguarding the Heartstone and preparing for his continued destiny.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+The original is a generic hopeful closing anthem full of communal "we" lines. The reworked version recasts it as Eldrin accepting his solitary burden. Every verse now stays in the watcher's singular voice: Verse 1 opens with the locked sanctum, Verse 2 contrasts the world's freedom with his vigil ("Their hearts may soar... While I keep the vigil"), Verse 3 finds his place in the quiet vigil, and the Bridge closes the vow ("Now I stand alone, the burden mine / To watch until the end of time"). The phrase "dawn's embrace" appears only in the chorus. The chorus anchors the song: "I am the watcher, here and now / Until the Star-Guard needs the key / The Heartstone stays right here with me."
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original><![CDATA[
+Light conquers dark, a world reborn,
+Healing winds, a gentle touch.
+Hope's banner, flying high,
+A new era dawns, a brighter day.
+            ]]></original>
+            <reworked><![CDATA[
+I lock the sanctum, leave the gate,
+And step into my written fate.
+The world will turn, the stars will spin,
+While I protect the light within.
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original><![CDATA[
+In the morning light, dreams take flight,
+A symphony of colors, pure and bright.
+Hearts united, spirits soar,
+Together we embrace, a brighter day.
+            ]]></original>
+            <reworked><![CDATA[
+In the morning light, dreams take flight,
+A symphony of colors, pure and bright.
+Their hearts may soar, their spirits fly,
+While I keep the vigil, day and night.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Dawn's embrace, a new beginning,
+In the light, our hearts are singing.
+With hope's flame, we'll find our way,
+A brighter tomorrow, starts today.
+            ]]></original>
+            <reworked><![CDATA[
+Dawn's embrace, a silent vow,
+I am the watcher, here and now.
+Until the Star-Guard needs the key,
+The Heartstone stays right here with me.
+            ]]></reworked>
+        </section>
+        <section name="Verse 3">
+            <original><![CDATA[
+Whispers of peace, in the air they dance,
+A melody of love, a second chance.
+Through the trials, we've found our grace,
+In the dawn's embrace, a warm embrace.
+            ]]></original>
+            <reworked><![CDATA[
+The whispers of peace drift soft and low,
+A melody I've come to know.
+Through the trials, I've earned this grace,
+In this quiet vigil, I find my place.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original><![CDATA[
+In the darkest night, we held on tight,
+With hope as our guide, we found the light.
+Now we stand, hand in hand,
+In the dawn's embrace, a promised land.
+            ]]></original>
+            <reworked><![CDATA[
+In the darkest night, I held on tight,
+With hope as my guide, I found the light.
+Now I stand alone, the burden mine,
+To watch until the end of time.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Dawn's embrace, a new beginning,
+In the light, our hearts are singing.
+With hope's flame, we'll find our way,
+A brighter tomorrow, starts today.
+            ]]></original>
+            <reworked><![CDATA[
+Dawn's embrace, a silent vow,
+I am the watcher, here and now.
+Until the Star-Guard needs the key,
+The Heartstone stays right here with me.
+            ]]></reworked>
+        </section>
+        <section name="Verse 4">
+            <original><![CDATA[
+Mountains climbed, and rivers crossed,
+In the dawn's light, no path is lost.
+A journey shared, a tale retold,
+In the dawn's embrace, a heart of gold.
+            ]]></original>
+            <reworked><![CDATA[
+Mountains climbed, and rivers crossed,
+In the dawn's light, no path is lost.
+A journey shared, a tale retold,
+Through it all, a heart of gold.
+            ]]></reworked>
+        </section>
+        <section name="Outro">
+            <original><![CDATA[
+Light conquers dark, a world reborn,
+Healing winds, a gentle touch.
+Hope's banner, flying high,
+A new era dawns, a brighter day.
+            ]]></original>
+            <reworked><![CDATA[
+Light conquers dark, a world reborn,
+Healing winds, a gentle touch.
+Hope's banner, flying high,
+A new era dawns, a brighter day.
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>
