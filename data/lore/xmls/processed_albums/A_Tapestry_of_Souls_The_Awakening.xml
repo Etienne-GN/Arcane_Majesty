@@ -242,8 +242,42 @@ We are the end of every light.</Lyrics>
     <Act act="II: The War for Nythoria">
         <Song song="The First Stand">
             <song_id>5</song_id>
-            <Lyrics/>
-            <analysis/>
+            <Lyrics>[Verse 1]
+The Legion rose beneath the blackened sky,
+And Ravenspire's old stones began to shake.
+We stood together, Seraphina and I,
+And swore we would not let the darkness take.
+
+[Chorus]
+We are the first stand, the unbroken line,
+We hold the ground where the shadows climb.
+Nythoria's last, we will not fall,
+We are the wall.
+
+[Verse 2]
+The souls of the fallen march behind the dark,
+But we have fire that they cannot recall.
+Valen with his blade, Seraphina's spark,
+We are the embers that outlast the pall.
+
+[Chorus]
+We are the first stand, the unbroken line,
+We hold the ground where the shadows climb.
+Nythoria's last, we will not fall,
+We are the wall.
+
+[Bridge]
+The tide is endless, but so is the vow,
+We fight for what the darkness cannot drown.
+If we must fall, we fall upon this ground,
+And leave a light for all the ones unwound.
+
+[Chorus]
+We are the first stand, the unbroken line,
+We hold the ground where the shadows climb.
+Nythoria's last, we will not fall,
+We are the wall.</Lyrics>
+            <analysis>Seraphina and Valen's introduction — the Nythorian rebels' first stand against the Legion at Ravenspire.</analysis>
         </Song>
         <Song song="The Fall of Ravenspire">
             <song_id>6</song_id>

@@ -1,0 +1,68 @@
+<song name="The First Stand" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+The Legion of Souls reaches Seraphina and Valen. With the Nythorian rebels, they make their stand against a tide they cannot hold. Their introduction to the saga — defenders of what remains of Nythoria, ground held against the dark.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+New song, written lore-first. POV: Seraphina and Valen (duet-friendly), Nythorian resistance fighters, first person plural "we". Their saga introduction. Anchors: Nythoria, Ravenspire (the ancestral ruins — their home/ground), the resistance, the Legion of Souls, holding ground against the dark. Seraphina and Valen named. No founding-the-resistance plot (that is Vows of Silence, Era I) — they are already rebels; no Rift; no Anya; no Underworld; no "Queen" title. Structure: Verse 1 → Chorus → Verse 2 → Chorus → Bridge → Chorus. Mid-tempo defiant ballad-anthem. Suggested Suno direction: defiant, desperate, warm under the grim — anthem rock, battle drums, twin vocals.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+The Legion rose beneath the blackened sky,
+And Ravenspire's old stones began to shake.
+We stood together, Seraphina and I,
+And swore we would not let the darkness take.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+We are the first stand, the unbroken line,
+We hold the ground where the shadows climb.
+Nythoria's last, we will not fall,
+We are the wall.
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+The souls of the fallen march behind the dark,
+But we have fire that they cannot recall.
+Valen with his blade, Seraphina's spark,
+We are the embers that outlast the pall.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+We are the first stand, the unbroken line,
+We hold the ground where the shadows climb.
+Nythoria's last, we will not fall,
+We are the wall.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+The tide is endless, but so is the vow,
+We fight for what the darkness cannot drown.
+If we must fall, we fall upon this ground,
+And leave a light for all the ones unwound.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+We are the first stand, the unbroken line,
+We hold the ground where the shadows climb.
+Nythoria's last, we will not fall,
+We are the wall.
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>
