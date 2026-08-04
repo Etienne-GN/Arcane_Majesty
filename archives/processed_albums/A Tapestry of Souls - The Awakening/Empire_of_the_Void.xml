@@ -57,9 +57,33 @@ An empire built on silence, beneath a blackened sun.
             ]]></original>
             <reworked><![CDATA[
 Eclipsing suns and galaxies, the Shadow-Kin arise,
-An empire built on silence, beneath these hollow skies.
+Eternal night embraces all, in darkness, we are crowned.
 Through cosmic storms and nebulas, our legions march as one,
-An empire for the Master now, beneath a blackened sun.
+An empire for the Master, beneath a blackened sun.
+            ]]></reworked>
+        </section>
+        <section name="Pre-Chorus">
+            <original><![CDATA[
+Beyond the edge of time and space, where legends dare to dream,
+A force beyond imagining, where nothing’s what it seems.
+            ]]></original>
+            <reworked><![CDATA[
+Beyond the edge of time and space, where legends dare to dream,
+A symphony of silence, where nothing’s what it seems.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+In the Empire of the Void, where shadows reign supreme,
+We’re bound by chains of destiny, within this dark regime.
+A realm where echoes linger, where silence speaks in screams,
+In the Empire of the Void, we live within our dreams.
+            ]]></original>
+            <reworked><![CDATA[
+In the Empire of the Void, where shadows reign supreme,
+We’re bound by chains of destiny, within this dark regime.
+A realm where echoes linger, where silence speaks in screams,
+In the Empire of the Void, we live within our dreams.
             ]]></reworked>
         </section>
         <section name="Bridge">
@@ -73,7 +97,7 @@ In the Empire of the Void, where stars go to die.
 Through the endless dark we rise, our spirits never fade,
 In the heart of Nythoria, our legacy is made.
 We conquer through the silence, our banners waving high,
-In the Empire of the Void, where the stars of light will die.
+In the Empire of the Void, where stars go to die.
             ]]></reworked>
         </section>
         <section name="Chorus">
@@ -98,10 +122,10 @@ Through the silence, we are rulers, in the darkness, we are free,
 In the Empire of the Void, our reign will ever be.
             ]]></original>
             <reworked><![CDATA[
-As the final light extinguishes, we claim the ancient throne,
+As the final light extinguishes, we embrace the endless night,
 By the will of Nyktoros, the night is ours alone.
-Through the silence, we are rulers, the masters of the gray,
-We end the age of starlight, and the tyranny of day.
+Through the silence, we are rulers, in the darkness, we are free,
+In the Empire of the Void, our reign will ever be.
             ]]></reworked>
         </section>
         <section name="Outro">
@@ -115,7 +139,7 @@ In the Empire of the Void, where stars go to die.
 Through the endless dark, we rise, our spirits never fade,
 In the name of Nyktoros, our legacy is made.
 We conquer through the silence, our banners waving high,
-His dark throne is reaching now, to the blackened sky.
+His dark throne reaches out, to the blackened sky.
             ]]></reworked>
         </section>
     </lyrics>

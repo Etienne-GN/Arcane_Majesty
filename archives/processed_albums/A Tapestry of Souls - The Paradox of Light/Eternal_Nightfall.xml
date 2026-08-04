@@ -1,0 +1,196 @@
+<song name="Eternal Nightfall" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+Anya's arrival in the Underworld — she lands at the bottom of the fallen world and meets Valen, her protector. The two strangers begin the journey through the night together.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+Light-touch rework of the kept opener. Structure frozen — all thirteen original sections restored in order. POV shifted to Anya's first person (was generic "we"). Original generic lines anchored: "dying sun" → Auroria's world undone; the Rift replaces the generic void ("Through the Rift where phantoms play"); Stormbringer (Vorgos) is the one who cast her through the Rift (matches The Awakening finale); the scholar's screams and the waking Void-Echo plant her prophecy before Elara's reveal; Valen introduced in Verse 4 as her blade-armed guardian. The chorus ("Eternal nightfall, where legends are born... ignite the light") kept nearly verbatim. This song opens The Paradox of Light and directly follows Torn from the Stars (The Awakening finale). Suggested Suno direction: cold, vast — glacial synths, mournful strings, a voice finding another in the dark.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original><![CDATA[
+In the shadow of a dying sun,
+We march through realms undone,
+Ancient whispers guide our way,
+Through the void where phantoms play.
+            ]]></original>
+            <reworked><![CDATA[
+In the shadow of a dying sun,
+Auroria, all undone.
+Ancient whispers guide my way,
+Through the Rift where phantoms play.
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original><![CDATA[
+Silent sentinels guard the night,
+Their eyes aflame with spectral light,
+We seek the dawn that never breaks,
+Through the void where phantoms play.
+            ]]></original>
+            <reworked><![CDATA[
+Stormbringer guards the violet night,
+His eyes aflame with spectral light.
+I seek the dawn that never breaks,
+Through the Rift where phantoms play.
+            ]]></reworked>
+        </section>
+        <section name="Verse 3">
+            <original><![CDATA[
+Silent sentinels guard the night,
+Their eyes aflame with spectral light,
+We seek the dawn that never breaks,
+In this land of endless aches.
+            ]]></original>
+            <reworked><![CDATA[
+Silent sentinels guard the night,
+Their eyes aflame with spectral light,
+We seek the dawn that never breaks,
+In this land of endless aches.
+            ]]></reworked>
+        </section>
+        <section name="Pre-Chorus">
+            <original><![CDATA[
+Starless skies and broken dreams,
+Echoes of our silent screams,
+We seek the dawn that never breaks,
+In this land of endless aches.
+            ]]></original>
+            <reworked><![CDATA[
+Starless skies and broken dreams,
+Echoes of my scholar's screams.
+The Void-Echo is waking now,
+Before the dark, I will not bow.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Eternal nightfall, where legends are born,
+A symphony of shadows, where the brave are sworn,
+In the cradle of darkness, we find our might,
+For in the nightfall, we ignite the light.
+            ]]></original>
+            <reworked><![CDATA[
+Eternal nightfall, where legends are born,
+A symphony of shadows, where the brave are sworn,
+In the cradle of darkness, we find our might,
+For in the nightfall, we ignite the light.
+            ]]></reworked>
+        </section>
+        <section name="Verse 4">
+            <original><![CDATA[
+Crimson rivers, flow like tears,
+Washing away our deepest fears,
+In the abyss, our spirits thrive,
+Together, we will survive.
+            ]]></original>
+            <reworked><![CDATA[
+Valen stands with blade in hand,
+He guards me in this frozen land.
+Spirit-stained, forged in fire,
+Born of the funeral pyre.
+            ]]></reworked>
+        </section>
+        <section name="Verse 5">
+            <original><![CDATA[
+Twilight whispers call our names,
+Bound by ancient, sacred flames,
+Through the mist, our paths entwine,
+Forged in fire, hearts divine.
+            ]]></original>
+            <reworked><![CDATA[
+Twilight whispers call our names,
+Bound by ancient, sacred flames,
+Through the mist, our paths entwine,
+Forged in fire, hearts divine.
+            ]]></reworked>
+        </section>
+        <section name="Pre-Chorus">
+            <original><![CDATA[
+Mystic forces, old and wise,
+In the depths where secrets lie,
+We conquer fear, defy the end,
+In the night, we transcend.
+            ]]></original>
+            <reworked><![CDATA[
+Mystic forces, old and wise,
+In the depths where secrets lie,
+We conquer fear, defy the end,
+In the night, we transcend.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Eternal nightfall, where legends are born,
+A symphony of shadows, where the brave are sworn,
+In the cradle of darkness, we find our might,
+For in the nightfall, we ignite the light.
+            ]]></original>
+            <reworked><![CDATA[
+Eternal nightfall, where legends are born,
+A symphony of shadows, where the brave are sworn,
+In the cradle of darkness, we find our might,
+For in the nightfall, we ignite the light.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original><![CDATA[
+Through the storm, we ride as one,
+Beneath the moon, beneath the sun,
+Bound by fate and destiny,
+In the night, we transcend
+            ]]></original>
+            <reworked><![CDATA[
+Through the storm, we ride as one,
+Beneath the moon, beneath the sun,
+Bound by fate and destiny,
+In the night, we transcend
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+For in the nightfall, where legends are born,
+A symphony of shadows, where the brave are sworn,
+In the cradle of darkness, we find our might,
+For in the nightfall, we ignite the light.
+            ]]></original>
+            <reworked><![CDATA[
+For in the nightfall, where legends are born,
+A symphony of shadows, where the brave are sworn,
+In the cradle of darkness, we find our might,
+For in the nightfall, we ignite the light.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+For in the nightfall, where legends are born,
+A symphony of shadows, where the brave are sworn,
+In the cradle of darkness, we find our might,
+For in the nightfall, we ignite the light.
+            ]]></original>
+            <reworked><![CDATA[
+For in the nightfall, where legends are born,
+A symphony of shadows, where the brave are sworn,
+In the cradle of darkness, we find our might,
+For in the nightfall, we ignite the light.
+            ]]></reworked>
+        </section>
+        <section name="Outro">
+            <original><![CDATA[
+Crimson rivers, flow like tears,
+Washing away our deepest fears,
+In the abyss, our spirits thrive,
+Together, we will survive.
+            ]]></original>
+            <reworked><![CDATA[
+Crimson rivers, flow like tears,
+Washing away our deepest fears,
+In the abyss, our spirits thrive,
+Together, we will survive.
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

@@ -1,0 +1,160 @@
+<song name="Symphony of Suffering" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+A battle-hymn of the Shadow-Vale conflict. Valen falls — the gut-punch of the album — and the dirge of war becomes the prelude to Anya's sealing-fate: 'our fate is sealed', 'a warrior's will is forever born'.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+Full original structure restored (9 sections, nothing cut). Valen's sacrifice is preserved as the gut-punch — Verse 2 "Heroes fall" → "Valen falls", his fall framed by "Shadows grow tall / Eternal night / Hear the death call", and the closing "Our fate is sealed" / "A warrior's will is forever born" keeps the sealing-fate undercurrent. All other lines verbatim, syllable counts matched line-for-line. Suggested Suno direction: war-drone metal dirge — pounding toms, distorted stabs, roaring crowd of voices.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse">
+            <original><![CDATA[
+Blood stained sky
+Infinite cries
+Flames of chaos
+Victory's prize
+            ]]></original>
+            <reworked><![CDATA[
+Blood stained sky
+Infinite cries
+Flames of chaos
+Victory's prize
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original><![CDATA[
+Heroes fall
+Shadows grow tall
+Eternal night
+Hear the death call
+            ]]></original>
+            <reworked><![CDATA[
+Valen falls
+Shadows grow tall
+Eternal night
+Hear the death call
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Rage and fury
+Thunderous might
+Clash of swords
+A relentless fight
+Symphony of suffering
+Pain's delight
+We conquer the dark
+Devour the light
+            ]]></original>
+            <reworked><![CDATA[
+Rage and fury
+Thunderous might
+Clash of swords
+A relentless fight
+Symphony of suffering
+Pain's delight
+We conquer the dark
+Devour the light
+            ]]></reworked>
+        </section>
+        <section name="Verse 3">
+            <original><![CDATA[
+Roar of beasts
+Clanging of steel
+Destruction's feast
+Our fate is sealed
+            ]]></original>
+            <reworked><![CDATA[
+Roar of beasts
+Clanging of steel
+Destruction's feast
+Our fate is sealed
+            ]]></reworked>
+        </section>
+        <section name="Verse 4">
+            <original><![CDATA[
+Winds of change
+Whispers of death
+Relentless force
+Feel the cold breath
+            ]]></original>
+            <reworked><![CDATA[
+Winds of change
+Whispers of death
+Relentless force
+Feel the cold breath
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Rage and fury
+Thunderous might
+Clash of swords
+A relentless fight
+Symphony of suffering
+Pain's delight
+We conquer the dark
+Devour the light
+            ]]></original>
+            <reworked><![CDATA[
+Rage and fury
+Thunderous might
+Clash of swords
+A relentless fight
+Symphony of suffering
+Pain's delight
+We conquer the dark
+Devour the light
+            ]]></reworked>
+        </section>
+        <section name="Verse 5">
+            <original><![CDATA[
+Ashes rise
+From the fallen brave
+Silent cries
+From beyond the grave
+            ]]></original>
+            <reworked><![CDATA[
+Ashes rise
+From the fallen brave
+Silent cries
+From beyond the grave
+            ]]></reworked>
+        </section>
+        <section name="Bridge 2">
+            <original><![CDATA[
+Time stands still
+In the eye of the storm
+A warrior's will
+Is forever born
+            ]]></original>
+            <reworked><![CDATA[
+Time stands still
+In the eye of the storm
+A warrior's will
+Is forever born
+            ]]></reworked>
+        </section>
+        <section name="Outro">
+            <original><![CDATA[
+Roar of beasts
+Clanging of steel
+Destruction's feast
+Our fate is sealed
+Roar of beasts
+Roar of beasts
+            ]]></original>
+            <reworked><![CDATA[
+Roar of beasts
+Clanging of steel
+Destruction's feast
+Our fate is sealed
+Roar of beasts
+Roar of beasts
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

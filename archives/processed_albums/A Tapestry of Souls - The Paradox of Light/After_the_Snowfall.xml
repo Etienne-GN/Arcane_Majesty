@@ -1,0 +1,170 @@
+<song name="After the Snowfall" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+Anya and Seraphina meet in the frozen wastes and recognize a shared nature — two souls of Light-and-Void who are not what the dark expects. The first thread of the bond that carries them through the war.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+Light-touch rework of the kept song. Structure frozen — all eleven original sections restored in order. Mostly verbatim; the grief-love lyric is anchored only where a generic line begs for it: the Rift replaces the thawing spring ("the ice is melting, the Rift is clearing"); "you" becomes Seraphina — "not like any light I fear," standing "so bright and white" in the endless night (the shared Void-touched strangeness). Chorus, Verse 2, second pre-chorus, bridges and outro kept verbatim. Suggested Suno direction: thawing ballad — soft piano rising through chilled strings, a sense of winter breaking into light.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original><![CDATA[
+The winter has been long and cold
+The frozen land has lost its soul
+But I still remember your warm embrace
+The fire in your eyes, the smile on your face
+            ]]></original>
+            <reworked><![CDATA[
+The winter has been long and cold,
+The frozen land has lost its soul.
+But I still remember your warm embrace,
+The fire in your eyes, the smile on your face.
+            ]]></reworked>
+        </section>
+        <section name="Pre-Chorus">
+            <original><![CDATA[
+Now the spring is coming near
+The ice is melting, the birds are singing
+But you are not here to see it with me
+You left me alone in this endless misery
+            ]]></original>
+            <reworked><![CDATA[
+Now the spring is coming near,
+The ice is melting, the Rift is clearing,
+But you are not like any light I fear,
+You stand within this endless night, so bright and white.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+After the snowfall, I still feel the cold
+After the sunrise, I still miss your light
+After the silence, I still hear your voice
+After the storm, I still need your calm
+            ]]></original>
+            <reworked><![CDATA[
+After the snowfall, I still feel the cold,
+After the sunrise, I still miss your light,
+After the silence, I still hear your voice,
+After the storm, I still need your calm.
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original><![CDATA[
+The flowers are blooming in the fields
+The colors are shining, the air is sweet
+But I still feel the emptiness inside
+The darkness in my heart, the tears in my eyes
+            ]]></original>
+            <reworked><![CDATA[
+The flowers are blooming in the fields,
+The colors are shining, the air is sweet,
+But I still feel the emptiness inside,
+The darkness in my heart, the tears in my eyes.
+            ]]></reworked>
+        </section>
+        <section name="Pre-Chorus">
+            <original><![CDATA[
+Now the summer is on its way
+The days are longer, the nights are shorter
+But you are not here to share them with me
+You left me alone in this endless agony
+            ]]></original>
+            <reworked><![CDATA[
+Now the summer is on its way,
+The days are longer, the nights are shorter,
+But you are not here to share them with me,
+You left me alone in this endless agony.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+After the snowfall, I still feel the cold
+After the sunrise, I still miss your light
+After the silence, I still hear your voice
+After the storm, I still need your calm
+            ]]></original>
+            <reworked><![CDATA[
+After the snowfall, I still feel the cold,
+After the sunrise, I still miss your light,
+After the silence, I still hear your voice,
+After the storm, I still need your calm.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original><![CDATA[
+I don't know how to live without you
+I don't know how to heal this wound
+I don't know how to face the future
+I don't know how to let you go
+            ]]></original>
+            <reworked><![CDATA[
+I don't know how to live without you,
+I don't know how to heal this wound,
+I don't know how to face the future,
+I don't know how to let you go.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+After the snowfall, I still feel the cold
+After the sunrise, I still miss your light
+After the silence, I still hear your voice
+After the storm, I still need your calm
+            ]]></original>
+            <reworked><![CDATA[
+After the snowfall, I still feel the cold,
+After the sunrise, I still miss your light,
+After the silence, I still hear your voice,
+After the storm, I still need your calm.
+            ]]></reworked>
+        </section>
+        <section name="Pre-Outro">
+            <original><![CDATA[
+Maybe someday I will find peace
+Maybe someday I will see you again
+Maybe someday I will be free
+But until then....
+After the storm, I still need your calm
+            ]]></original>
+            <reworked><![CDATA[
+Maybe someday I will find peace,
+Maybe someday I will see you again,
+Maybe someday I will be free,
+But until then....
+After the storm, I still need your calm.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original><![CDATA[
+I don't know how to live without you
+I don't know how to heal this wound
+I don't know how to face the future
+I don't know how to let you go
+            ]]></original>
+            <reworked><![CDATA[
+I don't know how to live without you,
+I don't know how to heal this wound,
+I don't know how to face the future,
+I don't know how to let you go.
+            ]]></reworked>
+        </section>
+        <section name="Outro">
+            <original><![CDATA[
+I don't know how to live without peace
+Maybe someday I will see you again
+Maybe someday I will be free
+But until then....
+            ]]></original>
+            <reworked><![CDATA[
+I don't know how to live without peace,
+Maybe someday I will see you again,
+Maybe someday I will be free,
+But until then....
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

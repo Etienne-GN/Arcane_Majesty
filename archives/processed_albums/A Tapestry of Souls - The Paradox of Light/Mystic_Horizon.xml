@@ -1,0 +1,132 @@
+<song name="Mystic Horizon" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+Anya reaches the Celestial Gardens on Auroria's edge, where Elara, Keeper of Starlight, reveals her truth: she is a Void-Echo, born of Eclipse, a paradox of light immune to the Void — the Living Lock who must seal Nyktoros.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+Full-structure restore of the kept song: every original section (Verse 1, Pre-Chorus, Chorus, Verse 2, Pre-Chorus, Chorus, Bridge, Chorus, Outro) preserved in order, line-by-line syllable counts matched, ≥70% verbatim. KEY CANON FIX (design spec): the prophecy is The Void-Echo, never "Impossible Key". Verse 2 now carries Elara's reveal — "She's the Void-Echo, born of Eclipse, a paradox of light", set against "the eternal Void" she stands pure before. Suggested Suno direction: ethereal resolve — glass-bells, celestial choir, a horizon opening into light before the dark truth settles.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original><![CDATA[
+Beyond the veil of twilight, where the mystic rivers flow,
+Lies a land of ancient secrets, where the starlit wonders glow.
+Through the mists of time we wander, seeking truths long left behind,
+In the heart of endless dreaming, where the cosmic forces bind.
+            ]]></original>
+            <reworked><![CDATA[
+Beyond the veil of twilight, where the mystic rivers flow,
+Lies a land of ancient secrets, where the starlit wonders glow.
+Through the mists of time we wander, seeking truths long left behind,
+In the heart of endless dreaming, where the cosmic forces bind.
+            ]]></reworked>
+        </section>
+        <section name="Pre-Chorus">
+            <original><![CDATA[
+In the realms of the forgotten, where legends come to life,
+We chase the distant echoes, through the shadows and the strife.
+            ]]></original>
+            <reworked><![CDATA[
+In the realms of the forgotten, where legends come to life,
+We chase the distant echoes, through the shadows and the strife.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+To the Mystic Horizons, where the magic meets the sea,
+We’ll sail on winds of destiny, to where our spirits free.
+In the land of endless wonder, where our dreams ignite the skies,
+Through the Mystic Horizons, we’ll find our paradise.
+            ]]></original>
+            <reworked><![CDATA[
+To the Mystic Horizons, where the magic meets the sea,
+We'll sail on winds of destiny, to where our spirits free.
+In the land of endless wonder, where our dreams ignite the skies,
+Through the Mystic Horizons, we'll find our paradise.
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original><![CDATA[
+In the cradle of the mountains, where the ancient spirits sing,
+We’ll uncover hidden answers, in the whispers of the wind.
+With the courage of the fearless, and the wisdom of the old,
+We journey through the stardust, to the tales that must be told.
+            ]]></original>
+            <reworked><![CDATA[
+In the presence of Elara, where the ancient spirits sing,
+She reveals the hidden answers that the twilight winds will bring.
+Yet pure before the eternal Void, within the holy night,
+She's the Void-Echo, born of Eclipse, a paradox of light.
+            ]]></reworked>
+        </section>
+        <section name="Pre-Chorus">
+            <original><![CDATA[
+In the realms of the forgotten, where legends come to life,
+We chase the distant echoes, through the shadows and the strife.
+            ]]></original>
+            <reworked><![CDATA[
+In the realms of the forgotten, where legends come to life,
+We chase the distant echoes, through the shadows and the strife.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+To the Mystic Horizons, where the magic meets the sea,
+We’ll sail on winds of destiny, to where our spirits free.
+In the land of endless wonder, where our dreams ignite the skies,
+Through the Mystic Horizons, we’ll find our paradise.
+            ]]></original>
+            <reworked><![CDATA[
+To the Mystic Horizons, where the magic meets the sea,
+We'll sail on winds of destiny, to where our spirits free.
+In the land of endless wonder, where our dreams ignite the skies,
+Through the Mystic Horizons, we'll find our paradise.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original><![CDATA[
+As the night unveils its secrets, and the stars begin to fade,
+We’ll stand upon the edge of time, where destinies are made.
+In the dance of cosmic forces, our hearts will find their way,
+Through the Mystic Horizons, to a brighter day.
+            ]]></original>
+            <reworked><![CDATA[
+As the night unveils its secrets, and the stars begin to fade,
+We'll stand upon the edge of time, where destinies are made.
+In the dance of cosmic forces, our hearts will find their way,
+Through the Mystic Horizons, to a brighter day.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+To the Mystic Horizons, where the magic meets the sea,
+We’ll sail on winds of destiny, to where our spirits free.
+In the land of endless wonder, where our dreams ignite the skies,
+Through the Mystic Horizons, we’ll find our paradise.
+            ]]></original>
+            <reworked><![CDATA[
+To the Mystic Horizons, where the magic meets the sea,
+We'll sail on winds of destiny, to where our spirits free.
+In the land of endless wonder, where our dreams ignite the skies,
+Through the Mystic Horizons, we'll find our paradise.
+            ]]></reworked>
+        </section>
+        <section name="Outro">
+            <original><![CDATA[
+When the final dawn approaches, and the journey meets its end,
+We’ll look back on the horizons, where the stars and dreams ascend.
+For in the Mystic Horizons, our hearts and souls will blend,
+Eternal in the cosmos, where our spirits transcend.
+            ]]></original>
+            <reworked><![CDATA[
+When the final dawn approaches, and the journey meets its end,
+We'll look back on the horizons, where the stars and dreams ascend.
+For in the Mystic Horizons, our hearts and souls will blend,
+Eternal in the cosmos, where our spirits transcend.
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

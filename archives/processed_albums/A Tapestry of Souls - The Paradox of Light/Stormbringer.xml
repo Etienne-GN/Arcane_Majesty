@@ -1,0 +1,134 @@
+<song name="Stormbringer" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+Anya, cast through the Great Rift, comes to wield Vorgos's storm-forged power. She carries his might as his vessel — never claiming his title — and turns the storm against the coming darkness.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+Full original structure restored (9 sections, nothing cut). KEY CANON FIX: Anya wields Vorgos's power but never claims his title — chorus POV reworked from "I am the stormbringer" to "I wield the Stormbringer's might, master of fate" / "I am the storm's vessel, the breaker of chains", and the outro fades on "Vorgos's power is mine". The Bridge anchors the Void ("The lightning strikes, the Void quakes"). All other lines verbatim, syllable counts matched line-for-line. Suggested Suno direction: driving rock power ballad — galloping drums, wailing guitars, thunder.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original><![CDATA[
+In the dark of the night I hear the call of the wild
+The ancient power awakens in my soul
+I feel the fire in my veins The hunger in my eyes
+I’m ready to face the unknown
+            ]]></original>
+            <reworked><![CDATA[
+In the dark of the night I hear the call of the wild
+The ancient power awakens in my soul
+I feel the fire in my veins, the hunger in my eyes
+I'm ready to face the unknown
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+I am the stormbringer the master of fate
+I ride the winds of glory I challenge the gates of hate
+I am the stormbringer the breaker of chains
+I wield the sword of justice I fight for freedom’s reign
+            ]]></original>
+            <reworked><![CDATA[
+I wield the Stormbringer's might, master of fate
+I ride the winds of glory, I challenge the gates of hate
+I am the storm's vessel, the breaker of chains
+I wield the sword of justice, I fight for freedom's reign
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original><![CDATA[
+In the light of the dawn I see the signs of the times
+The world is changing faster than we know
+I hear the cry of the oppressed The voice of the brave
+I’m ready to join the fight
+            ]]></original>
+            <reworked><![CDATA[
+In the light of the dawn I see the signs of the times
+The world is changing faster than we know
+I hear the cry of the oppressed, the voice of the brave
+I'm ready to join the fight
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+I am the stormbringer the master of fate
+I ride the winds of glory I challenge the gates of hate
+I am the stormbringer the breaker of chains
+I wield the sword of justice I fight for freedom’s reign
+            ]]></original>
+            <reworked><![CDATA[
+I wield the Stormbringer's might, master of fate
+I ride the winds of glory, I challenge the gates of hate
+I am the storm's vessel, the breaker of chains
+I wield the sword of justice, I fight for freedom's reign
+            ]]></reworked>
+        </section>
+        <section name="Verse 3">
+            <original><![CDATA[
+In the heat of the day I face the trials of life
+The enemies are waiting for my fall
+I feel the courage in my heart
+The wisdom in my mind I’m ready to overcome them all
+            ]]></original>
+            <reworked><![CDATA[
+In the heat of the day I face the trials of life
+The enemies are waiting for my fall
+I feel the courage in my heart
+The wisdom in my mind, I'm ready to overcome them all
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+I am the stormbringer the master of fate
+I ride the winds of glory I challenge the gates of hate
+I am the stormbringer the breaker of chains
+I wield the sword of justice I fight for freedom’s reign
+            ]]></original>
+            <reworked><![CDATA[
+I wield the Stormbringer's might, master of fate
+I ride the winds of glory, I challenge the gates of hate
+I am the storm's vessel, the breaker of chains
+I wield the sword of justice, I fight for freedom's reign
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original><![CDATA[
+The storm is rising the thunder roars
+The lightning strikes the earth shakes
+The time has come to make a stand
+The storm is here to change the land
+            ]]></original>
+            <reworked><![CDATA[
+The storm is rising, the thunder roars
+The lightning strikes, the Void quakes
+The time has come to make a stand
+The storm is here to change the land
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+I am the stormbringer the master of fate
+I ride the winds of glory I challenge the gates of hate
+I am the stormbringer the breaker of chains
+I wield the sword of justice I fight for freedom’s reign
+            ]]></original>
+            <reworked><![CDATA[
+I wield the Stormbringer's might, master of fate
+I ride the winds of glory, I challenge the gates of hate
+I am the storm's vessel, the breaker of chains
+I wield the sword of justice, I fight for freedom's reign
+            ]]></reworked>
+        </section>
+        <section name="Outro">
+            <original><![CDATA[
+I am the stormbringer…
+            ]]></original>
+            <reworked><![CDATA[
+Vorgos's power is mine
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

@@ -1,0 +1,178 @@
+<song name="Learning to Fly" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+Anya trains with Seraphina to harness her dual light-and-void nature — learning to wield the Void-Echo within her rather than fear it. The scholar becomes a fighter of her own strange kind.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+Full-structure restore of the kept song: every original section (Verse 1, Pre-chorus, Chorus, Verse 2, Pre-chorus, Chorus x2, Bridge, Outro) preserved in order, line-by-line syllable counts matched, ≥70% verbatim. Anchored: Seraphina named as the one who frees Anya's soul in the first pre-chorus; Verse 2 keeps the "we" frame but ends on the Void-Echo dual-nature line "We weave the darkness with the light"; the Bridge breaks through "the boundaries of the Void" (she is immune to it) instead of the sky. POV Anya. Suggested Suno direction: rising empowerment rock — anthemic chorus, warm guitar lift, a voice gaining wings.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original><![CDATA[
+I've always yearned to touch the sky
+To soar above the clouds and fly
+But I was shackled by my fears
+That kept me from the stratosphere
+            ]]></original>
+            <reworked><![CDATA[
+I've always yearned to touch the sky
+To soar above the clouds and fly
+But I was shackled by my fears
+That kept me from the stratosphere
+            ]]></reworked>
+        </section>
+        <section name="Pre-chorus">
+            <original><![CDATA[
+But then you came and freed my soul
+You showed me how to be bold
+You gave me wings and let me go
+You taught me how to grow
+            ]]></original>
+            <reworked><![CDATA[
+Then Seraphina freed my soul
+You showed me how to be bold
+You gave me wings and let me go
+You taught me how to grow
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Now I'm learning to fly
+With you as my guide
+We're defying the storm
+Breaking through the night
+With fire in our veins
+We're conquering the skies
+We're learning to fly
+            ]]></original>
+            <reworked><![CDATA[
+Now I'm learning to fly
+With you as my guide
+We're defying the storm
+Breaking through the night
+With fire in our veins
+We're conquering the skies
+We're learning to fly
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original><![CDATA[
+We've braved the lightning and the rain
+We've overcome the hurt and pain
+We've found the splendor in the fight
+We've seen the wonders of the night
+            ]]></original>
+            <reworked><![CDATA[
+We've braved the lightning and the rain
+We've overcome the hurt and pain
+We've found the splendor in the fight
+We weave the darkness with the light
+            ]]></reworked>
+        </section>
+        <section name="Pre-chorus">
+            <original><![CDATA[
+And now we're flying higher than ever
+We're feeling lighter than a feather
+We're soaring through the infinite blue
+We're living our dreams come true
+            ]]></original>
+            <reworked><![CDATA[
+And now we're flying higher than ever
+We're feeling lighter than a feather
+We're soaring through the infinite blue
+We're living our dreams come true
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Now we're learning to fly
+With you as my guide
+We're defying the storm
+Breaking through the night
+With fire in our veins
+We're conquering the skies
+We're learning to fly
+We're learning to fly
+            ]]></original>
+            <reworked><![CDATA[
+Now we're learning to fly
+With you as my guide
+We're defying the storm
+Breaking through the night
+With fire in our veins
+We're conquering the skies
+We're learning to fly
+We're learning to fly
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Now we're learning to fly
+With you as our guide
+We're defying the storm
+Breaking through the night
+With fire in our veins
+We're conquering the skies
+We're learning to fly
+            ]]></original>
+            <reworked><![CDATA[
+Now we're learning to fly
+With you as our guide
+We're defying the storm
+Breaking through the night
+With fire in our veins
+We're conquering the skies
+We're learning to fly
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original><![CDATA[
+There's nothing that can hold us back
+We're unstoppable, on this track
+We're breaking through the boundaries of the sky
+We're rising from the ashes reborn
+We're blazing like the sun at dawn
+We're learning to fly
+We're learning to fly
+
+Now we're learning to fly
+            ]]></original>
+            <reworked><![CDATA[
+There's nothing that can hold us back
+We're unstoppable, on this track
+We're breaking through the boundaries of the Void
+We're rising from the ashes reborn
+We're blazing like the sun at dawn
+We're learning to fly
+We're learning to fly
+
+Now we're learning to fly
+            ]]></reworked>
+        </section>
+        <section name="Outro">
+            <original><![CDATA[
+We're defying the storm
+Breaking through the night
+With fire in our veins
+We're conquering the skies
+We're learning to fly
+Learning to fly...
+Learning to fly...
+Learning to fly...
+            ]]></original>
+            <reworked><![CDATA[
+We're defying the storm
+Breaking through the night
+With fire in our veins
+We're conquering the skies
+We're learning to fly
+Learning to fly...
+Learning to fly...
+Learning to fly...
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>
