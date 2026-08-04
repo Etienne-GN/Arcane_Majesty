@@ -1,0 +1,68 @@
+<song name="What the Dark Took" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+Seraphina's backstory ballad — the life the Void destroyed. Before she fought, before the resistance, the Great Darkness took her world, her family, and Ravenspire's old peace. She carries that loss into the war. Personal framing only — what the Void took, not the founding of the resistance (that is Vows of Silence, Era I).
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+New song, written lore-first. POV: Seraphina, first person. Backstory ballad of the life the Void destroyed — her family, Ravenspire's ancestral peace, Nythoria before Nyktoros's rising. Personal framing only (the design spec: backstory is "what the Void took", never re-telling the resistance founding). Anchors: the Legion of Souls, Nyktoros, Aurora's silence/no—Nythoria, Ravenspire (ancestral ruins), the black sun, ash, the fall of the old world. No resistance founding, no Rift, no Anya, no civil war, no "Queen". Structure: Verse 1 → Chorus → Verse 2 → Chorus → Bridge → Chorus. Mid-tempo mournful ballad. Suggested Suno direction: aching, cinematic — piano, strings, a woman's voice over quiet storm, building to resolve.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+Before the black sun rose above the stone,
+I had a home where peace was all I knew.
+The fires of Ravenspire were not yet grown,
+And every face I loved was still in view.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+This is what the dark took from me,
+The quiet dawns, the family tree,
+The world I was before the fall,
+When the Legion answered Nyktoros's call.
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+My mother's voice, the songs upon the hill,
+My father's hands that built the sacred gate,
+The childhood that the shadow bent to kill,
+The future that the void annihilate.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+This is what the dark took from me,
+The quiet dawns, the family tree,
+The world I was before the fall,
+When the Legion answered Nyktoros's call.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+I carry them in every wound I bear,
+The ones I love, the ones I lost to air.
+The dark can take my home, but not my vow,
+I will not let the world be silenced now.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+This is what the dark took from me,
+The quiet dawns, the family tree,
+The world I was before the fall,
+When the Legion answered Nyktoros's call.
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

@@ -2,9 +2,9 @@
     <AlbumPlot><![CDATA[
 ### "A Tapestry of Souls: The Paradox of Light" — The 0 GD Trilogy, Part II (Era II)
 
-[One-paragraph arc: Anya arrives in the Underworld, meets Valen, meets Seraphina, backstory, Elara's reveal at the Celestial Gardens, training, the Tablets confirming her as the Living Lock, mastering the Rift, and Valen's fall. To be expanded by the sibling plan.]
+Anya, plucked from Auroria at the end of *The Awakening*, falls into the war-torn Underworld and meets Valen, her protector; in the frozen wastes she meets Seraphina and recognizes a shared, stranger nature. Their backstories surface — what the dark took from each (Seraphina's family and home, Valen's fallen — the ghosts of Ravenspire he carries). At the Celestial Gardens, Elara reveals Anya's truth: she is a Void-Echo, immune to the Void, a paradox of light — the Living Lock who must seal Nyktoros. She trains with Seraphina, discovers the Tablets that confirm her fate, and fights her first battle as a rebel — proving her worth. Valen masters her use of the Rift's power through resonance (she wields Vorgos's power, never claims his title). The war closes in; in the finale, Valen falls to the Legion — Anya's grief and her shattering power surface as the seal-fate takes hold. Ends on Valen's death — plunging into *Dawn of Ravenspire*.
     ]]></AlbumPlot>
-    <Act act="I: The Falling Light">
+    <Act act="I: The Falling">
         <Song song="Eternal Nightfall">
             <song_id>1</song_id>
             <OriginalLyrics><![CDATA[
@@ -225,6 +225,89 @@ After the silence, I hear your name,
 After the storm, we are the same.</Lyrics>
             <analysis>Anya meets Seraphina in the wastes. They recognize a shared nature.</analysis>
         </Song>
+        <Song song="What the Dark Took">
+            <song_id>3</song_id>
+            <Lyrics>[Verse 1]
+Before the black sun rose above the stone,
+I had a home where peace was all I knew.
+The fires of Ravenspire were not yet grown,
+And every face I loved was still in view.
+
+[Chorus]
+This is what the dark took from me,
+The quiet dawns, the family tree,
+The world I was before the fall,
+When the Legion answered Nyktoros's call.
+
+[Verse 2]
+My mother's voice, the songs upon the hill,
+My father's hands that built the sacred gate,
+The childhood that the shadow bent to kill,
+The future that the void annihilate.
+
+[Chorus]
+This is what the dark took from me,
+The quiet dawns, the family tree,
+The world I was before the fall,
+When the Legion answered Nyktoros's call.
+
+[Bridge]
+I carry them in every wound I bear,
+The ones I love, the ones I lost to air.
+The dark can take my home, but not my vow,
+I will not let the world be silenced now.
+
+[Chorus]
+This is what the dark took from me,
+The quiet dawns, the family tree,
+The world I was before the fall,
+When the Legion answered Nyktoros's call.</Lyrics>
+            <analysis>Seraphina's backstory — what the Void destroyed before the war — personal framing only, not the resistance founding.</analysis>
+        </Song>
+        <Song song="Ghosts of Ravenspire">
+            <song_id>4</song_id>
+            <Lyrics>[Verse 1]
+The ghosts of Ravenspire still walk with me,
+In every step I take upon this ground.
+The faces that the Legion made not be,
+The names I whisper that no longer sound.
+
+[Chorus]
+They are the fire in my waking eyes,
+They are the judgement when I lay me down.
+I carry Ravenspire beneath the skies,
+The ghost of every soul the dark has drown.
+
+[Verse 2]
+A brother's blade, a sister's gentle art,
+The neighbors who would share the winter bread.
+The shadow took them, tore them all apart,
+And left me standing with the dying dead.
+
+[Chorus]
+They are the fire in my waking eyes,
+They are the judgement when I lay me down.
+I carry Ravenspire beneath the skies,
+The ghost of every soul the dark has drown.
+
+[Bridge]
+I will not let their graves be in the void,
+I will not let the shadow claim what's mine.
+I will not rest until the dark destroyed
+The home it stole, the flame I will relight.
+
+[Chorus]
+They are the fire in my waking eyes,
+They are the judgement when I lay me down.
+I carry Ravenspire beneath the skies,
+The ghost of every soul the dark has drown.
+
+[Outro]
+The ghosts of Ravenspire still walk with me...
+The ghosts of Ravenspire...
+With me.</Lyrics>
+            <analysis>Valen's backstory — the family the Void took; plants the grief that makes his later fall in Symphony of Suffering land.</analysis>
+        </Song>
     </Act>
     <Act act="II: The Paradox of Light">
         <Song song="Mystic Horizon">
@@ -296,14 +379,14 @@ Through the Mystic Horizons, we’ll find our paradise.
 In the presence of Elara, where the ancient spirits sing,
 She uncovers hidden answers, and the truth that she will bring.
 Spirit-stained by eternal Void, within the holy night,
-The Impossible Key is waking now, a paradox of light.
+The Void-Echo is waking now, a paradox of light.
 
 [Chorus]
 To the Mystic Horizons, where the magic meets the sea,
 We’ll sail on winds of destiny, to where our spirits free.
 In the land of endless wonder, where our dreams ignite the skies,
 Through the Mystic Horizons, we’ll find our paradise.</Lyrics>
-            <analysis>Anya reaches the Celestial Gardens and Elara reveals the "Impossible Key" prophecy.</analysis>
+            <analysis>Anya reaches the Celestial Gardens; Elara reveals she is the Void-Echo — a paradox of light.</analysis>
         </Song>
         <Song song="Learning to Fly">
             <song_id>6</song_id>
@@ -410,6 +493,45 @@ With Void-fire in our veins,
 We're conquering the skies.</Lyrics>
             <analysis>Anya trains with Seraphina to harness her dual light/void nature.</analysis>
         </Song>
+        <Song song="The Last Stronghold">
+            <song_id>7</song_id>
+            <Lyrics>[Verse]
+The Legion sweeps the fevered land,
+But here, in stone, a fire still stands.
+A ragged few with weary hands,
+The last stronghold of Nythoria's strands.
+
+[Chorus]
+This is the last stronghold we hold,
+A keep of hope when the world goes cold.
+The dark surrounds us, but we are bold,
+This is the last stronghold.
+
+[Verse]
+We feed the flame that will not die,
+We stack the stones against the sky,
+We hold the line that shadows test,
+And shelter every soul we keep.
+
+[Chorus]
+This is the last stronghold we hold,
+A keep of hope when the world goes cold.
+The dark surrounds us, but we are bold,
+This is the last stronghold.
+
+[Bridge]
+When every other gate gives way,
+And all the evening turns to grey,
+This is the ground we choose to stay,
+And light the dark's defeat tomorrow day.
+
+[Chorus]
+This is the last stronghold we hold,
+A keep of hope when the world goes cold.
+The dark surrounds us, but we are bold,
+This is the last stronghold.</Lyrics>
+            <analysis>The resistance's last haven in Nythoria — the war closes in around those who still hold against the Legion.</analysis>
+        </Song>
         <Song song="Shadows and Stardust">
             <song_id>8</song_id>
             <OriginalLyrics><![CDATA[
@@ -471,7 +593,7 @@ In the heart of Nyktoros, where the stars bend to our will.
 
 [Chorus]
 In the land of Shadows and Stardust, where the night and light collide,
-We’ll forge our paths in the darkness, with the Stone as our guide.
+We’ll forge our paths in the darkness, with the Tablets as our guide.
 Through the veil of endless mystery, where the dreams and echoes blend,
 In the land of Shadows and Stardust, our journey never ends.
 
@@ -483,10 +605,49 @@ Anya accepts her final fate.
 
 [Chorus]
 In the land of Shadows and Stardust, where the night and light collide,
-We’ll forge our paths in the darkness, with the Stone as our guide.
+We’ll forge our paths in the darkness, with the Tablets as our guide.
 Through the veil of endless mystery, where the dreams and echoes blend,
 In the land of Shadows and Stardust, our journey never ends.</Lyrics>
-            <analysis>The discovery of the tablets confirming Anya is the Living Lock needed to seal the Void.</analysis>
+            <analysis>The Tablets confirm Anya is the Living Lock — the canon fix applies "the Stone" → the Tablets.</analysis>
+        </Song>
+        <Song song="The Rebel's Blood">
+            <song_id>9</song_id>
+            <Lyrics>[Verse 1]
+I was a scholar of the distant light,
+But here I stand upon a death-touched strand.
+The Legion comes to break the final fight,
+And I must learn to wield a weapon's hand.
+
+[Chorus]
+The rebel's blood is in my veins tonight,
+A Void-Echo immune to the dark's delusion.
+I meet the shadow, and I hold the line,
+This scholar-blooming into revolution.
+
+[Verse 2]
+The ghosts of Ravenspire ask me to prove,
+That what I carry from the celestial spire
+Can be a shield for those I choose to love,
+And a storm that sets the legion souls on fire.
+
+[Chorus]
+The rebel's blood is in my veins tonight,
+A Void-Echo immune to the dark's delusion.
+I meet the shadow, and I hold the line,
+This scholar-blooming into revolution.
+
+[Bridge]
+They doubt the girl who fell from the stars,
+But every blow I take has earned respect.
+I am no crown, I am no sovereign,
+I am the flame that they cannot reject.
+
+[Chorus]
+The rebel's blood is in my veins tonight,
+A Void-Echo immune to the dark's delusion.
+I meet the shadow, and I hold the line,
+This scholar-blooming into revolution.</Lyrics>
+            <analysis>Anya's first battle with the rebels — her Void-Echo blood proves her worth and earns her place.</analysis>
         </Song>
         <Song song="Stormbringer">
             <song_id>10</song_id>
@@ -565,7 +726,7 @@ I am the stormbringer, the master of fate,
 I ride the winds of glory, I challenge the gates of hate.
 I am the stormbringer, the breaker of chains,
 I wield the sword of justice, I fight for freedom’s reign.</Lyrics>
-            <analysis>Anya uses her resonance to control the Rift/Vorgos.</analysis>
+            <analysis>Anya masters the Rift via resonance — she wields Vorgos's power, never claims his title (canon fix).</analysis>
         </Song>
         <Song song="Symphony of Suffering">
             <song_id>11</song_id>
@@ -657,29 +818,7 @@ Rage and fury, thunderous might,
 Clash of swords, a relentless fight.
 Symphony of suffering, pain's delight,
 We conquer the dark, devour the light.</Lyrics>
-            <analysis>Valen is defeated and killed by the Shadow Legion. Anya's true power begins to surface.</analysis>
-        </Song>
-    </Act>
-    <Act act="III: The Gathering Storm">
-        <Song song="The Last Stronghold">
-            <song_id>7</song_id>
-            <Lyrics/>
-            <analysis/>
-        </Song>
-        <Song song="What the Dark Took">
-            <song_id>3</song_id>
-            <Lyrics/>
-            <analysis/>
-        </Song>
-        <Song song="Ghosts of Ravenspire">
-            <song_id>4</song_id>
-            <Lyrics/>
-            <analysis/>
-        </Song>
-        <Song song="The Rebel's Blood">
-            <song_id>9</song_id>
-            <Lyrics/>
-            <analysis/>
+            <analysis>Valen falls to the Legion — Anya's grief and her sealing-fate begin to surface. Implied Shadow-Vale battlefield.</analysis>
         </Song>
     </Act>
 </album>

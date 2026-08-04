@@ -1,0 +1,76 @@
+<song name="Ghosts of Ravenspire" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+Valen's backstory — the family the Void took, the ghosts of the fallen that haunt him. He leads the resistance with the weight of every soul he could not save. This song plants the grief that makes his fall in Symphony of Suffering (the finale) hurt.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+New song, written lore-first. POV: Valen, first person. Backstory of the family and comrades the Void took; the ghosts of Ravenspire that follow him into the war. This deliberately establishes his grief and resolve so his death in Album 2's finale (Symphony of Suffering) lands. Personal framing only — not the resistance founding. Anchors: the Legion of Souls, Ravenspire (ancestral ruins), the Shadow-Vale (his future final stand), Nythoria, the fallen, ash. No Rift, no Anya yet (he hasn't met her), no civil war, no "Queen", no Seraphina-founding plot. Structure: Verse 1 → Chorus → Verse 2 → Chorus → Bridge → Chorus → Outro. Grave, marching ballad. Suggested Suno direction: solemn, driving — low strings, war drums, a man's voice bound to loss, building to fierce resolve.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+The ghosts of Ravenspire still walk with me,
+In every step I take upon this ground.
+The faces that the Legion made not be,
+The names I whisper that no longer sound.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+They are the fire in my waking eyes,
+They are the judgement when I lay me down.
+I carry Ravenspire beneath the skies,
+The ghost of every soul the dark has drown.
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+A brother's blade, a sister's gentle art,
+The neighbors who would share the winter bread.
+The shadow took them, tore them all apart,
+And left me standing with the dying dead.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+They are the fire in my waking eyes,
+They are the judgement when I lay me down.
+I carry Ravenspire beneath the skies,
+The ghost of every soul the dark has drown.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+I will not let their graves be in the void,
+I will not let the shadow claim what's mine.
+I will not rest until the dark destroyed
+The home it stole, the flame I will relight.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+They are the fire in my waking eyes,
+They are the judgement when I lay me down.
+I carry Ravenspire beneath the skies,
+The ghost of every soul the dark has drown.
+            ]]></reworked>
+        </section>
+        <section name="Outro">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+The ghosts of Ravenspire still walk with me...
+The ghosts of Ravenspire...
+With me.
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

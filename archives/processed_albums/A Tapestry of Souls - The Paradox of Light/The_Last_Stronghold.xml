@@ -1,0 +1,68 @@
+<song name="The Last Stronghold" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+The resistance's last refuge — a hidden haven in Nythoria where the survivors of the war hold against the Legion. Anya finds a people and a cause; the war closes in around the stronghold. Sets up the final battles before the fall.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+New song, written lore-first. POV: the resistance / survivors ("we"), with the stronghold as a beacon. A haven still standing against the Legion's tide in Nythoria. Placed after Learning to Fly / Mystic Horizon (Anya has met Elara, trained with Seraphina) and before Shadows and Stardust (the Tablets). Anchors: the Legion of Souls, Nythoria, the resistance, a hidden stronghold of the faithful, the war closing in, the fading light. No Rift, no Vorgos acting, no Anya's Rift origin retold here, no civil-war founding, no "Queen". Structure: Verse → Chorus → Verse → Chorus → Bridge → Chorus. Mid-tempo, defiant, slightly desperate. Suggested Suno direction: anthem with weight — warm shared vocals, a beating war-drum heart, strings under rising tension.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+The Legion sweeps the fevered land,
+But here, in stone, a fire still stands.
+A ragged few with weary hands,
+The last stronghold of Nythoria's strands.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+This is the last stronghold we hold,
+A keep of hope when the world goes cold.
+The dark surrounds us, but we are bold,
+This is the last stronghold.
+            ]]></reworked>
+        </section>
+        <section name="Verse">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+We feed the flame that will not die,
+We stack the stones against the sky,
+We hold the line that shadows test,
+And shelter every soul we keep.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+This is the last stronghold we hold,
+A keep of hope when the world goes cold.
+The dark surrounds us, but we are bold,
+This is the last stronghold.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+When every other gate gives way,
+And all the evening turns to grey,
+This is the ground we choose to stay,
+And light the dark's defeat tomorrow day.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+This is the last stronghold we hold,
+A keep of hope when the world goes cold.
+The dark surrounds us, but we are bold,
+This is the last stronghold.
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>
