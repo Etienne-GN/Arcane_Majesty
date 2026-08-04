@@ -1,0 +1,68 @@
+<song name="The Unending War" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+The war against the Legion drags on — no victory in sight, ground lost, the planes bleeding. The survivors and the resistance hold day after day against an endless tide. The grinding middle of the invasion.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+New song, written lore-first. POV: the survivors / resistance ("we"), a war chronicle of the grinding middle. Anchors: the Legion of Souls, Nythoria, the war without end, the fading light, the planes, the resistance's dwindling hope. Names The Shadow-Vale as a battleground (DB-verified Location); keeps the Black Well out of the core war imagery as it is Acheron's discarded-Tome site (Era I). No Vorgos acting (he only watches), no Anya, no Rift, no victory. Structure: Verse → Chorus → Verse → Chorus → Bridge → Chorus. Driving, relentless. Suggested Suno direction: relentless war anthem — fast drums, aggressive guitars, exhausted-but-fighting vocals.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+Day after day beneath the faded sun,
+The Legion comes, and still we hold the line.
+At the Shadow-Vale the battle is won,
+Then lost again, and we go on.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+This is the war that never ends,
+We trade our blood for borrowed days.
+Nythoria's light is growing dim,
+But we will not surrender it.
+            ]]></reworked>
+        </section>
+        <section name="Verse">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+The planes are bleeding, one by one,
+The resistance holds with fading breath.
+No victory in sight, no rising sun,
+Only the dark, and us beneath.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+This is the war that never ends,
+We trade our blood for borrowed days.
+Nythoria's light is growing dim,
+But we will not surrender it.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+Hold the ground, though hope has fled,
+Hold the ground, for the living dead.
+Somewhere a watcher weighs the cost,
+And we are the ones the lines are lost.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+This is the war that never ends,
+We trade our blood for borrowed days.
+Nythoria's light is growing dim,
+But we will not surrender it.
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

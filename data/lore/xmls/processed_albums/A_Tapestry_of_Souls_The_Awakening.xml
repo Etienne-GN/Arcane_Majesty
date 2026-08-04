@@ -325,8 +325,42 @@ Ravenspire falls.</Lyrics>
         </Song>
         <Song song="The Unending War">
             <song_id>7</song_id>
-            <Lyrics/>
-            <analysis/>
+            <Lyrics>[Verse]
+Day after day beneath the faded sun,
+The Legion comes, and still we hold the line.
+At the Shadow-Vale the battle is won,
+Then lost again, and we go on.
+
+[Chorus]
+This is the war that never ends,
+We trade our blood for borrowed days.
+Nythoria's light is growing dim,
+But we will not surrender it.
+
+[Verse]
+The planes are bleeding, one by one,
+The resistance holds with fading breath.
+No victory in sight, no rising sun,
+Only the dark, and us beneath.
+
+[Chorus]
+This is the war that never ends,
+We trade our blood for borrowed days.
+Nythoria's light is growing dim,
+But we will not surrender it.
+
+[Bridge]
+Hold the ground, though hope has fled,
+Hold the ground, for the living dead.
+Somewhere a watcher weighs the cost,
+And we are the ones the lines are lost.
+
+[Chorus]
+This is the war that never ends,
+We trade our blood for borrowed days.
+Nythoria's light is growing dim,
+But we will not surrender it.</Lyrics>
+            <analysis>The grinding middle of the invasion — the resistance holds against the Legion, ground lost and retaken at the Shadow-Vale.</analysis>
         </Song>
         <Song song="Auroria's Lament">
             <song_id>8</song_id>
