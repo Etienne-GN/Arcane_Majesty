@@ -281,8 +281,47 @@ We are the wall.</Lyrics>
         </Song>
         <Song song="The Fall of Ravenspire">
             <song_id>6</song_id>
-            <Lyrics/>
-            <analysis/>
+            <Lyrics>[Verse 1]
+I watched the Legion crest the ancient wall,
+And Ravenspire burned beneath the blackened sky.
+The stones my people carved began to fall,
+And with them every hope I held inside.
+
+[Chorus]
+Ravenspire falls, the ashes rise,
+The home I knew is lost tonight.
+Nythoria weeps beneath the Void,
+And all that's left is what I hold.
+
+[Verse 2]
+The souls of those I loved are marching now,
+Conscripted into ranks I cannot stop.
+I lift my blade against the hollow crowd,
+And watch the legacy of ages drop.
+
+[Chorus]
+Ravenspire falls, the ashes rise,
+The home I knew is lost tonight.
+Nythoria weeps beneath the Void,
+And all that's left is what I hold.
+
+[Bridge]
+What did the dark take from me,
+But every face I swore to keep?
+If nothing else survives this night,
+Let it be this — the grief I keep.
+
+[Chorus]
+Ravenspire falls, the ashes rise,
+The home I knew is lost tonight.
+Nythoria weeps beneath the Void,
+And all that's left is what I hold.
+
+[Outro]
+Ash on the wind...
+Ash on the wind...
+Ravenspire falls.</Lyrics>
+            <analysis>Seraphina watches the Legion overrun the ancestral ruins — the Era II fall of Ravenspire, home lost to the Void.</analysis>
         </Song>
         <Song song="The Unending War">
             <song_id>7</song_id>
