@@ -1,0 +1,68 @@
+<song name="For Valen" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+Album 3 opener. Anya carries Valen's memory into the last stand. After his fall in Symphony of Suffering, she makes his death her reason — she will not let the darkest world take what little light remains. Sets the resolve for the assault on Nyktoros.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+New song, written lore-first. POV: Anya, first person. Opens Dawn of Ravenspire by honoring Valen — his fall (Symphony of Suffering, Album 2 finale) becomes her resolve. Anchors: Valen, the Legion, Nythoria, the memory of the fallen, the vow to end the dark. Must not re-tell his death in detail (that was Album 2), must not claim a crown, no New Ravenspire founding (that is the vow/dawn beat, album 3 finale), no Rift re-crossing yet. Structure: Verse 1 → Chorus → Verse 2 → Chorus → Bridge → Chorus. Solemn but rising anthem. Suggested Suno direction: grief carried into fire — a lone voice over heavy strings and war drums, building to resolve.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+They buried Valen in the fallen's soil,
+Beneath a sky that even stars forsook.
+I carry what he gave me from the fight,
+A vow that I will make the shadow break.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+For Valen, I will see the dawn,
+For Valen, I will hold the line.
+Until the Legion's rule is gone,
+His face will be this blade of mine.
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+I saw him fall upon the Shadow-Vale,
+A warrior's stand that owned the endless night.
+He left me not a promise, not a tale,
+But fire, and the fury of his might.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+For Valen, I will see the dawn,
+For Valen, I will hold the line.
+Until the Legion's rule is gone,
+His face will be this blade of mine.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+What would he have me do but fight?
+What would he have me be but free?
+I will not let the endless night
+Swallow the world he died to keep.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+For Valen, I will see the dawn,
+For Valen, I will hold the line.
+Until the Legion's rule is gone,
+His face will be this blade of mine.
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

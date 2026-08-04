@@ -2,18 +2,90 @@
     <AlbumPlot><![CDATA[
 ### "A Tapestry of Souls: Dawn of Ravenspire" — The 0 GD Trilogy, Part III (Era II)
 
-[One-paragraph arc: Anya's resolve, the last charge, the ritual, the farewell, the seal, Nyktoros's rage, the vigil, Seraphina rallying the survivors, the exodus over the Great Rift, and the vow at the dawn. To be expanded by the sibling plan.]
+Anya, after Valen's fall, carries his memory into the last stand. The survivors throw everything into a final charge against Nyktoros's prison, the Rift roaring overhead. During a total Eclipse of Destiny, Anya performs the ritual and, in her farewell to Seraphina (Shadows in the Rain), prepares to seal the Void. In Endless Night the seal is set — Anya traps Nyktoros and herself in the deepest Void as the Warden. Nyktoros rages helpless against the seal; it holds. Anya's eternal vigil begins (Haunting Life). Seraphina rallies the survivors (Celestial Rebellion), and they cross the Great Rift into Eldoria, leaving Anya behind. At the dawn, Seraphina makes the Vow: to raise New Ravenspire and one day free her. The trilogy ends at the dawn — the promise, not the founding (that is Era III).
     ]]></AlbumPlot>
     <Act act="I: The Last Stand">
         <Song song="For Valen">
             <song_id>1</song_id>
-            <Lyrics/>
-            <analysis/>
+            <Lyrics>[Verse 1]
+They buried Valen in the fallen's soil,
+Beneath a sky that even stars forsook.
+I carry what he gave me from the fight,
+A vow that I will make the shadow break.
+
+[Chorus]
+For Valen, I will see the dawn,
+For Valen, I will hold the line.
+Until the Legion's rule is gone,
+His face will be this blade of mine.
+
+[Verse 2]
+I saw him fall upon the Shadow-Vale,
+A warrior's stand that owned the endless night.
+He left me not a promise, not a tale,
+But fire, and the fury of his might.
+
+[Chorus]
+For Valen, I will see the dawn,
+For Valen, I will hold the line.
+Until the Legion's rule is gone,
+His face will be this blade of mine.
+
+[Bridge]
+What would he have me do but fight?
+What would he have me be but free?
+I will not let the endless night
+Swallow the world he died to keep.
+
+[Chorus]
+For Valen, I will see the dawn,
+For Valen, I will hold the line.
+Until the Legion's rule is gone,
+His face will be this blade of mine.</Lyrics>
+            <analysis>Anya carries Valen's memory into the last stand — his fall becomes her resolve.</analysis>
         </Song>
         <Song song="The Last Charge">
             <song_id>2</song_id>
-            <Lyrics/>
-            <analysis/>
+            <Lyrics>[Verse]
+The Rift is roaring in a wounded sky,
+The Empire of the Void has filled the night.
+We have one charge, one moment left to try,
+To drive a seal into the endless light.
+
+[Chorus]
+The last charge, to the prison's heart,
+The last charge, we tear the dark apart.
+Through the Legion, through the pain,
+We charge the dark, and break his reign.
+
+[Verse]
+The Underworld is shivering with his roar,
+But we have nothing but our will to give.
+Whatever waits behind the final door,
+We meet it now — the reason that we live.
+
+[Chorus]
+The last charge, to the prison's heart,
+The last charge, we tear the dark apart.
+Through the Legion, through the pain,
+We charge the dark, and break his reign.
+
+[Bridge]
+Hold the line, one breath, one flame,
+Fall and rise and fall again.
+For the dead and for the living,
+We are the storm that beats the empty.
+
+[Chorus]
+The last charge, to the prison's heart,
+The last charge, we tear the dark apart.
+Through the Legion, through the pain,
+We charge the dark, and break his reign.
+
+[Outro]
+Charge!... Charge!...
+Break his reign...</Lyrics>
+            <analysis>The final assault on Nyktoros's prison, with the Rift at full fury — the survivors' last, desperate strength.</analysis>
         </Song>
         <Song song="Eclipse of Destiny">
             <song_id>3</song_id>
@@ -299,8 +371,46 @@ In this anguished realm, we remain.</Lyrics>
     <Act act="II: The Vigil">
         <Song song="The Prisoner's Wrath">
             <song_id>6</song_id>
-            <Lyrics/>
-            <analysis/>
+            <Lyrics>[Verse]
+Caged in the cradle of the deepest dark,
+I beat the walls of my eternal hold.
+I am the Void, I am the dying spark,
+And they have shut me in the lightless cold.
+
+[Chorus]
+I am the prisoner's wrath, unchained,
+I shake the bars, I test the pain.
+But every strike the lock repays,
+The Living Lock that holds the days.
+
+[Verse]
+A scholar dares to seal me in the deep,
+A girl who fell from the celestial glare.
+I will not break, I will not fall to sleep,
+I will not bow — but still the walls are there.
+
+[Chorus]
+I am the prisoner's wrath, unchained,
+I shake the bars, I test the pain.
+But every strike the lock repays,
+The Living Lock that holds the days.
+
+[Bridge]
+Scream, and meet the silence,
+Strike, and feel the wall.
+The seal is not a weapon,
+It is a vow that will not fall.
+
+[Chorus]
+I am the prisoner's wrath, unchained,
+I shake the bars, I test the pain.
+But every strike the lock repays,
+The Living Lock that holds the days.
+
+[Outro]
+It holds... it holds...
+The Living Lock that holds the days.</Lyrics>
+            <analysis>Nyktoros rages within the seal after Endless Night — the Living Lock holds; his fury proves the sacrifice necessary.</analysis>
         </Song>
         <Song song="Haunting Life">
             <song_id>7</song_id>
@@ -482,7 +592,7 @@ The Shadow Legion rises, beneath the astral eye.
 In the Celestial Rebellion, where the shadows meet the light,
 We'll fight against the darkness, in the echo of her name.
 Through the cosmic storm and fury, where the galaxies collide,
-The Queen of Carnage rising, with nowhere left to hide.
+The Queen of the Fallen rising, with nowhere left to hide.
 
 [Verse 2]
 From the ruins of the ancients, to the heights of distant stars,
@@ -494,18 +604,97 @@ To honor the sacrifice, within the endless night.
 In the Celestial Rebellion, where the shadows meet the light,
 We'll fight against the darkness, in the echo of her name.
 Through the cosmic storm and fury, where the galaxies collide,
-The Queen of Carnage rising, with nowhere left to hide.</Lyrics>
+The Queen of the Fallen rising, with nowhere left to hide.</Lyrics>
             <analysis>Seraphina takes leadership of the survivors and begins the rebellion against the remaining Void forces.</analysis>
         </Song>
         <Song song="Across the Rift">
             <song_id>9</song_id>
-            <Lyrics/>
-            <analysis/>
+            <Lyrics>[Verse 1]
+The Rift is torn across the bleeding sky,
+A wound that bones the planes in broken light.
+We walk the bridge where half of us must die,
+And leave the warden to the endless night.
+
+[Chorus]
+Across the Rift, we carry on,
+We leave our hearts where we were born.
+Nythoria fades, the Dawn is near,
+But we go on without Anya here.
+
+[Verse 2]
+She stays to hold the seal, the endless gate,
+We walk the trembling pass of souls' last ride.
+The light of Eldoria is our fate,
+And every step is a goodbye to her side.
+
+[Chorus]
+Across the Rift, we carry on,
+We leave our hearts where we were born.
+Nythoria fades, the Dawn is near,
+But we go on without Anya here.
+
+[Bridge]
+We swear to build, we swear to mend,
+A home of light that holds no end.
+And when the ages let us be,
+We swear we will come back for thee.
+
+[Chorus]
+Across the Rift, we carry on,
+We leave our hearts where we were born.
+Nythoria fades, the Dawn is near,
+But we go on without Anya here.
+
+[Outro]
+Across the Rift... across the Rift...
+The Dawn is near...</Lyrics>
+            <analysis>The exodus over the Great Rift — the survivors leave Anya as Warden and cross to Eldoria.</analysis>
         </Song>
         <Song song="The Vow">
             <song_id>10</song_id>
-            <Lyrics/>
-            <analysis/>
+            <Lyrics>[Verse 1]
+We crossed the storm and came into the light,
+We left the ashes of the endless night.
+And as the first true dawn began to burn,
+I swore a vow to the ones who could not turn.
+
+[Chorus]
+This is the vow, upon the Dawn,
+We will build a home that will not fawn.
+For the warden in the shadow's keep,
+We will find a way to break the deep.
+
+[Verse 2]
+I will raise New Ravenspire from the dust,
+A city forged to guard the light we trust.
+And I will not forget her lonely shade,
+The soul the dark has taken, unpaid.
+
+[Chorus]
+This is the vow, upon the Dawn,
+We will build a home that will not fawn.
+For the warden in the shadow's keep,
+We will find a way to break the deep.
+
+[Bridge]
+Not an ending, but a start,
+A promise written on this land.
+We will not let the seal be dark,
+We will come back, and take her hand.
+
+[Chorus]
+This is the vow, upon the Dawn,
+We will build a home that will not fawn.
+For the warden in the shadow's keep,
+We will find a way to break the deep.
+
+[Outro]
+The Dawn has come, the Legion's run,
+We make the vow beneath the sun.
+New Ravenspire shall rise and shine,
+And Anya, we are coming...
+we are coming.</Lyrics>
+            <analysis>The trilogy finale — arrival in Eldoria at dawn; the vow to build New Ravenspire and one day free Anya.</analysis>
         </Song>
     </Act>
 </album>

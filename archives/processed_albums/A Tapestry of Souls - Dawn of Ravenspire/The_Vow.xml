@@ -1,0 +1,78 @@
+<song name="The Vow" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+The trilogy finale. The survivors arrive in Eldoria; the dawn breaks. Seraphina makes the vow to build New Ravenspire, to honor Anya's sacrifice and free her one day. The trilogy ends at the dawn — the promise, not the founding (founding is Era III, Queen of Carnage).
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+New song, written lore-first. POV: Seraphina (or Seraphina + the survivors, "we"), first person/first person plural. Anchors: Eldoria (material plane), the dawn, Anya's sacrifice, the vow to build New Ravenspire and to one day free her, the promise of the living lock. Ends AT the dawn — NOT the formal founding (that is Era III/~150 AGD, Queen of Carnage). Media-model clean; no meta. Structure: Verse 1 → Chorus → Verse 2 → Chorus → Bridge → Chorus → Outro. Soaring, warm, conclusive yet forward-looking. Suggested Suno direction: triumphant dawn anthem — bright strings, rising major-key choir, bells, the darkness lifting into golden resolve.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+We crossed the storm and came into the light,
+We left the ashes of the endless night.
+And as the first true dawn began to burn,
+I swore a vow to the ones who could not turn.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+This is the vow, upon the Dawn,
+We will build a home that will not fawn.
+For the warden in the shadow's keep,
+We will find a way to break the deep.
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+I will raise New Ravenspire from the dust,
+A city forged to guard the light we trust.
+And I will not forget her lonely shade,
+The soul the dark has taken, unpaid.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+This is the vow, upon the Dawn,
+We will build a home that will not fawn.
+For the warden in the shadow's keep,
+We will find a way to break the deep.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+Not an ending, but a start,
+A promise written on this land.
+We will not let the seal be dark,
+We will come back, and take her hand.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+This is the vow, upon the Dawn,
+We will build a home that will not fawn.
+For the warden in the shadow's keep,
+We will find a way to break the deep.
+            ]]></reworked>
+        </section>
+        <section name="Outro">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+The Dawn has come, the Legion's run,
+We make the vow beneath the sun.
+New Ravenspire shall rise and shine,
+And Anya, we are coming...
+we are coming.
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

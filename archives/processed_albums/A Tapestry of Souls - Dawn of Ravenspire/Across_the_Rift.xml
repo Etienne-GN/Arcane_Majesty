@@ -1,0 +1,75 @@
+<song name="Across the Rift" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+The exodus over the Great Rift. After the seal, Seraphina leads the surviving Nythorians across the unstable Rift toward Eldoria's material plane, leaving Anya behind as the Warden. The hard crossing and the grief of turning their backs on her.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+New song, written lore-first. POV: Seraphina / the survivors ("we"), crossing the Great Rift. Anchors: the Great Rift (DB: survivors crossed it Nythoria→Eldoria; unstable, not everyone survives), leaving Anya behind as Warden, Nythoria receding, Eldoria ahead (material plane), the promise that binds. Nothing of New Ravenspire yet (that is the Vow / founds later, Era III). The song is the crossing — the broken bridge of souls. Structure: Verse 1 → Chorus → Verse 2 → Chorus → Bridge → Chorus → Outro. Sweeping, sorrowful yet forward-moving. Suggested Suno direction: epic exodus — rising strings, driving percussion, a lament for what is left behind carried over the storm of the Rift.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+The Rift is torn across the bleeding sky,
+A wound that bones the planes in broken light.
+We walk the bridge where half of us must die,
+And leave the warden to the endless night.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+Across the Rift, we carry on,
+We leave our hearts where we were born.
+Nythoria fades, the Dawn is near,
+But we go on without Anya here.
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+She stays to hold the seal, the endless gate,
+We walk the trembling pass of souls' last ride.
+The light of Eldoria is our fate,
+And every step is a goodbye to her side.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+Across the Rift, we carry on,
+We leave our hearts where we were born.
+Nythoria fades, the Dawn is near,
+But we go on without Anya here.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+We swear to build, we swear to mend,
+A home of light that holds no end.
+And when the ages let us be,
+We swear we will come back for thee.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+Across the Rift, we carry on,
+We leave our hearts where we were born.
+Nythoria fades, the Dawn is near,
+But we go on without Anya here.
+            ]]></reworked>
+        </section>
+        <section name="Outro">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+Across the Rift... across the Rift...
+The Dawn is near...
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>
