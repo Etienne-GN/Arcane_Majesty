@@ -50,8 +50,46 @@ And I must weigh what all the worlds will owe.</Lyrics>
         </Song>
         <Song song="The Awakening">
             <song_id>2</song_id>
-            <Lyrics/>
-            <analysis/>
+            <Lyrics>[Verse 1]
+Beneath the lowest weight of Nythoria,
+Where light has never fallen and never will,
+The banked and buried souls begin to fill,
+And the deep begins to breathe again.
+
+[Chorus]
+The Awakening, the black sun calls,
+The barrier tears, the shadow falls.
+The Legion of Souls hears the name,
+And the Void awakens to its flame.
+
+[Verse 2]
+A hunger older than the farthest star,
+That drank the light and kept the darkness warm.
+The planar barrier splits before its arm,
+And the deep begins to breathe again.
+
+[Chorus]
+The Awakening, the black sun calls,
+The barrier tears, the shadow falls.
+The Legion of Souls hears the name,
+And the Void awakens to its flame.
+
+[Bridge]
+First breath of the endless dark,
+First step of the final reign.
+Every light that ever was
+Is a feast I shall attain.
+
+[Chorus]
+The Awakening, the black sun calls,
+The barrier tears, the shadow falls.
+The Legion of Souls hears the name,
+And the Void awakens to its flame.
+
+[Outro]
+The Awakening... the black sun calls...
+The Awakening... the shadow falls...</Lyrics>
+            <analysis>Nyktoros's awakening in the Underworld: critical shadow-energy, the planar barrier tears, the Legion of Souls rises, the black sun calls.</analysis>
         </Song>
         <Song song="Empire of the Void">
             <song_id>3</song_id>
