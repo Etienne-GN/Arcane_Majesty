@@ -7,8 +7,46 @@ Nyktoros, the sleeping god beneath Nythoria's Underworld, awakens as the planar 
     <Act act="I: The Rising of the Void">
         <Song song="The Tilt">
             <song_id>1</song_id>
-            <Lyrics/>
-            <analysis/>
+            <Lyrics>[Verse 1]
+The Aether trembles at the turning scale,
+Three planes aligned upon a fragile thread.
+In Auroria the quiet stars grow pale,
+And Eldoria has fed the silent dead.
+
+[Pre-Chorus]
+The Underworld is drinking, dark and deep,
+A pool of banked and restless souls asleep.
+
+[Chorus]
+The tilt is slow, the scale is turning,
+Light is fading, night is learning.
+Something sleeping stirs below,
+And I must weigh what all the worlds will owe.
+
+[Verse 2]
+The Thirst-bank vaults in Eldoria swell,
+The crimson rites on Nythoria's blood-soaked stone.
+Two leaks that feed a reservoir of hell,
+And the balance bends beneath their gathering tone.
+
+[Chorus]
+The tilt is slow, the scale is turning,
+Light is fading, night is learning.
+Something sleeping stirs below,
+And I must weigh what all the worlds will owe.
+
+[Bridge]
+I am the Stormbringer, the keeper of the weight,
+I do not bend, I only watch and weigh.
+The storm has gathered in my silent chest,
+And what the balance asks, I must not rest.
+
+[Chorus]
+The tilt is slow, the scale is turning,
+Light is fading, night is learning.
+Something sleeping stirs below,
+And I must weigh what all the worlds will owe.</Lyrics>
+            <analysis>Vorgos's opener: the Aether trembles, the two soul-leaks (Acheron's banking, Malakar's rites) tip the scales, and the sleeping Void stirs beneath the Underworld.</analysis>
         </Song>
         <Song song="The Awakening">
             <song_id>2</song_id>
