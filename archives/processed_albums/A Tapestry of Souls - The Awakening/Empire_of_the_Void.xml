@@ -1,0 +1,122 @@
+<song name="Empire of the Void" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+Nyktoros, awakened in the Underworld, stirs the Legion of Souls. The Legion declares the Empire of the Void as it rises to consume Nythoria's light. Collective anthem of the Void — "we"/"our", not any single figure. Part of Act I of The Awakening.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+Light-touch rework of the kept anthem. POV stays the Legion/Nyktoros collective ("we"). Verse 1 anchors "a kingdom forged in darkness" to Nyktoros's actual awakening (Aurorian suns growing dim, Nythoria). Chorus kept verbatim (already the Empire of the Void). Verse 2 keeps "eclipsing suns and galaxies" but the power belongs to the Master. KEY CANON FIX: the bridge's "No more the humble scholar, our banners waving high" is removed (Anya never joins the Void) and restored to the original Legion line "We conquer through the silence, our banners waving high" (matching the outro, faithful to the original structure and syllable count). Verse 3 establishes the ancient throne as Nyktoros's and "the tyranny of day" as Auroria's light. Outro ends on the Master's reach. Suggested Suno direction: dark anthemic, choir, heavy, slow-build war anthem.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original><![CDATA[
+In the shadow of the night, where the stars refuse to glow,
+A kingdom forged in darkness, where the ancient whispers flow.
+Rising from the ashes of a world that once was bright,
+A symphony of silence in the everlasting night.
+            ]]></original>
+            <reworked><![CDATA[
+In the shadow of the night, where Aurorian suns grow dim,
+A kingdom forged in darkness, where the whispers start to swim.
+Rising from the ashes of the world of mortal light,
+Nyktoros has wakened in the everlasting night.
+            ]]></reworked>
+        </section>
+        <section name="Pre-Chorus">
+            <original><![CDATA[
+Beyond the edge of time and space, where legends dare to dream,
+A force beyond imagining, where nothing’s what it seems.
+            ]]></original>
+            <reworked><![CDATA[
+Beyond the edge of time and space, where legends dare to dream,
+A symphony of silence, where nothing’s what it seems.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+In the Empire of the Void, where shadows reign supreme,
+We’re bound by chains of destiny, within this dark regime.
+A realm where echoes linger, where silence speaks in screams,
+In the Empire of the Void, we live within our dreams.
+            ]]></original>
+            <reworked><![CDATA[
+In the Empire of the Void, where shadows reign supreme,
+We’re bound by chains of destiny, within this dark regime.
+A realm where echoes linger, where silence speaks in screams,
+In the Empire of the Void, we live within our dreams.
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original><![CDATA[
+Eclipsing suns and galaxies, our power knows no bounds,
+Eternal night embraces all, in darkness, we are crowned.
+Through cosmic storms and nebulas, our legions march as one,
+An empire built on silence, beneath a blackened sun.
+            ]]></original>
+            <reworked><![CDATA[
+Eclipsing suns and galaxies, the Shadow-Kin arise,
+An empire built on silence, beneath these hollow skies.
+Through cosmic storms and nebulas, our legions march as one,
+An empire for the Master now, beneath a blackened sun.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original><![CDATA[
+Through the endless dark, we rise, our spirits never fade,
+In the heart of nothingness, our legacy is made.
+We conquer through the silence, our banners waving high,
+In the Empire of the Void, where stars go to die.
+            ]]></original>
+            <reworked><![CDATA[
+Through the endless dark we rise, our spirits never fade,
+In the heart of Nythoria, our legacy is made.
+We conquer through the silence, our banners waving high,
+In the Empire of the Void, where the stars of light will die.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+In the Empire of the Void, where shadows reign supreme,
+We’re bound by chains of destiny, within this dark regime.
+A realm where echoes linger, where silence speaks in screams,
+In the Empire of the Void, we live within our dreams.
+            ]]></original>
+            <reworked><![CDATA[
+In the Empire of the Void, where shadows reign supreme,
+We’re bound by chains of destiny, within this dark regime.
+A realm where echoes linger, where silence speaks in screams,
+In the Empire of the Void, we live within our dreams.
+            ]]></reworked>
+        </section>
+        <section name="Verse 3">
+            <original><![CDATA[
+As the final light extinguishes, we embrace the endless night,
+In the Empire of the Void, we find our strength and might.
+Through the silence, we are rulers, in the darkness, we are free,
+In the Empire of the Void, our reign will ever be.
+            ]]></original>
+            <reworked><![CDATA[
+As the final light extinguishes, we claim the ancient throne,
+By the will of Nyktoros, the night is ours alone.
+Through the silence, we are rulers, the masters of the gray,
+We end the age of starlight, and the tyranny of day.
+            ]]></reworked>
+        </section>
+        <section name="Outro">
+            <original><![CDATA[
+Through the endless dark, we rise, our spirits never fade,
+In the heart of nothingness, our legacy is made.
+We conquer through the silence, our banners waving high,
+In the Empire of the Void, where stars go to die.
+            ]]></original>
+            <reworked><![CDATA[
+Through the endless dark, we rise, our spirits never fade,
+In the name of Nyktoros, our legacy is made.
+We conquer through the silence, our banners waving high,
+His dark throne is reaching now, to the blackened sky.
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

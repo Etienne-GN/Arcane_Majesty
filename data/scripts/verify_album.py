@@ -15,7 +15,9 @@ def normalize(text):
     for k, v in CURLY.items():
         text = text.replace(k, v)
     text = text.replace('\r\n', '\n').replace('\r', '\n').replace('\t', ' ')
-    return re.sub(r'^\[[^\]]+\]\s*$', '', text, flags=re.M).strip()
+    text = re.sub(r'^\[[^\]]+\]\s*$', '', text, flags=re.M)
+    text = re.sub(r'\n{2,}', '\n', text)
+    return '\n'.join(line.strip() for line in text.splitlines() if line.strip())
 
 def archive_reworked(path):
     root = ET.parse(path).getroot()
@@ -24,7 +26,7 @@ def archive_reworked(path):
         rw = sec.find('reworked')
         if rw is not None and rw.get('not_applicable') != 'true' and (rw.text or '').strip():
             blocks.append(normalize(rw.text))
-    return '\n\n'.join(blocks)
+    return root, '\n'.join(blocks)
 
 def master_lyrics(master_path, song_name):
     if not os.path.exists(master_path):
@@ -39,7 +41,7 @@ def master_lyrics(master_path, song_name):
 def main():
     album = sys.argv[1]
     archive_dir = f'archives/processed_albums/{album}'
-    master_path = f'data/lore/xmls/processed_albums/{album.replace(" ", "_")}.xml'
+    master_path = f'data/lore/xmls/processed_albums/{album.replace(" - ", "_").replace(" ", "_")}.xml'
     errors = 0
     all_files = [master_path] + sorted(glob.glob(archive_dir + '/*.xml'))
     for path in all_files:
@@ -53,8 +55,8 @@ def main():
             print(f'PARSE ERROR: {path}: {e}')
             errors += 1
     for path in sorted(glob.glob(archive_dir + '/*.xml')):
-        name = os.path.basename(path)[:-4]
-        rw = archive_reworked(path)
+        root, rw = archive_reworked(path)
+        name = root.get('name') or os.path.basename(path)[:-4]
         lyr = master_lyrics(master_path, name)
         if lyr is None:
             print(f'WARN: "{name}" has no <Lyrics> in the master')
