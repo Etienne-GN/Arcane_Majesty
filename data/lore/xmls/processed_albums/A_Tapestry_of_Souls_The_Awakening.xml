@@ -199,8 +199,44 @@ His dark throne is reaching now, to the blackened sky.</Lyrics>
         </Song>
         <Song song="March of the Legion">
             <song_id>4</song_id>
-            <Lyrics/>
-            <analysis/>
+            <Lyrics>[Verse]
+From the vaults of the dead,
+Banked souls rise and march.
+Nythoria bows her head,
+Under the black sun's arch.
+
+[Chorus]
+March of the Legion, the Void calls,
+We are the shadows, we break the walls.
+Conscripted souls in endless night,
+We are the end of every light.
+
+[Verse]
+The Master's voice is cold,
+His hunger drives us on.
+A thousand thousand sold,
+The light is overrun.
+
+[Chorus]
+March of the Legion, the Void calls,
+We are the shadows, we break the walls.
+Conscripted souls in endless night,
+We are the end of every light.
+
+[Bridge]
+The sky is torn, the sun has died,
+The storm is ours, the world defied.
+
+[Chorus]
+March of the Legion, the Void calls,
+We are the shadows, we break the walls.
+Conscripted souls in endless night,
+We are the end of every light.
+
+[Outro]
+March... march...
+We are the end of every light.</Lyrics>
+            <analysis>The Legion of Souls' war anthem: banked souls march across Nythoria under the black sun, conscripted to the Void.</analysis>
         </Song>
     </Act>
     <Act act="II: The War for Nythoria">

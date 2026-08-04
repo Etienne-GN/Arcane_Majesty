@@ -1,0 +1,73 @@
+<song name="March of the Legion" status="in_review" version="draft">
+    <plot>
+        <![CDATA[
+The Legion of Souls is unleashed across Nythoria. The corrupted horde — Nythorians lost to the Void's influence and the damned souls Nyktoros commands — marches under the black sun. The war anthem of the invasion.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+New song, written lore-first. POV: the Legion of Souls (collective "we") — the corrupted horde of the Void, conscripted souls from the banked sacrifices. Voice of the Legion; the Legion speaks for Nyktoros, never in his first person. Anchors: the Legion of Souls, Nythoria, the Void as master, souls conscripted, the banked souls of the sacrifices (soul-leak canon), the fall of light. Short punchy 6-8 syllable lines, driving war rhythm. No named individual heroes, no Rift, no Eldoria, no Anya, no Seraphina, no Valen. Structure: Verse → Chorus → Verse → Chorus → Bridge → Chorus → Outro. Suggested Suno direction: relentless march — double-kick drums, war horns, chanting crowd vocals.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+From the vaults of the dead,
+Banked souls rise and march.
+Nythoria bows her head,
+Under the black sun's arch.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+March of the Legion, the Void calls,
+We are the shadows, we break the walls.
+Conscripted souls in endless night,
+We are the end of every light.
+            ]]></reworked>
+        </section>
+        <section name="Verse">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+The Master's voice is cold,
+His hunger drives us on.
+A thousand thousand sold,
+The light is overrun.
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+March of the Legion, the Void calls,
+We are the shadows, we break the walls.
+Conscripted souls in endless night,
+We are the end of every light.
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+The sky is torn, the sun has died,
+The storm is ours, the world defied.
+    ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+March of the Legion, the Void calls,
+We are the shadows, we break the walls.
+Conscripted souls in endless night,
+We are the end of every light.
+            ]]></reworked>
+        </section>
+        <section name="Outro">
+            <original not_applicable="true"><![CDATA[—]]></original>
+            <reworked><![CDATA[
+March... march...
+We are the end of every light.
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>
