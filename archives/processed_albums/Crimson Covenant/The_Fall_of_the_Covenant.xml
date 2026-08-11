@@ -1,0 +1,126 @@
+<song name="The Fall of the Covenant" status="production_ready" version="draft">
+    <plot>
+        <![CDATA[
+Realizing the golden age is over, Acheron orders the subterranean capital abandoned. The Covenant disperses into isolated cells across Eldoria to avoid attracting Nyktoros's gaze.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+The original is a generic "empire of evil crumbles, world is free" piece with a false "force of good" chorus. The reworked version anchors it to the actual arc (~160 BGD): Acheron ordering the Covenant to abandon Sanguine Vaults and break into small isolated cells across Eldoria to evade Nyktoros's detection. Reworked to preserve the original per-line syllable counts exactly: verse 1/2 and bridge 9-8-8-8, chorus 10-8-8-8 ("Fall of the Covenant, a shattered tale"), final verse 8-8-8-8. User-corrected line: "Dispersing in the quiet night". Suggested song direction: melancholic, shattered, epic — slow mournful strings, sparse piano, broken percussion, the funeral of a dynasty.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original><![CDATA[
+The Covenant's power, fading fast
+Their reign of terror, cannot last
+A force of good, a striking view
+A darkness falls, a night anew
+            ]]></original>
+            <reworked><![CDATA[
+The Covenant's empire starts to fade
+Abandoning the work they made
+Acheron orders all to part
+To save the vampire elite's heart
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Fall of the Covenant, a gripping tale
+Their power crumbled, a fierce gale
+A force of good, a striking view
+A darkness falls, a night anew
+            ]]></original>
+            <reworked><![CDATA[
+Fall of the Covenant, a shattered tale
+Their golden age behind the veil
+Dispersing in the quiet night
+The vampire lords begin to fade
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original><![CDATA[
+Their empire shattered, a fearsome sight
+A darkness falls, a night of fright
+A force of good, a striking view
+A darkness falls, a night anew
+            ]]></original>
+            <reworked><![CDATA[
+"Break into cells, hiding small and low
+Lest Nyktoros detect our glow
+Blend in the human high estate
+To flee the looming cosmic fate"
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Fall of the Covenant, a gripping tale
+Their power crumbled, a fierce gale
+A force of good, a striking view
+A darkness falls, a night anew
+            ]]></original>
+            <reworked><![CDATA[
+Fall of the Covenant, a shattered tale
+Their golden age behind the veil
+Dispersing in the quiet night
+The vampire lords begin to fade
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original><![CDATA[
+A new dawn rises, a radiant sight
+A darkness falls, a night of fright
+A force of good, a striking view
+A darkness falls, a night anew
+            ]]></original>
+            <reworked><![CDATA[
+The mighty vaults sealed in granite cold
+Holding the siphoned essence old
+The shadow capital stands still
+Conforming to Acheron's will
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Fall of the Covenant, a gripping tale
+Their power crumbled, a fierce gale
+A force of good, a striking view
+A darkness falls, a night anew
+            ]]></original>
+            <reworked><![CDATA[
+Fall of the Covenant, a shattered tale
+Their golden age behind the veil
+Dispersing in the quiet night
+The vampire lords begin to fade
+            ]]></reworked>
+        </section>
+        <section name="Verse 3">
+            <original><![CDATA[
+The world is free, a radiant sight
+A darkness falls, a night of fright
+A force of good, a striking view
+A darkness falls, a night anew
+            ]]></original>
+            <reworked><![CDATA[
+The empire shattered, scattered wide
+Where hidden vampire lords reside
+No longer unified in state
+Dismantled by the threat of fate
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Fall of the Covenant, a gripping tale
+Their power crumbled, a fierce gale
+A force of good, a striking view
+A darkness falls, a night anew
+            ]]></original>
+            <reworked><![CDATA[
+Fall of the Covenant, a shattered tale
+Their golden age behind the veil
+Dispersing in the quiet night
+The vampire lords begin to fade
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

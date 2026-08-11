@@ -1,0 +1,136 @@
+<song name="The Curse" status="production_ready" version="draft">
+    <plot>
+        <![CDATA[
+Acheron reflects on the permanence of the Thirst. He realizes that by attempting to transcend his Aurorian exile, he permanently cursed his lineage to be eternal parasites.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+User-approved minimal-modification approach (~120 BGD): Verse 1, all Choruses, and Verse 3 kept 100% verbatim (hook remains "Curse of the Oath"); Verse 2 altered on line 2 only ("A curse takes hold, the darkness mesh" -> "The Thirst takes hold, the darkness' mesh" — names the curse as the Thirst and fixes the broken grammar); Bridge reworked to anchor the lore: the lost Aurorian Spark, the fall, severed forever from divine light, bound to the Thirst. All sections preserve the original per-line syllable counts (V1 9-8-10-8, Chorus 8-9-10-8, V2 8-8-10-8, Bridge 9-8-10-10, V3 11-9-10-8). Song fades out on a truncated chorus, mirroring the truncated original ending. Suggested song direction: tragic, introspective, poetic — sparse piano or strings, intimate vocal delivery, building resignation.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original><![CDATA[
+An ancient burden, a dreadful view
+A curse takes hold, the shadows brew
+A curse inherited, a primal dread
+A veil of night falls, darkness spreads
+            ]]></original>
+            <reworked><![CDATA[
+An ancient burden, a dreadful view
+A curse takes hold, the shadows brew
+A curse inherited, a primal dread
+A veil of night falls, darkness spreads
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Curse of the Oath, a tale of woe
+An ancient burden, the winds do blow
+A curse inherited, a dreadful sight
+A veil of night falls, endless night
+            ]]></original>
+            <reworked><![CDATA[
+Curse of the Oath, a tale of woe
+An ancient burden, the winds do blow
+A curse inherited, a dreadful sight
+A veil of night falls, endless night
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Curse of the Oath, a tale of woe
+An ancient burden, the winds do blow
+A curse inherited, a dreadful sight
+A veil of night falls, endless night
+            ]]></original>
+            <reworked><![CDATA[
+Curse of the Oath, a tale of woe
+An ancient burden, the winds do blow
+A curse inherited, a dreadful sight
+A veil of night falls, endless night
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original><![CDATA[
+Torment within, both mind and flesh
+A curse takes hold, the darkness mesh
+A curse inherited, a primal fear
+A veil of night falls, drawing near
+            ]]></original>
+            <reworked><![CDATA[
+Torment within, both mind and flesh
+The Thirst takes hold, the darkness' mesh
+A curse inherited, a primal fear
+A veil of night falls, drawing near
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Curse of the Oath, a tale of woe
+An ancient burden, the winds do blow
+A curse inherited, a dreadful sight
+A veil of night falls, endless night
+            ]]></original>
+            <reworked><![CDATA[
+Curse of the Oath, a tale of woe
+An ancient burden, the winds do blow
+A curse inherited, a dreadful sight
+A veil of night falls, endless night
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original><![CDATA[
+A lurking presence, a creeping chill
+A curse takes hold, bending the will
+A curse inherited, a whispered dread
+A veil of night falls, where the lost are led
+            ]]></original>
+            <reworked><![CDATA[
+The Aurorian Spark he once held
+A dying ember, dark and quelled
+Severed forever from the divine light
+Bound to a Thirst that rules his endless night
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Curse of the Oath, a tale of woe
+An ancient burden, the winds do blow
+A curse inherited, a dreadful sight
+A veil of night falls, endless night
+            ]]></original>
+            <reworked><![CDATA[
+Curse of the Oath, a tale of woe
+An ancient burden, the winds do blow
+A curse inherited, a dreadful sight
+A veil of night falls, endless night
+            ]]></reworked>
+        </section>
+        <section name="Verse 3">
+            <original><![CDATA[
+A lineage of sorrow, a cold, dark bind
+A veil of night falls, madness entwined
+A curse inherited, a fate severe
+A veil of night falls, drawing near
+            ]]></original>
+            <reworked><![CDATA[
+A lineage of sorrow, a cold, dark bind
+A veil of night falls, madness entwined
+A curse inherited, a fate severe
+A veil of night falls, drawing near
+            ]]></reworked>
+        </section>
+        <section name="Chorus (fade-out)">
+            <original><![CDATA[
+Curse of the Oath, a tale of woe
+An oath defined
+            ]]></original>
+            <reworked><![CDATA[
+Curse of the Oath, a tale of woe
+An oath defined
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

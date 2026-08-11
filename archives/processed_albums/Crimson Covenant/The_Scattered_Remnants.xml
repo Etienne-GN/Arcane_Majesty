@@ -1,0 +1,180 @@
+<song name="The Scattered Remnants" status="production_ready" version="draft">
+    <plot>
+        <![CDATA[
+The vampires adapt to living as clandestine secret societies in Eldoria. Meanwhile, rumors reach Acheron that a young Nythorian scholar (Malakar) is seeking ancient dark lore.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+The original is extremely repetitive stock filler ("A somber darkness settles in tonight" in every stanza, "a dismal X" in nearly every line). The reworked version anchors it to the actual arc (~140 BGD): scattered vampire cabals hiding within Eldoria's high society, Acheron alone with his restored arrogance, whispers of young Nythorian scholar Malakar hunting ancient dark lore, and Acheron's decision to dispose of the dark Tome before Malakar claims it. Reworked to match the original per-line syllable counts exactly (V1 10-10-8-10, Chorus 10-11-10-10, V2 9-10-8-10, Bridge 8-10-10-10, V3 10-10-8-10, V4 9-10-8-10, Outro 8-10-8-10). User requested a piano motif: [Piano Intro], [Piano Interlude] (replacing the original [Screaming Guitar Solo]), [Piano Outro]. Pronunciation respellings (Ah-ke-ron, Nih-tho-ria's, Ma-la-kar) are a Suno-lyrics-box concern; user handled post-production for this song, so standard spelling is stored here. Suggested song direction: haunting, melancholic, suspenseful — lonely whispered verses, slow dirge strings, tense low drones, lone piano intro and outro.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Piano Intro">
+            <original><![CDATA[—]]></original>
+            <reworked><![CDATA[
+[Piano Intro]
+            ]]></reworked>
+        </section>
+        <section name="Verse 1">
+            <original><![CDATA[
+The Imperium fell, a dismal scene
+Their dominance shattered, an eerie dream
+Scattered remnants, a chilling sight
+A somber darkness settles in tonight
+            ]]></original>
+            <reworked><![CDATA[
+In small cabals across the silent land
+The scattered vampire remnants make their stand
+Hiding behind high estate walls
+Inside the hidden halls of Eldoria
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Scattered remnants, a haunting chronicle
+Their ascendancy crumbled, a bitter gale
+A world in disarray, a bleak design
+A somber darkness settles in tonight
+            ]]></original>
+            <reworked><![CDATA[
+Scattered remnants, a quiet living state
+Their hidden empire broken, a lowly fate
+While in Nythoria's shadow-swept land
+A scholar seeks the ancient blueprint grand
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original><![CDATA[
+Some strive to revive, a dismal scene
+A somber darkness settles in tonight
+Others succumb, a dismal fate
+A somber darkness settles in tonight
+            ]]></original>
+            <reworked><![CDATA[
+Acheron, the solitary lord
+His divine arrogance once more restored
+Yet whispers reach him from afar
+Of Malakar, the rising scholar star
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Scattered remnants, a haunting chronicle
+Their ascendancy crumbled, a bitter gale
+A world in disarray, a bleak design
+A somber darkness settles in tonight
+            ]]></original>
+            <reworked><![CDATA[
+Scattered remnants, a quiet living state
+Their hidden empire broken, a lowly fate
+While in Nythoria's shadow-swept land
+A scholar seeks the ancient blueprint grand
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original><![CDATA[
+The earth is scarred, a dismal sight
+A somber darkness settles in tonight
+The memory lingers, a dismal fate
+A somber darkness settles in tonight
+            ]]></original>
+            <reworked><![CDATA[
+He keeps the dark Tome still in hand
+Brought from his former celestial land
+He must dispose of the forbidden text
+Lest Malakar the scholar claim it next
+            ]]></reworked>
+        </section>
+        <section name="Piano Interlude">
+            <original><![CDATA[[Screaming Guitar Solo]]]></original>
+            <reworked><![CDATA[
+[Piano Interlude]
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Scattered remnants, a haunting chronicle
+Their ascendancy crumbled, a bitter gale
+A world in disarray, a bleak design
+A somber darkness settles in tonight
+            ]]></original>
+            <reworked><![CDATA[
+Scattered remnants, a quiet living state
+Their hidden empire broken, a lowly fate
+While in Nythoria's shadow-swept land
+A scholar seeks the ancient blueprint grand
+            ]]></reworked>
+        </section>
+        <section name="Verse 3">
+            <original><![CDATA[
+A new era unfolds, a dismal sight
+A somber darkness settles in tonight
+The scars remain, a dismal fate
+A somber darkness settles in tonight
+            ]]></original>
+            <reworked><![CDATA[
+He plans a journey down into the deep
+Where ancient ruined chasms lie asleep
+To cast the grimoire far away
+Before it brings about the darkened day
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Scattered remnants, a haunting chronicle
+Their ascendancy crumbled, a bitter gale
+A world in disarray, a bleak design
+A somber darkness settles in tonight
+            ]]></original>
+            <reworked><![CDATA[
+Scattered remnants, a quiet living state
+Their hidden empire broken, a lowly fate
+While in Nythoria's shadow-swept land
+A scholar seeks the ancient blueprint grand
+            ]]></reworked>
+        </section>
+        <section name="Verse 4">
+            <original><![CDATA[
+From the ashes rise, a dismal fight
+A somber darkness settles in tonight
+Hope flickers dim, a dismal light
+A somber darkness settles in tonight
+            ]]></original>
+            <reworked><![CDATA[
+From the ashes of the empire vast
+He moves across the quiet land at last
+To bridge the stories of the past
+Before the sky above turns overcast
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Scattered remnants, a haunting chronicle
+Their ascendancy crumbled, a bitter gale
+A world in disarray, a bleak design
+A somber darkness settles in tonight
+            ]]></original>
+            <reworked><![CDATA[
+Scattered remnants, a quiet living state
+Their hidden empire broken, a lowly fate
+While in Nythoria's shadow-swept land
+A scholar seeks the ancient blueprint grand
+            ]]></reworked>
+        </section>
+        <section name="Piano Outro">
+            <original><![CDATA[
+The echoes fade, a dismal end
+A somber darkness settles in tonight
+The cycle turns, a dismal bend
+A somber darkness settles in tonight
+            ]]></original>
+            <reworked><![CDATA[
+The echoes fade into the night
+A shadow settles over the hushed land
+The Tome is cast beyond their sight
+The scattered remnants form a patient band
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>

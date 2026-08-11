@@ -1,0 +1,178 @@
+<song name="Beyond Horizon" status="production_ready" version="draft">
+    <plot>
+        <![CDATA[
+Acheron journeys to the subterranean abyss of Nythoria and discards the Forbidden Tome into the ancient ruins (~100 BGD). He believes it is safely lost forever, directly setting up the start of *Vows of Silence* where Malakar finds it.
+        ]]>
+    </plot>
+    <analysis>
+        <![CDATA[
+Acheron discards the Forbidden Tome in Nythoria's ancient ruins (~100 BGD), believing he has saved the light — direct setup for Malakar in *Vows of Silence*. User-approved rework: mirrors the original per-line syllable counts (V1 9-11-8-8, Chorus 10-10-9-8, V2 9-9-10-9, Bridge 10-9-9-10, V3 11-9-9-8, V4 11-9-14-9, Outro 4-5) AND the original chorus rhythmic shape (comma breaks, stress positions, rhyme anchors "unfolds/holds, fight/light"; only "story"→"legend", "blood"→"doom" changed). Original Kael content (wrong era, ~300 AGD) replaced with Acheron's Tome disposal; bridge sets up Malakar. Suno box respellings: Nih-tho-ria, Ah-ke-ron, Ma-la-kar (release lyrics keep standard spelling). Suggested song direction: epic, transitional, monumental — dark cinematic orchestral, deep percussion, rising strings, ominous choir swells, wide anthemic chorus, bridge dropping low and uneasy, outro fading to vast silence.
+        ]]>
+    </analysis>
+    <lyrics>
+        <section name="Verse 1">
+            <original><![CDATA[
+The world reshaped, beneath a scarred sky
+In the shadow of the past, where secrets lie
+A bloodline stained, an heir in chains
+Kael stands alone, where darkness reigns
+            ]]></original>
+            <reworked><![CDATA[
+To deep Nythoria's sunless floor
+He carries the dark book to the world below
+To bury the Forbidden Tome
+Far from his Eldorian home
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Beyond Horizon, a story unfolds
+A legacy of blood, a fate that holds
+The curse still lingers, a restless fight
+To break the chains and find the light
+            ]]></original>
+            <reworked><![CDATA[
+Beyond Horizon, a legend unfolds
+A legacy of doom, a fate that holds
+The curse still lingers, a restless fight
+To break the chains and find the light
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Beyond Horizon, a story unfolds
+A legacy of blood, a fate that holds
+The curse still lingers, a restless fight
+To break the chains and find the light
+            ]]></original>
+            <reworked><![CDATA[
+Beyond Horizon, a legend unfolds
+A legacy of doom, a fate that holds
+The curse still lingers, a restless fight
+To break the chains and find the light
+            ]]></reworked>
+        </section>
+        <section name="Verse 2">
+            <original><![CDATA[
+A young soul haunted by whispers old
+The sins of his kin, the nights so cold
+A flicker of hope, in a heart defiled
+Can he find his way, where fear runs wild?
+            ]]></original>
+            <reworked><![CDATA[
+The cursed book sinks into the deep
+Where ancient shadows its vigil keep
+No light will ever find this grave of fear
+It waits in silence, year after year
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Beyond Horizon, a story unfolds
+A legacy of blood, a fate that holds
+The curse still lingers, a restless fight
+To break the chains and find the light
+            ]]></original>
+            <reworked><![CDATA[
+Beyond Horizon, a legend unfolds
+A legacy of doom, a fate that holds
+The curse still lingers, a restless fight
+To break the chains and find the light
+            ]]></reworked>
+        </section>
+        <section name="Bridge">
+            <original><![CDATA[
+The future uncertain, a crossroads near
+The past a burden, a path unclear
+Kael gazes out, with a heavy heart
+Can he find the strength to make a new start?
+            ]]></original>
+            <reworked><![CDATA[
+The Tome lies hidden where no light may fall
+In ruins beneath a broken wall
+The long years roll on, the silence stays
+Until Malakar walks the sunless ways
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Beyond Horizon, a story unfolds
+A legacy of blood, a fate that holds
+The curse still lingers, a restless fight
+To break the chains and find the light
+            ]]></original>
+            <reworked><![CDATA[
+Beyond Horizon, a legend unfolds
+A legacy of doom, a fate that holds
+The curse still lingers, a restless fight
+To break the chains and find the light
+            ]]></reworked>
+        </section>
+        <section name="Verse 3">
+            <original><![CDATA[
+A choice before him, a destiny unknown
+To forge his own path, to stand alone
+The curse still lingers, a restless fight
+To break the chains and find the light
+            ]]></original>
+            <reworked><![CDATA[
+The dark design at last is sealed in stone
+The doom that waits, a secret unknown
+Acheron returns to quiet night
+Believing he has saved the light
+            ]]></reworked>
+        </section>
+        <section name="Verse 4">
+            <original><![CDATA[
+A choice before him, a destiny unknown
+To forge his own path, to stand alone
+The memory of his ancestors in every breath
+Can he rise above their haunted death
+            ]]></original>
+            <reworked><![CDATA[
+He climbs from the deep abyss, his task complete
+And leaves the dark and forgotten street
+But the threads of fate turn silently beneath his feet
+The dark seeds of shadow and defeat
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Beyond Horizon, a story unfolds
+A legacy of blood, a fate that holds
+The curse still lingers, a restless fight
+To break the chains and find the light
+            ]]></original>
+            <reworked><![CDATA[
+Beyond Horizon, a legend unfolds
+A legacy of doom, a fate that holds
+The curse still lingers, a restless fight
+To break the chains and find the light
+            ]]></reworked>
+        </section>
+        <section name="Chorus">
+            <original><![CDATA[
+Beyond Horizon, a story unfolds
+A legacy of blood, a fate that holds
+The curse still lingers, a restless fight
+To break the chains and find the light
+            ]]></original>
+            <reworked><![CDATA[
+Beyond Horizon, a legend unfolds
+A legacy of doom, a fate that holds
+The curse still lingers, a restless fight
+To break the chains and find the light
+            ]]></reworked>
+        </section>
+        <section name="Outro">
+            <original><![CDATA[
+To find the light...
+into the distance
+            ]]></original>
+            <reworked><![CDATA[
+To find the light...
+Into the distance
+            ]]></reworked>
+        </section>
+    </lyrics>
+</song>
