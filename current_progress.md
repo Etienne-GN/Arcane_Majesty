@@ -37,9 +37,10 @@ This document tracks the current state of the project and serves as a quick-refe
     - **Next Phase:** Master Knowledge Graph / Neo4j Migration on scarif.lan.
 - **Album Production & Review (Phase 6) — IN PROGRESS:**
     - Standardized process documented in `data/lore/xmls/album_production_process.md`.
-    - *Eldoria's Prophecy* (~500 AGD) ✅ **DONE** — final audio production complete; album in review phase (lore/story fully reviewed).
-    - *Crimson Covenant* (~500 to 100 BGD — Era I Vampiric Origins) 🔄 **ACTIVE** — final audio production started.
+    - *Eldoria's Prophecy* (~500 AGD) ✅ **DONE** — final audio production complete; final post-production (listened, glitches/quirk fixes done); links shared with select reviewers.
+    - *Crimson Covenant* (~500 to 100 BGD — Era I Vampiric Origins) ✅ **DONE** — final audio production complete (13/13 songs); post-production done (pronunciation QA + full listening pass, 4 songs regenerated); links shared with select reviewers. Official phonetic spellings (Step 1b): Ah-keh-ron, Nee-tho-ree-ah, Nee-kto-ros.
     - Remaining albums pending: A Tapestry of Souls, Vows of Silence, Queen of Carnage, Lord of Shadows, Beyond the Veil Twilight, Bound by Blood.
+    - **Parked note — Beyond the Veil Twilight remake:** Acheron's endgame must be made explicit on-album. He does NOT want Nyktoros free (he discarded the Forbidden Tome ~100 BGD precisely because Nyktoros would consume his lineage — self-preservation, not altruism). In Era III his true play is **The Cosmic Harvest** (`world_lore.md` §6 + "The Recombination" prophecy): trick Kael — the Spark's key — into shattering Anya's wall to crack the Lock and siphon the *sealed* Nyktoros's Void power into himself for transcendence. Killing Anya = breaking the lock to get at the contained battery, NOT unleashing Nyktoros. Current surface plot reads as self-defeating without this context (ACC finding — fix during the remake).
 - **Lore & Story Review (restarting, album by album):** Full lore/story review of all 8 albums restarted one album at a time — foundation consolidation before any future book work.
 - **Cross-Album Vocabulary & Lyrics Audit — ✅ COMPLETE:**
     - All 8 albums audited for phrase duplication, cliché tropes, and structural errors.

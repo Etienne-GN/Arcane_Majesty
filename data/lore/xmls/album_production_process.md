@@ -35,6 +35,22 @@ Rules:
 - **NEVER** use `n/a` in an attribute name — it contains `/`, which makes the XML unparseable. Use `not_applicable`.
 - Song `<plot>` comes from the master file; the `<analysis>` is written during review.
 
+## Step 1b: Suno Pronunciation Guide
+
+Suno reads names inconsistently — even within a single song it can switch between two pronunciations. Enforce the intended sound with **phonetic respelling** (hyphenated syllables) in the Suno lyrics box, identically in **every** occurrence across all verses/choruses/bridges.
+
+| Name | Standard spelling | Suno lyrics box (respelled) | Never (Suno's wrong reads) |
+|---|---|---|---|
+| Acheron | Acheron | `Ah-keh-ron` | "ay-ke-ron" / "hey-ke-ron" / "ah-kay-ron" (`Ah-ke-ron` reads as "kay" — must be `keh`) |
+| Nythoria | Nythoria | `Nee-tho-ree-ah` | "ni-THOR-ia" (`Nih-tho-ria` / `Nih-tho-ree-ah` read as "THOR" or "nye"; the `ee` forces the "nee" sound) |
+| Nyktoros | Nyktoros | `Nee-kto-ros` | "Ny-ch-toros" (renamed from Nychtoros) / "nick-toh-ros" (`Nyk-to-ros` reads as "nick"; the `ee` forces the "nee" sound, mirroring `Nee-tho-ree-ah`) |
+
+Rules:
+- **Only the Suno lyrics box uses the respelling.** Release/distributor lyrics keep standard spelling.
+- Hyphenated respelling (`Ah-ke-ron`) is the reliable syllable split; dropping dashes (`Ahkeron`) usually works but is less reliable.
+- Test a new/unusual name on a short line before committing to a full generation.
+- If a name still fails after respelling, rename it (as done for `Nychtoros` → `Nyktoros`) rather than fight the model.
+
 ## Step 2: Per-song review pass
 
 - **Lore-anchor every lyric** against canon (`SCENARIO.md`, `world_lore.md`, the album's `<Tone>`/`<Plot>`): add specific names (characters), places, artifacts, and timeline facts.
