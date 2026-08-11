@@ -311,9 +311,12 @@ the vigil. The world names him the "Blind Prophet" — metaphoric only.
     rune-dead gate as a resonance-lock puzzle.
   - Gameplay moment: the pulse of the Heartstone in the floor — Eldoria's heartbeat
     through your feet.
-- **Conflict notes:** "ancient realm of Eldoria" = the **Plane** Eldoria, not a separate
-  place; the ruins are on the Material Plane within Thaloria's mountain country (per DB
-  hierarchy).
+- **Conflict notes:** "ancient realm of Eldoria" = the ancient realm of the golden age
+  **within** the plane Eldoria — the oldest Eldoria, pre-GD — of which the ruins are the
+  last trace (the record was tidied at the Great Darkness; nothing else is known).
+  Physically the ruins sit in a red valley below the ridge, reached after the Inferno
+  Labyrinth; the DB keeps `LOCATED_IN Thaloria` so the campaign journey holds on the
+  Material Plane.
 
 ### Song 10 — Heart of War (Act III)
 - **Song plot (XML):** Eldrin faces the Shadow Balrog — a powerful adversary corrupted
