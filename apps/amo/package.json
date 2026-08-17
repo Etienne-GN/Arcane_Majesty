@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "server": "node server/index.js",
     "server:dev": "node --watch server/index.js",
-    "test": "node tools/test_anim_resolve.mjs && node tools/validate_catalogue.mjs && node tools/test_input_bus.mjs",
+    "test": "node tools/test_anim_resolve.mjs && node tools/validate_catalogue.mjs && node tools/test_input_bus.mjs && node tools/test_launcher_controls.mjs",
     "test:anim": "node tools/test_anim_resolve.mjs",
     "gen:anims": "node tools/annotate_anims.js",
     "test:catalogue": "node tools/validate_catalogue.mjs",
