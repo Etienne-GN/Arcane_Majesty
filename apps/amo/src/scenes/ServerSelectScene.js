@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { SERVERS } from '../data/servers.js';
+import { getServers } from '../data/servers.js';
 import { soundManager } from '../systems/SoundManager.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
 
@@ -24,7 +24,8 @@ export default class ServerSelectScene extends Phaser.Scene {
 
         // Server rows
         const rowW = Math.min(w * 0.72, 520);
-        SERVERS.forEach((srv, i) => this._makeRow(srv, i, w, h, rowW));
+        const servers = getServers();
+        servers.forEach((srv, i) => this._makeRow(srv, i, w, h, rowW));
 
         // Connect button
         this._connectBtn = this.add.text(w / 2, h - 56, '[ CONNECT ]', {
@@ -36,7 +37,7 @@ export default class ServerSelectScene extends Phaser.Scene {
         this._connectBtn.on('pointerdown', () => this._connect());
 
         // Empty state (no server configured)
-        if (this._connectBtn && SERVERS.length === 0) {
+        if (this._connectBtn && servers.length === 0) {
             this.add.text(w / 2, 150,
                 'No server configured.\nSet one in OPTIONS > Server Address,\nor play offline from the main menu.',
                 { font: '13px monospace', fill: '#556655', align: 'center',
@@ -101,7 +102,8 @@ export default class ServerSelectScene extends Phaser.Scene {
     }
 
     _move(dir) {
-        this._selected = Phaser.Math.Clamp(this._selected + dir, 0, SERVERS.length - 1);
+        const servers = getServers();
+        this._selected = Phaser.Math.Clamp(this._selected + dir, 0, servers.length - 1);
         soundManager.menuHover();
         this._highlight();
     }
@@ -116,7 +118,8 @@ export default class ServerSelectScene extends Phaser.Scene {
     }
 
     async _pingAll() {
-        if (SERVERS.length === 0) return;
+        const servers = getServers();
+        if (servers.length === 0) return;
         for (const row of this._rows) {
             try {
                 const t0   = performance.now();
@@ -137,9 +140,10 @@ export default class ServerSelectScene extends Phaser.Scene {
     }
 
     _connect() {
-        if (SERVERS.length === 0) return;
+        const servers = getServers();
+        if (servers.length === 0) return;
         soundManager.menuSelect();
-        const serverUrl = SERVERS[this._selected].url;
+        const serverUrl = servers[this._selected].url;
         this.cameras.main.fadeOut(300);
         this.time.delayedCall(300, () => {
             this.scene.start('OnlineCharacterScene', { serverUrl });
