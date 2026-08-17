@@ -13,11 +13,17 @@
     "test": "node tools/test_anim_resolve.mjs && node tools/validate_catalogue.mjs && node tools/test_input_bus.mjs && node tools/test_launcher_controls.mjs",
     "test:anim": "node tools/test_anim_resolve.mjs",
     "gen:anims": "node tools/annotate_anims.js",
+    "mobile:sync": "vite build && cap sync android",
+    "mobile:apk": "cd android && ./gradlew assembleDebug",
+    "mobile:install": "adb install -r android/app/build/outputs/apk/debug/app-debug.apk",
     "test:catalogue": "node tools/validate_catalogue.mjs",
     "audit:weapons": "python3 tools/audit_coverage.py",
     "audit:oversize": "python3 tools/audit_oversize.py"
   },
   "devDependencies": {
+    "@capacitor/android": "^8.5.0",
+    "@capacitor/cli": "^8.5.0",
+    "@capacitor/core": "^8.5.0",
     "vite": "^6.0.0"
   },
   "dependencies": {

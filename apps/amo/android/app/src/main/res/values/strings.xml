@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Arcane Majesty</string>
+    <string name="title_activity_main">Arcane Majesty</string>
+    <string name="package_name">com.arcanemajesty.amo</string>
+    <string name="custom_url_scheme">com.arcanemajesty.amo</string>
+</resources>

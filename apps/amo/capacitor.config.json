@@ -1,0 +1,12 @@
+{
+  "appId": "com.arcanemajesty.amo",
+  "appName": "Arcane Majesty",
+  "webDir": "dist",
+  "backgroundColor": "#000000",
+  "server": {
+    "cleartext": true
+  },
+  "android": {
+    "backgroundColor": "#000000"
+  }
+}
