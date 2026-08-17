@@ -35,6 +35,16 @@ export default class ServerSelectScene extends Phaser.Scene {
         this._connectBtn.on('pointerout',  () => this._connectBtn.setStyle({ fill: '#ffd700' }));
         this._connectBtn.on('pointerdown', () => this._connect());
 
+        // Empty state (no server configured)
+        if (this._connectBtn && SERVERS.length === 0) {
+            this.add.text(w / 2, 150,
+                'No server configured.\nSet one in OPTIONS > Server Address,\nor play offline from the main menu.',
+                { font: '13px monospace', fill: '#556655', align: 'center',
+                  stroke: '#000000', strokeThickness: 3,
+                }).setOrigin(0.5);
+            this._connectBtn.setAlpha(0.35);
+        }
+
         // Back
         this.add.text(32, h - 32, '< Back', {
             font: '15px monospace', fill: '#445566',
@@ -106,6 +116,7 @@ export default class ServerSelectScene extends Phaser.Scene {
     }
 
     async _pingAll() {
+        if (SERVERS.length === 0) return;
         for (const row of this._rows) {
             try {
                 const t0   = performance.now();
@@ -126,6 +137,7 @@ export default class ServerSelectScene extends Phaser.Scene {
     }
 
     _connect() {
+        if (SERVERS.length === 0) return;
         soundManager.menuSelect();
         const serverUrl = SERVERS[this._selected].url;
         this.cameras.main.fadeOut(300);

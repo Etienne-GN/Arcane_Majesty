@@ -182,7 +182,34 @@ export default class OptionsScene extends Phaser.Scene {
             font: '7px monospace', fill: '#443355', align: 'center',
         }).setOrigin(0.5, 0));
 
-        this._contentH = rowY4 + 78;
+        // ── Server Address (offline-first; optional online) ───────────
+        const rowY5 = rowY4 + 82;
+        const serverUrl = localStorage.getItem('amo_server_url');
+
+        add(this.add.text(cx - 80, rowY5, 'Server Address', {
+            font: '12px monospace', fill: '#aaaacc',
+        }).setOrigin(0, 0.5));
+
+        add(this.add.text(cx + 60, rowY5, serverUrl ? '[SET]' : '[OFFLINE]', {
+            font: 'bold 11px monospace',
+            fill: serverUrl ? '#44cc88' : '#556655',
+        }).setOrigin(0.5));
+
+        mkBtn('Set', cx, rowY5 + 18, () => {
+            const val = window.prompt('Server URL (e.g. http://192.168.0.159:3002)', serverUrl ?? '');
+            if (val === null) return;
+            const trimmed = val.trim().replace(/\/+$/, '');
+            if (trimmed) localStorage.setItem('amo_server_url', trimmed);
+            else         localStorage.removeItem('amo_server_url');
+            soundManager.menuSelect();
+            this.scene.restart();
+        });
+
+        add(this.add.text(cx, rowY5 + 34, 'Online multiplayer is optional. Enter your\ngame-server URL here; leave empty for\noffline-only play.', {
+            font: '7px monospace', fill: '#443355', align: 'center',
+        }).setOrigin(0.5, 0));
+
+        this._contentH = rowY5 + 78;
 
         // ── Back button (fixed, outside container) ────────────────
         const backBtn = this.add.text(cx, h - 24, '← Back', {
