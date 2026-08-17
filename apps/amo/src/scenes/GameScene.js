@@ -621,6 +621,21 @@ export default class GameScene extends Phaser.Scene {
         }
     }
 
+    _tryPower() {
+        if (!this.player?.active) return;
+        this.player.triggerPower();
+    }
+
+    _tryBlink() {
+        if (!this.player?.active) return;
+        this.player.blinkStep();
+    }
+
+    _trySight() {
+        if (!this.player?.active) return;
+        this.player.activateAethericSight();
+    }
+
     _enterTargetingMode(spellId) {
         if (this._targeting) this._cancelTargeting();
         this._targeting   = true;
@@ -2502,8 +2517,8 @@ export default class GameScene extends Phaser.Scene {
         }
 
         // Augmentation keys — Blink-Step [SPACE] / Aetheric Sight [V]
-        if (Phaser.Input.Keyboard.JustDown(this.blinkKey)) this.player.blinkStep();
-        if (Phaser.Input.Keyboard.JustDown(this.sightKey)) this.player.activateAethericSight();
+        if (Phaser.Input.Keyboard.JustDown(this.blinkKey)) this._tryBlink();
+        if (Phaser.Input.Keyboard.JustDown(this.sightKey)) this._trySight();
 
         // Skill slot activation (Q/R/F/T)
         if (!this.player.isAttacking) {

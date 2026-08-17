@@ -187,12 +187,18 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             if (Phaser.Input.Keyboard.JustDown(attackKey) && this.attackCooldown <= 0) {
                 this._attack();
             }
-            if (Phaser.Input.Keyboard.JustDown(powerKey) && this.powerCooldown <= 0) {
-                this._powerSlash();
-            }
+            if (Phaser.Input.Keyboard.JustDown(powerKey)) this.triggerPower();
         }
 
         this._updateAuxBoxes();
+    }
+
+    triggerPower() {
+        if (!this.active) return false;
+        if (this.powerCooldown > 0) return false;
+        if (this.stats.manaExhausted) return false;
+        this._powerSlash();
+        return true;
     }
 
     _weaponCooldown() {
