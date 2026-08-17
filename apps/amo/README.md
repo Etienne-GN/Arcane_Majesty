@@ -137,3 +137,36 @@ This story is divided into a musical album and game chapters.
 *   Exploration-heavy gameplay with puzzles and lore.
 *   Dynamic choices affecting the story.
 *   Pixel-art aesthetic inspired by Zelda and Crystalis.
+## Android Launcher
+
+The game ships as a native Android app via Capacitor. The whole frontend is packed
+inside the APK and runs fully offline; online play is optional.
+
+### One-time setup (build machine)
+
+```bash
+./scripts/setup_android_sdk.sh        # JDK 21 + Android SDK 36 under /opt/android-sdk
+export ANDROID_HOME=/opt/android-sdk   # add to ~/.bashrc
+```
+
+### Per-release build
+
+```bash
+npm run mobile:sync    # vite build + cap sync android (game assets into the APK)
+npm run mobile:apk     # produce android/app/build/outputs/apk/debug/app-debug.apk
+npm run mobile:install # install on a connected device via adb
+```
+
+Build the launcher-mode APK with `VITE_AMO_CONTROLS=launcher` so the on-screen
+`LauncherControls` deck is the sole controls provider:
+
+```bash
+VITE_AMO_CONTROLS=launcher npm run mobile:sync
+npm run mobile:apk
+```
+
+Notes:
+- The app is offline-first. Set a server URL in-game (OPTIONS > Server Address) for
+  online play; leave it empty for offline-only.
+- The launcher runs immersive fullscreen (status + navigation bars hidden).
+- Debug APKs are unsigned/side-loadable; Play Store release signing is out of scope.
