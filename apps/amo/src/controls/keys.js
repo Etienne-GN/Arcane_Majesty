@@ -1,0 +1,27 @@
+// Canonical input actions → the keyboard event a physical press would produce.
+// Single source of truth for the LauncherControls deck's keyboard-emulation path.
+export const KEY_CODES = {
+    attack:       { keyCode: 90, code: 'KeyZ',      key: 'z' },
+    interact:     { keyCode: 69, code: 'KeyE',      key: 'e' },
+    power:        { keyCode: 88, code: 'KeyX',      key: 'x' },
+    blink:        { keyCode: 32, code: 'Space',     key: ' ' },
+    sight:        { keyCode: 86, code: 'KeyV',      key: 'v' },
+    slot0:        { keyCode: 81, code: 'KeyQ',      key: 'q' },
+    slot1:        { keyCode: 82, code: 'KeyR',      key: 'r' },
+    slot2:        { keyCode: 70, code: 'KeyF',      key: 'f' },
+    slot3:        { keyCode: 84, code: 'KeyT',      key: 't' },
+    esc:          { keyCode: 27, code: 'Escape',    key: 'Escape' },
+    enter:        { keyCode: 13, code: 'Enter',     key: 'Enter' },
+    up:           { keyCode: 38, code: 'ArrowUp',   key: 'ArrowUp' },
+    down:         { keyCode: 40, code: 'ArrowDown', key: 'ArrowDown' },
+    left:         { keyCode: 37, code: 'ArrowLeft', key: 'ArrowLeft' },
+    right:        { keyCode: 39, code: 'ArrowRight',key: 'ArrowRight' },
+    inventory:    { keyCode: 73, code: 'KeyI',      key: 'i' },
+    skillTree:    { keyCode: 75, code: 'KeyK',      key: 'k' },
+    spellbook:    { keyCode: 74, code: 'KeyJ',      key: 'j' },
+    worldMap:     { keyCode: 77, code: 'KeyM',      key: 'm' },
+    questJournal: { keyCode: 78, code: 'KeyN',      key: 'n' },
+    codex:        { keyCode: 76, code: 'KeyL',      key: 'l' },
+    crafting:     { keyCode: 67, code: 'KeyC',      key: 'c' },
+    stats:        { keyCode: 80, code: 'KeyP',      key: 'p' },
+};
