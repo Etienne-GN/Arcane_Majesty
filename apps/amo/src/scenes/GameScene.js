@@ -434,7 +434,7 @@ export default class GameScene extends Phaser.Scene {
         this.input.keyboard.on('keydown-L', () => { this.scene.pause(); this.scene.launch('CodexScene'); });
         this.input.keyboard.on('keydown-C', () => { this.scene.pause(); this.scene.launch('CraftingScene'); });
         this.input.keyboard.on('keydown-G', () => this._startAethericTear());
-        this.input.keyboard.on('keydown-C', () => this._startCampfirePlacement());
+        this.input.keyboard.on('keydown-B', () => this._startCampfirePlacement());
         this.input.keyboard.on('keydown-ESC', () => {
             if (this._targeting) { this._cancelTargeting(); return; }
             SaveManager.save(playerStats, this._storyId, this._characterId);
