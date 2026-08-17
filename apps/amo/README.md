@@ -139,8 +139,7 @@ This story is divided into a musical album and game chapters.
 *   Pixel-art aesthetic inspired by Zelda and Crystalis.
 ## Android Launcher
 
-The game ships as a native Android app via Capacitor. The whole frontend is packed
-inside the APK and runs fully offline; online play is optional.
+The game runs as a native Android app via a thin Capacitor shell. The launcher opens an in-app server address screen where you connect to your game server (e.g. your dev box on the LAN); the game itself runs in immersive fullscreen with the on-screen `LauncherControls` touch deck.
 
 ### One-time setup (build machine)
 
@@ -149,24 +148,26 @@ inside the APK and runs fully offline; online play is optional.
 export ANDROID_HOME=/opt/android-sdk   # add to ~/.bashrc
 ```
 
-### Per-release build
+### Build & Install
 
 ```bash
-npm run mobile:sync    # vite build + cap sync android (game assets into the APK)
+npm run mobile:sync    # cap sync android (copies the launcher UI into the APK)
 npm run mobile:apk     # produce android/app/build/outputs/apk/debug/app-debug.apk
 npm run mobile:install # install on a connected device via adb
 ```
 
-Build the launcher-mode APK with `VITE_AMO_CONTROLS=launcher` so the on-screen
-`LauncherControls` deck is the sole controls provider:
+### Running the Game Server
+
+Serve the game in launcher mode (`VITE_AMO_CONTROLS=launcher`) so the on-screen controls are always active:
 
 ```bash
-VITE_AMO_CONTROLS=launcher npm run mobile:sync
-npm run mobile:apk
+npm run dev            # Vite dev server on 0.0.0.0:5174 (accessible from phone on LAN)
+npm run server         # Socket.io game server on port 3002
 ```
 
+On the phone, enter your server URL (e.g. `http://192.168.0.159:5174`) in the launcher settings screen and tap **Launch**.
+
 Notes:
-- The app is offline-first. Set a server URL in-game (OPTIONS > Server Address) for
-  online play; leave it empty for offline-only.
 - The launcher runs immersive fullscreen (status + navigation bars hidden).
+- Use the Android back gesture/button to return to the launcher server-address screen.
 - Debug APKs are unsigned/side-loadable; Play Store release signing is out of scope.

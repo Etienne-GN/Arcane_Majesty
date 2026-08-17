@@ -1,7 +1,7 @@
 {
   "appId": "com.arcanemajesty.amo",
   "appName": "Arcane Majesty",
-  "webDir": "dist",
+  "webDir": "launcher",
   "backgroundColor": "#000000",
   "server": {
     "cleartext": true

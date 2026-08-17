@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0a0814" />
+  <title>Arcane Majesty</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="launcher">
+    <img class="cover" src="cover.jpg" alt="Arcane Majesty" />
+    <h1 class="title">ARCANE&nbsp;MAJESTY</h1>
+    <p class="subtitle">Enter your game server to begin.</p>
+
+    <form id="launchForm" autocomplete="off">
+      <label class="field">
+        <span>Server address</span>
+        <input id="serverUrl" type="text" placeholder="http://192.168.0.159:5174" spellcheck="false" />
+      </label>
+      <button id="launchBtn" type="submit">Launch</button>
+    </form>
+
+    <p class="hint">
+      The game runs from a server you control — e.g. the dev box on your LAN.
+      It will launch in fullscreen with on-screen controls.
+    </p>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
