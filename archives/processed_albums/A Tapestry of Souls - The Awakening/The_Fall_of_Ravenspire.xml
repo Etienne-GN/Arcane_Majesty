@@ -1,4 +1,4 @@
-<song name="The Fall of Ravenspire" status="in_review" version="draft">
+<song name="The Fall of Ravenspire" status="human_reviewed" version="production_ready">
     <plot>
         <![CDATA[
 The Legion of Souls overruns the ancestral ruins of Ravenspire in Nythoria. Seraphina watches her home burn; the invasion of Nythoria is complete. The Era II destruction — distinct from the Era III "Fall of Nythoria" (~230 AGD) when Seraphina conquers Malakar.
@@ -10,12 +10,14 @@ New song, written lore-first. POV: Seraphina (or Seraphina + Valen), first perso
         ]]>
     </analysis>
     <suno>
-        <style><![CDATA[piano, mournful, heavy]]></style>
+        <style><![CDATA[viking metal, progressive metal, piano intro, male aggressive voice, natural minor scale, harmonic guitar, dual guitar, mournful, cinematic]]></style>
     </suno>
     <lyrics>
         <section name="Verse 1">
             <original not_applicable="true"><![CDATA[—]]></original>
             <reworked><![CDATA[
+[Intro: soft piano, quiet]
+[Verse 1: piano and strings, hushed]
 I watched the Legion crest the ancient wall,
 And Ravenspire burned beneath the blackened sky.
 The stones my people carved began to fall,
@@ -25,6 +27,7 @@ And with them every hope I held inside.
         <section name="Chorus">
             <original not_applicable="true"><![CDATA[—]]></original>
             <reworked><![CDATA[
+[Chorus: heavy, dual guitars, emotional]
 Ravenspire falls, the ashes rise,
 The home I knew is lost tonight.
 Nythoria weeps beneath the Void,
@@ -34,6 +37,7 @@ And all that's left is what I hold.
         <section name="Verse 2">
             <original not_applicable="true"><![CDATA[—]]></original>
             <reworked><![CDATA[
+[Verse 2: build, double guitars enter]
 The souls of those I loved are marching now,
 Conscripted into ranks I cannot stop.
 I lift my blade against the hollow crowd,
@@ -43,6 +47,7 @@ And watch the legacy of ages drop.
         <section name="Chorus">
             <original not_applicable="true"><![CDATA[—]]></original>
             <reworked><![CDATA[
+[Chorus: heavier, soaring]
 Ravenspire falls, the ashes rise,
 The home I knew is lost tonight.
 Nythoria weeps beneath the Void,
@@ -52,6 +57,7 @@ And all that's left is what I hold.
         <section name="Bridge">
             <original not_applicable="true"><![CDATA[—]]></original>
             <reworked><![CDATA[
+[Bridge: stripped to piano, grief]
 What did the dark take from me,
 But every face I swore to keep?
 If nothing else survives this night,
@@ -61,6 +67,7 @@ Let it be this — the grief I keep.
         <section name="Chorus">
             <original not_applicable="true"><![CDATA[—]]></original>
             <reworked><![CDATA[
+[Chorus: massive, cinematic peak]
 Ravenspire falls, the ashes rise,
 The home I knew is lost tonight.
 Nythoria weeps beneath the Void,
@@ -70,9 +77,11 @@ And all that's left is what I hold.
         <section name="Outro">
             <original not_applicable="true"><![CDATA[—]]></original>
             <reworked><![CDATA[
+[Outro: fading, distant choir]
 Ash on the wind...
 Ash on the wind...
 Ravenspire falls.
+[Piano Outro: solo piano, final note]
             ]]></reworked>
         </section>
     </lyrics>

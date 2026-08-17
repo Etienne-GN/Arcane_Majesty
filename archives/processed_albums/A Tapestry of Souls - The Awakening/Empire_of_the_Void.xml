@@ -1,4 +1,4 @@
-<song name="Empire of the Void" status="in_review" version="draft">
+<song name="Empire of the Void" status="human_reviewed" version="production_ready">
     <plot>
         <![CDATA[
 Nyktoros, awakened in the Underworld, stirs the Legion of Souls. The Legion declares the Empire of the Void as it rises to consume Nythoria's light. Collective anthem of the Void — "we"/"our", not any single figure. Part of Act I of The Awakening.
@@ -6,7 +6,7 @@ Nyktoros, awakened in the Underworld, stirs the Legion of Souls. The Legion decl
     </plot>
     <analysis>
         <![CDATA[
-Light-touch rework of the kept anthem. POV stays the Legion/Nyktoros collective ("we"). Verse 1 anchors "a kingdom forged in darkness" to Nyktoros's actual awakening (Aurorian suns growing dim, Nythoria). Chorus kept verbatim (already the Empire of the Void). Verse 2 keeps "eclipsing suns and galaxies" but the power belongs to the Master. KEY CANON FIX: the bridge's "No more the humble scholar, our banners waving high" is removed (Anya never joins the Void) and restored to the original Legion line "We conquer through the silence, our banners waving high" (matching the outro, faithful to the original structure and syllable count). Verse 3 establishes the ancient throne as Nyktoros's and "the tyranny of day" as Auroria's light. Outro ends on the Master's reach. Suggested Suno direction: dark anthemic, choir, heavy, slow-build war anthem.
+Kept anthem, minimal rework per user request — restored as close to the original as canon allows. POV stays the Legion/Nyktoros collective ("we"). Only two lore anchors retained, both required by the song's plot (Nyktoros's awakening, the Legion rising in Nythoria): Verse 1 ends "Nyktoros has wakened in the everlasting night", and the Bridge names Nythoria ("In the heart of Nythoria, our legacy is made"). Everything else is the original lyric verbatim (verse 2, verse 3, outro, pre-choruses, chorus kept untouched). No "humble scholar" line (Anya never joins the Void) — the original never had it. Structure: Verse 1 → Pre-Chorus → Chorus → Verse 2 → Pre-Chorus → Chorus → Bridge → Chorus → Verse 3 → Outro. Suggested Suno direction: dark anthemic, choir, heavy, slow-build war anthem.
         ]]>
     </analysis>
     <lyrics>
@@ -18,9 +18,10 @@ Rising from the ashes of a world that once was bright,
 A symphony of silence in the everlasting night.
             ]]></original>
             <reworked><![CDATA[
-In the shadow of the night, where Aurorian suns grow dim,
-A kingdom forged in darkness, where the whispers start to swim.
-Rising from the ashes of the world of mortal light,
+[Verse 1]
+In the shadow of the night, where the stars refuse to glow,
+A kingdom forged in darkness, where the ancient whispers flow.
+Rising from the ashes of a world that once was bright,
 Nyktoros has wakened in the everlasting night.
             ]]></reworked>
         </section>
@@ -30,8 +31,9 @@ Beyond the edge of time and space, where legends dare to dream,
 A force beyond imagining, where nothing’s what it seems.
             ]]></original>
             <reworked><![CDATA[
+[Pre-Chorus]
 Beyond the edge of time and space, where legends dare to dream,
-A symphony of silence, where nothing’s what it seems.
+A force beyond imagining, where nothing’s what it seems.
             ]]></reworked>
         </section>
         <section name="Chorus">
@@ -42,6 +44,7 @@ A realm where echoes linger, where silence speaks in screams,
 In the Empire of the Void, we live within our dreams.
             ]]></original>
             <reworked><![CDATA[
+[Chorus]
 In the Empire of the Void, where shadows reign supreme,
 We’re bound by chains of destiny, within this dark regime.
 A realm where echoes linger, where silence speaks in screams,
@@ -56,10 +59,11 @@ Through cosmic storms and nebulas, our legions march as one,
 An empire built on silence, beneath a blackened sun.
             ]]></original>
             <reworked><![CDATA[
-Eclipsing suns and galaxies, the Shadow-Kin arise,
+[Verse 2]
+Eclipsing suns and galaxies, our power knows no bounds,
 Eternal night embraces all, in darkness, we are crowned.
 Through cosmic storms and nebulas, our legions march as one,
-An empire for the Master, beneath a blackened sun.
+An empire built on silence, beneath a blackened sun.
             ]]></reworked>
         </section>
         <section name="Pre-Chorus">
@@ -68,8 +72,9 @@ Beyond the edge of time and space, where legends dare to dream,
 A force beyond imagining, where nothing’s what it seems.
             ]]></original>
             <reworked><![CDATA[
+[Pre-Chorus]
 Beyond the edge of time and space, where legends dare to dream,
-A symphony of silence, where nothing’s what it seems.
+A force beyond imagining, where nothing’s what it seems.
             ]]></reworked>
         </section>
         <section name="Chorus">
@@ -80,6 +85,7 @@ A realm where echoes linger, where silence speaks in screams,
 In the Empire of the Void, we live within our dreams.
             ]]></original>
             <reworked><![CDATA[
+[Chorus]
 In the Empire of the Void, where shadows reign supreme,
 We’re bound by chains of destiny, within this dark regime.
 A realm where echoes linger, where silence speaks in screams,
@@ -94,7 +100,8 @@ We conquer through the silence, our banners waving high,
 In the Empire of the Void, where stars go to die.
             ]]></original>
             <reworked><![CDATA[
-Through the endless dark we rise, our spirits never fade,
+[Bridge]
+Through the endless dark, we rise, our spirits never fade,
 In the heart of Nythoria, our legacy is made.
 We conquer through the silence, our banners waving high,
 In the Empire of the Void, where stars go to die.
@@ -108,6 +115,7 @@ A realm where echoes linger, where silence speaks in screams,
 In the Empire of the Void, we live within our dreams.
             ]]></original>
             <reworked><![CDATA[
+[Chorus]
 In the Empire of the Void, where shadows reign supreme,
 We’re bound by chains of destiny, within this dark regime.
 A realm where echoes linger, where silence speaks in screams,
@@ -122,8 +130,9 @@ Through the silence, we are rulers, in the darkness, we are free,
 In the Empire of the Void, our reign will ever be.
             ]]></original>
             <reworked><![CDATA[
+[Verse 3]
 As the final light extinguishes, we embrace the endless night,
-By the will of Nyktoros, the night is ours alone.
+In the Empire of the Void, we find our strength and might.
 Through the silence, we are rulers, in the darkness, we are free,
 In the Empire of the Void, our reign will ever be.
             ]]></reworked>
@@ -136,10 +145,11 @@ We conquer through the silence, our banners waving high,
 In the Empire of the Void, where stars go to die.
             ]]></original>
             <reworked><![CDATA[
+[Outro]
 Through the endless dark, we rise, our spirits never fade,
-In the name of Nyktoros, our legacy is made.
+In the heart of nothingness, our legacy is made.
 We conquer through the silence, our banners waving high,
-His dark throne reaches out, to the blackened sky.
+In the Empire of the Void, where stars go to die.
             ]]></reworked>
         </section>
     </lyrics>

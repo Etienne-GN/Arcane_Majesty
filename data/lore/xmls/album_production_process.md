@@ -51,6 +51,46 @@ Rules:
 - Test a new/unusual name on a short line before committing to a full generation.
 - If a name still fails after respelling, rename it (as done for `Nychtoros` → `Nyktoros`) rather than fight the model.
 
+## Step 1c: Suno Style Tags
+
+The style box always starts from the user's **house base tags**, then appends **2–3 song-specific tags** from the song's `<analysis>` Suno direction.
+
+**House base tags (every original song):**
+```
+viking metal, male aggressive voice, natural minor scale, harmonic guitar, dual guitar
+```
+
+Rules:
+- Suno weights **the first tags hardest** — if a specific element must land (e.g. `piano intro`), put it in front of the house base or append it high up.
+- For covers/remixes, drop or adjust the house base to fit the original (see Step 1e sliders).
+- Example (soft piano-led track): `viking metal, progressive metal, piano intro, male aggressive voice, natural minor scale, harmonic guitar, dual guitar, mournful, cinematic`
+- Example (relentless war track): `viking metal, progressive metal, male aggressive voice, natural minor scale, harmonic guitar, dual guitar, relentless, fast drums, dark`
+
+## Step 1d: Lyric Structure & Style Cues
+
+Every `<reworked>` block carries **`[Section]` headers plus an inline style cue** so the user can paste straight into Suno. Format: `[Section: musical direction]` on the line above each section.
+
+Rules:
+- Cues describe **sound** (instruments, dynamics, energy), **never plot**.
+- Cue `[Intro: ...]` and `[Outro: ...]` (or `[Piano Outro: ...]`) bookend the song — an empty cue tells Suno to end there instrumentally.
+- Every chorus repeat gets its own cue, and each repeat escalates (e.g. `[Chorus: heavy, dual guitars, emotional]` → `[Chorus: heavier, soaring]` → `[Chorus: massive, cinematic peak]`).
+- Keep cues short — a few comma-separated words (`[Verse 2: build, double guitars enter]`).
+- Write cues identically in the archive `<reworked>` blocks and the master `<Lyrics>` (verify strips them, so they stay in sync without breaking the diff).
+
+Example shape: `[Intro: soft piano, quiet]` → `[Verse 1: piano and strings, hushed]` → `[Chorus: heavy, dual guitars, emotional]` → `[Bridge: stripped to piano, grief]` → `[Outro: fading, distant choir]` → `[Piano Outro: solo piano, final note]`.
+
+## Step 1e: Suno Generation Sliders
+
+Default sliders for **original songs** (Arcane Majesty house setting):
+| Slider | Value |
+|---|---|
+| Weirdness | 30% |
+| Style influence | 75% |
+| Audio influence (the voice) | 25% |
+
+- **Covers of existing songs use different slider values** — tune per cover (higher style influence to match the original's arrangement; the voice/audio influence changes based on how closely the vocal should match).
+- Record the slider values actually used in the song's `<analysis>` when they deviate from the defaults.
+
 ## Step 2: Per-song review pass
 
 - **Lore-anchor every lyric** against canon (`SCENARIO.md`, `world_lore.md`, the album's `<Tone>`/`<Plot>`): add specific names (characters), places, artifacts, and timeline facts.
