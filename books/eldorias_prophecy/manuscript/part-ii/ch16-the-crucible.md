@@ -21,7 +21,7 @@ The volcanic ridge ran east for leagues, a black spine of glass and pumice stand
 
 He had never heard it sing. That was the first thing he noted, the scholar's note, filed with the habit of a lifetime of filing. The needle had turned since the tower; it had pointed and it had spun and it had gone steady and patient through the whole of the road. It had never sung. But on the ridge, in the midsummer light, with the ashes of the Pyre-Lord falling around him and the fire's country opening ahead, the needle's east came up out of the turning as a note — thin and clear and old, the note of a thing that had been waiting a long time for its distance to close. It was the sound of the Stone. He knew it without having heard it before, the way a man knows the note of a bell he has been walking toward for a year without knowing its name.
 
-The Ruins of Eldoria. The words came up out of him the way the vow had come up at the mouth of the fire, and they settled in him like a foundation. The ruins were close. He could feel it in the needle's singing and in the heat-haze ahead and in the way the country itself had begun to change — the red stone rising in the east, the shapes on the horizon that were too regular to be the work of fire alone, the slow gathering of a gravity that had been pulling at him since the tower without his knowing it.
+The Ruins of Eldoria. The words came up out of him the way the vow had come up in the dark below the landing, and they settled in him like a foundation. The ruins were close. He could feel it in the needle's singing and in the heat-haze ahead and in the way the country itself had begun to change — the red stone rising in the east, the shapes on the horizon that were too regular to be the work of fire alone, the slow gathering of a gravity that had been pulling at him since the tower without his knowing it.
 
 He made camp that night in the lee of a black dune at the fire's edge, and the camp was the first camp he had made alone since the betrayal, and the aloneness was not a weight.
 
@@ -58,6 +58,8 @@ Ashes fall, a new dawn breaks. The words came out of him again, and this time he
 He did not know whose destiny the old tales meant. He had stopped believing, somewhere between the betrayal and the mountain's heart, that the destiny was his alone. It was the world's, maybe — the whole tired, stubborn, erasing-and-being-erased world, holding on by a thread that a stone had been keeping from breaking. The stone was his to keep. The door was his to stand before. And standing before it, waiting in the quiet, was the man who had been waiting the longest.
 
 Eldrin Nightshade stood at the crest of the ridge with the ruins of the vigil below him and the needle singing east and the summer at its peak around him, and he was alone, and the aloneness was not a weight, and the fire that did not give was burning steady in him.
+
+He was tired. He was so tired. And the tiredness was not a failure — it was the record of every step, every wound, every refusal, and it was honest, and the honesty was a mercy.
 
 Then he took the first step down into the valley, and the step was the beginning of the last road, and the road ran down into the ruins, and the ruins held the door, and the door held the stone, and the stone held the seam, and the seam held the world.
 

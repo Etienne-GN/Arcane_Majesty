@@ -1,7 +1,7 @@
 # Ch. 21 — The Weight of Eternity
 <!-- Track: 11. The Weight of Eternity | POV: Eldrin | Date: 501 AGD, midsummer, night -->
 
-The grey was not the world and not the night and not the moon. That was the first thing Eldrin noted, standing at the mouth of the passage with the stone in his hand and the pale moon gone the color of a held breath: the grey was a *condition*, the way the violet had been a condition in the tower, the way the snow of the summit had been a condition on the pass. It was the color of a thing stepping into the world from somewhere the world was not, and it brought its weather with it.
+The grey was not the world and not the night and not the moon. That was the first thing Eldrin noted, standing at the mouth of the passage with the stone in his hand and the pale moon gone the color of still water: the grey was a *condition*, the way the violet had been a condition in the tower, the way the snow of the summit had been a condition on the pass. It was the color of a thing stepping into the world from somewhere the world was not, and it brought its weather with it.
 
 Vorgos stood in the middle of the grey, and he was the grey.
 
@@ -57,7 +57,7 @@ He would keep his sight. That was the one mercy the ledger had not taken from hi
 
 He stood in the grey with the stone in his hand and the weight of it all, and the small stubborn fire that had carried him from the tower rose up under the weight the way it had risen under the draining and the fire and the ward, and it did not give.
 
-"Four hundred years," he said. He said it aloud, to the grey, to the ledger, to the storm, the way he had said the vow at the mouth of the fire, and the words came out heavier than any words he had ever spoken, and they came out true. "A hundred years, and then three more. I will hold it."
+"Four hundred years," he said. He said it aloud, to the grey, to the ledger, to the storm, the way he had said the vow in the dark below the landing, and the words came out heavier than any words he had ever spoken, and they came out true. "A hundred years, and then three more. I will hold it."
 
 Vorgos did not thank him. The Stormbringer was not made for thanks, and the ledger did not close for gratitude, and the one entry the ledger could not make was the one Eldrin was making now, in the grey, in the valley, at the mouth of the keeping, with the whole of the world's long held breath in his hand.
 
@@ -69,7 +69,7 @@ The grey settled. Vorgos did not speak the words of the ledger's closing, becaus
 
 "The road west is open," Vorgos said. "The keeping will go with you, and the stone will hold the seam from wherever you hold it, and the years will pass like grains of sand while you stand. Carry it home, keeper. Put it where the world cannot reach it and where you will not be parted from it, and wait. When the Star-Guard needs the key, you will know. The pulse will tell you. The pulse has accepted you, and it does not lie."
 
-The grey began to thin. The moon came back through it the way a held breath comes back through a man who has finally been allowed to breathe, and the Stormbringer stood for a long moment at the edge of the thinning grey with his hands loose at his sides, holding nothing, letting nothing drop — the posture of the keeper, the posture of the one who had been holding the longer account of all of them — and then the grey folded, and the night was the night, and the moon was pale and silent, and Vorgos was gone.
+The grey began to thin. The moon came back through it the way breath comes back through a man who has been still too long, and the Stormbringer stood for a long moment at the edge of the thinning grey with his hands loose at his sides, holding nothing, letting nothing drop — the posture of the keeper, the posture of the one who had been holding the longer account of all of them — and then the grey folded, and the night was the night, and the moon was pale and silent, and Vorgos was gone.
 
 The ruins stood grey around him. The stone was warm in his hand. The pulse beat in his chest, steady and complete, the note of the thing that held, and the needle lay still in his skull at the end of the longest road, and the road ahead was not a road at all.
 

@@ -137,4 +137,4 @@ And in the small hours of the first night of the descent, with the fire banked a
 
 *But what if it was true? What if it was true, and I refused it because I wanted the company?*
 
-He filed the question. He dated it. He set it beside the other doubts, and they argued it out among themselves, and the argument went on past midnight, and the fire went down, and the mountain stood over them like a held breath, and Eldrin did not sleep.
+He filed the question. He dated it. He set it beside the other doubts, and they argued it out among themselves, and the argument went on past midnight, and the fire went down, and the mountain stood over them like a sentinel, and Eldrin did not sleep.

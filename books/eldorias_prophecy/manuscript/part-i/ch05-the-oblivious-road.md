@@ -17,7 +17,7 @@ Eldrin listened. And because he was a scholar, he did not merely listen — he *
 
 The race was real.
 
-He had known it, in the way a man knows a letter is important before he opens it. But knowing and *knowing* are different things, and the trader's story turned the knowing into something he could weigh. There were others seeking the Anchor. They were not scholars — scholars quarreled, scholars kept their questions in their sleeves and drew them out one at a time, like cards they were not sure they wanted to play. These men moved in a line, asking one question, never resting, never quarreling, never explaining. They were searching for the same thing the needle pointed at, and they were searching quietly, and quiet searching meant they did not want to be found, and what did not want to be found was not here to ask permission.
+He had known it, in the way a man knows a letter is important before he opens it. But knowing and *knowing* are different things, and the trader's story turned the knowing into something he could weigh. There were others seeking the Anchor. They were not scholars — scholars argued, scholars hoarded their questions and played them one at a time, like cards they were not sure they wanted to reveal. These men moved differently. They were searching for the same thing the needle pointed at, and they were searching quietly, and quiet searching meant they did not want to be found.
 
 He did not know who they were. He did not know what they wanted with the Anchor, or whether they knew what the Anchor was, or whether they would know it when they found it. He knew only that he had been given the needle, and the needle was not a gift — it was a *task*, and the task had a schedule, and the schedule was in arrears.
 
@@ -83,7 +83,7 @@ It was the right question. It was, Eldrin thought, the only right question a fri
 
 Oren did not press the silence. He looked at Eldrin for a long moment, and the look was not the look of a man who wanted something; it was the look of a man who was taking the measure of a road he had decided to walk. "Then it's settled," he said, "that I walk it with you. You're a terrible liar, you know. You go pale when you tell a half-truth, and you've been going pale since the last village. I'm a chronicler; I notice these things." He grinned. "But I'll take the pale lies over the road alone, and I think you will too."
 
-And Eldrin, against his better judgment — against every lesson the pack had taught him, against the voice in his head that said a man carrying the record of the world must not carry a witness too — felt the resistance go out of him the way a held breath goes out. He had been wrong to walk alone. He had been wrong the way a man is wrong when he mistakes the weight of the burden for the shape of the road. He had been walking east with a pack full of the world's only true record, and he had been doing it alone, and he had not known how the alone was costing him.
+And Eldrin, against his better judgment — against every lesson the pack had taught him, against the voice in his head that said a man carrying the record of the world must not carry a witness too — felt the resistance go out of him the way a tension goes out. He had been wrong to walk alone. He had been wrong the way a man is wrong when he mistakes the weight of the burden for the shape of the road. He had been walking east with a pack full of the world's only true record, and he had been doing it alone, and he had not known how the alone was costing him.
 
 "Walk it with me, then," he said. "And we'll see what the mountains have to say about it."
 
@@ -111,4 +111,4 @@ He did not know whether the trembling was distance closing or a warning being ru
 
 Eldrin opened his eyes. The lean-to was dark. The fire was ash. The mountains stood over them like a held breath, and somewhere beyond them, east, past the pass and the summit and the country where the maps ran out, the Heartstone of Creation lay in the keeping of the ruin — the thing that held, the anchor against the lifting of the floor — and the needle trembled, and the mountains were close, and he was not alone.
 
-He closed his eyes, and the mountains stood over them like a held breath, and he slept.
+He closed his eyes, and the mountains stood over them in the dark, and he slept.

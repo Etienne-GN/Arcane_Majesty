@@ -17,6 +17,9 @@ Oren strikes at the first landing of the Fire Gate, late spring 501 AGD — "the
 ## Malphas forced to retreat (ch07)
 Eldrin breaks Malphas's illusion-hold at the Summit via Aether Sight and the refusal of fear, wounding the whisperer's anchor-thread. Malphas retreats alive — the only General of the three who survives. (Task 4)
 
+## The Crucible (ch14–15)
+Xarathos's plan: drain Eldrin's inner light and hollow him into a vessel the Stone would accept. The rune-drain counter turns the drain back; the Pyre-Lord is destroyed. The crucible is the heart-chamber of the Inferno Labyrinth where the mountain's core burns away pretense — "the place where the fire has no choice but to be true." (Task 4)
+
 ## Xarathos destroyed (ch15)
 In the crucible at the Inferno Labyrinth's heart, Eldrin denies Xarathos's mana-steal with a rune-drain counter, finding the crack in Thirst-driven arrogance. The Pyre-Lord is destroyed. His dying words: "Voraun will have you at the door. He has been waiting the longest." (Task 4)
 
@@ -51,10 +54,10 @@ Complete set of event facts the novel establishes (handoff payload), in timeline
 2. ~300 AGD — Kael made the Living Lock at the turn of the age; the Star-Guard carries the stolen light; the Lock decays.
 3. ~500 AGD — Vorgos moves Eldrin: the vision, the Compass; the race begins (Legion agents ask about "the Anchor").
 4. Late winter 501 AGD — Oren joins Eldrin on the road (ch05).
-5. Early 501 AGD — Summit confrontation; Malphas retreats alive (ch07).
+5. Late winter 501 AGD — Summit confrontation; Malphas retreats alive (ch07).
 6. Spring 501 AGD — Sylvan Sanctuary: the Elemental's trial; Aether Sight; the Hermit's warnings (ch09-10).
 7. Late spring 501 AGD — the betrayal at the Fire Gate; Oren takes the journal (ch12).
-8. Spring/summer 501 AGD — Inferno Labyrinth; Xarathos destroyed (ch15); the crucible (ch16).
+8. Spring/summer 501 AGD — Inferno Labyrinth; the crucible — Xarathos's plan to hollow the keeper (ch14–15); Xarathos destroyed (ch15).
 9. Midsummer 501 AGD — the Ruins; the Heartstone accepted (ch18); Voraun burned by the ward, dying truth seeds the next saga (ch19); the Balrog yields by humility (ch20); Vorgos reveals the 400-year condition (ch21).
 10. Autumn 501 AGD — the return; Legion agents withdraw "for now" (i3); the Lock steadied (i4).
 11. Winter ~501/502 AGD — the vigil begins in the re-sealed sanctum; the world names him the "Blind Prophet" (ch23).

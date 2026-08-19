@@ -11,7 +11,7 @@ He was still sighted.
 
 That was the fact the legend could not reach, and he held it the way he held the stone — without the telling, because the telling was forbidden. His eyes were as clear as they had ever been, clearer, worn by the century into the vigil's instrument. He could read the writing beneath the writing from the tower window, and it had grown longer and stranger in a hundred years: the generations below had risen and gone down in the ordinary way, the college had forgotten the name it had once taught. What he had gone blind to was the ordinary — the price of bread, the marriages, the festivals, the small doings of a world that would end and be renewed and never know it had been held. That was the blindness the name was reaching for, and the name had it backwards: he stood in the middle of the timeline, and the world called the standing blindness.
 
-The vigil journal had grown thin. The entries were the seasons and the pulse and the years — *winter. the pulse steady. the seam holding.* — and the years were the one figure he did not write down, because the years were the weight and the weight was the work. The brother at Silverrun had gone down decades before, and the last letter lay filed in the plain book of the vigil. The pulse was steady. The seam held. The Lock held — the man at the end of the world's long holding, still holding, the failure held at bay by the one thing that could hold it. The stone lay in its oilcloth at his side, and the stone did nothing, and the nothing was the whole of the work, and he was a hundred years into the four hundred, and the year nine hundred lay ahead of him the way the road had lain ahead of him in the winter — a held breath to be kept.
+The vigil journal had grown thin. The entries were the seasons and the pulse and the years — *winter. the pulse steady. the seam holding.* — and the years were the one figure he did not write down, because the years were the weight and the weight was the work. The brother at Silverrun had gone down decades before, and the last letter lay filed in the plain book of the vigil. The pulse was steady. The seam held. The Lock held — the man at the end of the world's long holding, still holding, the failure held at bay by the one thing that could hold it. The stone lay in its oilcloth at his side, and the stone did nothing, and the nothing was the whole of the work, and he was a hundred years into the four hundred, and the year nine hundred lay ahead of him the way the road had lain ahead of him in the winter — a distance to be walked.
 
 He came up out of the chamber in the hour before dawn and sat at the window over the dark city, and the sleep that would not come came for him anyway, and the dream took him as the vision had taken him a hundred years before.
 
@@ -33,7 +33,7 @@ He understood it the way he understood the pulse: the stone he had carried a cen
 
 And past the handoff — the dark.
 
-That was the third glimpse, and it came the way Voraun's truth had come in the autumn read, where the record simply was not — a darkness older than the gate it would come through, deeper than the Legion that had stood at the gate. The Legion was a gate, not the dark. The dark was behind the gate, and the gate was coming down, and the books had a name for what stood beyond it, and the name was the Prophecy of Darkness, and Eldrin read it the way he read every name in the record — as a debt, entered, owed, with a term not yet written.
+That was the third glimpse, and it came the way Voraun's truth had come in the autumn read, where the record simply was not — a darkness older than the gate it would come through, deeper than the Legion that had stood at the gate. The Legion was a gate, not the dark. The dark was behind the gate, and the gate was coming down, and the books had a name for what stood beyond it, though the name had been cleaned off every shelf, and Eldrin read the absence the way he read every absence in the record — as a debt, entered, owed, with a term not yet written.
 
 "The prophecy is owed," Vorgos said, and the voice was patient, and the voice was not sorry. "It has always been owed. You have held the stone that will be the key to it, keeper. You have held the door that will open on it. That is not the whole of your work — the whole of it is the holding, and the holding has a term — but it is the meaning of it, and I owe you the meaning, because you have held the one thing that could be held for the longest hour the books have kept."
 
@@ -75,6 +75,6 @@ But it would come.
 
 The door would open. The key would turn. The Star-Guard would rise. The world he had held would be bought the time to reach the hour it had been bought for, and the hour would come, and the coming was the promise, and the promise was the only light the vigil had ever offered him, and he stood at the window of the tower above the chamber where the Heartstone held the seam of the world shut, and the dawn broke, and the pulse beat on, steady and complete, the note of the thing that held.
 
-The watcher held the held breath.
+The watcher kept the vigil.
 
 And it would come.

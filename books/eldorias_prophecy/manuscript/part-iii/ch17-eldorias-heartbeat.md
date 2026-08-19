@@ -3,7 +3,7 @@
 
 He came down into the valley the way a reader comes down into the last chapter — slowly, holding the thread of everything before it, unwilling and unable to let it go. The ridge fell away behind him in black shelves of glass, and the red valley opened ahead, and the midsummer light went long across the stone as the day leaned toward evening, and the needle in his skull — the compass that had never once lied, the only instrument of his life that had never once failed him — sang on, high and clear, the note of a thing whose distance had closed at last.
 
-The Ruins of Eldoria lay below him like a held breath.
+The Ruins of Eldoria lay below him as if the world had paused.
 
 He walked the last hour in the long light, and the light went down as he went down, and by the time he came among the ruins the sun was gone and the moon was up, and the moon was the pale and silent kind, the moon that hung over a world that had stopped making noise. *The ancient ruins hum a tune, beneath the pale and silent moon.* The image came up out of him the way all the images had come up on the road — unbidden, worn, the property of a vision that had been walking this road for a hundred years before him — and he let it, because the hum it promised was the only thing moving in the valley, and a man entering a dead city for the last time of his life was glad of any company at all.
 
@@ -11,13 +11,13 @@ The ruins were not what the old tales had promised.
 
 He had stood at the crest of the ridge and seen them whole — low walls of black stone, foundations sunk into the red earth, a few standing arches holding nothing. The old tales had dressed them in the raiment of a fallen empire: bright broken palaces, fallen towers, the skeleton of a civilization wearing its own longing. But the old tales were wrong, as they were always wrong in the same way, and he had known the wrongness since the crest: the ruins were not the ruins of a city. They were the ruins of a *keeping*. The architecture had not been built to shelter a people; it had been built to shelter an act. Corridors that did not lead to halls but to the next corridor. Walls that did not enclose rooms but the space in which a thing was held. Arches that had stood not as gates but as thresholds, marking the invisible boundary of a work that had no boundary and could not end. The keepers had built their city the way a man builds a ship for a voyage he knows he will not survive — not for the living of it, for the *carrying* of it — and the city had outlived them, and the carrying had gone on without them in the stones themselves.
 
-He set his pack down in the shadow of the first standing arch and made his camp in the middle of the dead city, and the camp was the end of the road, and the end of the road felt like a held breath being let out at last.
+He set his pack down in the shadow of the first standing arch and made his camp in the middle of the dead city, and the camp was the end of the road, and the end of the road felt like a tension releasing at last.
 
 He sat with his back to the black stone and the broken staff across his knees and the wound in his side a settled ache, and he did not open the sight and he did not read the needle and he did not do any of the work of the road. He sat, and the moon crossed the sky, and the ruins went on keeping their long silence, and somewhere deep below him — he could feel it now the way a man feels a heartbeat in the floor of a house at night, as vibration, as gravity, as a thing that had been going on for so long it had become part of the ground — the Heartstone of Creation went on holding the world shut.
 
 The rhythm of it came up through the stone of the arch against his back. Slow. Patient. The rhythm of a thing that had been breathing for longer than his language. He felt it in the old bones of his hands and in the wound in his side and in the needle, and the needle, for the first time in a year of walking, was not straining.
 
-It was resting. The needle that had pointed east from a tower under a sky the color of a held breath, that had carried him through the winter and the betrayal and the heart of a burning mountain, lay still in his skull, and the still was the still of arrival, and he understood that he was here, that the whole of the road had been the walking toward this quiet, and that the quiet was the country he had come to keep.
+It was resting. The needle that had pointed east from a tower under a sky the color of a held silence, that had carried him through the winter and the betrayal and the heart of a burning mountain, lay still in his skull, and the still was the still of arrival, and he understood that he was here, that the whole of the road had been the walking toward this quiet, and that the quiet was the country he had come to keep.
 
 He slept, and the ruins hummed their slow tune through the ground, and he did not dream of the road.
 
@@ -47,7 +47,7 @@ The second was that he was not alone in the ruins.
 
 He felt it with the sight closed, which was the oldest habit of his life, the draft under the door, the grain in the silence. Not a sound and not a presence — an *absence*, a place in the world where the world simply was not, the way a subtraction is not: a man had been here, and had been here so long, and had kept so still, that the keeping had gone into the ground around him. The Hermit had told him of it. The whisperer had tried to tell him, in the pass, before the betrayal. Xarathos had warned him, in the last of the wronged light, with the voice of a thing that had been light and had gone wrong. *Voraun will have you at the door. He has been waiting the longest.*
 
-The signature lay across the approach to the keeping like a held breath.
+The signature lay across the approach to the keeping like a line drawn tight.
 
 He found it as he moved through the ruins toward the sound of the tune, and he read it the way he had read everything on the road — with the scholar's eye, with the sight held at the edge of his attention, with the record beneath the writing. The approach was a descending stair, black stone worn by the feet of keepers who had used it for centuries, leading down into the heart of the valley, toward the chamber where the tune was loudest. And the approach was guarded. The gate that had once stood open for the keepers' work stood sealed — not with the bright work of the old order, and not with the hungry marks of the fire that had burned ahead of him. It stood sealed with *silence*. A gate of black iron, rune-dead, the Legion's marks cut into the stone around it in a hand that had not hurried, and the marks were the only writing he had found in a year of walking that he could not read at a glance — because they had not been written to be read. They had been written to be *obeyed*: this far, and no further, and the far had been held by a man who had not moved from it in months.
 
@@ -77,6 +77,6 @@ He stood before the chamber door in the dark at the heart of the ruins with the 
 
 The door did not promise victory.
 
-The door promised the weight of a held breath.
+The door promised the weight of the keeping.
 
 He set his hand to the rune-worn stone, and the runes came up under his palm the way the runes had come up along the strata cores in the tower, blue and patient and warm, and the door of the chamber, which had been waiting for a keeper since before the erasure, swung open at his touch.

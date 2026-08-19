@@ -34,4 +34,5 @@ Complete set of character facts the novel establishes (handoff payload for game-
 - **The Shadow Balrog** — ancient guardian of the ancient door; untamable; yields to the Stone's accepted guardian, satisfied (ch20).
 - **Kael (the Star-Guard / Living Lock)** — carries the Lock since ~300 AGD; erosion kills him slowly; steadied by the Stone's placement (i4).
 - **Anya** — plucked from Auroria at 0 GD; five centuries of vigil; the anger that is the shape of her love.
+- **The Elemental** — forest Elemental of the Sylvan Sanctuary; trials travelers at the ford ("Why do you seek the light of day?"); dismisses Oren; grants passage to Eldrin; acknowledges him as fellow keeper. The green forest is the Hermit's lingering will, sustained by the Elemental.
 - **Vorgos (the Stormbringer / Architect)** — entity of the Aether; pragmatic, not omniscient, not cruel; the ledger; moved Anya, Kael, Eldrin; the almost-regret set aside; gives certainty as the one gift (epilogue).

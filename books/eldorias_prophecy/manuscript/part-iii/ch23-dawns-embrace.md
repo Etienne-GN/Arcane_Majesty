@@ -71,7 +71,7 @@ He watched the dawn the way he had watched every dawn of the vigil, with the exa
 
 The Star-Guard was not ready yet.
 
-He knew it the way the pulse knew it, the way the held breath knows the moment before it is let out: the hour was coming, and the hour was not now. The hero was not yet born. The door was not yet failing. The key was not yet needed. The years between him and the year nine hundred lay ahead of him like the road had lain ahead of him in the winter — a distance to be walked, a weight to be held, a held breath to be kept — and he stood at the window of the tower with the dawn breaking over the scholar-city and the pulse in his chest and the whole of the vigil behind him and before him, and he waited.
+He knew it the way the pulse knew it, the way the held breath knows the moment before it is let out: the hour was coming, and the hour was not now. The hero was not yet born. The door was not yet failing. The key was not yet needed. The years between him and the year nine hundred lay ahead of him like the road had lain ahead of him in the winter — a distance to be walked, a weight to be held, a distance to be walked, a weight to be held, the keeping to continue — and he stood at the window of the tower with the dawn breaking over the scholar-city and the pulse in his chest and the whole of the vigil behind him and before him, and he waited.
 
 He was the watcher. He was here and now. And he would be here, and now, for as long as the world needed the space in which saving remained possible.
 
@@ -81,4 +81,4 @@ Until the Star-Guard needs the key, the Heartstone stays right here with me.
 
 He waited.
 
-The dawn's embrace closed over the city, and the years went on, and the watcher held the held breath, and the vigil was the whole of the world's defense, and it would not end until the hour when the hero not yet born came for the key.
+The dawn's embrace closed over the city, and the years went on, and the watcher kept the vigil, and the vigil was the whole of the world's defense, and it would not end until the hour when the hero not yet born came for the key.

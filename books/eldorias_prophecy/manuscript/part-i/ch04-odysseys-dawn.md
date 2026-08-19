@@ -37,7 +37,7 @@ He should have stopped earlier. He knew it, the way a man knows he should have m
 
 He built a small fire. That was his first mistake, and he made it carefully, in a clearing a few strides off the road, with dry wood and a ring of stones, and he sat beside it with his back to a tree and ate the bread the second village had given him and watched the dark come up out of the ground. The fire was small. The dark was large. He had spent sixty winters knowing the dark was large and the fire was small and that this was the natural arrangement of things, and he had never once before felt the dark as *attentive*.
 
-He felt it now. It had a grain to it, the way the silence of the city had developed a grain in the months before the letter. He had learned to read that grain — a texture in the air like glass about to give — and he read it now, sitting by the fire in the copse of birches, and what he read was wrong.
+He felt it now. It had a grain to it, the way the silence of the city had developed a grain in the months before the letter. He had learned to read that grain — a tension in the air, something about to break — and he read it now, sitting by the fire in the copse of birches, and what he read was wrong.
 
 He did not know what the sound was, at first. It was not a howl. He had heard wolves; the high quarries had taught him wolves, the long argument of a pack staking its claim to the night. This was not that. This was a *patter*, a soft many-footed percussion, moving through the birches with a cadence that did not match the ground — now left, now right, now too close, now farther, in a way that made no geometry. It was the sound of a pack that had learned the shape of wolves and not the soul of them.
 
