@@ -48,7 +48,10 @@ This document tracks the current state of the project and serves as a quick-refe
     - All duplicate non-chorus verses across all 8 albums identified and replaced with unique, meter-matched lyrics.
     - Zero structural verse duplications remaining in the codebase.
 
-## 4. Album Restructuring (Linear Alignment)
-To maintain strict chronological consistency, the original **Lord of Shadows** album has been split:
-- **Vows of Silence (Era I):** A new prequel album focused on Malakar’s origins, his discovery of the Forbidden Tome, and his rise as the "Void Disciple."
-- **Lord of Shadows (Era III):** Repurposed as the "Sister Album" to *Queen of Carnage*. Focuses on Malakar’s downfall, his defeat by Seraphina, and his exile to the Shadow Realm.
+## 5. Novel Adaptations & Game Design Progress
+- **Eldoria's Prophecy Novel:** First complete draft (~89k words, prologue + 23 chapters + interludes + epilogue), audited and polished.
+- **Crimson Covenant Novel:** First complete draft (~108k words, prologue + 13 chapters + 3 interludes + epilogue), complete in English (`CRIMSON_COVENANT_FULL.md`) and French (`CRIMSON_COVENANT_FR_FULL.md`), with full canon files (`characters.md`, `events.md`, `locations.md`, `magic.md`, `fidelity-log.md`) and outline.
+- **Game Design Documents:**
+  - *A Tapestry of Souls: The Awakening* game design doc created (`apps/amo/documentation/GAME_DESIGN_TAPESTRY_AWAKENING.md`).
+  - *Crimson Covenant* game design doc created (`apps/amo/documentation/GAME_DESIGN_CRIMSON_COVENANT.md`, 13 missions).
+  - Campaign scripture and scenario docs updated (`CAMPAIGN_SCRIPTURE.md`, `SCENARIO.md`).
