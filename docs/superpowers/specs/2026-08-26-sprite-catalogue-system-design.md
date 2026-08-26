@@ -63,17 +63,23 @@ own design passes.
 
 ## Data format
 
-One sidecar catalogue file per spritesheet, living next to the source image:
+One sidecar catalogue file per spritesheet, living next to the source image
+**while being annotated**. Once a sheet passes validation, both files move
+into a `catalogued/` tree that mirrors the original path under
+`public/assets/` — a clean, obvious split between "raw, not yet usable by
+name" and "catalogued, ready to reference by name":
 
 ```
-public/assets/tilesets/lpc/
-  treetop.png
-  treetop.catalogue.json
-  trunk.png
-  trunk.catalogue.json
-  terrain_atlas.png
-  terrain_atlas.catalogue.json
+public/assets/
+  tilesets/lpc/
+    treetop.png                    ← not yet catalogued
+  catalogued/
+    tilesets/lpc/
+      trunk.png                    ← catalogued, relocated here on validation pass
+      trunk.catalogue.json
 ```
+
+See **Workflow** below for exactly when the move happens.
 
 ### Schema
 
@@ -166,9 +172,15 @@ Run per spritesheet, driven by the user via opencode (not Claude):
      budget, e.g. 3 attempts — after which the entry is written with
      `lowConfidence: true` rather than blocking indefinitely).
 5. Repeat for each region on the sheet; opencode writes the finished
-   `<sheet>.catalogue.json` sidecar.
+   `<sheet>.catalogue.json` sidecar next to the source PNG (still in its raw,
+   uncatalogued location at this point).
 6. Before the catalogue is trusted for use, run
-   `validate_sprite_catalogue.mjs` against it as a hard gate.
+   `validate_sprite_catalogue.mjs` against it as a hard gate. On a clean pass
+   (zero errors), the validator itself relocates both the source PNG and the
+   `.catalogue.json` into the mirrored `public/assets/catalogued/` path —
+   validated and relocated are the same action, so there's no in-between
+   state where a passing sidecar still sits in the raw asset pool. On any
+   error, nothing is moved.
 
 ## Tooling to build
 
@@ -197,6 +209,11 @@ is dependency-free Node reading raw PNG headers).
      `[0, sheetWidth]`/`[0, sheetHeight]` bounds and `w, h > 0`.
    - Reports (non-fatally) any entries carrying `lowConfidence: true`, so
      they surface for a human follow-up look.
+   - On a clean pass (zero errors): relocates both the `source` PNG and the
+     `*.catalogue.json` file itself from their current (raw) location into
+     the mirrored path under `public/assets/catalogued/`, creating
+     directories as needed. A path already inside `catalogued/` is left in
+     place (idempotent re-runs).
    - Exits 1 on any hard failure (schema/bounds violations), 0 otherwise.
 
 3. **`OPENCODE_PROMPT.md`** — the fixed instruction document handed to

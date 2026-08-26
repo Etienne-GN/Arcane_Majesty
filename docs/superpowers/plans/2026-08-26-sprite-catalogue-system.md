@@ -18,6 +18,7 @@
 - Catalogue entry `name` must be unique within its file, snake_case, descriptive.
 - `kind: "tile"` entries require the sheet-level grid fields (`gridTileWidth`, `gridTileHeight`, `gridCols`, `gridRows`); `kind: "object"` entries never need them.
 - `frameIndex` for a tile entry must equal `row * gridCols + col`.
+- A sheet is annotated in place (raw location under `public/assets/`); on a clean validator pass, both the source PNG and its `*.catalogue.json` relocate to the mirrored path under `public/assets/catalogued/`. A sheet already inside `catalogued/` is left in place.
 - Out of scope for this plan: which spritesheets actually get catalogued, how the map renderer consumes catalogue entries by name, and any aggregate cross-file search index (explicitly declined in the spec).
 
 ---
@@ -32,7 +33,7 @@
 - Modify: `apps/amo/package.json` (add `test:sprite-catalogue` script, append it to the `test` chain)
 
 **Interfaces:**
-- Produces: `validateCatalogueObject(cat: object, baseDir: string) → { errors: string[], warnings: string[] }` and `validateCatalogueFile(catPath: string) → { errors: string[], warnings: string[] }`, both named exports from `validate_sprite_catalogue.mjs`. Task 3's `OPENCODE_PROMPT.md` references this file's CLI usage (`node validate_sprite_catalogue.mjs <file.catalogue.json>`).
+- Produces: `validateCatalogueObject(cat: object, baseDir: string) → { errors: string[], warnings: string[] }`, `validateCatalogueFile(catPath: string) → { errors: string[], warnings: string[] }`, `relocatedPath(path: string, assetsMarker?: string) → string`, and `relocateToCatalogued(paths: string[], assetsMarker?: string) → { from: string, to: string }[]`, all named exports from `validate_sprite_catalogue.mjs`. Task 3's `OPENCODE_PROMPT.md` references this file's CLI usage (`node validate_sprite_catalogue.mjs <file.catalogue.json>`) including the on-success relocation into `public/assets/catalogued/`.
 
 - [ ] **Step 1: Generate the two fixture PNGs**
 
@@ -63,7 +64,13 @@ Create `apps/amo/tools/sprite_catalogue/test_validate_sprite_catalogue.mjs`:
  */
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { validateCatalogueObject } from './validate_sprite_catalogue.mjs';
+import { mkdtempSync, mkdirSync, writeFileSync, existsSync, rmSync } from 'fs';
+import { tmpdir } from 'os';
+import {
+    validateCatalogueObject,
+    relocatedPath,
+    relocateToCatalogued,
+} from './validate_sprite_catalogue.mjs';
 
 const FIXTURES = join(dirname(fileURLToPath(import.meta.url)), 'test_fixtures');
 
@@ -216,6 +223,42 @@ function hasError(result, substring) {
     check('lowConfidence → one warning', result.warnings.length === 1);
 }
 
+// ── relocatedPath: pure path computation ────────────────────────────────────
+{
+    const p = relocatedPath('apps/amo/public/assets/tilesets/foo.png');
+    check('relocatedPath inserts catalogued/', p === 'apps/amo/public/assets/catalogued/tilesets/foo.png');
+}
+{
+    const p = relocatedPath('apps/amo/public/assets/catalogued/tilesets/foo.png');
+    check('relocatedPath is idempotent', p === 'apps/amo/public/assets/catalogued/tilesets/foo.png');
+}
+{
+    let threw = false;
+    try { relocatedPath('some/other/path/foo.png'); }
+    catch { threw = true; }
+    check('relocatedPath throws without an assets/ marker', threw);
+}
+
+// ── relocateToCatalogued: real filesystem move ──────────────────────────────
+{
+    const tmp = mkdtempSync(join(tmpdir(), 'sprite-catalogue-test-'));
+    const rawDir = join(tmp, 'public', 'assets', 'tilesets');
+    mkdirSync(rawDir, { recursive: true });
+    const rawPng = join(rawDir, 'foo.png');
+    const rawCat = join(rawDir, 'foo.catalogue.json');
+    writeFileSync(rawPng, 'fake-png-bytes');
+    writeFileSync(rawCat, '{}');
+
+    const moved = relocateToCatalogued([rawPng, rawCat]);
+
+    const destDir = join(tmp, 'public', 'assets', 'catalogued', 'tilesets');
+    check('relocate moves the PNG', existsSync(join(destDir, 'foo.png')) && !existsSync(rawPng));
+    check('relocate moves the catalogue.json', existsSync(join(destDir, 'foo.catalogue.json')) && !existsSync(rawCat));
+    check('relocate reports both moves', moved.length === 2);
+
+    rmSync(tmp, { recursive: true, force: true });
+}
+
 if (fails.length) {
     console.error(`✗ sprite-catalogue validator tests FAILED — ${fails.length}/${passed + fails.length}:`);
     for (const f of fails) console.error('  ' + f);
@@ -246,10 +289,11 @@ Create `apps/amo/tools/sprite_catalogue/validate_sprite_catalogue.mjs`:
  *
  * Usage: node validate_sprite_catalogue.mjs <file.catalogue.json> [...more]
  */
-import { readFileSync, existsSync } from 'fs';
+import { readFileSync, existsSync, mkdirSync, renameSync } from 'fs';
 import { dirname, join } from 'path';
 
 const PNG_SIGNATURE = '89504e470d0a1a0a';
+const ASSETS_MARKER = 'public/assets/';
 
 /** width/height from a PNG's IHDR (bytes 16–23, big-endian). */
 function pngSize(path) {
@@ -350,6 +394,37 @@ export function validateCatalogueFile(catPath) {
     return validateCatalogueObject(cat, dirname(catPath));
 }
 
+/**
+ * Maps a raw-pool path to its mirrored location under public/assets/catalogued/.
+ * Idempotent: a path already inside catalogued/ is returned unchanged.
+ * Throws if the path doesn't contain an `assetsMarker` segment at all.
+ */
+export function relocatedPath(path, assetsMarker = ASSETS_MARKER) {
+    const idx = path.indexOf(assetsMarker);
+    if (idx === -1) throw new Error(`path does not contain "${assetsMarker}": ${path}`);
+    const prefix = path.slice(0, idx + assetsMarker.length);
+    const rel = path.slice(idx + assetsMarker.length);
+    if (rel.startsWith('catalogued/')) return path; // already relocated
+    return join(prefix, 'catalogued', rel);
+}
+
+/**
+ * Moves each path in `paths` to its relocatedPath() destination, creating
+ * directories as needed. Paths already under catalogued/ are left in place.
+ * Returns the list of moves actually performed.
+ */
+export function relocateToCatalogued(paths, assetsMarker = ASSETS_MARKER) {
+    const moved = [];
+    for (const p of paths) {
+        const dest = relocatedPath(p, assetsMarker);
+        if (dest === p) continue;
+        mkdirSync(dirname(dest), { recursive: true });
+        renameSync(p, dest);
+        moved.push({ from: p, to: dest });
+    }
+    return moved;
+}
+
 // ── CLI entrypoint ──────────────────────────────────────────────────────────
 if (import.meta.url === `file://${process.argv[1]}`) {
     const files = process.argv.slice(2);
@@ -362,8 +437,19 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         const { errors, warnings } = validateCatalogueFile(f);
         for (const w of warnings) console.warn(`⚠ ${f}: ${w}`);
         for (const e of errors) console.error(`✗ ${f}: ${e}`);
-        if (errors.length) hardFail = true;
-        else console.log(`✓ ${f} OK${warnings.length ? ` (${warnings.length} warning(s))` : ''}`);
+        if (errors.length) {
+            hardFail = true;
+            continue;
+        }
+        const cat = JSON.parse(readFileSync(f, 'utf8'));
+        const sourcePath = join(dirname(f), cat.source);
+        const moved = relocateToCatalogued([f, sourcePath]);
+        const suffix = warnings.length ? ` (${warnings.length} warning(s))` : '';
+        console.log(
+            moved.length
+                ? `✓ ${f} OK${suffix} — moved to ${dirname(relocatedPath(f))}/`
+                : `✓ ${f} OK${suffix} — already in catalogued/`
+        );
     }
     process.exit(hardFail ? 1 : 0);
 }
@@ -372,7 +458,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 - [ ] **Step 5: Run test to verify it passes**
 
 Run: `cd apps/amo && node tools/sprite_catalogue/test_validate_sprite_catalogue.mjs`
-Expected: `✓ sprite-catalogue validator tests passed (16 assertions).`
+Expected: `✓ sprite-catalogue validator tests passed (22 assertions).`
 
 - [ ] **Step 6: Wire the npm scripts**
 
@@ -391,7 +477,7 @@ In `apps/amo/package.json`, add a new script and extend the existing `test` chai
 - [ ] **Step 7: Run the full test chain**
 
 Run: `cd apps/amo && npm test`
-Expected: all existing suites still pass, plus `✓ sprite-catalogue validator tests passed (16 assertions).` at the end.
+Expected: all existing suites still pass, plus `✓ sprite-catalogue validator tests passed (22 assertions).` at the end.
 
 - [ ] **Step 8: Commit**
 
@@ -710,6 +796,12 @@ node tools/sprite_catalogue/validate_sprite_catalogue.mjs path/to/sheet.catalogu
 Fix every reported error (exit code 1) before considering the sheet done.
 Reported warnings (⚠, for `lowConfidence` entries) don't block completion —
 they're flagged for human follow-up.
+
+On a clean pass, the validator itself moves both `sheet.png` and
+`sheet.catalogue.json` out of their current location and into the mirrored
+path under `public/assets/catalogued/` — that's expected and is how a sheet
+graduates from "raw" to "usable by name." You don't need to move anything
+yourself.
 ```
 
 - [ ] **Step 2: Self-check the document against Tasks 1–2**
@@ -718,6 +810,7 @@ Confirm by inspection:
 - The `node tools/sprite_catalogue/validate_sprite_catalogue.mjs` command matches the CLI entrypoint in `validate_sprite_catalogue.mjs` from Task 1 exactly (same relative path, same argument form).
 - The `python3 tools/sprite_catalogue/crop_check.py --image --x --y --w --h --out` command matches the `argparse` flags in `crop_check.py` from Task 2 exactly.
 - Every field name in the schema block (`source`, `sheetWidth`, `sheetHeight`, `gridTileWidth`, `gridTileHeight`, `gridCols`, `gridRows`, `entries`, `name`, `kind`, `x`, `y`, `w`, `h`, `row`, `col`, `frameIndex`, `tags`, `lowConfidence`, `frames`) matches the fields `validateCatalogueObject` in Task 1 actually checks.
+- The relocation-on-success behavior described here matches `relocateToCatalogued`'s actual mirrored-path rule (insert `catalogued/` right after `public/assets/`) from Task 1.
 
 Fix any drift found before proceeding.
 
@@ -733,6 +826,6 @@ git commit -m "docs(sprite-catalogue): opencode annotation instructions"
 
 ## Plan Self-Review Notes
 
-- **Spec coverage:** Data format/schema → Task 1 (validator enforces it) + Task 3 (prompt documents it). Workflow/verification loop → Task 2 (crop tool) + Task 3 (prompt instructs it). Tooling section's three deliverables → one task each (1, 2, 3). Testing section → Task 1's 16 assertions + Task 2's 5 assertions, covering every violation class the spec calls out (duplicate name, out-of-bounds bbox, bad tile row/col, frameIndex mismatch) plus the crop tool's manual-check requirement upgraded to an automated pixel-sampling test. Non-goals (which sheets, renderer consumption, aggregate index) are correctly left undone.
+- **Spec coverage:** Data format/schema → Task 1 (validator enforces it) + Task 3 (prompt documents it). Workflow/verification loop → Task 2 (crop tool) + Task 3 (prompt instructs it). Relocation-on-success into `public/assets/catalogued/` → Task 1 (`relocatedPath`/`relocateToCatalogued` + CLI wiring) + Task 3 (prompt tells opencode not to move anything itself). Tooling section's three deliverables → one task each (1, 2, 3). Testing section → Task 1's 22 assertions + Task 2's 5 assertions, covering every violation class the spec calls out (duplicate name, out-of-bounds bbox, bad tile row/col, frameIndex mismatch) plus the crop tool's manual-check requirement upgraded to an automated pixel-sampling test. Non-goals (which sheets, renderer consumption, aggregate index) are correctly left undone.
 - **Placeholder scan:** No TBD/TODO; every step has complete, runnable code.
 - **Type/interface consistency:** `validateCatalogueObject(cat, baseDir)` and `validateCatalogueFile(catPath)` signatures are identical between Task 1's implementation and its test's import. Task 3's CLI examples were written to match Task 1/2's actual flags verbatim (and Task 3 includes an explicit self-check step to catch drift).
