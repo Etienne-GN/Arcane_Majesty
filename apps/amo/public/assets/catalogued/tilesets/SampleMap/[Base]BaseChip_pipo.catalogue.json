@@ -489,58 +489,6 @@
       ]
     },
     {
-      "name": "window_brown_2pane",
-      "kind": "object",
-      "x": 0,
-      "y": 2368,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "window",
-        "furniture",
-        "indoor"
-      ]
-    },
-    {
-      "name": "window_brown_4pane",
-      "kind": "object",
-      "x": 32,
-      "y": 2368,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "window",
-        "furniture",
-        "indoor"
-      ]
-    },
-    {
-      "name": "window_gray_6pane",
-      "kind": "object",
-      "x": 64,
-      "y": 2368,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "window",
-        "furniture",
-        "indoor"
-      ]
-    },
-    {
-      "name": "window_brown_grid",
-      "kind": "object",
-      "x": 96,
-      "y": 2368,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "window",
-        "furniture",
-        "indoor"
-      ]
-    },
-    {
       "name": "pew_bench_tan",
       "kind": "object",
       "x": 128,
@@ -563,32 +511,6 @@
       "tags": [
         "furniture",
         "church",
-        "indoor"
-      ]
-    },
-    {
-      "name": "window_curtained_gray",
-      "kind": "object",
-      "x": 192,
-      "y": 2368,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "window",
-        "furniture",
-        "indoor"
-      ]
-    },
-    {
-      "name": "window_curtained_red",
-      "kind": "object",
-      "x": 224,
-      "y": 2368,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "window",
-        "furniture",
         "indoor"
       ]
     },
@@ -2380,6 +2302,373 @@
         "prop",
         "decoration",
         "ledge"
+      ]
+    },
+    {
+      "name": "window_brown_2pane",
+      "kind": "object",
+      "x": 0,
+      "y": 2368,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "window",
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "window_brown_4pane",
+      "kind": "object",
+      "x": 32,
+      "y": 2368,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "window",
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "window_gray_6pane",
+      "kind": "object",
+      "x": 64,
+      "y": 2368,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "window",
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "window_brown_grid",
+      "kind": "object",
+      "x": 96,
+      "y": 2368,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "window",
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "window_curtained_gray",
+      "kind": "object",
+      "x": 192,
+      "y": 2368,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "window",
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "window_curtained_red",
+      "kind": "object",
+      "x": 224,
+      "y": 2368,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "window",
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_edge_l",
+      "kind": "tile",
+      "row": 22,
+      "col": 0,
+      "frameIndex": 176,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "edge",
+        "building"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_edge_r",
+      "kind": "tile",
+      "row": 23,
+      "col": 1,
+      "frameIndex": 185,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "edge",
+        "building"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_corner_tl",
+      "kind": "tile",
+      "row": 22,
+      "col": 2,
+      "frameIndex": 178,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "corner",
+        "building"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_corner_tr",
+      "kind": "tile",
+      "row": 22,
+      "col": 3,
+      "frameIndex": 179,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "corner",
+        "building"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_corner_br",
+      "kind": "tile",
+      "row": 22,
+      "col": 4,
+      "frameIndex": 180,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "corner",
+        "building"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_corner_bl",
+      "kind": "tile",
+      "row": 23,
+      "col": 2,
+      "frameIndex": 186,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "corner",
+        "building"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_rail",
+      "kind": "tile",
+      "row": 23,
+      "col": 0,
+      "frameIndex": 184,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "rail",
+        "building"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_fill_top_l",
+      "kind": "tile",
+      "row": 19,
+      "col": 0,
+      "frameIndex": 152,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "fill",
+        "building"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_fill_top_mid",
+      "kind": "tile",
+      "row": 19,
+      "col": 1,
+      "frameIndex": 153,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "fill",
+        "building",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_fill_top_r",
+      "kind": "tile",
+      "row": 19,
+      "col": 2,
+      "frameIndex": 154,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "fill",
+        "building"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_fill_mid_l",
+      "kind": "tile",
+      "row": 20,
+      "col": 0,
+      "frameIndex": 160,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "fill",
+        "building"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_fill_mid_mid",
+      "kind": "tile",
+      "row": 20,
+      "col": 1,
+      "frameIndex": 161,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "fill",
+        "building",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_fill_mid_r",
+      "kind": "tile",
+      "row": 20,
+      "col": 2,
+      "frameIndex": 162,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "fill",
+        "building"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_fill_bottom_l",
+      "kind": "tile",
+      "row": 21,
+      "col": 0,
+      "frameIndex": 168,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "fill",
+        "building"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_fill_bottom_mid",
+      "kind": "tile",
+      "row": 21,
+      "col": 1,
+      "frameIndex": 169,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "fill",
+        "building",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "wallpanel_wood_fill_bottom_r",
+      "kind": "tile",
+      "row": 21,
+      "col": 2,
+      "frameIndex": 170,
+      "tags": [
+        "wallpanel",
+        "wood",
+        "fill",
+        "building"
+      ]
+    },
+    {
+      "name": "building_wall_corner_l_a",
+      "kind": "object",
+      "x": 0,
+      "y": 1408,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "corner"
+      ]
+    },
+    {
+      "name": "building_wall_fill_a",
+      "kind": "object",
+      "x": 32,
+      "y": 1408,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "fill",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "building_wall_corner_r_a",
+      "kind": "object",
+      "x": 64,
+      "y": 1408,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "corner"
+      ]
+    },
+    {
+      "name": "door_wood_a",
+      "kind": "object",
+      "x": 224,
+      "y": 1408,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "door",
+        "building",
+        "wood"
+      ]
+    },
+    {
+      "name": "door_accent_wood_a",
+      "kind": "tile",
+      "row": 44,
+      "col": 6,
+      "frameIndex": 358,
+      "tags": [
+        "door",
+        "building",
+        "accent",
+        "overlay"
+      ]
+    },
+    {
+      "name": "roof_fill_a",
+      "kind": "tile",
+      "row": 70,
+      "col": 0,
+      "frameIndex": 560,
+      "tags": [
+        "roof",
+        "building",
+        "repeatable"
       ]
     }
   ]
