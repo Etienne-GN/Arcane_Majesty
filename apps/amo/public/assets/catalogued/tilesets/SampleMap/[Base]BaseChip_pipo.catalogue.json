@@ -2706,6 +2706,66 @@
         "building",
         "repeatable"
       ]
+    },
+    {
+      "name": "fence_wood_corner_w",
+      "kind": "object",
+      "x": 64,
+      "y": 704,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "fence",
+        "wood",
+        "corner",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_wood_corner_e",
+      "kind": "object",
+      "x": 96,
+      "y": 704,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "fence",
+        "wood",
+        "corner",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_iron_corner_w",
+      "kind": "object",
+      "x": 64,
+      "y": 768,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "fence",
+        "iron",
+        "corner",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_iron_corner_e",
+      "kind": "object",
+      "x": 96,
+      "y": 768,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "fence",
+        "iron",
+        "corner",
+        "building",
+        "garden"
+      ]
     }
   ]
 }
