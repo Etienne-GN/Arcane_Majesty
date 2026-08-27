@@ -1774,6 +1774,23 @@
       ]
     },
     {
+      "name": "fence_wood_cross",
+      "kind": "object",
+      "x": 224,
+      "y": 704,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "fence",
+        "wood",
+        "junction",
+        "cross",
+        "corner-stand-in",
+        "building",
+        "garden"
+      ]
+    },
+    {
       "name": "fence_wood_gate_frame",
       "kind": "object",
       "x": 64,
@@ -1861,6 +1878,23 @@
         "fence",
         "iron",
         "junction",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_iron_cross",
+      "kind": "object",
+      "x": 224,
+      "y": 768,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "fence",
+        "iron",
+        "junction",
+        "cross",
+        "corner-stand-in",
         "building",
         "garden"
       ]
