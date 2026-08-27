@@ -1,0 +1,39 @@
+{
+  "source": "[Base]BaseChip_pipo.png",
+  "sheetWidth": 256,
+  "sheetHeight": 4256,
+  "gridTileWidth": 32,
+  "gridTileHeight": 32,
+  "gridCols": 8,
+  "gridRows": 133,
+  "entries": [
+    { "name": "grass_green_light", "kind": "tile", "row": 0, "col": 0, "frameIndex": 0, "tags": ["grass", "floor", "terrain", "green"] },
+    { "name": "grass_green_dark", "kind": "tile", "row": 0, "col": 1, "frameIndex": 1, "tags": ["grass", "floor", "terrain", "green"] },
+    { "name": "grass_green_pale", "kind": "tile", "row": 0, "col": 2, "frameIndex": 2, "tags": ["grass", "floor", "terrain", "green"] },
+    { "name": "dirt_brown", "kind": "tile", "row": 0, "col": 5, "frameIndex": 5, "tags": ["dirt", "floor", "terrain", "brown"] },
+    { "name": "stone_gray_pale", "kind": "tile", "row": 0, "col": 7, "frameIndex": 7, "tags": ["stone", "floor", "terrain", "gray"] },
+
+    { "name": "tree_bush_green_light", "kind": "object", "x": 0, "y": 32, "w": 64, "h": 64, "tags": ["tree", "forest", "decoration", "large", "green"] },
+    { "name": "tree_bush_green_dark", "kind": "object", "x": 64, "y": 32, "w": 64, "h": 64, "tags": ["tree", "forest", "decoration", "large", "green"] },
+    { "name": "tree_bush_orange", "kind": "object", "x": 128, "y": 32, "w": 64, "h": 64, "tags": ["tree", "forest", "decoration", "large", "autumn", "orange"] },
+    { "name": "tree_bare_branches", "kind": "object", "x": 192, "y": 32, "w": 64, "h": 64, "tags": ["tree", "forest", "decoration", "large", "winter", "bare"] },
+
+    { "name": "bush_round_green_light", "kind": "object", "x": 0, "y": 160, "w": 32, "h": 32, "tags": ["bush", "decoration", "small", "green"] },
+    { "name": "stump_small", "kind": "object", "x": 128, "y": 160, "w": 32, "h": 32, "tags": ["stump", "forest", "decoration", "small"] },
+    { "name": "stump_big", "kind": "object", "x": 160, "y": 160, "w": 32, "h": 32, "tags": ["stump", "forest", "decoration", "small"] },
+    { "name": "log_hollow_horizontal", "kind": "object", "x": 192, "y": 160, "w": 64, "h": 32, "tags": ["log", "forest", "decoration", "medium"] },
+
+    { "name": "flower_white_cluster", "kind": "object", "x": 128, "y": 192, "w": 32, "h": 32, "tags": ["flower", "decoration", "small", "white"] },
+    { "name": "flower_pink_bush", "kind": "object", "x": 160, "y": 192, "w": 32, "h": 32, "tags": ["flower", "decoration", "small", "pink"] },
+    { "name": "flower_sunflower", "kind": "object", "x": 224, "y": 192, "w": 32, "h": 32, "tags": ["flower", "decoration", "small", "yellow"] },
+
+    { "name": "mushroom_brown_cluster", "kind": "object", "x": 0, "y": 224, "w": 32, "h": 32, "tags": ["mushroom", "decoration", "small", "brown"] },
+    { "name": "mushroom_pink_cluster", "kind": "object", "x": 32, "y": 224, "w": 32, "h": 32, "tags": ["mushroom", "decoration", "small", "pink"] },
+    { "name": "water_puddle_light_blue", "kind": "object", "x": 128, "y": 224, "w": 32, "h": 32, "tags": ["water", "decoration", "small", "blue"] },
+    { "name": "water_puddle_dark_blue", "kind": "object", "x": 160, "y": 224, "w": 32, "h": 32, "tags": ["water", "decoration", "small", "blue"] },
+
+    { "name": "rock_small_tan", "kind": "object", "x": 0, "y": 256, "w": 32, "h": 32, "tags": ["rock", "decoration", "small", "tan"] },
+    { "name": "gravestone_gray", "kind": "object", "x": 96, "y": 256, "w": 32, "h": 32, "tags": ["gravestone", "dungeon", "decoration", "small", "gray"] },
+    { "name": "cross_wooden", "kind": "object", "x": 128, "y": 256, "w": 32, "h": 32, "tags": ["cross", "dungeon", "decoration", "small", "wood"] }
+  ]
+}

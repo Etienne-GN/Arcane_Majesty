@@ -128,7 +128,9 @@ export default class BootScene extends Phaser.Scene {
         this.load.spritesheet('vfx_pillar', 'assets/vfx/light_pillar/pipo-mapeffect013a.png', { frameWidth: 192, frameHeight: 192 });
 
         // Tileset — base chip for world (256×4256, 32×32 per tile, 8 cols × 133 rows)
-        this.load.image('tileset_base',  'assets/tilesets/SampleMap/[Base]BaseChip_pipo.png');
+        // Catalogued (apps/amo/public/assets/catalogued/tilesets/SampleMap/[Base]BaseChip_pipo.catalogue.json) —
+        // path updated to match; do not move this file back without also reverting the catalogue relocation.
+        this.load.image('tileset_base',  'assets/catalogued/tilesets/SampleMap/[Base]BaseChip_pipo.png');
         // LPC Atlas tilesets — 1024×1024, 32×32 grid (32 cols × 32 rows)
         this.load.image('terrain_atlas', 'assets/tilesets/lpc/terrain_atlas.png');
         this.load.image('tileset_grass', 'assets/tilesets/SampleMap/[A]Grass_pipo.png');
