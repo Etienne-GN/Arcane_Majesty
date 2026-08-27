@@ -1775,6 +1775,408 @@
         "equipment",
         "decoration"
       ]
+    },
+    {
+      "name": "door_wood",
+      "kind": "object",
+      "x": 224,
+      "y": 1472,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "door",
+        "building",
+        "wood"
+      ]
+    },
+    {
+      "name": "fence_wood_run_v",
+      "kind": "object",
+      "x": 32,
+      "y": 704,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "fence",
+        "wood",
+        "run",
+        "vertical",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_wood_run_h",
+      "kind": "object",
+      "x": 160,
+      "y": 704,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "fence",
+        "wood",
+        "run",
+        "horizontal",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_wood_junction_t_r",
+      "kind": "object",
+      "x": 0,
+      "y": 704,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "fence",
+        "wood",
+        "junction",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_wood_junction_t_d",
+      "kind": "object",
+      "x": 192,
+      "y": 704,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "fence",
+        "wood",
+        "junction",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_wood_gate_frame",
+      "kind": "object",
+      "x": 64,
+      "y": 704,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "fence",
+        "wood",
+        "gate",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_wood_end_l",
+      "kind": "object",
+      "x": 128,
+      "y": 704,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "fence",
+        "wood",
+        "end",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_iron_run_v",
+      "kind": "object",
+      "x": 32,
+      "y": 768,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "fence",
+        "iron",
+        "run",
+        "vertical",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_iron_run_h",
+      "kind": "object",
+      "x": 224,
+      "y": 768,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "fence",
+        "iron",
+        "run",
+        "horizontal",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_iron_junction_t_r",
+      "kind": "object",
+      "x": 0,
+      "y": 768,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "fence",
+        "iron",
+        "junction",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_iron_junction_t_d",
+      "kind": "object",
+      "x": 192,
+      "y": 768,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "fence",
+        "iron",
+        "junction",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_iron_gate_frame",
+      "kind": "object",
+      "x": 64,
+      "y": 768,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "fence",
+        "iron",
+        "gate",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_iron_end",
+      "kind": "object",
+      "x": 128,
+      "y": 768,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "fence",
+        "iron",
+        "end",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "ledge_grass_corner_outer_nw",
+      "kind": "tile",
+      "row": 9,
+      "col": 0,
+      "frameIndex": 72,
+      "tags": [
+        "ledge",
+        "terrain",
+        "grass",
+        "corner",
+        "outer"
+      ]
+    },
+    {
+      "name": "ledge_grass_edge_n",
+      "kind": "tile",
+      "row": 9,
+      "col": 1,
+      "frameIndex": 73,
+      "tags": [
+        "ledge",
+        "terrain",
+        "grass",
+        "edge"
+      ]
+    },
+    {
+      "name": "ledge_grass_corner_outer_ne",
+      "kind": "tile",
+      "row": 9,
+      "col": 2,
+      "frameIndex": 74,
+      "tags": [
+        "ledge",
+        "terrain",
+        "grass",
+        "corner",
+        "outer"
+      ]
+    },
+    {
+      "name": "ledge_grass_edge_w",
+      "kind": "tile",
+      "row": 10,
+      "col": 0,
+      "frameIndex": 80,
+      "tags": [
+        "ledge",
+        "terrain",
+        "grass",
+        "edge"
+      ]
+    },
+    {
+      "name": "ledge_grass_edge_e",
+      "kind": "tile",
+      "row": 10,
+      "col": 2,
+      "frameIndex": 82,
+      "tags": [
+        "ledge",
+        "terrain",
+        "grass",
+        "edge"
+      ]
+    },
+    {
+      "name": "ledge_grass_corner_face_sw",
+      "kind": "tile",
+      "row": 11,
+      "col": 0,
+      "frameIndex": 88,
+      "tags": [
+        "ledge",
+        "terrain",
+        "grass",
+        "corner",
+        "cliff-transition"
+      ]
+    },
+    {
+      "name": "ledge_grass_edge_s",
+      "kind": "tile",
+      "row": 11,
+      "col": 1,
+      "frameIndex": 89,
+      "tags": [
+        "ledge",
+        "terrain",
+        "grass",
+        "edge",
+        "cliff-transition"
+      ]
+    },
+    {
+      "name": "ledge_grass_corner_face_se",
+      "kind": "tile",
+      "row": 11,
+      "col": 2,
+      "frameIndex": 90,
+      "tags": [
+        "ledge",
+        "terrain",
+        "grass",
+        "corner",
+        "cliff-transition"
+      ]
+    },
+    {
+      "name": "ledge_grass_cliff_face_sw",
+      "kind": "tile",
+      "row": 12,
+      "col": 0,
+      "frameIndex": 96,
+      "tags": [
+        "ledge",
+        "terrain",
+        "cliff",
+        "wall"
+      ]
+    },
+    {
+      "name": "ledge_grass_cliff_face_mid",
+      "kind": "tile",
+      "row": 12,
+      "col": 1,
+      "frameIndex": 97,
+      "tags": [
+        "ledge",
+        "terrain",
+        "cliff",
+        "wall",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "ledge_grass_cliff_face_se",
+      "kind": "tile",
+      "row": 12,
+      "col": 2,
+      "frameIndex": 98,
+      "tags": [
+        "ledge",
+        "terrain",
+        "cliff",
+        "wall"
+      ]
+    },
+    {
+      "name": "ledge_grass_cliff_base_sw",
+      "kind": "tile",
+      "row": 13,
+      "col": 0,
+      "frameIndex": 104,
+      "tags": [
+        "ledge",
+        "terrain",
+        "cliff",
+        "wall",
+        "base"
+      ]
+    },
+    {
+      "name": "ledge_grass_cliff_base_s",
+      "kind": "tile",
+      "row": 13,
+      "col": 1,
+      "frameIndex": 105,
+      "tags": [
+        "ledge",
+        "terrain",
+        "cliff",
+        "wall",
+        "base"
+      ]
+    },
+    {
+      "name": "ledge_grass_cliff_base_se",
+      "kind": "tile",
+      "row": 13,
+      "col": 2,
+      "frameIndex": 106,
+      "tags": [
+        "ledge",
+        "terrain",
+        "cliff",
+        "wall",
+        "base"
+      ]
+    },
+    {
+      "name": "ladder_rope_wood",
+      "kind": "object",
+      "x": 32,
+      "y": 320,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "ladder",
+        "prop",
+        "decoration",
+        "ledge"
+      ]
     }
   ]
 }
