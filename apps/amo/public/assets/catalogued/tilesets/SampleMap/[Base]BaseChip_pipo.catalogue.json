@@ -85,7 +85,8 @@
         "decoration",
         "large",
         "green"
-      ]
+      ],
+      "season": "summer"
     },
     {
       "name": "tree_bush_green_dark",
@@ -100,7 +101,8 @@
         "decoration",
         "large",
         "green"
-      ]
+      ],
+      "season": "summer"
     },
     {
       "name": "tree_bush_orange",
@@ -116,7 +118,8 @@
         "large",
         "autumn",
         "orange"
-      ]
+      ],
+      "season": "autumn"
     },
     {
       "name": "tree_bare_branches",
@@ -132,7 +135,8 @@
         "large",
         "winter",
         "bare"
-      ]
+      ],
+      "season": "winter"
     },
     {
       "name": "bush_round_green_light",
@@ -202,7 +206,8 @@
         "decoration",
         "small",
         "white"
-      ]
+      ],
+      "season": "spring"
     },
     {
       "name": "flower_pink_bush",
@@ -216,7 +221,8 @@
         "decoration",
         "small",
         "pink"
-      ]
+      ],
+      "season": "spring"
     },
     {
       "name": "flower_sunflower",
@@ -230,7 +236,8 @@
         "decoration",
         "small",
         "yellow"
-      ]
+      ],
+      "season": "summer"
     },
     {
       "name": "mushroom_brown_cluster",
@@ -244,7 +251,8 @@
         "decoration",
         "small",
         "brown"
-      ]
+      ],
+      "season": "autumn"
     },
     {
       "name": "mushroom_pink_cluster",
@@ -258,7 +266,8 @@
         "decoration",
         "small",
         "pink"
-      ]
+      ],
+      "season": "autumn"
     },
     {
       "name": "water_puddle_light_blue",

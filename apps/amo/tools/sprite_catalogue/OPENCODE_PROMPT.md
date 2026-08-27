@@ -26,7 +26,7 @@ can only compute a `catalogued/` destination for paths that contain
   "entries": [
     { "name": "snake_case_unique_name", "kind": "object",
       "x": <int>, "y": <int>, "w": <int>, "h": <int>,
-      "tags": ["tag1", "tag2"] },
+      "tags": ["tag1", "tag2"], "season": "spring|summer|autumn|winter" },
     { "name": "snake_case_unique_name", "kind": "tile",
       "row": <int>, "col": <int>, "frameIndex": <row*gridCols+col>,
       "tags": ["tag1", "tag2"] }
@@ -44,8 +44,17 @@ can only compute a `catalogued/` destination for paths that contain
   give `row`, `col` (0-indexed) and `frameIndex = row * gridCols + col`.
 - `name` — unique within the file, descriptive, snake_case (e.g.
   `oak_tree_large`, `dirt_edge_ne`, `grass_flower_a`).
-- `tags` — free-form array (biome, size, category, season, etc.) to help
-  later search.
+- `tags` — free-form array (biome, size, category, etc.) to help later
+  search.
+- `season` — optional dedicated field, one of `spring`/`summer`/`autumn`/
+  `winter`, for any entry with a real seasonal identity (a tree whose color
+  only makes sense in one season, a flower that only blooms in one). This
+  is a separate field, not a tag, so a scene-builder script can group or
+  filter on it directly instead of grepping `tags` for season-like strings.
+  Omit it entirely for anything with no seasonal identity (rocks, logs,
+  puddles, generic green ground cover) — that omission means "any season",
+  not "unknown". Never invent a season for something without a clear
+  real-world seasonal cue; leave it out instead of guessing.
 - Optional `lowConfidence: true` — see verification loop below.
 - Optional `frames: [{...}, ...]` — only for a genuinely animated sprite
   with multiple frames; most entries won't need this. Note: `frames` is
