@@ -7,15 +7,19 @@
  */
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { mkdtempSync, mkdirSync, writeFileSync, existsSync, rmSync } from 'fs';
+import { mkdtempSync, mkdirSync, writeFileSync, existsSync, rmSync, copyFileSync } from 'fs';
 import { tmpdir } from 'os';
+import { execFileSync } from 'child_process';
 import {
     validateCatalogueObject,
+    validateCatalogueFile,
     relocatedPath,
     relocateToCatalogued,
 } from './validate_sprite_catalogue.mjs';
 
-const FIXTURES = join(dirname(fileURLToPath(import.meta.url)), 'test_fixtures');
+const HERE = dirname(fileURLToPath(import.meta.url));
+const FIXTURES = join(HERE, 'test_fixtures');
+const CLI_SCRIPT = join(HERE, 'validate_sprite_catalogue.mjs');
 
 let passed = 0;
 const fails = [];
@@ -198,6 +202,205 @@ function hasError(result, substring) {
     check('relocate moves the PNG', existsSync(join(destDir, 'foo.png')) && !existsSync(rawPng));
     check('relocate moves the catalogue.json', existsSync(join(destDir, 'foo.catalogue.json')) && !existsSync(rawCat));
     check('relocate reports both moves', moved.length === 2);
+
+    rmSync(tmp, { recursive: true, force: true });
+}
+
+// ── (finding #2) gridCols/gridRows checked against real sheet dimensions ───
+{
+    const cat = {
+        source: 'mini_tile_sheet.png', sheetWidth: 64, sheetHeight: 64,
+        gridTileWidth: 32, gridTileHeight: 32, gridCols: 7, gridRows: 2, // 7*32=224 != 64
+        entries: [],
+    };
+    const result = validateCatalogueObject(cat, FIXTURES);
+    check(
+        'gridCols*gridTileWidth mismatch vs sheetWidth → error',
+        hasError(result, 'gridCols*gridTileWidth (224) !== sheetWidth (64)')
+    );
+}
+{
+    const cat = {
+        source: 'mini_tile_sheet.png', sheetWidth: 64, sheetHeight: 64,
+        gridTileWidth: 32, gridTileHeight: 32, gridCols: 2, gridRows: 9, // 9*32=288 != 64
+        entries: [],
+    };
+    const result = validateCatalogueObject(cat, FIXTURES);
+    check(
+        'gridRows*gridTileHeight mismatch vs sheetHeight → error',
+        hasError(result, 'gridRows*gridTileHeight (288) !== sheetHeight (64)')
+    );
+}
+
+// ── (finding #3) non-numeric / missing coordinates no longer silently pass ─
+{
+    const cat = {
+        source: 'mini_object_sheet.png', sheetWidth: 64, sheetHeight: 32,
+        entries: [{ name: 'missing_xy', kind: 'object', x: undefined, y: undefined, w: 32, h: 32, tags: [] }],
+    };
+    const result = validateCatalogueObject(cat, FIXTURES);
+    check('missing x/y → integer error', hasError(result, '"x" must be an integer') && hasError(result, '"y" must be an integer'));
+}
+{
+    const cat = {
+        source: 'mini_object_sheet.png', sheetWidth: 64, sheetHeight: 32,
+        entries: [{ name: 'string_coords', kind: 'object', x: '0', y: 0, w: 32, h: 32, tags: [] }],
+    };
+    const result = validateCatalogueObject(cat, FIXTURES);
+    check('string coordinate → integer error', hasError(result, '"x" must be an integer (got "0")'));
+}
+{
+    const cat = {
+        source: 'mini_object_sheet.png', sheetWidth: 64, sheetHeight: 32,
+        entries: [{ name: 'fractional_coord', kind: 'object', x: 0.5, y: 0, w: 32, h: 32, tags: [] }],
+    };
+    const result = validateCatalogueObject(cat, FIXTURES);
+    check('fractional coordinate → integer error', hasError(result, '"x" must be an integer (got 0.5)'));
+}
+{
+    // Tile-side integer guard: non-integer row must also be caught, and must
+    // not fall through to a confusing NaN-based out-of-range/frameIndex error.
+    const cat = {
+        source: 'mini_tile_sheet.png', sheetWidth: 64, sheetHeight: 64,
+        gridTileWidth: 32, gridTileHeight: 32, gridCols: 2, gridRows: 2,
+        entries: [{ name: 'bad_row', kind: 'tile', row: '1', col: 1, frameIndex: 3, tags: [] }],
+    };
+    const result = validateCatalogueObject(cat, FIXTURES);
+    check('non-integer tile row → integer error', hasError(result, '"row" must be an integer (got "1")'));
+}
+
+// ── (finding #7) frames[] is presence-checked with a warning, not validated ─
+{
+    const cat = {
+        source: 'mini_object_sheet.png', sheetWidth: 64, sheetHeight: 32,
+        entries: [{
+            name: 'animated', kind: 'object', x: 0, y: 0, w: 32, h: 32, tags: [],
+            frames: [{ x: -999, y: -999, w: -1, h: -1 }],
+        }],
+    };
+    const result = validateCatalogueObject(cat, FIXTURES);
+    check('entry with frames[] → no error', result.errors.length === 0);
+    check(
+        'entry with frames[] → warning',
+        result.warnings.some(w => w.includes('has "frames" — not validated by this gate'))
+    );
+}
+
+// ── (finding #4/#5) CLI multi-file run: one bad file must not kill the run ──
+{
+    const tmp = mkdtempSync(join(tmpdir(), 'sprite-catalogue-cli-test-'));
+    const assetsDir = join(tmp, 'public', 'assets', 'cli_test');
+    mkdirSync(assetsDir, { recursive: true });
+
+    const badCatPath = join(assetsDir, 'bad.catalogue.json');
+    writeFileSync(badCatPath, '{ this is not valid json');
+
+    const goodPngPath = join(assetsDir, 'good.png');
+    copyFileSync(join(FIXTURES, 'mini_object_sheet.png'), goodPngPath);
+    const goodCatPath = join(assetsDir, 'good.catalogue.json');
+    writeFileSync(goodCatPath, JSON.stringify({
+        source: 'good.png', sheetWidth: 64, sheetHeight: 32,
+        entries: [{ name: 'thing', kind: 'object', x: 0, y: 0, w: 32, h: 32, tags: [] }],
+    }));
+
+    let result;
+    try {
+        execFileSync(process.execPath, [CLI_SCRIPT, badCatPath, goodCatPath], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+        result = { status: 0 };
+    } catch (err) {
+        result = { status: err.status, stdout: err.stdout, stderr: err.stderr };
+    }
+
+    check('malformed JSON reported as a clean error, not a raw crash', result.stderr.includes(`✗ ${badCatPath}:`));
+    check('CLI still exits (doesn\'t hang/crash the process)', result.status === 1);
+
+    const catalDir = join(tmp, 'public', 'assets', 'catalogued', 'cli_test');
+    check('good file B still validated/relocated despite bad file A', existsSync(join(catalDir, 'good.png')) && existsSync(join(catalDir, 'good.catalogue.json')));
+    check('bad file A left in place (never relocated)', existsSync(badCatPath));
+
+    rmSync(tmp, { recursive: true, force: true });
+}
+
+// ── (finding #5) relocatedPath() throw surfaces as a clean CLI error ───────
+{
+    const tmp = mkdtempSync(join(tmpdir(), 'sprite-catalogue-outside-test-'));
+    // Deliberately NOT under public/assets/ — a valid, zero-error catalogue
+    // living somewhere the relocation step can't compute a destination for.
+    const pngPath = join(tmp, 'sheet.png');
+    copyFileSync(join(FIXTURES, 'mini_object_sheet.png'), pngPath);
+    const catPath = join(tmp, 'sheet.catalogue.json');
+    writeFileSync(catPath, JSON.stringify({
+        source: 'sheet.png', sheetWidth: 64, sheetHeight: 32,
+        entries: [{ name: 'thing', kind: 'object', x: 0, y: 0, w: 32, h: 32, tags: [] }],
+    }));
+
+    let result;
+    try {
+        execFileSync(process.execPath, [CLI_SCRIPT, catPath], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+        result = { status: 0 };
+    } catch (err) {
+        result = { status: err.status, stdout: err.stdout, stderr: err.stderr };
+    }
+
+    check('catalogue outside public/assets/ fails cleanly, not with a raw stack trace', result.status === 1);
+    check(
+        'error message names the missing "public/assets/" marker',
+        result.stderr.includes('path does not contain "public/assets/"')
+    );
+    check('no uncaught-exception stack trace leaked to stderr', !result.stderr.includes('at file://'));
+
+    rmSync(tmp, { recursive: true, force: true });
+}
+
+// ── (finding #8) end-to-end: validate + relocate composition via the CLI ──
+{
+    const tmp = mkdtempSync(join(tmpdir(), 'sprite-catalogue-e2e-test-'));
+    const assetsDir = join(tmp, 'public', 'assets', 'tilesets', 'lpc');
+    mkdirSync(assetsDir, { recursive: true });
+
+    const pngPath = join(assetsDir, 'e2e_sheet.png');
+    copyFileSync(join(FIXTURES, 'mini_object_sheet.png'), pngPath);
+    const catPath = join(assetsDir, 'e2e_sheet.catalogue.json');
+    writeFileSync(catPath, JSON.stringify({
+        source: 'e2e_sheet.png', sheetWidth: 64, sheetHeight: 32,
+        entries: [
+            { name: 'thing_a', kind: 'object', x: 0, y: 0, w: 32, h: 32, tags: [] },
+            { name: 'thing_b', kind: 'object', x: 32, y: 0, w: 32, h: 32, tags: [] },
+        ],
+    }));
+
+    let status;
+    try {
+        execFileSync(process.execPath, [CLI_SCRIPT, catPath], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+        status = 0;
+    } catch (err) {
+        status = err.status;
+        console.error('e2e CLI run failed unexpectedly:', err.stderr);
+    }
+
+    const destDir = join(tmp, 'public', 'assets', 'catalogued', 'tilesets', 'lpc');
+    check('e2e: CLI exits 0 on a clean catalogue', status === 0);
+    check('e2e: PNG relocated to catalogued/', existsSync(join(destDir, 'e2e_sheet.png')));
+    check('e2e: catalogue.json relocated to catalogued/', existsSync(join(destDir, 'e2e_sheet.catalogue.json')));
+    check('e2e: PNG no longer at original path', !existsSync(pngPath));
+    check('e2e: catalogue.json no longer at original path', !existsSync(catPath));
+
+    rmSync(tmp, { recursive: true, force: true });
+}
+
+// ── validateCatalogueFile returns { cat, errors, warnings } ────────────────
+{
+    const tmp = mkdtempSync(join(tmpdir(), 'sprite-catalogue-file-test-'));
+    const catPath = join(tmp, 'sheet.catalogue.json');
+    writeFileSync(catPath, JSON.stringify({
+        source: 'mini_object_sheet.png', sheetWidth: 64, sheetHeight: 32, entries: [],
+    }));
+    copyFileSync(join(FIXTURES, 'mini_object_sheet.png'), join(tmp, 'mini_object_sheet.png'));
+
+    const { cat, errors, warnings } = validateCatalogueFile(catPath);
+    check('validateCatalogueFile returns parsed cat object', cat && cat.source === 'mini_object_sheet.png');
+    check('validateCatalogueFile returns errors array', Array.isArray(errors) && errors.length === 0);
+    check('validateCatalogueFile returns warnings array', Array.isArray(warnings));
 
     rmSync(tmp, { recursive: true, force: true });
 }

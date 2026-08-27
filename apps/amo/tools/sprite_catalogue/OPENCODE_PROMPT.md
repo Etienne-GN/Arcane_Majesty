@@ -4,11 +4,16 @@ You are annotating a spritesheet PNG into a sidecar `<sheet>.catalogue.json`
 file that names and locates every relevant region in the sheet, so a
 downstream tool can reference sprites by name instead of raw pixel offsets.
 
+All commands in this document assume the working directory is `apps/amo/`.
+
 ## Output file
 
 Given a source image at `path/to/sheet.png`, write your output to
 `path/to/sheet.catalogue.json` (same directory, same basename, extension
-swapped for `.catalogue.json`).
+swapped for `.catalogue.json`). The sheet must live somewhere under a
+`public/assets/` path segment — the validator's relocation step (see below)
+can only compute a `catalogued/` destination for paths that contain
+`public/assets/`; a catalogue outside that tree will fail to relocate.
 
 ## Schema
 
@@ -43,7 +48,10 @@ swapped for `.catalogue.json`).
   later search.
 - Optional `lowConfidence: true` — see verification loop below.
 - Optional `frames: [{...}, ...]` — only for a genuinely animated sprite
-  with multiple frames; most entries won't need this.
+  with multiple frames; most entries won't need this. Note: `frames` is
+  **not validated** by the gate below (it only produces a non-fatal warning
+  reminding a human to review it) — don't rely on the validator to catch a
+  malformed `frames` array.
 
 ## Verification loop (required per entry)
 
@@ -91,3 +99,20 @@ On a clean pass, the validator itself moves both `sheet.png` and
 path under `public/assets/catalogued/` — that's expected and is how a sheet
 graduates from "raw" to "usable by name." You don't need to move anything
 yourself.
+
+## After the validator moves a sheet
+
+The relocation is a real rename, not a copy — `sheet.png` no longer exists at
+its old path once the validator moves it. If the game is currently loading
+this sheet through a hardcoded path (for example, a `this.load.image(...)` or
+`this.load.spritesheet(...)` call in `src/scenes/BootScene.js` referencing the
+sheet's pre-catalogue location), that reference will 404 the moment you
+catalogue the sheet, until either:
+
+- you update the hardcoded path to point at the new `catalogued/` location, or
+- a later sprite-catalogue-consuming renderer/manifest system replaces
+  hardcoded loading entirely (not yet built as of this doc).
+
+So before (or immediately after) cataloguing a sheet that's already in active
+use by the running game, grep the codebase for hardcoded references to its
+old path (e.g. `grep -rn "trunk.png" src/`) and update anything you find.

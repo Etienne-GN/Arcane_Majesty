@@ -60,6 +60,14 @@ export function validateCatalogueObject(cat, baseDir) {
             if (cat[f] == null) errors.push(`missing "${f}" (required — file has "tile" entries)`);
         }
     }
+    if (gridComplete) {
+        if (cat.gridCols * cat.gridTileWidth !== cat.sheetWidth) {
+            errors.push(`gridCols*gridTileWidth (${cat.gridCols * cat.gridTileWidth}) !== sheetWidth (${cat.sheetWidth})`);
+        }
+        if (cat.gridRows * cat.gridTileHeight !== cat.sheetHeight) {
+            errors.push(`gridRows*gridTileHeight (${cat.gridRows * cat.gridTileHeight}) !== sheetHeight (${cat.sheetHeight})`);
+        }
+    }
 
     const seenNames = new Set();
     entries.forEach((e, i) => {
@@ -80,27 +88,51 @@ export function validateCatalogueObject(cat, baseDir) {
 
         if (e.kind === 'tile') {
             if (!gridComplete) return; // already reported above
-            if (!(e.row >= 0 && e.row < cat.gridRows)) {
-                errors.push(`${tag}: row ${e.row} out of range [0, ${cat.gridRows})`);
+            const tileIntFields = ['row', 'col', 'frameIndex'];
+            let allTileIntegers = true;
+            for (const k of tileIntFields) {
+                if (!Number.isInteger(e[k])) {
+                    errors.push(`${tag}: "${k}" must be an integer (got ${JSON.stringify(e[k])})`);
+                    allTileIntegers = false;
+                }
             }
-            if (!(e.col >= 0 && e.col < cat.gridCols)) {
-                errors.push(`${tag}: col ${e.col} out of range [0, ${cat.gridCols})`);
-            }
-            const expected = e.row * cat.gridCols + e.col;
-            if (e.frameIndex !== expected) {
-                errors.push(`${tag}: frameIndex ${e.frameIndex} !== row*gridCols+col (${expected})`);
+            if (allTileIntegers) {
+                if (!(e.row >= 0 && e.row < cat.gridRows)) {
+                    errors.push(`${tag}: row ${e.row} out of range [0, ${cat.gridRows})`);
+                }
+                if (!(e.col >= 0 && e.col < cat.gridCols)) {
+                    errors.push(`${tag}: col ${e.col} out of range [0, ${cat.gridCols})`);
+                }
+                const expected = e.row * cat.gridCols + e.col;
+                if (e.frameIndex !== expected) {
+                    errors.push(`${tag}: frameIndex ${e.frameIndex} !== row*gridCols+col (${expected})`);
+                }
             }
         } else {
             const { x, y, w, h } = e;
-            if (!(w > 0 && h > 0)) {
-                errors.push(`${tag}: w/h must be > 0 (got ${w}x${h})`);
+            const objIntFields = ['x', 'y', 'w', 'h'];
+            let allObjIntegers = true;
+            for (const k of objIntFields) {
+                if (!Number.isInteger(e[k])) {
+                    errors.push(`${tag}: "${k}" must be an integer (got ${JSON.stringify(e[k])})`);
+                    allObjIntegers = false;
+                }
             }
-            if (x < 0 || y < 0 || x + w > cat.sheetWidth || y + h > cat.sheetHeight) {
-                errors.push(
-                    `${tag}: bbox (${x},${y},${w},${h}) out of sheet bounds ` +
-                    `(${cat.sheetWidth}x${cat.sheetHeight})`
-                );
+            if (allObjIntegers) {
+                if (!(w > 0 && h > 0)) {
+                    errors.push(`${tag}: w/h must be > 0 (got ${w}x${h})`);
+                }
+                if (x < 0 || y < 0 || x + w > cat.sheetWidth || y + h > cat.sheetHeight) {
+                    errors.push(
+                        `${tag}: bbox (${x},${y},${w},${h}) out of sheet bounds ` +
+                        `(${cat.sheetWidth}x${cat.sheetHeight})`
+                    );
+                }
             }
+        }
+
+        if (e.frames) {
+            warnings.push(`${tag}: has "frames" — not validated by this gate, needs human review`);
         }
 
         if (e.lowConfidence) warnings.push(`${tag}: flagged lowConfidence — needs human review`);
@@ -109,10 +141,15 @@ export function validateCatalogueObject(cat, baseDir) {
     return { errors, warnings };
 }
 
-/** Reads and parses a *.catalogue.json file, then validates it. */
+/**
+ * Reads and parses a *.catalogue.json file, then validates it.
+ * Returns { cat, errors, warnings } — `cat` is the parsed object, so callers
+ * don't need to re-read/re-parse the file themselves.
+ */
 export function validateCatalogueFile(catPath) {
     const cat = JSON.parse(readFileSync(catPath, 'utf8'));
-    return validateCatalogueObject(cat, dirname(catPath));
+    const { errors, warnings } = validateCatalogueObject(cat, dirname(catPath));
+    return { cat, errors, warnings };
 }
 
 /**
@@ -155,22 +192,28 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     }
     let hardFail = false;
     for (const f of files) {
-        const { errors, warnings } = validateCatalogueFile(f);
-        for (const w of warnings) console.warn(`⚠ ${f}: ${w}`);
-        for (const e of errors) console.error(`✗ ${f}: ${e}`);
-        if (errors.length) {
+        try {
+            const { cat, errors, warnings } = validateCatalogueFile(f);
+            for (const w of warnings) console.warn(`⚠ ${f}: ${w}`);
+            for (const e of errors) console.error(`✗ ${f}: ${e}`);
+            if (errors.length) {
+                hardFail = true;
+                continue;
+            }
+            const sourcePath = join(dirname(f), cat.source);
+            const moved = relocateToCatalogued([f, sourcePath]);
+            const suffix = warnings.length ? ` (${warnings.length} warning(s))` : '';
+            console.log(
+                moved.length
+                    ? `✓ ${f} OK${suffix} — moved to ${dirname(relocatedPath(f))}/ — ` +
+                      `if anything hardcodes the old path (e.g. a BootScene.js this.load.* call), ` +
+                      `update it now or it will 404`
+                    : `✓ ${f} OK${suffix} — already in catalogued/`
+            );
+        } catch (err) {
+            console.error(`✗ ${f}: ${err.message}`);
             hardFail = true;
-            continue;
         }
-        const cat = JSON.parse(readFileSync(f, 'utf8'));
-        const sourcePath = join(dirname(f), cat.source);
-        const moved = relocateToCatalogued([f, sourcePath]);
-        const suffix = warnings.length ? ` (${warnings.length} warning(s))` : '';
-        console.log(
-            moved.length
-                ? `✓ ${f} OK${suffix} — moved to ${dirname(relocatedPath(f))}/`
-                : `✓ ${f} OK${suffix} — already in catalogued/`
-        );
     }
     process.exit(hardFail ? 1 : 0);
 }
