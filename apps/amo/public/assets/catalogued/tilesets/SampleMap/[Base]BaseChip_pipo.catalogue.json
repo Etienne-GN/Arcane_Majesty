@@ -2708,7 +2708,7 @@
       ]
     },
     {
-      "name": "fence_wood_corner_w",
+      "name": "fence_wood_corner_w_top",
       "kind": "object",
       "x": 64,
       "y": 704,
@@ -2718,12 +2718,13 @@
         "fence",
         "wood",
         "corner",
+        "top",
         "building",
         "garden"
       ]
     },
     {
-      "name": "fence_wood_corner_e",
+      "name": "fence_wood_corner_e_top",
       "kind": "object",
       "x": 96,
       "y": 704,
@@ -2733,12 +2734,13 @@
         "fence",
         "wood",
         "corner",
+        "top",
         "building",
         "garden"
       ]
     },
     {
-      "name": "fence_iron_corner_w",
+      "name": "fence_iron_corner_w_top",
       "kind": "object",
       "x": 64,
       "y": 768,
@@ -2748,12 +2750,13 @@
         "fence",
         "iron",
         "corner",
+        "top",
         "building",
         "garden"
       ]
     },
     {
-      "name": "fence_iron_corner_e",
+      "name": "fence_iron_corner_e_top",
       "kind": "object",
       "x": 96,
       "y": 768,
@@ -2763,6 +2766,71 @@
         "fence",
         "iron",
         "corner",
+        "top",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_wood_corner_w_bottom",
+      "kind": "object",
+      "x": 64,
+      "y": 736,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "fence",
+        "wood",
+        "corner",
+        "bottom",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_wood_corner_e_bottom",
+      "kind": "object",
+      "x": 96,
+      "y": 736,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "fence",
+        "wood",
+        "corner",
+        "bottom",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_iron_corner_w_bottom",
+      "kind": "object",
+      "x": 64,
+      "y": 800,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "fence",
+        "iron",
+        "corner",
+        "bottom",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "fence_iron_corner_e_bottom",
+      "kind": "object",
+      "x": 96,
+      "y": 800,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "fence",
+        "iron",
+        "corner",
+        "bottom",
         "building",
         "garden"
       ]
