@@ -1728,7 +1728,7 @@
       ]
     },
     {
-      "name": "fence_wood_run_h",
+      "name": "fence_wood_post_crossbar",
       "kind": "object",
       "x": 160,
       "y": 704,
@@ -1737,8 +1737,8 @@
       "tags": [
         "fence",
         "wood",
-        "run",
-        "horizontal",
+        "post",
+        "crossbar",
         "building",
         "garden"
       ]
@@ -1807,16 +1807,17 @@
       ]
     },
     {
-      "name": "fence_wood_end_l",
+      "name": "fence_wood_run_h",
       "kind": "object",
       "x": 128,
       "y": 704,
       "w": 32,
-      "h": 64,
+      "h": 32,
       "tags": [
         "fence",
         "wood",
-        "end",
+        "run",
+        "horizontal",
         "building",
         "garden"
       ]
@@ -1838,7 +1839,7 @@
       ]
     },
     {
-      "name": "fence_iron_run_h",
+      "name": "fence_iron_post_crossbar",
       "kind": "object",
       "x": 160,
       "y": 768,
@@ -1847,8 +1848,8 @@
       "tags": [
         "fence",
         "iron",
-        "run",
-        "horizontal",
+        "post",
+        "crossbar",
         "building",
         "garden"
       ]
@@ -1917,16 +1918,17 @@
       ]
     },
     {
-      "name": "fence_iron_end",
+      "name": "fence_iron_run_h",
       "kind": "object",
       "x": 128,
       "y": 768,
       "w": 32,
-      "h": 64,
+      "h": 32,
       "tags": [
         "fence",
         "iron",
-        "end",
+        "run",
+        "horizontal",
         "building",
         "garden"
       ]
