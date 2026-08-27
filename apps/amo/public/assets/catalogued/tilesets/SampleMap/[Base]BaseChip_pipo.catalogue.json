@@ -2177,6 +2177,210 @@
         "decoration",
         "ledge"
       ]
+    },
+    {
+      "name": "ledge_dirt_corner_outer_nw",
+      "kind": "tile",
+      "row": 14,
+      "col": 0,
+      "frameIndex": 112,
+      "tags": [
+        "ledge",
+        "terrain",
+        "dirt",
+        "corner",
+        "outer"
+      ]
+    },
+    {
+      "name": "ledge_dirt_edge_n",
+      "kind": "tile",
+      "row": 14,
+      "col": 1,
+      "frameIndex": 113,
+      "tags": [
+        "ledge",
+        "terrain",
+        "dirt",
+        "edge"
+      ]
+    },
+    {
+      "name": "ledge_dirt_corner_outer_ne",
+      "kind": "tile",
+      "row": 14,
+      "col": 2,
+      "frameIndex": 114,
+      "tags": [
+        "ledge",
+        "terrain",
+        "dirt",
+        "corner",
+        "outer"
+      ]
+    },
+    {
+      "name": "ledge_dirt_edge_w",
+      "kind": "tile",
+      "row": 15,
+      "col": 0,
+      "frameIndex": 120,
+      "tags": [
+        "ledge",
+        "terrain",
+        "dirt",
+        "edge"
+      ]
+    },
+    {
+      "name": "ledge_dirt_edge_e",
+      "kind": "tile",
+      "row": 15,
+      "col": 2,
+      "frameIndex": 122,
+      "tags": [
+        "ledge",
+        "terrain",
+        "dirt",
+        "edge"
+      ]
+    },
+    {
+      "name": "ledge_dirt_corner_face_sw",
+      "kind": "tile",
+      "row": 16,
+      "col": 0,
+      "frameIndex": 128,
+      "tags": [
+        "ledge",
+        "terrain",
+        "dirt",
+        "corner",
+        "cliff-transition"
+      ]
+    },
+    {
+      "name": "ledge_dirt_edge_s",
+      "kind": "tile",
+      "row": 16,
+      "col": 1,
+      "frameIndex": 129,
+      "tags": [
+        "ledge",
+        "terrain",
+        "dirt",
+        "edge",
+        "cliff-transition"
+      ]
+    },
+    {
+      "name": "ledge_dirt_corner_face_se",
+      "kind": "tile",
+      "row": 16,
+      "col": 2,
+      "frameIndex": 130,
+      "tags": [
+        "ledge",
+        "terrain",
+        "dirt",
+        "corner",
+        "cliff-transition"
+      ]
+    },
+    {
+      "name": "ledge_dirt_cliff_face_sw",
+      "kind": "tile",
+      "row": 17,
+      "col": 0,
+      "frameIndex": 136,
+      "tags": [
+        "ledge",
+        "terrain",
+        "cliff",
+        "wall"
+      ]
+    },
+    {
+      "name": "ledge_dirt_cliff_face_mid",
+      "kind": "tile",
+      "row": 17,
+      "col": 1,
+      "frameIndex": 137,
+      "tags": [
+        "ledge",
+        "terrain",
+        "cliff",
+        "wall",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "cave_entrance_top",
+      "kind": "tile",
+      "row": 17,
+      "col": 2,
+      "frameIndex": 138,
+      "tags": [
+        "cave",
+        "dungeon",
+        "entrance",
+        "terrain"
+      ]
+    },
+    {
+      "name": "ledge_dirt_cliff_base_sw",
+      "kind": "tile",
+      "row": 18,
+      "col": 0,
+      "frameIndex": 144,
+      "tags": [
+        "ledge",
+        "terrain",
+        "cliff",
+        "wall",
+        "base"
+      ]
+    },
+    {
+      "name": "ledge_dirt_cliff_base_s",
+      "kind": "tile",
+      "row": 18,
+      "col": 1,
+      "frameIndex": 145,
+      "tags": [
+        "ledge",
+        "terrain",
+        "cliff",
+        "wall",
+        "base"
+      ]
+    },
+    {
+      "name": "cave_entrance_bottom",
+      "kind": "tile",
+      "row": 18,
+      "col": 2,
+      "frameIndex": 146,
+      "tags": [
+        "cave",
+        "dungeon",
+        "entrance",
+        "terrain"
+      ]
+    },
+    {
+      "name": "ladder_wood_plank",
+      "kind": "object",
+      "x": 32,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "ladder",
+        "prop",
+        "decoration",
+        "ledge"
+      ]
     }
   ]
 }
