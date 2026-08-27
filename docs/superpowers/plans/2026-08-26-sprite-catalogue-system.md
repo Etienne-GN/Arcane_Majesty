@@ -458,7 +458,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 - [ ] **Step 5: Run test to verify it passes**
 
 Run: `cd apps/amo && node tools/sprite_catalogue/test_validate_sprite_catalogue.mjs`
-Expected: `✓ sprite-catalogue validator tests passed (22 assertions).`
+Expected: `✓ sprite-catalogue validator tests passed (21 assertions).`
 
 - [ ] **Step 6: Wire the npm scripts**
 
@@ -477,7 +477,7 @@ In `apps/amo/package.json`, add a new script and extend the existing `test` chai
 - [ ] **Step 7: Run the full test chain**
 
 Run: `cd apps/amo && npm test`
-Expected: all existing suites still pass, plus `✓ sprite-catalogue validator tests passed (22 assertions).` at the end.
+Expected: all existing suites still pass, plus `✓ sprite-catalogue validator tests passed (21 assertions).` at the end.
 
 - [ ] **Step 8: Commit**
 
@@ -826,6 +826,6 @@ git commit -m "docs(sprite-catalogue): opencode annotation instructions"
 
 ## Plan Self-Review Notes
 
-- **Spec coverage:** Data format/schema → Task 1 (validator enforces it) + Task 3 (prompt documents it). Workflow/verification loop → Task 2 (crop tool) + Task 3 (prompt instructs it). Relocation-on-success into `public/assets/catalogued/` → Task 1 (`relocatedPath`/`relocateToCatalogued` + CLI wiring) + Task 3 (prompt tells opencode not to move anything itself). Tooling section's three deliverables → one task each (1, 2, 3). Testing section → Task 1's 22 assertions + Task 2's 5 assertions, covering every violation class the spec calls out (duplicate name, out-of-bounds bbox, bad tile row/col, frameIndex mismatch) plus the crop tool's manual-check requirement upgraded to an automated pixel-sampling test. Non-goals (which sheets, renderer consumption, aggregate index) are correctly left undone.
+- **Spec coverage:** Data format/schema → Task 1 (validator enforces it) + Task 3 (prompt documents it). Workflow/verification loop → Task 2 (crop tool) + Task 3 (prompt instructs it). Relocation-on-success into `public/assets/catalogued/` → Task 1 (`relocatedPath`/`relocateToCatalogued` + CLI wiring) + Task 3 (prompt tells opencode not to move anything itself). Tooling section's three deliverables → one task each (1, 2, 3). Testing section → Task 1's 21 assertions + Task 2's 5 assertions, covering every violation class the spec calls out (duplicate name, out-of-bounds bbox, bad tile row/col, frameIndex mismatch) plus the crop tool's manual-check requirement upgraded to an automated pixel-sampling test. Non-goals (which sheets, renderer consumption, aggregate index) are correctly left undone.
 - **Placeholder scan:** No TBD/TODO; every step has complete, runnable code.
 - **Type/interface consistency:** `validateCatalogueObject(cat, baseDir)` and `validateCatalogueFile(catPath)` signatures are identical between Task 1's implementation and its test's import. Task 3's CLI examples were written to match Task 1/2's actual flags verbatim (and Task 3 includes an explicit self-check step to catch drift).
