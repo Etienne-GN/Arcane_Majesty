@@ -1,0 +1,41 @@
+{
+  "source": "[A]Wall-Up_pipo.png",
+  "sheetWidth": 256,
+  "sheetHeight": 384,
+  "gridTileWidth": 32,
+  "gridTileHeight": 32,
+  "gridCols": 8,
+  "gridRows": 12,
+  "entries": [
+    {
+      "name": "wall_shadow_reddish_brown",
+      "kind": "tile",
+      "row": 3,
+      "col": 0,
+      "frameIndex": 24,
+      "tags": [
+        "wall",
+        "shadow",
+        "terrain",
+        "cliff-face",
+        "repeatable",
+        "dark-red"
+      ]
+    },
+    {
+      "name": "wall_shadow_dark_gray",
+      "kind": "tile",
+      "row": 9,
+      "col": 0,
+      "frameIndex": 72,
+      "tags": [
+        "wall",
+        "shadow",
+        "terrain",
+        "cliff-face",
+        "repeatable",
+        "dark-gray"
+      ]
+    }
+  ]
+}

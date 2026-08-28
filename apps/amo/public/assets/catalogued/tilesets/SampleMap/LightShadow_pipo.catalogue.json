@@ -1,0 +1,124 @@
+{
+  "source": "LightShadow_pipo.png",
+  "sheetWidth": 256,
+  "sheetHeight": 192,
+  "gridTileWidth": 32,
+  "gridTileHeight": 32,
+  "gridCols": 8,
+  "gridRows": 6,
+  "entries": [
+    {
+      "name": "shadow_blob_square_soft",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
+      "tags": [
+        "shadow",
+        "decoration",
+        "overlay",
+        "blob",
+        "soft"
+      ]
+    },
+    {
+      "name": "shadow_blob_round",
+      "kind": "tile",
+      "row": 0,
+      "col": 2,
+      "frameIndex": 2,
+      "tags": [
+        "shadow",
+        "decoration",
+        "overlay",
+        "blob",
+        "round"
+      ]
+    },
+    {
+      "name": "shadow_blob_oval",
+      "kind": "tile",
+      "row": 0,
+      "col": 3,
+      "frameIndex": 3,
+      "tags": [
+        "shadow",
+        "decoration",
+        "overlay",
+        "blob",
+        "oval"
+      ]
+    },
+    {
+      "name": "shadow_footprint_thin",
+      "kind": "tile",
+      "row": 1,
+      "col": 2,
+      "frameIndex": 10,
+      "tags": [
+        "shadow",
+        "decoration",
+        "overlay",
+        "thin",
+        "character"
+      ]
+    },
+    {
+      "name": "shadow_corner_diagonal_a",
+      "kind": "tile",
+      "row": 2,
+      "col": 2,
+      "frameIndex": 18,
+      "tags": [
+        "shadow",
+        "decoration",
+        "overlay",
+        "corner",
+        "diagonal"
+      ]
+    },
+    {
+      "name": "shadow_corner_diagonal_b",
+      "kind": "tile",
+      "row": 2,
+      "col": 3,
+      "frameIndex": 19,
+      "tags": [
+        "shadow",
+        "decoration",
+        "overlay",
+        "corner",
+        "diagonal"
+      ]
+    },
+    {
+      "name": "glow_white_soft",
+      "kind": "tile",
+      "row": 4,
+      "col": 1,
+      "frameIndex": 33,
+      "tags": [
+        "light",
+        "glow",
+        "decoration",
+        "overlay",
+        "white"
+      ]
+    },
+    {
+      "name": "glow_warm_yellow_soft",
+      "kind": "tile",
+      "row": 4,
+      "col": 5,
+      "frameIndex": 37,
+      "tags": [
+        "light",
+        "glow",
+        "decoration",
+        "overlay",
+        "yellow",
+        "warm"
+      ]
+    }
+  ]
+}
