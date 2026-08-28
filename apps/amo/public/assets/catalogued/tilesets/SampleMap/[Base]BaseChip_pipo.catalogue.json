@@ -3347,9 +3347,9 @@
       "name": "door_wood_dungeon_barred_a",
       "kind": "object",
       "x": 0,
-      "y": 2528,
+      "y": 2560,
       "w": 64,
-      "h": 32,
+      "h": 64,
       "tags": [
         "door",
         "building",
@@ -3362,9 +3362,9 @@
       "name": "door_metal_gray_a",
       "kind": "object",
       "x": 64,
-      "y": 2528,
+      "y": 2560,
       "w": 32,
-      "h": 32,
+      "h": 64,
       "tags": [
         "door",
         "building",
@@ -3376,9 +3376,9 @@
       "name": "door_metal_gray_b",
       "kind": "object",
       "x": 96,
-      "y": 2528,
+      "y": 2560,
       "w": 32,
-      "h": 32,
+      "h": 64,
       "tags": [
         "door",
         "building",
@@ -3390,9 +3390,9 @@
       "name": "door_gold_ornate_red_a",
       "kind": "object",
       "x": 128,
-      "y": 2528,
+      "y": 2560,
       "w": 32,
-      "h": 32,
+      "h": 64,
       "tags": [
         "door",
         "building",
@@ -4189,7 +4189,7 @@
       "name": "rope_fence_post_run",
       "kind": "object",
       "x": 192,
-      "y": 928,
+      "y": 960,
       "w": 64,
       "h": 32,
       "tags": [
@@ -6220,6 +6220,543 @@
         "connectivity",
         "standalone",
         "isolated"
+      ]
+    },
+    {
+      "name": "grass_worn_patches",
+      "kind": "tile",
+      "row": 9,
+      "col": 3,
+      "frameIndex": 75,
+      "tags": [
+        "grass",
+        "floor",
+        "terrain",
+        "green",
+        "worn",
+        "farm"
+      ]
+    },
+    {
+      "name": "dirt_farm_soil",
+      "kind": "tile",
+      "row": 15,
+      "col": 3,
+      "frameIndex": 123,
+      "tags": [
+        "dirt",
+        "floor",
+        "terrain",
+        "brown",
+        "farm",
+        "tilled"
+      ]
+    },
+    {
+      "name": "tree_giant_trunk_grass",
+      "kind": "object",
+      "x": 224,
+      "y": 288,
+      "w": 32,
+      "h": 160,
+      "tags": [
+        "tree",
+        "landmark",
+        "decoration",
+        "large",
+        "hill"
+      ]
+    },
+    {
+      "name": "well_crank_post",
+      "kind": "object",
+      "x": 160,
+      "y": 352,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "well",
+        "decoration",
+        "wood",
+        "farm"
+      ]
+    },
+    {
+      "name": "hedge_bush_tall_round",
+      "kind": "object",
+      "x": 192,
+      "y": 352,
+      "w": 32,
+      "h": 96,
+      "tags": [
+        "hedge",
+        "bush",
+        "decoration",
+        "garden",
+        "green"
+      ]
+    },
+    {
+      "name": "hedge_bush_wide_oval",
+      "kind": "object",
+      "x": 96,
+      "y": 416,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "hedge",
+        "bush",
+        "decoration",
+        "garden",
+        "green"
+      ]
+    },
+    {
+      "name": "rocks_pebbles_pair",
+      "kind": "object",
+      "x": 224,
+      "y": 416,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "rock",
+        "decoration",
+        "small"
+      ]
+    },
+    {
+      "name": "dirt_mound_organic",
+      "kind": "object",
+      "x": 224,
+      "y": 480,
+      "w": 32,
+      "h": 128,
+      "tags": [
+        "dirt",
+        "mound",
+        "decoration",
+        "terrain",
+        "farm"
+      ]
+    },
+    {
+      "name": "ladder_wood_dirt_climb",
+      "kind": "object",
+      "x": 160,
+      "y": 512,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "ladder",
+        "prop",
+        "decoration",
+        "wood",
+        "farm"
+      ]
+    },
+    {
+      "name": "tree_dead_bare_green",
+      "kind": "object",
+      "x": 192,
+      "y": 512,
+      "w": 32,
+      "h": 96,
+      "tags": [
+        "tree",
+        "dead",
+        "decoration",
+        "bare"
+      ]
+    },
+    {
+      "name": "scarecrow",
+      "kind": "object",
+      "x": 96,
+      "y": 608,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "scarecrow",
+        "decoration",
+        "farm"
+      ]
+    },
+    {
+      "name": "sprout_seedling_small",
+      "kind": "object",
+      "x": 128,
+      "y": 608,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "crop",
+        "plant",
+        "farm",
+        "seedling",
+        "green"
+      ]
+    },
+    {
+      "name": "haybale_bundle_tied",
+      "kind": "object",
+      "x": 128,
+      "y": 640,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "hay",
+        "decoration",
+        "farm"
+      ]
+    },
+    {
+      "name": "wheat_stalks_golden",
+      "kind": "object",
+      "x": 160,
+      "y": 608,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "crop",
+        "plant",
+        "farm",
+        "wheat",
+        "gold"
+      ]
+    },
+    {
+      "name": "pumpkin_sprout_young",
+      "kind": "object",
+      "x": 192,
+      "y": 608,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "crop",
+        "plant",
+        "farm",
+        "pumpkin",
+        "green"
+      ]
+    },
+    {
+      "name": "pumpkin_ripe_orange",
+      "kind": "object",
+      "x": 192,
+      "y": 640,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "crop",
+        "plant",
+        "farm",
+        "pumpkin",
+        "orange"
+      ]
+    },
+    {
+      "name": "cabbage_light_green",
+      "kind": "object",
+      "x": 224,
+      "y": 608,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "crop",
+        "plant",
+        "farm",
+        "cabbage",
+        "green"
+      ]
+    },
+    {
+      "name": "cabbage_dark_green",
+      "kind": "object",
+      "x": 224,
+      "y": 640,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "crop",
+        "plant",
+        "farm",
+        "cabbage",
+        "green"
+      ]
+    },
+    {
+      "name": "signpost_blank_small",
+      "kind": "object",
+      "x": 96,
+      "y": 928,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "signpost",
+        "decoration",
+        "wood",
+        "town"
+      ]
+    },
+    {
+      "name": "sign_board_easel",
+      "kind": "object",
+      "x": 128,
+      "y": 928,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "sign",
+        "decoration",
+        "wood",
+        "town"
+      ]
+    },
+    {
+      "name": "signpost_arrow_a",
+      "kind": "object",
+      "x": 160,
+      "y": 928,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "signpost",
+        "decoration",
+        "wood",
+        "town",
+        "directional"
+      ]
+    },
+    {
+      "name": "rope_fence_post_laundry",
+      "kind": "object",
+      "x": 192,
+      "y": 1024,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "fence",
+        "rope",
+        "post",
+        "decoration",
+        "laundry"
+      ]
+    },
+    {
+      "name": "fence_iron_picket_tall_decorative",
+      "kind": "object",
+      "x": 224,
+      "y": 2560,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "fence",
+        "iron",
+        "decorative",
+        "tall",
+        "picket"
+      ]
+    },
+    {
+      "name": "wall_tan_wood_b",
+      "kind": "object",
+      "x": 0,
+      "y": 1344,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "tan",
+        "wood"
+      ]
+    },
+    {
+      "name": "door_gold_wood_b",
+      "kind": "object",
+      "x": 32,
+      "y": 1344,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "door",
+        "building",
+        "wood",
+        "gold"
+      ]
+    },
+    {
+      "name": "wall_gray_concrete_a",
+      "kind": "object",
+      "x": 96,
+      "y": 1344,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "gray",
+        "concrete"
+      ]
+    },
+    {
+      "name": "door_red_wood_a",
+      "kind": "object",
+      "x": 128,
+      "y": 1344,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "door",
+        "building",
+        "wood",
+        "red"
+      ]
+    },
+    {
+      "name": "gate_castle_arch_gray",
+      "kind": "object",
+      "x": 192,
+      "y": 1344,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "gate",
+        "castle",
+        "archway",
+        "stone",
+        "gray"
+      ]
+    },
+    {
+      "name": "vent_accent_dark_a",
+      "kind": "object",
+      "x": 192,
+      "y": 1312,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "vent",
+        "accent",
+        "dungeon",
+        "dark"
+      ]
+    },
+    {
+      "name": "vent_accent_dark_b",
+      "kind": "object",
+      "x": 224,
+      "y": 1312,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "vent",
+        "accent",
+        "dungeon",
+        "dark"
+      ]
+    },
+    {
+      "name": "wall_redbrick_pink_a",
+      "kind": "object",
+      "x": 0,
+      "y": 1600,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "brick",
+        "pink",
+        "red"
+      ]
+    },
+    {
+      "name": "archway_stone_small",
+      "kind": "object",
+      "x": 192,
+      "y": 1600,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "archway",
+        "stone",
+        "gray",
+        "building"
+      ]
+    },
+    {
+      "name": "door_wood_dark_paneled",
+      "kind": "object",
+      "x": 224,
+      "y": 1600,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "door",
+        "building",
+        "wood",
+        "dark",
+        "paneled"
+      ]
+    },
+    {
+      "name": "torch_lantern_wall_bracket",
+      "kind": "object",
+      "x": 224,
+      "y": 1568,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "torch",
+        "lantern",
+        "decoration",
+        "light",
+        "wall"
+      ]
+    },
+    {
+      "name": "gate_iron_frame_opening",
+      "kind": "object",
+      "x": 192,
+      "y": 2176,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "fence",
+        "iron",
+        "gate",
+        "decorative"
+      ]
+    },
+    {
+      "name": "gate_iron_portcullis_small",
+      "kind": "object",
+      "x": 224,
+      "y": 2176,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "fence",
+        "iron",
+        "gate",
+        "portcullis",
+        "decorative"
+      ]
+    },
+    {
+      "name": "rope_fence_post_run_long",
+      "kind": "object",
+      "x": 0,
+      "y": 1056,
+      "w": 96,
+      "h": 32,
+      "tags": [
+        "fence",
+        "rope",
+        "post",
+        "decoration",
+        "long"
       ]
     }
   ]
