@@ -1124,6 +1124,25 @@ export const ITEMS = {
         stats: { intelligence: 8, agility: 8 }, passive: 'void_piercer', sellPrice: 999,
         onUse: (stats) => stats.equipItem('void_piercer'),
     },
+
+    // ── Eldoria's Prophecy: Summit of Despair quest items ───────────────────
+    legion_lore_fragment: {
+        id: 'legion_lore_fragment', name: 'Legion Lore Fragment',
+        description: "A page from the frozen scout's journal, describing the Legion's movements before the cold took them. Grants 60 XP.",
+        color: 0xaa8844, icon: 'itm_scroll', stackable: false, sellPrice: 15,
+        onUse: (stats) => { stats.gainXp(60); return true; },
+    },
+    soul_gem_mana: {
+        id: 'soul_gem_mana', name: 'Soul-Gem of Still Waters',
+        description: "A relic gem recovered from the Widow's Overlook shrine. Permanently increases Max Mana by 15.",
+        color: 0x4488ff, icon: 'itm_ring_02', stackable: false, sellPrice: 60,
+        onUse: (stats) => { stats.maxMana += 15; stats.mana = Math.min(stats.mana + 15, stats.maxMana); return true; },
+    },
+    aether_shard: {
+        id: 'aether_shard', name: 'Aether-Shard',
+        description: 'A crystallized fragment of raw Aether. Used at the Foundry of the Ancients to upgrade Tier II gear to Tier III.',
+        color: 0x9955ff, icon: 'itm_glowing_dust', stackable: true, sellPrice: 25, onUse: () => false,
+    },
 };
 
 // Potion brewing recipes — all require empty_bottle
