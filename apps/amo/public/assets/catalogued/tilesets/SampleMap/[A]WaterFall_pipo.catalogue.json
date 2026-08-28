@@ -1,0 +1,98 @@
+{
+  "source": "[A]WaterFall_pipo.png",
+  "sheetWidth": 1024,
+  "sheetHeight": 576,
+  "gridTileWidth": 32,
+  "gridTileHeight": 32,
+  "gridCols": 32,
+  "gridRows": 18,
+  "entries": [
+    {
+      "name": "waterfall_deep_blue_fill_smooth",
+      "kind": "tile",
+      "row": 1,
+      "col": 5,
+      "frameIndex": 37,
+      "tags": [
+        "waterfall",
+        "deep_blue",
+        "fill",
+        "smooth",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "waterfall_deep_blue_fill_foam",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
+      "tags": [
+        "waterfall",
+        "deep_blue",
+        "fill",
+        "foam",
+        "turbulent",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "waterfall_cyan_fill_smooth",
+      "kind": "tile",
+      "row": 7,
+      "col": 5,
+      "frameIndex": 229,
+      "tags": [
+        "waterfall",
+        "cyan",
+        "fill",
+        "smooth",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "waterfall_cyan_fill_foam",
+      "kind": "tile",
+      "row": 6,
+      "col": 0,
+      "frameIndex": 192,
+      "tags": [
+        "waterfall",
+        "cyan",
+        "fill",
+        "foam",
+        "turbulent",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "waterfall_green_fill_smooth",
+      "kind": "tile",
+      "row": 13,
+      "col": 5,
+      "frameIndex": 421,
+      "tags": [
+        "waterfall",
+        "green",
+        "fill",
+        "smooth",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "waterfall_green_fill_foam",
+      "kind": "tile",
+      "row": 12,
+      "col": 0,
+      "frameIndex": 384,
+      "tags": [
+        "waterfall",
+        "green",
+        "fill",
+        "foam",
+        "turbulent",
+        "repeatable"
+      ]
+    }
+  ]
+}
