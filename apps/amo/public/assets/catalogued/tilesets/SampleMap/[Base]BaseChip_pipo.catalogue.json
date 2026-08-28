@@ -1721,224 +1721,6 @@
       ]
     },
     {
-      "name": "fence_wood_post_standalone",
-      "kind": "object",
-      "x": 32,
-      "y": 704,
-      "w": 32,
-      "h": 64,
-      "tags": [
-        "fence",
-        "wood",
-        "post",
-        "standalone",
-        "decorative",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_wood_post_updown",
-      "kind": "object",
-      "x": 160,
-      "y": 704,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "wood",
-        "post",
-        "stray-up-stub",
-        "unused"
-      ]
-    },
-    {
-      "name": "fence_wood_run_v",
-      "kind": "object",
-      "x": 0,
-      "y": 704,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "wood",
-        "run",
-        "vertical",
-        "building",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_wood_post_down",
-      "kind": "object",
-      "x": 192,
-      "y": 704,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "wood",
-        "post",
-        "stray-down-stub",
-        "unused"
-      ]
-    },
-    {
-      "name": "fence_wood_cross",
-      "kind": "object",
-      "x": 224,
-      "y": 704,
-      "w": 32,
-      "h": 64,
-      "tags": [
-        "fence",
-        "wood",
-        "junction",
-        "cross",
-        "corner-stand-in",
-        "building",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_wood_gate_frame",
-      "kind": "object",
-      "x": 64,
-      "y": 704,
-      "w": 64,
-      "h": 32,
-      "tags": [
-        "fence",
-        "wood",
-        "gate",
-        "building",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_wood_post_offset",
-      "kind": "object",
-      "x": 128,
-      "y": 704,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "wood",
-        "post",
-        "gap-defect",
-        "unused"
-      ]
-    },
-    {
-      "name": "fence_iron_post_standalone",
-      "kind": "object",
-      "x": 32,
-      "y": 768,
-      "w": 32,
-      "h": 64,
-      "tags": [
-        "fence",
-        "iron",
-        "post",
-        "standalone",
-        "decorative",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_iron_post_updown",
-      "kind": "object",
-      "x": 160,
-      "y": 768,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "iron",
-        "post",
-        "stray-up-stub",
-        "unused"
-      ]
-    },
-    {
-      "name": "fence_iron_run_v",
-      "kind": "object",
-      "x": 0,
-      "y": 768,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "iron",
-        "run",
-        "vertical",
-        "building",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_iron_post_down",
-      "kind": "object",
-      "x": 192,
-      "y": 768,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "iron",
-        "post",
-        "stray-down-stub",
-        "unused"
-      ]
-    },
-    {
-      "name": "fence_iron_cross",
-      "kind": "object",
-      "x": 224,
-      "y": 768,
-      "w": 32,
-      "h": 64,
-      "tags": [
-        "fence",
-        "iron",
-        "junction",
-        "cross",
-        "corner-stand-in",
-        "building",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_iron_gate_frame",
-      "kind": "object",
-      "x": 64,
-      "y": 768,
-      "w": 64,
-      "h": 32,
-      "tags": [
-        "fence",
-        "iron",
-        "gate",
-        "building",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_iron_post_offset",
-      "kind": "object",
-      "x": 128,
-      "y": 768,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "iron",
-        "post",
-        "gap-defect",
-        "unused"
-      ]
-    },
-    {
       "name": "ledge_grass_corner_outer_nw",
       "kind": "tile",
       "row": 9,
@@ -2715,166 +2497,6 @@
       ]
     },
     {
-      "name": "fence_wood_corner_w_top",
-      "kind": "object",
-      "x": 64,
-      "y": 704,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "wood",
-        "corner",
-        "top",
-        "building",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_wood_corner_e_top",
-      "kind": "object",
-      "x": 96,
-      "y": 704,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "wood",
-        "corner",
-        "top",
-        "building",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_iron_corner_w_top",
-      "kind": "object",
-      "x": 64,
-      "y": 768,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "iron",
-        "corner",
-        "top",
-        "building",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_iron_corner_e_top",
-      "kind": "object",
-      "x": 96,
-      "y": 768,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "iron",
-        "corner",
-        "top",
-        "building",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_wood_corner_w_bottom",
-      "kind": "object",
-      "x": 64,
-      "y": 736,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "wood",
-        "corner",
-        "bottom",
-        "building",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_wood_corner_e_bottom",
-      "kind": "object",
-      "x": 96,
-      "y": 736,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "wood",
-        "corner",
-        "bottom",
-        "building",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_iron_corner_w_bottom",
-      "kind": "object",
-      "x": 64,
-      "y": 800,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "iron",
-        "corner",
-        "bottom",
-        "building",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_iron_corner_e_bottom",
-      "kind": "object",
-      "x": 96,
-      "y": 800,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "iron",
-        "corner",
-        "bottom",
-        "building",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_wood_run_h",
-      "kind": "object",
-      "x": 0,
-      "y": 736,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "wood",
-        "run",
-        "horizontal",
-        "building",
-        "garden"
-      ]
-    },
-    {
-      "name": "fence_iron_run_h",
-      "kind": "object",
-      "x": 0,
-      "y": 800,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "iron",
-        "run",
-        "horizontal",
-        "building",
-        "garden"
-      ]
-    },
-    {
       "name": "roof_fill_b",
       "kind": "tile",
       "row": 70,
@@ -3413,22 +3035,6 @@
         "magic",
         "decoration",
         "floor"
-      ]
-    },
-    {
-      "name": "fence_wood_gate_frame_bottom",
-      "kind": "object",
-      "x": 160,
-      "y": 736,
-      "w": 64,
-      "h": 32,
-      "tags": [
-        "fence",
-        "wood",
-        "gate",
-        "bottom",
-        "building",
-        "garden"
       ]
     },
     {
@@ -4577,34 +4183,6 @@
         "archway",
         "building",
         "dungeon"
-      ]
-    },
-    {
-      "name": "fence_wood_broken_top_a",
-      "kind": "object",
-      "x": 128,
-      "y": 992,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "wood",
-        "broken",
-        "decoration"
-      ]
-    },
-    {
-      "name": "fence_wood_broken_top_b",
-      "kind": "object",
-      "x": 128,
-      "y": 1056,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "fence",
-        "wood",
-        "broken",
-        "decoration"
       ]
     },
     {
@@ -5874,6 +5452,774 @@
         "pot",
         "decoration",
         "empty"
+      ]
+    },
+    {
+      "name": "fence_wood_up_down",
+      "kind": "tile",
+      "row": 22,
+      "col": 0,
+      "frameIndex": 176,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "up",
+        "down",
+        "straight",
+        "run"
+      ]
+    },
+    {
+      "name": "fence_wood_down",
+      "kind": "tile",
+      "row": 22,
+      "col": 1,
+      "frameIndex": 177,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "down",
+        "end",
+        "terminal"
+      ]
+    },
+    {
+      "name": "fence_wood_down_right",
+      "kind": "tile",
+      "row": 22,
+      "col": 2,
+      "frameIndex": 178,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "down",
+        "right",
+        "corner",
+        "turn"
+      ]
+    },
+    {
+      "name": "fence_wood_left_down",
+      "kind": "tile",
+      "row": 22,
+      "col": 3,
+      "frameIndex": 179,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "left",
+        "down",
+        "corner",
+        "turn"
+      ]
+    },
+    {
+      "name": "fence_wood_left",
+      "kind": "tile",
+      "row": 22,
+      "col": 4,
+      "frameIndex": 180,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "left",
+        "end",
+        "terminal"
+      ]
+    },
+    {
+      "name": "fence_wood_left_up_right",
+      "kind": "tile",
+      "row": 22,
+      "col": 5,
+      "frameIndex": 181,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "left",
+        "up",
+        "right",
+        "junction",
+        "t"
+      ]
+    },
+    {
+      "name": "fence_wood_left_down_right",
+      "kind": "tile",
+      "row": 22,
+      "col": 6,
+      "frameIndex": 182,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "left",
+        "down",
+        "right",
+        "junction",
+        "t"
+      ]
+    },
+    {
+      "name": "fence_wood_left_up_right_down",
+      "kind": "tile",
+      "row": 22,
+      "col": 7,
+      "frameIndex": 183,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "left",
+        "up",
+        "right",
+        "down",
+        "junction",
+        "cross"
+      ]
+    },
+    {
+      "name": "fence_wood_left_right",
+      "kind": "tile",
+      "row": 23,
+      "col": 0,
+      "frameIndex": 184,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "left",
+        "right",
+        "straight",
+        "run"
+      ]
+    },
+    {
+      "name": "fence_wood_up",
+      "kind": "tile",
+      "row": 23,
+      "col": 1,
+      "frameIndex": 185,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "up",
+        "end",
+        "terminal"
+      ]
+    },
+    {
+      "name": "fence_wood_up_right",
+      "kind": "tile",
+      "row": 23,
+      "col": 2,
+      "frameIndex": 186,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "up",
+        "right",
+        "corner",
+        "turn"
+      ]
+    },
+    {
+      "name": "fence_wood_up_left",
+      "kind": "tile",
+      "row": 23,
+      "col": 3,
+      "frameIndex": 187,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "up",
+        "left",
+        "corner",
+        "turn"
+      ]
+    },
+    {
+      "name": "fence_wood_right",
+      "kind": "tile",
+      "row": 23,
+      "col": 4,
+      "frameIndex": 188,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "right",
+        "end",
+        "terminal"
+      ]
+    },
+    {
+      "name": "fence_wood_up_right_down",
+      "kind": "tile",
+      "row": 23,
+      "col": 5,
+      "frameIndex": 189,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "up",
+        "right",
+        "down",
+        "junction",
+        "t"
+      ]
+    },
+    {
+      "name": "fence_wood_up_left_down",
+      "kind": "tile",
+      "row": 23,
+      "col": 6,
+      "frameIndex": 190,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "up",
+        "left",
+        "down",
+        "junction",
+        "t"
+      ]
+    },
+    {
+      "name": "fence_wood_stud",
+      "kind": "tile",
+      "row": 23,
+      "col": 7,
+      "frameIndex": 191,
+      "tags": [
+        "fence",
+        "wood",
+        "connectivity",
+        "standalone",
+        "isolated"
+      ]
+    },
+    {
+      "name": "fence_iron_up_down",
+      "kind": "tile",
+      "row": 24,
+      "col": 0,
+      "frameIndex": 192,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "up",
+        "down",
+        "straight",
+        "run"
+      ]
+    },
+    {
+      "name": "fence_iron_down",
+      "kind": "tile",
+      "row": 24,
+      "col": 1,
+      "frameIndex": 193,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "down",
+        "end",
+        "terminal"
+      ]
+    },
+    {
+      "name": "fence_iron_down_right",
+      "kind": "tile",
+      "row": 24,
+      "col": 2,
+      "frameIndex": 194,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "down",
+        "right",
+        "corner",
+        "turn"
+      ]
+    },
+    {
+      "name": "fence_iron_left_down",
+      "kind": "tile",
+      "row": 24,
+      "col": 3,
+      "frameIndex": 195,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "left",
+        "down",
+        "corner",
+        "turn"
+      ]
+    },
+    {
+      "name": "fence_iron_left",
+      "kind": "tile",
+      "row": 24,
+      "col": 4,
+      "frameIndex": 196,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "left",
+        "end",
+        "terminal"
+      ]
+    },
+    {
+      "name": "fence_iron_left_up_right",
+      "kind": "tile",
+      "row": 24,
+      "col": 5,
+      "frameIndex": 197,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "left",
+        "up",
+        "right",
+        "junction",
+        "t"
+      ]
+    },
+    {
+      "name": "fence_iron_left_down_right",
+      "kind": "tile",
+      "row": 24,
+      "col": 6,
+      "frameIndex": 198,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "left",
+        "down",
+        "right",
+        "junction",
+        "t"
+      ]
+    },
+    {
+      "name": "fence_iron_left_up_right_down",
+      "kind": "tile",
+      "row": 24,
+      "col": 7,
+      "frameIndex": 199,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "left",
+        "up",
+        "right",
+        "down",
+        "junction",
+        "cross"
+      ]
+    },
+    {
+      "name": "fence_iron_left_right",
+      "kind": "tile",
+      "row": 25,
+      "col": 0,
+      "frameIndex": 200,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "left",
+        "right",
+        "straight",
+        "run"
+      ]
+    },
+    {
+      "name": "fence_iron_up",
+      "kind": "tile",
+      "row": 25,
+      "col": 1,
+      "frameIndex": 201,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "up",
+        "end",
+        "terminal"
+      ]
+    },
+    {
+      "name": "fence_iron_up_right",
+      "kind": "tile",
+      "row": 25,
+      "col": 2,
+      "frameIndex": 202,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "up",
+        "right",
+        "corner",
+        "turn"
+      ]
+    },
+    {
+      "name": "fence_iron_up_left",
+      "kind": "tile",
+      "row": 25,
+      "col": 3,
+      "frameIndex": 203,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "up",
+        "left",
+        "corner",
+        "turn"
+      ]
+    },
+    {
+      "name": "fence_iron_right",
+      "kind": "tile",
+      "row": 25,
+      "col": 4,
+      "frameIndex": 204,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "right",
+        "end",
+        "terminal"
+      ]
+    },
+    {
+      "name": "fence_iron_up_right_down",
+      "kind": "tile",
+      "row": 25,
+      "col": 5,
+      "frameIndex": 205,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "up",
+        "right",
+        "down",
+        "junction",
+        "t"
+      ]
+    },
+    {
+      "name": "fence_iron_up_left_down",
+      "kind": "tile",
+      "row": 25,
+      "col": 6,
+      "frameIndex": 206,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "up",
+        "left",
+        "down",
+        "junction",
+        "t"
+      ]
+    },
+    {
+      "name": "fence_iron_stud",
+      "kind": "tile",
+      "row": 25,
+      "col": 7,
+      "frameIndex": 207,
+      "tags": [
+        "fence",
+        "iron",
+        "connectivity",
+        "standalone",
+        "isolated"
+      ]
+    },
+    {
+      "name": "fence_brick_up_down",
+      "kind": "tile",
+      "row": 26,
+      "col": 0,
+      "frameIndex": 208,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "up",
+        "down",
+        "straight",
+        "run"
+      ]
+    },
+    {
+      "name": "fence_brick_down",
+      "kind": "tile",
+      "row": 26,
+      "col": 1,
+      "frameIndex": 209,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "down",
+        "end",
+        "terminal"
+      ]
+    },
+    {
+      "name": "fence_brick_down_right",
+      "kind": "tile",
+      "row": 26,
+      "col": 2,
+      "frameIndex": 210,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "down",
+        "right",
+        "corner",
+        "turn"
+      ]
+    },
+    {
+      "name": "fence_brick_left_down",
+      "kind": "tile",
+      "row": 26,
+      "col": 3,
+      "frameIndex": 211,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "left",
+        "down",
+        "corner",
+        "turn"
+      ]
+    },
+    {
+      "name": "fence_brick_left",
+      "kind": "tile",
+      "row": 26,
+      "col": 4,
+      "frameIndex": 212,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "left",
+        "end",
+        "terminal"
+      ]
+    },
+    {
+      "name": "fence_brick_left_up_right",
+      "kind": "tile",
+      "row": 26,
+      "col": 5,
+      "frameIndex": 213,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "left",
+        "up",
+        "right",
+        "junction",
+        "t"
+      ]
+    },
+    {
+      "name": "fence_brick_left_down_right",
+      "kind": "tile",
+      "row": 26,
+      "col": 6,
+      "frameIndex": 214,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "left",
+        "down",
+        "right",
+        "junction",
+        "t"
+      ]
+    },
+    {
+      "name": "fence_brick_left_up_right_down",
+      "kind": "tile",
+      "row": 26,
+      "col": 7,
+      "frameIndex": 215,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "left",
+        "up",
+        "right",
+        "down",
+        "junction",
+        "cross"
+      ]
+    },
+    {
+      "name": "fence_brick_left_right",
+      "kind": "tile",
+      "row": 27,
+      "col": 0,
+      "frameIndex": 216,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "left",
+        "right",
+        "straight",
+        "run"
+      ]
+    },
+    {
+      "name": "fence_brick_up",
+      "kind": "tile",
+      "row": 27,
+      "col": 1,
+      "frameIndex": 217,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "up",
+        "end",
+        "terminal"
+      ]
+    },
+    {
+      "name": "fence_brick_up_right",
+      "kind": "tile",
+      "row": 27,
+      "col": 2,
+      "frameIndex": 218,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "up",
+        "right",
+        "corner",
+        "turn"
+      ]
+    },
+    {
+      "name": "fence_brick_up_left",
+      "kind": "tile",
+      "row": 27,
+      "col": 3,
+      "frameIndex": 219,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "up",
+        "left",
+        "corner",
+        "turn"
+      ]
+    },
+    {
+      "name": "fence_brick_right",
+      "kind": "tile",
+      "row": 27,
+      "col": 4,
+      "frameIndex": 220,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "right",
+        "end",
+        "terminal"
+      ]
+    },
+    {
+      "name": "fence_brick_up_right_down",
+      "kind": "tile",
+      "row": 27,
+      "col": 5,
+      "frameIndex": 221,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "up",
+        "right",
+        "down",
+        "junction",
+        "t"
+      ]
+    },
+    {
+      "name": "fence_brick_up_left_down",
+      "kind": "tile",
+      "row": 27,
+      "col": 6,
+      "frameIndex": 222,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "up",
+        "left",
+        "down",
+        "junction",
+        "t"
+      ]
+    },
+    {
+      "name": "fence_brick_stud",
+      "kind": "tile",
+      "row": 27,
+      "col": 7,
+      "frameIndex": 223,
+      "tags": [
+        "fence",
+        "brick",
+        "connectivity",
+        "standalone",
+        "isolated"
       ]
     }
   ]
