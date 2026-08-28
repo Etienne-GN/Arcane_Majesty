@@ -1,0 +1,75 @@
+{
+  "source": "[A]Dirt_pipo.png",
+  "sheetWidth": 256,
+  "sheetHeight": 1344,
+  "gridTileWidth": 32,
+  "gridTileHeight": 32,
+  "gridCols": 8,
+  "gridRows": 42,
+  "entries": [
+    {
+      "name": "dirt_path_fill_brown",
+      "kind": "tile",
+      "row": 3,
+      "col": 3,
+      "frameIndex": 27,
+      "tags": [
+        "dirt",
+        "path",
+        "floor",
+        "terrain",
+        "fill",
+        "repeatable",
+        "brown"
+      ]
+    },
+    {
+      "name": "dirt_path_fill_pale_yellow",
+      "kind": "tile",
+      "row": 9,
+      "col": 3,
+      "frameIndex": 75,
+      "tags": [
+        "dirt",
+        "path",
+        "floor",
+        "terrain",
+        "fill",
+        "repeatable",
+        "pale_yellow"
+      ]
+    },
+    {
+      "name": "dirt_path_fill_gray_green",
+      "kind": "tile",
+      "row": 15,
+      "col": 3,
+      "frameIndex": 123,
+      "tags": [
+        "dirt",
+        "path",
+        "floor",
+        "terrain",
+        "fill",
+        "repeatable",
+        "gray_green"
+      ]
+    },
+    {
+      "name": "dirt_path_fill_olive",
+      "kind": "tile",
+      "row": 21,
+      "col": 3,
+      "frameIndex": 171,
+      "tags": [
+        "dirt",
+        "path",
+        "floor",
+        "terrain",
+        "fill",
+        "repeatable",
+        "olive"
+      ]
+    }
+  ]
+}
