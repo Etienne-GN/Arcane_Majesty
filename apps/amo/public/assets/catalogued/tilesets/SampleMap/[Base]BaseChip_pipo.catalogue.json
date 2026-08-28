@@ -2873,6 +2873,392 @@
         "building",
         "garden"
       ]
+    },
+    {
+      "name": "roof_fill_b",
+      "kind": "tile",
+      "row": 70,
+      "col": 1,
+      "frameIndex": 561,
+      "tags": [
+        "roof",
+        "building",
+        "repeatable",
+        "orange",
+        "tile"
+      ]
+    },
+    {
+      "name": "roof_fill_c",
+      "kind": "tile",
+      "row": 70,
+      "col": 2,
+      "frameIndex": 562,
+      "tags": [
+        "roof",
+        "building",
+        "repeatable",
+        "blue",
+        "brick"
+      ]
+    },
+    {
+      "name": "roof_fill_d",
+      "kind": "tile",
+      "row": 70,
+      "col": 3,
+      "frameIndex": 563,
+      "tags": [
+        "roof",
+        "building",
+        "repeatable",
+        "red",
+        "brick"
+      ]
+    },
+    {
+      "name": "roof_fill_e",
+      "kind": "tile",
+      "row": 70,
+      "col": 4,
+      "frameIndex": 564,
+      "tags": [
+        "roof",
+        "building",
+        "repeatable",
+        "gray",
+        "stone"
+      ]
+    },
+    {
+      "name": "roof_fill_f",
+      "kind": "tile",
+      "row": 70,
+      "col": 5,
+      "frameIndex": 565,
+      "tags": [
+        "roof",
+        "building",
+        "repeatable",
+        "gray",
+        "metal"
+      ]
+    },
+    {
+      "name": "roof_fill_g",
+      "kind": "tile",
+      "row": 70,
+      "col": 6,
+      "frameIndex": 566,
+      "tags": [
+        "roof",
+        "building",
+        "repeatable",
+        "gold",
+        "thatch"
+      ]
+    },
+    {
+      "name": "roof_gable_accent_a",
+      "kind": "tile",
+      "row": 70,
+      "col": 7,
+      "frameIndex": 567,
+      "tags": [
+        "roof",
+        "building",
+        "gable",
+        "accent",
+        "vent"
+      ]
+    },
+    {
+      "name": "wall_tan_wood_window_a",
+      "kind": "object",
+      "x": 0,
+      "y": 1472,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "window",
+        "tan",
+        "wood"
+      ]
+    },
+    {
+      "name": "door_wood_barred_a",
+      "kind": "object",
+      "x": 224,
+      "y": 1472,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "door",
+        "building",
+        "barred",
+        "tan",
+        "wood"
+      ]
+    },
+    {
+      "name": "wall_redbrick_a",
+      "kind": "object",
+      "x": 0,
+      "y": 1536,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "red",
+        "brick"
+      ]
+    },
+    {
+      "name": "door_wood_arch_a",
+      "kind": "object",
+      "x": 224,
+      "y": 1536,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "door",
+        "building",
+        "arched",
+        "brown",
+        "wood"
+      ]
+    },
+    {
+      "name": "wall_graybrick_a",
+      "kind": "object",
+      "x": 0,
+      "y": 1664,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "gray",
+        "brick"
+      ]
+    },
+    {
+      "name": "door_metal_silver_a",
+      "kind": "object",
+      "x": 224,
+      "y": 1664,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "door",
+        "building",
+        "metal",
+        "silver"
+      ]
+    },
+    {
+      "name": "wall_olivebrick_a",
+      "kind": "object",
+      "x": 0,
+      "y": 1728,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "olive",
+        "brick"
+      ]
+    },
+    {
+      "name": "door_wood_dark_gold_a",
+      "kind": "object",
+      "x": 224,
+      "y": 1728,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "door",
+        "building",
+        "wood",
+        "dark",
+        "gold-handle"
+      ]
+    },
+    {
+      "name": "wall_tan_pillar_a",
+      "kind": "object",
+      "x": 0,
+      "y": 1792,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "tan",
+        "pillar",
+        "brick"
+      ]
+    },
+    {
+      "name": "door_metal_ornate_a",
+      "kind": "object",
+      "x": 224,
+      "y": 1792,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "door",
+        "building",
+        "metal",
+        "ornate"
+      ]
+    },
+    {
+      "name": "wall_gray_smooth_a",
+      "kind": "object",
+      "x": 0,
+      "y": 1856,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "gray",
+        "smooth"
+      ]
+    },
+    {
+      "name": "door_metal_ornate_b",
+      "kind": "object",
+      "x": 224,
+      "y": 1856,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "door",
+        "building",
+        "metal",
+        "ornate"
+      ]
+    },
+    {
+      "name": "wall_gray_shopfront_a",
+      "kind": "object",
+      "x": 0,
+      "y": 1920,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "gray",
+        "stone",
+        "shopfront"
+      ]
+    },
+    {
+      "name": "door_metal_gem_a",
+      "kind": "object",
+      "x": 224,
+      "y": 1920,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "door",
+        "building",
+        "metal",
+        "gem"
+      ]
+    },
+    {
+      "name": "wall_gold_wood_a",
+      "kind": "object",
+      "x": 0,
+      "y": 1984,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "gold",
+        "wood"
+      ]
+    },
+    {
+      "name": "door_wood_gold_a",
+      "kind": "object",
+      "x": 224,
+      "y": 1984,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "door",
+        "building",
+        "wood",
+        "gold"
+      ]
+    },
+    {
+      "name": "wall_awning_yellow_a",
+      "kind": "object",
+      "x": 0,
+      "y": 2048,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "awning",
+        "yellow",
+        "market"
+      ]
+    },
+    {
+      "name": "door_wood_brown_panel_a",
+      "kind": "object",
+      "x": 224,
+      "y": 2048,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "door",
+        "building",
+        "wood",
+        "brown",
+        "panel"
+      ]
+    },
+    {
+      "name": "wall_white_orangebase_a",
+      "kind": "object",
+      "x": 0,
+      "y": 2112,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "white",
+        "orange"
+      ]
+    },
+    {
+      "name": "door_wood_orange_a",
+      "kind": "object",
+      "x": 224,
+      "y": 2112,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "door",
+        "building",
+        "wood",
+        "orange"
+      ]
     }
   ]
 }
