@@ -132,4 +132,78 @@ export const QUESTS = {
         ],
         reward: { glint: 0, xp: 250, items: ['cleaver_of_vorgos'] },
     },
+
+    // ── Eldoria's Prophecy: Summit of Despair ───────────────────────────────
+    // Step types are restricted to what QuestManager actually tracks (kill,
+    // gather, read_signs — see systems/QuestManager.js's onKill/onGather/
+    // onReadSign). No "reach a location" or "interact with a specific world
+    // object" event exists in the engine, so a couple of the original design
+    // beats (arriving at the summit as its own step; a puzzle-door/brazier
+    // interaction) were dropped or reshaped to real mechanics rather than
+    // written against events that would never fire:
+    //   - The main quest's arrival is implicit — starting the quest at all
+    //     already requires being on this map (map.quests auto-starts every
+    //     listed quest id on load, GameScene.js:173) — so there's no
+    //     separate "reach" step, just the boss kill.
+    //   - "Read the scout's journal" -> read_signs (fires on reading the
+    //     frozen-camp sign already in this map's spawns.signs).
+    //   - "Relight the shrine brazier" -> gather wood + mineral_ore (the
+    //     engine's only two real gatherable resources) near the shrine,
+    //     reframed as gathering fuel/materials rather than an unsupported
+    //     brazier-interact event.
+    //   - "Solve the rune-puzzle door" -> dropped; no puzzle/door-interact
+    //     mechanic exists. The Frost-Shade kill count stands alone.
+    main_whisperer_of_doubt: {
+        id: 'main_whisperer_of_doubt',
+        title: 'Whisperer of Doubt',
+        type: 'main',
+        description: 'Malphas, the Whisperer of Doubt, haunts the pass ahead. Survive his illusions and force him to retreat.',
+        steps: [
+            // NOTE: BossEnemy's death event is currently hardcoded engine-wide
+            // to fire questManager.onKill('void_general', ...) regardless of
+            // map/boss (GameScene.js:336,344,349) — there is no per-map boss
+            // identity, and no "forced to retreat, not killed" outcome yet.
+            // This step targets the engine's real (generic) event so the
+            // quest actually completes in play; Malphas's true "retreats
+            // alive" outcome (per the Campaign Bible) is narrative/quest-text
+            // framing only, until the boss system is generalized — a known
+            // limitation, not fixed here.
+            { id: 'defeat_malphas', type: 'kill', target: 'void_general', label: 'Force Malphas to retreat', required: 1 },
+        ],
+        reward: { glint: 200, xp: 400, items: [] },
+    },
+
+    side_frozen_camp: {
+        id: 'side_frozen_camp',
+        title: 'The Frozen Camp',
+        type: 'side',
+        description: "Investigate the frozen camp of fourteen dead and recover the scout's journal.",
+        steps: [
+            { id: 'read_journal', type: 'read_signs', target: 'any', label: "Read the scout's journal", required: 1 },
+        ],
+        reward: { glint: 40, xp: 60, items: ['legion_lore_fragment'] },
+    },
+
+    side_widows_watch: {
+        id: 'side_widows_watch',
+        title: "The Widow's Watch",
+        type: 'side',
+        description: "Gather fuel and offerings for the shrine at Widow's Overlook to claim what it guards.",
+        steps: [
+            { id: 'gather_wood_shrine', type: 'gather', target: 'wood',        label: 'Gather Wood (0/1)',        required: 1 },
+            { id: 'gather_ore_shrine',  type: 'gather', target: 'mineral_ore', label: 'Gather Mineral Ore (0/1)', required: 1 },
+        ],
+        reward: { glint: 0, xp: 80, items: ['soul_gem_mana'] },
+    },
+
+    side_echoes_in_the_rime: {
+        id: 'side_echoes_in_the_rime',
+        title: 'Echoes in the Rime',
+        type: 'side',
+        description: 'Clear the Frost-Shades guarding the Rime Hollow.',
+        steps: [
+            { id: 'clear_frost_shades', type: 'kill', target: 'frost_shade', label: 'Clear the Frost-Shades (0/2)', required: 2 },
+        ],
+        reward: { glint: 0, xp: 100, items: ['aether_shard', 'aether_shard'] },
+    },
 };
