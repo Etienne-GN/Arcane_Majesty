@@ -724,6 +724,27 @@ export const ENEMY_TYPES = {
     spider_white:  { spriteKey: 'spr_spider_09', animProfile: 'lpc_spider', tint: null, bodyConfig: { w: 28, h: 20, ox: 18, oy: 22 }, health: 24, damage: 9,  speed: 88,  sightRange: 120, attackRange: 30, xpReward: 16, patrolRadius: 60, lootTable: [{ id: 'venom_sac', chance: 0.50 }, { id: 'bone_dust', chance: 0.20 }] },
     spider_dark:   { spriteKey: 'spr_spider_10', animProfile: 'lpc_spider', tint: null, bodyConfig: { w: 28, h: 20, ox: 18, oy: 22 }, health: 28, damage: 11, speed: 100, sightRange: 130, attackRange: 32, xpReward: 20, patrolRadius: 80, lootTable: [{ id: 'venom_sac', chance: 0.60 }, { id: 'shadow_essence', chance: 0.25 }] },
     spider_queen:  { spriteKey: 'spr_spider_11', animProfile: 'lpc_spider', tint: null, bodyConfig: { w: 30, h: 22, ox: 17, oy: 20 }, health: 55, damage: 15, speed: 85,  sightRange: 140, attackRange: 34, xpReward: 45, patrolRadius: 50, lootTable: [{ id: 'venom_sac', chance: 0.90 }, { id: 'spider_silk', chance: 0.70 }, { id: 'void_shard', chance: 0.30 }] },
+
+    // ── Eldoria's Prophecy: Summit of Despair biome ─────────────────────────
+    gloom_beak: {
+        spriteKey: 'spr_bird_eagle', animProfile: 'lpc_bird',
+        bodyConfig: { w: 18, h: 12, ox: 7, oy: 16 },
+        health: 20, damage: 10, speed: 135, sightRange: 170, attackRange: 30,
+        xpReward: 22, patrolRadius: 100, tint: 0x557799,
+        lootTable: [{ id: 'mana_potion', chance: 0.15 }],
+    },
+    frost_shade: {
+        spriteKey: 'spr_shadow_sprite',
+        health: 26, damage: 14, speed: 70, sightRange: 130, attackRange: 26,
+        xpReward: 28, patrolRadius: 60, tint: 0x88ccff,
+        lootTable: [{ id: 'mana_potion', chance: 0.30 }],
+    },
+    crag_fiend: {
+        spriteKey: 'spr_void_stalker',
+        health: 70, damage: 20, speed: 40, sightRange: 140, attackRange: 32,
+        xpReward: 45, patrolRadius: 50, tint: 0x556655,
+        lootTable: [{ id: 'mineral_ore', chance: 0.40 }],
+    },
 };
 
 export const PLAYER_START = { x: 3, y: 4 };
