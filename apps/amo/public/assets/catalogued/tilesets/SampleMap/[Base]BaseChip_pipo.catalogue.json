@@ -3259,6 +3259,2622 @@
         "wood",
         "orange"
       ]
+    },
+    {
+      "name": "grass_green_olive",
+      "kind": "tile",
+      "row": 0,
+      "col": 3,
+      "tags": [
+        "grass",
+        "floor",
+        "terrain",
+        "green"
+      ],
+      "frameIndex": 3
+    },
+    {
+      "name": "grass_dry_tan",
+      "kind": "tile",
+      "row": 0,
+      "col": 4,
+      "tags": [
+        "grass",
+        "floor",
+        "terrain",
+        "tan",
+        "dry"
+      ],
+      "season": "autumn",
+      "frameIndex": 4
+    },
+    {
+      "name": "sand_pale_light",
+      "kind": "tile",
+      "row": 0,
+      "col": 6,
+      "tags": [
+        "sand",
+        "floor",
+        "terrain",
+        "tan"
+      ],
+      "frameIndex": 6
+    },
+    {
+      "name": "moss_clump_scatter",
+      "kind": "object",
+      "x": 64,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "moss",
+        "decoration",
+        "small",
+        "green"
+      ]
+    },
+    {
+      "name": "lily_pad_green",
+      "kind": "object",
+      "x": 96,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "plant",
+        "water",
+        "decoration",
+        "small",
+        "green"
+      ]
+    },
+    {
+      "name": "water_puddle_green",
+      "kind": "object",
+      "x": 192,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "water",
+        "decoration",
+        "small",
+        "green"
+      ]
+    },
+    {
+      "name": "log_hollow_vertical",
+      "kind": "object",
+      "x": 224,
+      "y": 224,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "log",
+        "forest",
+        "decoration",
+        "medium"
+      ]
+    },
+    {
+      "name": "rock_medium_tan",
+      "kind": "object",
+      "x": 32,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "rock",
+        "decoration",
+        "small",
+        "tan"
+      ]
+    },
+    {
+      "name": "stump_round_dark",
+      "kind": "object",
+      "x": 64,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "stump",
+        "forest",
+        "decoration",
+        "small",
+        "dark"
+      ]
+    },
+    {
+      "name": "spike_trap_gray",
+      "kind": "object",
+      "x": 160,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "trap",
+        "dungeon",
+        "decoration",
+        "hazard"
+      ]
+    },
+    {
+      "name": "magic_circle_gray",
+      "kind": "object",
+      "x": 192,
+      "y": 256,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "rune",
+        "magic",
+        "decoration",
+        "floor"
+      ]
+    },
+    {
+      "name": "fence_wood_gate_frame_bottom",
+      "kind": "object",
+      "x": 160,
+      "y": 736,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "fence",
+        "wood",
+        "gate",
+        "bottom",
+        "building",
+        "garden"
+      ]
+    },
+    {
+      "name": "roof_shingle_wood_brown",
+      "kind": "tile",
+      "row": 71,
+      "col": 0,
+      "tags": [
+        "roof",
+        "building",
+        "repeatable",
+        "brown",
+        "wood"
+      ],
+      "frameIndex": 568
+    },
+    {
+      "name": "roof_shingle_terracotta",
+      "kind": "tile",
+      "row": 71,
+      "col": 1,
+      "tags": [
+        "roof",
+        "building",
+        "repeatable",
+        "orange",
+        "terracotta"
+      ],
+      "frameIndex": 569
+    },
+    {
+      "name": "roof_brick_teal",
+      "kind": "tile",
+      "row": 71,
+      "col": 2,
+      "tags": [
+        "roof",
+        "building",
+        "repeatable",
+        "teal",
+        "brick"
+      ],
+      "frameIndex": 570
+    },
+    {
+      "name": "roof_scale_red",
+      "kind": "tile",
+      "row": 71,
+      "col": 3,
+      "tags": [
+        "roof",
+        "building",
+        "repeatable",
+        "red",
+        "scale"
+      ],
+      "frameIndex": 571
+    },
+    {
+      "name": "roof_dome_gray",
+      "kind": "tile",
+      "row": 71,
+      "col": 4,
+      "tags": [
+        "roof",
+        "building",
+        "repeatable",
+        "gray",
+        "cobble"
+      ],
+      "frameIndex": 572
+    },
+    {
+      "name": "roof_metal_corrugated_gray",
+      "kind": "tile",
+      "row": 71,
+      "col": 5,
+      "tags": [
+        "roof",
+        "building",
+        "repeatable",
+        "gray",
+        "metal"
+      ],
+      "frameIndex": 573
+    },
+    {
+      "name": "roof_thatch_gold_dense",
+      "kind": "tile",
+      "row": 71,
+      "col": 6,
+      "tags": [
+        "roof",
+        "building",
+        "repeatable",
+        "gold",
+        "thatch"
+      ],
+      "frameIndex": 574
+    },
+    {
+      "name": "wall_graybrick_pillar_edge",
+      "kind": "object",
+      "x": 224,
+      "y": 2272,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "building",
+        "gray",
+        "brick",
+        "pillar",
+        "trim"
+      ]
+    },
+    {
+      "name": "roof_vent_accent_gray",
+      "kind": "object",
+      "x": 224,
+      "y": 2336,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "roof",
+        "building",
+        "accent",
+        "vent"
+      ]
+    },
+    {
+      "name": "pew_bench_tan_base",
+      "kind": "object",
+      "x": 128,
+      "y": 2400,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "church",
+        "indoor",
+        "base"
+      ]
+    },
+    {
+      "name": "pew_curtained_tan_base",
+      "kind": "object",
+      "x": 160,
+      "y": 2400,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "church",
+        "indoor",
+        "base"
+      ]
+    },
+    {
+      "name": "banner_blank_white_a",
+      "kind": "object",
+      "x": 0,
+      "y": 2432,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "banner",
+        "decoration",
+        "blank"
+      ]
+    },
+    {
+      "name": "dial_wood_white_a",
+      "kind": "object",
+      "x": 32,
+      "y": 2432,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "decoration",
+        "dial"
+      ]
+    },
+    {
+      "name": "prison_bars_small",
+      "kind": "object",
+      "x": 64,
+      "y": 2432,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "dungeon",
+        "decoration",
+        "bars"
+      ]
+    },
+    {
+      "name": "archway_dark_silhouette",
+      "kind": "object",
+      "x": 96,
+      "y": 2432,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "archway",
+        "dungeon",
+        "decoration",
+        "dark"
+      ]
+    },
+    {
+      "name": "bell_gold_hanging",
+      "kind": "object",
+      "x": 128,
+      "y": 2432,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "bell",
+        "church",
+        "decoration",
+        "gold"
+      ]
+    },
+    {
+      "name": "grate_gray_small",
+      "kind": "object",
+      "x": 160,
+      "y": 2432,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "dungeon",
+        "decoration",
+        "grate",
+        "gray"
+      ]
+    },
+    {
+      "name": "banner_blank_white_b",
+      "kind": "object",
+      "x": 0,
+      "y": 2464,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "banner",
+        "decoration",
+        "blank"
+      ]
+    },
+    {
+      "name": "icon_compass_a",
+      "kind": "object",
+      "x": 32,
+      "y": 2464,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "decoration",
+        "dial"
+      ]
+    },
+    {
+      "name": "grate_vent_small",
+      "kind": "object",
+      "x": 64,
+      "y": 2464,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "dungeon",
+        "decoration",
+        "vent"
+      ]
+    },
+    {
+      "name": "window_stained_glass_red",
+      "kind": "object",
+      "x": 192,
+      "y": 2464,
+      "w": 32,
+      "h": 96,
+      "tags": [
+        "window",
+        "church",
+        "decoration",
+        "stained-glass",
+        "red"
+      ]
+    },
+    {
+      "name": "window_stained_glass_rainbow",
+      "kind": "object",
+      "x": 224,
+      "y": 2464,
+      "w": 32,
+      "h": 96,
+      "tags": [
+        "window",
+        "church",
+        "decoration",
+        "stained-glass",
+        "multicolor"
+      ]
+    },
+    {
+      "name": "door_wood_dungeon_barred_a",
+      "kind": "object",
+      "x": 0,
+      "y": 2528,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "door",
+        "building",
+        "wood",
+        "heavy",
+        "ring-handle"
+      ]
+    },
+    {
+      "name": "door_metal_gray_a",
+      "kind": "object",
+      "x": 64,
+      "y": 2528,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "door",
+        "building",
+        "metal",
+        "gray"
+      ]
+    },
+    {
+      "name": "door_metal_gray_b",
+      "kind": "object",
+      "x": 96,
+      "y": 2528,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "door",
+        "building",
+        "metal",
+        "gray"
+      ]
+    },
+    {
+      "name": "door_gold_ornate_red_a",
+      "kind": "object",
+      "x": 128,
+      "y": 2528,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "door",
+        "building",
+        "gold",
+        "ornate",
+        "red"
+      ]
+    },
+    {
+      "name": "icon_fork_knife_silver",
+      "kind": "object",
+      "x": 0,
+      "y": 3872,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "food",
+        "cutlery"
+      ]
+    },
+    {
+      "name": "icon_fork_spoon_silver",
+      "kind": "object",
+      "x": 32,
+      "y": 3872,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "food",
+        "cutlery"
+      ]
+    },
+    {
+      "name": "icon_knife_fork_large",
+      "kind": "object",
+      "x": 64,
+      "y": 3872,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "food",
+        "cutlery"
+      ]
+    },
+    {
+      "name": "icon_scroll_map_tattered",
+      "kind": "object",
+      "x": 0,
+      "y": 3904,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "map"
+      ]
+    },
+    {
+      "name": "icon_letter_paper",
+      "kind": "object",
+      "x": 32,
+      "y": 3904,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "paper"
+      ]
+    },
+    {
+      "name": "icon_ledger_book_white",
+      "kind": "object",
+      "x": 64,
+      "y": 3904,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "book"
+      ]
+    },
+    {
+      "name": "icon_dagger_bomb",
+      "kind": "object",
+      "x": 96,
+      "y": 3904,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "weapon",
+        "dagger"
+      ]
+    },
+    {
+      "name": "candles_lit_triple",
+      "kind": "object",
+      "x": 128,
+      "y": 3936,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "candle",
+        "decoration",
+        "lit",
+        "fire"
+      ]
+    },
+    {
+      "name": "icon_hourglass_gray",
+      "kind": "object",
+      "x": 160,
+      "y": 3936,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "misc"
+      ]
+    },
+    {
+      "name": "lantern_lit_hanging",
+      "kind": "object",
+      "x": 192,
+      "y": 3936,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "lantern",
+        "decoration",
+        "lit",
+        "light"
+      ]
+    },
+    {
+      "name": "cauldron_black_large",
+      "kind": "object",
+      "x": 224,
+      "y": 3936,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "cauldron",
+        "decoration",
+        "kitchen"
+      ]
+    },
+    {
+      "name": "candle_lit_tall",
+      "kind": "object",
+      "x": 96,
+      "y": 3968,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "candle",
+        "decoration",
+        "lit",
+        "fire"
+      ]
+    },
+    {
+      "name": "candelabra_gold_lit",
+      "kind": "object",
+      "x": 128,
+      "y": 3968,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "candelabra",
+        "decoration",
+        "lit",
+        "gold",
+        "fire"
+      ]
+    },
+    {
+      "name": "cutting_board_knife",
+      "kind": "object",
+      "x": 160,
+      "y": 3968,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "kitchen",
+        "decoration",
+        "item"
+      ]
+    },
+    {
+      "name": "potted_flower_purple",
+      "kind": "object",
+      "x": 0,
+      "y": 4000,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "plant",
+        "decoration",
+        "flower",
+        "purple"
+      ]
+    },
+    {
+      "name": "potted_flower_red",
+      "kind": "object",
+      "x": 32,
+      "y": 4000,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "plant",
+        "decoration",
+        "flower",
+        "red"
+      ]
+    },
+    {
+      "name": "candle_unlit_silver",
+      "kind": "object",
+      "x": 64,
+      "y": 4000,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "candle",
+        "decoration",
+        "unlit"
+      ]
+    },
+    {
+      "name": "pan_black_empty",
+      "kind": "object",
+      "x": 160,
+      "y": 4000,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "kitchen",
+        "decoration",
+        "item"
+      ]
+    },
+    {
+      "name": "pan_black_food",
+      "kind": "object",
+      "x": 192,
+      "y": 4000,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "kitchen",
+        "decoration",
+        "item",
+        "food"
+      ]
+    },
+    {
+      "name": "cauldron_black_small",
+      "kind": "object",
+      "x": 224,
+      "y": 4000,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "cauldron",
+        "decoration",
+        "kitchen"
+      ]
+    },
+    {
+      "name": "icon_treasure_board_purple",
+      "kind": "object",
+      "x": 0,
+      "y": 4032,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "treasure"
+      ]
+    },
+    {
+      "name": "bombs_black_pair",
+      "kind": "object",
+      "x": 32,
+      "y": 4032,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "weapon",
+        "bomb"
+      ]
+    },
+    {
+      "name": "daggers_crossed_gold_silver",
+      "kind": "object",
+      "x": 64,
+      "y": 4032,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "weapon",
+        "dagger"
+      ]
+    },
+    {
+      "name": "toy_teddy_bear_a",
+      "kind": "object",
+      "x": 96,
+      "y": 4032,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "toy",
+        "decoration",
+        "item"
+      ]
+    },
+    {
+      "name": "toy_doll_blonde_a",
+      "kind": "object",
+      "x": 128,
+      "y": 4032,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "toy",
+        "decoration",
+        "item"
+      ]
+    },
+    {
+      "name": "monster_potato_brown_a",
+      "kind": "object",
+      "x": 160,
+      "y": 4032,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "creature",
+        "monster",
+        "decoration"
+      ]
+    },
+    {
+      "name": "sword_ornate_gold_ruby",
+      "kind": "object",
+      "x": 192,
+      "y": 4032,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "weapon",
+        "sword"
+      ]
+    },
+    {
+      "name": "helmet_viking_gray",
+      "kind": "object",
+      "x": 0,
+      "y": 4064,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "icon",
+        "item",
+        "armor",
+        "helmet"
+      ]
+    },
+    {
+      "name": "hat_wizard_green",
+      "kind": "object",
+      "x": 32,
+      "y": 4064,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "icon",
+        "item",
+        "armor",
+        "hat"
+      ]
+    },
+    {
+      "name": "hat_red_wide",
+      "kind": "object",
+      "x": 64,
+      "y": 4064,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "armor",
+        "hat"
+      ]
+    },
+    {
+      "name": "flail_mace_silver",
+      "kind": "object",
+      "x": 192,
+      "y": 4064,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "weapon",
+        "mace"
+      ]
+    },
+    {
+      "name": "armor_tunic_green",
+      "kind": "object",
+      "x": 64,
+      "y": 4096,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "armor",
+        "tunic",
+        "green"
+      ]
+    },
+    {
+      "name": "armor_tunic_red_ruffled",
+      "kind": "object",
+      "x": 96,
+      "y": 4096,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "armor",
+        "tunic",
+        "red"
+      ]
+    },
+    {
+      "name": "armor_tunic_blue",
+      "kind": "object",
+      "x": 128,
+      "y": 4096,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "armor",
+        "tunic",
+        "blue"
+      ]
+    },
+    {
+      "name": "armor_tunic_purple",
+      "kind": "object",
+      "x": 160,
+      "y": 4096,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "armor",
+        "tunic",
+        "purple"
+      ]
+    },
+    {
+      "name": "polearm_spiked_silver",
+      "kind": "object",
+      "x": 192,
+      "y": 4096,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "icon",
+        "item",
+        "weapon",
+        "polearm"
+      ]
+    },
+    {
+      "name": "shield_round_silver_b",
+      "kind": "object",
+      "x": 224,
+      "y": 4096,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "shield"
+      ]
+    },
+    {
+      "name": "armor_shoulder_silver_b",
+      "kind": "object",
+      "x": 0,
+      "y": 4128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "armor"
+      ]
+    },
+    {
+      "name": "armor_tunic_green_b",
+      "kind": "object",
+      "x": 32,
+      "y": 4128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "armor",
+        "tunic",
+        "green"
+      ]
+    },
+    {
+      "name": "armor_tunic_red_b",
+      "kind": "object",
+      "x": 64,
+      "y": 4128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "armor",
+        "tunic",
+        "red"
+      ]
+    },
+    {
+      "name": "armor_tunic_blue_b",
+      "kind": "object",
+      "x": 96,
+      "y": 4128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "armor",
+        "tunic",
+        "blue"
+      ]
+    },
+    {
+      "name": "armor_tunic_purple_b",
+      "kind": "object",
+      "x": 128,
+      "y": 4128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "armor",
+        "tunic",
+        "purple"
+      ]
+    },
+    {
+      "name": "creature_blob_tan_b",
+      "kind": "object",
+      "x": 160,
+      "y": 4128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "creature",
+        "monster",
+        "decoration"
+      ]
+    },
+    {
+      "name": "shield_round_silver_c",
+      "kind": "object",
+      "x": 224,
+      "y": 4128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "shield"
+      ]
+    },
+    {
+      "name": "weapon_rack_swords",
+      "kind": "object",
+      "x": 0,
+      "y": 4192,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "weapon-rack",
+        "decoration"
+      ]
+    },
+    {
+      "name": "weapon_rack_spears",
+      "kind": "object",
+      "x": 32,
+      "y": 4192,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "weapon-rack",
+        "decoration"
+      ]
+    },
+    {
+      "name": "weapon_rack_bow_arrows",
+      "kind": "object",
+      "x": 64,
+      "y": 4192,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "weapon-rack",
+        "decoration"
+      ]
+    },
+    {
+      "name": "weapon_rack_empty",
+      "kind": "object",
+      "x": 96,
+      "y": 4192,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "weapon-rack",
+        "decoration"
+      ]
+    },
+    {
+      "name": "scimitar_gold_red",
+      "kind": "object",
+      "x": 128,
+      "y": 4192,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "weapon",
+        "sword"
+      ]
+    },
+    {
+      "name": "axe_hatchet_brown",
+      "kind": "object",
+      "x": 160,
+      "y": 4192,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "icon",
+        "item",
+        "weapon",
+        "axe"
+      ]
+    },
+    {
+      "name": "bridge_wood_plank",
+      "kind": "object",
+      "x": 0,
+      "y": 896,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "bridge",
+        "wood",
+        "decoration",
+        "path"
+      ]
+    },
+    {
+      "name": "well_stone_basin",
+      "kind": "object",
+      "x": 64,
+      "y": 896,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "well",
+        "stone",
+        "decoration"
+      ]
+    },
+    {
+      "name": "bucket_hanging_rope",
+      "kind": "object",
+      "x": 96,
+      "y": 896,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "bucket",
+        "decoration",
+        "rope"
+      ]
+    },
+    {
+      "name": "mailbox_wood_red_roof",
+      "kind": "object",
+      "x": 128,
+      "y": 896,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "mailbox",
+        "decoration",
+        "wood"
+      ]
+    },
+    {
+      "name": "signpost_directional_multi",
+      "kind": "object",
+      "x": 160,
+      "y": 896,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "signpost",
+        "decoration",
+        "wood",
+        "town"
+      ]
+    },
+    {
+      "name": "bulletin_board_papers",
+      "kind": "object",
+      "x": 192,
+      "y": 896,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "bulletinboard",
+        "decoration",
+        "wood",
+        "town"
+      ]
+    },
+    {
+      "name": "gate_stone_archway",
+      "kind": "object",
+      "x": 0,
+      "y": 928,
+      "w": 96,
+      "h": 128,
+      "tags": [
+        "gate",
+        "stone",
+        "archway",
+        "building",
+        "dungeon"
+      ]
+    },
+    {
+      "name": "fence_wood_broken_top_a",
+      "kind": "object",
+      "x": 128,
+      "y": 992,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "fence",
+        "wood",
+        "broken",
+        "decoration"
+      ]
+    },
+    {
+      "name": "fence_wood_broken_top_b",
+      "kind": "object",
+      "x": 128,
+      "y": 1056,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "fence",
+        "wood",
+        "broken",
+        "decoration"
+      ]
+    },
+    {
+      "name": "rope_fence_post_run",
+      "kind": "object",
+      "x": 192,
+      "y": 928,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "fence",
+        "rope",
+        "post",
+        "decoration"
+      ]
+    },
+    {
+      "name": "bridge_rope_wood_a",
+      "kind": "object",
+      "x": 0,
+      "y": 1088,
+      "w": 256,
+      "h": 64,
+      "tags": [
+        "bridge",
+        "rope",
+        "wood",
+        "decoration"
+      ]
+    },
+    {
+      "name": "laundry_white_sheet",
+      "kind": "object",
+      "x": 192,
+      "y": 1088,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "laundry",
+        "decoration",
+        "cloth"
+      ]
+    },
+    {
+      "name": "laundry_colored_clothes",
+      "kind": "object",
+      "x": 192,
+      "y": 1248,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "laundry",
+        "decoration",
+        "cloth"
+      ]
+    },
+    {
+      "name": "floor_wood_plank_tan",
+      "kind": "tile",
+      "row": 36,
+      "col": 0,
+      "tags": [
+        "floor",
+        "terrain",
+        "wood",
+        "tan"
+      ],
+      "frameIndex": 288
+    },
+    {
+      "name": "wall_brick_lightgray",
+      "kind": "tile",
+      "row": 36,
+      "col": 1,
+      "tags": [
+        "wall",
+        "terrain",
+        "brick",
+        "gray"
+      ],
+      "frameIndex": 289
+    },
+    {
+      "name": "floor_cobble_round_gray",
+      "kind": "tile",
+      "row": 36,
+      "col": 2,
+      "tags": [
+        "floor",
+        "terrain",
+        "cobble",
+        "gray"
+      ],
+      "frameIndex": 290
+    },
+    {
+      "name": "floor_tile_lightgray",
+      "kind": "tile",
+      "row": 36,
+      "col": 3,
+      "tags": [
+        "floor",
+        "terrain",
+        "tile",
+        "gray"
+      ],
+      "frameIndex": 291
+    },
+    {
+      "name": "floor_checker_bw",
+      "kind": "tile",
+      "row": 36,
+      "col": 4,
+      "tags": [
+        "floor",
+        "terrain",
+        "checker",
+        "black",
+        "white"
+      ],
+      "frameIndex": 292
+    },
+    {
+      "name": "floor_solid_red2",
+      "kind": "tile",
+      "row": 36,
+      "col": 5,
+      "tags": [
+        "floor",
+        "terrain",
+        "solid",
+        "red"
+      ],
+      "frameIndex": 293
+    },
+    {
+      "name": "wall_brick_maroon",
+      "kind": "tile",
+      "row": 37,
+      "col": 0,
+      "tags": [
+        "wall",
+        "terrain",
+        "brick",
+        "maroon"
+      ],
+      "frameIndex": 296
+    },
+    {
+      "name": "wall_brick_brown",
+      "kind": "tile",
+      "row": 37,
+      "col": 1,
+      "tags": [
+        "wall",
+        "terrain",
+        "brick",
+        "brown"
+      ],
+      "frameIndex": 297
+    },
+    {
+      "name": "floor_cobble_tan",
+      "kind": "tile",
+      "row": 37,
+      "col": 2,
+      "tags": [
+        "floor",
+        "terrain",
+        "cobble",
+        "tan"
+      ],
+      "frameIndex": 298
+    },
+    {
+      "name": "floor_tile_dustyrose",
+      "kind": "tile",
+      "row": 37,
+      "col": 3,
+      "tags": [
+        "floor",
+        "terrain",
+        "tile",
+        "pink"
+      ],
+      "frameIndex": 299
+    },
+    {
+      "name": "floor_checker_red",
+      "kind": "tile",
+      "row": 37,
+      "col": 4,
+      "tags": [
+        "floor",
+        "terrain",
+        "checker",
+        "red"
+      ],
+      "frameIndex": 300
+    },
+    {
+      "name": "floor_solid_gold",
+      "kind": "tile",
+      "row": 37,
+      "col": 5,
+      "tags": [
+        "floor",
+        "terrain",
+        "solid",
+        "gold"
+      ],
+      "frameIndex": 301
+    },
+    {
+      "name": "floor_cobble_tan2",
+      "kind": "tile",
+      "row": 38,
+      "col": 0,
+      "tags": [
+        "floor",
+        "terrain",
+        "cobble",
+        "tan"
+      ],
+      "frameIndex": 304
+    },
+    {
+      "name": "floor_cobble_gray2",
+      "kind": "tile",
+      "row": 38,
+      "col": 1,
+      "tags": [
+        "floor",
+        "terrain",
+        "cobble",
+        "gray"
+      ],
+      "frameIndex": 305
+    },
+    {
+      "name": "floor_diamond_tan",
+      "kind": "tile",
+      "row": 38,
+      "col": 2,
+      "tags": [
+        "floor",
+        "terrain",
+        "diamond",
+        "tan"
+      ],
+      "frameIndex": 306
+    },
+    {
+      "name": "floor_tile_gray2",
+      "kind": "tile",
+      "row": 38,
+      "col": 3,
+      "tags": [
+        "floor",
+        "terrain",
+        "tile",
+        "gray"
+      ],
+      "frameIndex": 307
+    },
+    {
+      "name": "floor_checker_charcoal",
+      "kind": "tile",
+      "row": 38,
+      "col": 4,
+      "tags": [
+        "floor",
+        "terrain",
+        "checker",
+        "charcoal"
+      ],
+      "frameIndex": 308
+    },
+    {
+      "name": "floor_diamond_gray",
+      "kind": "tile",
+      "row": 38,
+      "col": 5,
+      "tags": [
+        "floor",
+        "terrain",
+        "diamond",
+        "gray"
+      ],
+      "frameIndex": 309
+    },
+    {
+      "name": "wall_plank_brown2",
+      "kind": "tile",
+      "row": 39,
+      "col": 0,
+      "tags": [
+        "wall",
+        "terrain",
+        "wood",
+        "brown"
+      ],
+      "frameIndex": 312
+    },
+    {
+      "name": "wall_brick_gold",
+      "kind": "tile",
+      "row": 39,
+      "col": 1,
+      "tags": [
+        "wall",
+        "terrain",
+        "brick",
+        "gold"
+      ],
+      "frameIndex": 313
+    },
+    {
+      "name": "floor_diamond_redorange",
+      "kind": "tile",
+      "row": 39,
+      "col": 2,
+      "tags": [
+        "floor",
+        "terrain",
+        "diamond",
+        "orange"
+      ],
+      "frameIndex": 314
+    },
+    {
+      "name": "floor_tile_olive",
+      "kind": "tile",
+      "row": 39,
+      "col": 3,
+      "tags": [
+        "floor",
+        "terrain",
+        "tile",
+        "olive"
+      ],
+      "frameIndex": 315
+    },
+    {
+      "name": "floor_canvas_white",
+      "kind": "tile",
+      "row": 39,
+      "col": 4,
+      "tags": [
+        "floor",
+        "terrain",
+        "canvas",
+        "white"
+      ],
+      "frameIndex": 316
+    },
+    {
+      "name": "floor_diamond_blue",
+      "kind": "tile",
+      "row": 39,
+      "col": 5,
+      "tags": [
+        "floor",
+        "terrain",
+        "diamond",
+        "blue"
+      ],
+      "frameIndex": 317
+    },
+    {
+      "name": "ladder_wood_wide",
+      "kind": "object",
+      "x": 192,
+      "y": 1152,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "ladder",
+        "prop",
+        "decoration",
+        "wood"
+      ]
+    },
+    {
+      "name": "ladder_wood_narrow",
+      "kind": "object",
+      "x": 224,
+      "y": 1152,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "ladder",
+        "prop",
+        "decoration",
+        "wood"
+      ]
+    },
+    {
+      "name": "stairs_wood_ascending_a",
+      "kind": "object",
+      "x": 192,
+      "y": 1216,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "stairs",
+        "wood",
+        "decoration",
+        "ascending"
+      ]
+    },
+    {
+      "name": "stairs_wood_ascending_b",
+      "kind": "object",
+      "x": 224,
+      "y": 1216,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "stairs",
+        "wood",
+        "decoration",
+        "ascending"
+      ]
+    },
+    {
+      "name": "curtain_red_gold_trim",
+      "kind": "object",
+      "x": 0,
+      "y": 2784,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "curtain",
+        "furniture",
+        "indoor",
+        "red",
+        "gold"
+      ]
+    },
+    {
+      "name": "curtain_white_plain",
+      "kind": "object",
+      "x": 32,
+      "y": 2784,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "curtain",
+        "furniture",
+        "indoor",
+        "white"
+      ]
+    },
+    {
+      "name": "wardrobe_tall_brown",
+      "kind": "object",
+      "x": 160,
+      "y": 2688,
+      "w": 96,
+      "h": 352,
+      "tags": [
+        "furniture",
+        "wardrobe",
+        "indoor",
+        "brown"
+      ]
+    },
+    {
+      "name": "curtain_red_plain",
+      "kind": "object",
+      "x": 64,
+      "y": 2816,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "curtain",
+        "furniture",
+        "indoor",
+        "red"
+      ]
+    },
+    {
+      "name": "curtain_white_ribbed",
+      "kind": "object",
+      "x": 96,
+      "y": 2816,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "curtain",
+        "furniture",
+        "indoor",
+        "white"
+      ]
+    },
+    {
+      "name": "table_side_wood_small",
+      "kind": "object",
+      "x": 128,
+      "y": 2816,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "table",
+        "indoor",
+        "wood"
+      ]
+    },
+    {
+      "name": "dresser_tan_3drawer_a",
+      "kind": "object",
+      "x": 0,
+      "y": 2848,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "dresser",
+        "indoor",
+        "tan"
+      ]
+    },
+    {
+      "name": "dresser_tan_1drawer_small",
+      "kind": "object",
+      "x": 32,
+      "y": 2880,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "dresser",
+        "indoor",
+        "tan"
+      ]
+    },
+    {
+      "name": "dresser_tan_3drawer_b",
+      "kind": "object",
+      "x": 64,
+      "y": 2848,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "dresser",
+        "indoor",
+        "tan"
+      ]
+    },
+    {
+      "name": "bookshelf_colorful_a",
+      "kind": "object",
+      "x": 96,
+      "y": 2848,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "bookshelf",
+        "indoor"
+      ]
+    },
+    {
+      "name": "table_round_wood",
+      "kind": "object",
+      "x": 128,
+      "y": 2848,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "table",
+        "indoor",
+        "wood"
+      ]
+    },
+    {
+      "name": "stool_wood_small",
+      "kind": "object",
+      "x": 128,
+      "y": 2880,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "stool",
+        "indoor",
+        "wood"
+      ]
+    },
+    {
+      "name": "dresser_tan_gold_pulls",
+      "kind": "object",
+      "x": 0,
+      "y": 2912,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "dresser",
+        "indoor",
+        "tan",
+        "gold"
+      ]
+    },
+    {
+      "name": "dresser_small_brown",
+      "kind": "object",
+      "x": 64,
+      "y": 2944,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "dresser",
+        "indoor",
+        "brown"
+      ]
+    },
+    {
+      "name": "cabinet_wood_ornate_gold",
+      "kind": "object",
+      "x": 96,
+      "y": 2912,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "cabinet",
+        "indoor",
+        "wood",
+        "gold"
+      ]
+    },
+    {
+      "name": "bookshelf_large_colorful_a",
+      "kind": "object",
+      "x": 0,
+      "y": 2976,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "bookshelf",
+        "indoor"
+      ]
+    },
+    {
+      "name": "bookshelf_large_colorful_b",
+      "kind": "object",
+      "x": 32,
+      "y": 2976,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "bookshelf",
+        "indoor"
+      ]
+    },
+    {
+      "name": "table_round_tan_cloth",
+      "kind": "object",
+      "x": 96,
+      "y": 2976,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "table",
+        "indoor",
+        "cloth"
+      ]
+    },
+    {
+      "name": "stool_wood_round_small",
+      "kind": "object",
+      "x": 32,
+      "y": 3040,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "stool",
+        "indoor",
+        "wood"
+      ]
+    },
+    {
+      "name": "cushion_round_red_small",
+      "kind": "object",
+      "x": 64,
+      "y": 3040,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "cushion",
+        "indoor",
+        "red"
+      ]
+    },
+    {
+      "name": "cushion_round_purple_small",
+      "kind": "object",
+      "x": 96,
+      "y": 3040,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "cushion",
+        "indoor",
+        "purple"
+      ]
+    },
+    {
+      "name": "mirror_standing_wood",
+      "kind": "object",
+      "x": 0,
+      "y": 3040,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "mirror",
+        "indoor",
+        "wood"
+      ]
+    },
+    {
+      "name": "stove_black",
+      "kind": "object",
+      "x": 32,
+      "y": 3040,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "stove",
+        "indoor",
+        "kitchen"
+      ]
+    },
+    {
+      "name": "sink_gray_a",
+      "kind": "object",
+      "x": 64,
+      "y": 3040,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "sink",
+        "indoor",
+        "kitchen",
+        "gray"
+      ]
+    },
+    {
+      "name": "sink_gray_b",
+      "kind": "object",
+      "x": 96,
+      "y": 3040,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "sink",
+        "indoor",
+        "kitchen",
+        "gray"
+      ]
+    },
+    {
+      "name": "cauldron_hanging_black",
+      "kind": "object",
+      "x": 128,
+      "y": 3040,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "cauldron",
+        "decoration",
+        "kitchen"
+      ]
+    },
+    {
+      "name": "counter_accent_dark",
+      "kind": "object",
+      "x": 128,
+      "y": 3072,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "indoor",
+        "accent"
+      ]
+    },
+    {
+      "name": "bed_pillow_cream",
+      "kind": "object",
+      "x": 0,
+      "y": 3104,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "bed",
+        "pillow",
+        "indoor",
+        "cream"
+      ]
+    },
+    {
+      "name": "bed_pillow_tan",
+      "kind": "object",
+      "x": 32,
+      "y": 3104,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "bed",
+        "pillow",
+        "indoor",
+        "tan"
+      ]
+    },
+    {
+      "name": "bed_pillow_green",
+      "kind": "object",
+      "x": 64,
+      "y": 3104,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "bed",
+        "pillow",
+        "indoor",
+        "green"
+      ]
+    },
+    {
+      "name": "bed_red_gold_ornate_a",
+      "kind": "object",
+      "x": 96,
+      "y": 3104,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "bed",
+        "indoor",
+        "red",
+        "gold"
+      ]
+    },
+    {
+      "name": "bedspread_red_large",
+      "kind": "object",
+      "x": 160,
+      "y": 3104,
+      "w": 96,
+      "h": 128,
+      "tags": [
+        "furniture",
+        "bed",
+        "indoor",
+        "red"
+      ]
+    },
+    {
+      "name": "bed_pillow_cream_b",
+      "kind": "object",
+      "x": 0,
+      "y": 3232,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "bed",
+        "pillow",
+        "indoor",
+        "cream"
+      ]
+    },
+    {
+      "name": "bed_pillow_tan_b",
+      "kind": "object",
+      "x": 32,
+      "y": 3232,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "bed",
+        "pillow",
+        "indoor",
+        "tan"
+      ]
+    },
+    {
+      "name": "bed_pillow_green_b",
+      "kind": "object",
+      "x": 64,
+      "y": 3232,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "bed",
+        "pillow",
+        "indoor",
+        "green"
+      ]
+    },
+    {
+      "name": "bed_red_gold_ornate_small",
+      "kind": "object",
+      "x": 96,
+      "y": 3232,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "bed",
+        "indoor",
+        "red",
+        "gold"
+      ]
+    },
+    {
+      "name": "clock_wall_small",
+      "kind": "object",
+      "x": 0,
+      "y": 3232,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "clock",
+        "indoor"
+      ]
+    },
+    {
+      "name": "fireplace_stone_lit",
+      "kind": "object",
+      "x": 32,
+      "y": 3232,
+      "w": 64,
+      "h": 96,
+      "tags": [
+        "furniture",
+        "fireplace",
+        "indoor",
+        "stone",
+        "fire"
+      ]
+    },
+    {
+      "name": "clock_wall_round",
+      "kind": "object",
+      "x": 64,
+      "y": 3232,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "clock",
+        "indoor"
+      ]
+    },
+    {
+      "name": "chair_wood_simple",
+      "kind": "object",
+      "x": 96,
+      "y": 3232,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "chair",
+        "indoor",
+        "wood"
+      ]
+    },
+    {
+      "name": "throne_red_gold_tall",
+      "kind": "object",
+      "x": 128,
+      "y": 3232,
+      "w": 32,
+      "h": 96,
+      "tags": [
+        "furniture",
+        "throne",
+        "indoor",
+        "red",
+        "gold"
+      ]
+    },
+    {
+      "name": "banner_purple_dragon",
+      "kind": "object",
+      "x": 96,
+      "y": 3296,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "banner",
+        "decoration",
+        "purple"
+      ]
+    },
+    {
+      "name": "banner_red_gold_crown",
+      "kind": "object",
+      "x": 128,
+      "y": 3296,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "banner",
+        "decoration",
+        "red",
+        "gold"
+      ]
+    },
+    {
+      "name": "table_wood_long_brown",
+      "kind": "object",
+      "x": 0,
+      "y": 3328,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "table",
+        "indoor",
+        "wood"
+      ]
+    },
+    {
+      "name": "rug_tan_plain",
+      "kind": "object",
+      "x": 160,
+      "y": 3328,
+      "w": 96,
+      "h": 96,
+      "tags": [
+        "rug",
+        "decoration",
+        "indoor",
+        "tan"
+      ]
+    },
+    {
+      "name": "fireplace_brick_lit",
+      "kind": "object",
+      "x": 0,
+      "y": 3360,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "fireplace",
+        "indoor",
+        "brick",
+        "fire"
+      ]
+    },
+    {
+      "name": "piano_brown_upright",
+      "kind": "object",
+      "x": 96,
+      "y": 3360,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "furniture",
+        "piano",
+        "indoor",
+        "brown"
+      ]
+    },
+    {
+      "name": "table_wood_long_brown_b",
+      "kind": "object",
+      "x": 0,
+      "y": 3392,
+      "w": 96,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "table",
+        "indoor",
+        "wood"
+      ]
+    },
+    {
+      "name": "hedge_topiary_round",
+      "kind": "object",
+      "x": 0,
+      "y": 3520,
+      "w": 64,
+      "h": 96,
+      "tags": [
+        "hedge",
+        "topiary",
+        "decoration",
+        "garden",
+        "green"
+      ]
+    },
+    {
+      "name": "barrel_stack_brown",
+      "kind": "object",
+      "x": 64,
+      "y": 3520,
+      "w": 64,
+      "h": 96,
+      "tags": [
+        "barrel",
+        "decoration",
+        "container"
+      ]
+    },
+    {
+      "name": "curtain_tan_awning",
+      "kind": "object",
+      "x": 128,
+      "y": 3520,
+      "w": 128,
+      "h": 192,
+      "tags": [
+        "curtain",
+        "awning",
+        "decoration",
+        "tan"
+      ]
+    },
+    {
+      "name": "pillar_stone_pair",
+      "kind": "object",
+      "x": 0,
+      "y": 3616,
+      "w": 64,
+      "h": 96,
+      "tags": [
+        "pillar",
+        "column",
+        "decoration",
+        "stone"
+      ]
+    },
+    {
+      "name": "gargoyle_statue_gray",
+      "kind": "object",
+      "x": 64,
+      "y": 3616,
+      "w": 64,
+      "h": 128,
+      "tags": [
+        "statue",
+        "gargoyle",
+        "decoration",
+        "gray"
+      ]
+    },
+    {
+      "name": "potted_plant_topiary_small",
+      "kind": "object",
+      "x": 224,
+      "y": 3616,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "plant",
+        "pot",
+        "decoration",
+        "green"
+      ]
+    },
+    {
+      "name": "fountain_stone_round",
+      "kind": "object",
+      "x": 0,
+      "y": 3712,
+      "w": 96,
+      "h": 96,
+      "tags": [
+        "fountain",
+        "decoration",
+        "stone",
+        "water"
+      ]
+    },
+    {
+      "name": "fountain_stone_base",
+      "kind": "object",
+      "x": 128,
+      "y": 3680,
+      "w": 96,
+      "h": 128,
+      "tags": [
+        "fountain",
+        "decoration",
+        "stone"
+      ]
+    },
+    {
+      "name": "potted_plant_aloe_spiky",
+      "kind": "object",
+      "x": 224,
+      "y": 3680,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "plant",
+        "pot",
+        "decoration",
+        "green"
+      ]
+    },
+    {
+      "name": "gravestone_tall_ornate",
+      "kind": "object",
+      "x": 96,
+      "y": 3744,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "gravestone",
+        "dungeon",
+        "decoration",
+        "gray"
+      ]
+    },
+    {
+      "name": "potted_plant_pink_flowers",
+      "kind": "object",
+      "x": 224,
+      "y": 3744,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "plant",
+        "pot",
+        "decoration",
+        "pink"
+      ]
+    },
+    {
+      "name": "potted_plant_empty",
+      "kind": "object",
+      "x": 224,
+      "y": 3776,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "pot",
+        "decoration",
+        "empty"
+      ]
     }
   ]
 }
