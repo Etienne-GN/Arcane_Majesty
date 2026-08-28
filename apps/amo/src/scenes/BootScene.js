@@ -131,6 +131,10 @@ export default class BootScene extends Phaser.Scene {
         // Catalogued (apps/amo/public/assets/catalogued/tilesets/SampleMap/[Base]BaseChip_pipo.catalogue.json) —
         // path updated to match; do not move this file back without also reverting the catalogue relocation.
         this.load.image('tileset_base',  'assets/catalogued/tilesets/SampleMap/[Base]BaseChip_pipo.png');
+        this.load.json('tileset_base_cat', 'assets/catalogued/tilesets/SampleMap/[Base]BaseChip_pipo.catalogue.json');
+        // Water autotile sheet (2048×1536 pipo, 64 cols × 48 rows) — catalogued corner/edge/fill kit
+        this.load.image('tileset_water',  'assets/catalogued/tilesets/SampleMap/[A]Water_pipo.png');
+        this.load.json('tileset_water_cat', 'assets/catalogued/tilesets/SampleMap/[A]Water_pipo.catalogue.json');
         // LPC Atlas tilesets — 1024×1024, 32×32 grid (32 cols × 32 rows)
         this.load.image('terrain_atlas', 'assets/tilesets/lpc/terrain_atlas.png');
         this.load.image('tileset_grass', 'assets/tilesets/SampleMap/[A]Grass_pipo.png');
@@ -186,6 +190,15 @@ export default class BootScene extends Phaser.Scene {
     create() {
         this._generateTextures();
         this._createVfxAnims();
+
+        // TEMP: direct-to-map test shortcut, e.g. ?testmap=big_forest — bypasses
+        // the whole menu flow for scale/proportion checks. Remove when done.
+        const testMap = new URLSearchParams(window.location.search).get('testmap');
+        if (testMap) {
+            this.scene.start('GameScene', { mapId: testMap, characterId: 'eldrin' });
+            return;
+        }
+
         this.scene.start('MenuScene');
     }
 

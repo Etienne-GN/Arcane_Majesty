@@ -27,7 +27,7 @@ export default class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
 
     init(data) {
-        this._mapId           = data?.mapId           ?? 'prologue_forest';
+        this._mapId           = data?.mapId           ?? 'big_forest'; // TEMP: scale-check test, revert to 'prologue_forest'
         this._spawnX          = data?.spawnX          ?? null;
         this._spawnY          = data?.spawnY          ?? null;
         this._serverUrl       = data?.serverUrl       ?? null;
@@ -2348,6 +2348,7 @@ export default class GameScene extends Phaser.Scene {
         const tsKey      = tsDef?.key         ?? 'tileset_base';
         const floorFrame = tsDef?.floorFrame  ?? 1;
         const pathFrame  = tsDef?.pathFrame   ?? 5;
+        const streetFrame = tsDef?.streetFrame ?? null; // tile===3 — village/cobblestone streets
         const decorFrames = tsDef?.decorFrames ?? null;
         const decorRate   = tsDef?.decorRate   ?? 0;
 
@@ -2355,6 +2356,7 @@ export default class GameScene extends Phaser.Scene {
         const floorData = tiles.map(row =>
             row.map(tile => {
                 if (tile === 2) return pathFrame;
+                if (tile === 3 && streetFrame != null) return streetFrame;
                 if (decorFrames && Math.random() < decorRate)
                     return decorFrames[Math.floor(Math.random() * decorFrames.length)];
                 return floorFrame;
@@ -2386,6 +2388,60 @@ export default class GameScene extends Phaser.Scene {
                     top.setDepth(y + 2000);
                 }
             });
+        });
+
+        this._placeCatalogueDecorations();
+    }
+
+    // Generic catalogue-referenced decoration placement — proof-of-concept
+    // slice of the planned map-format upgrade (sub-project 2), scoped to a
+    // couple of sheets (tileset_base, tileset_water) rather than the full
+    // multi-sheet manifest.
+    // mapDef.decorations: [{ name, x, y (tile coords), blocking?, depthOffset? }]
+    _placeCatalogueDecorations() {
+        this._placeCatalogueItems(this._mapDef.decorations, 'tileset_base_cat', 'tileset_base');
+        this._placeCatalogueItems(this._mapDef.waterTiles, 'tileset_water_cat', 'tileset_water');
+    }
+
+    _placeCatalogueItems(items, catKey, texKey) {
+        if (!items || !items.length) return;
+
+        const catJson = this.cache.json.get(catKey);
+        if (!catJson) {
+            console.warn(`${catKey} not loaded — skipping items`);
+            return;
+        }
+        const byName = {};
+        catJson.entries.forEach(e => { byName[e.name] = e; });
+        const tw = catJson.gridTileWidth, th = catJson.gridTileHeight;
+        const tex = this.textures.get(texKey);
+
+        items.forEach(d => {
+            const entry = byName[d.name];
+            if (!entry) {
+                console.warn(`"${d.name}" not found in ${catKey}`);
+                return;
+            }
+            let cx, cy, cw, ch;
+            if (entry.kind === 'tile') {
+                cx = entry.col * tw; cy = entry.row * th; cw = tw; ch = th;
+            } else {
+                cx = entry.x; cy = entry.y; cw = entry.w; ch = entry.h;
+            }
+            const frameKey = `cat_${d.name}`;
+            if (!tex.has(frameKey)) tex.add(frameKey, 0, cx, cy, cw, ch);
+
+            const px = d.x * TILE_SIZE + cw / 2;
+            const py = d.y * TILE_SIZE + ch / 2;
+            const img = this.add.image(px, py, texKey, frameKey);
+            img.setDepth(py + (d.depthOffset ?? 0));
+
+            if (d.blocking) {
+                const wall = this.wallGroup.create(px, py, 'tile_tree');
+                wall.setAlpha(0);
+                wall.setDisplaySize(cw, ch);
+                wall.refreshBody();
+            }
         });
     }
 
