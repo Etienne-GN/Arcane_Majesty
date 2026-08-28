@@ -13,7 +13,7 @@
 ## Global Constraints
 
 - `DEFAULT_LEGEND = { '.': 0, '#': 1, '=': 2 }` — matches the existing tile-value meanings (floor/wall/path) exactly; the ASCII tool never redefines what a tile value means.
-- Summit of Despair's `decorations`/`tileset` catalogue refs use the literal placeholder `sheet: "PLACEHOLDER/<intended sheet>"`, `name: "PLACEHOLDER"` — clearly greppable, never a real-looking but fake value.
+- **Revised 2026-08-28 — real schema, not the one originally assumed here.** `decorations` entries are `{ name, x, y, blocking?, depthOffset? }` (no `sheet` field — sheet selection is per-array: `decorations` always resolves against the base tileset's catalogue via `GameScene._placeCatalogueDecorations`/`_placeCatalogueItems`; a separate `waterTiles` array exists for water-sheet items, unused here since Summit of Despair has no water). Placeholder decoration names use the literal prefix `PLACEHOLDER_<description>` (e.g. `PLACEHOLDER_shrine`) — clearly greppable, and harmless in practice: an unresolved name just logs a console warning and is skipped (`_placeCatalogueItems`'s existing not-found handling), it doesn't crash the map. `tileset.floorFrame`/`pathFrame` are raw numeric Phaser frame indices, not catalogue lookups — there is no `{sheet, name}` form for these. No real snow/rock terrain sheet is catalogued, so Summit of Despair reuses `tileset_base`'s existing grass frame (`floorFrame: 0`) as a working (not broken) stand-in, commented as temporary.
 - Its portals point at `east_road` and `sylvan_sanctuary` map ids that don't exist yet (commented as such) — not built in this plan.
 - Quest data and new items are real, not placeholders — they only reference id strings, no sprites or built maps required, so nothing blocks building them for real now.
 - New items reuse existing `icon` keys (no new icon art required): `legion_lore_fragment` → `itm_scroll`, `soul_gem_mana` → `itm_ring_02`, `aether_shard` → `itm_glowing_dust`.
@@ -196,13 +196,18 @@ Given one finished map spec:
    ASCII art (`.` floor, `#` wall, `=` path — `apps/amo/tools/maps/ascii_to_tiles.js`'s
    `DEFAULT_LEGEND`), then convert with `asciiToTiles()`.
 2. **Populate `decorations`.** For each Point of Interest / notable prop
-   the spec describes, add a `{ sheet, name, x, y, blocking?, depthOffset? }`
-   entry (per the map-format-renderer-upgrade schema) — `sheet`/`name` come
-   from the sprite catalogue once it's been run against the relevant
-   sheets.
-3. **Populate `tileset`.** Set `floor`/`path`/`decor` catalogue refs (or
-   fall back to the legacy raw-int fields if no relevant sheet is
-   catalogued yet) to match the spec's terrain description.
+   the spec describes, add a `{ name, x, y, blocking?, depthOffset? }` entry
+   (no `sheet` field — `decorations` always resolves against the base
+   tileset's catalogue via `GameScene._placeCatalogueDecorations`; a
+   separate `waterTiles` array exists for water-sheet items, used only if
+   the map has water). `name` comes from the sprite catalogue
+   (`apps/amo/public/assets/catalogued/tilesets/SampleMap/*.catalogue.json`)
+   once it covers a sheet with the props this location needs.
+3. **Populate `tileset`.** Set `floorFrame`/`pathFrame`/`streetFrame` to
+   the raw Phaser frame indices matching the spec's terrain description
+   (`row * gridCols + col` in the relevant catalogue.json — these are
+   numeric frame indices, not catalogue-name lookups; the floor/path system
+   and the named-decoration system are separate mechanisms).
 4. **Populate `spawns`.** Enemies/wildlife/gathering-nodes/chests from the
    spec's Spawns/Treasure tables, using the existing `spawns` schema
    (`enemies`, `npcs`, `chests`, `campfires`, `signs`, `gatheringNodes`,
@@ -224,13 +229,17 @@ Given one finished map spec:
 
 ## When sprites/neighboring maps aren't ready yet
 
-Steps 2-3 and 6 can still be done with clearly-marked placeholders
-(`sheet: "PLACEHOLDER/<intended sheet>"`, a `targetMap` id that doesn't
-exist yet, commented as such) — this proves the data *shape* and the
-registration/portal mechanism are correct without blocking on content that
-isn't ready. Steps 4, 7, and 8 (spawns, quests, items) have no such
-dependency and should always be done for real, since they only reference
-id strings, not sprites or built maps.
+Steps 2-3 and 6 can still be done with clearly-marked placeholders — a
+decoration `name` prefixed `PLACEHOLDER_<description>` (resolves to a
+harmless console warning + skip, not a crash, since `_placeCatalogueItems`
+already handles unresolved names gracefully), a `floorFrame`/`pathFrame`
+reusing an existing catalogued frame from the wrong biome (working, just
+visually wrong, until the real terrain sheet exists), or a `targetMap` id
+that doesn't exist yet (commented as such) — this proves the data *shape*
+and the registration/portal mechanism are correct without blocking on
+content that isn't ready. Steps 4, 7, and 8 (spawns, quests, items) have
+no such dependency and should always be done for real, since they only
+reference id strings, not sprites or built maps.
 ```
 
 - [ ] **Step 2: Self-review the document**
@@ -504,10 +513,17 @@ Create `apps/amo/src/data/maps/summit_of_despair.js`:
 //
 // PROOF-APPLICATION NOTE: this map is a structural proof of the map-
 // assembly procedure (data/lore/campaigns/map_assembly_procedure.md),
-// built before real catalogued sprites or neighboring maps exist:
-//   - `decorations`/`tileset` entries use PLACEHOLDER sheet/name refs —
-//     replace with real sprite-catalogue lookups once lpc/trunk,
-//     lpc/treetop, and a snow/rock terrain sheet are actually catalogued.
+// built before a real snow/rock terrain sheet or neighboring maps exist:
+//   - `decorations` entries use PLACEHOLDER_* names — they resolve
+//     against the real catalogue-decoration mechanism
+//     (GameScene._placeCatalogueDecorations), which already exists and
+//     works; these specific names just aren't in any catalogue yet, so
+//     they'll log a console warning and be skipped until real
+//     snow/rock/prop sprites are catalogued and these names are swapped in.
+//   - `tileset.floorFrame`/`pathFrame` reuse tileset_base's existing grass
+//     (frame 0) and dirt-path (frame 5) frames as a working stand-in —
+//     not broken, just the wrong biome — until a real snow/rock terrain
+//     sheet is catalogued.
 //   - Portals point at `east_road`/`sylvan_sanctuary`, which don't exist
 //     yet — wire for real once those maps are built.
 // This is a scaled-down proof grid (18x20), not the spec's full ~45x65
@@ -548,18 +564,26 @@ export const SUMMIT_OF_DESPAIR = {
     playerStart: { x: 8, y: 18 },
     tileset: {
         key: 'tileset_base',
-        // PLACEHOLDER: replace with a real catalogued snow/rock terrain
-        // sheet's { sheet, name } refs once one has been catalogued.
-        floor: { sheet: 'PLACEHOLDER/snow_terrain', name: 'PLACEHOLDER' },
-        path:  { sheet: 'PLACEHOLDER/snow_terrain', name: 'PLACEHOLDER' },
-        decor: [],
+        // PLACEHOLDER: reusing existing grass(0)/dirt-path(5) frames as a
+        // working (not broken) stand-in until a real snow/rock terrain
+        // sheet is catalogued — these are raw Phaser frame indices, not
+        // catalogue lookups (the floor/path system is separate from the
+        // named-decoration catalogue below).
+        floorFrame: 0,
+        pathFrame: 5,
+        decorFrames: null,
         decorRate: 0,
     },
     decorations: [
-        // Widow's Overlook shrine (Points of Interest — new content)
-        { sheet: 'PLACEHOLDER/lpc/props', name: 'PLACEHOLDER', x: 2, y: 7, blocking: true },
+        // Widow's Overlook shrine (Points of Interest — new content).
+        // PLACEHOLDER_* names aren't in any catalogue yet — resolves
+        // against the real GameScene._placeCatalogueDecorations
+        // mechanism, which logs a warning and skips unresolved names
+        // rather than crashing. Swap for a real catalogued prop name
+        // once a snow/rock/shrine sprite exists.
+        { name: 'PLACEHOLDER_widows_overlook_shrine', x: 2, y: 7, blocking: true },
         // The Rime Hollow entrance marker
-        { sheet: 'PLACEHOLDER/lpc/props', name: 'PLACEHOLDER', x: 14, y: 3, blocking: true },
+        { name: 'PLACEHOLDER_rime_hollow_entrance', x: 14, y: 3, blocking: true },
     ],
     portals: [
         {
@@ -668,20 +692,17 @@ Expected: `rows: 20 cols: 18` and `all rows same width: true`.
 
 - [ ] **Step 4: Manually verify in the dev server**
 
-Run: `cd apps/amo && npm run dev`
-
-In the browser, use the browser console (or a temporary debug link) to
-navigate to the `summit_of_despair` map — e.g. by temporarily changing
-`GameScene.init`'s default `data?.mapId` fallback, or via any existing
-map-select debug path the game already has. Expected: the map loads with
-no console errors; the wall/path layout matches the ASCII grid (walkable
-where `.`/`=`, blocked where `#`); decorations render as broken/missing
-textures (expected — they're `PLACEHOLDER` refs, not real catalogue
-lookups yet, so `resolveCatalogueRef` will throw/log rather than silently
-succeed once the map-format-renderer-upgrade sub-project's resolver is in
-place); the four new quests appear correctly in the quest log. Revert any
-temporary debug navigation change before committing. Stop the dev server
-once confirmed.
+Run: `cd apps/amo && npm run dev`, then open `?testmap=summit_of_despair`
+in the browser (the real, already-existing direct-to-map test route in
+`BootScene.create()` — no temporary debug code needed). Expected: the map
+loads with no console errors except two `"PLACEHOLDER_widows_overlook_shrine"
+not found in tileset_base_cat` / `"PLACEHOLDER_rime_hollow_entrance" not
+found`-style warnings (expected — `_placeCatalogueItems` logs and skips
+unresolved decoration names rather than crashing); the wall/path layout
+matches the ASCII grid (walkable where `.`/`=`, blocked where `#`); the
+floor renders as plain grass/dirt-path (expected — the placeholder frame
+indices, not the real snow biome); the four new quests appear correctly
+in the quest log. Stop the dev server once confirmed.
 
 - [ ] **Step 5: Commit**
 
@@ -697,7 +718,7 @@ Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>"
 
 ## Follow-up (explicitly not part of this plan)
 
-- Swap Summit of Despair's `PLACEHOLDER` catalogue refs for real `{sheet, name}` values once `lpc/trunk`, `lpc/treetop`, and a snow/rock terrain sheet are actually catalogued (sprite-catalogue-system sub-project execution).
+- Swap Summit of Despair's `PLACEHOLDER_*` decoration names for real catalogued sprite names, and its `floorFrame`/`pathFrame` placeholder indices for a real snow/rock terrain sheet's frames, once that sheet is actually catalogued.
 - Build `east_road` and `sylvan_sanctuary`, then wire Summit of Despair's two portals for real.
 - Run the lore-driven map spec process for the other 11 Eldoria's Prophecy locations, then run this same assembly procedure for each.
 

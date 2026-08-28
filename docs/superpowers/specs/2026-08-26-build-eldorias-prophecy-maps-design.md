@@ -5,14 +5,38 @@
 
 ## Context
 
-Sub-projects 1-3 give the pipeline everything except the last mile:
+**Revised 2026-08-28** — sub-projects 1 and 2 are no longer "not yet done"
+as this spec originally assumed; both were executed for real between
+2026-08-26 and today, but not in the shape this spec first predicted.
+Updated below to match what actually got built, before this spec's plan
+is executed:
 
-- Sub-project 1: sprites can be named and looked up (once real sheets are
-  catalogued — not yet done, gated on the user picking/annotating sprites).
-- Sub-project 2: the engine can place a named sprite anywhere on a map
-  (once its plan is executed — not yet done).
+- Sub-project 1 (sprite cataloguing): **done**, extensively — 587 entries
+  across 8 real sheets (`[Base]BaseChip_pipo`, `[A]Water_pipo`,
+  `[A]WaterFall_pipo`, `[A]Grass_pipo`, `[A]Dirt_pipo`, `[A]Flower_pipo`,
+  `[A]Wall-Up_pipo`, `LightShadow_pipo`). All of it is summer
+  forest/village/farm/water content — **no snow/rock/blizzard terrain
+  sheet exists or is catalogued**, so Summit of Despair's placeholders
+  stay placeholders regardless.
+- Sub-project 2 (engine can place a named sprite): **done, but with a
+  different schema than this spec originally assumed.** The real
+  implementation is `GameScene._placeCatalogueDecorations` /
+  `_placeCatalogueItems`: a map def has a `decorations` array (items
+  `{ name, x, y, blocking?, depthOffset? }`, no `sheet` field) resolved
+  against the base tileset's catalogue, and — for maps that need it — a
+  separate `waterTiles` array resolved against the water catalogue. Sheet
+  selection happens **per-array**, not per-item; there's no single
+  `{sheet, name}` schema for decorations, contrary to what's used below.
+  The floor/path tile system (`tileset.floorFrame`/`pathFrame`/
+  `streetFrame`) is unrelated and still raw numeric Phaser frame indices,
+  not catalogue name lookups — `tileset: {floor: {sheet, name}}` as
+  written below does not exist and was never implemented that way.
 - Sub-project 3: one location (Summit of Despair) has a full map spec;
   the other 11 Eldoria's Prophecy locations don't yet.
+
+The rest of this document is left as originally written (for the
+historical record of what was proposed); the plan built from it has been
+updated separately to use the real schema above.
 
 This sub-project is the assembly step: turning a finished map spec into a
 real, wired-in `.js` map, plus one piece of genuinely new tooling the
