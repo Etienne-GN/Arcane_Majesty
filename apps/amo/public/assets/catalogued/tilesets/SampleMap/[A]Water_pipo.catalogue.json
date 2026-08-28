@@ -1,0 +1,809 @@
+{
+  "source": "[A]Water_pipo.png",
+  "sheetWidth": 2048,
+  "sheetHeight": 1536,
+  "gridTileWidth": 32,
+  "gridTileHeight": 32,
+  "gridCols": 64,
+  "gridRows": 48,
+  "entries": [
+    {
+      "name": "water1_corner_nw",
+      "kind": "tile",
+      "row": 0,
+      "col": 4,
+      "frameIndex": 4,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water1_edge_n",
+      "kind": "tile",
+      "row": 0,
+      "col": 5,
+      "frameIndex": 5,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water1_corner_ne",
+      "kind": "tile",
+      "row": 0,
+      "col": 7,
+      "frameIndex": 7,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water1_edge_w",
+      "kind": "tile",
+      "row": 1,
+      "col": 4,
+      "frameIndex": 68,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water1_fill",
+      "kind": "tile",
+      "row": 1,
+      "col": 6,
+      "frameIndex": 70,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "fill",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "water1_edge_e",
+      "kind": "tile",
+      "row": 1,
+      "col": 7,
+      "frameIndex": 71,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water1_corner_sw",
+      "kind": "tile",
+      "row": 2,
+      "col": 4,
+      "frameIndex": 132,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water1_edge_s",
+      "kind": "tile",
+      "row": 2,
+      "col": 5,
+      "frameIndex": 133,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water1_corner_se",
+      "kind": "tile",
+      "row": 2,
+      "col": 7,
+      "frameIndex": 135,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water1_island",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "island",
+        "isolated"
+      ]
+    },
+    {
+      "name": "water2_corner_nw",
+      "kind": "tile",
+      "row": 6,
+      "col": 4,
+      "frameIndex": 388,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water2_edge_n",
+      "kind": "tile",
+      "row": 6,
+      "col": 5,
+      "frameIndex": 389,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water2_corner_ne",
+      "kind": "tile",
+      "row": 6,
+      "col": 7,
+      "frameIndex": 391,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water2_edge_w",
+      "kind": "tile",
+      "row": 7,
+      "col": 4,
+      "frameIndex": 452,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water2_fill",
+      "kind": "tile",
+      "row": 7,
+      "col": 6,
+      "frameIndex": 454,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "fill",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "water2_edge_e",
+      "kind": "tile",
+      "row": 7,
+      "col": 7,
+      "frameIndex": 455,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water2_corner_sw",
+      "kind": "tile",
+      "row": 8,
+      "col": 4,
+      "frameIndex": 516,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water2_edge_s",
+      "kind": "tile",
+      "row": 8,
+      "col": 5,
+      "frameIndex": 517,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water2_corner_se",
+      "kind": "tile",
+      "row": 8,
+      "col": 7,
+      "frameIndex": 519,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water2_island",
+      "kind": "tile",
+      "row": 6,
+      "col": 0,
+      "frameIndex": 384,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "island",
+        "isolated"
+      ]
+    },
+    {
+      "name": "water3_corner_nw",
+      "kind": "tile",
+      "row": 12,
+      "col": 4,
+      "frameIndex": 772,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water3_edge_n",
+      "kind": "tile",
+      "row": 12,
+      "col": 5,
+      "frameIndex": 773,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water3_corner_ne",
+      "kind": "tile",
+      "row": 12,
+      "col": 7,
+      "frameIndex": 775,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water3_edge_w",
+      "kind": "tile",
+      "row": 13,
+      "col": 4,
+      "frameIndex": 836,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water3_fill",
+      "kind": "tile",
+      "row": 13,
+      "col": 6,
+      "frameIndex": 838,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "fill",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "water3_edge_e",
+      "kind": "tile",
+      "row": 13,
+      "col": 7,
+      "frameIndex": 839,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water3_corner_sw",
+      "kind": "tile",
+      "row": 14,
+      "col": 4,
+      "frameIndex": 900,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water3_edge_s",
+      "kind": "tile",
+      "row": 14,
+      "col": 5,
+      "frameIndex": 901,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water3_corner_se",
+      "kind": "tile",
+      "row": 14,
+      "col": 7,
+      "frameIndex": 903,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water3_island",
+      "kind": "tile",
+      "row": 12,
+      "col": 0,
+      "frameIndex": 768,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "island",
+        "isolated"
+      ]
+    },
+    {
+      "name": "water4_corner_nw",
+      "kind": "tile",
+      "row": 18,
+      "col": 4,
+      "frameIndex": 1156,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water4_edge_n",
+      "kind": "tile",
+      "row": 18,
+      "col": 5,
+      "frameIndex": 1157,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water4_corner_ne",
+      "kind": "tile",
+      "row": 18,
+      "col": 7,
+      "frameIndex": 1159,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water4_edge_w",
+      "kind": "tile",
+      "row": 19,
+      "col": 4,
+      "frameIndex": 1220,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water4_fill",
+      "kind": "tile",
+      "row": 19,
+      "col": 6,
+      "frameIndex": 1222,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "fill",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "water4_edge_e",
+      "kind": "tile",
+      "row": 19,
+      "col": 7,
+      "frameIndex": 1223,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water4_corner_sw",
+      "kind": "tile",
+      "row": 20,
+      "col": 4,
+      "frameIndex": 1284,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water4_edge_s",
+      "kind": "tile",
+      "row": 20,
+      "col": 5,
+      "frameIndex": 1285,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "water4_corner_se",
+      "kind": "tile",
+      "row": 20,
+      "col": 7,
+      "frameIndex": 1287,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "water4_island",
+      "kind": "tile",
+      "row": 18,
+      "col": 0,
+      "frameIndex": 1152,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "island",
+        "isolated"
+      ]
+    },
+    {
+      "name": "wave_corner_nw",
+      "kind": "tile",
+      "row": 42,
+      "col": 4,
+      "frameIndex": 2692,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "wave_edge_n",
+      "kind": "tile",
+      "row": 42,
+      "col": 5,
+      "frameIndex": 2693,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "wave_corner_ne",
+      "kind": "tile",
+      "row": 42,
+      "col": 7,
+      "frameIndex": 2695,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "wave_edge_w",
+      "kind": "tile",
+      "row": 43,
+      "col": 4,
+      "frameIndex": 2756,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "wave_fill",
+      "kind": "tile",
+      "row": 43,
+      "col": 6,
+      "frameIndex": 2758,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "fill",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "wave_edge_e",
+      "kind": "tile",
+      "row": 43,
+      "col": 7,
+      "frameIndex": 2759,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "wave_corner_sw",
+      "kind": "tile",
+      "row": 44,
+      "col": 4,
+      "frameIndex": 2820,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "wave_edge_s",
+      "kind": "tile",
+      "row": 44,
+      "col": 5,
+      "frameIndex": 2821,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "edge",
+        "shore"
+      ]
+    },
+    {
+      "name": "wave_corner_se",
+      "kind": "tile",
+      "row": 44,
+      "col": 7,
+      "frameIndex": 2823,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "corner",
+        "shore"
+      ]
+    },
+    {
+      "name": "wave_island",
+      "kind": "tile",
+      "row": 42,
+      "col": 0,
+      "frameIndex": 2688,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "island",
+        "isolated"
+      ]
+    },
+    {
+      "name": "waterway1_fill",
+      "kind": "tile",
+      "row": 25,
+      "col": 6,
+      "frameIndex": 1606,
+      "tags": [
+        "water",
+        "waterway1",
+        "river",
+        "flowing",
+        "blue",
+        "fill",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "waterway2_fill",
+      "kind": "tile",
+      "row": 31,
+      "col": 6,
+      "frameIndex": 1990,
+      "tags": [
+        "water",
+        "waterway2",
+        "river",
+        "flowing",
+        "teal",
+        "fill",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "waterway3_fill",
+      "kind": "tile",
+      "row": 37,
+      "col": 6,
+      "frameIndex": 2374,
+      "tags": [
+        "water",
+        "waterway3",
+        "river",
+        "flowing",
+        "dark",
+        "fill",
+        "repeatable"
+      ]
+    }
+  ]
+}

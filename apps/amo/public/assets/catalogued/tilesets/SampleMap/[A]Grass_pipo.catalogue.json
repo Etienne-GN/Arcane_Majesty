@@ -1,0 +1,67 @@
+{
+  "source": "[A]Grass_pipo.png",
+  "sheetWidth": 256,
+  "sheetHeight": 2112,
+  "gridTileWidth": 32,
+  "gridTileHeight": 32,
+  "gridCols": 8,
+  "gridRows": 66,
+  "entries": [
+    {
+      "name": "dirt_patch_corner_nw",
+      "kind": "tile",
+      "row": 6,
+      "col": 0,
+      "frameIndex": 48,
+      "tags": [
+        "dirt",
+        "patch",
+        "overlay",
+        "corner",
+        "grass-border"
+      ]
+    },
+    {
+      "name": "dirt_patch_fill",
+      "kind": "tile",
+      "row": 7,
+      "col": 2,
+      "frameIndex": 58,
+      "tags": [
+        "dirt",
+        "patch",
+        "overlay",
+        "fill",
+        "repeatable"
+      ]
+    },
+    {
+      "name": "dirt_patch_corner_sw",
+      "kind": "tile",
+      "row": 8,
+      "col": 0,
+      "frameIndex": 64,
+      "tags": [
+        "dirt",
+        "patch",
+        "overlay",
+        "corner",
+        "grass-border"
+      ]
+    },
+    {
+      "name": "dirt_patch_edge_s",
+      "kind": "tile",
+      "row": 8,
+      "col": 2,
+      "frameIndex": 66,
+      "tags": [
+        "dirt",
+        "patch",
+        "overlay",
+        "edge",
+        "grass-border"
+      ]
+    }
+  ]
+}

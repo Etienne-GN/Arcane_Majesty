@@ -1,0 +1,86 @@
+{
+  "source": "[A]Flower_pipo.png",
+  "sheetWidth": 256,
+  "sheetHeight": 384,
+  "gridTileWidth": 32,
+  "gridTileHeight": 32,
+  "gridCols": 8,
+  "gridRows": 12,
+  "entries": [
+    {
+      "name": "flower_patch_fill_a",
+      "kind": "tile",
+      "row": 1,
+      "col": 0,
+      "frameIndex": 8,
+      "tags": [
+        "flower",
+        "decoration",
+        "overlay",
+        "patch",
+        "pink",
+        "yellow"
+      ]
+    },
+    {
+      "name": "flower_patch_fill_b",
+      "kind": "tile",
+      "row": 2,
+      "col": 2,
+      "frameIndex": 18,
+      "tags": [
+        "flower",
+        "decoration",
+        "overlay",
+        "patch",
+        "pink",
+        "yellow"
+      ]
+    },
+    {
+      "name": "flower_patch_fill_c",
+      "kind": "tile",
+      "row": 3,
+      "col": 4,
+      "frameIndex": 28,
+      "tags": [
+        "flower",
+        "decoration",
+        "overlay",
+        "patch",
+        "pink",
+        "yellow"
+      ]
+    },
+    {
+      "name": "tallgrass_patch_fill_a",
+      "kind": "tile",
+      "row": 7,
+      "col": 2,
+      "frameIndex": 58,
+      "tags": [
+        "grass",
+        "decoration",
+        "overlay",
+        "patch",
+        "tall",
+        "green"
+      ]
+    },
+    {
+      "name": "tallgrass_patch_fill_b",
+      "kind": "tile",
+      "row": 9,
+      "col": 4,
+      "frameIndex": 76,
+      "tags": [
+        "grass",
+        "decoration",
+        "overlay",
+        "patch",
+        "tall",
+        "green"
+      ]
+    }
+  ]
+}
