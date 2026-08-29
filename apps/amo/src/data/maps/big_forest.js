@@ -5,6 +5,22 @@
 // resolved by name against tileset_base_cat / tileset_water_cat in
 // GameScene._placeCatalogueItems(). Tile values: 0=grass, 2=dirt path,
 // 3=cobblestone street (village).
+//
+// This is the confirmed production map format — the same one Summit of
+// Despair and every other real map use (tiles grid + floorFrame/pathFrame +
+// name-resolved decorations/waterTiles). samplemap.js's native tiledMap
+// import is a separate, deliberately-unused reference path — see CLAUDE.md
+// discussion; we do not author maps in Tiled.
+//
+// 2026-08-29: the garden-plot fence's 6 decoration names were dangling —
+// they referenced the old area-fill fence taxonomy (fence_wood_run_h/_v,
+// fence_wood_corner_*) that got fully replaced this session with verified
+// connectivity naming. _placeCatalogueItems() silently skips unresolved
+// names, so the fence had been invisibly missing. Rewritten below with the
+// current names (fence_wood_down_right, _left_right, _up_down, etc.) —
+// verified against public/assets/catalogued/tilesets/SampleMap/
+// [Base]BaseChip_pipo.catalogue.json; all decoration and water-tile names
+// in this file now resolve.
 
 const TILES = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -126,26 +142,22 @@ const DECORATIONS = [
     { name: 'wall_awning_yellow_a', x: 37, y: 36, blocking: true },
     { name: 'window_brown_4pane', x: 37, y: 36, blocking: false, depthOffset: 1 },
     { name: 'icon_coinpurse', x: 35, y: 34, blocking: false, depthOffset: 1 },
-    { name: 'fence_wood_run_h', x: 17, y: 22, blocking: true },
-    { name: 'fence_wood_run_h', x: 17, y: 26, blocking: true },
-    { name: 'fence_wood_run_h', x: 18, y: 22, blocking: true },
-    { name: 'fence_wood_run_h', x: 18, y: 26, blocking: true },
-    { name: 'fence_wood_run_h', x: 19, y: 22, blocking: true },
-    { name: 'fence_wood_run_h', x: 19, y: 26, blocking: true },
-    { name: 'fence_wood_run_v', x: 17, y: 22, blocking: true },
-    { name: 'fence_wood_run_v', x: 20, y: 22, blocking: true },
-    { name: 'fence_wood_run_v', x: 17, y: 23, blocking: true },
-    { name: 'fence_wood_run_v', x: 20, y: 23, blocking: true },
-    { name: 'fence_wood_run_v', x: 17, y: 24, blocking: true },
-    { name: 'fence_wood_run_v', x: 20, y: 24, blocking: true },
-    { name: 'fence_wood_run_v', x: 17, y: 25, blocking: true },
-    { name: 'fence_wood_run_v', x: 20, y: 25, blocking: true },
-    { name: 'fence_wood_run_v', x: 17, y: 26, blocking: true },
-    { name: 'fence_wood_run_v', x: 20, y: 26, blocking: true },
-    { name: 'fence_wood_corner_w_top', x: 17, y: 22, blocking: true },
-    { name: 'fence_wood_corner_e_top', x: 20, y: 22, blocking: true },
-    { name: 'fence_wood_corner_w_bottom', x: 17, y: 26, blocking: true },
-    { name: 'fence_wood_corner_e_bottom', x: 20, y: 26, blocking: true },
+    // Garden-plot perimeter fence — connectivity-named per the verified fence
+    // taxonomy (each name lists the compass arms that connect to a neighbor).
+    { name: 'fence_wood_down_right', x: 17, y: 22, blocking: true },  // top-left corner
+    { name: 'fence_wood_left_right', x: 18, y: 22, blocking: true },
+    { name: 'fence_wood_left_right', x: 19, y: 22, blocking: true },
+    { name: 'fence_wood_left_down',  x: 20, y: 22, blocking: true },  // top-right corner
+    { name: 'fence_wood_up_down', x: 17, y: 23, blocking: true },
+    { name: 'fence_wood_up_down', x: 20, y: 23, blocking: true },
+    { name: 'fence_wood_up_down', x: 17, y: 24, blocking: true },
+    { name: 'fence_wood_up_down', x: 20, y: 24, blocking: true },
+    { name: 'fence_wood_up_down', x: 17, y: 25, blocking: true },
+    { name: 'fence_wood_up_down', x: 20, y: 25, blocking: true },
+    { name: 'fence_wood_up_right', x: 17, y: 26, blocking: true },  // bottom-left corner
+    { name: 'fence_wood_left_right', x: 18, y: 26, blocking: true },
+    { name: 'fence_wood_left_right', x: 19, y: 26, blocking: true },
+    { name: 'fence_wood_up_left', x: 20, y: 26, blocking: true },  // bottom-right corner
     { name: 'flower_sunflower', x: 18, y: 23, blocking: false },
     { name: 'flower_sunflower', x: 18, y: 24, blocking: false },
     { name: 'flower_sunflower', x: 18, y: 25, blocking: false },
