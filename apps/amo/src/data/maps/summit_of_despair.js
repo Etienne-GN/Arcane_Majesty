@@ -3,23 +3,18 @@
 // Summit of Despair"); Widow's Overlook / the Rime Hollow are new
 // flavor additions for this map, not yet named anywhere else in canon.
 //
-// PROOF-APPLICATION NOTE: this map is a structural proof of the map-
-// assembly procedure (data/lore/campaigns/map_assembly_procedure.md),
-// built before a real snow/rock terrain sheet or neighboring maps exist:
-//   - `decorations` entries use PLACEHOLDER_* names — they resolve
-//     against the real catalogue-decoration mechanism
-//     (GameScene._placeCatalogueDecorations), which already exists and
-//     works; these specific names just aren't in any catalogue yet, so
-//     they'll log a console warning and be skipped until real
-//     snow/rock/prop sprites are catalogued and these names are swapped in.
-//   - `tileset.floorFrame`/`pathFrame` reuse tileset_base's existing grass
-//     (frame 0) and dirt-path (frame 5) frames as a working stand-in —
-//     not broken, just the wrong biome — until a real snow/rock terrain
-//     sheet is catalogued.
-//   - Portals point at `east_road`/`sylvan_sanctuary`, which don't exist
-//     yet — wire for real once those maps are built.
-// This is a scaled-down proof grid (18x20), not full production size —
-// the mechanism is what's being proven here, not the final scale.
+// PROOF-APPLICATION NOTE: this map started as a structural proof of the
+// map-assembly procedure (data/lore/campaigns/map_assembly_procedure.md),
+// built before a real snow/rock terrain sheet existed. As of 2026-08-29:
+//   - `tileset` now uses the real SnowyAssetPack (catalogued from a loose-
+//     file winter asset pack) for floor/path — see the frame math below.
+//   - The 2 PLACEHOLDER_* decorations are replaced with real catalogued
+//     props (addworkDecorations, since neither shrine nor cave-mouth props
+//     exist in the snow pack itself) — see GameScene._placeCatalogueDecorations,
+//     generalized this same pass to support snow/addwork sources.
+//   - Portals still point at `east_road`/`sylvan_sanctuary`, which don't
+//     exist yet — wire for real once those maps are built.
+// This is still a scaled-down proof grid (18x20), not full production size.
 import { asciiToTiles } from '../../../tools/maps/ascii_to_tiles.js';
 
 const SUMMIT_ASCII = [
@@ -54,26 +49,32 @@ export const SUMMIT_OF_DESPAIR = {
     lightTint: 0x0a1830, // blizzard blue-grey, low visibility
     playerStart: { x: 8, y: 18 },
     tileset: {
-        key: 'tileset_base',
-        // PLACEHOLDER: reusing existing grass(0)/dirt-path(5) frames as a
-        // working (not broken) stand-in until a real snow/rock terrain
-        // sheet is catalogued — raw Phaser frame indices, not catalogue
-        // lookups (that's the separate named-decoration system below).
-        floorFrame: 0,
-        pathFrame: 5,
+        // Real winter terrain, from SnowyAssetPack.png (384px wide = 12 cols
+        // @ 32px, so frame = row*12 + col — same raw-frame-index mechanism
+        // as every other map's tileset.floorFrame/pathFrame).
+        key: 'tileset_snowy',
+        // snow_fill_variant_0 — x:0,y:192 -> col0,row6 -> 6*12+0
+        floorFrame: 72,
+        // cliff_snow_base_a (bare exposed rock) — x:32,y:320 -> col1,row10
+        // -> 10*12+1 — reads as the wind-scoured bare-rock trail per the
+        // spec's "narrow trail switchbacking up bare rock and wind-scoured
+        // snow" terrain description.
+        pathFrame: 121,
         decorFrames: null,
         decorRate: 0,
     },
-    decorations: [
-        // Widow's Overlook shrine (Points of Interest — new content).
-        // PLACEHOLDER_* names aren't in any catalogue yet — resolves
-        // against the real GameScene._placeCatalogueDecorations
-        // mechanism, which logs a warning and skips unresolved names
-        // rather than crashing. Swap for a real catalogued prop name
-        // once a snow/rock/shrine sprite exists.
-        { name: 'PLACEHOLDER_widows_overlook_shrine', x: 2, y: 7, blocking: true },
-        // The Rime Hollow entrance marker
-        { name: 'PLACEHOLDER_rime_hollow_entrance', x: 14, y: 3, blocking: true },
+    decorations: [],
+    // Real catalogued props (from addwork.png — neither shrine nor
+    // cave-mouth pieces exist in the snow pack itself) replacing the two
+    // former PLACEHOLDER_* names.
+    addworkDecorations: [
+        // Widow's Overlook shrine's cold brazier (Points of Interest).
+        { name: 'torch_post_standing', x: 2, y: 7, blocking: true },
+        // The Rime Hollow entrance — a rocky dark archway read as an ice-
+        // cave mouth. addwork.png flags this piece lowConfidence (exact
+        // pixel bounds unverified against real map placement), acceptable
+        // for a purely decorative, non-gameplay-critical prop.
+        { name: 'ruins_archway_dark_rocky', x: 14, y: 3, blocking: true },
     ],
     portals: [
         {

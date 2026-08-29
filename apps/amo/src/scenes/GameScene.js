@@ -70,8 +70,8 @@ export default class GameScene extends Phaser.Scene {
             return em;
         };
 
-        const mapCols = mapDef.tiles[0].length;
-        const mapRows = mapDef.tiles.length;
+        const mapCols = mapDef.mapCols ?? mapDef.tiles[0].length;
+        const mapRows = mapDef.mapRows ?? mapDef.tiles.length;
         const mapW = mapCols * TILE_SIZE;
         const mapH = mapRows * TILE_SIZE;
 
@@ -91,6 +91,14 @@ export default class GameScene extends Phaser.Scene {
         const py = this._spawnY ?? (mapDef.playerStart.y * TILE_SIZE + TILE_SIZE / 2);
         this.player = new Player(this, px, py, playerStats, this._characterId);
         this.player.on('died', () => this._onPlayerDied());
+
+        // Tiled-map blocking layers were built before the player existed
+        // (see _buildWorldFromTiled) — wire up their colliders now.
+        this._tiledBlockingLayers?.forEach(layer => this.physics.add.collider(this.player, layer));
+        if (this._tiledBlockingLayers) {
+            // TEMP diagnostic — remove once collision is confirmed working.
+            console.log(`[tiled] colliders wired against player, body enabled=${!!this.player.body}`);
+        }
 
         // LPC character overlay — replaces the default sprite visually
         this._lpcContainer = null;
@@ -2343,6 +2351,11 @@ export default class GameScene extends Phaser.Scene {
     }
 
     _buildWorld(mapW, mapH) {
+        if (this._mapDef.tiledMap) {
+            this._buildWorldFromTiled(this._mapDef.tiledMap);
+            return;
+        }
+
         // Floor layer — tileset is per-map (falls back to default Pipoya chip)
         const tsDef      = this._mapDef.tileset;
         const tsKey      = tsDef?.key         ?? 'tileset_base';
@@ -2393,14 +2406,65 @@ export default class GameScene extends Phaser.Scene {
         this._placeCatalogueDecorations();
     }
 
+    // Native Tiled-map loading — the intended standard for future maps,
+    // vs. the flat tile-value + decorations system above (kept for the
+    // maps already built on it). Builds every layer straight from a
+    // converted Tiled JSON (tools/tiled_import/tmx_to_json.py) and its
+    // tilesets, in file order (bottom to top).
+    //
+    // tiledDef: {
+    //   jsonKey: Phaser cache key the map JSON was loaded under,
+    //   tilesetImageKeys: { <tiled tileset name>: <Phaser image key> },
+    //   blockingLayers: [layer names that collide with the player],
+    //   overlayLayers:  [layer names always drawn above the player,
+    //                    e.g. tree canopies / tall building roofs],
+    // }
+    _buildWorldFromTiled(tiledDef) {
+        const map = this.make.tilemap({ key: tiledDef.jsonKey });
+        const tilesets = map.tilesets.map(ts => {
+            const imgKey = tiledDef.tilesetImageKeys[ts.name];
+            if (!imgKey) console.warn(`no image key mapped for Tiled tileset "${ts.name}"`);
+            return map.addTilesetImage(ts.name, imgKey);
+        });
+
+        const OVERLAY_DEPTH = 100000; // comfortably above any player/character depth
+        this._tiledBlockingLayers = [];
+        map.layers.forEach((layerData, i) => {
+            const layer = map.createLayer(layerData.name, tilesets, 0, 0);
+            if (!layer) return;
+            const isOverlay = tiledDef.overlayLayers?.includes(layerData.name);
+            layer.setDepth(isOverlay ? OVERLAY_DEPTH + i : i);
+            if (tiledDef.blockingLayers?.includes(layerData.name)) {
+                layer.setCollisionByExclusion([0]);
+                this._tiledBlockingLayers.push(layer);
+                // TEMP diagnostic — remove once collision is confirmed working.
+                let collidable = 0;
+                layer.forEachTile(t => { if (t.collides) collidable++; });
+                console.log(`[tiled] "${layerData.name}": ${collidable} collidable tiles`);
+            }
+        });
+        console.log(`[tiled] ${this._tiledBlockingLayers.length} blocking layers registered`);
+        // Colliders against the player are added in create(), once the
+        // player exists (this runs before that).
+    }
+
     // Generic catalogue-referenced decoration placement — proof-of-concept
     // slice of the planned map-format upgrade (sub-project 2), scoped to a
     // couple of sheets (tileset_base, tileset_water) rather than the full
     // multi-sheet manifest.
     // mapDef.decorations: [{ name, x, y (tile coords), blocking?, depthOffset? }]
+    // Each entry is one { mapDef array, catalogue.json cache key, texture key }
+    // triple. _placeCatalogueItems() already no-ops on an undefined/empty
+    // array, so a map need only define the arrays it actually uses — adding
+    // a new catalogued sheet to the game means adding one line here.
     _placeCatalogueDecorations() {
-        this._placeCatalogueItems(this._mapDef.decorations, 'tileset_base_cat', 'tileset_base');
-        this._placeCatalogueItems(this._mapDef.waterTiles, 'tileset_water_cat', 'tileset_water');
+        const sources = [
+            { items: this._mapDef.decorations,       catKey: 'tileset_base_cat',    texKey: 'tileset_base' },
+            { items: this._mapDef.waterTiles,         catKey: 'tileset_water_cat',   texKey: 'tileset_water' },
+            { items: this._mapDef.snowDecorations,    catKey: 'tileset_snowy_cat',   texKey: 'tileset_snowy' },
+            { items: this._mapDef.addworkDecorations, catKey: 'tileset_addwork_cat', texKey: 'tileset_addwork' },
+        ];
+        sources.forEach(s => this._placeCatalogueItems(s.items, s.catKey, s.texKey));
     }
 
     _placeCatalogueItems(items, catKey, texKey) {
