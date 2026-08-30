@@ -1,0 +1,180 @@
+{
+  "source": "PATD_Struct.png",
+  "sheetWidth": 512,
+  "sheetHeight": 512,
+  "notes": "From the Cainos 'Pixel Art Top Down - Basic' pack. Bounding boxes computed by connected-component analysis of the real alpha channel. The 4 stair pieces are named by which way they visually face (left/right) rather than an absolute compass direction \u2014 the pack's own changelog calls them 'west and east direction' stairs, but that depends on a map-orientation convention not yet established in this project; rename once that's settled.",
+  "entries": [
+    {
+      "kind": "object",
+      "name": "retaining_wall_grass_a",
+      "x": 32,
+      "y": 32,
+      "w": 64,
+      "h": 96,
+      "tags": [
+        "wall",
+        "cliff",
+        "retaining",
+        "grass",
+        "elevation"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "retaining_wall_grass_b",
+      "x": 128,
+      "y": 32,
+      "w": 65,
+      "h": 96,
+      "tags": [
+        "wall",
+        "cliff",
+        "retaining",
+        "grass",
+        "elevation"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "retaining_wall_grass_c",
+      "x": 224,
+      "y": 32,
+      "w": 65,
+      "h": 96,
+      "tags": [
+        "wall",
+        "cliff",
+        "retaining",
+        "grass",
+        "elevation"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "retaining_wall_grass_cracked_a",
+      "x": 32,
+      "y": 160,
+      "w": 64,
+      "h": 96,
+      "tags": [
+        "wall",
+        "cliff",
+        "retaining",
+        "grass",
+        "elevation",
+        "damaged"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "retaining_wall_grass_mossy",
+      "x": 128,
+      "y": 160,
+      "w": 65,
+      "h": 96,
+      "tags": [
+        "wall",
+        "cliff",
+        "retaining",
+        "grass",
+        "elevation",
+        "mossy"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "retaining_wall_grass_cracked_b",
+      "x": 224,
+      "y": 160,
+      "w": 65,
+      "h": 96,
+      "tags": [
+        "wall",
+        "cliff",
+        "retaining",
+        "grass",
+        "elevation",
+        "damaged"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "archway_large",
+      "x": 408,
+      "y": 27,
+      "w": 80,
+      "h": 64,
+      "tags": [
+        "archway",
+        "gate",
+        "stone"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "archway_small",
+      "x": 416,
+      "y": 128,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "archway",
+        "gate",
+        "stone",
+        "small"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "stairs_diagonal_a_left",
+      "x": 48,
+      "y": 288,
+      "w": 90,
+      "h": 96,
+      "tags": [
+        "stairs",
+        "elevation",
+        "diagonal"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "stairs_diagonal_a_right",
+      "x": 176,
+      "y": 288,
+      "w": 90,
+      "h": 96,
+      "tags": [
+        "stairs",
+        "elevation",
+        "diagonal"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "stairs_diagonal_b_left",
+      "x": 56,
+      "y": 384,
+      "w": 88,
+      "h": 96,
+      "tags": [
+        "stairs",
+        "elevation",
+        "diagonal"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "stairs_diagonal_b_right",
+      "x": 184,
+      "y": 384,
+      "w": 88,
+      "h": 96,
+      "tags": [
+        "stairs",
+        "elevation",
+        "diagonal"
+      ]
+    }
+  ]
+}

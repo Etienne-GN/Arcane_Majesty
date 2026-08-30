@@ -1,0 +1,74 @@
+{
+  "source": "PATD_TilesetStoneGround.png",
+  "sheetWidth": 256,
+  "sheetHeight": 256,
+  "notes": "From the Cainos 'Pixel Art Top Down - Basic' pack. The two raised platform slabs, the pedestal/altar structure, and the square floor pit are clean, unambiguous multi-cell objects (bounds verified against the real alpha channel, not eyeballed). The cross-shaped connector walkway (~cols 8-15, rows 6-15) is a genuine blob-style autotile kit, NOT itemized here for the same reason as the Grass sheet's stone/grass transition \u2014 no real map placement yet to verify connectivity against.",
+  "entries": [
+    {
+      "kind": "object",
+      "name": "stone_platform_large",
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 128,
+      "tags": [
+        "stone",
+        "platform",
+        "plaza"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "stone_platform_narrow",
+      "x": 96,
+      "y": 0,
+      "w": 32,
+      "h": 128,
+      "tags": [
+        "stone",
+        "platform"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "stone_floor_plain",
+      "x": 128,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "stone",
+        "floor",
+        "fill"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "stone_pedestal_altar",
+      "x": 144,
+      "y": 0,
+      "w": 80,
+      "h": 160,
+      "tags": [
+        "stone",
+        "pedestal",
+        "altar",
+        "structure"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "stone_floor_pit_square",
+      "x": 0,
+      "y": 176,
+      "w": 80,
+      "h": 64,
+      "tags": [
+        "stone",
+        "floor",
+        "pit",
+        "hole"
+      ]
+    }
+  ]
+}

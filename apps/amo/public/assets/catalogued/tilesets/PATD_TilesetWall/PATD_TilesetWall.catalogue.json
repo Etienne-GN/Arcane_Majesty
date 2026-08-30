@@ -1,0 +1,140 @@
+{
+  "source": "PATD_TilesetWall.png",
+  "sheetWidth": 512,
+  "sheetHeight": 512,
+  "notes": "From the Cainos 'Pixel Art Top Down - Basic' pack. Bounding boxes computed by connected-component analysis of the real alpha channel (each prop sits isolated with transparent padding, so this is exact, not eyeballed).",
+  "entries": [
+    {
+      "kind": "object",
+      "name": "wall_window_large",
+      "x": 32,
+      "y": 32,
+      "w": 96,
+      "h": 128,
+      "tags": [
+        "wall",
+        "window",
+        "stone"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "wall_shelf_divider",
+      "x": 152,
+      "y": 32,
+      "w": 114,
+      "h": 104,
+      "tags": [
+        "wall",
+        "stone",
+        "ledge"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "wall_pillar_thin_a",
+      "x": 288,
+      "y": 32,
+      "w": 10,
+      "h": 96,
+      "tags": [
+        "wall",
+        "pillar",
+        "stone"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "wall_pillar_thin_b",
+      "x": 344,
+      "y": 32,
+      "w": 8,
+      "h": 96,
+      "tags": [
+        "wall",
+        "pillar",
+        "stone"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "wall_top_trim_strip",
+      "x": 384,
+      "y": 32,
+      "w": 96,
+      "h": 8,
+      "tags": [
+        "wall",
+        "trim",
+        "stone"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "wall_window_tower",
+      "x": 384,
+      "y": 64,
+      "w": 64,
+      "h": 96,
+      "tags": [
+        "wall",
+        "window",
+        "stone",
+        "tower"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "wall_cracked",
+      "x": 32,
+      "y": 192,
+      "w": 128,
+      "h": 64,
+      "tags": [
+        "wall",
+        "stone",
+        "damaged"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "wall_small_window",
+      "x": 192,
+      "y": 192,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "wall",
+        "window",
+        "stone",
+        "small"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "wall_plain_a",
+      "x": 32,
+      "y": 288,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "wall",
+        "stone",
+        "plain"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "wall_plain_b",
+      "x": 128,
+      "y": 288,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "wall",
+        "stone",
+        "plain"
+      ]
+    }
+  ]
+}

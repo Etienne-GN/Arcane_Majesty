@@ -1,0 +1,315 @@
+{
+  "source": "PATD_Plant.png",
+  "sheetWidth": 512,
+  "sheetHeight": 512,
+  "notes": "From the Cainos 'Pixel Art Top Down - Basic' pack. Bounding boxes computed by connected-component analysis of the real alpha channel (dilated 3px to merge fine leaf/blade detail, tightened back to the true bbox). 15 grass-tuft variants confirmed by count (4 rows: 4+4+4+3), correcting an initial eyeballed miscount of 12.",
+  "entries": [
+    {
+      "kind": "object",
+      "name": "tree_round_a",
+      "x": 24,
+      "y": 14,
+      "w": 113,
+      "h": 139,
+      "tags": [
+        "tree",
+        "nature"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "tree_round_b",
+      "x": 161,
+      "y": 17,
+      "w": 95,
+      "h": 136,
+      "tags": [
+        "tree",
+        "nature"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "tree_round_c",
+      "x": 295,
+      "y": 31,
+      "w": 83,
+      "h": 120,
+      "tags": [
+        "tree",
+        "nature"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "bush_round_a",
+      "x": 156,
+      "y": 190,
+      "w": 41,
+      "h": 33,
+      "tags": [
+        "bush",
+        "nature"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "bush_round_b",
+      "x": 216,
+      "y": 185,
+      "w": 50,
+      "h": 44,
+      "tags": [
+        "bush",
+        "nature"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "bush_round_c",
+      "x": 282,
+      "y": 186,
+      "w": 41,
+      "h": 47,
+      "tags": [
+        "bush",
+        "nature"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "bush_round_d",
+      "x": 346,
+      "y": 190,
+      "w": 43,
+      "h": 37,
+      "tags": [
+        "bush",
+        "nature"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "bush_round_e",
+      "x": 38,
+      "y": 198,
+      "w": 23,
+      "h": 21,
+      "tags": [
+        "bush",
+        "nature",
+        "small"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "bush_round_f",
+      "x": 98,
+      "y": 195,
+      "w": 29,
+      "h": 27,
+      "tags": [
+        "bush",
+        "nature"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "grass_tuft_variant_0",
+      "x": 8,
+      "y": 394,
+      "w": 17,
+      "h": 9,
+      "tags": [
+        "grass",
+        "nature",
+        "tuft"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "grass_tuft_variant_1",
+      "x": 41,
+      "y": 394,
+      "w": 16,
+      "h": 10,
+      "tags": [
+        "grass",
+        "nature",
+        "tuft"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "grass_tuft_variant_2",
+      "x": 73,
+      "y": 394,
+      "w": 15,
+      "h": 10,
+      "tags": [
+        "grass",
+        "nature",
+        "tuft"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "grass_tuft_variant_3",
+      "x": 102,
+      "y": 394,
+      "w": 15,
+      "h": 11,
+      "tags": [
+        "grass",
+        "nature",
+        "tuft"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "grass_tuft_variant_4",
+      "x": 9,
+      "y": 426,
+      "w": 12,
+      "h": 10,
+      "tags": [
+        "grass",
+        "nature",
+        "tuft"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "grass_tuft_variant_5",
+      "x": 43,
+      "y": 427,
+      "w": 13,
+      "h": 9,
+      "tags": [
+        "grass",
+        "nature",
+        "tuft"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "grass_tuft_variant_6",
+      "x": 74,
+      "y": 427,
+      "w": 13,
+      "h": 9,
+      "tags": [
+        "grass",
+        "nature",
+        "tuft"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "grass_tuft_variant_7",
+      "x": 104,
+      "y": 428,
+      "w": 14,
+      "h": 7,
+      "tags": [
+        "grass",
+        "nature",
+        "tuft"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "grass_tuft_variant_8",
+      "x": 9,
+      "y": 459,
+      "w": 12,
+      "h": 8,
+      "tags": [
+        "grass",
+        "nature",
+        "tuft"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "grass_tuft_variant_9",
+      "x": 41,
+      "y": 458,
+      "w": 12,
+      "h": 10,
+      "tags": [
+        "grass",
+        "nature",
+        "tuft"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "grass_tuft_variant_10",
+      "x": 71,
+      "y": 459,
+      "w": 14,
+      "h": 10,
+      "tags": [
+        "grass",
+        "nature",
+        "tuft"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "grass_tuft_variant_11",
+      "x": 106,
+      "y": 459,
+      "w": 12,
+      "h": 9,
+      "tags": [
+        "grass",
+        "nature",
+        "tuft"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "grass_tuft_variant_12",
+      "x": 11,
+      "y": 491,
+      "w": 10,
+      "h": 10,
+      "tags": [
+        "grass",
+        "nature",
+        "tuft",
+        "tiny"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "grass_tuft_variant_13",
+      "x": 44,
+      "y": 491,
+      "w": 10,
+      "h": 11,
+      "tags": [
+        "grass",
+        "nature",
+        "tuft",
+        "tiny"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "grass_tuft_variant_14",
+      "x": 76,
+      "y": 493,
+      "w": 8,
+      "h": 8,
+      "tags": [
+        "grass",
+        "nature",
+        "tuft",
+        "tiny"
+      ]
+    }
+  ]
+}

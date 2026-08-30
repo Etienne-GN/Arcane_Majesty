@@ -1,0 +1,102 @@
+{
+  "source": "PATD_TilesetGrass.png",
+  "sheetWidth": 256,
+  "sheetHeight": 256,
+  "gridTileWidth": 16,
+  "gridTileHeight": 16,
+  "gridCols": 16,
+  "gridRows": 16,
+  "notes": "From the Cainos 'Pixel Art Top Down - Basic' pack. Rows 0-7 are a continuous grass-fill texture with scattered flower/blade decoration (sampled here as a handful of representative variants, not itemized cell-by-cell \u2014 like BaseChip's decorRate mechanism, pick one at random for ground fill). Rows 8-15 are a full blob-style grass/stone-path autotile transition, confirmed genuinely irregular at the pixel level (checked programmatically, not a clean rectangle) \u2014 only the unambiguous plain stone fill tile is catalogued here; the many edge/corner/inner-corner transition pieces are NOT itemized (no real map placement exists yet to self-verify their connectivity against, per this project's verify-before-naming rule) and need a follow-up pass once this sheet is actually used in a map.",
+  "entries": [
+    {
+      "kind": "tile",
+      "name": "grass_fill_plain_a",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
+      "tags": [
+        "grass",
+        "terrain",
+        "fill"
+      ]
+    },
+    {
+      "kind": "tile",
+      "name": "grass_fill_plain_b",
+      "row": 4,
+      "col": 3,
+      "frameIndex": 67,
+      "tags": [
+        "grass",
+        "terrain",
+        "fill"
+      ]
+    },
+    {
+      "kind": "tile",
+      "name": "grass_fill_blade_only",
+      "row": 6,
+      "col": 2,
+      "frameIndex": 98,
+      "tags": [
+        "grass",
+        "terrain",
+        "fill",
+        "blade"
+      ]
+    },
+    {
+      "kind": "tile",
+      "name": "grass_fill_flower_small",
+      "row": 1,
+      "col": 8,
+      "frameIndex": 24,
+      "tags": [
+        "grass",
+        "terrain",
+        "fill",
+        "flower"
+      ]
+    },
+    {
+      "kind": "tile",
+      "name": "grass_fill_flower_cluster",
+      "row": 3,
+      "col": 8,
+      "frameIndex": 56,
+      "tags": [
+        "grass",
+        "terrain",
+        "fill",
+        "flower"
+      ]
+    },
+    {
+      "kind": "tile",
+      "name": "grass_fill_petals_yellow",
+      "row": 5,
+      "col": 8,
+      "frameIndex": 88,
+      "tags": [
+        "grass",
+        "terrain",
+        "fill",
+        "flower",
+        "yellow"
+      ]
+    },
+    {
+      "kind": "tile",
+      "name": "stone_path_fill",
+      "row": 8,
+      "col": 0,
+      "frameIndex": 128,
+      "tags": [
+        "stone",
+        "path",
+        "terrain",
+        "fill"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,526 @@
+{
+  "source": "PATD_Props.png",
+  "sheetWidth": 512,
+  "sheetHeight": 512,
+  "notes": "From the Cainos 'Pixel Art Top Down - Basic' pack. Bounding boxes computed by connected-component analysis of the real alpha channel (dilated 3px to merge fine detail like rivets/bolts into their parent object, then tightened back to the true bbox). Verified visually against a TRUE-SCALE contact sheet (not size-normalized per cell) after an initial size-normalized pass caused two real misreads. Two tiny bright-cyan fragments (5x26 and 12x12, at roughly x=270,y=29 and x=330,y=266) are Unity editor/UI glyph icons baked into the flattened export, not game art \u2014 excluded entirely, matching the same call made on TX Player.png (rejected separately).",
+  "entries": [
+    {
+      "kind": "object",
+      "name": "stone_marker_inscribed_a",
+      "x": 227,
+      "y": 9,
+      "w": 32,
+      "h": 52,
+      "tags": [
+        "stone",
+        "marker",
+        "lore"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "stone_slab_broken",
+      "x": 387,
+      "y": 2,
+      "w": 32,
+      "h": 61,
+      "tags": [
+        "stone",
+        "ruins",
+        "broken"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "stone_block_checkered",
+      "x": 32,
+      "y": 18,
+      "w": 39,
+      "h": 46,
+      "tags": [
+        "stone",
+        "block"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "chest_wood_small",
+      "x": 96,
+      "y": 30,
+      "w": 37,
+      "h": 31,
+      "tags": [
+        "chest",
+        "container",
+        "wood"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "crate_wood_xbrace",
+      "x": 160,
+      "y": 18,
+      "w": 39,
+      "h": 46,
+      "tags": [
+        "crate",
+        "container",
+        "wood"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "bench_stone",
+      "x": 292,
+      "y": 19,
+      "w": 63,
+      "h": 41,
+      "tags": [
+        "bench",
+        "furniture",
+        "stone"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "statue_angel_praying",
+      "x": 445,
+      "y": 21,
+      "w": 38,
+      "h": 72,
+      "tags": [
+        "statue",
+        "decoration",
+        "stone"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "chest_wood_tall",
+      "x": 96,
+      "y": 76,
+      "w": 39,
+      "h": 49,
+      "tags": [
+        "chest",
+        "container",
+        "wood"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "door_wood_small_panel",
+      "x": 163,
+      "y": 86,
+      "w": 31,
+      "h": 39,
+      "tags": [
+        "door",
+        "wood"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "stone_marker_inscribed_tall",
+      "x": 227,
+      "y": 91,
+      "w": 48,
+      "h": 66,
+      "tags": [
+        "stone",
+        "marker",
+        "lore",
+        "tall"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "altar_stone_engraved",
+      "x": 288,
+      "y": 87,
+      "w": 67,
+      "h": 36,
+      "tags": [
+        "altar",
+        "stone",
+        "shrine"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "door_wood_arched_ornate",
+      "x": 29,
+      "y": 103,
+      "w": 47,
+      "h": 50,
+      "tags": [
+        "door",
+        "wood",
+        "ornate"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "stone_monolith_thin",
+      "x": 387,
+      "y": 98,
+      "w": 31,
+      "h": 61,
+      "tags": [
+        "stone",
+        "monolith",
+        "thin"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "wall_fragment_broken",
+      "x": 453,
+      "y": 118,
+      "w": 28,
+      "h": 37,
+      "tags": [
+        "wall",
+        "ruins",
+        "broken"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "shrine_pedestal_small",
+      "x": 162,
+      "y": 153,
+      "w": 31,
+      "h": 36,
+      "tags": [
+        "shrine",
+        "pedestal",
+        "stone"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "barrel_wood",
+      "x": 288,
+      "y": 158,
+      "w": 35,
+      "h": 57,
+      "tags": [
+        "barrel",
+        "container",
+        "wood"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "fence_broken_plank_a",
+      "x": 29,
+      "y": 166,
+      "w": 17,
+      "h": 53,
+      "tags": [
+        "fence",
+        "wood",
+        "broken"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "fence_broken_plank_b",
+      "x": 57,
+      "y": 166,
+      "w": 17,
+      "h": 53,
+      "tags": [
+        "fence",
+        "wood",
+        "broken"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "tombstone_cross_rect",
+      "x": 99,
+      "y": 160,
+      "w": 29,
+      "h": 32,
+      "tags": [
+        "grave",
+        "tombstone",
+        "stone",
+        "cross"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "signpost_east",
+      "x": 352,
+      "y": 174,
+      "w": 44,
+      "h": 77,
+      "tags": [
+        "signpost",
+        "village"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "pillar_stone_tiered",
+      "x": 227,
+      "y": 183,
+      "w": 31,
+      "h": 38,
+      "tags": [
+        "stone",
+        "pillar",
+        "tiered"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "tombstone_slab_weathered",
+      "x": 416,
+      "y": 194,
+      "w": 35,
+      "h": 57,
+      "tags": [
+        "grave",
+        "tombstone",
+        "stone",
+        "weathered"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "pillar_stone_stacked",
+      "x": 165,
+      "y": 217,
+      "w": 23,
+      "h": 34,
+      "tags": [
+        "stone",
+        "pillar",
+        "cairn"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "jar_pottery_tall",
+      "x": 96,
+      "y": 224,
+      "w": 30,
+      "h": 32,
+      "tags": [
+        "pottery",
+        "jar",
+        "decoration"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "tombstone_slab_plain",
+      "x": 225,
+      "y": 239,
+      "w": 35,
+      "h": 41,
+      "tags": [
+        "grave",
+        "tombstone",
+        "stone"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "jar_pottery_tall_narrow",
+      "x": 289,
+      "y": 251,
+      "w": 32,
+      "h": 29,
+      "tags": [
+        "pottery",
+        "jar",
+        "decoration"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "stone_disc_dial",
+      "x": 353,
+      "y": 269,
+      "w": 97,
+      "h": 72,
+      "tags": [
+        "stone",
+        "well",
+        "mechanism",
+        "needs-follow-up"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "kind": "object",
+      "name": "jar_pottery_wide",
+      "x": 164,
+      "y": 288,
+      "w": 28,
+      "h": 27,
+      "tags": [
+        "pottery",
+        "jar",
+        "decoration"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "cross_stone_freestanding",
+      "x": 227,
+      "y": 303,
+      "w": 34,
+      "h": 40,
+      "tags": [
+        "grave",
+        "cross",
+        "stone"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "stone_block_paneled",
+      "x": 288,
+      "y": 306,
+      "w": 39,
+      "h": 46,
+      "tags": [
+        "stone",
+        "block",
+        "storage"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "jar_pottery_round",
+      "x": 165,
+      "y": 348,
+      "w": 23,
+      "h": 32,
+      "tags": [
+        "pottery",
+        "jar",
+        "decoration"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "rubble_arc_stone",
+      "x": 420,
+      "y": 359,
+      "w": 58,
+      "h": 49,
+      "tags": [
+        "stone",
+        "ruins",
+        "rubble"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "rock_boulder_large",
+      "x": 3,
+      "y": 430,
+      "w": 60,
+      "h": 42,
+      "tags": [
+        "rock",
+        "nature"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "rock_pebble_tiny",
+      "x": 10,
+      "y": 492,
+      "w": 12,
+      "h": 10,
+      "tags": [
+        "rock",
+        "nature",
+        "tiny"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "rock_pebble_small_a",
+      "x": 40,
+      "y": 490,
+      "w": 17,
+      "h": 14,
+      "tags": [
+        "rock",
+        "nature",
+        "small"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "rock_small_a",
+      "x": 68,
+      "y": 487,
+      "w": 25,
+      "h": 19,
+      "tags": [
+        "rock",
+        "nature"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "rock_cluster_three",
+      "x": 100,
+      "y": 482,
+      "w": 91,
+      "h": 27,
+      "tags": [
+        "rock",
+        "nature",
+        "cluster"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "rock_small_b",
+      "x": 231,
+      "y": 489,
+      "w": 18,
+      "h": 16,
+      "tags": [
+        "rock",
+        "nature"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "rock_small_c",
+      "x": 263,
+      "y": 488,
+      "w": 19,
+      "h": 16,
+      "tags": [
+        "rock",
+        "nature"
+      ]
+    },
+    {
+      "kind": "object",
+      "name": "rock_pair",
+      "x": 289,
+      "y": 486,
+      "w": 31,
+      "h": 19,
+      "tags": [
+        "rock",
+        "nature",
+        "pair"
+      ]
+    }
+  ]
+}
