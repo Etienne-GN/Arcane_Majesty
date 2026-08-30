@@ -4,7 +4,8 @@
   "webDir": "launcher",
   "backgroundColor": "#000000",
   "server": {
-    "cleartext": true
+    "cleartext": true,
+    "allowNavigation": ["*"]
   },
   "android": {
     "backgroundColor": "#000000"
