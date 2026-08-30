@@ -137,10 +137,47 @@ export default class BootScene extends Phaser.Scene {
         this.load.json('tileset_water_cat', 'assets/catalogued/tilesets/SampleMap/[A]Water_pipo.catalogue.json');
         // LPC Atlas tilesets — 1024×1024, 32×32 grid (32 cols × 32 rows)
         this.load.image('terrain_atlas', 'assets/tilesets/lpc/terrain_atlas.png');
-        this.load.image('tileset_grass', 'assets/tilesets/SampleMap/[A]Grass_pipo.png');
+        this.load.image('tileset_grass', 'assets/catalogued/tilesets/SampleMap/[A]Grass_pipo.png');
+        // Sample map — full Tiled-authored demo scene (60x60, 9 layers) imported
+        // via tools/tiled_import/tmx_to_json.py. Proof-of-concept for native
+        // Tiled-map loading as the map-authoring standard going forward.
+        this.load.tilemapTiledJSON('samplemap_json', 'assets/catalogued/tilesets/SampleMap/samplemap.json');
+        this.load.image('tileset_waterfall', 'assets/catalogued/tilesets/SampleMap/[A]WaterFall_pipo.png');
+        this.load.image('tileset_flower', 'assets/catalogued/tilesets/SampleMap/[A]Flower_pipo.png');
         // LPC tree visuals — trunk (192×96, 2×1 @ 96×96) and treetop (192×224, 2×2 @ 96×112)
         this.load.spritesheet('lpc_trunk',    'assets/tilesets/lpc/trunk.png',   { frameWidth: 96, frameHeight: 96  });
         this.load.spritesheet('lpc_treetop',  'assets/tilesets/lpc/treetop.png', { frameWidth: 96, frameHeight: 112 });
+
+        // Decoration sheets catalogued 2026-08-29 (nature/village props + winter biome kit)
+        this.load.image('tileset_v2free', 'assets/catalogued/tilesets/assets_spritesheet_v2_free/assets_spritesheet_v2_free.png');
+        this.load.json('tileset_v2free_cat', 'assets/catalogued/tilesets/assets_spritesheet_v2_free/assets_spritesheet_v2_free.catalogue.json');
+        this.load.image('tileset_v11', 'assets/catalogued/tilesets/assets_version1.1/assets_version1.1.png');
+        this.load.json('tileset_v11_cat', 'assets/catalogued/tilesets/assets_version1.1/assets_version1.1.catalogue.json');
+        this.load.image('tileset_decorations2', 'assets/catalogued/tilesets/Decorations2/Decorations2.png');
+        this.load.json('tileset_decorations2_cat', 'assets/catalogued/tilesets/Decorations2/Decorations2.catalogue.json');
+        // Snow/winter biome kit — assembled by Claude from a loose-file asset pack (see
+        // catalogue.json "notes"); fills the Summit of Despair snow-sprite gap.
+        this.load.image('tileset_snowy', 'assets/catalogued/tilesets/SnowyAssetPack/SnowyAssetPack.png');
+        this.load.json('tileset_snowy_cat', 'assets/catalogued/tilesets/SnowyAssetPack/SnowyAssetPack.catalogue.json');
+        // Large multi-category master sheet (trees, ruins/castle stone walls, wooden
+        // bridge/dock kit, village goods, signposts, graveyard). See catalogue.json
+        // "notes" — the ruins/castle wall and bridge/dock sections are lowConfidence.
+        this.load.image('tileset_addwork', 'assets/catalogued/tilesets/addwork/addwork.png');
+        this.load.json('tileset_addwork_cat', 'assets/catalogued/tilesets/addwork/addwork.catalogue.json');
+        // Cainos "Pixel Art Top Down - Basic" pack — 6 sheets (terrain, walls,
+        // structures/stairs, props, plants). See each catalogue.json's "notes".
+        this.load.image('tileset_patd_grass', 'assets/catalogued/tilesets/PATD_TilesetGrass/PATD_TilesetGrass.png');
+        this.load.json('tileset_patd_grass_cat', 'assets/catalogued/tilesets/PATD_TilesetGrass/PATD_TilesetGrass.catalogue.json');
+        this.load.image('tileset_patd_stoneground', 'assets/catalogued/tilesets/PATD_TilesetStoneGround/PATD_TilesetStoneGround.png');
+        this.load.json('tileset_patd_stoneground_cat', 'assets/catalogued/tilesets/PATD_TilesetStoneGround/PATD_TilesetStoneGround.catalogue.json');
+        this.load.image('tileset_patd_wall', 'assets/catalogued/tilesets/PATD_TilesetWall/PATD_TilesetWall.png');
+        this.load.json('tileset_patd_wall_cat', 'assets/catalogued/tilesets/PATD_TilesetWall/PATD_TilesetWall.catalogue.json');
+        this.load.image('tileset_patd_struct', 'assets/catalogued/tilesets/PATD_Struct/PATD_Struct.png');
+        this.load.json('tileset_patd_struct_cat', 'assets/catalogued/tilesets/PATD_Struct/PATD_Struct.catalogue.json');
+        this.load.image('tileset_patd_props', 'assets/catalogued/tilesets/PATD_Props/PATD_Props.png');
+        this.load.json('tileset_patd_props_cat', 'assets/catalogued/tilesets/PATD_Props/PATD_Props.catalogue.json');
+        this.load.image('tileset_patd_plant', 'assets/catalogued/tilesets/PATD_Plant/PATD_Plant.png');
+        this.load.json('tileset_patd_plant_cat', 'assets/catalogued/tilesets/PATD_Plant/PATD_Plant.catalogue.json');
 
         // UI
         this.load.image('door1', 'assets/ui/doors/Door1_pipo.png');

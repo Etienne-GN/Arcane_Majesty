@@ -2463,6 +2463,13 @@ export default class GameScene extends Phaser.Scene {
             { items: this._mapDef.waterTiles,         catKey: 'tileset_water_cat',   texKey: 'tileset_water' },
             { items: this._mapDef.snowDecorations,    catKey: 'tileset_snowy_cat',   texKey: 'tileset_snowy' },
             { items: this._mapDef.addworkDecorations, catKey: 'tileset_addwork_cat', texKey: 'tileset_addwork' },
+            // Cainos "Pixel Art Top Down - Basic" pack (6 sheets)
+            { items: this._mapDef.patdGrassDecorations,       catKey: 'tileset_patd_grass_cat',       texKey: 'tileset_patd_grass' },
+            { items: this._mapDef.patdStoneGroundDecorations, catKey: 'tileset_patd_stoneground_cat', texKey: 'tileset_patd_stoneground' },
+            { items: this._mapDef.patdWallDecorations,        catKey: 'tileset_patd_wall_cat',        texKey: 'tileset_patd_wall' },
+            { items: this._mapDef.patdStructDecorations,      catKey: 'tileset_patd_struct_cat',      texKey: 'tileset_patd_struct' },
+            { items: this._mapDef.patdPropsDecorations,       catKey: 'tileset_patd_props_cat',       texKey: 'tileset_patd_props' },
+            { items: this._mapDef.patdPlantDecorations,       catKey: 'tileset_patd_plant_cat',       texKey: 'tileset_patd_plant' },
         ];
         sources.forEach(s => this._placeCatalogueItems(s.items, s.catKey, s.texKey));
     }
