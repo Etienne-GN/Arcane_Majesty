@@ -1143,6 +1143,13 @@ export const ITEMS = {
         description: 'A crystallized fragment of raw Aether. Used at the Foundry of the Ancients to upgrade Tier II gear to Tier III.',
         color: 0x9955ff, icon: 'itm_glowing_dust', stackable: true, sellPrice: 25, onUse: () => false,
     },
+    scholars_staff: {
+        id: 'scholars_staff', name: "Scholar's Staff",
+        description: "Eldrin's own study focus — worn smooth by decades of quiet reading. +2 INT.",
+        color: 0x9b6e4c, icon: 'itm_wand_01', stackable: false, slot: 'weapon', tier: 1, weaponType: 'staff', rarity: 'common',
+        stats: { intelligence: 2 }, buyPrice: 0, sellPrice: 28,
+        onUse: (stats) => stats.equipItem('scholars_staff'),
+    },
 };
 
 // Potion brewing recipes — all require empty_bottle

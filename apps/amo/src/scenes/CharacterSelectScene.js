@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { CHARACTERS } from '../data/characters.js';
+import { listMaps } from '../data/maps/index.js';
 import { SaveManager } from '../systems/SaveManager.js';
 import { playerStats } from '../systems/PlayerStats.js';
 import { soundManager } from '../systems/SoundManager.js';
@@ -17,6 +18,14 @@ export default class CharacterSelectScene extends Phaser.Scene {
         const ids = data?.characters ?? CHARACTERS.map(c => c.id);
         this._chars = CHARACTERS.filter(c => ids.includes(c.id));
         if (!this._chars.length) this._chars = CHARACTERS;
+
+        // Map picker — lets a tester override which map New Game starts on
+        // without touching StorySelectScene. Has no effect on Continue,
+        // which always resumes from the save's own map.
+        this._maps = listMaps();
+        const fromIdx = this._maps.findIndex(m => m.id === this._mapId);
+        this._mapIdx = fromIdx >= 0 ? fromIdx : 0;
+        this._mapId = this._maps[this._mapIdx].id;
     }
 
     create() {
@@ -35,6 +44,17 @@ export default class CharacterSelectScene extends Phaser.Scene {
             font: 'bold 22px monospace', fill: '#aabbff',
             stroke: '#000000', strokeThickness: 4,
         }).setOrigin(0.5);
+
+        // Map picker (New Game only — see init()'s comment)
+        this.add.text(w / 2, 66, 'MAP (New Game)', {
+            font: '9px monospace', fill: '#556677',
+        }).setOrigin(0.5);
+        this._mapNameText = this.add.text(w / 2, 80, '', {
+            font: 'bold 12px monospace', fill: '#88ccaa',
+        }).setOrigin(0.5);
+        this._makeArrow(w / 2 - 90, 80, '<', () => this._prevMap());
+        this._makeArrow(w / 2 + 90, 80, '>', () => this._nextMap());
+        this._refreshMapText();
 
         this._chars.forEach(c => buildEntityAnims(this.anims, c.animPrefix, c.animProfile));
 
@@ -144,6 +164,24 @@ export default class CharacterSelectScene extends Phaser.Scene {
         this._idx = (this._idx + 1) % this._chars.length;
         soundManager.menuHover();
         this._refresh();
+    }
+
+    _prevMap() {
+        this._mapIdx = (this._mapIdx - 1 + this._maps.length) % this._maps.length;
+        this._mapId = this._maps[this._mapIdx].id;
+        soundManager.menuHover();
+        this._refreshMapText();
+    }
+
+    _nextMap() {
+        this._mapIdx = (this._mapIdx + 1) % this._maps.length;
+        this._mapId = this._maps[this._mapIdx].id;
+        soundManager.menuHover();
+        this._refreshMapText();
+    }
+
+    _refreshMapText() {
+        this._mapNameText.setText(this._maps[this._mapIdx].displayName);
     }
 
     _hasSave() {

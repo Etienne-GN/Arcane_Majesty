@@ -206,4 +206,15 @@ export const QUESTS = {
         ],
         reward: { glint: 0, xp: 100, items: ['aether_shard', 'aether_shard'] },
     },
+
+    main_read_the_erasure: {
+        id: 'main_read_the_erasure',
+        title: 'Read the Erasure',
+        type: 'main',
+        description: 'Examine the strata along the tower wall — something in the stone has been tidied away.',
+        steps: [
+            { id: 'read_strata_wall', type: 'read_signs', target: 'any', label: 'Examine the Strata Wall', required: 1 },
+        ],
+        reward: { glint: 0, xp: 30, items: [] },
+    },
 };

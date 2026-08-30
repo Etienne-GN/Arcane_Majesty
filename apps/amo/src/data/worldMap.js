@@ -745,6 +745,15 @@ export const ENEMY_TYPES = {
         xpReward: 45, patrolRadius: 50, tint: 0x556655,
         lootTable: [{ id: 'mineral_ore', chance: 0.40 }],
     },
+    // Non-canon casting-tutorial tool (Song 1 — Echoes of Stone), per the
+    // Eldrin's Tower spec: "training Resonance-Wisp only", not a real
+    // bestiary entry, not present in Song 12's revisit.
+    resonance_wisp: {
+        spriteKey: 'spr_wisp',
+        health: 12, damage: 1, speed: 30, sightRange: 60, attackRange: 20,
+        xpReward: 5, patrolRadius: 20, tint: 0xffffaa,
+        lootTable: [],
+    },
 };
 
 export const PLAYER_START = { x: 3, y: 4 };
