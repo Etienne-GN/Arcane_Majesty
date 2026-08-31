@@ -64,8 +64,11 @@ export default class CharacterSelectScene extends Phaser.Scene {
         this.add.rectangle(w / 2, panelY, panelW, panelH, 0x0a0a1a, 0.88)
             .setStrokeStyle(1, 0x333366);
 
+        // Raw frames are 64x64 — scale 5 (320x320) badly overflowed the 220px-
+        // tall panel, bleeding up into the title/map-picker area above it.
+        // 2.5 (160x160) actually fits within the panel.
         this._preview = this.add.sprite(w / 2, panelY - panelH / 2 + 80, this._chars[0].spriteKey, this._chars[0].idleFrame ?? 0)
-            .setScale(5);
+            .setScale(2.5);
 
         this._charName = this.add.text(w / 2, panelY - panelH / 2 + 138, '', {
             font: 'bold 18px monospace', fill: '#ffd700',
