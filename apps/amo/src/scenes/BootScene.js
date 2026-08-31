@@ -23,6 +23,14 @@ export default class BootScene extends Phaser.Scene {
         this.load.spritesheet('eldrin_spellcast', 'assets/characters/eldrin_spellcast.png', { frameWidth: 64, frameHeight: 64 });
         this.load.spritesheet('eldrin_slash',     'assets/characters/eldrin_slash.png',     { frameWidth: 64, frameHeight: 64 });
 
+        // Eldrin (Forge) — 2026-08-31, exported from lpc-forge's own saved "Eldrin"
+        // composition, standard ULPC per-animation layout (same shape as Kael/Anya/
+        // Seraphina below), unlike the original eldrin_* sheets' bespoke 13-col layout.
+        this.load.spritesheet('eldrin_forge_walk',  'assets/characters/eldrin_forge_walk.png',  { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet('eldrin_forge_idle',  'assets/characters/eldrin_forge_idle.png',  { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet('eldrin_forge_slash', 'assets/characters/eldrin_forge_slash.png', { frameWidth: 64, frameHeight: 64 });
+        this.load.spritesheet('eldrin_forge_spell', 'assets/characters/eldrin_forge_spell.png', { frameWidth: 64, frameHeight: 64 });
+
         // Kael — LPC split sheets (walk 512×256, idle 64×256, slash 384×256, spell 448×256)
         this.load.spritesheet('kael_walk',  'assets/characters/kael_walk.png',  { frameWidth: 64, frameHeight: 64 });
         this.load.spritesheet('kael_idle',  'assets/characters/kael_idle.png',  { frameWidth: 64, frameHeight: 64 });

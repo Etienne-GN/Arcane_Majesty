@@ -13,6 +13,17 @@ export const CHARACTERS = [
         tint:        null,
     },
     {
+        id:          'eldrin_forge',
+        name:        'Eldrin',
+        class:       'Blind Prophet (Forge)',
+        description: 'The same Eldrin, rendered from the lpc-forge composition — a variant skin, not a different character.',
+        animPrefix:  'eldrin_forge',
+        animProfile: 'lpc_eldrin_forge',
+        spriteKey:   'eldrin_forge_idle',
+        idleFrame:   2,
+        tint:        null,
+    },
+    {
         id:          'kael',
         name:        'Kael',
         class:       'Living Lock',

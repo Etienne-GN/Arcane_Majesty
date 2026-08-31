@@ -408,6 +408,17 @@ export const ANIM_PROFILES = {
     //   {id}_idle.png  (64×256,  1c×4r, 64×64) — one standing frame per direction (rows 0-3)
     //   {id}_slash.png (384×256, 6c×4r, 64×64) — 6-frame attack per direction
     //   {id}_spell.png (448×256, 7c×4r, 64×64) — 7-frame spellcast per direction
+    // Eldrin (Forge) — exported from lpc-forge, standard ULPC layout (unlike
+    // lpc_eldrin above, which indexes into a bespoke 13-col padded sheet).
+    lpc_eldrin_forge: {
+        frameWidth: 64, frameHeight: 64,
+        textures: { walk: 'eldrin_forge_walk', idle: 'eldrin_forge_idle', attack: 'eldrin_forge_slash', spellcast: 'eldrin_forge_spell' },
+        walk:      { up:[0,1,2,3,4,5,6,7], left:[8,9,10,11,12,13,14,15], down:[16,17,18,19,20,21,22,23], right:[24,25,26,27,28,29,30,31] },
+        idle:      { up:0, left:1, down:2, right:3 },
+        attack:    { up:[0,1,2,3,4,5], left:[6,7,8,9,10,11], down:[12,13,14,15,16,17], right:[18,19,20,21,22,23] },
+        spellcast: { up:[0,1,2,3,4,5,6], left:[7,8,9,10,11,12,13], down:[14,15,16,17,18,19,20], right:[21,22,23,24,25,26,27] },
+        frameRate: { walk:8, idle:2, attack:10, spellcast:8 },
+    },
     lpc_kael: {
         frameWidth: 64, frameHeight: 64,
         textures: { walk: 'kael_walk', idle: 'kael_idle', attack: 'kael_slash', spellcast: 'kael_spell' },
