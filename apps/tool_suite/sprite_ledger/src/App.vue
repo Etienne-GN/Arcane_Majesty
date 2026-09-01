@@ -88,9 +88,12 @@ async function onAddCollection(name: string) {
     const id = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
     try {
         await addCollection(id, name.trim());
-        errorMessage.value = null;
     } catch (e) {
+        // Don't reload on failure — reload()'s own success path clears
+        // errorMessage, which would erase this error before the user
+        // could read it, and nothing new was actually added anyway.
         errorMessage.value = e instanceof Error ? e.message : String(e);
+        return;
     }
     await reload();
 }
