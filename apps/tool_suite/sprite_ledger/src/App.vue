@@ -11,6 +11,7 @@ const spriteMeta = ref<Record<string, { collection: string }>>({});
 const openFlags = ref<Flag[]>([]);
 
 const activeCollectionId = ref<string | null>(null);
+const activeSheet = ref<string | null>(null); // null = "All sheets"
 const flaggedOnly = ref(false);
 const searchText = ref('');
 
@@ -36,9 +37,12 @@ function collectionOf(sheetPngFilename: string, entryName: string): string {
 
 const flaggedKeys = computed(() => new Set(openFlags.value.map(f => keyFor(f.sheet, f.name))));
 
+const sheetNames = computed(() => sheets.value.map(s => s.sheetPngFilename));
+
 const visibleKeys = computed(() => {
     const set = new Set<string>();
     for (const sheet of sheets.value) {
+        if (activeSheet.value !== null && sheet.sheetPngFilename !== activeSheet.value) continue;
         for (const entry of sheet.entries) {
             const key = keyFor(sheet.sheetPngFilename, entry.name);
             if (activeCollectionId.value !== null && collectionOf(sheet.sheetPngFilename, entry.name) !== activeCollectionId.value) continue;
@@ -72,10 +76,13 @@ function onSelect(sheetPngFilename: string, entryName: string) {
     <CollectionSidebar
       :collections="collections"
       :active-collection-id="activeCollectionId"
+      :sheet-names="sheetNames"
+      :active-sheet="activeSheet"
       :flagged-only="flaggedOnly"
       :search-text="searchText"
       :counts="counts"
       @select-collection="(id) => activeCollectionId = id"
+      @select-sheet="(sheet) => activeSheet = sheet"
       @toggle-flagged-only="flaggedOnly = !flaggedOnly"
       @update-search="(v) => searchText = v"
     />
