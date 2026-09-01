@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import type { Collection } from '../services/api';
 
 const props = defineProps<{
@@ -11,11 +12,14 @@ const props = defineProps<{
     counts: Record<string, number>; // collection id -> sprite count, 'all' -> total
 }>();
 
+const newName = ref('');
+
 const emit = defineEmits<{
     selectCollection: [id: string | null];
     selectSheet: [sheet: string | null];
     toggleFlaggedOnly: [];
     updateSearch: [value: string];
+    addCollection: [name: string];
 }>();
 </script>
 
@@ -59,6 +63,11 @@ const emit = defineEmits<{
         {{ c.name }} ({{ counts[c.id] ?? 0 }})
       </li>
     </ul>
+
+    <form class="add-collection" @submit.prevent="() => { emit('addCollection', newName); newName = ''; }">
+      <input v-model="newName" placeholder="New collection name" />
+      <button type="submit">Add</button>
+    </form>
   </aside>
 </template>
 
@@ -71,4 +80,6 @@ const emit = defineEmits<{
 .collections li { padding: 6px 8px; cursor: pointer; border-radius: 4px; }
 .collections li:hover { background: #2a2a2a; }
 .collections li.active { background: #3a3a5a; font-weight: bold; }
+.add-collection { display: flex; gap: 4px; margin-top: 12px; }
+.add-collection input { flex: 1; min-width: 0; }
 </style>

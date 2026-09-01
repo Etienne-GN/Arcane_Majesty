@@ -3,7 +3,7 @@ import { ref, computed, onMounted } from 'vue';
 import CollectionSidebar from './components/CollectionSidebar.vue';
 import SpriteGrid from './components/SpriteGrid.vue';
 import SpriteDetail from './components/SpriteDetail.vue';
-import { fetchSheets, fetchMeta, fetchFlags } from './services/api';
+import { fetchSheets, fetchMeta, fetchFlags, addCollection } from './services/api';
 import type { Sheet, Collection, Flag } from './services/api';
 
 const sheets = ref<Sheet[]>([]);
@@ -70,6 +70,13 @@ const counts = computed(() => {
 function onSelect(sheetPngFilename: string, entryName: string) {
     selected.value = { sheetPngFilename, entryName };
 }
+
+async function onAddCollection(name: string) {
+    if (!name.trim()) return;
+    const id = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+    await addCollection(id, name.trim());
+    await reload();
+}
 </script>
 
 <template>
@@ -86,6 +93,7 @@ function onSelect(sheetPngFilename: string, entryName: string) {
       @select-sheet="(sheet) => activeSheet = sheet"
       @toggle-flagged-only="flaggedOnly = !flaggedOnly"
       @update-search="(v) => searchText = v"
+      @add-collection="onAddCollection"
     />
     <SpriteGrid
       :sheets="sheets"
