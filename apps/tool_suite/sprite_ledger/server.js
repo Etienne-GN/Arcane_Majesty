@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import { scanCatalogueDir } from './server/catalogueScanner.js';
 import {
@@ -41,7 +42,7 @@ export function createServer(catalogueDir, dataDir) {
         const sheets = await scanCatalogueDir(catalogueDir);
         const match = sheets.find(s => s.sheetPngFilename === req.params.sheetPngFilename);
         if (!match) return res.status(404).send('not found');
-        res.sendFile(match.pngPath);
+        res.sendFile(path.resolve(match.pngPath));
     });
 
     app.get('/api/collections', async (req, res) => {
