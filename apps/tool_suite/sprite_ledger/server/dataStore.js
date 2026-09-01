@@ -53,21 +53,25 @@ export async function assignCollection(dataDir, sheetPngFilename, entryName, col
     await writeJson(join(dataDir, 'sprite_meta.json'), meta);
 }
 
-// Seeds every entry of a sheet with its default collection, but only if
-// NONE of that sheet's entries has a sprite_meta.json record yet — a
-// one-time seed per sheet, never overwriting an existing (default or
-// user-chosen) assignment. Bypasses assignCollection's existence check
-// deliberately (seeding is a trusted internal call, not user input) but
-// still only ever writes collection ids that seedDefaultCollection can
-// produce — 'pipoya', 'patd', 'uncollected' — which the real
-// data/collections.json (Step 4 below) always defines.
+// Seeds each entry of a sheet with its default collection, but only the
+// entries that don't already have a sprite_meta.json record — a one-time
+// seed per *entry*, never overwriting an existing (default or
+// user-chosen) assignment. Per-entry rather than per-sheet so that
+// re-cataloguing an existing sheet (e.g. Claude adding entries in
+// response to a flag) still seeds the new ones, instead of the whole
+// sheet being skipped because some of its other entries were already
+// seeded. Bypasses assignCollection's existence check deliberately
+// (seeding is a trusted internal call, not user input) but still only
+// ever writes collection ids that seedDefaultCollection can produce —
+// 'pipoya', 'patd', 'uncollected' — which the real data/collections.json
+// (Step 4 below) always defines.
 export async function seedSheetIfNew(dataDir, sheetPngFilename, sheetDirName, entryNames) {
     const meta = await loadSpriteMeta(dataDir);
-    const alreadySeeded = entryNames.some(name => meta[`${sheetPngFilename}::${name}`]);
-    if (alreadySeeded) return;
+    const newNames = entryNames.filter(name => !meta[`${sheetPngFilename}::${name}`]);
+    if (newNames.length === 0) return;
 
     const defaultCollection = seedDefaultCollection(sheetPngFilename, sheetDirName);
-    for (const name of entryNames) {
+    for (const name of newNames) {
         meta[`${sheetPngFilename}::${name}`] = { collection: defaultCollection };
     }
     await writeJson(join(dataDir, 'sprite_meta.json'), meta);

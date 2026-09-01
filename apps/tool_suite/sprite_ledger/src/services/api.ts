@@ -27,42 +27,52 @@ export interface Flag {
 
 const BASE = '/api';
 
+// Every call goes through this so a non-2xx response throws instead of
+// silently returning an HTML error page's body as if it were JSON, or
+// (for the fire-and-forget POST/PATCH calls) failing completely silently.
+async function req(path: string, init?: RequestInit): Promise<Response> {
+    const res = await fetch(`${BASE}${path}`, init);
+    if (!res.ok) {
+        const body = await res.text().catch(() => '');
+        throw new Error(`${init?.method ?? 'GET'} ${path} failed: ${res.status} ${res.statusText}${body ? ` — ${body.slice(0, 200)}` : ''}`);
+    }
+    return res;
+}
+
+function postJson(path: string, body: unknown): Promise<Response> {
+    return req(path, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+    });
+}
+
 export async function fetchSheets(): Promise<Sheet[]> {
-    return (await fetch(`${BASE}/sheets`)).json();
+    return (await req('/sheets')).json();
 }
 
 export async function fetchMeta(): Promise<{ collections: Collection[]; spriteMeta: Record<string, { collection: string }> }> {
-    return (await fetch(`${BASE}/meta`)).json();
+    return (await req('/meta')).json();
 }
 
 export async function assignCollection(sheet: string, name: string, collection: string): Promise<void> {
-    await fetch(`${BASE}/meta`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sheet, name, collection }),
-    });
+    await postJson('/meta', { sheet, name, collection });
 }
 
 export async function addCollection(id: string, name: string): Promise<void> {
-    await fetch(`${BASE}/collections`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, name }),
-    });
+    await postJson('/collections', { id, name });
 }
 
 export async function fetchFlags(status?: string): Promise<Flag[]> {
     const qs = status ? `?status=${status}` : '';
-    return (await fetch(`${BASE}/flags${qs}`)).json();
+    return (await req(`/flags${qs}`)).json();
 }
 
 export async function addFlag(sheet: string, name: string, reason: string, comment: string): Promise<Flag> {
-    return (await fetch(`${BASE}/flags`, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sheet, name, reason, comment }),
-    })).json();
+    return (await postJson('/flags', { sheet, name, reason, comment })).json();
 }
 
 export async function resolveFlag(id: string): Promise<void> {
-    await fetch(`${BASE}/flags/${id}`, {
+    await req(`/flags/${id}`, {
         method: 'PATCH', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: 'resolved' }),
     });

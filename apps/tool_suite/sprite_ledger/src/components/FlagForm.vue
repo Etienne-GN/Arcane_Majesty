@@ -17,13 +17,20 @@ const REASONS: { id: string; label: string }[] = [
 
 const comment = ref('');
 const submitting = ref(false);
+const errorMessage = ref<string | null>(null);
 
 async function submitWithReason(reasonId: string) {
     submitting.value = true;
-    await addFlag(props.sheetPngFilename, props.entryName, reasonId, comment.value);
-    submitting.value = false;
-    comment.value = '';
-    emit('submitted');
+    errorMessage.value = null;
+    try {
+        await addFlag(props.sheetPngFilename, props.entryName, reasonId, comment.value);
+        comment.value = '';
+        emit('submitted');
+    } catch (e) {
+        errorMessage.value = e instanceof Error ? e.message : String(e);
+    } finally {
+        submitting.value = false;
+    }
 }
 </script>
 
@@ -45,6 +52,7 @@ async function submitWithReason(reasonId: string) {
       placeholder="Optional comment — describe what's wrong (you can add this with or without picking a reason above)"
       rows="3"
     />
+    <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
   </div>
 </template>
 
@@ -53,4 +61,5 @@ async function submitWithReason(reasonId: string) {
 .reasons { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
 .reasons button { font-size: 11px; padding: 4px 8px; }
 textarea { width: 100%; box-sizing: border-box; }
+.error { color: #e88; font-size: 11px; margin-top: 4px; }
 </style>

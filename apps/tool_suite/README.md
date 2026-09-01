@@ -12,6 +12,7 @@ create NPC and offline-campaign character skins. Moved into this repo via
 
 ```bash
 cd apps/tool_suite/lpc_forge
+npm install   # first run only
 npm run dev
 # frontend: http://localhost:5177  ·  API: http://localhost:3001
 ```
@@ -26,6 +27,10 @@ flags" section.
 
 ```bash
 cd apps/tool_suite/sprite_ledger
+npm install   # first run only
 npm run dev
 # frontend: http://localhost:5178  ·  API: http://localhost:3002
 ```
+
+Once running, `data/flags.json` is where a later Claude session should
+look for open sprite-quality reports to act on.

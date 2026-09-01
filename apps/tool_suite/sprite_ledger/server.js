@@ -1,4 +1,5 @@
 import path from 'path';
+import { fileURLToPath } from 'node:url';
 import express from 'express';
 import { scanCatalogueDir } from './server/catalogueScanner.js';
 import {
@@ -6,6 +7,8 @@ import {
     loadSpriteMeta, assignCollection, seedSheetIfNew,
     loadFlags, addFlag, updateFlagStatus,
 } from './server/dataStore.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Scans + seeds every sheet that hasn't been seeded yet. Called at the top
 // of both /api/sheets and /api/meta so either endpoint being hit first
@@ -88,6 +91,14 @@ export function createServer(catalogueDir, dataDir) {
 // Only start listening when run directly (`node server.js`), not when
 // imported by the smoke test.
 if (import.meta.url === `file://${process.argv[1]}`) {
-    const app = createServer('../../amo/public/assets/catalogued/tilesets', './data');
-    app.listen(3002, () => console.log('Sprite Ledger API on http://localhost:3002'));
+    // Resolve against this file's own location, not process.cwd() — so
+    // `node server.js` works the same whether it's launched from this
+    // directory (the normal `npm run dev` case) or from anywhere else.
+    const catalogueDir = path.join(__dirname, '../../amo/public/assets/catalogued/tilesets');
+    const dataDir = path.join(__dirname, 'data');
+    const app = createServer(catalogueDir, dataDir);
+    // Bound to localhost only — this is a personal, single-user curation
+    // tool with unauthenticated write endpoints; no reason to expose it
+    // to the LAN the way the game server (apps/amo) intentionally is.
+    app.listen(3002, '127.0.0.1', () => console.log('Sprite Ledger API on http://localhost:3002'));
 }

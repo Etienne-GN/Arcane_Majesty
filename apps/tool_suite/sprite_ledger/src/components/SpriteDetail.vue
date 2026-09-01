@@ -43,9 +43,17 @@ watch(() => [props.sheetPngFilename, props.entryName], draw);
 const selectedCollection = ref(props.currentCollectionId);
 watch(() => props.currentCollectionId, (v) => { selectedCollection.value = v; });
 
+const errorMessage = ref<string | null>(null);
+
 async function onCollectionChange() {
-    await assignCollection(props.sheetPngFilename, props.entryName, selectedCollection.value);
-    emit('reassigned');
+    try {
+        await assignCollection(props.sheetPngFilename, props.entryName, selectedCollection.value);
+        errorMessage.value = null;
+        emit('reassigned');
+    } catch (e) {
+        errorMessage.value = e instanceof Error ? e.message : String(e);
+        selectedCollection.value = props.currentCollectionId; // revert the dropdown to what's actually saved
+    }
 }
 
 const flagsForSprite = ref<Flag[]>([]);
@@ -62,9 +70,14 @@ async function onFlagSubmitted() {
 }
 
 async function onResolve(id: string) {
-    await resolveFlag(id);
-    await loadFlagsForSprite();
-    emit('reassigned'); // reuse the same "refresh parent" signal so the grid's flag-dot clears
+    try {
+        await resolveFlag(id);
+        await loadFlagsForSprite();
+        errorMessage.value = null;
+        emit('reassigned'); // reuse the same "refresh parent" signal so the grid's flag-dot clears
+    } catch (e) {
+        errorMessage.value = e instanceof Error ? e.message : String(e);
+    }
 }
 </script>
 
@@ -82,6 +95,8 @@ async function onResolve(id: string) {
         <option v-for="c in collections" :key="c.id" :value="c.id">{{ c.name }}</option>
       </select>
     </label>
+
+    <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
 
     <div v-if="flagsForSprite.length" class="open-flags">
       <h4>Open flags</h4>
@@ -106,6 +121,7 @@ async function onResolve(id: string) {
 .sheet-name { font-size: 11px; color: #888; }
 .tags { font-size: 11px; color: #6a6; margin-top: 4px; }
 .collection-picker { display: block; margin-top: 12px; }
+.error { color: #e88; font-size: 11px; margin-top: 4px; }
 .open-flags { margin-top: 12px; }
 .flag-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; margin-bottom: 4px; }
 </style>

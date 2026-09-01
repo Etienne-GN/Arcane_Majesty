@@ -36,12 +36,24 @@ function drawCrop(canvas: HTMLCanvasElement | null, sheet: Sheet, entry: SpriteE
     const img = sheetImages.value[sheet.sheetPngFilename];
     if (!img) return;
     const box = cropBox(sheet, entry);
-    canvas.width = box.w;
-    canvas.height = box.h;
+    // Integer-upscale small sprites so they're actually visible (a 17x9
+    // sprite drawn at native size is nearly imperceptible in an 84px
+    // cell) — same technique SpriteDetail.vue uses for its 4x preview,
+    // just clamped so large sprites still cap at ~64px instead of
+    // overflowing the cell.
+    const scale = Math.max(1, Math.floor(64 / Math.max(box.w, box.h)));
+    canvas.width = box.w * scale;
+    canvas.height = box.h * scale;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    const draw = () => ctx.drawImage(img, box.x, box.y, box.w, box.h, 0, 0, box.w, box.h);
-    if (img.complete) draw(); else img.onload = draw;
+    ctx.imageSmoothingEnabled = false;
+    const draw = () => ctx.drawImage(img, box.x, box.y, box.w, box.h, 0, 0, box.w * scale, box.h * scale);
+    // `img` is shared across every cell on the same sheet (see
+    // sheetImages above) — assigning to `img.onload` here would let each
+    // cell's callback silently clobber the previous cell's, leaving only
+    // the last-drawn cell per sheet actually rendered on cold load.
+    // addEventListener lets every cell's draw survive.
+    if (img.complete) draw(); else img.addEventListener('load', draw, { once: true });
 }
 </script>
 
@@ -64,7 +76,7 @@ function drawCrop(canvas: HTMLCanvasElement | null, sheet: Sheet, entry: SpriteE
 </template>
 
 <style scoped>
-.grid { display: flex; flex-wrap: wrap; gap: 10px; padding: 12px; align-content: flex-start; }
+.grid { display: flex; flex-wrap: wrap; gap: 10px; padding: 12px; align-content: flex-start; flex: 1; overflow-y: auto; }
 .cell { position: relative; width: 84px; text-align: center; cursor: pointer; }
 .cell canvas.pixelated { image-rendering: pixelated; max-width: 64px; max-height: 64px; background: #1a1a1a; }
 .name { font-size: 10px; word-break: break-word; color: #aaa; }

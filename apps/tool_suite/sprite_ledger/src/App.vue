@@ -17,13 +17,19 @@ const flaggedOnly = ref(false);
 const searchText = ref('');
 
 const selected = ref<{ sheetPngFilename: string; entryName: string } | null>(null);
+const errorMessage = ref<string | null>(null);
 
 async function reload() {
-    sheets.value = await fetchSheets();
-    const meta = await fetchMeta();
-    collections.value = meta.collections;
-    spriteMeta.value = meta.spriteMeta;
-    openFlags.value = await fetchFlags('open');
+    try {
+        sheets.value = await fetchSheets();
+        const meta = await fetchMeta();
+        collections.value = meta.collections;
+        spriteMeta.value = meta.spriteMeta;
+        openFlags.value = await fetchFlags('open');
+        errorMessage.value = null;
+    } catch (e) {
+        errorMessage.value = e instanceof Error ? e.message : String(e);
+    }
 }
 
 onMounted(reload);
@@ -58,6 +64,12 @@ const visibleKeys = computed(() => {
 const counts = computed(() => {
     const c: Record<string, number> = { all: 0 };
     for (const sheet of sheets.value) {
+        // Counts follow the sheet filter (same as visibleKeys) so the
+        // sidebar's numbers match what's actually shown in the grid when
+        // a sheet is selected — but deliberately ignore flaggedOnly/
+        // searchText, since those are meant to narrow within a
+        // collection/sheet, not redefine its total size.
+        if (activeSheet.value !== null && sheet.sheetPngFilename !== activeSheet.value) continue;
         for (const entry of sheet.entries) {
             c.all++;
             const col = collectionOf(sheet.sheetPngFilename, entry.name);
@@ -74,13 +86,19 @@ function onSelect(sheetPngFilename: string, entryName: string) {
 async function onAddCollection(name: string) {
     if (!name.trim()) return;
     const id = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
-    await addCollection(id, name.trim());
+    try {
+        await addCollection(id, name.trim());
+        errorMessage.value = null;
+    } catch (e) {
+        errorMessage.value = e instanceof Error ? e.message : String(e);
+    }
     await reload();
 }
 </script>
 
 <template>
   <div class="layout">
+    <div v-if="errorMessage" class="error-banner">{{ errorMessage }}</div>
     <CollectionSidebar
       :collections="collections"
       :active-collection-id="activeCollectionId"
@@ -115,5 +133,9 @@ async function onAddCollection(name: string) {
 </template>
 
 <style scoped>
-.layout { display: flex; height: 100vh; background: #111; color: #eee; font-family: monospace; }
+.layout { display: flex; height: 100vh; overflow: hidden; background: #111; color: #eee; font-family: monospace; position: relative; }
+.error-banner {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+    background: #5a1f1f; color: #fdd; padding: 8px 16px; font-size: 13px;
+}
 </style>
