@@ -1,0 +1,82 @@
+[
+  {
+    "id": "f_7f6ccc88-6396-42d7-bddb-039ece845290",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_tunic_blue",
+    "reason": "wrong_name",
+    "comment": "",
+    "status": "resolved",
+    "createdAt": "2026-09-01T22:32:11.875Z",
+    "resolvedAt": "2026-09-01T22:32:14.451Z"
+  },
+  {
+    "id": "f_60ae48d9-f9da-4c6b-ab50-1498bdda8d51",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_tunic_blue",
+    "reason": "wrong_name",
+    "comment": "",
+    "status": "resolved",
+    "createdAt": "2026-09-01T22:32:16.217Z",
+    "resolvedAt": "2026-09-01T22:32:51.465Z"
+  },
+  {
+    "id": "f_93308ca6-9f7c-4e26-806d-bc83954f4a85",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_tunic_blue",
+    "reason": "wrong_name",
+    "comment": "test",
+    "status": "resolved",
+    "createdAt": "2026-09-01T22:32:48.641Z",
+    "resolvedAt": "2026-09-01T22:32:54.249Z"
+  },
+  {
+    "id": "f_f8de0991-8298-4e93-a709-7e81aeae2324",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_tunic_blue",
+    "reason": "wrong_name",
+    "comment": "this looks more like a doll than an armor to me",
+    "status": "open",
+    "createdAt": "2026-09-01T22:33:12.380Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_daa89c26-dbc8-41d7-98d8-ffb06a64b35f",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "candles_lit_triple",
+    "reason": "misaligned",
+    "comment": "missing rignht and left candle bases ",
+    "status": "open",
+    "createdAt": "2026-09-01T22:33:45.471Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f5b0670c-ed5f-441a-b078-907c7850dfef",
+    "sheet": "PATD_Props.png",
+    "name": "stone_slab_broken",
+    "reason": "wrong_name",
+    "comment": "same as bench_stone but west facing oriented",
+    "status": "open",
+    "createdAt": "2026-09-01T22:34:57.959Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a8732de7-7ac1-4ee8-bcac-459129c03032",
+    "sheet": "PATD_Props.png",
+    "name": "stone_monolith_thin",
+    "reason": "wrong_name",
+    "comment": "same as bench_stone but east facing oriented",
+    "status": "open",
+    "createdAt": "2026-09-01T22:35:05.110Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ffa87da2-5337-4c10-8f50-d24d8e1ca401",
+    "sheet": "assets_spritesheet_v2_free.png",
+    "name": "mushroom_variant_cluster",
+    "reason": "misaligned",
+    "comment": "there are 16 variants of mushrooms in this, crop each of them independently",
+    "status": "open",
+    "createdAt": "2026-09-01T22:41:38.877Z",
+    "resolvedAt": null
+  }
+]

@@ -1,0 +1,3059 @@
+{
+  "Decorations2.png::flower_tulip_single_orange": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_tulip_single_pink": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_tulip_single_blue": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_tulip_double_orange": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_tulip_double_pink": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_tulip_double_blue": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_tulip_tall_orange": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_tulip_tall_pink": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_tulip_tall_blue": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_daffodil_orange": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_daffodil_pink": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_daffodil_blue": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_daisy_small_orange": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_daisy_small_pink": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_daisy_small_blue": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_cluster_small_orange": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_cluster_small_pink": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_cluster_small_blue": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::grass_sprout_leaf_a": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::grass_sprout_leaf_b": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::grass_sprout_leaf_c": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_dot_tiny_orange": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_dot_tiny_pink": {
+    "collection": "uncollected"
+  },
+  "Decorations2.png::flower_dot_tiny_blue": {
+    "collection": "uncollected"
+  },
+  "PATD_Plant.png::tree_round_a": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::tree_round_b": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::tree_round_c": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::bush_round_a": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::bush_round_b": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::bush_round_c": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::bush_round_d": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::bush_round_e": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::bush_round_f": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::grass_tuft_variant_0": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::grass_tuft_variant_1": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::grass_tuft_variant_2": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::grass_tuft_variant_3": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::grass_tuft_variant_4": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::grass_tuft_variant_5": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::grass_tuft_variant_6": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::grass_tuft_variant_7": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::grass_tuft_variant_8": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::grass_tuft_variant_9": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::grass_tuft_variant_10": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::grass_tuft_variant_11": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::grass_tuft_variant_12": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::grass_tuft_variant_13": {
+    "collection": "patd"
+  },
+  "PATD_Plant.png::grass_tuft_variant_14": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::stone_marker_inscribed_a": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::stone_slab_broken": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::stone_block_checkered": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::chest_wood_small": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::crate_wood_xbrace": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::bench_stone": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::statue_angel_praying": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::chest_wood_tall": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::door_wood_small_panel": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::stone_marker_inscribed_tall": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::altar_stone_engraved": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::door_wood_arched_ornate": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::stone_monolith_thin": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::wall_fragment_broken": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::shrine_pedestal_small": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::barrel_wood": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::fence_broken_plank_a": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::fence_broken_plank_b": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::tombstone_cross_rect": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::signpost_east": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::pillar_stone_tiered": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::tombstone_slab_weathered": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::pillar_stone_stacked": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::jar_pottery_tall": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::tombstone_slab_plain": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::jar_pottery_tall_narrow": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::stone_disc_dial": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::jar_pottery_wide": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::cross_stone_freestanding": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::stone_block_paneled": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::jar_pottery_round": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::rubble_arc_stone": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::rock_boulder_large": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::rock_pebble_tiny": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::rock_pebble_small_a": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::rock_small_a": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::rock_cluster_three": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::rock_small_b": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::rock_small_c": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::rock_pair": {
+    "collection": "patd"
+  },
+  "PATD_Struct.png::retaining_wall_grass_a": {
+    "collection": "patd"
+  },
+  "PATD_Struct.png::retaining_wall_grass_b": {
+    "collection": "patd"
+  },
+  "PATD_Struct.png::retaining_wall_grass_c": {
+    "collection": "patd"
+  },
+  "PATD_Struct.png::retaining_wall_grass_cracked_a": {
+    "collection": "patd"
+  },
+  "PATD_Struct.png::retaining_wall_grass_mossy": {
+    "collection": "patd"
+  },
+  "PATD_Struct.png::retaining_wall_grass_cracked_b": {
+    "collection": "patd"
+  },
+  "PATD_Struct.png::archway_large": {
+    "collection": "patd"
+  },
+  "PATD_Struct.png::archway_small": {
+    "collection": "patd"
+  },
+  "PATD_Struct.png::stairs_diagonal_a_left": {
+    "collection": "patd"
+  },
+  "PATD_Struct.png::stairs_diagonal_a_right": {
+    "collection": "patd"
+  },
+  "PATD_Struct.png::stairs_diagonal_b_left": {
+    "collection": "patd"
+  },
+  "PATD_Struct.png::stairs_diagonal_b_right": {
+    "collection": "patd"
+  },
+  "PATD_TilesetGrass.png::grass_fill_plain_a": {
+    "collection": "patd"
+  },
+  "PATD_TilesetGrass.png::grass_fill_plain_b": {
+    "collection": "patd"
+  },
+  "PATD_TilesetGrass.png::grass_fill_blade_only": {
+    "collection": "patd"
+  },
+  "PATD_TilesetGrass.png::grass_fill_flower_small": {
+    "collection": "patd"
+  },
+  "PATD_TilesetGrass.png::grass_fill_flower_cluster": {
+    "collection": "patd"
+  },
+  "PATD_TilesetGrass.png::grass_fill_petals_yellow": {
+    "collection": "patd"
+  },
+  "PATD_TilesetGrass.png::stone_path_fill": {
+    "collection": "patd"
+  },
+  "PATD_TilesetStoneGround.png::stone_platform_large": {
+    "collection": "patd"
+  },
+  "PATD_TilesetStoneGround.png::stone_platform_narrow": {
+    "collection": "patd"
+  },
+  "PATD_TilesetStoneGround.png::stone_floor_plain": {
+    "collection": "patd"
+  },
+  "PATD_TilesetStoneGround.png::stone_pedestal_altar": {
+    "collection": "patd"
+  },
+  "PATD_TilesetStoneGround.png::stone_floor_pit_square": {
+    "collection": "patd"
+  },
+  "PATD_TilesetWall.png::wall_window_large": {
+    "collection": "patd"
+  },
+  "PATD_TilesetWall.png::wall_shelf_divider": {
+    "collection": "patd"
+  },
+  "PATD_TilesetWall.png::wall_pillar_thin_a": {
+    "collection": "patd"
+  },
+  "PATD_TilesetWall.png::wall_pillar_thin_b": {
+    "collection": "patd"
+  },
+  "PATD_TilesetWall.png::wall_top_trim_strip": {
+    "collection": "patd"
+  },
+  "PATD_TilesetWall.png::wall_window_tower": {
+    "collection": "patd"
+  },
+  "PATD_TilesetWall.png::wall_cracked": {
+    "collection": "patd"
+  },
+  "PATD_TilesetWall.png::wall_small_window": {
+    "collection": "patd"
+  },
+  "PATD_TilesetWall.png::wall_plain_a": {
+    "collection": "patd"
+  },
+  "PATD_TilesetWall.png::wall_plain_b": {
+    "collection": "patd"
+  },
+  "LightShadow_pipo.png::shadow_blob_square_soft": {
+    "collection": "pipoya"
+  },
+  "LightShadow_pipo.png::shadow_blob_round": {
+    "collection": "pipoya"
+  },
+  "LightShadow_pipo.png::shadow_blob_oval": {
+    "collection": "pipoya"
+  },
+  "LightShadow_pipo.png::shadow_footprint_thin": {
+    "collection": "pipoya"
+  },
+  "LightShadow_pipo.png::shadow_corner_diagonal_a": {
+    "collection": "pipoya"
+  },
+  "LightShadow_pipo.png::shadow_corner_diagonal_b": {
+    "collection": "pipoya"
+  },
+  "LightShadow_pipo.png::glow_white_soft": {
+    "collection": "pipoya"
+  },
+  "LightShadow_pipo.png::glow_warm_yellow_soft": {
+    "collection": "pipoya"
+  },
+  "[A]Dirt_pipo.png::dirt_path_fill_brown": {
+    "collection": "pipoya"
+  },
+  "[A]Dirt_pipo.png::dirt_path_fill_pale_yellow": {
+    "collection": "pipoya"
+  },
+  "[A]Dirt_pipo.png::dirt_path_fill_gray_green": {
+    "collection": "pipoya"
+  },
+  "[A]Dirt_pipo.png::dirt_path_fill_olive": {
+    "collection": "pipoya"
+  },
+  "[A]Flower_pipo.png::flower_patch_fill_a": {
+    "collection": "pipoya"
+  },
+  "[A]Flower_pipo.png::flower_patch_fill_b": {
+    "collection": "pipoya"
+  },
+  "[A]Flower_pipo.png::flower_patch_fill_c": {
+    "collection": "pipoya"
+  },
+  "[A]Flower_pipo.png::tallgrass_patch_fill_a": {
+    "collection": "pipoya"
+  },
+  "[A]Flower_pipo.png::tallgrass_patch_fill_b": {
+    "collection": "pipoya"
+  },
+  "[A]Grass_pipo.png::dirt_patch_corner_nw": {
+    "collection": "pipoya"
+  },
+  "[A]Grass_pipo.png::dirt_patch_fill": {
+    "collection": "pipoya"
+  },
+  "[A]Grass_pipo.png::dirt_patch_corner_sw": {
+    "collection": "pipoya"
+  },
+  "[A]Grass_pipo.png::dirt_patch_edge_s": {
+    "collection": "pipoya"
+  },
+  "[A]Wall-Up_pipo.png::wall_shadow_reddish_brown": {
+    "collection": "pipoya"
+  },
+  "[A]Wall-Up_pipo.png::wall_shadow_dark_gray": {
+    "collection": "pipoya"
+  },
+  "[A]WaterFall_pipo.png::waterfall_deep_blue_fill_smooth": {
+    "collection": "pipoya"
+  },
+  "[A]WaterFall_pipo.png::waterfall_deep_blue_fill_foam": {
+    "collection": "pipoya"
+  },
+  "[A]WaterFall_pipo.png::waterfall_cyan_fill_smooth": {
+    "collection": "pipoya"
+  },
+  "[A]WaterFall_pipo.png::waterfall_cyan_fill_foam": {
+    "collection": "pipoya"
+  },
+  "[A]WaterFall_pipo.png::waterfall_green_fill_smooth": {
+    "collection": "pipoya"
+  },
+  "[A]WaterFall_pipo.png::waterfall_green_fill_foam": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_corner_nw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_edge_n": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_corner_ne": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_edge_w": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_fill": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_edge_e": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_corner_sw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_edge_s": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_corner_se": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_island": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_corner_nw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_edge_n": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_corner_ne": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_edge_w": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_fill": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_edge_e": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_corner_sw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_edge_s": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_corner_se": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_island": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_corner_nw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_edge_n": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_corner_ne": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_edge_w": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_fill": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_edge_e": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_corner_sw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_edge_s": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_corner_se": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_island": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_corner_nw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_edge_n": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_corner_ne": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_edge_w": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_fill": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_edge_e": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_corner_sw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_edge_s": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_corner_se": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_island": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_corner_nw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_edge_n": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_corner_ne": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_edge_w": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_fill": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_edge_e": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_corner_sw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_edge_s": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_corner_se": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_island": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::waterway1_fill": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::waterway2_fill": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::waterway3_fill": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_inner_corner_se": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_inner_corner_sw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_inner_corner_ne": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_inner_corner_nw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_inner_corner_se": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_inner_corner_sw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_inner_corner_ne": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_inner_corner_nw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_inner_corner_se": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_inner_corner_sw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_inner_corner_ne": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_inner_corner_nw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_inner_corner_se": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_inner_corner_sw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_inner_corner_ne": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_inner_corner_nw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_inner_corner_se": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_inner_corner_sw": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_inner_corner_ne": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_inner_corner_nw": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::grass_green_light": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::grass_green_dark": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::grass_green_pale": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::dirt_brown": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::stone_gray_pale": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::tree_bush_green_light": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::tree_bush_green_dark": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::tree_bush_orange": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::tree_bare_branches": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bush_round_green_light": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::stump_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::stump_big": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::log_hollow_horizontal": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::flower_white_cluster": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::flower_pink_bush": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::flower_sunflower": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::mushroom_brown_cluster": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::mushroom_pink_cluster": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::water_puddle_light_blue": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::water_puddle_dark_blue": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::rock_small_tan": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::gravestone_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cross_wooden": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_marble_white": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_checker_green": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_cobblestone_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_sand_tan": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_diagonal_black": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_diamond_maroon": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_wood_brown": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_brick_orange": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_brick_blue": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_shingle_red": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_stone_circular_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_scale_gold": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pew_bench_tan": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pew_curtained_tan": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cross_gold": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cross_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::picture_treasure_map": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::picture_blank_paper": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::picture_portrait_silhouette": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::picture_landscape": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::picture_portrait_color": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_sword": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_shield": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_coinpurse": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_utensils": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_stewpot": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_teapot": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_gem_eye": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_amulet_heart": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_inn_sign": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_healing_cross": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_apple_red": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_book_green": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_coin_gold": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_crystal_purple": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_skull": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pottery_jar_tan": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pottery_jar_dark": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pottery_jar_pink": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pottery_jar_red": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::crate_wood_light": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::crate_wood_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::chest_gold_closed_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::chest_gold_closed_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bucket_wood_dark": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bucket_wood_light": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::woodpile_stacked": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::axe_and_log": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::crate_wood_light_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::crate_wood_gray_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::chest_open_red": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::chest_open_gold": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::sack_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::haybale_yellow": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::sack_tan_round": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::barrel_dark": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::basket_gold_empty": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::basket_apples_red": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::basket_grapes_green": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::basket_peaches": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::book_red_closed": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::book_red_open": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::book_navy_closed": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::book_navy_open": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::book_black_closed": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::book_white_open": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::book_green_closed": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::book_green_open": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::plate_empty": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::plate_pancakes": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::plate_meat": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::plate_fish": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::plate_salad": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::plate_omelette": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::plate_sandwich": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::plate_cake": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wine_bottles_pair": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::coffee_cup": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::teapot_white": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::teacup": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cheese_wheel": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::apples_pair": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bread_basket": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bread_loaf_large": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::herb_leaf_green": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::potions_pair": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pouch_gold_tie": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cushion_purple_gem": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::gift_box_tan": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::chest_red_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::coins_pile_gold": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::armor_stand_silver": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::armor_stand_green": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::armor_stand_pink": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::armor_stand_blue": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::armor_stand_purple": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::armor_stand_empty": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::swords_crossed": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::shield_blue_gold": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::skull": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::key_gold": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::sword_purple_gold": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::shield_wood_round": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::shield_silver_round": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::shield_gold_blue": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_wood": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_grass_corner_outer_nw": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_grass_edge_n": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_grass_corner_outer_ne": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_grass_edge_w": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_grass_edge_e": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_grass_corner_face_sw": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_grass_edge_s": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_grass_corner_face_se": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_grass_cliff_face_sw": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_grass_cliff_face_mid": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_grass_cliff_face_se": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_grass_cliff_base_sw": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_grass_cliff_base_s": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_grass_cliff_base_se": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ladder_rope_wood": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_dirt_corner_outer_nw": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_dirt_edge_n": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_dirt_corner_outer_ne": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_dirt_edge_w": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_dirt_edge_e": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_dirt_corner_face_sw": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_dirt_edge_s": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_dirt_corner_face_se": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_dirt_cliff_face_sw": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_dirt_cliff_face_mid": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cave_entrance_top": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_dirt_cliff_base_sw": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ledge_dirt_cliff_base_s": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cave_entrance_bottom": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ladder_wood_plank": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::window_brown_2pane": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::window_brown_4pane": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::window_gray_6pane": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::window_brown_grid": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::window_curtained_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::window_curtained_red": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_edge_l": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_edge_r": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_corner_tl": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_corner_tr": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_corner_br": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_corner_bl": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_rail": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_fill_top_l": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_fill_top_mid": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_fill_top_r": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_fill_mid_l": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_fill_mid_mid": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_fill_mid_r": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_fill_bottom_l": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_fill_bottom_mid": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wallpanel_wood_fill_bottom_r": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::building_wall_corner_l_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::building_wall_fill_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::building_wall_corner_r_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_wood_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_accent_wood_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_fill_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_fill_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_fill_c": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_fill_d": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_fill_e": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_fill_f": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_fill_g": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_gable_accent_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_tan_wood_window_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_wood_barred_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_redbrick_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_wood_arch_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_graybrick_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_metal_silver_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_olivebrick_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_wood_dark_gold_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_tan_pillar_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_metal_ornate_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_gray_smooth_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_metal_ornate_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_gray_shopfront_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_metal_gem_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_gold_wood_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_wood_gold_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_awning_yellow_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_wood_brown_panel_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_white_orangebase_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_wood_orange_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::grass_green_olive": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::grass_dry_tan": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::sand_pale_light": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::moss_clump_scatter": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::lily_pad_green": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::water_puddle_green": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::log_hollow_vertical": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::rock_medium_tan": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::stump_round_dark": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::spike_trap_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::magic_circle_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_shingle_wood_brown": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_shingle_terracotta": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_brick_teal": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_scale_red": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_dome_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_metal_corrugated_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_thatch_gold_dense": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_graybrick_pillar_edge": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::roof_vent_accent_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pew_bench_tan_base": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pew_curtained_tan_base": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::banner_blank_white_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::dial_wood_white_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::prison_bars_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::archway_dark_silhouette": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bell_gold_hanging": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::grate_gray_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::banner_blank_white_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_compass_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::grate_vent_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::window_stained_glass_red": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::window_stained_glass_rainbow": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_wood_dungeon_barred_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_metal_gray_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_metal_gray_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_gold_ornate_red_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_fork_knife_silver": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_fork_spoon_silver": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_knife_fork_large": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_scroll_map_tattered": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_letter_paper": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_ledger_book_white": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_dagger_bomb": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::candles_lit_triple": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_hourglass_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::lantern_lit_hanging": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cauldron_black_large": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::candle_lit_tall": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::candelabra_gold_lit": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cutting_board_knife": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::potted_flower_purple": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::potted_flower_red": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::candle_unlit_silver": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pan_black_empty": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pan_black_food": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cauldron_black_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::icon_treasure_board_purple": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bombs_black_pair": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::daggers_crossed_gold_silver": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::toy_teddy_bear_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::toy_doll_blonde_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::monster_potato_brown_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::sword_ornate_gold_ruby": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::helmet_viking_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::hat_wizard_green": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::hat_red_wide": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::flail_mace_silver": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::armor_tunic_green": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::armor_tunic_red_ruffled": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::armor_tunic_blue": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::armor_tunic_purple": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::polearm_spiked_silver": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::shield_round_silver_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::armor_shoulder_silver_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::armor_tunic_green_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::armor_tunic_red_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::armor_tunic_blue_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::armor_tunic_purple_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::creature_blob_tan_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::shield_round_silver_c": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::weapon_rack_swords": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::weapon_rack_spears": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::weapon_rack_bow_arrows": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::weapon_rack_empty": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::scimitar_gold_red": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::axe_hatchet_brown": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bridge_wood_plank": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::well_stone_basin": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bucket_hanging_rope": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::mailbox_wood_red_roof": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::signpost_directional_multi": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bulletin_board_papers": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::gate_stone_archway": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::rope_fence_post_run": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bridge_rope_wood_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::laundry_white_sheet": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::laundry_colored_clothes": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_wood_plank_tan": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_brick_lightgray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_cobble_round_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_tile_lightgray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_checker_bw": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_solid_red2": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_brick_maroon": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_brick_brown": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_cobble_tan": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_tile_dustyrose": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_checker_red": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_solid_gold": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_cobble_tan2": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_cobble_gray2": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_diamond_tan": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_tile_gray2": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_checker_charcoal": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_diamond_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_plank_brown2": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_brick_gold": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_diamond_redorange": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_tile_olive": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_canvas_white": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::floor_diamond_blue": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ladder_wood_wide": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ladder_wood_narrow": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::stairs_wood_ascending_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::stairs_wood_ascending_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::curtain_red_gold_trim": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::curtain_white_plain": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wardrobe_tall_brown": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::curtain_red_plain": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::curtain_white_ribbed": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::table_side_wood_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::dresser_tan_3drawer_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::dresser_tan_1drawer_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::dresser_tan_3drawer_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bookshelf_colorful_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::table_round_wood": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::stool_wood_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::dresser_tan_gold_pulls": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::dresser_small_brown": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cabinet_wood_ornate_gold": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bookshelf_large_colorful_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bookshelf_large_colorful_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::table_round_tan_cloth": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::stool_wood_round_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cushion_round_red_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cushion_round_purple_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::mirror_standing_wood": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::stove_black": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::sink_gray_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::sink_gray_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cauldron_hanging_black": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_accent_dark": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bed_pillow_cream": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bed_pillow_tan": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bed_pillow_green": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bed_red_gold_ornate_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bedspread_red_large": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bed_pillow_cream_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bed_pillow_tan_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bed_pillow_green_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::bed_red_gold_ornate_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::clock_wall_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fireplace_stone_lit": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::clock_wall_round": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::chair_wood_simple": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::throne_red_gold_tall": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::banner_purple_dragon": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::banner_red_gold_crown": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::table_wood_long_brown": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::rug_tan_plain": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fireplace_brick_lit": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::piano_brown_upright": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::table_wood_long_brown_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::hedge_topiary_round": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::barrel_stack_brown": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::curtain_tan_awning": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pillar_stone_pair": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::gargoyle_statue_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::potted_plant_topiary_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fountain_stone_round": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fountain_stone_base": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::potted_plant_aloe_spiky": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::gravestone_tall_ornate": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::potted_plant_pink_flowers": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::potted_plant_empty": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_up_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_down_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_left_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_left": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_left_up_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_left_down_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_left_up_right_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_left_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_up": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_up_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_up_left": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_up_right_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_up_left_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_wood_stud": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_up_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_down_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_left_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_left": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_left_up_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_left_down_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_left_up_right_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_left_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_up": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_up_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_up_left": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_up_right_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_up_left_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_stud": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_up_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_down_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_left_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_left": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_left_up_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_left_down_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_left_up_right_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_left_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_up": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_up_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_up_left": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_right": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_up_right_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_up_left_down": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_brick_stud": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::grass_worn_patches": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::dirt_farm_soil": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::tree_giant_trunk_grass": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::well_crank_post": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::hedge_bush_tall_round": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::hedge_bush_wide_oval": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::rocks_pebbles_pair": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::dirt_mound_organic": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ladder_wood_dirt_climb": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::tree_dead_bare_green": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::scarecrow": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::sprout_seedling_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::haybale_bundle_tied": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wheat_stalks_golden": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pumpkin_sprout_young": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pumpkin_ripe_orange": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cabbage_light_green": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::cabbage_dark_green": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::signpost_blank_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::sign_board_easel": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::signpost_arrow_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::rope_fence_post_laundry": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::fence_iron_picket_tall_decorative": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_tan_wood_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_gold_wood_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_gray_concrete_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_red_wood_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::gate_castle_arch_gray": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::vent_accent_dark_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::vent_accent_dark_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::wall_redbrick_pink_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::archway_stone_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::door_wood_dark_paneled": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::torch_lantern_wall_bracket": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::gate_iron_frame_opening": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::gate_iron_portcullis_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::rope_fence_post_run_long": {
+    "collection": "pipoya"
+  },
+  "SnowyAssetPack.png::ice_corner_nw": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_edge_n": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_corner_ne": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_edge_w": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_fill": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_edge_e": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_corner_sw": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_edge_s": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_corner_se": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_inner_corner_nw": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_inner_corner_ne": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_inner_corner_sw": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_inner_corner_se": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_bottom_0": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_bottom_1": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_bottom_2": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_left_0": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_left_1": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_left_2": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_right_0": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_right_1": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_right_2": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_top_0": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_top_1": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_top_2": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_misc_0": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_misc_1": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_misc_2": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_misc_3": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_misc_4": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_misc_5": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_misc_6": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_misc_7": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_misc_8": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_misc_9": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_crack_decal_misc_10": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_round_pond_top": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_round_pond_bottom": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_round_pond_left": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_round_pond_right": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_hole_circle_large": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_hole_circle_medium": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_hole_circle_small": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::ice_hole_square": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::stairs_snow_a": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::stairs_snow_b": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::water_hole_a": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::water_hole_b": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::water_hole_c": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::snow_fill_variant_0": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::snow_fill_variant_1": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::snow_fill_variant_2": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::snow_fill_variant_3": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::snow_fill_variant_4": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::snow_fill_variant_5": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::cliff_snow_top_left": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::cliff_snow_top": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::cliff_snow_top_right": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::cliff_snow_left_a": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::cliff_snow_middle_a": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::cliff_snow_right_a": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::cliff_snow_left_b": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::cliff_snow_middle_b": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::cliff_snow_right_b": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::cliff_snow_base_left_a": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::cliff_snow_base_a": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::cliff_snow_base_right_a": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::cliff_snow_base_left_b": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::cliff_snow_base_b": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::cliff_snow_base_right_b": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::fence_snow_horizontal": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::fence_snow_vertical": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::fence_snow_corner_nw": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::fence_snow_corner_ne": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::fence_snow_corner_sw": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::fence_snow_corner_se": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::log_snow_dusted": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::log_cabin_snow_roofed": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::snowman_variant_0": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::snowman_variant_1": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::snowman_variant_2": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::snowman_variant_3": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::snowman_variant_4": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::snowman_variant_5": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::tree_snow_capped_0": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::tree_snow_capped_1": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::tree_snow_capped_2": {
+    "collection": "uncollected"
+  },
+  "SnowyAssetPack.png::tree_snow_capped_3": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grass_fill_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grass_fill_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grass_fill_worn_patch": {
+    "collection": "uncollected"
+  },
+  "addwork.png::bush_round_small_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::bush_round_small_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tree_round_giant_yellow_green": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tree_round_giant_green": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tree_round_giant_orange_autumn": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tree_dead_bare_bark": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_corner_inner_nw": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_diamond_window": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_pillar_post": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_opening_small": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_top_edge_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_top_edge_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_rubble_pile_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_corner_rounded": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_top_edge_c": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_top_edge_d": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_gap_small": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_vertical_post_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_top_edge_e": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_rubble_pile_c": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_archway_dark_plain": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_archway_dark_rocky": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_vertical_post_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_gap_small_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_top_edge_f": {
+    "collection": "uncollected"
+  },
+  "addwork.png::ruins_wall_base_run": {
+    "collection": "uncollected"
+  },
+  "addwork.png::wood_plank_floor_lit": {
+    "collection": "uncollected"
+  },
+  "addwork.png::wood_plank_floor_shadow": {
+    "collection": "uncollected"
+  },
+  "addwork.png::wood_plank_floor_hole": {
+    "collection": "uncollected"
+  },
+  "addwork.png::wood_plank_floor_crack": {
+    "collection": "uncollected"
+  },
+  "addwork.png::wood_palisade_spike_wall_straight": {
+    "collection": "uncollected"
+  },
+  "addwork.png::wood_palisade_spike_wall_peak": {
+    "collection": "uncollected"
+  },
+  "addwork.png::rock_block_prop": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grass_tuft_tiny_prop": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grass_mound_peak_small": {
+    "collection": "uncollected"
+  },
+  "addwork.png::wood_roof_peak_small_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::wood_roof_peak_small_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::mound_dirt_stone_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::mound_dirt_stone_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::mound_grass_topped_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::mound_grass_topped_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::mountain_peak_rocky_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::mountain_peak_rocky_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::bush_round_bright_green": {
+    "collection": "uncollected"
+  },
+  "addwork.png::stump_wide_cut": {
+    "collection": "uncollected"
+  },
+  "addwork.png::log_horizontal_lying": {
+    "collection": "uncollected"
+  },
+  "addwork.png::stump_mossy_tall": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grass_tuft_variant_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grass_tuft_variant_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grass_tuft_variant_c": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grass_tuft_variant_d": {
+    "collection": "uncollected"
+  },
+  "addwork.png::mushroom_cluster_small_brown": {
+    "collection": "uncollected"
+  },
+  "addwork.png::mushroom_single_red_cap": {
+    "collection": "uncollected"
+  },
+  "addwork.png::mushroom_cluster_tall_thin": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grass_tuft_variant_e": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grass_tuft_variant_f": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grass_tuft_variant_g": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grass_tuft_variant_h": {
+    "collection": "uncollected"
+  },
+  "addwork.png::clover_dots_tiny": {
+    "collection": "uncollected"
+  },
+  "addwork.png::clover_patch": {
+    "collection": "uncollected"
+  },
+  "addwork.png::flowering_groundcover_pink": {
+    "collection": "uncollected"
+  },
+  "addwork.png::water_puddle_small": {
+    "collection": "uncollected"
+  },
+  "addwork.png::water_puddle_large": {
+    "collection": "uncollected"
+  },
+  "addwork.png::pebble_scatter_small": {
+    "collection": "uncollected"
+  },
+  "addwork.png::pebble_scatter_large": {
+    "collection": "uncollected"
+  },
+  "addwork.png::rock_round_small": {
+    "collection": "uncollected"
+  },
+  "addwork.png::rock_pile_medium": {
+    "collection": "uncollected"
+  },
+  "addwork.png::rock_pile_large": {
+    "collection": "uncollected"
+  },
+  "addwork.png::dirt_hole_round_small": {
+    "collection": "uncollected"
+  },
+  "addwork.png::dirt_patch_oval_small": {
+    "collection": "uncollected"
+  },
+  "addwork.png::dirt_patch_oval_large": {
+    "collection": "uncollected"
+  },
+  "addwork.png::worn_grass_patch_small": {
+    "collection": "uncollected"
+  },
+  "addwork.png::worn_grass_patch_medium": {
+    "collection": "uncollected"
+  },
+  "addwork.png::worn_grass_patch_large": {
+    "collection": "uncollected"
+  },
+  "addwork.png::castle_wall_brick_face": {
+    "collection": "uncollected"
+  },
+  "addwork.png::castle_wall_battlement_top": {
+    "collection": "uncollected"
+  },
+  "addwork.png::castle_wall_floor_plain": {
+    "collection": "uncollected"
+  },
+  "addwork.png::castle_floor_corner": {
+    "collection": "uncollected"
+  },
+  "addwork.png::castle_wall_pillar_post": {
+    "collection": "uncollected"
+  },
+  "addwork.png::castle_archway_gray": {
+    "collection": "uncollected"
+  },
+  "addwork.png::castle_wall_battlement_row2": {
+    "collection": "uncollected"
+  },
+  "addwork.png::castle_wall_battlement_run": {
+    "collection": "uncollected"
+  },
+  "addwork.png::castle_archway_large": {
+    "collection": "uncollected"
+  },
+  "addwork.png::castle_wall_face_tall": {
+    "collection": "uncollected"
+  },
+  "addwork.png::fountain_pillar_structure": {
+    "collection": "uncollected"
+  },
+  "addwork.png::castle_archway_small_tall": {
+    "collection": "uncollected"
+  },
+  "addwork.png::bridge_deck_plank_strip": {
+    "collection": "uncollected"
+  },
+  "addwork.png::bridge_support_post_tall": {
+    "collection": "uncollected"
+  },
+  "addwork.png::bridge_deck_diagonal_brace": {
+    "collection": "uncollected"
+  },
+  "addwork.png::bridge_railing_straight_run": {
+    "collection": "uncollected"
+  },
+  "addwork.png::bridge_railing_post_pair_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::bridge_railing_post_pair_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::bridge_railing_post_pair_c": {
+    "collection": "uncollected"
+  },
+  "addwork.png::bridge_railing_post_pair_d": {
+    "collection": "uncollected"
+  },
+  "addwork.png::wood_stump_post_short_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::wood_stump_post_short_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::wood_stump_post_short_c": {
+    "collection": "uncollected"
+  },
+  "addwork.png::dock_stone_wall_gray_run": {
+    "collection": "uncollected"
+  },
+  "addwork.png::dock_wood_plank_wall_run": {
+    "collection": "uncollected"
+  },
+  "addwork.png::village_floor_riveted_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::village_floor_riveted_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::village_floor_riveted_c": {
+    "collection": "uncollected"
+  },
+  "addwork.png::village_floor_plank_plain_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::door_wood_gate": {
+    "collection": "uncollected"
+  },
+  "addwork.png::shutter_window_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::shutter_window_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::crate_wood_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::crate_wood_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::chest_wood_pink": {
+    "collection": "uncollected"
+  },
+  "addwork.png::chest_wood_tan": {
+    "collection": "uncollected"
+  },
+  "addwork.png::furnace_red": {
+    "collection": "uncollected"
+  },
+  "addwork.png::furnace_gray": {
+    "collection": "uncollected"
+  },
+  "addwork.png::cooking_pot": {
+    "collection": "uncollected"
+  },
+  "addwork.png::log_bundle_tied": {
+    "collection": "uncollected"
+  },
+  "addwork.png::stump_cut_top": {
+    "collection": "uncollected"
+  },
+  "addwork.png::crate_wood_c": {
+    "collection": "uncollected"
+  },
+  "addwork.png::crate_wood_dark": {
+    "collection": "uncollected"
+  },
+  "addwork.png::fish_rack_shelf": {
+    "collection": "uncollected"
+  },
+  "addwork.png::potion_bottle_rack": {
+    "collection": "uncollected"
+  },
+  "addwork.png::meat_drying_rack": {
+    "collection": "uncollected"
+  },
+  "addwork.png::sack_flour": {
+    "collection": "uncollected"
+  },
+  "addwork.png::sack_grain": {
+    "collection": "uncollected"
+  },
+  "addwork.png::sack_spice": {
+    "collection": "uncollected"
+  },
+  "addwork.png::basket_tomato": {
+    "collection": "uncollected"
+  },
+  "addwork.png::basket_lettuce": {
+    "collection": "uncollected"
+  },
+  "addwork.png::basket_mixed_veg": {
+    "collection": "uncollected"
+  },
+  "addwork.png::basket_watermelon": {
+    "collection": "uncollected"
+  },
+  "addwork.png::torch_post_standing": {
+    "collection": "uncollected"
+  },
+  "addwork.png::signpost_cross_branch": {
+    "collection": "uncollected"
+  },
+  "addwork.png::signpost_arrow_single_big": {
+    "collection": "uncollected"
+  },
+  "addwork.png::signpost_arrow_double_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::signpost_arrow_double_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::signpost_cluster_triple": {
+    "collection": "uncollected"
+  },
+  "addwork.png::signpost_cluster_quad": {
+    "collection": "uncollected"
+  },
+  "addwork.png::signpost_single_narrow": {
+    "collection": "uncollected"
+  },
+  "addwork.png::signpost_branch_cluster": {
+    "collection": "uncollected"
+  },
+  "addwork.png::noticeboard_small_tan": {
+    "collection": "uncollected"
+  },
+  "addwork.png::noticeboard_small_tan_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::noticeboard_small_reddish": {
+    "collection": "uncollected"
+  },
+  "addwork.png::mailbox_post": {
+    "collection": "uncollected"
+  },
+  "addwork.png::hanging_sign_frame_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::hanging_sign_frame_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::bulletin_board_wood_large": {
+    "collection": "uncollected"
+  },
+  "addwork.png::bulletin_board_dark_large": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grave_cross_wood_small": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grave_cross_wood_medium": {
+    "collection": "uncollected"
+  },
+  "addwork.png::grave_cross_stone": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tombstone_oval_gray_small": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tombstone_oval_gray_large": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tombstone_moss_round_small": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tombstone_moss_round_large": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tombstone_slab_rect": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tombstone_slab_rounded": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tombstone_gothic_arch_cross": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tombstone_gothic_pointed": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tombstone_rounded_cross": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tombstone_plain_cross_slab": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tomb_pillar_cross": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tomb_obelisk_cross": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tomb_slab_plaque_tall": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tomb_obelisk_tapered": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tomb_monument_domed": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tomb_monument_spire": {
+    "collection": "uncollected"
+  },
+  "addwork.png::mausoleum_building": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tombstone_slab_cross_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tomb_gothic_monument_a": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tomb_gothic_monument_b": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tomb_monument_rounded_plaque": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tomb_monument_plain_cracked": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tomb_monument_pillared": {
+    "collection": "uncollected"
+  },
+  "addwork.png::tomb_monument_cross_plaque": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::tree_pine_snow_capped_free": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::tree_round_bushy": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::tree_large_canopy": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::building_cottage_stone_thatch": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::bush_dark_spiky": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::bush_flowering_orange": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::grass_tuft_tall_spiky": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::stump_small_dark": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::signpost_directional_a": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::bush_round_plain_a": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::bush_round_plain_b": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::stump_large": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::stump_small_light": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::bush_round_dotted_a": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::bush_round_dotted_b": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::stump_tiny": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::rock_cluster_mossy_shore": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::rock_pebble_dark": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::rock_pebble_shore": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::lily_pad_flowering_pink": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::lily_pad_plain_green": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::signpost_directional_b": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::chest_wood_gold_trim": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::bench_wood": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::log_vertical_short": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::log_horizontal_single": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::log_pile_stacked": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::mushroom_variant_cluster": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::plank_pile_tall_a": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::plank_pile_tall_b": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::fence_plank_vertical_run": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::fence_plank_wall_long": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::bench_short_a": {
+    "collection": "uncollected"
+  },
+  "assets_spritesheet_v2_free.png::bench_short_b": {
+    "collection": "uncollected"
+  },
+  "assets_version1.1.png::tree_pine_alt": {
+    "collection": "uncollected"
+  },
+  "assets_version1.1.png::tree_round_bushy_alt": {
+    "collection": "uncollected"
+  },
+  "assets_version1.1.png::signpost_directional_alt_a": {
+    "collection": "uncollected"
+  },
+  "assets_version1.1.png::signpost_directional_alt_b": {
+    "collection": "uncollected"
+  },
+  "assets_version1.1.png::rock_round_small": {
+    "collection": "uncollected"
+  },
+  "assets_version1.1.png::rock_round_small_shore": {
+    "collection": "uncollected"
+  },
+  "assets_version1.1.png::rock_cluster_large": {
+    "collection": "uncollected"
+  },
+  "assets_version1.1.png::rock_cluster_large_shore": {
+    "collection": "uncollected"
+  },
+  "assets_version1.1.png::bush_round_green_alt": {
+    "collection": "uncollected"
+  },
+  "assets_version1.1.png::bush_flowering_orange_alt": {
+    "collection": "uncollected"
+  },
+  "assets_version1.1.png::bush_round_dotted_alt_a": {
+    "collection": "uncollected"
+  },
+  "assets_version1.1.png::bush_round_dotted_alt_b": {
+    "collection": "uncollected"
+  },
+  "assets_version1.1.png::grass_tuft_spiky_alt": {
+    "collection": "uncollected"
+  },
+  "assets_version1.1.png::rock_pebble_small_alt": {
+    "collection": "uncollected"
+  }
+}
