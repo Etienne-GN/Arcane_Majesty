@@ -30,4 +30,3 @@ coverage
 *.tsbuildinfo
 
 /bin/Ramps.json
-saves.db
