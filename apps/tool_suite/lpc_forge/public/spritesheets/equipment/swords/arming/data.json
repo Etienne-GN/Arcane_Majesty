@@ -1,0 +1,55 @@
+{
+  "id": "equipment.swords.arming",
+  "name": "Arming Sword",
+  "path": "equipment/swords/arming",
+  "layers": {
+    "fg": {
+      "z": 150,
+      "conditions": {
+        "anatomy.body.male": "fg",
+        "anatomy.body.muscular": "fg",
+        "anatomy.body.female": "fg",
+        "anatomy.body.teen": "fg",
+        "anatomy.body.pregnant": "fg"
+      }
+    },
+    "bg": {
+      "z": 0,
+      "conditions": {
+        "anatomy.body.male": "bg",
+        "anatomy.body.muscular": "bg",
+        "anatomy.body.female": "bg",
+        "anatomy.body.teen": "bg",
+        "anatomy.body.pregnant": "bg"
+      }
+    }
+  },
+  "poses": ["walk", "idle", "hurt", "slash", "thrust", "backslash"],
+  "sizes": {
+    "slash": "lg",
+    "thrust": "lg",
+    "backslash": "lg"
+  },
+  "presets": {
+    "color": {
+      "name": "Color",
+      "default": "steel",
+      "options": {
+        "brass":   { "name": "Brass",   "color": "#B5A642" },
+        "bronze":  { "name": "Bronze",  "color": "#CD7F32" },
+        "ceramic": { "name": "Ceramic", "color": "#C8A882" },
+        "copper":  { "name": "Copper",  "color": "#B87333" },
+        "gold":    { "name": "Gold",    "color": "#FFD700" },
+        "iron":    { "name": "Iron",    "color": "#6E6E6E" },
+        "silver":  { "name": "Silver",  "color": "#C0C0C0" },
+        "steel":   { "name": "Steel",   "color": "#8C8C8C" }
+      }
+    }
+  },
+  "materials": {},
+  "colors": {},
+  "notes": [],
+  "authors": [],
+  "licenses": [],
+  "urls": []
+}

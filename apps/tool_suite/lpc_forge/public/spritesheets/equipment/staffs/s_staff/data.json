@@ -1,0 +1,41 @@
+{
+  "id": "equipment.staffs.s_staff",
+  "name": "S Staff",
+  "path": "equipment/staffs/s_staff",
+  "layers": {
+    "fg": {
+      "z": 140,
+      "conditions": {
+        "anatomy.body.male": "fg",
+        "anatomy.body.muscular": "fg",
+        "anatomy.body.female": "fg",
+        "anatomy.body.teen": "fg",
+        "anatomy.body.pregnant": "fg"
+      }
+    },
+    "bg": {
+      "z": 9,
+      "conditions": {
+        "anatomy.body.male": "bg",
+        "anatomy.body.muscular": "bg",
+        "anatomy.body.female": "bg",
+        "anatomy.body.teen": "bg",
+        "anatomy.body.pregnant": "bg"
+      }
+    }
+  },
+  "poses": [
+    "hurt",
+    "thrust",
+    "walk"
+  ],
+  "sizes": {
+    "thrust": "xl"
+  },
+  "materials": {},
+  "colors": {},
+  "notes": [],
+  "authors": ["Universal LPC contributors"],
+  "licenses": ["OGA-BY 3.0"],
+  "urls": ["https://github.com/Zireael07/Universal-LPC-Spritesheet"]
+}

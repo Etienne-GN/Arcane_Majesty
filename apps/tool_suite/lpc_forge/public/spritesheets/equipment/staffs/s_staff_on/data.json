@@ -1,0 +1,52 @@
+{
+  "id": "equipment.staffs.s_staff_on",
+  "name": "S Staff On",
+  "path": "equipment/staffs/s_staff_on",
+  "layers": {
+    "fg": {
+      "z": 140,
+      "conditions": {
+        "anatomy.body.male": "fg",
+        "anatomy.body.muscular": "fg",
+        "anatomy.body.female": "fg",
+        "anatomy.body.teen": "fg",
+        "anatomy.body.pregnant": "fg"
+      }
+    },
+    "bg": {
+      "z": 9,
+      "conditions": {
+        "anatomy.body.male": "bg",
+        "anatomy.body.muscular": "bg",
+        "anatomy.body.female": "bg",
+        "anatomy.body.teen": "bg",
+        "anatomy.body.pregnant": "bg"
+      }
+    }
+  },
+  "poses": [
+    "hurt",
+    "thrust",
+    "walk"
+  ],
+  "sizes": {
+    "thrust": "xl"
+  },
+  "materials": {},
+  "colors": {},
+  "notes": [],
+  "authors": [
+    "LordNeo",
+    "Michael Whitlock (bigbeargames)",
+    "Universal LPC contributors"
+  ],
+  "licenses": [
+    "CC0",
+    "OGA-BY 3.0"
+  ],
+  "urls": [
+    "https://opengameart.org/content/staff-64-x64",
+    "https://opengameart.org/content/lpc-magic-staff",
+    "https://github.com/Zireael07/Universal-LPC-Spritesheet"
+  ]
+}
