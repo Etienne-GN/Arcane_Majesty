@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from 'vue';
 import CollectionSidebar from './components/CollectionSidebar.vue';
 import SpriteGrid from './components/SpriteGrid.vue';
+import SpriteDetail from './components/SpriteDetail.vue';
 import { fetchSheets, fetchMeta, fetchFlags } from './services/api';
 import type { Sheet, Collection, Flag } from './services/api';
 
@@ -92,8 +93,16 @@ function onSelect(sheetPngFilename: string, entryName: string) {
       :flagged-keys="flaggedKeys"
       @select="onSelect"
     />
-    <!-- SpriteDetail panel is added in the next task; for now, selecting
-         a sprite just tracks state without a visible panel yet. -->
+    <SpriteDetail
+      v-if="selected"
+      :sheet-png-filename="selected.sheetPngFilename"
+      :entry-name="selected.entryName"
+      :sheets="sheets"
+      :collections="collections"
+      :current-collection-id="collectionOf(selected.sheetPngFilename, selected.entryName)"
+      @close="selected = null"
+      @reassigned="reload"
+    />
   </div>
 </template>
 
