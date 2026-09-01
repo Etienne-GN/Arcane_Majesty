@@ -1,0 +1,104 @@
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { join } from 'node:path';
+import { randomUUID } from 'node:crypto';
+
+async function readJsonOrDefault(path, fallback) {
+    try {
+        const raw = await readFile(path, 'utf8');
+        return JSON.parse(raw);
+    } catch (e) {
+        if (e.code === 'ENOENT') return fallback;
+        throw e;
+    }
+}
+
+async function writeJson(path, value) {
+    await mkdir(join(path, '..'), { recursive: true });
+    await writeFile(path, JSON.stringify(value, null, 2) + '\n', 'utf8');
+}
+
+// --- seeding (pure, no I/O) ---
+export function seedDefaultCollection(sheetPngFilename, sheetDirName) {
+    if (sheetDirName === 'SampleMap') return 'pipoya';
+    if (sheetDirName.startsWith('PATD_')) return 'patd';
+    return 'uncollected';
+}
+
+// --- collections ---
+export async function loadCollections(dataDir) {
+    return readJsonOrDefault(join(dataDir, 'collections.json'), []);
+}
+
+export async function addCollection(dataDir, { id, name }) {
+    const collections = await loadCollections(dataDir);
+    if (collections.some(c => c.id === id)) {
+        throw new Error(`collection id already exists: ${id}`);
+    }
+    collections.push({ id, name });
+    await writeJson(join(dataDir, 'collections.json'), collections);
+}
+
+// --- sprite_meta ---
+export async function loadSpriteMeta(dataDir) {
+    return readJsonOrDefault(join(dataDir, 'sprite_meta.json'), {});
+}
+
+export async function assignCollection(dataDir, sheetPngFilename, entryName, collectionId) {
+    const collections = await loadCollections(dataDir);
+    if (!collections.some(c => c.id === collectionId)) {
+        throw new Error(`unknown collection id: ${collectionId}`);
+    }
+    const meta = await loadSpriteMeta(dataDir);
+    meta[`${sheetPngFilename}::${entryName}`] = { collection: collectionId };
+    await writeJson(join(dataDir, 'sprite_meta.json'), meta);
+}
+
+// Seeds every entry of a sheet with its default collection, but only if
+// NONE of that sheet's entries has a sprite_meta.json record yet — a
+// one-time seed per sheet, never overwriting an existing (default or
+// user-chosen) assignment. Bypasses assignCollection's existence check
+// deliberately (seeding is a trusted internal call, not user input) but
+// still only ever writes collection ids that seedDefaultCollection can
+// produce — 'pipoya', 'patd', 'uncollected' — which the real
+// data/collections.json (Step 4 below) always defines.
+export async function seedSheetIfNew(dataDir, sheetPngFilename, sheetDirName, entryNames) {
+    const meta = await loadSpriteMeta(dataDir);
+    const alreadySeeded = entryNames.some(name => meta[`${sheetPngFilename}::${name}`]);
+    if (alreadySeeded) return;
+
+    const defaultCollection = seedDefaultCollection(sheetPngFilename, sheetDirName);
+    for (const name of entryNames) {
+        meta[`${sheetPngFilename}::${name}`] = { collection: defaultCollection };
+    }
+    await writeJson(join(dataDir, 'sprite_meta.json'), meta);
+}
+
+// --- flags ---
+export async function loadFlags(dataDir, statusFilter) {
+    const flags = await readJsonOrDefault(join(dataDir, 'flags.json'), []);
+    if (!statusFilter) return flags;
+    return flags.filter(f => f.status === statusFilter);
+}
+
+export async function addFlag(dataDir, { sheet, name, reason, comment }) {
+    const flags = await readJsonOrDefault(join(dataDir, 'flags.json'), []);
+    const flag = {
+        id: `f_${randomUUID()}`,
+        sheet, name, reason, comment: comment ?? '',
+        status: 'open',
+        createdAt: new Date().toISOString(),
+        resolvedAt: null,
+    };
+    flags.push(flag);
+    await writeJson(join(dataDir, 'flags.json'), flags);
+    return flag;
+}
+
+export async function updateFlagStatus(dataDir, id, status) {
+    const flags = await readJsonOrDefault(join(dataDir, 'flags.json'), []);
+    const flag = flags.find(f => f.id === id);
+    if (!flag) throw new Error(`flag not found: ${id}`);
+    flag.status = status;
+    flag.resolvedAt = status === 'resolved' ? new Date().toISOString() : null;
+    await writeJson(join(dataDir, 'flags.json'), flags);
+}
