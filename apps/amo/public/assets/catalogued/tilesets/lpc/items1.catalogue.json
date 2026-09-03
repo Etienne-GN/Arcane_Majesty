@@ -4,20 +4,1743 @@
   "sheetHeight": 512,
   "entries": [
     {
-      "name": "lpc_items_sheet",
+      "name": "lpc_shield_round_wood",
       "kind": "object",
-      "x": 1,
-      "y": 0,
-      "w": 511,
-      "h": 320,
+      "x": 69,
+      "y": 7,
+      "w": 21,
+      "h": 25,
       "tags": [
         "lpc",
-        "items",
-        "weapons",
-        "armor",
-        "atlas",
-        "uncropped",
-        "needs-extraction"
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_pickaxe_wood",
+      "kind": "object",
+      "x": 96,
+      "y": 7,
+      "w": 32,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_armor_leather_body_a",
+      "kind": "object",
+      "x": 130,
+      "y": 11,
+      "w": 28,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_armor_leather_body_b",
+      "kind": "object",
+      "x": 162,
+      "y": 11,
+      "w": 28,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_pickaxe_iron",
+      "kind": "object",
+      "x": 192,
+      "y": 4,
+      "w": 31,
+      "h": 28,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_ore_gold",
+      "kind": "object",
+      "x": 291,
+      "y": 15,
+      "w": 27,
+      "h": 17,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_dagger_small",
+      "kind": "object",
+      "x": 320,
+      "y": 0,
+      "w": 64,
+      "h": 33,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_cloak_black",
+      "kind": "object",
+      "x": 385,
+      "y": 11,
+      "w": 30,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_armor_dark_winged",
+      "kind": "object",
+      "x": 485,
+      "y": 15,
+      "w": 20,
+      "h": 17,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_sword_long_steel",
+      "kind": "object",
+      "x": 1,
+      "y": 21,
+      "w": 30,
+      "h": 11,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_hammer_war",
+      "kind": "object",
+      "x": 32,
+      "y": 18,
+      "w": 32,
+      "h": 14,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_sword_short_gold",
+      "kind": "object",
+      "x": 227,
+      "y": 21,
+      "w": 26,
+      "h": 11,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_sword_short_bronze",
+      "kind": "object",
+      "x": 261,
+      "y": 26,
+      "w": 21,
+      "h": 5,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_potion_jar_red",
+      "kind": "object",
+      "x": 428,
+      "y": 20,
+      "w": 8,
+      "h": 10,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_boomerang_silver",
+      "kind": "object",
+      "x": 459,
+      "y": 23,
+      "w": 12,
+      "h": 9,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_armor_bone_shoulders_a",
+      "kind": "object",
+      "x": 1,
+      "y": 44,
+      "w": 30,
+      "h": 19,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_helmet_iron",
+      "kind": "object",
+      "x": 40,
+      "y": 44,
+      "w": 16,
+      "h": 18,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_shield_heater_red",
+      "kind": "object",
+      "x": 103,
+      "y": 42,
+      "w": 18,
+      "h": 22,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_armor_chainmail",
+      "kind": "object",
+      "x": 193,
+      "y": 40,
+      "w": 30,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_rug_red_patterned",
+      "kind": "object",
+      "x": 234,
+      "y": 47,
+      "w": 12,
+      "h": 16,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_club_wood",
+      "kind": "object",
+      "x": 263,
+      "y": 46,
+      "w": 17,
+      "h": 18,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_hat_witch_black",
+      "kind": "object",
+      "x": 290,
+      "y": 40,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_bag_leather",
+      "kind": "object",
+      "x": 326,
+      "y": 44,
+      "w": 20,
+      "h": 18,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_hammer_iron",
+      "kind": "object",
+      "x": 352,
+      "y": 46,
+      "w": 32,
+      "h": 18,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_tunic_blue_gold",
+      "kind": "object",
+      "x": 387,
+      "y": 37,
+      "w": 26,
+      "h": 27,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_potion_jar_blue",
+      "kind": "object",
+      "x": 428,
+      "y": 52,
+      "w": 8,
+      "h": 10,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_book_red",
+      "kind": "object",
+      "x": 454,
+      "y": 44,
+      "w": 22,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_gem_crystal_blue",
+      "kind": "object",
+      "x": 490,
+      "y": 51,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_shield_round_dark",
+      "kind": "object",
+      "x": 69,
+      "y": 71,
+      "w": 21,
+      "h": 25,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_bones_pair_a",
+      "kind": "object",
+      "x": 73,
+      "y": 54,
+      "w": 15,
+      "h": 10,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_bow_short",
+      "kind": "object",
+      "x": 130,
+      "y": 54,
+      "w": 29,
+      "h": 9,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_bow_with_arrow",
+      "kind": "object",
+      "x": 160,
+      "y": 54,
+      "w": 32,
+      "h": 42,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_sword_long_silver",
+      "kind": "object",
+      "x": 1,
+      "y": 85,
+      "w": 30,
+      "h": 11,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_hammer_stone",
+      "kind": "object",
+      "x": 32,
+      "y": 82,
+      "w": 32,
+      "h": 14,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_shield_kite_red",
+      "kind": "object",
+      "x": 103,
+      "y": 74,
+      "w": 18,
+      "h": 22,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_sack_tan",
+      "kind": "object",
+      "x": 136,
+      "y": 78,
+      "w": 15,
+      "h": 16,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_armor_leather_vest",
+      "kind": "object",
+      "x": 194,
+      "y": 73,
+      "w": 27,
+      "h": 21,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_axe_stone",
+      "kind": "object",
+      "x": 235,
+      "y": 83,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_anvil_small",
+      "kind": "object",
+      "x": 267,
+      "y": 73,
+      "w": 12,
+      "h": 22,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_staff_wood",
+      "kind": "object",
+      "x": 301,
+      "y": 76,
+      "w": 6,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_slingshot_wood",
+      "kind": "object",
+      "x": 323,
+      "y": 88,
+      "w": 17,
+      "h": 7,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_stone_blocks_white",
+      "kind": "object",
+      "x": 343,
+      "y": 89,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_hammer_blue",
+      "kind": "object",
+      "x": 352,
+      "y": 80,
+      "w": 32,
+      "h": 16,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_dagger_red",
+      "kind": "object",
+      "x": 390,
+      "y": 84,
+      "w": 25,
+      "h": 11,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_potion_jar_green",
+      "kind": "object",
+      "x": 428,
+      "y": 84,
+      "w": 8,
+      "h": 10,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_basket_woven",
+      "kind": "object",
+      "x": 451,
+      "y": 77,
+      "w": 26,
+      "h": 18,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_cloak_green",
+      "kind": "object",
+      "x": 481,
+      "y": 75,
+      "w": 30,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_shield_heater_gold",
+      "kind": "object",
+      "x": 103,
+      "y": 106,
+      "w": 18,
+      "h": 22,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_spear_wood",
+      "kind": "object",
+      "x": 128,
+      "y": 96,
+      "w": 32,
+      "h": 33,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_shovel_wood",
+      "kind": "object",
+      "x": 160,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_tunic_blue",
+      "kind": "object",
+      "x": 193,
+      "y": 107,
+      "w": 30,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_scroll_parchment",
+      "kind": "object",
+      "x": 262,
+      "y": 101,
+      "w": 21,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_canister_grey",
+      "kind": "object",
+      "x": 456,
+      "y": 103,
+      "w": 17,
+      "h": 25,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_tunic_red",
+      "kind": "object",
+      "x": 481,
+      "y": 107,
+      "w": 30,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_armor_plate_shoulders",
+      "kind": "object",
+      "x": 1,
+      "y": 108,
+      "w": 30,
+      "h": 19,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_helmet_great_iron",
+      "kind": "object",
+      "x": 40,
+      "y": 108,
+      "w": 16,
+      "h": 18,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_bones_pair_b",
+      "kind": "object",
+      "x": 73,
+      "y": 118,
+      "w": 15,
+      "h": 10,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_key_gold",
+      "kind": "object",
+      "x": 235,
+      "y": 115,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_amulet_ruby_a",
+      "kind": "object",
+      "x": 294,
+      "y": 110,
+      "w": 16,
+      "h": 18,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_rod_beaded",
+      "kind": "object",
+      "x": 320,
+      "y": 110,
+      "w": 64,
+      "h": 18,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_cloth_red",
+      "kind": "object",
+      "x": 393,
+      "y": 113,
+      "w": 14,
+      "h": 14,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_boots_leather",
+      "kind": "object",
+      "x": 419,
+      "y": 108,
+      "w": 26,
+      "h": 19,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_shield_round_bronze",
+      "kind": "object",
+      "x": 69,
+      "y": 135,
+      "w": 21,
+      "h": 25,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_herb_bundle_green",
+      "kind": "object",
+      "x": 265,
+      "y": 142,
+      "w": 14,
+      "h": 17,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_arrows_pair",
+      "kind": "object",
+      "x": 288,
+      "y": 142,
+      "w": 64,
+      "h": 50,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_boots_grey",
+      "kind": "object",
+      "x": 419,
+      "y": 140,
+      "w": 26,
+      "h": 19,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_rug_red_ornate",
+      "kind": "object",
+      "x": 456,
+      "y": 135,
+      "w": 17,
+      "h": 25,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_armor_leather_body_c",
+      "kind": "object",
+      "x": 481,
+      "y": 139,
+      "w": 30,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_sword_long_steel_b",
+      "kind": "object",
+      "x": 1,
+      "y": 149,
+      "w": 30,
+      "h": 11,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_hammer_wood",
+      "kind": "object",
+      "x": 32,
+      "y": 146,
+      "w": 32,
+      "h": 14,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_flail_beaded",
+      "kind": "object",
+      "x": 96,
+      "y": 150,
+      "w": 96,
+      "h": 10,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_sword_long_gold",
+      "kind": "object",
+      "x": 195,
+      "y": 149,
+      "w": 26,
+      "h": 11,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_sword_long_plain",
+      "kind": "object",
+      "x": 229,
+      "y": 154,
+      "w": 21,
+      "h": 5,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_scroll_spell",
+      "kind": "object",
+      "x": 357,
+      "y": 154,
+      "w": 21,
+      "h": 6,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_gem_cluster_blue",
+      "kind": "object",
+      "x": 393,
+      "y": 145,
+      "w": 14,
+      "h": 14,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_armor_bone_shoulders_b",
+      "kind": "object",
+      "x": 1,
+      "y": 172,
+      "w": 30,
+      "h": 19,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_helmet_great_bronze",
+      "kind": "object",
+      "x": 40,
+      "y": 172,
+      "w": 16,
+      "h": 18,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_potion_red",
+      "kind": "object",
+      "x": 108,
+      "y": 177,
+      "w": 8,
+      "h": 14,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_potion_blue",
+      "kind": "object",
+      "x": 140,
+      "y": 177,
+      "w": 8,
+      "h": 14,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_potion_green",
+      "kind": "object",
+      "x": 172,
+      "y": 177,
+      "w": 8,
+      "h": 14,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_barrel_wood",
+      "kind": "object",
+      "x": 356,
+      "y": 164,
+      "w": 24,
+      "h": 28,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_ore_emerald",
+      "kind": "object",
+      "x": 393,
+      "y": 177,
+      "w": 14,
+      "h": 14,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_amulet_ruby_b",
+      "kind": "object",
+      "x": 422,
+      "y": 174,
+      "w": 16,
+      "h": 18,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_amulet_diamond",
+      "kind": "object",
+      "x": 451,
+      "y": 177,
+      "w": 26,
+      "h": 12,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_bones_pair_c",
+      "kind": "object",
+      "x": 73,
+      "y": 182,
+      "w": 15,
+      "h": 10,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_dagger_steel",
+      "kind": "object",
+      "x": 195,
+      "y": 181,
+      "w": 26,
+      "h": 11,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_knife_plain",
+      "kind": "object",
+      "x": 229,
+      "y": 186,
+      "w": 21,
+      "h": 5,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_apple_red",
+      "kind": "object",
+      "x": 268,
+      "y": 180,
+      "w": 8,
+      "h": 9,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_sword_broad",
+      "kind": "object",
+      "x": 288,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_sword_gold_hilt",
+      "kind": "object",
+      "x": 481,
+      "y": 181,
+      "w": 31,
+      "h": 11,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_scroll_red",
+      "kind": "object",
+      "x": 486,
+      "y": 197,
+      "w": 21,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_waterskin",
+      "kind": "object",
+      "x": 12,
+      "y": 209,
+      "w": 8,
+      "h": 14,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_bones_pair_d",
+      "kind": "object",
+      "x": 39,
+      "y": 214,
+      "w": 19,
+      "h": 10,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_mace_grey",
+      "kind": "object",
+      "x": 75,
+      "y": 211,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_helmet_grey_crested",
+      "kind": "object",
+      "x": 102,
+      "y": 207,
+      "w": 19,
+      "h": 15,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_carrot",
+      "kind": "object",
+      "x": 136,
+      "y": 209,
+      "w": 12,
+      "h": 14,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_bowl_salad",
+      "kind": "object",
+      "x": 168,
+      "y": 212,
+      "w": 16,
+      "h": 11,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_cheese_wheel",
+      "kind": "object",
+      "x": 199,
+      "y": 210,
+      "w": 18,
+      "h": 14,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_meat_slab",
+      "kind": "object",
+      "x": 229,
+      "y": 204,
+      "w": 22,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_egg_fried",
+      "kind": "object",
+      "x": 260,
+      "y": 211,
+      "w": 23,
+      "h": 13,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_meat_raw",
+      "kind": "object",
+      "x": 322,
+      "y": 209,
+      "w": 29,
+      "h": 15,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_helmet_horned",
+      "kind": "object",
+      "x": 354,
+      "y": 203,
+      "w": 28,
+      "h": 21,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_cross_stone_a",
+      "kind": "object",
+      "x": 389,
+      "y": 213,
+      "w": 7,
+      "h": 8,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_cross_stone_b",
+      "kind": "object",
+      "x": 397,
+      "y": 215,
+      "w": 7,
+      "h": 9,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_cross_stone_c",
+      "kind": "object",
+      "x": 405,
+      "y": 213,
+      "w": 7,
+      "h": 8,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_amulet_amethyst",
+      "kind": "object",
+      "x": 422,
+      "y": 206,
+      "w": 16,
+      "h": 18,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_wand_red",
+      "kind": "object",
+      "x": 448,
+      "y": 212,
+      "w": 31,
+      "h": 11,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_shield_crest_fox",
+      "kind": "object",
+      "x": 37,
+      "y": 230,
+      "w": 22,
+      "h": 26,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_staff_pole_a",
+      "kind": "object",
+      "x": 67,
+      "y": 227,
+      "w": 29,
+      "h": 29,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_staff_pole_b",
+      "kind": "object",
+      "x": 99,
+      "y": 227,
+      "w": 29,
+      "h": 29,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_spear_steel",
+      "kind": "object",
+      "x": 131,
+      "y": 227,
+      "w": 29,
+      "h": 29,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_trident",
+      "kind": "object",
+      "x": 259,
+      "y": 227,
+      "w": 29,
+      "h": 29,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_wand_thin",
+      "kind": "object",
+      "x": 385,
+      "y": 227,
+      "w": 30,
+      "h": 29,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_figurine_head",
+      "kind": "object",
+      "x": 451,
+      "y": 233,
+      "w": 26,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_map_treasure",
+      "kind": "object",
+      "x": 481,
+      "y": 229,
+      "w": 28,
+      "h": 25,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_key_bone",
+      "kind": "object",
+      "x": 5,
+      "y": 241,
+      "w": 24,
+      "h": 12,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_axe_wood_a",
+      "kind": "object",
+      "x": 169,
+      "y": 236,
+      "w": 23,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_axe_wood_b",
+      "kind": "object",
+      "x": 201,
+      "y": 236,
+      "w": 23,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_axe_steel",
+      "kind": "object",
+      "x": 233,
+      "y": 236,
+      "w": 23,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_dagger_gold",
+      "kind": "object",
+      "x": 294,
+      "y": 249,
+      "w": 20,
+      "h": 7,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_chest_treasure",
+      "kind": "object",
+      "x": 326,
+      "y": 236,
+      "w": 22,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_shield_round_studded",
+      "kind": "object",
+      "x": 360,
+      "y": 235,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_fish",
+      "kind": "object",
+      "x": 421,
+      "y": 248,
+      "w": 21,
+      "h": 8,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_ladder_wood",
+      "kind": "object",
+      "x": 3,
+      "y": 259,
+      "w": 28,
+      "h": 27,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_shovel_steel",
+      "kind": "object",
+      "x": 34,
+      "y": 258,
+      "w": 29,
+      "h": 29,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_charm_skull_green",
+      "kind": "object",
+      "x": 70,
+      "y": 258,
+      "w": 17,
+      "h": 27,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_mallet_stone",
+      "kind": "object",
+      "x": 130,
+      "y": 258,
+      "w": 24,
+      "h": 30,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_plant_seaweed",
+      "kind": "object",
+      "x": 168,
+      "y": 260,
+      "w": 16,
+      "h": 28,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_sprout_potted",
+      "kind": "object",
+      "x": 205,
+      "y": 269,
+      "w": 8,
+      "h": 17,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_flower_potted_blue",
+      "kind": "object",
+      "x": 237,
+      "y": 269,
+      "w": 9,
+      "h": 17,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_log_round",
+      "kind": "object",
+      "x": 258,
+      "y": 257,
+      "w": 28,
+      "h": 27,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_banner_skull",
+      "kind": "object",
+      "x": 326,
+      "y": 259,
+      "w": 20,
+      "h": 28,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_chess_piece_white",
+      "kind": "object",
+      "x": 101,
+      "y": 273,
+      "w": 24,
+      "h": 12,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_amulet_emerald",
+      "kind": "object",
+      "x": 291,
+      "y": 270,
+      "w": 26,
+      "h": 18,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_wand_dark",
+      "kind": "object",
+      "x": 353,
+      "y": 275,
+      "w": 28,
+      "h": 13,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_sword_rapier_a",
+      "kind": "object",
+      "x": 393,
+      "y": 281,
+      "w": 21,
+      "h": 7,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_sword_rapier_red",
+      "kind": "object",
+      "x": 425,
+      "y": 281,
+      "w": 21,
+      "h": 7,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_sword_rapier_pink",
+      "kind": "object",
+      "x": 455,
+      "y": 280,
+      "w": 19,
+      "h": 7,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_sword_rapier_teal",
+      "kind": "object",
+      "x": 487,
+      "y": 280,
+      "w": 19,
+      "h": 7,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_book_spell_red",
+      "kind": "object",
+      "x": 6,
+      "y": 296,
+      "w": 21,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_book_spell_dark",
+      "kind": "object",
+      "x": 38,
+      "y": 296,
+      "w": 20,
+      "h": 22,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_skull_charm",
+      "kind": "object",
+      "x": 72,
+      "y": 298,
+      "w": 16,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_boomerang_teal",
+      "kind": "object",
+      "x": 98,
+      "y": 299,
+      "w": 25,
+      "h": 21,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_bagpipes",
+      "kind": "object",
+      "x": 135,
+      "y": 299,
+      "w": 18,
+      "h": 18,
+      "tags": [
+        "lpc",
+        "items"
+      ]
+    },
+    {
+      "name": "lpc_meat_ribs",
+      "kind": "object",
+      "x": 159,
+      "y": 291,
+      "w": 32,
+      "h": 29,
+      "tags": [
+        "lpc",
+        "items"
       ]
     }
   ]

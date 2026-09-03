@@ -725,7 +725,7 @@
     "name": "lpc_base_out_atlas_sheet",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T18:12:08.197Z",
     "resolvedAt": null
   },
@@ -735,7 +735,7 @@
     "name": "lpc_build_atlas_sheet",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T18:12:11.809Z",
     "resolvedAt": null
   },
@@ -755,9 +755,9 @@
     "name": "lpc_items_sheet",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T18:12:17.060Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:52:37.875047Z"
   },
   {
     "id": "f_9e110c9a-cfd5-4eaf-b873-3cac9a731fef",
@@ -765,7 +765,7 @@
     "name": "lpc_obj_misc_atlas_sheet",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T18:12:20.738Z",
     "resolvedAt": null
   },
@@ -775,7 +775,7 @@
     "name": "lpc_terrain_atlas_sheet",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T18:12:23.760Z",
     "resolvedAt": null
   },

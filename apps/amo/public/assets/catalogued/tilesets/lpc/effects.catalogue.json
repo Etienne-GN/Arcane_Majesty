@@ -4,21 +4,1343 @@
   "sheetHeight": 400,
   "entries": [
     {
-      "name": "lpc_effects_sheet",
+      "name": "effects_000",
       "kind": "object",
       "x": 0,
-      "y": 0,
-      "w": 637,
-      "h": 317,
+      "y": 1,
+      "w": 127,
+      "h": 30,
       "tags": [
         "lpc",
-        "effects",
-        "vfx",
-        "cursors",
-        "atlas",
-        "uncropped",
-        "needs-extraction"
-      ]
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_001",
+      "kind": "object",
+      "x": 141,
+      "y": 14,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_002",
+      "kind": "object",
+      "x": 167,
+      "y": 15,
+      "w": 19,
+      "h": 10,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_003",
+      "kind": "object",
+      "x": 197,
+      "y": 20,
+      "w": 6,
+      "h": 9,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_004",
+      "kind": "object",
+      "x": 213,
+      "y": 20,
+      "w": 6,
+      "h": 10,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_005",
+      "kind": "object",
+      "x": 226,
+      "y": 22,
+      "w": 8,
+      "h": 10,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_006",
+      "kind": "object",
+      "x": 269,
+      "y": 14,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_007",
+      "kind": "object",
+      "x": 295,
+      "y": 5,
+      "w": 18,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_008",
+      "kind": "object",
+      "x": 321,
+      "y": 0,
+      "w": 63,
+      "h": 32,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_009",
+      "kind": "object",
+      "x": 395,
+      "y": 13,
+      "w": 10,
+      "h": 9,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_010",
+      "kind": "object",
+      "x": 425,
+      "y": 11,
+      "w": 13,
+      "h": 14,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_011",
+      "kind": "object",
+      "x": 453,
+      "y": 9,
+      "w": 22,
+      "h": 19,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_012",
+      "kind": "object",
+      "x": 482,
+      "y": 16,
+      "w": 28,
+      "h": 17,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_013",
+      "kind": "object",
+      "x": 544,
+      "y": 16,
+      "w": 29,
+      "h": 49,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_014",
+      "kind": "object",
+      "x": 576,
+      "y": 7,
+      "w": 29,
+      "h": 58,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_015",
+      "kind": "object",
+      "x": 608,
+      "y": 2,
+      "w": 29,
+      "h": 62,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_016",
+      "kind": "object",
+      "x": 1,
+      "y": 34,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_017",
+      "kind": "object",
+      "x": 33,
+      "y": 34,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_018",
+      "kind": "object",
+      "x": 65,
+      "y": 34,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_019",
+      "kind": "object",
+      "x": 97,
+      "y": 34,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_020",
+      "kind": "object",
+      "x": 129,
+      "y": 34,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_021",
+      "kind": "object",
+      "x": 246,
+      "y": 26,
+      "w": 8,
+      "h": 5,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_022",
+      "kind": "object",
+      "x": 257,
+      "y": 34,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_023",
+      "kind": "object",
+      "x": 289,
+      "y": 34,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_024",
+      "kind": "object",
+      "x": 321,
+      "y": 34,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_025",
+      "kind": "object",
+      "x": 354,
+      "y": 39,
+      "w": 28,
+      "h": 57,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_026",
+      "kind": "object",
+      "x": 385,
+      "y": 32,
+      "w": 125,
+      "h": 33,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_027",
+      "kind": "object",
+      "x": 513,
+      "y": 24,
+      "w": 31,
+      "h": 9,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_028",
+      "kind": "object",
+      "x": 631,
+      "y": 38,
+      "w": 5,
+      "h": 4,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_029",
+      "kind": "object",
+      "x": 0,
+      "y": 64,
+      "w": 128,
+      "h": 127,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_030",
+      "kind": "object",
+      "x": 4,
+      "y": 67,
+      "w": 24,
+      "h": 25,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_031",
+      "kind": "object",
+      "x": 179,
+      "y": 50,
+      "w": 13,
+      "h": 12,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_032",
+      "kind": "object",
+      "x": 211,
+      "y": 47,
+      "w": 13,
+      "h": 15,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_033",
+      "kind": "object",
+      "x": 242,
+      "y": 47,
+      "w": 5,
+      "h": 8,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_034",
+      "kind": "object",
+      "x": 248,
+      "y": 55,
+      "w": 8,
+      "h": 6,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_035",
+      "kind": "object",
+      "x": 257,
+      "y": 65,
+      "w": 188,
+      "h": 159,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_036",
+      "kind": "object",
+      "x": 323,
+      "y": 65,
+      "w": 27,
+      "h": 31,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_037",
+      "kind": "object",
+      "x": 452,
+      "y": 67,
+      "w": 23,
+      "h": 26,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_038",
+      "kind": "object",
+      "x": 512,
+      "y": 67,
+      "w": 33,
+      "h": 28,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_039",
+      "kind": "object",
+      "x": 513,
+      "y": 48,
+      "w": 30,
+      "h": 16,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_040",
+      "kind": "object",
+      "x": 137,
+      "y": 72,
+      "w": 15,
+      "h": 15,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_041",
+      "kind": "object",
+      "x": 169,
+      "y": 72,
+      "w": 15,
+      "h": 15,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_042",
+      "kind": "object",
+      "x": 224,
+      "y": 85,
+      "w": 30,
+      "h": 37,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_043",
+      "kind": "object",
+      "x": 257,
+      "y": 77,
+      "w": 29,
+      "h": 48,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_044",
+      "kind": "object",
+      "x": 391,
+      "y": 80,
+      "w": 18,
+      "h": 16,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_045",
+      "kind": "object",
+      "x": 426,
+      "y": 76,
+      "w": 11,
+      "h": 8,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_046",
+      "kind": "object",
+      "x": 482,
+      "y": 69,
+      "w": 27,
+      "h": 24,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_047",
+      "kind": "object",
+      "x": 549,
+      "y": 75,
+      "w": 22,
+      "h": 21,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_048",
+      "kind": "object",
+      "x": 581,
+      "y": 79,
+      "w": 22,
+      "h": 17,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_049",
+      "kind": "object",
+      "x": 128,
+      "y": 96,
+      "w": 30,
+      "h": 32,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_050",
+      "kind": "object",
+      "x": 160,
+      "y": 97,
+      "w": 32,
+      "h": 30,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_051",
+      "kind": "object",
+      "x": 196,
+      "y": 92,
+      "w": 26,
+      "h": 29,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_052",
+      "kind": "object",
+      "x": 323,
+      "y": 99,
+      "w": 253,
+      "h": 86,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_053",
+      "kind": "object",
+      "x": 327,
+      "y": 101,
+      "w": 17,
+      "h": 28,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_054",
+      "kind": "object",
+      "x": 448,
+      "y": 99,
+      "w": 30,
+      "h": 29,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_055",
+      "kind": "object",
+      "x": 480,
+      "y": 99,
+      "w": 30,
+      "h": 29,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_056",
+      "kind": "object",
+      "x": 512,
+      "y": 99,
+      "w": 62,
+      "h": 29,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_057",
+      "kind": "object",
+      "x": 39,
+      "y": 133,
+      "w": 18,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_058",
+      "kind": "object",
+      "x": 133,
+      "y": 130,
+      "w": 25,
+      "h": 28,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_059",
+      "kind": "object",
+      "x": 164,
+      "y": 130,
+      "w": 26,
+      "h": 28,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_060",
+      "kind": "object",
+      "x": 196,
+      "y": 130,
+      "w": 26,
+      "h": 28,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_061",
+      "kind": "object",
+      "x": 226,
+      "y": 129,
+      "w": 28,
+      "h": 30,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_062",
+      "kind": "object",
+      "x": 258,
+      "y": 128,
+      "w": 29,
+      "h": 31,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_063",
+      "kind": "object",
+      "x": 0,
+      "y": 160,
+      "w": 17,
+      "h": 18,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_064",
+      "kind": "object",
+      "x": 13,
+      "y": 142,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_065",
+      "kind": "object",
+      "x": 32,
+      "y": 161,
+      "w": 20,
+      "h": 17,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_066",
+      "kind": "object",
+      "x": 107,
+      "y": 175,
+      "w": 10,
+      "h": 6,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_067",
+      "kind": "object",
+      "x": 135,
+      "y": 173,
+      "w": 18,
+      "h": 8,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_068",
+      "kind": "object",
+      "x": 164,
+      "y": 169,
+      "w": 11,
+      "h": 15,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_069",
+      "kind": "object",
+      "x": 177,
+      "y": 170,
+      "w": 11,
+      "h": 16,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_070",
+      "kind": "object",
+      "x": 205,
+      "y": 174,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_071",
+      "kind": "object",
+      "x": 231,
+      "y": 165,
+      "w": 18,
+      "h": 20,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_072",
+      "kind": "object",
+      "x": 577,
+      "y": 162,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_073",
+      "kind": "object",
+      "x": 609,
+      "y": 162,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_074",
+      "kind": "object",
+      "x": 0,
+      "y": 196,
+      "w": 22,
+      "h": 24,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_075",
+      "kind": "object",
+      "x": 44,
+      "y": 205,
+      "w": 12,
+      "h": 5,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_076",
+      "kind": "object",
+      "x": 98,
+      "y": 205,
+      "w": 13,
+      "h": 15,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_077",
+      "kind": "object",
+      "x": 205,
+      "y": 206,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_078",
+      "kind": "object",
+      "x": 226,
+      "y": 195,
+      "w": 23,
+      "h": 22,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_079",
+      "kind": "object",
+      "x": 260,
+      "y": 197,
+      "w": 21,
+      "h": 21,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_080",
+      "kind": "object",
+      "x": 449,
+      "y": 194,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_081",
+      "kind": "object",
+      "x": 481,
+      "y": 194,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_082",
+      "kind": "object",
+      "x": 513,
+      "y": 194,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_083",
+      "kind": "object",
+      "x": 545,
+      "y": 194,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_084",
+      "kind": "object",
+      "x": 577,
+      "y": 194,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_085",
+      "kind": "object",
+      "x": 609,
+      "y": 194,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_086",
+      "kind": "object",
+      "x": 0,
+      "y": 225,
+      "w": 31,
+      "h": 30,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_087",
+      "kind": "object",
+      "x": 64,
+      "y": 207,
+      "w": 18,
+      "h": 17,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_088",
+      "kind": "object",
+      "x": 113,
+      "y": 209,
+      "w": 12,
+      "h": 13,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_089",
+      "kind": "object",
+      "x": 129,
+      "y": 212,
+      "w": 28,
+      "h": 34,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_090",
+      "kind": "object",
+      "x": 163,
+      "y": 212,
+      "w": 29,
+      "h": 30,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_091",
+      "kind": "object",
+      "x": 513,
+      "y": 226,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_092",
+      "kind": "object",
+      "x": 545,
+      "y": 226,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_093",
+      "kind": "object",
+      "x": 577,
+      "y": 226,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_094",
+      "kind": "object",
+      "x": 609,
+      "y": 226,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_095",
+      "kind": "object",
+      "x": 64,
+      "y": 236,
+      "w": 18,
+      "h": 37,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_096",
+      "kind": "object",
+      "x": 97,
+      "y": 234,
+      "w": 27,
+      "h": 42,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_097",
+      "kind": "object",
+      "x": 143,
+      "y": 256,
+      "w": 17,
+      "h": 18,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_098",
+      "kind": "object",
+      "x": 170,
+      "y": 260,
+      "w": 22,
+      "h": 24,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_099",
+      "kind": "object",
+      "x": 69,
+      "y": 302,
+      "w": 11,
+      "h": 6,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_100",
+      "kind": "object",
+      "x": 82,
+      "y": 304,
+      "w": 9,
+      "h": 7,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_101",
+      "kind": "object",
+      "x": 102,
+      "y": 304,
+      "w": 5,
+      "h": 10,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "effects_102",
+      "kind": "object",
+      "x": 117,
+      "y": 305,
+      "w": 9,
+      "h": 12,
+      "tags": [
+        "lpc",
+        "effects"
+      ],
+      "needsNaming": true
     }
   ]
 }

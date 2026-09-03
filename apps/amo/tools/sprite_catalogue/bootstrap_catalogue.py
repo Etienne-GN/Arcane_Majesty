@@ -45,7 +45,8 @@ def path_tags(png_path, root):
     return [p for p in parts if p]
 
 
-def build_catalogue(png_path, root, extra_tags=(), grid=None, gap=1, min_area=16):
+def build_catalogue(png_path, root, extra_tags=(), grid=None, gap=1, min_area=16,
+                    max_islands=ISLAND_LIMIT):
     mask = load_mask(png_path)
     height, width = mask.shape
     base = slug(os.path.basename(png_path))
@@ -71,9 +72,11 @@ def build_catalogue(png_path, root, extra_tags=(), grid=None, gap=1, min_area=16
     boxes = find_boxes(mask, gap=gap, min_area=min_area)
     if not boxes:
         return None, 'sheet is fully transparent'
-    if len(boxes) > ISLAND_LIMIT:
+    if max_islands and len(boxes) > max_islands:
         return None, (f'{len(boxes)} islands — looks like a tile grid or animation strip; '
-                      f'rerun with --grid (candidates: {suggest_grid(mask)})')
+                      f'rerun with --grid (candidates: {suggest_grid(mask)}), or pass '
+                      f'--max-islands once you have looked and confirmed they really are '
+                      f'that many separate sprites')
 
     if len(boxes) == 1:
         # One sprite per file: the filename IS the name, and the alpha box is a
@@ -134,6 +137,9 @@ def main(argv):
     parser.add_argument('--grid', type=int, help='treat sheets as a fixed grid of this tile size')
     parser.add_argument('--gap', type=int, default=1)
     parser.add_argument('--min-area', type=int, default=16)
+    parser.add_argument('--max-islands', type=int, default=ISLAND_LIMIT,
+                        help=f'refuse a sheet with more islands than this (default {ISLAND_LIMIT}, '
+                             '0 disables) — the guard against slicing a tile grid into noise')
     parser.add_argument('--repair', action='store_true',
                         help='tighten whole-image boxes in existing catalogues instead')
     parser.add_argument('--out', help='write to this catalogue path (single PNG only) — use when '
@@ -169,7 +175,8 @@ def main(argv):
         if os.path.exists(out) and not args.force:
             skipped += 1
             continue
-        cat, err = build_catalogue(png, root, extra, args.grid, args.gap, args.min_area)
+        cat, err = build_catalogue(png, root, extra, args.grid, args.gap, args.min_area,
+                                   args.max_islands)
         if err:
             print(f'– skip {png}: {err}')
             skipped += 1
