@@ -122,7 +122,18 @@ export async function addFlag(dataDir, { sheet, name, reason, comment }) {
     return flag;
 }
 
+// 'open' — freshly flagged, nobody has acted on it yet.
+// 'needs_review' — Claude applied a tentative fix; the human who filed the
+// flag still needs to look at it and either approve (-> 'resolved') or
+// send it back for more work (-> 'open'). Never set by Claude on its own
+// authority as a final answer — it's a checkpoint, not a resolution.
+// 'resolved' — the human is satisfied; only a human sets this.
+const FLAG_STATUSES = ['open', 'needs_review', 'resolved'];
+
 export async function updateFlagStatus(dataDir, id, status) {
+    if (!FLAG_STATUSES.includes(status)) {
+        throw new Error(`invalid flag status: ${status}`);
+    }
     const flags = await readJsonOrDefault(join(dataDir, 'flags.json'), []);
     const flag = flags.find(f => f.id === id);
     if (!flag) throw new Error(`flag not found: ${id}`);

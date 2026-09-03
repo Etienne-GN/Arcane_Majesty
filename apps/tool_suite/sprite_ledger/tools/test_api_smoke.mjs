@@ -101,7 +101,18 @@ assert.ok(flag.id);
 const openFlagsRes = await fetch(`${base}/api/flags?status=open`);
 assert.strictEqual((await openFlagsRes.json()).length, 1);
 
-// PATCH /api/flags/:id
+// PATCH /api/flags/:id — needs_review (Claude's tentative-fix checkpoint,
+// distinct from a human's final resolved)
+const needsReviewRes = await fetch(`${base}/api/flags/${flag.id}`, {
+    method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status: 'needs_review' }),
+});
+assert.strictEqual(needsReviewRes.status, 200);
+const needsReviewList = await (await fetch(`${base}/api/flags?status=needs_review`)).json();
+assert.strictEqual(needsReviewList.length, 1);
+assert.strictEqual(needsReviewList[0].resolvedAt, null);
+
+// PATCH /api/flags/:id — a human approving it
 const patchRes = await fetch(`${base}/api/flags/${flag.id}`, {
     method: 'PATCH', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ status: 'resolved' }),
@@ -111,4 +122,4 @@ const openAfterResolve = await (await fetch(`${base}/api/flags?status=open`)).js
 assert.strictEqual(openAfterResolve.length, 0);
 
 server.close();
-console.log('✓ API smoke tests passed (21 assertions).');
+console.log('✓ API smoke tests passed (24 assertions).');

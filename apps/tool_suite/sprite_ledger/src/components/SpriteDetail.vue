@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue';
 import type { Sheet, Collection, Flag, SpriteEntry, LicenseStatus } from '../services/api';
-import { imageUrl, assignCollection, fetchFlags, resolveFlag, setLicenseStatus } from '../services/api';
+import { imageUrl, assignCollection, fetchFlags, setFlagStatus, setLicenseStatus } from '../services/api';
 import FlagForm from './FlagForm.vue';
 
 const props = defineProps<{
@@ -72,8 +72,12 @@ async function onSetLicense(status: LicenseStatus) {
 
 const flagsForSprite = ref<Flag[]>([]);
 async function loadFlagsForSprite() {
-    const all = await fetchFlags('open');
-    flagsForSprite.value = all.filter(f => f.sheet === props.sheetPngFilename && f.name === props.entryName);
+    // Show everything still pending action (open + needs_review) — hide
+    // only flags a human has already fully resolved.
+    const all = await fetchFlags();
+    flagsForSprite.value = all.filter(
+        f => f.sheet === props.sheetPngFilename && f.name === props.entryName && f.status !== 'resolved'
+    );
 }
 onMounted(loadFlagsForSprite);
 watch(() => [props.sheetPngFilename, props.entryName], loadFlagsForSprite);
@@ -83,12 +87,12 @@ async function onFlagSubmitted() {
     emit('reassigned'); // reuse the same "refresh parent" signal
 }
 
-async function onResolve(id: string) {
+async function onSetFlagStatus(id: string, status: 'open' | 'resolved') {
     try {
-        await resolveFlag(id);
+        await setFlagStatus(id, status);
         await loadFlagsForSprite();
         errorMessage.value = null;
-        emit('reassigned'); // reuse the same "refresh parent" signal so the grid's flag-dot clears
+        emit('reassigned'); // reuse the same "refresh parent" signal so the grid's badges update
     } catch (e) {
         errorMessage.value = e instanceof Error ? e.message : String(e);
     }
@@ -128,8 +132,17 @@ async function onResolve(id: string) {
     <div v-if="flagsForSprite.length" class="open-flags">
       <h4>Open flags</h4>
       <div v-for="f in flagsForSprite" :key="f.id" class="flag-row">
-        <span>{{ f.reason }}<template v-if="f.comment"> — {{ f.comment }}</template></span>
-        <button @click="onResolve(f.id)">Resolve</button>
+        <div class="flag-text">
+          <span v-if="f.status === 'needs_review'" class="review-badge">🔍 needs your review</span>
+          <span>{{ f.reason }}<template v-if="f.comment"> — {{ f.comment }}</template></span>
+        </div>
+        <div class="flag-actions">
+          <template v-if="f.status === 'needs_review'">
+            <button @click="onSetFlagStatus(f.id, 'resolved')">✓ Approve</button>
+            <button @click="onSetFlagStatus(f.id, 'open')">↩ Rework</button>
+          </template>
+          <button v-else @click="onSetFlagStatus(f.id, 'resolved')">Resolve</button>
+        </div>
       </div>
     </div>
 
@@ -154,5 +167,9 @@ async function onResolve(id: string) {
 .license-controls button.active:last-child { background: #3a2a1a; border-color: #e91; color: #ea6; }
 .error { color: #e88; font-size: 11px; margin-top: 4px; }
 .open-flags { margin-top: 12px; }
-.flag-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; margin-bottom: 4px; }
+.flag-row { font-size: 12px; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #222; }
+.flag-text { margin-bottom: 4px; }
+.review-badge { display: block; color: #6af; font-size: 11px; margin-bottom: 2px; }
+.flag-actions { display: flex; gap: 6px; }
+.flag-actions button { flex: 1; font-size: 11px; padding: 3px; background: #1a1a1a; color: #eee; border: 1px solid #333; cursor: pointer; }
 </style>

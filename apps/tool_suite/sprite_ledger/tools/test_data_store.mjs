@@ -104,10 +104,27 @@ assert.strictEqual(flag.resolvedAt, null);
 const openFlags = await loadFlags(dataDir, 'open');
 assert.strictEqual(openFlags.length, 1);
 
+// needs_review is a checkpoint, not a resolution — resolvedAt stays null
+await updateFlagStatus(dataDir, flag.id, 'needs_review');
+const needsReviewFlags = await loadFlags(dataDir, 'needs_review');
+assert.strictEqual(needsReviewFlags.length, 1);
+assert.strictEqual(needsReviewFlags[0].resolvedAt, null);
+
+// sent back for rework — status returns to open, still no resolvedAt
+await updateFlagStatus(dataDir, flag.id, 'open');
+const backToOpen = await loadFlags(dataDir, 'open');
+assert.strictEqual(backToOpen.length, 1);
+assert.strictEqual(backToOpen[0].resolvedAt, null);
+
 await updateFlagStatus(dataDir, flag.id, 'resolved');
 const resolvedFlags = await loadFlags(dataDir, 'resolved');
 assert.strictEqual(resolvedFlags.length, 1);
 assert.ok(resolvedFlags[0].resolvedAt);
+
+let threwBadFlagStatus = false;
+try { await updateFlagStatus(dataDir, flag.id, 'not_a_real_status'); }
+catch (e) { threwBadFlagStatus = true; }
+assert.ok(threwBadFlagStatus, 'updateFlagStatus must reject a status outside open/needs_review/resolved');
 
 let threwMissing = false;
 try { await updateFlagStatus(dataDir, 'not-a-real-id', 'resolved'); }
@@ -125,4 +142,4 @@ const expectedIds = [
 ];
 assert.deepStrictEqual(realCollections.map(c => c.id).sort(), expectedIds.sort());
 
-console.log('✓ data-store tests passed (30 assertions).');
+console.log('✓ data-store tests passed (35 assertions).');

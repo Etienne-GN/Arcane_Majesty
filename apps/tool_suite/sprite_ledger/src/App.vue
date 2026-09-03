@@ -9,7 +9,9 @@ import type { Sheet, Collection, Flag, LicenseStatus } from './services/api';
 const sheets = ref<Sheet[]>([]);
 const collections = ref<Collection[]>([]);
 const spriteMeta = ref<Record<string, { collection: string; license?: LicenseStatus }>>({});
-const openFlags = ref<Flag[]>([]);
+// Every flag that isn't resolved yet — both fresh reports and ones Claude
+// has tentatively fixed but a human hasn't approved (or sent back) yet.
+const pendingFlags = ref<Flag[]>([]);
 
 const activeCollectionId = ref<string | null>(null);
 const activeSheet = ref<string | null>(null); // null = "All sheets"
@@ -26,7 +28,7 @@ async function reload() {
         const meta = await fetchMeta();
         collections.value = meta.collections;
         spriteMeta.value = meta.spriteMeta;
-        openFlags.value = await fetchFlags('open');
+        pendingFlags.value = (await fetchFlags()).filter(f => f.status !== 'resolved');
         errorMessage.value = null;
     } catch (e) {
         errorMessage.value = e instanceof Error ? e.message : String(e);
@@ -47,7 +49,19 @@ function licenseOf(sheetPngFilename: string, entryName: string): LicenseStatus |
     return spriteMeta.value[keyFor(sheetPngFilename, entryName)]?.license ?? null;
 }
 
-const flaggedKeys = computed(() => new Set(openFlags.value.map(f => keyFor(f.sheet, f.name))));
+// Used by the "Flagged only" sidebar toggle — anything still pending
+// action, open or needs_review alike.
+const flaggedKeys = computed(() => new Set(pendingFlags.value.map(f => keyFor(f.sheet, f.name))));
+// The grid's two flag badges are computed per status, not lumped
+// together — a sprite whose only flag is needs_review shouldn't still
+// show the "fresh, un-acted-on" open badge. A sprite with both an open
+// flag and a separate needs_review flag legitimately shows both.
+const openFlagKeys = computed(() =>
+    new Set(pendingFlags.value.filter(f => f.status === 'open').map(f => keyFor(f.sheet, f.name)))
+);
+const needsReviewKeys = computed(() =>
+    new Set(pendingFlags.value.filter(f => f.status === 'needs_review').map(f => keyFor(f.sheet, f.name)))
+);
 
 const licenseOkKeys = computed(() => {
     const set = new Set<string>();
@@ -142,7 +156,8 @@ async function onAddCollection(name: string) {
     <SpriteGrid
       :sheets="sheets"
       :visible-keys="visibleKeys"
-      :flagged-keys="flaggedKeys"
+      :flagged-keys="openFlagKeys"
+      :needs-review-keys="needsReviewKeys"
       :license-ok-keys="licenseOkKeys"
       :license-flagged-keys="licenseFlaggedKeys"
       @select="onSelect"

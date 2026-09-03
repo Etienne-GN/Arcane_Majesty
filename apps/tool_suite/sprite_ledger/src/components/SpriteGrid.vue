@@ -7,6 +7,7 @@ const props = defineProps<{
     sheets: Sheet[];
     visibleKeys: Set<string>; // `${sheetPngFilename}::${entryName}` — which sprites survive current filters
     flaggedKeys: Set<string>;
+    needsReviewKeys: Set<string>;
     licenseOkKeys: Set<string>;
     licenseFlaggedKeys: Set<string>;
 }>();
@@ -69,7 +70,8 @@ function drawCrop(canvas: HTMLCanvasElement | null, sheet: Sheet, entry: SpriteE
         class="cell"
         @click="emit('select', sheet.sheetPngFilename, entry.name)"
       >
-        <span v-if="flaggedKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="flag-dot" />
+        <span v-if="flaggedKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="flag-dot" title="Open flag" />
+        <span v-if="needsReviewKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="review-dot" title="Tentatively fixed — needs your review" />
         <span v-if="licenseOkKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="license-badge ok">✓</span>
         <span v-if="licenseFlaggedKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="license-badge unlicensed">⚠</span>
         <canvas :ref="(el) => drawCrop(el as HTMLCanvasElement, sheet, entry)" class="pixelated" />
@@ -85,6 +87,7 @@ function drawCrop(canvas: HTMLCanvasElement | null, sheet: Sheet, entry: SpriteE
 .cell canvas.pixelated { image-rendering: pixelated; max-width: 64px; max-height: 64px; background: #1a1a1a; }
 .name { font-size: 10px; word-break: break-word; color: #aaa; }
 .flag-dot { position: absolute; top: 0; right: 8px; width: 8px; height: 8px; border-radius: 50%; background: #e33; }
+.review-dot { position: absolute; top: 0; right: 20px; width: 8px; height: 8px; border-radius: 50%; background: #39c; }
 .license-badge { position: absolute; top: -2px; left: 4px; font-size: 12px; line-height: 1; }
 .license-badge.ok { color: #3c3; }
 .license-badge.unlicensed { color: #e91; }

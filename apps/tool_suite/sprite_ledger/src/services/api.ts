@@ -18,10 +18,12 @@ export interface Sheet {
 
 export interface Collection { id: string; name: string; }
 
+export type FlagStatus = 'open' | 'needs_review' | 'resolved';
+
 export interface Flag {
     id: string; sheet: string; name: string;
     reason: string; comment: string;
-    status: 'open' | 'resolved';
+    status: FlagStatus;
     createdAt: string; resolvedAt: string | null;
 }
 
@@ -77,10 +79,10 @@ export async function addFlag(sheet: string, name: string, reason: string, comme
     return (await postJson('/flags', { sheet, name, reason, comment })).json();
 }
 
-export async function resolveFlag(id: string): Promise<void> {
+export async function setFlagStatus(id: string, status: FlagStatus): Promise<void> {
     await req(`/flags/${id}`, {
         method: 'PATCH', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: 'resolved' }),
+        body: JSON.stringify({ status }),
     });
 }
 
