@@ -1,0 +1,22 @@
+{
+  "source": "doors.png",
+  "sheetWidth": 240,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "door_variants",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 240,
+      "h": 32,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "door",
+        "structure"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

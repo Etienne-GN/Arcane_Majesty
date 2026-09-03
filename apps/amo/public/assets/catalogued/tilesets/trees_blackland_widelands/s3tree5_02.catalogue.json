@@ -1,0 +1,21 @@
+{
+  "source": "s3tree5_02.png",
+  "sheetWidth": 55,
+  "sheetHeight": 50,
+  "entries": [
+    {
+      "name": "s3tree5_02",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 55,
+      "h": 50,
+      "tags": [
+        "trees_blackland",
+        "widelands",
+        "tree",
+        "nature"
+      ]
+    }
+  ]
+}

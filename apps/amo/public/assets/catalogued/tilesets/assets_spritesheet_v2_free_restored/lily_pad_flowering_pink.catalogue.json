@@ -1,0 +1,19 @@
+{
+  "source": "lily_pad_flowering_pink.png",
+  "sheetWidth": 32,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "lily_pad_flowering_pink",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "restored"
+      ]
+    }
+  ]
+}

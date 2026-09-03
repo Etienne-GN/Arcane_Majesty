@@ -1,0 +1,19 @@
+{
+  "source": "health_potion_item.png",
+  "sheetWidth": 8,
+  "sheetHeight": 8,
+  "entries": [
+    {
+      "name": "health_potion_item",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 8,
+      "h": 8,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster"
+      ]
+    }
+  ]
+}

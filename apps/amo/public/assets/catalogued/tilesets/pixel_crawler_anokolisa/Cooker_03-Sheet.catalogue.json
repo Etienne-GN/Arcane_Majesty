@@ -1,0 +1,21 @@
+{
+  "source": "Cooker_03-Sheet.png",
+  "sheetWidth": 192,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "cooker_03-sheet",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 192,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cooker"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

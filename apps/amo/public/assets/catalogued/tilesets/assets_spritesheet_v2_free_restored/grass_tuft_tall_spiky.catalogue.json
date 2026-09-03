@@ -1,0 +1,19 @@
+{
+  "source": "grass_tuft_tall_spiky.png",
+  "sheetWidth": 32,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "grass_tuft_tall_spiky",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "restored"
+      ]
+    }
+  ]
+}

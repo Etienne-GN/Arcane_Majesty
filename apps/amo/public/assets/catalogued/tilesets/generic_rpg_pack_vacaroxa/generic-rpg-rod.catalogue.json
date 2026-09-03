@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-rod.png",
+  "sheetWidth": 14,
+  "sheetHeight": 33,
+  "entries": [
+    {
+      "name": "generic_rpg_rod",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 14,
+      "h": 33,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

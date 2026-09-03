@@ -1,0 +1,21 @@
+{
+  "source": "select_icon_ui.png",
+  "sheetWidth": 16,
+  "sheetHeight": 16,
+  "entries": [
+    {
+      "name": "select_icon_ui",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "ui",
+        "hud"
+      ]
+    }
+  ]
+}

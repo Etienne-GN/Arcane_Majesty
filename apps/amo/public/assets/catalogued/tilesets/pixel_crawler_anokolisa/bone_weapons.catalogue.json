@@ -1,0 +1,21 @@
+{
+  "source": "bone_weapons.png",
+  "sheetWidth": 224,
+  "sheetHeight": 144,
+  "entries": [
+    {
+      "name": "bone_weapons",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "weapon"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

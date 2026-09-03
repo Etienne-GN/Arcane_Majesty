@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-loot04.png",
+  "sheetWidth": 9,
+  "sheetHeight": 11,
+  "entries": [
+    {
+      "name": "generic_rpg_loot04",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 9,
+      "h": 11,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "source": "Butchery_04.png",
+  "sheetWidth": 80,
+  "sheetHeight": 80,
+  "entries": [
+    {
+      "name": "butchery_04",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 80,
+      "h": 80,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "butchery"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

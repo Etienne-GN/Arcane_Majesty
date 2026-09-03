@@ -1,0 +1,51 @@
+{
+  "source": "grass_tiles.png",
+  "sheetWidth": 208,
+  "sheetHeight": 176,
+  "entries": [
+    {
+      "name": "grass_blob",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "grass",
+        "autotile"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "dirt_patch",
+      "kind": "object",
+      "x": 96,
+      "y": 0,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "dirt",
+        "ground"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "water_edge",
+      "kind": "object",
+      "x": 0,
+      "y": 96,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "water"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

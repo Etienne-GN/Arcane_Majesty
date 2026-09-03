@@ -1,0 +1,21 @@
+{
+  "source": "Shadows.png",
+  "sheetWidth": 400,
+  "sheetHeight": 400,
+  "entries": [
+    {
+      "name": "shadows",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 400,
+      "h": 400,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "buildings"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

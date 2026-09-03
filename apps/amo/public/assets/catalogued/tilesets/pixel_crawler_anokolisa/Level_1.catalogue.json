@@ -1,0 +1,21 @@
+{
+  "source": "Level_1.png",
+  "sheetWidth": 32,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "level_1",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "sawmill"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

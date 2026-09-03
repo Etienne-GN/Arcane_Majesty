@@ -1,0 +1,21 @@
+{
+  "source": "Pan_05-Sheet.png",
+  "sheetWidth": 256,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "pan_05-sheet",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 256,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "animated"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

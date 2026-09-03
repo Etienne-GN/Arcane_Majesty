@@ -1,0 +1,21 @@
+{
+  "source": "Tools.png",
+  "sheetWidth": 400,
+  "sheetHeight": 400,
+  "entries": [
+    {
+      "name": "tools",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 400,
+      "h": 400,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "static"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

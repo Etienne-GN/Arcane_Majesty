@@ -1,0 +1,70 @@
+{
+  "source": "regia_waterplant_tile_anim_strip_8.png",
+  "sheetWidth": 128,
+  "sheetHeight": 16,
+  "entries": [
+    {
+      "name": "regia_waterplant_tile_anim_strip_8",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "animated"
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 16,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 48,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 80,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 112,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        }
+      ]
+    }
+  ]
+}

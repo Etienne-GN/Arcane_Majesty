@@ -118,7 +118,11 @@ assert.ok(threwMissing, 'updateFlagStatus must reject an unknown id');
 const realCollections = JSON.parse(readFileSync(
     new URL('../data/collections.json', import.meta.url), 'utf8'
 ));
-const expectedIds = ['pipoya', 'patd', 'lpc', 'nyx_snowy', 'manaseed', 'roleworld_wizard', 'patd_bushes_dustdfg', 'buildings', 'interior', 'cave', 'nature', 'uncollected'];
+const expectedIds = [
+    'pipoya', 'patd', 'lpc', 'nyx_snowy', 'manaseed', 'roleworld_wizard', 'patd_bushes_dustdfg',
+    'schwarnhild', 'generic_rpg_vacaroxa', 'hana_caraka', 'widelands_trees', 'top_down_adventure_olobster', 'woolly_lands', 'pixel_crawler',
+    'buildings', 'interior', 'cave', 'nature', 'uncollected',
+];
 assert.deepStrictEqual(realCollections.map(c => c.id).sort(), expectedIds.sort());
 
 console.log('✓ data-store tests passed (30 assertions).');

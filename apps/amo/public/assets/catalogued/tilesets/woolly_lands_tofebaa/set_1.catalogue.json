@@ -1,0 +1,113 @@
+{
+  "source": "set_1.png",
+  "sheetWidth": 320,
+  "sheetHeight": 144,
+  "entries": [
+    {
+      "name": "hedge_maze_pattern",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 48,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "hedge",
+        "autotile"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "hedge_solid_patch",
+      "kind": "object",
+      "x": 64,
+      "y": 0,
+      "w": 64,
+      "h": 48,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "hedge",
+        "ground"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "dirt_path_strip",
+      "kind": "object",
+      "x": 160,
+      "y": 0,
+      "w": 160,
+      "h": 48,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "dirt",
+        "path"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "flower_mushroom_row",
+      "kind": "object",
+      "x": 0,
+      "y": 48,
+      "w": 96,
+      "h": 32,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "flower",
+        "mushroom",
+        "props"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "stone_path_tiles",
+      "kind": "object",
+      "x": 96,
+      "y": 48,
+      "w": 64,
+      "h": 48,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "stone",
+        "path"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "boulder_rock",
+      "kind": "object",
+      "x": 224,
+      "y": 48,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "rock",
+        "boulder"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "small_tree_prop",
+      "kind": "object",
+      "x": 288,
+      "y": 48,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "tree",
+        "nature"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

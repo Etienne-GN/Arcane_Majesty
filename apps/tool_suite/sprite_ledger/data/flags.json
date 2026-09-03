@@ -78,5 +78,645 @@
     "status": "open",
     "createdAt": "2026-09-01T22:41:38.877Z",
     "resolvedAt": null
+  },
+  {
+    "id": "f_f57b0ea1-4102-4abb-b1e4-0679fc304077",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "picture_treasure_map",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:16:02.617Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_79cd3292-316e-41ff-bed6-69cb049fe5c0",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "picture_blank_paper",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:16:10.850Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ebe45252-d91d-4e51-921b-e02073d56aae",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "picture_portrait_color",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:16:14.172Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_38f530d8-b315-4889-a9b6-59b9d9027060",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "picture_landscape",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:16:17.486Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_43dd225f-2c1b-4024-83f6-f74f3f76a6f5",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "picture_portrait_silhouette",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:16:19.695Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_30acb332-1966-43d2-9b45-ab0d9b397797",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_stand_silver",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:16:36.563Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9c3dd960-586e-4c5d-afb8-ad7983a0e7b7",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_stand_green",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:16:39.376Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_d7d0fce0-7796-47aa-900c-d9bbc24947e8",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_stand_pink",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:16:41.451Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_486102e4-4e46-45e4-accb-8825be586375",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_stand_blue",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:16:43.456Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ca8fce97-67bd-4ef2-9d02-e0be60026bb4",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_stand_purple",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:16:45.616Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5b88db22-8863-4ef8-b140-b32dc45fc691",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_stand_purple",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:16:48.595Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_96d4d8b4-b125-4b2d-9586-c78b7e98fbe1",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_stand_empty",
+    "reason": "misaligned",
+    "comment": "i looks like its missing the top",
+    "status": "open",
+    "createdAt": "2026-09-03T16:17:05.053Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_31f5704f-6d7b-49b7-a758-9dea339ce243",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "sword_purple_gold",
+    "reason": "misaligned",
+    "comment": "looks like its missing bottom",
+    "status": "open",
+    "createdAt": "2026-09-03T16:17:16.314Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_74d62fb1-36eb-49e7-bc38-297a8b9fc647",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "ladder_rope_wood",
+    "reason": "wrong_name",
+    "comment": "this is no ladder neither wood, its a rope",
+    "status": "open",
+    "createdAt": "2026-09-03T16:17:57.305Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_068e931a-95d0-4614-8453-714fb5bc2e4f",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "ladder_wood_plank",
+    "reason": "wrong_name",
+    "comment": "this is a ladder yes made of rope and wood, but not plank",
+    "status": "open",
+    "createdAt": "2026-09-03T16:18:23.281Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_cc294d20-2ed1-41df-9bf5-92da8dd1fe3b",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "magic_circle_gray",
+    "reason": "other",
+    "comment": "this one is awesome, can we generate it in other colors ?",
+    "status": "open",
+    "createdAt": "2026-09-03T16:18:53.555Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ea8ee7d4-3e48-4f03-a320-207140f9d859",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_shoulder_silver_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:19:07.534Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0d638494-cd96-4998-a58c-9ba3853f6eca",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_tunic_green_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:19:10.009Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a7cd91c0-74da-4679-bec0-e947c3b8b626",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_tunic_red_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:19:17.281Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_1ff36cb5-9243-4737-ad09-6a93fd07745d",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_tunic_blue_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:19:19.332Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0c560300-88e6-407d-9727-eba0f0f3f0a1",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "armor_tunic_purple_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:19:24.762Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_bedeec40-9093-45de-b6dc-daf9f34833a8",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "creature_blob_tan_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:19:28.888Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_d9a71a33-3bcf-4e70-8487-aba38781fb73",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "creature_blob_tan_b",
+    "reason": "wrong_name",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:19:30.595Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_aef86bdf-c747-45cd-88f6-6a5a543ccb0e",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "curtain_tan_awning",
+    "reason": "misaligned",
+    "comment": "those are badly croppeds several items in this one, needs to be splitted",
+    "status": "open",
+    "createdAt": "2026-09-03T16:20:20.880Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_38d32518-2fe7-4a4a-a053-f837eb361f84",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "gargoyle_statue_gray",
+    "reason": "misaligned",
+    "comment": "those are badly croppeds several items in this one, needs to be splitted",
+    "status": "open",
+    "createdAt": "2026-09-03T16:20:26.814Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6604e327-29a5-4538-a1cf-dd4a17349ab3",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "pillar_stone_pair",
+    "reason": "misaligned",
+    "comment": "there are 2 disctinct columns in this one",
+    "status": "open",
+    "createdAt": "2026-09-03T16:20:42.146Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a68b855b-74da-49d1-be9b-81a048e8e129",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "fountain_stone_base",
+    "reason": "misaligned",
+    "comment": "those are badly croppeds several items in this one, needs to be splitted",
+    "status": "open",
+    "createdAt": "2026-09-03T16:20:52.202Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_7e19ee9f-da1d-4aae-a545-e460813ac644",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "ladder_wood_dirt_climb",
+    "reason": "misaligned",
+    "comment": "there's a ladder and a vine in this, we need to split those",
+    "status": "open",
+    "createdAt": "2026-09-03T16:21:15.453Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6f3144ad-7f0c-4f41-8458-dfc1fdd9d8a3",
+    "sheet": "seasonal sample (autumn).png",
+    "name": "autumn_dirt_patch_solid",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted into 3 rows and 4 columns",
+    "status": "open",
+    "createdAt": "2026-09-03T16:23:22.864Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5faa72b8-4097-4aea-8fc4-478fb47a27f5",
+    "sheet": "seasonal sample (autumn).png",
+    "name": "autumn_dirt_patch_variant",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted into 3 rows and 4 columns",
+    "status": "open",
+    "createdAt": "2026-09-03T16:23:27.325Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_8d0ec220-5990-40c5-93be-29dfb7b3978a",
+    "sheet": "seasonal sample (spring).png",
+    "name": "spring_dirt_patch_solid",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted into 3 rows and 4 columns",
+    "status": "open",
+    "createdAt": "2026-09-03T16:23:31.342Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_73eb5cc1-58b8-4f24-b3ba-3d8b28cf4f8d",
+    "sheet": "seasonal sample (summer).png",
+    "name": "summer_dirt_patch_solid",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted into 3 rows and 4 columns",
+    "status": "open",
+    "createdAt": "2026-09-03T16:23:39.094Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_344a3e0d-1693-40b6-909c-50e549920d58",
+    "sheet": "seasonal sample (spring).png",
+    "name": "spring_dirt_patch_variant",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted into 3 rows and 4 columns",
+    "status": "open",
+    "createdAt": "2026-09-03T16:23:44.953Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3ab13e95-7766-4078-9f35-c334ae780f28",
+    "sheet": "seasonal sample (summer).png",
+    "name": "summer_dirt_patch_variant",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted into 3 rows and 4 columns",
+    "status": "open",
+    "createdAt": "2026-09-03T16:23:48.093Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_d32623eb-6d08-4dcd-937c-169e61859ba7",
+    "sheet": "seasonal sample (winter).png",
+    "name": "winter_dirt_patch_solid",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted into 3 rows and 4 columns",
+    "status": "open",
+    "createdAt": "2026-09-03T16:23:51.162Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_be7f1143-4108-4bef-9e68-95fb1c0d2e64",
+    "sheet": "seasonal sample (winter).png",
+    "name": "winter_dirt_patch_variant",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted into 3 rows and 4 columns",
+    "status": "open",
+    "createdAt": "2026-09-03T16:23:54.332Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_983fe371-c3ef-4ee0-98af-2434e867ccba",
+    "sheet": "seasonal sample (autumn).png",
+    "name": "autumn_small_prop_icons",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted in 2 rows and 5 columns",
+    "status": "open",
+    "createdAt": "2026-09-03T16:24:20.296Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0056dffa-7d7c-4315-acb2-58210cff10a2",
+    "sheet": "seasonal sample (spring).png",
+    "name": "spring_small_prop_icons",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted in 2 rows and 5 columns",
+    "status": "open",
+    "createdAt": "2026-09-03T16:24:24.111Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_90aabdc7-5610-4459-9191-e3ee64656111",
+    "sheet": "seasonal sample (summer).png",
+    "name": "summer_small_prop_icons",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted in 2 rows and 5 columns",
+    "status": "open",
+    "createdAt": "2026-09-03T16:24:27.784Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_1e4d098d-7011-4dae-bfbe-aa83ebee5cea",
+    "sheet": "seasonal sample (winter).png",
+    "name": "winter_small_prop_icons",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted in 2 rows and 5 columns",
+    "status": "open",
+    "createdAt": "2026-09-03T16:24:31.190Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c77d2d53-a3d0-4681-a6fe-d15f30c1b283",
+    "sheet": "seasonal sample (autumn).png",
+    "name": "autumn_cliff_hillside",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted in 6 columns, and 16 rows",
+    "status": "open",
+    "createdAt": "2026-09-03T16:26:22.811Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5c63c412-4764-406f-8109-ce176882c8f3",
+    "sheet": "seasonal sample (spring).png",
+    "name": "spring_cliff_hillside",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted in 6 columns, and 16 rows",
+    "status": "open",
+    "createdAt": "2026-09-03T16:26:27.296Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_1b885e0e-2ca7-42e6-a9cf-d079f3b01b4a",
+    "sheet": "seasonal sample (winter).png",
+    "name": "winter_cliff_hillside",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted in 6 columns, and 16 rows",
+    "status": "open",
+    "createdAt": "2026-09-03T16:26:31.028Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_26192727-527f-46ca-9aa7-728a7065a003",
+    "sheet": "seasonal sample (summer).png",
+    "name": "summer_cliff_hillside",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted in 6 columns, and 16 rows",
+    "status": "open",
+    "createdAt": "2026-09-03T16:26:34.544Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_26e825b1-cbb5-45be-a175-ce91942a9fff",
+    "sheet": "seasonal sample (spring).png",
+    "name": "spring_flower_rock_cluster",
+    "reason": "misaligned",
+    "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"spring_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
+    "status": "open",
+    "createdAt": "2026-09-03T16:32:19.488Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5471024e-4ace-47ed-b595-b51add2afc1a",
+    "sheet": "seasonal sample (autumn).png",
+    "name": "autumn_flower_rock_cluster",
+    "reason": "misaligned",
+    "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"autumn_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
+    "status": "open",
+    "createdAt": "2026-09-03T16:32:47.411Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_beb3d01e-c696-461f-bf30-6a53d0141f5e",
+    "sheet": "seasonal sample (summer).png",
+    "name": "summer_flower_rock_cluster",
+    "reason": "misaligned",
+    "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"summer_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
+    "status": "open",
+    "createdAt": "2026-09-03T16:33:00.724Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_7f2350b8-b91d-435b-a1c1-b3bc9e79b2aa",
+    "sheet": "seasonal sample (winter).png",
+    "name": "winter_flower_rock_cluster",
+    "reason": "misaligned",
+    "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"winter_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
+    "status": "open",
+    "createdAt": "2026-09-03T16:33:13.212Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_473e3b12-1486-4e4b-82a1-56b41b2ec453",
+    "sheet": "seasonal sample (autumn).png",
+    "name": "autumn_boulder_rock",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:33:34.078Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_8339ba3d-4756-49ec-99b6-a7dad7df2ef1",
+    "sheet": "seasonal sample (autumn).png",
+    "name": "autumn_ice_wall_texture",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:33:35.837Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_74a8711b-c77f-45aa-8aef-3bafc8dd5a57",
+    "sheet": "seasonal sample (spring).png",
+    "name": "spring_boulder_rock",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:33:38.845Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a7166dee-3f89-4d7c-84b3-86e96d2761ab",
+    "sheet": "seasonal sample (spring).png",
+    "name": "spring_ice_wall_texture",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:33:41.098Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a0fb28aa-26ef-4285-8cdf-4e0a43913aa8",
+    "sheet": "seasonal sample (summer).png",
+    "name": "summer_boulder_rock",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:33:43.308Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ce78dc1f-19f4-498a-932b-2e41be6e8d87",
+    "sheet": "seasonal sample (summer).png",
+    "name": "summer_ice_wall_texture",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:33:45.586Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_572d47e7-0036-4899-9cb0-c08632215916",
+    "sheet": "seasonal sample (winter).png",
+    "name": "winter_boulder_rock",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:33:47.565Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ff7160cb-6e26-4538-9786-85d0ac8d8e99",
+    "sheet": "seasonal sample (winter).png",
+    "name": "winter_ice_wall_texture",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:33:49.202Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_54ee0394-1376-4c53-86c5-62c0cb53fa73",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "stove_black",
+    "reason": "misaligned",
+    "comment": "those are 2 items",
+    "status": "open",
+    "createdAt": "2026-09-03T16:44:26.280Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_722114d5-af1a-4dd4-9d87-768cfcbaf54a",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "sink_gray_a",
+    "reason": "misaligned",
+    "comment": "those are 2 items",
+    "status": "open",
+    "createdAt": "2026-09-03T16:44:35.726Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_35d641c8-71fa-493b-981b-58317658ee43",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "sink_gray_b",
+    "reason": "misaligned",
+    "comment": "those are 2 items",
+    "status": "open",
+    "createdAt": "2026-09-03T16:44:38.151Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5b8f392f-d29f-4eda-a192-005c188534a6",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "pew_curtained_tan",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:56:46.462Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_969c2b8a-d0ca-4106-8f39-d78951b7e015",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "pew_bench_tan",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:56:49.382Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_cab49128-9dec-4698-adf7-1f996984bf25",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "cutting_board_knife",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:57:09.503Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_7187ccf4-3618-42d1-ae04-120e3d84fb9e",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "bridge_rope_wood_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T16:57:19.422Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f1906ba1-1c12-4823-b3a0-2cfb415a501b",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wardrobe_tall_brown",
+    "reason": "misaligned",
+    "comment": "this needs to be splitted",
+    "status": "open",
+    "createdAt": "2026-09-03T16:57:49.710Z",
+    "resolvedAt": null
   }
 ]

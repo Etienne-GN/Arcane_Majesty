@@ -1,0 +1,37 @@
+{
+  "source": "cave_tiles.png",
+  "sheetWidth": 272,
+  "sheetHeight": 272,
+  "entries": [
+    {
+      "name": "cave_floor",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "floor",
+        "cave"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "cave_wall_blob",
+      "kind": "object",
+      "x": 128,
+      "y": 0,
+      "w": 96,
+      "h": 96,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "wall",
+        "autotile"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-fish02.png",
+  "sheetWidth": 6,
+  "sheetHeight": 3,
+  "entries": [
+    {
+      "name": "generic_rpg_fish02",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 6,
+      "h": 3,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

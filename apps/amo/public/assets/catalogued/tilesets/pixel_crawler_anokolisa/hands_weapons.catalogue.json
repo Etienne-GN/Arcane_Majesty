@@ -1,0 +1,21 @@
+{
+  "source": "hands_weapons.png",
+  "sheetWidth": 32,
+  "sheetHeight": 96,
+  "entries": [
+    {
+      "name": "hands_weapons",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "weapon"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "source": "fence_tiles.png",
+  "sheetWidth": 128,
+  "sheetHeight": 128,
+  "entries": [
+    {
+      "name": "fence_blob",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

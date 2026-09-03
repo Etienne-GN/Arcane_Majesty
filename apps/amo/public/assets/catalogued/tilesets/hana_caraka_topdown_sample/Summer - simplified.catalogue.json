@@ -1,0 +1,23 @@
+{
+  "source": "Summer - simplified.png",
+  "sheetWidth": 80,
+  "sheetHeight": 48,
+  "entries": [
+    {
+      "name": "summer_tileset_blob",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 80,
+      "h": 48,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "autotile"
+      ],
+      "lowConfidence": true,
+      "season": "summer"
+    }
+  ]
+}

@@ -5,6 +5,84 @@ their license terms — verified directly against each publisher's own
 license page, not assumed. This file is the source of record for the
 in-game Credits screen (`src/scenes/CreditsScene.js`).
 
+## Basic Tileset & Assets (schwarnhild)
+
+The `schwarnhild_basic_tileset/` and `assets_spritesheet_v2_free_restored/`
+tileset packs. The latter is the same content previously catalogued
+(without a confirmed license) and rejected as unlicensed — restored now
+that the license is confirmed, from its own already-cropped rejected
+files rather than re-cataloguing from scratch.
+
+- Source: schwarnhild — [schwarnhild.itch.io](https://schwarnhild.itch.io/)
+- License: commercial and non-commercial use permitted, editable, may
+  not be resold/redistributed. Credit appreciated, not required.
+
+## Generic RPG Pack (Bakudas & Gabe Fern / vacaroxa)
+
+The `generic_rpg_pack_vacaroxa/` tileset pack (tiles, UI, props &
+decorations). Its character/mob sprites live outside Sprite Ledger's
+scope at `apps/amo/public/assets/characters/generic_rpg_pack_vacaroxa/`.
+
+- Source: [bakudas.itch.io/generic-rpg-pack](https://bakudas.itch.io/generic-rpg-pack)
+- License: **CC0 1.0 Universal** — public domain, no restrictions,
+  no attribution required at all. The most permissive source in this
+  project.
+
+## Hana Caraka Topdown Tileset (Bagong Games)
+
+The `hana_caraka_topdown_sample/` tileset pack (props, seasonal
+tilesets).
+
+- Source: Bagong Games — [facebook.com/BagongGames](https://www.facebook.com/BagongGames)
+- License: commercial and non-commercial use permitted, editable, may
+  not be resold/redistributed, no AI training, no crypto/NFT use.
+  Credit not necessary, appreciated.
+
+## Widelands Trees — Blackland (Widelands project)
+
+The `trees_blackland_widelands/` tileset pack (8 tree types, growth
+stages and size variants).
+
+- Source: the Widelands project — [opengameart.org/content/animated-widelands-trees-blackland](https://opengameart.org/content/animated-widelands-trees-blackland)
+- Dual/triple-licensed CC-BY-SA 3.0 / GPL 3.0 / GPL 2.0 — this project
+  uses **CC-BY-SA 3.0**, same reasoning as the Liberated Pixel Cup
+  entry below (binds only the art, not this project's code).
+  **Credit required.**
+- Credit: the Widelands project (submission via contributor "bart")
+
+## Top-Down Adventure Pack (o_lobster)
+
+The `top_down_adventure_pack_olobster/` tileset pack (overworld/dungeon
+tilesets, animated tiles and props, HUD). Its character and enemy
+sprites live outside Sprite Ledger's scope at
+`apps/amo/public/assets/characters/top_down_adventure_pack_olobster/`.
+
+- Source: o_lobster — [o-lobster.itch.io/adventure-pack](https://o-lobster.itch.io/adventure-pack)
+- License: **CC-BY 4.0** — commercial use and redistribution allowed
+  with credit. **Credit required.**
+- Credit: "o_lobster" (per the creator's own stated preference)
+
+## Woolly Lands (TofeBaa)
+
+The `woolly_lands_tofebaa/` tileset pack (houses, doors, trees, fruit,
+objects). Its player-character sprite lives outside Sprite Ledger's
+scope at `apps/amo/public/assets/characters/woolly_lands_tofebaa/`.
+
+- Source: TofeBaa — [tofebaa.itch.io](https://tofebaa.itch.io/)
+- License: commercial and non-commercial use permitted, editable, may
+  not be resold/redistributed. **Credit required.**
+
+## Pixel Crawler (Anokolisa)
+
+The `pixel_crawler_anokolisa/` tileset pack (weapons, environment
+tiles, structures, props). Its character and mob sprites live outside
+Sprite Ledger's scope at
+`apps/amo/public/assets/characters/pixel_crawler_anokolisa/`.
+
+- Source: Anokolisa — [anokolisa.itch.io](https://anokolisa.itch.io/)
+- License: commercial use permitted, editable, may not be resold as a
+  final product. Credit not necessary, appreciated.
+
 ## Pipoya
 
 Character sprites (animals, birds, enemies, NPCs) and the `[A]`-prefixed

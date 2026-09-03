@@ -68,13 +68,26 @@ export default class CreditsScene extends Phaser.Scene {
         // Full details, verified license text, and every contributor's
         // credited role: apps/amo/CREDITS.md
         _sec(223, 'ART ASSETS');
-        _body(236, 'Pipoya  ·  https://pipoya.net/');
-        _body(247, 'Pixel Art Top Down (Basic)  ·  Cainos');
-        _body(258, 'Snowy Asset Pack  ·  nyx  ·  wurls.itch.io');
-        _body(269, 'ManaSeed  ·  Seliel the Shaper');
-        _body(280, 'RoleWorld Wizard  ·  pixel-sazy');
-        _body(291, 'PATD Bushes  ·  DustDFG (CC-BY-SA 4.0)');
-        _body(305, 'Liberated Pixel Cup — CC-BY-SA 3.0', '#554466');
+        const artLines = [
+            'Pipoya  ·  https://pipoya.net/',
+            'Pixel Art Top Down (Basic)  ·  Cainos',
+            'Snowy Asset Pack  ·  nyx  ·  wurls.itch.io',
+            'ManaSeed  ·  Seliel the Shaper',
+            'RoleWorld Wizard  ·  pixel-sazy',
+            'PATD Bushes  ·  DustDFG (CC-BY-SA 4.0)',
+            'Basic Tileset & Assets  ·  schwarnhild',
+            'Generic RPG Pack  ·  Bakudas & Gabe Fern (CC0)',
+            'Hana Caraka Topdown  ·  Bagong Games',
+            'Widelands Trees (Blackland) — CC-BY-SA 3.0',
+            'Top-Down Adventure Pack  ·  o_lobster (CC-BY 4.0)',
+            'Woolly Lands  ·  TofeBaa',
+            'Pixel Crawler  ·  Anokolisa',
+        ];
+        let y = 236;
+        artLines.forEach(line => { _body(y, line); y += 11; });
+        y += 3;
+        _body(y, 'Liberated Pixel Cup — CC-BY-SA 3.0', '#554466');
+        y += 14;
         const lpcNames = [
             'Lanea Zimmerman · Stephen Challener',
             'Casper Nilsson · Daniel Eddeland',
@@ -88,10 +101,12 @@ export default class CreditsScene extends Phaser.Scene {
             'Gwes · Jetrel',
             'Jaidyn Reiman · Nila122',
         ];
-        lpcNames.forEach((line, i) => _body(317 + i * 11, line));
-        _body(317 + lpcNames.length * 11 + 6, 'Full credits: CREDITS.md', '#443355');
+        lpcNames.forEach(line => { _body(y, line); y += 11; });
+        y += 6;
+        _body(y, 'Full credits: CREDITS.md', '#443355');
+        y += 10;
 
-        this._contentH = 317 + lpcNames.length * 11 + 20;
+        this._contentH = y;
 
         // Fixed back button
         const backBtn = this.add.text(w / 2, h - 18, '← Back to Menu', {

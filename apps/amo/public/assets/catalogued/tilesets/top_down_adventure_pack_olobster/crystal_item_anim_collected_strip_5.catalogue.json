@@ -1,0 +1,52 @@
+{
+  "source": "crystal_item_anim_collected_strip_5.png",
+  "sheetWidth": 80,
+  "sheetHeight": 16,
+  "entries": [
+    {
+      "name": "crystal_item_anim_collected_strip_5",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "animated"
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 16,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 48,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 16,
+          "h": 16
+        }
+      ]
+    }
+  ]
+}

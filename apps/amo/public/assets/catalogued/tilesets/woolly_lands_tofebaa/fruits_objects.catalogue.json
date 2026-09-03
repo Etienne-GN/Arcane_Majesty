@@ -1,0 +1,22 @@
+{
+  "source": "fruits_objects.png",
+  "sheetWidth": 32,
+  "sheetHeight": 112,
+  "entries": [
+    {
+      "name": "fruit_variants",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 112,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "fruit",
+        "item"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

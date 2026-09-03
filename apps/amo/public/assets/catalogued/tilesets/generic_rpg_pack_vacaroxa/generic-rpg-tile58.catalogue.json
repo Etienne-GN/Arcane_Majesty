@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-tile58.png",
+  "sheetWidth": 16,
+  "sheetHeight": 16,
+  "entries": [
+    {
+      "name": "generic_rpg_tile58",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "tiles"
+      ]
+    }
+  ]
+}

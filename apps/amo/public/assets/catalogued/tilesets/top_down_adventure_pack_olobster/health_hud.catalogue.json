@@ -1,0 +1,21 @@
+{
+  "source": "health_hud.png",
+  "sheetWidth": 56,
+  "sheetHeight": 16,
+  "entries": [
+    {
+      "name": "health_hud",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 56,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "ui",
+        "hud"
+      ]
+    }
+  ]
+}

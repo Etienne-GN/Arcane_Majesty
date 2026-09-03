@@ -1,0 +1,19 @@
+{
+  "source": "bench_wood.png",
+  "sheetWidth": 64,
+  "sheetHeight": 64,
+  "entries": [
+    {
+      "name": "bench_wood",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "schwarnhild",
+        "restored"
+      ]
+    }
+  ]
+}

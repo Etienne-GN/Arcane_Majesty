@@ -1,0 +1,21 @@
+{
+  "source": "Vegetation_01.png",
+  "sheetWidth": 208,
+  "sheetHeight": 304,
+  "entries": [
+    {
+      "name": "vegetation_01",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 208,
+      "h": 304,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "static"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

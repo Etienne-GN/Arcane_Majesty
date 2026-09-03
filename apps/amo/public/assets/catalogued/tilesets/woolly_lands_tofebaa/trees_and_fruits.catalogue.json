@@ -1,0 +1,82 @@
+{
+  "source": "trees_and_fruits.png",
+  "sheetWidth": 416,
+  "sheetHeight": 480,
+  "entries": [
+    {
+      "name": "tree_small",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 96,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "tree",
+        "nature"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "tree_yellow_apple",
+      "kind": "object",
+      "x": 64,
+      "y": 0,
+      "w": 64,
+      "h": 96,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "tree",
+        "fruit"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "tree_magenta_fruit",
+      "kind": "object",
+      "x": 128,
+      "y": 192,
+      "w": 64,
+      "h": 96,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "tree",
+        "fruit"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "tree_orange_fruit",
+      "kind": "object",
+      "x": 128,
+      "y": 288,
+      "w": 64,
+      "h": 96,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "tree",
+        "fruit"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "berry_bush_cluster",
+      "kind": "object",
+      "x": 320,
+      "y": 384,
+      "w": 96,
+      "h": 64,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "bush",
+        "berry"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

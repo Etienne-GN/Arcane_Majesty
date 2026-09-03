@@ -1,0 +1,21 @@
+{
+  "source": "Workbench.png",
+  "sheetWidth": 192,
+  "sheetHeight": 352,
+  "entries": [
+    {
+      "name": "workbench",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 192,
+      "h": 352,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "workbench"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

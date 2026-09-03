@@ -1,0 +1,77 @@
+{
+  "source": "water_and_island_tiles_v2.png",
+  "sheetWidth": 480,
+  "sheetHeight": 256,
+  "entries": [
+    {
+      "name": "dirt_patch_solid",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 64,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "ground"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "grass_patch_solid",
+      "kind": "object",
+      "x": 128,
+      "y": 0,
+      "w": 96,
+      "h": 64,
+      "tags": [
+        "schwarnhild",
+        "grass",
+        "ground"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "rocky_ground_blob",
+      "kind": "object",
+      "x": 0,
+      "y": 96,
+      "w": 160,
+      "h": 96,
+      "tags": [
+        "schwarnhild",
+        "rock",
+        "ground"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "water_deep_blob",
+      "kind": "object",
+      "x": 352,
+      "y": 0,
+      "w": 128,
+      "h": 160,
+      "tags": [
+        "schwarnhild",
+        "water",
+        "deep"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "water_shore_transition",
+      "kind": "object",
+      "x": 0,
+      "y": 192,
+      "w": 96,
+      "h": 64,
+      "tags": [
+        "schwarnhild",
+        "water",
+        "shore"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

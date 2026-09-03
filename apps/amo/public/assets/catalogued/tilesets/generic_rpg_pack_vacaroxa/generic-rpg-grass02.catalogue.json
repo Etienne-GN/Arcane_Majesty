@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-grass02.png",
+  "sheetWidth": 16,
+  "sheetHeight": 9,
+  "entries": [
+    {
+      "name": "generic_rpg_grass02",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 9,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

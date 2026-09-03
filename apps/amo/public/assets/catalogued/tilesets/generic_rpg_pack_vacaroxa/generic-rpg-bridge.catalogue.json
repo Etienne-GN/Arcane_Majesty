@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-bridge.png",
+  "sheetWidth": 58,
+  "sheetHeight": 56,
+  "entries": [
+    {
+      "name": "generic_rpg_bridge",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 58,
+      "h": 56,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

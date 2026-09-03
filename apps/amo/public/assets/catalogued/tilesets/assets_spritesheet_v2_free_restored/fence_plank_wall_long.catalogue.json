@@ -1,0 +1,19 @@
+{
+  "source": "fence_plank_wall_long.png",
+  "sheetWidth": 128,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "fence_plank_wall_long",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "restored"
+      ]
+    }
+  ]
+}

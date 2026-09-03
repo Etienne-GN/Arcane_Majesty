@@ -1,0 +1,161 @@
+{
+  "source": "terrain_tiles_v2.png",
+  "sheetWidth": 320,
+  "sheetHeight": 512,
+  "entries": [
+    {
+      "name": "dirt_patch_solid",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 64,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "ground"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "grass_patch_solid",
+      "kind": "object",
+      "x": 128,
+      "y": 0,
+      "w": 96,
+      "h": 64,
+      "tags": [
+        "schwarnhild",
+        "grass",
+        "ground"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "tree_bush_prop",
+      "kind": "object",
+      "x": 256,
+      "y": 0,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "schwarnhild",
+        "tree",
+        "prop"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "grass_field_open",
+      "kind": "object",
+      "x": 0,
+      "y": 96,
+      "w": 96,
+      "h": 96,
+      "tags": [
+        "schwarnhild",
+        "grass",
+        "ground"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "grass_field_flowers",
+      "kind": "object",
+      "x": 128,
+      "y": 96,
+      "w": 96,
+      "h": 96,
+      "tags": [
+        "schwarnhild",
+        "grass",
+        "flowers",
+        "ground"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "path_dirt_strip",
+      "kind": "object",
+      "x": 0,
+      "y": 224,
+      "w": 224,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "pond_circle_a",
+      "kind": "object",
+      "x": 160,
+      "y": 256,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "schwarnhild",
+        "water",
+        "pond"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "pond_circle_b",
+      "kind": "object",
+      "x": 224,
+      "y": 256,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "schwarnhild",
+        "water",
+        "pond"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "rocky_ground_blob",
+      "kind": "object",
+      "x": 0,
+      "y": 352,
+      "w": 96,
+      "h": 96,
+      "tags": [
+        "schwarnhild",
+        "rock",
+        "ground"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "brick_path_strip",
+      "kind": "object",
+      "x": 224,
+      "y": 384,
+      "w": 32,
+      "h": 96,
+      "tags": [
+        "schwarnhild",
+        "brick",
+        "path"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "water_swatch",
+      "kind": "object",
+      "x": 64,
+      "y": 480,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "water"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

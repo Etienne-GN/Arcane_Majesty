@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-trasure-open.png",
+  "sheetWidth": 25,
+  "sheetHeight": 27,
+  "entries": [
+    {
+      "name": "generic_rpg_trasure_open",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 25,
+      "h": 27,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

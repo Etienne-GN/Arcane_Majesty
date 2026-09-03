@@ -1,0 +1,21 @@
+{
+  "source": "wood_weapons.png",
+  "sheetWidth": 192,
+  "sheetHeight": 112,
+  "entries": [
+    {
+      "name": "wood_weapons",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "weapon"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

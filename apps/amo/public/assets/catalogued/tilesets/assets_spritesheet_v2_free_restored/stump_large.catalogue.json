@@ -1,0 +1,19 @@
+{
+  "source": "stump_large.png",
+  "sheetWidth": 32,
+  "sheetHeight": 64,
+  "entries": [
+    {
+      "name": "stump_large",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "schwarnhild",
+        "restored"
+      ]
+    }
+  ]
+}

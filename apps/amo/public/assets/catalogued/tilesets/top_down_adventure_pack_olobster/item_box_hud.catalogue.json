@@ -1,0 +1,21 @@
+{
+  "source": "item_box_hud.png",
+  "sheetWidth": 16,
+  "sheetHeight": 16,
+  "entries": [
+    {
+      "name": "item_box_hud",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "ui",
+        "hud"
+      ]
+    }
+  ]
+}

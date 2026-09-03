@@ -1,0 +1,21 @@
+{
+  "source": "Bricks_03-Sheet.png",
+  "sheetWidth": 96,
+  "sheetHeight": 128,
+  "entries": [
+    {
+      "name": "bricks_03-sheet",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 128,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "furnace"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

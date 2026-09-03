@@ -1,0 +1,21 @@
+{
+  "source": "Grill_04-Sheet.png",
+  "sheetWidth": 320,
+  "sheetHeight": 64,
+  "entries": [
+    {
+      "name": "grill_04-sheet",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 320,
+      "h": 64,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "grill"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

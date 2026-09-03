@@ -1,0 +1,35 @@
+{
+  "source": "ground_decorations.png",
+  "sheetWidth": 72,
+  "sheetHeight": 72,
+  "entries": [
+    {
+      "name": "dirt_speckle_row",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 72,
+      "h": 36,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "decoration"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "grass_tuft_row",
+      "kind": "object",
+      "x": 0,
+      "y": 36,
+      "w": 72,
+      "h": 36,
+      "tags": [
+        "schwarnhild",
+        "grass",
+        "decoration"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

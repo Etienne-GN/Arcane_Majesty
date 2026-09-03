@@ -1,0 +1,19 @@
+{
+  "source": "rock_cluster_mossy_shore.png",
+  "sheetWidth": 64,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "rock_cluster_mossy_shore",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "restored"
+      ]
+    }
+  ]
+}

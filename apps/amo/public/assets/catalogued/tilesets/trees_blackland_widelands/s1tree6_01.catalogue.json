@@ -1,0 +1,21 @@
+{
+  "source": "s1tree6_01.png",
+  "sheetWidth": 15,
+  "sheetHeight": 14,
+  "entries": [
+    {
+      "name": "s1tree6_01",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 15,
+      "h": 14,
+      "tags": [
+        "trees_blackland",
+        "widelands",
+        "tree",
+        "nature"
+      ]
+    }
+  ]
+}

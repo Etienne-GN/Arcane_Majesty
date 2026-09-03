@@ -1,0 +1,19 @@
+{
+  "source": "building_cottage_stone_thatch.png",
+  "sheetWidth": 160,
+  "sheetHeight": 224,
+  "entries": [
+    {
+      "name": "building_cottage_stone_thatch",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 160,
+      "h": 224,
+      "tags": [
+        "schwarnhild",
+        "restored"
+      ]
+    }
+  ]
+}

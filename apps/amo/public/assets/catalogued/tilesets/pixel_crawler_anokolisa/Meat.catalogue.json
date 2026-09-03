@@ -1,0 +1,21 @@
+{
+  "source": "Meat.png",
+  "sheetWidth": 64,
+  "sheetHeight": 144,
+  "entries": [
+    {
+      "name": "meat",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 144,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "static"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

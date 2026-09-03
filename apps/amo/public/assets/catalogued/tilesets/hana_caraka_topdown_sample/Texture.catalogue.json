@@ -1,0 +1,22 @@
+{
+  "source": "Texture.png",
+  "sheetWidth": 192,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "ground_texture",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 192,
+      "h": 32,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

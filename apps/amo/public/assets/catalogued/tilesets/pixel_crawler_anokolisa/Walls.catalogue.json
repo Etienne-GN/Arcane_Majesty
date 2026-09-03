@@ -1,0 +1,21 @@
+{
+  "source": "Walls.png",
+  "sheetWidth": 672,
+  "sheetHeight": 400,
+  "entries": [
+    {
+      "name": "walls",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 672,
+      "h": 400,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "buildings"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

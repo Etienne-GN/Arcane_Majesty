@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-board01.png",
+  "sheetWidth": 16,
+  "sheetHeight": 15,
+  "entries": [
+    {
+      "name": "generic_rpg_board01",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 15,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

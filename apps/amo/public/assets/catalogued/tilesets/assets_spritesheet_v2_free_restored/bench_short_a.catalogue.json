@@ -1,0 +1,19 @@
+{
+  "source": "bench_short_a.png",
+  "sheetWidth": 64,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "bench_short_a",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "restored"
+      ]
+    }
+  ]
+}

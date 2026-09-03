@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-crate01.png",
+  "sheetWidth": 18,
+  "sheetHeight": 19,
+  "entries": [
+    {
+      "name": "generic_rpg_crate01",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 18,
+      "h": 19,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

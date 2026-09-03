@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-house-inn.png",
+  "sheetWidth": 70,
+  "sheetHeight": 88,
+  "entries": [
+    {
+      "name": "generic_rpg_house_inn",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 70,
+      "h": 88,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

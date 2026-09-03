@@ -1,0 +1,22 @@
+{
+  "source": "Dirt - simplified.png",
+  "sheetWidth": 80,
+  "sheetHeight": 64,
+  "entries": [
+    {
+      "name": "dirt_tileset_blob",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 80,
+      "h": 64,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "dirt",
+        "autotile"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

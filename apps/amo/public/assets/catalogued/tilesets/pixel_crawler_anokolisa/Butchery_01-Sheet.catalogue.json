@@ -1,0 +1,21 @@
+{
+  "source": "Butchery_01-Sheet.png",
+  "sheetWidth": 64,
+  "sheetHeight": 64,
+  "entries": [
+    {
+      "name": "butchery_01-sheet",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "butchery"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

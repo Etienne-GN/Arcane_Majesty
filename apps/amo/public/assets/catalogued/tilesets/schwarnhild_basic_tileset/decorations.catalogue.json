@@ -1,0 +1,35 @@
+{
+  "source": "decorations.png",
+  "sheetWidth": 36,
+  "sheetHeight": 96,
+  "entries": [
+    {
+      "name": "flower_row",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 36,
+      "h": 48,
+      "tags": [
+        "schwarnhild",
+        "flower",
+        "decoration"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "grass_tuft_row",
+      "kind": "object",
+      "x": 0,
+      "y": 48,
+      "w": 36,
+      "h": 48,
+      "tags": [
+        "schwarnhild",
+        "grass",
+        "decoration"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

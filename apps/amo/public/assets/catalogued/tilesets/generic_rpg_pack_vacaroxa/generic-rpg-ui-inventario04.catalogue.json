@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-ui-inventario04.png",
+  "sheetWidth": 7,
+  "sheetHeight": 7,
+  "entries": [
+    {
+      "name": "generic_rpg_ui_inventario04",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 7,
+      "h": 7,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "ui"
+      ]
+    }
+  ]
+}

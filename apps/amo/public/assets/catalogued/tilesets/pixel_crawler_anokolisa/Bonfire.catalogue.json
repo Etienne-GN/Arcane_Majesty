@@ -1,0 +1,21 @@
+{
+  "source": "Bonfire.png",
+  "sheetWidth": 64,
+  "sheetHeight": 384,
+  "entries": [
+    {
+      "name": "bonfire",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 384,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "bonfire"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

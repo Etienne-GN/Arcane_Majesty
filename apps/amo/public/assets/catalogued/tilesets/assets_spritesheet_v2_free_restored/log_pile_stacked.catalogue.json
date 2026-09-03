@@ -1,0 +1,19 @@
+{
+  "source": "log_pile_stacked.png",
+  "sheetWidth": 64,
+  "sheetHeight": 64,
+  "entries": [
+    {
+      "name": "log_pile_stacked",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "schwarnhild",
+        "restored"
+      ]
+    }
+  ]
+}

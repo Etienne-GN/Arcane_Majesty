@@ -1,0 +1,22 @@
+{
+  "source": "pots.png",
+  "sheetWidth": 48,
+  "sheetHeight": 48,
+  "entries": [
+    {
+      "name": "pot_variants",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 48,
+      "h": 48,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "pot",
+        "props"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

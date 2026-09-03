@@ -1,0 +1,21 @@
+{
+  "source": "Alchemy_Table_03-Sheet.png",
+  "sheetWidth": 400,
+  "sheetHeight": 400,
+  "entries": [
+    {
+      "name": "alchemy_table_03-sheet",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 400,
+      "h": 400,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "alchemy"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

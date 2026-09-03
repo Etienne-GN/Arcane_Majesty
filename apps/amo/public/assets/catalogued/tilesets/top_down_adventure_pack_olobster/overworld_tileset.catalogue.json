@@ -1,0 +1,157 @@
+{
+  "source": "overworld_tileset.png",
+  "sheetWidth": 288,
+  "sheetHeight": 208,
+  "entries": [
+    {
+      "name": "grass_blob",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "grass",
+        "autotile"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "fence_blob",
+      "kind": "object",
+      "x": 64,
+      "y": 0,
+      "w": 48,
+      "h": 32,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "fence",
+        "autotile"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "house_cottage",
+      "kind": "object",
+      "x": 176,
+      "y": 0,
+      "w": 112,
+      "h": 96,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "building",
+        "house"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "rock_cluster",
+      "kind": "object",
+      "x": 0,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "rock",
+        "props"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "bush_cluster",
+      "kind": "object",
+      "x": 32,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "bush",
+        "nature"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "stone_wall_blob",
+      "kind": "object",
+      "x": 64,
+      "y": 64,
+      "w": 64,
+      "h": 48,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "stone",
+        "wall",
+        "autotile"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "house_red_roof",
+      "kind": "object",
+      "x": 176,
+      "y": 96,
+      "w": 112,
+      "h": 64,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "building",
+        "house"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "tree_large",
+      "kind": "object",
+      "x": 64,
+      "y": 160,
+      "w": 32,
+      "h": 48,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "tree",
+        "nature"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "cave_entrance_dark",
+      "kind": "object",
+      "x": 96,
+      "y": 176,
+      "w": 48,
+      "h": 32,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "cave",
+        "structure"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "water_pool",
+      "kind": "object",
+      "x": 240,
+      "y": 160,
+      "w": 48,
+      "h": 48,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "water"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

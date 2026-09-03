@@ -1,0 +1,19 @@
+{
+  "source": "tree_round_bushy.png",
+  "sheetWidth": 64,
+  "sheetHeight": 96,
+  "entries": [
+    {
+      "name": "tree_round_bushy",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 96,
+      "tags": [
+        "schwarnhild",
+        "restored"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "source": "Grass.png",
+  "sheetWidth": 96,
+  "sheetHeight": 48,
+  "entries": [
+    {
+      "name": "grass_variants",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 48,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

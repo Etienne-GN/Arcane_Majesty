@@ -1,0 +1,19 @@
+{
+  "source": "mushroom_variant_cluster.png",
+  "sheetWidth": 96,
+  "sheetHeight": 128,
+  "entries": [
+    {
+      "name": "mushroom_variant_cluster",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 128,
+      "tags": [
+        "schwarnhild",
+        "restored"
+      ]
+    }
+  ]
+}

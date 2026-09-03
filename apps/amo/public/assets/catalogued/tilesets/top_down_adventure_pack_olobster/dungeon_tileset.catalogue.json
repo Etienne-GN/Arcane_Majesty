@@ -1,0 +1,83 @@
+{
+  "source": "dungeon_tileset.png",
+  "sheetWidth": 192,
+  "sheetHeight": 208,
+  "entries": [
+    {
+      "name": "stone_wall_blob",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "stone",
+        "wall",
+        "autotile"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "floor_tile_dark",
+      "kind": "object",
+      "x": 96,
+      "y": 0,
+      "w": 96,
+      "h": 96,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "floor",
+        "dungeon"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "spike_trap",
+      "kind": "object",
+      "x": 128,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "trap",
+        "prop"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "crystal_prop",
+      "kind": "object",
+      "x": 160,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "crystal",
+        "prop"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "floor_tile_ground",
+      "kind": "object",
+      "x": 0,
+      "y": 176,
+      "w": 192,
+      "h": 32,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "floor",
+        "ground"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

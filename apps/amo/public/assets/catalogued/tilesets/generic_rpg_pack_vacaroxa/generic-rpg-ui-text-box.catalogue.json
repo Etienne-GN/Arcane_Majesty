@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-ui-text-box.png",
+  "sheetWidth": 112,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "generic_rpg_ui_text_box",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 112,
+      "h": 32,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "ui"
+      ]
+    }
+  ]
+}

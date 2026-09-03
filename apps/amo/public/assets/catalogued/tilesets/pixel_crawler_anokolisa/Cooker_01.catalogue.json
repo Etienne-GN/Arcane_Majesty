@@ -1,0 +1,21 @@
+{
+  "source": "Cooker_01.png",
+  "sheetWidth": 64,
+  "sheetHeight": 64,
+  "entries": [
+    {
+      "name": "cooker_01",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cooker"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

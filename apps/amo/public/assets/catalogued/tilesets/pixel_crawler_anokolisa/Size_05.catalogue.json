@@ -1,0 +1,21 @@
+{
+  "source": "Size_05.png",
+  "sheetWidth": 448,
+  "sheetHeight": 368,
+  "entries": [
+    {
+      "name": "size_05",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 448,
+      "h": 368,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "trees"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

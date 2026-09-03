@@ -1,0 +1,51 @@
+{
+  "source": "dungeon_tiles.png",
+  "sheetWidth": 400,
+  "sheetHeight": 400,
+  "entries": [
+    {
+      "name": "stone_floor",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "floor",
+        "dungeon"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "stone_wall_blob",
+      "kind": "object",
+      "x": 128,
+      "y": 0,
+      "w": 96,
+      "h": 96,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "wall",
+        "autotile"
+      ],
+      "lowConfidence": true
+    },
+    {
+      "name": "dungeon_prop_cluster",
+      "kind": "object",
+      "x": 0,
+      "y": 128,
+      "w": 96,
+      "h": 96,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "props"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

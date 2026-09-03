@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-rock01.png",
+  "sheetWidth": 16,
+  "sheetHeight": 8,
+  "entries": [
+    {
+      "name": "generic_rpg_rock01",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 8,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

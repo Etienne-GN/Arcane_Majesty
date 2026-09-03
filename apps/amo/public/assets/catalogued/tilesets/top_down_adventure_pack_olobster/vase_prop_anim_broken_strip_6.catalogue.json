@@ -1,0 +1,58 @@
+{
+  "source": "vase_prop_anim_broken_strip_6.png",
+  "sheetWidth": 112,
+  "sheetHeight": 16,
+  "entries": [
+    {
+      "name": "vase_prop_anim_broken_strip_6",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 18,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "animated"
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 18,
+          "h": 16
+        },
+        {
+          "x": 18,
+          "y": 0,
+          "w": 18,
+          "h": 16
+        },
+        {
+          "x": 36,
+          "y": 0,
+          "w": 18,
+          "h": 16
+        },
+        {
+          "x": 54,
+          "y": 0,
+          "w": 18,
+          "h": 16
+        },
+        {
+          "x": 72,
+          "y": 0,
+          "w": 18,
+          "h": 16
+        },
+        {
+          "x": 90,
+          "y": 0,
+          "w": 18,
+          "h": 16
+        }
+      ]
+    }
+  ]
+}

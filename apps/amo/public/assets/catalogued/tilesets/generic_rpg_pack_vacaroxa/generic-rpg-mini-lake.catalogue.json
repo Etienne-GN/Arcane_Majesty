@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-mini-lake.png",
+  "sheetWidth": 55,
+  "sheetHeight": 39,
+  "entries": [
+    {
+      "name": "generic_rpg_mini_lake",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 55,
+      "h": 39,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

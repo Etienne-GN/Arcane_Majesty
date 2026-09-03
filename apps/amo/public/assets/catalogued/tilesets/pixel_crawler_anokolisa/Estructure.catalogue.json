@@ -1,0 +1,21 @@
+{
+  "source": "Estructure.png",
+  "sheetWidth": 288,
+  "sheetHeight": 224,
+  "entries": [
+    {
+      "name": "estructure",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 288,
+      "h": 224,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cooking_station"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

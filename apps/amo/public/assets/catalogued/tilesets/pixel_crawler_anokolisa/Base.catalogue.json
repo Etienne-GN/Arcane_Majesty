@@ -1,0 +1,21 @@
+{
+  "source": "Base.png",
+  "sheetWidth": 256,
+  "sheetHeight": 144,
+  "entries": [
+    {
+      "name": "base",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 256,
+      "h": 144,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "sawmill"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

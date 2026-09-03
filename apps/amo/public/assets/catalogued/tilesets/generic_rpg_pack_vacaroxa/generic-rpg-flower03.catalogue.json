@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-flower03.png",
+  "sheetWidth": 8,
+  "sheetHeight": 7,
+  "entries": [
+    {
+      "name": "generic_rpg_flower03",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 8,
+      "h": 7,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

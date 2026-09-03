@@ -1,0 +1,21 @@
+{
+  "source": "Pan_02-Sheet.png",
+  "sheetWidth": 64,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "pan_02-sheet",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "animated"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "source": "Tufts and Lumps.png",
+  "sheetWidth": 96,
+  "sheetHeight": 64,
+  "entries": [
+    {
+      "name": "tufts_and_lumps",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 64,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "source": "tree_pine_snow_capped_free.png",
+  "sheetWidth": 64,
+  "sheetHeight": 96,
+  "entries": [
+    {
+      "name": "tree_pine_snow_capped_free",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 96,
+      "tags": [
+        "schwarnhild",
+        "restored"
+      ]
+    }
+  ]
+}

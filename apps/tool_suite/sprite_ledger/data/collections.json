@@ -46,5 +46,33 @@
   {
     "id": "patd_bushes_dustdfg",
     "name": "PATD Bushes (DustDFG)"
+  },
+  {
+    "id": "schwarnhild",
+    "name": "Basic Tileset (schwarnhild)"
+  },
+  {
+    "id": "generic_rpg_vacaroxa",
+    "name": "Generic RPG Pack (CC0)"
+  },
+  {
+    "id": "hana_caraka",
+    "name": "Hana Caraka Topdown"
+  },
+  {
+    "id": "widelands_trees",
+    "name": "Widelands Trees (Blackland)"
+  },
+  {
+    "id": "top_down_adventure_olobster",
+    "name": "Top-Down Adventure Pack (o_lobster)"
+  },
+  {
+    "id": "woolly_lands",
+    "name": "Woolly Lands (TofeBaa)"
+  },
+  {
+    "id": "pixel_crawler",
+    "name": "Pixel Crawler (Anokolisa)"
   }
 ]

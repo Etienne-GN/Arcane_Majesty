@@ -1,0 +1,21 @@
+{
+  "source": "Pan.png",
+  "sheetWidth": 160,
+  "sheetHeight": 176,
+  "entries": [
+    {
+      "name": "pan",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 160,
+      "h": 176,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "static"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

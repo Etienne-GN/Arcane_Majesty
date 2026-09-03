@@ -1,0 +1,22 @@
+{
+  "source": "Bush.png",
+  "sheetWidth": 64,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "bush_variants",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "bush",
+        "nature"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

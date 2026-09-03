@@ -1,0 +1,19 @@
+{
+  "source": "tree_large_canopy.png",
+  "sheetWidth": 96,
+  "sheetHeight": 96,
+  "entries": [
+    {
+      "name": "tree_large_canopy",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 96,
+      "h": 96,
+      "tags": [
+        "schwarnhild",
+        "restored"
+      ]
+    }
+  ]
+}

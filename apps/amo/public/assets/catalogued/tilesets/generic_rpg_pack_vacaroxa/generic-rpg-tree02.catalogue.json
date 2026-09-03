@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-tree02.png",
+  "sheetWidth": 53,
+  "sheetHeight": 74,
+  "entries": [
+    {
+      "name": "generic_rpg_tree02",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 53,
+      "h": 74,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

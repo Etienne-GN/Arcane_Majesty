@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-fence-raw08.png",
+  "sheetWidth": 16,
+  "sheetHeight": 16,
+  "entries": [
+    {
+      "name": "generic_rpg_fence_raw08",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

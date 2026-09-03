@@ -1,0 +1,19 @@
+{
+  "source": "log_vertical_short.png",
+  "sheetWidth": 32,
+  "sheetHeight": 64,
+  "entries": [
+    {
+      "name": "log_vertical_short",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "schwarnhild",
+        "restored"
+      ]
+    }
+  ]
+}

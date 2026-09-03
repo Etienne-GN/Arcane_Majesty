@@ -1,0 +1,21 @@
+{
+  "source": "Level_2-Sheet.png",
+  "sheetWidth": 640,
+  "sheetHeight": 512,
+  "entries": [
+    {
+      "name": "level_2-sheet",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 640,
+      "h": 512,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "sawmill"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-fence-complete.png",
+  "sheetWidth": 67,
+  "sheetHeight": 62,
+  "entries": [
+    {
+      "name": "generic_rpg_fence_complete",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 67,
+      "h": 62,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

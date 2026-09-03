@@ -1,0 +1,21 @@
+{
+  "source": "Fire_01-Sheet.png",
+  "sheetWidth": 128,
+  "sheetHeight": 48,
+  "entries": [
+    {
+      "name": "fire_01-sheet",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 48,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "bonfire"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

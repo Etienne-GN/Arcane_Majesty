@@ -1,0 +1,21 @@
+{
+  "source": "generic-rpg-barrel02.png",
+  "sheetWidth": 17,
+  "sheetHeight": 17,
+  "entries": [
+    {
+      "name": "generic_rpg_barrel02",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 17,
+      "h": 17,
+      "tags": [
+        "generic_rpg_pack",
+        "vacaroxa",
+        "cc0",
+        "props_n_decorations"
+      ]
+    }
+  ]
+}

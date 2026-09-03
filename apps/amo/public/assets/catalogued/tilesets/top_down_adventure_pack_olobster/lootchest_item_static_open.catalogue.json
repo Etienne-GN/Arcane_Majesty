@@ -1,0 +1,19 @@
+{
+  "source": "lootchest_item_static_open.png",
+  "sheetWidth": 16,
+  "sheetHeight": 16,
+  "entries": [
+    {
+      "name": "lootchest_item_static_open",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster"
+      ]
+    }
+  ]
+}

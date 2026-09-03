@@ -1,0 +1,21 @@
+{
+  "source": "Other.png",
+  "sheetWidth": 64,
+  "sheetHeight": 48,
+  "entries": [
+    {
+      "name": "misc_props",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 48,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "props"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

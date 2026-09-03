@@ -1,0 +1,21 @@
+{
+  "source": "Anvil_02-Sheet.png",
+  "sheetWidth": 480,
+  "sheetHeight": 480,
+  "entries": [
+    {
+      "name": "anvil_02-sheet",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 480,
+      "h": 480,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "anvil"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}
