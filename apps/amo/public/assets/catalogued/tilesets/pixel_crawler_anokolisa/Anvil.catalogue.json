@@ -6,16 +6,15 @@
     {
       "name": "anvil",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 272,
-      "h": 160,
+      "x": 1,
+      "y": 14,
+      "w": 271,
+      "h": 146,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "anvil"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

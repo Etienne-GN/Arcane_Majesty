@@ -6,16 +6,15 @@
     {
       "name": "stone_03-sheet",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 96,
-      "h": 128,
+      "x": 3,
+      "y": 2,
+      "w": 89,
+      "h": 126,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "furnace"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

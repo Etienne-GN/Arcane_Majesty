@@ -6,16 +6,15 @@
     {
       "name": "iron_02-sheet",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 96,
-      "h": 128,
+      "x": 5,
+      "y": 5,
+      "w": 86,
+      "h": 123,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "furnace"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

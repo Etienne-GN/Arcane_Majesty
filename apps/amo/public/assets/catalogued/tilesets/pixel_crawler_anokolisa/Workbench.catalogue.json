@@ -7,15 +7,14 @@
       "name": "workbench",
       "kind": "object",
       "x": 0,
-      "y": 0,
+      "y": 1,
       "w": 192,
-      "h": 352,
+      "h": 351,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "workbench"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

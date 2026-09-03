@@ -7,15 +7,14 @@
       "name": "roofs",
       "kind": "object",
       "x": 0,
-      "y": 0,
-      "w": 400,
-      "h": 400,
+      "y": 6,
+      "w": 256,
+      "h": 285,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "buildings"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

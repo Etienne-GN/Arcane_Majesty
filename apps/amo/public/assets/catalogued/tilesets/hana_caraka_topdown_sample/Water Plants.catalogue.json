@@ -6,17 +6,16 @@
     {
       "name": "water_plant_variants",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 96,
-      "h": 32,
+      "x": 1,
+      "y": 4,
+      "w": 94,
+      "h": 26,
       "tags": [
         "hana_caraka",
         "bagong_games",
         "water",
         "plant"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

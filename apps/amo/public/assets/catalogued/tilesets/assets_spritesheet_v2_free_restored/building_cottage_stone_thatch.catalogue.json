@@ -6,10 +6,10 @@
     {
       "name": "building_cottage_stone_thatch",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 160,
-      "h": 224,
+      "x": 19,
+      "y": 9,
+      "w": 139,
+      "h": 193,
       "tags": [
         "schwarnhild",
         "restored"

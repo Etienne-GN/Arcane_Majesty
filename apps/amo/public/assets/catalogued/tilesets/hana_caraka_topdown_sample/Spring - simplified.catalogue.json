@@ -6,9 +6,9 @@
     {
       "name": "spring_tileset_blob",
       "kind": "object",
-      "x": 0,
+      "x": 2,
       "y": 0,
-      "w": 80,
+      "w": 78,
       "h": 48,
       "tags": [
         "hana_caraka",
@@ -16,7 +16,6 @@
         "grass",
         "autotile"
       ],
-      "lowConfidence": true,
       "season": "spring"
     }
   ]

@@ -9,13 +9,12 @@
       "x": 0,
       "y": 0,
       "w": 64,
-      "h": 48,
+      "h": 47,
       "tags": [
         "hana_caraka",
         "bagong_games",
         "props"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

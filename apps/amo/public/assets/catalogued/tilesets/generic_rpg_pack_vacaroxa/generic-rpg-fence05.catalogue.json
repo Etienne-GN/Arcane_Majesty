@@ -7,9 +7,9 @@
       "name": "generic_rpg_fence05",
       "kind": "object",
       "x": 0,
-      "y": 0,
-      "w": 16,
-      "h": 16,
+      "y": 2,
+      "w": 10,
+      "h": 14,
       "tags": [
         "generic_rpg_pack",
         "vacaroxa",

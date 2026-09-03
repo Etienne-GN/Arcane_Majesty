@@ -6,10 +6,10 @@
     {
       "name": "decoration_snowman_5",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 32,
-      "h": 64,
+      "x": 2,
+      "y": 17,
+      "w": 28,
+      "h": 44,
       "tags": [
         "snowy",
         "winter",

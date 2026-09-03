@@ -6,10 +6,10 @@
     {
       "name": "plank_pile_tall_b",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 64,
+      "x": 6,
+      "y": 4,
+      "w": 41,
+      "h": 60,
       "tags": [
         "schwarnhild",
         "restored"

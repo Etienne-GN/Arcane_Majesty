@@ -6,10 +6,10 @@
     {
       "name": "decoration_log_cabin",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 133,
-      "h": 202,
+      "x": 1,
+      "y": 3,
+      "w": 132,
+      "h": 195,
       "tags": [
         "snowy",
         "winter",

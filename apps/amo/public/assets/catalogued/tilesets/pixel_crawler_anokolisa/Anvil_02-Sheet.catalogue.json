@@ -7,15 +7,14 @@
       "name": "anvil_02-sheet",
       "kind": "object",
       "x": 0,
-      "y": 0,
-      "w": 480,
-      "h": 480,
+      "y": 10,
+      "w": 479,
+      "h": 466,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "anvil"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

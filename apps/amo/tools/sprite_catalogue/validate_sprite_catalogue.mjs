@@ -185,9 +185,14 @@ export function relocateToCatalogued(paths, assetsMarker = ASSETS_MARKER) {
 
 // ── CLI entrypoint ──────────────────────────────────────────────────────────
 if (import.meta.url === `file://${process.argv[1]}`) {
-    const files = process.argv.slice(2);
+    const argv = process.argv.slice(2);
+    // Validation is a judgement; relocation is a filesystem mutation that has
+    // 404'd hardcoded loaders more than once. --no-move lets a caller (a
+    // bootstrap pass, a test, CI) get the verdict without the side effect.
+    const noMove = argv.includes('--no-move');
+    const files = argv.filter(a => a !== '--no-move');
     if (!files.length) {
-        console.error('usage: node validate_sprite_catalogue.mjs <file.catalogue.json> [...]');
+        console.error('usage: node validate_sprite_catalogue.mjs [--no-move] <file.catalogue.json> [...]');
         process.exit(1);
     }
     let hardFail = false;
@@ -198,6 +203,11 @@ if (import.meta.url === `file://${process.argv[1]}`) {
             for (const e of errors) console.error(`✗ ${f}: ${e}`);
             if (errors.length) {
                 hardFail = true;
+                continue;
+            }
+            const suffixWarn = warnings.length ? ` (${warnings.length} warning(s))` : '';
+            if (noMove) {
+                console.log(`✓ ${f} OK${suffixWarn} — not moved (--no-move)`);
                 continue;
             }
             const sourcePath = join(dirname(f), cat.source);

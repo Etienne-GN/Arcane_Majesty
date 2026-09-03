@@ -6,10 +6,10 @@
     {
       "name": "tree_round_bushy",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 96,
+      "x": 1,
+      "y": 1,
+      "w": 61,
+      "h": 95,
       "tags": [
         "schwarnhild",
         "restored"

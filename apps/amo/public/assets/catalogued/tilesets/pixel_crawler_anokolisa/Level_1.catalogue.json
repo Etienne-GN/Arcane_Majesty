@@ -7,15 +7,14 @@
       "name": "level_1",
       "kind": "object",
       "x": 0,
-      "y": 0,
-      "w": 32,
-      "h": 32,
+      "y": 6,
+      "w": 31,
+      "h": 26,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "sawmill"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

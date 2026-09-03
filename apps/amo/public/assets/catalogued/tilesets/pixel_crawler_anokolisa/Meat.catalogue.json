@@ -6,16 +6,15 @@
     {
       "name": "meat",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 144,
+      "x": 1,
+      "y": 1,
+      "w": 61,
+      "h": 139,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "static"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

@@ -8,14 +8,13 @@
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 400,
-      "h": 400,
+      "w": 128,
+      "h": 88,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "buildings"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

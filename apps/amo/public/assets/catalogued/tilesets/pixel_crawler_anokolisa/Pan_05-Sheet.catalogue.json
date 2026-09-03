@@ -6,16 +6,15 @@
     {
       "name": "pan_05-sheet",
       "kind": "object",
-      "x": 0,
+      "x": 10,
       "y": 0,
-      "w": 256,
+      "w": 246,
       "h": 32,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "animated"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

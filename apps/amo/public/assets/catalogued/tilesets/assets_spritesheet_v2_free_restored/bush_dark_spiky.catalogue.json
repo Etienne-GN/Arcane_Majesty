@@ -6,10 +6,10 @@
     {
       "name": "bush_dark_spiky",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 32,
-      "h": 32,
+      "x": 3,
+      "y": 10,
+      "w": 29,
+      "h": 22,
       "tags": [
         "schwarnhild",
         "restored"

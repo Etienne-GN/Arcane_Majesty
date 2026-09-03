@@ -6,16 +6,15 @@
     {
       "name": "vegetation_01",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 208,
-      "h": 304,
+      "x": 3,
+      "y": 2,
+      "w": 205,
+      "h": 291,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "static"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

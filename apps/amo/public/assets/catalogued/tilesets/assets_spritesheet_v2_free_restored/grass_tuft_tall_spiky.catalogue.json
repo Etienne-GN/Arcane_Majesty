@@ -7,9 +7,9 @@
       "name": "grass_tuft_tall_spiky",
       "kind": "object",
       "x": 0,
-      "y": 0,
+      "y": 13,
       "w": 32,
-      "h": 32,
+      "h": 19,
       "tags": [
         "schwarnhild",
         "restored"

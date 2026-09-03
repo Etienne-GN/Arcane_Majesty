@@ -6,10 +6,10 @@
     {
       "name": "terrain_misc_ice_square",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 32,
-      "h": 32,
+      "x": 1,
+      "y": 1,
+      "w": 30,
+      "h": 30,
       "tags": [
         "snowy",
         "winter",

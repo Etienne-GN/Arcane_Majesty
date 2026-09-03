@@ -6,16 +6,15 @@
     {
       "name": "bonfire_04-sheet",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 128,
-      "h": 32,
+      "x": 1,
+      "y": 11,
+      "w": 125,
+      "h": 19,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "bonfire"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

@@ -7,9 +7,9 @@
       "name": "log_pile_stacked",
       "kind": "object",
       "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 64,
+      "y": 8,
+      "w": 25,
+      "h": 49,
       "tags": [
         "schwarnhild",
         "restored"

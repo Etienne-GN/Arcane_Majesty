@@ -6,16 +6,15 @@
     {
       "name": "props",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 400,
-      "h": 400,
+      "x": 1,
+      "y": 20,
+      "w": 218,
+      "h": 156,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "buildings"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

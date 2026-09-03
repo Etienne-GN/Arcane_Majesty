@@ -7,15 +7,14 @@
       "name": "bonfire",
       "kind": "object",
       "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 384,
+      "y": 20,
+      "w": 63,
+      "h": 354,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "bonfire"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

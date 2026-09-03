@@ -6,17 +6,16 @@
     {
       "name": "fruit_variants",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 32,
-      "h": 112,
+      "x": 1,
+      "y": 1,
+      "w": 31,
+      "h": 111,
       "tags": [
         "woolly_lands",
         "tofebaa",
         "fruit",
         "item"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

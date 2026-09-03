@@ -7,15 +7,14 @@
       "name": "walls",
       "kind": "object",
       "x": 0,
-      "y": 0,
+      "y": 7,
       "w": 672,
-      "h": 400,
+      "h": 382,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "buildings"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

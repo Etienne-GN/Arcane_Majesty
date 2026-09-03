@@ -6,10 +6,10 @@
     {
       "name": "terrain_misc_water_hole_2",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 32,
-      "h": 32,
+      "x": 10,
+      "y": 10,
+      "w": 12,
+      "h": 11,
       "tags": [
         "snowy",
         "winter",

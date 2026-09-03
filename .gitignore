@@ -2,3 +2,4 @@ neo4j_db/
 
 # SDD scratch workspaces (git-ignored)
 .superpowers/
+__pycache__/

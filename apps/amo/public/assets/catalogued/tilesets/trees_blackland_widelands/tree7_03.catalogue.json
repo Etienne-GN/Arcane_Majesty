@@ -6,10 +6,10 @@
     {
       "name": "tree7_03",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 72,
-      "h": 65,
+      "x": 10,
+      "y": 1,
+      "w": 57,
+      "h": 62,
       "tags": [
         "trees_blackland",
         "widelands",

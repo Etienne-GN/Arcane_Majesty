@@ -7,9 +7,9 @@
       "name": "lily_pad_flowering_pink",
       "kind": "object",
       "x": 0,
-      "y": 0,
-      "w": 32,
-      "h": 32,
+      "y": 16,
+      "w": 21,
+      "h": 8,
       "tags": [
         "schwarnhild",
         "restored"

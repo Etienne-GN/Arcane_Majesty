@@ -6,10 +6,10 @@
     {
       "name": "terrain_misc_ice_circle_2",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 32,
-      "h": 32,
+      "x": 11,
+      "y": 11,
+      "w": 10,
+      "h": 9,
       "tags": [
         "snowy",
         "winter",

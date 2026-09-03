@@ -7,15 +7,14 @@
       "name": "bonfire_10-sheet",
       "kind": "object",
       "x": 0,
-      "y": 0,
-      "w": 192,
-      "h": 32,
+      "y": 1,
+      "w": 183,
+      "h": 31,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "bonfire"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

@@ -6,9 +6,9 @@
     {
       "name": "bush_round_plain_a",
       "kind": "object",
-      "x": 0,
+      "x": 4,
       "y": 0,
-      "w": 32,
+      "w": 28,
       "h": 32,
       "tags": [
         "schwarnhild",

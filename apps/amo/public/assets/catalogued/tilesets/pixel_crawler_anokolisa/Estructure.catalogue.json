@@ -6,16 +6,15 @@
     {
       "name": "estructure",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 288,
-      "h": 224,
+      "x": 1,
+      "y": 20,
+      "w": 287,
+      "h": 204,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "cooking_station"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

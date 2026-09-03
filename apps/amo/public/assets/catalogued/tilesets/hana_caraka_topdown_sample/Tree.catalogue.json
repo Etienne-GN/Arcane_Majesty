@@ -6,17 +6,16 @@
     {
       "name": "tree_variants",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 128,
-      "h": 48,
+      "x": 5,
+      "y": 4,
+      "w": 118,
+      "h": 43,
       "tags": [
         "hana_caraka",
         "bagong_games",
         "tree",
         "nature"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

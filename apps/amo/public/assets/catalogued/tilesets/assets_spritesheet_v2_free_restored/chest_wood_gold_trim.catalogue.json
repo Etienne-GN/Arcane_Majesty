@@ -6,10 +6,10 @@
     {
       "name": "chest_wood_gold_trim",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 64,
+      "x": 8,
+      "y": 15,
+      "w": 56,
+      "h": 34,
       "tags": [
         "schwarnhild",
         "restored"

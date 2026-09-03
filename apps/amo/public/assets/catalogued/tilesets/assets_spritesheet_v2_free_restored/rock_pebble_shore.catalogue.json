@@ -7,9 +7,9 @@
       "name": "rock_pebble_shore",
       "kind": "object",
       "x": 0,
-      "y": 0,
+      "y": 13,
       "w": 32,
-      "h": 32,
+      "h": 13,
       "tags": [
         "schwarnhild",
         "restored"

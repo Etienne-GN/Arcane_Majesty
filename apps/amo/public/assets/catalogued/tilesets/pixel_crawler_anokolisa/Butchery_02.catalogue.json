@@ -6,16 +6,15 @@
     {
       "name": "butchery_02",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 64,
+      "x": 16,
+      "y": 19,
+      "w": 32,
+      "h": 29,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "butchery"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

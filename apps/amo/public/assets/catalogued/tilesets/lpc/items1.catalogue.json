@@ -6,10 +6,10 @@
     {
       "name": "lpc_items_sheet",
       "kind": "object",
-      "x": 0,
+      "x": 1,
       "y": 0,
-      "w": 512,
-      "h": 512,
+      "w": 511,
+      "h": 320,
       "tags": [
         "lpc",
         "items",
@@ -18,8 +18,7 @@
         "atlas",
         "uncropped",
         "needs-extraction"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

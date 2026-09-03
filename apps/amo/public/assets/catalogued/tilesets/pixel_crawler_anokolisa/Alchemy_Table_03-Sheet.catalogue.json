@@ -7,15 +7,14 @@
       "name": "alchemy_table_03-sheet",
       "kind": "object",
       "x": 0,
-      "y": 0,
+      "y": 8,
       "w": 400,
-      "h": 400,
+      "h": 392,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "alchemy"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

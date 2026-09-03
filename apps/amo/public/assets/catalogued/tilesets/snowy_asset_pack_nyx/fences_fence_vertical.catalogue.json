@@ -6,9 +6,9 @@
     {
       "name": "fences_fence_vertical",
       "kind": "object",
-      "x": 0,
+      "x": 11,
       "y": 0,
-      "w": 32,
+      "w": 11,
       "h": 32,
       "tags": [
         "snowy",

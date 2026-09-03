@@ -7,15 +7,14 @@
       "name": "level_2-sheet",
       "kind": "object",
       "x": 0,
-      "y": 0,
+      "y": 3,
       "w": 640,
-      "h": 512,
+      "h": 508,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "sawmill"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

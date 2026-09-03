@@ -6,10 +6,10 @@
     {
       "name": "fence_plank_vertical_run",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 64,
+      "x": 6,
+      "y": 24,
+      "w": 58,
+      "h": 38,
       "tags": [
         "schwarnhild",
         "restored"

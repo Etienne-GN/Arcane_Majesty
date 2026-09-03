@@ -7,15 +7,14 @@
       "name": "bricks_03-sheet",
       "kind": "object",
       "x": 0,
-      "y": 0,
+      "y": 4,
       "w": 96,
-      "h": 128,
+      "h": 124,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "furnace"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

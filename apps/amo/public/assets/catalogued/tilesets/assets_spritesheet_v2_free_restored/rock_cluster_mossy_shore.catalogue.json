@@ -6,10 +6,10 @@
     {
       "name": "rock_cluster_mossy_shore",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 32,
+      "x": 3,
+      "y": 6,
+      "w": 61,
+      "h": 26,
       "tags": [
         "schwarnhild",
         "restored"

@@ -6,9 +6,9 @@
     {
       "name": "generic_rpg_fence_raw08",
       "kind": "object",
-      "x": 0,
+      "x": 7,
       "y": 0,
-      "w": 16,
+      "w": 9,
       "h": 16,
       "tags": [
         "generic_rpg_pack",

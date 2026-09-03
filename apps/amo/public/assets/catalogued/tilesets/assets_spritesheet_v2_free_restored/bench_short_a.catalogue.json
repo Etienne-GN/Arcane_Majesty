@@ -6,10 +6,10 @@
     {
       "name": "bench_short_a",
       "kind": "object",
-      "x": 0,
+      "x": 9,
       "y": 0,
-      "w": 64,
-      "h": 32,
+      "w": 40,
+      "h": 15,
       "tags": [
         "schwarnhild",
         "restored"

@@ -6,10 +6,10 @@
     {
       "name": "generic_rpg_fence01",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 16,
-      "h": 16,
+      "x": 7,
+      "y": 2,
+      "w": 9,
+      "h": 14,
       "tags": [
         "generic_rpg_pack",
         "vacaroxa",

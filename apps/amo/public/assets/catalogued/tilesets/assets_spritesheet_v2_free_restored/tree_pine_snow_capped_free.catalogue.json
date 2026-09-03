@@ -6,10 +6,10 @@
     {
       "name": "tree_pine_snow_capped_free",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 96,
+      "x": 6,
+      "y": 3,
+      "w": 52,
+      "h": 92,
       "tags": [
         "schwarnhild",
         "restored"

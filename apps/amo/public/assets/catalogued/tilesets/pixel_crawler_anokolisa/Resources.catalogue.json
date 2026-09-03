@@ -8,14 +8,13 @@
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 400,
-      "h": 400,
+      "w": 110,
+      "h": 176,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "static"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

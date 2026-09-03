@@ -7,15 +7,14 @@
       "name": "furnace",
       "kind": "object",
       "x": 0,
-      "y": 0,
-      "w": 192,
-      "h": 384,
+      "y": 2,
+      "w": 189,
+      "h": 382,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "furnace"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

@@ -7,9 +7,9 @@
       "name": "fences_fence_horizontal",
       "kind": "object",
       "x": 0,
-      "y": 0,
+      "y": 3,
       "w": 32,
-      "h": 32,
+      "h": 29,
       "tags": [
         "snowy",
         "winter",

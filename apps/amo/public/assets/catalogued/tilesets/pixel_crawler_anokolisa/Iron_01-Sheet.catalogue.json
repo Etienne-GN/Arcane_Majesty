@@ -7,15 +7,14 @@
       "name": "iron_01-sheet",
       "kind": "object",
       "x": 0,
-      "y": 0,
+      "y": 3,
       "w": 64,
-      "h": 96,
+      "h": 93,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "furnace"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

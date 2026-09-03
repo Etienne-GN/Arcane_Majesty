@@ -6,16 +6,15 @@
     {
       "name": "bricks_02-sheet",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 96,
-      "h": 128,
+      "x": 6,
+      "y": 7,
+      "w": 84,
+      "h": 121,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "furnace"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

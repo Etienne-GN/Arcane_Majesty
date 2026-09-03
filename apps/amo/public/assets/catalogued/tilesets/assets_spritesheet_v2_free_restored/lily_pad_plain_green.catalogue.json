@@ -6,10 +6,10 @@
     {
       "name": "lily_pad_plain_green",
       "kind": "object",
-      "x": 0,
+      "x": 14,
       "y": 0,
-      "w": 32,
-      "h": 32,
+      "w": 18,
+      "h": 24,
       "tags": [
         "schwarnhild",
         "restored"

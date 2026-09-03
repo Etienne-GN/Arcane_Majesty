@@ -6,16 +6,15 @@
     {
       "name": "cooker_01",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 64,
+      "x": 11,
+      "y": 3,
+      "w": 42,
+      "h": 50,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "cooker"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

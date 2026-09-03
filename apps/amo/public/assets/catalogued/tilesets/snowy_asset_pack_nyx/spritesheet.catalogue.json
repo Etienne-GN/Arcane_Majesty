@@ -8,16 +8,15 @@
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 512,
-      "h": 512,
+      "w": 481,
+      "h": 454,
       "tags": [
         "snowy",
         "winter",
         "nyx",
         "overview",
         "uncropped"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

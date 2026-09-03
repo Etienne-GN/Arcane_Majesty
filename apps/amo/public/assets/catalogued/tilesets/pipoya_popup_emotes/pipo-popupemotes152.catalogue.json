@@ -6,10 +6,10 @@
     {
       "name": "pipo-popupemotes152",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 96,
-      "h": 32,
+      "x": 8,
+      "y": 9,
+      "w": 79,
+      "h": 21,
       "tags": [
         "pipoya",
         "emote",

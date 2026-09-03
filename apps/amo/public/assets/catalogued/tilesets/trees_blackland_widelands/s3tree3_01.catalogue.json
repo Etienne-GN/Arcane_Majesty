@@ -6,10 +6,10 @@
     {
       "name": "s3tree3_01",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 55,
-      "h": 50,
+      "x": 6,
+      "y": 2,
+      "w": 46,
+      "h": 47,
       "tags": [
         "trees_blackland",
         "widelands",

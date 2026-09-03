@@ -6,16 +6,15 @@
     {
       "name": "grill_02-sheet",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 256,
-      "h": 64,
+      "x": 1,
+      "y": 8,
+      "w": 251,
+      "h": 53,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "grill"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

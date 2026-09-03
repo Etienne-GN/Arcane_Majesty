@@ -6,10 +6,10 @@
     {
       "name": "rock_pebble_dark",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 32,
-      "h": 32,
+      "x": 13,
+      "y": 14,
+      "w": 19,
+      "h": 14,
       "tags": [
         "schwarnhild",
         "restored"

@@ -7,15 +7,14 @@
       "name": "pan",
       "kind": "object",
       "x": 0,
-      "y": 0,
+      "y": 2,
       "w": 160,
-      "h": 176,
+      "h": 174,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "static"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

@@ -6,16 +6,15 @@
     {
       "name": "cooker_04-sheet",
       "kind": "object",
-      "x": 0,
+      "x": 2,
       "y": 0,
-      "w": 320,
+      "w": 318,
       "h": 80,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "cooker"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

@@ -6,17 +6,16 @@
     {
       "name": "ground_texture",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 192,
-      "h": 32,
+      "x": 1,
+      "y": 2,
+      "w": 189,
+      "h": 28,
       "tags": [
         "hana_caraka",
         "bagong_games",
         "ground",
         "texture"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

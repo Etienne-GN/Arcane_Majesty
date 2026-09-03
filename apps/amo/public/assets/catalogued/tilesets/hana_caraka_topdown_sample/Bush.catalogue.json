@@ -7,16 +7,15 @@
       "name": "bush_variants",
       "kind": "object",
       "x": 0,
-      "y": 0,
+      "y": 4,
       "w": 64,
-      "h": 32,
+      "h": 28,
       "tags": [
         "hana_caraka",
         "bagong_games",
         "bush",
         "nature"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

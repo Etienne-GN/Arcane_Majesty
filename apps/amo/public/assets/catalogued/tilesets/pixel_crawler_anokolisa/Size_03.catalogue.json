@@ -8,14 +8,13 @@
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 208,
+      "w": 207,
       "h": 192,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "trees"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

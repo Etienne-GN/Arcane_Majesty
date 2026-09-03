@@ -6,10 +6,10 @@
     {
       "name": "stump_tiny",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 32,
-      "h": 32,
+      "x": 11,
+      "y": 12,
+      "w": 16,
+      "h": 14,
       "tags": [
         "schwarnhild",
         "restored"

@@ -7,15 +7,14 @@
       "name": "grill_03-sheet",
       "kind": "object",
       "x": 0,
-      "y": 0,
-      "w": 256,
-      "h": 64,
+      "y": 7,
+      "w": 248,
+      "h": 45,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "grill"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

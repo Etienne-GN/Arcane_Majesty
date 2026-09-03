@@ -6,16 +6,15 @@
     {
       "name": "size_04",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 368,
-      "h": 256,
+      "x": 3,
+      "y": 2,
+      "w": 355,
+      "h": 254,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "trees"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

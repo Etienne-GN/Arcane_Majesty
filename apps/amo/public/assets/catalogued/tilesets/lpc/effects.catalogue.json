@@ -8,8 +8,8 @@
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 640,
-      "h": 400,
+      "w": 637,
+      "h": 317,
       "tags": [
         "lpc",
         "effects",
@@ -18,8 +18,7 @@
         "atlas",
         "uncropped",
         "needs-extraction"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

@@ -6,9 +6,9 @@
     {
       "name": "decoration_log",
       "kind": "object",
-      "x": 0,
+      "x": 9,
       "y": 0,
-      "w": 32,
+      "w": 13,
       "h": 32,
       "tags": [
         "snowy",

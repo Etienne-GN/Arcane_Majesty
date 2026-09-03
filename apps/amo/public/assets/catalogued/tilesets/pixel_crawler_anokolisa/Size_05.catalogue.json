@@ -4,18 +4,201 @@
   "sheetHeight": 368,
   "entries": [
     {
-      "name": "size_05",
+      "name": "tree_large_summer",
       "kind": "object",
-      "x": 0,
+      "x": 1,
       "y": 0,
-      "w": 448,
-      "h": 368,
+      "w": 106,
+      "h": 160,
       "tags": [
         "pixel_crawler",
         "anokolisa",
-        "trees"
+        "trees",
+        "tree",
+        "large",
+        "leafy"
       ],
-      "lowConfidence": true
+      "season": "summer"
+    },
+    {
+      "name": "tree_large_spring",
+      "kind": "object",
+      "x": 113,
+      "y": 0,
+      "w": 106,
+      "h": 160,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "trees",
+        "tree",
+        "large",
+        "leafy"
+      ],
+      "season": "spring"
+    },
+    {
+      "name": "tree_large_bare",
+      "kind": "object",
+      "x": 225,
+      "y": 2,
+      "w": 100,
+      "h": 158,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "trees",
+        "tree",
+        "large",
+        "bare"
+      ]
+    },
+    {
+      "name": "tree_large_snow",
+      "kind": "object",
+      "x": 337,
+      "y": 2,
+      "w": 100,
+      "h": 158,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "trees",
+        "tree",
+        "large",
+        "snow"
+      ],
+      "season": "winter"
+    },
+    {
+      "name": "tree_large_autumn_red",
+      "kind": "object",
+      "x": 1,
+      "y": 160,
+      "w": 106,
+      "h": 160,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "trees",
+        "tree",
+        "large",
+        "leafy"
+      ],
+      "season": "autumn"
+    },
+    {
+      "name": "tree_large_autumn_gold",
+      "kind": "object",
+      "x": 113,
+      "y": 160,
+      "w": 106,
+      "h": 160,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "trees",
+        "tree",
+        "large",
+        "leafy"
+      ],
+      "season": "autumn"
+    },
+    {
+      "name": "tree_large_bare_slender",
+      "kind": "object",
+      "x": 225,
+      "y": 162,
+      "w": 100,
+      "h": 158,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "trees",
+        "tree",
+        "large",
+        "bare"
+      ]
+    },
+    {
+      "name": "tree_large_snow_slender",
+      "kind": "object",
+      "x": 337,
+      "y": 162,
+      "w": 100,
+      "h": 158,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "trees",
+        "tree",
+        "large",
+        "snow"
+      ],
+      "season": "winter"
+    },
+    {
+      "name": "stump_large",
+      "kind": "object",
+      "x": 23,
+      "y": 326,
+      "w": 61,
+      "h": 42,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "trees",
+        "stump",
+        "large"
+      ]
+    },
+    {
+      "name": "stump_large_pale",
+      "kind": "object",
+      "x": 135,
+      "y": 326,
+      "w": 61,
+      "h": 42,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "trees",
+        "stump",
+        "large"
+      ]
+    },
+    {
+      "name": "stump_large_snow",
+      "kind": "object",
+      "x": 247,
+      "y": 326,
+      "w": 61,
+      "h": 42,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "trees",
+        "stump",
+        "large",
+        "snow"
+      ],
+      "season": "winter"
+    },
+    {
+      "name": "stump_large_mossy",
+      "kind": "object",
+      "x": 359,
+      "y": 326,
+      "w": 61,
+      "h": 42,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "trees",
+        "stump",
+        "large",
+        "moss"
+      ]
     }
   ]
 }
