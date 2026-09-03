@@ -2,25 +2,187 @@
   "source": "seasonal sample (spring).png",
   "sheetWidth": 256,
   "sheetHeight": 256,
-  "gridTileWidth": 16,
-  "gridTileHeight": 16,
-  "gridCols": 16,
-  "gridRows": 16,
   "entries": [
     {
-      "name": "seasonal_sample_spring",
-      "kind": "tile",
-      "row": 0,
-      "col": 0,
-      "frameIndex": 0,
+      "name": "spring_tree",
+      "kind": "object",
+      "x": 176,
+      "y": 0,
+      "w": 80,
+      "h": 104,
       "tags": [
         "manaseed",
         "seliel_the_shaper",
         "seasonal",
-        "forest"
+        "forest",
+        "tree",
+        "nature"
       ],
-      "season": "spring",
-      "lowConfidence": true
+      "season": "spring"
+    },
+    {
+      "name": "spring_cave_entrance",
+      "kind": "object",
+      "x": 176,
+      "y": 128,
+      "w": 80,
+      "h": 64,
+      "tags": [
+        "manaseed",
+        "seliel_the_shaper",
+        "seasonal",
+        "forest",
+        "cave",
+        "cliff",
+        "structure"
+      ],
+      "season": "spring"
+    },
+    {
+      "name": "spring_cliff_hillside",
+      "kind": "object",
+      "x": 80,
+      "y": 0,
+      "w": 96,
+      "h": 256,
+      "tags": [
+        "manaseed",
+        "seliel_the_shaper",
+        "seasonal",
+        "forest",
+        "cliff",
+        "hillside",
+        "wall",
+        "blob"
+      ],
+      "season": "spring"
+    },
+    {
+      "name": "spring_dirt_patch_solid",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 48,
+      "tags": [
+        "manaseed",
+        "seliel_the_shaper",
+        "seasonal",
+        "forest",
+        "dirt",
+        "patch",
+        "ground"
+      ],
+      "season": "spring"
+    },
+    {
+      "name": "spring_dirt_patch_variant",
+      "kind": "object",
+      "x": 0,
+      "y": 48,
+      "w": 64,
+      "h": 48,
+      "tags": [
+        "manaseed",
+        "seliel_the_shaper",
+        "seasonal",
+        "forest",
+        "dirt",
+        "patch",
+        "ground",
+        "variant"
+      ],
+      "season": "spring"
+    },
+    {
+      "name": "spring_small_prop_icons",
+      "kind": "object",
+      "x": 0,
+      "y": 96,
+      "w": 80,
+      "h": 32,
+      "tags": [
+        "manaseed",
+        "seliel_the_shaper",
+        "seasonal",
+        "forest",
+        "props",
+        "decoration",
+        "small"
+      ],
+      "season": "spring"
+    },
+    {
+      "name": "spring_flower_rock_cluster",
+      "kind": "object",
+      "x": 0,
+      "y": 128,
+      "w": 80,
+      "h": 40,
+      "tags": [
+        "manaseed",
+        "seliel_the_shaper",
+        "seasonal",
+        "forest",
+        "flowers",
+        "rocks",
+        "props"
+      ],
+      "season": "spring"
+    },
+    {
+      "name": "spring_boulder_rock",
+      "kind": "object",
+      "x": 0,
+      "y": 208,
+      "w": 64,
+      "h": 48,
+      "tags": [
+        "manaseed",
+        "seliel_the_shaper",
+        "seasonal",
+        "forest",
+        "rock",
+        "boulder",
+        "props"
+      ],
+      "season": "spring"
+    },
+    {
+      "name": "spring_ice_wall_texture",
+      "kind": "object",
+      "x": 16,
+      "y": 176,
+      "w": 48,
+      "h": 32,
+      "tags": [
+        "manaseed",
+        "seliel_the_shaper",
+        "seasonal",
+        "forest",
+        "wall",
+        "texture",
+        "stone"
+      ],
+      "season": "spring"
+    },
+    {
+      "name": "spring_ground_texture_patch",
+      "kind": "object",
+      "x": 176,
+      "y": 192,
+      "w": 80,
+      "h": 64,
+      "tags": [
+        "manaseed",
+        "seliel_the_shaper",
+        "seasonal",
+        "forest",
+        "ground",
+        "texture",
+        "special"
+      ],
+      "season": "spring"
     }
   ]
 }

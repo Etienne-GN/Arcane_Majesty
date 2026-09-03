@@ -3663,23 +3663,11 @@
     "collection": "manaseed",
     "license": "ok"
   },
-  "seasonal sample (autumn).png::seasonal_sample_autumn": {
-    "collection": "manaseed",
-    "license": "ok"
-  },
-  "seasonal sample (spring).png::seasonal_sample_spring": {
-    "collection": "manaseed",
-    "license": "ok"
-  },
   "spring water sparkles B.png::spring_water_sparkles_b": {
     "collection": "manaseed",
     "license": "ok"
   },
   "spring waterfall B.png::spring_waterfall_b": {
-    "collection": "manaseed",
-    "license": "ok"
-  },
-  "seasonal sample (summer).png::seasonal_sample_summer": {
     "collection": "manaseed",
     "license": "ok"
   },
@@ -3691,15 +3679,171 @@
     "collection": "manaseed",
     "license": "ok"
   },
-  "seasonal sample (winter).png::seasonal_sample_winter": {
-    "collection": "manaseed",
-    "license": "ok"
-  },
   "winter water sparkles B 16x16.png::winter_water_sparkles_b_16x16": {
     "collection": "manaseed",
     "license": "ok"
   },
   "winter waterfall B 16x16.png::winter_waterfall_b_16x16": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (autumn).png::autumn_tree": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (autumn).png::autumn_cave_entrance": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (autumn).png::autumn_cliff_hillside": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (autumn).png::autumn_dirt_patch_solid": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (autumn).png::autumn_dirt_patch_variant": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (autumn).png::autumn_small_prop_icons": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (autumn).png::autumn_flower_rock_cluster": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (autumn).png::autumn_boulder_rock": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (autumn).png::autumn_ice_wall_texture": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (autumn).png::autumn_ground_texture_patch": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (spring).png::spring_tree": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (spring).png::spring_cave_entrance": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (spring).png::spring_cliff_hillside": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (spring).png::spring_dirt_patch_solid": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (spring).png::spring_dirt_patch_variant": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (spring).png::spring_small_prop_icons": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (spring).png::spring_flower_rock_cluster": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (spring).png::spring_boulder_rock": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (spring).png::spring_ice_wall_texture": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (spring).png::spring_ground_texture_patch": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (summer).png::summer_tree": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (summer).png::summer_cave_entrance": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (summer).png::summer_cliff_hillside": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (summer).png::summer_dirt_patch_solid": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (summer).png::summer_dirt_patch_variant": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (summer).png::summer_small_prop_icons": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (summer).png::summer_flower_rock_cluster": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (summer).png::summer_boulder_rock": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (summer).png::summer_ice_wall_texture": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (summer).png::summer_ground_texture_patch": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (winter).png::winter_tree": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (winter).png::winter_cave_entrance": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (winter).png::winter_cliff_hillside": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (winter).png::winter_dirt_patch_solid": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (winter).png::winter_dirt_patch_variant": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (winter).png::winter_small_prop_icons": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (winter).png::winter_flower_rock_cluster": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (winter).png::winter_boulder_rock": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (winter).png::winter_ice_wall_texture": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (winter).png::winter_ground_texture_patch": {
     "collection": "manaseed",
     "license": "ok"
   }
