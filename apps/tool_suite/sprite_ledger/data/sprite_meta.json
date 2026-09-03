@@ -4026,5 +4026,913 @@
   "item.png::slime_blob": {
     "collection": "roleworld_wizard",
     "license": "ok"
+  },
+  "pipo-popupemotes000.png::pipo-popupemotes000": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes001.png::pipo-popupemotes001": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes002.png::pipo-popupemotes002": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes003.png::pipo-popupemotes003": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes004.png::pipo-popupemotes004": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes005.png::pipo-popupemotes005": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes006.png::pipo-popupemotes006": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes007.png::pipo-popupemotes007": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes008.png::pipo-popupemotes008": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes009.png::pipo-popupemotes009": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes010.png::pipo-popupemotes010": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes011.png::pipo-popupemotes011": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes012.png::pipo-popupemotes012": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes013.png::pipo-popupemotes013": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes014.png::pipo-popupemotes014": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes015.png::pipo-popupemotes015": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes016.png::pipo-popupemotes016": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes017.png::pipo-popupemotes017": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes018.png::pipo-popupemotes018": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes019.png::pipo-popupemotes019": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes020.png::pipo-popupemotes020": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes021.png::pipo-popupemotes021": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes022.png::pipo-popupemotes022": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes023.png::pipo-popupemotes023": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes024.png::pipo-popupemotes024": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes025.png::pipo-popupemotes025": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes026.png::pipo-popupemotes026": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes027.png::pipo-popupemotes027": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes028.png::pipo-popupemotes028": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes029.png::pipo-popupemotes029": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes030.png::pipo-popupemotes030": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes031.png::pipo-popupemotes031": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes032.png::pipo-popupemotes032": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes033.png::pipo-popupemotes033": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes034.png::pipo-popupemotes034": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes035.png::pipo-popupemotes035": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes036.png::pipo-popupemotes036": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes037.png::pipo-popupemotes037": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes038.png::pipo-popupemotes038": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes039.png::pipo-popupemotes039": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes040.png::pipo-popupemotes040": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes041.png::pipo-popupemotes041": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes042.png::pipo-popupemotes042": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes043.png::pipo-popupemotes043": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes044.png::pipo-popupemotes044": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes045.png::pipo-popupemotes045": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes046.png::pipo-popupemotes046": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes047.png::pipo-popupemotes047": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes048.png::pipo-popupemotes048": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes049.png::pipo-popupemotes049": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes050.png::pipo-popupemotes050": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes051.png::pipo-popupemotes051": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes052.png::pipo-popupemotes052": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes053.png::pipo-popupemotes053": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes054.png::pipo-popupemotes054": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes055.png::pipo-popupemotes055": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes056.png::pipo-popupemotes056": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes057.png::pipo-popupemotes057": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes058.png::pipo-popupemotes058": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes059.png::pipo-popupemotes059": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes060.png::pipo-popupemotes060": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes061.png::pipo-popupemotes061": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes062.png::pipo-popupemotes062": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes063.png::pipo-popupemotes063": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes064.png::pipo-popupemotes064": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes065.png::pipo-popupemotes065": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes066.png::pipo-popupemotes066": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes067.png::pipo-popupemotes067": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes068.png::pipo-popupemotes068": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes069.png::pipo-popupemotes069": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes070.png::pipo-popupemotes070": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes071.png::pipo-popupemotes071": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes072.png::pipo-popupemotes072": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes073.png::pipo-popupemotes073": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes074.png::pipo-popupemotes074": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes075.png::pipo-popupemotes075": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes076.png::pipo-popupemotes076": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes077.png::pipo-popupemotes077": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes078.png::pipo-popupemotes078": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes079.png::pipo-popupemotes079": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes080.png::pipo-popupemotes080": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes081.png::pipo-popupemotes081": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes082.png::pipo-popupemotes082": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes083.png::pipo-popupemotes083": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes084.png::pipo-popupemotes084": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes085.png::pipo-popupemotes085": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes086.png::pipo-popupemotes086": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes087.png::pipo-popupemotes087": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes088.png::pipo-popupemotes088": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes089.png::pipo-popupemotes089": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes090.png::pipo-popupemotes090": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes091.png::pipo-popupemotes091": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes092.png::pipo-popupemotes092": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes093.png::pipo-popupemotes093": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes094.png::pipo-popupemotes094": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes095.png::pipo-popupemotes095": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes096.png::pipo-popupemotes096": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes097.png::pipo-popupemotes097": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes098.png::pipo-popupemotes098": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes099.png::pipo-popupemotes099": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes100.png::pipo-popupemotes100": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes101.png::pipo-popupemotes101": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes102.png::pipo-popupemotes102": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes103.png::pipo-popupemotes103": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes104.png::pipo-popupemotes104": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes105.png::pipo-popupemotes105": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes106.png::pipo-popupemotes106": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes107.png::pipo-popupemotes107": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes108.png::pipo-popupemotes108": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes109.png::pipo-popupemotes109": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes110.png::pipo-popupemotes110": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes111.png::pipo-popupemotes111": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes112.png::pipo-popupemotes112": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes113.png::pipo-popupemotes113": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes114.png::pipo-popupemotes114": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes115.png::pipo-popupemotes115": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes116.png::pipo-popupemotes116": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes117.png::pipo-popupemotes117": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes118.png::pipo-popupemotes118": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes119.png::pipo-popupemotes119": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes120.png::pipo-popupemotes120": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes121.png::pipo-popupemotes121": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes122.png::pipo-popupemotes122": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes123.png::pipo-popupemotes123": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes124.png::pipo-popupemotes124": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes125.png::pipo-popupemotes125": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes126.png::pipo-popupemotes126": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes127.png::pipo-popupemotes127": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes128.png::pipo-popupemotes128": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes129.png::pipo-popupemotes129": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes130.png::pipo-popupemotes130": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes131.png::pipo-popupemotes131": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes132.png::pipo-popupemotes132": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes133.png::pipo-popupemotes133": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes134.png::pipo-popupemotes134": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes135.png::pipo-popupemotes135": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes136.png::pipo-popupemotes136": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes137.png::pipo-popupemotes137": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes138.png::pipo-popupemotes138": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes139.png::pipo-popupemotes139": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes140.png::pipo-popupemotes140": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes141.png::pipo-popupemotes141": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes142.png::pipo-popupemotes142": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes143.png::pipo-popupemotes143": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes144.png::pipo-popupemotes144": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes145.png::pipo-popupemotes145": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes146.png::pipo-popupemotes146": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes147.png::pipo-popupemotes147": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes148.png::pipo-popupemotes148": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes149.png::pipo-popupemotes149": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes150.png::pipo-popupemotes150": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes151.png::pipo-popupemotes151": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes152.png::pipo-popupemotes152": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes153.png::pipo-popupemotes153": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes154.png::pipo-popupemotes154": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes155.png::pipo-popupemotes155": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes156.png::pipo-popupemotes156": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes157.png::pipo-popupemotes157": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes158.png::pipo-popupemotes158": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes159.png::pipo-popupemotes159": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes160.png::pipo-popupemotes160": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes161.png::pipo-popupemotes161": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes162.png::pipo-popupemotes162": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes163.png::pipo-popupemotes163": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes164.png::pipo-popupemotes164": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes165.png::pipo-popupemotes165": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes166.png::pipo-popupemotes166": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes167.png::pipo-popupemotes167": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes168.png::pipo-popupemotes168": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes169.png::pipo-popupemotes169": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes170.png::pipo-popupemotes170": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes171.png::pipo-popupemotes171": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes172.png::pipo-popupemotes172": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes173.png::pipo-popupemotes173": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes174.png::pipo-popupemotes174": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes175.png::pipo-popupemotes175": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes176.png::pipo-popupemotes176": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes177.png::pipo-popupemotes177": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-popupemotes178.png::pipo-popupemotes178": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-btleffect217_192.png::pipo_btleffect217_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-btleffect218_192.png::pipo_btleffect218_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-btleffect219_192.png::pipo_btleffect219_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-btleffect206_192.png::pipo_btleffect206_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-btleffect206h_192.png::pipo_btleffect206h_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-btleffect207_192.png::pipo_btleffect207_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-btleffect208_192.png::pipo_btleffect208_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-btleffect208h_192.png::pipo_btleffect208h_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-mapeffect013a-back.png::pipo_mapeffect013a_back": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-mapeffect013a-front.png::pipo_mapeffect013a_front": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-mapeffect013a.png::pipo_mapeffect013a": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-mapeffect013b-back.png::pipo_mapeffect013b_back": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-mapeffect013b-front.png::pipo_mapeffect013b_front": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-mapeffect013b.png::pipo_mapeffect013b": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-mapeffect013c-back.png::pipo_mapeffect013c_back": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-mapeffect013c-front.png::pipo_mapeffect013c_front": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-mapeffect013c.png::pipo_mapeffect013c": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-mapeffect021_192.png::pipo_mapeffect021_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-mapeffect022_192.png::pipo_mapeffect022_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-mapeffect023_192.png::pipo_mapeffect023_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-mapeffect024_192.png::pipo_mapeffect024_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-mapeffect025_192.png::pipo_mapeffect025_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-nazoobj01a_192.png::pipo_nazoobj01a_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-nazoobj01b_192.png::pipo_nazoobj01b_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-nazoobj01c_192.png::pipo_nazoobj01c_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-nazoobj02a_192.png::pipo_nazoobj02a_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-nazoobj02b_192.png::pipo_nazoobj02b_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-nazoobj02c_192.png::pipo_nazoobj02c_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-nazoobj03a_192.png::pipo_nazoobj03a_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-nazoobj03b_192.png::pipo_nazoobj03b_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-nazoobj03c_192.png::pipo_nazoobj03c_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-nazoobj04a_192.png::pipo_nazoobj04a_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-nazoobj04b_192.png::pipo_nazoobj04b_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-nazoobj04c_192.png::pipo_nazoobj04c_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-nazoobj05a_192.png::pipo_nazoobj05a_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-nazoobj05b_192.png::pipo_nazoobj05b_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-nazoobj05c_192.png::pipo_nazoobj05c_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-btleffect209_192.png::pipo_btleffect209_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-btleffect210_192.png::pipo_btleffect210_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-btleffect211_192.png::pipo_btleffect211_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-btleffect212_192.png::pipo_btleffect212_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-btleffect213_192.png::pipo_btleffect213_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-btleffect214_192.png::pipo_btleffect214_192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-gate01a192.png::pipo_gate01a192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-gate01b192.png::pipo_gate01b192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-gate01c192.png::pipo_gate01c192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-gate01d192.png::pipo_gate01d192": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipo-gate01e192.png::pipo_gate01e192": {
+    "collection": "pipoya",
+    "license": "ok"
   }
 }

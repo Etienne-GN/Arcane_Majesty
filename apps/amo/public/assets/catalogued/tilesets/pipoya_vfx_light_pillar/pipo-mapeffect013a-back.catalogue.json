@@ -1,0 +1,53 @@
+{
+  "source": "pipo-mapeffect013a-back.png",
+  "sheetWidth": 960,
+  "sheetHeight": 384,
+  "entries": [
+    {
+      "name": "pipo_mapeffect013a_back",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 192,
+      "h": 192,
+      "tags": [
+        "pipoya",
+        "vfx",
+        "light_pillar",
+        "animated"
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 192,
+          "h": 192
+        },
+        {
+          "x": 192,
+          "y": 0,
+          "w": 192,
+          "h": 192
+        },
+        {
+          "x": 384,
+          "y": 0,
+          "w": 192,
+          "h": 192
+        },
+        {
+          "x": 576,
+          "y": 0,
+          "w": 192,
+          "h": 192
+        },
+        {
+          "x": 768,
+          "y": 0,
+          "w": 192,
+          "h": 192
+        }
+      ]
+    }
+  ]
+}

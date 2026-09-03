@@ -1,0 +1,21 @@
+{
+  "source": "pipo-popupemotes129.png",
+  "sheetWidth": 192,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "pipo-popupemotes129",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 192,
+      "h": 32,
+      "tags": [
+        "pipoya",
+        "emote",
+        "popup",
+        "ui"
+      ]
+    }
+  ]
+}

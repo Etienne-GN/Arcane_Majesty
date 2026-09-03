@@ -1,0 +1,53 @@
+{
+  "source": "pipo-btleffect206h_192.png",
+  "sheetWidth": 960,
+  "sheetHeight": 576,
+  "entries": [
+    {
+      "name": "pipo_btleffect206h_192",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 192,
+      "h": 192,
+      "tags": [
+        "pipoya",
+        "vfx",
+        "hexshield",
+        "animated"
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 192,
+          "h": 192
+        },
+        {
+          "x": 192,
+          "y": 0,
+          "w": 192,
+          "h": 192
+        },
+        {
+          "x": 384,
+          "y": 0,
+          "w": 192,
+          "h": 192
+        },
+        {
+          "x": 576,
+          "y": 0,
+          "w": 192,
+          "h": 192
+        },
+        {
+          "x": 768,
+          "y": 0,
+          "w": 192,
+          "h": 192
+        }
+      ]
+    }
+  ]
+}
