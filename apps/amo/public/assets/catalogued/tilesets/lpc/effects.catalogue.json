@@ -706,43 +706,45 @@
       "needsNaming": true
     },
     {
-      "name": "effects_054",
+      "name": "lpc_water_splash_burst",
       "kind": "object",
       "x": 448,
       "y": 99,
-      "w": 30,
+      "w": 126,
       "h": 29,
       "tags": [
         "lpc",
-        "effects"
+        "effects",
+        "emote",
+        "animation"
       ],
-      "needsNaming": true
-    },
-    {
-      "name": "effects_055",
-      "kind": "object",
-      "x": 480,
-      "y": 99,
-      "w": 30,
-      "h": 29,
-      "tags": [
-        "lpc",
-        "effects"
+      "frames": [
+        {
+          "x": 448,
+          "y": 99,
+          "w": 30,
+          "h": 29
+        },
+        {
+          "x": 480,
+          "y": 99,
+          "w": 30,
+          "h": 29
+        },
+        {
+          "x": 512,
+          "y": 99,
+          "w": 30,
+          "h": 29
+        },
+        {
+          "x": 544,
+          "y": 99,
+          "w": 30,
+          "h": 29
+        }
       ],
-      "needsNaming": true
-    },
-    {
-      "name": "effects_056",
-      "kind": "object",
-      "x": 512,
-      "y": 99,
-      "w": 62,
-      "h": 29,
-      "tags": [
-        "lpc",
-        "effects"
-      ],
-      "needsNaming": true
+      "frameDurationMs": 140
     },
     {
       "name": "effects_057",

@@ -7,6 +7,7 @@ const emit = defineEmits<{ submitted: [] }>();
 
 const REASONS: { id: string; label: string }[] = [
     { id: 'misaligned', label: 'Misaligned / wrong crop' },
+    { id: 'should_be_animation', label: 'Should be an animation' },
     { id: 'wrong_colors', label: 'Wrong colors / palette' },
     { id: 'wrong_name', label: 'Wrong name' },
     { id: 'duplicate', label: 'Duplicate of another sprite' },
@@ -43,10 +44,16 @@ async function submitWithReason(reasonId: string) {
         :key="r.id"
         :disabled="submitting"
         @click="submitWithReason(r.id)"
+        :class="{ animation: r.id === 'should_be_animation' }"
       >
         {{ r.label }}
       </button>
     </div>
+    <p class="hint">
+      “Should be an animation” needs a frame count to be actionable — the strip
+      has to divide evenly, and that can't be read off the crop. Put it in the
+      comment first, e.g. <em>4 frames, left to right, ~120ms each</em>.
+    </p>
     <textarea
       v-model="comment"
       placeholder="Optional comment — describe what's wrong (you can add this with or without picking a reason above)"
@@ -60,6 +67,9 @@ async function submitWithReason(reasonId: string) {
 .flag-form { margin-top: 16px; padding-top: 12px; border-top: 1px solid #333; }
 .reasons { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
 .reasons button { font-size: 11px; padding: 4px 8px; }
+.reasons button.animation { border-color: #85c; color: #b8f; }
+.hint { font-size: 10px; color: #777; margin: 0 0 6px; line-height: 1.4; }
+.hint em { color: #b8f; font-style: normal; }
 textarea { width: 100%; box-sizing: border-box; }
 .error { color: #e88; font-size: 11px; margin-top: 4px; }
 </style>

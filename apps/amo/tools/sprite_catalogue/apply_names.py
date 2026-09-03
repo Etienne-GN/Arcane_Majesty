@@ -27,6 +27,19 @@ combined pixel box. Grid slicing is right for terrain that tiles, but a
 32x64 flower drawn across four cells is one sprite, not four -- that's what
 merges are for.
 
+An entry that is really an animation strip takes "animate", which slices its
+box into equal frames the sprite ledger plays back:
+
+    {"12": {"name": "torch_flame", "animate": {"count": 4, "durationMs": 120}}}
+
+Frames run left to right by default; pass "axis": "y" for a vertical strip.
+A merge accepts "animate" too, for a strip that spans several grid cells.
+
+Frames that are not uniform -- an expanding flash, a spreading splash -- take
+their boxes outright instead of a count:
+
+    {"animate": {"frames": [{"x": 448, "y": 99, "w": 30, "h": 29}, ...]}}
+
 Anything named here loses its `needsNaming` flag; anything left out keeps it,
 so a partial pass is safe and resumable. Entries marked `"drop": true` are
 removed -- that's how noise the slicer picked up gets discarded.
@@ -56,6 +69,78 @@ def split_spec(spec):
     if isinstance(spec, dict) and ('names' in spec or 'merges' in spec):
         return spec.get('names', {}), spec.get('merges', [])
     return spec, []
+
+
+def build_frames(box, count, axis='x'):
+    """Slices a box into `count` equal frames along `axis`.
+
+    Returns (frames, error). Refuses a split that isn't exact: a strip whose
+    width doesn't divide evenly means the frame count is wrong, and rounding
+    it would silently smear every frame after the first.
+    """
+    x, y, w, h = box
+    if axis not in ('x', 'y'):
+        return None, f'axis must be "x" or "y" (got {axis!r})'
+    if not isinstance(count, int) or isinstance(count, bool) or count < 2:
+        return None, f'"count" must be an integer >= 2 (got {count!r})'
+    span = w if axis == 'x' else h
+    if span % count:
+        return None, (f'{span}px does not divide into {count} equal frames along {axis} '
+                      f'-- check the frame count')
+    size = span // count
+    if axis == 'x':
+        return [{'x': x + i * size, 'y': y, 'w': size, 'h': h} for i in range(count)], None
+    return [{'x': x, 'y': y + i * size, 'w': w, 'h': size} for i in range(count)], None
+
+
+def _check_frame_boxes(raw, label, errors):
+    """Validates an explicit frames list. Returns the frames, or None."""
+    if not isinstance(raw, list) or len(raw) < 2:
+        errors.append(f'{label}: "frames" must list at least 2 boxes')
+        return None
+    frames = []
+    for i, f in enumerate(raw):
+        if not isinstance(f, dict):
+            errors.append(f'{label}: frames[{i}] must be an object with x/y/w/h')
+            return None
+        box = {}
+        for k in ('x', 'y', 'w', 'h'):
+            v = f.get(k)
+            if not isinstance(v, int) or isinstance(v, bool):
+                errors.append(f'{label}: frames[{i}]."{k}" must be an integer (got {v!r})')
+                return None
+            box[k] = v
+        if box['w'] <= 0 or box['h'] <= 0:
+            errors.append(f'{label}: frames[{i}] w/h must be > 0')
+            return None
+        frames.append(box)
+    return frames
+
+
+def apply_animate(entry, box, spec, label, errors):
+    """Turns an `animate` spec into `frames` / `frameDurationMs` on `entry`."""
+    if not isinstance(spec, dict):
+        errors.append(f'{label}: "animate" must be an object')
+        return
+    # Equal splitting covers a regular strip. It cannot describe frames that
+    # grow (an expanding flash, a spreading splash), which is most of what a
+    # real effects sheet contains -- those need their boxes given outright.
+    if 'frames' in spec:
+        frames = _check_frame_boxes(spec['frames'], label, errors)
+        if frames is None:
+            return
+    else:
+        frames, err = build_frames(box, spec.get('count'), spec.get('axis', 'x'))
+        if err:
+            errors.append(f'{label}: {err}')
+            return
+    duration = spec.get('durationMs')
+    if duration is not None and not (isinstance(duration, int) and duration > 0):
+        errors.append(f'{label}: "durationMs" must be a positive integer')
+        return
+    entry['frames'] = frames
+    if duration is not None:
+        entry['frameDurationMs'] = duration
 
 
 def entry_pixel_box(cat, entry):
@@ -152,7 +237,11 @@ def _plan_merges(cat, merges, entries, errors):
         base_tags = entries[min(idxs)].get('tags', [])
         merged['tags'] = list(dict.fromkeys([*base_tags, *(tags or [])]))
         spec.pop('name', None)
+        animate = spec.pop('animate', None)
         merged.update(spec)                    # season and any passthrough fields
+        if animate is not None:
+            apply_animate(merged, (x0, y0, x1 - x0, y1 - y0), animate,
+                          f'merges[{n}] "{name}"', errors)
 
         for i in idxs:
             claimed[i] = name
@@ -187,6 +276,14 @@ def apply_names(cat, spec):
             continue
         if not _validate_common(entry_spec, idx, errors):
             continue
+        # Check the animate spec now: a bad frame count must abort the whole
+        # batch, not surface after half the renames are already applied.
+        if 'animate' in entry_spec:
+            probe = {}
+            apply_animate(probe, entry_pixel_box(cat, entries[idx]), entry_spec['animate'],
+                          f'index {idx}', errors)
+            if 'frames' not in probe:
+                continue
         staged.append((idx, entry_spec))
 
     planned, claimed = _plan_merges(cat, merges, entries, errors)
@@ -222,8 +319,11 @@ def apply_names(cat, spec):
         tags = entry_spec.pop('tags', None)
         if tags:
             entry['tags'] = list(dict.fromkeys([*entry.get('tags', []), *tags]))
+        animate = entry_spec.pop('animate', None)
         entry.update(entry_spec)
         entry.pop('needsNaming', None)
+        if animate is not None:
+            apply_animate(entry, entry_pixel_box(cat, entry), animate, f'index {idx}', errors)
 
     # Rebuild in one pass so a merged entry lands where its first cell was,
     # keeping the catalogue in reading order rather than appending to the end.

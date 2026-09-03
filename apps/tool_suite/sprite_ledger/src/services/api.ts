@@ -1,9 +1,16 @@
+/** One frame of an animated sprite: a pixel box on the sheet. */
+export interface SpriteFrame { x: number; y: number; w: number; h: number; }
+
 export interface SpriteEntry {
     kind: 'object' | 'tile';
     name: string;
     tags?: string[];
     x?: number; y?: number; w?: number; h?: number;
     row?: number; col?: number; frameIndex?: number;
+    // Present only on animated sprites. `frames` are played in order; a
+    // sprite without it is a still and renders from its own box.
+    frames?: SpriteFrame[];
+    frameDurationMs?: number;
 }
 
 export interface Sheet {

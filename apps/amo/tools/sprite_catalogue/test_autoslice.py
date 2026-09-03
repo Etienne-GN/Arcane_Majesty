@@ -273,6 +273,87 @@ def test_flat_and_full_spec_forms_agree():
           flat['entries'][0]['name'], full['entries'][0]['name'])
 
 
+def test_animate_slices_a_strip():
+    from apply_names import build_frames
+    frames, err = build_frames((0, 0, 128, 32), 4)
+    check('horizontal strip splits evenly', err, None)
+    check('four frames produced', len(frames), 4)
+    check('third frame is offset correctly', frames[2], {'x': 64, 'y': 0, 'w': 32, 'h': 32})
+    frames, err = build_frames((10, 20, 16, 96), 3, axis='y')
+    check('vertical strip splits down', frames[1], {'x': 10, 'y': 52, 'w': 16, 'h': 32})
+    # An uneven split means the frame count is wrong; rounding would smear
+    # every frame after the first.
+    _, err = build_frames((0, 0, 100, 32), 3)
+    check('uneven split refused', err is not None, True)
+    _, err = build_frames((0, 0, 128, 32), 1)
+    check('single-frame animation refused', err is not None, True)
+    _, err = build_frames((0, 0, 128, 32), 4, axis='z')
+    check('bad axis refused', err is not None, True)
+
+
+def test_animate_through_apply_names():
+    cat = {'source': 's.png', 'sheetWidth': 128, 'sheetHeight': 32, 'entries': [
+        {'name': 'strip', 'kind': 'object', 'x': 0, 'y': 0, 'w': 128, 'h': 32,
+         'tags': ['fx'], 'needsNaming': True}]}
+    renamed, _, _, errors = apply_names(cat, {
+        '0': {'name': 'torch_flame', 'animate': {'count': 4, 'durationMs': 120}}})
+    check('animate applies', (renamed, errors), (1, []))
+    e = cat['entries'][0]
+    check('frames written', len(e['frames']), 4)
+    check('duration written', e['frameDurationMs'], 120)
+    check('needsNaming cleared', 'needsNaming' in e, False)
+
+    cat2 = {'source': 's.png', 'sheetWidth': 100, 'sheetHeight': 32, 'entries': [
+        {'name': 'strip', 'kind': 'object', 'x': 0, 'y': 0, 'w': 100, 'h': 32}]}
+    *_, errors = apply_names(cat2, {'0': {'name': 'bad', 'animate': {'count': 3}}})
+    check('uneven animate refuses the batch', len(errors), 1)
+    check('catalogue untouched on refusal', cat2['entries'][0]['name'], 'strip')
+
+    cat3 = {'source': 's.png', 'sheetWidth': 64, 'sheetHeight': 32, 'entries': [
+        {'name': 'x', 'kind': 'object', 'x': 0, 'y': 0, 'w': 64, 'h': 32}]}
+    *_, errors = apply_names(cat3, {'0': {'animate': {'count': 2, 'durationMs': -5}}})
+    check('bad durationMs refused', len(errors), 1)
+
+
+def test_merge_can_animate():
+    cat = grid_cat([(0, 0), (0, 1), (0, 2), (0, 3)], tile=16, cols=4, rows=4)
+    cat['source'] = 's.png'
+    _, _, merged, errors = apply_names(cat, {
+        'merges': [{'name': 'fx_loop', 'cells': [0, 1, 2, 3],
+                    'animate': {'count': 4, 'durationMs': 80}}]})
+    check('merge+animate succeeds', (merged, errors), (1, []))
+    e = cat['entries'][0]
+    check('merged strip carries frames', len(e['frames']), 4)
+    check('merged frame width is one cell', e['frames'][0]['w'], 16)
+
+
+def test_validator_rejects_malformed_frames(tmp):
+    png = tmp / 'fx.png'
+    sheet_with_blobs(png, (64, 32), [(0, 0, 64, 32)])
+    good = {'source': 'fx.png', 'sheetWidth': 64, 'sheetHeight': 32, 'entries': [
+        {'name': 'fx', 'kind': 'object', 'x': 0, 'y': 0, 'w': 64, 'h': 32,
+         'frames': [{'x': 0, 'y': 0, 'w': 32, 'h': 32}, {'x': 32, 'y': 0, 'w': 32, 'h': 32}]}]}
+    out = tmp / 'fx.catalogue.json'
+    out.write_text(json.dumps(good))
+    proc = subprocess.run(['node', str(HERE / 'validate_sprite_catalogue.mjs'), '--no-move', str(out)],
+                          capture_output=True, text=True)
+    check('validator accepts well-formed frames', proc.returncode, 0)
+
+    bad = json.loads(json.dumps(good))
+    bad['entries'][0]['frames'][1]['x'] = 40      # runs past the sheet edge
+    out.write_text(json.dumps(bad))
+    proc = subprocess.run(['node', str(HERE / 'validate_sprite_catalogue.mjs'), '--no-move', str(out)],
+                          capture_output=True, text=True)
+    check('validator rejects out-of-bounds frame', proc.returncode, 1)
+
+    bad = json.loads(json.dumps(good))
+    bad['entries'][0]['frames'] = [{'x': 0, 'y': 0, 'w': 32, 'h': 32}]
+    out.write_text(json.dumps(bad))
+    proc = subprocess.run(['node', str(HERE / 'validate_sprite_catalogue.mjs'), '--no-move', str(out)],
+                          capture_output=True, text=True)
+    check('validator rejects a one-frame animation', proc.returncode, 1)
+
+
 def test_bootstrapped_catalogue_passes_validator(tmp):
     """The whole point of a draft is that the existing trust gate accepts it."""
     png = tmp / 'gate.png'
@@ -306,6 +387,10 @@ def main():
         test_merge_conflicts_and_shapes()
         test_merging_every_tile_drops_the_grid_fields()
         test_flat_and_full_spec_forms_agree()
+        test_animate_slices_a_strip()
+        test_animate_through_apply_names()
+        test_merge_can_animate()
+        test_validator_rejects_malformed_frames(tmp)
         test_bootstrapped_catalogue_passes_validator(tmp)
 
     if failures:

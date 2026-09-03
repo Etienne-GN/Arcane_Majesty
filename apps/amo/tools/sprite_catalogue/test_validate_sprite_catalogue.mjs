@@ -269,7 +269,22 @@ function hasError(result, substring) {
     check('non-integer tile row → integer error', hasError(result, '"row" must be an integer (got "1")'));
 }
 
-// ── (finding #7) frames[] is presence-checked with a warning, not validated ─
+// ── frames[] is fully validated: the sprite ledger animates from it ────────
+// (It used to be waved through with a warning. Once something renders from a
+// field, a malformed value is a defect, not a note — it shows up as a frozen
+// or blank preview rather than an error anyone can act on.)
+{
+    const cat = {
+        source: 'mini_object_sheet.png', sheetWidth: 64, sheetHeight: 32,
+        entries: [{
+            name: 'animated', kind: 'object', x: 0, y: 0, w: 32, h: 32, tags: [],
+            frames: [{ x: 0, y: 0, w: 32, h: 32 }, { x: 32, y: 0, w: 32, h: 32 }],
+            frameDurationMs: 120,
+        }],
+    };
+    const result = validateCatalogueObject(cat, FIXTURES);
+    check('well-formed frames[] → no error', result.errors.length === 0);
+}
 {
     const cat = {
         source: 'mini_object_sheet.png', sheetWidth: 64, sheetHeight: 32,
@@ -279,11 +294,32 @@ function hasError(result, substring) {
         }],
     };
     const result = validateCatalogueObject(cat, FIXTURES);
-    check('entry with frames[] → no error', result.errors.length === 0);
-    check(
-        'entry with frames[] → warning',
-        result.warnings.some(w => w.includes('has "frames" — not validated by this gate'))
-    );
+    check('one-frame animation → error', result.errors.some(e => e.includes('at least 2 frames')));
+}
+{
+    const cat = {
+        source: 'mini_object_sheet.png', sheetWidth: 64, sheetHeight: 32,
+        entries: [{
+            name: 'animated', kind: 'object', x: 0, y: 0, w: 32, h: 32, tags: [],
+            frames: [{ x: 0, y: 0, w: 32, h: 32 }, { x: 40, y: 0, w: 32, h: 32 }],
+        }],
+    };
+    const result = validateCatalogueObject(cat, FIXTURES);
+    check('frame past the sheet edge → error',
+        result.errors.some(e => e.includes('out of sheet bounds')));
+}
+{
+    const cat = {
+        source: 'mini_object_sheet.png', sheetWidth: 64, sheetHeight: 32,
+        entries: [{
+            name: 'animated', kind: 'object', x: 0, y: 0, w: 32, h: 32, tags: [],
+            frames: [{ x: 0, y: 0, w: 32, h: 32 }, { x: 32, y: 0, w: 32, h: 32 }],
+            frameDurationMs: 0,
+        }],
+    };
+    const result = validateCatalogueObject(cat, FIXTURES);
+    check('non-positive frameDurationMs → error',
+        result.errors.some(e => e.includes('frameDurationMs')));
 }
 
 // ── (finding #4/#5) CLI multi-file run: one bad file must not kill the run ──

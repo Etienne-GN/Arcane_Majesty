@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
 import type { Sheet, Collection, Flag, SpriteEntry, LicenseStatus } from '../services/api';
 import { imageUrl, assignCollection, fetchFlags, setFlagStatus, setLicenseStatus } from '../services/api';
 import FlagForm from './FlagForm.vue';
@@ -20,26 +20,81 @@ const entry = computed<SpriteEntry>(() => sheet.value.entries.find(e => e.name =
 
 const canvasRef = ref<HTMLCanvasElement | null>(null);
 
-function draw() {
-    const canvas = canvasRef.value;
-    if (!canvas) return;
-    const img = new Image();
-    img.src = imageUrl(props.sheetPngFilename);
-    img.onload = () => {
-        const e = entry.value;
-        const box = e.kind === 'object'
-            ? { x: e.x!, y: e.y!, w: e.w!, h: e.h! }
-            : { x: e.col! * sheet.value.gridTileWidth!, y: e.row! * sheet.value.gridTileHeight!, w: sheet.value.gridTileWidth!, h: sheet.value.gridTileHeight! };
-        canvas.width = box.w * 4;
-        canvas.height = box.h * 4;
-        const ctx = canvas.getContext('2d')!;
-        ctx.imageSmoothingEnabled = false;
-        ctx.drawImage(img, box.x, box.y, box.w, box.h, 0, 0, box.w * 4, box.h * 4);
-    };
+const DEFAULT_FRAME_MS = 120;
+
+function boxOf(e: SpriteEntry) {
+    return e.kind === 'object'
+        ? { x: e.x!, y: e.y!, w: e.w!, h: e.h! }
+        : { x: e.col! * sheet.value.gridTileWidth!, y: e.row! * sheet.value.gridTileHeight!, w: sheet.value.gridTileWidth!, h: sheet.value.gridTileHeight! };
 }
 
-onMounted(draw);
-watch(() => [props.sheetPngFilename, props.entryName], draw);
+const frames = computed(() => entry.value.frames ?? null);
+const isAnimated = computed(() => (frames.value?.length ?? 0) > 1);
+const frameIdx = ref(0);
+const playing = ref(true);
+let timer: number | null = null;
+let sheetImg: HTMLImageElement | null = null;
+
+function stopTimer() {
+    if (timer !== null) { clearInterval(timer); timer = null; }
+}
+
+/** Paints one frame (or the whole sprite, when it isn't animated). */
+function paint() {
+    const canvas = canvasRef.value;
+    const img = sheetImg;
+    if (!canvas || !img || !img.complete) return;
+    const box = isAnimated.value ? frames.value![frameIdx.value] : boxOf(entry.value);
+    canvas.width = box.w * 4;
+    canvas.height = box.h * 4;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    ctx.imageSmoothingEnabled = false;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, box.x, box.y, box.w, box.h, 0, 0, box.w * 4, box.h * 4);
+}
+
+function tick() {
+    frameIdx.value = (frameIdx.value + 1) % frames.value!.length;
+    paint();
+}
+
+/** (Re)starts playback for the current entry — or leaves a still painted. */
+function sync() {
+    stopTimer();
+    frameIdx.value = 0;
+    paint();
+    if (isAnimated.value && playing.value) {
+        timer = window.setInterval(tick, entry.value.frameDurationMs ?? DEFAULT_FRAME_MS);
+    }
+}
+
+function load() {
+    const img = new Image();
+    img.src = imageUrl(props.sheetPngFilename);
+    sheetImg = img;
+    if (img.complete) sync();
+    else img.addEventListener('load', sync, { once: true });
+}
+
+function togglePlay() {
+    playing.value = !playing.value;
+    sync();
+}
+
+function stepFrame(delta: number) {
+    if (!isAnimated.value) return;
+    playing.value = false;
+    stopTimer();
+    const n = frames.value!.length;
+    frameIdx.value = (frameIdx.value + delta + n) % n;
+    paint();
+}
+
+onMounted(load);
+watch(() => [props.sheetPngFilename, props.entryName], () => { playing.value = true; load(); });
+// An interval that outlives the panel keeps painting a canvas nobody can see.
+onBeforeUnmount(stopTimer);
 
 const selectedCollection = ref(props.currentCollectionId);
 watch(() => props.currentCollectionId, (v) => { selectedCollection.value = v; });
@@ -103,7 +158,15 @@ async function onSetFlagStatus(id: string, status: 'open' | 'resolved') {
   <div class="detail-panel">
     <button class="close" @click="emit('close')">×</button>
     <canvas ref="canvasRef" class="preview" />
-    <h3>{{ entryName }}</h3>
+    <div v-if="isAnimated" class="anim-controls">
+      <button type="button" @click="stepFrame(-1)" title="Previous frame">‹</button>
+      <button type="button" @click="togglePlay">{{ playing ? '❚❚ Pause' : '▶ Play' }}</button>
+      <button type="button" @click="stepFrame(1)" title="Next frame">›</button>
+      <span class="frame-count">
+        frame {{ frameIdx + 1 }}/{{ frames!.length }} · {{ entry.frameDurationMs ?? 120 }}ms
+      </span>
+    </div>
+    <h3>{{ entryName }} <span v-if="isAnimated" class="anim-tag">animated</span></h3>
     <div class="sheet-name">{{ sheetPngFilename }}</div>
     <div class="tags" v-if="entry.tags?.length">{{ entry.tags.join(', ') }}</div>
 
@@ -158,6 +221,10 @@ async function onSetFlagStatus(id: string, status: 'open' | 'resolved') {
 .detail-panel { width: 320px; padding: 16px; border-left: 1px solid #333; position: relative; overflow-y: auto; }
 .close { position: absolute; top: 8px; right: 8px; }
 .preview canvas, .preview { image-rendering: pixelated; }
+.anim-tag { font-size: 10px; color: #b8f; border: 1px solid #85c; border-radius: 3px; padding: 1px 4px; vertical-align: middle; }
+.anim-controls { display: flex; align-items: center; gap: 4px; margin-top: 6px; }
+.anim-controls button { font-size: 11px; padding: 2px 8px; background: #1a1a1a; color: #eee; border: 1px solid #333; cursor: pointer; }
+.frame-count { font-size: 10px; color: #888; margin-left: 4px; }
 .sheet-name { font-size: 11px; color: #888; }
 .tags { font-size: 11px; color: #6a6; margin-top: 4px; }
 .collection-picker { display: block; margin-top: 12px; }

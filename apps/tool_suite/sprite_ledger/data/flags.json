@@ -365,9 +365,9 @@
     "name": "autumn_dirt_patch_solid",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:23:22.864Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_5faa72b8-4097-4aea-8fc4-478fb47a27f5",
@@ -375,9 +375,9 @@
     "name": "autumn_dirt_patch_variant",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:23:27.325Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_8d0ec220-5990-40c5-93be-29dfb7b3978a",
@@ -385,9 +385,9 @@
     "name": "spring_dirt_patch_solid",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:23:31.342Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_73eb5cc1-58b8-4f24-b3ba-3d8b28cf4f8d",
@@ -395,9 +395,9 @@
     "name": "summer_dirt_patch_solid",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:23:39.094Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_344a3e0d-1693-40b6-909c-50e549920d58",
@@ -405,9 +405,9 @@
     "name": "spring_dirt_patch_variant",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:23:44.953Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_3ab13e95-7766-4078-9f35-c334ae780f28",
@@ -415,9 +415,9 @@
     "name": "summer_dirt_patch_variant",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:23:48.093Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_d32623eb-6d08-4dcd-937c-169e61859ba7",
@@ -425,9 +425,9 @@
     "name": "winter_dirt_patch_solid",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:23:51.162Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_be7f1143-4108-4bef-9e68-95fb1c0d2e64",
@@ -435,9 +435,9 @@
     "name": "winter_dirt_patch_variant",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:23:54.332Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_983fe371-c3ef-4ee0-98af-2434e867ccba",
@@ -445,9 +445,9 @@
     "name": "autumn_small_prop_icons",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:24:20.296Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_0056dffa-7d7c-4315-acb2-58210cff10a2",
@@ -455,9 +455,9 @@
     "name": "spring_small_prop_icons",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:24:24.111Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_90aabdc7-5610-4459-9191-e3ee64656111",
@@ -465,9 +465,9 @@
     "name": "summer_small_prop_icons",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:24:27.784Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_1e4d098d-7011-4dae-bfbe-aa83ebee5cea",
@@ -475,9 +475,9 @@
     "name": "winter_small_prop_icons",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:24:31.190Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_c77d2d53-a3d0-4681-a6fe-d15f30c1b283",
@@ -485,9 +485,9 @@
     "name": "autumn_cliff_hillside",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:26:22.811Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_5c63c412-4764-406f-8109-ce176882c8f3",
@@ -495,9 +495,9 @@
     "name": "spring_cliff_hillside",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:26:27.296Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_1b885e0e-2ca7-42e6-a9cf-d079f3b01b4a",
@@ -505,9 +505,9 @@
     "name": "winter_cliff_hillside",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:26:31.028Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_26192727-527f-46ca-9aa7-728a7065a003",
@@ -515,9 +515,9 @@
     "name": "summer_cliff_hillside",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:26:34.544Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_26e825b1-cbb5-45be-a175-ce91942a9fff",
@@ -525,9 +525,9 @@
     "name": "spring_flower_rock_cluster",
     "reason": "misaligned",
     "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"spring_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:32:19.488Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_5471024e-4ace-47ed-b595-b51add2afc1a",
@@ -535,9 +535,9 @@
     "name": "autumn_flower_rock_cluster",
     "reason": "misaligned",
     "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"autumn_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:32:47.411Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_beb3d01e-c696-461f-bf30-6a53d0141f5e",
@@ -545,9 +545,9 @@
     "name": "summer_flower_rock_cluster",
     "reason": "misaligned",
     "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"summer_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:33:00.724Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_7f2350b8-b91d-435b-a1c1-b3bc9e79b2aa",
@@ -555,9 +555,9 @@
     "name": "winter_flower_rock_cluster",
     "reason": "misaligned",
     "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"winter_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:33:13.212Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_473e3b12-1486-4e4b-82a1-56b41b2ec453",
@@ -565,9 +565,9 @@
     "name": "autumn_boulder_rock",
     "reason": "misaligned",
     "comment": "",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:33:34.078Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_8339ba3d-4756-49ec-99b6-a7dad7df2ef1",
@@ -575,9 +575,9 @@
     "name": "autumn_ice_wall_texture",
     "reason": "misaligned",
     "comment": "",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:33:35.837Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_74a8711b-c77f-45aa-8aef-3bafc8dd5a57",
@@ -585,9 +585,9 @@
     "name": "spring_boulder_rock",
     "reason": "misaligned",
     "comment": "",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:33:38.845Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_a7166dee-3f89-4d7c-84b3-86e96d2761ab",
@@ -595,9 +595,9 @@
     "name": "spring_ice_wall_texture",
     "reason": "misaligned",
     "comment": "",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:33:41.098Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_a0fb28aa-26ef-4285-8cdf-4e0a43913aa8",
@@ -605,9 +605,9 @@
     "name": "summer_boulder_rock",
     "reason": "misaligned",
     "comment": "",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:33:43.308Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_ce78dc1f-19f4-498a-932b-2e41be6e8d87",
@@ -615,9 +615,9 @@
     "name": "summer_ice_wall_texture",
     "reason": "misaligned",
     "comment": "",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:33:45.586Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_572d47e7-0036-4899-9cb0-c08632215916",
@@ -625,9 +625,9 @@
     "name": "winter_boulder_rock",
     "reason": "misaligned",
     "comment": "",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:33:47.565Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_ff7160cb-6e26-4538-9786-85d0ac8d8e99",
@@ -635,9 +635,9 @@
     "name": "winter_ice_wall_texture",
     "reason": "misaligned",
     "comment": "",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:33:49.202Z",
-    "resolvedAt": "2026-09-03T22:49:31.948044Z"
+    "resolvedAt": null
   },
   {
     "id": "f_54ee0394-1376-4c53-86c5-62c0cb53fa73",
@@ -755,9 +755,9 @@
     "name": "lpc_items_sheet",
     "reason": "misaligned",
     "comment": "",
-    "status": "resolved",
+    "status": "needs_review",
     "createdAt": "2026-09-03T18:12:17.060Z",
-    "resolvedAt": "2026-09-03T22:52:37.875047Z"
+    "resolvedAt": null
   },
   {
     "id": "f_9e110c9a-cfd5-4eaf-b873-3cac9a731fef",

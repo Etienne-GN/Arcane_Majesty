@@ -131,8 +131,39 @@ export function validateCatalogueObject(cat, baseDir) {
             }
         }
 
-        if (e.frames) {
-            warnings.push(`${tag}: has "frames" — not validated by this gate, needs human review`);
+        // `frames` used to be waved through with a warning. The sprite ledger
+        // animates from it now, so a malformed array is a real defect: it
+        // renders as a frozen or blank preview rather than an obvious error.
+        if (e.frames !== undefined) {
+            if (!Array.isArray(e.frames) || e.frames.length < 2) {
+                errors.push(`${tag}: "frames" must be an array of at least 2 frames`);
+            } else {
+                e.frames.forEach((f, fi) => {
+                    const at = `${tag}: frames[${fi}]`;
+                    if (!f || typeof f !== 'object') {
+                        errors.push(`${at}: must be an object with x/y/w/h`);
+                        return;
+                    }
+                    for (const k of ['x', 'y', 'w', 'h']) {
+                        if (!Number.isInteger(f[k])) {
+                            errors.push(`${at}: "${k}" must be an integer (got ${JSON.stringify(f[k])})`);
+                            return;
+                        }
+                    }
+                    if (f.w <= 0 || f.h <= 0) {
+                        errors.push(`${at}: w/h must be > 0 (got ${f.w}x${f.h})`);
+                    } else if (f.x < 0 || f.y < 0 ||
+                               f.x + f.w > cat.sheetWidth || f.y + f.h > cat.sheetHeight) {
+                        errors.push(
+                            `${at}: box (${f.x},${f.y},${f.w},${f.h}) out of sheet bounds ` +
+                            `(${cat.sheetWidth}x${cat.sheetHeight})`);
+                    }
+                });
+            }
+            if (e.frameDurationMs !== undefined &&
+                !(Number.isInteger(e.frameDurationMs) && e.frameDurationMs > 0)) {
+                errors.push(`${tag}: "frameDurationMs" must be a positive integer`);
+            }
         }
 
         if (e.lowConfidence) warnings.push(`${tag}: flagged lowConfidence — needs human review`);

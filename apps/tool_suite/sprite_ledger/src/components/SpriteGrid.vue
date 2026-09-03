@@ -27,6 +27,9 @@ watchEffect(() => {
 });
 
 function cropBox(sheet: Sheet, entry: SpriteEntry): { x: number; y: number; w: number; h: number } {
+    // An animated entry's own box is the whole strip, which reads as a smear
+    // of every frame at once. Show frame 1 as the thumbnail instead.
+    if (entry.frames?.length) return entry.frames[0];
     if (entry.kind === 'object') {
         return { x: entry.x!, y: entry.y!, w: entry.w!, h: entry.h! };
     }
@@ -75,7 +78,9 @@ function drawCrop(canvas: HTMLCanvasElement | null, sheet: Sheet, entry: SpriteE
         <span v-if="licenseOkKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="license-badge ok">✓</span>
         <span v-if="licenseFlaggedKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="license-badge unlicensed">⚠</span>
         <canvas :ref="(el) => drawCrop(el as HTMLCanvasElement, sheet, entry)" class="pixelated" />
-        <div class="name">{{ entry.name }}</div>
+        <div class="name">
+          <span v-if="(entry.frames?.length ?? 0) > 1" class="anim-badge" :title="`animated — ${entry.frames!.length} frames`">▶</span>{{ entry.name }}
+        </div>
       </div>
     </template>
   </div>
@@ -91,4 +96,7 @@ function drawCrop(canvas: HTMLCanvasElement | null, sheet: Sheet, entry: SpriteE
 .license-badge { position: absolute; top: -2px; left: 4px; font-size: 12px; line-height: 1; }
 .license-badge.ok { color: #3c3; }
 .license-badge.unlicensed { color: #e91; }
+/* Animating every cell of a 1700-sprite grid would burn the frame budget for
+   no gain — the badge says "there's motion here", the detail panel plays it. */
+.anim-badge { color: #b8f; margin-right: 3px; }
 </style>

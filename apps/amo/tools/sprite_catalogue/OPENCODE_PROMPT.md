@@ -175,8 +175,47 @@ and update the `this.load.*` calls in `src/scenes/BootScene.js`.
 - `needsNaming: true` — placeholder from bootstrap; the contact-sheet queue.
 - `lowConfidence: true` — legacy flag from the guess-and-verify era. Don't add
   new ones; geometry is derived now. `--repair` clears it where it applies.
-- `frames: [...]` — genuinely animated sprites only. **Not validated** by the
-  gate (warning only), so don't rely on it catching a malformed array.
+- `frames: [...]` / `frameDurationMs` — animated sprites only; see below.
+  Validated by the gate.
+
+## Animated sprites
+
+A sheet whose "sprites" are really animation frames (an effects sheet, a
+torch, a water tile) must not be named frame by frame — the frames are one
+sprite. Declare it with `animate` in the names file:
+
+```json
+{"12": {"name": "torch_flame", "animate": {"count": 5, "durationMs": 120}}}
+```
+
+`count` splits the entry's box into equal frames (left to right, or top to
+bottom with `"axis": "y"`). The split has to be exact — an uneven one means
+the frame count is wrong, and the tool refuses rather than smearing every
+frame after the first.
+
+Frames that grow — an expanding flash, a spreading splash — aren't uniform, so
+give their boxes outright instead:
+
+```json
+{"animate": {"durationMs": 140, "frames": [
+  {"x": 448, "y": 99, "w": 30, "h": 29},
+  {"x": 480, "y": 99, "w": 30, "h": 29}]}}
+```
+
+A merge takes `animate` too, for a strip spanning several grid cells.
+
+The Sprite Ledger plays anything with `frames`: the detail panel animates it
+with play/pause and frame stepping, the grid marks it ▶ and shows frame 1 as
+the thumbnail (an animated entry's own box is the whole strip, which reads as
+a smear). `frameDurationMs` is optional and falls back to 120ms.
+
+`frames` is validated by the trust gate — at least 2 frames, each in bounds.
+It used to be waved through with a warning; once the ledger renders from a
+field, a malformed value is a defect, not a note.
+
+**Flagging one from the ledger:** the flag reasons include *Should be an
+animation*. It needs a frame count in the comment to be actionable — the strip
+has to divide evenly and that can't be read off a crop.
 
 ## Scope: catalogue on demand
 
