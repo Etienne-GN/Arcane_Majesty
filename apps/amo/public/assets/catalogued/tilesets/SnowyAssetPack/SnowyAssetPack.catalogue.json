@@ -1,0 +1,7 @@
+{
+  "source": "SnowyAssetPack.png",
+  "sheetWidth": 384,
+  "sheetHeight": 832,
+  "notes": "Assembled by Claude from the pack's self-labeled loose PNGs (not the packed reference spritesheet.png, which has an ambiguous compact layout) \u2014 layout and names are ours, art is the pack's. The Ice_*_Inner_Corner_N numbered variants (tagged 'low-confidence') could not be confidently read as structural autotile corners at working resolution; they read more like decorative crack/seam overlays and are catalogued as such pending closer review, per the project's verify-before-naming rule for oriented sprites.",
+  "entries": []
+}

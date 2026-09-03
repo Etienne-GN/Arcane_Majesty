@@ -1,0 +1,7 @@
+{
+  "source": "addwork.png",
+  "sheetWidth": 384,
+  "sheetHeight": 2048,
+  "notes": "Large multi-category master sheet (trees, ruins/castle stone walls, wooden bridge/dock kit, village goods, signposts, graveyard). Verified against a labeled 32px grid overlay, section by section, then cross-checked programmatically against the real PNG alpha channel (every box confirmed non-empty; a few caught and fixed: a hole/crack duplicate at the same cell, a floor-corner box that bled onto a reserved black-X placeholder tile, two bridge-post boxes that bled onto a row of black-X placeholder tiles, two empty rubble-pile boxes removed outright, and a column-shift in the graveyard row that was hiding 7 real tombstone variants on the row below \u2014 now added). The ruins/castle wall kits (rows 8-11, 22-27) and the bridge/dock construction kit (rows 28-39) stay flagged lowConfidence: read from a single static reference image with no real map placement to self-verify against (unlike the Water autotile lesson), and for the bridge/dock kit, consolidated to representative pieces rather than itemizing every repeated post/railing. Trees, nature props, village goods, signposts, and graveyard tombstones are high-confidence \u2014 each is visually distinct and unambiguous.",
+  "entries": []
+}

@@ -1,0 +1,7 @@
+{
+  "source": "assets_spritesheet_v2_free.png",
+  "sheetWidth": 384,
+  "sheetHeight": 384,
+  "notes": "Free nature/village decoration sheet, irregular object placement (not a uniform autotile grid). Bounding boxes are cell-aligned approximations verified against a labeled grid overlay; the plank/fence cluster (rows 9-11) is a lower-confidence pass \u2014 shapes there are packed tightly and boundaries between adjacent pieces were harder to separate cleanly.",
+  "entries": []
+}

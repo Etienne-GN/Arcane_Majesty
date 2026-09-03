@@ -1,0 +1,11 @@
+{
+  "source": "Decorations2.png",
+  "sheetWidth": 36,
+  "sheetHeight": 96,
+  "gridTileWidth": 12,
+  "gridTileHeight": 12,
+  "gridCols": 3,
+  "gridRows": 8,
+  "notes": "Small ground-flower decoration set, 3 color variants per row (col0=warm orange, col1=pale pink, col2=blue-violet). Superseded an earlier draft (Decorationspre.png, rejected) with 2 more rows and cleaner shapes.",
+  "entries": []
+}
