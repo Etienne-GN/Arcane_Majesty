@@ -11,11 +11,11 @@ export default defineConfig({
   },
   server: {
     port: 5178,
-    // Personal, single-user curation tool with unauthenticated write
-    // endpoints behind the /api proxy — localhost-only by default
-    // (unlike apps/amo's game server, which deliberately binds to the
-    // LAN for multiplayer testing). Default host (127.0.0.1) applies
-    // when `host` is omitted.
+    // Bound to the LAN like lpc_forge (host: true) so the user can reach
+    // it from another machine on their network, e.g. 192.168.0.206:5178.
+    // Write endpoints behind the /api proxy stay unauthenticated — this
+    // is still a trusted-home-network tool, not exposed to the internet.
+    host: true,
     proxy: {
       '/api': 'http://localhost:3002'
     }
