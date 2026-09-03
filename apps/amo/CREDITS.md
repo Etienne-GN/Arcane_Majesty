@@ -27,6 +27,34 @@ TilesetStoneGround, TilesetWall).
   anyway.
 - Credit: Cainos — https://cainos.itch.io/
 
+## RoleWorld Wizard (pixel-sazy)
+
+The `roleworld_wizard/` tileset pack (witch's house, trees, market
+stall, interior furniture, potions/items, animated cauldron) — the
+free tier of a wizard-themed asset package. Its character animation
+frames (the wizard MC and a slime enemy) aren't tileset content, so
+they live outside Sprite Ledger's scope at
+`apps/amo/public/assets/characters/roleworld_wizard/`, matching how
+Pipoya's Animal/Bird/Enemy character sprites are organized.
+
+- Source: [pixel-sazy.itch.io/roleworld-wizard-package](https://pixel-sazy.itch.io/roleworld-wizard-package)
+- License: commercial and non-commercial use permitted, modification
+  allowed, credit not required (appreciated). May not be resold,
+  repackaged, or redistributed; not for AI training or NFT/Web3/
+  physical-product use.
+- Credit: pixel-sazy — https://pixel-sazy.itch.io/
+
+## Pixel Art Top Down Bushes Pack (DustDFG)
+
+The `patd_bushes_dustdfg/` tileset pack (9 bush variants, plain and
+drop-shadow versions). Despite the similar name, this is a **different
+artist** from Cainos's "Pixel Art Top Down - Basic" above — don't
+conflate the two.
+
+- Source: Yevhen Babiichuk (DustDFG) — [opengameart.org/content/pixel-art-top-down-bushes-pack](https://opengameart.org/content/pixel-art-top-down-bushes-pack)
+- License: **CC-BY-SA 4.0** — credit is required (unlike Cainos's pack).
+- Credit: **Yevhen Babiichuk (DustDFG)**
+
 ## ManaSeed (Seliel the Shaper)
 
 The `manaseed_seasonal_forest_sample_{winter,spring,summer,autumn}/`

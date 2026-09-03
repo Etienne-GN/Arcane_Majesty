@@ -1,0 +1,137 @@
+{
+  "source": "interior_asset.png",
+  "sheetWidth": 153,
+  "sheetHeight": 128,
+  "entries": [
+    {
+      "name": "bed",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 33,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "furniture",
+        "bed"
+      ]
+    },
+    {
+      "name": "armchair_pink",
+      "kind": "object",
+      "x": 33,
+      "y": 0,
+      "w": 25,
+      "h": 33,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "furniture",
+        "chair"
+      ]
+    },
+    {
+      "name": "window_frame_purple",
+      "kind": "object",
+      "x": 58,
+      "y": 0,
+      "w": 48,
+      "h": 48,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "structure",
+        "window"
+      ]
+    },
+    {
+      "name": "wall_brick_corner",
+      "kind": "object",
+      "x": 106,
+      "y": 0,
+      "w": 47,
+      "h": 48,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "structure",
+        "wall"
+      ]
+    },
+    {
+      "name": "large_rug",
+      "kind": "object",
+      "x": 0,
+      "y": 48,
+      "w": 63,
+      "h": 63,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "furniture",
+        "rug",
+        "floor"
+      ]
+    },
+    {
+      "name": "curtain_window",
+      "kind": "object",
+      "x": 68,
+      "y": 48,
+      "w": 40,
+      "h": 48,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "structure",
+        "window",
+        "curtain"
+      ]
+    },
+    {
+      "name": "wood_floor_panel",
+      "kind": "object",
+      "x": 110,
+      "y": 48,
+      "w": 43,
+      "h": 48,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "structure",
+        "floor",
+        "door"
+      ]
+    },
+    {
+      "name": "round_table",
+      "kind": "object",
+      "x": 68,
+      "y": 96,
+      "w": 48,
+      "h": 32,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "furniture",
+        "table"
+      ]
+    },
+    {
+      "name": "small_furniture_row",
+      "kind": "object",
+      "x": 0,
+      "y": 112,
+      "w": 68,
+      "h": 16,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "furniture",
+        "props",
+        "small"
+      ]
+    }
+  ]
+}

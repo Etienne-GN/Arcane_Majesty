@@ -1,0 +1,138 @@
+{
+  "source": "exterior_asset.png",
+  "sheetWidth": 256,
+  "sheetHeight": 192,
+  "entries": [
+    {
+      "name": "witch_house",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 128,
+      "h": 192,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "building",
+        "house"
+      ]
+    },
+    {
+      "name": "tree_orange",
+      "kind": "object",
+      "x": 130,
+      "y": 0,
+      "w": 63,
+      "h": 80,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "tree",
+        "nature"
+      ],
+      "season": "autumn"
+    },
+    {
+      "name": "tree_brown",
+      "kind": "object",
+      "x": 196,
+      "y": 0,
+      "w": 58,
+      "h": 80,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "tree",
+        "nature"
+      ],
+      "season": "autumn"
+    },
+    {
+      "name": "market_stall",
+      "kind": "object",
+      "x": 130,
+      "y": 82,
+      "w": 62,
+      "h": 58,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "structure",
+        "shop"
+      ]
+    },
+    {
+      "name": "ladder",
+      "kind": "object",
+      "x": 193,
+      "y": 82,
+      "w": 30,
+      "h": 58,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "structure",
+        "prop"
+      ]
+    },
+    {
+      "name": "wall_board_pegs",
+      "kind": "object",
+      "x": 224,
+      "y": 82,
+      "w": 32,
+      "h": 50,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "structure",
+        "decoration"
+      ]
+    },
+    {
+      "name": "small_props_cluster",
+      "kind": "object",
+      "x": 130,
+      "y": 143,
+      "w": 60,
+      "h": 30,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "props",
+        "small",
+        "rocks"
+      ]
+    },
+    {
+      "name": "autumn_leaf_cluster",
+      "kind": "object",
+      "x": 192,
+      "y": 143,
+      "w": 32,
+      "h": 30,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "leaves",
+        "props"
+      ],
+      "season": "autumn"
+    },
+    {
+      "name": "pumpkin",
+      "kind": "object",
+      "x": 225,
+      "y": 143,
+      "w": 30,
+      "h": 30,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "prop",
+        "food"
+      ],
+      "season": "autumn"
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "source": "bushes_shadow.png",
+  "sheetWidth": 72,
+  "sheetHeight": 72,
+  "gridTileWidth": 24,
+  "gridTileHeight": 24,
+  "gridCols": 3,
+  "gridRows": 3,
+  "entries": [
+    {
+      "name": "bushes_shadow_var_1",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
+      "tags": [
+        "pixel_art_top_down",
+        "dustdfg",
+        "bush",
+        "nature"
+      ]
+    },
+    {
+      "name": "bushes_shadow_var_2",
+      "kind": "tile",
+      "row": 0,
+      "col": 1,
+      "frameIndex": 1,
+      "tags": [
+        "pixel_art_top_down",
+        "dustdfg",
+        "bush",
+        "nature"
+      ]
+    },
+    {
+      "name": "bushes_shadow_var_3",
+      "kind": "tile",
+      "row": 0,
+      "col": 2,
+      "frameIndex": 2,
+      "tags": [
+        "pixel_art_top_down",
+        "dustdfg",
+        "bush",
+        "nature"
+      ]
+    },
+    {
+      "name": "bushes_shadow_var_4",
+      "kind": "tile",
+      "row": 1,
+      "col": 0,
+      "frameIndex": 3,
+      "tags": [
+        "pixel_art_top_down",
+        "dustdfg",
+        "bush",
+        "nature"
+      ]
+    },
+    {
+      "name": "bushes_shadow_var_5",
+      "kind": "tile",
+      "row": 1,
+      "col": 1,
+      "frameIndex": 4,
+      "tags": [
+        "pixel_art_top_down",
+        "dustdfg",
+        "bush",
+        "nature"
+      ]
+    },
+    {
+      "name": "bushes_shadow_var_6",
+      "kind": "tile",
+      "row": 1,
+      "col": 2,
+      "frameIndex": 5,
+      "tags": [
+        "pixel_art_top_down",
+        "dustdfg",
+        "bush",
+        "nature"
+      ]
+    },
+    {
+      "name": "bushes_shadow_var_7",
+      "kind": "tile",
+      "row": 2,
+      "col": 0,
+      "frameIndex": 6,
+      "tags": [
+        "pixel_art_top_down",
+        "dustdfg",
+        "bush",
+        "nature"
+      ]
+    },
+    {
+      "name": "bushes_shadow_var_8",
+      "kind": "tile",
+      "row": 2,
+      "col": 1,
+      "frameIndex": 7,
+      "tags": [
+        "pixel_art_top_down",
+        "dustdfg",
+        "bush",
+        "nature"
+      ]
+    },
+    {
+      "name": "bushes_shadow_var_9",
+      "kind": "tile",
+      "row": 2,
+      "col": 2,
+      "frameIndex": 8,
+      "tags": [
+        "pixel_art_top_down",
+        "dustdfg",
+        "bush",
+        "nature"
+      ]
+    }
+  ]
+}

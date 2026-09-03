@@ -3846,5 +3846,185 @@
   "seasonal sample (winter).png::winter_ground_texture_patch": {
     "collection": "manaseed",
     "license": "ok"
+  },
+  "bushes.png::bushes_var_1": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes.png::bushes_var_2": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes.png::bushes_var_3": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes.png::bushes_var_4": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes.png::bushes_var_5": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes.png::bushes_var_6": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes.png::bushes_var_7": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes.png::bushes_var_8": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes.png::bushes_var_9": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes_shadow.png::bushes_shadow_var_1": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes_shadow.png::bushes_shadow_var_2": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes_shadow.png::bushes_shadow_var_3": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes_shadow.png::bushes_shadow_var_4": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes_shadow.png::bushes_shadow_var_5": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes_shadow.png::bushes_shadow_var_6": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes_shadow.png::bushes_shadow_var_7": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes_shadow.png::bushes_shadow_var_8": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "bushes_shadow.png::bushes_shadow_var_9": {
+    "collection": "patd_bushes_dustdfg",
+    "license": "ok"
+  },
+  "cauldron_animated.png::cauldron_bubbling": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "exterior_asset.png::witch_house": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "exterior_asset.png::tree_orange": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "exterior_asset.png::tree_brown": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "exterior_asset.png::market_stall": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "exterior_asset.png::ladder": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "exterior_asset.png::wall_board_pegs": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "exterior_asset.png::small_props_cluster": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "exterior_asset.png::autumn_leaf_cluster": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "exterior_asset.png::pumpkin": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "interior_asset.png::bed": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "interior_asset.png::armchair_pink": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "interior_asset.png::window_frame_purple": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "interior_asset.png::wall_brick_corner": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "interior_asset.png::large_rug": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "interior_asset.png::curtain_window": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "interior_asset.png::wood_floor_panel": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "interior_asset.png::round_table": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "interior_asset.png::small_furniture_row": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "item.png::potion_green_small": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "item.png::potion_green_large": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "item.png::potion_blue_small": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "item.png::potion_blue_large": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "item.png::potion_gold_small": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "item.png::potion_gold_large": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "item.png::coin_gold": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
+  },
+  "item.png::slime_blob": {
+    "collection": "roleworld_wizard",
+    "license": "ok"
   }
 }
