@@ -136,6 +136,8 @@ def main(argv):
     parser.add_argument('--min-area', type=int, default=16)
     parser.add_argument('--repair', action='store_true',
                         help='tighten whole-image boxes in existing catalogues instead')
+    parser.add_argument('--out', help='write to this catalogue path (single PNG only) — use when '
+                                      'the sheet already has a catalogue under a different basename')
     parser.add_argument('--force', action='store_true', help='overwrite existing catalogue files')
     parser.add_argument('--dry-run', action='store_true')
     args = parser.parse_args(argv)
@@ -155,11 +157,15 @@ def main(argv):
         print(f'repair: tightened {fixed} of {total} catalogue file(s)')
         return 0
 
+    if args.out and not os.path.isfile(args.path):
+        print('--out only applies to a single PNG', file=sys.stderr)
+        return 1
+
     root = args.path if os.path.isdir(args.path) else os.path.dirname(args.path)
     extra = [slug(t) for t in args.tags.split(',') if t.strip()]
     written = skipped = 0
     for png in iter_pngs(args.path):
-        out = re.sub(r'\.png$', '.catalogue.json', png, flags=re.I)
+        out = args.out or re.sub(r'\.png$', '.catalogue.json', png, flags=re.I)
         if os.path.exists(out) and not args.force:
             skipped += 1
             continue

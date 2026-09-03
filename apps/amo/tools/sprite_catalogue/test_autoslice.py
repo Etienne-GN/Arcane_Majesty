@@ -170,12 +170,12 @@ def test_apply_names():
         {'name': 'a_001', 'kind': 'object', 'tags': ['pack'], 'needsNaming': True},
         {'name': 'a_002', 'kind': 'object', 'tags': ['pack'], 'needsNaming': True},
     ]}
-    renamed, dropped, errors = apply_names(cat, {
+    renamed, dropped, merged, errors = apply_names(cat, {
         '0': 'oak_tree',
         '1': {'name': 'pine_snow', 'tags': ['conifer'], 'season': 'winter'},
         '2': {'drop': True},
     })
-    check('apply reports counts', (renamed, dropped, errors), (2, 1, []))
+    check('apply reports counts', (renamed, dropped, merged, errors), (2, 1, 0, []))
     check('bare string renames', cat['entries'][0]['name'], 'oak_tree')
     check('needsNaming cleared', 'needsNaming' in cat['entries'][0], False)
     check('tags merge, not replace', cat['entries'][1]['tags'], ['pack', 'conifer'])
@@ -183,16 +183,94 @@ def test_apply_names():
     check('dropped entry removed', len(cat['entries']), 2)
 
     cat2 = {'entries': [{'name': 'x', 'kind': 'object'}, {'name': 'y', 'kind': 'object'}]}
-    _, _, errors = apply_names(cat2, {'0': 'same', '1': 'same'})
+    *_, errors = apply_names(cat2, {'0': 'same', '1': 'same'})
     check('duplicate names refused', len(errors), 1)
     check('catalogue untouched on refusal', cat2['entries'][0]['name'], 'x')
 
-    _, _, errors = apply_names({'entries': [{'name': 'x'}]}, {'0': 'Not Snake Case'})
+    *_, errors = apply_names({'entries': [{'name': 'x'}]}, {'0': 'Not Snake Case'})
     check('non-snake_case refused', len(errors), 1)
-    _, _, errors = apply_names({'entries': [{'name': 'x'}]}, {'9': 'oops'})
+    *_, errors = apply_names({'entries': [{'name': 'x'}]}, {'9': 'oops'})
     check('out-of-range index refused', len(errors), 1)
-    _, _, errors = apply_names({'entries': [{'name': 'x'}]}, {'0': {'season': 'monsoon'}})
+    *_, errors = apply_names({'entries': [{'name': 'x'}]}, {'0': {'season': 'monsoon'}})
     check('invalid season refused', len(errors), 1)
+
+
+def grid_cat(cells, tile=16, cols=4, rows=4):
+    return {
+        'source': 's.png', 'sheetWidth': cols * tile, 'sheetHeight': rows * tile,
+        'gridTileWidth': tile, 'gridTileHeight': tile, 'gridCols': cols, 'gridRows': rows,
+        'entries': [{'name': f'c{r}{c}', 'kind': 'tile', 'row': r, 'col': c,
+                     'frameIndex': r * cols + c, 'tags': ['pack'], 'needsNaming': True}
+                    for r, c in cells],
+    }
+
+
+def test_merge_cells_into_one_object():
+    # A 2x2 block of cells is one 32x32 sprite, not four tiles.
+    cat = grid_cat([(0, 0), (0, 1), (1, 0), (1, 1), (3, 3)])
+    renamed, dropped, merged, errors = apply_names(cat, {
+        'names': {'4': 'grass_fill'},
+        'merges': [{'name': 'flower_big', 'cells': [0, 1, 2, 3],
+                    'tags': ['flower'], 'season': 'spring'}],
+    })
+    check('merge reports counts', (renamed, dropped, merged, errors), (1, 0, 1, []))
+    check('merged entry replaces its cells', len(cat['entries']), 2)
+    m = cat['entries'][0]
+    check('merged box spans the block', {k: m[k] for k in 'xywh'},
+          {'x': 0, 'y': 0, 'w': 32, 'h': 32})
+    check('merged entry is an object', m['kind'], 'object')
+    check('merged entry inherits cell tags', m['tags'], ['pack', 'flower'])
+    check('merged entry keeps season', m['season'], 'spring')
+    check('merged entry sits at its first cell position', cat['entries'][1]['name'], 'grass_fill')
+    check('surviving tile keeps the grid', 'gridCols' in cat, True)
+
+
+def test_merge_refuses_to_swallow_a_neighbour():
+    # (1,1) sits inside the union box but isn't listed -- merging would eat it.
+    cat = grid_cat([(0, 0), (0, 1), (1, 0), (1, 1)])
+    *_, errors = apply_names(cat, {
+        'merges': [{'name': 'big', 'cells': [0, 1, 2]}]})
+    check('un-merged neighbour inside the box refused', len(errors), 1)
+    check('catalogue untouched on refusal', len(cat['entries']), 4)
+
+
+def test_merge_conflicts_and_shapes():
+    cat = grid_cat([(0, 0), (0, 1)])
+    *_, errors = apply_names(cat, {
+        'names': {'0': 'solo'},
+        'merges': [{'name': 'big', 'cells': [0, 1]}]})
+    check('rename and merge on one cell refused', len(errors), 1)
+
+    cat = grid_cat([(0, 0), (0, 1)])
+    *_, errors = apply_names(cat, {'merges': [{'name': 'big', 'cells': [0]}]})
+    check('single-cell merge refused', len(errors), 1)
+
+    cat = grid_cat([(0, 0), (0, 1)])
+    *_, errors = apply_names(cat, {
+        'merges': [{'name': 'a', 'cells': [0, 1]}, {'name': 'b', 'cells': [1, 0]}]})
+    check('two merges claiming one cell refused', len(errors) >= 1, True)
+
+    cat = grid_cat([(0, 0), (0, 1)])
+    *_, errors = apply_names(cat, {'merges': [{'cells': [0, 1]}]})
+    check('merge without a name refused', len(errors), 1)
+
+
+def test_merging_every_tile_drops_the_grid_fields():
+    # No tile entries left means no grid to describe; the validator rejects
+    # grid fields it cannot check.
+    cat = grid_cat([(0, 0), (0, 1), (1, 0), (1, 1)])
+    *_, errors = apply_names(cat, {'merges': [{'name': 'whole', 'cells': [0, 1, 2, 3]}]})
+    check('all-tiles merge succeeds', errors, [])
+    check('grid fields removed', any(k.startswith('grid') for k in cat), False)
+
+
+def test_flat_and_full_spec_forms_agree():
+    flat = grid_cat([(0, 0)])
+    full = grid_cat([(0, 0)])
+    apply_names(flat, {'0': 'same_name'})
+    apply_names(full, {'names': {'0': 'same_name'}})
+    check('flat and {names:} forms are equivalent',
+          flat['entries'][0]['name'], full['entries'][0]['name'])
 
 
 def test_bootstrapped_catalogue_passes_validator(tmp):
@@ -223,6 +301,11 @@ def main():
         test_repair_tightens_whole_image_box(tmp)
         test_grid_atlas_preserves_position(tmp)
         test_apply_names()
+        test_merge_cells_into_one_object()
+        test_merge_refuses_to_swallow_a_neighbour()
+        test_merge_conflicts_and_shapes()
+        test_merging_every_tile_drops_the_grid_fields()
+        test_flat_and_full_spec_forms_agree()
         test_bootstrapped_catalogue_passes_validator(tmp)
 
     if failures:

@@ -4,21 +4,1137 @@
   "sheetHeight": 256,
   "entries": [
     {
+      "name": "summer_dirt_a_r0c1",
+      "kind": "tile",
+      "row": 0,
+      "col": 1,
+      "frameIndex": 1,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_a"
+      ]
+    },
+    {
+      "name": "summer_dirt_a_r0c2",
+      "kind": "tile",
+      "row": 0,
+      "col": 2,
+      "frameIndex": 2,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_a"
+      ]
+    },
+    {
+      "name": "summer_dirt_a_r0c3",
+      "kind": "tile",
+      "row": 0,
+      "col": 3,
+      "frameIndex": 3,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_a"
+      ]
+    },
+    {
+      "name": "summer_dirt_a_r0c4",
+      "kind": "tile",
+      "row": 0,
+      "col": 4,
+      "frameIndex": 4,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_a"
+      ]
+    },
+    {
+      "name": "summer_cliff_r0c1",
+      "kind": "tile",
+      "row": 0,
+      "col": 6,
+      "frameIndex": 6,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r0c2",
+      "kind": "tile",
+      "row": 0,
+      "col": 7,
+      "frameIndex": 7,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r0c3",
+      "kind": "tile",
+      "row": 0,
+      "col": 8,
+      "frameIndex": 8,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r0c4",
+      "kind": "tile",
+      "row": 0,
+      "col": 9,
+      "frameIndex": 9,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
       "name": "summer_tree",
       "kind": "object",
       "x": 176,
       "y": 0,
       "w": 80,
-      "h": 104,
+      "h": 112,
       "tags": [
         "manaseed",
-        "seliel_the_shaper",
-        "seasonal",
-        "forest",
-        "tree",
-        "nature"
+        "seasonal_forest",
+        "tree"
       ],
       "season": "summer"
+    },
+    {
+      "name": "summer_dirt_a_r1c0",
+      "kind": "tile",
+      "row": 1,
+      "col": 0,
+      "frameIndex": 16,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_a"
+      ]
+    },
+    {
+      "name": "summer_dirt_a_r1c1",
+      "kind": "tile",
+      "row": 1,
+      "col": 1,
+      "frameIndex": 17,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_a"
+      ]
+    },
+    {
+      "name": "summer_dirt_a_r1c2",
+      "kind": "tile",
+      "row": 1,
+      "col": 2,
+      "frameIndex": 18,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_a"
+      ]
+    },
+    {
+      "name": "summer_dirt_a_r1c3",
+      "kind": "tile",
+      "row": 1,
+      "col": 3,
+      "frameIndex": 19,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_a"
+      ]
+    },
+    {
+      "name": "summer_dirt_a_r1c4",
+      "kind": "tile",
+      "row": 1,
+      "col": 4,
+      "frameIndex": 20,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_a"
+      ]
+    },
+    {
+      "name": "summer_cliff_r1c0",
+      "kind": "tile",
+      "row": 1,
+      "col": 5,
+      "frameIndex": 21,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r1c1",
+      "kind": "tile",
+      "row": 1,
+      "col": 6,
+      "frameIndex": 22,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r1c4",
+      "kind": "tile",
+      "row": 1,
+      "col": 9,
+      "frameIndex": 25,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r1c5",
+      "kind": "tile",
+      "row": 1,
+      "col": 10,
+      "frameIndex": 26,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_dirt_a_r2c0",
+      "kind": "tile",
+      "row": 2,
+      "col": 0,
+      "frameIndex": 32,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_a"
+      ]
+    },
+    {
+      "name": "summer_dirt_a_r2c1",
+      "kind": "tile",
+      "row": 2,
+      "col": 1,
+      "frameIndex": 33,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_a"
+      ]
+    },
+    {
+      "name": "summer_dirt_a_r2c2",
+      "kind": "tile",
+      "row": 2,
+      "col": 2,
+      "frameIndex": 34,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_a"
+      ]
+    },
+    {
+      "name": "summer_dirt_a_r2c3",
+      "kind": "tile",
+      "row": 2,
+      "col": 3,
+      "frameIndex": 35,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_a"
+      ]
+    },
+    {
+      "name": "summer_dirt_a_r2c4",
+      "kind": "tile",
+      "row": 2,
+      "col": 4,
+      "frameIndex": 36,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_a"
+      ]
+    },
+    {
+      "name": "summer_cliff_r2c0",
+      "kind": "tile",
+      "row": 2,
+      "col": 5,
+      "frameIndex": 37,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r2c5",
+      "kind": "tile",
+      "row": 2,
+      "col": 10,
+      "frameIndex": 42,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_dirt_b_r0c0",
+      "kind": "tile",
+      "row": 3,
+      "col": 0,
+      "frameIndex": 48,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_b"
+      ]
+    },
+    {
+      "name": "summer_dirt_b_r0c1",
+      "kind": "tile",
+      "row": 3,
+      "col": 1,
+      "frameIndex": 49,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_b"
+      ]
+    },
+    {
+      "name": "summer_dirt_b_r0c2",
+      "kind": "tile",
+      "row": 3,
+      "col": 2,
+      "frameIndex": 50,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_b"
+      ]
+    },
+    {
+      "name": "summer_dirt_b_r0c3",
+      "kind": "tile",
+      "row": 3,
+      "col": 3,
+      "frameIndex": 51,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_b"
+      ]
+    },
+    {
+      "name": "summer_dirt_b_r0c4",
+      "kind": "tile",
+      "row": 3,
+      "col": 4,
+      "frameIndex": 52,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_b"
+      ]
+    },
+    {
+      "name": "summer_cliff_r3c0",
+      "kind": "tile",
+      "row": 3,
+      "col": 5,
+      "frameIndex": 53,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r3c1",
+      "kind": "tile",
+      "row": 3,
+      "col": 6,
+      "frameIndex": 54,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r3c4",
+      "kind": "tile",
+      "row": 3,
+      "col": 9,
+      "frameIndex": 57,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r3c5",
+      "kind": "tile",
+      "row": 3,
+      "col": 10,
+      "frameIndex": 58,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_dirt_b_r1c0",
+      "kind": "tile",
+      "row": 4,
+      "col": 0,
+      "frameIndex": 64,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_b"
+      ]
+    },
+    {
+      "name": "summer_dirt_b_r1c1",
+      "kind": "tile",
+      "row": 4,
+      "col": 1,
+      "frameIndex": 65,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_b"
+      ]
+    },
+    {
+      "name": "summer_dirt_b_r1c2",
+      "kind": "tile",
+      "row": 4,
+      "col": 2,
+      "frameIndex": 66,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_b"
+      ]
+    },
+    {
+      "name": "summer_dirt_b_r1c3",
+      "kind": "tile",
+      "row": 4,
+      "col": 3,
+      "frameIndex": 67,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_b"
+      ]
+    },
+    {
+      "name": "summer_dirt_b_r1c4",
+      "kind": "tile",
+      "row": 4,
+      "col": 4,
+      "frameIndex": 68,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_b"
+      ]
+    },
+    {
+      "name": "summer_cliff_r4c0",
+      "kind": "tile",
+      "row": 4,
+      "col": 5,
+      "frameIndex": 69,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r4c1",
+      "kind": "tile",
+      "row": 4,
+      "col": 6,
+      "frameIndex": 70,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r4c2",
+      "kind": "tile",
+      "row": 4,
+      "col": 7,
+      "frameIndex": 71,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r4c3",
+      "kind": "tile",
+      "row": 4,
+      "col": 8,
+      "frameIndex": 72,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r4c4",
+      "kind": "tile",
+      "row": 4,
+      "col": 9,
+      "frameIndex": 73,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r4c5",
+      "kind": "tile",
+      "row": 4,
+      "col": 10,
+      "frameIndex": 74,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_dirt_b_r2c0",
+      "kind": "tile",
+      "row": 5,
+      "col": 0,
+      "frameIndex": 80,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_b"
+      ]
+    },
+    {
+      "name": "summer_dirt_b_r2c1",
+      "kind": "tile",
+      "row": 5,
+      "col": 1,
+      "frameIndex": 81,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_b"
+      ]
+    },
+    {
+      "name": "summer_dirt_b_r2c2",
+      "kind": "tile",
+      "row": 5,
+      "col": 2,
+      "frameIndex": 82,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_b"
+      ]
+    },
+    {
+      "name": "summer_dirt_b_r2c3",
+      "kind": "tile",
+      "row": 5,
+      "col": 3,
+      "frameIndex": 83,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_b"
+      ]
+    },
+    {
+      "name": "summer_dirt_b_r2c4",
+      "kind": "tile",
+      "row": 5,
+      "col": 4,
+      "frameIndex": 84,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "dirt_b"
+      ]
+    },
+    {
+      "name": "summer_cliff_r5c0",
+      "kind": "tile",
+      "row": 5,
+      "col": 5,
+      "frameIndex": 85,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r5c1",
+      "kind": "tile",
+      "row": 5,
+      "col": 6,
+      "frameIndex": 86,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r5c2",
+      "kind": "tile",
+      "row": 5,
+      "col": 7,
+      "frameIndex": 87,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r5c3",
+      "kind": "tile",
+      "row": 5,
+      "col": 8,
+      "frameIndex": 88,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r5c4",
+      "kind": "tile",
+      "row": 5,
+      "col": 9,
+      "frameIndex": 89,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r5c5",
+      "kind": "tile",
+      "row": 5,
+      "col": 10,
+      "frameIndex": 90,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_grass_flowers_a",
+      "kind": "tile",
+      "row": 6,
+      "col": 0,
+      "frameIndex": 96,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "ground_detail"
+      ],
+      "season": "summer"
+    },
+    {
+      "name": "summer_grass_flowers_b",
+      "kind": "tile",
+      "row": 6,
+      "col": 1,
+      "frameIndex": 97,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "ground_detail"
+      ],
+      "season": "summer"
+    },
+    {
+      "name": "summer_grass_flowers_c",
+      "kind": "tile",
+      "row": 6,
+      "col": 2,
+      "frameIndex": 98,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "ground_detail"
+      ],
+      "season": "summer"
+    },
+    {
+      "name": "summer_grass_flowers_d",
+      "kind": "tile",
+      "row": 6,
+      "col": 3,
+      "frameIndex": 99,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "ground_detail"
+      ],
+      "season": "summer"
+    },
+    {
+      "name": "summer_pebbles_a",
+      "kind": "tile",
+      "row": 6,
+      "col": 4,
+      "frameIndex": 100,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "ground_detail"
+      ],
+      "season": "summer"
+    },
+    {
+      "name": "summer_cliff_r6c0",
+      "kind": "tile",
+      "row": 6,
+      "col": 5,
+      "frameIndex": 101,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r6c1",
+      "kind": "tile",
+      "row": 6,
+      "col": 6,
+      "frameIndex": 102,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r6c2",
+      "kind": "tile",
+      "row": 6,
+      "col": 7,
+      "frameIndex": 103,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r6c3",
+      "kind": "tile",
+      "row": 6,
+      "col": 8,
+      "frameIndex": 104,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r6c4",
+      "kind": "tile",
+      "row": 6,
+      "col": 9,
+      "frameIndex": 105,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r6c5",
+      "kind": "tile",
+      "row": 6,
+      "col": 10,
+      "frameIndex": 106,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_grass_flowers_e",
+      "kind": "tile",
+      "row": 7,
+      "col": 0,
+      "frameIndex": 112,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "ground_detail"
+      ],
+      "season": "summer"
+    },
+    {
+      "name": "summer_grass_flowers_f",
+      "kind": "tile",
+      "row": 7,
+      "col": 1,
+      "frameIndex": 113,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "ground_detail"
+      ],
+      "season": "summer"
+    },
+    {
+      "name": "summer_grass_flowers_g",
+      "kind": "tile",
+      "row": 7,
+      "col": 2,
+      "frameIndex": 114,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "ground_detail"
+      ],
+      "season": "summer"
+    },
+    {
+      "name": "summer_grass_flowers_h",
+      "kind": "tile",
+      "row": 7,
+      "col": 3,
+      "frameIndex": 115,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "ground_detail"
+      ],
+      "season": "summer"
+    },
+    {
+      "name": "summer_pebbles_b",
+      "kind": "tile",
+      "row": 7,
+      "col": 4,
+      "frameIndex": 116,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "ground_detail"
+      ],
+      "season": "summer"
+    },
+    {
+      "name": "summer_cliff_r7c0",
+      "kind": "tile",
+      "row": 7,
+      "col": 5,
+      "frameIndex": 117,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r7c1",
+      "kind": "tile",
+      "row": 7,
+      "col": 6,
+      "frameIndex": 118,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r7c2",
+      "kind": "tile",
+      "row": 7,
+      "col": 7,
+      "frameIndex": 119,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r7c3",
+      "kind": "tile",
+      "row": 7,
+      "col": 8,
+      "frameIndex": 120,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r7c4",
+      "kind": "tile",
+      "row": 7,
+      "col": 9,
+      "frameIndex": 121,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r7c5",
+      "kind": "tile",
+      "row": 7,
+      "col": 10,
+      "frameIndex": 122,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cave_ledge_c0",
+      "kind": "tile",
+      "row": 7,
+      "col": 11,
+      "frameIndex": 123,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cave_ledge_c1",
+      "kind": "tile",
+      "row": 7,
+      "col": 12,
+      "frameIndex": 124,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cave_ledge_c2",
+      "kind": "tile",
+      "row": 7,
+      "col": 13,
+      "frameIndex": 125,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cave_ledge_c3",
+      "kind": "tile",
+      "row": 7,
+      "col": 14,
+      "frameIndex": 126,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cave_ledge_c4",
+      "kind": "tile",
+      "row": 7,
+      "col": 15,
+      "frameIndex": 127,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_flower_blue",
+      "kind": "tile",
+      "row": 8,
+      "col": 0,
+      "frameIndex": 128,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "flower"
+      ],
+      "season": "summer"
+    },
+    {
+      "name": "summer_flower_purple_tall",
+      "kind": "object",
+      "x": 16,
+      "y": 128,
+      "w": 16,
+      "h": 32,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "flower"
+      ],
+      "season": "summer"
+    },
+    {
+      "name": "summer_flower_bush_yellow",
+      "kind": "object",
+      "x": 32,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "flower"
+      ],
+      "season": "summer"
+    },
+    {
+      "name": "summer_rock_small_a",
+      "kind": "tile",
+      "row": 8,
+      "col": 4,
+      "frameIndex": 132,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "rock"
+      ]
+    },
+    {
+      "name": "summer_cliff_r8c0",
+      "kind": "tile",
+      "row": 8,
+      "col": 5,
+      "frameIndex": 133,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r8c1",
+      "kind": "tile",
+      "row": 8,
+      "col": 6,
+      "frameIndex": 134,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r8c2",
+      "kind": "tile",
+      "row": 8,
+      "col": 7,
+      "frameIndex": 135,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r8c3",
+      "kind": "tile",
+      "row": 8,
+      "col": 8,
+      "frameIndex": 136,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r8c4",
+      "kind": "tile",
+      "row": 8,
+      "col": 9,
+      "frameIndex": 137,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r8c5",
+      "kind": "tile",
+      "row": 8,
+      "col": 10,
+      "frameIndex": 138,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
     },
     {
       "name": "summer_cave_entrance",
@@ -29,160 +1145,771 @@
       "h": 64,
       "tags": [
         "manaseed",
-        "seliel_the_shaper",
-        "seasonal",
-        "forest",
-        "cave",
-        "cliff",
+        "seasonal_forest",
         "structure"
+      ]
+    },
+    {
+      "name": "summer_flower_pink",
+      "kind": "tile",
+      "row": 9,
+      "col": 0,
+      "frameIndex": 144,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "flower"
       ],
       "season": "summer"
     },
     {
-      "name": "summer_cliff_hillside",
-      "kind": "object",
-      "x": 80,
-      "y": 0,
-      "w": 96,
-      "h": 256,
+      "name": "summer_rock_small_b",
+      "kind": "tile",
+      "row": 9,
+      "col": 4,
+      "frameIndex": 148,
       "tags": [
         "manaseed",
-        "seliel_the_shaper",
-        "seasonal",
-        "forest",
-        "cliff",
-        "hillside",
-        "wall",
-        "blob"
-      ],
-      "season": "summer"
+        "seasonal_forest",
+        "rock"
+      ]
     },
     {
-      "name": "summer_dirt_patch_solid",
-      "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 48,
+      "name": "summer_cliff_r9c0",
+      "kind": "tile",
+      "row": 9,
+      "col": 5,
+      "frameIndex": 149,
       "tags": [
         "manaseed",
-        "seliel_the_shaper",
-        "seasonal",
-        "forest",
-        "dirt",
-        "patch",
-        "ground"
-      ],
-      "season": "summer"
+        "seasonal_forest",
+        "cliff"
+      ]
     },
     {
-      "name": "summer_dirt_patch_variant",
-      "kind": "object",
-      "x": 0,
-      "y": 48,
-      "w": 64,
-      "h": 48,
+      "name": "summer_cliff_r9c1",
+      "kind": "tile",
+      "row": 9,
+      "col": 6,
+      "frameIndex": 150,
       "tags": [
         "manaseed",
-        "seliel_the_shaper",
-        "seasonal",
-        "forest",
-        "dirt",
-        "patch",
-        "ground",
-        "variant"
-      ],
-      "season": "summer"
+        "seasonal_forest",
+        "cliff"
+      ]
     },
     {
-      "name": "summer_small_prop_icons",
-      "kind": "object",
-      "x": 0,
-      "y": 96,
-      "w": 80,
-      "h": 32,
+      "name": "summer_cliff_r9c2",
+      "kind": "tile",
+      "row": 9,
+      "col": 7,
+      "frameIndex": 151,
       "tags": [
         "manaseed",
-        "seliel_the_shaper",
-        "seasonal",
-        "forest",
-        "props",
-        "decoration",
-        "small"
-      ],
-      "season": "summer"
+        "seasonal_forest",
+        "cliff"
+      ]
     },
     {
-      "name": "summer_flower_rock_cluster",
-      "kind": "object",
-      "x": 0,
-      "y": 128,
-      "w": 80,
-      "h": 40,
+      "name": "summer_cliff_r9c3",
+      "kind": "tile",
+      "row": 9,
+      "col": 8,
+      "frameIndex": 152,
       "tags": [
         "manaseed",
-        "seliel_the_shaper",
-        "seasonal",
-        "forest",
-        "flowers",
-        "rocks",
-        "props"
-      ],
-      "season": "summer"
+        "seasonal_forest",
+        "cliff"
+      ]
     },
     {
-      "name": "summer_boulder_rock",
-      "kind": "object",
-      "x": 0,
-      "y": 208,
-      "w": 64,
-      "h": 48,
+      "name": "summer_cliff_r9c4",
+      "kind": "tile",
+      "row": 9,
+      "col": 9,
+      "frameIndex": 153,
       "tags": [
         "manaseed",
-        "seliel_the_shaper",
-        "seasonal",
-        "forest",
-        "rock",
-        "boulder",
-        "props"
-      ],
-      "season": "summer"
+        "seasonal_forest",
+        "cliff"
+      ]
     },
     {
-      "name": "summer_ice_wall_texture",
-      "kind": "object",
-      "x": 16,
-      "y": 176,
-      "w": 48,
-      "h": 32,
+      "name": "summer_cliff_r9c5",
+      "kind": "tile",
+      "row": 9,
+      "col": 10,
+      "frameIndex": 154,
       "tags": [
         "manaseed",
-        "seliel_the_shaper",
-        "seasonal",
-        "forest",
-        "wall",
-        "texture",
-        "stone"
-      ],
-      "season": "summer"
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_wall_stone_r0c0",
+      "kind": "tile",
+      "row": 10,
+      "col": 2,
+      "frameIndex": 162,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "wall_stone"
+      ]
+    },
+    {
+      "name": "summer_wall_stone_r0c1",
+      "kind": "tile",
+      "row": 10,
+      "col": 3,
+      "frameIndex": 163,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "wall_stone"
+      ]
+    },
+    {
+      "name": "summer_wall_stone_r0c2",
+      "kind": "tile",
+      "row": 10,
+      "col": 4,
+      "frameIndex": 164,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "wall_stone"
+      ]
+    },
+    {
+      "name": "summer_cliff_r10c1",
+      "kind": "tile",
+      "row": 10,
+      "col": 6,
+      "frameIndex": 166,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r10c2",
+      "kind": "tile",
+      "row": 10,
+      "col": 7,
+      "frameIndex": 167,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r10c3",
+      "kind": "tile",
+      "row": 10,
+      "col": 8,
+      "frameIndex": 168,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r10c4",
+      "kind": "tile",
+      "row": 10,
+      "col": 9,
+      "frameIndex": 169,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_rock_ledge_a",
+      "kind": "tile",
+      "row": 11,
+      "col": 0,
+      "frameIndex": 176,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "rock"
+      ]
+    },
+    {
+      "name": "summer_wall_stone_r1c0",
+      "kind": "tile",
+      "row": 11,
+      "col": 2,
+      "frameIndex": 178,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "wall_stone"
+      ]
+    },
+    {
+      "name": "summer_wall_stone_r1c1",
+      "kind": "tile",
+      "row": 11,
+      "col": 3,
+      "frameIndex": 179,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "wall_stone"
+      ]
+    },
+    {
+      "name": "summer_wall_stone_r1c2",
+      "kind": "tile",
+      "row": 11,
+      "col": 4,
+      "frameIndex": 180,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "wall_stone"
+      ]
+    },
+    {
+      "name": "summer_cliff_r11c0",
+      "kind": "tile",
+      "row": 11,
+      "col": 5,
+      "frameIndex": 181,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r11c1",
+      "kind": "tile",
+      "row": 11,
+      "col": 6,
+      "frameIndex": 182,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r11c2",
+      "kind": "tile",
+      "row": 11,
+      "col": 7,
+      "frameIndex": 183,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r11c3",
+      "kind": "tile",
+      "row": 11,
+      "col": 8,
+      "frameIndex": 184,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r11c4",
+      "kind": "tile",
+      "row": 11,
+      "col": 9,
+      "frameIndex": 185,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r11c5",
+      "kind": "tile",
+      "row": 11,
+      "col": 10,
+      "frameIndex": 186,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_rock_ledge_b",
+      "kind": "tile",
+      "row": 12,
+      "col": 0,
+      "frameIndex": 192,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "rock"
+      ]
+    },
+    {
+      "name": "summer_rock_ledge_c",
+      "kind": "tile",
+      "row": 12,
+      "col": 1,
+      "frameIndex": 193,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "rock"
+      ]
+    },
+    {
+      "name": "summer_wall_stone_r2c0",
+      "kind": "tile",
+      "row": 12,
+      "col": 2,
+      "frameIndex": 194,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "wall_stone"
+      ]
+    },
+    {
+      "name": "summer_wall_stone_r2c1",
+      "kind": "tile",
+      "row": 12,
+      "col": 3,
+      "frameIndex": 195,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "wall_stone"
+      ]
+    },
+    {
+      "name": "summer_wall_stone_r2c2",
+      "kind": "tile",
+      "row": 12,
+      "col": 4,
+      "frameIndex": 196,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "wall_stone"
+      ]
+    },
+    {
+      "name": "summer_cliff_r12c0",
+      "kind": "tile",
+      "row": 12,
+      "col": 5,
+      "frameIndex": 197,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r12c1",
+      "kind": "tile",
+      "row": 12,
+      "col": 6,
+      "frameIndex": 198,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r12c2",
+      "kind": "tile",
+      "row": 12,
+      "col": 7,
+      "frameIndex": 199,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r12c3",
+      "kind": "tile",
+      "row": 12,
+      "col": 8,
+      "frameIndex": 200,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r12c4",
+      "kind": "tile",
+      "row": 12,
+      "col": 9,
+      "frameIndex": 201,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r12c5",
+      "kind": "tile",
+      "row": 12,
+      "col": 10,
+      "frameIndex": 202,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_boulder_r0c0",
+      "kind": "tile",
+      "row": 13,
+      "col": 0,
+      "frameIndex": 208,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "boulder"
+      ]
+    },
+    {
+      "name": "summer_boulder_r0c1",
+      "kind": "tile",
+      "row": 13,
+      "col": 1,
+      "frameIndex": 209,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "boulder"
+      ]
+    },
+    {
+      "name": "summer_boulder_r0c2",
+      "kind": "tile",
+      "row": 13,
+      "col": 2,
+      "frameIndex": 210,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "boulder"
+      ]
+    },
+    {
+      "name": "summer_cliff_r13c0",
+      "kind": "tile",
+      "row": 13,
+      "col": 5,
+      "frameIndex": 213,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r13c1",
+      "kind": "tile",
+      "row": 13,
+      "col": 6,
+      "frameIndex": 214,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r13c2",
+      "kind": "tile",
+      "row": 13,
+      "col": 7,
+      "frameIndex": 215,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r13c3",
+      "kind": "tile",
+      "row": 13,
+      "col": 8,
+      "frameIndex": 216,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r13c4",
+      "kind": "tile",
+      "row": 13,
+      "col": 9,
+      "frameIndex": 217,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r13c5",
+      "kind": "tile",
+      "row": 13,
+      "col": 10,
+      "frameIndex": 218,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
     },
     {
       "name": "summer_ground_texture_patch",
       "kind": "object",
       "x": 176,
-      "y": 192,
+      "y": 208,
       "w": 80,
-      "h": 64,
+      "h": 48,
       "tags": [
         "manaseed",
-        "seliel_the_shaper",
-        "seasonal",
-        "forest",
-        "ground",
-        "texture",
-        "special"
-      ],
-      "season": "summer"
+        "seasonal_forest",
+        "ground"
+      ]
+    },
+    {
+      "name": "summer_boulder_r1c1",
+      "kind": "tile",
+      "row": 14,
+      "col": 1,
+      "frameIndex": 225,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "boulder"
+      ]
+    },
+    {
+      "name": "summer_boulder_r1c2",
+      "kind": "tile",
+      "row": 14,
+      "col": 2,
+      "frameIndex": 226,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "boulder"
+      ]
+    },
+    {
+      "name": "summer_boulder_r1c3",
+      "kind": "tile",
+      "row": 14,
+      "col": 3,
+      "frameIndex": 227,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "boulder"
+      ]
+    },
+    {
+      "name": "summer_boulder_r1c4",
+      "kind": "tile",
+      "row": 14,
+      "col": 4,
+      "frameIndex": 228,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "boulder"
+      ]
+    },
+    {
+      "name": "summer_cliff_r14c0",
+      "kind": "tile",
+      "row": 14,
+      "col": 5,
+      "frameIndex": 229,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r14c1",
+      "kind": "tile",
+      "row": 14,
+      "col": 6,
+      "frameIndex": 230,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r14c2",
+      "kind": "tile",
+      "row": 14,
+      "col": 7,
+      "frameIndex": 231,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r14c3",
+      "kind": "tile",
+      "row": 14,
+      "col": 8,
+      "frameIndex": 232,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r14c4",
+      "kind": "tile",
+      "row": 14,
+      "col": 9,
+      "frameIndex": 233,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r14c5",
+      "kind": "tile",
+      "row": 14,
+      "col": 10,
+      "frameIndex": 234,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_boulder_r2c2",
+      "kind": "tile",
+      "row": 15,
+      "col": 2,
+      "frameIndex": 242,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "boulder"
+      ]
+    },
+    {
+      "name": "summer_boulder_r2c3",
+      "kind": "tile",
+      "row": 15,
+      "col": 3,
+      "frameIndex": 243,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "boulder"
+      ]
+    },
+    {
+      "name": "summer_boulder_r2c4",
+      "kind": "tile",
+      "row": 15,
+      "col": 4,
+      "frameIndex": 244,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "boulder"
+      ]
+    },
+    {
+      "name": "summer_cliff_r15c1",
+      "kind": "tile",
+      "row": 15,
+      "col": 6,
+      "frameIndex": 246,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r15c2",
+      "kind": "tile",
+      "row": 15,
+      "col": 7,
+      "frameIndex": 247,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r15c3",
+      "kind": "tile",
+      "row": 15,
+      "col": 8,
+      "frameIndex": 248,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
+    },
+    {
+      "name": "summer_cliff_r15c4",
+      "kind": "tile",
+      "row": 15,
+      "col": 9,
+      "frameIndex": 249,
+      "tags": [
+        "manaseed",
+        "seasonal_forest",
+        "cliff"
+      ]
     }
-  ]
+  ],
+  "gridTileWidth": 16,
+  "gridTileHeight": 16,
+  "gridCols": 16,
+  "gridRows": 16
 }

@@ -365,9 +365,9 @@
     "name": "autumn_dirt_patch_solid",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:22.864Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_5faa72b8-4097-4aea-8fc4-478fb47a27f5",
@@ -375,9 +375,9 @@
     "name": "autumn_dirt_patch_variant",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:27.325Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_8d0ec220-5990-40c5-93be-29dfb7b3978a",
@@ -385,9 +385,9 @@
     "name": "spring_dirt_patch_solid",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:31.342Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_73eb5cc1-58b8-4f24-b3ba-3d8b28cf4f8d",
@@ -395,9 +395,9 @@
     "name": "summer_dirt_patch_solid",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:39.094Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_344a3e0d-1693-40b6-909c-50e549920d58",
@@ -405,9 +405,9 @@
     "name": "spring_dirt_patch_variant",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:44.953Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_3ab13e95-7766-4078-9f35-c334ae780f28",
@@ -415,9 +415,9 @@
     "name": "summer_dirt_patch_variant",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:48.093Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_d32623eb-6d08-4dcd-937c-169e61859ba7",
@@ -425,9 +425,9 @@
     "name": "winter_dirt_patch_solid",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:51.162Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_be7f1143-4108-4bef-9e68-95fb1c0d2e64",
@@ -435,9 +435,9 @@
     "name": "winter_dirt_patch_variant",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:54.332Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_983fe371-c3ef-4ee0-98af-2434e867ccba",
@@ -445,9 +445,9 @@
     "name": "autumn_small_prop_icons",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:24:20.296Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_0056dffa-7d7c-4315-acb2-58210cff10a2",
@@ -455,9 +455,9 @@
     "name": "spring_small_prop_icons",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:24:24.111Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_90aabdc7-5610-4459-9191-e3ee64656111",
@@ -465,9 +465,9 @@
     "name": "summer_small_prop_icons",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:24:27.784Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_1e4d098d-7011-4dae-bfbe-aa83ebee5cea",
@@ -475,9 +475,9 @@
     "name": "winter_small_prop_icons",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:24:31.190Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_c77d2d53-a3d0-4681-a6fe-d15f30c1b283",
@@ -485,9 +485,9 @@
     "name": "autumn_cliff_hillside",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:26:22.811Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_5c63c412-4764-406f-8109-ce176882c8f3",
@@ -495,9 +495,9 @@
     "name": "spring_cliff_hillside",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:26:27.296Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_1b885e0e-2ca7-42e6-a9cf-d079f3b01b4a",
@@ -505,9 +505,9 @@
     "name": "winter_cliff_hillside",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:26:31.028Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_26192727-527f-46ca-9aa7-728a7065a003",
@@ -515,9 +515,9 @@
     "name": "summer_cliff_hillside",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:26:34.544Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_26e825b1-cbb5-45be-a175-ce91942a9fff",
@@ -525,9 +525,9 @@
     "name": "spring_flower_rock_cluster",
     "reason": "misaligned",
     "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"spring_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:32:19.488Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_5471024e-4ace-47ed-b595-b51add2afc1a",
@@ -535,9 +535,9 @@
     "name": "autumn_flower_rock_cluster",
     "reason": "misaligned",
     "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"autumn_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:32:47.411Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_beb3d01e-c696-461f-bf30-6a53d0141f5e",
@@ -545,9 +545,9 @@
     "name": "summer_flower_rock_cluster",
     "reason": "misaligned",
     "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"summer_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:00.724Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_7f2350b8-b91d-435b-a1c1-b3bc9e79b2aa",
@@ -555,9 +555,9 @@
     "name": "winter_flower_rock_cluster",
     "reason": "misaligned",
     "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"winter_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:13.212Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_473e3b12-1486-4e4b-82a1-56b41b2ec453",
@@ -565,9 +565,9 @@
     "name": "autumn_boulder_rock",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:34.078Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_8339ba3d-4756-49ec-99b6-a7dad7df2ef1",
@@ -575,9 +575,9 @@
     "name": "autumn_ice_wall_texture",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:35.837Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_74a8711b-c77f-45aa-8aef-3bafc8dd5a57",
@@ -585,9 +585,9 @@
     "name": "spring_boulder_rock",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:38.845Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_a7166dee-3f89-4d7c-84b3-86e96d2761ab",
@@ -595,9 +595,9 @@
     "name": "spring_ice_wall_texture",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:41.098Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_a0fb28aa-26ef-4285-8cdf-4e0a43913aa8",
@@ -605,9 +605,9 @@
     "name": "summer_boulder_rock",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:43.308Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_ce78dc1f-19f4-498a-932b-2e41be6e8d87",
@@ -615,9 +615,9 @@
     "name": "summer_ice_wall_texture",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:45.586Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_572d47e7-0036-4899-9cb0-c08632215916",
@@ -625,9 +625,9 @@
     "name": "winter_boulder_rock",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:47.565Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_ff7160cb-6e26-4538-9786-85d0ac8d8e99",
@@ -635,9 +635,9 @@
     "name": "winter_ice_wall_texture",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:49.202Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-03T22:49:31.948044Z"
   },
   {
     "id": "f_54ee0394-1376-4c53-86c5-62c0cb53fa73",
@@ -717,6 +717,896 @@
     "comment": "this needs to be splitted",
     "status": "open",
     "createdAt": "2026-09-03T16:57:49.710Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_59f1694f-686d-4ec3-8244-ea7d4f0944fb",
+    "sheet": "base_out_atlas.png",
+    "name": "lpc_base_out_atlas_sheet",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T18:12:08.197Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e9357c60-71c4-4cf9-8f48-c6531df07722",
+    "sheet": "build_atlas.png",
+    "name": "lpc_build_atlas_sheet",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T18:12:11.809Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3689c41d-8849-4814-9120-df2312f404ca",
+    "sheet": "effects.png",
+    "name": "lpc_effects_sheet",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T18:12:14.483Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_d021557a-30ff-4d65-8f65-1539bcebec3a",
+    "sheet": "items1.png",
+    "name": "lpc_items_sheet",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T18:12:17.060Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9e110c9a-cfd5-4eaf-b873-3cac9a731fef",
+    "sheet": "obj_misk_atlas.png",
+    "name": "lpc_obj_misc_atlas_sheet",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T18:12:20.738Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_22e40db7-1d88-4676-8b63-d6a25d6b54e1",
+    "sheet": "terrain_atlas.png",
+    "name": "lpc_terrain_atlas_sheet",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T18:12:23.760Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_b7556eb9-35f3-490b-a49e-80c11e6b6f88",
+    "sheet": "bush_round_dotted_a.png",
+    "name": "bush_round_dotted_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:36:54.964Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_668d1dcf-3cb3-4b5b-b014-d15681314f78",
+    "sheet": "bush_dark_spiky.png",
+    "name": "bush_dark_spiky",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:36:58.834Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ab37241d-f8b3-45fd-bed1-a64d112c3c9b",
+    "sheet": "bush_flowering_orange.png",
+    "name": "bush_flowering_orange",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:37:02.097Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_8fa19f2b-63e9-4f3d-9391-1af5d9b9c170",
+    "sheet": "bush_round_dotted_b.png",
+    "name": "bush_round_dotted_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:37:03.717Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_1fceebd6-ba59-49fc-8f62-3828f77af30c",
+    "sheet": "bush_round_plain_a.png",
+    "name": "bush_round_plain_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:37:06.530Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_91d51abf-dfc7-459f-b74c-f653488355ac",
+    "sheet": "bush_round_plain_b.png",
+    "name": "bush_round_plain_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:37:09.419Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_4e0e9a0e-a4ad-4b4c-ba5f-d798fbc018e6",
+    "sheet": "chest_wood_gold_trim.png",
+    "name": "chest_wood_gold_trim",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:37:13.311Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_607fbdfb-9ae0-4cb1-8bd1-b86794996b7c",
+    "sheet": "fence_tiles.png",
+    "name": "fence_blob",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:37:30.155Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_87acd62c-40de-4bf2-9512-4fd0054da125",
+    "sheet": "log_horizontal_single.png",
+    "name": "log_horizontal_single",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:37:36.008Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_2812dbc2-58c7-4192-9804-5d3b48224a00",
+    "sheet": "log_pile_stacked.png",
+    "name": "log_pile_stacked",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:37:38.973Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_2c467400-b3e5-4053-8aed-73abe49e77f1",
+    "sheet": "log_vertical_short.png",
+    "name": "log_vertical_short",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:37:41.069Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_87c0dab8-6703-4b09-a4ab-e49582c95254",
+    "sheet": "lily_pad_plain_green.png",
+    "name": "lily_pad_plain_green",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:37:43.454Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5cc5a4a4-484e-4cfa-a7dd-6633b4aae501",
+    "sheet": "lily_pad_flowering_pink.png",
+    "name": "lily_pad_flowering_pink",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:37:45.300Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f0117c01-abe8-4c16-96fe-300a34671998",
+    "sheet": "rock_pebble_shore.png",
+    "name": "rock_pebble_shore",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:37:47.126Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3b45c971-80ee-4a62-a15e-a4406d95147a",
+    "sheet": "grass_tuft_tall_spiky.png",
+    "name": "grass_tuft_tall_spiky",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:37:49.753Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_45570c63-909f-4f23-8912-f2339d637599",
+    "sheet": "fence_plank_wall_long.png",
+    "name": "fence_plank_wall_long",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:37:52.386Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_75f934c7-201a-437e-9a42-2be3485255e8",
+    "sheet": "mushroom_variant_cluster.png",
+    "name": "mushroom_variant_cluster",
+    "reason": "misaligned",
+    "comment": "there are 16 mushrooms in this.. \n",
+    "status": "open",
+    "createdAt": "2026-09-03T19:38:09.360Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_1e47eab6-d821-4d6e-95c2-c7547ad2fe55",
+    "sheet": "ground_decorations.png",
+    "name": "dirt_speckle_row",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:04.123Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6c06b550-4e5b-487d-92d0-a33f7f55ff40",
+    "sheet": "ground_decorations.png",
+    "name": "grass_tuft_row",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:06.126Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_52d70774-0eb3-4e6e-90c3-0d566bb4da50",
+    "sheet": "terrain_tiles_v2.png",
+    "name": "dirt_patch_solid",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:18.065Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e9c63d8a-534c-4fce-beca-2901acf54e9e",
+    "sheet": "terrain_tiles_v2.png",
+    "name": "grass_patch_solid",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:21.062Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_21364d0d-b116-4cb2-b778-096ba2d3f075",
+    "sheet": "terrain_tiles_v2.png",
+    "name": "tree_bush_prop",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:23.175Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_1486e736-d113-4891-8fdd-4e0f7961f00c",
+    "sheet": "terrain_tiles_v2.png",
+    "name": "grass_field_open",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:25.407Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6987e509-0634-46ec-b4c2-3831c2247765",
+    "sheet": "terrain_tiles_v2.png",
+    "name": "grass_field_flowers",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:27.101Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ee203af0-ebe0-479f-97f6-ee668bdffb27",
+    "sheet": "terrain_tiles_v2.png",
+    "name": "path_dirt_strip",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:29.237Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6f540983-b804-4839-8a29-0b51d9133ad4",
+    "sheet": "terrain_tiles_v2.png",
+    "name": "pond_circle_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:30.857Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_086075f5-369b-4cd1-9719-a8e8823a579d",
+    "sheet": "terrain_tiles_v2.png",
+    "name": "pond_circle_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:32.145Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_845c7446-ee51-46a2-9674-f5e41eaa6a79",
+    "sheet": "terrain_tiles_v2.png",
+    "name": "rocky_ground_blob",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:34.363Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ec1bf455-e9e3-4f00-9af5-fe82b3999c92",
+    "sheet": "terrain_tiles_v2.png",
+    "name": "brick_path_strip",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:36.811Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c287234f-0b6a-40c5-8b55-028c74a01baf",
+    "sheet": "water_and_island_tiles_v2.png",
+    "name": "dirt_patch_solid",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:42.176Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_405cf1d9-c334-48cb-82ba-c4b77b18864a",
+    "sheet": "water_and_island_tiles_v2.png",
+    "name": "grass_patch_solid",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:44.209Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_b0d0837f-2d9c-4e89-a9f9-89927e1f65a3",
+    "sheet": "water_and_island_tiles_v2.png",
+    "name": "rocky_ground_blob",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:46.979Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5ce22d08-13fd-4af8-9902-69e6a891f4ff",
+    "sheet": "water_and_island_tiles_v2.png",
+    "name": "water_deep_blob",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:49.980Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5b6d99f6-1898-47d5-b0fc-19e0243ec277",
+    "sheet": "water_and_island_tiles_v2.png",
+    "name": "water_shore_transition",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:53.178Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_50103a97-43b7-41b1-9b99-da0f9f4a465a",
+    "sheet": "decorations.png",
+    "name": "flower_row",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:42:59.682Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_8a163f1b-d069-450e-a913-7c468f5fb3f1",
+    "sheet": "decorations.png",
+    "name": "grass_tuft_row",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:43:01.703Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f5aa04ef-ba52-4bc7-8c0d-29f0ecfd4a1b",
+    "sheet": "dirtpath_tiles.png",
+    "name": "dirtpath_blob",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:43:04.228Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_cd0bb733-7929-4fd8-ac21-690e059f3744",
+    "sheet": "signpost_directional_a.png",
+    "name": "signpost_directional_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:43:06.244Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f6254b25-df61-436d-a5b7-715b9a04cfb0",
+    "sheet": "signpost_directional_b.png",
+    "name": "signpost_directional_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:43:08.844Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e7370508-cf16-4024-a718-cf9f93303bae",
+    "sheet": "stump_large.png",
+    "name": "stump_large",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:43:10.539Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3634e70f-bc37-48fd-aa96-fb8c27afd709",
+    "sheet": "stump_small_dark.png",
+    "name": "stump_small_dark",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:43:16.294Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_b05716a5-2032-4251-9037-567dea885a27",
+    "sheet": "plank_pile_tall_a.png",
+    "name": "plank_pile_tall_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:43:22.270Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a9a7f236-9b89-4d78-8793-0df2998a2b29",
+    "sheet": "plank_pile_tall_b.png",
+    "name": "plank_pile_tall_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:43:24.127Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_2c01da9d-dc56-41c8-9e05-d55400d9612e",
+    "sheet": "bench_wood.png",
+    "name": "bench_wood",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:43:33.258Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e70f0887-c57f-42c8-b38a-06ff7de269be",
+    "sheet": "Bush.png",
+    "name": "bush_variants",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:44:03.319Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_d76dab14-3676-4241-90fe-8d786fea3e5f",
+    "sheet": "Dirt - simplified.png",
+    "name": "dirt_tileset_blob",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:44:05.581Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_957f4022-9d52-4f92-b62f-e02f9dfefdad",
+    "sheet": "Fall - simplified.png",
+    "name": "fall_tileset_blob",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:44:07.690Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c21e327b-e10d-4a4b-b0ec-9cba36fb6a79",
+    "sheet": "Flower.png",
+    "name": "flower_variants",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:44:09.985Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ef36e96d-c635-46c4-96da-3e7881dc6e47",
+    "sheet": "Grass.png",
+    "name": "grass_variants",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:44:11.943Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_665a8578-a26e-4f49-a208-a5fa624ed7d7",
+    "sheet": "Other.png",
+    "name": "misc_props",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:44:14.420Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e6b48ae3-d71f-4361-8d19-2bb0748b5cc7",
+    "sheet": "Spring - simplified.png",
+    "name": "spring_tileset_blob",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:44:16.317Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_08af0963-ab3d-44ca-b36a-f28b56cf2724",
+    "sheet": "Stone and Rock.png",
+    "name": "stone_rock_variants",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:44:18.305Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_dbdf9a3d-6a50-454d-86bd-306a686cef0e",
+    "sheet": "Summer - simplified.png",
+    "name": "summer_tileset_blob",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:44:20.262Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c5e22a24-060a-41f0-9936-131c05f97cfe",
+    "sheet": "Texture.png",
+    "name": "ground_texture",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:44:22.865Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_b849852d-145c-48b1-94b6-5fd9d573925c",
+    "sheet": "Tree.png",
+    "name": "tree_variants",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:44:25.084Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_72acd8a3-9dfa-4b6a-99c1-bf218f11c8a9",
+    "sheet": "Tufts and Lumps.png",
+    "name": "tufts_and_lumps",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:44:26.917Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c5b4c619-5117-44a9-8a44-ddd188f3d75e",
+    "sheet": "Water Plants.png",
+    "name": "water_plant_variants",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:44:28.985Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_4ae965d1-b02c-436f-b906-c9daece17766",
+    "sheet": "Winter - simplified.png",
+    "name": "winter_tileset_blob",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:44:31.694Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a39164a6-80bf-49b6-bef1-51b7bbfe6bc4",
+    "sheet": "overworld_tileset.png",
+    "name": "tree_large",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:44:58.111Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_8abc9919-13ca-4c18-9f7b-40c4fb64fc3b",
+    "sheet": "overworld_tileset.png",
+    "name": "house_red_roof",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:45:00.962Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_badf7d69-b146-49c7-88f0-c44c658496ea",
+    "sheet": "overworld_tileset.png",
+    "name": "stone_wall_blob",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:45:06.983Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_4d42b2c1-3384-4494-a310-4e2c3019dcd9",
+    "sheet": "overworld_tileset.png",
+    "name": "bush_cluster",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:45:09.248Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_18f1b55d-6395-4b84-975f-f4439375d08b",
+    "sheet": "overworld_tileset.png",
+    "name": "rock_cluster",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:45:11.404Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_384c65d4-2b95-458b-9858-789f3c2d721f",
+    "sheet": "overworld_tileset.png",
+    "name": "house_cottage",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:45:18.011Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_d22c1fed-452d-45e8-8f59-fc074b2060c8",
+    "sheet": "overworld_tileset.png",
+    "name": "fence_blob",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:45:20.514Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_33a3cc5d-16ee-4489-bcf9-a4f442c1154e",
+    "sheet": "overworld_tileset.png",
+    "name": "grass_blob",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:45:22.740Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0546b25a-f8a8-4d19-aa8b-b83e16dd4dbc",
+    "sheet": "dungeon_tileset.png",
+    "name": "stone_wall_blob",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:45:34.353Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_be998117-a55a-4946-94f1-57e3cb09580c",
+    "sheet": "dungeon_tileset.png",
+    "name": "floor_tile_dark",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:45:37.922Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_dbf6bc88-0847-4756-911c-8ee56172825e",
+    "sheet": "dungeon_tileset.png",
+    "name": "spike_trap",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:45:40.710Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_548376af-c1d6-4a51-a70f-76869e5263d8",
+    "sheet": "dungeon_tileset.png",
+    "name": "crystal_prop",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:45:43.229Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0ea3b249-08a6-479e-aaa4-3bd574df4e69",
+    "sheet": "set_1.png",
+    "name": "small_tree_prop",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:57:20.573Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_075e32c3-157f-45b6-a301-ca1d26a7a6f2",
+    "sheet": "trees_and_fruits.png",
+    "name": "tree_small",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:57:22.913Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c8941aae-0273-443b-b056-6db671f73b65",
+    "sheet": "trees_and_fruits.png",
+    "name": "tree_yellow_apple",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:57:25.544Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_60628ced-5890-46da-861d-487acff86e90",
+    "sheet": "trees_and_fruits.png",
+    "name": "tree_magenta_fruit",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:57:28.328Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5e6b765d-75ca-4de0-a7b7-a095c63ffffd",
+    "sheet": "trees_and_fruits.png",
+    "name": "tree_orange_fruit",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:57:31.804Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_38711f33-2d3a-4792-bb7b-cb57f4111371",
+    "sheet": "woods_objects.png",
+    "name": "wood_prop_variants",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:57:34.891Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_22e2dc78-28e7-4ae0-bff6-23085aca11f5",
+    "sheet": "set_1.png",
+    "name": "stone_path_tiles",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:57:36.597Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3cc4eade-f816-48eb-9eda-347803ba3adf",
+    "sheet": "set_1.png",
+    "name": "flower_mushroom_row",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:57:38.668Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e791b2ed-aa30-4df1-abbc-9fd4aec54187",
+    "sheet": "set_1.png",
+    "name": "dirt_path_strip",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:57:40.917Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_cf9f2d67-5770-4f30-8dad-5876e2e4140c",
+    "sheet": "set_1.png",
+    "name": "hedge_solid_patch",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:57:42.683Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f26ec2f2-ab91-43ac-8f7b-c08fa48cbe54",
+    "sheet": "set_1.png",
+    "name": "hedge_maze_pattern",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:57:44.428Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_7fc04b01-e05e-4470-888d-6d993ce9d72b",
+    "sheet": "pots.png",
+    "name": "pot_variants",
+    "reason": "wrong_name",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:57:49.360Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_df916638-7fc5-4a7d-91f3-84aa998eeda4",
+    "sheet": "fruits_objects.png",
+    "name": "fruit_variants",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-03T19:57:52.443Z",
     "resolvedAt": null
   }
 ]
