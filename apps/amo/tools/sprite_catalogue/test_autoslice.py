@@ -149,6 +149,21 @@ def test_repair_tightens_whole_image_box(tmp):
     check('repair is idempotent', repair(str(cat_path)), 0)
 
 
+def test_grid_atlas_preserves_position(tmp):
+    """A cell atlas must keep gaps, or autotile adjacency reads wrong."""
+    from contact_sheet import render_grid_atlas
+    png = tmp / 'atlas.png'
+    sheet_with_blobs(png, (48, 48), [(0, 0, 16, 16), (32, 32, 16, 16)])
+    cat, _ = build_catalogue(str(png), str(tmp), grid=16)
+    check('only non-empty cells catalogued', len(cat['entries']), 2)
+    check('second cell keeps its true row/col',
+          (cat['entries'][1]['row'], cat['entries'][1]['col']), (2, 2))
+    scale = 3
+    img = render_grid_atlas(cat, str(png), [0, 1], scale, pad=0, label_h=0)
+    check('atlas spans the whole grid, not just filled cells',
+          img.size, (48 * scale, 48 * scale))
+
+
 def test_apply_names():
     cat = {'entries': [
         {'name': 'a_000', 'kind': 'object', 'tags': ['pack'], 'needsNaming': True},
@@ -206,6 +221,7 @@ def main():
         test_bootstrap_single_and_multi(tmp)
         test_bootstrap_grid_mode(tmp)
         test_repair_tightens_whole_image_box(tmp)
+        test_grid_atlas_preserves_position(tmp)
         test_apply_names()
         test_bootstrapped_catalogue_passes_validator(tmp)
 

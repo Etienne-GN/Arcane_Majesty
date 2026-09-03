@@ -83,6 +83,19 @@ Open a page, read the whole page, name everything on it in one pass. Add
 `--fill` when a sheet is all tiny 16px props and you need each one zoomed to
 its own cell; the default keeps one shared zoom so relative sizes stay honest.
 
+For a **grid/autotile sheet, always use `--grid-atlas`** instead:
+
+```
+python3 tools/sprite_catalogue/contact_sheet.py \
+  --catalogue path/to/sheet.catalogue.json --grid-atlas --scale 4
+```
+
+It draws every cell at its true row and column, gaps included, so the terrain
+blocks and their edges stay readable as blocks. The flat contact sheet packs
+non-empty cells contiguously, which shifts rows and destroys the adjacency an
+autotile name depends on — you cannot tell `dirt_edge_ne` from `dirt_edge_nw`
+without seeing what borders it.
+
 This replaces the old per-entry `crop_check.py` loop. `crop_check.py` still
 exists and is still useful — but as a spot check on a single suspicious
 entry, not as the main mechanism.

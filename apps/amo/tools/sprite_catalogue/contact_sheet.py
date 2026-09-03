@@ -42,6 +42,35 @@ def checkerboard(size):
     return img
 
 
+def render_grid_atlas(cat, sheet_path, indices, scale, pad=2, label_h=10):
+    """Cell atlas: every entry drawn at its true (row, col) on the sheet's grid.
+
+    Autotile naming lives or dies on adjacency — an edge cell only reads as
+    `dirt_edge_ne` next to the corner and fill it borders. Packing non-empty
+    cells contiguously (what the flat contact sheet does) shifts rows and
+    destroys exactly the information the namer needs, so grid sheets get laid
+    out in place, gaps and all.
+    """
+    sheet = Image.open(sheet_path).convert('RGBA')
+    tw, th = cat['gridTileWidth'], cat['gridTileHeight']
+    cw = tw * scale + pad * 2
+    ch = th * scale + pad * 2 + label_h
+    page = checkerboard((cat['gridCols'] * cw, cat['gridRows'] * ch))
+    draw = ImageDraw.Draw(page)
+
+    for idx in indices:
+        entry = cat['entries'][idx]
+        x, y, w, h = entry_box(cat, entry)
+        crop = sheet.crop((x, y, x + w, y + h)).resize((w * scale, h * scale), Image.NEAREST)
+        ox = entry['col'] * cw
+        oy = entry['row'] * ch
+        draw.rectangle([ox, oy, ox + cw - 1, oy + ch - 1], outline=BORDER)
+        page.paste(crop, (ox + pad, oy + pad + label_h), crop)
+        draw.text((ox + pad, oy + 1), str(idx), fill=LABEL)
+
+    return page
+
+
 def render(cat, sheet_path, indices, cell, cols, scale, pad=6, label_h=14, fill=False):
     """One page: `indices` laid out in a grid of `cols` cells of `cell` px.
 
@@ -87,6 +116,8 @@ def main(argv):
     parser.add_argument('--cols', type=int, default=8)
     parser.add_argument('--cell', type=int, default=48, help='logical cell size in source px')
     parser.add_argument('--scale', type=int, default=3)
+    parser.add_argument('--grid-atlas', action='store_true',
+                        help='lay tile entries out at their true row/col (autotiles need adjacency)')
     parser.add_argument('--fill', action='store_true',
                         help='zoom each sprite to its own cell (better for tiny props)')
     parser.add_argument('--only-unnamed', action='store_true',
@@ -105,6 +136,21 @@ def main(argv):
 
     os.makedirs(args.out_dir, exist_ok=True)
     base = os.path.basename(args.catalogue).replace('.catalogue.json', '')
+
+    if args.grid_atlas:
+        if cat.get('gridCols') is None:
+            print('--grid-atlas needs a catalogue with grid fields', file=sys.stderr)
+            return 1
+        tiles = [i for i in indices if cat['entries'][i].get('kind') == 'tile']
+        if not tiles:
+            print('--grid-atlas needs tile entries', file=sys.stderr)
+            return 1
+        out = os.path.join(args.out_dir, f'{base}_atlas.png')
+        render_grid_atlas(cat, sheet_path, tiles, args.scale).save(out)
+        print(f'{out}  -- {len(tiles)} cell(s) on a {cat["gridCols"]}x{cat["gridRows"]} grid, in place')
+        print(f'\nName them into a JSON map, then: apply_names.py --catalogue {args.catalogue} --names <file>')
+        return 0
+
     pages = math.ceil(len(indices) / args.per_page)
     for p in range(pages):
         chunk = indices[p * args.per_page:(p + 1) * args.per_page]
