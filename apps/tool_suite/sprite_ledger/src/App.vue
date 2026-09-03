@@ -4,17 +4,18 @@ import CollectionSidebar from './components/CollectionSidebar.vue';
 import SpriteGrid from './components/SpriteGrid.vue';
 import SpriteDetail from './components/SpriteDetail.vue';
 import { fetchSheets, fetchMeta, fetchFlags, addCollection } from './services/api';
-import type { Sheet, Collection, Flag } from './services/api';
+import type { Sheet, Collection, Flag, LicenseStatus } from './services/api';
 
 const sheets = ref<Sheet[]>([]);
 const collections = ref<Collection[]>([]);
-const spriteMeta = ref<Record<string, { collection: string }>>({});
+const spriteMeta = ref<Record<string, { collection: string; license?: LicenseStatus }>>({});
 const openFlags = ref<Flag[]>([]);
 
 const activeCollectionId = ref<string | null>(null);
 const activeSheet = ref<string | null>(null); // null = "All sheets"
 const flaggedOnly = ref(false);
 const searchText = ref('');
+const licenseFilter = ref<'all' | 'ok' | 'unlicensed' | 'unmarked'>('all');
 
 const selected = ref<{ sheetPngFilename: string; entryName: string } | null>(null);
 const errorMessage = ref<string | null>(null);
@@ -42,7 +43,23 @@ function collectionOf(sheetPngFilename: string, entryName: string): string {
     return spriteMeta.value[keyFor(sheetPngFilename, entryName)]?.collection ?? 'uncollected';
 }
 
+function licenseOf(sheetPngFilename: string, entryName: string): LicenseStatus | null {
+    return spriteMeta.value[keyFor(sheetPngFilename, entryName)]?.license ?? null;
+}
+
 const flaggedKeys = computed(() => new Set(openFlags.value.map(f => keyFor(f.sheet, f.name))));
+
+const licenseOkKeys = computed(() => {
+    const set = new Set<string>();
+    for (const [key, m] of Object.entries(spriteMeta.value)) if (m.license === 'ok') set.add(key);
+    return set;
+});
+
+const licenseFlaggedKeys = computed(() => {
+    const set = new Set<string>();
+    for (const [key, m] of Object.entries(spriteMeta.value)) if (m.license === 'unlicensed') set.add(key);
+    return set;
+});
 
 const sheetNames = computed(() => sheets.value.map(s => s.sheetPngFilename));
 
@@ -55,6 +72,10 @@ const visibleKeys = computed(() => {
             if (activeCollectionId.value !== null && collectionOf(sheet.sheetPngFilename, entry.name) !== activeCollectionId.value) continue;
             if (flaggedOnly.value && !flaggedKeys.value.has(key)) continue;
             if (searchText.value && !entry.name.toLowerCase().includes(searchText.value.toLowerCase())) continue;
+            const license = licenseOf(sheet.sheetPngFilename, entry.name);
+            if (licenseFilter.value === 'ok' && license !== 'ok') continue;
+            if (licenseFilter.value === 'unlicensed' && license !== 'unlicensed') continue;
+            if (licenseFilter.value === 'unmarked' && license !== null) continue;
             set.add(key);
         }
     }
@@ -110,16 +131,20 @@ async function onAddCollection(name: string) {
       :flagged-only="flaggedOnly"
       :search-text="searchText"
       :counts="counts"
+      :license-filter="licenseFilter"
       @select-collection="(id) => activeCollectionId = id"
       @select-sheet="(sheet) => activeSheet = sheet"
       @toggle-flagged-only="flaggedOnly = !flaggedOnly"
       @update-search="(v) => searchText = v"
       @add-collection="onAddCollection"
+      @select-license="(v) => licenseFilter = v"
     />
     <SpriteGrid
       :sheets="sheets"
       :visible-keys="visibleKeys"
       :flagged-keys="flaggedKeys"
+      :license-ok-keys="licenseOkKeys"
+      :license-flagged-keys="licenseFlaggedKeys"
       @select="onSelect"
     />
     <SpriteDetail
@@ -129,6 +154,7 @@ async function onAddCollection(name: string) {
       :sheets="sheets"
       :collections="collections"
       :current-collection-id="collectionOf(selected.sheetPngFilename, selected.entryName)"
+      :current-license="licenseOf(selected.sheetPngFilename, selected.entryName)"
       @close="selected = null"
       @reassigned="reload"
     />

@@ -79,6 +79,15 @@ assert.strictEqual(assignRes.status, 200);
 const metaAfter = await (await fetch(`${base}/api/meta`)).json();
 assert.strictEqual(metaAfter.spriteMeta['PATD_Props.png::chest_wood_small'].collection, 'buildings');
 
+// POST /api/license
+const licenseRes = await fetch(`${base}/api/license`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ sheet: 'PATD_Props.png', name: 'chest_wood_small', status: 'unlicensed' }),
+});
+assert.strictEqual(licenseRes.status, 200);
+const metaAfterLicense = await (await fetch(`${base}/api/meta`)).json();
+assert.strictEqual(metaAfterLicense.spriteMeta['PATD_Props.png::chest_wood_small'].license, 'unlicensed');
+
 // POST /api/flags
 const flagRes = await fetch(`${base}/api/flags`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -102,4 +111,4 @@ const openAfterResolve = await (await fetch(`${base}/api/flags?status=open`)).js
 assert.strictEqual(openAfterResolve.length, 0);
 
 server.close();
-console.log('✓ API smoke tests passed (19 assertions).');
+console.log('✓ API smoke tests passed (21 assertions).');

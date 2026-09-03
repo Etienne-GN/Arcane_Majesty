@@ -40,8 +40,6 @@
       "Bash(git branch -D*)",
       "Bash(rm -rf*)",
       "Bash(rm -r *)",
-      "Bash(kill *)",
-      "Bash(pkill*)",
       "Edit(apps/am1/**)",
       "Write(apps/am1/**)"
     ]

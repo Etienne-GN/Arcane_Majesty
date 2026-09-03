@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue';
-import type { Sheet, Collection, Flag, SpriteEntry } from '../services/api';
-import { imageUrl, assignCollection, fetchFlags, resolveFlag } from '../services/api';
+import type { Sheet, Collection, Flag, SpriteEntry, LicenseStatus } from '../services/api';
+import { imageUrl, assignCollection, fetchFlags, resolveFlag, setLicenseStatus } from '../services/api';
 import FlagForm from './FlagForm.vue';
 
 const props = defineProps<{
@@ -10,6 +10,7 @@ const props = defineProps<{
     sheets: Sheet[];
     collections: Collection[];
     currentCollectionId: string;
+    currentLicense: LicenseStatus | null;
 }>();
 
 const emit = defineEmits<{ close: []; reassigned: [] }>();
@@ -56,6 +57,19 @@ async function onCollectionChange() {
     }
 }
 
+// Clicking the already-active status clears it back to unmarked; clicking
+// the other one switches directly (no need to clear first).
+async function onSetLicense(status: LicenseStatus) {
+    const next = props.currentLicense === status ? null : status;
+    try {
+        await setLicenseStatus(props.sheetPngFilename, props.entryName, next);
+        errorMessage.value = null;
+        emit('reassigned');
+    } catch (e) {
+        errorMessage.value = e instanceof Error ? e.message : String(e);
+    }
+}
+
 const flagsForSprite = ref<Flag[]>([]);
 async function loadFlagsForSprite() {
     const all = await fetchFlags('open');
@@ -96,6 +110,19 @@ async function onResolve(id: string) {
       </select>
     </label>
 
+    <div class="license-controls">
+      <button
+        type="button"
+        :class="{ active: currentLicense === 'ok' }"
+        @click="onSetLicense('ok')"
+      >✓ Licensed OK</button>
+      <button
+        type="button"
+        :class="{ active: currentLicense === 'unlicensed' }"
+        @click="onSetLicense('unlicensed')"
+      >⚠ Flag Unlicensed</button>
+    </div>
+
     <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
 
     <div v-if="flagsForSprite.length" class="open-flags">
@@ -121,6 +148,10 @@ async function onResolve(id: string) {
 .sheet-name { font-size: 11px; color: #888; }
 .tags { font-size: 11px; color: #6a6; margin-top: 4px; }
 .collection-picker { display: block; margin-top: 12px; }
+.license-controls { display: flex; gap: 6px; margin-top: 10px; }
+.license-controls button { flex: 1; font-size: 11px; padding: 4px; background: #1a1a1a; color: #eee; border: 1px solid #333; cursor: pointer; }
+.license-controls button.active:first-child { background: #1a3a1a; border-color: #3c3; color: #6e6; }
+.license-controls button.active:last-child { background: #3a2a1a; border-color: #e91; color: #ea6; }
 .error { color: #e88; font-size: 11px; margin-top: 4px; }
 .open-flags { margin-top: 12px; }
 .flag-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; margin-bottom: 4px; }

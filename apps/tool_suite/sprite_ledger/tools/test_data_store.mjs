@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import {
     seedDefaultCollection, seedSheetIfNew,
     loadCollections, addCollection,
-    loadSpriteMeta, assignCollection,
+    loadSpriteMeta, assignCollection, setLicenseStatus,
     loadFlags, addFlag, updateFlagStatus,
 } from '../server/dataStore.js';
 
@@ -47,6 +47,27 @@ let threwUnknownCollection = false;
 try { await assignCollection(dataDir, 'PATD_Props.png', 'chest_wood_small', 'not_a_real_collection'); }
 catch (e) { threwUnknownCollection = true; }
 assert.ok(threwUnknownCollection, 'assignCollection must reject an unknown collection id');
+
+// --- license status ---
+await setLicenseStatus(dataDir, 'PATD_Props.png', 'chest_wood_small', 'unlicensed');
+const metaFlagged = await loadSpriteMeta(dataDir);
+assert.strictEqual(metaFlagged['PATD_Props.png::chest_wood_small'].license, 'unlicensed');
+assert.strictEqual(metaFlagged['PATD_Props.png::chest_wood_small'].collection, 'pipoya', 'setLicenseStatus must not disturb the existing collection assignment');
+
+// overwrite to the other status
+await setLicenseStatus(dataDir, 'PATD_Props.png', 'chest_wood_small', 'ok');
+const metaOk = await loadSpriteMeta(dataDir);
+assert.strictEqual(metaOk['PATD_Props.png::chest_wood_small'].license, 'ok');
+
+// null clears the mark back to unset
+await setLicenseStatus(dataDir, 'PATD_Props.png', 'chest_wood_small', null);
+const metaCleared = await loadSpriteMeta(dataDir);
+assert.ok(!('license' in metaCleared['PATD_Props.png::chest_wood_small']), 'null must clear the license field entirely');
+
+let threwBadStatus = false;
+try { await setLicenseStatus(dataDir, 'PATD_Props.png', 'chest_wood_small', 'maybe'); }
+catch (e) { threwBadStatus = true; }
+assert.ok(threwBadStatus, 'setLicenseStatus must reject a status other than ok/unlicensed/null');
 
 // --- seedSheetIfNew ---
 const seedDataDir = mkdtempSync(join(tmpdir(), 'sprite-ledger-seed-'));
@@ -90,4 +111,4 @@ const realCollections = JSON.parse(readFileSync(
 const expectedIds = ['pipoya', 'patd', 'buildings', 'interior', 'cave', 'nature', 'uncollected'];
 assert.deepStrictEqual(realCollections.map(c => c.id).sort(), expectedIds.sort());
 
-console.log('✓ data-store tests passed (22 assertions).');
+console.log('✓ data-store tests passed (27 assertions).');

@@ -50,12 +50,18 @@ export async function fetchSheets(): Promise<Sheet[]> {
     return (await req('/sheets')).json();
 }
 
-export async function fetchMeta(): Promise<{ collections: Collection[]; spriteMeta: Record<string, { collection: string }> }> {
+export type LicenseStatus = 'ok' | 'unlicensed';
+
+export async function fetchMeta(): Promise<{ collections: Collection[]; spriteMeta: Record<string, { collection: string; license?: LicenseStatus }> }> {
     return (await req('/meta')).json();
 }
 
 export async function assignCollection(sheet: string, name: string, collection: string): Promise<void> {
     await postJson('/meta', { sheet, name, collection });
+}
+
+export async function setLicenseStatus(sheet: string, name: string, status: LicenseStatus | null): Promise<void> {
+    await postJson('/license', { sheet, name, status });
 }
 
 export async function addCollection(id: string, name: string): Promise<void> {

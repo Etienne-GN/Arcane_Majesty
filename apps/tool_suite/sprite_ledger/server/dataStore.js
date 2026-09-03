@@ -77,6 +77,26 @@ export async function seedSheetIfNew(dataDir, sheetPngFilename, sheetDirName, en
     await writeJson(join(dataDir, 'sprite_meta.json'), meta);
 }
 
+// Records whether a sprite's usage rights have been verified (`'ok'`) or
+// flagged as needing research (`'unlicensed'`), independent of the flags
+// system above — flags are about render quality, this is about
+// provenance. `status: null` clears the mark back to unset.
+export async function setLicenseStatus(dataDir, sheetPngFilename, entryName, status) {
+    if (status !== null && status !== 'ok' && status !== 'unlicensed') {
+        throw new Error(`invalid license status: ${status}`);
+    }
+    const meta = await loadSpriteMeta(dataDir);
+    const key = `${sheetPngFilename}::${entryName}`;
+    const record = meta[key] ?? {};
+    if (status === null) {
+        delete record.license;
+    } else {
+        record.license = status;
+    }
+    meta[key] = record;
+    await writeJson(join(dataDir, 'sprite_meta.json'), meta);
+}
+
 // --- flags ---
 export async function loadFlags(dataDir, statusFilter) {
     const flags = await readJsonOrDefault(join(dataDir, 'flags.json'), []);

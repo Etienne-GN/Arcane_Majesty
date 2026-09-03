@@ -4,7 +4,7 @@ import express from 'express';
 import { scanCatalogueDir } from './server/catalogueScanner.js';
 import {
     loadCollections, addCollection,
-    loadSpriteMeta, assignCollection, seedSheetIfNew,
+    loadSpriteMeta, assignCollection, seedSheetIfNew, setLicenseStatus,
     loadFlags, addFlag, updateFlagStatus,
 } from './server/dataStore.js';
 
@@ -68,6 +68,12 @@ export function createServer(catalogueDir, dataDir) {
     app.post('/api/meta', async (req, res) => {
         const { sheet, name, collection } = req.body;
         await assignCollection(dataDir, sheet, name, collection);
+        res.json({ ok: true });
+    });
+
+    app.post('/api/license', async (req, res) => {
+        const { sheet, name, status } = req.body;
+        await setLicenseStatus(dataDir, sheet, name, status);
         res.json({ ok: true });
     });
 
