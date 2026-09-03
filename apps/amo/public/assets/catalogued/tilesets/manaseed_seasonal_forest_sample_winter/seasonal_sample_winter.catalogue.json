@@ -1,0 +1,26 @@
+{
+  "source": "seasonal sample (winter).png",
+  "sheetWidth": 256,
+  "sheetHeight": 256,
+  "gridTileWidth": 16,
+  "gridTileHeight": 16,
+  "gridCols": 16,
+  "gridRows": 16,
+  "entries": [
+    {
+      "name": "seasonal_sample_winter",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
+      "tags": [
+        "manaseed",
+        "seliel_the_shaper",
+        "seasonal",
+        "forest"
+      ],
+      "season": "winter",
+      "lowConfidence": true
+    }
+  ]
+}

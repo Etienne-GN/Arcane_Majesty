@@ -27,6 +27,25 @@ TilesetStoneGround, TilesetWall).
   anyway.
 - Credit: Cainos — https://cainos.itch.io/
 
+## ManaSeed (Seliel the Shaper)
+
+The `manaseed_seasonal_forest_sample_{winter,spring,summer,autumn}/`
+tileset packs — free samples of the seasonal forest tileset series.
+
+- Source: [seliel-the-shaper.itch.io](https://seliel-the-shaper.itch.io/) —
+  license: [Mana Seed User License](https://selieltheshaper.weebly.com/user-license.html)
+- License: commercial use permitted ("The 'product' in question MAY be
+  a commercial product you charge money for"), editing/recoloring fully
+  allowed, credit optional ("No, you don't have to credit me, though I
+  would appreciate it"). May not be resold or redistributed as raw
+  asset files. The full (paid) ManaSeed products tie a purchase to one
+  product; the free samples used here are explicitly exempted from
+  that single-product limit.
+- Optional credit: Seliel the Shaper — https://seliel-the-shaper.itch.io/
+- Note: this is a genuinely huge, modular asset ecosystem (many
+  purchasable packs beyond these free samples) — worth a look if
+  Arcane Majesty needs a broader/more consistent art style later.
+
 ## Snowy Asset Pack (nyx)
 
 The `snowy_asset_pack_nyx/` tileset pack (snow/ice terrain, cliffs,

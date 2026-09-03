@@ -1,0 +1,26 @@
+{
+  "source": "autumn water sparkles B 16x16.png",
+  "sheetWidth": 64,
+  "sheetHeight": 48,
+  "gridTileWidth": 16,
+  "gridTileHeight": 16,
+  "gridCols": 4,
+  "gridRows": 3,
+  "entries": [
+    {
+      "name": "autumn_water_sparkles_b_16x16",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
+      "tags": [
+        "manaseed",
+        "seliel_the_shaper",
+        "seasonal",
+        "forest"
+      ],
+      "season": "autumn",
+      "lowConfidence": true
+    }
+  ]
+}

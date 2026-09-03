@@ -3654,5 +3654,53 @@
   "trees_tree_3.png::trees_tree_3": {
     "collection": "nyx_snowy",
     "license": "ok"
+  },
+  "autumn water sparkles B 16x16.png::autumn_water_sparkles_b_16x16": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "autumn waterfall B 16x16.png::autumn_waterfall_b_16x16": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (autumn).png::seasonal_sample_autumn": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (spring).png::seasonal_sample_spring": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "spring water sparkles B.png::spring_water_sparkles_b": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "spring waterfall B.png::spring_waterfall_b": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (summer).png::seasonal_sample_summer": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "summer water sparkles B 16x16.png::summer_water_sparkles_b_16x16": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "summer waterfall B 16x16.png::summer_waterfall_b_16x16": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "seasonal sample (winter).png::seasonal_sample_winter": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "winter water sparkles B 16x16.png::winter_water_sparkles_b_16x16": {
+    "collection": "manaseed",
+    "license": "ok"
+  },
+  "winter waterfall B 16x16.png::winter_waterfall_b_16x16": {
+    "collection": "manaseed",
+    "license": "ok"
   }
 }

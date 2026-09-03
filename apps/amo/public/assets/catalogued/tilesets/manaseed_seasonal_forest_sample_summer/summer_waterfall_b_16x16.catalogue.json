@@ -1,0 +1,26 @@
+{
+  "source": "summer waterfall B 16x16.png",
+  "sheetWidth": 128,
+  "sheetHeight": 160,
+  "gridTileWidth": 16,
+  "gridTileHeight": 16,
+  "gridCols": 8,
+  "gridRows": 10,
+  "entries": [
+    {
+      "name": "summer_waterfall_b_16x16",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
+      "tags": [
+        "manaseed",
+        "seliel_the_shaper",
+        "seasonal",
+        "forest"
+      ],
+      "season": "summer",
+      "lowConfidence": true
+    }
+  ]
+}
