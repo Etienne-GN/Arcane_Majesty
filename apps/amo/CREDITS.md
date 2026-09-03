@@ -85,7 +85,8 @@ The `lpc/` tileset pack (`terrain_atlas`, `base_out_atlas`,
 ## Attribution source files
 
 The original bundled attribution files are archived at
-`apps/amo/ressources/tilesets_to_catalogue/` (gitignored working area) —
+`apps/amo/ressources/processed_archives/` (gitignored working area,
+kept once a source has been fully catalogued elsewhere) —
 `Atlas.zip` → `Attribution.txt`, `Atlas2.zip` → `Attribution2.txt`,
 `ItemsAndEffects.zip` → `ItemsAndEffects/credits.txt`. This file is the
 tracked, permanent record; those zips are the raw originals.
