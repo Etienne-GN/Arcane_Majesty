@@ -1,0 +1,22 @@
+{
+  "source": "terrain_misc_water_hole_2.png",
+  "sheetWidth": 32,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "terrain_misc_water_hole_2",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "snowy",
+        "winter",
+        "nyx",
+        "terrain",
+        "misc"
+      ]
+    }
+  ]
+}

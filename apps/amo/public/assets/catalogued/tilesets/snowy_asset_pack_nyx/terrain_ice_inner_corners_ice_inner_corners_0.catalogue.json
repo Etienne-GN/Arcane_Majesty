@@ -1,0 +1,23 @@
+{
+  "source": "terrain_ice_inner_corners_ice_inner_corners_0.png",
+  "sheetWidth": 32,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "terrain_ice_inner_corners_ice_inner_corners_0",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "snowy",
+        "winter",
+        "nyx",
+        "terrain",
+        "ice",
+        "inner corners"
+      ]
+    }
+  ]
+}

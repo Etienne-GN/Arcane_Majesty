@@ -1,0 +1,21 @@
+{
+  "source": "fences_fence_top_right.png",
+  "sheetWidth": 32,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "fences_fence_top_right",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "snowy",
+        "winter",
+        "nyx",
+        "fences"
+      ]
+    }
+  ]
+}

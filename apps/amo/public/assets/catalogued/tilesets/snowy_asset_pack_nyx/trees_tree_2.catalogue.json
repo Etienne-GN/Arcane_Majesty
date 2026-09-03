@@ -1,0 +1,21 @@
+{
+  "source": "trees_tree_2.png",
+  "sheetWidth": 33,
+  "sheetHeight": 57,
+  "entries": [
+    {
+      "name": "trees_tree_2",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 33,
+      "h": 57,
+      "tags": [
+        "snowy",
+        "winter",
+        "nyx",
+        "trees"
+      ]
+    }
+  ]
+}

@@ -70,7 +70,8 @@ export default class CreditsScene extends Phaser.Scene {
         _sec(223, 'ART ASSETS');
         _body(236, 'Pipoya  ·  https://pipoya.net/');
         _body(247, 'Pixel Art Top Down (Basic)  ·  Cainos');
-        _body(261, 'Liberated Pixel Cup — CC-BY-SA 3.0', '#554466');
+        _body(258, 'Snowy Asset Pack  ·  nyx  ·  wurls.itch.io');
+        _body(272, 'Liberated Pixel Cup — CC-BY-SA 3.0', '#554466');
         const lpcNames = [
             'Lanea Zimmerman · Stephen Challener',
             'Casper Nilsson · Daniel Eddeland',
@@ -84,10 +85,10 @@ export default class CreditsScene extends Phaser.Scene {
             'Gwes · Jetrel',
             'Jaidyn Reiman · Nila122',
         ];
-        lpcNames.forEach((line, i) => _body(273 + i * 11, line));
-        _body(273 + lpcNames.length * 11 + 6, 'Full credits: CREDITS.md', '#443355');
+        lpcNames.forEach((line, i) => _body(284 + i * 11, line));
+        _body(284 + lpcNames.length * 11 + 6, 'Full credits: CREDITS.md', '#443355');
 
-        this._contentH = 273 + lpcNames.length * 11 + 20;
+        this._contentH = 284 + lpcNames.length * 11 + 20;
 
         // Fixed back button
         const backBtn = this.add.text(w / 2, h - 18, '← Back to Menu', {

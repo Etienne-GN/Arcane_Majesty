@@ -27,6 +27,21 @@ TilesetStoneGround, TilesetWall).
   anyway.
 - Credit: Cainos — https://cainos.itch.io/
 
+## Snowy Asset Pack (nyx)
+
+The `snowy_asset_pack_nyx/` tileset pack (snow/ice terrain, cliffs,
+fences, trees, snowmen, log cabin). This is the licensed source of what
+was previously catalogued (without a confirmed license) as
+`SnowyAssetPack/` — that copy was rejected pending research; this one
+supersedes it now that the license is confirmed.
+
+- Source: [wurls.itch.io/snowy-asset-pack](https://wurls.itch.io/snowy-asset-pack)
+- License: commercial use permitted, may be modified, **credit is
+  required** (unlike Pipoya/PATD above). May not be re-uploaded/
+  redistributed as a pack; a modified asset may be shared on its own,
+  but not bundled back together with the original pack.
+- Credit: **nyx** — https://wurls.itch.io/
+
 ## Liberated Pixel Cup (LPC)
 
 The `lpc/` tileset pack (`terrain_atlas`, `base_out_atlas`,

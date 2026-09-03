@@ -1,0 +1,22 @@
+{
+  "source": "terrain_misc_stairs_1.png",
+  "sheetWidth": 64,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "terrain_misc_stairs_1",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 64,
+      "h": 32,
+      "tags": [
+        "snowy",
+        "winter",
+        "nyx",
+        "terrain",
+        "misc"
+      ]
+    }
+  ]
+}

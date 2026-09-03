@@ -1,0 +1,22 @@
+{
+  "source": "terrain_snow_snow_4.png",
+  "sheetWidth": 32,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "terrain_snow_snow_4",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "snowy",
+        "winter",
+        "nyx",
+        "terrain",
+        "snow"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "source": "decoration_snowman_5.png",
+  "sheetWidth": 32,
+  "sheetHeight": 64,
+  "entries": [
+    {
+      "name": "decoration_snowman_5",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "snowy",
+        "winter",
+        "nyx",
+        "decoration"
+      ]
+    }
+  ]
+}

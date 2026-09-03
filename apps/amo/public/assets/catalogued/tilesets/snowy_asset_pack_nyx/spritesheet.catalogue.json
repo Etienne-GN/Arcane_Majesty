@@ -1,0 +1,23 @@
+{
+  "source": "spritesheet.png",
+  "sheetWidth": 512,
+  "sheetHeight": 512,
+  "entries": [
+    {
+      "name": "spritesheet",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 512,
+      "h": 512,
+      "tags": [
+        "snowy",
+        "winter",
+        "nyx",
+        "overview",
+        "uncropped"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

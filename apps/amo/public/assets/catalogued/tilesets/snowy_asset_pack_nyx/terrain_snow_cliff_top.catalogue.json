@@ -1,0 +1,22 @@
+{
+  "source": "terrain_snow_cliff_top.png",
+  "sheetWidth": 32,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "terrain_snow_cliff_top",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "snowy",
+        "winter",
+        "nyx",
+        "terrain",
+        "snow"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "source": "decoration_log_cabin.png",
+  "sheetWidth": 133,
+  "sheetHeight": 202,
+  "entries": [
+    {
+      "name": "decoration_log_cabin",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 133,
+      "h": 202,
+      "tags": [
+        "snowy",
+        "winter",
+        "nyx",
+        "decoration"
+      ]
+    }
+  ]
+}

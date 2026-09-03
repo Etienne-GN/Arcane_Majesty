@@ -1,0 +1,21 @@
+{
+  "source": "decoration_log.png",
+  "sheetWidth": 32,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "decoration_log",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "snowy",
+        "winter",
+        "nyx",
+        "decoration"
+      ]
+    }
+  ]
+}

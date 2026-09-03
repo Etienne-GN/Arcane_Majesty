@@ -3298,5 +3298,361 @@
   "trunk.png::lpc_tree_trunk": {
     "collection": "lpc",
     "license": "ok"
+  },
+  "decoration_log.png::decoration_log": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "decoration_log_cabin.png::decoration_log_cabin": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "decoration_snowman_0.png::decoration_snowman_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "decoration_snowman_1.png::decoration_snowman_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "decoration_snowman_2.png::decoration_snowman_2": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "decoration_snowman_3.png::decoration_snowman_3": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "decoration_snowman_4.png::decoration_snowman_4": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "decoration_snowman_5.png::decoration_snowman_5": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "fences_fence_bottom_left.png::fences_fence_bottom_left": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "fences_fence_bottom_right.png::fences_fence_bottom_right": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "fences_fence_horizontal.png::fences_fence_horizontal": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "fences_fence_top_left.png::fences_fence_top_left": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "fences_fence_top_right.png::fences_fence_top_right": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "fences_fence_vertical.png::fences_fence_vertical": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "spritesheet.png::spritesheet": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_ice.png::terrain_ice_ice": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_ice_bottom_left.png::terrain_ice_ice_bottom_left": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_ice_bottom_middle.png::terrain_ice_ice_bottom_middle": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_ice_bottom_right.png::terrain_ice_ice_bottom_right": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_ice_left.png::terrain_ice_ice_left": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_ice_right.png::terrain_ice_ice_right": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_ice_top_left.png::terrain_ice_ice_top_left": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_ice_top_middle.png::terrain_ice_ice_top_middle": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_ice_top_right.png::terrain_ice_ice_top_right": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_bottom_inner_corners_0.png::terrain_ice_inner_corners_ice_bottom_inner_corners_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_bottom_inner_corners_1.png::terrain_ice_inner_corners_ice_bottom_inner_corners_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_bottom_inner_corners_2.png::terrain_ice_inner_corners_ice_bottom_inner_corners_2": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_bottom_left_inner_corner.png::terrain_ice_inner_corners_ice_bottom_left_inner_corner": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_bottom_right_inner_corner.png::terrain_ice_inner_corners_ice_bottom_right_inner_corner": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_inner_corners_0.png::terrain_ice_inner_corners_ice_inner_corners_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_inner_corners_1.png::terrain_ice_inner_corners_ice_inner_corners_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_inner_corners_10.png::terrain_ice_inner_corners_ice_inner_corners_10": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_inner_corners_2.png::terrain_ice_inner_corners_ice_inner_corners_2": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_inner_corners_3.png::terrain_ice_inner_corners_ice_inner_corners_3": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_inner_corners_4.png::terrain_ice_inner_corners_ice_inner_corners_4": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_inner_corners_5.png::terrain_ice_inner_corners_ice_inner_corners_5": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_inner_corners_6.png::terrain_ice_inner_corners_ice_inner_corners_6": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_inner_corners_7.png::terrain_ice_inner_corners_ice_inner_corners_7": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_inner_corners_8.png::terrain_ice_inner_corners_ice_inner_corners_8": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_inner_corners_9.png::terrain_ice_inner_corners_ice_inner_corners_9": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_left_inner_corner_0.png::terrain_ice_inner_corners_ice_left_inner_corner_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_left_inner_corner_1.png::terrain_ice_inner_corners_ice_left_inner_corner_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_left_inner_corner_2.png::terrain_ice_inner_corners_ice_left_inner_corner_2": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_right_inner_corner_0.png::terrain_ice_inner_corners_ice_right_inner_corner_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_right_inner_corner_1.png::terrain_ice_inner_corners_ice_right_inner_corner_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_right_inner_corner_2.png::terrain_ice_inner_corners_ice_right_inner_corner_2": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_top_inner_corners_0.png::terrain_ice_inner_corners_ice_top_inner_corners_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_top_inner_corners_1.png::terrain_ice_inner_corners_ice_top_inner_corners_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_top_inner_corners_2.png::terrain_ice_inner_corners_ice_top_inner_corners_2": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_top_left_inner_corner.png::terrain_ice_inner_corners_ice_top_left_inner_corner": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_inner_corners_ice_top_right_inner_corner.png::terrain_ice_inner_corners_ice_top_right_inner_corner": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_round_round_ice_bottom.png::terrain_ice_round_round_ice_bottom": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_round_round_ice_left.png::terrain_ice_round_round_ice_left": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_round_round_ice_right.png::terrain_ice_round_round_ice_right": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_ice_round_round_ice_top.png::terrain_ice_round_round_ice_top": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_misc_ice_circle.png::terrain_misc_ice_circle": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_misc_ice_circle_1.png::terrain_misc_ice_circle_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_misc_ice_circle_2.png::terrain_misc_ice_circle_2": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_misc_ice_square.png::terrain_misc_ice_square": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_misc_stairs_0.png::terrain_misc_stairs_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_misc_stairs_1.png::terrain_misc_stairs_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_misc_water_hole_0.png::terrain_misc_water_hole_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_misc_water_hole_1.png::terrain_misc_water_hole_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_misc_water_hole_2.png::terrain_misc_water_hole_2": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_cliff_base_0.png::terrain_snow_cliff_base_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_cliff_base_1.png::terrain_snow_cliff_base_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_cliff_base_left_0.png::terrain_snow_cliff_base_left_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_cliff_base_left_1.png::terrain_snow_cliff_base_left_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_cliff_base_right_0.png::terrain_snow_cliff_base_right_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_cliff_base_right_1.png::terrain_snow_cliff_base_right_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_cliff_left_0.png::terrain_snow_cliff_left_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_cliff_left_1.png::terrain_snow_cliff_left_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_cliff_middle_0.png::terrain_snow_cliff_middle_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_cliff_middle_1.png::terrain_snow_cliff_middle_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_cliff_right_0.png::terrain_snow_cliff_right_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_cliff_right_1.png::terrain_snow_cliff_right_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_cliff_top.png::terrain_snow_cliff_top": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_cliff_top_left.png::terrain_snow_cliff_top_left": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_cliff_top_right.png::terrain_snow_cliff_top_right": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_snow_0.png::terrain_snow_snow_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_snow_1.png::terrain_snow_snow_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_snow_2.png::terrain_snow_snow_2": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_snow_3.png::terrain_snow_snow_3": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_snow_4.png::terrain_snow_snow_4": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "terrain_snow_snow_5.png::terrain_snow_snow_5": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "trees_tree_0.png::trees_tree_0": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "trees_tree_1.png::trees_tree_1": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "trees_tree_2.png::trees_tree_2": {
+    "collection": "nyx_snowy",
+    "license": "ok"
+  },
+  "trees_tree_3.png::trees_tree_3": {
+    "collection": "nyx_snowy",
+    "license": "ok"
   }
 }
