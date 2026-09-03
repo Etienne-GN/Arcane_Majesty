@@ -1,0 +1,25 @@
+{
+  "source": "pipoya_autotiles_type1_[A]Water7_pipo.png",
+  "sheetWidth": 256,
+  "sheetHeight": 160,
+  "gridTileWidth": 32,
+  "gridTileHeight": 32,
+  "gridCols": 8,
+  "gridRows": 5,
+  "entries": [
+    {
+      "name": "water7",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
+      "tags": [
+        "water7",
+        "pipoya",
+        "autotile",
+        "type1"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

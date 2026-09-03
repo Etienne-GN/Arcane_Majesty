@@ -2738,5 +2738,533 @@
   "[Base]BaseChip_pipo.png::rope_fence_post_run_long": {
     "collection": "pipoya",
     "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Dirt1-Dirt2_pipo.png::dirt1_dirt2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Dirt1-Dirt3_pipo.png::dirt1_dirt3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Dirt1-Dirt4_pipo.png::dirt1_dirt4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Dirt1_pipo.png::dirt1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Dirt2_pipo.png::dirt2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Dirt3_pipo.png::dirt3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Dirt4_pipo.png::dirt4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Flower_pipo.png::flower": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Grass1-Dirt1_pipo.png::grass1_dirt1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Grass1-Dirt2_pipo.png::grass1_dirt2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Grass1-Dirt3_pipo.png::grass1_dirt3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Grass1-Dirt4_pipo.png::grass1_dirt4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Grass1-Grass2_pipo.png::grass1_grass2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Grass1-Grass3_pipo.png::grass1_grass3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Grass1-Grass4_pipo.png::grass1_grass4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Grass1_pipo.png::grass1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Grass2_pipo.png::grass2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Grass3_pipo.png::grass3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Grass4_pipo.png::grass4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]LongGrass_pipo.png::longgrass": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Wall-Up1_pipo.png::wall_up1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Wall-Up2_pipo.png::wall_up2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Water1_pipo.png::water1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Water2_pipo.png::water2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Water3_Cave1_pipo.png::water3_cave1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Water3_pipo.png::water3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Water4_pipo.png::water4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Water5_pipo.png::water5": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Water6_pipo.png::water6": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]Water7_pipo.png::water7": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]WaterFall1_pipo.png::waterfall1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]WaterFall2_pipo.png::waterfall2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_[A]WaterFall3_pipo.png::waterfall3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_static_[A]Water1_pipo.png::water1_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_static_[A]Water2_pipo.png::water2_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_static_[A]Water3_Cave1_pipo.png::water3_cave1_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_static_[A]Water3_pipo.png::water3_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_static_[A]Water4_pipo.png::water4_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_static_[A]Water5_pipo.png::water5_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_static_[A]Water6_pipo.png::water6_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_static_[A]Water7_pipo.png::water7_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_static_[A]WaterFall1_pipo.png::waterfall1_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_static_[A]WaterFall2_pipo.png::waterfall2_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type1_static_[A]WaterFall3_pipo.png::waterfall3_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Dirt1-Dirt2_pipo.png::dirt1_dirt2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Dirt1-Dirt3_pipo.png::dirt1_dirt3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Dirt1-Dirt4_pipo.png::dirt1_dirt4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Dirt1_pipo.png::dirt1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Dirt2_pipo.png::dirt2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Dirt3_pipo.png::dirt3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Dirt4_pipo.png::dirt4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Flower_pipo.png::flower": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Grass1-Dirt1_pipo.png::grass1_dirt1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Grass1-Dirt2_pipo.png::grass1_dirt2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Grass1-Dirt3_pipo.png::grass1_dirt3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Grass1-Dirt4_pipo.png::grass1_dirt4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Grass1-Grass2_pipo.png::grass1_grass2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Grass1-Grass3_pipo.png::grass1_grass3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Grass1-Grass4_pipo.png::grass1_grass4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Grass1_pipo.png::grass1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Grass2_pipo.png::grass2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Grass3_pipo.png::grass3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Grass4_pipo.png::grass4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]LongGrass_pipo.png::longgrass": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Wall-Up1_pipo.png::wall_up1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Wall-Up2_pipo.png::wall_up2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Water1_pipo.png::water1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Water2_pipo.png::water2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Water3_Cave1_pipo.png::water3_cave1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Water3_pipo.png::water3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Water4_pipo.png::water4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Water5_pipo.png::water5": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Water6_pipo.png::water6": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]Water7_pipo.png::water7": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]WaterFall1_pipo.png::waterfall1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]WaterFall2_pipo.png::waterfall2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_[A]WaterFall3_pipo.png::waterfall3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_static_[A]Water1_pipo.png::water1_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_static_[A]Water2_pipo.png::water2_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_static_[A]Water3_Cave1_pipo.png::water3_cave1_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_static_[A]Water3_pipo.png::water3_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_static_[A]Water4_pipo.png::water4_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_static_[A]Water5_pipo.png::water5_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_static_[A]Water6_pipo.png::water6_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_static_[A]Water7_pipo.png::water7_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_static_[A]WaterFall1_pipo.png::waterfall1_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_static_[A]WaterFall2_pipo.png::waterfall2_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type2_static_[A]WaterFall3_pipo.png::waterfall3_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Dirt1-Dirt2_pipo.png::dirt1_dirt2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Dirt1-Dirt3_pipo.png::dirt1_dirt3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Dirt1-Dirt4_pipo.png::dirt1_dirt4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Dirt1_pipo.png::dirt1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Dirt2_pipo.png::dirt2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Dirt3_pipo.png::dirt3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Dirt4_pipo.png::dirt4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Flower_pipo.png::flower": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Grass1-Dirt1_pipo.png::grass1_dirt1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Grass1-Dirt2_pipo.png::grass1_dirt2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Grass1-Dirt3_pipo.png::grass1_dirt3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Grass1-Dirt4_pipo.png::grass1_dirt4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Grass1-Grass2_pipo.png::grass1_grass2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Grass1-Grass3_pipo.png::grass1_grass3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Grass1-Grass4_pipo.png::grass1_grass4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Grass1_pipo.png::grass1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Grass2_pipo.png::grass2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Grass3_pipo.png::grass3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Grass4_pipo.png::grass4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]LongGrass_pipo.png::longgrass": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Wall-Up1_pipo.png::wall_up1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Wall-Up2_pipo.png::wall_up2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Water1_pipo.png::water1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Water2_pipo.png::water2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Water3_Cave1_pipo.png::water3_cave1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Water3_pipo.png::water3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Water4_pipo.png::water4": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Water5_pipo.png::water5": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Water6_pipo.png::water6": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]Water7_pipo.png::water7": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]WaterFall1_pipo.png::waterfall1": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]WaterFall2_pipo.png::waterfall2": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_[A]WaterFall3_pipo.png::waterfall3": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_static_[A]Water1_pipo.png::water1_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_static_[A]Water2_pipo.png::water2_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_static_[A]Water3_Cave1_pipo.png::water3_cave1_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_static_[A]Water3_pipo.png::water3_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_static_[A]Water4_pipo.png::water4_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_static_[A]Water5_pipo.png::water5_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_static_[A]Water6_pipo.png::water6_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_static_[A]Water7_pipo.png::water7_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_static_[A]WaterFall1_pipo.png::waterfall1_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_static_[A]WaterFall2_pipo.png::waterfall2_static": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "pipoya_autotiles_type3_static_[A]WaterFall3_pipo.png::waterfall3_static": {
+    "collection": "pipoya",
+    "license": "ok"
   }
 }

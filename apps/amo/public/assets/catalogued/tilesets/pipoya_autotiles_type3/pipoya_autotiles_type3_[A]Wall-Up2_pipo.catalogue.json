@@ -1,0 +1,26 @@
+{
+  "source": "pipoya_autotiles_type3_[A]Wall-Up2_pipo.png",
+  "sheetWidth": 256,
+  "sheetHeight": 192,
+  "gridTileWidth": 32,
+  "gridTileHeight": 32,
+  "gridCols": 8,
+  "gridRows": 6,
+  "entries": [
+    {
+      "name": "wall_up2",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
+      "tags": [
+        "wall",
+        "up2",
+        "pipoya",
+        "autotile",
+        "type3"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

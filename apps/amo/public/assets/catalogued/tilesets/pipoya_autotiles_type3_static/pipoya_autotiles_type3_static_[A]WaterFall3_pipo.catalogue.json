@@ -1,0 +1,27 @@
+{
+  "source": "pipoya_autotiles_type3_static_[A]WaterFall3_pipo.png",
+  "sheetWidth": 256,
+  "sheetHeight": 192,
+  "gridTileWidth": 32,
+  "gridTileHeight": 32,
+  "gridCols": 8,
+  "gridRows": 6,
+  "entries": [
+    {
+      "name": "waterfall3_static",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
+      "tags": [
+        "waterfall3",
+        "static",
+        "pipoya",
+        "autotile",
+        "static",
+        "type3"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

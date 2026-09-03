@@ -1,0 +1,26 @@
+{
+  "source": "pipoya_autotiles_type1_[A]Dirt1-Dirt3_pipo.png",
+  "sheetWidth": 32,
+  "sheetHeight": 160,
+  "gridTileWidth": 32,
+  "gridTileHeight": 32,
+  "gridCols": 1,
+  "gridRows": 5,
+  "entries": [
+    {
+      "name": "dirt1_dirt3",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
+      "tags": [
+        "dirt1",
+        "dirt3",
+        "pipoya",
+        "autotile",
+        "type1"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

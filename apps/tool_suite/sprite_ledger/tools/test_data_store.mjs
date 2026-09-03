@@ -12,6 +12,7 @@ import {
 // --- seedDefaultCollection: pure function, no I/O ---
 assert.strictEqual(seedDefaultCollection('fake_a.png', 'SampleMap'), 'pipoya');
 assert.strictEqual(seedDefaultCollection('PATD_Props.png', 'PATD_Props'), 'patd');
+assert.strictEqual(seedDefaultCollection('fake_a.png', 'pipoya_autotiles_type1'), 'pipoya');
 assert.strictEqual(seedDefaultCollection('addwork.png', 'addwork'), 'uncollected');
 
 // --- collections ---
@@ -41,6 +42,15 @@ await assignCollection(dataDir, 'PATD_Props.png', 'chest_wood_small', 'pipoya');
 const meta2 = await loadSpriteMeta(dataDir);
 assert.strictEqual(meta2['PATD_Props.png::chest_wood_small'].collection, 'pipoya');
 assert.strictEqual(Object.keys(meta2).length, 1);
+
+// assignCollection must merge, not replace — a prior license mark on the
+// same entry must survive a later plain collection reassignment
+await setLicenseStatus(dataDir, 'PATD_Props.png', 'chest_wood_small', 'ok');
+await assignCollection(dataDir, 'PATD_Props.png', 'chest_wood_small', 'buildings');
+const meta2b = await loadSpriteMeta(dataDir);
+assert.strictEqual(meta2b['PATD_Props.png::chest_wood_small'].collection, 'buildings');
+assert.strictEqual(meta2b['PATD_Props.png::chest_wood_small'].license, 'ok', 'assignCollection must not wipe an existing license mark');
+await assignCollection(dataDir, 'PATD_Props.png', 'chest_wood_small', 'pipoya'); // restore, so later assertions below see the state they expect
 
 // assignCollection must reject a collection id that doesn't exist
 let threwUnknownCollection = false;
@@ -111,4 +121,4 @@ const realCollections = JSON.parse(readFileSync(
 const expectedIds = ['pipoya', 'patd', 'buildings', 'interior', 'cave', 'nature', 'uncollected'];
 assert.deepStrictEqual(realCollections.map(c => c.id).sort(), expectedIds.sort());
 
-console.log('✓ data-store tests passed (27 assertions).');
+console.log('✓ data-store tests passed (30 assertions).');

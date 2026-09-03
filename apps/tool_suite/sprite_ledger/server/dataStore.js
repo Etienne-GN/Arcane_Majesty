@@ -20,6 +20,7 @@ async function writeJson(path, value) {
 // --- seeding (pure, no I/O) ---
 export function seedDefaultCollection(sheetPngFilename, sheetDirName) {
     if (sheetDirName === 'SampleMap') return 'pipoya';
+    if (sheetDirName.startsWith('pipoya_autotiles')) return 'pipoya';
     if (sheetDirName.startsWith('PATD_')) return 'patd';
     return 'uncollected';
 }
@@ -49,7 +50,10 @@ export async function assignCollection(dataDir, sheetPngFilename, entryName, col
         throw new Error(`unknown collection id: ${collectionId}`);
     }
     const meta = await loadSpriteMeta(dataDir);
-    meta[`${sheetPngFilename}::${entryName}`] = { collection: collectionId };
+    const key = `${sheetPngFilename}::${entryName}`;
+    // Merge, don't replace — a prior license mark (or any other field) on
+    // this entry must survive a plain collection reassignment.
+    meta[key] = { ...meta[key], collection: collectionId };
     await writeJson(join(dataDir, 'sprite_meta.json'), meta);
 }
 
