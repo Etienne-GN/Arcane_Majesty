@@ -1,0 +1,20 @@
+{
+  "source": "treetop.png",
+  "sheetWidth": 192,
+  "sheetHeight": 224,
+  "gridTileWidth": 96,
+  "gridTileHeight": 112,
+  "gridCols": 2,
+  "gridRows": 2,
+  "entries": [
+    {
+      "name": "lpc_tree_top",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
+      "tags": ["lpc", "tree", "treetop", "nature"],
+      "lowConfidence": true
+    }
+  ]
+}

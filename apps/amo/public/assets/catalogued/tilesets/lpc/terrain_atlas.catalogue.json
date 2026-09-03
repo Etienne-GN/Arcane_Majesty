@@ -1,0 +1,14 @@
+{
+  "source": "terrain_atlas.png",
+  "sheetWidth": 1024,
+  "sheetHeight": 1024,
+  "entries": [
+    {
+      "name": "lpc_terrain_atlas_sheet",
+      "kind": "object",
+      "x": 0, "y": 0, "w": 1024, "h": 1024,
+      "tags": ["lpc", "terrain", "atlas", "uncropped", "needs-extraction"],
+      "lowConfidence": true
+    }
+  ]
+}

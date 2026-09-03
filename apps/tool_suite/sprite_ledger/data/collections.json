@@ -1,9 +1,34 @@
 [
-  { "id": "pipoya", "name": "Pipoya" },
-  { "id": "patd", "name": "Pixel Art Top Down" },
-  { "id": "buildings", "name": "Buildings" },
-  { "id": "interior", "name": "Interior" },
-  { "id": "cave", "name": "Cave" },
-  { "id": "nature", "name": "Dirt / Grass / Trees" },
-  { "id": "uncollected", "name": "Uncollected" }
+  {
+    "id": "pipoya",
+    "name": "Pipoya"
+  },
+  {
+    "id": "patd",
+    "name": "Pixel Art Top Down"
+  },
+  {
+    "id": "buildings",
+    "name": "Buildings"
+  },
+  {
+    "id": "interior",
+    "name": "Interior"
+  },
+  {
+    "id": "cave",
+    "name": "Cave"
+  },
+  {
+    "id": "nature",
+    "name": "Dirt / Grass / Trees"
+  },
+  {
+    "id": "uncollected",
+    "name": "Uncollected"
+  },
+  {
+    "id": "lpc",
+    "name": "LPC (Liberated Pixel Cup)"
+  }
 ]

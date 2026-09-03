@@ -1,0 +1,24 @@
+{
+  "source": "base_out_atlas.png",
+  "sheetWidth": 1024,
+  "sheetHeight": 1024,
+  "entries": [
+    {
+      "name": "lpc_base_out_atlas_sheet",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 1024,
+      "h": 1024,
+      "tags": [
+        "lpc",
+        "terrain",
+        "caves",
+        "atlas",
+        "uncropped",
+        "needs-extraction"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}

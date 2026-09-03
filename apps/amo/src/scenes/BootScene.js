@@ -144,7 +144,7 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('tileset_water',  'assets/catalogued/tilesets/SampleMap/[A]Water_pipo.png');
         this.load.json('tileset_water_cat', 'assets/catalogued/tilesets/SampleMap/[A]Water_pipo.catalogue.json');
         // LPC Atlas tilesets — 1024×1024, 32×32 grid (32 cols × 32 rows)
-        this.load.image('terrain_atlas', 'assets/tilesets/lpc/terrain_atlas.png');
+        this.load.image('terrain_atlas', 'assets/catalogued/tilesets/lpc/terrain_atlas.png');
         this.load.image('tileset_grass', 'assets/catalogued/tilesets/SampleMap/[A]Grass_pipo.png');
         // Sample map — full Tiled-authored demo scene (60x60, 9 layers) imported
         // via tools/tiled_import/tmx_to_json.py. Proof-of-concept for native
@@ -153,8 +153,8 @@ export default class BootScene extends Phaser.Scene {
         this.load.image('tileset_waterfall', 'assets/catalogued/tilesets/SampleMap/[A]WaterFall_pipo.png');
         this.load.image('tileset_flower', 'assets/catalogued/tilesets/SampleMap/[A]Flower_pipo.png');
         // LPC tree visuals — trunk (192×96, 2×1 @ 96×96) and treetop (192×224, 2×2 @ 96×112)
-        this.load.spritesheet('lpc_trunk',    'assets/tilesets/lpc/trunk.png',   { frameWidth: 96, frameHeight: 96  });
-        this.load.spritesheet('lpc_treetop',  'assets/tilesets/lpc/treetop.png', { frameWidth: 96, frameHeight: 112 });
+        this.load.spritesheet('lpc_trunk',    'assets/catalogued/tilesets/lpc/trunk.png',   { frameWidth: 96, frameHeight: 96  });
+        this.load.spritesheet('lpc_treetop',  'assets/catalogued/tilesets/lpc/treetop.png', { frameWidth: 96, frameHeight: 112 });
 
         // Decoration sheets catalogued 2026-08-29 (nature/village props + winter biome kit)
         this.load.image('tileset_v2free', 'assets/catalogued/tilesets/assets_spritesheet_v2_free/assets_spritesheet_v2_free.png');

@@ -62,9 +62,32 @@ export default class CreditsScene extends Phaser.Scene {
         // ── Tech stack ────────────────────────────────────────────
         _sec(190, 'TECHNOLOGY');
         _body(203, 'Phaser 3  ·  Vite  ·  WebAudio API');
-        _body(213, 'Pipoya RPG sprite assets');
+        _sep(214);
 
-        this._contentH = 228;
+        // ── Art assets ───────────────────────────────────────────
+        // Full details, verified license text, and every contributor's
+        // credited role: apps/amo/CREDITS.md
+        _sec(223, 'ART ASSETS');
+        _body(236, 'Pipoya  ·  https://pipoya.net/');
+        _body(247, 'Pixel Art Top Down (Basic)  ·  Cainos');
+        _body(261, 'Liberated Pixel Cup — CC-BY-SA 3.0', '#554466');
+        const lpcNames = [
+            'Lanea Zimmerman · Stephen Challener',
+            'Casper Nilsson · Daniel Eddeland',
+            'Johann Charlot · Skyler Colladay',
+            'Charles Sanchez · Manuel Riecke',
+            'Daniel Armstrong · Barbara Rivera',
+            'Chris Phillips · Jonas Klinger',
+            'Joshua Taylor · Leo Villeveygoux',
+            'Mark Weyer · Matthew Nash',
+            'Tuomo Untinen · Johannes Sjölund',
+            'Gwes · Jetrel',
+            'Jaidyn Reiman · Nila122',
+        ];
+        lpcNames.forEach((line, i) => _body(273 + i * 11, line));
+        _body(273 + lpcNames.length * 11 + 6, 'Full credits: CREDITS.md', '#443355');
+
+        this._contentH = 273 + lpcNames.length * 11 + 20;
 
         // Fixed back button
         const backBtn = this.add.text(w / 2, h - 18, '← Back to Menu', {

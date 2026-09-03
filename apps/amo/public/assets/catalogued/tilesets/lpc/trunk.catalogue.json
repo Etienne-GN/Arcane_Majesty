@@ -1,0 +1,20 @@
+{
+  "source": "trunk.png",
+  "sheetWidth": 192,
+  "sheetHeight": 96,
+  "gridTileWidth": 96,
+  "gridTileHeight": 96,
+  "gridCols": 2,
+  "gridRows": 1,
+  "entries": [
+    {
+      "name": "lpc_tree_trunk",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
+      "tags": ["lpc", "tree", "trunk", "nature"],
+      "lowConfidence": true
+    }
+  ]
+}

@@ -3266,5 +3266,37 @@
   "pipoya_autotiles_type3_static_[A]WaterFall3_pipo.png::waterfall3_static": {
     "collection": "pipoya",
     "license": "ok"
+  },
+  "base_out_atlas.png::lpc_base_out_atlas_sheet": {
+    "collection": "lpc",
+    "license": "ok"
+  },
+  "build_atlas.png::lpc_build_atlas_sheet": {
+    "collection": "lpc",
+    "license": "ok"
+  },
+  "effects.png::lpc_effects_sheet": {
+    "collection": "lpc",
+    "license": "ok"
+  },
+  "items1.png::lpc_items_sheet": {
+    "collection": "lpc",
+    "license": "ok"
+  },
+  "obj_misk_atlas.png::lpc_obj_misc_atlas_sheet": {
+    "collection": "lpc",
+    "license": "ok"
+  },
+  "terrain_atlas.png::lpc_terrain_atlas_sheet": {
+    "collection": "lpc",
+    "license": "ok"
+  },
+  "treetop.png::lpc_tree_top": {
+    "collection": "lpc",
+    "license": "ok"
+  },
+  "trunk.png::lpc_tree_trunk": {
+    "collection": "lpc",
+    "license": "ok"
   }
 }

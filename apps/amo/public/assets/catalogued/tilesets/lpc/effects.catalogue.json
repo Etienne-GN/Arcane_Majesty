@@ -1,0 +1,25 @@
+{
+  "source": "effects.png",
+  "sheetWidth": 640,
+  "sheetHeight": 400,
+  "entries": [
+    {
+      "name": "lpc_effects_sheet",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 640,
+      "h": 400,
+      "tags": [
+        "lpc",
+        "effects",
+        "vfx",
+        "cursors",
+        "atlas",
+        "uncropped",
+        "needs-extraction"
+      ],
+      "lowConfidence": true
+    }
+  ]
+}
