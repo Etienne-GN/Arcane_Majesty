@@ -163,6 +163,7 @@ const expectedIds = [
     'pipoya', 'patd', 'lpc', 'nyx_snowy', 'manaseed', 'roleworld_wizard', 'patd_bushes_dustdfg',
     'schwarnhild', 'generic_rpg_vacaroxa', 'hana_caraka', 'widelands_trees', 'top_down_adventure_olobster', 'woolly_lands', 'pixel_crawler',
     'buildings', 'interior', 'cave', 'nature', 'uncollected',
+    'generated',
 ];
 assert.deepStrictEqual(realCollections.map(c => c.id).sort(), expectedIds.sort());
 

@@ -32,12 +32,13 @@
   {
     "id": "f_f8de0991-8298-4e93-a709-7e81aeae2324",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "armor_tunic_blue",
+    "name": "doll_figurine",
     "reason": "wrong_name",
     "comment": "this looks more like a doll than an armor to me",
     "status": "needs_review",
     "createdAt": "2026-09-01T22:33:12.380Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "armor_tunic_blue"
   },
   {
     "id": "f_daa89c26-dbc8-41d7-98d8-ffb06a64b35f",
@@ -52,22 +53,24 @@
   {
     "id": "f_f5b0670c-ed5f-441a-b078-907c7850dfef",
     "sheet": "PATD_Props.png",
-    "name": "stone_slab_broken",
+    "name": "bench_stone_west",
     "reason": "wrong_name",
     "comment": "same as bench_stone but west facing oriented",
     "status": "needs_review",
     "createdAt": "2026-09-01T22:34:57.959Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "stone_slab_broken"
   },
   {
     "id": "f_a8732de7-7ac1-4ee8-bcac-459129c03032",
     "sheet": "PATD_Props.png",
-    "name": "stone_monolith_thin",
+    "name": "bench_stone_east",
     "reason": "wrong_name",
     "comment": "same as bench_stone but east facing oriented",
     "status": "needs_review",
     "createdAt": "2026-09-01T22:35:05.110Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "stone_monolith_thin"
   },
   {
     "id": "f_ffa87da2-5337-4c10-8f50-d24d8e1ca401",
@@ -222,12 +225,13 @@
   {
     "id": "f_068e931a-95d0-4614-8453-714fb5bc2e4f",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "ladder_wood_plank",
+    "name": "ladder_rope_wood",
     "reason": "wrong_name",
     "comment": "this is a ladder yes made of rope and wood, but not plank",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:18:23.281Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "ladder_wood_plank"
   },
   {
     "id": "f_cc294d20-2ed1-41df-9bf5-92da8dd1fe3b",
@@ -332,12 +336,13 @@
   {
     "id": "f_6604e327-29a5-4538-a1cf-dd4a17349ab3",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "pillar_stone_pair",
+    "name": "pillar_wood_round",
     "reason": "misaligned",
     "comment": "there are 2 disctinct columns in this one",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:20:42.146Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "pillar_stone_pair"
   },
   {
     "id": "f_a68b855b-74da-49d1-be9b-81a048e8e129",
@@ -352,322 +357,354 @@
   {
     "id": "f_7e19ee9f-da1d-4aae-a545-e460813ac644",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "ladder_wood_dirt_climb",
+    "name": "ladder_rope_wood_short",
     "reason": "misaligned",
     "comment": "there's a ladder and a vine in this, we need to split those",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:21:15.453Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "ladder_wood_dirt_climb"
   },
   {
     "id": "f_6f3144ad-7f0c-4f41-8458-dfc1fdd9d8a3",
     "sheet": "seasonal sample (autumn).png",
-    "name": "autumn_dirt_patch_solid",
+    "name": "autumn_dirt_a_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:23:22.864Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "autumn_dirt_patch_solid"
   },
   {
     "id": "f_5faa72b8-4097-4aea-8fc4-478fb47a27f5",
     "sheet": "seasonal sample (autumn).png",
-    "name": "autumn_dirt_patch_variant",
+    "name": "autumn_dirt_b_r0c0",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:23:27.325Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "autumn_dirt_patch_variant"
   },
   {
     "id": "f_8d0ec220-5990-40c5-93be-29dfb7b3978a",
     "sheet": "seasonal sample (spring).png",
-    "name": "spring_dirt_patch_solid",
+    "name": "spring_dirt_a_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:23:31.342Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "spring_dirt_patch_solid"
   },
   {
     "id": "f_73eb5cc1-58b8-4f24-b3ba-3d8b28cf4f8d",
     "sheet": "seasonal sample (summer).png",
-    "name": "summer_dirt_patch_solid",
+    "name": "summer_dirt_a_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:23:39.094Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "summer_dirt_patch_solid"
   },
   {
     "id": "f_344a3e0d-1693-40b6-909c-50e549920d58",
     "sheet": "seasonal sample (spring).png",
-    "name": "spring_dirt_patch_variant",
+    "name": "spring_dirt_b_r0c0",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:23:44.953Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "spring_dirt_patch_variant"
   },
   {
     "id": "f_3ab13e95-7766-4078-9f35-c334ae780f28",
     "sheet": "seasonal sample (summer).png",
-    "name": "summer_dirt_patch_variant",
+    "name": "summer_dirt_b_r0c0",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:23:48.093Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "summer_dirt_patch_variant"
   },
   {
     "id": "f_d32623eb-6d08-4dcd-937c-169e61859ba7",
     "sheet": "seasonal sample (winter).png",
-    "name": "winter_dirt_patch_solid",
+    "name": "winter_dirt_a_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:23:51.162Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "winter_dirt_patch_solid"
   },
   {
     "id": "f_be7f1143-4108-4bef-9e68-95fb1c0d2e64",
     "sheet": "seasonal sample (winter).png",
-    "name": "winter_dirt_patch_variant",
+    "name": "winter_dirt_b_r0c0",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:23:54.332Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "winter_dirt_patch_variant"
   },
   {
     "id": "f_983fe371-c3ef-4ee0-98af-2434e867ccba",
     "sheet": "seasonal sample (autumn).png",
-    "name": "autumn_small_prop_icons",
+    "name": "autumn_grass_flowers_a",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:24:20.296Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "autumn_small_prop_icons"
   },
   {
     "id": "f_0056dffa-7d7c-4315-acb2-58210cff10a2",
     "sheet": "seasonal sample (spring).png",
-    "name": "spring_small_prop_icons",
+    "name": "spring_grass_flowers_a",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:24:24.111Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "spring_small_prop_icons"
   },
   {
     "id": "f_90aabdc7-5610-4459-9191-e3ee64656111",
     "sheet": "seasonal sample (summer).png",
-    "name": "summer_small_prop_icons",
+    "name": "summer_grass_flowers_a",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:24:27.784Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "summer_small_prop_icons"
   },
   {
     "id": "f_1e4d098d-7011-4dae-bfbe-aa83ebee5cea",
     "sheet": "seasonal sample (winter).png",
-    "name": "winter_small_prop_icons",
+    "name": "winter_grass_flowers_a",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:24:31.190Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "winter_small_prop_icons"
   },
   {
     "id": "f_c77d2d53-a3d0-4681-a6fe-d15f30c1b283",
     "sheet": "seasonal sample (autumn).png",
-    "name": "autumn_cliff_hillside",
+    "name": "autumn_cliff_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:26:22.811Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "autumn_cliff_hillside"
   },
   {
     "id": "f_5c63c412-4764-406f-8109-ce176882c8f3",
     "sheet": "seasonal sample (spring).png",
-    "name": "spring_cliff_hillside",
+    "name": "spring_cliff_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:26:27.296Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "spring_cliff_hillside"
   },
   {
     "id": "f_1b885e0e-2ca7-42e6-a9cf-d079f3b01b4a",
     "sheet": "seasonal sample (winter).png",
-    "name": "winter_cliff_hillside",
+    "name": "winter_cliff_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:26:31.028Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "winter_cliff_hillside"
   },
   {
     "id": "f_26192727-527f-46ca-9aa7-728a7065a003",
     "sheet": "seasonal sample (summer).png",
-    "name": "summer_cliff_hillside",
+    "name": "summer_cliff_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:26:34.544Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "summer_cliff_hillside"
   },
   {
     "id": "f_26e825b1-cbb5-45be-a175-ce91942a9fff",
     "sheet": "seasonal sample (spring).png",
-    "name": "spring_flower_rock_cluster",
+    "name": "spring_flower_bush_yellow",
     "reason": "misaligned",
     "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"spring_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:32:19.488Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "spring_flower_rock_cluster"
   },
   {
     "id": "f_5471024e-4ace-47ed-b595-b51add2afc1a",
     "sheet": "seasonal sample (autumn).png",
-    "name": "autumn_flower_rock_cluster",
+    "name": "autumn_flower_bush_yellow",
     "reason": "misaligned",
     "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"autumn_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:32:47.411Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "autumn_flower_rock_cluster"
   },
   {
     "id": "f_beb3d01e-c696-461f-bf30-6a53d0141f5e",
     "sheet": "seasonal sample (summer).png",
-    "name": "summer_flower_rock_cluster",
+    "name": "summer_flower_bush_yellow",
     "reason": "misaligned",
     "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"summer_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:33:00.724Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "summer_flower_rock_cluster"
   },
   {
     "id": "f_7f2350b8-b91d-435b-a1c1-b3bc9e79b2aa",
     "sheet": "seasonal sample (winter).png",
-    "name": "winter_flower_rock_cluster",
+    "name": "winter_flower_bush_yellow",
     "reason": "misaligned",
     "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"winter_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:33:13.212Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "winter_flower_rock_cluster"
   },
   {
     "id": "f_473e3b12-1486-4e4b-82a1-56b41b2ec453",
     "sheet": "seasonal sample (autumn).png",
-    "name": "autumn_boulder_rock",
+    "name": "autumn_boulder_r0c0",
     "reason": "misaligned",
     "comment": "",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:33:34.078Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "autumn_boulder_rock"
   },
   {
     "id": "f_8339ba3d-4756-49ec-99b6-a7dad7df2ef1",
     "sheet": "seasonal sample (autumn).png",
-    "name": "autumn_ice_wall_texture",
+    "name": "autumn_wall_stone_r1c0",
     "reason": "misaligned",
     "comment": "",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:33:35.837Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "autumn_ice_wall_texture"
   },
   {
     "id": "f_74a8711b-c77f-45aa-8aef-3bafc8dd5a57",
     "sheet": "seasonal sample (spring).png",
-    "name": "spring_boulder_rock",
+    "name": "spring_boulder_r0c0",
     "reason": "misaligned",
     "comment": "",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:33:38.845Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "spring_boulder_rock"
   },
   {
     "id": "f_a7166dee-3f89-4d7c-84b3-86e96d2761ab",
     "sheet": "seasonal sample (spring).png",
-    "name": "spring_ice_wall_texture",
+    "name": "spring_wall_stone_r1c0",
     "reason": "misaligned",
     "comment": "",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:33:41.098Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "spring_ice_wall_texture"
   },
   {
     "id": "f_a0fb28aa-26ef-4285-8cdf-4e0a43913aa8",
     "sheet": "seasonal sample (summer).png",
-    "name": "summer_boulder_rock",
+    "name": "summer_boulder_r0c0",
     "reason": "misaligned",
     "comment": "",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:33:43.308Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "summer_boulder_rock"
   },
   {
     "id": "f_ce78dc1f-19f4-498a-932b-2e41be6e8d87",
     "sheet": "seasonal sample (summer).png",
-    "name": "summer_ice_wall_texture",
+    "name": "summer_wall_stone_r1c0",
     "reason": "misaligned",
     "comment": "",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:33:45.586Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "summer_ice_wall_texture"
   },
   {
     "id": "f_572d47e7-0036-4899-9cb0-c08632215916",
     "sheet": "seasonal sample (winter).png",
-    "name": "winter_boulder_rock",
+    "name": "winter_boulder_r0c0",
     "reason": "misaligned",
     "comment": "",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:33:47.565Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "winter_boulder_rock"
   },
   {
     "id": "f_ff7160cb-6e26-4538-9786-85d0ac8d8e99",
     "sheet": "seasonal sample (winter).png",
-    "name": "winter_ice_wall_texture",
+    "name": "winter_wall_stone_r1c0",
     "reason": "misaligned",
     "comment": "",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:33:49.202Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "winter_ice_wall_texture"
   },
   {
     "id": "f_54ee0394-1376-4c53-86c5-62c0cb53fa73",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "stove_black",
+    "name": "oven_gray_double",
     "reason": "misaligned",
     "comment": "those are 2 items",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:44:26.280Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "stove_black"
   },
   {
     "id": "f_722114d5-af1a-4dd4-9d87-768cfcbaf54a",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "sink_gray_a",
+    "name": "sink_gray_wood_legs_a",
     "reason": "misaligned",
     "comment": "those are 2 items",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:44:35.726Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "sink_gray_a"
   },
   {
     "id": "f_35d641c8-71fa-493b-981b-58317658ee43",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "sink_gray_b",
+    "name": "sink_gray_wood_legs_b",
     "reason": "misaligned",
     "comment": "those are 2 items",
     "status": "needs_review",
     "createdAt": "2026-09-03T16:44:38.151Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "sink_gray_b"
   },
   {
     "id": "f_5b8f392f-d29f-4eda-a192-005c188534a6",
@@ -722,62 +759,68 @@
   {
     "id": "f_59f1694f-686d-4ec3-8244-ea7d4f0944fb",
     "sheet": "base_out_atlas.png",
-    "name": "lpc_base_out_atlas_sheet",
+    "name": "base_out_atlas_r0c0",
     "reason": "misaligned",
     "comment": "",
     "status": "needs_review",
     "createdAt": "2026-09-03T18:12:08.197Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "lpc_base_out_atlas_sheet"
   },
   {
     "id": "f_e9357c60-71c4-4cf9-8f48-c6531df07722",
     "sheet": "build_atlas.png",
-    "name": "lpc_build_atlas_sheet",
+    "name": "build_atlas_r0c0",
     "reason": "misaligned",
     "comment": "",
     "status": "needs_review",
     "createdAt": "2026-09-03T18:12:11.809Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "lpc_build_atlas_sheet"
   },
   {
     "id": "f_3689c41d-8849-4814-9120-df2312f404ca",
     "sheet": "effects.png",
-    "name": "lpc_effects_sheet",
+    "name": "effects_035",
     "reason": "misaligned",
     "comment": "",
     "status": "open",
     "createdAt": "2026-09-03T18:12:14.483Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "lpc_effects_sheet"
   },
   {
     "id": "f_d021557a-30ff-4d65-8f65-1539bcebec3a",
     "sheet": "items1.png",
-    "name": "lpc_items_sheet",
+    "name": "lpc_arrows_pair",
     "reason": "misaligned",
     "comment": "",
     "status": "needs_review",
     "createdAt": "2026-09-03T18:12:17.060Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "lpc_items_sheet"
   },
   {
     "id": "f_9e110c9a-cfd5-4eaf-b873-3cac9a731fef",
     "sheet": "obj_misk_atlas.png",
-    "name": "lpc_obj_misc_atlas_sheet",
+    "name": "obj_misk_atlas_r0c0",
     "reason": "misaligned",
     "comment": "",
     "status": "needs_review",
     "createdAt": "2026-09-03T18:12:20.738Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "lpc_obj_misc_atlas_sheet"
   },
   {
     "id": "f_22e40db7-1d88-4676-8b63-d6a25d6b54e1",
     "sheet": "terrain_atlas.png",
-    "name": "lpc_terrain_atlas_sheet",
+    "name": "terrain_atlas_r0c0",
     "reason": "misaligned",
     "comment": "",
     "status": "needs_review",
     "createdAt": "2026-09-03T18:12:23.760Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "lpc_terrain_atlas_sheet"
   },
   {
     "id": "f_b7556eb9-35f3-490b-a49e-80c11e6b6f88",
@@ -942,12 +985,13 @@
   {
     "id": "f_75f934c7-201a-437e-9a42-2be3485255e8",
     "sheet": "mushroom_variant_cluster.png",
-    "name": "mushroom_variant_cluster",
+    "name": "mushroom_orange_tall",
     "reason": "misaligned",
     "comment": "there are 16 mushrooms in this.. \n",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:38:09.360Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "mushroom_variant_cluster"
   },
   {
     "id": "f_1e47eab6-d821-4d6e-95c2-c7547ad2fe55",

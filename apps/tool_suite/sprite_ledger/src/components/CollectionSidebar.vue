@@ -7,7 +7,7 @@ const props = defineProps<{
     activeCollectionId: string | null; // null = "All"
     sheetNames: string[]; // distinct sheetPngFilename values, for the sheet filter
     activeSheet: string | null; // null = "All sheets"
-    flaggedOnly: boolean;
+    flagFilter: 'all' | 'flagged' | 'open' | 'needs_review';
     animatedOnly: boolean;
     searchText: string;
     counts: Record<string, number>; // collection id -> sprite count, 'all' -> total
@@ -19,7 +19,7 @@ const newName = ref('');
 const emit = defineEmits<{
     selectCollection: [id: string | null];
     selectSheet: [sheet: string | null];
-    toggleFlaggedOnly: [];
+    selectFlag: [value: 'all' | 'flagged' | 'open' | 'needs_review'];
     toggleAnimatedOnly: [];
     updateSearch: [value: string];
     addCollection: [name: string];
@@ -46,10 +46,16 @@ const emit = defineEmits<{
       <option v-for="name in sheetNames" :key="name" :value="name">{{ name }}</option>
     </select>
 
-    <label class="flagged-toggle">
-      <input type="checkbox" :checked="flaggedOnly" @change="emit('toggleFlaggedOnly')" />
-      Flagged only
-    </label>
+    <select
+      class="flag-filter"
+      :value="flagFilter"
+      @change="emit('selectFlag', ($event.target as HTMLSelectElement).value as 'all' | 'flagged' | 'open' | 'needs_review')"
+    >
+      <option value="all">Any flag status</option>
+      <option value="flagged">Flagged (open or needs review)</option>
+      <option value="open">● Open — not acted on yet</option>
+      <option value="needs_review">🔍 Needs your review</option>
+    </select>
 
     <label class="flagged-toggle animated">
       <input type="checkbox" :checked="animatedOnly" @change="emit('toggleAnimatedOnly')" />
@@ -97,6 +103,7 @@ const emit = defineEmits<{
 .sheet-filter { width: 100%; margin-bottom: 8px; background: #1a1a1a; color: #eee; border: 1px solid #333; padding: 4px; }
 .license-filter { width: 100%; margin-bottom: 8px; background: #1a1a1a; color: #eee; border: 1px solid #333; padding: 4px; }
 .flagged-toggle.animated { color: #b8f; }
+.flag-filter { width: 100%; box-sizing: border-box; margin-bottom: 8px; }
 .flagged-toggle { display: block; margin-bottom: 12px; font-size: 13px; }
 .collections { list-style: none; padding: 0; margin: 0; }
 .collections li { padding: 6px 8px; cursor: pointer; border-radius: 4px; }

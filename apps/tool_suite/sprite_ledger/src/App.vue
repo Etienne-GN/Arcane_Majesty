@@ -15,7 +15,10 @@ const pendingFlags = ref<Flag[]>([]);
 
 const activeCollectionId = ref<string | null>(null);
 const activeSheet = ref<string | null>(null); // null = "All sheets"
-const flaggedOnly = ref(false);
+// 'flagged' is the old "Flagged only" toggle: anything still pending action.
+// 'open' and 'needs_review' split that, so a review pass can look only at
+// what Claude has tentatively fixed without the un-acted-on reports mixed in.
+const flagFilter = ref<'all' | 'flagged' | 'open' | 'needs_review'>('all');
 const animatedOnly = ref(false);
 const searchText = ref('');
 const licenseFilter = ref<'all' | 'ok' | 'unlicensed' | 'unmarked'>('all');
@@ -85,7 +88,9 @@ const visibleKeys = computed(() => {
         for (const entry of sheet.entries) {
             const key = keyFor(sheet.sheetPngFilename, entry.name);
             if (activeCollectionId.value !== null && collectionOf(sheet.sheetPngFilename, entry.name) !== activeCollectionId.value) continue;
-            if (flaggedOnly.value && !flaggedKeys.value.has(key)) continue;
+            if (flagFilter.value === 'flagged' && !flaggedKeys.value.has(key)) continue;
+            if (flagFilter.value === 'open' && !openFlagKeys.value.has(key)) continue;
+            if (flagFilter.value === 'needs_review' && !needsReviewKeys.value.has(key)) continue;
             if (animatedOnly.value && (entry.frames?.length ?? 0) < 2) continue;
             if (searchText.value && !entry.name.toLowerCase().includes(searchText.value.toLowerCase())) continue;
             const license = licenseOf(sheet.sheetPngFilename, entry.name);
@@ -103,7 +108,7 @@ const counts = computed(() => {
     for (const sheet of sheets.value) {
         // Counts follow the sheet filter (same as visibleKeys) so the
         // sidebar's numbers match what's actually shown in the grid when
-        // a sheet is selected — but deliberately ignore flaggedOnly/
+        // a sheet is selected — but deliberately ignore the flag filter and
         // searchText, since those are meant to narrow within a
         // collection/sheet, not redefine its total size.
         if (activeSheet.value !== null && sheet.sheetPngFilename !== activeSheet.value) continue;
@@ -144,14 +149,14 @@ async function onAddCollection(name: string) {
       :active-collection-id="activeCollectionId"
       :sheet-names="sheetNames"
       :active-sheet="activeSheet"
-      :flagged-only="flaggedOnly"
+      :flag-filter="flagFilter"
       :animated-only="animatedOnly"
       :search-text="searchText"
       :counts="counts"
       :license-filter="licenseFilter"
       @select-collection="(id) => activeCollectionId = id"
       @select-sheet="(sheet) => activeSheet = sheet"
-      @toggle-flagged-only="flaggedOnly = !flaggedOnly"
+      @select-flag="(v) => flagFilter = v"
       @toggle-animated-only="animatedOnly = !animatedOnly"
       @update-search="(v) => searchText = v"
       @add-collection="onAddCollection"

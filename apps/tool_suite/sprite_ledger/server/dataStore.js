@@ -25,6 +25,7 @@ async function writeJson(path, value) {
 // cells, LPC went from 6 entries to 4148 and all of them landed in
 // 'uncollected'. A table costs one line per pack and cannot drift that way.
 export const DIR_COLLECTIONS = {
+    'generated_recolours': 'generated',
     'generic_rpg_pack_vacaroxa': 'generic_rpg_vacaroxa',
     'hana_caraka_topdown_sample': 'hana_caraka',
     'lpc': 'lpc',

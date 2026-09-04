@@ -2611,21 +2611,6 @@
       ]
     },
     {
-      "name": "door_wood_barred_a",
-      "kind": "object",
-      "x": 224,
-      "y": 1472,
-      "w": 32,
-      "h": 64,
-      "tags": [
-        "door",
-        "building",
-        "barred",
-        "tan",
-        "wood"
-      ]
-    },
-    {
       "name": "wall_redbrick_a",
       "kind": "object",
       "x": 0,
@@ -4864,48 +4849,6 @@
       ]
     },
     {
-      "name": "stool_wood_round_small",
-      "kind": "object",
-      "x": 32,
-      "y": 3040,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "furniture",
-        "stool",
-        "indoor",
-        "wood"
-      ]
-    },
-    {
-      "name": "cushion_round_red_small",
-      "kind": "object",
-      "x": 64,
-      "y": 3040,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "furniture",
-        "cushion",
-        "indoor",
-        "red"
-      ]
-    },
-    {
-      "name": "cushion_round_purple_small",
-      "kind": "object",
-      "x": 96,
-      "y": 3040,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "furniture",
-        "cushion",
-        "indoor",
-        "purple"
-      ]
-    },
-    {
       "name": "mirror_standing_wood",
       "kind": "object",
       "x": 0,
@@ -5108,21 +5051,6 @@
       ]
     },
     {
-      "name": "bed_pillow_cream_b",
-      "kind": "object",
-      "x": 0,
-      "y": 3232,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "furniture",
-        "bed",
-        "pillow",
-        "indoor",
-        "cream"
-      ]
-    },
-    {
       "name": "bed_pillow_tan_b",
       "kind": "object",
       "x": 32,
@@ -5135,21 +5063,6 @@
         "pillow",
         "indoor",
         "tan"
-      ]
-    },
-    {
-      "name": "bed_pillow_green_b",
-      "kind": "object",
-      "x": 64,
-      "y": 3232,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "furniture",
-        "bed",
-        "pillow",
-        "indoor",
-        "green"
       ]
     },
     {

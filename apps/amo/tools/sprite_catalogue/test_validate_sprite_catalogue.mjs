@@ -170,6 +170,33 @@ function hasError(result, substring) {
     check('lowConfidence → one warning', result.warnings.length === 1);
 }
 
+// ── two entries on the same box → warning, not error ────────────────────────
+{
+    const cat = {
+        source: 'mini_object_sheet.png', sheetWidth: 64, sheetHeight: 32,
+        entries: [
+            { name: 'oven', kind: 'object', x: 0, y: 0, w: 32, h: 32, tags: [] },
+            { name: 'stool', kind: 'object', x: 0, y: 0, w: 32, h: 32, tags: [] },
+        ],
+    };
+    const result = validateCatalogueObject(cat, FIXTURES);
+    check('duplicate box → no error', result.errors.length === 0);
+    check('duplicate box → warning naming both',
+        result.warnings.some(w => w.includes('cover the same box') && w.includes('oven') && w.includes('stool')));
+}
+{
+    const cat = {
+        source: 'mini_object_sheet.png', sheetWidth: 64, sheetHeight: 32,
+        entries: [
+            { name: 'a', kind: 'object', x: 0, y: 0, w: 32, h: 32, tags: [] },
+            { name: 'b', kind: 'object', x: 32, y: 0, w: 32, h: 32, tags: [] },
+        ],
+    };
+    const result = validateCatalogueObject(cat, FIXTURES);
+    check('distinct boxes → no duplicate-box warning',
+        !result.warnings.some(w => w.includes('cover the same box')));
+}
+
 // ── relocatedPath: pure path computation ────────────────────────────────────
 {
     const p = relocatedPath('apps/amo/public/assets/tilesets/foo.png');

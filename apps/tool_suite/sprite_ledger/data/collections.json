@@ -74,5 +74,9 @@
   {
     "id": "pixel_crawler",
     "name": "Pixel Crawler (Anokolisa)"
+  },
+  {
+    "id": "generated",
+    "name": "Generated / Recoloured"
   }
 ]

@@ -169,6 +169,24 @@ export function validateCatalogueObject(cat, baseDir) {
         if (e.lowConfidence) warnings.push(`${tag}: flagged lowConfidence — needs human review`);
     });
 
+    // Two names on the same pixels means one of them is wrong — it's how a
+    // guessed catalogue hides a misnamed sprite behind a plausible one. A
+    // warning, not an error: an intentional alias is conceivable, and this
+    // shouldn't retroactively fail catalogues nobody has triaged yet.
+    const seenBoxes = new Map();
+    for (const e of entries) {
+        if (e.kind !== 'object') continue;
+        if (![e.x, e.y, e.w, e.h].every(Number.isInteger)) continue;
+        const key = `${e.x},${e.y},${e.w},${e.h}`;
+        if (seenBoxes.has(key)) {
+            warnings.push(
+                `"${e.name}" and "${seenBoxes.get(key)}" cover the same box (${key}) ` +
+                `— one of the two names is probably wrong`);
+        } else {
+            seenBoxes.set(key, e.name);
+        }
+    }
+
     return { errors, warnings };
 }
 

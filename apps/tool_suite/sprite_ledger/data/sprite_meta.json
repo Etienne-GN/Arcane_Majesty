@@ -21266,5 +21266,113 @@
   },
   "effects.png::lpc_water_splash_burst": {
     "collection": "lpc"
+  },
+  "PATD_Props.png::bench_stone_west": {
+    "collection": "patd"
+  },
+  "PATD_Props.png::bench_stone_east": {
+    "collection": "patd"
+  },
+  "[Base]BaseChip_pipo.png::rope_hanging": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::doll_figurine": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::oven_gray_double": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::stove_black_burners": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::sink_gray_wood_legs_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::sink_gray_brick_base_a": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::sink_gray_wood_legs_b": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_white_brick_base": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pillar_wood_round": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::pillar_metal_round": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::ladder_rope_wood_short": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::vine_green_climbing": {
+    "collection": "pipoya"
+  },
+  "mushroom_variant_cluster.png::mushroom_orange_wide_a": {
+    "collection": "schwarnhild"
+  },
+  "mushroom_variant_cluster.png::mushroom_orange_wide_b": {
+    "collection": "schwarnhild"
+  },
+  "mushroom_variant_cluster.png::mushroom_orange_spotted": {
+    "collection": "schwarnhild"
+  },
+  "mushroom_variant_cluster.png::mushroom_orange_tall": {
+    "collection": "schwarnhild"
+  },
+  "mushroom_variant_cluster.png::mushroom_blue_tall": {
+    "collection": "schwarnhild"
+  },
+  "mushroom_variant_cluster.png::mushroom_blue_wide_a": {
+    "collection": "schwarnhild"
+  },
+  "mushroom_variant_cluster.png::mushroom_blue_wide_b": {
+    "collection": "schwarnhild"
+  },
+  "mushroom_variant_cluster.png::mushroom_blue_spotted": {
+    "collection": "schwarnhild"
+  },
+  "mushroom_variant_cluster.png::mushroom_red_wide_a": {
+    "collection": "schwarnhild"
+  },
+  "mushroom_variant_cluster.png::mushroom_red_wide_b": {
+    "collection": "schwarnhild"
+  },
+  "mushroom_variant_cluster.png::mushroom_red_spotted": {
+    "collection": "schwarnhild"
+  },
+  "mushroom_variant_cluster.png::mushroom_red_tall": {
+    "collection": "schwarnhild"
+  },
+  "mushroom_variant_cluster.png::mushroom_brown_wide_a": {
+    "collection": "schwarnhild"
+  },
+  "mushroom_variant_cluster.png::mushroom_brown_wide_b": {
+    "collection": "schwarnhild"
+  },
+  "mushroom_variant_cluster.png::mushroom_brown_spotted": {
+    "collection": "schwarnhild"
+  },
+  "mushroom_variant_cluster.png::mushroom_brown_tall": {
+    "collection": "schwarnhild"
+  },
+  "magic_circle_gray_variants.png::magic_circle_gray_crimson": {
+    "collection": "generated"
+  },
+  "magic_circle_gray_variants.png::magic_circle_gray_azure": {
+    "collection": "generated"
+  },
+  "magic_circle_gray_variants.png::magic_circle_gray_verdant": {
+    "collection": "generated"
+  },
+  "magic_circle_gray_variants.png::magic_circle_gray_violet": {
+    "collection": "generated"
+  },
+  "magic_circle_gray_variants.png::magic_circle_gray_gold": {
+    "collection": "generated"
+  },
+  "magic_circle_gray_variants.png::magic_circle_gray_pale": {
+    "collection": "generated"
   }
 }

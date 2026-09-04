@@ -89,7 +89,7 @@ function drawCrop(canvas: HTMLCanvasElement | null, sheet: Sheet, entry: SpriteE
         @click="emit('select', sheet.sheetPngFilename, entry.name)"
       >
         <span v-if="flaggedKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="flag-dot" title="Open flag" />
-        <span v-if="needsReviewKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="review-dot" title="Tentatively fixed — needs your review" />
+        <span v-if="needsReviewKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="review-badge" title="Tentatively fixed — needs your review">🔍</span>
         <span v-if="licenseOkKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="license-badge ok">✓</span>
         <span v-if="licenseFlaggedKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="license-badge unlicensed">⚠</span>
         <canvas :ref="(el) => drawCrop(el as HTMLCanvasElement, sheet, entry)" class="pixelated" />
@@ -120,7 +120,14 @@ function drawCrop(canvas: HTMLCanvasElement | null, sheet: Sheet, entry: SpriteE
 }
 .name { font-size: 10px; word-break: break-word; color: #aaa; }
 .flag-dot { position: absolute; top: 0; right: 8px; width: 8px; height: 8px; border-radius: 50%; background: #e33; }
-.review-dot { position: absolute; top: 0; right: 20px; width: 8px; height: 8px; border-radius: 50%; background: #39c; }
+/* A legible badge rather than a second coloured dot: "needs your review" is
+   a call to action, and two 8px dots differing only in hue read as noise. */
+.review-badge {
+    position: absolute; top: -2px; right: 18px; z-index: 1;
+    font-size: 10px; line-height: 1;
+    background: #123a52; border: 1px solid #39c; border-radius: 3px;
+    padding: 1px 2px;
+}
 .license-badge { position: absolute; top: -2px; left: 4px; font-size: 12px; line-height: 1; }
 .license-badge.ok { color: #3c3; }
 .license-badge.unlicensed { color: #e91; }
