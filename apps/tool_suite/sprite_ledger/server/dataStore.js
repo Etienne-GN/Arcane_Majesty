@@ -18,10 +18,56 @@ async function writeJson(path, value) {
 }
 
 // --- seeding (pure, no I/O) ---
+// Which pack each catalogued directory belongs to. This used to be three
+// prefix rules with everything else falling through to 'uncollected', and
+// every other pack was assigned by hand, entry by entry. That held while a
+// sheet was one entry; the moment sheets were re-catalogued into their real
+// cells, LPC went from 6 entries to 4148 and all of them landed in
+// 'uncollected'. A table costs one line per pack and cannot drift that way.
+export const DIR_COLLECTIONS = {
+    'generic_rpg_pack_vacaroxa': 'generic_rpg_vacaroxa',
+    'hana_caraka_topdown_sample': 'hana_caraka',
+    'lpc': 'lpc',
+    'manaseed_seasonal_forest_sample_autumn': 'manaseed',
+    'manaseed_seasonal_forest_sample_spring': 'manaseed',
+    'manaseed_seasonal_forest_sample_summer': 'manaseed',
+    'manaseed_seasonal_forest_sample_winter': 'manaseed',
+    'snowy_asset_pack_nyx': 'nyx_snowy',
+    'PATD_Plant': 'patd',
+    'PATD_Props': 'patd',
+    'PATD_Struct': 'patd',
+    'PATD_TilesetGrass': 'patd',
+    'PATD_TilesetStoneGround': 'patd',
+    'PATD_TilesetWall': 'patd',
+    'patd_bushes_dustdfg': 'patd_bushes_dustdfg',
+    'SampleMap': 'pipoya',
+    'pipoya_autotiles_type1': 'pipoya',
+    'pipoya_autotiles_type1_static': 'pipoya',
+    'pipoya_autotiles_type2': 'pipoya',
+    'pipoya_autotiles_type2_static': 'pipoya',
+    'pipoya_autotiles_type3': 'pipoya',
+    'pipoya_autotiles_type3_static': 'pipoya',
+    'pipoya_popup_emotes': 'pipoya',
+    'pipoya_vfx_bell': 'pipoya',
+    'pipoya_vfx_hexshield': 'pipoya',
+    'pipoya_vfx_light_pillar': 'pipoya',
+    'pipoya_vfx_mysterious_object': 'pipoya',
+    'pipoya_vfx_time_magic': 'pipoya',
+    'pipoya_vfx_warp_portal': 'pipoya',
+    'pixel_crawler_anokolisa': 'pixel_crawler',
+    'roleworld_wizard': 'roleworld_wizard',
+    'assets_spritesheet_v2_free_restored': 'schwarnhild',
+    'schwarnhild_basic_tileset': 'schwarnhild',
+    'top_down_adventure_pack_olobster': 'top_down_adventure_olobster',
+    'trees_blackland_widelands': 'widelands_trees',
+    'woolly_lands_tofebaa': 'woolly_lands',
+};
+
 export function seedDefaultCollection(sheetPngFilename, sheetDirName) {
-    if (sheetDirName === 'SampleMap') return 'pipoya';
-    if (sheetDirName.startsWith('pipoya_autotiles')) return 'pipoya';
-    if (sheetDirName.startsWith('PATD_')) return 'patd';
+    const known = DIR_COLLECTIONS[sheetDirName];
+    if (known) return known;
+    // A genuinely new pack still lands in 'uncollected' — that's the queue
+    // saying "nobody has said where this belongs yet", which is true.
     return 'uncollected';
 }
 
@@ -67,7 +113,7 @@ export async function assignCollection(dataDir, sheetPngFilename, entryName, col
 // seeded. Bypasses assignCollection's existence check deliberately
 // (seeding is a trusted internal call, not user input) but still only
 // ever writes collection ids that seedDefaultCollection can produce —
-// 'pipoya', 'patd', 'uncollected' — which the real data/collections.json
+// the DIR_COLLECTIONS values plus 'uncollected' — which the real data/collections.json
 // (Step 4 below) always defines.
 export async function seedSheetIfNew(dataDir, sheetPngFilename, sheetDirName, entryNames) {
     const meta = await loadSpriteMeta(dataDir);

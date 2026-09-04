@@ -3,7 +3,7 @@ import { mkdtempSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import {
-    seedDefaultCollection, seedSheetIfNew,
+    seedDefaultCollection, seedSheetIfNew, DIR_COLLECTIONS,
     loadCollections, addCollection,
     loadSpriteMeta, assignCollection, setLicenseStatus,
     loadFlags, addFlag, updateFlagStatus,
@@ -13,7 +13,31 @@ import {
 assert.strictEqual(seedDefaultCollection('fake_a.png', 'SampleMap'), 'pipoya');
 assert.strictEqual(seedDefaultCollection('PATD_Props.png', 'PATD_Props'), 'patd');
 assert.strictEqual(seedDefaultCollection('fake_a.png', 'pipoya_autotiles_type1'), 'pipoya');
-assert.strictEqual(seedDefaultCollection('addwork.png', 'addwork'), 'uncollected');
+// An unknown pack directory still queues as 'uncollected' — that reads as
+// "nobody has said where this belongs yet", which is true of a new pack.
+assert.strictEqual(seedDefaultCollection('whatever.png', 'a_pack_nobody_has_mapped'), 'uncollected');
+
+// Directories that used to fall through to 'uncollected' because they matched
+// none of the old prefix rules. Their entries were assigned by hand, which
+// held while a sheet was one entry and broke the moment sheets were
+// re-catalogued into their real cells (LPC: 6 entries -> 4148, all orphaned).
+assert.strictEqual(seedDefaultCollection('terrain_atlas.png', 'lpc'), 'lpc');
+assert.strictEqual(
+    seedDefaultCollection('seasonal sample (winter).png', 'manaseed_seasonal_forest_sample_winter'),
+    'manaseed');
+assert.strictEqual(seedDefaultCollection('Size_05.png', 'pixel_crawler_anokolisa'), 'pixel_crawler');
+
+// Every collection the table can produce must actually exist in the shipped
+// collections.json, or seeding writes an id the sidebar can't render.
+{
+    const shipped = JSON.parse(
+        readFileSync(new URL('../data/collections.json', import.meta.url), 'utf8'));
+    const known = new Set(shipped.map(c => c.id));
+    for (const id of new Set(Object.values(DIR_COLLECTIONS))) {
+        assert.ok(known.has(id), `DIR_COLLECTIONS maps to unknown collection id: ${id}`);
+    }
+    assert.ok(known.has('uncollected'), 'collections.json must keep an "uncollected" bucket');
+}
 
 // --- collections ---
 const dataDir = mkdtempSync(join(tmpdir(), 'sprite-ledger-data-'));
@@ -142,4 +166,4 @@ const expectedIds = [
 ];
 assert.deepStrictEqual(realCollections.map(c => c.id).sort(), expectedIds.sort());
 
-console.log('✓ data-store tests passed (35 assertions).');
+console.log('✓ data-store tests passed (40 assertions).');
