@@ -217,6 +217,48 @@ field, a malformed value is a defect, not a note.
 animation*. It needs a frame count in the comment to be actionable — the strip
 has to divide evenly and that can't be read off a crop.
 
+## Splitting an entry that covers several sprites
+
+The most common flag by far is "this is several sprites in one crop". That's
+the inverse of a merge, and the names file takes `splits`:
+
+```json
+{"splits": [
+  {"entry": "stove_black", "rows": 2, "names": ["oven_gray", "stove_burners"]},
+  {"entry": "pillar_pair",  "cols": 2},
+  {"entry": "props_row",    "alpha": true, "minArea": 20}
+]}
+```
+
+- `rows`/`cols` — an even grid, in reading order. Refuses an uneven division:
+  a box that doesn't divide means the count is wrong.
+- `alpha` — one piece per alpha island. Right for prop sheets, useless for a
+  full-bleed tileset with no transparent gaps between tiles.
+- `into` — explicit `{name, x, y, w, h}` boxes, for the awkward ones.
+
+Pieces without `names` get indexed placeholders and keep `needsNaming`, so a
+split can be done first and named from a contact sheet afterwards.
+
+## Recolouring a sprite
+
+`recolour.py` writes colour variants as a new sheet plus catalogue, so they
+become ordinary catalogued sprites rather than something tinted at runtime:
+
+```
+python3 tools/sprite_catalogue/recolour.py \
+  --catalogue path/to/sheet.catalogue.json --entry magic_circle_gray \
+  --colours "#c8462d:crimson,#3a6ed8:azure" \
+  --out-dir public/assets/catalogued/tilesets/generated_recolours
+```
+
+`ink` mode (auto-selected when the sprite uses exactly one RGB) replaces the
+colour and leaves alpha untouched, so anti-aliased edges survive exactly.
+`hue` mode rotates hue in HSV for full-colour art and keeps each pixel's own
+saturation and value — an approximation; look at the result.
+
+Runtime tinting is not a substitute: Phaser's `setTint` multiplies, so it can
+darken a sprite but never make a dark one pale.
+
 ## Scope: catalogue on demand
 
 Only about 8 catalogue files are actually loaded by the game. Bootstrapping a

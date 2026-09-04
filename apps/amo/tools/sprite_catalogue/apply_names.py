@@ -48,8 +48,16 @@ Run: python3 apply_names.py --catalogue sheet.catalogue.json --names names.json
 """
 import argparse
 import json
+import os
 import re
 import sys
+
+# autoslice is only needed for alpha-mode splits; a caller that never asks for
+# one shouldn't be forced to have numpy/PIL installed.
+try:
+    from autoslice import find_boxes, load_mask
+except ImportError:                            # pragma: no cover
+    find_boxes = load_mask = None
 
 SEASONS = {'spring', 'summer', 'autumn', 'winter'}
 NAME_RE = re.compile(r'[a-z0-9_]+')
@@ -65,10 +73,10 @@ def normalise(value):
 
 
 def split_spec(spec):
-    """Accept either the flat index map or the {names, merges} form."""
-    if isinstance(spec, dict) and ('names' in spec or 'merges' in spec):
-        return spec.get('names', {}), spec.get('merges', [])
-    return spec, []
+    """Accept either the flat index map or the {names, merges, splits} form."""
+    if isinstance(spec, dict) and any(k in spec for k in ('names', 'merges', 'splits')):
+        return spec.get('names', {}), spec.get('merges', []), spec.get('splits', [])
+    return spec, [], []
 
 
 def build_frames(box, count, axis='x'):
@@ -250,11 +258,140 @@ def _plan_merges(cat, merges, entries, errors):
     return planned, claimed
 
 
-def apply_names(cat, spec):
-    """Returns (renamed, dropped, merged, errors). Mutates `cat` only if errors is empty."""
-    names, merges = split_spec(spec)
+def _plan_splits(cat, splits, entries, errors, mask_loader=None):
+    """Turns split specs into (index, [replacement entries]).
+
+    A split is the inverse of a merge: one entry that actually covers several
+    sprites becomes several. Three ways to say where the cuts go --
+
+      {"entry": "stove", "rows": 2}                  even grid, reading order
+      {"entry": "props", "alpha": true}              one per alpha island
+      {"entry": "x", "into": [{name,x,y,w,h}, ...]}  explicit boxes
+
+    -- because tile sheets split evenly, prop sheets split on transparency,
+    and the awkward ones need to be said outright.
+    """
+    planned = []
+    claimed = {}
+    by_name = {e.get('name'): i for i, e in enumerate(entries)}
+
+    for n, raw in enumerate(splits):
+        if not isinstance(raw, dict):
+            errors.append(f'splits[{n}]: expected an object')
+            continue
+        spec = dict(raw)
+        target = spec.pop('entry', None)
+        label = f'splits[{n}] "{target}"'
+        if target is None or target not in by_name:
+            errors.append(f'splits[{n}]: no entry named "{target}"')
+            continue
+        idx = by_name[target]
+        if idx in claimed:
+            errors.append(f'{label}: entry already split by splits[{claimed[idx]}]')
+            continue
+        entry = entries[idx]
+        if entry.get('kind') != 'object':
+            errors.append(f'{label}: only "object" entries can be split')
+            continue
+        bx, by_, bw, bh = entry['x'], entry['y'], entry['w'], entry['h']
+
+        names = spec.pop('names', None)
+        boxes = None
+
+        if 'into' in spec:
+            boxes = []
+            for i, b in enumerate(spec.pop('into')):
+                if not isinstance(b, dict) or not all(
+                        isinstance(b.get(k), int) and not isinstance(b.get(k), bool)
+                        for k in ('x', 'y', 'w', 'h')):
+                    errors.append(f'{label}: into[{i}] needs integer x/y/w/h')
+                    boxes = None
+                    break
+                boxes.append(b)
+        elif spec.pop('alpha', False):
+            if mask_loader is None:
+                errors.append(f'{label}: alpha splitting needs the sheet image')
+                continue
+            mask = mask_loader()
+            if mask is None:
+                errors.append(f'{label}: could not read the sheet image')
+                continue
+            sub = mask[by_:by_ + bh, bx:bx + bw]
+            found = find_boxes(sub, gap=spec.pop('gap', 1), min_area=spec.pop('minArea', 16))
+            boxes = [{'x': b['x'] + bx, 'y': b['y'] + by_, 'w': b['w'], 'h': b['h']} for b in found]
+        else:
+            rows = spec.pop('rows', 1)
+            cols = spec.pop('cols', 1)
+            if not all(isinstance(v, int) and not isinstance(v, bool) and v >= 1
+                       for v in (rows, cols)) or rows * cols < 2:
+                errors.append(f'{label}: "rows"/"cols" must be integers with rows*cols >= 2')
+                continue
+            if bw % cols or bh % rows:
+                errors.append(f'{label}: {bw}x{bh} does not divide into {cols}x{rows} equal parts')
+                continue
+            cw, ch = bw // cols, bh // rows
+            boxes = [{'x': bx + c * cw, 'y': by_ + r * ch, 'w': cw, 'h': ch}
+                     for r in range(rows) for c in range(cols)]
+
+        if boxes is None:
+            continue
+        if len(boxes) < 2:
+            errors.append(f'{label}: produced {len(boxes)} piece(s) — a split must yield at least 2')
+            continue
+        if names is not None and len(names) != len(boxes):
+            errors.append(f'{label}: {len(names)} name(s) for {len(boxes)} piece(s)')
+            continue
+
+        pieces = []
+        ok = True
+        for i, box in enumerate(boxes):
+            if names is not None:
+                piece_name = names[i]
+                if not NAME_RE.fullmatch(str(piece_name)):
+                    errors.append(f'{label}: name "{piece_name}" is not snake_case')
+                    ok = False
+                    break
+            else:
+                piece_name = f'{target}_{i:02d}'
+            piece = {'name': piece_name, 'kind': 'object', **box,
+                     'tags': list(entry.get('tags', []))}
+            if entry.get('season'):
+                piece['season'] = entry['season']
+            if names is None:
+                piece['needsNaming'] = True
+            pieces.append(piece)
+        if not ok:
+            continue
+
+        claimed[idx] = n
+        planned.append((idx, pieces))
+
+    return planned, claimed
+
+
+def apply_names(cat, spec, sheet_dir=None):
+    """Returns (renamed, dropped, merged, split, errors).
+
+    Mutates `cat` only if errors is empty. `sheet_dir` is where `cat['source']`
+    lives; it is only needed for alpha-mode splits.
+    """
+    names, merges, splits = split_spec(spec)
     entries = cat.get('entries', [])
     staged, dropped, errors = [], [], []
+
+    cached_mask = []
+
+    def mask_loader():
+        """Loads the sheet once, however many alpha splits ask for it."""
+        if cached_mask:
+            return cached_mask[0]
+        if load_mask is None or sheet_dir is None:
+            return None
+        path = os.path.join(sheet_dir, cat.get('source', ''))
+        if not os.path.exists(path):
+            return None
+        cached_mask.append(load_mask(path))
+        return cached_mask[0]
 
     for key, raw in names.items():
         try:
@@ -287,6 +424,11 @@ def apply_names(cat, spec):
         staged.append((idx, entry_spec))
 
     planned, claimed = _plan_merges(cat, merges, entries, errors)
+    split_planned, split_claimed = _plan_splits(cat, splits, entries, errors, mask_loader)
+
+    for idx in split_claimed:
+        if idx in claimed:
+            errors.append(f'entry {idx} is both split and merged into "{claimed[idx]}"')
 
     for idx, _ in staged:
         if idx in claimed:
@@ -299,20 +441,24 @@ def apply_names(cat, spec):
     # discovered halfway through would leave a file that fails the trust gate.
     consumed = set(claimed)
     dropping = set(dropped)
+    splitting = set(split_claimed)
     renames = {idx: s.get('name') for idx, s in staged}
     projected = {}
     for i, entry in enumerate(entries):
-        if i in dropping or i in consumed:
+        if i in dropping or i in consumed or i in splitting:
             continue
         projected.setdefault(renames.get(i) or entry.get('name'), []).append(i)
     for _, merged, _ in planned:
         projected.setdefault(merged['name'], []).append('merge')
+    for _, pieces in split_planned:
+        for piece in pieces:
+            projected.setdefault(piece['name'], []).append('split')
     for name, where in projected.items():
         if len(where) > 1:
             errors.append(f'duplicate name "{name}" would apply to {where}')
 
     if errors:
-        return 0, 0, 0, errors
+        return 0, 0, 0, 0, errors
 
     for idx, entry_spec in staged:
         entry = entries[idx]
@@ -328,10 +474,14 @@ def apply_names(cat, spec):
     # Rebuild in one pass so a merged entry lands where its first cell was,
     # keeping the catalogue in reading order rather than appending to the end.
     inserts = {anchor: merged for anchor, merged, _ in planned}
+    replacements = dict(split_planned)
     rebuilt = []
     for i, entry in enumerate(entries):
         if i in inserts:
             rebuilt.append(inserts[i])
+        if i in replacements:
+            rebuilt.extend(replacements[i])       # a split lands where it was
+            continue
         if i in dropping or i in consumed:
             continue
         rebuilt.append(entry)
@@ -343,7 +493,7 @@ def apply_names(cat, spec):
         for f in ('gridTileWidth', 'gridTileHeight', 'gridCols', 'gridRows'):
             cat.pop(f, None)
 
-    return len(staged), len(dropped), len(planned), []
+    return len(staged), len(dropped), len(planned), len(split_planned), []
 
 
 def main(argv):
@@ -358,7 +508,8 @@ def main(argv):
     with open(args.names) as fh:
         spec = json.load(fh)
 
-    renamed, dropped, merged, errors = apply_names(cat, spec)
+    renamed, dropped, merged, split, errors = apply_names(
+        cat, spec, sheet_dir=os.path.dirname(os.path.abspath(args.catalogue)))
     if errors:
         for e in errors:
             print(f'X {e}', file=sys.stderr)
@@ -371,7 +522,7 @@ def main(argv):
             json.dump(cat, fh, indent=2)
             fh.write('\n')
     print(f'{"would rename" if args.dry_run else "renamed"} {renamed}, merged {merged}, '
-          f'dropped {dropped}, {remaining} still need naming')
+          f'split {split}, dropped {dropped}, {remaining} still need naming')
     return 0
 
 

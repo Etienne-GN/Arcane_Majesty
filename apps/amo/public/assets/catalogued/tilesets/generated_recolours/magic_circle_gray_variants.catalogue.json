@@ -1,0 +1,97 @@
+{
+  "source": "magic_circle_gray_variants.png",
+  "sheetWidth": 192,
+  "sheetHeight": 32,
+  "entries": [
+    {
+      "name": "magic_circle_gray_crimson",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "magic",
+        "rune",
+        "decoration",
+        "floor",
+        "recoloured"
+      ]
+    },
+    {
+      "name": "magic_circle_gray_azure",
+      "kind": "object",
+      "x": 32,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "magic",
+        "rune",
+        "decoration",
+        "floor",
+        "recoloured"
+      ]
+    },
+    {
+      "name": "magic_circle_gray_verdant",
+      "kind": "object",
+      "x": 64,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "magic",
+        "rune",
+        "decoration",
+        "floor",
+        "recoloured"
+      ]
+    },
+    {
+      "name": "magic_circle_gray_violet",
+      "kind": "object",
+      "x": 96,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "magic",
+        "rune",
+        "decoration",
+        "floor",
+        "recoloured"
+      ]
+    },
+    {
+      "name": "magic_circle_gray_gold",
+      "kind": "object",
+      "x": 128,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "magic",
+        "rune",
+        "decoration",
+        "floor",
+        "recoloured"
+      ]
+    },
+    {
+      "name": "magic_circle_gray_pale",
+      "kind": "object",
+      "x": 160,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "magic",
+        "rune",
+        "decoration",
+        "floor",
+        "recoloured"
+      ]
+    }
+  ]
+}

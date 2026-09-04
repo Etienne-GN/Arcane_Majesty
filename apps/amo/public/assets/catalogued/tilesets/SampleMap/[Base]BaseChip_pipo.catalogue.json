@@ -1912,7 +1912,7 @@
       ]
     },
     {
-      "name": "ladder_rope_wood",
+      "name": "rope_hanging",
       "kind": "object",
       "x": 32,
       "y": 320,
@@ -1922,7 +1922,8 @@
         "ladder",
         "prop",
         "decoration",
-        "ledge"
+        "ledge",
+        "rope"
       ]
     },
     {
@@ -2116,7 +2117,7 @@
       ]
     },
     {
-      "name": "ladder_wood_plank",
+      "name": "ladder_rope_wood",
       "kind": "object",
       "x": 32,
       "y": 480,
@@ -3854,7 +3855,7 @@
       ]
     },
     {
-      "name": "armor_tunic_blue",
+      "name": "doll_figurine",
       "kind": "object",
       "x": 128,
       "y": 4096,
@@ -3865,7 +3866,9 @@
         "item",
         "armor",
         "tunic",
-        "blue"
+        "blue",
+        "decor",
+        "toy"
       ]
     },
     {
@@ -4917,12 +4920,12 @@
       ]
     },
     {
-      "name": "stove_black",
+      "name": "oven_gray_double",
       "kind": "object",
       "x": 32,
       "y": 3040,
       "w": 32,
-      "h": 64,
+      "h": 32,
       "tags": [
         "furniture",
         "stove",
@@ -4931,12 +4934,26 @@
       ]
     },
     {
-      "name": "sink_gray_a",
+      "name": "stove_black_burners",
+      "kind": "object",
+      "x": 32,
+      "y": 3072,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "stove",
+        "indoor",
+        "kitchen"
+      ]
+    },
+    {
+      "name": "sink_gray_wood_legs_a",
       "kind": "object",
       "x": 64,
       "y": 3040,
       "w": 32,
-      "h": 64,
+      "h": 32,
       "tags": [
         "furniture",
         "sink",
@@ -4946,12 +4963,42 @@
       ]
     },
     {
-      "name": "sink_gray_b",
+      "name": "sink_gray_brick_base_a",
+      "kind": "object",
+      "x": 64,
+      "y": 3072,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "sink",
+        "indoor",
+        "kitchen",
+        "gray"
+      ]
+    },
+    {
+      "name": "sink_gray_wood_legs_b",
       "kind": "object",
       "x": 96,
       "y": 3040,
       "w": 32,
-      "h": 64,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "sink",
+        "indoor",
+        "kitchen",
+        "gray"
+      ]
+    },
+    {
+      "name": "counter_white_brick_base",
+      "kind": "object",
+      "x": 96,
+      "y": 3072,
+      "w": 32,
+      "h": 32,
       "tags": [
         "furniture",
         "sink",
@@ -5331,11 +5378,25 @@
       ]
     },
     {
-      "name": "pillar_stone_pair",
+      "name": "pillar_wood_round",
       "kind": "object",
       "x": 0,
       "y": 3616,
-      "w": 64,
+      "w": 32,
+      "h": 96,
+      "tags": [
+        "pillar",
+        "column",
+        "decoration",
+        "stone"
+      ]
+    },
+    {
+      "name": "pillar_metal_round",
+      "kind": "object",
+      "x": 32,
+      "y": 3616,
+      "w": 32,
       "h": 96,
       "tags": [
         "pillar",
@@ -6340,11 +6401,26 @@
       ]
     },
     {
-      "name": "ladder_wood_dirt_climb",
+      "name": "ladder_rope_wood_short",
       "kind": "object",
       "x": 160,
       "y": 512,
-      "w": 64,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "ladder",
+        "prop",
+        "decoration",
+        "wood",
+        "farm"
+      ]
+    },
+    {
+      "name": "vine_green_climbing",
+      "kind": "object",
+      "x": 192,
+      "y": 512,
+      "w": 32,
       "h": 64,
       "tags": [
         "ladder",

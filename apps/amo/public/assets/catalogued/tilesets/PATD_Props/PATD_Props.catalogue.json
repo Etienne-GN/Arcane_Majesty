@@ -19,7 +19,7 @@
     },
     {
       "kind": "object",
-      "name": "stone_slab_broken",
+      "name": "bench_stone_west",
       "x": 387,
       "y": 2,
       "w": 32,
@@ -161,7 +161,7 @@
     },
     {
       "kind": "object",
-      "name": "stone_monolith_thin",
+      "name": "bench_stone_east",
       "x": 387,
       "y": 98,
       "w": 31,

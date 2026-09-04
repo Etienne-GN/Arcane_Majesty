@@ -35,7 +35,7 @@
     "name": "armor_tunic_blue",
     "reason": "wrong_name",
     "comment": "this looks more like a doll than an armor to me",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-01T22:33:12.380Z",
     "resolvedAt": null
   },
@@ -55,7 +55,7 @@
     "name": "stone_slab_broken",
     "reason": "wrong_name",
     "comment": "same as bench_stone but west facing oriented",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-01T22:34:57.959Z",
     "resolvedAt": null
   },
@@ -65,7 +65,7 @@
     "name": "stone_monolith_thin",
     "reason": "wrong_name",
     "comment": "same as bench_stone but east facing oriented",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-01T22:35:05.110Z",
     "resolvedAt": null
   },
@@ -215,7 +215,7 @@
     "name": "ladder_rope_wood",
     "reason": "wrong_name",
     "comment": "this is no ladder neither wood, its a rope",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:17:57.305Z",
     "resolvedAt": null
   },
@@ -225,7 +225,7 @@
     "name": "ladder_wood_plank",
     "reason": "wrong_name",
     "comment": "this is a ladder yes made of rope and wood, but not plank",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:18:23.281Z",
     "resolvedAt": null
   },
@@ -235,7 +235,7 @@
     "name": "magic_circle_gray",
     "reason": "other",
     "comment": "this one is awesome, can we generate it in other colors ?",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:18:53.555Z",
     "resolvedAt": null
   },
@@ -335,7 +335,7 @@
     "name": "pillar_stone_pair",
     "reason": "misaligned",
     "comment": "there are 2 disctinct columns in this one",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:20:42.146Z",
     "resolvedAt": null
   },
@@ -355,7 +355,7 @@
     "name": "ladder_wood_dirt_climb",
     "reason": "misaligned",
     "comment": "there's a ladder and a vine in this, we need to split those",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:21:15.453Z",
     "resolvedAt": null
   },
@@ -645,7 +645,7 @@
     "name": "stove_black",
     "reason": "misaligned",
     "comment": "those are 2 items",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:44:26.280Z",
     "resolvedAt": null
   },
@@ -655,7 +655,7 @@
     "name": "sink_gray_a",
     "reason": "misaligned",
     "comment": "those are 2 items",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:44:35.726Z",
     "resolvedAt": null
   },
@@ -665,7 +665,7 @@
     "name": "sink_gray_b",
     "reason": "misaligned",
     "comment": "those are 2 items",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T16:44:38.151Z",
     "resolvedAt": null
   },
@@ -945,7 +945,7 @@
     "name": "mushroom_variant_cluster",
     "reason": "misaligned",
     "comment": "there are 16 mushrooms in this.. \n",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:38:09.360Z",
     "resolvedAt": null
   },

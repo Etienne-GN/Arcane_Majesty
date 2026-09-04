@@ -170,7 +170,7 @@ def test_apply_names():
         {'name': 'a_001', 'kind': 'object', 'tags': ['pack'], 'needsNaming': True},
         {'name': 'a_002', 'kind': 'object', 'tags': ['pack'], 'needsNaming': True},
     ]}
-    renamed, dropped, merged, errors = apply_names(cat, {
+    renamed, dropped, merged, _, errors = apply_names(cat, {
         '0': 'oak_tree',
         '1': {'name': 'pine_snow', 'tags': ['conifer'], 'season': 'winter'},
         '2': {'drop': True},
@@ -208,7 +208,7 @@ def grid_cat(cells, tile=16, cols=4, rows=4):
 def test_merge_cells_into_one_object():
     # A 2x2 block of cells is one 32x32 sprite, not four tiles.
     cat = grid_cat([(0, 0), (0, 1), (1, 0), (1, 1), (3, 3)])
-    renamed, dropped, merged, errors = apply_names(cat, {
+    renamed, dropped, merged, _, errors = apply_names(cat, {
         'names': {'4': 'grass_fill'},
         'merges': [{'name': 'flower_big', 'cells': [0, 1, 2, 3],
                     'tags': ['flower'], 'season': 'spring'}],
@@ -295,7 +295,7 @@ def test_animate_through_apply_names():
     cat = {'source': 's.png', 'sheetWidth': 128, 'sheetHeight': 32, 'entries': [
         {'name': 'strip', 'kind': 'object', 'x': 0, 'y': 0, 'w': 128, 'h': 32,
          'tags': ['fx'], 'needsNaming': True}]}
-    renamed, _, _, errors = apply_names(cat, {
+    renamed, *_, errors = apply_names(cat, {
         '0': {'name': 'torch_flame', 'animate': {'count': 4, 'durationMs': 120}}})
     check('animate applies', (renamed, errors), (1, []))
     e = cat['entries'][0]
@@ -318,7 +318,7 @@ def test_animate_through_apply_names():
 def test_merge_can_animate():
     cat = grid_cat([(0, 0), (0, 1), (0, 2), (0, 3)], tile=16, cols=4, rows=4)
     cat['source'] = 's.png'
-    _, _, merged, errors = apply_names(cat, {
+    _, _, merged, _, errors = apply_names(cat, {
         'merges': [{'name': 'fx_loop', 'cells': [0, 1, 2, 3],
                     'animate': {'count': 4, 'durationMs': 80}}]})
     check('merge+animate succeeds', (merged, errors), (1, []))
@@ -354,6 +354,173 @@ def test_validator_rejects_malformed_frames(tmp):
     check('validator rejects a one-frame animation', proc.returncode, 1)
 
 
+def obj_cat(entries, w=64, h=64):
+    return {'source': 's.png', 'sheetWidth': w, 'sheetHeight': h, 'entries': entries}
+
+
+def test_split_even_grid():
+    cat = obj_cat([{'name': 'stove', 'kind': 'object', 'x': 32, 'y': 0, 'w': 32, 'h': 64,
+                    'tags': ['pipoya']}])
+    r, d, m, sp, errors = apply_names(cat, {
+        'splits': [{'entry': 'stove', 'rows': 2, 'names': ['oven_top', 'stove_bottom']}]})
+    check('even split succeeds', (sp, errors), (1, []))
+    check('one entry became two', len(cat['entries']), 2)
+    check('top piece box', {k: cat['entries'][0][k] for k in 'xywh'},
+          {'x': 32, 'y': 0, 'w': 32, 'h': 32})
+    check('bottom piece box', {k: cat['entries'][1][k] for k in 'xywh'},
+          {'x': 32, 'y': 32, 'w': 32, 'h': 32})
+    check('pieces inherit tags', cat['entries'][0]['tags'], ['pipoya'])
+    check('named pieces need no naming', 'needsNaming' in cat['entries'][0], False)
+
+
+def test_split_columns_and_reading_order():
+    cat = obj_cat([{'name': 'pair', 'kind': 'object', 'x': 0, 'y': 0, 'w': 64, 'h': 32}])
+    *_, errors = apply_names(cat, {'splits': [{'entry': 'pair', 'cols': 2}]})
+    check('column split succeeds', errors, [])
+    check('left piece first', cat['entries'][0]['x'], 0)
+    check('right piece second', cat['entries'][1]['x'], 32)
+    check('unnamed pieces are queued', cat['entries'][0]['needsNaming'], True)
+    check('unnamed pieces get indexed placeholders', cat['entries'][1]['name'], 'pair_01')
+
+
+def test_split_refuses_uneven_and_degenerate():
+    cat = obj_cat([{'name': 'x', 'kind': 'object', 'x': 0, 'y': 0, 'w': 30, 'h': 32}])
+    *_, errors = apply_names(cat, {'splits': [{'entry': 'x', 'cols': 4}]})
+    check('uneven split refused', len(errors), 1)
+    check('catalogue untouched on refusal', len(cat['entries']), 1)
+
+    cat = obj_cat([{'name': 'x', 'kind': 'object', 'x': 0, 'y': 0, 'w': 32, 'h': 32}])
+    *_, errors = apply_names(cat, {'splits': [{'entry': 'x', 'rows': 1, 'cols': 1}]})
+    check('1x1 split refused', len(errors), 1)
+
+    *_, errors = apply_names(obj_cat([{'name': 'x', 'kind': 'object', 'x': 0, 'y': 0, 'w': 32, 'h': 32}]),
+                             {'splits': [{'entry': 'nope', 'rows': 2}]})
+    check('unknown entry refused', len(errors), 1)
+
+    cat = obj_cat([{'name': 'x', 'kind': 'object', 'x': 0, 'y': 0, 'w': 32, 'h': 32}])
+    *_, errors = apply_names(cat, {'splits': [{'entry': 'x', 'rows': 2, 'names': ['only_one']}]})
+    check('name-count mismatch refused', len(errors), 1)
+
+
+def test_split_name_collision_and_double_claim():
+    cat = obj_cat([{'name': 'a', 'kind': 'object', 'x': 0, 'y': 0, 'w': 32, 'h': 32},
+                   {'name': 'keep', 'kind': 'object', 'x': 32, 'y': 0, 'w': 32, 'h': 32}])
+    *_, errors = apply_names(cat, {
+        'splits': [{'entry': 'a', 'cols': 2, 'names': ['keep', 'other']}]})
+    check('a piece colliding with a surviving entry is refused', len(errors), 1)
+
+    cat = obj_cat([{'name': 'a', 'kind': 'object', 'x': 0, 'y': 0, 'w': 32, 'h': 32}])
+    *_, errors = apply_names(cat, {
+        'splits': [{'entry': 'a', 'cols': 2}, {'entry': 'a', 'rows': 2}]})
+    check('splitting one entry twice refused', len(errors), 1)
+
+
+def test_split_alpha_mode(tmp):
+    png = tmp / 'props.png'
+    sheet_with_blobs(png, (64, 32), [(2, 2, 10, 10), (40, 4, 12, 12)])
+    cat = {'source': 'props.png', 'sheetWidth': 64, 'sheetHeight': 32,
+           'entries': [{'name': 'props', 'kind': 'object', 'x': 0, 'y': 0, 'w': 64, 'h': 32,
+                        'tags': ['pack']}]}
+    *_, errors = apply_names(cat, {'splits': [{'entry': 'props', 'alpha': True, 'minArea': 4}]},
+                             sheet_dir=str(tmp))
+    check('alpha split succeeds', errors, [])
+    check('alpha split found both blobs', len(cat['entries']), 2)
+    check('alpha piece is tight', {k: cat['entries'][0][k] for k in 'xywh'},
+          {'x': 2, 'y': 2, 'w': 10, 'h': 10})
+
+    # Without the sheet directory there is no image to inspect; say so rather
+    # than silently producing nothing.
+    cat2 = dict(cat, entries=[{'name': 'props', 'kind': 'object',
+                               'x': 0, 'y': 0, 'w': 64, 'h': 32}])
+    *_, errors = apply_names(cat2, {'splits': [{'entry': 'props', 'alpha': True}]})
+    check('alpha split without the image refused', len(errors), 1)
+
+
+def test_split_explicit_boxes():
+    cat = obj_cat([{'name': 'blob', 'kind': 'object', 'x': 0, 'y': 0, 'w': 64, 'h': 64}])
+    *_, errors = apply_names(cat, {'splits': [{'entry': 'blob', 'into': [
+        {'name': 'left', 'x': 0, 'y': 0, 'w': 20, 'h': 64},
+        {'name': 'right', 'x': 20, 'y': 0, 'w': 44, 'h': 64}]}]})
+    check('explicit split needs names on the pieces', errors, [])
+    check('explicit boxes kept', cat['entries'][1]['w'], 44)
+
+
+def test_recolour_parse_and_modes(tmp):
+    from recolour import parse_colours, ink_colours, recolour_ink, recolour_hue, build
+    from PIL import Image
+
+    check('parses hex + name', parse_colours('#c8462d:crimson'), [('crimson', (200, 70, 45))])
+    for bad in ('#xyz:red', '#c8462d:Not Snake', ''):
+        try:
+            parse_colours(bad)
+            check(f'refuses {bad!r}', 'accepted', 'refused')
+        except ValueError:
+            check(f'refuses {bad!r}', 'refused', 'refused')
+
+    # A glyph: one ink colour, anti-aliased with alpha rather than lighter RGB.
+    glyph = Image.new('RGBA', (4, 1), (0, 0, 0, 0))
+    glyph.putpixel((0, 0), (51, 50, 52, 255))
+    glyph.putpixel((1, 0), (51, 50, 52, 128))
+    check('one ink colour detected', len(ink_colours(glyph)), 1)
+
+    out = recolour_ink(glyph, (200, 70, 45))
+    check('ink swap replaces rgb', out.getpixel((0, 0)), (200, 70, 45, 255))
+    check('ink swap preserves partial alpha', out.getpixel((1, 0)), (200, 70, 45, 128))
+    check('ink swap leaves transparent pixels alone', out.getpixel((3, 0))[3], 0)
+
+    # Hue rotation must keep each pixel's own value, or shading flattens.
+    shaded = Image.new('RGBA', (2, 1))
+    shaded.putpixel((0, 0), (200, 40, 40, 255))
+    shaded.putpixel((1, 0), (90, 18, 18, 255))
+    hued = recolour_hue(shaded, (40, 40, 200))
+    check('hue rotation keeps light/dark ordering',
+          sum(hued.getpixel((0, 0))[:3]) > sum(hued.getpixel((1, 0))[:3]), True)
+
+    # ink mode on multi-colour art would flatten it — refuse instead.
+    art = Image.new('RGBA', (2, 1))
+    art.putpixel((0, 0), (200, 40, 40, 255))
+    art.putpixel((1, 0), (40, 200, 40, 255))
+    src = tmp / 'art.png'
+    art.save(src)
+    (tmp / 'art.catalogue.json').write_text(json.dumps({
+        'source': 'art.png', 'sheetWidth': 2, 'sheetHeight': 1,
+        'entries': [{'name': 'art', 'kind': 'object', 'x': 0, 'y': 0, 'w': 2, 'h': 1, 'tags': []}]}))
+    _, err = build(str(tmp / 'art.catalogue.json'), 'art', [('blue', (0, 0, 255))],
+                   str(tmp / 'gen'), 'ink')
+    check('ink mode refuses multi-colour art', err is not None, True)
+    _, err = build(str(tmp / 'art.catalogue.json'), 'nope', [('blue', (0, 0, 255))],
+                   str(tmp / 'gen'), 'auto')
+    check('unknown entry refused', err is not None, True)
+
+
+def test_recolour_writes_a_valid_catalogue(tmp):
+    from recolour import build
+    from PIL import Image
+    glyph = Image.new('RGBA', (8, 8), (0, 0, 0, 0))
+    for i in range(8):
+        glyph.putpixel((i, i), (51, 50, 52, 255))
+    glyph.save(tmp / 'g.png')
+    (tmp / 'g.catalogue.json').write_text(json.dumps({
+        'source': 'g.png', 'sheetWidth': 8, 'sheetHeight': 8,
+        'entries': [{'name': 'rune', 'kind': 'object', 'x': 0, 'y': 0, 'w': 8, 'h': 8,
+                     'tags': ['magic']}]}))
+    res, err = build(str(tmp / 'g.catalogue.json'), 'rune',
+                     [('crimson', (200, 70, 45)), ('azure', (58, 110, 216))],
+                     str(tmp / 'gen'), 'auto')
+    check('build succeeds', err, None)
+    cat_out, mode, n = res
+    check('auto picked ink mode for a glyph', mode, 'ink')
+    check('one entry per colour', n, 2)
+    written = json.loads(open(cat_out).read())
+    check('variants sit side by side', [e['x'] for e in written['entries']], [0, 8])
+    check('names are stem_colour', [e['name'] for e in written['entries']],
+          ['rune_crimson', 'rune_azure'])
+    check('source tags carried over', 'magic' in written['entries'][0]['tags'], True)
+    proc = subprocess.run(['node', str(HERE / 'validate_sprite_catalogue.mjs'), '--no-move', cat_out],
+                          capture_output=True, text=True)
+    check('generated catalogue passes the trust gate', proc.returncode, 0)
+
+
 def test_bootstrapped_catalogue_passes_validator(tmp):
     """The whole point of a draft is that the existing trust gate accepts it."""
     png = tmp / 'gate.png'
@@ -387,6 +554,14 @@ def main():
         test_merge_conflicts_and_shapes()
         test_merging_every_tile_drops_the_grid_fields()
         test_flat_and_full_spec_forms_agree()
+        test_split_even_grid()
+        test_split_columns_and_reading_order()
+        test_split_refuses_uneven_and_degenerate()
+        test_split_name_collision_and_double_claim()
+        test_split_alpha_mode(tmp)
+        test_split_explicit_boxes()
+        test_recolour_parse_and_modes(tmp)
+        test_recolour_writes_a_valid_catalogue(tmp)
         test_animate_slices_a_strip()
         test_animate_through_apply_names()
         test_merge_can_animate()
