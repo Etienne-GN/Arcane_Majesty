@@ -16,6 +16,7 @@ const pendingFlags = ref<Flag[]>([]);
 const activeCollectionId = ref<string | null>(null);
 const activeSheet = ref<string | null>(null); // null = "All sheets"
 const flaggedOnly = ref(false);
+const animatedOnly = ref(false);
 const searchText = ref('');
 const licenseFilter = ref<'all' | 'ok' | 'unlicensed' | 'unmarked'>('all');
 
@@ -85,6 +86,7 @@ const visibleKeys = computed(() => {
             const key = keyFor(sheet.sheetPngFilename, entry.name);
             if (activeCollectionId.value !== null && collectionOf(sheet.sheetPngFilename, entry.name) !== activeCollectionId.value) continue;
             if (flaggedOnly.value && !flaggedKeys.value.has(key)) continue;
+            if (animatedOnly.value && (entry.frames?.length ?? 0) < 2) continue;
             if (searchText.value && !entry.name.toLowerCase().includes(searchText.value.toLowerCase())) continue;
             const license = licenseOf(sheet.sheetPngFilename, entry.name);
             if (licenseFilter.value === 'ok' && license !== 'ok') continue;
@@ -143,12 +145,14 @@ async function onAddCollection(name: string) {
       :sheet-names="sheetNames"
       :active-sheet="activeSheet"
       :flagged-only="flaggedOnly"
+      :animated-only="animatedOnly"
       :search-text="searchText"
       :counts="counts"
       :license-filter="licenseFilter"
       @select-collection="(id) => activeCollectionId = id"
       @select-sheet="(sheet) => activeSheet = sheet"
       @toggle-flagged-only="flaggedOnly = !flaggedOnly"
+      @toggle-animated-only="animatedOnly = !animatedOnly"
       @update-search="(v) => searchText = v"
       @add-collection="onAddCollection"
       @select-license="(v) => licenseFilter = v"
