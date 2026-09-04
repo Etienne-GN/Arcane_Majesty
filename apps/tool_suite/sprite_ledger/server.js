@@ -41,11 +41,32 @@ export function createServer(catalogueDir, dataDir) {
         })));
     });
 
+    // Filename -> PNG path, built once and reused. This endpoint used to run a
+    // full scanCatalogueDir() per request: 950 directories walked and every
+    // catalogue.json parsed, just to resolve one filename. The grid asks for
+    // ~950 images on a cold load, so that was ~950 full scans — the page sat
+    // blank for a long time before any sprite appeared, and it got worse as
+    // the catalogue grew.
+    let imageIndex = null;
+
+    async function resolveImagePath(sheetPngFilename) {
+        if (!imageIndex) {
+            imageIndex = new Map(
+                (await scanCatalogueDir(catalogueDir)).map(s => [s.sheetPngFilename, s.pngPath]));
+        }
+        let hit = imageIndex.get(sheetPngFilename);
+        if (hit) return hit;
+        // A miss might just mean the sheet was catalogued after the index was
+        // built, so rebuild once before believing the 404.
+        imageIndex = new Map(
+            (await scanCatalogueDir(catalogueDir)).map(s => [s.sheetPngFilename, s.pngPath]));
+        return imageIndex.get(sheetPngFilename) ?? null;
+    }
+
     app.get('/api/image/:sheetPngFilename', async (req, res) => {
-        const sheets = await scanCatalogueDir(catalogueDir);
-        const match = sheets.find(s => s.sheetPngFilename === req.params.sheetPngFilename);
-        if (!match) return res.status(404).send('not found');
-        res.sendFile(path.resolve(match.pngPath));
+        const pngPath = await resolveImagePath(req.params.sheetPngFilename);
+        if (!pngPath) return res.status(404).send('not found');
+        res.sendFile(path.resolve(pngPath));
     });
 
     app.get('/api/collections', async (req, res) => {

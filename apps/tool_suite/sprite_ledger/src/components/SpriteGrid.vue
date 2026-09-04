@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { onBeforeUnmount } from 'vue';
 import type { Sheet, SpriteEntry } from '../services/api';
 import { imageUrl } from '../services/api';
 
@@ -13,8 +12,6 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{ select: [sheetPngFilename: string, entryName: string] }>();
-
-const DEFAULT_FRAME_MS = 120;
 
 // One offscreen <img> per sheet, loaded once, reused for every crop.
 // A plain Map, not a ref: nothing in the template reads it, and resolving an
@@ -42,95 +39,35 @@ function cropBox(sheet: Sheet, entry: SpriteEntry): { x: number; y: number; w: n
     return { x: entry.col! * tw, y: entry.row! * th, w: tw, h: th };
 }
 
-/** The box a still thumbnail should show. */
-function stillBox(sheet: Sheet, entry: SpriteEntry) {
+/** The box a thumbnail should show.
+ *
+ * The grid stays still on purpose. Thousands of cells repainting on a timer
+ * is a lot of work to show something nobody asked to watch — the ▶ badge says
+ * there's motion here, and the detail panel plays it on demand.
+ */
+function thumbBox(sheet: Sheet, entry: SpriteEntry) {
     // An animated entry's own box is the whole strip, which reads as a smear
     // of every frame at once — frame 1 is the honest thumbnail.
     if (entry.frames?.length) return entry.frames[0];
     return cropBox(sheet, entry);
 }
 
-function paint(canvas: HTMLCanvasElement, img: HTMLImageElement,
-               box: { x: number; y: number; w: number; h: number }) {
+function drawCrop(canvas: HTMLCanvasElement | null, sheet: Sheet, entry: SpriteEntry) {
+    if (!canvas) return;                       // element unmounted
+    const img = imageFor(sheet.sheetPngFilename);
+    const box = thumbBox(sheet, entry);
     // Integer-upscale small sprites so they're actually visible (a 17x9
     // sprite drawn at native size is nearly imperceptible in an 84px cell),
     // clamped so large sprites still cap at ~64px instead of overflowing.
     const scale = Math.max(1, Math.floor(64 / Math.max(box.w, box.h)));
-    if (canvas.width !== box.w * scale || canvas.height !== box.h * scale) {
-        canvas.width = box.w * scale;
-        canvas.height = box.h * scale;
-    }
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    ctx.imageSmoothingEnabled = false;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, box.x, box.y, box.w, box.h, 0, 0, box.w * scale, box.h * scale);
-}
-
-// --- animated cells ------------------------------------------------------
-// Only entries with `frames` are registered here — a few dozen out of several
-// thousand sprites — so one shared ticker repaints them all without the grid
-// having thousands of live timers in it.
-interface AnimCell {
-    canvas: HTMLCanvasElement;
-    sheet: Sheet;
-    entry: SpriteEntry;
-    frame: number;
-    nextDue: number;
-}
-const animCells = new Map<HTMLCanvasElement, AnimCell>();
-let ticker: number | null = null;
-
-function tick() {
-    const now = performance.now();
-    for (const cell of animCells.values()) {
-        // Vue hands drawCrop a null ref on unmount, which can't say *which*
-        // canvas went away — so retired elements are reaped here instead.
-        // Without this the map grows every time the grid re-renders.
-        if (!cell.canvas.isConnected) {
-            animCells.delete(cell.canvas);
-            continue;
-        }
-        // A cell hidden by the current filters (v-show) has no layout box.
-        // Repainting it burns the frame budget to change nothing.
-        if (cell.canvas.offsetParent === null) continue;
-        if (now < cell.nextDue) continue;
-        const img = imageFor(cell.sheet.sheetPngFilename);
-        if (!img.complete) continue;
-        const frames = cell.entry.frames!;
-        cell.frame = (cell.frame + 1) % frames.length;
-        cell.nextDue = now + (cell.entry.frameDurationMs ?? DEFAULT_FRAME_MS);
-        paint(cell.canvas, img, frames[cell.frame]);
-    }
-    if (!animCells.size) stopTicker();
-}
-
-function startTicker() {
-    // A single 50ms interval is coarse enough to be cheap and fine enough to
-    // serve the shortest frame durations in the catalogue; each cell advances
-    // on its own schedule against `nextDue`, so sprites with different frame
-    // rates stay independent.
-    if (ticker === null) ticker = window.setInterval(tick, 50);
-}
-function stopTicker() {
-    if (ticker !== null) { clearInterval(ticker); ticker = null; }
-}
-onBeforeUnmount(stopTicker);
-
-function drawCrop(canvas: HTMLCanvasElement | null, sheet: Sheet, entry: SpriteEntry) {
-    if (!canvas) return;                       // element unmounted
-    const img = imageFor(sheet.sheetPngFilename);
-    const animated = (entry.frames?.length ?? 0) > 1;
 
     const draw = () => {
-        paint(canvas, img, stillBox(sheet, entry));
-        if (animated && !animCells.has(canvas)) {
-            animCells.set(canvas, {
-                canvas, sheet, entry, frame: 0,
-                nextDue: performance.now() + (entry.frameDurationMs ?? DEFAULT_FRAME_MS),
-            });
-            startTicker();
-        }
+        canvas.width = box.w * scale;
+        canvas.height = box.h * scale;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(img, box.x, box.y, box.w, box.h, 0, 0, box.w * scale, box.h * scale);
     };
     // `img` is shared across every cell on the same sheet (see sheetImages
     // above) — assigning to `img.onload` here would let each cell's callback
