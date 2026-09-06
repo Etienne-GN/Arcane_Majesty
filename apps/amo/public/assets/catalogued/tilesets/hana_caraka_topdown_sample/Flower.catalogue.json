@@ -4,12 +4,334 @@
   "sheetHeight": 64,
   "entries": [
     {
-      "name": "flower_variants",
+      "name": "flower_white_single",
       "kind": "object",
       "x": 6,
       "y": 5,
-      "w": 85,
-      "h": 54,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_white_bloom",
+      "kind": "object",
+      "x": 21,
+      "y": 5,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_yellow_single",
+      "kind": "object",
+      "x": 38,
+      "y": 5,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_yellow_bloom",
+      "kind": "object",
+      "x": 53,
+      "y": 5,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_magenta_single",
+      "kind": "object",
+      "x": 70,
+      "y": 5,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_magenta_bloom",
+      "kind": "object",
+      "x": 85,
+      "y": 5,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_white_pair",
+      "kind": "object",
+      "x": 6,
+      "y": 22,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_white_trio",
+      "kind": "object",
+      "x": 21,
+      "y": 21,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_yellow_pair",
+      "kind": "object",
+      "x": 38,
+      "y": 22,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_yellow_trio",
+      "kind": "object",
+      "x": 53,
+      "y": 21,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_magenta_pair",
+      "kind": "object",
+      "x": 70,
+      "y": 22,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_magenta_trio",
+      "kind": "object",
+      "x": 85,
+      "y": 21,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_gold_single",
+      "kind": "object",
+      "x": 6,
+      "y": 37,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_gold_bloom",
+      "kind": "object",
+      "x": 21,
+      "y": 37,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_red_single",
+      "kind": "object",
+      "x": 38,
+      "y": 37,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_red_bloom",
+      "kind": "object",
+      "x": 53,
+      "y": 37,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_blue_single",
+      "kind": "object",
+      "x": 70,
+      "y": 37,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_blue_bloom",
+      "kind": "object",
+      "x": 85,
+      "y": 37,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_gold_pair",
+      "kind": "object",
+      "x": 6,
+      "y": 54,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_gold_trio",
+      "kind": "object",
+      "x": 21,
+      "y": 53,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_red_pair",
+      "kind": "object",
+      "x": 38,
+      "y": 54,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_red_trio",
+      "kind": "object",
+      "x": 53,
+      "y": 53,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_blue_pair",
+      "kind": "object",
+      "x": 70,
+      "y": 54,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "flower",
+        "nature"
+      ]
+    },
+    {
+      "name": "flower_blue_trio",
+      "kind": "object",
+      "x": 85,
+      "y": 53,
+      "w": 6,
+      "h": 6,
       "tags": [
         "hana_caraka",
         "bagong_games",

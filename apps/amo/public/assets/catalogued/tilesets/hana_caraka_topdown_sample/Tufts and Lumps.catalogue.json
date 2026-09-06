@@ -4,17 +4,303 @@
   "sheetHeight": 64,
   "entries": [
     {
-      "name": "tufts_and_lumps",
+      "name": "tuft_green_a",
       "kind": "object",
       "x": 2,
       "y": 4,
-      "w": 93,
-      "h": 51,
+      "w": 12,
+      "h": 3,
       "tags": [
         "hana_caraka",
         "bagong_games",
         "grass",
-        "decoration"
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_green_b",
+      "kind": "object",
+      "x": 17,
+      "y": 4,
+      "w": 14,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_orange_a",
+      "kind": "object",
+      "x": 34,
+      "y": 4,
+      "w": 12,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_orange_b",
+      "kind": "object",
+      "x": 49,
+      "y": 4,
+      "w": 14,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_tan_a",
+      "kind": "object",
+      "x": 67,
+      "y": 4,
+      "w": 10,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_tan_b",
+      "kind": "object",
+      "x": 80,
+      "y": 4,
+      "w": 15,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_teal_a",
+      "kind": "object",
+      "x": 2,
+      "y": 20,
+      "w": 12,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_teal_b",
+      "kind": "object",
+      "x": 17,
+      "y": 20,
+      "w": 14,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_salmon_a",
+      "kind": "object",
+      "x": 34,
+      "y": 20,
+      "w": 12,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_salmon_b",
+      "kind": "object",
+      "x": 49,
+      "y": 20,
+      "w": 14,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_brown_a",
+      "kind": "object",
+      "x": 67,
+      "y": 20,
+      "w": 10,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_brown_b",
+      "kind": "object",
+      "x": 80,
+      "y": 20,
+      "w": 15,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_lime_a",
+      "kind": "object",
+      "x": 2,
+      "y": 36,
+      "w": 7,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_lime_b",
+      "kind": "object",
+      "x": 18,
+      "y": 36,
+      "w": 12,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_snow_a",
+      "kind": "object",
+      "x": 34,
+      "y": 36,
+      "w": 12,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_snow_b",
+      "kind": "object",
+      "x": 49,
+      "y": 36,
+      "w": 15,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_olive_a",
+      "kind": "object",
+      "x": 2,
+      "y": 52,
+      "w": 7,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_olive_b",
+      "kind": "object",
+      "x": 18,
+      "y": 52,
+      "w": 12,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_ice_a",
+      "kind": "object",
+      "x": 34,
+      "y": 52,
+      "w": 12,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "tuft_ice_b",
+      "kind": "object",
+      "x": 49,
+      "y": 52,
+      "w": 15,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "decoration",
+        "ground_detail"
       ]
     }
   ]

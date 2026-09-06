@@ -4,17 +4,118 @@
   "sheetHeight": 48,
   "entries": [
     {
-      "name": "misc_props",
-      "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 64,
-      "h": 47,
+      "name": "barrel_wood",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
       "tags": [
         "hana_caraka",
-        "bagong_games",
-        "props"
+        "prop"
+      ]
+    },
+    {
+      "name": "jug_clay",
+      "kind": "tile",
+      "row": 0,
+      "col": 1,
+      "frameIndex": 1,
+      "tags": [
+        "hana_caraka",
+        "prop"
+      ]
+    },
+    {
+      "name": "crate_wood_open",
+      "kind": "tile",
+      "row": 0,
+      "col": 2,
+      "frameIndex": 2,
+      "tags": [
+        "hana_caraka",
+        "prop"
+      ]
+    },
+    {
+      "name": "crate_wood_closed",
+      "kind": "tile",
+      "row": 0,
+      "col": 3,
+      "frameIndex": 3,
+      "tags": [
+        "hana_caraka",
+        "prop"
+      ]
+    },
+    {
+      "name": "shadow_oval_large",
+      "kind": "tile",
+      "row": 1,
+      "col": 0,
+      "frameIndex": 4,
+      "tags": [
+        "hana_caraka",
+        "prop"
+      ]
+    },
+    {
+      "name": "shadow_oval_small",
+      "kind": "tile",
+      "row": 1,
+      "col": 3,
+      "frameIndex": 7,
+      "tags": [
+        "hana_caraka",
+        "prop"
+      ]
+    },
+    {
+      "name": "cart_wood_south",
+      "kind": "tile",
+      "row": 2,
+      "col": 0,
+      "frameIndex": 8,
+      "tags": [
+        "hana_caraka",
+        "prop"
+      ]
+    },
+    {
+      "name": "cart_wood_north",
+      "kind": "tile",
+      "row": 2,
+      "col": 1,
+      "frameIndex": 9,
+      "tags": [
+        "hana_caraka",
+        "prop"
+      ]
+    },
+    {
+      "name": "cart_wood_east",
+      "kind": "tile",
+      "row": 2,
+      "col": 2,
+      "frameIndex": 10,
+      "tags": [
+        "hana_caraka",
+        "prop"
+      ]
+    },
+    {
+      "name": "cart_wood_west",
+      "kind": "tile",
+      "row": 2,
+      "col": 3,
+      "frameIndex": 11,
+      "tags": [
+        "hana_caraka",
+        "prop"
       ]
     }
-  ]
+  ],
+  "gridTileWidth": 16,
+  "gridTileHeight": 16,
+  "gridCols": 4,
+  "gridRows": 3
 }

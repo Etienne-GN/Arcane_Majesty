@@ -4,20 +4,203 @@
   "sheetHeight": 48,
   "entries": [
     {
-      "name": "winter_tileset_blob",
-      "kind": "object",
-      "x": 2,
-      "y": 0,
-      "w": 78,
-      "h": 48,
+      "name": "winter_ground_nw",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
       "tags": [
         "hana_caraka",
-        "bagong_games",
-        "grass",
-        "snow",
-        "autotile"
-      ],
-      "season": "winter"
+        "terrain",
+        "autotile",
+        "winter"
+      ]
+    },
+    {
+      "name": "winter_ground_n",
+      "kind": "tile",
+      "row": 0,
+      "col": 1,
+      "frameIndex": 1,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "winter"
+      ]
+    },
+    {
+      "name": "winter_ground_ne",
+      "kind": "tile",
+      "row": 0,
+      "col": 2,
+      "frameIndex": 2,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "winter"
+      ]
+    },
+    {
+      "name": "winter_ground_inner_r0c0",
+      "kind": "tile",
+      "row": 0,
+      "col": 3,
+      "frameIndex": 3,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "winter"
+      ]
+    },
+    {
+      "name": "winter_ground_inner_r0c1",
+      "kind": "tile",
+      "row": 0,
+      "col": 4,
+      "frameIndex": 4,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "winter"
+      ]
+    },
+    {
+      "name": "winter_ground_w",
+      "kind": "tile",
+      "row": 1,
+      "col": 0,
+      "frameIndex": 5,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "winter"
+      ]
+    },
+    {
+      "name": "winter_ground_fill",
+      "kind": "tile",
+      "row": 1,
+      "col": 1,
+      "frameIndex": 6,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "winter"
+      ]
+    },
+    {
+      "name": "winter_ground_e",
+      "kind": "tile",
+      "row": 1,
+      "col": 2,
+      "frameIndex": 7,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "winter"
+      ]
+    },
+    {
+      "name": "winter_ground_inner_r1c0",
+      "kind": "tile",
+      "row": 1,
+      "col": 3,
+      "frameIndex": 8,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "winter"
+      ]
+    },
+    {
+      "name": "winter_ground_inner_r1c1",
+      "kind": "tile",
+      "row": 1,
+      "col": 4,
+      "frameIndex": 9,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "winter"
+      ]
+    },
+    {
+      "name": "winter_ground_sw",
+      "kind": "tile",
+      "row": 2,
+      "col": 0,
+      "frameIndex": 10,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "winter"
+      ]
+    },
+    {
+      "name": "winter_ground_s",
+      "kind": "tile",
+      "row": 2,
+      "col": 1,
+      "frameIndex": 11,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "winter"
+      ]
+    },
+    {
+      "name": "winter_ground_se",
+      "kind": "tile",
+      "row": 2,
+      "col": 2,
+      "frameIndex": 12,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "winter"
+      ]
+    },
+    {
+      "name": "winter_ground_inner_r2c0",
+      "kind": "tile",
+      "row": 2,
+      "col": 3,
+      "frameIndex": 13,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "winter"
+      ]
+    },
+    {
+      "name": "winter_ground_inner_r2c1",
+      "kind": "tile",
+      "row": 2,
+      "col": 4,
+      "frameIndex": 14,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "winter"
+      ]
     }
-  ]
+  ],
+  "gridTileWidth": 16,
+  "gridTileHeight": 16,
+  "gridCols": 5,
+  "gridRows": 3
 }

@@ -21374,5 +21374,692 @@
   },
   "magic_circle_gray_variants.png::magic_circle_gray_pale": {
     "collection": "generated"
+  },
+  "Bush.png::bush_small_teal": {
+    "collection": "hana_caraka"
+  },
+  "Bush.png::bush_small_olive": {
+    "collection": "hana_caraka"
+  },
+  "Bush.png::bush_small_red": {
+    "collection": "hana_caraka"
+  },
+  "Bush.png::bush_small_snow": {
+    "collection": "hana_caraka"
+  },
+  "Bush.png::bush_large_teal": {
+    "collection": "hana_caraka"
+  },
+  "Bush.png::bush_large_olive": {
+    "collection": "hana_caraka"
+  },
+  "Bush.png::bush_large_red": {
+    "collection": "hana_caraka"
+  },
+  "Bush.png::bush_large_snow": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_ground_nw": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_ground_n": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_ground_ne": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_ground_inner_r0c0": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_ground_inner_r0c1": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_ground_w": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_ground_fill": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_ground_e": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_ground_inner_r1c0": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_ground_inner_r1c1": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_ground_sw": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_ground_s": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_ground_se": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_ground_inner_r2c0": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_ground_inner_r2c1": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_wall_wood_a": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_wall_wood_b": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_wall_wood_c": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_pit_bottom_a": {
+    "collection": "hana_caraka"
+  },
+  "Dirt - simplified.png::dirt_pit_bottom_b": {
+    "collection": "hana_caraka"
+  },
+  "Fall - simplified.png::fall_ground_nw": {
+    "collection": "hana_caraka"
+  },
+  "Fall - simplified.png::fall_ground_n": {
+    "collection": "hana_caraka"
+  },
+  "Fall - simplified.png::fall_ground_ne": {
+    "collection": "hana_caraka"
+  },
+  "Fall - simplified.png::fall_ground_inner_r0c0": {
+    "collection": "hana_caraka"
+  },
+  "Fall - simplified.png::fall_ground_inner_r0c1": {
+    "collection": "hana_caraka"
+  },
+  "Fall - simplified.png::fall_ground_w": {
+    "collection": "hana_caraka"
+  },
+  "Fall - simplified.png::fall_ground_fill": {
+    "collection": "hana_caraka"
+  },
+  "Fall - simplified.png::fall_ground_e": {
+    "collection": "hana_caraka"
+  },
+  "Fall - simplified.png::fall_ground_inner_r1c0": {
+    "collection": "hana_caraka"
+  },
+  "Fall - simplified.png::fall_ground_inner_r1c1": {
+    "collection": "hana_caraka"
+  },
+  "Fall - simplified.png::fall_ground_sw": {
+    "collection": "hana_caraka"
+  },
+  "Fall - simplified.png::fall_ground_s": {
+    "collection": "hana_caraka"
+  },
+  "Fall - simplified.png::fall_ground_se": {
+    "collection": "hana_caraka"
+  },
+  "Fall - simplified.png::fall_ground_inner_r2c0": {
+    "collection": "hana_caraka"
+  },
+  "Fall - simplified.png::fall_ground_inner_r2c1": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_white_single": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_white_bloom": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_yellow_single": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_yellow_bloom": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_magenta_single": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_magenta_bloom": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_white_pair": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_white_trio": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_yellow_pair": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_yellow_trio": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_magenta_pair": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_magenta_trio": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_gold_single": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_gold_bloom": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_red_single": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_red_bloom": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_blue_single": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_blue_bloom": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_gold_pair": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_gold_trio": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_red_pair": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_red_trio": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_blue_pair": {
+    "collection": "hana_caraka"
+  },
+  "Flower.png::flower_blue_trio": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_tall_teal_a": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_tall_teal_b": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_tall_olive_a": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_tall_olive_b": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_tall_salmon_a": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_tall_salmon_b": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_medium_teal_a": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_medium_teal_b": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_medium_olive_a": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_medium_olive_b": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_medium_salmon_a": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_medium_salmon_b": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_low_teal_a": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_low_teal_b": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_low_olive_a": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_low_olive_b": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_low_salmon_a": {
+    "collection": "hana_caraka"
+  },
+  "Grass.png::grass_tuft_low_salmon_b": {
+    "collection": "hana_caraka"
+  },
+  "Other.png::barrel_wood": {
+    "collection": "hana_caraka"
+  },
+  "Other.png::jug_clay": {
+    "collection": "hana_caraka"
+  },
+  "Other.png::crate_wood_open": {
+    "collection": "hana_caraka"
+  },
+  "Other.png::crate_wood_closed": {
+    "collection": "hana_caraka"
+  },
+  "Other.png::shadow_oval_large": {
+    "collection": "hana_caraka"
+  },
+  "Other.png::shadow_oval_small": {
+    "collection": "hana_caraka"
+  },
+  "Other.png::cart_wood_south": {
+    "collection": "hana_caraka"
+  },
+  "Other.png::cart_wood_north": {
+    "collection": "hana_caraka"
+  },
+  "Other.png::cart_wood_east": {
+    "collection": "hana_caraka"
+  },
+  "Other.png::cart_wood_west": {
+    "collection": "hana_caraka"
+  },
+  "Spring - simplified.png::spring_ground_nw": {
+    "collection": "hana_caraka"
+  },
+  "Spring - simplified.png::spring_ground_n": {
+    "collection": "hana_caraka"
+  },
+  "Spring - simplified.png::spring_ground_ne": {
+    "collection": "hana_caraka"
+  },
+  "Spring - simplified.png::spring_ground_inner_r0c0": {
+    "collection": "hana_caraka"
+  },
+  "Spring - simplified.png::spring_ground_inner_r0c1": {
+    "collection": "hana_caraka"
+  },
+  "Spring - simplified.png::spring_ground_w": {
+    "collection": "hana_caraka"
+  },
+  "Spring - simplified.png::spring_ground_fill": {
+    "collection": "hana_caraka"
+  },
+  "Spring - simplified.png::spring_ground_e": {
+    "collection": "hana_caraka"
+  },
+  "Spring - simplified.png::spring_ground_inner_r1c0": {
+    "collection": "hana_caraka"
+  },
+  "Spring - simplified.png::spring_ground_inner_r1c1": {
+    "collection": "hana_caraka"
+  },
+  "Spring - simplified.png::spring_ground_sw": {
+    "collection": "hana_caraka"
+  },
+  "Spring - simplified.png::spring_ground_s": {
+    "collection": "hana_caraka"
+  },
+  "Spring - simplified.png::spring_ground_se": {
+    "collection": "hana_caraka"
+  },
+  "Spring - simplified.png::spring_ground_inner_r2c0": {
+    "collection": "hana_caraka"
+  },
+  "Spring - simplified.png::spring_ground_inner_r2c1": {
+    "collection": "hana_caraka"
+  },
+  "Stone and Rock.png::pebble_tiny_gray": {
+    "collection": "hana_caraka"
+  },
+  "Stone and Rock.png::pebble_small_gray": {
+    "collection": "hana_caraka"
+  },
+  "Stone and Rock.png::boulder_gray": {
+    "collection": "hana_caraka"
+  },
+  "Stone and Rock.png::pebble_tiny_ice": {
+    "collection": "hana_caraka"
+  },
+  "Stone and Rock.png::pebble_small_ice": {
+    "collection": "hana_caraka"
+  },
+  "Stone and Rock.png::boulder_ice": {
+    "collection": "hana_caraka"
+  },
+  "Stone and Rock.png::stone_in_water_small": {
+    "collection": "hana_caraka"
+  },
+  "Stone and Rock.png::stone_in_water_pair": {
+    "collection": "hana_caraka"
+  },
+  "Stone and Rock.png::boulder_in_water": {
+    "collection": "hana_caraka"
+  },
+  "Stone and Rock.png::rock_cluster_gray_a": {
+    "collection": "hana_caraka"
+  },
+  "Stone and Rock.png::rock_cluster_gray_b": {
+    "collection": "hana_caraka"
+  },
+  "Stone and Rock.png::rock_cluster_ice": {
+    "collection": "hana_caraka"
+  },
+  "Stone and Rock.png::rock_cluster_mixed": {
+    "collection": "hana_caraka"
+  },
+  "Stone and Rock.png::rock_cluster_in_water_a": {
+    "collection": "hana_caraka"
+  },
+  "Stone and Rock.png::rock_cluster_in_water_b": {
+    "collection": "hana_caraka"
+  },
+  "Summer - simplified.png::summer_ground_nw": {
+    "collection": "hana_caraka"
+  },
+  "Summer - simplified.png::summer_ground_n": {
+    "collection": "hana_caraka"
+  },
+  "Summer - simplified.png::summer_ground_ne": {
+    "collection": "hana_caraka"
+  },
+  "Summer - simplified.png::summer_ground_inner_r0c0": {
+    "collection": "hana_caraka"
+  },
+  "Summer - simplified.png::summer_ground_inner_r0c1": {
+    "collection": "hana_caraka"
+  },
+  "Summer - simplified.png::summer_ground_w": {
+    "collection": "hana_caraka"
+  },
+  "Summer - simplified.png::summer_ground_fill": {
+    "collection": "hana_caraka"
+  },
+  "Summer - simplified.png::summer_ground_e": {
+    "collection": "hana_caraka"
+  },
+  "Summer - simplified.png::summer_ground_inner_r1c0": {
+    "collection": "hana_caraka"
+  },
+  "Summer - simplified.png::summer_ground_inner_r1c1": {
+    "collection": "hana_caraka"
+  },
+  "Summer - simplified.png::summer_ground_sw": {
+    "collection": "hana_caraka"
+  },
+  "Summer - simplified.png::summer_ground_s": {
+    "collection": "hana_caraka"
+  },
+  "Summer - simplified.png::summer_ground_se": {
+    "collection": "hana_caraka"
+  },
+  "Summer - simplified.png::summer_ground_inner_r2c0": {
+    "collection": "hana_caraka"
+  },
+  "Summer - simplified.png::summer_ground_inner_r2c1": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_dirt_splat_a": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_dirt_splat_b": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_dirt_splat_c": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_dirt_splat_d": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_teal_a": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_teal_b": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_teal_c": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_teal_d": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_teal_e": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_teal_f": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_teal_g": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_green_a": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_green_b": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_green_c": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_green_d": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_green_e": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_green_f": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_green_g": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_teal_h": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_sand_blob_a": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_sand_blob_b": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_sand_blob_c": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_sand_blob_d": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_sand_blob_e": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_pink_a": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_pink_b": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_pink_c": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_pink_d": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_pink_e": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_pink_f": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_pink_g": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_pink_h": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_pink_i": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_blue_a": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_blue_b": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_blue_c": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_blue_d": {
+    "collection": "hana_caraka"
+  },
+  "Texture.png::texture_stroke_pink_j": {
+    "collection": "hana_caraka"
+  },
+  "Tree.png::tree_pine_teal": {
+    "collection": "hana_caraka"
+  },
+  "Tree.png::tree_pine_green": {
+    "collection": "hana_caraka"
+  },
+  "Tree.png::tree_pine_autumn": {
+    "collection": "hana_caraka"
+  },
+  "Tree.png::tree_pine_snow": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_green_a": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_green_b": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_orange_a": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_orange_b": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_tan_a": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_tan_b": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_teal_a": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_teal_b": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_salmon_a": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_salmon_b": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_brown_a": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_brown_b": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_lime_a": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_lime_b": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_snow_a": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_snow_b": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_olive_a": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_olive_b": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_ice_a": {
+    "collection": "hana_caraka"
+  },
+  "Tufts and Lumps.png::tuft_ice_b": {
+    "collection": "hana_caraka"
+  },
+  "Water Plants.png::lily_pad_plain_teal": {
+    "collection": "hana_caraka"
+  },
+  "Water Plants.png::lily_pad_flower_white": {
+    "collection": "hana_caraka"
+  },
+  "Water Plants.png::lily_pad_plain_olive": {
+    "collection": "hana_caraka"
+  },
+  "Water Plants.png::lily_pad_flower_cream": {
+    "collection": "hana_caraka"
+  },
+  "Water Plants.png::lily_pad_plain_salmon": {
+    "collection": "hana_caraka"
+  },
+  "Water Plants.png::lily_pad_flower_pink": {
+    "collection": "hana_caraka"
+  },
+  "Water Plants.png::water_reed_teal_a": {
+    "collection": "hana_caraka"
+  },
+  "Water Plants.png::water_reed_teal_b": {
+    "collection": "hana_caraka"
+  },
+  "Water Plants.png::water_reed_olive_a": {
+    "collection": "hana_caraka"
+  },
+  "Water Plants.png::water_reed_olive_b": {
+    "collection": "hana_caraka"
+  },
+  "Water Plants.png::water_reed_salmon_a": {
+    "collection": "hana_caraka"
+  },
+  "Water Plants.png::water_reed_salmon_b": {
+    "collection": "hana_caraka"
+  },
+  "Winter - simplified.png::winter_ground_nw": {
+    "collection": "hana_caraka"
+  },
+  "Winter - simplified.png::winter_ground_n": {
+    "collection": "hana_caraka"
+  },
+  "Winter - simplified.png::winter_ground_ne": {
+    "collection": "hana_caraka"
+  },
+  "Winter - simplified.png::winter_ground_inner_r0c0": {
+    "collection": "hana_caraka"
+  },
+  "Winter - simplified.png::winter_ground_inner_r0c1": {
+    "collection": "hana_caraka"
+  },
+  "Winter - simplified.png::winter_ground_w": {
+    "collection": "hana_caraka"
+  },
+  "Winter - simplified.png::winter_ground_fill": {
+    "collection": "hana_caraka"
+  },
+  "Winter - simplified.png::winter_ground_e": {
+    "collection": "hana_caraka"
+  },
+  "Winter - simplified.png::winter_ground_inner_r1c0": {
+    "collection": "hana_caraka"
+  },
+  "Winter - simplified.png::winter_ground_inner_r1c1": {
+    "collection": "hana_caraka"
+  },
+  "Winter - simplified.png::winter_ground_sw": {
+    "collection": "hana_caraka"
+  },
+  "Winter - simplified.png::winter_ground_s": {
+    "collection": "hana_caraka"
+  },
+  "Winter - simplified.png::winter_ground_se": {
+    "collection": "hana_caraka"
+  },
+  "Winter - simplified.png::winter_ground_inner_r2c0": {
+    "collection": "hana_caraka"
+  },
+  "Winter - simplified.png::winter_ground_inner_r2c1": {
+    "collection": "hana_caraka"
   }
 }

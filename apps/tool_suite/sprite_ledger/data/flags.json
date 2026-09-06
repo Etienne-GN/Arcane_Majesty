@@ -208,9 +208,9 @@
     "name": "sword_purple_gold",
     "reason": "misaligned",
     "comment": "looks like its missing bottom",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:17:16.314Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-04T22:01:06.508Z"
   },
   {
     "id": "f_74d62fb1-36eb-49e7-bc38-297a8b9fc647",
@@ -218,9 +218,9 @@
     "name": "ladder_rope_wood",
     "reason": "wrong_name",
     "comment": "this is no ladder neither wood, its a rope",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:17:57.305Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-04T22:01:38.836Z"
   },
   {
     "id": "f_068e931a-95d0-4614-8453-714fb5bc2e4f",
@@ -228,9 +228,9 @@
     "name": "ladder_rope_wood",
     "reason": "wrong_name",
     "comment": "this is a ladder yes made of rope and wood, but not plank",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:18:23.281Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-04T22:01:42.863Z",
     "remappedFrom": "ladder_wood_plank"
   },
   {
@@ -1266,142 +1266,156 @@
   {
     "id": "f_e70f0887-c57f-42c8-b38a-06ff7de269be",
     "sheet": "Bush.png",
-    "name": "bush_variants",
+    "name": "bush_large_teal",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:44:03.319Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "bush_variants"
   },
   {
     "id": "f_d76dab14-3676-4241-90fe-8d786fea3e5f",
     "sheet": "Dirt - simplified.png",
-    "name": "dirt_tileset_blob",
+    "name": "dirt_ground_n",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:44:05.581Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "dirt_tileset_blob"
   },
   {
     "id": "f_957f4022-9d52-4f92-b62f-e02f9dfefdad",
     "sheet": "Fall - simplified.png",
-    "name": "fall_tileset_blob",
+    "name": "fall_ground_n",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:44:07.690Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "fall_tileset_blob"
   },
   {
     "id": "f_c21e327b-e10d-4a4b-b0ec-9cba36fb6a79",
     "sheet": "Flower.png",
-    "name": "flower_variants",
+    "name": "flower_white_bloom",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:44:09.985Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "flower_variants"
   },
   {
     "id": "f_ef36e96d-c635-46c4-96da-3e7881dc6e47",
     "sheet": "Grass.png",
-    "name": "grass_variants",
+    "name": "grass_tuft_tall_teal_b",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:44:11.943Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "grass_variants"
   },
   {
     "id": "f_665a8578-a26e-4f49-a208-a5fa624ed7d7",
     "sheet": "Other.png",
-    "name": "misc_props",
+    "name": "barrel_wood",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:44:14.420Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "misc_props"
   },
   {
     "id": "f_e6b48ae3-d71f-4361-8d19-2bb0748b5cc7",
     "sheet": "Spring - simplified.png",
-    "name": "spring_tileset_blob",
+    "name": "spring_ground_n",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:44:16.317Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "spring_tileset_blob"
   },
   {
     "id": "f_08af0963-ab3d-44ca-b36a-f28b56cf2724",
     "sheet": "Stone and Rock.png",
-    "name": "stone_rock_variants",
+    "name": "boulder_gray",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:44:18.305Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "stone_rock_variants"
   },
   {
     "id": "f_dbdf9a3d-6a50-454d-86bd-306a686cef0e",
     "sheet": "Summer - simplified.png",
-    "name": "summer_tileset_blob",
+    "name": "summer_ground_n",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:44:20.262Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "summer_tileset_blob"
   },
   {
     "id": "f_c5e22a24-060a-41f0-9936-131c05f97cfe",
     "sheet": "Texture.png",
-    "name": "ground_texture",
+    "name": "texture_dirt_splat_b",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:44:22.865Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "ground_texture"
   },
   {
     "id": "f_b849852d-145c-48b1-94b6-5fd9d573925c",
     "sheet": "Tree.png",
-    "name": "tree_variants",
+    "name": "tree_pine_teal",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:44:25.084Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "tree_variants"
   },
   {
     "id": "f_72acd8a3-9dfa-4b6a-99c1-bf218f11c8a9",
     "sheet": "Tufts and Lumps.png",
-    "name": "tufts_and_lumps",
+    "name": "tuft_tan_b",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:44:26.917Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "tufts_and_lumps"
   },
   {
     "id": "f_c5b4c619-5117-44a9-8a44-ddd188f3d75e",
     "sheet": "Water Plants.png",
-    "name": "water_plant_variants",
+    "name": "lily_pad_flower_white",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:44:28.985Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "water_plant_variants"
   },
   {
     "id": "f_4ae965d1-b02c-436f-b906-c9daece17766",
     "sheet": "Winter - simplified.png",
-    "name": "winter_tileset_blob",
+    "name": "winter_ground_n",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:44:31.694Z",
-    "resolvedAt": null
+    "resolvedAt": null,
+    "remappedFrom": "winter_tileset_blob"
   },
   {
     "id": "f_a39164a6-80bf-49b6-bef1-51b7bbfe6bc4",

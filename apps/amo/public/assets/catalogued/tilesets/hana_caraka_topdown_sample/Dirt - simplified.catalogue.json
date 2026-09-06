@@ -4,18 +4,268 @@
   "sheetHeight": 64,
   "entries": [
     {
-      "name": "dirt_tileset_blob",
-      "kind": "object",
-      "x": 3,
-      "y": 0,
-      "w": 77,
-      "h": 64,
+      "name": "dirt_ground_nw",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
       "tags": [
         "hana_caraka",
-        "bagong_games",
-        "dirt",
-        "autotile"
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_ground_n",
+      "kind": "tile",
+      "row": 0,
+      "col": 1,
+      "frameIndex": 1,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_ground_ne",
+      "kind": "tile",
+      "row": 0,
+      "col": 2,
+      "frameIndex": 2,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_ground_inner_r0c0",
+      "kind": "tile",
+      "row": 0,
+      "col": 3,
+      "frameIndex": 3,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_ground_inner_r0c1",
+      "kind": "tile",
+      "row": 0,
+      "col": 4,
+      "frameIndex": 4,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_ground_w",
+      "kind": "tile",
+      "row": 1,
+      "col": 0,
+      "frameIndex": 5,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_ground_fill",
+      "kind": "tile",
+      "row": 1,
+      "col": 1,
+      "frameIndex": 6,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_ground_e",
+      "kind": "tile",
+      "row": 1,
+      "col": 2,
+      "frameIndex": 7,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_ground_inner_r1c0",
+      "kind": "tile",
+      "row": 1,
+      "col": 3,
+      "frameIndex": 8,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_ground_inner_r1c1",
+      "kind": "tile",
+      "row": 1,
+      "col": 4,
+      "frameIndex": 9,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_ground_sw",
+      "kind": "tile",
+      "row": 2,
+      "col": 0,
+      "frameIndex": 10,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_ground_s",
+      "kind": "tile",
+      "row": 2,
+      "col": 1,
+      "frameIndex": 11,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_ground_se",
+      "kind": "tile",
+      "row": 2,
+      "col": 2,
+      "frameIndex": 12,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_ground_inner_r2c0",
+      "kind": "tile",
+      "row": 2,
+      "col": 3,
+      "frameIndex": 13,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_ground_inner_r2c1",
+      "kind": "tile",
+      "row": 2,
+      "col": 4,
+      "frameIndex": 14,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_wall_wood_a",
+      "kind": "tile",
+      "row": 3,
+      "col": 0,
+      "frameIndex": 15,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_wall_wood_b",
+      "kind": "tile",
+      "row": 3,
+      "col": 1,
+      "frameIndex": 16,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_wall_wood_c",
+      "kind": "tile",
+      "row": 3,
+      "col": 2,
+      "frameIndex": 17,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_pit_bottom_a",
+      "kind": "tile",
+      "row": 3,
+      "col": 3,
+      "frameIndex": 18,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_pit_bottom_b",
+      "kind": "tile",
+      "row": 3,
+      "col": 4,
+      "frameIndex": 19,
+      "tags": [
+        "hana_caraka",
+        "terrain",
+        "autotile",
+        "dirt"
       ]
     }
-  ]
+  ],
+  "gridTileWidth": 16,
+  "gridTileHeight": 16,
+  "gridCols": 5,
+  "gridRows": 4
 }

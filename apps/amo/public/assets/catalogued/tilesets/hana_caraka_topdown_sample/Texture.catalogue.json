@@ -4,17 +4,573 @@
   "sheetHeight": 32,
   "entries": [
     {
-      "name": "ground_texture",
+      "name": "texture_dirt_splat_a",
       "kind": "object",
-      "x": 1,
-      "y": 2,
-      "w": 189,
-      "h": 28,
+      "x": 2,
+      "y": 3,
+      "w": 13,
+      "h": 11,
       "tags": [
         "hana_caraka",
         "bagong_games",
         "ground",
-        "texture"
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_dirt_splat_b",
+      "kind": "object",
+      "x": 17,
+      "y": 2,
+      "w": 14,
+      "h": 12,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_dirt_splat_c",
+      "kind": "object",
+      "x": 33,
+      "y": 3,
+      "w": 14,
+      "h": 11,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_dirt_splat_d",
+      "kind": "object",
+      "x": 49,
+      "y": 4,
+      "w": 14,
+      "h": 9,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_teal_a",
+      "kind": "object",
+      "x": 66,
+      "y": 4,
+      "w": 10,
+      "h": 4,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_teal_b",
+      "kind": "object",
+      "x": 82,
+      "y": 3,
+      "w": 4,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_teal_c",
+      "kind": "object",
+      "x": 84,
+      "y": 7,
+      "w": 10,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_teal_d",
+      "kind": "object",
+      "x": 98,
+      "y": 4,
+      "w": 7,
+      "h": 4,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_teal_e",
+      "kind": "object",
+      "x": 103,
+      "y": 8,
+      "w": 7,
+      "h": 4,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_teal_f",
+      "kind": "object",
+      "x": 115,
+      "y": 4,
+      "w": 9,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_teal_g",
+      "kind": "object",
+      "x": 122,
+      "y": 9,
+      "w": 4,
+      "h": 4,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_green_a",
+      "kind": "object",
+      "x": 130,
+      "y": 5,
+      "w": 6,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_green_b",
+      "kind": "object",
+      "x": 136,
+      "y": 9,
+      "w": 6,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_green_c",
+      "kind": "object",
+      "x": 146,
+      "y": 8,
+      "w": 6,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_green_d",
+      "kind": "object",
+      "x": 152,
+      "y": 4,
+      "w": 6,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_green_e",
+      "kind": "object",
+      "x": 163,
+      "y": 4,
+      "w": 10,
+      "h": 7,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_green_f",
+      "kind": "object",
+      "x": 178,
+      "y": 4,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_green_g",
+      "kind": "object",
+      "x": 183,
+      "y": 5,
+      "w": 7,
+      "h": 8,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_teal_h",
+      "kind": "object",
+      "x": 74,
+      "y": 10,
+      "w": 4,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_sand_blob_a",
+      "kind": "object",
+      "x": 1,
+      "y": 20,
+      "w": 5,
+      "h": 4,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_sand_blob_b",
+      "kind": "object",
+      "x": 7,
+      "y": 21,
+      "w": 8,
+      "h": 7,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_sand_blob_c",
+      "kind": "object",
+      "x": 18,
+      "y": 19,
+      "w": 12,
+      "h": 10,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_sand_blob_d",
+      "kind": "object",
+      "x": 34,
+      "y": 19,
+      "w": 12,
+      "h": 10,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_sand_blob_e",
+      "kind": "object",
+      "x": 50,
+      "y": 18,
+      "w": 13,
+      "h": 12,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_pink_a",
+      "kind": "object",
+      "x": 66,
+      "y": 22,
+      "w": 8,
+      "h": 4,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_pink_b",
+      "kind": "object",
+      "x": 73,
+      "y": 19,
+      "w": 4,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_pink_c",
+      "kind": "object",
+      "x": 82,
+      "y": 25,
+      "w": 6,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_pink_d",
+      "kind": "object",
+      "x": 88,
+      "y": 22,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_pink_e",
+      "kind": "object",
+      "x": 98,
+      "y": 21,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_pink_f",
+      "kind": "object",
+      "x": 103,
+      "y": 25,
+      "w": 7,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_pink_g",
+      "kind": "object",
+      "x": 115,
+      "y": 20,
+      "w": 4,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_pink_h",
+      "kind": "object",
+      "x": 116,
+      "y": 25,
+      "w": 7,
+      "h": 4,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_pink_i",
+      "kind": "object",
+      "x": 120,
+      "y": 21,
+      "w": 5,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_blue_a",
+      "kind": "object",
+      "x": 130,
+      "y": 20,
+      "w": 7,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_blue_b",
+      "kind": "object",
+      "x": 147,
+      "y": 20,
+      "w": 11,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_blue_c",
+      "kind": "object",
+      "x": 162,
+      "y": 19,
+      "w": 12,
+      "h": 10,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_blue_d",
+      "kind": "object",
+      "x": 178,
+      "y": 19,
+      "w": 9,
+      "h": 4,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
+      ]
+    },
+    {
+      "name": "texture_stroke_pink_j",
+      "kind": "object",
+      "x": 74,
+      "y": 26,
+      "w": 4,
+      "h": 3,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "ground",
+        "texture",
+        "ground_detail"
       ]
     }
   ]

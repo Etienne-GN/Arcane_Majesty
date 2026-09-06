@@ -4,17 +4,183 @@
   "sheetHeight": 32,
   "entries": [
     {
-      "name": "water_plant_variants",
+      "name": "lily_pad_plain_teal",
       "kind": "object",
       "x": 1,
       "y": 4,
-      "w": 94,
-      "h": 26,
+      "w": 13,
+      "h": 10,
       "tags": [
         "hana_caraka",
         "bagong_games",
         "water",
-        "plant"
+        "plant",
+        "water_plant"
+      ]
+    },
+    {
+      "name": "lily_pad_flower_white",
+      "kind": "object",
+      "x": 17,
+      "y": 4,
+      "w": 14,
+      "h": 10,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "water",
+        "plant",
+        "water_plant"
+      ]
+    },
+    {
+      "name": "lily_pad_plain_olive",
+      "kind": "object",
+      "x": 33,
+      "y": 4,
+      "w": 13,
+      "h": 10,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "water",
+        "plant",
+        "water_plant"
+      ]
+    },
+    {
+      "name": "lily_pad_flower_cream",
+      "kind": "object",
+      "x": 49,
+      "y": 4,
+      "w": 14,
+      "h": 10,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "water",
+        "plant",
+        "water_plant"
+      ]
+    },
+    {
+      "name": "lily_pad_plain_salmon",
+      "kind": "object",
+      "x": 65,
+      "y": 4,
+      "w": 13,
+      "h": 10,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "water",
+        "plant",
+        "water_plant"
+      ]
+    },
+    {
+      "name": "lily_pad_flower_pink",
+      "kind": "object",
+      "x": 81,
+      "y": 4,
+      "w": 14,
+      "h": 10,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "water",
+        "plant",
+        "water_plant"
+      ]
+    },
+    {
+      "name": "water_reed_teal_a",
+      "kind": "object",
+      "x": 3,
+      "y": 18,
+      "w": 10,
+      "h": 12,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "water",
+        "plant",
+        "water_plant"
+      ]
+    },
+    {
+      "name": "water_reed_teal_b",
+      "kind": "object",
+      "x": 19,
+      "y": 19,
+      "w": 11,
+      "h": 11,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "water",
+        "plant",
+        "water_plant"
+      ]
+    },
+    {
+      "name": "water_reed_olive_a",
+      "kind": "object",
+      "x": 35,
+      "y": 18,
+      "w": 10,
+      "h": 12,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "water",
+        "plant",
+        "water_plant"
+      ]
+    },
+    {
+      "name": "water_reed_olive_b",
+      "kind": "object",
+      "x": 51,
+      "y": 19,
+      "w": 11,
+      "h": 11,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "water",
+        "plant",
+        "water_plant"
+      ]
+    },
+    {
+      "name": "water_reed_salmon_a",
+      "kind": "object",
+      "x": 67,
+      "y": 18,
+      "w": 10,
+      "h": 12,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "water",
+        "plant",
+        "water_plant"
+      ]
+    },
+    {
+      "name": "water_reed_salmon_b",
+      "kind": "object",
+      "x": 83,
+      "y": 19,
+      "w": 11,
+      "h": 11,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "water",
+        "plant",
+        "water_plant"
       ]
     }
   ]

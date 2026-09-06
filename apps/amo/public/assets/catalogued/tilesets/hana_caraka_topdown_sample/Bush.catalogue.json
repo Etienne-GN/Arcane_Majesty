@@ -4,18 +4,96 @@
   "sheetHeight": 32,
   "entries": [
     {
-      "name": "bush_variants",
-      "kind": "object",
-      "x": 0,
-      "y": 4,
-      "w": 64,
-      "h": 28,
+      "name": "bush_small_teal",
+      "kind": "tile",
+      "row": 0,
+      "col": 0,
+      "frameIndex": 0,
       "tags": [
         "hana_caraka",
-        "bagong_games",
-        "bush",
-        "nature"
+        "bush"
+      ]
+    },
+    {
+      "name": "bush_small_olive",
+      "kind": "tile",
+      "row": 0,
+      "col": 1,
+      "frameIndex": 1,
+      "tags": [
+        "hana_caraka",
+        "bush"
+      ]
+    },
+    {
+      "name": "bush_small_red",
+      "kind": "tile",
+      "row": 0,
+      "col": 2,
+      "frameIndex": 2,
+      "tags": [
+        "hana_caraka",
+        "bush"
+      ]
+    },
+    {
+      "name": "bush_small_snow",
+      "kind": "tile",
+      "row": 0,
+      "col": 3,
+      "frameIndex": 3,
+      "tags": [
+        "hana_caraka",
+        "bush"
+      ]
+    },
+    {
+      "name": "bush_large_teal",
+      "kind": "tile",
+      "row": 1,
+      "col": 0,
+      "frameIndex": 4,
+      "tags": [
+        "hana_caraka",
+        "bush"
+      ]
+    },
+    {
+      "name": "bush_large_olive",
+      "kind": "tile",
+      "row": 1,
+      "col": 1,
+      "frameIndex": 5,
+      "tags": [
+        "hana_caraka",
+        "bush"
+      ]
+    },
+    {
+      "name": "bush_large_red",
+      "kind": "tile",
+      "row": 1,
+      "col": 2,
+      "frameIndex": 6,
+      "tags": [
+        "hana_caraka",
+        "bush"
+      ]
+    },
+    {
+      "name": "bush_large_snow",
+      "kind": "tile",
+      "row": 1,
+      "col": 3,
+      "frameIndex": 7,
+      "tags": [
+        "hana_caraka",
+        "bush"
       ]
     }
-  ]
+  ],
+  "gridTileWidth": 16,
+  "gridTileHeight": 16,
+  "gridCols": 4,
+  "gridRows": 2
 }

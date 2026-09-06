@@ -4,12 +4,250 @@
   "sheetHeight": 48,
   "entries": [
     {
-      "name": "grass_variants",
+      "name": "grass_tuft_tall_teal_a",
       "kind": "object",
       "x": 2,
+      "y": 4,
+      "w": 11,
+      "h": 9,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_tall_teal_b",
+      "kind": "object",
+      "x": 17,
       "y": 2,
-      "w": 92,
-      "h": 42,
+      "w": 13,
+      "h": 11,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_tall_olive_a",
+      "kind": "object",
+      "x": 34,
+      "y": 4,
+      "w": 11,
+      "h": 9,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_tall_olive_b",
+      "kind": "object",
+      "x": 49,
+      "y": 2,
+      "w": 13,
+      "h": 11,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_tall_salmon_a",
+      "kind": "object",
+      "x": 66,
+      "y": 4,
+      "w": 11,
+      "h": 9,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_tall_salmon_b",
+      "kind": "object",
+      "x": 81,
+      "y": 2,
+      "w": 13,
+      "h": 11,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_medium_teal_a",
+      "kind": "object",
+      "x": 4,
+      "y": 21,
+      "w": 9,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_medium_teal_b",
+      "kind": "object",
+      "x": 18,
+      "y": 19,
+      "w": 12,
+      "h": 11,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_medium_olive_a",
+      "kind": "object",
+      "x": 36,
+      "y": 21,
+      "w": 9,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_medium_olive_b",
+      "kind": "object",
+      "x": 50,
+      "y": 19,
+      "w": 12,
+      "h": 11,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_medium_salmon_a",
+      "kind": "object",
+      "x": 68,
+      "y": 21,
+      "w": 9,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_medium_salmon_b",
+      "kind": "object",
+      "x": 82,
+      "y": 19,
+      "w": 12,
+      "h": 11,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_low_teal_a",
+      "kind": "object",
+      "x": 4,
+      "y": 38,
+      "w": 8,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_low_teal_b",
+      "kind": "object",
+      "x": 20,
+      "y": 37,
+      "w": 9,
+      "h": 7,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_low_olive_a",
+      "kind": "object",
+      "x": 36,
+      "y": 38,
+      "w": 8,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_low_olive_b",
+      "kind": "object",
+      "x": 52,
+      "y": 37,
+      "w": 9,
+      "h": 7,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_low_salmon_a",
+      "kind": "object",
+      "x": 68,
+      "y": 38,
+      "w": 8,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "grass",
+        "nature"
+      ]
+    },
+    {
+      "name": "grass_tuft_low_salmon_b",
+      "kind": "object",
+      "x": 84,
+      "y": 37,
+      "w": 9,
+      "h": 7,
       "tags": [
         "hana_caraka",
         "bagong_games",

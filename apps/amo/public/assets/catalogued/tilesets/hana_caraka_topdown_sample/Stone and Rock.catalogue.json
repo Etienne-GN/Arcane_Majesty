@@ -4,12 +4,208 @@
   "sheetHeight": 32,
   "entries": [
     {
-      "name": "stone_rock_variants",
+      "name": "pebble_tiny_gray",
+      "kind": "object",
+      "x": 5,
+      "y": 6,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "name": "pebble_small_gray",
+      "kind": "object",
+      "x": 20,
+      "y": 5,
+      "w": 8,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "name": "boulder_gray",
+      "kind": "object",
+      "x": 33,
+      "y": 7,
+      "w": 30,
+      "h": 21,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "name": "pebble_tiny_ice",
+      "kind": "object",
+      "x": 69,
+      "y": 6,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "name": "pebble_small_ice",
+      "kind": "object",
+      "x": 84,
+      "y": 5,
+      "w": 8,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "name": "boulder_ice",
+      "kind": "object",
+      "x": 97,
+      "y": 7,
+      "w": 30,
+      "h": 21,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "name": "stone_in_water_small",
+      "kind": "object",
+      "x": 133,
+      "y": 6,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "name": "stone_in_water_pair",
+      "kind": "object",
+      "x": 148,
+      "y": 5,
+      "w": 8,
+      "h": 6,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "name": "boulder_in_water",
+      "kind": "object",
+      "x": 163,
+      "y": 7,
+      "w": 27,
+      "h": 21,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "name": "rock_cluster_gray_a",
       "kind": "object",
       "x": 1,
-      "y": 5,
-      "w": 189,
-      "h": 25,
+      "y": 19,
+      "w": 13,
+      "h": 10,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "name": "rock_cluster_gray_b",
+      "kind": "object",
+      "x": 17,
+      "y": 19,
+      "w": 14,
+      "h": 10,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "name": "rock_cluster_ice",
+      "kind": "object",
+      "x": 65,
+      "y": 19,
+      "w": 13,
+      "h": 10,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "name": "rock_cluster_mixed",
+      "kind": "object",
+      "x": 81,
+      "y": 19,
+      "w": 14,
+      "h": 10,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "name": "rock_cluster_in_water_a",
+      "kind": "object",
+      "x": 129,
+      "y": 19,
+      "w": 14,
+      "h": 11,
+      "tags": [
+        "hana_caraka",
+        "bagong_games",
+        "rock",
+        "stone"
+      ]
+    },
+    {
+      "name": "rock_cluster_in_water_b",
+      "kind": "object",
+      "x": 145,
+      "y": 19,
+      "w": 14,
+      "h": 11,
       "tags": [
         "hana_caraka",
         "bagong_games",
