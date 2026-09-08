@@ -217,4 +217,122 @@ export const QUESTS = {
         ],
         reward: { glint: 0, xp: 30, items: [] },
     },
+
+    // ── Campaign spine scaffolding ──────────────────────────────────────────
+    // Placeholder main quests for the ten chapters that don't have real
+    // content yet (chapters 1 and 4 already have real quests — see
+    // main_read_the_erasure and main_whisperer_of_doubt above). Each is a
+    // single talk step against that chapter's placeholder NPC. Replace by
+    // id, one chapter at a time, as real content lands — see
+    // docs/superpowers/plans/2026-09-08-eldorias-prophecy-campaign-spine.md.
+
+    stub_ch02_dreamweavers_call: {
+        id: 'stub_ch02_dreamweavers_call',
+        title: "Dreamweaver's Call (placeholder)",
+        type: 'main',
+        description: 'SCAFFOLDING — Song 2 is not built yet. Speak with the placeholder to complete this chapter.',
+        steps: [
+            { id: 'talk_stub', type: 'talk', target: 'stub_ch02_dreamweavers_call', label: 'Speak with the placeholder', required: 1 },
+        ],
+        reward: { glint: 0, xp: 10, items: [] },
+    },
+
+    stub_ch03_odysseys_dawn: {
+        id: 'stub_ch03_odysseys_dawn',
+        title: "Odyssey's Dawn (placeholder)",
+        type: 'main',
+        description: 'SCAFFOLDING — Song 3 is not built yet. Speak with the placeholder to complete this chapter.',
+        steps: [
+            { id: 'talk_stub', type: 'talk', target: 'stub_ch03_odysseys_dawn', label: 'Speak with the placeholder', required: 1 },
+        ],
+        reward: { glint: 0, xp: 10, items: [] },
+    },
+
+    stub_ch05_sylvan_sanctuary: {
+        id: 'stub_ch05_sylvan_sanctuary',
+        title: 'Sylvan Sanctuary (placeholder)',
+        type: 'main',
+        description: 'SCAFFOLDING — Song 5 is not built yet. Speak with the placeholder to complete this chapter.',
+        steps: [
+            { id: 'talk_stub', type: 'talk', target: 'stub_ch05_sylvan_sanctuary', label: 'Speak with the placeholder', required: 1 },
+        ],
+        reward: { glint: 0, xp: 10, items: [] },
+    },
+
+    stub_ch06_treacherys_bite: {
+        id: 'stub_ch06_treacherys_bite',
+        title: "Treachery's Bite (placeholder)",
+        type: 'main',
+        description: 'SCAFFOLDING — Song 6 is not built yet. Speak with the placeholder to complete this chapter.',
+        steps: [
+            { id: 'talk_stub', type: 'talk', target: 'stub_ch06_treacherys_bite', label: 'Speak with the placeholder', required: 1 },
+        ],
+        reward: { glint: 0, xp: 10, items: [] },
+    },
+
+    stub_ch07_the_solitary_path: {
+        id: 'stub_ch07_the_solitary_path',
+        title: 'The Solitary Path (placeholder)',
+        type: 'main',
+        description: 'SCAFFOLDING — Song 7 is not built yet. Speak with the placeholder to complete this chapter.',
+        steps: [
+            { id: 'talk_stub', type: 'talk', target: 'stub_ch07_the_solitary_path', label: 'Speak with the placeholder', required: 1 },
+        ],
+        reward: { glint: 0, xp: 10, items: [] },
+    },
+
+    stub_ch08_infernos_trial: {
+        id: 'stub_ch08_infernos_trial',
+        title: "Inferno's Trial (placeholder)",
+        type: 'main',
+        description: 'SCAFFOLDING — Song 8 is not built yet. Speak with the placeholder to complete this chapter.',
+        steps: [
+            { id: 'talk_stub', type: 'talk', target: 'stub_ch08_infernos_trial', label: 'Speak with the placeholder', required: 1 },
+        ],
+        reward: { glint: 0, xp: 10, items: [] },
+    },
+
+    stub_ch09_eldorias_heartbeat: {
+        id: 'stub_ch09_eldorias_heartbeat',
+        title: "Eldoria's Heartbeat (placeholder)",
+        type: 'main',
+        description: 'SCAFFOLDING — Song 9 is not built yet. Speak with the placeholder to complete this chapter.',
+        steps: [
+            { id: 'talk_stub', type: 'talk', target: 'stub_ch09_eldorias_heartbeat', label: 'Speak with the placeholder', required: 1 },
+        ],
+        reward: { glint: 0, xp: 10, items: [] },
+    },
+
+    stub_ch10_heart_of_war: {
+        id: 'stub_ch10_heart_of_war',
+        title: 'Heart of War (placeholder)',
+        type: 'main',
+        description: 'SCAFFOLDING — Song 10 is not built yet. Speak with the placeholder to complete this chapter.',
+        steps: [
+            { id: 'talk_stub', type: 'talk', target: 'stub_ch10_heart_of_war', label: 'Speak with the placeholder', required: 1 },
+        ],
+        reward: { glint: 0, xp: 10, items: [] },
+    },
+
+    stub_ch11_the_weight_of_eternity: {
+        id: 'stub_ch11_the_weight_of_eternity',
+        title: 'The Weight of Eternity (placeholder)',
+        type: 'main',
+        description: 'SCAFFOLDING — Song 11 is not built yet. Speak with the placeholder to complete this chapter.',
+        steps: [
+            { id: 'talk_stub', type: 'talk', target: 'stub_ch11_the_weight_of_eternity', label: 'Speak with the placeholder', required: 1 },
+        ],
+        reward: { glint: 0, xp: 10, items: [] },
+    },
+
+    stub_ch12_dawns_embrace: {
+        id: 'stub_ch12_dawns_embrace',
+        title: "Dawn's Embrace (placeholder)",
+        type: 'main',
+        description: 'SCAFFOLDING — Song 12 is not built yet. Speak with the placeholder to complete this chapter.',
+        steps: [
+            { id: 'talk_stub', type: 'talk', target: 'stub_ch12_dawns_embrace', label: 'Speak with the placeholder', required: 1 },
+        ],
+        reward: { glint: 0, xp: 10, items: [] },
+    },
 };

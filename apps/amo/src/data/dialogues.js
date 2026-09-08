@@ -107,4 +107,40 @@ export const DIALOGUES = {
         { speaker: null, text: '"Entry, Day 11: I am the last one recording this. If the resonance returns, someone will find this. If it does not — this page will never be warm again."' },
     ],
 
+    // ── Campaign spine scaffolding ──────────────────────────────────────────
+    // One line each — these exist only so each stub chapter's placeholder
+    // NPC has something to say. Replaced alongside their quest, chapter by
+    // chapter, as real content lands.
+
+    stub_ch02_dreamweavers_call_greeting: [
+        { speaker: 'Placeholder', text: '[SCAFFOLDING] This will be Song 2 — Dreamweaver\'s Call. Speak to me again to complete this placeholder chapter.' },
+    ],
+    stub_ch03_odysseys_dawn_greeting: [
+        { speaker: 'Placeholder', text: '[SCAFFOLDING] This will be Song 3 — Odyssey\'s Dawn. Speak to me again to complete this placeholder chapter.' },
+    ],
+    stub_ch05_sylvan_sanctuary_greeting: [
+        { speaker: 'Placeholder', text: '[SCAFFOLDING] This will be Song 5 — Sylvan Sanctuary. Speak to me again to complete this placeholder chapter.' },
+    ],
+    stub_ch06_treacherys_bite_greeting: [
+        { speaker: 'Placeholder', text: '[SCAFFOLDING] This will be Song 6 — Treachery\'s Bite. Speak to me again to complete this placeholder chapter.' },
+    ],
+    stub_ch07_the_solitary_path_greeting: [
+        { speaker: 'Placeholder', text: '[SCAFFOLDING] This will be Song 7 — The Solitary Path. Speak to me again to complete this placeholder chapter.' },
+    ],
+    stub_ch08_infernos_trial_greeting: [
+        { speaker: 'Placeholder', text: '[SCAFFOLDING] This will be Song 8 — Inferno\'s Trial. Speak to me again to complete this placeholder chapter.' },
+    ],
+    stub_ch09_eldorias_heartbeat_greeting: [
+        { speaker: 'Placeholder', text: '[SCAFFOLDING] This will be Song 9 — Eldoria\'s Heartbeat. Speak to me again to complete this placeholder chapter.' },
+    ],
+    stub_ch10_heart_of_war_greeting: [
+        { speaker: 'Placeholder', text: '[SCAFFOLDING] This will be Song 10 — Heart of War. Speak to me again to complete this placeholder chapter.' },
+    ],
+    stub_ch11_the_weight_of_eternity_greeting: [
+        { speaker: 'Placeholder', text: '[SCAFFOLDING] This will be Song 11 — The Weight of Eternity. Speak to me again to complete this placeholder chapter.' },
+    ],
+    stub_ch12_dawns_embrace_greeting: [
+        { speaker: 'Placeholder', text: '[SCAFFOLDING] This will be Song 12 — Dawn\'s Embrace, the campaign\'s end. Speak to me again to complete this placeholder chapter.' },
+    ],
+
 };
