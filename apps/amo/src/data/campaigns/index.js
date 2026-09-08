@@ -1,9 +1,13 @@
-// Placeholder — replaced by Task 7 of the campaign spine plan with the real
-// registry (getCampaign/listCampaigns backed by eldorias_prophecy.js).
+import { ELDORIAS_PROPHECY } from './eldorias_prophecy.js';
+
+const REGISTRY = {
+    eldorias_prophecy: ELDORIAS_PROPHECY,
+};
+
 export function getCampaign(id) {
-    return null;
+    return REGISTRY[id] ?? null;
 }
 
 export function listCampaigns() {
-    return [];
+    return Object.values(REGISTRY).map(c => ({ id: c.id, title: c.title }));
 }
