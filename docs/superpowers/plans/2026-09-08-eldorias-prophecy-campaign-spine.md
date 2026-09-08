@@ -146,7 +146,7 @@ In the same file, inside `load()`, add after the `killedEnemyTypes` restore line
 - [ ] **Step 5: Run the test to verify it passes**
 
 Run: `cd apps/amo && node tools/test_campaign_manager.mjs`
-Expected: `✓ campaign-manager tests passed (4).`
+Expected: `✓ campaign-manager tests passed (5).`
 
 - [ ] **Step 6: Wire the new test into `npm test`**
 
@@ -161,7 +161,7 @@ Insert this line after `"test:ascii-to-tiles"`. Then extend the `"test"` script'
 - [ ] **Step 7: Run full suite, then commit**
 
 Run: `cd apps/amo && npm test`
-Expected: every existing suite still passes, plus `✓ campaign-manager tests passed (4).`
+Expected: every existing suite still passes, plus `✓ campaign-manager tests passed (5).`
 
 ```bash
 cd apps/amo
@@ -290,7 +290,7 @@ In the same file, add these two methods right after `getSpellLevel(id) { return 
 - [ ] **Step 5: Run the test to verify it passes**
 
 Run: `cd apps/amo && node tools/test_campaign_manager.mjs`
-Expected: `✓ campaign-manager tests passed (13).`
+Expected: `✓ campaign-manager tests passed (15).`
 
 - [ ] **Step 6: Run full suite, then commit**
 
@@ -691,7 +691,7 @@ export function listCampaigns() {
 - [ ] **Step 5: Run the test to verify it passes**
 
 Run: `cd apps/amo && node tools/test_campaign_manager.mjs`
-Expected: `✓ campaign-manager tests passed (28).`
+Expected: `✓ campaign-manager tests passed (38).`
 
 - [ ] **Step 6: Run full suite, then commit**
 
