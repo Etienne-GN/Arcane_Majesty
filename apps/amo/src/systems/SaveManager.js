@@ -27,7 +27,7 @@ export class SaveManager {
             spells:        { ...stats.spells },
             resonance:     { ...stats.resonance },
             spellCooldowns: { ...stats.spellCooldowns },
-            skillSlots:    [...stats.skillSlots],
+            skillSlots:    [...(stats.skillSlots ?? [])],
             attunedGates:   [...(stats.attunedGates   ?? [])],
             exploredChunks: [...(stats.exploredChunks ?? [])],
             questLog:          JSON.parse(JSON.stringify(stats.questLog ?? {})),
@@ -70,16 +70,16 @@ export class SaveManager {
             Object.entries(d.skills ?? {}).forEach(([k, v]) => {
                 if (stats.skills[k]) stats.skills[k].level = v.level;
             });
-            if (d.spells)         Object.assign(stats.spells, d.spells);
-            if (d.resonance)      Object.assign(stats.resonance, d.resonance);
-            if (d.spellCooldowns) Object.assign(stats.spellCooldowns, d.spellCooldowns);
+            if (d.spells)         stats.spells         = { ...(stats.spells ?? {}), ...d.spells };
+            if (d.resonance)      stats.resonance       = { ...(stats.resonance ?? {}), ...d.resonance };
+            if (d.spellCooldowns) stats.spellCooldowns  = { ...(stats.spellCooldowns ?? {}), ...d.spellCooldowns };
             if (d.skillSlots)     stats.skillSlots  = [...d.skillSlots];
             if (d.attunedGates)    stats.attunedGates    = [...d.attunedGates];
             if (d.exploredChunks)  stats.exploredChunks  = [...d.exploredChunks];
             if (d.questLog)            stats.questLog          = JSON.parse(JSON.stringify(d.questLog));
             if (d.recoveredMemories)   stats.recoveredMemories = JSON.parse(JSON.stringify(d.recoveredMemories));
             if (d.resonanceInsights != null) stats.resonanceInsights = d.resonanceInsights;
-            if (d.masteries)           Object.assign(stats.masteries, d.masteries);
+            if (d.masteries)           stats.masteries         = { ...(stats.masteries ?? {}), ...d.masteries };
             if (d.codexEchoes)      stats.codexEchoes      = JSON.parse(JSON.stringify(d.codexEchoes));
             if (d.killedEnemyTypes) stats.killedEnemyTypes = [...d.killedEnemyTypes];
             stats.campaign = d.campaign ? JSON.parse(JSON.stringify(d.campaign)) : null;
