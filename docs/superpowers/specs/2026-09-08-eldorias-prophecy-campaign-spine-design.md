@@ -127,7 +127,7 @@ Transcribed from the bible's song-by-song breakdown. "Map" is the bible's own
 
 | # | Act | Title | Maps | Boss |
 |---|-----|-------|------|------|
-| 1 | I | Echoes of Stone | `eldrin_tower` | — |
+| 1 | I | Echoes of Stone | `eldrin_tower`, `echoes_of_stone` | — |
 | 2 | I | Dreamweaver's Call | **`aetheric_vision`** | — |
 | 3 | I | Odyssey's Dawn | **`thaloria`**, **`east_road`** | — (optional miniboss) |
 | 4 | II | Summit of Despair | `summit_of_despair` | Malphas |
@@ -140,15 +140,42 @@ Transcribed from the bible's song-by-song breakdown. "Map" is the bible's own
 | 11 | III | The Weight of Eternity | `ruins_of_eldoria`, `thaloria` | — |
 | 12 | III | Dawn's Embrace | `eldrin_tower` | — |
 
-Twelve distinct map ids; two exist (`eldrin_tower`, `summit_of_despair`), so
-ten need stubs. The unlock ladder, also from the bible: Staff (1)
+Thirteen distinct map ids; three exist (`eldrin_tower`, `echoes_of_stone`,
+`summit_of_despair`), so ten need stubs. The unlock ladder, also from the
+bible: Staff (1)
 → first spell (2) → Spell-Blade and Rift-Gate tease (3) → Aether Sight (4–5) →
 Umbral Dagger (6) → Silent Guardian passive (7) → Runic Focus (8) → Aetheric
 Witness (9) → Heartstone and ward (10–11) → permanent ward and post-game
 Rift-Gates (12).
 
-The existing `echoes_of_stone` map is a 12×12 study map and is **not** chapter
-1's map, despite sharing the song's name. Chapter 1 is `eldrin_tower`.
+Chapter 1 spans two existing maps: `eldrin_tower` is the exterior clearing and
+tower, and `echoes_of_stone` is the Study on its ground floor — named after
+Song 1 deliberately, and reached by a portal from the clearing. They are one
+location on two maps, not a naming collision.
+
+## Room left for co-op
+
+Co-op campaign play is wanted eventually — just not for this campaign, and not
+as a requirement here. Rather than build for it, the spine avoids three
+assumptions that would have to be unpicked later. None of these cost anything
+now; they are choices about where to *not* hardcode.
+
+- **Progress hangs off a campaign id, not off the player.** `playerStats.campaign`
+  names which campaign it belongs to, so a second campaign with different rules
+  is another entry, not a migration.
+- **Gating is one function, not scattered conditionals.** `canEnter(mapId)` is
+  the only place the rule lives, and `GameScene` has exactly one call site.
+  A co-op rule — say, letting a player follow a party member into a map they
+  have not unlocked — becomes an edit to one function, not an audit of the
+  codebase.
+- **Protagonist is a field on the campaign, not an engine constant.**
+  Eldoria's Prophecy declares `protagonist: 'eldrin'`. *A Tapestry of Souls*
+  has several playable protagonists; that is a different value in a different
+  file, not a change to `CampaignManager`.
+
+What is explicitly *not* built: party membership, invitations, shared quest
+state, server-side progression, or any exemption to the gating rule. Those
+belong to whatever design takes co-op on.
 
 ## Components
 
