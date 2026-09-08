@@ -11,6 +11,7 @@ import { SaveManager } from '../systems/SaveManager.js';
 import { soundManager } from '../systems/SoundManager.js';
 import { musicManager } from '../systems/MusicManager.js';
 import { questManager } from '../systems/QuestManager.js';
+import { campaignManager } from '../systems/CampaignManager.js';
 import { ITEMS } from '../data/items.js';
 import { TILE_SIZE, ENEMY_TYPES } from '../data/worldMap.js';
 import { getMap } from '../data/maps/index.js';
@@ -1602,6 +1603,11 @@ export default class GameScene extends Phaser.Scene {
 
     _enterPortal(portalDef) {
         if (this._transitioning) return;
+        const gate = campaignManager.canEnter(portalDef.targetMap);
+        if (!gate.allowed) {
+            this.scene.get('UIScene')?.showNotification?.(gate.reason, 2500);
+            return; // player simply doesn't leave — no fade, no state change
+        }
         this._transitioning = true;
         SaveManager.save(playerStats, this._storyId, this._characterId);
         this.cameras.main.fadeOut(300);
