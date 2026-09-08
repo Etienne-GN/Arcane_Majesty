@@ -49,6 +49,18 @@ export const ECHOES_OF_STONE = {
             targetX: 12 * 32 + 16,
             targetY: 28 * 32 + 16,
         },
+        {
+            id: 'to_aetheric_vision',
+            x: 5, y: 5,
+            label: 'The vision strikes —',
+            // NOT YET BUILT until Task 6 of the campaign spine plan
+            // (docs/superpowers/plans/2026-09-08-eldorias-prophecy-campaign-spine.md)
+            // — same pattern already used by summit_of_despair.js's own
+            // portals to east_road/sylvan_sanctuary.
+            targetMap: 'aetheric_vision',
+            targetX: 7 * 32 + 16,
+            targetY: 8 * 32 + 16, // Task 6's shared stub-map entry point
+        },
     ],
     decorations: [
         { name: 'bookshelf_large_colorful_a', x: 2, y: 2, blocking: true },

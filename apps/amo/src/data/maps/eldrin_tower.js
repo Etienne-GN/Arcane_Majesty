@@ -121,6 +121,17 @@ export const ELDRIN_TOWER = {
             targetX: 19 * 32 + 16,
             targetY: 42 * 32 + 16,
         },
+        {
+            id: 'to_echoes_of_stone',
+            x: 12, y: 27,
+            label: 'Descend to the Study',
+            targetMap: 'echoes_of_stone',
+            // One tile north of echoes_of_stone's own south door gap
+            // (row 11, cols 5-6) — symmetric with how that map's own
+            // study_exit portal lands one tile south of THIS door.
+            targetX: 5 * 32 + 16,
+            targetY: 10 * 32 + 16,
+        },
     ],
     spawns: {
         enemies: [
