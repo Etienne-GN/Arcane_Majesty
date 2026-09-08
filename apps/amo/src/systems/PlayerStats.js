@@ -219,6 +219,10 @@ export class PlayerStats {
 
         // Quest log: { questId: { status: 'active'|'completed', progress: { stepId: n } } }
         this.questLog          = {};
+        // Campaign progress: { id, chapter, completed: [] } or null — see
+        // CampaignManager, which owns writing to this. One campaign at a
+        // time; a second in-progress campaign would need its own field.
+        this.campaign = null;
         // Archive of Souls: [{ id, title, text, timestamp }]
         this.recoveredMemories = [];
 
@@ -411,6 +415,23 @@ export class PlayerStats {
     }
 
     getSpellLevel(id) { return this.spells[id] ?? 0; }
+
+    // Grants a spell outright, bypassing the resonance-threshold discovery
+    // system — used only by CampaignManager to deliver the bible's unlock
+    // ladder. Never lowers an existing (higher) tier.
+    forceUnlockSpell(id, tier = 1) {
+        if (!(id in this.spells)) return false;
+        this.spells[id] = Math.max(this.spells[id], tier);
+        return true;
+    }
+
+    // Grants a skill level outright, bypassing skillPoints — same purpose
+    // as forceUnlockSpell, for the skill tree instead of the spellbook.
+    forceUnlockSkill(id) {
+        if (!this.skills[id]) return false;
+        if (this.skills[id].level < 1) this.skills[id].level = 1;
+        return true;
+    }
 
     tickSpellCooldowns(delta) {
         for (const id of Object.keys(this.spellCooldowns)) {
@@ -613,6 +634,7 @@ export class PlayerStats {
         this.attunedGates      = [];
         this.exploredChunks    = [];
         this.questLog          = {};
+        this.campaign          = null;
         this.recoveredMemories = [];
         this.manaScent        = 0;
         this.manaExhausted    = false;

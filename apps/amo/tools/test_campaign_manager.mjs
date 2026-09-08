@@ -76,6 +76,33 @@ function check(name, got, want) {
     check('load() of a campaign-less save leaves campaign null', loaded.campaign, null);
 }
 
+// ── PlayerStats: free unlock grants ─────────────────────────────────────────
+{
+    const { PlayerStats } = await import('../src/systems/PlayerStats.js');
+    const { SPELLS } = await import('../src/data/spells.js');
+    const realSpellId = Object.keys(SPELLS)[0];
+    const stats = new PlayerStats();
+
+    check('campaign starts null', stats.campaign, null);
+
+    check('forceUnlockSpell on a real id succeeds', stats.forceUnlockSpell(realSpellId), true);
+    check('forceUnlockSpell sets the spell to tier 1', stats.spells[realSpellId], 1);
+    check('forceUnlockSpell on an unknown id fails', stats.forceUnlockSpell('not_a_real_spell'), false);
+
+    const higherTier = stats.forceUnlockSpell(realSpellId, 2);
+    check('forceUnlockSpell can raise to a higher tier', [higherTier, stats.spells[realSpellId]], [true, 2]);
+    stats.forceUnlockSpell(realSpellId, 1);
+    check('forceUnlockSpell never lowers an existing tier', stats.spells[realSpellId], 2);
+
+    check('forceUnlockSkill on a real id succeeds', stats.forceUnlockSkill('aetheric_sight'), true);
+    check('forceUnlockSkill sets level to at least 1', stats.skills.aetheric_sight.level >= 1, true);
+    check('forceUnlockSkill on an unknown id fails', stats.forceUnlockSkill('not_a_real_skill'), false);
+
+    stats.skills.aetheric_sight.level = 3;
+    stats.forceUnlockSkill('aetheric_sight');
+    check('forceUnlockSkill never lowers an existing level', stats.skills.aetheric_sight.level, 3);
+}
+
 if (fails.length) {
     console.error(`✗ campaign-manager tests FAILED — ${fails.length}/${passed + fails.length}:`);
     for (const f of fails) console.error('  ' + f);
