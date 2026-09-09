@@ -7,14 +7,41 @@
       "name": "bricks_03-sheet",
       "kind": "object",
       "x": 0,
-      "y": 4,
+      "y": 0,
       "w": 96,
-      "h": 124,
+      "h": 128,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "furnace"
-      ]
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 48,
+          "h": 64
+        },
+        {
+          "x": 48,
+          "y": 0,
+          "w": 48,
+          "h": 64
+        },
+        {
+          "x": 0,
+          "y": 64,
+          "w": 48,
+          "h": 64
+        },
+        {
+          "x": 48,
+          "y": 64,
+          "w": 48,
+          "h": 64
+        }
+      ],
+      "frameDurationMs": 120
     }
   ]
 }

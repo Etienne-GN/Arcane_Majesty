@@ -7,14 +7,41 @@
       "name": "bonfire_10-sheet",
       "kind": "object",
       "x": 0,
-      "y": 1,
-      "w": 183,
-      "h": 31,
+      "y": 0,
+      "w": 192,
+      "h": 32,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "bonfire"
-      ]
+      ],
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 48,
+          "h": 32
+        },
+        {
+          "x": 48,
+          "y": 0,
+          "w": 48,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 48,
+          "h": 32
+        },
+        {
+          "x": 144,
+          "y": 0,
+          "w": 48,
+          "h": 32
+        }
+      ],
+      "frameDurationMs": 120
     }
   ]
 }

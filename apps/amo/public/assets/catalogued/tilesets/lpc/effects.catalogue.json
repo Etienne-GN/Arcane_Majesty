@@ -342,7 +342,7 @@
       "needsNaming": true
     },
     {
-      "name": "effects_026",
+      "name": "burst_flash_purple_red",
       "kind": "object",
       "x": 385,
       "y": 32,
@@ -352,7 +352,33 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "frames": [
+        {
+          "x": 385,
+          "y": 32,
+          "w": 31,
+          "h": 33
+        },
+        {
+          "x": 416,
+          "y": 32,
+          "w": 31,
+          "h": 33
+        },
+        {
+          "x": 447,
+          "y": 32,
+          "w": 31,
+          "h": 33
+        },
+        {
+          "x": 478,
+          "y": 32,
+          "w": 32,
+          "h": 33
+        }
+      ],
+      "frameDurationMs": 100
     },
     {
       "name": "effects_027",
