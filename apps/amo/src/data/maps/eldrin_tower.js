@@ -146,7 +146,9 @@ export const ELDRIN_TOWER = {
             { x: 44, y: 15, type: 'bird_robin'   },
             { x: 22, y: 30, type: 'bird_bluejay' },
         ],
-        npcs:           [],
+        npcs:           [
+            { x: 25, y: 40, dialogue: 'stub_ch12_dawns_embrace_greeting', afterDialogue: 'stub_ch12_dawns_embrace_greeting', name: 'Placeholder', spriteKey: 'spr_old_dude', animProfile: 'lpc_universal' },
+        ],
         chests:         [
             { x: 10, y: 17, items: ['longsword'] },
         ],
@@ -172,7 +174,7 @@ export const ELDRIN_TOWER = {
     },
     currencyBias: 'rural',
     music: 'forest',
-    quests: [],
+    quests: ['stub_ch12_dawns_embrace'],
     chapterTitle: null,
     introDialogue: null,
     introRegistryKey: null,

@@ -16,6 +16,7 @@
 //     exist yet — wire for real once those maps are built.
 // This is still a scaled-down proof grid (18x20), not full production size.
 import { asciiToTiles } from '../../../tools/maps/ascii_to_tiles.js';
+import { STUB_ENTRY_X, STUB_ENTRY_Y } from './_stubs.js';
 
 const SUMMIT_ASCII = [
     '#######===########',
@@ -82,16 +83,16 @@ export const SUMMIT_OF_DESPAIR = {
             x: 8, y: 19,
             label: 'Back down to the East Road',
             targetMap: 'east_road', // NOT YET BUILT — wire for real once it exists
-            targetX: 8 * 32 + 16,
-            targetY: 2 * 32 + 16,
+            targetX: STUB_ENTRY_X,
+            targetY: STUB_ENTRY_Y,
         },
         {
             id: 'to_sylvan_sanctuary',
             x: 8, y: 0,
             label: 'Over the pass to the Sylvan Sanctuary',
             targetMap: 'sylvan_sanctuary', // NOT YET BUILT — wire for real once it exists
-            targetX: 8 * 32 + 16,
-            targetY: 18 * 32 + 16,
+            targetX: STUB_ENTRY_X,
+            targetY: STUB_ENTRY_Y,
         },
     ],
     spawns: {

@@ -23,3 +23,19 @@ export const RUINS_OF_ELDORIA = makeStubMap({
         targetY: STUB_ENTRY_Y,
     },
 });
+
+// Chapter 11 ("The Weight of Eternity") needs a way back to Thaloria from
+// here — the factory only wires one forward portal per map. Placed on the
+// WEST wall (not a second gap on the same east wall the forward portal
+// already uses) to keep the two trigger zones clearly separated — see the
+// review finding about thaloria.js's own two east-wall portals sitting
+// close enough that their proximity-trigger radii (TILE_SIZE*0.7) overlap.
+RUINS_OF_ELDORIA.tiles[7][0] = 0; // west wall gap, row 7 — clear of the two NPCs (row 4) and the sign (row 1)
+RUINS_OF_ELDORIA.portals.push({
+    id: 'ruins_to_thaloria',
+    x: 0, y: 7,
+    label: 'The road to Thaloria',
+    targetMap: 'thaloria',
+    targetX: STUB_ENTRY_X,
+    targetY: STUB_ENTRY_Y,
+});

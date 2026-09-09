@@ -67,8 +67,11 @@ for (const chapter of chapters) {
 // ── Chapters 1 and 4 are real content, not scaffolding ──────────────────────
 check('chapter 1 uses the real quest', chapters[0].quests, ['main_read_the_erasure']);
 check('chapter 4 uses the real quest', chapters.find(c => c.song === 4).quests, ['main_whisperer_of_doubt']);
-ok('chapter 1\'s maps exist as real map defs (not scaffolding)',
-    chapters[0].maps.every(id => !!getMap(id).chapterTitle || id === 'eldrin_tower'));
+// Stub maps always carry the literal "[SCAFFOLDING]" marker in their sign
+// text (see _stubs.js's makeStubMap); real maps' sign text never does.
+ok('chapter 1\'s maps are real content, not scaffolding (no [SCAFFOLDING] sign)',
+    chapters[0].maps.every(id =>
+        !(getMap(id).spawns?.signs ?? []).some(s => s.text.includes('[SCAFFOLDING]'))));
 
 // ── Every stub map's own portal chain lands on a map that exists ──────────
 for (const mapId of registeredMapIds) {
@@ -76,6 +79,64 @@ for (const mapId of registeredMapIds) {
     for (const portal of def.portals ?? []) {
         ok(`${mapId}'s portal "${portal.id}" targets a registered map ("${portal.targetMap}")`,
             registeredMapIds.has(portal.targetMap));
+    }
+}
+
+// ── Structural: every chapter's maps are reachable from the campaign start ─
+{
+    const start = chapters[0].maps[0];
+    const reached = new Set([start]);
+    const queue = [start];
+    while (queue.length) {
+        const id = queue.shift();
+        for (const portal of getMap(id).portals ?? []) {
+            if (!reached.has(portal.targetMap)) {
+                reached.add(portal.targetMap);
+                queue.push(portal.targetMap);
+            }
+        }
+    }
+    for (const chapter of chapters) {
+        for (const mapId of chapter.maps) {
+            ok(`${chapter.id}: map "${mapId}" is reachable from the campaign start (${start})`,
+                reached.has(mapId));
+        }
+    }
+}
+
+// ── Structural: every chapter's quests actually auto-start and can complete ─
+{
+    // A map auto-starts every quest id in its own `quests` array on entry
+    // (GameScene.js: `(mapDef.quests ?? []).forEach(qid => questManager.startQuest(qid))`).
+    const questStartedByMapId = new Map(); // questId -> Set(mapIds that start it)
+    for (const mapId of registeredMapIds) {
+        for (const qid of getMap(mapId).quests ?? []) {
+            if (!questStartedByMapId.has(qid)) questStartedByMapId.set(qid, new Set());
+            questStartedByMapId.get(qid).add(mapId);
+        }
+    }
+    // A `talk` step's target must match some NPC's dialogue key with a
+    // trailing _greeting/_prolog stripped (GameScene.js's own convention).
+    const talkTargets = new Set();
+    for (const mapId of registeredMapIds) {
+        for (const npc of getMap(mapId).spawns?.npcs ?? []) {
+            if (npc.dialogue) talkTargets.add(npc.dialogue.replace(/_greeting$|_prolog$/, ''));
+        }
+    }
+
+    for (const chapter of chapters) {
+        for (const qid of chapter.quests) {
+            const starters = questStartedByMapId.get(qid) ?? new Set();
+            const startsOnOwnMap = chapter.maps.some(m => starters.has(m));
+            ok(`${chapter.id}: quest "${qid}" is auto-started by one of its own maps`, startsOnOwnMap);
+
+            const quest = QUESTS[qid];
+            const talkSteps = quest?.steps?.filter(s => s.type === 'talk') ?? [];
+            for (const step of talkSteps) {
+                ok(`${chapter.id}: quest "${qid}"'s talk target "${step.target}" has a matching NPC somewhere`,
+                    talkTargets.has(step.target));
+            }
+        }
     }
 }
 
