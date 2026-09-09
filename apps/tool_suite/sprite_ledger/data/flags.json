@@ -1423,7 +1423,7 @@
         "name": "tree_large",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:44:58.111Z",
         "resolvedAt": null
     },
@@ -1433,7 +1433,7 @@
         "name": "house_red_roof",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:45:00.962Z",
         "resolvedAt": null
     },
@@ -1443,7 +1443,7 @@
         "name": "stone_wall_blob",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:45:06.983Z",
         "resolvedAt": null
     },
@@ -1453,7 +1453,7 @@
         "name": "bush_cluster",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:45:09.248Z",
         "resolvedAt": null
     },
@@ -1463,7 +1463,7 @@
         "name": "rock_cluster",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:45:11.404Z",
         "resolvedAt": null
     },
