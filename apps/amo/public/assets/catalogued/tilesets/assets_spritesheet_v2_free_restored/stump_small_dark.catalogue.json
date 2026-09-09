@@ -1,15 +1,15 @@
 {
   "source": "stump_small_dark.png",
-  "sheetWidth": 32,
-  "sheetHeight": 32,
+  "sheetWidth": 22,
+  "sheetHeight": 15,
   "entries": [
     {
       "name": "stump_small_dark",
       "kind": "object",
-      "x": 17,
-      "y": 10,
-      "w": 15,
-      "h": 21,
+      "x": 0,
+      "y": 0,
+      "w": 22,
+      "h": 15,
       "tags": [
         "schwarnhild",
         "restored"

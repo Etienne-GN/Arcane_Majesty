@@ -1,14 +1,14 @@
 {
   "source": "log_pile_stacked.png",
-  "sheetWidth": 64,
-  "sheetHeight": 64,
+  "sheetWidth": 36,
+  "sheetHeight": 49,
   "entries": [
     {
       "name": "log_pile_stacked",
       "kind": "object",
       "x": 0,
-      "y": 8,
-      "w": 25,
+      "y": 0,
+      "w": 36,
       "h": 49,
       "tags": [
         "schwarnhild",

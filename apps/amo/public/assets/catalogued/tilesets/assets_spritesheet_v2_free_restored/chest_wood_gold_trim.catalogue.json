@@ -1,15 +1,15 @@
 {
   "source": "chest_wood_gold_trim.png",
-  "sheetWidth": 64,
-  "sheetHeight": 64,
+  "sheetWidth": 37,
+  "sheetHeight": 32,
   "entries": [
     {
       "name": "chest_wood_gold_trim",
       "kind": "object",
-      "x": 8,
-      "y": 15,
-      "w": 56,
-      "h": 34,
+      "x": 0,
+      "y": 0,
+      "w": 37,
+      "h": 32,
       "tags": [
         "schwarnhild",
         "restored"

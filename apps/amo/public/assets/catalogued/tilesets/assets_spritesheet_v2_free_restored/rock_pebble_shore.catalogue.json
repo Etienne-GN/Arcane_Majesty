@@ -1,15 +1,15 @@
 {
   "source": "rock_pebble_shore.png",
-  "sheetWidth": 32,
-  "sheetHeight": 32,
+  "sheetWidth": 31,
+  "sheetHeight": 26,
   "entries": [
     {
       "name": "rock_pebble_shore",
       "kind": "object",
       "x": 0,
-      "y": 13,
-      "w": 32,
-      "h": 13,
+      "y": 0,
+      "w": 31,
+      "h": 26,
       "tags": [
         "schwarnhild",
         "restored"

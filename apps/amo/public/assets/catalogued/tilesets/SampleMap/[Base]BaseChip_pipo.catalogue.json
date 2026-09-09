@@ -5290,7 +5290,7 @@
       ]
     },
     {
-      "name": "gargoyle_statue_gray",
+      "name": "angel_statue_gray",
       "kind": "object",
       "x": 96,
       "y": 3683,
@@ -6704,6 +6704,34 @@
         "post",
         "decoration",
         "long"
+      ]
+    },
+    {
+      "name": "gargoyle_statue_gray",
+      "kind": "object",
+      "x": 124,
+      "y": 3687,
+      "w": 35,
+      "h": 60,
+      "tags": [
+        "statue",
+        "gargoyle",
+        "decoration",
+        "gray",
+        "demon"
+      ]
+    },
+    {
+      "name": "picture_portrait_color",
+      "kind": "object",
+      "x": 164,
+      "y": 2508,
+      "w": 25,
+      "h": 33,
+      "tags": [
+        "picture",
+        "decoration",
+        "indoor"
       ]
     }
   ]

@@ -6,10 +6,10 @@
     {
       "name": "bush_round_dotted_a",
       "kind": "object",
-      "x": 3,
+      "x": 0,
       "y": 0,
-      "w": 29,
-      "h": 23,
+      "w": 32,
+      "h": 32,
       "tags": [
         "schwarnhild",
         "restored"

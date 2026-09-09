@@ -35,9 +35,9 @@
         "name": "doll_figurine",
         "reason": "wrong_name",
         "comment": "this looks more like a doll than an armor to me",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-01T22:33:12.380Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T12:57:42.071Z",
         "remappedFrom": "armor_tunic_blue"
     },
     {
@@ -56,9 +56,9 @@
         "name": "bench_stone_west",
         "reason": "wrong_name",
         "comment": "same as bench_stone but west facing oriented",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-01T22:34:57.959Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T12:54:31.543Z",
         "remappedFrom": "stone_slab_broken"
     },
     {
@@ -67,9 +67,9 @@
         "name": "bench_stone_east",
         "reason": "wrong_name",
         "comment": "same as bench_stone but east facing oriented",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-01T22:35:05.110Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T12:54:34.838Z",
         "remappedFrom": "stone_monolith_thin"
     },
     {
@@ -138,9 +138,9 @@
         "name": "armor_stand_silver",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:16:36.563Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:57:11.731Z"
     },
     {
         "id": "f_9c3dd960-586e-4c5d-afb8-ad7983a0e7b7",
@@ -148,9 +148,9 @@
         "name": "armor_stand_green",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:16:39.376Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:57:14.289Z"
     },
     {
         "id": "f_d7d0fce0-7796-47aa-900c-d9bbc24947e8",
@@ -158,9 +158,9 @@
         "name": "armor_stand_pink",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:16:41.451Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:57:17.233Z"
     },
     {
         "id": "f_486102e4-4e46-45e4-accb-8825be586375",
@@ -168,9 +168,9 @@
         "name": "armor_stand_blue",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:16:43.456Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:57:32.575Z"
     },
     {
         "id": "f_ca8fce97-67bd-4ef2-9d02-e0be60026bb4",
@@ -178,9 +178,9 @@
         "name": "armor_stand_purple",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:16:45.616Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:57:38.112Z"
     },
     {
         "id": "f_5b88db22-8863-4ef8-b140-b32dc45fc691",
@@ -188,9 +188,9 @@
         "name": "armor_stand_purple",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:16:48.595Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:57:39.069Z"
     },
     {
         "id": "f_96d4d8b4-b125-4b2d-9586-c78b7e98fbe1",
@@ -198,9 +198,9 @@
         "name": "armor_stand_empty",
         "reason": "misaligned",
         "comment": "i looks like its missing the top",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:17:05.053Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:57:25.015Z"
     },
     {
         "id": "f_31f5704f-6d7b-49b7-a758-9dea339ce243",
@@ -239,9 +239,9 @@
         "name": "magic_circle_gray",
         "reason": "other",
         "comment": "this one is awesome, can we generate it in other colors ?",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:18:53.555Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:57:21.246Z"
     },
     {
         "id": "f_ea8ee7d4-3e48-4f03-a320-207140f9d859",
@@ -319,7 +319,7 @@
         "name": "curtain_tan_awning",
         "reason": "misaligned",
         "comment": "those are badly croppeds several items in this one, needs to be splitted",
-        "status": "needs_review",
+        "status": "open",
         "createdAt": "2026-09-03T16:20:20.880Z",
         "resolvedAt": null
     },
@@ -329,9 +329,9 @@
         "name": "gargoyle_statue_gray",
         "reason": "misaligned",
         "comment": "those are badly croppeds several items in this one, needs to be splitted",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:20:26.814Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:59:30.189Z"
     },
     {
         "id": "f_6604e327-29a5-4538-a1cf-dd4a17349ab3",
@@ -360,9 +360,9 @@
         "name": "ladder_rope_wood_short",
         "reason": "misaligned",
         "comment": "there's a ladder and a vine in this, we need to split those",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:21:15.453Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T12:58:34.191Z",
         "remappedFrom": "ladder_wood_dirt_climb"
     },
     {
@@ -547,9 +547,9 @@
         "name": "spring_flower_bush_yellow",
         "reason": "misaligned",
         "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"spring_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:32:19.488Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T13:00:45.414Z",
         "remappedFrom": "spring_flower_rock_cluster"
     },
     {
@@ -558,9 +558,9 @@
         "name": "autumn_flower_bush_yellow",
         "reason": "misaligned",
         "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"autumn_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:32:47.411Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T13:00:42.869Z",
         "remappedFrom": "autumn_flower_rock_cluster"
     },
     {
@@ -569,9 +569,9 @@
         "name": "summer_flower_bush_yellow",
         "reason": "misaligned",
         "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"summer_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:33:00.724Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T13:00:39.135Z",
         "remappedFrom": "summer_flower_rock_cluster"
     },
     {
@@ -679,9 +679,9 @@
         "name": "oven_gray_double",
         "reason": "misaligned",
         "comment": "those are 2 items",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:44:26.280Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T12:57:04.276Z",
         "remappedFrom": "stove_black"
     },
     {
@@ -690,9 +690,9 @@
         "name": "sink_gray_wood_legs_a",
         "reason": "misaligned",
         "comment": "those are 2 items",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:44:35.726Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T12:57:08.621Z",
         "remappedFrom": "sink_gray_a"
     },
     {
@@ -701,9 +701,9 @@
         "name": "sink_gray_wood_legs_b",
         "reason": "misaligned",
         "comment": "those are 2 items",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:44:38.151Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T12:56:58.383Z",
         "remappedFrom": "sink_gray_b"
     },
     {
@@ -712,9 +712,9 @@
         "name": "pew_curtained_tan",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:56:46.462Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:58:14.027Z"
     },
     {
         "id": "f_969c2b8a-d0ca-4106-8f39-d78951b7e015",
@@ -722,9 +722,9 @@
         "name": "pew_bench_tan",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:56:49.382Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:58:03.997Z"
     },
     {
         "id": "f_cab49128-9dec-4698-adf7-1f996984bf25",
@@ -732,9 +732,9 @@
         "name": "cutting_board_knife",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T16:57:09.503Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:57:29.282Z"
     },
     {
         "id": "f_7187ccf4-3618-42d1-ae04-120e3d84fb9e",
@@ -795,7 +795,7 @@
         "name": "lpc_arrows_pair",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "open",
         "createdAt": "2026-09-03T18:12:17.060Z",
         "resolvedAt": null,
         "remappedFrom": "lpc_items_sheet"
@@ -828,7 +828,7 @@
         "name": "bush_round_dotted_a",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:36:54.964Z",
         "resolvedAt": null
     },
@@ -838,7 +838,7 @@
         "name": "bush_dark_spiky",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:36:58.834Z",
         "resolvedAt": null
     },
@@ -848,7 +848,7 @@
         "name": "bush_flowering_orange",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:37:02.097Z",
         "resolvedAt": null
     },
@@ -858,7 +858,7 @@
         "name": "bush_round_dotted_b",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:37:03.717Z",
         "resolvedAt": null
     },
@@ -878,7 +878,7 @@
         "name": "bush_round_plain_b",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:37:09.419Z",
         "resolvedAt": null
     },
@@ -888,7 +888,7 @@
         "name": "chest_wood_gold_trim",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:37:13.311Z",
         "resolvedAt": null
     },
@@ -918,7 +918,7 @@
         "name": "log_pile_stacked",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:37:38.973Z",
         "resolvedAt": null
     },
@@ -928,7 +928,7 @@
         "name": "log_vertical_short",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:37:41.069Z",
         "resolvedAt": null
     },
@@ -938,7 +938,7 @@
         "name": "lily_pad_plain_green",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:37:43.454Z",
         "resolvedAt": null
     },
@@ -948,7 +948,7 @@
         "name": "lily_pad_flowering_pink",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:37:45.300Z",
         "resolvedAt": null
     },
@@ -958,7 +958,7 @@
         "name": "rock_pebble_shore",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:37:47.126Z",
         "resolvedAt": null
     },
@@ -968,7 +968,7 @@
         "name": "grass_tuft_tall_spiky",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:37:49.753Z",
         "resolvedAt": null
     },
@@ -988,9 +988,9 @@
         "name": "mushroom_orange_tall",
         "reason": "misaligned",
         "comment": "there are 16 mushrooms in this.. \n",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T19:38:09.360Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T12:59:48.386Z",
         "remappedFrom": "mushroom_variant_cluster"
     },
     {
@@ -1199,7 +1199,7 @@
         "name": "signpost_directional_a",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:43:06.244Z",
         "resolvedAt": null
     },
@@ -1209,7 +1209,7 @@
         "name": "signpost_directional_b",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:43:08.844Z",
         "resolvedAt": null
     },
@@ -1219,7 +1219,7 @@
         "name": "stump_large",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:43:10.539Z",
         "resolvedAt": null
     },
@@ -1229,7 +1229,7 @@
         "name": "stump_small_dark",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:43:16.294Z",
         "resolvedAt": null
     },
@@ -1239,7 +1239,7 @@
         "name": "plank_pile_tall_a",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:43:22.270Z",
         "resolvedAt": null
     },
@@ -1249,7 +1249,7 @@
         "name": "plank_pile_tall_b",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:43:24.127Z",
         "resolvedAt": null
     },
@@ -1259,7 +1259,7 @@
         "name": "bench_wood",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:43:33.258Z",
         "resolvedAt": null
     },
@@ -1269,9 +1269,9 @@
         "name": "bush_large_teal",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T19:44:03.319Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T13:00:06.098Z",
         "remappedFrom": "bush_variants"
     },
     {
@@ -1302,9 +1302,9 @@
         "name": "flower_white_bloom",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T19:44:09.985Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T12:59:51.740Z",
         "remappedFrom": "flower_variants"
     },
     {
@@ -1313,9 +1313,9 @@
         "name": "grass_tuft_tall_teal_b",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T19:44:11.943Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T13:00:08.651Z",
         "remappedFrom": "grass_variants"
     },
     {
@@ -1324,9 +1324,9 @@
         "name": "barrel_wood",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T19:44:14.420Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T12:59:54.283Z",
         "remappedFrom": "misc_props"
     },
     {
@@ -1346,9 +1346,9 @@
         "name": "boulder_gray",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T19:44:18.305Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T13:00:03.788Z",
         "remappedFrom": "stone_rock_variants"
     },
     {
@@ -1379,9 +1379,9 @@
         "name": "tree_pine_teal",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T19:44:25.084Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T12:59:57.441Z",
         "remappedFrom": "tree_variants"
     },
     {
@@ -1401,9 +1401,9 @@
         "name": "lily_pad_flower_white",
         "reason": "misaligned",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-03T19:44:28.985Z",
-        "resolvedAt": null,
+        "resolvedAt": "2026-09-09T13:00:21.945Z",
         "remappedFrom": "water_plant_variants"
     },
     {
@@ -1763,9 +1763,9 @@
         "name": "stone_03-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:27:11.668Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:56:28.745Z"
     },
     {
         "id": "f_8b9fdb2a-e2e1-4c06-9c21-f57f480cb280",
@@ -1803,9 +1803,9 @@
         "name": "level_3-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:27:26.562Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:55:48.324Z"
     },
     {
         "id": "f_52414fa3-d2ae-468f-a805-2ffdc707628d",
@@ -1813,9 +1813,9 @@
         "name": "bricks_03-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:27:30.469Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:55:08.281Z"
     },
     {
         "id": "f_8428f062-5fc4-479d-ac22-db208677c62a",
@@ -1863,9 +1863,9 @@
         "name": "grill_01-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:27:58.757Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:55:04.246Z"
     },
     {
         "id": "f_72671f27-6224-47a2-b1f7-33a53b222eee",
@@ -1873,9 +1873,9 @@
         "name": "grill_03-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:28:07.521Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:56:32.790Z"
     },
     {
         "id": "f_ca703be8-fcf0-44cc-b791-e0a798e5e727",
@@ -1883,9 +1883,9 @@
         "name": "grill_02-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:28:09.951Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:55:38.037Z"
     },
     {
         "id": "f_a7ccfbe6-74c1-42f3-babb-3ed312935084",
@@ -1893,9 +1893,9 @@
         "name": "grill_04-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:28:21.836Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:56:00.720Z"
     },
     {
         "id": "f_f90f6905-26fa-4a57-82e7-e21271ccda3f",
@@ -1913,9 +1913,9 @@
         "name": "bricks_02-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:28:38.674Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:54:59.639Z"
     },
     {
         "id": "f_f3c6c791-6424-4b1b-b74e-3ec65e8adafd",
@@ -1923,9 +1923,9 @@
         "name": "bricks_01-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:28:45.184Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:56:36.065Z"
     },
     {
         "id": "f_e2a22fb4-e868-482f-ab5e-103ce329e182",
@@ -1933,9 +1933,9 @@
         "name": "bonfire_10-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:28:47.893Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:56:39.163Z"
     },
     {
         "id": "f_be0747b2-b2d4-46b4-b499-4a415707c9ed",
@@ -1943,9 +1943,9 @@
         "name": "bonfire_09-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:28:52.583Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:54:54.726Z"
     },
     {
         "id": "f_6c207e4f-87c6-468b-a02e-3277b6cadb8a",
@@ -1953,9 +1953,9 @@
         "name": "anvil_03-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:29:02.106Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:56:44.557Z"
     },
     {
         "id": "f_b5118df4-0cae-4ce4-9c1f-b566f74e7a5a",
@@ -1963,9 +1963,9 @@
         "name": "anvil_01-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:29:05.761Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:55:31.557Z"
     },
     {
         "id": "f_03a2e7a6-a827-4dcc-bf53-fa3f46998dc6",
@@ -1973,9 +1973,9 @@
         "name": "anvil_02-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:29:10.416Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:56:48.951Z"
     },
     {
         "id": "f_e187e4dd-302e-4a12-b5e5-6d2f094b3277",
@@ -1983,9 +1983,9 @@
         "name": "alchemy_table_02-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:29:14.232Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:55:26.074Z"
     },
     {
         "id": "f_f6b9dfb5-b254-4374-8761-26dea6158667",
@@ -1993,7 +1993,7 @@
         "name": "alchemy_table_01-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "open",
         "createdAt": "2026-09-09T01:29:19.562Z",
         "resolvedAt": null
     },
@@ -2003,9 +2003,9 @@
         "name": "pan_02-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:29:29.200Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:56:06.164Z"
     },
     {
         "id": "f_4c270868-7fa9-4f9a-9dae-2b4b587e8ac0",
@@ -2013,9 +2013,9 @@
         "name": "pan_03-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:29:34.045Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:56:12.567Z"
     },
     {
         "id": "f_887f2f1a-934a-40c4-8a26-b081902b7d7f",
@@ -2023,9 +2023,9 @@
         "name": "pan_04-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:29:38.667Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:56:24.443Z"
     },
     {
         "id": "f_28b4f52b-b0ac-4100-a285-869d50266e32",
@@ -2033,9 +2033,9 @@
         "name": "pan_05-sheet",
         "reason": "should_be_animation",
         "comment": "",
-        "status": "needs_review",
+        "status": "resolved",
         "createdAt": "2026-09-09T01:29:42.081Z",
-        "resolvedAt": null
+        "resolvedAt": "2026-09-09T12:56:19.531Z"
     },
     {
         "id": "f_e555f693-48ff-4e41-b9c3-9a31ebc067c3",
@@ -2065,6 +2065,26 @@
         "comment": "",
         "status": "needs_review",
         "createdAt": "2026-09-09T01:31:17.285Z",
+        "resolvedAt": null
+    },
+    {
+        "id": "f_ebb26960-d98f-479d-ac03-f55126136eee",
+        "sheet": "[Base]BaseChip_pipo.png",
+        "name": "pew_bench_tan",
+        "reason": "wrong_name",
+        "comment": "",
+        "status": "resolved",
+        "createdAt": "2026-09-09T12:58:02.886Z",
+        "resolvedAt": "2026-09-09T12:58:11.932Z"
+    },
+    {
+        "id": "f_e6cd8b33-19e8-4bb1-8b8e-e0018164bcdf",
+        "sheet": "[Base]BaseChip_pipo.png",
+        "name": "gargoyle_statue_gray",
+        "reason": "misaligned",
+        "comment": "",
+        "status": "needs_review",
+        "createdAt": "2026-09-09T12:59:07.332Z",
         "resolvedAt": null
     }
 ]

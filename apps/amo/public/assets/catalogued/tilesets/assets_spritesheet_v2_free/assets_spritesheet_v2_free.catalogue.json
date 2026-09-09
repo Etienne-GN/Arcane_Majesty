@@ -2,6 +2,336 @@
   "source": "assets_spritesheet_v2_free.png",
   "sheetWidth": 384,
   "sheetHeight": 384,
-  "notes": "Free nature/village decoration sheet, irregular object placement (not a uniform autotile grid). Bounding boxes are cell-aligned approximations verified against a labeled grid overlay; the plank/fence cluster (rows 9-11) is a lower-confidence pass \u2014 shapes there are packed tightly and boundaries between adjacent pieces were harder to separate cleanly.",
-  "entries": []
+  "entries": [
+    {
+      "name": "assets_spritesheet_v2_free_000",
+      "kind": "object",
+      "x": 6,
+      "y": 3,
+      "w": 52,
+      "h": 92,
+      "tags": [
+        "assets_v2_free"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "assets_spritesheet_v2_free_001",
+      "kind": "object",
+      "x": 65,
+      "y": 1,
+      "w": 61,
+      "h": 95,
+      "tags": [
+        "assets_v2_free"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "assets_spritesheet_v2_free_002",
+      "kind": "object",
+      "x": 137,
+      "y": 0,
+      "w": 80,
+      "h": 128,
+      "tags": [
+        "assets_v2_free"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "assets_spritesheet_v2_free_003",
+      "kind": "object",
+      "x": 243,
+      "y": 9,
+      "w": 139,
+      "h": 193,
+      "tags": [
+        "assets_v2_free"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "bush_dark_spiky",
+      "kind": "object",
+      "x": 3,
+      "y": 106,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "bush_flowering_orange",
+      "kind": "object",
+      "x": 41,
+      "y": 106,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "grass_tuft_tall_spiky",
+      "kind": "object",
+      "x": 84,
+      "y": 107,
+      "w": 32,
+      "h": 29,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "stump_small_dark",
+      "kind": "object",
+      "x": 136,
+      "y": 142,
+      "w": 22,
+      "h": 15,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "signpost_directional_a",
+      "kind": "object",
+      "x": 175,
+      "y": 138,
+      "w": 26,
+      "h": 32,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "bush_round_dotted_a",
+      "kind": "object",
+      "x": 3,
+      "y": 151,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "bush_round_plain_b",
+      "kind": "object",
+      "x": 41,
+      "y": 151,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "stump_large",
+      "kind": "object",
+      "x": 84,
+      "y": 152,
+      "w": 40,
+      "h": 28,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "assets_spritesheet_v2_free_012",
+      "kind": "object",
+      "x": 139,
+      "y": 172,
+      "w": 16,
+      "h": 14,
+      "tags": [
+        "assets_v2_free"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "signpost_directional_b",
+      "kind": "object",
+      "x": 174,
+      "y": 184,
+      "w": 30,
+      "h": 32,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "rock_pebble_shore",
+      "kind": "object",
+      "x": 3,
+      "y": 198,
+      "w": 31,
+      "h": 26,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "assets_spritesheet_v2_free_015",
+      "kind": "object",
+      "x": 45,
+      "y": 206,
+      "w": 19,
+      "h": 15,
+      "tags": [
+        "assets_v2_free"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "assets_spritesheet_v2_free_016",
+      "kind": "object",
+      "x": 77,
+      "y": 206,
+      "w": 21,
+      "h": 14,
+      "tags": [
+        "assets_v2_free"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "lily_pad_flowering_pink",
+      "kind": "object",
+      "x": 113,
+      "y": 205,
+      "w": 17,
+      "h": 13,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "lily_pad_plain_green",
+      "kind": "object",
+      "x": 138,
+      "y": 208,
+      "w": 11,
+      "h": 8,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "chest_wood_gold_trim",
+      "kind": "object",
+      "x": 8,
+      "y": 239,
+      "w": 37,
+      "h": 32,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "bench_wood",
+      "kind": "object",
+      "x": 61,
+      "y": 235,
+      "w": 49,
+      "h": 39,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "log_vertical_short",
+      "kind": "object",
+      "x": 124,
+      "y": 236,
+      "w": 12,
+      "h": 32,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "log_pile_stacked",
+      "kind": "object",
+      "x": 213,
+      "y": 232,
+      "w": 36,
+      "h": 49,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "plank_pile_tall_a",
+      "kind": "object",
+      "x": 134,
+      "y": 312,
+      "w": 60,
+      "h": 38,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "plank_pile_tall_b",
+      "kind": "object",
+      "x": 212,
+      "y": 311,
+      "w": 24,
+      "h": 44,
+      "tags": [
+        "assets_v2_free"
+      ]
+    },
+    {
+      "name": "assets_spritesheet_v2_free_044",
+      "kind": "object",
+      "x": 246,
+      "y": 311,
+      "w": 12,
+      "h": 38,
+      "tags": [
+        "assets_v2_free"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "assets_spritesheet_v2_free_045",
+      "kind": "object",
+      "x": 9,
+      "y": 349,
+      "w": 40,
+      "h": 18,
+      "tags": [
+        "assets_v2_free"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "assets_spritesheet_v2_free_046",
+      "kind": "object",
+      "x": 71,
+      "y": 350,
+      "w": 40,
+      "h": 10,
+      "tags": [
+        "assets_v2_free"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "assets_spritesheet_v2_free_047",
+      "kind": "object",
+      "x": 71,
+      "y": 366,
+      "w": 40,
+      "h": 14,
+      "tags": [
+        "assets_v2_free"
+      ],
+      "needsNaming": true
+    }
+  ]
 }

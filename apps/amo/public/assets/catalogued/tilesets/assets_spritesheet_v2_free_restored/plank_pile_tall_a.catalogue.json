@@ -1,15 +1,15 @@
 {
   "source": "plank_pile_tall_a.png",
-  "sheetWidth": 64,
-  "sheetHeight": 64,
+  "sheetWidth": 60,
+  "sheetHeight": 38,
   "entries": [
     {
       "name": "plank_pile_tall_a",
       "kind": "object",
-      "x": 9,
-      "y": 3,
-      "w": 40,
-      "h": 61,
+      "x": 0,
+      "y": 0,
+      "w": 60,
+      "h": 38,
       "tags": [
         "schwarnhild",
         "restored"

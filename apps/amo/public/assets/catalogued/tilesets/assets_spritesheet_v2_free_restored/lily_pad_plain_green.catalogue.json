@@ -1,15 +1,15 @@
 {
   "source": "lily_pad_plain_green.png",
-  "sheetWidth": 32,
-  "sheetHeight": 32,
+  "sheetWidth": 11,
+  "sheetHeight": 8,
   "entries": [
     {
       "name": "lily_pad_plain_green",
       "kind": "object",
-      "x": 14,
+      "x": 0,
       "y": 0,
-      "w": 18,
-      "h": 24,
+      "w": 11,
+      "h": 8,
       "tags": [
         "schwarnhild",
         "restored"
