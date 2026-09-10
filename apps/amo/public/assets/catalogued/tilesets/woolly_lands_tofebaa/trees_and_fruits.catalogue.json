@@ -66,17 +66,16 @@
     {
       "name": "berry_bush_cluster",
       "kind": "object",
-      "x": 320,
-      "y": 384,
-      "w": 96,
-      "h": 64,
+      "x": 256,
+      "y": 400,
+      "w": 64,
+      "h": 32,
       "tags": [
         "woolly_lands",
         "tofebaa",
         "bush",
         "berry"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

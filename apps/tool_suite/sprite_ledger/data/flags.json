@@ -795,7 +795,7 @@
         "name": "lpc_arrows_pair",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T18:12:17.060Z",
         "resolvedAt": null,
         "remappedFrom": "lpc_items_sheet"
@@ -898,7 +898,7 @@
         "name": "fence_blob",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:37:30.155Z",
         "resolvedAt": null
     },
@@ -999,7 +999,7 @@
         "name": "dirt_speckle_row",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:42:04.123Z",
         "resolvedAt": null
     },
@@ -1009,7 +1009,7 @@
         "name": "grass_tuft_row",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:42:06.126Z",
         "resolvedAt": null
     },
@@ -1169,7 +1169,7 @@
         "name": "flower_row",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:42:59.682Z",
         "resolvedAt": null
     },
@@ -1179,7 +1179,7 @@
         "name": "grass_tuft_row",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:43:01.703Z",
         "resolvedAt": null
     },
@@ -1553,7 +1553,7 @@
         "name": "tree_small",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:57:22.913Z",
         "resolvedAt": null
     },
@@ -1573,7 +1573,7 @@
         "name": "tree_magenta_fruit",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:57:28.328Z",
         "resolvedAt": null
     },
@@ -1583,7 +1583,7 @@
         "name": "tree_orange_fruit",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:57:31.804Z",
         "resolvedAt": null
     },
@@ -1593,7 +1593,7 @@
         "name": "wood_prop_variants",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:57:34.891Z",
         "resolvedAt": null
     },
@@ -1663,7 +1663,7 @@
         "name": "fruit_variants",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:57:52.443Z",
         "resolvedAt": null
     },
@@ -1743,7 +1743,7 @@
         "name": "bone_weapons",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:27:03.673Z",
         "resolvedAt": null
     },
@@ -2053,7 +2053,7 @@
         "name": "wood_weapons",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:30:16.162Z",
         "resolvedAt": null
     },
