@@ -35,15 +35,14 @@
       "name": "rocky_ground_blob",
       "kind": "object",
       "x": 0,
-      "y": 96,
+      "y": 128,
       "w": 160,
-      "h": 96,
+      "h": 64,
       "tags": [
         "schwarnhild",
         "rock",
         "ground"
-      ],
-      "lowConfidence": true
+      ]
     },
     {
       "name": "water_deep_blob",

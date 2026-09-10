@@ -1019,7 +1019,7 @@
         "name": "dirt_patch_solid",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:42:18.065Z",
         "resolvedAt": null
     },
@@ -1049,7 +1049,7 @@
         "name": "grass_field_open",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:42:25.407Z",
         "resolvedAt": null
     },
@@ -1059,7 +1059,7 @@
         "name": "grass_field_flowers",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:42:27.101Z",
         "resolvedAt": null
     },
@@ -1079,7 +1079,7 @@
         "name": "pond_circle_a",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:42:30.857Z",
         "resolvedAt": null
     },
@@ -1089,7 +1089,7 @@
         "name": "pond_circle_b",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:42:32.145Z",
         "resolvedAt": null
     },
@@ -1099,7 +1099,7 @@
         "name": "rocky_ground_blob",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:42:34.363Z",
         "resolvedAt": null
     },
@@ -1109,7 +1109,7 @@
         "name": "brick_path_strip",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:42:36.811Z",
         "resolvedAt": null
     },
@@ -1119,7 +1119,7 @@
         "name": "dirt_patch_solid",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:42:42.176Z",
         "resolvedAt": null
     },
@@ -1129,7 +1129,7 @@
         "name": "grass_patch_solid",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:42:44.209Z",
         "resolvedAt": null
     },
@@ -1139,7 +1139,7 @@
         "name": "rocky_ground_blob",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:42:46.979Z",
         "resolvedAt": null
     },
@@ -1149,7 +1149,7 @@
         "name": "water_deep_blob",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:42:49.980Z",
         "resolvedAt": null
     },
@@ -1543,7 +1543,7 @@
         "name": "small_tree_prop",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:57:20.573Z",
         "resolvedAt": null
     },
@@ -1603,7 +1603,7 @@
         "name": "stone_path_tiles",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:57:36.597Z",
         "resolvedAt": null
     },
@@ -1613,7 +1613,7 @@
         "name": "flower_mushroom_row",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:57:38.668Z",
         "resolvedAt": null
     },
@@ -1623,7 +1623,7 @@
         "name": "dirt_path_strip",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:57:40.917Z",
         "resolvedAt": null
     },
