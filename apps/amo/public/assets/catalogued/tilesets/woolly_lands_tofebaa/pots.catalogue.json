@@ -4,7 +4,7 @@
   "sheetHeight": 48,
   "entries": [
     {
-      "name": "pot_variants",
+      "name": "wood_crate_bound",
       "kind": "object",
       "x": 0,
       "y": 0,
@@ -13,10 +13,10 @@
       "tags": [
         "woolly_lands",
         "tofebaa",
-        "pot",
+        "crate",
+        "wood",
         "props"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }

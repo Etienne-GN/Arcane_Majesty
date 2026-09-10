@@ -1189,7 +1189,7 @@
         "name": "dirtpath_blob",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:43:04.228Z",
         "resolvedAt": null
     },
@@ -1653,7 +1653,7 @@
         "name": "pot_variants",
         "reason": "wrong_name",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:57:49.360Z",
         "resolvedAt": null
     },
