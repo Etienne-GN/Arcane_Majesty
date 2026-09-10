@@ -23,46 +23,43 @@
       "name": "floor_tile_dark",
       "kind": "object",
       "x": 96,
-      "y": 0,
+      "y": 64,
       "w": 96,
-      "h": 96,
+      "h": 32,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
         "floor",
         "dungeon"
-      ],
-      "lowConfidence": true
+      ]
     },
     {
       "name": "spike_trap",
       "kind": "object",
       "x": 128,
       "y": 96,
-      "w": 32,
+      "w": 16,
       "h": 32,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
         "trap",
         "prop"
-      ],
-      "lowConfidence": true
+      ]
     },
     {
       "name": "crystal_prop",
       "kind": "object",
       "x": 160,
-      "y": 96,
-      "w": 32,
+      "y": 127,
+      "w": 20,
       "h": 32,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
         "crystal",
         "prop"
-      ],
-      "lowConfidence": true
+      ]
     },
     {
       "name": "floor_tile_ground",

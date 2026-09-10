@@ -1503,7 +1503,7 @@
         "name": "stone_wall_blob",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:45:34.353Z",
         "resolvedAt": null
     },
@@ -1513,7 +1513,7 @@
         "name": "floor_tile_dark",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:45:37.922Z",
         "resolvedAt": null
     },
@@ -1523,7 +1523,7 @@
         "name": "spike_trap",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:45:40.710Z",
         "resolvedAt": null
     },
@@ -1533,7 +1533,7 @@
         "name": "crystal_prop",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:45:43.229Z",
         "resolvedAt": null
     },
@@ -1673,7 +1673,7 @@
         "name": "cave_wall_blob",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:26:30.627Z",
         "resolvedAt": null
     },
@@ -1683,7 +1683,7 @@
         "name": "dungeon_prop_cluster",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:26:32.370Z",
         "resolvedAt": null
     },
@@ -1693,7 +1693,7 @@
         "name": "stone_wall_blob",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:26:33.956Z",
         "resolvedAt": null
     },
@@ -1703,7 +1703,7 @@
         "name": "stone_floor",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:26:36.738Z",
         "resolvedAt": null
     },
@@ -1713,7 +1713,7 @@
         "name": "cave_floor",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:26:46.849Z",
         "resolvedAt": null
     },

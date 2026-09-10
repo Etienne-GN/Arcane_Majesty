@@ -6,32 +6,30 @@
     {
       "name": "stone_floor",
       "kind": "object",
-      "x": 0,
+      "x": 64,
       "y": 0,
-      "w": 96,
-      "h": 96,
+      "w": 64,
+      "h": 64,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "floor",
         "dungeon"
-      ],
-      "lowConfidence": true
+      ]
     },
     {
       "name": "stone_wall_blob",
       "kind": "object",
-      "x": 128,
+      "x": 0,
       "y": 0,
-      "w": 96,
+      "w": 64,
       "h": 96,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "wall",
         "autotile"
-      ],
-      "lowConfidence": true
+      ]
     },
     {
       "name": "dungeon_prop_cluster",
