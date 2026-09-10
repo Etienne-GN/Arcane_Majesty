@@ -4,17 +4,212 @@
   "sheetHeight": 384,
   "entries": [
     {
-      "name": "furnace",
+      "name": "furnace_000",
       "kind": "object",
       "x": 0,
-      "y": 2,
-      "w": 189,
-      "h": 382,
+      "y": 26,
+      "w": 32,
+      "h": 38,
       "tags": [
         "pixel_crawler",
-        "anokolisa",
-        "furnace"
-      ]
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furnace_001",
+      "kind": "object",
+      "x": 52,
+      "y": 15,
+      "w": 37,
+      "h": 49,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furnace_002",
+      "kind": "object",
+      "x": 115,
+      "y": 2,
+      "w": 41,
+      "h": 62,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furnace_003",
+      "kind": "object",
+      "x": 1,
+      "y": 87,
+      "w": 30,
+      "h": 41,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furnace_004",
+      "kind": "object",
+      "x": 54,
+      "y": 71,
+      "w": 36,
+      "h": 57,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furnace_005",
+      "kind": "object",
+      "x": 112,
+      "y": 68,
+      "w": 77,
+      "h": 124,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furnace_006",
+      "kind": "object",
+      "x": 0,
+      "y": 147,
+      "w": 32,
+      "h": 45,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furnace_007",
+      "kind": "object",
+      "x": 53,
+      "y": 133,
+      "w": 38,
+      "h": 59,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furnace_008",
+      "kind": "object",
+      "x": 52,
+      "y": 207,
+      "w": 37,
+      "h": 49,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furnace_009",
+      "kind": "object",
+      "x": 115,
+      "y": 194,
+      "w": 41,
+      "h": 62,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furnace_010",
+      "kind": "object",
+      "x": 0,
+      "y": 218,
+      "w": 32,
+      "h": 38,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furnace_011",
+      "kind": "object",
+      "x": 54,
+      "y": 263,
+      "w": 36,
+      "h": 57,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furnace_012",
+      "kind": "object",
+      "x": 112,
+      "y": 260,
+      "w": 77,
+      "h": 124,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furnace_013",
+      "kind": "object",
+      "x": 1,
+      "y": 279,
+      "w": 30,
+      "h": 41,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furnace_014",
+      "kind": "object",
+      "x": 0,
+      "y": 339,
+      "w": 32,
+      "h": 45,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furnace_015",
+      "kind": "object",
+      "x": 53,
+      "y": 325,
+      "w": 38,
+      "h": 59,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
     }
   ]
 }

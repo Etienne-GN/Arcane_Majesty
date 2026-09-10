@@ -1633,7 +1633,7 @@
         "name": "hedge_solid_patch",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:57:42.683Z",
         "resolvedAt": null
     },
@@ -1643,7 +1643,7 @@
         "name": "hedge_maze_pattern",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T19:57:44.428Z",
         "resolvedAt": null
     },
@@ -1723,7 +1723,7 @@
         "name": "workbench",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:26:56.951Z",
         "resolvedAt": null
     },
@@ -1823,7 +1823,7 @@
         "name": "furnace",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:27:34.159Z",
         "resolvedAt": null
     },
