@@ -4,17 +4,160 @@
   "sheetHeight": 256,
   "entries": [
     {
-      "name": "size_04",
+      "name": "size_04_000",
       "kind": "object",
       "x": 3,
       "y": 2,
-      "w": 355,
-      "h": 254,
+      "w": 73,
+      "h": 126,
       "tags": [
         "pixel_crawler",
-        "anokolisa",
-        "trees"
-      ]
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_04_001",
+      "kind": "object",
+      "x": 83,
+      "y": 2,
+      "w": 73,
+      "h": 126,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_04_002",
+      "kind": "object",
+      "x": 166,
+      "y": 2,
+      "w": 69,
+      "h": 126,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_04_003",
+      "kind": "object",
+      "x": 246,
+      "y": 2,
+      "w": 69,
+      "h": 126,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_04_004",
+      "kind": "object",
+      "x": 325,
+      "y": 105,
+      "w": 33,
+      "h": 23,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_04_005",
+      "kind": "object",
+      "x": 328,
+      "y": 9,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_04_006",
+      "kind": "object",
+      "x": 328,
+      "y": 41,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_04_007",
+      "kind": "object",
+      "x": 328,
+      "y": 73,
+      "w": 28,
+      "h": 23,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_04_008",
+      "kind": "object",
+      "x": 3,
+      "y": 130,
+      "w": 73,
+      "h": 126,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_04_009",
+      "kind": "object",
+      "x": 83,
+      "y": 130,
+      "w": 73,
+      "h": 126,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_04_010",
+      "kind": "object",
+      "x": 166,
+      "y": 130,
+      "w": 69,
+      "h": 126,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_04_011",
+      "kind": "object",
+      "x": 246,
+      "y": 130,
+      "w": 69,
+      "h": 126,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
     }
   ]
 }

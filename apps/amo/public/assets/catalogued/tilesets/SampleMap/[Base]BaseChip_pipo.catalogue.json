@@ -5209,9 +5209,9 @@
       "name": "curtain_tan_awning",
       "kind": "object",
       "x": 160,
-      "y": 3605,
+      "y": 3612,
       "w": 66,
-      "h": 202,
+      "h": 195,
       "tags": [
         "curtain",
         "awning",
@@ -5227,10 +5227,10 @@
       "w": 31,
       "h": 85,
       "tags": [
-        "curtain",
-        "awning",
+        "statue",
+        "knight",
         "decoration",
-        "tan"
+        "gray"
       ]
     },
     {

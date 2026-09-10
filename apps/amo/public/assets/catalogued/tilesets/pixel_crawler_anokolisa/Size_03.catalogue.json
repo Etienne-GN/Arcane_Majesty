@@ -4,17 +4,69 @@
   "sheetHeight": 192,
   "entries": [
     {
-      "name": "size_03",
+      "name": "size_03_000",
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 207,
+      "w": 144,
       "h": 192,
       "tags": [
         "pixel_crawler",
-        "anokolisa",
-        "trees"
-      ]
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_03_001",
+      "kind": "object",
+      "x": 144,
+      "y": 0,
+      "w": 48,
+      "h": 192,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_03_002",
+      "kind": "object",
+      "x": 193,
+      "y": 10,
+      "w": 14,
+      "h": 22,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_03_003",
+      "kind": "object",
+      "x": 193,
+      "y": 42,
+      "w": 14,
+      "h": 22,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_03_004",
+      "kind": "object",
+      "x": 193,
+      "y": 74,
+      "w": 14,
+      "h": 22,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
     }
   ]
 }

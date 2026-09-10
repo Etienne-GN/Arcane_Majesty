@@ -4,17 +4,368 @@
   "sheetHeight": 400,
   "entries": [
     {
-      "name": "furniture",
+      "name": "furniture_000",
       "kind": "object",
-      "x": 0,
-      "y": 1,
-      "w": 172,
-      "h": 207,
+      "x": 1,
+      "y": 2,
+      "w": 28,
+      "h": 7,
       "tags": [
         "pixel_crawler",
-        "anokolisa",
-        "static"
-      ]
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_001",
+      "kind": "object",
+      "x": 31,
+      "y": 2,
+      "w": 3,
+      "h": 7,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_002",
+      "kind": "object",
+      "x": 36,
+      "y": 1,
+      "w": 10,
+      "h": 8,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_003",
+      "kind": "object",
+      "x": 49,
+      "y": 18,
+      "w": 63,
+      "h": 78,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_004",
+      "kind": "object",
+      "x": 2,
+      "y": 33,
+      "w": 12,
+      "h": 15,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_005",
+      "kind": "object",
+      "x": 18,
+      "y": 32,
+      "w": 12,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_006",
+      "kind": "object",
+      "x": 33,
+      "y": 29,
+      "w": 14,
+      "h": 19,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_007",
+      "kind": "object",
+      "x": 114,
+      "y": 27,
+      "w": 44,
+      "h": 21,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_008",
+      "kind": "object",
+      "x": 164,
+      "y": 21,
+      "w": 8,
+      "h": 41,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_009",
+      "kind": "object",
+      "x": 98,
+      "y": 50,
+      "w": 44,
+      "h": 62,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_010",
+      "kind": "object",
+      "x": 2,
+      "y": 65,
+      "w": 12,
+      "h": 15,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_011",
+      "kind": "object",
+      "x": 18,
+      "y": 64,
+      "w": 12,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_012",
+      "kind": "object",
+      "x": 34,
+      "y": 60,
+      "w": 12,
+      "h": 20,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_013",
+      "kind": "object",
+      "x": 50,
+      "y": 60,
+      "w": 12,
+      "h": 20,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_014",
+      "kind": "object",
+      "x": 114,
+      "y": 73,
+      "w": 12,
+      "h": 23,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_015",
+      "kind": "object",
+      "x": 130,
+      "y": 73,
+      "w": 11,
+      "h": 23,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_016",
+      "kind": "object",
+      "x": 0,
+      "y": 89,
+      "w": 47,
+      "h": 23,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_017",
+      "kind": "object",
+      "x": 51,
+      "y": 92,
+      "w": 10,
+      "h": 20,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_018",
+      "kind": "object",
+      "x": 64,
+      "y": 98,
+      "w": 80,
+      "h": 46,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_019",
+      "kind": "object",
+      "x": 112,
+      "y": 98,
+      "w": 16,
+      "h": 14,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_020",
+      "kind": "object",
+      "x": 0,
+      "y": 121,
+      "w": 47,
+      "h": 55,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_021",
+      "kind": "object",
+      "x": 51,
+      "y": 124,
+      "w": 10,
+      "h": 20,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_022",
+      "kind": "object",
+      "x": 51,
+      "y": 148,
+      "w": 10,
+      "h": 12,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_023",
+      "kind": "object",
+      "x": 64,
+      "y": 146,
+      "w": 80,
+      "h": 57,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_024",
+      "kind": "object",
+      "x": 5,
+      "y": 163,
+      "w": 6,
+      "h": 10,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_025",
+      "kind": "object",
+      "x": 33,
+      "y": 168,
+      "w": 14,
+      "h": 8,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_026",
+      "kind": "object",
+      "x": 51,
+      "y": 168,
+      "w": 10,
+      "h": 8,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "furniture_027",
+      "kind": "object",
+      "x": 0,
+      "y": 181,
+      "w": 32,
+      "h": 27,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
     }
   ]
 }

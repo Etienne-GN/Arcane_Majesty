@@ -319,7 +319,7 @@
         "name": "curtain_tan_awning",
         "reason": "misaligned",
         "comment": "those are badly croppeds several items in this one, needs to be splitted",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-03T16:20:20.880Z",
         "resolvedAt": null
     },
@@ -1753,7 +1753,7 @@
         "name": "tools",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:27:07.234Z",
         "resolvedAt": null
     },
@@ -1773,7 +1773,7 @@
         "name": "size_04",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:27:15.455Z",
         "resolvedAt": null
     },
@@ -1783,7 +1783,7 @@
         "name": "size_03",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:27:18.179Z",
         "resolvedAt": null
     },
@@ -1793,7 +1793,7 @@
         "name": "size_02",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:27:20.539Z",
         "resolvedAt": null
     },
@@ -1843,7 +1843,7 @@
         "name": "roofs",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:27:42.545Z",
         "resolvedAt": null
     },
@@ -1853,7 +1853,7 @@
         "name": "resources",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:27:51.174Z",
         "resolvedAt": null
     },
@@ -1903,7 +1903,7 @@
         "name": "furniture",
         "reason": "misaligned",
         "comment": "",
-        "status": "open",
+        "status": "needs_review",
         "createdAt": "2026-09-09T01:28:32.065Z",
         "resolvedAt": null
     },

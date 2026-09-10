@@ -4,17 +4,342 @@
   "sheetHeight": 128,
   "entries": [
     {
-      "name": "size_02",
+      "name": "size_02_000",
       "kind": "object",
-      "x": 5,
+      "x": 32,
       "y": 1,
-      "w": 246,
+      "w": 32,
       "h": 127,
       "tags": [
         "pixel_crawler",
-        "anokolisa",
-        "trees"
-      ]
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_001",
+      "kind": "object",
+      "x": 96,
+      "y": 1,
+      "w": 32,
+      "h": 127,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_002",
+      "kind": "object",
+      "x": 161,
+      "y": 17,
+      "w": 26,
+      "h": 47,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_003",
+      "kind": "object",
+      "x": 225,
+      "y": 17,
+      "w": 26,
+      "h": 47,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_004",
+      "kind": "object",
+      "x": 5,
+      "y": 36,
+      "w": 7,
+      "h": 9,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_005",
+      "kind": "object",
+      "x": 5,
+      "y": 56,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_006",
+      "kind": "object",
+      "x": 16,
+      "y": 32,
+      "w": 16,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_007",
+      "kind": "object",
+      "x": 69,
+      "y": 36,
+      "w": 7,
+      "h": 9,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_008",
+      "kind": "object",
+      "x": 69,
+      "y": 56,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_009",
+      "kind": "object",
+      "x": 80,
+      "y": 32,
+      "w": 16,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_010",
+      "kind": "object",
+      "x": 133,
+      "y": 56,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_011",
+      "kind": "object",
+      "x": 144,
+      "y": 34,
+      "w": 16,
+      "h": 30,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_012",
+      "kind": "object",
+      "x": 197,
+      "y": 56,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_013",
+      "kind": "object",
+      "x": 208,
+      "y": 34,
+      "w": 16,
+      "h": 30,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_014",
+      "kind": "object",
+      "x": 161,
+      "y": 81,
+      "w": 26,
+      "h": 47,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_015",
+      "kind": "object",
+      "x": 225,
+      "y": 81,
+      "w": 26,
+      "h": 47,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_016",
+      "kind": "object",
+      "x": 5,
+      "y": 100,
+      "w": 7,
+      "h": 9,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_017",
+      "kind": "object",
+      "x": 16,
+      "y": 96,
+      "w": 16,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_018",
+      "kind": "object",
+      "x": 69,
+      "y": 100,
+      "w": 7,
+      "h": 9,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_019",
+      "kind": "object",
+      "x": 80,
+      "y": 96,
+      "w": 16,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_020",
+      "kind": "object",
+      "x": 144,
+      "y": 98,
+      "w": 16,
+      "h": 30,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_021",
+      "kind": "object",
+      "x": 208,
+      "y": 98,
+      "w": 16,
+      "h": 30,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_022",
+      "kind": "object",
+      "x": 5,
+      "y": 120,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_023",
+      "kind": "object",
+      "x": 69,
+      "y": 120,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_024",
+      "kind": "object",
+      "x": 133,
+      "y": 120,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "size_02_025",
+      "kind": "object",
+      "x": 197,
+      "y": 120,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
     }
   ]
 }

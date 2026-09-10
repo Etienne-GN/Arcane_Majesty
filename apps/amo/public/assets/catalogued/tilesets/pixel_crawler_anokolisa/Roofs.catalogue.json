@@ -4,17 +4,108 @@
   "sheetHeight": 400,
   "entries": [
     {
-      "name": "roofs",
+      "name": "roofs_000",
       "kind": "object",
       "x": 0,
       "y": 6,
       "w": 256,
-      "h": 285,
+      "h": 89,
       "tags": [
         "pixel_crawler",
-        "anokolisa",
-        "buildings"
-      ]
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "roofs_001",
+      "kind": "object",
+      "x": 0,
+      "y": 80,
+      "w": 128,
+      "h": 164,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "roofs_002",
+      "kind": "object",
+      "x": 144,
+      "y": 80,
+      "w": 96,
+      "h": 159,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "roofs_003",
+      "kind": "object",
+      "x": 117,
+      "y": 186,
+      "w": 11,
+      "h": 47,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "roofs_004",
+      "kind": "object",
+      "x": 3,
+      "y": 256,
+      "w": 43,
+      "h": 6,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "roofs_005",
+      "kind": "object",
+      "x": 4,
+      "y": 272,
+      "w": 12,
+      "h": 14,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "roofs_006",
+      "kind": "object",
+      "x": 16,
+      "y": 272,
+      "w": 16,
+      "h": 19,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
+    },
+    {
+      "name": "roofs_007",
+      "kind": "object",
+      "x": 32,
+      "y": 275,
+      "w": 14,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ],
+      "needsNaming": true
     }
   ]
 }
