@@ -102,6 +102,21 @@ inline this session, not saved to a file; trivial to redo (crop each bbox
 from the sheet, paste into a grid canvas with an index + cell-count label).
 
 ## Progress so far
+- **2026-09-10**: generalized the inline detection snippet into
+  `find_merge_candidates.py` (reusable CLI: sheet name in, candidates JSON +
+  labeled montage PNGs out). Ran it on all 4 atlases: obj_misk 78, base_out
+  44, build 60, terrain 67 merge candidates. Dispatched one Opus judgment
+  subagent per atlas (montages + candidate/entry-index mapping + crop
+  snippet for zooming into anything ambiguous) to decide MERGE / SPLIT /
+  LEAVE per candidate and write a ready-to-apply `merges` JSON — see
+  `/tmp/.../scratchpad/lpc_work/<sheet>_merges.json` +
+  `<sheet>_decisions.md` per atlas (transient, session-scoped; if lost,
+  rerun `find_merge_candidates.py` and re-dispatch using the brief pattern
+  in `<sheet>_brief.md`, also transient — regenerate from this plan's
+  description of the brief contract if both are gone). **Not yet applied to
+  any catalogue** — next step after each agent reports back is: spot-check
+  a sample of its decisions against the montage, then apply via
+  `apply_names.py`'s `merges`, validate, test, commit — one atlas at a time.
 - **obj_misk_atlas.png**: 78 merge candidates computed. Visually reviewed
   candidates #0–#39 (the top half of the montage, largest-area first) —
   **no merge decisions actually applied yet, nothing written to disk**.
@@ -129,12 +144,11 @@ from the sheet, paste into a grid canvas with an index + cell-count label).
   candidates, alongside a LOT of legitimate wall/roof kit tiling that must
   stay per-cell. `terrain_atlas.png` has several standalone trees, moai
   statues, a waterfall, bridges, single boulders — same pattern.
-- **treetop.png / trunk.png**: not started. Needs a real
-  `bootstrap_catalogue.py --grid 96,112` (treetop) / `--grid 96,96` (trunk)
-  rerun with `--force` (the existing single lowConfidence entry per sheet is
-  a stub, not a real bootstrap) — confirmed visually there are 4 real
-  treetop variants (2 round canopies + 2 pine canopies) and (presumably) 2
-  real trunk variants, matching the grid dimensions already recorded.
+- **treetop.png / trunk.png**: DONE (commit `49d28820`). `bootstrap_catalogue.py`'s
+  `--grid` flag turned out to be square-only, so re-bootstrapped directly via
+  `autoslice.grid_cells(mask, 96, 112)` / `(96, 96)`. Confirmed visually: 4
+  treetop variants (`treetop_round_bushy_a/b`, `treetop_pine_a/b`), 2 trunk
+  variants (`tree_trunk_a/b`). Named, validated, tested, committed.
 
 ## Agreed model split for the next phase
 - **Sonnet**: bulk naming dispatches (contact-sheet pages of mostly
