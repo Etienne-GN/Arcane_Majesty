@@ -8,13 +8,64 @@
   "gridRows": 2,
   "entries": [
     {
-      "name": "lpc_tree_top",
+      "name": "treetop_round_bushy_a",
       "kind": "tile",
       "row": 0,
       "col": 0,
       "frameIndex": 0,
-      "tags": ["lpc", "tree", "treetop", "nature"],
-      "lowConfidence": true
+      "tags": [
+        "lpc",
+        "tree",
+        "treetop",
+        "nature",
+        "canopy",
+        "deciduous"
+      ]
+    },
+    {
+      "name": "treetop_round_bushy_b",
+      "kind": "tile",
+      "row": 0,
+      "col": 1,
+      "frameIndex": 1,
+      "tags": [
+        "lpc",
+        "tree",
+        "treetop",
+        "nature",
+        "canopy",
+        "deciduous"
+      ]
+    },
+    {
+      "name": "treetop_pine_a",
+      "kind": "tile",
+      "row": 1,
+      "col": 0,
+      "frameIndex": 2,
+      "tags": [
+        "lpc",
+        "tree",
+        "treetop",
+        "nature",
+        "canopy",
+        "conifer"
+      ]
+    },
+    {
+      "name": "treetop_pine_b",
+      "kind": "tile",
+      "row": 1,
+      "col": 1,
+      "frameIndex": 3,
+      "tags": [
+        "lpc",
+        "tree",
+        "treetop",
+        "nature",
+        "canopy",
+        "conifer"
+      ]
     }
   ]
 }

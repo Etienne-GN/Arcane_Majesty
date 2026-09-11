@@ -8,13 +8,30 @@
   "gridRows": 1,
   "entries": [
     {
-      "name": "lpc_tree_trunk",
+      "name": "tree_trunk_a",
       "kind": "tile",
       "row": 0,
       "col": 0,
       "frameIndex": 0,
-      "tags": ["lpc", "tree", "trunk", "nature"],
-      "lowConfidence": true
+      "tags": [
+        "lpc",
+        "tree",
+        "trunk",
+        "nature"
+      ]
+    },
+    {
+      "name": "tree_trunk_b",
+      "kind": "tile",
+      "row": 0,
+      "col": 1,
+      "frameIndex": 1,
+      "tags": [
+        "lpc",
+        "tree",
+        "trunk",
+        "nature"
+      ]
     }
   ]
 }
