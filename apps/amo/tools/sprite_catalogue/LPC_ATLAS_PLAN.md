@@ -136,7 +136,13 @@ from the sheet, paste into a grid canvas with an index + cell-count label).
     — mostly look like genuine single-object merges (wardrobes, beds,
     bookshelves, curtains) but weren't all individually confirmed.
   - Did not yet review candidates #40–77 (bottom half of montage) at all.
-- **base_out_atlas.png, build_atlas.png, terrain_atlas.png**: not started —
+- **base_out_atlas.png**: DONE (commit `2fd404d7`). 44 candidates ->
+  15 MERGE (17 named objects, 2 candidates split into their real single-cell
+  parts instead) + 27 LEAVE (terrain/kit autotile demo patches, cliff
+  columns, decals). 937 -> 869 entries. One open question carried into the
+  naming pass: candidate #39, a 22x45 red/cream prop of uncertain identity
+  (bed? awning? carpet?) — left needsNaming, revisit with fresh eyes then.
+- **build_atlas.png, terrain_atlas.png**: not started —
   same method needs to run fresh per sheet (island bboxes differ obviously).
   From earlier visual skim (not the candidate script) of `build_atlas.png`:
   expect a torii gate, a large church facade, tents, wagons, carts, hay
