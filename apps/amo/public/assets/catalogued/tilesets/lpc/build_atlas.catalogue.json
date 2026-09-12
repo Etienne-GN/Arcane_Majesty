@@ -4,16 +4,19 @@
   "sheetHeight": 1024,
   "entries": [
     {
-      "name": "build_atlas_r0c0",
-      "kind": "tile",
-      "row": 0,
-      "col": 0,
-      "frameIndex": 0,
+      "name": "paneled_wooden_door",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "building",
+        "door",
+        "wood"
+      ]
     },
     {
       "name": "build_atlas_r0c1",
@@ -28,28 +31,33 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r0c2",
-      "kind": "tile",
-      "row": 0,
-      "col": 2,
-      "frameIndex": 2,
+      "name": "window_lit",
+      "kind": "object",
+      "x": 64,
+      "y": 0,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "building",
+        "window",
+        "lit"
+      ]
     },
     {
-      "name": "build_atlas_r0c3",
-      "kind": "tile",
-      "row": 0,
-      "col": 3,
-      "frameIndex": 3,
+      "name": "window_unlit",
+      "kind": "object",
+      "x": 96,
+      "y": 0,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "building",
+        "window"
+      ]
     },
     {
       "name": "build_atlas_r0c4",
@@ -136,28 +144,19 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r0c11",
-      "kind": "tile",
-      "row": 0,
-      "col": 11,
-      "frameIndex": 11,
+      "name": "windmill",
+      "kind": "object",
+      "x": 352,
+      "y": 0,
+      "w": 96,
+      "h": 96,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r0c12",
-      "kind": "tile",
-      "row": 0,
-      "col": 12,
-      "frameIndex": 12,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "machine",
+        "windmill",
+        "steampunk"
+      ]
     },
     {
       "name": "build_atlas_r0c14",
@@ -268,88 +267,20 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r0c26",
-      "kind": "tile",
-      "row": 0,
-      "col": 26,
-      "frameIndex": 26,
+      "name": "torii_gate_large",
+      "kind": "object",
+      "x": 832,
+      "y": 0,
+      "w": 192,
+      "h": 128,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r0c27",
-      "kind": "tile",
-      "row": 0,
-      "col": 27,
-      "frameIndex": 27,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r0c28",
-      "kind": "tile",
-      "row": 0,
-      "col": 28,
-      "frameIndex": 28,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r0c29",
-      "kind": "tile",
-      "row": 0,
-      "col": 29,
-      "frameIndex": 29,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r0c30",
-      "kind": "tile",
-      "row": 0,
-      "col": 30,
-      "frameIndex": 30,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r0c31",
-      "kind": "tile",
-      "row": 0,
-      "col": 31,
-      "frameIndex": 31,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r1c0",
-      "kind": "tile",
-      "row": 1,
-      "col": 0,
-      "frameIndex": 32,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "structure",
+        "gate",
+        "torii",
+        "shrine"
+      ]
     },
     {
       "name": "build_atlas_r1c1",
@@ -357,30 +288,6 @@
       "row": 1,
       "col": 1,
       "frameIndex": 33,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r1c2",
-      "kind": "tile",
-      "row": 1,
-      "col": 2,
-      "frameIndex": 34,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r1c3",
-      "kind": "tile",
-      "row": 1,
-      "col": 3,
-      "frameIndex": 35,
       "tags": [
         "lpc",
         "atlas"
@@ -465,42 +372,6 @@
       "row": 1,
       "col": 10,
       "frameIndex": 42,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r1c11",
-      "kind": "tile",
-      "row": 1,
-      "col": 11,
-      "frameIndex": 43,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r1c12",
-      "kind": "tile",
-      "row": 1,
-      "col": 12,
-      "frameIndex": 44,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r1c13",
-      "kind": "tile",
-      "row": 1,
-      "col": 13,
-      "frameIndex": 45,
       "tags": [
         "lpc",
         "atlas"
@@ -640,78 +511,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r1c26",
-      "kind": "tile",
-      "row": 1,
-      "col": 26,
-      "frameIndex": 58,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r1c27",
-      "kind": "tile",
-      "row": 1,
-      "col": 27,
-      "frameIndex": 59,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r1c28",
-      "kind": "tile",
-      "row": 1,
-      "col": 28,
-      "frameIndex": 60,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r1c29",
-      "kind": "tile",
-      "row": 1,
-      "col": 29,
-      "frameIndex": 61,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r1c30",
-      "kind": "tile",
-      "row": 1,
-      "col": 30,
-      "frameIndex": 62,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r1c31",
-      "kind": "tile",
-      "row": 1,
-      "col": 31,
-      "frameIndex": 63,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r2c0",
       "kind": "tile",
       "row": 2,
@@ -837,42 +636,6 @@
       "row": 2,
       "col": 10,
       "frameIndex": 74,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r2c11",
-      "kind": "tile",
-      "row": 2,
-      "col": 11,
-      "frameIndex": 75,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r2c12",
-      "kind": "tile",
-      "row": 2,
-      "col": 12,
-      "frameIndex": 76,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r2c13",
-      "kind": "tile",
-      "row": 2,
-      "col": 13,
-      "frameIndex": 77,
       "tags": [
         "lpc",
         "atlas"
@@ -1012,78 +775,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r2c26",
-      "kind": "tile",
-      "row": 2,
-      "col": 26,
-      "frameIndex": 90,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r2c27",
-      "kind": "tile",
-      "row": 2,
-      "col": 27,
-      "frameIndex": 91,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r2c28",
-      "kind": "tile",
-      "row": 2,
-      "col": 28,
-      "frameIndex": 92,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r2c29",
-      "kind": "tile",
-      "row": 2,
-      "col": 29,
-      "frameIndex": 93,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r2c30",
-      "kind": "tile",
-      "row": 2,
-      "col": 30,
-      "frameIndex": 94,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r2c31",
-      "kind": "tile",
-      "row": 2,
-      "col": 31,
-      "frameIndex": 95,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r3c0",
       "kind": "tile",
       "row": 3,
@@ -1144,16 +835,19 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r3c5",
-      "kind": "tile",
-      "row": 3,
-      "col": 5,
-      "frameIndex": 101,
+      "name": "brick_chimney",
+      "kind": "object",
+      "x": 160,
+      "y": 96,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "building",
+        "chimney",
+        "roof"
+      ]
     },
     {
       "name": "build_atlas_r3c6",
@@ -1216,28 +910,20 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r3c11",
-      "kind": "tile",
-      "row": 3,
-      "col": 11,
-      "frameIndex": 107,
+      "name": "flower_window_box",
+      "kind": "object",
+      "x": 352,
+      "y": 96,
+      "w": 64,
+      "h": 32,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r3c12",
-      "kind": "tile",
-      "row": 3,
-      "col": 12,
-      "frameIndex": 108,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "prop",
+        "plant",
+        "flower",
+        "decor"
+      ]
     },
     {
       "name": "build_atlas_r3c14",
@@ -1384,78 +1070,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r3c26",
-      "kind": "tile",
-      "row": 3,
-      "col": 26,
-      "frameIndex": 122,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r3c27",
-      "kind": "tile",
-      "row": 3,
-      "col": 27,
-      "frameIndex": 123,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r3c28",
-      "kind": "tile",
-      "row": 3,
-      "col": 28,
-      "frameIndex": 124,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r3c29",
-      "kind": "tile",
-      "row": 3,
-      "col": 29,
-      "frameIndex": 125,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r3c30",
-      "kind": "tile",
-      "row": 3,
-      "col": 30,
-      "frameIndex": 126,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r3c31",
-      "kind": "tile",
-      "row": 3,
-      "col": 31,
-      "frameIndex": 127,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r4c0",
       "kind": "tile",
       "row": 4,
@@ -1516,18 +1130,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r4c5",
-      "kind": "tile",
-      "row": 4,
-      "col": 5,
-      "frameIndex": 133,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r4c6",
       "kind": "tile",
       "row": 4,
@@ -1576,28 +1178,34 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r4c10",
-      "kind": "tile",
-      "row": 4,
-      "col": 10,
-      "frameIndex": 138,
+      "name": "flagpole",
+      "kind": "object",
+      "x": 320,
+      "y": 128,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "prop",
+        "flag",
+        "pole"
+      ]
     },
     {
-      "name": "build_atlas_r4c11",
-      "kind": "tile",
-      "row": 4,
-      "col": 11,
-      "frameIndex": 139,
+      "name": "flagpole_with_banner",
+      "kind": "object",
+      "x": 352,
+      "y": 128,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "prop",
+        "flag",
+        "banner"
+      ]
     },
     {
       "name": "build_atlas_r4c12",
@@ -1660,40 +1268,19 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r4c18",
-      "kind": "tile",
-      "row": 4,
-      "col": 18,
-      "frameIndex": 146,
+      "name": "stone_steps",
+      "kind": "object",
+      "x": 576,
+      "y": 128,
+      "w": 96,
+      "h": 32,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r4c19",
-      "kind": "tile",
-      "row": 4,
-      "col": 19,
-      "frameIndex": 147,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r4c20",
-      "kind": "tile",
-      "row": 4,
-      "col": 20,
-      "frameIndex": 148,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "building",
+        "stairs",
+        "stone"
+      ]
     },
     {
       "name": "build_atlas_r4c21",
@@ -1720,88 +1307,21 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r4c23",
-      "kind": "tile",
-      "row": 4,
-      "col": 23,
-      "frameIndex": 151,
+      "name": "torii_gate_with_benches",
+      "kind": "object",
+      "x": 736,
+      "y": 128,
+      "w": 288,
+      "h": 128,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r4c24",
-      "kind": "tile",
-      "row": 4,
-      "col": 24,
-      "frameIndex": 152,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r4c25",
-      "kind": "tile",
-      "row": 4,
-      "col": 25,
-      "frameIndex": 153,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r4c26",
-      "kind": "tile",
-      "row": 4,
-      "col": 26,
-      "frameIndex": 154,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r4c27",
-      "kind": "tile",
-      "row": 4,
-      "col": 27,
-      "frameIndex": 155,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r4c28",
-      "kind": "tile",
-      "row": 4,
-      "col": 28,
-      "frameIndex": 156,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r4c29",
-      "kind": "tile",
-      "row": 4,
-      "col": 29,
-      "frameIndex": 157,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "shrine",
+        "gate",
+        "torii",
+        "bench",
+        "ensemble"
+      ]
     },
     {
       "name": "build_atlas_r5c0",
@@ -1888,30 +1408,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r5c10",
-      "kind": "tile",
-      "row": 5,
-      "col": 10,
-      "frameIndex": 170,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r5c11",
-      "kind": "tile",
-      "row": 5,
-      "col": 11,
-      "frameIndex": 171,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r5c12",
       "kind": "tile",
       "row": 5,
@@ -1984,52 +1480,19 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r5c18",
-      "kind": "tile",
-      "row": 5,
-      "col": 18,
-      "frameIndex": 178,
+      "name": "latticed_window_panel",
+      "kind": "object",
+      "x": 576,
+      "y": 160,
+      "w": 128,
+      "h": 96,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r5c19",
-      "kind": "tile",
-      "row": 5,
-      "col": 19,
-      "frameIndex": 179,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r5c20",
-      "kind": "tile",
-      "row": 5,
-      "col": 20,
-      "frameIndex": 180,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r5c21",
-      "kind": "tile",
-      "row": 5,
-      "col": 21,
-      "frameIndex": 181,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "building",
+        "window",
+        "facade"
+      ]
     },
     {
       "name": "build_atlas_r5c22",
@@ -2037,102 +1500,6 @@
       "row": 5,
       "col": 22,
       "frameIndex": 182,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r5c24",
-      "kind": "tile",
-      "row": 5,
-      "col": 24,
-      "frameIndex": 184,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r5c25",
-      "kind": "tile",
-      "row": 5,
-      "col": 25,
-      "frameIndex": 185,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r5c26",
-      "kind": "tile",
-      "row": 5,
-      "col": 26,
-      "frameIndex": 186,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r5c27",
-      "kind": "tile",
-      "row": 5,
-      "col": 27,
-      "frameIndex": 187,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r5c28",
-      "kind": "tile",
-      "row": 5,
-      "col": 28,
-      "frameIndex": 188,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r5c29",
-      "kind": "tile",
-      "row": 5,
-      "col": 29,
-      "frameIndex": 189,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r5c30",
-      "kind": "tile",
-      "row": 5,
-      "col": 30,
-      "frameIndex": 190,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r5c31",
-      "kind": "tile",
-      "row": 5,
-      "col": 31,
-      "frameIndex": 191,
       "tags": [
         "lpc",
         "atlas"
@@ -2344,167 +1711,11 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r6c18",
-      "kind": "tile",
-      "row": 6,
-      "col": 18,
-      "frameIndex": 210,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r6c19",
-      "kind": "tile",
-      "row": 6,
-      "col": 19,
-      "frameIndex": 211,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r6c20",
-      "kind": "tile",
-      "row": 6,
-      "col": 20,
-      "frameIndex": 212,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r6c21",
-      "kind": "tile",
-      "row": 6,
-      "col": 21,
-      "frameIndex": 213,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r6c22",
       "kind": "tile",
       "row": 6,
       "col": 22,
       "frameIndex": 214,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r6c23",
-      "kind": "tile",
-      "row": 6,
-      "col": 23,
-      "frameIndex": 215,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r6c24",
-      "kind": "tile",
-      "row": 6,
-      "col": 24,
-      "frameIndex": 216,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r6c25",
-      "kind": "tile",
-      "row": 6,
-      "col": 25,
-      "frameIndex": 217,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r6c26",
-      "kind": "tile",
-      "row": 6,
-      "col": 26,
-      "frameIndex": 218,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r6c27",
-      "kind": "tile",
-      "row": 6,
-      "col": 27,
-      "frameIndex": 219,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r6c28",
-      "kind": "tile",
-      "row": 6,
-      "col": 28,
-      "frameIndex": 220,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r6c29",
-      "kind": "tile",
-      "row": 6,
-      "col": 29,
-      "frameIndex": 221,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r6c30",
-      "kind": "tile",
-      "row": 6,
-      "col": 30,
-      "frameIndex": 222,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r6c31",
-      "kind": "tile",
-      "row": 6,
-      "col": 31,
-      "frameIndex": 223,
       "tags": [
         "lpc",
         "atlas"
@@ -2716,167 +1927,11 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r7c18",
-      "kind": "tile",
-      "row": 7,
-      "col": 18,
-      "frameIndex": 242,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r7c19",
-      "kind": "tile",
-      "row": 7,
-      "col": 19,
-      "frameIndex": 243,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r7c20",
-      "kind": "tile",
-      "row": 7,
-      "col": 20,
-      "frameIndex": 244,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r7c21",
-      "kind": "tile",
-      "row": 7,
-      "col": 21,
-      "frameIndex": 245,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r7c22",
       "kind": "tile",
       "row": 7,
       "col": 22,
       "frameIndex": 246,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r7c23",
-      "kind": "tile",
-      "row": 7,
-      "col": 23,
-      "frameIndex": 247,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r7c24",
-      "kind": "tile",
-      "row": 7,
-      "col": 24,
-      "frameIndex": 248,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r7c25",
-      "kind": "tile",
-      "row": 7,
-      "col": 25,
-      "frameIndex": 249,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r7c26",
-      "kind": "tile",
-      "row": 7,
-      "col": 26,
-      "frameIndex": 250,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r7c27",
-      "kind": "tile",
-      "row": 7,
-      "col": 27,
-      "frameIndex": 251,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r7c28",
-      "kind": "tile",
-      "row": 7,
-      "col": 28,
-      "frameIndex": 252,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r7c29",
-      "kind": "tile",
-      "row": 7,
-      "col": 29,
-      "frameIndex": 253,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r7c30",
-      "kind": "tile",
-      "row": 7,
-      "col": 30,
-      "frameIndex": 254,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r7c31",
-      "kind": "tile",
-      "row": 7,
-      "col": 31,
-      "frameIndex": 255,
       "tags": [
         "lpc",
         "atlas"
@@ -3196,52 +2251,49 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r8c27",
-      "kind": "tile",
-      "row": 8,
-      "col": 27,
-      "frameIndex": 283,
+      "name": "guardian_lion_statue",
+      "kind": "object",
+      "x": 864,
+      "y": 256,
+      "w": 64,
+      "h": 96,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "statue",
+        "shrine",
+        "decor"
+      ]
     },
     {
-      "name": "build_atlas_r8c28",
-      "kind": "tile",
-      "row": 8,
-      "col": 28,
-      "frameIndex": 284,
+      "name": "barrel_a",
+      "kind": "object",
+      "x": 928,
+      "y": 256,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "prop",
+        "barrel",
+        "container"
+      ]
     },
     {
-      "name": "build_atlas_r8c29",
-      "kind": "tile",
-      "row": 8,
-      "col": 29,
-      "frameIndex": 285,
+      "name": "barrel_b",
+      "kind": "object",
+      "x": 960,
+      "y": 256,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r8c30",
-      "kind": "tile",
-      "row": 8,
-      "col": 30,
-      "frameIndex": 286,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "prop",
+        "barrel",
+        "container"
+      ]
     },
     {
       "name": "build_atlas_r8c31",
@@ -3328,16 +2380,19 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r9c6",
-      "kind": "tile",
-      "row": 9,
-      "col": 6,
-      "frameIndex": 294,
+      "name": "red_brick_chimney",
+      "kind": "object",
+      "x": 192,
+      "y": 288,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "building",
+        "chimney",
+        "roof"
+      ]
     },
     {
       "name": "build_atlas_r9c7",
@@ -3352,16 +2407,18 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r9c8",
-      "kind": "tile",
-      "row": 9,
-      "col": 8,
-      "frameIndex": 296,
+      "name": "paned_window",
+      "kind": "object",
+      "x": 256,
+      "y": 288,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "building",
+        "window"
+      ]
     },
     {
       "name": "build_atlas_r9c9",
@@ -3412,40 +2469,19 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r9c13",
-      "kind": "tile",
-      "row": 9,
-      "col": 13,
-      "frameIndex": 301,
+      "name": "front_steps",
+      "kind": "object",
+      "x": 416,
+      "y": 288,
+      "w": 96,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r9c14",
-      "kind": "tile",
-      "row": 9,
-      "col": 14,
-      "frameIndex": 302,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r9c15",
-      "kind": "tile",
-      "row": 9,
-      "col": 15,
-      "frameIndex": 303,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "building",
+        "stairs",
+        "stone"
+      ]
     },
     {
       "name": "build_atlas_r9c16",
@@ -3556,54 +2592,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r9c27",
-      "kind": "tile",
-      "row": 9,
-      "col": 27,
-      "frameIndex": 315,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r9c28",
-      "kind": "tile",
-      "row": 9,
-      "col": 28,
-      "frameIndex": 316,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r9c29",
-      "kind": "tile",
-      "row": 9,
-      "col": 29,
-      "frameIndex": 317,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r9c30",
-      "kind": "tile",
-      "row": 9,
-      "col": 30,
-      "frameIndex": 318,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r9c31",
       "kind": "tile",
       "row": 9,
@@ -3688,30 +2676,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r10c6",
-      "kind": "tile",
-      "row": 10,
-      "col": 6,
-      "frameIndex": 326,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r10c8",
-      "kind": "tile",
-      "row": 10,
-      "col": 8,
-      "frameIndex": 328,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r10c9",
       "kind": "tile",
       "row": 10,
@@ -3753,42 +2717,6 @@
       "row": 10,
       "col": 12,
       "frameIndex": 332,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r10c13",
-      "kind": "tile",
-      "row": 10,
-      "col": 13,
-      "frameIndex": 333,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r10c14",
-      "kind": "tile",
-      "row": 10,
-      "col": 14,
-      "frameIndex": 334,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r10c15",
-      "kind": "tile",
-      "row": 10,
-      "col": 15,
-      "frameIndex": 335,
       "tags": [
         "lpc",
         "atlas"
@@ -3928,30 +2856,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r10c27",
-      "kind": "tile",
-      "row": 10,
-      "col": 27,
-      "frameIndex": 347,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r10c28",
-      "kind": "tile",
-      "row": 10,
-      "col": 28,
-      "frameIndex": 348,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r10c29",
       "kind": "tile",
       "row": 10,
@@ -4048,28 +2952,19 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r11c7",
-      "kind": "tile",
-      "row": 11,
-      "col": 7,
-      "frameIndex": 359,
+      "name": "stone_portico",
+      "kind": "object",
+      "x": 224,
+      "y": 352,
+      "w": 64,
+      "h": 96,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r11c8",
-      "kind": "tile",
-      "row": 11,
-      "col": 8,
-      "frameIndex": 360,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "building",
+        "column",
+        "portico"
+      ]
     },
     {
       "name": "build_atlas_r11c9",
@@ -4132,40 +3027,34 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r11c14",
-      "kind": "tile",
-      "row": 11,
-      "col": 14,
-      "frameIndex": 366,
+      "name": "stone_chimney",
+      "kind": "object",
+      "x": 448,
+      "y": 352,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "building",
+        "chimney",
+        "roof"
+      ]
     },
     {
-      "name": "build_atlas_r11c15",
-      "kind": "tile",
-      "row": 11,
-      "col": 15,
-      "frameIndex": 367,
+      "name": "columned_balcony",
+      "kind": "object",
+      "x": 480,
+      "y": 352,
+      "w": 64,
+      "h": 96,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r11c16",
-      "kind": "tile",
-      "row": 11,
-      "col": 16,
-      "frameIndex": 368,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "building",
+        "balcony",
+        "column"
+      ]
     },
     {
       "name": "build_atlas_r11c18",
@@ -4420,30 +3309,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r12c7",
-      "kind": "tile",
-      "row": 12,
-      "col": 7,
-      "frameIndex": 391,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r12c8",
-      "kind": "tile",
-      "row": 12,
-      "col": 8,
-      "frameIndex": 392,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r12c9",
       "kind": "tile",
       "row": 12,
@@ -4497,42 +3362,6 @@
       "row": 12,
       "col": 13,
       "frameIndex": 397,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r12c14",
-      "kind": "tile",
-      "row": 12,
-      "col": 14,
-      "frameIndex": 398,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r12c15",
-      "kind": "tile",
-      "row": 12,
-      "col": 15,
-      "frameIndex": 399,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r12c16",
-      "kind": "tile",
-      "row": 12,
-      "col": 16,
-      "frameIndex": 400,
       "tags": [
         "lpc",
         "atlas"
@@ -4792,30 +3621,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r13c7",
-      "kind": "tile",
-      "row": 13,
-      "col": 7,
-      "frameIndex": 423,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r13c8",
-      "kind": "tile",
-      "row": 13,
-      "col": 8,
-      "frameIndex": 424,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r13c9",
       "kind": "tile",
       "row": 13,
@@ -4888,30 +3693,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r13c15",
-      "kind": "tile",
-      "row": 13,
-      "col": 15,
-      "frameIndex": 431,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r13c16",
-      "kind": "tile",
-      "row": 13,
-      "col": 16,
-      "frameIndex": 432,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r13c17",
       "kind": "tile",
       "row": 13,
@@ -4948,16 +3729,19 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r13c20",
-      "kind": "tile",
-      "row": 13,
-      "col": 20,
-      "frameIndex": 436,
+      "name": "red_pillar",
+      "kind": "object",
+      "x": 640,
+      "y": 416,
+      "w": 32,
+      "h": 96,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "building",
+        "pillar",
+        "shrine"
+      ]
     },
     {
       "name": "build_atlas_r13c21",
@@ -5332,18 +4116,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r14c20",
-      "kind": "tile",
-      "row": 14,
-      "col": 20,
-      "frameIndex": 468,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r14c21",
       "kind": "tile",
       "row": 14,
@@ -5704,18 +4476,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r15c20",
-      "kind": "tile",
-      "row": 15,
-      "col": 20,
-      "frameIndex": 500,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r15c21",
       "kind": "tile",
       "row": 15,
@@ -5980,40 +4740,34 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r16c12",
-      "kind": "tile",
-      "row": 16,
-      "col": 12,
-      "frameIndex": 524,
+      "name": "sewer_drain_flow",
+      "kind": "object",
+      "x": 384,
+      "y": 512,
+      "w": 32,
+      "h": 96,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "prop",
+        "drain",
+        "sewer"
+      ]
     },
     {
-      "name": "build_atlas_r16c14",
-      "kind": "tile",
-      "row": 16,
-      "col": 14,
-      "frameIndex": 526,
+      "name": "canvas_tent",
+      "kind": "object",
+      "x": 416,
+      "y": 512,
+      "w": 128,
+      "h": 160,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r16c15",
-      "kind": "tile",
-      "row": 16,
-      "col": 15,
-      "frameIndex": 527,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "structure",
+        "tent",
+        "camp"
+      ]
     },
     {
       "name": "build_atlas_r16c17",
@@ -6064,40 +4818,20 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r16c21",
-      "kind": "tile",
-      "row": 16,
-      "col": 21,
-      "frameIndex": 533,
+      "name": "wrought_iron_arch_gate",
+      "kind": "object",
+      "x": 672,
+      "y": 512,
+      "w": 96,
+      "h": 96,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r16c22",
-      "kind": "tile",
-      "row": 16,
-      "col": 22,
-      "frameIndex": 534,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r16c23",
-      "kind": "tile",
-      "row": 16,
-      "col": 23,
-      "frameIndex": 535,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "structure",
+        "gate",
+        "fence",
+        "iron"
+      ]
     },
     {
       "name": "build_atlas_r16c24",
@@ -6172,16 +4906,19 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r16c30",
-      "kind": "tile",
-      "row": 16,
-      "col": 30,
-      "frameIndex": 542,
+      "name": "wooden_plank_vertical",
+      "kind": "object",
+      "x": 960,
+      "y": 512,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "prop",
+        "lumber",
+        "wood"
+      ]
     },
     {
       "name": "build_atlas_r17c0",
@@ -6328,66 +5065,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r17c12",
-      "kind": "tile",
-      "row": 17,
-      "col": 12,
-      "frameIndex": 556,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r17c13",
-      "kind": "tile",
-      "row": 17,
-      "col": 13,
-      "frameIndex": 557,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r17c14",
-      "kind": "tile",
-      "row": 17,
-      "col": 14,
-      "frameIndex": 558,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r17c15",
-      "kind": "tile",
-      "row": 17,
-      "col": 15,
-      "frameIndex": 559,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r17c16",
-      "kind": "tile",
-      "row": 17,
-      "col": 16,
-      "frameIndex": 560,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r17c17",
       "kind": "tile",
       "row": 17,
@@ -6429,30 +5106,6 @@
       "row": 17,
       "col": 20,
       "frameIndex": 564,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r17c21",
-      "kind": "tile",
-      "row": 17,
-      "col": 21,
-      "frameIndex": 565,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r17c23",
-      "kind": "tile",
-      "row": 17,
-      "col": 23,
-      "frameIndex": 567,
       "tags": [
         "lpc",
         "atlas"
@@ -6525,18 +5178,6 @@
       "row": 17,
       "col": 29,
       "frameIndex": 573,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r17c30",
-      "kind": "tile",
-      "row": 17,
-      "col": 30,
-      "frameIndex": 574,
       "tags": [
         "lpc",
         "atlas"
@@ -6700,66 +5341,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r18c12",
-      "kind": "tile",
-      "row": 18,
-      "col": 12,
-      "frameIndex": 588,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r18c13",
-      "kind": "tile",
-      "row": 18,
-      "col": 13,
-      "frameIndex": 589,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r18c14",
-      "kind": "tile",
-      "row": 18,
-      "col": 14,
-      "frameIndex": 590,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r18c15",
-      "kind": "tile",
-      "row": 18,
-      "col": 15,
-      "frameIndex": 591,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r18c16",
-      "kind": "tile",
-      "row": 18,
-      "col": 16,
-      "frameIndex": 592,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r18c17",
       "kind": "tile",
       "row": 18,
@@ -6801,42 +5382,6 @@
       "row": 18,
       "col": 20,
       "frameIndex": 596,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r18c21",
-      "kind": "tile",
-      "row": 18,
-      "col": 21,
-      "frameIndex": 597,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r18c22",
-      "kind": "tile",
-      "row": 18,
-      "col": 22,
-      "frameIndex": 598,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r18c23",
-      "kind": "tile",
-      "row": 18,
-      "col": 23,
-      "frameIndex": 599,
       "tags": [
         "lpc",
         "atlas"
@@ -7072,54 +5617,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r19c13",
-      "kind": "tile",
-      "row": 19,
-      "col": 13,
-      "frameIndex": 621,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r19c14",
-      "kind": "tile",
-      "row": 19,
-      "col": 14,
-      "frameIndex": 622,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r19c15",
-      "kind": "tile",
-      "row": 19,
-      "col": 15,
-      "frameIndex": 623,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r19c16",
-      "kind": "tile",
-      "row": 19,
-      "col": 16,
-      "frameIndex": 624,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r19c17",
       "kind": "tile",
       "row": 19,
@@ -7180,28 +5677,19 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r19c22",
-      "kind": "tile",
-      "row": 19,
-      "col": 22,
-      "frameIndex": 630,
+      "name": "wooden_cart_a",
+      "kind": "object",
+      "x": 704,
+      "y": 608,
+      "w": 64,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r19c23",
-      "kind": "tile",
-      "row": 19,
-      "col": 23,
-      "frameIndex": 631,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "vehicle",
+        "cart",
+        "wood"
+      ]
     },
     {
       "name": "build_atlas_r19c24",
@@ -7432,76 +5920,19 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r20c11",
-      "kind": "tile",
-      "row": 20,
-      "col": 11,
-      "frameIndex": 651,
+      "name": "hay_pile",
+      "kind": "object",
+      "x": 352,
+      "y": 640,
+      "w": 64,
+      "h": 96,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r20c12",
-      "kind": "tile",
-      "row": 20,
-      "col": 12,
-      "frameIndex": 652,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r20c13",
-      "kind": "tile",
-      "row": 20,
-      "col": 13,
-      "frameIndex": 653,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r20c14",
-      "kind": "tile",
-      "row": 20,
-      "col": 14,
-      "frameIndex": 654,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r20c15",
-      "kind": "tile",
-      "row": 20,
-      "col": 15,
-      "frameIndex": 655,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r20c16",
-      "kind": "tile",
-      "row": 20,
-      "col": 16,
-      "frameIndex": 656,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "prop",
+        "hay",
+        "farm"
+      ]
     },
     {
       "name": "build_atlas_r20c17",
@@ -7557,30 +5988,6 @@
       "row": 20,
       "col": 21,
       "frameIndex": 661,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r20c22",
-      "kind": "tile",
-      "row": 20,
-      "col": 22,
-      "frameIndex": 662,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r20c23",
-      "kind": "tile",
-      "row": 20,
-      "col": 23,
-      "frameIndex": 663,
       "tags": [
         "lpc",
         "atlas"
@@ -7684,16 +6091,19 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r21c0",
-      "kind": "tile",
-      "row": 21,
-      "col": 0,
-      "frameIndex": 672,
+      "name": "riveted_metal_door",
+      "kind": "object",
+      "x": 0,
+      "y": 672,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "building",
+        "door",
+        "metal"
+      ]
     },
     {
       "name": "build_atlas_r21c1",
@@ -7816,30 +6226,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r21c11",
-      "kind": "tile",
-      "row": 21,
-      "col": 11,
-      "frameIndex": 683,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r21c12",
-      "kind": "tile",
-      "row": 21,
-      "col": 12,
-      "frameIndex": 684,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r21c13",
       "kind": "tile",
       "row": 21,
@@ -7900,64 +6286,35 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r21c19",
-      "kind": "tile",
-      "row": 21,
-      "col": 19,
-      "frameIndex": 691,
+      "name": "wooden_cart_b",
+      "kind": "object",
+      "x": 608,
+      "y": 672,
+      "w": 64,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "vehicle",
+        "cart",
+        "wood"
+      ]
     },
     {
-      "name": "build_atlas_r21c20",
-      "kind": "tile",
-      "row": 21,
-      "col": 20,
-      "frameIndex": 692,
+      "name": "hay_cart",
+      "kind": "object",
+      "x": 672,
+      "y": 672,
+      "w": 96,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r21c21",
-      "kind": "tile",
-      "row": 21,
-      "col": 21,
-      "frameIndex": 693,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r21c22",
-      "kind": "tile",
-      "row": 21,
-      "col": 22,
-      "frameIndex": 694,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r21c23",
-      "kind": "tile",
-      "row": 21,
-      "col": 23,
-      "frameIndex": 695,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "vehicle",
+        "cart",
+        "hay",
+        "farm"
+      ]
     },
     {
       "name": "build_atlas_r21c24",
@@ -8049,18 +6406,6 @@
       "row": 21,
       "col": 31,
       "frameIndex": 703,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r22c0",
-      "kind": "tile",
-      "row": 22,
-      "col": 0,
-      "frameIndex": 704,
       "tags": [
         "lpc",
         "atlas"
@@ -8188,30 +6533,6 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r22c11",
-      "kind": "tile",
-      "row": 22,
-      "col": 11,
-      "frameIndex": 715,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r22c12",
-      "kind": "tile",
-      "row": 22,
-      "col": 12,
-      "frameIndex": 716,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "build_atlas_r22c13",
       "kind": "tile",
       "row": 22,
@@ -8253,66 +6574,6 @@
       "row": 22,
       "col": 17,
       "frameIndex": 721,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r22c19",
-      "kind": "tile",
-      "row": 22,
-      "col": 19,
-      "frameIndex": 723,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r22c20",
-      "kind": "tile",
-      "row": 22,
-      "col": 20,
-      "frameIndex": 724,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r22c21",
-      "kind": "tile",
-      "row": 22,
-      "col": 21,
-      "frameIndex": 725,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r22c22",
-      "kind": "tile",
-      "row": 22,
-      "col": 22,
-      "frameIndex": 726,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r22c23",
-      "kind": "tile",
-      "row": 22,
-      "col": 23,
-      "frameIndex": 727,
       "tags": [
         "lpc",
         "atlas"
@@ -8380,40 +6641,34 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r22c29",
-      "kind": "tile",
-      "row": 22,
-      "col": 29,
-      "frameIndex": 733,
+      "name": "lit_torch",
+      "kind": "object",
+      "x": 928,
+      "y": 704,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "prop",
+        "light",
+        "torch"
+      ]
     },
     {
-      "name": "build_atlas_r22c30",
-      "kind": "tile",
-      "row": 22,
-      "col": 30,
-      "frameIndex": 734,
+      "name": "tall_candle_stand",
+      "kind": "object",
+      "x": 960,
+      "y": 704,
+      "w": 64,
+      "h": 96,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r22c31",
-      "kind": "tile",
-      "row": 22,
-      "col": 31,
-      "frameIndex": 735,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "prop",
+        "light",
+        "candle"
+      ]
     },
     {
       "name": "build_atlas_r23c3",
@@ -8649,42 +6904,6 @@
       "row": 23,
       "col": 26,
       "frameIndex": 762,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r23c29",
-      "kind": "tile",
-      "row": 23,
-      "col": 29,
-      "frameIndex": 765,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r23c30",
-      "kind": "tile",
-      "row": 23,
-      "col": 30,
-      "frameIndex": 766,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r23c31",
-      "kind": "tile",
-      "row": 23,
-      "col": 31,
-      "frameIndex": 767,
       "tags": [
         "lpc",
         "atlas"
@@ -9021,30 +7240,6 @@
       "row": 24,
       "col": 29,
       "frameIndex": 797,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r24c30",
-      "kind": "tile",
-      "row": 24,
-      "col": 30,
-      "frameIndex": 798,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r24c31",
-      "kind": "tile",
-      "row": 24,
-      "col": 31,
-      "frameIndex": 799,
       "tags": [
         "lpc",
         "atlas"
