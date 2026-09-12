@@ -142,7 +142,22 @@ from the sheet, paste into a grid canvas with an index + cell-count label).
   columns, decals). 937 -> 869 entries. One open question carried into the
   naming pass: candidate #39, a 22x45 red/cream prop of uncertain identity
   (bed? awning? carpet?) — left needsNaming, revisit with fresh eyes then.
-- **build_atlas.png, terrain_atlas.png**: not started —
+- **terrain_atlas.png**: DONE (commit `a7be6be6`). 67 candidates -> 34
+  MERGE (36 named objects, 2 candidates split into their real parts) + 31
+  LEAVE (autotile fills, cliff-kit columns, decal rows). 1012 -> 894
+  entries. One open question: candidate #66 (grey ringed disc over green
+  strands) — identity genuinely unclear, left needsNaming.
+- **build_atlas.png**: DONE (commit `5e7fb687`). 60 candidates -> 28 MERGE
+  (33 named objects) + 7 SPLIT (all resolved into either a named sub-object
+  or left per-cell) + 25 LEAVE (fence/wall/pipe/roof kit tiling). 965 -> 806
+  entries. One correction made after the agent's own pass: its biggest
+  candidate ("torii_gate_winged", 33 cells) was actually a plain torii gate
+  flanked by two separate benches sharing a cast shadow — renamed to
+  `torii_gate_with_benches` rather than split (gate pillar and bench art
+  overlap within shared grid cells, no clean partition at whole-cell
+  granularity). Lesson for the full-naming pass: always render a
+  column/row-labeled grid crop before trusting a "this reads as one
+  ensemble" call on anything odd-shaped.
   same method needs to run fresh per sheet (island bboxes differ obviously).
   From earlier visual skim (not the candidate script) of `build_atlas.png`:
   expect a torii gate, a large church facade, tents, wagons, carts, hay
