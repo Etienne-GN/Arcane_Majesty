@@ -216,10 +216,23 @@ judgment in progress as of this writing). Naming pipeline per atlas:
    autotile-adjacency correctness, anything that reads as a missed merge)
    before calling the whole project done.
 
-Progress on this phase: base_out_atlas bands 00-03 and 04-07 dispatched to
-Sonnet naming subagents; bands/contact-sheets pre-generated for
-terrain_atlas and build_atlas too (not yet dispatched). obj_misk_atlas
-naming can't start until its merge pass lands.
+Progress on this phase: base_out_atlas rows 0-3 and 4-7 named and
+committed (239/937 entries). In flight: base_out rows 8-11, terrain rows
+0-3, build rows 0-3 (all Sonnet); obj_misk_atlas merge judgment still
+running (2 prior attempts hit an Opus rate limit before producing output,
+3rd attempt in flight as of this note).
+
+**Lesson learned, watch for it on every band**: cross-band name collisions
+happen even with the avoid-list, because a subagent can independently
+invent the same family name for a *visually different* texture two rows
+away (e.g. two unrelated reddish-dirt colorways both called
+`rocky_ground_fill_*`). `apply_names.py` catches it (refuses the whole
+batch), but the fix requires a quick visual compare of both colliding
+groups before renaming the new one — don't assume the newer batch is
+simply "the same thing, dedupe it", check that they're actually the same
+texture first (in the one case hit so far, they weren't — sienna dirt vs.
+red dirt vs. rust rock were three distinct textures that just got named
+too similarly).
 
 ## Suggested next steps (in order)
 1. Finish the merge-candidate review for `obj_misk_atlas.png` (candidates
