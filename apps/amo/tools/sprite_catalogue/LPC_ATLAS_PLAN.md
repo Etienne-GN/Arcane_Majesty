@@ -117,25 +117,13 @@ from the sheet, paste into a grid canvas with an index + cell-count label).
   any catalogue** — next step after each agent reports back is: spot-check
   a sample of its decisions against the montage, then apply via
   `apply_names.py`'s `merges`, validate, test, commit — one atlas at a time.
-- **obj_misk_atlas.png**: 78 merge candidates computed. Visually reviewed
-  candidates #0–#39 (the top half of the montage, largest-area first) —
-  **no merge decisions actually applied yet, nothing written to disk**.
-  Observations from that partial look:
-  - #0 (17x11), #1 (11x9), #2 (8x12 approx — a boat scene), #4 (7x9) are
-    large architectural/scene blobs — need individual judgement, likely
-    NOT single merges (probably several distinct objects touching, e.g.
-    the boat photo (#2) looks like it could be 1 object; #0/#1 look like
-    they might be roof/gazebo *kit* pieces, not one rigid object — unclear,
-    look closer before deciding).
-  - #6, #7 (3x7, 4x7) — the two cherry blossom trees, confirmed genuine
-    multi-cell rigid objects, should merge.
-  - #16, #17 (rowboats) — genuine objects, should merge.
-  - #18 (bare tree, 4x2) — genuine object, should merge.
-  - #21, #32 (tombstones) — genuine objects, should merge.
-  - Furniture pieces (#9, #13, #14, #22, #23, #25, #26, #29, #30, #31, etc.)
-    — mostly look like genuine single-object merges (wardrobes, beds,
-    bookshelves, curtains) but weren't all individually confirmed.
-  - Did not yet review candidates #40–77 (bottom half of montage) at all.
+- **obj_misk_atlas.png**: DONE (commit `fbb56a40`). All 78 candidates
+  judged: 44 MERGE + 13 SPLIT (9 yielding named sub-objects) + 21 LEAVE.
+  984 -> 784 entries. One correction to this plan's own earlier note above:
+  the two cherry blossom trees are NOT clean single objects — each
+  candidate is two pixel-identical stacked copies of the same tree; only
+  the complete lower copy (with root flare) was named, the rootless
+  duplicate above it was left unmerged rather than named misleadingly.
 - **base_out_atlas.png**: DONE (commit `2fd404d7`). 44 candidates ->
   15 MERGE (17 named objects, 2 candidates split into their real single-cell
   parts instead) + 27 LEAVE (terrain/kit autotile demo patches, cliff
@@ -217,10 +205,15 @@ judgment in progress as of this writing). Naming pipeline per atlas:
    before calling the whole project done.
 
 Progress on this phase: base_out_atlas rows 0-3 and 4-7 named and
-committed (239/937 entries). In flight: base_out rows 8-11, terrain rows
-0-3, build rows 0-3 (all Sonnet); obj_misk_atlas merge judgment still
-running (2 prior attempts hit an Opus rate limit before producing output,
-3rd attempt in flight as of this note).
+committed (239/937 entries). All 4 atlases now have their merge pass
+complete (base_out `2fd404d7`, terrain `a7be6be6`, build `5e7fb687`,
+obj_misk `fbb56a40`). In flight: base_out rows 8-11, terrain rows 0-3,
+build rows 0-3, obj_misk rows 0-3 (all Sonnet — each atlas's first/next
+naming band, running in parallel). Sonnet dispatches have also hit rate
+limits mid-task a few times (same pattern as the Opus merge-judgment
+dispatches) — just re-dispatch fresh with the same brief once the reset
+time passes; no partial output has survived any of these failures so far,
+always check before assuming there's something to resume.
 
 **Lesson learned, watch for it on every band**: cross-band name collisions
 happen even with the avoid-list, because a subagent can independently
