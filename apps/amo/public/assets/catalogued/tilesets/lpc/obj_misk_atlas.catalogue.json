@@ -4,7 +4,7 @@
   "sheetHeight": 1024,
   "entries": [
     {
-      "name": "obj_misk_atlas_r0c0",
+      "name": "creature_shadow_a01",
       "kind": "tile",
       "row": 0,
       "col": 0,
@@ -12,11 +12,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c1",
+      "name": "creature_shadow_a02",
       "kind": "tile",
       "row": 0,
       "col": 1,
@@ -24,11 +23,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c2",
+      "name": "creature_shadow_a03",
       "kind": "tile",
       "row": 0,
       "col": 2,
@@ -36,11 +34,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c3",
+      "name": "creature_shadow_a04",
       "kind": "tile",
       "row": 0,
       "col": 3,
@@ -48,11 +45,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c4",
+      "name": "creature_shadow_a05",
       "kind": "tile",
       "row": 0,
       "col": 4,
@@ -60,11 +56,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c5",
+      "name": "creature_shadow_a06",
       "kind": "tile",
       "row": 0,
       "col": 5,
@@ -72,11 +67,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c6",
+      "name": "creature_shadow_a07",
       "kind": "tile",
       "row": 0,
       "col": 6,
@@ -84,11 +78,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c7",
+      "name": "creature_shadow_a08",
       "kind": "tile",
       "row": 0,
       "col": 7,
@@ -96,11 +89,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c8",
+      "name": "creature_shadow_a09",
       "kind": "tile",
       "row": 0,
       "col": 8,
@@ -108,11 +100,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c9",
+      "name": "creature_shadow_a10",
       "kind": "tile",
       "row": 0,
       "col": 9,
@@ -120,11 +111,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c10",
+      "name": "creature_shadow_a11",
       "kind": "tile",
       "row": 0,
       "col": 10,
@@ -132,11 +122,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c11",
+      "name": "creature_shadow_a12",
       "kind": "tile",
       "row": 0,
       "col": 11,
@@ -144,11 +133,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c12",
+      "name": "creature_shadow_a13",
       "kind": "tile",
       "row": 0,
       "col": 12,
@@ -156,11 +144,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c13",
+      "name": "creature_shadow_a14",
       "kind": "tile",
       "row": 0,
       "col": 13,
@@ -168,11 +155,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c14",
+      "name": "creature_shadow_a15",
       "kind": "tile",
       "row": 0,
       "col": 14,
@@ -180,11 +166,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c15",
+      "name": "creature_shadow_a16",
       "kind": "tile",
       "row": 0,
       "col": 15,
@@ -192,11 +177,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "bare_tree_a",
+      "name": "creature_shadow_a17",
       "kind": "object",
       "x": 512,
       "y": 0,
@@ -210,7 +194,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r0c19",
+      "name": "lemon",
       "kind": "tile",
       "row": 0,
       "col": 19,
@@ -218,11 +202,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c20",
+      "name": "lime",
       "kind": "tile",
       "row": 0,
       "col": 20,
@@ -230,11 +213,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c21",
+      "name": "carrot",
       "kind": "tile",
       "row": 0,
       "col": 21,
@@ -242,11 +224,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c22",
+      "name": "pea_pod",
       "kind": "tile",
       "row": 0,
       "col": 22,
@@ -254,11 +235,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c23",
+      "name": "shop_awning_cream_a",
       "kind": "tile",
       "row": 0,
       "col": 23,
@@ -266,11 +246,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c24",
+      "name": "shop_awning_cream_b",
       "kind": "tile",
       "row": 0,
       "col": 24,
@@ -278,11 +257,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c25",
+      "name": "shop_awning_cream_c",
       "kind": "tile",
       "row": 0,
       "col": 25,
@@ -290,11 +268,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c26",
+      "name": "stall_post_cream_a",
       "kind": "tile",
       "row": 0,
       "col": 26,
@@ -302,11 +279,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c27",
+      "name": "stall_post_cream_b",
       "kind": "tile",
       "row": 0,
       "col": 27,
@@ -314,8 +290,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "obj_misk_atlas_r0c28",
@@ -330,7 +305,7 @@
       "needsNaming": true
     },
     {
-      "name": "obj_misk_atlas_r0c29",
+      "name": "stall_post_cream_c",
       "kind": "tile",
       "row": 0,
       "col": 29,
@@ -338,11 +313,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c30",
+      "name": "shop_awning_cream_d",
       "kind": "tile",
       "row": 0,
       "col": 30,
@@ -350,11 +324,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r0c31",
+      "name": "stall_post_cream_d",
       "kind": "tile",
       "row": 0,
       "col": 31,
@@ -362,11 +335,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c0",
+      "name": "creature_shadow_b01",
       "kind": "tile",
       "row": 1,
       "col": 0,
@@ -374,11 +346,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c1",
+      "name": "creature_shadow_b02",
       "kind": "tile",
       "row": 1,
       "col": 1,
@@ -386,11 +357,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c2",
+      "name": "creature_shadow_b03",
       "kind": "tile",
       "row": 1,
       "col": 2,
@@ -398,11 +368,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c3",
+      "name": "creature_shadow_b04",
       "kind": "tile",
       "row": 1,
       "col": 3,
@@ -410,11 +379,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c4",
+      "name": "creature_shadow_b05",
       "kind": "tile",
       "row": 1,
       "col": 4,
@@ -422,11 +390,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c5",
+      "name": "creature_shadow_b06",
       "kind": "tile",
       "row": 1,
       "col": 5,
@@ -434,11 +401,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c6",
+      "name": "creature_shadow_b07",
       "kind": "tile",
       "row": 1,
       "col": 6,
@@ -446,11 +412,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c7",
+      "name": "creature_shadow_b08",
       "kind": "tile",
       "row": 1,
       "col": 7,
@@ -458,11 +423,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c8",
+      "name": "creature_shadow_b09",
       "kind": "tile",
       "row": 1,
       "col": 8,
@@ -470,11 +434,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c9",
+      "name": "creature_shadow_b10",
       "kind": "tile",
       "row": 1,
       "col": 9,
@@ -482,11 +445,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c10",
+      "name": "creature_shadow_b11",
       "kind": "tile",
       "row": 1,
       "col": 10,
@@ -494,11 +456,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c11",
+      "name": "creature_shadow_b12",
       "kind": "tile",
       "row": 1,
       "col": 11,
@@ -506,11 +467,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c12",
+      "name": "creature_shadow_b13",
       "kind": "tile",
       "row": 1,
       "col": 12,
@@ -518,11 +478,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c13",
+      "name": "creature_shadow_b14",
       "kind": "tile",
       "row": 1,
       "col": 13,
@@ -530,11 +489,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c14",
+      "name": "creature_shadow_b15",
       "kind": "tile",
       "row": 1,
       "col": 14,
@@ -542,11 +500,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c15",
+      "name": "creature_shadow_b16",
       "kind": "tile",
       "row": 1,
       "col": 15,
@@ -554,11 +511,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c19",
+      "name": "cauliflower_head",
       "kind": "tile",
       "row": 1,
       "col": 19,
@@ -566,11 +522,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c20",
+      "name": "eggplant",
       "kind": "tile",
       "row": 1,
       "col": 20,
@@ -578,11 +533,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c21",
+      "name": "radish",
       "kind": "tile",
       "row": 1,
       "col": 21,
@@ -590,11 +544,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c22",
+      "name": "corn_ear",
       "kind": "tile",
       "row": 1,
       "col": 22,
@@ -602,11 +555,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c23",
+      "name": "window_pane_grid_cream_a",
       "kind": "tile",
       "row": 1,
       "col": 23,
@@ -614,11 +566,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c24",
+      "name": "window_pane_grid_cream_b",
       "kind": "tile",
       "row": 1,
       "col": 24,
@@ -626,11 +577,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c25",
+      "name": "window_pane_grid_cream_c",
       "kind": "tile",
       "row": 1,
       "col": 25,
@@ -638,11 +588,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c26",
+      "name": "shop_awning_slice_cream_a",
       "kind": "tile",
       "row": 1,
       "col": 26,
@@ -650,11 +599,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c27",
+      "name": "shop_awning_slice_cream_b",
       "kind": "tile",
       "row": 1,
       "col": 27,
@@ -662,11 +610,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c28",
+      "name": "shop_awning_slice_cream_c",
       "kind": "tile",
       "row": 1,
       "col": 28,
@@ -674,11 +621,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c29",
+      "name": "shop_awning_slice_cream_d",
       "kind": "tile",
       "row": 1,
       "col": 29,
@@ -686,11 +632,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c30",
+      "name": "window_pane_grid_cream_d",
       "kind": "tile",
       "row": 1,
       "col": 30,
@@ -698,11 +643,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r1c31",
+      "name": "window_pane_grid_cream_corner_a",
       "kind": "tile",
       "row": 1,
       "col": 31,
@@ -710,11 +654,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c0",
+      "name": "creature_shadow_c01",
       "kind": "tile",
       "row": 2,
       "col": 0,
@@ -722,11 +665,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c1",
+      "name": "creature_shadow_c02",
       "kind": "tile",
       "row": 2,
       "col": 1,
@@ -734,11 +676,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c2",
+      "name": "creature_shadow_c03",
       "kind": "tile",
       "row": 2,
       "col": 2,
@@ -746,11 +687,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c3",
+      "name": "creature_shadow_c04",
       "kind": "tile",
       "row": 2,
       "col": 3,
@@ -758,11 +698,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c4",
+      "name": "creature_shadow_c05",
       "kind": "tile",
       "row": 2,
       "col": 4,
@@ -770,11 +709,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c5",
+      "name": "creature_shadow_c06",
       "kind": "tile",
       "row": 2,
       "col": 5,
@@ -782,11 +720,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c6",
+      "name": "creature_shadow_c07",
       "kind": "tile",
       "row": 2,
       "col": 6,
@@ -794,11 +731,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c7",
+      "name": "creature_shadow_c08",
       "kind": "tile",
       "row": 2,
       "col": 7,
@@ -806,11 +742,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c8",
+      "name": "creature_shadow_c09",
       "kind": "tile",
       "row": 2,
       "col": 8,
@@ -818,11 +753,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c9",
+      "name": "creature_shadow_c10",
       "kind": "tile",
       "row": 2,
       "col": 9,
@@ -830,11 +764,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c10",
+      "name": "creature_shadow_c11",
       "kind": "tile",
       "row": 2,
       "col": 10,
@@ -842,11 +775,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c11",
+      "name": "creature_shadow_c12",
       "kind": "tile",
       "row": 2,
       "col": 11,
@@ -854,11 +786,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c12",
+      "name": "creature_shadow_c13",
       "kind": "tile",
       "row": 2,
       "col": 12,
@@ -866,11 +797,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c13",
+      "name": "creature_shadow_c14",
       "kind": "tile",
       "row": 2,
       "col": 13,
@@ -878,11 +808,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c14",
+      "name": "creature_shadow_c15",
       "kind": "tile",
       "row": 2,
       "col": 14,
@@ -890,11 +819,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c15",
+      "name": "creature_shadow_c16",
       "kind": "tile",
       "row": 2,
       "col": 15,
@@ -902,11 +830,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c19",
+      "name": "watermelon_whole_a",
       "kind": "tile",
       "row": 2,
       "col": 19,
@@ -914,11 +841,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c20",
+      "name": "parsnip",
       "kind": "tile",
       "row": 2,
       "col": 20,
@@ -926,11 +852,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c21",
+      "name": "cucumber",
       "kind": "tile",
       "row": 2,
       "col": 21,
@@ -938,11 +863,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c22",
+      "name": "cherries_pair",
       "kind": "tile",
       "row": 2,
       "col": 22,
@@ -950,11 +874,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c23",
+      "name": "window_pane_grid_cream_e",
       "kind": "tile",
       "row": 2,
       "col": 23,
@@ -962,11 +885,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c24",
+      "name": "window_pane_grid_cream_f",
       "kind": "tile",
       "row": 2,
       "col": 24,
@@ -974,11 +896,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c25",
+      "name": "window_pane_grid_cream_g",
       "kind": "tile",
       "row": 2,
       "col": 25,
@@ -986,11 +907,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c26",
+      "name": "window_pane_grid_cream_col_a",
       "kind": "tile",
       "row": 2,
       "col": 26,
@@ -998,11 +918,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c27",
+      "name": "window_pane_grid_cream_col_b",
       "kind": "tile",
       "row": 2,
       "col": 27,
@@ -1010,11 +929,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c28",
+      "name": "window_pane_grid_cream_col_c",
       "kind": "tile",
       "row": 2,
       "col": 28,
@@ -1022,11 +940,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c29",
+      "name": "window_pane_grid_cream_col_d",
       "kind": "tile",
       "row": 2,
       "col": 29,
@@ -1034,11 +951,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c30",
+      "name": "window_pane_grid_cream_h",
       "kind": "tile",
       "row": 2,
       "col": 30,
@@ -1046,11 +962,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r2c31",
+      "name": "window_pane_grid_cream_col_e",
       "kind": "tile",
       "row": 2,
       "col": 31,
@@ -1058,11 +973,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c0",
+      "name": "creature_shadow_d01",
       "kind": "tile",
       "row": 3,
       "col": 0,
@@ -1070,11 +984,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c1",
+      "name": "creature_shadow_d02",
       "kind": "tile",
       "row": 3,
       "col": 1,
@@ -1082,11 +995,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c2",
+      "name": "creature_shadow_d03",
       "kind": "tile",
       "row": 3,
       "col": 2,
@@ -1094,11 +1006,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c3",
+      "name": "creature_shadow_d04",
       "kind": "tile",
       "row": 3,
       "col": 3,
@@ -1106,11 +1017,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c4",
+      "name": "creature_shadow_d05",
       "kind": "tile",
       "row": 3,
       "col": 4,
@@ -1118,11 +1028,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c5",
+      "name": "creature_shadow_d06",
       "kind": "tile",
       "row": 3,
       "col": 5,
@@ -1130,11 +1039,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c6",
+      "name": "creature_shadow_d07",
       "kind": "tile",
       "row": 3,
       "col": 6,
@@ -1142,11 +1050,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c7",
+      "name": "creature_shadow_d08",
       "kind": "tile",
       "row": 3,
       "col": 7,
@@ -1154,11 +1061,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c8",
+      "name": "creature_shadow_d09",
       "kind": "tile",
       "row": 3,
       "col": 8,
@@ -1166,11 +1072,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c9",
+      "name": "creature_shadow_d10",
       "kind": "tile",
       "row": 3,
       "col": 9,
@@ -1178,11 +1083,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c10",
+      "name": "creature_shadow_d11",
       "kind": "tile",
       "row": 3,
       "col": 10,
@@ -1190,11 +1094,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c11",
+      "name": "creature_shadow_d12",
       "kind": "tile",
       "row": 3,
       "col": 11,
@@ -1202,11 +1105,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c12",
+      "name": "creature_shadow_d13",
       "kind": "tile",
       "row": 3,
       "col": 12,
@@ -1214,11 +1116,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c13",
+      "name": "creature_shadow_d14",
       "kind": "tile",
       "row": 3,
       "col": 13,
@@ -1226,11 +1127,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c14",
+      "name": "creature_shadow_d15",
       "kind": "tile",
       "row": 3,
       "col": 14,
@@ -1238,11 +1138,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c15",
+      "name": "creature_shadow_d16",
       "kind": "tile",
       "row": 3,
       "col": 15,
@@ -1250,11 +1149,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c16",
+      "name": "tree_trunk_knot",
       "kind": "tile",
       "row": 3,
       "col": 16,
@@ -1262,11 +1160,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c17",
+      "name": "strawberry",
       "kind": "tile",
       "row": 3,
       "col": 17,
@@ -1274,11 +1171,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c18",
+      "name": "apple_red",
       "kind": "tile",
       "row": 3,
       "col": 18,
@@ -1286,11 +1182,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c19",
+      "name": "watermelon_whole_b",
       "kind": "tile",
       "row": 3,
       "col": 19,
@@ -1298,11 +1193,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c20",
+      "name": "orange_fruit",
       "kind": "tile",
       "row": 3,
       "col": 20,
@@ -1310,11 +1204,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c21",
+      "name": "pear",
       "kind": "tile",
       "row": 3,
       "col": 21,
@@ -1322,11 +1215,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c22",
+      "name": "banana",
       "kind": "tile",
       "row": 3,
       "col": 22,
@@ -1334,11 +1226,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c23",
+      "name": "window_pane_grid_cream_row_a",
       "kind": "tile",
       "row": 3,
       "col": 23,
@@ -1346,11 +1237,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c24",
+      "name": "window_pane_grid_cream_row_b",
       "kind": "tile",
       "row": 3,
       "col": 24,
@@ -1358,11 +1248,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c25",
+      "name": "window_pane_grid_cream_row_c",
       "kind": "tile",
       "row": 3,
       "col": 25,
@@ -1370,11 +1259,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c26",
+      "name": "window_pane_grid_cream_col_f",
       "kind": "tile",
       "row": 3,
       "col": 26,
@@ -1382,11 +1270,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c27",
+      "name": "window_pane_grid_cream_col_g",
       "kind": "tile",
       "row": 3,
       "col": 27,
@@ -1394,11 +1281,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c28",
+      "name": "window_pane_grid_cream_col_h",
       "kind": "tile",
       "row": 3,
       "col": 28,
@@ -1406,11 +1292,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c29",
+      "name": "window_pane_grid_cream_col_i",
       "kind": "tile",
       "row": 3,
       "col": 29,
@@ -1418,11 +1303,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c30",
+      "name": "window_pane_grid_cream_row_d",
       "kind": "tile",
       "row": 3,
       "col": 30,
@@ -1430,11 +1314,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r3c31",
+      "name": "window_pane_grid_cream_corner_b",
       "kind": "tile",
       "row": 3,
       "col": 31,
@@ -1442,8 +1325,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "obj_misk_atlas_r4c0",
