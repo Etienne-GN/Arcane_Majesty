@@ -4,7 +4,7 @@
   "sheetHeight": 1024,
   "entries": [
     {
-      "name": "base_out_atlas_r0c0",
+      "name": "chasm_pit_corner_nw",
       "kind": "tile",
       "row": 0,
       "col": 0,
@@ -12,11 +12,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c1",
+      "name": "chasm_pit_rim_n_a",
       "kind": "tile",
       "row": 0,
       "col": 1,
@@ -24,11 +23,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c2",
+      "name": "chasm_pit_rim_n_b",
       "kind": "tile",
       "row": 0,
       "col": 2,
@@ -36,11 +34,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c3",
+      "name": "chasm_pit_rim_ne_a",
       "kind": "tile",
       "row": 0,
       "col": 3,
@@ -48,11 +45,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c4",
+      "name": "chasm_pit_rim_ne_b",
       "kind": "tile",
       "row": 0,
       "col": 4,
@@ -60,11 +56,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c5",
+      "name": "earth_cliff_top_tip_w",
       "kind": "tile",
       "row": 0,
       "col": 5,
@@ -72,11 +67,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c6",
+      "name": "earth_cliff_top_edge_nw",
       "kind": "tile",
       "row": 0,
       "col": 6,
@@ -84,11 +78,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c7",
+      "name": "earth_cliff_top_edge_ne",
       "kind": "tile",
       "row": 0,
       "col": 7,
@@ -96,11 +89,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c8",
+      "name": "earth_cliff_top_edge_e",
       "kind": "tile",
       "row": 0,
       "col": 8,
@@ -108,11 +100,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c9",
+      "name": "earth_cliff_top_point_e",
       "kind": "tile",
       "row": 0,
       "col": 9,
@@ -120,11 +111,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c10",
+      "name": "earth_cliff_top_wall_edge_e",
       "kind": "tile",
       "row": 0,
       "col": 10,
@@ -132,11 +122,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c11",
+      "name": "earth_cliff_top_tip_ne",
       "kind": "tile",
       "row": 0,
       "col": 11,
@@ -144,11 +133,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c12",
+      "name": "murky_puddle_a",
       "kind": "tile",
       "row": 0,
       "col": 12,
@@ -156,11 +144,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c13",
+      "name": "swamp_pool_fill_a",
       "kind": "tile",
       "row": 0,
       "col": 13,
@@ -168,11 +155,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c14",
+      "name": "swamp_pool_fill_b",
       "kind": "tile",
       "row": 0,
       "col": 14,
@@ -180,11 +166,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c15",
+      "name": "pebble_cluster_tan_a",
       "kind": "tile",
       "row": 0,
       "col": 15,
@@ -192,11 +177,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c16",
+      "name": "cracked_earth_fill_a",
       "kind": "tile",
       "row": 0,
       "col": 16,
@@ -204,11 +188,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c17",
+      "name": "cracked_earth_fill_b",
       "kind": "tile",
       "row": 0,
       "col": 17,
@@ -216,11 +199,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c18",
+      "name": "pebble_cluster_brown_a",
       "kind": "tile",
       "row": 0,
       "col": 18,
@@ -228,11 +210,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c19",
+      "name": "sienna_dirt_fill_a",
       "kind": "tile",
       "row": 0,
       "col": 19,
@@ -240,11 +221,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c20",
+      "name": "sienna_dirt_fill_b",
       "kind": "tile",
       "row": 0,
       "col": 20,
@@ -252,11 +232,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c21",
+      "name": "spiky_bush_a",
       "kind": "tile",
       "row": 0,
       "col": 21,
@@ -264,11 +243,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c22",
+      "name": "grass_patch_corner_ne",
       "kind": "tile",
       "row": 0,
       "col": 22,
@@ -276,11 +254,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c23",
+      "name": "grass_patch_edge_n",
       "kind": "tile",
       "row": 0,
       "col": 23,
@@ -288,11 +265,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c24",
+      "name": "crater_hole_a",
       "kind": "tile",
       "row": 0,
       "col": 24,
@@ -300,11 +276,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c25",
+      "name": "cave_interior_fill_a",
       "kind": "tile",
       "row": 0,
       "col": 25,
@@ -312,11 +287,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c26",
+      "name": "root_arch_peak",
       "kind": "tile",
       "row": 0,
       "col": 26,
@@ -324,11 +298,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c27",
+      "name": "void_shadow_blob_a",
       "kind": "tile",
       "row": 0,
       "col": 27,
@@ -336,11 +309,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c28",
+      "name": "void_shadow_top_w",
       "kind": "tile",
       "row": 0,
       "col": 28,
@@ -348,11 +320,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c29",
+      "name": "void_shadow_top_e",
       "kind": "tile",
       "row": 0,
       "col": 29,
@@ -360,11 +331,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c30",
+      "name": "stone_floor_tile_a",
       "kind": "tile",
       "row": 0,
       "col": 30,
@@ -372,11 +342,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r0c31",
+      "name": "stone_floor_tile_b",
       "kind": "tile",
       "row": 0,
       "col": 31,
@@ -384,11 +353,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c0",
+      "name": "chasm_pit_rim_w",
       "kind": "tile",
       "row": 1,
       "col": 0,
@@ -396,11 +364,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c1",
+      "name": "chasm_pit_interior_dark",
       "kind": "tile",
       "row": 1,
       "col": 1,
@@ -408,11 +375,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c2",
+      "name": "chasm_pit_rim_e",
       "kind": "tile",
       "row": 1,
       "col": 2,
@@ -420,11 +386,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c3",
+      "name": "chasm_pit_wall_nw",
       "kind": "tile",
       "row": 1,
       "col": 3,
@@ -432,11 +397,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c4",
+      "name": "chasm_pit_wall_ne",
       "kind": "tile",
       "row": 1,
       "col": 4,
@@ -444,11 +408,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c5",
+      "name": "earth_cliff_wall_nw",
       "kind": "tile",
       "row": 1,
       "col": 5,
@@ -456,11 +419,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c6",
+      "name": "earth_cliff_top_fill",
       "kind": "tile",
       "row": 1,
       "col": 6,
@@ -468,11 +430,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c7",
+      "name": "earth_cliff_top_fill_edge_e",
       "kind": "tile",
       "row": 1,
       "col": 7,
@@ -480,11 +441,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c8",
+      "name": "earth_cliff_top_wall_transition_e",
       "kind": "tile",
       "row": 1,
       "col": 8,
@@ -492,11 +452,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c9",
+      "name": "earth_cliff_wall_face_w",
       "kind": "tile",
       "row": 1,
       "col": 9,
@@ -504,11 +463,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c10",
+      "name": "earth_cliff_wall_taper_e",
       "kind": "tile",
       "row": 1,
       "col": 10,
@@ -516,11 +474,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c11",
+      "name": "earth_cliff_wall_tip_e",
       "kind": "tile",
       "row": 1,
       "col": 11,
@@ -528,11 +485,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c12",
+      "name": "murky_puddle_b",
       "kind": "tile",
       "row": 1,
       "col": 12,
@@ -540,11 +496,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c13",
+      "name": "swamp_pool_ripple_a",
       "kind": "tile",
       "row": 1,
       "col": 13,
@@ -552,11 +507,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c14",
+      "name": "swamp_pool_ripple_b",
       "kind": "tile",
       "row": 1,
       "col": 14,
@@ -564,11 +518,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c15",
+      "name": "pebble_cluster_tan_b",
       "kind": "tile",
       "row": 1,
       "col": 15,
@@ -576,11 +529,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c16",
+      "name": "cracked_earth_fill_c",
       "kind": "tile",
       "row": 1,
       "col": 16,
@@ -588,11 +540,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c17",
+      "name": "cracked_earth_fill_d",
       "kind": "tile",
       "row": 1,
       "col": 17,
@@ -600,11 +551,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c18",
+      "name": "pebble_cluster_brown_b",
       "kind": "tile",
       "row": 1,
       "col": 18,
@@ -612,11 +562,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c19",
+      "name": "sienna_dirt_fill_c",
       "kind": "tile",
       "row": 1,
       "col": 19,
@@ -624,11 +573,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c20",
+      "name": "sienna_dirt_fill_d",
       "kind": "tile",
       "row": 1,
       "col": 20,
@@ -636,11 +584,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c21",
+      "name": "spiky_bush_b",
       "kind": "tile",
       "row": 1,
       "col": 21,
@@ -648,11 +595,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c22",
+      "name": "grass_patch_edge_w",
       "kind": "tile",
       "row": 1,
       "col": 22,
@@ -660,11 +606,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c23",
+      "name": "grass_patch_corner_sw",
       "kind": "tile",
       "row": 1,
       "col": 23,
@@ -672,11 +617,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c24",
+      "name": "crater_hole_b",
       "kind": "tile",
       "row": 1,
       "col": 24,
@@ -684,11 +628,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c25",
+      "name": "root_arch_dangling_w",
       "kind": "tile",
       "row": 1,
       "col": 25,
@@ -696,11 +639,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c26",
+      "name": "root_arch_dangling_e",
       "kind": "tile",
       "row": 1,
       "col": 26,
@@ -708,11 +650,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c27",
+      "name": "void_shadow_blob_b",
       "kind": "tile",
       "row": 1,
       "col": 27,
@@ -720,11 +661,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c28",
+      "name": "void_shadow_upper_w",
       "kind": "tile",
       "row": 1,
       "col": 28,
@@ -732,11 +672,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c29",
+      "name": "void_shadow_upper_e",
       "kind": "tile",
       "row": 1,
       "col": 29,
@@ -744,11 +683,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c30",
+      "name": "stone_floor_tile_c",
       "kind": "tile",
       "row": 1,
       "col": 30,
@@ -756,11 +694,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r1c31",
+      "name": "stone_floor_tile_d",
       "kind": "tile",
       "row": 1,
       "col": 31,
@@ -768,11 +705,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c0",
+      "name": "chasm_pit_rim_s_w",
       "kind": "tile",
       "row": 2,
       "col": 0,
@@ -780,11 +716,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c1",
+      "name": "chasm_pit_rim_s_center",
       "kind": "tile",
       "row": 2,
       "col": 1,
@@ -792,11 +727,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c2",
+      "name": "chasm_pit_rim_s_e",
       "kind": "tile",
       "row": 2,
       "col": 2,
@@ -804,11 +738,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c3",
+      "name": "chasm_pit_wall_notch_w",
       "kind": "tile",
       "row": 2,
       "col": 3,
@@ -816,11 +749,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c4",
+      "name": "chasm_pit_wall_notch_e",
       "kind": "tile",
       "row": 2,
       "col": 4,
@@ -828,11 +760,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c5",
+      "name": "earth_cliff_wall_upper_w",
       "kind": "tile",
       "row": 2,
       "col": 5,
@@ -840,11 +771,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c6",
+      "name": "earth_cliff_wall_lip_center",
       "kind": "tile",
       "row": 2,
       "col": 6,
@@ -852,11 +782,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c7",
+      "name": "earth_cliff_wall_lip_e",
       "kind": "tile",
       "row": 2,
       "col": 7,
@@ -864,11 +793,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c8",
+      "name": "earth_cliff_wall_face_e",
       "kind": "tile",
       "row": 2,
       "col": 8,
@@ -876,11 +804,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c9",
+      "name": "earth_cliff_wall_face_wide",
       "kind": "tile",
       "row": 2,
       "col": 9,
@@ -888,11 +815,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c10",
+      "name": "earth_cliff_wall_face_narrow",
       "kind": "tile",
       "row": 2,
       "col": 10,
@@ -900,11 +826,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c11",
+      "name": "earth_cliff_wall_tip_far_e",
       "kind": "tile",
       "row": 2,
       "col": 11,
@@ -912,11 +837,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c12",
+      "name": "swamp_pool_corner_nw",
       "kind": "tile",
       "row": 2,
       "col": 12,
@@ -924,11 +848,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c13",
+      "name": "swamp_pool_edge_n",
       "kind": "tile",
       "row": 2,
       "col": 13,
@@ -936,11 +859,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c14",
+      "name": "swamp_pool_corner_ne",
       "kind": "tile",
       "row": 2,
       "col": 14,
@@ -948,11 +870,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c15",
+      "name": "gravel_patch_corner_nw",
       "kind": "tile",
       "row": 2,
       "col": 15,
@@ -960,11 +881,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c16",
+      "name": "gravel_patch_edge_n",
       "kind": "tile",
       "row": 2,
       "col": 16,
@@ -972,11 +892,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c17",
+      "name": "gravel_patch_corner_ne",
       "kind": "tile",
       "row": 2,
       "col": 17,
@@ -984,11 +903,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c18",
+      "name": "rust_patch_corner_nw",
       "kind": "tile",
       "row": 2,
       "col": 18,
@@ -996,11 +914,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c19",
+      "name": "rust_patch_edge_n",
       "kind": "tile",
       "row": 2,
       "col": 19,
@@ -1008,11 +925,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c20",
+      "name": "rust_patch_corner_ne",
       "kind": "tile",
       "row": 2,
       "col": 20,
@@ -1020,11 +936,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c21",
+      "name": "hedge_mound_edge_w",
       "kind": "tile",
       "row": 2,
       "col": 21,
@@ -1032,11 +947,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c22",
+      "name": "hedge_mound_top",
       "kind": "tile",
       "row": 2,
       "col": 22,
@@ -1044,11 +958,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c23",
+      "name": "hedge_mound_edge_e",
       "kind": "tile",
       "row": 2,
       "col": 23,
@@ -1056,8 +969,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "base_out_atlas_r2c24",
@@ -1072,7 +984,7 @@
       "needsNaming": true
     },
     {
-      "name": "base_out_atlas_r2c25",
+      "name": "rubble_mound_peak_w",
       "kind": "tile",
       "row": 2,
       "col": 25,
@@ -1080,11 +992,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c26",
+      "name": "rubble_mound_slope_e",
       "kind": "tile",
       "row": 2,
       "col": 26,
@@ -1092,11 +1003,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c27",
+      "name": "void_shadow_tip_w",
       "kind": "tile",
       "row": 2,
       "col": 27,
@@ -1104,11 +1014,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c28",
+      "name": "void_shadow_mid_w",
       "kind": "tile",
       "row": 2,
       "col": 28,
@@ -1116,11 +1025,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c29",
+      "name": "void_shadow_mid_e",
       "kind": "tile",
       "row": 2,
       "col": 29,
@@ -1128,11 +1036,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c30",
+      "name": "stone_floor_tile_e",
       "kind": "tile",
       "row": 2,
       "col": 30,
@@ -1140,11 +1047,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r2c31",
+      "name": "stone_floor_tile_f",
       "kind": "tile",
       "row": 2,
       "col": 31,
@@ -1152,11 +1058,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c0",
+      "name": "chasm_pit_wall_face_w",
       "kind": "tile",
       "row": 3,
       "col": 0,
@@ -1164,11 +1069,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c1",
+      "name": "chasm_pit_wall_face_center",
       "kind": "tile",
       "row": 3,
       "col": 1,
@@ -1176,11 +1080,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c2",
+      "name": "chasm_pit_wall_face_e",
       "kind": "tile",
       "row": 3,
       "col": 2,
@@ -1188,11 +1091,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c3",
+      "name": "chasm_pit_wall_notch_base_w",
       "kind": "tile",
       "row": 3,
       "col": 3,
@@ -1200,11 +1102,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c4",
+      "name": "chasm_pit_wall_notch_base_e",
       "kind": "tile",
       "row": 3,
       "col": 4,
@@ -1212,11 +1113,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c5",
+      "name": "earth_cliff_wall_base_w",
       "kind": "tile",
       "row": 3,
       "col": 5,
@@ -1224,11 +1124,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c6",
+      "name": "earth_cliff_wall_base_fill",
       "kind": "tile",
       "row": 3,
       "col": 6,
@@ -1236,11 +1135,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c7",
+      "name": "earth_cliff_wall_base_fill_e",
       "kind": "tile",
       "row": 3,
       "col": 7,
@@ -1248,11 +1146,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c8",
+      "name": "earth_cliff_wall_base_edge",
       "kind": "tile",
       "row": 3,
       "col": 8,
@@ -1260,11 +1157,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c9",
+      "name": "earth_cliff_wall_base_taper",
       "kind": "tile",
       "row": 3,
       "col": 9,
@@ -1272,11 +1168,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c10",
+      "name": "earth_cliff_wall_base_sliver",
       "kind": "tile",
       "row": 3,
       "col": 10,
@@ -1284,11 +1179,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c11",
+      "name": "earth_cliff_wall_base_tip",
       "kind": "tile",
       "row": 3,
       "col": 11,
@@ -1296,11 +1190,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c12",
+      "name": "swamp_pool_edge_w",
       "kind": "tile",
       "row": 3,
       "col": 12,
@@ -1308,11 +1201,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c13",
+      "name": "swamp_pool_fill_c",
       "kind": "tile",
       "row": 3,
       "col": 13,
@@ -1320,11 +1212,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c14",
+      "name": "swamp_pool_edge_e",
       "kind": "tile",
       "row": 3,
       "col": 14,
@@ -1332,11 +1223,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c15",
+      "name": "gravel_patch_edge_w",
       "kind": "tile",
       "row": 3,
       "col": 15,
@@ -1344,11 +1234,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c16",
+      "name": "gravel_patch_fill",
       "kind": "tile",
       "row": 3,
       "col": 16,
@@ -1356,11 +1245,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c17",
+      "name": "gravel_patch_edge_e",
       "kind": "tile",
       "row": 3,
       "col": 17,
@@ -1368,11 +1256,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c18",
+      "name": "rust_patch_edge_w",
       "kind": "tile",
       "row": 3,
       "col": 18,
@@ -1380,11 +1267,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c19",
+      "name": "rust_patch_fill",
       "kind": "tile",
       "row": 3,
       "col": 19,
@@ -1392,11 +1278,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c20",
+      "name": "rust_patch_edge_e",
       "kind": "tile",
       "row": 3,
       "col": 20,
@@ -1404,11 +1289,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c21",
+      "name": "hedge_mound_side_w",
       "kind": "tile",
       "row": 3,
       "col": 21,
@@ -1416,11 +1300,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c22",
+      "name": "hedge_mound_fill",
       "kind": "tile",
       "row": 3,
       "col": 22,
@@ -1428,11 +1311,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c23",
+      "name": "hedge_mound_side_e",
       "kind": "tile",
       "row": 3,
       "col": 23,
@@ -1440,11 +1322,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c24",
+      "name": "canyon_wall_edge_w",
       "kind": "tile",
       "row": 3,
       "col": 24,
@@ -1452,11 +1333,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c25",
+      "name": "cave_interior_fill_b",
       "kind": "tile",
       "row": 3,
       "col": 25,
@@ -1464,11 +1344,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c26",
+      "name": "canyon_wall_edge_e",
       "kind": "tile",
       "row": 3,
       "col": 26,
@@ -1476,11 +1355,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c27",
+      "name": "void_shadow_lower_w",
       "kind": "tile",
       "row": 3,
       "col": 27,
@@ -1488,11 +1366,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c28",
+      "name": "void_shadow_base_w",
       "kind": "tile",
       "row": 3,
       "col": 28,
@@ -1500,11 +1377,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c29",
+      "name": "void_shadow_base_e",
       "kind": "tile",
       "row": 3,
       "col": 29,
@@ -1512,11 +1388,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c30",
+      "name": "stone_floor_tile_g",
       "kind": "tile",
       "row": 3,
       "col": 30,
@@ -1524,11 +1399,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r3c31",
+      "name": "stone_floor_tile_h",
       "kind": "tile",
       "row": 3,
       "col": 31,
@@ -1536,8 +1410,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "cliff_rim_corner_small_a",
