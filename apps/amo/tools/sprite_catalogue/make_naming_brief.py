@@ -26,6 +26,13 @@ propose merges or splits.
 ## Naming conventions
 - snake_case, descriptive of what's actually drawn (shape/material/color),
   e.g. `stone_wall_corner_nw`, `wood_crate_small`, `grass_fill_a`.
+- Name only what the pixels actually show — never infer an identity, species,
+  or color the art doesn't render. A translucent gray silhouette with no
+  visible fur/face/color is a `*_shadow_*`, not e.g. `mouse_brown_*`; a plain
+  round blob is `round_blob_a`, not a guessed fruit, if you can't actually
+  tell which fruit. If genuinely torn between two readings, pick the more
+  generic/neutral one rather than the more specific one — a specific wrong
+  guess is a worse mistake than a vague-but-correct name.
 - No biome- or season-specific qualifiers yet (write `grass_fill_a`, not
   `grass_temperate_a` or `grass_summer_a`) — the biome/seasonal-variant plan
   isn't finalized, don't bake in an assumption that would need renaming later.
