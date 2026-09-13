@@ -185,6 +185,42 @@ from the sheet, paste into a grid canvas with an index + cell-count label).
   consistency and autotile-adjacency correctness before considering this
   done.
 
+## Naming-phase workflow (step 4, in progress)
+Merges are done for base_out/terrain/build_atlas (obj_misk_atlas merge
+judgment in progress as of this writing). Naming pipeline per atlas:
+
+1. `python3 tools/sprite_catalogue/contact_sheet.py --catalogue
+   public/assets/catalogued/tilesets/lpc/<sheet>.catalogue.json --out-dir
+   <dir> --grid-atlas --only-unnamed` — one big image, true row/col layout
+   (autotile adjacency preserved), e.g. 3200x3520 for a 1024x1024/32px sheet.
+2. `python3 tools/sprite_catalogue/split_grid_atlas_bands.py --catalogue
+   <same catalogue> --atlas-png <output of step 1> --rows-per-band 4
+   --out-dir <dir>/bands` — crops into full-width row-bands (~80-130
+   `needsNaming` sprites each, legible at this density — checked visually).
+3. `python3 tools/sprite_catalogue/make_naming_brief.py <sheet> <r0> <r1>
+   <band_png> <out_names_json> <comma_separated_avoid_names> <brief_path>`
+   — one brief per band. `avoid_names` = every name already used anywhere
+   else in this sheet so far (apply_names.py rejects the whole batch on any
+   duplicate, old or new) — recompute from the catalogue's already-named
+   entries before generating each new brief, since it grows after every
+   applied band.
+4. Dispatch one **Sonnet** subagent per brief (naming is mechanical —
+   this is the "bulk naming dispatch" role from the agreed model split).
+   Independent bands can dispatch in parallel; apply sequentially per atlas
+   so each next brief's avoid-list is current.
+5. `apply_names.py --catalogue <sheet catalogue> --names <band's output>`,
+   then `npm test`, then commit. One commit per band is fine, or batch a
+   few bands per commit — either way, always test before committing.
+6. After all bands of all 4 atlases are named: an **Opus** QA/spot-check
+   pass over a sample from each atlas for consistency (naming style,
+   autotile-adjacency correctness, anything that reads as a missed merge)
+   before calling the whole project done.
+
+Progress on this phase: base_out_atlas bands 00-03 and 04-07 dispatched to
+Sonnet naming subagents; bands/contact-sheets pre-generated for
+terrain_atlas and build_atlas too (not yet dispatched). obj_misk_atlas
+naming can't start until its merge pass lands.
+
 ## Suggested next steps (in order)
 1. Finish the merge-candidate review for `obj_misk_atlas.png` (candidates
    #40-77 unreviewed), decide merge vs. leave-alone for all 78, apply via
