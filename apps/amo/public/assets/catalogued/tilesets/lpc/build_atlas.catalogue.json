@@ -19,7 +19,7 @@
       ]
     },
     {
-      "name": "build_atlas_r0c1",
+      "name": "brown_wood_plank_double",
       "kind": "tile",
       "row": 0,
       "col": 1,
@@ -27,8 +27,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "window_lit",
@@ -60,7 +59,7 @@
       ]
     },
     {
-      "name": "build_atlas_r0c4",
+      "name": "gold_glint_sparkle",
       "kind": "tile",
       "row": 0,
       "col": 4,
@@ -68,11 +67,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r0c5",
+      "name": "brass_flower_gear",
       "kind": "tile",
       "row": 0,
       "col": 5,
@@ -80,11 +78,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r0c6",
+      "name": "brass_gear_cog",
       "kind": "tile",
       "row": 0,
       "col": 6,
@@ -92,11 +89,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r0c7",
+      "name": "hanging_medallion_finial",
       "kind": "tile",
       "row": 0,
       "col": 7,
@@ -104,11 +100,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r0c8",
+      "name": "gold_chain_horizontal",
       "kind": "tile",
       "row": 0,
       "col": 8,
@@ -116,11 +111,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r0c9",
+      "name": "gold_chain_corner",
       "kind": "tile",
       "row": 0,
       "col": 9,
@@ -128,11 +122,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r0c10",
+      "name": "brass_sunburst_medallion_a",
       "kind": "tile",
       "row": 0,
       "col": 10,
@@ -140,8 +133,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "windmill",
@@ -159,7 +151,7 @@
       ]
     },
     {
-      "name": "build_atlas_r0c14",
+      "name": "gilded_brick_wall_top_post_left",
       "kind": "tile",
       "row": 0,
       "col": 14,
@@ -167,11 +159,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r0c15",
+      "name": "gilded_brick_wall_top_fill",
       "kind": "tile",
       "row": 0,
       "col": 15,
@@ -179,11 +170,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r0c16",
+      "name": "gilded_brick_wall_top_post_right",
       "kind": "tile",
       "row": 0,
       "col": 16,
@@ -191,11 +181,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r0c18",
+      "name": "torii_post_cap_a",
       "kind": "tile",
       "row": 0,
       "col": 18,
@@ -203,11 +192,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r0c21",
+      "name": "torii_post_cap_b",
       "kind": "tile",
       "row": 0,
       "col": 21,
@@ -215,8 +203,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r0c22",
@@ -231,7 +218,7 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r0c23",
+      "name": "diagonal_shadow_fragment_a",
       "kind": "tile",
       "row": 0,
       "col": 23,
@@ -239,11 +226,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r0c24",
+      "name": "dark_alcove_shadow",
       "kind": "tile",
       "row": 0,
       "col": 24,
@@ -251,11 +237,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r0c25",
+      "name": "winged_skull_crest_top",
       "kind": "tile",
       "row": 0,
       "col": 25,
@@ -263,8 +248,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "torii_gate_large",
@@ -283,7 +267,7 @@
       ]
     },
     {
-      "name": "build_atlas_r1c1",
+      "name": "brown_wood_plank_single",
       "kind": "tile",
       "row": 1,
       "col": 1,
@@ -291,11 +275,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c4",
+      "name": "pale_rune_medallion",
       "kind": "tile",
       "row": 1,
       "col": 4,
@@ -303,11 +286,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c5",
+      "name": "dark_rune_medallion_a",
       "kind": "tile",
       "row": 1,
       "col": 5,
@@ -315,11 +297,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c6",
+      "name": "brass_sunburst_medallion_b",
       "kind": "tile",
       "row": 1,
       "col": 6,
@@ -327,11 +308,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c7",
+      "name": "hanging_medallion_sunburst",
       "kind": "tile",
       "row": 1,
       "col": 7,
@@ -339,11 +319,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c8",
+      "name": "dark_rune_medallion_b",
       "kind": "tile",
       "row": 1,
       "col": 8,
@@ -351,11 +330,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c9",
+      "name": "red_gem_shard",
       "kind": "tile",
       "row": 1,
       "col": 9,
@@ -363,11 +341,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c10",
+      "name": "thin_shelf_edge_fragment",
       "kind": "tile",
       "row": 1,
       "col": 10,
@@ -375,11 +352,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c14",
+      "name": "gilded_brick_wall_mid_post_left",
       "kind": "tile",
       "row": 1,
       "col": 14,
@@ -387,11 +363,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c15",
+      "name": "gilded_brick_wall_mid_fill",
       "kind": "tile",
       "row": 1,
       "col": 15,
@@ -399,11 +374,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c16",
+      "name": "gilded_brick_wall_mid_post_right",
       "kind": "tile",
       "row": 1,
       "col": 16,
@@ -411,11 +385,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c18",
+      "name": "torii_post_shaft_upper",
       "kind": "tile",
       "row": 1,
       "col": 18,
@@ -423,8 +396,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r1c19",
@@ -439,7 +411,7 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r1c20",
+      "name": "shrine_plaque_star_top",
       "kind": "tile",
       "row": 1,
       "col": 20,
@@ -447,11 +419,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c21",
+      "name": "torii_post_b_shaft_upper",
       "kind": "tile",
       "row": 1,
       "col": 21,
@@ -459,11 +430,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c22",
+      "name": "tan_wood_panel_vertical_top",
       "kind": "tile",
       "row": 1,
       "col": 22,
@@ -471,11 +441,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c23",
+      "name": "diagonal_shadow_fragment_b",
       "kind": "tile",
       "row": 1,
       "col": 23,
@@ -483,11 +452,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c24",
+      "name": "rune_socket_lit_a",
       "kind": "tile",
       "row": 1,
       "col": 24,
@@ -495,11 +463,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r1c25",
+      "name": "winged_skull_crest_jaw",
       "kind": "tile",
       "row": 1,
       "col": 25,
@@ -507,11 +474,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c0",
+      "name": "stone_wall_top_post_left",
       "kind": "tile",
       "row": 2,
       "col": 0,
@@ -519,11 +485,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c1",
+      "name": "stone_wall_top_fill",
       "kind": "tile",
       "row": 2,
       "col": 1,
@@ -531,11 +496,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c2",
+      "name": "stone_wall_top_post_right",
       "kind": "tile",
       "row": 2,
       "col": 2,
@@ -543,11 +507,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c3",
+      "name": "arched_double_door_top",
       "kind": "tile",
       "row": 2,
       "col": 3,
@@ -555,11 +518,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c4",
+      "name": "pale_wood_plank_double",
       "kind": "tile",
       "row": 2,
       "col": 4,
@@ -567,11 +529,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c5",
+      "name": "stone_wall_top_bevel_nw",
       "kind": "tile",
       "row": 2,
       "col": 5,
@@ -579,11 +540,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c6",
+      "name": "stone_wall_top_bevel_ne",
       "kind": "tile",
       "row": 2,
       "col": 6,
@@ -591,11 +551,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c7",
+      "name": "brass_sunburst_medallion_c",
       "kind": "tile",
       "row": 2,
       "col": 7,
@@ -603,11 +562,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c8",
+      "name": "carved_wood_knob",
       "kind": "tile",
       "row": 2,
       "col": 8,
@@ -615,11 +573,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c9",
+      "name": "twin_wooden_pegs",
       "kind": "tile",
       "row": 2,
       "col": 9,
@@ -627,11 +584,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c10",
+      "name": "copper_pipe_vertical_top",
       "kind": "tile",
       "row": 2,
       "col": 10,
@@ -639,11 +595,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c14",
+      "name": "gilded_brick_wall_base_post_left",
       "kind": "tile",
       "row": 2,
       "col": 14,
@@ -651,11 +606,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c15",
+      "name": "gilded_brick_wall_base_fill",
       "kind": "tile",
       "row": 2,
       "col": 15,
@@ -663,11 +617,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c16",
+      "name": "gilded_brick_wall_base_post_right",
       "kind": "tile",
       "row": 2,
       "col": 16,
@@ -675,11 +628,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c18",
+      "name": "torii_post_shaft_lower",
       "kind": "tile",
       "row": 2,
       "col": 18,
@@ -687,11 +639,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c19",
+      "name": "shrine_lattice_shelf",
       "kind": "tile",
       "row": 2,
       "col": 19,
@@ -699,11 +650,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c20",
+      "name": "shrine_plaque_star_bottom",
       "kind": "tile",
       "row": 2,
       "col": 20,
@@ -711,11 +661,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c21",
+      "name": "torii_post_b_shaft_lower",
       "kind": "tile",
       "row": 2,
       "col": 21,
@@ -723,11 +672,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c22",
+      "name": "tan_wood_panel_vertical_base",
       "kind": "tile",
       "row": 2,
       "col": 22,
@@ -735,11 +683,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c23",
+      "name": "red_lacquer_panel",
       "kind": "tile",
       "row": 2,
       "col": 23,
@@ -747,11 +694,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c24",
+      "name": "rune_socket_lit_b",
       "kind": "tile",
       "row": 2,
       "col": 24,
@@ -759,11 +705,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r2c25",
+      "name": "verdigris_pole_pedestal",
       "kind": "tile",
       "row": 2,
       "col": 25,
@@ -771,11 +716,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c0",
+      "name": "stone_wall_base_post_left",
       "kind": "tile",
       "row": 3,
       "col": 0,
@@ -783,11 +727,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c1",
+      "name": "stone_wall_base_fill",
       "kind": "tile",
       "row": 3,
       "col": 1,
@@ -795,11 +738,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c2",
+      "name": "stone_wall_base_post_right",
       "kind": "tile",
       "row": 3,
       "col": 2,
@@ -807,11 +749,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c3",
+      "name": "arched_double_door_bottom",
       "kind": "tile",
       "row": 3,
       "col": 3,
@@ -819,11 +760,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c4",
+      "name": "pale_wood_plank_single",
       "kind": "tile",
       "row": 3,
       "col": 4,
@@ -831,8 +771,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "brick_chimney",
@@ -850,7 +789,7 @@
       ]
     },
     {
-      "name": "build_atlas_r3c6",
+      "name": "small_brick_step_fragment",
       "kind": "tile",
       "row": 3,
       "col": 6,
@@ -858,11 +797,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c7",
+      "name": "gray_stone_fragment",
       "kind": "tile",
       "row": 3,
       "col": 7,
@@ -870,8 +808,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r3c8",
@@ -886,7 +823,7 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r3c9",
+      "name": "copper_pipe_horizontal",
       "kind": "tile",
       "row": 3,
       "col": 9,
@@ -894,11 +831,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c10",
+      "name": "copper_pipe_elbow_joint",
       "kind": "tile",
       "row": 3,
       "col": 10,
@@ -906,8 +842,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "flower_window_box",
@@ -926,7 +861,7 @@
       ]
     },
     {
-      "name": "build_atlas_r3c14",
+      "name": "iron_fence_scroll_panel_a",
       "kind": "tile",
       "row": 3,
       "col": 14,
@@ -934,11 +869,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c15",
+      "name": "iron_fence_scroll_panel_b",
       "kind": "tile",
       "row": 3,
       "col": 15,
@@ -946,11 +880,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c16",
+      "name": "iron_fence_end_post_a",
       "kind": "tile",
       "row": 3,
       "col": 16,
@@ -958,11 +891,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c17",
+      "name": "iron_fence_end_post_b",
       "kind": "tile",
       "row": 3,
       "col": 17,
@@ -970,11 +902,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c18",
+      "name": "red_post_base_fragment",
       "kind": "tile",
       "row": 3,
       "col": 18,
@@ -982,11 +913,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c19",
+      "name": "maroon_base_trim_fill",
       "kind": "tile",
       "row": 3,
       "col": 19,
@@ -994,11 +924,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c20",
+      "name": "maroon_base_trim_socket",
       "kind": "tile",
       "row": 3,
       "col": 20,
@@ -1006,11 +935,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c21",
+      "name": "maroon_base_trim_end",
       "kind": "tile",
       "row": 3,
       "col": 21,
@@ -1018,11 +946,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c22",
+      "name": "tan_base_trim_socket",
       "kind": "tile",
       "row": 3,
       "col": 22,
@@ -1030,11 +957,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c23",
+      "name": "tan_base_trim_fill",
       "kind": "tile",
       "row": 3,
       "col": 23,
@@ -1042,11 +968,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c24",
+      "name": "tan_base_trim_end",
       "kind": "tile",
       "row": 3,
       "col": 24,
@@ -1054,11 +979,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r3c25",
+      "name": "verdigris_pole_stone_base",
       "kind": "tile",
       "row": 3,
       "col": 25,
@@ -1066,8 +990,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r4c0",
