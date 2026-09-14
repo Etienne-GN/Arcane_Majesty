@@ -1,19 +1,19 @@
 {
-  "source": "log_horizontal_single.png",
-  "sheetWidth": 64,
-  "sheetHeight": 32,
-  "entries": [
-    {
-      "name": "log_horizontal_single",
-      "kind": "object",
-      "x": 0,
-      "y": 18,
-      "w": 64,
-      "h": 14,
-      "tags": [
-        "schwarnhild",
-        "restored"
-      ]
-    }
-  ]
+ "source": "log_horizontal_single.png",
+ "sheetWidth": 42,
+ "sheetHeight": 14,
+ "entries": [
+  {
+   "name": "log_horizontal_single",
+   "kind": "object",
+   "x": 0,
+   "y": 0,
+   "w": 42,
+   "h": 14,
+   "tags": [
+    "assets_v2_free",
+    "restored"
+   ]
+  }
+ ]
 }

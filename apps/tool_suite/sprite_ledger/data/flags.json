@@ -868,7 +868,7 @@
     "name": "bush_round_plain_a",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:37:06.530Z",
     "resolvedAt": null
   },
@@ -908,7 +908,7 @@
     "name": "log_horizontal_single",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:37:36.008Z",
     "resolvedAt": null
   },
@@ -978,7 +978,7 @@
     "name": "fence_plank_wall_long",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:37:52.386Z",
     "resolvedAt": null
   },
@@ -2485,7 +2485,7 @@
     "name": "bush_round_plain_a",
     "reason": "duplicate",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-14T17:31:30.521Z",
     "resolvedAt": null
   },
