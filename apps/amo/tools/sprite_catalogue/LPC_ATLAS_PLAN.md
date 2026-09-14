@@ -212,20 +212,43 @@ build rows 0-3, obj_misk rows 0-3 (all Sonnet — each atlas's first/next
 naming band, running in parallel). Sonnet dispatches have also hit rate
 limits mid-task a few times (same pattern as the Opus merge-judgment
 dispatches) — just re-dispatch fresh with the same brief once the reset
-time passes; no partial output has survived any of these failures so far,
-always check before assuming there's something to resume.
+time passes; check for partial output first (see lesson above).
 
-**Lesson learned, watch for it on every band**: cross-band name collisions
-happen even with the avoid-list, because a subagent can independently
-invent the same family name for a *visually different* texture two rows
-away (e.g. two unrelated reddish-dirt colorways both called
-`rocky_ground_fill_*`). `apply_names.py` catches it (refuses the whole
-batch), but the fix requires a quick visual compare of both colliding
-groups before renaming the new one — don't assume the newer batch is
-simply "the same thing, dedupe it", check that they're actually the same
-texture first (in the one case hit so far, they weren't — sienna dirt vs.
-red dirt vs. rust rock were three distinct textures that just got named
-too similarly).
+**Running total as of this note**: 3349 entries across the 4 atlases,
+2267 still needsNaming (~68 bands worth remaining at ~110/band). Bands
+landed: base_out 0-3/4-7/8-11/12-15, terrain 0-3/4-7, build 0-3/4-7,
+obj_misk 0-3. In flight: obj_misk 4-7, base_out 16-19, terrain 8-11,
+build 8-11.
+
+**Lessons learned, watch for these on every band**:
+- Cross-band name collisions happen even with the avoid-list, because a
+  subagent can independently invent the same family name for a *visually
+  different* texture two rows away. `apply_names.py` catches it (refuses
+  the whole batch) — fix by a quick visual compare of both colliding
+  groups: sometimes they're genuinely different (rename the new one to
+  something distinct) and sometimes it's literally the same repeated art
+  (add a next-letter suffix, e.g. `_c`/`_d`, rather than inventing an
+  unrelated name).
+- A naming subagent can assert an identity/color the art doesn't actually
+  render (named a 65-entry translucent shadow-silhouette set "mouse_brown"
+  — verified by alpha inspection to be a gray ~60%-alpha blob, no mouse
+  drawn at all). `make_naming_brief.py` now explicitly warns against this;
+  still worth a skim of any band with a large repeated low-detail family.
+- Subagents reliably self-flag real missed-merge fragments — every band so
+  far has had 1-3 flagged "this might be a split object" notes, and on
+  inspection roughly half turn out to be genuine (needing a same-pass
+  merge fix before applying) and half are harmless edge bleed or
+  coincidentally-similar unrelated decals. Always check flagged items by
+  rendering the real pixel region (not just the low-res contact-sheet
+  crop) before deciding — one genuine case looked like 8 separate
+  fragments in the contact sheet but was actually unconnected debris on
+  closer inspection, while another looked like one object in a wide crop
+  but was actually a small 8x8px decal shared across 4 cells at their
+  shared corner (confirmed by comparing alpha pixel counts per cell).
+- A rate-limited/"failed" dispatch sometimes still wrote a complete,
+  valid output file to disk before being cut off — always check for and
+  validate an existing file (record count matches expected, no internal
+  dupes) before re-dispatching from scratch.
 
 ## Suggested next steps (in order)
 1. Finish the merge-candidate review for `obj_misk_atlas.png` (candidates
