@@ -173,6 +173,17 @@ from the sheet, paste into a grid canvas with an index + cell-count label).
   consistency and autotile-adjacency correctness before considering this
   done.
 
+## PAUSED 2026-09-14 (user request — resume later)
+Naming pass is 40% done (1325/3299 entries, see progress notes below for
+exact per-atlas counts and next-band queue). Rate-limit resets were
+eating most of the wall-clock time (Sonnet dispatches failing outright on
+account session caps, several hours between usable windows) — paused
+here rather than keep grinding. To resume: regenerate avoid-lists (one
+`python3 -c` per atlas, see the workflow section below) since more
+entries have been named since the last recorded list, then continue the
+brief-generate -> dispatch -> flag-check -> apply -> commit loop from
+"Next up" in the progress notes.
+
 ## Naming-phase workflow (step 4, in progress)
 Merges are done for base_out/terrain/build_atlas (obj_misk_atlas merge
 judgment in progress as of this writing). Naming pipeline per atlas:
