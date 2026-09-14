@@ -214,11 +214,16 @@ limits mid-task a few times (same pattern as the Opus merge-judgment
 dispatches) — just re-dispatch fresh with the same brief once the reset
 time passes; check for partial output first (see lesson above).
 
-**Running total as of this note**: 3349 entries across the 4 atlases,
-2267 still needsNaming (~68 bands worth remaining at ~110/band). Bands
-landed: base_out 0-3/4-7/8-11/12-15, terrain 0-3/4-7, build 0-3/4-7,
-obj_misk 0-3. In flight: obj_misk 4-7, base_out 16-19, terrain 8-11,
-build 8-11.
+**Running total as of this note**: 3299 entries across the 4 atlases
+(count drops slightly with each merge fix), 1974 still needsNaming.
+Bands landed: base_out 0-3/4-7/8-11/12-15/16-19, terrain 0-3/4-7,
+build 0-3/4-7/8-11, obj_misk 0-3/4-7. Merge-fix corrections applied
+mid-naming so far: 1 in terrain rows4-7, 1 in base_out rows12-15, 6 in
+build rows8-11, 9 in obj_misk rows4-7 — genuine missed merges the
+original merge pass overlooked, always caught by rendering the real
+pixel region for any subagent-flagged fragment before applying (see
+lessons above). Next up: base_out 20-23, terrain 12-15, build 12-15,
+obj_misk 8-11.
 
 **Lessons learned, watch for these on every band**:
 - Cross-band name collisions happen even with the avoid-list, because a
@@ -249,6 +254,18 @@ build 8-11.
   valid output file to disk before being cut off — always check for and
   validate an existing file (record count matches expected, no internal
   dupes) before re-dispatching from scratch.
+- **This repo has another live session/terminal working in it concurrently**
+  (unrelated lore/album file edits appeared mid-task). A bare `git commit
+  -m "..."` after `git add <my file>` commits the WHOLE INDEX, not just
+  what you just added — it swept in someone else's staged rename once,
+  attributing it to an unrelated sprite-catalogue commit. Caught via
+  `git show --stat HEAD` right after committing; fixed by amending the
+  commit down to just the intended path, then `git rm --cached
+  <old>` + `git add <new>` to put the other party's pending rename back
+  the way it was. **From now on, always scope every commit explicitly**:
+  `git commit -m "..." -- <exact path(s)>`, never a bare `git commit`
+  after just an add, and glance at `git status`/`git show --stat HEAD`
+  after each commit in this task.
 
 ## Suggested next steps (in order)
 1. Finish the merge-candidate review for `obj_misk_atlas.png` (candidates
