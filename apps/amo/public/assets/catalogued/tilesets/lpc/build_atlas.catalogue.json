@@ -2116,14 +2116,18 @@
       ]
     },
     {
-      "name": "barrel_stack_top",
-      "kind": "tile",
-      "row": 8,
-      "col": 31,
-      "frameIndex": 287,
+      "name": "barrel_cluster_pair",
+      "kind": "object",
+      "x": 992,
+      "y": 256,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "barrel",
+        "container",
+        "cluster"
       ]
     },
     {
@@ -2392,17 +2396,6 @@
       ]
     },
     {
-      "name": "barrel_stack_side_upper",
-      "kind": "tile",
-      "row": 9,
-      "col": 31,
-      "frameIndex": 319,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
       "name": "red_brick_wall_mid_post_left",
       "kind": "tile",
       "row": 10,
@@ -2612,14 +2605,17 @@
       ]
     },
     {
-      "name": "barrel_stack_side_lower",
-      "kind": "tile",
-      "row": 10,
-      "col": 31,
-      "frameIndex": 351,
+      "name": "barrel_single_c",
+      "kind": "object",
+      "x": 992,
+      "y": 320,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "barrel",
+        "container"
       ]
     },
     {
@@ -2904,17 +2900,6 @@
       "row": 11,
       "col": 30,
       "frameIndex": 382,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "barrel_stack_base",
-      "kind": "tile",
-      "row": 11,
-      "col": 31,
-      "frameIndex": 383,
       "tags": [
         "lpc",
         "atlas"
