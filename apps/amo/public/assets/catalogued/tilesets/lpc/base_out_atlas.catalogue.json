@@ -5135,7 +5135,7 @@
       "needsNaming": true
     },
     {
-      "name": "base_out_atlas_r16c3",
+      "name": "brick_wall_fill_top_diag_nw",
       "kind": "tile",
       "row": 16,
       "col": 3,
@@ -5143,11 +5143,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c4",
+      "name": "brick_wall_fill_top_a",
       "kind": "tile",
       "row": 16,
       "col": 4,
@@ -5155,11 +5154,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c5",
+      "name": "brick_wall_fill_top_diag_se",
       "kind": "tile",
       "row": 16,
       "col": 5,
@@ -5167,11 +5165,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c6",
+      "name": "brick_mullion_a_edge_r_top",
       "kind": "tile",
       "row": 16,
       "col": 6,
@@ -5179,11 +5176,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c7",
+      "name": "brick_mullion_a_edge_l_top",
       "kind": "tile",
       "row": 16,
       "col": 7,
@@ -5191,11 +5187,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c8",
+      "name": "brick_mullion_b_edge_r_top",
       "kind": "tile",
       "row": 16,
       "col": 8,
@@ -5203,11 +5198,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c9",
+      "name": "brick_mullion_b_edge_l_top",
       "kind": "tile",
       "row": 16,
       "col": 9,
@@ -5215,11 +5209,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c10",
+      "name": "brick_wall_fill_top_b",
       "kind": "tile",
       "row": 16,
       "col": 10,
@@ -5227,11 +5220,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c11",
+      "name": "brick_wall_breach_arch_l",
       "kind": "tile",
       "row": 16,
       "col": 11,
@@ -5239,11 +5231,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "drain_water_spout",
+      "name": "brick_wall_breach_arch_r",
       "kind": "object",
       "x": 384,
       "y": 512,
@@ -5258,7 +5249,7 @@
       ]
     },
     {
-      "name": "base_out_atlas_r16c13",
+      "name": "brick_wall_breach_corner_a",
       "kind": "tile",
       "row": 16,
       "col": 13,
@@ -5266,11 +5257,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c14",
+      "name": "brick_wall_breach_corner_b",
       "kind": "tile",
       "row": 16,
       "col": 14,
@@ -5278,8 +5268,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "base_out_atlas_r16c15",
@@ -5294,7 +5283,7 @@
       "needsNaming": true
     },
     {
-      "name": "base_out_atlas_r16c16",
+      "name": "bridge_deck_arch_end_l",
       "kind": "tile",
       "row": 16,
       "col": 16,
@@ -5302,11 +5291,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c17",
+      "name": "bridge_deck_arch_mid",
       "kind": "tile",
       "row": 16,
       "col": 17,
@@ -5314,11 +5302,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c18",
+      "name": "bridge_deck_arch_end_r",
       "kind": "tile",
       "row": 16,
       "col": 18,
@@ -5326,11 +5313,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c19",
+      "name": "bridge_railing_ramp_up",
       "kind": "tile",
       "row": 16,
       "col": 19,
@@ -5338,11 +5324,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c20",
+      "name": "bridge_railing_fill_a",
       "kind": "tile",
       "row": 16,
       "col": 20,
@@ -5350,11 +5335,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c21",
+      "name": "bridge_railing_ramp_down",
       "kind": "tile",
       "row": 16,
       "col": 21,
@@ -5362,11 +5346,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c22",
+      "name": "barrel_cluster_top_a",
       "kind": "tile",
       "row": 16,
       "col": 22,
@@ -5374,11 +5357,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c23",
+      "name": "barrel_cluster_top_b",
       "kind": "tile",
       "row": 16,
       "col": 23,
@@ -5386,11 +5368,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c30",
+      "name": "river_water_fill_a",
       "kind": "tile",
       "row": 16,
       "col": 30,
@@ -5398,11 +5379,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c31",
+      "name": "river_water_fill_b",
       "kind": "tile",
       "row": 16,
       "col": 31,
@@ -5410,11 +5390,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c0",
+      "name": "river_water_fill_c",
       "kind": "tile",
       "row": 17,
       "col": 0,
@@ -5422,11 +5401,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c1",
+      "name": "brick_wall_cavity_fill",
       "kind": "tile",
       "row": 17,
       "col": 1,
@@ -5434,23 +5412,22 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c2",
+      "name": "brick_wall_cavity_fill_corner",
       "kind": "tile",
       "row": 17,
       "col": 2,
       "frameIndex": 546,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "possible_fragment"
+      ]
     },
     {
-      "name": "base_out_atlas_r17c3",
+      "name": "brick_wall_fill_mid_a",
       "kind": "tile",
       "row": 17,
       "col": 3,
@@ -5458,11 +5435,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c4",
+      "name": "brick_wall_fill_mid_b",
       "kind": "tile",
       "row": 17,
       "col": 4,
@@ -5470,11 +5446,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c5",
+      "name": "brick_wall_fill_mid_c",
       "kind": "tile",
       "row": 17,
       "col": 5,
@@ -5482,11 +5457,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c6",
+      "name": "brick_mullion_a_edge_r_mid1",
       "kind": "tile",
       "row": 17,
       "col": 6,
@@ -5494,11 +5468,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c7",
+      "name": "brick_mullion_a_edge_l_mid1",
       "kind": "tile",
       "row": 17,
       "col": 7,
@@ -5506,11 +5479,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c8",
+      "name": "brick_mullion_b_edge_r_mid1",
       "kind": "tile",
       "row": 17,
       "col": 8,
@@ -5518,11 +5490,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c9",
+      "name": "brick_mullion_b_edge_l_mid1",
       "kind": "tile",
       "row": 17,
       "col": 9,
@@ -5530,11 +5501,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c10",
+      "name": "brick_wall_fill_mid_d",
       "kind": "tile",
       "row": 17,
       "col": 10,
@@ -5542,11 +5512,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c11",
+      "name": "brick_wall_breach_side_l",
       "kind": "tile",
       "row": 17,
       "col": 11,
@@ -5554,11 +5523,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c13",
+      "name": "brick_wall_breach_side_r",
       "kind": "tile",
       "row": 17,
       "col": 13,
@@ -5566,11 +5534,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c15",
+      "name": "brick_wall_breach_taper_a",
       "kind": "tile",
       "row": 17,
       "col": 15,
@@ -5578,11 +5545,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c16",
+      "name": "brick_wall_breach_taper_b",
       "kind": "tile",
       "row": 17,
       "col": 16,
@@ -5590,11 +5556,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c17",
+      "name": "bridge_support_bracket_l",
       "kind": "tile",
       "row": 17,
       "col": 17,
@@ -5602,11 +5567,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c18",
+      "name": "bridge_support_bracket_r",
       "kind": "tile",
       "row": 17,
       "col": 18,
@@ -5614,11 +5578,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c19",
+      "name": "bridge_underside_pilings",
       "kind": "tile",
       "row": 17,
       "col": 19,
@@ -5626,11 +5589,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c20",
+      "name": "bridge_railing_fill_b",
       "kind": "tile",
       "row": 17,
       "col": 20,
@@ -5638,11 +5600,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c21",
+      "name": "bridge_railing_fill_c",
       "kind": "tile",
       "row": 17,
       "col": 21,
@@ -5650,11 +5611,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c22",
+      "name": "barrel_cluster_bottom_a",
       "kind": "tile",
       "row": 17,
       "col": 22,
@@ -5662,11 +5622,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r17c30",
+      "name": "barrel_cluster_bottom_b",
       "kind": "tile",
       "row": 17,
       "col": 30,
@@ -5674,11 +5633,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c0",
+      "name": "wood_chest_flat_closed_a",
       "kind": "tile",
       "row": 18,
       "col": 0,
@@ -5686,11 +5644,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c1",
+      "name": "wood_chest_domed_closed_a",
       "kind": "tile",
       "row": 18,
       "col": 1,
@@ -5698,23 +5655,22 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c2",
+      "name": "brick_wall_cavity_edge_sliver",
       "kind": "tile",
       "row": 18,
       "col": 2,
       "frameIndex": 578,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "possible_fragment"
+      ]
     },
     {
-      "name": "base_out_atlas_r18c3",
+      "name": "brick_wall_fill_base_a",
       "kind": "tile",
       "row": 18,
       "col": 3,
@@ -5722,11 +5678,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c4",
+      "name": "brick_wall_fill_base_b",
       "kind": "tile",
       "row": 18,
       "col": 4,
@@ -5734,11 +5689,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c5",
+      "name": "brick_wall_fill_base_c",
       "kind": "tile",
       "row": 18,
       "col": 5,
@@ -5746,11 +5700,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c6",
+      "name": "brick_mullion_a_edge_r_mid2",
       "kind": "tile",
       "row": 18,
       "col": 6,
@@ -5758,11 +5711,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c7",
+      "name": "brick_mullion_a_edge_l_mid2",
       "kind": "tile",
       "row": 18,
       "col": 7,
@@ -5770,11 +5722,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c8",
+      "name": "brick_mullion_b_edge_r_mid2",
       "kind": "tile",
       "row": 18,
       "col": 8,
@@ -5782,11 +5733,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c9",
+      "name": "brick_mullion_b_edge_l_mid2",
       "kind": "tile",
       "row": 18,
       "col": 9,
@@ -5794,11 +5744,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c10",
+      "name": "brick_wall_fill_base_d",
       "kind": "tile",
       "row": 18,
       "col": 10,
@@ -5806,11 +5755,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c11",
+      "name": "brick_mullion_c_edge_l_mid2",
       "kind": "tile",
       "row": 18,
       "col": 11,
@@ -5818,11 +5766,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c13",
+      "name": "brick_mullion_c_edge_r_mid2",
       "kind": "tile",
       "row": 18,
       "col": 13,
@@ -5830,11 +5777,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c14",
+      "name": "brick_wall_niche_shadow_a",
       "kind": "tile",
       "row": 18,
       "col": 14,
@@ -5842,11 +5788,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c15",
+      "name": "brick_wall_niche_shadow_b",
       "kind": "tile",
       "row": 18,
       "col": 15,
@@ -5854,11 +5799,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c16",
+      "name": "wood_crate_panel_plain",
       "kind": "tile",
       "row": 18,
       "col": 16,
@@ -5866,11 +5810,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c18",
+      "name": "wood_crate_panel_posts",
       "kind": "tile",
       "row": 18,
       "col": 18,
@@ -5878,11 +5821,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c19",
+      "name": "twin_wood_post_banded",
       "kind": "tile",
       "row": 18,
       "col": 19,
@@ -5890,35 +5832,34 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r18c20",
+      "name": "wood_shingle_jagged_edge_a",
       "kind": "tile",
       "row": 18,
       "col": 20,
       "frameIndex": 596,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "possible_fragment"
+      ]
     },
     {
-      "name": "base_out_atlas_r18c21",
+      "name": "wood_shingle_jagged_edge_b",
       "kind": "tile",
       "row": 18,
       "col": 21,
       "frameIndex": 597,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "possible_fragment"
+      ]
     },
     {
-      "name": "base_out_atlas_r18c22",
+      "name": "wood_chest_flat_open_a",
       "kind": "tile",
       "row": 18,
       "col": 22,
@@ -5926,11 +5867,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c0",
+      "name": "wood_chest_flat_open_b",
       "kind": "tile",
       "row": 19,
       "col": 0,
@@ -5938,11 +5878,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c1",
+      "name": "wood_chest_flat_closed_b",
       "kind": "tile",
       "row": 19,
       "col": 1,
@@ -5950,11 +5889,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c2",
+      "name": "wood_chest_domed_closed_b",
       "kind": "tile",
       "row": 19,
       "col": 2,
@@ -5962,11 +5900,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c3",
+      "name": "brick_coping_strip_a",
       "kind": "tile",
       "row": 19,
       "col": 3,
@@ -5974,11 +5911,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c4",
+      "name": "brick_coping_strip_b",
       "kind": "tile",
       "row": 19,
       "col": 4,
@@ -5986,11 +5922,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c5",
+      "name": "brick_coping_strip_c",
       "kind": "tile",
       "row": 19,
       "col": 5,
@@ -5998,11 +5933,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c6",
+      "name": "brick_mullion_a_edge_r_base",
       "kind": "tile",
       "row": 19,
       "col": 6,
@@ -6010,11 +5944,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c7",
+      "name": "brick_mullion_a_edge_l_base",
       "kind": "tile",
       "row": 19,
       "col": 7,
@@ -6022,11 +5955,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c10",
+      "name": "brick_mullion_b_edge_r_base",
       "kind": "tile",
       "row": 19,
       "col": 10,
@@ -6034,11 +5966,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c11",
+      "name": "brick_mullion_b_edge_l_base",
       "kind": "tile",
       "row": 19,
       "col": 11,
@@ -6046,11 +5977,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c12",
+      "name": "brick_coping_strip_d",
       "kind": "tile",
       "row": 19,
       "col": 12,
@@ -6058,11 +5988,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c13",
+      "name": "brick_wall_niche_shadow_c",
       "kind": "tile",
       "row": 19,
       "col": 13,
@@ -6070,11 +5999,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c14",
+      "name": "brick_wall_niche_shadow_d",
       "kind": "tile",
       "row": 19,
       "col": 14,
@@ -6082,11 +6010,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c15",
+      "name": "stone_grate_round_vent",
       "kind": "tile",
       "row": 19,
       "col": 15,
@@ -6094,11 +6021,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c16",
+      "name": "wood_plank_crate_panel_a",
       "kind": "tile",
       "row": 19,
       "col": 16,
@@ -6106,11 +6032,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c17",
+      "name": "wood_plank_crate_panel_edge",
       "kind": "tile",
       "row": 19,
       "col": 17,
@@ -6118,11 +6043,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c18",
+      "name": "wood_table_rail_post_r",
       "kind": "tile",
       "row": 19,
       "col": 18,
@@ -6130,11 +6054,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c19",
+      "name": "wood_table_rail_mid",
       "kind": "tile",
       "row": 19,
       "col": 19,
@@ -6142,11 +6065,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c20",
+      "name": "wood_table_rail_short",
       "kind": "tile",
       "row": 19,
       "col": 20,
@@ -6154,11 +6076,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c21",
+      "name": "wood_trestle_table",
       "kind": "tile",
       "row": 19,
       "col": 21,
@@ -6166,11 +6087,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c22",
+      "name": "rope_swag_end_l",
       "kind": "tile",
       "row": 19,
       "col": 22,
@@ -6178,11 +6098,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c23",
+      "name": "rope_swag_mid",
       "kind": "tile",
       "row": 19,
       "col": 23,
@@ -6190,11 +6109,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r19c24",
+      "name": "rope_swag_end_r",
       "kind": "tile",
       "row": 19,
       "col": 24,
@@ -6202,11 +6120,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "tree_trunk_a",
+      "name": "wood_cask_side_panel_a",
       "kind": "object",
       "x": 800,
       "y": 608,
@@ -6220,7 +6137,7 @@
       ]
     },
     {
-      "name": "tree_trunk_b",
+      "name": "wood_cask_side_panel_b",
       "kind": "object",
       "x": 896,
       "y": 608,
@@ -6234,7 +6151,7 @@
       ]
     },
     {
-      "name": "base_out_atlas_r20c0",
+      "name": "wood_cask_side_panel_c",
       "kind": "tile",
       "row": 20,
       "col": 0,
@@ -6242,8 +6159,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "base_out_atlas_r20c1",
