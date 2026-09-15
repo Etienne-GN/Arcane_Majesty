@@ -6186,7 +6186,7 @@
       "needsNaming": true
     },
     {
-      "name": "base_out_atlas_r20c3",
+      "name": "maroon_panel_fill",
       "kind": "tile",
       "row": 20,
       "col": 3,
@@ -6194,11 +6194,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c4",
+      "name": "rail_post_cap_a",
       "kind": "tile",
       "row": 20,
       "col": 4,
@@ -6206,11 +6205,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c5",
+      "name": "rail_post_cap_b",
       "kind": "tile",
       "row": 20,
       "col": 5,
@@ -6218,11 +6216,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c6",
+      "name": "rail_post_cap_c",
       "kind": "tile",
       "row": 20,
       "col": 6,
@@ -6230,11 +6227,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c7",
+      "name": "rail_post_cap_d",
       "kind": "tile",
       "row": 20,
       "col": 7,
@@ -6242,11 +6238,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c8",
+      "name": "rail_post_cap_e",
       "kind": "tile",
       "row": 20,
       "col": 8,
@@ -6254,11 +6249,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c9",
+      "name": "rail_post_cap_f",
       "kind": "tile",
       "row": 20,
       "col": 9,
@@ -6266,11 +6260,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c10",
+      "name": "rail_beam_t_l",
       "kind": "tile",
       "row": 20,
       "col": 10,
@@ -6278,11 +6271,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "hay_pile",
+      "name": "rail_beam_t_r",
       "kind": "object",
       "x": 352,
       "y": 640,
@@ -6297,7 +6289,7 @@
       ]
     },
     {
-      "name": "base_out_atlas_r20c13",
+      "name": "rail_beam_cross_l",
       "kind": "tile",
       "row": 20,
       "col": 13,
@@ -6305,11 +6297,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c14",
+      "name": "rail_beam_cross_r",
       "kind": "tile",
       "row": 20,
       "col": 14,
@@ -6317,8 +6308,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "base_out_atlas_r20c15",
@@ -6333,7 +6323,7 @@
       "needsNaming": true
     },
     {
-      "name": "base_out_atlas_r20c16",
+      "name": "wood_panel_plank_short",
       "kind": "tile",
       "row": 20,
       "col": 16,
@@ -6341,11 +6331,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c17",
+      "name": "wood_panel_plank_post_edge",
       "kind": "tile",
       "row": 20,
       "col": 17,
@@ -6353,11 +6342,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c18",
+      "name": "wood_rail_fence_double",
       "kind": "tile",
       "row": 20,
       "col": 18,
@@ -6365,11 +6353,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c19",
+      "name": "wood_plank_wall_fill_a",
       "kind": "tile",
       "row": 20,
       "col": 19,
@@ -6377,11 +6364,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c20",
+      "name": "wood_plank_wall_fill_b",
       "kind": "tile",
       "row": 20,
       "col": 20,
@@ -6389,11 +6375,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c21",
+      "name": "wood_plank_wall_fill_c",
       "kind": "tile",
       "row": 20,
       "col": 21,
@@ -6401,11 +6386,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c22",
+      "name": "wood_post_fence_rope_l",
       "kind": "tile",
       "row": 20,
       "col": 22,
@@ -6413,11 +6397,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c23",
+      "name": "wood_post_fence_rail_mid",
       "kind": "tile",
       "row": 20,
       "col": 23,
@@ -6425,11 +6408,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c24",
+      "name": "wood_post_fence_rope_r",
       "kind": "tile",
       "row": 20,
       "col": 24,
@@ -6437,11 +6419,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "iron_barred_door",
+      "name": "wood_post_fence_double_post",
       "kind": "object",
       "x": 0,
       "y": 672,
@@ -6456,7 +6437,7 @@
       ]
     },
     {
-      "name": "base_out_atlas_r21c1",
+      "name": "wood_post_fence_single_post_l",
       "kind": "tile",
       "row": 21,
       "col": 1,
@@ -6464,11 +6445,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r21c2",
+      "name": "wood_post_fence_single_post_r",
       "kind": "tile",
       "row": 21,
       "col": 2,
@@ -6476,8 +6456,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "base_out_atlas_r21c3",
@@ -6492,7 +6471,7 @@
       "needsNaming": true
     },
     {
-      "name": "base_out_atlas_r21c4",
+      "name": "rail_post_stub_a",
       "kind": "tile",
       "row": 21,
       "col": 4,
@@ -6500,11 +6479,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r21c5",
+      "name": "rail_post_stub_b",
       "kind": "tile",
       "row": 21,
       "col": 5,
@@ -6512,11 +6490,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r21c6",
+      "name": "rail_post_shaft_a",
       "kind": "tile",
       "row": 21,
       "col": 6,
@@ -6524,11 +6501,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r21c7",
+      "name": "rail_post_shaft_b",
       "kind": "tile",
       "row": 21,
       "col": 7,
@@ -6536,11 +6512,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r21c8",
+      "name": "rail_post_shaft_c",
       "kind": "tile",
       "row": 21,
       "col": 8,
@@ -6548,11 +6523,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r21c9",
+      "name": "rail_post_shaft_d",
       "kind": "tile",
       "row": 21,
       "col": 9,
@@ -6560,11 +6534,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r21c10",
+      "name": "rail_post_shaft_e",
       "kind": "tile",
       "row": 21,
       "col": 10,
@@ -6572,11 +6545,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r21c13",
+      "name": "rail_post_shaft_f",
       "kind": "tile",
       "row": 21,
       "col": 13,
@@ -6584,11 +6556,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r21c14",
+      "name": "rail_pedestal_neck_l",
       "kind": "tile",
       "row": 21,
       "col": 14,
@@ -6596,11 +6567,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r21c15",
+      "name": "rail_pedestal_neck_r",
       "kind": "tile",
       "row": 21,
       "col": 15,
@@ -6608,11 +6578,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r21c17",
+      "name": "tower_wall_fill_edge_top",
       "kind": "tile",
       "row": 21,
       "col": 17,
@@ -6620,11 +6589,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r21c20",
+      "name": "tower_wall_fill_plain_top",
       "kind": "tile",
       "row": 21,
       "col": 20,
@@ -6632,11 +6600,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c1",
+      "name": "tower_dome_cap_top",
       "kind": "tile",
       "row": 22,
       "col": 1,
@@ -6644,11 +6611,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c2",
+      "name": "crystal_spike_tip",
       "kind": "tile",
       "row": 22,
       "col": 2,
@@ -6656,11 +6622,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c3",
+      "name": "cracked_flagstone_cream_bordered_a",
       "kind": "tile",
       "row": 22,
       "col": 3,
@@ -6668,11 +6633,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c4",
+      "name": "rail_post_stub_c",
       "kind": "tile",
       "row": 22,
       "col": 4,
@@ -6680,11 +6644,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c5",
+      "name": "rail_post_stub_d",
       "kind": "tile",
       "row": 22,
       "col": 5,
@@ -6692,11 +6655,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c6",
+      "name": "rail_post_shaft_g",
       "kind": "tile",
       "row": 22,
       "col": 6,
@@ -6704,11 +6666,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c7",
+      "name": "rail_post_shaft_h",
       "kind": "tile",
       "row": 22,
       "col": 7,
@@ -6716,11 +6677,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c8",
+      "name": "rail_post_shaft_i",
       "kind": "tile",
       "row": 22,
       "col": 8,
@@ -6728,11 +6688,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c9",
+      "name": "rail_post_shaft_j",
       "kind": "tile",
       "row": 22,
       "col": 9,
@@ -6740,11 +6699,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c10",
+      "name": "rail_post_shaft_k",
       "kind": "tile",
       "row": 22,
       "col": 10,
@@ -6752,11 +6710,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c13",
+      "name": "rail_post_shaft_l",
       "kind": "tile",
       "row": 22,
       "col": 13,
@@ -6764,11 +6721,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c14",
+      "name": "rail_pedestal_waist_l",
       "kind": "tile",
       "row": 22,
       "col": 14,
@@ -6776,11 +6732,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c15",
+      "name": "rail_pedestal_waist_r",
       "kind": "tile",
       "row": 22,
       "col": 15,
@@ -6788,11 +6743,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c17",
+      "name": "tower_wall_fill_edge_mid",
       "kind": "tile",
       "row": 22,
       "col": 17,
@@ -6800,11 +6754,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c19",
+      "name": "tower_wall_fill_plain_mid",
       "kind": "tile",
       "row": 22,
       "col": 19,
@@ -6812,11 +6765,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c20",
+      "name": "tower_dome_cap_neck",
       "kind": "tile",
       "row": 22,
       "col": 20,
@@ -6824,11 +6776,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c21",
+      "name": "crystal_spike_upper",
       "kind": "tile",
       "row": 22,
       "col": 21,
@@ -6836,11 +6787,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c22",
+      "name": "cracked_flagstone_cream_bordered_b",
       "kind": "tile",
       "row": 22,
       "col": 22,
@@ -6848,11 +6798,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c24",
+      "name": "cracked_flagstone_cream_sparse",
       "kind": "tile",
       "row": 22,
       "col": 24,
@@ -6860,11 +6809,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c25",
+      "name": "cracked_flagstone_cream_moderate",
       "kind": "tile",
       "row": 22,
       "col": 25,
@@ -6872,11 +6820,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c26",
+      "name": "cracked_flagstone_cream_blank",
       "kind": "tile",
       "row": 22,
       "col": 26,
@@ -6884,11 +6831,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r22c27",
+      "name": "cracked_flagstone_teal_bordered_a",
       "kind": "tile",
       "row": 22,
       "col": 27,
@@ -6896,11 +6842,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "wall_torch",
+      "name": "cracked_flagstone_teal_dense",
       "kind": "object",
       "x": 896,
       "y": 704,
@@ -6930,7 +6875,7 @@
       ]
     },
     {
-      "name": "base_out_atlas_r23c3",
+      "name": "twin_candle_stand_lit",
       "kind": "tile",
       "row": 23,
       "col": 3,
@@ -6938,8 +6883,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "base_out_atlas_r23c4",
@@ -6966,7 +6910,7 @@
       "needsNaming": true
     },
     {
-      "name": "base_out_atlas_r23c6",
+      "name": "rail_post_shaft_m",
       "kind": "tile",
       "row": 23,
       "col": 6,
@@ -6974,11 +6918,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r23c9",
+      "name": "rail_post_shaft_n",
       "kind": "tile",
       "row": 23,
       "col": 9,
@@ -6986,11 +6929,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r23c10",
+      "name": "rail_post_shaft_o",
       "kind": "tile",
       "row": 23,
       "col": 10,
@@ -6998,11 +6940,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r23c13",
+      "name": "rail_post_shaft_p",
       "kind": "tile",
       "row": 23,
       "col": 13,
@@ -7010,11 +6951,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r23c14",
+      "name": "rail_pedestal_base_l",
       "kind": "tile",
       "row": 23,
       "col": 14,
@@ -7022,11 +6962,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r23c15",
+      "name": "rail_pedestal_base_r",
       "kind": "tile",
       "row": 23,
       "col": 15,
@@ -7034,11 +6973,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r23c16",
+      "name": "tower_wall_fill_edge_base",
       "kind": "tile",
       "row": 23,
       "col": 16,
@@ -7046,11 +6984,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r23c17",
+      "name": "tower_wall_collar_band",
       "kind": "tile",
       "row": 23,
       "col": 17,
@@ -7058,11 +6995,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r23c18",
+      "name": "tower_dome_cap_rim",
       "kind": "tile",
       "row": 23,
       "col": 18,
@@ -7070,11 +7006,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r23c19",
+      "name": "crystal_spike_base_sliver_l",
       "kind": "tile",
       "row": 23,
       "col": 19,
@@ -7082,11 +7017,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r23c20",
+      "name": "crystal_spike_base",
       "kind": "tile",
       "row": 23,
       "col": 20,
@@ -7094,11 +7028,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r23c21",
+      "name": "crystal_spike_base_sliver_r",
       "kind": "tile",
       "row": 23,
       "col": 21,
@@ -7106,11 +7039,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r23c24",
+      "name": "cracked_flagstone_cream_bordered_c",
       "kind": "tile",
       "row": 23,
       "col": 24,
@@ -7118,11 +7050,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r23c25",
+      "name": "cracked_flagstone_cream_dense",
       "kind": "tile",
       "row": 23,
       "col": 25,
@@ -7130,11 +7061,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r23c26",
+      "name": "cracked_flagstone_sage_blank",
       "kind": "tile",
       "row": 23,
       "col": 26,
@@ -7142,11 +7072,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r24c0",
+      "name": "cracked_flagstone_teal_moderate",
       "kind": "tile",
       "row": 24,
       "col": 0,
@@ -7154,11 +7083,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r24c1",
+      "name": "cracked_flagstone_teal_dense_b",
       "kind": "tile",
       "row": 24,
       "col": 1,
@@ -7166,11 +7094,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r24c2",
+      "name": "cracked_flagstone_teal_blank",
       "kind": "tile",
       "row": 24,
       "col": 2,
@@ -7178,8 +7105,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "base_out_atlas_r24c3",
