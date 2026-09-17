@@ -181,6 +181,24 @@ the 4 bands that were queued at pause time (base_out 20-23, terrain
 (build_atlas's list changed — the ledger detour fixed a mis-split barrel
 in it, see commit 0da05819).
 
+## Milestone: base_out_atlas.png fully named (2026-09-17)
+866/866 entries, 0 needsNaming. First of the 4 atlases complete — see
+commits 12a54917 through 21866e7f for the full band-by-band history.
+
+**Recurring pattern worth flagging to any future controller**: naming
+subagents reporting "these look like a missed merge" or "these two
+fragments are related" get the actual content wrong more often than
+not — roughly half the time on inspection. The most common root cause:
+mistaking array-index adjacency for spatial adjacency. A 32-col grid
+means index N and N+1 are only spatially adjacent when N+1 doesn't
+cross a row boundary; index N and N+32ish (or any offset near a row's
+width) can look "close" in the report's prose but sit on opposite
+sides of the sheet. Always re-derive row/col from the catalogue
+yourself for any flagged pair before deciding to merge or rename —
+never trust the subagent's own row/col claims in its prose summary.
+Recent dispatches now carry an explicit warning about this in the
+prompt.
+
 ## Naming-phase workflow (step 4, in progress)
 Merges are done for base_out/terrain/build_atlas (obj_misk_atlas merge
 judgment in progress as of this writing). Naming pipeline per atlas:
