@@ -5390,7 +5390,7 @@
       ]
     },
     {
-      "name": "build_atlas_r20c10",
+      "name": "vermillion_wood_shadow_fill",
       "kind": "tile",
       "row": 20,
       "col": 10,
@@ -5398,11 +5398,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "hay_pile",
+      "name": "vermillion_stake_post_a",
       "kind": "object",
       "x": 352,
       "y": 640,
@@ -5417,7 +5416,7 @@
       ]
     },
     {
-      "name": "build_atlas_r20c17",
+      "name": "vermillion_stake_post_b",
       "kind": "tile",
       "row": 20,
       "col": 17,
@@ -5425,11 +5424,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c18",
+      "name": "vermillion_wood_post_a_top",
       "kind": "tile",
       "row": 20,
       "col": 18,
@@ -5437,11 +5435,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c19",
+      "name": "vermillion_wood_post_b_top",
       "kind": "tile",
       "row": 20,
       "col": 19,
@@ -5449,11 +5446,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c20",
+      "name": "vermillion_wood_post_c_top",
       "kind": "tile",
       "row": 20,
       "col": 20,
@@ -5461,11 +5457,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c21",
+      "name": "vermillion_wood_post_d_top",
       "kind": "tile",
       "row": 20,
       "col": 21,
@@ -5473,11 +5468,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c24",
+      "name": "vermillion_gate_lintel_left",
       "kind": "tile",
       "row": 20,
       "col": 24,
@@ -5485,11 +5479,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c25",
+      "name": "vermillion_gate_lintel_right",
       "kind": "tile",
       "row": 20,
       "col": 25,
@@ -5497,11 +5490,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c26",
+      "name": "vermillion_shrine_pillar_crossbeam_left",
       "kind": "tile",
       "row": 20,
       "col": 26,
@@ -5509,11 +5501,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c27",
+      "name": "vermillion_shrine_pillar_crossbeam_right",
       "kind": "tile",
       "row": 20,
       "col": 27,
@@ -5521,8 +5512,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r20c28",
@@ -5537,7 +5527,7 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r20c29",
+      "name": "framed_icon_crossed_swords_a",
       "kind": "tile",
       "row": 20,
       "col": 29,
@@ -5545,11 +5535,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c30",
+      "name": "framed_icon_potion_vase_a",
       "kind": "tile",
       "row": 20,
       "col": 30,
@@ -5557,11 +5546,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c31",
+      "name": "framed_icon_crossed_swords_b",
       "kind": "tile",
       "row": 20,
       "col": 31,
@@ -5569,11 +5557,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "riveted_metal_door",
+      "name": "framed_icon_potion_vase_b",
       "kind": "object",
       "x": 0,
       "y": 672,
@@ -5588,7 +5575,7 @@
       ]
     },
     {
-      "name": "build_atlas_r21c1",
+      "name": "framed_icon_inn_text",
       "kind": "tile",
       "row": 21,
       "col": 1,
@@ -5596,11 +5583,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c2",
+      "name": "cream_stone_wall_fill_a",
       "kind": "tile",
       "row": 21,
       "col": 2,
@@ -5608,11 +5594,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c3",
+      "name": "cream_stone_wall_fill_b",
       "kind": "tile",
       "row": 21,
       "col": 3,
@@ -5620,11 +5605,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c4",
+      "name": "cream_stone_wall_hole_breach",
       "kind": "tile",
       "row": 21,
       "col": 4,
@@ -5632,11 +5616,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c5",
+      "name": "cream_stone_wall_fill_c",
       "kind": "tile",
       "row": 21,
       "col": 5,
@@ -5644,11 +5627,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c6",
+      "name": "cream_stone_wall_fill_d",
       "kind": "tile",
       "row": 21,
       "col": 6,
@@ -5656,11 +5638,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c7",
+      "name": "cream_stone_wall_fill_e",
       "kind": "tile",
       "row": 21,
       "col": 7,
@@ -5668,11 +5649,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c8",
+      "name": "cream_stone_wall_fill_f",
       "kind": "tile",
       "row": 21,
       "col": 8,
@@ -5680,11 +5660,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c9",
+      "name": "cream_stone_wall_fill_g",
       "kind": "tile",
       "row": 21,
       "col": 9,
@@ -5692,8 +5671,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r21c10",
@@ -5708,7 +5686,7 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r21c13",
+      "name": "vermillion_stake_stub_a",
       "kind": "tile",
       "row": 21,
       "col": 13,
@@ -5716,11 +5694,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c14",
+      "name": "vermillion_stake_stub_b",
       "kind": "tile",
       "row": 21,
       "col": 14,
@@ -5728,11 +5705,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c15",
+      "name": "vermillion_wood_post_a_upper",
       "kind": "tile",
       "row": 21,
       "col": 15,
@@ -5740,11 +5716,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c16",
+      "name": "vermillion_wood_post_b_upper",
       "kind": "tile",
       "row": 21,
       "col": 16,
@@ -5752,11 +5727,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c17",
+      "name": "vermillion_wood_post_c_upper",
       "kind": "tile",
       "row": 21,
       "col": 17,
@@ -5764,11 +5738,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "wooden_cart_b",
+      "name": "vermillion_wood_post_d_upper",
       "kind": "object",
       "x": 608,
       "y": 672,
@@ -5783,7 +5756,7 @@
       ]
     },
     {
-      "name": "hay_cart",
+      "name": "vermillion_gate_lintel_shaft_left_upper",
       "kind": "object",
       "x": 672,
       "y": 672,
@@ -5799,7 +5772,7 @@
       ]
     },
     {
-      "name": "build_atlas_r21c24",
+      "name": "vermillion_gate_lintel_shaft_right_upper",
       "kind": "tile",
       "row": 21,
       "col": 24,
@@ -5807,11 +5780,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c25",
+      "name": "vermillion_shrine_pillar_bracket_left",
       "kind": "tile",
       "row": 21,
       "col": 25,
@@ -5819,11 +5791,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c26",
+      "name": "vermillion_shrine_pillar_bracket_right",
       "kind": "tile",
       "row": 21,
       "col": 26,
@@ -5831,11 +5802,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c27",
+      "name": "dusky_violet_wall_panel_edge_a",
       "kind": "tile",
       "row": 21,
       "col": 27,
@@ -5843,11 +5813,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c28",
+      "name": "dusky_violet_wall_panel_trim_top",
       "kind": "tile",
       "row": 21,
       "col": 28,
@@ -5855,11 +5824,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c29",
+      "name": "wood_chest_closed",
       "kind": "tile",
       "row": 21,
       "col": 29,
@@ -5867,11 +5835,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c30",
+      "name": "small_wood_chest_open_empty",
       "kind": "tile",
       "row": 21,
       "col": 30,
@@ -5879,11 +5846,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r21c31",
+      "name": "blue_conical_roof_tip",
       "kind": "tile",
       "row": 21,
       "col": 31,
@@ -5891,8 +5857,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r22c1",
@@ -5919,7 +5884,7 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r22c3",
+      "name": "cream_stone_wall_corner_round",
       "kind": "tile",
       "row": 22,
       "col": 3,
@@ -5927,11 +5892,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c4",
+      "name": "cream_stone_wall_fill_h",
       "kind": "tile",
       "row": 22,
       "col": 4,
@@ -5939,11 +5903,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c5",
+      "name": "cream_stone_wall_fill_i",
       "kind": "tile",
       "row": 22,
       "col": 5,
@@ -5951,11 +5914,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c6",
+      "name": "cream_coursed_wall_fill_a",
       "kind": "tile",
       "row": 22,
       "col": 6,
@@ -5963,11 +5925,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c7",
+      "name": "cream_coursed_wall_fill_b",
       "kind": "tile",
       "row": 22,
       "col": 7,
@@ -5975,11 +5936,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c8",
+      "name": "cream_coursed_wall_fill_c",
       "kind": "tile",
       "row": 22,
       "col": 8,
@@ -5987,11 +5947,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c9",
+      "name": "cream_stone_wall_fill_j",
       "kind": "tile",
       "row": 22,
       "col": 9,
@@ -5999,11 +5958,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c10",
+      "name": "cream_stone_wall_fill_k",
       "kind": "tile",
       "row": 22,
       "col": 10,
@@ -6011,11 +5969,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c13",
+      "name": "vermillion_stake_stub_c",
       "kind": "tile",
       "row": 22,
       "col": 13,
@@ -6023,11 +5980,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c14",
+      "name": "vermillion_stake_stub_d",
       "kind": "tile",
       "row": 22,
       "col": 14,
@@ -6035,11 +5991,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c15",
+      "name": "vermillion_wood_post_a_lower",
       "kind": "tile",
       "row": 22,
       "col": 15,
@@ -6047,11 +6002,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c17",
+      "name": "vermillion_wood_post_b_lower",
       "kind": "tile",
       "row": 22,
       "col": 17,
@@ -6059,11 +6013,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c24",
+      "name": "vermillion_wood_post_c_lower",
       "kind": "tile",
       "row": 22,
       "col": 24,
@@ -6071,11 +6024,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c25",
+      "name": "vermillion_wood_post_d_lower",
       "kind": "tile",
       "row": 22,
       "col": 25,
@@ -6083,11 +6035,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c26",
+      "name": "vermillion_gate_lintel_shaft_left_lower",
       "kind": "tile",
       "row": 22,
       "col": 26,
@@ -6095,11 +6046,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c27",
+      "name": "vermillion_gate_lintel_shaft_right_lower",
       "kind": "tile",
       "row": 22,
       "col": 27,
@@ -6107,11 +6057,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r22c28",
+      "name": "vermillion_shrine_pillar_shaft_left",
       "kind": "tile",
       "row": 22,
       "col": 28,
@@ -6119,11 +6068,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "lit_torch",
+      "name": "vermillion_shrine_pillar_shaft_right",
       "kind": "object",
       "x": 928,
       "y": 704,
@@ -6138,7 +6086,7 @@
       ]
     },
     {
-      "name": "tall_candle_stand",
+      "name": "dusky_violet_wall_panel_edge_b",
       "kind": "object",
       "x": 960,
       "y": 704,
@@ -6153,7 +6101,7 @@
       ]
     },
     {
-      "name": "build_atlas_r23c3",
+      "name": "dusky_violet_wall_panel_plain",
       "kind": "tile",
       "row": 23,
       "col": 3,
@@ -6161,11 +6109,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r23c4",
+      "name": "wood_chest_opening",
       "kind": "tile",
       "row": 23,
       "col": 4,
@@ -6173,11 +6120,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r23c5",
+      "name": "blue_conical_roof_mid",
       "kind": "tile",
       "row": 23,
       "col": 5,
@@ -6185,11 +6131,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r23c6",
+      "name": "teal_plaster_wall_fill_flat",
       "kind": "tile",
       "row": 23,
       "col": 6,
@@ -6197,11 +6142,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r23c9",
+      "name": "teal_slate_wall_crack_a",
       "kind": "tile",
       "row": 23,
       "col": 9,
@@ -6209,11 +6153,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r23c10",
+      "name": "cream_slate_wall_crack_a",
       "kind": "tile",
       "row": 23,
       "col": 10,
@@ -6221,8 +6164,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r23c13",
@@ -6237,7 +6179,7 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r23c14",
+      "name": "twin_amber_finial_stake_pair",
       "kind": "tile",
       "row": 23,
       "col": 14,
@@ -6245,8 +6187,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r23c15",
@@ -6273,7 +6214,7 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r23c17",
+      "name": "vermillion_wood_post_a_base",
       "kind": "tile",
       "row": 23,
       "col": 17,
@@ -6281,11 +6222,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r23c18",
+      "name": "vermillion_wood_post_b_base",
       "kind": "tile",
       "row": 23,
       "col": 18,
@@ -6293,11 +6233,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r23c19",
+      "name": "vermillion_wood_post_c_base",
       "kind": "tile",
       "row": 23,
       "col": 19,
@@ -6305,11 +6244,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r23c20",
+      "name": "vermillion_wood_post_d_base",
       "kind": "tile",
       "row": 23,
       "col": 20,
@@ -6317,11 +6255,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r23c21",
+      "name": "vermillion_shrine_pillar_base_left",
       "kind": "tile",
       "row": 23,
       "col": 21,
@@ -6329,11 +6266,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r23c22",
+      "name": "vermillion_shrine_pillar_base_right",
       "kind": "tile",
       "row": 23,
       "col": 22,
@@ -6341,11 +6277,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r23c23",
+      "name": "dusky_violet_wall_panel_edge_c",
       "kind": "tile",
       "row": 23,
       "col": 23,
@@ -6353,11 +6288,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r23c24",
+      "name": "banded_slate_wall_fill_a",
       "kind": "tile",
       "row": 23,
       "col": 24,
@@ -6365,11 +6299,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r23c25",
+      "name": "wood_chest_open_empty",
       "kind": "tile",
       "row": 23,
       "col": 25,
@@ -6377,11 +6310,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r23c26",
+      "name": "sage_stone_floor_tile",
       "kind": "tile",
       "row": 23,
       "col": 26,
@@ -6389,35 +6321,24 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c0",
-      "kind": "tile",
-      "row": 24,
-      "col": 0,
-      "frameIndex": 768,
+      "name": "blue_conical_roof_base",
+      "kind": "object",
+      "x": 0,
+      "y": 768,
+      "w": 64,
+      "h": 32,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "architecture",
+        "roof"
+      ]
     },
     {
-      "name": "build_atlas_r24c1",
-      "kind": "tile",
-      "row": 24,
-      "col": 1,
-      "frameIndex": 769,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r24c2",
+      "name": "teal_slate_wall_crack_b",
       "kind": "tile",
       "row": 24,
       "col": 2,
@@ -6425,11 +6346,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c3",
+      "name": "teal_slate_wall_crack_c",
       "kind": "tile",
       "row": 24,
       "col": 3,
@@ -6437,11 +6357,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c4",
+      "name": "cream_slate_wall_fill_plain_a",
       "kind": "tile",
       "row": 24,
       "col": 4,
@@ -6449,11 +6368,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c5",
+      "name": "cream_slate_wall_crack_b",
       "kind": "tile",
       "row": 24,
       "col": 5,
@@ -6461,11 +6379,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c6",
+      "name": "teal_slate_wall_crack_d",
       "kind": "tile",
       "row": 24,
       "col": 6,
@@ -6473,11 +6390,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c8",
+      "name": "cream_slate_wall_crack_c",
       "kind": "tile",
       "row": 24,
       "col": 8,
@@ -6485,11 +6401,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c9",
+      "name": "cream_slate_wall_fill_plain_b",
       "kind": "tile",
       "row": 24,
       "col": 9,
@@ -6497,11 +6412,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c10",
+      "name": "teal_slate_wall_crack_e",
       "kind": "tile",
       "row": 24,
       "col": 10,
@@ -6509,8 +6423,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r24c11",
