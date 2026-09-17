@@ -6407,7 +6407,7 @@
       ]
     },
     {
-      "name": "terrain_atlas_r20c1",
+      "name": "grass_hillock_cap_a",
       "kind": "tile",
       "row": 20,
       "col": 1,
@@ -6415,11 +6415,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c2",
+      "name": "grass_field_fill_a",
       "kind": "tile",
       "row": 20,
       "col": 2,
@@ -6427,11 +6426,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c3",
+      "name": "grass_field_fill_b",
       "kind": "tile",
       "row": 20,
       "col": 3,
@@ -6439,11 +6437,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c4",
+      "name": "round_shrub_cap_a",
       "kind": "tile",
       "row": 20,
       "col": 4,
@@ -6451,11 +6448,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c5",
+      "name": "grass_field_fill_c",
       "kind": "tile",
       "row": 20,
       "col": 5,
@@ -6463,11 +6459,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c6",
+      "name": "grass_field_fill_d",
       "kind": "tile",
       "row": 20,
       "col": 6,
@@ -6475,35 +6470,25 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c7",
-      "kind": "tile",
-      "row": 20,
-      "col": 7,
-      "frameIndex": 647,
+      "name": "mud_puddle",
+      "kind": "object",
+      "x": 224,
+      "y": 640,
+      "w": 64,
+      "h": 32,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "terrain",
+        "mud",
+        "water"
+      ]
     },
     {
-      "name": "terrain_atlas_r20c8",
-      "kind": "tile",
-      "row": 20,
-      "col": 8,
-      "frameIndex": 648,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "terrain_atlas_r20c9",
+      "name": "tan_cobblestone_fill_a",
       "kind": "tile",
       "row": 20,
       "col": 9,
@@ -6511,11 +6496,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c10",
+      "name": "tan_cobblestone_fill_b",
       "kind": "tile",
       "row": 20,
       "col": 10,
@@ -6523,11 +6507,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c11",
+      "name": "tan_cobblestone_fill_c",
       "kind": "tile",
       "row": 20,
       "col": 11,
@@ -6535,11 +6518,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c12",
+      "name": "tan_cobblestone_fill_d",
       "kind": "tile",
       "row": 20,
       "col": 12,
@@ -6547,11 +6529,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c13",
+      "name": "tan_cobblestone_sprout",
       "kind": "tile",
       "row": 20,
       "col": 13,
@@ -6559,11 +6540,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c14",
+      "name": "wood_plank_shelf_short_a",
       "kind": "tile",
       "row": 20,
       "col": 14,
@@ -6571,11 +6551,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c15",
+      "name": "wood_plank_shelf_short_post_both",
       "kind": "tile",
       "row": 20,
       "col": 15,
@@ -6583,11 +6562,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c16",
+      "name": "wood_shelf_rack_two_tier",
       "kind": "tile",
       "row": 20,
       "col": 16,
@@ -6595,11 +6573,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c17",
+      "name": "wood_plank_wall_fill_d",
       "kind": "tile",
       "row": 20,
       "col": 17,
@@ -6607,11 +6584,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c18",
+      "name": "wood_plank_wall_fill_e",
       "kind": "tile",
       "row": 20,
       "col": 18,
@@ -6619,11 +6595,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c19",
+      "name": "wood_plank_wall_fill_f",
       "kind": "tile",
       "row": 20,
       "col": 19,
@@ -6631,11 +6606,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c20",
+      "name": "wood_rope_fence_post_l",
       "kind": "tile",
       "row": 20,
       "col": 20,
@@ -6643,11 +6617,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c21",
+      "name": "wood_rope_fence_span",
       "kind": "tile",
       "row": 20,
       "col": 21,
@@ -6655,11 +6628,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c22",
+      "name": "wood_rope_fence_post_r",
       "kind": "tile",
       "row": 20,
       "col": 22,
@@ -6667,11 +6639,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c23",
+      "name": "wood_picket_fence_fill_a",
       "kind": "tile",
       "row": 20,
       "col": 23,
@@ -6679,11 +6650,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c24",
+      "name": "wood_picket_fence_fill_b",
       "kind": "tile",
       "row": 20,
       "col": 24,
@@ -6691,11 +6661,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r20c31",
+      "name": "wood_picket_fence_end_post",
       "kind": "tile",
       "row": 20,
       "col": 31,
@@ -6703,11 +6672,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c0",
+      "name": "periwinkle_cobble_floor_fill",
       "kind": "tile",
       "row": 21,
       "col": 0,
@@ -6715,11 +6683,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c1",
+      "name": "grass_hillock_base_fringe_a",
       "kind": "tile",
       "row": 21,
       "col": 1,
@@ -6727,11 +6694,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c2",
+      "name": "grass_field_fill_e",
       "kind": "tile",
       "row": 21,
       "col": 2,
@@ -6739,11 +6705,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c3",
+      "name": "grass_field_fill_f",
       "kind": "tile",
       "row": 21,
       "col": 3,
@@ -6751,11 +6716,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c4",
+      "name": "round_shrub_fill_a",
       "kind": "tile",
       "row": 21,
       "col": 4,
@@ -6763,11 +6727,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c5",
+      "name": "grass_field_fill_g",
       "kind": "tile",
       "row": 21,
       "col": 5,
@@ -6775,11 +6738,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c6",
+      "name": "grass_field_fill_h",
       "kind": "tile",
       "row": 21,
       "col": 6,
@@ -6787,11 +6749,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c7",
+      "name": "reed_thicket_fill_a",
       "kind": "tile",
       "row": 21,
       "col": 7,
@@ -6799,11 +6760,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c8",
+      "name": "reed_thicket_fill_b",
       "kind": "tile",
       "row": 21,
       "col": 8,
@@ -6811,11 +6771,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c9",
+      "name": "packed_dirt_fill_a",
       "kind": "tile",
       "row": 21,
       "col": 9,
@@ -6823,11 +6782,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c10",
+      "name": "packed_dirt_fill_b",
       "kind": "tile",
       "row": 21,
       "col": 10,
@@ -6835,11 +6793,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c11",
+      "name": "packed_dirt_fill_c",
       "kind": "tile",
       "row": 21,
       "col": 11,
@@ -6847,11 +6804,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c12",
+      "name": "packed_dirt_fill_d",
       "kind": "tile",
       "row": 21,
       "col": 12,
@@ -6859,11 +6815,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c13",
+      "name": "packed_dirt_fill_e",
       "kind": "tile",
       "row": 21,
       "col": 13,
@@ -6871,11 +6826,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "gravestone_rounded",
+      "name": "wood_window_dark_frame",
       "kind": "object",
       "x": 448,
       "y": 672,
@@ -6929,7 +6883,7 @@
       "needsNaming": true
     },
     {
-      "name": "terrain_atlas_r21c18",
+      "name": "wood_arch_door_l",
       "kind": "tile",
       "row": 21,
       "col": 18,
@@ -6937,11 +6891,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c19",
+      "name": "wood_arch_door_r",
       "kind": "tile",
       "row": 21,
       "col": 19,
@@ -6949,11 +6902,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c20",
+      "name": "checker_floor_tile_brown",
       "kind": "tile",
       "row": 21,
       "col": 20,
@@ -6961,11 +6913,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c21",
+      "name": "diamond_tile_terracotta",
       "kind": "tile",
       "row": 21,
       "col": 21,
@@ -6973,11 +6924,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c22",
+      "name": "sandstone_boulder_c",
       "kind": "tile",
       "row": 21,
       "col": 22,
@@ -6985,11 +6935,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c23",
+      "name": "sandstone_pebble_scatter_a",
       "kind": "tile",
       "row": 21,
       "col": 23,
@@ -6997,11 +6946,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c24",
+      "name": "sandstone_pebble_scatter_b",
       "kind": "tile",
       "row": 21,
       "col": 24,
@@ -7009,11 +6957,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r21c25",
+      "name": "sandstone_boulder_cluster_a",
       "kind": "tile",
       "row": 21,
       "col": 25,
@@ -7021,11 +6968,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "sandstone_boulder_a",
+      "name": "sandstone_pebble_scatter_c",
       "kind": "object",
       "x": 832,
       "y": 672,
@@ -7096,7 +7042,7 @@
       "needsNaming": true
     },
     {
-      "name": "terrain_atlas_r22c1",
+      "name": "grass_field_edge_corner_nw",
       "kind": "tile",
       "row": 22,
       "col": 1,
@@ -7104,11 +7050,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c2",
+      "name": "grass_field_edge_n",
       "kind": "tile",
       "row": 22,
       "col": 2,
@@ -7116,11 +7061,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c3",
+      "name": "grass_field_edge_corner_ne",
       "kind": "tile",
       "row": 22,
       "col": 3,
@@ -7128,11 +7072,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c4",
+      "name": "grass_field_edge_bump_a",
       "kind": "tile",
       "row": 22,
       "col": 4,
@@ -7140,11 +7083,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c5",
+      "name": "grass_field_edge_bump_b",
       "kind": "tile",
       "row": 22,
       "col": 5,
@@ -7152,11 +7094,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c6",
+      "name": "grass_field_edge_bump_c",
       "kind": "tile",
       "row": 22,
       "col": 6,
@@ -7164,11 +7105,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c7",
+      "name": "reed_thicket_fill_c",
       "kind": "tile",
       "row": 22,
       "col": 7,
@@ -7176,11 +7116,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c8",
+      "name": "reed_thicket_fill_d",
       "kind": "tile",
       "row": 22,
       "col": 8,
@@ -7188,11 +7127,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c9",
+      "name": "packed_dirt_fill_f",
       "kind": "tile",
       "row": 22,
       "col": 9,
@@ -7200,11 +7138,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c10",
+      "name": "packed_dirt_fill_g",
       "kind": "tile",
       "row": 22,
       "col": 10,
@@ -7212,11 +7149,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c11",
+      "name": "packed_dirt_fill_h",
       "kind": "tile",
       "row": 22,
       "col": 11,
@@ -7224,11 +7160,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c12",
+      "name": "packed_dirt_fill_i",
       "kind": "tile",
       "row": 22,
       "col": 12,
@@ -7236,11 +7171,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c13",
+      "name": "packed_dirt_fill_j",
       "kind": "tile",
       "row": 22,
       "col": 13,
@@ -7248,11 +7182,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c17",
+      "name": "wood_crate_flat_top",
       "kind": "tile",
       "row": 22,
       "col": 17,
@@ -7260,11 +7193,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c18",
+      "name": "wood_window_barred_a",
       "kind": "tile",
       "row": 22,
       "col": 18,
@@ -7272,11 +7204,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c19",
+      "name": "wood_window_barred_b",
       "kind": "tile",
       "row": 22,
       "col": 19,
@@ -7284,11 +7215,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c20",
+      "name": "diamond_tile_gray",
       "kind": "tile",
       "row": 22,
       "col": 20,
@@ -7296,11 +7226,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c21",
+      "name": "diamond_tile_indigo",
       "kind": "tile",
       "row": 22,
       "col": 21,
@@ -7308,11 +7237,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c22",
+      "name": "brick_wall_fill_a",
       "kind": "tile",
       "row": 22,
       "col": 22,
@@ -7320,11 +7248,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c23",
+      "name": "brick_wall_fill_b",
       "kind": "tile",
       "row": 22,
       "col": 23,
@@ -7332,11 +7259,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c24",
+      "name": "brick_wall_fill_c",
       "kind": "tile",
       "row": 22,
       "col": 24,
@@ -7344,11 +7270,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r22c25",
+      "name": "brick_wall_fill_d",
       "kind": "tile",
       "row": 22,
       "col": 25,
@@ -7356,11 +7281,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c0",
+      "name": "brick_wall_fill_e",
       "kind": "tile",
       "row": 23,
       "col": 0,
@@ -7368,11 +7292,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c1",
+      "name": "grass_field_fill_i",
       "kind": "tile",
       "row": 23,
       "col": 1,
@@ -7380,11 +7303,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c2",
+      "name": "grass_field_fill_j",
       "kind": "tile",
       "row": 23,
       "col": 2,
@@ -7392,11 +7314,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c3",
+      "name": "grass_field_fill_k",
       "kind": "tile",
       "row": 23,
       "col": 3,
@@ -7404,11 +7325,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c4",
+      "name": "grass_field_fill_l",
       "kind": "tile",
       "row": 23,
       "col": 4,
@@ -7416,11 +7336,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c5",
+      "name": "grass_field_fill_m",
       "kind": "tile",
       "row": 23,
       "col": 5,
@@ -7428,11 +7347,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c6",
+      "name": "grass_field_fill_n",
       "kind": "tile",
       "row": 23,
       "col": 6,
@@ -7440,11 +7358,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c8",
+      "name": "reed_thicket_water_base",
       "kind": "tile",
       "row": 23,
       "col": 8,
@@ -7452,11 +7369,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c9",
+      "name": "packed_dirt_fill_k",
       "kind": "tile",
       "row": 23,
       "col": 9,
@@ -7464,11 +7380,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c10",
+      "name": "packed_dirt_fill_l",
       "kind": "tile",
       "row": 23,
       "col": 10,
@@ -7476,11 +7391,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c11",
+      "name": "packed_dirt_fill_m",
       "kind": "tile",
       "row": 23,
       "col": 11,
@@ -7488,11 +7402,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c12",
+      "name": "packed_dirt_fill_n",
       "kind": "tile",
       "row": 23,
       "col": 12,
@@ -7500,11 +7413,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c13",
+      "name": "packed_dirt_fill_o",
       "kind": "tile",
       "row": 23,
       "col": 13,
@@ -7512,11 +7424,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c14",
+      "name": "gray_stone_chunk_cube",
       "kind": "tile",
       "row": 23,
       "col": 14,
@@ -7524,11 +7435,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c15",
+      "name": "gray_stone_chunk_cluster",
       "kind": "tile",
       "row": 23,
       "col": 15,
@@ -7536,11 +7446,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c16",
+      "name": "gray_stone_chunk_shard",
       "kind": "tile",
       "row": 23,
       "col": 16,
@@ -7548,11 +7457,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c17",
+      "name": "slate_wall_base_bevel_l",
       "kind": "tile",
       "row": 23,
       "col": 17,
@@ -7560,11 +7468,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c18",
+      "name": "slate_wall_base_fill",
       "kind": "tile",
       "row": 23,
       "col": 18,
@@ -7572,11 +7479,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c19",
+      "name": "slate_wall_base_bevel_r",
       "kind": "tile",
       "row": 23,
       "col": 19,
@@ -7584,11 +7490,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c20",
+      "name": "brick_wall_crumble_a",
       "kind": "tile",
       "row": 23,
       "col": 20,
@@ -7596,11 +7501,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c21",
+      "name": "brick_wall_crumble_b",
       "kind": "tile",
       "row": 23,
       "col": 21,
@@ -7608,11 +7512,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "brick_wall_fragment",
+      "name": "brick_wall_crumble_c",
       "kind": "object",
       "x": 704,
       "y": 736,
@@ -7639,7 +7542,7 @@
       "needsNaming": true
     },
     {
-      "name": "terrain_atlas_r23c25",
+      "name": "gray_stone_shaft_a",
       "kind": "tile",
       "row": 23,
       "col": 25,
@@ -7647,11 +7550,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "sprouting_bulb",
+      "name": "gray_stone_shaft_b",
       "kind": "object",
       "x": 832,
       "y": 736,
@@ -7691,7 +7593,7 @@
       "needsNaming": true
     },
     {
-      "name": "terrain_atlas_r23c30",
+      "name": "dark_pebble_pair_a",
       "kind": "tile",
       "row": 23,
       "col": 30,
@@ -7699,11 +7601,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r23c31",
+      "name": "rust_mound_crest_l",
       "kind": "tile",
       "row": 23,
       "col": 31,
@@ -7711,11 +7612,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r24c0",
+      "name": "rust_mound_crest_r",
       "kind": "tile",
       "row": 24,
       "col": 0,
@@ -7723,8 +7623,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "terrain_atlas_r24c1",
