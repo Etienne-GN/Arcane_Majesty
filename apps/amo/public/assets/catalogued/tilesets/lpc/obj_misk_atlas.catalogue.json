@@ -2654,7 +2654,7 @@
       "needsNaming": true
     },
     {
-      "name": "obj_misk_atlas_r9c26",
+      "name": "floor_stone_pale_water_edge_left",
       "kind": "tile",
       "row": 9,
       "col": 26,
@@ -2662,11 +2662,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c27",
+      "name": "floor_stone_pale_ring_a",
       "kind": "tile",
       "row": 9,
       "col": 27,
@@ -2674,11 +2673,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c28",
+      "name": "floor_stone_pale_plain_a",
       "kind": "tile",
       "row": 9,
       "col": 28,
@@ -2686,11 +2684,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c29",
+      "name": "floor_stone_pale_ring_b",
       "kind": "tile",
       "row": 9,
       "col": 29,
@@ -2698,11 +2695,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c30",
+      "name": "floor_stone_pale_plain_b",
       "kind": "tile",
       "row": 9,
       "col": 30,
@@ -2710,11 +2706,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c31",
+      "name": "floor_stone_pale_ring_c",
       "kind": "tile",
       "row": 9,
       "col": 31,
@@ -2722,11 +2717,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c0",
+      "name": "floor_stone_pale_water_edge_right",
       "kind": "tile",
       "row": 10,
       "col": 0,
@@ -2734,11 +2728,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c1",
+      "name": "dresser_wood_cherry_drawers",
       "kind": "tile",
       "row": 10,
       "col": 1,
@@ -2746,11 +2739,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c2",
+      "name": "wardrobe_wood_cherry_two_door_a",
       "kind": "tile",
       "row": 10,
       "col": 2,
@@ -2758,11 +2750,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c3",
+      "name": "wardrobe_wood_cherry_two_door_b",
       "kind": "tile",
       "row": 10,
       "col": 3,
@@ -2770,11 +2761,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c4",
+      "name": "cabinet_wood_cherry_four_door",
       "kind": "tile",
       "row": 10,
       "col": 4,
@@ -2782,11 +2772,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c5",
+      "name": "wardrobe_wood_cherry_two_door_c",
       "kind": "tile",
       "row": 10,
       "col": 5,
@@ -2794,11 +2783,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c6",
+      "name": "window_glasswall_frame_top_a",
       "kind": "tile",
       "row": 10,
       "col": 6,
@@ -2806,11 +2794,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c15",
+      "name": "window_glasswall_frame_top_b",
       "kind": "tile",
       "row": 10,
       "col": 15,
@@ -2818,11 +2805,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c16",
+      "name": "window_glasswall_frame_top_c",
       "kind": "tile",
       "row": 10,
       "col": 16,
@@ -2830,11 +2816,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c17",
+      "name": "window_glasswall_frame_top_d",
       "kind": "tile",
       "row": 10,
       "col": 17,
@@ -2842,11 +2827,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c18",
+      "name": "staircase_grand_red_r1c1",
       "kind": "tile",
       "row": 10,
       "col": 18,
@@ -2854,11 +2838,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "door_double_glass_dark",
+      "name": "staircase_grand_red_r1c2",
       "kind": "object",
       "x": 608,
       "y": 320,
@@ -2871,7 +2854,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r10c20",
+      "name": "staircase_grand_red_r1c3",
       "kind": "tile",
       "row": 10,
       "col": 20,
@@ -2879,11 +2862,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c21",
+      "name": "staircase_grand_red_r1c4",
       "kind": "tile",
       "row": 10,
       "col": 21,
@@ -2891,11 +2873,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c22",
+      "name": "staircase_grand_red_r1c5",
       "kind": "tile",
       "row": 10,
       "col": 22,
@@ -2903,11 +2884,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c23",
+      "name": "staircase_grand_red_r1c6",
       "kind": "tile",
       "row": 10,
       "col": 23,
@@ -2915,11 +2895,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c24",
+      "name": "staircase_grand_red_r1c7",
       "kind": "tile",
       "row": 10,
       "col": 24,
@@ -2927,11 +2906,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c25",
+      "name": "staircase_grand_red_r1c8",
       "kind": "tile",
       "row": 10,
       "col": 25,
@@ -2939,11 +2917,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c26",
+      "name": "wall_stone_dock_mossy_edge_left",
       "kind": "tile",
       "row": 10,
       "col": 26,
@@ -2951,11 +2928,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c27",
+      "name": "wall_stone_dock_mossy_fill_a",
       "kind": "tile",
       "row": 10,
       "col": 27,
@@ -2963,11 +2939,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c28",
+      "name": "wall_stone_dock_mossy_fill_b",
       "kind": "tile",
       "row": 10,
       "col": 28,
@@ -2975,11 +2950,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c29",
+      "name": "wall_stone_dock_mossy_fill_c",
       "kind": "tile",
       "row": 10,
       "col": 29,
@@ -2987,11 +2961,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c30",
+      "name": "wall_stone_dock_mossy_fill_d",
       "kind": "tile",
       "row": 10,
       "col": 30,
@@ -2999,11 +2972,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r10c31",
+      "name": "wall_stone_dock_mossy_fill_e",
       "kind": "tile",
       "row": 10,
       "col": 31,
@@ -3011,11 +2983,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c0",
+      "name": "wall_stone_dock_mossy_edge_right",
       "kind": "tile",
       "row": 11,
       "col": 0,
@@ -3023,11 +2994,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c1",
+      "name": "nightstand_wood_cherry",
       "kind": "tile",
       "row": 11,
       "col": 1,
@@ -3035,11 +3005,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c2",
+      "name": "cabinet_wood_cherry_low_two_door_a",
       "kind": "tile",
       "row": 11,
       "col": 2,
@@ -3047,11 +3016,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "firewood_pile",
+      "name": "cabinet_wood_cherry_low_two_door_b",
       "kind": "object",
       "x": 96,
       "y": 352,
@@ -3065,7 +3033,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r11c5",
+      "name": "cabinet_wood_cherry_low_four_door",
       "kind": "tile",
       "row": 11,
       "col": 5,
@@ -3073,11 +3041,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c6",
+      "name": "cabinet_wood_cherry_low_two_door_c",
       "kind": "tile",
       "row": 11,
       "col": 6,
@@ -3085,11 +3052,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c7",
+      "name": "window_glasswall_pane_upper_a",
       "kind": "tile",
       "row": 11,
       "col": 7,
@@ -3097,11 +3063,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c8",
+      "name": "window_glasswall_pane_upper_b",
       "kind": "tile",
       "row": 11,
       "col": 8,
@@ -3109,11 +3074,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c9",
+      "name": "window_glasswall_pane_upper_c",
       "kind": "tile",
       "row": 11,
       "col": 9,
@@ -3121,11 +3085,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c10",
+      "name": "window_glasswall_pane_upper_d",
       "kind": "tile",
       "row": 11,
       "col": 10,
@@ -3133,11 +3096,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c11",
+      "name": "staircase_grand_red_r2c1",
       "kind": "tile",
       "row": 11,
       "col": 11,
@@ -3145,11 +3107,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c12",
+      "name": "staircase_grand_red_r2c2",
       "kind": "tile",
       "row": 11,
       "col": 12,
@@ -3157,11 +3118,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c13",
+      "name": "staircase_grand_red_r2c3",
       "kind": "tile",
       "row": 11,
       "col": 13,
@@ -3169,11 +3129,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c14",
+      "name": "staircase_grand_red_r2c4",
       "kind": "tile",
       "row": 11,
       "col": 14,
@@ -3181,11 +3140,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c15",
+      "name": "staircase_grand_red_r2c5",
       "kind": "tile",
       "row": 11,
       "col": 15,
@@ -3193,11 +3151,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c16",
+      "name": "staircase_grand_red_r2c6",
       "kind": "tile",
       "row": 11,
       "col": 16,
@@ -3205,11 +3162,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c17",
+      "name": "staircase_grand_red_r2c7",
       "kind": "tile",
       "row": 11,
       "col": 17,
@@ -3217,11 +3173,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c18",
+      "name": "staircase_grand_red_r2c8",
       "kind": "tile",
       "row": 11,
       "col": 18,
@@ -3229,11 +3184,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c20",
+      "name": "water_edge_wall_corner_left",
       "kind": "tile",
       "row": 11,
       "col": 20,
@@ -3241,11 +3195,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c21",
+      "name": "water_edge_wall_rock_a",
       "kind": "tile",
       "row": 11,
       "col": 21,
@@ -3253,11 +3206,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c22",
+      "name": "water_edge_wall_plain_a",
       "kind": "tile",
       "row": 11,
       "col": 22,
@@ -3265,11 +3217,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c23",
+      "name": "water_edge_wall_plain_b",
       "kind": "tile",
       "row": 11,
       "col": 23,
@@ -3277,11 +3228,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c24",
+      "name": "water_edge_wall_plain_c",
       "kind": "tile",
       "row": 11,
       "col": 24,
@@ -3289,11 +3239,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c25",
+      "name": "water_edge_wall_rock_b",
       "kind": "tile",
       "row": 11,
       "col": 25,
@@ -3301,11 +3250,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c26",
+      "name": "water_edge_wall_corner_right",
       "kind": "tile",
       "row": 11,
       "col": 26,
@@ -3313,11 +3261,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c27",
+      "name": "basin_ceramic_cream",
       "kind": "tile",
       "row": 11,
       "col": 27,
@@ -3325,11 +3272,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c28",
+      "name": "door_glass_dark_two_pane_a",
       "kind": "tile",
       "row": 11,
       "col": 28,
@@ -3337,11 +3283,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c29",
+      "name": "door_glass_dark_four_pane_a",
       "kind": "tile",
       "row": 11,
       "col": 29,
@@ -3349,11 +3294,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r11c30",
+      "name": "door_glass_dark_four_pane_b",
       "kind": "tile",
       "row": 11,
       "col": 30,
@@ -3361,8 +3305,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "obj_misk_atlas_r11c31",
@@ -3377,7 +3320,7 @@
       "needsNaming": true
     },
     {
-      "name": "obj_misk_atlas_r12c0",
+      "name": "window_glasswall_pane_lower_a",
       "kind": "tile",
       "row": 12,
       "col": 0,
@@ -3385,11 +3328,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c1",
+      "name": "window_glasswall_pane_lower_b",
       "kind": "tile",
       "row": 12,
       "col": 1,
@@ -3397,11 +3339,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c5",
+      "name": "window_glasswall_pane_lower_c",
       "kind": "tile",
       "row": 12,
       "col": 5,
@@ -3409,11 +3350,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c6",
+      "name": "window_glasswall_pane_lower_d",
       "kind": "tile",
       "row": 12,
       "col": 6,
@@ -3421,11 +3361,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c7",
+      "name": "staircase_grand_red_r3c1",
       "kind": "tile",
       "row": 12,
       "col": 7,
@@ -3433,11 +3372,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c8",
+      "name": "staircase_grand_red_r3c2",
       "kind": "tile",
       "row": 12,
       "col": 8,
@@ -3445,11 +3383,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c9",
+      "name": "staircase_grand_red_r3c3",
       "kind": "tile",
       "row": 12,
       "col": 9,
@@ -3457,11 +3394,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c10",
+      "name": "staircase_grand_red_r3c4",
       "kind": "tile",
       "row": 12,
       "col": 10,
@@ -3469,11 +3405,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c11",
+      "name": "staircase_grand_red_r3c5",
       "kind": "tile",
       "row": 12,
       "col": 11,
@@ -3481,11 +3416,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c12",
+      "name": "staircase_grand_red_r3c6",
       "kind": "tile",
       "row": 12,
       "col": 12,
@@ -3493,11 +3427,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c13",
+      "name": "staircase_grand_red_r3c7",
       "kind": "tile",
       "row": 12,
       "col": 13,
@@ -3505,11 +3438,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c14",
+      "name": "staircase_grand_red_r3c8",
       "kind": "tile",
       "row": 12,
       "col": 14,
@@ -3517,11 +3449,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c15",
+      "name": "dirt_mound_brown",
       "kind": "tile",
       "row": 12,
       "col": 15,
@@ -3529,11 +3460,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c16",
+      "name": "firewood_pile_stacked_left",
       "kind": "tile",
       "row": 12,
       "col": 16,
@@ -3541,11 +3471,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c17",
+      "name": "firewood_pile_stacked_right",
       "kind": "tile",
       "row": 12,
       "col": 17,
@@ -3553,8 +3482,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "obj_misk_atlas_r12c18",
@@ -3569,7 +3497,7 @@
       "needsNaming": true
     },
     {
-      "name": "toilet_white_a",
+      "name": "log_single_fallen",
       "kind": "object",
       "x": 640,
       "y": 384,
@@ -3583,7 +3511,7 @@
       ]
     },
     {
-      "name": "toilet_white_b",
+      "name": "anvil_on_stump",
       "kind": "object",
       "x": 672,
       "y": 384,
@@ -3597,7 +3525,7 @@
       ]
     },
     {
-      "name": "toilet_white_c",
+      "name": "sword_pile_scatter_a",
       "kind": "object",
       "x": 704,
       "y": 384,
@@ -3611,7 +3539,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r12c23",
+      "name": "sword_pile_scatter_b",
       "kind": "tile",
       "row": 12,
       "col": 23,
@@ -3619,11 +3547,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c24",
+      "name": "table_wood_plank_left",
       "kind": "tile",
       "row": 12,
       "col": 24,
@@ -3631,11 +3558,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c25",
+      "name": "table_wood_plank_mid",
       "kind": "tile",
       "row": 12,
       "col": 25,
@@ -3643,11 +3569,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c26",
+      "name": "table_wood_plank_right",
       "kind": "tile",
       "row": 12,
       "col": 26,
@@ -3655,11 +3580,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c27",
+      "name": "table_wood_plank_short",
       "kind": "tile",
       "row": 12,
       "col": 27,
@@ -3667,11 +3591,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c28",
+      "name": "counter_wood_dark_empty",
       "kind": "tile",
       "row": 12,
       "col": 28,
@@ -3679,11 +3602,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c29",
+      "name": "counter_wood_dark_wares",
       "kind": "tile",
       "row": 12,
       "col": 29,
@@ -3691,11 +3613,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c30",
+      "name": "fountain_stone_square",
       "kind": "tile",
       "row": 12,
       "col": 30,
@@ -3703,11 +3624,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r12c31",
+      "name": "door_glass_dark_two_pane_b",
       "kind": "tile",
       "row": 12,
       "col": 31,
@@ -3715,11 +3635,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r13c0",
+      "name": "door_glass_dark_two_pane_transom",
       "kind": "tile",
       "row": 13,
       "col": 0,
@@ -3727,11 +3646,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r13c1",
+      "name": "door_glass_dark_four_pane_c",
       "kind": "tile",
       "row": 13,
       "col": 1,
@@ -3739,11 +3657,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r13c2",
+      "name": "window_glasswall_frame_bottom_a",
       "kind": "tile",
       "row": 13,
       "col": 2,
@@ -3751,11 +3668,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "sack_pile_burlap",
+      "name": "window_glasswall_frame_bottom_b",
       "kind": "object",
       "x": 96,
       "y": 416,
@@ -3769,7 +3685,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r13c6",
+      "name": "window_glasswall_frame_bottom_c",
       "kind": "tile",
       "row": 13,
       "col": 6,
@@ -3777,11 +3693,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r13c7",
+      "name": "window_glasswall_frame_bottom_d",
       "kind": "tile",
       "row": 13,
       "col": 7,
@@ -3789,11 +3704,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r13c8",
+      "name": "staircase_grand_red_r4c1",
       "kind": "tile",
       "row": 13,
       "col": 8,
@@ -3801,11 +3715,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r13c9",
+      "name": "staircase_grand_red_r4c2",
       "kind": "tile",
       "row": 13,
       "col": 9,
@@ -3813,11 +3726,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r13c10",
+      "name": "staircase_grand_red_r4c3",
       "kind": "tile",
       "row": 13,
       "col": 10,
@@ -3825,11 +3737,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r13c11",
+      "name": "staircase_grand_red_r4c4",
       "kind": "tile",
       "row": 13,
       "col": 11,
@@ -3837,11 +3748,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r13c12",
+      "name": "staircase_grand_red_r4c5",
       "kind": "tile",
       "row": 13,
       "col": 12,
@@ -3849,11 +3759,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r13c13",
+      "name": "staircase_grand_red_r4c6",
       "kind": "tile",
       "row": 13,
       "col": 13,
@@ -3861,11 +3770,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r13c14",
+      "name": "staircase_grand_red_r4c7",
       "kind": "tile",
       "row": 13,
       "col": 14,
@@ -3873,11 +3781,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r13c15",
+      "name": "staircase_grand_red_r4c8",
       "kind": "tile",
       "row": 13,
       "col": 15,
@@ -3885,8 +3792,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "obj_misk_atlas_r13c16",
