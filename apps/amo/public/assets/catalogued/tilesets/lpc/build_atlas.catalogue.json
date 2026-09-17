@@ -4285,7 +4285,7 @@
       ]
     },
     {
-      "name": "build_atlas_r16c10",
+      "name": "sienna_brick_wall_top_corner_shadow_a",
       "kind": "tile",
       "row": 16,
       "col": 10,
@@ -4293,11 +4293,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r16c11",
+      "name": "sienna_brick_wall_top_corner_shadow_b",
       "kind": "tile",
       "row": 16,
       "col": 11,
@@ -4305,11 +4304,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "sewer_drain_flow",
+      "name": "sienna_brick_wall_top_corner_shadow_c",
       "kind": "object",
       "x": 384,
       "y": 512,
@@ -4324,7 +4322,7 @@
       ]
     },
     {
-      "name": "canvas_tent",
+      "name": "sienna_brick_wall_top_post_left_a",
       "kind": "object",
       "x": 416,
       "y": 512,
@@ -4339,7 +4337,7 @@
       ]
     },
     {
-      "name": "build_atlas_r16c17",
+      "name": "sienna_brick_wall_top_post_right_a",
       "kind": "tile",
       "row": 16,
       "col": 17,
@@ -4347,11 +4345,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r16c18",
+      "name": "sienna_brick_wall_top_post_left_b",
       "kind": "tile",
       "row": 16,
       "col": 18,
@@ -4359,11 +4356,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r16c19",
+      "name": "sienna_brick_wall_top_post_right_b",
       "kind": "tile",
       "row": 16,
       "col": 19,
@@ -4371,11 +4367,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r16c20",
+      "name": "sienna_brick_wall_top_fill",
       "kind": "tile",
       "row": 16,
       "col": 20,
@@ -4383,11 +4378,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "wrought_iron_arch_gate",
+      "name": "sienna_brick_archway_top_left",
       "kind": "object",
       "x": 672,
       "y": 512,
@@ -4403,7 +4397,7 @@
       ]
     },
     {
-      "name": "build_atlas_r16c24",
+      "name": "sienna_brick_archway_top_right",
       "kind": "tile",
       "row": 16,
       "col": 24,
@@ -4411,11 +4405,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r16c25",
+      "name": "sienna_brick_archway_spandrel_left_a",
       "kind": "tile",
       "row": 16,
       "col": 25,
@@ -4423,11 +4416,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r16c26",
+      "name": "sienna_brick_archway_spandrel_right_a",
       "kind": "tile",
       "row": 16,
       "col": 26,
@@ -4435,8 +4427,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r16c27",
@@ -4463,7 +4454,7 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r16c29",
+      "name": "iron_fence_shell_medallion_panel_a",
       "kind": "tile",
       "row": 16,
       "col": 29,
@@ -4471,11 +4462,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "wooden_plank_vertical",
+      "name": "iron_fence_shell_medallion_panel_b",
       "kind": "object",
       "x": 960,
       "y": 512,
@@ -4490,7 +4480,7 @@
       ]
     },
     {
-      "name": "build_atlas_r17c0",
+      "name": "iron_fence_thin_end_post_a",
       "kind": "tile",
       "row": 17,
       "col": 0,
@@ -4498,11 +4488,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c1",
+      "name": "iron_fence_thin_end_post_pair_a",
       "kind": "tile",
       "row": 17,
       "col": 1,
@@ -4510,8 +4499,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r17c2",
@@ -4526,7 +4514,7 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r17c3",
+      "name": "log_fence_pointed_end_panel",
       "kind": "tile",
       "row": 17,
       "col": 3,
@@ -4534,11 +4522,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c4",
+      "name": "log_fence_mid_panel_a",
       "kind": "tile",
       "row": 17,
       "col": 4,
@@ -4546,11 +4533,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c5",
+      "name": "log_fence_mid_panel_b",
       "kind": "tile",
       "row": 17,
       "col": 5,
@@ -4558,11 +4544,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c6",
+      "name": "log_fence_picket_transition_panel",
       "kind": "tile",
       "row": 17,
       "col": 6,
@@ -4570,11 +4555,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c7",
+      "name": "tan_stake_fragment_short",
       "kind": "tile",
       "row": 17,
       "col": 7,
@@ -4582,11 +4566,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c8",
+      "name": "tan_stake_fragment_tall",
       "kind": "tile",
       "row": 17,
       "col": 8,
@@ -4594,8 +4577,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r17c9",
@@ -4610,7 +4592,7 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r17c10",
+      "name": "sienna_brick_wall_mid_fill_a",
       "kind": "tile",
       "row": 17,
       "col": 10,
@@ -4618,11 +4600,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c11",
+      "name": "sienna_brick_wall_mid_fill_b",
       "kind": "tile",
       "row": 17,
       "col": 11,
@@ -4630,11 +4611,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c17",
+      "name": "sienna_brick_wall_mid_fill_c",
       "kind": "tile",
       "row": 17,
       "col": 17,
@@ -4642,11 +4622,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c18",
+      "name": "sienna_brick_wall_mid_post_left_a",
       "kind": "tile",
       "row": 17,
       "col": 18,
@@ -4654,11 +4633,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c19",
+      "name": "sienna_brick_wall_mid_post_right_a",
       "kind": "tile",
       "row": 17,
       "col": 19,
@@ -4666,11 +4644,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c20",
+      "name": "sienna_brick_wall_mid_post_left_b",
       "kind": "tile",
       "row": 17,
       "col": 20,
@@ -4678,11 +4655,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c24",
+      "name": "sienna_brick_wall_mid_post_right_b",
       "kind": "tile",
       "row": 17,
       "col": 24,
@@ -4690,11 +4666,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c25",
+      "name": "sienna_brick_wall_mid_fill_d",
       "kind": "tile",
       "row": 17,
       "col": 25,
@@ -4702,11 +4677,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c26",
+      "name": "sienna_brick_archway_mid_left",
       "kind": "tile",
       "row": 17,
       "col": 26,
@@ -4714,11 +4688,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c27",
+      "name": "sienna_brick_archway_mid_right",
       "kind": "tile",
       "row": 17,
       "col": 27,
@@ -4726,11 +4699,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c28",
+      "name": "sienna_brick_archway_spandrel_left_b",
       "kind": "tile",
       "row": 17,
       "col": 28,
@@ -4738,11 +4710,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c29",
+      "name": "sienna_brick_archway_spandrel_right_b",
       "kind": "tile",
       "row": 17,
       "col": 29,
@@ -4750,11 +4721,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r17c31",
+      "name": "iron_fence_star_medallion_oxblood_base_a",
       "kind": "tile",
       "row": 17,
       "col": 31,
@@ -4762,11 +4732,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c0",
+      "name": "iron_fence_star_medallion_oxblood_base_b",
       "kind": "tile",
       "row": 18,
       "col": 0,
@@ -4774,11 +4743,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c1",
+      "name": "iron_fence_thin_end_post_cracked",
       "kind": "tile",
       "row": 18,
       "col": 1,
@@ -4786,11 +4754,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c2",
+      "name": "sienna_brick_wall_base_fill_e",
       "kind": "tile",
       "row": 18,
       "col": 2,
@@ -4798,11 +4765,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c3",
+      "name": "brown_plank_fragment_point_right",
       "kind": "tile",
       "row": 18,
       "col": 3,
@@ -4810,11 +4776,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c4",
+      "name": "brown_plank_fragment_point_left",
       "kind": "tile",
       "row": 18,
       "col": 4,
@@ -4822,11 +4787,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c5",
+      "name": "brown_plank_fragment_diagonal",
       "kind": "tile",
       "row": 18,
       "col": 5,
@@ -4834,11 +4798,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c6",
+      "name": "tan_plank_fragment_diagonal_a",
       "kind": "tile",
       "row": 18,
       "col": 6,
@@ -4846,11 +4809,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c7",
+      "name": "tan_plank_fragment_diagonal_b",
       "kind": "tile",
       "row": 18,
       "col": 7,
@@ -4858,11 +4820,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c8",
+      "name": "tan_plank_fragment_diagonal_c",
       "kind": "tile",
       "row": 18,
       "col": 8,
@@ -4870,11 +4831,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c9",
+      "name": "wood_slatted_crate",
       "kind": "tile",
       "row": 18,
       "col": 9,
@@ -4882,11 +4842,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c10",
+      "name": "sienna_brick_wall_base_fill_a",
       "kind": "tile",
       "row": 18,
       "col": 10,
@@ -4894,11 +4853,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c11",
+      "name": "sienna_brick_wall_base_fill_b",
       "kind": "tile",
       "row": 18,
       "col": 11,
@@ -4906,11 +4864,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c17",
+      "name": "sienna_brick_wall_base_fill_c",
       "kind": "tile",
       "row": 18,
       "col": 17,
@@ -4918,11 +4875,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c18",
+      "name": "sienna_brick_wall_base_post_left_a",
       "kind": "tile",
       "row": 18,
       "col": 18,
@@ -4930,11 +4886,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c19",
+      "name": "sienna_brick_wall_base_post_right_a",
       "kind": "tile",
       "row": 18,
       "col": 19,
@@ -4942,11 +4897,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c20",
+      "name": "sienna_brick_wall_base_post_left_b",
       "kind": "tile",
       "row": 18,
       "col": 20,
@@ -4954,11 +4908,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c24",
+      "name": "sienna_brick_wall_base_post_right_b",
       "kind": "tile",
       "row": 18,
       "col": 24,
@@ -4966,11 +4919,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c25",
+      "name": "sienna_brick_wall_base_fill_d",
       "kind": "tile",
       "row": 18,
       "col": 25,
@@ -4978,11 +4930,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c26",
+      "name": "sienna_brick_archway_low_left",
       "kind": "tile",
       "row": 18,
       "col": 26,
@@ -4990,11 +4941,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c27",
+      "name": "sienna_brick_archway_low_right",
       "kind": "tile",
       "row": 18,
       "col": 27,
@@ -5002,11 +4952,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c28",
+      "name": "sienna_brick_archway_spandrel_left_c",
       "kind": "tile",
       "row": 18,
       "col": 28,
@@ -5014,11 +4963,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c29",
+      "name": "sienna_brick_archway_spandrel_right_c",
       "kind": "tile",
       "row": 18,
       "col": 29,
@@ -5026,11 +4974,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c30",
+      "name": "iron_fence_shell_medallion_panel_post_accent",
       "kind": "tile",
       "row": 18,
       "col": 30,
@@ -5038,11 +4985,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r18c31",
+      "name": "iron_fence_shell_medallion_panel_c",
       "kind": "tile",
       "row": 18,
       "col": 31,
@@ -5050,11 +4996,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c0",
+      "name": "iron_fence_shell_medallion_panel_d",
       "kind": "tile",
       "row": 19,
       "col": 0,
@@ -5062,11 +5007,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c1",
+      "name": "sienna_brick_wall_trim_strip_e",
       "kind": "tile",
       "row": 19,
       "col": 1,
@@ -5074,11 +5018,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c2",
+      "name": "cream_flagstone_floor_top_a",
       "kind": "tile",
       "row": 19,
       "col": 2,
@@ -5086,11 +5029,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c3",
+      "name": "cream_flagstone_floor_top_b",
       "kind": "tile",
       "row": 19,
       "col": 3,
@@ -5098,11 +5040,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c4",
+      "name": "cream_flagstone_floor_top_c",
       "kind": "tile",
       "row": 19,
       "col": 4,
@@ -5110,11 +5051,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c5",
+      "name": "white_marble_floor_top_a",
       "kind": "tile",
       "row": 19,
       "col": 5,
@@ -5122,11 +5062,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c6",
+      "name": "white_marble_floor_top_b",
       "kind": "tile",
       "row": 19,
       "col": 6,
@@ -5134,11 +5073,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c7",
+      "name": "white_marble_floor_top_c",
       "kind": "tile",
       "row": 19,
       "col": 7,
@@ -5146,11 +5084,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c10",
+      "name": "white_marble_floor_top_edge_right",
       "kind": "tile",
       "row": 19,
       "col": 10,
@@ -5158,11 +5095,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c11",
+      "name": "white_marble_floor_top_slab",
       "kind": "tile",
       "row": 19,
       "col": 11,
@@ -5170,11 +5106,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c12",
+      "name": "sienna_brick_wall_trim_strip_a",
       "kind": "tile",
       "row": 19,
       "col": 12,
@@ -5182,11 +5117,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c17",
+      "name": "sienna_brick_wall_trim_strip_b",
       "kind": "tile",
       "row": 19,
       "col": 17,
@@ -5194,11 +5128,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c18",
+      "name": "sienna_brick_wall_trim_strip_c",
       "kind": "tile",
       "row": 19,
       "col": 18,
@@ -5206,11 +5139,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c19",
+      "name": "sienna_brick_wall_trim_post_left_a",
       "kind": "tile",
       "row": 19,
       "col": 19,
@@ -5218,11 +5150,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c20",
+      "name": "sienna_brick_wall_trim_post_right_a",
       "kind": "tile",
       "row": 19,
       "col": 20,
@@ -5230,11 +5161,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c21",
+      "name": "sienna_brick_wall_trim_post_left_b",
       "kind": "tile",
       "row": 19,
       "col": 21,
@@ -5242,11 +5172,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "wooden_cart_a",
+      "name": "sienna_brick_wall_trim_post_right_b",
       "kind": "object",
       "x": 704,
       "y": 608,
@@ -5261,7 +5190,7 @@
       ]
     },
     {
-      "name": "build_atlas_r19c24",
+      "name": "sienna_brick_wall_trim_strip_d",
       "kind": "tile",
       "row": 19,
       "col": 24,
@@ -5269,11 +5198,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c25",
+      "name": "sienna_brick_wall_corner_shadow_a",
       "kind": "tile",
       "row": 19,
       "col": 25,
@@ -5281,11 +5209,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c26",
+      "name": "sienna_brick_wall_corner_shadow_b",
       "kind": "tile",
       "row": 19,
       "col": 26,
@@ -5293,11 +5220,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c27",
+      "name": "floor_drain_grate",
       "kind": "tile",
       "row": 19,
       "col": 27,
@@ -5305,11 +5231,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c28",
+      "name": "iron_fence_star_medallion_oxblood_base_post_accent",
       "kind": "tile",
       "row": 19,
       "col": 28,
@@ -5317,11 +5242,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c29",
+      "name": "iron_fence_star_medallion_oxblood_base_c",
       "kind": "tile",
       "row": 19,
       "col": 29,
@@ -5329,11 +5253,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c30",
+      "name": "iron_fence_crossbar_oxblood_base_panel",
       "kind": "tile",
       "row": 19,
       "col": 30,
@@ -5341,11 +5264,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r19c31",
+      "name": "white_marble_floor_top_d",
       "kind": "tile",
       "row": 19,
       "col": 31,
@@ -5353,8 +5275,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r20c0",
@@ -5381,7 +5302,7 @@
       "needsNaming": true
     },
     {
-      "name": "build_atlas_r20c2",
+      "name": "cream_flagstone_floor_fill_a",
       "kind": "tile",
       "row": 20,
       "col": 2,
@@ -5389,11 +5310,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c3",
+      "name": "cream_flagstone_floor_fill_b",
       "kind": "tile",
       "row": 20,
       "col": 3,
@@ -5401,11 +5321,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c4",
+      "name": "cream_flagstone_floor_fill_c",
       "kind": "tile",
       "row": 20,
       "col": 4,
@@ -5413,11 +5332,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c5",
+      "name": "white_marble_floor_fill_a",
       "kind": "tile",
       "row": 20,
       "col": 5,
@@ -5425,11 +5343,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c6",
+      "name": "white_marble_floor_fill_b",
       "kind": "tile",
       "row": 20,
       "col": 6,
@@ -5437,11 +5354,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c7",
+      "name": "white_marble_floor_fill_c",
       "kind": "tile",
       "row": 20,
       "col": 7,
@@ -5449,11 +5365,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c8",
+      "name": "white_marble_floor_fill_edge_right",
       "kind": "tile",
       "row": 20,
       "col": 8,
@@ -5461,11 +5376,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r20c9",
+      "name": "white_marble_floor_fill_slab",
       "kind": "tile",
       "row": 20,
       "col": 9,
@@ -5473,8 +5387,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r20c10",
