@@ -972,7 +972,7 @@
       ]
     },
     {
-      "name": "base_out_atlas_r2c24",
+      "name": "sand_cliff_diagonal_edge",
       "kind": "tile",
       "row": 2,
       "col": 24,
@@ -980,8 +980,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "rubble_mound_peak_w",
@@ -5099,7 +5098,7 @@
       ]
     },
     {
-      "name": "base_out_atlas_r16c0",
+      "name": "maroon_brick_wall_fill_a",
       "kind": "tile",
       "row": 16,
       "col": 0,
@@ -5107,11 +5106,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c1",
+      "name": "maroon_brick_wall_fill_b",
       "kind": "tile",
       "row": 16,
       "col": 1,
@@ -5119,11 +5117,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r16c2",
+      "name": "maroon_brick_wall_fill_c",
       "kind": "tile",
       "row": 16,
       "col": 2,
@@ -5131,8 +5128,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "brick_wall_fill_top_diag_nw",
@@ -5271,7 +5267,7 @@
       ]
     },
     {
-      "name": "base_out_atlas_r16c15",
+      "name": "tan_plank_fence_corner",
       "kind": "tile",
       "row": 16,
       "col": 15,
@@ -5279,8 +5275,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "bridge_deck_arch_end_l",
@@ -6162,7 +6157,7 @@
       ]
     },
     {
-      "name": "base_out_atlas_r20c1",
+      "name": "maroon_wall_post_strip_a",
       "kind": "tile",
       "row": 20,
       "col": 1,
@@ -6170,11 +6165,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r20c2",
+      "name": "maroon_wall_post_strip_b",
       "kind": "tile",
       "row": 20,
       "col": 2,
@@ -6182,8 +6176,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "maroon_panel_fill",
@@ -6311,7 +6304,7 @@
       ]
     },
     {
-      "name": "base_out_atlas_r20c15",
+      "name": "wood_ladder_rack_small",
       "kind": "tile",
       "row": 20,
       "col": 15,
@@ -6319,8 +6312,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "wood_panel_plank_short",
@@ -6459,7 +6451,7 @@
       ]
     },
     {
-      "name": "base_out_atlas_r21c3",
+      "name": "maroon_brick_corner_fragment",
       "kind": "tile",
       "row": 21,
       "col": 3,
@@ -6467,8 +6459,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "rail_post_stub_a",
@@ -6886,7 +6877,7 @@
       ]
     },
     {
-      "name": "base_out_atlas_r23c4",
+      "name": "maroon_wall_post_strip_c",
       "kind": "tile",
       "row": 23,
       "col": 4,
@@ -6894,11 +6885,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "base_out_atlas_r23c5",
+      "name": "maroon_wall_post_strip_d",
       "kind": "tile",
       "row": 23,
       "col": 5,
@@ -6906,8 +6896,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "rail_post_shaft_m",
