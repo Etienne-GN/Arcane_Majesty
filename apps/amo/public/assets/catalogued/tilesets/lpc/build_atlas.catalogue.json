@@ -6426,7 +6426,7 @@
       ]
     },
     {
-      "name": "build_atlas_r24c11",
+      "name": "sage_plaster_wall_band_fill_a",
       "kind": "tile",
       "row": 24,
       "col": 11,
@@ -6434,11 +6434,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c12",
+      "name": "shield_niche_crown_arch_left",
       "kind": "tile",
       "row": 24,
       "col": 12,
@@ -6446,11 +6445,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c13",
+      "name": "shield_niche_crown_arch_right",
       "kind": "tile",
       "row": 24,
       "col": 13,
@@ -6458,11 +6456,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c14",
+      "name": "sage_plaster_wall_band_fill_b",
       "kind": "tile",
       "row": 24,
       "col": 14,
@@ -6470,11 +6467,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c15",
+      "name": "brown_chest_lid_banded",
       "kind": "tile",
       "row": 24,
       "col": 15,
@@ -6482,11 +6478,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c16",
+      "name": "azure_spire_roof_tip_left",
       "kind": "tile",
       "row": 24,
       "col": 16,
@@ -6494,11 +6489,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c17",
+      "name": "azure_spire_roof_tip_center",
       "kind": "tile",
       "row": 24,
       "col": 17,
@@ -6506,11 +6500,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c18",
+      "name": "azure_spire_roof_tip_right",
       "kind": "tile",
       "row": 24,
       "col": 18,
@@ -6518,11 +6511,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c19",
+      "name": "cream_gable_panel_upper",
       "kind": "tile",
       "row": 24,
       "col": 19,
@@ -6530,11 +6522,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c20",
+      "name": "pale_wall_corner_curve_upper",
       "kind": "tile",
       "row": 24,
       "col": 20,
@@ -6542,11 +6533,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c22",
+      "name": "sage_plaster_wall_fill_plain_a",
       "kind": "tile",
       "row": 24,
       "col": 22,
@@ -6554,11 +6544,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c23",
+      "name": "sage_wall_arch_window_edge_upper",
       "kind": "tile",
       "row": 24,
       "col": 23,
@@ -6566,11 +6555,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c24",
+      "name": "twin_arch_window_orange_top_left",
       "kind": "tile",
       "row": 24,
       "col": 24,
@@ -6578,11 +6566,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c25",
+      "name": "twin_arch_window_orange_top_right",
       "kind": "tile",
       "row": 24,
       "col": 25,
@@ -6590,11 +6577,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c26",
+      "name": "sage_wall_pinstripe_panel_a",
       "kind": "tile",
       "row": 24,
       "col": 26,
@@ -6602,11 +6588,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c27",
+      "name": "pale_eave_diagonal_edge_upper",
       "kind": "tile",
       "row": 24,
       "col": 27,
@@ -6614,11 +6599,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c28",
+      "name": "dark_eave_shadow_block_a",
       "kind": "tile",
       "row": 24,
       "col": 28,
@@ -6626,11 +6610,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r24c29",
+      "name": "pale_plank_wall_vertical_a",
       "kind": "tile",
       "row": 24,
       "col": 29,
@@ -6638,11 +6621,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c0",
+      "name": "moon_mural_window_fragment",
       "kind": "tile",
       "row": 25,
       "col": 0,
@@ -6650,11 +6632,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c1",
+      "name": "teal_brick_wall_seam_right_a",
       "kind": "tile",
       "row": 25,
       "col": 1,
@@ -6662,11 +6643,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c2",
+      "name": "teal_brick_wall_fill_plain_a",
       "kind": "tile",
       "row": 25,
       "col": 2,
@@ -6674,11 +6654,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c3",
+      "name": "teal_brick_wall_seam_right_b",
       "kind": "tile",
       "row": 25,
       "col": 3,
@@ -6686,11 +6665,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c4",
+      "name": "red_curtain_window_top_left",
       "kind": "tile",
       "row": 25,
       "col": 4,
@@ -6698,11 +6676,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c5",
+      "name": "red_curtain_window_top_right",
       "kind": "tile",
       "row": 25,
       "col": 5,
@@ -6710,11 +6687,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c6",
+      "name": "small_iron_bracket_fragment_a",
       "kind": "tile",
       "row": 25,
       "col": 6,
@@ -6722,11 +6698,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c7",
+      "name": "small_iron_bracket_fragment_b",
       "kind": "tile",
       "row": 25,
       "col": 7,
@@ -6734,11 +6709,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c8",
+      "name": "green_wall_arch_window_edge_left_upper",
       "kind": "tile",
       "row": 25,
       "col": 8,
@@ -6746,11 +6720,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c9",
+      "name": "green_wall_arch_window_top_left",
       "kind": "tile",
       "row": 25,
       "col": 9,
@@ -6758,11 +6731,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c10",
+      "name": "green_wall_arch_window_top_right",
       "kind": "tile",
       "row": 25,
       "col": 10,
@@ -6770,11 +6742,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c11",
+      "name": "green_wall_arch_window_edge_right_upper",
       "kind": "tile",
       "row": 25,
       "col": 11,
@@ -6782,11 +6753,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c12",
+      "name": "shield_niche_top_left",
       "kind": "tile",
       "row": 25,
       "col": 12,
@@ -6794,11 +6764,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c13",
+      "name": "shield_niche_top_right",
       "kind": "tile",
       "row": 25,
       "col": 13,
@@ -6806,11 +6775,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c14",
+      "name": "sage_plaster_wall_fill_plain_b",
       "kind": "tile",
       "row": 25,
       "col": 14,
@@ -6818,11 +6786,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c15",
+      "name": "brown_chest_body_banded",
       "kind": "tile",
       "row": 25,
       "col": 15,
@@ -6830,11 +6797,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c16",
+      "name": "azure_spire_roof_upper_left",
       "kind": "tile",
       "row": 25,
       "col": 16,
@@ -6842,11 +6808,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c17",
+      "name": "azure_spire_roof_upper_center",
       "kind": "tile",
       "row": 25,
       "col": 17,
@@ -6854,11 +6819,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c18",
+      "name": "azure_spire_roof_upper_right",
       "kind": "tile",
       "row": 25,
       "col": 18,
@@ -6866,11 +6830,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c19",
+      "name": "cream_gable_panel_lower",
       "kind": "tile",
       "row": 25,
       "col": 19,
@@ -6878,11 +6841,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c20",
+      "name": "pale_wall_corner_curve_lower",
       "kind": "tile",
       "row": 25,
       "col": 20,
@@ -6890,11 +6852,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c21",
+      "name": "pale_wall_shelf_line_a",
       "kind": "tile",
       "row": 25,
       "col": 21,
@@ -6902,11 +6863,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c22",
+      "name": "pale_wall_shelf_line_b",
       "kind": "tile",
       "row": 25,
       "col": 22,
@@ -6914,11 +6874,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c23",
+      "name": "sage_wall_arch_window_edge_mid",
       "kind": "tile",
       "row": 25,
       "col": 23,
@@ -6926,11 +6885,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c24",
+      "name": "twin_arch_window_orange_mid_left",
       "kind": "tile",
       "row": 25,
       "col": 24,
@@ -6938,11 +6896,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c25",
+      "name": "twin_arch_window_orange_mid_right",
       "kind": "tile",
       "row": 25,
       "col": 25,
@@ -6950,11 +6907,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c26",
+      "name": "sage_wall_pinstripe_panel_b",
       "kind": "tile",
       "row": 25,
       "col": 26,
@@ -6962,11 +6918,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c27",
+      "name": "pale_eave_diagonal_edge_mid",
       "kind": "tile",
       "row": 25,
       "col": 27,
@@ -6974,11 +6929,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c28",
+      "name": "dark_eave_shadow_diagonal_a",
       "kind": "tile",
       "row": 25,
       "col": 28,
@@ -6986,11 +6940,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c29",
+      "name": "pale_plank_wall_vertical_b",
       "kind": "tile",
       "row": 25,
       "col": 29,
@@ -6998,11 +6951,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c30",
+      "name": "violet_cobble_floor_rough_a",
       "kind": "tile",
       "row": 25,
       "col": 30,
@@ -7010,11 +6962,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r25c31",
+      "name": "violet_cobble_floor_rough_b",
       "kind": "tile",
       "row": 25,
       "col": 31,
@@ -7022,11 +6973,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c0",
+      "name": "teal_brick_wall_fill_plain_b",
       "kind": "tile",
       "row": 26,
       "col": 0,
@@ -7034,11 +6984,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c1",
+      "name": "teal_brick_wall_seam_right_c",
       "kind": "tile",
       "row": 26,
       "col": 1,
@@ -7046,11 +6995,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c2",
+      "name": "teal_brick_wall_fill_plain_c",
       "kind": "tile",
       "row": 26,
       "col": 2,
@@ -7058,11 +7006,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c3",
+      "name": "teal_brick_wall_seam_right_d",
       "kind": "tile",
       "row": 26,
       "col": 3,
@@ -7070,11 +7017,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c4",
+      "name": "red_curtain_window_sill_left",
       "kind": "tile",
       "row": 26,
       "col": 4,
@@ -7082,11 +7028,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c5",
+      "name": "red_curtain_window_sill_right",
       "kind": "tile",
       "row": 26,
       "col": 5,
@@ -7094,11 +7039,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c6",
+      "name": "small_iron_bracket_fragment_c",
       "kind": "tile",
       "row": 26,
       "col": 6,
@@ -7106,11 +7050,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c7",
+      "name": "small_iron_bracket_fragment_d",
       "kind": "tile",
       "row": 26,
       "col": 7,
@@ -7118,11 +7061,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c8",
+      "name": "green_wall_arch_window_edge_left_mid",
       "kind": "tile",
       "row": 26,
       "col": 8,
@@ -7130,11 +7072,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c9",
+      "name": "green_wall_arch_window_mid_left",
       "kind": "tile",
       "row": 26,
       "col": 9,
@@ -7142,11 +7083,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c10",
+      "name": "green_wall_arch_window_mid_right",
       "kind": "tile",
       "row": 26,
       "col": 10,
@@ -7154,11 +7094,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c11",
+      "name": "green_wall_arch_window_edge_right_mid",
       "kind": "tile",
       "row": 26,
       "col": 11,
@@ -7166,11 +7105,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c12",
+      "name": "shield_niche_mid_left",
       "kind": "tile",
       "row": 26,
       "col": 12,
@@ -7178,11 +7116,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c13",
+      "name": "shield_niche_mid_right",
       "kind": "tile",
       "row": 26,
       "col": 13,
@@ -7190,35 +7127,38 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c14",
-      "kind": "tile",
-      "row": 26,
-      "col": 14,
-      "frameIndex": 846,
+      "name": "gray_dome_roof",
+      "kind": "object",
+      "x": 448,
+      "y": 832,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "architecture",
+        "roof"
+      ]
     },
     {
-      "name": "build_atlas_r26c15",
-      "kind": "tile",
-      "row": 26,
-      "col": 15,
-      "frameIndex": 847,
+      "name": "banded_tower_spire",
+      "kind": "object",
+      "x": 480,
+      "y": 832,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "architecture",
+        "tower"
+      ]
     },
     {
-      "name": "build_atlas_r26c16",
+      "name": "azure_spire_roof_lower_left",
       "kind": "tile",
       "row": 26,
       "col": 16,
@@ -7226,11 +7166,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c17",
+      "name": "azure_spire_roof_lower_center",
       "kind": "tile",
       "row": 26,
       "col": 17,
@@ -7238,11 +7177,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c18",
+      "name": "azure_spire_roof_lower_right",
       "kind": "tile",
       "row": 26,
       "col": 18,
@@ -7250,11 +7188,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c19",
+      "name": "tan_louvered_vent_upper",
       "kind": "tile",
       "row": 26,
       "col": 19,
@@ -7262,11 +7199,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c20",
+      "name": "pale_brick_coursing_fill_a",
       "kind": "tile",
       "row": 26,
       "col": 20,
@@ -7274,11 +7210,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c21",
+      "name": "pale_brick_coursing_fill_b",
       "kind": "tile",
       "row": 26,
       "col": 21,
@@ -7286,11 +7221,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c22",
+      "name": "pale_brick_coursing_fill_c",
       "kind": "tile",
       "row": 26,
       "col": 22,
@@ -7298,11 +7232,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c23",
+      "name": "sage_wall_arch_window_sill_edge",
       "kind": "tile",
       "row": 26,
       "col": 23,
@@ -7310,11 +7243,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c24",
+      "name": "twin_arch_window_orange_sill_left",
       "kind": "tile",
       "row": 26,
       "col": 24,
@@ -7322,11 +7254,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c25",
+      "name": "twin_arch_window_orange_sill_right",
       "kind": "tile",
       "row": 26,
       "col": 25,
@@ -7334,11 +7265,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c26",
+      "name": "sage_wall_pinstripe_diagonal_cut",
       "kind": "tile",
       "row": 26,
       "col": 26,
@@ -7346,11 +7276,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c27",
+      "name": "pale_wall_double_shelf_line",
       "kind": "tile",
       "row": 26,
       "col": 27,
@@ -7358,11 +7287,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c28",
+      "name": "dark_eave_shadow_diagonal_b",
       "kind": "tile",
       "row": 26,
       "col": 28,
@@ -7370,11 +7298,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c29",
+      "name": "pale_plank_wall_vertical_c",
       "kind": "tile",
       "row": 26,
       "col": 29,
@@ -7382,11 +7309,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c30",
+      "name": "violet_cobble_floor_rough_c",
       "kind": "tile",
       "row": 26,
       "col": 30,
@@ -7394,11 +7320,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r26c31",
+      "name": "violet_cobble_floor_rough_d",
       "kind": "tile",
       "row": 26,
       "col": 31,
@@ -7406,11 +7331,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c0",
+      "name": "teal_brick_wall_base_fence_trim_a",
       "kind": "tile",
       "row": 27,
       "col": 0,
@@ -7418,11 +7342,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c1",
+      "name": "teal_brick_wall_seam_fence_trim_a",
       "kind": "tile",
       "row": 27,
       "col": 1,
@@ -7430,11 +7353,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c2",
+      "name": "teal_brick_wall_base_fence_trim_b",
       "kind": "tile",
       "row": 27,
       "col": 2,
@@ -7442,11 +7364,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c3",
+      "name": "teal_brick_wall_seam_fence_trim_b",
       "kind": "tile",
       "row": 27,
       "col": 3,
@@ -7454,11 +7375,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c6",
+      "name": "small_iron_bracket_fragment_e",
       "kind": "tile",
       "row": 27,
       "col": 6,
@@ -7466,11 +7386,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c7",
+      "name": "small_iron_bracket_fragment_f",
       "kind": "tile",
       "row": 27,
       "col": 7,
@@ -7478,11 +7397,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c8",
+      "name": "green_wall_arch_window_edge_left_lower",
       "kind": "tile",
       "row": 27,
       "col": 8,
@@ -7490,11 +7408,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c9",
+      "name": "green_wall_arch_window_sill_left",
       "kind": "tile",
       "row": 27,
       "col": 9,
@@ -7502,11 +7419,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c10",
+      "name": "green_wall_arch_window_sill_right",
       "kind": "tile",
       "row": 27,
       "col": 10,
@@ -7514,11 +7430,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c11",
+      "name": "green_wall_arch_window_edge_right_lower",
       "kind": "tile",
       "row": 27,
       "col": 11,
@@ -7526,11 +7441,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c12",
+      "name": "shield_niche_base_left",
       "kind": "tile",
       "row": 27,
       "col": 12,
@@ -7538,11 +7452,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c13",
+      "name": "shield_niche_base_right",
       "kind": "tile",
       "row": 27,
       "col": 13,
@@ -7550,35 +7463,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c14",
-      "kind": "tile",
-      "row": 27,
-      "col": 14,
-      "frameIndex": 878,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r27c15",
-      "kind": "tile",
-      "row": 27,
-      "col": 15,
-      "frameIndex": 879,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "build_atlas_r27c16",
+      "name": "azure_spire_roof_base_left",
       "kind": "tile",
       "row": 27,
       "col": 16,
@@ -7586,11 +7474,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c17",
+      "name": "azure_spire_roof_base_center",
       "kind": "tile",
       "row": 27,
       "col": 17,
@@ -7598,11 +7485,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c18",
+      "name": "azure_spire_roof_base_right",
       "kind": "tile",
       "row": 27,
       "col": 18,
@@ -7610,11 +7496,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c19",
+      "name": "tan_louvered_vent_lower",
       "kind": "tile",
       "row": 27,
       "col": 19,
@@ -7622,11 +7507,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c20",
+      "name": "pale_brick_coursing_fill_d",
       "kind": "tile",
       "row": 27,
       "col": 20,
@@ -7634,11 +7518,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c21",
+      "name": "dark_archway_entrance_left",
       "kind": "tile",
       "row": 27,
       "col": 21,
@@ -7646,11 +7529,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c22",
+      "name": "dark_archway_entrance_right",
       "kind": "tile",
       "row": 27,
       "col": 22,
@@ -7658,11 +7540,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c23",
+      "name": "cream_window_planter_box",
       "kind": "tile",
       "row": 27,
       "col": 23,
@@ -7670,11 +7551,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c24",
+      "name": "twin_arch_window_orange_box_left",
       "kind": "tile",
       "row": 27,
       "col": 24,
@@ -7682,11 +7562,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c25",
+      "name": "twin_arch_window_orange_box_right",
       "kind": "tile",
       "row": 27,
       "col": 25,
@@ -7694,11 +7573,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c26",
+      "name": "sage_wall_pinstripe_diagonal_full",
       "kind": "tile",
       "row": 27,
       "col": 26,
@@ -7706,11 +7584,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c27",
+      "name": "pale_eave_diagonal_edge_lower",
       "kind": "tile",
       "row": 27,
       "col": 27,
@@ -7718,11 +7595,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c28",
+      "name": "red_shutter_window_corner_fragment",
       "kind": "tile",
       "row": 27,
       "col": 28,
@@ -7730,11 +7606,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c29",
+      "name": "pale_plank_wall_vertical_d",
       "kind": "tile",
       "row": 27,
       "col": 29,
@@ -7742,11 +7617,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c30",
+      "name": "teal_cobblestone_floor_a",
       "kind": "tile",
       "row": 27,
       "col": 30,
@@ -7754,11 +7628,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r27c31",
+      "name": "teal_cobblestone_floor_b",
       "kind": "tile",
       "row": 27,
       "col": 31,
@@ -7766,8 +7639,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "build_atlas_r28c0",
