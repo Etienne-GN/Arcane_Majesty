@@ -5765,7 +5765,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r20c0",
+      "name": "meat_raw_cut_a",
       "kind": "tile",
       "row": 20,
       "col": 0,
@@ -5773,11 +5773,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c1",
+      "name": "meat_raw_cut_b",
       "kind": "tile",
       "row": 20,
       "col": 1,
@@ -5785,11 +5784,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c5",
+      "name": "bench_wood_plain_a",
       "kind": "tile",
       "row": 20,
       "col": 5,
@@ -5797,11 +5795,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c6",
+      "name": "cabinet_wood_brown_low_a",
       "kind": "tile",
       "row": 20,
       "col": 6,
@@ -5809,11 +5806,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c7",
+      "name": "trout_single_a",
       "kind": "tile",
       "row": 20,
       "col": 7,
@@ -5821,11 +5817,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c8",
+      "name": "tomato_pile_diced_a",
       "kind": "tile",
       "row": 20,
       "col": 8,
@@ -5833,11 +5828,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c9",
+      "name": "chili_pepper_pile_a",
       "kind": "tile",
       "row": 20,
       "col": 9,
@@ -5845,11 +5839,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c10",
+      "name": "broccoli_floret_pile_a",
       "kind": "tile",
       "row": 20,
       "col": 10,
@@ -5857,11 +5850,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c11",
+      "name": "cucumber_pile_a",
       "kind": "tile",
       "row": 20,
       "col": 11,
@@ -5869,11 +5861,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c12",
+      "name": "potato_pile_c",
       "kind": "tile",
       "row": 20,
       "col": 12,
@@ -5881,11 +5872,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c13",
+      "name": "tomato_pile_cherry_a",
       "kind": "tile",
       "row": 20,
       "col": 13,
@@ -5893,11 +5883,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c14",
+      "name": "corn_kernel_pile_a",
       "kind": "tile",
       "row": 20,
       "col": 14,
@@ -5905,11 +5894,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c15",
+      "name": "koi_fish_single_a",
       "kind": "tile",
       "row": 20,
       "col": 15,
@@ -5917,11 +5905,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c16",
+      "name": "koi_fish_pair_a",
       "kind": "tile",
       "row": 20,
       "col": 16,
@@ -5929,11 +5916,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c18",
+      "name": "koi_fish_pair_b",
       "kind": "tile",
       "row": 20,
       "col": 18,
@@ -5941,11 +5927,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c19",
+      "name": "koi_fish_pair_c",
       "kind": "tile",
       "row": 20,
       "col": 19,
@@ -5953,11 +5938,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c20",
+      "name": "wood_debris_tangle_a",
       "kind": "tile",
       "row": 20,
       "col": 20,
@@ -5965,11 +5949,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c21",
+      "name": "trash_scatter_c",
       "kind": "tile",
       "row": 20,
       "col": 21,
@@ -5977,11 +5960,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c22",
+      "name": "trash_scatter_d",
       "kind": "tile",
       "row": 20,
       "col": 22,
@@ -5989,11 +5971,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c23",
+      "name": "coil_rope_dark_a",
       "kind": "tile",
       "row": 20,
       "col": 23,
@@ -6001,11 +5982,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c24",
+      "name": "bridge_wood_rail_r1c1",
       "kind": "tile",
       "row": 20,
       "col": 24,
@@ -6013,11 +5993,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c25",
+      "name": "bridge_wood_rail_r1c2",
       "kind": "tile",
       "row": 20,
       "col": 25,
@@ -6025,11 +6004,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c26",
+      "name": "bridge_wood_rail_r1c3",
       "kind": "tile",
       "row": 20,
       "col": 26,
@@ -6037,11 +6015,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c27",
+      "name": "bridge_wood_rail_r1c4",
       "kind": "tile",
       "row": 20,
       "col": 27,
@@ -6049,11 +6026,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c28",
+      "name": "bridge_wood_rail_r1c5",
       "kind": "tile",
       "row": 20,
       "col": 28,
@@ -6061,11 +6037,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c29",
+      "name": "bridge_wood_rail_r1c6",
       "kind": "tile",
       "row": 20,
       "col": 29,
@@ -6073,11 +6048,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c30",
+      "name": "bridge_wood_rail_r1c7",
       "kind": "tile",
       "row": 20,
       "col": 30,
@@ -6085,11 +6059,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r20c31",
+      "name": "bridge_wood_rail_r1c8",
       "kind": "tile",
       "row": 20,
       "col": 31,
@@ -6097,11 +6070,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r21c0",
+      "name": "meat_scrap_fragment_b",
       "kind": "tile",
       "row": 21,
       "col": 0,
@@ -6109,32 +6081,20 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r21c1",
-      "kind": "tile",
-      "row": 21,
-      "col": 1,
-      "frameIndex": 673,
+      "name": "meat_chunk_whole",
+      "kind": "object",
+      "x": 32,
+      "y": 672,
+      "w": 64,
+      "h": 32,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "obj_misk_atlas_r21c2",
-      "kind": "tile",
-      "row": 21,
-      "col": 2,
-      "frameIndex": 674,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "food"
+      ]
     },
     {
       "name": "meat_fillet_pile",
@@ -6151,19 +6111,20 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r21c5",
-      "kind": "tile",
-      "row": 21,
-      "col": 5,
-      "frameIndex": 677,
+      "name": "fish_single_a",
+      "kind": "object",
+      "x": 160,
+      "y": 672,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "food"
+      ]
     },
     {
-      "name": "obj_misk_atlas_r21c6",
+      "name": "bench_wood_plain_b",
       "kind": "tile",
       "row": 21,
       "col": 6,
@@ -6171,11 +6132,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r21c7",
+      "name": "trout_single_b",
       "kind": "tile",
       "row": 21,
       "col": 7,
@@ -6183,8 +6143,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "market_crate_tomato",
@@ -6292,40 +6251,30 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r21c15",
-      "kind": "tile",
-      "row": 21,
-      "col": 15,
-      "frameIndex": 687,
+      "name": "fish_single_b",
+      "kind": "object",
+      "x": 480,
+      "y": 672,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "food"
+      ]
     },
     {
-      "name": "obj_misk_atlas_r21c16",
-      "kind": "tile",
-      "row": 21,
-      "col": 16,
-      "frameIndex": 688,
+      "name": "fish_single_c",
+      "kind": "object",
+      "x": 512,
+      "y": 672,
+      "w": 64,
+      "h": 32,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "obj_misk_atlas_r21c17",
-      "kind": "tile",
-      "row": 21,
-      "col": 17,
-      "frameIndex": 689,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "food"
+      ]
     },
     {
       "name": "fish_pile_bass_olive",
@@ -6358,7 +6307,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r21c22",
+      "name": "graffiti_tag_green",
       "kind": "tile",
       "row": 21,
       "col": 22,
@@ -6366,8 +6315,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "street_lamp_lit",
@@ -6385,7 +6333,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r21c24",
+      "name": "bridge_wood_rail_r2c1",
       "kind": "tile",
       "row": 21,
       "col": 24,
@@ -6393,11 +6341,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r21c25",
+      "name": "bridge_wood_rail_r2c2",
       "kind": "tile",
       "row": 21,
       "col": 25,
@@ -6405,11 +6352,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r21c26",
+      "name": "bridge_wood_rail_r2c3",
       "kind": "tile",
       "row": 21,
       "col": 26,
@@ -6417,11 +6363,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r21c27",
+      "name": "bridge_wood_rail_r2c4",
       "kind": "tile",
       "row": 21,
       "col": 27,
@@ -6429,11 +6374,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r21c28",
+      "name": "bridge_wood_rail_r2c5",
       "kind": "tile",
       "row": 21,
       "col": 28,
@@ -6441,11 +6385,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r21c29",
+      "name": "bridge_wood_rail_r2c6",
       "kind": "tile",
       "row": 21,
       "col": 29,
@@ -6453,11 +6396,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r21c30",
+      "name": "bridge_wood_rail_r2c7",
       "kind": "tile",
       "row": 21,
       "col": 30,
@@ -6465,11 +6407,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r21c31",
+      "name": "bridge_wood_rail_r2c8",
       "kind": "tile",
       "row": 21,
       "col": 31,
@@ -6477,11 +6418,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r22c0",
+      "name": "meat_chunk_raw_a",
       "kind": "tile",
       "row": 22,
       "col": 0,
@@ -6489,11 +6429,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r22c1",
+      "name": "meat_chunk_raw_b",
       "kind": "tile",
       "row": 22,
       "col": 1,
@@ -6501,20 +6440,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "obj_misk_atlas_r22c5",
-      "kind": "tile",
-      "row": 22,
-      "col": 5,
-      "frameIndex": 709,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "tuna_single_c",
@@ -6531,19 +6457,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r22c15",
-      "kind": "tile",
-      "row": 22,
-      "col": 15,
-      "frameIndex": 719,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "obj_misk_atlas_r22c16",
+      "name": "bass_single_a",
       "kind": "tile",
       "row": 22,
       "col": 16,
@@ -6551,8 +6465,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "graffiti_tag_orange",
@@ -6570,7 +6483,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r22c22",
+      "name": "banner_cloth_gold_emblem_tree",
       "kind": "tile",
       "row": 22,
       "col": 22,
@@ -6578,11 +6491,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r22c24",
+      "name": "bridge_wood_truss_r1c1",
       "kind": "tile",
       "row": 22,
       "col": 24,
@@ -6590,11 +6502,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r22c25",
+      "name": "bridge_wood_truss_r1c2",
       "kind": "tile",
       "row": 22,
       "col": 25,
@@ -6602,11 +6513,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r22c26",
+      "name": "bridge_wood_truss_r1c3",
       "kind": "tile",
       "row": 22,
       "col": 26,
@@ -6614,11 +6524,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r22c27",
+      "name": "bridge_wood_truss_r1c4",
       "kind": "tile",
       "row": 22,
       "col": 27,
@@ -6626,11 +6535,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r22c28",
+      "name": "bridge_wood_truss_r1c5",
       "kind": "tile",
       "row": 22,
       "col": 28,
@@ -6638,11 +6546,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r22c29",
+      "name": "bridge_wood_truss_r1c6",
       "kind": "tile",
       "row": 22,
       "col": 29,
@@ -6650,11 +6557,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r22c30",
+      "name": "bridge_wood_truss_r1c7",
       "kind": "tile",
       "row": 22,
       "col": 30,
@@ -6662,11 +6568,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r22c31",
+      "name": "bridge_wood_truss_r1c8",
       "kind": "tile",
       "row": 22,
       "col": 31,
@@ -6674,11 +6579,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r23c0",
+      "name": "chicken_drumstick_single_a",
       "kind": "tile",
       "row": 23,
       "col": 0,
@@ -6686,56 +6590,33 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r23c1",
-      "kind": "tile",
-      "row": 23,
-      "col": 1,
-      "frameIndex": 737,
+      "name": "chicken_drumsticks_crossed",
+      "kind": "object",
+      "x": 32,
+      "y": 736,
+      "w": 64,
+      "h": 32,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "food"
+      ]
     },
     {
-      "name": "obj_misk_atlas_r23c2",
-      "kind": "tile",
-      "row": 23,
-      "col": 2,
-      "frameIndex": 738,
+      "name": "roast_ham_whole",
+      "kind": "object",
+      "x": 96,
+      "y": 736,
+      "w": 64,
+      "h": 32,
       "tags": [
         "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "obj_misk_atlas_r23c3",
-      "kind": "tile",
-      "row": 23,
-      "col": 3,
-      "frameIndex": 739,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "obj_misk_atlas_r23c4",
-      "kind": "tile",
-      "row": 23,
-      "col": 4,
-      "frameIndex": 740,
-      "tags": [
-        "lpc",
-        "atlas"
-      ],
-      "needsNaming": true
+        "atlas",
+        "food"
+      ]
     },
     {
       "name": "cargo_boat_long",
@@ -6753,7 +6634,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r23c20",
+      "name": "poster_paper_crow_symbol",
       "kind": "tile",
       "row": 23,
       "col": 20,
@@ -6761,11 +6642,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r23c24",
+      "name": "bridge_wood_truss_r2c1",
       "kind": "tile",
       "row": 23,
       "col": 24,
@@ -6773,11 +6653,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r23c25",
+      "name": "bridge_wood_truss_r2c2",
       "kind": "tile",
       "row": 23,
       "col": 25,
@@ -6785,11 +6664,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r23c26",
+      "name": "bridge_wood_truss_r2c3",
       "kind": "tile",
       "row": 23,
       "col": 26,
@@ -6797,11 +6675,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r23c27",
+      "name": "bridge_wood_truss_r2c4",
       "kind": "tile",
       "row": 23,
       "col": 27,
@@ -6809,11 +6686,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r23c28",
+      "name": "bridge_wood_truss_r2c5",
       "kind": "tile",
       "row": 23,
       "col": 28,
@@ -6821,11 +6697,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r23c29",
+      "name": "bridge_wood_truss_r2c6",
       "kind": "tile",
       "row": 23,
       "col": 29,
@@ -6833,11 +6708,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r23c30",
+      "name": "bridge_wood_truss_r2c7",
       "kind": "tile",
       "row": 23,
       "col": 30,
@@ -6845,11 +6719,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r23c31",
+      "name": "bridge_wood_truss_r2c8",
       "kind": "tile",
       "row": 23,
       "col": 31,
@@ -6857,8 +6730,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "obj_misk_atlas_r24c0",
