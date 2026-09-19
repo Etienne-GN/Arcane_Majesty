@@ -4570,7 +4570,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r16c9",
+      "name": "shop_awning_mint_fill_a",
       "kind": "tile",
       "row": 16,
       "col": 9,
@@ -4578,11 +4578,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r16c10",
+      "name": "shop_awning_mint_fill_b",
       "kind": "tile",
       "row": 16,
       "col": 10,
@@ -4590,8 +4589,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "staircase_grand_red_tower_step_rail_a",
@@ -4715,7 +4713,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r16c22",
+      "name": "grass_dirt_speckle_edge_a",
       "kind": "tile",
       "row": 16,
       "col": 22,
@@ -4723,8 +4721,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "marble_floor_gray_fill_d",
@@ -4910,7 +4907,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r17c8",
+      "name": "shop_awning_mint_valance_a",
       "kind": "tile",
       "row": 17,
       "col": 8,
@@ -4918,8 +4915,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "mountain_silhouette_fragment",
@@ -4933,7 +4929,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r17c10",
+      "name": "shop_awning_mint_valance_b",
       "kind": "tile",
       "row": 17,
       "col": 10,
@@ -4941,11 +4937,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r17c11",
+      "name": "shop_awning_mint_valance_c",
       "kind": "tile",
       "row": 17,
       "col": 11,
@@ -4953,8 +4948,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "baluster_railing_red_corner_left",
@@ -4982,7 +4976,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r17c16",
+      "name": "fish_fin_fragment_a",
       "kind": "tile",
       "row": 17,
       "col": 16,
@@ -4990,11 +4984,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r17c17",
+      "name": "perch_single_a",
       "kind": "tile",
       "row": 17,
       "col": 17,
@@ -5002,11 +4995,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r17c18",
+      "name": "fish_tail_fragment_a",
       "kind": "tile",
       "row": 17,
       "col": 18,
@@ -5014,11 +5006,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r17c19",
+      "name": "fish_pile_perch_a",
       "kind": "tile",
       "row": 17,
       "col": 19,
@@ -5026,11 +5017,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r17c20",
+      "name": "grass_fill_dark_a",
       "kind": "tile",
       "row": 17,
       "col": 20,
@@ -5038,11 +5028,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r17c21",
+      "name": "grass_fill_dark_b",
       "kind": "tile",
       "row": 17,
       "col": 21,
@@ -5050,11 +5039,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r17c22",
+      "name": "grass_dirt_mound_edge_a",
       "kind": "tile",
       "row": 17,
       "col": 22,
@@ -5062,11 +5050,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r17c24",
+      "name": "staircase_grand_red_tower_wall_fill_a",
       "kind": "tile",
       "row": 17,
       "col": 24,
@@ -5074,11 +5061,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r17c25",
+      "name": "staircase_grand_red_tower_wall_fill_b",
       "kind": "tile",
       "row": 17,
       "col": 25,
@@ -5086,11 +5072,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r17c26",
+      "name": "staircase_grand_red_tower_wall_fill_c",
       "kind": "tile",
       "row": 17,
       "col": 26,
@@ -5098,11 +5083,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r17c27",
+      "name": "staircase_grand_red_tower_wall_fill_d",
       "kind": "tile",
       "row": 17,
       "col": 27,
@@ -5110,11 +5094,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r17c28",
+      "name": "staircase_grand_red_tower_wall_fill_e",
       "kind": "tile",
       "row": 17,
       "col": 28,
@@ -5122,11 +5105,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r17c29",
+      "name": "staircase_grand_red_tower_wall_fill_f",
       "kind": "tile",
       "row": 17,
       "col": 29,
@@ -5134,11 +5116,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r17c30",
+      "name": "staircase_grand_red_tower_wall_fill_g",
       "kind": "tile",
       "row": 17,
       "col": 30,
@@ -5146,11 +5127,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r17c31",
+      "name": "staircase_grand_red_tower_wall_fill_h",
       "kind": "tile",
       "row": 17,
       "col": 31,
@@ -5158,11 +5138,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c0",
+      "name": "sack_burlap_greens_a",
       "kind": "tile",
       "row": 18,
       "col": 0,
@@ -5170,11 +5149,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c1",
+      "name": "sack_burlap_greens_b",
       "kind": "tile",
       "row": 18,
       "col": 1,
@@ -5182,11 +5160,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c5",
+      "name": "shop_awning_mint_edge_a",
       "kind": "tile",
       "row": 18,
       "col": 5,
@@ -5194,11 +5171,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c6",
+      "name": "market_crate_empty_a",
       "kind": "tile",
       "row": 18,
       "col": 6,
@@ -5206,11 +5182,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c7",
+      "name": "market_crate_empty_b",
       "kind": "tile",
       "row": 18,
       "col": 7,
@@ -5218,11 +5193,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c8",
+      "name": "strawberry_c",
       "kind": "tile",
       "row": 18,
       "col": 8,
@@ -5230,11 +5204,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c9",
+      "name": "carrot_b",
       "kind": "tile",
       "row": 18,
       "col": 9,
@@ -5242,11 +5215,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c10",
+      "name": "cabbage_head_b",
       "kind": "tile",
       "row": 18,
       "col": 10,
@@ -5254,11 +5226,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c11",
+      "name": "cucumber_b",
       "kind": "tile",
       "row": 18,
       "col": 11,
@@ -5266,11 +5237,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c12",
+      "name": "potato_pile_a",
       "kind": "tile",
       "row": 18,
       "col": 12,
@@ -5278,11 +5248,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c13",
+      "name": "tomato_b",
       "kind": "tile",
       "row": 18,
       "col": 13,
@@ -5290,11 +5259,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c14",
+      "name": "pea_pod_b",
       "kind": "tile",
       "row": 18,
       "col": 14,
@@ -5302,11 +5270,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c15",
+      "name": "pea_pod_c",
       "kind": "tile",
       "row": 18,
       "col": 15,
@@ -5314,11 +5281,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c16",
+      "name": "perch_single_b",
       "kind": "tile",
       "row": 18,
       "col": 16,
@@ -5326,11 +5292,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c18",
+      "name": "fish_pile_perch_b",
       "kind": "tile",
       "row": 18,
       "col": 18,
@@ -5338,11 +5303,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c19",
+      "name": "fish_tail_fragment_b",
       "kind": "tile",
       "row": 18,
       "col": 19,
@@ -5350,8 +5314,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "fire_barrel_lit",
@@ -5399,7 +5362,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r18c24",
+      "name": "staircase_grand_red_tower_wall_fill_i",
       "kind": "tile",
       "row": 18,
       "col": 24,
@@ -5407,11 +5370,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c25",
+      "name": "staircase_grand_red_tower_wall_fill_j",
       "kind": "tile",
       "row": 18,
       "col": 25,
@@ -5419,11 +5381,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c26",
+      "name": "staircase_grand_red_tower_wall_fill_k",
       "kind": "tile",
       "row": 18,
       "col": 26,
@@ -5431,11 +5392,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c27",
+      "name": "staircase_grand_red_tower_wall_fill_l",
       "kind": "tile",
       "row": 18,
       "col": 27,
@@ -5443,11 +5403,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c28",
+      "name": "staircase_grand_red_tower_wall_fill_m",
       "kind": "tile",
       "row": 18,
       "col": 28,
@@ -5455,11 +5414,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c29",
+      "name": "staircase_grand_red_tower_wall_fill_n",
       "kind": "tile",
       "row": 18,
       "col": 29,
@@ -5467,11 +5425,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c30",
+      "name": "staircase_grand_red_tower_wall_fill_o",
       "kind": "tile",
       "row": 18,
       "col": 30,
@@ -5479,11 +5436,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r18c31",
+      "name": "staircase_grand_red_tower_wall_fill_p",
       "kind": "tile",
       "row": 18,
       "col": 31,
@@ -5491,11 +5447,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c0",
+      "name": "meat_scrap_fragment_a",
       "kind": "tile",
       "row": 19,
       "col": 0,
@@ -5503,11 +5458,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c1",
+      "name": "steak_raw_single_a",
       "kind": "tile",
       "row": 19,
       "col": 1,
@@ -5515,11 +5469,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c2",
+      "name": "sack_burlap_greens_c",
       "kind": "tile",
       "row": 19,
       "col": 2,
@@ -5527,8 +5480,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "steak_raw_pile",
@@ -5545,7 +5497,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r19c5",
+      "name": "market_crate_empty_c",
       "kind": "tile",
       "row": 19,
       "col": 5,
@@ -5553,11 +5505,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c6",
+      "name": "market_crate_empty_d",
       "kind": "tile",
       "row": 19,
       "col": 6,
@@ -5565,11 +5516,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c7",
+      "name": "pike_single_c",
       "kind": "tile",
       "row": 19,
       "col": 7,
@@ -5577,11 +5527,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c8",
+      "name": "strawberry_d",
       "kind": "tile",
       "row": 19,
       "col": 8,
@@ -5589,11 +5538,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c9",
+      "name": "carrot_c",
       "kind": "tile",
       "row": 19,
       "col": 9,
@@ -5601,11 +5549,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c10",
+      "name": "cabbage_head_c",
       "kind": "tile",
       "row": 19,
       "col": 10,
@@ -5613,11 +5560,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c11",
+      "name": "cucumber_c",
       "kind": "tile",
       "row": 19,
       "col": 11,
@@ -5625,11 +5571,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c12",
+      "name": "potato_pile_b",
       "kind": "tile",
       "row": 19,
       "col": 12,
@@ -5637,11 +5582,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c13",
+      "name": "tomato_c",
       "kind": "tile",
       "row": 19,
       "col": 13,
@@ -5649,11 +5593,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c14",
+      "name": "pea_pod_d",
       "kind": "tile",
       "row": 19,
       "col": 14,
@@ -5661,11 +5604,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c15",
+      "name": "pea_pod_e",
       "kind": "tile",
       "row": 19,
       "col": 15,
@@ -5673,11 +5615,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c16",
+      "name": "perch_single_c",
       "kind": "tile",
       "row": 19,
       "col": 16,
@@ -5685,11 +5626,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c17",
+      "name": "fish_head_fragment_a",
       "kind": "tile",
       "row": 19,
       "col": 17,
@@ -5697,11 +5637,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c18",
+      "name": "fish_pile_perch_c",
       "kind": "tile",
       "row": 19,
       "col": 18,
@@ -5709,11 +5648,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c19",
+      "name": "fish_pile_perch_d",
       "kind": "tile",
       "row": 19,
       "col": 19,
@@ -5721,8 +5659,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "trash_scatter_b",
@@ -5740,7 +5677,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r19c24",
+      "name": "staircase_grand_red_tower_wall_fill_q",
       "kind": "tile",
       "row": 19,
       "col": 24,
@@ -5748,11 +5685,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c25",
+      "name": "staircase_grand_red_tower_wall_fill_r",
       "kind": "tile",
       "row": 19,
       "col": 25,
@@ -5760,11 +5696,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c26",
+      "name": "staircase_grand_red_tower_wall_fill_s",
       "kind": "tile",
       "row": 19,
       "col": 26,
@@ -5772,11 +5707,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c27",
+      "name": "staircase_grand_red_tower_wall_fill_t",
       "kind": "tile",
       "row": 19,
       "col": 27,
@@ -5784,11 +5718,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c28",
+      "name": "staircase_grand_red_tower_wall_fill_u",
       "kind": "tile",
       "row": 19,
       "col": 28,
@@ -5796,11 +5729,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c29",
+      "name": "staircase_grand_red_tower_wall_fill_v",
       "kind": "tile",
       "row": 19,
       "col": 29,
@@ -5808,11 +5740,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c30",
+      "name": "staircase_grand_red_tower_wall_fill_w",
       "kind": "tile",
       "row": 19,
       "col": 30,
@@ -5820,11 +5751,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r19c31",
+      "name": "staircase_grand_red_tower_wall_panel_a",
       "kind": "tile",
       "row": 19,
       "col": 31,
@@ -5832,8 +5762,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "obj_misk_atlas_r20c0",
