@@ -7642,7 +7642,7 @@
       ]
     },
     {
-      "name": "build_atlas_r28c0",
+      "name": "shadowed_archway_pier_left_top",
       "kind": "tile",
       "row": 28,
       "col": 0,
@@ -7650,11 +7650,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c1",
+      "name": "shadowed_archway_arc_shadow_left",
       "kind": "tile",
       "row": 28,
       "col": 1,
@@ -7662,11 +7661,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c2",
+      "name": "shadowed_archway_arc_shadow_right",
       "kind": "tile",
       "row": 28,
       "col": 2,
@@ -7674,11 +7672,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c3",
+      "name": "shadowed_archway_pier_right_top",
       "kind": "tile",
       "row": 28,
       "col": 3,
@@ -7686,11 +7683,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c4",
+      "name": "sage_wall_niche_top",
       "kind": "tile",
       "row": 28,
       "col": 4,
@@ -7698,11 +7694,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c5",
+      "name": "sage_archway_door_fan_left",
       "kind": "tile",
       "row": 28,
       "col": 5,
@@ -7710,11 +7705,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c6",
+      "name": "sage_archway_door_fan_right",
       "kind": "tile",
       "row": 28,
       "col": 6,
@@ -7722,11 +7716,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c7",
+      "name": "dusky_wall_gap_fill_a",
       "kind": "tile",
       "row": 28,
       "col": 7,
@@ -7734,11 +7727,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c8",
+      "name": "sage_wall_molding_fill_a",
       "kind": "tile",
       "row": 28,
       "col": 8,
@@ -7746,11 +7738,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c9",
+      "name": "maroon_twin_arch_window_top_left",
       "kind": "tile",
       "row": 28,
       "col": 9,
@@ -7758,11 +7749,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c10",
+      "name": "maroon_twin_arch_window_top_right",
       "kind": "tile",
       "row": 28,
       "col": 10,
@@ -7770,11 +7760,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c11",
+      "name": "sage_wall_molding_fill_b",
       "kind": "tile",
       "row": 28,
       "col": 11,
@@ -7782,11 +7771,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c12",
+      "name": "sage_wall_molding_fill_c",
       "kind": "tile",
       "row": 28,
       "col": 12,
@@ -7794,11 +7782,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c13",
+      "name": "amber_twin_arch_window_top_left",
       "kind": "tile",
       "row": 28,
       "col": 13,
@@ -7806,11 +7793,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c14",
+      "name": "amber_twin_arch_window_top_right",
       "kind": "tile",
       "row": 28,
       "col": 14,
@@ -7818,11 +7804,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c15",
+      "name": "sage_wall_cornice_band_fill",
       "kind": "tile",
       "row": 28,
       "col": 15,
@@ -7830,11 +7815,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c16",
+      "name": "azure_dome_roof_left",
       "kind": "tile",
       "row": 28,
       "col": 16,
@@ -7842,11 +7826,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c17",
+      "name": "azure_dome_roof_center",
       "kind": "tile",
       "row": 28,
       "col": 17,
@@ -7854,11 +7837,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c18",
+      "name": "azure_dome_roof_right",
       "kind": "tile",
       "row": 28,
       "col": 18,
@@ -7866,11 +7848,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c19",
+      "name": "teal_scalloped_awning_edge",
       "kind": "tile",
       "row": 28,
       "col": 19,
@@ -7878,11 +7859,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c20",
+      "name": "teal_wall_molding_corner",
       "kind": "tile",
       "row": 28,
       "col": 20,
@@ -7890,11 +7870,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c21",
+      "name": "golden_arch_door_top_left",
       "kind": "tile",
       "row": 28,
       "col": 21,
@@ -7902,11 +7881,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c22",
+      "name": "golden_arch_door_top_right",
       "kind": "tile",
       "row": 28,
       "col": 22,
@@ -7914,11 +7892,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c24",
+      "name": "barred_curtain_window_top_left",
       "kind": "tile",
       "row": 28,
       "col": 24,
@@ -7926,11 +7903,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c25",
+      "name": "barred_curtain_window_top_right",
       "kind": "tile",
       "row": 28,
       "col": 25,
@@ -7938,11 +7914,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c26",
+      "name": "cream_paned_window_frame",
       "kind": "tile",
       "row": 28,
       "col": 26,
@@ -7950,11 +7925,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c27",
+      "name": "orange_maroon_mosaic_tile_a",
       "kind": "tile",
       "row": 28,
       "col": 27,
@@ -7962,11 +7936,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c28",
+      "name": "dark_stake_pair_fragment",
       "kind": "tile",
       "row": 28,
       "col": 28,
@@ -7974,11 +7947,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c29",
+      "name": "cream_fluted_wall_corner",
       "kind": "tile",
       "row": 28,
       "col": 29,
@@ -7986,11 +7958,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c30",
+      "name": "teal_crackled_wall_fill_a",
       "kind": "tile",
       "row": 28,
       "col": 30,
@@ -7998,11 +7969,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r28c31",
+      "name": "teal_crackled_wall_fill_b",
       "kind": "tile",
       "row": 28,
       "col": 31,
@@ -8010,11 +7980,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c0",
+      "name": "shadowed_archway_pier_left_mid_a",
       "kind": "tile",
       "row": 29,
       "col": 0,
@@ -8022,11 +7991,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c3",
+      "name": "shadowed_archway_pier_right_mid_a",
       "kind": "tile",
       "row": 29,
       "col": 3,
@@ -8034,11 +8002,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c4",
+      "name": "sage_wall_niche_shaft_upper",
       "kind": "tile",
       "row": 29,
       "col": 4,
@@ -8046,11 +8013,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c5",
+      "name": "sage_archway_door_arch_left",
       "kind": "tile",
       "row": 29,
       "col": 5,
@@ -8058,11 +8024,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c6",
+      "name": "sage_archway_door_arch_right",
       "kind": "tile",
       "row": 29,
       "col": 6,
@@ -8070,11 +8035,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c7",
+      "name": "dusky_wall_gap_fill_b",
       "kind": "tile",
       "row": 29,
       "col": 7,
@@ -8082,11 +8046,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c8",
+      "name": "maroon_window_pilaster_left_upper",
       "kind": "tile",
       "row": 29,
       "col": 8,
@@ -8094,11 +8057,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c9",
+      "name": "maroon_twin_arch_window_upper_left",
       "kind": "tile",
       "row": 29,
       "col": 9,
@@ -8106,11 +8068,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c10",
+      "name": "maroon_twin_arch_window_upper_right",
       "kind": "tile",
       "row": 29,
       "col": 10,
@@ -8118,11 +8079,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c11",
+      "name": "maroon_window_pilaster_right_upper",
       "kind": "tile",
       "row": 29,
       "col": 11,
@@ -8130,11 +8090,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c12",
+      "name": "sage_wall_transition_edge_upper",
       "kind": "tile",
       "row": 29,
       "col": 12,
@@ -8142,11 +8101,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c13",
+      "name": "amber_twin_arch_window_upper_left",
       "kind": "tile",
       "row": 29,
       "col": 13,
@@ -8154,11 +8112,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c14",
+      "name": "amber_twin_arch_window_upper_right",
       "kind": "tile",
       "row": 29,
       "col": 14,
@@ -8166,11 +8123,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c15",
+      "name": "sage_wall_window_frame_edge_right_upper",
       "kind": "tile",
       "row": 29,
       "col": 15,
@@ -8178,11 +8134,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c16",
+      "name": "azure_dome_tower_wall_upper_left",
       "kind": "tile",
       "row": 29,
       "col": 16,
@@ -8190,11 +8145,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c17",
+      "name": "azure_dome_tower_wall_upper_center",
       "kind": "tile",
       "row": 29,
       "col": 17,
@@ -8202,11 +8156,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c18",
+      "name": "azure_dome_tower_wall_upper_right",
       "kind": "tile",
       "row": 29,
       "col": 18,
@@ -8214,11 +8167,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c20",
+      "name": "teal_wall_fill_plain",
       "kind": "tile",
       "row": 29,
       "col": 20,
@@ -8226,11 +8178,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c21",
+      "name": "golden_arch_door_panel_left",
       "kind": "tile",
       "row": 29,
       "col": 21,
@@ -8238,11 +8189,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c22",
+      "name": "golden_arch_door_panel_right",
       "kind": "tile",
       "row": 29,
       "col": 22,
@@ -8250,11 +8200,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c24",
+      "name": "barred_curtain_window_mid_left",
       "kind": "tile",
       "row": 29,
       "col": 24,
@@ -8262,11 +8211,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c25",
+      "name": "barred_curtain_window_mid_right",
       "kind": "tile",
       "row": 29,
       "col": 25,
@@ -8274,11 +8222,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c27",
+      "name": "orange_maroon_mosaic_tile_b",
       "kind": "tile",
       "row": 29,
       "col": 27,
@@ -8286,11 +8233,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c28",
+      "name": "diagonal_ripple_fragment_a",
       "kind": "tile",
       "row": 29,
       "col": 28,
@@ -8298,11 +8244,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c29",
+      "name": "pale_moon_orb_top_left",
       "kind": "tile",
       "row": 29,
       "col": 29,
@@ -8310,11 +8255,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c30",
+      "name": "pale_moon_orb_top_center",
       "kind": "tile",
       "row": 29,
       "col": 30,
@@ -8322,11 +8266,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r29c31",
+      "name": "pale_moon_orb_top_right",
       "kind": "tile",
       "row": 29,
       "col": 31,
@@ -8334,11 +8277,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c0",
+      "name": "shadowed_archway_pier_left_mid_b",
       "kind": "tile",
       "row": 30,
       "col": 0,
@@ -8346,11 +8288,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c3",
+      "name": "shadowed_archway_pier_right_mid_b",
       "kind": "tile",
       "row": 30,
       "col": 3,
@@ -8358,11 +8299,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c4",
+      "name": "sage_wall_niche_shaft_lower",
       "kind": "tile",
       "row": 30,
       "col": 4,
@@ -8370,11 +8310,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c5",
+      "name": "sage_archway_door_panel_left",
       "kind": "tile",
       "row": 30,
       "col": 5,
@@ -8382,11 +8321,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c6",
+      "name": "sage_archway_door_panel_right",
       "kind": "tile",
       "row": 30,
       "col": 6,
@@ -8394,11 +8332,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c7",
+      "name": "dusky_wall_gap_fill_c",
       "kind": "tile",
       "row": 30,
       "col": 7,
@@ -8406,11 +8343,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c8",
+      "name": "maroon_window_pilaster_left_lower",
       "kind": "tile",
       "row": 30,
       "col": 8,
@@ -8418,11 +8354,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c9",
+      "name": "maroon_twin_arch_window_pane_left",
       "kind": "tile",
       "row": 30,
       "col": 9,
@@ -8430,11 +8365,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c10",
+      "name": "maroon_twin_arch_window_pane_right",
       "kind": "tile",
       "row": 30,
       "col": 10,
@@ -8442,11 +8376,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c11",
+      "name": "maroon_window_pilaster_right_lower",
       "kind": "tile",
       "row": 30,
       "col": 11,
@@ -8454,11 +8387,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c12",
+      "name": "sage_wall_transition_edge_lower",
       "kind": "tile",
       "row": 30,
       "col": 12,
@@ -8466,11 +8398,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c13",
+      "name": "amber_twin_arch_window_pane_left",
       "kind": "tile",
       "row": 30,
       "col": 13,
@@ -8478,11 +8409,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c14",
+      "name": "amber_twin_arch_window_pane_right",
       "kind": "tile",
       "row": 30,
       "col": 14,
@@ -8490,11 +8420,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c15",
+      "name": "sage_wall_window_frame_edge_right_mid",
       "kind": "tile",
       "row": 30,
       "col": 15,
@@ -8502,11 +8431,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c16",
+      "name": "azure_dome_tower_wall_mid_left",
       "kind": "tile",
       "row": 30,
       "col": 16,
@@ -8514,11 +8442,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c17",
+      "name": "azure_dome_tower_wall_mid_center",
       "kind": "tile",
       "row": 30,
       "col": 17,
@@ -8526,11 +8453,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c18",
+      "name": "azure_dome_tower_wall_mid_right",
       "kind": "tile",
       "row": 30,
       "col": 18,
@@ -8538,11 +8464,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c20",
+      "name": "teal_wall_baseboard_line",
       "kind": "tile",
       "row": 30,
       "col": 20,
@@ -8550,11 +8475,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c21",
+      "name": "golden_arch_door_base_left",
       "kind": "tile",
       "row": 30,
       "col": 21,
@@ -8562,11 +8486,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c22",
+      "name": "golden_arch_door_base_right",
       "kind": "tile",
       "row": 30,
       "col": 22,
@@ -8574,11 +8497,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c23",
+      "name": "teal_ashlar_wall_fill",
       "kind": "tile",
       "row": 30,
       "col": 23,
@@ -8586,11 +8508,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c24",
+      "name": "barred_curtain_window_base_left",
       "kind": "tile",
       "row": 30,
       "col": 24,
@@ -8598,11 +8519,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c25",
+      "name": "barred_curtain_window_base_right",
       "kind": "tile",
       "row": 30,
       "col": 25,
@@ -8610,11 +8530,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c26",
+      "name": "pale_baluster_rail_fence",
       "kind": "tile",
       "row": 30,
       "col": 26,
@@ -8622,11 +8541,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c27",
+      "name": "orange_maroon_mosaic_tile_c",
       "kind": "tile",
       "row": 30,
       "col": 27,
@@ -8634,11 +8552,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c28",
+      "name": "orange_maroon_mosaic_tile_d",
       "kind": "tile",
       "row": 30,
       "col": 28,
@@ -8646,11 +8563,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c29",
+      "name": "pale_moon_orb_mid_left",
       "kind": "tile",
       "row": 30,
       "col": 29,
@@ -8658,11 +8574,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c30",
+      "name": "pale_moon_orb_mid_center",
       "kind": "tile",
       "row": 30,
       "col": 30,
@@ -8670,11 +8585,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r30c31",
+      "name": "pale_moon_orb_mid_right",
       "kind": "tile",
       "row": 30,
       "col": 31,
@@ -8682,11 +8596,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c0",
+      "name": "shadowed_archway_pier_left_base",
       "kind": "tile",
       "row": 31,
       "col": 0,
@@ -8694,11 +8607,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c1",
+      "name": "deep_archway_shadow_floor_left",
       "kind": "tile",
       "row": 31,
       "col": 1,
@@ -8706,11 +8618,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c2",
+      "name": "deep_archway_shadow_floor_right",
       "kind": "tile",
       "row": 31,
       "col": 2,
@@ -8718,11 +8629,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c3",
+      "name": "shadowed_archway_pier_right_base",
       "kind": "tile",
       "row": 31,
       "col": 3,
@@ -8730,11 +8640,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c4",
+      "name": "sage_wall_niche_base",
       "kind": "tile",
       "row": 31,
       "col": 4,
@@ -8742,11 +8651,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c5",
+      "name": "sage_archway_door_base_left",
       "kind": "tile",
       "row": 31,
       "col": 5,
@@ -8754,11 +8662,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c6",
+      "name": "sage_archway_door_base_right",
       "kind": "tile",
       "row": 31,
       "col": 6,
@@ -8766,11 +8673,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c7",
+      "name": "warm_lamp_glow",
       "kind": "tile",
       "row": 31,
       "col": 7,
@@ -8778,11 +8684,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c8",
+      "name": "maroon_window_pilaster_left_base",
       "kind": "tile",
       "row": 31,
       "col": 8,
@@ -8790,11 +8695,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c9",
+      "name": "maroon_twin_arch_window_sill_left",
       "kind": "tile",
       "row": 31,
       "col": 9,
@@ -8802,11 +8706,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c10",
+      "name": "maroon_twin_arch_window_sill_right",
       "kind": "tile",
       "row": 31,
       "col": 10,
@@ -8814,11 +8717,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c11",
+      "name": "maroon_window_pilaster_right_base",
       "kind": "tile",
       "row": 31,
       "col": 11,
@@ -8826,11 +8728,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c12",
+      "name": "sage_wall_transition_edge_base",
       "kind": "tile",
       "row": 31,
       "col": 12,
@@ -8838,11 +8739,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c13",
+      "name": "amber_twin_arch_window_sill_left",
       "kind": "tile",
       "row": 31,
       "col": 13,
@@ -8850,11 +8750,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c14",
+      "name": "amber_twin_arch_window_sill_right",
       "kind": "tile",
       "row": 31,
       "col": 14,
@@ -8862,11 +8761,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c15",
+      "name": "sage_wall_window_frame_edge_right_lower",
       "kind": "tile",
       "row": 31,
       "col": 15,
@@ -8874,11 +8772,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c16",
+      "name": "azure_dome_tower_wall_lower_left",
       "kind": "tile",
       "row": 31,
       "col": 16,
@@ -8886,11 +8783,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c17",
+      "name": "azure_dome_tower_wall_lower_center",
       "kind": "tile",
       "row": 31,
       "col": 17,
@@ -8898,11 +8794,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c18",
+      "name": "azure_dome_tower_wall_lower_right",
       "kind": "tile",
       "row": 31,
       "col": 18,
@@ -8910,11 +8805,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c19",
+      "name": "slate_blue_brick_wall_fill_a",
       "kind": "tile",
       "row": 31,
       "col": 19,
@@ -8922,11 +8816,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c20",
+      "name": "slate_blue_brick_wall_fill_b",
       "kind": "tile",
       "row": 31,
       "col": 20,
@@ -8934,11 +8827,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c21",
+      "name": "slate_blue_brick_wall_fill_c",
       "kind": "tile",
       "row": 31,
       "col": 21,
@@ -8946,11 +8838,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c22",
+      "name": "slate_blue_brick_wall_fill_d",
       "kind": "tile",
       "row": 31,
       "col": 22,
@@ -8958,11 +8849,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c23",
+      "name": "slate_blue_brick_wall_fill_e",
       "kind": "tile",
       "row": 31,
       "col": 23,
@@ -8970,11 +8860,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c24",
+      "name": "slate_blue_brick_wall_fill_f",
       "kind": "tile",
       "row": 31,
       "col": 24,
@@ -8982,11 +8871,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c27",
+      "name": "orange_maroon_mosaic_tile_e",
       "kind": "tile",
       "row": 31,
       "col": 27,
@@ -8994,11 +8882,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c28",
+      "name": "orange_maroon_mosaic_tile_f",
       "kind": "tile",
       "row": 31,
       "col": 28,
@@ -9006,11 +8893,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c29",
+      "name": "pale_moon_orb_bottom_left",
       "kind": "tile",
       "row": 31,
       "col": 29,
@@ -9018,11 +8904,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c30",
+      "name": "pale_moon_orb_bottom_center",
       "kind": "tile",
       "row": 31,
       "col": 30,
@@ -9030,11 +8915,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "build_atlas_r31c31",
+      "name": "pale_moon_orb_bottom_right",
       "kind": "tile",
       "row": 31,
       "col": 31,
@@ -9042,8 +8926,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     }
   ],
   "gridTileWidth": 32,
