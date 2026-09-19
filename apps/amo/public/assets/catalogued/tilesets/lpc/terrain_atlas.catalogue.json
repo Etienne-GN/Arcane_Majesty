@@ -2221,7 +2221,7 @@
       ]
     },
     {
-      "name": "terrain_atlas_r6c29",
+      "name": "green_ground_shadow_fragment_a",
       "kind": "tile",
       "row": 6,
       "col": 29,
@@ -2229,11 +2229,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "terrain_atlas_r6c30",
+      "name": "green_ground_shadow_fragment_b",
       "kind": "tile",
       "row": 6,
       "col": 30,
@@ -2241,8 +2240,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "flat_pale_green_fill",
@@ -4088,7 +4086,7 @@
       "needsNaming": true
     },
     {
-      "name": "terrain_atlas_r12c0",
+      "name": "golden_glow_splatter",
       "kind": "tile",
       "row": 12,
       "col": 0,
@@ -4096,8 +4094,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "sand_isle_top_l",
@@ -4235,7 +4232,7 @@
       ]
     },
     {
-      "name": "terrain_atlas_r12c14",
+      "name": "gray_stone_slab_block",
       "kind": "tile",
       "row": 12,
       "col": 14,
@@ -4243,8 +4240,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "stone_pedestal_top",
@@ -4290,7 +4286,7 @@
       ]
     },
     {
-      "name": "terrain_atlas_r12c20",
+      "name": "ivy_rock_cluster",
       "kind": "tile",
       "row": 12,
       "col": 20,
@@ -4298,8 +4294,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "ivy_pillar_top_a",
@@ -4383,7 +4378,7 @@
       ]
     },
     {
-      "name": "terrain_atlas_r12c30",
+      "name": "cream_fill_plain",
       "kind": "tile",
       "row": 12,
       "col": 30,
@@ -4391,8 +4386,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "cream_floor_fill_a",
@@ -4784,7 +4778,7 @@
       ]
     },
     {
-      "name": "terrain_atlas_r14c13",
+      "name": "scattered_leaves_e",
       "kind": "tile",
       "row": 14,
       "col": 13,
@@ -4792,8 +4786,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "scattered_leaves_a",
@@ -5211,7 +5204,7 @@
       ]
     },
     {
-      "name": "terrain_atlas_r15c30",
+      "name": "slate_blue_stone_fill_a",
       "kind": "tile",
       "row": 15,
       "col": 30,
@@ -5219,8 +5212,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "violet_floor_fill_a",
@@ -6384,7 +6376,7 @@
       ]
     },
     {
-      "name": "terrain_atlas_r19c31",
+      "name": "slate_blue_stone_fill_b",
       "kind": "tile",
       "row": 19,
       "col": 31,
@@ -6392,8 +6384,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "mossy_slate_floor_fill_g",
@@ -6871,7 +6862,7 @@
       ]
     },
     {
-      "name": "terrain_atlas_r21c17",
+      "name": "wood_arch_railing_fragment",
       "kind": "tile",
       "row": 21,
       "col": 17,
@@ -6879,8 +6870,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "wood_arch_door_l",
@@ -7030,7 +7020,7 @@
       ]
     },
     {
-      "name": "terrain_atlas_r22c0",
+      "name": "green_hedge_dome",
       "kind": "tile",
       "row": 22,
       "col": 0,
@@ -7038,8 +7028,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "grass_field_edge_corner_nw",
@@ -7530,7 +7519,7 @@
       ]
     },
     {
-      "name": "terrain_atlas_r23c24",
+      "name": "gray_stone_pillar_segment",
       "kind": "tile",
       "row": 23,
       "col": 24,
@@ -7538,8 +7527,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "gray_stone_shaft_a",
@@ -7581,7 +7569,7 @@
       ]
     },
     {
-      "name": "terrain_atlas_r23c29",
+      "name": "small_gray_pebbles",
       "kind": "tile",
       "row": 23,
       "col": 29,
@@ -7589,8 +7577,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "dark_pebble_pair_a",
