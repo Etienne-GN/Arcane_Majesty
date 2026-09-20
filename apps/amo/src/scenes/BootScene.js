@@ -143,8 +143,19 @@ export default class BootScene extends Phaser.Scene {
         // Water autotile sheet (2048×1536 pipo, 64 cols × 48 rows) — catalogued corner/edge/fill kit
         this.load.image('tileset_water',  'assets/catalogued/tilesets/SampleMap/[A]Water_pipo.png');
         this.load.json('tileset_water_cat', 'assets/catalogued/tilesets/SampleMap/[A]Water_pipo.catalogue.json');
-        // LPC Atlas tilesets — 1024×1024, 32×32 grid (32 cols × 32 rows)
+        // LPC Atlas tilesets — 1024×1024, 32×32 grid (32 cols × 32 rows). Full
+        // naming pass completed (see apps/amo/tools/sprite_catalogue/LPC_ATLAS_PLAN.md) —
+        // all 4 catalogues below are 100% named, merges applied. terrain_atlas
+        // is also eldrin_tower's live floor tileset (raw frameIndex math), so
+        // its image key/path must stay put; only the .json catalogue is new.
         this.load.image('terrain_atlas', 'assets/catalogued/tilesets/lpc/terrain_atlas.png');
+        this.load.json('terrain_atlas_cat', 'assets/catalogued/tilesets/lpc/terrain_atlas.catalogue.json');
+        this.load.image('base_out_atlas', 'assets/catalogued/tilesets/lpc/base_out_atlas.png');
+        this.load.json('base_out_atlas_cat', 'assets/catalogued/tilesets/lpc/base_out_atlas.catalogue.json');
+        this.load.image('build_atlas', 'assets/catalogued/tilesets/lpc/build_atlas.png');
+        this.load.json('build_atlas_cat', 'assets/catalogued/tilesets/lpc/build_atlas.catalogue.json');
+        this.load.image('obj_misk_atlas', 'assets/catalogued/tilesets/lpc/obj_misk_atlas.png');
+        this.load.json('obj_misk_atlas_cat', 'assets/catalogued/tilesets/lpc/obj_misk_atlas.catalogue.json');
         this.load.image('tileset_grass', 'assets/catalogued/tilesets/SampleMap/[A]Grass_pipo.png');
         // Sample map — full Tiled-authored demo scene (60x60, 9 layers) imported
         // via tools/tiled_import/tmx_to_json.py. Proof-of-concept for native

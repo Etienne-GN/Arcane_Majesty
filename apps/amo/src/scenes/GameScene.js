@@ -2476,6 +2476,11 @@ export default class GameScene extends Phaser.Scene {
             { items: this._mapDef.patdStructDecorations,      catKey: 'tileset_patd_struct_cat',      texKey: 'tileset_patd_struct' },
             { items: this._mapDef.patdPropsDecorations,       catKey: 'tileset_patd_props_cat',       texKey: 'tileset_patd_props' },
             { items: this._mapDef.patdPlantDecorations,       catKey: 'tileset_patd_plant_cat',       texKey: 'tileset_patd_plant' },
+            // LPC 4-atlas collection (fully named, see LPC_ATLAS_PLAN.md)
+            { items: this._mapDef.lpcTerrainDecorations, catKey: 'terrain_atlas_cat',   texKey: 'terrain_atlas' },
+            { items: this._mapDef.lpcBaseOutDecorations, catKey: 'base_out_atlas_cat', texKey: 'base_out_atlas' },
+            { items: this._mapDef.lpcBuildDecorations,   catKey: 'build_atlas_cat',    texKey: 'build_atlas' },
+            { items: this._mapDef.lpcObjMiskDecorations, catKey: 'obj_misk_atlas_cat', texKey: 'obj_misk_atlas' },
         ];
         sources.forEach(s => this._placeCatalogueItems(s.items, s.catKey, s.texKey));
     }

@@ -16,6 +16,7 @@ import { INFERNO_LABYRINTH } from './inferno_labyrinth.js';
 import { RUINS_OF_ELDORIA }  from './ruins_of_eldoria.js';
 import { HEARTSTONE_CHAMBER } from './heartstone_chamber.js';
 import { ANCIENT_DOOR }      from './ancient_door.js';
+import { LPC_SHOWCASE }      from './lpc_showcase.js';
 
 const REGISTRY = {
     prologue_forest:  PROLOGUE_FOREST,
@@ -36,6 +37,7 @@ const REGISTRY = {
     ruins_of_eldoria:   RUINS_OF_ELDORIA,
     heartstone_chamber: HEARTSTONE_CHAMBER,
     ancient_door:       ANCIENT_DOOR,
+    lpc_showcase:       LPC_SHOWCASE,
 };
 
 export function getMap(id) {
