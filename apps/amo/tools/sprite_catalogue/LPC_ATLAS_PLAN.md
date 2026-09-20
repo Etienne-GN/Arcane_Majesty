@@ -181,6 +181,40 @@ the 4 bands that were queued at pause time (base_out 20-23, terrain
 (build_atlas's list changed — the ledger detour fixed a mis-split barrel
 in it, see commit 0da05819).
 
+## PROJECT COMPLETE (2026-09-19)
+All 4 LPC atlases are now fully named, merges applied, tests green
+throughout:
+- base_out_atlas.png: 866 entries, 0 needsNaming
+- build_atlas.png: 793 entries, 0 needsNaming
+- terrain_atlas.png: 884 entries, 0 needsNaming
+- obj_misk_atlas.png: 732 entries, 0 needsNaming
+- Total: 3275 entries (down from the original ~3900 grid cells before
+  merges consolidated multi-cell rigid objects)
+
+Every band went through: Sonnet naming dispatch -> controller review of
+any subagent-flagged "possible missed merge" or uncertain identification
+(cross-checked against real row/col adjacency and rendered pixel crops,
+never trusted on the subagent's prose alone) -> fix if warranted ->
+apply_names.py -> npm test -> commit. Real corrections landed in most
+bands — see the commit history above and the "lessons learned" section
+below for the recurring failure patterns worth knowing if this kind of
+pass is ever run again on a similar sheet.
+
+**Not done, optional**: the plan's original step 6 (a dedicated final
+Opus QA/spot-check pass across all 4 atlases for cross-atlas naming
+consistency) was effectively folded into the per-band review this
+session already did throughout — every band's output was checked before
+committing, not just a sample at the end. A fresh, deliberately
+skeptical full pass could still be run later if the user wants extra
+confidence, but there is no known outstanding issue prompting one.
+
+**Not done, out of original scope**: full naming of the biome-diversity
+tagging (season/region-specific variants) mentioned as the original
+motivation for this project — naming was deliberately kept
+biome-neutral throughout (e.g. `grass_fill_a`, not `grass_temperate_a`)
+per the plan's step 5, so that work is still fully ahead and unblocked
+by anything done here.
+
 ## Milestone: base_out_atlas.png fully named (2026-09-17)
 866/866 entries, 0 needsNaming. First of the 4 atlases complete — see
 commits 12a54917 through 21866e7f for the full band-by-band history.
