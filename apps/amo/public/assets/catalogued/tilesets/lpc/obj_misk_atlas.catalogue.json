@@ -2150,7 +2150,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r8c0",
+      "name": "water_edge_wall_plain_d",
       "kind": "tile",
       "row": 8,
       "col": 0,
@@ -2158,11 +2158,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c1",
+      "name": "stone_wall_dock_ring_d",
       "kind": "tile",
       "row": 8,
       "col": 1,
@@ -2170,11 +2169,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c2",
+      "name": "stone_wall_dock_fill_a",
       "kind": "tile",
       "row": 8,
       "col": 2,
@@ -2182,11 +2180,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c3",
+      "name": "stone_wall_dock_ring_e",
       "kind": "tile",
       "row": 8,
       "col": 3,
@@ -2194,11 +2191,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c4",
+      "name": "stone_wall_dock_fill_b",
       "kind": "tile",
       "row": 8,
       "col": 4,
@@ -2206,11 +2202,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c5",
+      "name": "stone_wall_dock_ring_f",
       "kind": "tile",
       "row": 8,
       "col": 5,
@@ -2218,11 +2213,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c6",
+      "name": "water_edge_wall_plain_e",
       "kind": "tile",
       "row": 8,
       "col": 6,
@@ -2230,11 +2224,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c15",
+      "name": "wardrobe_drawer_cabinet_body_a",
       "kind": "tile",
       "row": 8,
       "col": 15,
@@ -2242,11 +2235,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c16",
+      "name": "wardrobe_double_door_cabinet_body_a",
       "kind": "tile",
       "row": 8,
       "col": 16,
@@ -2254,11 +2246,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c17",
+      "name": "wardrobe_double_door_cabinet_body_b",
       "kind": "tile",
       "row": 8,
       "col": 17,
@@ -2266,11 +2257,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c18",
+      "name": "wardrobe_glass_cabinet_body_a",
       "kind": "tile",
       "row": 8,
       "col": 18,
@@ -2278,11 +2268,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c19",
+      "name": "wardrobe_narrow_cabinet_body_a",
       "kind": "tile",
       "row": 8,
       "col": 19,
@@ -2290,11 +2279,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c20",
+      "name": "water_fence_post_shaft_a",
       "kind": "tile",
       "row": 8,
       "col": 20,
@@ -2302,11 +2290,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c21",
+      "name": "water_fence_post_shaft_b",
       "kind": "tile",
       "row": 8,
       "col": 21,
@@ -2314,11 +2301,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c22",
+      "name": "water_fence_post_shaft_c",
       "kind": "tile",
       "row": 8,
       "col": 22,
@@ -2326,11 +2312,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c23",
+      "name": "water_fence_post_shaft_d",
       "kind": "tile",
       "row": 8,
       "col": 23,
@@ -2338,11 +2323,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c24",
+      "name": "dark_canopy_underside_a",
       "kind": "tile",
       "row": 8,
       "col": 24,
@@ -2350,11 +2334,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c25",
+      "name": "dark_canopy_underside_b",
       "kind": "tile",
       "row": 8,
       "col": 25,
@@ -2362,11 +2345,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c26",
+      "name": "staircase_grand_red_ii_r1c1",
       "kind": "tile",
       "row": 8,
       "col": 26,
@@ -2374,11 +2356,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c27",
+      "name": "staircase_grand_red_ii_r1c2",
       "kind": "tile",
       "row": 8,
       "col": 27,
@@ -2386,11 +2367,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c28",
+      "name": "staircase_grand_red_ii_r1c3",
       "kind": "tile",
       "row": 8,
       "col": 28,
@@ -2398,11 +2378,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c29",
+      "name": "staircase_grand_red_ii_r1c4",
       "kind": "tile",
       "row": 8,
       "col": 29,
@@ -2410,11 +2389,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c30",
+      "name": "staircase_grand_red_ii_r1c5",
       "kind": "tile",
       "row": 8,
       "col": 30,
@@ -2422,11 +2400,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r8c31",
+      "name": "staircase_grand_red_ii_r1c6",
       "kind": "tile",
       "row": 8,
       "col": 31,
@@ -2434,11 +2411,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c0",
+      "name": "water_edge_wall_plain_f",
       "kind": "tile",
       "row": 9,
       "col": 0,
@@ -2446,11 +2422,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c1",
+      "name": "wall_stone_dock_mossy_fill_f",
       "kind": "tile",
       "row": 9,
       "col": 1,
@@ -2458,11 +2433,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c2",
+      "name": "wall_stone_dock_mossy_fill_g",
       "kind": "tile",
       "row": 9,
       "col": 2,
@@ -2470,11 +2444,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c3",
+      "name": "wall_stone_dock_mossy_fill_h",
       "kind": "tile",
       "row": 9,
       "col": 3,
@@ -2482,11 +2455,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c4",
+      "name": "wall_stone_dock_mossy_fill_i",
       "kind": "tile",
       "row": 9,
       "col": 4,
@@ -2494,11 +2466,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c5",
+      "name": "wall_stone_dock_mossy_fill_j",
       "kind": "tile",
       "row": 9,
       "col": 5,
@@ -2506,11 +2477,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c6",
+      "name": "water_edge_wall_plain_g",
       "kind": "tile",
       "row": 9,
       "col": 6,
@@ -2518,11 +2488,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c15",
+      "name": "wardrobe_drawer_cabinet_base_a",
       "kind": "tile",
       "row": 9,
       "col": 15,
@@ -2530,11 +2499,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c16",
+      "name": "wardrobe_double_door_cabinet_base_a",
       "kind": "tile",
       "row": 9,
       "col": 16,
@@ -2542,11 +2510,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c17",
+      "name": "wardrobe_double_door_cabinet_base_b",
       "kind": "tile",
       "row": 9,
       "col": 17,
@@ -2554,11 +2521,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c18",
+      "name": "wardrobe_glass_cabinet_base_a",
       "kind": "tile",
       "row": 9,
       "col": 18,
@@ -2566,11 +2532,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c19",
+      "name": "wardrobe_narrow_cabinet_base_a",
       "kind": "tile",
       "row": 9,
       "col": 19,
@@ -2578,11 +2543,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c20",
+      "name": "water_fence_post_base_a",
       "kind": "tile",
       "row": 9,
       "col": 20,
@@ -2590,11 +2554,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c21",
+      "name": "water_fence_post_base_b",
       "kind": "tile",
       "row": 9,
       "col": 21,
@@ -2602,11 +2565,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c22",
+      "name": "water_fence_post_base_c",
       "kind": "tile",
       "row": 9,
       "col": 22,
@@ -2614,11 +2576,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c23",
+      "name": "water_fence_post_base_d",
       "kind": "tile",
       "row": 9,
       "col": 23,
@@ -2626,11 +2587,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c24",
+      "name": "dark_canopy_underside_c",
       "kind": "tile",
       "row": 9,
       "col": 24,
@@ -2638,11 +2598,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r9c25",
+      "name": "dark_canopy_underside_d",
       "kind": "tile",
       "row": 9,
       "col": 25,
@@ -2650,8 +2609,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "floor_stone_pale_water_edge_left",
