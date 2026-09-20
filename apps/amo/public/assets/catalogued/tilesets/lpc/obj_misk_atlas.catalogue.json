@@ -7451,7 +7451,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r28c0",
+      "name": "ham_hock_raw_c",
       "kind": "tile",
       "row": 28,
       "col": 0,
@@ -7459,11 +7459,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r28c1",
+      "name": "ham_hock_raw_b",
       "kind": "tile",
       "row": 28,
       "col": 1,
@@ -7471,11 +7470,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r28c5",
+      "name": "fish_bass_yellow_a",
       "kind": "tile",
       "row": 28,
       "col": 5,
@@ -7483,8 +7481,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "stove_pipe_black",
@@ -7544,7 +7541,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r28c23",
+      "name": "cross_marker_wood_small",
       "kind": "tile",
       "row": 28,
       "col": 23,
@@ -7552,11 +7549,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r28c24",
+      "name": "wall_wood_ruined_top_a",
       "kind": "tile",
       "row": 28,
       "col": 24,
@@ -7564,11 +7560,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r28c25",
+      "name": "wall_wood_ruined_top_b",
       "kind": "tile",
       "row": 28,
       "col": 25,
@@ -7576,11 +7571,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r28c26",
+      "name": "wall_wood_ruined_top_c",
       "kind": "tile",
       "row": 28,
       "col": 26,
@@ -7588,11 +7582,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r28c27",
+      "name": "wall_wood_ruined_top_d",
       "kind": "tile",
       "row": 28,
       "col": 27,
@@ -7600,11 +7593,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r28c28",
+      "name": "wall_wood_ruined_top_e",
       "kind": "tile",
       "row": 28,
       "col": 28,
@@ -7612,11 +7604,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r28c29",
+      "name": "wall_wood_ruined_top_f",
       "kind": "tile",
       "row": 28,
       "col": 29,
@@ -7624,11 +7615,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r28c30",
+      "name": "wall_wood_ruined_top_g",
       "kind": "tile",
       "row": 28,
       "col": 30,
@@ -7636,11 +7626,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r28c31",
+      "name": "wall_wood_ruined_top_h",
       "kind": "tile",
       "row": 28,
       "col": 31,
@@ -7648,8 +7637,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "bed_double_blue",
@@ -7666,7 +7654,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r29c2",
+      "name": "bench_wood_tan_slat_tall_a",
       "kind": "tile",
       "row": 29,
       "col": 2,
@@ -7674,11 +7662,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r29c3",
+      "name": "bench_wood_tan_slat_low_a",
       "kind": "tile",
       "row": 29,
       "col": 3,
@@ -7686,11 +7673,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r29c4",
+      "name": "ottoman_wood_tan_plain",
       "kind": "tile",
       "row": 29,
       "col": 4,
@@ -7698,11 +7684,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r29c5",
+      "name": "chair_wood_tan_side_a",
       "kind": "tile",
       "row": 29,
       "col": 5,
@@ -7710,11 +7695,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r29c7",
+      "name": "sink_basin_cream_pump",
       "kind": "tile",
       "row": 29,
       "col": 7,
@@ -7722,11 +7706,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r29c8",
+      "name": "basin_ceramic_blue_pump",
       "kind": "tile",
       "row": 29,
       "col": 8,
@@ -7734,8 +7717,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "bed_double_red_a",
@@ -7780,7 +7762,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r29c16",
+      "name": "armchair_wood_red_side_a",
       "kind": "tile",
       "row": 29,
       "col": 16,
@@ -7788,11 +7770,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r29c17",
+      "name": "armchair_wood_red_side_b",
       "kind": "tile",
       "row": 29,
       "col": 17,
@@ -7800,8 +7781,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "curtain_gold_tall_left",
@@ -7818,7 +7798,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r29c19",
+      "name": "curtain_rod_bar",
       "kind": "tile",
       "row": 29,
       "col": 19,
@@ -7826,8 +7806,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "curtain_gold_tall_right",
@@ -7844,7 +7823,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r29c23",
+      "name": "gravestone_cross_plain",
       "kind": "tile",
       "row": 29,
       "col": 23,
@@ -7852,11 +7831,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r29c24",
+      "name": "wall_wood_ruined_mid_a",
       "kind": "tile",
       "row": 29,
       "col": 24,
@@ -7864,11 +7842,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r29c25",
+      "name": "wall_wood_ruined_post_b",
       "kind": "tile",
       "row": 29,
       "col": 25,
@@ -7876,11 +7853,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r29c26",
+      "name": "wall_wood_ruined_post_c",
       "kind": "tile",
       "row": 29,
       "col": 26,
@@ -7888,11 +7864,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r29c27",
+      "name": "wall_wood_ruined_post_d",
       "kind": "tile",
       "row": 29,
       "col": 27,
@@ -7900,11 +7875,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r29c28",
+      "name": "wall_wood_ruined_post_e",
       "kind": "tile",
       "row": 29,
       "col": 28,
@@ -7912,11 +7886,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r29c29",
+      "name": "wall_wood_ruined_post_f",
       "kind": "tile",
       "row": 29,
       "col": 29,
@@ -7924,11 +7897,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r29c30",
+      "name": "wall_wood_ruined_post_g",
       "kind": "tile",
       "row": 29,
       "col": 30,
@@ -7936,11 +7908,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r29c31",
+      "name": "wall_wood_ruined_mid_h",
       "kind": "tile",
       "row": 29,
       "col": 31,
@@ -7948,11 +7919,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c2",
+      "name": "bench_wood_tan_slat_tall_b",
       "kind": "tile",
       "row": 30,
       "col": 2,
@@ -7960,11 +7930,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c3",
+      "name": "bench_wood_tan_curved_plain",
       "kind": "tile",
       "row": 30,
       "col": 3,
@@ -7972,11 +7941,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c4",
+      "name": "bench_wood_tan_slat_thin",
       "kind": "tile",
       "row": 30,
       "col": 4,
@@ -7984,11 +7952,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c5",
+      "name": "bench_wood_tan_slat_single_a",
       "kind": "tile",
       "row": 30,
       "col": 5,
@@ -7996,11 +7963,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c7",
+      "name": "pot_rack_hanging_iron",
       "kind": "tile",
       "row": 30,
       "col": 7,
@@ -8008,11 +7974,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c8",
+      "name": "lamp_table_gold_bright_a",
       "kind": "tile",
       "row": 30,
       "col": 8,
@@ -8020,11 +7985,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c9",
+      "name": "lamp_table_gold_plain_a",
       "kind": "tile",
       "row": 30,
       "col": 9,
@@ -8032,8 +7996,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "chair_wood_padded",
@@ -8050,7 +8013,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r30c17",
+      "name": "armchair_wood_red_slat_front_a",
       "kind": "tile",
       "row": 30,
       "col": 17,
@@ -8058,8 +8021,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "potted_plant_flowering",
@@ -8092,7 +8054,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r30c22",
+      "name": "table_round_pedestal_gold",
       "kind": "tile",
       "row": 30,
       "col": 22,
@@ -8100,11 +8062,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c23",
+      "name": "gravestone_cross_arched",
       "kind": "tile",
       "row": 30,
       "col": 23,
@@ -8112,11 +8073,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c24",
+      "name": "wall_wood_ruined_fill_a",
       "kind": "tile",
       "row": 30,
       "col": 24,
@@ -8124,11 +8084,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c25",
+      "name": "wall_wood_ruined_fill_b",
       "kind": "tile",
       "row": 30,
       "col": 25,
@@ -8136,11 +8095,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c26",
+      "name": "wall_wood_ruined_fill_c",
       "kind": "tile",
       "row": 30,
       "col": 26,
@@ -8148,11 +8106,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c27",
+      "name": "wall_wood_ruined_fill_d",
       "kind": "tile",
       "row": 30,
       "col": 27,
@@ -8160,11 +8117,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c28",
+      "name": "wall_wood_ruined_fill_e",
       "kind": "tile",
       "row": 30,
       "col": 28,
@@ -8172,11 +8128,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c29",
+      "name": "wall_wood_ruined_fill_f",
       "kind": "tile",
       "row": 30,
       "col": 29,
@@ -8184,11 +8139,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c30",
+      "name": "wall_wood_ruined_fill_g",
       "kind": "tile",
       "row": 30,
       "col": 30,
@@ -8196,11 +8150,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r30c31",
+      "name": "wall_wood_ruined_fill_h",
       "kind": "tile",
       "row": 30,
       "col": 31,
@@ -8208,11 +8161,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c2",
+      "name": "chair_wood_tan_side_b",
       "kind": "tile",
       "row": 31,
       "col": 2,
@@ -8220,11 +8172,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c3",
+      "name": "chair_wood_tan_side_c",
       "kind": "tile",
       "row": 31,
       "col": 3,
@@ -8232,11 +8183,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c4",
+      "name": "chair_wood_tan_fragment_low",
       "kind": "tile",
       "row": 31,
       "col": 4,
@@ -8244,11 +8194,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c5",
+      "name": "bench_wood_tan_slat_single_b",
       "kind": "tile",
       "row": 31,
       "col": 5,
@@ -8256,11 +8205,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c6",
+      "name": "oven_iron_black_unlit",
       "kind": "tile",
       "row": 31,
       "col": 6,
@@ -8268,11 +8216,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c7",
+      "name": "oven_iron_black_lit",
       "kind": "tile",
       "row": 31,
       "col": 7,
@@ -8280,11 +8227,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c8",
+      "name": "lamp_table_gold_bright_b",
       "kind": "tile",
       "row": 31,
       "col": 8,
@@ -8292,11 +8238,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c9",
+      "name": "lamp_table_gold_plain_b",
       "kind": "tile",
       "row": 31,
       "col": 9,
@@ -8304,11 +8249,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c17",
+      "name": "armchair_wood_red_slat_front_b",
       "kind": "tile",
       "row": 31,
       "col": 17,
@@ -8316,11 +8260,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c22",
+      "name": "basin_ceramic_blue",
       "kind": "tile",
       "row": 31,
       "col": 22,
@@ -8328,11 +8271,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c23",
+      "name": "gravestone_plaque_pedestal",
       "kind": "tile",
       "row": 31,
       "col": 23,
@@ -8340,11 +8282,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c24",
+      "name": "wall_wood_ruined_base_a",
       "kind": "tile",
       "row": 31,
       "col": 24,
@@ -8352,11 +8293,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c25",
+      "name": "wall_wood_ruined_base_b",
       "kind": "tile",
       "row": 31,
       "col": 25,
@@ -8364,11 +8304,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c26",
+      "name": "wall_wood_ruined_base_c",
       "kind": "tile",
       "row": 31,
       "col": 26,
@@ -8376,11 +8315,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c27",
+      "name": "wall_wood_ruined_base_d",
       "kind": "tile",
       "row": 31,
       "col": 27,
@@ -8388,11 +8326,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c28",
+      "name": "wall_wood_ruined_base_e",
       "kind": "tile",
       "row": 31,
       "col": 28,
@@ -8400,11 +8337,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c29",
+      "name": "wall_wood_ruined_base_f",
       "kind": "tile",
       "row": 31,
       "col": 29,
@@ -8412,11 +8348,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c30",
+      "name": "wall_wood_ruined_base_g",
       "kind": "tile",
       "row": 31,
       "col": 30,
@@ -8424,11 +8359,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r31c31",
+      "name": "wall_wood_ruined_base_h",
       "kind": "tile",
       "row": 31,
       "col": 31,
@@ -8436,8 +8370,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     }
   ],
   "gridTileWidth": 32,
