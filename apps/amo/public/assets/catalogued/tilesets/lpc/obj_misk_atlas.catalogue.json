@@ -293,7 +293,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r0c28",
+      "name": "cream_wall_edge_sliver",
       "kind": "tile",
       "row": 0,
       "col": 28,
@@ -301,8 +301,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "stall_post_cream_c",
@@ -3266,7 +3265,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r11c31",
+      "name": "staircase_grand_red_iii_fragment_a",
       "kind": "tile",
       "row": 11,
       "col": 31,
@@ -3274,8 +3273,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "window_glasswall_pane_lower_a",
@@ -3443,7 +3441,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r12c18",
+      "name": "wardrobe_wood_red_top_panel_d",
       "kind": "tile",
       "row": 12,
       "col": 18,
@@ -3451,8 +3449,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "log_single_fallen",
@@ -3929,7 +3926,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r14c8",
+      "name": "shop_awning_mint_fill_c",
       "kind": "tile",
       "row": 14,
       "col": 8,
@@ -3937,11 +3934,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r14c9",
+      "name": "shop_awning_mint_fill_d",
       "kind": "tile",
       "row": 14,
       "col": 9,
@@ -3949,11 +3945,10 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "obj_misk_atlas_r14c10",
+      "name": "shop_awning_mint_fill_e",
       "kind": "tile",
       "row": 14,
       "col": 10,
@@ -3961,8 +3956,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "toilet_white_tank",
@@ -4103,7 +4097,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r14c26",
+      "name": "staircase_grand_red_iii_fragment_b",
       "kind": "tile",
       "row": 14,
       "col": 26,
@@ -4111,8 +4105,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "pliers_pair_two_sizes",
@@ -4295,7 +4288,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r15c13",
+      "name": "wood_plank_floor_fill_fragment",
       "kind": "tile",
       "row": 15,
       "col": 13,
@@ -4303,8 +4296,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "wood_table_leg_fragment_b",
@@ -4329,7 +4321,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r15c16",
+      "name": "brick_wall_two_tone_fragment",
       "kind": "tile",
       "row": 15,
       "col": 16,
@@ -4337,8 +4329,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "wood_panel_wall_fragment_b",
@@ -7353,7 +7344,7 @@
       ]
     },
     {
-      "name": "obj_misk_atlas_r27c27",
+      "name": "brown_post_sliver_fragment",
       "kind": "tile",
       "row": 27,
       "col": 27,
@@ -7361,8 +7352,7 @@
       "tags": [
         "lpc",
         "atlas"
-      ],
-      "needsNaming": true
+      ]
     },
     {
       "name": "fence_post_wood_stub_pair",
