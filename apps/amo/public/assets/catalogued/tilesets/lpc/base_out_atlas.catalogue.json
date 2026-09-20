@@ -3649,36 +3649,42 @@
       ]
     },
     {
-      "name": "ui_icon_inn_a",
+      "name": "shop_sign_inn_a",
       "kind": "tile",
       "row": 10,
       "col": 29,
       "frameIndex": 349,
       "tags": [
+        "atlas",
         "lpc",
-        "atlas"
+        "prop",
+        "sign"
       ]
     },
     {
-      "name": "ui_icon_sword_a",
+      "name": "shop_sign_sword_a",
       "kind": "tile",
       "row": 10,
       "col": 30,
       "frameIndex": 350,
       "tags": [
+        "atlas",
         "lpc",
-        "atlas"
+        "prop",
+        "sign"
       ]
     },
     {
-      "name": "ui_icon_potion_a",
+      "name": "shop_sign_potion_a",
       "kind": "tile",
       "row": 10,
       "col": 31,
       "frameIndex": 351,
       "tags": [
+        "atlas",
         "lpc",
-        "atlas"
+        "prop",
+        "sign"
       ]
     },
     {
@@ -3950,36 +3956,42 @@
       ]
     },
     {
-      "name": "ui_icon_inn_b",
+      "name": "shop_sign_inn_b",
       "kind": "tile",
       "row": 11,
       "col": 29,
       "frameIndex": 381,
       "tags": [
+        "atlas",
         "lpc",
-        "atlas"
+        "prop",
+        "sign"
       ]
     },
     {
-      "name": "ui_icon_sword_b",
+      "name": "shop_sign_sword_b",
       "kind": "tile",
       "row": 11,
       "col": 30,
       "frameIndex": 382,
       "tags": [
+        "atlas",
         "lpc",
-        "atlas"
+        "prop",
+        "sign"
       ]
     },
     {
-      "name": "ui_icon_potion_b",
+      "name": "shop_sign_potion_b",
       "kind": "tile",
       "row": 11,
       "col": 31,
       "frameIndex": 383,
       "tags": [
+        "atlas",
         "lpc",
-        "atlas"
+        "prop",
+        "sign"
       ]
     },
     {
@@ -6118,7 +6130,7 @@
       ]
     },
     {
-      "name": "wood_cask_side_panel_a",
+      "name": "pine_tree_trunk_a",
       "kind": "object",
       "x": 800,
       "y": 608,
@@ -6132,7 +6144,7 @@
       ]
     },
     {
-      "name": "wood_cask_side_panel_b",
+      "name": "pine_tree_trunk_b",
       "kind": "object",
       "x": 896,
       "y": 608,

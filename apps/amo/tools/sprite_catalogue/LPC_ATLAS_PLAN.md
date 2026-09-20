@@ -356,3 +356,80 @@ No catalogue JSON or PNG has been modified for this task. The only
 artifacts created this session were transient (`/tmp` scratchpad renders,
 montages, a candidates JSON) — none of it persisted outside this plan file.
 Regenerate as needed using the snippet above.
+
+## Post-completion cross-check against official split source (2026-09-20)
+After the project was marked complete, the user pointed out that official
+LPC repos sometimes ship assets pre-split by category rather than as one
+mega-atlas, and asked to verify our hand-naming against that if it exists
+for these specific atlases.
+
+**What actually exists:** `Atlas.zip`/`Atlas2.zip`/`ItemsAndEffects.zip`
+(the source of these 4 atlases) are a **2012 third-party compile** of many
+different LPC-contest entrants' submissions. The compiler's own
+`Attribution.txt` says outright: "don't expect the exact little pieces
+used like the base one" — i.e. even the original compiler didn't keep a
+tile-position legend. Confirmed by re-fetching the atlas's own OpenGameArt
+page (opengameart.org/content/lpc-tile-atlas, same 544.2KB `Atlas.zip`):
+no legend there either, and the top comment tells users to rely on Tiled's
+auto-sequential tile IDs. So there was never a ready-made naming source
+for this specific compiled atlas — the manual pass was the correct call.
+
+**What does exist and is useful:** `github.com/OpenGameArt/LiberatedPixelCup`
+(`tileset/original/<author>/...`) hosts the *pre-atlas, per-category*
+source sheets for 2 of the ~13 credited contributors — Sharm (outdoor,
+building-interior/exterior, lava, sewer-dungeon, misc, object — 33 files)
+and HughSpectrum (5 castle files) — plus one derivative (`vendors_table`,
+unused in our atlases). These are category-level themed sheets (e.g.
+`grass.png`, `mountains.png`), not one-file-per-tile, but they're pixel-
+identical to what's baked into our atlases, so they make a real ground
+truth to check names against.
+
+**Method:** cloned that repo, then for each of the 42 official source
+files: (1) tile-aligned exact-pixel search for the *whole file* pasted as
+one contiguous block into any of the 4 atlases (25/42 matched — almost
+all of Sharm's outdoor/lava/building/dungeon content, landing entirely in
+`base_out_atlas`, ~70% of its entries); (2) for files that didn't match
+whole, a hash-indexed exact 32×32-tile search instead, catching cases
+where the atlas compiler pulled only some tiles from a bigger sheet
+(cabinets/country/inside/stairs → `obj_misk_atlas` furniture;
+castle_walls/outside/floors/lightsources → `build_atlas` + `base_out_atlas`
+architecture). Scripts + full match data are session-scratchpad only
+(not committed) — rerun against a fresh repo clone if this is wanted again.
+
+**Coverage:** whole-file matches alone confirm ~70% of `base_out_atlas`'s
+entries. `terrain_atlas`/`build_atlas`/`obj_misk_atlas` are dominated by
+*other* credited contributors (Daniel Eddeland's farming/vegetation set,
+Casper Nilsson, Barbara Rivera, Chris Phillips, and others) who don't have
+an equivalent split-source repo, so most of those three atlases has no
+official ground truth available to check against — this cross-check
+covers what it can, not the whole collection.
+
+**Result: every matched region's names were semantically consistent with
+its confirmed official content**, except 3 confirmed misses, fixed this
+session:
+- `base_out_atlas`: an object at (800,608) tagged `tree`/`trunk` (correctly)
+  but literally named `wood_cask_side_panel_a`/`_b` — visually confirmed
+  against `trunk.png` as a pine-tree-trunk base, not a barrel panel.
+  Renamed to `pine_tree_trunk_a`/`_b` (pairs with the already-correct
+  `pine_tree_a`/`_b` canopy names from the matching `treetop.png` region).
+- `build_atlas`: an object at (928,704) tagged `light`/`torch` (correctly)
+  but named `vermillion_shrine_pillar_shaft_right` — visually confirmed
+  as a lit wall-mounted torch, swept into a neighboring pillar-shaft
+  merge family by name only. Renamed to `torch_wall_mounted_lit`.
+- `base_out_atlas`: 6 tiles (`ui_icon_inn_a/b`, `ui_icon_sword_a/b`,
+  `ui_icon_potion_a/b`) visually confirmed against `signs.png` as hanging
+  shop-signpost plaques (tavern/weaponsmith/alchemist), not HUD icons —
+  the content ID was right, the `ui_icon_` prefix implied the wrong
+  category. Renamed to `shop_sign_inn_a/b`, `shop_sign_sword_a/b`,
+  `shop_sign_potion_a/b`, tags extended with `prop`/`sign`.
+
+`lpc_showcase.js` was regenerated (`gen_lpc_showcase.py`) after the
+renames — same 188 objects, updated names, no dangling references left
+anywhere in `src/`.
+
+**Lesson for any future full-naming pass on a similarly unlabeled
+compiled sheet:** check for `github.com/OpenGameArt/LiberatedPixelCup`
+(or the credited author's own OpenGameArt page) *before* starting a blind
+grid-naming pass — where it exists it doesn't eliminate the naming work
+(still category-level, not per-tile), but it gives a cheap, high-confidence
+validation pass afterward, and would have caught these 3 misses sooner.
