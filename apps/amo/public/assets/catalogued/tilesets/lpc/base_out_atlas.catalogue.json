@@ -5323,25 +5323,17 @@
       ]
     },
     {
-      "name": "bridge_railing_ramp_up",
-      "kind": "tile",
-      "row": 16,
-      "col": 19,
-      "frameIndex": 531,
+      "name": "barrel_cluster_trio",
+      "kind": "object",
+      "x": 608,
+      "y": 512,
+      "w": 64,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "bridge_railing_fill_a",
-      "kind": "tile",
-      "row": 16,
-      "col": 20,
-      "frameIndex": 532,
-      "tags": [
-        "lpc",
-        "atlas"
+        "atlas",
+        "prop",
+        "barrel"
       ]
     },
     {
@@ -5582,28 +5574,6 @@
       "row": 17,
       "col": 18,
       "frameIndex": 562,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "bridge_underside_pilings",
-      "kind": "tile",
-      "row": 17,
-      "col": 19,
-      "frameIndex": 563,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "bridge_railing_fill_b",
-      "kind": "tile",
-      "row": 17,
-      "col": 20,
-      "frameIndex": 564,
       "tags": [
         "lpc",
         "atlas"
