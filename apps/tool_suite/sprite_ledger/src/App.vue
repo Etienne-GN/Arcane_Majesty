@@ -36,11 +36,15 @@ const errorMessage = ref<string | null>(null);
 
 async function reload() {
     try {
-        sheets.value = await fetchSheets();
-        const meta = await fetchMeta();
+        // None of these three depend on each other's result — awaiting them
+        // one at a time serialized 3 round-trips for no reason.
+        const [sheetsResult, meta, flags] = await Promise.all([
+            fetchSheets(), fetchMeta(), fetchFlags(),
+        ]);
+        sheets.value = sheetsResult;
         collections.value = meta.collections;
         spriteMeta.value = meta.spriteMeta;
-        pendingFlags.value = (await fetchFlags()).filter(f => f.status !== 'resolved');
+        pendingFlags.value = flags.filter(f => f.status !== 'resolved');
         errorMessage.value = null;
     } catch (e) {
         errorMessage.value = e instanceof Error ? e.message : String(e);

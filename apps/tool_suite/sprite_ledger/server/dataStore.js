@@ -147,6 +147,34 @@ export async function seedSheetIfNew(dataDir, sheetPngFilename, sheetDirName, en
     await writeJson(join(dataDir, 'sprite_meta.json'), meta);
 }
 
+// Same seeding rule as seedSheetIfNew, but for every sheet in one call —
+// what the server actually needs on every /api/sheets and /api/meta
+// request. seedSheetIfNew in a loop over ~950 sheets meant ~950 full
+// reads (and up to 950 full rewrites) of sprite_meta.json *per request*,
+// which is the entire reason those endpoints took ~6 seconds each: the
+// file only grows, so that cost was pure waste on every request after
+// the first. This loads it once, seeds every sheet's new entries into
+// that one in-memory object, and writes back once — only if anything
+// actually needed seeding.
+export async function seedSheetsIfNew(dataDir, sheets) {
+    // sheets: [{ sheetPngFilename, sheetDirName, entryNames }, ...]
+    const meta = await loadSpriteMeta(dataDir);
+    let changed = false;
+    for (const { sheetPngFilename, sheetDirName, entryNames } of sheets) {
+        const defaultCollection = seedDefaultCollection(sheetPngFilename, sheetDirName);
+        for (const name of entryNames) {
+            const key = `${sheetPngFilename}::${name}`;
+            if (!meta[key]) {
+                meta[key] = { collection: defaultCollection };
+                changed = true;
+            }
+        }
+    }
+    if (changed) {
+        await writeJson(join(dataDir, 'sprite_meta.json'), meta);
+    }
+}
+
 // Records whether a sprite's usage rights have been verified (`'ok'`) or
 // flagged as needing research (`'unlicensed'`), independent of the flags
 // system above — flags are about render quality, this is about

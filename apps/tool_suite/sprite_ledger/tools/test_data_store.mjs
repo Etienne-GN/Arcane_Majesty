@@ -1,9 +1,9 @@
 import assert from 'node:assert';
-import { mkdtempSync, readFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import {
-    seedDefaultCollection, seedSheetIfNew, DIR_COLLECTIONS, LPC_SHEET_COLLECTIONS,
+    seedDefaultCollection, seedSheetIfNew, seedSheetsIfNew, DIR_COLLECTIONS, LPC_SHEET_COLLECTIONS,
     loadCollections, addCollection,
     loadSpriteMeta, assignCollection, setLicenseStatus,
     loadFlags, addFlag, updateFlagStatus,
@@ -134,6 +134,31 @@ await seedSheetIfNew(seedDataDir, 'PATD_Props.png', 'PATD_Props', ['chest_wood_s
 const afterReseedAttempt = await loadSpriteMeta(seedDataDir);
 assert.strictEqual(afterReseedAttempt['PATD_Props.png::chest_wood_small'].collection, 'uncollected', 'seedSheetIfNew must not overwrite an existing assignment');
 
+// --- seedSheetsIfNew (batched) ---
+// This is what the server actually calls on every /api/sheets and
+// /api/meta request — seedSheetIfNew in a per-sheet loop used to mean one
+// full sprite_meta.json read (and up to one full rewrite) per sheet,
+// which at ~950 real sheets was the entire ~6s cost of those endpoints.
+await seedSheetsIfNew(seedDataDir, [
+    { sheetPngFilename: 'SampleMap.png', sheetDirName: 'SampleMap', entryNames: ['tree_a', 'tree_b'] },
+    // Mixed into the same batch: a sheet with nothing new to seed at all
+    // (chest_wood_small already reassigned, barrel_wood already seeded
+    // above) — must not disturb chest_wood_small's manual reassignment.
+    { sheetPngFilename: 'PATD_Props.png', sheetDirName: 'PATD_Props', entryNames: ['chest_wood_small', 'barrel_wood'] },
+]);
+const afterBatchSeed = await loadSpriteMeta(seedDataDir);
+assert.strictEqual(afterBatchSeed['SampleMap.png::tree_a'].collection, 'pipoya');
+assert.strictEqual(afterBatchSeed['SampleMap.png::tree_b'].collection, 'pipoya');
+assert.strictEqual(afterBatchSeed['PATD_Props.png::chest_wood_small'].collection, 'uncollected', 'seedSheetsIfNew must not overwrite an existing assignment');
+
+// A batch where nothing needs seeding must not touch the file at all —
+// makes the "no seeding needed" case a true no-op, not an empty rewrite.
+const beforeNoopMtime = statSync(join(seedDataDir, 'sprite_meta.json')).mtimeMs;
+await seedSheetsIfNew(seedDataDir, [
+    { sheetPngFilename: 'SampleMap.png', sheetDirName: 'SampleMap', entryNames: ['tree_a', 'tree_b'] },
+]);
+assert.strictEqual(statSync(join(seedDataDir, 'sprite_meta.json')).mtimeMs, beforeNoopMtime, 'seedSheetsIfNew must not rewrite the file when nothing is new');
+
 // --- flags ---
 const flag = await addFlag(dataDir, { sheet: 'PATD_Props.png', name: 'stone_disc_dial', reason: 'misaligned', comment: '' });
 assert.ok(flag.id);
@@ -183,4 +208,4 @@ const expectedIds = [
 ];
 assert.deepStrictEqual(realCollections.map(c => c.id).sort(), expectedIds.sort());
 
-console.log('✓ data-store tests passed (40 assertions).');
+console.log('✓ data-store tests passed (50 assertions).');

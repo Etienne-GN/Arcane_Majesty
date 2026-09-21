@@ -4,7 +4,7 @@ import express from 'express';
 import { scanCatalogueDir } from './server/catalogueScanner.js';
 import {
     loadCollections, addCollection,
-    loadSpriteMeta, assignCollection, seedSheetIfNew, setLicenseStatus,
+    loadSpriteMeta, assignCollection, seedSheetsIfNew, setLicenseStatus,
     loadFlags, addFlag, updateFlagStatus,
 } from './server/dataStore.js';
 
@@ -14,13 +14,17 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // of both /api/sheets and /api/meta so either endpoint being hit first
 // still guarantees seeding happened — the frontend always sees real
 // collection assignments, never an empty sprite_meta.json for a sheet
-// that's actually been scanned before.
+// that's actually been scanned before. seedSheetsIfNew (batched, one
+// sprite_meta.json read/write for the whole set) not seedSheetIfNew in a
+// per-sheet loop — the latter used to cost ~950 full rereads of that file
+// on every single request; see its own comment in dataStore.js.
 async function scanAndSeed(catalogueDir, dataDir) {
     const sheets = await scanCatalogueDir(catalogueDir);
-    for (const sheet of sheets) {
-        const entryNames = sheet.catalogue.entries.map(e => e.name);
-        await seedSheetIfNew(dataDir, sheet.sheetPngFilename, sheet.sheetDirName, entryNames);
-    }
+    await seedSheetsIfNew(dataDir, sheets.map(sheet => ({
+        sheetPngFilename: sheet.sheetPngFilename,
+        sheetDirName: sheet.sheetDirName,
+        entryNames: sheet.catalogue.entries.map(e => e.name),
+    })));
     return sheets;
 }
 

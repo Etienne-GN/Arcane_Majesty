@@ -98,9 +98,9 @@
     "name": "picture_blank_paper",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:16:10.850Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:49:57.612Z"
   },
   {
     "id": "f_ebe45252-d91d-4e51-921b-e02073d56aae",
@@ -118,9 +118,9 @@
     "name": "picture_landscape",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:16:17.486Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:50:05.768Z"
   },
   {
     "id": "f_43dd225f-2c1b-4024-83f6-f74f3f76a6f5",
@@ -128,9 +128,9 @@
     "name": "picture_portrait_silhouette",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:16:19.695Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:50:01.666Z"
   },
   {
     "id": "f_30acb332-1966-43d2-9b45-ab0d9b397797",
@@ -742,9 +742,9 @@
     "name": "bridge_rope_wood_a",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:57:19.422Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:50:11.832Z"
   },
   {
     "id": "f_f1906ba1-1c12-4823-b3a0-2cfb415a501b",
@@ -2133,9 +2133,9 @@
     "name": "picture_treasure_map",
     "reason": "misaligned",
     "comment": "the map miss the lower part, cropped to o much",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T13:35:48.115Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:49:49.347Z"
   },
   {
     "id": "f_2898a035-7116-4713-b284-461e61025861",
@@ -2153,9 +2153,9 @@
     "name": "picture_blank_paper",
     "reason": "misaligned",
     "comment": "miss lower part",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T13:39:25.780Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:49:58.816Z"
   },
   {
     "id": "f_02170bb3-bd3b-4f9d-8a52-8238dbc99870",
@@ -2163,9 +2163,9 @@
     "name": "picture_portrait_silhouette",
     "reason": "misaligned",
     "comment": "miss lower part",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T13:39:34.593Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:50:02.495Z"
   },
   {
     "id": "f_5bc65764-9ff1-45bf-b130-7a4414c73212",
@@ -2173,9 +2173,9 @@
     "name": "picture_landscape",
     "reason": "misaligned",
     "comment": "miss lower part",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T13:39:39.858Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:50:06.294Z"
   },
   {
     "id": "f_dce72624-8a1d-4d2c-947f-a1cc1e8413d3",
@@ -2344,9 +2344,9 @@
     "name": "bridge_rope_wood_a",
     "reason": "misaligned",
     "comment": "there a brick line that should not be there at the top",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:22:50.563Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:50:18.379Z"
   },
   {
     "id": "f_683ac557-0932-4dfb-8c73-972efae8ec56",
@@ -2354,9 +2354,9 @@
     "name": "clothesline_sheet_white",
     "reason": "misaligned",
     "comment": "there are 2 clothesline in this, the top one is too much cropped at the top",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:23:17.810Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T13:50:24.063Z",
     "remappedFrom": "clothesline_wood_posts"
   },
   {
@@ -2657,9 +2657,9 @@
     "name": "wood_rimmed_basin_empty",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:44:36.995Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:51:24.886Z"
   },
   {
     "id": "f_0d2f3fb2-ea1e-41bc-add7-de25d6b70063",
@@ -2667,7 +2667,7 @@
     "name": "wood_rimmed_basin_water",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "open",
     "createdAt": "2026-09-14T17:44:48.052Z",
     "resolvedAt": null
   },
@@ -2720,6 +2720,26 @@
     "comment": "Those are part of a barrel trio",
     "status": "needs_review",
     "createdAt": "2026-09-20T21:17:57.519Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_fd7295ce-9b16-4908-bddc-5d456b6b6d9b",
+    "sheet": "build_atlas.png",
+    "name": "wood_rimmed_basin_empty",
+    "reason": "misaligned",
+    "comment": "this is the top of an empty barrel, pretty sure the bottom is missing",
+    "status": "open",
+    "createdAt": "2026-09-21T13:51:17.824Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_330a58ad-76d0-49eb-9d8c-207ceb2e9730",
+    "sheet": "build_atlas.png",
+    "name": "wood_rimmed_basin_water",
+    "reason": "misaligned",
+    "comment": "this is the top of a water barrel, pretty sure the bottom is missing",
+    "status": "open",
+    "createdAt": "2026-09-21T13:53:01.262Z",
     "resolvedAt": null
   }
 ]
