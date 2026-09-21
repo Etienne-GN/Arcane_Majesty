@@ -127,5 +127,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     // Bound to localhost only — this is a personal, single-user curation
     // tool with unauthenticated write endpoints; no reason to expose it
     // to the LAN the way the game server (apps/amo) intentionally is.
-    app.listen(3002, '127.0.0.1', () => console.log('Sprite Ledger API on http://localhost:3002'));
+    // 3003, not 3002: apps/amo's own game server hardcodes 3002 for its
+    // Socket.io/REST backend, and the two used to silently collide.
+    const PORT = 3003;
+    app.listen(PORT, '127.0.0.1', () => console.log(`Sprite Ledger API on http://localhost:${PORT}`));
 }

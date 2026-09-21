@@ -51,10 +51,16 @@ Socket.io server.
 
 ```bash
 npm install
-npm run dev        # Vite dev server (port 5174)
+npm run dev        # Vite dev server (port 5174, fixed — strictPort in vite.config.js)
 npm run server     # game server (Socket.io, port 3002)
 npm run build      # production build (runs catalogue validation first)
 ```
+
+Port 5174 is fixed (`strictPort: true`) — a stale process squatting on it
+fails `npm run dev` loudly instead of silently drifting to 5175, 5176, etc.
+Kill the stale process (`lsof -i :5174` / `fuser -k 5174/tcp`) rather than
+letting a new one land on a different port. See `apps/tool_suite/README.md`
+for the other two apps' fixed ports (lpc_forge, sprite_ledger).
 
 Catalogue / character-animation tooling:
 

@@ -15,6 +15,10 @@ export default defineConfig({
   },
   server: {
     port: 5177,
+    // Fixed port, not a suggestion: fail loudly on a stale process rather
+    // than silently drifting to another port. Kill whatever's squatting
+    // on 5177.
+    strictPort: true,
     host: true,
     proxy: {
       '/api': 'http://localhost:3001'

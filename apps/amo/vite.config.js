@@ -4,6 +4,11 @@ export default defineConfig({
   base: './',
   server: {
     port: 5174,
+    // Fixed port, not a suggestion: fail loudly on a stale process rather
+    // than silently drifting to 5175/5176/... (which is exactly how this
+    // repo ended up with 3 different half-forgotten instances running on
+    // 3 different ports at once). Kill whatever's squatting on 5174.
+    strictPort: true,
     host: '0.0.0.0',
     watch: {
       // ressources/ and the public/lpc symlink hold 150K+ LPC sprite PNGs — never watch them

@@ -4,6 +4,17 @@ Internal authoring tools, versioned alongside the game. Each tool is a
 separate local app; see `docs/superpowers/specs/2026-08-31-arcane-majesty-tool-suite-design.md`
 for the full design.
 
+**Fixed ports** (every app's `vite.config` sets `strictPort: true` — a
+stale process squatting on one of these fails the `npm run dev` loudly
+instead of silently drifting to the next free port; kill the stale
+process rather than letting a new one pick a different port):
+
+| App | Frontend | API/backend |
+|---|---|---|
+| Game (`apps/amo`) | 5174 | 3002 (Socket.io) |
+| lpc_forge (character generator) | 5177 | 3001 |
+| sprite_ledger | 5178 | 3003 |
+
 ## lpc_forge
 
 Composes LPC/ULPC character (and horse companion) spritesheets — used to
@@ -29,7 +40,7 @@ flags" section.
 cd apps/tool_suite/sprite_ledger
 npm install   # first run only
 npm run dev
-# frontend: http://localhost:5178  ·  API: http://localhost:3002
+# frontend: http://localhost:5178  ·  API: http://localhost:3003
 ```
 
 Once running, `data/flags.json` is where a later Claude session should
