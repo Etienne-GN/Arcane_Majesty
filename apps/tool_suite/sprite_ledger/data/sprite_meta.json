@@ -33032,5 +33032,8 @@
   },
   "build_atlas.png::torch_wall_mounted_lit": {
     "collection": "lpc_build"
+  },
+  "base_out_atlas.png::barrel_cluster_trio": {
+    "collection": "lpc_base_out"
   }
 }
