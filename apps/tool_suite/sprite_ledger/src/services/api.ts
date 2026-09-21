@@ -23,7 +23,7 @@ export interface Sheet {
     gridRows?: number;
 }
 
-export interface Collection { id: string; name: string; }
+export interface Collection { id: string; name: string; parentId: string | null; }
 
 export type FlagStatus = 'open' | 'needs_review' | 'resolved';
 
@@ -73,8 +73,8 @@ export async function setLicenseStatus(sheet: string, name: string, status: Lice
     await postJson('/license', { sheet, name, status });
 }
 
-export async function addCollection(id: string, name: string): Promise<void> {
-    await postJson('/collections', { id, name });
+export async function addCollection(id: string, name: string, parentId: string | null = null): Promise<void> {
+    await postJson('/collections', { id, name, parentId });
 }
 
 export async function fetchFlags(status?: string): Promise<Flag[]> {

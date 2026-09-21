@@ -6,6 +6,7 @@ import SpriteGrid from './components/SpriteGrid.vue';
 import SpriteDetail from './components/SpriteDetail.vue';
 import { fetchSheets, fetchMeta, fetchFlags, addCollection } from './services/api';
 import type { Sheet, Collection, Flag, LicenseStatus } from './services/api';
+import { descendantIds } from './services/collectionTree';
 
 const sheets = ref<Sheet[]>([]);
 const collections = ref<Collection[]>([]);
@@ -30,6 +31,7 @@ const flagFilter = ref<'all' | 'flagged' | 'open' | 'needs_review'>('all');
 const animatedOnly = ref(false);
 const searchText = ref('');
 const licenseFilter = ref<'all' | 'ok' | 'unlicensed' | 'unmarked'>('all');
+const sortOrder = ref<'name' | 'sheet'>('name');
 
 const selected = ref<{ sheetPngFilename: string; entryName: string } | null>(null);
 const errorMessage = ref<string | null>(null);
@@ -93,13 +95,22 @@ const licenseFlaggedKeys = computed(() => {
 
 const sheetNames = computed(() => sheets.value.map(s => s.sheetPngFilename));
 
+// Selecting a parent collection shows everything nested under it too — a
+// sub-collection is a drill-down refinement of its parent, not a place
+// that steals sprites away from it. Picking "LPC — Base/Out" after
+// carving "grass patches" out of it as a child still shows every grass
+// patch, right alongside whatever hasn't been sub-categorized yet.
+const activeDescendantSet = computed(() =>
+    activeCollectionId.value === null ? null : descendantIds(collections.value, activeCollectionId.value)
+);
+
 const visibleKeys = computed(() => {
     const set = new Set<string>();
     for (const sheet of sheets.value) {
         if (activeSheet.value !== null && sheet.sheetPngFilename !== activeSheet.value) continue;
         for (const entry of sheet.entries) {
             const key = keyFor(sheet.sheetPngFilename, entry.name);
-            if (activeCollectionId.value !== null && collectionOf(sheet.sheetPngFilename, entry.name) !== activeCollectionId.value) continue;
+            if (activeDescendantSet.value !== null && !activeDescendantSet.value.has(collectionOf(sheet.sheetPngFilename, entry.name))) continue;
             if (flagFilter.value === 'flagged' && !flaggedKeys.value.has(key)) continue;
             if (flagFilter.value === 'open' && !openFlagKeys.value.has(key)) continue;
             if (flagFilter.value === 'needs_review' && !needsReviewKeys.value.has(key)) continue;
@@ -116,7 +127,7 @@ const visibleKeys = computed(() => {
 });
 
 const counts = computed(() => {
-    const c: Record<string, number> = { all: 0 };
+    const raw: Record<string, number> = { all: 0 };
     for (const sheet of sheets.value) {
         // Counts follow the sheet filter (same as visibleKeys) so the
         // sidebar's numbers match what's actually shown in the grid when
@@ -125,12 +136,21 @@ const counts = computed(() => {
         // collection/sheet, not redefine its total size.
         if (activeSheet.value !== null && sheet.sheetPngFilename !== activeSheet.value) continue;
         for (const entry of sheet.entries) {
-            c.all++;
+            raw.all++;
             const col = collectionOf(sheet.sheetPngFilename, entry.name);
-            c[col] = (c[col] ?? 0) + 1;
+            raw[col] = (raw[col] ?? 0) + 1;
         }
     }
-    return c;
+    // Roll each collection's raw count up into every ancestor's total, so
+    // a parent's number in the sidebar still reads as "everything here",
+    // matching what selecting it actually shows (see activeDescendantSet).
+    const rolled: Record<string, number> = { all: raw.all };
+    for (const c of collections.value) {
+        let total = 0;
+        for (const id of descendantIds(collections.value, c.id)) total += raw[id] ?? 0;
+        rolled[c.id] = total;
+    }
+    return rolled;
 });
 
 function onSelect(sheetPngFilename: string, entryName: string) {
@@ -152,11 +172,11 @@ function onHomeSelectFlagFilter(value: 'open' | 'needs_review') {
     view.value = 'browse';
 }
 
-async function onAddCollection(name: string) {
+async function onAddCollection(name: string, parentId: string | null) {
     if (!name.trim()) return;
     const id = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
     try {
-        await addCollection(id, name.trim());
+        await addCollection(id, name.trim(), parentId);
     } catch (e) {
         // Don't reload on failure — reload()'s own success path clears
         // errorMessage, which would erase this error before the user
@@ -192,12 +212,14 @@ async function onAddCollection(name: string) {
         :search-text="searchText"
         :counts="counts"
         :license-filter="licenseFilter"
+        :sort-order="sortOrder"
         @go-home="goHome"
         @select-collection="(id) => activeCollectionId = id"
         @select-sheet="(sheet) => activeSheet = sheet"
         @select-flag="(v) => flagFilter = v"
         @toggle-animated-only="animatedOnly = !animatedOnly"
         @update-search="(v) => searchText = v"
+        @select-sort="(v) => sortOrder = v"
         @add-collection="onAddCollection"
         @select-license="(v) => licenseFilter = v"
       />
@@ -208,6 +230,7 @@ async function onAddCollection(name: string) {
         :needs-review-keys="needsReviewKeys"
         :license-ok-keys="licenseOkKeys"
         :license-flagged-keys="licenseFlaggedKeys"
+        :sort-order="sortOrder"
         @select="onSelect"
       />
     </template>

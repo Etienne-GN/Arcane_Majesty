@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
 import type { Sheet, Collection, Flag, SpriteEntry, LicenseStatus } from '../services/api';
 import { imageUrl, assignCollection, fetchFlags, setFlagStatus, setLicenseStatus } from '../services/api';
+import { flattenTree } from '../services/collectionTree';
 import FlagForm from './FlagForm.vue';
 
 const props = defineProps<{
@@ -96,6 +97,8 @@ watch(() => [props.sheetPngFilename, props.entryName], () => { playing.value = t
 // An interval that outlives the panel keeps painting a canvas nobody can see.
 onBeforeUnmount(stopTimer);
 
+const collectionTree = computed(() => flattenTree(props.collections));
+
 const selectedCollection = ref(props.currentCollectionId);
 watch(() => props.currentCollectionId, (v) => { selectedCollection.value = v; });
 
@@ -173,7 +176,7 @@ async function onSetFlagStatus(id: string, status: 'open' | 'resolved') {
     <label class="collection-picker">
       Collection:
       <select v-model="selectedCollection" @change="onCollectionChange">
-        <option v-for="c in collections" :key="c.id" :value="c.id">{{ c.name }}</option>
+        <option v-for="c in collectionTree" :key="c.id" :value="c.id">{{ '—'.repeat(c.depth) }} {{ c.name }}</option>
       </select>
     </label>
 

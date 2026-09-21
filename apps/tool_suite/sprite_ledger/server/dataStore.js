@@ -96,12 +96,19 @@ export async function loadCollections(dataDir) {
     return readJsonOrDefault(join(dataDir, 'collections.json'), []);
 }
 
-export async function addCollection(dataDir, { id, name }) {
+export async function addCollection(dataDir, { id, name, parentId = null }) {
     const collections = await loadCollections(dataDir);
     if (collections.some(c => c.id === id)) {
         throw new Error(`collection id already exists: ${id}`);
     }
-    collections.push({ id, name });
+    // A brand-new id can never already be an ancestor of an existing
+    // collection, so there's no cycle to guard against here — that check
+    // only matters if a collection's parent is ever changed after creation,
+    // which isn't a feature yet.
+    if (parentId !== null && !collections.some(c => c.id === parentId)) {
+        throw new Error(`unknown parent collection id: ${parentId}`);
+    }
+    collections.push({ id, name, parentId });
     await writeJson(join(dataDir, 'collections.json'), collections);
 }
 

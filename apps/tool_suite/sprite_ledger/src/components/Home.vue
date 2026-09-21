@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import type { Collection } from '../services/api';
+import { flattenTree } from '../services/collectionTree';
 
 const props = defineProps<{
     collections: Collection[];
-    counts: Record<string, number>; // collection id -> count, 'all' -> total
+    counts: Record<string, number>; // collection id -> count (rolled up over children), 'all' -> total
     openFlagCount: number;
     needsReviewCount: number;
     unlicensedCount: number;
@@ -15,6 +17,11 @@ const emit = defineEmits<{
     // Jumps into "All" pre-filtered to one flag status.
     selectFlagFilter: [value: 'open' | 'needs_review'];
 }>();
+
+// Same pre-order, depth-annotated hierarchy the sidebar tree uses, so a
+// parent/child pair reads as related here too instead of two unrelated
+// cards with suspiciously overlapping counts.
+const tree = computed(() => flattenTree(props.collections));
 </script>
 
 <template>
@@ -49,12 +56,13 @@ const emit = defineEmits<{
         <div class="count">{{ counts.all ?? 0 }}</div>
       </button>
       <button
-        v-for="c in collections"
+        v-for="c in tree"
         :key="c.id"
         class="card"
+        :class="{ child: c.depth > 0 }"
         @click="emit('selectCollection', c.id)"
       >
-        <div class="name">{{ c.name }}</div>
+        <div class="name">{{ c.depth > 0 ? '↳ ' : '' }}{{ c.name }}</div>
         <div class="count">{{ counts[c.id] ?? 0 }}</div>
       </button>
     </div>
@@ -87,6 +95,7 @@ h1 { margin: 0 0 4px; font-size: 22px; }
     color: #eee; padding: 12px 16px; min-width: 160px;
 }
 .card:hover { border-color: #77a; background: #202030; }
+.card.child { min-width: 130px; padding: 8px 12px; opacity: 0.9; border-style: dashed; }
 .card.all { border-color: #556; background: #1a1a26; }
 .card .name { font-size: 13px; margin-bottom: 6px; }
 .card .count { font-size: 18px; font-weight: bold; color: #aab; }

@@ -10,6 +10,7 @@ const props = defineProps<{
     needsReviewKeys: Set<string>;
     licenseOkKeys: Set<string>;
     licenseFlaggedKeys: Set<string>;
+    sortOrder: 'name' | 'sheet';
 }>();
 
 const emit = defineEmits<{ select: [sheetPngFilename: string, entryName: string] }>();
@@ -29,6 +30,14 @@ const visibleCells = computed(() => {
             const key = `${sheet.sheetPngFilename}::${entry.name}`;
             if (props.visibleKeys.has(key)) cells.push({ sheet, entry, key });
         }
+    }
+    // 'sheet' order (the loop above) is spatial — the order pieces sit in
+    // the source PNG, useful when position on the sheet matters. 'name'
+    // groups same-family sprites together (grass_fill_a next to
+    // grass_fill_b) regardless of where they happen to live on the sheet,
+    // which is the point when reviewing a whole collection at once.
+    if (props.sortOrder === 'name') {
+        cells.sort((a, b) => a.entry.name.localeCompare(b.entry.name));
     }
     return cells;
 });

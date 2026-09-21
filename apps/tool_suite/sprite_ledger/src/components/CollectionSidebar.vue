@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import type { Collection } from '../services/api';
+import { flattenTree } from '../services/collectionTree';
 
 const props = defineProps<{
     collections: Collection[];
@@ -10,11 +11,14 @@ const props = defineProps<{
     flagFilter: 'all' | 'flagged' | 'open' | 'needs_review';
     animatedOnly: boolean;
     searchText: string;
-    counts: Record<string, number>; // collection id -> sprite count, 'all' -> total
+    sortOrder: 'name' | 'sheet';
+    // collection id -> sprite count, rolled up over descendants; 'all' -> total.
+    counts: Record<string, number>;
     licenseFilter: 'all' | 'ok' | 'unlicensed' | 'unmarked';
 }>();
 
 const newName = ref('');
+const newParentId = ref('');
 
 const emit = defineEmits<{
     goHome: [];
@@ -23,9 +27,21 @@ const emit = defineEmits<{
     selectFlag: [value: 'all' | 'flagged' | 'open' | 'needs_review'];
     toggleAnimatedOnly: [];
     updateSearch: [value: string];
-    addCollection: [name: string];
+    selectSort: [value: 'name' | 'sheet'];
+    addCollection: [name: string, parentId: string | null];
     selectLicense: [value: 'all' | 'ok' | 'unlicensed' | 'unmarked'];
 }>();
+
+// Pre-order, depth-annotated so the tree and the "parent" picker below both
+// read the hierarchy the same way a real tree view would — each root
+// immediately followed by its descendants, indented one step per level.
+const tree = computed(() => flattenTree(props.collections));
+
+function onAddSubmit() {
+    emit('addCollection', newName.value, newParentId.value || null);
+    newName.value = '';
+    newParentId.value = '';
+}
 </script>
 
 <template>
@@ -75,6 +91,16 @@ const emit = defineEmits<{
       <option value="unmarked">Unmarked</option>
     </select>
 
+    <select
+      class="sort-order"
+      :value="sortOrder"
+      title="Order sprites within the grid"
+      @change="emit('selectSort', ($event.target as HTMLSelectElement).value as 'name' | 'sheet')"
+    >
+      <option value="name">Sort: name</option>
+      <option value="sheet">Sort: sheet position</option>
+    </select>
+
     <ul class="collections">
       <li
         :class="{ active: activeCollectionId === null }"
@@ -83,24 +109,34 @@ const emit = defineEmits<{
         All ({{ counts.all ?? 0 }})
       </li>
       <li
-        v-for="c in collections"
+        v-for="c in tree"
         :key="c.id"
         :class="{ active: activeCollectionId === c.id }"
+        :style="{ paddingLeft: `${8 + c.depth * 14}px` }"
         @click="emit('selectCollection', c.id)"
       >
         {{ c.name }} ({{ counts[c.id] ?? 0 }})
       </li>
     </ul>
 
-    <form class="add-collection" @submit.prevent="() => { emit('addCollection', newName); newName = ''; }">
+    <form class="add-collection" @submit.prevent="onAddSubmit">
       <input v-model="newName" placeholder="New collection name" />
+      <select v-model="newParentId" class="parent-picker">
+        <option value="">(top level)</option>
+        <option v-for="c in tree" :key="c.id" :value="c.id">{{ '—'.repeat(c.depth) }} {{ c.name }}</option>
+      </select>
       <button type="submit">Add</button>
     </form>
   </aside>
 </template>
 
 <style scoped>
-.sidebar { width: 220px; padding: 12px; border-right: 1px solid #333; }
+/* The layout's flex container never gave the sidebar its own scroll —
+   past a couple dozen collections (now worse with sub-collections nested
+   in) the add-collection form at the bottom was simply clipped, not
+   reachable by any scroll. flex-shrink:0 keeps SpriteGrid's flex:1 from
+   squeezing this instead of the intended fixed width. */
+.sidebar { width: 220px; flex-shrink: 0; padding: 12px; border-right: 1px solid #333; height: 100vh; overflow-y: auto; box-sizing: border-box; }
 .home-link {
     display: block; width: 100%; margin-bottom: 12px; text-align: left;
     font-family: inherit; font-size: 13px; cursor: pointer;
@@ -114,10 +150,12 @@ const emit = defineEmits<{
 .flagged-toggle.animated { color: #b8f; }
 .flag-filter { width: 100%; box-sizing: border-box; margin-bottom: 8px; }
 .flagged-toggle { display: block; margin-bottom: 12px; font-size: 13px; }
+.sort-order { width: 100%; margin-bottom: 8px; background: #1a1a1a; color: #eee; border: 1px solid #333; padding: 4px; }
 .collections { list-style: none; padding: 0; margin: 0; }
-.collections li { padding: 6px 8px; cursor: pointer; border-radius: 4px; }
+.collections li { padding: 6px 8px; cursor: pointer; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .collections li:hover { background: #2a2a2a; }
 .collections li.active { background: #3a3a5a; font-weight: bold; }
-.add-collection { display: flex; gap: 4px; margin-top: 12px; }
+.add-collection { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 12px; }
 .add-collection input { flex: 1; min-width: 0; }
+.add-collection .parent-picker { flex-basis: 100%; background: #1a1a1a; color: #eee; border: 1px solid #333; padding: 4px; }
 </style>

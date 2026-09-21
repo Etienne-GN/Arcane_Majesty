@@ -1,98 +1,122 @@
 [
   {
     "id": "pipoya",
-    "name": "Pipoya"
+    "name": "Pipoya",
+    "parentId": null
   },
   {
     "id": "patd",
-    "name": "Pixel Art Top Down"
+    "name": "Pixel Art Top Down",
+    "parentId": null
   },
   {
     "id": "buildings",
-    "name": "Buildings"
+    "name": "Buildings",
+    "parentId": null
   },
   {
     "id": "interior",
-    "name": "Interior"
+    "name": "Interior",
+    "parentId": null
   },
   {
     "id": "cave",
-    "name": "Cave"
+    "name": "Cave",
+    "parentId": null
   },
   {
     "id": "nature",
-    "name": "Dirt / Grass / Trees"
+    "name": "Dirt / Grass / Trees",
+    "parentId": null
   },
   {
     "id": "uncollected",
-    "name": "Uncollected"
+    "name": "Uncollected",
+    "parentId": null
   },
   {
     "id": "lpc",
-    "name": "LPC — misc (items/effects/leftovers)"
+    "name": "LPC \u2014 misc (items/effects/leftovers)",
+    "parentId": null
   },
   {
     "id": "lpc_base_out",
-    "name": "LPC — Base/Out"
+    "name": "LPC \u2014 Base/Out",
+    "parentId": null
   },
   {
     "id": "lpc_build",
-    "name": "LPC — Build"
+    "name": "LPC \u2014 Build",
+    "parentId": null
   },
   {
     "id": "lpc_terrain",
-    "name": "LPC — Terrain"
+    "name": "LPC \u2014 Terrain",
+    "parentId": null
   },
   {
     "id": "lpc_obj_misk",
-    "name": "LPC — Objects/Misk"
+    "name": "LPC \u2014 Objects/Misk",
+    "parentId": null
   },
   {
     "id": "nyx_snowy",
-    "name": "Snowy Asset Pack (nyx)"
+    "name": "Snowy Asset Pack (nyx)",
+    "parentId": null
   },
   {
     "id": "manaseed",
-    "name": "ManaSeed (Seliel the Shaper)"
+    "name": "ManaSeed (Seliel the Shaper)",
+    "parentId": null
   },
   {
     "id": "roleworld_wizard",
-    "name": "RoleWorld Wizard (pixel-sazy)"
+    "name": "RoleWorld Wizard (pixel-sazy)",
+    "parentId": null
   },
   {
     "id": "patd_bushes_dustdfg",
-    "name": "PATD Bushes (DustDFG)"
+    "name": "PATD Bushes (DustDFG)",
+    "parentId": null
   },
   {
     "id": "schwarnhild",
-    "name": "Basic Tileset (schwarnhild)"
+    "name": "Basic Tileset (schwarnhild)",
+    "parentId": null
   },
   {
     "id": "generic_rpg_vacaroxa",
-    "name": "Generic RPG Pack (CC0)"
+    "name": "Generic RPG Pack (CC0)",
+    "parentId": null
   },
   {
     "id": "hana_caraka",
-    "name": "Hana Caraka Topdown"
+    "name": "Hana Caraka Topdown",
+    "parentId": null
   },
   {
     "id": "widelands_trees",
-    "name": "Widelands Trees (Blackland)"
+    "name": "Widelands Trees (Blackland)",
+    "parentId": null
   },
   {
     "id": "top_down_adventure_olobster",
-    "name": "Top-Down Adventure Pack (o_lobster)"
+    "name": "Top-Down Adventure Pack (o_lobster)",
+    "parentId": null
   },
   {
     "id": "woolly_lands",
-    "name": "Woolly Lands (TofeBaa)"
+    "name": "Woolly Lands (TofeBaa)",
+    "parentId": null
   },
   {
     "id": "pixel_crawler",
-    "name": "Pixel Crawler (Anokolisa)"
+    "name": "Pixel Crawler (Anokolisa)",
+    "parentId": null
   },
   {
     "id": "generated",
-    "name": "Generated / Recoloured"
+    "name": "Generated / Recoloured",
+    "parentId": null
   }
 ]

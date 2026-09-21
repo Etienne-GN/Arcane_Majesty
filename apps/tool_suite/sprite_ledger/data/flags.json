@@ -46,7 +46,7 @@
     "name": "candles_lit_triple",
     "reason": "misaligned",
     "comment": "missing rignht and left candle bases ",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-01T22:33:45.471Z",
     "resolvedAt": null
   },
@@ -459,9 +459,9 @@
     "name": "autumn_grass_flowers_a",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:24:20.296Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T14:01:17.114Z",
     "remappedFrom": "autumn_small_prop_icons"
   },
   {
@@ -470,9 +470,9 @@
     "name": "spring_grass_flowers_a",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:24:24.111Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T14:01:14.410Z",
     "remappedFrom": "spring_small_prop_icons"
   },
   {
@@ -481,9 +481,9 @@
     "name": "summer_grass_flowers_a",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:24:27.784Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T14:01:26.481Z",
     "remappedFrom": "summer_small_prop_icons"
   },
   {
@@ -492,9 +492,9 @@
     "name": "winter_grass_flowers_a",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 2 rows and 5 columns",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:24:31.190Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T14:01:32.535Z",
     "remappedFrom": "winter_small_prop_icons"
   },
   {
@@ -795,9 +795,9 @@
     "name": "lpc_arrows_pair",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T18:12:17.060Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T13:58:28.908Z",
     "remappedFrom": "lpc_items_sheet"
   },
   {
@@ -908,9 +908,9 @@
     "name": "log_horizontal_single",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:37:36.008Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:55:36.064Z"
   },
   {
     "id": "f_2812dbc2-58c7-4192-9804-5d3b48224a00",
@@ -978,9 +978,9 @@
     "name": "fence_plank_wall_long",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:37:52.386Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:55:40.998Z"
   },
   {
     "id": "f_75f934c7-201a-437e-9a42-2be3485255e8",
@@ -1179,9 +1179,9 @@
     "name": "grass_tuft_row",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:43:01.703Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T14:02:23.829Z"
   },
   {
     "id": "f_f5aa04ef-ba52-4bc7-8c0d-29f0ecfd4a1b",
@@ -1280,9 +1280,9 @@
     "name": "dirt_ground_n",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:44:05.581Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T14:00:37.714Z",
     "remappedFrom": "dirt_tileset_blob"
   },
   {
@@ -1291,9 +1291,9 @@
     "name": "fall_ground_n",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:44:07.690Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T14:00:40.770Z",
     "remappedFrom": "fall_tileset_blob"
   },
   {
@@ -1335,9 +1335,9 @@
     "name": "spring_ground_n",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:44:16.317Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T14:00:43.027Z",
     "remappedFrom": "spring_tileset_blob"
   },
   {
@@ -1357,9 +1357,9 @@
     "name": "summer_ground_n",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:44:20.262Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T14:00:44.867Z",
     "remappedFrom": "summer_tileset_blob"
   },
   {
@@ -1368,9 +1368,9 @@
     "name": "texture_dirt_splat_b",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:44:22.865Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T14:00:57.585Z",
     "remappedFrom": "ground_texture"
   },
   {
@@ -1412,9 +1412,9 @@
     "name": "winter_ground_n",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:44:31.694Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T14:00:47.599Z",
     "remappedFrom": "winter_tileset_blob"
   },
   {
@@ -1733,7 +1733,7 @@
     "name": "workbench",
     "reason": "should_be_animation",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-09T01:26:58.347Z",
     "resolvedAt": null
   },
@@ -1833,7 +1833,7 @@
     "name": "furnace",
     "reason": "should_be_animation",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-09T01:27:35.601Z",
     "resolvedAt": null
   },
@@ -1993,9 +1993,9 @@
     "name": "alchemy_table_01-sheet",
     "reason": "should_be_animation",
     "comment": "",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-09T01:29:19.562Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T14:34:31.377Z"
   },
   {
     "id": "f_c3bb3e31-1928-4173-8062-e19cb0ad4daa",
@@ -2113,9 +2113,9 @@
     "name": "size_03_001",
     "reason": "misaligned",
     "comment": "there are 2 things in here",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-14T13:34:48.404Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T14:04:34.048Z"
   },
   {
     "id": "f_7896b1f7-dc55-4bfa-99db-b04670cfb4d6",
@@ -2323,9 +2323,9 @@
     "name": "book_black_open",
     "reason": "wrong_name",
     "comment": "this is book_black_open ",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:21:29.327Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T13:58:40.840Z",
     "remappedFrom": "book_white_open"
   },
   {
@@ -2334,7 +2334,7 @@
     "name": "candles_lit_triple",
     "reason": "misaligned",
     "comment": "too much cropped at the bottom",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-14T17:22:22.344Z",
     "resolvedAt": null
   },
@@ -2365,9 +2365,9 @@
     "name": "pipo-popupemotes000",
     "reason": "should_be_animation",
     "comment": "3 frames animation",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:24:02.349Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T14:02:58.756Z"
   },
   {
     "id": "f_3563424e-fff0-45c5-89a2-cf0067431a29",
@@ -2375,9 +2375,9 @@
     "name": "pipo-popupemotes000",
     "reason": "should_be_animation",
     "comment": "3 frames animation",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:24:06.285Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T14:02:58.011Z"
   },
   {
     "id": "f_bbce8bff-ccd5-4ccb-937e-633f94afc6e0",
@@ -2385,9 +2385,9 @@
     "name": "pipo-popupemotes002",
     "reason": "should_be_animation",
     "comment": "3 frames animation",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:24:10.795Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T14:03:19.262Z"
   },
   {
     "id": "f_0230c2c6-de4c-402e-969c-5acd11f8a1f9",
@@ -2395,9 +2395,9 @@
     "name": "pipo-popupemotes003",
     "reason": "should_be_animation",
     "comment": "3 frames animation as well as ALL other pipo-popupemotes*",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:24:44.675Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T14:30:46.625Z"
   },
   {
     "id": "f_2e1bef48-5838-4ddc-807c-1463381362ec",
@@ -2635,9 +2635,9 @@
     "name": "barrel_cluster_pair",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:44:32.443Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T13:57:24.696Z",
     "remappedFrom": "barrel_stack_top"
   },
   {
@@ -2646,9 +2646,9 @@
     "name": "barrel_cluster_pair",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:44:34.614Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T13:57:48.434Z",
     "remappedFrom": "barrel_stack_side_upper"
   },
   {
@@ -2667,9 +2667,9 @@
     "name": "wood_rimmed_basin_water",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:44:48.052Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:55:53.706Z"
   },
   {
     "id": "f_60043947-4a53-463c-9ba8-188ca84ed733",
@@ -2677,9 +2677,9 @@
     "name": "barrel_single_c",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:46:01.011Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-21T13:57:20.126Z",
     "remappedFrom": "barrel_stack_base"
   },
   {
@@ -2728,9 +2728,9 @@
     "name": "wood_rimmed_basin_empty",
     "reason": "misaligned",
     "comment": "this is the top of an empty barrel, pretty sure the bottom is missing",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T13:51:17.824Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:56:30.072Z"
   },
   {
     "id": "f_330a58ad-76d0-49eb-9d8c-207ceb2e9730",
@@ -2738,9 +2738,9 @@
     "name": "wood_rimmed_basin_water",
     "reason": "misaligned",
     "comment": "this is the top of a water barrel, pretty sure the bottom is missing",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T13:53:01.262Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:56:17.693Z"
   },
   {
     "id": "f_981c940f-bccd-4c61-aabe-545ae712a7ca",
@@ -2748,7 +2748,7 @@
     "name": "crate_wood_light_b",
     "reason": "misaligned",
     "comment": "i think previous was OK then, you have to split this exactly in 2 top half is closed chest, bottom is opened chest",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T13:54:13.761Z",
     "resolvedAt": null
   },
@@ -2758,7 +2758,7 @@
     "name": "crate_wood_gray_b",
     "reason": "misaligned",
     "comment": "i think previous was OK then, you have to split this exactly in 2 top half is closed chest, bottom is opened chest",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T13:54:25.603Z",
     "resolvedAt": null
   },
@@ -2768,9 +2768,9 @@
     "name": "chest_open_red",
     "reason": "misaligned",
     "comment": "i think previous was OK then, you have to split this exactly in 2 top half is closed chest, bottom is opened chest",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-21T13:54:32.012Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T14:33:22.814Z"
   },
   {
     "id": "f_208592ea-0532-4d71-b13c-df1128b7ffd8",
@@ -2778,9 +2778,9 @@
     "name": "chest_open_gold",
     "reason": "misaligned",
     "comment": "i think previous was OK then, you have to split this exactly in 2 top half is closed chest, bottom is opened chest",
-    "status": "open",
+    "status": "resolved",
     "createdAt": "2026-09-21T13:54:39.330Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T14:33:19.598Z"
   },
   {
     "id": "f_e9f54538-036e-49e8-b8d7-0570b550cc28",
@@ -2790,6 +2790,726 @@
     "comment": "i think it is too much cropped at the top, not sure... ",
     "status": "open",
     "createdAt": "2026-09-21T13:55:34.164Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c34de767-e127-4400-b3f6-95e311b372b7",
+    "sheet": "build_atlas.png",
+    "name": "wood_rimmed_basin_water",
+    "reason": "misaligned",
+    "comment": "i think previous was OK then, you have to split this exactly in 2 top half is closed chest, bottom is opened chest",
+    "status": "open",
+    "createdAt": "2026-09-21T13:56:20.602Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_afe869b1-c614-425d-8d08-edcb01b6dd36",
+    "sheet": "build_atlas.png",
+    "name": "wood_rimmed_basin_empty",
+    "reason": "misaligned",
+    "comment": "misaligned — this is the top of an empty barrel, pretty sure the bottom is missing",
+    "status": "open",
+    "createdAt": "2026-09-21T13:56:32.276Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f7ec7057-0026-4da8-8919-2be26cbfb97e",
+    "sheet": "build_atlas.png",
+    "name": "barrel_single_c",
+    "reason": "misaligned",
+    "comment": "you have to fuse this with \"barrel_cluster_pair\" it will become a barrel trio",
+    "status": "needs_review",
+    "createdAt": "2026-09-21T13:57:14.584Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_079c33b8-24a4-4f52-865d-12c5a3edb246",
+    "sheet": "build_atlas.png",
+    "name": "barrel_cluster_pair",
+    "reason": "misaligned",
+    "comment": "you have to fuse this with \"barrel_single_c\" and this will become a barrel trio",
+    "status": "needs_review",
+    "createdAt": "2026-09-21T13:57:46.741Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0a4e1683-5fd7-4aaa-8bf3-3fb202b909e7",
+    "sheet": "items1.png",
+    "name": "lpc_arrows_pair",
+    "reason": "wrong_name",
+    "comment": "those are not arrows, they are knives",
+    "status": "needs_review",
+    "createdAt": "2026-09-21T13:58:13.037Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e7404c7b-8fce-452c-bf84-91cbd468f4f7",
+    "sheet": "items1.png",
+    "name": "lpc_arrows_pair",
+    "reason": "misaligned",
+    "comment": "there are 2 knives in this, you gotta split them",
+    "status": "needs_review",
+    "createdAt": "2026-09-21T13:58:27.115Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9ef2cb68-219a-4f81-8307-24ec2ce14e6a",
+    "sheet": "decorations.png",
+    "name": "grass_tuft_row",
+    "reason": "misaligned",
+    "comment": "there are 12 items in this, you gotta split those",
+    "status": "open",
+    "createdAt": "2026-09-21T14:02:21.774Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5c68e9b8-6563-4d05-bb5e-e27e202d3825",
+    "sheet": "pipo-popupemotes000.png",
+    "name": "pipo-popupemotes000",
+    "reason": "should_be_animation",
+    "comment": "",
+    "status": "resolved",
+    "createdAt": "2026-09-21T14:02:59.732Z",
+    "resolvedAt": "2026-09-21T14:03:02.029Z"
+  },
+  {
+    "id": "f_0da7642e-f115-4fc7-82be-4332f33b458d",
+    "sheet": "pipo-popupemotes000.png",
+    "name": "pipo-popupemotes000",
+    "reason": "should_be_animation",
+    "comment": "this is a 3 frames animation",
+    "status": "resolved",
+    "createdAt": "2026-09-21T14:03:13.130Z",
+    "resolvedAt": "2026-09-21T14:30:41.120Z"
+  },
+  {
+    "id": "f_a2d5b486-348f-4522-92ad-558683bd966a",
+    "sheet": "pipo-popupemotes002.png",
+    "name": "pipo-popupemotes002",
+    "reason": "should_be_animation",
+    "comment": "this is a 3 frames animation",
+    "status": "resolved",
+    "createdAt": "2026-09-21T14:03:21.011Z",
+    "resolvedAt": "2026-09-21T14:30:36.373Z"
+  },
+  {
+    "id": "f_59e5a0af-be3b-45c7-93ac-328b3efdea9a",
+    "sheet": "Size_03.png",
+    "name": "size_03_001",
+    "reason": "misaligned",
+    "comment": "those are 2 trees, split horizontally to get them both",
+    "status": "open",
+    "createdAt": "2026-09-21T14:04:33.231Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_76cf0869-ccf5-46e6-9a15-3a0ab6ecd41d",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "chest_gold_closed_a",
+    "reason": "wrong_name",
+    "comment": "rename this chest-closed_red so it matches the closed version",
+    "status": "open",
+    "createdAt": "2026-09-21T14:32:47.138Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_8a2d720d-818b-4fc3-881c-0c29938f3f6e",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "chest_gold_closed_b",
+    "reason": "wrong_name",
+    "comment": "rename this chest_closed_gold so it match with the opened version",
+    "status": "open",
+    "createdAt": "2026-09-21T14:33:09.971Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e27930c4-5f64-4240-a456-baec009581e4",
+    "sheet": "Alchemy_Table_01-Sheet.png",
+    "name": "alchemy_table_01-sheet",
+    "reason": "other",
+    "comment": "",
+    "status": "resolved",
+    "createdAt": "2026-09-21T14:33:58.590Z",
+    "resolvedAt": "2026-09-21T14:34:02.099Z"
+  },
+  {
+    "id": "f_56e98c27-3e14-4dc5-8869-3b01ddc57f4c",
+    "sheet": "Alchemy_Table_01-Sheet.png",
+    "name": "alchemy_table_01-sheet",
+    "reason": "other",
+    "comment": "i think the last few frames are empty, so the animation dissapears at the end, make sure the fram count is good",
+    "status": "open",
+    "createdAt": "2026-09-21T14:34:28.920Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e3d9ad47-3cd5-41e8-88e9-b84acdb3a0c3",
+    "sheet": "base_out_atlas.png",
+    "name": "rope_ladder_descending",
+    "reason": "wrong_name",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T14:36:32.710Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5b7b852d-1a2e-4747-85f6-992328a7cba5",
+    "sheet": "base_out_atlas.png",
+    "name": "rope_ladder_descending",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T14:36:33.765Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e00c70d4-9746-4427-9ef7-69df3eb32ee4",
+    "sheet": "build_atlas.png",
+    "name": "hanging_medallion_finial",
+    "reason": "wrong_name",
+    "comment": "this is a gear with a chain",
+    "status": "open",
+    "createdAt": "2026-09-21T15:19:09.126Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9f8b1e8e-e9ed-47c5-b88d-1c14e70da1cd",
+    "sheet": "build_atlas.png",
+    "name": "windmill",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:19:24.786Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e2951f83-904e-4beb-8540-a8d06d158907",
+    "sheet": "build_atlas.png",
+    "name": "torii_gate_large",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:19:36.452Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9fa37284-5a51-4e25-8f4a-4a6572df5623",
+    "sheet": "build_atlas.png",
+    "name": "rune_socket_lit_a",
+    "reason": "wrong_name",
+    "comment": "",
+    "status": "resolved",
+    "createdAt": "2026-09-21T15:20:06.071Z",
+    "resolvedAt": "2026-09-21T15:20:13.146Z"
+  },
+  {
+    "id": "f_b6120437-8bd3-41f8-afe3-3b6e837b599b",
+    "sheet": "build_atlas.png",
+    "name": "rune_socket_lit_a",
+    "reason": "wrong_name",
+    "comment": "looks like a pillar in water to me",
+    "status": "resolved",
+    "createdAt": "2026-09-21T15:20:25.185Z",
+    "resolvedAt": "2026-09-21T15:21:40.395Z"
+  },
+  {
+    "id": "f_3dc77e6e-7913-43c3-9861-8af62912395c",
+    "sheet": "build_atlas.png",
+    "name": "rune_socket_lit_b",
+    "reason": "wrong_name",
+    "comment": "looks like a pillar in water to me",
+    "status": "resolved",
+    "createdAt": "2026-09-21T15:20:32.350Z",
+    "resolvedAt": "2026-09-21T15:20:48.658Z"
+  },
+  {
+    "id": "f_473dc292-703c-454b-83ef-63dd6cb1619c",
+    "sheet": "build_atlas.png",
+    "name": "rune_socket_lit_b",
+    "reason": "wrong_name",
+    "comment": "its a variant of \"maroon_base_trim_socket\" but with bricks instead of the maroon",
+    "status": "resolved",
+    "createdAt": "2026-09-21T15:21:14.199Z",
+    "resolvedAt": "2026-09-21T15:21:24.790Z"
+  },
+  {
+    "id": "f_d4897262-e087-41ef-8caf-532ed8718b07",
+    "sheet": "build_atlas.png",
+    "name": "rune_socket_lit_b",
+    "reason": "wrong_name",
+    "comment": "wrong_name — its a variant of \"maroon_base_trim_socket\" but with bricks instead of the maroon and with water at the base",
+    "status": "open",
+    "createdAt": "2026-09-21T15:21:38.541Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_21179af6-12fe-4585-abd3-8bda3f4b19f8",
+    "sheet": "build_atlas.png",
+    "name": "rune_socket_lit_a",
+    "reason": "wrong_name",
+    "comment": "wrong_name — its a variant of \"maroon_base_trim_socket\" but with water at the base",
+    "status": "open",
+    "createdAt": "2026-09-21T15:21:59.737Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0cb3741b-249b-486e-a4e0-c629118fd1e5",
+    "sheet": "build_atlas.png",
+    "name": "flagpole_with_banner",
+    "reason": "wrong_name",
+    "comment": "to be more precise, this is a flagpole with the french flag haning on it",
+    "status": "open",
+    "createdAt": "2026-09-21T15:22:32.124Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_b51aa028-3e6b-4a54-97a2-2a811c635efe",
+    "sheet": "build_atlas.png",
+    "name": "barrel_cluster_trio",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:23:03.361Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_62c21ae7-afe2-4ede-abda-f97b6137cf5f",
+    "sheet": "build_atlas.png",
+    "name": "violet_brick_wall_top_fill",
+    "reason": "wrong_name",
+    "comment": "",
+    "status": "resolved",
+    "createdAt": "2026-09-21T15:23:10.954Z",
+    "resolvedAt": "2026-09-21T15:23:12.953Z"
+  },
+  {
+    "id": "f_82bd3255-0275-4279-8246-14688fac09d0",
+    "sheet": "build_atlas.png",
+    "name": "violet_brick_wall_top_fill",
+    "reason": "wrong_name",
+    "comment": "LOL this is NOT violet, not brick, not wall, it looks like a round chinese lantern we can see in restaurants.",
+    "status": "open",
+    "createdAt": "2026-09-21T15:23:43.910Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3ead7652-2995-493a-8bdc-992e0982ed00",
+    "sheet": "build_atlas.png",
+    "name": "barrel_tile_roof_eave_drip_a",
+    "reason": "wrong_name",
+    "comment": "this is a wooden bucket",
+    "status": "resolved",
+    "createdAt": "2026-09-21T15:24:40.159Z",
+    "resolvedAt": "2026-09-21T15:24:53.652Z"
+  },
+  {
+    "id": "f_b3abd275-d7a7-44e8-b770-7f260fe67d71",
+    "sheet": "build_atlas.png",
+    "name": "barrel_tile_roof_eave_drip_a",
+    "reason": "wrong_name",
+    "comment": "this is a wooden bucket, the same as \"wood_bucket_water_top\" but empty",
+    "status": "open",
+    "createdAt": "2026-09-21T15:25:14.861Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_477c30c1-d73c-4825-beb8-ef8e9bf20f7e",
+    "sheet": "build_atlas.png",
+    "name": "sienna_brick_wall_top_post_left_a",
+    "reason": "wrong_name",
+    "comment": "this is a tent",
+    "status": "open",
+    "createdAt": "2026-09-21T15:25:27.909Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_83ac3811-144e-4f24-8b83-c4c9f76b125f",
+    "sheet": "build_atlas.png",
+    "name": "sienna_brick_wall_trim_post_right_b",
+    "reason": "wrong_name",
+    "comment": "c'est une charette en bois ca",
+    "status": "open",
+    "createdAt": "2026-09-21T15:25:42.442Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_8a443529-212b-440e-acaf-9b391394e03e",
+    "sheet": "build_atlas.png",
+    "name": "sienna_brick_wall_trim_post_left_b",
+    "reason": "wrong_name",
+    "comment": "INN sign",
+    "status": "open",
+    "createdAt": "2026-09-21T15:25:53.267Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_eb505f88-b6e1-46ff-80f7-61923a3df78b",
+    "sheet": "build_atlas.png",
+    "name": "sienna_brick_wall_trim_strip_a",
+    "reason": "wrong_name",
+    "comment": "c'est une grille en metal pour bouche un tuyau ",
+    "status": "open",
+    "createdAt": "2026-09-21T15:26:11.054Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_713023c3-51c2-4e74-889f-b7e07896321f",
+    "sheet": "build_atlas.png",
+    "name": "vermillion_stake_post_b",
+    "reason": "wrong_name",
+    "comment": "weapon sign",
+    "status": "open",
+    "createdAt": "2026-09-21T15:26:20.677Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_99c73156-4674-4d52-aaed-a6987f3cee02",
+    "sheet": "build_atlas.png",
+    "name": "vermillion_wood_post_a_top",
+    "reason": "wrong_name",
+    "comment": "potion sign",
+    "status": "open",
+    "createdAt": "2026-09-21T15:26:28.592Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_419059be-d84b-4b8b-ab25-a59a98b66b55",
+    "sheet": "build_atlas.png",
+    "name": "vermillion_wood_post_b_top",
+    "reason": "wrong_name",
+    "comment": "another weapon sign",
+    "status": "open",
+    "createdAt": "2026-09-21T15:26:36.239Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_01dfc350-9fcb-43ca-bccf-bc7b842c0c89",
+    "sheet": "build_atlas.png",
+    "name": "vermillion_wood_post_c_top",
+    "reason": "wrong_name",
+    "comment": "another potion sign",
+    "status": "open",
+    "createdAt": "2026-09-21T15:26:43.503Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_1bc7a862-12ca-4454-af65-dd04aab021f4",
+    "sheet": "build_atlas.png",
+    "name": "vermillion_wood_post_d_upper",
+    "reason": "wrong_name",
+    "comment": "c'est une charette en bois vide",
+    "status": "open",
+    "createdAt": "2026-09-21T15:26:59.855Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9a7248c5-48aa-40a1-909c-cab8f1f62df3",
+    "sheet": "build_atlas.png",
+    "name": "vermillion_gate_lintel_shaft_left_upper",
+    "reason": "wrong_name",
+    "comment": "c'est une charette en bois avec du foin et une fourche ",
+    "status": "open",
+    "createdAt": "2026-09-21T15:27:18.350Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_51276ca3-7192-417f-a233-4abe166b53a0",
+    "sheet": "build_atlas.png",
+    "name": "vermillion_wood_post_a_upper",
+    "reason": "wrong_name",
+    "comment": "cofrfre de bois fermé",
+    "status": "open",
+    "createdAt": "2026-09-21T15:27:39.699Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_b0041f0e-7c5d-49bb-b736-b6bb23a8202c",
+    "sheet": "build_atlas.png",
+    "name": "vermillion_wood_post_a_lower",
+    "reason": "wrong_name",
+    "comment": "coffre de bois ouvert",
+    "status": "open",
+    "createdAt": "2026-09-21T15:27:46.655Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_d24cd262-81e1-441e-ad3f-b95fb55a4efc",
+    "sheet": "build_atlas.png",
+    "name": "wood_chest_closed_b",
+    "reason": "wrong_name",
+    "comment": "coffre de bois sans couvercle",
+    "status": "open",
+    "createdAt": "2026-09-21T15:27:55.104Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_89d0a75b-8065-4880-b5e5-cdd8dba265f8",
+    "sheet": "build_atlas.png",
+    "name": "vermillion_wood_post_b_upper",
+    "reason": "wrong_name",
+    "comment": "coffre de bois sans couvercle ni serrure",
+    "status": "resolved",
+    "createdAt": "2026-09-21T15:28:05.051Z",
+    "resolvedAt": "2026-09-21T15:28:18.385Z"
+  },
+  {
+    "id": "f_b888fd71-d397-4175-8c2f-6eb4654802a5",
+    "sheet": "build_atlas.png",
+    "name": "vermillion_wood_post_b_upper",
+    "reason": "wrong_name",
+    "comment": "this is \"brown_chest_lib_banded\" without lid",
+    "status": "open",
+    "createdAt": "2026-09-21T15:28:55.257Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c6f40dd4-03ed-416e-8ec0-1ba839cde94a",
+    "sheet": "build_atlas.png",
+    "name": "brown_chest_body_banded",
+    "reason": "wrong_name",
+    "comment": "this is \"brown_chest_lid_banded\" opened",
+    "status": "open",
+    "createdAt": "2026-09-21T15:29:14.925Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ff5a906e-f06b-43a6-9bd0-5b07270c71f2",
+    "sheet": "terrain_atlas.png",
+    "name": "gray_stone_shaft_b",
+    "reason": "wrong_name",
+    "comment": "this is a sprout not a stone",
+    "status": "open",
+    "createdAt": "2026-09-21T15:29:53.588Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a7a34666-1738-43e4-8e94-98b92c68ab18",
+    "sheet": "terrain_atlas.png",
+    "name": "packed_dirt_fill_o",
+    "reason": "wrong_name",
+    "comment": "this is a gray_stone bloc not dirt",
+    "status": "open",
+    "createdAt": "2026-09-21T15:30:26.989Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5e9a9efe-ea7c-435e-b9ee-c14cbc7b04fa",
+    "sheet": "terrain_atlas.png",
+    "name": "leafy_herb_sprig_tall_a",
+    "reason": "wrong_name",
+    "comment": "those are 3 tomatoes",
+    "status": "open",
+    "createdAt": "2026-09-21T15:30:36.191Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_20ac8c6d-de15-47df-8110-3d67222b2fe1",
+    "sheet": "terrain_atlas.png",
+    "name": "berry_bush_a",
+    "reason": "wrong_name",
+    "comment": "this is a pepper plant\n",
+    "status": "open",
+    "createdAt": "2026-09-21T15:31:06.341Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_bb480977-57da-4b03-9901-451958cfb1eb",
+    "sheet": "obj_misk_atlas.png",
+    "name": "ham_hock_raw_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:31:23.518Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_7b2ca724-205d-4bf1-bc55-abb6bf074b06",
+    "sheet": "obj_misk_atlas.png",
+    "name": "meat_chunk_raw_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:31:31.249Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_06cdc889-e603-48fc-9aeb-ecb86c32babd",
+    "sheet": "obj_misk_atlas.png",
+    "name": "meat_scrap_fragment_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:31:40.123Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5cf8c04e-db9e-4cc1-9a13-5db56ceb9e9e",
+    "sheet": "obj_misk_atlas.png",
+    "name": "meat_raw_cut_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:31:42.649Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0e9b8836-e26d-4f16-aee2-ecde7f4ec2c9",
+    "sheet": "obj_misk_atlas.png",
+    "name": "steak_raw_single_a",
+    "reason": "misaligned",
+    "comment": "this goes with sack_burglar_greens_c and its a single steak",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:08.126Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3b9d3395-926d-45b0-af2f-54cc109f7faa",
+    "sheet": "obj_misk_atlas.png",
+    "name": "sack_burlap_greens_c",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:10.875Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_03c65c97-7fe0-44ba-a782-eb926d076939",
+    "sheet": "obj_misk_atlas.png",
+    "name": "fish_fin_fragment_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:15.199Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_605a7811-aebf-4608-b565-34e03c09641a",
+    "sheet": "obj_misk_atlas.png",
+    "name": "perch_single_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:16.871Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_27bc1601-d991-4f07-8065-c9cb9fc5302c",
+    "sheet": "obj_misk_atlas.png",
+    "name": "fish_tail_fragment_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:18.830Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ffaf6130-309e-4642-94cd-b57beebcf330",
+    "sheet": "obj_misk_atlas.png",
+    "name": "fish_pile_perch_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:20.966Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f5844779-a487-4183-aac2-f85c9e722468",
+    "sheet": "obj_misk_atlas.png",
+    "name": "baluster_railing_red_straight_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:25.935Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_22f91f4b-7edb-4521-9f54-1ea55aeac6f5",
+    "sheet": "obj_misk_atlas.png",
+    "name": "window_glasswall_frame_bottom_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:38.510Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_703726cd-429e-4bf1-b2f5-ae0a58012ecd",
+    "sheet": "obj_misk_atlas.png",
+    "name": "door_glass_dark_four_pane_c",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:40.276Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_76fd0351-7024-4a04-aee7-451843860cae",
+    "sheet": "obj_misk_atlas.png",
+    "name": "sword_pile_scatter_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:42.348Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_fdc35059-c494-4dba-909d-7085061f4bd7",
+    "sheet": "obj_misk_atlas.png",
+    "name": "door_glass_dark_two_pane_transom",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:44.330Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0707f0ec-716e-42c4-b921-8780da6ea47b",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bookshelf_books_full_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:45.984Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_7f6aa297-1b3c-423b-b8eb-0c45f3275081",
+    "sheet": "obj_misk_atlas.png",
+    "name": "file_tool_scatter_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:47.160Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_09e3f1a6-6350-4cd6-88c0-59dab62a9277",
+    "sheet": "obj_misk_atlas.png",
+    "name": "nightstand_wood_cherry",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:51.441Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f63e4757-6527-4605-8808-36e32fc1e191",
+    "sheet": "obj_misk_atlas.png",
+    "name": "cabinet_wood_cherry_low_two_door_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:53.800Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_42d17ed8-77cb-4b59-ac18-ad72c2a92e96",
+    "sheet": "obj_misk_atlas.png",
+    "name": "wall_stone_dock_mossy_edge_right",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T15:32:55.712Z",
     "resolvedAt": null
   }
 ]

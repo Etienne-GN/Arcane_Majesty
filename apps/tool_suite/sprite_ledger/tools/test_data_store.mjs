@@ -71,6 +71,21 @@ try { await addCollection(dataDir, { id: 'pipoya', name: 'Pipoya Again' }); }
 catch (e) { threw = true; }
 assert.ok(threw, 'addCollection must reject a duplicate id');
 
+// --- collection hierarchy (parentId) ---
+// A collection with no parentId defaults to a root, same as every
+// collection created before this feature existed.
+assert.strictEqual(afterAdd[0].parentId, null, 'addCollection without parentId defaults to null (a root)');
+
+await addCollection(dataDir, { id: 'grass_patches', name: 'Grass Patches', parentId: 'pipoya' });
+const withChild = await loadCollections(dataDir);
+const child = withChild.find(c => c.id === 'grass_patches');
+assert.strictEqual(child.parentId, 'pipoya', 'addCollection stores the given parentId');
+
+let threwUnknownParent = false;
+try { await addCollection(dataDir, { id: 'orphan', name: 'Orphan', parentId: 'does_not_exist' }); }
+catch (e) { threwUnknownParent = true; }
+assert.ok(threwUnknownParent, 'addCollection must reject an unknown parentId');
+
 // --- sprite_meta ---
 await assignCollection(dataDir, 'PATD_Props.png', 'chest_wood_small', 'buildings');
 const meta = await loadSpriteMeta(dataDir);
@@ -208,4 +223,4 @@ const expectedIds = [
 ];
 assert.deepStrictEqual(realCollections.map(c => c.id).sort(), expectedIds.sort());
 
-console.log('✓ data-store tests passed (50 assertions).');
+console.log('✓ data-store tests passed (53 assertions).');

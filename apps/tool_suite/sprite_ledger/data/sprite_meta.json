@@ -33035,5 +33035,128 @@
   },
   "base_out_atlas.png::barrel_cluster_trio": {
     "collection": "lpc_base_out"
+  },
+  "[Base]BaseChip_pipo.png::crate_wood_light_open": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::crate_wood_gray_open": {
+    "collection": "pipoya"
+  },
+  "build_atlas.png::barrel_cluster_trio": {
+    "collection": "lpc_build"
+  },
+  "items1.png::lpc_dagger_dark_hilt": {
+    "collection": "lpc"
+  },
+  "items1.png::lpc_dagger_dark_hilt_ruby": {
+    "collection": "lpc"
+  },
+  "Furnace.png::furnace_stone_lit_tier1": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_stone_lit_tier2": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_stone_lit_tier3": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_brick_lit_tier1": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_brick_lit_tier2": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_brick_lit_tier3": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_steel_lit_tier3": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_steel_lit_tier1": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_steel_lit_tier2": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_stone_unlit_tier2": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_stone_unlit_tier3": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_stone_unlit_tier1": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_brick_unlit_tier2": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_brick_unlit_tier3": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_steel_unlit_tier3": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_brick_unlit_tier1": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_steel_unlit_tier1": {
+    "collection": "pixel_crawler"
+  },
+  "Furnace.png::furnace_steel_unlit_tier2": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::workbench_stone_tier1": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::workbench_stone_tier2": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::workbench_stone_tier3": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::workbench_carpentry_tier2": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::workbench_carpentry_tier3": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::workbench_carpentry_tier1": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::workbench_tech_tier2": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::workbench_tech_tier3": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::workbench_tech_tier1": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::rubble_pile_tier2": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::rubble_pile_tier3": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::rubble_pile_tier1": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::workbench_wood_plain_tier1": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::workbench_wood_plain_tier2": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::workbench_wood_plain_tier3": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::workbench_steel_plain_tier2": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::workbench_steel_plain_tier3": {
+    "collection": "pixel_crawler"
+  },
+  "Workbench.png::workbench_steel_plain_tier1": {
+    "collection": "pixel_crawler"
   }
 }
