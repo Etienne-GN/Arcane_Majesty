@@ -17,6 +17,7 @@ const props = defineProps<{
 const newName = ref('');
 
 const emit = defineEmits<{
+    goHome: [];
     selectCollection: [id: string | null];
     selectSheet: [sheet: string | null];
     selectFlag: [value: 'all' | 'flagged' | 'open' | 'needs_review'];
@@ -29,6 +30,7 @@ const emit = defineEmits<{
 
 <template>
   <aside class="sidebar">
+    <button class="home-link" @click="emit('goHome')">🏠 Home</button>
     <input
       class="search"
       type="text"
@@ -99,6 +101,13 @@ const emit = defineEmits<{
 
 <style scoped>
 .sidebar { width: 220px; padding: 12px; border-right: 1px solid #333; }
+.home-link {
+    display: block; width: 100%; margin-bottom: 12px; text-align: left;
+    font-family: inherit; font-size: 13px; cursor: pointer;
+    background: #1a1a1a; border: 1px solid #333; border-radius: 4px;
+    color: #eee; padding: 6px 8px;
+}
+.home-link:hover { border-color: #77a; background: #202030; }
 .search { width: 100%; margin-bottom: 8px; }
 .sheet-filter { width: 100%; margin-bottom: 8px; background: #1a1a1a; color: #eee; border: 1px solid #333; padding: 4px; }
 .license-filter { width: 100%; margin-bottom: 8px; background: #1a1a1a; color: #eee; border: 1px solid #333; padding: 4px; }

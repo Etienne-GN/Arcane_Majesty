@@ -3,7 +3,7 @@ import { mkdtempSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import {
-    seedDefaultCollection, seedSheetIfNew, DIR_COLLECTIONS,
+    seedDefaultCollection, seedSheetIfNew, DIR_COLLECTIONS, LPC_SHEET_COLLECTIONS,
     loadCollections, addCollection,
     loadSpriteMeta, assignCollection, setLicenseStatus,
     loadFlags, addFlag, updateFlagStatus,
@@ -21,20 +21,35 @@ assert.strictEqual(seedDefaultCollection('whatever.png', 'a_pack_nobody_has_mapp
 // none of the old prefix rules. Their entries were assigned by hand, which
 // held while a sheet was one entry and broke the moment sheets were
 // re-catalogued into their real cells (LPC: 6 entries -> 4148, all orphaned).
-assert.strictEqual(seedDefaultCollection('terrain_atlas.png', 'lpc'), 'lpc');
 assert.strictEqual(
     seedDefaultCollection('seasonal sample (winter).png', 'manaseed_seasonal_forest_sample_winter'),
     'manaseed');
 assert.strictEqual(seedDefaultCollection('Size_05.png', 'pixel_crawler_anokolisa'), 'pixel_crawler');
 
-// Every collection the table can produce must actually exist in the shipped
-// collections.json, or seeding writes an id the sidebar can't render.
+// The 'lpc' directory's 4 big atlases each get their own sub-collection —
+// they're 72% of the whole ledger between them, and lumping them together
+// made every other pack's browsing slow for no reason. Anything else still
+// catalogued under 'lpc' (items1, effects, treetop, trunk...) stays bucketed
+// under plain 'lpc'.
+assert.strictEqual(seedDefaultCollection('base_out_atlas.png', 'lpc'), 'lpc_base_out');
+assert.strictEqual(seedDefaultCollection('build_atlas.png', 'lpc'), 'lpc_build');
+assert.strictEqual(seedDefaultCollection('terrain_atlas.png', 'lpc'), 'lpc_terrain');
+assert.strictEqual(seedDefaultCollection('obj_misk_atlas.png', 'lpc'), 'lpc_obj_misk');
+assert.strictEqual(seedDefaultCollection('items1.png', 'lpc'), 'lpc');
+assert.strictEqual(seedDefaultCollection('effects.png', 'lpc'), 'lpc');
+
+// Every collection the table (plus the LPC per-sheet overrides) can produce
+// must actually exist in the shipped collections.json, or seeding writes an
+// id the sidebar can't render.
 {
     const shipped = JSON.parse(
         readFileSync(new URL('../data/collections.json', import.meta.url), 'utf8'));
     const known = new Set(shipped.map(c => c.id));
     for (const id of new Set(Object.values(DIR_COLLECTIONS))) {
         assert.ok(known.has(id), `DIR_COLLECTIONS maps to unknown collection id: ${id}`);
+    }
+    for (const id of new Set(Object.values(LPC_SHEET_COLLECTIONS))) {
+        assert.ok(known.has(id), `LPC_SHEET_COLLECTIONS maps to unknown collection id: ${id}`);
     }
     assert.ok(known.has('uncollected'), 'collections.json must keep an "uncollected" bucket');
 }
@@ -160,7 +175,8 @@ const realCollections = JSON.parse(readFileSync(
     new URL('../data/collections.json', import.meta.url), 'utf8'
 ));
 const expectedIds = [
-    'pipoya', 'patd', 'lpc', 'nyx_snowy', 'manaseed', 'roleworld_wizard', 'patd_bushes_dustdfg',
+    'pipoya', 'patd', 'lpc', 'lpc_base_out', 'lpc_build', 'lpc_terrain', 'lpc_obj_misk',
+    'nyx_snowy', 'manaseed', 'roleworld_wizard', 'patd_bushes_dustdfg',
     'schwarnhild', 'generic_rpg_vacaroxa', 'hana_caraka', 'widelands_trees', 'top_down_adventure_olobster', 'woolly_lands', 'pixel_crawler',
     'buildings', 'interior', 'cave', 'nature', 'uncollected',
     'generated',

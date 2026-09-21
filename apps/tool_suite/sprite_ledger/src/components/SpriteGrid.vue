@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import type { Sheet, SpriteEntry } from '../services/api';
 import { imageUrl } from '../services/api';
 
@@ -12,6 +13,25 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{ select: [sheetPngFilename: string, entryName: string] }>();
+
+// Only sprites that pass the current filters get a DOM cell + canvas at
+// all — visibleKeys used to just toggle `v-show` while every one of the
+// (10,000+, once LPC's in the mix) sprites across every sheet stayed
+// mounted and drew its crop regardless. That made every view exactly as
+// heavy as the whole ledger, all the time, no matter how narrow the
+// filter actually was. Filtering the source array instead means "All"
+// with a narrow search, or any single collection, only ever mounts what
+// it shows.
+const visibleCells = computed(() => {
+    const cells: { sheet: Sheet; entry: SpriteEntry; key: string }[] = [];
+    for (const sheet of props.sheets) {
+        for (const entry of sheet.entries) {
+            const key = `${sheet.sheetPngFilename}::${entry.name}`;
+            if (props.visibleKeys.has(key)) cells.push({ sheet, entry, key });
+        }
+    }
+    return cells;
+});
 
 // One offscreen <img> per sheet, loaded once, reused for every crop.
 // A plain Map, not a ref: nothing in the template reads it, and resolving an
@@ -80,24 +100,21 @@ function drawCrop(canvas: HTMLCanvasElement | null, sheet: Sheet, entry: SpriteE
 
 <template>
   <div class="grid">
-    <template v-for="sheet in sheets" :key="sheet.sheetPngFilename">
-      <div
-        v-for="entry in sheet.entries"
-        :key="`${sheet.sheetPngFilename}::${entry.name}`"
-        v-show="visibleKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)"
-        class="cell"
-        @click="emit('select', sheet.sheetPngFilename, entry.name)"
-      >
-        <span v-if="flaggedKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="flag-dot" title="Open flag" />
-        <span v-if="needsReviewKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="review-badge" title="Tentatively fixed — needs your review">🔍</span>
-        <span v-if="licenseOkKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="license-badge ok">✓</span>
-        <span v-if="licenseFlaggedKeys.has(`${sheet.sheetPngFilename}::${entry.name}`)" class="license-badge unlicensed">⚠</span>
-        <canvas :ref="(el) => drawCrop(el as HTMLCanvasElement, sheet, entry)" class="pixelated" />
-        <div class="name">
-          <span v-if="(entry.frames?.length ?? 0) > 1" class="anim-badge" :title="`animated — ${entry.frames!.length} frames`">▶</span>{{ entry.name }}
-        </div>
+    <div
+      v-for="{ sheet, entry, key } in visibleCells"
+      :key="key"
+      class="cell"
+      @click="emit('select', sheet.sheetPngFilename, entry.name)"
+    >
+      <span v-if="flaggedKeys.has(key)" class="flag-dot" title="Open flag" />
+      <span v-if="needsReviewKeys.has(key)" class="review-badge" title="Tentatively fixed — needs your review">🔍</span>
+      <span v-if="licenseOkKeys.has(key)" class="license-badge ok">✓</span>
+      <span v-if="licenseFlaggedKeys.has(key)" class="license-badge unlicensed">⚠</span>
+      <canvas :ref="(el) => drawCrop(el as HTMLCanvasElement, sheet, entry)" class="pixelated" />
+      <div class="name">
+        <span v-if="(entry.frames?.length ?? 0) > 1" class="anim-badge" :title="`animated — ${entry.frames!.length} frames`">▶</span>{{ entry.name }}
       </div>
-    </template>
+    </div>
   </div>
 </template>
 

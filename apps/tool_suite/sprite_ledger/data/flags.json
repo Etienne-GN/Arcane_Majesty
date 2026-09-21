@@ -2681,5 +2681,45 @@
     "createdAt": "2026-09-14T17:46:01.011Z",
     "resolvedAt": null,
     "remappedFrom": "barrel_stack_base"
+  },
+  {
+    "id": "f_483ebcb6-5baa-4293-893d-5553a9c77133",
+    "sheet": "base_out_atlas.png",
+    "name": "bridge_railing_ramp_up",
+    "reason": "wrong_name",
+    "comment": "Those are part of a barrel trio",
+    "status": "open",
+    "createdAt": "2026-09-20T21:17:02.250Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_76fbadd1-45cb-46a5-8916-b27a6d6e24d6",
+    "sheet": "base_out_atlas.png",
+    "name": "bridge_railing_fill_a",
+    "reason": "wrong_name",
+    "comment": "Those are part of a barrel trio",
+    "status": "open",
+    "createdAt": "2026-09-20T21:17:21.724Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6d1f7deb-ae9a-4cda-8a52-e0190953ca25",
+    "sheet": "base_out_atlas.png",
+    "name": "bridge_underside_pilings",
+    "reason": "wrong_name",
+    "comment": "Those are parts of a barrel trio",
+    "status": "open",
+    "createdAt": "2026-09-20T21:17:38.922Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5b439690-1df3-43bb-b39e-dcb9d8b5ba8e",
+    "sheet": "base_out_atlas.png",
+    "name": "bridge_railing_fill_b",
+    "reason": "wrong_name",
+    "comment": "Those are part of a barrel trio",
+    "status": "open",
+    "createdAt": "2026-09-20T21:17:57.519Z",
+    "resolvedAt": null
   }
 ]

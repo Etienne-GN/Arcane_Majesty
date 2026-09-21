@@ -29,6 +29,10 @@ export const DIR_COLLECTIONS = {
     'generic_rpg_pack_vacaroxa': 'generic_rpg_vacaroxa',
     'hana_caraka_topdown_sample': 'hana_caraka',
     'lpc': 'lpc',
+    // The 4 big LPC atlases each get their own sub-collection (see
+    // LPC_SHEET_COLLECTIONS below) — this entry is the fallback for
+    // everything else still cataloged in the same directory (items1,
+    // effects, treetop, trunk).
     'manaseed_seasonal_forest_sample_autumn': 'manaseed',
     'manaseed_seasonal_forest_sample_spring': 'manaseed',
     'manaseed_seasonal_forest_sample_summer': 'manaseed',
@@ -64,7 +68,22 @@ export const DIR_COLLECTIONS = {
     'woolly_lands_tofebaa': 'woolly_lands',
 };
 
+// The 'lpc' directory holds 4 big atlases (1700-1900 entries each — 72% of
+// the whole ledger between them) plus a handful of small leftover sheets
+// (items1, effects, treetop, trunk). Splitting the 4 atlases into their own
+// collections is what makes browsing any one of them lighter than the
+// combined pile; the leftovers stay bucketed under plain 'lpc'.
+export const LPC_SHEET_COLLECTIONS = {
+    'base_out_atlas.png': 'lpc_base_out',
+    'build_atlas.png': 'lpc_build',
+    'terrain_atlas.png': 'lpc_terrain',
+    'obj_misk_atlas.png': 'lpc_obj_misk',
+};
+
 export function seedDefaultCollection(sheetPngFilename, sheetDirName) {
+    if (sheetDirName === 'lpc') {
+        return LPC_SHEET_COLLECTIONS[sheetPngFilename] ?? 'lpc';
+    }
     const known = DIR_COLLECTIONS[sheetDirName];
     if (known) return known;
     // A genuinely new pack still lands in 'uncollected' — that's the queue

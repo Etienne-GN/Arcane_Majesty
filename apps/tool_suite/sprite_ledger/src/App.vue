@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
+import Home from './components/Home.vue';
 import CollectionSidebar from './components/CollectionSidebar.vue';
 import SpriteGrid from './components/SpriteGrid.vue';
 import SpriteDetail from './components/SpriteDetail.vue';
@@ -12,6 +13,13 @@ const spriteMeta = ref<Record<string, { collection: string; license?: LicenseSta
 // Every flag that isn't resolved yet — both fresh reports and ones Claude
 // has tentatively fixed but a human hasn't approved (or sent back) yet.
 const pendingFlags = ref<Flag[]>([]);
+
+// The ledger used to dump straight into the "All" grid on load, which meant
+// every visit paid for mounting the whole 10,000+-sprite collection (72% of
+// it LPC) before you'd even picked what to look at. Home is a lightweight
+// dashboard — no grid, no canvases — that's the actual landing page now;
+// "browse" is the old sidebar+grid view, entered by picking something.
+const view = ref<'home' | 'browse'>('home');
 
 const activeCollectionId = ref<string | null>(null);
 const activeSheet = ref<string | null>(null); // null = "All sheets"
@@ -125,6 +133,21 @@ function onSelect(sheetPngFilename: string, entryName: string) {
     selected.value = { sheetPngFilename, entryName };
 }
 
+function goHome() {
+    view.value = 'home';
+}
+
+function onHomeSelectCollection(id: string | null) {
+    activeCollectionId.value = id;
+    view.value = 'browse';
+}
+
+function onHomeSelectFlagFilter(value: 'open' | 'needs_review') {
+    activeCollectionId.value = null;
+    flagFilter.value = value;
+    view.value = 'browse';
+}
+
 async function onAddCollection(name: string) {
     if (!name.trim()) return;
     const id = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
@@ -144,33 +167,46 @@ async function onAddCollection(name: string) {
 <template>
   <div class="layout">
     <div v-if="errorMessage" class="error-banner">{{ errorMessage }}</div>
-    <CollectionSidebar
+    <Home
+      v-if="view === 'home'"
       :collections="collections"
-      :active-collection-id="activeCollectionId"
-      :sheet-names="sheetNames"
-      :active-sheet="activeSheet"
-      :flag-filter="flagFilter"
-      :animated-only="animatedOnly"
-      :search-text="searchText"
       :counts="counts"
-      :license-filter="licenseFilter"
-      @select-collection="(id) => activeCollectionId = id"
-      @select-sheet="(sheet) => activeSheet = sheet"
-      @select-flag="(v) => flagFilter = v"
-      @toggle-animated-only="animatedOnly = !animatedOnly"
-      @update-search="(v) => searchText = v"
-      @add-collection="onAddCollection"
-      @select-license="(v) => licenseFilter = v"
+      :open-flag-count="openFlagKeys.size"
+      :needs-review-count="needsReviewKeys.size"
+      :unlicensed-count="licenseFlaggedKeys.size"
+      @select-collection="onHomeSelectCollection"
+      @select-flag-filter="onHomeSelectFlagFilter"
     />
-    <SpriteGrid
-      :sheets="sheets"
-      :visible-keys="visibleKeys"
-      :flagged-keys="openFlagKeys"
-      :needs-review-keys="needsReviewKeys"
-      :license-ok-keys="licenseOkKeys"
-      :license-flagged-keys="licenseFlaggedKeys"
-      @select="onSelect"
-    />
+    <template v-else>
+      <CollectionSidebar
+        :collections="collections"
+        :active-collection-id="activeCollectionId"
+        :sheet-names="sheetNames"
+        :active-sheet="activeSheet"
+        :flag-filter="flagFilter"
+        :animated-only="animatedOnly"
+        :search-text="searchText"
+        :counts="counts"
+        :license-filter="licenseFilter"
+        @go-home="goHome"
+        @select-collection="(id) => activeCollectionId = id"
+        @select-sheet="(sheet) => activeSheet = sheet"
+        @select-flag="(v) => flagFilter = v"
+        @toggle-animated-only="animatedOnly = !animatedOnly"
+        @update-search="(v) => searchText = v"
+        @add-collection="onAddCollection"
+        @select-license="(v) => licenseFilter = v"
+      />
+      <SpriteGrid
+        :sheets="sheets"
+        :visible-keys="visibleKeys"
+        :flagged-keys="openFlagKeys"
+        :needs-review-keys="needsReviewKeys"
+        :license-ok-keys="licenseOkKeys"
+        :license-flagged-keys="licenseFlaggedKeys"
+        @select="onSelect"
+      />
+    </template>
     <SpriteDetail
       v-if="selected"
       :sheet-png-filename="selected.sheetPngFilename"

@@ -29,7 +29,23 @@
   },
   {
     "id": "lpc",
-    "name": "LPC (Liberated Pixel Cup)"
+    "name": "LPC — misc (items/effects/leftovers)"
+  },
+  {
+    "id": "lpc_base_out",
+    "name": "LPC — Base/Out"
+  },
+  {
+    "id": "lpc_build",
+    "name": "LPC — Build"
+  },
+  {
+    "id": "lpc_terrain",
+    "name": "LPC — Terrain"
+  },
+  {
+    "id": "lpc_obj_misk",
+    "name": "LPC — Objects/Misk"
   },
   {
     "id": "nyx_snowy",
