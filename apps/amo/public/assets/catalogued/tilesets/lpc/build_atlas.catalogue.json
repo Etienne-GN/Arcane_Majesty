@@ -2112,12 +2112,12 @@
       ]
     },
     {
-      "name": "barrel_cluster_pair",
+      "name": "barrel_cluster_trio",
       "kind": "object",
       "x": 992,
       "y": 256,
       "w": 32,
-      "h": 64,
+      "h": 128,
       "tags": [
         "lpc",
         "atlas",
@@ -2598,20 +2598,6 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
-    },
-    {
-      "name": "barrel_single_c",
-      "kind": "object",
-      "x": 992,
-      "y": 320,
-      "w": 32,
-      "h": 64,
-      "tags": [
-        "lpc",
-        "atlas",
-        "barrel",
-        "container"
       ]
     },
     {

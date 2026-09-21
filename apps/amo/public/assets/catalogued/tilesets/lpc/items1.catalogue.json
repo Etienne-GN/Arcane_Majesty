@@ -772,15 +772,29 @@
       ]
     },
     {
-      "name": "lpc_arrows_pair",
+      "name": "lpc_dagger_dark_hilt",
       "kind": "object",
       "x": 393,
       "y": 280,
-      "w": 53,
+      "w": 21,
       "h": 8,
       "tags": [
         "lpc",
-        "items"
+        "items",
+        "dagger"
+      ]
+    },
+    {
+      "name": "lpc_dagger_dark_hilt_ruby",
+      "kind": "object",
+      "x": 425,
+      "y": 280,
+      "w": 21,
+      "h": 8,
+      "tags": [
+        "lpc",
+        "items",
+        "dagger"
       ]
     },
     {
