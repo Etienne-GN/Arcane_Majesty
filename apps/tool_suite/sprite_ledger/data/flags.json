@@ -2143,9 +2143,9 @@
     "name": "gargoyle_statue_gray",
     "reason": "misaligned",
     "comment": "still need closer cropping",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T13:36:54.736Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:54:49.059Z"
   },
   {
     "id": "f_7ace1e7f-060a-44e0-affd-d03a709f6dd4",
@@ -2283,9 +2283,9 @@
     "name": "crate_wood_light_b",
     "reason": "misaligned",
     "comment": "missing open cover of the chest",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:20:54.033Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:54:20.995Z"
   },
   {
     "id": "f_988fc8b7-1885-453b-a6cf-eae34a2080f6",
@@ -2293,9 +2293,9 @@
     "name": "crate_wood_gray_b",
     "reason": "misaligned",
     "comment": "missing open cover of the chest",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:20:59.034Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:54:28.085Z"
   },
   {
     "id": "f_ea77edd9-30a8-4ec8-a7d2-393d7ed22cab",
@@ -2303,9 +2303,9 @@
     "name": "chest_open_red",
     "reason": "misaligned",
     "comment": "missing open cover of the chest",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:21:01.521Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:54:34.343Z"
   },
   {
     "id": "f_a3e0915e-7ff7-4797-b047-b8b70fabca96",
@@ -2313,9 +2313,9 @@
     "name": "chest_open_gold",
     "reason": "misaligned",
     "comment": "missing open cover of the chest",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:21:03.955Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T13:54:41.137Z"
   },
   {
     "id": "f_d597264f-76c1-46f8-bb3b-c0fbdb53b4ea",
@@ -2728,7 +2728,7 @@
     "name": "wood_rimmed_basin_empty",
     "reason": "misaligned",
     "comment": "this is the top of an empty barrel, pretty sure the bottom is missing",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T13:51:17.824Z",
     "resolvedAt": null
   },
@@ -2738,8 +2738,58 @@
     "name": "wood_rimmed_basin_water",
     "reason": "misaligned",
     "comment": "this is the top of a water barrel, pretty sure the bottom is missing",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T13:53:01.262Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_981c940f-bccd-4c61-aabe-545ae712a7ca",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "crate_wood_light_b",
+    "reason": "misaligned",
+    "comment": "i think previous was OK then, you have to split this exactly in 2 top half is closed chest, bottom is opened chest",
+    "status": "open",
+    "createdAt": "2026-09-21T13:54:13.761Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_7c55b153-074d-4688-82a4-990522bff77b",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "crate_wood_gray_b",
+    "reason": "misaligned",
+    "comment": "i think previous was OK then, you have to split this exactly in 2 top half is closed chest, bottom is opened chest",
+    "status": "open",
+    "createdAt": "2026-09-21T13:54:25.603Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f98bbca9-eab2-4fe2-953e-066a6df6b6bd",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "chest_open_red",
+    "reason": "misaligned",
+    "comment": "i think previous was OK then, you have to split this exactly in 2 top half is closed chest, bottom is opened chest",
+    "status": "open",
+    "createdAt": "2026-09-21T13:54:32.012Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_208592ea-0532-4d71-b13c-df1128b7ffd8",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "chest_open_gold",
+    "reason": "misaligned",
+    "comment": "i think previous was OK then, you have to split this exactly in 2 top half is closed chest, bottom is opened chest",
+    "status": "open",
+    "createdAt": "2026-09-21T13:54:39.330Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e9f54538-036e-49e8-b8d7-0570b550cc28",
+    "sheet": "log_horizontal_single.png",
+    "name": "log_horizontal_single",
+    "reason": "misaligned",
+    "comment": "i think it is too much cropped at the top, not sure... ",
+    "status": "open",
+    "createdAt": "2026-09-21T13:55:34.164Z",
     "resolvedAt": null
   }
 ]
