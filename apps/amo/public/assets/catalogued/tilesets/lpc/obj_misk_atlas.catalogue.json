@@ -3494,14 +3494,18 @@
       ]
     },
     {
-      "name": "sword_pile_scatter_b",
-      "kind": "tile",
-      "row": 12,
-      "col": 23,
-      "frameIndex": 407,
+      "name": "toilet_pedestal_white",
+      "kind": "object",
+      "x": 736,
+      "y": 384,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "furniture",
+        "bathroom",
+        "toilet"
       ]
     },
     {
@@ -3788,17 +3792,6 @@
       "row": 13,
       "col": 19,
       "frameIndex": 435,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "file_tool_scatter_a",
-      "kind": "tile",
-      "row": 13,
-      "col": 23,
-      "frameIndex": 439,
       "tags": [
         "lpc",
         "atlas"
@@ -5411,24 +5404,16 @@
     },
     {
       "name": "steak_raw_single_a",
-      "kind": "tile",
-      "row": 19,
-      "col": 1,
-      "frameIndex": 609,
+      "kind": "object",
+      "x": 32,
+      "y": 608,
+      "w": 64,
+      "h": 32,
       "tags": [
         "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "sack_burlap_greens_c",
-      "kind": "tile",
-      "row": 19,
-      "col": 2,
-      "frameIndex": 610,
-      "tags": [
-        "lpc",
-        "atlas"
+        "atlas",
+        "meat",
+        "food"
       ]
     },
     {

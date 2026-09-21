@@ -1516,7 +1516,7 @@
       ]
     },
     {
-      "name": "rope_ladder_descending",
+      "name": "bridge_rope_v_span",
       "kind": "object",
       "x": 320,
       "y": 128,
@@ -1525,7 +1525,7 @@
       "tags": [
         "lpc",
         "atlas",
-        "ladder",
+        "bridge",
         "rope"
       ]
     },

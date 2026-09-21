@@ -9,7 +9,7 @@
       "x": 0,
       "y": 0,
       "w": 32,
-      "h": 33,
+      "h": 48,
       "tags": [
         "roleworld_wizard",
         "pixel_sazy",
@@ -18,7 +18,7 @@
       ]
     },
     {
-      "name": "armchair_pink",
+      "name": "armchair_magenta",
       "kind": "object",
       "x": 33,
       "y": 0,
@@ -107,10 +107,10 @@
     {
       "name": "round_table",
       "kind": "object",
-      "x": 68,
-      "y": 96,
-      "w": 48,
-      "h": 32,
+      "x": 56,
+      "y": 90,
+      "w": 64,
+      "h": 42,
       "tags": [
         "roleworld_wizard",
         "pixel_sazy",
@@ -119,17 +119,58 @@
       ]
     },
     {
-      "name": "small_furniture_row",
+      "name": "stool_wood_round",
       "kind": "object",
       "x": 0,
-      "y": 112,
-      "w": 68,
-      "h": 16,
+      "y": 100,
+      "w": 14,
+      "h": 30,
       "tags": [
         "roleworld_wizard",
         "pixel_sazy",
         "furniture",
-        "props",
+        "small"
+      ]
+    },
+    {
+      "name": "table_small_wood_round",
+      "kind": "object",
+      "x": 14,
+      "y": 100,
+      "w": 14,
+      "h": 30,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "furniture",
+        "small"
+      ]
+    },
+    {
+      "name": "plant_potted_green",
+      "kind": "object",
+      "x": 28,
+      "y": 100,
+      "w": 14,
+      "h": 30,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "furniture",
+        "small"
+      ]
+    },
+    {
+      "name": "cloth_folded_purple",
+      "kind": "object",
+      "x": 42,
+      "y": 100,
+      "w": 13,
+      "h": 30,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "furniture",
         "small"
       ]
     }

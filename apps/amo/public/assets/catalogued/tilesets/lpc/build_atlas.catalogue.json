@@ -92,14 +92,17 @@
       ]
     },
     {
-      "name": "hanging_medallion_finial",
+      "name": "hanging_gear_chain",
       "kind": "tile",
       "row": 0,
       "col": 7,
       "frameIndex": 7,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "gear",
+        "chain",
+        "mechanism"
       ]
     },
     {
@@ -254,7 +257,7 @@
       "kind": "object",
       "x": 832,
       "y": 0,
-      "w": 192,
+      "w": 160,
       "h": 128,
       "tags": [
         "lpc",
@@ -453,14 +456,16 @@
       ]
     },
     {
-      "name": "rune_socket_lit_a",
+      "name": "maroon_base_trim_socket_water",
       "kind": "tile",
       "row": 1,
       "col": 24,
       "frameIndex": 56,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "socket",
+        "water"
       ]
     },
     {
@@ -695,14 +700,17 @@
       ]
     },
     {
-      "name": "rune_socket_lit_b",
+      "name": "brick_base_trim_socket_water",
       "kind": "tile",
       "row": 2,
       "col": 24,
       "frameIndex": 88,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "socket",
+        "water",
+        "brick"
       ]
     },
     {
@@ -1104,7 +1112,7 @@
       ]
     },
     {
-      "name": "flagpole_with_banner",
+      "name": "flagpole_tricolor_banner",
       "kind": "object",
       "x": 352,
       "y": 128,
@@ -2112,7 +2120,7 @@
       ]
     },
     {
-      "name": "barrel_cluster_trio",
+      "name": "barrel_cluster_edge_cropped",
       "kind": "object",
       "x": 992,
       "y": 256,
@@ -3042,14 +3050,16 @@
       ]
     },
     {
-      "name": "violet_brick_wall_top_fill",
+      "name": "chinese_lantern_red_hanging",
       "kind": "tile",
       "row": 12,
       "col": 19,
       "frameIndex": 403,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "lantern",
+        "prop"
       ]
     },
     {
@@ -3475,14 +3485,16 @@
       ]
     },
     {
-      "name": "barrel_tile_roof_eave_drip_a",
+      "name": "wood_bucket_top_empty",
       "kind": "tile",
       "row": 13,
       "col": 31,
       "frameIndex": 447,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "bucket",
+        "container"
       ]
     },
     {
@@ -4293,7 +4305,7 @@
       ]
     },
     {
-      "name": "sienna_brick_wall_top_post_left_a",
+      "name": "canvas_tent_a",
       "kind": "object",
       "x": 416,
       "y": 512,
@@ -5076,14 +5088,16 @@
       ]
     },
     {
-      "name": "sienna_brick_wall_trim_strip_a",
+      "name": "metal_grate_round_vent",
       "kind": "tile",
       "row": 19,
       "col": 12,
       "frameIndex": 620,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "grate",
+        "vent"
       ]
     },
     {
@@ -5131,18 +5145,20 @@
       ]
     },
     {
-      "name": "sienna_brick_wall_trim_post_left_b",
+      "name": "shop_sign_inn_purple",
       "kind": "tile",
       "row": 19,
       "col": 21,
       "frameIndex": 629,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "prop",
+        "sign"
       ]
     },
     {
-      "name": "sienna_brick_wall_trim_post_right_b",
+      "name": "wood_cart_wheeled_a",
       "kind": "object",
       "x": 704,
       "y": 608,
@@ -5381,47 +5397,55 @@
       ]
     },
     {
-      "name": "vermillion_stake_post_b",
+      "name": "shop_sign_sword_purple_a",
       "kind": "tile",
       "row": 20,
       "col": 17,
       "frameIndex": 657,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "prop",
+        "sign"
       ]
     },
     {
-      "name": "vermillion_wood_post_a_top",
+      "name": "shop_sign_potion_purple_a",
       "kind": "tile",
       "row": 20,
       "col": 18,
       "frameIndex": 658,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "prop",
+        "sign"
       ]
     },
     {
-      "name": "vermillion_wood_post_b_top",
+      "name": "shop_sign_sword_purple_b",
       "kind": "tile",
       "row": 20,
       "col": 19,
       "frameIndex": 659,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "prop",
+        "sign"
       ]
     },
     {
-      "name": "vermillion_wood_post_c_top",
+      "name": "shop_sign_potion_purple_b",
       "kind": "tile",
       "row": 20,
       "col": 20,
       "frameIndex": 660,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "prop",
+        "sign"
       ]
     },
     {
@@ -5671,25 +5695,32 @@
       ]
     },
     {
-      "name": "vermillion_wood_post_a_upper",
-      "kind": "tile",
-      "row": 21,
-      "col": 15,
-      "frameIndex": 687,
+      "name": "wood_chest_tall_closed_banded",
+      "kind": "object",
+      "x": 480,
+      "y": 672,
+      "w": 32,
+      "h": 96,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "chest",
+        "container",
+        "closed"
       ]
     },
     {
-      "name": "vermillion_wood_post_b_upper",
+      "name": "brown_chest_hollow_body",
       "kind": "tile",
       "row": 21,
       "col": 16,
       "frameIndex": 688,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "chest",
+        "container",
+        "open"
       ]
     },
     {
@@ -5704,7 +5735,7 @@
       ]
     },
     {
-      "name": "vermillion_wood_post_d_upper",
+      "name": "wood_cart_empty_a",
       "kind": "object",
       "x": 608,
       "y": 672,
@@ -5719,7 +5750,7 @@
       ]
     },
     {
-      "name": "vermillion_gate_lintel_shaft_left_upper",
+      "name": "wood_cart_hay_pitchfork",
       "kind": "object",
       "x": 672,
       "y": 672,
@@ -5955,17 +5986,6 @@
       ]
     },
     {
-      "name": "vermillion_wood_post_a_lower",
-      "kind": "tile",
-      "row": 22,
-      "col": 15,
-      "frameIndex": 719,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
       "name": "vermillion_wood_post_b_lower",
       "kind": "tile",
       "row": 22,
@@ -6144,17 +6164,6 @@
       "row": 23,
       "col": 14,
       "frameIndex": 750,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "wood_chest_closed_b",
-      "kind": "tile",
-      "row": 23,
-      "col": 15,
-      "frameIndex": 751,
       "tags": [
         "lpc",
         "atlas"
@@ -6428,14 +6437,18 @@
       ]
     },
     {
-      "name": "brown_chest_lid_banded",
-      "kind": "tile",
-      "row": 24,
-      "col": 15,
-      "frameIndex": 783,
+      "name": "brown_chest_open_banded",
+      "kind": "object",
+      "x": 480,
+      "y": 768,
+      "w": 32,
+      "h": 64,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "chest",
+        "container",
+        "open"
       ]
     },
     {
@@ -6741,17 +6754,6 @@
       "row": 25,
       "col": 14,
       "frameIndex": 814,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "brown_chest_body_banded",
-      "kind": "tile",
-      "row": 25,
-      "col": 15,
-      "frameIndex": 815,
       "tags": [
         "lpc",
         "atlas"

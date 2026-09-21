@@ -2103,7 +2103,7 @@
     "name": "size_03_000",
     "reason": "misaligned",
     "comment": "there are 6 trees in this",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-14T13:34:26.087Z",
     "resolvedAt": null
   },
@@ -2203,7 +2203,7 @@
     "name": "tree_brown",
     "reason": "misaligned",
     "comment": "seem a little too much cropped on the left..",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-14T16:42:31.803Z",
     "resolvedAt": null
   },
@@ -2223,7 +2223,7 @@
     "name": "potion_green_small",
     "reason": "misaligned",
     "comment": "there are 2 potions in this, a green and a blue",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-14T16:43:37.107Z",
     "resolvedAt": null
   },
@@ -2233,7 +2233,7 @@
     "name": "potion_blue_small",
     "reason": "misaligned",
     "comment": "there are 2 items in here, a small gold potion and a gold coin.",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-14T16:44:01.392Z",
     "resolvedAt": null
   },
@@ -2243,7 +2243,7 @@
     "name": "round_table",
     "reason": "misaligned",
     "comment": "too much cropped on the left side",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-14T16:44:22.796Z",
     "resolvedAt": null
   },
@@ -2253,7 +2253,7 @@
     "name": "small_furniture_row",
     "reason": "misaligned",
     "comment": "there are 4 items and at the extreme right a part of the table in \"round_table\" ",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-14T16:44:59.519Z",
     "resolvedAt": null
   },
@@ -2263,7 +2263,7 @@
     "name": "armchair_pink",
     "reason": "wrong_name",
     "comment": "this is more red than pink ",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-14T16:45:12.481Z",
     "resolvedAt": null
   },
@@ -2273,7 +2273,7 @@
     "name": "bed",
     "reason": "misaligned",
     "comment": "feels too much cropped at the bottom",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-14T16:45:30.559Z",
     "resolvedAt": null
   },
@@ -2545,7 +2545,7 @@
     "name": "rock_cluster_mossy_shore",
     "reason": "misaligned",
     "comment": "there are 2 rocks in there",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-14T17:32:05.457Z",
     "resolvedAt": null
   },
@@ -2788,7 +2788,7 @@
     "name": "log_horizontal_single",
     "reason": "misaligned",
     "comment": "i think it is too much cropped at the top, not sure... ",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T13:55:34.164Z",
     "resolvedAt": null
   },
@@ -2798,7 +2798,7 @@
     "name": "wood_rimmed_basin_water",
     "reason": "misaligned",
     "comment": "i think previous was OK then, you have to split this exactly in 2 top half is closed chest, bottom is opened chest",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T13:56:20.602Z",
     "resolvedAt": null
   },
@@ -2807,8 +2807,8 @@
     "sheet": "build_atlas.png",
     "name": "wood_rimmed_basin_empty",
     "reason": "misaligned",
-    "comment": "misaligned — this is the top of an empty barrel, pretty sure the bottom is missing",
-    "status": "open",
+    "comment": "misaligned \u2014 this is the top of an empty barrel, pretty sure the bottom is missing",
+    "status": "needs_review",
     "createdAt": "2026-09-21T13:56:32.276Z",
     "resolvedAt": null
   },
@@ -2898,7 +2898,7 @@
     "name": "size_03_001",
     "reason": "misaligned",
     "comment": "those are 2 trees, split horizontally to get them both",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T14:04:33.231Z",
     "resolvedAt": null
   },
@@ -2908,7 +2908,7 @@
     "name": "chest_gold_closed_a",
     "reason": "wrong_name",
     "comment": "rename this chest-closed_red so it matches the closed version",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T14:32:47.138Z",
     "resolvedAt": null
   },
@@ -2918,7 +2918,7 @@
     "name": "chest_gold_closed_b",
     "reason": "wrong_name",
     "comment": "rename this chest_closed_gold so it match with the opened version",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T14:33:09.971Z",
     "resolvedAt": null
   },
@@ -2938,7 +2938,7 @@
     "name": "alchemy_table_01-sheet",
     "reason": "other",
     "comment": "i think the last few frames are empty, so the animation dissapears at the end, make sure the fram count is good",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T14:34:28.920Z",
     "resolvedAt": null
   },
@@ -2948,7 +2948,7 @@
     "name": "rope_ladder_descending",
     "reason": "wrong_name",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T14:36:32.710Z",
     "resolvedAt": null
   },
@@ -2958,7 +2958,7 @@
     "name": "rope_ladder_descending",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T14:36:33.765Z",
     "resolvedAt": null
   },
@@ -2968,7 +2968,7 @@
     "name": "hanging_medallion_finial",
     "reason": "wrong_name",
     "comment": "this is a gear with a chain",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:19:09.126Z",
     "resolvedAt": null
   },
@@ -2978,7 +2978,7 @@
     "name": "windmill",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:19:24.786Z",
     "resolvedAt": null
   },
@@ -2988,7 +2988,7 @@
     "name": "torii_gate_large",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:19:36.452Z",
     "resolvedAt": null
   },
@@ -3037,8 +3037,8 @@
     "sheet": "build_atlas.png",
     "name": "rune_socket_lit_b",
     "reason": "wrong_name",
-    "comment": "wrong_name — its a variant of \"maroon_base_trim_socket\" but with bricks instead of the maroon and with water at the base",
-    "status": "open",
+    "comment": "wrong_name \u2014 its a variant of \"maroon_base_trim_socket\" but with bricks instead of the maroon and with water at the base",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:21:38.541Z",
     "resolvedAt": null
   },
@@ -3047,8 +3047,8 @@
     "sheet": "build_atlas.png",
     "name": "rune_socket_lit_a",
     "reason": "wrong_name",
-    "comment": "wrong_name — its a variant of \"maroon_base_trim_socket\" but with water at the base",
-    "status": "open",
+    "comment": "wrong_name \u2014 its a variant of \"maroon_base_trim_socket\" but with water at the base",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:21:59.737Z",
     "resolvedAt": null
   },
@@ -3058,7 +3058,7 @@
     "name": "flagpole_with_banner",
     "reason": "wrong_name",
     "comment": "to be more precise, this is a flagpole with the french flag haning on it",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:22:32.124Z",
     "resolvedAt": null
   },
@@ -3068,7 +3068,7 @@
     "name": "barrel_cluster_trio",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:23:03.361Z",
     "resolvedAt": null
   },
@@ -3088,7 +3088,7 @@
     "name": "violet_brick_wall_top_fill",
     "reason": "wrong_name",
     "comment": "LOL this is NOT violet, not brick, not wall, it looks like a round chinese lantern we can see in restaurants.",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:23:43.910Z",
     "resolvedAt": null
   },
@@ -3108,7 +3108,7 @@
     "name": "barrel_tile_roof_eave_drip_a",
     "reason": "wrong_name",
     "comment": "this is a wooden bucket, the same as \"wood_bucket_water_top\" but empty",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:25:14.861Z",
     "resolvedAt": null
   },
@@ -3118,7 +3118,7 @@
     "name": "sienna_brick_wall_top_post_left_a",
     "reason": "wrong_name",
     "comment": "this is a tent",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:25:27.909Z",
     "resolvedAt": null
   },
@@ -3128,7 +3128,7 @@
     "name": "sienna_brick_wall_trim_post_right_b",
     "reason": "wrong_name",
     "comment": "c'est une charette en bois ca",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:25:42.442Z",
     "resolvedAt": null
   },
@@ -3138,7 +3138,7 @@
     "name": "sienna_brick_wall_trim_post_left_b",
     "reason": "wrong_name",
     "comment": "INN sign",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:25:53.267Z",
     "resolvedAt": null
   },
@@ -3148,7 +3148,7 @@
     "name": "sienna_brick_wall_trim_strip_a",
     "reason": "wrong_name",
     "comment": "c'est une grille en metal pour bouche un tuyau ",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:26:11.054Z",
     "resolvedAt": null
   },
@@ -3158,7 +3158,7 @@
     "name": "vermillion_stake_post_b",
     "reason": "wrong_name",
     "comment": "weapon sign",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:26:20.677Z",
     "resolvedAt": null
   },
@@ -3168,7 +3168,7 @@
     "name": "vermillion_wood_post_a_top",
     "reason": "wrong_name",
     "comment": "potion sign",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:26:28.592Z",
     "resolvedAt": null
   },
@@ -3178,7 +3178,7 @@
     "name": "vermillion_wood_post_b_top",
     "reason": "wrong_name",
     "comment": "another weapon sign",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:26:36.239Z",
     "resolvedAt": null
   },
@@ -3188,7 +3188,7 @@
     "name": "vermillion_wood_post_c_top",
     "reason": "wrong_name",
     "comment": "another potion sign",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:26:43.503Z",
     "resolvedAt": null
   },
@@ -3198,7 +3198,7 @@
     "name": "vermillion_wood_post_d_upper",
     "reason": "wrong_name",
     "comment": "c'est une charette en bois vide",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:26:59.855Z",
     "resolvedAt": null
   },
@@ -3208,7 +3208,7 @@
     "name": "vermillion_gate_lintel_shaft_left_upper",
     "reason": "wrong_name",
     "comment": "c'est une charette en bois avec du foin et une fourche ",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:27:18.350Z",
     "resolvedAt": null
   },
@@ -3217,8 +3217,8 @@
     "sheet": "build_atlas.png",
     "name": "vermillion_wood_post_a_upper",
     "reason": "wrong_name",
-    "comment": "cofrfre de bois fermé",
-    "status": "open",
+    "comment": "cofrfre de bois ferm\u00e9",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:27:39.699Z",
     "resolvedAt": null
   },
@@ -3228,7 +3228,7 @@
     "name": "vermillion_wood_post_a_lower",
     "reason": "wrong_name",
     "comment": "coffre de bois ouvert",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:27:46.655Z",
     "resolvedAt": null
   },
@@ -3238,7 +3238,7 @@
     "name": "wood_chest_closed_b",
     "reason": "wrong_name",
     "comment": "coffre de bois sans couvercle",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:27:55.104Z",
     "resolvedAt": null
   },
@@ -3258,7 +3258,7 @@
     "name": "vermillion_wood_post_b_upper",
     "reason": "wrong_name",
     "comment": "this is \"brown_chest_lib_banded\" without lid",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:28:55.257Z",
     "resolvedAt": null
   },
@@ -3268,7 +3268,7 @@
     "name": "brown_chest_body_banded",
     "reason": "wrong_name",
     "comment": "this is \"brown_chest_lid_banded\" opened",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:29:14.925Z",
     "resolvedAt": null
   },
@@ -3278,7 +3278,7 @@
     "name": "gray_stone_shaft_b",
     "reason": "wrong_name",
     "comment": "this is a sprout not a stone",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:29:53.588Z",
     "resolvedAt": null
   },
@@ -3288,7 +3288,7 @@
     "name": "packed_dirt_fill_o",
     "reason": "wrong_name",
     "comment": "this is a gray_stone bloc not dirt",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:30:26.989Z",
     "resolvedAt": null
   },
@@ -3298,7 +3298,7 @@
     "name": "leafy_herb_sprig_tall_a",
     "reason": "wrong_name",
     "comment": "those are 3 tomatoes",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:30:36.191Z",
     "resolvedAt": null
   },
@@ -3308,7 +3308,7 @@
     "name": "berry_bush_a",
     "reason": "wrong_name",
     "comment": "this is a pepper plant\n",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:31:06.341Z",
     "resolvedAt": null
   },
@@ -3358,7 +3358,7 @@
     "name": "steak_raw_single_a",
     "reason": "misaligned",
     "comment": "this goes with sack_burglar_greens_c and its a single steak",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:32:08.126Z",
     "resolvedAt": null
   },
@@ -3368,7 +3368,7 @@
     "name": "sack_burlap_greens_c",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:32:10.875Z",
     "resolvedAt": null
   },
@@ -3448,7 +3448,7 @@
     "name": "sword_pile_scatter_b",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:32:42.348Z",
     "resolvedAt": null
   },
@@ -3478,7 +3478,7 @@
     "name": "file_tool_scatter_a",
     "reason": "misaligned",
     "comment": "",
-    "status": "open",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:32:47.160Z",
     "resolvedAt": null
   },

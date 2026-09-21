@@ -877,7 +877,7 @@
       ]
     },
     {
-      "name": "chest_gold_closed_a",
+      "name": "chest_closed_red",
       "kind": "object",
       "x": 192,
       "y": 3424,
@@ -890,7 +890,7 @@
       ]
     },
     {
-      "name": "chest_gold_closed_b",
+      "name": "chest_closed_gold",
       "kind": "object",
       "x": 224,
       "y": 3424,

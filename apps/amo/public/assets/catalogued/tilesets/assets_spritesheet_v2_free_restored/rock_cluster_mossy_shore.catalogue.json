@@ -8,8 +8,20 @@
       "kind": "object",
       "x": 3,
       "y": 6,
-      "w": 61,
+      "w": 31,
       "h": 26,
+      "tags": [
+        "schwarnhild",
+        "restored"
+      ]
+    },
+    {
+      "name": "rock_round_single_small",
+      "kind": "object",
+      "x": 45,
+      "y": 14,
+      "w": 19,
+      "h": 15,
       "tags": [
         "schwarnhild",
         "restored"

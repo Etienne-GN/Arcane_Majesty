@@ -4,7 +4,7 @@
   "sheetHeight": 352,
   "entries": [
     {
-      "name": "workbench_000",
+      "name": "workbench_stone_tier1",
       "kind": "object",
       "x": 0,
       "y": 23,
@@ -12,12 +12,13 @@
       "h": 25,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "workbench",
+        "stone"
+      ]
     },
     {
-      "name": "workbench_001",
+      "name": "workbench_stone_tier2",
       "kind": "object",
       "x": 48,
       "y": 14,
@@ -25,12 +26,13 @@
       "h": 34,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "workbench",
+        "stone"
+      ]
     },
     {
-      "name": "workbench_002",
+      "name": "workbench_stone_tier3",
       "kind": "object",
       "x": 112,
       "y": 1,
@@ -38,12 +40,13 @@
       "h": 60,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "workbench",
+        "stone"
+      ]
     },
     {
-      "name": "workbench_003",
+      "name": "workbench_carpentry_tier2",
       "kind": "object",
       "x": 48,
       "y": 72,
@@ -51,12 +54,13 @@
       "h": 40,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "workbench",
+        "carpentry"
+      ]
     },
     {
-      "name": "workbench_004",
+      "name": "workbench_carpentry_tier3",
       "kind": "object",
       "x": 103,
       "y": 64,
@@ -64,12 +68,13 @@
       "h": 48,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "workbench",
+        "carpentry"
+      ]
     },
     {
-      "name": "workbench_005",
+      "name": "workbench_carpentry_tier1",
       "kind": "object",
       "x": 0,
       "y": 84,
@@ -77,12 +82,13 @@
       "h": 28,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "workbench",
+        "carpentry"
+      ]
     },
     {
-      "name": "workbench_006",
+      "name": "workbench_tech_tier2",
       "kind": "object",
       "x": 48,
       "y": 115,
@@ -90,12 +96,13 @@
       "h": 45,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "workbench",
+        "tech"
+      ]
     },
     {
-      "name": "workbench_007",
+      "name": "workbench_tech_tier3",
       "kind": "object",
       "x": 112,
       "y": 115,
@@ -103,12 +110,13 @@
       "h": 61,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "workbench",
+        "tech"
+      ]
     },
     {
-      "name": "workbench_008",
+      "name": "workbench_tech_tier1",
       "kind": "object",
       "x": 0,
       "y": 135,
@@ -116,12 +124,13 @@
       "h": 25,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "workbench",
+        "tech"
+      ]
     },
     {
-      "name": "workbench_009",
+      "name": "rubble_pile_tier2",
       "kind": "object",
       "x": 48,
       "y": 190,
@@ -129,12 +138,13 @@
       "h": 34,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "rubble",
+        "resource"
+      ]
     },
     {
-      "name": "workbench_010",
+      "name": "rubble_pile_tier3",
       "kind": "object",
       "x": 112,
       "y": 178,
@@ -142,12 +152,13 @@
       "h": 59,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "rubble",
+        "resource"
+      ]
     },
     {
-      "name": "workbench_011",
+      "name": "rubble_pile_tier1",
       "kind": "object",
       "x": 0,
       "y": 199,
@@ -155,12 +166,13 @@
       "h": 25,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "rubble",
+        "resource"
+      ]
     },
     {
-      "name": "workbench_012",
+      "name": "workbench_wood_plain_tier1",
       "kind": "object",
       "x": 0,
       "y": 265,
@@ -168,12 +180,13 @@
       "h": 23,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "workbench",
+        "wood"
+      ]
     },
     {
-      "name": "workbench_013",
+      "name": "workbench_wood_plain_tier2",
       "kind": "object",
       "x": 48,
       "y": 250,
@@ -181,12 +194,13 @@
       "h": 38,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "workbench",
+        "wood"
+      ]
     },
     {
-      "name": "workbench_014",
+      "name": "workbench_wood_plain_tier3",
       "kind": "object",
       "x": 104,
       "y": 246,
@@ -194,12 +208,13 @@
       "h": 42,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "workbench",
+        "wood"
+      ]
     },
     {
-      "name": "workbench_015",
+      "name": "workbench_steel_plain_tier2",
       "kind": "object",
       "x": 48,
       "y": 294,
@@ -207,12 +222,13 @@
       "h": 42,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "workbench",
+        "steel"
+      ]
     },
     {
-      "name": "workbench_016",
+      "name": "workbench_steel_plain_tier3",
       "kind": "object",
       "x": 112,
       "y": 294,
@@ -220,12 +236,13 @@
       "h": 58,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "workbench",
+        "steel"
+      ]
     },
     {
-      "name": "workbench_017",
+      "name": "workbench_steel_plain_tier1",
       "kind": "object",
       "x": 0,
       "y": 313,
@@ -233,9 +250,10 @@
       "h": 23,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "workbench",
+        "steel"
+      ]
     }
   ]
 }

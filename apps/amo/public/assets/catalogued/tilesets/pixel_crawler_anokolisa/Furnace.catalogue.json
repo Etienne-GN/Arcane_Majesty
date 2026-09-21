@@ -4,7 +4,7 @@
   "sheetHeight": 384,
   "entries": [
     {
-      "name": "furnace_000",
+      "name": "furnace_stone_lit_tier1",
       "kind": "object",
       "x": 0,
       "y": 26,
@@ -12,12 +12,14 @@
       "h": 38,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "furnace",
+        "stone",
+        "lit"
+      ]
     },
     {
-      "name": "furnace_001",
+      "name": "furnace_stone_lit_tier2",
       "kind": "object",
       "x": 52,
       "y": 15,
@@ -25,12 +27,14 @@
       "h": 49,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "furnace",
+        "stone",
+        "lit"
+      ]
     },
     {
-      "name": "furnace_002",
+      "name": "furnace_stone_lit_tier3",
       "kind": "object",
       "x": 115,
       "y": 2,
@@ -38,12 +42,14 @@
       "h": 62,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "furnace",
+        "stone",
+        "lit"
+      ]
     },
     {
-      "name": "furnace_003",
+      "name": "furnace_brick_lit_tier1",
       "kind": "object",
       "x": 1,
       "y": 87,
@@ -51,12 +57,14 @@
       "h": 41,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "furnace",
+        "brick",
+        "lit"
+      ]
     },
     {
-      "name": "furnace_004",
+      "name": "furnace_brick_lit_tier2",
       "kind": "object",
       "x": 54,
       "y": 71,
@@ -64,25 +72,38 @@
       "h": 57,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "furnace",
+        "brick",
+        "lit"
+      ]
     },
     {
-      "name": "furnace_005",
+      "name": "furnace_brick_lit_tier3",
       "kind": "object",
       "x": 112,
       "y": 68,
       "w": 77,
-      "h": 124,
+      "h": 60,
       "tags": [
         "pixel_crawler",
         "anokolisa"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "furnace_006",
+      "name": "furnace_steel_lit_tier3",
+      "kind": "object",
+      "x": 112,
+      "y": 128,
+      "w": 77,
+      "h": 64,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ]
+    },
+    {
+      "name": "furnace_steel_lit_tier1",
       "kind": "object",
       "x": 0,
       "y": 147,
@@ -90,12 +111,14 @@
       "h": 45,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "furnace",
+        "steel",
+        "lit"
+      ]
     },
     {
-      "name": "furnace_007",
+      "name": "furnace_steel_lit_tier2",
       "kind": "object",
       "x": 53,
       "y": 133,
@@ -103,12 +126,14 @@
       "h": 59,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "furnace",
+        "steel",
+        "lit"
+      ]
     },
     {
-      "name": "furnace_008",
+      "name": "furnace_stone_unlit_tier2",
       "kind": "object",
       "x": 52,
       "y": 207,
@@ -116,12 +141,14 @@
       "h": 49,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "furnace",
+        "stone",
+        "unlit"
+      ]
     },
     {
-      "name": "furnace_009",
+      "name": "furnace_stone_unlit_tier3",
       "kind": "object",
       "x": 115,
       "y": 194,
@@ -129,12 +156,14 @@
       "h": 62,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "furnace",
+        "stone",
+        "unlit"
+      ]
     },
     {
-      "name": "furnace_010",
+      "name": "furnace_stone_unlit_tier1",
       "kind": "object",
       "x": 0,
       "y": 218,
@@ -142,12 +171,14 @@
       "h": 38,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "furnace",
+        "stone",
+        "unlit"
+      ]
     },
     {
-      "name": "furnace_011",
+      "name": "furnace_brick_unlit_tier2",
       "kind": "object",
       "x": 54,
       "y": 263,
@@ -155,25 +186,38 @@
       "h": 57,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "furnace",
+        "brick",
+        "unlit"
+      ]
     },
     {
-      "name": "furnace_012",
+      "name": "furnace_brick_unlit_tier3",
       "kind": "object",
       "x": 112,
       "y": 260,
       "w": 77,
-      "h": 124,
+      "h": 60,
       "tags": [
         "pixel_crawler",
         "anokolisa"
-      ],
-      "needsNaming": true
+      ]
     },
     {
-      "name": "furnace_013",
+      "name": "furnace_steel_unlit_tier3",
+      "kind": "object",
+      "x": 112,
+      "y": 320,
+      "w": 77,
+      "h": 64,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa"
+      ]
+    },
+    {
+      "name": "furnace_brick_unlit_tier1",
       "kind": "object",
       "x": 1,
       "y": 279,
@@ -181,12 +225,14 @@
       "h": 41,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "furnace",
+        "brick",
+        "unlit"
+      ]
     },
     {
-      "name": "furnace_014",
+      "name": "furnace_steel_unlit_tier1",
       "kind": "object",
       "x": 0,
       "y": 339,
@@ -194,12 +240,14 @@
       "h": 45,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "furnace",
+        "steel",
+        "unlit"
+      ]
     },
     {
-      "name": "furnace_015",
+      "name": "furnace_steel_unlit_tier2",
       "kind": "object",
       "x": 53,
       "y": 325,
@@ -207,9 +255,11 @@
       "h": 59,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "furnace",
+        "steel",
+        "unlit"
+      ]
     }
   ]
 }

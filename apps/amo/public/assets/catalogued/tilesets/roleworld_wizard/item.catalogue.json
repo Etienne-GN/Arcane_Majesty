@@ -8,7 +8,21 @@
       "kind": "object",
       "x": 1,
       "y": 0,
-      "w": 30,
+      "w": 14,
+      "h": 16,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "item",
+        "potion"
+      ]
+    },
+    {
+      "name": "potion_blue_purple_small",
+      "kind": "object",
+      "x": 17,
+      "y": 0,
+      "w": 14,
       "h": 16,
       "tags": [
         "roleworld_wizard",
@@ -32,17 +46,31 @@
       ]
     },
     {
-      "name": "potion_blue_small",
+      "name": "potion_gold_small",
       "kind": "object",
       "x": 33,
       "y": 0,
-      "w": 30,
+      "w": 14,
       "h": 16,
       "tags": [
         "roleworld_wizard",
         "pixel_sazy",
         "item",
         "potion"
+      ]
+    },
+    {
+      "name": "coin_gold_single",
+      "kind": "object",
+      "x": 49,
+      "y": 0,
+      "w": 14,
+      "h": 16,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "item",
+        "coin"
       ]
     },
     {

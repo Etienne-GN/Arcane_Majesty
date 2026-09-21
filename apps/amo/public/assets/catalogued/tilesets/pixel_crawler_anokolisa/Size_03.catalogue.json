@@ -4,30 +4,110 @@
   "sheetHeight": 192,
   "entries": [
     {
-      "name": "size_03_000",
+      "name": "tree_medium_summer",
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 144,
-      "h": 192,
+      "w": 48,
+      "h": 96,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "tree"
+      ]
     },
     {
-      "name": "size_03_001",
+      "name": "tree_medium_spring",
+      "kind": "object",
+      "x": 48,
+      "y": 0,
+      "w": 48,
+      "h": 96,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "tree"
+      ]
+    },
+    {
+      "name": "tree_medium_bare_a",
+      "kind": "object",
+      "x": 96,
+      "y": 0,
+      "w": 48,
+      "h": 96,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "tree"
+      ]
+    },
+    {
+      "name": "tree_medium_autumn_red",
+      "kind": "object",
+      "x": 0,
+      "y": 96,
+      "w": 48,
+      "h": 96,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "tree"
+      ]
+    },
+    {
+      "name": "tree_medium_autumn_gold",
+      "kind": "object",
+      "x": 48,
+      "y": 96,
+      "w": 48,
+      "h": 96,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "tree"
+      ]
+    },
+    {
+      "name": "tree_medium_bare_b",
+      "kind": "object",
+      "x": 96,
+      "y": 96,
+      "w": 48,
+      "h": 96,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "tree"
+      ]
+    },
+    {
+      "name": "tree_medium_snow_a",
       "kind": "object",
       "x": 144,
       "y": 0,
       "w": 48,
-      "h": 192,
+      "h": 96,
       "tags": [
         "pixel_crawler",
-        "anokolisa"
-      ],
-      "needsNaming": true
+        "anokolisa",
+        "tree",
+        "snow"
+      ]
+    },
+    {
+      "name": "tree_medium_snow_b",
+      "kind": "object",
+      "x": 144,
+      "y": 96,
+      "w": 48,
+      "h": 96,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "tree",
+        "snow"
+      ]
     },
     {
       "name": "size_03_002",

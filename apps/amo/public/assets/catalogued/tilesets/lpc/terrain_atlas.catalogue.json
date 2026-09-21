@@ -7259,14 +7259,15 @@
       ]
     },
     {
-      "name": "packed_dirt_fill_o",
+      "name": "gray_stone_block_fill_o",
       "kind": "tile",
       "row": 23,
       "col": 13,
       "frameIndex": 749,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "stone"
       ]
     },
     {
@@ -7395,7 +7396,7 @@
       ]
     },
     {
-      "name": "gray_stone_shaft_b",
+      "name": "onion_sprout",
       "kind": "object",
       "x": 832,
       "y": 736,
@@ -7405,7 +7406,8 @@
         "lpc",
         "atlas",
         "plant",
-        "seedling"
+        "seedling",
+        "onion"
       ]
     },
     {
@@ -7591,14 +7593,17 @@
       ]
     },
     {
-      "name": "leafy_herb_sprig_tall_a",
+      "name": "tomato_vine_ripe_a",
       "kind": "tile",
       "row": 24,
       "col": 12,
       "frameIndex": 780,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "plant",
+        "tomato",
+        "food"
       ]
     },
     {
@@ -9125,14 +9130,17 @@
       ]
     },
     {
-      "name": "berry_bush_a",
+      "name": "pepper_plant_tall_a",
       "kind": "tile",
       "row": 29,
       "col": 13,
       "frameIndex": 941,
       "tags": [
         "lpc",
-        "atlas"
+        "atlas",
+        "plant",
+        "pepper",
+        "food"
       ]
     },
     {
