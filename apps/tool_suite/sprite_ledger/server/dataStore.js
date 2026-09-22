@@ -215,6 +215,7 @@ export async function addFlag(dataDir, { sheet, name, reason, comment }) {
         id: `f_${randomUUID()}`,
         sheet, name, reason, comment: comment ?? '',
         status: 'open',
+        claudeNote: null,
         createdAt: new Date().toISOString(),
         resolvedAt: null,
     };
@@ -228,10 +229,15 @@ export async function addFlag(dataDir, { sheet, name, reason, comment }) {
 // flag still needs to look at it and either approve (-> 'resolved') or
 // send it back for more work (-> 'open'). Never set by Claude on its own
 // authority as a final answer — it's a checkpoint, not a resolution.
+// 'question' — Claude got stuck (the report doesn't say enough to act on,
+// or two readings are equally plausible) and is asking rather than
+// guessing. claudeNote carries the question; a human answers by writing
+// into `comment` and setting the flag back to 'open' so Claude picks it
+// up again. Also never a final state.
 // 'resolved' — the human is satisfied; only a human sets this.
-const FLAG_STATUSES = ['open', 'needs_review', 'resolved'];
+const FLAG_STATUSES = ['open', 'needs_review', 'question', 'resolved'];
 
-export async function updateFlagStatus(dataDir, id, status) {
+export async function updateFlagStatus(dataDir, id, status, extra = {}) {
     if (!FLAG_STATUSES.includes(status)) {
         throw new Error(`invalid flag status: ${status}`);
     }
@@ -240,5 +246,12 @@ export async function updateFlagStatus(dataDir, id, status) {
     if (!flag) throw new Error(`flag not found: ${id}`);
     flag.status = status;
     flag.resolvedAt = status === 'resolved' ? new Date().toISOString() : null;
+    // Both independent of status and optional: `note` is Claude asking (or
+    // updating) a question; `comment` is a human's answer overwriting the
+    // report text. Neither is cleared by a plain status change — claudeNote
+    // stays visible (the question a human already answered shouldn't
+    // vanish), and comment already holds whatever the caller wants there.
+    if ('note' in extra) flag.claudeNote = extra.note;
+    if ('comment' in extra) flag.comment = extra.comment;
     await writeJson(join(dataDir, 'flags.json'), flags);
 }

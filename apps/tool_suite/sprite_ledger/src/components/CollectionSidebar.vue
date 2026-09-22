@@ -8,7 +8,7 @@ const props = defineProps<{
     activeCollectionId: string | null; // null = "All"
     sheetNames: string[]; // distinct sheetPngFilename values, for the sheet filter
     activeSheet: string | null; // null = "All sheets"
-    flagFilter: 'all' | 'flagged' | 'open' | 'needs_review';
+    flagFilter: 'all' | 'flagged' | 'open' | 'needs_review' | 'question';
     animatedOnly: boolean;
     searchText: string;
     sortOrder: 'name' | 'sheet';
@@ -24,7 +24,7 @@ const emit = defineEmits<{
     goHome: [];
     selectCollection: [id: string | null];
     selectSheet: [sheet: string | null];
-    selectFlag: [value: 'all' | 'flagged' | 'open' | 'needs_review'];
+    selectFlag: [value: 'all' | 'flagged' | 'open' | 'needs_review' | 'question'];
     toggleAnimatedOnly: [];
     updateSearch: [value: string];
     selectSort: [value: 'name' | 'sheet'];
@@ -67,12 +67,13 @@ function onAddSubmit() {
     <select
       class="flag-filter"
       :value="flagFilter"
-      @change="emit('selectFlag', ($event.target as HTMLSelectElement).value as 'all' | 'flagged' | 'open' | 'needs_review')"
+      @change="emit('selectFlag', ($event.target as HTMLSelectElement).value as 'all' | 'flagged' | 'open' | 'needs_review' | 'question')"
     >
       <option value="all">Any flag status</option>
-      <option value="flagged">Flagged (open or needs review)</option>
+      <option value="flagged">Flagged (open, needs review, or question)</option>
       <option value="open">● Open — not acted on yet</option>
       <option value="needs_review">🔍 Needs your review</option>
+      <option value="question">❓ Claude has a question</option>
     </select>
 
     <label class="flagged-toggle animated">

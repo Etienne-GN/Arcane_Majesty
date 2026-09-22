@@ -25,12 +25,19 @@ export interface Sheet {
 
 export interface Collection { id: string; name: string; parentId: string | null; }
 
-export type FlagStatus = 'open' | 'needs_review' | 'resolved';
+// 'question' is distinct from 'needs_review': needs_review means "I made a
+// fix, please check it"; question means "I'm stuck and need you to tell me
+// what you actually want" — Claude's own claudeNote carries the question.
+export type FlagStatus = 'open' | 'needs_review' | 'question' | 'resolved';
 
 export interface Flag {
     id: string; sheet: string; name: string;
     reason: string; comment: string;
     status: FlagStatus;
+    // Set only when status is (or was) 'question' — the question itself,
+    // written by Claude. Left in place after the status moves on, so the
+    // question stays visible alongside the answer that resolved it.
+    claudeNote: string | null;
     createdAt: string; resolvedAt: string | null;
 }
 
@@ -86,10 +93,17 @@ export async function addFlag(sheet: string, name: string, reason: string, comme
     return (await postJson('/flags', { sheet, name, reason, comment })).json();
 }
 
-export async function setFlagStatus(id: string, status: FlagStatus): Promise<void> {
+// `extra.note` sets claudeNote (Claude asking or updating its question);
+// `extra.comment` overwrites the flag's comment (a human answering it —
+// the answer is appended by the caller before this is called, so the
+// full exchange stays in one field). Both are optional and independent
+// of `status`.
+export async function setFlagStatus(
+    id: string, status: FlagStatus, extra?: { note?: string; comment?: string }
+): Promise<void> {
     await req(`/flags/${id}`, {
         method: 'PATCH', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status }),
+        body: JSON.stringify({ status, ...extra }),
     });
 }
 

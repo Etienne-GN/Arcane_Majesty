@@ -8,6 +8,7 @@ const props = defineProps<{
     visibleKeys: Set<string>; // `${sheetPngFilename}::${entryName}` — which sprites survive current filters
     flaggedKeys: Set<string>;
     needsReviewKeys: Set<string>;
+    questionKeys: Set<string>;
     licenseOkKeys: Set<string>;
     licenseFlaggedKeys: Set<string>;
     sortOrder: 'name' | 'sheet';
@@ -117,6 +118,7 @@ function drawCrop(canvas: HTMLCanvasElement | null, sheet: Sheet, entry: SpriteE
     >
       <span v-if="flaggedKeys.has(key)" class="flag-dot" title="Open flag" />
       <span v-if="needsReviewKeys.has(key)" class="review-badge" title="Tentatively fixed — needs your review">🔍</span>
+      <span v-if="questionKeys.has(key)" class="question-badge" title="Claude has a question — see the flag below">❓</span>
       <span v-if="licenseOkKeys.has(key)" class="license-badge ok">✓</span>
       <span v-if="licenseFlaggedKeys.has(key)" class="license-badge unlicensed">⚠</span>
       <canvas :ref="(el) => drawCrop(el as HTMLCanvasElement, sheet, entry)" class="pixelated" />
@@ -152,6 +154,12 @@ function drawCrop(canvas: HTMLCanvasElement | null, sheet: Sheet, entry: SpriteE
     position: absolute; top: -2px; right: 18px; z-index: 1;
     font-size: 10px; line-height: 1;
     background: #123a52; border: 1px solid #39c; border-radius: 3px;
+    padding: 1px 2px;
+}
+.question-badge {
+    position: absolute; top: -2px; right: 32px; z-index: 1;
+    font-size: 10px; line-height: 1;
+    background: #3a1a52; border: 1px solid #96c; border-radius: 3px;
     padding: 1px 2px;
 }
 .license-badge { position: absolute; top: -2px; left: 4px; font-size: 12px; line-height: 1; }

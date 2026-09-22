@@ -179,6 +179,7 @@ const flag = await addFlag(dataDir, { sheet: 'PATD_Props.png', name: 'stone_disc
 assert.ok(flag.id);
 assert.strictEqual(flag.status, 'open');
 assert.strictEqual(flag.resolvedAt, null);
+assert.strictEqual(flag.claudeNote, null, 'a freshly-added flag carries no claudeNote');
 
 const openFlags = await loadFlags(dataDir, 'open');
 assert.strictEqual(openFlags.length, 1);
@@ -203,12 +204,33 @@ assert.ok(resolvedFlags[0].resolvedAt);
 let threwBadFlagStatus = false;
 try { await updateFlagStatus(dataDir, flag.id, 'not_a_real_status'); }
 catch (e) { threwBadFlagStatus = true; }
-assert.ok(threwBadFlagStatus, 'updateFlagStatus must reject a status outside open/needs_review/resolved');
+assert.ok(threwBadFlagStatus, 'updateFlagStatus must reject a status outside open/needs_review/question/resolved');
 
 let threwMissing = false;
 try { await updateFlagStatus(dataDir, 'not-a-real-id', 'resolved'); }
 catch (e) { threwMissing = true; }
 assert.ok(threwMissing, 'updateFlagStatus must reject an unknown id');
+
+// --- flags: 'question' (Claude stuck, asking rather than guessing) ---
+const qFlag = await addFlag(dataDir, { sheet: 'PATD_Props.png', name: 'barrel_wood', reason: 'misaligned', comment: 'looks off' });
+await updateFlagStatus(dataDir, qFlag.id, 'question', { note: 'Do you mean the lid or the whole barrel?' });
+const asQuestion = (await loadFlags(dataDir, 'question'))[0];
+assert.strictEqual(asQuestion.status, 'question');
+assert.strictEqual(asQuestion.claudeNote, 'Do you mean the lid or the whole barrel?');
+assert.strictEqual(asQuestion.resolvedAt, null, "'question' is a checkpoint, not a resolution");
+
+// Answering: status returns to 'open', comment carries the answer,
+// claudeNote is left in place so the question stays visible alongside it.
+await updateFlagStatus(dataDir, qFlag.id, 'open', { comment: 'looks off\n\n[Answer] the whole barrel' });
+const answered = (await loadFlags(dataDir, 'open')).find(f => f.id === qFlag.id);
+assert.strictEqual(answered.status, 'open');
+assert.strictEqual(answered.comment, 'looks off\n\n[Answer] the whole barrel');
+assert.strictEqual(answered.claudeNote, 'Do you mean the lid or the whole barrel?', 'claudeNote survives the status change back to open');
+
+// A plain status change with no `extra` must not disturb an existing note.
+await updateFlagStatus(dataDir, qFlag.id, 'needs_review');
+const afterPlainUpdate = (await loadFlags(dataDir, 'needs_review')).find(f => f.id === qFlag.id);
+assert.strictEqual(afterPlainUpdate.claudeNote, 'Do you mean the lid or the whole barrel?', 'a status-only update leaves claudeNote untouched');
 
 // --- schema sanity on the real seeded collections.json this task also creates ---
 const realCollections = JSON.parse(readFileSync(
@@ -223,4 +245,4 @@ const expectedIds = [
 ];
 assert.deepStrictEqual(realCollections.map(c => c.id).sort(), expectedIds.sort());
 
-console.log('✓ data-store tests passed (53 assertions).');
+console.log('✓ data-store tests passed (61 assertions).');

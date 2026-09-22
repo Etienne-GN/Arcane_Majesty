@@ -130,8 +130,8 @@ async function onSetLicense(status: LicenseStatus) {
 
 const flagsForSprite = ref<Flag[]>([]);
 async function loadFlagsForSprite() {
-    // Show everything still pending action (open + needs_review) — hide
-    // only flags a human has already fully resolved.
+    // Show everything still pending action (open, needs_review, question)
+    // — hide only flags a human has already fully resolved.
     const all = await fetchFlags();
     flagsForSprite.value = all.filter(
         f => f.sheet === props.sheetPngFilename && f.name === props.entryName && f.status !== 'resolved'
@@ -151,6 +151,32 @@ async function onSetFlagStatus(id: string, status: 'open' | 'resolved') {
         await loadFlagsForSprite();
         errorMessage.value = null;
         emit('reassigned'); // reuse the same "refresh parent" signal so the grid's badges update
+    } catch (e) {
+        errorMessage.value = e instanceof Error ? e.message : String(e);
+    }
+}
+
+// One draft per flag id, not a single shared string — a sprite can carry
+// more than one open question at once.
+const answerDrafts = ref<Record<string, string>>({});
+
+// Answering appends into `comment` rather than replacing it, so the
+// original report and every answer stay in one readable trail instead of
+// the question's context disappearing the moment it's addressed. Status
+// goes back to 'open' — the same "send it back for more work" signal a
+// human already uses elsewhere — so Claude knows to look again.
+async function onAnswerQuestion(f: Flag) {
+    const answer = (answerDrafts.value[f.id] ?? '').trim();
+    if (!answer) return;
+    const combined = f.comment
+        ? `${f.comment}\n\n[Answer to Claude's question] ${answer}`
+        : `[Answer to Claude's question] ${answer}`;
+    try {
+        await setFlagStatus(f.id, 'open', { comment: combined });
+        delete answerDrafts.value[f.id];
+        await loadFlagsForSprite();
+        errorMessage.value = null;
+        emit('reassigned');
     } catch (e) {
         errorMessage.value = e instanceof Error ? e.message : String(e);
     }
@@ -201,11 +227,31 @@ async function onSetFlagStatus(id: string, status: 'open' | 'resolved') {
         <div class="flag-text">
           <span v-if="f.status === 'needs_review'" class="review-badge">🔍 needs your review</span>
           <span>{{ f.reason }}<template v-if="f.comment"> — {{ f.comment }}</template></span>
+          <!-- claudeNote outlives the 'question' status on purpose — once a
+               human answers and it goes back to 'open', the question that
+               prompted the answer should stay visible right above it. -->
+          <div v-if="f.claudeNote" class="question-note" :class="{ pending: f.status === 'question' }">
+            ❓ Claude {{ f.status === 'question' ? 'asks' : 'asked' }}: {{ f.claudeNote }}
+          </div>
+        </div>
+        <div v-if="f.status === 'question'" class="answer-box">
+          <textarea
+            v-model="answerDrafts[f.id]"
+            rows="2"
+            placeholder="Type your answer for Claude..."
+          />
+          <button
+            :disabled="!(answerDrafts[f.id] ?? '').trim()"
+            @click="onAnswerQuestion(f)"
+          >Send answer</button>
         </div>
         <div class="flag-actions">
           <template v-if="f.status === 'needs_review'">
             <button @click="onSetFlagStatus(f.id, 'resolved')">✓ Approve</button>
             <button @click="onSetFlagStatus(f.id, 'open')">↩ Rework</button>
+          </template>
+          <template v-else-if="f.status === 'question'">
+            <button class="secondary" @click="onSetFlagStatus(f.id, 'resolved')">Resolve without answering</button>
           </template>
           <button v-else @click="onSetFlagStatus(f.id, 'resolved')">Resolve</button>
         </div>
@@ -240,6 +286,22 @@ async function onSetFlagStatus(id: string, status: 'open' | 'resolved') {
 .flag-row { font-size: 12px; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid #222; }
 .flag-text { margin-bottom: 4px; }
 .review-badge { display: block; color: #6af; font-size: 11px; margin-bottom: 2px; }
+.question-note {
+    margin-top: 4px; font-size: 11px; color: #c9e; padding: 4px 6px;
+    background: #2a1a3a; border: 1px solid #74589633; border-radius: 4px;
+}
+.question-note.pending { border-color: #96c; }
+.answer-box { display: flex; flex-direction: column; gap: 4px; margin: 6px 0; }
+.answer-box textarea {
+    font-family: inherit; font-size: 11px; resize: vertical;
+    background: #1a1a1a; color: #eee; border: 1px solid #96c; border-radius: 4px; padding: 4px;
+}
+.answer-box button {
+    align-self: flex-end; font-size: 11px; padding: 3px 10px;
+    background: #3a1a52; color: #eee; border: 1px solid #96c; border-radius: 3px; cursor: pointer;
+}
+.answer-box button:disabled { opacity: 0.4; cursor: default; }
 .flag-actions { display: flex; gap: 6px; }
 .flag-actions button { flex: 1; font-size: 11px; padding: 3px; background: #1a1a1a; color: #eee; border: 1px solid #333; cursor: pointer; }
+.flag-actions button.secondary { color: #999; }
 </style>

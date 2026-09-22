@@ -33158,5 +33158,137 @@
   },
   "Workbench.png::workbench_steel_plain_tier1": {
     "collection": "pixel_crawler"
+  },
+  "[Base]BaseChip_pipo.png::chest_closed_red": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::chest_closed_gold": {
+    "collection": "pipoya"
+  },
+  "rock_cluster_mossy_shore.png::rock_round_single_small": {
+    "collection": "schwarnhild"
+  },
+  "base_out_atlas.png::bridge_rope_v_span": {
+    "collection": "lpc_base_out"
+  },
+  "build_atlas.png::hanging_gear_chain": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::maroon_base_trim_socket_water": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::brick_base_trim_socket_water": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::flagpole_tricolor_banner": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::barrel_cluster_edge_cropped": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::chinese_lantern_red_hanging": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::wood_bucket_top_empty": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::canvas_tent_a": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::metal_grate_round_vent": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::shop_sign_inn_purple": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::wood_cart_wheeled_a": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::shop_sign_sword_purple_a": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::shop_sign_potion_purple_a": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::shop_sign_sword_purple_b": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::shop_sign_potion_purple_b": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::wood_chest_tall_closed_banded": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::brown_chest_hollow_body": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::wood_cart_empty_a": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::wood_cart_hay_pitchfork": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::brown_chest_open_banded": {
+    "collection": "lpc_build"
+  },
+  "obj_misk_atlas.png::toilet_pedestal_white": {
+    "collection": "lpc_obj_misk"
+  },
+  "terrain_atlas.png::gray_stone_block_fill_o": {
+    "collection": "lpc_terrain"
+  },
+  "terrain_atlas.png::onion_sprout": {
+    "collection": "lpc_terrain"
+  },
+  "terrain_atlas.png::tomato_vine_ripe_a": {
+    "collection": "lpc_terrain"
+  },
+  "terrain_atlas.png::pepper_plant_tall_a": {
+    "collection": "lpc_terrain"
+  },
+  "Size_03.png::tree_medium_summer": {
+    "collection": "pixel_crawler"
+  },
+  "Size_03.png::tree_medium_spring": {
+    "collection": "pixel_crawler"
+  },
+  "Size_03.png::tree_medium_bare_a": {
+    "collection": "pixel_crawler"
+  },
+  "Size_03.png::tree_medium_autumn_red": {
+    "collection": "pixel_crawler"
+  },
+  "Size_03.png::tree_medium_autumn_gold": {
+    "collection": "pixel_crawler"
+  },
+  "Size_03.png::tree_medium_bare_b": {
+    "collection": "pixel_crawler"
+  },
+  "Size_03.png::tree_medium_snow_a": {
+    "collection": "pixel_crawler"
+  },
+  "Size_03.png::tree_medium_snow_b": {
+    "collection": "pixel_crawler"
+  },
+  "interior_asset.png::armchair_magenta": {
+    "collection": "roleworld_wizard"
+  },
+  "interior_asset.png::stool_wood_round": {
+    "collection": "roleworld_wizard"
+  },
+  "interior_asset.png::table_small_wood_round": {
+    "collection": "roleworld_wizard"
+  },
+  "interior_asset.png::plant_potted_green": {
+    "collection": "roleworld_wizard"
+  },
+  "interior_asset.png::cloth_folded_purple": {
+    "collection": "roleworld_wizard"
+  },
+  "item.png::potion_blue_purple_small": {
+    "collection": "roleworld_wizard"
+  },
+  "item.png::coin_gold_single": {
+    "collection": "roleworld_wizard"
   }
 }

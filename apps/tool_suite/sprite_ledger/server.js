@@ -112,7 +112,11 @@ export function createServer(catalogueDir, dataDir) {
     });
 
     app.patch('/api/flags/:id', async (req, res) => {
-        await updateFlagStatus(dataDir, req.params.id, req.body.status);
+        const { status, note, comment } = req.body;
+        const extra = {};
+        if (note !== undefined) extra.note = note;
+        if (comment !== undefined) extra.comment = comment;
+        await updateFlagStatus(dataDir, req.params.id, status, extra);
         res.json({ ok: true });
     });
 

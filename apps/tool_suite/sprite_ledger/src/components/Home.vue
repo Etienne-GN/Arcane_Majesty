@@ -8,6 +8,7 @@ const props = defineProps<{
     counts: Record<string, number>; // collection id -> count (rolled up over children), 'all' -> total
     openFlagCount: number;
     needsReviewCount: number;
+    questionCount: number;
     unlicensedCount: number;
 }>();
 
@@ -15,7 +16,7 @@ const emit = defineEmits<{
     // null selects "All" (still fully filterable from there — see App.vue)
     selectCollection: [id: string | null];
     // Jumps into "All" pre-filtered to one flag status.
-    selectFlagFilter: [value: 'open' | 'needs_review'];
+    selectFlagFilter: [value: 'open' | 'needs_review' | 'question'];
 }>();
 
 // Same pre-order, depth-annotated hierarchy the sidebar tree uses, so a
@@ -32,6 +33,13 @@ const tree = computed(() => flattenTree(props.collections));
     <!-- The review workflow's actual queue — the thing that actually needs
          looking at today, front and center instead of buried in a dropdown. -->
     <div class="flag-callouts">
+      <button
+        class="callout question"
+        :disabled="questionCount === 0"
+        @click="emit('selectFlagFilter', 'question')"
+      >
+        ❓ <span class="count">{{ questionCount }}</span> Claude {{ questionCount === 1 ? 'has a question' : 'questions' }} for you
+      </button>
       <button
         class="callout open"
         :disabled="openFlagCount === 0"
@@ -85,6 +93,7 @@ h1 { margin: 0 0 4px; font-size: 22px; }
 .callout .count { font-weight: bold; font-size: 15px; }
 .callout.open { border-color: #a33; }
 .callout.review { border-color: #39c; }
+.callout.question { border-color: #96c; }
 .callout-note { font-size: 12px; color: #e91; }
 
 .section-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #777; margin-bottom: 10px; }

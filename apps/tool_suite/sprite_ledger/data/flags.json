@@ -2203,7 +2203,7 @@
     "name": "tree_brown",
     "reason": "misaligned",
     "comment": "seem a little too much cropped on the left..",
-    "status": "needs_review",
+    "status": "open",
     "createdAt": "2026-09-14T16:42:31.803Z",
     "resolvedAt": null
   },
@@ -2223,9 +2223,9 @@
     "name": "potion_green_small",
     "reason": "misaligned",
     "comment": "there are 2 potions in this, a green and a blue",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T16:43:37.107Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T22:45:01.804Z"
   },
   {
     "id": "f_1a9ea16c-e606-4d77-a6f5-bdeca509c7fd",
@@ -2273,9 +2273,9 @@
     "name": "bed",
     "reason": "misaligned",
     "comment": "feels too much cropped at the bottom",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T16:45:30.559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T22:44:25.009Z"
   },
   {
     "id": "f_7aef511c-4674-4ced-aa93-e3945b1623c2",
@@ -2545,9 +2545,9 @@
     "name": "rock_cluster_mossy_shore",
     "reason": "misaligned",
     "comment": "there are 2 rocks in there",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:32:05.457Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T22:44:55.213Z"
   },
   {
     "id": "f_000f59c6-01cc-4b8c-90d9-4665eb9ca4e9",
@@ -3358,9 +3358,9 @@
     "name": "steak_raw_single_a",
     "reason": "misaligned",
     "comment": "this goes with sack_burglar_greens_c and its a single steak",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:32:08.126Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-21T23:52:55.887Z"
   },
   {
     "id": "f_3b9d3395-926d-45b0-af2f-54cc109f7faa",
@@ -3510,6 +3510,216 @@
     "comment": "",
     "status": "open",
     "createdAt": "2026-09-21T15:32:55.712Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e6a8aed4-0fd6-49fe-a897-a2d2579121c7",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bookshelf_empty_b",
+    "reason": "wrong_name",
+    "comment": "this is a bag of grain, but we only see right half of it",
+    "status": "open",
+    "createdAt": "2026-09-21T22:46:25.320Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_803fb7c0-9f11-497a-a770-c5193f4f1aee",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bookshelf_empty_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:46:26.424Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_76c6c19c-b13d-4f0a-836c-71c276986b6a",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bench_wood_tan_curved_plain",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:46:59.578Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_2c7d33f1-5d28-4b6e-a0d0-6c81f478b22e",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bench_wood_tan_slat_single_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:47:01.155Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3ad15bd5-0c37-4175-8ccc-9cda76631004",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bench_wood_tan_slat_low_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:47:02.871Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_cd284d5e-db9f-4a30-a835-1a8a906d0c76",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bench_wood_tan_slat_single_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:47:04.899Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a8dabb43-501e-4e81-bebf-561693ec2f83",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bench_wood_tan_slat_tall_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:47:25.574Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3eb9b6da-3e93-41d6-b7bb-74ff84f1fd79",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bench_wood_tan_slat_tall_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:47:29.749Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f68a7261-1185-49ee-9009-c892f77f5856",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bench_wood_tan_slat_thin",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:47:33.890Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_8dcd8442-7955-433e-865a-3195219844ef",
+    "sheet": "obj_misk_atlas.png",
+    "name": "arched_window_sky_pane_rail_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:47:46.181Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_36da6220-0f8e-4a01-b3c0-cb3abd2ffd59",
+    "sheet": "obj_misk_atlas.png",
+    "name": "arched_window_sky_pane_rail_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:47:48.230Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a232696c-4fbf-4719-bee7-38a8cf76b667",
+    "sheet": "obj_misk_atlas.png",
+    "name": "chair_wood_tan_fragment_low",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:47:52.171Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a158d85b-2de0-4942-8599-ba9fbda5abb8",
+    "sheet": "obj_misk_atlas.png",
+    "name": "chair_wood_tan_side_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:47:53.894Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_b26a858b-d24a-4193-a3fd-761c758c94f8",
+    "sheet": "obj_misk_atlas.png",
+    "name": "cabinet_wood_red_panel_apron_base",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:47:58.913Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_d9ce5bcd-2539-49ab-b923-60d6915e386b",
+    "sheet": "obj_misk_atlas.png",
+    "name": "cabinet_wood_red_panel_trim_full_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:48:01.789Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_874e2dc3-2579-4c38-b421-e88c83ad1661",
+    "sheet": "obj_misk_atlas.png",
+    "name": "cabinet_wood_red_panel_trim_full_a",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:48:04.309Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_22b57a72-3209-48ed-814a-3bea40139cc2",
+    "sheet": "obj_misk_atlas.png",
+    "name": "fish_pile_perch_b",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:48:15.408Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_53f1b526-dd78-493b-a5ed-634999b61454",
+    "sheet": "obj_misk_atlas.png",
+    "name": "fish_pile_perch_c",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:48:17.282Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ee57c4fe-1243-4091-b339-258797d0d65e",
+    "sheet": "obj_misk_atlas.png",
+    "name": "fish_pile_perch_d",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:48:19.993Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_dc27ba7f-4f1a-4da7-9cab-614f64c19cff",
+    "sheet": "obj_misk_atlas.png",
+    "name": "perch_single_c",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:51:02.765Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_afc91650-eb6e-4654-b8ae-f1a31347b718",
+    "sheet": "obj_misk_atlas.png",
+    "name": "pea_pod_c",
+    "reason": "misaligned",
+    "comment": "",
+    "status": "open",
+    "createdAt": "2026-09-21T22:51:07.035Z",
     "resolvedAt": null
   }
 ]

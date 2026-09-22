@@ -25,9 +25,10 @@ const view = ref<'home' | 'browse'>('home');
 const activeCollectionId = ref<string | null>(null);
 const activeSheet = ref<string | null>(null); // null = "All sheets"
 // 'flagged' is the old "Flagged only" toggle: anything still pending action.
-// 'open' and 'needs_review' split that, so a review pass can look only at
-// what Claude has tentatively fixed without the un-acted-on reports mixed in.
-const flagFilter = ref<'all' | 'flagged' | 'open' | 'needs_review'>('all');
+// 'open', 'needs_review' and 'question' split that, so a review pass can
+// look only at what Claude has tentatively fixed, or only at what it's
+// stuck on, without the rest mixed in.
+const flagFilter = ref<'all' | 'flagged' | 'open' | 'needs_review' | 'question'>('all');
 const animatedOnly = ref(false);
 const searchText = ref('');
 const licenseFilter = ref<'all' | 'ok' | 'unlicensed' | 'unmarked'>('all');
@@ -80,6 +81,9 @@ const openFlagKeys = computed(() =>
 const needsReviewKeys = computed(() =>
     new Set(pendingFlags.value.filter(f => f.status === 'needs_review').map(f => keyFor(f.sheet, f.name)))
 );
+const questionKeys = computed(() =>
+    new Set(pendingFlags.value.filter(f => f.status === 'question').map(f => keyFor(f.sheet, f.name)))
+);
 
 const licenseOkKeys = computed(() => {
     const set = new Set<string>();
@@ -114,6 +118,7 @@ const visibleKeys = computed(() => {
             if (flagFilter.value === 'flagged' && !flaggedKeys.value.has(key)) continue;
             if (flagFilter.value === 'open' && !openFlagKeys.value.has(key)) continue;
             if (flagFilter.value === 'needs_review' && !needsReviewKeys.value.has(key)) continue;
+            if (flagFilter.value === 'question' && !questionKeys.value.has(key)) continue;
             if (animatedOnly.value && (entry.frames?.length ?? 0) < 2) continue;
             if (searchText.value && !entry.name.toLowerCase().includes(searchText.value.toLowerCase())) continue;
             const license = licenseOf(sheet.sheetPngFilename, entry.name);
@@ -166,7 +171,7 @@ function onHomeSelectCollection(id: string | null) {
     view.value = 'browse';
 }
 
-function onHomeSelectFlagFilter(value: 'open' | 'needs_review') {
+function onHomeSelectFlagFilter(value: 'open' | 'needs_review' | 'question') {
     activeCollectionId.value = null;
     flagFilter.value = value;
     view.value = 'browse';
@@ -197,6 +202,7 @@ async function onAddCollection(name: string, parentId: string | null) {
       :counts="counts"
       :open-flag-count="openFlagKeys.size"
       :needs-review-count="needsReviewKeys.size"
+      :question-count="questionKeys.size"
       :unlicensed-count="licenseFlaggedKeys.size"
       @select-collection="onHomeSelectCollection"
       @select-flag-filter="onHomeSelectFlagFilter"
@@ -228,6 +234,7 @@ async function onAddCollection(name: string, parentId: string | null) {
         :visible-keys="visibleKeys"
         :flagged-keys="openFlagKeys"
         :needs-review-keys="needsReviewKeys"
+        :question-keys="questionKeys"
         :license-ok-keys="licenseOkKeys"
         :license-flagged-keys="licenseFlaggedKeys"
         :sort-order="sortOrder"
