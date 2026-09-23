@@ -36,17 +36,16 @@
     {
       "name": "house_cottage",
       "kind": "object",
-      "x": 176,
+      "x": 192,
       "y": 0,
-      "w": 112,
-      "h": 96,
+      "w": 96,
+      "h": 90,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
         "building",
         "house"
-      ],
-      "lowConfidence": true
+      ]
     },
     {
       "name": "rock_cluster",

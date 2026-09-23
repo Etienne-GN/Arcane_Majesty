@@ -2943,7 +2943,7 @@
       ]
     },
     {
-      "name": "wall_stone_dock_mossy_edge_right",
+      "name": "firewood_pile_small_a",
       "kind": "tile",
       "row": 11,
       "col": 0,
@@ -2954,7 +2954,7 @@
       ]
     },
     {
-      "name": "nightstand_wood_cherry",
+      "name": "firewood_pile_medium_a",
       "kind": "tile",
       "row": 11,
       "col": 1,
@@ -2965,7 +2965,7 @@
       ]
     },
     {
-      "name": "cabinet_wood_cherry_low_two_door_a",
+      "name": "firewood_pile_large_a",
       "kind": "tile",
       "row": 11,
       "col": 2,
@@ -3597,7 +3597,7 @@
       ]
     },
     {
-      "name": "door_glass_dark_two_pane_transom",
+      "name": "sack_burlap_round_a",
       "kind": "tile",
       "row": 13,
       "col": 0,
@@ -3608,7 +3608,7 @@
       ]
     },
     {
-      "name": "door_glass_dark_four_pane_c",
+      "name": "sack_burlap_tall_a",
       "kind": "tile",
       "row": 13,
       "col": 1,
@@ -3619,7 +3619,7 @@
       ]
     },
     {
-      "name": "window_glasswall_frame_bottom_a",
+      "name": "sack_burlap_pile_a",
       "kind": "tile",
       "row": 13,
       "col": 2,
@@ -3864,7 +3864,7 @@
       ]
     },
     {
-      "name": "bookshelf_books_full_a",
+      "name": "sack_burlap_round_b",
       "kind": "tile",
       "row": 14,
       "col": 0,
@@ -4178,15 +4178,16 @@
       ]
     },
     {
-      "name": "bookshelf_empty_b",
-      "kind": "tile",
-      "row": 15,
-      "col": 2,
-      "frameIndex": 482,
+      "name": "sack_grain_yellow_b",
+      "kind": "object",
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "x": 47,
+      "y": 486,
+      "w": 34,
+      "h": 27
     },
     {
       "name": "bookshelf_books_full_b",
@@ -4545,7 +4546,7 @@
       ]
     },
     {
-      "name": "arched_window_sky_pane_rail_a",
+      "name": "wood_crate_leg_fragment_lower_a",
       "kind": "tile",
       "row": 16,
       "col": 12,
@@ -4567,7 +4568,7 @@
       ]
     },
     {
-      "name": "arched_window_sky_pane_rail_b",
+      "name": "wood_crate_leg_fragment_lower_b",
       "kind": "tile",
       "row": 16,
       "col": 14,
@@ -4768,33 +4769,11 @@
       ]
     },
     {
-      "name": "cabinet_wood_red_panel_trim_full_a",
-      "kind": "tile",
-      "row": 17,
-      "col": 0,
-      "frameIndex": 544,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "cabinet_wood_red_panel_apron_base",
+      "name": "sack_grain_green_a",
       "kind": "tile",
       "row": 17,
       "col": 1,
       "frameIndex": 545,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "cabinet_wood_red_panel_trim_full_b",
-      "kind": "tile",
-      "row": 17,
-      "col": 2,
-      "frameIndex": 546,
       "tags": [
         "lpc",
         "atlas"
@@ -5392,15 +5371,16 @@
       ]
     },
     {
-      "name": "meat_scrap_fragment_a",
-      "kind": "tile",
-      "row": 19,
-      "col": 0,
-      "frameIndex": 608,
+      "name": "meat_steak_raw_a",
+      "kind": "object",
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "x": 31,
+      "y": 591,
+      "w": 34,
+      "h": 18
     },
     {
       "name": "steak_raw_single_a",
@@ -7186,7 +7166,7 @@
       ]
     },
     {
-      "name": "ham_hock_raw_a",
+      "name": "ham_hock_raw_top_fragment_a",
       "kind": "tile",
       "row": 27,
       "col": 0,

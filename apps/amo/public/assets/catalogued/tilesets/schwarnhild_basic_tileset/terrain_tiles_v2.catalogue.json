@@ -14,11 +14,10 @@
         "schwarnhild",
         "dirt",
         "ground"
-      ],
-      "lowConfidence": true
+      ]
     },
     {
-      "name": "grass_patch_solid",
+      "name": "dirt_patch_solid_b",
       "kind": "object",
       "x": 128,
       "y": 0,
@@ -28,8 +27,7 @@
         "schwarnhild",
         "grass",
         "ground"
-      ],
-      "lowConfidence": true
+      ]
     },
     {
       "name": "tree_bush_prop",
@@ -75,7 +73,7 @@
       "lowConfidence": true
     },
     {
-      "name": "path_dirt_strip",
+      "name": "grass_patch_rect_wide",
       "kind": "object",
       "x": 0,
       "y": 224,
@@ -85,8 +83,7 @@
         "schwarnhild",
         "dirt",
         "path"
-      ],
-      "lowConfidence": true
+      ]
     },
     {
       "name": "pond_circle_a",

@@ -59,7 +59,7 @@
       "lowConfidence": true
     },
     {
-      "name": "water_shore_transition",
+      "name": "island_ground_tile_variants",
       "kind": "object",
       "x": 0,
       "y": 192,
@@ -69,8 +69,7 @@
         "schwarnhild",
         "water",
         "shore"
-      ],
-      "lowConfidence": true
+      ]
     }
   ]
 }
