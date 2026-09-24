@@ -4,71 +4,1490 @@
   "sheetHeight": 256,
   "entries": [
     {
-      "name": "dirt_patch_solid",
+      "name": "dirt_ledge_r0c0",
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 96,
-      "h": 64,
+      "w": 32,
+      "h": 32,
       "tags": [
         "schwarnhild",
+        "autotile",
         "dirt",
-        "ground"
-      ],
-      "lowConfidence": true
+        "cliff"
+      ]
     },
     {
-      "name": "grass_patch_solid",
+      "name": "dirt_ledge_r0c1",
+      "kind": "object",
+      "x": 32,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "dirt_ledge_r0c2",
+      "kind": "object",
+      "x": 64,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "dirt_ledge_r0c3",
+      "kind": "object",
+      "x": 96,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "dirt_ledge_r1c0",
+      "kind": "object",
+      "x": 0,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "dirt_ledge_r1c1",
+      "kind": "object",
+      "x": 32,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "dirt_ledge_r1c2",
+      "kind": "object",
+      "x": 64,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "dirt_ledge_r1c3",
+      "kind": "object",
+      "x": 96,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "dirt_ledge_r2c0",
+      "kind": "object",
+      "x": 0,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "dirt_ledge_r2c1",
+      "kind": "object",
+      "x": 32,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "dirt_ledge_r2c2",
+      "kind": "object",
+      "x": 64,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "dirt_ledge_r2c3",
+      "kind": "object",
+      "x": 96,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "dirt_ledge_r3c0",
+      "kind": "object",
+      "x": 0,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "dirt_ledge_r3c1",
+      "kind": "object",
+      "x": 32,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "dirt_ledge_r3c2",
+      "kind": "object",
+      "x": 64,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "dirt_ledge_r3c3",
+      "kind": "object",
+      "x": 96,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "grass_ledge_r0c0",
       "kind": "object",
       "x": 128,
       "y": 0,
-      "w": 96,
-      "h": 64,
+      "w": 32,
+      "h": 32,
       "tags": [
         "schwarnhild",
+        "autotile",
         "grass",
-        "ground"
-      ],
-      "lowConfidence": true
+        "cliff"
+      ]
     },
     {
-      "name": "rocky_ground_blob",
+      "name": "grass_ledge_r0c1",
+      "kind": "object",
+      "x": 160,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "grass_ledge_r0c2",
+      "kind": "object",
+      "x": 192,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "grass_ledge_r0c3",
+      "kind": "object",
+      "x": 224,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "grass_ledge_r1c0",
+      "kind": "object",
+      "x": 128,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "grass_ledge_r1c1",
+      "kind": "object",
+      "x": 160,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "grass_ledge_r1c2",
+      "kind": "object",
+      "x": 192,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "grass_ledge_r1c3",
+      "kind": "object",
+      "x": 224,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "grass_ledge_r2c0",
+      "kind": "object",
+      "x": 128,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "grass_ledge_r2c1",
+      "kind": "object",
+      "x": 160,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "grass_ledge_r2c2",
+      "kind": "object",
+      "x": 192,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "grass_ledge_r2c3",
+      "kind": "object",
+      "x": 224,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "grass_ledge_r3c0",
+      "kind": "object",
+      "x": 128,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "grass_ledge_r3c1",
+      "kind": "object",
+      "x": 160,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "grass_ledge_r3c2",
+      "kind": "object",
+      "x": 192,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "grass_ledge_r3c3",
+      "kind": "object",
+      "x": 224,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_grass_r0c0",
+      "kind": "object",
+      "x": 256,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_grass_r0c1",
+      "kind": "object",
+      "x": 288,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_grass_r1c0",
+      "kind": "object",
+      "x": 256,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_grass_r1c1",
+      "kind": "object",
+      "x": 288,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_grass_r2c0",
+      "kind": "object",
+      "x": 256,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_grass_r2c1",
+      "kind": "object",
+      "x": 288,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_grass_r2c2",
+      "kind": "object",
+      "x": 320,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_grass_r3c0",
+      "kind": "object",
+      "x": 256,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_grass_r3c1",
+      "kind": "object",
+      "x": 288,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_grass_r3c2",
+      "kind": "object",
+      "x": 320,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "rock_wall_dirt_r0c0",
       "kind": "object",
       "x": 0,
       "y": 128,
-      "w": 160,
-      "h": 64,
+      "w": 32,
+      "h": 32,
       "tags": [
         "schwarnhild",
+        "autotile",
         "rock",
+        "dirt"
+      ]
+    },
+    {
+      "name": "rock_wall_dirt_r0c1",
+      "kind": "object",
+      "x": 32,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "rock",
+        "dirt"
+      ]
+    },
+    {
+      "name": "rock_wall_dirt_r0c2",
+      "kind": "object",
+      "x": 64,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "rock",
+        "dirt"
+      ]
+    },
+    {
+      "name": "rock_wall_dirt_r0c3",
+      "kind": "object",
+      "x": 96,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "rock",
+        "dirt"
+      ]
+    },
+    {
+      "name": "rock_wall_dirt_r1c0",
+      "kind": "object",
+      "x": 0,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "rock",
+        "dirt"
+      ]
+    },
+    {
+      "name": "rock_wall_dirt_r1c1",
+      "kind": "object",
+      "x": 32,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "rock",
+        "dirt"
+      ]
+    },
+    {
+      "name": "rock_wall_dirt_r1c2",
+      "kind": "object",
+      "x": 64,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "rock",
+        "dirt"
+      ]
+    },
+    {
+      "name": "rock_wall_dirt_r1c3",
+      "kind": "object",
+      "x": 96,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "rock",
+        "dirt"
+      ]
+    },
+    {
+      "name": "rock_wall_grass_r0c0",
+      "kind": "object",
+      "x": 128,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "rock",
+        "grass"
+      ]
+    },
+    {
+      "name": "rock_wall_grass_r0c1",
+      "kind": "object",
+      "x": 160,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "rock",
+        "grass"
+      ]
+    },
+    {
+      "name": "rock_wall_grass_r0c2",
+      "kind": "object",
+      "x": 192,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "rock",
+        "grass"
+      ]
+    },
+    {
+      "name": "rock_wall_grass_r0c3",
+      "kind": "object",
+      "x": 224,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "rock",
+        "grass"
+      ]
+    },
+    {
+      "name": "rock_wall_grass_r1c0",
+      "kind": "object",
+      "x": 128,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "rock",
+        "grass"
+      ]
+    },
+    {
+      "name": "rock_wall_grass_r1c1",
+      "kind": "object",
+      "x": 160,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "rock",
+        "grass"
+      ]
+    },
+    {
+      "name": "rock_wall_grass_r1c2",
+      "kind": "object",
+      "x": 192,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "rock",
+        "grass"
+      ]
+    },
+    {
+      "name": "rock_wall_grass_r1c3",
+      "kind": "object",
+      "x": 224,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "rock",
+        "grass"
+      ]
+    },
+    {
+      "name": "island_edge_dirt_r0c0",
+      "kind": "object",
+      "x": 256,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_dirt_r0c1",
+      "kind": "object",
+      "x": 288,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_dirt_r0c2",
+      "kind": "object",
+      "x": 320,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_dirt_r1c0",
+      "kind": "object",
+      "x": 256,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_dirt_r1c1",
+      "kind": "object",
+      "x": 288,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_dirt_r1c2",
+      "kind": "object",
+      "x": 320,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_dirt_r2c0",
+      "kind": "object",
+      "x": 256,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_dirt_r2c1",
+      "kind": "object",
+      "x": 288,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_dirt_r2c2",
+      "kind": "object",
+      "x": 320,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_dirt_r3c0",
+      "kind": "object",
+      "x": 256,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_dirt_r3c1",
+      "kind": "object",
+      "x": 288,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "island_edge_dirt_r3c2",
+      "kind": "object",
+      "x": 320,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "dirt",
+        "cliff"
+      ]
+    },
+    {
+      "name": "water_deep_r0c0",
+      "kind": "object",
+      "x": 352,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_deep_r0c1",
+      "kind": "object",
+      "x": 384,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_deep_r0c2",
+      "kind": "object",
+      "x": 416,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_deep_r1c0",
+      "kind": "object",
+      "x": 352,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_deep_r1c1",
+      "kind": "object",
+      "x": 384,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_deep_r1c2",
+      "kind": "object",
+      "x": 416,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_deep_r2c0",
+      "kind": "object",
+      "x": 352,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_deep_r2c1",
+      "kind": "object",
+      "x": 384,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_deep_r2c2",
+      "kind": "object",
+      "x": 416,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r0c0",
+      "kind": "object",
+      "x": 352,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r0c1",
+      "kind": "object",
+      "x": 384,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r0c2",
+      "kind": "object",
+      "x": 416,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r0c3",
+      "kind": "object",
+      "x": 448,
+      "y": 128,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r1c0",
+      "kind": "object",
+      "x": 352,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r1c1",
+      "kind": "object",
+      "x": 384,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r1c2",
+      "kind": "object",
+      "x": 416,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r1c3",
+      "kind": "object",
+      "x": 448,
+      "y": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r2c0",
+      "kind": "object",
+      "x": 352,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r2c1",
+      "kind": "object",
+      "x": 384,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r2c2",
+      "kind": "object",
+      "x": 416,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r2c3",
+      "kind": "object",
+      "x": 448,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r3c0",
+      "kind": "object",
+      "x": 352,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r3c1",
+      "kind": "object",
+      "x": 384,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r3c2",
+      "kind": "object",
+      "x": 416,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "water_shore_r3c3",
+      "kind": "object",
+      "x": 448,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "water"
+      ]
+    },
+    {
+      "name": "ground_swatch_r0c0",
+      "kind": "object",
+      "x": 0,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
         "ground"
       ]
     },
     {
-      "name": "water_deep_blob",
+      "name": "ground_swatch_r0c1",
       "kind": "object",
-      "x": 352,
-      "y": 0,
-      "w": 128,
-      "h": 160,
+      "x": 32,
+      "y": 192,
+      "w": 32,
+      "h": 32,
       "tags": [
         "schwarnhild",
-        "water",
-        "deep"
-      ],
-      "lowConfidence": true
+        "autotile",
+        "ground"
+      ]
     },
     {
-      "name": "island_ground_tile_variants",
+      "name": "ground_swatch_r0c2",
       "kind": "object",
-      "x": 0,
+      "x": 64,
       "y": 192,
-      "w": 96,
-      "h": 64,
+      "w": 32,
+      "h": 32,
       "tags": [
         "schwarnhild",
-        "water",
-        "shore"
+        "autotile",
+        "ground"
+      ]
+    },
+    {
+      "name": "ground_swatch_r1c0",
+      "kind": "object",
+      "x": 0,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "ground"
+      ]
+    },
+    {
+      "name": "ground_swatch_r1c1",
+      "kind": "object",
+      "x": 32,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "ground"
+      ]
+    },
+    {
+      "name": "ground_swatch_r1c2",
+      "kind": "object",
+      "x": 64,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "ground"
+      ]
+    },
+    {
+      "name": "ground_stake_r0c0",
+      "kind": "object",
+      "x": 128,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "ground"
+      ]
+    },
+    {
+      "name": "ground_stake_r0c1",
+      "kind": "object",
+      "x": 160,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "ground"
+      ]
+    },
+    {
+      "name": "ground_stake_r0c2",
+      "kind": "object",
+      "x": 192,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "ground"
+      ]
+    },
+    {
+      "name": "ground_stake_r0c3",
+      "kind": "object",
+      "x": 224,
+      "y": 192,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "ground"
+      ]
+    },
+    {
+      "name": "ground_stake_r1c0",
+      "kind": "object",
+      "x": 128,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "ground"
+      ]
+    },
+    {
+      "name": "ground_stake_r1c1",
+      "kind": "object",
+      "x": 160,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "ground"
+      ]
+    },
+    {
+      "name": "ground_stake_r1c2",
+      "kind": "object",
+      "x": 192,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "ground"
+      ]
+    },
+    {
+      "name": "ground_stake_r1c3",
+      "kind": "object",
+      "x": 224,
+      "y": 224,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "autotile",
+        "ground"
       ]
     }
   ]

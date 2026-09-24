@@ -2587,26 +2587,32 @@
       ]
     },
     {
-      "name": "wood_rimmed_basin_empty",
-      "kind": "tile",
-      "row": 10,
-      "col": 29,
-      "frameIndex": 349,
+      "name": "barrel_top_open_empty",
+      "kind": "object",
       "tags": [
+        "atlas",
+        "barrel",
         "lpc",
-        "atlas"
-      ]
+        "overlay"
+      ],
+      "x": 934,
+      "y": 341,
+      "w": 20,
+      "h": 11
     },
     {
-      "name": "wood_rimmed_basin_water",
-      "kind": "tile",
-      "row": 10,
-      "col": 30,
-      "frameIndex": 350,
+      "name": "barrel_top_open_water",
+      "kind": "object",
       "tags": [
+        "atlas",
+        "barrel",
         "lpc",
-        "atlas"
-      ]
+        "overlay"
+      ],
+      "x": 966,
+      "y": 341,
+      "w": 20,
+      "h": 11
     },
     {
       "name": "red_brick_wall_base_post_left",

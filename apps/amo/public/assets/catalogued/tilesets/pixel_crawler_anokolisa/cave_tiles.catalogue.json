@@ -4,31 +4,511 @@
   "sheetHeight": 272,
   "entries": [
     {
-      "name": "cave_floor",
-      "kind": "object",
-      "x": 0,
-      "y": 64,
-      "w": 96,
-      "h": 64,
-      "tags": [
-        "pixel_crawler",
-        "anokolisa",
-        "floor",
-        "cave"
-      ]
-    },
-    {
-      "name": "cave_wall_blob",
+      "name": "cave_pit_large",
       "kind": "object",
       "x": 0,
       "y": 0,
       "w": 96,
+      "h": 126,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "pit"
+      ]
+    },
+    {
+      "name": "cave_pit_narrow",
+      "kind": "object",
+      "x": 96,
+      "y": 64,
+      "w": 48,
       "h": 64,
       "tags": [
         "pixel_crawler",
         "anokolisa",
-        "wall",
-        "autotile"
+        "cave",
+        "pit"
+      ]
+    },
+    {
+      "name": "mine_entrance_timber",
+      "kind": "object",
+      "x": 144,
+      "y": 64,
+      "w": 48,
+      "h": 64,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "entrance",
+        "wood"
+      ]
+    },
+    {
+      "name": "rock_island_water",
+      "kind": "object",
+      "x": 192,
+      "y": 64,
+      "w": 80,
+      "h": 80,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock"
+      ]
+    },
+    {
+      "name": "cave_ground_strip",
+      "kind": "object",
+      "x": 144,
+      "y": 48,
+      "w": 96,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "ground"
+      ]
+    },
+    {
+      "name": "rock_patch_a",
+      "kind": "object",
+      "x": 110,
+      "y": 13,
+      "w": 22,
+      "h": 24,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "rock"
+      ]
+    },
+    {
+      "name": "rock_patch_b",
+      "kind": "object",
+      "x": 156,
+      "y": 13,
+      "w": 24,
+      "h": 23,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "rock"
+      ]
+    },
+    {
+      "name": "rock_patch_c",
+      "kind": "object",
+      "x": 204,
+      "y": 13,
+      "w": 24,
+      "h": 23,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "rock"
+      ]
+    },
+    {
+      "name": "leaves_green_small",
+      "kind": "object",
+      "x": 2,
+      "y": 132,
+      "w": 13,
+      "h": 10,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "plant"
+      ]
+    },
+    {
+      "name": "leaves_green_large",
+      "kind": "object",
+      "x": 16,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "plant"
+      ]
+    },
+    {
+      "name": "mushroom_blue_glow",
+      "kind": "object",
+      "x": 35,
+      "y": 129,
+      "w": 11,
+      "h": 14,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "mushroom"
+      ]
+    },
+    {
+      "name": "bush_dark_large",
+      "kind": "object",
+      "x": 67,
+      "y": 132,
+      "w": 43,
+      "h": 44,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "plant"
+      ]
+    },
+    {
+      "name": "bush_dark_tall",
+      "kind": "object",
+      "x": 115,
+      "y": 137,
+      "w": 27,
+      "h": 37,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "plant"
+      ]
+    },
+    {
+      "name": "leaves_green_cluster",
+      "kind": "object",
+      "x": 0,
+      "y": 147,
+      "w": 32,
+      "h": 25,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "plant"
+      ]
+    },
+    {
+      "name": "coal_lump",
+      "kind": "object",
+      "x": 33,
+      "y": 146,
+      "w": 14,
+      "h": 12,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "rock",
+        "ore"
+      ]
+    },
+    {
+      "name": "rock_flat_grey",
+      "kind": "object",
+      "x": 48,
+      "y": 147,
+      "w": 15,
+      "h": 10,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "rock"
+      ]
+    },
+    {
+      "name": "leaf_dark_small",
+      "kind": "object",
+      "x": 146,
+      "y": 148,
+      "w": 13,
+      "h": 10,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "plant"
+      ]
+    },
+    {
+      "name": "leaf_dark_large",
+      "kind": "object",
+      "x": 160,
+      "y": 144,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "plant"
+      ]
+    },
+    {
+      "name": "leaf_dark_cluster",
+      "kind": "object",
+      "x": 144,
+      "y": 163,
+      "w": 32,
+      "h": 25,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "plant"
+      ]
+    },
+    {
+      "name": "water_splash_blue",
+      "kind": "object",
+      "x": 180,
+      "y": 150,
+      "w": 42,
+      "h": 38,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water"
+      ]
+    },
+    {
+      "name": "rock_grey_a",
+      "kind": "object",
+      "x": 32,
+      "y": 161,
+      "w": 16,
+      "h": 14,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "rock"
+      ]
+    },
+    {
+      "name": "pebble_grey",
+      "kind": "object",
+      "x": 51,
+      "y": 165,
+      "w": 10,
+      "h": 7,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "rock"
+      ]
+    },
+    {
+      "name": "pebbles_small",
+      "kind": "object",
+      "x": 1,
+      "y": 177,
+      "w": 30,
+      "h": 14,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "rock"
+      ]
+    },
+    {
+      "name": "stalagmite_tall",
+      "kind": "object",
+      "x": 34,
+      "y": 178,
+      "w": 28,
+      "h": 44,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "rock"
+      ]
+    },
+    {
+      "name": "tree_dead_dark_tall",
+      "kind": "object",
+      "x": 112,
+      "y": 179,
+      "w": 32,
+      "h": 72,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "tree"
+      ]
+    },
+    {
+      "name": "dirt_mound_a",
+      "kind": "object",
+      "x": 78,
+      "y": 191,
+      "w": 22,
+      "h": 20,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_mound_b",
+      "kind": "object",
+      "x": 78,
+      "y": 239,
+      "w": 22,
+      "h": 20,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "dirt"
+      ]
+    },
+    {
+      "name": "boulder_grey_large",
+      "kind": "object",
+      "x": 2,
+      "y": 194,
+      "w": 28,
+      "h": 28,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "rock"
+      ]
+    },
+    {
+      "name": "ladder_wood",
+      "kind": "object",
+      "x": 150,
+      "y": 192,
+      "w": 18,
+      "h": 18,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood"
+      ]
+    },
+    {
+      "name": "wooden_wall_mine",
+      "kind": "object",
+      "x": 176,
+      "y": 192,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall"
+      ]
+    },
+    {
+      "name": "ore_copper",
+      "kind": "object",
+      "x": 0,
+      "y": 225,
+      "w": 16,
+      "h": 14,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "ore"
+      ]
+    },
+    {
+      "name": "ore_iron",
+      "kind": "object",
+      "x": 17,
+      "y": 227,
+      "w": 14,
+      "h": 11,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "ore"
+      ]
+    },
+    {
+      "name": "ore_gold",
+      "kind": "object",
+      "x": 32,
+      "y": 225,
+      "w": 16,
+      "h": 14,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "ore"
+      ]
+    },
+    {
+      "name": "ore_gem_blue",
+      "kind": "object",
+      "x": 48,
+      "y": 227,
+      "w": 15,
+      "h": 10,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "ore"
+      ]
+    },
+    {
+      "name": "boulder_lava_veins",
+      "kind": "object",
+      "x": 2,
+      "y": 242,
+      "w": 28,
+      "h": 28,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "rock"
+      ]
+    },
+    {
+      "name": "boulder_silver_veins",
+      "kind": "object",
+      "x": 34,
+      "y": 242,
+      "w": 28,
+      "h": 28,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "rock"
       ]
     }
   ]

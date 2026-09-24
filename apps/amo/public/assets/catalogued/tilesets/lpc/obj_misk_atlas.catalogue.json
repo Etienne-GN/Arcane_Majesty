@@ -5537,25 +5537,27 @@
     },
     {
       "name": "meat_raw_cut_a",
-      "kind": "tile",
-      "row": 20,
-      "col": 0,
-      "frameIndex": 640,
+      "kind": "object",
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "x": 1,
+      "y": 634,
+      "w": 30,
+      "h": 21
     },
     {
       "name": "meat_raw_cut_b",
-      "kind": "tile",
-      "row": 20,
-      "col": 1,
-      "frameIndex": 641,
+      "kind": "object",
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "x": 33,
+      "y": 650,
+      "w": 30,
+      "h": 21
     },
     {
       "name": "bench_wood_plain_a",
@@ -6149,25 +6151,27 @@
     },
     {
       "name": "meat_chunk_raw_a",
-      "kind": "tile",
-      "row": 22,
-      "col": 0,
-      "frameIndex": 704,
+      "kind": "object",
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "x": 1,
+      "y": 701,
+      "w": 31,
+      "h": 18
     },
     {
       "name": "meat_chunk_raw_b",
-      "kind": "tile",
-      "row": 22,
-      "col": 1,
-      "frameIndex": 705,
+      "kind": "object",
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "x": 33,
+      "y": 717,
+      "w": 31,
+      "h": 18
     },
     {
       "name": "tuna_single_c",
@@ -7846,28 +7850,6 @@
       ]
     },
     {
-      "name": "chair_wood_tan_fragment_low",
-      "kind": "tile",
-      "row": 31,
-      "col": 4,
-      "frameIndex": 996,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "bench_wood_tan_slat_single_b",
-      "kind": "tile",
-      "row": 31,
-      "col": 5,
-      "frameIndex": 997,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
       "name": "oven_iron_black_unlit",
       "kind": "tile",
       "row": 31,
@@ -8081,6 +8063,48 @@
       "y": 618,
       "w": 22,
       "h": 22,
+      "tags": [
+        "lpc",
+        "atlas",
+        "fish",
+        "food"
+      ]
+    },
+    {
+      "name": "perch_pile_3",
+      "kind": "object",
+      "x": 582,
+      "y": 567,
+      "w": 34,
+      "h": 28,
+      "tags": [
+        "lpc",
+        "atlas",
+        "fish",
+        "food"
+      ]
+    },
+    {
+      "name": "perch_pile_5",
+      "kind": "object",
+      "x": 579,
+      "y": 610,
+      "w": 58,
+      "h": 30,
+      "tags": [
+        "lpc",
+        "atlas",
+        "fish",
+        "food"
+      ]
+    },
+    {
+      "name": "perch_pile_4",
+      "kind": "object",
+      "x": 587,
+      "y": 639,
+      "w": 50,
+      "h": 28,
       "tags": [
         "lpc",
         "atlas",

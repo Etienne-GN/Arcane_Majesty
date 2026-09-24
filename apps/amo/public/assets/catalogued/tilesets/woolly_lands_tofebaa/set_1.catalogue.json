@@ -4,104 +4,1487 @@
   "sheetHeight": 144,
   "entries": [
     {
-      "name": "hedge_maze_pattern",
+      "name": "hedge_blob_r0c0",
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 64,
-      "h": 48,
+      "w": 16,
+      "h": 16,
       "tags": [
         "woolly_lands",
         "tofebaa",
+        "autotile",
         "hedge",
-        "autotile"
-      ],
-      "lowConfidence": true
+        "grass"
+      ]
     },
     {
-      "name": "hedge_solid_patch",
+      "name": "hedge_blob_r0c1",
+      "kind": "object",
+      "x": 16,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_blob_r0c2",
+      "kind": "object",
+      "x": 32,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_blob_r0c3",
+      "kind": "object",
+      "x": 48,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_blob_r1c0",
+      "kind": "object",
+      "x": 0,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_blob_r1c1",
+      "kind": "object",
+      "x": 16,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_blob_r1c2",
+      "kind": "object",
+      "x": 32,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_blob_r1c3",
+      "kind": "object",
+      "x": 48,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_blob_r2c0",
+      "kind": "object",
+      "x": 0,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_blob_r2c1",
+      "kind": "object",
+      "x": 16,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_blob_r2c2",
+      "kind": "object",
+      "x": 32,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_blob_r2c3",
+      "kind": "object",
+      "x": 48,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_blob_r3c0",
+      "kind": "object",
+      "x": 0,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_blob_r3c1",
+      "kind": "object",
+      "x": 16,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_blob_r3c2",
+      "kind": "object",
+      "x": 32,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_blob_r3c3",
+      "kind": "object",
+      "x": 48,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_patch_r0c0",
       "kind": "object",
       "x": 64,
       "y": 0,
-      "w": 64,
-      "h": 48,
+      "w": 16,
+      "h": 16,
       "tags": [
         "woolly_lands",
         "tofebaa",
+        "autotile",
         "hedge",
-        "ground"
-      ],
-      "lowConfidence": true
+        "grass"
+      ]
     },
     {
-      "name": "dirt_path_strip",
+      "name": "hedge_patch_r0c1",
+      "kind": "object",
+      "x": 80,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_patch_r0c2",
+      "kind": "object",
+      "x": 96,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_patch_r0c3",
+      "kind": "object",
+      "x": 112,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_patch_r1c0",
+      "kind": "object",
+      "x": 64,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_patch_r1c1",
+      "kind": "object",
+      "x": 80,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_patch_r1c2",
+      "kind": "object",
+      "x": 96,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_patch_r1c3",
+      "kind": "object",
+      "x": 112,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_patch_r2c0",
+      "kind": "object",
+      "x": 64,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_patch_r2c1",
+      "kind": "object",
+      "x": 80,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_patch_r2c2",
+      "kind": "object",
+      "x": 96,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_patch_r2c3",
+      "kind": "object",
+      "x": 112,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_patch_r3c0",
+      "kind": "object",
+      "x": 64,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_patch_r3c1",
+      "kind": "object",
+      "x": 80,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_patch_r3c2",
+      "kind": "object",
+      "x": 96,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_patch_r3c3",
+      "kind": "object",
+      "x": 112,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "grass"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r0c0",
+      "kind": "object",
+      "x": 128,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r0c1",
+      "kind": "object",
+      "x": 144,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r0c2",
+      "kind": "object",
+      "x": 160,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r0c3",
+      "kind": "object",
+      "x": 176,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r1c0",
+      "kind": "object",
+      "x": 128,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r1c1",
+      "kind": "object",
+      "x": 144,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r1c2",
+      "kind": "object",
+      "x": 160,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r1c3",
+      "kind": "object",
+      "x": 176,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r2c0",
+      "kind": "object",
+      "x": 128,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r2c1",
+      "kind": "object",
+      "x": 144,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r2c2",
+      "kind": "object",
+      "x": 160,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r2c3",
+      "kind": "object",
+      "x": 176,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r3c0",
+      "kind": "object",
+      "x": 128,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r3c1",
+      "kind": "object",
+      "x": 144,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r3c2",
+      "kind": "object",
+      "x": 160,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "hedge_dirt_mix_r3c3",
+      "kind": "object",
+      "x": 176,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "hedge",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_fill_r0c0",
       "kind": "object",
       "x": 192,
       "y": 0,
-      "w": 64,
-      "h": 48,
+      "w": 16,
+      "h": 16,
       "tags": [
         "woolly_lands",
         "tofebaa",
-        "dirt",
-        "path"
+        "autotile",
+        "dirt"
       ]
     },
     {
-      "name": "flower_mushroom_row",
+      "name": "dirt_fill_r0c1",
+      "kind": "object",
+      "x": 208,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_fill_r0c2",
+      "kind": "object",
+      "x": 224,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_fill_r0c3",
+      "kind": "object",
+      "x": 240,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_fill_r1c0",
+      "kind": "object",
+      "x": 192,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_fill_r1c1",
+      "kind": "object",
+      "x": 208,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_fill_r1c2",
+      "kind": "object",
+      "x": 224,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_fill_r1c3",
+      "kind": "object",
+      "x": 240,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_fill_r2c0",
+      "kind": "object",
+      "x": 192,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_fill_r2c1",
+      "kind": "object",
+      "x": 208,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_fill_r2c2",
+      "kind": "object",
+      "x": 224,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_fill_r2c3",
+      "kind": "object",
+      "x": 240,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_fill_r3c0",
+      "kind": "object",
+      "x": 192,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_fill_r3c1",
+      "kind": "object",
+      "x": 208,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_fill_r3c2",
+      "kind": "object",
+      "x": 224,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_fill_r3c3",
+      "kind": "object",
+      "x": 240,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "dirt"
+      ]
+    },
+    {
+      "name": "mushroom_orange_tall",
       "kind": "object",
       "x": 0,
       "y": 80,
-      "w": 160,
-      "h": 32,
+      "w": 16,
+      "h": 16,
       "tags": [
         "woolly_lands",
         "tofebaa",
-        "flower",
-        "mushroom",
-        "props"
+        "ground_decoration"
       ]
     },
     {
-      "name": "stone_path_tiles",
+      "name": "mushroom_brown",
       "kind": "object",
-      "x": 192,
+      "x": 16,
       "y": 80,
-      "w": 32,
-      "h": 32,
+      "w": 16,
+      "h": 16,
       "tags": [
         "woolly_lands",
         "tofebaa",
-        "stone",
-        "path"
+        "ground_decoration"
       ]
     },
     {
-      "name": "boulder_rock",
+      "name": "mushroom_red_large",
+      "kind": "object",
+      "x": 32,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "mushrooms_orange_small",
+      "kind": "object",
+      "x": 48,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "mushrooms_brown_small",
+      "kind": "object",
+      "x": 64,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "mushrooms_red_tiny",
+      "kind": "object",
+      "x": 80,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "mushrooms_red_mixed_a",
+      "kind": "object",
+      "x": 96,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "mushrooms_red_mixed_b",
+      "kind": "object",
+      "x": 112,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "daisies_white",
+      "kind": "object",
+      "x": 128,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "rock_flat_brown",
+      "kind": "object",
+      "x": 144,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "stones_brown_pair_a",
       "kind": "object",
       "x": 160,
       "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "stones_white_pair_a",
+      "kind": "object",
+      "x": 176,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "stones_dark_pair_a",
+      "kind": "object",
+      "x": 192,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "planks_horizontal_a",
+      "kind": "object",
+      "x": 208,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "reeds_green",
+      "kind": "object",
+      "x": 0,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "reeds_dry_a",
+      "kind": "object",
+      "x": 16,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "reeds_dry_b",
+      "kind": "object",
+      "x": 32,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "pebbles_a",
+      "kind": "object",
+      "x": 48,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "pebbles_b",
+      "kind": "object",
+      "x": 64,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "pebbles_c",
+      "kind": "object",
+      "x": 80,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "mushrooms_red_cluster_a",
+      "kind": "object",
+      "x": 96,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "mushrooms_red_cluster_b",
+      "kind": "object",
+      "x": 112,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "rock_flat_grey",
+      "kind": "object",
+      "x": 144,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "stones_brown_pair_b",
+      "kind": "object",
+      "x": 160,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "stones_white_pair_b",
+      "kind": "object",
+      "x": 176,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "stones_dark_pair_b",
+      "kind": "object",
+      "x": 192,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "planks_vertical_a",
+      "kind": "object",
+      "x": 208,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "stone_slab_pale_a",
+      "kind": "object",
+      "x": 144,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "planks_horizontal_b",
+      "kind": "object",
+      "x": 208,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "planks_vertical_b",
+      "kind": "object",
+      "x": 224,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "stone_slab_pale_b",
+      "kind": "object",
+      "x": 144,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "planks_horizontal_c",
+      "kind": "object",
+      "x": 208,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "planks_vertical_c",
+      "kind": "object",
+      "x": 224,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "ground_decoration"
+      ]
+    },
+    {
+      "name": "boulder_pile",
+      "kind": "object",
+      "x": 224,
+      "y": 80,
       "w": 32,
       "h": 32,
       "tags": [
         "woolly_lands",
         "tofebaa",
-        "rock",
-        "boulder"
+        "rock"
       ]
     },
     {
-      "name": "small_tree_prop",
+      "name": "grass_tall_r0c0",
       "kind": "object",
       "x": 256,
       "y": 80,
-      "w": 64,
-      "h": 32,
+      "w": 16,
+      "h": 16,
       "tags": [
         "woolly_lands",
         "tofebaa",
-        "tree",
-        "nature"
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_tall_r0c1",
+      "kind": "object",
+      "x": 272,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_tall_r0c2",
+      "kind": "object",
+      "x": 288,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_tall_r1c0",
+      "kind": "object",
+      "x": 256,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_tall_r1c1",
+      "kind": "object",
+      "x": 272,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_tall_r1c2",
+      "kind": "object",
+      "x": 288,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_tall_r1c3",
+      "kind": "object",
+      "x": 304,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "autotile",
+        "grass"
       ]
     }
   ]

@@ -107,10 +107,10 @@
     {
       "name": "round_table",
       "kind": "object",
-      "x": 56,
-      "y": 90,
-      "w": 64,
-      "h": 42,
+      "x": 64,
+      "y": 94,
+      "w": 34,
+      "h": 34,
       "tags": [
         "roleworld_wizard",
         "pixel_sazy",
@@ -121,10 +121,10 @@
     {
       "name": "stool_wood_round",
       "kind": "object",
-      "x": 0,
+      "x": 1,
       "y": 100,
-      "w": 14,
-      "h": 30,
+      "w": 13,
+      "h": 28,
       "tags": [
         "roleworld_wizard",
         "pixel_sazy",
@@ -138,7 +138,7 @@
       "x": 14,
       "y": 100,
       "w": 14,
-      "h": 30,
+      "h": 28,
       "tags": [
         "roleworld_wizard",
         "pixel_sazy",
@@ -152,7 +152,7 @@
       "x": 28,
       "y": 100,
       "w": 14,
-      "h": 30,
+      "h": 28,
       "tags": [
         "roleworld_wizard",
         "pixel_sazy",
@@ -166,7 +166,7 @@
       "x": 42,
       "y": 100,
       "w": 13,
-      "h": 30,
+      "h": 27,
       "tags": [
         "roleworld_wizard",
         "pixel_sazy",

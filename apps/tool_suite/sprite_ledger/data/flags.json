@@ -371,9 +371,9 @@
     "name": "autumn_dirt_a_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:22.864Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:23:53.085Z",
     "remappedFrom": "autumn_dirt_patch_solid"
   },
   {
@@ -382,9 +382,9 @@
     "name": "autumn_dirt_b_r0c0",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:27.325Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:21:28.984Z",
     "remappedFrom": "autumn_dirt_patch_variant"
   },
   {
@@ -393,9 +393,9 @@
     "name": "spring_dirt_a_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:31.342Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:24:00.865Z",
     "remappedFrom": "spring_dirt_patch_solid"
   },
   {
@@ -404,9 +404,9 @@
     "name": "summer_dirt_a_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:39.094Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:24:07.429Z",
     "remappedFrom": "summer_dirt_patch_solid"
   },
   {
@@ -415,9 +415,9 @@
     "name": "spring_dirt_b_r0c0",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:44.953Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:21:33.683Z",
     "remappedFrom": "spring_dirt_patch_variant"
   },
   {
@@ -426,9 +426,9 @@
     "name": "summer_dirt_b_r0c0",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:48.093Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:21:36.895Z",
     "remappedFrom": "summer_dirt_patch_variant"
   },
   {
@@ -437,9 +437,9 @@
     "name": "winter_dirt_a_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:51.162Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:24:12.961Z",
     "remappedFrom": "winter_dirt_patch_solid"
   },
   {
@@ -448,9 +448,9 @@
     "name": "winter_dirt_b_r0c0",
     "reason": "misaligned",
     "comment": "this needs to be splitted into 3 rows and 4 columns",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:23:54.332Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:21:41.456Z",
     "remappedFrom": "winter_dirt_patch_variant"
   },
   {
@@ -503,9 +503,9 @@
     "name": "autumn_cliff_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:26:22.811Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:23:49.471Z",
     "remappedFrom": "autumn_cliff_hillside"
   },
   {
@@ -514,9 +514,9 @@
     "name": "spring_cliff_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:26:27.296Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:23:59.055Z",
     "remappedFrom": "spring_cliff_hillside"
   },
   {
@@ -525,9 +525,9 @@
     "name": "winter_cliff_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:26:31.028Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:24:11.629Z",
     "remappedFrom": "winter_cliff_hillside"
   },
   {
@@ -536,9 +536,9 @@
     "name": "summer_cliff_r0c1",
     "reason": "misaligned",
     "comment": "this needs to be splitted in 6 columns, and 16 rows",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:26:34.544Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:24:05.201Z",
     "remappedFrom": "summer_cliff_hillside"
   },
   {
@@ -580,9 +580,9 @@
     "name": "winter_flower_bush_yellow",
     "reason": "misaligned",
     "comment": "this one is weird cause it has several fomat in it, we can split it in 5 rows, and 10 columns, starting from top right, 2 first row and 2 forst columns contain a flower, 2 first columns and row 3 and 4 contains another flower, last row is empty for column 1 and 2, columns 3 and 4 contains a big flower that goes in row 1,2,3 and 4, ro 5 for columns 3 and 4 is empty, the rest of row 5 are dirt/grass junctions that should probably be with \"winter_dirt_patch_variant\" then columns 5,6,7 and 8 and row 1 to 4 are a big flower bush, column 9 and 10 are 2 rocks on row 1 and 2 and the second rock on row 3 and 4",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:13.212Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:21:57.299Z",
     "remappedFrom": "winter_flower_rock_cluster"
   },
   {
@@ -591,9 +591,9 @@
     "name": "autumn_boulder_r0c0",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:34.078Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:23:47.365Z",
     "remappedFrom": "autumn_boulder_rock"
   },
   {
@@ -602,9 +602,9 @@
     "name": "autumn_wall_stone_r1c0",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:35.837Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:23:45.143Z",
     "remappedFrom": "autumn_ice_wall_texture"
   },
   {
@@ -613,9 +613,9 @@
     "name": "spring_boulder_r0c0",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:38.845Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:23:56.561Z",
     "remappedFrom": "spring_boulder_rock"
   },
   {
@@ -624,9 +624,9 @@
     "name": "spring_wall_stone_r1c0",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:41.098Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:23:37.977Z",
     "remappedFrom": "spring_ice_wall_texture"
   },
   {
@@ -635,9 +635,9 @@
     "name": "summer_boulder_r0c0",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:43.308Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:24:03.144Z",
     "remappedFrom": "summer_boulder_rock"
   },
   {
@@ -646,9 +646,9 @@
     "name": "summer_wall_stone_r1c0",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:45.586Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:23:35.695Z",
     "remappedFrom": "summer_ice_wall_texture"
   },
   {
@@ -657,9 +657,9 @@
     "name": "winter_boulder_r0c0",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:47.565Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:24:10.156Z",
     "remappedFrom": "winter_boulder_rock"
   },
   {
@@ -668,9 +668,9 @@
     "name": "winter_wall_stone_r1c0",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:33:49.202Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:23:40.931Z",
     "remappedFrom": "winter_ice_wall_texture"
   },
   {
@@ -781,9 +781,9 @@
   {
     "id": "f_3689c41d-8849-4814-9120-df2312f404ca",
     "sheet": "effects.png",
-    "name": "effects_035",
+    "name": "steam_puff_1",
     "reason": "misaligned",
-    "comment": "[Claude] This was a slicer artifact boxing ~25 separate effect frames. Replaced it (and the same-kind blob effects_052 plus 7 unnamed fragments in that area) with 38 named per-frame entries on the 32px grid: steam_puff_1-5, flame_cyan_1-3, light_rays_1-3, water_fill_1-4, water_splash_start/settle_1-5, water_droplet_1-3, dark_star_1-2, skull_curse_1-5, bubble_sleep_1-4, bubble_alert, bubble_item_boot, water_drop_small. Note: unnamed effects_025 still overlaps steam_puff_4.",
+    "comment": "[Claude] This was a slicer artifact boxing ~25 separate effect frames. Replaced it (and the same-kind blob effects_052 plus 7 unnamed fragments in that area) with 38 named per-frame entries on the 32px grid: steam_puff_1-5, flame_cyan_1-3, light_rays_1-3, water_fill_1-4, water_splash_start/settle_1-5, water_droplet_1-3, dark_star_1-2, skull_curse_1-5, bubble_sleep_1-4, bubble_alert, bubble_item_boot, water_drop_small. Note: unnamed effects_025 still overlaps steam_puff_4.\n\n[Claude] Flag moved from effects_035 (no longer exists) to steam_puff_1, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-03T18:12:14.483Z",
     "resolvedAt": null,
@@ -1006,9 +1006,9 @@
   {
     "id": "f_6c06b550-4e5b-487d-92d0-a33f7f55ff40",
     "sheet": "ground_decorations.png",
-    "name": "grass_tuft_row",
+    "name": "grass_tuft_a",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] Split into 9: dirt_speckle_a-c, grass_tuft_a-c, dirt_mound_low_a-c. (Flag moved from grass_tuft_row to grass_tuft_a.)",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:42:06.126Z",
     "resolvedAt": null
@@ -1016,9 +1016,9 @@
   {
     "id": "f_52d70774-0eb3-4e6e-90c3-0d566bb4da50",
     "sheet": "terrain_tiles_v2.png",
-    "name": "dirt_patch_solid",
+    "name": "dirt_in_grass_r0c0",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] The sheet is 4x4 autotile sets of 32px tiles. Split the whole sheet into its tiles (150), named by set: dirt_in_grass, dirt_ledge, grass_in_dirt, grass_ledge, rock_ground, grass_fill, plank_path_v, etc. The flag now sits on the first tile of its set. (Flag moved from dirt_patch_solid to dirt_in_grass_r0c0.)",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:42:18.065Z",
     "resolvedAt": null
@@ -1026,7 +1026,7 @@
   {
     "id": "f_e9c63d8a-534c-4fce-beca-2901acf54e9e",
     "sheet": "terrain_tiles_v2.png",
-    "name": "grass_patch_solid",
+    "name": "dirt_ledge_r0c0",
     "reason": "misaligned",
     "comment": "[Claude] Checked the sheet directly \u2014 this box is solid dirt, not grass. Renamed to dirt_patch_solid_b (there was already an unrelated dirt_patch_solid elsewhere on the sheet).",
     "status": "needs_review",
@@ -1036,7 +1036,7 @@
   {
     "id": "f_21364d0d-b116-4cb2-b778-096ba2d3f075",
     "sheet": "terrain_tiles_v2.png",
-    "name": "tree_bush_prop",
+    "name": "dirt_rough_r0c0",
     "reason": "misaligned",
     "comment": "[Claude] Looked at this one but could not confidently resolve it \u2014 the box currently covers 3 quarters of what looks like a scalloped dirt-patch corner/edge autotile piece, with the 4th quarter genuinely empty. Not sure if it should be split into separate corner tiles or is meant to be an L-shape represented some other way. Leaving open rather than guessing.\n\n[Claude] No tree/bush here: it is 3 tiles of a rough stippled-dirt autotile. Replaced with dirt_rough_corner_top_left, dirt_rough_corner_top_right, dirt_rough_edge_bottom (the 4th quarter is genuinely empty).",
     "status": "needs_review",
@@ -1046,9 +1046,9 @@
   {
     "id": "f_1486e736-d113-4891-8fdd-4e0f7961f00c",
     "sheet": "terrain_tiles_v2.png",
-    "name": "grass_field_open",
+    "name": "grass_in_dirt_r0c0",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] The sheet is 4x4 autotile sets of 32px tiles. Split the whole sheet into its tiles (150), named by set: dirt_in_grass, dirt_ledge, grass_in_dirt, grass_ledge, rock_ground, grass_fill, plank_path_v, etc. The flag now sits on the first tile of its set. (Flag moved from grass_field_open to grass_in_dirt_r0c0.)",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:42:25.407Z",
     "resolvedAt": null
@@ -1056,9 +1056,9 @@
   {
     "id": "f_6987e509-0634-46ec-b4c2-3831c2247765",
     "sheet": "terrain_tiles_v2.png",
-    "name": "grass_field_flowers",
+    "name": "grass_ledge_r0c0",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] The sheet is 4x4 autotile sets of 32px tiles. Split the whole sheet into its tiles (150), named by set: dirt_in_grass, dirt_ledge, grass_in_dirt, grass_ledge, rock_ground, grass_fill, plank_path_v, etc. The flag now sits on the first tile of its set. (Flag moved from grass_field_flowers to grass_ledge_r0c0.)",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:42:27.101Z",
     "resolvedAt": null
@@ -1066,7 +1066,7 @@
   {
     "id": "f_ee203af0-ebe0-479f-97f6-ee668bdffb27",
     "sheet": "terrain_tiles_v2.png",
-    "name": "path_dirt_strip",
+    "name": "grass_in_dirt_r3c0",
     "reason": "misaligned",
     "comment": "[Claude] Checked the sheet directly \u2014 this box is solid grass (with a couple of thin decorative crack lines through it), not a dirt path. Renamed to grass_patch_rect_wide, box kept as-is.",
     "status": "needs_review",
@@ -1106,9 +1106,9 @@
   {
     "id": "f_ec1bf455-e9e3-4f00-9af5-fe82b3999c92",
     "sheet": "terrain_tiles_v2.png",
-    "name": "brick_path_strip",
+    "name": "plank_path_v_r0c0",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] The sheet is 4x4 autotile sets of 32px tiles. Split the whole sheet into its tiles (150), named by set: dirt_in_grass, dirt_ledge, grass_in_dirt, grass_ledge, rock_ground, grass_fill, plank_path_v, etc. The flag now sits on the first tile of its set. (Flag moved from brick_path_strip to plank_path_v_r0c0.)",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:42:36.811Z",
     "resolvedAt": null
@@ -1116,9 +1116,9 @@
   {
     "id": "f_c287234f-0b6a-40c5-8b55-028c74a01baf",
     "sheet": "water_and_island_tiles_v2.png",
-    "name": "dirt_patch_solid",
+    "name": "dirt_ledge_r0c0",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] Split the whole sheet into its 32px tiles (109), named by set: dirt_ledge, grass_ledge, island_edge_*, rock_wall_*, water_deep, water_shore, ground_swatch, ground_stake. (Flag moved from dirt_patch_solid to dirt_ledge_r0c0.)",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:42:42.176Z",
     "resolvedAt": null
@@ -1126,9 +1126,9 @@
   {
     "id": "f_405cf1d9-c334-48cb-82ba-c4b77b18864a",
     "sheet": "water_and_island_tiles_v2.png",
-    "name": "grass_patch_solid",
+    "name": "grass_ledge_r0c0",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] Split the whole sheet into its 32px tiles (109), named by set: dirt_ledge, grass_ledge, island_edge_*, rock_wall_*, water_deep, water_shore, ground_swatch, ground_stake. (Flag moved from grass_patch_solid to grass_ledge_r0c0.)",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:42:44.209Z",
     "resolvedAt": null
@@ -1156,7 +1156,7 @@
   {
     "id": "f_5b6d99f6-1898-47d5-b0fc-19e0243ec277",
     "sheet": "water_and_island_tiles_v2.png",
-    "name": "water_shore_transition",
+    "name": "ground_swatch_r0c0",
     "reason": "misaligned",
     "comment": "[Claude] Checked the sheet directly \u2014 no water in this box at all, it is a 2x3 block of plain dirt/grass ground tiles. Renamed to island_ground_tile_variants.",
     "status": "needs_review",
@@ -1186,9 +1186,9 @@
   {
     "id": "f_f5aa04ef-ba52-4bc7-8c0d-29f0ecfd4a1b",
     "sheet": "dirtpath_tiles.png",
-    "name": "dirtpath_blob",
+    "name": "dirtpath_nw",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] Split into 16 path tiles: dirtpath 9-slice (nw..se), vertical strip top/mid/bottom, horizontal strip left/mid/right, single. (Flag moved from dirtpath_blob to dirtpath_nw.)",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:43:04.228Z",
     "resolvedAt": null
@@ -1390,9 +1390,9 @@
     "name": "tuft_tan_b",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:44:26.917Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-24T15:22:16.136Z",
     "remappedFrom": "tufts_and_lumps"
   },
   {
@@ -1420,9 +1420,9 @@
   {
     "id": "f_a39164a6-80bf-49b6-bef1-51b7bbfe6bc4",
     "sheet": "overworld_tileset.png",
-    "name": "tree_large",
+    "name": "tree_pine_green",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] Re-catalogued the whole sheet (10 rough boxes -> 117 entries): terrain autotiles split into 16px tiles (grass_ledge, garden_bed_fenced, dirt_path, grass_dirt_round, stone_wall 9-slice), every prop boxed separately. house_cottage now stops at y80 (no strip of the buildings below); bush_cluster is now bush_flowering + bush_green; tree_large is now tree_pine_green, cropped on all 4 sides; house_red_roof widened to include the whole roof. (Flag moved from tree_large to tree_pine_green.)",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:44:58.111Z",
     "resolvedAt": null
@@ -1432,8 +1432,8 @@
     "sheet": "overworld_tileset.png",
     "name": "house_red_roof",
     "reason": "misaligned",
-    "comment": "",
-    "status": "open",
+    "comment": "[Claude] Widened to the whole house (144,80,80x64): the old box cut the right side of the roof.",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:45:00.962Z",
     "resolvedAt": null
   },
@@ -1450,9 +1450,9 @@
   {
     "id": "f_4d42b2c1-3384-4494-a310-4e2c3019dcd9",
     "sheet": "overworld_tileset.png",
-    "name": "bush_cluster",
+    "name": "bush_flowering",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] Re-catalogued the whole sheet (10 rough boxes -> 117 entries): terrain autotiles split into 16px tiles (grass_ledge, garden_bed_fenced, dirt_path, grass_dirt_round, stone_wall 9-slice), every prop boxed separately. house_cottage now stops at y80 (no strip of the buildings below); bush_cluster is now bush_flowering + bush_green; tree_large is now tree_pine_green, cropped on all 4 sides; house_red_roof widened to include the whole roof. (Flag moved from bush_cluster to bush_flowering.)",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:45:09.248Z",
     "resolvedAt": null
@@ -1472,15 +1472,15 @@
     "sheet": "overworld_tileset.png",
     "name": "house_cottage",
     "reason": "misaligned",
-    "comment": "[Claude] Box was including a strip of farmland to the left and clipping the building. Re-cropped to just the house (x192,y0,96x90).",
-    "status": "open",
+    "comment": "[Claude] Box was including a strip of farmland to the left and clipping the building. Re-cropped to just the house (x192,y0,96x90).\n\n[Claude] Re-catalogued the whole sheet (10 rough boxes -> 117 entries): terrain autotiles split into 16px tiles (grass_ledge, garden_bed_fenced, dirt_path, grass_dirt_round, stone_wall 9-slice), every prop boxed separately. house_cottage now stops at y80 (no strip of the buildings below); bush_cluster is now bush_flowering + bush_green; tree_large is now tree_pine_green, cropped on all 4 sides; house_red_roof widened to include the whole roof.",
+    "status": "needs_review",
     "createdAt": "2026-09-03T19:45:18.011Z",
     "resolvedAt": null
   },
   {
     "id": "f_d22c1fed-452d-45e8-8f59-fc074b2060c8",
     "sheet": "overworld_tileset.png",
-    "name": "fence_blob",
+    "name": "garden_bed_fenced_r0c0",
     "reason": "misaligned",
     "comment": "[Claude] Looked at this one but could not confidently resolve it \u2014 the box currently shows a fragment of hedge border + a rock + the corner of a wood beam, no clear single \"fence\" object. Not sure what the intended crop is. Leaving open rather than guessing.\n\n[Claude] It is a 64x48 raised garden bed with wood-plank sides (the old 48x32 box cut it mid-cliff). Renamed garden_bed_fenced, box (64,0,64,48). Also fixed grass_blob next to it, which had the same 32px-tall cut: now 64x48.",
     "status": "needs_review",
@@ -1490,9 +1490,9 @@
   {
     "id": "f_33a3cc5d-16ee-4489-bcf9-a4f442c1154e",
     "sheet": "overworld_tileset.png",
-    "name": "grass_blob",
+    "name": "grass_ledge_r0c0",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 \"blob\" here is the autotile-piece naming convention (an interior grass fill piece), and the crop matches that. Name and box both look correct to me, no misalignment found.\n\n[Claude] Correction: I called this fine earlier, but the box was 32px tall and cut the raised ledge mid-cliff. Now 64x48.",
+    "comment": "[Claude] Checked against the sheet \u2014 \"blob\" here is the autotile-piece naming convention (an interior grass fill piece), and the crop matches that. Name and box both look correct to me, no misalignment found.\n\n[Claude] Correction: I called this fine earlier, but the box was 32px tall and cut the raised ledge mid-cliff. Now 64x48.\n\n[Claude] Re-catalogued the whole sheet (10 rough boxes -> 117 entries): terrain autotiles split into 16px tiles (grass_ledge, garden_bed_fenced, dirt_path, grass_dirt_round, stone_wall 9-slice), every prop boxed separately. house_cottage now stops at y80 (no strip of the buildings below); bush_cluster is now bush_flowering + bush_green; tree_large is now tree_pine_green, cropped on all 4 sides; house_red_roof widened to include the whole roof. (Flag moved from grass_blob to grass_ledge_r0c0.)",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:45:22.740Z",
     "resolvedAt": null
@@ -1550,9 +1550,9 @@
   {
     "id": "f_075e32c3-157f-45b6-a301-ca1d26a7a6f2",
     "sheet": "trees_and_fruits.png",
-    "name": "tree_small",
+    "name": "sapling_yellow_tiny",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "\n\n[Claude] Flag moved from tree_small (no longer exists) to sapling_yellow_tiny, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:57:22.913Z",
     "resolvedAt": null
@@ -1560,9 +1560,9 @@
   {
     "id": "f_c8941aae-0273-443b-b056-6db671f73b65",
     "sheet": "trees_and_fruits.png",
-    "name": "tree_yellow_apple",
+    "name": "tree_yellow_apple_red",
     "reason": "misaligned",
-    "comment": "[Claude] The box straddles two different trees in the grid (cuts both in half), and the grid spacing here does not look like a clean fixed pitch I could confidently re-derive. Leaving open rather than guessing a boundary.\n\n[Claude] Grid is 64px columns starting at x=99 (old boxes started at 64 and cut two trees each). Re-catalogued the whole sheet (31 sprites): tree_<foliage>_<fruit> for yellow / yellow_birch / pink_birch / orange_birch x plain / apple_red / orange / cherry / apple_green, plus saplings, 2 pines, bush_round_small, berry_bush_red/blue. The yellow red-apple tree is now tree_yellow_apple_red.",
+    "comment": "[Claude] The box straddles two different trees in the grid (cuts both in half), and the grid spacing here does not look like a clean fixed pitch I could confidently re-derive. Leaving open rather than guessing a boundary.\n\n[Claude] Grid is 64px columns starting at x=99 (old boxes started at 64 and cut two trees each). Re-catalogued the whole sheet (31 sprites): tree_<foliage>_<fruit> for yellow / yellow_birch / pink_birch / orange_birch x plain / apple_red / orange / cherry / apple_green, plus saplings, 2 pines, bush_round_small, berry_bush_red/blue. The yellow red-apple tree is now tree_yellow_apple_red.\n\n[Claude] Flag moved from tree_yellow_apple (no longer exists) to tree_yellow_apple_red, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:57:25.544Z",
     "resolvedAt": null
@@ -1570,9 +1570,9 @@
   {
     "id": "f_60628ced-5890-46da-861d-487acff86e90",
     "sheet": "trees_and_fruits.png",
-    "name": "tree_magenta_fruit",
+    "name": "tree_pink_birch_apple_red",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "\n\n[Claude] Flag moved from tree_magenta_fruit (no longer exists) to tree_pink_birch_apple_red, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:57:28.328Z",
     "resolvedAt": null
@@ -1580,9 +1580,9 @@
   {
     "id": "f_5e6b765d-75ca-4de0-a7b7-a095c63ffffd",
     "sheet": "trees_and_fruits.png",
-    "name": "tree_orange_fruit",
+    "name": "tree_orange_birch_orange",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "\n\n[Claude] Flag moved from tree_orange_fruit (no longer exists) to tree_orange_birch_orange, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:57:31.804Z",
     "resolvedAt": null
@@ -1590,9 +1590,9 @@
   {
     "id": "f_38711f33-2d3a-4792-bb7b-cb57f4111371",
     "sheet": "woods_objects.png",
-    "name": "wood_prop_variants",
+    "name": "signpost_directional",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] Split into the 6 items (signpost_directional, sign_board_wide, sign_board_plain, sign_board_low, mailbox_red_flag, birdhouse) plus the fence set as 14 fence tiles. (Flag moved from wood_prop_variants to signpost_directional.)",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:57:34.891Z",
     "resolvedAt": null
@@ -1610,9 +1610,9 @@
   {
     "id": "f_3cc4eade-f816-48eb-9eda-347803ba3adf",
     "sheet": "set_1.png",
-    "name": "flower_mushroom_row",
+    "name": "mushroom_orange_tall",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] Split the whole sheet (105 entries): the hedge/dirt autotiles into 16px tiles (hedge_blob, hedge_patch, hedge_dirt_mix, dirt_fill), and every decorated ground tile (mushrooms, reeds, pebbles, stones, planks, daisies) into its own entry, plus boulder_pile and grass_tall tiles. (Flag moved from flower_mushroom_row to mushroom_orange_tall.)",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:57:38.668Z",
     "resolvedAt": null
@@ -1623,16 +1623,16 @@
     "name": "dirt_path_strip",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:57:40.917Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-24T15:27:29.125Z"
   },
   {
     "id": "f_cf9f2d67-5770-4f30-8dad-5876e2e4140c",
     "sheet": "set_1.png",
-    "name": "hedge_solid_patch",
+    "name": "hedge_patch_r0c0",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] Split the whole sheet (105 entries): the hedge/dirt autotiles into 16px tiles (hedge_blob, hedge_patch, hedge_dirt_mix, dirt_fill), and every decorated ground tile (mushrooms, reeds, pebbles, stones, planks, daisies) into its own entry, plus boulder_pile and grass_tall tiles. (Flag moved from hedge_solid_patch to hedge_patch_r0c0.)",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:57:42.683Z",
     "resolvedAt": null
@@ -1640,9 +1640,9 @@
   {
     "id": "f_f26ec2f2-ab91-43ac-8f7b-c08fa48cbe54",
     "sheet": "set_1.png",
-    "name": "hedge_maze_pattern",
+    "name": "hedge_blob_r0c0",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] Split the whole sheet (105 entries): the hedge/dirt autotiles into 16px tiles (hedge_blob, hedge_patch, hedge_dirt_mix, dirt_fill), and every decorated ground tile (mushrooms, reeds, pebbles, stones, planks, daisies) into its own entry, plus boulder_pile and grass_tall tiles. (Flag moved from hedge_maze_pattern to hedge_blob_r0c0.)",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:57:44.428Z",
     "resolvedAt": null
@@ -1660,9 +1660,9 @@
   {
     "id": "f_df916638-7fc5-4a7d-91f3-84aa998eeda4",
     "sheet": "fruits_objects.png",
-    "name": "fruit_variants",
+    "name": "fruit_cherries",
     "reason": "misaligned",
-    "comment": "[Claude] Split into 14: 7 fruits (cherries, apple_red, apple_green, orange, blueberries, red_berries, chestnut) x plain / white-outlined, as fruit_<name> and fruit_<name>_outlined.",
+    "comment": "[Claude] Split into 14: 7 fruits (cherries, apple_red, apple_green, orange, blueberries, red_berries, chestnut) x plain / white-outlined, as fruit_<name> and fruit_<name>_outlined.\n\n[Claude] Flag moved from fruit_variants (no longer exists) to fruit_cherries, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-03T19:57:52.443Z",
     "resolvedAt": null
@@ -1670,9 +1670,9 @@
   {
     "id": "f_2d47bc18-63c7-45a0-a177-26aaa464df2f",
     "sheet": "cave_tiles.png",
-    "name": "cave_wall_blob",
+    "name": "cave_pit_large",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] Re-catalogued the whole sheet (2 -> 36): cave_pit_large (the old box was only its top half), cave_pit_narrow, mine_entrance_timber, rock_island_water, and every plant/rock/ore/boulder/tree/ladder/wall separately. The pits are kept as whole objects - say if you want them split into 16px rim tiles. (Flag moved from cave_wall_blob to cave_pit_large.)",
     "status": "needs_review",
     "createdAt": "2026-09-09T01:26:30.627Z",
     "resolvedAt": null
@@ -1680,9 +1680,9 @@
   {
     "id": "f_d991629a-1c8b-4bb6-b46c-3ceb5e85f254",
     "sheet": "dungeon_tiles.png",
-    "name": "dungeon_prop_cluster",
+    "name": "door_wood_arched",
     "reason": "misaligned",
-    "comment": "",
+    "comment": "[Claude] Re-catalogued the whole sheet (3 -> 199): 19 named props (door_wood_arched, gate_iron_arched, doorway_arched_open, spike_trap, prison_bars_a/b, door_wood_iron_frame, hatch_door_small, banners, ivy_overlay, pipe, wood_pillar, wall_lamp_* and floor_glow_* in red/blue/green) and every other non-empty 16px cell as a wall/floor tile dungeon_tile_r#c#. (Flag moved from dungeon_prop_cluster to door_wood_arched.)",
     "status": "needs_review",
     "createdAt": "2026-09-09T01:26:32.370Z",
     "resolvedAt": null
@@ -2040,9 +2040,9 @@
   {
     "id": "f_e555f693-48ff-4e41-b9c3-9a31ebc067c3",
     "sheet": "grass_tiles.png",
-    "name": "water_edge",
+    "name": "grass_plateau_cliff",
     "reason": "misaligned",
-    "comment": "[Claude] Looked at this one but could not confidently resolve it \u2014 the box mostly covers empty space plus fragments of an unrelated dirt/grass/bush texture, no water visible anywhere nearby on this sheet. Not sure what content this was meant to capture. Leaving open rather than guessing.\n\n[Claude] No water on this sheet. It is a grass terrain set; all 3 old entries were wrong guesses. Re-catalogued as 8 regions: grass_plateau_cliff, pit_hole_dark, grass_edge_blob, grass_edge_hole, grass_fill_dark, grass_fill, dirt_block_grass_edges, dirt_patch_in_grass.",
+    "comment": "[Claude] Looked at this one but could not confidently resolve it \u2014 the box mostly covers empty space plus fragments of an unrelated dirt/grass/bush texture, no water visible anywhere nearby on this sheet. Not sure what content this was meant to capture. Leaving open rather than guessing.\n\n[Claude] No water on this sheet. It is a grass terrain set; all 3 old entries were wrong guesses. Re-catalogued as 8 regions: grass_plateau_cliff, pit_hole_dark, grass_edge_blob, grass_edge_hole, grass_fill_dark, grass_fill, dirt_block_grass_edges, dirt_patch_in_grass.\n\n[Claude] Flag moved from water_edge (no longer exists) to grass_plateau_cliff, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-09T01:29:54.254Z",
     "resolvedAt": null
@@ -2120,9 +2120,9 @@
   {
     "id": "f_7896b1f7-dc55-4bfa-99db-b04670cfb4d6",
     "sheet": "Vegetation_01.png",
-    "name": "vegetation_01",
+    "name": "bush_leafy_green",
     "reason": "misaligned",
-    "comment": "there are SEVERAL vegetation components in here\n\n[Claude] Replaced the single whole-sheet box with 128 sprites: 2 bushes, 2 dead trees, 24 sprouts (green/olive/brown), ferns, mushrooms, tall grass, stakes, twigs, log arch, rocks/pebbles, 4 flower colours (3 bud stages + 8 variants each), 12 berries, canopy shadows, dirt patches.",
+    "comment": "there are SEVERAL vegetation components in here\n\n[Claude] Replaced the single whole-sheet box with 128 sprites: 2 bushes, 2 dead trees, 24 sprouts (green/olive/brown), ferns, mushrooms, tall grass, stakes, twigs, log arch, rocks/pebbles, 4 flower colours (3 bud stages + 8 variants each), 12 berries, canopy shadows, dirt patches.\n\n[Claude] Flag moved from vegetation_01 (no longer exists) to bush_leafy_green, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-14T13:35:06.916Z",
     "resolvedAt": null
@@ -2180,9 +2180,9 @@
   {
     "id": "f_dce72624-8a1d-4d2c-947f-a1cc1e8413d3",
     "sheet": "fruits_objects.png",
-    "name": "fruit_variants",
+    "name": "fruit_cherries",
     "reason": "misaligned",
-    "comment": "there are 14 distincts things in here\n\n[Claude] Split into 14: 7 fruits (cherries, apple_red, apple_green, orange, blueberries, red_berries, chestnut) x plain / white-outlined, as fruit_<name> and fruit_<name>_outlined.",
+    "comment": "there are 14 distincts things in here\n\n[Claude] Split into 14: 7 fruits (cherries, apple_red, apple_green, orange, blueberries, red_berries, chestnut) x plain / white-outlined, as fruit_<name> and fruit_<name>_outlined.\n\n[Claude] Flag moved from fruit_variants (no longer exists) to fruit_cherries, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-14T13:41:56.134Z",
     "resolvedAt": null
@@ -2190,9 +2190,9 @@
   {
     "id": "f_db83e926-0a1d-47f1-8d6f-bb5372542f02",
     "sheet": "decorations.png",
-    "name": "flower_row",
+    "name": "flower_round_orange",
     "reason": "misaligned",
-    "comment": "there are 12 flowers in this\n\n[Claude] Split into 12 (3 colours x 4 kinds): flower_round_*, flower_bloom_*, tulip_*, daisy_*.",
+    "comment": "there are 12 flowers in this\n\n[Claude] Split into 12 (3 colours x 4 kinds): flower_round_*, flower_bloom_*, tulip_*, daisy_*.\n\n[Claude] Flag moved from flower_row (no longer exists) to flower_round_orange, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-14T16:41:44.461Z",
     "resolvedAt": null
@@ -2210,9 +2210,9 @@
   {
     "id": "f_b07f5a59-9919-4b32-99ef-4c58c7ae52e2",
     "sheet": "exterior_asset.png",
-    "name": "small_props_cluster",
+    "name": "pebbles_grey",
     "reason": "misaligned",
-    "comment": "i suppose this can be splitted in 8 items\n\n[Claude] Split into 10 (not quite 8): pebbles_grey, log_short, stone_plaque, autumn_flower_patch, and 6 small brown nuts nut_brown_a..f.",
+    "comment": "i suppose this can be splitted in 8 items\n\n[Claude] Split into 10 (not quite 8): pebbles_grey, log_short, stone_plaque, autumn_flower_patch, and 6 small brown nuts nut_brown_a..f.\n\n[Claude] Flag moved from small_props_cluster (no longer exists) to pebbles_grey, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-14T16:42:59.952Z",
     "resolvedAt": null
@@ -2242,7 +2242,7 @@
     "sheet": "interior_asset.png",
     "name": "round_table",
     "reason": "misaligned",
-    "comment": "too much cropped on the left side",
+    "comment": "too much cropped on the left side\n\n[Claude] Re-cropped to just the table (64,94,34x34) - no curtain or folded cloth. Also fixed 4 entries next to it (stool/table/plant/cloth) that ran 2px past the sheet bottom.",
     "status": "needs_review",
     "createdAt": "2026-09-14T16:44:22.796Z",
     "resolvedAt": null
@@ -2787,8 +2787,8 @@
     "sheet": "log_horizontal_single.png",
     "name": "log_horizontal_single",
     "reason": "misaligned",
-    "comment": "i think it is too much cropped at the top, not sure... ",
-    "status": "open",
+    "comment": "i think it is too much cropped at the top, not sure... \n\n[Claude] Checked against the original sheet (assets_spritesheet_v2_free.png at 152,249): there is nothing above the log there - row 0 is its dark top outline. It is drawn with a flat top, not cropped. Left as is.",
+    "status": "needs_review",
     "createdAt": "2026-09-21T13:55:34.164Z",
     "resolvedAt": null
   },
@@ -2805,10 +2805,10 @@
   {
     "id": "f_afe869b1-c614-425d-8d08-edcb01b6dd36",
     "sheet": "build_atlas.png",
-    "name": "wood_rimmed_basin_empty",
+    "name": "barrel_top_open_empty",
     "reason": "misaligned",
-    "comment": "misaligned \u2014 this is the top of an empty barrel, pretty sure the bottom is missing",
-    "status": "open",
+    "comment": "misaligned \u2014 this is the top of an empty barrel, pretty sure the bottom is missing\n\n[Claude] Yes - the barrel bodies are right above these tops: barrel_a / barrel_b (same columns). Renamed barrel_top_open_empty / barrel_top_open_water and trimmed to the lid, so they layer on top of the barrel. (Flag moved from wood_rimmed_basin_empty to barrel_top_open_empty.)",
+    "status": "needs_review",
     "createdAt": "2026-09-21T13:56:32.276Z",
     "resolvedAt": null
   },
@@ -2855,9 +2855,9 @@
   {
     "id": "f_9ef2cb68-219a-4f81-8307-24ec2ce14e6a",
     "sheet": "decorations.png",
-    "name": "grass_tuft_row",
+    "name": "flower_sprout_orange",
     "reason": "misaligned",
-    "comment": "there are 12 items in this, you gotta split those\n\n[Claude] Split into 12: flower_sprout_*, clover_patch_*, grass_tuft_a/b/c, flower_tiny_*.",
+    "comment": "there are 12 items in this, you gotta split those\n\n[Claude] Split into 12: flower_sprout_*, clover_patch_*, grass_tuft_a/b/c, flower_tiny_*.\n\n[Claude] Flag moved from grass_tuft_row (no longer exists) to flower_sprout_orange, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T14:02:21.774Z",
     "resolvedAt": null
@@ -3315,9 +3315,9 @@
   {
     "id": "f_bb480977-57da-4b03-9901-451958cfb1eb",
     "sheet": "obj_misk_atlas.png",
-    "name": "ham_hock_raw_a",
+    "name": "ham_hock_raw_top_fragment_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from ham_hock_raw_a (no longer exists) to ham_hock_raw_top_fragment_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:31:23.518Z",
     "resolvedAt": null
@@ -3327,7 +3327,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "meat_chunk_raw_a",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] The chunk sits 2px above its grid cell. Converted to an exact pixel box (1,701,31x18); did the same for meat_chunk_raw_b.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:31:31.249Z",
     "resolvedAt": null
@@ -3335,9 +3335,9 @@
   {
     "id": "f_06cdc889-e603-48fc-9aeb-ecb86c32babd",
     "sheet": "obj_misk_atlas.png",
-    "name": "meat_scrap_fragment_a",
+    "name": "meat_steak_raw_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).\n\n[Claude] Flag moved from meat_scrap_fragment_a (no longer exists) to meat_steak_raw_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:31:40.123Z",
     "resolvedAt": null
@@ -3347,7 +3347,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "meat_raw_cut_a",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] The cut sits 5px above its grid cell. Converted to an exact pixel box (1,634,30x21); did the same for meat_raw_cut_b.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:31:42.649Z",
     "resolvedAt": null
@@ -3375,9 +3375,9 @@
   {
     "id": "f_03c65c97-7fe0-44ba-a782-eb926d076939",
     "sheet": "obj_misk_atlas.png",
-    "name": "fish_fin_fragment_a",
+    "name": "perch_single",
     "reason": "misaligned",
-    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.",
+    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.\n\n[Claude] Flag moved from fish_fin_fragment_a (no longer exists) to perch_single, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:15.199Z",
     "resolvedAt": null
@@ -3385,9 +3385,9 @@
   {
     "id": "f_605a7811-aebf-4608-b565-34e03c09641a",
     "sheet": "obj_misk_atlas.png",
-    "name": "perch_single_a",
+    "name": "perch_single",
     "reason": "misaligned",
-    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.",
+    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.\n\n[Claude] Flag moved from perch_single_a (no longer exists) to perch_single, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:16.871Z",
     "resolvedAt": null
@@ -3395,9 +3395,9 @@
   {
     "id": "f_27bc1601-d991-4f07-8065-c9cb9fc5302c",
     "sheet": "obj_misk_atlas.png",
-    "name": "fish_tail_fragment_a",
+    "name": "perch_single",
     "reason": "misaligned",
-    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.",
+    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.\n\n[Claude] Flag moved from fish_tail_fragment_a (no longer exists) to perch_single, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:18.830Z",
     "resolvedAt": null
@@ -3405,10 +3405,10 @@
   {
     "id": "f_ffaf6130-309e-4642-94cd-b57beebcf330",
     "sheet": "obj_misk_atlas.png",
-    "name": "perch_pair_wide",
+    "name": "perch_pile_3",
     "reason": "misaligned",
-    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.\n\n[Claude] Moved this flag from fish_pile_perch_a (deleted) to perch_pair_wide so it shows up in the grid.",
-    "status": "question",
+    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.\n\n[Claude] Moved this flag from fish_pile_perch_a (deleted) to perch_pair_wide so it shows up in the grid.\n\n[Answer to Claude's question] treat those a groups of fishes for now, we'll see how it outcomes\n\n[Claude] Done: added perch_pile_3 (582,567,34x28), perch_pile_5 (579,610,58x30) and perch_pile_4 (587,639,50x28) next to the 4 base sprites. Moved this flag onto perch_pile_3.",
+    "status": "needs_review",
     "createdAt": "2026-09-21T15:32:20.966Z",
     "resolvedAt": null,
     "claudeNote": "The right half of this fish block also has composed piles (3, 4 and 5 fish placed together), not just the 4 base sprites. Do you want those piles as their own sprites? Where one pile ends and the next begins is ambiguous (the lower-right group could be read as 5+4 or 4+5 fish). My best reading: perch_pile_3 = (582,567,34,28), perch_pile_5 = (579,610,58,30), perch_pile_4 = (587,639,50,28). Say yes / adjust, or \"no, the 4 base sprites are enough\"."
@@ -3416,9 +3416,9 @@
   {
     "id": "f_f5844779-a487-4183-aac2-f85c9e722468",
     "sheet": "obj_misk_atlas.png",
-    "name": "baluster_railing_red_straight_b",
+    "name": "perch_single",
     "reason": "misaligned",
-    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.",
+    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.\n\n[Claude] Flag moved from baluster_railing_red_straight_b (no longer exists) to perch_single, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:25.935Z",
     "resolvedAt": null
@@ -3426,9 +3426,9 @@
   {
     "id": "f_22f91f4b-7edb-4521-9f54-1ea55aeac6f5",
     "sheet": "obj_misk_atlas.png",
-    "name": "window_glasswall_frame_bottom_a",
+    "name": "sack_burlap_pile_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from window_glasswall_frame_bottom_a (no longer exists) to sack_burlap_pile_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:38.510Z",
     "resolvedAt": null
@@ -3436,9 +3436,9 @@
   {
     "id": "f_703726cd-429e-4bf1-b2f5-ae0a58012ecd",
     "sheet": "obj_misk_atlas.png",
-    "name": "door_glass_dark_four_pane_c",
+    "name": "sack_burlap_tall_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from door_glass_dark_four_pane_c (no longer exists) to sack_burlap_tall_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:40.276Z",
     "resolvedAt": null
@@ -3456,9 +3456,9 @@
   {
     "id": "f_fdc35059-c494-4dba-909d-7085061f4bd7",
     "sheet": "obj_misk_atlas.png",
-    "name": "door_glass_dark_two_pane_transom",
+    "name": "sack_burlap_round_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from door_glass_dark_two_pane_transom (no longer exists) to sack_burlap_round_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:44.330Z",
     "resolvedAt": null
@@ -3466,9 +3466,9 @@
   {
     "id": "f_0707f0ec-716e-42c4-b921-8780da6ea47b",
     "sheet": "obj_misk_atlas.png",
-    "name": "bookshelf_books_full_a",
+    "name": "sack_burlap_round_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from bookshelf_books_full_a (no longer exists) to sack_burlap_round_b, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:45.984Z",
     "resolvedAt": null
@@ -3486,9 +3486,9 @@
   {
     "id": "f_09e3f1a6-6350-4cd6-88c0-59dab62a9277",
     "sheet": "obj_misk_atlas.png",
-    "name": "nightstand_wood_cherry",
+    "name": "firewood_pile_medium_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from nightstand_wood_cherry (no longer exists) to firewood_pile_medium_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:51.441Z",
     "resolvedAt": null
@@ -3496,9 +3496,9 @@
   {
     "id": "f_f63e4757-6527-4605-8808-36e32fc1e191",
     "sheet": "obj_misk_atlas.png",
-    "name": "cabinet_wood_cherry_low_two_door_a",
+    "name": "firewood_pile_large_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_cherry_low_two_door_a (no longer exists) to firewood_pile_large_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:53.800Z",
     "resolvedAt": null
@@ -3506,9 +3506,9 @@
   {
     "id": "f_42d17ed8-77cb-4b59-ac18-ad72c2a92e96",
     "sheet": "obj_misk_atlas.png",
-    "name": "wall_stone_dock_mossy_edge_right",
+    "name": "firewood_pile_small_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from wall_stone_dock_mossy_edge_right (no longer exists) to firewood_pile_small_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:55.712Z",
     "resolvedAt": null
@@ -3516,9 +3516,9 @@
   {
     "id": "f_e6a8aed4-0fd6-49fe-a897-a2d2579121c7",
     "sheet": "obj_misk_atlas.png",
-    "name": "bookshelf_empty_b",
+    "name": "sack_grain_yellow_b",
     "reason": "wrong_name",
-    "comment": "this is a bag of grain, but we only see right half of it\n\n[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).",
+    "comment": "this is a bag of grain, but we only see right half of it\n\n[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).\n\n[Claude] Flag moved from bookshelf_empty_b (no longer exists) to sack_grain_yellow_b, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:46:25.320Z",
     "resolvedAt": null
@@ -3526,9 +3526,9 @@
   {
     "id": "f_803fb7c0-9f11-497a-a770-c5193f4f1aee",
     "sheet": "obj_misk_atlas.png",
-    "name": "bookshelf_empty_b",
+    "name": "sack_grain_yellow_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).\n\n[Claude] Flag moved from bookshelf_empty_b (no longer exists) to sack_grain_yellow_b, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:46:26.424Z",
     "resolvedAt": null
@@ -3536,9 +3536,9 @@
   {
     "id": "f_76c6c19c-b13d-4f0a-836c-71c276986b6a",
     "sheet": "obj_misk_atlas.png",
-    "name": "bench_wood_tan_curved_plain",
+    "name": "bench_wood_tan_slat_tall_a",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.\n\n[Claude] Flag moved from bench_wood_tan_curved_plain (no longer exists) to bench_wood_tan_slat_tall_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:46:59.578Z",
     "resolvedAt": null
@@ -3546,9 +3546,9 @@
   {
     "id": "f_2c7d33f1-5d28-4b6e-a0d0-6c81f478b22e",
     "sheet": "obj_misk_atlas.png",
-    "name": "bench_wood_tan_slat_single_a",
+    "name": "chair_wood_tan_side_b",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.\n\n[Claude] Flag moved from bench_wood_tan_slat_single_a (no longer exists) to chair_wood_tan_side_b, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:47:01.155Z",
     "resolvedAt": null
@@ -3556,9 +3556,9 @@
   {
     "id": "f_3ad15bd5-0c37-4175-8ccc-9cda76631004",
     "sheet": "obj_misk_atlas.png",
-    "name": "bench_wood_tan_slat_low_a",
+    "name": "bench_wood_tan_slat_tall_a",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.\n\n[Claude] Flag moved from bench_wood_tan_slat_low_a (no longer exists) to bench_wood_tan_slat_tall_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:47:02.871Z",
     "resolvedAt": null
@@ -3566,9 +3566,9 @@
   {
     "id": "f_cd284d5e-db9f-4a30-a835-1a8a906d0c76",
     "sheet": "obj_misk_atlas.png",
-    "name": "bench_wood_tan_slat_single_b",
+    "name": "chair_wood_tan_side_c",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Right - it is the bottom half of chair_wood_tan_side_c, clipped (pixel-identical). Deleted as a duplicate; flag moved to the full chair. (Flag moved from bench_wood_tan_slat_single_b to chair_wood_tan_side_c.)",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:47:04.899Z",
     "resolvedAt": null
@@ -3579,9 +3579,9 @@
     "name": "bench_wood_tan_slat_tall_a",
     "reason": "misaligned",
     "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T22:47:25.574Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-24T15:20:18.072Z"
   },
   {
     "id": "f_3eb9b6da-3e93-41d6-b7bb-74ff84f1fd79",
@@ -3589,16 +3589,16 @@
     "name": "bench_wood_tan_slat_tall_b",
     "reason": "misaligned",
     "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T22:47:29.749Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-24T15:20:22.838Z"
   },
   {
     "id": "f_f68a7261-1185-49ee-9009-c892f77f5856",
     "sheet": "obj_misk_atlas.png",
-    "name": "bench_wood_tan_slat_thin",
+    "name": "bench_wood_tan_slat_tall_b",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.\n\n[Claude] Flag moved from bench_wood_tan_slat_thin (no longer exists) to bench_wood_tan_slat_tall_b, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:47:33.890Z",
     "resolvedAt": null
@@ -3606,9 +3606,9 @@
   {
     "id": "f_8dcd8442-7955-433e-865a-3195219844ef",
     "sheet": "obj_misk_atlas.png",
-    "name": "arched_window_sky_pane_rail_a",
+    "name": "wood_crate_leg_fragment_lower_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from arched_window_sky_pane_rail_a (no longer exists) to wood_crate_leg_fragment_lower_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:47:46.181Z",
     "resolvedAt": null
@@ -3616,9 +3616,9 @@
   {
     "id": "f_36da6220-0f8e-4a01-b3c0-cb3abd2ffd59",
     "sheet": "obj_misk_atlas.png",
-    "name": "arched_window_sky_pane_rail_b",
+    "name": "wood_crate_leg_fragment_lower_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from arched_window_sky_pane_rail_b (no longer exists) to wood_crate_leg_fragment_lower_b, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:47:48.230Z",
     "resolvedAt": null
@@ -3626,9 +3626,9 @@
   {
     "id": "f_a232696c-4fbf-4719-bee7-38a8cf76b667",
     "sheet": "obj_misk_atlas.png",
-    "name": "chair_wood_tan_fragment_low",
+    "name": "chair_wood_tan_side_c",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Right - it is the top half of chair_wood_tan_side_c, clipped (pixel-identical). Deleted as a duplicate; flag moved to the full chair. (Flag moved from chair_wood_tan_fragment_low to chair_wood_tan_side_c.)",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:47:52.171Z",
     "resolvedAt": null
@@ -3636,9 +3636,9 @@
   {
     "id": "f_a158d85b-2de0-4942-8599-ba9fbda5abb8",
     "sheet": "obj_misk_atlas.png",
-    "name": "chair_wood_tan_side_a",
+    "name": "chair_wood_tan_side_b",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.\n\n[Claude] Flag moved from chair_wood_tan_side_a (no longer exists) to chair_wood_tan_side_b, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:47:53.894Z",
     "resolvedAt": null
@@ -3646,9 +3646,9 @@
   {
     "id": "f_b26a858b-d24a-4193-a3fd-761c758c94f8",
     "sheet": "obj_misk_atlas.png",
-    "name": "cabinet_wood_red_panel_apron_base",
+    "name": "sack_grain_green_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_red_panel_apron_base (no longer exists) to sack_grain_green_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:47:58.913Z",
     "resolvedAt": null
@@ -3656,9 +3656,9 @@
   {
     "id": "f_d9ce5bcd-2539-49ab-b923-60d6915e386b",
     "sheet": "obj_misk_atlas.png",
-    "name": "cabinet_wood_red_panel_trim_full_b",
+    "name": "sack_grain_green_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_red_panel_trim_full_b (no longer exists) to sack_grain_green_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:48:01.789Z",
     "resolvedAt": null
@@ -3666,9 +3666,9 @@
   {
     "id": "f_874e2dc3-2579-4c38-b421-e88c83ad1661",
     "sheet": "obj_misk_atlas.png",
-    "name": "cabinet_wood_red_panel_trim_full_a",
+    "name": "sack_grain_green_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_red_panel_trim_full_a (no longer exists) to sack_grain_green_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:48:04.309Z",
     "resolvedAt": null
@@ -3676,9 +3676,9 @@
   {
     "id": "f_22b57a72-3209-48ed-814a-3bea40139cc2",
     "sheet": "obj_misk_atlas.png",
-    "name": "fish_pile_perch_b",
+    "name": "perch_pile_5",
     "reason": "misaligned",
-    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.",
+    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.\n\n[Claude] Flag moved from fish_pile_perch_b (no longer exists) to perch_pile_5, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:48:15.408Z",
     "resolvedAt": null
@@ -3686,9 +3686,9 @@
   {
     "id": "f_53f1b526-dd78-493b-a5ed-634999b61454",
     "sheet": "obj_misk_atlas.png",
-    "name": "fish_pile_perch_c",
+    "name": "perch_pile_5",
     "reason": "misaligned",
-    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.",
+    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.\n\n[Claude] Flag moved from fish_pile_perch_c (no longer exists) to perch_pile_5, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:48:17.282Z",
     "resolvedAt": null
@@ -3696,9 +3696,9 @@
   {
     "id": "f_ee57c4fe-1243-4091-b339-258797d0d65e",
     "sheet": "obj_misk_atlas.png",
-    "name": "fish_pile_perch_d",
+    "name": "perch_pile_4",
     "reason": "misaligned",
-    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.",
+    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.\n\n[Claude] Flag moved from fish_pile_perch_d (no longer exists) to perch_pile_4, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:48:19.993Z",
     "resolvedAt": null
@@ -3706,9 +3706,9 @@
   {
     "id": "f_dc27ba7f-4f1a-4da7-9cab-614f64c19cff",
     "sheet": "obj_misk_atlas.png",
-    "name": "perch_single_c",
+    "name": "perch_single",
     "reason": "misaligned",
-    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.",
+    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.\n\n[Claude] Flag moved from perch_single_c (no longer exists) to perch_single, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:51:02.765Z",
     "resolvedAt": null
@@ -3716,9 +3716,9 @@
   {
     "id": "f_afc91650-eb6e-4654-b8ae-f1a31347b718",
     "sheet": "obj_misk_atlas.png",
-    "name": "pea_pod_c",
+    "name": "perch_single",
     "reason": "misaligned",
-    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.",
+    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.\n\n[Claude] Flag moved from pea_pod_c (no longer exists) to perch_single, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:51:07.035Z",
     "resolvedAt": null
@@ -3726,9 +3726,9 @@
   {
     "id": "f_366c1889-d29d-499a-bfbb-60c8607f4797",
     "sheet": "obj_misk_atlas.png",
-    "name": "bench_wood_tan_curved_plain",
+    "name": "bench_wood_tan_slat_tall_a",
     "reason": "misaligned",
-    "comment": "this one, combined with benchh_wood_tan_slat_low_a are a duplocate of bench_wood_tan_stal_tall_a but it seems to be offsetted in the sheet.. \n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.",
+    "comment": "this one, combined with benchh_wood_tan_slat_low_a are a duplocate of bench_wood_tan_stal_tall_a but it seems to be offsetted in the sheet.. \n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.\n\n[Claude] Flag moved from bench_wood_tan_curved_plain (no longer exists) to bench_wood_tan_slat_tall_a, which replaced it.",
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-23T13:30:59.769Z",
@@ -3737,9 +3737,9 @@
   {
     "id": "f_3042c9e3-209a-4908-83cd-27ef1f8cc429",
     "sheet": "obj_misk_atlas.png",
-    "name": "bench_wood_tan_slat_low_a",
+    "name": "bench_wood_tan_slat_tall_a",
     "reason": "misaligned",
-    "comment": "see the comment for bench_woo_tan_curved_plain\n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.",
+    "comment": "see the comment for bench_woo_tan_curved_plain\n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.\n\n[Claude] Flag moved from bench_wood_tan_slat_low_a (no longer exists) to bench_wood_tan_slat_tall_a, which replaced it.",
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-23T13:31:20.190Z",
@@ -3750,8 +3750,8 @@
     "sheet": "overworld_tileset.png",
     "name": "house_cottage",
     "reason": "misaligned",
-    "comment": "there is a strip of others buildings part at the bottom that should be removed",
-    "status": "open",
+    "comment": "there is a strip of others buildings part at the bottom that should be removed\n\n[Claude] Re-catalogued the whole sheet (10 rough boxes -> 117 entries): terrain autotiles split into 16px tiles (grass_ledge, garden_bed_fenced, dirt_path, grass_dirt_round, stone_wall 9-slice), every prop boxed separately. house_cottage now stops at y80 (no strip of the buildings below); bush_cluster is now bush_flowering + bush_green; tree_large is now tree_pine_green, cropped on all 4 sides; house_red_roof widened to include the whole roof.",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T14:30:46.362Z",
     "resolvedAt": null
@@ -3759,10 +3759,10 @@
   {
     "id": "f_c84bb9d4-b794-43b9-9bac-7f0fd573ea39",
     "sheet": "build_atlas.png",
-    "name": "wood_rimmed_basin_water",
+    "name": "barrel_top_open_water",
     "reason": "misaligned",
-    "comment": "it looks like the top of a barrel with water, the last comment was NOT related to this ite,, I've marked it as approved due to the non related caracter of the comment, but it is ONLY the top of the barrel, filled with water, so it could be OK if you also have to barrel itself and can overlap the top on the barrel body with this filled with water and not filled with water.\n",
-    "status": "open",
+    "comment": "it looks like the top of a barrel with water, the last comment was NOT related to this ite,, I've marked it as approved due to the non related caracter of the comment, but it is ONLY the top of the barrel, filled with water, so it could be OK if you also have to barrel itself and can overlap the top on the barrel body with this filled with water and not filled with water.\n\n\n[Claude] Yes - the barrel bodies are right above: barrel_a / barrel_b. Renamed barrel_top_open_water / barrel_top_open_empty and trimmed to the lid, so they layer on top of the barrel body. (Flag moved from wood_rimmed_basin_water to barrel_top_open_water.)",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T14:32:54.698Z",
     "resolvedAt": null
@@ -3770,12 +3770,265 @@
   {
     "id": "f_77854a23-1c81-43da-9030-8dbd3e46361f",
     "sheet": "build_atlas.png",
-    "name": "wood_rimmed_basin_empty",
+    "name": "barrel_top_open_empty",
     "reason": "misaligned",
-    "comment": "this is the same as the top of barrel with water, its ok if you got the barrel body and can use it in conjunction with this item,",
-    "status": "open",
+    "comment": "this is the same as the top of barrel with water, its ok if you got the barrel body and can use it in conjunction with this item,\n\n[Claude] Yes - the barrel bodies are right above these tops: barrel_a / barrel_b (same columns). Renamed barrel_top_open_empty / barrel_top_open_water and trimmed to the lid, so they layer on top of the barrel. (Flag moved from wood_rimmed_basin_empty to barrel_top_open_empty.)",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T14:33:30.798Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_2a1e7ecd-e4d5-4a16-9652-eb8ae3631d86",
+    "sheet": "obj_misk_atlas.png",
+    "name": "chair_wood_tan_side_c",
+    "reason": "misaligned",
+    "comment": "this is just the lower half of a chair.\n\n[Claude] Right - it is the bottom half of chair_wood_tan_side_c, clipped (pixel-identical). Deleted as a duplicate; flag moved to the full chair. (Flag moved from bench_wood_tan_slat_single_b to chair_wood_tan_side_c.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:20:42.038Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5db93ee9-917f-4d5a-97a0-8e36791f442d",
+    "sheet": "obj_misk_atlas.png",
+    "name": "chair_wood_tan_side_c",
+    "reason": "misaligned",
+    "comment": "this is just the uppper hald of a chair viewed from the side\n\n[Claude] Right - it is the top half of chair_wood_tan_side_c, clipped (pixel-identical). Deleted as a duplicate; flag moved to the full chair. (Flag moved from chair_wood_tan_fragment_low to chair_wood_tan_side_c.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:21:06.149Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_869e8ab9-5699-4db8-89e5-faf25cdcf3b7",
+    "sheet": "seasonal sample (winter).png",
+    "name": "winter_flower_bush_white",
+    "reason": "wrong_name",
+    "comment": "its not yellow at all\n\n[Claude] Renamed winter_flower_bush_white (it is grey/white with dark specks). (Flag moved from winter_flower_bush_yellow to winter_flower_bush_white.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:22:05.866Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_44894725-a851-4889-b14b-b46330eecdda",
+    "sheet": "obj_misk_atlas.png",
+    "name": "meat_chunk_raw_a",
+    "reason": "misaligned",
+    "comment": "missing the upper part, too much cropped at the top\n\n[Claude] The chunk sits 2px above its grid cell. Converted to an exact pixel box (1,701,31x18); did the same for meat_chunk_raw_b.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:22:44.203Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_4e9dd8a2-7adc-485a-b0bd-2049dcb4b9d4",
+    "sheet": "obj_misk_atlas.png",
+    "name": "meat_raw_cut_a",
+    "reason": "misaligned",
+    "comment": "miss uppper part, too much cropped at the top\n\n[Claude] The cut sits 5px above its grid cell. Converted to an exact pixel box (1,634,30x21); did the same for meat_raw_cut_b.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:23:02.966Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_286117d4-ef6d-4f36-8abc-d92f203f2d78",
+    "sheet": "interior_asset.png",
+    "name": "round_table",
+    "reason": "misaligned",
+    "comment": "needs more cropping to the left and top, cause orhers things are in this one\n\n[Claude] Re-cropped to just the table (64,94,34x34) - no curtain or folded cloth. Also fixed 4 entries next to it (stool/table/plant/cloth) that ran 2px past the sheet bottom.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:23:30.377Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_669ffbb2-25a2-4b1b-b65f-784aa892dbd8",
+    "sheet": "cave_tiles.png",
+    "name": "cave_pit_large",
+    "reason": "misaligned",
+    "comment": "this needs a lot of splitting\n\n[Claude] Re-catalogued the whole sheet (2 -> 36): cave_pit_large (the old box was only its top half), cave_pit_narrow, mine_entrance_timber, rock_island_water, and every plant/rock/ore/boulder/tree/ladder/wall separately. The pits are kept as whole objects - say if you want them split into 16px rim tiles. (Flag moved from cave_wall_blob to cave_pit_large.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:24:32.477Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_1da9c0ac-3c4f-4037-a4b0-8a6773ed1ad4",
+    "sheet": "overworld_tileset.png",
+    "name": "bush_flowering",
+    "reason": "misaligned",
+    "comment": "the top stripe should not be there, and then it should be splitted into 2 bushes\n\n[Claude] Re-catalogued the whole sheet (10 rough boxes -> 117 entries): terrain autotiles split into 16px tiles (grass_ledge, garden_bed_fenced, dirt_path, grass_dirt_round, stone_wall 9-slice), every prop boxed separately. house_cottage now stops at y80 (no strip of the buildings below); bush_cluster is now bush_flowering + bush_green; tree_large is now tree_pine_green, cropped on all 4 sides; house_red_roof widened to include the whole roof. (Flag moved from bush_cluster to bush_flowering.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:25:00.839Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_8b08110a-be58-4ae6-bec9-52e48e08579b",
+    "sheet": "overworld_tileset.png",
+    "name": "tree_pine_green",
+    "reason": "misaligned",
+    "comment": "this tree needs more cropping on th e 4 sides\n\n[Claude] Re-catalogued the whole sheet (10 rough boxes -> 117 entries): terrain autotiles split into 16px tiles (grass_ledge, garden_bed_fenced, dirt_path, grass_dirt_round, stone_wall 9-slice), every prop boxed separately. house_cottage now stops at y80 (no strip of the buildings below); bush_cluster is now bush_flowering + bush_green; tree_large is now tree_pine_green, cropped on all 4 sides; house_red_roof widened to include the whole roof. (Flag moved from tree_large to tree_pine_green.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:25:25.841Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_84fa54d5-a562-49c6-8cde-18ac93bcf817",
+    "sheet": "woods_objects.png",
+    "name": "signpost_directional",
+    "reason": "misaligned",
+    "comment": "this needs a LOT of splitting, there are 6 items plus a complete set of fences in this\n\n[Claude] Split into the 6 items (signpost_directional, sign_board_wide, sign_board_plain, sign_board_low, mailbox_red_flag, birdhouse) plus the fence set as 14 fence tiles. (Flag moved from wood_prop_variants to signpost_directional.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:26:07.974Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_2cacff58-bee4-440e-829b-8915f681c071",
+    "sheet": "dungeon_tiles.png",
+    "name": "door_wood_arched",
+    "reason": "misaligned",
+    "comment": "this is almost a glitch, there are MANY things in this \n\n[Claude] Re-catalogued the whole sheet (3 -> 199): 19 named props (door_wood_arched, gate_iron_arched, doorway_arched_open, spike_trap, prison_bars_a/b, door_wood_iron_frame, hatch_door_small, banners, ivy_overlay, pipe, wood_pillar, wall_lamp_* and floor_glow_* in red/blue/green) and every other non-empty 16px cell as a wall/floor tile dungeon_tile_r#c#. (Flag moved from dungeon_prop_cluster to door_wood_arched.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:26:39.710Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_488148c9-f870-422c-a770-a2e1006221f1",
+    "sheet": "overworld_tileset.png",
+    "name": "grass_ledge_r0c0",
+    "reason": "misaligned",
+    "comment": "this is a 4x4 grid. you need to split this !\n\n[Claude] Re-catalogued the whole sheet (10 rough boxes -> 117 entries): terrain autotiles split into 16px tiles (grass_ledge, garden_bed_fenced, dirt_path, grass_dirt_round, stone_wall 9-slice), every prop boxed separately. house_cottage now stops at y80 (no strip of the buildings below); bush_cluster is now bush_flowering + bush_green; tree_large is now tree_pine_green, cropped on all 4 sides; house_red_roof widened to include the whole roof. (Flag moved from grass_blob to grass_ledge_r0c0.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:27:21.669Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_8c0bf1c1-c30f-49da-b8e7-49bd50f8ebcc",
+    "sheet": "water_and_island_tiles_v2.png",
+    "name": "grass_ledge_r0c0",
+    "reason": "misaligned",
+    "comment": "this needs splitting\n\n[Claude] Split the whole sheet into its 32px tiles (109), named by set: dirt_ledge, grass_ledge, island_edge_*, rock_wall_*, water_deep, water_shore, ground_swatch, ground_stake. (Flag moved from grass_patch_solid to grass_ledge_r0c0.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:27:51.008Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3c96c482-8daf-445a-a6ff-c8770c126c8e",
+    "sheet": "water_and_island_tiles_v2.png",
+    "name": "dirt_ledge_r0c0",
+    "reason": "misaligned",
+    "comment": "this needs splitting\n\n[Claude] Split the whole sheet into its 32px tiles (109), named by set: dirt_ledge, grass_ledge, island_edge_*, rock_wall_*, water_deep, water_shore, ground_swatch, ground_stake. (Flag moved from dirt_patch_solid to dirt_ledge_r0c0.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:27:55.461Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_77787964-31d4-4db1-a58d-ade7b99574e8",
+    "sheet": "terrain_tiles_v2.png",
+    "name": "dirt_in_grass_r0c0",
+    "reason": "misaligned",
+    "comment": "this needs splitting\n\n[Claude] The sheet is 4x4 autotile sets of 32px tiles. Split the whole sheet into its tiles (150), named by set: dirt_in_grass, dirt_ledge, grass_in_dirt, grass_ledge, rock_ground, grass_fill, plank_path_v, etc. The flag now sits on the first tile of its set. (Flag moved from dirt_patch_solid to dirt_in_grass_r0c0.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:28:00.872Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_2d3ddf39-40d9-4e04-83b2-cfe808451bea",
+    "sheet": "terrain_tiles_v2.png",
+    "name": "grass_ledge_r0c0",
+    "reason": "misaligned",
+    "comment": "this needs splitting\n\n[Claude] The sheet is 4x4 autotile sets of 32px tiles. Split the whole sheet into its tiles (150), named by set: dirt_in_grass, dirt_ledge, grass_in_dirt, grass_ledge, rock_ground, grass_fill, plank_path_v, etc. The flag now sits on the first tile of its set. (Flag moved from grass_field_flowers to grass_ledge_r0c0.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:28:06.792Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5b9bc5a5-2fad-4ef2-9f89-7ce557f9d315",
+    "sheet": "terrain_tiles_v2.png",
+    "name": "grass_in_dirt_r0c0",
+    "reason": "misaligned",
+    "comment": "this needs splitting\n\n[Claude] The sheet is 4x4 autotile sets of 32px tiles. Split the whole sheet into its tiles (150), named by set: dirt_in_grass, dirt_ledge, grass_in_dirt, grass_ledge, rock_ground, grass_fill, plank_path_v, etc. The flag now sits on the first tile of its set. (Flag moved from grass_field_open to grass_in_dirt_r0c0.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:28:10.947Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_83c8ab98-b90b-467d-867a-2677eca05673",
+    "sheet": "set_1.png",
+    "name": "hedge_blob_r0c0",
+    "reason": "misaligned",
+    "comment": "this needs splitting\n\n[Claude] Split the whole sheet (105 entries): the hedge/dirt autotiles into 16px tiles (hedge_blob, hedge_patch, hedge_dirt_mix, dirt_fill), and every decorated ground tile (mushrooms, reeds, pebbles, stones, planks, daisies) into its own entry, plus boulder_pile and grass_tall tiles. (Flag moved from hedge_maze_pattern to hedge_blob_r0c0.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:28:16.245Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_65bfc047-12f2-490e-ad36-84323c84bf44",
+    "sheet": "set_1.png",
+    "name": "hedge_patch_r0c0",
+    "reason": "misaligned",
+    "comment": "this needs splitting\n\n[Claude] Split the whole sheet (105 entries): the hedge/dirt autotiles into 16px tiles (hedge_blob, hedge_patch, hedge_dirt_mix, dirt_fill), and every decorated ground tile (mushrooms, reeds, pebbles, stones, planks, daisies) into its own entry, plus boulder_pile and grass_tall tiles. (Flag moved from hedge_solid_patch to hedge_patch_r0c0.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:28:19.936Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c3582985-74c9-441e-b251-733e8e3dac89",
+    "sheet": "dirtpath_tiles.png",
+    "name": "dirtpath_nw",
+    "reason": "misaligned",
+    "comment": "this needs splitting\n\n[Claude] Split into 16 path tiles: dirtpath 9-slice (nw..se), vertical strip top/mid/bottom, horizontal strip left/mid/right, single. (Flag moved from dirtpath_blob to dirtpath_nw.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:28:24.722Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_12a5ae8f-2903-4216-bc67-b235189457cb",
+    "sheet": "terrain_tiles_v2.png",
+    "name": "plank_path_v_r0c0",
+    "reason": "misaligned",
+    "comment": "this needs splitting\n\n[Claude] The sheet is 4x4 autotile sets of 32px tiles. Split the whole sheet into its tiles (150), named by set: dirt_in_grass, dirt_ledge, grass_in_dirt, grass_ledge, rock_ground, grass_fill, plank_path_v, etc. The flag now sits on the first tile of its set. (Flag moved from brick_path_strip to plank_path_v_r0c0.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:28:32.363Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_64ab40b2-484b-4633-a4e7-61c12b6eef47",
+    "sheet": "set_1.png",
+    "name": "mushroom_orange_tall",
+    "reason": "misaligned",
+    "comment": "this needs splitting\n\n[Claude] Split the whole sheet (105 entries): the hedge/dirt autotiles into 16px tiles (hedge_blob, hedge_patch, hedge_dirt_mix, dirt_fill), and every decorated ground tile (mushrooms, reeds, pebbles, stones, planks, daisies) into its own entry, plus boulder_pile and grass_tall tiles. (Flag moved from flower_mushroom_row to mushroom_orange_tall.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:28:48.693Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_45e60a4a-060a-4741-a0d5-11cf4170315e",
+    "sheet": "ground_decorations.png",
+    "name": "grass_tuft_a",
+    "reason": "misaligned",
+    "comment": "this needs splitting\n\n[Claude] Split into 9: dirt_speckle_a-c, grass_tuft_a-c, dirt_mound_low_a-c. (Flag moved from grass_tuft_row to grass_tuft_a.)",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T15:29:07.758Z",
     "resolvedAt": null
   }
 ]

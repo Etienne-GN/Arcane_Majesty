@@ -4,19 +4,296 @@
   "sheetHeight": 64,
   "entries": [
     {
-      "name": "wood_prop_variants",
+      "name": "signpost_directional",
       "kind": "object",
       "x": 0,
-      "y": 0,
-      "w": 176,
-      "h": 64,
+      "y": 1,
+      "w": 16,
+      "h": 31,
       "tags": [
         "woolly_lands",
         "tofebaa",
         "wood",
-        "props"
-      ],
-      "lowConfidence": true
+        "sign"
+      ]
+    },
+    {
+      "name": "sign_board_wide",
+      "kind": "object",
+      "x": 17,
+      "y": 0,
+      "w": 15,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "sign"
+      ]
+    },
+    {
+      "name": "sign_board_plain",
+      "kind": "object",
+      "x": 33,
+      "y": 0,
+      "w": 15,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "sign"
+      ]
+    },
+    {
+      "name": "sign_board_low",
+      "kind": "object",
+      "x": 49,
+      "y": 10,
+      "w": 15,
+      "h": 17,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "sign"
+      ]
+    },
+    {
+      "name": "mailbox_red_flag",
+      "kind": "object",
+      "x": 65,
+      "y": 9,
+      "w": 15,
+      "h": 23,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood"
+      ]
+    },
+    {
+      "name": "birdhouse",
+      "kind": "object",
+      "x": 81,
+      "y": 5,
+      "w": 15,
+      "h": 27,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood"
+      ]
+    },
+    {
+      "name": "fence_r0c0",
+      "kind": "object",
+      "x": 96,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "autotile",
+        "fence"
+      ]
+    },
+    {
+      "name": "fence_r0c1",
+      "kind": "object",
+      "x": 112,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "autotile",
+        "fence"
+      ]
+    },
+    {
+      "name": "fence_r0c3",
+      "kind": "object",
+      "x": 144,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "autotile",
+        "fence"
+      ]
+    },
+    {
+      "name": "fence_r0c4",
+      "kind": "object",
+      "x": 160,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "autotile",
+        "fence"
+      ]
+    },
+    {
+      "name": "fence_r1c0",
+      "kind": "object",
+      "x": 96,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "autotile",
+        "fence"
+      ]
+    },
+    {
+      "name": "fence_r1c1",
+      "kind": "object",
+      "x": 112,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "autotile",
+        "fence"
+      ]
+    },
+    {
+      "name": "fence_r1c4",
+      "kind": "object",
+      "x": 160,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "autotile",
+        "fence"
+      ]
+    },
+    {
+      "name": "fence_r2c0",
+      "kind": "object",
+      "x": 96,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "autotile",
+        "fence"
+      ]
+    },
+    {
+      "name": "fence_r2c4",
+      "kind": "object",
+      "x": 160,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "autotile",
+        "fence"
+      ]
+    },
+    {
+      "name": "fence_r3c0",
+      "kind": "object",
+      "x": 96,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "autotile",
+        "fence"
+      ]
+    },
+    {
+      "name": "fence_r3c1",
+      "kind": "object",
+      "x": 112,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "autotile",
+        "fence"
+      ]
+    },
+    {
+      "name": "fence_r3c2",
+      "kind": "object",
+      "x": 128,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "autotile",
+        "fence"
+      ]
+    },
+    {
+      "name": "fence_r3c3",
+      "kind": "object",
+      "x": 144,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "autotile",
+        "fence"
+      ]
+    },
+    {
+      "name": "fence_r3c4",
+      "kind": "object",
+      "x": 160,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "woolly_lands",
+        "tofebaa",
+        "wood",
+        "autotile",
+        "fence"
+      ]
     }
   ]
 }

@@ -4,32 +4,121 @@
   "sheetHeight": 72,
   "entries": [
     {
-      "name": "dirt_speckle_row",
+      "name": "dirt_speckle_a",
       "kind": "object",
-      "x": 0,
-      "y": 0,
-      "w": 72,
-      "h": 36,
+      "x": 3,
+      "y": 7,
+      "w": 18,
+      "h": 12,
       "tags": [
         "schwarnhild",
-        "dirt",
-        "decoration"
-      ],
-      "lowConfidence": true
+        "decoration",
+        "dirt"
+      ]
     },
     {
-      "name": "grass_tuft_row",
+      "name": "dirt_speckle_b",
       "kind": "object",
-      "x": 0,
-      "y": 36,
-      "w": 72,
-      "h": 36,
+      "x": 30,
+      "y": 9,
+      "w": 16,
+      "h": 11,
       "tags": [
         "schwarnhild",
-        "grass",
-        "decoration"
-      ],
-      "lowConfidence": true
+        "decoration",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_speckle_c",
+      "kind": "object",
+      "x": 53,
+      "y": 9,
+      "w": 14,
+      "h": 9,
+      "tags": [
+        "schwarnhild",
+        "decoration",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_tuft_a",
+      "kind": "object",
+      "x": 7,
+      "y": 37,
+      "w": 6,
+      "h": 3,
+      "tags": [
+        "schwarnhild",
+        "decoration",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_tuft_b",
+      "kind": "object",
+      "x": 28,
+      "y": 37,
+      "w": 14,
+      "h": 3,
+      "tags": [
+        "schwarnhild",
+        "decoration",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_tuft_c",
+      "kind": "object",
+      "x": 51,
+      "y": 37,
+      "w": 16,
+      "h": 3,
+      "tags": [
+        "schwarnhild",
+        "decoration",
+        "grass"
+      ]
+    },
+    {
+      "name": "dirt_mound_low_a",
+      "kind": "object",
+      "x": 0,
+      "y": 58,
+      "w": 18,
+      "h": 3,
+      "tags": [
+        "schwarnhild",
+        "decoration",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_mound_low_b",
+      "kind": "object",
+      "x": 28,
+      "y": 58,
+      "w": 12,
+      "h": 3,
+      "tags": [
+        "schwarnhild",
+        "decoration",
+        "dirt"
+      ]
+    },
+    {
+      "name": "dirt_mound_low_c",
+      "kind": "object",
+      "x": 54,
+      "y": 58,
+      "w": 13,
+      "h": 3,
+      "tags": [
+        "schwarnhild",
+        "decoration",
+        "dirt"
+      ]
     }
   ]
 }

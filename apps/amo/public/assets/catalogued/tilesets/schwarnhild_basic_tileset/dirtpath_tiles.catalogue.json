@@ -4,19 +4,228 @@
   "sheetHeight": 128,
   "entries": [
     {
-      "name": "dirtpath_blob",
+      "name": "dirtpath_nw",
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 96,
-      "h": 96,
+      "w": 32,
+      "h": 32,
       "tags": [
         "schwarnhild",
         "dirt",
         "path",
         "autotile"
-      ],
-      "lowConfidence": true
+      ]
+    },
+    {
+      "name": "dirtpath_n",
+      "kind": "object",
+      "x": 32,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirtpath_ne",
+      "kind": "object",
+      "x": 64,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirtpath_w",
+      "kind": "object",
+      "x": 0,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirtpath_c",
+      "kind": "object",
+      "x": 32,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirtpath_e",
+      "kind": "object",
+      "x": 64,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirtpath_sw",
+      "kind": "object",
+      "x": 0,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirtpath_s",
+      "kind": "object",
+      "x": 32,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirtpath_se",
+      "kind": "object",
+      "x": 64,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirtpath_v_top",
+      "kind": "object",
+      "x": 96,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirtpath_v_mid",
+      "kind": "object",
+      "x": 96,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirtpath_v_bottom",
+      "kind": "object",
+      "x": 96,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirtpath_h_left",
+      "kind": "object",
+      "x": 0,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirtpath_h_mid",
+      "kind": "object",
+      "x": 32,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirtpath_h_right",
+      "kind": "object",
+      "x": 64,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirtpath_single",
+      "kind": "object",
+      "x": 96,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "path",
+        "autotile"
+      ]
     }
   ]
 }

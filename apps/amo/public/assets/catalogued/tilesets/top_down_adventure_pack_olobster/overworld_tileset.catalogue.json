@@ -4,26 +4,180 @@
   "sheetHeight": 208,
   "entries": [
     {
-      "name": "grass_blob",
+      "name": "grass_ledge_r0c0",
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 64,
-      "h": 48,
+      "w": 16,
+      "h": 16,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
-        "grass",
-        "autotile"
+        "autotile",
+        "grass"
       ]
     },
     {
-      "name": "garden_bed_fenced",
+      "name": "grass_ledge_r0c1",
+      "kind": "object",
+      "x": 16,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_ledge_r0c2",
+      "kind": "object",
+      "x": 32,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_ledge_r0c3",
+      "kind": "object",
+      "x": 48,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_ledge_r1c0",
+      "kind": "object",
+      "x": 0,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_ledge_r1c1",
+      "kind": "object",
+      "x": 16,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_ledge_r1c2",
+      "kind": "object",
+      "x": 32,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_ledge_r1c3",
+      "kind": "object",
+      "x": 48,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_ledge_r2c0",
+      "kind": "object",
+      "x": 0,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_ledge_r2c1",
+      "kind": "object",
+      "x": 16,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_ledge_r2c2",
+      "kind": "object",
+      "x": 32,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_ledge_r2c3",
+      "kind": "object",
+      "x": 48,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass"
+      ]
+    },
+    {
+      "name": "garden_bed_fenced_r0c0",
       "kind": "object",
       "x": 64,
       "y": 0,
-      "w": 64,
-      "h": 48,
+      "w": 16,
+      "h": 16,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
@@ -32,69 +186,1065 @@
       ]
     },
     {
+      "name": "garden_bed_fenced_r0c1",
+      "kind": "object",
+      "x": 80,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "garden"
+      ]
+    },
+    {
+      "name": "garden_bed_fenced_r0c2",
+      "kind": "object",
+      "x": 96,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "garden"
+      ]
+    },
+    {
+      "name": "garden_bed_fenced_r0c3",
+      "kind": "object",
+      "x": 112,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "garden"
+      ]
+    },
+    {
+      "name": "garden_bed_fenced_r1c0",
+      "kind": "object",
+      "x": 64,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "garden"
+      ]
+    },
+    {
+      "name": "garden_bed_fenced_r1c1",
+      "kind": "object",
+      "x": 80,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "garden"
+      ]
+    },
+    {
+      "name": "garden_bed_fenced_r1c2",
+      "kind": "object",
+      "x": 96,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "garden"
+      ]
+    },
+    {
+      "name": "garden_bed_fenced_r1c3",
+      "kind": "object",
+      "x": 112,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "garden"
+      ]
+    },
+    {
+      "name": "garden_bed_fenced_r2c0",
+      "kind": "object",
+      "x": 64,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "garden"
+      ]
+    },
+    {
+      "name": "garden_bed_fenced_r2c1",
+      "kind": "object",
+      "x": 80,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "garden"
+      ]
+    },
+    {
+      "name": "garden_bed_fenced_r2c2",
+      "kind": "object",
+      "x": 96,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "garden"
+      ]
+    },
+    {
+      "name": "garden_bed_fenced_r2c3",
+      "kind": "object",
+      "x": 112,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "garden"
+      ]
+    },
+    {
+      "name": "dirt_path_r0c0",
+      "kind": "object",
+      "x": 128,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "dirt",
+        "path"
+      ]
+    },
+    {
+      "name": "dirt_path_r0c1",
+      "kind": "object",
+      "x": 144,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "dirt",
+        "path"
+      ]
+    },
+    {
+      "name": "dirt_path_r0c2",
+      "kind": "object",
+      "x": 160,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "dirt",
+        "path"
+      ]
+    },
+    {
+      "name": "dirt_path_r0c3",
+      "kind": "object",
+      "x": 176,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "dirt",
+        "path"
+      ]
+    },
+    {
+      "name": "dirt_path_r1c0",
+      "kind": "object",
+      "x": 128,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "dirt",
+        "path"
+      ]
+    },
+    {
+      "name": "dirt_path_r1c1",
+      "kind": "object",
+      "x": 144,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "dirt",
+        "path"
+      ]
+    },
+    {
+      "name": "dirt_path_r1c2",
+      "kind": "object",
+      "x": 160,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "dirt",
+        "path"
+      ]
+    },
+    {
+      "name": "dirt_path_r1c3",
+      "kind": "object",
+      "x": 176,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "dirt",
+        "path"
+      ]
+    },
+    {
+      "name": "dirt_path_r2c0",
+      "kind": "object",
+      "x": 128,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "dirt",
+        "path"
+      ]
+    },
+    {
+      "name": "dirt_path_r2c1",
+      "kind": "object",
+      "x": 144,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "dirt",
+        "path"
+      ]
+    },
+    {
+      "name": "dirt_path_r2c2",
+      "kind": "object",
+      "x": 160,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "dirt",
+        "path"
+      ]
+    },
+    {
+      "name": "dirt_path_r2c3",
+      "kind": "object",
+      "x": 176,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "dirt",
+        "path"
+      ]
+    },
+    {
+      "name": "dirt_path_end_r0c0",
+      "kind": "object",
+      "x": 128,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "dirt",
+        "path"
+      ]
+    },
+    {
+      "name": "dirt_path_end_r0c1",
+      "kind": "object",
+      "x": 144,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "dirt",
+        "path"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r0c0",
+      "kind": "object",
+      "x": 0,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r0c1",
+      "kind": "object",
+      "x": 16,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r0c2",
+      "kind": "object",
+      "x": 32,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r0c3",
+      "kind": "object",
+      "x": 48,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r0c4",
+      "kind": "object",
+      "x": 64,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r0c5",
+      "kind": "object",
+      "x": 80,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r1c0",
+      "kind": "object",
+      "x": 0,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r1c2",
+      "kind": "object",
+      "x": 32,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r1c3",
+      "kind": "object",
+      "x": 48,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r1c5",
+      "kind": "object",
+      "x": 80,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r2c0",
+      "kind": "object",
+      "x": 0,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r2c1",
+      "kind": "object",
+      "x": 16,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r2c2",
+      "kind": "object",
+      "x": 32,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r2c3",
+      "kind": "object",
+      "x": 48,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r2c4",
+      "kind": "object",
+      "x": 64,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_dirt_round_r2c5",
+      "kind": "object",
+      "x": 80,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "grass",
+        "dirt"
+      ]
+    },
+    {
+      "name": "stone_wall_nw",
+      "kind": "object",
+      "x": 96,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "stone",
+        "wall"
+      ]
+    },
+    {
+      "name": "stone_wall_n",
+      "kind": "object",
+      "x": 112,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "stone",
+        "wall"
+      ]
+    },
+    {
+      "name": "stone_wall_ne",
+      "kind": "object",
+      "x": 128,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "stone",
+        "wall"
+      ]
+    },
+    {
+      "name": "stone_wall_w",
+      "kind": "object",
+      "x": 96,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "stone",
+        "wall"
+      ]
+    },
+    {
+      "name": "stone_wall_c",
+      "kind": "object",
+      "x": 112,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "stone",
+        "wall"
+      ]
+    },
+    {
+      "name": "stone_wall_e",
+      "kind": "object",
+      "x": 128,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "stone",
+        "wall"
+      ]
+    },
+    {
+      "name": "stone_wall_sw",
+      "kind": "object",
+      "x": 96,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "stone",
+        "wall"
+      ]
+    },
+    {
+      "name": "stone_wall_s",
+      "kind": "object",
+      "x": 112,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "stone",
+        "wall"
+      ]
+    },
+    {
+      "name": "stone_wall_se",
+      "kind": "object",
+      "x": 128,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "autotile",
+        "stone",
+        "wall"
+      ]
+    },
+    {
+      "name": "dirt_tile",
+      "kind": "object",
+      "x": 0,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dirt"
+      ]
+    },
+    {
+      "name": "stone_floor_tile",
+      "kind": "object",
+      "x": 16,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "stone"
+      ]
+    },
+    {
+      "name": "pit_dark",
+      "kind": "object",
+      "x": 128,
+      "y": 64,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "pit"
+      ]
+    },
+    {
+      "name": "grass_tile_sapling",
+      "kind": "object",
+      "x": 160,
+      "y": 48,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "grass",
+        "tree"
+      ]
+    },
+    {
+      "name": "grass_tuft_a",
+      "kind": "object",
+      "x": 34,
+      "y": 53,
+      "w": 11,
+      "h": 6,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "grass"
+      ]
+    },
+    {
+      "name": "grass_tuft_b",
+      "kind": "object",
+      "x": 50,
+      "y": 52,
+      "w": 12,
+      "h": 7,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "grass"
+      ]
+    },
+    {
+      "name": "bush_flowering",
+      "kind": "object",
+      "x": 65,
+      "y": 48,
+      "w": 14,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "bush"
+      ]
+    },
+    {
+      "name": "bush_green",
+      "kind": "object",
+      "x": 81,
+      "y": 48,
+      "w": 14,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "bush"
+      ]
+    },
+    {
+      "name": "flower_sprout",
+      "kind": "object",
+      "x": 101,
+      "y": 54,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "flower"
+      ]
+    },
+    {
+      "name": "flowers_white_a",
+      "kind": "object",
+      "x": 0,
+      "y": 64,
+      "w": 15,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "flower"
+      ]
+    },
+    {
+      "name": "flowers_pink_orange",
+      "kind": "object",
+      "x": 16,
+      "y": 68,
+      "w": 16,
+      "h": 11,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "flower"
+      ]
+    },
+    {
+      "name": "rock_small",
+      "kind": "object",
+      "x": 36,
+      "y": 68,
+      "w": 8,
+      "h": 8,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "rock"
+      ]
+    },
+    {
+      "name": "stump",
+      "kind": "object",
+      "x": 49,
+      "y": 65,
+      "w": 13,
+      "h": 15,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "wood"
+      ]
+    },
+    {
+      "name": "stump_axe",
+      "kind": "object",
+      "x": 66,
+      "y": 64,
+      "w": 13,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "wood"
+      ]
+    },
+    {
+      "name": "stump_broken",
+      "kind": "object",
+      "x": 80,
+      "y": 65,
+      "w": 16,
+      "h": 12,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "wood"
+      ]
+    },
+    {
+      "name": "logs_upright_pair",
+      "kind": "object",
+      "x": 96,
+      "y": 64,
+      "w": 16,
+      "h": 11,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "wood"
+      ]
+    },
+    {
+      "name": "clay_pot",
+      "kind": "object",
+      "x": 114,
+      "y": 66,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "pot"
+      ]
+    },
+    {
+      "name": "flowers_white_b",
+      "kind": "object",
+      "x": 4,
+      "y": 84,
+      "w": 8,
+      "h": 8,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "flower"
+      ]
+    },
+    {
+      "name": "flowers_white_cluster",
+      "kind": "object",
+      "x": 17,
+      "y": 80,
+      "w": 14,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "flower"
+      ]
+    },
+    {
+      "name": "rocks_pair_small",
+      "kind": "object",
+      "x": 32,
+      "y": 84,
+      "w": 15,
+      "h": 8,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "rock"
+      ]
+    },
+    {
+      "name": "rock_large",
+      "kind": "object",
+      "x": 48,
+      "y": 82,
+      "w": 16,
+      "h": 11,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "rock"
+      ]
+    },
+    {
+      "name": "stone_blocks",
+      "kind": "object",
+      "x": 64,
+      "y": 82,
+      "w": 16,
+      "h": 14,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "rock"
+      ]
+    },
+    {
+      "name": "stone_block_slab",
+      "kind": "object",
+      "x": 128,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "stone"
+      ]
+    },
+    {
       "name": "house_cottage",
       "kind": "object",
       "x": 192,
-      "y": 0,
-      "w": 96,
-      "h": 90,
+      "y": 4,
+      "w": 91,
+      "h": 76,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
         "building",
         "house"
-      ]
-    },
-    {
-      "name": "rock_cluster",
-      "kind": "object",
-      "x": 46,
-      "y": 73,
-      "w": 22,
-      "h": 20,
-      "tags": [
-        "top_down_adventure_pack",
-        "o_lobster",
-        "rock",
-        "props"
-      ]
-    },
-    {
-      "name": "bush_cluster",
-      "kind": "object",
-      "x": 64,
-      "y": 44,
-      "w": 32,
-      "h": 17,
-      "tags": [
-        "top_down_adventure_pack",
-        "o_lobster",
-        "bush",
-        "nature"
-      ]
-    },
-    {
-      "name": "stone_wall_blob",
-      "kind": "object",
-      "x": 96,
-      "y": 93,
-      "w": 48,
-      "h": 48,
-      "tags": [
-        "top_down_adventure_pack",
-        "o_lobster",
-        "stone",
-        "wall",
-        "autotile"
       ]
     },
     {
       "name": "house_red_roof",
       "kind": "object",
-      "x": 142,
+      "x": 144,
       "y": 80,
-      "w": 68,
-      "h": 70,
+      "w": 79,
+      "h": 64,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
@@ -103,47 +1253,386 @@
       ]
     },
     {
-      "name": "tree_large",
+      "name": "wooden_frame_panel",
       "kind": "object",
-      "x": 44,
-      "y": 140,
-      "w": 38,
-      "h": 58,
+      "x": 224,
+      "y": 80,
+      "w": 64,
+      "h": 80,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "wood"
+      ]
+    },
+    {
+      "name": "lantern_post_hanging_a",
+      "kind": "object",
+      "x": 0,
+      "y": 144,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "light"
+      ]
+    },
+    {
+      "name": "lantern_post_hanging_b",
+      "kind": "object",
+      "x": 0,
+      "y": 176,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "light"
+      ]
+    },
+    {
+      "name": "lantern_pole",
+      "kind": "object",
+      "x": 36,
+      "y": 144,
+      "w": 9,
+      "h": 30,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "light"
+      ]
+    },
+    {
+      "name": "tree_pine_green",
+      "kind": "object",
+      "x": 49,
+      "y": 148,
+      "w": 30,
+      "h": 39,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "tree"
+      ]
+    },
+    {
+      "name": "tree_pine_autumn",
+      "kind": "object",
+      "x": 81,
+      "y": 148,
+      "w": 30,
+      "h": 39,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
         "tree",
-        "nature"
+        "autumn"
       ]
     },
     {
-      "name": "cave_entrance_dark",
+      "name": "cave_entrance_arch",
       "kind": "object",
-      "x": 96,
-      "y": 176,
+      "x": 112,
+      "y": 144,
       "w": 48,
       "h": 32,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
-        "cave",
-        "structure"
-      ],
-      "lowConfidence": true
+        "cave"
+      ]
+    },
+    {
+      "name": "rope_arc",
+      "kind": "object",
+      "x": 48,
+      "y": 200,
+      "w": 16,
+      "h": 8,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "rope"
+      ]
+    },
+    {
+      "name": "rope_ladder_a",
+      "kind": "object",
+      "x": 64,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "rope"
+      ]
+    },
+    {
+      "name": "rope_ladder_b",
+      "kind": "object",
+      "x": 80,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "rope"
+      ]
+    },
+    {
+      "name": "bridge_log_posts",
+      "kind": "object",
+      "x": 104,
+      "y": 192,
+      "w": 32,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "wood",
+        "bridge"
+      ]
+    },
+    {
+      "name": "gravestone_mossy",
+      "kind": "object",
+      "x": 145,
+      "y": 182,
+      "w": 14,
+      "h": 22,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "grave"
+      ]
+    },
+    {
+      "name": "chair_front",
+      "kind": "object",
+      "x": 163,
+      "y": 145,
+      "w": 10,
+      "h": 13,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "furniture"
+      ]
+    },
+    {
+      "name": "chair_side_a",
+      "kind": "object",
+      "x": 180,
+      "y": 145,
+      "w": 8,
+      "h": 13,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "furniture"
+      ]
+    },
+    {
+      "name": "chair_side_b",
+      "kind": "object",
+      "x": 196,
+      "y": 145,
+      "w": 8,
+      "h": 13,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "furniture"
+      ]
+    },
+    {
+      "name": "cooking_pot_stove",
+      "kind": "object",
+      "x": 160,
+      "y": 160,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "furniture"
+      ]
+    },
+    {
+      "name": "potion_crate",
+      "kind": "object",
+      "x": 160,
+      "y": 177,
+      "w": 16,
+      "h": 15,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "furniture"
+      ]
+    },
+    {
+      "name": "table_round_glow",
+      "kind": "object",
+      "x": 161,
+      "y": 193,
+      "w": 14,
+      "h": 13,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "furniture"
+      ]
+    },
+    {
+      "name": "lantern_dock_rail",
+      "kind": "object",
+      "x": 176,
+      "y": 169,
+      "w": 16,
+      "h": 31,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "light",
+        "wood"
+      ]
+    },
+    {
+      "name": "bed_red_horizontal",
+      "kind": "object",
+      "x": 192,
+      "y": 160,
+      "w": 32,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "furniture",
+        "bed"
+      ]
+    },
+    {
+      "name": "towels_hanging",
+      "kind": "object",
+      "x": 224,
+      "y": 160,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "furniture"
+      ]
+    },
+    {
+      "name": "bed_red_vertical",
+      "kind": "object",
+      "x": 192,
+      "y": 176,
+      "w": 16,
+      "h": 32,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "furniture",
+        "bed"
+      ]
+    },
+    {
+      "name": "stove_iron",
+      "kind": "object",
+      "x": 212,
+      "y": 176,
+      "w": 12,
+      "h": 32,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "furniture"
+      ]
+    },
+    {
+      "name": "firewood_small",
+      "kind": "object",
+      "x": 224,
+      "y": 192,
+      "w": 13,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "wood"
+      ]
     },
     {
       "name": "water_pool",
       "kind": "object",
-      "x": 240,
-      "y": 160,
-      "w": 48,
-      "h": 48,
+      "x": 241,
+      "y": 161,
+      "w": 46,
+      "h": 46,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
         "water"
-      ],
-      "lowConfidence": true
+      ]
+    },
+    {
+      "name": "signpost_wood",
+      "kind": "object",
+      "x": 114,
+      "y": 48,
+      "w": 12,
+      "h": 13,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "sign"
+      ]
+    },
+    {
+      "name": "post_wood_a",
+      "kind": "object",
+      "x": 86,
+      "y": 80,
+      "w": 9,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "wood"
+      ]
+    },
+    {
+      "name": "logs_stacked_pair",
+      "kind": "object",
+      "x": 96,
+      "y": 84,
+      "w": 16,
+      "h": 12,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "wood"
+      ]
+    },
+    {
+      "name": "post_wood_b",
+      "kind": "object",
+      "x": 113,
+      "y": 80,
+      "w": 9,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "wood"
+      ]
     }
   ]
 }
