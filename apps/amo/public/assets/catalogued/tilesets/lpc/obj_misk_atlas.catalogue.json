@@ -4886,61 +4886,6 @@
       ]
     },
     {
-      "name": "baluster_railing_red_straight_b",
-      "kind": "tile",
-      "row": 17,
-      "col": 15,
-      "frameIndex": 559,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "fish_fin_fragment_a",
-      "kind": "tile",
-      "row": 17,
-      "col": 16,
-      "frameIndex": 560,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "perch_single_a",
-      "kind": "tile",
-      "row": 17,
-      "col": 17,
-      "frameIndex": 561,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "fish_tail_fragment_a",
-      "kind": "tile",
-      "row": 17,
-      "col": 18,
-      "frameIndex": 562,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "fish_pile_perch_a",
-      "kind": "tile",
-      "row": 17,
-      "col": 19,
-      "frameIndex": 563,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
       "name": "grass_fill_dark_a",
       "kind": "tile",
       "row": 17,
@@ -5188,50 +5133,6 @@
       "row": 18,
       "col": 14,
       "frameIndex": 590,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "pea_pod_c",
-      "kind": "tile",
-      "row": 18,
-      "col": 15,
-      "frameIndex": 591,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "perch_single_b",
-      "kind": "tile",
-      "row": 18,
-      "col": 16,
-      "frameIndex": 592,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "fish_pile_perch_b",
-      "kind": "tile",
-      "row": 18,
-      "col": 18,
-      "frameIndex": 594,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "fish_tail_fragment_b",
-      "kind": "tile",
-      "row": 18,
-      "col": 19,
-      "frameIndex": 595,
       "tags": [
         "lpc",
         "atlas"
@@ -5532,50 +5433,6 @@
       ]
     },
     {
-      "name": "perch_single_c",
-      "kind": "tile",
-      "row": 19,
-      "col": 16,
-      "frameIndex": 624,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "fish_head_fragment_a",
-      "kind": "tile",
-      "row": 19,
-      "col": 17,
-      "frameIndex": 625,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "fish_pile_perch_c",
-      "kind": "tile",
-      "row": 19,
-      "col": 18,
-      "frameIndex": 626,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "fish_pile_perch_d",
-      "kind": "tile",
-      "row": 19,
-      "col": 19,
-      "frameIndex": 627,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
       "name": "trash_scatter_b",
       "kind": "object",
       "x": 704,
@@ -5805,50 +5662,6 @@
       "row": 20,
       "col": 14,
       "frameIndex": 654,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "koi_fish_single_a",
-      "kind": "tile",
-      "row": 20,
-      "col": 15,
-      "frameIndex": 655,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "koi_fish_pair_a",
-      "kind": "tile",
-      "row": 20,
-      "col": 16,
-      "frameIndex": 656,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "koi_fish_pair_b",
-      "kind": "tile",
-      "row": 20,
-      "col": 18,
-      "frameIndex": 658,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "koi_fish_pair_c",
-      "kind": "tile",
-      "row": 20,
-      "col": 19,
-      "frameIndex": 659,
       "tags": [
         "lpc",
         "atlas"
@@ -7578,39 +7391,6 @@
       ]
     },
     {
-      "name": "bench_wood_tan_slat_low_a",
-      "kind": "tile",
-      "row": 29,
-      "col": 3,
-      "frameIndex": 931,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "ottoman_wood_tan_plain",
-      "kind": "tile",
-      "row": 29,
-      "col": 4,
-      "frameIndex": 932,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "chair_wood_tan_side_a",
-      "kind": "tile",
-      "row": 29,
-      "col": 5,
-      "frameIndex": 933,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
       "name": "sink_basin_cream_pump",
       "kind": "tile",
       "row": 29,
@@ -7840,39 +7620,6 @@
       "row": 30,
       "col": 2,
       "frameIndex": 962,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "bench_wood_tan_curved_plain",
-      "kind": "tile",
-      "row": 30,
-      "col": 3,
-      "frameIndex": 963,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "bench_wood_tan_slat_thin",
-      "kind": "tile",
-      "row": 30,
-      "col": 4,
-      "frameIndex": 964,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "bench_wood_tan_slat_single_a",
-      "kind": "tile",
-      "row": 30,
-      "col": 5,
-      "frameIndex": 965,
       "tags": [
         "lpc",
         "atlas"
@@ -8283,6 +8030,62 @@
       "tags": [
         "lpc",
         "atlas"
+      ]
+    },
+    {
+      "name": "perch_single",
+      "kind": "object",
+      "x": 535,
+      "y": 556,
+      "w": 18,
+      "h": 12,
+      "tags": [
+        "lpc",
+        "atlas",
+        "fish",
+        "food"
+      ]
+    },
+    {
+      "name": "perch_pair_overlap",
+      "kind": "object",
+      "x": 604,
+      "y": 552,
+      "w": 28,
+      "h": 16,
+      "tags": [
+        "lpc",
+        "atlas",
+        "fish",
+        "food"
+      ]
+    },
+    {
+      "name": "perch_pair_wide",
+      "kind": "object",
+      "x": 582,
+      "y": 567,
+      "w": 34,
+      "h": 16,
+      "tags": [
+        "lpc",
+        "atlas",
+        "fish",
+        "food"
+      ]
+    },
+    {
+      "name": "perch_pair_stacked",
+      "kind": "object",
+      "x": 579,
+      "y": 618,
+      "w": 22,
+      "h": 22,
+      "tags": [
+        "lpc",
+        "atlas",
+        "fish",
+        "food"
       ]
     }
   ],

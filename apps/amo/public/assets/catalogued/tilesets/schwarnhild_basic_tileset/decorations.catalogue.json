@@ -4,32 +4,325 @@
   "sheetHeight": 96,
   "entries": [
     {
-      "name": "flower_row",
+      "name": "flower_round_orange",
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 36,
-      "h": 48,
+      "w": 12,
+      "h": 12,
       "tags": [
-        "schwarnhild",
+        "decoration",
         "flower",
-        "decoration"
-      ],
-      "lowConfidence": true
+        "schwarnhild"
+      ]
     },
     {
-      "name": "grass_tuft_row",
+      "name": "flower_round_pink",
+      "kind": "object",
+      "x": 12,
+      "y": 0,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "flower_round_blue",
+      "kind": "object",
+      "x": 24,
+      "y": 0,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "flower_bloom_orange",
+      "kind": "object",
+      "x": 0,
+      "y": 12,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "flower_bloom_pink",
+      "kind": "object",
+      "x": 12,
+      "y": 12,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "flower_bloom_blue",
+      "kind": "object",
+      "x": 24,
+      "y": 12,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "tulip_yellow",
+      "kind": "object",
+      "x": 0,
+      "y": 24,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "tulip_peach",
+      "kind": "object",
+      "x": 12,
+      "y": 24,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "tulip_blue",
+      "kind": "object",
+      "x": 24,
+      "y": 24,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "daisy_orange",
+      "kind": "object",
+      "x": 0,
+      "y": 36,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "daisy_pink",
+      "kind": "object",
+      "x": 12,
+      "y": 36,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "daisy_blue",
+      "kind": "object",
+      "x": 24,
+      "y": 36,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "flower_sprout_orange",
       "kind": "object",
       "x": 0,
       "y": 48,
-      "w": 36,
-      "h": 48,
+      "w": 12,
+      "h": 12,
       "tags": [
-        "schwarnhild",
+        "decoration",
+        "flower",
         "grass",
-        "decoration"
-      ],
-      "lowConfidence": true
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "flower_sprout_pink",
+      "kind": "object",
+      "x": 12,
+      "y": 48,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "grass",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "flower_sprout_blue",
+      "kind": "object",
+      "x": 24,
+      "y": 48,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "grass",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "clover_patch_yellow",
+      "kind": "object",
+      "x": 0,
+      "y": 60,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "clover",
+        "decoration",
+        "grass",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "clover_patch_pink",
+      "kind": "object",
+      "x": 12,
+      "y": 60,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "clover",
+        "decoration",
+        "grass",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "clover_patch_teal",
+      "kind": "object",
+      "x": 24,
+      "y": 60,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "clover",
+        "decoration",
+        "grass",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "grass_tuft_a",
+      "kind": "object",
+      "x": 0,
+      "y": 72,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "grass",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "grass_tuft_b",
+      "kind": "object",
+      "x": 12,
+      "y": 72,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "grass",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "grass_tuft_c",
+      "kind": "object",
+      "x": 24,
+      "y": 72,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "grass",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "flower_tiny_orange",
+      "kind": "object",
+      "x": 0,
+      "y": 84,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "grass",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "flower_tiny_pink",
+      "kind": "object",
+      "x": 12,
+      "y": 84,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "grass",
+        "schwarnhild"
+      ]
+    },
+    {
+      "name": "flower_tiny_blue",
+      "kind": "object",
+      "x": 24,
+      "y": 84,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "decoration",
+        "flower",
+        "grass",
+        "schwarnhild"
+      ]
     }
   ]
 }

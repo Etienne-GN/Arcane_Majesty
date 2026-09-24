@@ -4,17 +4,206 @@
   "sheetHeight": 112,
   "entries": [
     {
-      "name": "fruit_variants",
+      "name": "fruit_cherries",
       "kind": "object",
-      "x": 1,
-      "y": 1,
-      "w": 31,
-      "h": 111,
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 16,
       "tags": [
-        "woolly_lands",
-        "tofebaa",
         "fruit",
-        "item"
+        "item",
+        "tofebaa",
+        "woolly_lands"
+      ]
+    },
+    {
+      "name": "fruit_cherries_outlined",
+      "kind": "object",
+      "x": 16,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "fruit",
+        "item",
+        "outlined",
+        "tofebaa",
+        "woolly_lands"
+      ]
+    },
+    {
+      "name": "fruit_apple_red",
+      "kind": "object",
+      "x": 0,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "fruit",
+        "item",
+        "tofebaa",
+        "woolly_lands"
+      ]
+    },
+    {
+      "name": "fruit_apple_red_outlined",
+      "kind": "object",
+      "x": 16,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "fruit",
+        "item",
+        "outlined",
+        "tofebaa",
+        "woolly_lands"
+      ]
+    },
+    {
+      "name": "fruit_apple_green",
+      "kind": "object",
+      "x": 0,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "fruit",
+        "item",
+        "tofebaa",
+        "woolly_lands"
+      ]
+    },
+    {
+      "name": "fruit_apple_green_outlined",
+      "kind": "object",
+      "x": 16,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "fruit",
+        "item",
+        "outlined",
+        "tofebaa",
+        "woolly_lands"
+      ]
+    },
+    {
+      "name": "fruit_orange",
+      "kind": "object",
+      "x": 0,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "fruit",
+        "item",
+        "tofebaa",
+        "woolly_lands"
+      ]
+    },
+    {
+      "name": "fruit_orange_outlined",
+      "kind": "object",
+      "x": 16,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "fruit",
+        "item",
+        "outlined",
+        "tofebaa",
+        "woolly_lands"
+      ]
+    },
+    {
+      "name": "fruit_blueberries",
+      "kind": "object",
+      "x": 0,
+      "y": 64,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "fruit",
+        "item",
+        "tofebaa",
+        "woolly_lands"
+      ]
+    },
+    {
+      "name": "fruit_blueberries_outlined",
+      "kind": "object",
+      "x": 16,
+      "y": 64,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "fruit",
+        "item",
+        "outlined",
+        "tofebaa",
+        "woolly_lands"
+      ]
+    },
+    {
+      "name": "fruit_red_berries",
+      "kind": "object",
+      "x": 0,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "fruit",
+        "item",
+        "tofebaa",
+        "woolly_lands"
+      ]
+    },
+    {
+      "name": "fruit_red_berries_outlined",
+      "kind": "object",
+      "x": 16,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "fruit",
+        "item",
+        "outlined",
+        "tofebaa",
+        "woolly_lands"
+      ]
+    },
+    {
+      "name": "fruit_chestnut",
+      "kind": "object",
+      "x": 0,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "fruit",
+        "item",
+        "tofebaa",
+        "woolly_lands"
+      ]
+    },
+    {
+      "name": "fruit_chestnut_outlined",
+      "kind": "object",
+      "x": 16,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "fruit",
+        "item",
+        "outlined",
+        "tofebaa",
+        "woolly_lands"
       ]
     }
   ]

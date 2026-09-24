@@ -9,29 +9,27 @@
       "x": 0,
       "y": 0,
       "w": 64,
-      "h": 32,
+      "h": 48,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
         "grass",
         "autotile"
-      ],
-      "lowConfidence": true
+      ]
     },
     {
-      "name": "fence_blob",
+      "name": "garden_bed_fenced",
       "kind": "object",
       "x": 64,
       "y": 0,
-      "w": 48,
-      "h": 32,
+      "w": 64,
+      "h": 48,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
-        "fence",
-        "autotile"
-      ],
-      "lowConfidence": true
+        "autotile",
+        "garden"
+      ]
     },
     {
       "name": "house_cottage",

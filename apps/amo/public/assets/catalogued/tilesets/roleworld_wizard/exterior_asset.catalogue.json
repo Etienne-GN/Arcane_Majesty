@@ -35,9 +35,9 @@
     {
       "name": "tree_brown",
       "kind": "object",
-      "x": 196,
+      "x": 191,
       "y": 0,
-      "w": 58,
+      "w": 65,
       "h": 80,
       "tags": [
         "roleworld_wizard",
@@ -90,12 +90,147 @@
       ]
     },
     {
-      "name": "small_props_cluster",
+      "name": "pebbles_grey",
       "kind": "object",
-      "x": 130,
-      "y": 143,
-      "w": 60,
-      "h": 30,
+      "x": 129,
+      "y": 145,
+      "w": 15,
+      "h": 16,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "props",
+        "small",
+        "rocks"
+      ]
+    },
+    {
+      "name": "log_short",
+      "kind": "object",
+      "x": 143,
+      "y": 145,
+      "w": 17,
+      "h": 13,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "props",
+        "small",
+        "rocks"
+      ]
+    },
+    {
+      "name": "stone_plaque",
+      "kind": "object",
+      "x": 160,
+      "y": 144,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "props",
+        "small",
+        "rocks"
+      ]
+    },
+    {
+      "name": "autumn_flower_patch",
+      "kind": "object",
+      "x": 176,
+      "y": 144,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "props",
+        "small",
+        "rocks"
+      ]
+    },
+    {
+      "name": "nut_brown_a",
+      "kind": "object",
+      "x": 135,
+      "y": 163,
+      "w": 7,
+      "h": 6,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "props",
+        "small",
+        "rocks"
+      ]
+    },
+    {
+      "name": "nut_brown_b",
+      "kind": "object",
+      "x": 148,
+      "y": 167,
+      "w": 8,
+      "h": 5,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "props",
+        "small",
+        "rocks"
+      ]
+    },
+    {
+      "name": "nut_brown_c",
+      "kind": "object",
+      "x": 164,
+      "y": 167,
+      "w": 7,
+      "h": 4,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "props",
+        "small",
+        "rocks"
+      ]
+    },
+    {
+      "name": "nut_brown_d",
+      "kind": "object",
+      "x": 178,
+      "y": 164,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "props",
+        "small",
+        "rocks"
+      ]
+    },
+    {
+      "name": "nut_brown_e",
+      "kind": "object",
+      "x": 129,
+      "y": 169,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "roleworld_wizard",
+        "pixel_sazy",
+        "props",
+        "small",
+        "rocks"
+      ]
+    },
+    {
+      "name": "nut_brown_f",
+      "kind": "object",
+      "x": 182,
+      "y": 169,
+      "w": 5,
+      "h": 5,
       "tags": [
         "roleworld_wizard",
         "pixel_sazy",

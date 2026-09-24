@@ -30,18 +30,46 @@
       ]
     },
     {
-      "name": "tree_bush_prop",
+      "name": "dirt_rough_corner_top_left",
       "kind": "object",
       "x": 256,
       "y": 0,
-      "w": 64,
-      "h": 64,
+      "w": 32,
+      "h": 32,
       "tags": [
         "schwarnhild",
-        "tree",
-        "prop"
-      ],
-      "lowConfidence": true
+        "dirt",
+        "ground",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirt_rough_corner_top_right",
+      "kind": "object",
+      "x": 288,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "ground",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dirt_rough_edge_bottom",
+      "kind": "object",
+      "x": 256,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "dirt",
+        "ground",
+        "autotile"
+      ]
     },
     {
       "name": "grass_field_open",

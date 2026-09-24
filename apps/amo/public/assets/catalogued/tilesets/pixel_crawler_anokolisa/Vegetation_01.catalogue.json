@@ -4,15 +4,1836 @@
   "sheetHeight": 304,
   "entries": [
     {
-      "name": "vegetation_01",
+      "name": "bush_leafy_green",
+      "kind": "object",
+      "x": 18,
+      "y": 3,
+      "w": 44,
+      "h": 45,
+      "tags": [
+        "anokolisa",
+        "bush",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "bush_leafy_olive",
+      "kind": "object",
+      "x": 66,
+      "y": 3,
+      "w": 44,
+      "h": 45,
+      "tags": [
+        "anokolisa",
+        "bush",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "tree_dead_bare",
+      "kind": "object",
+      "x": 115,
+      "y": 2,
+      "w": 39,
+      "h": 46,
+      "tags": [
+        "anokolisa",
+        "dead",
+        "pixel_crawler",
+        "static",
+        "tree"
+      ]
+    },
+    {
+      "name": "tree_dead_frozen",
+      "kind": "object",
+      "x": 163,
+      "y": 2,
+      "w": 39,
+      "h": 46,
+      "tags": [
+        "anokolisa",
+        "dead",
+        "pixel_crawler",
+        "static",
+        "tree",
+        "winter"
+      ]
+    },
+    {
+      "name": "sprout_green_1",
+      "kind": "object",
+      "x": 5,
+      "y": 53,
+      "w": 7,
+      "h": 9,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_green_2",
+      "kind": "object",
+      "x": 20,
+      "y": 52,
+      "w": 9,
+      "h": 10,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_green_3",
+      "kind": "object",
+      "x": 36,
+      "y": 53,
+      "w": 10,
+      "h": 9,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_green_4",
+      "kind": "object",
+      "x": 51,
+      "y": 54,
+      "w": 9,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_green_5",
       "kind": "object",
       "x": 3,
-      "y": 2,
-      "w": 205,
-      "h": 291,
+      "y": 66,
+      "w": 11,
+      "h": 13,
       "tags": [
-        "pixel_crawler",
         "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_green_6",
+      "kind": "object",
+      "x": 20,
+      "y": 68,
+      "w": 9,
+      "h": 11,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_green_7",
+      "kind": "object",
+      "x": 35,
+      "y": 69,
+      "w": 10,
+      "h": 8,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_green_8",
+      "kind": "object",
+      "x": 55,
+      "y": 70,
+      "w": 3,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_olive_1",
+      "kind": "object",
+      "x": 5,
+      "y": 85,
+      "w": 7,
+      "h": 9,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_olive_2",
+      "kind": "object",
+      "x": 20,
+      "y": 84,
+      "w": 9,
+      "h": 10,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_olive_3",
+      "kind": "object",
+      "x": 36,
+      "y": 85,
+      "w": 10,
+      "h": 9,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_olive_4",
+      "kind": "object",
+      "x": 51,
+      "y": 86,
+      "w": 9,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_olive_5",
+      "kind": "object",
+      "x": 3,
+      "y": 98,
+      "w": 11,
+      "h": 13,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_olive_6",
+      "kind": "object",
+      "x": 20,
+      "y": 100,
+      "w": 9,
+      "h": 11,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_olive_7",
+      "kind": "object",
+      "x": 35,
+      "y": 101,
+      "w": 10,
+      "h": 8,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_olive_8",
+      "kind": "object",
+      "x": 55,
+      "y": 102,
+      "w": 3,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_brown_1",
+      "kind": "object",
+      "x": 5,
+      "y": 117,
+      "w": 7,
+      "h": 9,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_brown_2",
+      "kind": "object",
+      "x": 20,
+      "y": 116,
+      "w": 9,
+      "h": 10,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_brown_3",
+      "kind": "object",
+      "x": 36,
+      "y": 117,
+      "w": 10,
+      "h": 9,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_brown_4",
+      "kind": "object",
+      "x": 51,
+      "y": 118,
+      "w": 9,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_brown_5",
+      "kind": "object",
+      "x": 3,
+      "y": 130,
+      "w": 11,
+      "h": 13,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_brown_6",
+      "kind": "object",
+      "x": 20,
+      "y": 132,
+      "w": 9,
+      "h": 11,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_brown_7",
+      "kind": "object",
+      "x": 35,
+      "y": 133,
+      "w": 10,
+      "h": 8,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "sprout_brown_8",
+      "kind": "object",
+      "x": 55,
+      "y": 134,
+      "w": 3,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "sprout",
+        "static"
+      ]
+    },
+    {
+      "name": "plant_leafy_green",
+      "kind": "object",
+      "x": 64,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "static"
+      ]
+    },
+    {
+      "name": "leaf_small_green",
+      "kind": "object",
+      "x": 66,
+      "y": 68,
+      "w": 13,
+      "h": 9,
+      "tags": [
+        "anokolisa",
+        "leaf",
+        "pixel_crawler",
+        "plant",
+        "static"
+      ]
+    },
+    {
+      "name": "fern_large_green",
+      "kind": "object",
+      "x": 80,
+      "y": 51,
+      "w": 32,
+      "h": 26,
+      "tags": [
+        "anokolisa",
+        "fern",
+        "pixel_crawler",
+        "plant",
+        "static"
+      ]
+    },
+    {
+      "name": "plant_leafy_olive",
+      "kind": "object",
+      "x": 64,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "static"
+      ]
+    },
+    {
+      "name": "leaf_small_olive",
+      "kind": "object",
+      "x": 66,
+      "y": 100,
+      "w": 13,
+      "h": 9,
+      "tags": [
+        "anokolisa",
+        "leaf",
+        "pixel_crawler",
+        "plant",
+        "static"
+      ]
+    },
+    {
+      "name": "fern_large_olive",
+      "kind": "object",
+      "x": 80,
+      "y": 83,
+      "w": 32,
+      "h": 26,
+      "tags": [
+        "anokolisa",
+        "fern",
+        "pixel_crawler",
+        "plant",
+        "static"
+      ]
+    },
+    {
+      "name": "plant_leafy_brown",
+      "kind": "object",
+      "x": 64,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "plant",
+        "static"
+      ]
+    },
+    {
+      "name": "leaf_small_brown",
+      "kind": "object",
+      "x": 66,
+      "y": 132,
+      "w": 13,
+      "h": 9,
+      "tags": [
+        "anokolisa",
+        "leaf",
+        "pixel_crawler",
+        "plant",
+        "static"
+      ]
+    },
+    {
+      "name": "fern_large_brown",
+      "kind": "object",
+      "x": 80,
+      "y": 115,
+      "w": 32,
+      "h": 26,
+      "tags": [
+        "anokolisa",
+        "fern",
+        "pixel_crawler",
+        "plant",
+        "static"
+      ]
+    },
+    {
+      "name": "mushroom_tan_small",
+      "kind": "object",
+      "x": 116,
+      "y": 52,
+      "w": 8,
+      "h": 9,
+      "tags": [
+        "anokolisa",
+        "mushroom",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "mushroom_orange_large",
+      "kind": "object",
+      "x": 129,
+      "y": 50,
+      "w": 14,
+      "h": 14,
+      "tags": [
+        "anokolisa",
+        "mushroom",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "mushroom_cap_fallen",
+      "kind": "object",
+      "x": 145,
+      "y": 50,
+      "w": 13,
+      "h": 9,
+      "tags": [
+        "anokolisa",
+        "mushroom",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "mushroom_crumb_a",
+      "kind": "object",
+      "x": 166,
+      "y": 56,
+      "w": 4,
+      "h": 3,
+      "tags": [
+        "anokolisa",
+        "mushroom",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "stakes_wood",
+      "kind": "object",
+      "x": 178,
+      "y": 53,
+      "w": 12,
+      "h": 11,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "static",
+        "wood"
+      ]
+    },
+    {
+      "name": "twigs_orange_a",
+      "kind": "object",
+      "x": 192,
+      "y": 49,
+      "w": 16,
+      "h": 13,
+      "tags": [
+        "anokolisa",
+        "autumn",
+        "pixel_crawler",
+        "static",
+        "twig"
+      ]
+    },
+    {
+      "name": "grass_tall_flowering",
+      "kind": "object",
+      "x": 112,
+      "y": 68,
+      "w": 16,
+      "h": 27,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "grass",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "grass_tall",
+      "kind": "object",
+      "x": 128,
+      "y": 68,
+      "w": 16,
+      "h": 27,
+      "tags": [
+        "anokolisa",
+        "grass",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "mushroom_tan_tiny",
+      "kind": "object",
+      "x": 149,
+      "y": 69,
+      "w": 5,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "mushroom",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "mushroom_crumb_b",
+      "kind": "object",
+      "x": 166,
+      "y": 72,
+      "w": 4,
+      "h": 3,
+      "tags": [
+        "anokolisa",
+        "mushroom",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "stakes_wood_frozen",
+      "kind": "object",
+      "x": 178,
+      "y": 69,
+      "w": 12,
+      "h": 11,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "static",
+        "winter",
+        "wood"
+      ]
+    },
+    {
+      "name": "twigs_orange_b",
+      "kind": "object",
+      "x": 196,
+      "y": 70,
+      "w": 10,
+      "h": 4,
+      "tags": [
+        "anokolisa",
+        "autumn",
+        "pixel_crawler",
+        "static",
+        "twig"
+      ]
+    },
+    {
+      "name": "mushroom_red_egg",
+      "kind": "object",
+      "x": 147,
+      "y": 81,
+      "w": 11,
+      "h": 14,
+      "tags": [
+        "anokolisa",
+        "mushroom",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "mushroom_blue_egg",
+      "kind": "object",
+      "x": 163,
+      "y": 81,
+      "w": 11,
+      "h": 14,
+      "tags": [
+        "anokolisa",
+        "mushroom",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "leaf_orange_small_a",
+      "kind": "object",
+      "x": 180,
+      "y": 84,
+      "w": 7,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "autumn",
+        "leaf",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "twigs_orange_c",
+      "kind": "object",
+      "x": 192,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "anokolisa",
+        "autumn",
+        "pixel_crawler",
+        "static",
+        "twig"
+      ]
+    },
+    {
+      "name": "log_arch",
+      "kind": "object",
+      "x": 113,
+      "y": 97,
+      "w": 30,
+      "h": 14,
+      "tags": [
+        "anokolisa",
+        "log",
+        "pixel_crawler",
+        "static",
+        "wood"
+      ]
+    },
+    {
+      "name": "rock_small_a",
+      "kind": "object",
+      "x": 147,
+      "y": 101,
+      "w": 10,
+      "h": 7,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "rock",
+        "static"
+      ]
+    },
+    {
+      "name": "rock_small_b",
+      "kind": "object",
+      "x": 160,
+      "y": 99,
+      "w": 15,
+      "h": 10,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "rock",
+        "static"
+      ]
+    },
+    {
+      "name": "leaf_orange_small_b",
+      "kind": "object",
+      "x": 181,
+      "y": 101,
+      "w": 5,
+      "h": 4,
+      "tags": [
+        "anokolisa",
+        "autumn",
+        "leaf",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "twigs_orange_d",
+      "kind": "object",
+      "x": 192,
+      "y": 99,
+      "w": 16,
+      "h": 8,
+      "tags": [
+        "anokolisa",
+        "autumn",
+        "pixel_crawler",
+        "static",
+        "twig"
+      ]
+    },
+    {
+      "name": "rock_large",
+      "kind": "object",
+      "x": 114,
+      "y": 115,
+      "w": 28,
+      "h": 27,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "rock",
+        "static"
+      ]
+    },
+    {
+      "name": "rock_medium_a",
+      "kind": "object",
+      "x": 145,
+      "y": 115,
+      "w": 14,
+      "h": 11,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "rock",
+        "static"
+      ]
+    },
+    {
+      "name": "rock_medium_b",
+      "kind": "object",
+      "x": 160,
+      "y": 113,
+      "w": 16,
+      "h": 14,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "rock",
+        "static"
+      ]
+    },
+    {
+      "name": "rock_tall",
+      "kind": "object",
+      "x": 178,
+      "y": 114,
+      "w": 28,
+      "h": 44,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "rock",
+        "static"
+      ]
+    },
+    {
+      "name": "pebble_a",
+      "kind": "object",
+      "x": 145,
+      "y": 129,
+      "w": 7,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "rock",
+        "static"
+      ]
+    },
+    {
+      "name": "pebble_b",
+      "kind": "object",
+      "x": 164,
+      "y": 133,
+      "w": 8,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "rock",
+        "static"
+      ]
+    },
+    {
+      "name": "pebble_c",
+      "kind": "object",
+      "x": 152,
+      "y": 137,
+      "w": 7,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "rock",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_orange_bud_1",
+      "kind": "object",
+      "x": 6,
+      "y": 150,
+      "w": 5,
+      "h": 3,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_orange_bud_2",
+      "kind": "object",
+      "x": 23,
+      "y": 151,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_orange_bud_3",
+      "kind": "object",
+      "x": 39,
+      "y": 151,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_orange_a",
+      "kind": "object",
+      "x": 53,
+      "y": 149,
+      "w": 7,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_orange_b",
+      "kind": "object",
+      "x": 69,
+      "y": 149,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_orange_c",
+      "kind": "object",
+      "x": 86,
+      "y": 149,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_orange_d",
+      "kind": "object",
+      "x": 100,
+      "y": 149,
+      "w": 8,
+      "h": 7,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_orange_e",
+      "kind": "object",
+      "x": 117,
+      "y": 149,
+      "w": 7,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_orange_f",
+      "kind": "object",
+      "x": 133,
+      "y": 150,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_orange_g",
+      "kind": "object",
+      "x": 149,
+      "y": 150,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_orange_h",
+      "kind": "object",
+      "x": 165,
+      "y": 150,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_white_bud_1",
+      "kind": "object",
+      "x": 6,
+      "y": 166,
+      "w": 5,
+      "h": 3,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_white_bud_2",
+      "kind": "object",
+      "x": 23,
+      "y": 167,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_white_bud_3",
+      "kind": "object",
+      "x": 39,
+      "y": 167,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_white_a",
+      "kind": "object",
+      "x": 53,
+      "y": 165,
+      "w": 7,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_white_b",
+      "kind": "object",
+      "x": 69,
+      "y": 165,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_white_c",
+      "kind": "object",
+      "x": 86,
+      "y": 165,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_white_d",
+      "kind": "object",
+      "x": 100,
+      "y": 165,
+      "w": 8,
+      "h": 7,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_white_e",
+      "kind": "object",
+      "x": 117,
+      "y": 165,
+      "w": 7,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_white_f",
+      "kind": "object",
+      "x": 133,
+      "y": 166,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_white_g",
+      "kind": "object",
+      "x": 149,
+      "y": 166,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_white_h",
+      "kind": "object",
+      "x": 165,
+      "y": 166,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_blue_bud_1",
+      "kind": "object",
+      "x": 6,
+      "y": 182,
+      "w": 5,
+      "h": 3,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_blue_bud_2",
+      "kind": "object",
+      "x": 23,
+      "y": 183,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_blue_bud_3",
+      "kind": "object",
+      "x": 39,
+      "y": 183,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_blue_a",
+      "kind": "object",
+      "x": 53,
+      "y": 181,
+      "w": 7,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_blue_b",
+      "kind": "object",
+      "x": 69,
+      "y": 181,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_blue_c",
+      "kind": "object",
+      "x": 86,
+      "y": 181,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_blue_d",
+      "kind": "object",
+      "x": 100,
+      "y": 181,
+      "w": 8,
+      "h": 7,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_blue_e",
+      "kind": "object",
+      "x": 117,
+      "y": 181,
+      "w": 7,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_blue_f",
+      "kind": "object",
+      "x": 133,
+      "y": 182,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_blue_g",
+      "kind": "object",
+      "x": 149,
+      "y": 182,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_blue_h",
+      "kind": "object",
+      "x": 165,
+      "y": 182,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_yellow_bud_1",
+      "kind": "object",
+      "x": 6,
+      "y": 198,
+      "w": 5,
+      "h": 3,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_yellow_bud_2",
+      "kind": "object",
+      "x": 23,
+      "y": 199,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_yellow_bud_3",
+      "kind": "object",
+      "x": 39,
+      "y": 199,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_yellow_a",
+      "kind": "object",
+      "x": 53,
+      "y": 197,
+      "w": 7,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_yellow_b",
+      "kind": "object",
+      "x": 69,
+      "y": 197,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_yellow_c",
+      "kind": "object",
+      "x": 86,
+      "y": 197,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_yellow_d",
+      "kind": "object",
+      "x": 100,
+      "y": 197,
+      "w": 8,
+      "h": 7,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_yellow_e",
+      "kind": "object",
+      "x": 117,
+      "y": 197,
+      "w": 7,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_yellow_f",
+      "kind": "object",
+      "x": 133,
+      "y": 198,
+      "w": 6,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_yellow_g",
+      "kind": "object",
+      "x": 149,
+      "y": 198,
+      "w": 6,
+      "h": 6,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "flower_yellow_h",
+      "kind": "object",
+      "x": 165,
+      "y": 198,
+      "w": 5,
+      "h": 5,
+      "tags": [
+        "anokolisa",
+        "flower",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "berry_red_1",
+      "kind": "object",
+      "x": 7,
+      "y": 215,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "berry",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "berry_red_2",
+      "kind": "object",
+      "x": 7,
+      "y": 231,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "berry",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "berry_red_3",
+      "kind": "object",
+      "x": 7,
+      "y": 247,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "berry",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "berry_red_4",
+      "kind": "object",
+      "x": 7,
+      "y": 263,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "berry",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "berry_yellow_1",
+      "kind": "object",
+      "x": 23,
+      "y": 215,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "berry",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "berry_yellow_2",
+      "kind": "object",
+      "x": 23,
+      "y": 231,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "berry",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "berry_yellow_3",
+      "kind": "object",
+      "x": 23,
+      "y": 247,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "berry",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "berry_yellow_4",
+      "kind": "object",
+      "x": 23,
+      "y": 263,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "berry",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "berry_green_1",
+      "kind": "object",
+      "x": 39,
+      "y": 215,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "berry",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "berry_green_2",
+      "kind": "object",
+      "x": 39,
+      "y": 231,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "berry",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "berry_green_3",
+      "kind": "object",
+      "x": 39,
+      "y": 247,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "berry",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "berry_green_4",
+      "kind": "object",
+      "x": 39,
+      "y": 263,
+      "w": 2,
+      "h": 2,
+      "tags": [
+        "anokolisa",
+        "berry",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "canopy_shadow_large",
+      "kind": "object",
+      "x": 49,
+      "y": 208,
+      "w": 110,
+      "h": 48,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "shadow",
+        "static"
+      ]
+    },
+    {
+      "name": "canopy_shadow_medium",
+      "kind": "object",
+      "x": 48,
+      "y": 256,
+      "w": 47,
+      "h": 32,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "shadow",
+        "static"
+      ]
+    },
+    {
+      "name": "shadow_square_small",
+      "kind": "object",
+      "x": 96,
+      "y": 272,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "shadow",
+        "static"
+      ]
+    },
+    {
+      "name": "shadow_square_medium",
+      "kind": "object",
+      "x": 124,
+      "y": 268,
+      "w": 24,
+      "h": 24,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "shadow",
+        "static"
+      ]
+    },
+    {
+      "name": "shadow_round",
+      "kind": "object",
+      "x": 171,
+      "y": 268,
+      "w": 28,
+      "h": 25,
+      "tags": [
+        "anokolisa",
+        "pixel_crawler",
+        "shadow",
+        "static"
+      ]
+    },
+    {
+      "name": "dirt_tile_square",
+      "kind": "object",
+      "x": 176,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "anokolisa",
+        "dirt",
+        "pixel_crawler",
+        "static"
+      ]
+    },
+    {
+      "name": "dirt_patch_round",
+      "kind": "object",
+      "x": 174,
+      "y": 223,
+      "w": 22,
+      "h": 20,
+      "tags": [
+        "anokolisa",
+        "dirt",
+        "pixel_crawler",
         "static"
       ]
     }

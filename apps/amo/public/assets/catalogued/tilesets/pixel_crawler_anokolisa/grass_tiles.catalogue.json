@@ -4,48 +4,116 @@
   "sheetHeight": 176,
   "entries": [
     {
-      "name": "grass_blob",
+      "name": "grass_plateau_cliff",
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 64,
-      "h": 64,
+      "w": 96,
+      "h": 128,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "grass",
+        "cliff"
+      ]
+    },
+    {
+      "name": "pit_hole_dark",
+      "kind": "object",
+      "x": 0,
+      "y": 128,
+      "w": 32,
+      "h": 48,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "pit",
+        "dirt"
+      ]
+    },
+    {
+      "name": "grass_edge_blob",
+      "kind": "object",
+      "x": 98,
+      "y": 1,
+      "w": 60,
+      "h": 62,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "grass",
         "autotile"
-      ],
-      "lowConfidence": true
+      ]
     },
     {
-      "name": "dirt_patch",
+      "name": "grass_edge_hole",
       "kind": "object",
       "x": 96,
+      "y": 64,
+      "w": 48,
+      "h": 48,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "grass",
+        "autotile"
+      ]
+    },
+    {
+      "name": "grass_fill_dark",
+      "kind": "object",
+      "x": 160,
       "y": 0,
-      "w": 64,
-      "h": 64,
+      "w": 48,
+      "h": 112,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "grass",
+        "fill"
+      ]
+    },
+    {
+      "name": "grass_fill",
+      "kind": "object",
+      "x": 144,
+      "y": 64,
+      "w": 16,
+      "h": 48,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "grass",
+        "fill"
+      ]
+    },
+    {
+      "name": "dirt_block_grass_edges",
+      "kind": "object",
+      "x": 80,
+      "y": 112,
+      "w": 48,
+      "h": 48,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "dirt",
-        "ground"
-      ],
-      "lowConfidence": true
+        "grass"
+      ]
     },
     {
-      "name": "water_edge",
+      "name": "dirt_patch_in_grass",
       "kind": "object",
-      "x": 0,
-      "y": 96,
+      "x": 128,
+      "y": 112,
       "w": 64,
-      "h": 64,
+      "h": 48,
       "tags": [
         "pixel_crawler",
         "anokolisa",
-        "water"
-      ],
-      "lowConfidence": true
+        "dirt",
+        "grass"
+      ]
     }
   ]
 }

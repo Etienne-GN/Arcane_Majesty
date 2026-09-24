@@ -314,6 +314,10 @@ const LPC_OBJ_MISK_DECORATIONS = [
     { name: 'chair_wood_padded', x: 72, y: 81 },
     { name: 'potted_plant_flowering', x: 75, y: 81 },
     { name: 'vase_porcelain_blue', x: 44, y: 86 },
+    { name: 'perch_single', x: 47, y: 86 },
+    { name: 'perch_pair_overlap', x: 50, y: 86 },
+    { name: 'perch_pair_wide', x: 53, y: 86 },
+    { name: 'perch_pair_stacked', x: 57, y: 86 },
 ];
 
 export const LPC_SHOWCASE = {
