@@ -20,6 +20,7 @@ const emit = defineEmits<{
     // Jumps into "All" pre-filtered to one flag status.
     selectFlagFilter: [value: 'open' | 'needs_review' | 'question'];
     flagsChanged: [];
+    openReviewer: [];
 }>();
 
 // Same pre-order, depth-annotated hierarchy the sidebar tree uses, so a
@@ -56,6 +57,13 @@ const tree = computed(() => flattenTree(props.collections));
         @click="emit('selectFlagFilter', 'needs_review')"
       >
         🔍 <span class="count">{{ needsReviewCount }}</span> awaiting your review
+      </button>
+      <button
+        class="callout reviewer"
+        :disabled="needsReviewCount + questionCount + openFlagCount === 0"
+        @click="emit('openReviewer')"
+      >
+        🧐 Reviewer Mode
       </button>
       <span v-if="unlicensedCount > 0" class="callout-note">⚠ {{ unlicensedCount }} flagged unlicensed</span>
     </div>
@@ -99,6 +107,7 @@ h1 { margin: 0 0 4px; font-size: 22px; }
 .callout.open { border-color: #a33; }
 .callout.review { border-color: #39c; }
 .callout.question { border-color: #96c; }
+.callout.reviewer { border-color: #3a7; background: #16261b; }
 .callout-note { font-size: 12px; color: #e91; }
 
 .section-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #777; margin-bottom: 10px; }

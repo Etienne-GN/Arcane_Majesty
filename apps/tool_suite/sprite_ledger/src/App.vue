@@ -4,6 +4,7 @@ import Home from './components/Home.vue';
 import CollectionSidebar from './components/CollectionSidebar.vue';
 import SpriteGrid from './components/SpriteGrid.vue';
 import SpriteDetail from './components/SpriteDetail.vue';
+import ReviewerMode from './components/ReviewerMode.vue';
 import { fetchSheets, fetchMeta, fetchFlags, addCollection } from './services/api';
 import type { Sheet, Collection, Flag, LicenseStatus } from './services/api';
 import { descendantIds } from './services/collectionTree';
@@ -20,7 +21,8 @@ const pendingFlags = ref<Flag[]>([]);
 // it LPC) before you'd even picked what to look at. Home is a lightweight
 // dashboard — no grid, no canvases — that's the actual landing page now;
 // "browse" is the old sidebar+grid view, entered by picking something.
-const view = ref<'home' | 'browse'>('home');
+// 'reviewer' is the one-sprite-at-a-time review pass (ReviewerMode.vue).
+const view = ref<'home' | 'browse' | 'reviewer'>('home');
 
 const activeCollectionId = ref<string | null>(null);
 const activeSheet = ref<string | null>(null); // null = "All sheets"
@@ -223,8 +225,16 @@ async function onAddCollection(name: string, parentId: string | null) {
       :unlicensed-count="licenseFlaggedKeys.size"
       :orphan-flags="orphanFlags"
       @flags-changed="reload"
+      @open-reviewer="view = 'reviewer'"
       @select-collection="onHomeSelectCollection"
       @select-flag-filter="onHomeSelectFlagFilter"
+    />
+    <ReviewerMode
+      v-else-if="view === 'reviewer'"
+      :sheets="sheets"
+      :flags="liveFlags"
+      @exit="goHome"
+      @changed="reload"
     />
     <template v-else>
       <CollectionSidebar
