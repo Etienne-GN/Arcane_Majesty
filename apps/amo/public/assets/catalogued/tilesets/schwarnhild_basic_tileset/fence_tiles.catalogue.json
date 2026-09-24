@@ -4,18 +4,212 @@
   "sheetHeight": 128,
   "entries": [
     {
-      "name": "fence_blob",
+      "name": "fence_nw",
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 96,
-      "h": 96,
+      "w": 32,
+      "h": 32,
       "tags": [
         "schwarnhild",
         "fence",
         "autotile"
-      ],
-      "lowConfidence": true
+      ]
+    },
+    {
+      "name": "fence_n",
+      "kind": "object",
+      "x": 32,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ]
+    },
+    {
+      "name": "fence_ne",
+      "kind": "object",
+      "x": 64,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ]
+    },
+    {
+      "name": "fence_w",
+      "kind": "object",
+      "x": 0,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ]
+    },
+    {
+      "name": "fence_c",
+      "kind": "object",
+      "x": 32,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ]
+    },
+    {
+      "name": "fence_e",
+      "kind": "object",
+      "x": 64,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ]
+    },
+    {
+      "name": "fence_sw",
+      "kind": "object",
+      "x": 0,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ]
+    },
+    {
+      "name": "fence_s",
+      "kind": "object",
+      "x": 32,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ]
+    },
+    {
+      "name": "fence_se",
+      "kind": "object",
+      "x": 64,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ]
+    },
+    {
+      "name": "fence_v_top",
+      "kind": "object",
+      "x": 96,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ]
+    },
+    {
+      "name": "fence_v_mid",
+      "kind": "object",
+      "x": 96,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ]
+    },
+    {
+      "name": "fence_v_bottom",
+      "kind": "object",
+      "x": 96,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ]
+    },
+    {
+      "name": "fence_h_left",
+      "kind": "object",
+      "x": 0,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ]
+    },
+    {
+      "name": "fence_h_mid",
+      "kind": "object",
+      "x": 32,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ]
+    },
+    {
+      "name": "fence_h_right",
+      "kind": "object",
+      "x": 64,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ]
+    },
+    {
+      "name": "fence_post_single",
+      "kind": "object",
+      "x": 96,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "schwarnhild",
+        "fence",
+        "autotile"
+      ]
     }
   ]
 }
