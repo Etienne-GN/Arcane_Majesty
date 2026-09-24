@@ -1433,7 +1433,7 @@
     "name": "house_red_roof",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "open",
     "createdAt": "2026-09-03T19:45:00.962Z",
     "resolvedAt": null
   },
@@ -1473,7 +1473,7 @@
     "name": "house_cottage",
     "reason": "misaligned",
     "comment": "[Claude] Box was including a strip of farmland to the left and clipping the building. Re-cropped to just the house (x192,y0,96x90).",
-    "status": "needs_review",
+    "status": "open",
     "createdAt": "2026-09-03T19:45:18.011Z",
     "resolvedAt": null
   },
@@ -2203,9 +2203,9 @@
     "name": "tree_brown",
     "reason": "misaligned",
     "comment": "seem a little too much cropped on the left..\n\n[Claude] Box was 5px short on the left; now x191 w65 (includes the left twig).",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T16:42:31.803Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-24T14:29:35.794Z"
   },
   {
     "id": "f_b07f5a59-9919-4b32-99ef-4c58c7ae52e2",
@@ -2788,7 +2788,7 @@
     "name": "log_horizontal_single",
     "reason": "misaligned",
     "comment": "i think it is too much cropped at the top, not sure... ",
-    "status": "needs_review",
+    "status": "open",
     "createdAt": "2026-09-21T13:55:34.164Z",
     "resolvedAt": null
   },
@@ -2798,9 +2798,9 @@
     "name": "wood_rimmed_basin_water",
     "reason": "misaligned",
     "comment": "i think previous was OK then, you have to split this exactly in 2 top half is closed chest, bottom is opened chest",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T13:56:20.602Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-24T14:32:55.689Z"
   },
   {
     "id": "f_afe869b1-c614-425d-8d08-edcb01b6dd36",
@@ -2808,7 +2808,7 @@
     "name": "wood_rimmed_basin_empty",
     "reason": "misaligned",
     "comment": "misaligned \u2014 this is the top of an empty barrel, pretty sure the bottom is missing",
-    "status": "needs_review",
+    "status": "open",
     "createdAt": "2026-09-21T13:56:32.276Z",
     "resolvedAt": null
   },
@@ -2938,9 +2938,9 @@
     "name": "alchemy_table_01-sheet",
     "reason": "other",
     "comment": "i think the last few frames are empty, so the animation dissapears at the end, make sure the fram count is good",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T14:34:28.920Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-24T14:29:17.371Z"
   },
   {
     "id": "f_e3d9ad47-3cd5-41e8-88e9-b84acdb3a0c3",
@@ -2988,9 +2988,9 @@
     "name": "torii_gate_large",
     "reason": "misaligned",
     "comment": "",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:19:36.452Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-24T14:29:52.892Z"
   },
   {
     "id": "f_9fa37284-5a51-4e25-8f4a-4a6572df5623",
@@ -3405,9 +3405,9 @@
   {
     "id": "f_ffaf6130-309e-4642-94cd-b57beebcf330",
     "sheet": "obj_misk_atlas.png",
-    "name": "fish_pile_perch_a",
+    "name": "perch_pair_wide",
     "reason": "misaligned",
-    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.",
+    "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.\n\n[Claude] Moved this flag from fish_pile_perch_a (deleted) to perch_pair_wide so it shows up in the grid.",
     "status": "question",
     "createdAt": "2026-09-21T15:32:20.966Z",
     "resolvedAt": null,
@@ -3743,6 +3743,39 @@
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-23T13:31:20.190Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5d788ff4-33ee-40d8-9ae2-c10f4fd8d096",
+    "sheet": "overworld_tileset.png",
+    "name": "house_cottage",
+    "reason": "misaligned",
+    "comment": "there is a strip of others buildings part at the bottom that should be removed",
+    "status": "open",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T14:30:46.362Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c84bb9d4-b794-43b9-9bac-7f0fd573ea39",
+    "sheet": "build_atlas.png",
+    "name": "wood_rimmed_basin_water",
+    "reason": "misaligned",
+    "comment": "it looks like the top of a barrel with water, the last comment was NOT related to this ite,, I've marked it as approved due to the non related caracter of the comment, but it is ONLY the top of the barrel, filled with water, so it could be OK if you also have to barrel itself and can overlap the top on the barrel body with this filled with water and not filled with water.\n",
+    "status": "open",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T14:32:54.698Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_77854a23-1c81-43da-9030-8dbd3e46361f",
+    "sheet": "build_atlas.png",
+    "name": "wood_rimmed_basin_empty",
+    "reason": "misaligned",
+    "comment": "this is the same as the top of barrel with water, its ok if you got the barrel body and can use it in conjunction with this item,",
+    "status": "open",
+    "claudeNote": null,
+    "createdAt": "2026-09-24T14:33:30.798Z",
     "resolvedAt": null
   }
 ]

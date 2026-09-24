@@ -107,6 +107,17 @@ export async function setFlagStatus(
     });
 }
 
+// Answering appends into `comment` rather than replacing it, so the
+// original report and every answer stay in one readable trail instead of
+// the question's context disappearing the moment it's addressed. Status
+// goes back to 'open' — the same "send it back for more work" signal a
+// human already uses elsewhere — so Claude knows to look again.
+export async function answerQuestion(flag: Flag, answer: string): Promise<void> {
+    const line = `[Answer to Claude's question] ${answer}`;
+    const comment = flag.comment ? `${flag.comment}\n\n${line}` : line;
+    await setFlagStatus(flag.id, 'open', { comment });
+}
+
 export function imageUrl(sheetPngFilename: string): string {
     return `${BASE}/image/${encodeURIComponent(sheetPngFilename)}`;
 }

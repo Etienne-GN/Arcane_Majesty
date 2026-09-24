@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { Collection } from '../services/api';
+import type { Collection, Flag } from '../services/api';
+import OrphanFlags from './OrphanFlags.vue';
 import { flattenTree } from '../services/collectionTree';
 
 const props = defineProps<{
@@ -10,6 +11,7 @@ const props = defineProps<{
     needsReviewCount: number;
     questionCount: number;
     unlicensedCount: number;
+    orphanFlags: Flag[];
 }>();
 
 const emit = defineEmits<{
@@ -17,6 +19,7 @@ const emit = defineEmits<{
     selectCollection: [id: string | null];
     // Jumps into "All" pre-filtered to one flag status.
     selectFlagFilter: [value: 'open' | 'needs_review' | 'question'];
+    flagsChanged: [];
 }>();
 
 // Same pre-order, depth-annotated hierarchy the sidebar tree uses, so a
@@ -56,6 +59,8 @@ const tree = computed(() => flattenTree(props.collections));
       </button>
       <span v-if="unlicensedCount > 0" class="callout-note">⚠ {{ unlicensedCount }} flagged unlicensed</span>
     </div>
+
+    <OrphanFlags v-if="orphanFlags.length > 0" :flags="orphanFlags" @changed="emit('flagsChanged')" />
 
     <div class="section-label">Browse</div>
     <div class="cards">

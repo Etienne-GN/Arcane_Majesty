@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
 import type { Sheet, Collection, Flag, SpriteEntry, LicenseStatus } from '../services/api';
-import { imageUrl, assignCollection, fetchFlags, setFlagStatus, setLicenseStatus } from '../services/api';
+import { imageUrl, assignCollection, fetchFlags, setFlagStatus, setLicenseStatus, answerQuestion } from '../services/api';
 import { flattenTree } from '../services/collectionTree';
 import FlagForm from './FlagForm.vue';
 
@@ -160,19 +160,11 @@ async function onSetFlagStatus(id: string, status: 'open' | 'resolved') {
 // more than one open question at once.
 const answerDrafts = ref<Record<string, string>>({});
 
-// Answering appends into `comment` rather than replacing it, so the
-// original report and every answer stay in one readable trail instead of
-// the question's context disappearing the moment it's addressed. Status
-// goes back to 'open' — the same "send it back for more work" signal a
-// human already uses elsewhere — so Claude knows to look again.
 async function onAnswerQuestion(f: Flag) {
     const answer = (answerDrafts.value[f.id] ?? '').trim();
     if (!answer) return;
-    const combined = f.comment
-        ? `${f.comment}\n\n[Answer to Claude's question] ${answer}`
-        : `[Answer to Claude's question] ${answer}`;
     try {
-        await setFlagStatus(f.id, 'open', { comment: combined });
+        await answerQuestion(f, answer);
         delete answerDrafts.value[f.id];
         await loadFlagsForSprite();
         errorMessage.value = null;
