@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, nextTick } from 'vue';
 import Home from './components/Home.vue';
 import CollectionSidebar from './components/CollectionSidebar.vue';
 import SpriteGrid from './components/SpriteGrid.vue';
@@ -8,6 +8,7 @@ import ReviewerMode from './components/ReviewerMode.vue';
 import { fetchSheets, fetchMeta, fetchFlags, addCollection } from './services/api';
 import type { Sheet, Collection, Flag, LicenseStatus } from './services/api';
 import { descendantIds } from './services/collectionTree';
+import { orderedCells } from './services/gridOrder';
 
 const sheets = ref<Sheet[]>([]);
 const collections = ref<Collection[]>([]);
@@ -181,6 +182,28 @@ function onSelect(sheetPngFilename: string, entryName: string) {
     selected.value = { sheetPngFilename, entryName };
 }
 
+// After approving from the detail panel, move the selection to the next
+// sprite in grid order. Under a flag filter the approved sprite usually
+// drops out of the list, so the neighbour is picked from the order as it
+// stood *before* the refresh, then checked against what's still shown.
+async function onApproved() {
+    const cur = selected.value;
+    const before = orderedCells(sheets.value, visibleKeys.value, sortOrder.value).map(c => c.key);
+    await reload();
+    if (!cur) return;
+    const curKey = keyFor(cur.sheetPngFilename, cur.entryName);
+    const still = visibleKeys.value;
+    if (still.has(curKey)) return; // other flags still pending on it — stay put
+    const i = before.indexOf(curKey);
+    const nextKey = before.slice(i + 1).find(k => still.has(k))
+        ?? before.slice(0, Math.max(0, i)).reverse().find(k => still.has(k));
+    if (!nextKey) { selected.value = null; return; }
+    const sep = nextKey.indexOf('::');
+    selected.value = { sheetPngFilename: nextKey.slice(0, sep), entryName: nextKey.slice(sep + 2) };
+    await nextTick();
+    document.querySelector(`[data-key="${CSS.escape(nextKey)}"]`)?.scrollIntoView({ block: 'nearest' });
+}
+
 function goHome() {
     view.value = 'home';
 }
@@ -267,6 +290,7 @@ async function onAddCollection(name: string, parentId: string | null) {
         :license-ok-keys="licenseOkKeys"
         :license-flagged-keys="licenseFlaggedKeys"
         :sort-order="sortOrder"
+        :selected-key="selected ? keyFor(selected.sheetPngFilename, selected.entryName) : null"
         @select="onSelect"
       />
     </template>
@@ -280,6 +304,7 @@ async function onAddCollection(name: string, parentId: string | null) {
       :current-license="licenseOf(selected.sheetPngFilename, selected.entryName)"
       @close="selected = null"
       @reassigned="reload"
+      @approved="onApproved"
     />
   </div>
 </template>

@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import type { Sheet, SpriteEntry } from '../services/api';
 import { imageUrl } from '../services/api';
+import { orderedCells } from '../services/gridOrder';
 
 const props = defineProps<{
     sheets: Sheet[];
@@ -12,6 +13,7 @@ const props = defineProps<{
     licenseOkKeys: Set<string>;
     licenseFlaggedKeys: Set<string>;
     sortOrder: 'name' | 'sheet';
+    selectedKey?: string | null;
 }>();
 
 const emit = defineEmits<{ select: [sheetPngFilename: string, entryName: string] }>();
@@ -24,24 +26,7 @@ const emit = defineEmits<{ select: [sheetPngFilename: string, entryName: string]
 // filter actually was. Filtering the source array instead means "All"
 // with a narrow search, or any single collection, only ever mounts what
 // it shows.
-const visibleCells = computed(() => {
-    const cells: { sheet: Sheet; entry: SpriteEntry; key: string }[] = [];
-    for (const sheet of props.sheets) {
-        for (const entry of sheet.entries) {
-            const key = `${sheet.sheetPngFilename}::${entry.name}`;
-            if (props.visibleKeys.has(key)) cells.push({ sheet, entry, key });
-        }
-    }
-    // 'sheet' order (the loop above) is spatial — the order pieces sit in
-    // the source PNG, useful when position on the sheet matters. 'name'
-    // groups same-family sprites together (grass_fill_a next to
-    // grass_fill_b) regardless of where they happen to live on the sheet,
-    // which is the point when reviewing a whole collection at once.
-    if (props.sortOrder === 'name') {
-        cells.sort((a, b) => a.entry.name.localeCompare(b.entry.name));
-    }
-    return cells;
-});
+const visibleCells = computed(() => orderedCells(props.sheets, props.visibleKeys, props.sortOrder));
 
 // One offscreen <img> per sheet, loaded once, reused for every crop.
 // A plain Map, not a ref: nothing in the template reads it, and resolving an
@@ -114,6 +99,8 @@ function drawCrop(canvas: HTMLCanvasElement | null, sheet: Sheet, entry: SpriteE
       v-for="{ sheet, entry, key } in visibleCells"
       :key="key"
       class="cell"
+      :class="{ selected: key === selectedKey }"
+      :data-key="key"
       @click="emit('select', sheet.sheetPngFilename, entry.name)"
     >
       <span v-if="flaggedKeys.has(key)" class="flag-dot" title="Open flag" />
@@ -168,4 +155,5 @@ function drawCrop(canvas: HTMLCanvasElement | null, sheet: Sheet, entry: SpriteE
 /* Animating every cell of a 1700-sprite grid would burn the frame budget for
    no gain — the badge says "there's motion here", the detail panel plays it. */
 .anim-badge { color: #b8f; margin-right: 3px; }
+.cell.selected { outline: 2px solid #3a7; outline-offset: -2px; }
 </style>

@@ -14,7 +14,9 @@ const props = defineProps<{
     currentLicense: LicenseStatus | null;
 }>();
 
-const emit = defineEmits<{ close: []; reassigned: [] }>();
+// 'approved' replaces 'reassigned' when a flag is resolved: App refreshes
+// and moves the selection on to the next sprite in the grid.
+const emit = defineEmits<{ close: []; reassigned: []; approved: [] }>();
 
 const sheet = computed(() => props.sheets.find(s => s.sheetPngFilename === props.sheetPngFilename)!);
 const entry = computed<SpriteEntry>(() => sheet.value.entries.find(e => e.name === props.entryName)!);
@@ -150,7 +152,8 @@ async function onSetFlagStatus(id: string, status: 'open' | 'resolved') {
         await setFlagStatus(id, status);
         await loadFlagsForSprite();
         errorMessage.value = null;
-        emit('reassigned'); // reuse the same "refresh parent" signal so the grid's badges update
+        // Either way the parent refreshes so the grid's badges update.
+        emit(status === 'resolved' ? 'approved' : 'reassigned');
     } catch (e) {
         errorMessage.value = e instanceof Error ? e.message : String(e);
     }
