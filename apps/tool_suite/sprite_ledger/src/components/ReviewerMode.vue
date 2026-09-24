@@ -101,15 +101,19 @@ const images = new Map<string, HTMLImageElement>();
 let animTimer: number | null = null;
 let frameIdx = 0;
 
-function imageFor(sheetName: string, onReady: () => void): HTMLImageElement {
+// The loaded image is handed to the callback rather than returned: when the
+// sheet is already cached the callback runs synchronously, before any
+// `const img = imageFor(...)` at the call site would have been assigned.
+function withImage(sheetName: string, onReady: (img: HTMLImageElement) => void) {
     let img = images.get(sheetName);
     if (!img) {
         img = new Image();
         img.src = imageUrl(sheetName);
         images.set(sheetName, img);
     }
-    if (img.complete) onReady(); else img.addEventListener('load', onReady, { once: true });
-    return img;
+    const loaded = img;
+    if (loaded.complete && loaded.naturalWidth > 0) onReady(loaded);
+    else loaded.addEventListener('load', () => onReady(loaded), { once: true });
 }
 
 const BIG_MAX = 440;
@@ -156,7 +160,7 @@ function paint() {
     stopAnim();
     const item = current.value;
     if (!item) return;
-    const img = imageFor(item.sheet.sheetPngFilename, () => {
+    withImage(item.sheet.sheetPngFilename, (img) => {
         if (current.value !== item) return;
         const box = boxOf(item.sheet, item.entry);
         paintContext(img, box);
