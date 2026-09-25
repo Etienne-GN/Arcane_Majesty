@@ -4,7 +4,7 @@
   "sheetHeight": 144,
   "entries": [
     {
-      "name": "hedge_blob_r0c0",
+      "name": "grass_vine_on_sand_vertical_end_top",
       "kind": "object",
       "x": 0,
       "y": 0,
@@ -19,7 +19,7 @@
       ]
     },
     {
-      "name": "hedge_blob_r0c1",
+      "name": "grass_vine_on_sand_corner_top_left",
       "kind": "object",
       "x": 16,
       "y": 0,
@@ -34,7 +34,7 @@
       ]
     },
     {
-      "name": "hedge_blob_r0c2",
+      "name": "grass_vine_on_sand_t_junction_top",
       "kind": "object",
       "x": 32,
       "y": 0,
@@ -49,7 +49,7 @@
       ]
     },
     {
-      "name": "hedge_blob_r0c3",
+      "name": "grass_vine_on_sand_corner_top_right",
       "kind": "object",
       "x": 48,
       "y": 0,
@@ -64,7 +64,7 @@
       ]
     },
     {
-      "name": "hedge_blob_r1c0",
+      "name": "grass_vine_on_sand_vertical_middle",
       "kind": "object",
       "x": 0,
       "y": 16,
@@ -79,7 +79,7 @@
       ]
     },
     {
-      "name": "hedge_blob_r1c1",
+      "name": "grass_vine_on_sand_t_junction_left",
       "kind": "object",
       "x": 16,
       "y": 16,
@@ -94,7 +94,7 @@
       ]
     },
     {
-      "name": "hedge_blob_r1c2",
+      "name": "grass_vine_on_sand_cross",
       "kind": "object",
       "x": 32,
       "y": 16,
@@ -109,7 +109,7 @@
       ]
     },
     {
-      "name": "hedge_blob_r1c3",
+      "name": "grass_vine_on_sand_t_junction_right",
       "kind": "object",
       "x": 48,
       "y": 16,
@@ -124,7 +124,7 @@
       ]
     },
     {
-      "name": "hedge_blob_r2c0",
+      "name": "grass_vine_on_sand_vertical_end_bottom",
       "kind": "object",
       "x": 0,
       "y": 32,
@@ -139,7 +139,7 @@
       ]
     },
     {
-      "name": "hedge_blob_r2c1",
+      "name": "grass_vine_on_sand_corner_bottom_left",
       "kind": "object",
       "x": 16,
       "y": 32,
@@ -154,7 +154,7 @@
       ]
     },
     {
-      "name": "hedge_blob_r2c2",
+      "name": "grass_vine_on_sand_t_junction_bottom",
       "kind": "object",
       "x": 32,
       "y": 32,
@@ -169,7 +169,7 @@
       ]
     },
     {
-      "name": "hedge_blob_r2c3",
+      "name": "grass_vine_on_sand_corner_bottom_right",
       "kind": "object",
       "x": 48,
       "y": 32,
@@ -184,7 +184,7 @@
       ]
     },
     {
-      "name": "hedge_blob_r3c0",
+      "name": "grass_vine_on_sand_single_blob",
       "kind": "object",
       "x": 0,
       "y": 48,
@@ -199,7 +199,7 @@
       ]
     },
     {
-      "name": "hedge_blob_r3c1",
+      "name": "grass_vine_on_sand_horizontal_end_left",
       "kind": "object",
       "x": 16,
       "y": 48,
@@ -214,7 +214,7 @@
       ]
     },
     {
-      "name": "hedge_blob_r3c2",
+      "name": "grass_vine_on_sand_horizontal_middle",
       "kind": "object",
       "x": 32,
       "y": 48,
@@ -229,7 +229,7 @@
       ]
     },
     {
-      "name": "hedge_blob_r3c3",
+      "name": "grass_vine_on_sand_horizontal_end_right",
       "kind": "object",
       "x": 48,
       "y": 48,
@@ -244,7 +244,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r0c0",
+      "name": "grass_on_sand_thick_sand_corners_top_right_bottom_left_bottom_right",
       "kind": "object",
       "x": 64,
       "y": 0,
@@ -259,7 +259,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r0c1",
+      "name": "grass_on_sand_thick_sand_top_corner_bottom_left",
       "kind": "object",
       "x": 80,
       "y": 0,
@@ -274,7 +274,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r0c2",
+      "name": "grass_on_sand_thick_sand_top_corner_bottom_right",
       "kind": "object",
       "x": 96,
       "y": 0,
@@ -289,7 +289,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r0c3",
+      "name": "grass_on_sand_thick_sand_corners_top_left_bottom_left_bottom_right",
       "kind": "object",
       "x": 112,
       "y": 0,
@@ -304,7 +304,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r1c0",
+      "name": "grass_on_sand_thick_sand_left_corner_top_right",
       "kind": "object",
       "x": 64,
       "y": 16,
@@ -319,7 +319,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r1c1",
+      "name": "grass_on_sand_thick_sand_corner_top_left",
       "kind": "object",
       "x": 80,
       "y": 16,
@@ -334,7 +334,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r1c2",
+      "name": "grass_on_sand_thick_sand_corner_top_right",
       "kind": "object",
       "x": 96,
       "y": 16,
@@ -349,7 +349,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r1c3",
+      "name": "grass_on_sand_thick_sand_right_corner_top_left",
       "kind": "object",
       "x": 112,
       "y": 16,
@@ -364,7 +364,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r2c0",
+      "name": "grass_on_sand_thick_sand_left_corner_bottom_right",
       "kind": "object",
       "x": 64,
       "y": 32,
@@ -379,7 +379,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r2c1",
+      "name": "grass_on_sand_thick_sand_corner_bottom_left",
       "kind": "object",
       "x": 80,
       "y": 32,
@@ -394,7 +394,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r2c2",
+      "name": "grass_on_sand_thick_sand_corner_bottom_right",
       "kind": "object",
       "x": 96,
       "y": 32,
@@ -409,7 +409,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r2c3",
+      "name": "grass_on_sand_thick_sand_right_corner_bottom_left",
       "kind": "object",
       "x": 112,
       "y": 32,
@@ -424,7 +424,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r3c0",
+      "name": "grass_on_sand_thick_sand_corners_top_left_top_right_bottom_right",
       "kind": "object",
       "x": 64,
       "y": 48,
@@ -439,7 +439,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r3c1",
+      "name": "grass_on_sand_thick_sand_bottom_corner_top_left",
       "kind": "object",
       "x": 80,
       "y": 48,
@@ -454,7 +454,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r3c2",
+      "name": "grass_on_sand_thick_sand_bottom_corner_top_right",
       "kind": "object",
       "x": 96,
       "y": 48,
@@ -469,7 +469,7 @@
       ]
     },
     {
-      "name": "hedge_patch_r3c3",
+      "name": "grass_on_sand_thick_sand_corners_top_left_top_right_bottom_left",
       "kind": "object",
       "x": 112,
       "y": 48,
@@ -484,7 +484,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r0c0",
+      "name": "grass_on_sand_large_sand_top_and_left",
       "kind": "object",
       "x": 128,
       "y": 0,
@@ -499,7 +499,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r0c1",
+      "name": "grass_on_sand_large_sand_corners_top_left_top_right",
       "kind": "object",
       "x": 144,
       "y": 0,
@@ -514,7 +514,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r0c2",
+      "name": "grass_on_sand_large_sand_top",
       "kind": "object",
       "x": 160,
       "y": 0,
@@ -529,7 +529,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r0c3",
+      "name": "grass_on_sand_large_sand_top_and_right",
       "kind": "object",
       "x": 176,
       "y": 0,
@@ -544,7 +544,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r1c0",
+      "name": "grass_on_sand_large_sand_left",
       "kind": "object",
       "x": 128,
       "y": 16,
@@ -559,7 +559,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r1c1",
+      "name": "grass_on_sand_large_sand_corners_top_left_bottom_right",
       "kind": "object",
       "x": 144,
       "y": 16,
@@ -574,7 +574,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r1c2",
+      "name": "sand_fill_plain",
       "kind": "object",
       "x": 160,
       "y": 16,
@@ -589,7 +589,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r1c3",
+      "name": "grass_on_sand_large_sand_corners_top_right_bottom_right",
       "kind": "object",
       "x": 176,
       "y": 16,
@@ -604,7 +604,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r2c0",
+      "name": "grass_on_sand_large_sand_corners_top_left_bottom_left",
       "kind": "object",
       "x": 128,
       "y": 32,
@@ -619,7 +619,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r2c1",
+      "name": "grass_on_sand_large_fill",
       "kind": "object",
       "x": 144,
       "y": 32,
@@ -634,7 +634,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r2c2",
+      "name": "grass_on_sand_large_sand_corners_top_right_bottom_left",
       "kind": "object",
       "x": 160,
       "y": 32,
@@ -649,7 +649,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r2c3",
+      "name": "grass_on_sand_large_sand_right",
       "kind": "object",
       "x": 176,
       "y": 32,
@@ -664,7 +664,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r3c0",
+      "name": "grass_on_sand_large_sand_bottom_and_left",
       "kind": "object",
       "x": 128,
       "y": 48,
@@ -679,7 +679,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r3c1",
+      "name": "grass_on_sand_large_sand_bottom",
       "kind": "object",
       "x": 144,
       "y": 48,
@@ -694,7 +694,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r3c2",
+      "name": "grass_on_sand_large_sand_corners_bottom_left_bottom_right",
       "kind": "object",
       "x": 160,
       "y": 48,
@@ -709,7 +709,7 @@
       ]
     },
     {
-      "name": "hedge_dirt_mix_r3c3",
+      "name": "grass_on_sand_large_sand_bottom_and_right",
       "kind": "object",
       "x": 176,
       "y": 48,
@@ -724,7 +724,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r0c0",
+      "name": "sand_fill_01",
       "kind": "object",
       "x": 192,
       "y": 0,
@@ -738,7 +738,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r0c1",
+      "name": "sand_fill_02",
       "kind": "object",
       "x": 208,
       "y": 0,
@@ -752,7 +752,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r0c2",
+      "name": "sand_fill_03",
       "kind": "object",
       "x": 224,
       "y": 0,
@@ -766,7 +766,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r0c3",
+      "name": "sand_fill_04",
       "kind": "object",
       "x": 240,
       "y": 0,
@@ -780,7 +780,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r1c0",
+      "name": "sand_fill_05",
       "kind": "object",
       "x": 192,
       "y": 16,
@@ -794,7 +794,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r1c1",
+      "name": "sand_fill_06",
       "kind": "object",
       "x": 208,
       "y": 16,
@@ -808,7 +808,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r1c2",
+      "name": "sand_fill_07",
       "kind": "object",
       "x": 224,
       "y": 16,
@@ -822,7 +822,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r1c3",
+      "name": "sand_fill_08",
       "kind": "object",
       "x": 240,
       "y": 16,
@@ -836,7 +836,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r2c0",
+      "name": "sand_fill_09",
       "kind": "object",
       "x": 192,
       "y": 32,
@@ -850,7 +850,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r2c1",
+      "name": "sand_fill_10",
       "kind": "object",
       "x": 208,
       "y": 32,
@@ -864,7 +864,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r2c2",
+      "name": "sand_fill_11",
       "kind": "object",
       "x": 224,
       "y": 32,
@@ -878,7 +878,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r2c3",
+      "name": "sand_fill_12",
       "kind": "object",
       "x": 240,
       "y": 32,
@@ -892,7 +892,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r3c0",
+      "name": "sand_fill_13",
       "kind": "object",
       "x": 192,
       "y": 48,
@@ -906,7 +906,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r3c1",
+      "name": "sand_fill_14",
       "kind": "object",
       "x": 208,
       "y": 48,
@@ -920,7 +920,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r3c2",
+      "name": "sand_fill_15",
       "kind": "object",
       "x": 224,
       "y": 48,
@@ -934,7 +934,7 @@
       ]
     },
     {
-      "name": "dirt_fill_r3c3",
+      "name": "sand_fill_16",
       "kind": "object",
       "x": 240,
       "y": 48,
@@ -1390,7 +1390,7 @@
       ]
     },
     {
-      "name": "grass_tall_r0c0",
+      "name": "grass_dark_streak_left",
       "kind": "object",
       "x": 256,
       "y": 80,
@@ -1404,7 +1404,7 @@
       ]
     },
     {
-      "name": "grass_tall_r0c1",
+      "name": "grass_dark_streak_middle",
       "kind": "object",
       "x": 272,
       "y": 80,
@@ -1418,7 +1418,7 @@
       ]
     },
     {
-      "name": "grass_tall_r0c2",
+      "name": "grass_dark_streak_right",
       "kind": "object",
       "x": 288,
       "y": 80,
@@ -1432,7 +1432,7 @@
       ]
     },
     {
-      "name": "grass_tall_r1c0",
+      "name": "grass_dark_streak_b_left",
       "kind": "object",
       "x": 256,
       "y": 96,
@@ -1446,7 +1446,7 @@
       ]
     },
     {
-      "name": "grass_tall_r1c1",
+      "name": "grass_dark_streak_b_middle",
       "kind": "object",
       "x": 272,
       "y": 96,
@@ -1460,7 +1460,7 @@
       ]
     },
     {
-      "name": "grass_tall_r1c2",
+      "name": "grass_golden_streak",
       "kind": "object",
       "x": 288,
       "y": 96,
@@ -1474,7 +1474,7 @@
       ]
     },
     {
-      "name": "grass_tall_r1c3",
+      "name": "grass_plain_yellow",
       "kind": "object",
       "x": 304,
       "y": 96,

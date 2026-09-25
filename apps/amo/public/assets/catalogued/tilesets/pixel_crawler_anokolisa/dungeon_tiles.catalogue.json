@@ -275,7 +275,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c0",
+      "name": "stone_wall_cap_trim_left",
       "kind": "object",
       "x": 0,
       "y": 0,
@@ -289,7 +289,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c1",
+      "name": "stone_wall_cap_trim_middle",
       "kind": "object",
       "x": 16,
       "y": 0,
@@ -303,7 +303,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c2",
+      "name": "stone_wall_cap_trim_right",
       "kind": "object",
       "x": 32,
       "y": 0,
@@ -317,7 +317,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c3",
+      "name": "stone_wall_cap_trim_corner_top_right",
       "kind": "object",
       "x": 48,
       "y": 0,
@@ -331,7 +331,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c4",
+      "name": "stone_floor_teal_01",
       "kind": "object",
       "x": 64,
       "y": 0,
@@ -345,7 +345,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c5",
+      "name": "stone_floor_teal_02",
       "kind": "object",
       "x": 80,
       "y": 0,
@@ -359,7 +359,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c6",
+      "name": "stone_floor_teal_03",
       "kind": "object",
       "x": 96,
       "y": 0,
@@ -373,7 +373,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c7",
+      "name": "stone_floor_teal_04",
       "kind": "object",
       "x": 112,
       "y": 0,
@@ -387,7 +387,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c8",
+      "name": "stone_floor_teal_05",
       "kind": "object",
       "x": 128,
       "y": 0,
@@ -401,7 +401,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c9",
+      "name": "stone_floor_teal_06",
       "kind": "object",
       "x": 144,
       "y": 0,
@@ -415,7 +415,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c14",
+      "name": "wood_plank_floor_corner_top_left",
       "kind": "object",
       "x": 224,
       "y": 0,
@@ -429,7 +429,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c15",
+      "name": "wood_plank_floor_edge_top",
       "kind": "object",
       "x": 240,
       "y": 0,
@@ -443,7 +443,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c16",
+      "name": "wood_plank_floor_corner_top_right",
       "kind": "object",
       "x": 256,
       "y": 0,
@@ -457,7 +457,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c17",
+      "name": "wood_trapdoor_frame_corner_top_left",
       "kind": "object",
       "x": 272,
       "y": 0,
@@ -471,7 +471,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c18",
+      "name": "wood_trapdoor_frame_edge_top",
       "kind": "object",
       "x": 288,
       "y": 0,
@@ -485,7 +485,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c19",
+      "name": "wood_trapdoor_frame_corner_top_right",
       "kind": "object",
       "x": 304,
       "y": 0,
@@ -499,7 +499,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c20",
+      "name": "wood_frame_open_corner_top_left",
       "kind": "object",
       "x": 320,
       "y": 0,
@@ -513,7 +513,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c21",
+      "name": "wood_frame_open_edge_top",
       "kind": "object",
       "x": 336,
       "y": 0,
@@ -527,7 +527,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r0c22",
+      "name": "wood_frame_open_corner_top_right",
       "kind": "object",
       "x": 352,
       "y": 0,
@@ -541,7 +541,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c0",
+      "name": "stone_brick_wall_upper_left",
       "kind": "object",
       "x": 0,
       "y": 16,
@@ -555,7 +555,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c1",
+      "name": "stone_brick_wall_upper_middle",
       "kind": "object",
       "x": 16,
       "y": 16,
@@ -569,7 +569,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c2",
+      "name": "stone_brick_wall_upper_right",
       "kind": "object",
       "x": 32,
       "y": 16,
@@ -583,7 +583,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c3",
+      "name": "stone_pillar_top",
       "kind": "object",
       "x": 48,
       "y": 16,
@@ -597,7 +597,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c4",
+      "name": "stone_floor_teal_07",
       "kind": "object",
       "x": 64,
       "y": 16,
@@ -611,7 +611,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c5",
+      "name": "stone_floor_teal_08",
       "kind": "object",
       "x": 80,
       "y": 16,
@@ -625,7 +625,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c6",
+      "name": "stone_floor_teal_09",
       "kind": "object",
       "x": 96,
       "y": 16,
@@ -639,7 +639,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c7",
+      "name": "stone_floor_teal_10",
       "kind": "object",
       "x": 112,
       "y": 16,
@@ -653,7 +653,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c8",
+      "name": "stone_floor_teal_dark_slab",
       "kind": "object",
       "x": 128,
       "y": 16,
@@ -667,7 +667,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c9",
+      "name": "stone_floor_teal_11",
       "kind": "object",
       "x": 144,
       "y": 16,
@@ -681,7 +681,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c14",
+      "name": "wood_plank_floor_edge_left",
       "kind": "object",
       "x": 224,
       "y": 16,
@@ -695,7 +695,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c15",
+      "name": "wood_plank_floor_center",
       "kind": "object",
       "x": 240,
       "y": 16,
@@ -709,7 +709,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c16",
+      "name": "wood_plank_floor_edge_right",
       "kind": "object",
       "x": 256,
       "y": 16,
@@ -723,7 +723,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c17",
+      "name": "wood_trapdoor_frame_edge_left",
       "kind": "object",
       "x": 272,
       "y": 16,
@@ -737,7 +737,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c18",
+      "name": "wood_trapdoor_frame_center_latch",
       "kind": "object",
       "x": 288,
       "y": 16,
@@ -751,7 +751,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c19",
+      "name": "wood_trapdoor_frame_edge_right",
       "kind": "object",
       "x": 304,
       "y": 16,
@@ -765,7 +765,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c20",
+      "name": "wood_frame_open_edge_left",
       "kind": "object",
       "x": 320,
       "y": 16,
@@ -779,7 +779,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r1c22",
+      "name": "wood_frame_open_edge_right",
       "kind": "object",
       "x": 352,
       "y": 16,
@@ -793,7 +793,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c0",
+      "name": "stone_brick_wall_lower_left",
       "kind": "object",
       "x": 0,
       "y": 32,
@@ -807,7 +807,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c1",
+      "name": "stone_brick_wall_lower_middle",
       "kind": "object",
       "x": 16,
       "y": 32,
@@ -821,7 +821,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c2",
+      "name": "stone_brick_wall_lower_right",
       "kind": "object",
       "x": 32,
       "y": 32,
@@ -835,7 +835,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c3",
+      "name": "stone_pillar_middle",
       "kind": "object",
       "x": 48,
       "y": 32,
@@ -849,7 +849,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c4",
+      "name": "stone_floor_teal_12",
       "kind": "object",
       "x": 64,
       "y": 32,
@@ -863,7 +863,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c5",
+      "name": "stone_floor_teal_13",
       "kind": "object",
       "x": 80,
       "y": 32,
@@ -877,7 +877,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c6",
+      "name": "stone_floor_teal_14",
       "kind": "object",
       "x": 96,
       "y": 32,
@@ -891,7 +891,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c7",
+      "name": "stone_floor_teal_15",
       "kind": "object",
       "x": 112,
       "y": 32,
@@ -905,7 +905,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c8",
+      "name": "stone_floor_teal_16",
       "kind": "object",
       "x": 128,
       "y": 32,
@@ -919,7 +919,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c9",
+      "name": "stone_floor_teal_17",
       "kind": "object",
       "x": 144,
       "y": 32,
@@ -933,7 +933,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c14",
+      "name": "wood_plank_floor_corner_bottom_left",
       "kind": "object",
       "x": 224,
       "y": 32,
@@ -947,7 +947,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c15",
+      "name": "wood_plank_floor_edge_bottom",
       "kind": "object",
       "x": 240,
       "y": 32,
@@ -961,7 +961,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c16",
+      "name": "wood_plank_floor_corner_bottom_right",
       "kind": "object",
       "x": 256,
       "y": 32,
@@ -975,7 +975,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c17",
+      "name": "wood_trapdoor_frame_corner_bottom_left",
       "kind": "object",
       "x": 272,
       "y": 32,
@@ -989,7 +989,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c18",
+      "name": "wood_trapdoor_frame_edge_bottom",
       "kind": "object",
       "x": 288,
       "y": 32,
@@ -1003,7 +1003,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c19",
+      "name": "wood_trapdoor_frame_corner_bottom_right",
       "kind": "object",
       "x": 304,
       "y": 32,
@@ -1017,7 +1017,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c20",
+      "name": "wood_frame_open_corner_bottom_left",
       "kind": "object",
       "x": 320,
       "y": 32,
@@ -1031,7 +1031,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c21",
+      "name": "wood_frame_open_edge_bottom",
       "kind": "object",
       "x": 336,
       "y": 32,
@@ -1045,7 +1045,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r2c22",
+      "name": "wood_frame_open_corner_bottom_right",
       "kind": "object",
       "x": 352,
       "y": 32,
@@ -1059,7 +1059,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c0",
+      "name": "wall_window_frame_top_left",
       "kind": "object",
       "x": 0,
       "y": 48,
@@ -1073,7 +1073,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c1",
+      "name": "wall_window_frame_top_middle",
       "kind": "object",
       "x": 16,
       "y": 48,
@@ -1087,7 +1087,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c2",
+      "name": "wall_window_frame_top_right",
       "kind": "object",
       "x": 32,
       "y": 48,
@@ -1101,7 +1101,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c3",
+      "name": "stone_pillar_base",
       "kind": "object",
       "x": 48,
       "y": 48,
@@ -1115,7 +1115,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c4",
+      "name": "stone_floor_teal_18",
       "kind": "object",
       "x": 64,
       "y": 48,
@@ -1129,7 +1129,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c5",
+      "name": "stone_floor_teal_19",
       "kind": "object",
       "x": 80,
       "y": 48,
@@ -1143,7 +1143,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c6",
+      "name": "stone_floor_teal_20",
       "kind": "object",
       "x": 96,
       "y": 48,
@@ -1157,7 +1157,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c7",
+      "name": "stone_floor_teal_21",
       "kind": "object",
       "x": 112,
       "y": 48,
@@ -1171,7 +1171,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c8",
+      "name": "stone_floor_teal_spike_holes_a",
       "kind": "object",
       "x": 128,
       "y": 48,
@@ -1185,7 +1185,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c9",
+      "name": "prison_bars_top_ends",
       "kind": "object",
       "x": 144,
       "y": 48,
@@ -1199,7 +1199,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c14",
+      "name": "wood_floor_square_hole_corner_top_left",
       "kind": "object",
       "x": 224,
       "y": 48,
@@ -1213,7 +1213,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c15",
+      "name": "wood_floor_square_hole_edge_top",
       "kind": "object",
       "x": 240,
       "y": 48,
@@ -1227,7 +1227,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c16",
+      "name": "wood_floor_square_hole_corner_top_right",
       "kind": "object",
       "x": 256,
       "y": 48,
@@ -1241,7 +1241,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c17",
+      "name": "wood_beam_riveted_upper_left",
       "kind": "object",
       "x": 272,
       "y": 48,
@@ -1255,7 +1255,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c18",
+      "name": "wood_beam_riveted_upper_middle",
       "kind": "object",
       "x": 288,
       "y": 48,
@@ -1269,7 +1269,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c19",
+      "name": "wood_beam_riveted_upper_right",
       "kind": "object",
       "x": 304,
       "y": 48,
@@ -1283,7 +1283,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c20",
+      "name": "wood_crate_top_left",
       "kind": "object",
       "x": 320,
       "y": 48,
@@ -1297,7 +1297,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r3c21",
+      "name": "wood_crate_top_right",
       "kind": "object",
       "x": 336,
       "y": 48,
@@ -1311,7 +1311,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c0",
+      "name": "wall_window_frame_bottom_left",
       "kind": "object",
       "x": 0,
       "y": 64,
@@ -1325,7 +1325,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c1",
+      "name": "wall_window_frame_bottom_middle",
       "kind": "object",
       "x": 16,
       "y": 64,
@@ -1339,7 +1339,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c2",
+      "name": "wall_window_frame_bottom_right",
       "kind": "object",
       "x": 32,
       "y": 64,
@@ -1353,7 +1353,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c3",
+      "name": "dark_wall_void_a",
       "kind": "object",
       "x": 48,
       "y": 64,
@@ -1367,7 +1367,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c4",
+      "name": "wall_pipe_vertical_top",
       "kind": "object",
       "x": 64,
       "y": 64,
@@ -1381,7 +1381,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c5",
+      "name": "dark_wall_red_brick_band_top_left",
       "kind": "object",
       "x": 80,
       "y": 64,
@@ -1395,7 +1395,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c6",
+      "name": "dark_wall_red_brick_band_top_right",
       "kind": "object",
       "x": 96,
       "y": 64,
@@ -1409,7 +1409,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c7",
+      "name": "stone_floor_teal_shadow_top",
       "kind": "object",
       "x": 112,
       "y": 64,
@@ -1423,7 +1423,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c14",
+      "name": "wood_floor_square_hole_edge_left",
       "kind": "object",
       "x": 224,
       "y": 64,
@@ -1437,7 +1437,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c15",
+      "name": "wood_floor_square_hole_opening",
       "kind": "object",
       "x": 240,
       "y": 64,
@@ -1451,7 +1451,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c16",
+      "name": "wood_floor_square_hole_edge_right",
       "kind": "object",
       "x": 256,
       "y": 64,
@@ -1465,7 +1465,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c17",
+      "name": "wood_floor_light_edge_bottom_left",
       "kind": "object",
       "x": 272,
       "y": 64,
@@ -1479,7 +1479,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c18",
+      "name": "wood_floor_light_edge_bottom_middle",
       "kind": "object",
       "x": 288,
       "y": 64,
@@ -1493,7 +1493,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c19",
+      "name": "wood_floor_light_edge_bottom_right",
       "kind": "object",
       "x": 304,
       "y": 64,
@@ -1507,7 +1507,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c20",
+      "name": "wood_crate_bottom_left",
       "kind": "object",
       "x": 320,
       "y": 64,
@@ -1521,7 +1521,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r4c21",
+      "name": "wood_crate_bottom_right",
       "kind": "object",
       "x": 336,
       "y": 64,
@@ -1535,7 +1535,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r5c0",
+      "name": "stone_brick_wall_b_upper_left",
       "kind": "object",
       "x": 0,
       "y": 80,
@@ -1549,7 +1549,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r5c1",
+      "name": "stone_brick_wall_b_upper_middle",
       "kind": "object",
       "x": 16,
       "y": 80,
@@ -1563,7 +1563,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r5c2",
+      "name": "stone_brick_wall_b_upper_right",
       "kind": "object",
       "x": 32,
       "y": 80,
@@ -1577,7 +1577,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r5c3",
+      "name": "dark_wall_void_b",
       "kind": "object",
       "x": 48,
       "y": 80,
@@ -1591,7 +1591,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r5c4",
+      "name": "wall_pipe_vertical_bottom",
       "kind": "object",
       "x": 64,
       "y": 80,
@@ -1605,7 +1605,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r5c5",
+      "name": "dark_wall_red_brick_band_bottom_left",
       "kind": "object",
       "x": 80,
       "y": 80,
@@ -1619,7 +1619,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r5c6",
+      "name": "dark_wall_red_brick_band_bottom_right",
       "kind": "object",
       "x": 96,
       "y": 80,
@@ -1633,7 +1633,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r5c7",
+      "name": "stone_floor_teal_shadow_bottom",
       "kind": "object",
       "x": 112,
       "y": 80,
@@ -1647,7 +1647,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r5c14",
+      "name": "wood_floor_square_hole_corner_bottom_left",
       "kind": "object",
       "x": 224,
       "y": 80,
@@ -1661,7 +1661,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r5c15",
+      "name": "wood_floor_square_hole_edge_bottom",
       "kind": "object",
       "x": 240,
       "y": 80,
@@ -1675,7 +1675,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r5c16",
+      "name": "wood_floor_square_hole_corner_bottom_right",
       "kind": "object",
       "x": 256,
       "y": 80,
@@ -1689,7 +1689,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r5c17",
+      "name": "wood_beam_riveted_lower_left",
       "kind": "object",
       "x": 272,
       "y": 80,
@@ -1703,7 +1703,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r5c18",
+      "name": "wood_beam_riveted_lower_middle",
       "kind": "object",
       "x": 288,
       "y": 80,
@@ -1717,7 +1717,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r5c19",
+      "name": "wood_beam_riveted_lower_right",
       "kind": "object",
       "x": 304,
       "y": 80,
@@ -1731,7 +1731,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r6c0",
+      "name": "stone_brick_wall_b_lower_left",
       "kind": "object",
       "x": 0,
       "y": 96,
@@ -1745,7 +1745,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r6c1",
+      "name": "stone_brick_wall_barred_vent",
       "kind": "object",
       "x": 16,
       "y": 96,
@@ -1759,7 +1759,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r6c2",
+      "name": "stone_brick_wall_b_lower_right",
       "kind": "object",
       "x": 32,
       "y": 96,
@@ -1773,7 +1773,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r6c3",
+      "name": "dark_wall_void_c",
       "kind": "object",
       "x": 48,
       "y": 96,
@@ -1787,7 +1787,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r6c4",
+      "name": "dark_wall_void_d",
       "kind": "object",
       "x": 64,
       "y": 96,
@@ -1801,7 +1801,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r6c9",
+      "name": "prison_bars_bottom_ends_a",
       "kind": "object",
       "x": 144,
       "y": 96,
@@ -1815,7 +1815,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r6c17",
+      "name": "wood_plank_panel_a",
       "kind": "object",
       "x": 272,
       "y": 96,
@@ -1829,7 +1829,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r6c19",
+      "name": "wood_plank_panel_b",
       "kind": "object",
       "x": 304,
       "y": 96,
@@ -1843,7 +1843,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r6c20",
+      "name": "wood_crate_b_left",
       "kind": "object",
       "x": 320,
       "y": 96,
@@ -1857,7 +1857,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r6c21",
+      "name": "wood_crate_b_right",
       "kind": "object",
       "x": 336,
       "y": 96,
@@ -1871,7 +1871,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r7c10",
+      "name": "dark_wall_pipe_bend_left",
       "kind": "object",
       "x": 160,
       "y": 112,
@@ -1885,7 +1885,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r7c11",
+      "name": "dark_wall_pipe_bend_right",
       "kind": "object",
       "x": 176,
       "y": 112,
@@ -1899,7 +1899,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r8c5",
+      "name": "stone_floor_teal_dim_a",
       "kind": "object",
       "x": 80,
       "y": 128,
@@ -1913,7 +1913,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r8c6",
+      "name": "stone_floor_teal_dim_b",
       "kind": "object",
       "x": 96,
       "y": 128,
@@ -1927,7 +1927,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r8c10",
+      "name": "dark_stone_wall_plain_a",
       "kind": "object",
       "x": 160,
       "y": 128,
@@ -1941,7 +1941,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r8c11",
+      "name": "dark_stone_wall_plain_b",
       "kind": "object",
       "x": 176,
       "y": 128,
@@ -1955,7 +1955,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r9c5",
+      "name": "stone_floor_teal_dark_a",
       "kind": "object",
       "x": 80,
       "y": 144,
@@ -1969,7 +1969,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r9c6",
+      "name": "stone_floor_teal_dark_b",
       "kind": "object",
       "x": 96,
       "y": 144,
@@ -1983,7 +1983,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r9c10",
+      "name": "dark_stone_wall_mossy_a",
       "kind": "object",
       "x": 160,
       "y": 144,
@@ -1997,7 +1997,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r9c11",
+      "name": "dark_stone_wall_mossy_b",
       "kind": "object",
       "x": 176,
       "y": 144,
@@ -2011,7 +2011,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r10c3",
+      "name": "spike_holes_overlay",
       "kind": "object",
       "x": 48,
       "y": 160,
@@ -2025,7 +2025,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r10c4",
+      "name": "stone_floor_teal_spike_holes_b",
       "kind": "object",
       "x": 64,
       "y": 160,
@@ -2039,7 +2039,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r10c7",
+      "name": "iron_floor_grate_top_left",
       "kind": "object",
       "x": 112,
       "y": 160,
@@ -2053,7 +2053,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r10c8",
+      "name": "iron_floor_grate_top_right",
       "kind": "object",
       "x": 128,
       "y": 160,
@@ -2067,7 +2067,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r10c9",
+      "name": "prison_bars_bottom_ends_b",
       "kind": "object",
       "x": 144,
       "y": 160,
@@ -2081,7 +2081,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r11c2",
+      "name": "stone_floor_teal_riveted_ledge_left",
       "kind": "object",
       "x": 32,
       "y": 176,
@@ -2095,7 +2095,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r11c3",
+      "name": "stone_floor_teal_riveted_ledge_middle",
       "kind": "object",
       "x": 48,
       "y": 176,
@@ -2109,7 +2109,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r11c4",
+      "name": "stone_floor_teal_riveted_ledge_right",
       "kind": "object",
       "x": 64,
       "y": 176,
@@ -2123,7 +2123,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r11c7",
+      "name": "iron_floor_grate_bottom_left",
       "kind": "object",
       "x": 112,
       "y": 176,
@@ -2137,7 +2137,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r11c8",
+      "name": "iron_floor_grate_bottom_right",
       "kind": "object",
       "x": 128,
       "y": 176,
@@ -2151,7 +2151,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r11c9",
+      "name": "stone_floor_teal_blood_stain_a",
       "kind": "object",
       "x": 144,
       "y": 176,
@@ -2165,7 +2165,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r11c10",
+      "name": "stone_floor_teal_blood_stain_b",
       "kind": "object",
       "x": 160,
       "y": 176,
@@ -2179,7 +2179,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r12c7",
+      "name": "iron_floor_grate_small",
       "kind": "object",
       "x": 112,
       "y": 192,
@@ -2193,7 +2193,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r12c8",
+      "name": "stone_floor_teal_blood_stain_c",
       "kind": "object",
       "x": 128,
       "y": 192,
@@ -2207,7 +2207,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r12c9",
+      "name": "stone_floor_teal_blood_stain_d",
       "kind": "object",
       "x": 144,
       "y": 192,
@@ -2221,7 +2221,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r13c7",
+      "name": "stone_floor_teal_blood_stain_e",
       "kind": "object",
       "x": 112,
       "y": 208,
@@ -2235,7 +2235,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r13c8",
+      "name": "stone_floor_teal_blood_stain_f",
       "kind": "object",
       "x": 128,
       "y": 208,
@@ -2249,7 +2249,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r13c9",
+      "name": "stone_floor_teal_blood_stain_g",
       "kind": "object",
       "x": 144,
       "y": 208,
@@ -2263,7 +2263,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r14c0",
+      "name": "dark_wall_red_trim_top_left",
       "kind": "object",
       "x": 0,
       "y": 224,
@@ -2277,7 +2277,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r14c1",
+      "name": "dark_wall_red_trim_top_middle",
       "kind": "object",
       "x": 16,
       "y": 224,
@@ -2291,7 +2291,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r14c2",
+      "name": "dark_wall_red_trim_top_right",
       "kind": "object",
       "x": 32,
       "y": 224,
@@ -2305,7 +2305,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r14c3",
+      "name": "dark_wall_blue_trim_top_left",
       "kind": "object",
       "x": 48,
       "y": 224,
@@ -2319,7 +2319,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r14c4",
+      "name": "dark_wall_blue_trim_top_middle",
       "kind": "object",
       "x": 64,
       "y": 224,
@@ -2333,7 +2333,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r14c5",
+      "name": "dark_wall_blue_trim_top_right",
       "kind": "object",
       "x": 80,
       "y": 224,
@@ -2347,7 +2347,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r14c6",
+      "name": "dark_wall_green_trim_top_left",
       "kind": "object",
       "x": 96,
       "y": 224,
@@ -2361,7 +2361,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r14c7",
+      "name": "dark_wall_green_trim_top_middle",
       "kind": "object",
       "x": 112,
       "y": 224,
@@ -2375,7 +2375,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r14c8",
+      "name": "dark_wall_green_trim_top_right",
       "kind": "object",
       "x": 128,
       "y": 224,
@@ -2389,7 +2389,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r14c9",
+      "name": "dark_brick_wall_plain_top",
       "kind": "object",
       "x": 144,
       "y": 224,
@@ -2403,7 +2403,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r15c0",
+      "name": "dark_wall_red_trim_upper_left",
       "kind": "object",
       "x": 0,
       "y": 240,
@@ -2417,7 +2417,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r15c1",
+      "name": "dark_wall_red_trim_upper_middle",
       "kind": "object",
       "x": 16,
       "y": 240,
@@ -2431,7 +2431,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r15c2",
+      "name": "dark_wall_red_trim_upper_right",
       "kind": "object",
       "x": 32,
       "y": 240,
@@ -2445,7 +2445,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r15c3",
+      "name": "dark_wall_blue_trim_upper_left",
       "kind": "object",
       "x": 48,
       "y": 240,
@@ -2459,7 +2459,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r15c4",
+      "name": "dark_wall_blue_trim_upper_middle",
       "kind": "object",
       "x": 64,
       "y": 240,
@@ -2473,7 +2473,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r15c5",
+      "name": "dark_wall_blue_trim_upper_right",
       "kind": "object",
       "x": 80,
       "y": 240,
@@ -2487,7 +2487,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r15c6",
+      "name": "dark_wall_green_trim_upper_left",
       "kind": "object",
       "x": 96,
       "y": 240,
@@ -2501,7 +2501,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r15c7",
+      "name": "dark_wall_green_trim_upper_middle",
       "kind": "object",
       "x": 112,
       "y": 240,
@@ -2515,7 +2515,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r15c8",
+      "name": "dark_wall_green_trim_upper_right",
       "kind": "object",
       "x": 128,
       "y": 240,
@@ -2529,7 +2529,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r15c9",
+      "name": "dark_brick_wall_plain",
       "kind": "object",
       "x": 144,
       "y": 240,
@@ -2543,7 +2543,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r16c0",
+      "name": "dark_wall_red_trim_lower_left",
       "kind": "object",
       "x": 0,
       "y": 256,
@@ -2557,7 +2557,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r16c1",
+      "name": "dark_wall_red_trim_lower_middle",
       "kind": "object",
       "x": 16,
       "y": 256,
@@ -2571,7 +2571,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r16c2",
+      "name": "dark_wall_red_trim_lower_right",
       "kind": "object",
       "x": 32,
       "y": 256,
@@ -2585,7 +2585,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r16c3",
+      "name": "dark_wall_blue_trim_lower_left",
       "kind": "object",
       "x": 48,
       "y": 256,
@@ -2599,7 +2599,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r16c4",
+      "name": "dark_wall_blue_trim_lower_middle",
       "kind": "object",
       "x": 64,
       "y": 256,
@@ -2613,7 +2613,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r16c5",
+      "name": "dark_wall_blue_trim_lower_right",
       "kind": "object",
       "x": 80,
       "y": 256,
@@ -2627,7 +2627,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r16c6",
+      "name": "dark_wall_green_trim_lower_left",
       "kind": "object",
       "x": 96,
       "y": 256,
@@ -2641,7 +2641,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r16c7",
+      "name": "dark_wall_green_trim_lower_middle",
       "kind": "object",
       "x": 112,
       "y": 256,
@@ -2655,7 +2655,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r16c8",
+      "name": "dark_wall_green_trim_lower_right",
       "kind": "object",
       "x": 128,
       "y": 256,
@@ -2669,7 +2669,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r17c0",
+      "name": "dark_wall_red_trim_base_left",
       "kind": "object",
       "x": 0,
       "y": 272,
@@ -2683,7 +2683,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r17c1",
+      "name": "dark_wall_red_trim_base_middle",
       "kind": "object",
       "x": 16,
       "y": 272,
@@ -2697,7 +2697,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r17c2",
+      "name": "dark_wall_red_trim_base_right",
       "kind": "object",
       "x": 32,
       "y": 272,
@@ -2711,7 +2711,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r17c3",
+      "name": "dark_wall_blue_trim_base_left",
       "kind": "object",
       "x": 48,
       "y": 272,
@@ -2725,7 +2725,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r17c4",
+      "name": "dark_wall_blue_trim_base_middle",
       "kind": "object",
       "x": 64,
       "y": 272,
@@ -2739,7 +2739,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r17c5",
+      "name": "dark_wall_blue_trim_base_right",
       "kind": "object",
       "x": 80,
       "y": 272,
@@ -2753,7 +2753,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r17c6",
+      "name": "dark_wall_green_trim_base_left",
       "kind": "object",
       "x": 96,
       "y": 272,
@@ -2767,7 +2767,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r17c7",
+      "name": "dark_wall_green_trim_base_middle",
       "kind": "object",
       "x": 112,
       "y": 272,
@@ -2781,7 +2781,7 @@
       ]
     },
     {
-      "name": "dungeon_tile_r17c8",
+      "name": "dark_wall_green_trim_base_right",
       "kind": "object",
       "x": 128,
       "y": 272,

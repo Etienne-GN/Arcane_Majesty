@@ -4,7 +4,7 @@
   "sheetHeight": 208,
   "entries": [
     {
-      "name": "grass_ledge_r0c0",
+      "name": "raised_lawn_hedge_corner_top_left",
       "kind": "object",
       "x": 0,
       "y": 0,
@@ -18,7 +18,7 @@
       ]
     },
     {
-      "name": "grass_ledge_r0c1",
+      "name": "raised_lawn_hedge_edge_top",
       "kind": "object",
       "x": 16,
       "y": 0,
@@ -32,7 +32,7 @@
       ]
     },
     {
-      "name": "grass_ledge_r0c2",
+      "name": "raised_lawn_hedge_edge_top_opening",
       "kind": "object",
       "x": 32,
       "y": 0,
@@ -46,7 +46,7 @@
       ]
     },
     {
-      "name": "grass_ledge_r0c3",
+      "name": "raised_lawn_hedge_corner_top_right",
       "kind": "object",
       "x": 48,
       "y": 0,
@@ -60,7 +60,7 @@
       ]
     },
     {
-      "name": "grass_ledge_r1c0",
+      "name": "raised_lawn_hedge_edge_left",
       "kind": "object",
       "x": 0,
       "y": 16,
@@ -74,7 +74,7 @@
       ]
     },
     {
-      "name": "grass_ledge_r1c1",
+      "name": "raised_lawn_hedge_center_a",
       "kind": "object",
       "x": 16,
       "y": 16,
@@ -88,7 +88,7 @@
       ]
     },
     {
-      "name": "grass_ledge_r1c2",
+      "name": "raised_lawn_hedge_center_b",
       "kind": "object",
       "x": 32,
       "y": 16,
@@ -102,7 +102,7 @@
       ]
     },
     {
-      "name": "grass_ledge_r1c3",
+      "name": "raised_lawn_hedge_edge_right",
       "kind": "object",
       "x": 48,
       "y": 16,
@@ -116,7 +116,7 @@
       ]
     },
     {
-      "name": "grass_ledge_r2c0",
+      "name": "raised_lawn_hedge_corner_bottom_left",
       "kind": "object",
       "x": 0,
       "y": 32,
@@ -130,7 +130,7 @@
       ]
     },
     {
-      "name": "grass_ledge_r2c1",
+      "name": "raised_lawn_hedge_edge_bottom_cliff",
       "kind": "object",
       "x": 16,
       "y": 32,
@@ -144,7 +144,7 @@
       ]
     },
     {
-      "name": "grass_ledge_r2c2",
+      "name": "raised_lawn_hedge_edge_bottom_opening",
       "kind": "object",
       "x": 32,
       "y": 32,
@@ -158,7 +158,7 @@
       ]
     },
     {
-      "name": "grass_ledge_r2c3",
+      "name": "raised_lawn_hedge_corner_bottom_right",
       "kind": "object",
       "x": 48,
       "y": 32,
@@ -172,7 +172,7 @@
       ]
     },
     {
-      "name": "garden_bed_fenced_r0c0",
+      "name": "garden_bed_wood_corner_top_left",
       "kind": "object",
       "x": 64,
       "y": 0,
@@ -186,7 +186,7 @@
       ]
     },
     {
-      "name": "garden_bed_fenced_r0c1",
+      "name": "garden_bed_wood_edge_top",
       "kind": "object",
       "x": 80,
       "y": 0,
@@ -200,7 +200,7 @@
       ]
     },
     {
-      "name": "garden_bed_fenced_r0c2",
+      "name": "garden_bed_wood_edge_top_plank",
       "kind": "object",
       "x": 96,
       "y": 0,
@@ -214,7 +214,7 @@
       ]
     },
     {
-      "name": "garden_bed_fenced_r0c3",
+      "name": "garden_bed_wood_corner_top_right",
       "kind": "object",
       "x": 112,
       "y": 0,
@@ -228,7 +228,7 @@
       ]
     },
     {
-      "name": "garden_bed_fenced_r1c0",
+      "name": "garden_bed_wood_edge_left",
       "kind": "object",
       "x": 64,
       "y": 16,
@@ -242,7 +242,7 @@
       ]
     },
     {
-      "name": "garden_bed_fenced_r1c1",
+      "name": "garden_bed_wood_center_rock",
       "kind": "object",
       "x": 80,
       "y": 16,
@@ -256,7 +256,7 @@
       ]
     },
     {
-      "name": "garden_bed_fenced_r1c2",
+      "name": "garden_bed_wood_center",
       "kind": "object",
       "x": 96,
       "y": 16,
@@ -270,7 +270,7 @@
       ]
     },
     {
-      "name": "garden_bed_fenced_r1c3",
+      "name": "garden_bed_wood_edge_right",
       "kind": "object",
       "x": 112,
       "y": 16,
@@ -284,7 +284,7 @@
       ]
     },
     {
-      "name": "garden_bed_fenced_r2c0",
+      "name": "garden_bed_wood_corner_bottom_left",
       "kind": "object",
       "x": 64,
       "y": 32,
@@ -298,7 +298,7 @@
       ]
     },
     {
-      "name": "garden_bed_fenced_r2c1",
+      "name": "garden_bed_wood_edge_bottom",
       "kind": "object",
       "x": 80,
       "y": 32,
@@ -312,7 +312,7 @@
       ]
     },
     {
-      "name": "garden_bed_fenced_r2c2",
+      "name": "garden_bed_wood_edge_bottom_plank",
       "kind": "object",
       "x": 96,
       "y": 32,
@@ -326,7 +326,7 @@
       ]
     },
     {
-      "name": "garden_bed_fenced_r2c3",
+      "name": "garden_bed_wood_corner_bottom_right",
       "kind": "object",
       "x": 112,
       "y": 32,
@@ -340,7 +340,7 @@
       ]
     },
     {
-      "name": "dirt_path_r0c0",
+      "name": "dirt_path_on_grass_corner_top_right",
       "kind": "object",
       "x": 128,
       "y": 0,
@@ -355,7 +355,7 @@
       ]
     },
     {
-      "name": "dirt_path_r0c1",
+      "name": "dirt_path_on_grass_corner_top_left",
       "kind": "object",
       "x": 144,
       "y": 0,
@@ -370,7 +370,7 @@
       ]
     },
     {
-      "name": "dirt_path_r0c2",
+      "name": "dirt_path_on_grass_vertical_end_top",
       "kind": "object",
       "x": 160,
       "y": 0,
@@ -385,7 +385,7 @@
       ]
     },
     {
-      "name": "dirt_path_r0c3",
+      "name": "dirt_path_on_grass_horizontal_end_right",
       "kind": "object",
       "x": 176,
       "y": 0,
@@ -400,7 +400,7 @@
       ]
     },
     {
-      "name": "dirt_path_r1c0",
+      "name": "dirt_path_on_grass_corner_bottom_left",
       "kind": "object",
       "x": 128,
       "y": 16,
@@ -415,7 +415,7 @@
       ]
     },
     {
-      "name": "dirt_path_r1c1",
+      "name": "dirt_path_on_grass_corner_bottom_right",
       "kind": "object",
       "x": 144,
       "y": 16,
@@ -430,7 +430,7 @@
       ]
     },
     {
-      "name": "dirt_path_r1c2",
+      "name": "dirt_path_on_grass_vertical_end_bottom",
       "kind": "object",
       "x": 160,
       "y": 16,
@@ -445,7 +445,7 @@
       ]
     },
     {
-      "name": "dirt_path_r1c3",
+      "name": "dirt_path_on_grass_horizontal_end_left",
       "kind": "object",
       "x": 176,
       "y": 16,
@@ -460,7 +460,7 @@
       ]
     },
     {
-      "name": "dirt_path_r2c0",
+      "name": "dirt_path_on_grass_edge_left",
       "kind": "object",
       "x": 128,
       "y": 32,
@@ -475,7 +475,7 @@
       ]
     },
     {
-      "name": "dirt_path_r2c1",
+      "name": "dirt_path_on_grass_edge_right",
       "kind": "object",
       "x": 144,
       "y": 32,
@@ -490,7 +490,7 @@
       ]
     },
     {
-      "name": "dirt_path_r2c2",
+      "name": "dirt_path_on_grass_vertical_middle",
       "kind": "object",
       "x": 160,
       "y": 32,
@@ -505,7 +505,7 @@
       ]
     },
     {
-      "name": "dirt_path_r2c3",
+      "name": "dirt_path_on_grass_horizontal_middle",
       "kind": "object",
       "x": 176,
       "y": 32,
@@ -520,7 +520,7 @@
       ]
     },
     {
-      "name": "dirt_path_end_r0c0",
+      "name": "dirt_path_on_grass_edge_bottom",
       "kind": "object",
       "x": 128,
       "y": 48,
@@ -535,7 +535,7 @@
       ]
     },
     {
-      "name": "dirt_path_end_r0c1",
+      "name": "dirt_path_on_grass_edge_top",
       "kind": "object",
       "x": 144,
       "y": 48,
@@ -550,7 +550,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r0c0",
+      "name": "dirt_round_patch_on_grass_corner_top_left",
       "kind": "object",
       "x": 0,
       "y": 96,
@@ -565,7 +565,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r0c1",
+      "name": "dirt_round_patch_on_grass_edge_top",
       "kind": "object",
       "x": 16,
       "y": 96,
@@ -580,7 +580,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r0c2",
+      "name": "dirt_round_patch_on_grass_corner_top_right",
       "kind": "object",
       "x": 32,
       "y": 96,
@@ -595,7 +595,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r0c3",
+      "name": "grass_round_patch_on_dirt_corner_top_left",
       "kind": "object",
       "x": 48,
       "y": 96,
@@ -610,7 +610,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r0c4",
+      "name": "grass_round_patch_on_dirt_edge_top",
       "kind": "object",
       "x": 64,
       "y": 96,
@@ -625,7 +625,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r0c5",
+      "name": "grass_round_patch_on_dirt_corner_top_right",
       "kind": "object",
       "x": 80,
       "y": 96,
@@ -640,7 +640,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r1c0",
+      "name": "dirt_round_patch_on_grass_edge_left",
       "kind": "object",
       "x": 0,
       "y": 112,
@@ -655,7 +655,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r1c2",
+      "name": "dirt_round_patch_on_grass_edge_right",
       "kind": "object",
       "x": 32,
       "y": 112,
@@ -670,7 +670,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r1c3",
+      "name": "grass_round_patch_on_dirt_edge_left",
       "kind": "object",
       "x": 48,
       "y": 112,
@@ -685,7 +685,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r1c5",
+      "name": "grass_round_patch_on_dirt_edge_right",
       "kind": "object",
       "x": 80,
       "y": 112,
@@ -700,7 +700,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r2c0",
+      "name": "dirt_round_patch_on_grass_corner_bottom_left",
       "kind": "object",
       "x": 0,
       "y": 128,
@@ -715,7 +715,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r2c1",
+      "name": "dirt_round_patch_on_grass_edge_bottom",
       "kind": "object",
       "x": 16,
       "y": 128,
@@ -730,7 +730,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r2c2",
+      "name": "dirt_round_patch_on_grass_corner_bottom_right",
       "kind": "object",
       "x": 32,
       "y": 128,
@@ -745,7 +745,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r2c3",
+      "name": "grass_round_patch_on_dirt_corner_bottom_left",
       "kind": "object",
       "x": 48,
       "y": 128,
@@ -760,7 +760,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r2c4",
+      "name": "grass_round_patch_on_dirt_edge_bottom",
       "kind": "object",
       "x": 64,
       "y": 128,
@@ -775,7 +775,7 @@
       ]
     },
     {
-      "name": "grass_dirt_round_r2c5",
+      "name": "grass_round_patch_on_dirt_corner_bottom_right",
       "kind": "object",
       "x": 80,
       "y": 128,
