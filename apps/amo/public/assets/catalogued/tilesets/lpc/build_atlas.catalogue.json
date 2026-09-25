@@ -141,16 +141,32 @@
     {
       "name": "windmill",
       "kind": "object",
-      "x": 352,
+      "x": 353,
       "y": 0,
-      "w": 96,
-      "h": 96,
+      "w": 72,
+      "h": 85,
       "tags": [
-        "lpc",
         "atlas",
+        "lpc",
         "machine",
+        "steampunk",
+        "windmill"
+      ]
+    },
+    {
+      "name": "wood_planks_stacked",
+      "kind": "object",
+      "x": 416,
+      "y": 68,
+      "w": 32,
+      "h": 24,
+      "tags": [
+        "atlas",
+        "lpc",
+        "machine",
+        "steampunk",
         "windmill",
-        "steampunk"
+        "wood"
       ]
     },
     {

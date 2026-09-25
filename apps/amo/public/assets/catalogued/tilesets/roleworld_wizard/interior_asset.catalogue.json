@@ -108,9 +108,9 @@
       "name": "round_table",
       "kind": "object",
       "x": 64,
-      "y": 94,
-      "w": 34,
-      "h": 34,
+      "y": 96,
+      "w": 32,
+      "h": 32,
       "tags": [
         "roleworld_wizard",
         "pixel_sazy",

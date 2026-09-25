@@ -1108,7 +1108,7 @@
       ]
     },
     {
-      "name": "stump_broken",
+      "name": "campfire_unlit",
       "kind": "object",
       "x": 80,
       "y": 65,
@@ -1345,7 +1345,7 @@
       ]
     },
     {
-      "name": "rope_arc",
+      "name": "rail_track_curve",
       "kind": "object",
       "x": 48,
       "y": 200,
@@ -1358,7 +1358,7 @@
       ]
     },
     {
-      "name": "rope_ladder_a",
+      "name": "rail_track_straight_a",
       "kind": "object",
       "x": 64,
       "y": 192,
@@ -1371,7 +1371,7 @@
       ]
     },
     {
-      "name": "rope_ladder_b",
+      "name": "rail_track_straight_b",
       "kind": "object",
       "x": 80,
       "y": 192,
@@ -1384,7 +1384,7 @@
       ]
     },
     {
-      "name": "bridge_log_posts",
+      "name": "wood_bridge_ropes_horizontal",
       "kind": "object",
       "x": 104,
       "y": 192,
@@ -1398,7 +1398,7 @@
       ]
     },
     {
-      "name": "gravestone_mossy",
+      "name": "stone_pillar_broken_vines",
       "kind": "object",
       "x": 145,
       "y": 182,
@@ -1463,7 +1463,7 @@
       ]
     },
     {
-      "name": "potion_crate",
+      "name": "bookshelf_small",
       "kind": "object",
       "x": 160,
       "y": 177,
@@ -1476,7 +1476,7 @@
       ]
     },
     {
-      "name": "table_round_glow",
+      "name": "window_round_lit",
       "kind": "object",
       "x": 161,
       "y": 193,
@@ -1489,7 +1489,7 @@
       ]
     },
     {
-      "name": "lantern_dock_rail",
+      "name": "wood_bridge_ropes_vertical",
       "kind": "object",
       "x": 176,
       "y": 169,
@@ -1517,7 +1517,7 @@
       ]
     },
     {
-      "name": "towels_hanging",
+      "name": "curtains_hanging",
       "kind": "object",
       "x": 224,
       "y": 160,
@@ -1541,32 +1541,6 @@
         "o_lobster",
         "furniture",
         "bed"
-      ]
-    },
-    {
-      "name": "stove_iron",
-      "kind": "object",
-      "x": 212,
-      "y": 176,
-      "w": 12,
-      "h": 32,
-      "tags": [
-        "top_down_adventure_pack",
-        "o_lobster",
-        "furniture"
-      ]
-    },
-    {
-      "name": "firewood_small",
-      "kind": "object",
-      "x": 224,
-      "y": 192,
-      "w": 13,
-      "h": 16,
-      "tags": [
-        "top_down_adventure_pack",
-        "o_lobster",
-        "wood"
       ]
     },
     {
@@ -1631,6 +1605,20 @@
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
+        "wood"
+      ]
+    },
+    {
+      "name": "stove_iron_with_firewood",
+      "kind": "object",
+      "x": 212,
+      "y": 176,
+      "w": 25,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "o_lobster",
+        "top_down_adventure_pack",
         "wood"
       ]
     }

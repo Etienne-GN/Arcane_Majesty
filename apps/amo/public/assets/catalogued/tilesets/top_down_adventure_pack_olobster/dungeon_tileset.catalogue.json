@@ -4,77 +4,1799 @@
   "sheetHeight": 208,
   "entries": [
     {
-      "name": "stone_wall_blob",
+      "name": "wall_front_left_end_top",
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 96,
-      "h": 96,
+      "w": 16,
+      "h": 16,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
-        "stone",
+        "dungeon",
         "wall",
         "autotile"
-      ],
-      "lowConfidence": true
-    },
-    {
-      "name": "floor_tile_dark",
-      "kind": "object",
-      "x": 96,
-      "y": 64,
-      "w": 96,
-      "h": 32,
-      "tags": [
-        "top_down_adventure_pack",
-        "o_lobster",
-        "floor",
-        "dungeon"
       ]
     },
     {
-      "name": "spike_trap",
+      "name": "wall_front_bricks_top",
       "kind": "object",
-      "x": 128,
+      "x": 16,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_bricks_cracked_top",
+      "kind": "object",
+      "x": 32,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_bricks_vines_top",
+      "kind": "object",
+      "x": 48,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_pillar_top",
+      "kind": "object",
+      "x": 64,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_right_end_top",
+      "kind": "object",
+      "x": 80,
+      "y": 0,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_left_end_middle",
+      "kind": "object",
+      "x": 0,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_bricks_middle",
+      "kind": "object",
+      "x": 16,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_bricks_cracked_middle",
+      "kind": "object",
+      "x": 32,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_bricks_vines_middle",
+      "kind": "object",
+      "x": 48,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_pillar_middle",
+      "kind": "object",
+      "x": 64,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_right_end_middle",
+      "kind": "object",
+      "x": 80,
+      "y": 16,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_left_end_base",
+      "kind": "object",
+      "x": 0,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_bricks_base",
+      "kind": "object",
+      "x": 16,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_bricks_cracked_base",
+      "kind": "object",
+      "x": 32,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_bricks_vines_base",
+      "kind": "object",
+      "x": 48,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_pillar_base",
+      "kind": "object",
+      "x": 64,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "wall_front_right_end_base",
+      "kind": "object",
+      "x": 80,
+      "y": 32,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_cap_corner_top_left",
+      "kind": "object",
+      "x": 0,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_cap_horizontal",
+      "kind": "object",
+      "x": 16,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_cap_end_right",
+      "kind": "object",
+      "x": 32,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_cap_end_left",
+      "kind": "object",
+      "x": 48,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_cap_t_junction_down",
+      "kind": "object",
+      "x": 64,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_cap_corner_top_right",
+      "kind": "object",
+      "x": 80,
+      "y": 48,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_face_vertical_left",
+      "kind": "object",
+      "x": 0,
+      "y": 64,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_short_pair_cap_left",
+      "kind": "object",
+      "x": 16,
+      "y": 64,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_short_pair_cap_right",
+      "kind": "object",
+      "x": 32,
+      "y": 64,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_face_inner_corner_left",
+      "kind": "object",
+      "x": 48,
+      "y": 64,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_face_inner_corner_right",
+      "kind": "object",
+      "x": 64,
+      "y": 64,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_face_vertical_right",
+      "kind": "object",
+      "x": 80,
+      "y": 64,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_face_vertical_left_base",
+      "kind": "object",
+      "x": 0,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_short_pair_base_left",
+      "kind": "object",
+      "x": 16,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_short_pair_base_right",
+      "kind": "object",
+      "x": 32,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_niche_cap_left",
+      "kind": "object",
+      "x": 48,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_niche_cap_right",
+      "kind": "object",
+      "x": 64,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_face_vertical_right_base",
+      "kind": "object",
+      "x": 80,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_pillar_cap_end_left",
+      "kind": "object",
+      "x": 0,
       "y": 96,
       "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_small_niche_cap_left",
+      "kind": "object",
+      "x": 16,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_small_niche_cap_right",
+      "kind": "object",
+      "x": 32,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_niche_face_left",
+      "kind": "object",
+      "x": 48,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_niche_brick_center",
+      "kind": "object",
+      "x": 64,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_pillar_cap_end_right",
+      "kind": "object",
+      "x": 80,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_pillar_base_left",
+      "kind": "object",
+      "x": 0,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_small_niche_base_left",
+      "kind": "object",
+      "x": 16,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_small_niche_base_right",
+      "kind": "object",
+      "x": 32,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_niche_base_left",
+      "kind": "object",
+      "x": 48,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_niche_base_center",
+      "kind": "object",
+      "x": 64,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_pillar_base_right",
+      "kind": "object",
+      "x": 80,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_floor_edge_left_a",
+      "kind": "object",
+      "x": 0,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_low_brick_ledge_left",
+      "kind": "object",
+      "x": 16,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_low_brick_ledge_middle_a",
+      "kind": "object",
+      "x": 32,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_low_brick_ledge_middle_b",
+      "kind": "object",
+      "x": 48,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_low_brick_ledge_right",
+      "kind": "object",
+      "x": 64,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_floor_edge_right_a",
+      "kind": "object",
+      "x": 80,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_floor_edge_left_b",
+      "kind": "object",
+      "x": 0,
+      "y": 144,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_low_brick_face_left",
+      "kind": "object",
+      "x": 16,
+      "y": 144,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_low_brick_face_right",
+      "kind": "object",
+      "x": 32,
+      "y": 144,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_small_pillar_cap",
+      "kind": "object",
+      "x": 48,
+      "y": 144,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_floor_edge_right_b",
+      "kind": "object",
+      "x": 80,
+      "y": 144,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_floor_edge_corner_bottom_left",
+      "kind": "object",
+      "x": 0,
+      "y": 160,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_floor_edge_bottom_a",
+      "kind": "object",
+      "x": 16,
+      "y": 160,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_floor_edge_bottom_b",
+      "kind": "object",
+      "x": 32,
+      "y": 160,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_small_pillar_base",
+      "kind": "object",
+      "x": 48,
+      "y": 160,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_floor_edge_bottom_notch",
+      "kind": "object",
+      "x": 64,
+      "y": 160,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "thin_wall_floor_edge_corner_bottom_right",
+      "kind": "object",
+      "x": 80,
+      "y": 160,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dungeon_doorway_arch_open",
+      "kind": "object",
+      "x": 96,
+      "y": 0,
+      "w": 48,
       "h": 32,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
-        "trap",
-        "prop"
+        "dungeon",
+        "door",
+        "arch"
       ]
     },
     {
-      "name": "crystal_prop",
+      "name": "dungeon_door_locked_skull_chains",
+      "kind": "object",
+      "x": 96,
+      "y": 32,
+      "w": 48,
+      "h": 32,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "door",
+        "locked"
+      ]
+    },
+    {
+      "name": "stone_gate_frame",
+      "kind": "object",
+      "x": 144,
+      "y": 3,
+      "w": 48,
+      "h": 61,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "gate",
+        "arch"
+      ]
+    },
+    {
+      "name": "stairs_diagonal_railing",
+      "kind": "object",
+      "x": 96,
+      "y": 71,
+      "w": 16,
+      "h": 25,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "stairs"
+      ]
+    },
+    {
+      "name": "rubble_rocks_pair",
+      "kind": "object",
+      "x": 112,
+      "y": 66,
+      "w": 16,
+      "h": 14,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "rock"
+      ]
+    },
+    {
+      "name": "stairs_diagonal_railing_end",
+      "kind": "object",
+      "x": 112,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "stairs"
+      ]
+    },
+    {
+      "name": "wall_window_slot_double",
+      "kind": "object",
+      "x": 128,
+      "y": 72,
+      "w": 16,
+      "h": 8,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "window"
+      ]
+    },
+    {
+      "name": "stair_steps_straight",
+      "kind": "object",
+      "x": 128,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "stairs"
+      ]
+    },
+    {
+      "name": "floor_slats_grey_top_left",
+      "kind": "object",
+      "x": 144,
+      "y": 64,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor",
+        "autotile"
+      ]
+    },
+    {
+      "name": "floor_slats_grey_top_middle",
       "kind": "object",
       "x": 160,
-      "y": 127,
-      "w": 20,
-      "h": 32,
+      "y": 64,
+      "w": 16,
+      "h": 16,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
-        "crystal",
-        "prop"
+        "dungeon",
+        "floor",
+        "autotile"
       ]
     },
     {
-      "name": "floor_tile_ground",
+      "name": "floor_slats_grey_top_right",
+      "kind": "object",
+      "x": 176,
+      "y": 64,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor",
+        "autotile"
+      ]
+    },
+    {
+      "name": "floor_slats_grey_bottom_left",
+      "kind": "object",
+      "x": 144,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor",
+        "autotile"
+      ]
+    },
+    {
+      "name": "floor_slats_grey_bottom_middle",
+      "kind": "object",
+      "x": 160,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor",
+        "autotile"
+      ]
+    },
+    {
+      "name": "floor_slats_grey_bottom_right",
+      "kind": "object",
+      "x": 176,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor",
+        "autotile"
+      ]
+    },
+    {
+      "name": "pillar_short",
+      "kind": "object",
+      "x": 96,
+      "y": 96,
+      "w": 16,
+      "h": 31,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pillar"
+      ]
+    },
+    {
+      "name": "pillar_broken_vines",
+      "kind": "object",
+      "x": 112,
+      "y": 104,
+      "w": 16,
+      "h": 23,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pillar",
+        "vines"
+      ]
+    },
+    {
+      "name": "twin_stone_posts",
+      "kind": "object",
+      "x": 128,
+      "y": 97,
+      "w": 16,
+      "h": 31,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pillar"
+      ]
+    },
+    {
+      "name": "stone_block_square_a",
+      "kind": "object",
+      "x": 144,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "stone"
+      ]
+    },
+    {
+      "name": "stone_block_square_b",
+      "kind": "object",
+      "x": 160,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "stone"
+      ]
+    },
+    {
+      "name": "iron_chest_dark",
+      "kind": "object",
+      "x": 144,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "chest"
+      ]
+    },
+    {
+      "name": "clay_pot_red",
+      "kind": "object",
+      "x": 162,
+      "y": 114,
+      "w": 12,
+      "h": 12,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pot"
+      ]
+    },
+    {
+      "name": "pillar_tall_thin",
+      "kind": "object",
+      "x": 176,
+      "y": 103,
+      "w": 16,
+      "h": 56,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pillar"
+      ]
+    },
+    {
+      "name": "dark_pit_fill_a",
+      "kind": "object",
+      "x": 96,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pit",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dark_pit_fill_b",
+      "kind": "object",
+      "x": 112,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pit",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dark_pit_fill_c",
+      "kind": "object",
+      "x": 128,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pit",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dark_pit_edge_right_top",
+      "kind": "object",
+      "x": 144,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pit",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dark_pit_fill_d",
+      "kind": "object",
+      "x": 96,
+      "y": 144,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pit",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dark_pit_fill_e",
+      "kind": "object",
+      "x": 112,
+      "y": 144,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pit",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dark_pit_edge_right_inner",
+      "kind": "object",
+      "x": 128,
+      "y": 144,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pit",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dark_pit_edge_right_middle",
+      "kind": "object",
+      "x": 144,
+      "y": 144,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pit",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dark_pit_corner_bottom_left",
+      "kind": "object",
+      "x": 96,
+      "y": 160,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pit",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dark_pit_edge_bottom",
+      "kind": "object",
+      "x": 112,
+      "y": 160,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pit",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dark_pit_corner_bottom_right",
+      "kind": "object",
+      "x": 128,
+      "y": 160,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pit",
+        "autotile"
+      ]
+    },
+    {
+      "name": "dark_pit_edge_right_bottom",
+      "kind": "object",
+      "x": 144,
+      "y": 160,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "pit",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rubble_stones_small",
+      "kind": "object",
+      "x": 161,
+      "y": 128,
+      "w": 12,
+      "h": 13,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "rock"
+      ]
+    },
+    {
+      "name": "rubble_stones_pile",
+      "kind": "object",
+      "x": 160,
+      "y": 145,
+      "w": 16,
+      "h": 15,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "rock"
+      ]
+    },
+    {
+      "name": "stone_arch_frame",
+      "kind": "object",
+      "x": 160,
+      "y": 160,
+      "w": 32,
+      "h": 48,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "arch"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_framed_a_top_left",
       "kind": "object",
       "x": 0,
       "y": 176,
-      "w": 192,
-      "h": 32,
+      "w": 16,
+      "h": 16,
       "tags": [
         "top_down_adventure_pack",
         "o_lobster",
-        "floor",
-        "ground"
-      ],
-      "lowConfidence": true
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_framed_a_top_right",
+      "kind": "object",
+      "x": 16,
+      "y": 176,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_framed_a_bottom_left",
+      "kind": "object",
+      "x": 0,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_framed_a_bottom_right",
+      "kind": "object",
+      "x": 16,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_framed_b_top_left",
+      "kind": "object",
+      "x": 32,
+      "y": 176,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_framed_b_top_right",
+      "kind": "object",
+      "x": 48,
+      "y": 176,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_framed_b_bottom_left",
+      "kind": "object",
+      "x": 32,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_framed_b_bottom_right",
+      "kind": "object",
+      "x": 48,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_studded_top_left",
+      "kind": "object",
+      "x": 64,
+      "y": 176,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_studded_top_right",
+      "kind": "object",
+      "x": 80,
+      "y": 176,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_studded_bottom_left",
+      "kind": "object",
+      "x": 64,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_studded_bottom_right",
+      "kind": "object",
+      "x": 80,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_diamond_top_left",
+      "kind": "object",
+      "x": 96,
+      "y": 176,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_diamond_top_right",
+      "kind": "object",
+      "x": 112,
+      "y": 176,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_diamond_bottom_left",
+      "kind": "object",
+      "x": 96,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_diamond_bottom_right",
+      "kind": "object",
+      "x": 112,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_cracked",
+      "kind": "object",
+      "x": 128,
+      "y": 176,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_cracked_heavy",
+      "kind": "object",
+      "x": 144,
+      "y": 176,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_vines",
+      "kind": "object",
+      "x": 128,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
+    },
+    {
+      "name": "dungeon_floor_slab_plain",
+      "kind": "object",
+      "x": 144,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "top_down_adventure_pack",
+        "o_lobster",
+        "dungeon",
+        "floor"
+      ]
     }
   ]
 }

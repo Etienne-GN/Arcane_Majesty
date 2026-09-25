@@ -1464,21 +1464,7 @@
       "kind": "object",
       "x": 288,
       "y": 96,
-      "w": 16,
-      "h": 16,
-      "tags": [
-        "woolly_lands",
-        "tofebaa",
-        "autotile",
-        "grass"
-      ]
-    },
-    {
-      "name": "grass_plain_yellow",
-      "kind": "object",
-      "x": 304,
-      "y": 96,
-      "w": 16,
+      "w": 32,
       "h": 16,
       "tags": [
         "woolly_lands",

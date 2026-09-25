@@ -4,21 +4,187 @@
   "sheetHeight": 272,
   "entries": [
     {
-      "name": "cave_pit_large",
+      "name": "cave_wall_outline_nw",
       "kind": "object",
       "x": 0,
       "y": 0,
-      "w": 96,
-      "h": 126,
+      "w": 32,
+      "h": 32,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "cave",
-        "pit"
+        "wall",
+        "autotile"
       ]
     },
     {
-      "name": "cave_pit_narrow",
+      "name": "cave_wall_outline_n",
+      "kind": "object",
+      "x": 32,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "cave_wall_outline_ne",
+      "kind": "object",
+      "x": 64,
+      "y": 0,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "cave_wall_outline_w",
+      "kind": "object",
+      "x": 0,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "cave_wall_outline_ceiling_dark",
+      "kind": "object",
+      "x": 32,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "cave_wall_outline_e",
+      "kind": "object",
+      "x": 64,
+      "y": 32,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "cave_wall_outline_sw",
+      "kind": "object",
+      "x": 0,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "cave_wall_outline_s",
+      "kind": "object",
+      "x": 32,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "cave_wall_outline_se",
+      "kind": "object",
+      "x": 64,
+      "y": 64,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "cave_wall_face_w",
+      "kind": "object",
+      "x": 0,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "cave_wall_face_middle",
+      "kind": "object",
+      "x": 32,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "cave_wall_face_e",
+      "kind": "object",
+      "x": 64,
+      "y": 96,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "cave_entrance_rock",
       "kind": "object",
       "x": 96,
       "y": 64,
@@ -47,26 +213,453 @@
       ]
     },
     {
-      "name": "rock_island_water",
+      "name": "rock_island_water_nw",
       "kind": "object",
       "x": 192,
       "y": 64,
-      "w": 80,
-      "h": 80,
+      "w": 16,
+      "h": 16,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "cave",
         "water",
-        "rock"
+        "rock",
+        "autotile"
       ]
     },
     {
-      "name": "cave_ground_strip",
+      "name": "rock_island_water_n_1",
+      "kind": "object",
+      "x": 208,
+      "y": 64,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_n_2",
+      "kind": "object",
+      "x": 224,
+      "y": 64,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_n_3",
+      "kind": "object",
+      "x": 240,
+      "y": 64,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_ne",
+      "kind": "object",
+      "x": 256,
+      "y": 64,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_w_1",
+      "kind": "object",
+      "x": 192,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_inner_nw",
+      "kind": "object",
+      "x": 208,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_inner_n",
+      "kind": "object",
+      "x": 224,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_inner_ne",
+      "kind": "object",
+      "x": 240,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_e_1",
+      "kind": "object",
+      "x": 256,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_w_2",
+      "kind": "object",
+      "x": 192,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_inner_w",
+      "kind": "object",
+      "x": 208,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_center",
+      "kind": "object",
+      "x": 224,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_inner_e",
+      "kind": "object",
+      "x": 240,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_e_2",
+      "kind": "object",
+      "x": 256,
+      "y": 96,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_w_3",
+      "kind": "object",
+      "x": 192,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_inner_sw",
+      "kind": "object",
+      "x": 208,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_inner_s",
+      "kind": "object",
+      "x": 224,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_inner_se",
+      "kind": "object",
+      "x": 240,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_e_3",
+      "kind": "object",
+      "x": 256,
+      "y": 112,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_sw",
+      "kind": "object",
+      "x": 192,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_s_1",
+      "kind": "object",
+      "x": 208,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_s_2",
+      "kind": "object",
+      "x": 224,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_s_3",
+      "kind": "object",
+      "x": 240,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "rock_island_water_se",
+      "kind": "object",
+      "x": 256,
+      "y": 128,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "water",
+        "rock",
+        "autotile"
+      ]
+    },
+    {
+      "name": "cave_floor_rock_light_a",
       "kind": "object",
       "x": 144,
       "y": 48,
-      "w": 96,
+      "w": 24,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "ground"
+      ]
+    },
+    {
+      "name": "cave_floor_rock_light_b",
+      "kind": "object",
+      "x": 168,
+      "y": 48,
+      "w": 24,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "ground"
+      ]
+    },
+    {
+      "name": "cave_floor_rock_dark_a",
+      "kind": "object",
+      "x": 192,
+      "y": 48,
+      "w": 24,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "ground"
+      ]
+    },
+    {
+      "name": "cave_floor_rock_dark_b",
+      "kind": "object",
+      "x": 216,
+      "y": 48,
+      "w": 24,
       "h": 16,
       "tags": [
         "pixel_crawler",
@@ -315,12 +908,40 @@
       ]
     },
     {
-      "name": "pebbles_small",
+      "name": "pebble_small",
       "kind": "object",
-      "x": 1,
-      "y": 177,
-      "w": 30,
-      "h": 14,
+      "x": 16,
+      "y": 178,
+      "w": 16,
+      "h": 13,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "rock"
+      ]
+    },
+    {
+      "name": "pebble_tiny_a",
+      "kind": "object",
+      "x": 0,
+      "y": 176,
+      "w": 10,
+      "h": 8,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "rock"
+      ]
+    },
+    {
+      "name": "pebble_tiny_b",
+      "kind": "object",
+      "x": 7,
+      "y": 184,
+      "w": 9,
+      "h": 8,
       "tags": [
         "pixel_crawler",
         "anokolisa",
@@ -343,7 +964,7 @@
       ]
     },
     {
-      "name": "tree_dead_dark_tall",
+      "name": "tree_dark_brown_tall",
       "kind": "object",
       "x": 112,
       "y": 179,
@@ -357,7 +978,7 @@
       ]
     },
     {
-      "name": "dirt_mound_a",
+      "name": "bush_dark_round_a",
       "kind": "object",
       "x": 78,
       "y": 191,
@@ -371,7 +992,7 @@
       ]
     },
     {
-      "name": "dirt_mound_b",
+      "name": "bush_dark_round_b",
       "kind": "object",
       "x": 78,
       "y": 239,
@@ -413,18 +1034,259 @@
       ]
     },
     {
-      "name": "wooden_wall_mine",
+      "name": "mine_wall_top_planks_left",
       "kind": "object",
       "x": 176,
       "y": 192,
-      "w": 64,
-      "h": 64,
+      "w": 16,
+      "h": 16,
       "tags": [
         "pixel_crawler",
         "anokolisa",
         "cave",
         "wood",
-        "wall"
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "mine_wall_top_planks_middle_a",
+      "kind": "object",
+      "x": 192,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "mine_wall_top_planks_middle_b",
+      "kind": "object",
+      "x": 208,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "mine_wall_top_planks_right",
+      "kind": "object",
+      "x": 224,
+      "y": 192,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "mine_wall_post_brace_left",
+      "kind": "object",
+      "x": 176,
+      "y": 208,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "mine_wall_lintel_a",
+      "kind": "object",
+      "x": 192,
+      "y": 208,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "mine_wall_lintel_b",
+      "kind": "object",
+      "x": 208,
+      "y": 208,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "mine_wall_post_brace_right",
+      "kind": "object",
+      "x": 224,
+      "y": 208,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "mine_wall_post_left",
+      "kind": "object",
+      "x": 176,
+      "y": 224,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "mine_wall_planks_nail",
+      "kind": "object",
+      "x": 192,
+      "y": 224,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "mine_wall_planks_crack",
+      "kind": "object",
+      "x": 208,
+      "y": 224,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "mine_wall_post_right",
+      "kind": "object",
+      "x": 224,
+      "y": 224,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "mine_wall_post_base_left",
+      "kind": "object",
+      "x": 176,
+      "y": 240,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "mine_wall_base_beam_a",
+      "kind": "object",
+      "x": 192,
+      "y": 240,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "mine_wall_base_beam_b",
+      "kind": "object",
+      "x": 208,
+      "y": 240,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall",
+        "autotile"
+      ]
+    },
+    {
+      "name": "mine_wall_post_base_right",
+      "kind": "object",
+      "x": 224,
+      "y": 240,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "pixel_crawler",
+        "anokolisa",
+        "cave",
+        "wood",
+        "wall",
+        "autotile"
       ]
     },
     {

@@ -4568,12 +4568,180 @@
       ]
     },
     {
-      "name": "wardrobe_tall_brown",
+      "name": "grey_counter_top_left",
       "kind": "object",
       "x": 160,
       "y": 2688,
-      "w": 96,
-      "h": 160,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "grey_counter_top_middle",
+      "kind": "object",
+      "x": 192,
+      "y": 2688,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "grey_counter_top_right",
+      "kind": "object",
+      "x": 224,
+      "y": 2688,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "grey_cabinet_door_top_left",
+      "kind": "object",
+      "x": 160,
+      "y": 2720,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "grey_cabinet_door_top_right",
+      "kind": "object",
+      "x": 192,
+      "y": 2720,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "grey_drawer_small",
+      "kind": "object",
+      "x": 224,
+      "y": 2720,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "grey_cabinet_door_bottom_left",
+      "kind": "object",
+      "x": 160,
+      "y": 2752,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "grey_cabinet_door_bottom_right",
+      "kind": "object",
+      "x": 192,
+      "y": 2752,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "orange_tall_panel_top",
+      "kind": "object",
+      "x": 224,
+      "y": 2752,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "orange_cabinet_door_top_left",
+      "kind": "object",
+      "x": 160,
+      "y": 2784,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "orange_cabinet_door_top_right",
+      "kind": "object",
+      "x": 192,
+      "y": 2784,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "orange_tall_panel_middle",
+      "kind": "object",
+      "x": 224,
+      "y": 2784,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "orange_cabinet_door_bottom_left",
+      "kind": "object",
+      "x": 160,
+      "y": 2816,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "orange_cabinet_door_bottom_right",
+      "kind": "object",
+      "x": 192,
+      "y": 2816,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "furniture",
+        "indoor"
+      ]
+    },
+    {
+      "name": "orange_tall_panel_bottom",
+      "kind": "object",
+      "x": 224,
+      "y": 2816,
+      "w": 32,
+      "h": 32,
       "tags": [
         "furniture",
         "indoor"
@@ -5241,17 +5409,195 @@
       ]
     },
     {
-      "name": "curtain_tan_awning",
+      "name": "market_tent_striped_square_pole_canvas_top",
       "kind": "object",
       "x": 160,
-      "y": 3612,
-      "w": 66,
-      "h": 195,
+      "y": 3616,
+      "w": 32,
+      "h": 32,
       "tags": [
-        "curtain",
         "awning",
+        "curtain",
         "decoration",
-        "tan"
+        "market",
+        "tan",
+        "tent"
+      ]
+    },
+    {
+      "name": "market_tent_plain_round_pole_canvas_top",
+      "kind": "object",
+      "x": 192,
+      "y": 3616,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "awning",
+        "curtain",
+        "decoration",
+        "market",
+        "tan",
+        "tent"
+      ]
+    },
+    {
+      "name": "market_tent_striped_square_pole_canvas_middle",
+      "kind": "object",
+      "x": 160,
+      "y": 3648,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "awning",
+        "curtain",
+        "decoration",
+        "market",
+        "tan",
+        "tent"
+      ]
+    },
+    {
+      "name": "market_tent_plain_round_pole_canvas_middle",
+      "kind": "object",
+      "x": 192,
+      "y": 3648,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "awning",
+        "curtain",
+        "decoration",
+        "market",
+        "tan",
+        "tent"
+      ]
+    },
+    {
+      "name": "market_tent_striped_square_pole_canvas_valance_edge",
+      "kind": "object",
+      "x": 160,
+      "y": 3680,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "awning",
+        "curtain",
+        "decoration",
+        "market",
+        "tan",
+        "tent"
+      ]
+    },
+    {
+      "name": "market_tent_plain_round_pole_canvas_tattered_edge",
+      "kind": "object",
+      "x": 192,
+      "y": 3680,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "awning",
+        "curtain",
+        "decoration",
+        "market",
+        "tan",
+        "tent"
+      ]
+    },
+    {
+      "name": "market_tent_striped_square_pole_canvas_valance_pole_top",
+      "kind": "object",
+      "x": 160,
+      "y": 3712,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "awning",
+        "curtain",
+        "decoration",
+        "market",
+        "tan",
+        "tent"
+      ]
+    },
+    {
+      "name": "market_tent_plain_round_pole_canvas_tattered_pole_top",
+      "kind": "object",
+      "x": 192,
+      "y": 3712,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "awning",
+        "curtain",
+        "decoration",
+        "market",
+        "tan",
+        "tent"
+      ]
+    },
+    {
+      "name": "market_tent_striped_square_pole_middle",
+      "kind": "object",
+      "x": 160,
+      "y": 3744,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "awning",
+        "curtain",
+        "decoration",
+        "market",
+        "tan",
+        "tent"
+      ]
+    },
+    {
+      "name": "market_tent_plain_round_pole_middle",
+      "kind": "object",
+      "x": 192,
+      "y": 3744,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "awning",
+        "curtain",
+        "decoration",
+        "market",
+        "tan",
+        "tent"
+      ]
+    },
+    {
+      "name": "market_tent_striped_square_pole_base",
+      "kind": "object",
+      "x": 160,
+      "y": 3776,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "awning",
+        "curtain",
+        "decoration",
+        "market",
+        "tan",
+        "tent"
+      ]
+    },
+    {
+      "name": "market_tent_plain_round_pole_base",
+      "kind": "object",
+      "x": 192,
+      "y": 3776,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "awning",
+        "curtain",
+        "decoration",
+        "market",
+        "tan",
+        "tent"
       ]
     },
     {

@@ -4,7 +4,7 @@
   "sheetHeight": 304,
   "entries": [
     {
-      "name": "bush_leafy_green",
+      "name": "tree_canopy_green",
       "kind": "object",
       "x": 18,
       "y": 3,
@@ -18,7 +18,7 @@
       ]
     },
     {
-      "name": "bush_leafy_olive",
+      "name": "tree_canopy_olive",
       "kind": "object",
       "x": 66,
       "y": 3,

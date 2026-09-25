@@ -485,32 +485,6 @@
       "needsNaming": true
     },
     {
-      "name": "effects_037",
-      "kind": "object",
-      "x": 452,
-      "y": 67,
-      "w": 23,
-      "h": 26,
-      "tags": [
-        "lpc",
-        "effects"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "effects_038",
-      "kind": "object",
-      "x": 512,
-      "y": 67,
-      "w": 33,
-      "h": 28,
-      "tags": [
-        "lpc",
-        "effects"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "effects_039",
       "kind": "object",
       "x": 513,
@@ -556,19 +530,6 @@
       "y": 85,
       "w": 30,
       "h": 37,
-      "tags": [
-        "lpc",
-        "effects"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "effects_046",
-      "kind": "object",
-      "x": 482,
-      "y": 69,
-      "w": 27,
-      "h": 24,
       "tags": [
         "lpc",
         "effects"
@@ -864,19 +825,6 @@
       "needsNaming": true
     },
     {
-      "name": "effects_072",
-      "kind": "object",
-      "x": 577,
-      "y": 162,
-      "w": 28,
-      "h": 23,
-      "tags": [
-        "lpc",
-        "effects"
-      ],
-      "needsNaming": true
-    },
-    {
       "name": "effects_073",
       "kind": "object",
       "x": 609,
@@ -955,48 +903,9 @@
       "needsNaming": true
     },
     {
-      "name": "effects_080",
-      "kind": "object",
-      "x": 449,
-      "y": 194,
-      "w": 28,
-      "h": 23,
-      "tags": [
-        "lpc",
-        "effects"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "effects_081",
-      "kind": "object",
-      "x": 481,
-      "y": 194,
-      "w": 28,
-      "h": 23,
-      "tags": [
-        "lpc",
-        "effects"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "effects_082",
+      "name": "bubble_item_coin",
       "kind": "object",
       "x": 513,
-      "y": 194,
-      "w": 28,
-      "h": 23,
-      "tags": [
-        "lpc",
-        "effects"
-      ],
-      "needsNaming": true
-    },
-    {
-      "name": "effects_083",
-      "kind": "object",
-      "x": 545,
       "y": 194,
       "w": 28,
       "h": 23,
@@ -1254,372 +1163,12 @@
       "needsNaming": true
     },
     {
-      "name": "steam_puff_1",
-      "kind": "object",
-      "x": 259,
-      "y": 77,
-      "w": 27,
-      "h": 19,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "steam_puff_2",
-      "kind": "object",
-      "x": 291,
-      "y": 65,
-      "w": 27,
-      "h": 31,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "steam_puff_3",
-      "kind": "object",
-      "x": 323,
-      "y": 65,
-      "w": 27,
-      "h": 31,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "steam_puff_4",
-      "kind": "object",
-      "x": 355,
-      "y": 64,
-      "w": 26,
-      "h": 32,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "steam_puff_5",
-      "kind": "object",
-      "x": 391,
-      "y": 64,
-      "w": 21,
-      "h": 32,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "water_drop_small",
-      "kind": "object",
-      "x": 426,
-      "y": 64,
-      "w": 22,
-      "h": 20,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "flame_cyan_1",
-      "kind": "object",
-      "x": 257,
-      "y": 96,
-      "w": 27,
-      "h": 29,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "flame_cyan_2",
-      "kind": "object",
-      "x": 289,
-      "y": 96,
-      "w": 27,
-      "h": 32,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "flame_cyan_3",
-      "kind": "object",
-      "x": 327,
-      "y": 101,
-      "w": 17,
-      "h": 27,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "water_fill_1",
-      "kind": "object",
-      "x": 352,
-      "y": 116,
-      "w": 32,
-      "h": 12,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "water_fill_2",
-      "kind": "object",
-      "x": 384,
-      "y": 109,
-      "w": 32,
-      "h": 19,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
       "name": "water_splash_start",
       "kind": "object",
       "x": 416,
       "y": 99,
       "w": 30,
       "h": 29,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "light_rays_1",
-      "kind": "object",
-      "x": 258,
-      "y": 128,
-      "w": 29,
-      "h": 31,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "light_rays_2",
-      "kind": "object",
-      "x": 290,
-      "y": 128,
-      "w": 29,
-      "h": 31,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "light_rays_3",
-      "kind": "object",
-      "x": 323,
-      "y": 128,
-      "w": 28,
-      "h": 32,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "water_fill_3",
-      "kind": "object",
-      "x": 352,
-      "y": 135,
-      "w": 32,
-      "h": 25,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "water_fill_4",
-      "kind": "object",
-      "x": 384,
-      "y": 128,
-      "w": 32,
-      "h": 32,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "water_splash_settle_1",
-      "kind": "object",
-      "x": 416,
-      "y": 137,
-      "w": 30,
-      "h": 23,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "water_splash_settle_2",
-      "kind": "object",
-      "x": 448,
-      "y": 140,
-      "w": 32,
-      "h": 20,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "water_splash_settle_3",
-      "kind": "object",
-      "x": 480,
-      "y": 146,
-      "w": 31,
-      "h": 14,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "water_splash_settle_4",
-      "kind": "object",
-      "x": 512,
-      "y": 144,
-      "w": 32,
-      "h": 16,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "water_splash_settle_5",
-      "kind": "object",
-      "x": 544,
-      "y": 144,
-      "w": 32,
-      "h": 16,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "dark_star_1",
-      "kind": "object",
-      "x": 257,
-      "y": 162,
-      "w": 31,
-      "h": 29,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "dark_star_2",
-      "kind": "object",
-      "x": 289,
-      "y": 160,
-      "w": 31,
-      "h": 32,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "water_droplet_1",
-      "kind": "object",
-      "x": 340,
-      "y": 160,
-      "w": 5,
-      "h": 10,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "water_droplet_2",
-      "kind": "object",
-      "x": 372,
-      "y": 161,
-      "w": 5,
-      "h": 10,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "water_droplet_3",
-      "kind": "object",
-      "x": 404,
-      "y": 162,
-      "w": 5,
-      "h": 10,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "bubble_sleep_1",
-      "kind": "object",
-      "x": 417,
-      "y": 162,
-      "w": 28,
-      "h": 23,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "bubble_sleep_2",
-      "kind": "object",
-      "x": 449,
-      "y": 162,
-      "w": 28,
-      "h": 23,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "bubble_sleep_3",
-      "kind": "object",
-      "x": 481,
-      "y": 162,
-      "w": 28,
-      "h": 23,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "bubble_alert",
-      "kind": "object",
-      "x": 513,
-      "y": 162,
-      "w": 28,
-      "h": 23,
       "tags": [
         "lpc",
         "effects"
@@ -1638,76 +1187,438 @@
       ]
     },
     {
-      "name": "skull_curse_1",
+      "name": "steam_puff",
       "kind": "object",
-      "x": 260,
-      "y": 197,
-      "w": 21,
-      "h": 21,
+      "x": 259,
+      "y": 64,
+      "w": 155,
+      "h": 32,
       "tags": [
-        "lpc",
-        "effects"
-      ]
+        "animation",
+        "effects",
+        "lpc"
+      ],
+      "frames": [
+        {
+          "x": 259,
+          "y": 64,
+          "w": 27,
+          "h": 32
+        },
+        {
+          "x": 291,
+          "y": 64,
+          "w": 27,
+          "h": 32
+        },
+        {
+          "x": 323,
+          "y": 64,
+          "w": 27,
+          "h": 32
+        },
+        {
+          "x": 355,
+          "y": 64,
+          "w": 27,
+          "h": 32
+        },
+        {
+          "x": 387,
+          "y": 64,
+          "w": 27,
+          "h": 32
+        }
+      ],
+      "frameDurationMs": 120
     },
     {
-      "name": "skull_curse_2",
+      "name": "water_drop_ripple",
       "kind": "object",
-      "x": 289,
-      "y": 193,
-      "w": 31,
+      "x": 416,
+      "y": 64,
+      "w": 128,
       "h": 31,
       "tags": [
-        "lpc",
-        "effects"
-      ]
+        "animation",
+        "effects",
+        "lpc"
+      ],
+      "frames": [
+        {
+          "x": 416,
+          "y": 64,
+          "w": 32,
+          "h": 31
+        },
+        {
+          "x": 448,
+          "y": 64,
+          "w": 32,
+          "h": 31
+        },
+        {
+          "x": 480,
+          "y": 64,
+          "w": 32,
+          "h": 31
+        },
+        {
+          "x": 512,
+          "y": 64,
+          "w": 32,
+          "h": 31
+        }
+      ],
+      "frameDurationMs": 120
     },
     {
-      "name": "skull_curse_3",
+      "name": "flame_cyan",
       "kind": "object",
-      "x": 321,
-      "y": 194,
-      "w": 31,
-      "h": 29,
-      "tags": [
-        "lpc",
-        "effects"
-      ]
-    },
-    {
-      "name": "skull_curse_4",
-      "kind": "object",
-      "x": 353,
-      "y": 192,
-      "w": 31,
+      "x": 257,
+      "y": 96,
+      "w": 91,
       "h": 32,
       "tags": [
-        "lpc",
-        "effects"
-      ]
+        "animation",
+        "effects",
+        "lpc"
+      ],
+      "frames": [
+        {
+          "x": 257,
+          "y": 96,
+          "w": 27,
+          "h": 32
+        },
+        {
+          "x": 289,
+          "y": 96,
+          "w": 27,
+          "h": 32
+        },
+        {
+          "x": 321,
+          "y": 96,
+          "w": 27,
+          "h": 32
+        }
+      ],
+      "frameDurationMs": 120
     },
     {
-      "name": "skull_curse_5",
+      "name": "light_rays",
       "kind": "object",
-      "x": 385,
-      "y": 192,
-      "w": 31,
+      "x": 258,
+      "y": 128,
+      "w": 93,
       "h": 32,
       "tags": [
-        "lpc",
-        "effects"
-      ]
+        "animation",
+        "effects",
+        "lpc"
+      ],
+      "frames": [
+        {
+          "x": 258,
+          "y": 128,
+          "w": 29,
+          "h": 32
+        },
+        {
+          "x": 290,
+          "y": 128,
+          "w": 29,
+          "h": 32
+        },
+        {
+          "x": 322,
+          "y": 128,
+          "w": 29,
+          "h": 32
+        }
+      ],
+      "frameDurationMs": 120
     },
     {
-      "name": "bubble_sleep_4",
+      "name": "water_fill",
       "kind": "object",
-      "x": 417,
-      "y": 194,
-      "w": 28,
+      "x": 352,
+      "y": 96,
+      "w": 64,
+      "h": 64,
+      "tags": [
+        "animation",
+        "effects",
+        "lpc"
+      ],
+      "frames": [
+        {
+          "x": 352,
+          "y": 96,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 384,
+          "y": 96,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 352,
+          "y": 128,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 384,
+          "y": 128,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "frameDurationMs": 150
+    },
+    {
+      "name": "water_splash_settle",
+      "kind": "object",
+      "x": 416,
+      "y": 137,
+      "w": 160,
       "h": 23,
       "tags": [
-        "lpc",
-        "effects"
-      ]
+        "animation",
+        "effects",
+        "lpc"
+      ],
+      "frames": [
+        {
+          "x": 416,
+          "y": 137,
+          "w": 32,
+          "h": 23
+        },
+        {
+          "x": 448,
+          "y": 137,
+          "w": 32,
+          "h": 23
+        },
+        {
+          "x": 480,
+          "y": 137,
+          "w": 32,
+          "h": 23
+        },
+        {
+          "x": 512,
+          "y": 137,
+          "w": 32,
+          "h": 23
+        },
+        {
+          "x": 544,
+          "y": 137,
+          "w": 32,
+          "h": 23
+        }
+      ],
+      "frameDurationMs": 120
+    },
+    {
+      "name": "water_droplet",
+      "kind": "object",
+      "x": 340,
+      "y": 160,
+      "w": 69,
+      "h": 12,
+      "tags": [
+        "animation",
+        "effects",
+        "lpc"
+      ],
+      "frames": [
+        {
+          "x": 340,
+          "y": 160,
+          "w": 5,
+          "h": 12
+        },
+        {
+          "x": 372,
+          "y": 160,
+          "w": 5,
+          "h": 12
+        },
+        {
+          "x": 404,
+          "y": 160,
+          "w": 5,
+          "h": 12
+        }
+      ],
+      "frameDurationMs": 120
+    },
+    {
+      "name": "dark_star",
+      "kind": "object",
+      "x": 257,
+      "y": 160,
+      "w": 63,
+      "h": 32,
+      "tags": [
+        "animation",
+        "effects",
+        "lpc"
+      ],
+      "frames": [
+        {
+          "x": 257,
+          "y": 160,
+          "w": 31,
+          "h": 32
+        },
+        {
+          "x": 289,
+          "y": 160,
+          "w": 31,
+          "h": 32
+        }
+      ],
+      "frameDurationMs": 150
+    },
+    {
+      "name": "skull_curse",
+      "kind": "object",
+      "x": 257,
+      "y": 192,
+      "w": 159,
+      "h": 32,
+      "tags": [
+        "animation",
+        "effects",
+        "lpc"
+      ],
+      "frames": [
+        {
+          "x": 257,
+          "y": 192,
+          "w": 31,
+          "h": 32
+        },
+        {
+          "x": 289,
+          "y": 192,
+          "w": 31,
+          "h": 32
+        },
+        {
+          "x": 321,
+          "y": 192,
+          "w": 31,
+          "h": 32
+        },
+        {
+          "x": 353,
+          "y": 192,
+          "w": 31,
+          "h": 32
+        },
+        {
+          "x": 385,
+          "y": 192,
+          "w": 31,
+          "h": 32
+        }
+      ],
+      "frameDurationMs": 120
+    },
+    {
+      "name": "bubble_sleep",
+      "kind": "object",
+      "x": 417,
+      "y": 162,
+      "w": 92,
+      "h": 55,
+      "tags": [
+        "animation",
+        "effects",
+        "lpc"
+      ],
+      "frames": [
+        {
+          "x": 417,
+          "y": 162,
+          "w": 28,
+          "h": 23
+        },
+        {
+          "x": 449,
+          "y": 162,
+          "w": 28,
+          "h": 23
+        },
+        {
+          "x": 481,
+          "y": 162,
+          "w": 28,
+          "h": 23
+        },
+        {
+          "x": 417,
+          "y": 194,
+          "w": 28,
+          "h": 23
+        },
+        {
+          "x": 449,
+          "y": 194,
+          "w": 28,
+          "h": 23
+        },
+        {
+          "x": 481,
+          "y": 194,
+          "w": 28,
+          "h": 23
+        }
+      ],
+      "frameDurationMs": 250
+    },
+    {
+      "name": "bubble_alert",
+      "kind": "object",
+      "x": 513,
+      "y": 162,
+      "w": 92,
+      "h": 55,
+      "tags": [
+        "animation",
+        "effects",
+        "lpc"
+      ],
+      "frames": [
+        {
+          "x": 513,
+          "y": 162,
+          "w": 28,
+          "h": 23
+        },
+        {
+          "x": 577,
+          "y": 162,
+          "w": 28,
+          "h": 23
+        },
+        {
+          "x": 545,
+          "y": 194,
+          "w": 28,
+          "h": 23
+        }
+      ],
+      "frameDurationMs": 200
     }
   ]
 }

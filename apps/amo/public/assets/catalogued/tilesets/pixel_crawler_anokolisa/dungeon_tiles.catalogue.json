@@ -89,17 +89,31 @@
       ]
     },
     {
-      "name": "hatch_door_small",
+      "name": "hatch_door_small_closed",
       "kind": "object",
       "x": 128,
       "y": 64,
       "w": 16,
-      "h": 32,
+      "h": 16,
       "tags": [
-        "pixel_crawler",
         "anokolisa",
+        "door",
         "dungeon",
-        "door"
+        "pixel_crawler"
+      ]
+    },
+    {
+      "name": "hatch_door_small_open",
+      "kind": "object",
+      "x": 128,
+      "y": 80,
+      "w": 16,
+      "h": 16,
+      "tags": [
+        "anokolisa",
+        "door",
+        "dungeon",
+        "pixel_crawler"
       ]
     },
     {
@@ -145,18 +159,33 @@
       ]
     },
     {
-      "name": "ivy_overlay",
+      "name": "ivy_overlay_hanging_top",
       "kind": "object",
-      "x": 160,
+      "x": 162,
       "y": 1,
-      "w": 64,
-      "h": 111,
+      "w": 60,
+      "h": 62,
       "tags": [
-        "pixel_crawler",
         "anokolisa",
         "dungeon",
-        "plant",
-        "overlay"
+        "overlay",
+        "pixel_crawler",
+        "plant"
+      ]
+    },
+    {
+      "name": "ivy_overlay_ring_bottom",
+      "kind": "object",
+      "x": 160,
+      "y": 64,
+      "w": 64,
+      "h": 48,
+      "tags": [
+        "anokolisa",
+        "dungeon",
+        "overlay",
+        "pixel_crawler",
+        "plant"
       ]
     },
     {
@@ -275,7 +304,7 @@
       ]
     },
     {
-      "name": "stone_wall_cap_trim_left",
+      "name": "dungeon_wall_top_blue_stone_trim_left",
       "kind": "object",
       "x": 0,
       "y": 0,
@@ -289,7 +318,7 @@
       ]
     },
     {
-      "name": "stone_wall_cap_trim_middle",
+      "name": "dungeon_wall_top_blue_stone_trim_middle",
       "kind": "object",
       "x": 16,
       "y": 0,
@@ -303,7 +332,7 @@
       ]
     },
     {
-      "name": "stone_wall_cap_trim_right",
+      "name": "dungeon_wall_top_blue_stone_trim_right",
       "kind": "object",
       "x": 32,
       "y": 0,
@@ -317,7 +346,7 @@
       ]
     },
     {
-      "name": "stone_wall_cap_trim_corner_top_right",
+      "name": "dungeon_wall_top_blue_stone_trim_corner_turning_down",
       "kind": "object",
       "x": 48,
       "y": 0,
@@ -331,7 +360,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_01",
+      "name": "teal_flagstone_floor_wall_shadow_top_a",
       "kind": "object",
       "x": 64,
       "y": 0,
@@ -345,7 +374,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_02",
+      "name": "teal_flagstone_floor_wall_shadow_top_b",
       "kind": "object",
       "x": 80,
       "y": 0,
@@ -359,7 +388,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_03",
+      "name": "teal_flagstone_floor_wall_shadow_top_c",
       "kind": "object",
       "x": 96,
       "y": 0,
@@ -373,7 +402,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_04",
+      "name": "teal_flagstone_floor_wall_shadow_top_d",
       "kind": "object",
       "x": 112,
       "y": 0,
@@ -387,7 +416,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_05",
+      "name": "teal_flagstone_floor_wall_shadow_top_e",
       "kind": "object",
       "x": 128,
       "y": 0,
@@ -401,7 +430,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_06",
+      "name": "teal_flagstone_floor_wall_shadow_top_f",
       "kind": "object",
       "x": 144,
       "y": 0,
@@ -415,7 +444,7 @@
       ]
     },
     {
-      "name": "wood_plank_floor_corner_top_left",
+      "name": "wooden_floorboards_bordered_corner_top_left",
       "kind": "object",
       "x": 224,
       "y": 0,
@@ -429,7 +458,7 @@
       ]
     },
     {
-      "name": "wood_plank_floor_edge_top",
+      "name": "wooden_floorboards_bordered_edge_top",
       "kind": "object",
       "x": 240,
       "y": 0,
@@ -443,7 +472,7 @@
       ]
     },
     {
-      "name": "wood_plank_floor_corner_top_right",
+      "name": "wooden_floorboards_bordered_corner_top_right",
       "kind": "object",
       "x": 256,
       "y": 0,
@@ -457,7 +486,7 @@
       ]
     },
     {
-      "name": "wood_trapdoor_frame_corner_top_left",
+      "name": "wooden_trapdoor_large_corner_top_left",
       "kind": "object",
       "x": 272,
       "y": 0,
@@ -471,7 +500,7 @@
       ]
     },
     {
-      "name": "wood_trapdoor_frame_edge_top",
+      "name": "wooden_trapdoor_large_edge_top",
       "kind": "object",
       "x": 288,
       "y": 0,
@@ -485,7 +514,7 @@
       ]
     },
     {
-      "name": "wood_trapdoor_frame_corner_top_right",
+      "name": "wooden_trapdoor_large_corner_top_right",
       "kind": "object",
       "x": 304,
       "y": 0,
@@ -499,7 +528,7 @@
       ]
     },
     {
-      "name": "wood_frame_open_corner_top_left",
+      "name": "wooden_floor_square_opening_corner_top_left",
       "kind": "object",
       "x": 320,
       "y": 0,
@@ -513,7 +542,7 @@
       ]
     },
     {
-      "name": "wood_frame_open_edge_top",
+      "name": "wooden_floor_square_opening_edge_top",
       "kind": "object",
       "x": 336,
       "y": 0,
@@ -527,7 +556,7 @@
       ]
     },
     {
-      "name": "wood_frame_open_corner_top_right",
+      "name": "wooden_floor_square_opening_corner_top_right",
       "kind": "object",
       "x": 352,
       "y": 0,
@@ -541,7 +570,7 @@
       ]
     },
     {
-      "name": "stone_brick_wall_upper_left",
+      "name": "dungeon_brick_wall_face_upper_left",
       "kind": "object",
       "x": 0,
       "y": 16,
@@ -555,7 +584,7 @@
       ]
     },
     {
-      "name": "stone_brick_wall_upper_middle",
+      "name": "dungeon_brick_wall_face_upper_middle",
       "kind": "object",
       "x": 16,
       "y": 16,
@@ -569,7 +598,7 @@
       ]
     },
     {
-      "name": "stone_brick_wall_upper_right",
+      "name": "dungeon_brick_wall_face_upper_right",
       "kind": "object",
       "x": 32,
       "y": 16,
@@ -583,7 +612,7 @@
       ]
     },
     {
-      "name": "stone_pillar_top",
+      "name": "dungeon_wall_end_column_top",
       "kind": "object",
       "x": 48,
       "y": 16,
@@ -597,7 +626,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_07",
+      "name": "teal_flagstone_floor_plain_a",
       "kind": "object",
       "x": 64,
       "y": 16,
@@ -611,7 +640,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_08",
+      "name": "teal_flagstone_floor_plain_b",
       "kind": "object",
       "x": 80,
       "y": 16,
@@ -625,7 +654,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_09",
+      "name": "teal_flagstone_floor_plain_c",
       "kind": "object",
       "x": 96,
       "y": 16,
@@ -639,7 +668,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_10",
+      "name": "teal_flagstone_floor_plain_d",
       "kind": "object",
       "x": 112,
       "y": 16,
@@ -653,7 +682,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_dark_slab",
+      "name": "teal_flagstone_floor_missing_slab_dark",
       "kind": "object",
       "x": 128,
       "y": 16,
@@ -667,7 +696,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_11",
+      "name": "teal_flagstone_floor_cracked",
       "kind": "object",
       "x": 144,
       "y": 16,
@@ -681,7 +710,7 @@
       ]
     },
     {
-      "name": "wood_plank_floor_edge_left",
+      "name": "wooden_floorboards_bordered_edge_left",
       "kind": "object",
       "x": 224,
       "y": 16,
@@ -695,7 +724,7 @@
       ]
     },
     {
-      "name": "wood_plank_floor_center",
+      "name": "wooden_floorboards_bordered_center",
       "kind": "object",
       "x": 240,
       "y": 16,
@@ -709,7 +738,7 @@
       ]
     },
     {
-      "name": "wood_plank_floor_edge_right",
+      "name": "wooden_floorboards_bordered_edge_right",
       "kind": "object",
       "x": 256,
       "y": 16,
@@ -723,7 +752,7 @@
       ]
     },
     {
-      "name": "wood_trapdoor_frame_edge_left",
+      "name": "wooden_trapdoor_large_edge_left",
       "kind": "object",
       "x": 272,
       "y": 16,
@@ -737,7 +766,7 @@
       ]
     },
     {
-      "name": "wood_trapdoor_frame_center_latch",
+      "name": "wooden_trapdoor_large_center_handle",
       "kind": "object",
       "x": 288,
       "y": 16,
@@ -751,7 +780,7 @@
       ]
     },
     {
-      "name": "wood_trapdoor_frame_edge_right",
+      "name": "wooden_trapdoor_large_edge_right",
       "kind": "object",
       "x": 304,
       "y": 16,
@@ -765,7 +794,7 @@
       ]
     },
     {
-      "name": "wood_frame_open_edge_left",
+      "name": "wooden_floor_square_opening_edge_left",
       "kind": "object",
       "x": 320,
       "y": 16,
@@ -779,7 +808,7 @@
       ]
     },
     {
-      "name": "wood_frame_open_edge_right",
+      "name": "wooden_floor_square_opening_edge_right",
       "kind": "object",
       "x": 352,
       "y": 16,
@@ -793,7 +822,7 @@
       ]
     },
     {
-      "name": "stone_brick_wall_lower_left",
+      "name": "dungeon_brick_wall_face_lower_left",
       "kind": "object",
       "x": 0,
       "y": 32,
@@ -807,7 +836,7 @@
       ]
     },
     {
-      "name": "stone_brick_wall_lower_middle",
+      "name": "dungeon_brick_wall_face_lower_middle",
       "kind": "object",
       "x": 16,
       "y": 32,
@@ -821,7 +850,7 @@
       ]
     },
     {
-      "name": "stone_brick_wall_lower_right",
+      "name": "dungeon_brick_wall_face_lower_right",
       "kind": "object",
       "x": 32,
       "y": 32,
@@ -835,7 +864,7 @@
       ]
     },
     {
-      "name": "stone_pillar_middle",
+      "name": "dungeon_wall_end_column_middle",
       "kind": "object",
       "x": 48,
       "y": 32,
@@ -849,7 +878,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_12",
+      "name": "teal_flagstone_floor_plain_e",
       "kind": "object",
       "x": 64,
       "y": 32,
@@ -863,7 +892,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_13",
+      "name": "teal_flagstone_floor_plain_f",
       "kind": "object",
       "x": 80,
       "y": 32,
@@ -877,7 +906,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_14",
+      "name": "teal_flagstone_floor_plain_g",
       "kind": "object",
       "x": 96,
       "y": 32,
@@ -891,7 +920,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_15",
+      "name": "teal_flagstone_floor_plain_h",
       "kind": "object",
       "x": 112,
       "y": 32,
@@ -905,7 +934,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_16",
+      "name": "teal_flagstone_floor_plain_i",
       "kind": "object",
       "x": 128,
       "y": 32,
@@ -919,7 +948,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_17",
+      "name": "teal_flagstone_floor_plain_j",
       "kind": "object",
       "x": 144,
       "y": 32,
@@ -933,7 +962,7 @@
       ]
     },
     {
-      "name": "wood_plank_floor_corner_bottom_left",
+      "name": "wooden_floorboards_bordered_corner_bottom_left",
       "kind": "object",
       "x": 224,
       "y": 32,
@@ -947,7 +976,7 @@
       ]
     },
     {
-      "name": "wood_plank_floor_edge_bottom",
+      "name": "wooden_floorboards_bordered_edge_bottom",
       "kind": "object",
       "x": 240,
       "y": 32,
@@ -961,7 +990,7 @@
       ]
     },
     {
-      "name": "wood_plank_floor_corner_bottom_right",
+      "name": "wooden_floorboards_bordered_corner_bottom_right",
       "kind": "object",
       "x": 256,
       "y": 32,
@@ -975,7 +1004,7 @@
       ]
     },
     {
-      "name": "wood_trapdoor_frame_corner_bottom_left",
+      "name": "wooden_trapdoor_large_corner_bottom_left",
       "kind": "object",
       "x": 272,
       "y": 32,
@@ -989,7 +1018,7 @@
       ]
     },
     {
-      "name": "wood_trapdoor_frame_edge_bottom",
+      "name": "wooden_trapdoor_large_edge_bottom",
       "kind": "object",
       "x": 288,
       "y": 32,
@@ -1003,7 +1032,7 @@
       ]
     },
     {
-      "name": "wood_trapdoor_frame_corner_bottom_right",
+      "name": "wooden_trapdoor_large_corner_bottom_right",
       "kind": "object",
       "x": 304,
       "y": 32,
@@ -1017,7 +1046,7 @@
       ]
     },
     {
-      "name": "wood_frame_open_corner_bottom_left",
+      "name": "wooden_floor_square_opening_corner_bottom_left",
       "kind": "object",
       "x": 320,
       "y": 32,
@@ -1031,7 +1060,7 @@
       ]
     },
     {
-      "name": "wood_frame_open_edge_bottom",
+      "name": "wooden_floor_square_opening_edge_bottom",
       "kind": "object",
       "x": 336,
       "y": 32,
@@ -1045,7 +1074,7 @@
       ]
     },
     {
-      "name": "wood_frame_open_corner_bottom_right",
+      "name": "wooden_floor_square_opening_corner_bottom_right",
       "kind": "object",
       "x": 352,
       "y": 32,
@@ -1059,7 +1088,7 @@
       ]
     },
     {
-      "name": "wall_window_frame_top_left",
+      "name": "dungeon_wall_window_opening_top_left",
       "kind": "object",
       "x": 0,
       "y": 48,
@@ -1073,7 +1102,7 @@
       ]
     },
     {
-      "name": "wall_window_frame_top_middle",
+      "name": "dungeon_wall_window_opening_top_middle",
       "kind": "object",
       "x": 16,
       "y": 48,
@@ -1087,7 +1116,7 @@
       ]
     },
     {
-      "name": "wall_window_frame_top_right",
+      "name": "dungeon_wall_window_opening_top_right",
       "kind": "object",
       "x": 32,
       "y": 48,
@@ -1101,7 +1130,7 @@
       ]
     },
     {
-      "name": "stone_pillar_base",
+      "name": "dungeon_wall_end_column_base",
       "kind": "object",
       "x": 48,
       "y": 48,
@@ -1115,7 +1144,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_18",
+      "name": "teal_flagstone_floor_worn_top_edge",
       "kind": "object",
       "x": 64,
       "y": 48,
@@ -1129,7 +1158,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_19",
+      "name": "teal_flagstone_floor_plain_k",
       "kind": "object",
       "x": 80,
       "y": 48,
@@ -1143,7 +1172,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_20",
+      "name": "teal_flagstone_floor_lighter",
       "kind": "object",
       "x": 96,
       "y": 48,
@@ -1157,7 +1186,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_21",
+      "name": "teal_flagstone_floor_darker",
       "kind": "object",
       "x": 112,
       "y": 48,
@@ -1171,7 +1200,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_spike_holes_a",
+      "name": "teal_flagstone_floor_spike_holes_a",
       "kind": "object",
       "x": 128,
       "y": 48,
@@ -1199,7 +1228,7 @@
       ]
     },
     {
-      "name": "wood_floor_square_hole_corner_top_left",
+      "name": "wooden_floor_dark_recess_corner_top_left",
       "kind": "object",
       "x": 224,
       "y": 48,
@@ -1213,7 +1242,7 @@
       ]
     },
     {
-      "name": "wood_floor_square_hole_edge_top",
+      "name": "wooden_floor_dark_recess_edge_top",
       "kind": "object",
       "x": 240,
       "y": 48,
@@ -1227,7 +1256,7 @@
       ]
     },
     {
-      "name": "wood_floor_square_hole_corner_top_right",
+      "name": "wooden_floor_dark_recess_corner_top_right",
       "kind": "object",
       "x": 256,
       "y": 48,
@@ -1241,7 +1270,7 @@
       ]
     },
     {
-      "name": "wood_beam_riveted_upper_left",
+      "name": "wooden_railing_iron_studs_upper_left",
       "kind": "object",
       "x": 272,
       "y": 48,
@@ -1255,7 +1284,7 @@
       ]
     },
     {
-      "name": "wood_beam_riveted_upper_middle",
+      "name": "wooden_railing_iron_studs_upper_middle",
       "kind": "object",
       "x": 288,
       "y": 48,
@@ -1269,7 +1298,7 @@
       ]
     },
     {
-      "name": "wood_beam_riveted_upper_right",
+      "name": "wooden_railing_iron_studs_upper_right",
       "kind": "object",
       "x": 304,
       "y": 48,
@@ -1283,7 +1312,7 @@
       ]
     },
     {
-      "name": "wood_crate_top_left",
+      "name": "wooden_cabinet_small_top_left",
       "kind": "object",
       "x": 320,
       "y": 48,
@@ -1297,7 +1326,7 @@
       ]
     },
     {
-      "name": "wood_crate_top_right",
+      "name": "wooden_cabinet_small_top_right",
       "kind": "object",
       "x": 336,
       "y": 48,
@@ -1311,7 +1340,7 @@
       ]
     },
     {
-      "name": "wall_window_frame_bottom_left",
+      "name": "dungeon_wall_window_opening_bottom_left",
       "kind": "object",
       "x": 0,
       "y": 64,
@@ -1325,7 +1354,7 @@
       ]
     },
     {
-      "name": "wall_window_frame_bottom_middle",
+      "name": "dungeon_wall_window_opening_bottom_middle",
       "kind": "object",
       "x": 16,
       "y": 64,
@@ -1339,7 +1368,7 @@
       ]
     },
     {
-      "name": "wall_window_frame_bottom_right",
+      "name": "dungeon_wall_window_opening_bottom_right",
       "kind": "object",
       "x": 32,
       "y": 64,
@@ -1409,7 +1438,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_shadow_top",
+      "name": "teal_flagstone_floor_shadowed_a",
       "kind": "object",
       "x": 112,
       "y": 64,
@@ -1423,7 +1452,7 @@
       ]
     },
     {
-      "name": "wood_floor_square_hole_edge_left",
+      "name": "wooden_floor_dark_recess_edge_left",
       "kind": "object",
       "x": 224,
       "y": 64,
@@ -1437,7 +1466,7 @@
       ]
     },
     {
-      "name": "wood_floor_square_hole_opening",
+      "name": "wooden_floor_dark_recess_center",
       "kind": "object",
       "x": 240,
       "y": 64,
@@ -1451,7 +1480,7 @@
       ]
     },
     {
-      "name": "wood_floor_square_hole_edge_right",
+      "name": "wooden_floor_dark_recess_edge_right",
       "kind": "object",
       "x": 256,
       "y": 64,
@@ -1465,7 +1494,7 @@
       ]
     },
     {
-      "name": "wood_floor_light_edge_bottom_left",
+      "name": "wooden_floorboards_lit_edge_bottom_left",
       "kind": "object",
       "x": 272,
       "y": 64,
@@ -1479,7 +1508,7 @@
       ]
     },
     {
-      "name": "wood_floor_light_edge_bottom_middle",
+      "name": "wooden_floorboards_lit_edge_bottom_middle",
       "kind": "object",
       "x": 288,
       "y": 64,
@@ -1493,7 +1522,7 @@
       ]
     },
     {
-      "name": "wood_floor_light_edge_bottom_right",
+      "name": "wooden_floorboards_lit_edge_bottom_right",
       "kind": "object",
       "x": 304,
       "y": 64,
@@ -1507,7 +1536,7 @@
       ]
     },
     {
-      "name": "wood_crate_bottom_left",
+      "name": "wooden_cabinet_small_bottom_left",
       "kind": "object",
       "x": 320,
       "y": 64,
@@ -1521,7 +1550,7 @@
       ]
     },
     {
-      "name": "wood_crate_bottom_right",
+      "name": "wooden_cabinet_small_bottom_right",
       "kind": "object",
       "x": 336,
       "y": 64,
@@ -1535,7 +1564,7 @@
       ]
     },
     {
-      "name": "stone_brick_wall_b_upper_left",
+      "name": "dungeon_brick_wall_face_b_upper_left",
       "kind": "object",
       "x": 0,
       "y": 80,
@@ -1549,7 +1578,7 @@
       ]
     },
     {
-      "name": "stone_brick_wall_b_upper_middle",
+      "name": "dungeon_brick_wall_face_b_upper_middle",
       "kind": "object",
       "x": 16,
       "y": 80,
@@ -1563,7 +1592,7 @@
       ]
     },
     {
-      "name": "stone_brick_wall_b_upper_right",
+      "name": "dungeon_brick_wall_face_b_upper_right",
       "kind": "object",
       "x": 32,
       "y": 80,
@@ -1633,7 +1662,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_shadow_bottom",
+      "name": "teal_flagstone_floor_shadowed_b",
       "kind": "object",
       "x": 112,
       "y": 80,
@@ -1647,7 +1676,7 @@
       ]
     },
     {
-      "name": "wood_floor_square_hole_corner_bottom_left",
+      "name": "wooden_floor_dark_recess_corner_bottom_left",
       "kind": "object",
       "x": 224,
       "y": 80,
@@ -1661,7 +1690,7 @@
       ]
     },
     {
-      "name": "wood_floor_square_hole_edge_bottom",
+      "name": "wooden_floor_dark_recess_edge_bottom",
       "kind": "object",
       "x": 240,
       "y": 80,
@@ -1675,7 +1704,7 @@
       ]
     },
     {
-      "name": "wood_floor_square_hole_corner_bottom_right",
+      "name": "wooden_floor_dark_recess_corner_bottom_right",
       "kind": "object",
       "x": 256,
       "y": 80,
@@ -1689,7 +1718,7 @@
       ]
     },
     {
-      "name": "wood_beam_riveted_lower_left",
+      "name": "wooden_railing_iron_studs_lower_left",
       "kind": "object",
       "x": 272,
       "y": 80,
@@ -1703,7 +1732,7 @@
       ]
     },
     {
-      "name": "wood_beam_riveted_lower_middle",
+      "name": "wooden_railing_iron_studs_lower_middle",
       "kind": "object",
       "x": 288,
       "y": 80,
@@ -1717,7 +1746,7 @@
       ]
     },
     {
-      "name": "wood_beam_riveted_lower_right",
+      "name": "wooden_railing_iron_studs_lower_right",
       "kind": "object",
       "x": 304,
       "y": 80,
@@ -1731,7 +1760,7 @@
       ]
     },
     {
-      "name": "stone_brick_wall_b_lower_left",
+      "name": "dungeon_brick_wall_face_b_lower_left",
       "kind": "object",
       "x": 0,
       "y": 96,
@@ -1745,7 +1774,7 @@
       ]
     },
     {
-      "name": "stone_brick_wall_barred_vent",
+      "name": "dungeon_brick_wall_face_barred_vent",
       "kind": "object",
       "x": 16,
       "y": 96,
@@ -1759,7 +1788,7 @@
       ]
     },
     {
-      "name": "stone_brick_wall_b_lower_right",
+      "name": "dungeon_brick_wall_face_b_lower_right",
       "kind": "object",
       "x": 32,
       "y": 96,
@@ -1815,7 +1844,7 @@
       ]
     },
     {
-      "name": "wood_plank_panel_a",
+      "name": "wooden_panel_edge_a",
       "kind": "object",
       "x": 272,
       "y": 96,
@@ -1829,7 +1858,7 @@
       ]
     },
     {
-      "name": "wood_plank_panel_b",
+      "name": "wooden_panel_edge_b",
       "kind": "object",
       "x": 304,
       "y": 96,
@@ -1843,7 +1872,7 @@
       ]
     },
     {
-      "name": "wood_crate_b_left",
+      "name": "wooden_cabinet_small_b_left",
       "kind": "object",
       "x": 320,
       "y": 96,
@@ -1857,7 +1886,7 @@
       ]
     },
     {
-      "name": "wood_crate_b_right",
+      "name": "wooden_cabinet_small_b_right",
       "kind": "object",
       "x": 336,
       "y": 96,
@@ -1899,7 +1928,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_dim_a",
+      "name": "teal_flagstone_floor_dim_a",
       "kind": "object",
       "x": 80,
       "y": 128,
@@ -1913,7 +1942,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_dim_b",
+      "name": "teal_flagstone_floor_dim_b",
       "kind": "object",
       "x": 96,
       "y": 128,
@@ -1955,7 +1984,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_dark_a",
+      "name": "teal_flagstone_floor_dark_a",
       "kind": "object",
       "x": 80,
       "y": 144,
@@ -1969,7 +1998,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_dark_b",
+      "name": "teal_flagstone_floor_dark_b",
       "kind": "object",
       "x": 96,
       "y": 144,
@@ -2025,7 +2054,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_spike_holes_b",
+      "name": "teal_flagstone_floor_spike_holes_b",
       "kind": "object",
       "x": 64,
       "y": 160,
@@ -2081,7 +2110,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_riveted_ledge_left",
+      "name": "teal_flagstone_floor_iron_ledge_left",
       "kind": "object",
       "x": 32,
       "y": 176,
@@ -2095,7 +2124,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_riveted_ledge_middle",
+      "name": "teal_flagstone_floor_iron_ledge_middle",
       "kind": "object",
       "x": 48,
       "y": 176,
@@ -2109,7 +2138,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_riveted_ledge_right",
+      "name": "teal_flagstone_floor_iron_ledge_right",
       "kind": "object",
       "x": 64,
       "y": 176,
@@ -2151,7 +2180,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_blood_stain_a",
+      "name": "teal_flagstone_floor_blood_stain_a",
       "kind": "object",
       "x": 144,
       "y": 176,
@@ -2165,7 +2194,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_blood_stain_b",
+      "name": "teal_flagstone_floor_blood_stain_b",
       "kind": "object",
       "x": 160,
       "y": 176,
@@ -2193,7 +2222,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_blood_stain_c",
+      "name": "teal_flagstone_floor_blood_stain_c",
       "kind": "object",
       "x": 128,
       "y": 192,
@@ -2207,7 +2236,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_blood_stain_d",
+      "name": "teal_flagstone_floor_blood_stain_d",
       "kind": "object",
       "x": 144,
       "y": 192,
@@ -2221,7 +2250,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_blood_stain_e",
+      "name": "teal_flagstone_floor_blood_stain_e",
       "kind": "object",
       "x": 112,
       "y": 208,
@@ -2235,7 +2264,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_blood_stain_f",
+      "name": "teal_flagstone_floor_blood_stain_f",
       "kind": "object",
       "x": 128,
       "y": 208,
@@ -2249,7 +2278,7 @@
       ]
     },
     {
-      "name": "stone_floor_teal_blood_stain_g",
+      "name": "teal_flagstone_floor_blood_stain_g",
       "kind": "object",
       "x": 144,
       "y": 208,
