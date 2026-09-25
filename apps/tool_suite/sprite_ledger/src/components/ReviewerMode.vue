@@ -118,6 +118,7 @@ function withImage(sheetName: string, onReady: (img: HTMLImageElement) => void) 
 
 const BIG_MAX = 440;
 const CTX_MAX = 320;
+const CTX_MAX_ZOOMED_OUT = 520;
 const scaleInfo = ref('');
 
 function paintBig(img: HTMLImageElement, box: { x: number; y: number; w: number; h: number }) {
@@ -132,24 +133,57 @@ function paintBig(img: HTMLImageElement, box: { x: number; y: number; w: number;
     scaleInfo.value = `${box.w}×${box.h}px at ${s}×`;
 }
 
+// Zoom levels for the "in the sheet" view, from close-up to the whole
+// sheet. Each is how much of the surroundings to show around the crop, as
+// a multiple of the crop's own size; null means the entire sheet. The
+// level is kept while moving between sprites.
+const CTX_LEVELS: { pad: number | null; label: string }[] = [
+    { pad: 0.75, label: 'close' },
+    { pad: 2, label: 'wide' },
+    { pad: 5, label: 'wider' },
+    { pad: null, label: 'whole sheet' },
+];
+const ctxLevel = ref(0);
+const ctxCaption = ref('');
+
+function zoomContext(delta: number) {
+    const next = Math.min(CTX_LEVELS.length - 1, Math.max(0, ctxLevel.value + delta));
+    if (next === ctxLevel.value) return;
+    ctxLevel.value = next;
+    paint();
+}
+
 function paintContext(img: HTMLImageElement, box: { x: number; y: number; w: number; h: number }) {
     const c = ctxCanvas.value;
     if (!c) return;
-    // Enough of the surroundings to see whether the crop cuts something off
-    // or swallows a neighbour: the box plus its own size on every side.
-    const pad = Math.max(16, Math.round(Math.max(box.w, box.h) * 0.75));
-    const x0 = Math.max(0, box.x - pad), y0 = Math.max(0, box.y - pad);
-    const x1 = Math.min(img.width, box.x + box.w + pad), y1 = Math.min(img.height, box.y + box.h + pad);
+    const level = CTX_LEVELS[ctxLevel.value];
+    let x0 = 0, y0 = 0, x1 = img.width, y1 = img.height;
+    if (level.pad !== null) {
+        // Enough of the surroundings to see whether the crop cuts something
+        // off or swallows a neighbour.
+        const pad = Math.max(16 * (ctxLevel.value + 1), Math.round(Math.max(box.w, box.h) * level.pad));
+        x0 = Math.max(0, box.x - pad); y0 = Math.max(0, box.y - pad);
+        x1 = Math.min(img.width, box.x + box.w + pad); y1 = Math.min(img.height, box.y + box.h + pad);
+    }
     const w = x1 - x0, h = y1 - y0;
-    const s = Math.max(1, Math.floor(Math.min(CTX_MAX / w, CTX_MAX / h)));
-    c.width = w * s; c.height = h * s;
+    // Close-up stays pixel-exact (whole-number scale). Zoomed out, the region
+    // is fitted to the available space instead: shrunk when it's large, and
+    // not left at a tiny 1x when a small sheet could fill more of the view.
+    const max = ctxLevel.value === 0 ? CTX_MAX : CTX_MAX_ZOOMED_OUT;
+    const fit = Math.min(max / w, max / h);
+    const s = ctxLevel.value === 0 ? Math.max(1, Math.floor(fit)) : (fit >= 2 ? Math.floor(fit) : fit);
+    c.width = Math.round(w * s); c.height = Math.round(h * s);
     const g = c.getContext('2d')!;
     g.imageSmoothingEnabled = false;
     g.clearRect(0, 0, c.width, c.height);
     g.drawImage(img, x0, y0, w, h, 0, 0, c.width, c.height);
     g.strokeStyle = '#ff3fd5';
     g.lineWidth = 2;
-    g.strokeRect((box.x - x0) * s + 1, (box.y - y0) * s + 1, box.w * s - 2, box.h * s - 2);
+    // Keep the outline findable even when the crop shrinks to a few pixels.
+    const bw = Math.max(6, box.w * s), bh = Math.max(6, box.h * s);
+    const bx = (box.x - x0) * s - (bw - box.w * s) / 2, by = (box.y - y0) * s - (bh - box.h * s) / 2;
+    g.strokeRect(bx + 1, by + 1, bw - 2, bh - 2);
+    ctxCaption.value = `${level.label} · ${w}×${h}px${Number.isInteger(s) ? ` at ${s}×` : ` at ${Math.round(s * 100)}%`}`;
 }
 
 function stopAnim() {
@@ -230,6 +264,8 @@ function onKey(e: KeyboardEvent) {
     else if (e.key === 'ArrowLeft') { go(-1); e.preventDefault(); }
     else if ((e.key === 'a' || e.key === 'Enter') && queue.value !== 'question') { approve(); e.preventDefault(); }
     else if (e.key === 'r') { (document.getElementById('rework-note') as HTMLTextAreaElement | null)?.focus(); e.preventDefault(); }
+    else if (e.key === '-' || e.key === '_') { zoomContext(1); e.preventDefault(); }
+    else if (e.key === '+' || e.key === '=') { zoomContext(-1); e.preventDefault(); }
     else if (e.key === 'Escape') emit('exit');
 }
 onMounted(() => window.addEventListener('keydown', onKey));
@@ -273,7 +309,11 @@ function statusLabel(s: string) {
         </div>
         <div class="context">
           <canvas ref="ctxCanvas" />
-          <div class="caption">In the sheet (crop outlined)</div>
+          <div class="ctx-bar">
+            <button :disabled="ctxLevel >= CTX_LEVELS.length - 1" title="Zoom out (-)" @click="zoomContext(1)">−</button>
+            <button :disabled="ctxLevel === 0" title="Zoom in (+)" @click="zoomContext(-1)">+</button>
+            <span class="caption">In the sheet (crop outlined) · {{ ctxCaption }}</span>
+          </div>
         </div>
       </section>
 
@@ -308,7 +348,7 @@ function statusLabel(s: string) {
           <button :disabled="index === 0" @click="go(-1)">◀ Previous <kbd>←</kbd></button>
           <button :disabled="index >= items.length - 1" @click="go(1)">Next ▶ <kbd>→</kbd></button>
         </div>
-        <div class="keys">A / Enter approve · R focus rework note · ← → navigate · Esc exit</div>
+        <div class="keys">A / Enter approve · R focus rework note · ← → navigate · − / + zoom the sheet view · Esc exit</div>
       </section>
     </main>
   </div>
@@ -337,6 +377,9 @@ main { flex: 1; display: flex; gap: 24px; padding: 20px; overflow: auto; }
 }
 .big canvas { min-width: 64px; min-height: 64px; }
 .caption { font-size: 11px; color: #888; margin-top: 4px; }
+.ctx-bar { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+.ctx-bar button { padding: 0 10px; font-size: 15px; line-height: 20px; }
+.ctx-bar .caption { margin-top: 0; }
 .info { flex: 1; min-width: 300px; max-width: 520px; display: flex; flex-direction: column; gap: 10px; }
 h2 { margin: 0; font-size: 18px; word-break: break-all; }
 .where { color: #888; font-size: 12px; }
