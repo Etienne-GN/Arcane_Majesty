@@ -17,6 +17,7 @@ import { RUINS_OF_ELDORIA }  from './ruins_of_eldoria.js';
 import { HEARTSTONE_CHAMBER } from './heartstone_chamber.js';
 import { ANCIENT_DOOR }      from './ancient_door.js';
 import { LPC_SHOWCASE }      from './lpc_showcase.js';
+import { PIPOYA_SHOWCASE }   from './pipoya_showcase.js';
 
 const REGISTRY = {
     prologue_forest:  PROLOGUE_FOREST,
@@ -38,6 +39,7 @@ const REGISTRY = {
     heartstone_chamber: HEARTSTONE_CHAMBER,
     ancient_door:       ANCIENT_DOOR,
     lpc_showcase:       LPC_SHOWCASE,
+    pipoya_showcase:    PIPOYA_SHOWCASE,
 };
 
 export function getMap(id) {

@@ -45,6 +45,14 @@ export default class GameScene extends Phaser.Scene {
         this.load.on('loaderror', (file) => {
             if (file?.key?.startsWith?.('lpc__')) return;
         });
+        // Sheets only one map needs (e.g. a showcase of a whole asset pack) are
+        // listed on the map itself and loaded here, so they don't add to the
+        // boot-time load of every other map. mapDef.extraSheets:
+        // [{ texKey, catKey, png, cat }] — png/cat are public asset paths.
+        getMap(this._mapId)?.extraSheets?.forEach(sh => {
+            if (!this.textures.exists(sh.texKey)) this.load.image(sh.texKey, sh.png);
+            if (!this.cache.json.exists(sh.catKey)) this.load.json(sh.catKey, sh.cat);
+        });
         if (!this._onlineCharacter?.rendererLayers?.length) return;
         // Backfill the per-layer anim manifest from the catalogue so legacy saves
         // (pre-manifest) resolve correctly and never request a missing sheet.
@@ -2483,6 +2491,9 @@ export default class GameScene extends Phaser.Scene {
             { items: this._mapDef.lpcObjMiskDecorations, catKey: 'obj_misk_atlas_cat', texKey: 'obj_misk_atlas' },
         ];
         sources.forEach(s => this._placeCatalogueItems(s.items, s.catKey, s.texKey));
+        // Any other catalogued sheet, named per group rather than by a fixed
+        // mapDef field: [{ catKey, texKey, items }] (see extraSheets in preload).
+        this._mapDef.sheetDecorations?.forEach(g => this._placeCatalogueItems(g.items, g.catKey, g.texKey));
     }
 
     _placeCatalogueItems(items, catKey, texKey) {
@@ -2510,12 +2521,34 @@ export default class GameScene extends Phaser.Scene {
             } else {
                 cx = entry.x; cy = entry.y; cw = entry.w; ch = entry.h;
             }
+            // Animated entries carry their frames as pixel boxes; drawn as a
+            // still they'd show the whole strip, so each frame becomes a
+            // texture frame and the sprite loops through them.
+            const frames = entry.frames?.length > 1 ? entry.frames : null;
+            if (frames) { cw = frames[0].w; ch = frames[0].h; }
             const frameKey = `cat_${d.name}`;
-            if (!tex.has(frameKey)) tex.add(frameKey, 0, cx, cy, cw, ch);
+            if (!frames && !tex.has(frameKey)) tex.add(frameKey, 0, cx, cy, cw, ch);
 
             const px = d.x * TILE_SIZE + cw / 2;
             const py = d.y * TILE_SIZE + ch / 2;
-            const img = this.add.image(px, py, texKey, frameKey);
+            let img;
+            if (frames) {
+                const animKey = `catanim_${texKey}_${d.name}`;
+                frames.forEach((f, i) => {
+                    if (!tex.has(`${frameKey}_f${i}`)) tex.add(`${frameKey}_f${i}`, 0, f.x, f.y, f.w, f.h);
+                });
+                if (!this.anims.exists(animKey)) {
+                    this.anims.create({
+                        key: animKey,
+                        frames: frames.map((_, i) => ({ key: texKey, frame: `${frameKey}_f${i}` })),
+                        frameRate: 1000 / (entry.frameDurationMs ?? 120),
+                        repeat: -1,
+                    });
+                }
+                img = this.add.sprite(px, py, texKey, `${frameKey}_f0`).play(animKey);
+            } else {
+                img = this.add.image(px, py, texKey, frameKey);
+            }
             img.setDepth(py + (d.depthOffset ?? 0));
 
             if (d.blocking) {

@@ -6320,7 +6320,7 @@
     {
       "name": "mud_puddle",
       "kind": "object",
-      "x": 224,
+      "x": 192,
       "y": 640,
       "w": 64,
       "h": 32,
@@ -7834,9 +7834,9 @@
       "name": "leafy_wreath_ring",
       "kind": "object",
       "x": 224,
-      "y": 800,
+      "y": 768,
       "w": 64,
-      "h": 96,
+      "h": 64,
       "tags": [
         "lpc",
         "atlas",

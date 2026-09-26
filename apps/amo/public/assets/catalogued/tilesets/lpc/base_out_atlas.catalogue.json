@@ -8922,9 +8922,9 @@
     {
       "name": "pale_moon_disc",
       "kind": "object",
-      "x": 960,
+      "x": 928,
       "y": 928,
-      "w": 64,
+      "w": 96,
       "h": 96,
       "tags": [
         "lpc",

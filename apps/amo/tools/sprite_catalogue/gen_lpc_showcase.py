@@ -121,7 +121,7 @@ def main():
 // tools/sprite_catalogue/gen_lpc_showcase.py if the catalogues change —
 // this file is fully derived, don't hand-edit the TILES/decoration arrays.
 //
-// Tile values: 0 = grass (terrain_atlas grass_field_fill_a), 2 = cobblestone
+// Tile values: 0 = grass (terrain_atlas grass_fill_b), 2 = cobblestone
 // path (terrain_atlas tan_cobblestone_fill_a) marking the spine between
 // wings. Decorations are placed by catalogue name via
 // GameScene._placeCatalogueItems(); each wing's objects are shelf-packed
@@ -142,7 +142,7 @@ def main():
     playerStart: {{ x: 2, y: 2 }},
     tileset: {{
         key: 'terrain_atlas',
-        floorFrame: 642,   // grass_field_fill_a
+        floorFrame: 182,   // grass_fill_b (642 grass_field_fill_a has a dark stripe down its left edge, so it showed a seam in every tile)
         pathFrame: 649,    // tan_cobblestone_fill_a
     }},
     lpcBaseOutDecorations: LPC_BASE_OUT_DECORATIONS,

@@ -7,7 +7,7 @@
 // tools/sprite_catalogue/gen_lpc_showcase.py if the catalogues change —
 // this file is fully derived, don't hand-edit the TILES/decoration arrays.
 //
-// Tile values: 0 = grass (terrain_atlas grass_field_fill_a), 2 = cobblestone
+// Tile values: 0 = grass (terrain_atlas grass_fill_b), 2 = cobblestone
 // path (terrain_atlas tan_cobblestone_fill_a) marking the spine between
 // wings. Decorations are placed by catalogue name via
 // GameScene._placeCatalogueItems(); each wing's objects are shelf-packed
@@ -226,12 +226,12 @@ const LPC_TERRAIN_DECORATIONS = [
     { name: 'gray_boulder_c', x: 30, y: 59 },
     { name: 'upright_boulder_gray_b', x: 34, y: 59 },
     { name: 'tomato_plant_ripe', x: 37, y: 59 },
-    { name: 'corn_plant_c', x: 4, y: 64 },
-    { name: 'broadleaf_tree_a', x: 7, y: 64 },
-    { name: 'cattails', x: 12, y: 64 },
-    { name: 'sapling_tree', x: 15, y: 64 },
-    { name: 'tomato_plant_bare', x: 19, y: 64 },
-    { name: 'corn_plant_d', x: 22, y: 64 },
+    { name: 'corn_plant_c', x: 4, y: 63 },
+    { name: 'broadleaf_tree_a', x: 7, y: 63 },
+    { name: 'cattails', x: 12, y: 63 },
+    { name: 'sapling_tree', x: 15, y: 63 },
+    { name: 'tomato_plant_bare', x: 19, y: 63 },
+    { name: 'corn_plant_d', x: 22, y: 63 },
 ];
 
 const LPC_OBJ_MISK_DECORATIONS = [
@@ -342,7 +342,7 @@ export const LPC_SHOWCASE = {
     playerStart: { x: 2, y: 2 },
     tileset: {
         key: 'terrain_atlas',
-        floorFrame: 642,   // grass_field_fill_a
+        floorFrame: 182,   // grass_fill_b (642 grass_field_fill_a has a dark stripe down its left edge, so it showed a seam in every tile)
         pathFrame: 649,    // tan_cobblestone_fill_a
     },
     lpcBaseOutDecorations: LPC_BASE_OUT_DECORATIONS,
