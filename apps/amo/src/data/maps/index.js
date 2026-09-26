@@ -18,6 +18,7 @@ import { HEARTSTONE_CHAMBER } from './heartstone_chamber.js';
 import { ANCIENT_DOOR }      from './ancient_door.js';
 import { LPC_SHOWCASE }      from './lpc_showcase.js';
 import { PIPOYA_SHOWCASE }   from './pipoya_showcase.js';
+import { FORESTEST }         from './forestest.js';
 
 const REGISTRY = {
     prologue_forest:  PROLOGUE_FOREST,
@@ -40,6 +41,7 @@ const REGISTRY = {
     ancient_door:       ANCIENT_DOOR,
     lpc_showcase:       LPC_SHOWCASE,
     pipoya_showcase:    PIPOYA_SHOWCASE,
+    forestest:          FORESTEST,
 };
 
 export function getMap(id) {

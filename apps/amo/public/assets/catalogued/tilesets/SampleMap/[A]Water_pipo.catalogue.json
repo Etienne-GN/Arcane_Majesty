@@ -8,7 +8,7 @@
   "gridRows": 48,
   "entries": [
     {
-      "name": "water1_corner_nw",
+      "name": "water1_channel_v_top",
       "kind": "tile",
       "row": 0,
       "col": 4,
@@ -23,7 +23,7 @@
       ]
     },
     {
-      "name": "water1_edge_n",
+      "name": "water1_corner_nw",
       "kind": "tile",
       "row": 0,
       "col": 5,
@@ -53,7 +53,7 @@
       ]
     },
     {
-      "name": "water1_edge_w",
+      "name": "water1_channel_v_middle",
       "kind": "tile",
       "row": 1,
       "col": 4,
@@ -98,7 +98,7 @@
       ]
     },
     {
-      "name": "water1_corner_sw",
+      "name": "water1_channel_v_bottom",
       "kind": "tile",
       "row": 2,
       "col": 4,
@@ -113,7 +113,7 @@
       ]
     },
     {
-      "name": "water1_edge_s",
+      "name": "water1_corner_sw",
       "kind": "tile",
       "row": 2,
       "col": 5,
@@ -158,7 +158,7 @@
       ]
     },
     {
-      "name": "water2_corner_nw",
+      "name": "water2_channel_v_top",
       "kind": "tile",
       "row": 6,
       "col": 4,
@@ -173,7 +173,7 @@
       ]
     },
     {
-      "name": "water2_edge_n",
+      "name": "water2_corner_nw",
       "kind": "tile",
       "row": 6,
       "col": 5,
@@ -203,7 +203,7 @@
       ]
     },
     {
-      "name": "water2_edge_w",
+      "name": "water2_channel_v_middle",
       "kind": "tile",
       "row": 7,
       "col": 4,
@@ -248,7 +248,7 @@
       ]
     },
     {
-      "name": "water2_corner_sw",
+      "name": "water2_channel_v_bottom",
       "kind": "tile",
       "row": 8,
       "col": 4,
@@ -263,7 +263,7 @@
       ]
     },
     {
-      "name": "water2_edge_s",
+      "name": "water2_corner_sw",
       "kind": "tile",
       "row": 8,
       "col": 5,
@@ -308,7 +308,7 @@
       ]
     },
     {
-      "name": "water3_corner_nw",
+      "name": "water3_channel_v_top",
       "kind": "tile",
       "row": 12,
       "col": 4,
@@ -323,7 +323,7 @@
       ]
     },
     {
-      "name": "water3_edge_n",
+      "name": "water3_corner_nw",
       "kind": "tile",
       "row": 12,
       "col": 5,
@@ -353,7 +353,7 @@
       ]
     },
     {
-      "name": "water3_edge_w",
+      "name": "water3_channel_v_middle",
       "kind": "tile",
       "row": 13,
       "col": 4,
@@ -398,7 +398,7 @@
       ]
     },
     {
-      "name": "water3_corner_sw",
+      "name": "water3_channel_v_bottom",
       "kind": "tile",
       "row": 14,
       "col": 4,
@@ -413,7 +413,7 @@
       ]
     },
     {
-      "name": "water3_edge_s",
+      "name": "water3_corner_sw",
       "kind": "tile",
       "row": 14,
       "col": 5,
@@ -458,7 +458,7 @@
       ]
     },
     {
-      "name": "water4_corner_nw",
+      "name": "water4_channel_v_top",
       "kind": "tile",
       "row": 18,
       "col": 4,
@@ -473,7 +473,7 @@
       ]
     },
     {
-      "name": "water4_edge_n",
+      "name": "water4_corner_nw",
       "kind": "tile",
       "row": 18,
       "col": 5,
@@ -503,7 +503,7 @@
       ]
     },
     {
-      "name": "water4_edge_w",
+      "name": "water4_channel_v_middle",
       "kind": "tile",
       "row": 19,
       "col": 4,
@@ -548,7 +548,7 @@
       ]
     },
     {
-      "name": "water4_corner_sw",
+      "name": "water4_channel_v_bottom",
       "kind": "tile",
       "row": 20,
       "col": 4,
@@ -563,7 +563,7 @@
       ]
     },
     {
-      "name": "water4_edge_s",
+      "name": "water4_corner_sw",
       "kind": "tile",
       "row": 20,
       "col": 5,
@@ -608,7 +608,7 @@
       ]
     },
     {
-      "name": "wave_corner_nw",
+      "name": "wave_channel_v_top",
       "kind": "tile",
       "row": 42,
       "col": 4,
@@ -623,7 +623,7 @@
       ]
     },
     {
-      "name": "wave_edge_n",
+      "name": "wave_corner_nw",
       "kind": "tile",
       "row": 42,
       "col": 5,
@@ -653,7 +653,7 @@
       ]
     },
     {
-      "name": "wave_edge_w",
+      "name": "wave_channel_v_middle",
       "kind": "tile",
       "row": 43,
       "col": 4,
@@ -698,7 +698,7 @@
       ]
     },
     {
-      "name": "wave_corner_sw",
+      "name": "wave_channel_v_bottom",
       "kind": "tile",
       "row": 44,
       "col": 4,
@@ -713,7 +713,7 @@
       ]
     },
     {
-      "name": "wave_edge_s",
+      "name": "wave_corner_sw",
       "kind": "tile",
       "row": 44,
       "col": 5,
@@ -1103,6 +1103,426 @@
         "foam",
         "inner-corner",
         "concave"
+      ]
+    },
+    {
+      "name": "water1_channel_h_left",
+      "kind": "tile",
+      "row": 0,
+      "col": 1,
+      "frameIndex": 1,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "channel"
+      ]
+    },
+    {
+      "name": "water1_channel_h_middle",
+      "kind": "tile",
+      "row": 0,
+      "col": 2,
+      "frameIndex": 2,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "channel"
+      ]
+    },
+    {
+      "name": "water1_channel_h_right",
+      "kind": "tile",
+      "row": 0,
+      "col": 3,
+      "frameIndex": 3,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "channel"
+      ]
+    },
+    {
+      "name": "water1_edge_n",
+      "kind": "tile",
+      "row": 0,
+      "col": 6,
+      "frameIndex": 6,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "edge"
+      ]
+    },
+    {
+      "name": "water1_edge_w",
+      "kind": "tile",
+      "row": 1,
+      "col": 5,
+      "frameIndex": 69,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "edge"
+      ]
+    },
+    {
+      "name": "water1_edge_s",
+      "kind": "tile",
+      "row": 2,
+      "col": 6,
+      "frameIndex": 134,
+      "tags": [
+        "water",
+        "water1",
+        "deep",
+        "blue",
+        "edge"
+      ]
+    },
+    {
+      "name": "water2_channel_h_left",
+      "kind": "tile",
+      "row": 6,
+      "col": 1,
+      "frameIndex": 385,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "channel"
+      ]
+    },
+    {
+      "name": "water2_channel_h_middle",
+      "kind": "tile",
+      "row": 6,
+      "col": 2,
+      "frameIndex": 386,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "channel"
+      ]
+    },
+    {
+      "name": "water2_channel_h_right",
+      "kind": "tile",
+      "row": 6,
+      "col": 3,
+      "frameIndex": 387,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "channel"
+      ]
+    },
+    {
+      "name": "water2_edge_n",
+      "kind": "tile",
+      "row": 6,
+      "col": 6,
+      "frameIndex": 390,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "edge"
+      ]
+    },
+    {
+      "name": "water2_edge_w",
+      "kind": "tile",
+      "row": 7,
+      "col": 5,
+      "frameIndex": 453,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "edge"
+      ]
+    },
+    {
+      "name": "water2_edge_s",
+      "kind": "tile",
+      "row": 8,
+      "col": 6,
+      "frameIndex": 518,
+      "tags": [
+        "water",
+        "water2",
+        "shallow",
+        "cyan",
+        "edge"
+      ]
+    },
+    {
+      "name": "water3_channel_h_left",
+      "kind": "tile",
+      "row": 12,
+      "col": 1,
+      "frameIndex": 769,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "channel"
+      ]
+    },
+    {
+      "name": "water3_channel_h_middle",
+      "kind": "tile",
+      "row": 12,
+      "col": 2,
+      "frameIndex": 770,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "channel"
+      ]
+    },
+    {
+      "name": "water3_channel_h_right",
+      "kind": "tile",
+      "row": 12,
+      "col": 3,
+      "frameIndex": 771,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "channel"
+      ]
+    },
+    {
+      "name": "water3_edge_n",
+      "kind": "tile",
+      "row": 12,
+      "col": 6,
+      "frameIndex": 774,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "edge"
+      ]
+    },
+    {
+      "name": "water3_edge_w",
+      "kind": "tile",
+      "row": 13,
+      "col": 5,
+      "frameIndex": 837,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "edge"
+      ]
+    },
+    {
+      "name": "water3_edge_s",
+      "kind": "tile",
+      "row": 14,
+      "col": 6,
+      "frameIndex": 902,
+      "tags": [
+        "water",
+        "water3",
+        "swamp",
+        "green",
+        "edge"
+      ]
+    },
+    {
+      "name": "water4_channel_h_left",
+      "kind": "tile",
+      "row": 18,
+      "col": 1,
+      "frameIndex": 1153,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "channel"
+      ]
+    },
+    {
+      "name": "water4_channel_h_middle",
+      "kind": "tile",
+      "row": 18,
+      "col": 2,
+      "frameIndex": 1154,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "channel"
+      ]
+    },
+    {
+      "name": "water4_channel_h_right",
+      "kind": "tile",
+      "row": 18,
+      "col": 3,
+      "frameIndex": 1155,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "channel"
+      ]
+    },
+    {
+      "name": "water4_edge_n",
+      "kind": "tile",
+      "row": 18,
+      "col": 6,
+      "frameIndex": 1158,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "edge"
+      ]
+    },
+    {
+      "name": "water4_edge_w",
+      "kind": "tile",
+      "row": 19,
+      "col": 5,
+      "frameIndex": 1221,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "edge"
+      ]
+    },
+    {
+      "name": "water4_edge_s",
+      "kind": "tile",
+      "row": 20,
+      "col": 6,
+      "frameIndex": 1286,
+      "tags": [
+        "water",
+        "water4",
+        "swamp",
+        "green",
+        "edge"
+      ]
+    },
+    {
+      "name": "wave_channel_h_left",
+      "kind": "tile",
+      "row": 42,
+      "col": 1,
+      "frameIndex": 2689,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "channel"
+      ]
+    },
+    {
+      "name": "wave_channel_h_middle",
+      "kind": "tile",
+      "row": 42,
+      "col": 2,
+      "frameIndex": 2690,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "channel"
+      ]
+    },
+    {
+      "name": "wave_channel_h_right",
+      "kind": "tile",
+      "row": 42,
+      "col": 3,
+      "frameIndex": 2691,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "channel"
+      ]
+    },
+    {
+      "name": "wave_edge_n",
+      "kind": "tile",
+      "row": 42,
+      "col": 6,
+      "frameIndex": 2694,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "edge"
+      ]
+    },
+    {
+      "name": "wave_edge_w",
+      "kind": "tile",
+      "row": 43,
+      "col": 5,
+      "frameIndex": 2757,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "edge"
+      ]
+    },
+    {
+      "name": "wave_edge_s",
+      "kind": "tile",
+      "row": 44,
+      "col": 6,
+      "frameIndex": 2822,
+      "tags": [
+        "water",
+        "wave",
+        "whitewater",
+        "foam",
+        "edge"
       ]
     }
   ]

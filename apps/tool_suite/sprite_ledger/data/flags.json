@@ -319,9 +319,9 @@
     "name": "market_tent_striped_square_pole_canvas_top",
     "reason": "misaligned",
     "comment": "those are badly croppeds several items in this one, needs to be splitted\n\n[Rework] this needs to be cropped a bit more to the top, we have like 4-5 pixels of different pattern, then it needs to be splitted in 2 columns and in 6 row, those are \"genre de toile utilis\u00e9e pour faire des tentes dans un march\u00e9 par exemple avec les poteau soit carr\u00e9 ou rond\"\n\n[Claude] Cropped the 4px of barrels off the top (now starts at y=3616) and split 2 columns x 6 rows: market_tent_striped_square_pole_* (left: striped canvas top/middle/valance edge/valance with pole top, then pole middle/base) and market_tent_plain_round_pole_* (right: plain tattered canvas + round pole). All in \"to review\".",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:20:20.880Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:04:31.124Z"
   },
   {
     "id": "f_38d32518-2fe7-4a4a-a053-f837eb361f84",
@@ -752,9 +752,9 @@
     "name": "grey_counter_top_left",
     "reason": "misaligned",
     "comment": "this needs to be splitted\n\n[Rework] this can be splitted in 3 columns and 5 rows\n\n[Claude] Split 3 columns x 5 rows. It is several furniture pieces: grey_counter_top_left/middle/right, grey_cabinet_door_top/bottom_left/right, grey_drawer_small, orange_tall_panel_top/middle/bottom, orange_cabinet_door_top/bottom_left/right. All in \"to review\".",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T16:57:49.710Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:03:16.353Z"
   },
   {
     "id": "f_59f1694f-686d-4ec3-8244-ea7d4f0944fb",
@@ -1673,9 +1673,9 @@
     "name": "cave_wall_outline_nw",
     "reason": "misaligned",
     "comment": "[Claude] Re-catalogued the whole sheet (2 -> 36): cave_pit_large (the old box was only its top half), cave_pit_narrow, mine_entrance_timber, rock_island_water, and every plant/rock/ore/boulder/tree/ladder/wall separately. The pits are kept as whole objects - say if you want them split into 16px rim tiles. (Flag moved from cave_wall_blob to cave_pit_large.)\n\n[Rework] je vais expliquer en francais, les mots vont me manquer pour ca en anglais..  tu as la un compl\u00e9ment au set pipoya, ca dervait etre splitt\u00e9 en 3 colonnes, et 5 ou 6 rang\u00e9es, je suis pas certain, ce que c'est, les 3x3 du haut sont un set de contour manquant pour faire des murs de cavernes je suppose, ca te donne les contours et les murs et le dessus est \"fonc\u00e9 vide\" pcq ya rien de plus a renderer, ca serait le plafond de la caverne et il doit etre transparent pour voir les personnages. plus bas tu as pour faire les murs. ce pattern la vas revenir asser souvent et tu vas surement les nomm\u00e9es avec un suffix _ne _n _nw, ce genre de chose pour savoir ou ils vont.\n\n[Claude] Split as you described (3 columns): the top 3x3 is the cave wall outline set named by compass - cave_wall_outline_nw/n/ne/w/e/sw/s/se, with cave_wall_outline_ceiling_dark in the middle (the dark cave ceiling) - and the row below is the wall face: cave_wall_face_w/middle/e. That is 4 rows at 32px (the pit is 128px tall). All pieces are in \"to review\".",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-09T01:26:30.627Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:05:05.518Z"
   },
   {
     "id": "f_d991629a-1c8b-4bb6-b46c-3ceb5e85f254",
@@ -3851,10 +3851,10 @@
     "name": "cave_wall_outline_nw",
     "reason": "misaligned",
     "comment": "this needs a lot of splitting\n\n[Claude] Re-catalogued the whole sheet (2 -> 36): cave_pit_large (the old box was only its top half), cave_pit_narrow, mine_entrance_timber, rock_island_water, and every plant/rock/ore/boulder/tree/ladder/wall separately. The pits are kept as whole objects - say if you want them split into 16px rim tiles. (Flag moved from cave_wall_blob to cave_pit_large.)\n\n[Rework] je vais expliquer en francais, les mots vont me manquer pour ca en anglais..  tu as la un compl\u00e9ment au set pipoya, ca dervait etre splitt\u00e9 en 3 colonnes, et 5 ou 6 rang\u00e9es, je suis pas certain, ce que c'est, les 3x3 du haut sont un set de contour manquant pour faire des murs de cavernes je suppose, ca te donne les contours et les murs et le dessus est \"fonc\u00e9 vide\" pcq ya rien de plus a renderer, ca serait le plafond de la caverne et il doit etre transparent pour voir les personnages. plus bas tu as pour faire les murs. ce pattern la vas revenir asser souvent et tu vas surement les nomm\u00e9es avec un suffix _ne _n _nw, ce genre de chose pour savoir ou ils vont.\n\n[Claude] Split as you described (3 columns): the top 3x3 is the cave wall outline set named by compass - cave_wall_outline_nw/n/ne/w/e/sw/s/se, with cave_wall_outline_ceiling_dark in the middle (the dark cave ceiling) - and the row below is the wall face: cave_wall_face_w/middle/e. That is 4 rows at 32px (the pit is 128px tall). All pieces are in \"to review\".",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T15:24:32.477Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:05:05.530Z"
   },
   {
     "id": "f_1da9c0ac-3c4f-4037-a4b0-8a6773ed1ad4",
@@ -4126,10 +4126,10 @@
     "name": "water_drop_ripple",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"water_drop_small\" into the animation \"water_drop_ripple\" (all its frames in one sprite).\n\n[Claude] water_drop_small was the first frame of the drop-and-ripple row; merged it with the 3 ripple frames next to it into one 4-frame animation \"water_drop_ripple\".",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T02:45:17.930Z"
   },
   {
     "id": "f_d96d00be-58d8-45f8-9dd2-5b44959f6b1b",
@@ -4258,10 +4258,10 @@
     "name": "water_splash_settle",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_052\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"water_splash_settle_1\" into the animation \"water_splash_settle\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T02:45:25.723Z"
   },
   {
     "id": "f_ebc4e450-20db-4056-854b-8c38875f9599",
@@ -4269,10 +4269,10 @@
     "name": "water_splash_settle",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_052\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"water_splash_settle_2\" into the animation \"water_splash_settle\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T02:45:26.395Z"
   },
   {
     "id": "f_a84b5ce0-73c6-4f4b-8a7d-3504c4756164",
@@ -4280,10 +4280,10 @@
     "name": "water_splash_settle",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_052\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"water_splash_settle_3\" into the animation \"water_splash_settle\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T02:45:26.949Z"
   },
   {
     "id": "f_35014046-4b6f-4cb1-9aba-80508da7d4d4",
@@ -4291,10 +4291,10 @@
     "name": "water_splash_settle",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_052\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"water_splash_settle_4\" into the animation \"water_splash_settle\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T02:45:27.458Z"
   },
   {
     "id": "f_029ef435-08d1-4bf9-b2f4-c1d685281975",
@@ -4302,10 +4302,10 @@
     "name": "water_splash_settle",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_052\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"water_splash_settle_5\" into the animation \"water_splash_settle\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T02:45:28.274Z"
   },
   {
     "id": "f_6872db5f-61a2-4c98-a1e4-898aea03f14d",
@@ -4368,10 +4368,10 @@
     "name": "bubble_sleep",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"bubble_sleep_1\" into the animation \"bubble_sleep\" (all its frames in one sprite).\n\n[Claude] Made \"bubble_sleep\" one 6-frame animation: z.. zz. zzz on the first row, then .zz ..z ... on the row below (it loops).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:00:58.665Z"
   },
   {
     "id": "f_c538b6ad-07c5-4964-a669-a14dffe0f385",
@@ -4379,10 +4379,10 @@
     "name": "bubble_sleep",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_052\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"bubble_sleep_2\" into the animation \"bubble_sleep\" (all its frames in one sprite).\n\n[Claude] Made \"bubble_sleep\" one 6-frame animation: z.. zz. zzz on the first row, then .zz ..z ... on the row below (it loops).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:00:59.199Z"
   },
   {
     "id": "f_57054b6b-c1be-4748-bbb5-aa7cd02700f8",
@@ -4390,10 +4390,10 @@
     "name": "bubble_sleep",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_052\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"bubble_sleep_3\" into the animation \"bubble_sleep\" (all its frames in one sprite).\n\n[Claude] Made \"bubble_sleep\" one 6-frame animation: z.. zz. zzz on the first row, then .zz ..z ... on the row below (it loops).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:00:59.641Z"
   },
   {
     "id": "f_139eb8b7-6418-4efa-b67b-84751bbc4317",
@@ -4401,10 +4401,10 @@
     "name": "bubble_alert",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_052\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"bubble_alert\" into the animation \"bubble_alert\" (all its frames in one sprite).\n\n[Claude] Made \"bubble_alert\" a 3-frame animation from the three \"!\" bubbles on the sheet (red, dark red, yellow).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T02:44:41.363Z"
   },
   {
     "id": "f_8894fa3d-7ce0-4d9b-803a-a6e7852a9d56",
@@ -4478,10 +4478,10 @@
     "name": "bubble_sleep",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"bubble_sleep_4\" into the animation \"bubble_sleep\" (all its frames in one sprite).\n\n[Claude] Made \"bubble_sleep\" one 6-frame animation: z.. zz. zzz on the first row, then .zz ..z ... on the row below (it loops).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:01:00.099Z"
   },
   {
     "id": "f_2170c865-3d06-4bbd-8890-88e17b72d772",
@@ -5919,10 +5919,10 @@
     "name": "cave_entrance_rock",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of cave_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] this is more like mine_entrance_timber without wood than a pit\n\n[Claude] Renamed cave_pit_narrow -> cave_entrance_rock (a rock opening like mine_entrance_timber, without the timber).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:02:54.990Z"
   },
   {
     "id": "f_a96dfb0d-9269-4ac9-981b-0237f2cf8c65",
@@ -5941,7 +5941,7 @@
     "name": "rock_island_water_nw",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of cave_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] ok this is indeed a rock island in water,  but it needs to be splitter in a 5x5 grid and named with cardinal points, like ne,n,nw,w,sw,s and so on\n\n[Claude] Split into a 5x5 grid of 16px pieces named by compass: corners rock_island_water_nw/ne/sw/se, edges _n_1.._n_3, _s_1.._s_3, _w_1.._w_3, _e_1.._e_3, and the inside _inner_nw/_inner_n/_inner_ne/_inner_w/_center/_inner_e/_inner_sw/_inner_s/_inner_se. All in \"to review\".",
-    "status": "needs_review",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
     "resolvedAt": null
@@ -5952,10 +5952,10 @@
     "name": "cave_floor_rock_light_a",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of cave_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] honsetly this is not obvious to me as what it is, since this sheet is a complement to another, it is probably missing parts in the pipoya set, it looks like it should be splitted in 4 horizontally to me, but I can't confirm the use of those parts when splitted, but maybe, I'll be able to spot the kin and understand their reason to be then.\n\n[Claude] Split into 4 as you suggested - the texture has a clear seam at x=192 and repeats every 24px, so: cave_floor_rock_light_a/b (lighter half) and cave_floor_rock_dark_a/b (darker half), 24x16 each.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:05:15.302Z"
   },
   {
     "id": "f_331c76d9-e365-44ae-b72e-066a568c774d",
@@ -6150,10 +6150,10 @@
     "name": "pebble_small",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of cave_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] this has to be splitted, I'd sas I see 3 rocks in this so the small 1 and very small 2, so make it 3 distinct items\n\n[Claude] Split into 3: pebble_small (the bigger one) and pebble_tiny_a / pebble_tiny_b.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:48.006Z"
   },
   {
     "id": "f_44cb50e6-a1c8-49f2-8f01-2fde649bf570",
@@ -6172,10 +6172,10 @@
     "name": "tree_dark_brown_tall",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of cave_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] its not dead, its dark bronw but I don't tink its dead\n\n[Claude] Renamed to tree_dark_brown_tall (not dead).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:50.404Z"
   },
   {
     "id": "f_db67c05b-8d7f-411a-a22e-d750ec5a3bd6",
@@ -6183,10 +6183,10 @@
     "name": "bush_dark_round_a",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of cave_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] this is not dirt, its a bush\n\n[Claude] Renamed to bush_dark_round_a (a bush, not dirt).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:53.007Z"
   },
   {
     "id": "f_465eeb69-1727-41d1-af7d-97bab4b160fe",
@@ -6194,10 +6194,10 @@
     "name": "bush_dark_round_b",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of cave_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] this is not dirt ist a bush\n\n[Claude] Renamed to bush_dark_round_b (a bush, not dirt).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:04.389Z"
   },
   {
     "id": "f_24b8a3f3-b1d6-4cde-86b9-081eb44c4ac9",
@@ -6227,10 +6227,10 @@
     "name": "mine_wall_top_planks_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of cave_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] this needs to be splitted in 4x4 I think\n\n[Claude] Split into 4x4: mine_wall_top_planks_left/middle_a/middle_b/right, mine_wall_post_brace_left, _lintel_a/_b, _post_brace_right, _post_left, _planks_nail, _planks_crack, _post_right, _post_base_left, _base_beam_a/_b, _post_base_right. All in \"to review\".",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:56.441Z"
   },
   {
     "id": "f_4e86bee4-9064-4913-81c9-f8546e4ddc11",
@@ -6359,10 +6359,10 @@
     "name": "hatch_door_small_closed",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] ok but you got to split in 2 part, the closed and the opened, closed is top half opened is bottom half\n\n[Claude] Split in 2: hatch_door_small_closed (top half) and hatch_door_small_open (bottom half).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:01:17.586Z"
   },
   {
     "id": "f_dffb5111-132e-4bf0-aa91-b97f76d1486c",
@@ -6403,10 +6403,10 @@
     "name": "ivy_overlay_hanging_top",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] you can split in 2 horizontally\n\n[Claude] Split in 2 horizontally at y=64: ivy_overlay_hanging_top and ivy_overlay_ring_bottom.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:28.499Z"
   },
   {
     "id": "f_651348cc-0c34-4771-a41b-63a05b9a40b6",
@@ -6501,8 +6501,8 @@
     "sheet": "dungeon_tiles.png",
     "name": "dungeon_wall_top_blue_stone_trim_left",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] no lefts or middle or right, those are all 3 variants we want to keep them all as variants of dungeon_wall_top_blue_stone_trim",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
     "resolvedAt": null
@@ -6512,8 +6512,8 @@
     "sheet": "dungeon_tiles.png",
     "name": "dungeon_wall_top_blue_stone_trim_middle",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] no lefts or middle or right, those are all 3 variants we want to keep them all as variants of dungeon_wall_top_blue_stone_trim",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
     "resolvedAt": null
@@ -6523,8 +6523,8 @@
     "sheet": "dungeon_tiles.png",
     "name": "dungeon_wall_top_blue_stone_trim_right",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] no lefts or middle or right, those are all 3 variants we want to keep them all as variants of dungeon_wall_top_blue_stone_trim",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
     "resolvedAt": null
@@ -6534,8 +6534,8 @@
     "sheet": "dungeon_tiles.png",
     "name": "dungeon_wall_top_blue_stone_trim_corner_turning_down",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] this would ben dungeon_wall_top_blue_stone_trim_pillar_top osr something like this",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
     "resolvedAt": null
@@ -6612,10 +6612,10 @@
     "name": "wooden_floorboards_bordered_corner_top_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:05.540Z"
   },
   {
     "id": "f_f5e9a282-e363-4e94-99f8-056aa0b0746f",
@@ -6623,10 +6623,10 @@
     "name": "wooden_floorboards_bordered_edge_top",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:08.932Z"
   },
   {
     "id": "f_cdaa286e-e947-4878-a297-5e322df770f7",
@@ -6634,10 +6634,10 @@
     "name": "wooden_floorboards_bordered_corner_top_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:11.896Z"
   },
   {
     "id": "f_621e0b4b-5cfe-47d2-9581-250e8078ad45",
@@ -6645,10 +6645,10 @@
     "name": "wooden_trapdoor_large_corner_top_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:14.608Z"
   },
   {
     "id": "f_40ea4407-d06b-458d-a989-f259a9c557b3",
@@ -6656,10 +6656,10 @@
     "name": "wooden_trapdoor_large_edge_top",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:15.834Z"
   },
   {
     "id": "f_ef4da709-7f61-4736-a90f-8693324d9b28",
@@ -6667,10 +6667,10 @@
     "name": "wooden_trapdoor_large_corner_top_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:16.928Z"
   },
   {
     "id": "f_5895dc2b-58e6-49f0-800b-1c98d965d074",
@@ -6678,10 +6678,10 @@
     "name": "wooden_floor_square_opening_corner_top_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:19.819Z"
   },
   {
     "id": "f_a14d6d0e-f154-4cc2-ac5a-1fad0fdfc96c",
@@ -6689,10 +6689,10 @@
     "name": "wooden_floor_square_opening_edge_top",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:20.123Z"
   },
   {
     "id": "f_e5717829-6008-4b7f-86cd-03035485cf6c",
@@ -6700,10 +6700,10 @@
     "name": "wooden_floor_square_opening_corner_top_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:20.385Z"
   },
   {
     "id": "f_8accc439-ad3d-44c3-931b-bd2cc2efc9e6",
@@ -6711,10 +6711,10 @@
     "name": "dungeon_brick_wall_face_upper_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:31.457Z"
   },
   {
     "id": "f_2d3d081a-ac9a-4dc0-a94b-71b8bf00f105",
@@ -6722,10 +6722,10 @@
     "name": "dungeon_brick_wall_face_upper_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:32.425Z"
   },
   {
     "id": "f_e0d26315-6729-4eb3-843b-b4ce157c4584",
@@ -6733,10 +6733,10 @@
     "name": "dungeon_brick_wall_face_upper_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:33.701Z"
   },
   {
     "id": "f_a13a0e22-d120-48c4-ad9d-e38ccb891c53",
@@ -6744,10 +6744,10 @@
     "name": "dungeon_wall_end_column_top",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:38.804Z"
   },
   {
     "id": "f_01c0005c-0c96-4187-8c5a-a43954ed7059",
@@ -6821,10 +6821,10 @@
     "name": "wooden_floorboards_bordered_edge_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:45.704Z"
   },
   {
     "id": "f_01a732b6-5993-4ba0-baf4-80d65eae73d7",
@@ -6832,10 +6832,10 @@
     "name": "wooden_floorboards_bordered_center",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:49.201Z"
   },
   {
     "id": "f_a61a30eb-ee5d-4433-ac9d-90f11c2f6bbc",
@@ -6843,10 +6843,10 @@
     "name": "wooden_floorboards_bordered_edge_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:53.393Z"
   },
   {
     "id": "f_bc10d829-3af5-4d9e-9853-52079b498188",
@@ -6854,10 +6854,10 @@
     "name": "wooden_trapdoor_large_edge_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:53.832Z"
   },
   {
     "id": "f_c842ce2e-cbea-4487-9e2a-fb5b391b7811",
@@ -6865,10 +6865,10 @@
     "name": "wooden_trapdoor_large_center_handle",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:54.015Z"
   },
   {
     "id": "f_b173f63d-5e4e-4904-b1b7-baf50ee867c4",
@@ -6876,10 +6876,10 @@
     "name": "wooden_trapdoor_large_edge_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:54.203Z"
   },
   {
     "id": "f_e2cfbb75-1516-4e25-8be4-d25f72dafd36",
@@ -6887,10 +6887,10 @@
     "name": "wooden_floor_square_opening_edge_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:54.696Z"
   },
   {
     "id": "f_423e55be-2b87-47a3-a333-65373d230dd3",
@@ -6898,10 +6898,10 @@
     "name": "wooden_floor_square_opening_edge_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:55.062Z"
   },
   {
     "id": "f_6c52ffd2-66d0-4d5b-8f26-9034cb34f9f9",
@@ -6909,10 +6909,10 @@
     "name": "dungeon_brick_wall_face_lower_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:56.569Z"
   },
   {
     "id": "f_705fddec-0b1c-4203-a65f-0d04c65fe294",
@@ -6920,10 +6920,10 @@
     "name": "dungeon_brick_wall_face_lower_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:56.813Z"
   },
   {
     "id": "f_ca3b1d91-f8df-4777-afc6-46030d3071a6",
@@ -6931,10 +6931,10 @@
     "name": "dungeon_brick_wall_face_lower_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:10:57.309Z"
   },
   {
     "id": "f_477e07f9-e94c-4889-84ed-1d0b55ff7a6e",
@@ -6942,10 +6942,10 @@
     "name": "dungeon_wall_end_column_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:11:03.691Z"
   },
   {
     "id": "f_8a08179f-de10-438d-b7ab-17a87b5e7438",
@@ -7151,10 +7151,10 @@
     "name": "dungeon_wall_end_column_base",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:11:18.133Z"
   },
   {
     "id": "f_b399e85d-a5da-48c1-b413-e623c356ae57",
@@ -8482,10 +8482,10 @@
     "name": "pit_hole_dark",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"water_edge\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T02:44:59.725Z"
   },
   {
     "id": "f_3842f444-8170-4305-97b8-83031b339b9c",
@@ -12981,10 +12981,10 @@
     "name": "bookshelf_small",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of overworld_tileset.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] its a bookshelf\n\n[Claude] Renamed bookshelf_small.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:00:46.992Z"
   },
   {
     "id": "f_6a04e7c7-1449-482e-98c2-94f1c8fdae95",
@@ -12992,10 +12992,10 @@
     "name": "window_round_lit",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of overworld_tileset.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] its a light up window\n\n[Claude] Renamed window_round_lit.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T02:45:07.985Z"
   },
   {
     "id": "f_578c4bc6-f140-4775-ac02-9df7eb7e65c5",
@@ -13003,10 +13003,10 @@
     "name": "wood_bridge_ropes_vertical",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of overworld_tileset.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] this is a wood bridge with ropes\n\n[Claude] Renamed wood_bridge_ropes_vertical; the horizontal one (was bridge_log_posts) is now wood_bridge_ropes_horizontal.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T02:45:33.286Z"
   },
   {
     "id": "f_279a8b05-f6a2-45d6-b58c-987d9426d60d",
@@ -15049,10 +15049,10 @@
     "name": "wood_bridge_ropes_vertical",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed wood_bridge_ropes_vertical; the horizontal one (was bridge_log_posts) is now wood_bridge_ropes_horizontal.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T00:47:36.571Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T02:45:34.378Z"
   },
   {
     "id": "f_40099e09-d6e0-4450-a4a7-3e03536e2152",
@@ -15071,10 +15071,10 @@
     "name": "round_table",
     "reason": "misaligned",
     "comment": "needs a bit more cropping to the right to get rid of the 4 pixels dot top right corner\n\n[Claude] Cropped to exactly the table (64,96, 32x32) - the 4px dot at the top right is out.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T18:21:53.634Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T02:44:52.415Z"
   },
   {
     "id": "f_ff07b02d-0efd-414a-901a-f5d03cae4412",
@@ -15082,10 +15082,10 @@
     "name": "bubble_alert",
     "reason": "should_be_animation",
     "comment": "\n\n[Claude] Merged \"bubble_alert\" into the animation \"bubble_alert\" (all its frames in one sprite).\n\n[Claude] Made \"bubble_alert\" a 3-frame animation from the three \"!\" bubbles on the sheet (red, dark red, yellow).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T18:41:15.274Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T02:44:42.279Z"
   },
   {
     "id": "f_b6410380-808b-4bec-8c4d-9e7f9ea8208a",
@@ -15104,10 +15104,10 @@
     "name": "bubble_sleep",
     "reason": "should_be_animation",
     "comment": "\n\n[Claude] Merged \"bubble_sleep_1\" into the animation \"bubble_sleep\" (all its frames in one sprite).\n\n[Claude] Made \"bubble_sleep\" one 6-frame animation: z.. zz. zzz on the first row, then .zz ..z ... on the row below (it loops).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T18:41:28.974Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:01:01.055Z"
   },
   {
     "id": "f_07643b5e-80ae-499d-ae13-2224627799e9",
@@ -15115,10 +15115,10 @@
     "name": "bubble_sleep",
     "reason": "should_be_animation",
     "comment": "\n\n[Claude] Merged \"bubble_sleep_2\" into the animation \"bubble_sleep\" (all its frames in one sprite).\n\n[Claude] Made \"bubble_sleep\" one 6-frame animation: z.. zz. zzz on the first row, then .zz ..z ... on the row below (it loops).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T18:41:32.209Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:01:01.563Z"
   },
   {
     "id": "f_3ba10e8e-dfc9-4407-8ed7-685da2d229d0",
@@ -15126,10 +15126,10 @@
     "name": "bubble_sleep",
     "reason": "should_be_animation",
     "comment": "\n\n[Claude] Merged \"bubble_sleep_4\" into the animation \"bubble_sleep\" (all its frames in one sprite).\n\n[Claude] Made \"bubble_sleep\" one 6-frame animation: z.. zz. zzz on the first row, then .zz ..z ... on the row below (it loops).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T18:41:36.061Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:01:02.123Z"
   },
   {
     "id": "f_f48b4082-891f-454a-9b40-807276ef624b",
@@ -15137,10 +15137,10 @@
     "name": "bubble_sleep",
     "reason": "should_be_animation",
     "comment": "\n\n[Claude] Merged \"bubble_sleep_3\" into the animation \"bubble_sleep\" (all its frames in one sprite).\n\n[Claude] Made \"bubble_sleep\" one 6-frame animation: z.. zz. zzz on the first row, then .zz ..z ... on the row below (it loops).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T18:41:39.026Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:01:02.747Z"
   },
   {
     "id": "f_fd7a0e38-cd88-40db-a85b-aae057a70371",
@@ -15192,10 +15192,10 @@
     "name": "cave_wall_outline_n",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"cave_pit_large\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:05:06.277Z"
   },
   {
     "id": "f_38e64a47-18dc-497d-b1c1-c0a3d72e4f09",
@@ -15203,10 +15203,10 @@
     "name": "cave_wall_outline_ne",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"cave_pit_large\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:05:06.837Z"
   },
   {
     "id": "f_bc1b1322-146e-4aa4-ac5a-748e9f752e97",
@@ -15214,10 +15214,10 @@
     "name": "cave_wall_outline_w",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"cave_pit_large\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:05:08.475Z"
   },
   {
     "id": "f_8b30d04a-ab58-4d34-895d-1340e0ce7bea",
@@ -15225,10 +15225,10 @@
     "name": "cave_wall_outline_ceiling_dark",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"cave_pit_large\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:05:10.995Z"
   },
   {
     "id": "f_ce1c3e63-4570-43b2-9dca-83eb9f7cf9bd",
@@ -15236,10 +15236,10 @@
     "name": "cave_wall_outline_e",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"cave_pit_large\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:05:12.235Z"
   },
   {
     "id": "f_cce01ed8-1635-4b9d-bec1-80e86c23a8cf",
@@ -15247,10 +15247,10 @@
     "name": "cave_wall_outline_sw",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"cave_pit_large\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:05:19.656Z"
   },
   {
     "id": "f_27c261db-717a-4bff-ac8b-e0941f42fb74",
@@ -15258,10 +15258,10 @@
     "name": "cave_wall_outline_s",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"cave_pit_large\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:05:19.942Z"
   },
   {
     "id": "f_c12a7765-8e86-49e9-9d5a-80f6c2b5b693",
@@ -15269,10 +15269,10 @@
     "name": "cave_wall_outline_se",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"cave_pit_large\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:05:20.244Z"
   },
   {
     "id": "f_8b6c3614-da9b-4b1c-9a48-88369d9e9b30",
@@ -15280,10 +15280,10 @@
     "name": "cave_wall_face_w",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"cave_pit_large\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:17.772Z"
   },
   {
     "id": "f_34c5a26a-07f6-4ba6-8513-7349c68db7aa",
@@ -15291,10 +15291,10 @@
     "name": "cave_wall_face_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"cave_pit_large\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:18.966Z"
   },
   {
     "id": "f_b71aa5bc-daf0-45a5-a56d-640d40699c15",
@@ -15302,43 +15302,43 @@
     "name": "cave_wall_face_e",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"cave_pit_large\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:19.620Z"
   },
   {
     "id": "f_494b86d5-f8d1-4f70-98e1-f241e95bd6ed",
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_n_1",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.\n\n[Rework] find a better name for this...",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:23.652Z"
   },
   {
     "id": "f_43498d47-f901-4ef8-9f4d-04825e7d5edf",
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_n_2",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.\n\n[Rework] find a better name for this...",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:24.228Z"
   },
   {
     "id": "f_93a1695f-3f77-4e1f-a503-80cfc116bffe",
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_n_3",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.\n\n[Rework] find a better name for this...",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:24.881Z"
   },
   {
     "id": "f_be8ef41c-a706-45f1-8f6f-ad71c94e7701",
@@ -15346,7 +15346,7 @@
     "name": "rock_island_water_ne",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
     "resolvedAt": null
@@ -15356,55 +15356,55 @@
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_w_1",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.\n\n[Rework] find a better name for this...",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:28.348Z"
   },
   {
     "id": "f_34ae716a-1a78-477b-8517-5679872eaac1",
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_inner_nw",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.\n\n[Rework] find a better name for this...",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:23.273Z"
   },
   {
     "id": "f_3a9a4e24-758e-4676-89ea-c113ed347667",
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_inner_n",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.\n\n[Rework] find a better name for this...",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:21.245Z"
   },
   {
     "id": "f_d9fb026c-d8d1-4972-9d6c-ff4bf9d5e159",
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_inner_ne",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.\n\n[Rework] find a better name for this...",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:22.253Z"
   },
   {
     "id": "f_73e446cb-4f31-4856-bcde-1fbc8330dd65",
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_e_1",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.\n\n[Rework] find a better name for this...",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:19.233Z"
   },
   {
     "id": "f_4a72e2ae-27d6-4434-826b-f4a7e2570958",
@@ -15412,10 +15412,10 @@
     "name": "rock_island_water_w_2",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:30.030Z"
   },
   {
     "id": "f_58644f47-7172-4feb-b33f-27b2cae3dd99",
@@ -15423,10 +15423,10 @@
     "name": "rock_island_water_inner_w",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:31.471Z"
   },
   {
     "id": "f_89e2fdac-1ae1-41a4-99b1-70717500358b",
@@ -15434,10 +15434,10 @@
     "name": "rock_island_water_center",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:33.082Z"
   },
   {
     "id": "f_0955362d-a2b0-4994-9de9-c90eaa03d41a",
@@ -15445,10 +15445,10 @@
     "name": "rock_island_water_inner_e",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:34.427Z"
   },
   {
     "id": "f_2b593a5a-b700-4dd9-9a31-2bb7c585cc8c",
@@ -15456,10 +15456,10 @@
     "name": "rock_island_water_e_2",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:36.470Z"
   },
   {
     "id": "f_54c1ded4-305d-4243-b052-20ec00b726c4",
@@ -15467,10 +15467,10 @@
     "name": "rock_island_water_w_3",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:37.970Z"
   },
   {
     "id": "f_9335e76f-5e39-496c-882e-87765f0db080",
@@ -15478,10 +15478,10 @@
     "name": "rock_island_water_inner_sw",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:38.413Z"
   },
   {
     "id": "f_b8803850-bedd-4a8d-9972-4cb0b51c59e4",
@@ -15489,10 +15489,10 @@
     "name": "rock_island_water_inner_s",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:38.734Z"
   },
   {
     "id": "f_a492ac18-da91-47f7-af4d-5f910212184a",
@@ -15500,10 +15500,10 @@
     "name": "rock_island_water_inner_se",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:39.005Z"
   },
   {
     "id": "f_07b86444-f9d1-4024-b1f9-ddef1ce26910",
@@ -15511,10 +15511,10 @@
     "name": "rock_island_water_e_3",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:39.550Z"
   },
   {
     "id": "f_f32009ad-b668-4dfa-9cb0-77fa3760bc56",
@@ -15522,7 +15522,7 @@
     "name": "rock_island_water_sw",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
     "resolvedAt": null
@@ -15533,10 +15533,10 @@
     "name": "rock_island_water_s_1",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:42.377Z"
   },
   {
     "id": "f_8efda3dd-1532-4a57-a6be-3f678c5496a8",
@@ -15544,10 +15544,10 @@
     "name": "rock_island_water_s_2",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:42.802Z"
   },
   {
     "id": "f_05684aff-a52c-42af-89c2-066e59e17485",
@@ -15555,10 +15555,10 @@
     "name": "rock_island_water_s_3",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:43.882Z"
   },
   {
     "id": "f_53108afb-ec2a-4c8f-8830-31fbfacfcdd1",
@@ -15566,7 +15566,7 @@
     "name": "rock_island_water_se",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
     "resolvedAt": null
@@ -15577,10 +15577,10 @@
     "name": "cave_floor_rock_light_b",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"cave_ground_strip\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:05:16.518Z"
   },
   {
     "id": "f_667ce6bd-3d67-47e6-8e1f-215ea8f4b155",
@@ -15588,10 +15588,10 @@
     "name": "cave_floor_rock_dark_a",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"cave_ground_strip\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:05:18.387Z"
   },
   {
     "id": "f_b8651ebf-a357-4cca-a574-b6c4753720df",
@@ -15599,10 +15599,10 @@
     "name": "cave_floor_rock_dark_b",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"cave_ground_strip\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:05:18.869Z"
   },
   {
     "id": "f_7c2e3270-9dd0-4837-8b2a-e54d0244255a",
@@ -15610,10 +15610,10 @@
     "name": "pebble_tiny_a",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"pebbles_small\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:47.550Z"
   },
   {
     "id": "f_25519b23-a740-4910-b88d-f07ce51425a4",
@@ -15621,10 +15621,10 @@
     "name": "pebble_tiny_b",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"pebbles_small\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:51.539Z"
   },
   {
     "id": "f_632aa7aa-f936-48f4-8946-a6c02a1d2f45",
@@ -15632,10 +15632,10 @@
     "name": "mine_wall_top_planks_middle_a",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wooden_wall_mine\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:57.707Z"
   },
   {
     "id": "f_1f39538d-6059-406b-ba78-9ef34fdf7726",
@@ -15643,10 +15643,10 @@
     "name": "mine_wall_top_planks_middle_b",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wooden_wall_mine\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:06:58.643Z"
   },
   {
     "id": "f_03eb3063-29b1-4323-a460-c23d195017a7",
@@ -15654,10 +15654,10 @@
     "name": "mine_wall_top_planks_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wooden_wall_mine\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:00.034Z"
   },
   {
     "id": "f_0c4fbb4a-bc3c-4647-b20f-eae02e0e1994",
@@ -15665,10 +15665,10 @@
     "name": "mine_wall_post_brace_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wooden_wall_mine\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:01.311Z"
   },
   {
     "id": "f_8aaa7525-091d-47b5-8d0d-787943a04a05",
@@ -15676,10 +15676,10 @@
     "name": "mine_wall_lintel_a",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wooden_wall_mine\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:01.773Z"
   },
   {
     "id": "f_a10119f5-f86e-445b-96a4-e04626e64960",
@@ -15687,10 +15687,10 @@
     "name": "mine_wall_lintel_b",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wooden_wall_mine\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:02.117Z"
   },
   {
     "id": "f_bd6891d2-34e5-4e0e-8d1a-db298a5c4fd2",
@@ -15698,10 +15698,10 @@
     "name": "mine_wall_post_brace_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wooden_wall_mine\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:03.109Z"
   },
   {
     "id": "f_a1c23a03-d58d-43be-825c-7434d08c8860",
@@ -15709,10 +15709,10 @@
     "name": "mine_wall_post_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wooden_wall_mine\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:03.413Z"
   },
   {
     "id": "f_d6e884b8-0846-45b2-9e8d-2d88dacc1ae8",
@@ -15720,10 +15720,10 @@
     "name": "mine_wall_planks_nail",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wooden_wall_mine\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:03.595Z"
   },
   {
     "id": "f_4e8c6477-260d-48f9-81c7-5d5c1fd54335",
@@ -15731,10 +15731,10 @@
     "name": "mine_wall_planks_crack",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wooden_wall_mine\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:03.783Z"
   },
   {
     "id": "f_3e540a49-5713-4733-8f7c-9dbe4b7d27e9",
@@ -15742,10 +15742,10 @@
     "name": "mine_wall_post_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wooden_wall_mine\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:04.023Z"
   },
   {
     "id": "f_e2edb8fd-d37c-4573-9392-ba5fa972c19e",
@@ -15753,10 +15753,10 @@
     "name": "mine_wall_post_base_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wooden_wall_mine\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:05.035Z"
   },
   {
     "id": "f_ec9e8a30-f630-47b1-8716-6c3e29eac7d3",
@@ -15764,10 +15764,10 @@
     "name": "mine_wall_base_beam_a",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wooden_wall_mine\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:05.222Z"
   },
   {
     "id": "f_5d46e814-d6b7-4e21-ad7b-278fc7923c05",
@@ -15775,10 +15775,10 @@
     "name": "mine_wall_base_beam_b",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wooden_wall_mine\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:05.411Z"
   },
   {
     "id": "f_4f3bd9ff-f0fe-479e-ab02-2eb591f51012",
@@ -15786,10 +15786,10 @@
     "name": "mine_wall_post_base_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wooden_wall_mine\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:07:05.589Z"
   },
   {
     "id": "f_872279bf-7d8f-454f-b601-4e4fd646dd52",
@@ -15797,10 +15797,10 @@
     "name": "hatch_door_small_open",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"hatch_door_small\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:41:25.651021Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:01:20.103Z"
   },
   {
     "id": "f_36eb3e2d-d06d-46db-9d9c-1d3e47cd5bfd",
@@ -15819,10 +15819,10 @@
     "name": "wood_planks_stacked",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"windmill\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:00.738406Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:05:00.483Z"
   },
   {
     "id": "f_d38da31a-1aa8-48c8-9912-12582df59120",
@@ -15830,10 +15830,10 @@
     "name": "grey_counter_top_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:03:18.202Z"
   },
   {
     "id": "f_1cbfa45d-c5fc-45c7-baa5-2de2f104c517",
@@ -15841,18 +15841,18 @@
     "name": "grey_counter_top_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:03:20.018Z"
   },
   {
     "id": "f_22e4f881-de56-440f-9479-c03a91f826ef",
     "sheet": "[Base]BaseChip_pipo.png",
     "name": "grey_cabinet_door_top_left",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey neither a cabinet",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15862,8 +15862,8 @@
     "sheet": "[Base]BaseChip_pipo.png",
     "name": "grey_cabinet_door_top_right",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey neither a cabinet",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15873,8 +15873,8 @@
     "sheet": "[Base]BaseChip_pipo.png",
     "name": "grey_drawer_small",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15884,8 +15884,8 @@
     "sheet": "[Base]BaseChip_pipo.png",
     "name": "grey_cabinet_door_bottom_left",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15895,8 +15895,8 @@
     "sheet": "[Base]BaseChip_pipo.png",
     "name": "grey_cabinet_door_bottom_right",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15907,18 +15907,18 @@
     "name": "orange_tall_panel_top",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:04:02.049Z"
   },
   {
     "id": "f_eceb1e79-f91b-4730-833b-9d99a6c0347c",
     "sheet": "[Base]BaseChip_pipo.png",
     "name": "orange_cabinet_door_top_left",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] not a cabinet",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15928,8 +15928,8 @@
     "sheet": "[Base]BaseChip_pipo.png",
     "name": "orange_cabinet_door_top_right",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] not a cabinet",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15940,18 +15940,18 @@
     "name": "orange_tall_panel_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:04:20.644Z"
   },
   {
     "id": "f_38ad150f-434d-4fc6-9ab3-d8462798341a",
     "sheet": "[Base]BaseChip_pipo.png",
     "name": "orange_cabinet_door_bottom_left",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] not a cabinet",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15961,8 +15961,8 @@
     "sheet": "[Base]BaseChip_pipo.png",
     "name": "orange_cabinet_door_bottom_right",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] not a cabinet",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15973,10 +15973,10 @@
     "name": "orange_tall_panel_bottom",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:04:25.387Z"
   },
   {
     "id": "f_3822c650-ff86-423e-90be-68af2dd7fc75",
@@ -15984,10 +15984,10 @@
     "name": "market_tent_plain_round_pole_canvas_top",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"curtain_tan_awning\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:04:34.239Z"
   },
   {
     "id": "f_dc765626-4ff8-4d1e-9a48-8726d9f7a005",
@@ -15995,10 +15995,10 @@
     "name": "market_tent_striped_square_pole_canvas_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"curtain_tan_awning\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:04:36.452Z"
   },
   {
     "id": "f_309c65e4-1d4a-4484-82a9-fcf4e9e1b454",
@@ -16006,10 +16006,10 @@
     "name": "market_tent_plain_round_pole_canvas_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"curtain_tan_awning\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:04:36.784Z"
   },
   {
     "id": "f_492e4e74-ab24-4fe2-84ae-02ea67522904",
@@ -16017,10 +16017,10 @@
     "name": "market_tent_striped_square_pole_canvas_valance_edge",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"curtain_tan_awning\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:04:37.602Z"
   },
   {
     "id": "f_695b8d55-0008-4c8d-8c41-c95cd918e92c",
@@ -16028,10 +16028,10 @@
     "name": "market_tent_plain_round_pole_canvas_tattered_edge",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"curtain_tan_awning\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:04:38.045Z"
   },
   {
     "id": "f_8e6fe7cb-2b02-454a-a48b-0068d8320a0f",
@@ -16039,10 +16039,10 @@
     "name": "market_tent_striped_square_pole_canvas_valance_pole_top",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"curtain_tan_awning\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:04:39.543Z"
   },
   {
     "id": "f_83c78c4f-3285-4367-afcc-3d4717c992e1",
@@ -16050,10 +16050,10 @@
     "name": "market_tent_plain_round_pole_canvas_tattered_pole_top",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"curtain_tan_awning\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:04:40.925Z"
   },
   {
     "id": "f_0aac3dd8-91d2-4b49-b0db-c68f691d081e",
@@ -16061,10 +16061,10 @@
     "name": "market_tent_striped_square_pole_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"curtain_tan_awning\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:04:42.095Z"
   },
   {
     "id": "f_b3aa0efb-a8ef-4bed-9516-1ed233461469",
@@ -16072,10 +16072,10 @@
     "name": "market_tent_plain_round_pole_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"curtain_tan_awning\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:04:42.617Z"
   },
   {
     "id": "f_c6a4019b-63a0-4954-9d0a-ebf18e19093b",
@@ -16083,10 +16083,10 @@
     "name": "market_tent_striped_square_pole_base",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"curtain_tan_awning\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:04:43.112Z"
   },
   {
     "id": "f_7087ef5a-fb7c-46a9-8f15-3ca3bb69f984",
@@ -16094,10 +16094,10 @@
     "name": "market_tent_plain_round_pole_base",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"curtain_tan_awning\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:04:43.858Z"
   },
   {
     "id": "f_eef25d9f-ced1-43ae-be04-b7fc90cb4231",
@@ -16809,10 +16809,10 @@
     "name": "dungeon_doorway_arch_open",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:02:09.546Z"
   },
   {
     "id": "f_25129d5c-dc13-4afa-a4a3-55d2d367a37f",
@@ -16820,10 +16820,10 @@
     "name": "dungeon_door_locked_skull_chains",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:02:06.859Z"
   },
   {
     "id": "f_5c9b14ec-5b1b-4ad7-a5f2-b827c9420e20",
@@ -16996,10 +16996,10 @@
     "name": "iron_chest_dark",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:01:41.518Z"
   },
   {
     "id": "f_a10c26b4-f7cb-4111-ac4b-5ced49c49b45",
@@ -17007,10 +17007,10 @@
     "name": "clay_pot_red",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-26T00:02:39.022Z"
   },
   {
     "id": "f_6db71cf7-7b99-4c4b-9603-b922f7377dff",
@@ -17395,6 +17395,677 @@
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e11a14f1-08b0-4682-84f1-b41b55a55b47",
+    "sheet": "dungeon_tileset.png",
+    "name": "iron_chest_dark",
+    "reason": "wrong_name",
+    "comment": "this is in stone and is not a chest",
+    "status": "open",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T00:01:36.058Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6cdc13f0-9a9e-42d4-8299-17cbbd31ac39",
+    "sheet": "cave_tiles.png",
+    "name": "rock_island_water_ne",
+    "reason": "broken_image",
+    "comment": "",
+    "status": "open",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T00:07:32.381Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3fa7d7d5-a0b9-4184-ad60-6b44bba57977",
+    "sheet": "cave_tiles.png",
+    "name": "rock_island_water_nw",
+    "reason": "broken_image",
+    "comment": "",
+    "status": "open",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T00:07:35.128Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_72817b0c-2489-4501-a650-def61d3c1a4f",
+    "sheet": "cave_tiles.png",
+    "name": "rock_island_water_se",
+    "reason": "broken_image",
+    "comment": "",
+    "status": "open",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T00:07:37.473Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_4bf59f01-93df-46a8-8909-416b4f66365c",
+    "sheet": "cave_tiles.png",
+    "name": "rock_island_water_sw",
+    "reason": "broken_image",
+    "comment": "",
+    "status": "open",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T00:07:40.499Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_2695ba9a-4edc-48c5-bb3a-5a873ed17041",
+    "sheet": "dungeon_tiles.png",
+    "name": "door_wood_iron_frame",
+    "reason": "duplicate",
+    "comment": "",
+    "status": "open",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T00:12:04.853Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ba19686f-155d-4f57-ba18-e16f339aed63",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water1_channel_v_top",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_470d7a87-db75-44b8-a079-c24541b0679d",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water1_channel_v_middle",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ebb357b5-6aa9-4a35-8d4e-d1542b1a7842",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water1_channel_v_bottom",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_b0767f1a-b6c8-48d3-9593-94d3e3b8357a",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water1_corner_nw",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c95b0c11-ca77-4b2d-b70d-fcd0ba383902",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water1_corner_sw",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f6bcb20e-1e93-473d-8a00-adb365878a6d",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water2_channel_v_top",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a910cfd6-250b-4252-a50c-ff9130190e83",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water2_channel_v_middle",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_92332cf4-e9d0-4101-86b5-77220f65eb34",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water2_channel_v_bottom",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_cf382dde-b8ab-4726-b272-64d8919b735e",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water2_corner_nw",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_021db791-5ef4-4402-b863-8b0656fc7a23",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water2_corner_sw",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c1017a1a-2b3c-4955-abeb-beb8a12d985e",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water3_channel_v_top",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6ea025a1-611d-473d-a46d-bb81df3d9f7a",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water3_channel_v_middle",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_421c605a-099c-4afb-bfe9-0d0ed388e916",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water3_channel_v_bottom",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_8661a67b-ea39-43ab-ad14-b23b63c0a788",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water3_corner_nw",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_799c091a-2372-4669-a967-a5162516cd59",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water3_corner_sw",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_4fe54e32-33b3-49bd-8b2b-10ceaa690d6f",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water4_channel_v_top",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_221ee751-ea51-4ac4-93a7-b82b380180b2",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water4_channel_v_middle",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c0911c8b-0dd3-42dd-b5c9-32274129e99b",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water4_channel_v_bottom",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_89606843-bbae-4206-8d81-01c882b8b272",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water4_corner_nw",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_dc7ead1d-dbaa-4a93-bfea-81916aa6361f",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water4_corner_sw",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_caa35a73-3a40-4284-94cb-d76722c0c7c0",
+    "sheet": "[A]Water_pipo.png",
+    "name": "wave_channel_v_top",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f16d9c09-ad7b-44f6-963d-726111fd065f",
+    "sheet": "[A]Water_pipo.png",
+    "name": "wave_channel_v_middle",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a540408c-d073-496d-888f-3058c73d18e2",
+    "sheet": "[A]Water_pipo.png",
+    "name": "wave_channel_v_bottom",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f01dbe57-522e-43e6-a95c-fb79bda256f4",
+    "sheet": "[A]Water_pipo.png",
+    "name": "wave_corner_nw",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e26ad4c9-9da4-4fd7-8b5d-e9b27b6b10ff",
+    "sheet": "[A]Water_pipo.png",
+    "name": "wave_corner_sw",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_80a80b3a-69fa-41f0-949c-dc92b0e06c4f",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water1_channel_h_left",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_38b45285-6d5a-4dd5-aca8-65e6e43f235e",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water1_channel_h_middle",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6d2eb295-f512-40f8-b0fc-026f3cf1723e",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water1_channel_h_right",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_2714e56b-08b6-4eb4-ad33-a9cb072f5832",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water1_edge_n",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3610587a-be24-4057-b12d-43c59c17d40a",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water1_edge_w",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_abfd17ff-8044-4bf2-a14c-56de2c1065af",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water1_edge_s",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_7a9a66e6-04a1-4be5-9a6c-12813018b7cf",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water2_channel_h_left",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3cfc6b09-145d-4301-937b-f14ac97aead1",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water2_channel_h_middle",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0f54033d-b1d7-47e3-b7c4-3b057fcf1ca0",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water2_channel_h_right",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f2752374-9de4-4f47-80bc-c9ef0012862f",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water2_edge_n",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3e5519bc-13c6-4011-957e-246737889d10",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water2_edge_w",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_21f2f509-20b7-4c86-b289-ebd5b2a047fe",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water2_edge_s",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9306948e-dd57-4b0c-b6c9-de9bbc97c931",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water3_channel_h_left",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_fa35094e-28ae-4a35-93a3-ebcc251fabfa",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water3_channel_h_middle",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a4d7e737-74eb-4941-9845-270dc483d0d6",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water3_channel_h_right",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3ffb2c0b-3915-4857-9794-38c0e7f0b320",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water3_edge_n",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_457dfc88-bfb7-4633-971e-894330864826",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water3_edge_w",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_cee6156c-9d02-40a3-bd37-25067d0b0ce3",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water3_edge_s",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_95b1246b-65d3-46bf-94b0-6a831efd8c05",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water4_channel_h_left",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6df7d22e-7f70-4b71-919c-35d188a13930",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water4_channel_h_middle",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6f892602-eb7c-4326-aa37-4a5ff5dcd5d9",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water4_channel_h_right",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0f1f1f4f-b464-467e-97fe-9e6ad4a2aba3",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water4_edge_n",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_11a2cb51-08ea-4c2d-a786-e2c25f3cd055",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water4_edge_w",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_33461413-f62e-433d-9589-7e89a25a98e7",
+    "sheet": "[A]Water_pipo.png",
+    "name": "water4_edge_s",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_d0162282-6a86-4468-81ca-4725f8fbee56",
+    "sheet": "[A]Water_pipo.png",
+    "name": "wave_channel_h_left",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_eb895c2b-b59e-465d-ab56-12c59dc2a5dd",
+    "sheet": "[A]Water_pipo.png",
+    "name": "wave_channel_h_middle",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_bc9911b1-6972-42c6-b1e3-2e632c484637",
+    "sheet": "[A]Water_pipo.png",
+    "name": "wave_channel_h_right",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c47d1374-4256-4128-85b6-5ce6de8c2420",
+    "sheet": "[A]Water_pipo.png",
+    "name": "wave_edge_n",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_48cf15f1-a57e-4b17-8661-5894e4fe83f4",
+    "sheet": "[A]Water_pipo.png",
+    "name": "wave_edge_w",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_33cc6b87-62e6-4827-bf3e-a6607d30c7ff",
+    "sheet": "[A]Water_pipo.png",
+    "name": "wave_edge_s",
+    "reason": "renamed_fix",
+    "comment": "[Claude] Water catalogue fix: the shore pieces were named one column off (column 4 is a narrow vertical channel, the real 3x3 lake set is columns 5-7), and some pieces had no entry. Named by position now. Please check.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-26T13:14:58.561383Z",
     "resolvedAt": null
   }
 ]
