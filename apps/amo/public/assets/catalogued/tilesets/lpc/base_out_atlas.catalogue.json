@@ -1516,16 +1516,32 @@
       ]
     },
     {
-      "name": "bridge_rope_v_span",
+      "name": "ladder_side_view_leaning_left",
       "kind": "object",
-      "x": 320,
-      "y": 128,
-      "w": 64,
-      "h": 96,
+      "x": 328,
+      "y": 134,
+      "w": 24,
+      "h": 83,
       "tags": [
-        "lpc",
         "atlas",
         "bridge",
+        "ladder",
+        "lpc",
+        "rope"
+      ]
+    },
+    {
+      "name": "ladder_side_view_leaning_right",
+      "kind": "object",
+      "x": 352,
+      "y": 134,
+      "w": 24,
+      "h": 83,
+      "tags": [
+        "atlas",
+        "bridge",
+        "ladder",
+        "lpc",
         "rope"
       ]
     },

@@ -22810,9 +22810,6 @@
   "base_out_atlas.png::candle_stand_tall": {
     "collection": "lpc_base_out"
   },
-  "build_atlas.png::paneled_wooden_door": {
-    "collection": "lpc_build"
-  },
   "build_atlas.png::window_lit": {
     "collection": "lpc_build"
   },
@@ -23904,9 +23901,6 @@
   },
   "wood_weapons.png::wood_weapons_015": {
     "collection": "pixel_crawler"
-  },
-  "pots.png::wood_crate_bound": {
-    "collection": "woolly_lands"
   },
   "base_out_atlas.png::mountain_silhouette_gold": {
     "collection": "lpc_base_out"
@@ -28567,9 +28561,6 @@
   "build_atlas.png::vermillion_wood_post_c_top": {
     "collection": "lpc_build"
   },
-  "build_atlas.png::vermillion_wood_post_d_top": {
-    "collection": "lpc_build"
-  },
   "build_atlas.png::vermillion_gate_lintel_left": {
     "collection": "lpc_build"
   },
@@ -30785,12 +30776,6 @@
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::baluster_railing_wood_straight_b": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::ham_hock_raw_c": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::ham_hock_raw_b": {
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::fish_bass_yellow_a": {
@@ -33037,9 +33022,6 @@
   "rock_cluster_mossy_shore.png::rock_round_single_small": {
     "collection": "schwarnhild"
   },
-  "base_out_atlas.png::bridge_rope_v_span": {
-    "collection": "lpc_base_out"
-  },
   "build_atlas.png::hanging_gear_chain": {
     "collection": "lpc_build"
   },
@@ -33050,9 +33032,6 @@
     "collection": "lpc_build"
   },
   "build_atlas.png::flagpole_tricolor_banner": {
-    "collection": "lpc_build"
-  },
-  "build_atlas.png::barrel_cluster_edge_cropped": {
     "collection": "lpc_build"
   },
   "build_atlas.png::chinese_lantern_red_hanging": {
@@ -33067,37 +33046,13 @@
   "build_atlas.png::metal_grate_round_vent": {
     "collection": "lpc_build"
   },
-  "build_atlas.png::shop_sign_inn_purple": {
-    "collection": "lpc_build"
-  },
   "build_atlas.png::wood_cart_wheeled_a": {
-    "collection": "lpc_build"
-  },
-  "build_atlas.png::shop_sign_sword_purple_a": {
-    "collection": "lpc_build"
-  },
-  "build_atlas.png::shop_sign_potion_purple_a": {
-    "collection": "lpc_build"
-  },
-  "build_atlas.png::shop_sign_sword_purple_b": {
-    "collection": "lpc_build"
-  },
-  "build_atlas.png::shop_sign_potion_purple_b": {
-    "collection": "lpc_build"
-  },
-  "build_atlas.png::wood_chest_tall_closed_banded": {
-    "collection": "lpc_build"
-  },
-  "build_atlas.png::brown_chest_hollow_body": {
     "collection": "lpc_build"
   },
   "build_atlas.png::wood_cart_empty_a": {
     "collection": "lpc_build"
   },
   "build_atlas.png::wood_cart_hay_pitchfork": {
-    "collection": "lpc_build"
-  },
-  "build_atlas.png::brown_chest_open_banded": {
     "collection": "lpc_build"
   },
   "obj_misk_atlas.png::toilet_pedestal_white": {
@@ -33138,9 +33093,6 @@
   },
   "Size_03.png::tree_medium_snow_b": {
     "collection": "pixel_crawler"
-  },
-  "interior_asset.png::armchair_magenta": {
-    "collection": "roleworld_wizard"
   },
   "interior_asset.png::stool_wood_round": {
     "collection": "roleworld_wizard"
@@ -33194,9 +33146,6 @@
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::meat_steak_raw_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::ham_hock_raw_top_fragment_a": {
     "collection": "lpc_obj_misk"
   },
   "terrain_tiles_v2.png::dirt_patch_solid_b": {
@@ -34355,9 +34304,6 @@
     "collection": "pixel_crawler"
   },
   "dungeon_tiles.png::hatch_door_small": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::wall_banner_red": {
     "collection": "pixel_crawler"
   },
   "dungeon_tiles.png::banner_red_long": {
@@ -35638,30 +35584,6 @@
   "dungeon_tiles.png::prison_bars_top_ends": {
     "collection": "pixel_crawler"
   },
-  "dungeon_tiles.png::dark_wall_void_a": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::wall_pipe_vertical_top": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_red_brick_band_top_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_red_brick_band_top_right": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_void_b": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::wall_pipe_vertical_bottom": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_red_brick_band_bottom_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_red_brick_band_bottom_right": {
-    "collection": "pixel_crawler"
-  },
   "dungeon_tiles.png::dark_wall_void_c": {
     "collection": "pixel_crawler"
   },
@@ -35692,136 +35614,16 @@
   "dungeon_tiles.png::spike_holes_overlay": {
     "collection": "pixel_crawler"
   },
-  "dungeon_tiles.png::iron_floor_grate_top_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::iron_floor_grate_top_right": {
-    "collection": "pixel_crawler"
-  },
   "dungeon_tiles.png::prison_bars_bottom_ends_b": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::iron_floor_grate_bottom_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::iron_floor_grate_bottom_right": {
     "collection": "pixel_crawler"
   },
   "dungeon_tiles.png::iron_floor_grate_small": {
     "collection": "pixel_crawler"
   },
-  "dungeon_tiles.png::dark_wall_red_trim_top_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_red_trim_top_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_red_trim_top_right": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_blue_trim_top_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_blue_trim_top_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_blue_trim_top_right": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_green_trim_top_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_green_trim_top_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_green_trim_top_right": {
-    "collection": "pixel_crawler"
-  },
   "dungeon_tiles.png::dark_brick_wall_plain_top": {
     "collection": "pixel_crawler"
   },
-  "dungeon_tiles.png::dark_wall_red_trim_upper_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_red_trim_upper_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_red_trim_upper_right": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_blue_trim_upper_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_blue_trim_upper_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_blue_trim_upper_right": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_green_trim_upper_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_green_trim_upper_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_green_trim_upper_right": {
-    "collection": "pixel_crawler"
-  },
   "dungeon_tiles.png::dark_brick_wall_plain": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_red_trim_lower_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_red_trim_lower_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_red_trim_lower_right": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_blue_trim_lower_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_blue_trim_lower_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_blue_trim_lower_right": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_green_trim_lower_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_green_trim_lower_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_green_trim_lower_right": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_red_trim_base_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_red_trim_base_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_red_trim_base_right": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_blue_trim_base_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_blue_trim_base_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_blue_trim_base_right": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_green_trim_base_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_green_trim_base_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dark_wall_green_trim_base_right": {
     "collection": "pixel_crawler"
   },
   "effects.png::steam_puff": {
@@ -35872,24 +35674,6 @@
   "cave_tiles.png::bush_dark_round_b": {
     "collection": "pixel_crawler"
   },
-  "dungeon_tiles.png::teal_flagstone_floor_wall_shadow_top_a": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_wall_shadow_top_b": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_wall_shadow_top_c": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_wall_shadow_top_d": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_wall_shadow_top_e": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_wall_shadow_top_f": {
-    "collection": "pixel_crawler"
-  },
   "dungeon_tiles.png::wooden_floorboards_bordered_corner_top_left": {
     "collection": "pixel_crawler"
   },
@@ -35929,24 +35713,6 @@
   "dungeon_tiles.png::dungeon_wall_end_column_top": {
     "collection": "pixel_crawler"
   },
-  "dungeon_tiles.png::teal_flagstone_floor_plain_a": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_plain_b": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_plain_c": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_plain_d": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_missing_slab_dark": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_cracked": {
-    "collection": "pixel_crawler"
-  },
   "dungeon_tiles.png::wooden_floorboards_bordered_edge_left": {
     "collection": "pixel_crawler"
   },
@@ -35983,24 +35749,6 @@
   "dungeon_tiles.png::dungeon_wall_end_column_middle": {
     "collection": "pixel_crawler"
   },
-  "dungeon_tiles.png::teal_flagstone_floor_plain_e": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_plain_f": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_plain_g": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_plain_h": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_plain_i": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_plain_j": {
-    "collection": "pixel_crawler"
-  },
   "dungeon_tiles.png::wooden_floorboards_bordered_corner_bottom_left": {
     "collection": "pixel_crawler"
   },
@@ -36026,15 +35774,6 @@
     "collection": "pixel_crawler"
   },
   "dungeon_tiles.png::wooden_floor_square_opening_corner_bottom_right": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dungeon_wall_window_opening_top_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dungeon_wall_window_opening_top_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dungeon_wall_window_opening_top_right": {
     "collection": "pixel_crawler"
   },
   "dungeon_tiles.png::dungeon_wall_end_column_base": {
@@ -36079,15 +35818,6 @@
   "dungeon_tiles.png::wooden_cabinet_small_top_right": {
     "collection": "pixel_crawler"
   },
-  "dungeon_tiles.png::dungeon_wall_window_opening_bottom_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dungeon_wall_window_opening_bottom_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dungeon_wall_window_opening_bottom_right": {
-    "collection": "pixel_crawler"
-  },
   "dungeon_tiles.png::teal_flagstone_floor_shadowed_a": {
     "collection": "pixel_crawler"
   },
@@ -36098,15 +35828,6 @@
     "collection": "pixel_crawler"
   },
   "dungeon_tiles.png::wooden_floor_dark_recess_edge_right": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::wooden_floorboards_lit_edge_bottom_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::wooden_floorboards_lit_edge_bottom_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::wooden_floorboards_lit_edge_bottom_right": {
     "collection": "pixel_crawler"
   },
   "dungeon_tiles.png::wooden_cabinet_small_bottom_left": {
@@ -36160,12 +35881,6 @@
   "dungeon_tiles.png::wooden_panel_edge_b": {
     "collection": "pixel_crawler"
   },
-  "dungeon_tiles.png::wooden_cabinet_small_b_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::wooden_cabinet_small_b_right": {
-    "collection": "pixel_crawler"
-  },
   "dungeon_tiles.png::teal_flagstone_floor_dim_a": {
     "collection": "pixel_crawler"
   },
@@ -36179,15 +35894,6 @@
     "collection": "pixel_crawler"
   },
   "dungeon_tiles.png::teal_flagstone_floor_spike_holes_b": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_iron_ledge_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_iron_ledge_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_iron_ledge_right": {
     "collection": "pixel_crawler"
   },
   "dungeon_tiles.png::teal_flagstone_floor_blood_stain_a": {
@@ -36724,42 +36430,6 @@
   "dungeon_tileset.png::pillar_tall_thin": {
     "collection": "top_down_adventure_olobster"
   },
-  "dungeon_tileset.png::dark_pit_fill_a": {
-    "collection": "top_down_adventure_olobster"
-  },
-  "dungeon_tileset.png::dark_pit_fill_b": {
-    "collection": "top_down_adventure_olobster"
-  },
-  "dungeon_tileset.png::dark_pit_fill_c": {
-    "collection": "top_down_adventure_olobster"
-  },
-  "dungeon_tileset.png::dark_pit_edge_right_top": {
-    "collection": "top_down_adventure_olobster"
-  },
-  "dungeon_tileset.png::dark_pit_fill_d": {
-    "collection": "top_down_adventure_olobster"
-  },
-  "dungeon_tileset.png::dark_pit_fill_e": {
-    "collection": "top_down_adventure_olobster"
-  },
-  "dungeon_tileset.png::dark_pit_edge_right_inner": {
-    "collection": "top_down_adventure_olobster"
-  },
-  "dungeon_tileset.png::dark_pit_edge_right_middle": {
-    "collection": "top_down_adventure_olobster"
-  },
-  "dungeon_tileset.png::dark_pit_corner_bottom_left": {
-    "collection": "top_down_adventure_olobster"
-  },
-  "dungeon_tileset.png::dark_pit_edge_bottom": {
-    "collection": "top_down_adventure_olobster"
-  },
-  "dungeon_tileset.png::dark_pit_corner_bottom_right": {
-    "collection": "top_down_adventure_olobster"
-  },
-  "dungeon_tileset.png::dark_pit_edge_right_bottom": {
-    "collection": "top_down_adventure_olobster"
-  },
   "dungeon_tileset.png::rubble_stones_small": {
     "collection": "top_down_adventure_olobster"
   },
@@ -37094,5 +36764,347 @@
   },
   "dungeon_tiles.png::door_wood_iron_bands_open": {
     "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::stairs_red_yellow_carpet": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_nw": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_n": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_ne": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_pit_ledge_nw": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_pit_ledge_n": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_pit_ledge_ne": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_w": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_center": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_e": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_pit_ledge_w": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_pit_ledge_center_pit": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_pit_ledge_e": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_sw": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_s": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_se": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_pit_ledge_sw": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_pit_ledge_s": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_pit_ledge_se": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_nw": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_n": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_ne": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_sw": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_s": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_se": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_external_nw": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_external_ne": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_external_w": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_external_e": {
+    "collection": "pixel_crawler"
+  },
+  "build_atlas.png::iron_door_riveted_paneled": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::shop_sign_inn_stone_a": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::shop_sign_sword_stone_a": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::shop_sign_potion_stone_a": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::shop_sign_sword_stone_b": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::shop_sign_potion_stone_b": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::shop_sign_inn_stone_b": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::chest_wood_banded_double_lock_open": {
+    "collection": "lpc_build"
+  },
+  "obj_misk_atlas.png::ham_hock_whole_b": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::ham_hock_whole_c": {
+    "collection": "lpc_obj_misk"
+  },
+  "build_atlas.png::barrel_cluster_trio_edge_cropped": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::barrel_cluster_pair_edge_cropped": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::chest_wood_banded_double_lock_closed": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::chest_wood_banded_double_lock_opening": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::chest_wood_banded_closed": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::chest_wood_banded_opening": {
+    "collection": "lpc_build"
+  },
+  "build_atlas.png::chest_wood_banded_open": {
+    "collection": "lpc_build"
+  },
+  "base_out_atlas.png::ladder_side_view_leaning_left": {
+    "collection": "lpc_base_out"
+  },
+  "base_out_atlas.png::ladder_side_view_leaning_right": {
+    "collection": "lpc_base_out"
+  },
+  "dungeon_tiles.png::dark_wall_red_brick_band_nw": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_red_brick_band_ne": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::wooden_floorboards_lit_edge_w": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::wooden_floorboards_lit_edge_center": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::wooden_floorboards_lit_edge_e": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_red_brick_band_sw": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_red_brick_band_se": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::wooden_cabinet_small_b_w": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::wooden_cabinet_small_b_e": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::iron_floor_grate_nw": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::iron_floor_grate_ne": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_iron_ledge_w": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_iron_ledge_center": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_iron_ledge_e": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::iron_floor_grate_sw": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::iron_floor_grate_se": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_red_trim_cap_w_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_red_trim_cap_e_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_red_trim_cap_both_ends": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_blue_trim_cap_w_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_blue_trim_cap_e_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_blue_trim_cap_both_ends": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_green_trim_cap_w_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_green_trim_cap_e_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_green_trim_cap_both_ends": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_red_trim_upper_w_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_red_trim_upper_e_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_red_trim_upper_both_ends": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_blue_trim_upper_w_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_blue_trim_upper_e_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_blue_trim_upper_both_ends": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_green_trim_upper_w_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_green_trim_upper_e_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_green_trim_upper_both_ends": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_red_trim_lower_w_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_red_trim_lower_e_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_red_trim_lower_both_ends": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_blue_trim_lower_w_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_blue_trim_lower_e_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_blue_trim_lower_both_ends": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_green_trim_lower_w_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_green_trim_lower_e_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_green_trim_lower_both_ends": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_red_trim_base_w_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_red_trim_base_e_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_red_trim_base_both_ends": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_blue_trim_base_w_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_blue_trim_base_e_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_blue_trim_base_both_ends": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_green_trim_base_w_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_green_trim_base_e_end": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dark_wall_green_trim_base_both_ends": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tileset.png::dark_pit_nw": {
+    "collection": "top_down_adventure_olobster"
+  },
+  "dungeon_tileset.png::dark_pit_n": {
+    "collection": "top_down_adventure_olobster"
+  },
+  "dungeon_tileset.png::dark_pit_ne": {
+    "collection": "top_down_adventure_olobster"
+  },
+  "dungeon_tileset.png::dark_pit_narrow_n": {
+    "collection": "top_down_adventure_olobster"
+  },
+  "dungeon_tileset.png::dark_pit_w": {
+    "collection": "top_down_adventure_olobster"
+  },
+  "dungeon_tileset.png::dark_pit_center": {
+    "collection": "top_down_adventure_olobster"
+  },
+  "dungeon_tileset.png::dark_pit_e": {
+    "collection": "top_down_adventure_olobster"
+  },
+  "dungeon_tileset.png::dark_pit_narrow_center": {
+    "collection": "top_down_adventure_olobster"
+  },
+  "dungeon_tileset.png::dark_pit_sw": {
+    "collection": "top_down_adventure_olobster"
+  },
+  "dungeon_tileset.png::dark_pit_s": {
+    "collection": "top_down_adventure_olobster"
+  },
+  "dungeon_tileset.png::dark_pit_se": {
+    "collection": "top_down_adventure_olobster"
+  },
+  "dungeon_tileset.png::dark_pit_narrow_s": {
+    "collection": "top_down_adventure_olobster"
+  },
+  "interior_asset.png::armchair_red": {
+    "collection": "roleworld_wizard"
+  },
+  "pots.png::planter_box_wood_soil": {
+    "collection": "woolly_lands"
   }
 }

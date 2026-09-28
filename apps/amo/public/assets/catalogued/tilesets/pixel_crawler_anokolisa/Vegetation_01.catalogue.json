@@ -6,10 +6,10 @@
     {
       "name": "tree_canopy_green",
       "kind": "object",
-      "x": 18,
-      "y": 3,
-      "w": 44,
-      "h": 45,
+      "x": 16,
+      "y": 0,
+      "w": 48,
+      "h": 48,
       "tags": [
         "anokolisa",
         "bush",
@@ -20,10 +20,10 @@
     {
       "name": "tree_canopy_olive",
       "kind": "object",
-      "x": 66,
-      "y": 3,
-      "w": 44,
-      "h": 45,
+      "x": 64,
+      "y": 0,
+      "w": 48,
+      "h": 48,
       "tags": [
         "anokolisa",
         "bush",

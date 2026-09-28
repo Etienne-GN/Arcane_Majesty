@@ -1298,7 +1298,7 @@
       ]
     },
     {
-      "name": "dark_pit_fill_a",
+      "name": "dark_pit_nw",
       "kind": "object",
       "x": 96,
       "y": 128,
@@ -1313,7 +1313,7 @@
       ]
     },
     {
-      "name": "dark_pit_fill_b",
+      "name": "dark_pit_n",
       "kind": "object",
       "x": 112,
       "y": 128,
@@ -1328,7 +1328,7 @@
       ]
     },
     {
-      "name": "dark_pit_fill_c",
+      "name": "dark_pit_ne",
       "kind": "object",
       "x": 128,
       "y": 128,
@@ -1343,7 +1343,7 @@
       ]
     },
     {
-      "name": "dark_pit_edge_right_top",
+      "name": "dark_pit_narrow_n",
       "kind": "object",
       "x": 144,
       "y": 128,
@@ -1358,7 +1358,7 @@
       ]
     },
     {
-      "name": "dark_pit_fill_d",
+      "name": "dark_pit_w",
       "kind": "object",
       "x": 96,
       "y": 144,
@@ -1373,7 +1373,7 @@
       ]
     },
     {
-      "name": "dark_pit_fill_e",
+      "name": "dark_pit_center",
       "kind": "object",
       "x": 112,
       "y": 144,
@@ -1388,7 +1388,7 @@
       ]
     },
     {
-      "name": "dark_pit_edge_right_inner",
+      "name": "dark_pit_e",
       "kind": "object",
       "x": 128,
       "y": 144,
@@ -1403,7 +1403,7 @@
       ]
     },
     {
-      "name": "dark_pit_edge_right_middle",
+      "name": "dark_pit_narrow_center",
       "kind": "object",
       "x": 144,
       "y": 144,
@@ -1418,7 +1418,7 @@
       ]
     },
     {
-      "name": "dark_pit_corner_bottom_left",
+      "name": "dark_pit_sw",
       "kind": "object",
       "x": 96,
       "y": 160,
@@ -1433,7 +1433,7 @@
       ]
     },
     {
-      "name": "dark_pit_edge_bottom",
+      "name": "dark_pit_s",
       "kind": "object",
       "x": 112,
       "y": 160,
@@ -1448,7 +1448,7 @@
       ]
     },
     {
-      "name": "dark_pit_corner_bottom_right",
+      "name": "dark_pit_se",
       "kind": "object",
       "x": 128,
       "y": 160,
@@ -1463,7 +1463,7 @@
       ]
     },
     {
-      "name": "dark_pit_edge_right_bottom",
+      "name": "dark_pit_narrow_s",
       "kind": "object",
       "x": 144,
       "y": 160,

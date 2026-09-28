@@ -4,7 +4,7 @@
   "sheetHeight": 1024,
   "entries": [
     {
-      "name": "paneled_wooden_door",
+      "name": "iron_door_riveted_paneled",
       "kind": "object",
       "x": 0,
       "y": 0,
@@ -2136,18 +2136,33 @@
       ]
     },
     {
-      "name": "barrel_cluster_edge_cropped",
+      "name": "barrel_cluster_trio_edge_cropped",
       "kind": "object",
       "x": 992,
-      "y": 256,
+      "y": 258,
       "w": 32,
-      "h": 128,
+      "h": 61,
       "tags": [
-        "lpc",
         "atlas",
         "barrel",
+        "cluster",
         "container",
-        "cluster"
+        "lpc"
+      ]
+    },
+    {
+      "name": "barrel_cluster_pair_edge_cropped",
+      "kind": "object",
+      "x": 992,
+      "y": 322,
+      "w": 16,
+      "h": 61,
+      "tags": [
+        "atlas",
+        "barrel",
+        "cluster",
+        "container",
+        "lpc"
       ]
     },
     {
@@ -5167,7 +5182,7 @@
       ]
     },
     {
-      "name": "shop_sign_inn_purple",
+      "name": "shop_sign_inn_stone_a",
       "kind": "tile",
       "row": 19,
       "col": 21,
@@ -5419,7 +5434,7 @@
       ]
     },
     {
-      "name": "shop_sign_sword_purple_a",
+      "name": "shop_sign_sword_stone_a",
       "kind": "tile",
       "row": 20,
       "col": 17,
@@ -5432,7 +5447,7 @@
       ]
     },
     {
-      "name": "shop_sign_potion_purple_a",
+      "name": "shop_sign_potion_stone_a",
       "kind": "tile",
       "row": 20,
       "col": 18,
@@ -5445,7 +5460,7 @@
       ]
     },
     {
-      "name": "shop_sign_sword_purple_b",
+      "name": "shop_sign_sword_stone_b",
       "kind": "tile",
       "row": 20,
       "col": 19,
@@ -5458,7 +5473,7 @@
       ]
     },
     {
-      "name": "shop_sign_potion_purple_b",
+      "name": "shop_sign_potion_stone_b",
       "kind": "tile",
       "row": 20,
       "col": 20,
@@ -5471,7 +5486,7 @@
       ]
     },
     {
-      "name": "vermillion_wood_post_d_top",
+      "name": "shop_sign_inn_stone_b",
       "kind": "tile",
       "row": 20,
       "col": 21,
@@ -5717,22 +5732,52 @@
       ]
     },
     {
-      "name": "wood_chest_tall_closed_banded",
+      "name": "chest_wood_banded_closed",
       "kind": "object",
       "x": 480,
       "y": 672,
       "w": 32,
-      "h": 96,
+      "h": 32,
       "tags": [
-        "lpc",
         "atlas",
         "chest",
+        "closed",
         "container",
-        "closed"
+        "lpc"
       ]
     },
     {
-      "name": "brown_chest_hollow_body",
+      "name": "chest_wood_banded_opening",
+      "kind": "object",
+      "x": 480,
+      "y": 704,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "atlas",
+        "chest",
+        "closed",
+        "container",
+        "lpc"
+      ]
+    },
+    {
+      "name": "chest_wood_banded_open",
+      "kind": "object",
+      "x": 480,
+      "y": 736,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "atlas",
+        "chest",
+        "closed",
+        "container",
+        "lpc"
+      ]
+    },
+    {
+      "name": "chest_wood_banded_double_lock_open",
       "kind": "tile",
       "row": 21,
       "col": 16,
@@ -6459,17 +6504,32 @@
       ]
     },
     {
-      "name": "brown_chest_open_banded",
+      "name": "chest_wood_banded_double_lock_closed",
       "kind": "object",
       "x": 480,
       "y": 768,
       "w": 32,
-      "h": 64,
+      "h": 32,
       "tags": [
-        "lpc",
         "atlas",
         "chest",
         "container",
+        "lpc",
+        "open"
+      ]
+    },
+    {
+      "name": "chest_wood_banded_double_lock_opening",
+      "kind": "object",
+      "x": 480,
+      "y": 800,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "atlas",
+        "chest",
+        "container",
+        "lpc",
         "open"
       ]
     },

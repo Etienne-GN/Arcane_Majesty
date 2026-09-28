@@ -145,17 +145,18 @@
       ]
     },
     {
-      "name": "wall_banner_red",
+      "name": "stairs_red_yellow_carpet",
       "kind": "object",
       "x": 80,
       "y": 96,
       "w": 32,
       "h": 32,
       "tags": [
-        "pixel_crawler",
         "anokolisa",
+        "carpet",
         "dungeon",
-        "banner"
+        "pixel_crawler",
+        "stairs"
       ]
     },
     {
@@ -374,7 +375,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_wall_shadow_top_a",
+      "name": "teal_flagstone_floor_nw",
       "kind": "object",
       "x": 64,
       "y": 0,
@@ -388,7 +389,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_wall_shadow_top_b",
+      "name": "teal_flagstone_floor_n",
       "kind": "object",
       "x": 80,
       "y": 0,
@@ -402,7 +403,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_wall_shadow_top_c",
+      "name": "teal_flagstone_floor_ne",
       "kind": "object",
       "x": 96,
       "y": 0,
@@ -416,7 +417,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_wall_shadow_top_d",
+      "name": "teal_flagstone_floor_pit_ledge_nw",
       "kind": "object",
       "x": 112,
       "y": 0,
@@ -430,7 +431,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_wall_shadow_top_e",
+      "name": "teal_flagstone_floor_pit_ledge_n",
       "kind": "object",
       "x": 128,
       "y": 0,
@@ -444,7 +445,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_wall_shadow_top_f",
+      "name": "teal_flagstone_floor_pit_ledge_ne",
       "kind": "object",
       "x": 144,
       "y": 0,
@@ -640,7 +641,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_plain_a",
+      "name": "teal_flagstone_floor_w",
       "kind": "object",
       "x": 64,
       "y": 16,
@@ -654,7 +655,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_plain_b",
+      "name": "teal_flagstone_floor_center",
       "kind": "object",
       "x": 80,
       "y": 16,
@@ -668,7 +669,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_plain_c",
+      "name": "teal_flagstone_floor_e",
       "kind": "object",
       "x": 96,
       "y": 16,
@@ -682,7 +683,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_plain_d",
+      "name": "teal_flagstone_floor_pit_ledge_w",
       "kind": "object",
       "x": 112,
       "y": 16,
@@ -696,7 +697,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_missing_slab_dark",
+      "name": "teal_flagstone_floor_pit_ledge_center_pit",
       "kind": "object",
       "x": 128,
       "y": 16,
@@ -710,7 +711,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_cracked",
+      "name": "teal_flagstone_floor_pit_ledge_e",
       "kind": "object",
       "x": 144,
       "y": 16,
@@ -892,7 +893,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_plain_e",
+      "name": "teal_flagstone_floor_sw",
       "kind": "object",
       "x": 64,
       "y": 32,
@@ -906,7 +907,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_plain_f",
+      "name": "teal_flagstone_floor_s",
       "kind": "object",
       "x": 80,
       "y": 32,
@@ -920,7 +921,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_plain_g",
+      "name": "teal_flagstone_floor_se",
       "kind": "object",
       "x": 96,
       "y": 32,
@@ -934,7 +935,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_plain_h",
+      "name": "teal_flagstone_floor_pit_ledge_sw",
       "kind": "object",
       "x": 112,
       "y": 32,
@@ -948,7 +949,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_plain_i",
+      "name": "teal_flagstone_floor_pit_ledge_s",
       "kind": "object",
       "x": 128,
       "y": 32,
@@ -962,7 +963,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_plain_j",
+      "name": "teal_flagstone_floor_pit_ledge_se",
       "kind": "object",
       "x": 144,
       "y": 32,
@@ -1102,7 +1103,7 @@
       ]
     },
     {
-      "name": "dungeon_wall_window_opening_top_left",
+      "name": "dungeon_wall_top_blue_stone_trim_nw",
       "kind": "object",
       "x": 0,
       "y": 48,
@@ -1116,7 +1117,7 @@
       ]
     },
     {
-      "name": "dungeon_wall_window_opening_top_middle",
+      "name": "dungeon_wall_top_blue_stone_trim_n",
       "kind": "object",
       "x": 16,
       "y": 48,
@@ -1130,7 +1131,7 @@
       ]
     },
     {
-      "name": "dungeon_wall_window_opening_top_right",
+      "name": "dungeon_wall_top_blue_stone_trim_ne",
       "kind": "object",
       "x": 32,
       "y": 48,
@@ -1354,7 +1355,7 @@
       ]
     },
     {
-      "name": "dungeon_wall_window_opening_bottom_left",
+      "name": "dungeon_wall_top_blue_stone_trim_sw",
       "kind": "object",
       "x": 0,
       "y": 64,
@@ -1368,7 +1369,7 @@
       ]
     },
     {
-      "name": "dungeon_wall_window_opening_bottom_middle",
+      "name": "dungeon_wall_top_blue_stone_trim_s",
       "kind": "object",
       "x": 16,
       "y": 64,
@@ -1382,7 +1383,7 @@
       ]
     },
     {
-      "name": "dungeon_wall_window_opening_bottom_right",
+      "name": "dungeon_wall_top_blue_stone_trim_se",
       "kind": "object",
       "x": 32,
       "y": 64,
@@ -1396,7 +1397,7 @@
       ]
     },
     {
-      "name": "dark_wall_void_a",
+      "name": "dungeon_wall_top_blue_stone_trim_external_nw",
       "kind": "object",
       "x": 48,
       "y": 64,
@@ -1410,7 +1411,7 @@
       ]
     },
     {
-      "name": "wall_pipe_vertical_top",
+      "name": "dungeon_wall_top_blue_stone_trim_external_ne",
       "kind": "object",
       "x": 64,
       "y": 64,
@@ -1424,7 +1425,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_brick_band_top_left",
+      "name": "dark_wall_red_brick_band_nw",
       "kind": "object",
       "x": 80,
       "y": 64,
@@ -1438,7 +1439,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_brick_band_top_right",
+      "name": "dark_wall_red_brick_band_ne",
       "kind": "object",
       "x": 96,
       "y": 64,
@@ -1508,7 +1509,7 @@
       ]
     },
     {
-      "name": "wooden_floorboards_lit_edge_bottom_left",
+      "name": "wooden_floorboards_lit_edge_w",
       "kind": "object",
       "x": 272,
       "y": 64,
@@ -1522,7 +1523,7 @@
       ]
     },
     {
-      "name": "wooden_floorboards_lit_edge_bottom_middle",
+      "name": "wooden_floorboards_lit_edge_center",
       "kind": "object",
       "x": 288,
       "y": 64,
@@ -1536,7 +1537,7 @@
       ]
     },
     {
-      "name": "wooden_floorboards_lit_edge_bottom_right",
+      "name": "wooden_floorboards_lit_edge_e",
       "kind": "object",
       "x": 304,
       "y": 64,
@@ -1620,7 +1621,7 @@
       ]
     },
     {
-      "name": "dark_wall_void_b",
+      "name": "dungeon_wall_top_blue_stone_trim_external_w",
       "kind": "object",
       "x": 48,
       "y": 80,
@@ -1634,7 +1635,7 @@
       ]
     },
     {
-      "name": "wall_pipe_vertical_bottom",
+      "name": "dungeon_wall_top_blue_stone_trim_external_e",
       "kind": "object",
       "x": 64,
       "y": 80,
@@ -1648,7 +1649,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_brick_band_bottom_left",
+      "name": "dark_wall_red_brick_band_sw",
       "kind": "object",
       "x": 80,
       "y": 80,
@@ -1662,7 +1663,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_brick_band_bottom_right",
+      "name": "dark_wall_red_brick_band_se",
       "kind": "object",
       "x": 96,
       "y": 80,
@@ -1886,7 +1887,7 @@
       ]
     },
     {
-      "name": "wooden_cabinet_small_b_left",
+      "name": "wooden_cabinet_small_b_w",
       "kind": "object",
       "x": 320,
       "y": 96,
@@ -1900,7 +1901,7 @@
       ]
     },
     {
-      "name": "wooden_cabinet_small_b_right",
+      "name": "wooden_cabinet_small_b_e",
       "kind": "object",
       "x": 336,
       "y": 96,
@@ -2082,7 +2083,7 @@
       ]
     },
     {
-      "name": "iron_floor_grate_top_left",
+      "name": "iron_floor_grate_nw",
       "kind": "object",
       "x": 112,
       "y": 160,
@@ -2096,7 +2097,7 @@
       ]
     },
     {
-      "name": "iron_floor_grate_top_right",
+      "name": "iron_floor_grate_ne",
       "kind": "object",
       "x": 128,
       "y": 160,
@@ -2124,7 +2125,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_iron_ledge_left",
+      "name": "teal_flagstone_floor_iron_ledge_w",
       "kind": "object",
       "x": 32,
       "y": 176,
@@ -2138,7 +2139,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_iron_ledge_middle",
+      "name": "teal_flagstone_floor_iron_ledge_center",
       "kind": "object",
       "x": 48,
       "y": 176,
@@ -2152,7 +2153,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_iron_ledge_right",
+      "name": "teal_flagstone_floor_iron_ledge_e",
       "kind": "object",
       "x": 64,
       "y": 176,
@@ -2166,7 +2167,7 @@
       ]
     },
     {
-      "name": "iron_floor_grate_bottom_left",
+      "name": "iron_floor_grate_sw",
       "kind": "object",
       "x": 112,
       "y": 176,
@@ -2180,7 +2181,7 @@
       ]
     },
     {
-      "name": "iron_floor_grate_bottom_right",
+      "name": "iron_floor_grate_se",
       "kind": "object",
       "x": 128,
       "y": 176,
@@ -2306,7 +2307,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_trim_top_left",
+      "name": "dark_wall_red_trim_cap_w_end",
       "kind": "object",
       "x": 0,
       "y": 224,
@@ -2320,7 +2321,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_trim_top_middle",
+      "name": "dark_wall_red_trim_cap_e_end",
       "kind": "object",
       "x": 16,
       "y": 224,
@@ -2334,7 +2335,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_trim_top_right",
+      "name": "dark_wall_red_trim_cap_both_ends",
       "kind": "object",
       "x": 32,
       "y": 224,
@@ -2348,7 +2349,7 @@
       ]
     },
     {
-      "name": "dark_wall_blue_trim_top_left",
+      "name": "dark_wall_blue_trim_cap_w_end",
       "kind": "object",
       "x": 48,
       "y": 224,
@@ -2362,7 +2363,7 @@
       ]
     },
     {
-      "name": "dark_wall_blue_trim_top_middle",
+      "name": "dark_wall_blue_trim_cap_e_end",
       "kind": "object",
       "x": 64,
       "y": 224,
@@ -2376,7 +2377,7 @@
       ]
     },
     {
-      "name": "dark_wall_blue_trim_top_right",
+      "name": "dark_wall_blue_trim_cap_both_ends",
       "kind": "object",
       "x": 80,
       "y": 224,
@@ -2390,7 +2391,7 @@
       ]
     },
     {
-      "name": "dark_wall_green_trim_top_left",
+      "name": "dark_wall_green_trim_cap_w_end",
       "kind": "object",
       "x": 96,
       "y": 224,
@@ -2404,7 +2405,7 @@
       ]
     },
     {
-      "name": "dark_wall_green_trim_top_middle",
+      "name": "dark_wall_green_trim_cap_e_end",
       "kind": "object",
       "x": 112,
       "y": 224,
@@ -2418,7 +2419,7 @@
       ]
     },
     {
-      "name": "dark_wall_green_trim_top_right",
+      "name": "dark_wall_green_trim_cap_both_ends",
       "kind": "object",
       "x": 128,
       "y": 224,
@@ -2446,7 +2447,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_trim_upper_left",
+      "name": "dark_wall_red_trim_upper_w_end",
       "kind": "object",
       "x": 0,
       "y": 240,
@@ -2460,7 +2461,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_trim_upper_middle",
+      "name": "dark_wall_red_trim_upper_e_end",
       "kind": "object",
       "x": 16,
       "y": 240,
@@ -2474,7 +2475,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_trim_upper_right",
+      "name": "dark_wall_red_trim_upper_both_ends",
       "kind": "object",
       "x": 32,
       "y": 240,
@@ -2488,7 +2489,7 @@
       ]
     },
     {
-      "name": "dark_wall_blue_trim_upper_left",
+      "name": "dark_wall_blue_trim_upper_w_end",
       "kind": "object",
       "x": 48,
       "y": 240,
@@ -2502,7 +2503,7 @@
       ]
     },
     {
-      "name": "dark_wall_blue_trim_upper_middle",
+      "name": "dark_wall_blue_trim_upper_e_end",
       "kind": "object",
       "x": 64,
       "y": 240,
@@ -2516,7 +2517,7 @@
       ]
     },
     {
-      "name": "dark_wall_blue_trim_upper_right",
+      "name": "dark_wall_blue_trim_upper_both_ends",
       "kind": "object",
       "x": 80,
       "y": 240,
@@ -2530,7 +2531,7 @@
       ]
     },
     {
-      "name": "dark_wall_green_trim_upper_left",
+      "name": "dark_wall_green_trim_upper_w_end",
       "kind": "object",
       "x": 96,
       "y": 240,
@@ -2544,7 +2545,7 @@
       ]
     },
     {
-      "name": "dark_wall_green_trim_upper_middle",
+      "name": "dark_wall_green_trim_upper_e_end",
       "kind": "object",
       "x": 112,
       "y": 240,
@@ -2558,7 +2559,7 @@
       ]
     },
     {
-      "name": "dark_wall_green_trim_upper_right",
+      "name": "dark_wall_green_trim_upper_both_ends",
       "kind": "object",
       "x": 128,
       "y": 240,
@@ -2586,7 +2587,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_trim_lower_left",
+      "name": "dark_wall_red_trim_lower_w_end",
       "kind": "object",
       "x": 0,
       "y": 256,
@@ -2600,7 +2601,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_trim_lower_middle",
+      "name": "dark_wall_red_trim_lower_e_end",
       "kind": "object",
       "x": 16,
       "y": 256,
@@ -2614,7 +2615,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_trim_lower_right",
+      "name": "dark_wall_red_trim_lower_both_ends",
       "kind": "object",
       "x": 32,
       "y": 256,
@@ -2628,7 +2629,7 @@
       ]
     },
     {
-      "name": "dark_wall_blue_trim_lower_left",
+      "name": "dark_wall_blue_trim_lower_w_end",
       "kind": "object",
       "x": 48,
       "y": 256,
@@ -2642,7 +2643,7 @@
       ]
     },
     {
-      "name": "dark_wall_blue_trim_lower_middle",
+      "name": "dark_wall_blue_trim_lower_e_end",
       "kind": "object",
       "x": 64,
       "y": 256,
@@ -2656,7 +2657,7 @@
       ]
     },
     {
-      "name": "dark_wall_blue_trim_lower_right",
+      "name": "dark_wall_blue_trim_lower_both_ends",
       "kind": "object",
       "x": 80,
       "y": 256,
@@ -2670,7 +2671,7 @@
       ]
     },
     {
-      "name": "dark_wall_green_trim_lower_left",
+      "name": "dark_wall_green_trim_lower_w_end",
       "kind": "object",
       "x": 96,
       "y": 256,
@@ -2684,7 +2685,7 @@
       ]
     },
     {
-      "name": "dark_wall_green_trim_lower_middle",
+      "name": "dark_wall_green_trim_lower_e_end",
       "kind": "object",
       "x": 112,
       "y": 256,
@@ -2698,7 +2699,7 @@
       ]
     },
     {
-      "name": "dark_wall_green_trim_lower_right",
+      "name": "dark_wall_green_trim_lower_both_ends",
       "kind": "object",
       "x": 128,
       "y": 256,
@@ -2712,7 +2713,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_trim_base_left",
+      "name": "dark_wall_red_trim_base_w_end",
       "kind": "object",
       "x": 0,
       "y": 272,
@@ -2726,7 +2727,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_trim_base_middle",
+      "name": "dark_wall_red_trim_base_e_end",
       "kind": "object",
       "x": 16,
       "y": 272,
@@ -2740,7 +2741,7 @@
       ]
     },
     {
-      "name": "dark_wall_red_trim_base_right",
+      "name": "dark_wall_red_trim_base_both_ends",
       "kind": "object",
       "x": 32,
       "y": 272,
@@ -2754,7 +2755,7 @@
       ]
     },
     {
-      "name": "dark_wall_blue_trim_base_left",
+      "name": "dark_wall_blue_trim_base_w_end",
       "kind": "object",
       "x": 48,
       "y": 272,
@@ -2768,7 +2769,7 @@
       ]
     },
     {
-      "name": "dark_wall_blue_trim_base_middle",
+      "name": "dark_wall_blue_trim_base_e_end",
       "kind": "object",
       "x": 64,
       "y": 272,
@@ -2782,7 +2783,7 @@
       ]
     },
     {
-      "name": "dark_wall_blue_trim_base_right",
+      "name": "dark_wall_blue_trim_base_both_ends",
       "kind": "object",
       "x": 80,
       "y": 272,
@@ -2796,7 +2797,7 @@
       ]
     },
     {
-      "name": "dark_wall_green_trim_base_left",
+      "name": "dark_wall_green_trim_base_w_end",
       "kind": "object",
       "x": 96,
       "y": 272,
@@ -2810,7 +2811,7 @@
       ]
     },
     {
-      "name": "dark_wall_green_trim_base_middle",
+      "name": "dark_wall_green_trim_base_e_end",
       "kind": "object",
       "x": 112,
       "y": 272,
@@ -2824,7 +2825,7 @@
       ]
     },
     {
-      "name": "dark_wall_green_trim_base_right",
+      "name": "dark_wall_green_trim_base_both_ends",
       "kind": "object",
       "x": 128,
       "y": 272,

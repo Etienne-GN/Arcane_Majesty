@@ -6983,14 +6983,18 @@
       ]
     },
     {
-      "name": "ham_hock_raw_top_fragment_a",
-      "kind": "tile",
-      "row": 27,
-      "col": 0,
-      "frameIndex": 864,
+      "name": "ham_hock_whole_b",
+      "kind": "object",
+      "x": 3,
+      "y": 883,
+      "w": 27,
+      "h": 25,
       "tags": [
-        "lpc",
-        "atlas"
+        "atlas",
+        "cooked",
+        "food",
+        "ham",
+        "lpc"
       ]
     },
     {
@@ -7181,25 +7185,15 @@
       ]
     },
     {
-      "name": "ham_hock_raw_c",
-      "kind": "tile",
-      "row": 28,
-      "col": 0,
-      "frameIndex": 896,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "ham_hock_raw_b",
+      "name": "ham_hock_whole_c",
       "kind": "tile",
       "row": 28,
       "col": 1,
       "frameIndex": 897,
       "tags": [
-        "lpc",
-        "atlas"
+        "atlas",
+        "cooked",
+        "lpc"
       ]
     },
     {
