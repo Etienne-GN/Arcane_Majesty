@@ -109,7 +109,7 @@ It is empty...
 It is cold...
 The crown is hollow.
 The crown is hollow.</Lyrics>
-            <analysis>Vorgos narrates Malakar's despair following 0 GD (~150 AGD). Malakar realizes Nyktoros is sealed by Anya, leaving him with a shattered kingdom and a silent god.</analysis>
+            <analysis>Malakar's first-person lament following 0 GD (~150 AGD). He realizes Nyktoros is sealed by Anya, leaving him with a shattered kingdom and a silent god.</analysis>
         </Song>
 
         <Song song="Ghosts of the Citadel">
@@ -656,10 +656,10 @@ To free the land from shadows, to break the tyrant's chains,
 The Hidden Insurrection fights to reclaim what remains.
 
 [Outro]
-From ashes they will rise, from darkness they will break,
-With every step they take, the tyrant’s rule will shake.
-The Hidden Insurrection marches, their fate is in their hands,
-To restore the glory of Nythoria’s lands.</Lyrics>
+From the embers they rise, from the tyrant's grip free,
+With every oath they keep, the tyrant's rule will be.
+The Hidden Insurrection wills, their fate is in their hands,
+To restore the glory of Nythoria's lands.</Lyrics>
             <analysis>The Nythorian uprising supporting Seraphina. Malakar realizes his own citizens view him as a tyrant rather than a savior.</analysis>
         </Song>
 
@@ -727,7 +727,7 @@ The Queen's Deception, a tale of blood and gold
             <Lyrics>[Verse 1]
 In the shadows, whispers spread
 Of treachery and plots, in every head
-Vesper watches close, with eyes so keen
+Infiltrators watch, with eyes so keen
 A traitor lurks, in Nythoria's dream
 
 [Chorus]
@@ -761,8 +761,8 @@ Malakar suspects nothing, veiled behind his wall
 The Queen of Carnage sharpens blades for his fall
 
 [Bridge]
-Malakar's trust, in Vesper, is all he holds dear
-But even she, may not be what she appears clear
+Malakar's trust in the court is all he holds dear
+But every close spy, a blade he can't see clear
 In this game of thrones, where deception reigns
 Who can Malakar truly trust, or are they all just pawns and pains?
 
@@ -775,7 +775,7 @@ The Queen of Carnage, her plan is soon to be shown
 [Outro]
 As Malakar prepares, for war's dark design
 He realizes too late, the Queen's deceit is divine
-His power wanes, as Vesper's secrets unfold
+His power wanes, as hidden spies unfold
 The Queen's Deception, a tale of blood and gold</Lyrics>
             <analysis>Malakar realizes Seraphina outsmarted him strategically, poisoning the planar frequency of his Citadel spells.</analysis>
         </Song>
@@ -1001,10 +1001,10 @@ He gathers the remnants, a kingdom's lost fate
 Each whisper a promise, a vow to reclaim
 From the Carnage Queen's grip, etch Nythoria's name
 
-Weakened but resolute, vengeance won't wait
-He gathers the remnants, a kingdom's lost fate
-Each whisper a promise, a fire renewed
-From the shadows they'll rise, vengeance pursued</Lyrics>
+The king endures the shadow's cold,
+A saga waiting to unfold.
+Alliances forged in blood and rain,
+The road to vengeance, and to reign.</Lyrics>
             <analysis>Malakar survives his exile in the wild (~250 AGD), finding a hidden subterranean sanctuary on the edge of the Shadow Realm.</analysis>
         </Song>
 
@@ -1100,7 +1100,7 @@ The Queen of Carnage is a world away,
 While I am building a different day.
 
 [Bridge]
-I see the planes from the center of the Void,
+I see the planes from the brink of the Void,
 The universal balance has been destroyed.
 But in the silence, I find my true might,
 The final evolution of the final night.
@@ -1185,17 +1185,17 @@ I walk alone.
             <Lyrics>[Verse 1]
 I pray to the Master in the lightless room,
 To find the reason for the shadow's doom.
-I gave my kingdom and I gave my soul,
+I gave him my kingdom, I pledged my soul,
 To give the Void its absolute control.
 But there is no answer and there is no sound,
-Only the silence of the holy ground.
+Only the stillness of forsaken ground.
 
 [Verse 2]
 The blueprints are active but the voice is gone,
-I am the priest of the darkened sun.
+I am the keeper of the darkened sun.
 I feel the hunger but I don't feel the love,
 From the ancient entity in the planes above.
-I am alone in the heart of the night,
+I wander alone through the endless night,
 The final defender of the master's light.
 
 [Chorus]
@@ -1216,7 +1216,7 @@ The final architect of the shadow line.
 
 [Bridge]
 I’ll use the Tome to find a different way,
-To end the era of the elven day.
+To end the age that the night has swayed.
 I don't need the whispers and I don't need the sign,
 To make the universal power mine.
 I am the Disciple who was left behind,
@@ -1369,11 +1369,11 @@ To rise from the ashes and reclaim the night.</Lyrics>
             <analysis>Malakar forms the Shadow Council (~290 AGD), building an underground resistance network against Queen Seraphina's empire.</analysis>
         </Song>
 
-        <Song song="Prelude to Vengeance">
+        <Song song="The Lord of Shadows">
             <song_id>12</song_id>
             <timestamp>300</timestamp>
-            <Tone>Vengeful, Intriguing, Monumental</Tone>
-            <Plot>Malakar completes his dark preparations in the Shadow Realm (~300 AGD). He prepares his forces for a long-term counter-offensive against Queen Seraphina, setting the stage for future eras.</Plot>
+            <Tone>Dark, Shadowy, Aggressive, Fearsome</Tone>
+            <Plot>Malakar, re-forged in the Shadow Realm (~300 AGD), claims his identity as the Lord of Shadows. He completes his dark preparations and readies his long-term counter-offensive against Queen Seraphina, setting the stage for future eras.</Plot>
                         <OriginalLyrics>
 [Verse 1]
 Deep in the heartwood, where shadows convene
@@ -1448,52 +1448,52 @@ The prelude is over, the battle's at hand
 Malakar returns, to reclaim his...
             </OriginalLyrics>
             <Lyrics>[Verse 1]
-Deep in the heartwood, where shadows convene,
+Deep in the black wastes, where shadows convene,
 Malakar stirs, a storm yet unseen.
 Scars etched in magic, a kingdom's demise,
 Fuel the fire of vengeance in his crimson eyes.
 
 [Chorus]
-This is the prelude to vengeance, a whisper on the breeze,
+A whisper becomes a war cry, carried on the breeze,
 The Lord of Shadows rises, unease in the trees.
 Magic rekindled, a hunger for war,
-The Carnage Queen's reign soon to be no more.
+The Queen of Carnage, her reign soon to be no more.
 
 [Verse 2]
 Blades flash and parry, sweat drips on the ground,
-Malakar trains fiercely, a king newly crowned.
+Malakar trains fiercely, a king uncrowned.
 In whispers and shadows, his secrets unfold,
 Strategies sharpen, a story untold.
 
 [Chorus]
-This is the prelude to vengeance, a whisper on the breeze,
+A whisper becomes a war cry, carried on the breeze,
 The Lord of Shadows rises, unease in the trees.
 Magic rekindled, a hunger for war,
-The Carnage Queen's reign soon to be no more.
+The Queen of Carnage, her reign soon to be no more.
 
 [Bridge]
 Loyal hearts echo his name in the night,
 A rebellion brewing, a beacon of light.
 The whispers spread faster, a wildfire's embrace,
-Nythoria remembers, hope finds its place.
+Loyalists remember, hope finds its place.
 
 [Chorus]
-This is the prelude to vengeance, a whisper on the breeze,
+A whisper becomes a war cry, carried on the breeze,
 The Lord of Shadows rises, unease in the trees.
 Magic rekindled, a hunger for war,
-The Carnage Queen's reign soon to be no more.
+The Queen of Carnage, her reign soon to be no more.
 
 [Verse 3]
 Map-scrolls unrolled on the cold basalt stone,
 Plotting the strike to reclaim his lost throne.
 Subterranean cells hear the whisper of war,
 Forging dark steel like they crafted before,
-The Carnage Queen's reign soon to be no more.
+The Queen of Carnage, her reign soon to be no more.
 
 [Verse 4]
 Banners of onyx rise out of the dark,
 Kindled again by his magical spark.
-Shadow-bound legions align for the fray,
+Shadow-bound forces align for the fray,
 Ready to shatter her tyrannical sway.
 
 [Verse 5]
@@ -1503,18 +1503,23 @@ Silence before the impending tempest breaks,
 As the true master of shadow awakes.
 
 [Chorus]
-This is the prelude to vengeance, a thunderous decree,
+The gathering storm is a thunderous decree,
 The Lord of Shadows rises, the world waits to see.
 Magic unleashed, a symphony of might,
-Nythoria remembers, hope finds its place,
-The Carnage Queen trembles, fearing the night.
+Loyalists remember, hope finds its place,
+The Queen of Carnage trembles, fearing the night.
 
 [Outro]
 From the shadows he'll emerge, a storm in his wake,
 Vengeance his purpose, no mercy to take.
-The prelude is over, the battle's at hand,
-Malakar returns, to reclaim his land.</Lyrics>
-            <analysis>Malakar completes his preparations in the Shadow Realm (~300 AGD), establishing his enduring shadow rebellion against Queen Seraphina's empire.</analysis>
+The waiting is over, the battle's at hand,
+Malakar returns, to reclaim his land.
+
+[Spoken]
+I was, I am, and I will always be...
+The Lord of Shadows.
+[End]</Lyrics>
+            <analysis>Malakar, re-forged in the Shadow Realm (~300 AGD), claims his identity as the Lord of Shadows. Reworked from "Prelude to Vengeance": no longer a prelude, but the title anthem of the exiled king — the title Seraphina has always used against him, now claimed in his own voice, closing with the spoken vow "I was, I am, and I will always be... The Lord of Shadows."</analysis>
         </Song>
     </Act>
 </album>

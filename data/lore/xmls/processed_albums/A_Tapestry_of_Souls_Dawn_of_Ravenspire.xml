@@ -2,7 +2,7 @@
     <AlbumPlot><![CDATA[
 ### "A Tapestry of Souls: Dawn of Ravenspire" — The 0 GD Trilogy, Part III (Era II)
 
-Anya, after Valen's fall, carries his memory into the last stand. The survivors throw everything into a final charge against Nyktoros's prison, the Rift roaring overhead. During a total Eclipse of Destiny, Anya performs the ritual and, in her farewell to Seraphina (Shadows in the Rain), prepares to seal the Void. In Endless Night the seal is set — Anya traps Nyktoros and herself in the deepest Void as the Warden. Nyktoros rages helpless against the seal; it holds. Anya's eternal vigil begins (Haunting Life). Seraphina rallies the survivors (Celestial Rebellion), and they cross the Great Rift into Eldoria, leaving Anya behind. At the dawn, Seraphina makes the Vow: to raise New Ravenspire and one day free her. The trilogy ends at the dawn — the promise, not the founding (that is Era III).
+Anya, after Valen's fall, carries his memory into the last stand. The survivors throw everything into a final charge against Nyktoros's prison, the Rift roaring overhead. During a total Eclipse of Destiny, Anya performs the ritual and, in her farewell to Seraphina (Shadows in the Rain), prepares to seal the Void. In Endless Night the seal is set — Anya traps Nyktoros and herself in the deepest Void as the Warden. Nyktoros rages helpless against the seal; it holds. Anya's eternal vigil begins (Haunting Life). Seraphina rallies the survivors (Celestial Rebellion), and they cross the Great Rift into Eldoria, leaving Anya behind. At the dawn, Seraphina makes the vow she will actually keep: to raise New Ravenspire and never let the world be defenseless again — the resolve, born of Anya's sacrifice, that will harden into the Queen of Carnage in Era III. The trilogy ends at the dawn — the resolve, not the rescue and not the founding.
     ]]></AlbumPlot>
     <Act act="I: The Last Stand">
         <Song song="For Valen">
@@ -850,51 +850,48 @@ Across the Rift... across the Rift...
 The Dawn is near...</Lyrics>
             <analysis>The exodus over the Great Rift — the survivors leave Anya as Warden and cross to Eldoria.</analysis>
         </Song>
-        <Song song="The Vow">
+        <Song song="Reborn">
             <song_id>10</song_id>
             <Lyrics>[Verse 1]
 We crossed the storm and came into the light,
 We left the ashes of the endless night.
-And as the first true dawn began to burn,
-I swore a vow to the ones who could not turn.
+And at the first true dawn, upon this land,
+I swore to build what shadow cannot stand.
 
 [Chorus]
-This is the vow, upon the Dawn,
-We will build a home that will not fawn.
-For the warden in the shadow's keep,
-We will find a way to break the deep.
+From the dark, we rise reborn,
+A kingdom born to greet the morn.
+For the warden sealed in shadow's keep,
+I will guard the world she died to keep.
 
 [Verse 2]
-I will raise New Ravenspire from the dust,
-A city forged to guard the light we trust.
-And I will not forget her lonely shade,
-The soul the dark has taken, unpaid.
+The city rises where the dark had reigned,
+A flame the cold of Nythoria could not break.
+I carry her in every stone I lay,
+And make her sacrifice our brightest day.
 
 [Chorus]
-This is the vow, upon the Dawn,
-We will build a home that will not fawn.
-For the warden in the shadow's keep,
-We will find a way to break the deep.
+From the dark, we rise reborn,
+A kingdom born to greet the morn.
+For the warden sealed in shadow's keep,
+I will guard the world she died to keep.
 
 [Bridge]
 Not an ending, but a start,
-A promise written on this land.
-We will not let the seal be dark,
-We will come back, and take her hand.
+A shield raised for every heart.
+She gave the dawn her endless night,
+I owe her that it shines this bright.
 
 [Chorus]
-This is the vow, upon the Dawn,
-We will build a home that will not fawn.
-For the warden in the shadow's keep,
-We will find a way to break the deep.
+From the dark, we rise reborn,
+A kingdom born to greet the morn.
+For the warden sealed in shadow's keep,
+I will guard the world she died to keep.
 
 [Outro]
-The Dawn has come, the Legion's run,
-We make the vow beneath the sun.
-New Ravenspire shall rise and shine,
-And Anya, we are coming...
-we are coming.</Lyrics>
-            <analysis>The trilogy finale — arrival in Eldoria at dawn; the vow to build New Ravenspire and one day free Anya.</analysis>
+Reborn...
+Reborn...</Lyrics>
+            <analysis>The trilogy finale — arrival in Eldoria at dawn; Seraphina's resolve to raise New Ravenspire and never let the world be defenseless again. CANON FIX: no false promise to free Anya (she is never rescued; Eldrin's later Heartstone quest only stabilizes the failing Lock). Seraphina's vow is to guard the world in Anya's place — the resolve that hardens into the Queen of Carnage in Era III. Originally titled "The Vow", renamed "Reborn" to avoid clashing with the album "Vows of Silence" and the false-rescue reading. Produced as progressive folk metal (acoustic-led, warm build, no ooh/ahh vocalizations).</analysis>
         </Song>
     </Act>
 </album>

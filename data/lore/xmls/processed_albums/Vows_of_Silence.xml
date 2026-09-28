@@ -10,7 +10,7 @@ The 16-song saga of two tragic architects whose ambitions shattered the cosmic e
     <Act act="I: The Silent Heresy">
         <Song song="Vows of Silence">
             <song_id>1</song_id>
-            <timestamp>-5000</timestamp>
+            <timestamp>-100</timestamp>
             <Tone>Ominous, Introspective, Regal</Tone>
             <Plot>Acheron reflects upon discarding the Forbidden Tome. Having founded the Crimson Covenant in Eldoria, he realizes Nyktoros would eventually devour his immortal kin. He initiates the Vow of Silence to cloak his energy-hoarding network from the Void.</Plot>
                         <OriginalLyrics>
@@ -121,7 +121,7 @@ Preserve the quietude...
 Bank every spark...
 The Covenant ascends.
 The Covenant ascends.</Lyrics>
-            <analysis>Vorgos narrates Acheron's initial treason. Acheron turns away from Nyktoros to establish the Crimson Covenant, establishing the 'Vampiric Leak' through secretive soul-banking in Eldoria.</analysis>
+            <analysis>Acheron narrates his own initial treason — turning away from Nyktoros to establish the Crimson Covenant and the 'Vampiric Leak' through secretive soul-banking in Eldoria.</analysis>
         </Song>
 
         <Song song="The Shadow Disciple">
@@ -435,60 +435,74 @@ With caution tread, for knowledge is a blade,
 That cuts both ways, a price to be paid.
             </OriginalLyrics>
             <Lyrics>[Verse 1]
-In forgotten vaults shrouded from the light,
-A grimoire lies, a terrifying sight.
-High-Elven runes contaminate the page,
-A stolen blueprint for a corrupt age.
-Its velum whispers of forbidden lore,
-A dormant force waiting to restore.
+In ancient ruins, shrouded in night,
+A hidden tome, a forbidden sight.
+The High Elf's shadow is upon the page,
+A stolen blueprint for a hollow age.
+Its pages whispered secrets deep,
+A power dormant, waiting to leap.
 
 [Chorus]
-The forbidden tome, a double-edged prize,
-Unlocking abyssal realms where darkness lies.
-With reverence tread, for knowledge is a blade,
-That severs the weaver from the web they made.
+The forbidden tome, a dangerous prize,
+A path to darkness, where shadows rise.
+With caution tread, for knowledge is a blade,
+That cuts both ways, a price to be paid.
 
 [Verse 2]
-I touched the leather, felt the Void's embrace,
-Uncovering treason against time and space.
-He birthed the vampires from the master's code,
-Imposing on creation a parasitic load.
-I turned the vellum with a steady hand,
-Entering mysteries of a forbidden land.
+I touched its cover, felt the Void's embrace,
+I saw the theft of the Aurorian race.
+He made the vampires from the master's code,
+A parasitic and a heavy load.
+I opened its pages, with trembling hand,
+And ventured into a forbidden land.
 
 [Chorus]
-The forbidden tome, a double-edged prize,
-Unlocking abyssal realms where darkness lies.
-With reverence tread, for knowledge is a blade,
-That severs the weaver from the web they made.
+The forbidden tome, a dangerous prize,
+A path to darkness, where shadows rise.
+With caution tread, for knowledge is a blade,
+That cuts both ways, a price to be paid.
 
 [Bridge]
-The glyphs revealed secrets heavy and profound,
-Enchantments that make celestial beings bound.
-Temptation warred with duty in my mind,
-Yet destiny left no turning behind.
-I'll wield the energy Acheron cast aside,
-To punish the traitor where his legions hide.
+The tome revealed its secrets, dark and deep,
+A power that could make the seers weep.
+I wrestled with temptation, fear and doubt,
+But curiosity pulled me in, no turning about.
+I'll use the energy he left behind,
+To punish the traitor of the elven kind.
 
 [Chorus]
-The forbidden tome, a double-edged prize,
-Unlocking abyssal realms where darkness lies.
-With reverence tread, for knowledge is a blade,
-That severs the weaver from the web they made.
+The forbidden tome, a dangerous prize,
+A path to darkness, where shadows rise.
+With caution tread, for knowledge is a blade,
+That cuts both ways, a price to be paid.
 
 [Verse 3]
-I studied deeper into arcane script,
-To claim the throne where ancient power dripped.
-Unraveling incantations long suppressed,
-To rift the planes at the Master's behest.
-A cosmic catalyst to reshape the sphere,
-The blueprint for an era born of fear.
+I delved deeper, into the unknown,
+To claim the Master's and the ancient throne.
+I learned of ancient spells, forgotten lore,
+To open up the multi-planar door.
+A power that could shape the world, forevermore,
+The blueprints of the universal war.
 
 [Chorus]
-The forbidden tome, a double-edged prize,
-Unlocking abyssal realms where darkness lies.
-With reverence tread, for knowledge is a blade,
-That severs the weaver from the web they made.</Lyrics>
+The forbidden tome, a dangerous prize,
+A path to darkness, where shadows rise.
+With caution tread, for knowledge is a blade,
+That cuts both ways, a price to be paid.
+
+[Verse 4]
+With immense power comes a heavy vow,
+Before the Master, every knee shall bow.
+I chose the path and I will not be swayed,
+The blueprints of the end have been displayed.
+I understood the cost that it entailed,
+The traitor's legacy has finally failed.
+
+[Chorus]
+The forbidden tome, a dangerous prize,
+A path to darkness, where shadows rise.
+With caution tread, for knowledge is a blade,
+That cuts both ways, a price to be paid.</Lyrics>
             <analysis>The turning point where Malakar acquires the Forbidden Tome. He realizes Acheron corrupted Nyktoros's blueprints, fueling Malakar's vendetta against Acheron.</analysis>
         </Song>
 
@@ -551,52 +565,56 @@ In the realm of twilight, you stand alone.
 You stand alone
             </OriginalLyrics>
             <Lyrics>[Verse 1]
-Across the umbral reaches of Nythoria's domain,
-Malakar arises to break the ancient chain.
-He deciphered blueprints hidden in the deep,
-Awakening powers that the shadows keep.
+In the ancient land of Nythoria, where shadows softly creep,
+A young sorcerer named Malakar, his destiny to keep.
+He found the blueprints of the Master, hidden in the night,
+With every page he turned, he felt the surge of might.
 
 [Chorus]
-Ascend, Lord Malakar, sovereign of the night,
-From shadow's heart ignite the darkling light.
-With ancient sorcery claim your obsidian throne,
-In twilight's majesty you rule alone.
+Rise, oh Malakar, master of the dark,
+From the depths of shadows, ignite the spark.
+With the power of the night, claim your throne,
+In the realm of twilight, you stand alone.
 
 [Verse 2]
-Through bloody rites and secrets long concealed,
-The abyssal blueprints stand at last revealed.
-The tyrant king is cast down from his height,
-Nyktoros acknowledged as the supreme light.
+Through sacrifice and secrets, he learned the shadow's art,
+The blueprints of the Void have torn the old world apart.
+The petty king was overthrown, his reign came to an end,
+The Master Nyktoros is now his only friend.
 
 [Chorus]
-Ascend, Lord Malakar, sovereign of the night,
-From shadow's heart ignite the darkling light.
-With ancient sorcery claim your obsidian throne,
-In twilight's majesty you rule alone.
+Rise, oh Malakar, master of the dark,
+From the depths of shadows, ignite the spark.
+With the power of the night, claim your throne,
+In the realm of twilight, you stand alone.
 
 [Bridge]
-Perpetual dusk envelops hill and vale,
-A sanctuary for those behind the veil.
-In whispered chants his name is glorified:
-The Shadow-Priest in whom the Void relied.
+Eternal twilight blankets the land,
+A haven for the ones who understand.
+In the whispers of the night, his name is known,
+The Lord of Shadows has claimed his own.
 
 [Chorus]
-Ascend, Lord Malakar, sovereign of the night,
-From shadow's heart ignite the darkling light.
-With ancient sorcery claim your obsidian throne,
-In twilight's majesty you rule alone.
+Rise, oh Malakar, master of the dark,
+From the depths of shadows, ignite the spark.
+With the power of the night, claim your throne,
+In the realm of twilight, you stand alone.
 
 [Verse 3]
-Now in Nythoria where umbral mist resides,
-The Lord of Shadows over fate presides.
-A sorcerer-king with grimoire in his hand,
-Bending the plane to Nyktoros' command.
+Now in Nythoria, the shadows serve his will,
+The Lord of Shadows sits enthroned and still.
+The Shadow-Priest with darkness in his hand,
+Commands the void across the sunless land.
 
-[Outro]
-The crown is claimed...
-The old reign ends...
-The Shadow Lord ascends.
-The Shadow Lord ascends.</Lyrics>
+[Interlude]
+The Shadow's now his friend
+
+[Chorus]
+Rise, oh Malakar, master of the dark,
+From the depths of shadows, ignite the spark.
+With the power of the night, claim your throne,
+In the realm of twilight, you stand alone.
+You stand alone</Lyrics>
             <analysis>Malakar seizes political and magical control of Nythoria. He shifts from a subterranean scholar to a sovereign tyrant, initiating the Tyrant's Sacrifice leak.</analysis>
         </Song>
 
@@ -1303,7 +1321,7 @@ The Shadow Lord reigns.</Lyrics>
             <analysis>Malakar builds the Obsidian Citadel in Nythoria and establishes his dictatorship, enforcing mass soul sacrifices for Nyktoros.</analysis>
         </Song>
 
-        <Song song="The Whispering Shadows">
+        <Song song="Altar of Bone">
             <song_id>12</song_id>
             <timestamp>-12</timestamp>
             <Tone>Suspenseful, Fearful, Somber</Tone>
@@ -1384,9 +1402,9 @@ He names us 'Tithes', regards us all as fuel,
 Sacrificial victims for his shadow-rule.
 
 [Chorus]
-The whispering shadows reveal the truth,
+The altar of bone reveals the truth,
 The King is harvesting our people's youth.
-A cult of silence and an altar of bone,
+A cult of silence and a creed of stone,
 To feed the Master on his lightless throne.
 We see the doom before the end arrives,
 The price of shadow is our very lives.
@@ -1409,9 +1427,9 @@ I'll find the steel, I'll sharpen every blade,
 To shatter every vow that he has made.
 
 [Chorus]
-The whispering shadows reveal the truth,
+The altar of bone reveals the truth,
 The King is harvesting our people's youth.
-A cult of silence and an altar of bone,
+A cult of silence and a creed of stone,
 To feed the Master on his lightless throne.
 We see the doom before the end arrives,
 The price of shadow is our very lives.
@@ -1419,8 +1437,8 @@ The price of shadow is our very lives.
 [Outro]
 They vanish into night...
 We are the next target...
-The shadows whisper.
-The shadows whisper.</Lyrics>
+The altar waits.
+The altar waits.</Lyrics>
             <analysis>Introduces Seraphina and Valen's horror at discovering Malakar's true motives, setting up the birth of the Nythorian Resistance.</analysis>
         </Song>
 
@@ -1726,52 +1744,58 @@ But in the hearts of those who dare to dream
 A rebellion stirs, an end to the Shadow Lord's scheme.
             </OriginalLyrics>
             <Lyrics>[Verse 1]
-In twilight's grip where shadows hold command,
-A master sorcerer binds the sunless land.
-Lord Malakar over Nythoria reigns,
-Enforcing obedience through iron chains.
+In twilight's hush, where darkness reigns
+A mastermind weaves his subtle pains
+Malakar, the Lord of Shadows, holds sway
+As Nythoria trembles beneath his gray
 
 [Chorus]
-Reign of the Shadow Lord, an empire of fear,
-Where loyalty is bought with blood and tear.
-His power absolute, his throne divine,
-Under the mark of his dark design.
+Reign of the Shadow Lord, a kingdom of fear
+Where loyalty is bought with tears and cheers
+His power unmatched, his rule divine
+The people thrive, but whispers begin to shine
 
 [Verse 2]
-Spies and sentinels watch every pass,
-Surveilling cities of dark obsidian glass.
-Malakar's decree is the law of night,
-While Acheron's ghost cowers from his sight.
+Spies and shadows creep, in every place
+Watching eyes, a silent, deadly pace
+Malakar's will, the realm's foundation laid
+Acheron's ghost is alone, and afraid
 
 [Chorus]
-Reign of the Shadow Lord, an empire of fear,
-Where loyalty is bought with blood and tear.
-His power absolute, his throne divine,
-Under the mark of his dark design.
+Reign of the Shadow Lord, a kingdom of fear
+Where loyalty is bought with tears and cheers
+His power unmatched, his rule divine
+The people thrive, but whispers begin to shine
 
 [Bridge]
-In perpetual dusk where shadows play,
-The tyrant's grip tightens day by day.
-Yet in the darkness, defiant embers glow:
-A rebel spark that will soon overflow.
+In perpetual dusk, where shadows play
+Malakar's grip tightens, night by day
+Yet amidst the darkness, seeds are sown
+Of revolution's spark, a fire soon grown
 
 [Chorus]
-Reign of the Shadow Lord, an empire of fear,
-Where loyalty is bought with blood and tear.
-His power absolute, his throne divine,
-Under the mark of his dark design.
+Reign of the Shadow Lord, a kingdom of fear
+Where loyalty is bought with tears and cheers
+His power unmatched, his rule divine
+The people thrive, but whispers begin to shine
 
 [Verse 3]
-Through sunless streets where silence falls,
-A rebellion whispers behind shattered walls.
-The winds carry echoes of forgotten lore:
-The Shadow Lord's reign shall endure no more.
+Through midnight streets, where silence falls
+A lone figure walks, with purpose stands tall
+The wind whispers truths, of ancient lore
+The Shadow Lord's power, will soon be no more
+
+[Chorus]
+Reign of the Shadow Lord, a kingdom of fear
+Where loyalty is bought with tears and cheers
+His power unmatched, his rule divine
+The people thrive, but whispers begin to shine
 
 [Outro]
-As darkness deepens under twilight skies...
-The old world crumbles, the new shall rise...
-The storm approaches.
-The storm approaches.</Lyrics>
+As shadows dance, beneath the moon's pale light
+Malakar's reign, a balance of might
+But in the hearts of those who dare to dream
+A rebellion stirs, an end to the Shadow Lord's scheme.</Lyrics>
             <analysis>Consolidates Malakar's reign right before the sky breaks open, setting up the immediate transition to the final song and 0 GD.</analysis>
         </Song>
 

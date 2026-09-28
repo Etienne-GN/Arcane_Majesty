@@ -84,9 +84,9 @@ To ensure narrative consistency across albums, the history of the planes is divi
 - **Status of Characters:** The Civil War is eclipsed by survival. Seraphina and Malakar both lose their domains to the Void.
 - **Relevant Albums:** *A Tapestry of Souls*.
 
-### Era III: The Age of Shadows (~150 - 400 AGD)
+### Era III: The Age of Shadows (~150 - 700 AGD)
 - **Primary Conflict:** The rise of new empires, the hunt for the Lord of Shadows, and the protection of the Lock.
-- **Key Event:** Seraphina founds the **Shadow Legion**. Kael reclaims the Spark (~300 AGD) and goes into exile with Anya.
+- **Key Event:** Seraphina founds the **Shadow Legion**. Kael reclaims the Spark (~600 AGD) and goes into exile with Anya.
 - **Status of Characters:** Seraphina is the **Queen of Carnage**. Kael becomes the **Living Lock**. Anya is the **Silent Guardian**.
 - **Relevant Albums:** *Queen of Carnage*, *Lord of Shadows*, *Beyond the Veil of Twilight*, *Bound by Blood*.
 

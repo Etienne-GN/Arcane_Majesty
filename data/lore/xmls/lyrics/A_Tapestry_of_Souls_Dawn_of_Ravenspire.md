@@ -1,0 +1,580 @@
+# A Tapestry of Souls: Dawn of Ravenspire — Lyrics
+
+*Arcane Majesty · Era II · 10 tracks*
+
+Final lyrics, extracted from `data/lore/xmls/processed_albums/A_Tapestry_of_Souls_Dawn_of_Ravenspire.xml`.
+
+## Tracklist
+
+1. For Valen
+2. The Last Charge
+3. Eclipse of Destiny
+4. Shadows in the Rain
+5. Endless Night
+6. The Prisoner's Wrath
+7. Haunting Life
+8. Celestial Rebellion
+9. Across the Rift
+10. Reborn
+
+---
+
+## 01. For Valen
+
+[Verse 1]  
+They buried Valen in the fallen's soil,  
+Beneath a sky that even stars forsook.  
+I carry what he gave me from the fight,  
+A vow that I will make the shadow break.  
+
+[Chorus]  
+For Valen, I will see the dawn,  
+For Valen, I will hold the line.  
+Until the Legion's rule is gone,  
+His face will be this blade of mine.  
+
+[Verse 2]  
+I saw him fall upon the Shadow-Vale,  
+A warrior's stand that owned the endless night.  
+He left me not a promise, not a tale,  
+But fire, and the fury of his might.  
+
+[Chorus]  
+For Valen, I will see the dawn,  
+For Valen, I will hold the line.  
+Until the Legion's rule is gone,  
+His face will be this blade of mine.  
+
+[Bridge]  
+What would he have me do but fight?  
+What would he have me be but free?  
+I will not let the endless night  
+Swallow the world he died to keep.  
+
+[Chorus]  
+For Valen, I will see the dawn,  
+For Valen, I will hold the line.  
+Until the Legion's rule is gone,  
+His face will be this blade of mine.  
+
+---
+
+## 02. The Last Charge
+
+[Verse]  
+The Rift is roaring in a wounded sky,  
+The Empire of the Void has filled the night.  
+We have one charge, one moment left to try,  
+To drive a seal into the endless light.  
+
+[Chorus]  
+The last charge, to the prison's heart,  
+The last charge, we tear the dark apart.  
+Through the Legion, through the pain,  
+We charge the dark, and break his reign.  
+
+[Verse]  
+The Underworld is shivering with his roar,  
+But we have nothing but our will to give.  
+Whatever waits behind the final door,  
+We meet it now — the reason that we live.  
+
+[Chorus]  
+The last charge, to the prison's heart,  
+The last charge, we tear the dark apart.  
+Through the Legion, through the pain,  
+We charge the dark, and break his reign.  
+
+[Bridge]  
+Hold the line, one breath, one flame,  
+Fall and rise and fall again.  
+For the dead and for the living,  
+We are the storm that beats the empty.  
+
+[Chorus]  
+The last charge, to the prison's heart,  
+The last charge, we tear the dark apart.  
+Through the Legion, through the pain,  
+We charge the dark, and break his reign.  
+
+[Outro]  
+Charge!... Charge!...  
+Break his reign...  
+
+---
+
+## 03. Eclipse of Destiny
+
+[Verse 1]  
+In the twilight's fleeting grace,  
+We chase the shadows, face to face,  
+A cosmic dance of dark and light,  
+In the Great Darkness, fate ignites.  
+
+[Verse 2]  
+Winds of change and timeless flow,  
+In the silence, truths we know,  
+Guided by the stars above,  
+Through the Rift, on wings of love.  
+
+[Pre-Chorus]  
+Galaxies collide, our spirits soar,  
+In the heart of chaos, we find more,  
+Bound by destiny's embrace,  
+In the eclipse, we find our place.  
+
+[Chorus]  
+Eclipse of destiny, where legends are made,  
+In the clash of shadows, our fears fade,  
+Through the veil of darkness, we rise anew,  
+In the eclipse, our faith is true.  
+
+[Verse 3]  
+Winds of change and timeless flow  
+In the silence truth we know  
+Guided by the stars above  
+Through the Rift, on wings of love  
+
+[Pre-Chorus]  
+Galaxies collide, our spirits soar,  
+In the heart of chaos, we find more,  
+Bound by destiny's embrace,  
+In the eclipse, we find our place.  
+
+[Chorus]  
+Eclipse of destiny, where legends are made,  
+In the clash of shadows, our fears fade,  
+Through the veil of darkness, we rise anew,  
+In the eclipse, we find our place.  
+
+[Chorus]  
+Eclipse of destiny, where legends are made,  
+In the clash of shadows, our fears fade,  
+Through the veil of darkness, we rise anew,  
+In the eclipse, we find our place.  
+Eclipse of destiny, where legends are made,  
+
+[Bridge]  
+In the starlit void, we stand as one,  
+Our journey through the night begun,  
+I'll seal the dark, a desperate plea,  
+And bind the night, and set all free.  
+
+[Chorus]  
+Eclipse of destiny, where legends are made,  
+In the clash of shadows, our fears fade,  
+Through the veil of darkness, we rise anew,  
+In the eclipse, we find our place.  
+
+[Outro]  
+Beyond the horizon, our path we find,  
+In the eclipse, our souls aligned,  
+Eclipse of destiny, our guiding light,  
+In the darkness, we conquer the night.  
+
+---
+
+## 04. Shadows in the Rain
+
+[Verse]  
+Shadows in the rain  
+Whispers in the night  
+Softly calling out  
+Faintly in the light  
+
+[Verse 2]  
+Footsteps in the hall  
+Echoes in my mind  
+Lonely hearts do fall  
+Lost and seeking find  
+
+[Chorus]  
+Underneath the moon  
+Dancing in the haze  
+Lost here all too soon  
+In this endless maze  
+
+[Verse 3]  
+Raindrops on my face  
+Cold and distant sighs  
+Searching for a place  
+Seraphina's eyes  
+
+[Chorus]  
+Underneath the moon  
+Dancing in the haze  
+Lost here all too soon  
+In this endless maze  
+
+[Verse 4]  
+Raindrops on my face  
+Cold and distant sighs  
+Searching for a place  
+Seraphina's eyes  
+
+[Chorus]  
+Underneath the moon  
+Dancing in the haze  
+Lost here all too soon  
+In this endless maze  
+
+[Bridge]  
+Glowing in the dark  
+Stars that never fade  
+Holding to the vow  
+Dreams that we have made  
+
+---
+
+## 05. Endless Night
+
+[Verse 1]  
+Dark night  
+Cold and silent  
+Echoes of cries  
+Soul defiant  
+Tears fall  
+Moonlight drowns  
+Broken dreams  
+Lost in crowns  
+
+[Verse 2]  
+Whispers in the void  
+Shadows lurch  
+Sanctuary torn  
+No place of church  
+Cloaked in sorrow  
+Bathe in sin  
+Twisted fate  
+Let the Sealing start  
+
+[Chorus]  
+Symphony of the Void  
+Endless night  
+Crushing hearts  
+No will to fight  
+Melancholy's embrace  
+Violent strain  
+In this anguished realm  
+We remain  
+
+[Verse 3]  
+Piano weeps  
+Souls intertwined  
+Solitude's grasp  
+Nightmares rewind  
+Electric storm  
+Crescendos rise  
+Heavy metal  
+Echoes of the Rift  
+
+[Verse 4]  
+Whispers in the void  
+Shadows lurch  
+Sanctuary torn  
+No place of church  
+Cloaked in sorrow  
+Bathe in sin  
+Twisted fate  
+Let the Sealing start  
+
+[Chorus]  
+Symphony of the Void  
+Endless night  
+Crushing hearts  
+No will to fight  
+Melancholy's embrace  
+Violent strain  
+In this anguished realm  
+We remain  
+
+[Verse 5]  
+Destruction's hymn  
+Sweet requiem  
+No escape  
+We welcome mayhem  
+Evoking power  
+Sorrow's vise  
+Wailing winds  
+Eternal sacrifice  
+
+[Chorus]  
+Symphony of the Void  
+Endless night  
+Crushing hearts  
+No will to fight  
+Melancholy's embrace  
+Violent strain  
+In this anguished realm  
+We remain  
+
+---
+
+## 06. The Prisoner's Wrath
+
+[Verse]  
+Caged in the cradle of the deepest dark,  
+I beat the walls of my eternal hold.  
+I am the Void, I am the dying spark,  
+And they have shut me in the lightless cold.  
+
+[Chorus]  
+I am the prisoner's wrath, unchained,  
+I shake the bars, I test the pain.  
+But every strike the lock repays,  
+The Living Lock that holds the days.  
+
+[Verse]  
+A scholar dares to seal me in the deep,  
+A girl who fell from the celestial glare.  
+I will not break, I will not fall to sleep,  
+I will not bow — but still the walls are there.  
+
+[Chorus]  
+I am the prisoner's wrath, unchained,  
+I shake the bars, I test the pain.  
+But every strike the lock repays,  
+The Living Lock that holds the days.  
+
+[Bridge]  
+Scream, and meet the silence,  
+Strike, and feel the wall.  
+The seal is not a weapon,  
+It is a vow that will not fall.  
+
+[Chorus]  
+I am the prisoner's wrath, unchained,  
+I shake the bars, I test the pain.  
+But every strike the lock repays,  
+The Living Lock that holds the days.  
+
+[Outro]  
+It holds... it holds...  
+The Living Lock that holds the days.  
+
+---
+
+## 07. Haunting Life
+
+[Verse 1]  
+I live in a world of shadows  
+Where nothing is what it seems  
+I live in a world of pain  
+Where happiness is just a dream  
+
+[Pre-chorus]  
+But I can't escape from this nightmare  
+That haunts me every day and night  
+I can't escape from the Void  
+That burns me with its fire and light  
+
+[Chorus]  
+This is my haunting life  
+This is my cursed fate  
+This is my wasted time  
+This is my endless wait  
+
+[Verse 2]  
+I see the ghosts of my past  
+That remind me of the Rift  
+I see the demons of my mind  
+That feed on my fears and doubts  
+
+[Pre-chorus]  
+But I can't escape from this nightmare  
+That haunts me every day and night  
+I can't escape from the Void  
+That burns me with its fire and light  
+
+[Chorus]  
+This is my haunting life  
+This is my cursed fate  
+This is my wasted time  
+This is my endless wait  
+
+[Verse 3]  
+I see the ghosts of my past  
+That remind me of the Rift  
+I see the demons of my mind  
+That feed on my fears and doubts  
+
+[Pre-chorus]  
+But I can't escape from this madness  
+That drives me to the edge of sanity  
+I can't escape from this darkness  
+That blinds me from the truth and reality  
+
+[Chorus]  
+This is my haunting life  
+This is my cursed fate  
+This is my wasted time  
+This is my endless wait  
+
+[Bridge]  
+Is there a way out of this misery?  
+Is there a hope for the Warden's destiny?  
+Is there a chance for a new beginning?  
+Is there a reason for this living?  
+
+[Chorus]  
+This is my haunting life  
+This is my cursed fate  
+This is my wasted time  
+This is my endless wait  
+
+[Outro]  
+Haunting life...  
+Haunting life...  
+Haunting life...  
+
+---
+
+## 08. Celestial Rebellion
+
+[Verse 1]  
+In the darkened void of heaven, where the silent cosmos cry,  
+Anya's gone to the shadows, but she touched the astral sky.  
+With the fire of rebellion, and the courage to defy,  
+They rose against the tyranny, beneath the astral eye.  
+
+[Pre-Chorus]  
+Through the chaos and the thunder, where the stars ignite the flame,  
+We stand as one united, in the echo of her name.  
+
+[Chorus]  
+In the Celestial Rebellion, where the shadows meet the light,  
+We'll fight against the darkness, in the echo of her name,  
+In the Celestial Rebellion, where the shadows meet the light,  
+We'll fight against the darkness, with the power of our might.  
+Through the cosmic storm and fury, where the galaxies collide,  
+The Queen of the Fallen rising, with nowhere left to hide.  
+
+[Verse 2]  
+From the ruins of the ancients, to the heights of distant stars,  
+We gather strength and wisdom, in the battle scars.  
+With the vision of the fearless, and the heart of endless night,  
+We march to free the Warden, in the quest for what is right.  
+
+[Pre-Chorus]  
+Through the chaos and the thunder, where the stars ignite the flame,  
+We stand as one united, in the echo of her name.  
+
+[Chorus]  
+In the Celestial Rebellion, where the shadows meet the light,  
+We'll fight against the darkness, in the echo of her name,  
+In the Celestial Rebellion, where the shadows meet the light,  
+We'll fight against the darkness, with the power of our might.  
+Through the cosmic storm and fury, where the galaxies collide,  
+The Queen of the Fallen rising, with nowhere left to hide.  
+
+[Bridge]  
+As the heavens quake and tremble, and the cosmos seem to fall,  
+We hear the call to battle, we stand proud and tall.  
+For in the darkest moments, our true nature is revealed,  
+In the Celestial Rebellion, our fate is sealed.  
+
+[Chorus]  
+In the Celestial Rebellion, where the shadows meet the light,  
+We'll fight against the darkness, in the echo of her name,  
+In the Celestial Rebellion, where the shadows meet the light,  
+We'll fight against the darkness, with the power of our might.  
+Through the cosmic storm and fury, where the galaxies collide,  
+The Queen of the Fallen rising, with nowhere left to hide.  
+
+[Verse 3]  
+When the final light has faded, and the shadows claim the skies,  
+We'll stand as one together, with fire in our eyes.  
+For in the Celestial Rebellion, our spirits will be free,  
+Through the shadows, we'll rise victorious, our destiny to see.  
+
+[Outro]  
+In the Celestial Rebellion, where the shadows meet the light,  
+We'll fight against the darkness, in the echo of her name.  
+
+---
+
+## 09. Across the Rift
+
+[Verse 1]  
+The Rift is torn across the bleeding sky,  
+A wound that bones the planes in broken light.  
+We walk the bridge where half of us must die,  
+And leave the warden to the endless night.  
+
+[Chorus]  
+Across the Rift, we carry on,  
+We leave our hearts where we were born.  
+Nythoria fades, the Dawn is near,  
+But we go on without Anya here.  
+
+[Verse 2]  
+She stays to hold the seal, the endless gate,  
+We walk the trembling pass of souls' last ride.  
+The light of Eldoria is our fate,  
+And every step is a goodbye to her side.  
+
+[Chorus]  
+Across the Rift, we carry on,  
+We leave our hearts where we were born.  
+Nythoria fades, the Dawn is near,  
+But we go on without Anya here.  
+
+[Bridge]  
+We swear to build, we swear to mend,  
+A home of light that holds no end.  
+And when the ages let us be,  
+We swear we will come back for thee.  
+
+[Chorus]  
+Across the Rift, we carry on,  
+We leave our hearts where we were born.  
+Nythoria fades, the Dawn is near,  
+But we go on without Anya here.  
+
+[Outro]  
+Across the Rift... across the Rift...  
+The Dawn is near...  
+
+---
+
+## 10. Reborn
+
+[Verse 1]  
+We crossed the storm and came into the light,  
+We left the ashes of the endless night.  
+And at the first true dawn, upon this land,  
+I swore to build what shadow cannot stand.  
+
+[Chorus]  
+From the dark, we rise reborn,  
+A kingdom born to greet the morn.  
+For the warden sealed in shadow's keep,  
+I will guard the world she died to keep.  
+
+[Verse 2]  
+The city rises where the dark had reigned,  
+A flame the cold of Nythoria could not break.  
+I carry her in every stone I lay,  
+And make her sacrifice our brightest day.  
+
+[Chorus]  
+From the dark, we rise reborn,  
+A kingdom born to greet the morn.  
+For the warden sealed in shadow's keep,  
+I will guard the world she died to keep.  
+
+[Bridge]  
+Not an ending, but a start,  
+A shield raised for every heart.  
+She gave the dawn her endless night,  
+I owe her that it shines this bright.  
+
+[Chorus]  
+From the dark, we rise reborn,  
+A kingdom born to greet the morn.  
+For the warden sealed in shadow's keep,  
+I will guard the world she died to keep.  
+
+[Outro]  
+Reborn...  
+Reborn...
