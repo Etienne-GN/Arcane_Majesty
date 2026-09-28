@@ -2325,7 +2325,7 @@
       ]
     },
     {
-      "name": "dark_canopy_underside_a",
+      "name": "stairs_red_carpet_rising_right_no_rail_nw",
       "kind": "tile",
       "row": 8,
       "col": 24,
@@ -2336,7 +2336,7 @@
       ]
     },
     {
-      "name": "dark_canopy_underside_b",
+      "name": "stairs_red_carpet_rising_right_no_rail_ne",
       "kind": "tile",
       "row": 8,
       "col": 25,
@@ -2347,7 +2347,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_ii_r1c1",
+      "name": "stairs_red_carpet_rising_right_back_rail_nw",
       "kind": "tile",
       "row": 8,
       "col": 26,
@@ -2358,7 +2358,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_ii_r1c2",
+      "name": "stairs_red_carpet_rising_right_back_rail_ne",
       "kind": "tile",
       "row": 8,
       "col": 27,
@@ -2369,7 +2369,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_ii_r1c3",
+      "name": "stairs_red_carpet_rising_left_back_rail_nw",
       "kind": "tile",
       "row": 8,
       "col": 28,
@@ -2380,7 +2380,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_ii_r1c4",
+      "name": "stairs_red_carpet_rising_left_back_rail_ne",
       "kind": "tile",
       "row": 8,
       "col": 29,
@@ -2391,7 +2391,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_ii_r1c5",
+      "name": "stairs_red_carpet_rising_left_no_rail_nw",
       "kind": "tile",
       "row": 8,
       "col": 30,
@@ -2402,7 +2402,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_ii_r1c6",
+      "name": "stairs_red_carpet_rising_left_no_rail_ne",
       "kind": "tile",
       "row": 8,
       "col": 31,
@@ -2589,7 +2589,7 @@
       ]
     },
     {
-      "name": "dark_canopy_underside_c",
+      "name": "stairs_red_carpet_rising_right_no_rail_sw",
       "kind": "tile",
       "row": 9,
       "col": 24,
@@ -2600,7 +2600,7 @@
       ]
     },
     {
-      "name": "dark_canopy_underside_d",
+      "name": "stairs_red_carpet_rising_right_no_rail_se",
       "kind": "tile",
       "row": 9,
       "col": 25,
@@ -2611,7 +2611,7 @@
       ]
     },
     {
-      "name": "floor_stone_pale_water_edge_left",
+      "name": "stairs_red_carpet_rising_right_back_rail_sw",
       "kind": "tile",
       "row": 9,
       "col": 26,
@@ -2622,7 +2622,7 @@
       ]
     },
     {
-      "name": "floor_stone_pale_ring_a",
+      "name": "stairs_red_carpet_rising_right_back_rail_se",
       "kind": "tile",
       "row": 9,
       "col": 27,
@@ -2633,7 +2633,7 @@
       ]
     },
     {
-      "name": "floor_stone_pale_plain_a",
+      "name": "stairs_red_carpet_rising_left_back_rail_sw",
       "kind": "tile",
       "row": 9,
       "col": 28,
@@ -2644,7 +2644,7 @@
       ]
     },
     {
-      "name": "floor_stone_pale_ring_b",
+      "name": "stairs_red_carpet_rising_left_back_rail_se",
       "kind": "tile",
       "row": 9,
       "col": 29,
@@ -2655,7 +2655,7 @@
       ]
     },
     {
-      "name": "floor_stone_pale_plain_b",
+      "name": "stairs_red_carpet_rising_left_no_rail_sw",
       "kind": "tile",
       "row": 9,
       "col": 30,
@@ -2666,7 +2666,7 @@
       ]
     },
     {
-      "name": "floor_stone_pale_ring_c",
+      "name": "stairs_red_carpet_rising_left_no_rail_se",
       "kind": "tile",
       "row": 9,
       "col": 31,
@@ -2754,7 +2754,7 @@
       ]
     },
     {
-      "name": "window_glasswall_frame_top_b",
+      "name": "birdbath_stone_top",
       "kind": "tile",
       "row": 10,
       "col": 15,
@@ -2765,53 +2765,63 @@
       ]
     },
     {
-      "name": "window_glasswall_frame_top_c",
-      "kind": "tile",
-      "row": 10,
-      "col": 16,
-      "frameIndex": 336,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "window_glasswall_frame_top_d",
-      "kind": "tile",
-      "row": 10,
-      "col": 17,
-      "frameIndex": 337,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "staircase_grand_red_r1c1",
-      "kind": "tile",
-      "row": 10,
-      "col": 18,
-      "frameIndex": 338,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "staircase_grand_red_r1c2",
+      "name": "glass_double_door_dark_wood_a",
       "kind": "object",
-      "x": 608,
-      "y": 320,
-      "w": 32,
-      "h": 96,
+      "x": 514,
+      "y": 336,
+      "w": 28,
+      "h": 56,
       "tags": [
-        "lpc",
         "atlas",
-        "door"
+        "door",
+        "glass",
+        "lpc"
       ]
     },
     {
-      "name": "staircase_grand_red_r1c3",
+      "name": "glass_double_door_dark_wood_b",
+      "kind": "object",
+      "x": 546,
+      "y": 336,
+      "w": 28,
+      "h": 56,
+      "tags": [
+        "atlas",
+        "door",
+        "glass",
+        "lpc"
+      ]
+    },
+    {
+      "name": "glass_double_door_dark_wood_c",
+      "kind": "object",
+      "x": 578,
+      "y": 336,
+      "w": 28,
+      "h": 56,
+      "tags": [
+        "atlas",
+        "door",
+        "glass",
+        "lpc"
+      ]
+    },
+    {
+      "name": "glass_double_door_dark_wood_d",
+      "kind": "object",
+      "x": 610,
+      "y": 336,
+      "w": 28,
+      "h": 56,
+      "tags": [
+        "atlas",
+        "door",
+        "glass",
+        "lpc"
+      ]
+    },
+    {
+      "name": "glass_partition_wall_top_a",
       "kind": "tile",
       "row": 10,
       "col": 20,
@@ -2822,7 +2832,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r1c4",
+      "name": "glass_partition_wall_top_b",
       "kind": "tile",
       "row": 10,
       "col": 21,
@@ -2833,7 +2843,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r1c5",
+      "name": "glass_partition_wall_top_c",
       "kind": "tile",
       "row": 10,
       "col": 22,
@@ -2844,7 +2854,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r1c6",
+      "name": "glass_partition_wall_top_d",
       "kind": "tile",
       "row": 10,
       "col": 23,
@@ -2855,7 +2865,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r1c7",
+      "name": "stairs_red_carpet_rising_right_front_rail_nw",
       "kind": "tile",
       "row": 10,
       "col": 24,
@@ -2866,7 +2876,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r1c8",
+      "name": "stairs_red_carpet_rising_right_front_rail_ne",
       "kind": "tile",
       "row": 10,
       "col": 25,
@@ -2877,7 +2887,7 @@
       ]
     },
     {
-      "name": "wall_stone_dock_mossy_edge_left",
+      "name": "stairs_red_carpet_rising_right_both_rails_nw",
       "kind": "tile",
       "row": 10,
       "col": 26,
@@ -2888,7 +2898,7 @@
       ]
     },
     {
-      "name": "wall_stone_dock_mossy_fill_a",
+      "name": "stairs_red_carpet_rising_right_both_rails_ne",
       "kind": "tile",
       "row": 10,
       "col": 27,
@@ -2899,7 +2909,7 @@
       ]
     },
     {
-      "name": "wall_stone_dock_mossy_fill_b",
+      "name": "stairs_red_carpet_rising_left_both_rails_nw",
       "kind": "tile",
       "row": 10,
       "col": 28,
@@ -2910,7 +2920,7 @@
       ]
     },
     {
-      "name": "wall_stone_dock_mossy_fill_c",
+      "name": "stairs_red_carpet_rising_left_both_rails_ne",
       "kind": "tile",
       "row": 10,
       "col": 29,
@@ -2921,7 +2931,7 @@
       ]
     },
     {
-      "name": "wall_stone_dock_mossy_fill_d",
+      "name": "stairs_red_carpet_rising_left_front_rail_nw",
       "kind": "tile",
       "row": 10,
       "col": 30,
@@ -2932,7 +2942,7 @@
       ]
     },
     {
-      "name": "wall_stone_dock_mossy_fill_e",
+      "name": "stairs_red_carpet_rising_left_front_rail_ne",
       "kind": "tile",
       "row": 10,
       "col": 31,
@@ -2943,50 +2953,45 @@
       ]
     },
     {
-      "name": "firewood_pile_small_a",
-      "kind": "tile",
-      "row": 11,
-      "col": 0,
-      "frameIndex": 352,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "firewood_pile_medium_a",
-      "kind": "tile",
-      "row": 11,
-      "col": 1,
-      "frameIndex": 353,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "firewood_pile_large_a",
-      "kind": "tile",
-      "row": 11,
-      "col": 2,
-      "frameIndex": 354,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "cabinet_wood_cherry_low_two_door_b",
+      "name": "firewood_pile_a",
       "kind": "object",
-      "x": 96,
-      "y": 352,
-      "w": 64,
-      "h": 64,
+      "x": 2,
+      "y": 368,
+      "w": 30,
+      "h": 32,
       "tags": [
-        "lpc",
         "atlas",
-        "wood",
-        "firewood"
+        "firewood",
+        "lpc",
+        "wood"
+      ]
+    },
+    {
+      "name": "firewood_pile_b",
+      "kind": "object",
+      "x": 50,
+      "y": 352,
+      "w": 30,
+      "h": 32,
+      "tags": [
+        "atlas",
+        "firewood",
+        "lpc",
+        "wood"
+      ]
+    },
+    {
+      "name": "firewood_pile_large",
+      "kind": "object",
+      "x": 103,
+      "y": 357,
+      "w": 52,
+      "h": 55,
+      "tags": [
+        "atlas",
+        "firewood",
+        "lpc",
+        "wood"
       ]
     },
     {
@@ -3012,7 +3017,7 @@
       ]
     },
     {
-      "name": "window_glasswall_pane_upper_a",
+      "name": "iron_bar_scraps_a",
       "kind": "tile",
       "row": 11,
       "col": 7,
@@ -3023,7 +3028,7 @@
       ]
     },
     {
-      "name": "window_glasswall_pane_upper_b",
+      "name": "iron_bar_scraps_b",
       "kind": "tile",
       "row": 11,
       "col": 8,
@@ -3034,7 +3039,7 @@
       ]
     },
     {
-      "name": "window_glasswall_pane_upper_c",
+      "name": "dock_wood_a_nw",
       "kind": "tile",
       "row": 11,
       "col": 9,
@@ -3045,7 +3050,7 @@
       ]
     },
     {
-      "name": "window_glasswall_pane_upper_d",
+      "name": "dock_wood_a_n",
       "kind": "tile",
       "row": 11,
       "col": 10,
@@ -3056,7 +3061,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r2c1",
+      "name": "dock_wood_a_ne",
       "kind": "tile",
       "row": 11,
       "col": 11,
@@ -3067,7 +3072,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r2c2",
+      "name": "dock_wood_narrow_n",
       "kind": "tile",
       "row": 11,
       "col": 12,
@@ -3078,7 +3083,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r2c3",
+      "name": "bookshelf_empty_dark_n",
       "kind": "tile",
       "row": 11,
       "col": 13,
@@ -3089,7 +3094,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r2c4",
+      "name": "bookshelf_books_n",
       "kind": "tile",
       "row": 11,
       "col": 14,
@@ -3100,44 +3105,11 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r2c5",
+      "name": "birdbath_stone_base",
       "kind": "tile",
       "row": 11,
       "col": 15,
       "frameIndex": 367,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "staircase_grand_red_r2c6",
-      "kind": "tile",
-      "row": 11,
-      "col": 16,
-      "frameIndex": 368,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "staircase_grand_red_r2c7",
-      "kind": "tile",
-      "row": 11,
-      "col": 17,
-      "frameIndex": 369,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "staircase_grand_red_r2c8",
-      "kind": "tile",
-      "row": 11,
-      "col": 18,
-      "frameIndex": 370,
       "tags": [
         "lpc",
         "atlas"
@@ -3188,7 +3160,7 @@
       ]
     },
     {
-      "name": "water_edge_wall_plain_c",
+      "name": "stairs_red_carpet_rising_right_front_rail_sw",
       "kind": "tile",
       "row": 11,
       "col": 24,
@@ -3199,7 +3171,7 @@
       ]
     },
     {
-      "name": "water_edge_wall_rock_b",
+      "name": "stairs_red_carpet_rising_right_front_rail_se",
       "kind": "tile",
       "row": 11,
       "col": 25,
@@ -3210,7 +3182,7 @@
       ]
     },
     {
-      "name": "water_edge_wall_corner_right",
+      "name": "stairs_red_carpet_rising_right_both_rails_sw",
       "kind": "tile",
       "row": 11,
       "col": 26,
@@ -3221,7 +3193,7 @@
       ]
     },
     {
-      "name": "basin_ceramic_cream",
+      "name": "stairs_red_carpet_rising_right_both_rails_se",
       "kind": "tile",
       "row": 11,
       "col": 27,
@@ -3232,7 +3204,7 @@
       ]
     },
     {
-      "name": "door_glass_dark_two_pane_a",
+      "name": "stairs_red_carpet_rising_left_both_rails_sw",
       "kind": "tile",
       "row": 11,
       "col": 28,
@@ -3243,7 +3215,7 @@
       ]
     },
     {
-      "name": "door_glass_dark_four_pane_a",
+      "name": "stairs_red_carpet_rising_left_both_rails_se",
       "kind": "tile",
       "row": 11,
       "col": 29,
@@ -3254,7 +3226,7 @@
       ]
     },
     {
-      "name": "door_glass_dark_four_pane_b",
+      "name": "stairs_red_carpet_rising_left_front_rail_sw",
       "kind": "tile",
       "row": 11,
       "col": 30,
@@ -3265,7 +3237,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_iii_fragment_a",
+      "name": "stairs_red_carpet_rising_left_front_rail_se",
       "kind": "tile",
       "row": 11,
       "col": 31,
@@ -3276,25 +3248,17 @@
       ]
     },
     {
-      "name": "window_glasswall_pane_lower_a",
-      "kind": "tile",
-      "row": 12,
-      "col": 0,
-      "frameIndex": 384,
+      "name": "firewood_pile_c",
+      "kind": "object",
+      "x": 34,
+      "y": 384,
+      "w": 30,
+      "h": 32,
       "tags": [
+        "atlas",
+        "firewood",
         "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "window_glasswall_pane_lower_b",
-      "kind": "tile",
-      "row": 12,
-      "col": 1,
-      "frameIndex": 385,
-      "tags": [
-        "lpc",
-        "atlas"
+        "wood"
       ]
     },
     {
@@ -3320,7 +3284,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r3c1",
+      "name": "iron_bar_scraps_c",
       "kind": "tile",
       "row": 12,
       "col": 7,
@@ -3331,7 +3295,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r3c2",
+      "name": "iron_bar_scraps_d",
       "kind": "tile",
       "row": 12,
       "col": 8,
@@ -3342,7 +3306,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r3c3",
+      "name": "dock_wood_a_w",
       "kind": "tile",
       "row": 12,
       "col": 9,
@@ -3353,7 +3317,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r3c4",
+      "name": "dock_wood_a_center",
       "kind": "tile",
       "row": 12,
       "col": 10,
@@ -3364,7 +3328,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r3c5",
+      "name": "dock_wood_a_e",
       "kind": "tile",
       "row": 12,
       "col": 11,
@@ -3375,7 +3339,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r3c6",
+      "name": "dock_wood_narrow_center",
       "kind": "tile",
       "row": 12,
       "col": 12,
@@ -3386,7 +3350,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r3c7",
+      "name": "bookshelf_empty_dark_center",
       "kind": "tile",
       "row": 12,
       "col": 13,
@@ -3397,7 +3361,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r3c8",
+      "name": "bookshelf_books_center",
       "kind": "tile",
       "row": 12,
       "col": 14,
@@ -3597,48 +3561,44 @@
       ]
     },
     {
-      "name": "sack_burlap_round_a",
-      "kind": "tile",
-      "row": 13,
-      "col": 0,
-      "frameIndex": 416,
+      "name": "sack_burlap_a",
+      "kind": "object",
+      "x": 0,
+      "y": 433,
+      "w": 32,
+      "h": 31,
       "tags": [
+        "atlas",
+        "grain",
         "lpc",
-        "atlas"
+        "sack"
       ]
     },
     {
-      "name": "sack_burlap_tall_a",
-      "kind": "tile",
-      "row": 13,
-      "col": 1,
-      "frameIndex": 417,
+      "name": "sack_burlap_b",
+      "kind": "object",
+      "x": 48,
+      "y": 417,
+      "w": 32,
+      "h": 31,
       "tags": [
+        "atlas",
+        "grain",
         "lpc",
-        "atlas"
+        "sack"
       ]
     },
     {
-      "name": "sack_burlap_pile_a",
-      "kind": "tile",
-      "row": 13,
-      "col": 2,
-      "frameIndex": 418,
-      "tags": [
-        "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "window_glasswall_frame_bottom_b",
+      "name": "sack_burlap_pile_large",
       "kind": "object",
       "x": 96,
-      "y": 416,
+      "y": 417,
       "w": 64,
-      "h": 64,
+      "h": 63,
       "tags": [
-        "lpc",
         "atlas",
+        "grain",
+        "lpc",
         "sack",
         "storage"
       ]
@@ -3655,7 +3615,7 @@
       ]
     },
     {
-      "name": "window_glasswall_frame_bottom_d",
+      "name": "smithing_hammer_and_axe_head",
       "kind": "tile",
       "row": 13,
       "col": 7,
@@ -3666,7 +3626,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r4c1",
+      "name": "blacksmith_tongs",
       "kind": "tile",
       "row": 13,
       "col": 8,
@@ -3677,7 +3637,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r4c2",
+      "name": "dock_wood_a_sw",
       "kind": "tile",
       "row": 13,
       "col": 9,
@@ -3688,7 +3648,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r4c3",
+      "name": "dock_wood_a_s",
       "kind": "tile",
       "row": 13,
       "col": 10,
@@ -3699,7 +3659,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r4c4",
+      "name": "dock_wood_a_se",
       "kind": "tile",
       "row": 13,
       "col": 11,
@@ -3710,7 +3670,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r4c5",
+      "name": "dock_wood_narrow_s",
       "kind": "tile",
       "row": 13,
       "col": 12,
@@ -3721,7 +3681,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r4c6",
+      "name": "bookshelf_empty_dark_s",
       "kind": "tile",
       "row": 13,
       "col": 13,
@@ -3732,7 +3692,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r4c7",
+      "name": "bookshelf_books_s",
       "kind": "tile",
       "row": 13,
       "col": 14,
@@ -3743,7 +3703,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_r4c8",
+      "name": "red_wood_plank_frame_piece",
       "kind": "tile",
       "row": 13,
       "col": 15,
@@ -3864,25 +3824,17 @@
       ]
     },
     {
-      "name": "sack_burlap_round_b",
-      "kind": "tile",
-      "row": 14,
-      "col": 0,
-      "frameIndex": 448,
+      "name": "sack_burlap_c",
+      "kind": "object",
+      "x": 32,
+      "y": 449,
+      "w": 32,
+      "h": 31,
       "tags": [
+        "atlas",
+        "grain",
         "lpc",
-        "atlas"
-      ]
-    },
-    {
-      "name": "wardrobe_wood_red_top_plain",
-      "kind": "tile",
-      "row": 14,
-      "col": 1,
-      "frameIndex": 449,
-      "tags": [
-        "lpc",
-        "atlas"
+        "sack"
       ]
     },
     {
@@ -3952,7 +3904,7 @@
       ]
     },
     {
-      "name": "toilet_white_tank",
+      "name": "dock_wood_b_nw",
       "kind": "tile",
       "row": 14,
       "col": 12,
@@ -3963,7 +3915,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_tower_step_a",
+      "name": "dock_wood_b_n",
       "kind": "tile",
       "row": 14,
       "col": 13,
@@ -3974,7 +3926,7 @@
       ]
     },
     {
-      "name": "arched_window_sky_pane_a",
+      "name": "dock_wood_b_ne",
       "kind": "tile",
       "row": 14,
       "col": 14,
@@ -4190,7 +4142,7 @@
       "h": 27
     },
     {
-      "name": "bookshelf_books_full_b",
+      "name": "sack_grain_yellow_pair",
       "kind": "object",
       "x": 96,
       "y": 480,
@@ -4271,7 +4223,7 @@
       ]
     },
     {
-      "name": "wood_table_leg_fragment_a",
+      "name": "dock_wood_b_w",
       "kind": "tile",
       "row": 15,
       "col": 12,
@@ -4282,7 +4234,7 @@
       ]
     },
     {
-      "name": "wood_plank_floor_fill_fragment",
+      "name": "dock_wood_b_center",
       "kind": "tile",
       "row": 15,
       "col": 13,
@@ -4293,7 +4245,7 @@
       ]
     },
     {
-      "name": "wood_table_leg_fragment_b",
+      "name": "dock_wood_b_e",
       "kind": "tile",
       "row": 15,
       "col": 14,
@@ -4546,7 +4498,7 @@
       ]
     },
     {
-      "name": "wood_crate_leg_fragment_lower_a",
+      "name": "dock_wood_b_sw",
       "kind": "tile",
       "row": 16,
       "col": 12,
@@ -4557,7 +4509,7 @@
       ]
     },
     {
-      "name": "staircase_grand_red_tower_step_rail_b",
+      "name": "dock_wood_b_s",
       "kind": "tile",
       "row": 16,
       "col": 13,
@@ -4568,7 +4520,7 @@
       ]
     },
     {
-      "name": "wood_crate_leg_fragment_lower_b",
+      "name": "dock_wood_b_se",
       "kind": "tile",
       "row": 16,
       "col": 14,
@@ -5714,7 +5666,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r1c1",
+      "name": "stairs_wood_rising_right_no_rail_nw",
       "kind": "tile",
       "row": 20,
       "col": 24,
@@ -5725,7 +5677,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r1c2",
+      "name": "stairs_wood_rising_right_no_rail_ne",
       "kind": "tile",
       "row": 20,
       "col": 25,
@@ -5736,7 +5688,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r1c3",
+      "name": "stairs_wood_rising_right_back_rail_nw",
       "kind": "tile",
       "row": 20,
       "col": 26,
@@ -5747,7 +5699,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r1c4",
+      "name": "stairs_wood_rising_right_back_rail_ne",
       "kind": "tile",
       "row": 20,
       "col": 27,
@@ -5758,7 +5710,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r1c5",
+      "name": "stairs_wood_rising_left_back_rail_nw",
       "kind": "tile",
       "row": 20,
       "col": 28,
@@ -5769,7 +5721,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r1c6",
+      "name": "stairs_wood_rising_left_back_rail_ne",
       "kind": "tile",
       "row": 20,
       "col": 29,
@@ -5780,7 +5732,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r1c7",
+      "name": "stairs_wood_rising_left_no_rail_nw",
       "kind": "tile",
       "row": 20,
       "col": 30,
@@ -5791,7 +5743,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r1c8",
+      "name": "stairs_wood_rising_left_no_rail_ne",
       "kind": "tile",
       "row": 20,
       "col": 31,
@@ -6062,7 +6014,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r2c1",
+      "name": "stairs_wood_rising_right_no_rail_sw",
       "kind": "tile",
       "row": 21,
       "col": 24,
@@ -6073,7 +6025,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r2c2",
+      "name": "stairs_wood_rising_right_no_rail_se",
       "kind": "tile",
       "row": 21,
       "col": 25,
@@ -6084,7 +6036,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r2c3",
+      "name": "stairs_wood_rising_right_back_rail_sw",
       "kind": "tile",
       "row": 21,
       "col": 26,
@@ -6095,7 +6047,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r2c4",
+      "name": "stairs_wood_rising_right_back_rail_se",
       "kind": "tile",
       "row": 21,
       "col": 27,
@@ -6106,7 +6058,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r2c5",
+      "name": "stairs_wood_rising_left_back_rail_sw",
       "kind": "tile",
       "row": 21,
       "col": 28,
@@ -6117,7 +6069,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r2c6",
+      "name": "stairs_wood_rising_left_back_rail_se",
       "kind": "tile",
       "row": 21,
       "col": 29,
@@ -6128,7 +6080,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r2c7",
+      "name": "stairs_wood_rising_left_no_rail_sw",
       "kind": "tile",
       "row": 21,
       "col": 30,
@@ -6139,7 +6091,7 @@
       ]
     },
     {
-      "name": "bridge_wood_rail_r2c8",
+      "name": "stairs_wood_rising_left_no_rail_se",
       "kind": "tile",
       "row": 21,
       "col": 31,
@@ -6225,7 +6177,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r1c1",
+      "name": "stairs_wood_rising_right_front_rail_nw",
       "kind": "tile",
       "row": 22,
       "col": 24,
@@ -6236,7 +6188,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r1c2",
+      "name": "stairs_wood_rising_right_front_rail_ne",
       "kind": "tile",
       "row": 22,
       "col": 25,
@@ -6247,7 +6199,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r1c3",
+      "name": "stairs_wood_rising_right_both_rails_nw",
       "kind": "tile",
       "row": 22,
       "col": 26,
@@ -6258,7 +6210,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r1c4",
+      "name": "stairs_wood_rising_right_both_rails_ne",
       "kind": "tile",
       "row": 22,
       "col": 27,
@@ -6269,7 +6221,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r1c5",
+      "name": "stairs_wood_rising_left_both_rails_nw",
       "kind": "tile",
       "row": 22,
       "col": 28,
@@ -6280,7 +6232,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r1c6",
+      "name": "stairs_wood_rising_left_both_rails_ne",
       "kind": "tile",
       "row": 22,
       "col": 29,
@@ -6291,7 +6243,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r1c7",
+      "name": "stairs_wood_rising_left_front_rail_nw",
       "kind": "tile",
       "row": 22,
       "col": 30,
@@ -6302,7 +6254,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r1c8",
+      "name": "stairs_wood_rising_left_front_rail_ne",
       "kind": "tile",
       "row": 22,
       "col": 31,
@@ -6376,7 +6328,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r2c1",
+      "name": "stairs_wood_rising_right_front_rail_sw",
       "kind": "tile",
       "row": 23,
       "col": 24,
@@ -6387,7 +6339,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r2c2",
+      "name": "stairs_wood_rising_right_front_rail_se",
       "kind": "tile",
       "row": 23,
       "col": 25,
@@ -6398,7 +6350,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r2c3",
+      "name": "stairs_wood_rising_right_both_rails_sw",
       "kind": "tile",
       "row": 23,
       "col": 26,
@@ -6409,7 +6361,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r2c4",
+      "name": "stairs_wood_rising_right_both_rails_se",
       "kind": "tile",
       "row": 23,
       "col": 27,
@@ -6420,7 +6372,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r2c5",
+      "name": "stairs_wood_rising_left_both_rails_sw",
       "kind": "tile",
       "row": 23,
       "col": 28,
@@ -6431,7 +6383,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r2c6",
+      "name": "stairs_wood_rising_left_both_rails_se",
       "kind": "tile",
       "row": 23,
       "col": 29,
@@ -6442,7 +6394,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r2c7",
+      "name": "stairs_wood_rising_left_front_rail_sw",
       "kind": "tile",
       "row": 23,
       "col": 30,
@@ -6453,7 +6405,7 @@
       ]
     },
     {
-      "name": "bridge_wood_truss_r2c8",
+      "name": "stairs_wood_rising_left_front_rail_se",
       "kind": "tile",
       "row": 23,
       "col": 31,

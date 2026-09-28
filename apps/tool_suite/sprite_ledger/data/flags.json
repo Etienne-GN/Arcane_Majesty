@@ -773,9 +773,9 @@
     "name": "iron_door_riveted_paneled",
     "reason": "misaligned",
     "comment": "\n\n[Claude] The sprite \"build_atlas_r0c0\" no longer exists; moved this flag to \"paneled_wooden_door\", which now covers the same area of the sheet (50% overlap with the old box).\n\n[Claude] Renamed: an iron door (grey, riveted panels), not wood.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T18:12:11.809Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-28T15:28:39.663Z",
     "remappedFrom": "lpc_build_atlas_sheet"
   },
   {
@@ -1009,9 +1009,9 @@
     "name": "grass_tuft_a",
     "reason": "misaligned",
     "comment": "[Claude] Split into 9: dirt_speckle_a-c, grass_tuft_a-c, dirt_mound_low_a-c. (Flag moved from grass_tuft_row to grass_tuft_a.)",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:42:06.126Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T16:59:28.086Z"
   },
   {
     "id": "f_52d70774-0eb3-4e6e-90c3-0d566bb4da50",
@@ -2262,7 +2262,7 @@
     "sheet": "interior_asset.png",
     "name": "armchair_red",
     "reason": "wrong_name",
-    "comment": "this is more red than pink \n\n[Claude] The sprite \"armchair_pink\" no longer exists; moved this flag to \"armchair_magenta\", which now covers the same area of the sheet (100% overlap with the old box).\n\n[Claude] Renamed to armchair_red as you said (it had only been moved to \"magenta\" before, which was still wrong).",
+    "comment": "this is more red than pink \n\n[Claude] The sprite \"armchair_pink\" no longer exists; moved this flag to \"armchair_magenta\", which now covers the same area of the sheet (100% overlap with the old box).\n\n[Claude] Renamed to armchair_red as you said (it had only been moved to \"magenta\" before, which was still wrong).\n\n[Rework] you could crop it a little better to the left and bottom\n\n[Claude] Crop tightened to the chair itself: (37,1,22,31), with no empty column on the left and no empty row at the bottom.",
     "status": "needs_review",
     "createdAt": "2026-09-14T16:45:12.481Z",
     "resolvedAt": null
@@ -2333,8 +2333,8 @@
     "sheet": "[Base]BaseChip_pipo.png",
     "name": "candles_lit_triple",
     "reason": "misaligned",
-    "comment": "too much cropped at the bottom",
-    "status": "question",
+    "comment": "too much cropped at the bottom\n\n[Answer to Claude's question] move this in the item to review so I can see it in th ereviewer mode an dsee the spritesheet\n\n[Claude] Moved to \"awaiting your review\" as you asked, so you can see it with the spritesheet in Reviewer Mode.",
+    "status": "needs_review",
     "createdAt": "2026-09-14T17:22:22.344Z",
     "resolvedAt": null,
     "claudeNote": "I can't extend this downward: the art itself stops at the tile edge (y=3967) and the row below is empty, so the bottom of the holder isn't in the sheet under it. The candelabra_gold_lit right below looks like the same candelabra, unlit. My guess is that this tile is a lit-flames top layer meant to sit on top of the candelabra. Want me to (a) leave it as a separate overlay and rename it candelabra_flames_overlay, or (b) something else?"
@@ -2819,9 +2819,9 @@
     "name": "barrel_cluster_trio_edge_cropped",
     "reason": "misaligned",
     "comment": "you have to fuse this with \"barrel_cluster_pair\" it will become a barrel trio\n\n[Claude] The sprite \"barrel_single_c\" no longer exists; moved this flag to \"barrel_cluster_edge_cropped\", which now covers the same area of the sheet (50% overlap with the old box).\n\n[Rework] ok but split it in 2 horizontally, i see that there are meant to be edge cropped, to make the side of a map let's say, we have a cluster of 2 cropped to the left and a cluster of 3 cropped to the right.\n\n[Claude] Split in two horizontally: barrel_cluster_trio_edge_cropped (top, 3 barrels) and barrel_cluster_pair_edge_cropped (bottom, 2 barrels), each trimmed to its pixels.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T13:57:14.584Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:50.486Z"
   },
   {
     "id": "f_079c33b8-24a4-4f52-865d-12c5a3edb246",
@@ -2829,9 +2829,9 @@
     "name": "barrel_cluster_trio_edge_cropped",
     "reason": "misaligned",
     "comment": "you have to fuse this with \"barrel_single_c\" and this will become a barrel trio\n\n[Claude] The sprite \"barrel_cluster_pair\" no longer exists; moved this flag to \"barrel_cluster_edge_cropped\", which now covers the same area of the sheet (50% overlap with the old box).\n\n[Rework] ok but split it in 2 horizontally, i see that there are meant to be edge cropped, to make the side of a map let's say, we have a cluster of 2 cropped to the left and a cluster of 3 cropped to the right.\n\n[Claude] Split in two horizontally: barrel_cluster_trio_edge_cropped (top, 3 barrels) and barrel_cluster_pair_edge_cropped (bottom, 2 barrels), each trimmed to its pixels.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T13:57:46.741Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:50.507Z"
   },
   {
     "id": "f_0a4e1683-5fd7-4aaa-8bf3-3fb202b909e7",
@@ -2949,9 +2949,9 @@
     "name": "ladder_side_view_leaning_left",
     "reason": "wrong_name",
     "comment": "\n\n[Claude] The sprite \"rope_ladder_descending\" no longer exists; moved this flag to \"bridge_rope_v_span\", which now covers the same area of the sheet (100% overlap with the old box).\n\n[Rework] this looks to me like ladder viewed from the side, and we have both toward right and toward left, so split it in 2 vertically\n\n[Claude] Split vertically into two ladders seen from the side: ladder_side_view_leaning_left (left half) and ladder_side_view_leaning_right (right half), each trimmed.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T14:36:32.710Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:33.949Z"
   },
   {
     "id": "f_5b7b852d-1a2e-4747-85f6-992328a7cba5",
@@ -2959,9 +2959,9 @@
     "name": "ladder_side_view_leaning_left",
     "reason": "misaligned",
     "comment": "\n\n[Claude] The sprite \"rope_ladder_descending\" no longer exists; moved this flag to \"bridge_rope_v_span\", which now covers the same area of the sheet (100% overlap with the old box).\n\n[Rework] this looks to me like ladder viewed from the side, and we have both toward right and toward left, so split it in 2 vertically\n\n[Claude] Split vertically into two ladders seen from the side: ladder_side_view_leaning_left (left half) and ladder_side_view_leaning_right (right half), each trimmed.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T14:36:33.765Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:33.966Z"
   },
   {
     "id": "f_e00c70d4-9746-4427-9ef7-69df3eb32ee4",
@@ -2969,9 +2969,9 @@
     "name": "hanging_gear_chain",
     "reason": "wrong_name",
     "comment": "this is a gear with a chain\n\n[Claude] The sprite \"hanging_medallion_finial\" no longer exists; moved this flag to \"hanging_gear_chain\", which now covers the same area of the sheet (100% overlap with the old box).",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:19:09.126Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:42.802Z"
   },
   {
     "id": "f_9f8b1e8e-e9ed-47c5-b88d-1c14e70da1cd",
@@ -3069,9 +3069,9 @@
     "name": "barrel_cluster_trio_edge_cropped",
     "reason": "misaligned",
     "comment": "\n\n[Claude] The sprite \"barrel_cluster_trio\" no longer exists; moved this flag to \"barrel_cluster_edge_cropped\", which now covers the same area of the sheet (100% overlap with the old box).\n\n[Rework] ok but split it in 2 horizontally, i see that there are meant to be edge cropped, to make the side of a map let's say, we have a cluster of 2 cropped to the left and a cluster of 3 cropped to the right.\n\n[Claude] Split in two horizontally: barrel_cluster_trio_edge_cropped (top, 3 barrels) and barrel_cluster_pair_edge_cropped (bottom, 2 barrels), each trimmed to its pixels.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:23:03.361Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:50.518Z"
   },
   {
     "id": "f_62c21ae7-afe2-4ede-abda-f97b6137cf5f",
@@ -3139,9 +3139,9 @@
     "name": "shop_sign_inn_stone_a",
     "reason": "wrong_name",
     "comment": "INN sign\n\n[Claude] The sprite \"sienna_brick_wall_trim_post_left_b\" no longer exists; moved this flag to \"shop_sign_inn_purple\", which now covers the same area of the sheet (100% overlap with the old box).\n\n[Claude] Renamed: these are pale stone plaques with a gold emblem, not purple. The set is now shop_sign_inn_stone_a/_b, shop_sign_sword_stone_a/_b and shop_sign_potion_stone_a/_b.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:25:53.267Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:55.955Z"
   },
   {
     "id": "f_eb505f88-b6e1-46ff-80f7-61923a3df78b",
@@ -3159,9 +3159,9 @@
     "name": "shop_sign_sword_stone_a",
     "reason": "wrong_name",
     "comment": "weapon sign\n\n[Claude] The sprite \"vermillion_stake_post_b\" no longer exists; moved this flag to \"shop_sign_sword_purple_a\", which now covers the same area of the sheet (100% overlap with the old box).\n\n[Claude] Renamed: these are pale stone plaques with a gold emblem, not purple. The set is now shop_sign_inn_stone_a/_b, shop_sign_sword_stone_a/_b and shop_sign_potion_stone_a/_b.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:26:20.677Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:57.120Z"
   },
   {
     "id": "f_99c73156-4674-4d52-aaed-a6987f3cee02",
@@ -3169,9 +3169,9 @@
     "name": "shop_sign_potion_stone_a",
     "reason": "wrong_name",
     "comment": "potion sign\n\n[Claude] The sprite \"vermillion_wood_post_a_top\" no longer exists; moved this flag to \"shop_sign_potion_purple_a\", which now covers the same area of the sheet (100% overlap with the old box).\n\n[Claude] Renamed: these are pale stone plaques with a gold emblem, not purple. The set is now shop_sign_inn_stone_a/_b, shop_sign_sword_stone_a/_b and shop_sign_potion_stone_a/_b.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:26:28.592Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:57.720Z"
   },
   {
     "id": "f_419059be-d84b-4b8b-ab25-a59a98b66b55",
@@ -3179,9 +3179,9 @@
     "name": "shop_sign_sword_stone_b",
     "reason": "wrong_name",
     "comment": "another weapon sign\n\n[Claude] The sprite \"vermillion_wood_post_b_top\" no longer exists; moved this flag to \"shop_sign_sword_purple_b\", which now covers the same area of the sheet (100% overlap with the old box).\n\n[Claude] Renamed: these are pale stone plaques with a gold emblem, not purple. The set is now shop_sign_inn_stone_a/_b, shop_sign_sword_stone_a/_b and shop_sign_potion_stone_a/_b.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:26:36.239Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:58.335Z"
   },
   {
     "id": "f_01dfc350-9fcb-43ca-bccf-bc7b842c0c89",
@@ -3189,9 +3189,9 @@
     "name": "shop_sign_potion_stone_b",
     "reason": "wrong_name",
     "comment": "another potion sign\n\n[Claude] The sprite \"vermillion_wood_post_c_top\" no longer exists; moved this flag to \"shop_sign_potion_purple_b\", which now covers the same area of the sheet (100% overlap with the old box).\n\n[Claude] Renamed: these are pale stone plaques with a gold emblem, not purple. The set is now shop_sign_inn_stone_a/_b, shop_sign_sword_stone_a/_b and shop_sign_potion_stone_a/_b.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:26:43.503Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:59.133Z"
   },
   {
     "id": "f_1bc7a862-12ca-4454-af65-dd04aab021f4",
@@ -3269,9 +3269,9 @@
     "name": "chest_wood_banded_double_lock_closed",
     "reason": "wrong_name",
     "comment": "this is \"brown_chest_lid_banded\" opened\n\n[Claude] The sprite \"brown_chest_body_banded\" no longer exists; moved this flag to \"brown_chest_open_banded\", which now covers the same area of the sheet (50% overlap with the old box).\n\n[Claude] Split in two: chest_wood_banded_double_lock_closed (top) and chest_wood_banded_double_lock_opening (bottom, lid lifting). The fully open one next to them (512,672, was brown_chest_hollow_body) is now chest_wood_banded_double_lock_open. The single-lock chest above them was one 32x96 box holding 3 frames, so I also split it into chest_wood_banded_closed / _opening / _open.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:29:14.925Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:25.686Z"
   },
   {
     "id": "f_ff5a906e-f06b-43a6-9bd0-5b07270c71f2",
@@ -3319,9 +3319,9 @@
     "name": "ham_hock_whole_b",
     "reason": "misaligned",
     "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from ham_hock_raw_a (no longer exists) to ham_hock_raw_top_fragment_a, which replaced it.\n\n[Claude] Fixed the crop: the ham ran down into the cell below (which was a separate \"ham_hock_raw_c\" fragment). The two are now one sprite, ham_hock_whole_b, trimmed to the full ham. It is cooked, not raw, so ham_hock_raw_b next to it is now ham_hock_whole_c.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:31:23.518Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:48:24.832Z"
   },
   {
     "id": "f_7b2ca724-205d-4bf1-bc55-abb6bf074b06",
@@ -3427,9 +3427,9 @@
   {
     "id": "f_22f91f4b-7edb-4521-9f54-1ea55aeac6f5",
     "sheet": "obj_misk_atlas.png",
-    "name": "sack_burlap_pile_a",
+    "name": "sack_burlap_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from window_glasswall_frame_bottom_a (no longer exists) to sack_burlap_pile_a, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from window_glasswall_frame_bottom_a (no longer exists) to sack_burlap_pile_a, which replaced it.\n\n[Rework] and this is the right half of the grain bag\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:38.510Z",
     "resolvedAt": null
@@ -3437,9 +3437,9 @@
   {
     "id": "f_703726cd-429e-4bf1-b2f5-ae0a58012ecd",
     "sheet": "obj_misk_atlas.png",
-    "name": "sack_burlap_tall_a",
+    "name": "sack_burlap_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from door_glass_dark_four_pane_c (no longer exists) to sack_burlap_tall_a, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from door_glass_dark_four_pane_c (no longer exists) to sack_burlap_tall_a, which replaced it.\n\n[Rework] this is only the left half of a grain bag\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:40.276Z",
     "resolvedAt": null
@@ -3457,9 +3457,9 @@
   {
     "id": "f_fdc35059-c494-4dba-909d-7085061f4bd7",
     "sheet": "obj_misk_atlas.png",
-    "name": "sack_burlap_round_a",
+    "name": "sack_burlap_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from door_glass_dark_two_pane_transom (no longer exists) to sack_burlap_round_a, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from door_glass_dark_two_pane_transom (no longer exists) to sack_burlap_round_a, which replaced it.\n\n[Rework] top half of what looks like a grain bag, move selection donw half of it it'll be ok\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:44.330Z",
     "resolvedAt": null
@@ -3467,9 +3467,9 @@
   {
     "id": "f_0707f0ec-716e-42c4-b921-8780da6ea47b",
     "sheet": "obj_misk_atlas.png",
-    "name": "sack_burlap_round_b",
+    "name": "sack_burlap_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from bookshelf_books_full_a (no longer exists) to sack_burlap_round_b, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from bookshelf_books_full_a (no longer exists) to sack_burlap_round_b, which replaced it.\n\n[Rework] and here is the bottom half of the bag of grain\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:45.984Z",
     "resolvedAt": null
@@ -3487,9 +3487,9 @@
   {
     "id": "f_09e3f1a6-6350-4cd6-88c0-59dab62a9277",
     "sheet": "obj_misk_atlas.png",
-    "name": "firewood_pile_medium_a",
+    "name": "firewood_pile_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from nightstand_wood_cherry (no longer exists) to firewood_pile_medium_a, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from nightstand_wood_cherry (no longer exists) to firewood_pile_medium_a, which replaced it.\n\n[Rework] left halt of wood pile..\n\n[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:51.441Z",
     "resolvedAt": null
@@ -3497,9 +3497,9 @@
   {
     "id": "f_f63e4757-6527-4605-8808-36e32fc1e191",
     "sheet": "obj_misk_atlas.png",
-    "name": "firewood_pile_large_a",
+    "name": "firewood_pile_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_cherry_low_two_door_a (no longer exists) to firewood_pile_large_a, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_cherry_low_two_door_a (no longer exists) to firewood_pile_large_a, which replaced it.\n\n[Rework] this is the right half of the wood pile now..\n\n[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:53.800Z",
     "resolvedAt": null
@@ -3507,9 +3507,9 @@
   {
     "id": "f_42d17ed8-77cb-4b59-ac18-ad72c2a92e96",
     "sheet": "obj_misk_atlas.png",
-    "name": "firewood_pile_small_a",
+    "name": "firewood_pile_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from wall_stone_dock_mossy_edge_right (no longer exists) to firewood_pile_small_a, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from wall_stone_dock_mossy_edge_right (no longer exists) to firewood_pile_small_a, which replaced it.\n\n[Rework] this is only half or a wood pile, move the selection half of it down and you'll crop just right\n\n[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:55.712Z",
     "resolvedAt": null
@@ -3607,9 +3607,9 @@
   {
     "id": "f_8dcd8442-7955-433e-865a-3195219844ef",
     "sheet": "obj_misk_atlas.png",
-    "name": "wood_crate_leg_fragment_lower_a",
+    "name": "dock_wood_b_sw",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from arched_window_sky_pane_rail_a (no longer exists) to wood_crate_leg_fragment_lower_a, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from arched_window_sky_pane_rail_a (no longer exists) to wood_crate_leg_fragment_lower_a, which replaced it.\n\n[Rework] c'est le coin so d'un quaitu vas avoir une grille de 3x3 pour le quai au complet, coint no ne se et les cot\u00e9s et un morceau du centre\n\n[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:47:46.181Z",
     "resolvedAt": null
@@ -3617,9 +3617,9 @@
   {
     "id": "f_36da6220-0f8e-4a01-b3c0-cb3abd2ffd59",
     "sheet": "obj_misk_atlas.png",
-    "name": "wood_crate_leg_fragment_lower_b",
+    "name": "dock_wood_b_se",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from arched_window_sky_pane_rail_b (no longer exists) to wood_crate_leg_fragment_lower_b, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from arched_window_sky_pane_rail_b (no longer exists) to wood_crate_leg_fragment_lower_b, which replaced it.\n\n[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:47:48.230Z",
     "resolvedAt": null
@@ -4027,10 +4027,10 @@
     "name": "grass_tuft_a",
     "reason": "misaligned",
     "comment": "this needs splitting\n\n[Claude] Split into 9: dirt_speckle_a-c, grass_tuft_a-c, dirt_mound_low_a-c. (Flag moved from grass_tuft_row to grass_tuft_a.)",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T15:29:07.758Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T16:59:28.108Z"
   },
   {
     "id": "f_9c8381f5-561b-413d-b8e3-e7aba5053ed5",
@@ -4137,10 +4137,10 @@
     "name": "flame_cyan",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"flame_cyan_1\" into the animation \"flame_cyan\" (all its frames in one sprite).\n\n[Claude] Merged flame_cyan_1-3 into one 3-frame animation \"flame_cyan\". Made it an animation: all its frames are now one animated sprite (plays in the ledger and Reviewer Mode). I did the same for the other frame sequences split from that area (light_rays, water_fill, water_splash_settle, water_droplet, dark_star, skull_curse).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:42:34.666Z"
   },
   {
     "id": "f_0cff566e-b861-4387-8248-d1c4dc1fbc2f",
@@ -4148,10 +4148,10 @@
     "name": "flame_cyan",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"flame_cyan_2\" into the animation \"flame_cyan\" (all its frames in one sprite).\n\n[Claude] Merged flame_cyan_1-3 into one 3-frame animation \"flame_cyan\". Made it an animation: all its frames are now one animated sprite (plays in the ledger and Reviewer Mode). I did the same for the other frame sequences split from that area (light_rays, water_fill, water_splash_settle, water_droplet, dark_star, skull_curse).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:42:35.478Z"
   },
   {
     "id": "f_c80dc674-8f2b-4173-a253-359893be6e39",
@@ -4159,10 +4159,10 @@
     "name": "flame_cyan",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"flame_cyan_3\" into the animation \"flame_cyan\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:42:37.181Z"
   },
   {
     "id": "f_bc1964ad-69cd-40f0-bd66-663a83a5409e",
@@ -6325,7 +6325,7 @@
     "sheet": "dungeon_tiles.png",
     "name": "spike_trap",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"dungeon_prop_cluster\" (flagged as misaligned). Please check its name and crop.",
+    "comment": "[Claude] New item, added when I split \"dungeon_prop_cluster\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] this is 2 frames of an animation, there is one more frame below\n\n[Claude] Made it an animation with all 3 frames: spikes down (holes only, 64,160), half up (64,144), fully up (64,121, 23px tall since the tips rise above the tile). Frames of different heights are drawn bottom-anchored, both in the game and in the ledger preview, so it does not jump.",
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
@@ -6337,10 +6337,10 @@
     "name": "prison_bars_a",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:30:03.420Z"
   },
   {
     "id": "f_67f86810-24c3-48a2-ad35-d2b7e86891a8",
@@ -6348,10 +6348,10 @@
     "name": "prison_bars_b",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:32:29.235Z"
   },
   {
     "id": "f_0f3ea6f9-fc1f-447c-8afd-2281abb957a7",
@@ -6381,10 +6381,10 @@
     "name": "stairs_red_yellow_carpet",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] stairs with a red and yellow carpet\n\n[Claude] Renamed: stairs with a red and yellow carpet (was wall_banner_red).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:30:57.121Z"
   },
   {
     "id": "f_1df4d755-7350-4f2c-923f-f5bb702b6296",
@@ -6546,10 +6546,10 @@
     "name": "teal_flagstone_floor_nw",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_floor\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] this is nw corner\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:32.154Z"
   },
   {
     "id": "f_b7541126-9929-4803-ab95-9dcb071e7215",
@@ -6557,10 +6557,10 @@
     "name": "teal_flagstone_floor_n",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_floor\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] this is n part\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:32.742Z"
   },
   {
     "id": "f_eee6ba20-871e-43ca-87af-b665cbace255",
@@ -6568,10 +6568,10 @@
     "name": "teal_flagstone_floor_ne",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_floor\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] this is ne corner\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:33.148Z"
   },
   {
     "id": "f_a5e528c2-7d61-4ae6-9869-b315a90ac56b",
@@ -6579,10 +6579,10 @@
     "name": "teal_flagstone_floor_pit_ledge_nw",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_floor\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] this is nw corner, with pit ledge\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:34.430Z"
   },
   {
     "id": "f_f99f389e-fb50-44a5-8985-efacf1cad6e0",
@@ -6590,10 +6590,10 @@
     "name": "teal_flagstone_floor_pit_ledge_n",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] this is n, with pit ledge\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:34.678Z"
   },
   {
     "id": "f_cf5d4cb8-a0d5-4b11-9e6d-e2a7b6e63348",
@@ -6601,10 +6601,10 @@
     "name": "teal_flagstone_floor_pit_ledge_ne",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] this is ne corner, with pit ledge\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:34.999Z"
   },
   {
     "id": "f_e1ab0643-8628-4297-bf76-0b367b0b51dd",
@@ -6755,10 +6755,10 @@
     "name": "teal_flagstone_floor_w",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_floor\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] this is w\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:35.646Z"
   },
   {
     "id": "f_de8d4204-8856-4adf-8a2d-17c9bd2158a4",
@@ -6766,10 +6766,10 @@
     "name": "teal_flagstone_floor_center",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_floor\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] center\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:35.830Z"
   },
   {
     "id": "f_c75e764c-8daa-452f-b0e7-ae0c3230c9aa",
@@ -6777,10 +6777,10 @@
     "name": "teal_flagstone_floor_e",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_floor\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] e\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:36.032Z"
   },
   {
     "id": "f_7bc94f4e-14da-4377-95c8-af936d5c94c6",
@@ -6788,10 +6788,10 @@
     "name": "teal_flagstone_floor_pit_ledge_w",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_floor\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] w with pit ledge\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:36.453Z"
   },
   {
     "id": "f_41a5a8ed-da5f-4da2-81db-b28c68f8932b",
@@ -6799,10 +6799,10 @@
     "name": "teal_flagstone_floor_pit_ledge_center_pit",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] center, so this is the pit\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:36.670Z"
   },
   {
     "id": "f_3462b7de-dd89-4493-8060-60207d3020ec",
@@ -6810,10 +6810,10 @@
     "name": "teal_flagstone_floor_pit_ledge_e",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] e with pit ledge\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:37.306Z"
   },
   {
     "id": "f_a8101d19-07e5-4a07-b386-5288ecbbe735",
@@ -6953,10 +6953,10 @@
     "name": "teal_flagstone_floor_sw",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_floor\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] sw corner\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:37.811Z"
   },
   {
     "id": "f_611dd507-f094-4633-afd3-52b41ee065e6",
@@ -6964,10 +6964,10 @@
     "name": "teal_flagstone_floor_s",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_floor\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] s\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:38.006Z"
   },
   {
     "id": "f_2ffb96ce-bc74-49fd-8472-e5b4e6483197",
@@ -6975,10 +6975,10 @@
     "name": "teal_flagstone_floor_se",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_floor\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] se\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:38.180Z"
   },
   {
     "id": "f_db4749a0-c5b7-414b-a9a4-e582d8af6f3d",
@@ -6986,10 +6986,10 @@
     "name": "teal_flagstone_floor_pit_ledge_sw",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_floor\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] sw with pit ledge\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:38.714Z"
   },
   {
     "id": "f_9455728b-bdc5-4d0c-ad32-8f2b8a4193ca",
@@ -6997,10 +6997,10 @@
     "name": "teal_flagstone_floor_pit_ledge_s",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] s with pit ledge\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:38.847Z"
   },
   {
     "id": "f_aa155960-654b-4f6d-83ea-3fcb9ab3d900",
@@ -7008,10 +7008,10 @@
     "name": "teal_flagstone_floor_pit_ledge_se",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] se with pit ledge\n\n[Claude] Renamed per your notes into two 3x3 autotile sets: teal_flagstone_floor_nw/n/ne/w/center/e/sw/s/se (plain floor) and teal_flagstone_floor_pit_ledge_nw/n/ne/w/e/sw/s/se, with the middle one as teal_flagstone_floor_pit_ledge_center_pit (the pit itself).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:39.034Z"
   },
   {
     "id": "f_c67cecb5-ac4f-4f16-a26d-b8c8274e4e69",
@@ -7118,10 +7118,10 @@
     "name": "dungeon_wall_top_blue_stone_trim_nw",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] this is the same as dungeon_wall_top_blue_stone_trim but its a nw corner\n\n[Claude] Renamed per your notes as part of the dungeon_wall_top_blue_stone_trim set: the loop pieces are _nw/_n/_ne/_sw/_s/_se, and the thin-wall end pieces are _external_nw/_external_ne/_external_w/_external_e.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:42.352Z"
   },
   {
     "id": "f_25f3c68c-9513-44fb-ac65-9ef4ecaa055d",
@@ -7129,10 +7129,10 @@
     "name": "dungeon_wall_top_blue_stone_trim_n",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] this is the same as dungeon_wall_top_blue_stone_trim but its a n\n\n[Claude] Renamed per your notes as part of the dungeon_wall_top_blue_stone_trim set: the loop pieces are _nw/_n/_ne/_sw/_s/_se, and the thin-wall end pieces are _external_nw/_external_ne/_external_w/_external_e.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:42.769Z"
   },
   {
     "id": "f_7e3d31b1-0faa-4c3a-aaa8-4b96150f00eb",
@@ -7140,10 +7140,10 @@
     "name": "dungeon_wall_top_blue_stone_trim_ne",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] this is the same as dungeon_wall_top_blue_stone_trim but its a ne corner\n\n[Claude] Renamed per your notes as part of the dungeon_wall_top_blue_stone_trim set: the loop pieces are _nw/_n/_ne/_sw/_s/_se, and the thin-wall end pieces are _external_nw/_external_ne/_external_w/_external_e.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:43.683Z"
   },
   {
     "id": "f_2fe02ee1-cd72-430f-b01a-7a4585c7e953",
@@ -7316,10 +7316,10 @@
     "name": "dungeon_wall_top_blue_stone_trim_sw",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] this is the same as dungeon_wall_top_blue_stone_trim but its a sw corner\n\n[Claude] Renamed per your notes as part of the dungeon_wall_top_blue_stone_trim set: the loop pieces are _nw/_n/_ne/_sw/_s/_se, and the thin-wall end pieces are _external_nw/_external_ne/_external_w/_external_e.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:44.245Z"
   },
   {
     "id": "f_a40ce568-e29e-4c83-8da2-7b62d5b4d446",
@@ -7327,10 +7327,10 @@
     "name": "dungeon_wall_top_blue_stone_trim_s",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] this is the same as dungeon_wall_top_blue_stone_trim but its a s\n\n[Claude] Renamed per your notes as part of the dungeon_wall_top_blue_stone_trim set: the loop pieces are _nw/_n/_ne/_sw/_s/_se, and the thin-wall end pieces are _external_nw/_external_ne/_external_w/_external_e.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:44.434Z"
   },
   {
     "id": "f_23f5fac3-a4e0-45e0-8deb-33387371bb5f",
@@ -7338,10 +7338,10 @@
     "name": "dungeon_wall_top_blue_stone_trim_se",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] this is the same as dungeon_wall_top_blue_stone_trim but its a se corner\n\n[Claude] Renamed per your notes as part of the dungeon_wall_top_blue_stone_trim set: the loop pieces are _nw/_n/_ne/_sw/_s/_se, and the thin-wall end pieces are _external_nw/_external_ne/_external_w/_external_e.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:45.263Z"
   },
   {
     "id": "f_88dfc33f-47f4-4531-a5fd-052a2d203bf4",
@@ -7349,10 +7349,10 @@
     "name": "dungeon_wall_top_blue_stone_trim_external_nw",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] this is the same as dungeon_wall_top_blue_stone_trim but its a nw external corner\n\n[Claude] Renamed per your notes as part of the dungeon_wall_top_blue_stone_trim set: the loop pieces are _nw/_n/_ne/_sw/_s/_se, and the thin-wall end pieces are _external_nw/_external_ne/_external_w/_external_e.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:48.725Z"
   },
   {
     "id": "f_1c74456c-8709-43f1-9dee-4f2b0f2c75fa",
@@ -7360,10 +7360,10 @@
     "name": "dungeon_wall_top_blue_stone_trim_external_ne",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] this is the same as dungeon_wall_top_blue_stone_trim but its a ne external corner\n\n[Claude] Renamed per your notes as part of the dungeon_wall_top_blue_stone_trim set: the loop pieces are _nw/_n/_ne/_sw/_s/_se, and the thin-wall end pieces are _external_nw/_external_ne/_external_w/_external_e.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:49.643Z"
   },
   {
     "id": "f_31643b54-886f-404a-ad17-e881bd2184de",
@@ -7371,10 +7371,10 @@
     "name": "dark_wall_red_brick_band_nw",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:38:19.460Z"
   },
   {
     "id": "f_fe8a32ad-c5b7-4a2a-aafc-e427c98d0fdb",
@@ -7382,10 +7382,10 @@
     "name": "dark_wall_red_brick_band_ne",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:38:19.964Z"
   },
   {
     "id": "f_69ebb9dd-dc0a-4b45-8f4a-4fd23e08359c",
@@ -7393,10 +7393,10 @@
     "name": "teal_flagstone_floor_shadowed_a",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:58.784Z"
   },
   {
     "id": "f_9faafdcf-7e91-4786-8d55-762ef71e559e",
@@ -7437,10 +7437,10 @@
     "name": "wooden_floorboards_lit_edge_w",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:30:46.925Z"
   },
   {
     "id": "f_df3554de-5563-4a4b-8aef-c0914f59a912",
@@ -7448,10 +7448,10 @@
     "name": "wooden_floorboards_lit_edge_center",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:30:47.191Z"
   },
   {
     "id": "f_6214c81e-2e2a-4555-944c-1229431151ea",
@@ -7459,10 +7459,10 @@
     "name": "wooden_floorboards_lit_edge_e",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:30:47.788Z"
   },
   {
     "id": "f_48484b1a-03f2-4f4b-be7c-29ab8316ab7a",
@@ -7525,10 +7525,10 @@
     "name": "dungeon_wall_top_blue_stone_trim_external_w",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] this is the same as dungeon_wall_top_blue_stone_trim but its a w\n\n[Claude] Renamed per your notes as part of the dungeon_wall_top_blue_stone_trim set: the loop pieces are _nw/_n/_ne/_sw/_s/_se, and the thin-wall end pieces are _external_nw/_external_ne/_external_w/_external_e.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:30:50.490Z"
   },
   {
     "id": "f_246178c5-d9a3-4733-b6fc-8848b573ad7f",
@@ -7536,10 +7536,10 @@
     "name": "dungeon_wall_top_blue_stone_trim_external_e",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] this is the same as dungeon_wall_top_blue_stone_trim but its a e external\n\n[Claude] Renamed per your notes as part of the dungeon_wall_top_blue_stone_trim set: the loop pieces are _nw/_n/_ne/_sw/_s/_se, and the thin-wall end pieces are _external_nw/_external_ne/_external_w/_external_e.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:30:51.424Z"
   },
   {
     "id": "f_58211ce5-7561-4d09-8f47-c1b9f9284e97",
@@ -7547,10 +7547,10 @@
     "name": "dark_wall_red_brick_band_sw",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:38:21.340Z"
   },
   {
     "id": "f_f8fb680a-6c20-4159-a0c9-67f4b2d7c122",
@@ -7558,10 +7558,10 @@
     "name": "dark_wall_red_brick_band_se",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:38:22.231Z"
   },
   {
     "id": "f_183c3d84-5477-43cf-ab77-1e6169bd0105",
@@ -7712,10 +7712,10 @@
     "name": "wooden_panel_edge_a",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:31:05.153Z"
   },
   {
     "id": "f_35d14491-497a-44c4-a887-c3ed8e40a64e",
@@ -7723,17 +7723,17 @@
     "name": "wooden_panel_edge_b",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:31:06.714Z"
   },
   {
     "id": "f_8dbc4367-e0bc-4ef8-81b5-71867c7bb8da",
     "sheet": "dungeon_tiles.png",
-    "name": "wooden_cabinet_small_b_w",
+    "name": "stairs_wood_plain_w",
     "reason": "new_from_split",
-    "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
+    "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).\n\n[Rework] wood stair like the one with the red carpet, without a carpet, this is the left part\n\n[Claude] Renamed: wooden stairs without carpet (same as stairs_red_yellow_carpet), stairs_wood_plain_w (left part) and stairs_wood_plain_e (right part).",
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
@@ -7742,9 +7742,9 @@
   {
     "id": "f_d4d73d68-0d39-413b-b9a2-4c76d0a05e1d",
     "sheet": "dungeon_tiles.png",
-    "name": "wooden_cabinet_small_b_e",
+    "name": "stairs_wood_plain_e",
     "reason": "new_from_split",
-    "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
+    "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).\n\n[Rework] like the stairs with the red and yellow flag, but without carpet, this is the right part\n\n[Claude] Renamed: wooden stairs without carpet (same as stairs_red_yellow_carpet), stairs_wood_plain_w (left part) and stairs_wood_plain_e (right part).",
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
@@ -7775,7 +7775,7 @@
   {
     "id": "f_51a487c5-abc0-4fbb-ad6c-55a04fa6ca3d",
     "sheet": "dungeon_tiles.png",
-    "name": "teal_flagstone_floor_dim_a",
+    "name": "stairs_dungeon_brick_nw",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"dungeon_prop_cluster\" (flagged as misaligned). Please check its name and crop.",
     "status": "resolved",
@@ -7786,7 +7786,7 @@
   {
     "id": "f_16adcdf3-0ce3-4139-85df-b3489f640484",
     "sheet": "dungeon_tiles.png",
-    "name": "teal_flagstone_floor_dim_b",
+    "name": "stairs_dungeon_brick_ne",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
     "status": "resolved",
@@ -7819,9 +7819,9 @@
   {
     "id": "f_8a15549d-01d8-4dff-b0cd-b3a764aa1e80",
     "sheet": "dungeon_tiles.png",
-    "name": "teal_flagstone_floor_dark_a",
+    "name": "stairs_dungeon_brick_sw",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"dungeon_prop_cluster\" (flagged as misaligned). Please check its name and crop.",
+    "comment": "[Claude] New item, added when I split \"dungeon_prop_cluster\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] those are dungeon brick stairs, its the sw part, this is 1/4 of the stair, other parts (nw,ne ans se) and to their respective positions.\n\n[Claude] Renamed as the 4 quarters of the dungeon brick stairs: stairs_dungeon_brick_nw/ne/sw/se, each at its own position.",
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
@@ -7830,9 +7830,9 @@
   {
     "id": "f_c098e39b-ac63-4f40-beb3-51f5a39c896d",
     "sheet": "dungeon_tiles.png",
-    "name": "teal_flagstone_floor_dark_b",
+    "name": "stairs_dungeon_brick_se",
     "reason": "new_from_split",
-    "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
+    "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed as the 4 quarters of the dungeon brick stairs: stairs_dungeon_brick_nw/ne/sw/se, each at its own position.",
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
@@ -7888,10 +7888,10 @@
     "name": "iron_floor_grate_nw",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:33:58.858Z"
   },
   {
     "id": "f_b33b040b-dbf6-4324-96ce-392f2f14fe79",
@@ -7899,10 +7899,10 @@
     "name": "iron_floor_grate_ne",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:33:59.648Z"
   },
   {
     "id": "f_d68f6b58-8ca8-4613-b267-7620c9cfefae",
@@ -7910,17 +7910,17 @@
     "name": "prison_bars_bottom_ends_b",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:34:01.859Z"
   },
   {
     "id": "f_b63dd46d-1fa1-47ca-b23a-8319058a5f32",
     "sheet": "dungeon_tiles.png",
-    "name": "teal_flagstone_floor_iron_ledge_w",
+    "name": "teal_flagstone_floor_iron_ledge_a",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"dungeon_prop_cluster\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
+    "comment": "[Claude] New item, added when I split \"dungeon_prop_cluster\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).\n\n[Claude] Renamed again: the 3 pieces are the same riveted strip drawn 3 ways, so they are variants _a/_b/_c, not w/center/e.",
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
@@ -7929,9 +7929,9 @@
   {
     "id": "f_1f9c9720-0a16-45ba-b354-1c5e11341ed1",
     "sheet": "dungeon_tiles.png",
-    "name": "teal_flagstone_floor_iron_ledge_center",
+    "name": "teal_flagstone_floor_iron_ledge_b",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"dungeon_prop_cluster\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
+    "comment": "[Claude] New item, added when I split \"dungeon_prop_cluster\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).\n\n[Claude] Renamed again: the 3 pieces are the same riveted strip drawn 3 ways, so they are variants _a/_b/_c, not w/center/e.",
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
@@ -7940,9 +7940,9 @@
   {
     "id": "f_607b2730-18ce-4f91-a3b4-737bccd6ead8",
     "sheet": "dungeon_tiles.png",
-    "name": "teal_flagstone_floor_iron_ledge_e",
+    "name": "teal_flagstone_floor_iron_ledge_c",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"dungeon_prop_cluster\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
+    "comment": "[Claude] New item, added when I split \"dungeon_prop_cluster\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).\n\n[Claude] Renamed again: the 3 pieces are the same riveted strip drawn 3 ways, so they are variants _a/_b/_c, not w/center/e.",
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
@@ -7954,10 +7954,10 @@
     "name": "iron_floor_grate_sw",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:34:07.832Z"
   },
   {
     "id": "f_64df68ca-0d74-48d2-b39d-a5f75c860a23",
@@ -7965,10 +7965,10 @@
     "name": "iron_floor_grate_se",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:34:08.768Z"
   },
   {
     "id": "f_216da90a-39e1-496b-9404-7577d33e8327",
@@ -7976,10 +7976,10 @@
     "name": "teal_flagstone_floor_blood_stain_a",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:34:34.047Z"
   },
   {
     "id": "f_ca07f2e7-7141-4bb1-84f1-26f85f331e94",
@@ -7987,10 +7987,10 @@
     "name": "teal_flagstone_floor_blood_stain_b",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:34:35.776Z"
   },
   {
     "id": "f_3623cd58-1a42-4f37-8018-e12f61f64734",
@@ -7998,10 +7998,10 @@
     "name": "iron_floor_grate_small",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:34:38.914Z"
   },
   {
     "id": "f_d959c582-e346-4b7c-9118-d8309d20d201",
@@ -8009,10 +8009,10 @@
     "name": "teal_flagstone_floor_blood_stain_c",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:34:40.484Z"
   },
   {
     "id": "f_69b4410d-87ab-49ee-b92e-0a98446d9b1c",
@@ -8020,10 +8020,10 @@
     "name": "teal_flagstone_floor_blood_stain_d",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:34:41.166Z"
   },
   {
     "id": "f_2d35a24f-8d3b-4ffc-b1af-be31c2aada24",
@@ -8493,10 +8493,10 @@
     "name": "grass_edge_blob",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"dirt_patch\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:42:41.350Z"
   },
   {
     "id": "f_6dcce7a7-d280-4ace-8498-d815510cea4c",
@@ -8504,10 +8504,10 @@
     "name": "grass_edge_hole",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of grass_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:42:44.291Z"
   },
   {
     "id": "f_f73d9803-8f71-42d3-9500-6fc39f7d60fd",
@@ -8537,10 +8537,10 @@
     "name": "dirt_block_grass_edges",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of grass_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T16:58:52.485Z"
   },
   {
     "id": "f_c1ebb954-2f5e-46f0-b776-a44b02eb5190",
@@ -8548,10 +8548,10 @@
     "name": "dirt_patch_in_grass",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of grass_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T16:58:55.906Z"
   },
   {
     "id": "f_b2459989-9dce-4801-a525-26a0261dfc90",
@@ -9073,9 +9073,9 @@
   {
     "id": "f_1e2ab340-4162-44f2-9b0b-288f4541fb7b",
     "sheet": "ground_decorations.png",
-    "name": "dirt_speckle_a",
+    "name": "dirt_speckle",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"dirt_speckle_row\" (flagged as misaligned). Please check its name and crop.",
+    "comment": "[Claude] New item, added when I split \"dirt_speckle_row\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] those 3 dirt speckle, shouldn't they be an animation ?\n\n[Claude] Merged \"dirt_speckle_a\" into the animation \"dirt_speckle\" (all its frames in one sprite).\n\n[Claude] Yes: dirt_speckle_a/b/c are now one animation, dirt_speckle (3 frames, 24px cells, 150ms). The grass tufts and dirt mounds below follow the same 3-step pattern; tell me if they should be animations too.",
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
@@ -9084,9 +9084,9 @@
   {
     "id": "f_cb3fbeed-eda2-44be-862c-c346f60cac25",
     "sheet": "ground_decorations.png",
-    "name": "dirt_speckle_b",
+    "name": "dirt_speckle",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"dirt_speckle_row\" (flagged as misaligned). Please check its name and crop.",
+    "comment": "[Claude] New item, added when I split \"dirt_speckle_row\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"dirt_speckle_b\" into the animation \"dirt_speckle\" (all its frames in one sprite).\n\n[Claude] Yes: dirt_speckle_a/b/c are now one animation, dirt_speckle (3 frames, 24px cells, 150ms). The grass tufts and dirt mounds below follow the same 3-step pattern; tell me if they should be animations too.",
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
@@ -9095,9 +9095,9 @@
   {
     "id": "f_2f25a15d-0fb2-4cf2-b8fc-f9d2a3045fc4",
     "sheet": "ground_decorations.png",
-    "name": "dirt_speckle_c",
+    "name": "dirt_speckle",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"dirt_speckle_row\" (flagged as misaligned). Please check its name and crop.",
+    "comment": "[Claude] New item, added when I split \"dirt_speckle_row\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"dirt_speckle_c\" into the animation \"dirt_speckle\" (all its frames in one sprite).\n\n[Claude] Yes: dirt_speckle_a/b/c are now one animation, dirt_speckle (3 frames, 24px cells, 150ms). The grass tufts and dirt mounds below follow the same 3-step pattern; tell me if they should be animations too.",
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
@@ -9109,10 +9109,10 @@
     "name": "grass_tuft_b",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"grass_tuft_row\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T16:59:30.238Z"
   },
   {
     "id": "f_fe91bcc3-c2e4-4296-b951-4857b5046afe",
@@ -9120,10 +9120,10 @@
     "name": "grass_tuft_c",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"grass_tuft_row\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T16:59:31.282Z"
   },
   {
     "id": "f_1d9bd8eb-025b-4ff2-8d6a-241f7c4d8c3e",
@@ -9131,10 +9131,10 @@
     "name": "dirt_mound_low_a",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"grass_tuft_row\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T16:59:37.077Z"
   },
   {
     "id": "f_f32c386e-a91c-4210-9bb0-814501133a82",
@@ -9142,10 +9142,10 @@
     "name": "dirt_mound_low_b",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"grass_tuft_row\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T16:59:37.317Z"
   },
   {
     "id": "f_d993ce27-b881-4298-9293-7981a3b1c998",
@@ -9153,10 +9153,10 @@
     "name": "dirt_mound_low_c",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"grass_tuft_row\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T16:59:38.212Z"
   },
   {
     "id": "f_f2d4726a-ee72-4ca8-92c3-310e3137b91a",
@@ -15808,10 +15808,10 @@
     "name": "ivy_overlay_ring_bottom",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"ivy_overlay\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:41:25.651021Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:30:05.513Z"
   },
   {
     "id": "f_8c64b165-50df-4cb4-8373-6e5f792984ca",
@@ -15852,10 +15852,10 @@
     "name": "counter_brown_square_nw",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey neither a cabinet\n\n[Claude] Renamed: these are wooden counters/table tops (flat top with a dark front edge), not cabinets, and the colour is brown, not grey. The set is now counter_brown_long_w/center/e (3 wide), counter_brown_square_nw/ne/sw/se (2x2), counter_brown_small (1x1), counter_orange_long_n/center/s (3 tall), counter_orange_square_nw/ne/sw/se (2x2).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:29.860Z"
   },
   {
     "id": "f_d22dbcd1-81ff-42ab-812a-b6f0a930bf08",
@@ -18107,10 +18107,10 @@
     "name": "shop_sign_inn_stone_a",
     "reason": "wrong_name",
     "comment": "not purple at all\n\n[Claude] Renamed: these are pale stone plaques with a gold emblem, not purple. The set is now shop_sign_inn_stone_a/_b, shop_sign_sword_stone_a/_b and shop_sign_potion_stone_a/_b.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:00:08.422Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:55.976Z"
   },
   {
     "id": "f_5719399c-7f52-4746-ba6a-aff58a784d01",
@@ -18118,10 +18118,10 @@
     "name": "shop_sign_potion_stone_a",
     "reason": "wrong_name",
     "comment": "not purple at all\n\n[Claude] Renamed: these are pale stone plaques with a gold emblem, not purple. The set is now shop_sign_inn_stone_a/_b, shop_sign_sword_stone_a/_b and shop_sign_potion_stone_a/_b.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:00:13.369Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:57.741Z"
   },
   {
     "id": "f_728e1a61-f163-4a6d-adad-6c8e2e8c11f1",
@@ -18129,10 +18129,10 @@
     "name": "shop_sign_potion_stone_b",
     "reason": "wrong_name",
     "comment": "not purple at all\n\n[Claude] Renamed: these are pale stone plaques with a gold emblem, not purple. The set is now shop_sign_inn_stone_a/_b, shop_sign_sword_stone_a/_b and shop_sign_potion_stone_a/_b.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:00:17.286Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:59.152Z"
   },
   {
     "id": "f_a1e48a67-5f74-4e37-b083-e9d7b40c97e8",
@@ -18140,10 +18140,10 @@
     "name": "shop_sign_sword_stone_a",
     "reason": "wrong_name",
     "comment": "not purple at all\n\n[Claude] Renamed: these are pale stone plaques with a gold emblem, not purple. The set is now shop_sign_inn_stone_a/_b, shop_sign_sword_stone_a/_b and shop_sign_potion_stone_a/_b.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:00:21.496Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:57.135Z"
   },
   {
     "id": "f_285ced80-4266-4518-af8f-74e486d7df6b",
@@ -18151,10 +18151,10 @@
     "name": "shop_sign_sword_stone_b",
     "reason": "wrong_name",
     "comment": "not purple at all\n\n[Claude] Renamed: these are pale stone plaques with a gold emblem, not purple. The set is now shop_sign_inn_stone_a/_b, shop_sign_sword_stone_a/_b and shop_sign_potion_stone_a/_b.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:00:26.215Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:58.348Z"
   },
   {
     "id": "f_682fce07-5319-47a3-b979-7633cad64b59",
@@ -18173,10 +18173,10 @@
     "name": "ham_hock_whole_b",
     "reason": "misaligned",
     "comment": "too much cropped at bottom\n\n[Claude] Fixed the crop: the ham ran down into the cell below (which was a separate \"ham_hock_raw_c\" fragment). The two are now one sprite, ham_hock_whole_b, trimmed to the full ham. It is cooked, not raw, so ham_hock_raw_b next to it is now ham_hock_whole_c.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:02:11.532Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:48:24.847Z"
   },
   {
     "id": "f_c3019ea9-380a-417d-832e-d845a18568e8",
@@ -18184,10 +18184,10 @@
     "name": "iron_door_riveted_paneled",
     "reason": "wrong_name",
     "comment": "not wood, iron I think\n\n[Claude] Renamed: an iron door (grey, riveted panels), not wood.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:02:32.358Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:39.675Z"
   },
   {
     "id": "f_0cc93675-7436-4e56-9d05-be2aa1899148",
@@ -18195,10 +18195,10 @@
     "name": "chest_wood_banded_double_lock_closed",
     "reason": "misaligned",
     "comment": "split this in 2 chest one atop the other the bottom\n\n[Claude] Split in two: chest_wood_banded_double_lock_closed (top) and chest_wood_banded_double_lock_opening (bottom, lid lifting). The fully open one next to them (512,672, was brown_chest_hollow_body) is now chest_wood_banded_double_lock_open. The single-lock chest above them was one 32x96 box holding 3 frames, so I also split it into chest_wood_banded_closed / _opening / _open.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:03:30.575Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:25.703Z"
   },
   {
     "id": "f_faccdfd4-127e-49db-99dd-d4a5fca13757",
@@ -18206,10 +18206,10 @@
     "name": "barrel_cluster_pair_edge_cropped",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"barrel_cluster_edge_cropped\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:23:35.426910Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:52.723Z"
   },
   {
     "id": "f_56322fbf-f02d-4825-84ca-0f54f0c51397",
@@ -18217,10 +18217,10 @@
     "name": "chest_wood_banded_opening",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wood_chest_tall_closed_banded\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:23:35.426910Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:17.415Z"
   },
   {
     "id": "f_8a308564-a50a-44db-87c4-c756f4d24f49",
@@ -18228,10 +18228,10 @@
     "name": "chest_wood_banded_open",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wood_chest_tall_closed_banded\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:23:35.426910Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:21.302Z"
   },
   {
     "id": "f_02dc518a-34da-49d6-898a-0b188710164c",
@@ -18239,10 +18239,10 @@
     "name": "chest_wood_banded_double_lock_opening",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"brown_chest_open_banded\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:23:35.426910Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:27.457Z"
   },
   {
     "id": "f_6d8eec06-2a5a-4773-a3b6-0c1b5f3d3349",
@@ -18250,10 +18250,10 @@
     "name": "ladder_side_view_leaning_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"bridge_rope_v_span\" per your rework note. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:23:35.475792Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:28:35.827Z"
   },
   {
     "id": "f_e6ad6f4d-eee9-4386-982a-43dbd3429190",
@@ -18261,10 +18261,10 @@
     "name": "shop_sign_inn_stone_b",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed from vermillion_wood_post_d_top: this cell is a second INN stone sign, next to the ones you flagged.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:23:35.548828Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:00.628Z"
   },
   {
     "id": "f_9dcc85a7-b102-4793-968a-0bf1c36c54db",
@@ -18272,10 +18272,10 @@
     "name": "chest_wood_banded_double_lock_open",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed from brown_chest_hollow_body: it is the fully open state of the two-lock banded chest.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:23:35.549001Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T15:29:15.650Z"
   },
   {
     "id": "f_d6e4d24c-8692-4ef5-a8e7-6851346b6b31",
@@ -18283,9 +18283,1252 @@
     "name": "ham_hock_whole_c",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed from ham_hock_raw_b: it is a cooked ham hock, the same art as ham_hock_whole.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T15:23:35.549111Z",
+    "resolvedAt": "2026-09-28T15:48:26.814Z"
+  },
+  {
+    "id": "f_4707a0db-8e0d-42c3-9d1e-b8eebbb636ad",
+    "sheet": "obj_misk_atlas.png",
+    "name": "birdbath_stone_base",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_010f4c2a-5c42-4452-baf8-9bca3dcfad8e",
+    "sheet": "obj_misk_atlas.png",
+    "name": "birdbath_stone_top",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3689f1bf-49e7-4338-ae57-0dd1a00e8b7a",
+    "sheet": "obj_misk_atlas.png",
+    "name": "blacksmith_tongs",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_13114eff-b07c-4f2e-b1ad-9915e8d905a6",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bookshelf_books_center",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9b778f90-15f4-4412-a6af-cc54ef5c4e0e",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bookshelf_books_n",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6d84e415-3ee1-4f0c-bf38-f3c6b57631ea",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bookshelf_books_s",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ad0c4890-0aeb-4b68-9bfd-d1a6be2ce364",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bookshelf_empty_dark_center",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_69c21039-1d4a-4b6f-aa4c-f2ba2bb83f3d",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bookshelf_empty_dark_n",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_21a2200b-749d-46ed-91b4-edeac1bfbf9a",
+    "sheet": "obj_misk_atlas.png",
+    "name": "bookshelf_empty_dark_s",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0007d711-ac4d-44e0-b789-c53199a29740",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_a_center",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0f123f11-198f-4704-a5a9-b69c418dc3cb",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_a_e",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a07a4f8a-b47c-46cf-ae91-5a9513da3fca",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_a_n",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_f4b37b93-e0b0-4a0b-bca1-804134fb960b",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_a_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6e22d3cd-40c4-4443-bb99-3808f62e1e50",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_a_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_b12fc022-15f9-44e2-a700-05d3f063a937",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_a_s",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_acbfe45d-7420-4f2d-9e33-036a0240171a",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_a_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3820bdf6-bffd-4a56-9a3a-b6b9b76ebcde",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_a_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c8fbcb79-ac22-4797-b428-61217add6e09",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_a_w",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_865dff6f-b96f-4b43-82b1-db36ad016f39",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_b_center",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e040963b-b391-4672-9c9a-451d8ffe032d",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_b_e",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_01129dd2-a385-44d5-80ea-c8f748dc3e8c",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_b_n",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_77d71954-a03e-48f9-9298-9399123a6880",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_b_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_cc38a051-6332-4421-8dde-a55b2f59c866",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_b_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6a5ca72a-7fa3-4c7e-8bd9-8fed12405630",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_b_s",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_a48029fa-c8ec-453f-9431-5cbe08af91f5",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_b_w",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_cc5de2ad-9515-427a-bf84-9862a7220d06",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_narrow_center",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3ef9d26c-864c-445f-ae2b-6a241dedbd77",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_narrow_n",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_10c68a34-7158-4813-8eac-e72fcb53603c",
+    "sheet": "obj_misk_atlas.png",
+    "name": "dock_wood_narrow_s",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_35dd5cb3-e1a2-4579-9153-bd83e8c62c30",
+    "sheet": "obj_misk_atlas.png",
+    "name": "firewood_pile_c",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3dd47add-0eca-49c4-ae97-97cf394e7a56",
+    "sheet": "obj_misk_atlas.png",
+    "name": "firewood_pile_large",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3d04b67c-203d-49d0-bb89-a389fc14e5c4",
+    "sheet": "obj_misk_atlas.png",
+    "name": "glass_double_door_dark_wood_a",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_2ce18d48-2dd1-493a-98b7-e4b7b8e5b48a",
+    "sheet": "obj_misk_atlas.png",
+    "name": "glass_double_door_dark_wood_b",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_445b3cbb-f36a-4e2a-8270-a096e4f1ab0a",
+    "sheet": "obj_misk_atlas.png",
+    "name": "glass_double_door_dark_wood_c",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_bbbed45c-b27d-481d-b845-adea307d60d0",
+    "sheet": "obj_misk_atlas.png",
+    "name": "glass_double_door_dark_wood_d",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_36da883d-9ea3-4edd-b6af-b91587f0615c",
+    "sheet": "obj_misk_atlas.png",
+    "name": "glass_partition_wall_top_a",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_76d342da-11af-4b00-9d8c-edf52ef1cc3c",
+    "sheet": "obj_misk_atlas.png",
+    "name": "glass_partition_wall_top_b",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_70e3133d-9ba5-4677-ad1e-8a41d75b9fdb",
+    "sheet": "obj_misk_atlas.png",
+    "name": "glass_partition_wall_top_c",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9ed36b43-20f0-4dbf-8a32-b06a2139ed2d",
+    "sheet": "obj_misk_atlas.png",
+    "name": "glass_partition_wall_top_d",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_43eb01ec-e474-4f33-b307-fb5401f8bae7",
+    "sheet": "obj_misk_atlas.png",
+    "name": "iron_bar_scraps_a",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_4895a756-248f-49bb-8612-2c05ac06eafe",
+    "sheet": "obj_misk_atlas.png",
+    "name": "iron_bar_scraps_b",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_64dcbe49-33b4-4058-8498-a85331ca3582",
+    "sheet": "obj_misk_atlas.png",
+    "name": "iron_bar_scraps_c",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_22040ce7-a048-4d1d-8808-39bb017630ef",
+    "sheet": "obj_misk_atlas.png",
+    "name": "iron_bar_scraps_d",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_4ddcb2ac-d73e-4aac-9850-d07bf7cae676",
+    "sheet": "obj_misk_atlas.png",
+    "name": "red_wood_plank_frame_piece",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_dd304cc9-7022-4f75-a23d-d073d53f2e4b",
+    "sheet": "obj_misk_atlas.png",
+    "name": "sack_burlap_c",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_b689fdf8-fcda-4011-b4c1-391779426a9a",
+    "sheet": "obj_misk_atlas.png",
+    "name": "sack_burlap_pile_large",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_99918abe-73fb-4b28-9ee3-c26c39ad4db9",
+    "sheet": "obj_misk_atlas.png",
+    "name": "sack_grain_yellow_pair",
+    "reason": "wrong_name",
+    "comment": "[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ee1cf424-2794-4a22-83fe-e69ca914394c",
+    "sheet": "obj_misk_atlas.png",
+    "name": "smithing_hammer_and_axe_head",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_bb52d283-04fe-4c1a-a86b-7ba2c310edeb",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_back_rail_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c1a789ee-5436-40c6-998a-e88de6fc9ffc",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_back_rail_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0d395a86-4d18-4f6c-a543-3965cc599084",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_back_rail_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_96f3c1d2-81b4-4aeb-80e1-6884d47f36d3",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_back_rail_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5ab2e0b2-5039-4b3c-812e-131bd6a4a91e",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_both_rails_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ae00ca9b-7876-4fba-a23c-2d359c665b19",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_both_rails_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_84cd05c2-9a7b-46bc-b195-f1c53e685f10",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_both_rails_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5b84e7b1-cf7f-40fa-b83d-02e1a1f5c30e",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_both_rails_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ada10d77-e942-4a8d-a7e9-ad4c55edd067",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_front_rail_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5b0680d5-a718-44a2-8b2b-8029f715d9fa",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_front_rail_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_69a60c32-11e4-49e0-95a6-e5e911178afe",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_front_rail_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e012b45b-2558-41e8-a3cf-090363ce9f12",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_front_rail_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9263fa08-15a9-45c8-843c-9f9169ebb035",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_no_rail_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e02a94eb-c8bf-4495-9b4e-ef7e23413060",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_no_rail_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9691686b-4eab-48ec-ab4b-d75c37ce6630",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_no_rail_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e06f6a25-d543-47d5-82ba-fe41a1ba1120",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_left_no_rail_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_32d8a28f-927b-44ff-8972-1af6424c1c59",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_back_rail_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_245cbc0d-e113-4a04-984f-1075d90d5033",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_back_rail_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c0d8b486-c009-483b-9b95-8f7d17b96de5",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_back_rail_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_266ec5aa-e747-4e78-8352-339c991fdc15",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_back_rail_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_4d84e01e-58fb-433d-a7de-624e31894bab",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_both_rails_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ecacf779-1cec-4b5f-ade1-be0a3c7572e8",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_both_rails_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0b82a723-301e-4e4a-9b28-8a9eb1b78688",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_both_rails_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e5b4ee77-52f9-4daa-ad9c-a73eee6e8afa",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_both_rails_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_08ee20eb-7588-421b-8cd4-024e134f6ab3",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_front_rail_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_049731e4-06f4-4fd2-9103-42327d0f12fa",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_front_rail_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_09902c1d-5078-4656-9257-23f43e5884b8",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_front_rail_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9131a252-4970-4726-89cd-6561ed0dc5b8",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_front_rail_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_09702125-ef4d-43aa-8213-d202bb5e8010",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_no_rail_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_64c00cfc-8cb5-4f5f-986d-4857c9d42743",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_no_rail_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_1b8878ce-7e79-4620-8201-2437a3e34dcf",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_no_rail_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_767e85ac-c8f9-4fe4-9298-de546733b7ba",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_red_carpet_rising_right_no_rail_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_4c783ea6-c5a7-40c7-80a0-cd2602b97e5c",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_back_rail_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_56ac41d3-f5b3-4fd2-b5eb-383302b38457",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_back_rail_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_20e57d7a-a9ec-4e36-8656-33dad223a353",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_back_rail_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_cc20688a-f2ab-486e-848e-a2b774eef05b",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_back_rail_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3cfb6348-f68b-4257-98c0-f88284e47132",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_both_rails_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_2fc515e1-13f3-4cb0-99fd-ef8a08599e63",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_both_rails_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_41b33e5e-9c5e-4b26-ae66-0d11637ead02",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_both_rails_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3ee2619e-a800-4a01-abee-d5bb5a3c1155",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_both_rails_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_56be8b34-de2c-4e3d-bef2-9f2833b6d4da",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_front_rail_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_85591391-eb5e-4960-86a9-54305489afc0",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_front_rail_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_28f8327e-18d9-4a16-91ce-69850f794db4",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_front_rail_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_8e3f135b-80f5-426c-ad33-7b9d1dbe92c8",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_front_rail_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_96c9b2a4-501a-42fe-934e-571be7dca2f3",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_no_rail_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0ee37d68-5720-48e3-9f2a-cc0e0ccbb0ef",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_no_rail_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5eb61d8b-7eb2-4f9c-b381-950ca16a55ec",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_no_rail_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6c3bbf4a-6a19-4f04-becf-6eaef6455c8a",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_left_no_rail_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_1dbc131c-c45d-4a00-935e-b1776febcb70",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_back_rail_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_ffddffc4-4c92-4d60-be68-fc1a5ab481fd",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_back_rail_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_975f981f-b429-4d7d-bd53-7e17255259af",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_back_rail_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_382aa80f-3d56-46f4-995e-630ac5e50d42",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_back_rail_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_0e101179-5bd4-4c11-84cc-00d7474e67a6",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_both_rails_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_1b39d1f5-b51c-4cd4-a3d6-32d86f1ff688",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_both_rails_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5d28af13-ce84-4628-83bc-451803f7bcbb",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_both_rails_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_24283973-3153-4e41-8383-ef00f7c719d4",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_both_rails_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_afb5229a-1741-4fe9-836e-bb1936df0efe",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_front_rail_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5606004b-efd0-404f-b752-e187c966b7d6",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_front_rail_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_d0dc404e-66a8-46c5-ae53-f7997fbf922d",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_front_rail_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6d766069-0673-42d9-ba7a-8c9dd56b3153",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_front_rail_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_b2c1e703-b212-4822-af99-ec3d314b729f",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_no_rail_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_b20abe59-effe-4cd7-af32-fafd52acba54",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_no_rail_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_154fecd2-fec6-4077-bde7-5c568775a384",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_no_rail_se",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_17ca9022-2844-4753-9689-133ed521940c",
+    "sheet": "obj_misk_atlas.png",
+    "name": "stairs_wood_rising_right_no_rail_sw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed: this is one piece of an LPC stair kit (it had a random name such as dark_canopy_underside / bridge_wood_rail_rXcY / wall_stone_dock_mossy). Each kit is 8 blocks of 2x2: stairs_<red_carpet|wood>_<rising_right|rising_left>_<no_rail|back_rail|front_rail|both_rails>_<nw|ne|sw|se>.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9ae68fdd-d7a8-41d4-a033-99cfbe7dab67",
+    "sheet": "dungeon_tiles.png",
+    "name": "stairs_dungeon_brick_nw",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed as one of the 4 quarters of the dungeon brick stairs: stairs_dungeon_brick_nw/ne/sw/se.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_81ec1b00-5784-4b85-8fa4-1c0778ea79c2",
+    "sheet": "dungeon_tiles.png",
+    "name": "stairs_dungeon_brick_ne",
+    "reason": "wrong_name",
+    "comment": "[Claude] Renamed as one of the 4 quarters of the dungeon brick stairs: stairs_dungeon_brick_nw/ne/sw/se.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T18:29:12.705600Z",
     "resolvedAt": null
   }
 ]

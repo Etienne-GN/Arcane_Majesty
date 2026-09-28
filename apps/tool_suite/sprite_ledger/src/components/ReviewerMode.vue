@@ -129,16 +129,18 @@ const CTX_MAX = 320;
 const CTX_MAX_ZOOMED_OUT = 520;
 const scaleInfo = ref('');
 
-function paintBig(img: HTMLImageElement, box: { x: number; y: number; w: number; h: number }) {
+// `frame` (optional) is the canvas size for animations whose frames differ
+// in size: each frame is drawn bottom-centred in it, like the game does.
+function paintBig(img: HTMLImageElement, box: { x: number; y: number; w: number; h: number }, frame = { w: box.w, h: box.h }) {
     const c = bigCanvas.value;
     if (!c) return;
-    const s = Math.max(1, Math.floor(Math.min(BIG_MAX / box.w, BIG_MAX / box.h)));
-    c.width = box.w * s; c.height = box.h * s;
+    const s = Math.max(1, Math.floor(Math.min(BIG_MAX / frame.w, BIG_MAX / frame.h)));
+    c.width = frame.w * s; c.height = frame.h * s;
     const g = c.getContext('2d')!;
     g.imageSmoothingEnabled = false;
     g.clearRect(0, 0, c.width, c.height);
-    g.drawImage(img, box.x, box.y, box.w, box.h, 0, 0, c.width, c.height);
-    scaleInfo.value = `${box.w}×${box.h}px at ${s}×`;
+    g.drawImage(img, box.x, box.y, box.w, box.h, Math.floor((frame.w - box.w) / 2) * s, (frame.h - box.h) * s, box.w * s, box.h * s);
+    scaleInfo.value = `${frame.w}×${frame.h}px at ${s}×`;
 }
 
 // Zoom levels for the "in the sheet" view, from close-up to the whole
@@ -209,10 +211,11 @@ function paint() {
         const frames = item.entry.frames;
         if (frames && frames.length > 1) {
             frameIdx = 0;
-            paintBig(img, frames[0]);
+            const frameSize = { w: Math.max(...frames.map(f => f.w)), h: Math.max(...frames.map(f => f.h)) };
+            paintBig(img, frames[0], frameSize);
             animTimer = window.setInterval(() => {
                 frameIdx = (frameIdx + 1) % frames.length;
-                paintBig(img, frames[frameIdx]);
+                paintBig(img, frames[frameIdx], frameSize);
             }, item.entry.frameDurationMs ?? 120);
         } else {
             paintBig(img, box);

@@ -29545,30 +29545,6 @@
   "obj_misk_atlas.png::water_fence_post_shaft_d": {
     "collection": "lpc_obj_misk"
   },
-  "obj_misk_atlas.png::dark_canopy_underside_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::dark_canopy_underside_b": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_ii_r1c1": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_ii_r1c2": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_ii_r1c3": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_ii_r1c4": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_ii_r1c5": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_ii_r1c6": {
-    "collection": "lpc_obj_misk"
-  },
   "obj_misk_atlas.png::water_edge_wall_plain_f": {
     "collection": "lpc_obj_misk"
   },
@@ -29617,30 +29593,6 @@
   "obj_misk_atlas.png::water_fence_post_base_d": {
     "collection": "lpc_obj_misk"
   },
-  "obj_misk_atlas.png::dark_canopy_underside_c": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::dark_canopy_underside_d": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::floor_stone_pale_water_edge_left": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::floor_stone_pale_ring_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::floor_stone_pale_plain_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::floor_stone_pale_ring_b": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::floor_stone_pale_plain_b": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::floor_stone_pale_ring_c": {
-    "collection": "lpc_obj_misk"
-  },
   "obj_misk_atlas.png::floor_stone_pale_water_edge_right": {
     "collection": "lpc_obj_misk"
   },
@@ -29662,57 +29614,6 @@
   "obj_misk_atlas.png::window_glasswall_frame_top_a": {
     "collection": "lpc_obj_misk"
   },
-  "obj_misk_atlas.png::window_glasswall_frame_top_b": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::window_glasswall_frame_top_c": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::window_glasswall_frame_top_d": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r1c1": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r1c2": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r1c3": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r1c4": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r1c5": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r1c6": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r1c7": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r1c8": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::wall_stone_dock_mossy_edge_left": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::wall_stone_dock_mossy_fill_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::wall_stone_dock_mossy_fill_b": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::wall_stone_dock_mossy_fill_c": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::wall_stone_dock_mossy_fill_d": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::wall_stone_dock_mossy_fill_e": {
-    "collection": "lpc_obj_misk"
-  },
   "obj_misk_atlas.png::wall_stone_dock_mossy_edge_right": {
     "collection": "lpc_obj_misk"
   },
@@ -29722,49 +29623,10 @@
   "obj_misk_atlas.png::cabinet_wood_cherry_low_two_door_a": {
     "collection": "lpc_obj_misk"
   },
-  "obj_misk_atlas.png::cabinet_wood_cherry_low_two_door_b": {
-    "collection": "lpc_obj_misk"
-  },
   "obj_misk_atlas.png::cabinet_wood_cherry_low_four_door": {
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::cabinet_wood_cherry_low_two_door_c": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::window_glasswall_pane_upper_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::window_glasswall_pane_upper_b": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::window_glasswall_pane_upper_c": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::window_glasswall_pane_upper_d": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r2c1": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r2c2": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r2c3": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r2c4": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r2c5": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r2c6": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r2c7": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r2c8": {
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::water_edge_wall_corner_left": {
@@ -29779,64 +29641,10 @@
   "obj_misk_atlas.png::water_edge_wall_plain_b": {
     "collection": "lpc_obj_misk"
   },
-  "obj_misk_atlas.png::water_edge_wall_plain_c": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::water_edge_wall_rock_b": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::water_edge_wall_corner_right": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::basin_ceramic_cream": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::door_glass_dark_two_pane_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::door_glass_dark_four_pane_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::door_glass_dark_four_pane_b": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_iii_fragment_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::window_glasswall_pane_lower_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::window_glasswall_pane_lower_b": {
-    "collection": "lpc_obj_misk"
-  },
   "obj_misk_atlas.png::window_glasswall_pane_lower_c": {
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::window_glasswall_pane_lower_d": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r3c1": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r3c2": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r3c3": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r3c4": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r3c5": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r3c6": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r3c7": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r3c8": {
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::dirt_mound_brown": {
@@ -29896,37 +29704,7 @@
   "obj_misk_atlas.png::window_glasswall_frame_bottom_a": {
     "collection": "lpc_obj_misk"
   },
-  "obj_misk_atlas.png::window_glasswall_frame_bottom_b": {
-    "collection": "lpc_obj_misk"
-  },
   "obj_misk_atlas.png::window_glasswall_frame_bottom_c": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::window_glasswall_frame_bottom_d": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r4c1": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r4c2": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r4c3": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r4c4": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r4c5": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r4c6": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r4c7": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_r4c8": {
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::log_round_pile_a": {
@@ -29965,9 +29743,6 @@
   "obj_misk_atlas.png::bookshelf_books_full_a": {
     "collection": "lpc_obj_misk"
   },
-  "obj_misk_atlas.png::wardrobe_wood_red_top_plain": {
-    "collection": "lpc_obj_misk"
-  },
   "obj_misk_atlas.png::wardrobe_wood_red_top_panel_a": {
     "collection": "lpc_obj_misk"
   },
@@ -29984,15 +29759,6 @@
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::shop_awning_mint_fill_e": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::toilet_white_tank": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_tower_step_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::arched_window_sky_pane_a": {
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::staircase_grand_red_tower_step_b": {
@@ -30049,9 +29815,6 @@
   "obj_misk_atlas.png::bookshelf_empty_b": {
     "collection": "lpc_obj_misk"
   },
-  "obj_misk_atlas.png::bookshelf_books_full_b": {
-    "collection": "lpc_obj_misk"
-  },
   "obj_misk_atlas.png::wardrobe_wood_red_door_trim_right": {
     "collection": "lpc_obj_misk"
   },
@@ -30068,15 +29831,6 @@
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::toilet_white_bowl": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::wood_table_leg_fragment_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::wood_plank_floor_fill_fragment": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::wood_table_leg_fragment_b": {
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::wood_panel_wall_fragment_a": {
@@ -30146,9 +29900,6 @@
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::arched_window_sky_pane_rail_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::staircase_grand_red_tower_step_rail_b": {
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::arched_window_sky_pane_rail_b": {
@@ -30496,30 +30247,6 @@
   "obj_misk_atlas.png::coil_rope_dark_a": {
     "collection": "lpc_obj_misk"
   },
-  "obj_misk_atlas.png::bridge_wood_rail_r1c1": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_rail_r1c2": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_rail_r1c3": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_rail_r1c4": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_rail_r1c5": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_rail_r1c6": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_rail_r1c7": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_rail_r1c8": {
-    "collection": "lpc_obj_misk"
-  },
   "obj_misk_atlas.png::meat_scrap_fragment_b": {
     "collection": "lpc_obj_misk"
   },
@@ -30544,30 +30271,6 @@
   "obj_misk_atlas.png::graffiti_tag_green": {
     "collection": "lpc_obj_misk"
   },
-  "obj_misk_atlas.png::bridge_wood_rail_r2c1": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_rail_r2c2": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_rail_r2c3": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_rail_r2c4": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_rail_r2c5": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_rail_r2c6": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_rail_r2c7": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_rail_r2c8": {
-    "collection": "lpc_obj_misk"
-  },
   "obj_misk_atlas.png::meat_chunk_raw_a": {
     "collection": "lpc_obj_misk"
   },
@@ -30580,30 +30283,6 @@
   "obj_misk_atlas.png::banner_cloth_gold_emblem_tree": {
     "collection": "lpc_obj_misk"
   },
-  "obj_misk_atlas.png::bridge_wood_truss_r1c1": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_truss_r1c2": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_truss_r1c3": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_truss_r1c4": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_truss_r1c5": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_truss_r1c6": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_truss_r1c7": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_truss_r1c8": {
-    "collection": "lpc_obj_misk"
-  },
   "obj_misk_atlas.png::chicken_drumstick_single_a": {
     "collection": "lpc_obj_misk"
   },
@@ -30614,30 +30293,6 @@
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::poster_paper_crow_symbol": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_truss_r2c1": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_truss_r2c2": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_truss_r2c3": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_truss_r2c4": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_truss_r2c5": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_truss_r2c6": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_truss_r2c7": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::bridge_wood_truss_r2c8": {
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::chicken_drumstick_single_b": {
@@ -33112,34 +32767,7 @@
   "item.png::coin_gold_single": {
     "collection": "roleworld_wizard"
   },
-  "obj_misk_atlas.png::firewood_pile_small_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::firewood_pile_medium_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::firewood_pile_large_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::sack_burlap_round_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::sack_burlap_tall_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::sack_burlap_pile_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::sack_burlap_round_b": {
-    "collection": "lpc_obj_misk"
-  },
   "obj_misk_atlas.png::sack_grain_yellow_b": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::wood_crate_leg_fragment_lower_a": {
-    "collection": "lpc_obj_misk"
-  },
-  "obj_misk_atlas.png::wood_crate_leg_fragment_lower_b": {
     "collection": "lpc_obj_misk"
   },
   "obj_misk_atlas.png::sack_grain_green_a": {
@@ -33881,15 +33509,6 @@
     "collection": "schwarnhild"
   },
   "dirtpath_tiles.png::dirtpath_single": {
-    "collection": "schwarnhild"
-  },
-  "ground_decorations.png::dirt_speckle_a": {
-    "collection": "schwarnhild"
-  },
-  "ground_decorations.png::dirt_speckle_b": {
-    "collection": "schwarnhild"
-  },
-  "ground_decorations.png::dirt_speckle_c": {
     "collection": "schwarnhild"
   },
   "ground_decorations.png::grass_tuft_a": {
@@ -35881,18 +35500,6 @@
   "dungeon_tiles.png::wooden_panel_edge_b": {
     "collection": "pixel_crawler"
   },
-  "dungeon_tiles.png::teal_flagstone_floor_dim_a": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_dim_b": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_dark_a": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_dark_b": {
-    "collection": "pixel_crawler"
-  },
   "dungeon_tiles.png::teal_flagstone_floor_spike_holes_b": {
     "collection": "pixel_crawler"
   },
@@ -36930,25 +36537,10 @@
   "dungeon_tiles.png::dark_wall_red_brick_band_se": {
     "collection": "pixel_crawler"
   },
-  "dungeon_tiles.png::wooden_cabinet_small_b_w": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::wooden_cabinet_small_b_e": {
-    "collection": "pixel_crawler"
-  },
   "dungeon_tiles.png::iron_floor_grate_nw": {
     "collection": "pixel_crawler"
   },
   "dungeon_tiles.png::iron_floor_grate_ne": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_iron_ledge_w": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_iron_ledge_center": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::teal_flagstone_floor_iron_ledge_e": {
     "collection": "pixel_crawler"
   },
   "dungeon_tiles.png::iron_floor_grate_sw": {
@@ -37106,5 +36698,386 @@
   },
   "pots.png::planter_box_wood_soil": {
     "collection": "woolly_lands"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_no_rail_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_no_rail_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_back_rail_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_back_rail_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_back_rail_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_back_rail_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_no_rail_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_no_rail_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_no_rail_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_no_rail_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_back_rail_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_back_rail_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_back_rail_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_back_rail_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_no_rail_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_no_rail_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::birdbath_stone_top": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::glass_partition_wall_top_a": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::glass_partition_wall_top_b": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::glass_partition_wall_top_c": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::glass_partition_wall_top_d": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_front_rail_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_front_rail_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_both_rails_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_both_rails_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_both_rails_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_both_rails_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_front_rail_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_front_rail_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::iron_bar_scraps_a": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::iron_bar_scraps_b": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_a_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_a_n": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_a_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_narrow_n": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::bookshelf_empty_dark_n": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::bookshelf_books_n": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::birdbath_stone_base": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_front_rail_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_front_rail_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_both_rails_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_right_both_rails_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_both_rails_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_both_rails_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_front_rail_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_red_carpet_rising_left_front_rail_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::iron_bar_scraps_c": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::iron_bar_scraps_d": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_a_w": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_a_center": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_a_e": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_narrow_center": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::bookshelf_empty_dark_center": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::bookshelf_books_center": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::smithing_hammer_and_axe_head": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::blacksmith_tongs": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_a_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_a_s": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_a_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_narrow_s": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::bookshelf_empty_dark_s": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::bookshelf_books_s": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::red_wood_plank_frame_piece": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_b_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_b_n": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_b_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::sack_grain_yellow_pair": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_b_w": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_b_center": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_b_e": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_b_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_b_s": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::dock_wood_b_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_no_rail_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_no_rail_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_back_rail_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_back_rail_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_back_rail_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_back_rail_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_no_rail_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_no_rail_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_no_rail_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_no_rail_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_back_rail_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_back_rail_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_back_rail_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_back_rail_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_no_rail_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_no_rail_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_front_rail_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_front_rail_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_both_rails_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_both_rails_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_both_rails_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_both_rails_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_front_rail_nw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_front_rail_ne": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_front_rail_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_front_rail_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_both_rails_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_right_both_rails_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_both_rails_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_both_rails_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_front_rail_sw": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::stairs_wood_rising_left_front_rail_se": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::glass_double_door_dark_wood_a": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::glass_double_door_dark_wood_b": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::glass_double_door_dark_wood_c": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::glass_double_door_dark_wood_d": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::firewood_pile_a": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::firewood_pile_b": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::firewood_pile_large": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::firewood_pile_c": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::sack_burlap_a": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::sack_burlap_b": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::sack_burlap_pile_large": {
+    "collection": "lpc_obj_misk"
+  },
+  "obj_misk_atlas.png::sack_burlap_c": {
+    "collection": "lpc_obj_misk"
+  },
+  "dungeon_tiles.png::stairs_wood_plain_w": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::stairs_wood_plain_e": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::stairs_dungeon_brick_nw": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::stairs_dungeon_brick_ne": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::stairs_dungeon_brick_sw": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::stairs_dungeon_brick_se": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_iron_ledge_a": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_iron_ledge_b": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::teal_flagstone_floor_iron_ledge_c": {
+    "collection": "pixel_crawler"
+  },
+  "ground_decorations.png::dirt_speckle": {
+    "collection": "schwarnhild"
   }
 }

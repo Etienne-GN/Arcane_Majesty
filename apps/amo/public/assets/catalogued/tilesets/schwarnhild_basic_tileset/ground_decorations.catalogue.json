@@ -4,45 +4,6 @@
   "sheetHeight": 72,
   "entries": [
     {
-      "name": "dirt_speckle_a",
-      "kind": "object",
-      "x": 3,
-      "y": 7,
-      "w": 18,
-      "h": 12,
-      "tags": [
-        "schwarnhild",
-        "decoration",
-        "dirt"
-      ]
-    },
-    {
-      "name": "dirt_speckle_b",
-      "kind": "object",
-      "x": 30,
-      "y": 9,
-      "w": 16,
-      "h": 11,
-      "tags": [
-        "schwarnhild",
-        "decoration",
-        "dirt"
-      ]
-    },
-    {
-      "name": "dirt_speckle_c",
-      "kind": "object",
-      "x": 53,
-      "y": 9,
-      "w": 14,
-      "h": 9,
-      "tags": [
-        "schwarnhild",
-        "decoration",
-        "dirt"
-      ]
-    },
-    {
       "name": "grass_tuft_a",
       "kind": "object",
       "x": 7,
@@ -119,6 +80,41 @@
         "decoration",
         "dirt"
       ]
+    },
+    {
+      "name": "dirt_speckle",
+      "kind": "object",
+      "x": 3,
+      "y": 7,
+      "w": 67,
+      "h": 13,
+      "tags": [
+        "animation",
+        "decoration",
+        "dirt",
+        "schwarnhild"
+      ],
+      "frames": [
+        {
+          "x": 3,
+          "y": 7,
+          "w": 19,
+          "h": 13
+        },
+        {
+          "x": 27,
+          "y": 7,
+          "w": 19,
+          "h": 13
+        },
+        {
+          "x": 51,
+          "y": 7,
+          "w": 19,
+          "h": 13
+        }
+      ],
+      "frameDurationMs": 150
     }
   ]
 }

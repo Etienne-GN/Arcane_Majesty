@@ -50,13 +50,17 @@ function paint() {
     const img = sheetImg;
     if (!canvas || !img || !img.complete) return;
     const box = isAnimated.value ? frames.value![frameIdx.value] : boxOf(entry.value);
-    canvas.width = box.w * 4;
-    canvas.height = box.h * 4;
+    // Frames can differ in size; draw each bottom-centred in the largest,
+    // the way the game anchors them, so the preview doesn't jump.
+    const fw = isAnimated.value ? Math.max(...frames.value!.map(f => f.w)) : box.w;
+    const fh = isAnimated.value ? Math.max(...frames.value!.map(f => f.h)) : box.h;
+    canvas.width = fw * 4;
+    canvas.height = fh * 4;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, box.x, box.y, box.w, box.h, 0, 0, box.w * 4, box.h * 4);
+    ctx.drawImage(img, box.x, box.y, box.w, box.h, Math.floor((fw - box.w) / 2) * 4, (fh - box.h) * 4, box.w * 4, box.h * 4);
 }
 
 function tick() {

@@ -2525,7 +2525,9 @@ export default class GameScene extends Phaser.Scene {
             // still they'd show the whole strip, so each frame becomes a
             // texture frame and the sprite loops through them.
             const frames = entry.frames?.length > 1 ? entry.frames : null;
-            if (frames) { cw = frames[0].w; ch = frames[0].h; }
+            // Frames may differ in height (e.g. spikes rising above their
+            // tile), so size by the largest and anchor each frame's bottom.
+            if (frames) { cw = Math.max(...frames.map(f => f.w)); ch = Math.max(...frames.map(f => f.h)); }
             const frameKey = `cat_${d.name}`;
             if (!frames && !tex.has(frameKey)) tex.add(frameKey, 0, cx, cy, cw, ch);
 
@@ -2545,7 +2547,7 @@ export default class GameScene extends Phaser.Scene {
                         repeat: -1,
                     });
                 }
-                img = this.add.sprite(px, py, texKey, `${frameKey}_f0`).play(animKey);
+                img = this.add.sprite(px, py + ch / 2, texKey, `${frameKey}_f0`).setOrigin(0.5, 1).play(animKey);
             } else {
                 img = this.add.image(px, py, texKey, frameKey);
             }

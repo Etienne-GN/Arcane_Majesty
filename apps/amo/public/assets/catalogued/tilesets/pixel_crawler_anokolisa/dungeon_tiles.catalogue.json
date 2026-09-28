@@ -52,13 +52,35 @@
       "x": 64,
       "y": 121,
       "w": 16,
-      "h": 39,
+      "h": 55,
       "tags": [
-        "pixel_crawler",
+        "animation",
         "anokolisa",
         "dungeon",
+        "pixel_crawler",
         "trap"
-      ]
+      ],
+      "frames": [
+        {
+          "x": 64,
+          "y": 160,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 64,
+          "y": 144,
+          "w": 16,
+          "h": 16
+        },
+        {
+          "x": 64,
+          "y": 121,
+          "w": 16,
+          "h": 23
+        }
+      ],
+      "frameDurationMs": 200
     },
     {
       "name": "prison_bars_a",
@@ -1887,31 +1909,33 @@
       ]
     },
     {
-      "name": "wooden_cabinet_small_b_w",
+      "name": "stairs_wood_plain_w",
       "kind": "object",
       "x": 320,
       "y": 96,
       "w": 16,
       "h": 16,
       "tags": [
-        "pixel_crawler",
         "anokolisa",
+        "autotile",
         "dungeon",
-        "autotile"
+        "pixel_crawler",
+        "stairs"
       ]
     },
     {
-      "name": "wooden_cabinet_small_b_e",
+      "name": "stairs_wood_plain_e",
       "kind": "object",
       "x": 336,
       "y": 96,
       "w": 16,
       "h": 16,
       "tags": [
-        "pixel_crawler",
         "anokolisa",
+        "autotile",
         "dungeon",
-        "autotile"
+        "pixel_crawler",
+        "stairs"
       ]
     },
     {
@@ -1943,31 +1967,33 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_dim_a",
+      "name": "stairs_dungeon_brick_nw",
       "kind": "object",
       "x": 80,
       "y": 128,
       "w": 16,
       "h": 16,
       "tags": [
-        "pixel_crawler",
         "anokolisa",
+        "autotile",
         "dungeon",
-        "autotile"
+        "pixel_crawler",
+        "stairs"
       ]
     },
     {
-      "name": "teal_flagstone_floor_dim_b",
+      "name": "stairs_dungeon_brick_ne",
       "kind": "object",
       "x": 96,
       "y": 128,
       "w": 16,
       "h": 16,
       "tags": [
-        "pixel_crawler",
         "anokolisa",
+        "autotile",
         "dungeon",
-        "autotile"
+        "pixel_crawler",
+        "stairs"
       ]
     },
     {
@@ -1999,31 +2025,33 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_dark_a",
+      "name": "stairs_dungeon_brick_sw",
       "kind": "object",
       "x": 80,
       "y": 144,
       "w": 16,
       "h": 16,
       "tags": [
-        "pixel_crawler",
         "anokolisa",
+        "autotile",
         "dungeon",
-        "autotile"
+        "pixel_crawler",
+        "stairs"
       ]
     },
     {
-      "name": "teal_flagstone_floor_dark_b",
+      "name": "stairs_dungeon_brick_se",
       "kind": "object",
       "x": 96,
       "y": 144,
       "w": 16,
       "h": 16,
       "tags": [
-        "pixel_crawler",
         "anokolisa",
+        "autotile",
         "dungeon",
-        "autotile"
+        "pixel_crawler",
+        "stairs"
       ]
     },
     {
@@ -2125,7 +2153,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_iron_ledge_w",
+      "name": "teal_flagstone_floor_iron_ledge_a",
       "kind": "object",
       "x": 32,
       "y": 176,
@@ -2139,7 +2167,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_iron_ledge_center",
+      "name": "teal_flagstone_floor_iron_ledge_b",
       "kind": "object",
       "x": 48,
       "y": 176,
@@ -2153,7 +2181,7 @@
       ]
     },
     {
-      "name": "teal_flagstone_floor_iron_ledge_e",
+      "name": "teal_flagstone_floor_iron_ledge_c",
       "kind": "object",
       "x": 64,
       "y": 176,
