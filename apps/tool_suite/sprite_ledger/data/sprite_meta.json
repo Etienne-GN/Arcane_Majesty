@@ -955,10 +955,6 @@
     "collection": "pipoya",
     "license": "ok"
   },
-  "[Base]BaseChip_pipo.png::crate_wood_gray": {
-    "collection": "pipoya",
-    "license": "ok"
-  },
   "[Base]BaseChip_pipo.png::chest_gold_closed_a": {
     "collection": "pipoya",
     "license": "ok"
@@ -32915,9 +32911,6 @@
   "[Base]BaseChip_pipo.png::crate_wood_light_open": {
     "collection": "pipoya"
   },
-  "[Base]BaseChip_pipo.png::crate_wood_gray_open": {
-    "collection": "pipoya"
-  },
   "build_atlas.png::barrel_cluster_trio": {
     "collection": "lpc_build"
   },
@@ -34362,9 +34355,6 @@
     "collection": "pixel_crawler"
   },
   "dungeon_tiles.png::hatch_door_small": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::door_wood_iron_frame": {
     "collection": "pixel_crawler"
   },
   "dungeon_tiles.png::wall_banner_red": {
@@ -35882,18 +35872,6 @@
   "cave_tiles.png::bush_dark_round_b": {
     "collection": "pixel_crawler"
   },
-  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_left": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_middle": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_right": {
-    "collection": "pixel_crawler"
-  },
-  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_corner_turning_down": {
-    "collection": "pixel_crawler"
-  },
   "dungeon_tiles.png::teal_flagstone_floor_wall_shadow_top_a": {
     "collection": "pixel_crawler"
   },
@@ -36269,51 +36247,6 @@
   "Vegetation_01.png::tree_canopy_olive": {
     "collection": "pixel_crawler"
   },
-  "[Base]BaseChip_pipo.png::grey_counter_top_left": {
-    "collection": "pipoya"
-  },
-  "[Base]BaseChip_pipo.png::grey_counter_top_middle": {
-    "collection": "pipoya"
-  },
-  "[Base]BaseChip_pipo.png::grey_counter_top_right": {
-    "collection": "pipoya"
-  },
-  "[Base]BaseChip_pipo.png::grey_cabinet_door_top_left": {
-    "collection": "pipoya"
-  },
-  "[Base]BaseChip_pipo.png::grey_cabinet_door_top_right": {
-    "collection": "pipoya"
-  },
-  "[Base]BaseChip_pipo.png::grey_drawer_small": {
-    "collection": "pipoya"
-  },
-  "[Base]BaseChip_pipo.png::grey_cabinet_door_bottom_left": {
-    "collection": "pipoya"
-  },
-  "[Base]BaseChip_pipo.png::grey_cabinet_door_bottom_right": {
-    "collection": "pipoya"
-  },
-  "[Base]BaseChip_pipo.png::orange_tall_panel_top": {
-    "collection": "pipoya"
-  },
-  "[Base]BaseChip_pipo.png::orange_cabinet_door_top_left": {
-    "collection": "pipoya"
-  },
-  "[Base]BaseChip_pipo.png::orange_cabinet_door_top_right": {
-    "collection": "pipoya"
-  },
-  "[Base]BaseChip_pipo.png::orange_tall_panel_middle": {
-    "collection": "pipoya"
-  },
-  "[Base]BaseChip_pipo.png::orange_cabinet_door_bottom_left": {
-    "collection": "pipoya"
-  },
-  "[Base]BaseChip_pipo.png::orange_cabinet_door_bottom_right": {
-    "collection": "pipoya"
-  },
-  "[Base]BaseChip_pipo.png::orange_tall_panel_bottom": {
-    "collection": "pipoya"
-  },
   "[Base]BaseChip_pipo.png::market_tent_striped_square_pole_canvas_top": {
     "collection": "pipoya"
   },
@@ -36389,9 +36322,6 @@
   "cave_tiles.png::cave_wall_face_e": {
     "collection": "pixel_crawler"
   },
-  "cave_tiles.png::rock_island_water_nw": {
-    "collection": "pixel_crawler"
-  },
   "cave_tiles.png::rock_island_water_n_1": {
     "collection": "pixel_crawler"
   },
@@ -36399,9 +36329,6 @@
     "collection": "pixel_crawler"
   },
   "cave_tiles.png::rock_island_water_n_3": {
-    "collection": "pixel_crawler"
-  },
-  "cave_tiles.png::rock_island_water_ne": {
     "collection": "pixel_crawler"
   },
   "cave_tiles.png::rock_island_water_w_1": {
@@ -36449,9 +36376,6 @@
   "cave_tiles.png::rock_island_water_e_3": {
     "collection": "pixel_crawler"
   },
-  "cave_tiles.png::rock_island_water_sw": {
-    "collection": "pixel_crawler"
-  },
   "cave_tiles.png::rock_island_water_s_1": {
     "collection": "pixel_crawler"
   },
@@ -36459,9 +36383,6 @@
     "collection": "pixel_crawler"
   },
   "cave_tiles.png::rock_island_water_s_3": {
-    "collection": "pixel_crawler"
-  },
-  "cave_tiles.png::rock_island_water_se": {
     "collection": "pixel_crawler"
   },
   "cave_tiles.png::cave_floor_rock_light_a": {
@@ -36797,9 +36718,6 @@
   "dungeon_tileset.png::stone_block_square_b": {
     "collection": "top_down_adventure_olobster"
   },
-  "dungeon_tileset.png::iron_chest_dark": {
-    "collection": "top_down_adventure_olobster"
-  },
   "dungeon_tileset.png::clay_pot_red": {
     "collection": "top_down_adventure_olobster"
   },
@@ -37013,5 +36931,168 @@
   "[A]Water_pipo.png::wave_corner_sw": {
     "collection": "pipoya",
     "license": "ok"
+  },
+  "[A]Water_pipo.png::water1_channel_h_left": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_channel_h_middle": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_channel_h_right": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_edge_n": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_edge_w": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water1_edge_s": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_channel_h_left": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_channel_h_middle": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_channel_h_right": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_edge_n": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_edge_w": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water2_edge_s": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_channel_h_left": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_channel_h_middle": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_channel_h_right": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_edge_n": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_edge_w": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water3_edge_s": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_channel_h_left": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_channel_h_middle": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_channel_h_right": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_edge_n": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_edge_w": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::water4_edge_s": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_channel_h_left": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_channel_h_middle": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_channel_h_right": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_edge_n": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_edge_w": {
+    "collection": "pipoya"
+  },
+  "[A]Water_pipo.png::wave_edge_s": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::chest_wood_iron_bands_closed": {
+    "collection": "pipoya",
+    "license": "ok"
+  },
+  "[Base]BaseChip_pipo.png::chest_wood_iron_bands_open": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_brown_long_w": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_brown_long_center": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_brown_long_e": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_brown_square_nw": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_brown_square_ne": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_brown_small": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_brown_square_sw": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_brown_square_se": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_orange_long_n": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_orange_square_nw": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_orange_square_ne": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_orange_long_center": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_orange_square_sw": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_orange_square_se": {
+    "collection": "pipoya"
+  },
+  "[Base]BaseChip_pipo.png::counter_orange_long_s": {
+    "collection": "pipoya"
+  },
+  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_a": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_b": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_c": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::dungeon_wall_top_blue_stone_trim_pillar_top": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tileset.png::stone_block_dark_banded": {
+    "collection": "top_down_adventure_olobster"
+  },
+  "dungeon_tiles.png::door_wood_iron_bands_closed": {
+    "collection": "pixel_crawler"
+  },
+  "dungeon_tiles.png::door_wood_iron_bands_open": {
+    "collection": "pixel_crawler"
   }
 }

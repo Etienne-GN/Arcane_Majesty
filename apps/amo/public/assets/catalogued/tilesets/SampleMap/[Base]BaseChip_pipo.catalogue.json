@@ -864,14 +864,14 @@
       ]
     },
     {
-      "name": "crate_wood_gray",
+      "name": "chest_wood_iron_bands_closed",
       "kind": "object",
       "x": 160,
       "y": 3424,
       "w": 32,
       "h": 32,
       "tags": [
-        "crate",
+        "chest",
         "decoration",
         "container"
       ]
@@ -967,14 +967,14 @@
       ]
     },
     {
-      "name": "crate_wood_gray_open",
+      "name": "chest_wood_iron_bands_open",
       "kind": "object",
       "x": 160,
       "y": 3456,
       "w": 32,
       "h": 32,
       "tags": [
-        "crate",
+        "chest",
         "decoration",
         "container"
       ]
@@ -4568,181 +4568,196 @@
       ]
     },
     {
-      "name": "grey_counter_top_left",
+      "name": "counter_brown_long_w",
       "kind": "object",
       "x": 160,
       "y": 2688,
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
         "indoor"
       ]
     },
     {
-      "name": "grey_counter_top_middle",
+      "name": "counter_brown_long_center",
       "kind": "object",
       "x": 192,
       "y": 2688,
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
         "indoor"
       ]
     },
     {
-      "name": "grey_counter_top_right",
+      "name": "counter_brown_long_e",
       "kind": "object",
       "x": 224,
       "y": 2688,
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
         "indoor"
       ]
     },
     {
-      "name": "grey_cabinet_door_top_left",
+      "name": "counter_brown_square_nw",
       "kind": "object",
       "x": 160,
       "y": 2720,
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
         "indoor"
       ]
     },
     {
-      "name": "grey_cabinet_door_top_right",
+      "name": "counter_brown_square_ne",
       "kind": "object",
       "x": 192,
       "y": 2720,
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
         "indoor"
       ]
     },
     {
-      "name": "grey_drawer_small",
+      "name": "counter_brown_small",
       "kind": "object",
       "x": 224,
       "y": 2720,
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
         "indoor"
       ]
     },
     {
-      "name": "grey_cabinet_door_bottom_left",
+      "name": "counter_brown_square_sw",
       "kind": "object",
       "x": 160,
       "y": 2752,
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
         "indoor"
       ]
     },
     {
-      "name": "grey_cabinet_door_bottom_right",
+      "name": "counter_brown_square_se",
       "kind": "object",
       "x": 192,
       "y": 2752,
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
         "indoor"
       ]
     },
     {
-      "name": "orange_tall_panel_top",
+      "name": "counter_orange_long_n",
       "kind": "object",
       "x": 224,
       "y": 2752,
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
         "indoor"
       ]
     },
     {
-      "name": "orange_cabinet_door_top_left",
+      "name": "counter_orange_square_nw",
       "kind": "object",
       "x": 160,
       "y": 2784,
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
         "indoor"
       ]
     },
     {
-      "name": "orange_cabinet_door_top_right",
+      "name": "counter_orange_square_ne",
       "kind": "object",
       "x": 192,
       "y": 2784,
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
         "indoor"
       ]
     },
     {
-      "name": "orange_tall_panel_middle",
+      "name": "counter_orange_long_center",
       "kind": "object",
       "x": 224,
       "y": 2784,
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
         "indoor"
       ]
     },
     {
-      "name": "orange_cabinet_door_bottom_left",
+      "name": "counter_orange_square_sw",
       "kind": "object",
       "x": 160,
       "y": 2816,
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
         "indoor"
       ]
     },
     {
-      "name": "orange_cabinet_door_bottom_right",
+      "name": "counter_orange_square_se",
       "kind": "object",
       "x": 192,
       "y": 2816,
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
         "indoor"
       ]
     },
     {
-      "name": "orange_tall_panel_bottom",
+      "name": "counter_orange_long_s",
       "kind": "object",
       "x": 224,
       "y": 2816,
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
         "indoor"
       ]
@@ -5075,11 +5090,12 @@
       "w": 32,
       "h": 32,
       "tags": [
+        "counter",
         "furniture",
-        "sink",
+        "gray",
         "indoor",
         "kitchen",
-        "gray"
+        "sink"
       ]
     },
     {
@@ -5103,9 +5119,10 @@
       "w": 32,
       "h": 32,
       "tags": [
+        "accent",
+        "counter",
         "furniture",
-        "indoor",
-        "accent"
+        "indoor"
       ]
     },
     {

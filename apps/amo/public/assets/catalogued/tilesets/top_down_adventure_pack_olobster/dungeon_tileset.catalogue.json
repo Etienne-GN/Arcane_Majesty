@@ -1255,7 +1255,7 @@
       ]
     },
     {
-      "name": "iron_chest_dark",
+      "name": "stone_block_dark_banded",
       "kind": "object",
       "x": 144,
       "y": 112,
@@ -1265,7 +1265,8 @@
         "top_down_adventure_pack",
         "o_lobster",
         "dungeon",
-        "chest"
+        "stone",
+        "block"
       ]
     },
     {

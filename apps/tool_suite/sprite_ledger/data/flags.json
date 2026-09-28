@@ -749,7 +749,7 @@
   {
     "id": "f_f1906ba1-1c12-4823-b3a0-2cfb415a501b",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "grey_counter_top_left",
+    "name": "counter_brown_long_w",
     "reason": "misaligned",
     "comment": "this needs to be splitted\n\n[Rework] this can be splitted in 3 columns and 5 rows\n\n[Claude] Split 3 columns x 5 rows. It is several furniture pieces: grey_counter_top_left/middle/right, grey_cabinet_door_top/bottom_left/right, grey_drawer_small, orange_tall_panel_top/middle/bottom, orange_cabinet_door_top/bottom_left/right. All in \"to review\".",
     "status": "resolved",
@@ -2749,16 +2749,16 @@
     "name": "crate_wood_light",
     "reason": "misaligned",
     "comment": "i think previous was OK then, you have to split this exactly in 2 top half is closed chest, bottom is opened chest\n\n[Claude] The sprite \"crate_wood_light_b\" no longer exists; moved this flag to \"crate_wood_light\", which now covers the same area of the sheet (50% overlap with the old box).",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T13:54:13.761Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T13:56:36.557Z"
   },
   {
     "id": "f_7c55b153-074d-4688-82a4-990522bff77b",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "crate_wood_gray",
+    "name": "chest_wood_iron_bands_closed",
     "reason": "misaligned",
-    "comment": "i think previous was OK then, you have to split this exactly in 2 top half is closed chest, bottom is opened chest\n\n[Claude] The sprite \"crate_wood_gray_b\" no longer exists; moved this flag to \"crate_wood_gray\", which now covers the same area of the sheet (50% overlap with the old box).",
+    "comment": "i think previous was OK then, you have to split this exactly in 2 top half is closed chest, bottom is opened chest\n\n[Claude] The sprite \"crate_wood_gray_b\" no longer exists; moved this flag to \"crate_wood_gray\", which now covers the same area of the sheet (50% overlap with the old box).\n\n[Claude] Renamed: it is a wooden chest with iron bands, not a crate. The two halves were already separate sprites, so the top one is now chest_wood_iron_bands_closed (160,3424) and the bottom one chest_wood_iron_bands_open (160,3456), each exactly 32x32.",
     "status": "needs_review",
     "createdAt": "2026-09-21T13:54:25.603Z",
     "resolvedAt": null
@@ -2909,9 +2909,9 @@
     "name": "chest_closed_red",
     "reason": "wrong_name",
     "comment": "rename this chest-closed_red so it matches the closed version\n\n[Claude] The sprite \"chest_gold_closed_a\" no longer exists; moved this flag to \"chest_closed_red\", which now covers the same area of the sheet (100% overlap with the old box).",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T14:32:47.138Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T13:56:19.127Z"
   },
   {
     "id": "f_8a2d720d-818b-4fc3-881c-0c29938f3f6e",
@@ -2919,9 +2919,9 @@
     "name": "chest_closed_gold",
     "reason": "wrong_name",
     "comment": "rename this chest_closed_gold so it match with the opened version\n\n[Claude] The sprite \"chest_gold_closed_b\" no longer exists; moved this flag to \"chest_closed_gold\", which now covers the same area of the sheet (100% overlap with the old box).",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T14:33:09.971Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T13:56:16.119Z"
   },
   {
     "id": "f_e27930c4-5f64-4240-a456-baec009581e4",
@@ -3119,9 +3119,9 @@
     "name": "canvas_tent_a",
     "reason": "wrong_name",
     "comment": "this is a tent\n\n[Claude] The sprite \"sienna_brick_wall_top_post_left_a\" no longer exists; moved this flag to \"canvas_tent_a\", which now covers the same area of the sheet (100% overlap with the old box).",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:25:27.909Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T13:56:54.922Z"
   },
   {
     "id": "f_83ac3811-144e-4f24-8b83-c4c9f76b125f",
@@ -5940,11 +5940,11 @@
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_nw",
     "reason": "new_from_split",
-    "comment": "[Claude] New item: this part of cave_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] ok this is indeed a rock island in water,  but it needs to be splitter in a 5x5 grid and named with cardinal points, like ne,n,nw,w,sw,s and so on\n\n[Claude] Split into a 5x5 grid of 16px pieces named by compass: corners rock_island_water_nw/ne/sw/se, edges _n_1.._n_3, _s_1.._s_3, _w_1.._w_3, _e_1.._e_3, and the inside _inner_nw/_inner_n/_inner_ne/_inner_w/_center/_inner_e/_inner_sw/_inner_s/_inner_se. All in \"to review\".",
-    "status": "open",
+    "comment": "[Claude] New item: this part of cave_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] ok this is indeed a rock island in water,  but it needs to be splitter in a 5x5 grid and named with cardinal points, like ne,n,nw,w,sw,s and so on\n\n[Claude] Split into a 5x5 grid of 16px pieces named by compass: corners rock_island_water_nw/ne/sw/se, edges _n_1.._n_3, _s_1.._s_3, _w_1.._w_3, _e_1.._e_3, and the inside _inner_nw/_inner_n/_inner_ne/_inner_w/_center/_inner_e/_inner_sw/_inner_s/_inner_se. All in \"to review\".\n\n[Claude] Removed: this cell of the 5x5 grid is fully transparent in the sheet (the island is rounded, so its corners fall inside the _n_1/_n_3/_s_1/_s_3 and _w_1/_w_3/_e_1/_e_3 pieces). Nothing left to show, so this flag is closed.",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T14:24:15.849365Z"
   },
   {
     "id": "f_8b6d403c-9650-4891-b3ca-744b69845ce0",
@@ -6367,13 +6367,13 @@
   {
     "id": "f_dffb5111-132e-4bf0-aa91-b97f76d1486c",
     "sheet": "dungeon_tiles.png",
-    "name": "door_wood_iron_frame",
+    "name": "door_wood_iron_bands_closed",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T13:56:09.914Z"
   },
   {
     "id": "f_f39650c9-bd3e-4642-9533-a27bdaae2ff3",
@@ -6499,10 +6499,10 @@
   {
     "id": "f_8c11f917-a0e1-4a77-b48c-72ce562eefc4",
     "sheet": "dungeon_tiles.png",
-    "name": "dungeon_wall_top_blue_stone_trim_left",
+    "name": "dungeon_wall_top_blue_stone_trim_a",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] no lefts or middle or right, those are all 3 variants we want to keep them all as variants of dungeon_wall_top_blue_stone_trim",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] no lefts or middle or right, those are all 3 variants we want to keep them all as variants of dungeon_wall_top_blue_stone_trim\n\n[Claude] Renamed to variants: dungeon_wall_top_blue_stone_trim_a / _b / _c.",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
     "resolvedAt": null
@@ -6510,10 +6510,10 @@
   {
     "id": "f_d3249c7c-eac2-4d0d-a170-a6b99a9f1fb4",
     "sheet": "dungeon_tiles.png",
-    "name": "dungeon_wall_top_blue_stone_trim_middle",
+    "name": "dungeon_wall_top_blue_stone_trim_b",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] no lefts or middle or right, those are all 3 variants we want to keep them all as variants of dungeon_wall_top_blue_stone_trim",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] no lefts or middle or right, those are all 3 variants we want to keep them all as variants of dungeon_wall_top_blue_stone_trim\n\n[Claude] Renamed to variants: dungeon_wall_top_blue_stone_trim_a / _b / _c.",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
     "resolvedAt": null
@@ -6521,10 +6521,10 @@
   {
     "id": "f_f545ca4f-ff3c-4572-af25-917b48c292f4",
     "sheet": "dungeon_tiles.png",
-    "name": "dungeon_wall_top_blue_stone_trim_right",
+    "name": "dungeon_wall_top_blue_stone_trim_c",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] no lefts or middle or right, those are all 3 variants we want to keep them all as variants of dungeon_wall_top_blue_stone_trim",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] no lefts or middle or right, those are all 3 variants we want to keep them all as variants of dungeon_wall_top_blue_stone_trim\n\n[Claude] Renamed to variants: dungeon_wall_top_blue_stone_trim_a / _b / _c.",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
     "resolvedAt": null
@@ -6532,10 +6532,10 @@
   {
     "id": "f_75d4234e-bdc1-4b50-a074-394e05aa5c25",
     "sheet": "dungeon_tiles.png",
-    "name": "dungeon_wall_top_blue_stone_trim_corner_turning_down",
+    "name": "dungeon_wall_top_blue_stone_trim_pillar_top",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] this would ben dungeon_wall_top_blue_stone_trim_pillar_top osr something like this",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"stone_wall_blob\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] gotta give it a better name, impossible to know what this is from the name\n\n[Claude] Renamed so the name says what it is: teal_flagstone_floor_* (small square stone slabs; variants say wall_shadow_top / plain / cracked / missing_slab_dark / lighter / darker), dungeon_wall_top_blue_stone_trim_* (top of a wall with its blue stone trim), dungeon_brick_wall_face_*, dungeon_wall_end_column_*, wooden_floorboards_bordered_*, wooden_trapdoor_large_* (center_handle), wooden_floor_square_opening_*, wooden_floor_dark_recess_*, wooden_railing_iron_studs_*, wooden_cabinet_small_*.\n\n[Rework] this would ben dungeon_wall_top_blue_stone_trim_pillar_top osr something like this\n\n[Claude] Renamed to dungeon_wall_top_blue_stone_trim_pillar_top.",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
     "resolvedAt": null
@@ -13025,10 +13025,10 @@
     "name": "curtains_hanging",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of overworld_tileset.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Rework] maybe more curtains ?\n\n[Claude] Renamed curtains_hanging.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T13:56:58.633Z"
   },
   {
     "id": "f_5f631023-9a9b-44a0-b926-fbb10f8e91dd",
@@ -15345,11 +15345,11 @@
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_ne",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.\n\n[Claude] Removed: this cell of the 5x5 grid is fully transparent in the sheet (the island is rounded, so its corners fall inside the _n_1/_n_3/_s_1/_s_3 and _w_1/_w_3/_e_1/_e_3 pieces). Nothing left to show, so this flag is closed.",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T14:24:15.849424Z"
   },
   {
     "id": "f_f78423d0-d7af-4f83-88cd-28dbe27ebc73",
@@ -15521,11 +15521,11 @@
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_sw",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.\n\n[Claude] Removed: this cell of the 5x5 grid is fully transparent in the sheet (the island is rounded, so its corners fall inside the _n_1/_n_3/_s_1/_s_3 and _w_1/_w_3/_e_1/_e_3 pieces). Nothing left to show, so this flag is closed.",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T14:24:15.849430Z"
   },
   {
     "id": "f_8c47beaa-7e67-491b-8eeb-378d72936b00",
@@ -15565,11 +15565,11 @@
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_se",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"rock_island_water\" per your rework note. Please check its name and crop.\n\n[Claude] Removed: this cell of the 5x5 grid is fully transparent in the sheet (the island is rounded, so its corners fall inside the _n_1/_n_3/_s_1/_s_3 and _w_1/_w_3/_e_1/_e_3 pieces). Nothing left to show, so this flag is closed.",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:39:48.415559Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T14:24:15.849432Z"
   },
   {
     "id": "f_9138dc8e-222a-4782-8899-56966ba0b1e6",
@@ -15827,7 +15827,7 @@
   {
     "id": "f_d38da31a-1aa8-48c8-9912-12582df59120",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "grey_counter_top_middle",
+    "name": "counter_brown_long_center",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
     "status": "resolved",
@@ -15838,7 +15838,7 @@
   {
     "id": "f_1cbfa45d-c5fc-45c7-baa5-2de2f104c517",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "grey_counter_top_right",
+    "name": "counter_brown_long_e",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
     "status": "resolved",
@@ -15849,10 +15849,10 @@
   {
     "id": "f_22e4f881-de56-440f-9479-c03a91f826ef",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "grey_cabinet_door_top_left",
+    "name": "counter_brown_square_nw",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey neither a cabinet",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey neither a cabinet\n\n[Claude] Renamed: these are wooden counters/table tops (flat top with a dark front edge), not cabinets, and the colour is brown, not grey. The set is now counter_brown_long_w/center/e (3 wide), counter_brown_square_nw/ne/sw/se (2x2), counter_brown_small (1x1), counter_orange_long_n/center/s (3 tall), counter_orange_square_nw/ne/sw/se (2x2).",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15860,10 +15860,10 @@
   {
     "id": "f_d22dbcd1-81ff-42ab-812a-b6f0a930bf08",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "grey_cabinet_door_top_right",
+    "name": "counter_brown_square_ne",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey neither a cabinet",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey neither a cabinet\n\n[Claude] Renamed: these are wooden counters/table tops (flat top with a dark front edge), not cabinets, and the colour is brown, not grey. The set is now counter_brown_long_w/center/e (3 wide), counter_brown_square_nw/ne/sw/se (2x2), counter_brown_small (1x1), counter_orange_long_n/center/s (3 tall), counter_orange_square_nw/ne/sw/se (2x2).",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15871,10 +15871,10 @@
   {
     "id": "f_8e8ab46a-0fb3-477d-99e2-764fb759ae69",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "grey_drawer_small",
+    "name": "counter_brown_small",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey\n\n[Claude] Renamed: these are wooden counters/table tops (flat top with a dark front edge), not cabinets, and the colour is brown, not grey. The set is now counter_brown_long_w/center/e (3 wide), counter_brown_square_nw/ne/sw/se (2x2), counter_brown_small (1x1), counter_orange_long_n/center/s (3 tall), counter_orange_square_nw/ne/sw/se (2x2).",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15882,10 +15882,10 @@
   {
     "id": "f_65ca6c8a-2552-4834-b78c-f764152f9544",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "grey_cabinet_door_bottom_left",
+    "name": "counter_brown_square_sw",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey\n\n[Claude] Renamed: these are wooden counters/table tops (flat top with a dark front edge), not cabinets, and the colour is brown, not grey. The set is now counter_brown_long_w/center/e (3 wide), counter_brown_square_nw/ne/sw/se (2x2), counter_brown_small (1x1), counter_orange_long_n/center/s (3 tall), counter_orange_square_nw/ne/sw/se (2x2).",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15893,10 +15893,10 @@
   {
     "id": "f_3ac62810-fb6c-4853-ba8a-9cdd5297d527",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "grey_cabinet_door_bottom_right",
+    "name": "counter_brown_square_se",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] its not grey\n\n[Claude] Renamed: these are wooden counters/table tops (flat top with a dark front edge), not cabinets, and the colour is brown, not grey. The set is now counter_brown_long_w/center/e (3 wide), counter_brown_square_nw/ne/sw/se (2x2), counter_brown_small (1x1), counter_orange_long_n/center/s (3 tall), counter_orange_square_nw/ne/sw/se (2x2).",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15904,7 +15904,7 @@
   {
     "id": "f_e590b414-e394-48fe-a2b2-bfaf210352c4",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "orange_tall_panel_top",
+    "name": "counter_orange_long_n",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
     "status": "resolved",
@@ -15915,10 +15915,10 @@
   {
     "id": "f_eceb1e79-f91b-4730-833b-9d99a6c0347c",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "orange_cabinet_door_top_left",
+    "name": "counter_orange_square_nw",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] not a cabinet",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] not a cabinet\n\n[Claude] Renamed: these are wooden counters/table tops (flat top with a dark front edge), not cabinets, and the colour is brown, not grey. The set is now counter_brown_long_w/center/e (3 wide), counter_brown_square_nw/ne/sw/se (2x2), counter_brown_small (1x1), counter_orange_long_n/center/s (3 tall), counter_orange_square_nw/ne/sw/se (2x2).",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15926,10 +15926,10 @@
   {
     "id": "f_04eac2b6-9486-4971-a398-8eb4b1a768d1",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "orange_cabinet_door_top_right",
+    "name": "counter_orange_square_ne",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] not a cabinet",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] not a cabinet\n\n[Claude] Renamed: these are wooden counters/table tops (flat top with a dark front edge), not cabinets, and the colour is brown, not grey. The set is now counter_brown_long_w/center/e (3 wide), counter_brown_square_nw/ne/sw/se (2x2), counter_brown_small (1x1), counter_orange_long_n/center/s (3 tall), counter_orange_square_nw/ne/sw/se (2x2).",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15937,7 +15937,7 @@
   {
     "id": "f_b6b35512-1645-47cc-aade-12646b42739a",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "orange_tall_panel_middle",
+    "name": "counter_orange_long_center",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
     "status": "resolved",
@@ -15948,10 +15948,10 @@
   {
     "id": "f_38ad150f-434d-4fc6-9ab3-d8462798341a",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "orange_cabinet_door_bottom_left",
+    "name": "counter_orange_square_sw",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] not a cabinet",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] not a cabinet\n\n[Claude] Renamed: these are wooden counters/table tops (flat top with a dark front edge), not cabinets, and the colour is brown, not grey. The set is now counter_brown_long_w/center/e (3 wide), counter_brown_square_nw/ne/sw/se (2x2), counter_brown_small (1x1), counter_orange_long_n/center/s (3 tall), counter_orange_square_nw/ne/sw/se (2x2).",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15959,10 +15959,10 @@
   {
     "id": "f_16547302-f420-43c0-a2fe-8cc3e9d00860",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "orange_cabinet_door_bottom_right",
+    "name": "counter_orange_square_se",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] not a cabinet",
-    "status": "open",
+    "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.\n\n[Rework] not a cabinet\n\n[Claude] Renamed: these are wooden counters/table tops (flat top with a dark front edge), not cabinets, and the colour is brown, not grey. The set is now counter_brown_long_w/center/e (3 wide), counter_brown_square_nw/ne/sw/se (2x2), counter_brown_small (1x1), counter_orange_long_n/center/s (3 tall), counter_orange_square_nw/ne/sw/se (2x2).",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:43:44.246160Z",
     "resolvedAt": null
@@ -15970,7 +15970,7 @@
   {
     "id": "f_4b372df5-1e6c-4e12-97cd-ea139b531ab8",
     "sheet": "[Base]BaseChip_pipo.png",
-    "name": "orange_tall_panel_bottom",
+    "name": "counter_orange_long_s",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"wardrobe_tall_brown\" per your rework note. Please check its name and crop.",
     "status": "resolved",
@@ -16993,7 +16993,7 @@
   {
     "id": "f_1deb83e4-58f7-4166-9326-a4f6e23b26c1",
     "sheet": "dungeon_tileset.png",
-    "name": "iron_chest_dark",
+    "name": "stone_block_dark_banded",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
     "status": "resolved",
@@ -17400,10 +17400,10 @@
   {
     "id": "f_e11a14f1-08b0-4682-84f1-b41b55a55b47",
     "sheet": "dungeon_tileset.png",
-    "name": "iron_chest_dark",
+    "name": "stone_block_dark_banded",
     "reason": "wrong_name",
-    "comment": "this is in stone and is not a chest",
-    "status": "open",
+    "comment": "this is in stone and is not a chest\n\n[Claude] Renamed: a dark stone block with banded front, not a chest.",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-26T00:01:36.058Z",
     "resolvedAt": null
@@ -17413,52 +17413,52 @@
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_ne",
     "reason": "broken_image",
-    "comment": "",
-    "status": "open",
+    "comment": "[Claude] Removed: this cell of the 5x5 grid is fully transparent in the sheet (the island is rounded, so its corners fall inside the _n_1/_n_3/_s_1/_s_3 and _w_1/_w_3/_e_1/_e_3 pieces). Nothing left to show, so this flag is closed.",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-26T00:07:32.381Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T14:24:15.849444Z"
   },
   {
     "id": "f_3fa7d7d5-a0b9-4184-ad60-6b44bba57977",
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_nw",
     "reason": "broken_image",
-    "comment": "",
-    "status": "open",
+    "comment": "[Claude] Removed: this cell of the 5x5 grid is fully transparent in the sheet (the island is rounded, so its corners fall inside the _n_1/_n_3/_s_1/_s_3 and _w_1/_w_3/_e_1/_e_3 pieces). Nothing left to show, so this flag is closed.",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-26T00:07:35.128Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T14:24:15.849447Z"
   },
   {
     "id": "f_72817b0c-2489-4501-a650-def61d3c1a4f",
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_se",
     "reason": "broken_image",
-    "comment": "",
-    "status": "open",
+    "comment": "[Claude] Removed: this cell of the 5x5 grid is fully transparent in the sheet (the island is rounded, so its corners fall inside the _n_1/_n_3/_s_1/_s_3 and _w_1/_w_3/_e_1/_e_3 pieces). Nothing left to show, so this flag is closed.",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-26T00:07:37.473Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T14:24:15.849448Z"
   },
   {
     "id": "f_4bf59f01-93df-46a8-8909-416b4f66365c",
     "sheet": "cave_tiles.png",
     "name": "rock_island_water_sw",
     "reason": "broken_image",
-    "comment": "",
-    "status": "open",
+    "comment": "[Claude] Removed: this cell of the 5x5 grid is fully transparent in the sheet (the island is rounded, so its corners fall inside the _n_1/_n_3/_s_1/_s_3 and _w_1/_w_3/_e_1/_e_3 pieces). Nothing left to show, so this flag is closed.",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-26T00:07:40.499Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T14:24:15.849450Z"
   },
   {
     "id": "f_2695ba9a-4edc-48c5-bb3a-5a873ed17041",
     "sheet": "dungeon_tiles.png",
-    "name": "door_wood_iron_frame",
+    "name": "door_wood_iron_bands_closed",
     "reason": "duplicate",
-    "comment": "",
-    "status": "open",
+    "comment": "[Claude] The box held two doors stacked on top of each other, not one. Split in two: door_wood_iron_bands_closed (112,128, the closed plank door) and door_wood_iron_bands_open (112,96, the same frame with the doorway open). Neither exists anywhere else in the pixel_crawler sheets.",
+    "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-26T00:12:04.853Z",
     "resolvedAt": null
@@ -18066,6 +18066,39 @@
     "status": "needs_review",
     "claudeNote": null,
     "createdAt": "2026-09-26T13:14:58.561383Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_620895b1-6635-4cf4-8860-29ac7c6729b5",
+    "sheet": "dungeon_tiles.png",
+    "name": "door_wood_iron_bands_closed",
+    "reason": "duplicate",
+    "comment": "[Claude] The box held two doors stacked on top of each other, not one. Split in two: door_wood_iron_bands_closed (112,128, the closed plank door) and door_wood_iron_bands_open (112,96, the same frame with the doorway open). Neither exists anywhere else in the pixel_crawler sheets.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T13:56:02.967Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_e43676f7-3128-42d8-925b-b73f57e84dd1",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "chest_wood_iron_bands_closed",
+    "reason": "wrong_name",
+    "comment": "this is a wood chest not a crate\n\n[Claude] Renamed: it is a wooden chest with iron bands, not a crate. The two halves were already separate sprites, so the top one is now chest_wood_iron_bands_closed (160,3424) and the bottom one chest_wood_iron_bands_open (160,3456), each exactly 32x32.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T13:56:31.733Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9cbc6852-3472-4563-8878-72ef3ba04d69",
+    "sheet": "dungeon_tiles.png",
+    "name": "door_wood_iron_bands_open",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item, added when I split \"door_wood_iron_frame\" per your rework note. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-28T14:24:15.743826Z",
     "resolvedAt": null
   }
 ]
