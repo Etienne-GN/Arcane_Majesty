@@ -51,9 +51,17 @@ ITEM = {'item', 'items', 'food', 'weapon', 'weapons', 'tool', 'tools', 'potion',
         'fruits', 'meat', 'fish', 'bread', 'book', 'scroll', 'dagger', 'sword', 'axe', 'bow', 'arrow', 'ring', 'herb'}
 
 
-# Never approved in bulk even when their category is: a ledge or a drop
-# between heights may well need to block, and "soil" in a planter box is a prop.
-NEVER_AUTO_APPROVE = {'ledge', 'cliff', 'wall', 'edge_wall', 'planter', 'pot', 'box', 'crate', 'bed'}
+# Extra condition per category before a sprite may be approved in bulk
+# (tokens = name + tags, name = name words only; both digit-stripped).
+# Ground: a ledge or a drop between heights may well need to block, and
+# "soil" in a planter box is a prop. Walls/cliffs: only sprites whose own
+# name says wall or cliff, never ones that merely carry the tag, and not
+# things hung on or cast by a wall (shadows, clocks, torches, shelves...).
+APPROVE_GUARDS = {
+    'ground / soil': lambda tokens, name: not (tokens & {'ledge', 'cliff', 'wall', 'planter', 'pot', 'box', 'crate', 'bed'}),
+    'solid wall / cliff': lambda tokens, name: bool(name & {'wall', 'cliff'}) and not (name & {
+        'shadow', 'clock', 'torch', 'lantern', 'shelf', 'sconce', 'banner', 'painting', 'sign', 'lamp', 'ledge'}),
+}
 
 
 def name_tokens(e):
@@ -152,7 +160,8 @@ def main():
                 if pred(tokens, e, size, coverage):
                     hitbox, layer = result(bbox, size)
                     break
-            if label in approve and not (tokens & NEVER_AUTO_APPROVE):
+            name = {t.rstrip('0123456789') for t in e['name'].split('_')}
+            if label in approve and APPROVE_GUARDS.get(label, lambda t, n: True)(tokens, name):
                 e['hitbox'], e['layer'] = hitbox, layer
                 meta.setdefault(key, {})['physics'] = 'approved'
                 approved[label] += 1
