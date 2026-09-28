@@ -1,5 +1,5 @@
 import assert from 'node:assert';
-import { mkdtempSync, writeFileSync, mkdirSync } from 'node:fs';
+import { mkdtempSync, writeFileSync, mkdirSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createServer } from '../server.js';
@@ -121,5 +121,28 @@ assert.strictEqual(patchRes.status, 200);
 const openAfterResolve = await (await fetch(`${base}/api/flags?status=open`)).json();
 assert.strictEqual(openAfterResolve.length, 0);
 
+// POST /api/physics — hitbox + layer land in the catalogue entry, the
+// review state in sprite_meta
+const post = (body) => fetch(`${base}/api/physics`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+});
+const physRes = await post({ sheet: 'PATD_Props.png', name: 'chest_wood_small', hitbox: { x: 2, y: 16, w: 28, h: 14 }, layer: 'sorted', review: 'approved' });
+assert.strictEqual(physRes.status, 200);
+const catAfter = JSON.parse(readFileSync(join(catalogueDir, 'PATD_Props', 'PATD_Props.catalogue.json'), 'utf8'));
+assert.deepStrictEqual(catAfter.entries[0].hitbox, { x: 2, y: 16, w: 28, h: 14 });
+assert.strictEqual(catAfter.entries[0].layer, 'sorted');
+const metaPhys = await (await fetch(`${base}/api/meta`)).json();
+assert.strictEqual(metaPhys.spriteMeta['PATD_Props.png::chest_wood_small'].physics, 'approved');
+
+// null means "no hitbox" and is kept as an explicit null, not dropped
+assert.strictEqual((await post({ sheet: 'PATD_Props.png', name: 'chest_wood_small', hitbox: null })).status, 200);
+const catNull = JSON.parse(readFileSync(join(catalogueDir, 'PATD_Props', 'PATD_Props.catalogue.json'), 'utf8'));
+assert.strictEqual(catNull.entries[0].hitbox, null);
+assert.strictEqual(catNull.entries[0].layer, 'sorted'); // untouched when not sent
+
+// a hitbox outside the sprite, or an unknown layer, is refused
+assert.strictEqual((await post({ sheet: 'PATD_Props.png', name: 'chest_wood_small', hitbox: { x: 20, y: 0, w: 20, h: 8 } })).status, 400);
+assert.strictEqual((await post({ sheet: 'PATD_Props.png', name: 'chest_wood_small', layer: 'sideways' })).status, 400);
+
 server.close();
-console.log('✓ API smoke tests passed (24 assertions).');
+console.log('✓ API smoke tests passed (31 assertions).');

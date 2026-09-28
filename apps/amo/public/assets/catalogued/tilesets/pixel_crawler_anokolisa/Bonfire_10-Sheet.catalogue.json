@@ -41,7 +41,14 @@
           "h": 32
         }
       ],
-      "frameDurationMs": 120
+      "frameDurationMs": 120,
+      "hitbox": {
+        "x": 2,
+        "y": 16,
+        "w": 35,
+        "h": 16
+      },
+      "layer": "sorted"
     }
   ]
 }

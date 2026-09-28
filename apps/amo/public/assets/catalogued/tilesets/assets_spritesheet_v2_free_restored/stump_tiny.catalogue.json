@@ -13,7 +13,14 @@
       "tags": [
         "schwarnhild",
         "restored"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 7,
+        "w": 13,
+        "h": 7
+      },
+      "layer": "sorted"
     }
   ]
 }

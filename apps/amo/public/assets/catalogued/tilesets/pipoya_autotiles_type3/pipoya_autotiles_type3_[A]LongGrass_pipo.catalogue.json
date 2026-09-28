@@ -19,7 +19,14 @@
         "autotile",
         "type3"
       ],
-      "lowConfidence": true
+      "lowConfidence": true,
+      "hitbox": {
+        "x": 4,
+        "y": 16,
+        "w": 25,
+        "h": 16
+      },
+      "layer": "sorted"
     }
   ]
 }

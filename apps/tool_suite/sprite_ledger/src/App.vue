@@ -6,13 +6,13 @@ import SpriteGrid from './components/SpriteGrid.vue';
 import SpriteDetail from './components/SpriteDetail.vue';
 import ReviewerMode from './components/ReviewerMode.vue';
 import { fetchSheets, fetchMeta, fetchFlags, addCollection } from './services/api';
-import type { Sheet, Collection, Flag, FlagStatus, LicenseStatus } from './services/api';
+import type { Sheet, Collection, Flag, FlagStatus, LicenseStatus, SpriteMetaRecord } from './services/api';
 import { descendantIds } from './services/collectionTree';
 import { orderedCells } from './services/gridOrder';
 
 const sheets = ref<Sheet[]>([]);
 const collections = ref<Collection[]>([]);
-const spriteMeta = ref<Record<string, { collection: string; license?: LicenseStatus }>>({});
+const spriteMeta = ref<Record<string, SpriteMetaRecord>>({});
 // Every flag that isn't resolved yet — both fresh reports and ones Claude
 // has tentatively fixed but a human hasn't approved (or sent back) yet.
 const pendingFlags = ref<Flag[]>([]);
@@ -36,6 +36,9 @@ const animatedOnly = ref(false);
 const searchText = ref('');
 const licenseFilter = ref<'all' | 'ok' | 'unlicensed' | 'unmarked'>('all');
 const sortOrder = ref<'name' | 'sheet'>('name');
+// Hitbox/layer state: 'unset' = hitbox or layer not decided yet.
+type PhysicsFilter = 'all' | 'unset' | 'proposed' | 'approved' | 'no_hitbox';
+const physicsFilter = ref<PhysicsFilter>('all');
 
 const selected = ref<{ sheetPngFilename: string; entryName: string } | null>(null);
 const errorMessage = ref<string | null>(null);
@@ -117,6 +120,13 @@ const licenseFlaggedKeys = computed(() => {
     return set;
 });
 
+// Sprites whose hitbox + layer Claude proposed and nobody has looked at yet.
+const hitboxReviewCount = computed(() => {
+    let n = 0;
+    for (const key of existingKeys.value) if (spriteMeta.value[key]?.physics === 'proposed') n++;
+    return n;
+});
+
 const sheetNames = computed(() => sheets.value.map(s => s.sheetPngFilename));
 
 // Selecting a parent collection shows everything nested under it too — a
@@ -145,6 +155,13 @@ const visibleKeys = computed(() => {
             if (licenseFilter.value === 'ok' && license !== 'ok') continue;
             if (licenseFilter.value === 'unlicensed' && license !== 'unlicensed') continue;
             if (licenseFilter.value === 'unmarked' && license !== null) continue;
+            if (physicsFilter.value !== 'all') {
+                const review = spriteMeta.value[key]?.physics;
+                if (physicsFilter.value === 'unset' && entry.hitbox !== undefined && entry.layer !== undefined) continue;
+                if (physicsFilter.value === 'proposed' && review !== 'proposed') continue;
+                if (physicsFilter.value === 'approved' && review !== 'approved') continue;
+                if (physicsFilter.value === 'no_hitbox' && entry.hitbox !== null) continue;
+            }
             set.add(key);
         }
     }
@@ -206,8 +223,9 @@ async function onApproved() {
 
 // Where Reviewer Mode should start: a specific sprite (from the detail
 // panel's button) or the top of the review queue (from Home).
-const reviewerStart = ref<{ key: string | null; queue: 'needs_review' | 'question' | 'open' | null }>({ key: null, queue: null });
-function openReviewer(key: string | null, queue: FlagStatus | null) {
+type ReviewerQueue = 'needs_review' | 'question' | 'open' | 'hitbox';
+const reviewerStart = ref<{ key: string | null; queue: ReviewerQueue | null }>({ key: null, queue: null });
+function openReviewer(key: string | null, queue: FlagStatus | 'hitbox' | null) {
     reviewerStart.value = { key, queue: queue === 'resolved' ? null : queue };
     reviewerReturnTo.value = key ? 'browse' : 'home';
     selected.value = null;
@@ -264,7 +282,9 @@ async function onAddCollection(name: string, parentId: string | null) {
       :unlicensed-count="licenseFlaggedKeys.size"
       :orphan-flags="orphanFlags"
       @flags-changed="reload"
+      :hitbox-review-count="hitboxReviewCount"
       @open-reviewer="openReviewer(null, null)"
+      @open-hitbox-review="openReviewer(null, 'hitbox')"
       @select-collection="onHomeSelectCollection"
       @select-flag-filter="onHomeSelectFlagFilter"
     />
@@ -272,6 +292,7 @@ async function onAddCollection(name: string, parentId: string | null) {
       v-else-if="view === 'reviewer'"
       :sheets="sheets"
       :flags="liveFlags"
+      :sprite-meta="spriteMeta"
       :start-key="reviewerStart.key"
       :start-queue="reviewerStart.queue"
       @exit="exitReviewer"
@@ -289,6 +310,7 @@ async function onAddCollection(name: string, parentId: string | null) {
         :counts="counts"
         :license-filter="licenseFilter"
         :sort-order="sortOrder"
+        :physics-filter="physicsFilter"
         @go-home="goHome"
         @select-collection="(id) => activeCollectionId = id"
         @select-sheet="(sheet) => activeSheet = sheet"
@@ -298,6 +320,7 @@ async function onAddCollection(name: string, parentId: string | null) {
         @select-sort="(v) => sortOrder = v"
         @add-collection="onAddCollection"
         @select-license="(v) => licenseFilter = v"
+        @select-physics="(v) => physicsFilter = v"
       />
       <SpriteGrid
         :sheets="sheets"
@@ -320,10 +343,12 @@ async function onAddCollection(name: string, parentId: string | null) {
       :collections="collections"
       :current-collection-id="collectionOf(selected.sheetPngFilename, selected.entryName)"
       :current-license="licenseOf(selected.sheetPngFilename, selected.entryName)"
+      :physics-review="spriteMeta[keyFor(selected.sheetPngFilename, selected.entryName)]?.physics ?? null"
       @close="selected = null"
       @reassigned="reload"
       @approved="onApproved"
       @open-in-reviewer="(q) => openReviewer(keyFor(selected!.sheetPngFilename, selected!.entryName), q)"
+      @open-hitbox-reviewer="openReviewer(keyFor(selected!.sheetPngFilename, selected!.entryName), 'hitbox')"
     />
   </div>
 </template>

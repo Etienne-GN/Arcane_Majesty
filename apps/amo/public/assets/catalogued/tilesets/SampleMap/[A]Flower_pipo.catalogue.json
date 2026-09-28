@@ -20,7 +20,9 @@
         "patch",
         "pink",
         "yellow"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_patch_fill_b",
@@ -35,7 +37,9 @@
         "patch",
         "pink",
         "yellow"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_patch_fill_c",
@@ -50,7 +54,9 @@
         "patch",
         "pink",
         "yellow"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "tallgrass_patch_fill_a",
@@ -65,7 +71,9 @@
         "patch",
         "tall",
         "green"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "tallgrass_patch_fill_b",
@@ -80,7 +88,9 @@
         "patch",
         "tall",
         "green"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

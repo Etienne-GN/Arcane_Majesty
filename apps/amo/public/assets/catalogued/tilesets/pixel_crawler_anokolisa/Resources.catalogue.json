@@ -14,7 +14,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_001",
@@ -27,7 +29,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_002",
@@ -40,7 +44,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_003",
@@ -53,7 +59,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 1,
+        "y": 9,
+        "w": 28,
+        "h": 9
+      },
+      "layer": "sorted"
     },
     {
       "name": "resources_004",
@@ -66,7 +79,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_005",
@@ -79,7 +94,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_006",
@@ -92,7 +109,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_007",
@@ -105,7 +124,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_008",
@@ -118,7 +139,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_009",
@@ -131,7 +154,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_010",
@@ -144,7 +169,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_011",
@@ -157,7 +184,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_012",
@@ -170,7 +199,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_013",
@@ -183,7 +214,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_014",
@@ -196,7 +229,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_015",
@@ -209,7 +244,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_016",
@@ -222,7 +259,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_017",
@@ -235,7 +274,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_018",
@@ -248,7 +289,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_019",
@@ -261,7 +304,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_020",
@@ -274,7 +319,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_021",
@@ -287,7 +334,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_022",
@@ -300,7 +349,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_023",
@@ -313,7 +364,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_024",
@@ -326,7 +379,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_025",
@@ -339,7 +394,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_026",
@@ -352,7 +409,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 1,
+        "y": 7,
+        "w": 20,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "resources_027",
@@ -365,7 +429,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_028",
@@ -378,7 +444,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_029",
@@ -391,7 +459,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_030",
@@ -404,7 +474,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_031",
@@ -417,7 +489,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "resources_032",
@@ -430,7 +504,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 1,
+        "y": 10,
+        "w": 28,
+        "h": 10
+      },
+      "layer": "sorted"
     }
   ]
 }

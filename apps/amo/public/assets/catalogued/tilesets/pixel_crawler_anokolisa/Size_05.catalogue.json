@@ -18,7 +18,14 @@
         "large",
         "leafy"
       ],
-      "season": "summer"
+      "season": "summer",
+      "hitbox": {
+        "x": 37,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_large_spring",
@@ -35,7 +42,14 @@
         "large",
         "leafy"
       ],
-      "season": "spring"
+      "season": "spring",
+      "hitbox": {
+        "x": 37,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_large_bare",
@@ -51,7 +65,14 @@
         "tree",
         "large",
         "bare"
-      ]
+      ],
+      "hitbox": {
+        "x": 35,
+        "y": 126,
+        "w": 30,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_large_snow",
@@ -68,7 +89,9 @@
         "large",
         "snow"
       ],
-      "season": "winter"
+      "season": "winter",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "tree_large_autumn_red",
@@ -85,7 +108,14 @@
         "large",
         "leafy"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": {
+        "x": 37,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_large_autumn_gold",
@@ -102,7 +132,14 @@
         "large",
         "leafy"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": {
+        "x": 37,
+        "y": 128,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_large_bare_slender",
@@ -118,7 +155,14 @@
         "tree",
         "large",
         "bare"
-      ]
+      ],
+      "hitbox": {
+        "x": 35,
+        "y": 126,
+        "w": 30,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_large_snow_slender",
@@ -135,7 +179,9 @@
         "large",
         "snow"
       ],
-      "season": "winter"
+      "season": "winter",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "stump_large",
@@ -150,7 +196,14 @@
         "trees",
         "stump",
         "large"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 21,
+        "w": 49,
+        "h": 21
+      },
+      "layer": "sorted"
     },
     {
       "name": "stump_large_pale",
@@ -165,7 +218,14 @@
         "trees",
         "stump",
         "large"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 21,
+        "w": 49,
+        "h": 21
+      },
+      "layer": "sorted"
     },
     {
       "name": "stump_large_snow",
@@ -182,7 +242,9 @@
         "large",
         "snow"
       ],
-      "season": "winter"
+      "season": "winter",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "stump_large_mossy",
@@ -198,7 +260,9 @@
         "stump",
         "large",
         "moss"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

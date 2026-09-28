@@ -36,7 +36,9 @@
           "w": 32,
           "h": 32
         }
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     }
   ]
 }

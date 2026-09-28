@@ -16,7 +16,14 @@
         "nyx",
         "overview",
         "uncropped"
-      ]
+      ],
+      "hitbox": {
+        "x": 24,
+        "y": 227,
+        "w": 433,
+        "h": 227
+      },
+      "layer": "sorted"
     }
   ]
 }

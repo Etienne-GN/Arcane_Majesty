@@ -16,7 +16,9 @@
         "water",
         "plant",
         "water_plant"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "lily_pad_flower_white",
@@ -31,7 +33,9 @@
         "water",
         "plant",
         "water_plant"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "lily_pad_plain_olive",
@@ -46,7 +50,9 @@
         "water",
         "plant",
         "water_plant"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "lily_pad_flower_cream",
@@ -61,7 +67,9 @@
         "water",
         "plant",
         "water_plant"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "lily_pad_plain_salmon",
@@ -76,7 +84,9 @@
         "water",
         "plant",
         "water_plant"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "lily_pad_flower_pink",
@@ -91,7 +101,9 @@
         "water",
         "plant",
         "water_plant"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "water_reed_teal_a",
@@ -106,7 +118,14 @@
         "water",
         "plant",
         "water_plant"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 10,
+        "h": 12
+      },
+      "layer": "under"
     },
     {
       "name": "water_reed_teal_b",
@@ -121,7 +140,14 @@
         "water",
         "plant",
         "water_plant"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 11,
+        "h": 11
+      },
+      "layer": "under"
     },
     {
       "name": "water_reed_olive_a",
@@ -136,7 +162,14 @@
         "water",
         "plant",
         "water_plant"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 10,
+        "h": 12
+      },
+      "layer": "under"
     },
     {
       "name": "water_reed_olive_b",
@@ -151,7 +184,14 @@
         "water",
         "plant",
         "water_plant"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 11,
+        "h": 11
+      },
+      "layer": "under"
     },
     {
       "name": "water_reed_salmon_a",
@@ -166,7 +206,14 @@
         "water",
         "plant",
         "water_plant"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 10,
+        "h": 12
+      },
+      "layer": "under"
     },
     {
       "name": "water_reed_salmon_b",
@@ -181,7 +228,14 @@
         "water",
         "plant",
         "water_plant"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 11,
+        "h": 11
+      },
+      "layer": "under"
     }
   ]
 }

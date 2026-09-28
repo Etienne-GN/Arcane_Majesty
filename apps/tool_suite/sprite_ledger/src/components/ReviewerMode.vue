@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue';
-import type { Sheet, Flag, SpriteEntry } from '../services/api';
+import type { Sheet, Flag, SpriteEntry, SpriteMetaRecord } from '../services/api';
 import { imageUrl, setFlagStatus, answerQuestion } from '../services/api';
+import HitboxEditor from './HitboxEditor.vue';
 
 // A focused, one-sprite-at-a-time pass over the review queue: big preview,
 // the sprite in its surrounding sheet, the flag notes, and approve / rework
@@ -10,10 +11,15 @@ import { imageUrl, setFlagStatus, answerQuestion } from '../services/api';
 // changes how the grid or the detail panel behave.
 // startKey/startQueue: opened from a sprite's detail panel — land on that
 // sprite (in its queue) instead of the first item.
-const props = defineProps<{ sheets: Sheet[]; flags: Flag[]; startKey?: string | null; startQueue?: 'needs_review' | 'question' | 'open' | null }>();
+const props = defineProps<{
+    sheets: Sheet[]; flags: Flag[]; spriteMeta: Record<string, SpriteMetaRecord>;
+    startKey?: string | null; startQueue?: 'needs_review' | 'question' | 'open' | 'hitbox' | null;
+}>();
 const emit = defineEmits<{ exit: []; changed: [] }>();
 
-type Queue = 'needs_review' | 'question' | 'open';
+// 'hitbox' walks the sprites whose hitbox + layer Claude guessed and nobody
+// has checked yet (sprite_meta physics === 'proposed'); it isn't flag-based.
+type Queue = 'needs_review' | 'question' | 'open' | 'hitbox';
 const queue = ref<Queue>(props.startQueue ?? 'needs_review');
 const sheetFilter = ref<string>('all');
 
@@ -29,7 +35,13 @@ function boxOf(sheet: Sheet, e: SpriteEntry) {
 
 function buildItems(status: Queue): Item[] {
     const byKey = new Map<string, Item>();
-    for (const f of props.flags) {
+    if (status === 'hitbox') {
+        for (const sheet of props.sheets) for (const entry of sheet.entries) {
+            const key = `${sheet.sheetPngFilename}::${entry.name}`;
+            if (props.spriteMeta[key]?.physics === 'proposed') byKey.set(key, { key, sheet, entry, flags: [] });
+        }
+    }
+    for (const f of (status === 'hitbox' ? [] : props.flags)) {
         if (f.status !== status) continue;
         const key = `${f.sheet}::${f.name}`;
         let item = byKey.get(key);
@@ -82,6 +94,14 @@ const sheetCounts = computed(() => {
 });
 
 const current = computed(() => items.value[index.value] ?? null);
+// The queue is a snapshot, but a saved hitbox reloads the sheets: read the
+// entry fresh so going back to an item shows what was actually saved.
+const currentEntry = computed(() => {
+    const item = current.value;
+    if (!item) return null;
+    return sheetByName.value.get(item.sheet.sheetPngFilename)?.entries.find(e => e.name === item.entry.name) ?? item.entry;
+});
+const currentSheet = computed(() => current.value ? (sheetByName.value.get(current.value.sheet.sheetPngFilename) ?? current.value.sheet) : null);
 const doneCount = computed(() => Object.keys(done.value).length);
 const approvedCount = computed(() => Object.values(done.value).filter(v => v === 'approved').length);
 const reworkCount = computed(() => Object.values(done.value).filter(v => v === 'rework').length);
@@ -250,7 +270,24 @@ async function act(kind: 'approved' | 'rework' | 'answered', run: (f: Flag) => P
 }
 
 function approve() {
+    if (queue.value === 'hitbox') return approveHitbox();
     return act('approved', f => setFlagStatus(f.id, 'resolved'));
+}
+
+// Hitbox queue: saving from the editor (as is, or after redrawing it)
+// stores the hitbox + layer and marks them approved.
+const editor = ref<InstanceType<typeof HitboxEditor> | null>(null);
+async function approveHitbox() {
+    if (!editor.value || busy.value) return;
+    busy.value = true;
+    try { await editor.value.save(); } finally { busy.value = false; }
+}
+function onHitboxSaved() {
+    const item = current.value;
+    if (!item) return;
+    done.value[item.key] = 'approved';
+    emit('changed');
+    advance();
 }
 
 function rework() {
@@ -296,6 +333,7 @@ function statusLabel(s: string) {
           <option value="needs_review">🔍 Awaiting your review</option>
           <option value="question">❓ Claude's questions</option>
           <option value="open">● Open flags</option>
+          <option value="hitbox">🧱 Hitboxes to review</option>
         </select>
       </label>
       <label>Sheet
@@ -314,7 +352,21 @@ function statusLabel(s: string) {
 
     <main v-else>
       <section class="views">
-        <div class="big">
+        <div v-if="queue === 'hitbox' && currentEntry && currentSheet" class="big">
+          <HitboxEditor
+            ref="editor"
+            :sheet="currentSheet"
+            :entry="currentEntry"
+            :review="spriteMeta[current.key]?.physics ?? null"
+            :max-px="BIG_MAX"
+            @saved="onHitboxSaved"
+          >
+            <template #actions="{ complete }">
+              <button class="primary approve" :disabled="busy || !complete" @click="approveHitbox">✓ Save &amp; next <kbd>A</kbd></button>
+            </template>
+          </HitboxEditor>
+        </div>
+        <div v-else class="big">
           <canvas ref="bigCanvas" />
           <div class="caption">{{ scaleInfo }}<template v-if="(current.entry.frames?.length ?? 0) > 1"> · {{ current.entry.frames!.length }} frames</template></div>
         </div>
@@ -346,6 +398,10 @@ function statusLabel(s: string) {
         <div v-if="queue === 'question'" class="action-block">
           <textarea v-model="answerDraft" rows="3" placeholder="Your answer…" />
           <button class="primary" :disabled="busy || !answerDraft.trim()" @click="answer">Send answer →</button>
+        </div>
+        <div v-else-if="queue === 'hitbox'" class="hitbox-help">
+          The red box is where characters can't walk. Redraw it by dragging on the sprite, or use the presets, and pick the layer.
+          <b>Save &amp; next</b> (or A) approves what is shown, whether you changed it or not.
         </div>
         <template v-else>
           <button class="primary approve" :disabled="busy" @click="approve">✓ Approve &amp; next <kbd>A</kbd></button>
@@ -405,6 +461,7 @@ h2 { margin: 0; font-size: 18px; word-break: break-all; }
 .nav button { flex: 1; }
 kbd { font-size: 10px; border: 1px solid #666; border-radius: 3px; padding: 0 4px; margin-left: 6px; color: #aaa; }
 .keys { font-size: 11px; color: #777; }
+.hitbox-help { font-size: 12px; color: #bbb; background: #1a1a1a; border: 1px solid #333; border-left: 3px solid #c93; border-radius: 4px; padding: 8px 10px; }
 .done-banner { font-size: 12px; padding: 4px 8px; border-radius: 4px; }
 .done-banner.approved { background: #1d3a24; }
 .done-banner.rework { background: #3a2a1d; }

@@ -15,7 +15,9 @@
         "pixel_sazy",
         "item",
         "potion"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "potion_blue_purple_small",
@@ -29,7 +31,9 @@
         "pixel_sazy",
         "item",
         "potion"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "potion_green_large",
@@ -43,7 +47,9 @@
         "pixel_sazy",
         "item",
         "potion"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "potion_gold_small",
@@ -57,7 +63,9 @@
         "pixel_sazy",
         "item",
         "potion"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "coin_gold_single",
@@ -71,7 +79,9 @@
         "pixel_sazy",
         "item",
         "coin"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "potion_blue_large",
@@ -85,7 +95,9 @@
         "pixel_sazy",
         "item",
         "potion"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "herb_leaves_green",
@@ -99,7 +111,9 @@
         "pixel_sazy",
         "item",
         "potion"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "potion_gold_large",
@@ -113,7 +127,9 @@
         "pixel_sazy",
         "item",
         "potion"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "coin_gold",
@@ -127,7 +143,9 @@
         "pixel_sazy",
         "item",
         "currency"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "slime_blob",
@@ -141,7 +159,9 @@
         "pixel_sazy",
         "item",
         "material"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     }
   ]
 }

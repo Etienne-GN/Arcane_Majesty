@@ -15,7 +15,14 @@
         "anokolisa",
         "furnace"
       ],
-      "lowConfidence": true
+      "lowConfidence": true,
+      "hitbox": {
+        "x": 5,
+        "y": 64,
+        "w": 86,
+        "h": 64
+      },
+      "layer": "sorted"
     }
   ]
 }

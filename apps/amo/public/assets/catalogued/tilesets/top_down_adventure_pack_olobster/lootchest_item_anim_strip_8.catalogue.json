@@ -64,7 +64,9 @@
           "w": 16,
           "h": 16
         }
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     }
   ]
 }

@@ -15,7 +15,9 @@
         "anokolisa",
         "dungeon",
         "door"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "gate_iron_arched",
@@ -30,7 +32,14 @@
         "dungeon",
         "door",
         "gate"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 29,
+        "w": 32,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "doorway_arched_open",
@@ -44,7 +53,9 @@
         "anokolisa",
         "dungeon",
         "door"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "spike_trap",
@@ -80,7 +91,14 @@
           "h": 23
         }
       ],
-      "frameDurationMs": 200
+      "frameDurationMs": 200,
+      "hitbox": {
+        "x": 1,
+        "y": 15,
+        "w": 14,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "prison_bars_a",
@@ -94,7 +112,14 @@
         "anokolisa",
         "dungeon",
         "bars"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 14,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "prison_bars_b",
@@ -108,7 +133,14 @@
         "anokolisa",
         "dungeon",
         "bars"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 21,
+        "w": 16,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "hatch_door_small_closed",
@@ -122,7 +154,9 @@
         "door",
         "dungeon",
         "pixel_crawler"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "hatch_door_small_open",
@@ -136,7 +170,9 @@
         "door",
         "dungeon",
         "pixel_crawler"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "door_wood_iron_bands_closed",
@@ -150,7 +186,9 @@
         "door",
         "dungeon",
         "pixel_crawler"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "door_wood_iron_bands_open",
@@ -164,7 +202,9 @@
         "door",
         "dungeon",
         "pixel_crawler"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "stairs_red_yellow_carpet",
@@ -179,7 +219,9 @@
         "dungeon",
         "pixel_crawler",
         "stairs"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "banner_red_long",
@@ -193,7 +235,9 @@
         "anokolisa",
         "dungeon",
         "banner"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "ivy_overlay_hanging_top",
@@ -208,7 +252,14 @@
         "overlay",
         "pixel_crawler",
         "plant"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 31,
+        "w": 54,
+        "h": 31
+      },
+      "layer": "sorted"
     },
     {
       "name": "ivy_overlay_ring_bottom",
@@ -223,7 +274,9 @@
         "overlay",
         "pixel_crawler",
         "plant"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "pipe_metal_horizontal",
@@ -237,7 +290,14 @@
         "anokolisa",
         "dungeon",
         "pipe"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 8,
+        "w": 72,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_pillar",
@@ -251,7 +311,14 @@
         "anokolisa",
         "dungeon",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 45,
+        "w": 8,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_lamp_red",
@@ -265,7 +332,14 @@
         "anokolisa",
         "dungeon",
         "light"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_lamp_blue",
@@ -279,7 +353,14 @@
         "anokolisa",
         "dungeon",
         "light"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_lamp_green",
@@ -293,7 +374,14 @@
         "anokolisa",
         "dungeon",
         "light"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "floor_glow_red",
@@ -308,7 +396,9 @@
         "dungeon",
         "light",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "floor_glow_blue",
@@ -323,7 +413,9 @@
         "dungeon",
         "light",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "floor_glow_green",
@@ -338,7 +430,9 @@
         "dungeon",
         "light",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "dungeon_wall_top_blue_stone_trim_a",
@@ -352,7 +446,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_wall_top_blue_stone_trim_b",
@@ -366,7 +467,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_wall_top_blue_stone_trim_c",
@@ -380,7 +488,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_wall_top_blue_stone_trim_pillar_top",
@@ -394,7 +509,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_flagstone_floor_nw",
@@ -408,7 +530,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_n",
@@ -422,7 +546,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_ne",
@@ -436,7 +562,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_pit_ledge_nw",
@@ -450,7 +578,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_pit_ledge_n",
@@ -464,7 +599,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_pit_ledge_ne",
@@ -478,7 +620,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "wooden_floorboards_bordered_corner_top_left",
@@ -492,7 +641,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wooden_floorboards_bordered_edge_top",
@@ -506,7 +657,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wooden_floorboards_bordered_corner_top_right",
@@ -520,7 +673,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wooden_trapdoor_large_corner_top_left",
@@ -534,7 +689,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_trapdoor_large_edge_top",
@@ -548,7 +705,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_trapdoor_large_corner_top_right",
@@ -562,7 +721,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_square_opening_corner_top_left",
@@ -576,7 +737,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_square_opening_edge_top",
@@ -590,7 +753,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_square_opening_corner_top_right",
@@ -604,7 +769,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_brick_wall_face_upper_left",
@@ -618,7 +785,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_brick_wall_face_upper_middle",
@@ -632,7 +806,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_brick_wall_face_upper_right",
@@ -646,7 +827,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_wall_end_column_top",
@@ -660,7 +848,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_flagstone_floor_w",
@@ -674,7 +869,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_center",
@@ -688,7 +885,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_e",
@@ -702,7 +901,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_pit_ledge_w",
@@ -716,7 +917,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_pit_ledge_center_pit",
@@ -730,7 +938,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_pit_ledge_e",
@@ -744,7 +959,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "wooden_floorboards_bordered_edge_left",
@@ -758,7 +980,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wooden_floorboards_bordered_center",
@@ -772,7 +996,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wooden_floorboards_bordered_edge_right",
@@ -786,7 +1012,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wooden_trapdoor_large_edge_left",
@@ -800,7 +1028,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_trapdoor_large_center_handle",
@@ -814,7 +1044,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_trapdoor_large_edge_right",
@@ -828,7 +1060,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_square_opening_edge_left",
@@ -842,7 +1076,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_square_opening_edge_right",
@@ -856,7 +1092,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_brick_wall_face_lower_left",
@@ -870,7 +1108,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_brick_wall_face_lower_middle",
@@ -884,7 +1129,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_brick_wall_face_lower_right",
@@ -898,7 +1150,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_wall_end_column_middle",
@@ -912,7 +1171,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_flagstone_floor_sw",
@@ -926,7 +1192,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_s",
@@ -940,7 +1208,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_se",
@@ -954,7 +1224,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_pit_ledge_sw",
@@ -968,7 +1240,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_pit_ledge_s",
@@ -982,7 +1261,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_pit_ledge_se",
@@ -996,7 +1282,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "wooden_floorboards_bordered_corner_bottom_left",
@@ -1010,7 +1303,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wooden_floorboards_bordered_edge_bottom",
@@ -1024,7 +1319,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wooden_floorboards_bordered_corner_bottom_right",
@@ -1038,7 +1335,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wooden_trapdoor_large_corner_bottom_left",
@@ -1052,7 +1351,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_trapdoor_large_edge_bottom",
@@ -1066,7 +1367,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_trapdoor_large_corner_bottom_right",
@@ -1080,7 +1383,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_square_opening_corner_bottom_left",
@@ -1094,7 +1399,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_square_opening_edge_bottom",
@@ -1108,7 +1415,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_square_opening_corner_bottom_right",
@@ -1122,7 +1431,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_wall_top_blue_stone_trim_nw",
@@ -1136,7 +1447,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_wall_top_blue_stone_trim_n",
@@ -1150,7 +1468,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_wall_top_blue_stone_trim_ne",
@@ -1164,7 +1489,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_wall_end_column_base",
@@ -1178,7 +1510,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_flagstone_floor_worn_top_edge",
@@ -1192,7 +1531,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_plain_k",
@@ -1206,7 +1547,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_lighter",
@@ -1220,7 +1563,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_darker",
@@ -1234,7 +1579,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_spike_holes_a",
@@ -1248,7 +1595,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "prison_bars_top_ends",
@@ -1262,7 +1611,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 15,
+        "w": 14,
+        "h": 1
+      },
+      "layer": "sorted"
     },
     {
       "name": "wooden_floor_dark_recess_corner_top_left",
@@ -1276,7 +1632,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_dark_recess_edge_top",
@@ -1290,7 +1648,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_dark_recess_corner_top_right",
@@ -1304,7 +1664,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_railing_iron_studs_upper_left",
@@ -1318,7 +1680,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 10,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "wooden_railing_iron_studs_upper_middle",
@@ -1332,7 +1701,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 10,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "wooden_railing_iron_studs_upper_right",
@@ -1346,7 +1722,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 10,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "wooden_cabinet_small_top_left",
@@ -1360,7 +1743,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wooden_cabinet_small_top_right",
@@ -1374,7 +1759,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "dungeon_wall_top_blue_stone_trim_sw",
@@ -1388,7 +1775,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_wall_top_blue_stone_trim_s",
@@ -1402,7 +1796,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_wall_top_blue_stone_trim_se",
@@ -1416,7 +1817,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_wall_top_blue_stone_trim_external_nw",
@@ -1430,7 +1838,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_wall_top_blue_stone_trim_external_ne",
@@ -1444,7 +1859,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_red_brick_band_nw",
@@ -1458,7 +1880,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_red_brick_band_ne",
@@ -1472,7 +1901,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_flagstone_floor_shadowed_a",
@@ -1486,7 +1922,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_dark_recess_edge_left",
@@ -1500,7 +1938,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_dark_recess_center",
@@ -1514,7 +1954,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_dark_recess_edge_right",
@@ -1528,7 +1970,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floorboards_lit_edge_w",
@@ -1542,7 +1986,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wooden_floorboards_lit_edge_center",
@@ -1556,7 +2002,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wooden_floorboards_lit_edge_e",
@@ -1570,7 +2018,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wooden_cabinet_small_bottom_left",
@@ -1584,7 +2034,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wooden_cabinet_small_bottom_right",
@@ -1598,7 +2050,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "dungeon_brick_wall_face_b_upper_left",
@@ -1612,7 +2066,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_brick_wall_face_b_upper_middle",
@@ -1626,7 +2087,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_brick_wall_face_b_upper_right",
@@ -1640,7 +2108,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_wall_top_blue_stone_trim_external_w",
@@ -1654,7 +2129,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_wall_top_blue_stone_trim_external_e",
@@ -1668,7 +2150,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_red_brick_band_sw",
@@ -1682,7 +2171,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_red_brick_band_se",
@@ -1696,7 +2192,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_flagstone_floor_shadowed_b",
@@ -1710,7 +2213,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_dark_recess_corner_bottom_left",
@@ -1724,7 +2229,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_dark_recess_edge_bottom",
@@ -1738,7 +2245,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_floor_dark_recess_corner_bottom_right",
@@ -1752,7 +2261,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wooden_railing_iron_studs_lower_left",
@@ -1766,7 +2277,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 10,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "wooden_railing_iron_studs_lower_middle",
@@ -1780,7 +2298,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 10,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "wooden_railing_iron_studs_lower_right",
@@ -1794,7 +2319,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 10,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_brick_wall_face_b_lower_left",
@@ -1808,7 +2340,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_brick_wall_face_barred_vent",
@@ -1822,7 +2361,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_brick_wall_face_b_lower_right",
@@ -1836,7 +2382,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_void_c",
@@ -1850,7 +2403,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_void_d",
@@ -1864,7 +2424,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "prison_bars_bottom_ends_a",
@@ -1878,7 +2445,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 3,
+        "w": 14,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "wooden_panel_edge_a",
@@ -1892,7 +2466,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wooden_panel_edge_b",
@@ -1906,7 +2482,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "stairs_wood_plain_w",
@@ -1921,7 +2499,9 @@
         "dungeon",
         "pixel_crawler",
         "stairs"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "stairs_wood_plain_e",
@@ -1936,7 +2516,9 @@
         "dungeon",
         "pixel_crawler",
         "stairs"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dark_wall_pipe_bend_left",
@@ -1950,7 +2532,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_pipe_bend_right",
@@ -1964,7 +2553,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "stairs_dungeon_brick_nw",
@@ -1979,7 +2575,9 @@
         "dungeon",
         "pixel_crawler",
         "stairs"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "stairs_dungeon_brick_ne",
@@ -1994,7 +2592,9 @@
         "dungeon",
         "pixel_crawler",
         "stairs"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dark_stone_wall_plain_a",
@@ -2008,7 +2608,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_stone_wall_plain_b",
@@ -2022,7 +2629,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "stairs_dungeon_brick_sw",
@@ -2037,7 +2651,9 @@
         "dungeon",
         "pixel_crawler",
         "stairs"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "stairs_dungeon_brick_se",
@@ -2052,7 +2668,9 @@
         "dungeon",
         "pixel_crawler",
         "stairs"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dark_stone_wall_mossy_a",
@@ -2066,7 +2684,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_stone_wall_mossy_b",
@@ -2080,7 +2705,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "spike_holes_overlay",
@@ -2094,7 +2726,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "teal_flagstone_floor_spike_holes_b",
@@ -2108,7 +2742,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "iron_floor_grate_nw",
@@ -2122,7 +2758,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "iron_floor_grate_ne",
@@ -2136,7 +2774,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "prison_bars_bottom_ends_b",
@@ -2150,7 +2790,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 3,
+        "w": 14,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_flagstone_floor_iron_ledge_a",
@@ -2164,7 +2811,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_iron_ledge_b",
@@ -2178,7 +2827,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_iron_ledge_c",
@@ -2192,7 +2843,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "iron_floor_grate_sw",
@@ -2206,7 +2859,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "iron_floor_grate_se",
@@ -2220,7 +2875,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_blood_stain_a",
@@ -2234,7 +2891,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_blood_stain_b",
@@ -2248,7 +2907,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "iron_floor_grate_small",
@@ -2262,7 +2923,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_blood_stain_c",
@@ -2276,7 +2939,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_blood_stain_d",
@@ -2290,7 +2955,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_blood_stain_e",
@@ -2304,7 +2971,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_blood_stain_f",
@@ -2318,7 +2987,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_flagstone_floor_blood_stain_g",
@@ -2332,7 +3003,9 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dark_wall_red_trim_cap_w_end",
@@ -2346,7 +3019,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_red_trim_cap_e_end",
@@ -2360,7 +3040,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_red_trim_cap_both_ends",
@@ -2374,7 +3061,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_blue_trim_cap_w_end",
@@ -2388,7 +3082,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_blue_trim_cap_e_end",
@@ -2402,7 +3103,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_blue_trim_cap_both_ends",
@@ -2416,7 +3124,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_green_trim_cap_w_end",
@@ -2430,7 +3145,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_green_trim_cap_e_end",
@@ -2444,7 +3166,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_green_trim_cap_both_ends",
@@ -2458,7 +3187,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_brick_wall_plain_top",
@@ -2472,7 +3208,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_red_trim_upper_w_end",
@@ -2486,7 +3229,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_red_trim_upper_e_end",
@@ -2500,7 +3250,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_red_trim_upper_both_ends",
@@ -2514,7 +3271,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_blue_trim_upper_w_end",
@@ -2528,7 +3292,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_blue_trim_upper_e_end",
@@ -2542,7 +3313,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_blue_trim_upper_both_ends",
@@ -2556,7 +3334,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_green_trim_upper_w_end",
@@ -2570,7 +3355,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_green_trim_upper_e_end",
@@ -2584,7 +3376,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_green_trim_upper_both_ends",
@@ -2598,7 +3397,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_brick_wall_plain",
@@ -2612,7 +3418,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_red_trim_lower_w_end",
@@ -2626,7 +3439,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_red_trim_lower_e_end",
@@ -2640,7 +3460,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_red_trim_lower_both_ends",
@@ -2654,7 +3481,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_blue_trim_lower_w_end",
@@ -2668,7 +3502,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_blue_trim_lower_e_end",
@@ -2682,7 +3523,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_blue_trim_lower_both_ends",
@@ -2696,7 +3544,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_green_trim_lower_w_end",
@@ -2710,7 +3565,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_green_trim_lower_e_end",
@@ -2724,7 +3586,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_green_trim_lower_both_ends",
@@ -2738,7 +3607,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_red_trim_base_w_end",
@@ -2752,7 +3628,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_red_trim_base_e_end",
@@ -2766,7 +3649,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_red_trim_base_both_ends",
@@ -2780,7 +3670,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_blue_trim_base_w_end",
@@ -2794,7 +3691,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_blue_trim_base_e_end",
@@ -2808,7 +3712,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_blue_trim_base_both_ends",
@@ -2822,7 +3733,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_green_trim_base_w_end",
@@ -2836,7 +3754,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_green_trim_base_e_end",
@@ -2850,7 +3775,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_wall_green_trim_base_both_ends",
@@ -2864,7 +3796,14 @@
         "anokolisa",
         "dungeon",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     }
   ]
 }

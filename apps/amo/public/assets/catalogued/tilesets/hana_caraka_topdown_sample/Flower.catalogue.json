@@ -15,7 +15,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_white_bloom",
@@ -29,7 +31,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_yellow_single",
@@ -43,7 +47,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_yellow_bloom",
@@ -57,7 +63,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_magenta_single",
@@ -71,7 +79,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_magenta_bloom",
@@ -85,7 +95,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_white_pair",
@@ -99,7 +111,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_white_trio",
@@ -113,7 +127,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_yellow_pair",
@@ -127,7 +143,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_yellow_trio",
@@ -141,7 +159,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_magenta_pair",
@@ -155,7 +175,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_magenta_trio",
@@ -169,7 +191,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_gold_single",
@@ -183,7 +207,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_gold_bloom",
@@ -197,7 +223,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_red_single",
@@ -211,7 +239,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_red_bloom",
@@ -225,7 +255,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_blue_single",
@@ -239,7 +271,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_blue_bloom",
@@ -253,7 +287,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_gold_pair",
@@ -267,7 +303,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_gold_trio",
@@ -281,7 +319,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_red_pair",
@@ -295,7 +335,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_red_trio",
@@ -309,7 +351,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_blue_pair",
@@ -323,7 +367,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_blue_trio",
@@ -337,7 +383,9 @@
         "bagong_games",
         "flower",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

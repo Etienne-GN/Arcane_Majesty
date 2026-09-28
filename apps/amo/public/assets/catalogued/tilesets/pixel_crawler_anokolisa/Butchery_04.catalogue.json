@@ -14,7 +14,14 @@
         "pixel_crawler",
         "anokolisa",
         "butchery"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 32,
+        "w": 62,
+        "h": 32
+      },
+      "layer": "sorted"
     }
   ]
 }

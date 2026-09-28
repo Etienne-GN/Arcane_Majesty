@@ -17,7 +17,9 @@
         "terrain",
         "ice",
         "round"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

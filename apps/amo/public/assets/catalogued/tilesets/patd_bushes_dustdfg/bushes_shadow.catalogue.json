@@ -18,7 +18,9 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "bushes_shadow_var_2",
@@ -31,7 +33,9 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "bushes_shadow_var_3",
@@ -44,7 +48,9 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "bushes_shadow_var_4",
@@ -57,7 +63,9 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "bushes_shadow_var_5",
@@ -70,7 +78,9 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "bushes_shadow_var_6",
@@ -83,7 +93,9 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "bushes_shadow_var_7",
@@ -96,7 +108,9 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "bushes_shadow_var_8",
@@ -109,7 +123,9 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "bushes_shadow_var_9",
@@ -122,7 +138,9 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

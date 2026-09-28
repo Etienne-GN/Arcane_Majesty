@@ -19,7 +19,9 @@
         "overlay",
         "corner",
         "grass-border"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_patch_fill",
@@ -33,7 +35,9 @@
         "overlay",
         "fill",
         "repeatable"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_patch_corner_sw",
@@ -47,7 +51,9 @@
         "overlay",
         "corner",
         "grass-border"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_patch_edge_s",
@@ -61,7 +67,9 @@
         "overlay",
         "edge",
         "grass-border"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

@@ -18,7 +18,9 @@
         "floor",
         "terrain",
         "green"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_green_dark",
@@ -31,7 +33,9 @@
         "floor",
         "terrain",
         "green"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_green_pale",
@@ -44,7 +48,9 @@
         "floor",
         "terrain",
         "green"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_brown",
@@ -57,7 +63,9 @@
         "floor",
         "terrain",
         "brown"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "stone_gray_pale",
@@ -70,7 +78,9 @@
         "floor",
         "terrain",
         "gray"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "tree_bush_green_light",
@@ -86,7 +96,14 @@
         "large",
         "green"
       ],
-      "season": "summer"
+      "season": "summer",
+      "hitbox": {
+        "x": 23,
+        "y": 51,
+        "w": 18,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_bush_green_dark",
@@ -102,7 +119,14 @@
         "large",
         "green"
       ],
-      "season": "summer"
+      "season": "summer",
+      "hitbox": {
+        "x": 23,
+        "y": 51,
+        "w": 18,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_bush_orange",
@@ -119,7 +143,14 @@
         "autumn",
         "orange"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": {
+        "x": 23,
+        "y": 51,
+        "w": 18,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_bare_branches",
@@ -136,7 +167,14 @@
         "winter",
         "bare"
       ],
-      "season": "winter"
+      "season": "winter",
+      "hitbox": {
+        "x": 23,
+        "y": 51,
+        "w": 17,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "bush_round_green_light",
@@ -150,7 +188,14 @@
         "decoration",
         "small",
         "green"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 15,
+        "w": 24,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "stump_small",
@@ -164,7 +209,14 @@
         "forest",
         "decoration",
         "small"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 17,
+        "w": 10,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "stump_big",
@@ -178,7 +230,14 @@
         "forest",
         "decoration",
         "small"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 16,
+        "w": 18,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "log_hollow_horizontal",
@@ -192,7 +251,14 @@
         "forest",
         "decoration",
         "medium"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 16,
+        "w": 53,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "flower_white_cluster",
@@ -207,7 +273,9 @@
         "small",
         "white"
       ],
-      "season": "spring"
+      "season": "spring",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_pink_bush",
@@ -222,7 +290,9 @@
         "small",
         "pink"
       ],
-      "season": "spring"
+      "season": "spring",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_sunflower",
@@ -237,7 +307,9 @@
         "small",
         "yellow"
       ],
-      "season": "summer"
+      "season": "summer",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "mushroom_brown_cluster",
@@ -252,7 +324,14 @@
         "small",
         "brown"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": {
+        "x": 9,
+        "y": 16,
+        "w": 15,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "mushroom_pink_cluster",
@@ -267,7 +346,14 @@
         "small",
         "pink"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": {
+        "x": 9,
+        "y": 16,
+        "w": 15,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "water_puddle_light_blue",
@@ -281,7 +367,14 @@
         "decoration",
         "small",
         "blue"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water_puddle_dark_blue",
@@ -295,7 +388,14 @@
         "decoration",
         "small",
         "blue"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "rock_small_tan",
@@ -309,7 +409,14 @@
         "decoration",
         "small",
         "tan"
-      ]
+      ],
+      "hitbox": {
+        "x": 9,
+        "y": 19,
+        "w": 15,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "gravestone_gray",
@@ -324,7 +431,14 @@
         "decoration",
         "small",
         "gray"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 15,
+        "w": 26,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "cross_wooden",
@@ -339,7 +453,14 @@
         "decoration",
         "small",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 16,
+        "w": 21,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "floor_marble_white",
@@ -352,7 +473,9 @@
         "terrain",
         "indoor",
         "white"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_checker_green",
@@ -365,7 +488,9 @@
         "terrain",
         "indoor",
         "green"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_cobblestone_gray",
@@ -378,7 +503,9 @@
         "terrain",
         "outdoor",
         "gray"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_sand_tan",
@@ -391,7 +518,9 @@
         "terrain",
         "outdoor",
         "tan"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_diagonal_black",
@@ -404,7 +533,9 @@
         "terrain",
         "indoor",
         "black"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_diamond_maroon",
@@ -417,7 +548,9 @@
         "terrain",
         "indoor",
         "maroon"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wall_wood_brown",
@@ -430,7 +563,14 @@
         "terrain",
         "indoor",
         "brown"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_brick_orange",
@@ -443,7 +583,14 @@
         "terrain",
         "indoor",
         "orange"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_brick_blue",
@@ -456,7 +603,14 @@
         "terrain",
         "indoor",
         "blue"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_shingle_red",
@@ -469,7 +623,14 @@
         "terrain",
         "outdoor",
         "red"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_stone_circular_gray",
@@ -482,7 +643,14 @@
         "terrain",
         "outdoor",
         "gray"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_scale_gold",
@@ -495,7 +663,14 @@
         "terrain",
         "indoor",
         "gold"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "pew_bench_tan",
@@ -508,7 +683,14 @@
         "furniture",
         "church",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 15,
+        "w": 27,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "pew_curtained_tan",
@@ -521,7 +703,14 @@
         "furniture",
         "church",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 15,
+        "w": 26,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "cross_gold",
@@ -535,7 +724,14 @@
         "church",
         "decoration",
         "gold"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 16,
+        "w": 17,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "cross_gray",
@@ -549,7 +745,14 @@
         "church",
         "decoration",
         "gray"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 16,
+        "w": 17,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "picture_treasure_map",
@@ -562,7 +765,14 @@
         "picture",
         "decoration",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 16,
+        "w": 50,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "picture_blank_paper",
@@ -575,7 +785,14 @@
         "picture",
         "decoration",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 13,
+        "w": 22,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "picture_portrait_silhouette",
@@ -588,7 +805,14 @@
         "picture",
         "decoration",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 13,
+        "w": 22,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "picture_landscape",
@@ -601,7 +825,14 @@
         "picture",
         "decoration",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 15,
+        "w": 26,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "icon_sword",
@@ -614,7 +845,9 @@
         "icon",
         "item",
         "weapon"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_shield",
@@ -627,7 +860,9 @@
         "icon",
         "item",
         "armor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_coinpurse",
@@ -640,7 +875,9 @@
         "icon",
         "item",
         "currency"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_utensils",
@@ -653,7 +890,9 @@
         "icon",
         "item",
         "food"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_stewpot",
@@ -666,7 +905,9 @@
         "icon",
         "item",
         "food"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_teapot",
@@ -679,7 +920,9 @@
         "icon",
         "item",
         "food"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_gem_eye",
@@ -692,7 +935,9 @@
         "icon",
         "item",
         "treasure"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_amulet_heart",
@@ -705,7 +950,9 @@
         "icon",
         "item",
         "accessory"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_inn_sign",
@@ -718,7 +965,9 @@
         "icon",
         "sign",
         "town"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_healing_cross",
@@ -731,7 +980,9 @@
         "icon",
         "item",
         "consumable"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_apple_red",
@@ -744,7 +995,9 @@
         "icon",
         "item",
         "food"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_book_green",
@@ -757,7 +1010,9 @@
         "icon",
         "item",
         "book"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_coin_gold",
@@ -770,7 +1025,9 @@
         "icon",
         "item",
         "currency"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_crystal_purple",
@@ -783,7 +1040,9 @@
         "icon",
         "item",
         "treasure"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_skull",
@@ -796,7 +1055,9 @@
         "icon",
         "item",
         "dungeon"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "pottery_jar_tan",
@@ -809,7 +1070,14 @@
         "pottery",
         "decoration",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 16,
+        "w": 25,
+        "h": 15
+      },
+      "layer": "sorted"
     },
     {
       "name": "pottery_jar_dark",
@@ -822,7 +1090,14 @@
         "pottery",
         "decoration",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 16,
+        "w": 25,
+        "h": 15
+      },
+      "layer": "sorted"
     },
     {
       "name": "pottery_jar_pink",
@@ -835,7 +1110,14 @@
         "pottery",
         "decoration",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 16,
+        "w": 25,
+        "h": 15
+      },
+      "layer": "sorted"
     },
     {
       "name": "pottery_jar_red",
@@ -848,7 +1130,14 @@
         "pottery",
         "decoration",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 16,
+        "w": 25,
+        "h": 15
+      },
+      "layer": "sorted"
     },
     {
       "name": "crate_wood_light",
@@ -861,7 +1150,14 @@
         "crate",
         "decoration",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 15,
+        "w": 27,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "chest_wood_iron_bands_closed",
@@ -874,7 +1170,14 @@
         "chest",
         "decoration",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 17,
+        "w": 27,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "chest_closed_red",
@@ -887,7 +1190,14 @@
         "chest",
         "treasure",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 17,
+        "w": 27,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "chest_closed_gold",
@@ -900,7 +1210,14 @@
         "chest",
         "treasure",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 17,
+        "w": 27,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "bucket_wood_dark",
@@ -913,7 +1230,14 @@
         "bucket",
         "decoration",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 16,
+        "w": 23,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "bucket_wood_light",
@@ -926,7 +1250,14 @@
         "bucket",
         "decoration",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 16,
+        "w": 23,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "woodpile_stacked",
@@ -938,7 +1269,14 @@
       "tags": [
         "wood",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 16,
+        "w": 28,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "axe_and_log",
@@ -951,7 +1289,9 @@
         "axe",
         "wood",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "crate_wood_light_open",
@@ -964,7 +1304,14 @@
         "crate",
         "decoration",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 15,
+        "w": 27,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "chest_wood_iron_bands_open",
@@ -977,7 +1324,14 @@
         "chest",
         "decoration",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 15,
+        "w": 27,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "chest_open_red",
@@ -990,7 +1344,14 @@
         "chest",
         "treasure",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 15,
+        "w": 27,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "chest_open_gold",
@@ -1003,7 +1364,14 @@
         "chest",
         "treasure",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 15,
+        "w": 27,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "sack_gray",
@@ -1016,7 +1384,14 @@
         "sack",
         "decoration",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 16,
+        "w": 26,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "haybale_yellow",
@@ -1029,7 +1404,14 @@
         "hay",
         "decoration",
         "farm"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 17,
+        "w": 29,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "sack_tan_round",
@@ -1042,7 +1424,14 @@
         "sack",
         "decoration",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 17,
+        "w": 28,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "barrel_dark",
@@ -1055,7 +1444,14 @@
         "barrel",
         "decoration",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 16,
+        "w": 27,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "basket_gold_empty",
@@ -1068,7 +1464,14 @@
         "basket",
         "decoration",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 17,
+        "w": 25,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "basket_apples_red",
@@ -1081,7 +1484,9 @@
         "basket",
         "decoration",
         "food"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "basket_grapes_green",
@@ -1094,7 +1499,9 @@
         "basket",
         "decoration",
         "food"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "basket_peaches",
@@ -1107,7 +1514,9 @@
         "basket",
         "decoration",
         "food"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "book_red_closed",
@@ -1120,7 +1529,9 @@
         "book",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "book_red_open",
@@ -1133,7 +1544,9 @@
         "book",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "book_navy_closed",
@@ -1146,7 +1559,9 @@
         "book",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "book_navy_open",
@@ -1159,7 +1574,9 @@
         "book",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "book_black_closed",
@@ -1172,7 +1589,9 @@
         "book",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "book_black_open",
@@ -1186,7 +1605,9 @@
         "item",
         "decoration",
         "black"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "book_green_closed",
@@ -1199,7 +1620,9 @@
         "book",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "book_green_open",
@@ -1212,7 +1635,9 @@
         "book",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "plate_empty",
@@ -1225,7 +1650,9 @@
         "food",
         "plate",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "plate_pancakes",
@@ -1238,7 +1665,9 @@
         "food",
         "plate",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "plate_meat",
@@ -1251,7 +1680,9 @@
         "food",
         "plate",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "plate_fish",
@@ -1264,7 +1695,9 @@
         "food",
         "plate",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "plate_salad",
@@ -1277,7 +1710,9 @@
         "food",
         "plate",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "plate_omelette",
@@ -1290,7 +1725,9 @@
         "food",
         "plate",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "plate_sandwich",
@@ -1303,7 +1740,9 @@
         "food",
         "plate",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "plate_cake",
@@ -1316,7 +1755,9 @@
         "food",
         "plate",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wine_bottles_pair",
@@ -1329,7 +1770,9 @@
         "drink",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "coffee_cup",
@@ -1342,7 +1785,9 @@
         "drink",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "teapot_white",
@@ -1355,7 +1800,9 @@
         "drink",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "teacup",
@@ -1368,7 +1815,9 @@
         "drink",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "cheese_wheel",
@@ -1381,7 +1830,9 @@
         "food",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "apples_pair",
@@ -1394,7 +1845,9 @@
         "food",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "bread_basket",
@@ -1407,7 +1860,9 @@
         "food",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "bread_loaf_large",
@@ -1420,7 +1875,9 @@
         "food",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "herb_leaf_green",
@@ -1433,7 +1890,9 @@
         "herb",
         "item",
         "alchemy"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "potions_pair",
@@ -1446,7 +1905,9 @@
         "potion",
         "item",
         "alchemy"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "pouch_gold_tie",
@@ -1459,7 +1920,9 @@
         "pouch",
         "item",
         "container"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "cushion_purple_gem",
@@ -1472,7 +1935,9 @@
         "cushion",
         "treasure",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "gift_box_tan",
@@ -1485,7 +1950,9 @@
         "gift",
         "item",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "chest_red_small",
@@ -1498,7 +1965,14 @@
         "chest",
         "treasure",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 9,
+        "y": 9,
+        "w": 15,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "coins_pile_gold",
@@ -1511,7 +1985,14 @@
         "coins",
         "treasure",
         "currency"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 9,
+        "w": 21,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "armor_stand_silver",
@@ -1524,7 +2005,14 @@
         "armor",
         "equipment",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 21,
+        "w": 25,
+        "h": 21
+      },
+      "layer": "sorted"
     },
     {
       "name": "armor_stand_green",
@@ -1537,7 +2025,14 @@
         "armor",
         "equipment",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 21,
+        "w": 25,
+        "h": 22
+      },
+      "layer": "sorted"
     },
     {
       "name": "armor_stand_pink",
@@ -1550,7 +2045,14 @@
         "armor",
         "equipment",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 21,
+        "w": 23,
+        "h": 21
+      },
+      "layer": "sorted"
     },
     {
       "name": "armor_stand_blue",
@@ -1563,7 +2065,14 @@
         "armor",
         "equipment",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 21,
+        "w": 22,
+        "h": 21
+      },
+      "layer": "sorted"
     },
     {
       "name": "armor_stand_purple",
@@ -1576,7 +2085,14 @@
         "armor",
         "equipment",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 21,
+        "w": 21,
+        "h": 21
+      },
+      "layer": "sorted"
     },
     {
       "name": "armor_stand_empty",
@@ -1589,7 +2105,14 @@
         "armor",
         "equipment",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 20,
+        "w": 21,
+        "h": 20
+      },
+      "layer": "sorted"
     },
     {
       "name": "swords_crossed",
@@ -1602,7 +2125,14 @@
         "weapon",
         "decoration",
         "wall"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "shield_blue_gold",
@@ -1615,7 +2145,14 @@
         "shield",
         "equipment",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 17,
+        "w": 20,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "skull",
@@ -1628,7 +2165,14 @@
         "skull",
         "dungeon",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 10,
+        "w": 18,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "key_gold",
@@ -1641,7 +2185,9 @@
         "key",
         "item",
         "dungeon"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sword_purple_gold",
@@ -1654,7 +2200,9 @@
         "weapon",
         "item",
         "equipment"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "shield_wood_round",
@@ -1667,7 +2215,14 @@
         "shield",
         "equipment",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 11,
+        "w": 18,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "shield_silver_round",
@@ -1680,7 +2235,14 @@
         "shield",
         "equipment",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 11,
+        "w": 22,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "shield_gold_blue",
@@ -1693,7 +2255,14 @@
         "shield",
         "equipment",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 11,
+        "w": 19,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "door_wood",
@@ -1706,7 +2275,9 @@
         "door",
         "building",
         "wood"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "ledge_grass_corner_outer_nw",
@@ -1720,7 +2291,9 @@
         "grass",
         "corner",
         "outer"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_grass_edge_n",
@@ -1733,7 +2306,9 @@
         "terrain",
         "grass",
         "edge"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_grass_corner_outer_ne",
@@ -1747,7 +2322,9 @@
         "grass",
         "corner",
         "outer"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_grass_edge_w",
@@ -1760,7 +2337,9 @@
         "terrain",
         "grass",
         "edge"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_grass_edge_e",
@@ -1773,7 +2352,9 @@
         "terrain",
         "grass",
         "edge"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_grass_corner_face_sw",
@@ -1787,7 +2368,9 @@
         "grass",
         "corner",
         "cliff-transition"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_grass_edge_s",
@@ -1801,7 +2384,9 @@
         "grass",
         "edge",
         "cliff-transition"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_grass_corner_face_se",
@@ -1815,7 +2400,9 @@
         "grass",
         "corner",
         "cliff-transition"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_grass_cliff_face_sw",
@@ -1828,7 +2415,14 @@
         "terrain",
         "cliff",
         "wall"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ledge_grass_cliff_face_mid",
@@ -1842,7 +2436,14 @@
         "cliff",
         "wall",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ledge_grass_cliff_face_se",
@@ -1855,7 +2456,14 @@
         "terrain",
         "cliff",
         "wall"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ledge_grass_cliff_base_sw",
@@ -1869,7 +2477,14 @@
         "cliff",
         "wall",
         "base"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ledge_grass_cliff_base_s",
@@ -1883,7 +2498,14 @@
         "cliff",
         "wall",
         "base"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ledge_grass_cliff_base_se",
@@ -1897,7 +2519,14 @@
         "cliff",
         "wall",
         "base"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "rope_hanging",
@@ -1912,7 +2541,14 @@
         "decoration",
         "ledge",
         "rope"
-      ]
+      ],
+      "hitbox": {
+        "x": 13,
+        "y": 15,
+        "w": 4,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "ledge_dirt_corner_outer_nw",
@@ -1926,7 +2562,9 @@
         "dirt",
         "corner",
         "outer"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_dirt_edge_n",
@@ -1939,7 +2577,9 @@
         "terrain",
         "dirt",
         "edge"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_dirt_corner_outer_ne",
@@ -1953,7 +2593,9 @@
         "dirt",
         "corner",
         "outer"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_dirt_edge_w",
@@ -1966,7 +2608,9 @@
         "terrain",
         "dirt",
         "edge"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_dirt_edge_e",
@@ -1979,7 +2623,9 @@
         "terrain",
         "dirt",
         "edge"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_dirt_corner_face_sw",
@@ -1993,7 +2639,9 @@
         "dirt",
         "corner",
         "cliff-transition"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_dirt_edge_s",
@@ -2007,7 +2655,9 @@
         "dirt",
         "edge",
         "cliff-transition"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_dirt_corner_face_se",
@@ -2021,7 +2671,9 @@
         "dirt",
         "corner",
         "cliff-transition"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_dirt_cliff_face_sw",
@@ -2034,7 +2686,14 @@
         "terrain",
         "cliff",
         "wall"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ledge_dirt_cliff_face_mid",
@@ -2048,7 +2707,14 @@
         "cliff",
         "wall",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cave_entrance_top",
@@ -2061,7 +2727,9 @@
         "dungeon",
         "entrance",
         "terrain"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ledge_dirt_cliff_base_sw",
@@ -2075,7 +2743,14 @@
         "cliff",
         "wall",
         "base"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ledge_dirt_cliff_base_s",
@@ -2089,7 +2764,14 @@
         "cliff",
         "wall",
         "base"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cave_entrance_bottom",
@@ -2102,7 +2784,9 @@
         "dungeon",
         "entrance",
         "terrain"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ladder_rope_wood",
@@ -2116,7 +2800,14 @@
         "prop",
         "decoration",
         "ledge"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 15,
+        "w": 27,
+        "h": 15
+      },
+      "layer": "sorted"
     },
     {
       "name": "window_brown_2pane",
@@ -2129,7 +2820,9 @@
         "window",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "window_brown_4pane",
@@ -2142,7 +2835,9 @@
         "window",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "window_gray_6pane",
@@ -2155,7 +2850,9 @@
         "window",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "window_brown_grid",
@@ -2168,7 +2865,9 @@
         "window",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "window_curtained_gray",
@@ -2181,7 +2880,9 @@
         "window",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "window_curtained_red",
@@ -2194,7 +2895,9 @@
         "window",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wallpanel_wood_edge_l",
@@ -2207,7 +2910,14 @@
         "wood",
         "edge",
         "building"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 16,
+        "w": 14,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wallpanel_wood_edge_r",
@@ -2220,7 +2930,14 @@
         "wood",
         "edge",
         "building"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 15,
+        "w": 14,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "wallpanel_wood_corner_tl",
@@ -2233,7 +2950,14 @@
         "wood",
         "corner",
         "building"
-      ]
+      ],
+      "hitbox": {
+        "x": 13,
+        "y": 18,
+        "w": 18,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "wallpanel_wood_corner_tr",
@@ -2246,7 +2970,14 @@
         "wood",
         "corner",
         "building"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 18,
+        "w": 25,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "wallpanel_wood_corner_br",
@@ -2259,7 +2990,14 @@
         "wood",
         "corner",
         "building"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 17,
+        "w": 24,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "wallpanel_wood_corner_bl",
@@ -2272,7 +3010,14 @@
         "wood",
         "corner",
         "building"
-      ]
+      ],
+      "hitbox": {
+        "x": 13,
+        "y": 15,
+        "w": 18,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "wallpanel_wood_rail",
@@ -2285,7 +3030,14 @@
         "wood",
         "rail",
         "building"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 17,
+        "w": 29,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "wallpanel_wood_fill_top_l",
@@ -2298,7 +3050,14 @@
         "wood",
         "fill",
         "building"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 16,
+        "w": 27,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wallpanel_wood_fill_top_mid",
@@ -2312,7 +3071,9 @@
         "fill",
         "building",
         "repeatable"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wallpanel_wood_fill_top_r",
@@ -2325,7 +3086,14 @@
         "wood",
         "fill",
         "building"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 27,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wallpanel_wood_fill_mid_l",
@@ -2338,7 +3106,14 @@
         "wood",
         "fill",
         "building"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 16,
+        "w": 28,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wallpanel_wood_fill_mid_mid",
@@ -2352,7 +3127,9 @@
         "fill",
         "building",
         "repeatable"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wallpanel_wood_fill_mid_r",
@@ -2365,7 +3142,14 @@
         "wood",
         "fill",
         "building"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 27,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wallpanel_wood_fill_bottom_l",
@@ -2378,7 +3162,14 @@
         "wood",
         "fill",
         "building"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 15,
+        "w": 28,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wallpanel_wood_fill_bottom_mid",
@@ -2392,7 +3183,9 @@
         "fill",
         "building",
         "repeatable"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wallpanel_wood_fill_bottom_r",
@@ -2405,7 +3198,14 @@
         "wood",
         "fill",
         "building"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 15,
+        "w": 28,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "building_wall_corner_l_a",
@@ -2418,7 +3218,14 @@
         "wall",
         "building",
         "corner"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "building_wall_fill_a",
@@ -2432,7 +3239,14 @@
         "building",
         "fill",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "building_wall_corner_r_a",
@@ -2445,7 +3259,14 @@
         "wall",
         "building",
         "corner"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "door_wood_a",
@@ -2458,7 +3279,9 @@
         "door",
         "building",
         "wood"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "door_accent_wood_a",
@@ -2471,7 +3294,9 @@
         "building",
         "accent",
         "overlay"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "roof_fill_a",
@@ -2483,7 +3308,9 @@
         "roof",
         "building",
         "repeatable"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_fill_b",
@@ -2497,7 +3324,9 @@
         "repeatable",
         "orange",
         "tile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_fill_c",
@@ -2511,7 +3340,9 @@
         "repeatable",
         "blue",
         "brick"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_fill_d",
@@ -2525,7 +3356,9 @@
         "repeatable",
         "red",
         "brick"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_fill_e",
@@ -2539,7 +3372,9 @@
         "repeatable",
         "gray",
         "stone"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_fill_f",
@@ -2553,7 +3388,9 @@
         "repeatable",
         "gray",
         "metal"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_fill_g",
@@ -2567,7 +3404,9 @@
         "repeatable",
         "gold",
         "thatch"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_gable_accent_a",
@@ -2581,7 +3420,9 @@
         "gable",
         "accent",
         "vent"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "wall_tan_wood_window_a",
@@ -2596,7 +3437,14 @@
         "window",
         "tan",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_redbrick_a",
@@ -2610,7 +3458,14 @@
         "building",
         "red",
         "brick"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "door_wood_arch_a",
@@ -2625,7 +3480,9 @@
         "arched",
         "brown",
         "wood"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wall_graybrick_a",
@@ -2639,7 +3496,14 @@
         "building",
         "gray",
         "brick"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "door_metal_silver_a",
@@ -2653,7 +3517,9 @@
         "building",
         "metal",
         "silver"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wall_olivebrick_a",
@@ -2667,7 +3533,14 @@
         "building",
         "olive",
         "brick"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "door_wood_dark_gold_a",
@@ -2682,7 +3555,9 @@
         "wood",
         "dark",
         "gold-handle"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wall_tan_pillar_a",
@@ -2697,7 +3572,14 @@
         "tan",
         "pillar",
         "brick"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "door_metal_ornate_a",
@@ -2711,7 +3593,9 @@
         "building",
         "metal",
         "ornate"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wall_gray_smooth_a",
@@ -2725,7 +3609,14 @@
         "building",
         "gray",
         "smooth"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "door_metal_ornate_b",
@@ -2739,7 +3630,9 @@
         "building",
         "metal",
         "ornate"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wall_gray_shopfront_a",
@@ -2754,7 +3647,14 @@
         "gray",
         "stone",
         "shopfront"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "door_metal_gem_a",
@@ -2768,7 +3668,9 @@
         "building",
         "metal",
         "gem"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wall_gold_wood_a",
@@ -2782,7 +3684,14 @@
         "building",
         "gold",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "door_wood_gold_a",
@@ -2796,7 +3705,9 @@
         "building",
         "wood",
         "gold"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wall_awning_yellow_a",
@@ -2811,7 +3722,9 @@
         "awning",
         "yellow",
         "market"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "door_wood_brown_panel_a",
@@ -2826,7 +3739,9 @@
         "wood",
         "brown",
         "panel"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wall_white_orangebase_a",
@@ -2840,7 +3755,14 @@
         "building",
         "white",
         "orange"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "door_wood_orange_a",
@@ -2854,7 +3776,9 @@
         "building",
         "wood",
         "orange"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "grass_green_olive",
@@ -2867,7 +3791,9 @@
         "terrain",
         "green"
       ],
-      "frameIndex": 3
+      "frameIndex": 3,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_dry_tan",
@@ -2882,7 +3808,9 @@
         "dry"
       ],
       "season": "autumn",
-      "frameIndex": 4
+      "frameIndex": 4,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sand_pale_light",
@@ -2895,7 +3823,9 @@
         "terrain",
         "tan"
       ],
-      "frameIndex": 6
+      "frameIndex": 6,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "moss_clump_scatter",
@@ -2909,7 +3839,9 @@
         "decoration",
         "small",
         "green"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "lily_pad_green",
@@ -2924,7 +3856,14 @@
         "decoration",
         "small",
         "green"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 17,
+        "w": 29,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "water_puddle_green",
@@ -2938,7 +3877,14 @@
         "decoration",
         "small",
         "green"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "log_hollow_vertical",
@@ -2952,7 +3898,14 @@
         "forest",
         "decoration",
         "medium"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 32,
+        "w": 20,
+        "h": 27
+      },
+      "layer": "sorted"
     },
     {
       "name": "rock_medium_tan",
@@ -2966,7 +3919,14 @@
         "decoration",
         "small",
         "tan"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 18,
+        "w": 23,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "stump_round_dark",
@@ -2981,7 +3941,14 @@
         "decoration",
         "small",
         "dark"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 16,
+        "w": 24,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "spike_trap_gray",
@@ -2995,7 +3962,14 @@
         "dungeon",
         "decoration",
         "hazard"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 17,
+        "w": 23,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "magic_circle_gray",
@@ -3009,7 +3983,9 @@
         "magic",
         "decoration",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "roof_shingle_wood_brown",
@@ -3023,7 +3999,9 @@
         "brown",
         "wood"
       ],
-      "frameIndex": 568
+      "frameIndex": 568,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_shingle_terracotta",
@@ -3037,7 +4015,9 @@
         "orange",
         "terracotta"
       ],
-      "frameIndex": 569
+      "frameIndex": 569,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_brick_teal",
@@ -3051,7 +4031,9 @@
         "teal",
         "brick"
       ],
-      "frameIndex": 570
+      "frameIndex": 570,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_scale_red",
@@ -3065,7 +4047,9 @@
         "red",
         "scale"
       ],
-      "frameIndex": 571
+      "frameIndex": 571,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_dome_gray",
@@ -3079,7 +4063,9 @@
         "gray",
         "cobble"
       ],
-      "frameIndex": 572
+      "frameIndex": 572,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_metal_corrugated_gray",
@@ -3093,7 +4079,9 @@
         "gray",
         "metal"
       ],
-      "frameIndex": 573
+      "frameIndex": 573,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_thatch_gold_dense",
@@ -3107,7 +4095,9 @@
         "gold",
         "thatch"
       ],
-      "frameIndex": 574
+      "frameIndex": 574,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "wall_graybrick_pillar_edge",
@@ -3123,7 +4113,14 @@
         "brick",
         "pillar",
         "trim"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "roof_vent_accent_gray",
@@ -3137,7 +4134,9 @@
         "building",
         "accent",
         "vent"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "pew_bench_tan_base",
@@ -3151,7 +4150,14 @@
         "church",
         "indoor",
         "base"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 7,
+        "w": 24,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "pew_curtained_tan_base",
@@ -3165,7 +4171,14 @@
         "church",
         "indoor",
         "base"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 7,
+        "w": 26,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "banner_blank_white_a",
@@ -3178,7 +4191,9 @@
         "banner",
         "decoration",
         "blank"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "dial_wood_white_a",
@@ -3191,7 +4206,9 @@
         "icon",
         "decoration",
         "dial"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "prison_bars_small",
@@ -3204,7 +4221,14 @@
         "dungeon",
         "decoration",
         "bars"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 22,
+        "w": 20,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "archway_dark_silhouette",
@@ -3218,7 +4242,14 @@
         "dungeon",
         "decoration",
         "dark"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 32,
+        "w": 22,
+        "h": 28
+      },
+      "layer": "sorted"
     },
     {
       "name": "bell_gold_hanging",
@@ -3232,7 +4263,14 @@
         "church",
         "decoration",
         "gold"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 32,
+        "w": 22,
+        "h": 28
+      },
+      "layer": "sorted"
     },
     {
       "name": "grate_gray_small",
@@ -3246,7 +4284,14 @@
         "decoration",
         "grate",
         "gray"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 31,
+        "w": 22,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "banner_blank_white_b",
@@ -3259,7 +4304,9 @@
         "banner",
         "decoration",
         "blank"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "icon_compass_a",
@@ -3272,7 +4319,9 @@
         "icon",
         "decoration",
         "dial"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "grate_vent_small",
@@ -3285,7 +4334,14 @@
         "dungeon",
         "decoration",
         "vent"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 20,
+        "w": 18,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "window_stained_glass_red",
@@ -3300,7 +4356,9 @@
         "decoration",
         "stained-glass",
         "red"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "window_stained_glass_rainbow",
@@ -3315,7 +4373,9 @@
         "decoration",
         "stained-glass",
         "multicolor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "door_wood_dungeon_barred_a",
@@ -3330,7 +4390,9 @@
         "wood",
         "heavy",
         "ring-handle"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "door_metal_gray_a",
@@ -3344,7 +4406,9 @@
         "building",
         "metal",
         "gray"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "door_metal_gray_b",
@@ -3358,7 +4422,9 @@
         "building",
         "metal",
         "gray"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "door_gold_ornate_red_a",
@@ -3373,7 +4439,9 @@
         "gold",
         "ornate",
         "red"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "icon_fork_knife_silver",
@@ -3387,7 +4455,9 @@
         "item",
         "food",
         "cutlery"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_fork_spoon_silver",
@@ -3401,7 +4471,9 @@
         "item",
         "food",
         "cutlery"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_knife_fork_large",
@@ -3415,7 +4487,9 @@
         "item",
         "food",
         "cutlery"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_scroll_map_tattered",
@@ -3428,7 +4502,9 @@
         "icon",
         "item",
         "map"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_letter_paper",
@@ -3441,7 +4517,9 @@
         "icon",
         "item",
         "paper"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_ledger_book_white",
@@ -3454,7 +4532,9 @@
         "icon",
         "item",
         "book"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "icon_dagger_bomb",
@@ -3468,7 +4548,9 @@
         "item",
         "weapon",
         "dagger"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "candles_lit_triple",
@@ -3482,7 +4564,9 @@
         "decoration",
         "lit",
         "fire"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "icon_hourglass_gray",
@@ -3495,7 +4579,9 @@
         "icon",
         "item",
         "misc"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "lantern_lit_hanging",
@@ -3509,7 +4595,14 @@
         "decoration",
         "lit",
         "light"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 45,
+        "w": 15,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "cauldron_black_large",
@@ -3522,7 +4615,14 @@
         "cauldron",
         "decoration",
         "kitchen"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 35,
+        "w": 29,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "candle_lit_tall",
@@ -3536,7 +4636,9 @@
         "decoration",
         "lit",
         "fire"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "candelabra_gold_lit",
@@ -3551,7 +4653,14 @@
         "lit",
         "gold",
         "fire"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 33,
+        "w": 20,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "cutting_board_knife",
@@ -3564,7 +4673,9 @@
         "kitchen",
         "decoration",
         "item"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "potted_flower_purple",
@@ -3578,7 +4689,9 @@
         "decoration",
         "flower",
         "purple"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "potted_flower_red",
@@ -3592,7 +4705,9 @@
         "decoration",
         "flower",
         "red"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "candle_unlit_silver",
@@ -3605,7 +4720,9 @@
         "candle",
         "decoration",
         "unlit"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "pan_black_empty",
@@ -3618,7 +4735,9 @@
         "kitchen",
         "decoration",
         "item"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "pan_black_food",
@@ -3632,7 +4751,9 @@
         "decoration",
         "item",
         "food"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "cauldron_black_small",
@@ -3645,7 +4766,14 @@
         "cauldron",
         "decoration",
         "kitchen"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 11,
+        "w": 20,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "icon_treasure_board_purple",
@@ -3658,7 +4786,9 @@
         "icon",
         "item",
         "treasure"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "bombs_black_pair",
@@ -3672,7 +4802,9 @@
         "item",
         "weapon",
         "bomb"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "daggers_crossed_gold_silver",
@@ -3686,7 +4818,9 @@
         "item",
         "weapon",
         "dagger"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "toy_teddy_bear_a",
@@ -3699,7 +4833,9 @@
         "toy",
         "decoration",
         "item"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "toy_doll_blonde_a",
@@ -3712,7 +4848,9 @@
         "toy",
         "decoration",
         "item"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "monster_potato_brown_a",
@@ -3725,7 +4863,14 @@
         "creature",
         "monster",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 33,
+        "w": 25,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "sword_ornate_gold_ruby",
@@ -3739,7 +4884,9 @@
         "item",
         "weapon",
         "sword"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "helmet_viking_gray",
@@ -3753,7 +4900,9 @@
         "item",
         "armor",
         "helmet"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "hat_wizard_green",
@@ -3767,7 +4916,9 @@
         "item",
         "armor",
         "hat"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "hat_red_wide",
@@ -3781,7 +4932,9 @@
         "item",
         "armor",
         "hat"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "flail_mace_silver",
@@ -3795,7 +4948,9 @@
         "item",
         "weapon",
         "mace"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "armor_tunic_green",
@@ -3810,7 +4965,9 @@
         "armor",
         "tunic",
         "green"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "armor_tunic_red_ruffled",
@@ -3825,7 +4982,9 @@
         "armor",
         "tunic",
         "red"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "doll_figurine",
@@ -3842,7 +5001,9 @@
         "blue",
         "decor",
         "toy"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "armor_tunic_purple",
@@ -3857,7 +5018,9 @@
         "armor",
         "tunic",
         "purple"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "polearm_spiked_silver",
@@ -3871,7 +5034,9 @@
         "item",
         "weapon",
         "polearm"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "shield_round_silver_b",
@@ -3884,7 +5049,9 @@
         "icon",
         "item",
         "shield"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "shield_round_silver_c",
@@ -3897,7 +5064,9 @@
         "icon",
         "item",
         "shield"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "weapon_rack_swords",
@@ -3910,7 +5079,9 @@
         "furniture",
         "weapon-rack",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "weapon_rack_spears",
@@ -3923,7 +5094,9 @@
         "furniture",
         "weapon-rack",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "weapon_rack_bow_arrows",
@@ -3936,7 +5109,9 @@
         "furniture",
         "weapon-rack",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "weapon_rack_empty",
@@ -3949,7 +5124,9 @@
         "furniture",
         "weapon-rack",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "scimitar_gold_red",
@@ -3963,7 +5140,9 @@
         "item",
         "weapon",
         "sword"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "axe_hatchet_brown",
@@ -3977,7 +5156,9 @@
         "item",
         "weapon",
         "axe"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "bridge_wood_plank",
@@ -3991,7 +5172,9 @@
         "wood",
         "decoration",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "well_stone_basin",
@@ -4004,7 +5187,14 @@
         "well",
         "stone",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 15,
+        "w": 24,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "bucket_hanging_rope",
@@ -4017,7 +5207,14 @@
         "bucket",
         "decoration",
         "rope"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 15,
+        "w": 27,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "mailbox_wood_red_roof",
@@ -4030,7 +5227,9 @@
         "mailbox",
         "decoration",
         "wood"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "signpost_directional_multi",
@@ -4044,7 +5243,14 @@
         "decoration",
         "wood",
         "town"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 52,
+        "w": 15,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "bulletin_board_papers",
@@ -4058,7 +5264,14 @@
         "decoration",
         "wood",
         "town"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 32,
+        "w": 57,
+        "h": 31
+      },
+      "layer": "sorted"
     },
     {
       "name": "gate_stone_archway",
@@ -4073,7 +5286,14 @@
         "archway",
         "building",
         "dungeon"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 77,
+        "w": 96,
+        "h": 51
+      },
+      "layer": "sorted"
     },
     {
       "name": "rope_fence_post_run",
@@ -4087,7 +5307,14 @@
         "rope",
         "post",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 22,
+        "w": 62,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "bridge_rope_wood_a",
@@ -4101,7 +5328,9 @@
         "rope",
         "wood",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "bridge_platform_wood_a",
@@ -4115,7 +5344,9 @@
         "rope",
         "wood",
         "decoration"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "clothesline_sheet_white",
@@ -4128,7 +5359,14 @@
         "clothesline",
         "decoration",
         "laundry"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 27,
+        "w": 57,
+        "h": 28
+      },
+      "layer": "sorted"
     },
     {
       "name": "clothesline_clothes_mixed",
@@ -4141,7 +5379,14 @@
         "clothesline",
         "decoration",
         "laundry"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 27,
+        "w": 57,
+        "h": 28
+      },
+      "layer": "sorted"
     },
     {
       "name": "laundry_white_sheet",
@@ -4154,7 +5399,14 @@
         "laundry",
         "decoration",
         "cloth"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 35,
+        "w": 57,
+        "h": 28
+      },
+      "layer": "sorted"
     },
     {
       "name": "laundry_colored_clothes",
@@ -4167,7 +5419,14 @@
         "laundry",
         "decoration",
         "cloth"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 22,
+        "w": 49,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "floor_wood_plank_tan",
@@ -4180,7 +5439,9 @@
         "wood",
         "tan"
       ],
-      "frameIndex": 288
+      "frameIndex": 288,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wall_brick_lightgray",
@@ -4193,7 +5454,14 @@
         "brick",
         "gray"
       ],
-      "frameIndex": 289
+      "frameIndex": 289,
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "floor_cobble_round_gray",
@@ -4206,7 +5474,9 @@
         "cobble",
         "gray"
       ],
-      "frameIndex": 290
+      "frameIndex": 290,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_tile_lightgray",
@@ -4219,7 +5489,9 @@
         "tile",
         "gray"
       ],
-      "frameIndex": 291
+      "frameIndex": 291,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_checker_bw",
@@ -4233,7 +5505,9 @@
         "black",
         "white"
       ],
-      "frameIndex": 292
+      "frameIndex": 292,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_solid_red2",
@@ -4246,7 +5520,9 @@
         "solid",
         "red"
       ],
-      "frameIndex": 293
+      "frameIndex": 293,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wall_brick_maroon",
@@ -4259,7 +5535,14 @@
         "brick",
         "maroon"
       ],
-      "frameIndex": 296
+      "frameIndex": 296,
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_brick_brown",
@@ -4272,7 +5555,14 @@
         "brick",
         "brown"
       ],
-      "frameIndex": 297
+      "frameIndex": 297,
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "floor_cobble_tan",
@@ -4285,7 +5575,9 @@
         "cobble",
         "tan"
       ],
-      "frameIndex": 298
+      "frameIndex": 298,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_tile_dustyrose",
@@ -4298,7 +5590,9 @@
         "tile",
         "pink"
       ],
-      "frameIndex": 299
+      "frameIndex": 299,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_checker_red",
@@ -4311,7 +5605,9 @@
         "checker",
         "red"
       ],
-      "frameIndex": 300
+      "frameIndex": 300,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_solid_gold",
@@ -4324,7 +5620,9 @@
         "solid",
         "gold"
       ],
-      "frameIndex": 301
+      "frameIndex": 301,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_cobble_tan2",
@@ -4337,7 +5635,9 @@
         "cobble",
         "tan"
       ],
-      "frameIndex": 304
+      "frameIndex": 304,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_cobble_gray2",
@@ -4350,7 +5650,9 @@
         "cobble",
         "gray"
       ],
-      "frameIndex": 305
+      "frameIndex": 305,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_diamond_tan",
@@ -4363,7 +5665,9 @@
         "diamond",
         "tan"
       ],
-      "frameIndex": 306
+      "frameIndex": 306,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_tile_gray2",
@@ -4376,7 +5680,9 @@
         "tile",
         "gray"
       ],
-      "frameIndex": 307
+      "frameIndex": 307,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_checker_charcoal",
@@ -4389,7 +5695,9 @@
         "checker",
         "charcoal"
       ],
-      "frameIndex": 308
+      "frameIndex": 308,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_diamond_gray",
@@ -4402,7 +5710,9 @@
         "diamond",
         "gray"
       ],
-      "frameIndex": 309
+      "frameIndex": 309,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wall_plank_brown2",
@@ -4415,7 +5725,14 @@
         "wood",
         "brown"
       ],
-      "frameIndex": 312
+      "frameIndex": 312,
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_brick_gold",
@@ -4428,7 +5745,14 @@
         "brick",
         "gold"
       ],
-      "frameIndex": 313
+      "frameIndex": 313,
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "floor_diamond_redorange",
@@ -4441,7 +5765,9 @@
         "diamond",
         "orange"
       ],
-      "frameIndex": 314
+      "frameIndex": 314,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_tile_olive",
@@ -4454,7 +5780,9 @@
         "tile",
         "olive"
       ],
-      "frameIndex": 315
+      "frameIndex": 315,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_canvas_white",
@@ -4467,7 +5795,9 @@
         "canvas",
         "white"
       ],
-      "frameIndex": 316
+      "frameIndex": 316,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_diamond_blue",
@@ -4480,7 +5810,9 @@
         "diamond",
         "blue"
       ],
-      "frameIndex": 317
+      "frameIndex": 317,
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ladder_wood_wide",
@@ -4494,7 +5826,14 @@
         "prop",
         "decoration",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 32,
+        "w": 23,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ladder_wood_narrow",
@@ -4508,7 +5847,14 @@
         "prop",
         "decoration",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 40,
+        "w": 29,
+        "h": 24
+      },
+      "layer": "sorted"
     },
     {
       "name": "stairs_wood_ascending_a",
@@ -4522,7 +5868,9 @@
         "wood",
         "decoration",
         "ascending"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "stairs_wood_ascending_b",
@@ -4536,7 +5884,9 @@
         "wood",
         "decoration",
         "ascending"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "curtain_red_gold_trim",
@@ -4551,7 +5901,9 @@
         "indoor",
         "red",
         "gold"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "curtain_white_plain",
@@ -4565,7 +5917,9 @@
         "furniture",
         "indoor",
         "white"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "counter_brown_long_w",
@@ -4578,7 +5932,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_brown_long_center",
@@ -4591,7 +5952,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_brown_long_e",
@@ -4604,7 +5972,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_brown_square_nw",
@@ -4617,7 +5992,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_brown_square_ne",
@@ -4630,7 +6012,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_brown_small",
@@ -4643,7 +6032,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_brown_square_sw",
@@ -4656,7 +6052,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_brown_square_se",
@@ -4669,7 +6072,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_orange_long_n",
@@ -4682,7 +6092,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_orange_square_nw",
@@ -4695,7 +6112,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_orange_square_ne",
@@ -4708,7 +6132,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_orange_long_center",
@@ -4721,7 +6152,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_orange_square_sw",
@@ -4734,7 +6172,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_orange_square_se",
@@ -4747,7 +6192,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_orange_long_s",
@@ -4760,7 +6212,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "ottoman_tan",
@@ -4772,7 +6231,14 @@
       "tags": [
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 48,
+        "w": 86,
+        "h": 48
+      },
+      "layer": "sorted"
     },
     {
       "name": "ottoman_orange_patterned",
@@ -4784,7 +6250,14 @@
       "tags": [
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 48,
+        "w": 86,
+        "h": 48
+      },
+      "layer": "sorted"
     },
     {
       "name": "curtain_red_plain",
@@ -4798,7 +6271,9 @@
         "furniture",
         "indoor",
         "red"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "curtain_white_ribbed",
@@ -4812,7 +6287,9 @@
         "furniture",
         "indoor",
         "white"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "table_side_wood_small",
@@ -4826,7 +6303,14 @@
         "table",
         "indoor",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dresser_tan_3drawer_a",
@@ -4840,7 +6324,14 @@
         "dresser",
         "indoor",
         "tan"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 32,
+        "w": 29,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dresser_tan_1drawer_small",
@@ -4854,7 +6345,14 @@
         "dresser",
         "indoor",
         "tan"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dresser_tan_3drawer_b",
@@ -4868,7 +6366,14 @@
         "dresser",
         "indoor",
         "tan"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 32,
+        "w": 29,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "bookshelf_colorful_a",
@@ -4881,7 +6386,14 @@
         "furniture",
         "bookshelf",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "table_round_wood",
@@ -4895,7 +6407,14 @@
         "table",
         "indoor",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "stool_wood_small",
@@ -4909,7 +6428,14 @@
         "stool",
         "indoor",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 9,
+        "y": 17,
+        "w": 15,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "dresser_tan_gold_pulls",
@@ -4924,7 +6450,14 @@
         "indoor",
         "tan",
         "gold"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 32,
+        "w": 58,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dresser_small_brown",
@@ -4938,7 +6471,14 @@
         "dresser",
         "indoor",
         "brown"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "cabinet_wood_ornate_gold",
@@ -4953,7 +6493,14 @@
         "indoor",
         "wood",
         "gold"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 32,
+        "w": 58,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "bookshelf_large_colorful_a",
@@ -4966,7 +6513,14 @@
         "furniture",
         "bookshelf",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "bookshelf_large_colorful_b",
@@ -4979,7 +6533,14 @@
         "furniture",
         "bookshelf",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "table_round_tan_cloth",
@@ -4993,7 +6554,14 @@
         "table",
         "indoor",
         "cloth"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 29,
+        "w": 29,
+        "h": 30
+      },
+      "layer": "sorted"
     },
     {
       "name": "mirror_standing_wood",
@@ -5007,7 +6575,14 @@
         "mirror",
         "indoor",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 32,
+        "w": 29,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "oven_gray_double",
@@ -5021,7 +6596,14 @@
         "stove",
         "indoor",
         "kitchen"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "stove_black_burners",
@@ -5035,7 +6617,14 @@
         "stove",
         "indoor",
         "kitchen"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "sink_gray_wood_legs_a",
@@ -5050,7 +6639,14 @@
         "indoor",
         "kitchen",
         "gray"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "sink_gray_brick_base_a",
@@ -5065,7 +6661,14 @@
         "indoor",
         "kitchen",
         "gray"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "sink_gray_wood_legs_b",
@@ -5080,7 +6683,14 @@
         "indoor",
         "kitchen",
         "gray"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_white_brick_base",
@@ -5096,7 +6706,14 @@
         "indoor",
         "kitchen",
         "sink"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "cauldron_hanging_black",
@@ -5109,7 +6726,14 @@
         "cauldron",
         "decoration",
         "kitchen"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 17,
+        "w": 28,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "counter_accent_dark",
@@ -5123,7 +6747,14 @@
         "counter",
         "furniture",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "bed_pillow_cream",
@@ -5138,7 +6769,14 @@
         "pillow",
         "indoor",
         "cream"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 33,
+        "w": 29,
+        "h": 31
+      },
+      "layer": "sorted"
     },
     {
       "name": "bed_pillow_tan",
@@ -5153,7 +6791,14 @@
         "pillow",
         "indoor",
         "tan"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 32,
+        "w": 29,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "bed_pillow_green",
@@ -5168,7 +6813,14 @@
         "pillow",
         "indoor",
         "green"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 32,
+        "w": 29,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "bed_red_gold_ornate_a",
@@ -5183,7 +6835,14 @@
         "indoor",
         "red",
         "gold"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 32,
+        "w": 58,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "bedspread_red_large",
@@ -5197,7 +6856,14 @@
         "bed",
         "indoor",
         "red"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 64,
+        "w": 86,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "bed_pillow_tan_b",
@@ -5212,7 +6878,14 @@
         "pillow",
         "indoor",
         "tan"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 20,
+        "w": 18,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "bed_red_gold_ornate_small",
@@ -5227,7 +6900,14 @@
         "indoor",
         "red",
         "gold"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 16,
+        "w": 58,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "clock_wall_small",
@@ -5240,7 +6920,14 @@
         "furniture",
         "clock",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "fireplace_stone_lit",
@@ -5255,7 +6942,14 @@
         "indoor",
         "stone",
         "fire"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 45,
+        "w": 51,
+        "h": 43
+      },
+      "layer": "sorted"
     },
     {
       "name": "clock_wall_round",
@@ -5268,7 +6962,14 @@
         "furniture",
         "clock",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "chair_wood_simple",
@@ -5282,7 +6983,14 @@
         "chair",
         "indoor",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 37,
+        "w": 29,
+        "h": 27
+      },
+      "layer": "sorted"
     },
     {
       "name": "throne_red_gold_tall",
@@ -5297,7 +7005,14 @@
         "indoor",
         "red",
         "gold"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 48,
+        "w": 29,
+        "h": 48
+      },
+      "layer": "sorted"
     },
     {
       "name": "banner_purple_dragon",
@@ -5310,7 +7025,9 @@
         "banner",
         "decoration",
         "purple"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "banner_red_gold_crown",
@@ -5324,7 +7041,9 @@
         "decoration",
         "red",
         "gold"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "table_wood_long_brown",
@@ -5338,7 +7057,14 @@
         "table",
         "indoor",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 16,
+        "w": 50,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "rug_tan_plain",
@@ -5352,7 +7078,9 @@
         "decoration",
         "indoor",
         "tan"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "fireplace_brick_lit",
@@ -5367,7 +7095,14 @@
         "indoor",
         "brick",
         "fire"
-      ]
+      ],
+      "hitbox": {
+        "x": 14,
+        "y": 13,
+        "w": 47,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "piano_brown_upright",
@@ -5381,7 +7116,14 @@
         "piano",
         "indoor",
         "brown"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 32,
+        "w": 58,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "table_wood_long_brown_b",
@@ -5395,7 +7137,14 @@
         "table",
         "indoor",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 19,
+        "w": 85,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "hedge_topiary_round",
@@ -5410,7 +7159,14 @@
         "decoration",
         "garden",
         "green"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 67,
+        "w": 59,
+        "h": 28
+      },
+      "layer": "sorted"
     },
     {
       "name": "barrel_stack_brown",
@@ -5423,7 +7179,14 @@
         "barrel",
         "decoration",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 60,
+        "w": 56,
+        "h": 35
+      },
+      "layer": "sorted"
     },
     {
       "name": "market_tent_striped_square_pole_canvas_top",
@@ -5439,7 +7202,9 @@
         "market",
         "tan",
         "tent"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "market_tent_plain_round_pole_canvas_top",
@@ -5455,7 +7220,9 @@
         "market",
         "tan",
         "tent"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "market_tent_striped_square_pole_canvas_middle",
@@ -5471,7 +7238,9 @@
         "market",
         "tan",
         "tent"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "market_tent_plain_round_pole_canvas_middle",
@@ -5487,7 +7256,9 @@
         "market",
         "tan",
         "tent"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "market_tent_striped_square_pole_canvas_valance_edge",
@@ -5503,7 +7274,9 @@
         "market",
         "tan",
         "tent"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "market_tent_plain_round_pole_canvas_tattered_edge",
@@ -5519,7 +7292,9 @@
         "market",
         "tan",
         "tent"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "market_tent_striped_square_pole_canvas_valance_pole_top",
@@ -5535,7 +7310,9 @@
         "market",
         "tan",
         "tent"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "market_tent_plain_round_pole_canvas_tattered_pole_top",
@@ -5551,7 +7328,9 @@
         "market",
         "tan",
         "tent"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "market_tent_striped_square_pole_middle",
@@ -5567,7 +7346,9 @@
         "market",
         "tan",
         "tent"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "market_tent_plain_round_pole_middle",
@@ -5583,7 +7364,9 @@
         "market",
         "tan",
         "tent"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "market_tent_striped_square_pole_base",
@@ -5599,7 +7382,9 @@
         "market",
         "tan",
         "tent"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "market_tent_plain_round_pole_base",
@@ -5615,7 +7400,9 @@
         "market",
         "tan",
         "tent"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "knight_statue_gray",
@@ -5629,7 +7416,14 @@
         "knight",
         "decoration",
         "gray"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 68,
+        "w": 16,
+        "h": 17
+      },
+      "layer": "sorted"
     },
     {
       "name": "pillar_wood_round",
@@ -5643,7 +7437,14 @@
         "column",
         "decoration",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 10,
+        "y": 75,
+        "w": 14,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "pillar_metal_round",
@@ -5657,7 +7458,14 @@
         "column",
         "decoration",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 76,
+        "w": 16,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "pillar_marble_fluted",
@@ -5671,7 +7479,14 @@
         "gargoyle",
         "decoration",
         "gray"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 84,
+        "w": 16,
+        "h": 21
+      },
+      "layer": "sorted"
     },
     {
       "name": "brazier_wood_tripod",
@@ -5685,7 +7500,14 @@
         "gargoyle",
         "decoration",
         "gray"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 59,
+        "w": 16,
+        "h": 15
+      },
+      "layer": "sorted"
     },
     {
       "name": "angel_statue_gray",
@@ -5699,7 +7521,14 @@
         "gargoyle",
         "decoration",
         "gray"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 54,
+        "w": 16,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "potted_plant_topiary_small",
@@ -5713,7 +7542,14 @@
         "pot",
         "decoration",
         "green"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 33,
+        "w": 26,
+        "h": 30
+      },
+      "layer": "sorted"
     },
     {
       "name": "fountain_stone_round",
@@ -5727,7 +7563,14 @@
         "decoration",
         "stone",
         "water"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 47,
+        "w": 86,
+        "h": 47
+      },
+      "layer": "sorted"
     },
     {
       "name": "potted_plant_aloe_spiky",
@@ -5741,7 +7584,14 @@
         "pot",
         "decoration",
         "green"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 33,
+        "w": 27,
+        "h": 30
+      },
+      "layer": "sorted"
     },
     {
       "name": "gravestone_tall_ornate",
@@ -5755,7 +7605,14 @@
         "dungeon",
         "decoration",
         "gray"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 32,
+        "w": 51,
+        "h": 31
+      },
+      "layer": "sorted"
     },
     {
       "name": "potted_plant_pink_flowers",
@@ -5769,7 +7626,9 @@
         "pot",
         "decoration",
         "pink"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "potted_plant_empty",
@@ -5782,7 +7641,14 @@
         "pot",
         "decoration",
         "empty"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 17,
+        "w": 24,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_up_down",
@@ -5798,7 +7664,14 @@
         "down",
         "straight",
         "run"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 19,
+        "w": 15,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_down",
@@ -5813,7 +7686,14 @@
         "down",
         "end",
         "terminal"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 21,
+        "w": 15,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_down_right",
@@ -5829,7 +7709,14 @@
         "right",
         "corner",
         "turn"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 21,
+        "w": 20,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_left_down",
@@ -5845,7 +7732,14 @@
         "down",
         "corner",
         "turn"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 21,
+        "w": 28,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_left",
@@ -5860,7 +7754,14 @@
         "left",
         "end",
         "terminal"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 27,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_left_up_right",
@@ -5877,7 +7778,14 @@
         "right",
         "junction",
         "t"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 17,
+        "w": 32,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_left_down_right",
@@ -5894,7 +7802,14 @@
         "right",
         "junction",
         "t"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 21,
+        "w": 32,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_left_up_right_down",
@@ -5912,7 +7827,14 @@
         "down",
         "junction",
         "cross"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_left_right",
@@ -5928,7 +7850,14 @@
         "right",
         "straight",
         "run"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_up",
@@ -5943,7 +7872,14 @@
         "up",
         "end",
         "terminal"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 17,
+        "w": 15,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_up_right",
@@ -5959,7 +7895,14 @@
         "right",
         "corner",
         "turn"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 17,
+        "w": 20,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_up_left",
@@ -5975,7 +7918,14 @@
         "left",
         "corner",
         "turn"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 17,
+        "w": 27,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_right",
@@ -5990,7 +7940,14 @@
         "right",
         "end",
         "terminal"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 19,
+        "w": 20,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_up_right_down",
@@ -6007,7 +7964,14 @@
         "down",
         "junction",
         "t"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 19,
+        "w": 20,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_up_left_down",
@@ -6024,7 +7988,14 @@
         "down",
         "junction",
         "t"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 26,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_wood_stud",
@@ -6038,7 +8009,14 @@
         "connectivity",
         "standalone",
         "isolated"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 19,
+        "w": 14,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_up_down",
@@ -6054,7 +8032,14 @@
         "down",
         "straight",
         "run"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 19,
+        "w": 14,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_down",
@@ -6069,7 +8054,14 @@
         "down",
         "end",
         "terminal"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 20,
+        "w": 14,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_down_right",
@@ -6085,7 +8077,14 @@
         "right",
         "corner",
         "turn"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 20,
+        "w": 20,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_left_down",
@@ -6101,7 +8100,14 @@
         "down",
         "corner",
         "turn"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 20,
+        "w": 26,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_left",
@@ -6116,7 +8122,14 @@
         "left",
         "end",
         "terminal"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 18,
+        "w": 26,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_left_up_right",
@@ -6133,7 +8146,14 @@
         "right",
         "junction",
         "t"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 17,
+        "w": 32,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_left_down_right",
@@ -6150,7 +8170,14 @@
         "right",
         "junction",
         "t"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 20,
+        "w": 32,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_left_up_right_down",
@@ -6168,7 +8195,14 @@
         "down",
         "junction",
         "cross"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_left_right",
@@ -6184,7 +8218,14 @@
         "right",
         "straight",
         "run"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 18,
+        "w": 32,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_up",
@@ -6199,7 +8240,14 @@
         "up",
         "end",
         "terminal"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 17,
+        "w": 14,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_up_right",
@@ -6215,7 +8263,14 @@
         "right",
         "corner",
         "turn"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 17,
+        "w": 20,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_up_left",
@@ -6231,7 +8286,14 @@
         "left",
         "corner",
         "turn"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 17,
+        "w": 26,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_right",
@@ -6246,7 +8308,14 @@
         "right",
         "end",
         "terminal"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 18,
+        "w": 20,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_up_right_down",
@@ -6263,7 +8332,14 @@
         "down",
         "junction",
         "t"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 19,
+        "w": 20,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_up_left_down",
@@ -6280,7 +8356,14 @@
         "down",
         "junction",
         "t"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 26,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_stud",
@@ -6294,7 +8377,14 @@
         "connectivity",
         "standalone",
         "isolated"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 18,
+        "w": 13,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_up_down",
@@ -6310,7 +8400,14 @@
         "down",
         "straight",
         "run"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 19,
+        "w": 16,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_down",
@@ -6325,7 +8422,14 @@
         "down",
         "end",
         "terminal"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 21,
+        "w": 16,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_down_right",
@@ -6341,7 +8445,14 @@
         "right",
         "corner",
         "turn"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 21,
+        "w": 21,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_left_down",
@@ -6357,7 +8468,14 @@
         "down",
         "corner",
         "turn"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 21,
+        "w": 27,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_left",
@@ -6372,7 +8490,14 @@
         "left",
         "end",
         "terminal"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 27,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_left_up_right",
@@ -6389,7 +8514,14 @@
         "right",
         "junction",
         "t"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 17,
+        "w": 32,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_left_down_right",
@@ -6406,7 +8538,14 @@
         "right",
         "junction",
         "t"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 21,
+        "w": 32,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_left_up_right_down",
@@ -6424,7 +8563,14 @@
         "down",
         "junction",
         "cross"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_left_right",
@@ -6440,7 +8586,14 @@
         "right",
         "straight",
         "run"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_up",
@@ -6455,7 +8608,14 @@
         "up",
         "end",
         "terminal"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 17,
+        "w": 16,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_up_right",
@@ -6471,7 +8631,14 @@
         "right",
         "corner",
         "turn"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 17,
+        "w": 21,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_up_left",
@@ -6487,7 +8654,14 @@
         "left",
         "corner",
         "turn"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 17,
+        "w": 27,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_right",
@@ -6502,7 +8676,14 @@
         "right",
         "end",
         "terminal"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 19,
+        "w": 21,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_up_right_down",
@@ -6519,7 +8700,14 @@
         "down",
         "junction",
         "t"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 19,
+        "w": 21,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_up_left_down",
@@ -6536,7 +8724,14 @@
         "down",
         "junction",
         "t"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 26,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_brick_stud",
@@ -6550,7 +8745,14 @@
         "connectivity",
         "standalone",
         "isolated"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 19,
+        "w": 15,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_worn_patches",
@@ -6565,7 +8767,9 @@
         "green",
         "worn",
         "farm"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_farm_soil",
@@ -6580,7 +8784,9 @@
         "brown",
         "farm",
         "tilled"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "tree_giant_trunk_grass",
@@ -6595,7 +8801,9 @@
         "decoration",
         "large",
         "hill"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "well_crank_post",
@@ -6609,7 +8817,14 @@
         "decoration",
         "wood",
         "farm"
-      ]
+      ],
+      "hitbox": {
+        "x": 13,
+        "y": 54,
+        "w": 5,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "hedge_bush_tall_round",
@@ -6624,7 +8839,14 @@
         "decoration",
         "garden",
         "green"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 58,
+        "w": 32,
+        "h": 38
+      },
+      "layer": "sorted"
     },
     {
       "name": "hedge_bush_wide_oval",
@@ -6639,7 +8861,14 @@
         "decoration",
         "garden",
         "green"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 64,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "rocks_pebbles_pair",
@@ -6652,7 +8881,9 @@
         "rock",
         "decoration",
         "small"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_mound_organic",
@@ -6667,7 +8898,9 @@
         "decoration",
         "terrain",
         "farm"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ladder_rope_wood_short",
@@ -6682,7 +8915,14 @@
         "decoration",
         "wood",
         "farm"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 39,
+        "w": 29,
+        "h": 25
+      },
+      "layer": "sorted"
     },
     {
       "name": "vine_green_climbing",
@@ -6697,7 +8937,14 @@
         "decoration",
         "wood",
         "farm"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 33,
+        "w": 25,
+        "h": 31
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_dead_bare_green",
@@ -6711,7 +8958,14 @@
         "dead",
         "decoration",
         "bare"
-      ]
+      ],
+      "hitbox": {
+        "x": 13,
+        "y": 77,
+        "w": 8,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "scarecrow",
@@ -6724,7 +8978,14 @@
         "scarecrow",
         "decoration",
         "farm"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 23,
+        "w": 29,
+        "h": 24
+      },
+      "layer": "sorted"
     },
     {
       "name": "sprout_seedling_small",
@@ -6739,7 +9000,9 @@
         "farm",
         "seedling",
         "green"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "haybale_bundle_tied",
@@ -6752,7 +9015,14 @@
         "hay",
         "decoration",
         "farm"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 13,
+        "w": 20,
+        "h": 7
+      },
+      "layer": "sorted"
     },
     {
       "name": "wheat_stalks_golden",
@@ -6767,7 +9037,14 @@
         "farm",
         "wheat",
         "gold"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 39,
+        "w": 22,
+        "h": 25
+      },
+      "layer": "sorted"
     },
     {
       "name": "pumpkin_sprout_young",
@@ -6782,7 +9059,9 @@
         "farm",
         "pumpkin",
         "green"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pumpkin_ripe_orange",
@@ -6797,7 +9076,14 @@
         "farm",
         "pumpkin",
         "orange"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 11,
+        "w": 26,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "cabbage_light_green",
@@ -6812,7 +9098,14 @@
         "farm",
         "cabbage",
         "green"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 7,
+        "w": 23,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "cabbage_dark_green",
@@ -6827,7 +9120,14 @@
         "farm",
         "cabbage",
         "green"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 10,
+        "w": 23,
+        "h": 9
+      },
+      "layer": "sorted"
     },
     {
       "name": "signpost_blank_small",
@@ -6841,7 +9141,14 @@
         "decoration",
         "wood",
         "town"
-      ]
+      ],
+      "hitbox": {
+        "x": 10,
+        "y": 26,
+        "w": 12,
+        "h": 5
+      },
+      "layer": "sorted"
     },
     {
       "name": "sign_board_easel",
@@ -6855,7 +9162,9 @@
         "decoration",
         "wood",
         "town"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "signpost_arrow_a",
@@ -6870,7 +9179,14 @@
         "wood",
         "town",
         "directional"
-      ]
+      ],
+      "hitbox": {
+        "x": 10,
+        "y": 25,
+        "w": 12,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "rope_fence_post_laundry",
@@ -6885,7 +9201,14 @@
         "post",
         "decoration",
         "laundry"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 41,
+        "w": 63,
+        "h": 22
+      },
+      "layer": "sorted"
     },
     {
       "name": "fence_iron_picket_tall_decorative",
@@ -6900,7 +9223,14 @@
         "decorative",
         "tall",
         "picket"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 38,
+        "w": 32,
+        "h": 26
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_tan_wood_b",
@@ -6914,7 +9244,14 @@
         "building",
         "tan",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "door_gold_wood_b",
@@ -6928,7 +9265,9 @@
         "building",
         "wood",
         "gold"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wall_gray_concrete_a",
@@ -6942,7 +9281,14 @@
         "building",
         "gray",
         "concrete"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "door_red_wood_a",
@@ -6956,7 +9302,9 @@
         "building",
         "wood",
         "red"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "gate_castle_arch_gray",
@@ -6971,7 +9319,14 @@
         "archway",
         "stone",
         "gray"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 43,
+        "w": 64,
+        "h": 21
+      },
+      "layer": "sorted"
     },
     {
       "name": "vent_accent_dark_a",
@@ -6985,7 +9340,14 @@
         "accent",
         "dungeon",
         "dark"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "vent_accent_dark_b",
@@ -6999,7 +9361,14 @@
         "accent",
         "dungeon",
         "dark"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_redbrick_pink_a",
@@ -7014,7 +9383,14 @@
         "brick",
         "pink",
         "red"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "archway_stone_small",
@@ -7028,7 +9404,14 @@
         "stone",
         "gray",
         "building"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 32,
+        "w": 29,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "door_wood_dark_paneled",
@@ -7043,7 +9426,9 @@
         "wood",
         "dark",
         "paneled"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "torch_lantern_wall_bracket",
@@ -7058,7 +9443,14 @@
         "decoration",
         "light",
         "wall"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "gate_iron_frame_opening",
@@ -7072,7 +9464,14 @@
         "iron",
         "gate",
         "decorative"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 36,
+        "w": 32,
+        "h": 24
+      },
+      "layer": "sorted"
     },
     {
       "name": "gate_iron_portcullis_small",
@@ -7087,7 +9486,14 @@
         "gate",
         "portcullis",
         "decorative"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 38,
+        "w": 26,
+        "h": 20
+      },
+      "layer": "sorted"
     },
     {
       "name": "rope_fence_post_run_long",
@@ -7102,7 +9508,14 @@
         "post",
         "decoration",
         "long"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 19,
+        "w": 91,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "gargoyle_statue_gray",
@@ -7117,7 +9530,14 @@
         "decoration",
         "gray",
         "demon"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 46,
+        "w": 16,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "picture_portrait_color",
@@ -7130,7 +9550,14 @@
         "picture",
         "decoration",
         "indoor"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 17,
+        "w": 22,
+        "h": 16
+      },
+      "layer": "sorted"
     }
   ]
 }

@@ -15,7 +15,14 @@
         "wall",
         "window",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 128
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -28,7 +35,14 @@
         "wall",
         "stone",
         "ledge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 114,
+        "h": 104
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -41,7 +55,14 @@
         "wall",
         "pillar",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 10,
+        "h": 96
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -54,7 +75,14 @@
         "wall",
         "pillar",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 8,
+        "h": 96
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -67,7 +95,14 @@
         "wall",
         "trim",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -81,7 +116,14 @@
         "window",
         "stone",
         "tower"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 96
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -94,7 +136,14 @@
         "wall",
         "stone",
         "damaged"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -108,7 +157,14 @@
         "window",
         "stone",
         "small"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -121,7 +177,14 @@
         "wall",
         "stone",
         "plain"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -134,7 +197,14 @@
         "wall",
         "stone",
         "plain"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "layer": "sorted"
     }
   ]
 }

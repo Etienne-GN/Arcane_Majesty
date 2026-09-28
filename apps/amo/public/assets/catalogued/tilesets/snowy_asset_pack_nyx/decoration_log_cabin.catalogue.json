@@ -15,7 +15,14 @@
         "winter",
         "nyx",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 97,
+        "w": 119,
+        "h": 98
+      },
+      "layer": "sorted"
     }
   ]
 }

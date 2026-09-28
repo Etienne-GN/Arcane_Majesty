@@ -14,7 +14,14 @@
         "pixel_crawler",
         "anokolisa",
         "bonfire"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 11,
+        "w": 94,
+        "h": 10
+      },
+      "layer": "sorted"
     }
   ]
 }

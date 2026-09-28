@@ -5,8 +5,9 @@ import { scanCatalogueDir } from './server/catalogueScanner.js';
 import {
     loadCollections, addCollection,
     loadSpriteMeta, assignCollection, seedSheetsIfNew, setLicenseStatus,
-    loadFlags, addFlag, updateFlagStatus,
+    loadFlags, addFlag, updateFlagStatus, setPhysicsReview,
 } from './server/dataStore.js';
+import { setEntryPhysics } from './server/physicsStore.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -100,6 +101,23 @@ export function createServer(catalogueDir, dataDir) {
         const { sheet, name, status } = req.body;
         await setLicenseStatus(dataDir, sheet, name, status);
         res.json({ ok: true });
+    });
+
+    // Hitbox + layer of one sprite. `hitbox` (object, or null = no
+    // collision) and `layer` go into the catalogue entry; `review`
+    // ('proposed' | 'approved' | null) into sprite_meta. Each is optional.
+    app.post('/api/physics', async (req, res) => {
+        const { sheet, name, hitbox, layer, review } = req.body;
+        try {
+            let entry = null;
+            if (hitbox !== undefined || layer !== undefined) {
+                entry = await setEntryPhysics(catalogueDir, sheet, name, { hitbox, layer });
+            }
+            if (review !== undefined) await setPhysicsReview(dataDir, sheet, name, review);
+            res.json({ ok: true, entry });
+        } catch (e) {
+            res.status(400).send(e.message);
+        }
     });
 
     app.get('/api/flags', async (req, res) => {

@@ -20,7 +20,14 @@
         "blue",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_corner_nw",
@@ -35,7 +42,14 @@
         "blue",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_corner_ne",
@@ -50,7 +64,14 @@
         "blue",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_channel_v_middle",
@@ -65,7 +86,14 @@
         "blue",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_fill",
@@ -80,7 +108,14 @@
         "blue",
         "fill",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_edge_e",
@@ -95,7 +130,14 @@
         "blue",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_channel_v_bottom",
@@ -110,7 +152,14 @@
         "blue",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_corner_sw",
@@ -125,7 +174,14 @@
         "blue",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_corner_se",
@@ -140,7 +196,14 @@
         "blue",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_island",
@@ -155,7 +218,14 @@
         "blue",
         "island",
         "isolated"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_channel_v_top",
@@ -170,7 +240,14 @@
         "cyan",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_corner_nw",
@@ -185,7 +262,14 @@
         "cyan",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_corner_ne",
@@ -200,7 +284,14 @@
         "cyan",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_channel_v_middle",
@@ -215,7 +306,14 @@
         "cyan",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_fill",
@@ -230,7 +328,14 @@
         "cyan",
         "fill",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_edge_e",
@@ -245,7 +350,14 @@
         "cyan",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_channel_v_bottom",
@@ -260,7 +372,14 @@
         "cyan",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_corner_sw",
@@ -275,7 +394,14 @@
         "cyan",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_corner_se",
@@ -290,7 +416,14 @@
         "cyan",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_island",
@@ -305,7 +438,14 @@
         "cyan",
         "island",
         "isolated"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_channel_v_top",
@@ -320,7 +460,14 @@
         "green",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_corner_nw",
@@ -335,7 +482,14 @@
         "green",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_corner_ne",
@@ -350,7 +504,14 @@
         "green",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_channel_v_middle",
@@ -365,7 +526,14 @@
         "green",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_fill",
@@ -380,7 +548,14 @@
         "green",
         "fill",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_edge_e",
@@ -395,7 +570,14 @@
         "green",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_channel_v_bottom",
@@ -410,7 +592,14 @@
         "green",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_corner_sw",
@@ -425,7 +614,14 @@
         "green",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_corner_se",
@@ -440,7 +636,14 @@
         "green",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_island",
@@ -455,7 +658,14 @@
         "green",
         "island",
         "isolated"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_channel_v_top",
@@ -470,7 +680,14 @@
         "green",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_corner_nw",
@@ -485,7 +702,14 @@
         "green",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_corner_ne",
@@ -500,7 +724,14 @@
         "green",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_channel_v_middle",
@@ -515,7 +746,14 @@
         "green",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_fill",
@@ -530,7 +768,14 @@
         "green",
         "fill",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_edge_e",
@@ -545,7 +790,14 @@
         "green",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_channel_v_bottom",
@@ -560,7 +812,14 @@
         "green",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_corner_sw",
@@ -575,7 +834,14 @@
         "green",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_corner_se",
@@ -590,7 +856,14 @@
         "green",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_island",
@@ -605,7 +878,14 @@
         "green",
         "island",
         "isolated"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_channel_v_top",
@@ -620,7 +900,14 @@
         "foam",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_corner_nw",
@@ -635,7 +922,14 @@
         "foam",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_corner_ne",
@@ -650,7 +944,14 @@
         "foam",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_channel_v_middle",
@@ -665,7 +966,14 @@
         "foam",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_fill",
@@ -680,7 +988,14 @@
         "foam",
         "fill",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_edge_e",
@@ -695,7 +1010,14 @@
         "foam",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_channel_v_bottom",
@@ -710,7 +1032,14 @@
         "foam",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_corner_sw",
@@ -725,7 +1054,14 @@
         "foam",
         "edge",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_corner_se",
@@ -740,7 +1076,14 @@
         "foam",
         "corner",
         "shore"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_island",
@@ -755,7 +1098,14 @@
         "foam",
         "island",
         "isolated"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "waterway1_fill",
@@ -771,7 +1121,14 @@
         "blue",
         "fill",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "waterway2_fill",
@@ -787,7 +1144,14 @@
         "teal",
         "fill",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "waterway3_fill",
@@ -803,7 +1167,14 @@
         "dark",
         "fill",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_inner_corner_se",
@@ -818,7 +1189,14 @@
         "blue",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_inner_corner_sw",
@@ -833,7 +1211,14 @@
         "blue",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_inner_corner_ne",
@@ -848,7 +1233,14 @@
         "blue",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_inner_corner_nw",
@@ -863,7 +1255,14 @@
         "blue",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_inner_corner_se",
@@ -878,7 +1277,14 @@
         "cyan",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_inner_corner_sw",
@@ -893,7 +1299,14 @@
         "cyan",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_inner_corner_ne",
@@ -908,7 +1321,14 @@
         "cyan",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_inner_corner_nw",
@@ -923,7 +1343,14 @@
         "cyan",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_inner_corner_se",
@@ -938,7 +1365,14 @@
         "green",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_inner_corner_sw",
@@ -953,7 +1387,14 @@
         "green",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_inner_corner_ne",
@@ -968,7 +1409,14 @@
         "green",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_inner_corner_nw",
@@ -983,7 +1431,14 @@
         "green",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_inner_corner_se",
@@ -998,7 +1453,14 @@
         "green",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_inner_corner_sw",
@@ -1013,7 +1475,14 @@
         "green",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_inner_corner_ne",
@@ -1028,7 +1497,14 @@
         "green",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_inner_corner_nw",
@@ -1043,7 +1519,14 @@
         "green",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_inner_corner_se",
@@ -1058,7 +1541,14 @@
         "foam",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_inner_corner_sw",
@@ -1073,7 +1563,14 @@
         "foam",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_inner_corner_ne",
@@ -1088,7 +1585,14 @@
         "foam",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_inner_corner_nw",
@@ -1103,7 +1607,14 @@
         "foam",
         "inner-corner",
         "concave"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_channel_h_left",
@@ -1117,7 +1628,14 @@
         "deep",
         "blue",
         "channel"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_channel_h_middle",
@@ -1131,7 +1649,14 @@
         "deep",
         "blue",
         "channel"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_channel_h_right",
@@ -1145,7 +1670,14 @@
         "deep",
         "blue",
         "channel"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_edge_n",
@@ -1159,7 +1691,14 @@
         "deep",
         "blue",
         "edge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_edge_w",
@@ -1173,7 +1712,14 @@
         "deep",
         "blue",
         "edge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water1_edge_s",
@@ -1187,7 +1733,14 @@
         "deep",
         "blue",
         "edge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_channel_h_left",
@@ -1201,7 +1754,14 @@
         "shallow",
         "cyan",
         "channel"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_channel_h_middle",
@@ -1215,7 +1775,14 @@
         "shallow",
         "cyan",
         "channel"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_channel_h_right",
@@ -1229,7 +1796,14 @@
         "shallow",
         "cyan",
         "channel"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_edge_n",
@@ -1243,7 +1817,14 @@
         "shallow",
         "cyan",
         "edge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_edge_w",
@@ -1257,7 +1838,14 @@
         "shallow",
         "cyan",
         "edge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water2_edge_s",
@@ -1271,7 +1859,14 @@
         "shallow",
         "cyan",
         "edge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_channel_h_left",
@@ -1285,7 +1880,14 @@
         "swamp",
         "green",
         "channel"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_channel_h_middle",
@@ -1299,7 +1901,14 @@
         "swamp",
         "green",
         "channel"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_channel_h_right",
@@ -1313,7 +1922,14 @@
         "swamp",
         "green",
         "channel"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_edge_n",
@@ -1327,7 +1943,14 @@
         "swamp",
         "green",
         "edge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_edge_w",
@@ -1341,7 +1964,14 @@
         "swamp",
         "green",
         "edge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water3_edge_s",
@@ -1355,7 +1985,14 @@
         "swamp",
         "green",
         "edge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_channel_h_left",
@@ -1369,7 +2006,14 @@
         "swamp",
         "green",
         "channel"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_channel_h_middle",
@@ -1383,7 +2027,14 @@
         "swamp",
         "green",
         "channel"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_channel_h_right",
@@ -1397,7 +2048,14 @@
         "swamp",
         "green",
         "channel"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_edge_n",
@@ -1411,7 +2069,14 @@
         "swamp",
         "green",
         "edge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_edge_w",
@@ -1425,7 +2090,14 @@
         "swamp",
         "green",
         "edge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "water4_edge_s",
@@ -1439,7 +2111,14 @@
         "swamp",
         "green",
         "edge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_channel_h_left",
@@ -1453,7 +2132,14 @@
         "whitewater",
         "foam",
         "channel"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_channel_h_middle",
@@ -1467,7 +2153,14 @@
         "whitewater",
         "foam",
         "channel"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_channel_h_right",
@@ -1481,7 +2174,14 @@
         "whitewater",
         "foam",
         "channel"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_edge_n",
@@ -1495,7 +2195,14 @@
         "whitewater",
         "foam",
         "edge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_edge_w",
@@ -1509,7 +2216,14 @@
         "whitewater",
         "foam",
         "edge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "wave_edge_s",
@@ -1523,7 +2237,14 @@
         "whitewater",
         "foam",
         "edge"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     }
   ]
 }

@@ -15,7 +15,14 @@
         "winter",
         "nyx",
         "trees"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 46,
+        "w": 10,
+        "h": 11
+      },
+      "layer": "sorted"
     }
   ]
 }

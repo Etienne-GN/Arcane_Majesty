@@ -15,6 +15,7 @@ import { campaignManager } from '../systems/CampaignManager.js';
 import { ITEMS } from '../data/items.js';
 import { TILE_SIZE, ENEMY_TYPES } from '../data/worldMap.js';
 import { getMap } from '../data/maps/index.js';
+import { catalogueLayout } from '../utils/catalogueLayout.js';
 import { DIALOGUES } from '../data/dialogues.js';
 import { SPELLS, TIER_NAMES, RESONANCE_GAINS } from '../data/spells.js';
 import { statusManager } from '../systems/StatusManager.js';
@@ -2551,12 +2552,15 @@ export default class GameScene extends Phaser.Scene {
             } else {
                 img = this.add.image(px, py, texKey, frameKey);
             }
-            img.setDepth(py + (d.depthOffset ?? 0));
+            // Draw layer + hitbox from the catalogue (set in the sprite ledger);
+            // entries not decided yet keep the old centre depth / whole-box blocking.
+            const { depth, body } = catalogueLayout(entry, { left: px - cw / 2, top: py - ch / 2, w: cw, h: ch }, d);
+            img.setDepth(depth);
 
-            if (d.blocking) {
-                const wall = this.wallGroup.create(px, py, 'tile_tree');
+            if (body) {
+                const wall = this.wallGroup.create(body.x + body.w / 2, body.y + body.h / 2, 'tile_tree');
                 wall.setAlpha(0);
-                wall.setDisplaySize(cw, ch);
+                wall.setDisplaySize(body.w, body.h);
                 wall.refreshBody();
             }
         });

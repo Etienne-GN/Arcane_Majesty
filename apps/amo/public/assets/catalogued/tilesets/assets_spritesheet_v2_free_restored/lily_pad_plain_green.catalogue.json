@@ -13,7 +13,9 @@
       "tags": [
         "schwarnhild",
         "restored"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     }
   ]
 }

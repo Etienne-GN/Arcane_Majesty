@@ -16,7 +16,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_bricks_top",
@@ -31,7 +38,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_bricks_cracked_top",
@@ -46,7 +60,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_bricks_vines_top",
@@ -61,7 +82,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_pillar_top",
@@ -76,7 +104,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_right_end_top",
@@ -91,7 +126,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_left_end_middle",
@@ -106,7 +148,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_bricks_middle",
@@ -121,7 +170,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_bricks_cracked_middle",
@@ -136,7 +192,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_bricks_vines_middle",
@@ -151,7 +214,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_pillar_middle",
@@ -166,7 +236,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_right_end_middle",
@@ -181,7 +258,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_left_end_base",
@@ -196,7 +280,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_bricks_base",
@@ -211,7 +302,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_bricks_cracked_base",
@@ -226,7 +324,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_bricks_vines_base",
@@ -241,7 +346,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_pillar_base",
@@ -256,7 +368,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_front_right_end_base",
@@ -271,7 +390,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_cap_corner_top_left",
@@ -286,7 +412,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_cap_horizontal",
@@ -301,7 +434,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_cap_end_right",
@@ -316,7 +456,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_cap_end_left",
@@ -331,7 +478,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_cap_t_junction_down",
@@ -346,7 +500,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_cap_corner_top_right",
@@ -361,7 +522,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_face_vertical_left",
@@ -376,7 +544,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_short_pair_cap_left",
@@ -391,7 +566,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_short_pair_cap_right",
@@ -406,7 +588,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_face_inner_corner_left",
@@ -421,7 +610,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_face_inner_corner_right",
@@ -436,7 +632,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_face_vertical_right",
@@ -451,7 +654,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_face_vertical_left_base",
@@ -466,7 +676,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_short_pair_base_left",
@@ -481,7 +698,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_short_pair_base_right",
@@ -496,7 +720,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_niche_cap_left",
@@ -511,7 +742,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_niche_cap_right",
@@ -526,7 +764,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_face_vertical_right_base",
@@ -541,7 +786,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_pillar_cap_end_left",
@@ -556,7 +808,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_small_niche_cap_left",
@@ -571,7 +830,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_small_niche_cap_right",
@@ -586,7 +852,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_niche_face_left",
@@ -601,7 +874,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_niche_brick_center",
@@ -616,7 +896,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_pillar_cap_end_right",
@@ -631,7 +918,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_pillar_base_left",
@@ -646,7 +940,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_small_niche_base_left",
@@ -661,7 +962,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_small_niche_base_right",
@@ -676,7 +984,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_niche_base_left",
@@ -691,7 +1006,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_niche_base_center",
@@ -706,7 +1028,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_pillar_base_right",
@@ -721,7 +1050,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_floor_edge_left_a",
@@ -736,7 +1072,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_low_brick_ledge_left",
@@ -751,7 +1094,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_low_brick_ledge_middle_a",
@@ -766,7 +1116,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_low_brick_ledge_middle_b",
@@ -781,7 +1138,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_low_brick_ledge_right",
@@ -796,7 +1160,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_floor_edge_right_a",
@@ -811,7 +1182,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_floor_edge_left_b",
@@ -826,7 +1204,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_low_brick_face_left",
@@ -841,7 +1226,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_low_brick_face_right",
@@ -856,7 +1248,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_small_pillar_cap",
@@ -871,7 +1270,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_floor_edge_right_b",
@@ -886,7 +1292,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_floor_edge_corner_bottom_left",
@@ -901,7 +1314,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_floor_edge_bottom_a",
@@ -916,7 +1336,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_floor_edge_bottom_b",
@@ -931,7 +1358,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_small_pillar_base",
@@ -946,7 +1380,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_floor_edge_bottom_notch",
@@ -961,7 +1402,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "thin_wall_floor_edge_corner_bottom_right",
@@ -976,7 +1424,14 @@
         "dungeon",
         "wall",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dungeon_doorway_arch_open",
@@ -991,7 +1446,9 @@
         "dungeon",
         "door",
         "arch"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "dungeon_door_locked_skull_chains",
@@ -1006,7 +1463,9 @@
         "dungeon",
         "door",
         "locked"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "stone_gate_frame",
@@ -1021,7 +1480,14 @@
         "dungeon",
         "gate",
         "arch"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 37,
+        "w": 48,
+        "h": 24
+      },
+      "layer": "sorted"
     },
     {
       "name": "stairs_diagonal_railing",
@@ -1035,7 +1501,9 @@
         "o_lobster",
         "dungeon",
         "stairs"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "rubble_rocks_pair",
@@ -1049,7 +1517,14 @@
         "o_lobster",
         "dungeon",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 7,
+        "w": 13,
+        "h": 7
+      },
+      "layer": "sorted"
     },
     {
       "name": "stairs_diagonal_railing_end",
@@ -1063,7 +1538,9 @@
         "o_lobster",
         "dungeon",
         "stairs"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wall_window_slot_double",
@@ -1077,7 +1554,14 @@
         "o_lobster",
         "dungeon",
         "window"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "stair_steps_straight",
@@ -1091,7 +1575,9 @@
         "o_lobster",
         "dungeon",
         "stairs"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_slats_grey_top_left",
@@ -1106,7 +1592,9 @@
         "dungeon",
         "floor",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_slats_grey_top_middle",
@@ -1121,7 +1609,9 @@
         "dungeon",
         "floor",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_slats_grey_top_right",
@@ -1136,7 +1626,9 @@
         "dungeon",
         "floor",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_slats_grey_bottom_left",
@@ -1151,7 +1643,9 @@
         "dungeon",
         "floor",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_slats_grey_bottom_middle",
@@ -1166,7 +1660,9 @@
         "dungeon",
         "floor",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "floor_slats_grey_bottom_right",
@@ -1181,7 +1677,9 @@
         "dungeon",
         "floor",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pillar_short",
@@ -1195,7 +1693,14 @@
         "o_lobster",
         "dungeon",
         "pillar"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 25,
+        "w": 8,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "pillar_broken_vines",
@@ -1210,7 +1715,14 @@
         "dungeon",
         "pillar",
         "vines"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 18,
+        "w": 8,
+        "h": 5
+      },
+      "layer": "sorted"
     },
     {
       "name": "twin_stone_posts",
@@ -1224,7 +1736,14 @@
         "o_lobster",
         "dungeon",
         "pillar"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 25,
+        "w": 8,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_block_square_a",
@@ -1238,7 +1757,9 @@
         "o_lobster",
         "dungeon",
         "stone"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "stone_block_square_b",
@@ -1252,7 +1773,9 @@
         "o_lobster",
         "dungeon",
         "stone"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "stone_block_dark_banded",
@@ -1267,7 +1790,9 @@
         "dungeon",
         "stone",
         "block"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "clay_pot_red",
@@ -1281,7 +1806,9 @@
         "o_lobster",
         "dungeon",
         "pot"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "pillar_tall_thin",
@@ -1295,7 +1822,14 @@
         "o_lobster",
         "dungeon",
         "pillar"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 45,
+        "w": 8,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_pit_nw",
@@ -1310,7 +1844,14 @@
         "dungeon",
         "pit",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "dark_pit_n",
@@ -1325,7 +1866,14 @@
         "dungeon",
         "pit",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "dark_pit_ne",
@@ -1340,7 +1888,14 @@
         "dungeon",
         "pit",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "dark_pit_narrow_n",
@@ -1355,7 +1910,14 @@
         "dungeon",
         "pit",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "dark_pit_w",
@@ -1370,7 +1932,14 @@
         "dungeon",
         "pit",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "dark_pit_center",
@@ -1385,7 +1954,14 @@
         "dungeon",
         "pit",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "dark_pit_e",
@@ -1400,7 +1976,14 @@
         "dungeon",
         "pit",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "dark_pit_narrow_center",
@@ -1415,7 +1998,14 @@
         "dungeon",
         "pit",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "dark_pit_sw",
@@ -1430,7 +2020,14 @@
         "dungeon",
         "pit",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "dark_pit_s",
@@ -1445,7 +2042,14 @@
         "dungeon",
         "pit",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "dark_pit_se",
@@ -1460,7 +2064,14 @@
         "dungeon",
         "pit",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "dark_pit_narrow_s",
@@ -1475,7 +2086,14 @@
         "dungeon",
         "pit",
         "autotile"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "rubble_stones_small",
@@ -1489,7 +2107,14 @@
         "o_lobster",
         "dungeon",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 7,
+        "w": 10,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "rubble_stones_pile",
@@ -1503,7 +2128,14 @@
         "o_lobster",
         "dungeon",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 7,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_arch_frame",
@@ -1517,7 +2149,9 @@
         "o_lobster",
         "dungeon",
         "arch"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "dungeon_floor_slab_framed_a_top_left",
@@ -1531,7 +2165,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_framed_a_top_right",
@@ -1545,7 +2181,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_framed_a_bottom_left",
@@ -1559,7 +2197,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_framed_a_bottom_right",
@@ -1573,7 +2213,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_framed_b_top_left",
@@ -1587,7 +2229,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_framed_b_top_right",
@@ -1601,7 +2245,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_framed_b_bottom_left",
@@ -1615,7 +2261,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_framed_b_bottom_right",
@@ -1629,7 +2277,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_studded_top_left",
@@ -1643,7 +2293,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_studded_top_right",
@@ -1657,7 +2309,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_studded_bottom_left",
@@ -1671,7 +2325,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_studded_bottom_right",
@@ -1685,7 +2341,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_diamond_top_left",
@@ -1699,7 +2357,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_diamond_top_right",
@@ -1713,7 +2373,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_diamond_bottom_left",
@@ -1727,7 +2389,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_diamond_bottom_right",
@@ -1741,7 +2405,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_cracked",
@@ -1755,7 +2421,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_cracked_heavy",
@@ -1769,7 +2437,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_vines",
@@ -1783,7 +2453,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dungeon_floor_slab_plain",
@@ -1797,7 +2469,9 @@
         "o_lobster",
         "dungeon",
         "floor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

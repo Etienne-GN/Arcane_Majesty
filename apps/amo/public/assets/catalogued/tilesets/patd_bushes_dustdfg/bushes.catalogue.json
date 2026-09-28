@@ -18,7 +18,14 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 11,
+        "w": 16,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "bushes_var_2",
@@ -31,7 +38,14 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 11,
+        "w": 16,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "bushes_var_3",
@@ -44,7 +58,14 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 11,
+        "w": 16,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "bushes_var_4",
@@ -57,7 +78,14 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 11,
+        "w": 16,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "bushes_var_5",
@@ -70,7 +98,14 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 11,
+        "w": 16,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "bushes_var_6",
@@ -83,7 +118,14 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 11,
+        "w": 16,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "bushes_var_7",
@@ -96,7 +138,14 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 11,
+        "w": 16,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "bushes_var_8",
@@ -109,7 +158,14 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 11,
+        "w": 16,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "bushes_var_9",
@@ -122,7 +178,14 @@
         "dustdfg",
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 11,
+        "w": 16,
+        "h": 10
+      },
+      "layer": "sorted"
     }
   ]
 }

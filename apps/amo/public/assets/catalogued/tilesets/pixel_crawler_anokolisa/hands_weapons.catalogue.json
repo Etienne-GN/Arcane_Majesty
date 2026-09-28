@@ -15,7 +15,9 @@
         "anokolisa",
         "weapon"
       ],
-      "lowConfidence": true
+      "lowConfidence": true,
+      "hitbox": null,
+      "layer": "sorted"
     }
   ]
 }

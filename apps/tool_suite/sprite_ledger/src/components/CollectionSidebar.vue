@@ -15,6 +15,7 @@ const props = defineProps<{
     // collection id -> sprite count, rolled up over descendants; 'all' -> total.
     counts: Record<string, number>;
     licenseFilter: 'all' | 'ok' | 'unlicensed' | 'unmarked';
+    physicsFilter: 'all' | 'unset' | 'proposed' | 'approved' | 'no_hitbox';
 }>();
 
 const newName = ref('');
@@ -30,6 +31,7 @@ const emit = defineEmits<{
     selectSort: [value: 'name' | 'sheet'];
     addCollection: [name: string, parentId: string | null];
     selectLicense: [value: 'all' | 'ok' | 'unlicensed' | 'unmarked'];
+    selectPhysics: [value: 'all' | 'unset' | 'proposed' | 'approved' | 'no_hitbox'];
 }>();
 
 // Pre-order, depth-annotated so the tree and the "parent" picker below both
@@ -93,6 +95,19 @@ function onAddSubmit() {
     </select>
 
     <select
+      class="physics-filter"
+      :value="physicsFilter"
+      title="Collision box and draw layer"
+      @change="emit('selectPhysics', ($event.target as HTMLSelectElement).value as 'all' | 'unset' | 'proposed' | 'approved' | 'no_hitbox')"
+    >
+      <option value="all">Any hitbox status</option>
+      <option value="unset">Hitbox / layer not set</option>
+      <option value="proposed">🤖 Hitbox guessed, to review</option>
+      <option value="approved">✓ Hitbox approved</option>
+      <option value="no_hitbox">🚫 No hitbox</option>
+    </select>
+
+    <select
       class="sort-order"
       :value="sortOrder"
       title="Order sprites within the grid"
@@ -151,6 +166,7 @@ function onAddSubmit() {
 .flagged-toggle.animated { color: #b8f; }
 .flag-filter { width: 100%; box-sizing: border-box; margin-bottom: 8px; }
 .flagged-toggle { display: block; margin-bottom: 12px; font-size: 13px; }
+.physics-filter { width: 100%; margin-bottom: 8px; background: #1a1a1a; color: #eee; border: 1px solid #333; padding: 4px; }
 .sort-order { width: 100%; margin-bottom: 8px; background: #1a1a1a; color: #eee; border: 1px solid #333; padding: 4px; }
 .collections { list-style: none; padding: 0; margin: 0; }
 .collections li { padding: 6px 8px; cursor: pointer; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

@@ -13,7 +13,9 @@
       "tags": [
         "schwarnhild",
         "restored"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "rock_round_single_small",
@@ -25,7 +27,14 @@
       "tags": [
         "schwarnhild",
         "restored"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 7,
+        "w": 15,
+        "h": 8
+      },
+      "layer": "sorted"
     }
   ]
 }

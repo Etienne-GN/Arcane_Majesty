@@ -15,7 +15,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirtpath_n",
@@ -29,7 +31,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirtpath_ne",
@@ -43,7 +47,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirtpath_w",
@@ -57,7 +63,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirtpath_c",
@@ -71,7 +79,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirtpath_e",
@@ -85,7 +95,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirtpath_sw",
@@ -99,7 +111,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirtpath_s",
@@ -113,7 +127,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirtpath_se",
@@ -127,7 +143,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirtpath_v_top",
@@ -141,7 +159,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirtpath_v_mid",
@@ -155,7 +175,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirtpath_v_bottom",
@@ -169,7 +191,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirtpath_h_left",
@@ -183,7 +207,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirtpath_h_mid",
@@ -197,7 +223,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirtpath_h_right",
@@ -211,7 +239,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirtpath_single",
@@ -225,7 +255,9 @@
         "dirt",
         "path",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

@@ -21,7 +21,9 @@
         "fill",
         "repeatable",
         "brown"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_fill_pale_yellow",
@@ -37,7 +39,9 @@
         "fill",
         "repeatable",
         "pale_yellow"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_fill_gray_green",
@@ -53,7 +57,9 @@
         "fill",
         "repeatable",
         "gray_green"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_fill_olive",
@@ -69,7 +75,9 @@
         "fill",
         "repeatable",
         "olive"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

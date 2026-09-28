@@ -16,7 +16,9 @@
         "building",
         "door",
         "wood"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "brown_wood_plank_double",
@@ -27,7 +29,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 24,
+        "w": 29,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "window_lit",
@@ -42,7 +51,9 @@
         "building",
         "window",
         "lit"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "window_unlit",
@@ -56,7 +67,9 @@
         "atlas",
         "building",
         "window"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "gold_glint_sparkle",
@@ -67,7 +80,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "brass_flower_gear",
@@ -78,7 +93,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "brass_gear_cog",
@@ -89,7 +106,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 9,
+        "w": 17,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "hanging_gear_chain",
@@ -103,7 +127,14 @@
         "gear",
         "chain",
         "mechanism"
-      ]
+      ],
+      "hitbox": {
+        "x": 9,
+        "y": 19,
+        "w": 22,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "gold_chain_horizontal",
@@ -114,7 +145,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 12,
+        "w": 29,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "gold_chain_corner",
@@ -125,7 +163,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 20,
+        "w": 10,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "brass_sunburst_medallion_a",
@@ -136,7 +181,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "windmill",
@@ -151,7 +203,14 @@
         "machine",
         "steampunk",
         "windmill"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 43,
+        "w": 65,
+        "h": 42
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_planks_stacked",
@@ -167,7 +226,14 @@
         "steampunk",
         "windmill",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 12,
+        "w": 29,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "gilded_brick_wall_top_post_left",
@@ -178,7 +244,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "gilded_brick_wall_top_fill",
@@ -189,7 +262,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "gilded_brick_wall_top_post_right",
@@ -200,7 +280,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "torii_post_cap_a",
@@ -211,7 +298,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 25,
+        "y": 30,
+        "w": 4,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "torii_post_cap_b",
@@ -222,7 +316,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 30,
+        "w": 4,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_post_shadow_fragment_a",
@@ -233,7 +334,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "diagonal_shadow_fragment_a",
@@ -244,7 +347,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dark_alcove_shadow",
@@ -255,7 +360,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "winged_skull_crest_top",
@@ -266,7 +373,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "torii_gate_large",
@@ -282,7 +396,14 @@
         "gate",
         "torii",
         "shrine"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 70,
+        "w": 155,
+        "h": 46
+      },
+      "layer": "sorted"
     },
     {
       "name": "brown_wood_plank_single",
@@ -293,7 +414,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 4,
+        "w": 29,
+        "h": 4
+      },
+      "layer": "sorted"
     },
     {
       "name": "pale_rune_medallion",
@@ -304,7 +432,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 24,
+        "w": 14,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_rune_medallion_a",
@@ -315,7 +450,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 24,
+        "w": 14,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "brass_sunburst_medallion_b",
@@ -326,7 +468,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "hanging_medallion_sunburst",
@@ -337,7 +486,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_rune_medallion_b",
@@ -348,7 +504,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 24,
+        "w": 14,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "red_gem_shard",
@@ -359,7 +522,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "thin_shelf_edge_fragment",
@@ -370,7 +535,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "gilded_brick_wall_mid_post_left",
@@ -381,7 +548,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "gilded_brick_wall_mid_fill",
@@ -392,7 +566,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "gilded_brick_wall_mid_post_right",
@@ -403,7 +584,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "torii_post_shaft_upper",
@@ -414,7 +602,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 25,
+        "y": 26,
+        "w": 4,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_post_shadow_fragment_b",
@@ -425,7 +620,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shrine_plaque_star_top",
@@ -436,7 +633,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "torii_post_b_shaft_upper",
@@ -447,7 +646,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 26,
+        "w": 6,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "tan_wood_panel_vertical_top",
@@ -458,7 +664,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "diagonal_shadow_fragment_b",
@@ -469,7 +677,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "maroon_base_trim_socket_water",
@@ -482,7 +692,14 @@
         "atlas",
         "socket",
         "water"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "winged_skull_crest_jaw",
@@ -493,7 +710,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 13,
+        "w": 29,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_top_post_left",
@@ -504,7 +728,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_top_fill",
@@ -515,7 +746,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_top_post_right",
@@ -526,7 +764,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "arched_double_door_top",
@@ -537,7 +782,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "pale_wood_plank_double",
@@ -548,7 +795,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 24,
+        "w": 29,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_top_bevel_nw",
@@ -559,7 +813,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_top_bevel_ne",
@@ -570,7 +831,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "brass_sunburst_medallion_c",
@@ -581,7 +849,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 13,
+        "w": 22,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "carved_wood_knob",
@@ -592,7 +867,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 26,
+        "w": 12,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "twin_wooden_pegs",
@@ -603,7 +885,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 27,
+        "w": 13,
+        "h": 5
+      },
+      "layer": "sorted"
     },
     {
       "name": "copper_pipe_vertical_top",
@@ -614,7 +903,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 21,
+        "y": 16,
+        "w": 10,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "gilded_brick_wall_base_post_left",
@@ -625,7 +921,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "gilded_brick_wall_base_fill",
@@ -636,7 +939,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "gilded_brick_wall_base_post_right",
@@ -647,7 +957,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "torii_post_shaft_lower",
@@ -658,7 +975,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 25,
+        "y": 26,
+        "w": 4,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "shrine_lattice_shelf",
@@ -669,7 +993,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "shrine_plaque_star_bottom",
@@ -680,7 +1006,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "torii_post_b_shaft_lower",
@@ -691,7 +1019,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 26,
+        "w": 6,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "tan_wood_panel_vertical_base",
@@ -702,7 +1037,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "red_lacquer_panel",
@@ -713,7 +1050,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 16,
+        "w": 8,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "brick_base_trim_socket_water",
@@ -727,7 +1071,14 @@
         "socket",
         "water",
         "brick"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "verdigris_pole_pedestal",
@@ -738,7 +1089,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_base_post_left",
@@ -749,7 +1107,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_base_fill",
@@ -760,7 +1125,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_base_post_right",
@@ -771,7 +1143,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "arched_double_door_bottom",
@@ -782,7 +1161,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "pale_wood_plank_single",
@@ -793,7 +1174,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 4,
+        "w": 29,
+        "h": 4
+      },
+      "layer": "sorted"
     },
     {
       "name": "brick_chimney",
@@ -808,7 +1196,9 @@
         "building",
         "chimney",
         "roof"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "small_brick_step_fragment",
@@ -819,7 +1209,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 29,
+        "w": 10,
+        "h": 3
+      },
+      "layer": "sorted"
     },
     {
       "name": "gray_stone_fragment",
@@ -830,7 +1227,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 28,
+        "y": 26,
+        "w": 4,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "brown_edge_fragment",
@@ -841,7 +1245,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 28,
+        "y": 26,
+        "w": 4,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "copper_pipe_horizontal",
@@ -852,7 +1263,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 26,
+        "w": 29,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "copper_pipe_elbow_joint",
@@ -863,7 +1281,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 15,
+        "w": 26,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "flower_window_box",
@@ -879,7 +1304,9 @@
         "plant",
         "flower",
         "decor"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "iron_fence_scroll_panel_a",
@@ -890,7 +1317,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 19,
+        "w": 31,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_scroll_panel_b",
@@ -901,7 +1335,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_end_post_a",
@@ -912,7 +1353,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 4,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_end_post_b",
@@ -923,7 +1371,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 5,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "red_post_base_fragment",
@@ -934,7 +1389,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 25,
+        "y": 15,
+        "w": 4,
+        "h": 4
+      },
+      "layer": "sorted"
     },
     {
       "name": "maroon_base_trim_fill",
@@ -945,7 +1407,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 9,
+        "w": 29,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "maroon_base_trim_socket",
@@ -956,7 +1425,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 10,
+        "w": 29,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "maroon_base_trim_end",
@@ -967,7 +1443,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 9,
+        "w": 29,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "tan_base_trim_socket",
@@ -978,7 +1461,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 10,
+        "w": 29,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "tan_base_trim_fill",
@@ -989,7 +1479,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 9,
+        "w": 29,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "tan_base_trim_end",
@@ -1000,7 +1497,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 9,
+        "w": 29,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "verdigris_pole_stone_base",
@@ -1011,7 +1515,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 25,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "aged_stone_wall_left_edge",
@@ -1022,7 +1533,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "aged_stone_wall_fill",
@@ -1033,7 +1551,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "aged_stone_wall_right_edge",
@@ -1044,7 +1569,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "rounded_stone_crest_a",
@@ -1055,7 +1587,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 24,
+        "w": 29,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "rounded_stone_crest_b",
@@ -1066,7 +1605,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 24,
+        "w": 29,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "rusty_pipe_straight_vertical",
@@ -1077,7 +1623,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 8,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "rusty_pipe_elbow_down_right",
@@ -1088,7 +1641,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 15,
+        "w": 26,
+        "h": 15
+      },
+      "layer": "sorted"
     },
     {
       "name": "rusty_pipe_horizontal_capped",
@@ -1099,7 +1659,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 25,
+        "w": 29,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "small_round_pebble",
@@ -1110,7 +1677,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flagpole",
@@ -1125,7 +1694,14 @@
         "prop",
         "flag",
         "pole"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 51,
+        "w": 4,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "flagpole_tricolor_banner",
@@ -1140,7 +1716,9 @@
         "prop",
         "flag",
         "banner"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "ivory_pillar_shaft_top",
@@ -1151,7 +1729,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 26,
+        "w": 4,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_star_panel_a",
@@ -1162,7 +1747,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_star_panel_b",
@@ -1173,7 +1765,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_end_post_c",
@@ -1184,7 +1783,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 10,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "diagonal_crack_fragment_a",
@@ -1196,7 +1802,9 @@
         "lpc",
         "atlas",
         "possible_merge_fragment"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "stone_steps",
@@ -1211,7 +1819,9 @@
         "building",
         "stairs",
         "stone"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "curved_scratch_mark",
@@ -1223,7 +1833,14 @@
         "lpc",
         "atlas",
         "possible_merge_fragment"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 7,
+        "w": 22,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "terracotta_cap_block",
@@ -1234,7 +1851,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 9,
+        "w": 11,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "torii_gate_with_benches",
@@ -1251,7 +1875,14 @@
         "torii",
         "bench",
         "ensemble"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 77,
+        "w": 263,
+        "h": 51
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_corner_shadow_light",
@@ -1262,7 +1893,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_corner_seam_strip",
@@ -1273,7 +1911,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_corner_shadow_dark",
@@ -1284,7 +1929,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_plaster_wall_post_left_a",
@@ -1295,7 +1947,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_plaster_wall_fill_a",
@@ -1306,7 +1965,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_plaster_wall_post_right_a",
@@ -1317,7 +1983,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cypress_topiary_bush",
@@ -1328,7 +2001,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 16,
+        "w": 18,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "ivory_pillar_shaft_mid",
@@ -1339,7 +2019,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 26,
+        "w": 4,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "pale_column_shaft_upper",
@@ -1350,7 +2037,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_loop_panel_a",
@@ -1361,7 +2055,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 19,
+        "w": 31,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_loop_panel_b",
@@ -1372,7 +2073,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 19,
+        "w": 31,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_loop_panel_c",
@@ -1383,7 +2091,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_end_post_d",
@@ -1394,7 +2109,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 10,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "latticed_window_panel",
@@ -1409,7 +2131,9 @@
         "building",
         "window",
         "facade"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "rust_pillar_shaft_cap",
@@ -1420,7 +2144,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 28,
+        "w": 4,
+        "h": 4
+      },
+      "layer": "sorted"
     },
     {
       "name": "warm_gray_wall_fill",
@@ -1431,7 +2162,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "square_wall_niche_frame",
@@ -1442,7 +2180,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_gray_wall_fill",
@@ -1453,7 +2198,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_plaster_wall_post_left_b",
@@ -1464,7 +2216,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_plaster_wall_fill_b",
@@ -1475,7 +2234,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_plaster_wall_post_right_b",
@@ -1486,7 +2252,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_plaster_wall_panel_single_a",
@@ -1497,7 +2270,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "potted_shrub_bush",
@@ -1508,7 +2288,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 16,
+        "w": 19,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "gray_mound_small",
@@ -1519,7 +2306,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 28,
+        "w": 29,
+        "h": 4
+      },
+      "layer": "sorted"
     },
     {
       "name": "brick_pyramid_gable",
@@ -1530,7 +2324,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 24,
+        "w": 29,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "gray_mound_smooth",
@@ -1541,7 +2342,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 24,
+        "w": 29,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "ivory_pillar_shaft_base",
@@ -1552,7 +2360,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "pale_column_shaft_lower",
@@ -1563,7 +2378,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 26,
+        "w": 11,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_star_panel_c",
@@ -1574,7 +2396,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_star_panel_d",
@@ -1585,7 +2414,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_plain_bar_panel",
@@ -1596,7 +2432,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "diagonal_crack_fragment_b",
@@ -1608,7 +2451,9 @@
         "lpc",
         "atlas",
         "possible_merge_fragment"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "rust_pillar_shaft_body",
@@ -1619,7 +2464,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 26,
+        "w": 4,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "gem_trim_gable_slope_left",
@@ -1630,7 +2482,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "gem_trim_gable_ridge_cap",
@@ -1641,7 +2495,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "gem_trim_gable_slope_right",
@@ -1652,7 +2508,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "slate_plaster_wall_fill_c",
@@ -1663,7 +2521,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_plaster_wall_fill_d",
@@ -1674,7 +2539,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_plaster_wall_post_right_c",
@@ -1685,7 +2557,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_plaster_wall_panel_single_b",
@@ -1696,7 +2575,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_arch_alcove_left",
@@ -1707,7 +2593,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_arch_alcove_right",
@@ -1718,7 +2611,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "shingle_roof_slope_ridge",
@@ -1729,7 +2629,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "shingle_roof_slope_mid",
@@ -1740,7 +2642,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "shingle_roof_slope_eave",
@@ -1751,7 +2655,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "gray_brick_wall_panel_a",
@@ -1762,7 +2668,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "gray_brick_wall_panel_b",
@@ -1773,7 +2686,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "gray_brick_wall_panel_c",
@@ -1784,7 +2704,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "gray_brick_wall_panel_single",
@@ -1795,7 +2722,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "pale_canvas_tent_peak",
@@ -1806,7 +2740,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 24,
+        "w": 29,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_oxblood_wall_fill",
@@ -1817,7 +2758,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_gable_valley_shadow",
@@ -1828,7 +2776,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "gem_trim_gable_valley",
@@ -1839,7 +2789,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "gem_corner_stone_lintel",
@@ -1850,7 +2802,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "gray_wall_panel_left_seam",
@@ -1861,7 +2815,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "gray_wall_panel_plain",
@@ -1872,7 +2833,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "gray_wall_panel_right_seam",
@@ -1883,7 +2851,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "gray_wall_panel_double_seam",
@@ -1894,7 +2869,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "curtained_bay_window_left",
@@ -1905,7 +2887,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "curtained_bay_window_right",
@@ -1916,7 +2900,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "diagonal_staircase_railing",
@@ -1930,7 +2916,9 @@
         "atlas",
         "architecture",
         "stairs"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "mint_wall_railband_post_left",
@@ -1941,7 +2929,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "mint_wall_railband_fill",
@@ -1952,7 +2947,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "mint_wall_railband_post_right",
@@ -1963,7 +2965,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "mint_gable_roof_slope_left",
@@ -1974,7 +2983,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "mint_gable_roof_top_fill",
@@ -1985,7 +2996,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "mint_gable_roof_slope_right",
@@ -1996,7 +3009,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "arched_iron_grille",
@@ -2011,7 +3026,14 @@
         "gate",
         "architecture",
         "metal"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 43,
+        "w": 32,
+        "h": 21
+      },
+      "layer": "sorted"
     },
     {
       "name": "baluster_frieze_fill_a",
@@ -2022,7 +3044,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 24,
+        "w": 32,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "baluster_frieze_fill_b",
@@ -2033,7 +3062,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 24,
+        "w": 32,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "baluster_frieze_fill_c",
@@ -2044,7 +3080,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 24,
+        "w": 32,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "scalloped_shingle_roof_a",
@@ -2055,7 +3098,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_shadow_block_flat",
@@ -2066,7 +3111,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_underside_shadow_a",
@@ -2077,7 +3124,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_lattice_shadow_a",
@@ -2088,7 +3137,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "guardian_lion_statue",
@@ -2103,7 +3154,14 @@
         "statue",
         "shrine",
         "decor"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 73,
+        "w": 24,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "barrel_a",
@@ -2118,7 +3176,14 @@
         "prop",
         "barrel",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 29,
+        "w": 25,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "barrel_b",
@@ -2133,7 +3198,14 @@
         "prop",
         "barrel",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 45,
+        "w": 25,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "barrel_cluster_trio_edge_cropped",
@@ -2148,7 +3220,14 @@
         "cluster",
         "container",
         "lpc"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 31,
+        "w": 29,
+        "h": 30
+      },
+      "layer": "sorted"
     },
     {
       "name": "barrel_cluster_pair_edge_cropped",
@@ -2163,7 +3242,14 @@
         "cluster",
         "container",
         "lpc"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 31,
+        "w": 14,
+        "h": 30
+      },
+      "layer": "sorted"
     },
     {
       "name": "red_brick_wall_crenel_post_left",
@@ -2174,7 +3260,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "red_brick_wall_crenel_fill",
@@ -2185,7 +3278,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "red_brick_wall_crenel_post_right",
@@ -2196,7 +3296,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "windowed_door",
@@ -2210,7 +3317,9 @@
         "atlas",
         "door",
         "architecture"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "closed_shutter",
@@ -2224,7 +3333,9 @@
         "atlas",
         "door",
         "architecture"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "arched_panel_door",
@@ -2238,7 +3349,9 @@
         "atlas",
         "door",
         "architecture"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "red_brick_chimney",
@@ -2253,7 +3366,9 @@
         "building",
         "chimney",
         "roof"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "unlit_paned_window_tall",
@@ -2264,7 +3379,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "paned_window",
@@ -2278,7 +3395,9 @@
         "atlas",
         "building",
         "window"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mint_wall_crown_post_left",
@@ -2289,7 +3408,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "mint_wall_crown_fill",
@@ -2300,7 +3426,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "mint_wall_crown_post_right",
@@ -2311,7 +3444,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "mint_paned_double_window",
@@ -2322,7 +3462,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "front_steps",
@@ -2337,7 +3479,9 @@
         "building",
         "stairs",
         "stone"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "ornate_pedimented_window_left",
@@ -2348,7 +3492,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "ornate_pedimented_window_right",
@@ -2359,7 +3505,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tan_wall_mid_post_right",
@@ -2370,7 +3518,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "plank_door_diagonal_brace",
@@ -2384,7 +3539,9 @@
         "atlas",
         "door",
         "architecture"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tan_wall_mid_post_left",
@@ -2395,7 +3552,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "scalloped_shingle_roof_b",
@@ -2406,7 +3570,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_underside_shadow_b",
@@ -2417,7 +3583,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_lattice_shadow_b",
@@ -2428,7 +3596,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "red_brick_wall_mid_post_left",
@@ -2439,7 +3609,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "red_brick_wall_mid_fill",
@@ -2450,7 +3627,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "red_brick_wall_mid_post_right",
@@ -2461,7 +3645,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "mint_wall_mid_post_left",
@@ -2472,7 +3663,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "mint_wall_mid_fill",
@@ -2483,7 +3681,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "mint_wall_mid_post_right",
@@ -2494,7 +3699,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_paneled_double_door",
@@ -2505,7 +3717,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "curtained_window_a",
@@ -2516,7 +3730,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "curtained_window_b",
@@ -2527,7 +3743,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tan_wall_base_fill",
@@ -2538,7 +3756,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "tan_wall_base_post_right",
@@ -2549,7 +3774,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "tan_wall_base_post_left",
@@ -2560,7 +3792,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "scalloped_shingle_roof_c",
@@ -2571,7 +3810,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "scalloped_shingle_roof_d",
@@ -2582,7 +3823,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "scalloped_shingle_roof_eave_bracket_a",
@@ -2593,7 +3836,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_underside_shadow_c",
@@ -2604,7 +3849,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "roof_lattice_shadow_c",
@@ -2615,7 +3862,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "barrel_top_open_empty",
@@ -2629,7 +3878,9 @@
       "x": 934,
       "y": 341,
       "w": 20,
-      "h": 11
+      "h": 11,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "barrel_top_open_water",
@@ -2643,7 +3894,9 @@
       "x": 966,
       "y": 341,
       "w": 20,
-      "h": 11
+      "h": 11,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "red_brick_wall_base_post_left",
@@ -2654,7 +3907,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "red_brick_wall_base_fill",
@@ -2665,7 +3925,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "red_brick_wall_base_post_right",
@@ -2676,7 +3943,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_ball_finial_a",
@@ -2687,7 +3961,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 24,
+        "w": 29,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_ball_finial_b",
@@ -2698,7 +3979,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 24,
+        "w": 29,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_portico",
@@ -2713,7 +4001,14 @@
         "building",
         "column",
         "portico"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 69,
+        "w": 24,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "mint_wall_base_post_left",
@@ -2724,7 +4019,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "mint_wall_base_fill",
@@ -2735,7 +4037,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "mint_wall_base_post_right",
@@ -2746,7 +4055,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_arched_panel_wall",
@@ -2757,7 +4073,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "carved_cream_crest_medallion",
@@ -2768,7 +4091,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 24,
+        "w": 29,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_chimney",
@@ -2783,7 +4113,9 @@
         "building",
         "chimney",
         "roof"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "columned_balcony",
@@ -2798,7 +4130,14 @@
         "building",
         "balcony",
         "column"
-      ]
+      ],
+      "hitbox": {
+        "x": 16,
+        "y": 64,
+        "w": 32,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "venetian_blind_closed",
@@ -2809,7 +4148,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "hanging_chain_thin",
@@ -2820,7 +4161,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 14,
+        "y": 16,
+        "w": 3,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "shingle_roof_ridge_cap_round",
@@ -2831,7 +4179,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "scalloped_shingle_roof_e",
@@ -2842,7 +4192,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "scalloped_shingle_roof_f",
@@ -2853,7 +4205,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "scalloped_shingle_roof_eave_bracket_b",
@@ -2864,7 +4218,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "wood_rail_fence_post_end_left",
@@ -2875,7 +4231,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 17,
+        "w": 20,
+        "h": 9
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_rail_fence_panel_mid",
@@ -2886,7 +4249,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 17,
+        "w": 32,
+        "h": 9
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_rail_fence_post_end_right",
@@ -2897,7 +4267,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 17,
+        "w": 20,
+        "h": 9
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_picket_row_loose",
@@ -2908,7 +4285,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 13,
+        "y": 14,
+        "w": 18,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_picket_fence_panel",
@@ -2919,7 +4303,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 16,
+        "w": 32,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_picket_fence_end",
@@ -2930,7 +4321,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 16,
+        "w": 20,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_roof_shadow_silhouette_e",
@@ -2941,7 +4339,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "violet_brick_wall_fill_plain_d",
@@ -2952,7 +4352,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_roof_shadow_silhouette_f",
@@ -2963,7 +4370,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "framed_brick_panel_a",
@@ -2974,7 +4383,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "framed_brick_panel_b",
@@ -2985,7 +4396,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "framed_brick_panel_c",
@@ -2996,7 +4409,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "slate_brick_wall_fill",
@@ -3007,7 +4422,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_roof_shadow_silhouette_c",
@@ -3018,7 +4440,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "ashen_brick_wall_fill_plain_b",
@@ -3029,7 +4453,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_roof_shadow_silhouette_d",
@@ -3040,7 +4471,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "violet_brick_roof_shadow_silhouette_a",
@@ -3051,7 +4484,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "valley_pipe_strut_a",
@@ -3062,7 +4497,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "violet_brick_roof_shadow_silhouette_b",
@@ -3073,7 +4510,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "violet_brick_wall_top_post_left",
@@ -3084,7 +4523,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "chinese_lantern_red_hanging",
@@ -3097,7 +4543,14 @@
         "atlas",
         "lantern",
         "prop"
-      ]
+      ],
+      "hitbox": {
+        "x": 9,
+        "y": 19,
+        "w": 12,
+        "h": 5
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_top_post_right",
@@ -3108,7 +4561,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_top_shade_fill",
@@ -3119,7 +4579,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_roof_shadow_silhouette_a",
@@ -3130,7 +4597,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "valley_pipe_strut_b",
@@ -3141,7 +4610,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 16,
+        "w": 9,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_roof_shadow_silhouette_b",
@@ -3152,7 +4628,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "cream_arch_lattice_panel",
@@ -3163,7 +4641,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 16,
+        "w": 7,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "mint_tile_oval_bathtub",
@@ -3174,7 +4659,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 18,
+        "w": 7,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "footed_stone_basin",
@@ -3185,7 +4677,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 13,
+        "w": 7,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "tan_slatted_shutter_a",
@@ -3196,7 +4695,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 16,
+        "w": 7,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "red_marbled_orb",
@@ -3207,7 +4713,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 18,
+        "w": 7,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "barrel_tile_roof_fill_a",
@@ -3218,7 +4731,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "barrel_tile_roof_fill_b",
@@ -3229,7 +4744,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "barrel_tile_roof_hip_diagonal",
@@ -3240,7 +4757,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "barrel_tile_roof_hip_edge_drip_a",
@@ -3251,7 +4770,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "wood_fence_post_stake_a",
@@ -3262,7 +4783,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_fence_post_stake_b",
@@ -3273,7 +4801,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_fence_post_stake_c",
@@ -3284,7 +4819,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_fence_post_stake_d",
@@ -3295,7 +4837,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_fence_post_stake_e",
@@ -3306,7 +4855,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_fence_post_stake_f",
@@ -3317,7 +4873,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "hanging_wood_bucket_empty",
@@ -3328,7 +4891,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "violet_brick_wall_shadow_smooth_a",
@@ -3339,7 +4904,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_niche_panel_a",
@@ -3350,7 +4922,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_shadow_deep_a",
@@ -3361,7 +4940,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_mid_post_left_a",
@@ -3372,7 +4958,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_mid_fill_a",
@@ -3383,7 +4976,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_mid_fill_b",
@@ -3394,7 +4994,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_mid_post_right_a",
@@ -3409,7 +5016,14 @@
         "building",
         "pillar",
         "shrine"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 96
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_shadow_smooth_a",
@@ -3420,7 +5034,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_niche_panel_a",
@@ -3431,7 +5052,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_shadow_deep_a",
@@ -3442,7 +5070,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_fill_a",
@@ -3453,7 +5088,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_fill_b",
@@ -3464,7 +5106,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_post_right_a",
@@ -3475,7 +5124,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_sink_with_faucet",
@@ -3486,7 +5142,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 18,
+        "w": 18,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "tan_slatted_shutter_b",
@@ -3497,7 +5160,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 13,
+        "y": 16,
+        "w": 18,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_blood_puddle_stain",
@@ -3508,7 +5178,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wood_lattice_fence_a",
@@ -3519,7 +5191,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 20,
+        "w": 20,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_bucket_top_empty",
@@ -3532,7 +5211,14 @@
         "atlas",
         "bucket",
         "container"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 17,
+        "w": 19,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "barrel_tile_roof_eave_drip_b",
@@ -3543,7 +5229,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "barrel_tile_roof_eave_hip_drip",
@@ -3554,7 +5242,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "barrel_tile_roof_hip_edge_drip_tip",
@@ -3565,7 +5255,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "log_rail_fence_post_end_left_a",
@@ -3576,7 +5268,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "log_rail_fence_panel_mid_a",
@@ -3587,7 +5286,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "log_rail_fence_post_end_right_a",
@@ -3598,7 +5304,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "picket_rail_fence_post_end_left_a",
@@ -3609,7 +5322,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "picket_rail_fence_panel_mid_a",
@@ -3620,7 +5340,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 28,
+        "y": 30,
+        "w": 4,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "picket_rail_fence_post_end_right_a",
@@ -3631,7 +5358,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 30,
+        "w": 4,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "hanging_wood_bucket_soil",
@@ -3642,7 +5376,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "violet_brick_wall_corner_shadow_a",
@@ -3653,7 +5389,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_fill_plain_a",
@@ -3664,7 +5407,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_corner_shadow_b",
@@ -3675,7 +5425,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_mid_fill_c",
@@ -3686,7 +5443,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_mid_fill_d",
@@ -3697,7 +5461,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_mid_fill_e",
@@ -3708,7 +5479,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_mid_post_right_b",
@@ -3719,7 +5497,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "broken_stone_chip_left_a",
@@ -3730,7 +5515,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 30,
+        "w": 4,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "broken_stone_chip_right_a",
@@ -3741,7 +5533,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 17,
+        "y": 21,
+        "w": 14,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_corner_shadow_a",
@@ -3752,7 +5551,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_fill_plain_a",
@@ -3763,7 +5569,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_corner_shadow_b",
@@ -3774,7 +5587,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_fill_c",
@@ -3785,7 +5605,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_fill_d",
@@ -3796,7 +5623,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_fill_e",
@@ -3807,7 +5641,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_niche_panel_b",
@@ -3818,7 +5659,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "broken_stone_chip_left_b",
@@ -3829,7 +5677,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 18,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "broken_stone_chip_right_b",
@@ -3840,7 +5695,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 13,
+        "y": 16,
+        "w": 18,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "pipe_valve_elbow_corner",
@@ -3851,7 +5713,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "pipe_horizontal_riveted_segment",
@@ -3862,7 +5731,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 18,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_bucket_water_top",
@@ -3873,7 +5749,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 17,
+        "w": 19,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_roof_shadow_silhouette_c",
@@ -3884,7 +5767,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "violet_brick_wall_fill_plain_c",
@@ -3895,7 +5780,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_roof_shadow_silhouette_d",
@@ -3906,7 +5798,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "log_rail_fence_post_end_left_b",
@@ -3917,7 +5811,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "log_rail_fence_panel_mid_b",
@@ -3928,7 +5829,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "log_rail_fence_post_end_right_b",
@@ -3939,7 +5847,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "picket_rail_fence_post_end_left_b",
@@ -3950,7 +5865,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "picket_rail_fence_panel_mid_b",
@@ -3961,7 +5883,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 28,
+        "y": 2,
+        "w": 4,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "picket_rail_fence_post_end_right_b",
@@ -3972,7 +5901,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 2,
+        "w": 4,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "hanging_wood_bucket_water",
@@ -3983,7 +5919,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "violet_brick_wall_corner_shadow_c",
@@ -3994,7 +5932,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_fill_plain_b",
@@ -4005,7 +5950,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_corner_shadow_d",
@@ -4016,7 +5968,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_base_post_left",
@@ -4027,7 +5986,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_base_fill_a",
@@ -4038,7 +6004,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_base_fill_b",
@@ -4049,7 +6022,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_brick_wall_base_post_right",
@@ -4060,7 +6040,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "broken_stone_chip_left_c",
@@ -4071,7 +6058,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 2,
+        "w": 4,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "broken_stone_chip_right_c",
@@ -4082,7 +6076,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 21,
+        "w": 11,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_corner_shadow_c",
@@ -4093,7 +6094,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "valley_pipe_strut_c",
@@ -4104,7 +6112,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 3,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_corner_shadow_d",
@@ -4115,7 +6130,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_post_left_a",
@@ -4126,7 +6148,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_fill_f",
@@ -4137,7 +6166,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_fill_g",
@@ -4148,7 +6184,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "ashen_brick_wall_niche_panel_c",
@@ -4159,7 +6202,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "broken_stone_chip_left_d",
@@ -4170,7 +6220,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 13,
+        "y": 13,
+        "w": 18,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "broken_stone_chip_right_d",
@@ -4181,7 +6238,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 13,
+        "w": 29,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "pipe_valve_cap_short",
@@ -4192,7 +6256,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 13,
+        "w": 18,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "clay_floor_trim_a",
@@ -4203,7 +6274,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "clay_floor_trim_b",
@@ -4214,7 +6287,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "clay_floor_trim_c",
@@ -4225,7 +6300,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "orange_trim_strip_narrow",
@@ -4236,7 +6313,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 24,
+        "y": 16,
+        "w": 7,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "log_rail_fence_post_end_left_c",
@@ -4247,7 +6331,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 8,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "log_rail_fence_panel_mid_c",
@@ -4258,7 +6349,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 24,
+        "y": 19,
+        "w": 8,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "log_rail_fence_post_end_right_c",
@@ -4269,7 +6367,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 8,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "picket_rail_fence_post_end_left_c",
@@ -4280,7 +6385,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "picket_rail_fence_panel_mid_c",
@@ -4291,7 +6403,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "picket_rail_fence_post_end_right_c",
@@ -4302,7 +6421,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_top_corner_shadow_a",
@@ -4313,7 +6439,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_top_corner_shadow_b",
@@ -4324,7 +6457,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_top_corner_shadow_c",
@@ -4339,7 +6479,14 @@
         "prop",
         "drain",
         "sewer"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 96
+      },
+      "layer": "sorted"
     },
     {
       "name": "canvas_tent_a",
@@ -4354,7 +6501,14 @@
         "structure",
         "tent",
         "camp"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 80,
+        "w": 112,
+        "h": 75
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_top_post_right_a",
@@ -4365,7 +6519,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_top_post_left_b",
@@ -4376,7 +6537,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_top_post_right_b",
@@ -4387,7 +6555,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_top_fill",
@@ -4398,7 +6573,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_archway_top_left",
@@ -4414,7 +6596,9 @@
         "gate",
         "fence",
         "iron"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "sienna_brick_archway_top_right",
@@ -4425,7 +6609,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "sienna_brick_archway_spandrel_left_a",
@@ -4436,7 +6622,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 14,
+        "w": 29,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_archway_spandrel_right_a",
@@ -4447,7 +6640,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 14,
+        "w": 29,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_lattice_fence_b",
@@ -4458,7 +6658,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 16,
+        "w": 32,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_dowel_stick",
@@ -4469,7 +6676,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 9,
+        "y": 19,
+        "w": 4,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_shell_medallion_panel_a",
@@ -4480,7 +6694,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 19,
+        "y": 17,
+        "w": 4,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_shell_medallion_panel_b",
@@ -4495,7 +6716,14 @@
         "prop",
         "lumber",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 39,
+        "w": 8,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_thin_end_post_a",
@@ -4506,7 +6734,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_thin_end_post_pair_a",
@@ -4517,7 +6752,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "oxblood_brick_wall_fill",
@@ -4528,7 +6770,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "log_fence_pointed_end_panel",
@@ -4539,7 +6788,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 24,
+        "y": 19,
+        "w": 8,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "log_fence_mid_panel_a",
@@ -4550,7 +6806,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 8,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "log_fence_mid_panel_b",
@@ -4561,7 +6824,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 24,
+        "y": 19,
+        "w": 8,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "log_fence_picket_transition_panel",
@@ -4572,7 +6842,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 8,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "tan_stake_fragment_short",
@@ -4583,7 +6860,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "tan_stake_fragment_tall",
@@ -4594,7 +6873,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "maroon_wall_pilaster_arch_shadow",
@@ -4605,7 +6891,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_mid_fill_a",
@@ -4616,7 +6909,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_mid_fill_b",
@@ -4627,7 +6927,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_mid_fill_c",
@@ -4638,7 +6945,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_mid_post_left_a",
@@ -4649,7 +6963,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_mid_post_right_a",
@@ -4660,7 +6981,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_mid_post_left_b",
@@ -4671,7 +6999,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_mid_post_right_b",
@@ -4682,7 +7017,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_mid_fill_d",
@@ -4693,7 +7035,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_archway_mid_left",
@@ -4704,7 +7053,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 15,
+        "y": 19,
+        "w": 16,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_archway_mid_right",
@@ -4715,7 +7071,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 19,
+        "w": 16,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_archway_spandrel_left_b",
@@ -4726,7 +7089,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 10,
+        "y": 23,
+        "w": 16,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_archway_spandrel_right_b",
@@ -4737,7 +7107,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 23,
+        "w": 16,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_star_medallion_oxblood_base_a",
@@ -4748,7 +7125,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 16,
+        "w": 32,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_star_medallion_oxblood_base_b",
@@ -4759,7 +7143,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_thin_end_post_cracked",
@@ -4770,7 +7161,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_base_fill_e",
@@ -4781,7 +7179,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "brown_plank_fragment_point_right",
@@ -4792,7 +7197,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 24,
+        "y": 16,
+        "w": 7,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "brown_plank_fragment_point_left",
@@ -4803,7 +7215,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 16,
+        "w": 7,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "brown_plank_fragment_diagonal",
@@ -4814,7 +7233,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 24,
+        "y": 16,
+        "w": 7,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "tan_plank_fragment_diagonal_a",
@@ -4825,7 +7251,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 16,
+        "w": 7,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "tan_plank_fragment_diagonal_b",
@@ -4836,7 +7269,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "tan_plank_fragment_diagonal_c",
@@ -4847,7 +7282,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 16,
+        "w": 7,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_slatted_crate",
@@ -4858,7 +7300,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 24,
+        "y": 16,
+        "w": 7,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_base_fill_a",
@@ -4869,7 +7318,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_base_fill_b",
@@ -4880,7 +7336,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_base_fill_c",
@@ -4891,7 +7354,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_base_post_left_a",
@@ -4902,7 +7372,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_base_post_right_a",
@@ -4913,7 +7390,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_base_post_left_b",
@@ -4924,7 +7408,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_base_post_right_b",
@@ -4935,7 +7426,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_base_fill_d",
@@ -4946,7 +7444,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_archway_low_left",
@@ -4957,7 +7462,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 21,
+        "w": 28,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_archway_low_right",
@@ -4968,7 +7480,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 21,
+        "w": 28,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_archway_spandrel_left_c",
@@ -4979,7 +7498,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 21,
+        "w": 29,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_archway_spandrel_right_c",
@@ -4990,7 +7516,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 21,
+        "w": 28,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_shell_medallion_panel_post_accent",
@@ -5001,7 +7534,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 23,
+        "w": 30,
+        "h": 9
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_shell_medallion_panel_c",
@@ -5012,7 +7552,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 23,
+        "w": 30,
+        "h": 9
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_shell_medallion_panel_d",
@@ -5023,7 +7570,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 5,
+        "w": 32,
+        "h": 4
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_trim_strip_e",
@@ -5034,7 +7588,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_flagstone_floor_top_a",
@@ -5045,7 +7606,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "cream_flagstone_floor_top_b",
@@ -5056,7 +7619,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "cream_flagstone_floor_top_c",
@@ -5067,7 +7632,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "white_marble_floor_top_a",
@@ -5078,7 +7645,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "white_marble_floor_top_b",
@@ -5089,7 +7658,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "white_marble_floor_top_c",
@@ -5100,7 +7671,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "white_marble_floor_top_edge_right",
@@ -5111,7 +7684,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "white_marble_floor_top_slab",
@@ -5122,7 +7697,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "metal_grate_round_vent",
@@ -5135,7 +7712,14 @@
         "atlas",
         "grate",
         "vent"
-      ]
+      ],
+      "hitbox": {
+        "x": 9,
+        "y": 20,
+        "w": 14,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_trim_strip_b",
@@ -5146,7 +7730,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_trim_strip_c",
@@ -5157,7 +7748,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_trim_post_left_a",
@@ -5168,7 +7766,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_trim_post_right_a",
@@ -5179,7 +7784,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "shop_sign_inn_stone_a",
@@ -5192,7 +7804,9 @@
         "atlas",
         "prop",
         "sign"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wood_cart_wheeled_a",
@@ -5207,7 +7821,14 @@
         "vehicle",
         "cart",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 32,
+        "w": 58,
+        "h": 28
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_trim_strip_d",
@@ -5218,7 +7839,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_corner_shadow_a",
@@ -5229,7 +7857,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sienna_brick_wall_corner_shadow_b",
@@ -5240,7 +7875,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "floor_drain_grate",
@@ -5251,7 +7893,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "iron_fence_star_medallion_oxblood_base_post_accent",
@@ -5262,7 +7906,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_star_medallion_oxblood_base_c",
@@ -5273,7 +7924,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 31,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "iron_fence_crossbar_oxblood_base_panel",
@@ -5284,7 +7942,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 19,
+        "w": 30,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "white_marble_floor_top_d",
@@ -5295,7 +7960,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "maroon_wall_fill_plain",
@@ -5306,7 +7973,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "maroon_wall_post_edge",
@@ -5317,7 +7991,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_flagstone_floor_fill_a",
@@ -5328,7 +8009,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "cream_flagstone_floor_fill_b",
@@ -5339,7 +8022,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "cream_flagstone_floor_fill_c",
@@ -5350,7 +8035,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "white_marble_floor_fill_a",
@@ -5361,7 +8048,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "white_marble_floor_fill_b",
@@ -5372,7 +8061,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "white_marble_floor_fill_c",
@@ -5383,7 +8074,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "white_marble_floor_fill_edge_right",
@@ -5394,7 +8087,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "white_marble_floor_fill_slab",
@@ -5405,7 +8100,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "vermillion_wood_shadow_fill",
@@ -5416,7 +8113,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "vermillion_stake_post_a",
@@ -5431,7 +8130,14 @@
         "prop",
         "hay",
         "farm"
-      ]
+      ],
+      "hitbox": {
+        "x": 17,
+        "y": 80,
+        "w": 28,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "shop_sign_sword_stone_a",
@@ -5444,7 +8150,9 @@
         "atlas",
         "prop",
         "sign"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "shop_sign_potion_stone_a",
@@ -5457,7 +8165,9 @@
         "atlas",
         "prop",
         "sign"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "shop_sign_sword_stone_b",
@@ -5470,7 +8180,9 @@
         "atlas",
         "prop",
         "sign"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "shop_sign_potion_stone_b",
@@ -5483,7 +8195,9 @@
         "atlas",
         "prop",
         "sign"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "shop_sign_inn_stone_b",
@@ -5494,7 +8208,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "vermillion_gate_lintel_left",
@@ -5505,7 +8221,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "vermillion_gate_lintel_right",
@@ -5516,7 +8234,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "vermillion_shrine_pillar_crossbeam_left",
@@ -5527,7 +8247,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "vermillion_shrine_pillar_crossbeam_right",
@@ -5538,7 +8265,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "white_marble_floor_top_e",
@@ -5549,7 +8283,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "framed_icon_crossed_swords_a",
@@ -5560,7 +8296,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "framed_icon_potion_vase_a",
@@ -5571,7 +8309,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "framed_icon_crossed_swords_b",
@@ -5582,7 +8322,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "framed_icon_potion_vase_b",
@@ -5597,7 +8339,9 @@
         "building",
         "door",
         "metal"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "framed_icon_inn_text",
@@ -5608,7 +8352,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "cream_stone_wall_fill_a",
@@ -5619,7 +8365,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_stone_wall_fill_b",
@@ -5630,7 +8383,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_stone_wall_hole_breach",
@@ -5641,7 +8401,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_stone_wall_fill_c",
@@ -5652,7 +8419,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_stone_wall_fill_d",
@@ -5663,7 +8437,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_stone_wall_fill_e",
@@ -5674,7 +8455,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_stone_wall_fill_f",
@@ -5685,7 +8473,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_stone_wall_fill_g",
@@ -5696,7 +8491,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "maroon_wall_arch_shadow_curve",
@@ -5707,7 +8509,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "vermillion_stake_stub_a",
@@ -5718,7 +8527,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "vermillion_stake_stub_b",
@@ -5729,7 +8540,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "chest_wood_banded_closed",
@@ -5744,7 +8557,14 @@
         "closed",
         "container",
         "lpc"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "chest_wood_banded_opening",
@@ -5759,7 +8579,14 @@
         "closed",
         "container",
         "lpc"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "chest_wood_banded_open",
@@ -5774,7 +8601,14 @@
         "closed",
         "container",
         "lpc"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 20,
+        "w": 29,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "chest_wood_banded_double_lock_open",
@@ -5788,7 +8622,14 @@
         "chest",
         "container",
         "open"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 20,
+        "w": 29,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "vermillion_wood_post_c_upper",
@@ -5799,7 +8640,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 26,
+        "w": 8,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_cart_empty_a",
@@ -5814,7 +8662,14 @@
         "vehicle",
         "cart",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 31,
+        "w": 58,
+        "h": 22
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_cart_hay_pitchfork",
@@ -5830,7 +8685,14 @@
         "cart",
         "hay",
         "farm"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 31,
+        "w": 72,
+        "h": 28
+      },
+      "layer": "sorted"
     },
     {
       "name": "vermillion_gate_lintel_shaft_right_upper",
@@ -5841,7 +8703,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "vermillion_shrine_pillar_bracket_left",
@@ -5852,7 +8716,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 17,
+        "y": 24,
+        "w": 10,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "vermillion_shrine_pillar_bracket_right",
@@ -5863,7 +8734,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 24,
+        "w": 11,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "dusky_violet_wall_panel_edge_a",
@@ -5874,7 +8752,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dusky_violet_wall_panel_trim_top",
@@ -5885,7 +8770,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_chest_closed",
@@ -5896,7 +8788,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 28,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "small_wood_chest_open_empty",
@@ -5907,7 +8806,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 16,
+        "w": 27,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "blue_conical_roof_tip",
@@ -5918,7 +8824,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "orange_tile_fragment_a",
@@ -5929,7 +8837,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 24,
+        "y": 5,
+        "w": 7,
+        "h": 4
+      },
+      "layer": "sorted"
     },
     {
       "name": "orange_tile_fragment_b",
@@ -5940,7 +8855,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 5,
+        "w": 7,
+        "h": 4
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_stone_wall_corner_round",
@@ -5951,7 +8873,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_stone_wall_fill_h",
@@ -5962,7 +8891,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_stone_wall_fill_i",
@@ -5973,7 +8909,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_coursed_wall_fill_a",
@@ -5984,7 +8927,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_coursed_wall_fill_b",
@@ -5995,7 +8945,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_coursed_wall_fill_c",
@@ -6006,7 +8963,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_stone_wall_fill_j",
@@ -6017,7 +8981,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_stone_wall_fill_k",
@@ -6028,7 +8999,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "vermillion_stake_stub_c",
@@ -6039,7 +9017,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "vermillion_stake_stub_d",
@@ -6050,7 +9030,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "vermillion_wood_post_b_lower",
@@ -6061,7 +9043,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "vermillion_wood_post_c_lower",
@@ -6072,7 +9061,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "vermillion_wood_post_d_lower",
@@ -6083,7 +9079,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "vermillion_gate_lintel_shaft_left_lower",
@@ -6094,7 +9097,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "vermillion_gate_lintel_shaft_right_lower",
@@ -6105,7 +9110,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "vermillion_shrine_pillar_shaft_left",
@@ -6116,7 +9123,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 26,
+        "w": 2,
+        "h": 5
+      },
+      "layer": "sorted"
     },
     {
       "name": "torch_wall_mounted_lit",
@@ -6131,7 +9145,14 @@
         "prop",
         "light",
         "torch"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
     },
     {
       "name": "dusky_violet_wall_panel_edge_b",
@@ -6146,7 +9167,14 @@
         "prop",
         "light",
         "candle"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 96
+      },
+      "layer": "sorted"
     },
     {
       "name": "dusky_violet_wall_panel_plain",
@@ -6157,7 +9185,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_chest_opening",
@@ -6168,7 +9203,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 24,
+        "y": 16,
+        "w": 7,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "blue_conical_roof_mid",
@@ -6179,7 +9221,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "teal_plaster_wall_fill_flat",
@@ -6190,7 +9234,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_slate_wall_crack_a",
@@ -6201,7 +9252,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_slate_wall_crack_a",
@@ -6212,7 +9270,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_lavender_wall_fill",
@@ -6223,7 +9288,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "twin_amber_finial_stake_pair",
@@ -6234,7 +9306,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "azure_diagonal_ribbon_fragment",
@@ -6245,7 +9319,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 25,
+        "y": 18,
+        "w": 6,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "vermillion_wood_post_a_base",
@@ -6256,7 +9337,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "vermillion_wood_post_b_base",
@@ -6267,7 +9355,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 26,
+        "w": 4,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "vermillion_wood_post_c_base",
@@ -6278,7 +9373,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "vermillion_wood_post_d_base",
@@ -6289,7 +9391,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "vermillion_shrine_pillar_base_left",
@@ -6300,7 +9409,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "vermillion_shrine_pillar_base_right",
@@ -6311,7 +9427,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "dusky_violet_wall_panel_edge_c",
@@ -6322,7 +9445,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "banded_slate_wall_fill_a",
@@ -6333,7 +9463,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "wood_chest_open_empty",
@@ -6344,7 +9481,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sage_stone_floor_tile",
@@ -6355,7 +9494,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "blue_conical_roof_base",
@@ -6369,7 +9510,9 @@
         "atlas",
         "architecture",
         "roof"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "teal_slate_wall_crack_b",
@@ -6380,7 +9523,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_slate_wall_crack_c",
@@ -6391,7 +9541,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_slate_wall_fill_plain_a",
@@ -6402,7 +9559,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_slate_wall_crack_b",
@@ -6413,7 +9577,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_slate_wall_crack_d",
@@ -6424,7 +9595,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_slate_wall_crack_c",
@@ -6435,7 +9613,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_slate_wall_fill_plain_b",
@@ -6446,7 +9631,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_slate_wall_crack_e",
@@ -6457,7 +9649,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sage_plaster_wall_band_fill_a",
@@ -6468,7 +9667,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "shield_niche_crown_arch_left",
@@ -6479,7 +9685,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shield_niche_crown_arch_right",
@@ -6490,7 +9698,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sage_plaster_wall_band_fill_b",
@@ -6501,7 +9711,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "chest_wood_banded_double_lock_closed",
@@ -6516,7 +9733,14 @@
         "container",
         "lpc",
         "open"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "chest_wood_banded_double_lock_opening",
@@ -6531,7 +9755,14 @@
         "container",
         "lpc",
         "open"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 29,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "azure_spire_roof_tip_left",
@@ -6542,7 +9773,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "azure_spire_roof_tip_center",
@@ -6553,7 +9786,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "azure_spire_roof_tip_right",
@@ -6564,7 +9799,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "cream_gable_panel_upper",
@@ -6575,7 +9812,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pale_wall_corner_curve_upper",
@@ -6586,7 +9825,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sage_plaster_wall_fill_plain_a",
@@ -6597,7 +9843,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_arch_window_edge_upper",
@@ -6608,7 +9861,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "twin_arch_window_orange_top_left",
@@ -6619,7 +9879,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "twin_arch_window_orange_top_right",
@@ -6630,7 +9892,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_pinstripe_panel_a",
@@ -6641,7 +9905,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "pale_eave_diagonal_edge_upper",
@@ -6652,7 +9923,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "dark_eave_shadow_block_a",
@@ -6663,7 +9936,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "pale_plank_wall_vertical_a",
@@ -6674,7 +9949,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "moon_mural_window_fragment",
@@ -6685,7 +9967,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "teal_brick_wall_seam_right_a",
@@ -6696,7 +9980,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_brick_wall_fill_plain_a",
@@ -6707,7 +9998,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_brick_wall_seam_right_b",
@@ -6718,7 +10016,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "red_curtain_window_top_left",
@@ -6729,7 +10034,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "red_curtain_window_top_right",
@@ -6740,7 +10047,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "small_iron_bracket_fragment_a",
@@ -6751,7 +10060,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "small_iron_bracket_fragment_b",
@@ -6762,7 +10073,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "green_wall_arch_window_edge_left_upper",
@@ -6773,7 +10086,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "green_wall_arch_window_top_left",
@@ -6784,7 +10104,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "green_wall_arch_window_top_right",
@@ -6795,7 +10122,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "green_wall_arch_window_edge_right_upper",
@@ -6806,7 +10140,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "shield_niche_top_left",
@@ -6817,7 +10158,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shield_niche_top_right",
@@ -6828,7 +10171,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sage_plaster_wall_fill_plain_b",
@@ -6839,7 +10184,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "azure_spire_roof_upper_left",
@@ -6850,7 +10202,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "azure_spire_roof_upper_center",
@@ -6861,7 +10215,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "azure_spire_roof_upper_right",
@@ -6872,7 +10228,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "cream_gable_panel_lower",
@@ -6883,7 +10241,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pale_wall_corner_curve_lower",
@@ -6894,7 +10254,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "pale_wall_shelf_line_a",
@@ -6905,7 +10272,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "pale_wall_shelf_line_b",
@@ -6916,7 +10290,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_arch_window_edge_mid",
@@ -6927,7 +10308,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "twin_arch_window_orange_mid_left",
@@ -6938,7 +10326,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "twin_arch_window_orange_mid_right",
@@ -6949,7 +10339,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_pinstripe_panel_b",
@@ -6960,7 +10352,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "pale_eave_diagonal_edge_mid",
@@ -6971,7 +10370,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "dark_eave_shadow_diagonal_a",
@@ -6982,7 +10383,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "pale_plank_wall_vertical_b",
@@ -6993,7 +10396,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_cobble_floor_rough_a",
@@ -7004,7 +10414,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "violet_cobble_floor_rough_b",
@@ -7015,7 +10427,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_brick_wall_fill_plain_b",
@@ -7026,7 +10440,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_brick_wall_seam_right_c",
@@ -7037,7 +10458,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_brick_wall_fill_plain_c",
@@ -7048,7 +10476,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_brick_wall_seam_right_d",
@@ -7059,7 +10494,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "red_curtain_window_sill_left",
@@ -7070,7 +10512,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "red_curtain_window_sill_right",
@@ -7081,7 +10525,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "small_iron_bracket_fragment_c",
@@ -7092,7 +10538,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "small_iron_bracket_fragment_d",
@@ -7103,7 +10551,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "green_wall_arch_window_edge_left_mid",
@@ -7114,7 +10564,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "green_wall_arch_window_mid_left",
@@ -7125,7 +10582,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "green_wall_arch_window_mid_right",
@@ -7136,7 +10600,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "green_wall_arch_window_edge_right_mid",
@@ -7147,7 +10618,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "shield_niche_mid_left",
@@ -7158,7 +10636,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shield_niche_mid_right",
@@ -7169,7 +10649,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "gray_dome_roof",
@@ -7183,7 +10665,9 @@
         "atlas",
         "architecture",
         "roof"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "banded_tower_spire",
@@ -7197,7 +10681,14 @@
         "atlas",
         "architecture",
         "tower"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 24,
+        "w": 29,
+        "h": 24
+      },
+      "layer": "sorted"
     },
     {
       "name": "azure_spire_roof_lower_left",
@@ -7208,7 +10699,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "azure_spire_roof_lower_center",
@@ -7219,7 +10712,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "azure_spire_roof_lower_right",
@@ -7230,7 +10725,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "tan_louvered_vent_upper",
@@ -7241,7 +10738,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pale_brick_coursing_fill_a",
@@ -7252,7 +10751,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pale_brick_coursing_fill_b",
@@ -7263,7 +10764,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pale_brick_coursing_fill_c",
@@ -7274,7 +10777,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sage_wall_arch_window_sill_edge",
@@ -7285,7 +10790,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "twin_arch_window_orange_sill_left",
@@ -7296,7 +10808,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "twin_arch_window_orange_sill_right",
@@ -7307,7 +10821,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_pinstripe_diagonal_cut",
@@ -7318,7 +10834,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "pale_wall_double_shelf_line",
@@ -7329,7 +10852,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dark_eave_shadow_diagonal_b",
@@ -7340,7 +10870,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "pale_plank_wall_vertical_c",
@@ -7351,7 +10883,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "violet_cobble_floor_rough_c",
@@ -7362,7 +10901,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "violet_cobble_floor_rough_d",
@@ -7373,7 +10914,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_brick_wall_base_fence_trim_a",
@@ -7384,7 +10927,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_brick_wall_seam_fence_trim_a",
@@ -7395,7 +10945,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_brick_wall_base_fence_trim_b",
@@ -7406,7 +10963,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_brick_wall_seam_fence_trim_b",
@@ -7417,7 +10981,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "small_iron_bracket_fragment_e",
@@ -7428,7 +10999,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "small_iron_bracket_fragment_f",
@@ -7439,7 +11012,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "green_wall_arch_window_edge_left_lower",
@@ -7450,7 +11025,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "green_wall_arch_window_sill_left",
@@ -7461,7 +11043,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "green_wall_arch_window_sill_right",
@@ -7472,7 +11061,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "green_wall_arch_window_edge_right_lower",
@@ -7483,7 +11079,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "shield_niche_base_left",
@@ -7494,7 +11097,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shield_niche_base_right",
@@ -7505,7 +11110,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "azure_spire_roof_base_left",
@@ -7516,7 +11123,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "azure_spire_roof_base_center",
@@ -7527,7 +11136,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "azure_spire_roof_base_right",
@@ -7538,7 +11149,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "tan_louvered_vent_lower",
@@ -7549,7 +11162,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pale_brick_coursing_fill_d",
@@ -7560,7 +11175,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dark_archway_entrance_left",
@@ -7571,7 +11188,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dark_archway_entrance_right",
@@ -7582,7 +11201,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "cream_window_planter_box",
@@ -7593,7 +11214,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "twin_arch_window_orange_box_left",
@@ -7604,7 +11227,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "twin_arch_window_orange_box_right",
@@ -7615,7 +11240,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_pinstripe_diagonal_full",
@@ -7626,7 +11253,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "pale_eave_diagonal_edge_lower",
@@ -7637,7 +11271,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "red_shutter_window_corner_fragment",
@@ -7648,7 +11284,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "pale_plank_wall_vertical_d",
@@ -7659,7 +11297,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_cobblestone_floor_a",
@@ -7670,7 +11315,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "teal_cobblestone_floor_b",
@@ -7681,7 +11328,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shadowed_archway_pier_left_top",
@@ -7692,7 +11341,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "shadowed_archway_arc_shadow_left",
@@ -7703,7 +11354,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shadowed_archway_arc_shadow_right",
@@ -7714,7 +11367,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shadowed_archway_pier_right_top",
@@ -7725,7 +11380,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "sage_wall_niche_top",
@@ -7736,7 +11393,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sage_archway_door_fan_left",
@@ -7747,7 +11411,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_archway_door_fan_right",
@@ -7758,7 +11424,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "dusky_wall_gap_fill_a",
@@ -7769,7 +11437,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_molding_fill_a",
@@ -7780,7 +11455,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "maroon_twin_arch_window_top_left",
@@ -7791,7 +11473,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "maroon_twin_arch_window_top_right",
@@ -7802,7 +11486,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_molding_fill_b",
@@ -7813,7 +11499,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_molding_fill_c",
@@ -7824,7 +11517,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "amber_twin_arch_window_top_left",
@@ -7835,7 +11535,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "amber_twin_arch_window_top_right",
@@ -7846,7 +11548,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_cornice_band_fill",
@@ -7857,7 +11561,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "azure_dome_roof_left",
@@ -7868,7 +11579,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "azure_dome_roof_center",
@@ -7879,7 +11592,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "azure_dome_roof_right",
@@ -7890,7 +11605,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "teal_scalloped_awning_edge",
@@ -7901,7 +11618,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "teal_wall_molding_corner",
@@ -7912,7 +11631,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "golden_arch_door_top_left",
@@ -7923,7 +11649,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "golden_arch_door_top_right",
@@ -7934,7 +11662,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "barred_curtain_window_top_left",
@@ -7945,7 +11675,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "barred_curtain_window_top_right",
@@ -7956,7 +11688,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "cream_paned_window_frame",
@@ -7967,7 +11701,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "orange_maroon_mosaic_tile_a",
@@ -7978,7 +11714,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dark_stake_pair_fragment",
@@ -7989,7 +11727,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 6,
+        "w": 20,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "cream_fluted_wall_corner",
@@ -8000,7 +11745,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_crackled_wall_fill_a",
@@ -8011,7 +11763,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_crackled_wall_fill_b",
@@ -8022,7 +11781,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "shadowed_archway_pier_left_mid_a",
@@ -8033,7 +11799,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shadowed_archway_pier_right_mid_a",
@@ -8044,7 +11812,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sage_wall_niche_shaft_upper",
@@ -8055,7 +11825,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sage_archway_door_arch_left",
@@ -8066,7 +11843,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_archway_door_arch_right",
@@ -8077,7 +11856,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "dusky_wall_gap_fill_b",
@@ -8088,7 +11869,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "maroon_window_pilaster_left_upper",
@@ -8099,7 +11887,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "maroon_twin_arch_window_upper_left",
@@ -8110,7 +11900,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "maroon_twin_arch_window_upper_right",
@@ -8121,7 +11913,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "maroon_window_pilaster_right_upper",
@@ -8132,7 +11926,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_transition_edge_upper",
@@ -8143,7 +11939,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "amber_twin_arch_window_upper_left",
@@ -8154,7 +11957,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "amber_twin_arch_window_upper_right",
@@ -8165,7 +11970,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_window_frame_edge_right_upper",
@@ -8176,7 +11983,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "azure_dome_tower_wall_upper_left",
@@ -8187,7 +12001,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "azure_dome_tower_wall_upper_center",
@@ -8198,7 +12019,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "azure_dome_tower_wall_upper_right",
@@ -8209,7 +12037,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_wall_fill_plain",
@@ -8220,7 +12055,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "golden_arch_door_panel_left",
@@ -8231,7 +12073,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "golden_arch_door_panel_right",
@@ -8242,7 +12086,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "barred_curtain_window_mid_left",
@@ -8253,7 +12099,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "barred_curtain_window_mid_right",
@@ -8264,7 +12112,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "orange_maroon_mosaic_tile_b",
@@ -8275,7 +12125,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "diagonal_ripple_fragment_a",
@@ -8286,7 +12138,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "pale_moon_orb_top_left",
@@ -8297,7 +12151,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 18,
+        "w": 26,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "pale_moon_orb_top_center",
@@ -8308,7 +12169,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pale_moon_orb_top_right",
@@ -8319,7 +12182,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 18,
+        "w": 26,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "shadowed_archway_pier_left_mid_b",
@@ -8330,7 +12200,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shadowed_archway_pier_right_mid_b",
@@ -8341,7 +12213,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sage_wall_niche_shaft_lower",
@@ -8352,7 +12226,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sage_archway_door_panel_left",
@@ -8363,7 +12244,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_archway_door_panel_right",
@@ -8374,7 +12257,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "dusky_wall_gap_fill_c",
@@ -8385,7 +12270,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "maroon_window_pilaster_left_lower",
@@ -8396,7 +12288,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "maroon_twin_arch_window_pane_left",
@@ -8407,7 +12301,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "maroon_twin_arch_window_pane_right",
@@ -8418,7 +12314,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "maroon_window_pilaster_right_lower",
@@ -8429,7 +12327,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_transition_edge_lower",
@@ -8440,7 +12340,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "amber_twin_arch_window_pane_left",
@@ -8451,7 +12358,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "amber_twin_arch_window_pane_right",
@@ -8462,7 +12371,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_window_frame_edge_right_mid",
@@ -8473,7 +12384,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "azure_dome_tower_wall_mid_left",
@@ -8484,7 +12402,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "azure_dome_tower_wall_mid_center",
@@ -8495,7 +12420,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "azure_dome_tower_wall_mid_right",
@@ -8506,7 +12438,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "teal_wall_baseboard_line",
@@ -8517,7 +12456,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "golden_arch_door_base_left",
@@ -8528,7 +12474,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "golden_arch_door_base_right",
@@ -8539,7 +12487,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "teal_ashlar_wall_fill",
@@ -8550,7 +12500,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "barred_curtain_window_base_left",
@@ -8561,7 +12518,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "barred_curtain_window_base_right",
@@ -8572,7 +12531,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "pale_baluster_rail_fence",
@@ -8583,7 +12544,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 32,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "orange_maroon_mosaic_tile_c",
@@ -8594,7 +12562,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "orange_maroon_mosaic_tile_d",
@@ -8605,7 +12575,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pale_moon_orb_mid_left",
@@ -8616,7 +12588,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pale_moon_orb_mid_center",
@@ -8627,7 +12601,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pale_moon_orb_mid_right",
@@ -8638,7 +12614,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shadowed_archway_pier_left_base",
@@ -8649,7 +12627,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "deep_archway_shadow_floor_left",
@@ -8660,7 +12640,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "deep_archway_shadow_floor_right",
@@ -8671,7 +12653,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shadowed_archway_pier_right_base",
@@ -8682,7 +12666,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sage_wall_niche_base",
@@ -8693,7 +12679,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "sage_archway_door_base_left",
@@ -8704,7 +12697,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_archway_door_base_right",
@@ -8715,7 +12710,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "warm_lamp_glow",
@@ -8726,7 +12723,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "maroon_window_pilaster_left_base",
@@ -8737,7 +12736,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "maroon_twin_arch_window_sill_left",
@@ -8748,7 +12749,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "maroon_twin_arch_window_sill_right",
@@ -8759,7 +12762,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "maroon_window_pilaster_right_base",
@@ -8770,7 +12775,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_transition_edge_base",
@@ -8781,7 +12788,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "amber_twin_arch_window_sill_left",
@@ -8792,7 +12806,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "amber_twin_arch_window_sill_right",
@@ -8803,7 +12819,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "sage_wall_window_frame_edge_right_lower",
@@ -8814,7 +12832,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "azure_dome_tower_wall_lower_left",
@@ -8825,7 +12850,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "azure_dome_tower_wall_lower_center",
@@ -8836,7 +12868,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "azure_dome_tower_wall_lower_right",
@@ -8847,7 +12886,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_blue_brick_wall_fill_a",
@@ -8858,7 +12904,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_blue_brick_wall_fill_b",
@@ -8869,7 +12922,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_blue_brick_wall_fill_c",
@@ -8880,7 +12940,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_blue_brick_wall_fill_d",
@@ -8891,7 +12958,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_blue_brick_wall_fill_e",
@@ -8902,7 +12976,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "slate_blue_brick_wall_fill_f",
@@ -8913,7 +12994,14 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "orange_maroon_mosaic_tile_e",
@@ -8924,7 +13012,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "orange_maroon_mosaic_tile_f",
@@ -8935,7 +13025,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pale_moon_orb_bottom_left",
@@ -8946,7 +13038,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pale_moon_orb_bottom_center",
@@ -8957,7 +13051,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pale_moon_orb_bottom_right",
@@ -8968,7 +13064,9 @@
       "tags": [
         "lpc",
         "atlas"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ],
   "gridTileWidth": 32,

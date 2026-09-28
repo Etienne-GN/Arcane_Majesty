@@ -16,7 +16,9 @@
         "nyx",
         "terrain",
         "ice"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

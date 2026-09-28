@@ -14,7 +14,14 @@
         "pixel_crawler",
         "anokolisa",
         "buildings"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 78,
+        "w": 196,
+        "h": 78
+      },
+      "layer": "sorted"
     }
   ]
 }

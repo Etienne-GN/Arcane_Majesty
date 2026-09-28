@@ -14,7 +14,14 @@
         "pixel_crawler",
         "anokolisa",
         "sawmill"
-      ]
+      ],
+      "hitbox": {
+        "x": 32,
+        "y": 254,
+        "w": 576,
+        "h": 254
+      },
+      "layer": "sorted"
     }
   ]
 }

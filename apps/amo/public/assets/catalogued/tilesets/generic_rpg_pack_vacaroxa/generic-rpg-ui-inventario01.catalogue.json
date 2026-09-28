@@ -15,7 +15,9 @@
         "vacaroxa",
         "cc0",
         "ui"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     }
   ]
 }

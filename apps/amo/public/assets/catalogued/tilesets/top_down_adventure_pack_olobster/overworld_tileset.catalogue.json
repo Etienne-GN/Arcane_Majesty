@@ -15,7 +15,9 @@
         "o_lobster",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "raised_lawn_hedge_edge_top",
@@ -29,7 +31,9 @@
         "o_lobster",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "raised_lawn_hedge_edge_top_opening",
@@ -43,7 +47,9 @@
         "o_lobster",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "raised_lawn_hedge_corner_top_right",
@@ -57,7 +63,9 @@
         "o_lobster",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "raised_lawn_hedge_edge_left",
@@ -71,7 +79,9 @@
         "o_lobster",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "raised_lawn_hedge_center_a",
@@ -85,7 +95,9 @@
         "o_lobster",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "raised_lawn_hedge_center_b",
@@ -99,7 +111,9 @@
         "o_lobster",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "raised_lawn_hedge_edge_right",
@@ -113,7 +127,9 @@
         "o_lobster",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "raised_lawn_hedge_corner_bottom_left",
@@ -127,7 +143,9 @@
         "o_lobster",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "raised_lawn_hedge_edge_bottom_cliff",
@@ -141,7 +159,14 @@
         "o_lobster",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "raised_lawn_hedge_edge_bottom_opening",
@@ -155,7 +180,9 @@
         "o_lobster",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "raised_lawn_hedge_corner_bottom_right",
@@ -169,7 +196,9 @@
         "o_lobster",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "garden_bed_wood_corner_top_left",
@@ -183,7 +212,9 @@
         "o_lobster",
         "autotile",
         "garden"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "garden_bed_wood_edge_top",
@@ -197,7 +228,9 @@
         "o_lobster",
         "autotile",
         "garden"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "garden_bed_wood_edge_top_plank",
@@ -211,7 +244,9 @@
         "o_lobster",
         "autotile",
         "garden"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "garden_bed_wood_corner_top_right",
@@ -225,7 +260,9 @@
         "o_lobster",
         "autotile",
         "garden"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "garden_bed_wood_edge_left",
@@ -239,7 +276,9 @@
         "o_lobster",
         "autotile",
         "garden"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "garden_bed_wood_center_rock",
@@ -253,7 +292,14 @@
         "o_lobster",
         "autotile",
         "garden"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "garden_bed_wood_center",
@@ -267,7 +313,9 @@
         "o_lobster",
         "autotile",
         "garden"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "garden_bed_wood_edge_right",
@@ -281,7 +329,9 @@
         "o_lobster",
         "autotile",
         "garden"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "garden_bed_wood_corner_bottom_left",
@@ -295,7 +345,9 @@
         "o_lobster",
         "autotile",
         "garden"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "garden_bed_wood_edge_bottom",
@@ -309,7 +361,9 @@
         "o_lobster",
         "autotile",
         "garden"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "garden_bed_wood_edge_bottom_plank",
@@ -323,7 +377,9 @@
         "o_lobster",
         "autotile",
         "garden"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "garden_bed_wood_corner_bottom_right",
@@ -337,7 +393,9 @@
         "o_lobster",
         "autotile",
         "garden"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "dirt_path_on_grass_corner_top_right",
@@ -352,7 +410,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_on_grass_corner_top_left",
@@ -367,7 +427,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_on_grass_vertical_end_top",
@@ -382,7 +444,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_on_grass_horizontal_end_right",
@@ -397,7 +461,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_on_grass_corner_bottom_left",
@@ -412,7 +478,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_on_grass_corner_bottom_right",
@@ -427,7 +495,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_on_grass_vertical_end_bottom",
@@ -442,7 +512,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_on_grass_horizontal_end_left",
@@ -457,7 +529,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_on_grass_edge_left",
@@ -472,7 +546,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_on_grass_edge_right",
@@ -487,7 +563,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_on_grass_vertical_middle",
@@ -502,7 +580,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_on_grass_horizontal_middle",
@@ -517,7 +597,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_on_grass_edge_bottom",
@@ -532,7 +614,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_on_grass_edge_top",
@@ -547,7 +631,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_round_patch_on_grass_corner_top_left",
@@ -562,7 +648,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_round_patch_on_grass_edge_top",
@@ -577,7 +665,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_round_patch_on_grass_corner_top_right",
@@ -592,7 +682,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_round_patch_on_dirt_corner_top_left",
@@ -607,7 +699,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_round_patch_on_dirt_edge_top",
@@ -622,7 +716,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_round_patch_on_dirt_corner_top_right",
@@ -637,7 +733,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_round_patch_on_grass_edge_left",
@@ -652,7 +750,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_round_patch_on_grass_edge_right",
@@ -667,7 +767,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_round_patch_on_dirt_edge_left",
@@ -682,7 +784,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_round_patch_on_dirt_edge_right",
@@ -697,7 +801,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_round_patch_on_grass_corner_bottom_left",
@@ -712,7 +818,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_round_patch_on_grass_edge_bottom",
@@ -727,7 +835,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_round_patch_on_grass_corner_bottom_right",
@@ -742,7 +852,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_round_patch_on_dirt_corner_bottom_left",
@@ -757,7 +869,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_round_patch_on_dirt_edge_bottom",
@@ -772,7 +886,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_round_patch_on_dirt_corner_bottom_right",
@@ -787,7 +903,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "stone_wall_nw",
@@ -802,7 +920,14 @@
         "autotile",
         "stone",
         "wall"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_n",
@@ -817,7 +942,14 @@
         "autotile",
         "stone",
         "wall"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_ne",
@@ -832,7 +964,14 @@
         "autotile",
         "stone",
         "wall"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_w",
@@ -847,7 +986,14 @@
         "autotile",
         "stone",
         "wall"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_c",
@@ -862,7 +1008,14 @@
         "autotile",
         "stone",
         "wall"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_e",
@@ -877,7 +1030,14 @@
         "autotile",
         "stone",
         "wall"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_sw",
@@ -892,7 +1052,14 @@
         "autotile",
         "stone",
         "wall"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_s",
@@ -907,7 +1074,14 @@
         "autotile",
         "stone",
         "wall"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_wall_se",
@@ -922,7 +1096,14 @@
         "autotile",
         "stone",
         "wall"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_tile",
@@ -935,7 +1116,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "stone_floor_tile",
@@ -948,7 +1131,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "stone"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pit_dark",
@@ -961,7 +1146,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "pit"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "under"
     },
     {
       "name": "grass_tile_sapling",
@@ -975,7 +1167,9 @@
         "o_lobster",
         "grass",
         "tree"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_a",
@@ -988,7 +1182,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_b",
@@ -1001,7 +1197,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "bush_flowering",
@@ -1014,7 +1212,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "bush"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 11,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "bush_green",
@@ -1027,7 +1232,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "bush"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 11,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "flower_sprout",
@@ -1040,7 +1252,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "flower"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flowers_white_a",
@@ -1053,7 +1267,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "flower"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flowers_pink_orange",
@@ -1066,7 +1282,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "flower"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "rock_small",
@@ -1079,7 +1297,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 4,
+        "w": 6,
+        "h": 4
+      },
+      "layer": "sorted"
     },
     {
       "name": "stump",
@@ -1092,7 +1317,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 7,
+        "w": 10,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "stump_axe",
@@ -1105,7 +1337,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 10,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "campfire_unlit",
@@ -1118,7 +1357,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "wood"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "logs_upright_pair",
@@ -1131,7 +1372,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "wood"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "clay_pot",
@@ -1144,7 +1387,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "pot"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "flowers_white_b",
@@ -1157,7 +1402,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "flower"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flowers_white_cluster",
@@ -1170,7 +1417,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "flower"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "rocks_pair_small",
@@ -1183,7 +1432,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 4,
+        "w": 12,
+        "h": 4
+      },
+      "layer": "sorted"
     },
     {
       "name": "rock_large",
@@ -1196,7 +1452,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 5,
+        "w": 13,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_blocks",
@@ -1209,7 +1472,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 7,
+        "w": 13,
+        "h": 7
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_block_slab",
@@ -1222,7 +1492,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "stone"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "house_cottage",
@@ -1236,7 +1508,14 @@
         "o_lobster",
         "building",
         "house"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 38,
+        "w": 82,
+        "h": 38
+      },
+      "layer": "sorted"
     },
     {
       "name": "house_red_roof",
@@ -1250,7 +1529,9 @@
         "o_lobster",
         "building",
         "house"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "wooden_frame_panel",
@@ -1263,7 +1544,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "wood"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "lantern_post_hanging_a",
@@ -1276,7 +1559,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "light"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "lantern_post_hanging_b",
@@ -1289,7 +1579,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "light"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 26,
+        "w": 16,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "lantern_pole",
@@ -1302,7 +1599,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "light"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 24,
+        "w": 4,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_pine_green",
@@ -1315,7 +1619,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "tree"
-      ]
+      ],
+      "hitbox": {
+        "x": 10,
+        "y": 31,
+        "w": 9,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_pine_autumn",
@@ -1329,7 +1640,14 @@
         "o_lobster",
         "tree",
         "autumn"
-      ]
+      ],
+      "hitbox": {
+        "x": 10,
+        "y": 31,
+        "w": 9,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "cave_entrance_arch",
@@ -1342,7 +1660,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "cave"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 16,
+        "w": 43,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "rail_track_curve",
@@ -1355,7 +1680,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "rope"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "rail_track_straight_a",
@@ -1368,7 +1695,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "rope"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "rail_track_straight_b",
@@ -1381,7 +1710,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "rope"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wood_bridge_ropes_horizontal",
@@ -1395,7 +1726,9 @@
         "o_lobster",
         "wood",
         "bridge"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "stone_pillar_broken_vines",
@@ -1408,7 +1741,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "grave"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 18,
+        "w": 7,
+        "h": 4
+      },
+      "layer": "sorted"
     },
     {
       "name": "chair_front",
@@ -1421,7 +1761,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "furniture"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "chair_side_a",
@@ -1434,7 +1776,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "furniture"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "chair_side_b",
@@ -1447,7 +1791,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "furniture"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "cooking_pot_stove",
@@ -1460,7 +1806,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "furniture"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "bookshelf_small",
@@ -1473,7 +1821,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "furniture"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 15
+      },
+      "layer": "sorted"
     },
     {
       "name": "window_round_lit",
@@ -1486,7 +1841,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "furniture"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "wood_bridge_ropes_vertical",
@@ -1500,7 +1857,9 @@
         "o_lobster",
         "light",
         "wood"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "bed_red_horizontal",
@@ -1514,7 +1873,14 @@
         "o_lobster",
         "furniture",
         "bed"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 29,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "curtains_hanging",
@@ -1527,7 +1893,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "furniture"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "bed_red_vertical",
@@ -1541,7 +1909,14 @@
         "o_lobster",
         "furniture",
         "bed"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 14,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "water_pool",
@@ -1554,7 +1929,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "water"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 46,
+        "h": 46
+      },
+      "layer": "under"
     },
     {
       "name": "signpost_wood",
@@ -1567,7 +1949,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "sign"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 10,
+        "w": 6,
+        "h": 3
+      },
+      "layer": "sorted"
     },
     {
       "name": "post_wood_a",
@@ -1580,7 +1969,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 13,
+        "w": 4,
+        "h": 3
+      },
+      "layer": "sorted"
     },
     {
       "name": "logs_stacked_pair",
@@ -1593,7 +1989,9 @@
         "top_down_adventure_pack",
         "o_lobster",
         "wood"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "post_wood_b",
@@ -1606,7 +2004,14 @@
         "top_down_adventure_pack",
         "o_lobster",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 13,
+        "w": 4,
+        "h": 3
+      },
+      "layer": "sorted"
     },
     {
       "name": "stove_iron_with_firewood",
@@ -1620,7 +2025,14 @@
         "o_lobster",
         "top_down_adventure_pack",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 22,
+        "h": 16
+      },
+      "layer": "sorted"
     }
   ]
 }

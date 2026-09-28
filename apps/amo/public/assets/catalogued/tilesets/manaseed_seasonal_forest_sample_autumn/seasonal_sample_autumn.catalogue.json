@@ -13,7 +13,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_a"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_a_r0c2",
@@ -25,7 +27,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_a"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_a_r0c3",
@@ -37,7 +41,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_a"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_a_r0c4",
@@ -49,7 +55,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_a"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_cliff_r0c1",
@@ -61,7 +69,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r0c2",
@@ -73,7 +88,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r0c3",
@@ -85,7 +107,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r0c4",
@@ -97,7 +126,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_tree",
@@ -111,7 +147,14 @@
         "seasonal_forest",
         "tree"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": {
+        "x": 28,
+        "y": 90,
+        "w": 24,
+        "h": 22
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_dirt_a_r1c0",
@@ -123,7 +166,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_a"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_a_r1c1",
@@ -135,7 +180,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_a"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_a_r1c2",
@@ -147,7 +194,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_a"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_a_r1c3",
@@ -159,7 +208,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_a"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_a_r1c4",
@@ -171,7 +222,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_a"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_cliff_r1c0",
@@ -183,7 +236,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r1c1",
@@ -195,7 +255,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r1c4",
@@ -207,7 +274,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r1c5",
@@ -219,7 +293,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_dirt_a_r2c0",
@@ -231,7 +312,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_a"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_a_r2c1",
@@ -243,7 +326,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_a"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_a_r2c2",
@@ -255,7 +340,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_a"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_a_r2c3",
@@ -267,7 +354,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_a"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_a_r2c4",
@@ -279,7 +368,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_a"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_cliff_r2c0",
@@ -291,7 +382,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r2c5",
@@ -303,7 +401,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_dirt_b_r0c0",
@@ -315,7 +420,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_b"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_b_r0c1",
@@ -327,7 +434,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_b"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_b_r0c2",
@@ -339,7 +448,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_b"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_b_r0c3",
@@ -351,7 +462,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_b"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_b_r0c4",
@@ -363,7 +476,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_b"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_cliff_r3c0",
@@ -375,7 +490,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r3c1",
@@ -387,7 +509,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r3c4",
@@ -399,7 +528,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r3c5",
@@ -411,7 +547,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_dirt_b_r1c0",
@@ -423,7 +566,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_b"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_b_r1c1",
@@ -435,7 +580,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_b"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_b_r1c2",
@@ -447,7 +594,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_b"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_b_r1c3",
@@ -459,7 +608,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_b"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_b_r1c4",
@@ -471,7 +622,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_b"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_cliff_r4c0",
@@ -483,7 +636,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r4c1",
@@ -495,7 +655,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r4c2",
@@ -507,7 +674,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r4c3",
@@ -519,7 +693,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r4c4",
@@ -531,7 +712,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r4c5",
@@ -543,7 +731,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_dirt_b_r2c0",
@@ -555,7 +750,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_b"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_b_r2c1",
@@ -567,7 +764,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_b"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_b_r2c2",
@@ -579,7 +778,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_b"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_b_r2c3",
@@ -591,7 +792,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_b"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_dirt_b_r2c4",
@@ -603,7 +806,9 @@
         "manaseed",
         "seasonal_forest",
         "dirt_b"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_cliff_r5c0",
@@ -615,7 +820,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r5c1",
@@ -627,7 +839,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r5c2",
@@ -639,7 +858,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r5c3",
@@ -651,7 +877,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r5c4",
@@ -663,7 +896,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r5c5",
@@ -675,7 +915,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_grass_flowers_a",
@@ -688,7 +935,9 @@
         "seasonal_forest",
         "ground_detail"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_grass_flowers_b",
@@ -701,7 +950,9 @@
         "seasonal_forest",
         "ground_detail"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_grass_flowers_c",
@@ -714,7 +965,9 @@
         "seasonal_forest",
         "ground_detail"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_grass_flowers_d",
@@ -727,7 +980,9 @@
         "seasonal_forest",
         "ground_detail"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_pebbles_a",
@@ -740,7 +995,9 @@
         "seasonal_forest",
         "ground_detail"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_cliff_r6c0",
@@ -752,7 +1009,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r6c1",
@@ -764,7 +1028,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r6c2",
@@ -776,7 +1047,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r6c3",
@@ -788,7 +1066,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r6c4",
@@ -800,7 +1085,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r6c5",
@@ -812,7 +1104,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_grass_flowers_e",
@@ -825,7 +1124,9 @@
         "seasonal_forest",
         "ground_detail"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_grass_flowers_f",
@@ -838,7 +1139,9 @@
         "seasonal_forest",
         "ground_detail"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_grass_flowers_g",
@@ -851,7 +1154,9 @@
         "seasonal_forest",
         "ground_detail"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_grass_flowers_h",
@@ -864,7 +1169,9 @@
         "seasonal_forest",
         "ground_detail"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_pebbles_b",
@@ -877,7 +1184,9 @@
         "seasonal_forest",
         "ground_detail"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_cliff_r7c0",
@@ -889,7 +1198,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r7c1",
@@ -901,7 +1217,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r7c2",
@@ -913,7 +1236,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r7c3",
@@ -925,7 +1255,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r7c4",
@@ -937,7 +1274,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r7c5",
@@ -949,7 +1293,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cave_ledge_c0",
@@ -961,7 +1312,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cave_ledge_c1",
@@ -973,7 +1331,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cave_ledge_c2",
@@ -985,7 +1350,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cave_ledge_c3",
@@ -997,7 +1369,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cave_ledge_c4",
@@ -1009,7 +1388,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_flower_blue",
@@ -1022,7 +1408,9 @@
         "seasonal_forest",
         "flower"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_flower_purple_tall",
@@ -1036,7 +1424,9 @@
         "seasonal_forest",
         "flower"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_flower_bush_yellow",
@@ -1050,7 +1440,9 @@
         "seasonal_forest",
         "flower"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_rock_small_a",
@@ -1062,7 +1454,14 @@
         "manaseed",
         "seasonal_forest",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r8c0",
@@ -1074,7 +1473,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r8c1",
@@ -1086,7 +1492,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r8c2",
@@ -1098,7 +1511,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r8c3",
@@ -1110,7 +1530,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r8c4",
@@ -1122,7 +1549,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r8c5",
@@ -1134,7 +1568,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cave_entrance",
@@ -1147,7 +1588,14 @@
         "manaseed",
         "seasonal_forest",
         "structure"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 32,
+        "w": 72,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_flower_pink",
@@ -1160,7 +1608,9 @@
         "seasonal_forest",
         "flower"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_rock_small_b",
@@ -1172,7 +1622,14 @@
         "manaseed",
         "seasonal_forest",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r9c0",
@@ -1184,7 +1641,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r9c1",
@@ -1196,7 +1660,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r9c2",
@@ -1208,7 +1679,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r9c3",
@@ -1220,7 +1698,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r9c4",
@@ -1232,7 +1717,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r9c5",
@@ -1244,7 +1736,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_wall_stone_r0c0",
@@ -1256,7 +1755,14 @@
         "manaseed",
         "seasonal_forest",
         "wall_stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_wall_stone_r0c1",
@@ -1268,7 +1774,14 @@
         "manaseed",
         "seasonal_forest",
         "wall_stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_wall_stone_r0c2",
@@ -1280,7 +1793,14 @@
         "manaseed",
         "seasonal_forest",
         "wall_stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r10c1",
@@ -1292,7 +1812,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r10c2",
@@ -1304,7 +1831,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r10c3",
@@ -1316,7 +1850,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r10c4",
@@ -1328,7 +1869,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_rock_ledge_a",
@@ -1340,7 +1888,14 @@
         "manaseed",
         "seasonal_forest",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_wall_stone_r1c0",
@@ -1352,7 +1907,14 @@
         "manaseed",
         "seasonal_forest",
         "wall_stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_wall_stone_r1c1",
@@ -1364,7 +1926,14 @@
         "manaseed",
         "seasonal_forest",
         "wall_stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_wall_stone_r1c2",
@@ -1376,7 +1945,14 @@
         "manaseed",
         "seasonal_forest",
         "wall_stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r11c0",
@@ -1388,7 +1964,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r11c1",
@@ -1400,7 +1983,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r11c2",
@@ -1412,7 +2002,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r11c3",
@@ -1424,7 +2021,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r11c4",
@@ -1436,7 +2040,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r11c5",
@@ -1448,7 +2059,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_rock_ledge_b",
@@ -1460,7 +2078,14 @@
         "manaseed",
         "seasonal_forest",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_rock_ledge_c",
@@ -1472,7 +2097,14 @@
         "manaseed",
         "seasonal_forest",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_wall_stone_r2c0",
@@ -1484,7 +2116,14 @@
         "manaseed",
         "seasonal_forest",
         "wall_stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_wall_stone_r2c1",
@@ -1496,7 +2135,14 @@
         "manaseed",
         "seasonal_forest",
         "wall_stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_wall_stone_r2c2",
@@ -1508,7 +2154,14 @@
         "manaseed",
         "seasonal_forest",
         "wall_stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r12c0",
@@ -1520,7 +2173,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r12c1",
@@ -1532,7 +2192,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r12c2",
@@ -1544,7 +2211,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r12c3",
@@ -1556,7 +2230,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r12c4",
@@ -1568,7 +2249,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r12c5",
@@ -1580,7 +2268,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_boulder_r0c0",
@@ -1592,7 +2287,14 @@
         "manaseed",
         "seasonal_forest",
         "boulder"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_boulder_r0c1",
@@ -1604,7 +2306,14 @@
         "manaseed",
         "seasonal_forest",
         "boulder"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_boulder_r0c2",
@@ -1616,7 +2325,14 @@
         "manaseed",
         "seasonal_forest",
         "boulder"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r13c0",
@@ -1628,7 +2344,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r13c1",
@@ -1640,7 +2363,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r13c2",
@@ -1652,7 +2382,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r13c3",
@@ -1664,7 +2401,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r13c4",
@@ -1676,7 +2420,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r13c5",
@@ -1688,7 +2439,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_ground_texture_patch",
@@ -1701,7 +2459,9 @@
         "manaseed",
         "seasonal_forest",
         "ground"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "autumn_boulder_r1c1",
@@ -1713,7 +2473,14 @@
         "manaseed",
         "seasonal_forest",
         "boulder"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_boulder_r1c2",
@@ -1725,7 +2492,14 @@
         "manaseed",
         "seasonal_forest",
         "boulder"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_boulder_r1c3",
@@ -1737,7 +2511,14 @@
         "manaseed",
         "seasonal_forest",
         "boulder"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 8,
+        "w": 10,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_boulder_r1c4",
@@ -1749,7 +2530,14 @@
         "manaseed",
         "seasonal_forest",
         "boulder"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 10,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r14c0",
@@ -1761,7 +2549,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r14c1",
@@ -1773,7 +2568,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r14c2",
@@ -1785,7 +2587,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r14c3",
@@ -1797,7 +2606,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r14c4",
@@ -1809,7 +2625,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r14c5",
@@ -1821,7 +2644,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_boulder_r2c2",
@@ -1833,7 +2663,14 @@
         "manaseed",
         "seasonal_forest",
         "boulder"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_boulder_r2c3",
@@ -1845,7 +2682,14 @@
         "manaseed",
         "seasonal_forest",
         "boulder"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_boulder_r2c4",
@@ -1857,7 +2701,14 @@
         "manaseed",
         "seasonal_forest",
         "boulder"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r15c1",
@@ -1869,7 +2720,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r15c2",
@@ -1881,7 +2739,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r15c3",
@@ -1893,7 +2758,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_cliff_r15c4",
@@ -1905,7 +2777,14 @@
         "manaseed",
         "seasonal_forest",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 16
+      },
+      "layer": "sorted"
     }
   ],
   "gridTileWidth": 16,

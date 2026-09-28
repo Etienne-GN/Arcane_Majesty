@@ -12,6 +12,7 @@ const props = defineProps<{
     questionCount: number;
     unlicensedCount: number;
     orphanFlags: Flag[];
+    hitboxReviewCount: number;
 }>();
 
 const emit = defineEmits<{
@@ -21,6 +22,7 @@ const emit = defineEmits<{
     selectFlagFilter: [value: 'open' | 'needs_review' | 'question'];
     flagsChanged: [];
     openReviewer: [];
+    openHitboxReview: [];
 }>();
 
 // Same pre-order, depth-annotated hierarchy the sidebar tree uses, so a
@@ -64,6 +66,13 @@ const tree = computed(() => flattenTree(props.collections));
         @click="emit('openReviewer')"
       >
         🧐 Reviewer Mode
+      </button>
+      <button
+        class="callout hitbox"
+        :disabled="hitboxReviewCount === 0"
+        @click="emit('openHitboxReview')"
+      >
+        🧱 <span class="count">{{ hitboxReviewCount }}</span> hitbox{{ hitboxReviewCount === 1 ? '' : 'es' }} to review
       </button>
       <!-- Always available, flags or not: the plain "every sprite" grid. -->
       <button class="callout browse" @click="emit('selectCollection', null)">
@@ -114,6 +123,7 @@ h1 { margin: 0 0 4px; font-size: 22px; }
 .callout.review { border-color: #39c; }
 .callout.question { border-color: #96c; }
 .callout.reviewer { border-color: #3a7; background: #16261b; }
+.callout.hitbox { border-color: #c93; }
 .callout.browse { border-color: #556; background: #1a1a26; }
 .callout-note { font-size: 12px; color: #e91; }
 

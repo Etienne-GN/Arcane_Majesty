@@ -14,7 +14,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 13,
+        "y": 45,
+        "w": 230,
+        "h": 44
+      },
+      "layer": "sorted"
     },
     {
       "name": "roofs_001",
@@ -27,7 +34,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 6,
+        "y": 82,
+        "w": 115,
+        "h": 82
+      },
+      "layer": "sorted"
     },
     {
       "name": "roofs_002",
@@ -40,7 +54,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 5,
+        "y": 79,
+        "w": 86,
+        "h": 80
+      },
+      "layer": "sorted"
     },
     {
       "name": "roofs_003",
@@ -53,7 +74,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 0,
+        "y": 23,
+        "w": 10,
+        "h": 24
+      },
+      "layer": "sorted"
     },
     {
       "name": "roofs_004",
@@ -66,7 +94,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 2,
+        "y": 3,
+        "w": 39,
+        "h": 3
+      },
+      "layer": "sorted"
     },
     {
       "name": "roofs_005",
@@ -79,7 +114,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "roofs_006",
@@ -92,7 +129,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 1,
+        "y": 9,
+        "w": 14,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "roofs_007",
@@ -105,7 +149,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     }
   ]
 }

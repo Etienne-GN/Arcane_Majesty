@@ -16,7 +16,9 @@
         "decoration",
         "floor",
         "recoloured"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "magic_circle_gray_azure",
@@ -31,7 +33,9 @@
         "decoration",
         "floor",
         "recoloured"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "magic_circle_gray_verdant",
@@ -46,7 +50,9 @@
         "decoration",
         "floor",
         "recoloured"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "magic_circle_gray_violet",
@@ -61,7 +67,9 @@
         "decoration",
         "floor",
         "recoloured"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "magic_circle_gray_gold",
@@ -76,7 +84,9 @@
         "decoration",
         "floor",
         "recoloured"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "magic_circle_gray_pale",
@@ -91,7 +101,9 @@
         "decoration",
         "floor",
         "recoloured"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

@@ -15,7 +15,9 @@
         "bagong_games",
         "rock",
         "stone"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pebble_small_gray",
@@ -29,7 +31,9 @@
         "bagong_games",
         "rock",
         "stone"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "boulder_gray",
@@ -43,7 +47,14 @@
         "bagong_games",
         "rock",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 11,
+        "w": 24,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "pebble_tiny_ice",
@@ -57,7 +68,9 @@
         "bagong_games",
         "rock",
         "stone"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pebble_small_ice",
@@ -71,7 +84,9 @@
         "bagong_games",
         "rock",
         "stone"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "boulder_ice",
@@ -85,7 +100,9 @@
         "bagong_games",
         "rock",
         "stone"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "stone_in_water_small",
@@ -99,7 +116,14 @@
         "bagong_games",
         "rock",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 6,
+        "h": 5
+      },
+      "layer": "under"
     },
     {
       "name": "stone_in_water_pair",
@@ -113,7 +137,14 @@
         "bagong_games",
         "rock",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 8,
+        "h": 6
+      },
+      "layer": "under"
     },
     {
       "name": "boulder_in_water",
@@ -127,7 +158,14 @@
         "bagong_games",
         "rock",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 27,
+        "h": 21
+      },
+      "layer": "under"
     },
     {
       "name": "rock_cluster_gray_a",
@@ -141,7 +179,14 @@
         "bagong_games",
         "rock",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 5,
+        "w": 10,
+        "h": 5
+      },
+      "layer": "sorted"
     },
     {
       "name": "rock_cluster_gray_b",
@@ -155,7 +200,14 @@
         "bagong_games",
         "rock",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 5,
+        "w": 11,
+        "h": 5
+      },
+      "layer": "sorted"
     },
     {
       "name": "rock_cluster_ice",
@@ -169,7 +221,9 @@
         "bagong_games",
         "rock",
         "stone"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "rock_cluster_mixed",
@@ -183,7 +237,14 @@
         "bagong_games",
         "rock",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 5,
+        "w": 11,
+        "h": 5
+      },
+      "layer": "sorted"
     },
     {
       "name": "rock_cluster_in_water_a",
@@ -197,7 +258,14 @@
         "bagong_games",
         "rock",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 11
+      },
+      "layer": "under"
     },
     {
       "name": "rock_cluster_in_water_b",
@@ -211,7 +279,14 @@
         "bagong_games",
         "rock",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 14,
+        "h": 11
+      },
+      "layer": "under"
     }
   ]
 }

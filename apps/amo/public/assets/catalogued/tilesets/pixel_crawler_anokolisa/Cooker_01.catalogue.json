@@ -14,7 +14,14 @@
         "pixel_crawler",
         "anokolisa",
         "cooker"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 25,
+        "w": 38,
+        "h": 25
+      },
+      "layer": "sorted"
     }
   ]
 }

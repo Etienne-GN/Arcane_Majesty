@@ -15,7 +15,14 @@
         "widelands",
         "tree",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 16,
+        "y": 38,
+        "w": 14,
+        "h": 9
+      },
+      "layer": "sorted"
     }
   ]
 }

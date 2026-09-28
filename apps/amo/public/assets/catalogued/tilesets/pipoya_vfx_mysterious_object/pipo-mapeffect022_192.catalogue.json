@@ -47,7 +47,9 @@
           "w": 192,
           "h": 192
         }
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     }
   ]
 }

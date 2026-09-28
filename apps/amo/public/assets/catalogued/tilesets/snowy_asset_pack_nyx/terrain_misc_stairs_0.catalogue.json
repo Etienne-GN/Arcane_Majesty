@@ -16,7 +16,9 @@
         "nyx",
         "terrain",
         "misc"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

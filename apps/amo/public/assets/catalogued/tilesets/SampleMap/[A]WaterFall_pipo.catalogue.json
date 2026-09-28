@@ -19,7 +19,14 @@
         "fill",
         "smooth",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 16,
+        "w": 25,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "waterfall_deep_blue_fill_foam",
@@ -34,7 +41,14 @@
         "foam",
         "turbulent",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 21,
+        "w": 28,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "waterfall_cyan_fill_smooth",
@@ -48,7 +62,14 @@
         "fill",
         "smooth",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 16,
+        "w": 25,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "waterfall_cyan_fill_foam",
@@ -63,7 +84,14 @@
         "foam",
         "turbulent",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 21,
+        "w": 28,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "waterfall_green_fill_smooth",
@@ -77,7 +105,14 @@
         "fill",
         "smooth",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 16,
+        "w": 25,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "waterfall_green_fill_foam",
@@ -92,7 +127,14 @@
         "foam",
         "turbulent",
         "repeatable"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 21,
+        "w": 28,
+        "h": 10
+      },
+      "layer": "sorted"
     }
   ]
 }

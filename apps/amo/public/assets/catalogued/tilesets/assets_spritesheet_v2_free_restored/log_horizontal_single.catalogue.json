@@ -1,19 +1,26 @@
 {
- "source": "log_horizontal_single.png",
- "sheetWidth": 42,
- "sheetHeight": 14,
- "entries": [
-  {
-   "name": "log_horizontal_single",
-   "kind": "object",
-   "x": 0,
-   "y": 0,
-   "w": 42,
-   "h": 14,
-   "tags": [
-    "assets_v2_free",
-    "restored"
-   ]
-  }
- ]
+  "source": "log_horizontal_single.png",
+  "sheetWidth": 42,
+  "sheetHeight": 14,
+  "entries": [
+    {
+      "name": "log_horizontal_single",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 42,
+      "h": 14,
+      "tags": [
+        "assets_v2_free",
+        "restored"
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 7,
+        "w": 38,
+        "h": 7
+      },
+      "layer": "sorted"
+    }
+  ]
 }

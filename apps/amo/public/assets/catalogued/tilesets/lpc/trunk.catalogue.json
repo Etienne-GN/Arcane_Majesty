@@ -18,7 +18,14 @@
         "tree",
         "trunk",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 38,
+        "y": 58,
+        "w": 19,
+        "h": 15
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_trunk_b",
@@ -31,7 +38,14 @@
         "tree",
         "trunk",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 39,
+        "y": 57,
+        "w": 18,
+        "h": 14
+      },
+      "layer": "sorted"
     }
   ]
 }

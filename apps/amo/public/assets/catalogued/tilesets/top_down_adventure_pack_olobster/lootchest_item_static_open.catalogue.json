@@ -13,7 +13,9 @@
       "tags": [
         "top_down_adventure_pack",
         "o_lobster"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     }
   ]
 }

@@ -15,7 +15,14 @@
         "winter",
         "nyx",
         "fences"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 17,
+        "w": 21,
+        "h": 12
+      },
+      "layer": "sorted"
     }
   ]
 }

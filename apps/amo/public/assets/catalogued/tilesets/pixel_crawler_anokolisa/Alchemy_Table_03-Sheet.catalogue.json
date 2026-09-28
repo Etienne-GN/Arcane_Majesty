@@ -14,7 +14,14 @@
         "pixel_crawler",
         "anokolisa",
         "alchemy"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 196,
+        "w": 360,
+        "h": 196
+      },
+      "layer": "sorted"
     }
   ]
 }

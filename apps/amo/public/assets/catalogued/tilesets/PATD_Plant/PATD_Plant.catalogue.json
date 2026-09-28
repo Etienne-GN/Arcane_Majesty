@@ -14,7 +14,14 @@
       "tags": [
         "tree",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 39,
+        "y": 111,
+        "w": 34,
+        "h": 28
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -26,7 +33,14 @@
       "tags": [
         "tree",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 33,
+        "y": 109,
+        "w": 28,
+        "h": 27
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -38,7 +52,14 @@
       "tags": [
         "tree",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 29,
+        "y": 96,
+        "w": 25,
+        "h": 24
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -50,7 +71,14 @@
       "tags": [
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 17,
+        "w": 33,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -62,7 +90,14 @@
       "tags": [
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 22,
+        "w": 40,
+        "h": 22
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -74,7 +109,14 @@
       "tags": [
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 23,
+        "w": 33,
+        "h": 24
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -86,7 +128,14 @@
       "tags": [
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 19,
+        "w": 34,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -99,7 +148,14 @@
         "bush",
         "nature",
         "small"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 11,
+        "w": 18,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -111,7 +167,14 @@
       "tags": [
         "bush",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 13,
+        "w": 23,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -124,7 +187,9 @@
         "grass",
         "nature",
         "tuft"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -137,7 +202,9 @@
         "grass",
         "nature",
         "tuft"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -150,7 +217,9 @@
         "grass",
         "nature",
         "tuft"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -163,7 +232,9 @@
         "grass",
         "nature",
         "tuft"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -176,7 +247,9 @@
         "grass",
         "nature",
         "tuft"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -189,7 +262,9 @@
         "grass",
         "nature",
         "tuft"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -202,7 +277,9 @@
         "grass",
         "nature",
         "tuft"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -215,7 +292,9 @@
         "grass",
         "nature",
         "tuft"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -228,7 +307,9 @@
         "grass",
         "nature",
         "tuft"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -241,7 +322,9 @@
         "grass",
         "nature",
         "tuft"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -254,7 +337,9 @@
         "grass",
         "nature",
         "tuft"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -267,7 +352,9 @@
         "grass",
         "nature",
         "tuft"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -281,7 +368,9 @@
         "nature",
         "tuft",
         "tiny"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -295,7 +384,9 @@
         "nature",
         "tuft",
         "tiny"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -309,7 +400,9 @@
         "nature",
         "tuft",
         "tiny"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

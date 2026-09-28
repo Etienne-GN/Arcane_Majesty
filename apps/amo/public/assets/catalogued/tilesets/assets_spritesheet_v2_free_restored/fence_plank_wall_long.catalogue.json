@@ -1,19 +1,26 @@
 {
- "source": "fence_plank_wall_long.png",
- "sheetWidth": 60,
- "sheetHeight": 38,
- "entries": [
-  {
-   "name": "fence_plank_wall_long",
-   "kind": "object",
-   "x": 0,
-   "y": 0,
-   "w": 60,
-   "h": 38,
-   "tags": [
-    "assets_v2_free",
-    "restored"
-   ]
-  }
- ]
+  "source": "fence_plank_wall_long.png",
+  "sheetWidth": 60,
+  "sheetHeight": 38,
+  "entries": [
+    {
+      "name": "fence_plank_wall_long",
+      "kind": "object",
+      "x": 0,
+      "y": 0,
+      "w": 60,
+      "h": 38,
+      "tags": [
+        "assets_v2_free",
+        "restored"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 60,
+        "h": 38
+      },
+      "layer": "sorted"
+    }
+  ]
 }

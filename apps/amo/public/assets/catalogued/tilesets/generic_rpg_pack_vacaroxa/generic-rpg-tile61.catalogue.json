@@ -15,7 +15,9 @@
         "vacaroxa",
         "cc0",
         "tiles"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

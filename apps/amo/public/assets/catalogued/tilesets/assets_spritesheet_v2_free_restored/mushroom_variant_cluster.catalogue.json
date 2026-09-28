@@ -14,7 +14,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_orange_wide_b",
@@ -27,7 +29,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_orange_spotted",
@@ -40,7 +44,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_orange_tall",
@@ -53,7 +59,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_blue_tall",
@@ -66,7 +74,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_blue_wide_a",
@@ -79,7 +89,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_blue_wide_b",
@@ -92,7 +104,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_blue_spotted",
@@ -105,7 +119,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_red_wide_a",
@@ -118,7 +134,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_red_wide_b",
@@ -131,7 +149,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_red_spotted",
@@ -144,7 +164,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_red_tall",
@@ -157,7 +179,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_brown_wide_a",
@@ -170,7 +194,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_brown_wide_b",
@@ -183,7 +209,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_brown_spotted",
@@ -196,7 +224,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_brown_tall",
@@ -209,7 +239,9 @@
         "schwarnhild",
         "restored",
         "mushroom"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     }
   ]
 }

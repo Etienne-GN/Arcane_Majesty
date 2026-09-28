@@ -12,7 +12,14 @@
       "tags": [
         "hana_caraka",
         "prop"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 7,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "jug_clay",
@@ -23,7 +30,14 @@
       "tags": [
         "hana_caraka",
         "prop"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "crate_wood_open",
@@ -34,7 +48,14 @@
       "tags": [
         "hana_caraka",
         "prop"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 14,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "crate_wood_closed",
@@ -45,7 +66,14 @@
       "tags": [
         "hana_caraka",
         "prop"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 7,
+        "w": 11,
+        "h": 7
+      },
+      "layer": "sorted"
     },
     {
       "name": "shadow_oval_large",
@@ -56,7 +84,9 @@
       "tags": [
         "hana_caraka",
         "prop"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shadow_oval_small",
@@ -67,7 +97,9 @@
       "tags": [
         "hana_caraka",
         "prop"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "cart_wood_south",
@@ -78,7 +110,14 @@
       "tags": [
         "hana_caraka",
         "prop"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 9,
+        "w": 13,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "cart_wood_north",
@@ -89,7 +128,14 @@
       "tags": [
         "hana_caraka",
         "prop"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 9,
+        "w": 11,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "cart_wood_east",
@@ -100,7 +146,14 @@
       "tags": [
         "hana_caraka",
         "prop"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 9,
+        "w": 13,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "cart_wood_west",
@@ -111,7 +164,14 @@
       "tags": [
         "hana_caraka",
         "prop"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 9,
+        "w": 13,
+        "h": 6
+      },
+      "layer": "sorted"
     }
   ],
   "gridTileWidth": 16,

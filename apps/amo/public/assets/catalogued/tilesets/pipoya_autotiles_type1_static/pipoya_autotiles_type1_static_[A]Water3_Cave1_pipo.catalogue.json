@@ -22,7 +22,14 @@
         "static",
         "type1"
       ],
-      "lowConfidence": true
+      "lowConfidence": true,
+      "hitbox": {
+        "x": 2,
+        "y": 16,
+        "w": 27,
+        "h": 15
+      },
+      "layer": "sorted"
     }
   ]
 }

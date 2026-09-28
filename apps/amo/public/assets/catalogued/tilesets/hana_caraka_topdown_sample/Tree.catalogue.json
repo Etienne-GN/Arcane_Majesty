@@ -15,7 +15,14 @@
         "bagong_games",
         "tree",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 34,
+        "w": 7,
+        "h": 9
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_pine_green",
@@ -29,7 +36,14 @@
         "bagong_games",
         "tree",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 34,
+        "w": 7,
+        "h": 9
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_pine_autumn",
@@ -43,7 +57,14 @@
         "bagong_games",
         "tree",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 34,
+        "w": 7,
+        "h": 9
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_pine_snow",
@@ -57,7 +78,9 @@
         "bagong_games",
         "tree",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

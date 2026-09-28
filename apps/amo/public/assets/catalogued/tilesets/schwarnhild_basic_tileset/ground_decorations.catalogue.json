@@ -14,7 +14,9 @@
         "schwarnhild",
         "decoration",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_b",
@@ -27,7 +29,9 @@
         "schwarnhild",
         "decoration",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_c",
@@ -40,7 +44,9 @@
         "schwarnhild",
         "decoration",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_mound_low_a",
@@ -53,7 +59,9 @@
         "schwarnhild",
         "decoration",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_mound_low_b",
@@ -66,7 +74,9 @@
         "schwarnhild",
         "decoration",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_mound_low_c",
@@ -79,7 +89,9 @@
         "schwarnhild",
         "decoration",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_speckle",
@@ -114,7 +126,9 @@
           "h": 13
         }
       ],
-      "frameDurationMs": 150
+      "frameDurationMs": 150,
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

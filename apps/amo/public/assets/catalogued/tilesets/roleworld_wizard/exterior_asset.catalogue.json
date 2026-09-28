@@ -15,7 +15,14 @@
         "pixel_sazy",
         "building",
         "house"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 95,
+        "w": 115,
+        "h": 94
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_orange",
@@ -30,7 +37,14 @@
         "tree",
         "nature"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": {
+        "x": 22,
+        "y": 64,
+        "w": 19,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_brown",
@@ -45,7 +59,14 @@
         "tree",
         "nature"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": {
+        "x": 22,
+        "y": 64,
+        "w": 20,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "market_stall",
@@ -59,7 +80,14 @@
         "pixel_sazy",
         "structure",
         "shop"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 29,
+        "w": 55,
+        "h": 29
+      },
+      "layer": "sorted"
     },
     {
       "name": "ladder",
@@ -73,7 +101,14 @@
         "pixel_sazy",
         "structure",
         "prop"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 34,
+        "w": 27,
+        "h": 24
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_board_pegs",
@@ -87,7 +122,14 @@
         "pixel_sazy",
         "structure",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 50
+      },
+      "layer": "sorted"
     },
     {
       "name": "pebbles_grey",
@@ -102,7 +144,9 @@
         "props",
         "small",
         "rocks"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "log_short",
@@ -117,7 +161,14 @@
         "props",
         "small",
         "rocks"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 7,
+        "w": 13,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "stone_plaque",
@@ -132,7 +183,14 @@
         "props",
         "small",
         "rocks"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_flower_patch",
@@ -147,7 +205,9 @@
         "props",
         "small",
         "rocks"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "nut_brown_a",
@@ -162,7 +222,14 @@
         "props",
         "small",
         "rocks"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 3,
+        "w": 6,
+        "h": 3
+      },
+      "layer": "sorted"
     },
     {
       "name": "nut_brown_b",
@@ -177,7 +244,14 @@
         "props",
         "small",
         "rocks"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 3,
+        "w": 6,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "nut_brown_c",
@@ -192,7 +266,14 @@
         "props",
         "small",
         "rocks"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 2,
+        "w": 6,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "nut_brown_d",
@@ -207,7 +288,14 @@
         "props",
         "small",
         "rocks"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 3,
+        "w": 4,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "nut_brown_e",
@@ -222,7 +310,14 @@
         "props",
         "small",
         "rocks"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 3,
+        "w": 4,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "nut_brown_f",
@@ -237,7 +332,14 @@
         "props",
         "small",
         "rocks"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 3,
+        "w": 4,
+        "h": 2
+      },
+      "layer": "sorted"
     },
     {
       "name": "autumn_leaf_cluster",
@@ -252,7 +354,9 @@
         "leaves",
         "props"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pumpkin",
@@ -267,7 +371,9 @@
         "prop",
         "food"
       ],
-      "season": "autumn"
+      "season": "autumn",
+      "hitbox": null,
+      "layer": "sorted"
     }
   ]
 }

@@ -15,7 +15,9 @@
         "bush",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "tree_canopy_olive",
@@ -29,7 +31,9 @@
         "bush",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "tree_dead_bare",
@@ -44,7 +48,14 @@
         "pixel_crawler",
         "static",
         "tree"
-      ]
+      ],
+      "hitbox": {
+        "x": 13,
+        "y": 37,
+        "w": 12,
+        "h": 9
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_dead_frozen",
@@ -60,7 +71,14 @@
         "static",
         "tree",
         "winter"
-      ]
+      ],
+      "hitbox": {
+        "x": 13,
+        "y": 37,
+        "w": 12,
+        "h": 9
+      },
+      "layer": "sorted"
     },
     {
       "name": "sprout_green_1",
@@ -75,7 +93,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_green_2",
@@ -90,7 +110,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_green_3",
@@ -105,7 +127,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_green_4",
@@ -120,7 +144,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_green_5",
@@ -135,7 +161,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_green_6",
@@ -150,7 +178,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_green_7",
@@ -165,7 +195,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_green_8",
@@ -180,7 +212,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_olive_1",
@@ -195,7 +229,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_olive_2",
@@ -210,7 +246,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_olive_3",
@@ -225,7 +263,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_olive_4",
@@ -240,7 +280,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_olive_5",
@@ -255,7 +297,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_olive_6",
@@ -270,7 +314,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_olive_7",
@@ -285,7 +331,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_olive_8",
@@ -300,7 +348,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_brown_1",
@@ -315,7 +365,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_brown_2",
@@ -330,7 +382,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_brown_3",
@@ -345,7 +399,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_brown_4",
@@ -360,7 +416,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_brown_5",
@@ -375,7 +433,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_brown_6",
@@ -390,7 +450,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_brown_7",
@@ -405,7 +467,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "sprout_brown_8",
@@ -420,7 +484,9 @@
         "plant",
         "sprout",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "plant_leafy_green",
@@ -434,7 +500,9 @@
         "pixel_crawler",
         "plant",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "leaf_small_green",
@@ -449,7 +517,9 @@
         "pixel_crawler",
         "plant",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fern_large_green",
@@ -464,7 +534,14 @@
         "pixel_crawler",
         "plant",
         "static"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 13,
+        "w": 29,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "plant_leafy_olive",
@@ -478,7 +555,9 @@
         "pixel_crawler",
         "plant",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "leaf_small_olive",
@@ -493,7 +572,9 @@
         "pixel_crawler",
         "plant",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fern_large_olive",
@@ -508,7 +589,14 @@
         "pixel_crawler",
         "plant",
         "static"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 13,
+        "w": 29,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "plant_leafy_brown",
@@ -522,7 +610,9 @@
         "pixel_crawler",
         "plant",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "leaf_small_brown",
@@ -537,7 +627,9 @@
         "pixel_crawler",
         "plant",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fern_large_brown",
@@ -552,7 +644,14 @@
         "pixel_crawler",
         "plant",
         "static"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 13,
+        "w": 29,
+        "h": 13
+      },
+      "layer": "sorted"
     },
     {
       "name": "mushroom_tan_small",
@@ -566,7 +665,9 @@
         "mushroom",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_orange_large",
@@ -580,7 +681,9 @@
         "mushroom",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_cap_fallen",
@@ -594,7 +697,9 @@
         "mushroom",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_crumb_a",
@@ -608,7 +713,9 @@
         "mushroom",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "stakes_wood",
@@ -622,7 +729,9 @@
         "pixel_crawler",
         "static",
         "wood"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "twigs_orange_a",
@@ -637,7 +746,9 @@
         "pixel_crawler",
         "static",
         "twig"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "grass_tall_flowering",
@@ -652,7 +763,9 @@
         "grass",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tall",
@@ -666,7 +779,9 @@
         "grass",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "mushroom_tan_tiny",
@@ -680,7 +795,9 @@
         "mushroom",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_crumb_b",
@@ -694,7 +811,9 @@
         "mushroom",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "stakes_wood_frozen",
@@ -709,7 +828,9 @@
         "static",
         "winter",
         "wood"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "twigs_orange_b",
@@ -724,7 +845,9 @@
         "pixel_crawler",
         "static",
         "twig"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_red_egg",
@@ -738,7 +861,9 @@
         "mushroom",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "mushroom_blue_egg",
@@ -752,7 +877,9 @@
         "mushroom",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "leaf_orange_small_a",
@@ -767,7 +894,9 @@
         "leaf",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "twigs_orange_c",
@@ -782,7 +911,9 @@
         "pixel_crawler",
         "static",
         "twig"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "log_arch",
@@ -797,7 +928,14 @@
         "pixel_crawler",
         "static",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 7,
+        "w": 27,
+        "h": 7
+      },
+      "layer": "sorted"
     },
     {
       "name": "rock_small_a",
@@ -811,7 +949,14 @@
         "pixel_crawler",
         "rock",
         "static"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 3,
+        "w": 8,
+        "h": 4
+      },
+      "layer": "sorted"
     },
     {
       "name": "rock_small_b",
@@ -825,7 +970,14 @@
         "pixel_crawler",
         "rock",
         "static"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 5,
+        "w": 12,
+        "h": 5
+      },
+      "layer": "sorted"
     },
     {
       "name": "leaf_orange_small_b",
@@ -840,7 +992,9 @@
         "leaf",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "twigs_orange_d",
@@ -855,7 +1009,9 @@
         "pixel_crawler",
         "static",
         "twig"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "rock_large",
@@ -869,7 +1025,14 @@
         "pixel_crawler",
         "rock",
         "static"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 13,
+        "w": 22,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "rock_medium_a",
@@ -883,7 +1046,14 @@
         "pixel_crawler",
         "rock",
         "static"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 5,
+        "w": 11,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "rock_medium_b",
@@ -897,7 +1067,14 @@
         "pixel_crawler",
         "rock",
         "static"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 7,
+        "w": 13,
+        "h": 7
+      },
+      "layer": "sorted"
     },
     {
       "name": "rock_tall",
@@ -911,7 +1088,14 @@
         "pixel_crawler",
         "rock",
         "static"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 22,
+        "w": 22,
+        "h": 22
+      },
+      "layer": "sorted"
     },
     {
       "name": "pebble_a",
@@ -925,7 +1109,9 @@
         "pixel_crawler",
         "rock",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pebble_b",
@@ -939,7 +1125,9 @@
         "pixel_crawler",
         "rock",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "pebble_c",
@@ -953,7 +1141,9 @@
         "pixel_crawler",
         "rock",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_orange_bud_1",
@@ -967,7 +1157,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_orange_bud_2",
@@ -981,7 +1173,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_orange_bud_3",
@@ -995,7 +1189,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_orange_a",
@@ -1009,7 +1205,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_orange_b",
@@ -1023,7 +1221,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_orange_c",
@@ -1037,7 +1237,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_orange_d",
@@ -1051,7 +1253,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_orange_e",
@@ -1065,7 +1269,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_orange_f",
@@ -1079,7 +1285,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_orange_g",
@@ -1093,7 +1301,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_orange_h",
@@ -1107,7 +1317,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_white_bud_1",
@@ -1121,7 +1333,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_white_bud_2",
@@ -1135,7 +1349,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_white_bud_3",
@@ -1149,7 +1365,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_white_a",
@@ -1163,7 +1381,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_white_b",
@@ -1177,7 +1397,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_white_c",
@@ -1191,7 +1413,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_white_d",
@@ -1205,7 +1429,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_white_e",
@@ -1219,7 +1445,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_white_f",
@@ -1233,7 +1461,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_white_g",
@@ -1247,7 +1477,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_white_h",
@@ -1261,7 +1493,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_blue_bud_1",
@@ -1275,7 +1509,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_blue_bud_2",
@@ -1289,7 +1525,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_blue_bud_3",
@@ -1303,7 +1541,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_blue_a",
@@ -1317,7 +1557,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_blue_b",
@@ -1331,7 +1573,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_blue_c",
@@ -1345,7 +1589,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_blue_d",
@@ -1359,7 +1605,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_blue_e",
@@ -1373,7 +1621,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_blue_f",
@@ -1387,7 +1637,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_blue_g",
@@ -1401,7 +1653,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_blue_h",
@@ -1415,7 +1669,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_yellow_bud_1",
@@ -1429,7 +1685,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_yellow_bud_2",
@@ -1443,7 +1701,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_yellow_bud_3",
@@ -1457,7 +1717,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_yellow_a",
@@ -1471,7 +1733,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_yellow_b",
@@ -1485,7 +1749,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_yellow_c",
@@ -1499,7 +1765,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_yellow_d",
@@ -1513,7 +1781,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_yellow_e",
@@ -1527,7 +1797,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_yellow_f",
@@ -1541,7 +1813,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_yellow_g",
@@ -1555,7 +1829,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_yellow_h",
@@ -1569,7 +1845,9 @@
         "flower",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "berry_red_1",
@@ -1583,7 +1861,9 @@
         "berry",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "berry_red_2",
@@ -1597,7 +1877,9 @@
         "berry",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "berry_red_3",
@@ -1611,7 +1893,9 @@
         "berry",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "berry_red_4",
@@ -1625,7 +1909,9 @@
         "berry",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "berry_yellow_1",
@@ -1639,7 +1925,9 @@
         "berry",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "berry_yellow_2",
@@ -1653,7 +1941,9 @@
         "berry",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "berry_yellow_3",
@@ -1667,7 +1957,9 @@
         "berry",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "berry_yellow_4",
@@ -1681,7 +1973,9 @@
         "berry",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "berry_green_1",
@@ -1695,7 +1989,9 @@
         "berry",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "berry_green_2",
@@ -1709,7 +2005,9 @@
         "berry",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "berry_green_3",
@@ -1723,7 +2021,9 @@
         "berry",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "berry_green_4",
@@ -1737,7 +2037,9 @@
         "berry",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "canopy_shadow_large",
@@ -1751,7 +2053,9 @@
         "pixel_crawler",
         "shadow",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "canopy_shadow_medium",
@@ -1765,7 +2069,9 @@
         "pixel_crawler",
         "shadow",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "shadow_square_small",
@@ -1779,7 +2085,9 @@
         "pixel_crawler",
         "shadow",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shadow_square_medium",
@@ -1793,7 +2101,9 @@
         "pixel_crawler",
         "shadow",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shadow_round",
@@ -1807,7 +2117,9 @@
         "pixel_crawler",
         "shadow",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_tile_square",
@@ -1821,7 +2133,9 @@
         "dirt",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_patch_round",
@@ -1835,7 +2149,9 @@
         "dirt",
         "pixel_crawler",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

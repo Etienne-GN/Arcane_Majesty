@@ -19,7 +19,9 @@
         "overlay",
         "blob",
         "soft"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shadow_blob_round",
@@ -33,7 +35,9 @@
         "overlay",
         "blob",
         "round"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shadow_blob_oval",
@@ -47,7 +51,9 @@
         "overlay",
         "blob",
         "oval"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shadow_footprint_thin",
@@ -61,7 +67,9 @@
         "overlay",
         "thin",
         "character"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shadow_corner_diagonal_a",
@@ -75,7 +83,9 @@
         "overlay",
         "corner",
         "diagonal"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "shadow_corner_diagonal_b",
@@ -89,7 +99,9 @@
         "overlay",
         "corner",
         "diagonal"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "glow_white_soft",
@@ -103,7 +115,9 @@
         "decoration",
         "overlay",
         "white"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "glow_warm_yellow_soft",
@@ -118,7 +132,9 @@
         "overlay",
         "yellow",
         "warm"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     }
   ]
 }

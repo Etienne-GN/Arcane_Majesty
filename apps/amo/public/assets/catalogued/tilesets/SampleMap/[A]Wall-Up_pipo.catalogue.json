@@ -20,7 +20,14 @@
         "cliff-face",
         "repeatable",
         "dark-red"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "wall_shadow_dark_gray",
@@ -35,7 +42,14 @@
         "cliff-face",
         "repeatable",
         "dark-gray"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     }
   ]
 }

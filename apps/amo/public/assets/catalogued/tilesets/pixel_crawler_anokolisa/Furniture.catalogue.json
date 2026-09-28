@@ -14,7 +14,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_001",
@@ -27,7 +29,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_002",
@@ -40,7 +44,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_003",
@@ -53,7 +59,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 3,
+        "y": 39,
+        "w": 57,
+        "h": 39
+      },
+      "layer": "sorted"
     },
     {
       "name": "furniture_004",
@@ -66,7 +79,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_005",
@@ -79,7 +94,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_006",
@@ -92,7 +109,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 0,
+        "y": 9,
+        "w": 13,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "furniture_007",
@@ -105,7 +129,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 2,
+        "y": 11,
+        "w": 40,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "furniture_008",
@@ -118,7 +149,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 0,
+        "y": 21,
+        "w": 7,
+        "h": 20
+      },
+      "layer": "sorted"
     },
     {
       "name": "furniture_009",
@@ -131,7 +169,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 2,
+        "y": 31,
+        "w": 40,
+        "h": 31
+      },
+      "layer": "sorted"
     },
     {
       "name": "furniture_010",
@@ -144,7 +189,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_011",
@@ -157,7 +204,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_012",
@@ -170,7 +219,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_013",
@@ -183,7 +234,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_014",
@@ -196,7 +249,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 0,
+        "y": 11,
+        "w": 11,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "furniture_015",
@@ -209,7 +269,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_016",
@@ -222,7 +284,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 2,
+        "y": 11,
+        "w": 42,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "furniture_017",
@@ -235,7 +304,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_018",
@@ -248,7 +319,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 4,
+        "y": 23,
+        "w": 72,
+        "h": 23
+      },
+      "layer": "sorted"
     },
     {
       "name": "furniture_019",
@@ -261,7 +339,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_020",
@@ -274,7 +354,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 2,
+        "y": 27,
+        "w": 42,
+        "h": 28
+      },
+      "layer": "sorted"
     },
     {
       "name": "furniture_021",
@@ -287,7 +374,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_022",
@@ -300,7 +389,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_023",
@@ -313,7 +404,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 4,
+        "y": 29,
+        "w": 72,
+        "h": 28
+      },
+      "layer": "sorted"
     },
     {
       "name": "furniture_024",
@@ -326,7 +424,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_025",
@@ -339,7 +439,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_026",
@@ -352,7 +454,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "furniture_027",
@@ -365,7 +469,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 1,
+        "y": 13,
+        "w": 29,
+        "h": 14
+      },
+      "layer": "sorted"
     }
   ]
 }

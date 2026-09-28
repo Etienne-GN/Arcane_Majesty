@@ -20,7 +20,9 @@
         "nature",
         "canopy",
         "deciduous"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "treetop_round_bushy_b",
@@ -35,7 +37,9 @@
         "nature",
         "canopy",
         "deciduous"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "treetop_pine_a",
@@ -50,7 +54,9 @@
         "nature",
         "canopy",
         "conifer"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "treetop_pine_b",
@@ -65,7 +71,9 @@
         "nature",
         "canopy",
         "conifer"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     }
   ]
 }

@@ -14,7 +14,14 @@
         "woolly_lands",
         "tofebaa",
         "tree"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_yellow_apple_red",
@@ -28,7 +35,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_yellow_orange",
@@ -42,7 +56,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_yellow_cherry",
@@ -56,7 +77,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_yellow_apple_green",
@@ -70,7 +98,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_yellow_birch_plain",
@@ -83,7 +118,14 @@
         "woolly_lands",
         "tofebaa",
         "tree"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_yellow_birch_apple_red",
@@ -97,7 +139,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_yellow_birch_orange",
@@ -111,7 +160,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_yellow_birch_cherry",
@@ -125,7 +181,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_yellow_birch_apple_green",
@@ -139,7 +202,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_pink_birch_plain",
@@ -152,7 +222,14 @@
         "woolly_lands",
         "tofebaa",
         "tree"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_pink_birch_apple_red",
@@ -166,7 +243,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_pink_birch_orange",
@@ -180,7 +264,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_pink_birch_cherry",
@@ -194,7 +285,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_pink_birch_apple_green",
@@ -208,7 +306,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_orange_birch_plain",
@@ -221,7 +326,14 @@
         "woolly_lands",
         "tofebaa",
         "tree"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_orange_birch_apple_red",
@@ -235,7 +347,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_orange_birch_orange",
@@ -249,7 +368,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_orange_birch_cherry",
@@ -263,7 +389,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_orange_birch_apple_green",
@@ -277,7 +410,14 @@
         "tofebaa",
         "tree",
         "fruit"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "sapling_yellow_tiny",
@@ -291,7 +431,14 @@
         "tofebaa",
         "tree",
         "sapling"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 32,
+        "w": 10,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "sapling_yellow_medium",
@@ -305,7 +452,14 @@
         "tofebaa",
         "tree",
         "sapling"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 50,
+        "w": 10,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "sapling_yellow_birch_tiny",
@@ -319,7 +473,14 @@
         "tofebaa",
         "tree",
         "sapling"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 32,
+        "w": 10,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "sapling_yellow_birch_medium",
@@ -333,7 +494,14 @@
         "tofebaa",
         "tree",
         "sapling"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 50,
+        "w": 10,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "sapling_pine_tiny",
@@ -347,7 +515,14 @@
         "tofebaa",
         "tree",
         "sapling"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 32,
+        "w": 10,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "sapling_pine_medium",
@@ -361,7 +536,14 @@
         "tofebaa",
         "tree",
         "sapling"
-      ]
+      ],
+      "hitbox": {
+        "x": 12,
+        "y": 50,
+        "w": 10,
+        "h": 12
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_pine_yellow",
@@ -375,7 +557,14 @@
         "tofebaa",
         "tree",
         "conifer"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_pine_yellow_cones",
@@ -389,7 +578,14 @@
         "tofebaa",
         "tree",
         "conifer"
-      ]
+      ],
+      "hitbox": {
+        "x": 20,
+        "y": 72,
+        "w": 17,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "name": "bush_round_small",
@@ -402,7 +598,14 @@
         "woolly_lands",
         "tofebaa",
         "bush"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "berry_bush_red",
@@ -416,7 +619,14 @@
         "tofebaa",
         "bush",
         "berry"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 10,
+        "w": 22,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "name": "berry_bush_blue",
@@ -430,7 +640,14 @@
         "tofebaa",
         "bush",
         "berry"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 11,
+        "w": 26,
+        "h": 11
+      },
+      "layer": "sorted"
     }
   ]
 }

@@ -13,7 +13,14 @@
       "tags": [
         "assets_v2_free"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 7,
+        "y": 97,
+        "w": 125,
+        "h": 96
+      },
+      "layer": "sorted"
     },
     {
       "name": "stump_small_dark",
@@ -24,7 +31,14 @@
       "h": 15,
       "tags": [
         "assets_v2_free"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 7,
+        "w": 18,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "bush_round_plain_b",
@@ -35,7 +49,14 @@
       "h": 32,
       "tags": [
         "assets_v2_free"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 16,
+        "w": 26,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "name": "stump_large",
@@ -46,7 +67,14 @@
       "h": 28,
       "tags": [
         "assets_v2_free"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 14,
+        "w": 32,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "name": "assets_spritesheet_v2_free_012",
@@ -58,7 +86,9 @@
       "tags": [
         "assets_v2_free"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "assets_spritesheet_v2_free_015",
@@ -70,7 +100,14 @@
       "tags": [
         "assets_v2_free"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 1,
+        "y": 7,
+        "w": 17,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "assets_spritesheet_v2_free_044",
@@ -82,7 +119,14 @@
       "tags": [
         "assets_v2_free"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 0,
+        "y": 19,
+        "w": 11,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "assets_spritesheet_v2_free_045",
@@ -94,7 +138,14 @@
       "tags": [
         "assets_v2_free"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 2,
+        "y": 9,
+        "w": 36,
+        "h": 9
+      },
+      "layer": "sorted"
     },
     {
       "name": "assets_spritesheet_v2_free_046",
@@ -106,7 +157,14 @@
       "tags": [
         "assets_v2_free"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 2,
+        "y": 5,
+        "w": 36,
+        "h": 5
+      },
+      "layer": "sorted"
     },
     {
       "name": "assets_spritesheet_v2_free_047",
@@ -118,7 +176,14 @@
       "tags": [
         "assets_v2_free"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 2,
+        "y": 7,
+        "w": 36,
+        "h": 7
+      },
+      "layer": "sorted"
     }
   ]
 }

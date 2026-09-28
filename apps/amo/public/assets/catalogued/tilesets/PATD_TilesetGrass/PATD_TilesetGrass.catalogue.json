@@ -6,7 +6,7 @@
   "gridTileHeight": 16,
   "gridCols": 16,
   "gridRows": 16,
-  "notes": "From the Cainos 'Pixel Art Top Down - Basic' pack. Rows 0-7 are a continuous grass-fill texture with scattered flower/blade decoration (sampled here as a handful of representative variants, not itemized cell-by-cell \u2014 like BaseChip's decorRate mechanism, pick one at random for ground fill). Rows 8-15 are a full blob-style grass/stone-path autotile transition, confirmed genuinely irregular at the pixel level (checked programmatically, not a clean rectangle) \u2014 only the unambiguous plain stone fill tile is catalogued here; the many edge/corner/inner-corner transition pieces are NOT itemized (no real map placement exists yet to self-verify their connectivity against, per this project's verify-before-naming rule) and need a follow-up pass once this sheet is actually used in a map.",
+  "notes": "From the Cainos 'Pixel Art Top Down - Basic' pack. Rows 0-7 are a continuous grass-fill texture with scattered flower/blade decoration (sampled here as a handful of representative variants, not itemized cell-by-cell — like BaseChip's decorRate mechanism, pick one at random for ground fill). Rows 8-15 are a full blob-style grass/stone-path autotile transition, confirmed genuinely irregular at the pixel level (checked programmatically, not a clean rectangle) — only the unambiguous plain stone fill tile is catalogued here; the many edge/corner/inner-corner transition pieces are NOT itemized (no real map placement exists yet to self-verify their connectivity against, per this project's verify-before-naming rule) and need a follow-up pass once this sheet is actually used in a map.",
   "entries": [
     {
       "kind": "tile",
@@ -18,7 +18,9 @@
         "grass",
         "terrain",
         "fill"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "tile",
@@ -30,7 +32,9 @@
         "grass",
         "terrain",
         "fill"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "tile",
@@ -43,7 +47,9 @@
         "terrain",
         "fill",
         "blade"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "tile",
@@ -56,7 +62,9 @@
         "terrain",
         "fill",
         "flower"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "tile",
@@ -69,7 +77,9 @@
         "terrain",
         "fill",
         "flower"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "tile",
@@ -83,7 +93,9 @@
         "fill",
         "flower",
         "yellow"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "tile",
@@ -96,7 +108,9 @@
         "path",
         "terrain",
         "fill"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

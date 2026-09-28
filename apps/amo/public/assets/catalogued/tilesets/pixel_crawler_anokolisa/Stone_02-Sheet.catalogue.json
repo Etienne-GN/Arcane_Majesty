@@ -14,7 +14,14 @@
         "pixel_crawler",
         "anokolisa",
         "furnace"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 57,
+        "w": 76,
+        "h": 56
+      },
+      "layer": "sorted"
     }
   ]
 }

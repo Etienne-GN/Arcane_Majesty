@@ -20,7 +20,14 @@
         "forest"
       ],
       "season": "summer",
-      "lowConfidence": true
+      "lowConfidence": true,
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 14,
+        "h": 8
+      },
+      "layer": "sorted"
     }
   ]
 }

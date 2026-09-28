@@ -14,7 +14,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_001",
@@ -27,7 +29,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_002",
@@ -40,7 +44,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_003",
@@ -53,7 +59,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_004",
@@ -66,7 +74,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_005",
@@ -79,7 +89,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_006",
@@ -92,7 +104,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_007",
@@ -105,7 +119,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_008",
@@ -118,7 +134,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_009",
@@ -131,7 +149,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_010",
@@ -144,7 +164,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_011",
@@ -157,7 +179,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_012",
@@ -170,7 +194,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_013",
@@ -183,7 +209,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_014",
@@ -196,7 +224,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_015",
@@ -209,7 +239,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_016",
@@ -222,7 +254,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_017",
@@ -235,7 +269,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_018",
@@ -248,7 +284,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_019",
@@ -261,7 +299,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_020",
@@ -274,7 +314,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_021",
@@ -287,7 +329,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_022",
@@ -300,7 +344,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_023",
@@ -313,7 +359,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_024",
@@ -326,7 +374,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_025",
@@ -339,7 +389,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "burst_flash_purple_red",
@@ -378,7 +430,9 @@
           "h": 33
         }
       ],
-      "frameDurationMs": 100
+      "frameDurationMs": 100,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_027",
@@ -391,7 +445,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_028",
@@ -404,7 +460,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_029",
@@ -417,7 +475,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_030",
@@ -430,7 +490,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_031",
@@ -443,7 +505,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_032",
@@ -456,7 +520,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_033",
@@ -469,7 +535,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_034",
@@ -482,7 +550,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_039",
@@ -495,7 +565,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_040",
@@ -508,7 +580,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_041",
@@ -521,7 +595,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_042",
@@ -534,7 +610,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_047",
@@ -547,7 +625,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_048",
@@ -560,7 +640,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_049",
@@ -573,7 +655,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_050",
@@ -586,7 +670,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_051",
@@ -599,7 +685,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "lpc_water_splash_burst",
@@ -640,7 +728,9 @@
           "h": 29
         }
       ],
-      "frameDurationMs": 140
+      "frameDurationMs": 140,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_057",
@@ -653,7 +743,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_058",
@@ -666,7 +758,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_059",
@@ -679,7 +773,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_060",
@@ -692,7 +788,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_061",
@@ -705,7 +803,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_063",
@@ -718,7 +818,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_064",
@@ -731,7 +833,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_065",
@@ -744,7 +848,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_066",
@@ -757,7 +863,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_067",
@@ -770,7 +878,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_068",
@@ -783,7 +893,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_069",
@@ -796,7 +908,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_070",
@@ -809,7 +923,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_071",
@@ -822,7 +938,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_073",
@@ -835,7 +953,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_074",
@@ -848,7 +968,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_075",
@@ -861,7 +983,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_076",
@@ -874,7 +998,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_077",
@@ -887,7 +1013,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_078",
@@ -900,7 +1028,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "bubble_item_coin",
@@ -913,7 +1043,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_084",
@@ -926,7 +1058,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_085",
@@ -939,7 +1073,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_086",
@@ -952,7 +1088,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_087",
@@ -965,7 +1103,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_088",
@@ -978,7 +1118,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_089",
@@ -991,7 +1133,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_090",
@@ -1004,7 +1148,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_091",
@@ -1017,7 +1163,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_092",
@@ -1030,7 +1178,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_093",
@@ -1043,7 +1193,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_094",
@@ -1056,7 +1208,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_095",
@@ -1069,7 +1223,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_096",
@@ -1082,7 +1238,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_097",
@@ -1095,7 +1253,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_098",
@@ -1108,7 +1268,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_099",
@@ -1121,7 +1283,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_100",
@@ -1134,7 +1298,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_101",
@@ -1147,7 +1313,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "effects_102",
@@ -1160,7 +1328,9 @@
         "lpc",
         "effects"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "water_splash_start",
@@ -1172,7 +1342,9 @@
       "tags": [
         "lpc",
         "effects"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "bubble_item_boot",
@@ -1184,7 +1356,9 @@
       "tags": [
         "lpc",
         "effects"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "steam_puff",
@@ -1230,7 +1404,9 @@
           "h": 32
         }
       ],
-      "frameDurationMs": 120
+      "frameDurationMs": 120,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "water_drop_ripple",
@@ -1270,7 +1446,9 @@
           "h": 31
         }
       ],
-      "frameDurationMs": 120
+      "frameDurationMs": 120,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "flame_cyan",
@@ -1304,7 +1482,9 @@
           "h": 32
         }
       ],
-      "frameDurationMs": 120
+      "frameDurationMs": 120,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "light_rays",
@@ -1338,7 +1518,9 @@
           "h": 32
         }
       ],
-      "frameDurationMs": 120
+      "frameDurationMs": 120,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "water_fill",
@@ -1378,7 +1560,9 @@
           "h": 32
         }
       ],
-      "frameDurationMs": 150
+      "frameDurationMs": 150,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "water_splash_settle",
@@ -1424,7 +1608,9 @@
           "h": 23
         }
       ],
-      "frameDurationMs": 120
+      "frameDurationMs": 120,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "water_droplet",
@@ -1458,7 +1644,9 @@
           "h": 12
         }
       ],
-      "frameDurationMs": 120
+      "frameDurationMs": 120,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "dark_star",
@@ -1486,7 +1674,9 @@
           "h": 32
         }
       ],
-      "frameDurationMs": 150
+      "frameDurationMs": 150,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "skull_curse",
@@ -1532,7 +1722,9 @@
           "h": 32
         }
       ],
-      "frameDurationMs": 120
+      "frameDurationMs": 120,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "bubble_sleep",
@@ -1584,7 +1776,9 @@
           "h": 23
         }
       ],
-      "frameDurationMs": 250
+      "frameDurationMs": 250,
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "bubble_alert",
@@ -1618,7 +1812,9 @@
           "h": 23
         }
       ],
-      "frameDurationMs": 200
+      "frameDurationMs": 200,
+      "hitbox": null,
+      "layer": "over"
     }
   ]
 }

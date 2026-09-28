@@ -131,6 +131,24 @@ export function validateCatalogueObject(cat, baseDir) {
             }
         }
 
+        // Collision + draw order (set in the sprite ledger). hitbox is
+        // relative to the sprite: its own box, or the largest frame of an
+        // animation. null means "no collision", absent means "not decided".
+        if (e.layer !== undefined && !['under', 'sorted', 'over'].includes(e.layer)) {
+            errors.push(`${tag}: invalid layer "${e.layer}" (must be under, sorted or over)`);
+        }
+        if (e.hitbox !== undefined && e.hitbox !== null) {
+            const hb = e.hitbox;
+            const size = Array.isArray(e.frames) && e.frames.length > 1
+                ? { w: Math.max(...e.frames.map(f => f.w)), h: Math.max(...e.frames.map(f => f.h)) }
+                : e.kind === 'tile' ? { w: cat.gridTileWidth, h: cat.gridTileHeight } : { w: e.w, h: e.h };
+            if (![hb.x, hb.y, hb.w, hb.h].every(Number.isInteger) || hb.w <= 0 || hb.h <= 0) {
+                errors.push(`${tag}: hitbox needs integer x, y and positive w, h (got ${JSON.stringify(hb)})`);
+            } else if (hb.x < 0 || hb.y < 0 || hb.x + hb.w > size.w || hb.y + hb.h > size.h) {
+                errors.push(`${tag}: hitbox ${JSON.stringify(hb)} is outside the ${size.w}x${size.h} sprite`);
+            }
+        }
+
         // `frames` used to be waved through with a warning. The sprite ledger
         // animates from it now, so a malformed array is a real defect: it
         // renders as a frozen or blank preview rather than an obvious error.

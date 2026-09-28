@@ -15,7 +15,9 @@
         "item",
         "tofebaa",
         "woolly_lands"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fruit_cherries_outlined",
@@ -30,7 +32,9 @@
         "outlined",
         "tofebaa",
         "woolly_lands"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fruit_apple_red",
@@ -44,7 +48,9 @@
         "item",
         "tofebaa",
         "woolly_lands"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fruit_apple_red_outlined",
@@ -59,7 +65,9 @@
         "outlined",
         "tofebaa",
         "woolly_lands"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fruit_apple_green",
@@ -73,7 +81,9 @@
         "item",
         "tofebaa",
         "woolly_lands"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fruit_apple_green_outlined",
@@ -88,7 +98,9 @@
         "outlined",
         "tofebaa",
         "woolly_lands"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fruit_orange",
@@ -102,7 +114,9 @@
         "item",
         "tofebaa",
         "woolly_lands"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fruit_orange_outlined",
@@ -117,7 +131,9 @@
         "outlined",
         "tofebaa",
         "woolly_lands"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fruit_blueberries",
@@ -131,7 +147,9 @@
         "item",
         "tofebaa",
         "woolly_lands"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fruit_blueberries_outlined",
@@ -146,7 +164,9 @@
         "outlined",
         "tofebaa",
         "woolly_lands"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fruit_red_berries",
@@ -160,7 +180,9 @@
         "item",
         "tofebaa",
         "woolly_lands"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fruit_red_berries_outlined",
@@ -175,7 +197,9 @@
         "outlined",
         "tofebaa",
         "woolly_lands"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fruit_chestnut",
@@ -189,7 +213,9 @@
         "item",
         "tofebaa",
         "woolly_lands"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "fruit_chestnut_outlined",
@@ -204,7 +230,9 @@
         "outlined",
         "tofebaa",
         "woolly_lands"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     }
   ]
 }

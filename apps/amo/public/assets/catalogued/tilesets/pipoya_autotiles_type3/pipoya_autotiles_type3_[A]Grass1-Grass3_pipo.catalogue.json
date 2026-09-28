@@ -20,7 +20,9 @@
         "autotile",
         "type3"
       ],
-      "lowConfidence": true
+      "lowConfidence": true,
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

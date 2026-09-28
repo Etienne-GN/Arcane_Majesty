@@ -14,7 +14,9 @@
         "decoration",
         "flower",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_round_pink",
@@ -27,7 +29,9 @@
         "decoration",
         "flower",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_round_blue",
@@ -40,7 +44,9 @@
         "decoration",
         "flower",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_bloom_orange",
@@ -53,7 +59,9 @@
         "decoration",
         "flower",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_bloom_pink",
@@ -66,7 +74,9 @@
         "decoration",
         "flower",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_bloom_blue",
@@ -79,7 +89,9 @@
         "decoration",
         "flower",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "tulip_yellow",
@@ -92,7 +104,9 @@
         "decoration",
         "flower",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "tulip_peach",
@@ -105,7 +119,9 @@
         "decoration",
         "flower",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "tulip_blue",
@@ -118,7 +134,9 @@
         "decoration",
         "flower",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "daisy_orange",
@@ -131,7 +149,9 @@
         "decoration",
         "flower",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "daisy_pink",
@@ -144,7 +164,9 @@
         "decoration",
         "flower",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "daisy_blue",
@@ -157,7 +179,9 @@
         "decoration",
         "flower",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_sprout_orange",
@@ -171,7 +195,9 @@
         "flower",
         "grass",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_sprout_pink",
@@ -185,7 +211,9 @@
         "flower",
         "grass",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_sprout_blue",
@@ -199,7 +227,9 @@
         "flower",
         "grass",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "clover_patch_yellow",
@@ -213,7 +243,9 @@
         "decoration",
         "grass",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "clover_patch_pink",
@@ -227,7 +259,9 @@
         "decoration",
         "grass",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "clover_patch_teal",
@@ -241,7 +275,9 @@
         "decoration",
         "grass",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_a",
@@ -254,7 +290,9 @@
         "decoration",
         "grass",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_b",
@@ -267,7 +305,9 @@
         "decoration",
         "grass",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_c",
@@ -280,7 +320,9 @@
         "decoration",
         "grass",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_tiny_orange",
@@ -294,7 +336,9 @@
         "flower",
         "grass",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_tiny_pink",
@@ -308,7 +352,9 @@
         "flower",
         "grass",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "flower_tiny_blue",
@@ -322,7 +368,9 @@
         "flower",
         "grass",
         "schwarnhild"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

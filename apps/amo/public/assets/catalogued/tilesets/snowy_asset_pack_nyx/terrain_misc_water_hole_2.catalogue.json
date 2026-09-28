@@ -16,7 +16,14 @@
         "nyx",
         "terrain",
         "misc"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 11
+      },
+      "layer": "under"
     }
   ]
 }

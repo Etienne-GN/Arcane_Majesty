@@ -14,7 +14,14 @@
         "pixel_crawler",
         "anokolisa",
         "tree"
-      ]
+      ],
+      "hitbox": {
+        "x": 17,
+        "y": 77,
+        "w": 14,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_medium_spring",
@@ -27,7 +34,14 @@
         "pixel_crawler",
         "anokolisa",
         "tree"
-      ]
+      ],
+      "hitbox": {
+        "x": 17,
+        "y": 77,
+        "w": 14,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_medium_bare_a",
@@ -40,7 +54,14 @@
         "pixel_crawler",
         "anokolisa",
         "tree"
-      ]
+      ],
+      "hitbox": {
+        "x": 17,
+        "y": 77,
+        "w": 14,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_medium_autumn_red",
@@ -53,7 +74,14 @@
         "pixel_crawler",
         "anokolisa",
         "tree"
-      ]
+      ],
+      "hitbox": {
+        "x": 17,
+        "y": 77,
+        "w": 14,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_medium_autumn_gold",
@@ -66,7 +94,14 @@
         "pixel_crawler",
         "anokolisa",
         "tree"
-      ]
+      ],
+      "hitbox": {
+        "x": 17,
+        "y": 77,
+        "w": 14,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_medium_bare_b",
@@ -79,7 +114,14 @@
         "pixel_crawler",
         "anokolisa",
         "tree"
-      ]
+      ],
+      "hitbox": {
+        "x": 17,
+        "y": 77,
+        "w": 14,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "tree_medium_snow_a",
@@ -93,7 +135,9 @@
         "anokolisa",
         "tree",
         "snow"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "tree_medium_snow_b",
@@ -107,7 +151,9 @@
         "anokolisa",
         "tree",
         "snow"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "size_03_002",
@@ -120,7 +166,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 0,
+        "y": 11,
+        "w": 13,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "size_03_003",
@@ -133,7 +186,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 0,
+        "y": 11,
+        "w": 13,
+        "h": 11
+      },
+      "layer": "sorted"
     },
     {
       "name": "size_03_004",
@@ -146,7 +206,14 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": {
+        "x": 0,
+        "y": 11,
+        "w": 13,
+        "h": 11
+      },
+      "layer": "sorted"
     }
   ]
 }

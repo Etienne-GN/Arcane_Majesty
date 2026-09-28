@@ -15,7 +15,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_patch_on_grass_edge_top",
@@ -29,7 +31,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_patch_on_grass_corner_top_right",
@@ -43,7 +47,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_strip_on_grass_vertical_top",
@@ -57,7 +63,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_patch_on_grass_edge_left",
@@ -71,7 +79,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_patch_on_grass_center",
@@ -85,7 +95,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_patch_on_grass_edge_right",
@@ -99,7 +111,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_strip_on_grass_vertical_middle",
@@ -113,7 +127,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_patch_on_grass_corner_bottom_left",
@@ -127,7 +143,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_patch_on_grass_edge_bottom",
@@ -141,7 +159,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_patch_on_grass_corner_bottom_right",
@@ -155,7 +175,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_strip_on_grass_vertical_bottom",
@@ -169,7 +191,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_strip_on_grass_horizontal_left",
@@ -183,7 +207,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_strip_on_grass_horizontal_middle",
@@ -197,7 +223,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_strip_on_grass_horizontal_right",
@@ -211,7 +239,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_patch_on_grass_single",
@@ -225,7 +255,9 @@
         "autotile",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_plateau_rock_cliff_corner_top_left",
@@ -239,7 +271,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_plateau_rock_cliff_edge_top",
@@ -253,7 +292,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_plateau_rock_cliff_corner_top_right",
@@ -267,7 +313,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_plateau_rock_cliff_strip_vertical_top",
@@ -281,7 +334,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_plateau_rock_cliff_edge_left",
@@ -295,7 +355,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_plateau_rock_cliff_center",
@@ -309,7 +376,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_plateau_rock_cliff_edge_right",
@@ -323,7 +397,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_plateau_rock_cliff_strip_vertical_middle",
@@ -337,7 +418,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_plateau_rock_cliff_corner_bottom_left",
@@ -351,7 +439,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_plateau_rock_cliff_edge_bottom",
@@ -365,7 +460,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_plateau_rock_cliff_corner_bottom_right",
@@ -379,7 +481,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_plateau_rock_cliff_strip_vertical_bottom",
@@ -393,7 +502,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_plateau_rock_cliff_strip_horizontal_left",
@@ -407,7 +523,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_plateau_rock_cliff_strip_horizontal_middle",
@@ -421,7 +544,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_plateau_rock_cliff_strip_horizontal_right",
@@ -435,7 +565,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_plateau_rock_cliff_single",
@@ -449,7 +586,14 @@
         "autotile",
         "dirt",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_speckled_corner_top_left",
@@ -462,7 +606,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_speckled_corner_top_right",
@@ -475,7 +621,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_speckled_edge_bottom",
@@ -488,7 +636,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_below_dirt_cliff_edge_a",
@@ -502,7 +652,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_below_dirt_cliff_edge_b",
@@ -516,7 +673,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_patch_on_dirt_corner_top_left",
@@ -530,7 +694,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_patch_on_dirt_edge_top",
@@ -544,7 +710,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_patch_on_dirt_corner_top_right",
@@ -558,7 +726,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_strip_on_dirt_vertical_top",
@@ -572,7 +742,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_patch_on_dirt_edge_left",
@@ -586,7 +758,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_patch_on_dirt_center",
@@ -600,7 +774,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_patch_on_dirt_edge_right",
@@ -614,7 +790,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_strip_on_dirt_vertical_middle",
@@ -628,7 +806,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_patch_on_dirt_corner_bottom_left",
@@ -642,7 +822,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_patch_on_dirt_edge_bottom",
@@ -656,7 +838,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_patch_on_dirt_corner_bottom_right",
@@ -670,7 +854,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_strip_on_dirt_vertical_bottom",
@@ -684,7 +870,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_strip_on_dirt_horizontal_left",
@@ -698,7 +886,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_strip_on_dirt_horizontal_middle",
@@ -712,7 +902,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_strip_on_dirt_horizontal_right",
@@ -726,7 +918,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_patch_on_dirt_single",
@@ -740,7 +934,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_plateau_rock_cliff_corner_top_left",
@@ -754,7 +950,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_plateau_rock_cliff_edge_top",
@@ -768,7 +971,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_plateau_rock_cliff_corner_top_right",
@@ -782,7 +992,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_plateau_rock_cliff_strip_vertical_top",
@@ -796,7 +1013,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_plateau_rock_cliff_edge_left",
@@ -810,7 +1034,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_plateau_rock_cliff_center",
@@ -824,7 +1055,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_plateau_rock_cliff_edge_right",
@@ -838,7 +1076,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_plateau_rock_cliff_strip_vertical_middle",
@@ -852,7 +1097,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_plateau_rock_cliff_corner_bottom_left",
@@ -866,7 +1118,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_plateau_rock_cliff_edge_bottom",
@@ -880,7 +1139,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_plateau_rock_cliff_corner_bottom_right",
@@ -894,7 +1160,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_plateau_rock_cliff_strip_vertical_bottom",
@@ -908,7 +1181,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_plateau_rock_cliff_strip_horizontal_left",
@@ -922,7 +1202,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_plateau_rock_cliff_strip_horizontal_middle",
@@ -936,7 +1223,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_plateau_rock_cliff_strip_horizontal_right",
@@ -950,7 +1244,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_plateau_rock_cliff_single",
@@ -964,7 +1265,14 @@
         "autotile",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_ground_fill_01",
@@ -977,7 +1285,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_ground_fill_02",
@@ -990,7 +1300,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_ground_fill_03",
@@ -1003,7 +1315,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_ground_fill_04",
@@ -1016,7 +1330,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_ground_fill_05",
@@ -1029,7 +1345,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_ground_fill_06",
@@ -1042,7 +1360,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_ground_fill_07",
@@ -1055,7 +1375,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_ground_fill_08",
@@ -1068,7 +1390,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_ground_fill_09",
@@ -1081,7 +1405,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_ground_fill_10",
@@ -1094,7 +1420,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_ground_fill_11",
@@ -1107,7 +1435,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_fill_with_grass_notch_top_left",
@@ -1120,7 +1450,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_fill_with_grass_notch_top_right",
@@ -1133,7 +1465,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_fill_with_grass_notch_bottom_left",
@@ -1146,7 +1480,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_fill_with_grass_notch_bottom_right",
@@ -1159,7 +1495,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_fill_with_dirt_notch_top_left",
@@ -1172,7 +1510,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_fill_with_dirt_notch_top_right",
@@ -1185,7 +1525,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_fill_with_dirt_notch_bottom_left",
@@ -1198,7 +1540,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_fill_with_dirt_notch_bottom_right",
@@ -1211,7 +1555,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_round_patch_on_dirt_top_left",
@@ -1225,7 +1571,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_round_patch_on_dirt_top_right",
@@ -1239,7 +1587,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_round_patch_on_dirt_bottom_left",
@@ -1253,7 +1603,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_round_patch_on_dirt_bottom_right",
@@ -1267,7 +1619,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_round_patch_on_grass_top_left",
@@ -1281,7 +1635,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_round_patch_on_grass_top_right",
@@ -1295,7 +1651,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_round_patch_on_grass_bottom_left",
@@ -1309,7 +1667,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_round_patch_on_grass_bottom_right",
@@ -1323,7 +1683,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_with_dirt_corners_top_left_bottom_right",
@@ -1337,7 +1699,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_with_dirt_corners_top_right_bottom_left",
@@ -1351,7 +1715,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_with_grass_corners_top_left_bottom_right",
@@ -1365,7 +1731,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_with_grass_corners_top_right_bottom_left",
@@ -1379,7 +1747,9 @@
         "autotile",
         "grass",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_ground_fill_01",
@@ -1392,7 +1762,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_ground_fill_02",
@@ -1405,7 +1777,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_ground_fill_03",
@@ -1418,7 +1792,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_ground_fill_04",
@@ -1431,7 +1807,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_ground_fill_05",
@@ -1444,7 +1822,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_ground_fill_06",
@@ -1457,7 +1837,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_ground_fill_07",
@@ -1470,7 +1852,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_ground_fill_08",
@@ -1483,7 +1867,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_ground_fill_09",
@@ -1496,7 +1882,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_ground_fill_10",
@@ -1509,7 +1897,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_ground_fill_11",
@@ -1522,7 +1912,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "cobblestone_wall_fill_01",
@@ -1535,7 +1927,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_fill_02",
@@ -1548,7 +1947,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_fill_03",
@@ -1561,7 +1967,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_fill_04",
@@ -1574,7 +1987,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_fill_05",
@@ -1587,7 +2007,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_fill_06",
@@ -1600,7 +2027,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_fill_07",
@@ -1613,7 +2047,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_fill_08",
@@ -1626,7 +2067,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_grass_top_01",
@@ -1639,7 +2087,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_grass_top_02",
@@ -1652,7 +2107,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_grass_top_03",
@@ -1665,7 +2127,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_grass_top_04",
@@ -1678,7 +2147,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_grass_top_base_01",
@@ -1691,7 +2167,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_grass_top_base_02",
@@ -1704,7 +2187,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_grass_top_base_03",
@@ -1717,7 +2207,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_grass_top_base_04",
@@ -1730,7 +2227,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "grass_over_cobblestone_left",
@@ -1744,7 +2248,9 @@
         "autotile",
         "grass",
         "rock"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_over_cobblestone_right",
@@ -1758,7 +2264,9 @@
         "autotile",
         "grass",
         "rock"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "cobblestone_below_grass_left",
@@ -1772,7 +2280,9 @@
         "autotile",
         "grass",
         "rock"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "cobblestone_below_grass_right",
@@ -1786,7 +2296,9 @@
         "autotile",
         "grass",
         "rock"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_over_cobblestone_b_left",
@@ -1799,7 +2311,9 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_over_cobblestone_b_right",
@@ -1812,7 +2326,9 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "cobblestone_wall_fill_09",
@@ -1825,7 +2341,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_fill_10",
@@ -1838,7 +2361,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_fill_11",
@@ -1851,7 +2381,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "cobblestone_wall_fill_12",
@@ -1864,7 +2401,14 @@
         "schwarnhild",
         "autotile",
         "rock"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "dirt_path_vertical",
@@ -1878,7 +2422,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_path_vertical_end",
@@ -1892,7 +2438,9 @@
         "autotile",
         "dirt",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "plank_path_vertical",
@@ -1906,7 +2454,9 @@
         "autotile",
         "wood",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "plank_path_vertical_end",
@@ -1920,7 +2470,9 @@
         "autotile",
         "wood",
         "path"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_plain_a",
@@ -1933,7 +2485,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_plain_b",
@@ -1946,7 +2500,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_plain_water_edge_bottom",
@@ -1959,7 +2515,14 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "grass_tall_texture_a",
@@ -1972,7 +2535,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tall_texture_b",
@@ -1985,7 +2550,9 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tall_texture_water_edge_bottom",
@@ -1998,7 +2565,14 @@
         "schwarnhild",
         "autotile",
         "grass"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     },
     {
       "name": "dirt_fill_dark_edge_left",
@@ -2011,7 +2585,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_fill_dark_edge_right",
@@ -2024,7 +2600,9 @@
         "schwarnhild",
         "autotile",
         "dirt"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "water_tile_ripples",
@@ -2037,7 +2615,14 @@
         "schwarnhild",
         "autotile",
         "water"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "under"
     }
   ]
 }

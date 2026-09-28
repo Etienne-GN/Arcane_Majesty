@@ -17,7 +17,9 @@
         "terrain",
         "ice",
         "inner corners"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

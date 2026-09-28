@@ -14,7 +14,9 @@
         "pixel_crawler",
         "anokolisa",
         "static"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     }
   ]
 }

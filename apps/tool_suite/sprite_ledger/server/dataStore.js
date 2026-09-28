@@ -202,6 +202,23 @@ export async function setLicenseStatus(dataDir, sheetPngFilename, entryName, sta
     await writeJson(join(dataDir, 'sprite_meta.json'), meta);
 }
 
+// Review state of a sprite's hitbox + layer (the values themselves live in
+// the catalogue entry, which is what the game reads). 'proposed' = filled
+// in by Claude and waiting for a human look; 'approved' = a human set or
+// accepted it; null clears the record.
+export async function setPhysicsReview(dataDir, sheetPngFilename, entryName, status) {
+    if (status !== null && status !== 'proposed' && status !== 'approved') {
+        throw new Error(`invalid physics review status: ${status}`);
+    }
+    const meta = await loadSpriteMeta(dataDir);
+    const key = `${sheetPngFilename}::${entryName}`;
+    const record = meta[key] ?? {};
+    if (status === null) delete record.physics;
+    else record.physics = status;
+    meta[key] = record;
+    await writeJson(join(dataDir, 'sprite_meta.json'), meta);
+}
+
 // --- flags ---
 export async function loadFlags(dataDir, statusFilter) {
     const flags = await readJsonOrDefault(join(dataDir, 'flags.json'), []);

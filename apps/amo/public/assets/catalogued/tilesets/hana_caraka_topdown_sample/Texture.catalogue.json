@@ -16,7 +16,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_dirt_splat_b",
@@ -31,7 +33,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_dirt_splat_c",
@@ -46,7 +50,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_dirt_splat_d",
@@ -61,7 +67,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_teal_a",
@@ -76,7 +84,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_teal_b",
@@ -91,7 +101,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_teal_c",
@@ -106,7 +118,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_teal_d",
@@ -121,7 +135,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_teal_e",
@@ -136,7 +152,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_teal_f",
@@ -151,7 +169,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_teal_g",
@@ -166,7 +186,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_green_a",
@@ -181,7 +203,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_green_b",
@@ -196,7 +220,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_green_c",
@@ -211,7 +237,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_green_d",
@@ -226,7 +254,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_green_e",
@@ -241,7 +271,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_green_f",
@@ -256,7 +288,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_green_g",
@@ -271,7 +305,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_teal_h",
@@ -286,7 +322,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_sand_blob_a",
@@ -301,7 +339,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_sand_blob_b",
@@ -316,7 +356,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_sand_blob_c",
@@ -331,7 +373,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_sand_blob_d",
@@ -346,7 +390,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_sand_blob_e",
@@ -361,7 +407,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_pink_a",
@@ -376,7 +424,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_pink_b",
@@ -391,7 +441,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_pink_c",
@@ -406,7 +458,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_pink_d",
@@ -421,7 +475,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_pink_e",
@@ -436,7 +492,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_pink_f",
@@ -451,7 +509,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_pink_g",
@@ -466,7 +526,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_pink_h",
@@ -481,7 +543,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_pink_i",
@@ -496,7 +560,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_blue_a",
@@ -511,7 +577,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_blue_b",
@@ -526,7 +594,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_blue_c",
@@ -541,7 +611,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_blue_d",
@@ -556,7 +628,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "texture_stroke_pink_j",
@@ -571,7 +645,9 @@
         "ground",
         "texture",
         "ground_detail"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

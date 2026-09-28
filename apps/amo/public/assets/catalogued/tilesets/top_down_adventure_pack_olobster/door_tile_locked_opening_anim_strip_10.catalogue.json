@@ -76,7 +76,9 @@
           "w": 48,
           "h": 32
         }
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     }
   ]
 }

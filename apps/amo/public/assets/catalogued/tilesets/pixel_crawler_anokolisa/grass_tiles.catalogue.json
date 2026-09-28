@@ -15,7 +15,14 @@
         "anokolisa",
         "grass",
         "cliff"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 128
+      },
+      "layer": "sorted"
     },
     {
       "name": "pit_hole_dark",
@@ -29,7 +36,14 @@
         "anokolisa",
         "pit",
         "dirt"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 48
+      },
+      "layer": "under"
     },
     {
       "name": "grass_edge_blob",
@@ -43,7 +57,9 @@
         "anokolisa",
         "grass",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_edge_hole",
@@ -57,7 +73,9 @@
         "anokolisa",
         "grass",
         "autotile"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_fill_dark",
@@ -71,7 +89,9 @@
         "anokolisa",
         "grass",
         "fill"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_fill",
@@ -85,7 +105,9 @@
         "anokolisa",
         "grass",
         "fill"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_block_grass_edges",
@@ -99,7 +121,9 @@
         "anokolisa",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "dirt_patch_in_grass",
@@ -113,7 +137,9 @@
         "anokolisa",
         "dirt",
         "grass"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

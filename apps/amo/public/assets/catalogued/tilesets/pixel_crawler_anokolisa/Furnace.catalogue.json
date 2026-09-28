@@ -16,7 +16,14 @@
         "furnace",
         "stone",
         "lit"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 19,
+        "w": 29,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_stone_lit_tier2",
@@ -31,7 +38,14 @@
         "furnace",
         "stone",
         "lit"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 25,
+        "w": 33,
+        "h": 24
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_stone_lit_tier3",
@@ -46,7 +60,14 @@
         "furnace",
         "stone",
         "lit"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 31,
+        "w": 37,
+        "h": 31
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_brick_lit_tier1",
@@ -61,7 +82,14 @@
         "furnace",
         "brick",
         "lit"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 21,
+        "w": 27,
+        "h": 20
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_brick_lit_tier2",
@@ -76,7 +104,14 @@
         "furnace",
         "brick",
         "lit"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 29,
+        "w": 32,
+        "h": 28
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_brick_lit_tier3",
@@ -88,7 +123,14 @@
       "tags": [
         "pixel_crawler",
         "anokolisa"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 30,
+        "w": 69,
+        "h": 30
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_steel_lit_tier3",
@@ -100,7 +142,14 @@
       "tags": [
         "pixel_crawler",
         "anokolisa"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 32,
+        "w": 43,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_steel_lit_tier1",
@@ -115,7 +164,14 @@
         "furnace",
         "steel",
         "lit"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 23,
+        "w": 29,
+        "h": 22
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_steel_lit_tier2",
@@ -130,7 +186,14 @@
         "furnace",
         "steel",
         "lit"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 29,
+        "w": 34,
+        "h": 30
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_stone_unlit_tier2",
@@ -145,7 +208,14 @@
         "furnace",
         "stone",
         "unlit"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 25,
+        "w": 33,
+        "h": 24
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_stone_unlit_tier3",
@@ -160,7 +230,14 @@
         "furnace",
         "stone",
         "unlit"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 31,
+        "w": 37,
+        "h": 31
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_stone_unlit_tier1",
@@ -175,7 +252,14 @@
         "furnace",
         "stone",
         "unlit"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 19,
+        "w": 29,
+        "h": 19
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_brick_unlit_tier2",
@@ -190,7 +274,14 @@
         "furnace",
         "brick",
         "unlit"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 29,
+        "w": 32,
+        "h": 28
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_brick_unlit_tier3",
@@ -202,7 +293,14 @@
       "tags": [
         "pixel_crawler",
         "anokolisa"
-      ]
+      ],
+      "hitbox": {
+        "x": 4,
+        "y": 30,
+        "w": 69,
+        "h": 30
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_steel_unlit_tier3",
@@ -214,7 +312,14 @@
       "tags": [
         "pixel_crawler",
         "anokolisa"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 32,
+        "w": 43,
+        "h": 32
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_brick_unlit_tier1",
@@ -229,7 +334,14 @@
         "furnace",
         "brick",
         "unlit"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 21,
+        "w": 27,
+        "h": 20
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_steel_unlit_tier1",
@@ -244,7 +356,14 @@
         "furnace",
         "steel",
         "unlit"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 23,
+        "w": 29,
+        "h": 22
+      },
+      "layer": "sorted"
     },
     {
       "name": "furnace_steel_unlit_tier2",
@@ -259,7 +378,14 @@
         "furnace",
         "steel",
         "unlit"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 29,
+        "w": 34,
+        "h": 30
+      },
+      "layer": "sorted"
     }
   ]
 }

@@ -14,7 +14,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_001",
@@ -27,7 +29,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_002",
@@ -40,7 +44,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_003",
@@ -53,7 +59,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_004",
@@ -66,7 +74,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_005",
@@ -79,7 +89,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_006",
@@ -92,7 +104,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_007",
@@ -105,7 +119,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_008",
@@ -118,7 +134,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_009",
@@ -131,7 +149,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_010",
@@ -144,7 +164,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_011",
@@ -157,7 +179,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_012",
@@ -170,7 +194,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_013",
@@ -183,7 +209,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_014",
@@ -196,7 +224,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_015",
@@ -209,7 +239,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_016",
@@ -222,7 +254,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_017",
@@ -235,7 +269,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_018",
@@ -248,7 +284,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_019",
@@ -261,7 +299,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_020",
@@ -274,7 +314,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_021",
@@ -287,7 +329,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_022",
@@ -300,7 +344,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_023",
@@ -313,7 +359,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_024",
@@ -326,7 +374,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_025",
@@ -339,7 +389,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_026",
@@ -352,7 +404,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_027",
@@ -365,7 +419,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_028",
@@ -378,7 +434,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_029",
@@ -391,7 +449,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_030",
@@ -404,7 +464,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_031",
@@ -417,7 +479,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_032",
@@ -430,7 +494,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_033",
@@ -443,7 +509,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_034",
@@ -456,7 +524,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_035",
@@ -469,7 +539,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_036",
@@ -482,7 +554,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_037",
@@ -495,7 +569,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_038",
@@ -508,7 +584,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_039",
@@ -521,7 +599,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_040",
@@ -534,7 +614,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_041",
@@ -547,7 +629,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_042",
@@ -560,7 +644,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_043",
@@ -573,7 +659,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_044",
@@ -586,7 +674,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_045",
@@ -599,7 +689,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_046",
@@ -612,7 +704,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_047",
@@ -625,7 +719,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_048",
@@ -638,7 +734,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_049",
@@ -651,7 +749,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_050",
@@ -664,7 +764,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_051",
@@ -677,7 +779,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_052",
@@ -690,7 +794,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_053",
@@ -703,7 +809,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_054",
@@ -716,7 +824,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_055",
@@ -729,7 +839,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_056",
@@ -742,7 +854,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_057",
@@ -755,7 +869,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_058",
@@ -768,7 +884,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_059",
@@ -781,7 +899,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_060",
@@ -794,7 +914,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_061",
@@ -807,7 +929,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_062",
@@ -820,7 +944,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_063",
@@ -833,7 +959,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_064",
@@ -846,7 +974,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_065",
@@ -859,7 +989,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_066",
@@ -872,7 +1004,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_067",
@@ -885,7 +1019,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_068",
@@ -898,7 +1034,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_069",
@@ -911,7 +1049,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_070",
@@ -924,7 +1064,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_071",
@@ -937,7 +1079,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_072",
@@ -950,7 +1094,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_073",
@@ -963,7 +1109,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_074",
@@ -976,7 +1124,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_075",
@@ -989,7 +1139,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_076",
@@ -1002,7 +1154,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_077",
@@ -1015,7 +1169,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_078",
@@ -1028,7 +1184,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_079",
@@ -1041,7 +1199,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_080",
@@ -1054,7 +1214,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_081",
@@ -1067,7 +1229,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_082",
@@ -1080,7 +1244,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_083",
@@ -1093,7 +1259,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_084",
@@ -1106,7 +1274,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_085",
@@ -1119,7 +1289,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_086",
@@ -1132,7 +1304,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_087",
@@ -1145,7 +1319,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_088",
@@ -1158,7 +1334,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_089",
@@ -1171,7 +1349,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_090",
@@ -1184,7 +1364,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_091",
@@ -1197,7 +1379,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_092",
@@ -1210,7 +1394,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_093",
@@ -1223,7 +1409,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_094",
@@ -1236,7 +1424,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_095",
@@ -1249,7 +1439,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_096",
@@ -1262,7 +1454,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_097",
@@ -1275,7 +1469,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_098",
@@ -1288,7 +1484,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_099",
@@ -1301,7 +1499,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_100",
@@ -1314,7 +1514,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_101",
@@ -1327,7 +1529,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_102",
@@ -1340,7 +1544,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_103",
@@ -1353,7 +1559,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_104",
@@ -1366,7 +1574,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_105",
@@ -1379,7 +1589,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_106",
@@ -1392,7 +1604,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_107",
@@ -1405,7 +1619,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_108",
@@ -1418,7 +1634,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_109",
@@ -1431,7 +1649,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_110",
@@ -1444,7 +1664,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "name": "tools_111",
@@ -1457,7 +1679,9 @@
         "pixel_crawler",
         "anokolisa"
       ],
-      "needsNaming": true
+      "needsNaming": true,
+      "hitbox": null,
+      "layer": "sorted"
     }
   ]
 }

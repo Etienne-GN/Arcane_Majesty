@@ -15,7 +15,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_tall_teal_b",
@@ -29,7 +31,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_tall_olive_a",
@@ -43,7 +47,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_tall_olive_b",
@@ -57,7 +63,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_tall_salmon_a",
@@ -71,7 +79,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_tall_salmon_b",
@@ -85,7 +95,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_medium_teal_a",
@@ -99,7 +111,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_medium_teal_b",
@@ -113,7 +127,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_medium_olive_a",
@@ -127,7 +143,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_medium_olive_b",
@@ -141,7 +159,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_medium_salmon_a",
@@ -155,7 +175,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_medium_salmon_b",
@@ -169,7 +191,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_low_teal_a",
@@ -183,7 +207,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_low_teal_b",
@@ -197,7 +223,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_low_olive_a",
@@ -211,7 +239,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_low_olive_b",
@@ -225,7 +255,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_low_salmon_a",
@@ -239,7 +271,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "grass_tuft_low_salmon_b",
@@ -253,7 +287,9 @@
         "bagong_games",
         "grass",
         "nature"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

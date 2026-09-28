@@ -15,7 +15,9 @@
         "o_lobster",
         "ui",
         "hud"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     }
   ]
 }

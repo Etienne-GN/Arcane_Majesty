@@ -15,7 +15,14 @@
         "vacaroxa",
         "cc0",
         "props_n_decorations"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 7,
+        "w": 19,
+        "h": 8
+      },
+      "layer": "sorted"
     }
   ]
 }

@@ -2,7 +2,7 @@
   "source": "PATD_Struct.png",
   "sheetWidth": 512,
   "sheetHeight": 512,
-  "notes": "From the Cainos 'Pixel Art Top Down - Basic' pack. Bounding boxes computed by connected-component analysis of the real alpha channel. The 4 stair pieces are named by which way they visually face (left/right) rather than an absolute compass direction \u2014 the pack's own changelog calls them 'west and east direction' stairs, but that depends on a map-orientation convention not yet established in this project; rename once that's settled.",
+  "notes": "From the Cainos 'Pixel Art Top Down - Basic' pack. Bounding boxes computed by connected-component analysis of the real alpha channel. The 4 stair pieces are named by which way they visually face (left/right) rather than an absolute compass direction — the pack's own changelog calls them 'west and east direction' stairs, but that depends on a map-orientation convention not yet established in this project; rename once that's settled.",
   "entries": [
     {
       "kind": "object",
@@ -17,7 +17,14 @@
         "retaining",
         "grass",
         "elevation"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 96
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -32,7 +39,14 @@
         "retaining",
         "grass",
         "elevation"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 65,
+        "h": 96
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -47,7 +61,14 @@
         "retaining",
         "grass",
         "elevation"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 65,
+        "h": 96
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -63,7 +84,14 @@
         "grass",
         "elevation",
         "damaged"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 96
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -79,7 +107,14 @@
         "grass",
         "elevation",
         "mossy"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 65,
+        "h": 96
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -95,7 +130,14 @@
         "grass",
         "elevation",
         "damaged"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 65,
+        "h": 96
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -108,7 +150,14 @@
         "archway",
         "gate",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 38,
+        "w": 80,
+        "h": 26
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -122,7 +171,14 @@
         "gate",
         "stone",
         "small"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 38,
+        "w": 64,
+        "h": 26
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -135,7 +191,9 @@
         "stairs",
         "elevation",
         "diagonal"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -148,7 +206,9 @@
         "stairs",
         "elevation",
         "diagonal"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -161,7 +221,9 @@
         "stairs",
         "elevation",
         "diagonal"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -174,7 +236,9 @@
         "stairs",
         "elevation",
         "diagonal"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ]
 }

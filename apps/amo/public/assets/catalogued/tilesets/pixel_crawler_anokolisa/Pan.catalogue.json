@@ -14,7 +14,14 @@
         "pixel_crawler",
         "anokolisa",
         "static"
-      ]
+      ],
+      "hitbox": {
+        "x": 8,
+        "y": 87,
+        "w": 144,
+        "h": 87
+      },
+      "layer": "sorted"
     }
   ]
 }

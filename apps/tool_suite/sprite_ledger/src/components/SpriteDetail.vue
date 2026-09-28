@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
-import type { Sheet, Collection, Flag, FlagStatus, SpriteEntry, LicenseStatus } from '../services/api';
+import type { Sheet, Collection, Flag, FlagStatus, SpriteEntry, LicenseStatus, PhysicsReview } from '../services/api';
+import HitboxEditor from './HitboxEditor.vue';
 import { imageUrl, assignCollection, fetchFlags, setFlagStatus, setLicenseStatus, answerQuestion } from '../services/api';
 import { flattenTree } from '../services/collectionTree';
 import FlagForm from './FlagForm.vue';
@@ -12,13 +13,14 @@ const props = defineProps<{
     collections: Collection[];
     currentCollectionId: string;
     currentLicense: LicenseStatus | null;
+    physicsReview: PhysicsReview | null;
 }>();
 
 // 'approved' replaces 'reassigned' when a flag is resolved: App refreshes
 // and moves the selection on to the next sprite in the grid.
 // 'openInReviewer' hands this sprite to Reviewer Mode (App switches view),
 // opened on the queue of its pending flag.
-const emit = defineEmits<{ close: []; reassigned: []; approved: []; openInReviewer: [queue: FlagStatus] }>();
+const emit = defineEmits<{ close: []; reassigned: []; approved: []; openInReviewer: [queue: FlagStatus]; openHitboxReviewer: [] }>();
 
 const sheet = computed(() => props.sheets.find(s => s.sheetPngFilename === props.sheetPngFilename)!);
 const entry = computed<SpriteEntry>(() => sheet.value.entries.find(e => e.name === props.entryName)!);
@@ -212,6 +214,12 @@ async function onAnswerQuestion(f: Flag) {
     >🧐 Open in Reviewer Mode</button>
     <div class="tags" v-if="entry.tags?.length">{{ entry.tags.join(', ') }}</div>
 
+    <details class="physics" open>
+      <summary>Collision &amp; layer</summary>
+      <HitboxEditor :sheet="sheet" :entry="entry" :review="physicsReview" @saved="emit('reassigned')" />
+      <button v-if="physicsReview === 'proposed'" class="open-reviewer" @click="emit('openHitboxReviewer')">🧱 Review hitboxes in Reviewer Mode</button>
+    </details>
+
     <label class="collection-picker">
       Collection:
       <select v-model="selectedCollection" @change="onCollectionChange">
@@ -288,6 +296,8 @@ async function onAnswerQuestion(f: Flag) {
 .anim-controls button { font-size: 11px; padding: 2px 8px; background: #1a1a1a; color: #eee; border: 1px solid #333; cursor: pointer; }
 .frame-count { font-size: 10px; color: #888; margin-left: 4px; }
 .sheet-name { font-size: 11px; color: #888; }
+.physics { margin: 10px 0; border: 1px solid #333; border-radius: 4px; padding: 6px 8px; }
+.physics summary { cursor: pointer; font-size: 12px; color: #ccc; margin-bottom: 6px; }
 .open-reviewer { margin-top: 8px; background: #16261b; color: #eee; border: 1px solid #3a7; border-radius: 4px; padding: 4px 10px; cursor: pointer; font-family: inherit; font-size: 12px; }
 .open-reviewer:hover { background: #1d3524; }
 .tags { font-size: 11px; color: #6a6; margin-top: 4px; }

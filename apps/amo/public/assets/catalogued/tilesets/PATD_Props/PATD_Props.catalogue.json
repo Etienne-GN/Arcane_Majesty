@@ -2,7 +2,7 @@
   "source": "PATD_Props.png",
   "sheetWidth": 512,
   "sheetHeight": 512,
-  "notes": "From the Cainos 'Pixel Art Top Down - Basic' pack. Bounding boxes computed by connected-component analysis of the real alpha channel (dilated 3px to merge fine detail like rivets/bolts into their parent object, then tightened back to the true bbox). Verified visually against a TRUE-SCALE contact sheet (not size-normalized per cell) after an initial size-normalized pass caused two real misreads. Two tiny bright-cyan fragments (5x26 and 12x12, at roughly x=270,y=29 and x=330,y=266) are Unity editor/UI glyph icons baked into the flattened export, not game art \u2014 excluded entirely, matching the same call made on TX Player.png (rejected separately).",
+  "notes": "From the Cainos 'Pixel Art Top Down - Basic' pack. Bounding boxes computed by connected-component analysis of the real alpha channel (dilated 3px to merge fine detail like rivets/bolts into their parent object, then tightened back to the true bbox). Verified visually against a TRUE-SCALE contact sheet (not size-normalized per cell) after an initial size-normalized pass caused two real misreads. Two tiny bright-cyan fragments (5x26 and 12x12, at roughly x=270,y=29 and x=330,y=266) are Unity editor/UI glyph icons baked into the flattened export, not game art — excluded entirely, matching the same call made on TX Player.png (rejected separately).",
   "entries": [
     {
       "kind": "object",
@@ -15,7 +15,14 @@
         "stone",
         "marker",
         "lore"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 26,
+        "w": 29,
+        "h": 26
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -28,7 +35,14 @@
         "stone",
         "ruins",
         "broken"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 31,
+        "w": 29,
+        "h": 30
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -40,7 +54,14 @@
       "tags": [
         "stone",
         "block"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 23,
+        "w": 35,
+        "h": 23
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -53,7 +74,14 @@
         "chest",
         "container",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 15,
+        "w": 33,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -66,7 +94,14 @@
         "crate",
         "container",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 23,
+        "w": 35,
+        "h": 23
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -79,7 +114,14 @@
         "bench",
         "furniture",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 21,
+        "w": 57,
+        "h": 20
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -92,7 +134,14 @@
         "statue",
         "decoration",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 9,
+        "y": 58,
+        "w": 19,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -105,7 +154,14 @@
         "chest",
         "container",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 25,
+        "w": 35,
+        "h": 24
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -117,7 +173,9 @@
       "tags": [
         "door",
         "wood"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -131,7 +189,14 @@
         "marker",
         "lore",
         "tall"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 33,
+        "w": 43,
+        "h": 33
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -144,7 +209,14 @@
         "altar",
         "stone",
         "shrine"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 18,
+        "w": 60,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -157,7 +229,9 @@
         "door",
         "wood",
         "ornate"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -170,7 +244,14 @@
         "stone",
         "monolith",
         "thin"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 31,
+        "w": 28,
+        "h": 30
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -183,7 +264,14 @@
         "wall",
         "ruins",
         "broken"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 28,
+        "h": 37
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -196,7 +284,14 @@
         "shrine",
         "pedestal",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 18,
+        "w": 28,
+        "h": 18
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -209,7 +304,14 @@
         "barrel",
         "container",
         "wood"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 29,
+        "w": 32,
+        "h": 28
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -222,7 +324,14 @@
         "fence",
         "wood",
         "broken"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 32,
+        "w": 17,
+        "h": 21
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -235,7 +344,14 @@
         "fence",
         "wood",
         "broken"
-      ]
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 32,
+        "w": 17,
+        "h": 21
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -249,7 +365,14 @@
         "tombstone",
         "stone",
         "cross"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 26,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -261,7 +384,14 @@
       "tags": [
         "signpost",
         "village"
-      ]
+      ],
+      "hitbox": {
+        "x": 11,
+        "y": 62,
+        "w": 22,
+        "h": 15
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -274,7 +404,14 @@
         "stone",
         "pillar",
         "tiered"
-      ]
+      ],
+      "hitbox": {
+        "x": 7,
+        "y": 30,
+        "w": 16,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -288,7 +425,14 @@
         "tombstone",
         "stone",
         "weathered"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 29,
+        "w": 32,
+        "h": 28
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -301,7 +445,14 @@
         "stone",
         "pillar",
         "cairn"
-      ]
+      ],
+      "hitbox": {
+        "x": 5,
+        "y": 27,
+        "w": 12,
+        "h": 7
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -314,7 +465,14 @@
         "pottery",
         "jar",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 27,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -327,7 +485,14 @@
         "grave",
         "tombstone",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 21,
+        "w": 32,
+        "h": 20
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -340,7 +505,14 @@
         "pottery",
         "jar",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 15,
+        "w": 29,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -355,7 +527,14 @@
         "mechanism",
         "needs-follow-up"
       ],
-      "lowConfidence": true
+      "lowConfidence": true,
+      "hitbox": {
+        "x": 5,
+        "y": 36,
+        "w": 87,
+        "h": 36
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -368,7 +547,14 @@
         "pottery",
         "jar",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 13,
+        "w": 25,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -381,7 +567,14 @@
         "grave",
         "cross",
         "stone"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 20,
+        "w": 31,
+        "h": 20
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -394,7 +587,14 @@
         "stone",
         "block",
         "storage"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 23,
+        "w": 35,
+        "h": 23
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -407,7 +607,14 @@
         "pottery",
         "jar",
         "decoration"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 16,
+        "w": 21,
+        "h": 16
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -420,7 +627,14 @@
         "stone",
         "ruins",
         "rubble"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 25,
+        "w": 52,
+        "h": 24
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -432,7 +646,14 @@
       "tags": [
         "rock",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 6,
+        "y": 21,
+        "w": 48,
+        "h": 21
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -445,7 +666,9 @@
         "rock",
         "nature",
         "tiny"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -458,7 +681,9 @@
         "rock",
         "nature",
         "small"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "kind": "object",
@@ -470,7 +695,14 @@
       "tags": [
         "rock",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 9,
+        "w": 20,
+        "h": 10
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -483,7 +715,14 @@
         "rock",
         "nature",
         "cluster"
-      ]
+      ],
+      "hitbox": {
+        "x": 9,
+        "y": 13,
+        "w": 73,
+        "h": 14
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -495,7 +734,14 @@
       "tags": [
         "rock",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 8,
+        "w": 14,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -507,7 +753,14 @@
       "tags": [
         "rock",
         "nature"
-      ]
+      ],
+      "hitbox": {
+        "x": 2,
+        "y": 8,
+        "w": 15,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "kind": "object",
@@ -520,7 +773,14 @@
         "rock",
         "nature",
         "pair"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 9,
+        "w": 25,
+        "h": 10
+      },
+      "layer": "sorted"
     }
   ]
 }

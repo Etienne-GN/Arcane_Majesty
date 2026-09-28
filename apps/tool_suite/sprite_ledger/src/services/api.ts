@@ -1,6 +1,13 @@
 /** One frame of an animated sprite: a pixel box on the sheet. */
 export interface SpriteFrame { x: number; y: number; w: number; h: number; }
 
+/** Collision box, in pixels, relative to the sprite's top-left (see spriteSize in physics.ts). */
+export interface HitBox { x: number; y: number; w: number; h: number; }
+/** Draw order against characters: always below, depth-sorted by the sprite's base, or always above. */
+export type Layer = 'under' | 'sorted' | 'over';
+/** 'proposed' = filled in by Claude, waiting for a human look; 'approved' = set or accepted by a human. */
+export type PhysicsReview = 'proposed' | 'approved';
+
 export interface SpriteEntry {
     kind: 'object' | 'tile';
     name: string;
@@ -11,6 +18,9 @@ export interface SpriteEntry {
     // sprite without it is a still and renders from its own box.
     frames?: SpriteFrame[];
     frameDurationMs?: number;
+    // Absent = not decided yet. hitbox null = explicitly no collision.
+    hitbox?: HitBox | null;
+    layer?: Layer;
 }
 
 export interface Sheet {
@@ -68,7 +78,9 @@ export async function fetchSheets(): Promise<Sheet[]> {
 
 export type LicenseStatus = 'ok' | 'unlicensed';
 
-export async function fetchMeta(): Promise<{ collections: Collection[]; spriteMeta: Record<string, { collection: string; license?: LicenseStatus }> }> {
+export interface SpriteMetaRecord { collection: string; license?: LicenseStatus; physics?: PhysicsReview; }
+
+export async function fetchMeta(): Promise<{ collections: Collection[]; spriteMeta: Record<string, SpriteMetaRecord> }> {
     return (await req('/meta')).json();
 }
 
@@ -116,6 +128,15 @@ export async function answerQuestion(flag: Flag, answer: string): Promise<void> 
     const line = `[Answer to Claude's question] ${answer}`;
     const comment = flag.comment ? `${flag.comment}\n\n${line}` : line;
     await setFlagStatus(flag.id, 'open', { comment });
+}
+
+// Any field left undefined is kept as it is. Returns the updated entry
+// when hitbox/layer were sent.
+export async function savePhysics(
+    sheet: string, name: string,
+    body: { hitbox?: HitBox | null; layer?: Layer; review?: PhysicsReview | null },
+): Promise<SpriteEntry | null> {
+    return (await (await postJson('/physics', { sheet, name, ...body })).json()).entry;
 }
 
 export function imageUrl(sheetPngFilename: string): string {

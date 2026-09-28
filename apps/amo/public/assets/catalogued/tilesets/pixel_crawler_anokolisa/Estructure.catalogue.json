@@ -14,7 +14,14 @@
         "pixel_crawler",
         "anokolisa",
         "cooking_station"
-      ]
+      ],
+      "hitbox": {
+        "x": 14,
+        "y": 102,
+        "w": 258,
+        "h": 102
+      },
+      "layer": "sorted"
     }
   ]
 }

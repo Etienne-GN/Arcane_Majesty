@@ -15,7 +15,9 @@
         "tofebaa",
         "building",
         "house"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "over"
     }
   ]
 }

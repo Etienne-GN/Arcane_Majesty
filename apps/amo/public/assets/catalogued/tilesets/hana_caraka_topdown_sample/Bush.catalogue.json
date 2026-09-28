@@ -12,7 +12,14 @@
       "tags": [
         "hana_caraka",
         "bush"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 10,
+        "w": 10,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "bush_small_olive",
@@ -23,7 +30,14 @@
       "tags": [
         "hana_caraka",
         "bush"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 10,
+        "w": 10,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "bush_small_red",
@@ -34,7 +48,14 @@
       "tags": [
         "hana_caraka",
         "bush"
-      ]
+      ],
+      "hitbox": {
+        "x": 3,
+        "y": 10,
+        "w": 10,
+        "h": 6
+      },
+      "layer": "sorted"
     },
     {
       "name": "bush_small_snow",
@@ -45,7 +66,9 @@
       "tags": [
         "hana_caraka",
         "bush"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "bush_large_teal",
@@ -56,7 +79,14 @@
       "tags": [
         "hana_caraka",
         "bush"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "bush_large_olive",
@@ -67,7 +97,14 @@
       "tags": [
         "hana_caraka",
         "bush"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "bush_large_red",
@@ -78,7 +115,14 @@
       "tags": [
         "hana_caraka",
         "bush"
-      ]
+      ],
+      "hitbox": {
+        "x": 1,
+        "y": 8,
+        "w": 13,
+        "h": 8
+      },
+      "layer": "sorted"
     },
     {
       "name": "bush_large_snow",
@@ -89,7 +133,9 @@
       "tags": [
         "hana_caraka",
         "bush"
-      ]
+      ],
+      "hitbox": null,
+      "layer": "under"
     }
   ],
   "gridTileWidth": 16,
