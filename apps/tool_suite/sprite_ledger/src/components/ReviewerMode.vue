@@ -8,11 +8,13 @@ import { imageUrl, setFlagStatus, answerQuestion } from '../services/api';
 // that jump straight to the next item. It only reads the same flags the
 // rest of the ledger uses and writes through the same API, so nothing here
 // changes how the grid or the detail panel behave.
-const props = defineProps<{ sheets: Sheet[]; flags: Flag[] }>();
+// startKey/startQueue: opened from a sprite's detail panel — land on that
+// sprite (in its queue) instead of the first item.
+const props = defineProps<{ sheets: Sheet[]; flags: Flag[]; startKey?: string | null; startQueue?: 'needs_review' | 'question' | 'open' | null }>();
 const emit = defineEmits<{ exit: []; changed: [] }>();
 
 type Queue = 'needs_review' | 'question' | 'open';
-const queue = ref<Queue>('needs_review');
+const queue = ref<Queue>(props.startQueue ?? 'needs_review');
 const sheetFilter = ref<string>('all');
 
 interface Item { key: string; sheet: Sheet; entry: SpriteEntry; flags: Flag[] }
@@ -64,7 +66,13 @@ function rebuild() {
     done.value = {};
     index.value = 0;
 }
-onMounted(rebuild);
+onMounted(() => {
+    rebuild();
+    if (props.startKey) {
+        const i = items.value.findIndex(it => it.key === props.startKey);
+        if (i >= 0) index.value = i;
+    }
+});
 watch([queue, sheetFilter], rebuild);
 
 const sheetCounts = computed(() => {

@@ -6,7 +6,7 @@ import SpriteGrid from './components/SpriteGrid.vue';
 import SpriteDetail from './components/SpriteDetail.vue';
 import ReviewerMode from './components/ReviewerMode.vue';
 import { fetchSheets, fetchMeta, fetchFlags, addCollection } from './services/api';
-import type { Sheet, Collection, Flag, LicenseStatus } from './services/api';
+import type { Sheet, Collection, Flag, FlagStatus, LicenseStatus } from './services/api';
 import { descendantIds } from './services/collectionTree';
 import { orderedCells } from './services/gridOrder';
 
@@ -204,6 +204,22 @@ async function onApproved() {
     document.querySelector(`[data-key="${CSS.escape(nextKey)}"]`)?.scrollIntoView({ block: 'nearest' });
 }
 
+// Where Reviewer Mode should start: a specific sprite (from the detail
+// panel's button) or the top of the review queue (from Home).
+const reviewerStart = ref<{ key: string | null; queue: 'needs_review' | 'question' | 'open' | null }>({ key: null, queue: null });
+function openReviewer(key: string | null, queue: FlagStatus | null) {
+    reviewerStart.value = { key, queue: queue === 'resolved' ? null : queue };
+    reviewerReturnTo.value = key ? 'browse' : 'home';
+    selected.value = null;
+    view.value = 'reviewer';
+}
+// Leaving Reviewer Mode goes back where you came from (the filtered grid
+// when it was opened from a sprite's detail panel).
+const reviewerReturnTo = ref<'home' | 'browse'>('home');
+function exitReviewer() {
+    view.value = reviewerReturnTo.value;
+}
+
 function goHome() {
     view.value = 'home';
 }
@@ -248,7 +264,7 @@ async function onAddCollection(name: string, parentId: string | null) {
       :unlicensed-count="licenseFlaggedKeys.size"
       :orphan-flags="orphanFlags"
       @flags-changed="reload"
-      @open-reviewer="view = 'reviewer'"
+      @open-reviewer="openReviewer(null, null)"
       @select-collection="onHomeSelectCollection"
       @select-flag-filter="onHomeSelectFlagFilter"
     />
@@ -256,7 +272,9 @@ async function onAddCollection(name: string, parentId: string | null) {
       v-else-if="view === 'reviewer'"
       :sheets="sheets"
       :flags="liveFlags"
-      @exit="goHome"
+      :start-key="reviewerStart.key"
+      :start-queue="reviewerStart.queue"
+      @exit="exitReviewer"
       @changed="reload"
     />
     <template v-else>
@@ -305,6 +323,7 @@ async function onAddCollection(name: string, parentId: string | null) {
       @close="selected = null"
       @reassigned="reload"
       @approved="onApproved"
+      @open-in-reviewer="(q) => openReviewer(keyFor(selected!.sheetPngFilename, selected!.entryName), q)"
     />
   </div>
 </template>

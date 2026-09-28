@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
-import type { Sheet, Collection, Flag, SpriteEntry, LicenseStatus } from '../services/api';
+import type { Sheet, Collection, Flag, FlagStatus, SpriteEntry, LicenseStatus } from '../services/api';
 import { imageUrl, assignCollection, fetchFlags, setFlagStatus, setLicenseStatus, answerQuestion } from '../services/api';
 import { flattenTree } from '../services/collectionTree';
 import FlagForm from './FlagForm.vue';
@@ -16,7 +16,9 @@ const props = defineProps<{
 
 // 'approved' replaces 'reassigned' when a flag is resolved: App refreshes
 // and moves the selection on to the next sprite in the grid.
-const emit = defineEmits<{ close: []; reassigned: []; approved: [] }>();
+// 'openInReviewer' hands this sprite to Reviewer Mode (App switches view),
+// opened on the queue of its pending flag.
+const emit = defineEmits<{ close: []; reassigned: []; approved: []; openInReviewer: [queue: FlagStatus] }>();
 
 const sheet = computed(() => props.sheets.find(s => s.sheetPngFilename === props.sheetPngFilename)!);
 const entry = computed<SpriteEntry>(() => sheet.value.entries.find(e => e.name === props.entryName)!);
@@ -131,6 +133,12 @@ async function onSetLicense(status: LicenseStatus) {
 }
 
 const flagsForSprite = ref<Flag[]>([]);
+// Reviewer Mode has one queue per status; prefer the review queue, since
+// that's where the in-context sheet view matters most.
+const reviewerQueue = computed<FlagStatus | null>(() => {
+    const statuses = new Set(flagsForSprite.value.map(f => f.status));
+    return (['needs_review', 'question', 'open'] as FlagStatus[]).find(s => statuses.has(s)) ?? null;
+});
 async function loadFlagsForSprite() {
     // Show everything still pending action (open, needs_review, question)
     // — hide only flags a human has already fully resolved.
@@ -192,6 +200,12 @@ async function onAnswerQuestion(f: Flag) {
     </div>
     <h3>{{ entryName }} <span v-if="isAnimated" class="anim-tag">animated</span></h3>
     <div class="sheet-name">{{ sheetPngFilename }}</div>
+    <button
+      v-if="reviewerQueue"
+      class="open-reviewer"
+      title="Open this sprite in Reviewer Mode, with the source spritesheet around it"
+      @click="emit('openInReviewer', reviewerQueue)"
+    >🧐 Open in Reviewer Mode</button>
     <div class="tags" v-if="entry.tags?.length">{{ entry.tags.join(', ') }}</div>
 
     <label class="collection-picker">
@@ -270,6 +284,8 @@ async function onAnswerQuestion(f: Flag) {
 .anim-controls button { font-size: 11px; padding: 2px 8px; background: #1a1a1a; color: #eee; border: 1px solid #333; cursor: pointer; }
 .frame-count { font-size: 10px; color: #888; margin-left: 4px; }
 .sheet-name { font-size: 11px; color: #888; }
+.open-reviewer { margin-top: 8px; background: #16261b; color: #eee; border: 1px solid #3a7; border-radius: 4px; padding: 4px 10px; cursor: pointer; font-family: inherit; font-size: 12px; }
+.open-reviewer:hover { background: #1d3524; }
 .tags { font-size: 11px; color: #6a6; margin-top: 4px; }
 .collection-picker { display: block; margin-top: 12px; }
 .license-controls { display: flex; gap: 6px; margin-top: 10px; }
