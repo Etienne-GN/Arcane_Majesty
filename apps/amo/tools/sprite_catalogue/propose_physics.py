@@ -40,7 +40,8 @@ LOW_BARRIER = {'fence', 'railing', 'hedge', 'bars', 'gate', 'balustrade', 'balus
 GROUND = {'floor', 'grass', 'dirt', 'sand', 'path', 'road', 'rug', 'carpet', 'mat', 'puddle', 'shadow', 'decal',
           'speckle', 'tuft', 'moss', 'crack', 'stain', 'blood', 'leaves', 'snow', 'mud', 'pebble', 'pebbles',
           'gravel', 'cobblestone', 'flagstone', 'terrain', 'ground', 'ground_detail', 'patch', 'sprout', 'flower',
-          'flowers', 'clover', 'weed', 'weeds', 'texture', 'shore', 'swamp', 'tiles', 'ice'}
+          'flowers', 'clover', 'weed', 'weeds', 'texture', 'shore', 'swamp', 'tiles', 'ice', 'earth', 'soil',
+          'cobble', 'paved', 'paving', 'pavement', 'meadow', 'lawn', 'field', 'farmland', 'tilled', 'grassland'}
 TREE = {'tree', 'trunk'}
 ROCKY = {'bush', 'shrub', 'boulder', 'rock', 'rocks', 'stump'}
 THIN_POST = {'lamp', 'post', 'pole', 'torch', 'lantern', 'signpost', 'column', 'pillar', 'totem', 'statue'}
@@ -48,6 +49,17 @@ PASSABLE_DECOR = {'door', 'doorway', 'window', 'sign', 'banner', 'painting', 'fr
                   'candle', 'candles', 'sconce', 'clock', 'shelf'}
 ITEM = {'item', 'items', 'food', 'weapon', 'weapons', 'tool', 'tools', 'potion', 'gem', 'coin', 'key', 'fruit',
         'fruits', 'meat', 'fish', 'bread', 'book', 'scroll', 'dagger', 'sword', 'axe', 'bow', 'arrow', 'ring', 'herb'}
+
+
+# Never approved in bulk even when their category is: a ledge or a drop
+# between heights may well need to block, and "soil" in a planter box is a prop.
+NEVER_AUTO_APPROVE = {'ledge', 'cliff', 'wall', 'edge_wall', 'planter', 'pot', 'box', 'crate', 'bed'}
+
+
+def name_tokens(e):
+    """Name parts + tags, each also without trailing digits (grass1 -> grass)."""
+    raw = set(e['name'].split('_')) | set(e.get('tags', []))
+    return raw | {t.rstrip('0123456789') for t in raw}
 
 
 def footprint(alpha_bbox, size, frac_h, frac_w):
@@ -73,7 +85,7 @@ RULES = [
     ('solid wall / cliff', lambda t, e, s, c: bool(t & SOLID_WALL), lambda b, s: (full(s), 'sorted')),
     ('walkable structure (bridge, dock, stairs)', lambda t, e, s, c: bool(t & WALK_STRUCT), lambda b, s: (None, 'under')),
     ('water / pit (blocks)', lambda t, e, s, c: bool(t & WATER) and not (t & NOT_WATER), lambda b, s: (full(s), 'under')),
-    ('ground detail', lambda t, e, s, c: bool(t & GROUND), lambda b, s: (None, 'under')),
+    ('ground / soil', lambda t, e, s, c: bool(t & GROUND), lambda b, s: (None, 'under')),
     ('low barrier (fence, hedge, railing)', lambda t, e, s, c: bool(t & LOW_BARRIER), lambda b, s: (footprint(b, s, 0.4, 1.0), 'sorted')),
     ('tree (trunk footprint)', lambda t, e, s, c: bool(t & TREE), lambda b, s: (footprint(b, s, 0.2, 0.3), 'sorted')),
     ('rock / bush / stump', lambda t, e, s, c: bool(t & ROCKY), lambda b, s: (footprint(b, s, 0.5, 0.8), 'sorted')),
@@ -103,8 +115,16 @@ def sprite_box(cat, e):
 
 def main():
     dry = '--dry-run' in sys.argv
+    # --approve "<rule label>" (repeatable): the whole category is certain
+    # enough to skip human review, e.g. ground / soil is always under
+    # characters with no collision. Forces the rule's values and marks the
+    # sprites approved.
+    approve = {sys.argv[i + 1] for i, a in enumerate(sys.argv) if a == '--approve'}
+    unknown = approve - {label for label, _, _ in RULES}
+    if unknown:
+        sys.exit(f'unknown rule label(s): {unknown}; known: {[l for l, _, _ in RULES]}')
     meta = json.loads(META.read_text())
-    stats = Counter()
+    proposed, approved = Counter(), Counter()
     changed_files = 0
     for cat_path in sorted(TILESETS.glob('*/*.catalogue.json')):
         cat = json.loads(cat_path.read_text())
@@ -115,7 +135,8 @@ def main():
             key = f'{sheet}::{e["name"]}'
             if meta.get(key, {}).get('physics') == 'approved':
                 continue
-            if 'hitbox' in e and 'layer' in e:
+            is_new = not ('hitbox' in e and 'layer' in e)
+            if not is_new and not approve:
                 continue
             if alpha is None:
                 alpha = Image.open(cat_path.parent / sheet).convert('RGBA').split()[-1]
@@ -126,27 +147,33 @@ def main():
             bb = mask.getbbox() or (0, 0, w, h)
             coverage = mask.histogram()[255] / float(w * h)
             bbox = (bb[0] + ox, bb[1] + oy, bb[2] + ox, bb[3] + oy)
-            tokens = set(e['name'].split('_')) | set(e.get('tags', []))
+            tokens = name_tokens(e)
             for label, pred, result in RULES:
                 if pred(tokens, e, size, coverage):
                     hitbox, layer = result(bbox, size)
                     break
-            if 'hitbox' not in e:
-                e['hitbox'] = hitbox
-            if 'layer' not in e:
-                e['layer'] = layer
-            meta.setdefault(key, {})['physics'] = 'proposed'
-            stats[label] += 1
-            dirty = True
+            if label in approve and not (tokens & NEVER_AUTO_APPROVE):
+                e['hitbox'], e['layer'] = hitbox, layer
+                meta.setdefault(key, {})['physics'] = 'approved'
+                approved[label] += 1
+                dirty = True
+            elif is_new:
+                e.setdefault('hitbox', hitbox)
+                e.setdefault('layer', layer)
+                meta.setdefault(key, {})['physics'] = 'proposed'
+                proposed[label] += 1
+                dirty = True
         if dirty and not dry:
             cat_path.write_text(json.dumps(cat, indent=2, ensure_ascii=False) + '\n')
             changed_files += 1
     if not dry:
         META.write_text(json.dumps(meta, indent=2) + '\n')
-    for label, n in stats.most_common():
-        print(f'{n:6d}  {label}')
-    print(f'{sum(stats.values())} sprites proposed in {changed_files} catalogues' + (' (dry run)' if dry else ''))
-
+    for label, n in proposed.most_common():
+        print(f'{n:6d}  proposed  {label}')
+    for label, n in approved.most_common():
+        print(f'{n:6d}  approved  {label}')
+    print(f'{sum(proposed.values())} proposed, {sum(approved.values())} approved, {changed_files} catalogues'
+          + (' (dry run)' if dry else ''))
 
 if __name__ == '__main__':
     main()

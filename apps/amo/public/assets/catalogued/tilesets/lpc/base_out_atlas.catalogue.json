@@ -11389,13 +11389,8 @@
         "lpc",
         "atlas"
       ],
-      "hitbox": {
-        "x": 1,
-        "y": 13,
-        "w": 29,
-        "h": 12
-      },
-      "layer": "sorted"
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "brick_wall_flat_plain_b",
@@ -11827,13 +11822,8 @@
         "lpc",
         "atlas"
       ],
-      "hitbox": {
-        "x": 1,
-        "y": 16,
-        "w": 29,
-        "h": 16
-      },
-      "layer": "sorted"
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "mosaic_cobble_fill_arc",
@@ -11845,13 +11835,8 @@
         "lpc",
         "atlas"
       ],
-      "hitbox": {
-        "x": 1,
-        "y": 16,
-        "w": 29,
-        "h": 16
-      },
-      "layer": "sorted"
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "brick_wall_baseboard_b",
