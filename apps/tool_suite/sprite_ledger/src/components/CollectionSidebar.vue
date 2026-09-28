@@ -14,6 +14,10 @@ const props = defineProps<{
     sortOrder: 'name' | 'sheet';
     // collection id -> sprite count, rolled up over descendants; 'all' -> total.
     counts: Record<string, number>;
+    // Set while a filter (flag, hitbox, license, search...) is active: how
+    // many sprites in each collection match it. null = no filter.
+    matchedCounts: Record<string, number> | null;
+    shownCount: number;
     licenseFilter: 'all' | 'ok' | 'unlicensed' | 'unmarked';
     physicsFilter: 'all' | 'unset' | 'proposed' | 'approved' | 'no_hitbox';
 }>();
@@ -38,6 +42,11 @@ const emit = defineEmits<{
 // read the hierarchy the same way a real tree view would — each root
 // immediately followed by its descendants, indented one step per level.
 const tree = computed(() => flattenTree(props.collections));
+
+function countLabel(id: string): string {
+    const total = props.counts[id] ?? 0;
+    return props.matchedCounts ? `${props.matchedCounts[id] ?? 0} of ${total}` : String(total);
+}
 
 function onAddSubmit() {
     emit('addCollection', newName.value, newParentId.value || null);
@@ -117,12 +126,13 @@ function onAddSubmit() {
       <option value="sheet">Sort: sheet position</option>
     </select>
 
+    <div class="shown">Showing {{ shownCount }} sprite{{ shownCount === 1 ? '' : 's' }}</div>
     <ul class="collections">
       <li
         :class="{ active: activeCollectionId === null }"
         @click="emit('selectCollection', null)"
       >
-        All ({{ counts.all ?? 0 }})
+        All ({{ countLabel('all') }})
       </li>
       <li
         v-for="c in tree"
@@ -131,7 +141,7 @@ function onAddSubmit() {
         :style="{ paddingLeft: `${8 + c.depth * 14}px` }"
         @click="emit('selectCollection', c.id)"
       >
-        {{ c.name }} ({{ counts[c.id] ?? 0 }})
+        {{ c.name }} ({{ countLabel(c.id) }})
       </li>
     </ul>
 
@@ -168,6 +178,7 @@ function onAddSubmit() {
 .flagged-toggle { display: block; margin-bottom: 12px; font-size: 13px; }
 .physics-filter { width: 100%; margin-bottom: 8px; background: #1a1a1a; color: #eee; border: 1px solid #333; padding: 4px; }
 .sort-order { width: 100%; margin-bottom: 8px; background: #1a1a1a; color: #eee; border: 1px solid #333; padding: 4px; }
+.shown { font-size: 12px; color: #9ab; margin: 4px 0 6px; }
 .collections { list-style: none; padding: 0; margin: 0; }
 .collections li { padding: 6px 8px; cursor: pointer; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .collections li:hover { background: #2a2a2a; }

@@ -138,6 +138,36 @@ const activeDescendantSet = computed(() =>
     activeCollectionId.value === null ? null : descendantIds(collections.value, activeCollectionId.value)
 );
 
+// Every filter except the collection: the sidebar's per-collection
+// "matched" numbers come from this, and visibleKeys adds the collection on top.
+function passesFilters(sheet: Sheet, entry: Sheet['entries'][number], key: string): boolean {
+    if (flagFilter.value === 'flagged' && !flaggedKeys.value.has(key)) return false;
+    if (flagFilter.value === 'open' && !openFlagKeys.value.has(key)) return false;
+    if (flagFilter.value === 'needs_review' && !needsReviewKeys.value.has(key)) return false;
+    if (flagFilter.value === 'question' && !questionKeys.value.has(key)) return false;
+    if (animatedOnly.value && (entry.frames?.length ?? 0) < 2) return false;
+    if (searchText.value && !entry.name.toLowerCase().includes(searchText.value.toLowerCase())) return false;
+    const license = licenseOf(sheet.sheetPngFilename, entry.name);
+    if (licenseFilter.value === 'ok' && license !== 'ok') return false;
+    if (licenseFilter.value === 'unlicensed' && license !== 'unlicensed') return false;
+    if (licenseFilter.value === 'unmarked' && license !== null) return false;
+    if (physicsFilter.value !== 'all') {
+        const review = spriteMeta.value[key]?.physics;
+        if (physicsFilter.value === 'unset' && entry.hitbox !== undefined && entry.layer !== undefined) return false;
+        if (physicsFilter.value === 'proposed' && review !== 'proposed') return false;
+        if (physicsFilter.value === 'approved' && review !== 'approved') return false;
+        if (physicsFilter.value === 'no_hitbox' && entry.hitbox !== null) return false;
+    }
+    return true;
+}
+
+// True when any filter other than collection/sheet narrows the grid — the
+// sidebar then shows "matched of total" instead of bare totals, which read
+// as if the filter had found nothing new.
+const anyFilterActive = computed(() =>
+    flagFilter.value !== 'all' || animatedOnly.value || !!searchText.value ||
+    licenseFilter.value !== 'all' || physicsFilter.value !== 'all');
+
 const visibleKeys = computed(() => {
     const set = new Set<string>();
     for (const sheet of sheets.value) {
@@ -145,55 +175,48 @@ const visibleKeys = computed(() => {
         for (const entry of sheet.entries) {
             const key = keyFor(sheet.sheetPngFilename, entry.name);
             if (activeDescendantSet.value !== null && !activeDescendantSet.value.has(collectionOf(sheet.sheetPngFilename, entry.name))) continue;
-            if (flagFilter.value === 'flagged' && !flaggedKeys.value.has(key)) continue;
-            if (flagFilter.value === 'open' && !openFlagKeys.value.has(key)) continue;
-            if (flagFilter.value === 'needs_review' && !needsReviewKeys.value.has(key)) continue;
-            if (flagFilter.value === 'question' && !questionKeys.value.has(key)) continue;
-            if (animatedOnly.value && (entry.frames?.length ?? 0) < 2) continue;
-            if (searchText.value && !entry.name.toLowerCase().includes(searchText.value.toLowerCase())) continue;
-            const license = licenseOf(sheet.sheetPngFilename, entry.name);
-            if (licenseFilter.value === 'ok' && license !== 'ok') continue;
-            if (licenseFilter.value === 'unlicensed' && license !== 'unlicensed') continue;
-            if (licenseFilter.value === 'unmarked' && license !== null) continue;
-            if (physicsFilter.value !== 'all') {
-                const review = spriteMeta.value[key]?.physics;
-                if (physicsFilter.value === 'unset' && entry.hitbox !== undefined && entry.layer !== undefined) continue;
-                if (physicsFilter.value === 'proposed' && review !== 'proposed') continue;
-                if (physicsFilter.value === 'approved' && review !== 'approved') continue;
-                if (physicsFilter.value === 'no_hitbox' && entry.hitbox !== null) continue;
-            }
+            if (!passesFilters(sheet, entry, key)) continue;
             set.add(key);
         }
     }
     return set;
 });
 
-const counts = computed(() => {
-    const raw: Record<string, number> = { all: 0 };
-    for (const sheet of sheets.value) {
-        // Counts follow the sheet filter (same as visibleKeys) so the
-        // sidebar's numbers match what's actually shown in the grid when
-        // a sheet is selected — but deliberately ignore the flag filter and
-        // searchText, since those are meant to narrow within a
-        // collection/sheet, not redefine its total size.
-        if (activeSheet.value !== null && sheet.sheetPngFilename !== activeSheet.value) continue;
-        for (const entry of sheet.entries) {
-            raw.all++;
-            const col = collectionOf(sheet.sheetPngFilename, entry.name);
-            raw[col] = (raw[col] ?? 0) + 1;
-        }
-    }
-    // Roll each collection's raw count up into every ancestor's total, so
-    // a parent's number in the sidebar still reads as "everything here",
-    // matching what selecting it actually shows (see activeDescendantSet).
-    const rolled: Record<string, number> = { all: raw.all };
+// Per-collection totals, rolled up into every ancestor (a parent's number
+// reads as "everything here", matching what selecting it shows — see
+// activeDescendantSet). `matched` counts only sprites passing the other
+// filters, so the sidebar can say "12 of 340".
+function rollUp(raw: Record<string, number>): Record<string, number> {
+    const rolled: Record<string, number> = { all: raw.all ?? 0 };
     for (const c of collections.value) {
         let total = 0;
         for (const id of descendantIds(collections.value, c.id)) total += raw[id] ?? 0;
         rolled[c.id] = total;
     }
     return rolled;
+}
+
+const countsBoth = computed(() => {
+    const total: Record<string, number> = { all: 0 };
+    const matched: Record<string, number> = { all: 0 };
+    const filtering = anyFilterActive.value;
+    for (const sheet of sheets.value) {
+        // Follows the sheet filter, like visibleKeys.
+        if (activeSheet.value !== null && sheet.sheetPngFilename !== activeSheet.value) continue;
+        for (const entry of sheet.entries) {
+            const col = collectionOf(sheet.sheetPngFilename, entry.name);
+            total.all++;
+            total[col] = (total[col] ?? 0) + 1;
+            if (filtering && passesFilters(sheet, entry, keyFor(sheet.sheetPngFilename, entry.name))) {
+                matched.all++;
+                matched[col] = (matched[col] ?? 0) + 1;
+            }
+        }
+    }
+    return { total: rollUp(total), matched: filtering ? rollUp(matched) : null };
 });
+const counts = computed(() => countsBoth.value.total);
+const matchedCounts = computed(() => countsBoth.value.matched);
 
 function onSelect(sheetPngFilename: string, entryName: string) {
     selected.value = { sheetPngFilename, entryName };
@@ -308,6 +331,8 @@ async function onAddCollection(name: string, parentId: string | null) {
         :animated-only="animatedOnly"
         :search-text="searchText"
         :counts="counts"
+        :matched-counts="matchedCounts"
+        :shown-count="visibleKeys.size"
         :license-filter="licenseFilter"
         :sort-order="sortOrder"
         :physics-filter="physicsFilter"
