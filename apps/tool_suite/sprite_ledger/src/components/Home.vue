@@ -65,10 +65,12 @@ const tree = computed(() => flattenTree(props.collections));
       >
         🧐 Reviewer Mode
       </button>
+      <!-- Always available, flags or not: the plain "every sprite" grid. -->
+      <button class="callout browse" @click="emit('selectCollection', null)">
+        🗂 Browse all sprites
+      </button>
       <span v-if="unlicensedCount > 0" class="callout-note">⚠ {{ unlicensedCount }} flagged unlicensed</span>
     </div>
-
-    <OrphanFlags v-if="orphanFlags.length > 0" :flags="orphanFlags" @changed="emit('flagsChanged')" />
 
     <div class="section-label">Browse</div>
     <div class="cards">
@@ -87,6 +89,10 @@ const tree = computed(() => flattenTree(props.collections));
         <div class="count">{{ counts[c.id] ?? 0 }}</div>
       </button>
     </div>
+
+    <!-- Housekeeping, not the main queue: kept below Browse and collapsed
+         so it can never push the collections out of reach again. -->
+    <OrphanFlags v-if="orphanFlags.length > 0" :flags="orphanFlags" @changed="emit('flagsChanged')" />
   </div>
 </template>
 
@@ -108,6 +114,7 @@ h1 { margin: 0 0 4px; font-size: 22px; }
 .callout.review { border-color: #39c; }
 .callout.question { border-color: #96c; }
 .callout.reviewer { border-color: #3a7; background: #16261b; }
+.callout.browse { border-color: #556; background: #1a1a26; }
 .callout-note { font-size: 12px; color: #e91; }
 
 .section-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #777; margin-bottom: 10px; }

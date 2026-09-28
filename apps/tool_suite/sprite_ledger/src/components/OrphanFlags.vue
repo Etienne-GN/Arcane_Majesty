@@ -7,7 +7,6 @@ import type { Flag, FlagStatus } from '../services/api';
 // splits or deletes an entry leaves its flag keyed to the old name, and the
 // grid can only reach a flag through its sprite — so without this list those
 // flags were counted on Home but impossible to open, approve or answer.
-defineProps<{ flags: Flag[] }>();
 const emit = defineEmits<{ changed: [] }>();
 
 const answerDrafts = ref<Record<string, string>>({});
@@ -27,6 +26,19 @@ function onSetStatus(f: Flag, status: FlagStatus) {
     return run(() => setFlagStatus(f.id, status));
 }
 
+// Collapsed by default: these can't be looked at in the grid, so they're
+// housekeeping, not the review queue.
+const expanded = ref(false);
+const props = defineProps<{ flags: Flag[] }>();
+
+// There is no sprite left to evaluate, so the realistic action is to clear
+// them all at once rather than approve ~100 blind one by one.
+async function onDismissAll() {
+    return run(async () => {
+        for (const f of props.flags) await setFlagStatus(f.id, 'resolved');
+    });
+}
+
 function onAnswer(f: Flag) {
     const answer = (answerDrafts.value[f.id] ?? '').trim();
     if (!answer) return;
@@ -39,10 +51,15 @@ function onAnswer(f: Flag) {
 
 <template>
   <div class="orphans">
-    <div class="section-label">Flags on sprites that no longer exist ({{ flags.length }})</div>
-    <p class="hint">The sprite was renamed, split or removed by a fix — the note says what replaced it.</p>
+    <div class="bar">
+      <button class="toggle" @click="expanded = !expanded">
+        {{ expanded ? '▾' : '▸' }} {{ flags.length }} old flag{{ flags.length === 1 ? '' : 's' }} on sprites that no longer exist
+      </button>
+      <button class="dismiss" @click="onDismissAll">Dismiss all</button>
+    </div>
+    <p v-if="expanded" class="hint">The sprite was renamed, split or removed by an earlier fix and there is nothing left to show. Dismiss them, or read the notes below.</p>
     <div v-if="errorMessage" class="error">{{ errorMessage }}</div>
-    <div v-for="f in flags" :key="f.id" class="flag" :class="f.status">
+    <div v-for="f in (expanded ? flags : [])" :key="f.id" class="flag" :class="f.status">
       <div class="head">
         <span class="status">{{ f.status === 'needs_review' ? '🔍 review' : f.status === 'question' ? '❓ question' : '● open' }}</span>
         <span class="where">{{ f.sheet }} · <b>{{ f.name }}</b></span>
@@ -63,8 +80,10 @@ function onAnswer(f: Flag) {
 </template>
 
 <style scoped>
-.orphans { margin-bottom: 32px; }
-.section-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #777; margin-bottom: 4px; }
+.orphans { margin: 32px 0; }
+.bar { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; }
+.toggle { background: transparent; border: none; color: #888; padding: 0; font-size: 12px; }
+.toggle:hover { color: #ccc; }
 .hint { margin: 0 0 10px; color: #888; font-size: 12px; }
 .error { color: #f99; font-size: 12px; margin-bottom: 8px; }
 .flag { background: #1a1a1a; border: 1px solid #333; border-left-width: 3px; border-radius: 4px; padding: 8px 12px; margin-bottom: 8px; font-size: 12px; }
