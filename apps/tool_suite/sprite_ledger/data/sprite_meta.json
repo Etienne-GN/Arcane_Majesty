@@ -900,22 +900,22 @@
   "[Base]BaseChip_pipo.png::tree_bush_green_light": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::tree_bush_green_dark": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::tree_bush_orange": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::tree_bare_branches": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::bush_round_green_light": {
     "collection": "pipoya",
@@ -925,17 +925,17 @@
   "[Base]BaseChip_pipo.png::stump_small": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::stump_big": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::log_hollow_horizontal": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::flower_white_cluster": {
     "collection": "pipoya",
@@ -975,12 +975,12 @@
   "[Base]BaseChip_pipo.png::rock_small_tan": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::gravestone_gray": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::cross_wooden": {
     "collection": "pipoya",
@@ -1170,22 +1170,22 @@
   "[Base]BaseChip_pipo.png::pottery_jar_tan": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::pottery_jar_dark": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::pottery_jar_pink": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::pottery_jar_red": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::crate_wood_light": {
     "collection": "pipoya",
@@ -1203,17 +1203,17 @@
   "[Base]BaseChip_pipo.png::bucket_wood_dark": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::bucket_wood_light": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::woodpile_stacked": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::axe_and_log": {
     "collection": "pipoya",
@@ -1968,7 +1968,7 @@
   "[Base]BaseChip_pipo.png::rock_medium_tan": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::stump_round_dark": {
     "collection": "pipoya",
@@ -2386,7 +2386,7 @@
   "[Base]BaseChip_pipo.png::bulletin_board_papers": {
     "collection": "pipoya",
     "license": "ok",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::gate_stone_archway": {
     "collection": "pipoya",
@@ -37876,7 +37876,7 @@
   },
   "terrain_atlas.png::young_sapling_a": {
     "collection": "lpc_terrain",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "terrain_atlas.png::curved_shoot_sprout_a": {
     "collection": "lpc_terrain",
@@ -38734,11 +38734,11 @@
   },
   "[Base]BaseChip_pipo.png::chest_closed_red": {
     "collection": "pipoya",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "[Base]BaseChip_pipo.png::chest_closed_gold": {
     "collection": "pipoya",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "rock_cluster_mossy_shore.png::rock_round_single_small": {
     "collection": "schwarnhild",
@@ -40380,7 +40380,7 @@
   },
   "dungeon_tiles.png::spike_trap": {
     "collection": "pixel_crawler",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "dungeon_tiles.png::prison_bars_a": {
     "collection": "pixel_crawler",
@@ -44223,15 +44223,15 @@
   },
   "obj_misk_atlas.png::bookshelf_empty_dark_n": {
     "collection": "lpc_obj_misk",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "obj_misk_atlas.png::bookshelf_books_n": {
     "collection": "lpc_obj_misk",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "obj_misk_atlas.png::birdbath_stone_base": {
     "collection": "lpc_obj_misk",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "obj_misk_atlas.png::stairs_red_carpet_rising_right_front_rail_sw": {
     "collection": "lpc_obj_misk",
@@ -44291,11 +44291,11 @@
   },
   "obj_misk_atlas.png::bookshelf_empty_dark_center": {
     "collection": "lpc_obj_misk",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "obj_misk_atlas.png::bookshelf_books_center": {
     "collection": "lpc_obj_misk",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "obj_misk_atlas.png::smithing_hammer_and_axe_head": {
     "collection": "lpc_obj_misk",
@@ -44323,11 +44323,11 @@
   },
   "obj_misk_atlas.png::bookshelf_empty_dark_s": {
     "collection": "lpc_obj_misk",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "obj_misk_atlas.png::bookshelf_books_s": {
     "collection": "lpc_obj_misk",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "obj_misk_atlas.png::red_wood_plank_frame_piece": {
     "collection": "lpc_obj_misk",
@@ -44519,19 +44519,19 @@
   },
   "obj_misk_atlas.png::firewood_pile_a": {
     "collection": "lpc_obj_misk",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "obj_misk_atlas.png::firewood_pile_b": {
     "collection": "lpc_obj_misk",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "obj_misk_atlas.png::firewood_pile_large": {
     "collection": "lpc_obj_misk",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "obj_misk_atlas.png::firewood_pile_c": {
     "collection": "lpc_obj_misk",
-    "physics": "proposed"
+    "physics": "approved"
   },
   "obj_misk_atlas.png::sack_burlap_a": {
     "collection": "lpc_obj_misk",

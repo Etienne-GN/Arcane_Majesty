@@ -318,7 +318,7 @@
     "sheet": "[Base]BaseChip_pipo.png",
     "name": "market_tent_striped_square_pole_canvas_top",
     "reason": "misaligned",
-    "comment": "those are badly croppeds several items in this one, needs to be splitted\n\n[Rework] this needs to be cropped a bit more to the top, we have like 4-5 pixels of different pattern, then it needs to be splitted in 2 columns and in 6 row, those are \"genre de toile utilis\u00e9e pour faire des tentes dans un march\u00e9 par exemple avec les poteau soit carr\u00e9 ou rond\"\n\n[Claude] Cropped the 4px of barrels off the top (now starts at y=3616) and split 2 columns x 6 rows: market_tent_striped_square_pole_* (left: striped canvas top/middle/valance edge/valance with pole top, then pole middle/base) and market_tent_plain_round_pole_* (right: plain tattered canvas + round pole). All in \"to review\".",
+    "comment": "those are badly croppeds several items in this one, needs to be splitted\n\n[Rework] this needs to be cropped a bit more to the top, we have like 4-5 pixels of different pattern, then it needs to be splitted in 2 columns and in 6 row, those are \"genre de toile utilisée pour faire des tentes dans un marché par exemple avec les poteau soit carré ou rond\"\n\n[Claude] Cropped the 4px of barrels off the top (now starts at y=3616) and split 2 columns x 6 rows: market_tent_striped_square_pole_* (left: striped canvas top/middle/valance edge/valance with pole top, then pole middle/base) and market_tent_plain_round_pole_* (right: plain tattered canvas + round pole). All in \"to review\".",
     "status": "resolved",
     "createdAt": "2026-09-03T16:20:20.880Z",
     "resolvedAt": "2026-09-26T00:04:31.124Z"
@@ -1028,7 +1028,7 @@
     "sheet": "terrain_tiles_v2.png",
     "name": "dirt_plateau_rock_cliff_corner_top_left",
     "reason": "misaligned",
-    "comment": "[Claude] Checked the sheet directly \u2014 this box is solid dirt, not grass. Renamed to dirt_patch_solid_b (there was already an unrelated dirt_patch_solid elsewhere on the sheet).",
+    "comment": "[Claude] Checked the sheet directly — this box is solid dirt, not grass. Renamed to dirt_patch_solid_b (there was already an unrelated dirt_patch_solid elsewhere on the sheet).",
     "status": "resolved",
     "createdAt": "2026-09-03T19:42:21.062Z",
     "resolvedAt": "2026-09-25T23:32:20.512Z"
@@ -1038,7 +1038,7 @@
     "sheet": "terrain_tiles_v2.png",
     "name": "dirt_speckled_corner_top_left",
     "reason": "misaligned",
-    "comment": "[Claude] Looked at this one but could not confidently resolve it \u2014 the box currently covers 3 quarters of what looks like a scalloped dirt-patch corner/edge autotile piece, with the 4th quarter genuinely empty. Not sure if it should be split into separate corner tiles or is meant to be an L-shape represented some other way. Leaving open rather than guessing.\n\n[Claude] No tree/bush here: it is 3 tiles of a rough stippled-dirt autotile. Replaced with dirt_rough_corner_top_left, dirt_rough_corner_top_right, dirt_rough_edge_bottom (the 4th quarter is genuinely empty).",
+    "comment": "[Claude] Looked at this one but could not confidently resolve it — the box currently covers 3 quarters of what looks like a scalloped dirt-patch corner/edge autotile piece, with the 4th quarter genuinely empty. Not sure if it should be split into separate corner tiles or is meant to be an L-shape represented some other way. Leaving open rather than guessing.\n\n[Claude] No tree/bush here: it is 3 tiles of a rough stippled-dirt autotile. Replaced with dirt_rough_corner_top_left, dirt_rough_corner_top_right, dirt_rough_edge_bottom (the 4th quarter is genuinely empty).",
     "status": "resolved",
     "createdAt": "2026-09-03T19:42:23.175Z",
     "resolvedAt": "2026-09-25T23:32:21.628Z"
@@ -1068,7 +1068,7 @@
     "sheet": "terrain_tiles_v2.png",
     "name": "grass_strip_on_dirt_horizontal_left",
     "reason": "misaligned",
-    "comment": "[Claude] Checked the sheet directly \u2014 this box is solid grass (with a couple of thin decorative crack lines through it), not a dirt path. Renamed to grass_patch_rect_wide, box kept as-is.",
+    "comment": "[Claude] Checked the sheet directly — this box is solid grass (with a couple of thin decorative crack lines through it), not a dirt path. Renamed to grass_patch_rect_wide, box kept as-is.",
     "status": "resolved",
     "createdAt": "2026-09-03T19:42:29.237Z",
     "resolvedAt": "2026-09-25T23:32:54.136Z"
@@ -1158,7 +1158,7 @@
     "sheet": "water_and_island_tiles_v2.png",
     "name": "dirt_ledge_edge_bottom",
     "reason": "misaligned",
-    "comment": "[Claude] Checked the sheet directly \u2014 no water in this box at all, it is a 2x3 block of plain dirt/grass ground tiles. Renamed to island_ground_tile_variants.",
+    "comment": "[Claude] Checked the sheet directly — no water in this box at all, it is a 2x3 block of plain dirt/grass ground tiles. Renamed to island_ground_tile_variants.",
     "status": "resolved",
     "createdAt": "2026-09-03T19:42:53.178Z",
     "resolvedAt": "2026-09-25T23:35:04.287Z"
@@ -1482,7 +1482,7 @@
     "sheet": "overworld_tileset.png",
     "name": "garden_bed_wood_corner_top_left",
     "reason": "misaligned",
-    "comment": "[Claude] Looked at this one but could not confidently resolve it \u2014 the box currently shows a fragment of hedge border + a rock + the corner of a wood beam, no clear single \"fence\" object. Not sure what the intended crop is. Leaving open rather than guessing.\n\n[Claude] It is a 64x48 raised garden bed with wood-plank sides (the old 48x32 box cut it mid-cliff). Renamed garden_bed_fenced, box (64,0,64,48). Also fixed grass_blob next to it, which had the same 32px-tall cut: now 64x48.",
+    "comment": "[Claude] Looked at this one but could not confidently resolve it — the box currently shows a fragment of hedge border + a rock + the corner of a wood beam, no clear single \"fence\" object. Not sure what the intended crop is. Leaving open rather than guessing.\n\n[Claude] It is a 64x48 raised garden bed with wood-plank sides (the old 48x32 box cut it mid-cliff). Renamed garden_bed_fenced, box (64,0,64,48). Also fixed grass_blob next to it, which had the same 32px-tall cut: now 64x48.",
     "status": "resolved",
     "createdAt": "2026-09-03T19:45:20.514Z",
     "resolvedAt": "2026-09-25T23:26:01.406Z"
@@ -1492,7 +1492,7 @@
     "sheet": "overworld_tileset.png",
     "name": "raised_lawn_hedge_corner_top_left",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 \"blob\" here is the autotile-piece naming convention (an interior grass fill piece), and the crop matches that. Name and box both look correct to me, no misalignment found.\n\n[Claude] Correction: I called this fine earlier, but the box was 32px tall and cut the raised ledge mid-cliff. Now 64x48.\n\n[Claude] Re-catalogued the whole sheet (10 rough boxes -> 117 entries): terrain autotiles split into 16px tiles (grass_ledge, garden_bed_fenced, dirt_path, grass_dirt_round, stone_wall 9-slice), every prop boxed separately. house_cottage now stops at y80 (no strip of the buildings below); bush_cluster is now bush_flowering + bush_green; tree_large is now tree_pine_green, cropped on all 4 sides; house_red_roof widened to include the whole roof. (Flag moved from grass_blob to grass_ledge_r0c0.)",
+    "comment": "[Claude] Checked against the sheet — \"blob\" here is the autotile-piece naming convention (an interior grass fill piece), and the crop matches that. Name and box both look correct to me, no misalignment found.\n\n[Claude] Correction: I called this fine earlier, but the box was 32px tall and cut the raised ledge mid-cliff. Now 64x48.\n\n[Claude] Re-catalogued the whole sheet (10 rough boxes -> 117 entries): terrain autotiles split into 16px tiles (grass_ledge, garden_bed_fenced, dirt_path, grass_dirt_round, stone_wall 9-slice), every prop boxed separately. house_cottage now stops at y80 (no strip of the buildings below); bush_cluster is now bush_flowering + bush_green; tree_large is now tree_pine_green, cropped on all 4 sides; house_red_roof widened to include the whole roof. (Flag moved from grass_blob to grass_ledge_r0c0.)",
     "status": "resolved",
     "createdAt": "2026-09-03T19:45:22.740Z",
     "resolvedAt": "2026-09-25T23:25:53.294Z"
@@ -1672,7 +1672,7 @@
     "sheet": "cave_tiles.png",
     "name": "cave_wall_outline_nw",
     "reason": "misaligned",
-    "comment": "[Claude] Re-catalogued the whole sheet (2 -> 36): cave_pit_large (the old box was only its top half), cave_pit_narrow, mine_entrance_timber, rock_island_water, and every plant/rock/ore/boulder/tree/ladder/wall separately. The pits are kept as whole objects - say if you want them split into 16px rim tiles. (Flag moved from cave_wall_blob to cave_pit_large.)\n\n[Rework] je vais expliquer en francais, les mots vont me manquer pour ca en anglais..  tu as la un compl\u00e9ment au set pipoya, ca dervait etre splitt\u00e9 en 3 colonnes, et 5 ou 6 rang\u00e9es, je suis pas certain, ce que c'est, les 3x3 du haut sont un set de contour manquant pour faire des murs de cavernes je suppose, ca te donne les contours et les murs et le dessus est \"fonc\u00e9 vide\" pcq ya rien de plus a renderer, ca serait le plafond de la caverne et il doit etre transparent pour voir les personnages. plus bas tu as pour faire les murs. ce pattern la vas revenir asser souvent et tu vas surement les nomm\u00e9es avec un suffix _ne _n _nw, ce genre de chose pour savoir ou ils vont.\n\n[Claude] Split as you described (3 columns): the top 3x3 is the cave wall outline set named by compass - cave_wall_outline_nw/n/ne/w/e/sw/s/se, with cave_wall_outline_ceiling_dark in the middle (the dark cave ceiling) - and the row below is the wall face: cave_wall_face_w/middle/e. That is 4 rows at 32px (the pit is 128px tall). All pieces are in \"to review\".",
+    "comment": "[Claude] Re-catalogued the whole sheet (2 -> 36): cave_pit_large (the old box was only its top half), cave_pit_narrow, mine_entrance_timber, rock_island_water, and every plant/rock/ore/boulder/tree/ladder/wall separately. The pits are kept as whole objects - say if you want them split into 16px rim tiles. (Flag moved from cave_wall_blob to cave_pit_large.)\n\n[Rework] je vais expliquer en francais, les mots vont me manquer pour ca en anglais..  tu as la un complément au set pipoya, ca dervait etre splitté en 3 colonnes, et 5 ou 6 rangées, je suis pas certain, ce que c'est, les 3x3 du haut sont un set de contour manquant pour faire des murs de cavernes je suppose, ca te donne les contours et les murs et le dessus est \"foncé vide\" pcq ya rien de plus a renderer, ca serait le plafond de la caverne et il doit etre transparent pour voir les personnages. plus bas tu as pour faire les murs. ce pattern la vas revenir asser souvent et tu vas surement les nommées avec un suffix _ne _n _nw, ce genre de chose pour savoir ou ils vont.\n\n[Claude] Split as you described (3 columns): the top 3x3 is the cave wall outline set named by compass - cave_wall_outline_nw/n/ne/w/e/sw/s/se, with cave_wall_outline_ceiling_dark in the middle (the dark cave ceiling) - and the row below is the wall face: cave_wall_face_w/middle/e. That is 4 rows at 32px (the pit is 128px tall). All pieces are in \"to review\".",
     "status": "resolved",
     "createdAt": "2026-09-09T01:26:30.627Z",
     "resolvedAt": "2026-09-26T00:05:05.518Z"
@@ -2042,7 +2042,7 @@
     "sheet": "grass_tiles.png",
     "name": "grass_plateau_cliff",
     "reason": "misaligned",
-    "comment": "[Claude] Looked at this one but could not confidently resolve it \u2014 the box mostly covers empty space plus fragments of an unrelated dirt/grass/bush texture, no water visible anywhere nearby on this sheet. Not sure what content this was meant to capture. Leaving open rather than guessing.\n\n[Claude] No water on this sheet. It is a grass terrain set; all 3 old entries were wrong guesses. Re-catalogued as 8 regions: grass_plateau_cliff, pit_hole_dark, grass_edge_blob, grass_edge_hole, grass_fill_dark, grass_fill, dirt_block_grass_edges, dirt_patch_in_grass.\n\n[Claude] Flag moved from water_edge (no longer exists) to grass_plateau_cliff, which replaced it.",
+    "comment": "[Claude] Looked at this one but could not confidently resolve it — the box mostly covers empty space plus fragments of an unrelated dirt/grass/bush texture, no water visible anywhere nearby on this sheet. Not sure what content this was meant to capture. Leaving open rather than guessing.\n\n[Claude] No water on this sheet. It is a grass terrain set; all 3 old entries were wrong guesses. Re-catalogued as 8 regions: grass_plateau_cliff, pit_hole_dark, grass_edge_blob, grass_edge_hole, grass_fill_dark, grass_fill, dirt_block_grass_edges, dirt_patch_in_grass.\n\n[Claude] Flag moved from water_edge (no longer exists) to grass_plateau_cliff, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-09T01:29:54.254Z",
     "resolvedAt": null
@@ -2263,9 +2263,9 @@
     "name": "armchair_red",
     "reason": "wrong_name",
     "comment": "this is more red than pink \n\n[Claude] The sprite \"armchair_pink\" no longer exists; moved this flag to \"armchair_magenta\", which now covers the same area of the sheet (100% overlap with the old box).\n\n[Claude] Renamed to armchair_red as you said (it had only been moved to \"magenta\" before, which was still wrong).\n\n[Rework] you could crop it a little better to the left and bottom\n\n[Claude] Crop tightened to the chair itself: (37,1,22,31), with no empty column on the left and no empty row at the bottom.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T16:45:12.481Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-28T19:56:33.747Z"
   },
   {
     "id": "f_6f1964cf-2f89-4921-927a-5bbd2f831e98",
@@ -2808,7 +2808,7 @@
     "sheet": "build_atlas.png",
     "name": "barrel_top_open_empty",
     "reason": "misaligned",
-    "comment": "misaligned \u2014 this is the top of an empty barrel, pretty sure the bottom is missing\n\n[Claude] Yes - the barrel bodies are right above these tops: barrel_a / barrel_b (same columns). Renamed barrel_top_open_empty / barrel_top_open_water and trimmed to the lid, so they layer on top of the barrel. (Flag moved from wood_rimmed_basin_empty to barrel_top_open_empty.)",
+    "comment": "misaligned — this is the top of an empty barrel, pretty sure the bottom is missing\n\n[Claude] Yes - the barrel bodies are right above these tops: barrel_a / barrel_b (same columns). Renamed barrel_top_open_empty / barrel_top_open_water and trimmed to the lid, so they layer on top of the barrel. (Flag moved from wood_rimmed_basin_empty to barrel_top_open_empty.)",
     "status": "resolved",
     "createdAt": "2026-09-21T13:56:32.276Z",
     "resolvedAt": "2026-09-24T22:48:08.319Z"
@@ -3038,7 +3038,7 @@
     "sheet": "build_atlas.png",
     "name": "brick_base_trim_socket_water",
     "reason": "wrong_name",
-    "comment": "wrong_name \u2014 its a variant of \"maroon_base_trim_socket\" but with bricks instead of the maroon and with water at the base\n\n[Claude] The sprite \"rune_socket_lit_b\" no longer exists; moved this flag to \"brick_base_trim_socket_water\", which now covers the same area of the sheet (100% overlap with the old box).",
+    "comment": "wrong_name — its a variant of \"maroon_base_trim_socket\" but with bricks instead of the maroon and with water at the base\n\n[Claude] The sprite \"rune_socket_lit_b\" no longer exists; moved this flag to \"brick_base_trim_socket_water\", which now covers the same area of the sheet (100% overlap with the old box).",
     "status": "resolved",
     "createdAt": "2026-09-21T15:21:38.541Z",
     "resolvedAt": "2026-09-28T15:03:48.172Z"
@@ -3048,7 +3048,7 @@
     "sheet": "build_atlas.png",
     "name": "maroon_base_trim_socket_water",
     "reason": "wrong_name",
-    "comment": "wrong_name \u2014 its a variant of \"maroon_base_trim_socket\" but with water at the base\n\n[Claude] The sprite \"rune_socket_lit_a\" no longer exists; moved this flag to \"maroon_base_trim_socket_water\", which now covers the same area of the sheet (100% overlap with the old box).",
+    "comment": "wrong_name — its a variant of \"maroon_base_trim_socket\" but with water at the base\n\n[Claude] The sprite \"rune_socket_lit_a\" no longer exists; moved this flag to \"maroon_base_trim_socket_water\", which now covers the same area of the sheet (100% overlap with the old box).",
     "status": "resolved",
     "createdAt": "2026-09-21T15:21:59.737Z",
     "resolvedAt": "2026-09-28T15:02:17.691Z"
@@ -3218,7 +3218,7 @@
     "sheet": "build_atlas.png",
     "name": "vermillion_wood_post_a_upper",
     "reason": "wrong_name",
-    "comment": "cofrfre de bois ferm\u00e9",
+    "comment": "cofrfre de bois fermé",
     "status": "resolved",
     "createdAt": "2026-09-21T15:27:39.699Z",
     "resolvedAt": "2026-09-28T14:34:28.327Z"
@@ -3318,7 +3318,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "ham_hock_whole_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from ham_hock_raw_a (no longer exists) to ham_hock_raw_top_fragment_a, which replaced it.\n\n[Claude] Fixed the crop: the ham ran down into the cell below (which was a separate \"ham_hock_raw_c\" fragment). The two are now one sprite, ham_hock_whole_b, trimmed to the full ham. It is cooked, not raw, so ham_hock_raw_b next to it is now ham_hock_whole_c.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from ham_hock_raw_a (no longer exists) to ham_hock_raw_top_fragment_a, which replaced it.\n\n[Claude] Fixed the crop: the ham ran down into the cell below (which was a separate \"ham_hock_raw_c\" fragment). The two are now one sprite, ham_hock_whole_b, trimmed to the full ham. It is cooked, not raw, so ham_hock_raw_b next to it is now ham_hock_whole_c.",
     "status": "resolved",
     "createdAt": "2026-09-21T15:31:23.518Z",
     "resolvedAt": "2026-09-28T15:48:24.832Z"
@@ -3328,7 +3328,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "meat_chunk_raw_a",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] The chunk sits 2px above its grid cell. Converted to an exact pixel box (1,701,31x18); did the same for meat_chunk_raw_b.",
+    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] The chunk sits 2px above its grid cell. Converted to an exact pixel box (1,701,31x18); did the same for meat_chunk_raw_b.",
     "status": "resolved",
     "createdAt": "2026-09-21T15:31:31.249Z",
     "resolvedAt": "2026-09-24T15:49:57.560Z"
@@ -3338,7 +3338,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "meat_steak_raw_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).\n\n[Claude] Flag moved from meat_scrap_fragment_a (no longer exists) to meat_steak_raw_a, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).\n\n[Claude] Flag moved from meat_scrap_fragment_a (no longer exists) to meat_steak_raw_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:31:40.123Z",
     "resolvedAt": null
@@ -3348,7 +3348,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "meat_raw_cut_a",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] The cut sits 5px above its grid cell. Converted to an exact pixel box (1,634,30x21); did the same for meat_raw_cut_b.",
+    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] The cut sits 5px above its grid cell. Converted to an exact pixel box (1,634,30x21); did the same for meat_raw_cut_b.",
     "status": "resolved",
     "createdAt": "2026-09-21T15:31:42.649Z",
     "resolvedAt": "2026-09-24T15:49:53.002Z"
@@ -3429,7 +3429,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "sack_burlap_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from window_glasswall_frame_bottom_a (no longer exists) to sack_burlap_pile_a, which replaced it.\n\n[Rework] and this is the right half of the grain bag\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from window_glasswall_frame_bottom_a (no longer exists) to sack_burlap_pile_a, which replaced it.\n\n[Rework] and this is the right half of the grain bag\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:38.510Z",
     "resolvedAt": null
@@ -3439,7 +3439,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "sack_burlap_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from door_glass_dark_four_pane_c (no longer exists) to sack_burlap_tall_a, which replaced it.\n\n[Rework] this is only the left half of a grain bag\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from door_glass_dark_four_pane_c (no longer exists) to sack_burlap_tall_a, which replaced it.\n\n[Rework] this is only the left half of a grain bag\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:40.276Z",
     "resolvedAt": null
@@ -3459,7 +3459,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "sack_burlap_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from door_glass_dark_two_pane_transom (no longer exists) to sack_burlap_round_a, which replaced it.\n\n[Rework] top half of what looks like a grain bag, move selection donw half of it it'll be ok\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from door_glass_dark_two_pane_transom (no longer exists) to sack_burlap_round_a, which replaced it.\n\n[Rework] top half of what looks like a grain bag, move selection donw half of it it'll be ok\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:44.330Z",
     "resolvedAt": null
@@ -3469,7 +3469,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "sack_burlap_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from bookshelf_books_full_a (no longer exists) to sack_burlap_round_b, which replaced it.\n\n[Rework] and here is the bottom half of the bag of grain\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from bookshelf_books_full_a (no longer exists) to sack_burlap_round_b, which replaced it.\n\n[Rework] and here is the bottom half of the bag of grain\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:45.984Z",
     "resolvedAt": null
@@ -3489,7 +3489,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "firewood_pile_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from nightstand_wood_cherry (no longer exists) to firewood_pile_medium_a, which replaced it.\n\n[Rework] left halt of wood pile..\n\n[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from nightstand_wood_cherry (no longer exists) to firewood_pile_medium_a, which replaced it.\n\n[Rework] left halt of wood pile..\n\n[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:51.441Z",
     "resolvedAt": null
@@ -3499,7 +3499,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "firewood_pile_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_cherry_low_two_door_a (no longer exists) to firewood_pile_large_a, which replaced it.\n\n[Rework] this is the right half of the wood pile now..\n\n[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_cherry_low_two_door_a (no longer exists) to firewood_pile_large_a, which replaced it.\n\n[Rework] this is the right half of the wood pile now..\n\n[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:53.800Z",
     "resolvedAt": null
@@ -3509,7 +3509,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "firewood_pile_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from wall_stone_dock_mossy_edge_right (no longer exists) to firewood_pile_small_a, which replaced it.\n\n[Rework] this is only half or a wood pile, move the selection half of it down and you'll crop just right\n\n[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from wall_stone_dock_mossy_edge_right (no longer exists) to firewood_pile_small_a, which replaced it.\n\n[Rework] this is only half or a wood pile, move the selection half of it down and you'll crop just right\n\n[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:32:55.712Z",
     "resolvedAt": null
@@ -3519,7 +3519,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "sack_grain_yellow_b",
     "reason": "wrong_name",
-    "comment": "this is a bag of grain, but we only see right half of it\n\n[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).\n\n[Claude] Flag moved from bookshelf_empty_b (no longer exists) to sack_grain_yellow_b, which replaced it.",
+    "comment": "this is a bag of grain, but we only see right half of it\n\n[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).\n\n[Claude] Flag moved from bookshelf_empty_b (no longer exists) to sack_grain_yellow_b, which replaced it.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:46:25.320Z",
     "resolvedAt": "2026-09-24T15:49:20.874Z"
@@ -3529,7 +3529,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "sack_grain_yellow_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).\n\n[Claude] Flag moved from bookshelf_empty_b (no longer exists) to sack_grain_yellow_b, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).\n\n[Claude] Flag moved from bookshelf_empty_b (no longer exists) to sack_grain_yellow_b, which replaced it.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:46:26.424Z",
     "resolvedAt": "2026-09-24T15:49:21.536Z"
@@ -3539,7 +3539,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "bench_wood_tan_slat_tall_a",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.\n\n[Claude] Flag moved from bench_wood_tan_curved_plain (no longer exists) to bench_wood_tan_slat_tall_a, which replaced it.",
+    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.\n\n[Claude] Flag moved from bench_wood_tan_curved_plain (no longer exists) to bench_wood_tan_slat_tall_a, which replaced it.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:46:59.578Z",
     "resolvedAt": "2026-09-24T15:46:39.634Z"
@@ -3549,7 +3549,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "chair_wood_tan_side_b",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.\n\n[Claude] Flag moved from bench_wood_tan_slat_single_a (no longer exists) to chair_wood_tan_side_b, which replaced it.",
+    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.\n\n[Claude] Flag moved from bench_wood_tan_slat_single_a (no longer exists) to chair_wood_tan_side_b, which replaced it.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:01.155Z",
     "resolvedAt": "2026-09-24T15:47:16.528Z"
@@ -3559,7 +3559,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "bench_wood_tan_slat_tall_a",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.\n\n[Claude] Flag moved from bench_wood_tan_slat_low_a (no longer exists) to bench_wood_tan_slat_tall_a, which replaced it.",
+    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.\n\n[Claude] Flag moved from bench_wood_tan_slat_low_a (no longer exists) to bench_wood_tan_slat_tall_a, which replaced it.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:02.871Z",
     "resolvedAt": "2026-09-24T15:46:45.555Z"
@@ -3569,7 +3569,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "chair_wood_tan_side_c",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Right - it is the bottom half of chair_wood_tan_side_c, clipped (pixel-identical). Deleted as a duplicate; flag moved to the full chair. (Flag moved from bench_wood_tan_slat_single_b to chair_wood_tan_side_c.)",
+    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Right - it is the bottom half of chair_wood_tan_side_c, clipped (pixel-identical). Deleted as a duplicate; flag moved to the full chair. (Flag moved from bench_wood_tan_slat_single_b to chair_wood_tan_side_c.)",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:04.899Z",
     "resolvedAt": "2026-09-24T15:47:19.724Z"
@@ -3579,7 +3579,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "bench_wood_tan_slat_tall_a",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.",
+    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:25.574Z",
     "resolvedAt": "2026-09-24T15:20:18.072Z"
@@ -3589,7 +3589,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "bench_wood_tan_slat_tall_b",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.",
+    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:29.749Z",
     "resolvedAt": "2026-09-24T15:20:22.838Z"
@@ -3599,7 +3599,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "bench_wood_tan_slat_tall_b",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.\n\n[Claude] Flag moved from bench_wood_tan_slat_thin (no longer exists) to bench_wood_tan_slat_tall_b, which replaced it.",
+    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.\n\n[Claude] Flag moved from bench_wood_tan_slat_thin (no longer exists) to bench_wood_tan_slat_tall_b, which replaced it.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:33.890Z",
     "resolvedAt": "2026-09-24T15:46:42.902Z"
@@ -3609,7 +3609,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "dock_wood_b_sw",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from arched_window_sky_pane_rail_a (no longer exists) to wood_crate_leg_fragment_lower_a, which replaced it.\n\n[Rework] c'est le coin so d'un quaitu vas avoir une grille de 3x3 pour le quai au complet, coint no ne se et les cot\u00e9s et un morceau du centre\n\n[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from arched_window_sky_pane_rail_a (no longer exists) to wood_crate_leg_fragment_lower_a, which replaced it.\n\n[Rework] c'est le coin so d'un quaitu vas avoir une grille de 3x3 pour le quai au complet, coint no ne se et les cotés et un morceau du centre\n\n[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:47:46.181Z",
     "resolvedAt": null
@@ -3619,7 +3619,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "dock_wood_b_se",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from arched_window_sky_pane_rail_b (no longer exists) to wood_crate_leg_fragment_lower_b, which replaced it.\n\n[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from arched_window_sky_pane_rail_b (no longer exists) to wood_crate_leg_fragment_lower_b, which replaced it.\n\n[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:47:48.230Z",
     "resolvedAt": null
@@ -3629,7 +3629,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "chair_wood_tan_side_c",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Right - it is the top half of chair_wood_tan_side_c, clipped (pixel-identical). Deleted as a duplicate; flag moved to the full chair. (Flag moved from chair_wood_tan_fragment_low to chair_wood_tan_side_c.)",
+    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Right - it is the top half of chair_wood_tan_side_c, clipped (pixel-identical). Deleted as a duplicate; flag moved to the full chair. (Flag moved from chair_wood_tan_fragment_low to chair_wood_tan_side_c.)",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:52.171Z",
     "resolvedAt": "2026-09-24T15:47:20.214Z"
@@ -3639,7 +3639,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "chair_wood_tan_side_b",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.\n\n[Claude] Flag moved from chair_wood_tan_side_a (no longer exists) to chair_wood_tan_side_b, which replaced it.",
+    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.\n\n[Claude] Flag moved from chair_wood_tan_side_a (no longer exists) to chair_wood_tan_side_b, which replaced it.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:53.894Z",
     "resolvedAt": "2026-09-24T15:47:17.002Z"
@@ -3649,7 +3649,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "sack_grain_green_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_red_panel_apron_base (no longer exists) to sack_grain_green_a, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_red_panel_apron_base (no longer exists) to sack_grain_green_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:47:58.913Z",
     "resolvedAt": null
@@ -3659,7 +3659,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "sack_grain_green_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_red_panel_trim_full_b (no longer exists) to sack_grain_green_a, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_red_panel_trim_full_b (no longer exists) to sack_grain_green_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:48:01.789Z",
     "resolvedAt": null
@@ -3669,7 +3669,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "sack_grain_green_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_red_panel_trim_full_a (no longer exists) to sack_grain_green_a, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_red_panel_trim_full_a (no longer exists) to sack_grain_green_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:48:04.309Z",
     "resolvedAt": null
@@ -3850,7 +3850,7 @@
     "sheet": "cave_tiles.png",
     "name": "cave_wall_outline_nw",
     "reason": "misaligned",
-    "comment": "this needs a lot of splitting\n\n[Claude] Re-catalogued the whole sheet (2 -> 36): cave_pit_large (the old box was only its top half), cave_pit_narrow, mine_entrance_timber, rock_island_water, and every plant/rock/ore/boulder/tree/ladder/wall separately. The pits are kept as whole objects - say if you want them split into 16px rim tiles. (Flag moved from cave_wall_blob to cave_pit_large.)\n\n[Rework] je vais expliquer en francais, les mots vont me manquer pour ca en anglais..  tu as la un compl\u00e9ment au set pipoya, ca dervait etre splitt\u00e9 en 3 colonnes, et 5 ou 6 rang\u00e9es, je suis pas certain, ce que c'est, les 3x3 du haut sont un set de contour manquant pour faire des murs de cavernes je suppose, ca te donne les contours et les murs et le dessus est \"fonc\u00e9 vide\" pcq ya rien de plus a renderer, ca serait le plafond de la caverne et il doit etre transparent pour voir les personnages. plus bas tu as pour faire les murs. ce pattern la vas revenir asser souvent et tu vas surement les nomm\u00e9es avec un suffix _ne _n _nw, ce genre de chose pour savoir ou ils vont.\n\n[Claude] Split as you described (3 columns): the top 3x3 is the cave wall outline set named by compass - cave_wall_outline_nw/n/ne/w/e/sw/s/se, with cave_wall_outline_ceiling_dark in the middle (the dark cave ceiling) - and the row below is the wall face: cave_wall_face_w/middle/e. That is 4 rows at 32px (the pit is 128px tall). All pieces are in \"to review\".",
+    "comment": "this needs a lot of splitting\n\n[Claude] Re-catalogued the whole sheet (2 -> 36): cave_pit_large (the old box was only its top half), cave_pit_narrow, mine_entrance_timber, rock_island_water, and every plant/rock/ore/boulder/tree/ladder/wall separately. The pits are kept as whole objects - say if you want them split into 16px rim tiles. (Flag moved from cave_wall_blob to cave_pit_large.)\n\n[Rework] je vais expliquer en francais, les mots vont me manquer pour ca en anglais..  tu as la un complément au set pipoya, ca dervait etre splitté en 3 colonnes, et 5 ou 6 rangées, je suis pas certain, ce que c'est, les 3x3 du haut sont un set de contour manquant pour faire des murs de cavernes je suppose, ca te donne les contours et les murs et le dessus est \"foncé vide\" pcq ya rien de plus a renderer, ca serait le plafond de la caverne et il doit etre transparent pour voir les personnages. plus bas tu as pour faire les murs. ce pattern la vas revenir asser souvent et tu vas surement les nommées avec un suffix _ne _n _nw, ce genre de chose pour savoir ou ils vont.\n\n[Claude] Split as you described (3 columns): the top 3x3 is the cave wall outline set named by compass - cave_wall_outline_nw/n/ne/w/e/sw/s/se, with cave_wall_outline_ceiling_dark in the middle (the dark cave ceiling) - and the row below is the wall face: cave_wall_face_w/middle/e. That is 4 rows at 32px (the pit is 128px tall). All pieces are in \"to review\".",
     "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T15:24:32.477Z",
