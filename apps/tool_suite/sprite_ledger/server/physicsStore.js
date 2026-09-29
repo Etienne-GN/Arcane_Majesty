@@ -48,3 +48,36 @@ export async function setEntryPhysics(catalogueDir, sheetPngFilename, entryName,
     await writeFile(sheet.catalogueJsonPath, JSON.stringify(catalogue, null, 2) + '\n', 'utf8');
     return entry;
 }
+
+/**
+ * Batch version of setEntryPhysics: items [{ sheet, name, hitbox?, layer? }].
+ * Everything is checked before anything is written; each catalogue is
+ * written once. Returns the updated entries in the same order.
+ */
+export async function setEntriesPhysics(catalogueDir, items) {
+    const sheets = await scanCatalogueDir(catalogueDir);
+    const bySheet = new Map(sheets.map(s => [s.sheetPngFilename, s]));
+    const loaded = new Map(); // catalogueJsonPath -> catalogue
+    const plan = [];
+    for (const it of items) {
+        if (it.layer !== undefined && !LAYERS.includes(it.layer)) throw new Error(`invalid layer: ${it.layer}`);
+        const sheet = bySheet.get(it.sheet);
+        if (!sheet) throw new Error(`unknown sheet: ${it.sheet}`);
+        if (!loaded.has(sheet.catalogueJsonPath)) {
+            loaded.set(sheet.catalogueJsonPath, JSON.parse(await readFile(sheet.catalogueJsonPath, 'utf8')));
+        }
+        const catalogue = loaded.get(sheet.catalogueJsonPath);
+        const entry = catalogue.entries.find(e => e.name === it.name);
+        if (!entry) throw new Error(`unknown sprite: ${it.sheet}::${it.name}`);
+        if (it.hitbox !== undefined) checkHitbox(it.hitbox, spriteSize(catalogue, entry));
+        plan.push({ it, entry });
+    }
+    for (const { it, entry } of plan) {
+        if (it.hitbox !== undefined) entry.hitbox = it.hitbox === null ? null : { x: it.hitbox.x, y: it.hitbox.y, w: it.hitbox.w, h: it.hitbox.h };
+        if (it.layer !== undefined) entry.layer = it.layer;
+    }
+    for (const [path, catalogue] of loaded) {
+        await writeFile(path, JSON.stringify(catalogue, null, 2) + '\n', 'utf8');
+    }
+    return plan.map(p => p.entry);
+}

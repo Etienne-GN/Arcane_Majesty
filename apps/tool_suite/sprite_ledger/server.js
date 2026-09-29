@@ -6,8 +6,9 @@ import {
     loadCollections, addCollection,
     loadSpriteMeta, assignCollection, seedSheetsIfNew, setLicenseStatus,
     loadFlags, addFlag, updateFlagStatus, setPhysicsReview,
+    updateFlagsBatch, updateMetaBatch,
 } from './server/dataStore.js';
-import { setEntryPhysics } from './server/physicsStore.js';
+import { setEntryPhysics, setEntriesPhysics } from './server/physicsStore.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -38,6 +39,9 @@ export function createServer(catalogueDir, dataDir) {
         res.json(sheets.map(s => ({
             sheetPngFilename: s.sheetPngFilename,
             source: s.catalogue.source,
+            sheetDirName: s.sheetDirName,
+            sheetWidth: s.catalogue.sheetWidth,
+            sheetHeight: s.catalogue.sheetHeight,
             entries: s.catalogue.entries,
             gridTileWidth: s.catalogue.gridTileWidth,
             gridTileHeight: s.catalogue.gridTileHeight,
@@ -119,6 +123,28 @@ export function createServer(catalogueDir, dataDir) {
             res.status(400).send(e.message);
         }
     });
+
+    // --- batch endpoints (bulk actions in v2): one write for a whole selection.
+    // Validation happens before any write, so a bad item fails the batch.
+    const batch = (fn) => async (req, res) => {
+        try { res.json({ ok: true, ...(await fn(req.body)) }); }
+        catch (e) { res.status(400).send(e.message); }
+    };
+    app.post('/api/flags/batch', batch(async ({ updates }) => {
+        await updateFlagsBatch(dataDir, updates ?? []);
+    }));
+    app.post('/api/meta/batch', batch(async ({ items }) => {
+        await updateMetaBatch(dataDir, items ?? []);
+    }));
+    // items: [{ sheet, name, hitbox?, layer?, review? }]
+    app.post('/api/physics/batch', batch(async ({ items }) => {
+        const list = items ?? [];
+        const physical = list.filter(i => i.hitbox !== undefined || i.layer !== undefined);
+        const entries = physical.length ? await setEntriesPhysics(catalogueDir, physical) : [];
+        const reviews = list.filter(i => i.review !== undefined).map(i => ({ sheet: i.sheet, name: i.name, physics: i.review }));
+        if (reviews.length) await updateMetaBatch(dataDir, reviews);
+        return { entries };
+    }));
 
     app.get('/api/flags', async (req, res) => {
         res.json(await loadFlags(dataDir, req.query.status));

@@ -144,5 +144,31 @@ assert.strictEqual(catNull.entries[0].layer, 'sorted'); // untouched when not se
 assert.strictEqual((await post({ sheet: 'PATD_Props.png', name: 'chest_wood_small', hitbox: { x: 20, y: 0, w: 20, h: 8 } })).status, 400);
 assert.strictEqual((await post({ sheet: 'PATD_Props.png', name: 'chest_wood_small', layer: 'sideways' })).status, 400);
 
+// batch endpoints
+const postTo = (url, body) => fetch(`${base}${url}`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+});
+const f2 = await (await postTo('/api/flags', { sheet: 'PATD_Props.png', name: 'chest_wood_small', reason: 'other', comment: 'x' })).json();
+assert.strictEqual((await postTo('/api/flags/batch', { updates: [{ id: f2.id, status: 'needs_review', comment: 'x\n\n[Claude] done' }] })).status, 200);
+const afterBatch = (await (await fetch(`${base}/api/flags`)).json()).find(f => f.id === f2.id);
+assert.strictEqual(afterBatch.status, 'needs_review');
+assert.strictEqual(afterBatch.comment, 'x\n\n[Claude] done');
+assert.strictEqual((await postTo('/api/flags/batch', { updates: [{ id: 'nope', status: 'resolved' }] })).status, 400);
+
+assert.strictEqual((await postTo('/api/meta/batch', { items: [{ sheet: 'PATD_Props.png', name: 'chest_wood_small', license: 'ok', collection: 'buildings' }] })).status, 200);
+const metaB = (await (await fetch(`${base}/api/meta`)).json()).spriteMeta['PATD_Props.png::chest_wood_small'];
+assert.strictEqual(metaB.license, 'ok');
+assert.strictEqual(metaB.collection, 'buildings');
+assert.strictEqual((await postTo('/api/meta/batch', { items: [{ sheet: 'PATD_Props.png', name: 'chest_wood_small', collection: 'nope' }] })).status, 400);
+
+assert.strictEqual((await postTo('/api/physics/batch', { items: [{ sheet: 'PATD_Props.png', name: 'chest_wood_small', hitbox: { x: 0, y: 0, w: 32, h: 32 }, layer: 'over', review: 'proposed' }] })).status, 200);
+const catB = JSON.parse(readFileSync(join(catalogueDir, 'PATD_Props', 'PATD_Props.catalogue.json'), 'utf8'));
+assert.deepStrictEqual(catB.entries[0].hitbox, { x: 0, y: 0, w: 32, h: 32 });
+assert.strictEqual(catB.entries[0].layer, 'over');
+assert.strictEqual((await (await fetch(`${base}/api/meta`)).json()).spriteMeta['PATD_Props.png::chest_wood_small'].physics, 'proposed');
+// an out-of-bounds item fails the whole batch, nothing written
+assert.strictEqual((await postTo('/api/physics/batch', { items: [{ sheet: 'PATD_Props.png', name: 'chest_wood_small', layer: 'under' }, { sheet: 'PATD_Props.png', name: 'chest_wood_small', hitbox: { x: 30, y: 0, w: 8, h: 8 } }] })).status, 400);
+assert.strictEqual(JSON.parse(readFileSync(join(catalogueDir, 'PATD_Props', 'PATD_Props.catalogue.json'), 'utf8')).entries[0].layer, 'over');
+
 server.close();
-console.log('✓ API smoke tests passed (31 assertions).');
+console.log('✓ API smoke tests passed (43 assertions).');

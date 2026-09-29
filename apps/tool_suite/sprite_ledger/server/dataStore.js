@@ -272,3 +272,48 @@ export async function updateFlagStatus(dataDir, id, status, extra = {}) {
     if ('comment' in extra) flag.comment = extra.comment;
     await writeJson(join(dataDir, 'flags.json'), flags);
 }
+
+// --- batch variants: one read + one write for a whole selection ---
+
+// updates: [{ id, status, comment?, note? }] — same rules as updateFlagStatus.
+export async function updateFlagsBatch(dataDir, updates) {
+    const flags = await readJsonOrDefault(join(dataDir, 'flags.json'), []);
+    const byId = new Map(flags.map(f => [f.id, f]));
+    for (const u of updates) {
+        if (!FLAG_STATUSES.includes(u.status)) throw new Error(`invalid flag status: ${u.status}`);
+        if (!byId.has(u.id)) throw new Error(`flag not found: ${u.id}`);
+    }
+    const now = new Date().toISOString();
+    for (const u of updates) {
+        const flag = byId.get(u.id);
+        flag.status = u.status;
+        flag.resolvedAt = u.status === 'resolved' ? now : null;
+        if ('note' in u) flag.claudeNote = u.note;
+        if ('comment' in u) flag.comment = u.comment;
+    }
+    await writeJson(join(dataDir, 'flags.json'), flags);
+}
+
+// items: [{ sheet, name, collection? , license?, physics? }] — each field
+// present is applied (license/physics null clears it), absent fields are kept.
+export async function updateMetaBatch(dataDir, items) {
+    const collections = await loadCollections(dataDir);
+    const ids = new Set(collections.map(c => c.id));
+    for (const it of items) {
+        if ('collection' in it && !ids.has(it.collection)) throw new Error(`unknown collection id: ${it.collection}`);
+        if ('license' in it && ![null, 'ok', 'unlicensed'].includes(it.license)) throw new Error(`invalid license status: ${it.license}`);
+        if ('physics' in it && ![null, 'proposed', 'approved'].includes(it.physics)) throw new Error(`invalid physics review status: ${it.physics}`);
+    }
+    const meta = await loadSpriteMeta(dataDir);
+    for (const it of items) {
+        const key = `${it.sheet}::${it.name}`;
+        const record = meta[key] ?? {};
+        for (const field of ['collection', 'license', 'physics']) {
+            if (!(field in it)) continue;
+            if (it[field] === null) delete record[field];
+            else record[field] = it[field];
+        }
+        meta[key] = record;
+    }
+    await writeJson(join(dataDir, 'sprite_meta.json'), meta);
+}

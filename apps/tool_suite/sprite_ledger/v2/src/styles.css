@@ -1,0 +1,83 @@
+/* Design tokens. One status language everywhere: the same colour and word
+   for a status in the navigator, the grid badges, the sheet view outlines,
+   the inspector and focus mode. */
+:root {
+    --bg: #131418;
+    --panel: #1a1c21;
+    --panel-2: #212329;
+    --raised: #272a31;
+    --border: #2d3038;
+    --border-strong: #3c404a;
+    --text: #e4e6eb;
+    --muted: #8d92a0;
+    --faint: #5d6270;
+    --accent: #6aa3ff;
+    --accent-soft: #6aa3ff22;
+
+    --s-review: #4aa3ff;    /* Claude fixed it, your turn */
+    --s-question: #b37cff;  /* Claude asks you something */
+    --s-open: #ff6464;      /* for Claude to act on */
+    --s-hitbox: #f0a030;    /* hitbox guess to check */
+    --s-approved: #4cc38a;
+    --s-warn: #f0a030;
+
+    --radius: 6px;
+    --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono: ui-monospace, "JetBrains Mono", "Fira Code", Menlo, monospace;
+
+    --checker-a: #2b2d35;
+    --checker-b: #24262d;
+}
+
+* { box-sizing: border-box; }
+html, body, #app { height: 100%; margin: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-ui); font-size: 13px; }
+
+button {
+    font: inherit; color: var(--text); background: var(--raised);
+    border: 1px solid var(--border-strong); border-radius: var(--radius);
+    padding: 5px 10px; cursor: pointer; line-height: 1.2;
+}
+button:hover:not(:disabled) { border-color: var(--accent); }
+button:disabled { opacity: .4; cursor: default; }
+button.primary { background: #1f4a33; border-color: var(--s-approved); }
+button.primary:hover:not(:disabled) { background: #245a3d; border-color: var(--s-approved); }
+button.ghost { background: transparent; border-color: transparent; }
+button.ghost:hover:not(:disabled) { background: var(--raised); border-color: var(--border); }
+button.danger { border-color: #7a3a3a; }
+
+input, select, textarea {
+    font: inherit; color: var(--text); background: var(--panel-2);
+    border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 5px 8px;
+}
+input:focus, select:focus, textarea:focus, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 0; }
+textarea { resize: vertical; }
+
+kbd {
+    font-family: var(--font-mono); font-size: 10px; color: var(--muted);
+    border: 1px solid var(--border-strong); border-bottom-width: 2px; border-radius: 4px;
+    padding: 0 4px; margin-left: 4px;
+}
+
+.mono { font-family: var(--font-mono); }
+.muted { color: var(--muted); }
+.checker {
+    background-color: var(--checker-a);
+    background-image:
+        linear-gradient(45deg, var(--checker-b) 25%, transparent 25%, transparent 75%, var(--checker-b) 75%),
+        linear-gradient(45deg, var(--checker-b) 25%, transparent 25%, transparent 75%, var(--checker-b) 75%);
+    background-size: 12px 12px;
+    background-position: 0 0, 6px 6px;
+}
+.pixelated { image-rendering: pixelated; }
+
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
+.dot.review { background: var(--s-review); }
+.dot.question { background: var(--s-question); }
+.dot.open { background: var(--s-open); }
+.dot.hitbox { background: var(--s-hitbox); }
+.dot.approved { background: var(--s-approved); }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 5px; border: 2px solid var(--bg); }
+::-webkit-scrollbar-track { background: transparent; }

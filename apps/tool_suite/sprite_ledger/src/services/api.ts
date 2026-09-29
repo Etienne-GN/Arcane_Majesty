@@ -26,6 +26,9 @@ export interface SpriteEntry {
 export interface Sheet {
     sheetPngFilename: string;
     source: string;
+    sheetDirName?: string;
+    sheetWidth?: number;
+    sheetHeight?: number;
     entries: SpriteEntry[];
     gridTileWidth?: number;
     gridTileHeight?: number;
