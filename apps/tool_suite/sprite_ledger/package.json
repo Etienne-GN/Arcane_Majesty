@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node -e \"const {spawn}=require('child_process'); const p1=spawn('node',['--watch','server.js'],{stdio:'inherit'}); const p2=spawn('node',['node_modules/vite/bin/vite.js'],{stdio:'inherit'}); process.on('SIGINT',()=>{p1.kill();p2.kill();process.exit();});\"",
+    "dev": "node -e \"const {spawn}=require('child_process'); const p1=spawn('node',['--watch','server.js'],{stdio:'inherit'}); const p2=spawn('node',['node_modules/vite/bin/vite.js','--config','vite.v2.config.ts'],{stdio:'inherit'}); process.on('SIGINT',()=>{p1.kill();p2.kill();process.exit();});\"",
+    "dev:v1": "node -e \"const {spawn}=require('child_process'); const p1=spawn('node',['--watch','server.js'],{stdio:'inherit'}); const p2=spawn('node',['node_modules/vite/bin/vite.js'],{stdio:'inherit'}); process.on('SIGINT',()=>{p1.kill();p2.kill();process.exit();});\"",
+    "ui:v2": "node node_modules/vite/bin/vite.js --config vite.v2.config.ts",
     "test": "node tools/test_catalogue_scanner.mjs && node tools/test_data_store.mjs && node tools/test_api_smoke.mjs",
     "build": "vite build",
-    "dev:v2": "node node_modules/vite/bin/vite.js --config vite.v2.config.ts",
     "build:v2": "node node_modules/vite/bin/vite.js build --config vite.v2.config.ts"
   },
   "dependencies": {

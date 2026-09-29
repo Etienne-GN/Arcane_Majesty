@@ -4,13 +4,15 @@ v1 is the current app (`src/`, UI on :5178). v2 is the redesign (`v2/`, UI on
 :5180). Both talk to the same API server (:3003) and the same data, so they can
 be run side by side and compared on real work.
 
-## Running both
+## Running it
+
+v2 is the Sprite Ledger since 2026-09-29 (v1 kept for reference until removed).
 
 ```
-npm run dev       # API server :3003 + v1 UI :5178 (as before)
-npm run dev:v2    # v2 UI :5180 (needs the API server from `npm run dev`)
+npm run dev       # API server :3003 + v2 UI :5180 (the default)
+npm run dev:v1    # API server :3003 + the old v1 UI :5178
+npm run ui:v2     # v2 UI only, when the API server already runs
 ```
-Open http://192.168.0.206:5178 (v1) and http://192.168.0.206:5180 (v2) side by side: same data, changes in one show in the other after a reload.
 
 ---
 
