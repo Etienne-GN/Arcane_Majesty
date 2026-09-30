@@ -44588,5 +44588,149 @@
   "ground_decorations.png::dirt_speckle": {
     "collection": "schwarnhild",
     "physics": "approved"
+  },
+  "[Base]BaseChip_pipo.png::wall_tan_wood_window_mid": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_tan_wood_window_right": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_redbrick_mid": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_redbrick_right": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_redbrick_pink_mid": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_redbrick_pink_right": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_graybrick_mid": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_graybrick_right": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_olivebrick_mid": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_olivebrick_right": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_tan_pillar_mid": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_tan_pillar_right": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_gray_smooth_mid": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_gray_smooth_right": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_gray_shopfront_mid": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_gray_shopfront_right": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_gold_wood_mid": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_gold_wood_right": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_awning_yellow_mid": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_awning_yellow_right": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_white_orangebase_mid": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::wall_white_orangebase_right": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::roof_wood_brown_lower_a": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::roof_wood_brown_lower_b": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::roof_terracotta_lower_a": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::roof_terracotta_lower_b": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::roof_brick_teal_lower_a": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::roof_brick_teal_lower_b": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::roof_scale_red_lower_a": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::roof_scale_red_lower_b": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::roof_dome_gray_lower_a": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::roof_dome_gray_lower_b": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::roof_metal_corrugated_gray_lower_a": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::roof_metal_corrugated_gray_lower_b": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::roof_thatch_gold_lower_a": {
+    "collection": "pipoya",
+    "physics": "proposed"
+  },
+  "[Base]BaseChip_pipo.png::roof_thatch_gold_lower_b": {
+    "collection": "pipoya",
+    "physics": "proposed"
   }
 }

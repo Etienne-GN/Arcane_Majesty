@@ -9558,6 +9558,726 @@
         "h": 16
       },
       "layer": "sorted"
+    },
+    {
+      "name": "wall_tan_wood_window_mid",
+      "kind": "object",
+      "x": 32,
+      "y": 1472,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_tan_wood_window_right",
+      "kind": "object",
+      "x": 64,
+      "y": 1472,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_redbrick_mid",
+      "kind": "object",
+      "x": 32,
+      "y": 1536,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_redbrick_right",
+      "kind": "object",
+      "x": 64,
+      "y": 1536,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_redbrick_pink_mid",
+      "kind": "object",
+      "x": 32,
+      "y": 1600,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_redbrick_pink_right",
+      "kind": "object",
+      "x": 64,
+      "y": 1600,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_graybrick_mid",
+      "kind": "object",
+      "x": 32,
+      "y": 1664,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_graybrick_right",
+      "kind": "object",
+      "x": 64,
+      "y": 1664,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_olivebrick_mid",
+      "kind": "object",
+      "x": 32,
+      "y": 1728,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_olivebrick_right",
+      "kind": "object",
+      "x": 64,
+      "y": 1728,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_tan_pillar_mid",
+      "kind": "object",
+      "x": 32,
+      "y": 1792,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_tan_pillar_right",
+      "kind": "object",
+      "x": 64,
+      "y": 1792,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_gray_smooth_mid",
+      "kind": "object",
+      "x": 32,
+      "y": 1856,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_gray_smooth_right",
+      "kind": "object",
+      "x": 64,
+      "y": 1856,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_gray_shopfront_mid",
+      "kind": "object",
+      "x": 32,
+      "y": 1920,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_gray_shopfront_right",
+      "kind": "object",
+      "x": 64,
+      "y": 1920,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_gold_wood_mid",
+      "kind": "object",
+      "x": 32,
+      "y": 1984,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_gold_wood_right",
+      "kind": "object",
+      "x": 64,
+      "y": 1984,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_awning_yellow_mid",
+      "kind": "object",
+      "x": 32,
+      "y": 2048,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_awning_yellow_right",
+      "kind": "object",
+      "x": 64,
+      "y": 2048,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_white_orangebase_mid",
+      "kind": "object",
+      "x": 32,
+      "y": 2112,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "wall_white_orangebase_right",
+      "kind": "object",
+      "x": 64,
+      "y": 2112,
+      "w": 32,
+      "h": 64,
+      "tags": [
+        "building",
+        "wall",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 64
+      },
+      "layer": "sorted"
+    },
+    {
+      "name": "roof_wood_brown_lower_a",
+      "kind": "object",
+      "x": 0,
+      "y": 2304,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "building",
+        "roof",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "over"
+    },
+    {
+      "name": "roof_wood_brown_lower_b",
+      "kind": "object",
+      "x": 0,
+      "y": 2336,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "building",
+        "roof",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "over"
+    },
+    {
+      "name": "roof_terracotta_lower_a",
+      "kind": "object",
+      "x": 32,
+      "y": 2304,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "building",
+        "roof",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "over"
+    },
+    {
+      "name": "roof_terracotta_lower_b",
+      "kind": "object",
+      "x": 32,
+      "y": 2336,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "building",
+        "roof",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "over"
+    },
+    {
+      "name": "roof_brick_teal_lower_a",
+      "kind": "object",
+      "x": 64,
+      "y": 2304,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "building",
+        "roof",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "over"
+    },
+    {
+      "name": "roof_brick_teal_lower_b",
+      "kind": "object",
+      "x": 64,
+      "y": 2336,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "building",
+        "roof",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "over"
+    },
+    {
+      "name": "roof_scale_red_lower_a",
+      "kind": "object",
+      "x": 96,
+      "y": 2304,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "building",
+        "roof",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "over"
+    },
+    {
+      "name": "roof_scale_red_lower_b",
+      "kind": "object",
+      "x": 96,
+      "y": 2336,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "building",
+        "roof",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "over"
+    },
+    {
+      "name": "roof_dome_gray_lower_a",
+      "kind": "object",
+      "x": 128,
+      "y": 2304,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "building",
+        "roof",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "over"
+    },
+    {
+      "name": "roof_dome_gray_lower_b",
+      "kind": "object",
+      "x": 128,
+      "y": 2336,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "building",
+        "roof",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "over"
+    },
+    {
+      "name": "roof_metal_corrugated_gray_lower_a",
+      "kind": "object",
+      "x": 160,
+      "y": 2304,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "building",
+        "roof",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "over"
+    },
+    {
+      "name": "roof_metal_corrugated_gray_lower_b",
+      "kind": "object",
+      "x": 160,
+      "y": 2336,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "building",
+        "roof",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "over"
+    },
+    {
+      "name": "roof_thatch_gold_lower_a",
+      "kind": "object",
+      "x": 192,
+      "y": 2304,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "building",
+        "roof",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "over"
+    },
+    {
+      "name": "roof_thatch_gold_lower_b",
+      "kind": "object",
+      "x": 192,
+      "y": 2336,
+      "w": 32,
+      "h": 32,
+      "tags": [
+        "building",
+        "roof",
+        "pipoya"
+      ],
+      "hitbox": {
+        "x": 0,
+        "y": 0,
+        "w": 32,
+        "h": 32
+      },
+      "layer": "over"
     }
   ]
 }

@@ -8,7 +8,7 @@ base (hitbox bottom), then over. For checking a generated map without
 starting the game.
 
 Run from apps/amo/:
-  python3 tools/maps/render_map_preview.py <mapId> <out.png> [--shrink 2]
+  python3 tools/maps/render_map_preview.py <mapId | map.json> <out.png> [--shrink 2]
 """
 from pathlib import Path
 import json
@@ -56,7 +56,7 @@ def load_map(map_id):
 def main():
     map_id, out_path = sys.argv[1], sys.argv[2]
     shrink = int(sys.argv[sys.argv.index('--shrink') + 1]) if '--shrink' in sys.argv else 1
-    m = load_map(map_id)
+    m = json.loads(Path(map_id).read_text()) if map_id.endswith('.json') else load_map(map_id)
     assets = boot_assets()
     for sh in m.get('extraSheets') or []:
         assets[sh['texKey']] = sh['png']

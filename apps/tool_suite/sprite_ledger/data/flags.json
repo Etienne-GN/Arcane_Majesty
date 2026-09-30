@@ -318,7 +318,7 @@
     "sheet": "[Base]BaseChip_pipo.png",
     "name": "market_tent_striped_square_pole_canvas_top",
     "reason": "misaligned",
-    "comment": "those are badly croppeds several items in this one, needs to be splitted\n\n[Rework] this needs to be cropped a bit more to the top, we have like 4-5 pixels of different pattern, then it needs to be splitted in 2 columns and in 6 row, those are \"genre de toile utilisée pour faire des tentes dans un marché par exemple avec les poteau soit carré ou rond\"\n\n[Claude] Cropped the 4px of barrels off the top (now starts at y=3616) and split 2 columns x 6 rows: market_tent_striped_square_pole_* (left: striped canvas top/middle/valance edge/valance with pole top, then pole middle/base) and market_tent_plain_round_pole_* (right: plain tattered canvas + round pole). All in \"to review\".",
+    "comment": "those are badly croppeds several items in this one, needs to be splitted\n\n[Rework] this needs to be cropped a bit more to the top, we have like 4-5 pixels of different pattern, then it needs to be splitted in 2 columns and in 6 row, those are \"genre de toile utilis\u00e9e pour faire des tentes dans un march\u00e9 par exemple avec les poteau soit carr\u00e9 ou rond\"\n\n[Claude] Cropped the 4px of barrels off the top (now starts at y=3616) and split 2 columns x 6 rows: market_tent_striped_square_pole_* (left: striped canvas top/middle/valance edge/valance with pole top, then pole middle/base) and market_tent_plain_round_pole_* (right: plain tattered canvas + round pole). All in \"to review\".",
     "status": "resolved",
     "createdAt": "2026-09-03T16:20:20.880Z",
     "resolvedAt": "2026-09-26T00:04:31.124Z"
@@ -817,9 +817,9 @@
     "name": "cliff_hollow_corner_nw",
     "reason": "misaligned",
     "comment": "\n\n[Claude] The sprite \"terrain_atlas_r0c0\" no longer exists; moved this flag to \"cliff_hollow_corner_nw\", which now covers the same area of the sheet (100% overlap with the old box).",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T18:12:23.760Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-30T01:46:48.250Z",
     "remappedFrom": "lpc_terrain_atlas_sheet"
   },
   {
@@ -1028,7 +1028,7 @@
     "sheet": "terrain_tiles_v2.png",
     "name": "dirt_plateau_rock_cliff_corner_top_left",
     "reason": "misaligned",
-    "comment": "[Claude] Checked the sheet directly — this box is solid dirt, not grass. Renamed to dirt_patch_solid_b (there was already an unrelated dirt_patch_solid elsewhere on the sheet).",
+    "comment": "[Claude] Checked the sheet directly \u2014 this box is solid dirt, not grass. Renamed to dirt_patch_solid_b (there was already an unrelated dirt_patch_solid elsewhere on the sheet).",
     "status": "resolved",
     "createdAt": "2026-09-03T19:42:21.062Z",
     "resolvedAt": "2026-09-25T23:32:20.512Z"
@@ -1038,7 +1038,7 @@
     "sheet": "terrain_tiles_v2.png",
     "name": "dirt_speckled_corner_top_left",
     "reason": "misaligned",
-    "comment": "[Claude] Looked at this one but could not confidently resolve it — the box currently covers 3 quarters of what looks like a scalloped dirt-patch corner/edge autotile piece, with the 4th quarter genuinely empty. Not sure if it should be split into separate corner tiles or is meant to be an L-shape represented some other way. Leaving open rather than guessing.\n\n[Claude] No tree/bush here: it is 3 tiles of a rough stippled-dirt autotile. Replaced with dirt_rough_corner_top_left, dirt_rough_corner_top_right, dirt_rough_edge_bottom (the 4th quarter is genuinely empty).",
+    "comment": "[Claude] Looked at this one but could not confidently resolve it \u2014 the box currently covers 3 quarters of what looks like a scalloped dirt-patch corner/edge autotile piece, with the 4th quarter genuinely empty. Not sure if it should be split into separate corner tiles or is meant to be an L-shape represented some other way. Leaving open rather than guessing.\n\n[Claude] No tree/bush here: it is 3 tiles of a rough stippled-dirt autotile. Replaced with dirt_rough_corner_top_left, dirt_rough_corner_top_right, dirt_rough_edge_bottom (the 4th quarter is genuinely empty).",
     "status": "resolved",
     "createdAt": "2026-09-03T19:42:23.175Z",
     "resolvedAt": "2026-09-25T23:32:21.628Z"
@@ -1068,7 +1068,7 @@
     "sheet": "terrain_tiles_v2.png",
     "name": "grass_strip_on_dirt_horizontal_left",
     "reason": "misaligned",
-    "comment": "[Claude] Checked the sheet directly — this box is solid grass (with a couple of thin decorative crack lines through it), not a dirt path. Renamed to grass_patch_rect_wide, box kept as-is.",
+    "comment": "[Claude] Checked the sheet directly \u2014 this box is solid grass (with a couple of thin decorative crack lines through it), not a dirt path. Renamed to grass_patch_rect_wide, box kept as-is.",
     "status": "resolved",
     "createdAt": "2026-09-03T19:42:29.237Z",
     "resolvedAt": "2026-09-25T23:32:54.136Z"
@@ -1158,7 +1158,7 @@
     "sheet": "water_and_island_tiles_v2.png",
     "name": "dirt_ledge_edge_bottom",
     "reason": "misaligned",
-    "comment": "[Claude] Checked the sheet directly — no water in this box at all, it is a 2x3 block of plain dirt/grass ground tiles. Renamed to island_ground_tile_variants.",
+    "comment": "[Claude] Checked the sheet directly \u2014 no water in this box at all, it is a 2x3 block of plain dirt/grass ground tiles. Renamed to island_ground_tile_variants.",
     "status": "resolved",
     "createdAt": "2026-09-03T19:42:53.178Z",
     "resolvedAt": "2026-09-25T23:35:04.287Z"
@@ -1482,7 +1482,7 @@
     "sheet": "overworld_tileset.png",
     "name": "garden_bed_wood_corner_top_left",
     "reason": "misaligned",
-    "comment": "[Claude] Looked at this one but could not confidently resolve it — the box currently shows a fragment of hedge border + a rock + the corner of a wood beam, no clear single \"fence\" object. Not sure what the intended crop is. Leaving open rather than guessing.\n\n[Claude] It is a 64x48 raised garden bed with wood-plank sides (the old 48x32 box cut it mid-cliff). Renamed garden_bed_fenced, box (64,0,64,48). Also fixed grass_blob next to it, which had the same 32px-tall cut: now 64x48.",
+    "comment": "[Claude] Looked at this one but could not confidently resolve it \u2014 the box currently shows a fragment of hedge border + a rock + the corner of a wood beam, no clear single \"fence\" object. Not sure what the intended crop is. Leaving open rather than guessing.\n\n[Claude] It is a 64x48 raised garden bed with wood-plank sides (the old 48x32 box cut it mid-cliff). Renamed garden_bed_fenced, box (64,0,64,48). Also fixed grass_blob next to it, which had the same 32px-tall cut: now 64x48.",
     "status": "resolved",
     "createdAt": "2026-09-03T19:45:20.514Z",
     "resolvedAt": "2026-09-25T23:26:01.406Z"
@@ -1492,7 +1492,7 @@
     "sheet": "overworld_tileset.png",
     "name": "raised_lawn_hedge_corner_top_left",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet — \"blob\" here is the autotile-piece naming convention (an interior grass fill piece), and the crop matches that. Name and box both look correct to me, no misalignment found.\n\n[Claude] Correction: I called this fine earlier, but the box was 32px tall and cut the raised ledge mid-cliff. Now 64x48.\n\n[Claude] Re-catalogued the whole sheet (10 rough boxes -> 117 entries): terrain autotiles split into 16px tiles (grass_ledge, garden_bed_fenced, dirt_path, grass_dirt_round, stone_wall 9-slice), every prop boxed separately. house_cottage now stops at y80 (no strip of the buildings below); bush_cluster is now bush_flowering + bush_green; tree_large is now tree_pine_green, cropped on all 4 sides; house_red_roof widened to include the whole roof. (Flag moved from grass_blob to grass_ledge_r0c0.)",
+    "comment": "[Claude] Checked against the sheet \u2014 \"blob\" here is the autotile-piece naming convention (an interior grass fill piece), and the crop matches that. Name and box both look correct to me, no misalignment found.\n\n[Claude] Correction: I called this fine earlier, but the box was 32px tall and cut the raised ledge mid-cliff. Now 64x48.\n\n[Claude] Re-catalogued the whole sheet (10 rough boxes -> 117 entries): terrain autotiles split into 16px tiles (grass_ledge, garden_bed_fenced, dirt_path, grass_dirt_round, stone_wall 9-slice), every prop boxed separately. house_cottage now stops at y80 (no strip of the buildings below); bush_cluster is now bush_flowering + bush_green; tree_large is now tree_pine_green, cropped on all 4 sides; house_red_roof widened to include the whole roof. (Flag moved from grass_blob to grass_ledge_r0c0.)",
     "status": "resolved",
     "createdAt": "2026-09-03T19:45:22.740Z",
     "resolvedAt": "2026-09-25T23:25:53.294Z"
@@ -1503,9 +1503,9 @@
     "name": "wall_front_left_end_top",
     "reason": "misaligned",
     "comment": "[Claude] Re-catalogued the whole sheet (5 rough boxes -> 122 entries, every piece named by what it shows). \"stone_wall_blob\" is now \"wall_front_left_end_top\". All other pieces are in \"to review\".",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:45:34.353Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:41.651Z"
   },
   {
     "id": "f_be998117-a55a-4946-94f1-57e3cb09580c",
@@ -1513,9 +1513,9 @@
     "name": "floor_slats_grey_top_left",
     "reason": "misaligned",
     "comment": "[Claude] Re-catalogued the whole sheet (5 rough boxes -> 122 entries, every piece named by what it shows). \"floor_tile_dark\" is now \"floor_slats_grey_top_left\". All other pieces are in \"to review\".",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:45:37.922Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:24.573Z"
   },
   {
     "id": "f_dbf6bc88-0847-4756-911c-8ee56172825e",
@@ -1533,9 +1533,9 @@
     "name": "rubble_stones_small",
     "reason": "misaligned",
     "comment": "[Claude] Re-catalogued the whole sheet (5 rough boxes -> 122 entries, every piece named by what it shows). \"crystal_prop\" is now \"rubble_stones_small\" - it is a pile of grey rubble stones, not a crystal. All other pieces are in \"to review\".",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:45:43.229Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:50:10.732Z"
   },
   {
     "id": "f_0ea3b249-08a6-479e-aaa4-3bd574df4e69",
@@ -1653,9 +1653,9 @@
     "name": "planter_box_wood_soil",
     "reason": "wrong_name",
     "comment": "\n\n[Claude] The sprite \"pot_variants\" no longer exists; moved this flag to \"wood_crate_bound\", which now covers the same area of the sheet (100% overlap with the old box).\n\n[Claude] Renamed: this is a wooden planter box filled with soil (the sheet is pots.png), not a bound crate.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-03T19:57:49.360Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:46:59.419Z"
   },
   {
     "id": "f_df916638-7fc5-4a7d-91f3-84aa998eeda4",
@@ -1672,7 +1672,7 @@
     "sheet": "cave_tiles.png",
     "name": "cave_wall_outline_nw",
     "reason": "misaligned",
-    "comment": "[Claude] Re-catalogued the whole sheet (2 -> 36): cave_pit_large (the old box was only its top half), cave_pit_narrow, mine_entrance_timber, rock_island_water, and every plant/rock/ore/boulder/tree/ladder/wall separately. The pits are kept as whole objects - say if you want them split into 16px rim tiles. (Flag moved from cave_wall_blob to cave_pit_large.)\n\n[Rework] je vais expliquer en francais, les mots vont me manquer pour ca en anglais..  tu as la un complément au set pipoya, ca dervait etre splitté en 3 colonnes, et 5 ou 6 rangées, je suis pas certain, ce que c'est, les 3x3 du haut sont un set de contour manquant pour faire des murs de cavernes je suppose, ca te donne les contours et les murs et le dessus est \"foncé vide\" pcq ya rien de plus a renderer, ca serait le plafond de la caverne et il doit etre transparent pour voir les personnages. plus bas tu as pour faire les murs. ce pattern la vas revenir asser souvent et tu vas surement les nommées avec un suffix _ne _n _nw, ce genre de chose pour savoir ou ils vont.\n\n[Claude] Split as you described (3 columns): the top 3x3 is the cave wall outline set named by compass - cave_wall_outline_nw/n/ne/w/e/sw/s/se, with cave_wall_outline_ceiling_dark in the middle (the dark cave ceiling) - and the row below is the wall face: cave_wall_face_w/middle/e. That is 4 rows at 32px (the pit is 128px tall). All pieces are in \"to review\".",
+    "comment": "[Claude] Re-catalogued the whole sheet (2 -> 36): cave_pit_large (the old box was only its top half), cave_pit_narrow, mine_entrance_timber, rock_island_water, and every plant/rock/ore/boulder/tree/ladder/wall separately. The pits are kept as whole objects - say if you want them split into 16px rim tiles. (Flag moved from cave_wall_blob to cave_pit_large.)\n\n[Rework] je vais expliquer en francais, les mots vont me manquer pour ca en anglais..  tu as la un compl\u00e9ment au set pipoya, ca dervait etre splitt\u00e9 en 3 colonnes, et 5 ou 6 rang\u00e9es, je suis pas certain, ce que c'est, les 3x3 du haut sont un set de contour manquant pour faire des murs de cavernes je suppose, ca te donne les contours et les murs et le dessus est \"fonc\u00e9 vide\" pcq ya rien de plus a renderer, ca serait le plafond de la caverne et il doit etre transparent pour voir les personnages. plus bas tu as pour faire les murs. ce pattern la vas revenir asser souvent et tu vas surement les nomm\u00e9es avec un suffix _ne _n _nw, ce genre de chose pour savoir ou ils vont.\n\n[Claude] Split as you described (3 columns): the top 3x3 is the cave wall outline set named by compass - cave_wall_outline_nw/n/ne/w/e/sw/s/se, with cave_wall_outline_ceiling_dark in the middle (the dark cave ceiling) - and the row below is the wall face: cave_wall_face_w/middle/e. That is 4 rows at 32px (the pit is 128px tall). All pieces are in \"to review\".",
     "status": "resolved",
     "createdAt": "2026-09-09T01:26:30.627Z",
     "resolvedAt": "2026-09-26T00:05:05.518Z"
@@ -2042,7 +2042,7 @@
     "sheet": "grass_tiles.png",
     "name": "grass_plateau_cliff",
     "reason": "misaligned",
-    "comment": "[Claude] Looked at this one but could not confidently resolve it — the box mostly covers empty space plus fragments of an unrelated dirt/grass/bush texture, no water visible anywhere nearby on this sheet. Not sure what content this was meant to capture. Leaving open rather than guessing.\n\n[Claude] No water on this sheet. It is a grass terrain set; all 3 old entries were wrong guesses. Re-catalogued as 8 regions: grass_plateau_cliff, pit_hole_dark, grass_edge_blob, grass_edge_hole, grass_fill_dark, grass_fill, dirt_block_grass_edges, dirt_patch_in_grass.\n\n[Claude] Flag moved from water_edge (no longer exists) to grass_plateau_cliff, which replaced it.",
+    "comment": "[Claude] Looked at this one but could not confidently resolve it \u2014 the box mostly covers empty space plus fragments of an unrelated dirt/grass/bush texture, no water visible anywhere nearby on this sheet. Not sure what content this was meant to capture. Leaving open rather than guessing.\n\n[Claude] No water on this sheet. It is a grass terrain set; all 3 old entries were wrong guesses. Re-catalogued as 8 regions: grass_plateau_cliff, pit_hole_dark, grass_edge_blob, grass_edge_hole, grass_fill_dark, grass_fill, dirt_block_grass_edges, dirt_patch_in_grass.\n\n[Claude] Flag moved from water_edge (no longer exists) to grass_plateau_cliff, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-09T01:29:54.254Z",
     "resolvedAt": null
@@ -2123,9 +2123,9 @@
     "name": "tree_canopy_green",
     "reason": "misaligned",
     "comment": "there are SEVERAL vegetation components in here\n\n[Claude] Replaced the single whole-sheet box with 128 sprites: 2 bushes, 2 dead trees, 24 sprouts (green/olive/brown), ferns, mushrooms, tall grass, stakes, twigs, log arch, rocks/pebbles, 4 flower colours (3 bud stages + 8 variants each), 12 berries, canopy shadows, dirt patches.\n\n[Claude] Flag moved from vegetation_01 (no longer exists) to bush_leafy_green, which replaced it.\n\n[Claude] Renamed to tree_canopy_green - you are right, it is a tree top, not a bush. On the crop: the art itself ends at the trunk stub (y=47) and nothing is below it on the sheet, so the box is pixel-exact; if you meant another cut, tell me where.\n\n[Claude] Crop changed: snapped to the 16px grid as a 48x48 block (3x3 tiles) instead of the tight pixel box, so the tree top lines up with map tiles. If you meant it should be cut differently (e.g. separated from its trunk stub), tell me where.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T13:35:06.916Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:45.332Z"
   },
   {
     "id": "f_c520d385-8eb0-47a1-9e86-2c9b3ecd7b74",
@@ -2334,9 +2334,9 @@
     "name": "candles_lit_triple",
     "reason": "misaligned",
     "comment": "too much cropped at the bottom\n\n[Answer to Claude's question] move this in the item to review so I can see it in th ereviewer mode an dsee the spritesheet\n\n[Claude] Moved to \"awaiting your review\" as you asked, so you can see it with the spritesheet in Reviewer Mode.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-14T17:22:22.344Z",
-    "resolvedAt": null,
+    "resolvedAt": "2026-09-29T22:30:00.199Z",
     "claudeNote": "I can't extend this downward: the art itself stops at the tile edge (y=3967) and the row below is empty, so the bottom of the holder isn't in the sheet under it. The candelabra_gold_lit right below looks like the same candelabra, unlit. My guess is that this tile is a lit-flames top layer meant to sit on top of the candelabra. Want me to (a) leave it as a separate overlay and rename it candelabra_flames_overlay, or (b) something else?"
   },
   {
@@ -2808,7 +2808,7 @@
     "sheet": "build_atlas.png",
     "name": "barrel_top_open_empty",
     "reason": "misaligned",
-    "comment": "misaligned — this is the top of an empty barrel, pretty sure the bottom is missing\n\n[Claude] Yes - the barrel bodies are right above these tops: barrel_a / barrel_b (same columns). Renamed barrel_top_open_empty / barrel_top_open_water and trimmed to the lid, so they layer on top of the barrel. (Flag moved from wood_rimmed_basin_empty to barrel_top_open_empty.)",
+    "comment": "misaligned \u2014 this is the top of an empty barrel, pretty sure the bottom is missing\n\n[Claude] Yes - the barrel bodies are right above these tops: barrel_a / barrel_b (same columns). Renamed barrel_top_open_empty / barrel_top_open_water and trimmed to the lid, so they layer on top of the barrel. (Flag moved from wood_rimmed_basin_empty to barrel_top_open_empty.)",
     "status": "resolved",
     "createdAt": "2026-09-21T13:56:32.276Z",
     "resolvedAt": "2026-09-24T22:48:08.319Z"
@@ -3038,7 +3038,7 @@
     "sheet": "build_atlas.png",
     "name": "brick_base_trim_socket_water",
     "reason": "wrong_name",
-    "comment": "wrong_name — its a variant of \"maroon_base_trim_socket\" but with bricks instead of the maroon and with water at the base\n\n[Claude] The sprite \"rune_socket_lit_b\" no longer exists; moved this flag to \"brick_base_trim_socket_water\", which now covers the same area of the sheet (100% overlap with the old box).",
+    "comment": "wrong_name \u2014 its a variant of \"maroon_base_trim_socket\" but with bricks instead of the maroon and with water at the base\n\n[Claude] The sprite \"rune_socket_lit_b\" no longer exists; moved this flag to \"brick_base_trim_socket_water\", which now covers the same area of the sheet (100% overlap with the old box).",
     "status": "resolved",
     "createdAt": "2026-09-21T15:21:38.541Z",
     "resolvedAt": "2026-09-28T15:03:48.172Z"
@@ -3048,7 +3048,7 @@
     "sheet": "build_atlas.png",
     "name": "maroon_base_trim_socket_water",
     "reason": "wrong_name",
-    "comment": "wrong_name — its a variant of \"maroon_base_trim_socket\" but with water at the base\n\n[Claude] The sprite \"rune_socket_lit_a\" no longer exists; moved this flag to \"maroon_base_trim_socket_water\", which now covers the same area of the sheet (100% overlap with the old box).",
+    "comment": "wrong_name \u2014 its a variant of \"maroon_base_trim_socket\" but with water at the base\n\n[Claude] The sprite \"rune_socket_lit_a\" no longer exists; moved this flag to \"maroon_base_trim_socket_water\", which now covers the same area of the sheet (100% overlap with the old box).",
     "status": "resolved",
     "createdAt": "2026-09-21T15:21:59.737Z",
     "resolvedAt": "2026-09-28T15:02:17.691Z"
@@ -3218,7 +3218,7 @@
     "sheet": "build_atlas.png",
     "name": "vermillion_wood_post_a_upper",
     "reason": "wrong_name",
-    "comment": "cofrfre de bois fermé",
+    "comment": "cofrfre de bois ferm\u00e9",
     "status": "resolved",
     "createdAt": "2026-09-21T15:27:39.699Z",
     "resolvedAt": "2026-09-28T14:34:28.327Z"
@@ -3318,7 +3318,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "ham_hock_whole_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from ham_hock_raw_a (no longer exists) to ham_hock_raw_top_fragment_a, which replaced it.\n\n[Claude] Fixed the crop: the ham ran down into the cell below (which was a separate \"ham_hock_raw_c\" fragment). The two are now one sprite, ham_hock_whole_b, trimmed to the full ham. It is cooked, not raw, so ham_hock_raw_b next to it is now ham_hock_whole_c.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from ham_hock_raw_a (no longer exists) to ham_hock_raw_top_fragment_a, which replaced it.\n\n[Claude] Fixed the crop: the ham ran down into the cell below (which was a separate \"ham_hock_raw_c\" fragment). The two are now one sprite, ham_hock_whole_b, trimmed to the full ham. It is cooked, not raw, so ham_hock_raw_b next to it is now ham_hock_whole_c.",
     "status": "resolved",
     "createdAt": "2026-09-21T15:31:23.518Z",
     "resolvedAt": "2026-09-28T15:48:24.832Z"
@@ -3328,7 +3328,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "meat_chunk_raw_a",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] The chunk sits 2px above its grid cell. Converted to an exact pixel box (1,701,31x18); did the same for meat_chunk_raw_b.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] The chunk sits 2px above its grid cell. Converted to an exact pixel box (1,701,31x18); did the same for meat_chunk_raw_b.",
     "status": "resolved",
     "createdAt": "2026-09-21T15:31:31.249Z",
     "resolvedAt": "2026-09-24T15:49:57.560Z"
@@ -3338,7 +3338,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "meat_steak_raw_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).\n\n[Claude] Flag moved from meat_scrap_fragment_a (no longer exists) to meat_steak_raw_a, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).\n\n[Claude] Flag moved from meat_scrap_fragment_a (no longer exists) to meat_steak_raw_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T15:31:40.123Z",
     "resolvedAt": null
@@ -3348,7 +3348,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "meat_raw_cut_a",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] The cut sits 5px above its grid cell. Converted to an exact pixel box (1,634,30x21); did the same for meat_raw_cut_b.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] The cut sits 5px above its grid cell. Converted to an exact pixel box (1,634,30x21); did the same for meat_raw_cut_b.",
     "status": "resolved",
     "createdAt": "2026-09-21T15:31:42.649Z",
     "resolvedAt": "2026-09-24T15:49:53.002Z"
@@ -3429,20 +3429,20 @@
     "sheet": "obj_misk_atlas.png",
     "name": "sack_burlap_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from window_glasswall_frame_bottom_a (no longer exists) to sack_burlap_pile_a, which replaced it.\n\n[Rework] and this is the right half of the grain bag\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
-    "status": "needs_review",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from window_glasswall_frame_bottom_a (no longer exists) to sack_burlap_pile_a, which replaced it.\n\n[Rework] and this is the right half of the grain bag\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:32:38.510Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:23.103Z"
   },
   {
     "id": "f_703726cd-429e-4bf1-b2f5-ae0a58012ecd",
     "sheet": "obj_misk_atlas.png",
     "name": "sack_burlap_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from door_glass_dark_four_pane_c (no longer exists) to sack_burlap_tall_a, which replaced it.\n\n[Rework] this is only the left half of a grain bag\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
-    "status": "needs_review",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from door_glass_dark_four_pane_c (no longer exists) to sack_burlap_tall_a, which replaced it.\n\n[Rework] this is only the left half of a grain bag\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:32:40.276Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:23.103Z"
   },
   {
     "id": "f_76fd0351-7024-4a04-aee7-451843860cae",
@@ -3459,20 +3459,20 @@
     "sheet": "obj_misk_atlas.png",
     "name": "sack_burlap_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from door_glass_dark_two_pane_transom (no longer exists) to sack_burlap_round_a, which replaced it.\n\n[Rework] top half of what looks like a grain bag, move selection donw half of it it'll be ok\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
-    "status": "needs_review",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from door_glass_dark_two_pane_transom (no longer exists) to sack_burlap_round_a, which replaced it.\n\n[Rework] top half of what looks like a grain bag, move selection donw half of it it'll be ok\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:32:44.330Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:24.578Z"
   },
   {
     "id": "f_0707f0ec-716e-42c4-b921-8780da6ea47b",
     "sheet": "obj_misk_atlas.png",
     "name": "sack_burlap_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from bookshelf_books_full_a (no longer exists) to sack_burlap_round_b, which replaced it.\n\n[Rework] and here is the bottom half of the bag of grain\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
-    "status": "needs_review",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from bookshelf_books_full_a (no longer exists) to sack_burlap_round_b, which replaced it.\n\n[Rework] and here is the bottom half of the bag of grain\n\n[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:32:45.984Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:24.578Z"
   },
   {
     "id": "f_7f6aa297-1b3c-423b-b8eb-0c45f3275081",
@@ -3489,37 +3489,37 @@
     "sheet": "obj_misk_atlas.png",
     "name": "firewood_pile_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from nightstand_wood_cherry (no longer exists) to firewood_pile_medium_a, which replaced it.\n\n[Rework] left halt of wood pile..\n\n[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
-    "status": "needs_review",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from nightstand_wood_cherry (no longer exists) to firewood_pile_medium_a, which replaced it.\n\n[Rework] left halt of wood pile..\n\n[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:32:51.441Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:15.301Z"
   },
   {
     "id": "f_f63e4757-6527-4605-8808-36e32fc1e191",
     "sheet": "obj_misk_atlas.png",
     "name": "firewood_pile_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_cherry_low_two_door_a (no longer exists) to firewood_pile_large_a, which replaced it.\n\n[Rework] this is the right half of the wood pile now..\n\n[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
-    "status": "needs_review",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_cherry_low_two_door_a (no longer exists) to firewood_pile_large_a, which replaced it.\n\n[Rework] this is the right half of the wood pile now..\n\n[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:32:53.800Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:15.301Z"
   },
   {
     "id": "f_42d17ed8-77cb-4b59-ac18-ad72c2a92e96",
     "sheet": "obj_misk_atlas.png",
     "name": "firewood_pile_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from wall_stone_dock_mossy_edge_right (no longer exists) to firewood_pile_small_a, which replaced it.\n\n[Rework] this is only half or a wood pile, move the selection half of it down and you'll crop just right\n\n[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
-    "status": "needs_review",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from wall_stone_dock_mossy_edge_right (no longer exists) to firewood_pile_small_a, which replaced it.\n\n[Rework] this is only half or a wood pile, move the selection half of it down and you'll crop just right\n\n[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
+    "status": "resolved",
     "createdAt": "2026-09-21T15:32:55.712Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:18.991Z"
   },
   {
     "id": "f_e6a8aed4-0fd6-49fe-a897-a2d2579121c7",
     "sheet": "obj_misk_atlas.png",
     "name": "sack_grain_yellow_b",
     "reason": "wrong_name",
-    "comment": "this is a bag of grain, but we only see right half of it\n\n[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).\n\n[Claude] Flag moved from bookshelf_empty_b (no longer exists) to sack_grain_yellow_b, which replaced it.",
+    "comment": "this is a bag of grain, but we only see right half of it\n\n[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).\n\n[Claude] Flag moved from bookshelf_empty_b (no longer exists) to sack_grain_yellow_b, which replaced it.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:46:25.320Z",
     "resolvedAt": "2026-09-24T15:49:20.874Z"
@@ -3529,7 +3529,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "sack_grain_yellow_b",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).\n\n[Claude] Flag moved from bookshelf_empty_b (no longer exists) to sack_grain_yellow_b, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there and converted to a precise pixel box (was clipped by the fixed grid cell).\n\n[Claude] Flag moved from bookshelf_empty_b (no longer exists) to sack_grain_yellow_b, which replaced it.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:46:26.424Z",
     "resolvedAt": "2026-09-24T15:49:21.536Z"
@@ -3539,7 +3539,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "bench_wood_tan_slat_tall_a",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.\n\n[Claude] Flag moved from bench_wood_tan_curved_plain (no longer exists) to bench_wood_tan_slat_tall_a, which replaced it.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.\n\n[Claude] Flag moved from bench_wood_tan_curved_plain (no longer exists) to bench_wood_tan_slat_tall_a, which replaced it.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:46:59.578Z",
     "resolvedAt": "2026-09-24T15:46:39.634Z"
@@ -3549,7 +3549,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "chair_wood_tan_side_b",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.\n\n[Claude] Flag moved from bench_wood_tan_slat_single_a (no longer exists) to chair_wood_tan_side_b, which replaced it.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.\n\n[Claude] Flag moved from bench_wood_tan_slat_single_a (no longer exists) to chair_wood_tan_side_b, which replaced it.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:01.155Z",
     "resolvedAt": "2026-09-24T15:47:16.528Z"
@@ -3559,7 +3559,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "bench_wood_tan_slat_tall_a",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.\n\n[Claude] Flag moved from bench_wood_tan_slat_low_a (no longer exists) to bench_wood_tan_slat_tall_a, which replaced it.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] You were right: bench_wood_tan_slat_low_a + bench_wood_tan_curved_plain together are a pixel-exact copy of bench_wood_tan_slat_tall_a, shifted half a tile down. The same shifted copy also explained 4 more entries I wrongly called fine last time (ottoman_wood_tan_plain + bench_wood_tan_slat_thin = copy of the back-view chair; chair_wood_tan_side_a + bench_wood_tan_slat_single_a = copy of the side chair). Deleted all 6 duplicate fragments; the originals stay.\n\n[Claude] Flag moved from bench_wood_tan_slat_low_a (no longer exists) to bench_wood_tan_slat_tall_a, which replaced it.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:02.871Z",
     "resolvedAt": "2026-09-24T15:46:45.555Z"
@@ -3569,7 +3569,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "chair_wood_tan_side_c",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Right - it is the bottom half of chair_wood_tan_side_c, clipped (pixel-identical). Deleted as a duplicate; flag moved to the full chair. (Flag moved from bench_wood_tan_slat_single_b to chair_wood_tan_side_c.)",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Right - it is the bottom half of chair_wood_tan_side_c, clipped (pixel-identical). Deleted as a duplicate; flag moved to the full chair. (Flag moved from bench_wood_tan_slat_single_b to chair_wood_tan_side_c.)",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:04.899Z",
     "resolvedAt": "2026-09-24T15:47:19.724Z"
@@ -3579,7 +3579,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "bench_wood_tan_slat_tall_a",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:25.574Z",
     "resolvedAt": "2026-09-24T15:20:18.072Z"
@@ -3589,7 +3589,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "bench_wood_tan_slat_tall_b",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:29.749Z",
     "resolvedAt": "2026-09-24T15:20:22.838Z"
@@ -3599,7 +3599,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "bench_wood_tan_slat_tall_b",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.\n\n[Claude] Flag moved from bench_wood_tan_slat_thin (no longer exists) to bench_wood_tan_slat_tall_b, which replaced it.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.\n\n[Claude] Flag moved from bench_wood_tan_slat_thin (no longer exists) to bench_wood_tan_slat_tall_b, which replaced it.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:33.890Z",
     "resolvedAt": "2026-09-24T15:46:42.902Z"
@@ -3609,27 +3609,27 @@
     "sheet": "obj_misk_atlas.png",
     "name": "dock_wood_b_sw",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from arched_window_sky_pane_rail_a (no longer exists) to wood_crate_leg_fragment_lower_a, which replaced it.\n\n[Rework] c'est le coin so d'un quaitu vas avoir une grille de 3x3 pour le quai au complet, coint no ne se et les cotés et un morceau du centre\n\n[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from arched_window_sky_pane_rail_a (no longer exists) to wood_crate_leg_fragment_lower_a, which replaced it.\n\n[Rework] c'est le coin so d'un quaitu vas avoir une grille de 3x3 pour le quai au complet, coint no ne se et les cot\u00e9s et un morceau du centre\n\n[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "resolved",
     "createdAt": "2026-09-21T22:47:46.181Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:31.474Z"
   },
   {
     "id": "f_36da6220-0f8e-4a01-b3c0-cb3abd2ffd59",
     "sheet": "obj_misk_atlas.png",
     "name": "dock_wood_b_se",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from arched_window_sky_pane_rail_b (no longer exists) to wood_crate_leg_fragment_lower_b, which replaced it.\n\n[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from arched_window_sky_pane_rail_b (no longer exists) to wood_crate_leg_fragment_lower_b, which replaced it.\n\n[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
+    "status": "resolved",
     "createdAt": "2026-09-21T22:47:48.230Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:31.861Z"
   },
   {
     "id": "f_a232696c-4fbf-4719-bee7-38a8cf76b667",
     "sheet": "obj_misk_atlas.png",
     "name": "chair_wood_tan_side_c",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Right - it is the top half of chair_wood_tan_side_c, clipped (pixel-identical). Deleted as a duplicate; flag moved to the full chair. (Flag moved from chair_wood_tan_fragment_low to chair_wood_tan_side_c.)",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Right - it is the top half of chair_wood_tan_side_c, clipped (pixel-identical). Deleted as a duplicate; flag moved to the full chair. (Flag moved from chair_wood_tan_fragment_low to chair_wood_tan_side_c.)",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:52.171Z",
     "resolvedAt": "2026-09-24T15:47:20.214Z"
@@ -3639,7 +3639,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "chair_wood_tan_side_b",
     "reason": "misaligned",
-    "comment": "[Claude] Checked against the sheet — name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.\n\n[Claude] Flag moved from chair_wood_tan_side_a (no longer exists) to chair_wood_tan_side_b, which replaced it.",
+    "comment": "[Claude] Checked against the sheet \u2014 name and crop both look correct to me, no misalignment found. Flagging back for your review in case I am missing what looked off.\n\n[Claude] Correction: I called this fine earlier, but it was part of a half-tile-shifted duplicate of the chair set (see your note on bench_wood_tan_curved_plain). Deleted as a duplicate.\n\n[Claude] Flag moved from chair_wood_tan_side_a (no longer exists) to chair_wood_tan_side_b, which replaced it.",
     "status": "resolved",
     "createdAt": "2026-09-21T22:47:53.894Z",
     "resolvedAt": "2026-09-24T15:47:17.002Z"
@@ -3649,7 +3649,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "sack_grain_green_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_red_panel_apron_base (no longer exists) to sack_grain_green_a, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_red_panel_apron_base (no longer exists) to sack_grain_green_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:47:58.913Z",
     "resolvedAt": null
@@ -3659,7 +3659,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "sack_grain_green_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_red_panel_trim_full_b (no longer exists) to sack_grain_green_a, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_red_panel_trim_full_b (no longer exists) to sack_grain_green_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:48:01.789Z",
     "resolvedAt": null
@@ -3669,7 +3669,7 @@
     "sheet": "obj_misk_atlas.png",
     "name": "sack_grain_green_a",
     "reason": "misaligned",
-    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue — the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_red_panel_trim_full_a (no longer exists) to sack_grain_green_a, which replaced it.",
+    "comment": "[Claude] Found this was part of a wider name/position mix-up in this sheet, not just a crop issue \u2014 the cell actually contained different furniture/food content than the name said. Renamed to match what is actually there.\n\n[Claude] Flag moved from cabinet_wood_red_panel_trim_full_a (no longer exists) to sack_grain_green_a, which replaced it.",
     "status": "needs_review",
     "createdAt": "2026-09-21T22:48:04.309Z",
     "resolvedAt": null
@@ -3680,9 +3680,9 @@
     "name": "perch_pile_5",
     "reason": "misaligned",
     "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.\n\n[Claude] Flag moved from fish_pile_perch_b (no longer exists) to perch_pile_5, which replaced it.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T22:48:15.408Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:48.090Z"
   },
   {
     "id": "f_53f1b526-dd78-493b-a5ed-634999b61454",
@@ -3690,9 +3690,9 @@
     "name": "perch_pile_5",
     "reason": "misaligned",
     "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.\n\n[Claude] Flag moved from fish_pile_perch_c (no longer exists) to perch_pile_5, which replaced it.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T22:48:17.282Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:48.090Z"
   },
   {
     "id": "f_ee57c4fe-1243-4091-b339-258797d0d65e",
@@ -3700,9 +3700,9 @@
     "name": "perch_pile_4",
     "reason": "misaligned",
     "comment": "[Claude] The fish here are drawn off the 32px grid, so every tile entry held pieces of 1-3 fish. The block is really 4 distinct sprites copied several times (verified pixel-identical): replaced the 17 fragment tiles in rows 17-20 (incl. pea_pod_c and the koi_fish_* entries, which were perch too) with perch_single, perch_pair_overlap, perch_pair_wide, perch_pair_stacked.\n\n[Claude] Flag moved from fish_pile_perch_d (no longer exists) to perch_pile_4, which replaced it.",
-    "status": "needs_review",
+    "status": "resolved",
     "createdAt": "2026-09-21T22:48:19.993Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:48.912Z"
   },
   {
     "id": "f_dc27ba7f-4f1a-4da7-9cab-614f64c19cff",
@@ -3850,7 +3850,7 @@
     "sheet": "cave_tiles.png",
     "name": "cave_wall_outline_nw",
     "reason": "misaligned",
-    "comment": "this needs a lot of splitting\n\n[Claude] Re-catalogued the whole sheet (2 -> 36): cave_pit_large (the old box was only its top half), cave_pit_narrow, mine_entrance_timber, rock_island_water, and every plant/rock/ore/boulder/tree/ladder/wall separately. The pits are kept as whole objects - say if you want them split into 16px rim tiles. (Flag moved from cave_wall_blob to cave_pit_large.)\n\n[Rework] je vais expliquer en francais, les mots vont me manquer pour ca en anglais..  tu as la un complément au set pipoya, ca dervait etre splitté en 3 colonnes, et 5 ou 6 rangées, je suis pas certain, ce que c'est, les 3x3 du haut sont un set de contour manquant pour faire des murs de cavernes je suppose, ca te donne les contours et les murs et le dessus est \"foncé vide\" pcq ya rien de plus a renderer, ca serait le plafond de la caverne et il doit etre transparent pour voir les personnages. plus bas tu as pour faire les murs. ce pattern la vas revenir asser souvent et tu vas surement les nommées avec un suffix _ne _n _nw, ce genre de chose pour savoir ou ils vont.\n\n[Claude] Split as you described (3 columns): the top 3x3 is the cave wall outline set named by compass - cave_wall_outline_nw/n/ne/w/e/sw/s/se, with cave_wall_outline_ceiling_dark in the middle (the dark cave ceiling) - and the row below is the wall face: cave_wall_face_w/middle/e. That is 4 rows at 32px (the pit is 128px tall). All pieces are in \"to review\".",
+    "comment": "this needs a lot of splitting\n\n[Claude] Re-catalogued the whole sheet (2 -> 36): cave_pit_large (the old box was only its top half), cave_pit_narrow, mine_entrance_timber, rock_island_water, and every plant/rock/ore/boulder/tree/ladder/wall separately. The pits are kept as whole objects - say if you want them split into 16px rim tiles. (Flag moved from cave_wall_blob to cave_pit_large.)\n\n[Rework] je vais expliquer en francais, les mots vont me manquer pour ca en anglais..  tu as la un compl\u00e9ment au set pipoya, ca dervait etre splitt\u00e9 en 3 colonnes, et 5 ou 6 rang\u00e9es, je suis pas certain, ce que c'est, les 3x3 du haut sont un set de contour manquant pour faire des murs de cavernes je suppose, ca te donne les contours et les murs et le dessus est \"fonc\u00e9 vide\" pcq ya rien de plus a renderer, ca serait le plafond de la caverne et il doit etre transparent pour voir les personnages. plus bas tu as pour faire les murs. ce pattern la vas revenir asser souvent et tu vas surement les nomm\u00e9es avec un suffix _ne _n _nw, ce genre de chose pour savoir ou ils vont.\n\n[Claude] Split as you described (3 columns): the top 3x3 is the cave wall outline set named by compass - cave_wall_outline_nw/n/ne/w/e/sw/s/se, with cave_wall_outline_ceiling_dark in the middle (the dark cave ceiling) - and the row below is the wall face: cave_wall_face_w/middle/e. That is 4 rows at 32px (the pit is 128px tall). All pieces are in \"to review\".",
     "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T15:24:32.477Z",
@@ -4170,10 +4170,10 @@
     "name": "water_fill",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"water_fill_1\" into the animation \"water_fill\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:50.341Z"
   },
   {
     "id": "f_78c03873-408b-49d5-9d86-29cb2019eadc",
@@ -4181,10 +4181,10 @@
     "name": "water_fill",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"water_fill_2\" into the animation \"water_fill\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:50.341Z"
   },
   {
     "id": "f_9fc945a8-f25c-4204-99ea-36396ef36e71",
@@ -4192,7 +4192,7 @@
     "name": "water_splash_start",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_052\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
     "resolvedAt": null
@@ -4203,10 +4203,10 @@
     "name": "light_rays",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"light_rays_1\" into the animation \"light_rays\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:04.187Z"
   },
   {
     "id": "f_3a20e310-d6fd-45b3-816b-130224f82b00",
@@ -4214,10 +4214,10 @@
     "name": "light_rays",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"light_rays_2\" into the animation \"light_rays\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:04.187Z"
   },
   {
     "id": "f_9d6d41a2-6419-4e35-8c3b-1231ea0bc06d",
@@ -4225,10 +4225,10 @@
     "name": "light_rays",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"light_rays_3\" into the animation \"light_rays\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:04.187Z"
   },
   {
     "id": "f_06594769-61c9-4d11-9f1a-007b7a19e964",
@@ -4236,10 +4236,10 @@
     "name": "water_fill",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"water_fill_3\" into the animation \"water_fill\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:50.341Z"
   },
   {
     "id": "f_50a33d13-c95d-4a73-b3f6-e4f39d8246f4",
@@ -4247,10 +4247,10 @@
     "name": "water_fill",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"water_fill_4\" into the animation \"water_fill\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:50.341Z"
   },
   {
     "id": "f_e15809c4-7355-4143-80d9-b7947900f71a",
@@ -4313,10 +4313,10 @@
     "name": "dark_star",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"dark_star_1\" into the animation \"dark_star\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:04.787Z"
   },
   {
     "id": "f_2696f56e-d14d-4939-877e-5395cf630765",
@@ -4324,10 +4324,10 @@
     "name": "dark_star",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"dark_star_2\" into the animation \"dark_star\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:04.787Z"
   },
   {
     "id": "f_9044bc8a-9b7c-4df9-8da0-690bc2a6c7e7",
@@ -4335,10 +4335,10 @@
     "name": "water_droplet",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"water_droplet_1\" into the animation \"water_droplet\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:05.370Z"
   },
   {
     "id": "f_d544399b-bd8d-429b-aa2b-689c848217dd",
@@ -4346,10 +4346,10 @@
     "name": "water_droplet",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"water_droplet_2\" into the animation \"water_droplet\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:05.370Z"
   },
   {
     "id": "f_3a1b8f7b-2fac-42df-906e-69f2b6a643d1",
@@ -4357,10 +4357,10 @@
     "name": "water_droplet",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_035\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"water_droplet_3\" into the animation \"water_droplet\" (all its frames in one sprite).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:05.370Z"
   },
   {
     "id": "f_51eaf085-6e67-41de-ad7b-a406a74bfb2b",
@@ -4412,10 +4412,10 @@
     "name": "bubble_item_boot",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"effects_052\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] I could not make this one an animation: the sheet has only one boot bubble frame (the coin next to it is also a single frame; I named it bubble_item_coin). If you know where its other frames are, tell me and I will build it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:09.914Z"
   },
   {
     "id": "f_ab7248c3-099f-43ae-b5f6-fc0cc1333e1d",
@@ -4500,10 +4500,10 @@
     "name": "perch_pair_wide",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"fish_tail_fragment_a\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:37.988Z"
   },
   {
     "id": "f_07916cbe-8fac-4edc-9b7b-a520782280a1",
@@ -4511,10 +4511,10 @@
     "name": "perch_pair_stacked",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"fish_pile_perch_c\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:48.375Z"
   },
   {
     "id": "f_7c03d6b0-eb95-4564-a8f9-7f453c406391",
@@ -4522,10 +4522,10 @@
     "name": "tree_canopy_olive",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"vegetation_01\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Renamed to tree_canopy_olive - it is a tree top, not a bush. The crop is pixel-exact: the art ends at the trunk stub (y=47) with nothing below it on the sheet.\n\n[Claude] Crop changed: snapped to the 16px grid as a 48x48 block (3x3 tiles) instead of the tight pixel box, so the tree top lines up with map tiles. If you meant it should be cut differently (e.g. separated from its trunk stub), tell me where.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:45.563Z"
   },
   {
     "id": "f_aaa0c0c5-d526-455d-9d6b-3f10bb4f48e9",
@@ -5842,10 +5842,10 @@
     "name": "canopy_shadow_large",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"vegetation_01\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:47.485Z"
   },
   {
     "id": "f_fdb5d06a-1a01-44cf-83cb-f99afefd97e8",
@@ -5853,10 +5853,10 @@
     "name": "canopy_shadow_medium",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"vegetation_01\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:48.485Z"
   },
   {
     "id": "f_61ec3538-266d-45a7-b5cd-7b00e60a454e",
@@ -5864,10 +5864,10 @@
     "name": "shadow_square_small",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"vegetation_01\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:49.840Z"
   },
   {
     "id": "f_caea03f1-1a2b-4cda-8c0b-3f50f8113aa1",
@@ -5875,10 +5875,10 @@
     "name": "shadow_square_medium",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"vegetation_01\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:48.872Z"
   },
   {
     "id": "f_115db2b0-830f-4fe0-a736-b878f0d5a519",
@@ -5886,10 +5886,10 @@
     "name": "shadow_round",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"vegetation_01\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:49.681Z"
   },
   {
     "id": "f_8e57c328-704e-4e3d-bf93-8135244404e1",
@@ -5908,10 +5908,10 @@
     "name": "dirt_patch_round",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"vegetation_01\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:47.888Z"
   },
   {
     "id": "f_b3f128a6-34b4-48ca-a3cf-2e9feb58d65a",
@@ -6326,10 +6326,10 @@
     "name": "spike_trap",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"dungeon_prop_cluster\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] this is 2 frames of an animation, there is one more frame below\n\n[Claude] Made it an animation with all 3 frames: spikes down (holes only, 64,160), half up (64,144), fully up (64,121, 23px tall since the tips rise above the tile). Frames of different heights are drawn bottom-anchored, both in the game and in the ledger preview, so it does not jump.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:31:12.787Z"
   },
   {
     "id": "f_11a62e35-13d1-47b6-928f-9943fc29bc8c",
@@ -7734,10 +7734,10 @@
     "name": "stairs_wood_plain_w",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).\n\n[Rework] wood stair like the one with the red carpet, without a carpet, this is the left part\n\n[Claude] Renamed: wooden stairs without carpet (same as stairs_red_yellow_carpet), stairs_wood_plain_w (left part) and stairs_wood_plain_e (right part).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:30:56.582Z"
   },
   {
     "id": "f_d4d73d68-0d39-413b-b9a2-4c76d0a05e1d",
@@ -7745,10 +7745,10 @@
     "name": "stairs_wood_plain_e",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed to compass names like the other autotile pieces (_nw/_ne/_sw/_se for 2x2 blocks, _w/_center/_e for 3-wide strips).\n\n[Rework] like the stairs with the red and yellow flag, but without carpet, this is the right part\n\n[Claude] Renamed: wooden stairs without carpet (same as stairs_red_yellow_carpet), stairs_wood_plain_w (left part) and stairs_wood_plain_e (right part).",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:30:57.547Z"
   },
   {
     "id": "f_e2fca164-af6c-453f-8e1b-91e6ced1f448",
@@ -7822,10 +7822,10 @@
     "name": "stairs_dungeon_brick_sw",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"dungeon_prop_cluster\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] those are dungeon brick stairs, its the sw part, this is 1/4 of the stair, other parts (nw,ne ans se) and to their respective positions.\n\n[Claude] Renamed as the 4 quarters of the dungeon brick stairs: stairs_dungeon_brick_nw/ne/sw/se, each at its own position.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:31:31.546Z"
   },
   {
     "id": "f_c098e39b-ac63-4f40-beb3-51f5a39c896d",
@@ -7833,10 +7833,10 @@
     "name": "stairs_dungeon_brick_se",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed as the 4 quarters of the dungeon brick stairs: stairs_dungeon_brick_nw/ne/sw/se, each at its own position.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:31:34.079Z"
   },
   {
     "id": "f_9257751e-3090-4967-ae65-103185bdef68",
@@ -8163,10 +8163,10 @@
     "name": "dark_brick_wall_plain_top",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:15.267Z"
   },
   {
     "id": "f_09a9e507-e45c-4b1d-8dca-5c0d57a50b9e",
@@ -8174,10 +8174,10 @@
     "name": "dark_wall_red_trim_upper_w_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:16.780Z"
   },
   {
     "id": "f_51e3fb91-82d9-4cfa-a1ed-559522ae56ea",
@@ -8185,10 +8185,10 @@
     "name": "dark_wall_red_trim_upper_e_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:17.164Z"
   },
   {
     "id": "f_ea64e189-234c-45f2-8c05-e3d483955cf6",
@@ -8196,10 +8196,10 @@
     "name": "dark_wall_red_trim_upper_both_ends",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:17.361Z"
   },
   {
     "id": "f_c9607ab9-c9f9-4310-b3a1-a0c8dc29658a",
@@ -8207,10 +8207,10 @@
     "name": "dark_wall_blue_trim_upper_w_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:17.569Z"
   },
   {
     "id": "f_8c656ce9-b1af-4b74-8a4e-ddcbaa79faff",
@@ -8218,10 +8218,10 @@
     "name": "dark_wall_blue_trim_upper_e_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:17.773Z"
   },
   {
     "id": "f_fc20a959-d908-4b57-96b4-4bbde66f0467",
@@ -8229,10 +8229,10 @@
     "name": "dark_wall_blue_trim_upper_both_ends",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:18.164Z"
   },
   {
     "id": "f_7d7a40b1-f5ee-4853-8878-9b5b78e220c7",
@@ -8240,10 +8240,10 @@
     "name": "dark_wall_green_trim_upper_w_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:18.350Z"
   },
   {
     "id": "f_050c241d-01eb-46a4-9f19-cd6418896f1c",
@@ -8251,10 +8251,10 @@
     "name": "dark_wall_green_trim_upper_e_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:18.565Z"
   },
   {
     "id": "f_80f6f4be-87d8-4d0b-926f-6e09654a31dc",
@@ -8262,10 +8262,10 @@
     "name": "dark_wall_green_trim_upper_both_ends",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:18.813Z"
   },
   {
     "id": "f_16deb33a-462a-4655-8819-a10c96a974dc",
@@ -8273,10 +8273,10 @@
     "name": "dark_brick_wall_plain",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:19.042Z"
   },
   {
     "id": "f_0257c3c7-b472-4947-87f3-562d5a483ec3",
@@ -8284,10 +8284,10 @@
     "name": "dark_wall_red_trim_lower_w_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:19.243Z"
   },
   {
     "id": "f_5a6a2d04-3e57-4c62-ae37-405d78d3c690",
@@ -8295,10 +8295,10 @@
     "name": "dark_wall_red_trim_lower_e_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:19.454Z"
   },
   {
     "id": "f_32299582-ea37-4f3c-84d9-4cb834053560",
@@ -8306,10 +8306,10 @@
     "name": "dark_wall_red_trim_lower_both_ends",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:19.631Z"
   },
   {
     "id": "f_0dea5a77-f595-479a-9251-2a2beea314fb",
@@ -8317,10 +8317,10 @@
     "name": "dark_wall_blue_trim_lower_w_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:19.845Z"
   },
   {
     "id": "f_176ae9f4-5f31-4484-bd0a-fb61f409b299",
@@ -8328,10 +8328,10 @@
     "name": "dark_wall_blue_trim_lower_e_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:20.025Z"
   },
   {
     "id": "f_b792a28e-7241-4d28-918f-4ffb3a444ab3",
@@ -8339,10 +8339,10 @@
     "name": "dark_wall_blue_trim_lower_both_ends",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:20.221Z"
   },
   {
     "id": "f_2e462cd4-46ac-46c0-832d-0b0778cf9d6d",
@@ -8350,10 +8350,10 @@
     "name": "dark_wall_green_trim_lower_w_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:20.420Z"
   },
   {
     "id": "f_c8b4e33c-77e8-41d7-a3ed-28d2b60c2ab3",
@@ -8361,10 +8361,10 @@
     "name": "dark_wall_green_trim_lower_e_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:20.604Z"
   },
   {
     "id": "f_284ce83f-69a7-45b4-993b-1f18d89e8f85",
@@ -8372,10 +8372,10 @@
     "name": "dark_wall_green_trim_lower_both_ends",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:20.813Z"
   },
   {
     "id": "f_ac35761f-100e-4b63-814e-b70a93d408c5",
@@ -8383,10 +8383,10 @@
     "name": "dark_wall_red_trim_base_w_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:21.011Z"
   },
   {
     "id": "f_27886eea-51db-4a3e-8582-2490bf468a94",
@@ -8394,10 +8394,10 @@
     "name": "dark_wall_red_trim_base_e_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:21.213Z"
   },
   {
     "id": "f_5f21a104-2093-4d21-9ad9-81162304fa7c",
@@ -8405,10 +8405,10 @@
     "name": "dark_wall_red_trim_base_both_ends",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:21.419Z"
   },
   {
     "id": "f_eadbf4fa-d99e-40b7-a013-08455a8de7eb",
@@ -8416,10 +8416,10 @@
     "name": "dark_wall_blue_trim_base_w_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:21.619Z"
   },
   {
     "id": "f_931c05e3-227d-4106-9e7e-5186c7e6d1af",
@@ -8427,10 +8427,10 @@
     "name": "dark_wall_blue_trim_base_e_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:21.819Z"
   },
   {
     "id": "f_14ef6d50-4bd6-4db2-a636-ff33d3978e5b",
@@ -8438,10 +8438,10 @@
     "name": "dark_wall_blue_trim_base_both_ends",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:22.030Z"
   },
   {
     "id": "f_448faa84-57d7-466d-8483-3c93433b2fa6",
@@ -8449,10 +8449,10 @@
     "name": "dark_wall_green_trim_base_w_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:22.236Z"
   },
   {
     "id": "f_82bbbdc8-71f2-437a-ba27-58b6a666cf5f",
@@ -8460,10 +8460,10 @@
     "name": "dark_wall_green_trim_base_e_end",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:22.435Z"
   },
   {
     "id": "f_4ddca2ea-eaf4-46c8-9b5d-11ccfc808534",
@@ -8471,10 +8471,10 @@
     "name": "dark_wall_green_trim_base_both_ends",
     "reason": "new_from_split",
     "comment": "[Claude] New item: this part of dungeon_tiles.png had no catalogue entry before; I added it while re-cataloguing the sheet. Please check its name and crop.\n\n[Claude] Renamed after re-checking against your \"variants, not left/middle/right\" note: in each colour the 3 columns are not left/middle/right. Column 1 has the coloured trim on its west side (_w_end), column 2 on its east side (_e_end), column 3 on both sides (_both_ends, a 1-wide wall). Rows are _cap / _upper / _lower / _base. The plain middle filler is the separate dark_brick_wall_plain_* tiles.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:51:22.662Z"
   },
   {
     "id": "f_6394c45c-50d3-4044-9534-68a482432536",
@@ -8570,7 +8570,7 @@
     "name": "stone_plaque",
     "reason": "new_from_split",
     "comment": "[Claude] New item, added when I split \"small_props_cluster\" (flagged as misaligned). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
     "resolvedAt": null
@@ -9075,8 +9075,8 @@
     "sheet": "ground_decorations.png",
     "name": "dirt_speckle",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"dirt_speckle_row\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] those 3 dirt speckle, shouldn't they be an animation ?\n\n[Claude] Merged \"dirt_speckle_a\" into the animation \"dirt_speckle\" (all its frames in one sprite).\n\n[Claude] Yes: dirt_speckle_a/b/c are now one animation, dirt_speckle (3 frames, 24px cells, 150ms). The grass tufts and dirt mounds below follow the same 3-step pattern; tell me if they should be animations too.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"dirt_speckle_row\" (flagged as misaligned). Please check its name and crop.\n\n[Rework] those 3 dirt speckle, shouldn't they be an animation ?\n\n[Claude] Merged \"dirt_speckle_a\" into the animation \"dirt_speckle\" (all its frames in one sprite).\n\n[Claude] Yes: dirt_speckle_a/b/c are now one animation, dirt_speckle (3 frames, 24px cells, 150ms). The grass tufts and dirt mounds below follow the same 3-step pattern; tell me if they should be animations too.\n\n[Rework] should niot be an animation after all...",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
     "resolvedAt": null
@@ -9086,8 +9086,8 @@
     "sheet": "ground_decorations.png",
     "name": "dirt_speckle",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"dirt_speckle_row\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"dirt_speckle_b\" into the animation \"dirt_speckle\" (all its frames in one sprite).\n\n[Claude] Yes: dirt_speckle_a/b/c are now one animation, dirt_speckle (3 frames, 24px cells, 150ms). The grass tufts and dirt mounds below follow the same 3-step pattern; tell me if they should be animations too.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"dirt_speckle_row\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"dirt_speckle_b\" into the animation \"dirt_speckle\" (all its frames in one sprite).\n\n[Claude] Yes: dirt_speckle_a/b/c are now one animation, dirt_speckle (3 frames, 24px cells, 150ms). The grass tufts and dirt mounds below follow the same 3-step pattern; tell me if they should be animations too.\n\n[Rework] should niot be an animation after all...",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
     "resolvedAt": null
@@ -9097,8 +9097,8 @@
     "sheet": "ground_decorations.png",
     "name": "dirt_speckle",
     "reason": "new_from_split",
-    "comment": "[Claude] New item, added when I split \"dirt_speckle_row\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"dirt_speckle_c\" into the animation \"dirt_speckle\" (all its frames in one sprite).\n\n[Claude] Yes: dirt_speckle_a/b/c are now one animation, dirt_speckle (3 frames, 24px cells, 150ms). The grass tufts and dirt mounds below follow the same 3-step pattern; tell me if they should be animations too.",
-    "status": "needs_review",
+    "comment": "[Claude] New item, added when I split \"dirt_speckle_row\" (flagged as misaligned). Please check its name and crop.\n\n[Claude] Merged \"dirt_speckle_c\" into the animation \"dirt_speckle\" (all its frames in one sprite).\n\n[Claude] Yes: dirt_speckle_a/b/c are now one animation, dirt_speckle (3 frames, 24px cells, 150ms). The grass tufts and dirt mounds below follow the same 3-step pattern; tell me if they should be animations too.\n\n[Rework] should niot be an animation after all...",
+    "status": "open",
     "claudeNote": null,
     "createdAt": "2026-09-24T19:54:06.454373Z",
     "resolvedAt": null
@@ -15093,10 +15093,10 @@
     "name": "bubble_item_boot",
     "reason": "should_be_animation",
     "comment": "[Claude] I could not make this one an animation: the sheet has only one boot bubble frame (the coin next to it is also a single frame; I named it bubble_item_coin). If you know where its other frames are, tell me and I will build it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T18:41:25.666Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:09.914Z"
   },
   {
     "id": "f_69654e95-452d-42cb-b4ea-3279be793c16",
@@ -15148,10 +15148,10 @@
     "name": "tree_canopy_green",
     "reason": "wrong_name",
     "comment": "this is not a bush, it is the top of a tree, the name and the cropping are bad\n\n[Claude] Renamed to tree_canopy_green - you are right, it is a tree top, not a bush. On the crop: the art itself ends at the trunk stub (y=47) and nothing is below it on the sheet, so the box is pixel-exact; if you meant another cut, tell me where.\n\n[Claude] Crop changed: snapped to the 16px grid as a 48x48 block (3x3 tiles) instead of the tight pixel box, so the tree top lines up with map tiles. If you meant it should be cut differently (e.g. separated from its trunk stub), tell me where.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T18:42:36.397Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:45.332Z"
   },
   {
     "id": "f_b5de761b-fae4-4cfc-8868-f9e84fa1a744",
@@ -15159,10 +15159,10 @@
     "name": "tree_canopy_green",
     "reason": "misaligned",
     "comment": "[Claude] Renamed to tree_canopy_green - you are right, it is a tree top, not a bush. On the crop: the art itself ends at the trunk stub (y=47) and nothing is below it on the sheet, so the box is pixel-exact; if you meant another cut, tell me where.\n\n[Claude] Crop changed: snapped to the 16px grid as a 48x48 block (3x3 tiles) instead of the tight pixel box, so the tree top lines up with map tiles. If you meant it should be cut differently (e.g. separated from its trunk stub), tell me where.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T18:42:37.561Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:45.332Z"
   },
   {
     "id": "f_9434a22d-6fd5-4640-98dd-bed7d360980a",
@@ -15170,10 +15170,10 @@
     "name": "tree_canopy_olive",
     "reason": "wrong_name",
     "comment": "this is not a bush this is the top of a tree, name and cropping are bad.\n\n[Claude] Renamed to tree_canopy_olive - it is a tree top, not a bush. The crop is pixel-exact: the art ends at the trunk stub (y=47) with nothing below it on the sheet.\n\n[Claude] Crop changed: snapped to the 16px grid as a 48x48 block (3x3 tiles) instead of the tight pixel box, so the tree top lines up with map tiles. If you meant it should be cut differently (e.g. separated from its trunk stub), tell me where.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T18:42:57.612Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:45.563Z"
   },
   {
     "id": "f_81002e3a-d80d-40d1-a8d4-a1a051356cad",
@@ -15181,10 +15181,10 @@
     "name": "tree_canopy_olive",
     "reason": "misaligned",
     "comment": "[Claude] Renamed to tree_canopy_olive - it is a tree top, not a bush. The crop is pixel-exact: the art ends at the trunk stub (y=47) with nothing below it on the sheet.\n\n[Claude] Crop changed: snapped to the 16px grid as a 48x48 block (3x3 tiles) instead of the tight pixel box, so the tree top lines up with map tiles. If you meant it should be cut differently (e.g. separated from its trunk stub), tell me where.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T18:42:58.576Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:45.563Z"
   },
   {
     "id": "f_b0a78ad5-bb80-487f-a834-b55cd74b158b",
@@ -16105,10 +16105,10 @@
     "name": "wall_front_bricks_top",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:42.123Z"
   },
   {
     "id": "f_01025edd-b9d1-4d7c-b0eb-421d9142bf6e",
@@ -16116,10 +16116,10 @@
     "name": "wall_front_bricks_cracked_top",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:42.336Z"
   },
   {
     "id": "f_9d3a3d1d-ecdc-4e42-804f-dbfdea603138",
@@ -16127,10 +16127,10 @@
     "name": "wall_front_bricks_vines_top",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:42.592Z"
   },
   {
     "id": "f_b0bee0b6-968f-47ee-b7a3-10df8b2eb4b3",
@@ -16138,10 +16138,10 @@
     "name": "wall_front_pillar_top",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:42.954Z"
   },
   {
     "id": "f_a071cb72-f3a8-4dd6-ae81-9d860856fb4c",
@@ -16149,10 +16149,10 @@
     "name": "wall_front_right_end_top",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:44.434Z"
   },
   {
     "id": "f_458a5b7a-67b4-42ef-b204-8d38e35ad42a",
@@ -16160,10 +16160,10 @@
     "name": "wall_front_left_end_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:51.911Z"
   },
   {
     "id": "f_e4d5da60-6e1b-4b61-ba60-c1bda0f1d33e",
@@ -16171,10 +16171,10 @@
     "name": "wall_front_bricks_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:52.117Z"
   },
   {
     "id": "f_e018af84-3a05-43ab-9146-01f505d1c8f7",
@@ -16182,10 +16182,10 @@
     "name": "wall_front_bricks_cracked_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:52.349Z"
   },
   {
     "id": "f_3583b9b9-b5b0-4da7-bb10-bac51f34d3ff",
@@ -16193,10 +16193,10 @@
     "name": "wall_front_bricks_vines_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:52.862Z"
   },
   {
     "id": "f_ec9b76b6-63bf-4ac9-a897-231e0615ae44",
@@ -16204,10 +16204,10 @@
     "name": "wall_front_pillar_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:53.365Z"
   },
   {
     "id": "f_75b9cf00-de32-4b5f-9016-1efce697f707",
@@ -16215,10 +16215,10 @@
     "name": "wall_front_right_end_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:53.808Z"
   },
   {
     "id": "f_1f1f1d3f-e832-479e-b7e7-008ebc93df9a",
@@ -16226,10 +16226,10 @@
     "name": "wall_front_left_end_base",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:55.612Z"
   },
   {
     "id": "f_18c04920-0060-4b44-b318-801eeea563c5",
@@ -16237,10 +16237,10 @@
     "name": "wall_front_bricks_base",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:56.357Z"
   },
   {
     "id": "f_dcd11184-1442-485b-9f5f-224a8a7b1e6b",
@@ -16248,10 +16248,10 @@
     "name": "wall_front_bricks_cracked_base",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:56.764Z"
   },
   {
     "id": "f_13467901-3f74-4aa0-97fc-c1a322452d4a",
@@ -16259,10 +16259,10 @@
     "name": "wall_front_bricks_vines_base",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:57.194Z"
   },
   {
     "id": "f_b64edc55-8ef8-4310-8291-1bf8ad47f283",
@@ -16270,10 +16270,10 @@
     "name": "wall_front_pillar_base",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:57.660Z"
   },
   {
     "id": "f_a429d931-c014-43c2-a576-f543a5909427",
@@ -16281,10 +16281,10 @@
     "name": "wall_front_right_end_base",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:34:58.845Z"
   },
   {
     "id": "f_d4468bea-79b3-4489-9671-ce267368d805",
@@ -16292,10 +16292,10 @@
     "name": "thin_wall_cap_corner_top_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:00.659Z"
   },
   {
     "id": "f_09e3888d-2590-4040-a393-ece853f79ac3",
@@ -16303,10 +16303,10 @@
     "name": "thin_wall_cap_horizontal",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:01.779Z"
   },
   {
     "id": "f_40672254-4835-4023-9173-9f6523e673d5",
@@ -16314,10 +16314,10 @@
     "name": "thin_wall_cap_end_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:02.574Z"
   },
   {
     "id": "f_0fb2c4d0-c7db-4a8f-9367-f60a24fb9eab",
@@ -16325,10 +16325,10 @@
     "name": "thin_wall_cap_end_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:03.140Z"
   },
   {
     "id": "f_044bc245-93d2-4fca-930c-9928a3625573",
@@ -16336,10 +16336,10 @@
     "name": "thin_wall_cap_t_junction_down",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:03.661Z"
   },
   {
     "id": "f_fffb7c32-d9ce-4e80-b13d-8ac63f7adc5c",
@@ -16347,10 +16347,10 @@
     "name": "thin_wall_cap_corner_top_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:04.801Z"
   },
   {
     "id": "f_3dd7e78c-e67c-44f5-9a0c-7a645d39031f",
@@ -16358,10 +16358,10 @@
     "name": "thin_wall_face_vertical_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:06.201Z"
   },
   {
     "id": "f_bb14ee50-3d95-4615-a5d4-fba1d3c3893b",
@@ -16369,10 +16369,10 @@
     "name": "thin_wall_short_pair_cap_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:07.268Z"
   },
   {
     "id": "f_0b0eca0a-50fb-4113-88b3-7da8ffb60ae4",
@@ -16380,10 +16380,10 @@
     "name": "thin_wall_short_pair_cap_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:07.954Z"
   },
   {
     "id": "f_9b4b4c63-76ed-458e-ae84-3cee6e290c11",
@@ -16391,10 +16391,10 @@
     "name": "thin_wall_face_inner_corner_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:08.485Z"
   },
   {
     "id": "f_f24f9735-5813-4fb7-b05f-08a0ef9e264a",
@@ -16402,10 +16402,10 @@
     "name": "thin_wall_face_inner_corner_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:08.968Z"
   },
   {
     "id": "f_802cbd74-036e-48b4-9a77-6356f9af6659",
@@ -16413,10 +16413,10 @@
     "name": "thin_wall_face_vertical_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:09.342Z"
   },
   {
     "id": "f_752486ab-9662-4946-9c38-1576ae2f27d2",
@@ -16853,10 +16853,10 @@
     "name": "rubble_rocks_pair",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:29.871Z"
   },
   {
     "id": "f_fb9ccff1-520c-444d-8c24-4f1e91f42f61",
@@ -16897,10 +16897,10 @@
     "name": "floor_slats_grey_top_middle",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:26.506Z"
   },
   {
     "id": "f_d5ce1a66-42da-4682-b96b-bdd1a4a86ef8",
@@ -16908,10 +16908,10 @@
     "name": "floor_slats_grey_top_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:35:27.742Z"
   },
   {
     "id": "f_806c71dd-a765-4e97-bcb7-49f68280ba4d",
@@ -17161,10 +17161,10 @@
     "name": "rubble_stones_pile",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:50:12.330Z"
   },
   {
     "id": "f_33dfff46-d716-45f5-978b-5af594da40ee",
@@ -17183,10 +17183,10 @@
     "name": "dungeon_floor_slab_framed_a_top_left",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:50:20.385Z"
   },
   {
     "id": "f_2542dfd4-edd5-48b5-92f6-fa8d3c495f7c",
@@ -17194,10 +17194,10 @@
     "name": "dungeon_floor_slab_framed_a_top_right",
     "reason": "new_from_split",
     "comment": "[Claude] New item from re-cataloguing dungeon_tileset.png (the sheet was 5 rough boxes). Please check its name and crop.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-25T23:46:18.713867Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:50:21.007Z"
   },
   {
     "id": "f_cf4eca14-893f-4c0f-a5bd-cf599bc90f52",
@@ -18316,10 +18316,10 @@
     "name": "blacksmith_tongs",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:34.073Z"
   },
   {
     "id": "f_13114eff-b07c-4f2e-b1ad-9915e8d905a6",
@@ -18327,10 +18327,10 @@
     "name": "bookshelf_books_center",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:35.048Z"
   },
   {
     "id": "f_9b778f90-15f4-4412-a6af-cc54ef5c4e0e",
@@ -18338,10 +18338,10 @@
     "name": "bookshelf_books_n",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:15.356Z"
   },
   {
     "id": "f_6d84e415-3ee1-4f0c-bf38-f3c6b57631ea",
@@ -18349,10 +18349,10 @@
     "name": "bookshelf_books_s",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:24.691Z"
   },
   {
     "id": "f_ad0c4890-0aeb-4b68-9bfd-d1a6be2ce364",
@@ -18360,10 +18360,10 @@
     "name": "bookshelf_empty_dark_center",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:35.960Z"
   },
   {
     "id": "f_69c21039-1d4a-4b6f-aa4c-f2ba2bb83f3d",
@@ -18371,10 +18371,10 @@
     "name": "bookshelf_empty_dark_n",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:14.935Z"
   },
   {
     "id": "f_21a2200b-749d-46ed-91b4-edeac1bfbf9a",
@@ -18382,10 +18382,10 @@
     "name": "bookshelf_empty_dark_s",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:24.483Z"
   },
   {
     "id": "f_0007d711-ac4d-44e0-b789-c53199a29740",
@@ -18393,10 +18393,10 @@
     "name": "dock_wood_a_center",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:21.505Z"
   },
   {
     "id": "f_0f123f11-198f-4704-a5a9-b69c418dc3cb",
@@ -18404,10 +18404,10 @@
     "name": "dock_wood_a_e",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:22.084Z"
   },
   {
     "id": "f_a07a4f8a-b47c-46cf-ae91-5a9513da3fca",
@@ -18448,10 +18448,10 @@
     "name": "dock_wood_a_s",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:23.010Z"
   },
   {
     "id": "f_acbfe45d-7420-4f2d-9e33-036a0240171a",
@@ -18459,10 +18459,10 @@
     "name": "dock_wood_a_se",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:23.430Z"
   },
   {
     "id": "f_3820bdf6-bffd-4a56-9a3a-b6b9b76ebcde",
@@ -18470,10 +18470,10 @@
     "name": "dock_wood_a_sw",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:22.798Z"
   },
   {
     "id": "f_c8fbcb79-ac22-4797-b428-61217add6e09",
@@ -18481,10 +18481,10 @@
     "name": "dock_wood_a_w",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:21.073Z"
   },
   {
     "id": "f_865dff6f-b96f-4b43-82b1-db36ad016f39",
@@ -18492,10 +18492,10 @@
     "name": "dock_wood_b_center",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:30.792Z"
   },
   {
     "id": "f_e040963b-b391-4672-9c9a-451d8ffe032d",
@@ -18503,10 +18503,10 @@
     "name": "dock_wood_b_e",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:30.967Z"
   },
   {
     "id": "f_01129dd2-a385-44d5-80ea-c8f748dc3e8c",
@@ -18514,10 +18514,10 @@
     "name": "dock_wood_b_n",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:29.771Z"
   },
   {
     "id": "f_77d71954-a03e-48f9-9298-9399123a6880",
@@ -18525,10 +18525,10 @@
     "name": "dock_wood_b_ne",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:29.964Z"
   },
   {
     "id": "f_cc38a051-6332-4421-8dde-a55b2f59c866",
@@ -18536,10 +18536,10 @@
     "name": "dock_wood_b_nw",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:29.580Z"
   },
   {
     "id": "f_6a5ca72a-7fa3-4c7e-8bd9-8fed12405630",
@@ -18547,10 +18547,10 @@
     "name": "dock_wood_b_s",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:31.664Z"
   },
   {
     "id": "f_a48029fa-c8ec-453f-9431-5cbe08af91f5",
@@ -18558,10 +18558,10 @@
     "name": "dock_wood_b_w",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:30.601Z"
   },
   {
     "id": "f_cc5de2ad-9515-427a-bf84-9862a7220d06",
@@ -18569,10 +18569,10 @@
     "name": "dock_wood_narrow_center",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:22.527Z"
   },
   {
     "id": "f_3ef9d26c-864c-445f-ae2b-6a241dedbd77",
@@ -18580,10 +18580,10 @@
     "name": "dock_wood_narrow_n",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:13.355Z"
   },
   {
     "id": "f_10c68a34-7158-4813-8eac-e72fcb53603c",
@@ -18591,10 +18591,10 @@
     "name": "dock_wood_narrow_s",
     "reason": "wrong_name",
     "comment": "[Claude] Re-catalogued as the dock (quai) you described: a 3x3 set dock_wood_b_nw/n/ne/w/center/e/sw/s/se. The bigger dock just above it is the same thing: dock_wood_a_nw..se, plus a 1-wide dock strip dock_wood_narrow_n/center/s next to it.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:23.783Z"
   },
   {
     "id": "f_35dd5cb3-e1a2-4579-9153-bd83e8c62c30",
@@ -18602,10 +18602,10 @@
     "name": "firewood_pile_c",
     "reason": "wrong_name",
     "comment": "[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:30.703Z"
   },
   {
     "id": "f_3dd47add-0eca-49c4-ae97-97cf394e7a56",
@@ -18613,10 +18613,10 @@
     "name": "firewood_pile_large",
     "reason": "wrong_name",
     "comment": "[Claude] Re-cropped: this row holds 3 copies of the same firewood pile, each offset by half a tile, so the 32px grid cut them in half. Each is now one whole sprite: firewood_pile_a (2,368), firewood_pile_b (50,352; your \"left half\" + \"right half\" pieces merged), firewood_pile_c (34,384). The big pile next to them (was \"cabinet_wood_cherry_low_two_door_b\") is firewood_pile_large.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:48:36.162Z"
   },
   {
     "id": "f_3d04b67c-203d-49d0-bb89-a389fc14e5c4",
@@ -18734,10 +18734,10 @@
     "name": "iron_bar_scraps_c",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:19.082Z"
   },
   {
     "id": "f_22040ce7-a048-4d1d-8808-39bb017630ef",
@@ -18745,10 +18745,10 @@
     "name": "iron_bar_scraps_d",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:19.890Z"
   },
   {
     "id": "f_4ddcb2ac-d73e-4aac-9850-d07bf7cae676",
@@ -18756,10 +18756,10 @@
     "name": "red_wood_plank_frame_piece",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:49:29.186Z"
   },
   {
     "id": "f_dd304cc9-7022-4f75-a23d-d073d53f2e4b",
@@ -18767,10 +18767,10 @@
     "name": "sack_burlap_c",
     "reason": "wrong_name",
     "comment": "[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:25.763Z"
   },
   {
     "id": "f_b689fdf8-fcda-4011-b4c1-391779426a9a",
@@ -18778,10 +18778,10 @@
     "name": "sack_burlap_pile_large",
     "reason": "wrong_name",
     "comment": "[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:24.116Z"
   },
   {
     "id": "f_99918abe-73fb-4b28-9ee3-c26c39ad4db9",
@@ -18789,10 +18789,10 @@
     "name": "sack_grain_yellow_pair",
     "reason": "wrong_name",
     "comment": "[Claude] Re-cropped: same half-tile offset as the firewood, 3 copies of one burlap grain sack. Each is now one whole sprite: sack_burlap_a (your top half + bottom half merged), sack_burlap_b (left half + right half merged), sack_burlap_c. The big heap next to them (was \"window_glasswall_frame_bottom_b\") is sack_burlap_pile_large, and the open yellow grain sacks (was \"bookshelf_books_full_b\") are sack_grain_yellow_pair.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:26.357Z"
   },
   {
     "id": "f_ee1cf424-2794-4a22-83fe-e69ca914394c",
@@ -18800,10 +18800,10 @@
     "name": "smithing_hammer_and_axe_head",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed while fixing the dock/firewood/sack area of obj_misk_atlas: the names there were shifted and several were still grid names (staircase_grand_red_rXcY). This sprite now has a name that matches what it shows.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-30T01:47:33.540Z"
   },
   {
     "id": "f_bb52d283-04fe-4c1a-a86b-7ba2c310edeb",
@@ -19515,10 +19515,10 @@
     "name": "stairs_dungeon_brick_nw",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed as one of the 4 quarters of the dungeon brick stairs: stairs_dungeon_brick_nw/ne/sw/se.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
-    "resolvedAt": null
+    "resolvedAt": "2026-09-29T22:31:21.981Z"
   },
   {
     "id": "f_81ec1b00-5784-4b85-8fa4-1c0778ea79c2",
@@ -19526,9 +19526,416 @@
     "name": "stairs_dungeon_brick_ne",
     "reason": "wrong_name",
     "comment": "[Claude] Renamed as one of the 4 quarters of the dungeon brick stairs: stairs_dungeon_brick_nw/ne/sw/se.",
-    "status": "needs_review",
+    "status": "resolved",
     "claudeNote": null,
     "createdAt": "2026-09-28T18:29:12.705600Z",
+    "resolvedAt": "2026-09-29T22:31:23.197Z"
+  },
+  {
+    "id": "f_2b199bfc-e720-4ad5-8504-c19de03f1b35",
+    "sheet": "exterior_asset.png",
+    "name": "stone_plaque",
+    "reason": "wrong_name",
+    "comment": "its  furnance or something like this",
+    "status": "open",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T01:52:16.426Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_c2c68c17-b3e0-4ef3-8d21-1de63049dbed",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_tan_wood_window_mid",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_7cf118f0-8185-4ffb-87db-caa01689df8d",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_tan_wood_window_right",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5ec74254-1e54-4508-8180-1f8528adafa2",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_redbrick_mid",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_fe09196a-c8ab-4d9a-8e2d-53a49d63c16a",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_redbrick_right",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3e66fe01-9574-4c02-9884-57bf934031f1",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_redbrick_pink_mid",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_90f2e029-0e7b-44dc-bfba-dbdf3204ddd0",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_redbrick_pink_right",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_130df12c-d6f4-4c33-aa48-32efb845f616",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_graybrick_mid",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5df75eaa-811f-439a-b87f-4606303f29dc",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_graybrick_right",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_cbeb705a-e101-4dce-baff-c65d4aa5276e",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_olivebrick_mid",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_b652148d-81e8-4063-8a0e-307b10cd2485",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_olivebrick_right",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3a05872f-6cec-411e-9241-56ad0256a36a",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_tan_pillar_mid",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_56f69006-96c7-4e18-a4cf-a8f5bb5c43e3",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_tan_pillar_right",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3a784d2c-0e9b-4661-ba7e-aba6a8ec7a7c",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_gray_smooth_mid",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_1d68ef6c-ba87-4751-9bdc-91c578940a41",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_gray_smooth_right",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_6ebd3c7e-7a53-47cb-89e6-de35b50beb90",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_gray_shopfront_mid",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_50dcbf9e-de56-416d-999f-1c256239b080",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_gray_shopfront_right",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_cbe1e870-17d9-47cf-8ba6-c0c255b87483",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_gold_wood_mid",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_d348ac14-7e4b-4939-9b17-e069421052db",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_gold_wood_right",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9cf2e640-e84d-4a16-9803-3a8d50268fcb",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_awning_yellow_mid",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_9d6b4056-c4a6-4a3e-ac64-137a6395f17a",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_awning_yellow_right",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_cb99ab02-cb24-4635-b8fd-7a4e32dd1bfd",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_white_orangebase_mid",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_01da690a-826d-47f0-a206-61562ab10b3b",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "wall_white_orangebase_right",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_35465f67-3dca-493e-ac23-ef287ea0b1ba",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "roof_wood_brown_lower_a",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_d6e6b984-2718-4574-8be8-eb1442ba955a",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "roof_wood_brown_lower_b",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_40c3cd18-c280-4a10-bb4f-e1054c55a9b5",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "roof_terracotta_lower_a",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_d44fe3e7-29f1-44f6-9eec-b95a06cb9010",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "roof_terracotta_lower_b",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_3a3a5b66-123f-4ec9-81b0-011b768f3daa",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "roof_brick_teal_lower_a",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_5f9ccc4f-f3ca-4648-8740-3b1d5626dd91",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "roof_brick_teal_lower_b",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_154db142-f6ec-4e4c-93d8-ca7691731a96",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "roof_scale_red_lower_a",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_dfd8e44a-80fb-44f9-9f75-cf072d077668",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "roof_scale_red_lower_b",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_7f615c09-a22a-4a2e-bc5a-36383225898c",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "roof_dome_gray_lower_a",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_8625c0fc-81fe-46ab-bd8d-8486132e58a2",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "roof_dome_gray_lower_b",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_865fb9ed-4bfe-4195-993f-51696f05f584",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "roof_metal_corrugated_gray_lower_a",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_42cc10b2-04b4-4537-bae3-83604cfdb116",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "roof_metal_corrugated_gray_lower_b",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_b6919665-f2a0-43a8-a6d4-c5dba87b957e",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "roof_thatch_gold_lower_a",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
+    "resolvedAt": null
+  },
+  {
+    "id": "f_86b5c7eb-332a-4abc-9540-cbe0d26ebf56",
+    "sheet": "[Base]BaseChip_pipo.png",
+    "name": "roof_thatch_gold_lower_b",
+    "reason": "new_from_split",
+    "comment": "[Claude] New item: this part of the Pipoya house kit had no catalogue entry (only the first wall cell / top roof rows were named). Added so houses can be built from it for the world map. Please check its name and crop.",
+    "status": "needs_review",
+    "claudeNote": null,
+    "createdAt": "2026-09-30T02:06:25.281460Z",
     "resolvedAt": null
   }
 ]
