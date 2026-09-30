@@ -776,6 +776,75 @@ for _ in range(16):
         boot_items['decorations'].append({'name': 'lily_pad_green', 'x': x, 'y': y, 'depthOffset': 1})
 boot_items['waterTiles'] = water_items
 
+# ------------------------------------------------------------------ gathering nodes
+# Placed last, with their own rng, so the scenery above is unchanged. A node
+# needs a free, dry tile of the right ground, at least 3 tiles from another
+# node; `near` restricts it to tiles touching water (or the cave pool).
+nrng = random.Random(77)
+nodes = []
+
+
+def touches(pred, x, y):
+    return any(pred(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+
+
+def in_pool(x, y):
+    return POOL[0] <= x < POOL[0] + 5 and POOL[1] <= y < POOL[1] + 5
+
+
+def place_nodes(ntype, count, box, grounds, yields=None, near=None, tries=6000):
+    x0, y0, x1, y1 = box
+    n = 0
+    for _ in range(tries):
+        if n >= count:
+            break
+        x, y = nrng.randint(x0, x1), nrng.randint(y0, y1)
+        if not inside(x, y) or occupied[y][x] or water[y][x] or ground[y][x] not in grounds or in_pool(x, y):
+            continue
+        if near and not touches(near, x, y):
+            continue
+        if any(abs(nx - x) < 3 and abs(ny - y) < 3 for nx, ny in ((d['x'], d['y']) for d in nodes)):
+            continue
+        node = {'x': x, 'y': y, 'type': ntype}
+        if yields:
+            node['yields'] = yields
+        nodes.append(node)
+        occupied[y][x] = True
+        n += 1
+    return n
+
+
+FOREST = (2, 23, 44, 70)
+# snowy plateau: frostmoss, ice crystals, and ice fishing at two of the holes
+place_nodes('herb', 4, (2, 1, 126, 16), ('snow',), 'mountain_herbs')
+place_nodes('crystal', 3, (2, 1, 126, 16), ('snow',), 'ice_crystals')
+nodes += [{'x': 17, 'y': 7, 'type': 'fishing', 'yields': 'lake_fish'}, {'x': 22, 'y': 9, 'type': 'fishing', 'yields': 'lake_fish'}]
+# west forest: herbs, mushrooms, berries, deadwood; the river and the lake
+place_nodes('herb', 6, FOREST, ('grass',))
+place_nodes('mushroom', 5, FOREST, ('grass',))
+place_nodes('berry', 5, FOREST, ('grass',))
+place_nodes('wood', 4, FOREST, ('grass',))
+place_nodes('fishing', 3, (2, 23, 44, 50), ('grass',), 'river_fish', near=is_water)
+place_nodes('fishing', 3, (2, 51, 44, 70), ('grass', 'path'), 'lake_fish', near=is_water)
+place_nodes('shallows', 3, (2, 51, 44, 70), ('grass',), near=is_water)
+place_nodes('reeds', 5, FOREST, ('grass',), near=is_water)
+# village gardens
+place_nodes('berry', 2, PLAZA[:2] + (PLAZA[2] + 14, PLAZA[3] + 14), ('grass',))
+place_nodes('herb', 2, PLAZA[:2] + (PLAZA[2] + 14, PLAZA[3] + 14), ('grass',), 'meadow_herbs')
+# desert: emberroot, ember crystals; the oasis
+place_nodes('herb', 4, (88, 22, 126, 71), ('sand',), 'desert_herbs')
+place_nodes('crystal', 3, (88, 22, 126, 71), ('sand',), 'ember_crystals')
+place_nodes('fishing', 2, (98, 28, 120, 40), ('sand', 'grass'), 'lake_fish', near=is_water)
+place_nodes('reeds', 2, (98, 28, 120, 40), ('sand', 'grass'), near=is_water)
+place_nodes('shallows', 1, (98, 28, 120, 40), ('sand', 'grass'), near=is_water)
+# badlands: ore
+place_nodes('mineral', 3, (74, 56, 126, 71), ('grass', 'sand'))
+# cavern: deep crystals, glowcaps, ore, and eels in the rock-island pool
+place_nodes('crystal', 5, (52, UNDER, W - 2, H - 2), ('cave',), 'deep_crystals')
+place_nodes('mushroom', 4, (52, UNDER, W - 2, H - 2), ('cave',), 'cave_mushrooms')
+place_nodes('mineral', 4, (52, UNDER, W - 2, H - 2), ('cave',))
+place_nodes('fishing', 2, (POOL[0] - 1, POOL[1] - 1, POOL[0] + 5, POOL[1] + 5), ('cave',), 'cave_pool', near=in_pool)
+
 # ------------------------------------------------------------------ output
 TILE_OF = {'path': 2, 'cobble': 3, 'void': 4, 'cave': 4, 'crypt': 4}
 tiles = [[TILE_OF.get(ground[y][x], 0) for x in range(W)] for y in range(H)]
@@ -823,7 +892,9 @@ export const WORLDTEST = {{
     extraSheets: WORLD_EXTRA_SHEETS,
     sheetDecorations: WORLD_SHEET_DECORATIONS,
     portals: [],
-    spawns: {{}},
+    spawns: {{
+        gatheringNodes: {arr(nodes).replace(chr(10), chr(10) + '        ')},
+    }},
     currencyBias: 'rural',
     music: 'forest',
     quests: [],
@@ -832,4 +903,4 @@ export const WORLDTEST = {{
 '''
 MAP_OUT.write_text(out)
 total = sm.count() + sum(len(v) for v in boot_items.values())
-print(f'wrote {MAP_OUT.relative_to(AMO)}: {W}x{H}, {total} sprites ({sm.count()} from {len({s for s, _ in sm.groups})} extra sheets)')
+print(f'wrote {MAP_OUT.relative_to(AMO)}: {W}x{H}, {total} sprites ({sm.count()} from {len({s for s, _ in sm.groups})} extra sheets), {len(nodes)} gathering nodes')

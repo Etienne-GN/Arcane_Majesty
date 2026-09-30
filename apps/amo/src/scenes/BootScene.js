@@ -396,6 +396,61 @@ export default class BootScene extends Phaser.Scene {
         g.generateTexture('mineral_node', 32, 32);
         g.clear();
 
+        // Gathering nodes (data/gathering.js) — placeholder art until the
+        // catalogued sprites are wired in.
+        const px = (col, rects) => { g.fillStyle(col); rects.forEach(([x, y, w, h]) => g.fillRect(x, y, w, h)); };
+
+        // Herb patch — leafy tufts
+        px(0x2f6a22, [[6, 20, 20, 8]]);
+        px(0x4a9a33, [[8, 14, 4, 8], [14, 11, 4, 11], [20, 15, 4, 7]]);
+        px(0x7acc55, [[9, 13, 2, 2], [15, 10, 2, 2], [21, 14, 2, 2]]);
+        g.generateTexture('herb_patch', 32, 32);
+        g.clear();
+
+        // Mushroom ring — three caps
+        px(0xddccaa, [[8, 20, 3, 6], [15, 17, 3, 9], [22, 21, 3, 5]]);
+        px(0xaa5533, [[5, 16, 9, 5], [12, 12, 9, 6], [19, 17, 9, 5]]);
+        px(0xeeddcc, [[7, 17, 2, 2], [15, 13, 2, 2], [22, 18, 2, 2]]);
+        g.generateTexture('mushroom_ring', 32, 32);
+        g.clear();
+
+        // Berry bush — round bush with red berries
+        px(0x2a5a1e, [[5, 12, 22, 16]]);
+        px(0x3d7a2a, [[8, 8, 16, 8], [7, 14, 18, 10]]);
+        px(0xcc2244, [[10, 12, 3, 3], [18, 11, 3, 3], [14, 18, 3, 3], [21, 19, 3, 3], [9, 21, 3, 3]]);
+        g.generateTexture('berry_bush', 32, 32);
+        g.clear();
+
+        // Reed bed — tall stems with seed heads
+        px(0x6a7a33, [[7, 10, 2, 18], [12, 6, 2, 22], [17, 9, 2, 19], [22, 7, 2, 21]]);
+        px(0x8a5a2a, [[6, 7, 4, 5], [11, 3, 4, 5], [16, 6, 4, 5], [21, 4, 4, 5]]);
+        g.generateTexture('reed_bed', 32, 32);
+        g.clear();
+
+        // Fishing spot — ripples on water
+        g.lineStyle(2, 0xaaddff, 0.9);
+        g.strokeEllipse(16, 18, 22, 10);
+        g.lineStyle(1, 0xffffff, 0.8);
+        g.strokeEllipse(16, 18, 12, 5);
+        px(0xffffff, [[15, 12, 2, 3]]);
+        g.generateTexture('fishing_spot', 32, 32);
+        g.clear();
+
+        // Shallows — pale water over dark mussel shells
+        g.fillStyle(0x88bbcc, 0.55);
+        g.fillEllipse(16, 20, 26, 12);
+        px(0x223344, [[9, 19, 4, 3], [16, 21, 4, 3], [21, 18, 4, 3]]);
+        px(0xeeeeff, [[17, 21, 1, 1]]);
+        g.generateTexture('shallows', 32, 32);
+        g.clear();
+
+        // Crystal outcrop — pale shards from a rock base
+        px(0x444455, [[5, 22, 22, 7]]);
+        px(0x88bbee, [[8, 12, 4, 11], [14, 6, 5, 17], [21, 13, 4, 10]]);
+        px(0xddeeff, [[9, 13, 1, 6], [15, 7, 2, 8], [22, 14, 1, 5]]);
+        g.generateTexture('crystal_outcrop', 32, 32);
+        g.clear();
+
         g.destroy();
     }
 }

@@ -1,10 +1,18 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
-import { ITEMS } from '../data/items.js';
-import { CRAFTING_RECIPES, CATEGORY_LABELS, TIER_COLORS } from '../data/craftingRecipes.js';
+import { ITEMS, ENCHANTS } from '../data/items.js';
+import { CRAFTING_RECIPES, ENCHANT_RECIPES, CATEGORY_LABELS, TIER_COLORS } from '../data/craftingRecipes.js';
 import { soundManager } from '../systems/SoundManager.js';
 import { SaveManager } from '../systems/SaveManager.js';
+
+// Enchant recipes share the recipe list: they bind to the equipped weapon.
+const ALL_RECIPES = [
+    ...CRAFTING_RECIPES,
+    ...ENCHANT_RECIPES.map(r => ({
+        ...r, id: `enchant_${r.enchant}`, category: 'enchant', label: ENCHANTS[r.enchant]?.name ?? r.enchant,
+    })),
+];
 
 const RARITY_COLORS = {
     common:    '#888888',
@@ -99,7 +107,7 @@ export default class CraftingScene extends Phaser.Scene {
         const ROW_H = 52;
 
         const byCategory = {};
-        CRAFTING_RECIPES.forEach(r => {
+        ALL_RECIPES.forEach(r => {
             (byCategory[r.category] = byCategory[r.category] ?? []).push(r);
         });
 
@@ -130,7 +138,8 @@ export default class CraftingScene extends Phaser.Scene {
                     font: `${canCraft ? 'bold ' : ''}16px monospace`,
                     fill: canCraft ? rarCol : '#443322'
                 }));
-                track(this.add.text(x + 18, oy + 28, item?.description?.split('.')[0] ?? '', {
+                const blurb = recipe.enchant ? ENCHANTS[recipe.enchant]?.description : item?.description;
+                track(this.add.text(x + 18, oy + 28, blurb?.split('.')[0] ?? '', {
                     font: '12px monospace', fill: '#443322'
                 }));
 
@@ -189,11 +198,22 @@ export default class CraftingScene extends Phaser.Scene {
         }));
         oy += 26;
 
-        if (item?.description) {
-            track(this.add.text(x, oy, item.description, {
+        const desc = recipe.enchant ? ENCHANTS[recipe.enchant]?.description : item?.description;
+        if (desc) {
+            track(this.add.text(x, oy, desc, {
                 font: '14px monospace', fill: '#776655',
                 wordWrap: { width: w }
             }));
+            oy += 44;
+        }
+
+        if (recipe.enchant) {
+            const wid = playerStats.equipment.weapon;
+            const cur = playerStats.activeEnchant();
+            const line = wid
+                ? `Weapon: ${ITEMS[wid]?.name ?? wid}\nCurrent enchantment: ${cur ? ENCHANTS[cur]?.name ?? cur : 'none'}`
+                : 'Equip a weapon to enchant it.';
+            track(this.add.text(x, oy, line, { font: '14px monospace', fill: wid ? '#aa88cc' : '#cc4422' }));
             oy += 44;
         }
 
@@ -236,7 +256,7 @@ export default class CraftingScene extends Phaser.Scene {
         // Craft button
         const btnCol  = canCraft ? 0x331a00 : 0x0f0a00;
         const btnBord = canCraft ? tierCol  : 0x221100;
-        const btnTxt  = canCraft ? 'CRAFT' : 'MISSING MATERIALS';
+        const btnTxt  = canCraft ? (recipe.enchant ? 'ENCHANT' : 'CRAFT') : this._blocker(recipe);
         const btnTxtC = canCraft ? '#ffcc44' : '#443322';
 
         const btn = track(this.add.rectangle(x, oy, w, 36, btnCol).setOrigin(0));
@@ -271,11 +291,14 @@ export default class CraftingScene extends Phaser.Scene {
         // Consume ingredients (by quantity: stacks are one slot with a qty)
         for (const ing of recipe.ingredients) playerStats.consumeItem(ing.id, ing.qty);
 
-        playerStats.addItem(recipe.output);
+        if (recipe.enchant) playerStats.weaponEnchants[playerStats.equipment.weapon] = recipe.enchant;
+        else                playerStats.addItem(recipe.output);
         soundManager.menuSelect();
         SaveManager.save(playerStats);
 
-        this._feedback = { msg: `Crafted: ${recipe.label}!`, color: '#ffcc44' };
+        this._feedback = recipe.enchant
+            ? { msg: `${ITEMS[playerStats.equipment.weapon]?.name}: ${recipe.label}!`, color: '#cc88ff' }
+            : { msg: `Crafted: ${recipe.label}!`, color: '#ffcc44' };
         this.time.delayedCall(2500, () => { this._feedback = null; this._drawDetail(); });
 
         this._drawList();
@@ -289,7 +312,16 @@ export default class CraftingScene extends Phaser.Scene {
     }
 
     _canCraft(recipe) {
-        return recipe.ingredients.every(ing => this._countItem(ing.id) >= ing.qty);
+        return !this._blocker(recipe);
+    }
+
+    // Why a recipe can't be made right now, or null if it can.
+    _blocker(recipe) {
+        if (recipe.enchant) {
+            if (!playerStats.equipment.weapon) return 'NO WEAPON EQUIPPED';
+            if (playerStats.activeEnchant() === recipe.enchant) return 'ALREADY ENCHANTED';
+        }
+        return recipe.ingredients.every(ing => this._countItem(ing.id) >= ing.qty) ? null : 'MISSING MATERIALS';
     }
 
     update(time, delta) {

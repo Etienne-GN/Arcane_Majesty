@@ -14,6 +14,24 @@ export const ENCHANTS = {
     vampiric:     { id: 'vampiric',     name: 'Vampiric',     description: 'Steal 15% of damage dealt as HP.',                       color: 0xcc0044 },
     swiftness:    { id: 'swiftness',    name: 'Swiftness',    description: 'Attack cooldown reduced by 15%.',                        color: 0x88ffcc },
     void_touched: { id: 'void_touched', name: 'Void-Touched', description: '+40% damage vs shadow and void enemies.',                color: 0x6600cc },
+    frostbitten:  { id: 'frostbitten',  name: 'Frostbitten',  description: '20% chance on hit to make the target Cold (slowed).',     color: 0x88ddff },
+    scorching:    { id: 'scorching',    name: 'Scorching',    description: '20% chance on hit to set the target Burning.',             color: 0xff4400 },
+    tidal:        { id: 'tidal',        name: 'Tidal',        description: '30% chance on hit to soak the target (Wet).',              color: 0x2f7fd0 },
+    stormcall:    { id: 'stormcall',    name: 'Stormcall',    description: '+50% damage vs Wet targets.',                              color: 0xffee44 },
+    tempest:      { id: 'tempest',      name: 'Tempest',      description: '8% chance on hit to Shock (stun) the target.',             color: 0xffff88 },
+    venomous:     { id: 'venomous',     name: 'Venomous',     description: '20% chance on hit to Poison the target.',                  color: 0x44cc00 },
+    keen:         { id: 'keen',         name: 'Keen',         description: '+8% critical hit chance.',                                 color: 0xdddddd },
+    lifebloom:    { id: 'lifebloom',    name: 'Lifebloom',    description: 'Killing blows restore 8 HP.',                              color: 0x44ff88 },
+    hunters_bane: { id: 'hunters_bane', name: "Hunter's Bane", description: '+30% damage vs beasts.',                                  color: 0x886644 },
+    radiant:      { id: 'radiant',      name: 'Radiant',      description: '+40% damage vs the undead.',                               color: 0xffeeaa },
+    silvered:     { id: 'silvered',     name: 'Silvered',     description: '+30% damage vs corrupted creatures.',                      color: 0xccccdd },
+};
+
+// Enemy families for the bane enchantments (matched against the enemy type id).
+export const ENEMY_FAMILIES = {
+    beast:     /wolf|boar|bear|deer|fox|rat|rabbit|lion|elk|shark|frog|toad|heron|crab|spider|bat|hawk|vulture|lizard|crow|cat|goat|moth|mouse|pig|cow|llama|sheep|chicken|turkey|shiba/,
+    undead:    /skeleton|wraith|revenant|cursed_knight|soul_eater|wendigo|frost_shade|mirror_shade|grave/,
+    corrupted: /corrupt|plague|rot_|blight|void_fox|void_crawler|dark_deer|hollow_cat/,
 };
 
 // Merchant catalog — T1-T2 weapons + consumables + tools + armor
@@ -26,6 +44,9 @@ export const MERCHANT_CATALOG = [
     { id: 'forest_herb',          price: 12,  goldPrice: 7   },  // forest product — gold very cheap
     { id: 'iron_axe',             price: 45,  goldPrice: 32  },  // mundane tool — gold cheap
     { id: 'iron_pickaxe',         price: 50,  goldPrice: 36  },  // mundane tool — gold cheap
+    { id: 'fishing_rod',          price: 35,  goldPrice: 25  },  // mundane tool — gold cheap
+    { id: 'sickle',               price: 30,  goldPrice: 22  },  // mundane tool — gold cheap
+    { id: 'sea_salt',             price: 8,   goldPrice: 5   },  // trade good — gold cheap
     { id: 'scholars_cowl',        price: 60,  goldPrice: 85  },  // arcane gear — gold expensive
     { id: 'scholars_tunic',       price: 70,  goldPrice: 98  },  // arcane gear — gold expensive
     { id: 'iron_ring',            price: 40,  goldPrice: 30  },
@@ -1151,6 +1172,339 @@ export const ITEMS = {
         stats: { intelligence: 2 }, buyPrice: 0, sellPrice: 28,
         onUse: (stats) => stats.equipItem('scholars_staff'),
     },
+
+    // ── Gathered ingredients (data/gathering.js) ─────────────────────────────
+    silverleaf: {
+        id: 'silverleaf', name: 'Silverleaf',
+        description: 'A pale herb whose leaves shine like coin in the sun. A stronger healer than common forest herb.',
+        color: 0xccddcc, icon: 'itm_herb', stackable: true, buyPrice: 0, sellPrice: 10, onUse: () => false,
+    },
+    frostmoss: {
+        id: 'frostmoss', name: 'Frostmoss',
+        description: 'Blue-grey moss from high, cold stone. Cools burns; chilling in brews.',
+        color: 0x99ccdd, icon: 'itm_herb', stackable: true, buyPrice: 0, sellPrice: 10, onUse: () => false,
+    },
+    emberroot: {
+        id: 'emberroot', name: 'Emberroot',
+        description: 'A red desert root, hot on the tongue. Warming in food and brews.',
+        color: 0xcc5522, icon: 'itm_herb', stackable: true, buyPrice: 0, sellPrice: 10, onUse: () => false,
+    },
+    moonpetal: {
+        id: 'moonpetal', name: 'Moonpetal',
+        description: 'A white flower that only opens in shade. Rich in arcane essence.',
+        color: 0xddddff, icon: 'itm_herb', stackable: true, buyPrice: 0, sellPrice: 18, onUse: () => false,
+    },
+    bitter_bolete: {
+        id: 'bitter_bolete', name: 'Bitter Bolete',
+        description: 'A fat brown mushroom. Bitter raw, good in a stew.',
+        color: 0x8a5a2a, icon: 'itm_mushroom', stackable: true, buyPrice: 0, sellPrice: 6, onUse: () => false,
+    },
+    glowcap: {
+        id: 'glowcap', name: 'Glowcap',
+        description: 'A mushroom that glows faintly blue in the dark. Restores mana in brews.',
+        color: 0x66aaff, icon: 'itm_mushroom', stackable: true, buyPrice: 0, sellPrice: 14, onUse: () => false,
+    },
+    wild_berries: {
+        id: 'wild_berries', name: 'Wild Berries',
+        description: 'A handful of tart forest berries. Restores 6 HP.',
+        color: 0xaa2244, icon: 'itm_herb', stackable: true, buyPrice: 0, sellPrice: 3,
+        onUse: (stats) => { stats.health = Math.min(stats.health + 6, stats.maxHealth); return true; }
+    },
+    honeyberry: {
+        id: 'honeyberry', name: 'Honeyberry',
+        description: 'A golden berry as sweet as honey. Restores 10 HP.',
+        color: 0xddaa33, icon: 'itm_herb', stackable: true, buyPrice: 0, sellPrice: 6,
+        onUse: (stats) => { stats.health = Math.min(stats.health + 10, stats.maxHealth); return true; }
+    },
+    reed_fibre: {
+        id: 'reed_fibre', name: 'Reed Fibre',
+        description: 'Cut reeds, split and dried. Woven into hats, cloaks, nets and bowstrings.',
+        color: 0xbbaa66, icon: 'itm_log', stackable: true, buyPrice: 0, sellPrice: 3, onUse: () => false,
+    },
+    river_trout: {
+        id: 'river_trout', name: 'River Trout',
+        description: 'A speckled trout from fast water. Cook it at a campfire.',
+        color: 0x88aa99, icon: 'itm_fish', stackable: true, buyPrice: 0, sellPrice: 8, onUse: () => false,
+    },
+    lake_perch: {
+        id: 'lake_perch', name: 'Lake Perch',
+        description: 'A striped perch from still water. Cook it at a campfire.',
+        color: 0x99aa55, icon: 'itm_fish', stackable: true, buyPrice: 0, sellPrice: 8, onUse: () => false,
+    },
+    cave_eel: {
+        id: 'cave_eel', name: 'Cave Eel',
+        description: 'A pale, blind eel from underground pools. Oily and filling.',
+        color: 0xccccbb, icon: 'itm_fish', stackable: true, buyPrice: 0, sellPrice: 10, onUse: () => false,
+    },
+    aether_carp: {
+        id: 'aether_carp', name: 'Aether Carp',
+        description: 'A rare carp with scales that shimmer with arcane light. Prized by cooks and alchemists alike.',
+        color: 0x88ccff, icon: 'itm_fish', stackable: true, buyPrice: 0, sellPrice: 40, onUse: () => false,
+    },
+    freshwater_mussel: {
+        id: 'freshwater_mussel', name: 'Freshwater Mussel',
+        description: 'A dark mussel from the shallows. Good in a chowder.',
+        color: 0x334455, icon: 'itm_stone', stackable: true, buyPrice: 0, sellPrice: 4, onUse: () => false,
+    },
+    river_pearl: {
+        id: 'river_pearl', name: 'River Pearl',
+        description: 'A small, perfect pearl found in a mussel shell. Holds water magic well.',
+        color: 0xeeeeff, icon: 'itm_glowing_dust', stackable: true, buyPrice: 0, sellPrice: 45, onUse: () => false,
+    },
+    sea_salt: {
+        id: 'sea_salt', name: 'Sea Salt',
+        description: 'Coarse salt carried inland by traders. Seasons and preserves.',
+        color: 0xeeeeee, icon: 'itm_glowing_dust', stackable: true, buyPrice: 6, sellPrice: 2, onUse: () => false,
+    },
+    resin: {
+        id: 'resin', name: 'Tree Resin',
+        description: 'Sticky amber sap. Binds hilts, seals flasks and fixes enchantments.',
+        color: 0xcc8833, icon: 'itm_glowing_dust', stackable: true, buyPrice: 0, sellPrice: 8, onUse: () => false,
+    },
+    heartwood: {
+        id: 'heartwood', name: 'Heartwood',
+        description: 'The dense, dark core of an old tree. The best wood for staves and bows.',
+        color: 0x663311, icon: 'itm_log', stackable: true, buyPrice: 0, sellPrice: 25, onUse: () => false,
+    },
+    silver_ore: {
+        id: 'silver_ore', name: 'Silver Ore',
+        description: 'Ore streaked with silver. Smiths and enchanters both want it.',
+        color: 0xccccdd, icon: 'itm_iron_ore', stackable: true, buyPrice: 0, sellPrice: 20, onUse: () => false,
+    },
+
+    // ── Gathering tools ──────────────────────────────────────────────────────
+    fishing_rod: {
+        id: 'fishing_rod', name: 'Fishing Rod',
+        description: 'Required to fish at Fishing Spots.',
+        color: 0x996633, icon: 'itm_wand_01', stackable: false, buyPrice: 35, sellPrice: 12,
+        onUse: () => false,
+    },
+    sickle: {
+        id: 'sickle', name: 'Sickle',
+        description: 'Required to cut Reed Beds.',
+        color: 0x999999, icon: 'itm_scythe', stackable: false, buyPrice: 30, sellPrice: 10,
+        onUse: () => false,
+    },
+
+    // ── Crafted gear (data/craftingRecipes.js) ───────────────────────────────
+    fishers_hat: {
+        id: 'fishers_hat', name: "Fisher's Hat",
+        description: 'A wide hat woven from reeds. Keeps off sun and rain. +1 AGI, +1 STA.',
+        color: 0xbbaa66, icon: 'itm_headgear_01', stackable: false, slot: 'head', tier: 1, rarity: 'common',
+        stats: { agility: 1, stamina: 1 }, buyPrice: 0, sellPrice: 12,
+        onUse: (stats) => stats.equipItem('fishers_hat'),
+    },
+    bone_helm: {
+        id: 'bone_helm', name: 'Bone Helm',
+        description: 'Bone plates lashed over a wolf-pelt cap. +2 STA, +1 STR.',
+        color: 0xddddcc, icon: 'itm_headgear_01', stackable: false, slot: 'head', tier: 2, rarity: 'uncommon',
+        stats: { stamina: 2, strength: 1 }, buyPrice: 0, sellPrice: 30,
+        onUse: (stats) => stats.equipItem('bone_helm'),
+    },
+    frostweave_hood: {
+        id: 'frostweave_hood', name: 'Frostweave Hood',
+        description: 'Hide lined with woven frostmoss. Clears the head. +2 INT, +1 STA.',
+        color: 0x99ccdd, icon: 'itm_headgear_01', stackable: false, slot: 'head', tier: 2, rarity: 'uncommon',
+        stats: { intelligence: 2, stamina: 1 }, buyPrice: 0, sellPrice: 32,
+        onUse: (stats) => stats.equipItem('frostweave_hood'),
+    },
+    silver_ring: {
+        id: 'silver_ring', name: 'Silver Ring',
+        description: 'A plain band of worked silver. +2 INT, +1 AGI.',
+        color: 0xccccdd, icon: 'itm_ring_02', stackable: false, slot: 'accessory', tier: 2, rarity: 'uncommon',
+        stats: { intelligence: 2, agility: 1 }, buyPrice: 0, sellPrice: 35,
+        onUse: (stats) => stats.equipItem('silver_ring'),
+    },
+    ember_amulet: {
+        id: 'ember_amulet', name: 'Ember Amulet',
+        description: 'An ember stone set in silver, always warm against the chest. +2 STR, +1 INT.',
+        color: 0xff6622, icon: 'itm_necklace_01', stackable: false, slot: 'accessory', tier: 2, rarity: 'uncommon',
+        stats: { strength: 2, intelligence: 1 }, buyPrice: 0, sellPrice: 38,
+        onUse: (stats) => stats.equipItem('ember_amulet'),
+    },
+    heartwood_bracer: {
+        id: 'heartwood_bracer', name: 'Heartwood Bracer',
+        description: 'A bracer of resin-hardened heartwood. +2 STR, +2 AGI.',
+        color: 0x663311, icon: 'itm_ring_01', stackable: false, slot: 'accessory', tier: 3, rarity: 'rare',
+        stats: { strength: 2, agility: 2 }, buyPrice: 0, sellPrice: 60,
+        onUse: (stats) => stats.equipItem('heartwood_bracer'),
+    },
+    pearl_pendant: {
+        id: 'pearl_pendant', name: 'Pearl Pendant',
+        description: 'Two river pearls on a silver chain. Water mages swear by it. +3 INT, +1 STA.',
+        color: 0xeeeeff, icon: 'itm_necklace_02', stackable: false, slot: 'accessory', tier: 3, rarity: 'rare',
+        stats: { intelligence: 3, stamina: 1 }, buyPrice: 0, sellPrice: 75,
+        onUse: (stats) => stats.equipItem('pearl_pendant'),
+    },
+    tidecaller_robe: {
+        id: 'tidecaller_robe', name: 'Tidecaller Robe',
+        description: 'Reed-woven robes stitched with moonpetal thread and a river pearl at the collar. +3 INT, +2 STA.',
+        color: 0x2f7fd0, icon: 'itm_mantua', stackable: false, slot: 'body', tier: 3, rarity: 'rare',
+        stats: { intelligence: 3, stamina: 2 }, buyPrice: 0, sellPrice: 80,
+        onUse: (stats) => stats.equipItem('tidecaller_robe'),
+    },
+
+    // ── Dishes from gathered ingredients (COOKING_RECIPES) ───────────────────
+    grilled_trout: {
+        id: 'grilled_trout', name: 'Grilled Trout',
+        description: 'Trout on a stick over the fire. Restores 35 HP and regenerates 30 HP.',
+        color: 0xcc9966, icon: 'itm_fish', stackable: true, buyPrice: 0, sellPrice: 12,
+        onUse: (stats) => { stats.health = Math.min(stats.health + 35, stats.maxHealth); stats._foodRegen = (stats._foodRegen ?? 0) + 30; return true; }
+    },
+    salt_baked_perch: {
+        id: 'salt_baked_perch', name: 'Salt-Baked Perch',
+        description: 'Perch baked in a crust of salt. Restores 45 HP and regenerates 40 HP.',
+        color: 0xddccaa, icon: 'itm_fish', stackable: true, buyPrice: 0, sellPrice: 16,
+        onUse: (stats) => { stats.health = Math.min(stats.health + 45, stats.maxHealth); stats._foodRegen = (stats._foodRegen ?? 0) + 40; return true; }
+    },
+    smoked_eel: {
+        id: 'smoked_eel', name: 'Smoked Eel',
+        description: 'Oily eel smoked over herbs. Restores 30 HP and 20 MP.',
+        color: 0xaa9977, icon: 'itm_fish', stackable: true, buyPrice: 0, sellPrice: 16,
+        onUse: (stats) => {
+            stats.health = Math.min(stats.health + 30, stats.maxHealth);
+            stats.mana   = Math.min(stats.mana + 20, stats.maxMana);
+            return true;
+        }
+    },
+    aether_carp_broth: {
+        id: 'aether_carp_broth', name: 'Aether Carp Broth',
+        description: 'A clear broth that tastes faintly of lightning. Restores 60 MP and deepens water (+3) and arcane (+2) resonance.',
+        color: 0x88ccff, icon: 'itm_mana_potion', stackable: true, buyPrice: 0, sellPrice: 45,
+        onUse: (stats) => {
+            stats.mana = Math.min(stats.mana + 60, stats.maxMana);
+            stats.gainResonance?.('water', 3);
+            stats.gainResonance?.('arcane', 2);
+            return true;
+        }
+    },
+    tidewater_chowder: {
+        id: 'tidewater_chowder', name: 'Tidewater Chowder',
+        description: 'Mussels, salt and herbs in a thick broth. Restores 40 HP, +10 max HP for 10 minutes, and deepens water resonance (+2).',
+        color: 0xccddee, icon: 'itm_sandwich', stackable: true, buyPrice: 0, sellPrice: 24,
+        onUse: (stats) => {
+            stats.health = Math.min(stats.health + 40, stats.maxHealth);
+            stats.addTempMaxHealth?.(10, 600000);
+            stats.gainResonance?.('water', 2);
+            return true;
+        }
+    },
+    berry_compote: {
+        id: 'berry_compote', name: 'Berry Compote',
+        description: 'Stewed berries sweetened with honeyberry. Restores 25 HP and applies Swift for 20s.',
+        color: 0xaa2266, icon: 'itm_sandwich', stackable: true, buyPrice: 0, sellPrice: 12,
+        onUse: (stats) => { stats.health = Math.min(stats.health + 25, stats.maxHealth); stats._applyStatus?.('swift', { duration: 20000 }); return true; }
+    },
+    honey_glazed_boar: {
+        id: 'honey_glazed_boar', name: 'Honey-Glazed Boar',
+        description: 'Boar roasted under a honeyberry glaze. Restores 55 HP and regenerates 40 HP.',
+        color: 0xdd9933, icon: 'itm_meat', stackable: true, buyPrice: 0, sellPrice: 20,
+        onUse: (stats) => { stats.health = Math.min(stats.health + 55, stats.maxHealth); stats._foodRegen = (stats._foodRegen ?? 0) + 40; return true; }
+    },
+    bolete_skewer: {
+        id: 'bolete_skewer', name: 'Bolete & Rabbit Skewer',
+        description: 'Rabbit and bolete, charred together. Restores 35 HP and regenerates 20 HP.',
+        color: 0x996633, icon: 'itm_meat', stackable: true, buyPrice: 0, sellPrice: 12,
+        onUse: (stats) => { stats.health = Math.min(stats.health + 35, stats.maxHealth); stats._foodRegen = (stats._foodRegen ?? 0) + 20; return true; }
+    },
+    glowcap_soup: {
+        id: 'glowcap_soup', name: 'Glowcap Soup',
+        description: 'A faintly glowing soup. Restores 40 MP and boosts mana recovery for 12s.',
+        color: 0x66aaff, icon: 'itm_mana_potion', stackable: true, buyPrice: 0, sellPrice: 18,
+        onUse: (stats) => {
+            stats.mana = Math.min(stats.mana + 40, stats.maxMana);
+            stats._manaRegenBoost = (stats._manaRegenBoost ?? 0) + 12000;
+            return true;
+        }
+    },
+    silverleaf_salad: {
+        id: 'silverleaf_salad', name: 'Silverleaf Salad',
+        description: 'Silverleaf and wild berries. Applies Regenerating for 20s.',
+        color: 0xccddcc, icon: 'itm_herb', stackable: true, buyPrice: 0, sellPrice: 14,
+        onUse: (stats) => { stats._applyStatus?.('regen', { duration: 20000 }); return true; }
+    },
+    emberroot_stew: {
+        id: 'emberroot_stew', name: 'Emberroot Stew',
+        description: 'Venison stewed with fiery root. Restores 45 HP and drives out Cold and Frozen.',
+        color: 0xcc5522, icon: 'itm_sandwich', stackable: true, buyPrice: 0, sellPrice: 18,
+        onUse: (stats) => {
+            stats.health = Math.min(stats.health + 45, stats.maxHealth);
+            stats._clearStatus?.('cold'); stats._clearStatus?.('frozen');
+            return true;
+        }
+    },
+    frostmoss_tea: {
+        id: 'frostmoss_tea', name: 'Frostmoss Tea',
+        description: 'A cold, bitter tea. Restores 20 HP and puts out Burning.',
+        color: 0x99ccdd, icon: 'itm_herb', stackable: true, buyPrice: 0, sellPrice: 10,
+        onUse: (stats) => { stats.health = Math.min(stats.health + 20, stats.maxHealth); stats._clearStatus?.('burning'); return true; }
+    },
+    anglers_platter: {
+        id: 'anglers_platter', name: "Angler's Platter",
+        description: 'Trout, perch and eel, salted and grilled. Restores 80 HP and applies Blessed for 60s.',
+        color: 0xddbb88, icon: 'itm_fish', stackable: true, buyPrice: 0, sellPrice: 40,
+        onUse: (stats) => { stats.health = Math.min(stats.health + 80, stats.maxHealth); stats._applyStatus?.('blessed', { duration: 60000 }); return true; }
+    },
+
+    // ── Brews from gathered ingredients (POTION_RECIPES) ─────────────────────
+    silverleaf_draught: {
+        id: 'silverleaf_draught', name: 'Silverleaf Draught',
+        description: 'A bright green draught. Restores 50 HP.',
+        color: 0x88ee88, icon: 'itm_hp_potion', stackable: true, buyPrice: 0, sellPrice: 18,
+        onUse: (stats) => { stats.health = Math.min(stats.health + 50, stats.maxHealth); return true; }
+    },
+    warming_draught: {
+        id: 'warming_draught', name: 'Warming Draught',
+        description: 'Emberroot steeped hot. Drives out Cold and Frozen and applies Regenerating for 10s.',
+        color: 0xff7744, icon: 'itm_hp_potion', stackable: true, buyPrice: 0, sellPrice: 16,
+        onUse: (stats) => {
+            stats._clearStatus?.('cold'); stats._clearStatus?.('frozen');
+            stats._applyStatus?.('regen', { duration: 10000 });
+            return true;
+        }
+    },
+    cooling_draught: {
+        id: 'cooling_draught', name: 'Cooling Draught',
+        description: 'Frostmoss steeped cold. Puts out Burning and restores 25 HP.',
+        color: 0x99ddee, icon: 'itm_mana_potion', stackable: true, buyPrice: 0, sellPrice: 16,
+        onUse: (stats) => { stats._clearStatus?.('burning'); stats.health = Math.min(stats.health + 25, stats.maxHealth); return true; }
+    },
+    moonpetal_elixir: {
+        id: 'moonpetal_elixir', name: 'Moonpetal Elixir',
+        description: 'Moonpetal and glowcap. Restores 60 MP and boosts mana recovery for 15s.',
+        color: 0xccccff, icon: 'itm_mana_potion', stackable: true, buyPrice: 0, sellPrice: 30,
+        onUse: (stats) => {
+            stats.mana = Math.min(stats.mana + 60, stats.maxMana);
+            stats._manaRegenBoost = (stats._manaRegenBoost ?? 0) + 15000;
+            return true;
+        }
+    },
+    berry_cordial: {
+        id: 'berry_cordial', name: 'Berry Cordial',
+        description: 'A sweet, heady cordial. Applies Swift for 30s.',
+        color: 0xcc3366, icon: 'itm_hp_potion', stackable: true, buyPrice: 0, sellPrice: 18,
+        onUse: (stats) => { stats._applyStatus?.('swift', { duration: 30000 }); return true; }
+    },
+    tidewater_draught: {
+        id: 'tidewater_draught', name: 'Tidewater Draught',
+        description: 'River water, salt and mussel, drunk cold. Restores 15 MP and deepens water resonance (+6).',
+        color: 0x2f7fd0, icon: 'itm_mana_potion', stackable: true, buyPrice: 0, sellPrice: 20,
+        onUse: (stats) => {
+            stats.mana = Math.min(stats.mana + 15, stats.maxMana);
+            stats.gainResonance?.('water', 6);
+            return true;
+        }
+    },
+    deepwater_elixir: {
+        id: 'deepwater_elixir', name: 'Deepwater Elixir',
+        description: 'A river pearl dissolved with aether carp. Fully restores MP and deepens water resonance (+4).',
+        color: 0x3366cc, icon: 'itm_mana_potion', stackable: true, buyPrice: 0, sellPrice: 70,
+        onUse: (stats) => {
+            stats.mana = stats.maxMana;
+            stats.gainResonance?.('water', 4);
+            return true;
+        }
+    },
 };
 
 // Potion brewing recipes — all require empty_bottle
@@ -1166,6 +1520,14 @@ export const POTION_RECIPES = [
     { output: 'frost_vial',            label: 'Frost Vial',            ingredients: [{ id: 'ice_crystal',    qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
     { output: 'ember_tonic',           label: 'Ember Tonic',           ingredients: [{ id: 'ember_stone',    qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
     { output: 'iron_skin_tonic',       label: 'Iron Skin Tonic',       ingredients: [{ id: 'bone_fragment', qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
+    // ── Gathered herbs, berries and water ─────────────────────────────────────
+    { output: 'silverleaf_draught',    label: 'Silverleaf Draught',    ingredients: [{ id: 'silverleaf', qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'warming_draught',       label: 'Warming Draught',       ingredients: [{ id: 'emberroot', qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'cooling_draught',       label: 'Cooling Draught',       ingredients: [{ id: 'frostmoss', qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'moonpetal_elixir',      label: 'Moonpetal Elixir',      ingredients: [{ id: 'moonpetal', qty: 2 }, { id: 'glowcap', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'berry_cordial',         label: 'Berry Cordial',         ingredients: [{ id: 'honeyberry', qty: 2 }, { id: 'wild_berries', qty: 2 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'tidewater_draught',     label: 'Tidewater Draught',     ingredients: [{ id: 'freshwater_mussel', qty: 2 }, { id: 'sea_salt', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
+    { output: 'deepwater_elixir',      label: 'Deepwater Elixir',      ingredients: [{ id: 'river_pearl', qty: 1 }, { id: 'aether_carp', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
     // ── Status / utility ──────────────────────────────────────────────────────
     { output: 'antidote',              label: 'Antidote',              ingredients: [{ id: 'venom_sac', qty: 1 }, { id: 'forest_herb', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
     { output: 'antitoxin',             label: 'Antitoxin',             ingredients: [{ id: 'venom_sac', qty: 2 }, { id: 'ice_crystal', qty: 1 }, { id: 'empty_bottle', qty: 1 }] },
@@ -1214,6 +1576,20 @@ export const COOKING_RECIPES = [
     { output: 'ice_smoked_boar',     label: 'Ice-Smoked Boar',      ingredients: [{ id: 'boar_meat',    qty: 1 }, { id: 'ice_crystal',   qty: 1 }] },
     // ── Rich stews ────────────────────────────────────────────────────────────
     { output: 'boar_mushroom_stew',  label: 'Boar & Mushroom Stew', ingredients: [{ id: 'boar_meat',    qty: 1 }, { id: 'mushroom_spore', qty: 2 }, { id: 'bone_fragment', qty: 1 }] },
+    // ── Fish, berries and gathered herbs ──────────────────────────────────────
+    { output: 'grilled_trout',       label: 'Grilled Trout',        ingredients: [{ id: 'river_trout',  qty: 1 }] },
+    { output: 'salt_baked_perch',    label: 'Salt-Baked Perch',     ingredients: [{ id: 'lake_perch',   qty: 1 }, { id: 'sea_salt',      qty: 1 }] },
+    { output: 'smoked_eel',          label: 'Smoked Eel',           ingredients: [{ id: 'cave_eel',     qty: 1 }, { id: 'forest_herb',   qty: 1 }] },
+    { output: 'aether_carp_broth',   label: 'Aether Carp Broth',    ingredients: [{ id: 'aether_carp',  qty: 1 }, { id: 'moonpetal',     qty: 1 }] },
+    { output: 'tidewater_chowder',   label: 'Tidewater Chowder',    ingredients: [{ id: 'freshwater_mussel', qty: 3 }, { id: 'sea_salt', qty: 1 }, { id: 'forest_herb', qty: 1 }] },
+    { output: 'berry_compote',       label: 'Berry Compote',        ingredients: [{ id: 'wild_berries', qty: 3 }, { id: 'honeyberry',    qty: 1 }] },
+    { output: 'honey_glazed_boar',   label: 'Honey-Glazed Boar',    ingredients: [{ id: 'boar_meat',    qty: 1 }, { id: 'honeyberry',    qty: 2 }] },
+    { output: 'bolete_skewer',       label: 'Bolete & Rabbit Skewer', ingredients: [{ id: 'rabbit_meat', qty: 1 }, { id: 'bitter_bolete', qty: 2 }] },
+    { output: 'glowcap_soup',        label: 'Glowcap Soup',         ingredients: [{ id: 'glowcap',      qty: 2 }, { id: 'mushroom_spore', qty: 1 }] },
+    { output: 'silverleaf_salad',    label: 'Silverleaf Salad',     ingredients: [{ id: 'silverleaf',   qty: 2 }, { id: 'wild_berries',  qty: 2 }] },
+    { output: 'emberroot_stew',      label: 'Emberroot Stew',       ingredients: [{ id: 'deer_meat',    qty: 1 }, { id: 'emberroot',     qty: 2 }] },
+    { output: 'frostmoss_tea',       label: 'Frostmoss Tea',        ingredients: [{ id: 'frostmoss',    qty: 2 }, { id: 'forest_herb',   qty: 1 }] },
+    { output: 'anglers_platter',     label: "Angler's Platter",     ingredients: [{ id: 'river_trout',  qty: 1 }, { id: 'lake_perch',    qty: 1 }, { id: 'cave_eel', qty: 1 }, { id: 'sea_salt', qty: 1 }] },
     { output: 'mushroom_risotto',    label: 'Mushroom Risotto',     ingredients: [{ id: 'mushroom_spore', qty: 3 }, { id: 'deer_meat',   qty: 1 }, { id: 'forest_herb',   qty: 1 }] },
     { output: 'venison_tartare',     label: 'Venison Tartare',      ingredients: [{ id: 'deer_meat',    qty: 2 }] },
     { output: 'spectral_broth',      label: 'Spectral Broth',       ingredients: [{ id: 'deer_meat',    qty: 1 }, { id: 'spectral_dust', qty: 1 }] },

@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "server": "node server/index.js",
     "server:dev": "node --watch server/index.js",
-    "test": "node tools/test_player_stats.mjs && node tools/test_catalogue_layout.mjs && node tools/test_anim_resolve.mjs && node tools/validate_catalogue.mjs && node tools/test_input_bus.mjs && node tools/test_launcher_controls.mjs && node tools/sprite_catalogue/test_validate_sprite_catalogue.mjs && python3 tools/sprite_catalogue/test_crop_check.py && python3 tools/sprite_catalogue/test_autoslice.py && node tools/maps/test_ascii_to_tiles.mjs && node tools/test_campaign_manager.mjs && node tools/test_campaign_definition.mjs",
+    "test": "node tools/test_player_stats.mjs && node tools/test_economy.mjs && node tools/test_catalogue_layout.mjs && node tools/test_anim_resolve.mjs && node tools/validate_catalogue.mjs && node tools/test_input_bus.mjs && node tools/test_launcher_controls.mjs && node tools/sprite_catalogue/test_validate_sprite_catalogue.mjs && python3 tools/sprite_catalogue/test_crop_check.py && python3 tools/sprite_catalogue/test_autoslice.py && node tools/maps/test_ascii_to_tiles.mjs && node tools/test_campaign_manager.mjs && node tools/test_campaign_definition.mjs",
     "test:anim": "node tools/test_anim_resolve.mjs",
     "test:sprite-catalogue": "node tools/sprite_catalogue/test_validate_sprite_catalogue.mjs",
     "test:crop-check": "python3 tools/sprite_catalogue/test_crop_check.py",

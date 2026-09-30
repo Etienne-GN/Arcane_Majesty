@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { soundManager } from './SoundManager.js';
-import { ITEMS } from '../data/items.js';
+import { ITEMS, ENEMY_FAMILIES } from '../data/items.js';
+import { statusManager } from './StatusManager.js';
 
 export default class CombatManager {
     constructor(scene, player, enemyGroup) {
@@ -22,7 +23,7 @@ export default class CombatManager {
         const stats     = this.player.stats;
         const weaponId  = stats.equipment.weapon;
         const weaponDef = weaponId ? ITEMS[weaponId] : null;
-        const enchant   = weaponDef?.enchant ?? null;
+        const enchant   = stats.activeEnchant?.() ?? weaponDef?.enchant ?? null;
         const passive   = weaponDef?.passive ?? null;
 
         let { dmg, isCrit } = this._calcDamage(isPower);
@@ -43,6 +44,12 @@ export default class CombatManager {
         if (enchant === 'void_touched' && /shadow|void/i.test(enemy.enemyType ?? '')) {
             dmg = Math.floor(dmg * 1.40);
         }
+        // Enchant: bane / synergy damage bonuses
+        const type = enemy.enemyType ?? '';
+        if (enchant === 'hunters_bane' && ENEMY_FAMILIES.beast.test(type))     dmg = Math.floor(dmg * 1.30);
+        if (enchant === 'radiant'      && ENEMY_FAMILIES.undead.test(type))    dmg = Math.floor(dmg * 1.40);
+        if (enchant === 'silvered'     && ENEMY_FAMILIES.corrupted.test(type)) dmg = Math.floor(dmg * 1.30);
+        if (enchant === 'stormcall'    && statusManager.has(enemy, 'wet'))     dmg = Math.floor(dmg * 1.50);
 
         // Mark for shadow_harvest before death (checked in GameScene gold handler)
         if (passive === 'shadow_harvest' && this.player._shadowVeilActive) {
@@ -67,6 +74,15 @@ export default class CombatManager {
         }
         if (enchant === 'vampiric') {
             stats.health = Math.min(stats.maxHealth, stats.health + Math.floor(dmg * 0.15));
+        }
+        // Enchant: on-hit statuses
+        const ON_HIT = { frostbitten: ['cold', 0.20], scorching: ['burning', 0.20], tidal: ['wet', 0.30],
+                         tempest: ['shocked', 0.08], venomous: ['poison', 0.20] };
+        if (ON_HIT[enchant] && enemy.active && Math.random() < ON_HIT[enchant][1]) {
+            statusManager.apply(enemy, ON_HIT[enchant][0]);
+        }
+        if (enchant === 'lifebloom' && (!enemy.active || enemy.health <= 0)) {
+            stats.health = Math.min(stats.maxHealth, stats.health + 8);
         }
 
         // Passive: mana_on_hit — blade strikes grant 2 MP if INT > 12
@@ -108,7 +124,8 @@ export default class CombatManager {
         const base       = 8 + stats.attributes.strength * 2;
         const strikeBonus = (stats.skills['basic_strike']?.level ?? 0) * 3;
         const slashBonus  = isPower ? (stats.skills['power_slash']?.level ?? 0) * 6 : 0;
-        const critChance  = 0.08 + stats.attributes.agility * 0.012 + (stats.skills['keen_eye']?.level ?? 0) * 0.05;
+        const critChance  = 0.08 + stats.attributes.agility * 0.012 + (stats.skills['keen_eye']?.level ?? 0) * 0.05
+                          + (stats.activeEnchant?.() === 'keen' ? 0.08 : 0);
         const isCrit      = !isPower && Math.random() < critChance;
         let dmg = base + strikeBonus + slashBonus + Phaser.Math.Between(-2, 3);
 

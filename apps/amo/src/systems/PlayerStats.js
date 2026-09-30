@@ -221,6 +221,9 @@ export class PlayerStats {
         // are small stores you can take from and put into, and must not refill
         // on reload.
         this.chestContents = {};
+        // Enchantments applied at the forge, by weapon id; they replace the
+        // weapon's own (pre-rolled) enchantment.
+        this.weaponEnchants = {};
 
         // Attuned Rift-Gates — enables fast-travel between them
         this.attunedGates = [];
@@ -642,6 +645,13 @@ export class PlayerStats {
 
     // Stack-aware inventory queries. Stackable items live in one slot with a
     // qty, so a count is the sum of quantities, not the number of slots.
+    // The equipped weapon's enchantment: one applied at the forge, else its own.
+    activeEnchant() {
+        const w = this.equipment.weapon;
+        if (!w) return null;
+        return this.weaponEnchants?.[w] ?? ITEMS[w]?.enchant ?? null;
+    }
+
     countItem(itemId) {
         return this.inventory.reduce((n, i) => n + (i.id === itemId ? (i.qty ?? 1) : 0), 0);
     }
@@ -707,6 +717,7 @@ export class PlayerStats {
         this._tempMaxHp       = 0;
         this._tempMaxHpTimer  = 0;
         this.chestContents    = {};
+        this.weaponEnchants   = {};
     }
 }
 

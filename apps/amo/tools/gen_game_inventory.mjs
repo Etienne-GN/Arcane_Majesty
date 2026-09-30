@@ -16,7 +16,8 @@ const OUT = join(here, '../../../docs/game_inventory.md');
 
 const { SPELLS, RESONANCE_ELEMENTS, RESONANCE_GAINS, TIER_NAMES } = await import(SRC + 'data/spells.js');
 const { ITEMS, COOKING_RECIPES, POTION_RECIPES, ENCHANTS, MERCHANT_CATALOG, SATCHEL_TIERS } = await import(SRC + 'data/items.js');
-const { CRAFTING_RECIPES } = await import(SRC + 'data/craftingRecipes.js');
+const { CRAFTING_RECIPES, ENCHANT_RECIPES } = await import(SRC + 'data/craftingRecipes.js');
+const { NODE_TYPES, YIELD_TABLES } = await import(SRC + 'data/gathering.js');
 const W = await import(SRC + 'data/worldMap.js');
 const { STATUS_DEFS } = await import(SRC + 'data/statuses.js');
 const { QUESTS } = await import(SRC + 'data/quests.js');
@@ -169,14 +170,22 @@ P('At the crafting bench (C).');
 P();
 table(['Item', 'Tier', 'Category', 'Ingredients', 'Result'], CRAFTING_RECIPES.map(r => [r.label, r.tier, r.category, ing(r.ingredients), ITEMS[r.output]?.description ?? '']));
 P('## Enchantments');
-table(['Enchantment', 'Effect'], Object.values(ENCHANTS).map(e => [e.name, e.description]));
+P('Some weapons come with an enchantment. At the forge (Crafting) any enchantment can be bound to the **equipped weapon**, replacing the one it had.');
+P();
+table(['Enchantment', 'Effect', 'Forge materials', 'Found on'], Object.values(ENCHANTS).map(e => [
+    e.name, e.description,
+    ing(ENCHANT_RECIPES.find(r => r.enchant === e.id)?.ingredients ?? []),
+    Object.values(ITEMS).filter(i => i.enchant === e.id).map(i => i.name).join(', ') || '—',
+]));
 
 // ------------------------------------------------------------------ items
 const sources = {};
 const addSrc = (id, s) => (sources[id] ??= new Set()).add(s);
 for (const [k, e] of Object.entries(W.ENEMY_TYPES)) for (const l of e.lootTable ?? []) addSrc(l.id, `${k} ${pct(l.chance)}`);
 for (const m of MERCHANT_CATALOG) addSrc(m.id, 'shop');
-for (const g of W.GATHERING_NODES) addSrc(g.resource, `gathering (${g.tool.replace(/_/g, ' ')})`);
+const allMaps = listMaps().map(e => getMap(e.id ?? e));
+const nodePool = g => g.resource ? [{ id: g.resource }] : YIELD_TABLES[g.yields ?? NODE_TYPES[g.type]?.yields] ?? [];
+for (const m of allMaps) for (const g of m.spawns?.gatheringNodes ?? []) for (const e of nodePool(g)) addSrc(e.id, `gathering: ${NODE_TYPES[g.type]?.label ?? g.type}`);
 for (const c of W.CHEST_POSITIONS ?? []) for (const it of c.items ?? []) addSrc(it, 'chest');
 for (const r of COOKING_RECIPES) addSrc(r.output, 'cooking');
 for (const r of POTION_RECIPES) addSrc(r.output, 'brewing');
@@ -216,7 +225,23 @@ table(['Item', 'Glint', 'Gold'], MERCHANT_CATALOG.map(m => [name(m.id), m.price,
 
 // ------------------------------------------------------------------ world objects
 P('## Gathering & world objects');
-table(['Node', 'Tool', 'Gives', 'Text'], W.GATHERING_NODES.map(g => [g.type, g.tool.replace(/_/g, ' '), name(g.resource), g.label]));
+P('Walk up to a node and press **E**. Some need a tool in the satchel. Each harvest rolls the node\'s pool (rare extras roll on top); a harvested node regrows after a few minutes, and every node is full again when the map loads.');
+P();
+table(['Node', 'Tool', 'Default pool', 'Rolls', 'Regrows'], Object.entries(NODE_TYPES).map(([id, t]) => [
+    t.label, t.tool ? name(t.tool) : '—', t.yields, t.rolls, `${Math.round(t.regrowMs / 60000 * 10) / 10} min`,
+]));
+P('### Yield pools');
+const poolUse = {};
+for (const m of allMaps) for (const g of m.spawns?.gatheringNodes ?? []) {
+    const k = g.resource ? `fixed: ${g.resource}` : g.yields ?? NODE_TYPES[g.type]?.yields;
+    ((poolUse[k] ??= {})[m.displayName ?? m.id] ??= 0);
+    poolUse[k][m.displayName ?? m.id]++;
+}
+table(['Pool', 'Gives', 'Placed on'], Object.entries(YIELD_TABLES).map(([id, pool]) => {
+    const tw = pool.filter(e => e.w).reduce((a, e) => a + e.w, 0);
+    return [id, pool.map(e => `${name(e.id)} ${e.min === e.max ? e.min : `${e.min}–${e.max}`} (${e.w ? pct(e.w / tw) : `bonus ${pct(e.chance)}`})`).join(', '),
+        Object.entries(poolUse[id] ?? {}).map(([m, c]) => `${m} ×${c}`).join(', ') || '—'];
+}));
 P(`Prologue world objects: ${W.CAMPFIRE_POSITIONS.length} campfires, ${W.CHEST_POSITIONS.length} chests, ${W.RIFT_GATE_POSITIONS.length} rift-gates, ${W.SIGN_POSITIONS.length} readable signs, ${W.PILLAR_GATE_POSITIONS.length} pillar gates, ${W.CRACKED_BOULDER_POSITIONS.length} cracked boulders, ${W.NPC_POSITIONS.length} NPC (${W.NPC_POSITIONS.map(n => n.name).join(', ')}).`);
 P();
 
@@ -271,7 +296,7 @@ const htmlArg = process.argv.indexOf('--html');
 if (htmlArg > 0) writeFileSync(process.argv[htmlArg + 1], toHtml(out));
 
 function toHtml(lines) {
-    const ELEMENT = { fire: '#d0572f', arcane: '#6f63e0', lightning: '#c9a227', shadow: '#6b5a8e', earth: '#9a7446', ice: '#3f9cc4', nature: '#4b9a57', wind: '#6aa89a' };
+    const ELEMENT = { fire: '#d0572f', arcane: '#6f63e0', lightning: '#c9a227', shadow: '#6b5a8e', earth: '#9a7446', ice: '#3f9cc4', nature: '#4b9a57', wind: '#6aa89a', water: '#2f7fd0' };
     const inline = t => t
         .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')

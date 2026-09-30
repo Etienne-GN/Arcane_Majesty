@@ -118,12 +118,16 @@ export const SUMMIT_OF_DESPAIR = {
                 text: "A scout's journal, half-frozen: \"...the whispering thing arrived before the cold got the rest of us. Tell the Archivists — it feeds on doubt, not blood...\"",
             },
         ],
-        // Widow's Overlook shrine offerings — real gatherable resources
-        // (wood/mineral_ore are the only two the engine supports), feeding
-        // side_widows_watch's two gather steps.
+        // Widow's Overlook shrine offerings (wood + ore, fixed yields) feed
+        // side_widows_watch's two gather steps; the rest is mountain gathering.
         gatheringNodes: [
             { x: 1, y: 7, type: 'wood',    tool: 'iron_axe',     resource: 'wood',        label: 'Frost-killed timber, brittle enough to gather by hand.' },
             { x: 3, y: 7, type: 'mineral', tool: 'iron_pickaxe', resource: 'mineral_ore', label: 'An ore vein exposed by the shrine’s collapsed wall.' },
+            // Mountain gathering: frostmoss and ice crystals on the high ledges
+            { x: 16, y: 2,  type: 'herb',    yields: 'mountain_herbs', label: 'Frostmoss clings to the cold stone.' },
+            { x: 16, y: 4,  type: 'crystal', yields: 'ice_crystals' },
+            { x: 6,  y: 13, type: 'herb',    yields: 'mountain_herbs', label: 'Frostmoss clings to the cold stone.' },
+            { x: 12, y: 12, type: 'crystal', yields: 'ice_crystals' },
         ],
         crackedBoulders: [],
         riftGates: [],

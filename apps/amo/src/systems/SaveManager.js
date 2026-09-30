@@ -42,6 +42,7 @@ export class SaveManager {
             seenItems:         [...(stats.seenItems ?? [])],
             campaign:          stats.campaign ? JSON.parse(JSON.stringify(stats.campaign)) : null,
             chestContents:     JSON.parse(JSON.stringify(stats.chestContents ?? {})),
+            weaponEnchants:    { ...(stats.weaponEnchants ?? {}) },
             timestamp:     Date.now(),
         };
         try {
@@ -89,6 +90,7 @@ export class SaveManager {
             if (d.killedEnemyTypes) stats.killedEnemyTypes = [...d.killedEnemyTypes];
             stats.campaign = d.campaign ? JSON.parse(JSON.stringify(d.campaign)) : null;
             stats.chestContents = d.chestContents ? JSON.parse(JSON.stringify(d.chestContents)) : {};
+            stats.weaponEnchants = { ...(d.weaponEnchants ?? {}) };
             // Seed seenItems from save; fall back to current inventory for old saves
             stats.seenItems = d.seenItems
                 ? new Set(d.seenItems)

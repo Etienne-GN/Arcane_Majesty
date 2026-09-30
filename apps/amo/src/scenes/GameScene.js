@@ -20,6 +20,7 @@ import { DIALOGUES } from '../data/dialogues.js';
 import { SPELLS, TIER_NAMES, RESONANCE_GAINS } from '../data/spells.js';
 import { statusManager } from '../systems/StatusManager.js';
 import { ELEMENT_COLORS } from '../controls/launcherDefs.js';
+import { resolveNode, rollHarvest } from '../data/gathering.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { ANIM_PROFILES } from '../data/animProfiles.js';
 import { CharacterRenderer, DEFAULT_ANIMS } from '../systems/CharacterRenderer.js';
@@ -310,18 +311,18 @@ export default class GameScene extends Phaser.Scene {
             }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
         });
 
-        // Gathering nodes — require iron_axe (wood) or iron_pickaxe (minerals)
+        // Gathering nodes (data/gathering.js) — some need a tool (axe, pickaxe, sickle, rod)
         this.gatheringGroup = this.physics.add.staticGroup();
         (mapDef.spawns.gatheringNodes ?? []).forEach(def => {
             const nx  = def.x * TILE_SIZE + TILE_SIZE / 2;
             const ny  = def.y * TILE_SIZE + TILE_SIZE / 2;
-            const key = def.type === 'wood' ? 'wood_pile' : 'mineral_node';
-            const spr = this.gatheringGroup.create(nx, ny, key);
+            const { type } = resolveNode(def);
+            const spr = this.gatheringGroup.create(nx, ny, type.texture);
             spr.setDepth(ny + 0.5);
             spr.nodeDef  = def;
             spr.gathered = false;
             spr.ePrompt  = this.add.text(nx, ny - TILE_SIZE / 2 - 4, '[E]', {
-                font: '7px monospace', fill: def.type === 'wood' ? '#886633' : '#667788'
+                font: '7px monospace', fill: type.prompt
             }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
         });
 
@@ -2893,35 +2894,43 @@ export default class GameScene extends Phaser.Scene {
         // Gathering nodes
         this.physics.overlap(this.player.interactBox, this.gatheringGroup, (box, node) => {
             if (node.gathered) return;
-            const def    = node.nodeDef;
-            const hasTool = playerStats.inventory.some(i => i.id === def.tool);
-            if (!hasTool) {
-                const toolName = def.tool.replace(/_/g, ' ');
+            const def = node.nodeDef;
+            const { type, tool, text } = resolveNode(def);
+            if (tool && !playerStats.inventory.some(i => i.id === tool)) {
+                const toolName = ITEMS[tool]?.name ?? tool.replace(/_/g, ' ');
                 soundManager.interact();
                 this.scene.pause();
                 this.scene.launch('DialogueScene', {
-                    lines: [{ speaker: null, text: `${def.label}\n\nYou need an ${toolName}.` }]
+                    lines: [{ speaker: null, text: `${text}\n\nYou need a ${toolName}.` }]
                 });
+                return;
+            }
+            const got = [];
+            for (const { id, qty } of rollHarvest(def)) {
+                if (!playerStats.addItem(id, qty)) break;   // satchel full
+                for (let i = 0; i < qty; i++) questManager.onGather(id);
+                got.push(`+${qty} ${ITEMS[id]?.name ?? id}`);
+            }
+            if (!got.length) {
+                this.scene.get('UIScene')?.showNotification?.('Your satchel is full.', 1400);
                 return;
             }
             node.gathered = true;
             node.ePrompt?.setAlpha(0);
-            node.ePrompt?.destroy();
-            if (playerStats.addItem(def.resource)) {
-                const rName = def.resource.replace(/_/g, ' ');
-                questManager.onGather(def.resource);
-                soundManager.collect();
-                const tint = def.type === 'wood' ? 0x8b5e3c : 0x8888aa;
-                this.add.particles(node.x, node.y, 'particle', {
-                    speed: { min: 20, max: 60 }, angle: { min: 0, max: 360 },
-                    scale: { start: 0.7, end: 0 }, lifespan: { min: 300, max: 600 },
-                    tint: [tint, 0xffffff], quantity: 10, explode: true,
-                }).setDepth(60);
-                this.scene.get('UIScene')?.showNotification?.(`+1 ${rName}`, 1400);
-            }
-            this.tweens.add({
-                targets: node, alpha: 0, duration: 350,
-                onComplete: () => { node.disableBody(true, false); this.tweens.add({ targets: node, alpha: 0 }); }
+            soundManager.collect();
+            this.add.particles(node.x, node.y, 'particle', {
+                speed: { min: 20, max: 60 }, angle: { min: 0, max: 360 },
+                scale: { start: 0.7, end: 0 }, lifespan: { min: 300, max: 600 },
+                tint: [type.tint, 0xffffff], quantity: 10, explode: true,
+            }).setDepth(60);
+            this.scene.get('UIScene')?.showNotification?.(got.join('   '), 1600);
+            this.tweens.add({ targets: node, alpha: 0, duration: 350, onComplete: () => node.disableBody(true, false) });
+            // Regrow: the node comes back after a while (and on every map load)
+            this.time.delayedCall(def.regrowMs ?? type.regrowMs, () => {
+                if (!node.scene) return;
+                node.enableBody(false, 0, 0, true, true);
+                node.gathered = false;
+                this.tweens.add({ targets: node, alpha: 1, duration: 600 });
             });
         });
 

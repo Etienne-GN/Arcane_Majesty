@@ -959,10 +959,23 @@ export const RIFT_GATE_POSITIONS = [
 
 // Gathering nodes — require specific tool in inventory to harvest
 export const GATHERING_NODES = [
-    { x: 3,  y: 8,  type: 'wood',    tool: 'iron_axe',     resource: 'wood',        label: 'A fallen log. An Iron Axe would split it into usable timber.' },
-    { x: 12, y: 8,  type: 'wood',    tool: 'iron_axe',     resource: 'wood',        label: 'Dead wood stacked against an old tree. Perfect for gathering.' },
-    { x: 32, y: 10, type: 'wood',    tool: 'iron_axe',     resource: 'wood',        label: 'Dry timber. Use an Iron Axe to collect it.' },
-    { x: 15, y: 20, type: 'mineral', tool: 'iron_pickaxe', resource: 'mineral_ore', label: 'A mineral seam runs through the rock here. An Iron Pickaxe could break it open.' },
-    { x: 38, y: 28, type: 'mineral', tool: 'iron_pickaxe', resource: 'mineral_ore', label: 'Glinting ore deposits in the stone. Use an Iron Pickaxe to extract them.' },
-    { x: 22, y: 32, type: 'mineral', tool: 'iron_pickaxe', resource: 'mineral_ore', label: 'An exposed mineral vein, rich in ore. Needs an Iron Pickaxe.' },
+    // Deadwood and ore (Iron Axe / Iron Pickaxe) — the Supply Run's wood and ore
+    { x: 3,  y: 8,  type: 'wood',    label: 'A fallen log. An Iron Axe would split it into usable timber.' },
+    { x: 12, y: 8,  type: 'wood',    label: 'Dead wood stacked against an old tree. Perfect for gathering.' },
+    { x: 32, y: 10, type: 'wood',    label: 'Dry timber. Use an Iron Axe to collect it.' },
+    { x: 15, y: 20, type: 'mineral', label: 'A mineral seam runs through the rock here. An Iron Pickaxe could break it open.' },
+    { x: 38, y: 28, type: 'mineral', label: 'Glinting ore deposits in the stone. Use an Iron Pickaxe to extract them.' },
+    { x: 22, y: 32, type: 'mineral', label: 'An exposed mineral vein, rich in ore. Needs an Iron Pickaxe.' },
+    // Herbs, mushrooms and berries — no tool needed
+    { x: 8,  y: 6,  type: 'herb' },
+    { x: 27, y: 15, type: 'herb' },
+    { x: 13, y: 29, type: 'herb' },
+    { x: 44, y: 19, type: 'herb' },
+    { x: 44, y: 24, type: 'herb',     yields: 'meadow_herbs', label: 'A sunny patch thick with silverleaf.' },
+    { x: 6,  y: 15, type: 'mushroom' },
+    { x: 30, y: 25, type: 'mushroom' },
+    { x: 45, y: 9,  type: 'mushroom' },
+    { x: 11, y: 12, type: 'berry' },
+    { x: 29, y: 3,  type: 'berry' },
+    { x: 19, y: 34, type: 'berry' },
 ];
