@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
+    "dev": "node tools/serve_manual.mjs & vite --host 0.0.0.0",
+    "dev:game": "vite --host 0.0.0.0",
+    "manual": "node tools/serve_manual.mjs",
     "prebuild": "node tools/validate_catalogue.mjs",
     "build": "vite build",
     "preview": "vite preview",
