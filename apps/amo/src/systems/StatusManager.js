@@ -81,12 +81,13 @@ const sm = {
                 }
             }
 
-            // HP regen (player only — entity must have .stats)
-            if (def.regenAmt && entity.stats) {
+            // HP regen — the player's lives on .stats, an enemy's on itself
+            if (def.regenAmt) {
                 state.regenTimer -= delta;
                 if (state.regenTimer <= 0) {
                     state.regenTimer += def.regenInterval;
-                    entity.stats.health = Math.min(entity.stats.maxHealth, entity.stats.health + def.regenAmt);
+                    const h = entity.stats ?? entity;
+                    if (h.maxHealth) h.health = Math.min(h.maxHealth, h.health + def.regenAmt);
                 }
             }
         }
@@ -114,6 +115,29 @@ const sm = {
             if (v !== undefined) m *= v;
         }
         return m;
+    },
+
+    // Damage taken multiplier (blessed, cursed, mana ward, void aegis…)
+    damageTakenMult(entity) {
+        let m = 1;
+        for (const id of Object.keys(entity._statuses ?? {})) {
+            const v = STATUS_DEFS[id]?.damageTakenMult;
+            if (v !== undefined) m *= v;
+        }
+        return m;
+    },
+
+    // Strip every beneficial spell effect; returns the ids removed.
+    dispel(entity) {
+        const removed = Object.keys(entity._statuses ?? {}).filter(id => STATUS_DEFS[id]?.magical && STATUS_DEFS[id]?.buff);
+        removed.forEach(id => delete entity._statuses[id]);
+        if (removed.length) this._updateTint(entity);
+        return removed;
+    },
+
+    // Whether the entity can shape a spell right now.
+    canCast(entity) {
+        return !this.isStunned(entity) && !this.isSilenced(entity) && !this.has(entity, 'hushed');
     },
 
     isStunned(entity) {

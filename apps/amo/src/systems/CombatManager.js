@@ -136,6 +136,7 @@ export default class CombatManager {
 
         if (isPower) dmg = Math.floor(dmg * 1.8);
         if (isCrit)  dmg = Math.floor(dmg * 1.6);
+        dmg = Math.floor(dmg * statusManager.statsMult(this.player));   // blessed / cursed
         return { dmg, isCrit };
     }
 

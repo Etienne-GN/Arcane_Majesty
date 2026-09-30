@@ -704,8 +704,9 @@ export const SPELLS = {
         name: 'Purifying Sweep',
         element: 'nature',
         targetingType: 'targeted_aoe',
-        lore: "Removes applied substances from the target area. Mud, soot, alchemical residue, certain magical conditions. Entirely impractical in combat. Eldrin uses it about once a week. He does not consider this unusual.",
+        lore: "Removes applied substances from the target area. Mud, soot, alchemical residue, certain magical conditions. Entirely impractical in combat — unless the enemy's protections count as residue, which, Eldrin has found, they do. He uses it about once a week. He does not consider this unusual.",
         passive: false,
+        dispel: true,
         baseDmg:   [0, 0, 0],
         manaCost:  [10, 8, 6],
         cooldown:  [3000, 2400, 1800],
@@ -713,6 +714,48 @@ export const SPELLS = {
         learnFrom: ['npc', 'market'],
         discoverCondition: null,
         masteryThresholds: [12, 28],
+    },
+
+    // ── DISPEL & COUNTER (arcane) ────────────────────────────────────────────
+    // `interrupt` breaks a spell the target is shaping; `dispel` strips its
+    // magical buffs (statuses with magical + buff), and `dispelBonus` deals
+    // that fraction of the spell's damage again for every buff torn away.
+
+    counterspell: {
+        id: 'counterspell',
+        name: 'Counterspell',
+        element: 'arcane',
+        targetingType: 'targeted_directional',
+        lore: "A sharp, precise pulse of mana aimed at a spell still being shaped. The structure collapses before it closes. Eldrin learned the timing the hard way, against a druid who healed faster than he could hurt. The target is left briefly unable to try again.",
+        passive: false,
+        interrupt: true,
+        baseDmg:   [6, 3, 0.4],
+        applyStatus: { id: 'silenced', chance: 1.0, duration: 3000 },
+        manaCost:  [12, 10, 8],
+        cooldown:  [5000, 4000, 3000],
+        range:     [170, 190, 210],
+        learnFrom: ['scroll', 'tome', 'npc'],
+        discoverCondition: { element: 'arcane', threshold: 12 },
+        masteryThresholds: [30, 58],
+    },
+
+    unravel: {
+        id: 'unravel',
+        name: 'Unravel',
+        element: 'arcane',
+        targetingType: 'targeted_aoe',
+        lore: "Every ward, every borrowed strength, every stolen swiftness is a mana structure — and every structure has a loose thread. Unravel pulls all of them at once. What was holding the enemy up comes apart, and the backlash hurts. Casters caught mid-spell lose the spell too.",
+        passive: false,
+        dispel: true,
+        interrupt: true,
+        dispelBonus: 1.0,
+        baseDmg:   [10, 5, 0.6],
+        manaCost:  [24, 20, 16],
+        cooldown:  [7000, 5800, 4600],
+        range:     [80, 95, 110],
+        learnFrom: ['tome', 'npc', 'chest'],
+        discoverCondition: { element: 'arcane', threshold: 22 },
+        masteryThresholds: [45, 80],
     },
 
     // ── ADDITIONAL ARCANE ─────────────────────────────────────────────────────

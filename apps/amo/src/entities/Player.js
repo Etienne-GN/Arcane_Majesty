@@ -606,6 +606,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     castAethericWard() {
         if (!this._spellCheck('aetheric_ward')) return false;
+        // The ward soaks damage until its shield is spent (or it is unwoven)
+        this._wardShield = [25, 45, 70][this.stats.getSpellLevel('aetheric_ward') - 1] ?? 25;
         statusManager.apply(this, 'warded', { duration: Infinity });
         this.setTint(0x4444ff);
         this.scene.cameras.main.flash(80, 40, 40, 255, true);
@@ -719,7 +721,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             ? [0.08, 0.14, 0.20][this.stats.getSpellLevel('stone_skin') - 1]
             : 0;
         const totalRed = Math.min(0.75, ward + skin);
-        const inMult   = statusManager.incomingDmgMult(this, 'physical');
+        const inMult   = statusManager.incomingDmgMult(this, 'physical') * statusManager.damageTakenMult(this);
         let reduced    = totalRed > 0 ? Math.max(1, Math.round(amount * (1 - totalRed) * inMult)) : Math.round(amount * inMult);
 
         // Mana-Shield: absorb a portion with mana instead of HP
@@ -731,6 +733,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             const actualShield = Math.min(wantShield, maxShield);
             this.stats.mana    = Math.max(0, this.stats.mana - actualShield * 2);
             reduced -= actualShield;
+        }
+
+        // Aetheric Ward absorbs what is left, then breaks
+        if (statusManager.has(this, 'warded') && this._wardShield > 0) {
+            const soak = Math.min(this._wardShield, reduced);
+            this._wardShield -= soak;
+            reduced -= soak;
+            if (this._wardShield <= 0) {
+                statusManager.remove(this, 'warded');
+                this.scene.scene.get('UIScene')?.showNotification?.('Your Aetheric Ward breaks.', 1400);
+            }
         }
 
         this.stats.health = Math.max(0, this.stats.health - reduced);

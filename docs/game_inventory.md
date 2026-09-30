@@ -2,7 +2,7 @@
 
 _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-09-30. Regenerate after changing the data; don't hand-edit._
 
-**At a glance:** 69 spells in 9 elements · 9 skills · 6 masteries · 19 status effects · 185 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 112 enemy/creature types + 1 boss · 25 quests · 12 campaign chapters · 24 maps · 5 playable characters · 24 dialogues
+**At a glance:** 71 spells in 9 elements · 9 skills · 6 masteries · 24 status effects · 185 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 112 enemy/creature types + 1 boss · 25 quests · 12 campaign chapters · 24 maps · 5 playable characters · 24 dialogues
 
 ## Contents
 1. [Systems & controls](#systems--controls)
@@ -155,12 +155,14 @@ Values given per tier (Novice / Apprentice / Adept). Discover = resonance needed
 | **Flame Lance** | 35 / 55, 95 | targeted directional | 22 / 10 / 1.1 | 24 / 20 / 16 | 2000 / 1600 / 1200 | 180 / 200 / 225 | burning (50%, 5000ms) | tome, scroll | A narrow, concentrated lance of fire mana. |
 | **Fire Rain** | 42 / 65, 108 | targeted aoe | 10 / 5 / 0.6 | 30 / 24 / 18 | 5500 / 4400 / 3500 | 95 / 115 / 135 | burning (40%, 5000ms) | tome, chest | Fire mana, dispersed upward and allowed to fall. |
 
-### Arcane (13)
+### Arcane (15)
 | Spell | Discover / mastery | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
 | **Mana Dart** | 8 / 22, 48 | targeted directional | 8 / 4 / 0.6 | 10 / 8 / 6 | 1100 / 900 / 700 | 160 / 180 / 200 | — | resonance | The first spell Eldrin ever truly understood. |
+| **Counterspell** · interrupts | 12 / 30, 58 | targeted directional | 6 / 3 / 0.4 | 12 / 10 / 8 | 5000 / 4000 / 3000 | 170 / 190 / 210 | silenced (100%, 3000ms) | scroll, tome, npc | A sharp, precise pulse of mana aimed at a spell still being shaped. |
 | **Arcane Burst** | 15 / 28, 58 | targeted aoe | 18 / 8 / 0.8 | 22 / 18 / 14 | 2200 / 1800 / 1400 | 55 / 70 / 85 | — | scroll, chest | A wide, short-range detonation of raw mana — no finesse, no geometry. |
 | **Luminance** | 20 / 36, 68 | targeted aoe | 5 / 2 / 0.3 | 14 / 11 / 8 | 4000 / 3200 / 2500 | 100 / 120 / 140 | silenced (40%, 3000ms) | tome, scroll, market | A bright light, sustained. |
+| **Unravel** · dispels · interrupts | 22 / 45, 80 | targeted aoe | 10 / 5 / 0.6 | 24 / 20 / 16 | 7000 / 5800 / 4600 | 80 / 95 / 110 | — | tome, npc, chest | Every ward, every borrowed strength, every stolen swiftness is a mana structure — and every structure has a loose thread. |
 | **Benediction** | 25 / 42, 78 | self | — | 25 / 20 / 15 | 10000 / 8000 / 6200 |  | blessed (100%, 20000ms) | npc, tome | An academic ritual formalized into a single cast. |
 | **Needle Volley** | 30 / 50, 90 | targeted directional | 3 / 2 / 0.25 | 22 / 18 / 14 | 2500 / 2000 / 1600 | 140 / 160 / 180 | — | scroll, chest | Five needles. |
 | **Phantom Script** | 35 / 55, 95 | targeted aoe | 20 / 9 / 1.1 | 18 / 14 / 10 | 8000 / 6400 / 5000 | 120 / 140 / 165 | — | scroll, quest, chest | A rune, inscribed in light, that exists for a few seconds then releases itself as a wave of arcane force. |
@@ -224,7 +226,7 @@ Values given per tier (Novice / Apprentice / Adept). Discover = resonance needed
 | **Spore Cloud** | 30 / 50, 88 | targeted aoe | 2 / 1 / 0.2 | 20 / 16 / 12 | 5000 / 4000 / 3200 | 90 / 110 / 130 | poison (90%, 15000ms) | tome, chest, runestone | A cloud of toxic spores, dispersed from a single point. |
 | **Thornwall** | 38 / 60, 100 | targeted aoe | 5 / 2 / 0.3 | 22 / 18 / 14 | 7000 / 5600 / 4400 | 70 / 85 / 100 | poison (40%, 8000ms) | npc, runestone, quest | Dense thornbriar, grown in seconds. |
 | **Petal Storm** | — / 18, 38 | targeted aoe | 1 / 0 / 0.1 | 8 / 6 / 4 | 6000 / 5000 / 4000 | 100 / 115 / 130 | — | npc, scroll | It is beautiful. |
-| **Purifying Sweep** | — / 12, 28 | targeted aoe | 0 / 0 / 0 | 10 / 8 / 6 | 3000 / 2400 / 1800 | 80 / 95 / 110 | — | npc, market | Removes applied substances from the target area. |
+| **Purifying Sweep** · dispels | — / 12, 28 | targeted aoe | 0 / 0 / 0 | 10 / 8 / 6 | 3000 / 2400 / 1800 | 80 / 95 / 110 | — | npc, market | Removes applied substances from the target area. |
 
 ### Wind (6)
 | Spell | Discover / mastery | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
@@ -263,13 +265,18 @@ Values given per tier (Novice / Apprentice / Adept). Discover = resonance needed
 | Dirty | until removed | (flag used by spells/AI) |
 | Silenced | 6.0s | (flag used by spells/AI) |
 | Entangled | 3.0s | speedMult: 0, stunned: true |
-| Cursed | 20.0s | statsMult: 0.85 |
-| Blessed | 30.0s | statsMult: 1.1 |
-| Swift | 20.0s | speedMult: 1.25 |
-| Regen | 10.0s | regenAmt: 3, regenInterval: 1000 |
+| Cursed | 20.0s | statsMult: 0.85, damageTakenMult: 1.15 |
+| Blessed | 30.0s | statsMult: 1.1, damageTakenMult: 0.9, magical: true, buff: true |
+| Swift | 20.0s | speedMult: 1.25, magical: true, buff: true |
+| Regen | 10.0s | regenAmt: 3, regenInterval: 1000, magical: true, buff: true |
 | Void-Tainted | 30.0s | (flag used by spells/AI) |
 | Marked | 1.5s | (flag used by spells/AI) |
-| Warded | until removed | (flag used by spells/AI) |
+| Warded | until removed | magical: true, buff: true |
+| Mana Ward | 10.0s | damageTakenMult: 0.5, magical: true, buff: true |
+| Empowered | 12.0s | statsMult: 1.5, magical: true, buff: true |
+| Hastened | 8.0s | speedMult: 1.4, magical: true, buff: true |
+| Mending | 8.0s | regenAmt: 3, regenInterval: 1000, magical: true, buff: true |
+| Void Aegis | until removed | damageTakenMult: 0.35, magical: true, buff: true |
 | Hushed | 15.0s | (flag used by spells/AI) |
 | Resonance Stun | 2.0s | speedMult: 0, stunned: true |
 
@@ -761,8 +768,25 @@ Prologue world objects: 3 campfires, 3 chests, 3 rift-gates, 3 readable signs, 3
 | cave fish | 6 | 0 | 90 | 0 | — |
 | glow moth | 5 | 0 | 110 | 0 | — |
 
+### Enemy magic
+Caster creatures shape spells in the open: a coloured ring fills around them while they cast. **Silence, Hush, stuns, Counterspell and Unravel break the cast.** The buffs they raise (Mana Ward, Empowered, Hastened, Mending) are dispellable: **Unravel** and **Purifying Sweep** strip them, and Unravel hurts the target for every buff torn away. Mirror shades can *Unweave* your own protections (Blessed, Regen, Swift, Aetheric Ward).
+
+| Spell | Effect | Cast | Cooldown | Range | Cast by |
+|---|---|---|---|---|---|
+| Mana Ward | Mana Ward on itself or an ally | 1.2s | 9s | 140 | arcane sentinel, forge daemon, cursed knight, deep horror |
+| Dark Empowerment | Empowered on itself or an ally | 1s | 10s | 140 | mushroom shaman, soul eater, forge daemon |
+| Quicken | Hastened on itself or an ally | 0.8s | 11s | 120 | blizzard sprite, rift walker |
+| Mend | heals the most hurt ally 20% + Mending | 1.4s | 8s | 140 | dark druid, mushroom shaman |
+| Arcane Bolt | 10 damage | 0.9s | 3.5s | 170 | arcane sentinel, runic turret |
+| Frost Bolt | 9 damage + Cold (60%) | 1s | 4s | 160 | ice revenant, blizzard sprite, frost shade |
+| Void Bolt | 12 damage + Cursed (30%) | 1.1s | 4.5s | 170 | rift walker, deep horror |
+| Thorn Lash | 8 damage + Entangled (35%) | 0.9s | 4s | 150 | dark druid |
+| Hex of Weakness | Cursed on you | 1.3s | 12s | 150 | grave wraith |
+| Hex of Silence | Silenced on you | 1.1s | 14s | 150 | mirror shade |
+| Unweave | strips your magical buffs | 1.2s | 15s | 150 | mirror shade |
+
 ## Boss
-**The Void General** — 350 HP, 20 damage, 280 XP. Three phases (enrages at 75/50/25% HP) with a burst attack and phase-3 special attacks. Guaranteed drops: Void Channel and Arcane Sceptre (tier 4 staves).
+**The Void General** — 350 HP, 20 damage, 280 XP. Three phases (enrages at 75/50/25% HP) with a burst attack and phase-3 special attacks. From 50% HP he channels a **Void Aegis** (1.6s, every 16s): silence or stun him to break the channel, or Unravel the shield once it is up — while it holds he takes 35% damage. Guaranteed drops: Void Channel and Arcane Sceptre (tier 4 staves).
 
 ## Quests
 | Quest | Type | Steps | Reward |

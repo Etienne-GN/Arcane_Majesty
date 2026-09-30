@@ -19,8 +19,10 @@ import { catalogueLayout } from '../utils/catalogueLayout.js';
 import { DIALOGUES } from '../data/dialogues.js';
 import { SPELLS, TIER_NAMES, RESONANCE_GAINS } from '../data/spells.js';
 import { statusManager } from '../systems/StatusManager.js';
+import { STATUS_DEFS } from '../data/statuses.js';
 import { ELEMENT_COLORS } from '../controls/launcherDefs.js';
 import { resolveNode, rollHarvest } from '../data/gathering.js';
+import { ENEMY_KITS } from '../data/enemyMagic.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { ANIM_PROFILES } from '../data/animProfiles.js';
 import { CharacterRenderer, DEFAULT_ANIMS } from '../systems/CharacterRenderer.js';
@@ -1007,7 +1009,7 @@ export default class GameScene extends Phaser.Scene {
         } else {
             base = 10;
         }
-        return Math.floor(base * ampMult * masteryMult);
+        return Math.floor(base * ampMult * masteryMult * statusManager.statsMult(this.player));   // blessed / cursed
     }
 
     _applySpellEffects(id, tx, ty) {
@@ -1068,7 +1070,7 @@ export default class GameScene extends Phaser.Scene {
                     this._checkSteamEvent(target);
                     const healAmt = Math.floor(actualDmg * (spell.healFraction ?? 0.5));
                     playerStats.health = Math.min(playerStats.maxHealth, playerStats.health + healAmt);
-                    if (healAmt > 0) this._spawnNumber(this.player.x, this.player.y - 20, `+${healAmt}`, '#44ff88', false);
+                    if (healAmt > 0) this.combatManager?._spawnNumber(this.player.x, this.player.y - 20, `+${healAmt}`, '#44ff88', false);
                 }
                 return;
             }
@@ -1110,6 +1112,35 @@ export default class GameScene extends Phaser.Scene {
             statusManager.apply(this.player, spell.applyStatus.id, { duration: spell.applyStatus.duration });
         }
         this._hitElement = null;
+
+        // Dispel / interrupt (Unravel, Counterspell, Purifying Sweep): strip the
+        // targets' magical buffs and break the spells they are shaping.
+        if (spell.dispel || spell.interrupt) {
+            const targets = targeting === 'targeted_aoe'
+                ? this._enemiesInRadius(tx, ty, range)
+                : [this._nearestEnemy(tx, ty, range)].filter(Boolean);
+            for (const e of targets) this._unweave(e, spell, dmg);
+        }
+    }
+
+    _enemiesInRadius(cx, cy, range) {
+        const list = this.enemies.getChildren().filter(e => e.active && !e.passive && Phaser.Math.Distance.Between(cx, cy, e.x, e.y) <= range);
+        if (this.boss?.active && Phaser.Math.Distance.Between(cx, cy, this.boss.x, this.boss.y) <= range) list.push(this.boss);
+        return list;
+    }
+
+    // One dispel/interrupt hit: shows what broke; Unravel hurts per buff torn away.
+    _unweave(e, spell, dmg) {
+        const gone = spell.dispel ? statusManager.dispel(e) : [];
+        const broke = spell.interrupt ? e.interruptCast?.() : false;
+        if (gone.length && spell.dispelBonus) e.takeDamage(Math.floor(dmg * spell.dispelBonus * gone.length));
+        const what = [...gone.map(id => STATUS_DEFS[id]?.label ?? id), ...(broke ? ['cast'] : [])];
+        if (!what.length) return;
+        this.combatManager?._spawnNumber(e.x, e.y - 30, `✦ ${what.join(', ')}`, '#ddccff', false);
+        this.add.particles(e.x, e.y, 'particle', {
+            speed: { min: 40, max: 120 }, angle: { min: 0, max: 360 }, scale: { start: 1, end: 0 },
+            lifespan: { min: 200, max: 500 }, tint: [0xffffff, 0xccaaff, 0x8866ff], quantity: 16, explode: true,
+        }).setDepth(62);
     }
 
     _nearestEnemy(tx, ty, range) {
@@ -2971,6 +3002,7 @@ export default class GameScene extends Phaser.Scene {
         const typeDef = ENEMY_TYPES[type] ?? {};
         const enemy   = new Enemy(this, x, y, typeDef);
         enemy.enemyType = type;
+        enemy.spellKit  = ENEMY_KITS[type] ?? [];
 
         enemy.on('died', (xp) => {
             if (this._serverUrl && enemy.netId >= 0) networkManager.sendEnemyDied(enemy.netId, this._mapId);

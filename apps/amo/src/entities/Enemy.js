@@ -3,6 +3,7 @@ import { soundManager } from '../systems/SoundManager.js';
 import { playerStats } from '../systems/PlayerStats.js';
 import { statusManager } from '../systems/StatusManager.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
+import { ENEMY_SPELLS, ENEMY_KITS, GLOBAL_CAST_GAP, chooseEnemySpell } from '../data/enemyMagic.js';
 
 const STATE = { PATROL: 'patrol', CHASE: 'chase', ATTACK: 'attack', FLEE: 'flee', STUNNED: 'stunned', DEAD: 'dead' };
 
@@ -49,6 +50,11 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.minRange     = typeDef.minRange     ?? 70;
         this.splitOnDeath = typeDef.splitOnDeath ?? null;
         this.aoeOnDeath   = typeDef.aoeOnDeath   ?? null;
+        // Spell kit (data/enemyMagic.js) — set by GameScene from the type id
+        this.spellKit      = [];
+        this._spellCd      = {};
+        this._castGap      = 0;
+        this._cast         = null;   // { id, target, elapsed, castMs, ring, label }
 
         // Network sync: set by GameScene when this is a follower client
         this.netId       = -1;
@@ -146,6 +152,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 
         // Status stuns take priority over AI state
         if (statusManager.isStunned(this)) {
+            if (this._cast) this.interruptCast();
             this.setVelocity(0);
             return;
         }
@@ -156,6 +163,9 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
             this.setVelocity(0);
             return;
         }
+
+        // Spellcasting: a cast in progress roots the caster
+        if (this._tickCasting(player, delta)) return;
 
         this.prevState = this.state;
         const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
@@ -283,7 +293,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.setVelocity(0);
         if (this.attackCooldown <= 0) {
             this.attackCooldown = this.ATTACK_COOLDOWN;
-            player.takeDamage(this.damage);
+            player.takeDamage(Math.round(this.damage * statusManager.statsMult(this)));
             soundManager.hit();
             this.setTint(0xff8800);
             this.scene.time.delayedCall(150, () => {
@@ -295,6 +305,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 
     takeDamage(amount) {
         if (this.state === STATE.DEAD) return;
+        amount = Math.max(1, Math.round(amount * statusManager.damageTakenMult(this)));
         this.health -= amount;
         soundManager.hit();
 
@@ -318,6 +329,117 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         if (this.health <= 0) this._die();
     }
 
+    // ── Spellcasting (data/enemyMagic.js) ────────────────────────────────────
+    // Returns true while a cast roots the caster this frame.
+    _tickCasting(player, delta) {
+        if (!this.spellKit.length || this.passive) return false;
+        for (const id of Object.keys(this._spellCd)) this._spellCd[id] = Math.max(0, this._spellCd[id] - delta);
+        this._castGap = Math.max(0, this._castGap - delta);
+
+        if (this._cast) {
+            if (!statusManager.canCast(this)) { this.interruptCast(); return false; }
+            const c = this._cast;
+            c.elapsed += delta;
+            this.setVelocity(0);
+            this._drawCastRing();
+            if (c.elapsed >= c.castMs) this._completeCast(player);
+            return true;
+        }
+
+        const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
+        if (this._castGap > 0 || dist > this.sightRange || !statusManager.canCast(this)) return false;
+        const allies = this._alliesInReach().map(e => ({
+            entity: e, hpFrac: e.health / e.maxHealth,
+            dist: Phaser.Math.Distance.Between(this.x, this.y, e.x, e.y),
+            has: id => statusManager.has(e, id),
+        }));
+        const pick = chooseEnemySpell(this.spellKit, this._spellCd, { distToPlayer: dist, allies });
+        if (!pick) return false;
+        const sp = ENEMY_SPELLS[pick.id];
+        this._cast = {
+            id: pick.id, target: pick.target, elapsed: 0, castMs: sp.castMs,
+            ring: this.scene.add.graphics().setDepth(19),
+            label: this.scene.add.text(this.x, this.y - 34, sp.name, {
+                font: 'bold 8px monospace', fill: '#' + sp.color.toString(16).padStart(6, '0'), stroke: '#000', strokeThickness: 2,
+            }).setOrigin(0.5).setDepth(500).setResolution(3),
+        };
+        this.setVelocity(0);
+        return true;
+    }
+
+    _alliesInReach() {
+        const list = [this];
+        this.scene.enemies?.getChildren().forEach(e => {
+            if (e !== this && e.active && !e.passive && e.health > 0) list.push(e);
+        });
+        return list;
+    }
+
+    _drawCastRing() {
+        const c = this._cast, sp = ENEMY_SPELLS[c.id];
+        const frac = Math.min(1, c.elapsed / c.castMs);
+        c.ring.clear();
+        c.ring.lineStyle(2, 0x000000, 0.5);
+        c.ring.strokeCircle(this.x, this.y, 18);
+        c.ring.lineStyle(2, sp.color, 0.95);
+        c.ring.beginPath();
+        c.ring.arc(this.x, this.y, 18, -Math.PI / 2, -Math.PI / 2 + frac * Math.PI * 2);
+        c.ring.strokePath();
+        c.label.setPosition(this.x, this.y - 34);
+    }
+
+    _endCast() {
+        this._cast?.ring.destroy();
+        this._cast?.label.destroy();
+        this._cast = null;
+    }
+
+    // Cancel the spell being shaped (silence, stun, Counterspell, Unravel…).
+    // Returns true if there was a cast to break.
+    interruptCast() {
+        if (!this._cast) return false;
+        const sp = ENEMY_SPELLS[this._cast.id];
+        this._spellCd[this._cast.id] = sp.cooldown * 0.5;
+        this._castGap = GLOBAL_CAST_GAP;
+        this._endCast();
+        this._showAlert('✖ interrupted', '#aaccff');
+        return true;
+    }
+
+    _completeCast(player) {
+        const { id, target } = this._cast;
+        const sp = ENEMY_SPELLS[id];
+        this._spellCd[id] = sp.cooldown;
+        this._castGap = GLOBAL_CAST_GAP;
+        this._endCast();
+        const flash = (x, y) => this.scene.add.particles(x, y, 'particle', {
+            speed: { min: 30, max: 90 }, angle: { min: 0, max: 360 }, scale: { start: 1, end: 0 },
+            lifespan: { min: 200, max: 450 }, tint: [sp.color, 0xffffff], quantity: 12, explode: true,
+        }).setDepth(60);
+
+        if (sp.kind === 'bolt' || sp.kind === 'hex') {
+            if (!player.active || Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y) > sp.range) return;
+            const g = this.scene.add.graphics().setDepth(62);
+            g.lineStyle(2, sp.color, 0.9);
+            g.lineBetween(this.x, this.y, player.x, player.y);
+            this.scene.tweens.add({ targets: g, alpha: 0, duration: 200, onComplete: () => g.destroy() });
+            flash(player.x, player.y);
+            if (sp.kind === 'bolt') player.takeDamage(Math.round(sp.dmg * statusManager.statsMult(this)));
+            if (sp.dispel) {
+                const gone = statusManager.dispel(player);
+                if (gone.includes('warded')) player._wardShield = 0;
+                if (gone.length) this.scene.scene.get('UIScene')?.showNotification?.(`${sp.name} strips your ${gone.length > 1 ? 'protections' : 'protection'}!`, 1600);
+            } else if (sp.status && Math.random() < (sp.chance ?? 1)) {
+                statusManager.apply(player, sp.status, { duration: sp.duration });
+            }
+            return;
+        }
+        if (!target?.active) return;
+        if (sp.kind === 'mend') target.health = Math.min(target.maxHealth, target.health + Math.round(target.maxHealth * sp.heal));
+        statusManager.apply(target, sp.status, { duration: sp.duration });
+        flash(target.x, target.y);
+    }
+
     _showAlert(symbol, color) {
         const txt = this.scene.add.text(this.x, this.y - 28, symbol, {
             font: 'bold 14px monospace', fill: color,
@@ -332,6 +454,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     _die() {
+        this._endCast();
         this.state = STATE.DEAD;
         this.setVelocity(0);
         this.healthBar.destroy();
@@ -367,6 +490,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     destroy(fromScene) {
+        this._endCast?.();
         if (this.healthBar?.active) this.healthBar.destroy();
         super.destroy(fromScene);
     }

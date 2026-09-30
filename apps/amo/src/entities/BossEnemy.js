@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 import { soundManager } from '../systems/SoundManager.js';
+import { statusManager } from '../systems/StatusManager.js';
+import { BOSS_AEGIS } from '../data/enemyMagic.js';
 
 const S = { IDLE: 'idle', CHASE: 'chase', ATTACK: 'attack', DEAD: 'dead' };
 
@@ -39,6 +41,11 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
         this.teleportCooldown = 0;
         this.TELEPORT_COOLDOWN = 7000;
         this._teleporting = false;
+
+        // Void Aegis (data/enemyMagic.js BOSS_AEGIS): a channelled, interruptible
+        // shield — dispel it with Unravel, or break the channel with a silence.
+        this.aegisCooldown = Infinity;   // armed at 50% HP
+        this._aegisCast    = null;       // { elapsed, ring }
 
         this._setupAnims(scene.anims);
         this.play('boss_idle');
@@ -91,9 +98,28 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
 
         this.attackCooldown = Math.max(0, this.attackCooldown - delta);
         this.burstCooldown  = Math.max(0, this.burstCooldown  - delta);
+        statusManager.tick(this, delta);
 
         this._drawHealthBar();
         this._aura.setPosition(this.x, this.y - 10);
+
+        // Channelling the Void Aegis roots the boss; a silence or stun breaks it
+        if (this._aegisCast) {
+            if (!statusManager.canCast(this)) { this.interruptCast(); }
+            else {
+                this._aegisCast.elapsed += delta;
+                this.setVelocity(0);
+                this._drawAegisRing();
+                if (this._aegisCast.elapsed >= BOSS_AEGIS.castMs) this._completeAegis();
+                return;
+            }
+        }
+        if (statusManager.isStunned(this)) { this.setVelocity(0); return; }
+        this.aegisCooldown -= delta;
+        if (this.aegisCooldown <= 0 && !statusManager.has(this, BOSS_AEGIS.status) && statusManager.canCast(this)) {
+            this._beginAegis();
+            return;
+        }
 
         const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
 
@@ -142,7 +168,7 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
         this.play('boss_idle', true);
         if (this.attackCooldown <= 0) {
             this.attackCooldown = this.ATTACK_COOLDOWN;
-            player.takeDamage(this.damage);
+            player.takeDamage(Math.round(this.damage * statusManager.statsMult(this)));
             soundManager.hit();
             this.setTint(0xdd44ff);
             this.scene.time.delayedCall(180, () => {
@@ -179,6 +205,7 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
     takeDamage(amount) {
         if (this.state === S.DEAD) return;
         if (this._teleporting) return;
+        amount = Math.max(1, Math.round(amount * statusManager.damageTakenMult(this)));
         this.health -= amount;
         soundManager.hit();
 
@@ -193,7 +220,7 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
         const pct = this.health / this.maxHealth;
         const ui  = this.scene.scene.get('UIScene');
         if (!this._d75 && pct <= 0.75) { this._d75 = true; ui?.showNotification?.('Void General: "You carry the scent of failure, scholar."', 3200); }
-        if (!this._d50 && pct <= 0.50) { this._d50 = true; ui?.showNotification?.('Void General: "The Void does not yield. Neither do I."', 3200); this._enrage(); }
+        if (!this._d50 && pct <= 0.50) { this._d50 = true; ui?.showNotification?.('Void General: "The Void does not yield. Neither do I."', 3200); this._enrage(); this.aegisCooldown = 1500; }
         if (!this._d25 && pct <= 0.25) { this._d25 = true; ui?.showNotification?.('Void General: "ENOUGH! The Collapse begins — your soul is MINE!"', 3500); this._enterPhase3(); }
 
         if (this.health <= 0) this._die();
@@ -207,6 +234,7 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
         this.ATTACK_COOLDOWN *= 0.65;
         this.BURST_COOLDOWN  *= 0.6;
         this.setTint(0xff3300);
+        this._baseTint = 0xff3300;   // restored after status tints (StatusManager)
 
         this.scene.cameras.main.flash(500, 255, 30, 0);
         this.scene.cameras.main.shake(280, 0.014);
@@ -226,6 +254,7 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
         this.BURST_COOLDOWN  *= 0.65;
         this.voidRainCooldown  = 1200;
         this.teleportCooldown  = 3800;
+        this.aegisCooldown     = Math.min(this.aegisCooldown, 2500);
 
         this.scene.cameras.main.flash(900, 80, 0, 200);
         this.scene.cameras.main.shake(500, 0.022);
@@ -237,6 +266,7 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
 
         this.setTint(0xff00aa);
         this._nameText?.setText('VOID GENERAL [COLLAPSE]');
+        this._baseTint = 0xff00aa;
         this._aura.destroy();
         this._aura = this.scene.add.particles(this.x, this.y - 10, 'particle', {
             speed: { min: 16, max: 55 }, angle: { min: 0, max: 360 },
@@ -244,6 +274,44 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
             tint: [0xff0088, 0xcc0044, 0x880022],
             quantity: 4, frequency: 45, alpha: { start: 0.9, end: 0 },
         }).setDepth(8);
+    }
+
+    _beginAegis() {
+        this._aegisCast = { elapsed: 0, ring: this.scene.add.graphics().setDepth(23) };
+        this.setVelocity(0);
+        this.play('boss_idle', true);
+        this.scene.scene.get('UIScene')?.showNotification?.('The Void General gathers a Void Aegis — silence him or unravel it!', 2400);
+    }
+
+    _drawAegisRing() {
+        const frac = Math.min(1, this._aegisCast.elapsed / BOSS_AEGIS.castMs);
+        const g = this._aegisCast.ring;
+        g.clear();
+        g.lineStyle(3, 0x000000, 0.5);
+        g.strokeCircle(this.x, this.y - 10, 46);
+        g.lineStyle(3, BOSS_AEGIS.color, 1);
+        g.beginPath();
+        g.arc(this.x, this.y - 10, 46, -Math.PI / 2, -Math.PI / 2 + frac * Math.PI * 2);
+        g.strokePath();
+    }
+
+    _completeAegis() {
+        this._aegisCast.ring.destroy();
+        this._aegisCast = null;
+        this.aegisCooldown = BOSS_AEGIS.cooldown;
+        statusManager.apply(this, BOSS_AEGIS.status);
+        this.scene.cameras.main.flash(200, 120, 0, 200, true);
+        this.scene.scene.get('UIScene')?.showNotification?.('Void Aegis! Damage against him is cut — Unravel strips it.', 2400);
+    }
+
+    // Break the Aegis channel (Counterspell, silence, stun). True if there was one.
+    interruptCast() {
+        if (!this._aegisCast) return false;
+        this._aegisCast.ring.destroy();
+        this._aegisCast = null;
+        this.aegisCooldown = BOSS_AEGIS.cooldown * 0.5;
+        this.scene.scene.get('UIScene')?.showNotification?.('The Aegis channel breaks!', 1600);
+        return true;
     }
 
     _voidRain(player) {
@@ -321,6 +389,8 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
     }
 
     _die() {
+        this._aegisCast?.ring.destroy();
+        this._aegisCast = null;
         this.state = S.DEAD;
         this.setVelocity(0);
         this.healthBar.destroy();

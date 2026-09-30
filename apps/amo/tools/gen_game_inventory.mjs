@@ -18,6 +18,7 @@ const { SPELLS, RESONANCE_ELEMENTS, RESONANCE_GAINS, TIER_NAMES } = await import
 const { ITEMS, COOKING_RECIPES, POTION_RECIPES, ENCHANTS, MERCHANT_CATALOG, SATCHEL_TIERS } = await import(SRC + 'data/items.js');
 const { CRAFTING_RECIPES, ENCHANT_RECIPES } = await import(SRC + 'data/craftingRecipes.js');
 const { NODE_TYPES, YIELD_TABLES } = await import(SRC + 'data/gathering.js');
+const { ENEMY_SPELLS, ENEMY_KITS, BOSS_AEGIS } = await import(SRC + 'data/enemyMagic.js');
 const W = await import(SRC + 'data/worldMap.js');
 const { STATUS_DEFS } = await import(SRC + 'data/statuses.js');
 const { QUESTS } = await import(SRC + 'data/quests.js');
@@ -138,7 +139,7 @@ for (const el of RESONANCE_ELEMENTS) {
         .sort((a, b) => (a.discoverCondition?.threshold ?? 999) - (b.discoverCondition?.threshold ?? 999));
     P(`### ${el[0].toUpperCase() + el.slice(1)} (${list.length})`);
     table(['Spell', 'Discover / mastery', 'Targeting', 'Damage (base, per-level, scaling)', 'Mana', 'Cooldown (ms)', 'Range', 'Status', 'Learn from', 'Lore'], list.map(s => [
-        `**${s.name}**${s.passive ? ' (passive)' : ''}`,
+        `**${s.name}**${s.passive ? ' (passive)' : ''}${s.dispel ? ' · dispels' : ''}${s.interrupt ? ' · interrupts' : ''}`,
         `${s.discoverCondition?.threshold ?? '—'} / ${(s.masteryThresholds ?? []).join(', ')}`,
         (s.targetingType ?? '').replace(/_/g, ' '),
         s.baseDmg ? tiers(s.baseDmg) : '—',
@@ -255,8 +256,22 @@ for (const [title, list] of [[`Hostile (${hostile.length})`, hostile], [`Passive
         k.replace(/_/g, ' '), e.health ?? '', e.damage ?? '', e.speed ?? '', e.xpReward ?? 0,
         (e.lootTable ?? []).map(l => `${name(l.id)} ${pct(l.chance)}`).join(', ') || '—']));
 }
+P('### Enemy magic');
+P('Caster creatures shape spells in the open: a coloured ring fills around them while they cast. **Silence, Hush, stuns, Counterspell and Unravel break the cast.** The buffs they raise (Mana Ward, Empowered, Hastened, Mending) are dispellable: **Unravel** and **Purifying Sweep** strip them, and Unravel hurts the target for every buff torn away. Mirror shades can *Unweave* your own protections (Blessed, Regen, Swift, Aetheric Ward).');
+P();
+const kindText = sp => {
+    const label = STATUS_DEFS[sp.status]?.label ?? sp.status;
+    if (['ward', 'empower', 'haste'].includes(sp.kind)) return `${label} on itself or an ally`;
+    if (sp.kind === 'mend') return `heals the most hurt ally ${pct(sp.heal)} + ${label}`;
+    if (sp.kind === 'bolt') return `${sp.dmg} damage${sp.status ? ` + ${label} (${pct(sp.chance ?? 1)})` : ''}`;
+    return sp.dispel ? 'strips your magical buffs' : `${label} on you`;
+};
+table(['Spell', 'Effect', 'Cast', 'Cooldown', 'Range', 'Cast by'], Object.entries(ENEMY_SPELLS).map(([id, sp]) => [
+    sp.name, kindText(sp), `${sp.castMs / 1000}s`, `${sp.cooldown / 1000}s`, sp.range,
+    Object.entries(ENEMY_KITS).filter(([, k]) => k.includes(id)).map(([t]) => t.replace(/_/g, ' ')).join(', '),
+]));
 P('## Boss');
-P('**The Void General** — 350 HP, 20 damage, 280 XP. Three phases (enrages at 75/50/25% HP) with a burst attack and phase-3 special attacks. Guaranteed drops: Void Channel and Arcane Sceptre (tier 4 staves).');
+P(`**The Void General** — 350 HP, 20 damage, 280 XP. Three phases (enrages at 75/50/25% HP) with a burst attack and phase-3 special attacks. From 50% HP he channels a **${BOSS_AEGIS.name}** (${BOSS_AEGIS.castMs / 1000}s, every ${BOSS_AEGIS.cooldown / 1000}s): silence or stun him to break the channel, or Unravel the shield once it is up — while it holds he takes ${pct(STATUS_DEFS[BOSS_AEGIS.status].damageTakenMult)} damage. Guaranteed drops: Void Channel and Arcane Sceptre (tier 4 staves).`);
 P();
 
 // ------------------------------------------------------------------ quests / campaign
