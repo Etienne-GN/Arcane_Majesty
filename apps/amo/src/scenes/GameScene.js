@@ -290,7 +290,11 @@ export default class GameScene extends Phaser.Scene {
             const sprite = this.chests.create(cx, cy, 'chest');
             sprite.setDepth(8);
             sprite.chestDef = def;
-            // Mutable contents: convert item-ID list to {id, qty} objects, merging stacks
+            // Contents persist per chest in the save (what the player took or
+            // stored stays that way); only an unopened chest starts from its def.
+            sprite.chestKey = `${this._mapId}:${def.x},${def.y}`;
+            const saved = playerStats.chestContents?.[sprite.chestKey];
+            if (saved) sprite.contents = saved;
             if (!sprite.contents) {
                 const map = new Map();
                 for (const id of (def.items ?? [])) {
@@ -2728,6 +2732,8 @@ export default class GameScene extends Phaser.Scene {
             playerStats._statusApplyQueue.forEach(({ id, opts }) => statusManager.apply(this.player, id, opts));
             playerStats._statusApplyQueue = [];
         }
+
+        playerStats.tickTempMaxHealth(delta);   // food/tonic max-HP bonus wears off
 
         // Food regen tick — drains _foodRegen pool at 5 HP/s
         if ((playerStats._foodRegen ?? 0) > 0 && playerStats.health < playerStats.maxHealth) {

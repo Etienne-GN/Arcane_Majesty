@@ -92,14 +92,18 @@ const sm = {
         }
     },
 
-    // Speed multiplier for enemy movement
+    // Movement speed multiplier (enemies and the player). The strongest slow
+    // wins, the strongest haste wins, and they combine — so a haste (>1) is
+    // not swallowed by the neutral 1 the way a plain min() did.
     speedMult(entity) {
-        let m = 1;
+        let slow = 1, haste = 1;
         for (const id of Object.keys(entity._statuses ?? {})) {
             const v = STATUS_DEFS[id]?.speedMult;
-            if (v !== undefined) m = Math.min(m, v);
+            if (v === undefined) continue;
+            if (v < 1) slow = Math.min(slow, v);
+            else haste = Math.max(haste, v);
         }
-        return m;
+        return slow * haste;
     },
 
     // Stats multiplier (player buffs/debuffs)

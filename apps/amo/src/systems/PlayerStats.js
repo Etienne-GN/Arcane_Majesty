@@ -54,6 +54,13 @@ export const SKILL_CATEGORY = {
     PASSIVE: 'passive'
 };
 
+// XP needed to go from `level` to the next one. Polynomial, not exponential:
+// the old ×1.5-per-level curve needed ~660k XP for level 21 against enemies
+// worth ~28 XP. This puts level 10 at ~12k and level 20 at ~63k total.
+export function xpForLevel(level) {
+    return Math.round(100 * Math.pow(level, 1.5));
+}
+
 export class PlayerStats {
     _equipListeners = [];
 
@@ -210,6 +217,10 @@ export class PlayerStats {
 
         // Every item ID ever obtained — drives recipe discovery
         this.seenItems = new Set();
+        // Contents of every chest the player has opened, by "mapId:x,y" — chests
+        // are small stores you can take from and put into, and must not refill
+        // on reload.
+        this.chestContents = {};
 
         // Attuned Rift-Gates — enables fast-travel between them
         this.attunedGates = [];
@@ -313,7 +324,7 @@ export class PlayerStats {
 
     _levelUp() {
         this.level++;
-        this.xpToNextLevel = Math.floor(this.xpToNextLevel * 1.5);
+        this.xpToNextLevel = xpForLevel(this.level);
         this.skillPoints++;
         this.attributePoints++;
         // Full restore on level-up (stat gains applied when player distributes points)
@@ -605,6 +616,52 @@ export class PlayerStats {
         return true;
     }
 
+    // Temporary max-HP bonus from food and tonics. Only the strongest active
+    // bonus applies (eating more never stacks), it wears off after `ms`, and
+    // it is never written to the save (SaveManager stores maxHealth without it).
+    addTempMaxHealth(amount, ms) {
+        const current = this._tempMaxHp ?? 0;
+        if (amount > current) {
+            this.maxHealth += amount - current;
+            this.health    += amount - current;
+            this._tempMaxHp = amount;
+        }
+        this._tempMaxHpTimer = Math.max(this._tempMaxHpTimer ?? 0, ms);
+    }
+
+    tickTempMaxHealth(delta) {
+        if (!(this._tempMaxHpTimer > 0)) return;
+        this._tempMaxHpTimer -= delta;
+        if (this._tempMaxHpTimer <= 0) {
+            this.maxHealth -= this._tempMaxHp ?? 0;
+            this.health     = Math.min(this.health, this.maxHealth);
+            this._tempMaxHp = 0;
+            this._tempMaxHpTimer = 0;
+        }
+    }
+
+    // Stack-aware inventory queries. Stackable items live in one slot with a
+    // qty, so a count is the sum of quantities, not the number of slots.
+    countItem(itemId) {
+        return this.inventory.reduce((n, i) => n + (i.id === itemId ? (i.qty ?? 1) : 0), 0);
+    }
+
+    // Removes `qty` units of an item across its slots. Returns false (and
+    // removes nothing) when there aren't enough.
+    consumeItem(itemId, qty = 1) {
+        if (this.countItem(itemId) < qty) return false;
+        let left = qty;
+        for (let i = this.inventory.length - 1; i >= 0 && left > 0; i--) {
+            const slot = this.inventory[i];
+            if (slot.id !== itemId) continue;
+            const take = Math.min(slot.qty ?? 1, left);
+            slot.qty = (slot.qty ?? 1) - take;
+            left -= take;
+            if (slot.qty <= 0) this.inventory.splice(i, 1);
+        }
+        return true;
+    }
+
     removeItem(itemId, qty = 1) {
         const idx = this.inventory.findIndex(i => i.id === itemId);
         if (idx < 0) return;
@@ -617,6 +674,7 @@ export class PlayerStats {
         this.xp = 0;
         this.xpToNextLevel = 100;
         this.glint = 0;
+        this.gold  = 50;          // a new game starts with the starting purse, not the last character's
         this.skillPoints = 0;
         this.attributePoints = 0;
         this.satchelTier = 1;
@@ -645,6 +703,10 @@ export class PlayerStats {
         this.masteries = Object.fromEntries(Object.keys(MASTERY_DEFS).map(k => [k, false]));
         this.codexEchoes      = [];
         this.killedEnemyTypes = [];
+        this.seenItems        = new Set();   // recipe discovery restarts with the character
+        this._tempMaxHp       = 0;
+        this._tempMaxHpTimer  = 0;
+        this.chestContents    = {};
     }
 }
 

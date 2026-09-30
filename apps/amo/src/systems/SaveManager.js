@@ -1,3 +1,4 @@
+import { xpForLevel } from './PlayerStats.js';
 function saveKey(storyId, characterId) {
     return `amo_save_${storyId}_${characterId}`;
 }
@@ -10,8 +11,9 @@ export class SaveManager {
             level:         stats.level,
             xp:            stats.xp,
             xpToNextLevel: stats.xpToNextLevel,
-            health:        stats.health,
-            maxHealth:     stats.maxHealth,
+            // the temporary food/tonic max-HP bonus is not saved
+            health:        Math.min(stats.health, stats.maxHealth - (stats._tempMaxHp ?? 0)),
+            maxHealth:     stats.maxHealth - (stats._tempMaxHp ?? 0),
             mana:          stats.mana,
             maxMana:       stats.maxMana,
             glint:         stats.glint ?? 0,
@@ -39,6 +41,7 @@ export class SaveManager {
             killedEnemyTypes:  [...(stats.killedEnemyTypes ?? [])],
             seenItems:         [...(stats.seenItems ?? [])],
             campaign:          stats.campaign ? JSON.parse(JSON.stringify(stats.campaign)) : null,
+            chestContents:     JSON.parse(JSON.stringify(stats.chestContents ?? {})),
             timestamp:     Date.now(),
         };
         try {
@@ -54,7 +57,9 @@ export class SaveManager {
             const d = JSON.parse(raw);
             stats.level           = d.level;
             stats.xp              = d.xp;
-            stats.xpToNextLevel   = d.xpToNextLevel;
+            // Always from the current curve: saves made under the old ×1.5
+            // curve would otherwise keep their huge next-level requirement.
+            stats.xpToNextLevel   = xpForLevel(d.level ?? 1);
             stats.health          = d.health;
             stats.maxHealth       = d.maxHealth;
             stats.mana            = d.mana;
@@ -83,6 +88,7 @@ export class SaveManager {
             if (d.codexEchoes)      stats.codexEchoes      = JSON.parse(JSON.stringify(d.codexEchoes));
             if (d.killedEnemyTypes) stats.killedEnemyTypes = [...d.killedEnemyTypes];
             stats.campaign = d.campaign ? JSON.parse(JSON.stringify(d.campaign)) : null;
+            stats.chestContents = d.chestContents ? JSON.parse(JSON.stringify(d.chestContents)) : {};
             // Seed seenItems from save; fall back to current inventory for old saves
             stats.seenItems = d.seenItems
                 ? new Set(d.seenItems)

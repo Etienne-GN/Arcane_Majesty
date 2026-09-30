@@ -52,6 +52,10 @@ export const STATUS_DEFS = {
         id: 'blessed', label: 'Blessed', duration: 30000, tint: 0xffdd44,
         statsMult: 1.10,
     },
+    swift: {
+        id: 'swift', label: 'Swift', duration: 20000, tint: 0xaaffdd,
+        speedMult: 1.25,
+    },
     regen: {
         id: 'regen', label: 'Regen', duration: 10000, tint: 0x44ff88,
         regenAmt: 3, regenInterval: 1000,
@@ -77,6 +81,6 @@ export const STATUS_DEFS = {
 // Tint priority (highest to lowest) for rendering when multiple statuses active
 export const STATUS_TINT_PRIORITY = [
     'frozen', 'shocked', 'resonance_stun', 'burning', 'cold', 'entangled',
-    'cursed', 'blessed', 'warded', 'wet', 'poison',
+    'cursed', 'blessed', 'swift', 'warded', 'wet', 'poison',
     'dirty', 'silenced', 'void_tainted', 'marked',
 ];

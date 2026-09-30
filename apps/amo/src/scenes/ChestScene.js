@@ -15,6 +15,8 @@ let _characterId   = null;
 
 export function openChest(chest, storyId, characterId) {
     _activeChest   = chest;
+    // From now on this chest's contents live in the save (see GameScene).
+    if (chest.chestKey) playerStats.chestContents[chest.chestKey] = chest.contents;
     _storyId       = storyId;
     _characterId   = characterId;
 }
@@ -253,6 +255,7 @@ export default class ChestScene extends Phaser.Scene {
             if (!playerStats.addItem(item.id, item.qty)) remaining.push(item);
         }
         this._chest.contents = remaining;
+        if (this._chest.chestKey) playerStats.chestContents[this._chest.chestKey] = remaining;
         if (remaining.length > 0) {
             this._descText.setText('Satchel full — some items could not be taken.');
             this.cameras.main.shake(80, 0.007);

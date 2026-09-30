@@ -5,6 +5,16 @@
 (item sources, recipe inputs, XP curve). Findings are marked **BUG** (wrong behaviour),
 **EXPLOIT**, **GAP** (missing piece) or **DESIGN** (works, but should change).
 
+**Decisions (2026-09-30):** basic cooking and brewing stay at the campfire, advanced
+cooking and brewing move to stations (cooking stations, alchemy stands); both
+currencies stay; the clear bugs are fixed first.
+
+**Fixed (2026-09-30):** §2.1 stack counting, §2.2 Grand Feast, §2.3 XP curve, §2.7
+Speed Draught (new `swift` status), §2.10 chests (contents saved per chest), plus
+four more permanent max-HP exploits (Iron Skin Tonic, Hearty Stew, Bone Broth, Bone &
+Herb Soup now give a 10-minute non-stacking bonus) and a new game no longer keeping
+the previous character's gold and discovered recipes. Tests: `tools/test_player_stats.mjs`.
+
 ---
 
 ## 1. What exists today

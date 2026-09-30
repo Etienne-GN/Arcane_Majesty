@@ -296,36 +296,25 @@ export default class CampfireScene extends Phaser.Scene {
         this._switchTab(this._tab);   // clamps + re-renders the list
     }
 
+    // Every recipe format as a list of {id, qty}: `ingredients`, the older
+    // `multi` list (one of each), or a single `input`.
+    _needs(recipe) {
+        if (recipe.ingredients) return recipe.ingredients;
+        if (recipe.multi)       return (Array.isArray(recipe.input) ? recipe.input : []).map(id => ({ id, qty: 1 }));
+        return recipe.input ? [{ id: recipe.input, qty: 1 }] : [];
+    }
+
     _canMake(recipe) {
-        if (recipe.multi)        return Array.isArray(recipe.input) && recipe.input.every(id => this._countItem(id) >= 1);
-        if (recipe.ingredients)  return recipe.ingredients.every(ing => this._countItem(ing.id) >= ing.qty);
-        return this._countItem(recipe.input) >= 1;
+        return this._needs(recipe).every(ing => playerStats.countItem(ing.id) >= ing.qty);
     }
 
     _countItem(id) {
-        return playerStats.inventory.filter(i => i.id === id).length;
+        return playerStats.countItem(id);   // stacks count by quantity, not by slot
     }
 
     _make(recipe, mode) {
         if (!this._canMake(recipe)) return;
-
-        if (recipe.multi) {
-            recipe.input.forEach(id => {
-                const idx = playerStats.inventory.findIndex(i => i.id === id);
-                if (idx !== -1) playerStats.inventory.splice(idx, 1);
-            });
-        } else if (recipe.ingredients) {
-            recipe.ingredients.forEach(ing => {
-                let rem = ing.qty;
-                const inv = playerStats.inventory;
-                for (let i = inv.length - 1; i >= 0 && rem > 0; i--) {
-                    if (inv[i].id === ing.id) { inv.splice(i, 1); rem--; }
-                }
-            });
-        } else {
-            const idx = playerStats.inventory.findIndex(i => i.id === recipe.input);
-            if (idx !== -1) playerStats.inventory.splice(idx, 1);
-        }
+        this._needs(recipe).forEach(ing => playerStats.consumeItem(ing.id, ing.qty));
 
         playerStats.addItem(recipe.output);
         if (mode === 'cook') questManager.onCook(recipe.output);

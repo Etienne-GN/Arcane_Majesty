@@ -85,7 +85,7 @@ export const ITEMS = {
         id: 'heart_crystal', name: 'Heart Crystal',
         description: 'A Heartstone fragment. Restores 80 HP and increases max HP by 10.',
         color: 0xff4488, icon: 'itm_glowing_dust', stackable: false, buyPrice: 100, sellPrice: 35,
-        onUse: (stats) => { stats.maxHealth += 10; stats.health = Math.min(stats.health + 80, stats.maxHealth); return true; }
+        onUse: (stats) => { stats.maxHealth += 10; stats.health = Math.min(stats.health + 80, stats.maxHealth); return true; }   // a deliberate permanent upgrade (found, not sold)
     },
     eldritch_tome: {
         id: 'eldritch_tome', name: 'Eldritch Tome',
@@ -197,10 +197,10 @@ export const ITEMS = {
     },
     hearty_stew: {
         id: 'hearty_stew', name: 'Hearty Stew',
-        description: 'A thick hunter\'s stew. Restores 60 HP, full mana regen, and +10 max HP for this session.',
+        description: 'A thick hunter\'s stew. Restores 60 HP, full mana regen, and +10 max HP for 10 minutes.',
         color: 0xcc5522, icon: 'itm_sandwich', stackable: true, buyPrice: 0, sellPrice: 20,
         onUse: (stats) => {
-            stats.maxHealth += 10;
+            stats.addTempMaxHealth?.(10, 600000);
             stats.health = Math.min(stats.health + 60, stats.maxHealth);
             stats.mana   = Math.min(stats.mana + 20, stats.maxMana);
             stats._foodRegen = (stats._foodRegen ?? 0) + 60;
@@ -294,10 +294,10 @@ export const ITEMS = {
     },
     bone_broth: {
         id: 'bone_broth', name: 'Bone Broth',
-        description: 'Rich marrow broth. Regenerates 60 HP over time and raises max HP by 8 for this session.',
+        description: 'Rich marrow broth. Regenerates 60 HP over time and raises max HP by 8 for 10 minutes.',
         color: 0xddbb88, icon: 'itm_sandwich', stackable: true, buyPrice: 0, sellPrice: 13,
         onUse: (stats) => {
-            stats.maxHealth += 8;
+            stats.addTempMaxHealth?.(8, 600000);
             stats._foodRegen = (stats._foodRegen ?? 0) + 60;
             return true;
         }
@@ -498,20 +498,21 @@ export const ITEMS = {
     },
     bone_herb_soup: {
         id: 'bone_herb_soup', name: 'Bone & Herb Soup',
-        description: 'Slow-simmered bone stock with herbs. Raises max HP by 12 and regenerates 25 HP over time.',
+        description: 'Slow-simmered bone stock with herbs. Raises max HP by 12 for 10 minutes and regenerates 25 HP over time.',
         color: 0xddccaa, icon: 'itm_sandwich', stackable: true, buyPrice: 0, sellPrice: 14,
         onUse: (stats) => {
-            stats.maxHealth += 12;
+            stats.addTempMaxHealth?.(12, 600000);
             stats._foodRegen = (stats._foodRegen ?? 0) + 25;
             return true;
         }
     },
     grand_feast: {
         id: 'grand_feast', name: 'Grand Feast',
-        description: 'The ultimate campfire meal — all meats, all flavours. Raises max HP by 20, fully restores HP and MP, and regenerates 80 HP.',
+        description: 'The ultimate campfire meal — all meats, all flavours. Fully restores HP and MP, regenerates 80 HP and leaves you Blessed for a minute.',
         color: 0xffd700, icon: 'itm_meat', stackable: true, buyPrice: 0, sellPrice: 50,
         onUse: (stats) => {
-            stats.maxHealth += 20;
+            // No permanent max-HP gain: it stacked with every feast eaten.
+            stats._applyStatus?.('blessed', { duration: 60000 });
             stats.health = stats.maxHealth;
             stats.mana   = stats.maxMana;
             stats._foodRegen = (stats._foodRegen ?? 0) + 80;
@@ -534,15 +535,15 @@ export const ITEMS = {
     },
     iron_skin_tonic: {
         id: 'iron_skin_tonic', name: 'Iron Skin Tonic',
-        description: 'Ground bone dissolved in water. Raises max HP by 15 for this session.',
+        description: 'Ground bone dissolved in water. Raises max HP by 15 for 10 minutes.',
         color: 0xaabb99, icon: 'itm_hp_potion', stackable: true, buyPrice: 0, sellPrice: 18,
-        onUse: (stats) => { stats.maxHealth += 15; stats.health = Math.min(stats.health + 15, stats.maxHealth); return true; }
+        onUse: (stats) => { stats.addTempMaxHealth?.(15, 600000); return true; }
     },
     speed_draught: {
         id: 'speed_draught', name: 'Speed Draught',
-        description: "Lucky charm and frost combined. Applies Blessed for 20s — reflexes sharpened.",
+        description: "Lucky charm and frost combined. Applies Swift for 20s — you move 25% faster.",
         color: 0xaaffdd, icon: 'itm_mana_potion', stackable: true, buyPrice: 0, sellPrice: 16,
-        onUse: (stats) => { stats._applyStatus?.('blessed', { duration: 20000 }); return true; }
+        onUse: (stats) => { stats._applyStatus?.('swift', { duration: 20000 }); return true; }
     },
     spectral_veil: {
         id: 'spectral_veil', name: 'Spectral Veil',

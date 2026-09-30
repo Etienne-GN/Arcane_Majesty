@@ -268,17 +268,8 @@ export default class CraftingScene extends Phaser.Scene {
     _craft(recipe) {
         if (!this._canCraft(recipe)) return;
 
-        // Consume ingredients
-        for (const ing of recipe.ingredients) {
-            let remaining = ing.qty;
-            const inv = playerStats.inventory;
-            for (let i = inv.length - 1; i >= 0 && remaining > 0; i--) {
-                if (inv[i].id === ing.id) {
-                    inv.splice(i, 1);
-                    remaining--;
-                }
-            }
-        }
+        // Consume ingredients (by quantity: stacks are one slot with a qty)
+        for (const ing of recipe.ingredients) playerStats.consumeItem(ing.id, ing.qty);
 
         playerStats.addItem(recipe.output);
         soundManager.menuSelect();
@@ -294,7 +285,7 @@ export default class CraftingScene extends Phaser.Scene {
     // ── Helpers ───────────────────────────────────────────────────────────────
 
     _countItem(id) {
-        return playerStats.inventory.filter(i => i.id === id).length;
+        return playerStats.countItem(id);   // stacks count by quantity, not by slot
     }
 
     _canCraft(recipe) {
