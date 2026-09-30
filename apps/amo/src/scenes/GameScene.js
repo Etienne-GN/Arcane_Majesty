@@ -2383,6 +2383,7 @@ export default class GameScene extends Phaser.Scene {
         const tiles = this._mapDef.tiles;
         const floorData = tiles.map(row =>
             row.map(tile => {
+                if (tile === 4) return -1; // empty: the map's backgroundColor shows through (dungeon void)
                 if (tile === 2) return pathFrame;
                 if (tile === 3 && streetFrame != null) return streetFrame;
                 if (decorFrames && Math.random() < decorRate)
@@ -2390,6 +2391,7 @@ export default class GameScene extends Phaser.Scene {
                 return floorFrame;
             })
         );
+        if (this._mapDef.backgroundColor) this.cameras.main.setBackgroundColor(this._mapDef.backgroundColor);
         const tilemap = this.make.tilemap({ data: floorData, tileWidth: TILE_SIZE, tileHeight: TILE_SIZE });
         const tileset = tilemap.addTilesetImage(tsKey, tsKey);
         tilemap.createLayer(0, tileset, 0, 0).setDepth(0);
@@ -2494,10 +2496,11 @@ export default class GameScene extends Phaser.Scene {
         sources.forEach(s => this._placeCatalogueItems(s.items, s.catKey, s.texKey));
         // Any other catalogued sheet, named per group rather than by a fixed
         // mapDef field: [{ catKey, texKey, items }] (see extraSheets in preload).
-        this._mapDef.sheetDecorations?.forEach(g => this._placeCatalogueItems(g.items, g.catKey, g.texKey));
+        // A group may set `scale` (e.g. 2 to draw a 16px sheet on the 32px grid).
+        this._mapDef.sheetDecorations?.forEach(g => this._placeCatalogueItems(g.items, g.catKey, g.texKey, g.scale ?? 1));
     }
 
-    _placeCatalogueItems(items, catKey, texKey) {
+    _placeCatalogueItems(items, catKey, texKey, scale = 1) {
         if (!items || !items.length) return;
 
         const catJson = this.cache.json.get(catKey);
@@ -2532,8 +2535,10 @@ export default class GameScene extends Phaser.Scene {
             const frameKey = `cat_${d.name}`;
             if (!frames && !tex.has(frameKey)) tex.add(frameKey, 0, cx, cy, cw, ch);
 
-            const px = d.x * TILE_SIZE + cw / 2;
-            const py = d.y * TILE_SIZE + ch / 2;
+            // On-map size: the sprite's pixels times the group's scale.
+            const sw = cw * scale, sh = ch * scale;
+            const px = d.x * TILE_SIZE + sw / 2;
+            const py = d.y * TILE_SIZE + sh / 2;
             let img;
             if (frames) {
                 const animKey = `catanim_${texKey}_${d.name}`;
@@ -2548,13 +2553,16 @@ export default class GameScene extends Phaser.Scene {
                         repeat: -1,
                     });
                 }
-                img = this.add.sprite(px, py + ch / 2, texKey, `${frameKey}_f0`).setOrigin(0.5, 1).play(animKey);
+                img = this.add.sprite(px, py + sh / 2, texKey, `${frameKey}_f0`).setOrigin(0.5, 1).setScale(scale).play(animKey);
             } else {
-                img = this.add.image(px, py, texKey, frameKey);
+                img = this.add.image(px, py, texKey, frameKey).setScale(scale);
             }
             // Draw layer + hitbox from the catalogue (set in the sprite ledger);
             // entries not decided yet keep the old centre depth / whole-box blocking.
-            const { depth, body } = catalogueLayout(entry, { left: px - cw / 2, top: py - ch / 2, w: cw, h: ch }, d);
+            const hb = entry.hitbox;
+            const placed = scale === 1 || !hb ? entry
+                : { ...entry, hitbox: { x: hb.x * scale, y: hb.y * scale, w: hb.w * scale, h: hb.h * scale } };
+            const { depth, body } = catalogueLayout(placed, { left: px - sw / 2, top: py - sh / 2, w: sw, h: sh }, d);
             img.setDepth(depth);
 
             if (body) {
