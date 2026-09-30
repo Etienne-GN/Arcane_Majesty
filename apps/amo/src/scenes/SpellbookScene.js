@@ -2,15 +2,11 @@ import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
 import { SPELLS, TIER_NAMES, RESONANCE_ELEMENTS } from '../data/spells.js';
+import { ELEMENT_COLORS } from '../controls/launcherDefs.js';
 
-const ELEMENT_COLORS = {
-    fire: 0xff6600, arcane: 0xaa44ff, lightning: 0xffdd00,
-    shadow: 0x8800cc, earth: 0x44aa22, ice: 0x88ddff,
-    nature: 0x44cc44, wind: 0xccffaa,
-};
 const ELEMENT_LABELS = {
     fire: 'Fire', arcane: 'Arcane', lightning: 'Lightning', shadow: 'Shadow',
-    earth: 'Earth', ice: 'Ice', nature: 'Nature', wind: 'Wind',
+    earth: 'Earth', ice: 'Ice', nature: 'Nature', wind: 'Wind', water: 'Water',
 };
 const SLOT_KEYS = ['Q', 'R', 'F', 'T'];
 
@@ -66,7 +62,7 @@ export default class SpellbookScene extends Phaser.Scene {
         divG.lineBetween(listX + listW + DIV_GAP / 2, contentY, listX + listW + DIV_GAP / 2, contentY + contentH);
 
         // ── Resonance panel (right, static) ──────────────────────────────────
-        this._drawResonanceBars(resX, contentY, RES_W);
+        this._drawResonanceBars(resX, contentY, RES_W, contentH);
 
         // ── Spell list (left, scrollable) ────────────────────────────────────
         this._listX   = listX;
@@ -123,12 +119,14 @@ export default class SpellbookScene extends Phaser.Scene {
     }
 
     // ── Resonance bars ────────────────────────────────────────────────────────
-    _drawResonanceBars(x, y, panelW) {
+    _drawResonanceBars(x, y, panelW, panelH = 480) {
         this.add.text(x + panelW / 2, y + 4, 'RESONANCE', {
             font: 'bold 16px monospace', fill: '#886699'
         }).setOrigin(0.5, 0);
 
         let oy = y + 36;
+        // Shrink the row pitch on short windows so every element fits.
+        const step = Math.max(32, Math.min(48, Math.floor((panelH - 36) / RESONANCE_ELEMENTS.length)));
         for (const el of RESONANCE_ELEMENTS) {
             const val   = playerStats.resonance[el];
             const color = ELEMENT_COLORS[el];
@@ -153,7 +151,7 @@ export default class SpellbookScene extends Phaser.Scene {
                 this.add.rectangle(x + 8, oy + 20, Math.floor(barW * pct), 10, color).setOrigin(0);
             }
 
-            oy += 48;
+            oy += step;
         }
     }
 

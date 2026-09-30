@@ -10,6 +10,7 @@
  * Run: node tools/test_launcher_controls.mjs
  */
 import { ELEMENT_COLORS, SLOT_KEYS, TRAY, SECONDARY } from '../src/controls/launcherDefs.js';
+import { RESONANCE_ELEMENTS } from '../src/data/spells.js';
 import { KEY_CODES } from '../src/controls/keys.js';
 
 let passed = 0;
@@ -20,8 +21,8 @@ function check(name, got, want) {
 }
 function failIf(cond, msg) { if (cond) fails.push(msg); else passed++; }
 
-// Element palette — 8 elements, numeric colors for Graphics.fillStyle/strokeStyle.
-check('ELEMENT_COLORS 8 entries', Object.keys(ELEMENT_COLORS).length, 8);
+// Element palette — one per resonance element, numeric colors for Graphics.fillStyle/strokeStyle.
+check('ELEMENT_COLORS covers every resonance element', RESONANCE_ELEMENTS.filter(e => !(e in ELEMENT_COLORS)), []);
 for (const [el, col] of Object.entries(ELEMENT_COLORS)) {
     check(`ELEMENT_COLORS ${el} numeric`, typeof col, 'number');
 }

@@ -130,6 +130,7 @@ const sm = {
         if (element === 'fire')      { if (this.has(entity, 'wet'))   m *= STATUS_DEFS.wet.fireDmgMult;   }
         if (element === 'fire')      { if (this.has(entity, 'dried'))  m *= STATUS_DEFS.dried.fireDmgMult; }
         if (element === 'lightning') { if (this.has(entity, 'wet'))    m *= STATUS_DEFS.wet.lightningDmgMult; }
+        if (element === 'water')     { if (this.has(entity, 'burning')) m *= 1.25; }
         // Shattering frozen target with physical hit
         if (element === 'physical' && this.has(entity, 'frozen')) { m *= 1.5; this.remove(entity, 'frozen'); }
         return m;

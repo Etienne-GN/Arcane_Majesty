@@ -3,7 +3,7 @@ import { playerStats } from '../systems/PlayerStats.js';
 import { soundManager } from '../systems/SoundManager.js';
 import { ITEMS } from '../data/items.js';
 import { statusManager } from '../systems/StatusManager.js';
-import { SPELLS } from '../data/spells.js';
+import { SPELLS, RESONANCE_GAINS } from '../data/spells.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { CHARACTERS } from '../data/characters.js';
 
@@ -551,11 +551,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         const ELEMENT_TINTS = {
             fire: 0xff6600, arcane: 0xcc88ff, lightning: 0xffee44,
             shadow: 0x9900cc, earth: 0x88aa44, ice: 0x88ddff,
-            nature: 0x44cc44, wind: 0xccffaa,
+            nature: 0x44cc44, wind: 0xccffaa, water: 0x55aaee,
         };
         const tint = ELEMENT_TINTS[SPELLS[id]?.element] ?? 0xccccff;
         this.setTint(tint);
         this.scene.time.delayedCall(180, () => { if (this.active && !this.invincible) this.clearTint(); });
+        // Casting feeds the element's resonance where RESONANCE_GAINS defines cast_<element>.
+        const castGain = RESONANCE_GAINS[`cast_${SPELLS[id]?.element}`];
+        if (castGain) Object.entries(castGain).forEach(([el, amt]) => this.stats.gainResonance(el, amt));
         soundManager.spell();
         return true;
     }

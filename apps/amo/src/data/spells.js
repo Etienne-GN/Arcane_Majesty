@@ -7,7 +7,7 @@
 
 export const TIER_NAMES = ['Novice', 'Apprentice', 'Adept'];
 
-export const RESONANCE_ELEMENTS = ['fire', 'arcane', 'lightning', 'shadow', 'earth', 'ice', 'nature', 'wind'];
+export const RESONANCE_ELEMENTS = ['fire', 'arcane', 'lightning', 'shadow', 'earth', 'ice', 'nature', 'wind', 'water'];
 
 export const SPELLS = {
 
@@ -534,7 +534,7 @@ export const SPELLS = {
     water_conjure: {
         id: 'water_conjure',
         name: 'Water Conjure',
-        element: 'ice',
+        element: 'water',
         targetingType: 'targeted_aoe',
         lore: "Draws moisture from ambient mana and releases it as a wave of cold water. Does no damage. Extinguishes fire. Soaks everything in range. Eldrin used it first to put out his campfire. He now considers it one of his most tactically interesting spells.",
         passive: false,
@@ -544,8 +544,8 @@ export const SPELLS = {
         cooldown:  [4000, 3200, 2500],
         range:     [80, 95, 110],
         learnFrom: ['scroll', 'market', 'npc'],
-        discoverCondition: { element: 'ice', threshold: 12 },
-        masteryThresholds: [28, 55],
+        discoverCondition: { element: 'water', threshold: 8 },
+        masteryThresholds: [24, 50],
     },
 
     frostbite: {
@@ -568,7 +568,7 @@ export const SPELLS = {
     water_blade: {
         id: 'water_blade',
         name: 'Water Blade',
-        element: 'ice',
+        element: 'water',
         targetingType: 'targeted_directional',
         lore: "A thin, pressurized blade of water — the same principle used in Valdric quarrying equipment, reduced to a shape a single mage can manage. It cuts. It soaks. The second fact is relevant against lightning.",
         passive: false,
@@ -578,8 +578,8 @@ export const SPELLS = {
         cooldown:  [2200, 1800, 1400],
         range:     [180, 205, 230],
         learnFrom: ['scroll', 'npc'],
-        discoverCondition: { element: 'ice', threshold: 28 },
-        masteryThresholds: [48, 85],
+        discoverCondition: { element: 'water', threshold: 24 },
+        masteryThresholds: [44, 78],
     },
 
     blizzard_shard: {
@@ -1048,6 +1048,143 @@ export const SPELLS = {
         discoverCondition: { element: 'wind', threshold: 24 },
         masteryThresholds: [42, 76],
     },
+    // ── WATER ────────────────────────────────────────────────────────────────
+    // Water resonance grows from casting water spells, standing in the rain and
+    // hunting what lives in rivers, lakes and marsh (RESONANCE_GAINS below).
+    // Synergies: water soaks (wet: lightning x2, fire x0.5), hits burning
+    // targets harder (x1.25) and heals. Water Conjure and Water Blade (above,
+    // among the ice spells) are water spells too.
+
+    tidal_bolt: {
+        id: 'tidal_bolt',
+        name: 'Tidal Bolt',
+        element: 'water',
+        targetingType: 'targeted_directional',
+        lore: "A fist of river water thrown hard enough to knock the breath out of a wolf. Eldrin learned it on the banks of the Silverrun, where the current does half the work if you let it. The target is left soaked, which the lightning-minded find very convenient.",
+        passive: false,
+        baseDmg:   [12, 6, 0.8],
+        applyStatus: { id: 'wet', chance: 0.5, duration: 15000 },
+        manaCost:  [10, 8, 6],
+        cooldown:  [1100, 900, 700],
+        range:     [150, 170, 190],
+        learnFrom: ['scroll', 'market', 'npc'],
+        discoverCondition: { element: 'water', threshold: 3 },
+        masteryThresholds: [18, 40],
+    },
+
+    healing_spring: {
+        id: 'healing_spring',
+        name: 'Healing Spring',
+        element: 'water',
+        targetingType: 'self',
+        lore: "Clean water drawn up through the caster's own feet, as if the ground had a spring in it that only answers to thirst. Wounds close slowly, the way a stream wears a stone. Old healers by Lake Aethera say water remembers the shape of a body that was whole.",
+        passive: false,
+        applyStatus: { id: 'regen', chance: 1.0, duration: 15000 },
+        manaCost:  [22, 18, 14],
+        cooldown:  [12000, 10000, 8000],
+        learnFrom: ['scroll', 'npc', 'tome'],
+        discoverCondition: { element: 'water', threshold: 12 },
+        masteryThresholds: [32, 60],
+    },
+
+    riptide: {
+        id: 'riptide',
+        name: 'Riptide',
+        element: 'water',
+        targetingType: 'targeted_aoe',
+        lore: "A patch of ground turns, for a heartbeat, into the pull of an ebbing tide. Everything standing in it is dragged and left sluggish with cold water in its boots. The fishermen of Port Silver curse the real thing. Eldrin found a use for it.",
+        passive: false,
+        baseDmg:   [16, 7, 0.8],
+        applyStatus: { id: 'cold', chance: 0.8, duration: 10000 },
+        manaCost:  [20, 16, 13],
+        cooldown:  [3200, 2700, 2200],
+        range:     [80, 95, 110],
+        learnFrom: ['scroll', 'market', 'chest'],
+        discoverCondition: { element: 'water', threshold: 18 },
+        masteryThresholds: [38, 68],
+    },
+
+    tide_step: {
+        id: 'tide_step',
+        name: 'Tide Step',
+        element: 'water',
+        targetingType: 'self',
+        lore: "The caster moves the way water moves downhill: without hurry, and faster than anything that has to think about its footing. The effect lasts as long as a wave takes to come in and go out a few dozen times.",
+        passive: false,
+        applyStatus: { id: 'swift', chance: 1.0, duration: 12000 },
+        manaCost:  [18, 15, 12],
+        cooldown:  [14000, 11500, 9000],
+        learnFrom: ['scroll', 'tome'],
+        discoverCondition: { element: 'water', threshold: 30 },
+        masteryThresholds: [50, 82],
+    },
+
+    geyser: {
+        id: 'geyser',
+        name: 'Geyser',
+        element: 'water',
+        targetingType: 'targeted_aoe',
+        lore: "Water forced up out of the ground in a single scalding column. Anything standing over it is thrown, drenched and very surprised. Against burning foes it is doubly unkind: the fire goes out, and the water keeps going.",
+        passive: false,
+        baseDmg:   [30, 12, 1.1],
+        applyStatus: { id: 'wet', chance: 1.0, duration: 20000 },
+        manaCost:  [30, 25, 20],
+        cooldown:  [5000, 4200, 3400],
+        range:     [70, 82, 95],
+        learnFrom: ['tome', 'chest', 'npc'],
+        discoverCondition: { element: 'water', threshold: 38 },
+        masteryThresholds: [60, 92],
+    },
+
+    torrent_lance: {
+        id: 'torrent_lance',
+        name: 'Torrent Lance',
+        element: 'water',
+        targetingType: 'targeted_directional',
+        piercing: true,
+        lore: "A spear of water under such pressure that it cuts before it splashes. It passes through the first enemy and the one behind it and the one behind that. Eldrin keeps his distance from walls when he casts it, having once learned what the rebound feels like.",
+        passive: false,
+        baseDmg:   [38, 15, 1.3],
+        applyStatus: { id: 'wet', chance: 0.7, duration: 15000 },
+        manaCost:  [34, 28, 22],
+        cooldown:  [4200, 3500, 2800],
+        range:     [190, 215, 240],
+        learnFrom: ['tome', 'chest'],
+        discoverCondition: { element: 'water', threshold: 48 },
+        masteryThresholds: [70, 105],
+    },
+
+    mistward: {
+        id: 'mistward',
+        name: 'Mistward',
+        element: 'water',
+        targetingType: 'self',
+        lore: "A cloak of cold sea-mist that clings to the caster. Blows land softer, arrows lose their line, and the caster feels, briefly, like the calm at the bottom of a deep lake.",
+        passive: false,
+        applyStatus: { id: 'blessed', chance: 1.0, duration: 15000 },
+        manaCost:  [26, 21, 16],
+        cooldown:  [16000, 13000, 10000],
+        learnFrom: ['tome', 'npc'],
+        discoverCondition: { element: 'water', threshold: 58 },
+        masteryThresholds: [80, 115],
+    },
+
+    maelstrom: {
+        id: 'maelstrom',
+        name: 'Maelstrom',
+        element: 'water',
+        targetingType: 'targeted_aoe',
+        lore: "A whirlpool torn open in the air. It drags everything in reach toward its eye and holds it there, spinning, drowning on dry land. The greatest of the water workings; the old tales say the first one sank a harbour.",
+        passive: false,
+        baseDmg:   [52, 20, 1.6],
+        applyStatus: { id: 'entangled', chance: 0.6, duration: 2500 },
+        manaCost:  [48, 40, 32],
+        cooldown:  [9000, 7500, 6000],
+        range:     [95, 110, 125],
+        learnFrom: ['tome'],
+        discoverCondition: { element: 'water', threshold: 72 },
+        masteryThresholds: [95, 130],
+    },
 };
 
 // Resonance gain values for game events
@@ -1066,9 +1203,20 @@ export const RESONANCE_GAINS = {
     rest_campfire:      { fire: 1 },
     cast_earth_pillar:  { earth: 2 },
     cast_quagmire:      { earth: 1 },
-    stand_in_rain:      { ice: 1, nature: 1 },
+    stand_in_rain:      { ice: 1, nature: 1, water: 2 },
     find_nature_herb:   { nature: 2 },
     use_nature_item:    { nature: 3 },
     cast_in_wind:       { wind: 2 },
     kill_ice_elemental: { ice: 4 },
+    // Water: casting water spells, and river, lake and marsh creatures.
+    cast_water:         { water: 1 },
+    kill_shark:         { water: 6 },
+    kill_giant_frog:    { water: 2, nature: 1 },
+    kill_heron:         { water: 1 },
+    kill_cave_fish:     { water: 2 },
+    kill_glacier_crab:  { water: 2, ice: 2 },
+    kill_bog_lurker:    { water: 3, nature: 1 },
+    kill_rot_toad:      { water: 1, nature: 1 },
+    kill_rot_frog:      { water: 1, nature: 1 },
+    kill_plague_heron:  { water: 2 },
 };

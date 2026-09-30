@@ -5,7 +5,7 @@
 export const ELEMENT_COLORS = {
     fire: 0xff6600, arcane: 0xaa44ff, lightning: 0xffdd00,
     shadow: 0x8800cc, earth: 0x44aa22, ice: 0x88ddff,
-    nature: 0x44cc44, wind: 0xccffaa,
+    nature: 0x44cc44, wind: 0xccffaa, water: 0x2f7fd0,
 };
 
 export const SLOT_KEYS = ['Q', 'R', 'F', 'T'];

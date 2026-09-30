@@ -19,6 +19,7 @@ import { catalogueLayout } from '../utils/catalogueLayout.js';
 import { DIALOGUES } from '../data/dialogues.js';
 import { SPELLS, TIER_NAMES, RESONANCE_GAINS } from '../data/spells.js';
 import { statusManager } from '../systems/StatusManager.js';
+import { ELEMENT_COLORS } from '../controls/launcherDefs.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { ANIM_PROFILES } from '../data/animProfiles.js';
 import { CharacterRenderer, DEFAULT_ANIMS } from '../systems/CharacterRenderer.js';
@@ -666,7 +667,7 @@ export default class GameScene extends Phaser.Scene {
         const spell = SPELLS[spellId];
         const level = playerStats.getSpellLevel(spellId);
         const range = spell.range?.[Math.max(0, level - 1)] ?? 120;
-        const col   = { fire: 0xff6600, arcane: 0xaa44ff, lightning: 0xffdd00, shadow: 0x8800cc, earth: 0x44aa22 }[spell.element] ?? 0xffffff;
+        const col   = ELEMENT_COLORS[spell.element] ?? 0xffffff;
 
         // Reticle: range circle from player + aim marker
         this._reticle = this.add.graphics().setDepth(200);
@@ -795,6 +796,7 @@ export default class GameScene extends Phaser.Scene {
             ice:       { tints: [0x88ddff, 0xffffff, 0xaaeeff], flash: null, qty: 14 },
             nature:    { tints: [0x44cc44, 0x88ff44, 0x226622], flash: null, qty: 14 },
             wind:      { tints: [0xccffaa, 0xeeffdd, 0x88ccaa], flash: null, qty: 12 },
+            water:     { tints: [0x2f7fd0, 0x66ccff, 0xffffff], flash: null, qty: 16 },
         };
 
         // Custom VFX for spells that deserve it
@@ -1075,6 +1077,9 @@ export default class GameScene extends Phaser.Scene {
         if (!spell || spell.passive) return;
 
         const targeting = spell.targetingType;
+        // Element of the hit, read by _hit so status synergies apply to spell
+        // damage (wet: lightning x2 / fire x0.5, dried: fire x1.3, burning: water x1.25).
+        this._hitElement = spell.element;
 
         if (targeting === 'targeted_aoe') {
             if (dmg > 0) this._damageInRadius(tx, ty, range, dmg);
@@ -1103,6 +1108,7 @@ export default class GameScene extends Phaser.Scene {
         else if (targeting === 'self' && spell.applyStatus && Math.random() < spell.applyStatus.chance) {
             statusManager.apply(this.player, spell.applyStatus.id, { duration: spell.applyStatus.duration });
         }
+        this._hitElement = null;
     }
 
     _nearestEnemy(tx, ty, range) {
@@ -1167,13 +1173,19 @@ export default class GameScene extends Phaser.Scene {
 
     // ── Damage utilities ──────────────────────────────────────────────────
 
+    // Deal spell damage, scaled by the target's statuses for the current element.
+    _hit(e, dmg) {
+        const m = this._hitElement ? statusManager.incomingDmgMult(e, this._hitElement) : 1;
+        e.takeDamage(Math.floor(dmg * m));
+    }
+
     _damageInRadius(cx, cy, range, dmg) {
         this.enemies.getChildren().forEach(e => {
             if (e.active && Phaser.Math.Distance.Between(cx, cy, e.x, e.y) <= range)
-                e.takeDamage(dmg);
+                this._hit(e, dmg);
         });
         if (this.boss?.active && Phaser.Math.Distance.Between(cx, cy, this.boss.x, this.boss.y) <= range)
-            this.boss.takeDamage(Math.floor(dmg * 0.65));
+            this._hit(this.boss, Math.floor(dmg * 0.65));
     }
 
     _damageSingleNearest(tx, ty, range, dmg) {
@@ -1191,7 +1203,7 @@ export default class GameScene extends Phaser.Scene {
         this.enemies.getChildren().forEach(check);
         if (this.boss?.active) check(this.boss);
         hits.sort((a, b) => a.dist - b.dist);
-        if (hits[0]) hits[0].e.takeDamage(hits[0].e === this.boss ? Math.floor(dmg * 0.65) : dmg);
+        if (hits[0]) this._hit(hits[0].e, hits[0].e === this.boss ? Math.floor(dmg * 0.65) : dmg);
     }
 
     _damageInCone(tx, ty, range, coneHalf, dmg) {
@@ -1203,7 +1215,7 @@ export default class GameScene extends Phaser.Scene {
             if (dist > range) return;
             const ang = Phaser.Math.RadToDeg(Math.atan2(e.y - py, e.x - px));
             if (Math.abs(Phaser.Math.Angle.ShortestBetween(facingAngle, ang)) <= coneHalf)
-                e.takeDamage(Math.floor(dmg * mult));
+                this._hit(e, Math.floor(dmg * mult));
         };
         this.enemies.getChildren().forEach(e => check(e, 1));
         if (this.boss?.active) check(this.boss, 0.65);

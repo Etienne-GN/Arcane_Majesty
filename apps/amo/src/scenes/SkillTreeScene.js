@@ -163,7 +163,7 @@ export default class SkillTreeScene extends Phaser.Scene {
             // Resonance requirements
             const resObjs = [];
             if (skill.requirements?.resonance) {
-                const RES_COLORS = { arcane: '#aa44ff', shadow: '#8800cc', fire: '#ff6600', earth: '#44aa22', lightning: '#ffdd00' };
+                const RES_COLORS = { arcane: '#aa44ff', shadow: '#8800cc', fire: '#ff6600', earth: '#44aa22', lightning: '#ffdd00', ice: '#88ddff', nature: '#44cc44', wind: '#ccffaa', water: '#2f7fd0' };
                 let rx = startX + width - 8;
                 const parts = Object.entries(skill.requirements.resonance);
                 for (let ri = parts.length - 1; ri >= 0; ri--) {
