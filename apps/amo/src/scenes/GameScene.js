@@ -23,6 +23,7 @@ import { STATUS_DEFS } from '../data/statuses.js';
 import { ELEMENT_COLORS } from '../controls/launcherDefs.js';
 import { resolveNode, rollHarvest } from '../data/gathering.js';
 import { setRespawnPoint } from '../systems/respawn.js';
+import { mapLevelBand, rollEnemyLevel, scaleEnemyStats } from '../data/levelBands.js';
 import { nodeKey, markNodeHarvested, nodeRegrowRemaining, markBossDefeated, isBossDefeated } from '../systems/WorldState.js';
 import { ENEMY_KITS } from '../data/enemyMagic.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
@@ -190,6 +191,7 @@ export default class GameScene extends Phaser.Scene {
         // Auto-start quests defined for this map
         (mapDef.quests ?? []).forEach(qid => questManager.startQuest(qid));
 
+        this._levelBand = mapLevelBand(mapDef);
         // Enemies
         this._enemyById = new Map();
         this.enemies = this.physics.add.group({ runChildUpdate: false });
@@ -3080,11 +3082,23 @@ export default class GameScene extends Phaser.Scene {
         });
     }
 
-    _spawnEnemy(type, x, y) {
+    _spawnEnemy(type, x, y, level = null) {
         const typeDef = ENEMY_TYPES[type] ?? {};
         const enemy   = new Enemy(this, x, y, typeDef);
         enemy.enemyType = type;
         enemy.spellKit  = ENEMY_KITS[type] ?? [];
+
+        // Region level (offline only — online enemies take their stats from the server)
+        if (!typeDef.passive && !this._serverUrl) {
+            const lvl = level ?? rollEnemyLevel(this._levelBand ?? { min: 1, max: 3 });
+            const s = scaleEnemyStats({ health: enemy.maxHealth, damage: enemy.damage, xpReward: enemy.xpReward, goldDrop: enemy.goldDrop }, lvl);
+            enemy.level = lvl;
+            enemy.maxHealth = s.health;
+            enemy.health    = s.health;
+            enemy.damage    = s.damage;
+            enemy.xpReward  = s.xpReward;
+            enemy.goldDrop  = s.goldDrop;
+        }
 
         enemy.on('died', (xp) => {
             if (this._serverUrl && enemy.netId >= 0) networkManager.sendEnemyDied(enemy.netId, this._mapId);

@@ -4,6 +4,7 @@ import { playerStats } from '../systems/PlayerStats.js';
 import { statusManager } from '../systems/StatusManager.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { ENEMY_SPELLS, ENEMY_KITS, GLOBAL_CAST_GAP, chooseEnemySpell } from '../data/enemyMagic.js';
+import { levelDamageMult } from '../data/levelBands.js';
 
 const STATE = { PATROL: 'patrol', CHASE: 'chase', ATTACK: 'attack', FLEE: 'flee', STUNNED: 'stunned', DEAD: 'dead' };
 
@@ -50,6 +51,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.minRange     = typeDef.minRange     ?? 70;
         this.splitOnDeath = typeDef.splitOnDeath ?? null;
         this.aoeOnDeath   = typeDef.aoeOnDeath   ?? null;
+        this.level        = 1;   // set by GameScene from the map's level band
         // Spell kit (data/enemyMagic.js) — set by GameScene from the type id
         this.spellKit      = [];
         this._spellCd      = {};
@@ -424,7 +426,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
             g.lineBetween(this.x, this.y, player.x, player.y);
             this.scene.tweens.add({ targets: g, alpha: 0, duration: 200, onComplete: () => g.destroy() });
             flash(player.x, player.y);
-            if (sp.kind === 'bolt') player.takeDamage(Math.round(sp.dmg * statusManager.statsMult(this)));
+            if (sp.kind === 'bolt') player.takeDamage(Math.round(sp.dmg * levelDamageMult(this.level) * statusManager.statsMult(this)));
             if (sp.dispel) {
                 const gone = statusManager.dispel(player);
                 if (gone.includes('warded')) player._wardShield = 0;

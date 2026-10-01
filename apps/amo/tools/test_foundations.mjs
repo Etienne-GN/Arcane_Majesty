@@ -13,6 +13,8 @@ const { PlayerStats } = await import('../src/systems/PlayerStats.js');
 const { SaveManager } = await import('../src/systems/SaveManager.js');
 const R = await import('../src/systems/respawn.js');
 const WS = await import('../src/systems/WorldState.js');
+const LB = await import('../src/data/levelBands.js');
+const { getMap } = await import('../src/data/maps/index.js');
 
 let n = 0;
 const ok = (cond, msg) => { assert.ok(cond, msg); n++; };
@@ -117,6 +119,21 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     ok(WS.nodeRegrowRemaining(t, 'prologue_forest', '1,1', Date.now(), 600000) > 0, 'pending node saved');
     t.reset();
     eq(t.worldState, {}, 'a new game forgets the world');
+}
+
+// ---- A2: level bands and scaling
+{
+    eq(LB.mapLevelBand(getMap('prologue_forest')), { min: 1, max: 3 }, 'outside the campaign → 1–3');
+    eq(LB.mapLevelBand(getMap('echoes_of_stone')), { min: 1, max: 3 }, 'chapter 1 → 1–3');
+    eq(LB.mapLevelBand(getMap('summit_of_despair')), { min: 7, max: 9 }, 'chapter 4 → 7–9');
+    eq(LB.mapLevelBand({ id: 'x', levelBand: { min: 12, max: 14 } }), { min: 12, max: 14 }, 'a map can set its own band');
+    eq(LB.mapLevelBand(null), { min: 1, max: 3 }, 'no map → 1–3');
+    eq(LB.rollEnemyLevel({ min: 7, max: 9 }, () => 0), 7, 'roll low');
+    eq(LB.rollEnemyLevel({ min: 7, max: 9 }, () => 0.9999), 9, 'roll high');
+    const base = { health: 100, damage: 10, xpReward: 50, goldDrop: 10 };
+    eq(LB.scaleEnemyStats(base, 1), base, 'level 1 is the base creature');
+    eq(LB.scaleEnemyStats(base, 5), { health: 160, damage: 14, xpReward: 74, goldDrop: 14 }, 'level 5 scaling');
+    ok(Math.abs(LB.levelDamageMult(5) - 1.4) < 1e-9, 'spell damage scales like melee');
 }
 
 console.log(`✓ foundations tests passed (${n} assertions).`);
