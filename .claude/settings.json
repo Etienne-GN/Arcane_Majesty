@@ -34,7 +34,6 @@
       "Write(/home/etienne/.claude/projects/-home-etienne-projects-Arcane-Majesty/memory/**)"
     ],
     "deny": [
-      "Bash(git push*)",
       "Bash(git reset --hard*)",
       "Bash(git clean*)",
       "Bash(git branch -D*)",
@@ -42,6 +41,9 @@
       "Bash(rm -r *)",
       "Edit(apps/am1/**)",
       "Write(apps/am1/**)"
+    ],
+    "ask": [
+      "Bash(git push*)"
     ]
   }
 }
