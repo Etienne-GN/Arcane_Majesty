@@ -12,6 +12,7 @@ globalThis.localStorage = {
 const { PlayerStats } = await import('../src/systems/PlayerStats.js');
 const { SaveManager } = await import('../src/systems/SaveManager.js');
 const R = await import('../src/systems/respawn.js');
+const WS = await import('../src/systems/WorldState.js');
 
 let n = 0;
 const ok = (cond, msg) => { assert.ok(cond, msg); n++; };
@@ -85,6 +86,37 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     u.location = { mapId: 'x', x: 1, y: 1 };
     u.reset();
     eq([u.location, u.respawnPoint], [null, null], 'a new game clears them');
+}
+
+// ---- A3: world state
+{
+    const s = new PlayerStats();
+    eq(s.worldState, {}, 'empty world state on a new character');
+    const key = WS.nodeKey({ x: 8, y: 6, type: 'herb' });
+    eq(key, '8,6', 'node key from its tile');
+    WS.markNodeHarvested(s, 'prologue_forest', key, 1000, 150000);
+    eq(WS.nodeRegrowRemaining(s, 'prologue_forest', key, 1000, 150000), 150000, 'full regrow right after harvest');
+    eq(WS.nodeRegrowRemaining(s, 'prologue_forest', key, 101000, 150000), 50000, 'counts down in real time');
+    eq(WS.nodeRegrowRemaining(s, 'prologue_forest', key, 999999, 150000), 0, 'ready again');
+    eq(WS.nodeRegrowRemaining(s, 'prologue_forest', key, -5e9, 150000), 150000, 'a clock jump back never locks it longer than its regrow');
+    eq(WS.nodeRegrowRemaining(s, 'other_map', key, 1000, 150000), 0, 'other maps unaffected');
+    ok(!WS.isBossDefeated(s, 'prologue_forest'), 'boss alive');
+    WS.markBossDefeated(s, 'prologue_forest');
+    ok(WS.isBossDefeated(s, 'prologue_forest'), 'boss defeated');
+    const pruned = WS.prunedWorldState(s, 999999);
+    eq(pruned.prologue_forest.nodes, {}, 'expired node timers pruned');
+    ok(pruned.prologue_forest.bossDefeated, 'boss flag kept');
+
+    store.clear();
+    SaveManager.setSlot('w', 'eldrin');
+    WS.markNodeHarvested(s, 'prologue_forest', '1,1', Date.now(), 600000);
+    SaveManager.save(s);
+    const t = new PlayerStats();
+    SaveManager.load(t, 'w', 'eldrin');
+    ok(WS.isBossDefeated(t, 'prologue_forest'), 'boss flag saved');
+    ok(WS.nodeRegrowRemaining(t, 'prologue_forest', '1,1', Date.now(), 600000) > 0, 'pending node saved');
+    t.reset();
+    eq(t.worldState, {}, 'a new game forgets the world');
 }
 
 console.log(`✓ foundations tests passed (${n} assertions).`);

@@ -228,6 +228,8 @@ export class PlayerStats {
         // death (last campfire / rift-gate) — see systems/respawn.js.
         this.location     = null;
         this.respawnPoint = null;
+        // Harvested-node timers and defeated bosses, per map (systems/WorldState.js)
+        this.worldState   = {};
 
         // Attuned Rift-Gates — enables fast-travel between them
         this.attunedGates = [];
@@ -724,6 +726,7 @@ export class PlayerStats {
         this.weaponEnchants   = {};
         this.location         = null;
         this.respawnPoint     = null;
+        this.worldState       = {};
     }
 }
 

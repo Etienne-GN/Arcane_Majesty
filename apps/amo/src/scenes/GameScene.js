@@ -23,6 +23,7 @@ import { STATUS_DEFS } from '../data/statuses.js';
 import { ELEMENT_COLORS } from '../controls/launcherDefs.js';
 import { resolveNode, rollHarvest } from '../data/gathering.js';
 import { setRespawnPoint } from '../systems/respawn.js';
+import { nodeKey, markNodeHarvested, nodeRegrowRemaining, markBossDefeated, isBossDefeated } from '../systems/WorldState.js';
 import { ENEMY_KITS } from '../data/enemyMagic.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { ANIM_PROFILES } from '../data/animProfiles.js';
@@ -329,6 +330,9 @@ export default class GameScene extends Phaser.Scene {
             spr.ePrompt  = this.add.text(nx, ny - TILE_SIZE / 2 - 4, '[E]', {
                 font: '7px monospace', fill: type.prompt
             }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
+            // Still regrowing from an earlier visit?
+            const left = nodeRegrowRemaining(playerStats, this._mapId, nodeKey(def), Date.now(), def.regrowMs ?? type.regrowMs);
+            if (left > 0) { spr.setAlpha(0); this._setNodeGathered(spr, left); }
         });
 
         // Cracked boulders — Earth Pillar shatters them, revealing paths
@@ -350,7 +354,7 @@ export default class GameScene extends Phaser.Scene {
         this._bossArenaTriggered = false;
         this._bossDefeated = false;
         this.boss = null;
-        if (mapDef.spawns.boss) {
+        if (mapDef.spawns.boss && !isBossDefeated(playerStats, this._mapId)) {
         const bx = mapDef.spawns.boss.spawn.x * TILE_SIZE + TILE_SIZE / 2;
         const by = mapDef.spawns.boss.spawn.y * TILE_SIZE + TILE_SIZE / 2;
         this.boss = new BossEnemy(this, bx, by);
@@ -358,6 +362,7 @@ export default class GameScene extends Phaser.Scene {
 
         this.boss.on('died', (xp) => {
             this._bossDefeated = true;
+            markBossDefeated(playerStats, this._mapId);
             playerStats.gainXp(xp);
             this._spawnXpText(bx, by, xp);
             this._checkLevelUp();
@@ -1171,6 +1176,19 @@ export default class GameScene extends Phaser.Scene {
                 : [this._nearestEnemy(tx, ty, range)].filter(Boolean);
             for (const e of targets) this._unweave(e, spell, dmg);
         }
+    }
+
+    // A harvested node: no prompt, no body, back after `ms` (also across reloads — WorldState)
+    _setNodeGathered(node, ms) {
+        node.gathered = true;
+        node.ePrompt?.setAlpha(0);
+        this.time.delayedCall(350, () => { if (node.body) node.disableBody(true, false); });
+        this.time.delayedCall(ms, () => {
+            if (!node.scene) return;
+            node.enableBody(false, 0, 0, true, true);
+            node.gathered = false;
+            this.tweens.add({ targets: node, alpha: 1, duration: 600 });
+        });
     }
 
     // Flight time of a projectile spell from the player to (tx, ty)
@@ -3015,8 +3033,8 @@ export default class GameScene extends Phaser.Scene {
                 this.scene.get('UIScene')?.showNotification?.('Your satchel is full.', 1400);
                 return;
             }
-            node.gathered = true;
-            node.ePrompt?.setAlpha(0);
+            const regrowMs = def.regrowMs ?? type.regrowMs;
+            markNodeHarvested(playerStats, this._mapId, nodeKey(def), Date.now(), regrowMs);
             soundManager.collect();
             this.add.particles(node.x, node.y, 'particle', {
                 speed: { min: 20, max: 60 }, angle: { min: 0, max: 360 },
@@ -3024,14 +3042,9 @@ export default class GameScene extends Phaser.Scene {
                 tint: [type.tint, 0xffffff], quantity: 10, explode: true,
             }).setDepth(60);
             this.scene.get('UIScene')?.showNotification?.(got.join('   '), 1600);
-            this.tweens.add({ targets: node, alpha: 0, duration: 350, onComplete: () => node.disableBody(true, false) });
-            // Regrow: the node comes back after a while (and on every map load)
-            this.time.delayedCall(def.regrowMs ?? type.regrowMs, () => {
-                if (!node.scene) return;
-                node.enableBody(false, 0, 0, true, true);
-                node.gathered = false;
-                this.tweens.add({ targets: node, alpha: 1, duration: 600 });
-            });
+            this.tweens.add({ targets: node, alpha: 0, duration: 350 });
+            this._setNodeGathered(node, regrowMs);
+            SaveManager.save(playerStats, this._storyId, this._characterId);
         });
 
         // Rift-Gates

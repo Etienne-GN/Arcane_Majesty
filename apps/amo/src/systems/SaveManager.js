@@ -1,4 +1,5 @@
 import { xpForLevel } from './PlayerStats.js';
+import { prunedWorldState } from './WorldState.js';
 function saveKey(storyId, characterId) {
     return `amo_save_${storyId}_${characterId}`;
 }
@@ -56,6 +57,7 @@ export class SaveManager {
             weaponEnchants:    { ...(stats.weaponEnchants ?? {}) },
             location:          stats.location ? { ...stats.location } : null,
             respawnPoint:      stats.respawnPoint ? { ...stats.respawnPoint } : null,
+            worldState:        prunedWorldState(stats, Date.now()),
             timestamp:     Date.now(),
         };
         try {
@@ -107,6 +109,7 @@ export class SaveManager {
             stats.weaponEnchants = { ...(d.weaponEnchants ?? {}) };
             stats.location     = d.location ? { ...d.location } : null;
             stats.respawnPoint = d.respawnPoint ? { ...d.respawnPoint } : null;
+            stats.worldState   = d.worldState ? JSON.parse(JSON.stringify(d.worldState)) : {};
             // Seed seenItems from save; fall back to current inventory for old saves
             stats.seenItems = d.seenItems
                 ? new Set(d.seenItems)
