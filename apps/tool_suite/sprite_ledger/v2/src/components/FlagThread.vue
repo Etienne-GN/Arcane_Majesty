@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import type { Flag } from '@shared/api';
-import { keyOf, approveReview, sendBack, answerQuestion, setFlagStatus } from '../store';
+import { keyOf, approveReview, sendBack, sendBackFlag, answerQuestion, setFlagStatus } from '../store';
 
 // One flag shown as a conversation. The flag's `comment` is a running thread
 // written by both sides: the report, then "[Claude] …", "[Rework] …" and
 // "[Answer to Claude's question] …" paragraphs. Paragraphs without a marker
 // continue the bubble before them.
+// `stale` (sprite gone) and zone flags (no sprite) act on the flag itself.
 const props = defineProps<{ flag: Flag; stale?: boolean }>();
+const detached = computed(() => props.stale || !!props.flag.region);
 
 interface Bubble { who: 'you' | 'claude'; tag: string; text: string }
 const REASONS: Record<string, string> = {
@@ -37,7 +39,7 @@ const STATUS: Record<string, { label: string; cls: string }> = {
     needs_review: { label: 'To review', cls: 'review' }, question: { label: 'Question', cls: 'question' },
     open: { label: 'Open for Claude', cls: 'open' }, resolved: { label: 'Resolved', cls: 'approved' },
 };
-const key = computed(() => keyOf(props.flag.sheet, props.flag.name));
+const key = computed(() => keyOf(props.flag.sheet, props.flag.name ?? ''));
 const note = ref('');
 const answer = ref('');
 </script>
@@ -59,10 +61,10 @@ const answer = ref('');
     </div>
 
     <div v-if="flag.status === 'needs_review'" class="actions">
-      <button class="primary" @click="stale ? setFlagStatus(flag, 'resolved', 'Approved') : approveReview([key])">✓ Approve <kbd>A</kbd></button>
+      <button class="primary" @click="detached ? setFlagStatus(flag, 'resolved', 'Approved') : approveReview([key])">✓ Approve <kbd>A</kbd></button>
       <div class="rework">
         <textarea v-model="note" rows="2" placeholder="What's still wrong? (optional)" :data-rework="flag.id" />
-        <button @click="stale ? setFlagStatus(flag, 'open', 'Sent back') : sendBack([key], note); note = ''">↩ Send back <kbd>R</kbd></button>
+        <button @click="detached ? sendBackFlag(flag, note) : sendBack([key], note); note = ''">↩ Send back <kbd>R</kbd></button>
       </div>
     </div>
     <div v-else-if="flag.status === 'question'" class="actions">

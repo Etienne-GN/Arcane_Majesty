@@ -6,6 +6,7 @@ import SpriteGrid from './components/SpriteGrid.vue';
 import SheetView from './components/SheetView.vue';
 import Inspector from './components/Inspector.vue';
 import StaleFlags from './components/StaleFlags.vue';
+import ZoneFlags from './components/ZoneFlags.vue';
 import FocusMode from './components/FocusMode.vue';
 import CommandPalette from './components/CommandPalette.vue';
 import HelpOverlay from './components/HelpOverlay.vue';
@@ -134,6 +135,7 @@ function onKey(e: KeyboardEvent) {
       <main class="workspace">
         <div v-if="loading && !items.length" class="loading muted">Loading sprites…</div>
         <StaleFlags v-else-if="scope.kind === 'inbox' && scope.id === 'stale'" />
+        <ZoneFlags v-else-if="scope.kind === 'inbox' && scope.id === 'zones'" />
         <template v-else>
           <Toolbar />
           <SpriteGrid v-if="view === 'grid'" />

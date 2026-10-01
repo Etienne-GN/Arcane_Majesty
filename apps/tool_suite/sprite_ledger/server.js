@@ -151,8 +151,8 @@ export function createServer(catalogueDir, dataDir) {
     });
 
     app.post('/api/flags', async (req, res) => {
-        const flag = await addFlag(dataDir, req.body);
-        res.json(flag);
+        try { res.json(await addFlag(dataDir, req.body)); }
+        catch (e) { res.status(400).send(e.message); }
     });
 
     app.patch('/api/flags/:id', async (req, res) => {

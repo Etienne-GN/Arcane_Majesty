@@ -226,11 +226,24 @@ export async function loadFlags(dataDir, statusFilter) {
     return flags.filter(f => f.status === statusFilter);
 }
 
-export async function addFlag(dataDir, { sheet, name, reason, comment }) {
+// A flag is on a sprite (`name`) or on a zone of the sheet (`region`, in sheet
+// pixels, `name` null) — e.g. an item the catalogue crops badly or misses.
+function cleanRegion(region) {
+    const r = Object.fromEntries(['x', 'y', 'w', 'h'].map(k => [k, Math.round(Number(region?.[k]))]));
+    if (Object.values(r).some(v => !Number.isFinite(v)) || r.x < 0 || r.y < 0 || r.w < 1 || r.h < 1) {
+        throw new Error('invalid region: needs x, y >= 0 and w, h >= 1');
+    }
+    return r;
+}
+
+export async function addFlag(dataDir, { sheet, name, reason, comment, region }) {
+    if (!name && !region) throw new Error('a flag needs a sprite name or a region');
+    const zone = region ? cleanRegion(region) : null;
     const flags = await readJsonOrDefault(join(dataDir, 'flags.json'), []);
     const flag = {
         id: `f_${randomUUID()}`,
-        sheet, name, reason, comment: comment ?? '',
+        sheet, name: name ?? null, reason, comment: comment ?? '',
+        ...(zone ? { region: zone } : {}),
         status: 'open',
         claudeNote: null,
         createdAt: new Date().toISOString(),

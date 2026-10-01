@@ -11,7 +11,7 @@ import { flagsBatch, metaBatch, physicsBatch, type FlagUpdate, type MetaUpdate }
 export type Key = string;
 export interface Item { key: Key; sheet: Sheet; entry: SpriteEntry; box: Box }
 export interface Box { x: number; y: number; w: number; h: number }
-export type InboxId = 'review' | 'question' | 'open' | 'hitbox' | 'stale';
+export type InboxId = 'review' | 'question' | 'open' | 'hitbox' | 'zones' | 'stale';
 export type Scope =
     | { kind: 'inbox'; id: InboxId }
     | { kind: 'library'; id: string } // 'all' or a collection id
@@ -25,6 +25,7 @@ export const INBOX: Record<InboxId, { label: string; color: string; hint: string
     question: { label: 'Questions', color: 'question', hint: 'Claude needs an answer from you' },
     hitbox: { label: 'Hitboxes', color: 'hitbox', hint: "Claude's hitbox/layer guesses to check" },
     open: { label: 'Open for Claude', color: 'open', hint: 'Flags waiting for Claude to act on' },
+    zones: { label: 'Zone flags', color: 'open', hint: 'Areas of a sheet you flagged (badly cropped or missing items)' },
     stale: { label: 'Stale flags', color: 'muted', hint: 'Flags on sprites that no longer exist' },
 };
 
@@ -101,7 +102,8 @@ export const flagsByKey = computed(() => {
     const map = new Map<Key, Flag[]>();
     const exists = itemByKey.value;
     for (const f of pendingFlags.value) {
-        const k = keyOf(f.sheet, f.name);
+        if (f.region) continue;   // zone flags live on the sheet, not on a sprite
+        const k = keyOf(f.sheet, f.name!);
         if (!exists.has(k)) continue;
         if (!map.has(k)) map.set(k, []);
         map.get(k)!.push(f);
@@ -110,8 +112,12 @@ export const flagsByKey = computed(() => {
 });
 export const staleFlags = computed(() => {
     const exists = itemByKey.value;
-    return pendingFlags.value.filter(f => !exists.has(keyOf(f.sheet, f.name)));
+    return pendingFlags.value.filter(f => !f.region && !exists.has(keyOf(f.sheet, f.name!)));
 });
+// Flags on an area of a sheet (drawn in the sheet view), not on a sprite.
+export const zoneFlags = computed(() => pendingFlags.value.filter(f => f.region));
+// Zones drawn in the sheet view but not sent yet.
+export const draftZones = ref<{ sheet: string; box: Box }[]>([]);
 export function hasStatus(key: Key, status: Flag['status']): boolean {
     return (flagsByKey.value.get(key) ?? []).some(f => f.status === status);
 }
@@ -190,7 +196,7 @@ export const visibleIndex = computed(() => new Map(visible.value.map((it, i) => 
 
 // Navigator counts
 export const inboxCounts = computed(() => {
-    const c: Record<InboxId, number> = { review: 0, question: 0, open: 0, hitbox: 0, stale: staleFlags.value.length };
+    const c: Record<InboxId, number> = { review: 0, question: 0, open: 0, hitbox: 0, zones: zoneFlags.value.length, stale: staleFlags.value.length };
     for (const [, fl] of flagsByKey.value) {
         if (fl.some(f => f.status === 'needs_review')) c.review++;
         if (fl.some(f => f.status === 'question')) c.question++;
@@ -272,6 +278,14 @@ export function select(key: Key, mode: 'replace' | 'toggle' | 'range' = 'replace
     }
     selection.value = next;
     focusKey.value = next.has(key) ? key : ([...next][0] ?? null);
+}
+/** Select a set of sprites at once (drag-select in the sheet view); `add` keeps the current selection. */
+export function selectMany(keys: Key[], add = false) {
+    const next = new Set(add ? selection.value : []);
+    for (const k of keys) next.add(k);
+    selection.value = next;
+    if (keys.length) { focusKey.value = keys[0]; anchorKey = keys[0]; }
+    else if (!add) { focusKey.value = null; anchorKey = null; }
 }
 export function selectAll() {
     selection.value = new Set(visible.value.map(i => i.key));
@@ -390,10 +404,10 @@ export function sendBack(keys: Key[], note: string) {
 }
 export function answerQuestion(flag: Flag, answer: string) {
     return writeFlags([{ id: flag.id, status: 'open', comment: append(flag.comment, `[Answer to Claude's question] ${answer.trim()}`) }],
-        'Answer sent to Claude', [keyOf(flag.sheet, flag.name)], 'answered');
+        'Answer sent to Claude', [keyOf(flag.sheet, flag.name ?? '')], 'answered');
 }
 export function setFlagStatus(flag: Flag, status: Flag['status'], label: string) {
-    const k = keyOf(flag.sheet, flag.name);
+    const k = keyOf(flag.sheet, flag.name ?? '');
     return writeFlags([{ id: flag.id, status }], label, itemByKey.value.has(k) ? [k] : [], status === 'resolved' ? 'approved' : 'rework');
 }
 export function resolveFlags(list: Flag[], label: string) {
@@ -408,6 +422,28 @@ export async function addFlag(key: Key, reason: string, comment: string) {
     } catch (e) {
         toast(msg(e), 'error');
     }
+}
+
+/** Flag areas of a sheet for Claude: one flag per zone, same reason and note. */
+export async function addZoneFlags(sheet: string, boxes: Box[], reason: string, comment: string) {
+    let sent = 0;
+    for (const box of boxes) {
+        try {
+            flags.value.push(await apiAddFlag(sheet, null, reason, comment, box));
+            sent++;
+        } catch (e) {
+            toast(msg(e), 'error');
+        }
+    }
+    if (sent) {
+        draftZones.value = draftZones.value.filter(z => z.sheet !== sheet);
+        toast(sent > 1 ? `${sent} zone flags sent to Claude` : 'Zone flag sent to Claude');
+    }
+}
+/** Send one flag back to Claude with an optional note (zone and stale flags). */
+export function sendBackFlag(flag: Flag, note: string) {
+    const text = note.trim();
+    return writeFlags([{ id: flag.id, status: 'open', ...(text ? { comment: append(flag.comment, `[Rework] ${text}`) } : {}) }], 'Sent back', [], 'rework');
 }
 
 // ---------------------------------------------------------------- meta actions (license, collection)

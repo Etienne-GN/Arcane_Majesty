@@ -7,7 +7,7 @@ import {
 
 // Left navigator: what to work on (Inbox), where things live (Library =
 // collections), and every sheet. Picking an entry sets the workspace scope.
-const INBOX_ORDER: InboxId[] = ['review', 'question', 'hitbox', 'open', 'stale'];
+const INBOX_ORDER: InboxId[] = ['review', 'question', 'hitbox', 'open', 'zones', 'stale'];
 const isScope = (kind: string, id: string) => scope.value.kind === kind && scope.value.id === id;
 
 const sheetQuery = ref('');

@@ -181,6 +181,7 @@ assert.strictEqual(flag.status, 'open');
 assert.strictEqual(flag.resolvedAt, null);
 assert.strictEqual(flag.claudeNote, null, 'a freshly-added flag carries no claudeNote');
 
+
 const openFlags = await loadFlags(dataDir, 'open');
 assert.strictEqual(openFlags.length, 1);
 
@@ -245,4 +246,14 @@ const expectedIds = [
 ];
 assert.deepStrictEqual(realCollections.map(c => c.id).sort(), expectedIds.sort());
 
-console.log('✓ data-store tests passed (61 assertions).');
+// --- zone flags: an area of a sheet, not tied to a sprite
+const zone = await addFlag(dataDir, { sheet: 'obj_misk_atlas.png', name: null, reason: 'misaligned', comment: 'the barrel is cut', region: { x: 10.4, y: 20, w: 33, h: 40 } });
+assert.deepStrictEqual(zone.region, { x: 10, y: 20, w: 33, h: 40 }, 'zone flag keeps its region, rounded to pixels');
+assert.strictEqual(zone.name, null, 'a zone flag has no sprite name');
+assert.strictEqual(zone.status, 'open');
+await assert.rejects(addFlag(dataDir, { sheet: 'x.png', name: null, reason: 'other', comment: '', region: { x: 0, y: 0, w: 0, h: 5 } }), /region/, 'an empty zone is refused');
+await assert.rejects(addFlag(dataDir, { sheet: 'x.png', name: null, reason: 'other', comment: '' }), /name or a region/, 'a flag needs a sprite or a zone');
+const plain = await addFlag(dataDir, { sheet: 'PATD_Props.png', name: 'barrel_wood', reason: 'other', comment: '' });
+assert.ok(!('region' in plain), 'sprite flags carry no region field');
+
+console.log('✓ data-store tests passed (67 assertions).');

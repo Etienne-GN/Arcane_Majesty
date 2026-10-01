@@ -44,7 +44,11 @@ export interface Collection { id: string; name: string; parentId: string | null;
 export type FlagStatus = 'open' | 'needs_review' | 'question' | 'resolved';
 
 export interface Flag {
-    id: string; sheet: string; name: string;
+    id: string; sheet: string;
+    // A sprite flag has a name; a zone flag has name null and a region (sheet
+    // pixels) — an area of the sheet, e.g. an item the catalogue crops badly.
+    name: string | null;
+    region?: { x: number; y: number; w: number; h: number };
     reason: string; comment: string;
     status: FlagStatus;
     // Set only when status is (or was) 'question' — the question itself,
@@ -104,8 +108,11 @@ export async function fetchFlags(status?: string): Promise<Flag[]> {
     return (await req(`/flags${qs}`)).json();
 }
 
-export async function addFlag(sheet: string, name: string, reason: string, comment: string): Promise<Flag> {
-    return (await postJson('/flags', { sheet, name, reason, comment })).json();
+export async function addFlag(
+    sheet: string, name: string | null, reason: string, comment: string,
+    region?: { x: number; y: number; w: number; h: number },
+): Promise<Flag> {
+    return (await postJson('/flags', { sheet, name, reason, comment, ...(region ? { region } : {}) })).json();
 }
 
 // `extra.note` sets claudeNote (Claude asking or updating its question);
