@@ -22,7 +22,7 @@ import { statusManager } from '../systems/StatusManager.js';
 import { STATUS_DEFS } from '../data/statuses.js';
 import { ELEMENT_COLORS } from '../controls/launcherDefs.js';
 import { resolveNode, rollHarvest } from '../data/gathering.js';
-import { setRespawnPoint } from '../systems/respawn.js';
+import { setRespawnPoint, canRespawnAt } from '../systems/respawn.js';
 import { mapLevelBand, rollEnemyLevel, scaleEnemyStats } from '../data/levelBands.js';
 import { nodeKey, markNodeHarvested, nodeRegrowRemaining, markBossDefeated, isBossDefeated } from '../systems/WorldState.js';
 import { ENEMY_KITS } from '../data/enemyMagic.js';
@@ -201,6 +201,11 @@ export default class GameScene extends Phaser.Scene {
             const enemy = this._spawnEnemy(spawn.type, ex, ey);
             enemy.netId = idx;
             this._enemyById.set(idx, enemy);
+            // Single-player: map creatures come back after a while (online, the server respawns them)
+            if (!this._serverUrl) {
+                enemy.spawnDef = { type: spawn.type, x: ex, y: ey };
+                enemy.once('died', () => this._scheduleRespawn(enemy.spawnDef));
+            }
         });
 
         // Campfires
@@ -3150,6 +3155,22 @@ export default class GameScene extends Phaser.Scene {
 
         this.enemies.add(enemy);
         return enemy;
+    }
+
+    _scheduleRespawn(def) {
+        this.time.delayedCall(this._mapDef.respawnMs ?? 120000, () => this._tryRespawn(def));
+    }
+
+    // Respawn at the spawn point once the player is out of the way (retry every 10 s)
+    _tryRespawn(def) {
+        if (!this.player?.active) return;
+        if (!canRespawnAt(def, this.player)) {
+            this.time.delayedCall(10000, () => this._tryRespawn(def));
+            return;
+        }
+        const enemy = this._spawnEnemy(def.type, def.x, def.y);
+        enemy.spawnDef = def;
+        enemy.once('died', () => this._scheduleRespawn(def));
     }
 
     _spawnFireflies(mapW, mapH) {
