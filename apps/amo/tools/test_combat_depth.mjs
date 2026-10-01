@@ -12,6 +12,7 @@ globalThis.localStorage = {
 const { ENEMY_TYPES } = await import('../src/data/worldMap.js');
 const { statusManager } = await import('../src/systems/StatusManager.js');
 const AF = await import('../src/data/enemyAffinities.js');
+const RX = await import('../src/systems/reactions.js');
 
 let n = 0;
 const ok = (cond, msg) => { assert.ok(cond, msg); n++; };
@@ -35,6 +36,36 @@ const mob = (extra = {}) => ({ _statuses: {}, health: 100, maxHealth: 100, activ
     ok(!statusManager.has(imp, 'burning'), 'immunity blocks the status');
     statusManager.apply(imp, 'wet');
     ok(statusManager.has(imp, 'wet'), 'other statuses still apply');
+}
+
+// ---- B3: reactions
+{
+    // Freeze: cold on a wet target
+    const e = mob();
+    statusManager.apply(e, 'wet');
+    statusManager.apply(e, 'cold');
+    ok(statusManager.has(e, 'frozen'), 'cold + wet → frozen');
+    ok(!statusManager.has(e, 'wet') && !statusManager.has(e, 'cold'), 'the water froze: no wet, no plain cold');
+    ok(e._statuses.frozen.remaining === 3000, 'frozen for 3 s');
+    const dry = mob();
+    statusManager.apply(dry, 'cold');
+    ok(statusManager.has(dry, 'cold') && !statusManager.has(dry, 'frozen'), 'cold on a dry target is just cold');
+    const yeti = mob({ immune: ['cold', 'frozen'] });
+    statusManager.apply(yeti, 'wet');
+    statusManager.apply(yeti, 'cold');
+    ok(!statusManager.has(yeti, 'frozen') && statusManager.has(yeti, 'wet'), 'immune to cold: no freeze, stays wet');
+
+    // Conduct: one hop to other wet enemies in range
+    const src = { x: 0, y: 0 };
+    const a = { x: 50, y: 0, active: true, wet: true }, b = { x: 89, y: 0, active: true, wet: true };
+    const far = { x: 200, y: 0, active: true, wet: true }, dryOne = { x: 10, y: 0, active: true, wet: false };
+    const dead = { x: 20, y: 0, active: false, wet: true };
+    eq(RX.conductTargets(src, [src, a, b, far, dryOne, dead], x => x.wet), [a, b], 'arcs to wet, live enemies within 90 px, never the source');
+    eq(RX.CONDUCT_FRACTION, 0.5, 'half damage');
+
+    // Detonate
+    eq(RX.detonateDamage(100), 45, '15 + 30% of the hit');
+    eq(RX.detonateDamage(0), 15, 'a weak hit still bursts');
 }
 
 console.log(`✓ combat-depth tests passed (${n} assertions).`);

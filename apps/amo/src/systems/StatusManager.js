@@ -24,6 +24,12 @@ const sm = {
             if (this.has(entity, 'wet')) { this.remove(entity, 'wet'); }
         }
         if (id === 'cold' && this.has(entity, 'burning')) return;
+        // Freeze: the water on a wet target freezes solid
+        if (id === 'cold' && this.has(entity, 'wet') && !entity.immune?.includes('frozen')) {
+            this.remove(entity, 'wet');
+            this.apply(entity, 'frozen', { duration: 3000 });
+            return;
+        }
         if (id === 'frozen' && this.has(entity, 'burning')) return;
 
         const duration = opts.duration ?? def.duration;

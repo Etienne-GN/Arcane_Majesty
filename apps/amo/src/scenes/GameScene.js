@@ -27,6 +27,7 @@ import { mapLevelBand, rollEnemyLevel, scaleEnemyStats } from '../data/levelBand
 import { nodeKey, markNodeHarvested, nodeRegrowRemaining, markBossDefeated, isBossDefeated } from '../systems/WorldState.js';
 import { ENEMY_KITS } from '../data/enemyMagic.js';
 import { affinityOf, affinityMult } from '../data/enemyAffinities.js';
+import { conductTargets, CONDUCT_FRACTION, DETONATE_RADIUS, detonateDamage } from '../systems/reactions.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { ANIM_PROFILES } from '../data/animProfiles.js';
 import { CharacterRenderer, DEFAULT_ANIMS } from '../systems/CharacterRenderer.js';
@@ -1298,6 +1299,29 @@ export default class GameScene extends Phaser.Scene {
         e.takeDamage(Math.floor(dmg * m * aff));
         if (aff > 1) this.combatManager?._spawnNumber(e.x, e.y - 34, 'weak!', '#ffaa33', false);
         else if (aff < 1) this.combatManager?._spawnNumber(e.x, e.y - 34, 'resist', '#8899aa', false);
+        // Conduct: lightning arcs through water (one hop, no re-entry)
+        if (el === 'lightning' && !this._conducting && statusManager.has(e, 'wet')) {
+            this._conducting = true;
+            const pool = [...this.enemies.getChildren(), ...(this.boss?.active ? [this.boss] : [])];
+            for (const o of conductTargets(e, pool, x => statusManager.has(x, 'wet'))) {
+                const g = this.add.graphics().setDepth(63);
+                g.lineStyle(2, 0xffee66, 0.95);
+                g.lineBetween(e.x, e.y, o.x, o.y);
+                this.tweens.add({ targets: g, alpha: 0, duration: 220, onComplete: () => g.destroy() });
+                this._hit(o, Math.floor(dmg * CONDUCT_FRACTION));
+            }
+            this._conducting = false;
+        }
+        // Detonate: fire ignites void taint
+        if (el === 'fire' && statusManager.has(e, 'void_tainted')) {
+            statusManager.remove(e, 'void_tainted');
+            const burst = detonateDamage(dmg);
+            this.add.particles(e.x, e.y, 'particle', {
+                speed: { min: 60, max: 180 }, angle: { min: 0, max: 360 }, scale: { start: 1.4, end: 0 },
+                lifespan: { min: 200, max: 450 }, tint: [0x9900ff, 0xff6600, 0x220044], quantity: 24, explode: true,
+            }).setDepth(62);
+            this._enemiesInRadius(e.x, e.y, DETONATE_RADIUS).forEach(o => o.takeDamage(burst));
+        }
     }
 
     _damageInRadius(cx, cy, range, dmg) {
