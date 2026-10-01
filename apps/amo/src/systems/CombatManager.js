@@ -58,6 +58,8 @@ export default class CombatManager {
         }
 
         enemy.takeDamage(dmg);
+        // Elite affix: thorns reflect part of a melee hit
+        if (enemy.affixes?.includes('thorned')) stats.health = Math.max(1, stats.health - Math.round(dmg * 0.15));
 
         // Post-hit enchant effects
         if (enchant === 'resonant') {

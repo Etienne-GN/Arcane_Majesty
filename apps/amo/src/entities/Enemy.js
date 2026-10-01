@@ -52,6 +52,10 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         this.splitOnDeath = typeDef.splitOnDeath ?? null;
         this.aoeOnDeath   = typeDef.aoeOnDeath   ?? null;
         this.level        = 1;   // set by GameScene from the map's level band
+        this.elite      = false;   // set by GameScene._makeElite
+        this.affixes    = [];
+        this.lootRolls  = 1;
+        this.bonusDrops = [];
         // Spell kit (data/enemyMagic.js) — set by GameScene from the type id
         this.spellKit      = [];
         this._spellCd      = {};
@@ -86,13 +90,14 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     _drawHealthBar() {
         const g = this.healthBar;
         g.clear();
-        if (this.passive || this.health >= this.maxHealth) return;
+        if (this.passive || (this.health >= this.maxHealth && !this.elite)) return;
         const w = 22, h = 3;
         const bx = this.x - w / 2, by = this.y - 20;
         g.fillStyle(0x222222);
         g.fillRect(bx, by, w, h);
         g.fillStyle(this.health > this.maxHealth * 0.5 ? 0xcc2222 : 0xff6600);
         g.fillRect(bx, by, w * Math.max(0, this.health / this.maxHealth), h);
+        if (this.elite) { g.lineStyle(1, 0xffcc33, 1); g.strokeRect(bx - 1, by - 1, w + 2, h + 2); }
     }
 
     _playAnim(direction) {
@@ -296,7 +301,9 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         if (this.attackCooldown <= 0) {
             this.scene.setTarget?.(this);
             this.attackCooldown = this.ATTACK_COOLDOWN;
-            player.takeDamage(Math.round(this.damage * statusManager.statsMult(this)));
+            const dealt = Math.round(this.damage * statusManager.statsMult(this));
+            player.takeDamage(dealt);
+            if (this.affixes.includes('vampiric')) this.health = Math.min(this.maxHealth, this.health + Math.round(dealt * 0.3));
             soundManager.hit();
             this.setTint(0xff8800);
             this.scene.time.delayedCall(150, () => {
@@ -466,10 +473,12 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
 
         if (this.goldDrop > 0) this.emit('gold', this.goldDrop);
 
-        const drops = [];
-        this.lootTable.forEach(entry => {
-            if (Math.random() < entry.chance) drops.push(entry.id);
-        });
+        const drops = [...this.bonusDrops];
+        for (let r = 0; r < this.lootRolls; r++) {
+            this.lootTable.forEach(entry => {
+                if (Math.random() < entry.chance) drops.push(entry.id);
+            });
+        }
         if (drops.length) this.emit('dropped', this.x, this.y, drops);
 
         if (this.aoeOnDeath)   this.emit('aoeDeath', this.x, this.y, this.aoeOnDeath.radius, this.aoeOnDeath.damage);

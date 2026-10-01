@@ -28,6 +28,7 @@ import { nodeKey, markNodeHarvested, nodeRegrowRemaining, markBossDefeated, isBo
 import { ENEMY_KITS } from '../data/enemyMagic.js';
 import { affinityOf, affinityMult } from '../data/enemyAffinities.js';
 import { targetInfo } from '../systems/targetInfo.js';
+import { eliteCap, rollElite, pickAffixes, eliteStats, eliteRareDrop } from '../data/elites.js';
 import { conductTargets, CONDUCT_FRACTION, DETONATE_RADIUS, detonateDamage } from '../systems/reactions.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { ANIM_PROFILES } from '../data/animProfiles.js';
@@ -195,6 +196,8 @@ export default class GameScene extends Phaser.Scene {
         (mapDef.quests ?? []).forEach(qid => questManager.startQuest(qid));
 
         this._levelBand = mapLevelBand(mapDef);
+        this._eliteCap   = this._serverUrl ? 0 : eliteCap((mapDef.spawns.enemies ?? []).filter(s => !ENEMY_TYPES[s.type]?.passive).length);
+        this._eliteCount = 0;
         // Enemies
         this._enemyById = new Map();
         this.enemies = this.physics.add.group({ runChildUpdate: false });
@@ -202,12 +205,13 @@ export default class GameScene extends Phaser.Scene {
             const ex = spawn.x * TILE_SIZE + TILE_SIZE / 2;
             const ey = spawn.y * TILE_SIZE + TILE_SIZE / 2;
             const enemy = this._spawnEnemy(spawn.type, ex, ey);
+            this._maybeElite(enemy);
             enemy.netId = idx;
             this._enemyById.set(idx, enemy);
             // Single-player: map creatures come back after a while (online, the server respawns them)
             if (!this._serverUrl) {
                 enemy.spawnDef = { type: spawn.type, x: ex, y: ey };
-                enemy.once('died', () => this._scheduleRespawn(enemy.spawnDef));
+                enemy.once('died', () => { if (enemy.elite) this._eliteCount--; this._scheduleRespawn(enemy.spawnDef); });
             }
         });
 
@@ -3234,8 +3238,36 @@ export default class GameScene extends Phaser.Scene {
             return;
         }
         const enemy = this._spawnEnemy(def.type, def.x, def.y);
+        this._maybeElite(enemy);
         enemy.spawnDef = def;
-        enemy.once('died', () => this._scheduleRespawn(def));
+        enemy.once('died', () => { if (enemy.elite) this._eliteCount--; this._scheduleRespawn(def); });
+    }
+
+    _maybeElite(enemy) {
+        if (enemy.passive || !rollElite(Math.random, this._eliteCount, this._eliteCap)) return;
+        this._eliteCount++;
+        this._makeElite(enemy, pickAffixes(Math.random));
+    }
+
+    // Stronger stats, 1–2 affixes, one extra loot roll and a rare regional drop
+    _makeElite(enemy, affixes) {
+        const s = eliteStats({ health: enemy.maxHealth, damage: enemy.damage, xpReward: enemy.xpReward, goldDrop: enemy.goldDrop });
+        Object.assign(enemy, { maxHealth: s.health, health: s.health, damage: s.damage, xpReward: s.xpReward, goldDrop: s.goldDrop });
+        enemy.elite = true;
+        enemy.affixes = affixes;
+        enemy.lootRolls = 2;
+        enemy.bonusDrops = [eliteRareDrop(this._mapDef, Math.random)];
+        enemy.setScale(enemy.scaleX * 1.2);
+        if (affixes.includes('arcane') && !enemy.spellKit.includes('arcane_bolt')) enemy.spellKit = [...enemy.spellKit, 'arcane_bolt'];
+        if (affixes.includes('swift')) statusManager.apply(enemy, 'hastened', { duration: -1 });
+        if (affixes.includes('warded')) {
+            statusManager.apply(enemy, 'mana_ward');
+            const t = this.time.addEvent({ delay: 20000, loop: true, callback: () => {
+                if (!enemy.active) { t.remove(); return; }
+                statusManager.apply(enemy, 'mana_ward');
+            } });
+        }
+        enemy._drawHealthBar();
     }
 
     _spawnFireflies(mapW, mapH) {

@@ -12,6 +12,8 @@ globalThis.localStorage = {
 const { ENEMY_TYPES } = await import('../src/data/worldMap.js');
 const { statusManager } = await import('../src/systems/StatusManager.js');
 const AF = await import('../src/data/enemyAffinities.js');
+const EL = await import('../src/data/elites.js');
+const { getMap } = await import('../src/data/maps/index.js');
 const RX = await import('../src/systems/reactions.js');
 const { targetInfo } = await import('../src/systems/targetInfo.js');
 const { PlayerStats } = await import('../src/systems/PlayerStats.js');
@@ -97,6 +99,25 @@ const mob = (extra = {}) => ({ _statuses: {}, health: 100, maxHealth: 100, activ
     s.seenEnemyTypes.push('wolf'); SaveManager.save(s);
     const u = new PlayerStats(); SaveManager.load(u, 't', 'eldrin');
     eq(u.seenEnemyTypes, ['wolf'], 'seen creatures saved');
+}
+
+// ---- B2: elites
+{
+    eq(EL.eliteCap(0), 0, 'no spawns, no elites');
+    eq(EL.eliteCap(5), 1, 'a small map can still have one');
+    eq(EL.eliteCap(13), 2, 'one per six spawns');
+    ok(EL.rollElite(() => 0.01, 0, 1), 'low roll under the cap → elite');
+    ok(!EL.rollElite(() => 0.5, 0, 1), 'high roll → normal');
+    ok(!EL.rollElite(() => 0.01, 1, 1), 'cap reached → normal');
+    const one = EL.pickAffixes((() => { const r = [0.1, 0.3]; return () => r.shift() ?? 0; })());
+    eq(one.length, 1, 'one affix on a low second roll');
+    const two = EL.pickAffixes((() => { const r = [0.9, 0.0, 0.5]; return () => r.shift() ?? 0; })());
+    eq(two.length, 2, 'two affixes on a high roll');
+    ok(new Set(two).size === 2 && two.every(a => EL.ELITE_AFFIXES.includes(a)), 'distinct, known affixes');
+    eq(EL.eliteStats({ health: 100, damage: 10, xpReward: 20, goldDrop: 4 }), { health: 250, damage: 14, xpReward: 60, goldDrop: 12 }, 'elite multipliers');
+    const rare = EL.eliteRareDrop(getMap('prologue_forest'), () => 0);
+    ok(typeof rare === 'string' && rare.length > 0, `a rare regional drop (${rare})`);
+    eq(EL.eliteRareDrop({ spawns: {} }, () => 0), 'silver_ore', 'fallback when the map has no nodes');
 }
 
 console.log(`✓ combat-depth tests passed (${n} assertions).`);
