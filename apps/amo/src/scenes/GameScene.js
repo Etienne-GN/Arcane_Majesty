@@ -17,7 +17,7 @@ import { TILE_SIZE, ENEMY_TYPES } from '../data/worldMap.js';
 import { getMap } from '../data/maps/index.js';
 import { catalogueLayout } from '../utils/catalogueLayout.js';
 import { DIALOGUES } from '../data/dialogues.js';
-import { SPELLS, TIER_NAMES, RESONANCE_GAINS, scaledStatus, spellRadius } from '../data/spells.js';
+import { SPELLS, TIER_NAMES, RESONANCE_GAINS, scaledStatus, spellRadius, spellDamageAt } from '../data/spells.js';
 import { statusManager } from '../systems/StatusManager.js';
 import { STATUS_DEFS } from '../data/statuses.js';
 import { ELEMENT_COLORS } from '../controls/launcherDefs.js';
@@ -1055,20 +1055,10 @@ export default class GameScene extends Phaser.Scene {
     // ── Spell damage + effects ─────────────────────────────────────────────
 
     _spellDamage(id) {
-        const spell       = SPELLS[id];
-        const level       = playerStats.getSpellLevel(id);
-        const int         = this.player.stats.attributes.intelligence;
         const hasAmp      = ITEMS[playerStats.equipment.weapon]?.passive === 'spell_amplifier';
-        const ampMult     = hasAmp ? 1.25 : 1;
         const masteryMult = 1 + (playerStats.skills['arcane_mastery']?.level ?? 0) * 0.10;
-        let base;
-        if (spell?.baseDmg) {
-            const [b, perLv, perInt] = spell.baseDmg;
-            base = b + perLv * (level - 1) + perInt * int;
-        } else {
-            base = 10;
-        }
-        return Math.floor(base * ampMult * masteryMult * statusManager.statsMult(this.player));   // blessed / cursed
+        const mult = (hasAmp ? 1.25 : 1) * masteryMult * statusManager.statsMult(this.player);   // blessed / cursed
+        return spellDamageAt(SPELLS[id], playerStats.getSpellLevel(id), this.player.stats.attributes.intelligence, mult);
     }
 
     _applySpellEffects(id, tx, ty) {

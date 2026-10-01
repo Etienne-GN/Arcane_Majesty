@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
-import { SPELLS, TIER_NAMES, RESONANCE_ELEMENTS } from '../data/spells.js';
+import { SPELLS, TIER_NAMES, RESONANCE_ELEMENTS, spellTooltip } from '../data/spells.js';
 import { ELEMENT_COLORS } from '../controls/launcherDefs.js';
 
 const ELEMENT_LABELS = {
@@ -201,9 +201,12 @@ export default class SpellbookScene extends Phaser.Scene {
                 track(this.add.text(x + 20, oy + 32, `${tierName}  ${slotHint}${costStr}`, {
                     font: '14px monospace', fill: '#776688'
                 }));
-                track(this.add.text(x + 20, oy + 54, spell.lore ?? '', {
-                    font: '14px monospace', fill: '#555566',
-                    wordWrap: { width: maxW - 180 }
+                track(this.add.text(x + 20, oy + 52, spellTooltip(spell, level, playerStats.attributes.intelligence), {
+                    font: '14px monospace', fill: '#aa99cc',
+                }));
+                const lore = spell.lore ?? '';
+                track(this.add.text(x + 20, oy + 72, lore.length > 90 ? lore.slice(0, 88) + '…' : lore, {
+                    font: '12px monospace', fill: '#555566',
                 }));
 
                 // Tier pips

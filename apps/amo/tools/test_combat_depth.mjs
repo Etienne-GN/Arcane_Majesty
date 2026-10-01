@@ -14,6 +14,7 @@ const { statusManager } = await import('../src/systems/StatusManager.js');
 const AF = await import('../src/data/enemyAffinities.js');
 const EL = await import('../src/data/elites.js');
 const BE = await import('../src/data/bestiary.js');
+const SP = await import('../src/data/spells.js');
 const { getMap } = await import('../src/data/maps/index.js');
 const RX = await import('../src/systems/reactions.js');
 const { targetInfo } = await import('../src/systems/targetInfo.js');
@@ -145,6 +146,17 @@ const mob = (extra = {}) => ({ _statuses: {}, health: 100, maxHealth: 100, activ
     const v = new PlayerStats(); SaveManager.load(v, 'b', 'eldrin');
     eq([v.killCounts, v.seenEnemyTypes], [{}, []], 'legacy save: empty defaults');
     ok(/Killed: 1/.test(BE.bestiaryEntries({ killed: v.killedEnemyTypes, seen: [], killCounts: v.killCounts, band: { min: 1, max: 3 } })[0].text), 'legacy kills show at least 1');
+}
+
+// ---- F2: spell numbers
+{
+    const fb = SP.SPELLS.fireball;   // baseDmg [20, 8, 1.0]
+    eq(SP.spellDamageAt(fb, 1, 5), 25, 'tier 1, INT 5: 20 + 5');
+    eq(SP.spellDamageAt(fb, 3, 10), 46, 'tier 3, INT 10: 20 + 16 + 10');
+    eq(SP.spellDamageAt(fb, 1, 5, 1.1), 27, 'multiplier (blessed) applied and floored');
+    eq(SP.spellDamageAt({ }, 1, 5), 10, 'no baseDmg → 10');
+    eq(SP.spellTooltip(fb, 3, 10), 'Dmg 46 · Burning 60% 12s · CD 1s · Range 240 · Area 56', 'full tooltip at tier 3');
+    eq(SP.spellTooltip(SP.SPELLS.aetheric_ward, 1, 5), 'Warded (until broken) · CD ' + (SP.SPELLS.aetheric_ward.cooldown[0] / 1000) + 's', 'self spell without damage or range');
 }
 
 console.log(`✓ combat-depth tests passed (${n} assertions).`);

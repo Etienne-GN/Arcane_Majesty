@@ -25,6 +25,35 @@ export function scaledStatus(spell, level) {
     return { ...st, duration: Math.round(st.duration * (TIER_DURATION_MULT[(level || 1) - 1] ?? 1)) };
 }
 
+// The game's spell damage: base + per-tier + INT scaling, times a multiplier
+// (weapon amplifier, Arcane Mastery, blessed/cursed), floored.
+export function spellDamageAt(spell, level, int, mult = 1) {
+    let base = 10;
+    if (spell?.baseDmg) {
+        const [b, perLv, perInt] = spell.baseDmg;
+        base = b + perLv * (Math.max(1, level) - 1) + perInt * int;
+    }
+    return Math.floor(base * mult);
+}
+
+// One line of real numbers for the Spellbook.
+export function spellTooltip(spell, level, int, mult = 1) {
+    const i = Math.max(1, level) - 1;
+    const parts = [];
+    if (spell.baseDmg && spell.baseDmg.some(v => v > 0)) parts.push(`Dmg ${spellDamageAt(spell, level, int, mult)}`);
+    const st = scaledStatus(spell, level);
+    if (st) {
+        const label = st.id[0].toUpperCase() + st.id.slice(1).replace(/_/g, ' ');
+        const chance = (st.chance ?? 1) < 1 ? ` ${Math.round(st.chance * 100)}%` : '';
+        const dur = st.duration == null ? '' : st.duration < 0 ? ' (until broken)' : ` ${Math.round(st.duration / 1000)}s`;
+        parts.push(`${label}${chance}${dur}`);
+    }
+    if (spell.cooldown) parts.push(`CD ${+(spell.cooldown[i] / 1000).toFixed(1)}s`);
+    if (spell.range) parts.push(`Range ${spell.range[i]}`);
+    if (spell.radius) parts.push(`Area ${spell.radius[i]}`);
+    return parts.join(' · ');
+}
+
 export const RESONANCE_ELEMENTS = ['fire', 'arcane', 'lightning', 'shadow', 'earth', 'ice', 'nature', 'wind', 'water'];
 
 export const SPELLS = {
