@@ -143,7 +143,7 @@ for (const el of RESONANCE_ELEMENTS) {
         `${s.discoverCondition?.threshold ?? '—'} / ${(s.masteryThresholds ?? []).join(', ')}`,
         (s.targetingType ?? '').replace(/_/g, ' '),
         s.baseDmg ? tiers(s.baseDmg) : '—',
-        tiers(s.manaCost), tiers(s.cooldown), tiers(s.range),
+        tiers(s.manaCost), tiers(s.cooldown), s.range ? tiers(s.range) + (s.radius ? ` (area ${tiers(s.radius)})` : '') : '—',
         s.applyStatus ? `${s.applyStatus.id} (${pct(s.applyStatus.chance ?? 1)}, ${s.applyStatus.duration ?? ''}ms)` : '—',
         (s.learnFrom ?? []).join(', '),
         (s.lore ?? s.description ?? '').split(/(?<=\.)\s/)[0],

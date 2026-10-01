@@ -1067,6 +1067,7 @@ export default class GameScene extends Phaser.Scene {
         const level = playerStats.getSpellLevel(id);
         const dmg   = this._spellDamage(id);
         const range = spell?.range?.[level - 1] ?? 80;
+        const radius = spell?.radius?.[level - 1] ?? range;   // area size (range = how far it can be cast)
         const status = scaledStatus(spell, level);   // duration grows with the spell's tier
 
         // Spells with bespoke mechanics first
@@ -1091,10 +1092,10 @@ export default class GameScene extends Phaser.Scene {
             case 'quagmire': {
                 const duration = spell.duration[level - 1];
                 this._quagmireZones = this._quagmireZones ?? [];
-                this._quagmireZones.push({ x: tx, y: ty, r: range, expiry: this.time.now + duration });
+                this._quagmireZones.push({ x: tx, y: ty, r: radius, expiry: this.time.now + duration });
                 const g = this.add.graphics().setDepth(3);
-                g.fillStyle(0x2a4a0a, 0.72);  g.fillEllipse(tx, ty, range * 2, range * 1.3);
-                g.fillStyle(0x3d6614, 0.38);  g.fillEllipse(tx, ty, range * 1.5, range * 0.9);
+                g.fillStyle(0x2a4a0a, 0.72);  g.fillEllipse(tx, ty, radius * 2, radius * 1.3);
+                g.fillStyle(0x3d6614, 0.38);  g.fillEllipse(tx, ty, radius * 1.5, radius * 0.9);
                 const em = this.add.particles(tx, ty, 'particle', {
                     speed: { min: 5, max: 18 }, angle: { min: 0, max: 360 },
                     scale: { start: 0.8, end: 0 }, lifespan: { min: 700, max: 1500 },
@@ -1105,7 +1106,7 @@ export default class GameScene extends Phaser.Scene {
                     this.tweens.add({ targets: [g, em], alpha: 0, duration: 600,
                         onComplete: () => { g.destroy(); em.destroy(); } });
                 });
-                this._applyStatusInRadius(tx, ty, range, status);
+                this._applyStatusInRadius(tx, ty, radius, status);
                 return;
             }
             case 'shadow_veil':
@@ -1147,8 +1148,8 @@ export default class GameScene extends Phaser.Scene {
         this._hitElement = spell.element;
 
         if (targeting === 'targeted_aoe') {
-            if (dmg > 0) this._damageInRadius(tx, ty, range, dmg);
-            if (status) this._applyStatusInRadius(tx, ty, range, status);
+            if (dmg > 0) this._damageInRadius(tx, ty, radius, dmg);
+            if (status) this._applyStatusInRadius(tx, ty, radius, status);
         } else if (targeting === 'targeted_directional') {
             if (spell.projectileCount && spell.projectileCount > 1) {
                 // Multi-projectile: hit single nearest per projectile (simplified)
@@ -1179,7 +1180,7 @@ export default class GameScene extends Phaser.Scene {
         // targets' magical buffs and break the spells they are shaping.
         if (spell.dispel || spell.interrupt) {
             const targets = targeting === 'targeted_aoe'
-                ? this._enemiesInRadius(tx, ty, range)
+                ? this._enemiesInRadius(tx, ty, radius)
                 : [this._nearestEnemy(tx, ty, range)].filter(Boolean);
             for (const e of targets) this._unweave(e, spell, dmg);
         }

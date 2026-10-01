@@ -15,6 +15,7 @@ const R = await import('../src/systems/respawn.js');
 const WS = await import('../src/systems/WorldState.js');
 const LB = await import('../src/data/levelBands.js');
 const { getMap } = await import('../src/data/maps/index.js');
+const { SPELLS } = await import('../src/data/spells.js');
 
 let n = 0;
 const ok = (cond, msg) => { assert.ok(cond, msg); n++; };
@@ -134,6 +135,20 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     eq(LB.scaleEnemyStats(base, 1), base, 'level 1 is the base creature');
     eq(LB.scaleEnemyStats(base, 5), { health: 160, damage: 14, xpReward: 74, goldDrop: 14 }, 'level 5 scaling');
     ok(Math.abs(LB.levelDamageMult(5) - 1.4) < 1e-9, 'spell damage scales like melee');
+}
+
+// ---- B5: area spells have a cast distance and an area size
+{
+    const aoe = Object.values(SPELLS).filter(sp => sp.targetingType === 'targeted_aoe');
+    ok(aoe.length > 20, 'there are area spells');
+    for (const sp of aoe) {
+        ok(Array.isArray(sp.radius) && sp.radius.length === 3, `${sp.id}: radius per tier`);
+        ok(Array.isArray(sp.range) && sp.range.length === 3, `${sp.id}: range per tier`);
+        for (let i = 0; i < 3; i++) ok(sp.range[i] >= sp.radius[i], `${sp.id}: tier ${i + 1} cast distance ≥ area`);
+    }
+    eq(SPELLS.fireball.radius, [40, 48, 56], 'Fireball keeps its blast');
+    eq(SPELLS.fire_nova.radius, [80, 90, 105], 'Fire Nova keeps its area');
+    eq(SPELLS.fire_nova.range, [160, 180, 200], 'and can now be thrown further');
 }
 
 console.log(`✓ foundations tests passed (${n} assertions).`);

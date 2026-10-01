@@ -148,39 +148,39 @@ Values given per tier (Novice / Apprentice / Adept). Discover = resonance needed
 ### Fire (7)
 | Spell | Discover / mastery | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
-| **Fireball** | 3 / 16, 36 | targeted aoe | 20 / 8 / 1 | 14 / 12 / 10 | 1600 / 1300 / 1000 | 200 / 220 / 240 | burning (60%, 8000ms) | scroll, market, npc | The first spell every fire-minded student learns and the last one they stop using. |
-| **Fire Nova** | 5 / 18, 40 | targeted aoe | 14 / 7 / 0.9 | 20 / 18 / 15 | 2500 / 2100 / 1700 | 80 / 90 / 105 | burning (35%, 10000ms) | resonance | An eruption of compressed fire mana, released outward in a ring. |
-| **Warmth Aura** | 12 / 28, 55 | self | — | 15 / 12 / 9 | 7000 / 5600 / 4200 |  | regen (100%, 15000ms) | npc, scroll | A gentle warmth — not the burning, not the nova, but the kind of fire that lives in a hearth and does not want to consume anything. |
-| **Ember Bloom** | 20 / 38, 72 | targeted aoe | 4 / 2 / 0.3 | 12 / 10 / 8 | 3500 / 2800 / 2200 | 90 / 105 / 120 | burning (80%, 12000ms) | npc, market, chest | In Eldoria's south, a flower blooms once a year in wildfire season, its petals igniting on contact with air. |
-| **Flame Wall** | 28 / 48, 82 | targeted aoe | 8 / 4 / 0.5 | 26 / 21 / 16 | 6000 / 4800 / 3800 | 70 / 85 / 100 | burning (75%, 10000ms) | tome, quest, scroll | A curtain of fire, raised between you and whatever you are trying not to think about right now. |
+| **Fireball** | 3 / 16, 36 | targeted aoe | 20 / 8 / 1 | 14 / 12 / 10 | 1600 / 1300 / 1000 | 200 / 220 / 240 (area 40 / 48 / 56) | burning (60%, 8000ms) | scroll, market, npc | The first spell every fire-minded student learns and the last one they stop using. |
+| **Fire Nova** | 5 / 18, 40 | targeted aoe | 14 / 7 / 0.9 | 20 / 18 / 15 | 2500 / 2100 / 1700 | 160 / 180 / 200 (area 80 / 90 / 105) | burning (35%, 10000ms) | resonance | An eruption of compressed fire mana, released outward in a ring. |
+| **Warmth Aura** | 12 / 28, 55 | self | — | 15 / 12 / 9 | 7000 / 5600 / 4200 | — | regen (100%, 15000ms) | npc, scroll | A gentle warmth — not the burning, not the nova, but the kind of fire that lives in a hearth and does not want to consume anything. |
+| **Ember Bloom** | 20 / 38, 72 | targeted aoe | 4 / 2 / 0.3 | 12 / 10 / 8 | 3500 / 2800 / 2200 | 160 / 180 / 200 (area 90 / 105 / 120) | burning (80%, 12000ms) | npc, market, chest | In Eldoria's south, a flower blooms once a year in wildfire season, its petals igniting on contact with air. |
+| **Flame Wall** | 28 / 48, 82 | targeted aoe | 8 / 4 / 0.5 | 26 / 21 / 16 | 6000 / 4800 / 3800 | 160 / 180 / 200 (area 70 / 85 / 100) | burning (75%, 10000ms) | tome, quest, scroll | A curtain of fire, raised between you and whatever you are trying not to think about right now. |
 | **Flame Lance** | 35 / 55, 95 | targeted directional | 22 / 10 / 1.1 | 24 / 20 / 16 | 2000 / 1600 / 1200 | 180 / 200 / 225 | burning (50%, 8000ms) | tome, scroll | A narrow, concentrated lance of fire mana. |
-| **Fire Rain** | 42 / 65, 108 | targeted aoe | 10 / 5 / 0.6 | 30 / 24 / 18 | 5500 / 4400 / 3500 | 95 / 115 / 135 | burning (40%, 8000ms) | tome, chest | Fire mana, dispersed upward and allowed to fall. |
+| **Fire Rain** | 42 / 65, 108 | targeted aoe | 10 / 5 / 0.6 | 30 / 24 / 18 | 5500 / 4400 / 3500 | 160 / 180 / 200 (area 95 / 115 / 135) | burning (40%, 8000ms) | tome, chest | Fire mana, dispersed upward and allowed to fall. |
 
 ### Arcane (15)
 | Spell | Discover / mastery | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
 | **Mana Dart** | 8 / 22, 48 | targeted directional | 8 / 4 / 0.6 | 10 / 8 / 6 | 1100 / 900 / 700 | 160 / 180 / 200 | — | resonance | The first spell Eldrin ever truly understood. |
 | **Counterspell** · interrupts | 12 / 30, 58 | targeted directional | 6 / 3 / 0.4 | 12 / 10 / 8 | 5000 / 4000 / 3000 | 170 / 190 / 210 | silenced (100%, 5000ms) | scroll, tome, npc | A sharp, precise pulse of mana aimed at a spell still being shaped. |
-| **Arcane Burst** | 15 / 28, 58 | targeted aoe | 18 / 8 / 0.8 | 22 / 18 / 14 | 2200 / 1800 / 1400 | 55 / 70 / 85 | — | scroll, chest | A wide, short-range detonation of raw mana — no finesse, no geometry. |
-| **Luminance** | 20 / 36, 68 | targeted aoe | 5 / 2 / 0.3 | 14 / 11 / 8 | 4000 / 3200 / 2500 | 100 / 120 / 140 | silenced (40%, 5000ms) | tome, scroll, market | A bright light, sustained. |
-| **Unravel** · dispels · interrupts | 22 / 45, 80 | targeted aoe | 10 / 5 / 0.6 | 24 / 20 / 16 | 7000 / 5800 / 4600 | 80 / 95 / 110 | — | tome, npc, chest | Every ward, every borrowed strength, every stolen swiftness is a mana structure — and every structure has a loose thread. |
-| **Benediction** | 25 / 42, 78 | self | — | 25 / 20 / 15 | 10000 / 8000 / 6200 |  | blessed (100%, 45000ms) | npc, tome | An academic ritual formalized into a single cast. |
+| **Arcane Burst** | 15 / 28, 58 | targeted aoe | 18 / 8 / 0.8 | 22 / 18 / 14 | 2200 / 1800 / 1400 | 160 / 180 / 200 (area 55 / 70 / 85) | — | scroll, chest | A wide, short-range detonation of raw mana — no finesse, no geometry. |
+| **Luminance** | 20 / 36, 68 | targeted aoe | 5 / 2 / 0.3 | 14 / 11 / 8 | 4000 / 3200 / 2500 | 160 / 180 / 200 (area 100 / 120 / 140) | silenced (40%, 5000ms) | tome, scroll, market | A bright light, sustained. |
+| **Unravel** · dispels · interrupts | 22 / 45, 80 | targeted aoe | 10 / 5 / 0.6 | 24 / 20 / 16 | 7000 / 5800 / 4600 | 160 / 180 / 200 (area 80 / 95 / 110) | — | tome, npc, chest | Every ward, every borrowed strength, every stolen swiftness is a mana structure — and every structure has a loose thread. |
+| **Benediction** | 25 / 42, 78 | self | — | 25 / 20 / 15 | 10000 / 8000 / 6200 | — | blessed (100%, 45000ms) | npc, tome | An academic ritual formalized into a single cast. |
 | **Needle Volley** | 30 / 50, 90 | targeted directional | 3 / 2 / 0.25 | 22 / 18 / 14 | 2500 / 2000 / 1600 | 140 / 160 / 180 | — | scroll, chest | Five needles. |
-| **Phantom Script** | 35 / 55, 95 | targeted aoe | 20 / 9 / 1.1 | 18 / 14 / 10 | 8000 / 6400 / 5000 | 120 / 140 / 165 | — | scroll, quest, chest | A rune, inscribed in light, that exists for a few seconds then releases itself as a wave of arcane force. |
-| **Arcane Circle** | 40 / 58, 90 | self | — | 40 / 32 / 24 | 120000 / 90000 / 60000 |  | — | tome, npc | A teleportation circle inscribed in living mana. |
+| **Phantom Script** | 35 / 55, 95 | targeted aoe | 20 / 9 / 1.1 | 18 / 14 / 10 | 8000 / 6400 / 5000 | 160 / 180 / 200 (area 120 / 140 / 165) | — | scroll, quest, chest | A rune, inscribed in light, that exists for a few seconds then releases itself as a wave of arcane force. |
+| **Arcane Circle** | 40 / 58, 90 | self | — | 40 / 32 / 24 | 120000 / 90000 / 60000 | — | — | tome, npc | A teleportation circle inscribed in living mana. |
 | **Phantom Dart** | 42 / 60, 100 | targeted directional | 12 / 6 / 0.8 | 16 / 13 / 10 | 2000 / 1600 / 1200 | 220 / 250 / 280 | — | tome, quest | It passes through the first target. |
-| **Aetheric Ward** | 50 / 72, 118 | self | — | 30 / 24 / 18 | 15000 / 12000 / 9000 |  | warded (100%, -1ms) | tome, quest, npc | A standing field of defensive mana. |
-| **Aetheric Inscription** | 60 / 70, 120 | targeted aoe | 28 / 12 / 1.5 | 35 / 28 / 22 | 4500 / 3500 / 2600 | 120 / 140 / 165 | — | quest, npc | Eldrin's signature. |
+| **Aetheric Ward** | 50 / 72, 118 | self | — | 30 / 24 / 18 | 15000 / 12000 / 9000 | — | warded (100%, -1ms) | tome, quest, npc | A standing field of defensive mana. |
+| **Aetheric Inscription** | 60 / 70, 120 | targeted aoe | 28 / 12 / 1.5 | 35 / 28 / 22 | 4500 / 3500 / 2600 | 160 / 180 / 200 (area 120 / 140 / 165) | — | quest, npc | Eldrin's signature. |
 | **Triple Dart** | — / 30, 62 | targeted directional | 5 / 3 / 0.4 | 18 / 15 / 12 | 1800 / 1500 / 1200 | 150 / 170 / 190 | — | scroll, chest, market | Firing three darts at once is not harder than firing one — it is a different understanding of intent. |
 | **Seeker Dart** | — / 40, 75 | targeted directional | 10 / 5 / 0.7 | 14 / 11 / 8 | 1400 / 1100 / 850 | 200 / 230 / 260 | — | tome, npc | Conventional darts travel straight. |
-| **Cleanse** | — / 30, 60 | self | — | 20 / 16 / 12 | 5000 / 4000 / 3000 |  | — | npc, tome, quest | Strips away attached mana structures from the self. |
+| **Cleanse** | — / 30, 60 | self | — | 20 / 16 / 12 | 5000 / 4000 / 3000 | — | — | npc, tome, quest | Strips away attached mana structures from the self. |
 
 ### Lightning (5)
 | Spell | Discover / mastery | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
 | **Arc Bolt** | 12 / 28, 55 | targeted directional | 16 / 8 / 1 | 18 / 15 / 12 | 1800 / 1500 / 1200 | 130 / 150 / 170 | shocked (25%, 3000ms) | resonance | Wisps carry electrical mana in their cores. |
-| **Static Field** | 18 / 38, 72 | targeted aoe | 6 / 3 / 0.4 | 22 / 18 / 14 | 7000 / 5600 / 4400 | 70 / 85 / 100 | shocked (50%, 2500ms) | scroll, runestone | A zone of charged air. |
-| **Thunder Clap** | 25 / 45, 80 | targeted aoe | 10 / 5 / 0.7 | 20 / 16 / 12 | 3000 / 2400 / 1800 | 60 / 75 / 90 | shocked (60%, 3000ms) | scroll, chest, market | The sound arrives before you expect it. |
+| **Static Field** | 18 / 38, 72 | targeted aoe | 6 / 3 / 0.4 | 22 / 18 / 14 | 7000 / 5600 / 4400 | 160 / 180 / 200 (area 70 / 85 / 100) | shocked (50%, 2500ms) | scroll, runestone | A zone of charged air. |
+| **Thunder Clap** | 25 / 45, 80 | targeted aoe | 10 / 5 / 0.7 | 20 / 16 / 12 | 3000 / 2400 / 1800 | 160 / 180 / 200 (area 60 / 75 / 90) | shocked (60%, 3000ms) | scroll, chest, market | The sound arrives before you expect it. |
 | **Chain Lightning** | 32 / 52, 92 | targeted directional | 14 / 7 / 0.9 | 24 / 19 / 14 | 3800 / 3000 / 2300 | 155 / 175 / 200 | shocked (30%, 2500ms) | tome, scroll, chest | Hits one. |
 | **Lightning Lance** | 45 / 65, 110 | targeted directional | 30 / 14 / 1.4 | 32 / 26 / 20 | 5000 / 4000 / 3000 | 210 / 240 / 270 | shocked (40%, 3000ms) | tome, quest | Not a bolt. |
 
@@ -188,9 +188,9 @@ Values given per tier (Novice / Apprentice / Adept). Discover = resonance needed
 | Spell | Discover / mastery | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
 | **Shadow Bolt** | 10 / 25, 52 | targeted directional | 20 / 9 / 1 | 18 / 14 / 10 | 1600 / 1300 / 1000 | 160 / 185 / 210 | void_tainted (30%, 20000ms) | scroll, chest, market | A dense projectile of shadow mana. |
-| **Shadow Veil** | 15 / 35, 65 | self | — | 22 / 18 / 14 | 5000 / 4200 / 3200 |  | — | resonance | The Void Wraith's corruption left a residue in Eldrin's mana pathways. |
-| **Hush** | 20 / 38, 72 | targeted aoe | 0 / 0 / 0 | 18 / 14 / 10 | 6000 / 4800 / 3800 | 80 / 95 / 112 | hushed (80%, 12000ms) | scroll, npc, tome | Silence, enforced. |
-| **Void Pulse** | 28 / 48, 85 | targeted aoe | 12 / 6 / 0.8 | 20 / 16 / 12 | 3200 / 2600 / 2000 | 70 / 85 / 100 | void_tainted (45%, 20000ms) | scroll, npc, chest | Shadow mana, compressed and released. |
+| **Shadow Veil** | 15 / 35, 65 | self | — | 22 / 18 / 14 | 5000 / 4200 / 3200 | — | — | resonance | The Void Wraith's corruption left a residue in Eldrin's mana pathways. |
+| **Hush** | 20 / 38, 72 | targeted aoe | 0 / 0 / 0 | 18 / 14 / 10 | 6000 / 4800 / 3800 | 160 / 180 / 200 (area 80 / 95 / 112) | hushed (80%, 12000ms) | scroll, npc, tome | Silence, enforced. |
+| **Void Pulse** | 28 / 48, 85 | targeted aoe | 12 / 6 / 0.8 | 20 / 16 / 12 | 3200 / 2600 / 2000 | 160 / 180 / 200 (area 70 / 85 / 100) | void_tainted (45%, 20000ms) | scroll, npc, chest | Shadow mana, compressed and released. |
 | **Eclipse Mark** | 38 / 55, 95 | targeted directional | 0 / 0 / 0 | 12 / 10 / 8 | 2800 / 2200 / 1700 | 150 / 170 / 190 | marked (100%, 4000ms) | scroll, quest | A sigil inscribed upon an enemy in shadow mana. |
 | **Life Drain** | 45 / 68, 112 | targeted directional | 15 / 7 / 0.8 | 20 / 16 / 12 | 4000 / 3200 / 2500 | 140 / 160 / 185 | — | scroll, npc, quest | Shadow mana follows the oldest rule: what is taken must go somewhere. |
 
@@ -198,60 +198,60 @@ Values given per tier (Novice / Apprentice / Adept). Discover = resonance needed
 | Spell | Discover / mastery | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
 | **Rock Bullet** | 6 / 18, 40 | targeted directional | 16 / 8 / 0.7 | 14 / 11 / 8 | 1500 / 1200 / 950 | 140 / 160 / 185 | — | resonance, scroll | Stone, accelerated. |
-| **Stone Skin** (passive) | 10 / 26, 52 |  | — |  |  |  | — | resonance | The treants of Eldoria do not resist force — they simply grow, over centuries, into something that does not care about force. |
+| **Stone Skin** (passive) | 10 / 26, 52 |  | — |  |  | — | — | resonance | The treants of Eldoria do not resist force — they simply grow, over centuries, into something that does not care about force. |
 | **Rubble Spray** | 15 / 32, 60 | targeted directional | 6 / 3 / 0.4 | 15 / 12 / 9 | 2000 / 1600 / 1200 | 90 / 105 / 120 | dirty (60%, -1ms) | scroll, runestone | A cone of stone fragments — not precision magic. |
-| **Earth Pillar** | 18 / 38, 70 | targeted aoe | 18 / 9 / 0.8 | 16 / 13 / 10 | 2200 / 1800 / 1400 | 70 / 85 / 100 | — | resonance | Stone remembers what it once was — compressed, buried, waiting to rise. |
-| **Mud Trap** | 22 / 42, 76 | targeted aoe | 8 / 4 / 0.5 | 18 / 14 / 10 | 6000 / 5000 / 4000 | 100 / 115 / 130 | entangled (85%, 5000ms) | scroll, chest, market | Place it and walk away. |
-| **Quagmire** | 28 / 50, 85 | targeted aoe | 4 / 2 / 0.3 | 24 / 20 / 16 | 4000 / 3200 / 2500 | 55 / 70 / 88 | entangled (70%, 4000ms) | resonance | The earth does not fight — it holds. |
-| **Spike Field** | 32 / 52, 90 | targeted aoe | 12 / 6 / 0.6 | 24 / 19 / 14 | 4500 / 3600 / 2800 | 75 / 90 / 108 | entangled (60%, 4000ms) | tome, runestone, chest | The ground opens. |
-| **Mud Wall** | 34 / 56, 92 | targeted aoe | 6 / 3 / 0.3 | 22 / 18 / 14 | 5000 / 4000 / 3200 | 80 / 95 / 110 | dirty (90%, -1ms) | scroll, npc, chest | Raises a wall of compressed earth and water at the target point. |
+| **Earth Pillar** | 18 / 38, 70 | targeted aoe | 18 / 9 / 0.8 | 16 / 13 / 10 | 2200 / 1800 / 1400 | 160 / 180 / 200 (area 70 / 85 / 100) | — | resonance | Stone remembers what it once was — compressed, buried, waiting to rise. |
+| **Mud Trap** | 22 / 42, 76 | targeted aoe | 8 / 4 / 0.5 | 18 / 14 / 10 | 6000 / 5000 / 4000 | 160 / 180 / 200 (area 100 / 115 / 130) | entangled (85%, 5000ms) | scroll, chest, market | Place it and walk away. |
+| **Quagmire** | 28 / 50, 85 | targeted aoe | 4 / 2 / 0.3 | 24 / 20 / 16 | 4000 / 3200 / 2500 | 160 / 180 / 200 (area 55 / 70 / 88) | entangled (70%, 4000ms) | resonance | The earth does not fight — it holds. |
+| **Spike Field** | 32 / 52, 90 | targeted aoe | 12 / 6 / 0.6 | 24 / 19 / 14 | 4500 / 3600 / 2800 | 160 / 180 / 200 (area 75 / 90 / 108) | entangled (60%, 4000ms) | tome, runestone, chest | The ground opens. |
+| **Mud Wall** | 34 / 56, 92 | targeted aoe | 6 / 3 / 0.3 | 22 / 18 / 14 | 5000 / 4000 / 3200 | 160 / 180 / 200 (area 80 / 95 / 110) | dirty (90%, -1ms) | scroll, npc, chest | Raises a wall of compressed earth and water at the target point. |
 | **Stone Cannon** | 40 / 62, 105 | targeted directional | 32 / 14 / 1.2 | 28 / 23 / 18 | 3500 / 2800 / 2200 | 160 / 185 / 210 | — | tome, scroll, market | A boulder, compressed to the size of a fist, launched at speed that makes it briefly glow from friction. |
-| **Tremor** | 50 / 75, 125 | targeted aoe | 10 / 5 / 0.6 | 30 / 24 / 18 | 7000 / 5600 / 4200 | 50 / 65 / 80 | entangled (50%, 3500ms) | tome, quest | The ground shifts. |
+| **Tremor** | 50 / 75, 125 | targeted aoe | 10 / 5 / 0.6 | 30 / 24 / 18 | 7000 / 5600 / 4200 | 160 / 180 / 200 (area 50 / 65 / 80) | entangled (50%, 3500ms) | tome, quest | The ground shifts. |
 
 ### Ice (5)
 | Spell | Discover / mastery | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
 | **Frost Shard** | 8 / 22, 45 | targeted directional | 14 / 7 / 0.9 | 16 / 13 / 10 | 1600 / 1300 / 1000 | 150 / 170 / 195 | cold (60%, 15000ms) | scroll, market, chest | Ice mana compressed to a single crystal, launched with velocity. |
-| **Frostbite** | 18 / 35, 68 | targeted aoe | 8 / 4 / 0.5 | 20 / 16 / 12 | 3200 / 2600 / 2000 | 80 / 95 / 110 | cold (90%, 20000ms) | scroll, npc, tome | An area of cold mana, sustained long enough for flesh to begin to lose sensation. |
+| **Frostbite** | 18 / 35, 68 | targeted aoe | 8 / 4 / 0.5 | 20 / 16 / 12 | 3200 / 2600 / 2000 | 160 / 180 / 200 (area 80 / 95 / 110) | cold (90%, 20000ms) | scroll, npc, tome | An area of cold mana, sustained long enough for flesh to begin to lose sensation. |
 | **Glacial Spike** | 22 / 42, 78 | targeted directional | 28 / 12 / 1.1 | 25 / 20 / 15 | 3000 / 2400 / 1900 | 165 / 190 / 215 | cold (80%, 15000ms) | scroll, tome, chest | A single spike of solid ice, large enough to be alarming, launched on a flat trajectory. |
-| **Blizzard Shard** | 35 / 55, 95 | targeted aoe | 7 / 4 / 0.6 | 28 / 22 / 16 | 4500 / 3600 / 2800 | 85 / 100 / 118 | cold (55%, 15000ms) | tome, quest, chest | Seven shards at once, arranged by mana geometry rather than aim. |
+| **Blizzard Shard** | 35 / 55, 95 | targeted aoe | 7 / 4 / 0.6 | 28 / 22 / 16 | 4500 / 3600 / 2800 | 160 / 180 / 200 (area 85 / 100 / 118) | cold (55%, 15000ms) | tome, quest, chest | Seven shards at once, arranged by mana geometry rather than aim. |
 | **Ice Prison** | 45 / 68, 112 | targeted directional | 10 / 5 / 0.5 | 28 / 22 / 16 | 6000 / 4800 / 3800 | 140 / 160 / 185 | frozen (90%, 6000ms) | tome, quest | Ice, grown rapidly around a single point of warmth. |
 
 ### Nature (8)
 | Spell | Discover / mastery | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
-| **Vine Grasp** | 8 / 20, 42 | targeted aoe | 6 / 3 / 0.3 | 18 / 14 / 10 | 3800 / 3000 / 2400 | 75 / 90 / 108 | entangled (85%, 5000ms) | scroll, npc, runestone | In the old forests near Valdric, the roots move toward warmth. |
-| **Vessel Mend** | 12 / 25, 52 | self | — | 20 / 16 / 12 | 8000 / 6400 / 5000 |  | regen (100%, 20000ms) | npc, scroll, tome | Draws on nature mana to accelerate the body's own repair. |
-| **Acid Splash** | 15 / 30, 58 | targeted aoe | 8 / 4 / 0.5 | 16 / 13 / 10 | 2600 / 2100 / 1700 | 80 / 95 / 112 | poison (70%, 15000ms) | scroll, chest, market | Nature produces toxins for reasons nature does not explain. |
-| **Barkskin** | 22 / 38, 70 | self | — | 18 / 15 / 12 | 8000 / 6400 / 5000 |  | blessed (100%, 30000ms) | scroll, npc, quest | The surface hardens, briefly. |
-| **Spore Cloud** | 30 / 50, 88 | targeted aoe | 2 / 1 / 0.2 | 20 / 16 / 12 | 5000 / 4000 / 3200 | 90 / 110 / 130 | poison (90%, 15000ms) | tome, chest, runestone | A cloud of toxic spores, dispersed from a single point. |
-| **Thornwall** | 38 / 60, 100 | targeted aoe | 5 / 2 / 0.3 | 22 / 18 / 14 | 7000 / 5600 / 4400 | 70 / 85 / 100 | poison (40%, 12000ms) | npc, runestone, quest | Dense thornbriar, grown in seconds. |
-| **Petal Storm** | — / 18, 38 | targeted aoe | 1 / 0 / 0.1 | 8 / 6 / 4 | 6000 / 5000 / 4000 | 100 / 115 / 130 | — | npc, scroll | It is beautiful. |
-| **Purifying Sweep** · dispels | — / 12, 28 | targeted aoe | 0 / 0 / 0 | 10 / 8 / 6 | 3000 / 2400 / 1800 | 80 / 95 / 110 | — | npc, market | Removes applied substances from the target area. |
+| **Vine Grasp** | 8 / 20, 42 | targeted aoe | 6 / 3 / 0.3 | 18 / 14 / 10 | 3800 / 3000 / 2400 | 160 / 180 / 200 (area 75 / 90 / 108) | entangled (85%, 5000ms) | scroll, npc, runestone | In the old forests near Valdric, the roots move toward warmth. |
+| **Vessel Mend** | 12 / 25, 52 | self | — | 20 / 16 / 12 | 8000 / 6400 / 5000 | — | regen (100%, 20000ms) | npc, scroll, tome | Draws on nature mana to accelerate the body's own repair. |
+| **Acid Splash** | 15 / 30, 58 | targeted aoe | 8 / 4 / 0.5 | 16 / 13 / 10 | 2600 / 2100 / 1700 | 160 / 180 / 200 (area 80 / 95 / 112) | poison (70%, 15000ms) | scroll, chest, market | Nature produces toxins for reasons nature does not explain. |
+| **Barkskin** | 22 / 38, 70 | self | — | 18 / 15 / 12 | 8000 / 6400 / 5000 | — | blessed (100%, 30000ms) | scroll, npc, quest | The surface hardens, briefly. |
+| **Spore Cloud** | 30 / 50, 88 | targeted aoe | 2 / 1 / 0.2 | 20 / 16 / 12 | 5000 / 4000 / 3200 | 160 / 180 / 200 (area 90 / 110 / 130) | poison (90%, 15000ms) | tome, chest, runestone | A cloud of toxic spores, dispersed from a single point. |
+| **Thornwall** | 38 / 60, 100 | targeted aoe | 5 / 2 / 0.3 | 22 / 18 / 14 | 7000 / 5600 / 4400 | 160 / 180 / 200 (area 70 / 85 / 100) | poison (40%, 12000ms) | npc, runestone, quest | Dense thornbriar, grown in seconds. |
+| **Petal Storm** | — / 18, 38 | targeted aoe | 1 / 0 / 0.1 | 8 / 6 / 4 | 6000 / 5000 / 4000 | 160 / 180 / 200 (area 100 / 115 / 130) | — | npc, scroll | It is beautiful. |
+| **Purifying Sweep** · dispels | — / 12, 28 | targeted aoe | 0 / 0 / 0 | 10 / 8 / 6 | 3000 / 2400 / 1800 | 160 / 180 / 200 (area 80 / 95 / 110) | — | npc, market | Removes applied substances from the target area. |
 
 ### Wind (6)
 | Spell | Discover / mastery | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
-| **Drying Wind** | 5 / 16, 35 | targeted aoe | 0 / 0 / 0 | 12 / 10 / 8 | 4000 / 3200 / 2500 | 85 / 100 / 118 | dried (100%, 10000ms) | scroll, npc, market | A warm, dry wind that strips moisture from anything in range. |
+| **Drying Wind** | 5 / 16, 35 | targeted aoe | 0 / 0 / 0 | 12 / 10 / 8 | 4000 / 3200 / 2500 | 160 / 180 / 200 (area 85 / 100 / 118) | dried (100%, 10000ms) | scroll, npc, market | A warm, dry wind that strips moisture from anything in range. |
 | **Wind Knife** | 8 / 20, 42 | targeted directional | 12 / 6 / 0.7 | 10 / 8 / 6 | 900 / 720 / 560 | 200 / 225 / 255 | — | scroll, market | Fast. |
 | **Gale Slash** | 12 / 28, 55 | targeted directional | 18 / 9 / 0.8 | 16 / 13 / 10 | 1400 / 1100 / 850 | 170 / 195 / 220 | — | scroll, chest, market | Compressed wind, released in a single blade shape. |
-| **Tempest Step** | 18 / 35, 65 | self | — | 15 / 12 / 9 | 4000 / 3200 / 2500 |  | blessed (100%, 4000ms) | scroll, npc | Move very quickly in the direction you are facing. |
-| **Wind Barrier** | 24 / 42, 76 | self | — | 20 / 16 / 12 | 9000 / 7200 / 5600 |  | blessed (100%, 15000ms) | scroll, tome | A rotating shell of wind mana around the caster. |
-| **Cyclone** | 30 / 50, 88 | targeted aoe | 8 / 4 / 0.5 | 28 / 22 / 16 | 6500 / 5200 / 4000 | 80 / 95 / 112 | — | tome, quest | A column of rotating wind, sustained. |
+| **Tempest Step** | 18 / 35, 65 | self | — | 15 / 12 / 9 | 4000 / 3200 / 2500 | — | blessed (100%, 4000ms) | scroll, npc | Move very quickly in the direction you are facing. |
+| **Wind Barrier** | 24 / 42, 76 | self | — | 20 / 16 / 12 | 9000 / 7200 / 5600 | — | blessed (100%, 15000ms) | scroll, tome | A rotating shell of wind mana around the caster. |
+| **Cyclone** | 30 / 50, 88 | targeted aoe | 8 / 4 / 0.5 | 28 / 22 / 16 | 6500 / 5200 / 4000 | 160 / 180 / 200 (area 80 / 95 / 112) | — | tome, quest | A column of rotating wind, sustained. |
 
 ### Water (10)
 | Spell | Discover / mastery | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
 | **Tidal Bolt** | 3 / 18, 40 | targeted directional | 12 / 6 / 0.8 | 10 / 8 / 6 | 1100 / 900 / 700 | 150 / 170 / 190 | wet (50%, 15000ms) | scroll, market, npc | A fist of river water thrown hard enough to knock the breath out of a wolf. |
-| **Water Conjure** | 8 / 24, 50 | targeted aoe | 0 / 0 / 0 | 14 / 11 / 8 | 4000 / 3200 / 2500 | 80 / 95 / 110 | wet (100%, 25000ms) | scroll, market, npc | Draws moisture from ambient mana and releases it as a wave of cold water. |
-| **Healing Spring** | 12 / 32, 60 | self | — | 22 / 18 / 14 | 12000 / 10000 / 8000 |  | regen (100%, 20000ms) | scroll, npc, tome | Clean water drawn up through the caster's own feet, as if the ground had a spring in it that only answers to thirst. |
-| **Riptide** | 18 / 38, 68 | targeted aoe | 16 / 7 / 0.8 | 20 / 16 / 13 | 3200 / 2700 / 2200 | 80 / 95 / 110 | cold (80%, 15000ms) | scroll, market, chest | A patch of ground turns, for a heartbeat, into the pull of an ebbing tide. |
+| **Water Conjure** | 8 / 24, 50 | targeted aoe | 0 / 0 / 0 | 14 / 11 / 8 | 4000 / 3200 / 2500 | 160 / 180 / 200 (area 80 / 95 / 110) | wet (100%, 25000ms) | scroll, market, npc | Draws moisture from ambient mana and releases it as a wave of cold water. |
+| **Healing Spring** | 12 / 32, 60 | self | — | 22 / 18 / 14 | 12000 / 10000 / 8000 | — | regen (100%, 20000ms) | scroll, npc, tome | Clean water drawn up through the caster's own feet, as if the ground had a spring in it that only answers to thirst. |
+| **Riptide** | 18 / 38, 68 | targeted aoe | 16 / 7 / 0.8 | 20 / 16 / 13 | 3200 / 2700 / 2200 | 160 / 180 / 200 (area 80 / 95 / 110) | cold (80%, 15000ms) | scroll, market, chest | A patch of ground turns, for a heartbeat, into the pull of an ebbing tide. |
 | **Water Blade** | 24 / 44, 78 | targeted directional | 26 / 11 / 1 | 22 / 18 / 14 | 2200 / 1800 / 1400 | 180 / 205 / 230 | wet (100%, 20000ms) | scroll, npc | A thin, pressurized blade of water — the same principle used in Valdric quarrying equipment, reduced to a shape a single mage can manage. |
-| **Tide Step** | 30 / 50, 82 | self | — | 18 / 15 / 12 | 14000 / 11500 / 9000 |  | swift (100%, 20000ms) | scroll, tome | The caster moves the way water moves downhill: without hurry, and faster than anything that has to think about its footing. |
-| **Geyser** | 38 / 60, 92 | targeted aoe | 30 / 12 / 1.1 | 30 / 25 / 20 | 5000 / 4200 / 3400 | 70 / 82 / 95 | wet (100%, 20000ms) | tome, chest, npc | Water forced up out of the ground in a single scalding column. |
+| **Tide Step** | 30 / 50, 82 | self | — | 18 / 15 / 12 | 14000 / 11500 / 9000 | — | swift (100%, 20000ms) | scroll, tome | The caster moves the way water moves downhill: without hurry, and faster than anything that has to think about its footing. |
+| **Geyser** | 38 / 60, 92 | targeted aoe | 30 / 12 / 1.1 | 30 / 25 / 20 | 5000 / 4200 / 3400 | 160 / 180 / 200 (area 70 / 82 / 95) | wet (100%, 20000ms) | tome, chest, npc | Water forced up out of the ground in a single scalding column. |
 | **Torrent Lance** | 48 / 70, 105 | targeted directional | 38 / 15 / 1.3 | 34 / 28 / 22 | 4200 / 3500 / 2800 | 190 / 215 / 240 | wet (70%, 15000ms) | tome, chest | A spear of water under such pressure that it cuts before it splashes. |
-| **Mistward** | 58 / 80, 115 | self | — | 26 / 21 / 16 | 16000 / 13000 / 10000 |  | blessed (100%, 30000ms) | tome, npc | A cloak of cold sea-mist that clings to the caster. |
-| **Maelstrom** | 72 / 95, 130 | targeted aoe | 52 / 20 / 1.6 | 48 / 40 / 32 | 9000 / 7500 / 6000 | 95 / 110 / 125 | entangled (60%, 3500ms) | tome | A whirlpool torn open in the air. |
+| **Mistward** | 58 / 80, 115 | self | — | 26 / 21 / 16 | 16000 / 13000 / 10000 | — | blessed (100%, 30000ms) | tome, npc | A cloak of cold sea-mist that clings to the caster. |
+| **Maelstrom** | 72 / 95, 130 | targeted aoe | 52 / 20 / 1.6 | 48 / 40 / 32 | 9000 / 7500 / 6000 | 160 / 180 / 200 (area 95 / 110 / 125) | entangled (60%, 3500ms) | tome | A whirlpool torn open in the air. |
 
 ## Status effects
 | Status | Duration | Effect |

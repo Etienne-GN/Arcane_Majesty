@@ -119,7 +119,8 @@ export const SPELLS = {
         applyStatus: { id: 'silenced', chance: 0.4, duration: 5000 },
         manaCost:  [14, 11, 8],
         cooldown:  [4000, 3200, 2500],
-        range:     [100, 120, 140],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [100, 120, 140],   // area size
         learnFrom: ['tome', 'scroll', 'market'],
         discoverCondition: { element: 'arcane', threshold: 20 },
         masteryThresholds: [36, 68],
@@ -135,7 +136,8 @@ export const SPELLS = {
         baseDmg:   [20, 9, 1.1],
         manaCost:  [18, 14, 10],
         cooldown:  [8000, 6400, 5000],
-        range:     [120, 140, 165],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [120, 140, 165],   // area size
         learnFrom: ['scroll', 'quest', 'chest'],
         discoverCondition: { element: 'arcane', threshold: 35 },
         masteryThresholds: [55, 95],
@@ -195,7 +197,8 @@ export const SPELLS = {
         baseDmg:   [28, 12, 1.5],
         manaCost:  [35, 28, 22],
         cooldown:  [4500, 3500, 2600],
-        range:     [120, 140, 165],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [120, 140, 165],   // area size
         learnFrom: ['quest', 'npc'],
         discoverCondition: { element: 'arcane', threshold: 60 },
         masteryThresholds: [70, 120],
@@ -233,7 +236,8 @@ export const SPELLS = {
         applyStatus: { id: 'burning', chance: 0.35, duration: 10000 },
         manaCost:  [20, 18, 15],
         cooldown:  [2500, 2100, 1700],
-        range:     [80, 90, 105],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [80, 90, 105],   // area size
         learnFrom: ['resonance'],
         discoverCondition:  { element: 'fire', threshold: 5 },
         masteryThresholds:  [18, 40],
@@ -250,7 +254,8 @@ export const SPELLS = {
         applyStatus: { id: 'burning', chance: 0.8, duration: 12000 },
         manaCost:  [12, 10, 8],
         cooldown:  [3500, 2800, 2200],
-        range:     [90, 105, 120],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [90, 105, 120],   // area size
         learnFrom: ['npc', 'market', 'chest'],
         discoverCondition: { element: 'fire', threshold: 20 },
         masteryThresholds: [38, 72],
@@ -318,7 +323,8 @@ export const SPELLS = {
         applyStatus: { id: 'shocked', chance: 0.6, duration: 3000 },
         manaCost:  [20, 16, 12],
         cooldown:  [3000, 2400, 1800],
-        range:     [60, 75, 90],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [60, 75, 90],   // area size
         learnFrom: ['scroll', 'chest', 'market'],
         discoverCondition: { element: 'lightning', threshold: 25 },
         masteryThresholds: [45, 80],
@@ -369,7 +375,8 @@ export const SPELLS = {
         applyStatus: { id: 'void_tainted', chance: 0.45, duration: 20000 },
         manaCost:  [20, 16, 12],
         cooldown:  [3200, 2600, 2000],
-        range:     [70, 85, 100],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [70, 85, 100],   // area size
         learnFrom: ['scroll', 'npc', 'chest'],
         discoverCondition: { element: 'shadow', threshold: 28 },
         masteryThresholds: [48, 85],
@@ -386,7 +393,8 @@ export const SPELLS = {
         applyStatus: { id: 'hushed', chance: 0.8, duration: 12000 },
         manaCost:  [18, 14, 10],
         cooldown:  [6000, 4800, 3800],
-        range:     [80, 95, 112],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [80, 95, 112],   // area size
         learnFrom: ['scroll', 'npc', 'tome'],
         discoverCondition: { element: 'shadow', threshold: 20 },
         masteryThresholds: [38, 72],
@@ -434,7 +442,8 @@ export const SPELLS = {
         baseDmg:   [18, 9, 0.8],
         manaCost:  [16, 13, 10],
         cooldown:  [2200, 1800, 1400],
-        range:     [70, 85, 100],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [70, 85, 100],   // area size
         learnFrom: ['resonance'],
         discoverCondition:  { element: 'earth', threshold: 18 },
         masteryThresholds:  [38, 70],
@@ -451,7 +460,8 @@ export const SPELLS = {
         applyStatus: { id: 'entangled', chance: 0.7, duration: 4000 },
         manaCost:  [24, 20, 16],
         cooldown:  [4000, 3200, 2500],
-        range:     [55, 70, 88],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [55, 70, 88],   // area size
         duration:  [3000, 4500, 6000],
         learnFrom: ['resonance'],
         discoverCondition:  { element: 'earth', threshold: 28 },
@@ -486,7 +496,8 @@ export const SPELLS = {
         applyStatus: { id: 'dirty', chance: 0.9, duration: -1 },
         manaCost:  [22, 18, 14],
         cooldown:  [5000, 4000, 3200],
-        range:     [80, 95, 110],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [80, 95, 110],   // area size
         duration:  [4000, 6000, 8000],
         learnFrom: ['scroll', 'npc', 'chest'],
         discoverCondition: { element: 'earth', threshold: 34 },
@@ -504,7 +515,8 @@ export const SPELLS = {
         applyStatus: { id: 'entangled', chance: 0.85, duration: 5000 },
         manaCost:  [18, 14, 10],
         cooldown:  [6000, 5000, 4000],
-        range:     [100, 115, 130],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [100, 115, 130],   // area size
         learnFrom: ['scroll', 'chest', 'market'],
         discoverCondition: { element: 'earth', threshold: 22 },
         masteryThresholds: [42, 76],
@@ -537,7 +549,8 @@ export const SPELLS = {
         applyStatus: { id: 'entangled', chance: 0.5, duration: 3500 },
         manaCost:  [30, 24, 18],
         cooldown:  [7000, 5600, 4200],
-        range:     [50, 65, 80],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [50, 65, 80],   // area size
         learnFrom: ['tome', 'quest'],
         discoverCondition: { element: 'earth', threshold: 50 },
         masteryThresholds: [75, 125],
@@ -573,7 +586,8 @@ export const SPELLS = {
         applyStatus: { id: 'wet', chance: 1.0, duration: 25000 },
         manaCost:  [14, 11, 8],
         cooldown:  [4000, 3200, 2500],
-        range:     [80, 95, 110],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [80, 95, 110],   // area size
         learnFrom: ['scroll', 'market', 'npc'],
         discoverCondition: { element: 'water', threshold: 8 },
         masteryThresholds: [24, 50],
@@ -590,7 +604,8 @@ export const SPELLS = {
         applyStatus: { id: 'cold', chance: 0.9, duration: 20000 },
         manaCost:  [20, 16, 12],
         cooldown:  [3200, 2600, 2000],
-        range:     [80, 95, 110],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [80, 95, 110],   // area size
         learnFrom: ['scroll', 'npc', 'tome'],
         discoverCondition: { element: 'ice', threshold: 18 },
         masteryThresholds: [35, 68],
@@ -624,7 +639,8 @@ export const SPELLS = {
         applyStatus: { id: 'cold', chance: 0.55, duration: 15000 },
         manaCost:  [28, 22, 16],
         cooldown:  [4500, 3600, 2800],
-        range:     [85, 100, 118],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [85, 100, 118],   // area size
         projectileCount: 7,
         learnFrom: ['tome', 'quest', 'chest'],
         discoverCondition: { element: 'ice', threshold: 35 },
@@ -644,7 +660,8 @@ export const SPELLS = {
         applyStatus: { id: 'entangled', chance: 0.85, duration: 5000 },
         manaCost:  [18, 14, 10],
         cooldown:  [3800, 3000, 2400],
-        range:     [75, 90, 108],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [75, 90, 108],   // area size
         learnFrom: ['scroll', 'npc', 'runestone'],
         discoverCondition: { element: 'nature', threshold: 8 },
         masteryThresholds: [20, 42],
@@ -660,7 +677,8 @@ export const SPELLS = {
         baseDmg:   [1, 0, 0.1],
         manaCost:  [8, 6, 4],
         cooldown:  [6000, 5000, 4000],
-        range:     [100, 115, 130],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [100, 115, 130],   // area size
         learnFrom: ['npc', 'scroll'],
         discoverCondition: null,
         masteryThresholds: [18, 38],
@@ -677,7 +695,8 @@ export const SPELLS = {
         applyStatus: { id: 'poison', chance: 0.7, duration: 15000 },
         manaCost:  [16, 13, 10],
         cooldown:  [2600, 2100, 1700],
-        range:     [80, 95, 112],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [80, 95, 112],   // area size
         learnFrom: ['scroll', 'chest', 'market'],
         discoverCondition: { element: 'nature', threshold: 15 },
         masteryThresholds: [30, 58],
@@ -709,7 +728,8 @@ export const SPELLS = {
         applyStatus: { id: 'poison', chance: 0.9, duration: 15000 },
         manaCost:  [20, 16, 12],
         cooldown:  [5000, 4000, 3200],
-        range:     [90, 110, 130],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [90, 110, 130],   // area size
         learnFrom: ['tome', 'chest', 'runestone'],
         discoverCondition: { element: 'nature', threshold: 30 },
         masteryThresholds: [50, 88],
@@ -741,7 +761,8 @@ export const SPELLS = {
         baseDmg:   [0, 0, 0],
         manaCost:  [10, 8, 6],
         cooldown:  [3000, 2400, 1800],
-        range:     [80, 95, 110],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [80, 95, 110],   // area size
         learnFrom: ['npc', 'market'],
         discoverCondition: null,
         masteryThresholds: [12, 28],
@@ -783,7 +804,8 @@ export const SPELLS = {
         baseDmg:   [10, 5, 0.6],
         manaCost:  [24, 20, 16],
         cooldown:  [7000, 5800, 4600],
-        range:     [80, 95, 110],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [80, 95, 110],   // area size
         learnFrom: ['tome', 'npc', 'chest'],
         discoverCondition: { element: 'arcane', threshold: 22 },
         masteryThresholds: [45, 80],
@@ -801,7 +823,8 @@ export const SPELLS = {
         baseDmg:   [18, 8, 0.8],
         manaCost:  [22, 18, 14],
         cooldown:  [2200, 1800, 1400],
-        range:     [55, 70, 85],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [55, 70, 85],   // area size
         learnFrom: ['scroll', 'chest'],
         discoverCondition: { element: 'arcane', threshold: 15 },
         masteryThresholds: [28, 58],
@@ -836,7 +859,8 @@ export const SPELLS = {
         applyStatus: { id: 'burning', chance: 0.75, duration: 10000 },
         manaCost:  [26, 21, 16],
         cooldown:  [6000, 4800, 3800],
-        range:     [70, 85, 100],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [70, 85, 100],   // area size
         duration:  [3500, 5000, 7000],
         learnFrom: ['tome', 'quest', 'scroll'],
         discoverCondition: { element: 'fire', threshold: 28 },
@@ -854,7 +878,8 @@ export const SPELLS = {
         applyStatus: { id: 'burning', chance: 0.4, duration: 8000 },
         manaCost:  [30, 24, 18],
         cooldown:  [5500, 4400, 3500],
-        range:     [95, 115, 135],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [95, 115, 135],   // area size
         learnFrom: ['tome', 'chest'],
         discoverCondition: { element: 'fire', threshold: 42 },
         masteryThresholds: [65, 108],
@@ -891,7 +916,8 @@ export const SPELLS = {
         applyStatus: { id: 'shocked', chance: 0.5, duration: 2500 },
         manaCost:  [22, 18, 14],
         cooldown:  [7000, 5600, 4400],
-        range:     [70, 85, 100],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [70, 85, 100],   // area size
         duration:  [4000, 6000, 8000],
         learnFrom: ['scroll', 'runestone'],
         discoverCondition: { element: 'lightning', threshold: 18 },
@@ -963,7 +989,8 @@ export const SPELLS = {
         applyStatus: { id: 'entangled', chance: 0.6, duration: 4000 },
         manaCost:  [24, 19, 14],
         cooldown:  [4500, 3600, 2800],
-        range:     [75, 90, 108],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [75, 90, 108],   // area size
         learnFrom: ['tome', 'runestone', 'chest'],
         discoverCondition: { element: 'earth', threshold: 32 },
         masteryThresholds: [52, 90],
@@ -1018,7 +1045,8 @@ export const SPELLS = {
         applyStatus: { id: 'poison', chance: 0.4, duration: 12000 },
         manaCost:  [22, 18, 14],
         cooldown:  [7000, 5600, 4400],
-        range:     [70, 85, 100],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [70, 85, 100],   // area size
         duration:  [5000, 7000, 9500],
         learnFrom: ['npc', 'runestone', 'quest'],
         discoverCondition: { element: 'nature', threshold: 38 },
@@ -1054,7 +1082,8 @@ export const SPELLS = {
         applyStatus: { id: 'dried', chance: 1.0, duration: 10000 },
         manaCost:  [12, 10, 8],
         cooldown:  [4000, 3200, 2500],
-        range:     [85, 100, 118],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [85, 100, 118],   // area size
         learnFrom: ['scroll', 'npc', 'market'],
         discoverCondition: { element: 'wind', threshold: 5 },
         masteryThresholds: [16, 35],
@@ -1101,7 +1130,8 @@ export const SPELLS = {
         baseDmg:   [8, 4, 0.5],
         manaCost:  [28, 22, 16],
         cooldown:  [6500, 5200, 4000],
-        range:     [80, 95, 112],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [80, 95, 112],   // area size
         duration:  [3000, 4500, 6000],
         learnFrom: ['tome', 'quest'],
         discoverCondition: { element: 'wind', threshold: 30 },
@@ -1172,7 +1202,8 @@ export const SPELLS = {
         applyStatus: { id: 'cold', chance: 0.8, duration: 15000 },
         manaCost:  [20, 16, 13],
         cooldown:  [3200, 2700, 2200],
-        range:     [80, 95, 110],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [80, 95, 110],   // area size
         learnFrom: ['scroll', 'market', 'chest'],
         discoverCondition: { element: 'water', threshold: 18 },
         masteryThresholds: [38, 68],
@@ -1204,7 +1235,8 @@ export const SPELLS = {
         applyStatus: { id: 'wet', chance: 1.0, duration: 20000 },
         manaCost:  [30, 25, 20],
         cooldown:  [5000, 4200, 3400],
-        range:     [70, 82, 95],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [70, 82, 95],   // area size
         learnFrom: ['tome', 'chest', 'npc'],
         discoverCondition: { element: 'water', threshold: 38 },
         masteryThresholds: [60, 92],
@@ -1254,7 +1286,8 @@ export const SPELLS = {
         applyStatus: { id: 'entangled', chance: 0.6, duration: 3500 },
         manaCost:  [48, 40, 32],
         cooldown:  [9000, 7500, 6000],
-        range:     [95, 110, 125],
+        range:     [160, 180, 200],   // cast distance
+        radius:    [95, 110, 125],   // area size
         learnFrom: ['tome'],
         discoverCondition: { element: 'water', threshold: 72 },
         masteryThresholds: [95, 130],
