@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
+import { continueTarget } from '../systems/respawn.js';
 import { CHARACTERS } from '../data/characters.js';
-import { listMaps } from '../data/maps/index.js';
+import { listMaps, getMap } from '../data/maps/index.js';
 import { SaveManager } from '../systems/SaveManager.js';
 import { playerStats } from '../systems/PlayerStats.js';
 import { soundManager } from '../systems/SoundManager.js';
@@ -230,10 +231,13 @@ export default class CharacterSelectScene extends Phaser.Scene {
 
         this.cameras.main.fadeOut(400);
         this.time.delayedCall(400, () => {
+            const resume = isContinue ? continueTarget(playerStats, id => !!getMap(id)) : null;
             this.scene.start('GameScene', {
                 characterId: c.id,
                 storyId:     this._storyId,
-                mapId:       isContinue ? undefined : this._mapId,
+                mapId:       isContinue ? resume.mapId : this._mapId,
+                spawnX:      resume?.spawnX,
+                spawnY:      resume?.spawnY,
             });
         });
     }

@@ -22,6 +22,7 @@ import { statusManager } from '../systems/StatusManager.js';
 import { STATUS_DEFS } from '../data/statuses.js';
 import { ELEMENT_COLORS } from '../controls/launcherDefs.js';
 import { resolveNode, rollHarvest } from '../data/gathering.js';
+import { setRespawnPoint } from '../systems/respawn.js';
 import { ENEMY_KITS } from '../data/enemyMagic.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { ANIM_PROFILES } from '../data/animProfiles.js';
@@ -42,6 +43,7 @@ export default class GameScene extends Phaser.Scene {
         SaveManager.setSlot(this._storyId, this._characterId);
         this._onlineCharacter = data?.onlineCharacter ?? null;
         this._transitioning   = false;
+        this._respawnNotice   = data?.respawnNotice   ?? null;
     }
 
     preload() {
@@ -512,6 +514,10 @@ export default class GameScene extends Phaser.Scene {
 
         // ── Online multiplayer ────────────────────────────────────────────────
         if (this._serverUrl) this._connectNetwork(px, py);
+
+        if (this._respawnNotice) {
+            this.time.delayedCall(700, () => this.scene.get('UIScene')?.showNotification?.(this._respawnNotice, 3000));
+        }
     }
 
     _connectNetwork(px, py) {
@@ -1716,6 +1722,8 @@ export default class GameScene extends Phaser.Scene {
             return; // player simply doesn't leave — no fade, no state change
         }
         this._transitioning = true;
+        // Save as if already through the door, so Continue doesn't put us back on this side
+        playerStats.location = { mapId: portalDef.targetMap, x: portalDef.targetX, y: portalDef.targetY };
         SaveManager.save(playerStats, this._storyId, this._characterId);
         this.cameras.main.fadeOut(300);
         this.time.delayedCall(320, () => {
@@ -1735,6 +1743,7 @@ export default class GameScene extends Phaser.Scene {
 
     _interactRiftGate(gate) {
         const ps = this.player.stats;
+        setRespawnPoint(ps, this._mapId, gate.wx, gate.wy + TILE_SIZE, gate.label);
         if (!gate.attuned) {
             gate.attuned = true;
             if (!ps.attunedGates.includes(gate.id)) ps.attunedGates.push(gate.id);
@@ -1768,6 +1777,7 @@ export default class GameScene extends Phaser.Scene {
         this.cameras.main.centerOn(gate.wx, gate.wy);
         this.cameras.main.flash(400, 100, 180, 255, false);
         this.scene.get('UIScene')?.showNotification?.(`Arrived: ${gate.label}`, 2200);
+        setRespawnPoint(this.player.stats, this._mapId, gate.wx, gate.wy + TILE_SIZE, gate.label);
         SaveManager.save(this.player.stats);
         soundManager.save();
     }
@@ -2675,6 +2685,13 @@ export default class GameScene extends Phaser.Scene {
     update(time, delta) {
         if (!this.player?.active) return;
 
+        // Remember where the player is (saved with the character; Continue resumes here)
+        this._locTimer = (this._locTimer ?? 0) - delta;
+        if (this._locTimer <= 0 && !this._serverUrl) {
+            this._locTimer = 500;
+            playerStats.location = { mapId: this._mapId, x: Math.round(this.player.x), y: Math.round(this.player.y) };
+        }
+
         // Portal edge-detection — only fires on enter (not on spawn or stay)
         this._portals?.forEach(p => {
             const inside = Phaser.Math.Distance.Between(this.player.x, this.player.y, p.wx, p.wy) < TILE_SIZE * 0.7;
@@ -2945,7 +2962,9 @@ export default class GameScene extends Phaser.Scene {
         });
 
         // Campfire — basic rest always available; Full Rest requires Traveler's Tent
-        this.physics.overlap(this.player.interactBox, this.campfires, () => {
+        this.physics.overlap(this.player.interactBox, this.campfires, (_box, cf) => {
+            setRespawnPoint(playerStats, this._mapId, cf.x, cf.y + TILE_SIZE, 'the campfire');
+            SaveManager.save(playerStats, this._storyId, this._characterId);
             playerStats.gainResonance('fire', RESONANCE_GAINS.rest_campfire.fire);
             soundManager.interact();
             this.scene.pause();
@@ -3167,6 +3186,7 @@ export default class GameScene extends Phaser.Scene {
             this.scene.start('GameOverScene', {
                 serverUrl:       this._serverUrl,
                 characterId:     this._characterId,
+                mapId:           this._mapId,
                 storyId:         this._storyId,
                 onlineCharacter: this._onlineCharacter,
             });
