@@ -151,4 +151,46 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     eq(SPELLS.fire_nova.range, [160, 180, 200], 'and can now be thrown further');
 }
 
+// ---- final review fixes
+{
+    // Death is settled when it happens (not only on "Rise"): penalty paid, saved location moved
+    const s = new PlayerStats();
+    s.glint = 50;
+    s.location = { mapId: 'summit_of_despair', x: 300, y: 300 };
+    R.setRespawnPoint(s, 'prologue_forest', 640, 288, 'the campfire');
+    const d = R.resolveDeath(s, 'summit_of_despair');
+    eq(d.glintLost, 5, 'penalty paid at death');
+    eq(d.target, { mapId: 'prologue_forest', spawnX: 640, spawnY: 288, label: 'the campfire' }, 'rise target');
+    eq(s.location, { mapId: 'prologue_forest', x: 640, y: 288 }, 'saved location is the rise point, not the death spot');
+    const n0 = new PlayerStats();
+    n0.location = { mapId: 'summit_of_despair', x: 300, y: 300 };
+    R.resolveDeath(n0, 'summit_of_despair');
+    eq(R.continueTarget(n0), { mapId: 'summit_of_despair', spawnX: undefined, spawnY: undefined }, 'no respawn point → Continue at the death map start');
+    // Online keeps the old behaviour
+    const on = new PlayerStats();
+    on.glint = 50; on.location = null;
+    R.setRespawnPoint(on, 'prologue_forest', 1, 2, 'x');
+    const od = R.resolveDeath(on, 'summit_of_despair', () => true, { online: true });
+    eq(od.glintLost, 0, 'online: no penalty');
+    eq(on.glint, 50, 'online: glint untouched');
+    eq(od.target.mapId, undefined, 'online: default map as before');
+
+    // Area size helper: Earth Pillar's area is its radius, not its cast distance
+    eq(SPELLS.earth_pillar.radius, [70, 85, 100], 'earth pillar area kept');
+    const { spellRadius } = await import('../src/data/spells.js');
+    eq(spellRadius(SPELLS.earth_pillar, 1), 70, 'spellRadius reads the area');
+    eq(spellRadius(SPELLS.fireball, 3), 56, 'spellRadius per tier');
+    eq(spellRadius(SPELLS.counterspell, 1), SPELLS.counterspell.range[0], 'no radius → range');
+
+    // Scene wiring that node can't run: check the source
+    const fs = await import('node:fs');
+    const gs = fs.readFileSync(new URL('../src/scenes/GameScene.js', import.meta.url), 'utf8');
+    const pillar = gs.slice(gs.indexOf('_earthPillarAssault(tx, ty) {'), gs.indexOf('_earthPillarAssault(tx, ty) {') + 400);
+    ok(!pillar.includes('earth_pillar.range'), "Earth Pillar's assault uses its area, not its cast distance");
+    ok(/if \(node\.gathered && node\.body\) node\.disableBody/.test(gs), 'a node that already regrew is not disabled by the late hide');
+    ok(/spawns\.boss && \(this\._serverUrl \|\| !isBossDefeated/.test(gs), 'online ignores the offline boss flag');
+    const go = fs.readFileSync(new URL('../src/scenes/GameOverScene.js', import.meta.url), 'utf8');
+    ok(/create\(\)[\s\S]*resolveDeath\(/.test(go) && !/_tryAgain\(\)[\s\S]*applyDeathPenalty/.test(go), 'death is settled on the Game Over screen, for both buttons');
+}
+
 console.log(`✓ foundations tests passed (${n} assertions).`);

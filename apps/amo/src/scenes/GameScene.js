@@ -17,7 +17,7 @@ import { TILE_SIZE, ENEMY_TYPES } from '../data/worldMap.js';
 import { getMap } from '../data/maps/index.js';
 import { catalogueLayout } from '../utils/catalogueLayout.js';
 import { DIALOGUES } from '../data/dialogues.js';
-import { SPELLS, TIER_NAMES, RESONANCE_GAINS, scaledStatus } from '../data/spells.js';
+import { SPELLS, TIER_NAMES, RESONANCE_GAINS, scaledStatus, spellRadius } from '../data/spells.js';
 import { statusManager } from '../systems/StatusManager.js';
 import { STATUS_DEFS } from '../data/statuses.js';
 import { ELEMENT_COLORS } from '../controls/launcherDefs.js';
@@ -361,7 +361,7 @@ export default class GameScene extends Phaser.Scene {
         this._bossArenaTriggered = false;
         this._bossDefeated = false;
         this.boss = null;
-        if (mapDef.spawns.boss && !isBossDefeated(playerStats, this._mapId)) {
+        if (mapDef.spawns.boss && (this._serverUrl || !isBossDefeated(playerStats, this._mapId))) {
         const bx = mapDef.spawns.boss.spawn.x * TILE_SIZE + TILE_SIZE / 2;
         const by = mapDef.spawns.boss.spawn.y * TILE_SIZE + TILE_SIZE / 2;
         this.boss = new BossEnemy(this, bx, by);
@@ -1190,7 +1190,7 @@ export default class GameScene extends Phaser.Scene {
     _setNodeGathered(node, ms) {
         node.gathered = true;
         node.ePrompt?.setAlpha(0);
-        this.time.delayedCall(350, () => { if (node.body) node.disableBody(true, false); });
+        this.time.delayedCall(350, () => { if (node.gathered && node.body) node.disableBody(true, false); });
         this.time.delayedCall(ms, () => {
             if (!node.scene) return;
             node.enableBody(false, 0, 0, true, true);
@@ -1379,7 +1379,7 @@ export default class GameScene extends Phaser.Scene {
 
     _earthPillarAssault(tx, ty) {
         const level = playerStats.getSpellLevel('earth_pillar');
-        const range = SPELLS.earth_pillar.range[level - 1];
+        const range = spellRadius(SPELLS.earth_pillar, level);   // the area, not the cast distance
         const dmg   = this._spellDamage('earth_pillar');
         const duration = [2800, 3600, 4800][level - 1];
 
@@ -2989,8 +2989,10 @@ export default class GameScene extends Phaser.Scene {
 
         // Campfire — basic rest always available; Full Rest requires Traveler's Tent
         this.physics.overlap(this.player.interactBox, this.campfires, (_box, cf) => {
-            setRespawnPoint(playerStats, this._mapId, cf.x, cf.y + TILE_SIZE, 'the campfire');
-            SaveManager.save(playerStats, this._storyId, this._characterId);
+            if (!this._serverUrl) {
+                setRespawnPoint(playerStats, this._mapId, cf.x, cf.y + TILE_SIZE, 'the campfire');
+                SaveManager.save(playerStats, this._storyId, this._characterId);
+            }
             playerStats.gainResonance('fire', RESONANCE_GAINS.rest_campfire.fire);
             soundManager.interact();
             this.scene.pause();

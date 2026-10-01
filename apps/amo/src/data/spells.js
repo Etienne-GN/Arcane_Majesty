@@ -10,6 +10,12 @@ export const TIER_NAMES = ['Novice', 'Apprentice', 'Adept'];
 // Status durations grow with spell mastery: Novice ×1, Apprentice ×1.25, Adept ×1.5.
 export const TIER_DURATION_MULT = [1, 1.25, 1.5];
 
+// A spell's area size at a tier: its radius, or its range for spells without one.
+export function spellRadius(spell, level) {
+    const i = Math.max(1, level || 1) - 1;
+    return (spell?.radius ?? spell?.range)?.[i];
+}
+
 // A spell's applyStatus with its duration scaled to the caster's spell level
 // (permanent statuses, duration < 0, stay permanent).
 export function scaledStatus(spell, level) {

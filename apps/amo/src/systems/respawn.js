@@ -35,6 +35,18 @@ export function applyDeathPenalty(stats) {
     return { glintLost };
 }
 
+// Settle a death the moment it happens, whichever Game Over button follows:
+// pay the penalty and move the saved location to where the player will rise,
+// so neither "Return to Menu" nor closing the tab dodges it. Online keeps the
+// old behaviour (no penalty, the default map).
+export function resolveDeath(stats, deathMapId, mapExists = () => true, { online = false } = {}) {
+    if (online) return { glintLost: 0, target: { mapId: undefined, spawnX: undefined, spawnY: undefined, label: null } };
+    const { glintLost } = applyDeathPenalty(stats);
+    const target = respawnTarget(stats, deathMapId, mapExists);
+    stats.location = { mapId: target.mapId, x: target.spawnX, y: target.spawnY };
+    return { glintLost, target };
+}
+
 // A slain map creature only comes back when the player is out of the way.
 export const RESPAWN_MIN_DIST = 320;
 export function canRespawnAt(spawn, player, minDist = RESPAWN_MIN_DIST) {

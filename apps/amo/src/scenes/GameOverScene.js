@@ -4,7 +4,7 @@ import { soundManager } from '../systems/SoundManager.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
 import { SaveManager } from '../systems/SaveManager.js';
 import { getMap } from '../data/maps/index.js';
-import { respawnTarget, applyDeathPenalty } from '../systems/respawn.js';
+import { resolveDeath } from '../systems/respawn.js';
 
 export default class GameOverScene extends Phaser.Scene {
     constructor() { super('GameOverScene'); }
@@ -38,9 +38,13 @@ export default class GameOverScene extends Phaser.Scene {
             strokeThickness: 4
         }).setOrigin(0.5).setAlpha(0);
 
-        const lost = Math.floor(Math.max(0, playerStats.glint ?? 0) * 0.10);
-        this.add.text(w / 2, h / 2 - 28, lost > 0
-            ? `The shadow has claimed your soul... rising will cost ${lost} glint.`
+        // Settle the death now (penalty + saved rise point), whichever button follows
+        const { glintLost, target } = resolveDeath(playerStats, this._mapId, id => !!getMap(id), { online: !!this._serverUrl });
+        this._riseTarget = target;
+        this._glintLost  = glintLost;
+        if (!this._serverUrl) SaveManager.save(playerStats, this._storyId, this._characterId);
+        this.add.text(w / 2, h / 2 - 28, glintLost > 0
+            ? `The shadow has claimed your soul... ${glintLost} glint lost.`
             : 'The shadow has claimed your soul...', {
             font: '10px monospace', fill: '#666666', fontStyle: 'italic'
         }).setOrigin(0.5).setAlpha(0);
@@ -49,7 +53,7 @@ export default class GameOverScene extends Phaser.Scene {
         this.tweens.add({ targets: title, alpha: 1, duration: 1200, delay: 200 });
 
         this._goButtons = [
-            { label: `Rise at ${respawnTarget(playerStats, this._mapId, id => !!getMap(id)).label ?? 'the last safe place'}`, action: () => this._tryAgain() },
+            { label: this._serverUrl ? 'Try Again' : `Rise at ${target.label ?? 'the last safe place'}`, action: () => this._tryAgain() },
             { label: 'Return to Menu', action: () => { this.scene.stop('UIScene'); this.scene.start('MenuScene'); } }
         ];
         this._goCursor = 0;
@@ -85,9 +89,11 @@ export default class GameOverScene extends Phaser.Scene {
     // Rise at the last campfire / rift-gate (or the start of this map), paying the death penalty
     _tryAgain() {
         soundManager.menuSelect();
-        const { glintLost } = applyDeathPenalty(playerStats);
-        const t = respawnTarget(playerStats, this._mapId, id => !!getMap(id));
-        if (!this._serverUrl) SaveManager.save(playerStats, this._storyId, this._characterId);
+        const t = this._riseTarget;
+        if (this._serverUrl) {   // online: as before
+            playerStats.health = Math.ceil(playerStats.maxHealth * 0.5);
+            playerStats.mana   = playerStats.maxMana;
+        }
         this.scene.stop('UIScene');
         this.scene.stop();
         this.scene.start('GameScene', {
@@ -98,7 +104,7 @@ export default class GameOverScene extends Phaser.Scene {
             mapId:           t.mapId ?? undefined,
             spawnX:          t.spawnX,
             spawnY:          t.spawnY,
-            respawnNotice:   glintLost > 0 ? `You rise again. ${glintLost} glint lost.` : 'You rise again.',
+            respawnNotice:   this._serverUrl ? null : (this._glintLost > 0 ? `You rise again. ${this._glintLost} glint lost.` : 'You rise again.'),
         });
     }
 }
