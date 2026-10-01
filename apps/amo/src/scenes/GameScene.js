@@ -27,6 +27,7 @@ import { mapLevelBand, rollEnemyLevel, scaleEnemyStats } from '../data/levelBand
 import { nodeKey, markNodeHarvested, nodeRegrowRemaining, markBossDefeated, isBossDefeated } from '../systems/WorldState.js';
 import { ENEMY_KITS } from '../data/enemyMagic.js';
 import { affinityOf, affinityMult } from '../data/enemyAffinities.js';
+import { targetInfo } from '../systems/targetInfo.js';
 import { conductTargets, CONDUCT_FRACTION, DETONATE_RADIUS, detonateDamage } from '../systems/reactions.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { ANIM_PROFILES } from '../data/animProfiles.js';
@@ -1209,6 +1210,25 @@ export default class GameScene extends Phaser.Scene {
         return Math.max(60, d / (spell.projectileSpeed ?? 400) * 1000);
     }
 
+    // ── Target (HUD frame) ────────────────────────────────────────────────
+    setTarget(e) {
+        if (!e || e.passive) return;
+        this._target = e;
+        this._targetSeenAt = this.time.now;
+        if (e.enemyType && !playerStats.seenEnemyTypes.includes(e.enemyType)) playerStats.seenEnemyTypes.push(e.enemyType);
+    }
+
+    // Live target info, or null. A dead or far target lingers 4 s, then clears.
+    getTargetInfo() {
+        const t = this._target;
+        if (!t) return null;
+        const live = t.active && t.health > 0 && this.player?.active
+            && Phaser.Math.Distance.Between(t.x, t.y, this.player.x, this.player.y) <= 400;
+        if (live) this._targetSeenAt = this.time.now;
+        else if (this.time.now - this._targetSeenAt > 4000) { this._target = null; return null; }
+        return targetInfo(t);
+    }
+
     _enemiesInRadius(cx, cy, range) {
         const list = this.enemies.getChildren().filter(e => e.active && !e.passive && Phaser.Math.Distance.Between(cx, cy, e.x, e.y) <= range);
         if (this.boss?.active && Phaser.Math.Distance.Between(cx, cy, this.boss.x, this.boss.y) <= range) list.push(this.boss);
@@ -1293,6 +1313,7 @@ export default class GameScene extends Phaser.Scene {
 
     // Deal spell damage, scaled by the target's statuses for the current element.
     _hit(e, dmg) {
+        this.setTarget(e);
         const el  = this._hitElement;
         const m   = el ? statusManager.incomingDmgMult(e, el) : 1;
         const aff = affinityMult(e.enemyType, el);   // family resistances / weaknesses
@@ -2747,6 +2768,15 @@ export default class GameScene extends Phaser.Scene {
         if (this._locTimer <= 0 && !this._serverUrl) {
             this._locTimer = 500;
             playerStats.location = { mapId: this._mapId, x: Math.round(this.player.x), y: Math.round(this.player.y) };
+        }
+
+        // Hovering an enemy targets it
+        this._hoverTimer = (this._hoverTimer ?? 0) - delta;
+        if (this._hoverTimer <= 0) {
+            this._hoverTimer = 150;
+            const p = this.cameras.main.getWorldPoint(this.input.activePointer.x, this.input.activePointer.y);
+            const under = this._enemiesInRadius(p.x, p.y, 24)[0];
+            if (under) this.setTarget(under);
         }
 
         // Portal edge-detection — only fires on enter (not on spawn or stay)

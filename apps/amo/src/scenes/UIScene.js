@@ -53,6 +53,19 @@ export default class UIScene extends Phaser.Scene {
             this._statusLabels.push(lbl);
         }
 
+        // Target frame (top centre): name, level, HP, statuses, casting
+        const tfW = 300, tfX = Math.round(w / 2 - tfW / 2), tfY = 12;
+        this._tf = {
+            x: tfX, y: tfY, w: tfW,
+            bg:   this.add.graphics().setDepth(45),
+            name: this.add.text(tfX + 8, tfY + 6, '', { font: 'bold 14px monospace', fill: '#ffffff', stroke: '#000', strokeThickness: 2 }).setDepth(46),
+            hp:   this.add.text(tfX + tfW - 8, tfY + 6, '', { font: '12px monospace', fill: '#ffaaaa' }).setOrigin(1, 0).setDepth(46),
+            cast: this.add.text(tfX + 8, tfY + 44, '', { font: '12px monospace', fill: '#ccddff' }).setDepth(46),
+            chips: Array.from({ length: 8 }, () => this.add.text(0, 0, '', {
+                font: '12px monospace', fill: '#aaaaaa', stroke: '#000', strokeThickness: 2, padding: { x: 4, y: 1 },
+            }).setDepth(46).setAlpha(0)),
+        };
+
         // Exhaustion overlay (full screen)
         this.exhaustionOverlay = this.add.rectangle(0, 0, w, h, 0x888888, 0).setOrigin(0).setDepth(48);
         this.exhaustionLabel   = this.add.text(w / 2, h / 2, '', {
@@ -160,29 +173,14 @@ export default class UIScene extends Phaser.Scene {
 
         const player = this.scene.get('GameScene')?.player;
         if (player) {
-            // Buffs first, then debuffs; each sorted by time left
             const active = Object.entries(player._statuses ?? {})
                 .filter(([id]) => STATUS_DEFS[id])
-                .sort(([a, sa], [b, sb]) => (!!STATUS_DEFS[b].buff - !!STATUS_DEFS[a].buff) || (sa.remaining - sb.remaining));
-            const maxX = 16 + 300;
-            let lx = 16, ly = 80;
-            this._statusLabels.forEach((lbl, i) => {
-                const entry = active[i];
-                if (!entry) { lbl.setAlpha(0); return; }
-                const [sid, st] = entry;
-                const def = STATUS_DEFS[sid];
-                const secs = st.remaining === Infinity ? '' : ` ${Math.ceil(st.remaining / 1000)}s`;
-                const stacks = (st.stacks ?? 1) > 1 ? ` ×${st.stacks}` : '';
-                const hexColor = def.tint ? `#${def.tint.toString(16).padStart(6, '0')}` : '#dddddd';
-                lbl.setText(`${def.label}${stacks}${secs}`)
-                   .setStyle({ fill: hexColor, backgroundColor: def.buff ? '#123a1acc' : '#3a1212cc' });
-                if (lx + lbl.width > maxX && lx > 16) { lx = 16; ly += lbl.height + 4; }
-                // Blink in the last 3 seconds
-                const fading = st.remaining !== Infinity && st.remaining < 3000;
-                lbl.setPosition(lx, ly).setAlpha(fading ? 0.55 + 0.45 * Math.abs(Math.sin(Date.now() * 0.008)) : 1);
-                lx += lbl.width + 6;
-            });
+                .map(([id, st]) => ({ label: STATUS_DEFS[id].label, tint: STATUS_DEFS[id].tint, buff: !!STATUS_DEFS[id].buff,
+                    secs: st.remaining === Infinity ? null : Math.ceil(st.remaining / 1000), stacks: st.stacks ?? 1 }))
+                .sort((a, b) => (b.buff - a.buff) || ((a.secs ?? 1e9) - (b.secs ?? 1e9)));
+            this._renderChips(this._statusLabels, active, 16, 80, 300);
         }
+        this._drawTargetFrame(this.scene.get('GameScene')?.getTargetInfo?.() ?? null);
 
         if (s.manaCollapsed) {
             this.exhaustionOverlay.setFillStyle(0x888888, 0.28);
@@ -202,6 +200,45 @@ export default class UIScene extends Phaser.Scene {
 
         this._controls.update();
         this._updateMinimap();
+    }
+
+    // Lay out status chips: [{ label, secs|null, stacks, buff, tint }] from (x, y), wrapping at maxW
+    _renderChips(pool, entries, x, y, maxW) {
+        let lx = x, ly = y;
+        pool.forEach((lbl, i) => {
+            const st = entries[i];
+            if (!st) { lbl.setAlpha(0); return; }
+            const hex = st.tint ? `#${st.tint.toString(16).padStart(6, '0')}` : '#dddddd';
+            lbl.setText(`${st.label}${st.stacks > 1 ? ` ×${st.stacks}` : ''}${st.secs != null ? ` ${st.secs}s` : ''}`)
+               .setStyle({ fill: hex, backgroundColor: st.buff ? '#123a1acc' : '#3a1212cc' });
+            if (lx + lbl.width > x + maxW && lx > x) { lx = x; ly += lbl.height + 3; }
+            const fading = st.secs != null && st.secs <= 3;
+            lbl.setPosition(lx, ly).setAlpha(fading ? 0.55 + 0.45 * Math.abs(Math.sin(Date.now() * 0.008)) : 1);
+            lx += lbl.width + 5;
+        });
+    }
+
+    _drawTargetFrame(info) {
+        const f = this._tf;
+        f.bg.clear();
+        if (!info) { f.name.setText(''); f.hp.setText(''); f.cast.setText(''); f.chips.forEach(c => c.setAlpha(0)); return; }
+        const h = 40 + (info.cast ? 18 : 0) + (info.statuses.length ? 20 : 0);
+        f.bg.fillStyle(0x000000, 0.6).fillRect(f.x, f.y, f.w, h);
+        f.bg.lineStyle(2, info.elite ? 0xffcc33 : 0x444466).strokeRect(f.x, f.y, f.w, h);
+        f.name.setText(`${info.elite ? '★ ' : ''}${info.name}${info.level ? `  Lv ${info.level}` : ''}${info.family ? `  · ${info.family}` : ''}`)
+              .setStyle({ fill: info.dead ? '#777777' : info.elite ? '#ffdd66' : '#ffffff' });
+        f.hp.setText(`${info.hp}/${info.maxHp}`);
+        const barY = f.y + 26;
+        f.bg.fillStyle(0x330000).fillRect(f.x + 8, barY, f.w - 16, 8);
+        f.bg.fillStyle(info.hp > info.maxHp * 0.5 ? 0xcc2222 : 0xff6600).fillRect(f.x + 8, barY, (f.w - 16) * Math.max(0, info.hp / info.maxHp), 8);
+        let y = f.y + 40;
+        if (info.cast) {
+            f.cast.setText(`casting ${info.cast.name}`).setPosition(f.x + 8, y - 2);
+            f.bg.fillStyle(0x222244).fillRect(f.x + 140, y + 2, f.w - 148, 8);
+            f.bg.fillStyle(0x88aaff).fillRect(f.x + 140, y + 2, (f.w - 148) * info.cast.frac, 8);
+            y += 18;
+        } else f.cast.setText('');
+        this._renderChips(f.chips, info.statuses, f.x + 8, y, f.w - 16);
     }
 
     _updateMinimap() {

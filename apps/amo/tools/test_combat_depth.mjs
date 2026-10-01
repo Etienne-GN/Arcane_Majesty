@@ -13,6 +13,9 @@ const { ENEMY_TYPES } = await import('../src/data/worldMap.js');
 const { statusManager } = await import('../src/systems/StatusManager.js');
 const AF = await import('../src/data/enemyAffinities.js');
 const RX = await import('../src/systems/reactions.js');
+const { targetInfo } = await import('../src/systems/targetInfo.js');
+const { PlayerStats } = await import('../src/systems/PlayerStats.js');
+const { SaveManager } = await import('../src/systems/SaveManager.js');
 
 let n = 0;
 const ok = (cond, msg) => { assert.ok(cond, msg); n++; };
@@ -66,6 +69,34 @@ const mob = (extra = {}) => ({ _statuses: {}, health: 100, maxHealth: 100, activ
     // Detonate
     eq(RX.detonateDamage(100), 45, '15 + 30% of the hit');
     eq(RX.detonateDamage(0), 15, 'a weak hit still bursts');
+}
+
+// ---- B4: target info
+{
+    const e = mob({ enemyType: 'frost_shade', level: 8, health: 40, maxHealth: 120 });
+    statusManager.apply(e, 'mana_ward');
+    statusManager.apply(e, 'burning');
+    e._cast = { id: 'frost_bolt', elapsed: 500, castMs: 1000 };
+    const t = targetInfo(e);
+    eq([t.name, t.level, t.hp, t.maxHp, t.dead, t.elite], ['Frost Shade', 8, 40, 120, false, false], 'name, level, HP');
+    eq(t.family, 'Frost-born', 'family label');
+    eq(t.statuses.filter(s => s.buff).map(s => s.id), ['mana_ward'], 'buffs listed');
+    eq(t.statuses[0].id, 'mana_ward', 'buffs first');
+    ok(t.statuses.some(s => s.id === 'burning'), 'debuffs listed too');
+    ok(t.statuses.find(s => s.id === 'mana_ward').secs === 12, 'seconds left, rounded up');
+    eq(t.cast, { name: 'Frost Bolt', frac: 0.5 }, 'cast in progress');
+    const gone = targetInfo({ ...e, active: false, health: -5 });
+    eq([gone.dead, gone.hp], [true, 0], 'a dead target reads 0 HP without throwing');
+    const boss = mob({ enemyType: 'void_general', displayName: 'Void General', _aegisCast: { elapsed: 800 } });
+    eq(targetInfo(boss).cast.name, 'Void Aegis', 'the boss channel shows');
+    eq(targetInfo(mob({ enemyType: 'wolf', elite: true, affixes: ['vampiric'] })).elite, true, 'elite flag');
+
+    const s = new PlayerStats();
+    eq(s.seenEnemyTypes, [], 'new character has seen nothing');
+    store.clear(); SaveManager.setSlot('t', 'eldrin');
+    s.seenEnemyTypes.push('wolf'); SaveManager.save(s);
+    const u = new PlayerStats(); SaveManager.load(u, 't', 'eldrin');
+    eq(u.seenEnemyTypes, ['wolf'], 'seen creatures saved');
 }
 
 console.log(`✓ combat-depth tests passed (${n} assertions).`);

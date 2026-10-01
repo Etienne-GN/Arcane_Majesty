@@ -18,6 +18,7 @@ export default class CombatManager {
     hitTarget(enemy) {
         if (this.hitEnemiesThisSwing.has(enemy)) return;
         this.hitEnemiesThisSwing.add(enemy);
+        this.scene.setTarget?.(enemy);
 
         const isPower   = this.player.isPowerAttack ?? false;
         const stats     = this.player.stats;

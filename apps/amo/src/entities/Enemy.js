@@ -294,6 +294,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
     _doAttack(player) {
         this.setVelocity(0);
         if (this.attackCooldown <= 0) {
+            this.scene.setTarget?.(this);
             this.attackCooldown = this.ATTACK_COOLDOWN;
             player.takeDamage(Math.round(this.damage * statusManager.statsMult(this)));
             soundManager.hit();

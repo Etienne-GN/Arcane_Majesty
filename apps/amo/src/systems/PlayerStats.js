@@ -230,6 +230,7 @@ export class PlayerStats {
         this.respawnPoint = null;
         // Harvested-node timers and defeated bosses, per map (systems/WorldState.js)
         this.worldState   = {};
+        this.seenEnemyTypes = [];   // creatures met (bestiary shows them as "???" until killed)
 
         // Attuned Rift-Gates — enables fast-travel between them
         this.attunedGates = [];
@@ -727,6 +728,7 @@ export class PlayerStats {
         this.location         = null;
         this.respawnPoint     = null;
         this.worldState       = {};
+        this.seenEnemyTypes   = [];
     }
 }
 
