@@ -3,8 +3,19 @@ function saveKey(storyId, characterId) {
     return `amo_save_${storyId}_${characterId}`;
 }
 
+// The slot the current game saves to. GameScene.init and load() set it, so a
+// save() that omits the ids (Crafting, Campfire, rift-gates…) still lands in
+// the right place instead of "amo_save_undefined_undefined".
+let _slot = { storyId: null, characterId: null };
+
 export class SaveManager {
-    static save(stats, storyId, characterId) {
+    static setSlot(storyId, characterId) {
+        _slot = { storyId: storyId ?? null, characterId: characterId ?? null };
+    }
+
+    static slot() { return { ..._slot }; }
+
+    static save(stats, storyId = _slot.storyId, characterId = _slot.characterId) {
         const data = {
             storyId,
             characterId,
@@ -52,6 +63,7 @@ export class SaveManager {
     }
 
     static load(stats, storyId, characterId) {
+        SaveManager.setSlot(storyId, characterId);
         const raw = localStorage.getItem(saveKey(storyId, characterId));
         if (!raw) return false;
         try {

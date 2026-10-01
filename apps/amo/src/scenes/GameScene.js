@@ -39,6 +39,7 @@ export default class GameScene extends Phaser.Scene {
         this._serverUrl       = data?.serverUrl       ?? null;
         this._characterId     = data?.characterId     ?? 'eldrin';
         this._storyId         = data?.storyId         ?? null;
+        SaveManager.setSlot(this._storyId, this._characterId);
         this._onlineCharacter = data?.onlineCharacter ?? null;
         this._transitioning   = false;
     }
