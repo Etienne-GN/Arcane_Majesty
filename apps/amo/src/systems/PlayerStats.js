@@ -224,6 +224,10 @@ export class PlayerStats {
         // Enchantments applied at the forge, by weapon id; they replace the
         // weapon's own (pre-rolled) enchantment.
         this.weaponEnchants = {};
+        // Where the player is (kept fresh by GameScene) and where they rise after
+        // death (last campfire / rift-gate) — see systems/respawn.js.
+        this.location     = null;
+        this.respawnPoint = null;
 
         // Attuned Rift-Gates — enables fast-travel between them
         this.attunedGates = [];
@@ -718,6 +722,8 @@ export class PlayerStats {
         this._tempMaxHpTimer  = 0;
         this.chestContents    = {};
         this.weaponEnchants   = {};
+        this.location         = null;
+        this.respawnPoint     = null;
     }
 }
 
