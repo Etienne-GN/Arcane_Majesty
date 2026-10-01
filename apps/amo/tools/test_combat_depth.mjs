@@ -13,6 +13,7 @@ const { ENEMY_TYPES } = await import('../src/data/worldMap.js');
 const { statusManager } = await import('../src/systems/StatusManager.js');
 const AF = await import('../src/data/enemyAffinities.js');
 const EL = await import('../src/data/elites.js');
+const BE = await import('../src/data/bestiary.js');
 const { getMap } = await import('../src/data/maps/index.js');
 const RX = await import('../src/systems/reactions.js');
 const { targetInfo } = await import('../src/systems/targetInfo.js');
@@ -118,6 +119,32 @@ const mob = (extra = {}) => ({ _statuses: {}, health: 100, maxHealth: 100, activ
     const rare = EL.eliteRareDrop(getMap('prologue_forest'), () => 0);
     ok(typeof rare === 'string' && rare.length > 0, `a rare regional drop (${rare})`);
     eq(EL.eliteRareDrop({ spawns: {} }, () => 0), 'silver_ore', 'fallback when the map has no nodes');
+}
+
+// ---- F1: bestiary
+{
+    const s = new PlayerStats();
+    eq(s.killCounts, {}, 'no kills yet');
+    s.trackKill('wolf'); s.trackKill('wolf'); s.trackKill('frost_shade');
+    eq(s.killCounts, { wolf: 2, frost_shade: 1 }, 'kills counted');
+    eq(s.killedEnemyTypes, ['wolf', 'frost_shade'], 'first kills still listed');
+    const list = BE.bestiaryEntries({ killed: s.killedEnemyTypes, seen: ['grave_wraith'], killCounts: s.killCounts, band: { min: 7, max: 9 } });
+    eq(list.map(e => e.title), ['Forest Wolf', 'Frost Shade', '???'], 'killed first (lore name when there is one), then seen-only as ???');
+    const shade = list[1].text;
+    ok(/Killed: 1/.test(shade), 'kill count');
+    ok(/Lv 7–9: HP \d+–\d+/.test(shade), 'stats at the region band');
+    ok(/immune: cold, frozen/.test(shade) && /weak: fire ×1\.5/.test(shade), 'affinities');
+    ok(/Casts: Frost Bolt/.test(shade), 'spells');
+    ok(/Drops: /.test(list[0].text), 'loot');
+    store.clear(); SaveManager.setSlot('b', 'eldrin');
+    SaveManager.save(s);
+    const u = new PlayerStats(); SaveManager.load(u, 'b', 'eldrin');
+    eq(u.killCounts, { wolf: 2, frost_shade: 1 }, 'kill counts saved');
+    const legacy = JSON.parse(store.get('amo_save_b_eldrin')); delete legacy.killCounts; delete legacy.seenEnemyTypes;
+    store.set('amo_save_b_eldrin', JSON.stringify(legacy));
+    const v = new PlayerStats(); SaveManager.load(v, 'b', 'eldrin');
+    eq([v.killCounts, v.seenEnemyTypes], [{}, []], 'legacy save: empty defaults');
+    ok(/Killed: 1/.test(BE.bestiaryEntries({ killed: v.killedEnemyTypes, seen: [], killCounts: v.killCounts, band: { min: 1, max: 3 } })[0].text), 'legacy kills show at least 1');
 }
 
 console.log(`✓ combat-depth tests passed (${n} assertions).`);

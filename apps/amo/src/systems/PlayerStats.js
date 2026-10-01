@@ -231,6 +231,7 @@ export class PlayerStats {
         // Harvested-node timers and defeated bosses, per map (systems/WorldState.js)
         this.worldState   = {};
         this.seenEnemyTypes = [];   // creatures met (bestiary shows them as "???" until killed)
+        this.killCounts     = {};   // kills per creature type (bestiary)
 
         // Attuned Rift-Gates — enables fast-travel between them
         this.attunedGates = [];
@@ -476,6 +477,7 @@ export class PlayerStats {
         if (!this.killedEnemyTypes.includes(enemyType)) {
             this.killedEnemyTypes.push(enemyType);
         }
+        this.killCounts[enemyType] = (this.killCounts[enemyType] ?? 0) + 1;
     }
 
     gainResonanceInsight(amount = 1) {
@@ -729,6 +731,7 @@ export class PlayerStats {
         this.respawnPoint     = null;
         this.worldState       = {};
         this.seenEnemyTypes   = [];
+        this.killCounts       = {};
     }
 }
 

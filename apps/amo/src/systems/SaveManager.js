@@ -59,6 +59,7 @@ export class SaveManager {
             respawnPoint:      stats.respawnPoint ? { ...stats.respawnPoint } : null,
             worldState:        prunedWorldState(stats, Date.now()),
             seenEnemyTypes:    [...(stats.seenEnemyTypes ?? [])],
+            killCounts:        { ...(stats.killCounts ?? {}) },
             timestamp:     Date.now(),
         };
         try {
@@ -112,6 +113,7 @@ export class SaveManager {
             stats.respawnPoint = d.respawnPoint ? { ...d.respawnPoint } : null;
             stats.worldState   = d.worldState ? JSON.parse(JSON.stringify(d.worldState)) : {};
             stats.seenEnemyTypes = [...(d.seenEnemyTypes ?? [])];
+            stats.killCounts     = { ...(d.killCounts ?? {}) };
             // Seed seenItems from save; fall back to current inventory for old saves
             stats.seenItems = d.seenItems
                 ? new Set(d.seenItems)

@@ -1,6 +1,9 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { ENEMY_TYPES } from '../data/worldMap.js';
+import { BESTIARY_LORE, bestiaryEntries } from '../data/bestiary.js';
+import { mapLevelBand } from '../data/levelBands.js';
+import { getMap } from '../data/maps/index.js';
 import { MenuFocus } from '../systems/MenuFocus.js';
 
 const TABS = ['LORE', 'ECHOES', 'BESTIARY', 'WORLD'];
@@ -39,44 +42,7 @@ const WORLD_LORE = [
     },
 ];
 
-// Bestiary lore — keyed to enemy type IDs
-const BESTIARY_LORE = {
-    wisp: {
-        name: 'Forest Wisp',
-        threat: 'LOW',
-        desc: 'Resonance-charged fragments that coalesce in areas of high arcane density. They congregate near Rift-Gate sites and ancient survey markers. Dissipation releases trace arcane energy. Neither hostile nor benign — they react to intent.',
-    },
-    wolf: {
-        name: 'Forest Wolf',
-        threat: 'MODERATE',
-        desc: 'Corrupted pack predators. Void-taint has overwritten their natural behavior — they move as shadows, driven not by hunger but by the Void General\'s will. The pack structure remains intact but serves a darker command.',
-    },
-    shadow_sprite: {
-        name: 'Shadow Sprite',
-        threat: 'MODERATE',
-        desc: 'Void-born constructs that take the shape of forest creatures. Nothing natural underneath — formed entirely from structured void-matter. They cluster near ruins, feeding on residual resonance. Close contact causes resonance bleed.',
-    },
-    void_stalker: {
-        name: 'Void Stalker',
-        threat: 'HIGH',
-        desc: 'A mature void construct — persistent, patient, resistant to physical force. The Stalkers near the boss arena are sentinels, not random encounters. They mark the boundary of the Void General\'s sphere of influence.',
-    },
-    scout: {
-        name: 'Void Scout',
-        threat: 'MODERATE',
-        desc: 'Humanoid — possibly once a Covenant soldier or survey team member. Void-touched past recovery, but retaining enough tactical instinct to function as patrol units. They carry corrupted equipment and remember formation discipline.',
-    },
-    treant: {
-        name: 'Corrupted Treant',
-        threat: 'HIGH',
-        desc: 'Ancient forest guardians whose resonance core has been inverted by void-taint. Originally protective entities — their corruption marks how deeply the Void\'s influence has spread into the forest\'s living substrate.',
-    },
-    void_general: {
-        name: 'Void General [DEFEATED]',
-        threat: 'APEX',
-        desc: 'A field commander of the Void — one of many, per its dying words. Its purpose was to test the perimeter and determine whether the Heartstone could be reached before its defenders arrived. That it was defeated means only that this test failed. The Void will send another.',
-    },
-};
+// Bestiary lore and entries: data/bestiary.js
 
 const THREAT_COLORS = {
     LOW: '#44aa44', MODERATE: '#aaaa00', HIGH: '#cc6600', APEX: '#cc2244',
@@ -273,19 +239,12 @@ export default class CodexScene extends Phaser.Scene {
             case 1:
                 return (playerStats.codexEchoes ?? []).map(e => ({ title: e.title, text: e.text }));
             case 2:
-                return (playerStats.killedEnemyTypes ?? [])
-                    .map(type => {
-                        const lore = BESTIARY_LORE[type];
-                        if (!lore) return null;
-                        const hp   = ENEMY_TYPES[type]?.health ?? '?';
-                        const dmg  = ENEMY_TYPES[type]?.damage ?? '?';
-                        return {
-                            title: lore.name,
-                            text:  `${lore.desc}\n  HP ${hp}  DMG ${dmg}`,
-                            threat: lore.threat,
-                        };
-                    })
-                    .filter(Boolean);
+                return bestiaryEntries({
+                    killed: playerStats.killedEnemyTypes ?? [],
+                    seen: playerStats.seenEnemyTypes ?? [],
+                    killCounts: playerStats.killCounts ?? {},
+                    band: mapLevelBand(getMap(playerStats.location?.mapId)),
+                });
             case 3:
                 return WORLD_LORE.map(e => ({ title: e.title, text: e.text }));
             default:
