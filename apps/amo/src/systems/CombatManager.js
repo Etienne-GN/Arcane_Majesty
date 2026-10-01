@@ -226,8 +226,8 @@ export default class CombatManager {
         }
 
         if (loreAbil === 'eclipse_mark' && Math.random() < 0.20 && enemy.active) {
-            // Mark enemy — next hit within 1.5s deals 2×
-            enemy._eclipseMarkTimer = 1500;
+            // Mark enemy — next hit within 4s deals 2×
+            enemy._eclipseMarkTimer = 4000;
             scene.add.particles(enemy.x, enemy.y, 'particle', {
                 speed: { min: 10, max: 40 }, angle: { min: 0, max: 360 },
                 scale: { start: 0.6, end: 0 }, lifespan: { min: 400, max: 800 },

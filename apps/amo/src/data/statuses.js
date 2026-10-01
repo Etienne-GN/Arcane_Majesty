@@ -14,7 +14,7 @@ export const STATUS_DEFS = {
         fireDmgMult: 0.5, lightningDmgMult: 2.0,
     },
     dried: {
-        id: 'dried', label: 'Dried', duration: 10000, tint: 0xddaa66,
+        id: 'dried', label: 'Dried', duration: 15000, tint: 0xddaa66,
         fireDmgMult: 1.3,
     },
     cold: {
@@ -22,15 +22,15 @@ export const STATUS_DEFS = {
         speedMult: 0.7,
     },
     frozen: {
-        id: 'frozen', label: 'Frozen', duration: 4000, tint: 0xaaddff,
+        id: 'frozen', label: 'Frozen', duration: 6000, tint: 0xaaddff,
         speedMult: 0, stunned: true,
     },
     burning: {
-        id: 'burning', label: 'Burning', duration: 8000, tint: 0xff4400,
+        id: 'burning', label: 'Burning', duration: 10000, tint: 0xff4400,
         dotDmg: 3, dotInterval: 1000,
     },
     shocked: {
-        id: 'shocked', label: 'Shocked', duration: 2000, tint: 0xffff00,
+        id: 'shocked', label: 'Shocked', duration: 3000, tint: 0xffff00,
         stunned: true,
     },
     poison: {
@@ -39,12 +39,13 @@ export const STATUS_DEFS = {
     },
     dirty: {
         id: 'dirty', label: 'Dirty', duration: -1, tint: 0x886644,
+        speedMult: 0.9,   // mud weighs you down until water washes it off (wet removes dirty)
     },
     silenced: {
         id: 'silenced', label: 'Silenced', duration: 6000, tint: 0x888888,
     },
     entangled: {
-        id: 'entangled', label: 'Entangled', duration: 3000, tint: 0x228822,
+        id: 'entangled', label: 'Entangled', duration: 5000, tint: 0x228822,
         speedMult: 0, stunned: true,
     },
     cursed: {
@@ -60,14 +61,15 @@ export const STATUS_DEFS = {
         speedMult: 1.25, magical: true, buff: true,
     },
     regen: {
-        id: 'regen', label: 'Regen', duration: 10000, tint: 0x44ff88,
+        id: 'regen', label: 'Regen', duration: 15000, tint: 0x44ff88,
         regenAmt: 3, regenInterval: 1000, magical: true, buff: true,
     },
     void_tainted: {
         id: 'void_tainted', label: 'Void-Tainted', duration: 30000, tint: 0x440066,
+        shadowDmgTakenMult: 1.25,   // shadow damage bites deeper
     },
     marked: {
-        id: 'marked', label: 'Marked', duration: 1500, tint: 0xcc00cc,
+        id: 'marked', label: 'Marked', duration: 4000, tint: 0xcc00cc,
     },
     // Aetheric Ward: absorbs damage until its shield (set on cast) is spent.
     warded: {
@@ -75,19 +77,19 @@ export const STATUS_DEFS = {
     },
     // ── Enemy spell buffs (data/enemyMagic.js) — all dispellable ─────────────
     mana_ward: {
-        id: 'mana_ward', label: 'Mana Ward', duration: 10000, tint: 0x88aaff,
+        id: 'mana_ward', label: 'Mana Ward', duration: 12000, tint: 0x88aaff,
         damageTakenMult: 0.5, magical: true, buff: true,
     },
     empowered: {
-        id: 'empowered', label: 'Empowered', duration: 12000, tint: 0xff5533,
+        id: 'empowered', label: 'Empowered', duration: 14000, tint: 0xff5533,
         statsMult: 1.5, magical: true, buff: true,
     },
     hastened: {
-        id: 'hastened', label: 'Hastened', duration: 8000, tint: 0xffee88,
+        id: 'hastened', label: 'Hastened', duration: 10000, tint: 0xffee88,
         speedMult: 1.4, magical: true, buff: true,
     },
     mending: {
-        id: 'mending', label: 'Mending', duration: 8000, tint: 0x66ff99,
+        id: 'mending', label: 'Mending', duration: 10000, tint: 0x66ff99,
         regenAmt: 3, regenInterval: 1000, magical: true, buff: true,
     },
     void_aegis: {

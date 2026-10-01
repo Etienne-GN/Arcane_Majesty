@@ -42,11 +42,13 @@ export default class UIScene extends Phaser.Scene {
         this.pingBg  = this.add.rectangle(pad + 32, pad + 64, barW, 10, 0x111111).setOrigin(0, 0.5);
         this.pingBar = this.add.rectangle(pad + 32, pad + 64, 0,    10, 0x44aa44).setOrigin(0, 0.5);
 
-        // Status effect label strip
+        // Status chips: one per active status, with seconds left; buffs on a
+        // green ground, debuffs on red. Wraps onto a second row when needed.
         this._statusLabels = [];
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 12; i++) {
             const lbl = this.add.text(0, 0, '', {
-                font: '14px monospace', fill: '#aaaaaa', stroke: '#000', strokeThickness: 2
+                font: '13px monospace', fill: '#aaaaaa', stroke: '#000', strokeThickness: 2,
+                padding: { x: 5, y: 2 },
             }).setAlpha(0);
             this._statusLabels.push(lbl);
         }
@@ -158,22 +160,27 @@ export default class UIScene extends Phaser.Scene {
 
         const player = this.scene.get('GameScene')?.player;
         if (player) {
-            const activeIds = Object.keys(player._statuses ?? {});
+            // Buffs first, then debuffs; each sorted by time left
+            const active = Object.entries(player._statuses ?? {})
+                .filter(([id]) => STATUS_DEFS[id])
+                .sort(([a, sa], [b, sb]) => (!!STATUS_DEFS[b].buff - !!STATUS_DEFS[a].buff) || (sa.remaining - sb.remaining));
+            const maxX = 16 + 300;
             let lx = 16, ly = 80;
             this._statusLabels.forEach((lbl, i) => {
-                const sid = activeIds[i];
-                if (sid && STATUS_DEFS[sid]) {
-                    const hexColor = STATUS_DEFS[sid].tint
-                        ? `#${STATUS_DEFS[sid].tint.toString(16).padStart(6, '0')}`
-                        : '#aaaaaa';
-                    lbl.setText(STATUS_DEFS[sid].label)
-                       .setStyle({ fill: hexColor })
-                       .setPosition(lx, ly)
-                       .setAlpha(1);
-                    lx += lbl.width + 8;
-                } else {
-                    lbl.setAlpha(0);
-                }
+                const entry = active[i];
+                if (!entry) { lbl.setAlpha(0); return; }
+                const [sid, st] = entry;
+                const def = STATUS_DEFS[sid];
+                const secs = st.remaining === Infinity ? '' : ` ${Math.ceil(st.remaining / 1000)}s`;
+                const stacks = (st.stacks ?? 1) > 1 ? ` ×${st.stacks}` : '';
+                const hexColor = def.tint ? `#${def.tint.toString(16).padStart(6, '0')}` : '#dddddd';
+                lbl.setText(`${def.label}${stacks}${secs}`)
+                   .setStyle({ fill: hexColor, backgroundColor: def.buff ? '#123a1acc' : '#3a1212cc' });
+                if (lx + lbl.width > maxX && lx > 16) { lx = 16; ly += lbl.height + 4; }
+                // Blink in the last 3 seconds
+                const fading = st.remaining !== Infinity && st.remaining < 3000;
+                lbl.setPosition(lx, ly).setAlpha(fading ? 0.55 + 0.45 * Math.abs(Math.sin(Date.now() * 0.008)) : 1);
+                lx += lbl.width + 6;
             });
         }
 

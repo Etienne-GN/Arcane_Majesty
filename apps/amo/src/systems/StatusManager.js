@@ -17,6 +17,7 @@ const sm = {
         if (id === 'wet') {
             if (this.has(entity, 'burning')) { this._steam(entity); return; }
             if (this.has(entity, 'dried'))   { this.remove(entity, 'dried'); }
+            if (this.has(entity, 'dirty'))   { this.remove(entity, 'dirty'); }   // water washes mud off
         }
         if (id === 'dried') {
             if (this.has(entity, 'wet')) { this.remove(entity, 'wet'); }
@@ -155,6 +156,7 @@ const sm = {
         if (element === 'fire')      { if (this.has(entity, 'dried'))  m *= STATUS_DEFS.dried.fireDmgMult; }
         if (element === 'lightning') { if (this.has(entity, 'wet'))    m *= STATUS_DEFS.wet.lightningDmgMult; }
         if (element === 'water')     { if (this.has(entity, 'burning')) m *= 1.25; }
+        if (element === 'shadow')    { if (this.has(entity, 'void_tainted')) m *= STATUS_DEFS.void_tainted.shadowDmgTakenMult; }
         // Shattering frozen target with physical hit
         if (element === 'physical' && this.has(entity, 'frozen')) { m *= 1.5; this.remove(entity, 'frozen'); }
         return m;

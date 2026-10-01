@@ -3,7 +3,7 @@ import { playerStats } from '../systems/PlayerStats.js';
 import { soundManager } from '../systems/SoundManager.js';
 import { ITEMS } from '../data/items.js';
 import { statusManager } from '../systems/StatusManager.js';
-import { SPELLS, RESONANCE_GAINS } from '../data/spells.js';
+import { SPELLS, RESONANCE_GAINS, scaledStatus } from '../data/spells.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { CHARACTERS } from '../data/characters.js';
 
@@ -578,7 +578,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         if (!this._spellCheck('warmth_aura')) return false;
         statusManager.remove(this, 'cold');
         statusManager.remove(this, 'frozen');
-        statusManager.apply(this, 'regen', { duration: 10000 });
+        statusManager.apply(this, 'regen', { duration: this._selfDuration('warmth_aura') });
         this.setTint(0xff8844);
         this.scene.time.delayedCall(220, () => { if (this.active && !this.invincible) this.clearTint(); });
         soundManager.spell();
@@ -587,7 +587,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     castBenediction() {
         if (!this._spellCheck('benediction')) return false;
-        statusManager.apply(this, 'blessed', { duration: 20000 });
+        statusManager.apply(this, 'blessed', { duration: this._selfDuration('benediction') });
         this.setTint(0xffee66);
         this.scene.cameras.main.flash(50, 255, 220, 80, true);
         this.scene.time.delayedCall(250, () => { if (this.active && !this.invincible) this.clearTint(); });
@@ -597,11 +597,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     castVesselMend() {
         if (!this._spellCheck('vessel_mend')) return false;
-        statusManager.apply(this, 'regen', { duration: 20000 });
+        statusManager.apply(this, 'regen', { duration: this._selfDuration('vessel_mend') });
         this.setTint(0x44ff88);
         this.scene.time.delayedCall(200, () => { if (this.active && !this.invincible) this.clearTint(); });
         soundManager.spell();
         return true;
+    }
+
+    // Duration of a self-cast spell's status at the caster's tier (spells.js scaledStatus)
+    _selfDuration(id) {
+        return scaledStatus(SPELLS[id], this.stats.getSpellLevel(id))?.duration;
     }
 
     castAethericWard() {
@@ -623,6 +628,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         const offsets = { down: [0, dist], up: [0, -dist], left: [-dist, 0], right: [dist, 0] };
         const [ox, oy] = offsets[this.facing];
         this.setPosition(this.x + ox, this.y + oy);
+        statusManager.apply(this, 'blessed', { duration: this._selfDuration('tempest_step') });
         this.setTint(0xccffaa);
         this.scene.cameras.main.flash(30, 180, 255, 120, true);
         this.scene.time.delayedCall(100, () => { if (this.active && !this.invincible) this.clearTint(); });

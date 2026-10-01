@@ -16,14 +16,14 @@
 //             own magical buffs instead (Unweave)
 
 export const ENEMY_SPELLS = {
-    mana_ward:    { name: 'Mana Ward',        kind: 'ward',    castMs: 1200, cooldown: 9000,  range: 140, status: 'mana_ward', duration: 10000, color: 0x88aaff },
-    dark_empower: { name: 'Dark Empowerment', kind: 'empower', castMs: 1000, cooldown: 10000, range: 140, status: 'empowered', duration: 12000, color: 0xff5533 },
-    quicken:      { name: 'Quicken',          kind: 'haste',   castMs: 800,  cooldown: 11000, range: 120, status: 'hastened',  duration: 8000,  color: 0xffee88 },
-    mend:         { name: 'Mend',             kind: 'mend',    castMs: 1400, cooldown: 8000,  range: 140, heal: 0.20, status: 'mending', duration: 8000, color: 0x66ff99 },
+    mana_ward:    { name: 'Mana Ward',        kind: 'ward',    castMs: 1200, cooldown: 9000,  range: 140, status: 'mana_ward', duration: 12000, color: 0x88aaff },
+    dark_empower: { name: 'Dark Empowerment', kind: 'empower', castMs: 1000, cooldown: 10000, range: 140, status: 'empowered', duration: 14000, color: 0xff5533 },
+    quicken:      { name: 'Quicken',          kind: 'haste',   castMs: 800,  cooldown: 11000, range: 120, status: 'hastened',  duration: 10000,  color: 0xffee88 },
+    mend:         { name: 'Mend',             kind: 'mend',    castMs: 1400, cooldown: 8000,  range: 140, heal: 0.20, status: 'mending', duration: 10000, color: 0x66ff99 },
     arcane_bolt:  { name: 'Arcane Bolt',      kind: 'bolt',    castMs: 900,  cooldown: 3500,  range: 170, dmg: 10, color: 0xcc88ff },
-    frost_bolt:   { name: 'Frost Bolt',       kind: 'bolt',    castMs: 1000, cooldown: 4000,  range: 160, dmg: 9,  status: 'cold',      chance: 0.6,  duration: 6000, color: 0x88ddff },
-    void_bolt:    { name: 'Void Bolt',        kind: 'bolt',    castMs: 1100, cooldown: 4500,  range: 170, dmg: 12, status: 'cursed',    chance: 0.3,  duration: 8000, color: 0x9933ff },
-    thorn_bolt:   { name: 'Thorn Lash',       kind: 'bolt',    castMs: 900,  cooldown: 4000,  range: 150, dmg: 8,  status: 'entangled', chance: 0.35, duration: 1500, color: 0x44aa33 },
+    frost_bolt:   { name: 'Frost Bolt',       kind: 'bolt',    castMs: 1000, cooldown: 4000,  range: 160, dmg: 9,  status: 'cold',      chance: 0.6,  duration: 8000, color: 0x88ddff },
+    void_bolt:    { name: 'Void Bolt',        kind: 'bolt',    castMs: 1100, cooldown: 4500,  range: 170, dmg: 12, status: 'cursed',    chance: 0.3,  duration: 10000, color: 0x9933ff },
+    thorn_bolt:   { name: 'Thorn Lash',       kind: 'bolt',    castMs: 900,  cooldown: 4000,  range: 150, dmg: 8,  status: 'entangled', chance: 0.35, duration: 2000, color: 0x44aa33 },
     hex_curse:    { name: 'Hex of Weakness',  kind: 'hex',     castMs: 1300, cooldown: 12000, range: 150, status: 'cursed',   duration: 12000, color: 0x660088 },
     hex_silence:  { name: 'Hex of Silence',   kind: 'hex',     castMs: 1100, cooldown: 14000, range: 150, status: 'silenced', duration: 4000,  color: 0x888888 },
     unweave:      { name: 'Unweave',          kind: 'hex',     castMs: 1200, cooldown: 15000, range: 150, dispel: true,                       color: 0xddddff },

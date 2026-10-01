@@ -17,7 +17,7 @@ import { TILE_SIZE, ENEMY_TYPES } from '../data/worldMap.js';
 import { getMap } from '../data/maps/index.js';
 import { catalogueLayout } from '../utils/catalogueLayout.js';
 import { DIALOGUES } from '../data/dialogues.js';
-import { SPELLS, TIER_NAMES, RESONANCE_GAINS } from '../data/spells.js';
+import { SPELLS, TIER_NAMES, RESONANCE_GAINS, scaledStatus } from '../data/spells.js';
 import { statusManager } from '../systems/StatusManager.js';
 import { STATUS_DEFS } from '../data/statuses.js';
 import { ELEMENT_COLORS } from '../controls/launcherDefs.js';
@@ -677,7 +677,8 @@ export default class GameScene extends Phaser.Scene {
         this._reticle._range = range;
         this._reticle._col   = col;
         this._reticle._type  = spell.targetingType;
-        this._reticle._aoeR  = spell.range?.[Math.max(0, level - 1)] ?? 80;
+        // Blast size: its own radius when the spell has one (Fireball), else its range
+        this._reticle._aoeR  = (spell.radius ?? spell.range)?.[Math.max(0, level - 1)] ?? 80;
 
         // Show a "selecting" ring on the skill bar slot
         this.scene.get('UIScene')?.showNotification?.(`Aim ${spell.name} — tap to cast, tap again to cancel`, 5000);
@@ -804,6 +805,36 @@ export default class GameScene extends Phaser.Scene {
 
         // Custom VFX for spells that deserve it
         switch (id) {
+            case 'fireball': {
+                // A flaming orb flies to the target, then bursts (damage: _applySpellEffects)
+                const sp = SPELLS.fireball;
+                const lvl = playerStats.getSpellLevel(id);
+                const r = sp.radius[lvl - 1] ?? sp.radius[0];
+                const travel = this._projectileMs(sp, tx, ty);
+                const orb = this.add.circle(this.player.x, this.player.y - 8, 6, 0xffaa33).setDepth(64);
+                const glow = this.add.circle(this.player.x, this.player.y - 8, 11, 0xff5500, 0.45).setDepth(63);
+                const trail = this.add.particles(0, 0, 'particle', {
+                    speed: { min: 5, max: 25 }, scale: { start: 0.9, end: 0 }, lifespan: { min: 180, max: 360 },
+                    tint: [0xff6600, 0xff3300, 0xffcc44], frequency: 16, quantity: 2, follow: orb,
+                }).setDepth(62);
+                this.tweens.add({
+                    targets: [orb, glow], x: tx, y: ty, duration: travel,
+                    onComplete: () => {
+                        orb.destroy(); glow.destroy(); trail.stop();
+                        this.time.delayedCall(400, () => trail.destroy());
+                        this.add.particles(tx, ty, 'particle', {
+                            speed: { min: 50, max: 40 + r * 3 }, angle: { min: 0, max: 360 },
+                            scale: { start: 1.6, end: 0 }, lifespan: { min: 250, max: 600 },
+                            tint: [0xff6600, 0xff3300, 0xffaa00, 0xffee88], quantity: 30, explode: true,
+                        }).setDepth(60);
+                        const ring = this.add.circle(tx, ty, 8, 0xff7722, 0.35).setDepth(59);
+                        this.tweens.add({ targets: ring, radius: r, alpha: 0, duration: 260, onComplete: () => ring.destroy() });
+                        this.cameras.main.shake(90, 0.004);
+                    },
+                });
+                return;
+            }
+
             case 'fire_nova':
                 this.add.particles(tx, ty, 'particle', {
                     speed: { min: 60, max: 200 }, angle: { min: 0, max: 360 },
@@ -1017,9 +1048,21 @@ export default class GameScene extends Phaser.Scene {
         const level = playerStats.getSpellLevel(id);
         const dmg   = this._spellDamage(id);
         const range = spell?.range?.[level - 1] ?? 80;
+        const status = scaledStatus(spell, level);   // duration grows with the spell's tier
 
         // Spells with bespoke mechanics first
         switch (id) {
+            case 'fireball': {
+                // Damage lands when the orb arrives (see _spellVFX)
+                const r = spell.radius[level - 1] ?? spell.radius[0];
+                this.time.delayedCall(this._projectileMs(spell, tx, ty), () => {
+                    this._hitElement = 'fire';
+                    if (dmg > 0) this._damageInRadius(tx, ty, r, dmg);
+                    this._applyStatusInRadius(tx, ty, r, status);
+                    this._hitElement = null;
+                });
+                return;
+            }
             case 'earth_pillar': {
                 const distToPlayer = Phaser.Math.Distance.Between(this.player.x, this.player.y, tx, ty);
                 if (distToPlayer < 60) this._earthPillarPlatform(tx, ty);
@@ -1043,7 +1086,7 @@ export default class GameScene extends Phaser.Scene {
                     this.tweens.add({ targets: [g, em], alpha: 0, duration: 600,
                         onComplete: () => { g.destroy(); em.destroy(); } });
                 });
-                this._applyStatusInRadius(tx, ty, range, spell.applyStatus);
+                this._applyStatusInRadius(tx, ty, range, status);
                 return;
             }
             case 'shadow_veil':
@@ -1057,9 +1100,9 @@ export default class GameScene extends Phaser.Scene {
                 return; // handled entirely on player/scene side
             case 'eclipse_mark': {
                 // Apply marked status AND set the eclipse mark timer for 2× damage
-                this._applyStatusNearest(tx, ty, range, spell.applyStatus);
+                this._applyStatusNearest(tx, ty, range, status);
                 const nearest = this._nearestEnemy(tx, ty, range);
-                if (nearest) nearest._eclipseMarkTimer = 1500;
+                if (nearest) nearest._eclipseMarkTimer = status?.duration ?? 4000;
                 return;
             }
             case 'life_drain': {
@@ -1086,7 +1129,7 @@ export default class GameScene extends Phaser.Scene {
 
         if (targeting === 'targeted_aoe') {
             if (dmg > 0) this._damageInRadius(tx, ty, range, dmg);
-            if (spell.applyStatus) this._applyStatusInRadius(tx, ty, range, spell.applyStatus);
+            if (status) this._applyStatusInRadius(tx, ty, range, status);
         } else if (targeting === 'targeted_directional') {
             if (spell.projectileCount && spell.projectileCount > 1) {
                 // Multi-projectile: hit single nearest per projectile (simplified)
@@ -1097,19 +1140,19 @@ export default class GameScene extends Phaser.Scene {
                     const etx = this.player.x - Math.cos(angle) * range;
                     const ety = this.player.y + Math.sin(angle) * range;
                     if (dmg > 0) this._damageSingleNearest(etx, ety, range, dmg);
-                    if (spell.applyStatus) this._applyStatusNearest(etx, ety, range, spell.applyStatus);
+                    if (status) this._applyStatusNearest(etx, ety, range, status);
                 }
             } else if (spell.piercing) {
                 if (dmg > 0) this._damageInCone(tx, ty, range, 15, dmg);
-                if (spell.applyStatus) this._applyStatusInCone(tx, ty, range, 15, spell.applyStatus);
+                if (status) this._applyStatusInCone(tx, ty, range, 15, status);
             } else {
                 if (dmg > 0) this._damageSingleNearest(tx, ty, range, dmg);
-                if (spell.applyStatus) this._applyStatusNearest(tx, ty, range, spell.applyStatus);
+                if (status) this._applyStatusNearest(tx, ty, range, status);
             }
         }
         // 'self' spells with applyStatus target the player
-        else if (targeting === 'self' && spell.applyStatus && Math.random() < spell.applyStatus.chance) {
-            statusManager.apply(this.player, spell.applyStatus.id, { duration: spell.applyStatus.duration });
+        else if (targeting === 'self' && status && Math.random() < status.chance) {
+            statusManager.apply(this.player, status.id, { duration: status.duration });
         }
         this._hitElement = null;
 
@@ -1121,6 +1164,12 @@ export default class GameScene extends Phaser.Scene {
                 : [this._nearestEnemy(tx, ty, range)].filter(Boolean);
             for (const e of targets) this._unweave(e, spell, dmg);
         }
+    }
+
+    // Flight time of a projectile spell from the player to (tx, ty)
+    _projectileMs(spell, tx, ty) {
+        const d = Phaser.Math.Distance.Between(this.player.x, this.player.y, tx, ty);
+        return Math.max(60, d / (spell.projectileSpeed ?? 400) * 1000);
     }
 
     _enemiesInRadius(cx, cy, range) {
