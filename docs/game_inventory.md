@@ -281,6 +281,8 @@ Values given per tier (Novice / Apprentice / Adept). Discover = resonance needed
 | Hushed | 15.0s | (flag used by spells/AI) |
 | Resonance Stun | 2.0s | speedMult: 0, stunned: true |
 
+**Reactions:** Freeze — cold on a wet target freezes it for 3 s. Conduct — lightning on a wet target arcs to every other wet enemy within 90 px for 50% damage. Detonate — fire on a void-tainted target bursts for 15 + 30% of the hit around it. Steam — fire and water cancel out. Shatter — a physical hit on a frozen target deals ×1.5.
+
 ## Cooking
 At a campfire (REST / **COOK** / BREW). Recipes appear as their ingredients are discovered.
 
@@ -650,124 +652,140 @@ Prologue world objects: 3 campfires, 3 chests, 3 rift-gates, 3 readable signs, 3
 
 ## Enemies & creatures
 ### Hostile (77)
-| Creature | HP | Damage | Speed | XP | Loot |
-|---|---|---|---|---|---|
-| wisp | 18 | 5 | 85 | 15 | Mana Potion 30% |
-| wolf | 28 | 8 | 95 | 20 | Forest Herb 35%, Health Potion 20% |
-| shadow sprite | 22 | 13 | 72 | 25 | Mana Potion 35%, Ancient Scroll 15%, Mana-Etched Sword 8% |
-| void stalker | 55 | 18 | 48 | 38 | Mana Potion 45%, Eldritch Tome 15%, Dusk Fang 10% |
-| scout | 32 | 9 | 56 | 22 | Health Potion 35%, Forest Herb 25% |
-| treant | 65 | 16 | 30 | 42 | Health Potion 50%, Forest Herb 40% |
-| giant spider | 45 | 11 | 55 | 28 | Venom Sac 40%, Health Potion 25% |
-| dark druid | 38 | 14 | 48 | 32 | Ancient Scroll 20%, Mana Potion 35% |
-| feral boar | 30 | 16 | 115 | 24 | Boar Meat 70%, Boar Tusk 25% |
-| skeleton archer | 30 | 10 | 45 | 28 | Bone Fragment 60%, Health Potion 20% |
-| stone golem | 120 | 22 | 28 | 55 | Mineral Ore 50%, Health Potion 30% |
-| grave wraith | 35 | 18 | 90 | 38 | Spectral Dust 50%, Mana Potion 30% |
-| cursed knight | 80 | 20 | 50 | 48 | Health Potion 40%, Spectral Dust 30%, Ancient Scroll 10% |
-| runic turret | 50 | 12 | 0 | 35 | Mineral Ore 40%, Ancient Scroll 15% |
-| bog lurker | 55 | 15 | 60 | 35 | Venom Sac 40%, Health Potion 20% |
-| rot toad | 40 | 10 | 45 | 28 | Venom Sac 50% |
-| will o wisp | 22 | 8 | 78 | 20 | Mana Potion 30% |
-| vine horror | 65 | 14 | 35 | 40 | Forest Herb 50%, Health Potion 35% |
-| plague rat | 12 | 5 | 95 | 8 | Venom Sac 15% |
-| ember imp | 28 | 12 | 110 | 30 | Ember Stone 50%, Mana Potion 20% |
-| lava elemental | 90 | 20 | 35 | 52 | Ember Stone 70%, Health Potion 30% |
-| ash crawler | 42 | 16 | 70 | 35 | Ember Stone 40% |
-| forge daemon | 100 | 25 | 45 | 60 | Ember Stone 60%, Health Potion 40%, Ancient Scroll 10% |
-| cinder hawk | 22 | 14 | 130 | 28 | Ember Stone 30% |
-| frost bear | 100 | 22 | 70 | 55 | Ice Crystal 50%, Health Potion 40% |
-| ice revenant | 45 | 16 | 65 | 38 | Ice Crystal 60%, Spectral Dust 30% |
-| blizzard sprite | 30 | 12 | 58 | 32 | Ice Crystal 50%, Mana Potion 30% |
-| wendigo | 75 | 28 | 80 | 58 | Ice Crystal 50%, Health Potion 40%, Ancient Scroll 10% |
-| glacier crab | 85 | 18 | 38 | 45 | Ice Crystal 60%, Health Potion 30% |
-| cave bat | 14 | 8 | 100 | 10 | — |
-| crystal golem | 80 | 18 | 35 | 48 | Mineral Ore 60%, Health Potion 30% |
-| blind stalker | 55 | 20 | 75 | 42 | Spectral Dust 40% |
-| deep horror | 70 | 22 | 50 | 50 | Corrupted Essence 40%, Mana Potion 30% |
-| mushroom shaman | 45 | 12 | 38 | 38 | Mushroom Spore 60%, Health Potion 30% |
-| void spawn | 55 | 20 | 85 | 45 | Corrupted Essence 50%, Mana Potion 30% |
-| mirror shade | 40 | 16 | 70 | 40 | Corrupted Essence 40%, Ancient Scroll 15% |
-| arcane sentinel | 90 | 24 | 0 | 60 | Corrupted Essence 50%, Mana Potion 40%, Ancient Scroll 20% |
-| rift walker | 75 | 22 | 65 | 58 | Corrupted Essence 50%, Void Shard 40%, Ancient Scroll 15% |
-| soul eater | 60 | 18 | 78 | 52 | Corrupted Essence 60%, Void Shard 40% |
-| grizzly bear | 70 | 20 | 80 | 40 | Boar Meat 70%, Wolf Pelt 50%, Bone Fragment 40% |
-| black bear | 55 | 16 | 90 | 32 | Boar Meat 65%, Wolf Pelt 40% |
-| giant rat | 18 | 7 | 88 | 12 | Bone Fragment 50%, Venom Sac 20% |
-| carrion crow | 15 | 6 | 110 | 8 | Void Shard 30% |
-| hollow cat | 20 | 8 | 95 | 10 | Void Shard 35% |
-| lion | 65 | 18 | 95 | 38 | Wolf Pelt 60%, Venison 50% |
-| lioness | 55 | 15 | 105 | 32 | Wolf Pelt 50%, Venison 45% |
-| mushroom walker | 22 | 6 | 45 | 14 | Mushroom Spore 70%, Forest Herb 30% |
-| amanita walker | 28 | 9 | 42 | 18 | Mushroom Spore 80%, Venom Sac 35% |
-| polar bear | 80 | 24 | 75 | 45 | Wolf Pelt 65%, Bone Fragment 45% |
-| shark | 90 | 28 | 110 | 55 | Venison 50%, Bone Fragment 60% |
-| bird eagle | 18 | 8 | 130 | 12 | Deer Hide 25% |
-| plague heron | 20 | 7 | 90 | 10 | Void Shard 35% |
-| rot frog | 28 | 9 | 65 | 12 | Venom Sac 40%, Void Shard 30% |
-| ember lizard | 22 | 8 | 100 | 10 | Ember Stone 50%, Void Shard 30% |
-| ash vulture | 20 | 7 | 85 | 10 | Void Shard 40% |
-| corrupted elk | 55 | 18 | 100 | 22 | Deer Hide 40%, Void Shard 50%, Ice Crystal 30% |
-| void fox | 25 | 10 | 115 | 12 | Wolf Pelt 30%, Void Shard 40% |
-| void crawler | 18 | 9 | 85 | 10 | Void Shard 40% |
-| blight moth | 16 | 7 | 95 | 8 | Void Shard 35%, Mushroom Spore 30% |
-| corrupted boar | 38 | 12 | 88 | 18 | Boar Meat 60%, Boar Tusk 20%, Void Shard 45% |
-| corrupted deer | 28 | 9 | 100 | 14 | Deer Hide 40%, Void Shard 50% |
-| corrupted rabbit | 12 | 5 | 110 | 8 | Void Shard 35% |
-| spider green | 18 | 6 | 95 | 10 | Venom Sac 35% |
-| spider brown | 18 | 6 | 90 | 10 | Venom Sac 35% |
-| spider red | 22 | 8 | 100 | 14 | Venom Sac 45%, ruby_dust 15% |
-| spider blue | 20 | 7 | 105 | 12 | Venom Sac 40% |
-| spider gray | 20 | 7 | 92 | 12 | Venom Sac 35% |
-| spider yellow | 16 | 5 | 110 | 8 | Venom Sac 25% |
-| spider orange | 18 | 6 | 95 | 10 | Venom Sac 35% |
-| spider pink | 16 | 5 | 108 | 8 | Venom Sac 25% |
-| spider white | 24 | 9 | 88 | 16 | Venom Sac 50%, bone_dust 20% |
-| spider dark | 28 | 11 | 100 | 20 | Venom Sac 60%, shadow_essence 25% |
-| spider queen | 55 | 15 | 85 | 45 | Venom Sac 90%, spider_silk 70%, Void Shard 30% |
-| gloom beak | 20 | 10 | 135 | 22 | Mana Potion 15% |
-| frost shade | 26 | 14 | 70 | 28 | Mana Potion 30% |
-| crag fiend | 70 | 20 | 40 | 45 | Mineral Ore 40% |
-| resonance wisp | 12 | 1 | 30 | 5 | — |
+| Creature | Family | HP | Damage | Speed | XP | Loot |
+|---|---|---|---|---|---|---|
+| wisp | — | 18 | 5 | 85 | 15 | Mana Potion 30% |
+| wolf | — | 28 | 8 | 95 | 20 | Forest Herb 35%, Health Potion 20% |
+| shadow sprite | Void-touched | 22 | 13 | 72 | 25 | Mana Potion 35%, Ancient Scroll 15%, Mana-Etched Sword 8% |
+| void stalker | Void-touched | 55 | 18 | 48 | 38 | Mana Potion 45%, Eldritch Tome 15%, Dusk Fang 10% |
+| scout | — | 32 | 9 | 56 | 22 | Health Potion 35%, Forest Herb 25% |
+| treant | Plant / fungus | 65 | 16 | 30 | 42 | Health Potion 50%, Forest Herb 40% |
+| giant spider | — | 45 | 11 | 55 | 28 | Venom Sac 40%, Health Potion 25% |
+| dark druid | — | 38 | 14 | 48 | 32 | Ancient Scroll 20%, Mana Potion 35% |
+| feral boar | — | 30 | 16 | 115 | 24 | Boar Meat 70%, Boar Tusk 25% |
+| skeleton archer | Undead | 30 | 10 | 45 | 28 | Bone Fragment 60%, Health Potion 20% |
+| stone golem | Construct | 120 | 22 | 28 | 55 | Mineral Ore 50%, Health Potion 30% |
+| grave wraith | Undead | 35 | 18 | 90 | 38 | Spectral Dust 50%, Mana Potion 30% |
+| cursed knight | Undead | 80 | 20 | 50 | 48 | Health Potion 40%, Spectral Dust 30%, Ancient Scroll 10% |
+| runic turret | Construct | 50 | 12 | 0 | 35 | Mineral Ore 40%, Ancient Scroll 15% |
+| bog lurker | Aquatic | 55 | 15 | 60 | 35 | Venom Sac 40%, Health Potion 20% |
+| rot toad | Aquatic | 40 | 10 | 45 | 28 | Venom Sac 50% |
+| will o wisp | — | 22 | 8 | 78 | 20 | Mana Potion 30% |
+| vine horror | Plant / fungus | 65 | 14 | 35 | 40 | Forest Herb 50%, Health Potion 35% |
+| plague rat | — | 12 | 5 | 95 | 8 | Venom Sac 15% |
+| ember imp | Fire-born | 28 | 12 | 110 | 30 | Ember Stone 50%, Mana Potion 20% |
+| lava elemental | Fire-born | 90 | 20 | 35 | 52 | Ember Stone 70%, Health Potion 30% |
+| ash crawler | Fire-born | 42 | 16 | 70 | 35 | Ember Stone 40% |
+| forge daemon | Fire-born | 100 | 25 | 45 | 60 | Ember Stone 60%, Health Potion 40%, Ancient Scroll 10% |
+| cinder hawk | Fire-born | 22 | 14 | 130 | 28 | Ember Stone 30% |
+| frost bear | Frost-born | 100 | 22 | 70 | 55 | Ice Crystal 50%, Health Potion 40% |
+| ice revenant | Frost-born | 45 | 16 | 65 | 38 | Ice Crystal 60%, Spectral Dust 30% |
+| blizzard sprite | Frost-born | 30 | 12 | 58 | 32 | Ice Crystal 50%, Mana Potion 30% |
+| wendigo | Frost-born | 75 | 28 | 80 | 58 | Ice Crystal 50%, Health Potion 40%, Ancient Scroll 10% |
+| glacier crab | Frost-born | 85 | 18 | 38 | 45 | Ice Crystal 60%, Health Potion 30% |
+| cave bat | — | 14 | 8 | 100 | 10 | — |
+| crystal golem | Construct | 80 | 18 | 35 | 48 | Mineral Ore 60%, Health Potion 30% |
+| blind stalker | — | 55 | 20 | 75 | 42 | Spectral Dust 40% |
+| deep horror | — | 70 | 22 | 50 | 50 | Corrupted Essence 40%, Mana Potion 30% |
+| mushroom shaman | Plant / fungus | 45 | 12 | 38 | 38 | Mushroom Spore 60%, Health Potion 30% |
+| void spawn | Void-touched | 55 | 20 | 85 | 45 | Corrupted Essence 50%, Mana Potion 30% |
+| mirror shade | Void-touched | 40 | 16 | 70 | 40 | Corrupted Essence 40%, Ancient Scroll 15% |
+| arcane sentinel | Construct | 90 | 24 | 0 | 60 | Corrupted Essence 50%, Mana Potion 40%, Ancient Scroll 20% |
+| rift walker | Void-touched | 75 | 22 | 65 | 58 | Corrupted Essence 50%, Void Shard 40%, Ancient Scroll 15% |
+| soul eater | Void-touched | 60 | 18 | 78 | 52 | Corrupted Essence 60%, Void Shard 40% |
+| grizzly bear | — | 70 | 20 | 80 | 40 | Boar Meat 70%, Wolf Pelt 50%, Bone Fragment 40% |
+| black bear | — | 55 | 16 | 90 | 32 | Boar Meat 65%, Wolf Pelt 40% |
+| giant rat | — | 18 | 7 | 88 | 12 | Bone Fragment 50%, Venom Sac 20% |
+| carrion crow | — | 15 | 6 | 110 | 8 | Void Shard 30% |
+| hollow cat | — | 20 | 8 | 95 | 10 | Void Shard 35% |
+| lion | — | 65 | 18 | 95 | 38 | Wolf Pelt 60%, Venison 50% |
+| lioness | — | 55 | 15 | 105 | 32 | Wolf Pelt 50%, Venison 45% |
+| mushroom walker | Plant / fungus | 22 | 6 | 45 | 14 | Mushroom Spore 70%, Forest Herb 30% |
+| amanita walker | Plant / fungus | 28 | 9 | 42 | 18 | Mushroom Spore 80%, Venom Sac 35% |
+| polar bear | Frost-born | 80 | 24 | 75 | 45 | Wolf Pelt 65%, Bone Fragment 45% |
+| shark | Aquatic | 90 | 28 | 110 | 55 | Venison 50%, Bone Fragment 60% |
+| bird eagle | — | 18 | 8 | 130 | 12 | Deer Hide 25% |
+| plague heron | — | 20 | 7 | 90 | 10 | Void Shard 35% |
+| rot frog | Aquatic | 28 | 9 | 65 | 12 | Venom Sac 40%, Void Shard 30% |
+| ember lizard | Fire-born | 22 | 8 | 100 | 10 | Ember Stone 50%, Void Shard 30% |
+| ash vulture | — | 20 | 7 | 85 | 10 | Void Shard 40% |
+| corrupted elk | — | 55 | 18 | 100 | 22 | Deer Hide 40%, Void Shard 50%, Ice Crystal 30% |
+| void fox | Void-touched | 25 | 10 | 115 | 12 | Wolf Pelt 30%, Void Shard 40% |
+| void crawler | Void-touched | 18 | 9 | 85 | 10 | Void Shard 40% |
+| blight moth | — | 16 | 7 | 95 | 8 | Void Shard 35%, Mushroom Spore 30% |
+| corrupted boar | — | 38 | 12 | 88 | 18 | Boar Meat 60%, Boar Tusk 20%, Void Shard 45% |
+| corrupted deer | — | 28 | 9 | 100 | 14 | Deer Hide 40%, Void Shard 50% |
+| corrupted rabbit | — | 12 | 5 | 110 | 8 | Void Shard 35% |
+| spider green | — | 18 | 6 | 95 | 10 | Venom Sac 35% |
+| spider brown | — | 18 | 6 | 90 | 10 | Venom Sac 35% |
+| spider red | — | 22 | 8 | 100 | 14 | Venom Sac 45%, ruby_dust 15% |
+| spider blue | — | 20 | 7 | 105 | 12 | Venom Sac 40% |
+| spider gray | — | 20 | 7 | 92 | 12 | Venom Sac 35% |
+| spider yellow | — | 16 | 5 | 110 | 8 | Venom Sac 25% |
+| spider orange | — | 18 | 6 | 95 | 10 | Venom Sac 35% |
+| spider pink | — | 16 | 5 | 108 | 8 | Venom Sac 25% |
+| spider white | — | 24 | 9 | 88 | 16 | Venom Sac 50%, bone_dust 20% |
+| spider dark | — | 28 | 11 | 100 | 20 | Venom Sac 60%, shadow_essence 25% |
+| spider queen | — | 55 | 15 | 85 | 45 | Venom Sac 90%, spider_silk 70%, Void Shard 30% |
+| gloom beak | — | 20 | 10 | 135 | 22 | Mana Potion 15% |
+| frost shade | Frost-born | 26 | 14 | 70 | 28 | Mana Potion 30% |
+| crag fiend | — | 70 | 20 | 40 | 45 | Mineral Ore 40% |
+| resonance wisp | — | 12 | 1 | 30 | 5 | — |
 
 ### Passive animals (35) — flee, hunted for meat and hides
-| Creature | HP | Damage | Speed | XP | Loot |
-|---|---|---|---|---|---|
-| boar | 20 | 0 | 105 | 0 | Boar Meat 80%, Boar Tusk 30% |
-| deer | 14 | 0 | 120 | 0 | Venison 85%, Deer Hide 50% |
-| deer doe | 12 | 0 | 125 | 0 | Venison 80%, Deer Hide 45% |
-| forest fox | 10 | 0 | 135 | 0 | Forest Herb 30% |
-| rabbit | 6 | 0 | 130 | 0 | Rabbit Meat 90%, Rabbit's Foot 25% |
-| crow | 8 | 0 | 140 | 0 | — |
-| stray cat | 10 | 0 | 120 | 0 | — |
-| dark deer | 16 | 0 | 118 | 0 | Venison 85%, Deer Hide 55% |
-| dark deer doe | 12 | 0 | 122 | 0 | Venison 80%, Deer Hide 45% |
-| field mouse | 4 | 0 | 110 | 0 | — |
-| white mouse | 4 | 0 | 110 | 0 | — |
-| shiba | 12 | 0 | 100 | 0 | — |
-| goat | 14 | 0 | 90 | 0 | Venison 60% |
-| turkey | 8 | 0 | 85 | 0 | Turkey Meat 80% |
-| cow | 22 | 0 | 50 | 0 | Venison 90%, Deer Hide 50% |
-| llama | 18 | 0 | 70 | 0 | Deer Hide 70% |
-| pig | 16 | 0 | 80 | 0 | Boar Meat 90% |
-| sheep | 14 | 0 | 55 | 0 | Deer Hide 80%, Forest Herb 30% |
-| chicken | 6 | 0 | 90 | 0 | Rabbit Meat 90%, Forest Herb 20% |
-| arctic fox | 10 | 0 | 135 | 0 | Wolf Pelt 40%, Rabbit Meat 50% |
-| bird bluejay | 4 | 0 | 150 | 0 | — |
-| bird sparrow | 4 | 0 | 140 | 0 | — |
-| bird robin | 4 | 0 | 140 | 0 | — |
-| bird cardinal | 4 | 0 | 145 | 0 | — |
-| bird brown | 4 | 0 | 140 | 0 | — |
-| bird black | 4 | 0 | 138 | 0 | — |
-| bird blue | 4 | 0 | 142 | 0 | — |
-| bird white | 4 | 0 | 140 | 0 | — |
-| heron | 10 | 0 | 115 | 0 | — |
-| giant frog | 18 | 0 | 80 | 0 | Venom Sac 20% |
-| fire lizard | 12 | 0 | 120 | 0 | Ember Stone 25% |
-| vulture | 14 | 0 | 100 | 0 | — |
-| elk | 22 | 0 | 125 | 0 | Venison 80%, Deer Hide 50% |
-| cave fish | 6 | 0 | 90 | 0 | — |
-| glow moth | 5 | 0 | 110 | 0 | — |
+| Creature | Family | HP | Damage | Speed | XP | Loot |
+|---|---|---|---|---|---|---|
+| boar | — | 20 | 0 | 105 | 0 | Boar Meat 80%, Boar Tusk 30% |
+| deer | — | 14 | 0 | 120 | 0 | Venison 85%, Deer Hide 50% |
+| deer doe | — | 12 | 0 | 125 | 0 | Venison 80%, Deer Hide 45% |
+| forest fox | — | 10 | 0 | 135 | 0 | Forest Herb 30% |
+| rabbit | — | 6 | 0 | 130 | 0 | Rabbit Meat 90%, Rabbit's Foot 25% |
+| crow | — | 8 | 0 | 140 | 0 | — |
+| stray cat | — | 10 | 0 | 120 | 0 | — |
+| dark deer | — | 16 | 0 | 118 | 0 | Venison 85%, Deer Hide 55% |
+| dark deer doe | — | 12 | 0 | 122 | 0 | Venison 80%, Deer Hide 45% |
+| field mouse | — | 4 | 0 | 110 | 0 | — |
+| white mouse | — | 4 | 0 | 110 | 0 | — |
+| shiba | — | 12 | 0 | 100 | 0 | — |
+| goat | — | 14 | 0 | 90 | 0 | Venison 60% |
+| turkey | — | 8 | 0 | 85 | 0 | Turkey Meat 80% |
+| cow | — | 22 | 0 | 50 | 0 | Venison 90%, Deer Hide 50% |
+| llama | — | 18 | 0 | 70 | 0 | Deer Hide 70% |
+| pig | — | 16 | 0 | 80 | 0 | Boar Meat 90% |
+| sheep | — | 14 | 0 | 55 | 0 | Deer Hide 80%, Forest Herb 30% |
+| chicken | — | 6 | 0 | 90 | 0 | Rabbit Meat 90%, Forest Herb 20% |
+| arctic fox | — | 10 | 0 | 135 | 0 | Wolf Pelt 40%, Rabbit Meat 50% |
+| bird bluejay | — | 4 | 0 | 150 | 0 | — |
+| bird sparrow | — | 4 | 0 | 140 | 0 | — |
+| bird robin | — | 4 | 0 | 140 | 0 | — |
+| bird cardinal | — | 4 | 0 | 145 | 0 | — |
+| bird brown | — | 4 | 0 | 140 | 0 | — |
+| bird black | — | 4 | 0 | 138 | 0 | — |
+| bird blue | — | 4 | 0 | 142 | 0 | — |
+| bird white | — | 4 | 0 | 140 | 0 | — |
+| heron | — | 10 | 0 | 115 | 0 | — |
+| giant frog | Aquatic | 18 | 0 | 80 | 0 | Venom Sac 20% |
+| fire lizard | Fire-born | 12 | 0 | 120 | 0 | Ember Stone 25% |
+| vulture | — | 14 | 0 | 100 | 0 | — |
+| elk | — | 22 | 0 | 125 | 0 | Venison 80%, Deer Hide 50% |
+| cave fish | — | 6 | 0 | 90 | 0 | — |
+| glow moth | — | 5 | 0 | 110 | 0 | — |
+
+### Families: resistances, weaknesses, immunities
+Spell damage of an element is multiplied by the creature's affinity; immune statuses cannot be applied. "weak!" / "resist" shows on the hit.
+
+| Family | Multipliers | Immune to | Creatures |
+|---|---|---|---|
+| Fire-born | fire ×0.25, water ×1.5, ice ×1.5 | burning | ember imp, lava elemental, ash crawler, forge daemon, cinder hawk, fire lizard, ember lizard |
+| Frost-born | ice ×0.25, fire ×1.5 | cold, frozen | frost bear, ice revenant, blizzard sprite, wendigo, glacier crab, frost shade, polar bear |
+| Void-touched | shadow ×0.5, arcane ×1.4 | — | void stalker, void spawn, void crawler, void fox, shadow sprite, soul eater, rift walker, mirror shade, void general |
+| Undead | fire ×1.3, arcane ×1.3 | poison | skeleton archer, grave wraith, cursed knight |
+| Plant / fungus | fire ×1.5, earth ×0.5, nature ×0.5 | — | treant, vine horror, mushroom shaman, mushroom walker, amanita walker |
+| Construct | lightning ×1.3 | poison | stone golem, crystal golem, runic turret, arcane sentinel |
+| Aquatic | water ×0.5, lightning ×1.4 | — | shark, bog lurker, giant frog, rot frog, rot toad |
+
+### Elites
+Each hostile map spawn has a 8% chance to be elite (at most one per six spawns): ×2.5 HP, ×1.4 damage, ×3 XP and gold, an extra loot roll and a rare regional item. Affixes (1–2): Warded, Swift, Vampiric, Arcane, Thorned — Warded renews a Mana Ward every 20 s, Swift is permanently Hastened, Vampiric heals 30% of the damage it deals, Arcane gains Arcane Bolt, Thorned reflects 15% of melee damage.
 
 ### Enemy magic
 Caster creatures shape spells in the open: a coloured ring fills around them while they cast. **Silence, Hush, stuns, Counterspell and Unravel break the cast.** The buffs they raise (Mana Ward, Empowered, Hastened, Mending) are dispellable: **Unravel** and **Purifying Sweep** strip them, and Unravel hurts the target for every buff torn away. Mirror shades can *Unweave* your own protections (Blessed, Regen, Swift, Aetheric Ward).

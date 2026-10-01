@@ -19,6 +19,8 @@ const { ITEMS, COOKING_RECIPES, POTION_RECIPES, ENCHANTS, MERCHANT_CATALOG, SATC
 const { CRAFTING_RECIPES, ENCHANT_RECIPES } = await import(SRC + 'data/craftingRecipes.js');
 const { NODE_TYPES, YIELD_TABLES } = await import(SRC + 'data/gathering.js');
 const { ENEMY_SPELLS, ENEMY_KITS, BOSS_AEGIS } = await import(SRC + 'data/enemyMagic.js');
+const { FAMILIES, ENEMY_FAMILY, affinityOf } = await import(SRC + 'data/enemyAffinities.js');
+const { ELITE_CHANCE, AFFIX_LABELS } = await import(SRC + 'data/elites.js');
 const W = await import(SRC + 'data/worldMap.js');
 const { STATUS_DEFS } = await import(SRC + 'data/statuses.js');
 const { QUESTS } = await import(SRC + 'data/quests.js');
@@ -156,6 +158,8 @@ table(['Status', 'Duration', 'Effect'], Object.values(STATUS_DEFS).map(s => [
     s.label, s.duration === -1 ? 'until removed' : `${(s.duration / 1000).toFixed(1)}s`,
     Object.entries(s).filter(([k]) => !['id', 'label', 'duration', 'tint'].includes(k)).map(([k, v]) => `${k}: ${v}`).join(', ') || '(flag used by spells/AI)',
 ]));
+P('**Reactions:** Freeze — cold on a wet target freezes it for 3 s. Conduct — lightning on a wet target arcs to every other wet enemy within 90 px for 50% damage. Detonate — fire on a void-tainted target bursts for 15 + 30% of the hit around it. Steam — fire and water cancel out. Shatter — a physical hit on a frozen target deals ×1.5.');
+P();
 
 // ------------------------------------------------------------------ cooking / brewing / crafting
 P('## Cooking');
@@ -252,10 +256,20 @@ const enemies = Object.entries(W.ENEMY_TYPES);
 const hostile = enemies.filter(([, e]) => !e.passive), passive = enemies.filter(([, e]) => e.passive);
 for (const [title, list] of [[`Hostile (${hostile.length})`, hostile], [`Passive animals (${passive.length}) — flee, hunted for meat and hides`, passive]]) {
     P(`### ${title}`);
-    table(['Creature', 'HP', 'Damage', 'Speed', 'XP', 'Loot'], list.map(([k, e]) => [
-        k.replace(/_/g, ' '), e.health ?? '', e.damage ?? '', e.speed ?? '', e.xpReward ?? 0,
+    table(['Creature', 'Family', 'HP', 'Damage', 'Speed', 'XP', 'Loot'], list.map(([k, e]) => [
+        k.replace(/_/g, ' '), FAMILIES[ENEMY_FAMILY[k]]?.label ?? '—', e.health ?? '', e.damage ?? '', e.speed ?? '', e.xpReward ?? 0,
         (e.lootTable ?? []).map(l => `${name(l.id)} ${pct(l.chance)}`).join(', ') || '—']));
 }
+P('### Families: resistances, weaknesses, immunities');
+P('Spell damage of an element is multiplied by the creature\'s affinity; immune statuses cannot be applied. "weak!" / "resist" shows on the hit.');
+P();
+table(['Family', 'Multipliers', 'Immune to', 'Creatures'], Object.entries(FAMILIES).map(([id, f]) => [
+    f.label, Object.entries(f.resist).map(([el, m]) => `${el} ×${m}`).join(', '), f.immune.join(', ') || '—',
+    Object.entries(ENEMY_FAMILY).filter(([, fam]) => fam === id).map(([t]) => t.replace(/_/g, ' ')).join(', '),
+]));
+P('### Elites');
+P(`Each hostile map spawn has a ${Math.round(ELITE_CHANCE * 100)}% chance to be elite (at most one per six spawns): ×2.5 HP, ×1.4 damage, ×3 XP and gold, an extra loot roll and a rare regional item. Affixes (1–2): ${Object.values(AFFIX_LABELS).join(', ')} — Warded renews a Mana Ward every 20 s, Swift is permanently Hastened, Vampiric heals 30% of the damage it deals, Arcane gains Arcane Bolt, Thorned reflects 15% of melee damage.`);
+P();
 P('### Enemy magic');
 P('Caster creatures shape spells in the open: a coloured ring fills around them while they cast. **Silence, Hush, stuns, Counterspell and Unravel break the cast.** The buffs they raise (Mana Ward, Empowered, Hastened, Mending) are dispellable: **Unravel** and **Purifying Sweep** strip them, and Unravel hurts the target for every buff torn away. Mirror shades can *Unweave* your own protections (Blessed, Regen, Swift, Aetheric Ward).');
 P();
