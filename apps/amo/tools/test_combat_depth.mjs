@@ -159,4 +159,23 @@ const mob = (extra = {}) => ({ _statuses: {}, health: 100, maxHealth: 100, activ
     eq(SP.spellTooltip(SP.SPELLS.aetheric_ward, 1, 5), 'Warded (until broken) · CD ' + (SP.SPELLS.aetheric_ward.cooldown[0] / 1000) + 's', 'self spell without damage or range');
 }
 
+// ---- final review fixes
+{
+    // Conduct never arcs onto an enemy already struck in the same cast
+    const a = { x: 0, y: 0, active: true }, b = { x: 40, y: 0, active: true }, c = { x: 80, y: 0, active: true };
+    eq(RX.conductTargets(a, [a, b, c], () => true, new Set([b])), [c], 'already-hit enemies are skipped');
+    // The boss bestiary entry uses the boss's real numbers
+    const boss = BE.bestiaryEntries({ killed: ['void_general'], seen: [], killCounts: { void_general: 1 }, band: { min: 1, max: 3 } })[0];
+    ok(/HP 350/.test(boss.text) && !/Lv 1–3/.test(boss.text), 'boss: 350 HP, not a scaled default');
+    // Scene wiring node can't run: check the source
+    const fs = await import('node:fs');
+    const src = f => fs.readFileSync(new URL(`../src/${f}`, import.meta.url), 'utf8');
+    const sb = src('scenes/SpellbookScene.js');
+    ok(/spellTooltip\([^)]*\)[\s\S]{0,200}maxLines: 1/.test(sb) && /lore[\s\S]{0,300}wordWrap: \{ width: maxW - 180 \}[\s\S]{0,60}maxLines: 1/.test(sb), 'spellbook lines are wrapped to the row and kept to one line');
+    ok(/spellDamageMult/.test(sb), 'spellbook damage uses the same multipliers as casting');
+    const gs = src('scenes/GameScene.js');
+    ok(/create\(\) \{[\s\S]{0,400}this\._target = null/.test(gs), 'a new map clears the old target');
+    ok(/_conductedThisCast/.test(gs), 'conduct tracks who was already hit in this cast');
+}
+
 console.log(`✓ combat-depth tests passed (${n} assertions).`);

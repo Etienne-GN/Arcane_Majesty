@@ -4,8 +4,10 @@
 // Conduct: lightning on a wet target arcs to every other wet enemy nearby (one hop).
 export const CONDUCT_RADIUS = 90;
 export const CONDUCT_FRACTION = 0.5;
-export function conductTargets(source, enemies, isWet) {
-    return enemies.filter(e => e !== source && e.active && isWet(e)
+// `exclude`: enemies already struck by this cast (an area spell must not arc
+// onto every other target it hits directly — that would square the damage).
+export function conductTargets(source, enemies, isWet, exclude = null) {
+    return enemies.filter(e => e !== source && e.active && isWet(e) && !exclude?.has(e)
         && Math.hypot(e.x - source.x, e.y - source.y) <= CONDUCT_RADIUS);
 }
 

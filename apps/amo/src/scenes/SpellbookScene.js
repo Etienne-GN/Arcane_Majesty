@@ -201,12 +201,14 @@ export default class SpellbookScene extends Phaser.Scene {
                 track(this.add.text(x + 20, oy + 32, `${tierName}  ${slotHint}${costStr}`, {
                     font: '14px monospace', fill: '#776688'
                 }));
-                track(this.add.text(x + 20, oy + 52, spellTooltip(spell, level, playerStats.attributes.intelligence), {
-                    font: '14px monospace', fill: '#aa99cc',
+                const mult = this.scene.get('GameScene')?.spellDamageMult?.() ?? 1;
+                track(this.add.text(x + 20, oy + 52, spellTooltip(spell, level, playerStats.attributes.intelligence, mult), {
+                    font: '14px monospace', fill: '#aa99cc', wordWrap: { width: maxW - 40 }, maxLines: 1,
                 }));
+                // lore: one line, kept clear of the slot buttons on the right
                 const lore = spell.lore ?? '';
-                track(this.add.text(x + 20, oy + 72, lore.length > 90 ? lore.slice(0, 88) + '…' : lore, {
-                    font: '12px monospace', fill: '#555566',
+                track(this.add.text(x + 20, oy + 72, lore, {
+                    font: '12px monospace', fill: '#555566', wordWrap: { width: maxW - 180 }, maxLines: 1,
                 }));
 
                 // Tier pips

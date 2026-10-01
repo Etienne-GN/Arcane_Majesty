@@ -80,6 +80,7 @@ export default class GameScene extends Phaser.Scene {
 
     create() {
         const mapDef = this._mapDef = getMap(this._mapId);
+        this._target = null;   // the scene object is reused across maps
         // Patch add.particles so one-shot emitters (explode:true) auto-destroy
         // after their longest particle lifespan. Continuous emitters (frequency-
         // based, no explode flag) are unaffected.
@@ -1055,10 +1056,14 @@ export default class GameScene extends Phaser.Scene {
     // ── Spell damage + effects ─────────────────────────────────────────────
 
     _spellDamage(id) {
+        return spellDamageAt(SPELLS[id], playerStats.getSpellLevel(id), this.player.stats.attributes.intelligence, this.spellDamageMult());
+    }
+
+    // Spell damage multiplier: weapon amplifier, Arcane Mastery, blessed / cursed (also shown in the Spellbook)
+    spellDamageMult() {
         const hasAmp      = ITEMS[playerStats.equipment.weapon]?.passive === 'spell_amplifier';
         const masteryMult = 1 + (playerStats.skills['arcane_mastery']?.level ?? 0) * 0.10;
-        const mult = (hasAmp ? 1.25 : 1) * masteryMult * statusManager.statsMult(this.player);   // blessed / cursed
-        return spellDamageAt(SPELLS[id], playerStats.getSpellLevel(id), this.player.stats.attributes.intelligence, mult);
+        return (hasAmp ? 1.25 : 1) * masteryMult * (this.player ? statusManager.statsMult(this.player) : 1);
     }
 
     _applySpellEffects(id, tx, ty) {
@@ -1145,6 +1150,7 @@ export default class GameScene extends Phaser.Scene {
         // Element of the hit, read by _hit so status synergies apply to spell
         // damage (wet: lightning x2 / fire x0.5, dried: fire x1.3, burning: water x1.25).
         this._hitElement = spell.element;
+        this._conductedThisCast = new Set();   // Conduct: who this cast already struck
 
         if (targeting === 'targeted_aoe') {
             if (dmg > 0) this._damageInRadius(tx, ty, radius, dmg);
@@ -1174,6 +1180,7 @@ export default class GameScene extends Phaser.Scene {
             statusManager.apply(this.player, status.id, { duration: status.duration });
         }
         this._hitElement = null;
+        this._conductedThisCast = null;
 
         // Dispel / interrupt (Unravel, Counterspell, Purifying Sweep): strip the
         // targets' magical buffs and break the spells they are shaping.
@@ -1307,8 +1314,9 @@ export default class GameScene extends Phaser.Scene {
 
     // Deal spell damage, scaled by the target's statuses for the current element.
     _hit(e, dmg) {
-        this.setTarget(e);
+        if (!this._conducting) this.setTarget(e);   // arcs don't steal the target
         const el  = this._hitElement;
+        if (el === 'lightning') this._conductedThisCast?.add(e);
         const m   = el ? statusManager.incomingDmgMult(e, el) : 1;
         const aff = affinityMult(e.enemyType, el);   // family resistances / weaknesses
         e.takeDamage(Math.floor(dmg * m * aff));
@@ -1318,7 +1326,7 @@ export default class GameScene extends Phaser.Scene {
         if (el === 'lightning' && !this._conducting && statusManager.has(e, 'wet')) {
             this._conducting = true;
             const pool = [...this.enemies.getChildren(), ...(this.boss?.active ? [this.boss] : [])];
-            for (const o of conductTargets(e, pool, x => statusManager.has(x, 'wet'))) {
+            for (const o of conductTargets(e, pool, x => statusManager.has(x, 'wet'), this._conductedThisCast)) {
                 const g = this.add.graphics().setDepth(63);
                 g.lineStyle(2, 0xffee66, 0.95);
                 g.lineBetween(e.x, e.y, o.x, o.y);

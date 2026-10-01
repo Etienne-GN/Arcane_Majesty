@@ -44,6 +44,9 @@ export const BESTIARY_LORE = {
     },
 };
 
+// Creatures not in ENEMY_TYPES with fixed stats (no level band).
+const FIXED_STATS = { void_general: { health: 350, damage: 20 } };
+
 const titleCase = id => id.split('_').map(w => w[0].toUpperCase() + w.slice(1)).join(' ');
 
 // Codex bestiary: every creature killed (full entry), then those only seen ("???").
@@ -59,7 +62,8 @@ export function bestiaryEntries({ killed = [], seen = [], killCounts = {}, band 
         const lines = [
             lore?.desc,
             `Killed: ${Math.max(1, killCounts[type] ?? 0)}`,
-            def.passive ? `HP ${base.health}` : `Lv ${band.min}–${band.max}: HP ${lo.health}–${hi.health}  DMG ${lo.damage}–${hi.damage}`,
+            FIXED_STATS[type] ? `HP ${FIXED_STATS[type].health}  DMG ${FIXED_STATS[type].damage}`
+                : def.passive ? `HP ${base.health}` : `Lv ${band.min}–${band.max}: HP ${lo.health}–${hi.health}  DMG ${lo.damage}–${hi.damage}`,
             [weak.length && `weak: ${weak.join(', ')}`, res.length && `resists: ${res.join(', ')}`, aff.immune.length && `immune: ${aff.immune.join(', ')}`].filter(Boolean).join('  ·  ') || null,
             (ENEMY_KITS[type] ?? []).length ? `Casts: ${ENEMY_KITS[type].map(id => ENEMY_SPELLS[id].name).join(', ')}` : null,
             (def.lootTable ?? []).length ? `Drops: ${def.lootTable.map(l => `${ITEMS[l.id]?.name ?? l.id} ${Math.round(l.chance * 100)}%`).join(', ')}` : null,
