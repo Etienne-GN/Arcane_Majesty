@@ -26,6 +26,7 @@ import { setRespawnPoint, canRespawnAt } from '../systems/respawn.js';
 import { mapLevelBand, rollEnemyLevel, scaleEnemyStats } from '../data/levelBands.js';
 import { nodeKey, markNodeHarvested, nodeRegrowRemaining, markBossDefeated, isBossDefeated } from '../systems/WorldState.js';
 import { ENEMY_KITS } from '../data/enemyMagic.js';
+import { affinityOf, affinityMult } from '../data/enemyAffinities.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { ANIM_PROFILES } from '../data/animProfiles.js';
 import { CharacterRenderer, DEFAULT_ANIMS } from '../systems/CharacterRenderer.js';
@@ -366,6 +367,8 @@ export default class GameScene extends Phaser.Scene {
         const by = mapDef.spawns.boss.spawn.y * TILE_SIZE + TILE_SIZE / 2;
         this.boss = new BossEnemy(this, bx, by);
         this.boss.enemyType = 'void_general';
+        this.boss.immune = affinityOf('void_general').immune;
+        this.boss.displayName = 'Void General';
 
         this.boss.on('died', (xp) => {
             this._bossDefeated = true;
@@ -1289,8 +1292,12 @@ export default class GameScene extends Phaser.Scene {
 
     // Deal spell damage, scaled by the target's statuses for the current element.
     _hit(e, dmg) {
-        const m = this._hitElement ? statusManager.incomingDmgMult(e, this._hitElement) : 1;
-        e.takeDamage(Math.floor(dmg * m));
+        const el  = this._hitElement;
+        const m   = el ? statusManager.incomingDmgMult(e, el) : 1;
+        const aff = affinityMult(e.enemyType, el);   // family resistances / weaknesses
+        e.takeDamage(Math.floor(dmg * m * aff));
+        if (aff > 1) this.combatManager?._spawnNumber(e.x, e.y - 34, 'weak!', '#ffaa33', false);
+        else if (aff < 1) this.combatManager?._spawnNumber(e.x, e.y - 34, 'resist', '#8899aa', false);
     }
 
     _damageInRadius(cx, cy, range, dmg) {
@@ -3095,6 +3102,7 @@ export default class GameScene extends Phaser.Scene {
         const enemy   = new Enemy(this, x, y, typeDef);
         enemy.enemyType = type;
         enemy.spellKit  = ENEMY_KITS[type] ?? [];
+        enemy.immune    = affinityOf(type).immune;
 
         // Region level (offline only — online enemies take their stats from the server)
         if (!typeDef.passive && !this._serverUrl) {

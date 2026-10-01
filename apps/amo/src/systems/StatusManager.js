@@ -7,6 +7,7 @@ const sm = {
         const def = STATUS_DEFS[id];
         if (!def) return;
         if (!entity._statuses) entity._statuses = {};
+        if (entity.immune?.includes(id)) return;   // creature immunities (data/enemyAffinities.js)
 
         // ── Interaction matrix ────────────────────────────────────────────────
         if (id === 'burning') {
