@@ -3690,13 +3690,8 @@
         "lpc",
         "atlas"
       ],
-      "hitbox": {
-        "x": 1,
-        "y": 21,
-        "w": 29,
-        "h": 11
-      },
-      "layer": "sorted"
+      "hitbox": null,
+      "layer": "over"
     },
     {
       "name": "glass_double_door_dark_wood_a",
@@ -4164,7 +4159,7 @@
       "hitbox": {
         "x": 1,
         "y": 16,
-        "w": 29,
+        "w": 30,
         "h": 16
       },
       "layer": "sorted"

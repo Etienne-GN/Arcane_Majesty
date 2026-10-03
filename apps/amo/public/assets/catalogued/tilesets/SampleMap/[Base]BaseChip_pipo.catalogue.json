@@ -456,9 +456,9 @@
       ],
       "hitbox": {
         "x": 5,
-        "y": 16,
+        "y": 22,
         "w": 21,
-        "h": 14
+        "h": 9
       },
       "layer": "sorted"
     },
@@ -748,9 +748,9 @@
       ],
       "hitbox": {
         "x": 8,
-        "y": 16,
+        "y": 23,
         "w": 17,
-        "h": 13
+        "h": 5
       },
       "layer": "sorted"
     },
@@ -1172,10 +1172,10 @@
         "container"
       ],
       "hitbox": {
-        "x": 3,
-        "y": 17,
-        "w": 27,
-        "h": 14
+        "x": 2,
+        "y": 16,
+        "w": 28,
+        "h": 15
       },
       "layer": "sorted"
     },
@@ -1485,7 +1485,12 @@
         "decoration",
         "food"
       ],
-      "hitbox": null,
+      "hitbox": {
+        "x": 4,
+        "y": 16,
+        "w": 24,
+        "h": 15
+      },
       "layer": "sorted"
     },
     {
@@ -1500,7 +1505,12 @@
         "decoration",
         "food"
       ],
-      "hitbox": null,
+      "hitbox": {
+        "x": 4,
+        "y": 16,
+        "w": 24,
+        "h": 15
+      },
       "layer": "sorted"
     },
     {
@@ -1515,7 +1525,12 @@
         "decoration",
         "food"
       ],
-      "hitbox": null,
+      "hitbox": {
+        "x": 4,
+        "y": 16,
+        "w": 24,
+        "h": 16
+      },
       "layer": "sorted"
     },
     {
@@ -2913,9 +2928,9 @@
       ],
       "hitbox": {
         "x": 12,
-        "y": 16,
-        "w": 14,
-        "h": 16
+        "y": 0,
+        "w": 8,
+        "h": 32
       },
       "layer": "sorted"
     },
@@ -2952,10 +2967,10 @@
         "building"
       ],
       "hitbox": {
-        "x": 13,
-        "y": 18,
-        "w": 18,
-        "h": 14
+        "x": 12,
+        "y": 14,
+        "w": 20,
+        "h": 18
       },
       "layer": "sorted"
     },
@@ -2972,10 +2987,10 @@
         "building"
       ],
       "hitbox": {
-        "x": 1,
-        "y": 18,
-        "w": 25,
-        "h": 14
+        "x": 0,
+        "y": 14,
+        "w": 20,
+        "h": 18
       },
       "layer": "sorted"
     },
@@ -2992,10 +3007,10 @@
         "building"
       ],
       "hitbox": {
-        "x": 1,
-        "y": 17,
-        "w": 24,
-        "h": 12
+        "x": 0,
+        "y": 14,
+        "w": 20,
+        "h": 15
       },
       "layer": "sorted"
     },
@@ -3032,10 +3047,10 @@
         "building"
       ],
       "hitbox": {
-        "x": 1,
-        "y": 17,
-        "w": 29,
-        "h": 12
+        "x": 0,
+        "y": 14,
+        "w": 32,
+        "h": 14
       },
       "layer": "sorted"
     },
@@ -3051,13 +3066,8 @@
         "fill",
         "building"
       ],
-      "hitbox": {
-        "x": 3,
-        "y": 16,
-        "w": 27,
-        "h": 16
-      },
-      "layer": "sorted"
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wallpanel_wood_fill_top_mid",
@@ -3087,13 +3097,8 @@
         "fill",
         "building"
       ],
-      "hitbox": {
-        "x": 1,
-        "y": 16,
-        "w": 27,
-        "h": 16
-      },
-      "layer": "sorted"
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wallpanel_wood_fill_mid_l",
@@ -3107,13 +3112,8 @@
         "fill",
         "building"
       ],
-      "hitbox": {
-        "x": 2,
-        "y": 16,
-        "w": 28,
-        "h": 16
-      },
-      "layer": "sorted"
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wallpanel_wood_fill_mid_mid",
@@ -3143,13 +3143,8 @@
         "fill",
         "building"
       ],
-      "hitbox": {
-        "x": 1,
-        "y": 16,
-        "w": 27,
-        "h": 16
-      },
-      "layer": "sorted"
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wallpanel_wood_fill_bottom_l",
@@ -3163,13 +3158,8 @@
         "fill",
         "building"
       ],
-      "hitbox": {
-        "x": 2,
-        "y": 15,
-        "w": 28,
-        "h": 16
-      },
-      "layer": "sorted"
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "wallpanel_wood_fill_bottom_mid",
@@ -3199,13 +3189,8 @@
         "fill",
         "building"
       ],
-      "hitbox": {
-        "x": 1,
-        "y": 15,
-        "w": 28,
-        "h": 16
-      },
-      "layer": "sorted"
+      "hitbox": null,
+      "layer": "under"
     },
     {
       "name": "building_wall_corner_l_a",
@@ -3965,9 +3950,9 @@
       ],
       "hitbox": {
         "x": 5,
-        "y": 17,
+        "y": 6,
         "w": 23,
-        "h": 12
+        "h": 22
       },
       "layer": "sorted"
     },
@@ -4287,9 +4272,9 @@
       ],
       "hitbox": {
         "x": 5,
-        "y": 31,
+        "y": 36,
         "w": 22,
-        "h": 14
+        "h": 8
       },
       "layer": "sorted"
     },
@@ -5228,7 +5213,12 @@
         "decoration",
         "wood"
       ],
-      "hitbox": null,
+      "hitbox": {
+        "x": 10,
+        "y": 22,
+        "w": 12,
+        "h": 9
+      },
       "layer": "over"
     },
     {
@@ -5245,10 +5235,10 @@
         "town"
       ],
       "hitbox": {
-        "x": 7,
+        "x": 10,
         "y": 52,
-        "w": 15,
-        "h": 11
+        "w": 12,
+        "h": 12
       },
       "layer": "sorted"
     },
@@ -5862,7 +5852,7 @@
       "x": 192,
       "y": 1216,
       "w": 32,
-      "h": 64,
+      "h": 32,
       "tags": [
         "stairs",
         "wood",
@@ -5878,7 +5868,7 @@
       "x": 224,
       "y": 1216,
       "w": 32,
-      "h": 64,
+      "h": 32,
       "tags": [
         "stairs",
         "wood",
@@ -6642,9 +6632,9 @@
       ],
       "hitbox": {
         "x": 1,
-        "y": 16,
-        "w": 29,
-        "h": 16
+        "y": 7,
+        "w": 30,
+        "h": 25
       },
       "layer": "sorted"
     },
@@ -6685,10 +6675,10 @@
         "gray"
       ],
       "hitbox": {
-        "x": 1,
-        "y": 16,
-        "w": 29,
-        "h": 16
+        "x": 0,
+        "y": 9,
+        "w": 32,
+        "h": 22
       },
       "layer": "sorted"
     },
@@ -6986,9 +6976,9 @@
       ],
       "hitbox": {
         "x": 1,
-        "y": 37,
-        "w": 29,
-        "h": 27
+        "y": 43,
+        "w": 30,
+        "h": 20
       },
       "layer": "sorted"
     },
@@ -6998,7 +6988,7 @@
       "x": 128,
       "y": 3232,
       "w": 32,
-      "h": 96,
+      "h": 64,
       "tags": [
         "furniture",
         "throne",
@@ -7008,9 +6998,9 @@
       ],
       "hitbox": {
         "x": 1,
-        "y": 48,
+        "y": 32,
         "w": 29,
-        "h": 48
+        "h": 32
       },
       "layer": "sorted"
     },
@@ -7161,10 +7151,10 @@
         "green"
       ],
       "hitbox": {
-        "x": 3,
-        "y": 67,
-        "w": 59,
-        "h": 28
+        "x": 4,
+        "y": 46,
+        "w": 55,
+        "h": 48
       },
       "layer": "sorted"
     },
@@ -7181,10 +7171,10 @@
         "container"
       ],
       "hitbox": {
-        "x": 5,
-        "y": 60,
-        "w": 56,
-        "h": 35
+        "x": 1,
+        "y": 43,
+        "w": 62,
+        "h": 52
       },
       "layer": "sorted"
     },
@@ -7408,9 +7398,9 @@
       "name": "knight_statue_gray",
       "kind": "object",
       "x": 129,
-      "y": 3605,
+      "y": 3618,
       "w": 31,
-      "h": 85,
+      "h": 61,
       "tags": [
         "statue",
         "knight",
@@ -7419,7 +7409,7 @@
       ],
       "hitbox": {
         "x": 7,
-        "y": 68,
+        "y": 44,
         "w": 16,
         "h": 17
       },
@@ -7471,9 +7461,9 @@
       "name": "pillar_marble_fluted",
       "kind": "object",
       "x": 65,
-      "y": 3605,
+      "y": 3621,
       "w": 31,
-      "h": 105,
+      "h": 89,
       "tags": [
         "statue",
         "gargoyle",
@@ -7482,7 +7472,7 @@
       ],
       "hitbox": {
         "x": 7,
-        "y": 84,
+        "y": 68,
         "w": 16,
         "h": 21
       },
@@ -7492,9 +7482,9 @@
       "name": "brazier_wood_tripod",
       "kind": "object",
       "x": 96,
-      "y": 3605,
+      "y": 3622,
       "w": 32,
-      "h": 74,
+      "h": 57,
       "tags": [
         "statue",
         "gargoyle",
@@ -7503,7 +7493,7 @@
       ],
       "hitbox": {
         "x": 8,
-        "y": 59,
+        "y": 42,
         "w": 16,
         "h": 15
       },
@@ -7515,7 +7505,7 @@
       "x": 96,
       "y": 3683,
       "w": 32,
-      "h": 67,
+      "h": 60,
       "tags": [
         "statue",
         "gargoyle",
@@ -7524,7 +7514,7 @@
       ],
       "hitbox": {
         "x": 8,
-        "y": 54,
+        "y": 47,
         "w": 16,
         "h": 13
       },
@@ -7667,9 +7657,9 @@
       ],
       "hitbox": {
         "x": 12,
-        "y": 19,
-        "w": 15,
-        "h": 13
+        "y": 0,
+        "w": 8,
+        "h": 32
       },
       "layer": "sorted"
     },
@@ -7688,10 +7678,10 @@
         "terminal"
       ],
       "hitbox": {
-        "x": 12,
-        "y": 21,
-        "w": 15,
-        "h": 11
+        "x": 11,
+        "y": 17,
+        "w": 10,
+        "h": 15
       },
       "layer": "sorted"
     },
@@ -7712,9 +7702,9 @@
       ],
       "hitbox": {
         "x": 12,
-        "y": 21,
+        "y": 14,
         "w": 20,
-        "h": 11
+        "h": 18
       },
       "layer": "sorted"
     },
@@ -7735,9 +7725,9 @@
       ],
       "hitbox": {
         "x": 0,
-        "y": 21,
-        "w": 28,
-        "h": 11
+        "y": 14,
+        "w": 20,
+        "h": 18
       },
       "layer": "sorted"
     },
@@ -7757,9 +7747,9 @@
       ],
       "hitbox": {
         "x": 0,
-        "y": 19,
-        "w": 27,
-        "h": 10
+        "y": 14,
+        "w": 20,
+        "h": 15
       },
       "layer": "sorted"
     },
@@ -7781,9 +7771,9 @@
       ],
       "hitbox": {
         "x": 0,
-        "y": 17,
+        "y": 0,
         "w": 32,
-        "h": 12
+        "h": 28
       },
       "layer": "sorted"
     },
@@ -7805,9 +7795,9 @@
       ],
       "hitbox": {
         "x": 0,
-        "y": 21,
+        "y": 14,
         "w": 32,
-        "h": 11
+        "h": 18
       },
       "layer": "sorted"
     },
@@ -7830,9 +7820,9 @@
       ],
       "hitbox": {
         "x": 0,
-        "y": 19,
+        "y": 0,
         "w": 32,
-        "h": 13
+        "h": 32
       },
       "layer": "sorted"
     },
@@ -7853,9 +7843,9 @@
       ],
       "hitbox": {
         "x": 0,
-        "y": 19,
+        "y": 14,
         "w": 32,
-        "h": 10
+        "h": 14
       },
       "layer": "sorted"
     },
@@ -9163,7 +9153,12 @@
         "wood",
         "town"
       ],
-      "hitbox": null,
+      "hitbox": {
+        "x": 4,
+        "y": 26,
+        "w": 24,
+        "h": 6
+      },
       "layer": "sorted"
     },
     {
