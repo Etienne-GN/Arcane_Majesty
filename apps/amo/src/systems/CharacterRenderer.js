@@ -26,6 +26,7 @@ import { DEFAULT_ANIMS, ANIM_ALIASES, resolveAnim, concreteAnimsFor } from './an
 export { DEFAULT_ANIMS, ANIM_ALIASES, resolveAnim };
 // Paths and frame rules shared with LPC Forge v2 (Phaser-free).
 import { animPath as animUrl, COLOR_TYPES, frameRateFor } from './lpcLayout.js';
+import { remapPixels } from './lpcPalettes.js';
 export { COLOR_TYPES };
 
 const FRAME_W = 64;
@@ -591,16 +592,6 @@ export class CharacterRenderer {
         const tex = scene.textures.get(origKey);
         if (!tex || tex.key === '__MISSING') return false;
 
-        const src  = swapParams.sourceColors;
-        const tgt  = swapParams.targetShades;
-        const n    = src.length;
-        const srcR = src.map(v => (v >> 16) & 0xff);
-        const srcG = src.map(v => (v >>  8) & 0xff);
-        const srcB = src.map(v =>  v        & 0xff);
-        const tgtR = tgt.map(v => (v >> 16) & 0xff);
-        const tgtG = tgt.map(v => (v >>  8) & 0xff);
-        const tgtB = tgt.map(v =>  v        & 0xff);
-
         const w = tex.source[0].width, h = tex.source[0].height;
         const canvas = document.createElement('canvas');
         canvas.width = w; canvas.height = h;
@@ -609,23 +600,7 @@ export class CharacterRenderer {
 
         const imgData = ctx.getImageData(0, 0, w, h);
         const data    = imgData.data;
-        const THRESH  = 3 * 3 * 3;
-
-        for (let i = 0; i < data.length; i += 4) {
-            if (data[i + 3] < 8) continue;
-            const pr = data[i], pg = data[i + 1], pb = data[i + 2];
-            let bestIdx = -1, bestDist = Infinity;
-            for (let j = 0; j < n; j++) {
-                const dr = pr - srcR[j], dg = pg - srcG[j], db = pb - srcB[j];
-                const d  = dr * dr + dg * dg + db * db;
-                if (d < bestDist) { bestDist = d; bestIdx = j; }
-            }
-            if (bestIdx >= 0 && bestDist <= THRESH) {
-                data[i]     = tgtR[bestIdx];
-                data[i + 1] = tgtG[bestIdx];
-                data[i + 2] = tgtB[bestIdx];
-            }
-        }
+        remapPixels(data, swapParams.sourceColors, swapParams.targetShades);
         ctx.putImageData(imgData, 0, 0);
         scene.textures.addCanvas(rcKey, canvas);
 
