@@ -1,0 +1,216 @@
+{
+  "id": "lycan_2",
+  "name": "Lycan 2",
+  "role": "enemy",
+  "sel": {
+    "body": {
+      "id": "bodies/male",
+      "tint": 7
+    },
+    "head": {
+      "id": "heads/wolf/male",
+      "tint": 7
+    },
+    "tail": {
+      "id": "tail/lizard/adult/fg",
+      "tint": 7
+    }
+  },
+  "layers": [
+    {
+      "slot": "tail",
+      "type": "body",
+      "id": "tail/lizard/adult/bg",
+      "zPos": -3,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "hair",
+        "sourceColors": [
+          2493716,
+          6951176,
+          10495488,
+          10495488,
+          10757632,
+          12533760,
+          15029760,
+          16747008
+        ],
+        "targetShades": [
+          0,
+          0,
+          1708563,
+          3022620,
+          4466469,
+          6304809,
+          8342577,
+          8342577
+        ],
+        "tintName": "Ebony"
+      }
+    },
+    {
+      "slot": "body",
+      "type": "body",
+      "id": "bodies/male",
+      "zPos": 10,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          0,
+          0,
+          1708563,
+          3022620,
+          4466469,
+          6304809,
+          8342577,
+          8342577
+        ],
+        "tintName": "Ebony"
+      }
+    },
+    {
+      "slot": "tail",
+      "type": "body",
+      "id": "tail/lizard/adult/fg",
+      "zPos": 12,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "hair",
+        "sourceColors": [
+          2493716,
+          6951176,
+          10495488,
+          10495488,
+          10757632,
+          12533760,
+          15029760,
+          16747008
+        ],
+        "targetShades": [
+          0,
+          0,
+          1708563,
+          3022620,
+          4466469,
+          6304809,
+          8342577,
+          8342577
+        ],
+        "tintName": "Ebony"
+      }
+    },
+    {
+      "slot": "head",
+      "type": "head",
+      "id": "heads/wolf/male",
+      "zPos": 20,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "fur",
+        "sourceColors": [
+          0,
+          0,
+          1970702,
+          2431769,
+          4667184,
+          6439221,
+          9919322,
+          14129555
+        ],
+        "targetShades": [
+          0,
+          0,
+          1708563,
+          3022620,
+          4466469,
+          6304809,
+          8342577,
+          8342577
+        ],
+        "tintName": "Ebony"
+      }
+    }
+  ],
+  "variants": {},
+  "published": false,
+  "updatedAt": "2026-10-09T05:13:53.245Z",
+  "migrationNotes": [
+    "anatomy.body.male: skin uses the v1 non-skin colour \"charcoal\"; matched to Ebony — check it on the stage",
+    "anatomy.tail.lizard: tint has no effect on tail/lizard/adult/fg (its art is not in the hair palette); it keeps its own colours",
+    "anatomy.shadow.shadow: skipped — shadow: the game draws its own shadow (no shadow slot in the catalogue)"
+  ]
+}

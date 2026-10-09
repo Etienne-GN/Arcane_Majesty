@@ -100,6 +100,55 @@ class MigrateSave(unittest.TestCase):
         self.assertTrue(out['comp']['sel']['torso_clothes']['id'].startswith('clothes/longsleeve/longsleeve'))
         self.assertTrue(any('corset' in n and 'torso_clothes' in n for n in out['notes']))
 
+    def _tint_name(self, slot, sel):
+        entry = next(e for e in CAT[slot] if e['id'] == sel[slot]['id'])
+        pal = GAME['TINT_PALETTE'][entry.get('tintMaterial') or GAME['TINT_MATERIAL'][slot]]
+        return pal[sel[slot].get('tint', 0)]['name']
+
+    def test_peach_skin_is_a_light_tone(self):
+        sel = m.migrate_save('T', {'anatomy.body.teen': {'colors': {'primary': 'peach'}}}, CAT, VMAP, GAME, V1COLORS)['comp']['sel']
+        self.assertIn(self._tint_name('body', sel), {'Light', 'Amber'})
+
+    def test_platinum_hair_stays_blonde(self):
+        sel = m.migrate_save('T', {'anatomy.body.female': {'colors': {}}, 'anatomy.hair.ponytail2': {'colors': {'primary': 'platinum'}}},
+                             CAT, VMAP, GAME, V1COLORS)['comp']['sel']
+        self.assertIn(self._tint_name('hair', sel), {'Platinum', 'Sandy', 'Blonde', 'Strawberry', 'Gold'})
+
+    def test_brown_hair_is_not_black(self):
+        sel = m.migrate_save('T', {'anatomy.body.male': {'colors': {}}, 'anatomy.hair.messy3': {'colors': {'primary': 'brown'}}},
+                             CAT, VMAP, GAME, V1COLORS)['comp']['sel']
+        self.assertNotIn(self._tint_name('hair', sel), {'Black', 'Raven', 'Dark Gray', 'Natural'})
+
+    def test_clothing_grey_on_a_wolf_body_stays_grey(self):
+        data = {'anatomy.body.muscular': {'colors': {'primary': 'shadow'}},
+                'anatomy.head.wolf_male': {'colors': {'primary': 'anatomy.body'}}}
+        sel = m.migrate_save('T', data, CAT, VMAP, GAME, V1COLORS)['comp']['sel']
+        # v1 "shadow" is a dark slate blue: blue/grey family, never green
+        name = self._tint_name('body', sel)
+        self.assertIn(name, {'Fur Grey', 'Gray', 'Dark Gray', 'Lavender', 'Fur Black', 'Zombie', 'Navy', 'Blue'})
+        self.assertNotIn('Green', name)
+
+    def test_clothing_colour_used_as_skin_is_flagged(self):
+        out = m.migrate_save('T', {'anatomy.body.female': {'colors': {'primary': 'dove'}}}, CAT, VMAP, GAME, V1COLORS)
+        self.assertTrue(any('dove' in n and 'check' in n for n in out['notes']), out['notes'])
+        out2 = m.migrate_save('T', {'anatomy.body.female': {'colors': {'primary': 'peach'}}}, CAT, VMAP, GAME, V1COLORS)
+        self.assertFalse(any('check' in n for n in out2['notes']), out2['notes'])
+
+    def test_purple_pauldrons_are_purple(self):
+        data = {'anatomy.body.female': {'colors': {}}, 'clothes.shoulders.plate': {'colors': {'primary': 'purple'}}}
+        sel = m.migrate_save('T', data, CAT, VMAP, GAME, V1COLORS)['comp']['sel']
+        self.assertIn(self._tint_name('shoulders', sel), {'Purple', 'Violet', 'Navy'})
+
+    def test_tint_without_effect_is_noted(self):
+        data = {'anatomy.body.male': {'colors': {}}, 'clothes.hat.hood': {'colors': {'primary': 'raven'}}}
+        out = m.migrate_save('T', data, CAT, VMAP, GAME, V1COLORS)
+        self.assertTrue(any('hood' in n and 'no effect' in n for n in out['notes']), out['notes'])
+
+    def test_effective_tint_is_not_noted(self):
+        data = {'anatomy.body.male': {'colors': {}}, 'anatomy.hair.messy3': {'colors': {'primary': 'brown'}}}
+        out = m.migrate_save('T', data, CAT, VMAP, GAME, V1COLORS)
+        self.assertFalse(any('no effect' in n for n in out['notes']), out['notes'])
+
     def test_file_colour_item_gets_a_listed_colour(self):
         data = {'anatomy.body.female': {'colors': {}}, 'clothes.cape.solid': {'colors': {'primary': 'garnet'}}}
         sel = m.migrate_save('T', data, CAT, VMAP, GAME, V1COLORS)['comp']['sel']

@@ -1,0 +1,153 @@
+{
+  "id": "minotaur",
+  "name": "Minotaur",
+  "role": "enemy",
+  "sel": {
+    "body": {
+      "id": "bodies/muscular",
+      "tint": 7
+    },
+    "head": {
+      "id": "heads/minotaur/male",
+      "tint": 7
+    },
+    "legs": {
+      "id": "pantaloons/muscular",
+      "color": "charcoal"
+    },
+    "feet": {
+      "id": "hoofs/male",
+      "color": "black"
+    }
+  },
+  "layers": [
+    {
+      "slot": "body",
+      "type": "body",
+      "id": "bodies/muscular",
+      "zPos": 10,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "spellcast",
+        "run",
+        "sit",
+        "jump"
+      ],
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          0,
+          0,
+          1708563,
+          3022620,
+          4466469,
+          6304809,
+          8342577,
+          8342577
+        ],
+        "tintName": "Ebony"
+      }
+    },
+    {
+      "slot": "feet",
+      "type": "feet",
+      "id": "hoofs/male",
+      "zPos": 14,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "color": "black"
+    },
+    {
+      "slot": "head",
+      "type": "head",
+      "id": "heads/minotaur/male",
+      "zPos": 20,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "tan",
+        "sourceColors": [
+          2236705,
+          2236705,
+          3809294,
+          6699546,
+          9920323,
+          12093265,
+          14388832,
+          15317920
+        ],
+        "targetShades": [
+          0,
+          0,
+          1708563,
+          3022620,
+          4466469,
+          6304809,
+          8342577,
+          8342577
+        ],
+        "tintName": "Ebony"
+      }
+    },
+    {
+      "slot": "legs",
+      "type": "legs",
+      "id": "pantaloons/muscular",
+      "zPos": 40,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "jump",
+        "emote"
+      ],
+      "color": "charcoal"
+    }
+  ],
+  "variants": {},
+  "published": false,
+  "updatedAt": "2026-10-09T05:13:53.246Z",
+  "migrationNotes": [
+    "anatomy.shadow.shadow: skipped — shadow: the game draws its own shadow (no shadow slot in the catalogue)"
+  ]
+}

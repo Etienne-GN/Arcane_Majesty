@@ -1,0 +1,508 @@
+{
+  "id": "soldier",
+  "name": "soldier",
+  "role": "enemy",
+  "sel": {
+    "body": {
+      "id": "bodies/muscular",
+      "tint": 1
+    },
+    "head": {
+      "id": "heads/human/male_gaunt",
+      "tint": 1
+    },
+    "eyes": {
+      "id": "human/adult/default",
+      "color": "blue"
+    },
+    "torso_mail": {
+      "id": "chainmail/male",
+      "tint": 13
+    },
+    "torso_armour": {
+      "id": "armour/plate/male",
+      "tint": 13
+    },
+    "legs": {
+      "id": "armour/plate/male",
+      "tint": 13
+    },
+    "feet": {
+      "id": "armour/plate/male",
+      "color": "steel"
+    },
+    "arms": {
+      "id": "armour/plate/male",
+      "tint": 13
+    },
+    "shoulders": {
+      "id": "pauldrons/male",
+      "tint": 13
+    },
+    "cape": {
+      "id": "solid/male",
+      "color": "red"
+    },
+    "hat": {
+      "id": "helmet/bascinet/adult",
+      "tint": 13
+    },
+    "weapon": {
+      "id": "sword/rapier"
+    },
+    "shield": {
+      "id": "kite/male",
+      "color": "kite_blue_gray"
+    }
+  },
+  "layers": [
+    {
+      "slot": "weapon",
+      "type": "weapon",
+      "id": "sword/rapier/universal_behind",
+      "zPos": 5,
+      "anims": [
+        "walk"
+      ],
+      "itemName": "rapier"
+    },
+    {
+      "slot": "body",
+      "type": "body",
+      "id": "bodies/muscular",
+      "zPos": 10,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "spellcast",
+        "run",
+        "sit",
+        "jump"
+      ],
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "tintName": "Light"
+      }
+    },
+    {
+      "slot": "feet",
+      "type": "feet",
+      "id": "armour/plate/male",
+      "zPos": 14,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "color": "steel"
+    },
+    {
+      "slot": "head",
+      "type": "head",
+      "id": "heads/human/male_gaunt",
+      "zPos": 20,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "tintName": "Light"
+      }
+    },
+    {
+      "slot": "eyes",
+      "type": "eyes",
+      "id": "human/adult/default",
+      "zPos": 25,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "combat_idle",
+        "emote"
+      ],
+      "color": "blue"
+    },
+    {
+      "slot": "legs",
+      "type": "legs",
+      "id": "armour/plate/male",
+      "zPos": 40,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "sit",
+        "jump",
+        "climb",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "cloth",
+        "sourceColors": [
+          1905438,
+          1905438,
+          4267525,
+          4926227,
+          6436124,
+          7621424,
+          10054474
+        ],
+        "targetShades": [
+          2627616,
+          2627616,
+          7035968,
+          9601892,
+          10983288,
+          12956559,
+          14404523,
+          15390666
+        ],
+        "tintName": "Zombie"
+      }
+    },
+    {
+      "slot": "arms",
+      "type": "arms",
+      "id": "armour/plate/male",
+      "zPos": 45,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "climb",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "cloth",
+        "sourceColors": [
+          1905438,
+          1905438,
+          4267525,
+          4926227,
+          6436124,
+          7621424,
+          10054474
+        ],
+        "targetShades": [
+          2627616,
+          2627616,
+          7035968,
+          9601892,
+          10983288,
+          12956559,
+          14404523,
+          15390666
+        ],
+        "tintName": "Zombie"
+      }
+    },
+    {
+      "slot": "torso_mail",
+      "type": "torso",
+      "id": "chainmail/male",
+      "zPos": 50,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "sit",
+        "jump",
+        "climb",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "metal",
+        "sourceColors": [
+          1905438,
+          3024179,
+          5065309,
+          7498622,
+          8814207,
+          12891551,
+          16777215
+        ],
+        "targetShades": [
+          2627616,
+          2627616,
+          7035968,
+          9601892,
+          10983288,
+          12956559,
+          14404523,
+          15390666
+        ],
+        "tintName": "Zombie"
+      }
+    },
+    {
+      "slot": "torso_armour",
+      "type": "torso",
+      "id": "armour/plate/male",
+      "zPos": 60,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "metal",
+        "sourceColors": [
+          1905438,
+          3024179,
+          5065309,
+          7498622,
+          8814207,
+          12891551,
+          16777215
+        ],
+        "targetShades": [
+          2627616,
+          2627616,
+          7035968,
+          9601892,
+          10983288,
+          12956559,
+          14404523,
+          15390666
+        ],
+        "tintName": "Zombie"
+      }
+    },
+    {
+      "slot": "shoulders",
+      "type": "shoulders",
+      "id": "pauldrons/male",
+      "zPos": 70,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "metal",
+        "sourceColors": [
+          1905438,
+          3024179,
+          5065309,
+          7498622,
+          8814207,
+          12891551,
+          16777215
+        ],
+        "targetShades": [
+          2627616,
+          2627616,
+          7035968,
+          9601892,
+          10983288,
+          12956559,
+          14404523,
+          15390666
+        ],
+        "tintName": "Zombie"
+      }
+    },
+    {
+      "slot": "hat",
+      "type": "hat",
+      "id": "helmet/bascinet/adult",
+      "zPos": 100,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "cloth",
+        "sourceColors": [
+          1905438,
+          1905438,
+          4267525,
+          4926227,
+          6436124,
+          7621424,
+          10054474
+        ],
+        "targetShades": [
+          2627616,
+          2627616,
+          7035968,
+          9601892,
+          10983288,
+          12956559,
+          14404523,
+          15390666
+        ],
+        "tintName": "Zombie"
+      }
+    },
+    {
+      "slot": "weapon",
+      "type": "weapon",
+      "id": "sword/rapier",
+      "zPos": 140,
+      "anims": [
+        "walk",
+        "hurt",
+        "attack_slash"
+      ]
+    },
+    {
+      "slot": "cape",
+      "type": "cape",
+      "id": "solid/male",
+      "zPos": 170,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "color": "red"
+    },
+    {
+      "slot": "shield",
+      "type": "shield",
+      "id": "kite/male",
+      "zPos": 190,
+      "anims": [
+        "walk",
+        "slash",
+        "thrust"
+      ],
+      "color": "kite_blue_gray"
+    }
+  ],
+  "variants": {},
+  "published": false,
+  "updatedAt": "2026-10-09T05:13:53.250Z",
+  "migrationNotes": [
+    "clothes.wrists.bracers: dropped — arms already holds clothes.arms.plate (the game has one arms item)",
+    "clothes.hands.gloves: dropped — arms already holds clothes.arms.plate (the game has one arms item)",
+    "clothes.shoulders.plate: approximated as pauldrons/male",
+    "clothes.head_coverings.mail: dropped — hat already holds clothes.hat.bascinet (the game has one hat item)",
+    "clothes.helmet_visor.horned: dropped — hat already holds clothes.hat.bascinet (the game has one hat item)",
+    "clothes.helmet_accessory.plumage: dropped — hat already holds clothes.hat.bascinet (the game has one hat item)"
+  ]
+}

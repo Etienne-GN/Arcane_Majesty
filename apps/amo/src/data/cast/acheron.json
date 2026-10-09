@@ -1,0 +1,483 @@
+{
+  "id": "acheron",
+  "name": "Acheron",
+  "role": "story",
+  "sel": {
+    "body": {
+      "id": "bodies/male",
+      "tint": 13
+    },
+    "head": {
+      "id": "heads/human/male",
+      "tint": 13
+    },
+    "eyes": {
+      "id": "human/adult/default",
+      "color": "gray"
+    },
+    "hair": {
+      "id": "curtains_long/adult",
+      "tint": 25
+    },
+    "ears": {
+      "id": "ears/elven/adult",
+      "tint": 13
+    },
+    "torso_clothes": {
+      "id": "clothes/longsleeve/laced/male",
+      "color": "black"
+    },
+    "torso_jacket": {
+      "id": "jacket/frock/male",
+      "color": "maroon"
+    },
+    "legs": {
+      "id": "pantaloons/male",
+      "color": "maroon"
+    },
+    "feet": {
+      "id": "shoes/basic/male",
+      "color": "iron"
+    },
+    "arms": {
+      "id": "wrists/cuffs/male",
+      "tint": 39
+    },
+    "shoulders": {
+      "id": "epaulets/male",
+      "tint": 39
+    },
+    "neck": {
+      "id": "cravat/male",
+      "color": "black"
+    },
+    "cape": {
+      "id": "solid/male",
+      "color": "black"
+    }
+  },
+  "layers": [
+    {
+      "slot": "body",
+      "type": "body",
+      "id": "bodies/male",
+      "zPos": 10,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          2627616,
+          2627616,
+          7035968,
+          9601892,
+          10983288,
+          12956559,
+          14404523,
+          15390666
+        ],
+        "tintName": "Zombie"
+      }
+    },
+    {
+      "slot": "feet",
+      "type": "feet",
+      "id": "shoes/basic/male",
+      "zPos": 14,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "color": "iron"
+    },
+    {
+      "slot": "head",
+      "type": "head",
+      "id": "heads/human/male",
+      "zPos": 20,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          2627616,
+          2627616,
+          7035968,
+          9601892,
+          10983288,
+          12956559,
+          14404523,
+          15390666
+        ],
+        "tintName": "Zombie"
+      }
+    },
+    {
+      "slot": "ears",
+      "type": "head",
+      "id": "ears/elven/adult",
+      "zPos": 22,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          2627616,
+          2627616,
+          7035968,
+          9601892,
+          10983288,
+          12956559,
+          14404523,
+          15390666
+        ],
+        "tintName": "Zombie"
+      }
+    },
+    {
+      "slot": "eyes",
+      "type": "eyes",
+      "id": "human/adult/default",
+      "zPos": 25,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "combat_idle",
+        "emote"
+      ],
+      "color": "gray"
+    },
+    {
+      "slot": "torso_clothes",
+      "type": "torso",
+      "id": "clothes/longsleeve/laced/male",
+      "zPos": 35,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "color": "black"
+    },
+    {
+      "slot": "legs",
+      "type": "legs",
+      "id": "pantaloons/male",
+      "zPos": 40,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "color": "maroon"
+    },
+    {
+      "slot": "arms",
+      "type": "arms",
+      "id": "wrists/cuffs/male",
+      "zPos": 45,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "cloth",
+        "sourceColors": [
+          1905438,
+          1905438,
+          4267525,
+          4926227,
+          6436124,
+          7621424,
+          10054474
+        ],
+        "targetShades": [
+          0,
+          526858,
+          1053716,
+          1053716,
+          1053716,
+          1843746,
+          3223870,
+          4870231
+        ],
+        "tintName": "Black"
+      }
+    },
+    {
+      "slot": "hair",
+      "type": "hair",
+      "id": "curtains_long/adult",
+      "zPos": 50,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "hair",
+        "sourceColors": [
+          2493716,
+          6951176,
+          10495488,
+          10495488,
+          10757632,
+          12533760,
+          15029760,
+          16747008
+        ],
+        "targetShades": [
+          1908001,
+          4738647,
+          9147544,
+          9147544,
+          9147544,
+          12106684,
+          14212316,
+          16777215
+        ],
+        "tintName": "White"
+      }
+    },
+    {
+      "slot": "torso_jacket",
+      "type": "torso",
+      "id": "jacket/frock/male",
+      "zPos": 55,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "color": "maroon"
+    },
+    {
+      "slot": "neck",
+      "type": "neck",
+      "id": "cravat/male",
+      "zPos": 65,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "color": "black"
+    },
+    {
+      "slot": "shoulders",
+      "type": "shoulders",
+      "id": "epaulets/male",
+      "zPos": 70,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "metal",
+        "sourceColors": [
+          1905438,
+          3024179,
+          5065309,
+          7498622,
+          8814207,
+          12891551,
+          16777215
+        ],
+        "targetShades": [
+          0,
+          526858,
+          1053716,
+          1053716,
+          1053716,
+          1843746,
+          3223870,
+          4870231
+        ],
+        "tintName": "Black"
+      }
+    },
+    {
+      "slot": "cape",
+      "type": "cape",
+      "id": "solid/male",
+      "zPos": 170,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "color": "black"
+    }
+  ],
+  "variants": {},
+  "published": false,
+  "updatedAt": "2026-10-09T05:13:53.238Z",
+  "dbCharacter": "Acheron",
+  "migrationNotes": [
+    "anatomy.body.male: skin uses the v1 non-skin colour \"pearl\"; matched to Zombie — check it on the stage",
+    "anatomy.head.human_male: eye colour black → gray",
+    "clothes.wrists.cuffs: tint has no effect on wrists/cuffs/male (its art is not in the cloth palette); it keeps its own colours",
+    "clothes.hands.gloves: dropped — arms already holds clothes.wrists.cuffs (the game has one arms item)",
+    "clothes.closure.frock_buttons: dropped — torso_jacket already holds clothes.torso3.frock (the game has one torso_jacket item)",
+    "clothes.pockets.jacket_pockets: dropped — torso_jacket already holds clothes.torso3.frock (the game has one torso_jacket item)",
+    "anatomy.shadow.shadow: skipped — shadow: the game draws its own shadow (no shadow slot in the catalogue)"
+  ]
+}

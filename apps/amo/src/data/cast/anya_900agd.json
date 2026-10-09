@@ -1,0 +1,438 @@
+{
+  "id": "anya_900agd",
+  "name": "Anya 900AGD",
+  "role": "story",
+  "sel": {
+    "body": {
+      "id": "bodies/female",
+      "tint": 1
+    },
+    "head": {
+      "id": "heads/human/female",
+      "tint": 1
+    },
+    "eyes": {
+      "id": "human/adult/default",
+      "color": "green"
+    },
+    "hair": {
+      "id": "ponytail/adult/fg",
+      "tint": 24
+    },
+    "ears": {
+      "id": "ears/elven/adult",
+      "tint": 1
+    },
+    "torso_clothes": {
+      "id": "clothes/robe/female",
+      "color": "blue"
+    },
+    "feet": {
+      "id": "sandals/thin",
+      "color": "black"
+    },
+    "shoulders": {
+      "id": "bauldron/thin",
+      "tint": 45
+    },
+    "neck": {
+      "id": "necklace/chain/female",
+      "color": "silver"
+    },
+    "cape": {
+      "id": "solid/female",
+      "color": "black"
+    }
+  },
+  "layers": [
+    {
+      "slot": "cape",
+      "type": "cape",
+      "id": "solid_behind",
+      "zPos": -5,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "color": "black"
+    },
+    {
+      "slot": "hair",
+      "type": "hair",
+      "id": "ponytail/adult/bg",
+      "zPos": 5,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "hair",
+        "sourceColors": [
+          2493716,
+          6951176,
+          10495488,
+          10495488,
+          10757632,
+          12533760,
+          15029760,
+          16747008
+        ],
+        "targetShades": [
+          1838598,
+          8215901,
+          11042130,
+          11042130,
+          11042130,
+          12626817,
+          15589269,
+          16185075
+        ],
+        "tintName": "Platinum"
+      }
+    },
+    {
+      "slot": "body",
+      "type": "body",
+      "id": "bodies/female",
+      "zPos": 10,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "tintName": "Light"
+      }
+    },
+    {
+      "slot": "feet",
+      "type": "feet",
+      "id": "sandals/thin",
+      "zPos": 14,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "color": "black"
+    },
+    {
+      "slot": "head",
+      "type": "head",
+      "id": "heads/human/female",
+      "zPos": 20,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "tintName": "Light"
+      }
+    },
+    {
+      "slot": "ears",
+      "type": "head",
+      "id": "ears/elven/adult",
+      "zPos": 22,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "tintName": "Light"
+      }
+    },
+    {
+      "slot": "eyes",
+      "type": "eyes",
+      "id": "human/adult/default",
+      "zPos": 25,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "combat_idle",
+        "emote"
+      ],
+      "color": "green"
+    },
+    {
+      "slot": "torso_clothes",
+      "type": "torso",
+      "id": "clothes/robe/female",
+      "zPos": 35,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "spellcast"
+      ],
+      "color": "blue"
+    },
+    {
+      "slot": "hair",
+      "type": "hair",
+      "id": "ponytail/adult/fg",
+      "zPos": 50,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "hair",
+        "sourceColors": [
+          2493716,
+          6951176,
+          10495488,
+          10495488,
+          10757632,
+          12533760,
+          15029760,
+          16747008
+        ],
+        "targetShades": [
+          1838598,
+          8215901,
+          11042130,
+          11042130,
+          11042130,
+          12626817,
+          15589269,
+          16185075
+        ],
+        "tintName": "Platinum"
+      }
+    },
+    {
+      "slot": "neck",
+      "type": "neck",
+      "id": "necklace/chain/female",
+      "zPos": 65,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "color": "silver"
+    },
+    {
+      "slot": "shoulders",
+      "type": "shoulders",
+      "id": "bauldron/thin",
+      "zPos": 70,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "climb",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "metal",
+        "sourceColors": [
+          1905438,
+          3024179,
+          5065309,
+          7498622,
+          8814207,
+          12891551,
+          16777215
+        ],
+        "targetShades": [
+          1574678,
+          2101291,
+          2629185,
+          2629185,
+          2629185,
+          3288426,
+          3951021,
+          4614857
+        ],
+        "tintName": "Navy"
+      }
+    },
+    {
+      "slot": "cape",
+      "type": "cape",
+      "id": "solid/female",
+      "zPos": 170,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "color": "black"
+    }
+  ],
+  "variants": {},
+  "published": false,
+  "updatedAt": "2026-10-09T05:13:53.243Z",
+  "dbCharacter": "Anya",
+  "migrationNotes": [
+    "clothes.shoulders.leather: approximated as bauldron/thin",
+    "clothes.neck.necklace: approximated as necklace/chain/female"
+  ]
+}

@@ -77,7 +77,7 @@ def load_game_tables():
     """Palette tables and render types straight from the game's shared modules."""
     js = (
         "Promise.all([import('./src/systems/lpcPalettes.js'), import('./src/systems/lpcLayout.js')]).then(([p, l]) => "
-        "console.log(JSON.stringify({ TINT_PALETTE: p.TINT_PALETTE, TINT_MATERIAL: p.TINT_MATERIAL, "
+        "console.log(JSON.stringify({ TINT_PALETTE: p.TINT_PALETTE, TINT_MATERIAL: p.TINT_MATERIAL, SOURCE_MATERIAL: p.SOURCE_MATERIAL, PALETTE_SOURCE: p.PALETTE_SOURCE, "
         "FORCE_TINT_TYPES: [...p.FORCE_TINT_TYPES], RENDER_TYPE: l.RENDER_TYPE })))"
     )
     out = subprocess.run(['node', '--input-type=module', '-e', js], cwd=AMO, capture_output=True, text=True, check=True)
@@ -122,12 +122,39 @@ def _render_type(slot, entry, game):
 
 # ── colours ──────────────────────────────────────────────────────────────────
 
-def v1_rgb(name, v1colors):
+def _lum(c):
+    return 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]
+
+
+def v1_ramp(name, v1colors):
+    """A v1 colour's shades, darkest first (None if unknown)."""
     c = v1colors.get(name)
     if not c or not c.get('palette'):
         return None
-    shade = c['palette'][len(c['palette']) // 2]
-    return tuple(shade[:3])
+    return sorted((tuple(p[:3]) for p in c['palette']), key=_lum)
+
+
+def v1_rgb(name, v1colors):
+    ramp = v1_ramp(name, v1colors)
+    return ramp[len(ramp) // 2] if ramp else None
+
+
+def _resample(ramp, n=8):
+    if len(ramp) == 1:
+        return ramp * n
+    out = []
+    for i in range(n):
+        t = i * (len(ramp) - 1) / (n - 1)
+        a, b = ramp[int(t)], ramp[min(int(t) + 1, len(ramp) - 1)]
+        f = t - int(t)
+        out.append(tuple(a[k] + (b[k] - a[k]) * f for k in range(3)))
+    return out
+
+
+def ramp_distance(a, b):
+    """How different two colour ramps look: both sorted dark→light, resampled, compared point by point."""
+    ra, rb = _resample(sorted(a, key=_lum)), _resample(sorted(b, key=_lum))
+    return sum(sum((x[k] - y[k]) ** 2 for k in range(3)) for x, y in zip(ra, rb))
 
 
 def _hex_rgb(n):
@@ -137,24 +164,33 @@ def _hex_rgb(n):
 _sample_cache = {}
 
 
+def _opaque_sorted(slot, entry, color, game):
+    key = (slot, entry['id'], color)
+    if key not in _sample_cache:
+        anim = 'walk' if 'walk' in entry.get('anims', ['walk']) else entry['anims'][0]
+        path = os.path.join(LIB, _render_type(slot, entry, game), entry['id'], anim, f'{color}.png')
+        px = []
+        if os.path.exists(path):
+            img = Image.open(path).convert('RGBA')
+            flat = img.get_flattened_data() if hasattr(img, 'get_flattened_data') else img.getdata()
+            px = sorted((p[:3] for p in flat if p[3] > 200), key=_lum)
+        _sample_cache[key] = px
+    return _sample_cache[key]
+
+
 def file_color_rgb(slot, entry, color, game):
     """Mid-tone colour of an item's PNG in one file colour (darkest/brightest quarters dropped)."""
-    key = (slot, entry['id'], color)
-    if key in _sample_cache:
-        return _sample_cache[key]
-    anim = 'walk' if 'walk' in entry.get('anims', ['walk']) else entry['anims'][0]
-    path = os.path.join(LIB, _render_type(slot, entry, game), entry['id'], anim, f'{color}.png')
-    rgb = None
-    if os.path.exists(path):
-        img = Image.open(path).convert('RGBA')
-        flat = img.get_flattened_data() if hasattr(img, 'get_flattened_data') else img.getdata()
-        px = [p for p in flat if p[3] > 200]
-        if px:
-            px.sort(key=lambda p: 0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2])
-            mid = px[len(px) // 4: max(len(px) * 3 // 4, len(px) // 4 + 1)]
-            rgb = tuple(sum(p[i] for p in mid) // len(mid) for i in range(3))
-    _sample_cache[key] = rgb
-    return rgb
+    px = _opaque_sorted(slot, entry, color, game)
+    if not px:
+        return None
+    mid = px[len(px) // 4: max(len(px) * 3 // 4, len(px) // 4 + 1)]
+    return tuple(sum(p[i] for p in mid) // len(mid) for i in range(3))
+
+
+def file_color_ramp(slot, entry, color, game):
+    """Five brightness quantiles of an item's PNG in one file colour, darkest first."""
+    px = _opaque_sorted(slot, entry, color, game)
+    return [px[min(int(q * len(px)), len(px) - 1)] for q in (0.1, 0.3, 0.5, 0.7, 0.9)] if px else None
 
 
 def nearest_option(rgb, options):
@@ -168,28 +204,85 @@ def nearest_option(rgb, options):
     return best
 
 
+def nearest_ramp(ramp, options):
+    """Option whose ramp looks most like `ramp`; options = [(name, ramp|None)]."""
+    scored = [(ramp_distance(ramp, r), n) for n, r in options if r]
+    return min(scored)[1] if scored else None
+
+
 def _tint_palette(slot, entry, game):
     mat = entry.get('tintMaterial') or game['TINT_MATERIAL'].get(slot)
     return game['TINT_PALETTE'].get(mat) if mat else None
 
 
+def _item_png(slot, entry, game):
+    """The item's own walk (or first) PNG — mirrors lpcLayout.animPath for the main layer."""
+    anim = 'walk' if 'walk' in entry.get('anims', ['walk']) else entry['anims'][0]
+    base = os.path.join(LIB, _render_type(slot, entry, game), entry['id'], anim)
+    rt = _render_type(slot, entry, game)
+    if entry.get('itemName'):
+        return os.path.join(base, f"{entry['itemName']}.png")
+    if rt == 'weapon':
+        return os.path.join(base, f"{entry['id'].split('/')[-1]}.png")
+    if rt in ('cape', 'backpack'):
+        return os.path.join(base, 'red.png')
+    return base + '.png'
+
+
+def _source_key(slot, entry, game):
+    ps = game['PALETTE_SOURCE']
+    if entry.get('sourceMaterial') in ps:
+        return entry['sourceMaterial']
+    if entry.get('tintMaterial') in ps:
+        return entry['tintMaterial']
+    return game['SOURCE_MATERIAL'].get(slot, 'body')
+
+
+def tint_effective(slot, entry, game):
+    """Would a palette swap change this item at all? (Its pixels must be in the source palette.)"""
+    path = _item_png(slot, entry, game)
+    if not os.path.exists(path):
+        return True   # can't tell; don't raise a false alarm
+    src = [_hex_rgb(v) for v in game['PALETTE_SOURCE'][_source_key(slot, entry, game)]]
+    img = Image.open(path).convert('RGBA')
+    flat = img.get_flattened_data() if hasattr(img, 'get_flattened_data') else img.getdata()
+    for p in flat:
+        if p[3] >= 8 and any((p[0] - c[0]) ** 2 + (p[1] - c[1]) ** 2 + (p[2] - c[2]) ** 2 <= 27 for c in src):
+            return True
+    return False
+
+
 def colour_for(slot, entry, v1name, game, v1colors, inherited_tint=None):
-    """{'color': name} | {'tint': idx} | {} for a v1 colour on a game item."""
+    """{'color': name} | {'tint': idx} | {} for a v1 colour on a game item (ramp-to-ramp match)."""
     file_colours = entry.get('colors') or []
     if file_colours and slot not in game['FORCE_TINT_TYPES']:
         if v1name in file_colours:
             return {'color': v1name}
-        rgb = v1_rgb(v1name, v1colors)
-        if rgb is None:
+        ramp = v1_ramp(v1name, v1colors)
+        if ramp is None:
             return {}
-        return {'color': nearest_option(rgb, [(c, file_color_rgb(slot, entry, c, game)) for c in file_colours])}
+        return {'color': nearest_ramp(ramp, [(c, file_color_ramp(slot, entry, c, game)) for c in file_colours])}
     if inherited_tint is not None:
         return {'tint': inherited_tint} if inherited_tint else {}
     palette = _tint_palette(slot, entry, game)
-    rgb = v1_rgb(v1name, v1colors)
-    if not palette or rgb is None:
+    ramp = v1_ramp(v1name, v1colors)
+    if not palette or ramp is None:
         return {}
-    idx = nearest_option(rgb, [(i, _hex_rgb(p['hex'])) for i, p in enumerate(palette) if i and p.get('shades')])
+    # The display palette mixes skin, fur and hair tones. A v1 hair colour on a
+    # hair slot picks among hair tones, a v1 skin colour on a skin slot among the
+    # rest; clothing/metal colours (e.g. a blue-grey "shadow" fur) may use any.
+    hair_names = {p['name'] for p in game['TINT_PALETTE'].get('hair', [])}
+    is_hair = (entry.get('sourceMaterial') or game['SOURCE_MATERIAL'].get(slot)) == 'hair'
+    mats = set(v1colors.get(v1name, {}).get('materials', []))
+    if is_hair and 'hair' in mats:
+        keep = lambda name: name in hair_names
+    elif not is_hair and 'skin' in mats:
+        keep = lambda name: name not in hair_names
+    else:
+        keep = lambda name: True
+    options = [(i, [_hex_rgb(v) for v in p['shades']]) for i, p in enumerate(palette)
+               if i and p.get('shades') and keep(p['name'])]
+    idx = nearest_ramp(ramp, options)
     return {'tint': idx} if idx else {}
 
 
@@ -229,6 +322,12 @@ def migrate_save(name, data, cat, vmap, game, v1colors):
             if not c and not primary.startswith('anatomy.') and v1_rgb(primary, v1colors) is None:
                 notes.append(f'{key}: colour "{primary}" unknown, kept the item\'s default')
             pick.update(c)
+            if slot == 'body' and 'tint' in c and 'skin' not in v1colors.get(primary, {}).get('materials', []):
+                pal = _tint_palette(slot, entry, game)
+                notes.append(f'{key}: skin uses the v1 non-skin colour "{primary}"; matched to '
+                             f'{pal[c["tint"]]["name"]} — check it on the stage')
+            if 'tint' in c and not tint_effective(slot, entry, game):
+                notes.append(f'{key}: tint has no effect on {iid} (its art is not in the {_source_key(slot, entry, game)} palette); it keeps its own colours')
             if slot == 'body':
                 body_tint = pick.get('tint', 0)
         sel[slot] = pick

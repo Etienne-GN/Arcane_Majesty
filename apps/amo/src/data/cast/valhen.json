@@ -1,0 +1,528 @@
+{
+  "id": "valhen",
+  "name": "Valhen",
+  "role": "story",
+  "sel": {
+    "body": {
+      "id": "bodies/male",
+      "tint": 25
+    },
+    "head": {
+      "id": "heads/human/male",
+      "tint": 25
+    },
+    "eyes": {
+      "id": "human/adult/default",
+      "color": "purple"
+    },
+    "hair": {
+      "id": "high_and_tight/adult",
+      "tint": 39
+    },
+    "ears": {
+      "id": "ears/elven/adult",
+      "tint": 25
+    },
+    "torso_mail": {
+      "id": "chainmail/male",
+      "tint": 13
+    },
+    "torso_armour": {
+      "id": "armour/plate/male",
+      "tint": 13
+    },
+    "legs": {
+      "id": "armour/plate/male",
+      "tint": 13
+    },
+    "feet": {
+      "id": "shoes/basic/male",
+      "color": "black"
+    },
+    "arms": {
+      "id": "armour/plate/male",
+      "tint": 13
+    },
+    "torso_waist": {
+      "id": "waist/buckles/female",
+      "color": "iron"
+    },
+    "cape": {
+      "id": "solid/male",
+      "color": "black"
+    },
+    "weapon": {
+      "id": "sword/arming/universal"
+    }
+  },
+  "layers": [
+    {
+      "slot": "weapon",
+      "type": "weapon",
+      "id": "sword/arming/universal",
+      "zPos": 5,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "combat_idle"
+      ],
+      "itemName": "bg"
+    },
+    {
+      "slot": "body",
+      "type": "body",
+      "id": "bodies/male",
+      "zPos": 10,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          1908001,
+          4738647,
+          9147544,
+          9147544,
+          9147544,
+          12106684,
+          14212316,
+          16777215
+        ],
+        "tintName": "White"
+      }
+    },
+    {
+      "slot": "feet",
+      "type": "feet",
+      "id": "shoes/basic/male",
+      "zPos": 14,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "color": "black"
+    },
+    {
+      "slot": "head",
+      "type": "head",
+      "id": "heads/human/male",
+      "zPos": 20,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          1908001,
+          4738647,
+          9147544,
+          9147544,
+          9147544,
+          12106684,
+          14212316,
+          16777215
+        ],
+        "tintName": "White"
+      }
+    },
+    {
+      "slot": "ears",
+      "type": "head",
+      "id": "ears/elven/adult",
+      "zPos": 22,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          1908001,
+          4738647,
+          9147544,
+          9147544,
+          9147544,
+          12106684,
+          14212316,
+          16777215
+        ],
+        "tintName": "White"
+      }
+    },
+    {
+      "slot": "eyes",
+      "type": "eyes",
+      "id": "human/adult/default",
+      "zPos": 25,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "combat_idle",
+        "emote"
+      ],
+      "color": "purple"
+    },
+    {
+      "slot": "legs",
+      "type": "legs",
+      "id": "armour/plate/male",
+      "zPos": 40,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "sit",
+        "jump",
+        "climb",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "cloth",
+        "sourceColors": [
+          1905438,
+          1905438,
+          4267525,
+          4926227,
+          6436124,
+          7621424,
+          10054474
+        ],
+        "targetShades": [
+          2627616,
+          2627616,
+          7035968,
+          9601892,
+          10983288,
+          12956559,
+          14404523,
+          15390666
+        ],
+        "tintName": "Zombie"
+      }
+    },
+    {
+      "slot": "arms",
+      "type": "arms",
+      "id": "armour/plate/male",
+      "zPos": 45,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "climb",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "cloth",
+        "sourceColors": [
+          1905438,
+          1905438,
+          4267525,
+          4926227,
+          6436124,
+          7621424,
+          10054474
+        ],
+        "targetShades": [
+          2627616,
+          2627616,
+          7035968,
+          9601892,
+          10983288,
+          12956559,
+          14404523,
+          15390666
+        ],
+        "tintName": "Zombie"
+      }
+    },
+    {
+      "slot": "hair",
+      "type": "hair",
+      "id": "high_and_tight/adult",
+      "zPos": 50,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "hair",
+        "sourceColors": [
+          2493716,
+          6951176,
+          10495488,
+          10495488,
+          10757632,
+          12533760,
+          15029760,
+          16747008
+        ],
+        "targetShades": [
+          0,
+          526858,
+          1053716,
+          1053716,
+          1053716,
+          1843746,
+          3223870,
+          4870231
+        ],
+        "tintName": "Black"
+      }
+    },
+    {
+      "slot": "torso_mail",
+      "type": "torso",
+      "id": "chainmail/male",
+      "zPos": 50,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "sit",
+        "jump",
+        "climb",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "metal",
+        "sourceColors": [
+          1905438,
+          3024179,
+          5065309,
+          7498622,
+          8814207,
+          12891551,
+          16777215
+        ],
+        "targetShades": [
+          2627616,
+          2627616,
+          7035968,
+          9601892,
+          10983288,
+          12956559,
+          14404523,
+          15390666
+        ],
+        "tintName": "Zombie"
+      }
+    },
+    {
+      "slot": "torso_armour",
+      "type": "torso",
+      "id": "armour/plate/male",
+      "zPos": 60,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "metal",
+        "sourceColors": [
+          1905438,
+          3024179,
+          5065309,
+          7498622,
+          8814207,
+          12891551,
+          16777215
+        ],
+        "targetShades": [
+          2627616,
+          2627616,
+          7035968,
+          9601892,
+          10983288,
+          12956559,
+          14404523,
+          15390666
+        ],
+        "tintName": "Zombie"
+      }
+    },
+    {
+      "slot": "torso_waist",
+      "type": "torso",
+      "id": "waist/buckles/female",
+      "zPos": 70,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "spellcast"
+      ],
+      "color": "iron"
+    },
+    {
+      "slot": "weapon",
+      "type": "weapon",
+      "id": "sword/arming/universal",
+      "zPos": 142,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "combat_idle"
+      ],
+      "itemName": "fg"
+    },
+    {
+      "slot": "cape",
+      "type": "cape",
+      "id": "solid/male",
+      "zPos": 170,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "color": "black"
+    }
+  ],
+  "variants": {},
+  "published": false,
+  "updatedAt": "2026-10-09T05:13:53.250Z",
+  "dbCharacter": "Valhen",
+  "migrationNotes": [
+    "anatomy.body.male: skin uses the v1 non-skin colour \"dove\"; matched to White — check it on the stage",
+    "clothes.buckles.buckles: no male version, used waist/buckles/female",
+    "anatomy.shadow.shadow: skipped — shadow: the game draws its own shadow (no shadow slot in the catalogue)"
+  ]
+}

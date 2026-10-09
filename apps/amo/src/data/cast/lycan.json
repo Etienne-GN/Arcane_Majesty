@@ -1,0 +1,210 @@
+{
+  "id": "lycan",
+  "name": "Lycan",
+  "role": "enemy",
+  "sel": {
+    "body": {
+      "id": "bodies/muscular",
+      "tint": 45
+    },
+    "head": {
+      "id": "heads/wolf/male",
+      "tint": 45
+    },
+    "tail": {
+      "id": "tail/lizard/adult/fg",
+      "tint": 45
+    }
+  },
+  "layers": [
+    {
+      "slot": "tail",
+      "type": "body",
+      "id": "tail/lizard/adult/bg",
+      "zPos": -3,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "hair",
+        "sourceColors": [
+          2493716,
+          6951176,
+          10495488,
+          10495488,
+          10757632,
+          12533760,
+          15029760,
+          16747008
+        ],
+        "targetShades": [
+          1574678,
+          2101291,
+          2629185,
+          2629185,
+          2629185,
+          3288426,
+          3951021,
+          4614857
+        ],
+        "tintName": "Navy"
+      }
+    },
+    {
+      "slot": "body",
+      "type": "body",
+      "id": "bodies/muscular",
+      "zPos": 10,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "thrust",
+        "spellcast",
+        "run",
+        "sit",
+        "jump"
+      ],
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          1574678,
+          2101291,
+          2629185,
+          2629185,
+          2629185,
+          3288426,
+          3951021,
+          4614857
+        ],
+        "tintName": "Navy"
+      }
+    },
+    {
+      "slot": "tail",
+      "type": "body",
+      "id": "tail/lizard/adult/fg",
+      "zPos": 12,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "hair",
+        "sourceColors": [
+          2493716,
+          6951176,
+          10495488,
+          10495488,
+          10757632,
+          12533760,
+          15029760,
+          16747008
+        ],
+        "targetShades": [
+          1574678,
+          2101291,
+          2629185,
+          2629185,
+          2629185,
+          3288426,
+          3951021,
+          4614857
+        ],
+        "tintName": "Navy"
+      }
+    },
+    {
+      "slot": "head",
+      "type": "head",
+      "id": "heads/wolf/male",
+      "zPos": 20,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "swapParams": {
+        "sourceKey": "fur",
+        "sourceColors": [
+          0,
+          0,
+          1970702,
+          2431769,
+          4667184,
+          6439221,
+          9919322,
+          14129555
+        ],
+        "targetShades": [
+          1574678,
+          2101291,
+          2629185,
+          2629185,
+          2629185,
+          3288426,
+          3951021,
+          4614857
+        ],
+        "tintName": "Navy"
+      }
+    }
+  ],
+  "variants": {},
+  "published": false,
+  "updatedAt": "2026-10-09T05:13:53.245Z",
+  "migrationNotes": [
+    "anatomy.body.muscular: skin uses the v1 non-skin colour \"shadow\"; matched to Navy — check it on the stage",
+    "anatomy.tail.lizard: tint has no effect on tail/lizard/adult/fg (its art is not in the hair palette); it keeps its own colours",
+    "anatomy.shadow.shadow: skipped — shadow: the game draws its own shadow (no shadow slot in the catalogue)"
+  ]
+}

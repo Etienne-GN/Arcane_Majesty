@@ -1,0 +1,113 @@
+{
+  "id": "skeleton",
+  "name": "Skeleton",
+  "role": "enemy",
+  "sel": {
+    "body": {
+      "id": "bodies/skeleton",
+      "tint": 25
+    },
+    "head": {
+      "id": "heads/skeleton/adult",
+      "tint": 25
+    }
+  },
+  "layers": [
+    {
+      "slot": "body",
+      "type": "body",
+      "id": "bodies/skeleton",
+      "zPos": 10,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "itemName": "skeleton",
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          1908001,
+          4738647,
+          9147544,
+          9147544,
+          9147544,
+          12106684,
+          14212316,
+          16777215
+        ],
+        "tintName": "White"
+      }
+    },
+    {
+      "slot": "head",
+      "type": "head",
+      "id": "heads/skeleton/adult",
+      "zPos": 20,
+      "anims": [
+        "walk",
+        "idle",
+        "hurt",
+        "slash",
+        "backslash",
+        "halfslash",
+        "thrust",
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "combat_idle",
+        "emote"
+      ],
+      "itemName": "skeleton",
+      "swapParams": {
+        "sourceKey": "body",
+        "sourceColors": [
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
+        ],
+        "targetShades": [
+          1908001,
+          4738647,
+          9147544,
+          9147544,
+          9147544,
+          12106684,
+          14212316,
+          16777215
+        ],
+        "tintName": "White"
+      }
+    }
+  ],
+  "variants": {},
+  "published": false,
+  "updatedAt": "2026-10-09T05:13:53.249Z",
+  "migrationNotes": [
+    "anatomy.body.skeleton: skin uses the v1 non-skin colour \"white\"; matched to White — check it on the stage",
+    "anatomy.body.skeleton: tint has no effect on bodies/skeleton (its art is not in the body palette); it keeps its own colours",
+    "anatomy.head.skeleton: tint has no effect on heads/skeleton/adult (its art is not in the body palette); it keeps its own colours",
+    "anatomy.shadow.shadow: skipped — shadow: the game draws its own shadow (no shadow slot in the catalogue)"
+  ]
+}
