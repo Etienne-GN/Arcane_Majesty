@@ -1,4 +1,4 @@
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import * as S from '@v2/model/castSession.js'
 import { store, catalogue } from './store'
 
@@ -13,6 +13,9 @@ const session = {
   get comp() { return store.comp }, set comp(v) { store.comp = v },
   get scratch() { return cast.scratch }, set scratch(v) { cast.scratch = v },
 }
+
+// The open character's own motion rules drive the stage (on top of the global rules).
+watch(() => cast.meta?.motionRules, v => { store.ruleOverrides = v && Object.keys(v).length ? v : undefined }, { deep: true, immediate: true })
 
 export const isDirty = () => S.isDirty(session, catalogue)
 export const currentCast = () => S.current(session, catalogue)
@@ -53,6 +56,7 @@ export function closeCast() {
 }
 
 export const switchVariant = (name: string | null) => S.switchVariant(session, name)
+export const setOverride = (key: string, motion: string, rule: any) => S.setOverride(session, key, motion, rule)
 export const removeVariant = (name: string) => S.removeVariant(session, name)
 export function addVariant(name: string) {
   if (!S.addVariant(session, name)) cast.error = `A variant called "${name}" already exists.`

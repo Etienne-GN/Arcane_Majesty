@@ -6,6 +6,7 @@
  */
 import { layersFor, missingIn, entryFor } from './composition.js';
 import { DEFAULT_ANIMS } from '../../../../../amo/src/systems/animResolve.js';
+import { ruleErrors } from '../../../../../amo/src/systems/motionRules.js';
 
 export const ROLES = ['player-preset', 'story', 'npc', 'enemy'];
 export const CAST_ID_RE = /^[a-z0-9][a-z0-9_]{0,47}$/;
@@ -30,6 +31,7 @@ export function buildCast(catalogue, m) {
     };
     if (m.dbCharacter) cast.dbCharacter = m.dbCharacter;
     if (m.migrationNotes?.length) cast.migrationNotes = m.migrationNotes;
+    if (m.motionRules && Object.keys(m.motionRules).length) cast.motionRules = m.motionRules;   // per-character rule overrides
     return cast;
 }
 
@@ -89,6 +91,7 @@ export function castShapeErrors(cast) {
         else errs.push(...layerErrors(v.layers, `variants.${vn}.layers`));
     }
     if (cast.dbCharacter !== undefined && typeof cast.dbCharacter !== 'string') errs.push('dbCharacter must be a string');
+    if (cast.motionRules !== undefined) errs.push(...ruleErrors(cast.motionRules).map(e => `motionRules: ${e}`));
     if (cast.migrationNotes !== undefined && !(Array.isArray(cast.migrationNotes) && cast.migrationNotes.every(n => typeof n === 'string'))) {
         errs.push('migrationNotes must be a list of strings');
     }

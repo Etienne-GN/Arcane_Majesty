@@ -47,6 +47,10 @@ check('name must be a string', castShapeErrors({ ...c, name: 42 }).some(e => e.i
 check('role must be known', castShapeErrors({ ...c, role: 'boss' }).some(e => e.includes('role')), true);
 check('sel must be an object', castShapeErrors({ ...c, sel: [] }).some(e => e.includes('sel')), true);
 check('non-object rejected', castShapeErrors(null).length > 0, true);
+check('motion rule overrides accepted', castShapeErrors({ ...c, motionRules: { 'cape|solid/female|': { sit: { rule: 'hide' } } } }), []);
+check('bad overrides rejected', castShapeErrors({ ...c, motionRules: { 'cape|solid/female|': { sit: { rule: 'explode' } } } }).some(e => e.includes('explode')), true);
+check('buildCast keeps overrides', buildCast(CAT, { name: 'X', role: 'npc', sel, motionRules: { 'cape|solid/female|': { sit: { rule: 'hide' } } } }).motionRules['cape|solid/female|'].sit.rule, 'hide');
+check('buildCast omits empty overrides', 'motionRules' in buildCast(CAT, { name: 'X', role: 'npc', sel, motionRules: {} }), false);
 
 const cov = coverage(c.layers);
 check('cape breaks run', cov.gaps.run.length > 0, true);

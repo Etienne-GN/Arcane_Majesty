@@ -13,6 +13,7 @@ function check(name, got, want) {
 
 const base = { body: { id: 'bodies/male' }, head: { id: 'heads/human/male' } };
 const eldrin = buildCast(CAT, { name: 'Eldrin', role: 'story', sel: base, variants: { hooded: { ...base, hat: { id: 'cloth/hood/adult' } } } });
+const withOverride = buildCast(CAT, { name: 'Kael', role: 'story', sel: base, motionRules: { 'body|bodies/male|': { sit: { rule: 'hide' } } } });
 const scratch = { name: 'My scratch', sel: { body: { id: 'bodies/female' } } };
 
 // opening keeps the scratch composition aside and restores it on close
@@ -43,6 +44,15 @@ S.markSaved(st, c);
 check('clean after save', S.isDirty(st, CAT), false);
 check('saved means on disk', st.meta.onDisk, true);
 
+// per-character rule overrides
+S.setOverride(st, 'cape|solid/female|', 'sit', { rule: 'hide' });
+check('override set', st.meta.motionRules['cape|solid/female|'].sit.rule, 'hide');
+check('override makes dirty', S.isDirty(st, CAT), true);
+check('override saved in cast', S.current(st, CAT).motionRules['cape|solid/female|'].sit.rule, 'hide');
+S.setOverride(st, 'cape|solid/female|', 'sit', null);
+check('override cleared', S.current(st, CAT).motionRules, undefined);
+S.markSaved(st, S.current(st, CAT));
+
 // closing restores scratch, untouched
 S.close(st);
 check('meta cleared', st.meta, null);
@@ -62,6 +72,12 @@ S.open(st3, eldrin, CAT);
 S.open(st3, buildCast(CAT, { name: 'Kael', role: 'story', sel: base }), CAT);
 S.close(st3);
 check('scratch survives member→member', st3.comp.name, 'My scratch');
+
+// opening a member brings its overrides
+const st5 = { meta: null, comp: JSON.parse(JSON.stringify(scratch)), scratch: null };
+S.open(st5, withOverride, CAT);
+check('overrides opened', st5.meta.motionRules['body|bodies/male|'].sit.rule, 'hide');
+check('clean after open with overrides', S.isDirty(st5, CAT), false);
 
 // a hand-edited variant without sel doesn't crash open
 const odd = { ...eldrin, variants: { broken: { layers: [] } } };

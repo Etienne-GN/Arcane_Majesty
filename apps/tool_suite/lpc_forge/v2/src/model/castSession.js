@@ -9,6 +9,7 @@
  */
 import { buildCast, compositionOf, slugify } from './cast.js';
 import { defaultComposition } from './composition.js';
+import { setRule } from './gapMatrix.js';
 
 const clone = x => JSON.parse(JSON.stringify(x));
 
@@ -29,7 +30,7 @@ export function open(st, cast, catalogue) {
         id: cast.id, role: cast.role, dbCharacter: cast.dbCharacter ?? '', published: !!cast.published,
         variant: null, baseSel: clone(cast.sel ?? {}),
         variants: Object.fromEntries(Object.entries(cast.variants ?? {}).map(([n, v]) => [n, clone(v?.sel ?? {})])),
-        migrationNotes: cast.migrationNotes, onDisk: true,
+        migrationNotes: cast.migrationNotes, motionRules: clone(cast.motionRules ?? {}), onDisk: true,
     }, compositionOf(cast), catalogue);
 }
 
@@ -37,7 +38,7 @@ export function create(st, catalogue) {
     const comp = defaultComposition(catalogue);
     comp.name = 'New character';
     enter(st, { id: '', role: 'npc', dbCharacter: '', published: false, variant: null,
-        baseSel: clone(comp.sel), variants: {}, onDisk: false }, comp, catalogue);
+        baseSel: clone(comp.sel), variants: {}, motionRules: {}, onDisk: false }, comp, catalogue);
 }
 
 export function close(st) {
@@ -86,7 +87,14 @@ export function current(st, catalogue) {
         id: m.onDisk ? m.id : (m.id || slugify(st.comp.name)),
         name: st.comp.name, role: m.role, dbCharacter: m.dbCharacter || undefined,
         sel: clone(sel), variants: clone(variants), published: m.published, migrationNotes: m.migrationNotes,
+        motionRules: clone(m.motionRules ?? {}),
     });
+}
+
+/** This character's own rule for a layer in a motion (rule null = back to the global rules). */
+export function setOverride(st, key, motion, rule) {
+    if (!st.meta) return;
+    st.meta.motionRules = setRule(st.meta.motionRules ?? {}, key, motion, rule);
 }
 
 export function markSaved(st, cast) {
