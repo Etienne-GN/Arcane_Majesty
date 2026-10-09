@@ -1,27 +1,28 @@
 import { reactive, ref } from 'vue'
-import { buildCast, compositionOf, slugify } from '@v2/model/cast.js'
-import { defaultComposition } from '@v2/model/composition.js'
-import { store, catalogue, loadComposition } from './store'
+import * as S from '@v2/model/castSession.js'
+import { store, catalogue } from './store'
 
-// The cast member being edited in the forge. null = a scratch composition.
-// While a variant is open, store.comp.sel holds the variant's sel and the base
-// sel waits in baseSel (and vice versa), so switching never loses edits.
-export interface CastMeta {
-  id: string
-  role: string
-  dbCharacter: string
-  published: boolean
-  variant: string | null
-  baseSel: Record<string, any>
-  variants: Record<string, Record<string, any>>
-  migrationNotes?: string[]
-  onDisk: boolean
-}
-
-export const cast = reactive({ meta: null as CastMeta | null, error: '' })
+// The cast member being edited (meta null = a scratch composition). The pure
+// session logic lives in model/castSession.js; this wires it to the store and
+// adds the prompts. `session` is the { meta, comp, scratch } object it acts on.
+export const cast = reactive({ meta: null as any, scratch: null as any, error: '' })
 export const castList = ref<any[]>([])
 
-const clone = (x: any) => JSON.parse(JSON.stringify(x))
+const session = {
+  get meta() { return cast.meta }, set meta(v) { cast.meta = v; store.editingCast = !!v },
+  get comp() { return store.comp }, set comp(v) { store.comp = v },
+  get scratch() { return cast.scratch }, set scratch(v) { cast.scratch = v },
+}
+
+export const isDirty = () => S.isDirty(session, catalogue)
+export const currentCast = () => S.current(session, catalogue)
+
+function okToLeave() {
+  return !isDirty() || confirm(`Discard unsaved changes to "${store.comp.name}"?`)
+}
+
+// Reloading or closing the tab with unsaved cast edits asks first.
+window.addEventListener('beforeunload', e => { if (isDirty()) e.preventDefault() })
 
 export async function refreshCast() {
   try {
@@ -33,83 +34,40 @@ export async function refreshCast() {
 }
 
 export function openCast(c: any) {
-  cast.meta = {
-    id: c.id, role: c.role, dbCharacter: c.dbCharacter ?? '', published: !!c.published, variant: null,
-    baseSel: clone(c.sel ?? {}),
-    variants: Object.fromEntries(Object.entries(c.variants ?? {}).map(([n, v]: any) => [n, clone(v.sel)])),
-    migrationNotes: c.migrationNotes, onDisk: true,
-  }
-  loadComposition(compositionOf(c))
+  if (!okToLeave()) return
+  S.open(session, c, catalogue)
   store.screen = 'forge'
 }
 
 export function newCast() {
-  const comp = defaultComposition(catalogue)
-  comp.name = 'New character'
-  cast.meta = { id: '', role: 'npc', dbCharacter: '', published: false, variant: null, baseSel: clone(comp.sel), variants: {}, onDisk: false }
-  loadComposition(comp)
+  if (!okToLeave()) return
+  S.create(session, catalogue)
   store.screen = 'forge'
 }
 
-/** Leave the cast member: the forge goes back to a scratch composition. */
+/** Back to the cast home; the scratch composition comes back to the forge. */
 export function closeCast() {
-  cast.meta = null
+  if (!okToLeave()) return
+  S.close(session)
   store.screen = 'cast'
 }
 
-function stashCurrent() {
-  const m = cast.meta!
-  if (m.variant) m.variants[m.variant] = clone(store.comp.sel)
-  else m.baseSel = clone(store.comp.sel)
-}
-
-export function switchVariant(name: string | null) {
-  const m = cast.meta
-  if (!m || m.variant === name) return
-  stashCurrent()
-  m.variant = name
-  store.comp.sel = clone(name ? m.variants[name] : m.baseSel)
-}
-
+export const switchVariant = (name: string | null) => S.switchVariant(session, name)
+export const removeVariant = (name: string) => S.removeVariant(session, name)
 export function addVariant(name: string) {
-  const m = cast.meta
-  const n = slugify(name)
-  if (!m || !n || m.variants[n]) return
-  stashCurrent()
-  m.variants[n] = clone(store.comp.sel)   // starts as a copy of what's on screen
-  m.variant = n
-}
-
-export function removeVariant(name: string) {
-  const m = cast.meta
-  if (!m || !m.variants[name]) return
-  if (m.variant === name) switchVariant(null)
-  delete m.variants[name]
-}
-
-/** The cast file for what's on screen (id from the name for a new member). Pure: safe in computeds. */
-export function currentCast() {
-  const m = cast.meta!
-  const sel = m.variant ? m.baseSel : store.comp.sel
-  const variants = m.variant ? { ...m.variants, [m.variant]: store.comp.sel } : m.variants
-  return buildCast(catalogue, {
-    id: m.onDisk ? m.id : (m.id || slugify(store.comp.name)),
-    name: store.comp.name, role: m.role, dbCharacter: m.dbCharacter || undefined,
-    sel: clone(sel), variants: clone(variants), published: m.published, migrationNotes: m.migrationNotes,
-  })
+  if (!S.addVariant(session, name)) cast.error = `A variant called "${name}" already exists.`
+  else cast.error = ''
 }
 
 export async function saveCast() {
   const m = cast.meta
   if (!m) return
-  stashCurrent()
   const c = currentCast()
   if (!m.onDisk && castList.value.some(x => x.id === c.id) && !confirm(`A cast member "${c.id}" exists. Overwrite it?`)) return
   try {
     const r = await fetch(`/api/cast/${c.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(c) })
     if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error ?? `HTTP ${r.status}`)
-    m.id = c.id
-    m.onDisk = true
+    S.markSaved(session, c)
     cast.error = ''
     await refreshCast()
   } catch (e: any) { cast.error = `Could not save: ${e.message}` }
@@ -120,7 +78,7 @@ export async function deleteCastMember(id: string) {
   try {
     const r = await fetch(`/api/cast/${id}`, { method: 'DELETE' })
     if (!r.ok) throw new Error(`HTTP ${r.status}`)
-    if (cast.meta?.id === id) closeCast()
+    if (cast.meta?.id === id) { S.close(session); store.screen = 'cast' }
     await refreshCast()
   } catch (e: any) { cast.error = `Could not delete: ${e.message}` }
 }

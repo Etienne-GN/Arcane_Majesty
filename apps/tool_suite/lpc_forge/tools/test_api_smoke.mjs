@@ -56,6 +56,13 @@ for (const bad of ['..%2Fx', 'A', 'a%2Fb', 'x'.repeat(60)]) {
     const r = await fetch(base + `/api/cast/${bad}`, json('PUT', { ...cast, id: decodeURIComponent(bad) }));
     if (r.status === 400) passed++; else fails.push(`bad id ${bad} → ${r.status}`);
 }
+for (const [what, body] of [['layers junk', { ...cast, layers: 'junk' }], ['variants 5', { ...cast, variants: 5 }], ['published str', { ...cast, published: 'yes' }]]) {
+    const r = await fetch(base + '/api/cast/eldrin', json('PUT', body));
+    if (r.status === 400) passed++; else fails.push(`bad shape (${what}) → ${r.status}`);
+}
+if (JSON.parse(readFileSync(join(castDir, 'eldrin.json'), 'utf8')).layers.length === 0) passed++; else fails.push('bad shape overwrote the file');
+const big = await fetch(base + '/api/cast/eldrin', json('PUT', { ...cast, name: 'x'.repeat(3_000_000) }));
+if (big.status === 413) passed++; else fails.push(`oversized cast body → ${big.status}`);
 const mismatch = await fetch(base + '/api/cast/kael', json('PUT', cast));
 if (mismatch.status === 400) passed++; else fails.push('id mismatch accepted');
 await Promise.all([1, 2, 3, 4, 5].map(n => fetch(base + '/api/cast/eldrin', json('PUT', { ...cast, name: 'E' + n }))));

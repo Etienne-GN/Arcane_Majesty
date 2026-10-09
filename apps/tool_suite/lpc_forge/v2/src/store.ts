@@ -5,7 +5,7 @@ import { DEFAULT_ANIMS, resolveAnim } from '@game/systems/animResolve.js'
 import { loadSheet } from '@v2/render/sheets.js'
 
 // The composition autosaves per browser (a convenience, not storage of record:
-// named saves go to saves.db, cast files arrive with Plan B).
+// named saves go to saves.db; cast members are files, see castState.ts).
 const KEY = 'forge_v2_comp'
 
 export const catalogue = CATALOGUE as Record<string, any[]>
@@ -43,6 +43,8 @@ export const store = reactive({
   view: 'grid' as 'grid' | 'single',
   showMissing: true,
   bg: 'checker' as 'checker' | 'grass' | 'stone',
+  // true while a cast member is open: the scratch autosave must not take its place
+  editingCast: false,
   // motion → keys of layers with no art for it (computed from the layers below)
   missing: {} as Record<string, string[]>,
 })
@@ -69,6 +71,7 @@ watch(layers, async ls => {
 }, { immediate: true })
 
 watch(() => store.comp, c => {
+  if (store.editingCast) return
   try { localStorage.setItem(KEY, JSON.stringify(c)) } catch { /* ignore */ }
 }, { deep: true })
 

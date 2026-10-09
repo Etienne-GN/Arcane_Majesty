@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /** Unit tests for the Forge v2 cast model. Run: node v2/tests/test_cast.mjs */
 import { readFileSync } from 'node:fs';
-import { slugify, buildCast, compositionOf, validateCast, coverage, CAST_ID_RE } from '../src/model/cast.js';
+import { slugify, buildCast, compositionOf, validateCast, coverage, castShapeErrors, CAST_ID_RE } from '../src/model/cast.js';
 
 const CAT = JSON.parse(readFileSync(new URL('../../../../amo/src/data/character_catalogue.json', import.meta.url)));
 let passed = 0; const fails = [];
@@ -35,6 +35,18 @@ check('bad id', errs.some(e => e.includes('id')), true);
 check('bad role', errs.some(e => e.includes('role')), true);
 check('unknown item', errs.includes('hat: unknown item nope/nope'), true);
 check('stale layers', validateCast(CAT, { ...c, layers: [] }).includes('layers are stale'), true);
+
+// shape check (what the server accepts before writing into the game)
+check('good shape', castShapeErrors(c), []);
+check('layers must be an array', castShapeErrors({ ...c, layers: 'junk' }).some(e => e.includes('layers')), true);
+check('layer needs string slot/id', castShapeErrors({ ...c, layers: [{ slot: 1 }] }).some(e => e.includes('layers[0]')), true);
+check('variants must be an object', castShapeErrors({ ...c, variants: 5 }).some(e => e.includes('variants')), true);
+check('variant layers must be an array', castShapeErrors({ ...c, variants: { v: { layers: 3 } } }).some(e => e.includes('variants.v')), true);
+check('published must be boolean', castShapeErrors({ ...c, published: 'yes' }).some(e => e.includes('published')), true);
+check('name must be a string', castShapeErrors({ ...c, name: 42 }).some(e => e.includes('name')), true);
+check('role must be known', castShapeErrors({ ...c, role: 'boss' }).some(e => e.includes('role')), true);
+check('sel must be an object', castShapeErrors({ ...c, sel: [] }).some(e => e.includes('sel')), true);
+check('non-object rejected', castShapeErrors(null).length > 0, true);
 
 const cov = coverage(c.layers);
 check('cape breaks run', cov.gaps.run.length > 0, true);

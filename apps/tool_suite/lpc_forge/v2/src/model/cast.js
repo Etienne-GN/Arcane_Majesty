@@ -57,6 +57,44 @@ export function validateCast(catalogue, cast) {
     return errs;
 }
 
+const isObj = x => x !== null && typeof x === 'object' && !Array.isArray(x);
+
+function layerErrors(layers, where) {
+    if (!Array.isArray(layers)) return [`${where} must be an array`];
+    const errs = [];
+    layers.forEach((l, i) => {
+        if (!isObj(l) || typeof l.slot !== 'string' || typeof l.id !== 'string' || typeof l.type !== 'string') {
+            errs.push(`${where}[${i}] needs string slot, type and id`);
+        }
+    });
+    return errs;
+}
+
+/**
+ * Structural check of a cast file, independent of the catalogue — what the API
+ * enforces before writing into the game's source tree.
+ */
+export function castShapeErrors(cast) {
+    if (!isObj(cast)) return ['cast must be an object'];
+    const errs = [];
+    if (!CAST_ID_RE.test(cast.id ?? '')) errs.push(`bad id "${cast.id}"`);
+    if (typeof cast.name !== 'string' || !cast.name.trim()) errs.push('name must be a non-empty string');
+    if (!ROLES.includes(cast.role)) errs.push(`bad role "${cast.role}"`);
+    if (typeof cast.published !== 'boolean') errs.push('published must be true or false');
+    if (!isObj(cast.sel)) errs.push('sel must be an object');
+    errs.push(...layerErrors(cast.layers, 'layers'));
+    if (!isObj(cast.variants)) errs.push('variants must be an object');
+    else for (const [vn, v] of Object.entries(cast.variants)) {
+        if (!isObj(v) || !isObj(v.sel)) errs.push(`variants.${vn} needs a sel object`);
+        else errs.push(...layerErrors(v.layers, `variants.${vn}.layers`));
+    }
+    if (cast.dbCharacter !== undefined && typeof cast.dbCharacter !== 'string') errs.push('dbCharacter must be a string');
+    if (cast.migrationNotes !== undefined && !(Array.isArray(cast.migrationNotes) && cast.migrationNotes.every(n => typeof n === 'string'))) {
+        errs.push('migrationNotes must be a list of strings');
+    }
+    return errs;
+}
+
 /** How many of the 15 motions play with no layer vanishing, and which layers vanish where. */
 export function coverage(layers) {
     const gaps = {};

@@ -3,7 +3,7 @@ import Database from 'better-sqlite3'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
 import { listCast, writeCast, deleteCast } from './castStore.js'
-import { CAST_ID_RE } from './v2/src/model/cast.js'
+import { CAST_ID_RE, castShapeErrors } from './v2/src/model/cast.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -29,6 +29,8 @@ export function createServer({
   `)
 
   const app = express()
+  // Cast files are small; the 20 MB limit is for scratch saves with previews.
+  app.use('/api/cast', express.json({ limit: '1mb' }))
   app.use(express.json({ limit: '20mb' }))
 
   // express.static refuses ../ traversal; fallthrough:false makes misses errors,
@@ -62,6 +64,8 @@ export function createServer({
   app.put('/api/cast/:id', (req, res) => {
     const { id } = req.params
     if (!CAST_ID_RE.test(id) || req.body?.id !== id) return res.status(400).json({ error: 'bad or mismatched id' })
+    const errors = castShapeErrors(req.body)
+    if (errors.length) return res.status(400).json({ error: errors.join('; ') })
     writeCast(castDir, req.body)
     res.json({ ok: true })
   })
