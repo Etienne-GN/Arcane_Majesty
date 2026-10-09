@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /** Unit tests for the Forge v2 composition model. Run: node v2/tests/test_composition.mjs */
 import { readFileSync } from 'node:fs';
-import { defaultComposition, layersFor, motionsOf, missingIn, entryFor, layerKeyOf } from '../src/model/composition.js';
+import { defaultComposition, layersFor, motionsOf, missingIn, entryFor, layerKeyOf, gapsIn } from '../src/model/composition.js';
 
 const CAT = JSON.parse(readFileSync(new URL('../../../../amo/src/data/character_catalogue.json', import.meta.url)));
 let passed = 0; const fails = [];
@@ -47,6 +47,21 @@ check('missing in run = sword layers', missingIn(ls, 'run').filter(l => l.slot =
 const noFg = l => l.itemName !== 'fg';
 check('manifest claims walk but file absent → missing', missingIn(ls, 'walk', noFg).map(l => l.itemName), ['fg']);
 check('no predicate → manifest only', missingIn(ls, 'walk').length, 0);
+
+// gapsIn: what each layer does in a motion, as the game would (fallback to walk by default)
+const gl = layersFor(CAT, { name: '', sel: { body: { id: 'bodies/male' }, cape: { id: 'solid/female', color: 'red' } } });
+const capeKey = 'cape|solid/female|';
+const g1 = gapsIn(gl, 'run', {});
+check('body own in run', g1.find(g => g.layer.slot === 'body').mode, 'own');
+check('cape falls back in run', g1.find(g => g.layer.id === 'solid/female').mode, 'fallback');
+const g2 = gapsIn(gl, 'run', { [capeKey]: { run: { rule: 'hide' } } });
+check('cape hidden by rule', g2.find(g => g.layer.id === 'solid/female').mode, 'hide');
+const g3 = gapsIn(gl, 'jump', {}, { [capeKey]: { jump: { rule: 'borrow', from: 'walk' } } });
+check('override borrow', g3.find(g => g.layer.id === 'solid/female').mode, 'borrow');
+const g4 = gapsIn(gl, 'run', {}, undefined, (l, c) => !(l.slot === 'body' && c === 'run'));
+check('own art missing on disk → fallback (game behaviour)', g4.find(g => g.layer.slot === 'body').mode, 'fallback');
+const g5 = gapsIn(gl, 'run', {}, undefined, () => false);
+check('no file at all → missing', g5.find(g => g.layer.slot === 'body').mode, 'missing');
 
 // layer keys tell a weapon's bg and fg layers apart
 check('layer keys distinct', new Set(w.map(layerKeyOf)).size, 2);

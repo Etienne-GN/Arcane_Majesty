@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /** Unit tests for Forge v2 frame geometry. Run: node v2/tests/test_frames.mjs */
-import { frameSizeOf, frameGeometry, frameRect } from '../src/render/frames.js';
+import { frameSizeOf, frameGeometry, frameRect, sheetFrame } from '../src/render/frames.js';
 
 let passed = 0; const fails = [];
 function check(name, got, want) {
@@ -33,6 +33,13 @@ check('frame 0 rect', frameRect(g, 0), { sx: 64, sy: 128, sw: 64, sh: 64, dx: 0,
 check('frame wraps', frameRect(g, 8), frameRect(g, 0));
 const o = frameGeometry('slash', 'left', 1152, 768);
 check('oversize centred', frameRect(o, 1), { sx: 192, sy: 192, sw: 192, sh: 192, dx: -64, dy: -64 });
+
+// retimed borrow: walk (8 frames after skip) shown in jump (5 frames)
+const w = frameGeometry('walk', 'down', 576, 256);
+check('retimed frame 0', sheetFrame(w, 0, 'jump'), 0);
+check('retimed frame 2', sheetFrame(w, 2, 'jump'), 3);
+check('retimed wraps at target length', sheetFrame(w, 5, 'jump'), 0);
+check('no retime = plain index', sheetFrame(w, 5), 5);
 
 if (fails.length) { console.error(`✗ frames: ${fails.length} failed\n  ` + fails.join('\n  ')); process.exit(1); }
 console.log(`✓ frames: ${passed} passed`);

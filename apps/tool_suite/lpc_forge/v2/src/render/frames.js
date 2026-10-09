@@ -4,7 +4,8 @@
  * walk standing-frame skip). Vitruvius "extended" interleaved sheets are not
  * in the curated catalogue and are out of scope here.
  */
-import { walkSkip } from '../../../../../amo/src/systems/lpcLayout.js';
+import { walkSkip, MOTION_FRAMES } from '../../../../../amo/src/systems/lpcLayout.js';
+import { frameMap } from '../../../../../amo/src/systems/motionRules.js';
 
 export const DIRS = ['up', 'left', 'down', 'right'];
 const CELL = 64;
@@ -35,4 +36,15 @@ export function frameRect(geom, i) {
     const col = geom.colStart + (((i % geom.count) + geom.count) % geom.count);
     const off = -(geom.fs - CELL) / 2;
     return { sx: col * geom.fs, sy: geom.row * geom.fs, sw: geom.fs, sh: geom.fs, dx: off, dy: off };
+}
+
+/**
+ * Which of a sheet's frames to show at play index `i`. With `retimeTo` (a
+ * borrowed layer) the sheet's frames are resampled to that motion's length —
+ * the same mapping the game builds for borrowed animations.
+ */
+export function sheetFrame(geom, i, retimeTo) {
+    if (!retimeTo) return i;
+    const map = frameMap(geom.count, MOTION_FRAMES[retimeTo] ?? geom.count);
+    return map[((i % map.length) + map.length) % map.length];
 }

@@ -9,10 +9,12 @@ import { stepFrame } from '@v2/clock'
 
 const SPEEDS = [0.25, 0.5, 1, 2]
 
-/** Number of layers with no art for a motion. */
-function missingInMotion(motion: string) {
-  return store.missing[motion]?.length ?? 0
+/** Layers without their own art in a motion, by what they do: fallback / borrow / hide+missing. */
+function gapCounts(motion: string) {
+  const g = store.gaps[motion] ?? {}
+  return { fallback: g.fallback?.length ?? 0, borrow: g.borrow?.length ?? 0, gone: (g.hide?.length ?? 0) + (g.missing?.length ?? 0) }
 }
+const anyGap = (m: string) => { const c = gapCounts(m); return c.fallback + c.borrow + c.gone > 0 }
 function open(motion: string, dir: string) {
   store.motion = motion
   store.dir = dir
@@ -49,7 +51,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
         <button v-for="d in DIRS" :key="d" :class="{ active: store.dir === d }" @click="store.dir = d">{{ d }}</button>
         <span class="sep" />
       </template>
-      <label><input type="checkbox" v-model="store.showMissing" /> show missing</label>
+      <label title="corner badges: amber = walk frames, blue = borrowed, red = hidden"><input type="checkbox" v-model="store.showMissing" /> show gaps</label>
       <select v-model="store.bg" aria-label="Background">
         <option value="checker">checker</option><option value="grass">grass</option><option value="stone">stone</option>
       </select>
@@ -61,7 +63,11 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
       <template v-for="m in DEFAULT_ANIMS" :key="m">
         <div class="mlabel">
           <span>{{ m.replace('_', ' ') }}</span>
-          <span v-if="missingInMotion(m)" class="miss" title="layers missing in this motion">−{{ missingInMotion(m) }}</span>
+          <span class="gapc">
+            <b v-if="gapCounts(m).fallback" class="fb" title="layers playing their walk frames (no art for this motion)">{{ gapCounts(m).fallback }} walk</b>
+            <b v-if="gapCounts(m).borrow" class="bo" title="layers borrowing another motion's frames">{{ gapCounts(m).borrow }} borrow</b>
+            <b v-if="gapCounts(m).gone" class="gn" title="layers hidden in this motion">{{ gapCounts(m).gone }} hidden</b>
+          </span>
         </div>
         <button v-for="d in DIRS" :key="m + d" class="cell" :title="`${m} ${d}`" @click="open(m, d)">
           <CharacterCanvas :layers="layers" :motion="m" :dir="d" :scale="2" :missing-overlay="store.showMissing" />
@@ -76,7 +82,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
       </div>
       <div class="strip">
         <button v-for="m in DEFAULT_ANIMS" :key="m" :class="{ active: store.motion === m }" @click="store.motion = m">
-          {{ m.replace('_', ' ') }}<i v-if="missingInMotion(m)" class="dot" />
+          {{ m.replace('_', ' ') }}<i v-if="anyGap(m)" class="dot" />
         </button>
       </div>
     </div>
@@ -91,7 +97,9 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 .grid { display: grid; grid-template-columns: 110px repeat(4, 136px); gap: 4px; padding: 12px; align-content: start; overflow: auto; }
 .head { color: var(--muted); text-align: center; font-size: 11px; text-transform: uppercase; }
 .mlabel { display: flex; flex-direction: column; justify-content: center; gap: 2px; text-transform: capitalize; }
-.miss { color: var(--missing); font-family: var(--font-mono); font-size: 11px; }
+.gapc { display: flex; flex-direction: column; font-family: var(--font-mono); font-size: 10px; }
+.gapc b { font-weight: normal; }
+.fb { color: #e0a030; } .bo { color: #4a8fe0; } .gn { color: var(--missing); }
 .cell { padding: 2px; background: transparent; border-color: var(--border); }
 .single { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 16px; }
 .big { padding: 8px; border-radius: var(--radius); }

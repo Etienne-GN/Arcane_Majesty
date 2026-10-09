@@ -9,6 +9,7 @@
 import { SLOTS, renderType } from '../../../../../amo/src/systems/lpcLayout.js';
 import { swapParamsFor } from '../../../../../amo/src/systems/lpcPalettes.js';
 import { resolveAnim, DEFAULT_ANIMS } from '../../../../../amo/src/systems/animResolve.js';
+import { resolveMotion } from '../../../../../amo/src/systems/motionRules.js';
 
 const DEFAULT_HEAD = 'heads/human/male';
 
@@ -49,6 +50,28 @@ export function layersFor(catalogue, comp) {
         for (const c of e.companions ?? []) out.push(mk(c, true));
     }
     return out.sort((a, b) => a.zPos - b.zPos);
+}
+
+/**
+ * What each layer does when the character plays `motion` — exactly as the game
+ * renderer decides (motionRules.resolveMotion): 'own' | 'fallback' (walk
+ * frames) | 'borrow' (retimed) | 'hide', plus 'missing' when not even its walk
+ * file exists. `hasFile(layer, concrete)` (optional) reports what the library
+ * really has; the game falls back to walk when an expected file is absent.
+ */
+export function gapsIn(layers, motion, rules = {}, overrides, hasFile) {
+    return layers.map(layer => {
+        const key = layerKeyOf(layer);
+        const res = resolveMotion(layer, motion, rules, overrides);
+        if (res.mode === 'hide') return { layer, key, mode: 'hide', concrete: null, frames: null };
+        if (hasFile && !hasFile(layer, res.concrete)) {
+            const walk = resolveAnim(layer, 'walk') ?? 'walk';
+            return hasFile(layer, walk)
+                ? { layer, key, mode: 'fallback', concrete: walk, frames: null }
+                : { layer, key, mode: 'missing', concrete: null, frames: null };
+        }
+        return { layer, key, ...res };
+    });
 }
 
 /** Stable id of one layer of a composition (a weapon's bg and fg layers differ by itemName). */

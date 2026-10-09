@@ -1,59 +1,59 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, shallowRef } from 'vue'
-import { resolveAnim } from '@game/systems/animResolve.js'
 import { frameRateFor } from '@game/systems/lpcLayout.js'
-import { loadSheet, drawLayer } from '@v2/render/sheets.js'
+import { layerPlan, drawLayer } from '@v2/render/sheets.js'
 import { useTick } from '@v2/clock'
+import { store } from '@v2/store'
 
 const props = defineProps<{
   layers: any[]; motion: string; dir: string; scale?: number; missingOverlay?: boolean; still?: boolean
 }>()
 
 const cv = ref<HTMLCanvasElement>()
-const sheets = shallowRef<(any | null)[]>([])
+// Per layer, as the game draws it: { mode: own|fallback|borrow|hide|missing, concrete, sheet }
+const plans = shallowRef<any[]>([])
 const t = useTick()
 let loadSeq = 0
 
-
 async function load() {
   const seq = ++loadSeq
-  const out = await Promise.all(props.layers.map(l => {
-    const c = resolveAnim(l, props.motion)
-    return c ? loadSheet(l, c) : Promise.resolve(null)
-  }))
-  if (seq === loadSeq) sheets.value = out   // ignore results of a superseded load
+  const out = await Promise.all(props.layers.map(l => layerPlan(l, props.motion, store.rules, store.ruleOverrides)))
+  if (seq === loadSeq) plans.value = out   // ignore results of a superseded load
 }
+
+// Overlay corner badges: amber = falls back to walk frames, blue = borrowed, red = hidden/missing.
+const BADGES: [string, string[]][] = [['#e0a030', ['fallback']], ['#4a8fe0', ['borrow']], ['#e5484d', ['hide', 'missing']]]
 
 function draw() {
   const c = cv.value
-  if (!c || sheets.value.length !== props.layers.length) return
+  if (!c || plans.value.length !== props.layers.length) return
   const ctx = c.getContext('2d')!
   ctx.imageSmoothingEnabled = false
   ctx.clearRect(0, 0, 64, 64)
-  const frame = props.still ? 0 : Math.floor((t.value * frameRateFor(props.motion)) / 1000)
-  // A layer with no sheet has no art for this motion (a real gap). An empty
-  // direction row (a blade behind the body facing up) is by design: not drawn,
-  // not counted. The authoritative list is store.missing; this is the overlay.
-  let missing = 0
-  props.layers.forEach((l, i) => {
-    if (!sheets.value[i]) missing++
-    else drawLayer(ctx, sheets.value[i], props.motion, props.dir, frame, 0, 0)
-  })
-  if (props.missingOverlay && missing) {
-    ctx.strokeStyle = '#e5484d'
-    ctx.setLineDash([2, 2])
-    ctx.strokeRect(0.5, 0.5, 63, 63)
-    ctx.setLineDash([])
-    ctx.fillStyle = '#e5484d'
-    ctx.fillRect(52, 0, 12, 9)
-    ctx.fillStyle = '#fff'
-    ctx.font = '8px monospace'
-    ctx.fillText(String(missing), 55, 8)
+  for (const p of plans.value) {
+    if (!p.sheet) continue
+    // Fallback layers run their walk cycle at walk speed (as in the game); others at the motion's.
+    const fps = frameRateFor(p.mode === 'fallback' ? p.concrete : props.motion)
+    const frame = props.still ? 0 : Math.floor((t.value * fps) / 1000)
+    drawLayer(ctx, p.sheet, p.concrete, props.dir, frame, 0, 0, p.mode === 'borrow' ? props.motion : undefined)
+  }
+  if (props.missingOverlay) {
+    let x = 64
+    for (const [colour, modes] of BADGES) {
+      const n = plans.value.filter(p => modes.includes(p.mode)).length
+      if (!n) continue
+      x -= 11
+      ctx.fillStyle = colour
+      ctx.fillRect(x, 0, 10, 9)
+      ctx.fillStyle = '#fff'
+      ctx.font = '8px monospace'
+      ctx.fillText(String(n), x + 2, 8)
+    }
   }
 }
 
-watch(() => [props.layers, props.motion], load, { immediate: true, deep: true })
-watch([sheets, () => props.dir, () => props.missingOverlay], draw)
+watch(() => [props.layers, props.motion, store.rules, store.ruleOverrides], load, { immediate: true, deep: true })
+watch([plans, () => props.dir, () => props.missingOverlay], draw)
 watch(t, () => { if (!props.still) draw() })
 onMounted(draw)
 </script>

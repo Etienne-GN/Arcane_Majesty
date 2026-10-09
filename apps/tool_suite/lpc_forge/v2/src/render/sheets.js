@@ -7,7 +7,8 @@
 import { animPath } from '@game/systems/lpcLayout.js';
 import { remapPixels } from '@game/systems/lpcPalettes.js';
 import { resolveAnim } from '@game/systems/animResolve.js';
-import { frameGeometry, frameRect, frameSizeOf } from './frames.js';
+import { resolveMotion } from '@game/systems/motionRules.js';
+import { frameGeometry, frameRect, frameSizeOf, sheetFrame } from './frames.js';
 import { Lru } from './lru.js';
 
 // key → Promise<Sheet|null>. Bounded: the full grid (15 motions × ~10 layers)
@@ -74,25 +75,41 @@ function emptyRows(img, fs) {
 }
 
 /** Render one frame of a whole layer stack to a fresh 64×64 canvas (save previews, exports). */
-export async function renderFrame(layers, motion, dir, frame = 0) {
-    const sheets = await Promise.all(layers.map(l => {
-        const c = resolveAnim(l, motion);
-        return c ? loadSheet(l, c) : null;
-    }));
+export async function renderFrame(layers, motion, dir, frame = 0, rules = {}, overrides) {
+    const plans = await Promise.all(layers.map(l => layerPlan(l, motion, rules, overrides)));
     const canvas = document.createElement('canvas');
     canvas.width = canvas.height = 64;
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
-    sheets.forEach(s => drawLayer(ctx, s, motion, dir, frame, 0, 0));
+    plans.forEach(p => { if (p.sheet) drawLayer(ctx, p.sheet, p.concrete, dir, frame, 0, 0, p.mode === 'borrow' ? motion : undefined); });
     return canvas;
 }
 
-/** Draw one frame of `motion` facing `dir` at (x, y). Returns false when nothing was drawn. */
-export function drawLayer(ctx, sheet, motion, dir, frame, x, y) {
+/**
+ * How a layer is drawn in a motion, as the game does it: { mode, concrete, sheet }.
+ * mode: own | fallback (walk frames) | borrow (retimed) | hide | missing.
+ * A file the rules expect but the library lacks falls back to walk, like the game.
+ */
+export async function layerPlan(layer, motion, rules = {}, overrides) {
+    const res = resolveMotion(layer, motion, rules, overrides);
+    if (res.mode === 'hide') return { mode: 'hide', concrete: null, sheet: null };
+    const sheet = await loadSheet(layer, res.concrete);
+    if (sheet) return { mode: res.mode, concrete: res.concrete, sheet };
+    const walk = resolveAnim(layer, 'walk') ?? 'walk';
+    const ws = walk === res.concrete ? null : await loadSheet(layer, walk);
+    return ws ? { mode: 'fallback', concrete: walk, sheet: ws } : { mode: 'missing', concrete: null, sheet: null };
+}
+
+/**
+ * Draw play index `frame` of a sheet holding the concrete anim `anim`, facing
+ * `dir`, at (x, y). `retimeTo` (a borrowed layer) resamples the sheet to that
+ * motion's length. Returns false when nothing was drawn (empty direction row).
+ */
+export function drawLayer(ctx, sheet, anim, dir, frame, x, y, retimeTo) {
     if (!sheet) return false;
-    const g = frameGeometry(motion, dir, sheet.w, sheet.h, sheet.activeCols);
+    const g = frameGeometry(anim, dir, sheet.w, sheet.h, sheet.activeCols);
     if (g.count <= 0 || sheet.emptyRows.has(g.row)) return false;
-    const r = frameRect(g, frame);
+    const r = frameRect(g, sheetFrame(g, frame, retimeTo));
     ctx.drawImage(sheet.canvas, r.sx, r.sy, r.sw, r.sh, x + r.dx, y + r.dy, r.sw, r.sh);
     return true;
 }

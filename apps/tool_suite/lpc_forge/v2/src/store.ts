@@ -1,6 +1,7 @@
 import { reactive, computed, watch } from 'vue'
 import CATALOGUE from '@game/data/character_catalogue.json'
-import { layersFor, defaultComposition, missingIn, layerKeyOf } from '@v2/model/composition.js'
+import { layersFor, defaultComposition, gapsIn } from '@v2/model/composition.js'
+import RULES from '@game/data/motion_rules.json'
 import { DEFAULT_ANIMS, resolveAnim } from '@game/systems/animResolve.js'
 import { loadSheet } from '@v2/render/sheets.js'
 
@@ -45,30 +46,37 @@ export const store = reactive({
   bg: 'checker' as 'checker' | 'grass' | 'stone',
   // true while a cast member is open: the scratch autosave must not take its place
   editingCast: false,
-  // motion → keys of layers with no art for it (computed from the layers below)
-  missing: {} as Record<string, string[]>,
+  // Motion rules (src/data/motion_rules.json) and the open cast member's overrides.
+  rules: RULES as Record<string, any>,
+  ruleOverrides: undefined as Record<string, any> | undefined,
+  // motion → mode (fallback / borrow / hide / missing) → keys of layers in that state
+  gaps: {} as Record<string, Record<string, string[]>>,
 })
 
 export const layers = computed(() => layersFor(catalogue, store.comp))
 
-// Missing layers per motion: a pure function of the layer stack plus which files
-// exist, recomputed whenever the stack changes (never reported by canvases, so it
-// can't go stale when the view, motion or direction changes).
-let missingSeq = 0
-watch(layers, async ls => {
-  const seq = ++missingSeq
+// What each layer does in each motion (as the game decides), recomputed when the
+// stack or the rules change — never reported by canvases, so it can't go stale.
+let gapSeq = 0
+watch(() => [layers.value, store.rules, store.ruleOverrides] as const, async ([ls, rules, overrides]) => {
+  const seq = ++gapSeq
   const found = new Map<string, boolean>()
-  await Promise.all(ls.flatMap((l: any) => DEFAULT_ANIMS.map(async (m: string) => {
-    const c = resolveAnim(l, m)
-    if (c) found.set(`${layerKeyOf(l)}|${c}`, (await loadSheet(l, c)) !== null)
+  const fileKey = (l: any, c: string) => `${l.type}|${l.id}|${l.itemName ?? ''}|${l.color ?? ''}|${c}`
+  await Promise.all(ls.flatMap((l: any) => [...new Set(DEFAULT_ANIMS.flatMap((m: string) => {
+    const c = resolveAnim(l, m); return c ? [c] : []
+  }).concat(resolveAnim(l, 'walk') ?? 'walk'))].map(async (c: string) => {
+    found.set(fileKey(l, c), (await loadSheet(l, c)) !== null)
   })))
-  if (seq !== missingSeq) return
-  const out: Record<string, string[]> = {}
+  if (seq !== gapSeq) return
+  const out: Record<string, Record<string, string[]>> = {}
   for (const m of DEFAULT_ANIMS) {
-    out[m] = missingIn(ls, m, (l: any, c: string) => found.get(`${layerKeyOf(l)}|${c}`) ?? false).map(layerKeyOf)
+    out[m] = { fallback: [], borrow: [], hide: [], missing: [] }
+    for (const g of gapsIn(ls, m, rules, overrides, (l: any, c: string) => found.get(fileKey(l, c)) ?? false)) {
+      if (g.mode !== 'own') out[m][g.mode].push(g.key)
+    }
   }
-  store.missing = out
-}, { immediate: true })
+  store.gaps = out
+}, { immediate: true, deep: true })
 
 watch(() => store.comp, c => {
   if (store.editingCast) return
