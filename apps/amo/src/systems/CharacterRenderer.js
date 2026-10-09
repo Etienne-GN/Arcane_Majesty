@@ -30,7 +30,7 @@ import { remapPixels } from './lpcPalettes.js';
 // Per-item motion rules (fallback / hide / retimed borrow), shared with LPC Forge v2.
 import { resolveMotion, neededAnims, frameMap } from './motionRules.js';
 import { MOTION_FRAMES } from './lpcLayout.js';
-import MOTION_RULES from '../data/motion_rules.json';
+import MOTION_RULES from '../data/motion_rules.json' with { type: 'json' };
 export { COLOR_TYPES };
 
 const FRAME_W = 64;

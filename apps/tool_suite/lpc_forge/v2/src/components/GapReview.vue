@@ -2,12 +2,12 @@
 import { ref, computed, onMounted, reactive } from 'vue'
 import { DEFAULT_ANIMS } from '@game/systems/animResolve.js'
 import { ruleFor, ruleKey } from '@game/systems/motionRules.js'
-import { matrixRows, cellMode, filterRows } from '@v2/model/gapMatrix.js'
+import { matrixRows, cellMode, filterRows, inboxOrder } from '@v2/model/gapMatrix.js'
 import { layersFor } from '@v2/model/composition.js'
-import { FLAG_REASONS } from '@v2/model/gapFlags.js'
+import { FLAG_REASONS, FLAG_STATUSES } from '@v2/model/gapFlags.js'
 import { DIRS } from '@v2/render/frames.js'
 import CharacterCanvas from './CharacterCanvas.vue'
-import { store, catalogue } from '@v2/store'
+import { store, catalogue, refreshRules } from '@v2/store'
 import { castList, refreshCast } from '@v2/castState'
 import { gap, flags, refreshFlags, addFlag, setFlagStatus, saveRule } from '@v2/gapState'
 
@@ -28,7 +28,15 @@ const wornKeys = computed(() => {
   }
   return s
 })
-const rows = computed(() => filterRows(ALL_ROWS, { slot: f.slot, q: f.q, onlyGaps: f.onlyGaps, keys: wornKeys.value }, store.rules))
+// Layers on published cast members are in the game today: their gaps come first.
+const publishedKeys = computed(() => {
+  const s = new Set<string>()
+  for (const c of castList.value) if (c.published) for (const l of c.layers ?? []) s.add(ruleKey(l))
+  return s
+})
+const rows = computed(() => inboxOrder(
+  filterRows(ALL_ROWS, { slot: f.slot, q: f.q, onlyGaps: f.onlyGaps, keys: wornKeys.value }, store.rules),
+  publishedKeys.value, store.rules))
 const shown = computed(() => rows.value.slice(0, limit.value))
 const colGaps = computed(() => Object.fromEntries(DEFAULT_ANIMS.map((m: string) =>
   [m, rows.value.filter(r => cellMode(r, m, store.rules) !== 'own').length])))
@@ -57,6 +65,7 @@ const previewLayers = computed(() => {
 })
 const cellFlags = computed(() => sel.value ? flags.value.filter(x => x.key === sel.value!.row.key && x.motion === sel.value!.motion) : [])
 const draft = reactive({ reason: 'needs_art', comment: '' })
+const replies = reactive<Record<string, string>>({})
 async function submitFlag() {
   if (!sel.value) return
   await addFlag(sel.value.row.key, sel.value.motion, draft.reason, draft.comment)
@@ -84,6 +93,7 @@ onMounted(() => { refreshFlags(); if (!castList.value.length) refreshCast() })
       <span class="muted">{{ rows.length }} layers</span>
       <span class="legend"><i class="own" /> own art <i class="fallback" /> walk frames <i class="borrow" /> borrowed <i class="hide" /> hidden <i class="flag" /> open flag</span>
       <span v-if="gap.error" class="err">{{ gap.error }}</span>
+      <span v-if="store.rulesError" class="err">{{ store.rulesError }} <button @click="refreshRules">Retry</button></span>
     </div>
     <div class="body">
       <div class="table">
@@ -92,8 +102,8 @@ onMounted(() => { refreshFlags(); if (!castList.value.length) refreshCast() })
             <tr><th class="lbl">item</th><th v-for="m in DEFAULT_ANIMS" :key="m" :title="`${colGaps[m]} layers without own art`">{{ SHORT[m] ?? m.replace('_', ' ') }}<small>{{ colGaps[m] || '' }}</small></th></tr>
           </thead>
           <tbody>
-            <tr v-for="r in shown" :key="r.key">
-              <td class="lbl" :title="r.key"><span class="slot">{{ r.slot.replace(/_/g, ' ') }}</span> {{ r.label }}</td>
+            <tr v-for="r in shown" :key="r.entryId + '/' + r.key">
+              <td class="lbl" :title="r.key"><span v-if="publishedKeys.has(r.key)" class="ingame" title="worn by a published cast member">in game</span><span class="slot">{{ r.slot.replace(/_/g, ' ') }}</span> {{ r.label }}</td>
               <td v-for="m in DEFAULT_ANIMS" :key="m" class="cell"
                   :class="[cellMode(r, m, store.rules), { sel: sel?.row.key === r.key && sel?.motion === m }]"
                   :title="`${r.label} — ${m}: ${cellMode(r, m, store.rules)}`" @click="select(r, m)">
@@ -122,7 +132,7 @@ onMounted(() => { refreshFlags(); if (!castList.value.length) refreshCast() })
             borrow frames from
             <select v-model="choice.from" :disabled="choice.rule !== 'borrow'"><option v-for="m in ownMotions" :key="m" :value="m">{{ m }}</option></select>
             <span class="muted">(retimed)</span></label>
-          <button class="primary" :disabled="gap.saving" @click="applyRule">Save rule for the game</button>
+          <button class="primary" :disabled="gap.saving || !store.rulesLoaded" @click="applyRule">Save rule for the game</button>
           <p class="muted small">Applies to every character wearing this item. Custom art for the motion comes with the motion workshop.</p>
         </template>
 
@@ -130,9 +140,13 @@ onMounted(() => { refreshFlags(); if (!castList.value.length) refreshCast() })
         <div v-for="fl in cellFlags" :key="fl.id" class="flag" :class="fl.status">
           <div><b>{{ fl.reason.replace('_', ' ') }}</b> · <span class="st">{{ fl.status.replace('_', ' ') }}</span></div>
           <pre>{{ fl.comment }}</pre>
+          <textarea v-model="replies[fl.id]" rows="2" placeholder="Reply…" />
           <div class="acts">
-            <button v-if="fl.status !== 'resolved'" @click="setFlagStatus(fl.id, 'resolved')">Resolve</button>
-            <button v-else @click="setFlagStatus(fl.id, 'open')">Reopen</button>
+            <button v-for="st in FLAG_STATUSES.filter(x => x !== fl.status)" :key="st"
+                    @click="setFlagStatus(fl.id, st, replies[fl.id] ?? ''); replies[fl.id] = ''">
+              {{ st === 'open' ? (fl.status === 'resolved' ? 'Reopen' : 'Back to Claude') : st === 'needs_review' ? 'Needs review' : st === 'question' ? 'Ask a question' : 'Resolve' }}
+            </button>
+            <button v-if="replies[fl.id]?.trim()" @click="setFlagStatus(fl.id, fl.status, replies[fl.id]); replies[fl.id] = ''">Reply</button>
           </div>
         </div>
         <div class="newflag">
@@ -161,6 +175,7 @@ th { position: sticky; top: 0; background: var(--bg); color: var(--muted); font-
 th small { display: block; color: #e0a030; font-family: var(--font-mono); }
 .lbl { text-align: left; white-space: nowrap; max-width: 280px; overflow: hidden; text-overflow: ellipsis; padding-right: 8px; }
 .slot { color: var(--faint); text-transform: capitalize; }
+.ingame { font-size: 9px; color: #fff; background: #8a2c30; border-radius: 3px; padding: 0 4px; margin-right: 4px; }
 .cell { width: 26px; height: 18px; border-radius: 3px; cursor: pointer; position: relative; }
 .cell.own, i.own { background: #2c4a3a; }
 .cell.fallback, i.fallback { background: #8a6420; }
@@ -178,6 +193,9 @@ i.flag { position: static; }
 .flag { border: 1px solid var(--border); border-radius: var(--radius); padding: 6px; margin: 6px 0; }
 .flag.resolved { opacity: .6; }
 .flag pre { white-space: pre-wrap; font-family: var(--font-ui); margin: 4px 0; }
+.flag textarea { width: 100%; font: inherit; color: var(--text); background: var(--panel-2); border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 4px; }
+.acts { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.acts button { padding: 2px 6px; font-size: 11px; }
 .st { color: var(--muted); }
 .newflag { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
 .newflag textarea { font: inherit; color: var(--text); background: var(--panel-2); border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 6px; }

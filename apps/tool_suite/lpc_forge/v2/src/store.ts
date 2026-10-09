@@ -49,6 +49,9 @@ export const store = reactive({
   // Motion rules (src/data/motion_rules.json, fetched over the API so saving one
   // doesn't make Vite reload the page) and the open cast member's overrides.
   rules: {} as Record<string, any>,
+  // false until the rules were really read — saving is refused before that
+  rulesLoaded: false,
+  rulesError: '',
   ruleOverrides: undefined as Record<string, any> | undefined,
   // motion → mode (fallback / borrow / hide / missing) → keys of layers in that state
   gaps: {} as Record<string, Record<string, string[]>>,
@@ -87,8 +90,14 @@ watch(() => store.comp, c => {
 export async function refreshRules() {
   try {
     const r = await fetch('/api/motion-rules')
-    if (r.ok) store.rules = await r.json()
-  } catch { /* API down: draw with no rules (the game's default fallback) */ }
+    if (!r.ok) throw new Error(`HTTP ${r.status}`)
+    store.rules = await r.json()
+    store.rulesLoaded = true
+    store.rulesError = ''
+  } catch (e: any) {
+    // Draw with no rules (the game's default fallback) but say so, and don't allow saving.
+    store.rulesError = `Could not load the motion rules (${e.message}) — showing defaults, saving disabled.`
+  }
 }
 refreshRules()
 

@@ -88,6 +88,21 @@ const badRules = await fetch(base + '/api/motion-rules', json('PUT', { 'cape|sol
 if (badRules.status === 400 && (await badRules.json()).error.includes('explode')) passed++; else fails.push(`bad rules → ${badRules.status}`);
 if (JSON.stringify(JSON.parse(readFileSync(rulesPath, 'utf8'))) === JSON.stringify(goodRules)) passed++; else fails.push('bad rules overwrote the file');
 
+// per-cell rule edits happen on the server: concurrent edits of different cells both survive
+await Promise.all([
+    fetch(base + '/api/motion-rules/cell', json('PATCH', { key: 'cape|solid/female|', motion: 'run', rule: { rule: 'hide' } })),
+    fetch(base + '/api/motion-rules/cell', json('PATCH', { key: 'weapon|sword/longsword|', motion: 'sit', rule: { rule: 'hide' } })),
+]);
+const afterCells = JSON.parse(readFileSync(rulesPath, 'utf8'));
+if (afterCells['cape|solid/female|']?.run && afterCells['cape|solid/female|']?.sit && afterCells['weapon|sword/longsword|']?.sit) passed++;
+else fails.push(`cell edits lost rules: ${JSON.stringify(afterCells)}`);
+const cleared = await (await fetch(base + '/api/motion-rules/cell', json('PATCH', { key: 'weapon|sword/longsword|', motion: 'sit', rule: null }))).json();
+if (!cleared['weapon|sword/longsword|'] && cleared['cape|solid/female|']) passed++; else fails.push('clearing a cell (response = full rules)');
+const badCell = await fetch(base + '/api/motion-rules/cell', json('PATCH', { key: 'cape|solid/female|', motion: 'run', rule: { rule: 'explode' } }));
+if (badCell.status === 400) passed++; else fails.push(`bad cell → ${badCell.status}`);
+const badKey = await fetch(base + '/api/motion-rules/cell', json('PATCH', { key: 'nope', motion: 'run', rule: { rule: 'hide' } }));
+if (badKey.status === 400) passed++; else fails.push(`bad cell key → ${badKey.status}`);
+
 // ── gap flags (temp file) ──
 const f0 = await (await fetch(base + '/api/gap-flags')).json();
 if (Array.isArray(f0) && f0.length === 0) passed++; else fails.push('flags start');

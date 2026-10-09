@@ -5,6 +5,7 @@ import { dirname, join } from 'path'
 import { listCast, writeCast, deleteCast, writeJsonAtomic, readJson } from './castStore.js'
 import { ruleErrors } from '../../amo/src/systems/motionRules.js'
 import { flagErrors } from './v2/src/model/gapFlags.js'
+import { setRule } from './v2/src/model/gapMatrix.js'
 import { CAST_ID_RE, castShapeErrors } from './v2/src/model/cast.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -85,6 +86,19 @@ export function createServer({
 
   // Motion rules: what a layer does in a motion it has no art for (motionRules.js).
   app.get('/api/motion-rules', (req, res) => res.json(readJson(rulesPath, {})))
+
+  // One cell at a time, read-modify-write here (synchronous, so concurrent edits
+  // apply one after another): a client never resends the whole file, so a stale
+  // or empty copy in a browser tab can't wipe other rules. Answers the full rules.
+  app.patch('/api/motion-rules/cell', (req, res) => {
+    const { key, motion, rule } = req.body ?? {}
+    if (typeof key !== 'string' || typeof motion !== 'string') return res.status(400).json({ error: 'key and motion required' })
+    const next = setRule(readJson(rulesPath, {}), key, motion, rule ?? null)
+    const errors = ruleErrors(next)
+    if (errors.length) return res.status(400).json({ error: errors.join('; ') })
+    writeJsonAtomic(rulesPath, next)
+    res.json(next)
+  })
 
   app.put('/api/motion-rules', (req, res) => {
     const errors = ruleErrors(req.body)

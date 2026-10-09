@@ -1144,16 +1144,16 @@ export default class CharacterCreatorScene extends Phaser.Scene {
         }
 
         this._renderer.ensureTextureAnims(rcKey, animName);
-        const rcAnim = `${rcKey}_${dir}`;
-        if (scene.anims.exists(rcAnim)) {
-            sprite.play(rcAnim, true);
-            // Register so CharacterRenderer.play() uses the swapped key automatically
-            const lpcEntry = Object.values(this._char._lpcLayers).find(e => e.sprite === sprite);
-            if (lpcEntry) {
-                lpcEntry.swappedKeys        = lpcEntry.swappedKeys ?? {};
-                lpcEntry.swappedKeys[animName] = rcKey;
-            }
-        }
+        if (!scene.anims.exists(`${rcKey}_${dir}`)) return;
+        // Register the tinted sheet, then let the renderer pick what to play, so a
+        // layer under a motion rule (a borrow retimed to the current motion) keeps
+        // its timing instead of replaying the plain source animation.
+        const lpcEntry = Object.values(this._char._lpcLayers).find(e => e.sprite === sprite);
+        if (!lpcEntry) return;
+        lpcEntry.swappedKeys           = lpcEntry.swappedKeys ?? {};
+        lpcEntry.swappedKeys[animName] = rcKey;
+        const t = this._renderer._layerTarget(lpcEntry, ANIMS[this._animIdx], dir);
+        if (t) sprite.play(t.animKey, true);
     }
 
     _reapplyPaletteSwaps(syncHeadToBody = false) {

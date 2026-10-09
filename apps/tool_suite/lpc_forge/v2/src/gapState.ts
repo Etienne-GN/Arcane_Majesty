@@ -1,5 +1,4 @@
 import { reactive, ref } from 'vue'
-import { setRule } from '@v2/model/gapMatrix.js'
 import { store } from './store'
 
 // Gap review: flags (Forge-only notes) and saving motion rules into the game.
@@ -36,17 +35,21 @@ export async function setFlagStatus(id: string, status: string, note = '') {
   try { await putFlags(list); gap.error = '' } catch (e: any) { gap.error = `Could not update the flag: ${e.message}` }
 }
 
-/** Set (or clear, with rule null) one cell's rule and save the game's rules file. */
+/**
+ * Set (or clear, with rule null) one cell's rule. The server applies it to the
+ * file and answers the full rules, so other cells (another tab, a teammate's
+ * edit on disk) are never overwritten by this browser's copy.
+ */
 export async function saveRule(key: string, motion: string, rule: any) {
-  const before = store.rules
-  store.rules = setRule(before, key, motion, rule)
+  if (!store.rulesLoaded) { gap.error = store.rulesError || 'Motion rules not loaded yet — not saving.'; return }
   gap.saving = true
   try {
-    const r = await fetch('/api/motion-rules', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(store.rules) })
-    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error ?? `HTTP ${r.status}`)
+    const r = await fetch('/api/motion-rules/cell', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ key, motion, rule }) })
+    const body = await r.json().catch(() => ({}))
+    if (!r.ok) throw new Error(body.error ?? `HTTP ${r.status}`)
+    store.rules = body
     gap.error = ''
   } catch (e: any) {
-    store.rules = before
     gap.error = `Could not save the rule: ${e.message}`
   } finally { gap.saving = false }
 }

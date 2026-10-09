@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /** Unit tests for the gap review matrix model. Run: node v2/tests/test_gap_matrix.mjs */
 import { readFileSync } from 'node:fs';
-import { matrixRows, cellMode, filterRows, setRule } from '../src/model/gapMatrix.js';
+import { matrixRows, cellMode, filterRows, setRule, inboxOrder } from '../src/model/gapMatrix.js';
 
 const CAT = JSON.parse(readFileSync(new URL('../../../../amo/src/data/character_catalogue.json', import.meta.url)));
 let passed = 0; const fails = [];
@@ -28,6 +28,15 @@ check('search', filterRows(rows, { q: 'arming' }, {}).every(r => r.label.toLower
 const onlyGaps = filterRows(rows, { onlyGaps: true }, {});
 check('only gaps excludes complete items', onlyGaps.some(r => r.key === 'hair|afro/adult|'), false);
 check('used-by filter', filterRows(rows, { keys: new Set(['cape|solid/female|']) }, {}).map(r => r.key), ['cape|solid/female|']);
+
+// inbox order: items worn by published cast members that have gaps come first, order otherwise kept
+const pub = new Set(['cape|solid/female|', 'hair|afro/adult|']);
+const sorted = inboxOrder(rows, pub, {});
+check('published + gaps first', sorted[0].key, 'cape|solid/female|');
+check('published without gaps not promoted', sorted.findIndex(r => r.key === 'hair|afro/adult|') > 0, true);
+check('same rows', sorted.length, rows.length);
+const rest = sorted.slice(1).map(r => r.key);
+check('stable for the rest', rest, rows.filter(r => r.key !== 'cape|solid/female|').map(r => r.key));
 
 // setRule edits a copy; 'fallback' removes the rule (and empty entries)
 const rules1 = setRule({}, 'cape|solid/female|', 'run', { rule: 'hide' });

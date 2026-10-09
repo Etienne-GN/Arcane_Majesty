@@ -39,6 +39,15 @@ export function filterRows(rows, filters, rules) {
         (!filters.onlyGaps || DEFAULT_ANIMS.some(m => cellMode(r, m, rules) !== 'own')));
 }
 
+/**
+ * Inbox order: layers worn by published cast members that still have gaps come
+ * first (they show up in the game today), everything else keeps its order.
+ */
+export function inboxOrder(rows, publishedKeys, rules) {
+    const urgent = r => publishedKeys.has(r.key) && DEFAULT_ANIMS.some(m => cellMode(r, m, rules) !== 'own');
+    return [...rows.filter(urgent), ...rows.filter(r => !urgent(r))];
+}
+
 /** A copy of `rules` with one cell set; rule null = back to the default fallback. */
 export function setRule(rules, key, motion, rule) {
     const out = JSON.parse(JSON.stringify(rules ?? {}));
