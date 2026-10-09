@@ -207,6 +207,22 @@ The `lpc/` tileset pack (`terrain_atlas`, `base_out_atlas`,
 - Jaidyn Reiman — cape, elven ears
 - Nila122 — bauldron detail
 
+## LPC Gentleman (bluecarrot16)
+
+The rifle (`lpc/weapon/ranged/rifle/`) comes from this pack; its other
+items (top hat, bowler, monocle, glasses, ties, formal trousers/shirts,
+vests, collared/Iverness/trench jackets, formal belt, cane) were already in
+the game through Universal LPC, in their expanded all-motion versions.
+
+- Source: "LPC Gentleman" by bluecarrot16 — https://opengameart.org/content/lpc-gentleman
+- Based on: "[LPC] 2 Characters" by Thane Brimhall (pennomi), laetissima and
+  Matthew Krohn (makrohn); "[LPC] Base Character Expressions" by pennomi;
+  "[LPC] Base Assets" by Stephen Challener (Redshrike)
+- License: **CC-BY-SA 3.0 / GPL 3.0** (used under CC-BY-SA 3.0, as the rest of LPC)
+- Change: the rifle's shoot rows were cut from the original single sheet
+  into the per-motion layout the game loads (`shoot/rifle.png`); the art is
+  unchanged. Per-file credits: `public/CREDITS.csv`.
+
 ## Attribution source files
 
 The original bundled attribution files are archived at

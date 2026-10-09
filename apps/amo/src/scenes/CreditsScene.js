@@ -100,6 +100,8 @@ export default class CreditsScene extends Phaser.Scene {
             'Tuomo Untinen · Johannes Sjölund',
             'Gwes · Jetrel',
             'Jaidyn Reiman · Nila122',
+            'bluecarrot16 · Thane Brimhall (pennomi)',
+            'laetissima · Matthew Krohn (makrohn)',
         ];
         lpcNames.forEach(line => { _body(y, line); y += 11; });
         y += 6;

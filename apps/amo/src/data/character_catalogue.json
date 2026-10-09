@@ -23186,6 +23186,14 @@
       ]
     },
     {
+      "id": "ranged/rifle",
+      "label": "Rifle",
+      "zPos": 140,
+      "anims": [
+        "shoot"
+      ]
+    },
+    {
       "id": "polearm/spear/background",
       "label": "Spear",
       "zPos": 5,
