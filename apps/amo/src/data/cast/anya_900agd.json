@@ -384,6 +384,9 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
+        "sit",
+        "jump",
         "climb",
         "emote"
       ],
@@ -429,7 +432,7 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T12:23:01.953Z",
+  "updatedAt": "2026-10-09T22:18:11.681Z",
   "dbCharacter": "Anya",
   "migrationNotes": [
     "clothes.shoulders.leather: approximated as bauldron/thin",

@@ -400,7 +400,11 @@
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "emote"
       ],
       "color": "black"
     },
@@ -467,7 +471,7 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T12:23:01.947Z",
+  "updatedAt": "2026-10-09T22:18:11.676Z",
   "dbCharacter": "Acheron",
   "migrationNotes": [
     "anatomy.body.male: skin uses the v1 non-skin colour \"pearl\"; matched to Zombie — check it on the stage",

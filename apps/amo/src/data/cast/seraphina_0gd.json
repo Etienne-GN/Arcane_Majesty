@@ -336,6 +336,9 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
+        "sit",
+        "jump",
         "climb",
         "emote"
       ],
@@ -484,7 +487,7 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T12:23:01.960Z",
+  "updatedAt": "2026-10-09T22:18:11.687Z",
   "dbCharacter": "Seraphina",
   "migrationNotes": [
     "anatomy.body.female: skin uses the v1 non-skin colour \"dove\"; matched to White — check it on the stage",

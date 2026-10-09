@@ -513,6 +513,9 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
+        "sit",
+        "jump",
         "climb",
         "emote"
       ],
@@ -558,7 +561,7 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T12:23:01.954Z",
+  "updatedAt": "2026-10-09T22:18:11.682Z",
   "dbCharacter": "Anya",
   "migrationNotes": [
     "clothes.torso2.apron_half: dropped — torso_clothes already holds clothes.torso.longsleeve (the game has one torso_clothes item)",

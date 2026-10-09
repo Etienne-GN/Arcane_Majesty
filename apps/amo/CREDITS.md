@@ -223,6 +223,28 @@ the game through Universal LPC, in their expanded all-motion versions.
   into the per-motion layout the game loads (`shoot/rifle.png`); the art is
   unchanged. Per-file credits: `public/CREDITS.csv`.
 
+## Universal LPC — motions added from upstream (2026-10-09)
+
+Run / jump / sit / emote / climb (and a few other) sheets that upstream
+[Universal LPC](https://github.com/LiberatedPixelCup/Universal-LPC-Spritesheet-Character-Generator)
+added after our library snapshot, for 27 catalogue items (necklaces, cape
+clip, cravats, jabots, scarf, bracers, plate arms/boots, bauldrons,
+chainmail, leather armour, hoofs, wounds, …), via
+`apps/amo/tools/sync_upstream_motions.py`.
+
+- Licenses as upstream: **CC-BY-SA 3.0 / GPL 3.0 / OGA-BY 3.0** per item.
+- Every added file has its own row in `public/CREDITS.csv`, copied from
+  upstream's `CREDITS.csv` or, for its newest sheets, from the item's
+  credits in upstream `sheet_definitions/`.
+- Change: upstream ships these as one base sheet recoloured at runtime; we
+  recoloured each into our per-colour files with the exact colour mapping
+  learned from the item's existing sheets (art unchanged).
+- Human-eye expressions (`eyes/human/adult/sad2`) have no explicit upstream
+  credit; they are credited to their source contribution (upstream PR #140,
+  JaidynReiman — "ULPC Expanded Expressions": JaidynReiman, ElizaWy,
+  Stephen Challener). The rest of the human-eye sheets already in the game
+  have no per-file credit rows either — to be filled the same way.
+
 ## Attribution source files
 
 The original bundled attribution files are archived at

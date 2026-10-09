@@ -119,7 +119,12 @@
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "emote"
       ],
       "color": "steel"
     },
@@ -248,6 +253,8 @@
         "thrust",
         "shoot",
         "spellcast",
+        "sit",
+        "jump",
         "climb",
         "emote"
       ],
@@ -288,6 +295,7 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
         "sit",
         "jump",
         "climb",
@@ -495,7 +503,7 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T12:23:01.961Z",
+  "updatedAt": "2026-10-09T22:18:11.688Z",
   "migrationNotes": [
     "clothes.wrists.bracers: dropped — arms already holds clothes.arms.plate (the game has one arms item)",
     "clothes.hands.gloves: dropped — arms already holds clothes.arms.plate (the game has one arms item)",

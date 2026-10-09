@@ -270,6 +270,9 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
+        "sit",
+        "jump",
         "climb",
         "emote"
       ],
@@ -310,6 +313,7 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
         "sit",
         "jump",
         "climb",
@@ -349,6 +353,9 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
+        "sit",
+        "jump",
         "climb",
         "emote"
       ],
@@ -425,7 +432,7 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T12:23:01.959Z",
+  "updatedAt": "2026-10-09T22:18:11.685Z",
   "migrationNotes": [
     "anatomy.body.male: skin uses the v1 non-skin colour \"dove\"; matched to White — check it on the stage",
     "clothes.shoulders.leather: approximated as bauldron/male",

@@ -105,6 +105,7 @@
       "itemName": "skeleton",
       "anims": [
         "walk",
+        "idle",
         "hurt",
         "slash",
         "thrust",
@@ -5040,6 +5041,7 @@
         "halfslash",
         "thrust",
         "shoot",
+        "spellcast",
         "run",
         "sit",
         "jump",
@@ -8069,7 +8071,12 @@
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "emote"
       ]
     },
     {
@@ -8117,7 +8124,12 @@
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "emote"
       ]
     },
     {
@@ -8299,7 +8311,11 @@
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "emote"
       ]
     },
     {
@@ -8507,7 +8523,11 @@
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "emote"
       ]
     },
     {
@@ -8547,7 +8567,11 @@
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "emote"
       ]
     },
     {
@@ -8887,7 +8911,11 @@
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "emote"
       ]
     },
     {
@@ -8927,7 +8955,11 @@
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "emote"
       ]
     },
     {
@@ -9472,7 +9504,12 @@
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "emote"
       ]
     },
     {
@@ -12638,7 +12675,11 @@
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "sit",
+        "jump",
+        "climb",
+        "emote"
       ]
     },
     {
@@ -12686,7 +12727,12 @@
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "emote"
       ]
     },
     {
@@ -13590,6 +13636,9 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
+        "sit",
+        "jump",
         "climb",
         "emote"
       ]
@@ -13606,6 +13655,9 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
+        "sit",
+        "jump",
         "climb",
         "emote"
       ]
@@ -13748,6 +13800,8 @@
         "thrust",
         "shoot",
         "spellcast",
+        "sit",
+        "jump",
         "climb",
         "emote"
       ]
@@ -13764,6 +13818,8 @@
         "thrust",
         "shoot",
         "spellcast",
+        "sit",
+        "jump",
         "climb",
         "emote"
       ]
@@ -13833,6 +13889,9 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
+        "sit",
+        "jump",
         "climb",
         "emote"
       ]
@@ -13849,6 +13908,9 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
+        "sit",
+        "jump",
         "climb",
         "emote"
       ]
@@ -18028,6 +18090,7 @@
         "halfslash",
         "thrust",
         "shoot",
+        "spellcast",
         "run",
         "sit",
         "jump",
@@ -19290,6 +19353,7 @@
         "hurt",
         "slash",
         "backslash",
+        "halfslash",
         "thrust",
         "shoot",
         "spellcast",
@@ -26810,6 +26874,7 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
         "sit",
         "jump",
         "climb",
@@ -26828,6 +26893,7 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
         "sit",
         "jump",
         "climb",
@@ -26853,6 +26919,7 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
         "sit",
         "jump",
         "climb",
@@ -26879,6 +26946,7 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
         "sit",
         "jump",
         "climb",
@@ -26905,6 +26973,7 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
         "sit",
         "jump",
         "climb",
@@ -31500,11 +31569,17 @@
       "zPos": 200,
       "anims": [
         "walk",
+        "idle",
         "hurt",
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "climb",
+        "emote"
       ]
     }
   ],
@@ -31633,11 +31708,16 @@
       "zPos": 200,
       "anims": [
         "walk",
+        "idle",
         "hurt",
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "emote"
       ]
     }
   ]

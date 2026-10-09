@@ -74,7 +74,11 @@
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "sit",
+        "jump",
+        "climb",
+        "emote"
       ],
       "color": "black"
     },
@@ -146,7 +150,7 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T12:23:01.957Z",
+  "updatedAt": "2026-10-09T22:18:11.684Z",
   "migrationNotes": [
     "anatomy.shadow.shadow: skipped — shadow: the game draws its own shadow (no shadow slot in the catalogue)"
   ]

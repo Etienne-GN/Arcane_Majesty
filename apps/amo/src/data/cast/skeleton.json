@@ -20,6 +20,7 @@
       "zPos": 10,
       "anims": [
         "walk",
+        "idle",
         "hurt",
         "slash",
         "thrust",
@@ -100,7 +101,7 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T12:23:01.960Z",
+  "updatedAt": "2026-10-09T22:18:11.688Z",
   "migrationNotes": [
     "anatomy.body.skeleton: skin uses the v1 non-skin colour \"white\"; matched to White — check it on the stage",
     "anatomy.shadow.shadow: skipped — shadow: the game draws its own shadow (no shadow slot in the catalogue)"
