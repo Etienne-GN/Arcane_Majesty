@@ -24,6 +24,9 @@
 // `import { … } from './CharacterRenderer.js'` call-sites keep working.
 import { DEFAULT_ANIMS, ANIM_ALIASES, resolveAnim, concreteAnimsFor } from './animResolve.js';
 export { DEFAULT_ANIMS, ANIM_ALIASES, resolveAnim };
+// Paths and frame rules shared with LPC Forge v2 (Phaser-free).
+import { animPath as animUrl, COLOR_TYPES, frameRateFor } from './lpcLayout.js';
+export { COLOR_TYPES };
 
 const FRAME_W = 64;
 const FRAME_H = 64;
@@ -35,12 +38,6 @@ function warn(...args) { if (DEBUG) console.warn(...args); }
 
 // Directions and their row indices in a 4-row spritesheet
 const DIR_ROW = { up: 0, left: 1, down: 2, right: 3 };
-
-// These types use  type/id/anim/{itemname}.png  (item name = last segment of id)
-const WEAPON_TYPES = new Set(['weapon']);
-
-// These types use  type/id/anim/{color}.png  (color stored in layer.color)
-export const COLOR_TYPES = new Set(['cape', 'backpack']);
 
 // Canonical z-order for layer types (used when zPos is not specified)
 export const DEFAULT_ZPOS = {
@@ -76,30 +73,6 @@ export function texKey(layer, anim) {
     const colorPart    = layer.color    ? `_${normId(layer.color)}`    : '';
     const itemNamePart = layer.itemName ? `_${normId(layer.itemName)}` : '';
     return `lpc__${normId(layer.type)}_${normId(layer.id)}__${anim}${colorPart}${itemNamePart}`;
-}
-
-/** URL path for a layer's animation PNG */
-function animUrl(layer, anim) {
-    if (layer.itemName) {
-        // bodies using per-animation subdirs: body/bodies/skeleton/walk/skeleton.png
-        return `lpc/${layer.type}/${layer.id}/${anim}/${layer.itemName}.png`;
-    }
-    if (layer.color != null) {
-        // Any colored layer: cape, backpack, tail, wings, etc.
-        return `lpc/${layer.type}/${layer.id}/${anim}/${layer.color}.png`;
-    }
-    if (WEAPON_TYPES.has(layer.type)) {
-        // weapon/sword/longsword/walk/longsword.png
-        const parts    = layer.id.split('/');
-        const itemName = parts[parts.length - 1];
-        return `lpc/${layer.type}/${layer.id}/${anim}/${itemName}.png`;
-    }
-    if (COLOR_TYPES.has(layer.type)) {
-        // Fallback for cape/backpack when no color specified
-        return `lpc/${layer.type}/${layer.id}/${anim}/red.png`;
-    }
-    // body/bodies/male/walk.png
-    return `lpc/${layer.type}/${layer.id}/${anim}.png`;
 }
 
 /**
@@ -374,7 +347,7 @@ function ensureAnims(scene, key, animName) {
         }
 
         // Rebuild stale cached animations (frame count, start-frame, AND frameRate must match)
-        const expectedRate = animName === 'idle' ? 2 : animName === 'slash' ? 11 : 8;
+        const expectedRate = frameRateFor(animName);
         if (scene.anims.exists(animKey)) {
             const ex = scene.anims.get(animKey);
             if (ex.frames.length === frameCount &&

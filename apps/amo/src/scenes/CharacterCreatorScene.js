@@ -5,17 +5,7 @@ import CATALOGUE from '../data/character_catalogue.json';
 
 // ── Render-type map: UI slot → actual URL type used by CharacterRenderer ──────
 // torso_* → 'torso'; wound_*/tail/wings → 'body'; ears/horns/fins/nose → 'head'
-const RENDER_TYPE = {
-    torso_clothes:   'torso', torso_jacket: 'torso',
-    torso_mail:      'torso', torso_armour: 'torso', torso_waist: 'torso',
-    tail:            'body',  wings:        'body',
-    ears:            'head',  horns:        'head',  fins: 'head', nose: 'head',
-    wound_arm:       'body',  wound_brain:  'body',
-    wound_eye_left:  'body',  wound_eye_right: 'body',
-    wound_mouth:     'body',  wound_ribs:   'body',
-    staff_accessory: 'weapon',
-};
-function rType(type) { return RENDER_TYPE[type] ?? type; }
+import { renderType as rType, SLOTS as ALL_TYPES } from '../systems/lpcLayout.js';
 
 // ── Tab definitions ────────────────────────────────────────────────────────────
 const TABS = ['body', 'clothes', 'marks', 'equip'];
@@ -30,13 +20,6 @@ const TAB_COLS = {
     equip:   [['hat','neck','cape','staff_accessory'],                    ['backpack','shield','weapon']],
 };
 
-const ALL_TYPES = [
-    'head','eyes','nose','ears','horns','fins','hair','beards','facial','body','tail','wings',
-    'torso_clothes','torso_jacket','torso_mail','torso_armour','torso_waist',
-    'legs','dress','feet','arms','shoulders',
-    'hat','neck','cape','staff_accessory','backpack','shield','weapon',
-    'wound_brain','wound_eye_left','wound_eye_right','wound_mouth','wound_ribs','wound_arm',
-];
 
 const OPTIONAL_TYPES = new Set(ALL_TYPES);
 
