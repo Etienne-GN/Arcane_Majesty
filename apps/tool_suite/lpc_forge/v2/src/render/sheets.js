@@ -6,6 +6,7 @@
  */
 import { animPath } from '@game/systems/lpcLayout.js';
 import { remapPixels } from '@game/systems/lpcPalettes.js';
+import { resolveAnim } from '@game/systems/animResolve.js';
 import { frameGeometry, frameRect, frameSizeOf } from './frames.js';
 
 const cache = new Map(); // key → Promise<Sheet|null>
@@ -67,6 +68,20 @@ function emptyRows(img, fs) {
         if (!any) out.add(r);
     }
     return out;
+}
+
+/** Render one frame of a whole layer stack to a fresh 64×64 canvas (save previews, exports). */
+export async function renderFrame(layers, motion, dir, frame = 0) {
+    const sheets = await Promise.all(layers.map(l => {
+        const c = resolveAnim(l, motion);
+        return c ? loadSheet(l, c) : null;
+    }));
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 64;
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+    sheets.forEach(s => drawLayer(ctx, s, motion, dir, frame, 0, 0));
+    return canvas;
 }
 
 /** Draw one frame of `motion` facing `dir` at (x, y). Returns false when nothing was drawn. */

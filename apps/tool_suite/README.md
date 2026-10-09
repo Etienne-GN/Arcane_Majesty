@@ -12,7 +12,8 @@ process rather than letting a new one pick a different port):
 | App | Frontend | API/backend |
 |---|---|---|
 | Game (`apps/amo`) | 5174 | 3002 (Socket.io) |
-| lpc_forge (character generator) | 5177 | 3001 |
+| lpc_forge v2 (character forge) | 5179 | 3001 |
+| lpc_forge v1 (old UI, `npm run dev:v1`) | 5177 | 3001 |
 | sprite_ledger | 5178 | 3003 |
 
 ## lpc_forge
@@ -24,9 +25,21 @@ create NPC and offline-campaign character skins. Moved into this repo via
 ```bash
 cd apps/tool_suite/lpc_forge
 npm install   # first run only
-npm run dev
-# frontend: http://localhost:5177  ·  API: http://localhost:3001
+npm run dev       # v2: http://localhost:5179  ·  API: http://localhost:3001
+npm run dev:v1    # old v1 UI on http://localhost:5177
+npm test          # API smoke + v2 model/geometry tests
 ```
+
+**v2** (2026-10-08, `v2/`, see `v2/SPEC.md`) composes characters from the
+game's own LPC library (`apps/amo/ressources/lpc_merged`, served at `/lpc`)
+and renders them with the game's shared code (`@game` → `apps/amo/src`:
+`lpcLayout.js`, `lpcPalettes.js`, `animResolve.js`), so what the Forge shows
+is what the game shows. It plays a character in all 15 motions × 4
+directions (walk … run, sit, jump, climb, combat idle, emote) and flags every
+layer that has no art for a motion. A `#comp=<json>` link opens a given
+composition; `node tools/screenshot.mjs <url> <out.png>` takes a headless
+screenshot. Next (separate plans): cast files published to the game, gap
+review, the motion workshop for drawing missing motions, export + credits.
 
 ## sprite_ledger
 

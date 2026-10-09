@@ -5,6 +5,7 @@ import ColorPicker from './components/ColorPicker.vue'
 import MotionStage from './components/MotionStage.vue'
 import LayerList from './components/LayerList.vue'
 import CharacterCanvas from './components/CharacterCanvas.vue'
+import SavesPanel from './components/SavesPanel.vue'
 import { layersFor } from '@v2/model/composition.js'
 import { store, catalogue } from './store'
 
@@ -35,6 +36,7 @@ function withItem(entry: any) {
     <aside class="right">
       <ColorPicker />
       <LayerList />
+      <SavesPanel />
     </aside>
   </div>
 </template>
