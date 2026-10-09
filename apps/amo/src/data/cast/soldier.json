@@ -386,14 +386,13 @@
         "emote"
       ],
       "swapParams": {
-        "sourceKey": "metal",
+        "sourceKey": "cloth_light",
         "sourceColors": [
-          1905438,
-          3024179,
+          2627616,
           5065309,
-          7498622,
-          8814207,
+          9797760,
           12891551,
+          15066823,
           16777215
         ],
         "targetShades": [
@@ -496,7 +495,7 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T05:13:53.250Z",
+  "updatedAt": "2026-10-09T12:23:01.961Z",
   "migrationNotes": [
     "clothes.wrists.bracers: dropped — arms already holds clothes.arms.plate (the game has one arms item)",
     "clothes.hands.gloves: dropped — arms already holds clothes.arms.plate (the game has one arms item)",

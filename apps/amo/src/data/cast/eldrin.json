@@ -228,15 +228,14 @@
         "emote"
       ],
       "swapParams": {
-        "sourceKey": "cloth",
+        "sourceKey": "cloth_light",
         "sourceColors": [
-          1905438,
-          1905438,
-          4267525,
-          4926227,
-          6436124,
-          7621424,
-          10054474
+          2627616,
+          5065309,
+          9797760,
+          12891551,
+          15066823,
+          16777215
         ],
         "targetShades": [
           327936,
@@ -402,10 +401,9 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T05:13:53.244Z",
+  "updatedAt": "2026-10-09T12:23:01.954Z",
   "dbCharacter": "Eldrin",
   "migrationNotes": [
-    "clothes.torso.longsleeve: tint has no effect on clothes/longsleeve/longsleeve/teen (its art is not in the cloth palette); it keeps its own colours",
     "clothes.shoulders.leather: approximated as bauldron/thin",
     "clothes.trim.trim: skipped — cape trim: v1 draws it over the cape; the game holds one cape item (cape/trim is a separate cape)",
     "anatomy.shadow.shadow: skipped — shadow: the game draws its own shadow (no shadow slot in the catalogue)"

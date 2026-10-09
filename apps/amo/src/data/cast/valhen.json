@@ -518,7 +518,7 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T05:13:53.250Z",
+  "updatedAt": "2026-10-09T12:23:01.960Z",
   "dbCharacter": "Valhen",
   "migrationNotes": [
     "anatomy.body.male: skin uses the v1 non-skin colour \"dove\"; matched to White — check it on the stage",

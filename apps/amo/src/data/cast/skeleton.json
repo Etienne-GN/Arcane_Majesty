@@ -28,16 +28,15 @@
       ],
       "itemName": "skeleton",
       "swapParams": {
-        "sourceKey": "body",
+        "sourceKey": "metal",
         "sourceColors": [
-          2562336,
-          2562336,
-          10043964,
-          13403749,
-          14984316,
-          16373178,
-          16444647,
-          16315371
+          1905438,
+          3024179,
+          5065309,
+          7498622,
+          8814207,
+          12891551,
+          16777215
         ],
         "targetShades": [
           1908001,
@@ -76,16 +75,14 @@
       ],
       "itemName": "skeleton",
       "swapParams": {
-        "sourceKey": "body",
+        "sourceKey": "cloth_light",
         "sourceColors": [
-          2562336,
-          2562336,
-          10043964,
-          13403749,
-          14984316,
-          16373178,
-          16444647,
-          16315371
+          2627616,
+          5065309,
+          9797760,
+          12891551,
+          15066823,
+          16777215
         ],
         "targetShades": [
           1908001,
@@ -103,11 +100,9 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T05:13:53.249Z",
+  "updatedAt": "2026-10-09T12:23:01.960Z",
   "migrationNotes": [
     "anatomy.body.skeleton: skin uses the v1 non-skin colour \"white\"; matched to White — check it on the stage",
-    "anatomy.body.skeleton: tint has no effect on bodies/skeleton (its art is not in the body palette); it keeps its own colours",
-    "anatomy.head.skeleton: tint has no effect on heads/skeleton/adult (its art is not in the body palette); it keeps its own colours",
     "anatomy.shadow.shadow: skipped — shadow: the game draws its own shadow (no shadow slot in the catalogue)"
   ]
 }

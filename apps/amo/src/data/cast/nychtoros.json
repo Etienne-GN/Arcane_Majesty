@@ -214,15 +214,14 @@
         "emote"
       ],
       "swapParams": {
-        "sourceKey": "cloth",
+        "sourceKey": "cloth_light",
         "sourceColors": [
-          1905438,
-          1905438,
-          4267525,
-          4926227,
-          6436124,
-          7621424,
-          10054474
+          2627616,
+          5065309,
+          9797760,
+          12891551,
+          15066823,
+          16777215
         ],
         "targetShades": [
           0,
@@ -306,15 +305,14 @@
         "emote"
       ],
       "swapParams": {
-        "sourceKey": "cloth",
+        "sourceKey": "cloth_light",
         "sourceColors": [
-          1905438,
-          1905438,
-          4267525,
-          4926227,
-          6436124,
-          7621424,
-          10054474
+          2627616,
+          5065309,
+          9797760,
+          12891551,
+          15066823,
+          16777215
         ],
         "targetShades": [
           0,
@@ -360,14 +358,12 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T05:13:53.247Z",
+  "updatedAt": "2026-10-09T12:23:01.958Z",
   "dbCharacter": "Nychtoros",
   "migrationNotes": [
     "anatomy.body.male: skin uses the v1 non-skin colour \"raven\"; matched to Black — check it on the stage",
     "clothes.skirts.plain: dropped — legs already holds clothes.legs.pantaloons (the game has one legs item)",
-    "clothes.wrists.cuffs: tint has no effect on wrists/cuffs/male (its art is not in the cloth palette); it keeps its own colours",
     "clothes.trim.trim: skipped — cape trim: v1 draws it over the cape; the game holds one cape item (cape/trim is a separate cape)",
-    "clothes.hat.hood: tint has no effect on cloth/hood/adult (its art is not in the cloth palette); it keeps its own colours",
     "anatomy.shadow.shadow: skipped — shadow: the game draws its own shadow (no shadow slot in the catalogue)"
   ]
 }

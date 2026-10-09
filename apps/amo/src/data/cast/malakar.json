@@ -314,15 +314,14 @@
         "emote"
       ],
       "swapParams": {
-        "sourceKey": "cloth",
+        "sourceKey": "cloth_light",
         "sourceColors": [
-          1905438,
-          1905438,
-          4267525,
-          4926227,
-          6436124,
-          7621424,
-          10054474
+          2627616,
+          5065309,
+          9797760,
+          12891551,
+          15066823,
+          16777215
         ],
         "targetShades": [
           0,
@@ -381,15 +380,14 @@
         "emote"
       ],
       "swapParams": {
-        "sourceKey": "cloth",
+        "sourceKey": "cloth_light",
         "sourceColors": [
-          1905438,
-          1905438,
-          4267525,
-          4926227,
-          6436124,
-          7621424,
-          10054474
+          2627616,
+          5065309,
+          9797760,
+          12891551,
+          15066823,
+          16777215
         ],
         "targetShades": [
           0,
@@ -611,12 +609,10 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T05:13:53.245Z",
+  "updatedAt": "2026-10-09T12:23:01.956Z",
   "dbCharacter": "Malakar",
   "migrationNotes": [
     "anatomy.body.male: skin uses the v1 non-skin colour \"dove\"; matched to White — check it on the stage",
-    "clothes.torso.longsleeve: tint has no effect on clothes/longsleeve/longsleeve/male (its art is not in the cloth palette); it keeps its own colours",
-    "clothes.wrists.lace: tint has no effect on wrists/lace/male (its art is not in the cloth palette); it keeps its own colours",
     "clothes.hands.gloves: dropped — arms already holds clothes.wrists.lace (the game has one arms item)",
     "clothes.trim.trim: skipped — cape trim: v1 draws it over the cape; the game holds one cape item (cape/trim is a separate cape)",
     "equipment.staffs.diamond: tint has no effect on magic/diamond/universal (its art is not in the metal palette); it keeps its own colours",

@@ -446,14 +446,13 @@
         "emote"
       ],
       "swapParams": {
-        "sourceKey": "metal",
+        "sourceKey": "cloth_light",
         "sourceColors": [
-          1905438,
-          3024179,
+          2627616,
           5065309,
-          7498622,
-          8814207,
+          9797760,
           12891551,
+          15066823,
           16777215
         ],
         "targetShades": [
@@ -485,7 +484,7 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T05:13:53.249Z",
+  "updatedAt": "2026-10-09T12:23:01.960Z",
   "dbCharacter": "Seraphina",
   "migrationNotes": [
     "anatomy.body.female: skin uses the v1 non-skin colour \"dove\"; matched to White — check it on the stage",

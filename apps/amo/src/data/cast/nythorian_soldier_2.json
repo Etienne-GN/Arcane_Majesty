@@ -316,23 +316,20 @@
         "emote"
       ],
       "swapParams": {
-        "sourceKey": "metal",
+        "sourceKey": "custom:armour/leather/male",
         "sourceColors": [
-          1905438,
-          3024179,
+          3215888,
+          2825245,
+          4926227,
+          7357221,
           5065309,
-          7498622,
-          8814207,
-          12891551,
-          16777215
+          7688237
         ],
         "targetShades": [
           1574678,
           2101291,
           2629185,
           2629185,
-          2629185,
-          3288426,
           3951021,
           4614857
         ],
@@ -428,7 +425,7 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T05:13:53.248Z",
+  "updatedAt": "2026-10-09T12:23:01.959Z",
   "migrationNotes": [
     "anatomy.body.male: skin uses the v1 non-skin colour \"dove\"; matched to White — check it on the stage",
     "clothes.shoulders.leather: approximated as bauldron/male",

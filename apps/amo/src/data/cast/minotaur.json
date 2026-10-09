@@ -146,7 +146,7 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T05:13:53.246Z",
+  "updatedAt": "2026-10-09T12:23:01.957Z",
   "migrationNotes": [
     "anatomy.shadow.shadow: skipped — shadow: the game draws its own shadow (no shadow slot in the catalogue)"
   ]

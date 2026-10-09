@@ -140,9 +140,16 @@ class MigrateSave(unittest.TestCase):
         self.assertIn(self._tint_name('shoulders', sel), {'Purple', 'Violet', 'Navy'})
 
     def test_tint_without_effect_is_noted(self):
-        data = {'anatomy.body.male': {'colors': {}}, 'clothes.hat.hood': {'colors': {'primary': 'raven'}}}
+        # weapons keep their own colours (several materials; not tint-able yet)
+        data = {'anatomy.body.male': {'colors': {}}, 'equipment.staffs.diamond': {'colors': {'primary': 'raven'}}}
         out = m.migrate_save('T', data, CAT, VMAP, GAME, V1COLORS)
-        self.assertTrue(any('hood' in n and 'no effect' in n for n in out['notes']), out['notes'])
+        self.assertTrue(any('diamond' in n and 'no effect' in n for n in out['notes']), out['notes'])
+
+    def test_white_hood_and_leather_armour_are_tintable_now(self):
+        data = {'anatomy.body.male': {'colors': {}}, 'clothes.hat.hood': {'colors': {'primary': 'raven'}},
+                'clothes.torso2.leather': {'colors': {'primary': 'wine'}}}
+        out = m.migrate_save('T', data, CAT, VMAP, GAME, V1COLORS)
+        self.assertFalse(any('no effect' in n for n in out['notes']), out['notes'])
 
     def test_effective_tint_is_not_noted(self):
         data = {'anatomy.body.male': {'colors': {}}, 'anatomy.hair.messy3': {'colors': {'primary': 'brown'}}}

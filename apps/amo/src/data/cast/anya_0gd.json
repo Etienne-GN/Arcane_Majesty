@@ -326,15 +326,14 @@
         "emote"
       ],
       "swapParams": {
-        "sourceKey": "cloth",
+        "sourceKey": "cloth_light",
         "sourceColors": [
-          1905438,
-          1905438,
-          4267525,
-          4926227,
-          6436124,
-          7621424,
-          10054474
+          2627616,
+          5065309,
+          9797760,
+          12891551,
+          15066823,
+          16777215
         ],
         "targetShades": [
           263440,
@@ -534,10 +533,9 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T05:13:53.242Z",
+  "updatedAt": "2026-10-09T12:23:01.953Z",
   "dbCharacter": "Anya",
   "migrationNotes": [
-    "clothes.torso.longsleeve: tint has no effect on clothes/longsleeve/longsleeve/female (its art is not in the cloth palette); it keeps its own colours",
     "clothes.torso2.corset: dropped — torso_clothes already holds clothes.torso.longsleeve (the game has one torso_clothes item)",
     "clothes.shoulders.leather: approximated as bauldron/thin",
     "clothes.neck.necklace: approximated as necklace/chain/female"

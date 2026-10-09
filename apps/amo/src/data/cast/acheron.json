@@ -304,15 +304,14 @@
         "emote"
       ],
       "swapParams": {
-        "sourceKey": "cloth",
+        "sourceKey": "cloth_light",
         "sourceColors": [
-          1905438,
-          1905438,
-          4267525,
-          4926227,
-          6436124,
-          7621424,
-          10054474
+          2627616,
+          5065309,
+          9797760,
+          12891551,
+          15066823,
+          16777215
         ],
         "targetShades": [
           0,
@@ -428,14 +427,13 @@
         "emote"
       ],
       "swapParams": {
-        "sourceKey": "metal",
+        "sourceKey": "cloth_light",
         "sourceColors": [
-          1905438,
-          3024179,
+          2627616,
           5065309,
-          7498622,
-          8814207,
+          9797760,
           12891551,
+          15066823,
           16777215
         ],
         "targetShades": [
@@ -469,12 +467,11 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T05:13:53.238Z",
+  "updatedAt": "2026-10-09T12:23:01.947Z",
   "dbCharacter": "Acheron",
   "migrationNotes": [
     "anatomy.body.male: skin uses the v1 non-skin colour \"pearl\"; matched to Zombie — check it on the stage",
     "anatomy.head.human_male: eye colour black → gray",
-    "clothes.wrists.cuffs: tint has no effect on wrists/cuffs/male (its art is not in the cloth palette); it keeps its own colours",
     "clothes.hands.gloves: dropped — arms already holds clothes.wrists.cuffs (the game has one arms item)",
     "clothes.closure.frock_buttons: dropped — torso_jacket already holds clothes.torso3.frock (the game has one torso_jacket item)",
     "clothes.pockets.jacket_pockets: dropped — torso_jacket already holds clothes.torso3.frock (the game has one torso_jacket item)",

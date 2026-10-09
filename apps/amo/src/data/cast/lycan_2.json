@@ -39,16 +39,16 @@
         "emote"
       ],
       "swapParams": {
-        "sourceKey": "hair",
+        "sourceKey": "body",
         "sourceColors": [
-          2493716,
-          6951176,
-          10495488,
-          10495488,
-          10757632,
-          12533760,
-          15029760,
-          16747008
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
         ],
         "targetShades": [
           0,
@@ -133,16 +133,16 @@
         "emote"
       ],
       "swapParams": {
-        "sourceKey": "hair",
+        "sourceKey": "body",
         "sourceColors": [
-          2493716,
-          6951176,
-          10495488,
-          10495488,
-          10757632,
-          12533760,
-          15029760,
-          16747008
+          2562336,
+          2562336,
+          10043964,
+          13403749,
+          14984316,
+          16373178,
+          16444647,
+          16315371
         ],
         "targetShades": [
           0,
@@ -207,10 +207,9 @@
   ],
   "variants": {},
   "published": false,
-  "updatedAt": "2026-10-09T05:13:53.245Z",
+  "updatedAt": "2026-10-09T12:23:01.956Z",
   "migrationNotes": [
     "anatomy.body.male: skin uses the v1 non-skin colour \"charcoal\"; matched to Ebony — check it on the stage",
-    "anatomy.tail.lizard: tint has no effect on tail/lizard/adult/fg (its art is not in the hair palette); it keeps its own colours",
     "anatomy.shadow.shadow: skipped — shadow: the game draws its own shadow (no shadow slot in the catalogue)"
   ]
 }
