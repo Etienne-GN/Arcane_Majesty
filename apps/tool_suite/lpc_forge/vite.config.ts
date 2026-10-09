@@ -19,9 +19,10 @@ export default defineConfig({
     // than silently drifting to another port. Kill whatever's squatting
     // on 5177.
     strictPort: true,
-    host: true,
+    // localhost only: the proxied API writes game files and has no auth
+    host: '127.0.0.1',
     proxy: {
-      '/api': 'http://localhost:3001'
+      '/api': 'http://127.0.0.1:3001'
     },
     watch: {
       ignored: ['**/dist/**', '**/public/**', '**/node_modules/**']

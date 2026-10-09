@@ -82,7 +82,16 @@ export function createServer({
   return app
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const PORT = process.env.API_PORT || 3001
-  createServer().listen(PORT, () => console.log(`API server on http://localhost:${PORT}`))
+// The API writes game data (cast files) and has no authentication, so it only
+// listens on this machine. API_HOST overrides it deliberately.
+export function startServer(opts, port = process.env.API_PORT || 3001) {
+  const host = process.env.API_HOST || '127.0.0.1'
+  return new Promise(resolve => {
+    const srv = createServer(opts).listen(port, host, () => {
+      console.log(`API server on http://${host}:${srv.address().port}`)
+      resolve(srv)
+    })
+  })
 }
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) startServer()

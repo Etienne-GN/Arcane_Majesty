@@ -7,7 +7,7 @@
 import { mkdtempSync, readFileSync, readdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { createServer } from '../server.js';
+import { createServer, startServer } from '../server.js';
 
 const tmp = mkdtempSync(join(tmpdir(), 'forge-api-'));
 const castDir = join(tmp, 'cast');
@@ -48,10 +48,10 @@ if (put.status === 200) passed++; else fails.push(`cast put → ${put.status}`);
 const listed = await (await fetch(base + '/api/cast')).json();
 if (listed.length === 1 && listed[0].id === 'eldrin') passed++; else fails.push('cast list');
 const idx = () => readFileSync(join(castDir, 'index.js'), 'utf8');
-if (idx().includes("import c_eldrin from './eldrin.json';") && idx().includes('eldrin: c_eldrin')) passed++;
+if (idx().includes("import c_eldrin from './eldrin.json' with { type: 'json' };") && idx().includes('eldrin: c_eldrin')) passed++;
 else fails.push(`index.js: ${idx()}`);
 await fetch(base + '/api/cast/0gd', json('PUT', { ...cast, id: '0gd' }));
-if (idx().includes("import c_0gd from './0gd.json';")) passed++; else fails.push('digit-leading id breaks index');
+if (idx().includes("import c_0gd from './0gd.json' with { type: 'json' };")) passed++; else fails.push('digit-leading id breaks index');
 for (const bad of ['..%2Fx', 'A', 'a%2Fb', 'x'.repeat(60)]) {
     const r = await fetch(base + `/api/cast/${bad}`, json('PUT', { ...cast, id: decodeURIComponent(bad) }));
     if (r.status === 400) passed++; else fails.push(`bad id ${bad} → ${r.status}`);
@@ -69,5 +69,11 @@ const delBad = await fetch(base + '/api/cast/..%2Fx', { method: 'DELETE' });
 if (delBad.status === 400) passed++; else fails.push(`delete bad id → ${delBad.status}`);
 
 srv.close();
+
+// ── the real entry point binds to localhost only (the API writes game files) ──
+const real = await startServer({ dbPath: join(tmp, 'saves2.db'), castDir }, 0);
+if (real.address().address === '127.0.0.1') passed++; else fails.push(`server bound to ${real.address().address}`);
+real.close();
+
 if (fails.length) { console.error(`✗ api: ${fails.length} failed\n  ` + fails.join('\n  ')); process.exit(1); }
 console.log(`✓ api: ${passed} passed`);
