@@ -8,8 +8,11 @@ import { animPath } from '@game/systems/lpcLayout.js';
 import { remapPixels } from '@game/systems/lpcPalettes.js';
 import { resolveAnim } from '@game/systems/animResolve.js';
 import { frameGeometry, frameRect, frameSizeOf } from './frames.js';
+import { Lru } from './lru.js';
 
-const cache = new Map(); // key → Promise<Sheet|null>
+// key → Promise<Sheet|null>. Bounded: the full grid (15 motions × ~10 layers)
+// plus a slot's picker thumbnails fit; older tints are dropped and rebuilt on demand.
+const cache = new Lru(300);
 
 function swapKey(sp) { return sp ? `${sp.sourceKey}:${sp.tintName}` : ''; }
 

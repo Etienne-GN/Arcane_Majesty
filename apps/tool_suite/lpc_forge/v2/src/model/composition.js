@@ -62,7 +62,14 @@ export function motionsOf(entry) {
     return DEFAULT_ANIMS.filter(m => resolveAnim(entry, m));
 }
 
-/** Layers that ship no file for `motion` (they vanish when the character plays it). */
-export function missingIn(layers, motion) {
-    return layers.filter(l => !resolveAnim(l, motion));
+/**
+ * Layers that vanish when the character plays `motion`: no file in the manifest,
+ * or (when `hasFile(layer, concrete)` is given) a file the library doesn't have.
+ * Direction-independent: an empty direction row is by design, not a gap.
+ */
+export function missingIn(layers, motion, hasFile) {
+    return layers.filter(l => {
+        const c = resolveAnim(l, motion);
+        return !c || (hasFile ? !hasFile(l, c) : false);
+    });
 }

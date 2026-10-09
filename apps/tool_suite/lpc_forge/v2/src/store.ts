@@ -1,6 +1,8 @@
 import { reactive, computed, watch } from 'vue'
 import CATALOGUE from '@game/data/character_catalogue.json'
-import { layersFor, defaultComposition } from '@v2/model/composition.js'
+import { layersFor, defaultComposition, missingIn, layerKeyOf } from '@v2/model/composition.js'
+import { DEFAULT_ANIMS, resolveAnim } from '@game/systems/animResolve.js'
+import { loadSheet } from '@v2/render/sheets.js'
 
 // The composition autosaves per browser (a convenience, not storage of record:
 // named saves go to saves.db, cast files arrive with Plan B).
@@ -37,11 +39,30 @@ export const store = reactive({
   view: 'grid' as 'grid' | 'single',
   showMissing: true,
   bg: 'checker' as 'checker' | 'grass' | 'stone',
-  // "motion:dir" → keys of layers that draw nothing there (filled by the stage canvases)
+  // motion → keys of layers with no art for it (computed from the layers below)
   missing: {} as Record<string, string[]>,
 })
 
 export const layers = computed(() => layersFor(catalogue, store.comp))
+
+// Missing layers per motion: a pure function of the layer stack plus which files
+// exist, recomputed whenever the stack changes (never reported by canvases, so it
+// can't go stale when the view, motion or direction changes).
+let missingSeq = 0
+watch(layers, async ls => {
+  const seq = ++missingSeq
+  const found = new Map<string, boolean>()
+  await Promise.all(ls.flatMap((l: any) => DEFAULT_ANIMS.map(async (m: string) => {
+    const c = resolveAnim(l, m)
+    if (c) found.set(`${layerKeyOf(l)}|${c}`, (await loadSheet(l, c)) !== null)
+  })))
+  if (seq !== missingSeq) return
+  const out: Record<string, string[]> = {}
+  for (const m of DEFAULT_ANIMS) {
+    out[m] = missingIn(ls, m, (l: any, c: string) => found.get(`${layerKeyOf(l)}|${c}`) ?? false).map(layerKeyOf)
+  }
+  store.missing = out
+}, { immediate: true })
 
 watch(() => store.comp, c => {
   try { localStorage.setItem(KEY, JSON.stringify(c)) } catch { /* ignore */ }

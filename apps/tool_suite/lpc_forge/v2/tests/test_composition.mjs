@@ -43,6 +43,11 @@ check('afro covers run', motionsOf(entryFor(CAT, 'hair', 'afro/adult')).includes
 check('arming sword lacks run', motionsOf(entryFor(CAT, 'weapon', 'sword/arming/universal')).includes('run'), false);
 check('missing in run = sword layers', missingIn(ls, 'run').filter(l => l.slot === 'weapon').length, 2);
 
+// missing also counts layers whose file the manifest claims but the library lacks
+const noFg = l => l.itemName !== 'fg';
+check('manifest claims walk but file absent → missing', missingIn(ls, 'walk', noFg).map(l => l.itemName), ['fg']);
+check('no predicate → manifest only', missingIn(ls, 'walk').length, 0);
+
 // layer keys tell a weapon's bg and fg layers apart
 check('layer keys distinct', new Set(w.map(layerKeyOf)).size, 2);
 check('layer key shape', layerKeyOf(w[0]), 'weapon:sword/arming/universal#bg');

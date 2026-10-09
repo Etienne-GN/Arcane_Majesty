@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { DEFAULT_ANIMS } from '@game/systems/animResolve.js'
-import { DIRS } from '@v2/render/frames.js'
 import { entryFor, layerKeyOf } from '@v2/model/composition.js'
 import { store, layers, catalogue } from '@v2/store'
 
-// For each layer: the motions where it draws nothing (any direction), from the stage canvases.
+// For each layer: the motions it has no art for (store.missing).
 const rows = computed(() => layers.value.map(l => {
   const key = layerKeyOf(l)
-  const gone = DEFAULT_ANIMS.filter((m: string) =>
-    DIRS.some((d: string) => (store.missing[`${m}:${d}`] ?? []).includes(key)))
-  const hereGone = (store.missing[`${store.motion}:${store.dir}`] ?? []).includes(key)
+  const gone = DEFAULT_ANIMS.filter((m: string) => (store.missing[m] ?? []).includes(key))
+  const hereGone = (store.missing[store.motion] ?? []).includes(key)
   return { l, key, label: entryFor(catalogue, l.slot, l.id)?.label ?? l.id, gone, hereGone }
 }).reverse()) // top of the stack first
 </script>

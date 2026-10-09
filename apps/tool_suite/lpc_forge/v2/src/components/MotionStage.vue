@@ -9,14 +9,9 @@ import { stepFrame } from '@v2/clock'
 
 const SPEEDS = [0.25, 0.5, 1, 2]
 
-function setMissing(motion: string, dir: string, keys: string[]) {
-  store.missing[`${motion}:${dir}`] = keys
-}
-/** Layers missing in a motion in any direction. */
+/** Number of layers with no art for a motion. */
 function missingInMotion(motion: string) {
-  const s = new Set<string>()
-  for (const d of DIRS) for (const k of store.missing[`${motion}:${d}`] ?? []) s.add(k)
-  return s.size
+  return store.missing[motion]?.length ?? 0
 }
 function open(motion: string, dir: string) {
   store.motion = motion
@@ -69,8 +64,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
           <span v-if="missingInMotion(m)" class="miss" title="layers missing in this motion">−{{ missingInMotion(m) }}</span>
         </div>
         <button v-for="d in DIRS" :key="m + d" class="cell" :title="`${m} ${d}`" @click="open(m, d)">
-          <CharacterCanvas :layers="layers" :motion="m" :dir="d" :scale="2" :missing-overlay="store.showMissing"
-                           @missing="k => setMissing(m, d, k)" />
+          <CharacterCanvas :layers="layers" :motion="m" :dir="d" :scale="2" :missing-overlay="store.showMissing" />
         </button>
       </template>
     </div>
@@ -78,7 +72,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
     <div v-else class="single">
       <div class="big" :class="'bg-' + store.bg">
         <CharacterCanvas :layers="layers" :motion="store.motion" :dir="store.dir" :scale="6"
-                         :missing-overlay="store.showMissing" @missing="k => setMissing(store.motion, store.dir, k)" />
+                         :missing-overlay="store.showMissing" />
       </div>
       <div class="strip">
         <button v-for="m in DEFAULT_ANIMS" :key="m" :class="{ active: store.motion === m }" @click="store.motion = m">
