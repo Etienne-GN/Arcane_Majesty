@@ -2,7 +2,8 @@ import express from 'express'
 import Database from 'better-sqlite3'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
-import { listCast, writeCast, deleteCast } from './castStore.js'
+import { listCast, writeCast, deleteCast, writeJsonAtomic, readJson } from './castStore.js'
+import { ruleErrors } from '../../amo/src/systems/motionRules.js'
 import { CAST_ID_RE, castShapeErrors } from './v2/src/model/cast.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -14,6 +15,7 @@ const LPC_ROOT = join(__dirname, '../../amo/ressources/lpc_merged/spritesheets')
 export function createServer({
   dbPath = join(__dirname, 'saves.db'),
   castDir = join(__dirname, '../../amo/src/data/cast'),
+  rulesPath = join(__dirname, '../../amo/src/data/motion_rules.json'),
 } = {}) {
   const db = new Database(dbPath)
 
@@ -31,6 +33,7 @@ export function createServer({
   const app = express()
   // Cast files are small; the 20 MB limit is for scratch saves with previews.
   app.use('/api/cast', express.json({ limit: '1mb' }))
+  app.use('/api/motion-rules', express.json({ limit: '1mb' }))
   app.use(express.json({ limit: '20mb' }))
 
   // express.static refuses ../ traversal; fallthrough:false makes misses errors,
@@ -74,6 +77,16 @@ export function createServer({
     const { id } = req.params
     if (!CAST_ID_RE.test(id)) return res.status(400).json({ error: 'bad id' })
     if (!deleteCast(castDir, id)) return res.status(404).json({ error: 'not found' })
+    res.json({ ok: true })
+  })
+
+  // Motion rules: what a layer does in a motion it has no art for (motionRules.js).
+  app.get('/api/motion-rules', (req, res) => res.json(readJson(rulesPath, {})))
+
+  app.put('/api/motion-rules', (req, res) => {
+    const errors = ruleErrors(req.body)
+    if (errors.length) return res.status(400).json({ error: errors.join('; ') })
+    writeJsonAtomic(rulesPath, req.body)
     res.json({ ok: true })
   })
 

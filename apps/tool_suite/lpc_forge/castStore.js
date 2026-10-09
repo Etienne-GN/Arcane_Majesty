@@ -44,6 +44,16 @@ export function deleteCast(dir, id) {
   return true
 }
 
+/** Write JSON into the game tree without ever leaving a half-written file. */
+export function writeJsonAtomic(path, value) {
+  atomicWrite(path, JSON.stringify(value, null, 2) + '\n')
+}
+
+export function readJson(path, fallback) {
+  if (!existsSync(path)) return fallback
+  return JSON.parse(readFileSync(path, 'utf8'))
+}
+
 function atomicWrite(path, text) {
   const tmp = `${path}.${process.pid}.${++seq}.tmp`
   writeFileSync(tmp, text)

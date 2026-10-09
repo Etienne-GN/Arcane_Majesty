@@ -11,7 +11,8 @@ import { createServer, startServer } from '../server.js';
 
 const tmp = mkdtempSync(join(tmpdir(), 'forge-api-'));
 const castDir = join(tmp, 'cast');
-const app = createServer({ dbPath: join(tmp, 'saves.db'), castDir });
+const rulesPath = join(tmp, 'motion_rules.json');
+const app = createServer({ dbPath: join(tmp, 'saves.db'), castDir, rulesPath });
 const srv = app.listen(0);
 const base = `http://localhost:${srv.address().port}`;
 let passed = 0; const fails = [];
@@ -74,6 +75,17 @@ const del404 = await fetch(base + '/api/cast/eldrin', { method: 'DELETE' });
 if (del404.status === 404) passed++; else fails.push(`delete missing → ${del404.status}`);
 const delBad = await fetch(base + '/api/cast/..%2Fx', { method: 'DELETE' });
 if (delBad.status === 400) passed++; else fails.push(`delete bad id → ${delBad.status}`);
+
+// ── motion rules (temp file) ──
+const r0 = await (await fetch(base + '/api/motion-rules')).json();
+if (JSON.stringify(r0) === '{}') passed++; else fails.push(`rules start ${JSON.stringify(r0)}`);
+const goodRules = { 'cape|solid/female|': { sit: { rule: 'hide' }, jump: { rule: 'borrow', from: 'walk' } } };
+const rp = await fetch(base + '/api/motion-rules', json('PUT', goodRules));
+if (rp.status === 200 && JSON.stringify(JSON.parse(readFileSync(rulesPath, 'utf8'))) === JSON.stringify(goodRules)) passed++;
+else fails.push(`rules put → ${rp.status}`);
+const badRules = await fetch(base + '/api/motion-rules', json('PUT', { 'cape|solid/female|': { sit: { rule: 'explode' } } }));
+if (badRules.status === 400 && (await badRules.json()).error.includes('explode')) passed++; else fails.push(`bad rules → ${badRules.status}`);
+if (JSON.stringify(JSON.parse(readFileSync(rulesPath, 'utf8'))) === JSON.stringify(goodRules)) passed++; else fails.push('bad rules overwrote the file');
 
 srv.close();
 
