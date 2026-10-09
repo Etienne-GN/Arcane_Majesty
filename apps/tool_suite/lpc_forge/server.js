@@ -2,6 +2,8 @@ import express from 'express'
 import Database from 'better-sqlite3'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
+import { listCast, writeCast, deleteCast } from './castStore.js'
+import { CAST_ID_RE } from './v2/src/model/cast.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -9,8 +11,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 // game serves under public/lpc (Forge v2 renders from it).
 const LPC_ROOT = join(__dirname, '../../amo/ressources/lpc_merged/spritesheets')
 
-export function createServer() {
-  const db = new Database(join(__dirname, 'saves.db'))
+export function createServer({
+  dbPath = join(__dirname, 'saves.db'),
+  castDir = join(__dirname, '../../amo/src/data/cast'),
+} = {}) {
+  const db = new Database(dbPath)
 
   db.exec(`
     CREATE TABLE IF NOT EXISTS saves (
@@ -48,6 +53,23 @@ export function createServer() {
 
   app.delete('/api/saves/:type/:name', (req, res) => {
     db.prepare('DELETE FROM saves WHERE type = ? AND name = ?').run(req.params.type, req.params.name)
+    res.json({ ok: true })
+  })
+
+  // Cast members: committed game data, one JSON file each (see castStore.js).
+  app.get('/api/cast', (req, res) => res.json(listCast(castDir)))
+
+  app.put('/api/cast/:id', (req, res) => {
+    const { id } = req.params
+    if (!CAST_ID_RE.test(id) || req.body?.id !== id) return res.status(400).json({ error: 'bad or mismatched id' })
+    writeCast(castDir, req.body)
+    res.json({ ok: true })
+  })
+
+  app.delete('/api/cast/:id', (req, res) => {
+    const { id } = req.params
+    if (!CAST_ID_RE.test(id)) return res.status(400).json({ error: 'bad id' })
+    if (!deleteCast(castDir, id)) return res.status(404).json({ error: 'not found' })
     res.json({ ok: true })
   })
 
