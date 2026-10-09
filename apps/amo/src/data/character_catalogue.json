@@ -110,7 +110,8 @@
         "thrust",
         "shoot",
         "spellcast"
-      ]
+      ],
+      "sourceMaterial": "metal"
     },
     {
       "id": "bodies/teen",
@@ -532,6 +533,14 @@
         "climb",
         "combat_idle",
         "emote"
+      ],
+      "sourceColors": [
+        4397084,
+        5514286,
+        11420234,
+        16733250,
+        16743226,
+        16754505
       ]
     },
     {
@@ -982,7 +991,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "heads/skeleton/adult",
@@ -1005,7 +1015,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "heads/troll/adult",
@@ -5179,7 +5190,8 @@
         "jump",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "hair"
     },
     {
       "id": "eyebrows/thick/child",
@@ -5200,7 +5212,8 @@
         "jump",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "hair"
     },
     {
       "id": "eyebrows/thin/adult",
@@ -5221,7 +5234,8 @@
         "jump",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "hair"
     },
     {
       "id": "eyebrows/thin/child",
@@ -5242,7 +5256,8 @@
         "jump",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "hair"
     }
   ],
   "beards": [
@@ -5375,6 +5390,10 @@
         "jump",
         "combat_idle",
         "emote"
+      ],
+      "sourceColors": [
+        7946519,
+        10575896
       ]
     },
     {
@@ -10320,7 +10339,8 @@
         "spellcast",
         "climb",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "cuffed/male",
@@ -11031,7 +11051,8 @@
         "jump",
         "climb",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "skirts/legion/thin",
@@ -11050,7 +11071,8 @@
         "jump",
         "climb",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "skirts/overskirt/thin",
@@ -11066,7 +11088,8 @@
         "spellcast",
         "climb",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "pantaloons/male",
@@ -11593,7 +11616,8 @@
         "sit",
         "climb",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "skirts/plain/thin",
@@ -11610,7 +11634,8 @@
         "sit",
         "climb",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "armour/plate/male",
@@ -11874,7 +11899,8 @@
         "spellcast",
         "climb",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "skirts/straight/thin",
@@ -11890,7 +11916,8 @@
         "spellcast",
         "climb",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     }
   ],
   "feet": [
@@ -13600,7 +13627,8 @@
         "jump",
         "climb",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "wrists/cuffs/thin",
@@ -13619,7 +13647,8 @@
         "jump",
         "climb",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "hands/gloves/male",
@@ -13641,7 +13670,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "hands/gloves/thin",
@@ -13663,7 +13693,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "wrists/lace/male",
@@ -13682,7 +13713,8 @@
         "jump",
         "climb",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "wrists/lace/thin",
@@ -13701,7 +13733,8 @@
         "jump",
         "climb",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "armour/plate/male",
@@ -13751,6 +13784,11 @@
         "sit",
         "jump",
         "emote"
+      ],
+      "sourceColors": [
+        937586,
+        1404057,
+        53215
       ]
     },
     {
@@ -13769,6 +13807,11 @@
         "sit",
         "jump",
         "emote"
+      ],
+      "sourceColors": [
+        937586,
+        1404057,
+        53215
       ]
     }
   ],
@@ -13830,7 +13873,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "epaulets/thin",
@@ -13852,7 +13896,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "legion/female",
@@ -13960,7 +14005,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "pauldrons/thin",
@@ -13982,7 +14028,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     }
   ],
   "hat": [
@@ -14128,7 +14175,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "pirate/bandana/adult",
@@ -14150,6 +14198,12 @@
         "climb",
         "combat_idle",
         "emote"
+      ],
+      "sourceColors": [
+        1053716,
+        1843746,
+        2238506,
+        2764852
       ]
     },
     {
@@ -14172,7 +14226,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "helmet/barbarian/adult",
@@ -15898,7 +15953,8 @@
         "jump",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "headband/hairtie/child",
@@ -15919,7 +15975,8 @@
         "jump",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "cloth/hijab/male",
@@ -15941,7 +15998,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "cloth/hijab/thin",
@@ -15963,7 +16021,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "cloth/hood/adult",
@@ -15985,7 +16044,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "cloth/hood_sack/adult",
@@ -16007,7 +16067,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "visor/horned/adult",
@@ -16351,7 +16412,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "metal"
     },
     {
       "id": "helmet/norman/adult",
@@ -16906,6 +16968,9 @@
         "jump",
         "combat_idle",
         "emote"
+      ],
+      "sourceColors": [
+        8525596
       ]
     },
     {
@@ -16927,6 +16992,9 @@
         "jump",
         "combat_idle",
         "emote"
+      ],
+      "sourceColors": [
+        8525596
       ]
     },
     {
@@ -16948,6 +17016,9 @@
         "jump",
         "combat_idle",
         "emote"
+      ],
+      "sourceColors": [
+        8525596
       ]
     },
     {
@@ -16969,6 +17040,9 @@
         "jump",
         "combat_idle",
         "emote"
+      ],
+      "sourceColors": [
+        8525596
       ]
     },
     {
@@ -17220,7 +17294,8 @@
         "jump",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "visor/slit/adult",
@@ -17485,7 +17560,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "metal"
     },
     {
       "id": "helmet/sugarloaf_simple/male",
@@ -17507,7 +17583,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "metal"
     },
     {
       "id": "pirate/tricorne/basic/thatched",
@@ -17640,7 +17717,8 @@
         "jump",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "headband/thick/child",
@@ -17661,7 +17739,8 @@
         "jump",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "formal/tiara/adult",
@@ -17745,7 +17824,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "pirate/bonnie/tilt/adult",
@@ -21510,7 +21590,8 @@
         "thrust",
         "shoot",
         "spellcast"
-      ]
+      ],
+      "sourceMaterial": "cloth"
     },
     {
       "id": "heater/revised/trim/fg",
@@ -23659,7 +23740,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve/male",
@@ -23681,7 +23763,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve/pregnant",
@@ -23742,7 +23825,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2_buttoned/female",
@@ -23764,7 +23848,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2_buttoned/male",
@@ -23786,7 +23871,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2_buttoned/teen",
@@ -23808,7 +23894,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2_cardigan/female",
@@ -23830,7 +23917,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2_cardigan/male",
@@ -23852,7 +23940,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2_cardigan/teen",
@@ -23874,7 +23963,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2/female",
@@ -23896,7 +23986,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2/male",
@@ -23918,7 +24009,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2_polo/female",
@@ -23940,7 +24032,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2_polo/male",
@@ -23962,7 +24055,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2_polo/teen",
@@ -23984,7 +24078,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2_scoop/female",
@@ -24006,7 +24101,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2_scoop/male",
@@ -24028,7 +24124,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2_scoop/teen",
@@ -24050,7 +24147,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2/teen",
@@ -24072,7 +24170,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2_vneck/female",
@@ -24094,7 +24193,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2_vneck/male",
@@ -24116,7 +24216,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeve2_vneck/teen",
@@ -24138,7 +24239,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeves_cuffed/female",
@@ -24160,7 +24262,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeves_cuffed/male",
@@ -24182,7 +24285,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeves_cuffed/teen",
@@ -24204,7 +24308,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeves/female",
@@ -24226,7 +24331,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeves/male",
@@ -24248,7 +24354,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeves/teen",
@@ -24270,7 +24377,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeves2/female",
@@ -24292,7 +24400,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeves2/male",
@@ -24314,7 +24423,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/longsleeves2/teen",
@@ -24336,7 +24446,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "bandage/male",
@@ -24541,7 +24652,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/scoop/male",
@@ -24563,7 +24675,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/scoop/pregnant",
@@ -25145,7 +25258,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless1/male",
@@ -25167,7 +25281,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless1/teen",
@@ -25189,7 +25304,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2_buttoned/female",
@@ -25211,7 +25327,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2_buttoned/male",
@@ -25233,7 +25350,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2_buttoned/teen",
@@ -25255,7 +25373,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2_cardigan/female",
@@ -25277,7 +25396,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2_cardigan/male",
@@ -25299,7 +25419,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2_cardigan/teen",
@@ -25321,7 +25442,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2/female",
@@ -25343,7 +25465,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2/male",
@@ -25365,7 +25488,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2_polo/female",
@@ -25387,7 +25511,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2_polo/male",
@@ -25409,7 +25534,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2_polo/teen",
@@ -25431,7 +25557,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2_scoop/female",
@@ -25453,7 +25580,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2_scoop/male",
@@ -25475,7 +25603,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2_scoop/teen",
@@ -25497,7 +25626,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2/teen",
@@ -25519,7 +25649,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2_vneck/female",
@@ -25541,7 +25672,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2_vneck/male",
@@ -25563,7 +25695,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/sleeveless2_vneck/teen",
@@ -25585,7 +25718,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/sleeveless/striped/male",
@@ -26715,6 +26849,14 @@
         "jump",
         "climb",
         "emote"
+      ],
+      "sourceColors": [
+        3215888,
+        2825245,
+        4926227,
+        7357221,
+        7688237,
+        10121015
       ]
     },
     {
@@ -26733,6 +26875,14 @@
         "jump",
         "climb",
         "emote"
+      ],
+      "sourceColors": [
+        3215888,
+        2825245,
+        4926227,
+        7357221,
+        5065309,
+        7688237
       ]
     },
     {
@@ -26751,6 +26901,14 @@
         "jump",
         "climb",
         "emote"
+      ],
+      "sourceColors": [
+        3215888,
+        2825245,
+        4926227,
+        7357221,
+        7688237,
+        10121015
       ]
     },
     {
@@ -29474,7 +29632,8 @@
         "jump",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "metal"
     },
     {
       "id": "accessory/horns_short/fg/adult",
@@ -29519,7 +29678,8 @@
         "jump",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "metal"
     },
     {
       "id": "accessory/horns_upward/fg/adult",
@@ -29563,7 +29723,8 @@
         "jump",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "metal"
     }
   ],
   "fins": [
@@ -30295,7 +30456,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "body"
     },
     {
       "id": "tail/lizard/child/fg",
@@ -30339,7 +30501,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "body"
     },
     {
       "id": "tail/wolf/adult/fg",
@@ -30978,7 +31141,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "body"
     },
     {
       "id": "wings/bat/lizard/adult/fg",
@@ -31022,7 +31186,8 @@
         "climb",
         "combat_idle",
         "emote"
-      ]
+      ],
+      "sourceMaterial": "body"
     },
     {
       "id": "wings/lunar/fg",

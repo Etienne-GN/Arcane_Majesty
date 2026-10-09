@@ -53,7 +53,7 @@ const GROUP_COLOR = {
 
 import {
     PALETTE_SOURCE, TINT_PALETTE, FORCE_TINT_TYPES, FORCE_TINT_BASE,
-    SOURCE_MATERIAL, TINT_MATERIAL, COLOR_SWATCH_HEX,
+    SOURCE_MATERIAL, TINT_MATERIAL, COLOR_SWATCH_HEX, swapColors, remapPixels,
 } from '../systems/lpcPalettes.js';
 
 function trunc(s, n = 13) { return s.length > n ? s.slice(0, n - 1) + '…' : s; }
@@ -793,15 +793,6 @@ export default class CharacterCreatorScene extends Phaser.Scene {
         return opt?.tintMaterial ?? TINT_MATERIAL[type] ?? null;
     }
 
-    /** Returns the PALETTE_SOURCE key for actual pixel remapping (may differ from display palette) */
-    _itemSourceMaterial(type) {
-        const opt = CATALOGUE[type]?.[this._sel[type]];
-        if (opt?.sourceMaterial && PALETTE_SOURCE[opt.sourceMaterial]) return opt.sourceMaterial;
-        const tm  = opt?.tintMaterial ?? null;
-        if (tm && PALETTE_SOURCE[tm]) return tm;   // fur / green / tan / zombie animal heads
-        return SOURCE_MATERIAL[type] ?? 'body';
-    }
-
     _cycleTint(type, delta) {
         const palette = TINT_PALETTE[this._itemTintMaterial(type)];
         if (!palette) return;
@@ -1100,7 +1091,7 @@ export default class CharacterCreatorScene extends Phaser.Scene {
         const dir     = DIRS[this._dirIdx];
         const anim    = ANIMS[this._animIdx];
 
-        const sourceKey = this._itemSourceMaterial(type);
+        const swap = entry.shades ? swapColors(type, opt, entry) : null;
 
         // Match only the exact layers that belong to this UI slot, not the whole render-type bucket.
         // This prevents body and tail (both render-type 'body') from overwriting each other's colours.
@@ -1118,30 +1109,20 @@ export default class CharacterCreatorScene extends Phaser.Scene {
                 if (this.anims.exists(origAnim)) sprite.play(origAnim, true);
                 sprite.clearTint();
             } else {
-                this._swapSpriteTexture(sprite, lpcEntry.layer, curAnim, dir, sourceKey, entry);
+                this._swapSpriteTexture(sprite, lpcEntry.layer, curAnim, dir, swap, entry);
             }
         }
     }
 
-    _swapSpriteTexture(sprite, layer, animName, dir, sourceKey, paletteEntry) {
+    _swapSpriteTexture(sprite, layer, animName, dir, swap, paletteEntry) {
         const scene   = this;  // CharacterCreatorScene IS the Phaser scene
         const origKey = texKey(layer, animName);
         const safe    = paletteEntry.name.replace(/\s+/g, '_');
-        const rcKey   = `${origKey}__rc_${sourceKey}_${safe}`;
+        const rcKey   = `${origKey}__rc_${swap.sourceKey}_${safe}`;
 
         if (!scene.textures.exists(rcKey)) {
             const tex = scene.textures.get(origKey);
             if (!tex || tex.key === '__MISSING') return;
-
-            const src = PALETTE_SOURCE[sourceKey];
-            const tgt = paletteEntry.shades;
-            const n   = src.length;
-            const srcR = src.map(v => (v >> 16) & 0xff);
-            const srcG = src.map(v => (v >>  8) & 0xff);
-            const srcB = src.map(v =>  v        & 0xff);
-            const tgtR = tgt.map(v => (v >> 16) & 0xff);
-            const tgtG = tgt.map(v => (v >>  8) & 0xff);
-            const tgtB = tgt.map(v =>  v        & 0xff);
 
             const w = tex.source[0].width, h = tex.source[0].height;
             const canvas = document.createElement('canvas');
@@ -1150,25 +1131,7 @@ export default class CharacterCreatorScene extends Phaser.Scene {
             ctx.drawImage(tex.source[0].image, 0, 0);
 
             const imgData = ctx.getImageData(0, 0, w, h);
-            const data    = imgData.data;
-            const THRESH  = 3 * 3 * 3; // max squared sum per-channel (≈ tolerance 3 each)
-
-            for (let i = 0; i < data.length; i += 4) {
-                if (data[i + 3] < 8) continue;
-                const pr = data[i], pg = data[i + 1], pb = data[i + 2];
-                let bestIdx = -1, bestDist = Infinity;
-                for (let j = 0; j < n; j++) {
-                    const dr = pr - srcR[j], dg = pg - srcG[j], db = pb - srcB[j];
-                    const d  = dr * dr + dg * dg + db * db;
-                    if (d < bestDist) { bestDist = d; bestIdx = j; }
-                }
-                if (bestIdx >= 0 && bestDist <= THRESH) {
-                    data[i]     = tgtR[bestIdx];
-                    data[i + 1] = tgtG[bestIdx];
-                    data[i + 2] = tgtB[bestIdx];
-                    // alpha preserved
-                }
-            }
+            remapPixels(imgData.data, swap.sourceColors, swap.targetShades);
 
             ctx.putImageData(imgData, 0, 0);
             scene.textures.addCanvas(rcKey, canvas);
@@ -1651,15 +1614,7 @@ export default class CharacterCreatorScene extends Phaser.Scene {
                 const matKey  = this._itemTintMaterial(uiType);
                 const palette = matKey ? TINT_PALETTE[matKey] : null;
                 const entry   = palette?.[tintIdx];
-                if (entry?.shades) {
-                    const sourceKey = this._itemSourceMaterial(uiType);
-                    swapParams = {
-                        sourceKey,
-                        sourceColors: PALETTE_SOURCE[sourceKey],
-                        targetShades: entry.shades,
-                        tintName:     entry.name,
-                    };
-                }
+                if (entry?.shades) swapParams = { ...swapColors(uiType, opt, entry), tintName: entry.name };
             }
 
             for (const l of layers) {
@@ -1712,13 +1667,14 @@ export default class CharacterCreatorScene extends Phaser.Scene {
             const matKey   = this._itemTintMaterial(uiType);
             const palette  = matKey ? TINT_PALETTE[matKey] : null;
             const palEntry = (palette && tintIdx > 0) ? palette[tintIdx] : null;
+            const swap     = palEntry?.shades ? swapColors(uiType, opt, palEntry) : null;
             const main     = { type: rt, id: opt.id, zPos: opt.zPos ?? DEFAULT_ZPOS[rt] ?? 0, color, itemName: opt.itemName, anims: opt.anims };
-            expLayers.push({ layer: main, palEntry, matKey });
+            expLayers.push({ layer: main, swap });
             for (const c of opt.companions ?? []) {
                 expLayers.push({
                     layer: { type: rt, id: c.id, zPos: c.zPos ?? DEFAULT_ZPOS[rt] ?? 0,
                         color: c.color ?? (opt.colors ? color : undefined), itemName: c.itemName, anims: c.anims },
-                    palEntry, matKey,
+                    swap,
                 });
             }
         }
@@ -1734,7 +1690,7 @@ export default class CharacterCreatorScene extends Phaser.Scene {
         for (const logical of DEFAULT_ANIMS) {
             const draws = [];
             let rows = 0, cols = 0;
-            for (const { layer, palEntry, matKey } of expLayers) {
+            for (const { layer, swap } of expLayers) {
                 const concrete = resolveAnim(layer, logical);
                 if (!concrete) continue;
                 const key = texKey(layer, concrete);
@@ -1746,8 +1702,8 @@ export default class CharacterCreatorScene extends Phaser.Scene {
                 const fh = tex.customData?.frameH ?? 64;
                 const lcols = Math.floor(tex.source[0].width  / fw);
                 const lrows = Math.floor(tex.source[0].height / fh);
-                const img = palEntry?.shades
-                    ? this._paletteSwapImage(tex.source[0].image, matKey, palEntry, swapCache)
+                const img = swap
+                    ? this._paletteSwapImage(tex.source[0].image, swap, swapCache)
                     : tex.source[0].image;
                 draws.push({ img, fw, fh, lcols, lrows });
                 rows = Math.max(rows, lrows);
@@ -1789,19 +1745,9 @@ export default class CharacterCreatorScene extends Phaser.Scene {
     }
 
     /** Returns a new canvas with the palette swap applied — used by spritesheet export */
-    _paletteSwapImage(image, matKey, paletteEntry, cache) {
-        const cacheKey = `${image.src || ''}|${matKey}|${paletteEntry.shades.join(',')}`;
+    _paletteSwapImage(image, swap, cache) {
+        const cacheKey = `${image.src || ''}|${swap.sourceKey}|${swap.targetShades.join(',')}`;
         if (cache?.has(cacheKey)) return cache.get(cacheKey);
-
-        const src  = PALETTE_SOURCE[matKey];
-        const tgt  = paletteEntry.shades;
-        const n    = src.length;
-        const srcR = src.map(v => (v >> 16) & 0xff);
-        const srcG = src.map(v => (v >>  8) & 0xff);
-        const srcB = src.map(v =>  v        & 0xff);
-        const tgtR = tgt.map(v => (v >> 16) & 0xff);
-        const tgtG = tgt.map(v => (v >>  8) & 0xff);
-        const tgtB = tgt.map(v =>  v        & 0xff);
 
         const w  = image.naturalWidth  || image.width;
         const h  = image.naturalHeight || image.height;
@@ -1810,21 +1756,7 @@ export default class CharacterCreatorScene extends Phaser.Scene {
         const cx = c.getContext('2d', { willReadFrequently: true });
         cx.drawImage(image, 0, 0);
         const id   = cx.getImageData(0, 0, w, h);
-        const data = id.data;
-        const THRESH = 3 * 3 * 3;
-        for (let i = 0; i < data.length; i += 4) {
-            if (data[i + 3] < 8) continue;
-            const pr = data[i], pg = data[i + 1], pb = data[i + 2];
-            let bi = -1, bd = Infinity;
-            for (let j = 0; j < n; j++) {
-                const dr = pr - srcR[j], dg = pg - srcG[j], db = pb - srcB[j];
-                const d  = dr * dr + dg * dg + db * db;
-                if (d < bd) { bd = d; bi = j; }
-            }
-            if (bi >= 0 && bd <= THRESH) {
-                data[i] = tgtR[bi]; data[i + 1] = tgtG[bi]; data[i + 2] = tgtB[bi];
-            }
-        }
+        remapPixels(id.data, swap.sourceColors, swap.targetShades);
         cx.putImageData(id, 0, 0);
         cache?.set(cacheKey, c);
         return c;

@@ -229,6 +229,24 @@ export function sourceMaterialFor(slot, entry) {
     return SOURCE_MATERIAL[slot] ?? 'body';
 }
 
+/**
+ * Source → target colour pairs for recolouring an item with a palette entry.
+ * Items drawn in their own palette carry `entry.sourceColors` (a dark → light
+ * ramp of their real pixel colours); the target shades are then resampled to
+ * the same length so each source colour lands on the shade at the same depth.
+ * Everything else uses the shared PALETTE_SOURCE of its material.
+ */
+export function swapColors(slot, entry, paletteEntry) {
+    const shades = paletteEntry.shades;
+    if (entry?.sourceColors?.length) {
+        const n = entry.sourceColors.length;
+        const at = i => shades[n === 1 ? Math.floor(shades.length / 2) : Math.round(i * (shades.length - 1) / (n - 1))];
+        return { sourceKey: `custom:${entry.id}`, sourceColors: entry.sourceColors, targetShades: entry.sourceColors.map((_, i) => at(i)) };
+    }
+    const sourceKey = sourceMaterialFor(slot, entry);
+    return { sourceKey, sourceColors: PALETTE_SOURCE[sourceKey], targetShades: shades };
+}
+
 /** swapParams for a tint choice, or null (Natural, file-coloured item, unknown palette). */
 export function swapParamsFor(slot, entry, tintIdx) {
     if (!entry?.id || !tintIdx) return null;
@@ -236,6 +254,5 @@ export function swapParamsFor(slot, entry, tintIdx) {
     const palette = TINT_PALETTE[tintMaterialFor(slot, entry)];
     const pe = palette?.[tintIdx];
     if (!pe?.shades) return null;
-    const sourceKey = sourceMaterialFor(slot, entry);
-    return { sourceKey, sourceColors: PALETTE_SOURCE[sourceKey], targetShades: pe.shades, tintName: pe.name };
+    return { ...swapColors(slot, entry, pe), tintName: pe.name };
 }
