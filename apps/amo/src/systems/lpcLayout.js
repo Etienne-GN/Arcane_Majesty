@@ -61,6 +61,12 @@ export function frameRateFor(anim) {
     return anim === 'idle' ? 2 : anim === 'slash' ? 11 : 8;
 }
 
+/** Frames per motion on the body sheets (walk after its standing-frame skip). */
+export const MOTION_FRAMES = {
+    walk: 8, idle: 2, hurt: 6, slash: 6, backslash: 13, halfslash: 6, thrust: 8, shoot: 13,
+    spellcast: 7, run: 8, sit: 3, jump: 5, climb: 6, combat_idle: 2, emote: 3,
+};
+
 /** ULPC walk sheets carry a standing frame in column 0; the game skips it. */
 export function walkSkip(anim, cols) {
     return anim === 'walk' && cols === 9 ? 1 : 0;
