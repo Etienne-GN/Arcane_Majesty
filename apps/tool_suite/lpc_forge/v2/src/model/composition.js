@@ -51,6 +51,11 @@ export function layersFor(catalogue, comp) {
     return out.sort((a, b) => a.zPos - b.zPos);
 }
 
+/** Stable id of one layer of a composition (a weapon's bg and fg layers differ by itemName). */
+export function layerKeyOf(l) {
+    return `${l.slot}:${l.id}#${l.itemName ?? ''}`;
+}
+
 /** Logical motions (DEFAULT_ANIMS order) a catalogue entry can play. */
 export function motionsOf(entry) {
     if (!entry) return [];

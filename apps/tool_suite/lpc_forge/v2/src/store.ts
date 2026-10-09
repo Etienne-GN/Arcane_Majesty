@@ -36,6 +36,9 @@ export const store = reactive({
   speed: 1,
   view: 'grid' as 'grid' | 'single',
   showMissing: true,
+  bg: 'checker' as 'checker' | 'grass' | 'stone',
+  // "motion:dir" → keys of layers that draw nothing there (filled by the stage canvases)
+  missing: {} as Record<string, string[]>,
 })
 
 export const layers = computed(() => layersFor(catalogue, store.comp))

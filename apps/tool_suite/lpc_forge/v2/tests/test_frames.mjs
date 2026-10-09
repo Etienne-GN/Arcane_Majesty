@@ -23,6 +23,11 @@ check('climb up uses row 0', frameGeometry('climb', 'up', 384, 64).row, 0);
 check('oversize slash', frameGeometry('slash', 'down', 1152, 768),
       { fs: 192, rows: 4, cols: 6, row: 2, colStart: 0, count: 6 });
 
+// Oversize sheets with trailing empty columns (katana slash: 13 cols, 6 used) stop at the first empty column
+check('oversize trailing empties', frameGeometry('slash', 'down', 1664, 512, 6).count, 6);
+check('64px sheets ignore activeCols', frameGeometry('slash', 'down', 384, 256, 3).count, 6);
+check('activeCols omitted → all cols', frameGeometry('slash', 'down', 1664, 512).count, 13);
+
 const g = frameGeometry('walk', 'down', 576, 256);
 check('frame 0 rect', frameRect(g, 0), { sx: 64, sy: 128, sw: 64, sh: 64, dx: 0, dy: 0 });
 check('frame wraps', frameRect(g, 8), frameRect(g, 0));

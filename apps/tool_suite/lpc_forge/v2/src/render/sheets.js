@@ -12,7 +12,7 @@ const cache = new Map(); // key → Promise<Sheet|null>
 
 function swapKey(sp) { return sp ? `${sp.sourceKey}:${sp.tintName}` : ''; }
 
-/** Sheet = { canvas, w, h, emptyRows:Set<number> } — or null when the PNG is missing/broken. */
+/** Sheet = { canvas, w, h, emptyRows:Set<number>, activeCols:number } — or null when the PNG is missing/broken. */
 export function loadSheet(layer, concrete) {
     const path = '/' + animPath(layer, concrete);
     const key = path + '|' + swapKey(layer.swapParams);
@@ -34,7 +34,23 @@ async function build(path, swap) {
         remapPixels(data.data, swap.sourceColors, swap.targetShades);
         ctx.putImageData(data, 0, 0);
     }
-    return { canvas, w: canvas.width, h: canvas.height, emptyRows: emptyRows(data, frameSizeOf(canvas.width, canvas.height)) };
+    const fs = frameSizeOf(canvas.width, canvas.height);
+    return { canvas, w: canvas.width, h: canvas.height, emptyRows: emptyRows(data, fs), activeCols: activeCols(data, fs) };
+}
+
+/** Index of the first fully transparent column (the game's countActiveCols). */
+function activeCols(img, fs) {
+    const cols = Math.floor(img.width / fs);
+    for (let c = 0; c < cols; c++) {
+        let any = false;
+        for (let y = 0; y < img.height && !any; y++) {
+            for (let x = c * fs; x < (c + 1) * fs; x++) {
+                if (img.data[(y * img.width + x) * 4 + 3] > 8) { any = true; break; }
+            }
+        }
+        if (!any) return c;
+    }
+    return cols;
 }
 
 /** Rows with no opaque pixel — e.g. a longsword behind-layer has no DOWN content. */
@@ -56,7 +72,7 @@ function emptyRows(img, fs) {
 /** Draw one frame of `motion` facing `dir` at (x, y). Returns false when nothing was drawn. */
 export function drawLayer(ctx, sheet, motion, dir, frame, x, y) {
     if (!sheet) return false;
-    const g = frameGeometry(motion, dir, sheet.w, sheet.h);
+    const g = frameGeometry(motion, dir, sheet.w, sheet.h, sheet.activeCols);
     if (g.count <= 0 || sheet.emptyRows.has(g.row)) return false;
     const r = frameRect(g, frame);
     ctx.drawImage(sheet.canvas, r.sx, r.sy, r.sw, r.sh, x + r.dx, y + r.dy, r.sw, r.sh);

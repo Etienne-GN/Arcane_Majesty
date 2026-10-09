@@ -15,11 +15,16 @@ export function frameSizeOf(w, h) {
     return h;
 }
 
-/** Which row and columns hold `anim` facing `dir` on a w×h sheet. */
-export function frameGeometry(anim, dir, w, h) {
+/**
+ * Which row and columns hold `anim` facing `dir` on a w×h sheet. Oversize sheets
+ * can carry trailing empty columns; like the game, they stop at `activeCols`
+ * (index of the first fully empty column) when given.
+ */
+export function frameGeometry(anim, dir, w, h, activeCols) {
     const fs = frameSizeOf(w, h);
     const rows = Math.round(h / fs);
-    const cols = Math.floor(w / fs);
+    const all = Math.floor(w / fs);
+    const cols = fs > CELL && activeCols != null ? Math.min(all, activeCols) : all;
     const row = rows === 4 ? DIRS.indexOf(dir) : 0;
     const colStart = walkSkip(anim, cols);
     return { fs, rows, cols, row, colStart, count: cols - colStart };

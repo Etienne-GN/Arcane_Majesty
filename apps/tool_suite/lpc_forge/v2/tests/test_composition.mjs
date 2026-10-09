@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /** Unit tests for the Forge v2 composition model. Run: node v2/tests/test_composition.mjs */
 import { readFileSync } from 'node:fs';
-import { defaultComposition, layersFor, motionsOf, missingIn, entryFor } from '../src/model/composition.js';
+import { defaultComposition, layersFor, motionsOf, missingIn, entryFor, layerKeyOf } from '../src/model/composition.js';
 
 const CAT = JSON.parse(readFileSync(new URL('../../../../amo/src/data/character_catalogue.json', import.meta.url)));
 let passed = 0; const fails = [];
@@ -42,6 +42,10 @@ check('hair natural', layersFor(CAT, comp).find(l => l.slot === 'hair').swapPara
 check('afro covers run', motionsOf(entryFor(CAT, 'hair', 'afro/adult')).includes('run'), true);
 check('arming sword lacks run', motionsOf(entryFor(CAT, 'weapon', 'sword/arming/universal')).includes('run'), false);
 check('missing in run = sword layers', missingIn(ls, 'run').filter(l => l.slot === 'weapon').length, 2);
+
+// layer keys tell a weapon's bg and fg layers apart
+check('layer keys distinct', new Set(w.map(layerKeyOf)).size, 2);
+check('layer key shape', layerKeyOf(w[0]), 'weapon:sword/arming/universal#bg');
 
 // unknown id → ignored, not thrown
 comp.sel.hat = { id: 'does/not/exist' };
