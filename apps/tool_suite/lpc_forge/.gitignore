@@ -30,3 +30,4 @@ coverage
 *.tsbuildinfo
 
 /bin/Ramps.json
+dist-v2

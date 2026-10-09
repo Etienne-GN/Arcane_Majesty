@@ -4,14 +4,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node -e \"const {spawn}=require('child_process'); const p1=spawn('node',['--watch','server.js'],{stdio:'inherit'}); const p2=spawn('node',['node_modules/vite/bin/vite.js'],{stdio:'inherit'}); process.on('SIGINT',()=>{p1.kill();p2.kill();process.exit();});\"",
+    "dev": "node -e \"const {spawn}=require('child_process'); const p1=spawn('node',['--watch','server.js'],{stdio:'inherit'}); const p2=spawn('node',['node_modules/vite/bin/vite.js','--config','vite.v2.config.ts'],{stdio:'inherit'}); process.on('SIGINT',()=>{p1.kill();p2.kill();process.exit();});\"",
     "vite": "vite",
     "server": "node --watch server.js",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "dev:v1": "node -e \"const {spawn}=require('child_process'); const p1=spawn('node',['--watch','server.js'],{stdio:'inherit'}); const p2=spawn('node',['node_modules/vite/bin/vite.js'],{stdio:'inherit'}); process.on('SIGINT',()=>{p1.kill();p2.kill();process.exit();});\"",
+    "ui:v2": "node node_modules/vite/bin/vite.js --config vite.v2.config.ts",
+    "build:v2": "node node_modules/vite/bin/vite.js build --config vite.v2.config.ts",
+    "test": "node tools/test_api_smoke.mjs"
   },
   "dependencies": {
     "better-sqlite3": "^12.10.0",
