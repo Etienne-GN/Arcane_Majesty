@@ -29,7 +29,11 @@ function restore() {
   return defaultComposition(catalogue)
 }
 
+const opensWithLink = /^#comp=/.test(location.hash)
+
 export const store = reactive({
+  // Cast home first, unless a #comp= link opens a character straight in the forge.
+  screen: (opensWithLink ? 'forge' : 'cast') as 'cast' | 'forge',
   comp: restore() as { name: string; sel: Record<string, { id: string; color?: string; tint?: number }> },
   slot: 'body',
   motion: 'walk',
