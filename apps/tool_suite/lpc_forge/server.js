@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
 import { listCast, writeCast, deleteCast, writeJsonAtomic, readJson } from './castStore.js'
 import { ruleErrors } from '../../amo/src/systems/motionRules.js'
+import { flagErrors } from './v2/src/model/gapFlags.js'
 import { CAST_ID_RE, castShapeErrors } from './v2/src/model/cast.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -16,6 +17,7 @@ export function createServer({
   dbPath = join(__dirname, 'saves.db'),
   castDir = join(__dirname, '../../amo/src/data/cast'),
   rulesPath = join(__dirname, '../../amo/src/data/motion_rules.json'),
+  flagsPath = join(__dirname, 'gap_flags.json'),
 } = {}) {
   const db = new Database(dbPath)
 
@@ -34,6 +36,7 @@ export function createServer({
   // Cast files are small; the 20 MB limit is for scratch saves with previews.
   app.use('/api/cast', express.json({ limit: '1mb' }))
   app.use('/api/motion-rules', express.json({ limit: '1mb' }))
+  app.use('/api/gap-flags', express.json({ limit: '2mb' }))
   app.use(express.json({ limit: '20mb' }))
 
   // express.static refuses ../ traversal; fallthrough:false makes misses errors,
@@ -87,6 +90,16 @@ export function createServer({
     const errors = ruleErrors(req.body)
     if (errors.length) return res.status(400).json({ error: errors.join('; ') })
     writeJsonAtomic(rulesPath, req.body)
+    res.json({ ok: true })
+  })
+
+  // Gap flags: review notes on item × motion gaps (Forge-only data, not shipped).
+  app.get('/api/gap-flags', (req, res) => res.json(readJson(flagsPath, [])))
+
+  app.put('/api/gap-flags', (req, res) => {
+    const errors = flagErrors(req.body)
+    if (errors.length) return res.status(400).json({ error: errors.join('; ') })
+    writeJsonAtomic(flagsPath, req.body)
     res.json({ ok: true })
   })
 

@@ -1,7 +1,6 @@
 import { reactive, computed, watch } from 'vue'
 import CATALOGUE from '@game/data/character_catalogue.json'
 import { layersFor, defaultComposition, gapsIn } from '@v2/model/composition.js'
-import RULES from '@game/data/motion_rules.json'
 import { DEFAULT_ANIMS, resolveAnim } from '@game/systems/animResolve.js'
 import { loadSheet } from '@v2/render/sheets.js'
 
@@ -33,8 +32,9 @@ function restore() {
 const opensWithLink = /^#comp=/.test(location.hash)
 
 export const store = reactive({
-  // Cast home first, unless a #comp= link opens a character straight in the forge.
-  screen: (opensWithLink ? 'forge' : 'cast') as 'cast' | 'forge',
+  // Cast home first, unless a #comp= link opens a character straight in the
+  // forge (or #gaps opens the gap review).
+  screen: (opensWithLink ? 'forge' : location.hash === '#gaps' ? 'gaps' : 'cast') as 'cast' | 'forge' | 'gaps',
   comp: restore() as { name: string; sel: Record<string, { id: string; color?: string; tint?: number }> },
   slot: 'body',
   motion: 'walk',
@@ -46,8 +46,9 @@ export const store = reactive({
   bg: 'checker' as 'checker' | 'grass' | 'stone',
   // true while a cast member is open: the scratch autosave must not take its place
   editingCast: false,
-  // Motion rules (src/data/motion_rules.json) and the open cast member's overrides.
-  rules: RULES as Record<string, any>,
+  // Motion rules (src/data/motion_rules.json, fetched over the API so saving one
+  // doesn't make Vite reload the page) and the open cast member's overrides.
+  rules: {} as Record<string, any>,
   ruleOverrides: undefined as Record<string, any> | undefined,
   // motion → mode (fallback / borrow / hide / missing) → keys of layers in that state
   gaps: {} as Record<string, Record<string, string[]>>,
@@ -82,6 +83,14 @@ watch(() => store.comp, c => {
   if (store.editingCast) return
   try { localStorage.setItem(KEY, JSON.stringify(c)) } catch { /* ignore */ }
 }, { deep: true })
+
+export async function refreshRules() {
+  try {
+    const r = await fetch('/api/motion-rules')
+    if (r.ok) store.rules = await r.json()
+  } catch { /* API down: draw with no rules (the game's default fallback) */ }
+}
+refreshRules()
 
 export function pick(slot: string, id: string | null) {
   if (!id) delete store.comp.sel[slot]

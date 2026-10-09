@@ -8,6 +8,7 @@ import CharacterCanvas from './components/CharacterCanvas.vue'
 import SavesPanel from './components/SavesPanel.vue'
 import CastHome from './components/CastHome.vue'
 import CastBar from './components/CastBar.vue'
+import GapReview from './components/GapReview.vue'
 import { layersFor } from '@v2/model/composition.js'
 import { store, catalogue } from './store'
 import { cast } from './castState'
@@ -25,12 +26,18 @@ function withItem(entry: any) {
   <div class="app">
     <header class="top">
       <strong>LPC Forge</strong> <span class="ver">v2</span>
+      <nav class="tabs">
+        <button :class="{ active: store.screen === 'cast' }" @click="store.screen = 'cast'">Cast</button>
+        <button :class="{ active: store.screen === 'forge' }" @click="store.screen = 'forge'">Forge</button>
+        <button :class="{ active: store.screen === 'gaps' }" @click="store.screen = 'gaps'">Gaps</button>
+      </nav>
       <template v-if="store.screen === 'forge'">
         <input class="name" v-model="store.comp.name" aria-label="Character name" />
         <CastBar />
       </template>
     </header>
     <CastHome v-if="store.screen === 'cast'" />
+    <GapReview v-else-if="store.screen === 'gaps'" />
     <template v-else>
       <aside class="left"><SlotList /></aside>
       <main class="center">
@@ -54,6 +61,8 @@ function withItem(entry: any) {
 .app { display: grid; grid-template-columns: 260px 1fr 320px; grid-template-rows: auto 1fr; height: 100%; }
 .top { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; padding: 6px 14px; min-height: 44px; border-bottom: 1px solid var(--border); background: var(--panel); flex-wrap: wrap; }
 .ver { color: var(--muted); font-family: var(--font-mono); }
+.tabs { display: flex; gap: 4px; margin-left: 12px; }
+.tabs button { padding: 3px 10px; }
 .name { margin-left: 16px; width: 200px; }
 .left, .right { background: var(--panel); overflow: auto; }
 .left { border-right: 1px solid var(--border); }

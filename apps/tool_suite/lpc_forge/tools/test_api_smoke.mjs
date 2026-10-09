@@ -12,7 +12,8 @@ import { createServer, startServer } from '../server.js';
 const tmp = mkdtempSync(join(tmpdir(), 'forge-api-'));
 const castDir = join(tmp, 'cast');
 const rulesPath = join(tmp, 'motion_rules.json');
-const app = createServer({ dbPath: join(tmp, 'saves.db'), castDir, rulesPath });
+const flagsPath = join(tmp, 'gap_flags.json');
+const app = createServer({ dbPath: join(tmp, 'saves.db'), castDir, rulesPath, flagsPath });
 const srv = app.listen(0);
 const base = `http://localhost:${srv.address().port}`;
 let passed = 0; const fails = [];
@@ -86,6 +87,17 @@ else fails.push(`rules put → ${rp.status}`);
 const badRules = await fetch(base + '/api/motion-rules', json('PUT', { 'cape|solid/female|': { sit: { rule: 'explode' } } }));
 if (badRules.status === 400 && (await badRules.json()).error.includes('explode')) passed++; else fails.push(`bad rules → ${badRules.status}`);
 if (JSON.stringify(JSON.parse(readFileSync(rulesPath, 'utf8'))) === JSON.stringify(goodRules)) passed++; else fails.push('bad rules overwrote the file');
+
+// ── gap flags (temp file) ──
+const f0 = await (await fetch(base + '/api/gap-flags')).json();
+if (Array.isArray(f0) && f0.length === 0) passed++; else fails.push('flags start');
+const flag = { id: 'f1', key: 'cape|solid/female|', motion: 'run', reason: 'needs_art', status: 'open', comment: 'cape vanishes in run', createdAt: '2026-10-09T12:00:00Z' };
+const fp = await fetch(base + '/api/gap-flags', json('PUT', [flag]));
+if (fp.status === 200 && JSON.parse(readFileSync(flagsPath, 'utf8'))[0].id === 'f1') passed++; else fails.push(`flags put → ${fp.status}`);
+for (const [what, body] of [['not a list', { a: 1 }], ['bad status', [{ ...flag, status: 'done' }]], ['bad motion', [{ ...flag, motion: 'fly' }]], ['no key', [{ ...flag, key: 5 }]]]) {
+    const r = await fetch(base + '/api/gap-flags', json('PUT', body));
+    if (r.status === 400) passed++; else fails.push(`bad flags (${what}) → ${r.status}`);
+}
 
 srv.close();
 
