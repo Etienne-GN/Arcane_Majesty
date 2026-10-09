@@ -14,7 +14,7 @@
 The game already has an implicit rule: `_layerTarget` falls back to a layer's **walk** frames when it lacks the requested motion (unsynced: walk frame count and fps). Forge v2 (Plan A) wrongly drew those layers as vanished. The default rule is therefore `fallback` (= today's game behaviour, kept), and the spec's rules become explicit choices on top: `hide`, `borrow <motion>` (retimed), `custom` (Plan D).
 
 ## Global Constraints
-- Rule file: `apps/amo/src/data/motion_rules.json` = `{ "<slot>|<id>|<itemName or ''>": { "<motion>": { "rule": "hide" } | { "rule": "borrow", "from": "<motion>" } } }`. Absent = `fallback`.
+- Rule file: `apps/amo/src/data/motion_rules.json` = `{ "<render type>|<id>|<itemName or ''>": { "<motion>": { "rule": "hide" } | { "rule": "borrow", "from": "<motion>" } } }`. Absent = `fallback`.
 - Cast override: optional `cast.motionRules` with the same shape; wins over the global file for that character.
 - Frame counts per motion (body sheets, after the walk standing-frame skip): walk 8, idle 2, hurt 6, slash 6, backslash 13, halfslash 6, thrust 8, shoot 13, spellcast 7, run 8, sit 3, jump 5, climb 6, combat_idle 2, emote 3 (`MOTION_FRAMES`).
 - `borrow` retimes: target frame i shows source frame `floor(i * srcCount / dstCount)`, played at the target motion's fps.

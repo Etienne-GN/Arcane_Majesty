@@ -22,6 +22,8 @@ if (castConfig('b', undefined, fx) === null) passed++; else fails.push('unpublis
 if (castConfig('a', 'v', fx)?.layers.length === 0) passed++; else fails.push('variant layers');
 if (castConfig('a', 'nope', fx) === null) passed++; else fails.push('unknown variant must be null');
 if (castConfig('zzz', undefined, fx) === null) passed++; else fails.push('unknown id');
+const withRules = { r: { id: 'r', published: true, layers: L, motionRules: { 'body|bodies/male|': { sit: { rule: 'hide' } } } } };
+if (castConfig('r', undefined, withRules)?.motionRules?.['body|bodies/male|']?.sit?.rule === 'hide') passed++; else fails.push('castConfig must pass motionRules overrides');
 
 // ── every cast file ──
 const files = existsSync(DIR) ? readdirSync(DIR).filter(f => f.endsWith('.json')) : [];

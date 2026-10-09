@@ -9,18 +9,19 @@
  *   borrow    a rule plays another motion's frames, retimed to this
  *             motion's frame count so it stays in step with the body
  *
- * Rules: { "<slot>|<id>|<itemName>": { "<motion>": { rule: 'hide' } |
+ * Rules: { "<type>|<id>|<itemName>": { "<motion>": { rule: 'hide' } |
  * { rule: 'borrow', from: '<motion>' } } } (src/data/motion_rules.json),
  * optionally overridden per character (cast.motionRules). Rules never
  * override real art, and malformed entries are ignored (ruleErrors reports them).
  */
-import { resolveAnim, DEFAULT_ANIMS } from './animResolve.js';
+import { resolveAnim, concreteAnimsFor, DEFAULT_ANIMS } from './animResolve.js';
 import { MOTION_FRAMES } from './lpcLayout.js';
 
 const MOTIONS = new Set(DEFAULT_ANIMS);
 
+/** Rule key: render type (game layers carry no slot), id and item name — unique per catalogue layer. */
 export function ruleKey(layer) {
-    return `${layer.slot ?? layer.type}|${layer.id}|${layer.itemName ?? ''}`;
+    return `${layer.type}|${layer.id}|${layer.itemName ?? ''}`;
 }
 
 function validRule(r, motion) {
@@ -57,12 +58,25 @@ export function resolveMotion(layer, motion, rules, overrides) {
     return { mode: 'fallback', concrete: resolveAnim(layer, 'walk') ?? 'walk', frames: null };
 }
 
+/** Concrete files a layer needs loaded for these motions: own art, walk (fallback) and borrow sources. */
+export function neededAnims(layer, logicalAnims, rules, overrides) {
+    const out = concreteAnimsFor(layer, logicalAnims);
+    for (const m of logicalAnims) {
+        const r = ruleFor(layer, m, rules, overrides);
+        if (r.rule === 'borrow') {
+            const c = resolveAnim(layer, r.from);
+            if (c) out.add(c);
+        }
+    }
+    return out;
+}
+
 /** Problems in a rules object (empty = valid) — for the API and validators. */
 export function ruleErrors(rules) {
     if (!rules || typeof rules !== 'object' || Array.isArray(rules)) return ['rules must be an object'];
     const errs = [];
     for (const [key, byMotion] of Object.entries(rules)) {
-        if (key.split('|').length !== 3) errs.push(`${key}: key must be "slot|id|itemName"`);
+        if (key.split('|').length !== 3) errs.push(`${key}: key must be "type|id|itemName"`);
         if (!byMotion || typeof byMotion !== 'object' || Array.isArray(byMotion)) { errs.push(`${key}: must map motions to rules`); continue; }
         for (const [motion, r] of Object.entries(byMotion)) {
             if (!MOTIONS.has(motion)) { errs.push(`${key}: unknown motion "${motion}"`); continue; }

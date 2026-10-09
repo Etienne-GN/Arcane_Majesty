@@ -11,5 +11,6 @@ export function castConfig(id, variant, cast = CAST) {
     if (!c?.published) return null;
     const layers = variant ? c.variants?.[variant]?.layers : c.layers;
     if (!layers) return null;
-    return { layers, animations: DEFAULT_ANIMS, defaultAnim: 'walk', defaultDir: 'down' };
+    // The character's own motion rules (cast.motionRules) override the global ones.
+    return { layers, animations: DEFAULT_ANIMS, defaultAnim: 'walk', defaultDir: 'down', motionRules: c.motionRules };
 }

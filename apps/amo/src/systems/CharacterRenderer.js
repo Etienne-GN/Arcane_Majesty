@@ -22,11 +22,15 @@
 // Pure animation-resolution logic lives in animResolve.js (Phaser-free, unit-tested).
 // Imported for internal use and re-exported so existing
 // `import { … } from './CharacterRenderer.js'` call-sites keep working.
-import { DEFAULT_ANIMS, ANIM_ALIASES, resolveAnim, concreteAnimsFor } from './animResolve.js';
+import { DEFAULT_ANIMS, ANIM_ALIASES, resolveAnim } from './animResolve.js';
 export { DEFAULT_ANIMS, ANIM_ALIASES, resolveAnim };
 // Paths and frame rules shared with LPC Forge v2 (Phaser-free).
 import { animPath as animUrl, COLOR_TYPES, frameRateFor } from './lpcLayout.js';
 import { remapPixels } from './lpcPalettes.js';
+// Per-item motion rules (fallback / hide / retimed borrow), shared with LPC Forge v2.
+import { resolveMotion, neededAnims, frameMap } from './motionRules.js';
+import { MOTION_FRAMES } from './lpcLayout.js';
+import MOTION_RULES from '../data/motion_rules.json';
 export { COLOR_TYPES };
 
 const FRAME_W = 64;
@@ -369,6 +373,21 @@ function ensureAnims(scene, key, animName) {
     });
 }
 
+/**
+ * A borrowed animation retimed to another motion: the source frames, resampled
+ * to the target motion's frame count and played at its rate, so a borrowed
+ * layer stays in step with the body. Built once per (source anim, motion).
+ */
+function ensureRetimed(scene, baseKey, motion) {
+    const key = `${baseKey}~${motion}`;
+    if (scene.anims.exists(key)) return key;
+    const src = scene.anims.get(baseKey);
+    const frames = src.frames.map(f => ({ key: f.textureKey, frame: f.textureFrame }));
+    const map = frameMap(frames.length, MOTION_FRAMES[motion] ?? frames.length);
+    scene.anims.create({ key, frames: map.map(i => frames[i]), frameRate: frameRateFor(motion), repeat: -1 });
+    return key;
+}
+
 // ─── CharacterRenderer ────────────────────────────────────────────────────────
 
 export class CharacterRenderer {
@@ -384,7 +403,7 @@ export class CharacterRenderer {
         const anims = config.animations ?? DEFAULT_ANIMS;
 
         for (const layer of config.layers) {
-            for (const anim of concreteAnimsFor(layer, anims)) {
+            for (const anim of neededAnims(layer, anims, MOTION_RULES, config.motionRules)) {
                 const key = texKey(layer, anim);
                 if (scene.textures.exists(key)) continue;
                 const url = animUrl(layer, anim);
@@ -407,6 +426,7 @@ export class CharacterRenderer {
         container._lpcAnim     = startAnim;
         container._lpcDir      = startDir;
         container._renderer    = this;
+        container._lpcRuleOverrides = config.motionRules;
 
         const sorted = [...config.layers].sort(
             (a, b) => (a.zPos ?? DEFAULT_ZPOS[a.type] ?? 0) - (b.zPos ?? DEFAULT_ZPOS[b.type] ?? 0)
@@ -428,7 +448,7 @@ export class CharacterRenderer {
 
             const sprite = scene.add.sprite(0, 0, initKey, 0);
             container.add(sprite);
-            const entry = { sprite, layer, anim: startAnim };
+            const entry = { sprite, layer, anim: startAnim, ruleOverrides: config.motionRules };
             container._lpcLayers[layerKey(layer)] = entry;
 
             const t = this._layerTarget(entry, startAnim, startDir);
@@ -442,35 +462,36 @@ export class CharacterRenderer {
     /**
      * Resolve what a single layer should display for a (logical anim, direction).
      * Returns { key, animKey, effAnim } to play, or null when the layer should be
-     * hidden — e.g. it ships no file for the motion AND none for walk, or its
-     * resolved animation simply has no frames for this direction (a real asset
-     * gap such as a weapon with no up-facing slash). We deliberately do NOT fall
-     * back to a walk pose mid-action: a sword frozen in a walk stance during a
-     * slash reads as broken, so hiding is the honest choice.
+     * hidden. Motion rules (motionRules.js) decide: own art; no art → its walk
+     * frames (the long-standing fallback); a "hide" rule → hidden; a "borrow"
+     * rule → another motion's frames retimed to this motion's length. A layer
+     * whose resolved animation has no frames for this direction (e.g. a blade
+     * drawn behind the body facing up) is hidden.
      */
     _layerTarget(entry, useAnim, useDir) {
         const scene = this._scene;
         const { layer } = entry;
         const texOk = (k) => k && scene.textures.exists(k) && scene.textures.get(k)?.key !== '__MISSING';
 
-        // 1. Resolve the requested motion to a concrete file this layer ships.
-        let effAnim  = resolveAnim(layer, useAnim);
-        let isAction = !!(effAnim && texOk(texKey(layer, effAnim)));
-        if (!isAction) {
-            // Layer has no file for this motion — track movement via walk instead
-            // (keeps clothing/body-parts present during idle, spellcast, etc.).
+        const res = resolveMotion(layer, useAnim, MOTION_RULES, entry.ruleOverrides);
+        if (res.mode === 'hide') return null;
+        let effAnim = res.concrete;
+        let retime  = res.mode === 'borrow';
+        if (!effAnim || !texOk(texKey(layer, effAnim))) {
+            // Art not loaded — fall back to walk, as the game always has.
             effAnim = resolveAnim(layer, 'walk') ?? 'walk';
+            retime  = false;
             if (!texOk(texKey(layer, effAnim))) return null;
         }
 
-        // 2. Prefer a palette-swapped texture when one exists for this anim.
+        // Prefer a palette-swapped texture when one exists for this anim.
         const swp = entry.swappedKeys?.[effAnim];
         const key = (swp && texOk(swp)) ? swp : texKey(layer, effAnim);
 
         ensureAnims(scene, key, effAnim);
         const animKey = `${key}_${useDir}`;
         if (!scene.anims.exists(animKey)) return null; // direction row empty → hide
-        return { key, animKey, effAnim };
+        return { key, animKey: retime ? ensureRetimed(scene, animKey, useAnim) : animKey, effAnim };
     }
 
     /**
@@ -614,7 +635,7 @@ export class CharacterRenderer {
 
     /** Returns true if every concrete animation this layer needs is already loaded */
     isLayerLoaded(layer, anims = DEFAULT_ANIMS) {
-        for (const a of concreteAnimsFor(layer, anims)) {
+        for (const a of neededAnims(layer, anims, MOTION_RULES)) {
             if (!this._scene.textures.exists(texKey(layer, a))) return false;
         }
         return true;
@@ -624,11 +645,11 @@ export class CharacterRenderer {
      * Load multiple layers in one batch — fires onDone() once when all textures are ready.
      * Safe to call at any time after preload; skips already-loaded textures.
      */
-    loadLayers(layers, anims = DEFAULT_ANIMS, onDone = () => {}) {
+    loadLayers(layers, anims = DEFAULT_ANIMS, onDone = () => {}, motionRules) {
         const scene = this._scene;
         let queued  = false;
         for (const layer of layers) {
-            for (const anim of concreteAnimsFor(layer, anims)) {
+            for (const anim of neededAnims(layer, anims, MOTION_RULES, motionRules)) {
                 const key = texKey(layer, anim);
                 if (!scene.textures.exists(key)) {
                     scene.load.spritesheet(key, animUrl(layer, anim), { frameWidth: FRAME_W, frameHeight: FRAME_H });
@@ -647,7 +668,7 @@ export class CharacterRenderer {
      */
     loadLayer(layer, anims = DEFAULT_ANIMS, onDone = () => {}) {
         const scene   = this._scene;
-        const concrete = [...concreteAnimsFor(layer, anims)];
+        const concrete = [...neededAnims(layer, anims, MOTION_RULES)];
         const needed  = concrete.filter(a => !scene.textures.exists(texKey(layer, a)));
         if (needed.length === 0) { onDone(); return; }
 
@@ -697,7 +718,7 @@ export class CharacterRenderer {
             }
         }
         container.addAt(sprite, insertIdx);
-        container._lpcLayers[lkey] = { sprite, layer, anim: useAnim };
+        container._lpcLayers[lkey] = { sprite, layer, anim: useAnim, ruleOverrides: container._lpcRuleOverrides };
 
         // Restart all layers together so the new sprite is in sync from frame 0
         this._resyncAll(container);
@@ -751,7 +772,7 @@ export class CharacterRenderer {
         sprite.setTexture(key, 0);
 
         delete container._lpcLayers[oldLayerKey];
-        container._lpcLayers[layerKey(newLayer)] = { sprite, layer: newLayer, anim: useAnim };
+        container._lpcLayers[layerKey(newLayer)] = { sprite, layer: newLayer, anim: useAnim, ruleOverrides: container._lpcRuleOverrides };
 
         // Restart all layers together so the swapped sprite is in sync from frame 0
         this._resyncAll(container);

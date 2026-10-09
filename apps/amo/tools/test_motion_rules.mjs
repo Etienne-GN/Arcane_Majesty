@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /** Unit tests for motionRules.js (shared by the game renderer and LPC Forge v2). Run: node tools/test_motion_rules.mjs */
-import { ruleKey, ruleFor, resolveMotion, frameMap, ruleErrors } from '../src/systems/motionRules.js';
+import { ruleKey, ruleFor, resolveMotion, frameMap, ruleErrors, neededAnims } from '../src/systems/motionRules.js';
 import { MOTION_FRAMES } from '../src/systems/lpcLayout.js';
 
 let passed = 0; const fails = [];
@@ -17,6 +17,9 @@ const legacy = { type: 'body', id: 'bodies/male' };   // no slot, no manifest
 check('rule key', ruleKey(cape), 'cape|solid/female|');
 check('rule key itemName', ruleKey(swordFg), 'weapon|sword/arming/universal|fg');
 check('rule key without slot uses type', ruleKey(legacy), 'body|bodies/male|');
+// game layers carry no slot, only the render type: keys must agree between Forge and game
+check('forge and game keys agree', ruleKey({ slot: 'torso_clothes', type: 'torso', id: 'clothes/robe/female' }),
+      ruleKey({ type: 'torso', id: 'clothes/robe/female' }));
 
 check('MOTION_FRAMES complete', Object.keys(MOTION_FRAMES).length, 15);
 check('jump frames', MOTION_FRAMES.jump, 5);
@@ -61,6 +64,12 @@ const over = { 'cape|solid/female|': { jump: { rule: 'hide' } } };
 check('override hides', resolveMotion(cape, 'jump', rules, over).mode, 'hide');
 check('global still borrows', resolveMotion(cape, 'jump', rules).mode, 'borrow');
 check('ruleFor reports', ruleFor(cape, 'jump', rules), { rule: 'borrow', from: 'walk' });
+
+// loading: borrow sources are loaded even when not in the requested anim set
+const need = neededAnims(cape, ['jump', 'idle'], { 'cape|solid/female|': { jump: { rule: 'borrow', from: 'spellcast' } } });
+check('needed: walk + borrow source', [...need].sort(), ['spellcast', 'walk']);
+check('needed: no rules = concreteAnimsFor', [...neededAnims(cape, ['slash', 'run'], {})].sort(), ['slash', 'walk']);
+check('needed: override source', [...neededAnims(cape, ['sit'], {}, { 'cape|solid/female|': { sit: { rule: 'borrow', from: 'hurt' } } })].sort(), ['hurt', 'walk']);
 
 // malformed rules: ignored by the game, reported by ruleErrors (Focus 4)
 const bad = { 'cape|solid/female|': { jump: { rule: 'explode' }, flying: { rule: 'hide' }, sit: { rule: 'borrow', from: 'sit' }, run: { rule: 'borrow', from: 'nope' } } };
