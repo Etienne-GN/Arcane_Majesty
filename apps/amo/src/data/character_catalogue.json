@@ -63,6 +63,28 @@
       ]
     },
     {
+      "id": "legacy2017/jaidyn/orc",
+      "label": "Orc (Jaidyn 2017)",
+      "zPos": 10,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "bodies/male",
+      "sourceColors": [
+        1182214,
+        990214,
+        4066322,
+        2635024,
+        3497761,
+        5671731
+      ]
+    },
+    {
       "id": "bodies/muscular",
       "label": "Muscular",
       "zPos": 10,
@@ -1858,6 +1880,26 @@
         "climb",
         "combat_idle",
         "emote"
+      ]
+    },
+    {
+      "id": "legacy2017/jaidyn/curly_braid",
+      "label": "Curly Hair & Braid (Jaidyn 2017)",
+      "zPos": 50,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "curly_long/adult",
+      "sourceColors": [
+        3148311,
+        7803175,
+        11476022,
+        14756163
       ]
     },
     {
@@ -6191,6 +6233,27 @@
       ]
     },
     {
+      "id": "legacy2017/gentleman/monocle",
+      "label": "Monocle (Gentleman 2017)",
+      "zPos": 60,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "monocle/left/adult",
+      "sourceColors": [
+        2825245,
+        7621424,
+        14662912,
+        16771328,
+        16777215
+      ]
+    },
+    {
       "id": "earrings/simple/left/adult",
       "label": "Left Adult",
       "zPos": 60,
@@ -7535,6 +7598,25 @@
       ]
     },
     {
+      "id": "legacy2017/gentleman/glasses",
+      "label": "Round Glasses (Gentleman 2017)",
+      "zPos": 60,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "glasses/round/adult",
+      "sourceColors": [
+        2825245,
+        7621424,
+        16777215
+      ]
+    },
+    {
       "id": "glasses/round/child",
       "label": "Round Child",
       "zPos": 60,
@@ -8180,6 +8262,25 @@
       ]
     },
     {
+      "id": "legacy2017/gentleman/bowtie",
+      "label": "Bowtie (Gentleman 2017)",
+      "zPos": 65,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "tie/bowtie/adult",
+      "sourceColors": [
+        4408131,
+        5987163,
+        7039851
+      ]
+    },
+    {
       "id": "tie/bowtie2/adult",
       "label": "Bowtie2 Adult",
       "zPos": 65,
@@ -8319,6 +8420,28 @@
       ]
     },
     {
+      "id": "legacy2017/jaidyn/capeclip",
+      "label": "Cape Clip (Jaidyn 2017)",
+      "zPos": 65,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "capeclip/female",
+      "sourceColors": [
+        2831716,
+        3031953,
+        3560887,
+        9199681,
+        5601023,
+        16773267
+      ]
+    },
+    {
       "id": "capeclip/male",
       "label": "Capeclip Male",
       "zPos": 65,
@@ -8391,17 +8514,17 @@
         "yellow"
       ],
       "anims": [
-        "emote",
-        "hurt",
+        "walk",
         "idle",
-        "jump",
-        "run",
-        "shoot",
-        "sit",
+        "hurt",
         "slash",
-        "spellcast",
         "thrust",
-        "walk"
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "emote"
       ]
     },
     {
@@ -8477,17 +8600,37 @@
         "yellow"
       ],
       "anims": [
-        "emote",
-        "hurt",
+        "walk",
         "idle",
-        "jump",
-        "run",
-        "shoot",
-        "sit",
+        "hurt",
         "slash",
-        "spellcast",
         "thrust",
-        "walk"
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "emote"
+      ]
+    },
+    {
+      "id": "legacy2017/jaidyn/capetie",
+      "label": "Cape Tie (Jaidyn 2017)",
+      "zPos": 65,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "capetie/female_redrawn",
+      "sourceColors": [
+        13027273,
+        15000805,
+        15395820,
+        16448250
       ]
     },
     {
@@ -8563,17 +8706,17 @@
         "yellow"
       ],
       "anims": [
-        "emote",
-        "hurt",
+        "walk",
         "idle",
-        "jump",
-        "run",
-        "shoot",
-        "sit",
+        "hurt",
         "slash",
-        "spellcast",
         "thrust",
-        "walk"
+        "shoot",
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "emote"
       ]
     },
     {
@@ -9305,6 +9448,25 @@
         "jump",
         "combat_idle",
         "emote"
+      ]
+    },
+    {
+      "id": "legacy2017/gentleman/necktie",
+      "label": "Necktie (Gentleman 2017)",
+      "zPos": 65,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "tie/necktie/male",
+      "sourceColors": [
+        2763306,
+        4408131,
+        5987163
       ]
     },
     {
@@ -10660,6 +10822,45 @@
         "climb",
         "combat_idle",
         "emote"
+      ]
+    },
+    {
+      "id": "legacy2017/gentleman/pants",
+      "label": "Formal Pants (Gentleman 2017)",
+      "zPos": 40,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "formal/male",
+      "sourceColors": [
+        1582609,
+        2110486,
+        3231522
+      ]
+    },
+    {
+      "id": "legacy2017/gentleman/pants_striped",
+      "label": "Striped Pants (Gentleman 2017)",
+      "zPos": 40,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "formal/male",
+      "sourceColors": [
+        1582609,
+        1781525,
+        2110486,
+        4484393
       ]
     },
     {
@@ -14924,6 +15125,35 @@
       ]
     },
     {
+      "id": "legacy2017/gentleman/bowler",
+      "label": "Bowler Hat (Gentleman 2017)",
+      "zPos": 100,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "companions": [
+        {
+          "id": "legacy2017/gentleman/bowler_back",
+          "zPos": 9,
+          "anims": [
+            "shoot"
+          ]
+        }
+      ],
+      "legacyOf": "formal/bowler/adult",
+      "sourceColors": [
+        1905438,
+        3155762,
+        3813690,
+        4932684
+      ]
+    },
+    {
       "id": "magic/wizard/buckle/adult",
       "label": "Buckle Adult",
       "zPos": 100,
@@ -18124,6 +18354,38 @@
         "combat_idle",
         "emote"
       ]
+    },
+    {
+      "id": "legacy2017/gentleman/tophat",
+      "label": "Top Hat (Gentleman 2017)",
+      "zPos": 100,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "colors": [
+        "black",
+        "brown"
+      ],
+      "companions": [
+        {
+          "id": "legacy2017/gentleman/tophat_back",
+          "zPos": 9,
+          "anims": [
+            "walk",
+            "hurt",
+            "slash",
+            "thrust",
+            "shoot",
+            "spellcast"
+          ]
+        }
+      ],
+      "legacyOf": "formal/tophat/adult"
     },
     {
       "id": "magic/celestial/trim/adult",
@@ -22344,6 +22606,43 @@
         "shoot",
         "spellcast"
       ]
+    },
+    {
+      "id": "legacy2017/jaidyn/cape_trim",
+      "label": "White Cape with Blue Trim (Jaidyn 2017)",
+      "zPos": 170,
+      "itemName": "fg",
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "companions": [
+        {
+          "id": "legacy2017/jaidyn/cape_trim",
+          "itemName": "bg",
+          "zPos": -5,
+          "anims": [
+            "walk",
+            "hurt",
+            "slash",
+            "thrust",
+            "shoot",
+            "spellcast"
+          ]
+        }
+      ],
+      "legacyOf": "trim/female",
+      "sourceColors": [
+        928871,
+        13027273,
+        14014426,
+        15000805,
+        16448250
+      ]
     }
   ],
   "backpack": [
@@ -22806,6 +23105,16 @@
         "walk",
         "thrust"
       ]
+    },
+    {
+      "id": "legacy2017/gentleman/cane",
+      "label": "Cane (Gentleman 2017)",
+      "zPos": 140,
+      "anims": [
+        "walk",
+        "thrust"
+      ],
+      "legacyOf": "polearm/cane/male"
     },
     {
       "id": "ranged/crossbow",
@@ -23835,6 +24144,36 @@
         "shoot",
         "spellcast"
       ]
+    },
+    {
+      "id": "legacy2017/gentleman/shirt",
+      "label": "Formal Shirt (Gentleman 2017)",
+      "zPos": 35,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "clothes/longsleeve/formal/male",
+      "sourceMaterial": "cloth_light"
+    },
+    {
+      "id": "legacy2017/gentleman/shirt_striped",
+      "label": "Striped Shirt (Gentleman 2017)",
+      "zPos": 35,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "clothes/longsleeve/formal/male",
+      "sourceMaterial": "cloth_light"
     },
     {
       "id": "clothes/longsleeve/formal_striped/male",
@@ -25371,6 +25710,26 @@
       ]
     },
     {
+      "id": "legacy2017/jaidyn/sleeveless",
+      "label": "Sleeveless Top (Jaidyn 2017)",
+      "zPos": 35,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "clothes/sleeveless/sleeveless/female",
+      "sourceColors": [
+        3937043,
+        6036765,
+        6561567,
+        8726825
+      ]
+    },
+    {
       "id": "clothes/sleeveless/sleeveless/male",
       "label": "Sleeveless Male",
       "zPos": 35,
@@ -26508,6 +26867,26 @@
       ]
     },
     {
+      "id": "legacy2017/jaidyn/tunic",
+      "label": "Sleeveless Tunic (Jaidyn 2017)",
+      "zPos": 35,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "clothes/tunic/female",
+      "sourceColors": [
+        82011,
+        813173,
+        1873833,
+        2667206
+      ]
+    },
+    {
       "id": "clothes/tunic_sara/female",
       "label": "Tunic Sara Female",
       "zPos": 35,
@@ -26586,6 +26965,46 @@
         "thrust",
         "shoot",
         "spellcast"
+      ]
+    },
+    {
+      "id": "legacy2017/gentleman/vest",
+      "label": "Vest (Gentleman 2017)",
+      "zPos": 36,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "clothes/vest/male",
+      "sourceColors": [
+        1582609,
+        2110486,
+        3231522
+      ]
+    },
+    {
+      "id": "legacy2017/gentleman/vest_striped",
+      "label": "Striped Vest (Gentleman 2017)",
+      "zPos": 36,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "clothes/vest/male",
+      "sourceColors": [
+        1582609,
+        1781525,
+        2110486,
+        3231522,
+        4484393
       ]
     },
     {
@@ -26674,6 +27093,26 @@
         "shoot",
         "spellcast"
       ]
+    },
+    {
+      "id": "legacy2017/gentleman/jacket",
+      "label": "Jacket (Gentleman 2017)",
+      "zPos": 55,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "colors": [
+        "black",
+        "brown",
+        "brown_striped",
+        "tan"
+      ],
+      "legacyOf": "jacket/collared/male"
     },
     {
       "id": "jacket/trim/frock_buttons",
@@ -26817,6 +27256,20 @@
         "shoot",
         "spellcast"
       ]
+    },
+    {
+      "id": "legacy2017/gentleman/iverness",
+      "label": "Iverness Cape (Gentleman 2017)",
+      "zPos": 55,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "jacket/iverness/male"
     },
     {
       "id": "jacket/trim/jacket_pockets",
@@ -26992,6 +27445,24 @@
         "shoot",
         "spellcast"
       ]
+    },
+    {
+      "id": "legacy2017/gentleman/trenchcoat",
+      "label": "Trenchcoat (Gentleman 2017)",
+      "zPos": 55,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "colors": [
+        "black",
+        "gray"
+      ],
+      "legacyOf": "jacket/trench/male"
     }
   ],
   "torso_mail": [
@@ -27367,6 +27838,27 @@
         "thrust",
         "shoot",
         "spellcast"
+      ]
+    },
+    {
+      "id": "legacy2017/gentleman/belt",
+      "label": "Formal Belt (Gentleman 2017)",
+      "zPos": 70,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "waist/belt_formal",
+      "sourceColors": [
+        1973790,
+        3680022,
+        4336922,
+        4210752,
+        8947848
       ]
     },
     {
@@ -28760,6 +29252,20 @@
         "combat_idle",
         "emote"
       ]
+    },
+    {
+      "id": "legacy2017/jaidyn/elven_ears",
+      "label": "Elven Ears (Jaidyn 2017)",
+      "zPos": 22,
+      "anims": [
+        "walk",
+        "hurt",
+        "slash",
+        "thrust",
+        "shoot",
+        "spellcast"
+      ],
+      "legacyOf": "ears/elven/adult"
     },
     {
       "id": "ears/elven/child",

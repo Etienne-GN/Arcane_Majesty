@@ -1,0 +1,260 @@
+{
+  "_doc": "2017 single-sheet LPC items imported as named alternates (tools/import_legacy_sheets.py). sources: path inside ressources/processed_archives (zip:member or file). colours: {name: source} for same-shape colour versions. layers: {itemName: {source, zPos}} — several sheets forming one item (first = main), e.g. a cape's front sheet and its behind-the-body panel.",
+  "packs": {
+    "gentleman": {
+      "suffix": " (Gentleman 2017)",
+      "credit": {
+        "notes": "\"LPC Gentleman\" (2017 original sheet), reformatted to per-motion sheets for Arcane Majesty",
+        "authors": "bluecarrot16,Thane Brimhall (pennomi),laetissima,Matthew Krohn (makrohn),Stephen Challener (Redshrike)",
+        "licenses": "CC-BY-SA 3.0,GPL 3.0",
+        "urls": "https://opengameart.org/content/lpc-gentleman"
+      },
+      "items": [
+        {
+          "slot": "torso_waist",
+          "id": "legacy2017/gentleman/belt",
+          "label": "Formal Belt",
+          "after": "waist/belt_formal",
+          "zPos": 70,
+          "source": "gentleman.zip:gentleman/formal_belt.png"
+        },
+        {
+          "slot": "hat",
+          "id": "legacy2017/gentleman/bowler",
+          "label": "Bowler Hat",
+          "after": "formal/bowler/adult",
+          "zPos": 100,
+          "source": "gentleman.zip:gentleman/formal_bowler hat black front.png",
+          "back": {
+            "id": "legacy2017/gentleman/bowler_back",
+            "zPos": 9,
+            "source": "gentleman.zip:gentleman/formal_bowler hat black.png"
+          }
+        },
+        {
+          "slot": "hat",
+          "id": "legacy2017/gentleman/tophat",
+          "label": "Top Hat",
+          "after": "formal/tophat/adult",
+          "zPos": 100,
+          "colours": {
+            "black": "gentleman.zip:gentleman/formal_tophat black front.png",
+            "brown": "gentleman.zip:gentleman/formal_tophat brown front.png"
+          },
+          "back": {
+            "id": "legacy2017/gentleman/tophat_back",
+            "zPos": 9,
+            "colours": {
+              "black": "gentleman.zip:gentleman/formal_tophat black.png",
+              "brown": "gentleman.zip:gentleman/formal_tophat brown.png"
+            }
+          }
+        },
+        {
+          "slot": "neck",
+          "id": "legacy2017/gentleman/bowtie",
+          "label": "Bowtie",
+          "after": "tie/bowtie/adult",
+          "zPos": 65,
+          "source": "gentleman.zip:gentleman/formal_bowtie.png"
+        },
+        {
+          "slot": "neck",
+          "id": "legacy2017/gentleman/necktie",
+          "label": "Necktie",
+          "after": "tie/necktie/male",
+          "zPos": 65,
+          "source": "gentleman.zip:gentleman/formal_necktie.png"
+        },
+        {
+          "slot": "weapon",
+          "id": "legacy2017/gentleman/cane",
+          "label": "Cane",
+          "after": "polearm/cane/male",
+          "zPos": 140,
+          "source": "gentleman.zip:gentleman/formal_cane.png"
+        },
+        {
+          "slot": "facial",
+          "id": "legacy2017/gentleman/glasses",
+          "label": "Round Glasses",
+          "after": "glasses/round/adult",
+          "zPos": 60,
+          "source": "gentleman.zip:gentleman/formal_glasses.png"
+        },
+        {
+          "slot": "facial",
+          "id": "legacy2017/gentleman/monocle",
+          "label": "Monocle",
+          "after": "monocle/left/adult",
+          "zPos": 60,
+          "source": "gentleman.zip:gentleman/formal_monocle.png"
+        },
+        {
+          "slot": "torso_jacket",
+          "id": "legacy2017/gentleman/iverness",
+          "label": "Iverness Cape",
+          "after": "jacket/iverness/male",
+          "zPos": 55,
+          "source": "gentleman.zip:gentleman/formal_iverness.png"
+        },
+        {
+          "slot": "torso_jacket",
+          "id": "legacy2017/gentleman/jacket",
+          "label": "Jacket",
+          "after": "jacket/collared/male",
+          "zPos": 55,
+          "colours": {
+            "black": "gentleman.zip:gentleman/formal_jacket black.png",
+            "brown": "gentleman.zip:gentleman/formal_jacket brown.png",
+            "brown_striped": "gentleman.zip:gentleman/formal_jacket brown stripes.png",
+            "tan": "gentleman.zip:gentleman/formal_jacket tan.png"
+          }
+        },
+        {
+          "slot": "torso_jacket",
+          "id": "legacy2017/gentleman/trenchcoat",
+          "label": "Trenchcoat",
+          "after": "jacket/trench/male",
+          "zPos": 55,
+          "colours": {
+            "black": "gentleman.zip:gentleman/formal_trenchcoat.png",
+            "gray": "gentleman.zip:gentleman/formal_trenchcoat grey.png"
+          }
+        },
+        {
+          "slot": "legs",
+          "id": "legacy2017/gentleman/pants",
+          "label": "Formal Pants",
+          "after": "formal/male",
+          "zPos": 40,
+          "source": "gentleman.zip:gentleman/formal_pants.png"
+        },
+        {
+          "slot": "legs",
+          "id": "legacy2017/gentleman/pants_striped",
+          "label": "Striped Pants",
+          "after": "formal/male",
+          "zPos": 40,
+          "source": "gentleman.zip:gentleman/formal_pants stripes.png"
+        },
+        {
+          "slot": "torso_clothes",
+          "id": "legacy2017/gentleman/shirt",
+          "label": "Formal Shirt",
+          "after": "clothes/longsleeve/formal/male",
+          "zPos": 35,
+          "source": "gentleman.zip:gentleman/formal_shirt.png"
+        },
+        {
+          "slot": "torso_clothes",
+          "id": "legacy2017/gentleman/shirt_striped",
+          "label": "Striped Shirt",
+          "after": "clothes/longsleeve/formal/male",
+          "zPos": 35,
+          "source": "gentleman.zip:gentleman/formal_stripes shirt.png"
+        },
+        {
+          "slot": "torso_clothes",
+          "id": "legacy2017/gentleman/vest",
+          "label": "Vest",
+          "after": "clothes/vest/male",
+          "zPos": 36,
+          "source": "gentleman.zip:gentleman/formal_vest.png"
+        },
+        {
+          "slot": "torso_clothes",
+          "id": "legacy2017/gentleman/vest_striped",
+          "label": "Striped Vest",
+          "after": "clothes/vest/male",
+          "zPos": 36,
+          "source": "gentleman.zip:gentleman/formal_vest stripes.png"
+        }
+      ]
+    },
+    "jaidyn": {
+      "suffix": " (Jaidyn 2017)",
+      "credit": {
+        "notes": "\"LPC Curly Hair, Elven Ears, White Cape with Blue Trim and More\" (2017 original sheet), reformatted to per-motion sheets for Arcane Majesty",
+        "authors": "JaidynReiman,Matthew Krohn (makrohn),Gaurav",
+        "licenses": "OGA-BY 3.0,CC-BY-SA 3.0,GPL 3.0",
+        "urls": "https://opengameart.org/content/lpc-curly-hair-elven-ears-white-cape-with-blue-trim-and-more"
+      },
+      "items": [
+        {
+          "slot": "hair",
+          "id": "legacy2017/jaidyn/curly_braid",
+          "label": "Curly Hair & Braid",
+          "after": "curly_long/adult",
+          "zPos": 50,
+          "source": "jaidyn_2017/ruby-red.png"
+        },
+        {
+          "slot": "ears",
+          "id": "legacy2017/jaidyn/elven_ears",
+          "label": "Elven Ears",
+          "after": "ears/elven/adult",
+          "zPos": 22,
+          "source": "jaidyn_2017/elvenears_light.png"
+        },
+        {
+          "slot": "body",
+          "id": "legacy2017/jaidyn/orc",
+          "label": "Orc",
+          "after": "bodies/male",
+          "zPos": 10,
+          "source": "jaidyn_2017/red_orc.png"
+        },
+        {
+          "slot": "torso_clothes",
+          "id": "legacy2017/jaidyn/tunic",
+          "label": "Sleeveless Tunic",
+          "after": "clothes/tunic/female",
+          "zPos": 35,
+          "source": "jaidyn_2017/teal_tunic.png"
+        },
+        {
+          "slot": "torso_clothes",
+          "id": "legacy2017/jaidyn/sleeveless",
+          "label": "Sleeveless Top",
+          "after": "clothes/sleeveless/sleeveless/female",
+          "zPos": 35,
+          "source": "jaidyn_2017/maroon_sleeveless.png"
+        },
+        {
+          "slot": "cape",
+          "id": "legacy2017/jaidyn/cape_trim",
+          "label": "White Cape with Blue Trim",
+          "after": "trim/female",
+          "zPos": 170,
+          "layers": {
+            "fg": {
+              "source": "jaidyn_2017/trimcape_whiteblue.png",
+              "zPos": 170
+            },
+            "bg": {
+              "source": "jaidyn_2017/cape_white.png",
+              "zPos": -5
+            }
+          }
+        },
+        {
+          "slot": "neck",
+          "id": "legacy2017/jaidyn/capeclip",
+          "label": "Cape Clip",
+          "after": "capeclip/female",
+          "zPos": 65,
+          "source": "jaidyn_2017/capeclip_blue.png"
+        },
+        {
+          "slot": "neck",
+          "id": "legacy2017/jaidyn/capetie",
+          "label": "Cape Tie",
+          "after": "capetie/female_redrawn",
+          "zPos": 65,
+          "source": "jaidyn_2017/capetie_white.png"
+        }
+      ]
+    }
+  }
+}
