@@ -242,8 +242,12 @@ chainmail, leather armour, hoofs, wounds, …), via
 - Human-eye expressions (`eyes/human/adult/sad2`) have no explicit upstream
   credit; they are credited to their source contribution (upstream PR #140,
   JaidynReiman — "ULPC Expanded Expressions": JaidynReiman, ElizaWy,
-  Stephen Challener). The rest of the human-eye sheets already in the game
-  have no per-file credit rows either — to be filled the same way.
+  Stephen Challener). Upstream folded all human-eye expressions into its
+  `head/faces` set, credited "Original by Redshrike, Expressions by ElizaWy,
+  mapped to all frames by JaidynReiman"; every human-eye sheet in our
+  library (2,763) now carries that credit, and the cyclops, eyebrow and
+  Vitruvius eye sheets carry their own upstream / Vitruvius credits
+  (`tools/fill_missing_credits.py`, re-runnable for any folder).
 
 ## Attribution source files
 
