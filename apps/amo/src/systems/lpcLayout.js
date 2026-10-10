@@ -75,6 +75,20 @@ export function slotIndex(entries, slot) {
     return pos >= 0 && pos < entries.length ? pos : 0;
 }
 
+/**
+ * Next catalogue index from `from` in direction `delta` (±1), skipping entries
+ * marked `hidden` (replaced items: still valid for saved characters, no longer
+ * offered). Wraps around; stays put if nothing else is visible.
+ */
+export function nextVisible(list, from, delta) {
+    const n = list.length;
+    for (let step = 1; step <= n; step++) {
+        const i = (((from + delta * step) % n) + n) % n;
+        if (!list[i]?.hidden) return i;
+    }
+    return from;
+}
+
 /** Frames per motion on the body sheets (walk after its standing-frame skip). */
 export const MOTION_FRAMES = {
     walk: 8, idle: 2, hurt: 6, slash: 6, backslash: 13, halfslash: 6, thrust: 8, shoot: 13,

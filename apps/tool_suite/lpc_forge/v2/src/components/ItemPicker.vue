@@ -11,7 +11,7 @@ const FILTERS = ['run', 'jump', 'sit', 'idle', 'climb']
 const entries = computed(() => {
   const s = q.value.trim().toLowerCase()
   return (catalogue[store.slot] ?? [])
-    .filter(e => e.id)
+    .filter(e => e.id && !e.hidden)   // hidden = replaced item, kept only for saved characters
     .map(e => ({ e, motions: motionsOf(e) }))
     .filter(({ e }) => !s || e.label.toLowerCase().includes(s) || e.id.toLowerCase().includes(s))
     .filter(({ motions }) => need.value.every(m => motions.includes(m)))

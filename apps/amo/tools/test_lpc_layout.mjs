@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /** Unit tests for lpcLayout.js (shared by the game and LPC Forge v2). Run: node tools/test_lpc_layout.mjs */
-import { SLOTS, renderType, animPath, frameRateFor, walkSkip, slotIndex } from '../src/systems/lpcLayout.js';
+import { SLOTS, renderType, animPath, frameRateFor, walkSkip, slotIndex, nextVisible } from '../src/systems/lpcLayout.js';
 
 let passed = 0; const fails = [];
 function check(name, got, want) {
@@ -36,6 +36,14 @@ check('old save without id → position', slotIndex(entries, { catalogueIdx: 1 }
 check('id gone from catalogue → position', slotIndex(entries, { id: 'zzz', catalogueIdx: 1 }), 1);
 check('nothing → 0', slotIndex(entries, {}), 0);
 check('position out of range → 0', slotIndex(entries, { catalogueIdx: 99 }), 0);
+
+// cycling skips hidden items (replaced originals stay valid for old saves, but aren't offered)
+const list = [{ id: null }, { id: 'a' }, { id: 'old', hidden: true }, { id: 'b' }];
+check('skip hidden forward', nextVisible(list, 1, 1), 3);
+check('skip hidden backward', nextVisible(list, 3, -1), 1);
+check('wraps', nextVisible(list, 3, 1), 0);
+check('from a hidden item moves on', nextVisible(list, 2, 1), 3);
+check('all hidden → stays', nextVisible([{ id: 'x', hidden: true }], 0, 1), 0);
 
 if (fails.length) { console.error(`✗ lpcLayout: ${fails.length} failed\n  ` + fails.join('\n  ')); process.exit(1); }
 console.log(`✓ lpcLayout: ${passed} passed`);

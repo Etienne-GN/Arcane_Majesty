@@ -5,7 +5,7 @@ import CATALOGUE from '../data/character_catalogue.json';
 
 // ── Render-type map: UI slot → actual URL type used by CharacterRenderer ──────
 // torso_* → 'torso'; wound_*/tail/wings → 'body'; ears/horns/fins/nose → 'head'
-import { renderType as rType, SLOTS as ALL_TYPES, slotIndex } from '../systems/lpcLayout.js';
+import { renderType as rType, SLOTS as ALL_TYPES, slotIndex, nextVisible } from '../systems/lpcLayout.js';
 
 // ── Tab definitions ────────────────────────────────────────────────────────────
 const TABS = ['body', 'clothes', 'marks', 'equip'];
@@ -636,8 +636,7 @@ export default class CharacterCreatorScene extends Phaser.Scene {
 
     _cycleLayer(type, delta) {
         const list   = CATALOGUE[type] ?? [];
-        const newIdx = (this._sel[type] + delta + list.length) % list.length;
-        this._selectPart(type, newIdx);
+        this._selectPart(type, nextVisible(list, this._sel[type], delta));
     }
 
     _selectPart(type, newIdx) {
@@ -915,7 +914,9 @@ export default class CharacterCreatorScene extends Phaser.Scene {
         const f       = this._f;
         const LP      = this._SPLIT;
         const h       = this._h;
-        const entries = CATALOGUE[type] ?? [];
+        // Hidden (replaced) items stay valid for saved characters but aren't offered;
+        // each keeps its real catalogue index for selection.
+        const entries = (CATALOGUE[type] ?? []).map((opt, idx) => ({ opt, idx })).filter(x => !x.opt.hidden);
         const current = this._sel[type] ?? 0;
 
         const anchorY = this._pickerLabels[type]?.y ?? 100;
@@ -964,9 +965,9 @@ export default class CharacterCreatorScene extends Phaser.Scene {
         // Scrollable items container — shifted vertically to scroll
         const itemsCont = this.add.container(0, 0);
 
-        entries.forEach((opt, idx) => {
-            const col  = idx % COLS;
-            const row  = Math.floor(idx / COLS);
+        entries.forEach(({ opt, idx }, pos) => {
+            const col  = pos % COLS;
+            const row  = Math.floor(pos / COLS);
             const sx   = contentX + col * (colW + GAP);
             const sy   = contentY + row * (SH + GAP);
             const sel  = idx === current;

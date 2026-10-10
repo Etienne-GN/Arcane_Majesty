@@ -8356,7 +8356,9 @@
         "thrust",
         "shoot",
         "spellcast"
-      ]
+      ],
+      "hidden": true,
+      "replacedBy": "capeclip/male_redrawn"
     },
     {
       "zPos": 65,
@@ -8440,7 +8442,9 @@
         "thrust",
         "shoot",
         "spellcast"
-      ]
+      ],
+      "hidden": true,
+      "replacedBy": "capetie/female_redrawn"
     },
     {
       "zPos": 65,
@@ -8524,7 +8528,9 @@
         "thrust",
         "shoot",
         "spellcast"
-      ]
+      ],
+      "hidden": true,
+      "replacedBy": "capetie/male_redrawn"
     },
     {
       "zPos": 65,
