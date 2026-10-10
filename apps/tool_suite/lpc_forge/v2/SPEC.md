@@ -44,3 +44,23 @@ Plans: **A** foundation (composer + motion stage) · **B** cast, publish, v1 mig
 See the design spec. Plan A delivers: shared `@game` code (`lpcLayout.js`, `lpcPalettes.js`, `animResolve.js`),
 `/lpc` library route, composition model (game LayerConfig), composer with per-item motion coverage,
 motion stage with missing-layer flags, scratch saves.
+
+## Flags for Claude (2026-10-10)
+
+You flag from the stage (🚩 *Flag this frame*, key **F**, in single view; 🚩 on a
+layer row) or from a Gaps cell. A flag targets a **component** (all motions), a
+**component in one motion**, a **single frame** (motion + direction + frame,
+0-based), or the **whole character**, with a reason, a message and a 192 px
+snapshot of what was on screen; stage flags also store the composition (`comp`)
+and cast id (`cast`, or `scratch:<name>`). They live in
+`apps/tool_suite/lpc_forge/gap_flags.json`; the API creates/updates them one at a
+time (`POST /api/gap-flags`, `PATCH /api/gap-flags/:id {status, note, who}`).
+
+**When told "process the Forge flags"** (Claude):
+1. Read `gap_flags.json`; take every flag with status `open` (and `question`s the
+   user answered). Look at its `snapshot` and reproduce it from `comp` + motion/dir/frame.
+2. Fix what it asks (art edit in the library/`lpc_custom`, catalogue, motion rule,
+   cast file…), verify on the stage (screenshot), commit.
+3. Answer on the flag with `PATCH … {status: 'needs_review', note: '…', who: 'Claude'}`
+   — or `status: 'question'` when a decision is the user's. Never set `resolved`
+   (the user approves).

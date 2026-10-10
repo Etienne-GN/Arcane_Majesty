@@ -5,6 +5,7 @@ import { entryFor, layerKeyOf } from '@v2/model/composition.js'
 import { store, layers, catalogue } from '@v2/store'
 import { ruleKey, ruleFor } from '@game/systems/motionRules.js'
 import { cast, setOverride } from '@v2/castState'
+import { flagFromStage } from '@v2/flagging'
 
 const MODES = ['fallback', 'borrow', 'hide', 'missing'] as const
 const WORD: Record<string, string> = { fallback: 'walk frames', borrow: 'borrows', hide: 'hidden', missing: 'no art' }
@@ -34,6 +35,7 @@ const canBorrowWalk = (l: any) => ruleFor(l, 'walk', {}).rule === 'own'
     <div v-for="r in rows" :key="r.key" class="row"
          :class="{ gone: store.view === 'single' && (r.here === 'hide' || r.here === 'missing') }">
       <span class="slot">{{ r.l.slot.replace(/_/g, ' ') }}</span>
+      <button class="fl" :title="`Flag ${r.label} for Claude`" @click="flagFromStage(store.view === 'single' ? 'motion' : 'item', r.rkey)">🚩</button>
       <span class="lbl">{{ r.label }}<small v-if="r.l.itemName"> · {{ r.l.itemName }}</small><small v-if="r.l.color"> · {{ r.l.color }}</small></span>
       <span v-if="store.view === 'single' && r.here" class="why" :class="r.here">{{ WORD[r.here] }} in {{ store.motion }}</span>
       <label v-if="store.view === 'single' && cast.meta && (r.here || overrideValue(r.rkey))" class="over">
@@ -57,6 +59,8 @@ const canBorrowWalk = (l: any) => ruleFor(l, 'walk', {}).rule === 'own'
 .layers { padding: 0 12px 12px; }
 .row { display: grid; grid-template-columns: 78px 1fr; gap: 0 8px; padding: 4px 0; border-bottom: 1px solid var(--border); }
 .slot { color: var(--muted); text-transform: capitalize; }
+.fl { grid-column: 1; grid-row: 2; justify-self: start; padding: 0 4px; font-size: 11px; background: transparent; border-color: transparent; opacity: .5; }
+.fl:hover { opacity: 1; border-color: #ff6464; }
 .lbl small { color: var(--faint); }
 .why { grid-column: 2; font-size: 11px; }
 .over { grid-column: 2; font-size: 11px; color: var(--muted); display: flex; gap: 4px; align-items: center; }

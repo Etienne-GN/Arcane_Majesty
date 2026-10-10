@@ -6,6 +6,7 @@ import { DIRS } from '@v2/render/frames.js'
 import CharacterCanvas from './CharacterCanvas.vue'
 import { store, layers } from '@v2/store'
 import { stepFrame } from '@v2/clock'
+import { flagFromStage } from '@v2/flagging'
 
 const SPEEDS = [0.25, 0.5, 1, 2]
 
@@ -27,6 +28,7 @@ function onKey(e: KeyboardEvent) {
   if (e.key === ' ') { store.playing = !store.playing; e.preventDefault() }
   else if (e.key === ',') stepFrame(fps.value, -1)
   else if (e.key === '.') stepFrame(fps.value, 1)
+  else if ((e.key === 'f' || e.key === 'F') && store.view === 'single') flagFromStage('frame')
   else if (store.view === 'single') {
     const d = { ArrowUp: 'up', ArrowLeft: 'left', ArrowDown: 'down', ArrowRight: 'right' }[e.key]
     if (d) { store.dir = d; e.preventDefault() }
@@ -49,6 +51,8 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
       <span class="sep" />
       <template v-if="store.view === 'single'">
         <button v-for="d in DIRS" :key="d" :class="{ active: store.dir === d }" @click="store.dir = d">{{ d }}</button>
+        <span class="sep" />
+        <button class="flag" title="Pause here and flag this frame for Claude (F)" @click="flagFromStage('frame')">🚩 Flag this frame</button>
         <span class="sep" />
       </template>
       <label title="corner badges: amber = walk frames, blue = borrowed, red = hidden"><input type="checkbox" v-model="store.showMissing" /> show gaps</label>
@@ -94,6 +98,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 .bar { display: flex; gap: 6px; align-items: center; padding: 8px 12px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
 .bar button { padding: 3px 8px; }
 .sep { width: 1px; height: 18px; background: var(--border); margin: 0 4px; }
+.flag { border-color: #ff6464; }
 .grid { display: grid; grid-template-columns: 110px repeat(4, 136px); gap: 4px; padding: 12px; align-content: start; overflow: auto; }
 .head { color: var(--muted); text-align: center; font-size: 11px; text-transform: uppercase; }
 .mlabel { display: flex; flex-direction: column; justify-content: center; gap: 2px; text-transform: capitalize; }

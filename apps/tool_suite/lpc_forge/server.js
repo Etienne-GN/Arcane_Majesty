@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
 import { listCast, writeCast, deleteCast, writeJsonAtomic, readJson } from './castStore.js'
 import { ruleErrors } from '../../amo/src/systems/motionRules.js'
-import { flagErrors } from './v2/src/model/gapFlags.js'
+import { flagErrors, newFlag, applyStatus, FLAG_STATUSES } from './v2/src/model/gapFlags.js'
 import { setRule } from './v2/src/model/gapMatrix.js'
 import { CAST_ID_RE, castShapeErrors } from './v2/src/model/cast.js'
 
@@ -110,11 +110,26 @@ export function createServer({
   // Gap flags: review notes on item × motion gaps (Forge-only data, not shipped).
   app.get('/api/gap-flags', (req, res) => res.json(readJson(flagsPath, [])))
 
-  app.put('/api/gap-flags', (req, res) => {
-    const errors = flagErrors(req.body)
+  // One flag at a time, read-modify-write here (synchronous), so two tabs — or
+  // you flagging while Claude answers — never overwrite each other.
+  app.post('/api/gap-flags', (req, res) => {
+    const { id, status, createdAt, ...fields } = req.body ?? {}
+    const flag = newFlag(fields)
+    const errors = flagErrors([flag])
     if (errors.length) return res.status(400).json({ error: errors.join('; ') })
-    writeJsonAtomic(flagsPath, req.body)
-    res.json({ ok: true })
+    writeJsonAtomic(flagsPath, [...readJson(flagsPath, []), flag])
+    res.json(flag)
+  })
+
+  app.patch('/api/gap-flags/:id', (req, res) => {
+    const list = readJson(flagsPath, [])
+    const i = list.findIndex(f => f.id === req.params.id)
+    if (i < 0) return res.status(404).json({ error: 'no such flag' })
+    const { status = list[i].status, note = '', who = 'You' } = req.body ?? {}
+    if (!FLAG_STATUSES.includes(status)) return res.status(400).json({ error: `unknown status "${status}"` })
+    list[i] = applyStatus(list[i], status, note, who === 'Claude' ? 'Claude' : 'You')
+    writeJsonAtomic(flagsPath, list)
+    res.json(list[i])
   })
 
   // eslint-disable-next-line no-unused-vars

@@ -2,18 +2,24 @@
 /**
  * Open a page in headless Chrome and print its console messages, uncaught
  * exceptions and failed requests (via the DevTools protocol) — for debugging a
- * page that renders blank. Usage: node tools/console.mjs <url> [waitMs]
+ * page that renders blank — and optionally drive it: run JS steps, then save a
+ * screenshot.
+ * Usage: node tools/console.mjs <url> [waitMs] [--eval "step;; step"] [--shot out.png]
+ * (--eval steps are separated by ";;" and run 800 ms apart.)
  */
 import { spawn } from 'node:child_process';
-import { mkdtempSync } from 'node:fs';
+import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-const [url, wait = '6000'] = process.argv.slice(2);
+const args = process.argv.slice(2);
+const opt = n => { const i = args.indexOf(n); return i >= 0 ? args.splice(i, 2)[1] : null; };
+const evalSteps = opt('--eval'), shot = opt('--shot');
+const [url, wait = '6000'] = args;
 if (!url) { console.error('usage: console.mjs <url> [waitMs]'); process.exit(2); }
 const port = 9300 + Math.floor(Math.random() * 500);
 const chrome = spawn('google-chrome', ['--headless=new', '--disable-gpu', `--remote-debugging-port=${port}`,
-    `--user-data-dir=${mkdtempSync(join(tmpdir(), 'forge-cdp-'))}`, 'about:blank'], { stdio: 'ignore' });
+    '--window-size=1500,950', `--user-data-dir=${mkdtempSync(join(tmpdir(), 'forge-cdp-'))}`, 'about:blank'], { stdio: 'ignore' });
 
 let target;
 for (let i = 0; i < 50 && !target; i++) {
@@ -37,6 +43,17 @@ await new Promise(r => { ws.onopen = r; });
 send('Runtime.enable'); send('Log.enable'); send('Network.enable');
 send('Page.navigate', { url });
 await new Promise(r => setTimeout(r, Number(wait)));
+for (const step of (evalSteps ?? '').split(';;').filter(x => x.trim())) {
+    send('Runtime.evaluate', { expression: step, awaitPromise: true });
+    await new Promise(r => setTimeout(r, 800));
+}
+if (shot) {
+    send('Page.captureScreenshot', { format: 'png' });
+    await new Promise(r => {
+        const prev = ws.onmessage;
+        ws.onmessage = ev => { const m = JSON.parse(ev.data); if (m.id === id && m.result?.data) { writeFileSync(shot, Buffer.from(m.result.data, 'base64')); console.log('[shot]', shot); ws.onmessage = prev; r(); } else prev(ev); };
+    });
+}
 send('Runtime.evaluate', { expression: 'document.getElementById("app")?.innerHTML.length ?? -1', returnByValue: true });
 await new Promise(r => {
     const prev = ws.onmessage;

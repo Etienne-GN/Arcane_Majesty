@@ -103,16 +103,27 @@ if (badCell.status === 400) passed++; else fails.push(`bad cell → ${badCell.st
 const badKey = await fetch(base + '/api/motion-rules/cell', json('PATCH', { key: 'nope', motion: 'run', rule: { rule: 'hide' } }));
 if (badKey.status === 400) passed++; else fails.push(`bad cell key → ${badKey.status}`);
 
-// ── gap flags (temp file) ──
+// ── flags (temp file): created and updated one at a time on the server ──
 const f0 = await (await fetch(base + '/api/gap-flags')).json();
 if (Array.isArray(f0) && f0.length === 0) passed++; else fails.push('flags start');
-const flag = { id: 'f1', key: 'cape|solid/female|', motion: 'run', reason: 'needs_art', status: 'open', comment: 'cape vanishes in run', createdAt: '2026-10-09T12:00:00Z' };
-const fp = await fetch(base + '/api/gap-flags', json('PUT', [flag]));
-if (fp.status === 200 && JSON.parse(readFileSync(flagsPath, 'utf8'))[0].id === 'f1') passed++; else fails.push(`flags put → ${fp.status}`);
-for (const [what, body] of [['not a list', { a: 1 }], ['bad status', [{ ...flag, status: 'done' }]], ['bad motion', [{ ...flag, motion: 'fly' }]], ['no key', [{ ...flag, key: 5 }]]]) {
-    const r = await fetch(base + '/api/gap-flags', json('PUT', body));
-    if (r.status === 400) passed++; else fails.push(`bad flags (${what}) → ${r.status}`);
+const flag = { target: 'frame', key: 'cape|solid/female|', motion: 'run', dir: 'left', frame: 3, reason: 'misaligned', comment: 'cape slips' };
+const created = await fetch(base + '/api/gap-flags', json('POST', flag));
+const cf = await created.json();
+if (created.status === 200 && cf.id && cf.status === 'open' && cf.createdAt) passed++; else fails.push(`flag create → ${created.status}`);
+await Promise.all([1, 2, 3].map(n => fetch(base + '/api/gap-flags', json('POST', { target: 'item', key: 'hat|x|', reason: 'other', comment: 'c' + n }))));
+if ((await (await fetch(base + '/api/gap-flags')).json()).length === 4) passed++; else fails.push('concurrent creates lost flags');
+const upd = await fetch(base + `/api/gap-flags/${cf.id}`, json('PATCH', { status: 'needs_review', note: 'nudged 1px', who: 'Claude' }));
+const uf = await upd.json();
+if (upd.status === 200 && uf.status === 'needs_review' && uf.comment.endsWith('[Claude] nudged 1px')) passed++; else fails.push(`flag update → ${upd.status}`);
+const on = JSON.parse(readFileSync(flagsPath, 'utf8')).find(x => x.id === cf.id);
+if (on?.status === 'needs_review') passed++; else fails.push('flag update not on disk');
+for (const [what, body] of [['bad target', { ...flag, target: 'galaxy' }], ['bad motion', { ...flag, motion: 'fly' }], ['no dir', { ...flag, dir: undefined }]]) {
+    const r = await fetch(base + '/api/gap-flags', json('POST', body));
+    if (r.status === 400) passed++; else fails.push(`bad flag (${what}) → ${r.status}`);
 }
+if ((await fetch(base + '/api/gap-flags/nope', json('PATCH', { status: 'resolved' }))).status === 404) passed++; else fails.push('patch unknown flag');
+if ((await fetch(base + `/api/gap-flags/${cf.id}`, json('PATCH', { status: 'done' }))).status === 400) passed++; else fails.push('patch bad status');
+if ((await fetch(base + '/api/gap-flags', json('PUT', []))).status === 404) passed++; else fails.push('whole-list PUT must be gone');
 
 srv.close();
 

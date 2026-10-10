@@ -34,7 +34,7 @@ const opensWithLink = /^#comp=/.test(location.hash)
 export const store = reactive({
   // Cast home first, unless a #comp= link opens a character straight in the
   // forge (or #gaps opens the gap review).
-  screen: (opensWithLink ? 'forge' : location.hash === '#gaps' ? 'gaps' : 'cast') as 'cast' | 'forge' | 'gaps',
+  screen: (opensWithLink ? 'forge' : location.hash === '#gaps' ? 'gaps' : location.hash === '#flags' ? 'flags' : 'cast') as 'cast' | 'forge' | 'gaps' | 'flags',
   comp: restore() as { name: string; sel: Record<string, { id: string; color?: string; tint?: number }> },
   slot: 'body',
   motion: 'walk',

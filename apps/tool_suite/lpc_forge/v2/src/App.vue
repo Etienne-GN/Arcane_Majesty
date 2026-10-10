@@ -9,6 +9,9 @@ import SavesPanel from './components/SavesPanel.vue'
 import CastHome from './components/CastHome.vue'
 import CastBar from './components/CastBar.vue'
 import GapReview from './components/GapReview.vue'
+import FlagsInbox from './components/FlagsInbox.vue'
+import FlagForm from './components/FlagForm.vue'
+import { openFlagCount } from './gapState'
 import { layersFor } from '@v2/model/composition.js'
 import { store, catalogue } from './store'
 import { cast } from './castState'
@@ -30,6 +33,7 @@ function withItem(entry: any) {
         <button :class="{ active: store.screen === 'cast' }" @click="store.screen = 'cast'">Cast</button>
         <button :class="{ active: store.screen === 'forge' }" @click="store.screen = 'forge'">Forge</button>
         <button :class="{ active: store.screen === 'gaps' }" @click="store.screen = 'gaps'">Gaps</button>
+        <button :class="{ active: store.screen === 'flags' }" @click="store.screen = 'flags'">Flags<b v-if="openFlagCount" class="count">{{ openFlagCount }}</b></button>
       </nav>
       <template v-if="store.screen === 'forge'">
         <input class="name" v-model="store.comp.name" aria-label="Character name" />
@@ -38,6 +42,7 @@ function withItem(entry: any) {
     </header>
     <CastHome v-if="store.screen === 'cast'" />
     <GapReview v-else-if="store.screen === 'gaps'" />
+    <FlagsInbox v-else-if="store.screen === 'flags'" />
     <template v-else>
       <aside class="left"><SlotList /></aside>
       <main class="center">
@@ -54,6 +59,7 @@ function withItem(entry: any) {
         <SavesPanel v-if="!cast.meta" />
       </aside>
     </template>
+    <FlagForm />
   </div>
 </template>
 
@@ -63,6 +69,7 @@ function withItem(entry: any) {
 .ver { color: var(--muted); font-family: var(--font-mono); }
 .tabs { display: flex; gap: 4px; margin-left: 12px; }
 .tabs button { padding: 3px 10px; }
+.count { margin-left: 5px; background: #ff6464; color: #fff; border-radius: 8px; padding: 0 5px; font-size: 10px; font-weight: normal; }
 .name { margin-left: 16px; width: 200px; }
 .left, .right { background: var(--panel); overflow: auto; }
 .left { border-right: 1px solid var(--border); }
