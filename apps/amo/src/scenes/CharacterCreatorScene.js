@@ -5,7 +5,7 @@ import CATALOGUE from '../data/character_catalogue.json';
 
 // ── Render-type map: UI slot → actual URL type used by CharacterRenderer ──────
 // torso_* → 'torso'; wound_*/tail/wings → 'body'; ears/horns/fins/nose → 'head'
-import { renderType as rType, SLOTS as ALL_TYPES } from '../systems/lpcLayout.js';
+import { renderType as rType, SLOTS as ALL_TYPES, slotIndex } from '../systems/lpcLayout.js';
 
 // ── Tab definitions ────────────────────────────────────────────────────────────
 const TABS = ['body', 'clothes', 'marks', 'equip'];
@@ -98,7 +98,7 @@ export default class CharacterCreatorScene extends Phaser.Scene {
 
         for (const type of ALL_TYPES) {
             const s   = slotMap[type];
-            const idx = s ? s.catalogueIdx : DEFAULT_SEL[type];
+            const idx = s ? slotIndex(CATALOGUE[type] ?? [], s) : DEFAULT_SEL[type];
             const opt = CATALOGUE[type]?.[idx];
             if (!opt?.id) continue;
             const rt    = rType(type);
@@ -133,7 +133,7 @@ export default class CharacterCreatorScene extends Phaser.Scene {
         this._tintSel      = {};
         if (this._presetSlots) {
             for (const s of this._presetSlots) {
-                this._sel[s.uiType]      = s.catalogueIdx ?? 0;
+                this._sel[s.uiType]      = slotIndex(CATALOGUE[s.uiType] ?? [], s);
                 this._colorSel[s.uiType] = s.colorIdx     ?? 0;
                 this._tintSel[s.uiType]  = s.tintIdx      ?? 0;
             }

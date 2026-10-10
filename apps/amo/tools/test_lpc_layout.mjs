@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /** Unit tests for lpcLayout.js (shared by the game and LPC Forge v2). Run: node tools/test_lpc_layout.mjs */
-import { SLOTS, renderType, animPath, frameRateFor, walkSkip } from '../src/systems/lpcLayout.js';
+import { SLOTS, renderType, animPath, frameRateFor, walkSkip, slotIndex } from '../src/systems/lpcLayout.js';
 
 let passed = 0; const fails = [];
 function check(name, got, want) {
@@ -28,6 +28,14 @@ check('run fps', frameRateFor('run'), 8);
 check('walk 9 cols skips 1', walkSkip('walk', 9), 1);
 check('walk 8 cols no skip', walkSkip('walk', 8), 0);
 check('run no skip', walkSkip('run', 9), 0);
+
+// saved creator picks restore by id (catalogue positions shift when items are added)
+const entries = [{ id: null }, { id: 'a' }, { id: 'new' }, { id: 'b' }];
+check('by id after an insert', slotIndex(entries, { id: 'b', catalogueIdx: 2 }), 3);
+check('old save without id → position', slotIndex(entries, { catalogueIdx: 1 }), 1);
+check('id gone from catalogue → position', slotIndex(entries, { id: 'zzz', catalogueIdx: 1 }), 1);
+check('nothing → 0', slotIndex(entries, {}), 0);
+check('position out of range → 0', slotIndex(entries, { catalogueIdx: 99 }), 0);
 
 if (fails.length) { console.error(`✗ lpcLayout: ${fails.length} failed\n  ` + fails.join('\n  ')); process.exit(1); }
 console.log(`✓ lpcLayout: ${passed} passed`);

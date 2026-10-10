@@ -61,6 +61,20 @@ export function frameRateFor(anim) {
     return anim === 'idle' ? 2 : anim === 'slash' ? 11 : 8;
 }
 
+/**
+ * Catalogue index of a saved creator pick. Restores by item id, because
+ * catalogue positions shift whenever an item is added; the saved position is
+ * only a fallback for old saves without an id (or an id no longer listed).
+ */
+export function slotIndex(entries, slot) {
+    if (slot?.id) {
+        const i = entries.findIndex(e => e.id === slot.id);
+        if (i >= 0) return i;
+    }
+    const pos = slot?.catalogueIdx ?? 0;
+    return pos >= 0 && pos < entries.length ? pos : 0;
+}
+
 /** Frames per motion on the body sheets (walk after its standing-frame skip). */
 export const MOTION_FRAMES = {
     walk: 8, idle: 2, hurt: 6, slash: 6, backslash: 13, halfslash: 6, thrust: 8, shoot: 13,
