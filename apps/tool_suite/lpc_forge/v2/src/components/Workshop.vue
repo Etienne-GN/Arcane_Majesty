@@ -155,7 +155,7 @@ const TOOLS = [['pencil', 'Pencil (B)'], ['eraser', 'Eraser (E)'], ['pick', 'Eye
         <h3>Save to the game</h3>
         <label class="fld">Author <input v-model="ws.author" placeholder="Your name (for the credits)" /></label>
         <label class="fld">Your licence for this work
-          <select v-model="ws.license"><option v-for="l in LICENSES" :key="l" :value="l">{{ l }}</option></select>
+          <select v-model="ws.license"><option v-for="l in LICENSES" :key="l" :value="l" :disabled="!l && !ws.derivedFrom.length">{{ l || 'same as the sources' }}</option></select>
         </label>
         <p v-if="ws.derivedFrom.length" class="muted small">Derived from {{ ws.derivedFrom.join(', ') }} — its authors and licences are added to the credits automatically.</p>
         <label class="fld">Note <input v-model="ws.note" placeholder="optional" /></label>

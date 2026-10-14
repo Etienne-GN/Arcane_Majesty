@@ -1,0 +1,22 @@
+[
+  {
+    "target": "motion",
+    "key": "weapon|sword/arming/universal|fg",
+    "motion": "run",
+    "reason": "needs_art",
+    "comment": "[Claude] End-to-end test of the motion workshop (Plan D): run drafted by pose-fit from walk. Please review the art on the stage; redraw the arm swing in the workshop if it looks off, or delete it there.\n[You] Custom run art saved in the workshop (lpc_custom/weapon/sword/arming/universal/run/fg.png) — please review it on the stage.",
+    "id": "mv8jbq42cirm",
+    "status": "needs_review",
+    "createdAt": "2026-10-14T20:00:51.698Z"
+  },
+  {
+    "target": "motion",
+    "key": "weapon|sword/arming/universal|bg",
+    "motion": "run",
+    "reason": "needs_art",
+    "comment": "[Claude] End-to-end test of the motion workshop (Plan D): run drafted by pose-fit from walk. Please review the art on the stage; redraw the arm swing in the workshop if it looks off, or delete it there.\n[You] Custom run art saved in the workshop (lpc_custom/weapon/sword/arming/universal/run/bg.png) — please review it on the stage.",
+    "id": "mv8jbq48mzxz",
+    "status": "needs_review",
+    "createdAt": "2026-10-14T20:00:51.704Z"
+  }
+]

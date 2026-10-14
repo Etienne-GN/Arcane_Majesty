@@ -6,6 +6,7 @@
  * Run: node tools/test_renderer_rules.mjs
  */
 import { CharacterRenderer, texKey } from '../src/systems/CharacterRenderer.js';
+import { setCustomFiles } from '../src/systems/lpcLayout.js';
 
 let passed = 0; const fails = [];
 function check(name, got, want) {
@@ -67,6 +68,20 @@ textures.set(rcKey, fakeTexture(rcKey, 9));
 const tinted = target('jump', { [KEY]: { jump: { rule: 'borrow', from: 'walk' } } }, { swappedKeys: { walk: rcKey } });
 check('tinted borrowed layer stays retimed', tinted?.animKey, `${rcKey}_down~jump`);
 check('tinted retimed frames use the tinted texture', anims.get(tinted?.animKey)?.frames[0].textureKey, rcKey);
+
+// custom overlay (Forge workshop): a registered sheet is loaded from lpc_custom/ and
+// played as own art, even on a layer whose anims snapshot (cast file) predates it
+const queued = [];
+const loadScene = { ...scene, load: { spritesheet: (k, url) => queued.push(url), once: () => {}, start: () => {} } };
+const sword = { slot: 'weapon', type: 'weapon', id: 'sword/arming/universal', itemName: 'fg', anims: ['walk', 'idle'] };
+setCustomFiles(['weapon/sword/arming/universal/run/fg.png']);
+new CharacterRenderer(loadScene).loadLayers([sword], ['walk', 'run']);
+check('custom run requested from lpc_custom', queued.includes('lpc_custom/weapon/sword/arming/universal/run/fg.png'), true);
+check('library walk still from lpc', queued.includes('lpc/weapon/sword/arming/universal/walk/fg.png'), true);
+setCustomFiles([]);
+queued.length = 0;
+new CharacterRenderer(loadScene).loadLayers([sword], ['walk', 'run']);
+check('without the overlay no run is requested', queued.some(u => u.includes('/run/')), false);
 
 if (fails.length) { console.error(`✗ renderer rules: ${fails.length} failed\n  ` + fails.join('\n  ')); process.exit(1); }
 console.log(`✓ renderer rules: ${passed} passed`);

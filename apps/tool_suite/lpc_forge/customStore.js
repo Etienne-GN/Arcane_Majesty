@@ -64,18 +64,44 @@ function parseCsv(text) {
 
 const list = s => (s ? s.split(',').map(x => x.trim()).filter(Boolean) : [])
 
-/** Attribution of a library file from CREDITS.csv: { authors, licenses, urls } or null. */
+/**
+ * Attribution of a library file from CREDITS.csv: { authors, licenses, urls, matched } or null.
+ * The CSV uses upstream's layout (item/fg/walk.png, item/walk.png per colour
+ * folder) where ours is item/walk/fg.png, and has no rows for some newer
+ * motions — so it tries the exact path, then those layouts, then the nearest
+ * item folder with a credited sheet (same artists). `matched` names the row used.
+ */
 export function creditsFor(csvPath, libPath) {
   if (!existsSync(csvPath)) return null
   const mtime = statSync(csvPath).mtimeMs
   if (csvCache.path !== csvPath || csvCache.mtime !== mtime) {
-    const rows = new Map()
+    const rows = new Map(), dirs = new Map()
     for (const [file, , authors, licenses, urls] of parseCsv(readFileSync(csvPath, 'utf8')).slice(1)) {
-      if (file) rows.set(file, { authors: list(authors), licenses: list(licenses), urls: list(urls) })
+      if (!file) continue
+      rows.set(file, { authors: list(authors), licenses: list(licenses), urls: list(urls) })
+      const parts = file.split('/')
+      for (let n = parts.length - 1; n >= 2; n--) {
+        const d = parts.slice(0, n).join('/')
+        if (!dirs.has(d)) dirs.set(d, file)
+      }
     }
-    csvCache = { path: csvPath, mtime, rows }
+    csvCache = { path: csvPath, mtime, rows, dirs }
   }
-  return csvCache.rows.get(libPath) ?? null
+  const { rows, dirs } = csvCache
+  const parts = libPath.split('/')
+  const cands = [libPath]
+  if (parts.length >= 3) {
+    const [anim, file] = [parts.at(-2), parts.at(-1).slice(0, -4)]
+    const item = parts.slice(0, -2).join('/')
+    cands.push(`${item}/${file}/${anim}.png`, `${item}/${anim}.png`, `${item}/${file}/walk.png`, `${item}/walk.png`)
+  }
+  for (const c of cands) if (rows.has(c)) return { ...rows.get(c), matched: c }
+  // nearest credited folder: the item itself, then its parents (never a bare type folder)
+  for (let n = parts.length - 1; n >= 2; n--) {
+    const f = dirs.get(parts.slice(0, n).join('/'))
+    if (f) return { ...rows.get(f), matched: f }
+  }
+  return null
 }
 
 /**

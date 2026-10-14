@@ -1,1 +1,40 @@
-{}
+{
+  "weapon/sword/arming/universal/run/bg.png": {
+    "author": "LPC Forge pose-fit draft",
+    "derivedFrom": [
+      "weapon/sword/arming/universal/walk/bg.png"
+    ],
+    "authors": [
+      "ElizaWy; walk and down by JaidynReiman",
+      "LPC Forge pose-fit draft"
+    ],
+    "licenses": [
+      "OGA-BY 3.0"
+    ],
+    "urls": [
+      "https://github.com/ElizaWy/LPC/tree/main/Characters/Props/Sword%2001%20-%20Arming%20Sword",
+      "https://opengameart.org/content/lpc-expanded-sit-run-jump-more"
+    ],
+    "createdAt": "2026-10-14T20:01:17.753Z",
+    "updatedAt": "2026-10-14T20:02:34.312Z"
+  },
+  "weapon/sword/arming/universal/run/fg.png": {
+    "author": "LPC Forge pose-fit draft",
+    "derivedFrom": [
+      "weapon/sword/arming/universal/walk/fg.png"
+    ],
+    "authors": [
+      "ElizaWy; walk and down by JaidynReiman",
+      "LPC Forge pose-fit draft"
+    ],
+    "licenses": [
+      "OGA-BY 3.0"
+    ],
+    "urls": [
+      "https://github.com/ElizaWy/LPC/tree/main/Characters/Props/Sword%2001%20-%20Arming%20Sword",
+      "https://opengameart.org/content/lpc-expanded-sit-run-jump-more"
+    ],
+    "createdAt": "2026-10-14T20:01:07.792Z",
+    "updatedAt": "2026-10-14T20:02:24.377Z"
+  }
+}

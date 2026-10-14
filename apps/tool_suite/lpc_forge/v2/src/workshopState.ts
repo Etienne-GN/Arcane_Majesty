@@ -19,7 +19,8 @@ import { flags, setFlagStatus } from './gapState'
 
 type Img = { w: number; h: number; data: Uint8ClampedArray }
 const ATTACKS = new Set(['slash', 'backslash', 'halfslash', 'thrust', 'shoot', 'spellcast'])
-export const LICENSES = ['CC-BY-SA 3.0', 'CC-BY-SA 4.0', 'OGA-BY 3.0', 'GPL 3.0', 'CC-BY 4.0', 'CC0']
+// '' = add nothing: a derivative keeps its sources' licences (looked up by the server)
+export const LICENSES = ['', 'CC-BY-SA 3.0', 'CC-BY-SA 4.0', 'OGA-BY 3.0', 'GPL 3.0', 'CC-BY 4.0', 'CC0']
 
 function remembered(k: string, d: string) { try { return localStorage.getItem(k) ?? d } catch { return d } }
 
@@ -140,6 +141,7 @@ export async function startDraft() {
     ws.spec = spec
     ws.sheet = markRaw(sheet)
     ws.derivedFrom = derived
+    ws.license = derived.length ? '' : (ws.license || 'CC-BY-SA 3.0')
     ws.row = spec.rows === 4 ? 2 : 0
     ws.col = spec.skip
     ws.sel = null
@@ -287,6 +289,7 @@ export async function saveSheet() {
   const layer = target.value
   if (!layer || !ws.sheet) return
   if (!ws.author.trim()) { ws.error = 'Who drew it? Fill in the author (it goes in the credits).'; return }
+  if (!ws.license && !ws.derivedFrom.length) { ws.error = 'Original work needs a licence.'; return }
   try { localStorage.setItem('forge_author', ws.author.trim()) } catch { /* ignore */ }
   ws.busy = true; ws.error = ''
   try {

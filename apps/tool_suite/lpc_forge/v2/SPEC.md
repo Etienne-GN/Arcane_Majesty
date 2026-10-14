@@ -64,3 +64,47 @@ time (`POST /api/gap-flags`, `PATCH /api/gap-flags/:id {status, note, who}`).
 3. Answer on the flag with `PATCH … {status: 'needs_review', note: '…', who: 'Claude'}`
    — or `status: 'question'` when a decision is the user's. Never set `resolved`
    (the user approves).
+
+## Motion workshop (Plan D, 2026-10-14)
+
+Draw a motion a layer lacks (or redraw one it has) and ship it to the game.
+Plan: `docs/superpowers/plans/2026-10-14-lpc-forge-v2-workshop.md`.
+
+- **Where art goes.** Sheets are saved in `apps/amo/public/lpc_custom/`, under the same
+  relative path as the library (`weapon/sword/arming/universal/run/fg.png`). Each one
+  is listed in `apps/amo/src/data/lpc_custom.json` with its author, `derivedFrom`, and
+  the authors, licences and URLs carried over from its sources. Those come from
+  `public/CREDITS.csv`, which uses upstream's `item/fg/walk.png` layout; failing an
+  exact match, the nearest credited item folder is used.
+- **How the game sees it.** `lpcLayout.setCustomFiles()` holds a registry. `animPath`
+  sends a registered path to `lpc_custom/`, and `resolveAnim` treats it as the layer's
+  own art. So nothing in the catalogue, the motion rules or cast files is edited: a
+  saved sheet beats any rule for that item, for every character. The game registers it
+  in `lpcCustom.js`; the Forge reads it from `GET /api/custom`. `npm run test:catalogue`
+  fails on an unlisted sheet, a sheet of the wrong size, or a sheet with `unknown`
+  licences.
+- **Screen.** Open the Workshop tab. You can also open it from a Gaps cell
+  (🖌 *Draw … in the workshop*) or from a layer row in the stage's single view
+  (🖌 *draw it*).
+  - **Drafts:**
+    - *fitted to the body*: another motion's frames, retimed, each shifted by the
+      body's own move between the two motions (silhouette match)
+    - *retimed*: another motion's frames, no shift
+    - *my saved custom sheet*
+    - *blank*
+  - **Tools:**
+    - pencil (B), eraser (E), eyedropper (I), fill (G), select and drag (M)
+    - arrows nudge the frame (Shift nudges the whole row) or the selection
+    - Ctrl+Z / Ctrl+Y undo and redo
+    - `,` and `.` step through frames
+  - **Onion skin:** the rest of the character in that frame, and the previous frame.
+  - **Live preview:** the working sheet stands in for its file through `setSheetOverride`.
+  - **Template:** a zip with the draft and a 35% guide of the character, to draw
+    elsewhere and then *Upload PNG* (the size is checked).
+- **Save.** `PUT /api/custom` checks the path, the PNG and the motion's sheet size
+  (frames × rows, with oversize multiples allowed). Open flags on that item × motion
+  move to `needs_review`. For capes and backpacks, *Save for all N colours*
+  recolours the sheet into every colour of the item, using colour maps read off the
+  item's own walk sheets.
+- **Licences.** By default a derivative keeps the licences of its sources ("same as the
+  sources"). Original work (a blank draft) needs a licence.

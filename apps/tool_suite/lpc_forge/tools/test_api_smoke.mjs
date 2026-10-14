@@ -148,6 +148,9 @@ const e2 = await (await putCustom({ path: RUN, png: png(512, 256), author: 'Test
 if (e2.createdAt === e1.createdAt && e2.updatedAt !== e1.updatedAt) passed++; else fails.push('overwrite must keep createdAt');
 const own = await (await putCustom({ path: 'cape/solid/female/run/red.png', png: png(512, 256), author: 'Tester', license: 'CC-BY-SA 3.0' })).json();
 if (JSON.stringify(own.licenses) === '["CC-BY-SA 3.0"]') passed++; else fails.push(`own licence: ${JSON.stringify(own.licenses)}`);
+// CREDITS.csv uses upstream's item/fg/walk.png layout for our item/walk/fg.png
+const sw = await (await putCustom({ path: 'weapon/sword/arming/universal/run/fg.png', png: png(512, 256), author: 'Tester', derivedFrom: ['weapon/sword/arming/universal/walk/fg.png'] })).json();
+if (JSON.stringify(sw.licenses) === '["OGA-BY 3.0"]' && sw.authors.some(a => a.includes('ElizaWy'))) passed++; else fails.push(`layout-swapped credits: ${JSON.stringify(sw)}`);
 const anon = await (await putCustom({ path: 'cape/solid/female/sit/red.png', png: png(192, 256) })).json();
 if (anon.licenses?.includes('unknown')) passed++; else fails.push('no source and no licence must read unknown');
 for (const [what, body] of [
