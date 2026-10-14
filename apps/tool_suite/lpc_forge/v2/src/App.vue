@@ -12,6 +12,7 @@ import GapReview from './components/GapReview.vue'
 import FlagsInbox from './components/FlagsInbox.vue'
 import FlagForm from './components/FlagForm.vue'
 import Workshop from './components/Workshop.vue'
+import ExportPanel from './components/ExportPanel.vue'
 import { openFlagCount } from './gapState'
 import { layersFor } from '@v2/model/composition.js'
 import { store, catalogue } from './store'
@@ -63,6 +64,7 @@ function withItem(entry: any) {
       </aside>
     </template>
     <FlagForm />
+    <ExportPanel />
   </div>
 </template>
 

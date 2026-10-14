@@ -3,7 +3,7 @@ import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { getFrame, putFrame } from '@v2/model/workshop.js'
 import { ws, wsLayers, beginEdit, bump, undo, redo, nudge } from '@v2/workshopState'
 import { layerKeyOf } from '@v2/model/composition.js'
-import { renderFrame } from '@v2/render/sheets.js'
+import { renderFrame, renderStanding } from '@v2/render/sheets.js'
 import { DIRS } from '@v2/render/frames.js'
 import { store } from '@v2/store'
 
@@ -24,7 +24,9 @@ async function loadOnion() {
   if (!ws.spec) { onion.value = null; return }
   const dir = ws.spec.rows === 4 ? DIRS[ws.row] : ws.motion === 'climb' ? 'up' : 'down'
   const others = wsLayers.value.filter((l: any) => layerKeyOf(l) !== ws.layerKey)
-  const c = await renderFrame(others, ws.motion, dir, Math.max(0, ws.col - ws.spec.skip), store.rules, store.ruleOverrides)
+  const c = ws.col < ws.spec.skip
+    ? await renderStanding(others, dir, store.rules, store.ruleOverrides)
+    : await renderFrame(others, ws.motion, dir, ws.col - ws.spec.skip, store.rules, store.ruleOverrides)
   if (seq === onionSeq) onion.value = c
 }
 watch(() => [ws.row, ws.col, ws.spec, ws.layerKey, wsLayers.value, ws.motion], loadOnion, { immediate: true })

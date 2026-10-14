@@ -55,6 +55,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
         <button class="flag" title="Pause here and flag this frame for Claude (F)" @click="flagFromStage('frame')">🚩 Flag this frame</button>
         <span class="sep" />
       </template>
+      <button title="PNG sheets + credits of this character" @click="store.exportOpen = true">⤓ Export…</button>
       <label title="corner badges: amber = walk frames, blue = borrowed, red = hidden"><input type="checkbox" v-model="store.showMissing" /> show gaps</label>
       <select v-model="store.bg" aria-label="Background">
         <option value="checker">checker</option><option value="grass">grass</option><option value="stone">stone</option>

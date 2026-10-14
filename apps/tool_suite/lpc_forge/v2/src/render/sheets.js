@@ -116,14 +116,36 @@ function emptyRows(img, fs) {
     return out;
 }
 
-/** Render one frame of a whole layer stack to a fresh 64×64 canvas (save previews, exports). */
-export async function renderFrame(layers, motion, dir, frame = 0, rules = {}, overrides) {
+/**
+ * Render one frame of a whole layer stack to a fresh canvas (save previews,
+ * exports). `cell` > 64 centres the 64 px cell in a bigger one so oversize art
+ * (big weapon swings) isn't cut.
+ */
+export async function renderFrame(layers, motion, dir, frame = 0, rules = {}, overrides, cell = 64) {
     const plans = await Promise.all(layers.map(l => layerPlan(l, motion, rules, overrides)));
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = cell;
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+    const o = (cell - 64) / 2;
+    plans.forEach(p => { if (p.sheet) drawLayer(ctx, p.sheet, p.concrete, dir, frame, o, o, p.mode === 'borrow' ? motion : undefined); });
+    return canvas;
+}
+
+/** The walk standing pose (column 0 of 9-column walk sheets, which play skips) as a 64×64 canvas. */
+export async function renderStanding(layers, dir, rules = {}, overrides) {
+    const plans = await Promise.all(layers.map(l => layerPlan(l, 'walk', rules, overrides)));
     const canvas = document.createElement('canvas');
     canvas.width = canvas.height = 64;
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
-    plans.forEach(p => { if (p.sheet) drawLayer(ctx, p.sheet, p.concrete, dir, frame, 0, 0, p.mode === 'borrow' ? motion : undefined); });
+    for (const p of plans) {
+        if (!p.sheet) continue;
+        const g = frameGeometry(p.concrete, dir, p.sheet.w, p.sheet.h, p.sheet.activeCols);
+        if (g.cols <= 0 || p.sheet.emptyRows.has(g.row)) continue;
+        const r = frameRect({ ...g, colStart: 0, count: g.cols }, 0);
+        ctx.drawImage(p.sheet.canvas, r.sx, r.sy, r.sw, r.sh, r.dx, r.dy, r.sw, r.sh);
+    }
     return canvas;
 }
 

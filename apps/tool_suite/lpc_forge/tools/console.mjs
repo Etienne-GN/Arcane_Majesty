@@ -4,17 +4,17 @@
  * exceptions and failed requests (via the DevTools protocol) — for debugging a
  * page that renders blank — and optionally drive it: run JS steps, then save a
  * screenshot.
- * Usage: node tools/console.mjs <url> [waitMs] [--eval "step;; step"] [--shot out.png]
+ * Usage: node tools/console.mjs <url> [waitMs] [--eval "step;; step"] [--shot out.png] [--download dir]
  * (--eval steps are separated by ";;" and run 800 ms apart.)
  */
 import { spawn } from 'node:child_process';
 import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 
 const args = process.argv.slice(2);
 const opt = n => { const i = args.indexOf(n); return i >= 0 ? args.splice(i, 2)[1] : null; };
-const evalSteps = opt('--eval'), shot = opt('--shot');
+const evalSteps = opt('--eval'), shot = opt('--shot'), downloadDir = opt('--download');
 const [url, wait = '6000'] = args;
 if (!url) { console.error('usage: console.mjs <url> [waitMs]'); process.exit(2); }
 const port = 9300 + Math.floor(Math.random() * 500);
@@ -41,6 +41,8 @@ ws.onmessage = ev => {
 };
 await new Promise(r => { ws.onopen = r; });
 send('Runtime.enable'); send('Log.enable'); send('Network.enable');
+// downloads (e.g. an export zip) land in --download <dir> instead of being dropped
+if (downloadDir) send('Page.setDownloadBehavior', { behavior: 'allow', downloadPath: resolve(downloadDir) });
 send('Page.navigate', { url });
 await new Promise(r => setTimeout(r, Number(wait)));
 for (const step of (evalSteps ?? '').split(';;').filter(x => x.trim())) {

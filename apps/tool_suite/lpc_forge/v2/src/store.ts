@@ -35,7 +35,7 @@ const opensWithLink = /^#comp=/.test(location.hash)
 export const store = reactive({
   // Cast home first, unless a #comp= link opens a character straight in the
   // forge (or #gaps opens the gap review).
-  screen: (opensWithLink ? 'forge' : ['#gaps', '#flags', '#workshop'].includes(location.hash) ? location.hash.slice(1) : 'cast') as 'cast' | 'forge' | 'gaps' | 'flags' | 'workshop',
+  screen: (opensWithLink ? 'forge' : ['#gaps', '#flags', '#workshop', '#compare'].includes(location.hash) ? location.hash.slice(1) : 'cast') as 'cast' | 'forge' | 'gaps' | 'flags' | 'workshop' | 'compare',
   comp: restore() as { name: string; sel: Record<string, { id: string; color?: string; tint?: number }> },
   slot: 'body',
   motion: 'walk',
@@ -61,6 +61,7 @@ export const store = reactive({
   // their plans on it, since the overlay registry itself isn't reactive.
   custom: {} as Record<string, any>,
   sheetVersion: 0,
+  exportOpen: false,
 })
 
 export const layers = computed(() => layersFor(catalogue, store.comp))

@@ -8,7 +8,7 @@ import {
   sheetSpec, specOf, sizeError, blankSheet, getFrame, putFrame, retimeDraft, poseFitDraft,
   paletteOf, colourMap, applyColourMap, shiftFrame, History,
 } from '@v2/model/workshop.js'
-import { setSheetOverride, renderFrame } from '@v2/render/sheets.js'
+import { setSheetOverride, renderFrame, renderStanding } from '@v2/render/sheets.js'
 import { DIRS } from '@v2/render/frames.js'
 import { store, catalogue, refreshCustom } from './store'
 import { flags, setFlagStatus } from './gapState'
@@ -211,7 +211,10 @@ async function guideImg(): Promise<Img | null> {
   for (let r = 0; r < spec.rows; r++) {
     const dir = spec.rows === 4 ? DIRS[r] : ws.motion === 'climb' ? 'up' : 'down'
     for (let c = 0; c < spec.cols; c++) {
-      ctx.drawImage(await renderFrame(others, ws.motion, dir, Math.max(0, c - spec.skip), store.rules, store.ruleOverrides), c * fs + off, r * fs + off)
+      const frame = c < spec.skip
+        ? await renderStanding(others, dir, store.rules, store.ruleOverrides)
+        : await renderFrame(others, ws.motion, dir, c - spec.skip, store.rules, store.ruleOverrides)
+      ctx.drawImage(frame, c * fs + off, r * fs + off)
     }
   }
   return fromDrawable(out)
