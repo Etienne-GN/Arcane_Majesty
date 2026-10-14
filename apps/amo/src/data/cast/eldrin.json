@@ -324,7 +324,11 @@
         "slash",
         "thrust",
         "shoot",
-        "spellcast"
+        "spellcast",
+        "run",
+        "sit",
+        "jump",
+        "emote"
       ],
       "color": "maroon"
     },
@@ -356,6 +360,9 @@
         "thrust",
         "shoot",
         "spellcast",
+        "run",
+        "sit",
+        "jump",
         "climb",
         "emote"
       ],
@@ -399,9 +406,275 @@
       "color": "maroon"
     }
   ],
-  "variants": {},
+  "variants": {
+    "test": {
+      "sel": {
+        "body": {
+          "id": "bodies/teen"
+        },
+        "head": {
+          "id": "heads/human/male",
+          "tint": 2
+        },
+        "eyes": {
+          "id": "human/adult/default",
+          "color": "brown"
+        },
+        "hair": {
+          "id": "messy3/adult",
+          "tint": 37
+        },
+        "torso_clothes": {
+          "id": "clothes/longsleeve/longsleeve/teen",
+          "tint": 33
+        },
+        "legs": {
+          "id": "pants2/thin"
+        },
+        "feet": {
+          "id": "shoes/basic/thin",
+          "color": "iron"
+        }
+      },
+      "layers": [
+        {
+          "slot": "body",
+          "type": "body",
+          "id": "bodies/teen",
+          "zPos": 10,
+          "anims": [
+            "walk",
+            "idle",
+            "hurt",
+            "slash",
+            "backslash",
+            "halfslash",
+            "thrust",
+            "shoot",
+            "spellcast",
+            "run",
+            "sit",
+            "jump",
+            "climb",
+            "combat_idle",
+            "emote"
+          ]
+        },
+        {
+          "slot": "feet",
+          "type": "feet",
+          "id": "shoes/basic/thin",
+          "zPos": 14,
+          "anims": [
+            "walk",
+            "idle",
+            "hurt",
+            "slash",
+            "backslash",
+            "halfslash",
+            "thrust",
+            "shoot",
+            "spellcast",
+            "run",
+            "sit",
+            "jump",
+            "climb",
+            "combat_idle",
+            "emote"
+          ],
+          "color": "iron"
+        },
+        {
+          "slot": "head",
+          "type": "head",
+          "id": "heads/human/male",
+          "zPos": 20,
+          "anims": [
+            "walk",
+            "idle",
+            "hurt",
+            "slash",
+            "backslash",
+            "halfslash",
+            "thrust",
+            "shoot",
+            "spellcast",
+            "run",
+            "sit",
+            "jump",
+            "climb",
+            "combat_idle",
+            "emote"
+          ],
+          "swapParams": {
+            "sourceKey": "body",
+            "sourceColors": [
+              2562336,
+              2562336,
+              10043964,
+              13403749,
+              14984316,
+              16373178,
+              16444647,
+              16315371
+            ],
+            "targetShades": [
+              2627350,
+              2627350,
+              10370615,
+              13795652,
+              15376212,
+              16633986,
+              16508836,
+              16508836
+            ],
+            "tintName": "Amber"
+          }
+        },
+        {
+          "slot": "eyes",
+          "type": "eyes",
+          "id": "human/adult/default",
+          "zPos": 25,
+          "anims": [
+            "walk",
+            "idle",
+            "hurt",
+            "slash",
+            "backslash",
+            "halfslash",
+            "thrust",
+            "shoot",
+            "spellcast",
+            "run",
+            "sit",
+            "jump",
+            "combat_idle",
+            "emote"
+          ],
+          "color": "brown"
+        },
+        {
+          "slot": "torso_clothes",
+          "type": "torso",
+          "id": "clothes/longsleeve/longsleeve/teen",
+          "zPos": 35,
+          "anims": [
+            "walk",
+            "idle",
+            "hurt",
+            "slash",
+            "backslash",
+            "halfslash",
+            "thrust",
+            "shoot",
+            "spellcast",
+            "run",
+            "sit",
+            "jump",
+            "climb",
+            "combat_idle",
+            "emote"
+          ],
+          "swapParams": {
+            "sourceKey": "cloth_light",
+            "sourceColors": [
+              2627616,
+              5065309,
+              9797760,
+              12891551,
+              15066823,
+              16777215
+            ],
+            "targetShades": [
+              2493716,
+              4067610,
+              7542558,
+              7542558,
+              7542558,
+              10362655,
+              13055003,
+              15157014
+            ],
+            "tintName": "Redhead"
+          }
+        },
+        {
+          "slot": "legs",
+          "type": "legs",
+          "id": "pants2/thin",
+          "zPos": 40,
+          "anims": [
+            "walk",
+            "idle",
+            "hurt",
+            "slash",
+            "backslash",
+            "halfslash",
+            "thrust",
+            "shoot",
+            "spellcast",
+            "run",
+            "sit",
+            "jump",
+            "climb",
+            "combat_idle",
+            "emote"
+          ],
+          "color": "black"
+        },
+        {
+          "slot": "hair",
+          "type": "hair",
+          "id": "messy3/adult",
+          "zPos": 50,
+          "anims": [
+            "walk",
+            "idle",
+            "hurt",
+            "slash",
+            "backslash",
+            "halfslash",
+            "thrust",
+            "shoot",
+            "spellcast",
+            "run",
+            "sit",
+            "jump",
+            "climb",
+            "combat_idle",
+            "emote"
+          ],
+          "swapParams": {
+            "sourceKey": "hair",
+            "sourceColors": [
+              2493716,
+              6951176,
+              10495488,
+              10495488,
+              10757632,
+              12533760,
+              15029760,
+              16747008
+            ],
+            "targetShades": [
+              327936,
+              1443585,
+              2690562,
+              2690562,
+              2690562,
+              4331011,
+              6233860,
+              7940102
+            ],
+            "tintName": "Dark Brown"
+          }
+        }
+      ]
+    }
+  },
   "published": false,
-  "updatedAt": "2026-10-09T12:23:01.954Z",
+  "updatedAt": "2026-10-09T22:18:11.683Z",
   "dbCharacter": "Eldrin",
   "migrationNotes": [
     "clothes.shoulders.leather: approximated as bauldron/thin",
