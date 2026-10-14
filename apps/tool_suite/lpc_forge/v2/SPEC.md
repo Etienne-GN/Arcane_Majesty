@@ -108,3 +108,33 @@ Plan: `docs/superpowers/plans/2026-10-14-lpc-forge-v2-workshop.md`.
   item's own walk sheets.
 - **Licences.** By default a derivative keeps the licences of its sources ("same as the
   sources"). Original work (a blank draft) needs a licence.
+
+## Compare, Export, Randomize (Plan E, 2026-10-14)
+
+Plan: `docs/superpowers/plans/2026-10-14-lpc-forge-v2-export-compare.md`.
+
+- **Compare** (tab). Each of the two sides is the forge's character or a cast member,
+  optionally a variant. Each side keeps its own `motionRules`. Both sides share the
+  motion and direction (all 4, or one large) and the animation clock. A table lists
+  every slot that differs (item, colour or tint).
+- **Export** (*⤓ Export…* in the stage bar) downloads `<id>[__variant].zip` containing:
+  - `universal.png`: the Universal LPC generator's layout, 832×3456 with 64 px cells,
+    walk with its standing column. Oversize swings are cut to the cell.
+  - `<motion>.png`: frames as played; 192 px cells as an option.
+  - `credits.json` and `CREDITS.md`
+  - `composition.json`
+
+  The credits cover every sheet the character draws in the chosen motions, as the game
+  resolves them: own art, walk fallbacks and borrowed sources. They are looked up
+  through `POST /api/credits/batch`, using the custom manifest first and then
+  CREDITS.csv. Sheets with no credit or an unknown licence are shown before export and
+  listed under "Check these".
+- **Randomize** (🎲, or R on the Forge screen) re-rolls every slot that isn't locked
+  (🔒 in the slot list, saved per browser).
+  - Body, head, eyes, top and legs are always worn; the other slots each have a chance.
+  - Items must fit the body's type token. A child only wears child-tagged clothes,
+    plus tokenless weapons, shields and backpacks.
+  - The head stays in the same family, so a human stays human.
+  - Body, head, ears and nose share one skin tint.
+  - Hidden items are never picked.
+  - Model: `v2/src/model/randomize.js`.
