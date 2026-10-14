@@ -25,7 +25,7 @@ export default defineConfig({
     // localhost only: the proxied API writes game files and has no auth
     host: '127.0.0.1',
     fs: { allow: [fileURLToPath(new URL('.', import.meta.url)), GAME_SRC] },
-    proxy: { '/api': 'http://127.0.0.1:3001', '/lpc': 'http://127.0.0.1:3001' },
+    proxy: { '/api': 'http://127.0.0.1:3001', '/lpc': 'http://127.0.0.1:3001', '/lpc_custom': 'http://127.0.0.1:3001' },
   },
   build: { outDir: fileURLToPath(new URL('./dist-v2', import.meta.url)), emptyOutDir: true },
 })

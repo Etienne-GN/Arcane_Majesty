@@ -7,6 +7,8 @@ import { ruleErrors } from '../../amo/src/systems/motionRules.js'
 import { flagErrors, newFlag, applyStatus, FLAG_STATUSES } from './v2/src/model/gapFlags.js'
 import { setRule } from './v2/src/model/gapMatrix.js'
 import { CAST_ID_RE, castShapeErrors } from './v2/src/model/cast.js'
+import { customPathError, pngSize, creditsFor, saveCustom, deleteCustom } from './customStore.js'
+import { MOTION_FRAMES } from '../../amo/src/systems/lpcLayout.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -19,7 +21,11 @@ export function createServer({
   castDir = join(__dirname, '../../amo/src/data/cast'),
   rulesPath = join(__dirname, '../../amo/src/data/motion_rules.json'),
   flagsPath = join(__dirname, 'gap_flags.json'),
+  customDir = join(__dirname, '../../amo/public/lpc_custom'),
+  customManifest = join(__dirname, '../../amo/src/data/lpc_custom.json'),
+  creditsCsv = join(__dirname, '../../amo/public/CREDITS.csv'),
 } = {}) {
+  const custom = { dir: customDir, manifestPath: customManifest, csvPath: creditsCsv }
   const db = new Database(dbPath)
 
   db.exec(`
@@ -38,11 +44,14 @@ export function createServer({
   app.use('/api/cast', express.json({ limit: '1mb' }))
   app.use('/api/motion-rules', express.json({ limit: '1mb' }))
   app.use('/api/gap-flags', express.json({ limit: '2mb' }))
+  app.use('/api/custom', express.json({ limit: '30mb' }))   // base64 sheets (oversize 192 px attacks are large)
   app.use(express.json({ limit: '20mb' }))
 
   // express.static refuses ../ traversal; fallthrough:false makes misses errors,
   // turned into a plain 404 by the handler at the bottom.
   app.use('/lpc', express.static(LPC_ROOT, { fallthrough: false, index: false, maxAge: '1h' }))
+  // Workshop-authored sheets: no caching, a save must show at once.
+  app.use('/lpc_custom', express.static(customDir, { fallthrough: false, index: false, maxAge: 0 }))
 
   app.get('/api/saves/:type', (req, res) => {
     const rows = db.prepare('SELECT name, data, preview FROM saves WHERE type = ? ORDER BY name').all(req.params.type)
@@ -132,6 +141,37 @@ export function createServer({
     res.json(list[i])
   })
 
+  // Custom overlay (motion workshop): manifest, save, delete; credits lookup.
+  app.get('/api/custom', (req, res) => res.json(readJson(customManifest, {})))
+
+  app.put('/api/custom', (req, res) => {
+    const { path, png, author, derivedFrom = [], license, note } = req.body ?? {}
+    const pathErr = customPathError(path)
+    if (pathErr) return res.status(400).json({ error: pathErr })
+    if (!Array.isArray(derivedFrom) || derivedFrom.some(d => customPathError(d))) return res.status(400).json({ error: 'derivedFrom must list library paths' })
+    const buf = typeof png === 'string' ? Buffer.from(png.replace(/^data:image\/png;base64,/, ''), 'base64') : null
+    const size = pngSize(buf)
+    if (!size) return res.status(400).json({ error: 'png must be a base64 PNG' })
+    const err = sheetSizeError(path, size)
+    if (err) return res.status(400).json({ error: err })
+    const entry = saveCustom(custom, { path, png: buf, author: str(author), derivedFrom, license: str(license), note: str(note) })
+    res.json({ path, ...entry })
+  })
+
+  app.delete('/api/custom', (req, res) => {
+    const path = String(req.query.path ?? '')
+    if (customPathError(path)) return res.status(400).json({ error: 'bad path' })
+    if (!deleteCustom(custom, path)) return res.status(404).json({ error: 'not found' })
+    res.json({ ok: true })
+  })
+
+  app.get('/api/credits', (req, res) => {
+    const path = String(req.query.path ?? '')
+    if (customPathError(path)) return res.status(400).json({ error: 'bad path' })
+    const m = readJson(customManifest, {})[path]
+    res.json(m ? { custom: true, authors: m.authors, licenses: m.licenses, urls: m.urls ?? [] } : creditsFor(creditsCsv, path))
+  })
+
   // eslint-disable-next-line no-unused-vars
   app.use((err, req, res, next) => {
     const status = err.status === 403 ? 404 : (err.status || 500)
@@ -139,6 +179,23 @@ export function createServer({
   })
 
   return app
+}
+
+const str = v => (typeof v === 'string' && v.trim() ? v.trim().slice(0, 500) : undefined)
+
+/**
+ * A sheet's size must fit its motion (the folder before the file name): whole
+ * 64/128/192/256 px frames, 1 row for hurt/climb else 4, and the motion's frame
+ * count (+1 standing column for walk). Unknown motion folders only need whole cells.
+ */
+function sheetSizeError(path, { w, h }) {
+  const motion = path.split('/').at(-2)
+  const frames = MOTION_FRAMES[motion]
+  if (!frames) return w % 64 || h % 64 ? `${w}×${h} is not a whole 64 px grid` : null
+  const rows = motion === 'hurt' || motion === 'climb' ? 1 : 4
+  const cols = frames + (motion === 'walk' ? 1 : 0)
+  for (const fs of [64, 128, 192, 256]) if (w === cols * fs && h === rows * fs) return null
+  return `a ${motion} sheet is ${cols * 64}×${rows * 64} (${cols} frames × ${rows} row${rows > 1 ? 's' : ''} of 64 px, or a multiple for oversize art); got ${w}×${h}`
 }
 
 // The API writes game data (cast files) and has no authentication, so it only

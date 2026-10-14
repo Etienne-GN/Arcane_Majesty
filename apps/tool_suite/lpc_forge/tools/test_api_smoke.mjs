@@ -8,12 +8,16 @@ import { mkdtempSync, readFileSync, readdirSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createServer, startServer } from '../server.js';
+import { encodePng } from '../customStore.js';
+import { existsSync } from 'node:fs';
 
 const tmp = mkdtempSync(join(tmpdir(), 'forge-api-'));
 const castDir = join(tmp, 'cast');
 const rulesPath = join(tmp, 'motion_rules.json');
 const flagsPath = join(tmp, 'gap_flags.json');
-const app = createServer({ dbPath: join(tmp, 'saves.db'), castDir, rulesPath, flagsPath });
+const customDir = join(tmp, 'lpc_custom');
+const customManifest = join(tmp, 'lpc_custom.json');
+const app = createServer({ dbPath: join(tmp, 'saves.db'), castDir, rulesPath, flagsPath, customDir, customManifest });
 const srv = app.listen(0);
 const base = `http://localhost:${srv.address().port}`;
 let passed = 0; const fails = [];
@@ -124,6 +128,51 @@ for (const [what, body] of [['bad target', { ...flag, target: 'galaxy' }], ['bad
 if ((await fetch(base + '/api/gap-flags/nope', json('PATCH', { status: 'resolved' }))).status === 404) passed++; else fails.push('patch unknown flag');
 if ((await fetch(base + `/api/gap-flags/${cf.id}`, json('PATCH', { status: 'done' }))).status === 400) passed++; else fails.push('patch bad status');
 if ((await fetch(base + '/api/gap-flags', json('PUT', []))).status === 404) passed++; else fails.push('whole-list PUT must be gone');
+
+// ── custom overlay (motion workshop) ──
+const png = (w, h) => encodePng(w, h, new Uint8ClampedArray(w * h * 4).fill(255)).toString('base64');
+const RUN = 'weapon/sword/arming/universal/run/bg.png';
+const putCustom = body => fetch(base + "/api/custom", json("PUT", body));
+const derived = ['body/bodies/male/spellcast.png'];   // listed in the game's CREDITS.csv
+let rc = await putCustom({ path: RUN, png: png(512, 256), author: 'Tester', derivedFrom: derived });
+const e1 = await rc.json();
+if (rc.status === 200) passed++; else fails.push(`custom PUT → ${rc.status} ${JSON.stringify(e1)}`);
+if (e1.licenses?.includes('CC-BY-SA 3.0') && e1.authors?.includes('Tester') && !e1.licenses.includes('unknown')) passed++;
+else fails.push(`licences not inherited: ${JSON.stringify(e1)}`);
+const man = await (await fetch(base + '/api/custom')).json();
+if (man[RUN]?.author === 'Tester') passed++; else fails.push('manifest lacks the sheet');
+const served = await fetch(base + '/lpc_custom/' + RUN);
+if (served.status === 200 && served.headers.get('content-type') === 'image/png') passed++; else fails.push(`custom static → ${served.status}`);
+await new Promise(res => setTimeout(res, 15));
+const e2 = await (await putCustom({ path: RUN, png: png(512, 256), author: 'Tester', derivedFrom: derived })).json();
+if (e2.createdAt === e1.createdAt && e2.updatedAt !== e1.updatedAt) passed++; else fails.push('overwrite must keep createdAt');
+const own = await (await putCustom({ path: 'cape/solid/female/run/red.png', png: png(512, 256), author: 'Tester', license: 'CC-BY-SA 3.0' })).json();
+if (JSON.stringify(own.licenses) === '["CC-BY-SA 3.0"]') passed++; else fails.push(`own licence: ${JSON.stringify(own.licenses)}`);
+const anon = await (await putCustom({ path: 'cape/solid/female/sit/red.png', png: png(192, 256) })).json();
+if (anon.licenses?.includes('unknown')) passed++; else fails.push('no source and no licence must read unknown');
+for (const [what, body] of [
+    ['traversal', { path: '../../x.png', png: png(512, 256) }],
+    ['dot segment', { path: 'weapon/../../x.png', png: png(512, 256) }],
+    ['not png ext', { path: 'weapon/a/run/a.png.exe', png: png(512, 256) }],
+    ['unknown type', { path: 'evil/a/run/a.png', png: png(512, 256) }],
+    ['not a png', { path: RUN, png: Buffer.from('hello').toString('base64') }],
+    ['wrong run size', { path: RUN, png: png(576, 256) }],
+    ['hurt with 4 rows', { path: 'weapon/a/hurt/a.png', png: png(384, 256) }],
+    ['bad derivedFrom', { path: RUN, png: png(512, 256), derivedFrom: ['../x.png'] }],
+]) {
+    const res = await putCustom(body);
+    if (res.status === 400) passed++; else fails.push(`custom PUT ${what} → ${res.status}`);
+}
+if (!existsSync(join(tmp, 'x.png')) && !existsSync(join(customDir, 'weapon/a'))) passed++; else fails.push('a refused PUT wrote a file');
+if ((await putCustom({ path: 'weapon/a/slash/a.png', png: png(1152, 768) })).status === 200) passed++; else fails.push('oversize slash refused');
+const cr = await (await fetch(base + '/api/credits?path=body/bodies/male/spellcast.png')).json();
+if (cr?.licenses?.length) passed++; else fails.push('credits lookup');
+const crc = await (await fetch(base + '/api/credits?path=' + RUN)).json();
+if (crc?.custom) passed++; else fails.push('credits of a custom sheet');
+if ((await fetch(base + '/api/custom?path=' + RUN, { method: 'DELETE' })).status === 200 && !existsSync(join(customDir, RUN))) passed++;
+else fails.push('custom DELETE');
+if (!(await (await fetch(base + '/api/custom')).json())[RUN]) passed++; else fails.push('DELETE left the manifest entry');
+if ((await fetch(base + '/api/custom?path=' + RUN, { method: 'DELETE' })).status === 404) passed++; else fails.push('DELETE twice must 404');
 
 srv.close();
 
