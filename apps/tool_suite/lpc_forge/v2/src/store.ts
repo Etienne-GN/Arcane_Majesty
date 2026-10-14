@@ -4,6 +4,8 @@ import { layersFor, defaultComposition, gapsIn } from '@v2/model/composition.js'
 import { DEFAULT_ANIMS, resolveAnim } from '@game/systems/animResolve.js'
 import { loadSheet, setCustomStamps } from '@v2/render/sheets.js'
 import { setCustomFiles } from '@game/systems/lpcLayout.js'
+import { TINT_PALETTE, tintMaterialFor } from '@game/systems/lpcPalettes.js'
+import { randomize } from '@v2/model/randomize.js'
 
 // The composition autosaves per browser (a convenience, not storage of record:
 // named saves go to saves.db; cast members are files, see castState.ts).
@@ -62,7 +64,26 @@ export const store = reactive({
   custom: {} as Record<string, any>,
   sheetVersion: 0,
   exportOpen: false,
+  // slots Randomize leaves alone (per browser)
+  locks: readLocks(),
 })
+
+function readLocks(): string[] {
+  try { const v = JSON.parse(localStorage.getItem('forge_v2_locks') ?? '[]'); return Array.isArray(v) ? v : [] } catch { return [] }
+}
+watch(() => store.locks, v => { try { localStorage.setItem('forge_v2_locks', JSON.stringify(v)) } catch { /* ignore */ } }, { deep: true })
+
+export function toggleLock(slot: string) {
+  store.locks = store.locks.includes(slot) ? store.locks.filter(s => s !== slot) : [...store.locks, slot]
+}
+
+/** Re-roll every unlocked slot (body-compatible items, one skin tone). */
+export function randomizeComp() {
+  store.comp = randomize(catalogue, store.comp, {
+    locked: new Set(store.locks),
+    tintCount: (slot: string, entry: any) => (TINT_PALETTE as any)[tintMaterialFor(slot, entry)]?.length ?? 0,
+  })
+}
 
 export const layers = computed(() => layersFor(catalogue, store.comp))
 

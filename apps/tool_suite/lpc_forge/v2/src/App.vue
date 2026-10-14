@@ -16,7 +16,8 @@ import ExportPanel from './components/ExportPanel.vue'
 import Compare from './components/Compare.vue'
 import { openFlagCount } from './gapState'
 import { layersFor } from '@v2/model/composition.js'
-import { store, catalogue } from './store'
+import { store, catalogue, randomizeComp } from './store'
+import { onMounted, onBeforeUnmount } from 'vue'
 import { cast } from './castState'
 
 /** The current character wearing `entry` in the selected slot (or nothing there), for picker thumbnails. */
@@ -26,6 +27,15 @@ function withItem(entry: any) {
   else delete sel[store.slot]
   return layersFor(catalogue, { name: '', sel })
 }
+
+// R re-rolls the unlocked slots (outside text fields).
+function onKey(e: KeyboardEvent) {
+  const tag = (e.target as HTMLElement)?.tagName
+  if (store.screen !== 'forge' || e.ctrlKey || e.metaKey || e.altKey || ['INPUT', 'TEXTAREA', 'SELECT'].includes(tag)) return
+  if (e.key === 'r' || e.key === 'R') randomizeComp()
+}
+onMounted(() => window.addEventListener('keydown', onKey))
+onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
 </script>
 
 <template>
@@ -42,6 +52,7 @@ function withItem(entry: any) {
       </nav>
       <template v-if="store.screen === 'forge'">
         <input class="name" v-model="store.comp.name" aria-label="Character name" />
+        <button title="Re-roll every unlocked slot (R); lock slots with 🔓 in the list" @click="randomizeComp">🎲 Randomize</button>
         <CastBar />
       </template>
     </header>

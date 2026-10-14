@@ -17,6 +17,8 @@ const FITS = {
     child: ['child', 'universal'],
 };
 const HEAD_EXTRA = { teen: ['male', 'female'] };
+// Untokened clothes are adult-sized: a child only gets them where size doesn't show.
+const CHILD_LOOSE = new Set(['weapon', 'shield', 'backpack']);
 
 /** Always worn; then optional slots with their chance of being worn. Anything else is cleared. */
 export const REQUIRED_SLOTS = ['body', 'head', 'eyes', 'torso_clothes', 'legs'];
@@ -43,11 +45,14 @@ function tokensOf(id) {
     return out;
 }
 
-/** Can a body of type `token` wear item `id` (in `slot`)? Ids without a body-type token fit everyone. */
+/**
+ * Can a body of type `token` wear item `id` (in `slot`)? Ids without a body-type
+ * token fit every adult body; a child only wears them in loose slots (weapon…).
+ */
 export function compatible(id, token, slot) {
     if (!token) return true;
     const t = tokensOf(id);
-    if (!t.size) return true;
+    if (!t.size) return token !== 'child' || CHILD_LOOSE.has(slot);
     const fits = new Set([...FITS[token], ...(slot === 'head' ? HEAD_EXTRA[token] ?? [] : [])]);
     return [...t].some(x => fits.has(x));
 }
