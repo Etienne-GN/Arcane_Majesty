@@ -13,6 +13,7 @@ import FlagsInbox from './components/FlagsInbox.vue'
 import FlagForm from './components/FlagForm.vue'
 import Workshop from './components/Workshop.vue'
 import ExportPanel from './components/ExportPanel.vue'
+import Compare from './components/Compare.vue'
 import { openFlagCount } from './gapState'
 import { layersFor } from '@v2/model/composition.js'
 import { store, catalogue } from './store'
@@ -35,6 +36,7 @@ function withItem(entry: any) {
         <button :class="{ active: store.screen === 'cast' }" @click="store.screen = 'cast'">Cast</button>
         <button :class="{ active: store.screen === 'forge' }" @click="store.screen = 'forge'">Forge</button>
         <button :class="{ active: store.screen === 'gaps' }" @click="store.screen = 'gaps'">Gaps</button>
+        <button :class="{ active: store.screen === 'compare' }" @click="store.screen = 'compare'">Compare</button>
         <button :class="{ active: store.screen === 'workshop' }" @click="store.screen = 'workshop'">Workshop</button>
         <button :class="{ active: store.screen === 'flags' }" @click="store.screen = 'flags'">Flags<b v-if="openFlagCount" class="count">{{ openFlagCount }}</b></button>
       </nav>
@@ -47,6 +49,7 @@ function withItem(entry: any) {
     <GapReview v-else-if="store.screen === 'gaps'" />
     <FlagsInbox v-else-if="store.screen === 'flags'" />
     <Workshop v-else-if="store.screen === 'workshop'" />
+    <Compare v-else-if="store.screen === 'compare'" />
     <template v-else>
       <aside class="left"><SlotList /></aside>
       <main class="center">

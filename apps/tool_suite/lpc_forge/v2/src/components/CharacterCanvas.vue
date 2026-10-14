@@ -7,7 +7,10 @@ import { store } from '@v2/store'
 
 const props = defineProps<{
   layers: any[]; motion: string; dir: string; scale?: number; missingOverlay?: boolean; still?: boolean
+  // a character's own rule overrides (Compare); without it, the open cast member's
+  overrides?: Record<string, any> | null
 }>()
+const overrides = () => (props.overrides === undefined ? store.ruleOverrides : props.overrides ?? undefined)
 
 const cv = ref<HTMLCanvasElement>()
 // Per layer, as the game draws it: { mode: own|fallback|borrow|hide|missing, concrete, sheet }
@@ -17,7 +20,7 @@ let loadSeq = 0
 
 async function load() {
   const seq = ++loadSeq
-  const out = await Promise.all(props.layers.map(l => layerPlan(l, props.motion, store.rules, store.ruleOverrides)))
+  const out = await Promise.all(props.layers.map(l => layerPlan(l, props.motion, store.rules, overrides())))
   if (seq === loadSeq) plans.value = out   // ignore results of a superseded load
 }
 
@@ -52,7 +55,7 @@ function draw() {
   }
 }
 
-watch(() => [props.layers, props.motion, store.rules, store.ruleOverrides, store.sheetVersion], load, { immediate: true, deep: true })
+watch(() => [props.layers, props.motion, store.rules, overrides(), store.sheetVersion], load, { immediate: true, deep: true })
 watch([plans, () => props.dir, () => props.missingOverlay], draw)
 watch(t, () => { if (!props.still) draw() })
 onMounted(draw)
