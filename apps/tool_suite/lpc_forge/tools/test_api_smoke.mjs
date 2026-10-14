@@ -172,6 +172,13 @@ const cr = await (await fetch(base + '/api/credits?path=body/bodies/male/spellca
 if (cr?.licenses?.length) passed++; else fails.push('credits lookup');
 const crc = await (await fetch(base + '/api/credits?path=' + RUN)).json();
 if (crc?.custom) passed++; else fails.push('credits of a custom sheet');
+// batch credits (export): library rows from the CSV, custom rows from the manifest, bad paths per row
+const batch = await (await fetch(base + '/api/credits/batch', json('POST', { paths: ['body/bodies/male/walk.png', RUN, '../x.png', 'hat/nothing/here/walk.png'] }))).json();
+if (batch[0]?.licenses?.length && batch[0].path === 'body/bodies/male/walk.png') passed++; else fails.push(`batch library row: ${JSON.stringify(batch[0])}`);
+if (batch[1]?.custom && batch[1].derivedFrom?.length) passed++; else fails.push(`batch custom row: ${JSON.stringify(batch[1])}`);
+if (batch[2]?.error && batch[3]?.error) passed++; else fails.push(`batch bad rows: ${JSON.stringify(batch.slice(2))}`);
+if ((await fetch(base + '/api/credits/batch', json('POST', { paths: Array(2001).fill(RUN) }))).status === 400) passed++; else fails.push('batch over 2000 must 400');
+if ((await fetch(base + '/api/credits/batch', json('POST', { paths: 'x' }))).status === 400) passed++; else fails.push('batch non-array must 400');
 if ((await fetch(base + '/api/custom?path=' + RUN, { method: 'DELETE' })).status === 200 && !existsSync(join(customDir, RUN))) passed++;
 else fails.push('custom DELETE');
 if (!(await (await fetch(base + '/api/custom')).json())[RUN]) passed++; else fails.push('DELETE left the manifest entry');

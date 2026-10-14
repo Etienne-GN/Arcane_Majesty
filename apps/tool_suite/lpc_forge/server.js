@@ -165,11 +165,30 @@ export function createServer({
     res.json({ ok: true })
   })
 
+  // Credits of one sheet: the custom manifest first (workshop art), else CREDITS.csv.
+  const creditRow = (path, manifest) => {
+    if (customPathError(path)) return { path, error: 'bad path' }
+    const m = manifest[path]
+    if (m) return { path, custom: true, authors: m.authors ?? [], licenses: m.licenses ?? [], urls: m.urls ?? [], derivedFrom: m.derivedFrom ?? [] }
+    const c = creditsFor(creditsCsv, path)
+    return c ? { path, ...c } : { path, error: 'no credit found' }
+  }
+
   app.get('/api/credits', (req, res) => {
     const path = String(req.query.path ?? '')
     if (customPathError(path)) return res.status(400).json({ error: 'bad path' })
-    const m = readJson(customManifest, {})[path]
-    res.json(m ? { custom: true, authors: m.authors, licenses: m.licenses, urls: m.urls ?? [] } : creditsFor(creditsCsv, path))
+    const row = creditRow(path, readJson(customManifest, {}))
+    res.json(row.error ? null : row)
+  })
+
+  // Many sheets at once (export): one row per path, in order; a bad path is a row with `error`.
+  app.post('/api/credits/batch', (req, res) => {
+    const paths = req.body?.paths
+    if (!Array.isArray(paths) || paths.length > 2000 || paths.some(p => typeof p !== 'string')) {
+      return res.status(400).json({ error: 'paths must be a list of at most 2000 strings' })
+    }
+    const manifest = readJson(customManifest, {})
+    res.json(paths.map(p => creditRow(p, manifest)))
   })
 
   // eslint-disable-next-line no-unused-vars
