@@ -2,7 +2,8 @@ import { reactive, computed, watch } from 'vue'
 import CATALOGUE from '@game/data/character_catalogue.json'
 import { layersFor, defaultComposition, gapsIn } from '@v2/model/composition.js'
 import { DEFAULT_ANIMS, resolveAnim } from '@game/systems/animResolve.js'
-import { loadSheet } from '@v2/render/sheets.js'
+import { loadSheet, setCustomStamps } from '@v2/render/sheets.js'
+import { setCustomFiles } from '@game/systems/lpcLayout.js'
 
 // The composition autosaves per browser (a convenience, not storage of record:
 // named saves go to saves.db; cast members are files, see castState.ts).
@@ -34,7 +35,7 @@ const opensWithLink = /^#comp=/.test(location.hash)
 export const store = reactive({
   // Cast home first, unless a #comp= link opens a character straight in the
   // forge (or #gaps opens the gap review).
-  screen: (opensWithLink ? 'forge' : location.hash === '#gaps' ? 'gaps' : location.hash === '#flags' ? 'flags' : 'cast') as 'cast' | 'forge' | 'gaps' | 'flags',
+  screen: (opensWithLink ? 'forge' : ['#gaps', '#flags', '#workshop'].includes(location.hash) ? location.hash.slice(1) : 'cast') as 'cast' | 'forge' | 'gaps' | 'flags' | 'workshop',
   comp: restore() as { name: string; sel: Record<string, { id: string; color?: string; tint?: number }> },
   slot: 'body',
   motion: 'walk',
@@ -55,6 +56,11 @@ export const store = reactive({
   ruleOverrides: undefined as Record<string, any> | undefined,
   // motion → mode (fallback / borrow / hide / missing) → keys of layers in that state
   gaps: {} as Record<string, Record<string, string[]>>,
+  // Custom overlay (workshop-authored sheets, /api/custom) and a counter bumped
+  // whenever it or a workshop preview changes — canvases and gap counts redo
+  // their plans on it, since the overlay registry itself isn't reactive.
+  custom: {} as Record<string, any>,
+  sheetVersion: 0,
 })
 
 export const layers = computed(() => layersFor(catalogue, store.comp))
@@ -62,7 +68,7 @@ export const layers = computed(() => layersFor(catalogue, store.comp))
 // What each layer does in each motion (as the game decides), recomputed when the
 // stack or the rules change — never reported by canvases, so it can't go stale.
 let gapSeq = 0
-watch(() => [layers.value, store.rules, store.ruleOverrides] as const, async ([ls, rules, overrides]) => {
+watch(() => [layers.value, store.rules, store.ruleOverrides, store.sheetVersion] as const, async ([ls, rules, overrides]) => {
   const seq = ++gapSeq
   const found = new Map<string, boolean>()
   const fileKey = (l: any, c: string) => `${l.type}|${l.id}|${l.itemName ?? ''}|${l.color ?? ''}|${c}`
@@ -100,6 +106,19 @@ export async function refreshRules() {
   }
 }
 refreshRules()
+
+/** (Re)load the custom overlay manifest and register it, as the game does at boot. */
+export async function refreshCustom() {
+  try {
+    const r = await fetch('/api/custom')
+    if (!r.ok) throw new Error(`HTTP ${r.status}`)
+    store.custom = await r.json()
+  } catch { store.custom = {} }   // no overlay: library only, like a game without custom art
+  setCustomFiles(Object.keys(store.custom))
+  setCustomStamps(store.custom)
+  store.sheetVersion++
+}
+refreshCustom()
 
 export function pick(slot: string, id: string | null) {
   if (!id) delete store.comp.sel[slot]

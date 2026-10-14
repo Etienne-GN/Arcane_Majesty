@@ -52,7 +52,7 @@ function draw() {
   }
 }
 
-watch(() => [props.layers, props.motion, store.rules, store.ruleOverrides], load, { immediate: true, deep: true })
+watch(() => [props.layers, props.motion, store.rules, store.ruleOverrides, store.sheetVersion], load, { immediate: true, deep: true })
 watch([plans, () => props.dir, () => props.missingOverlay], draw)
 watch(t, () => { if (!props.still) draw() })
 onMounted(draw)

@@ -6,12 +6,16 @@ import { matrixRows, cellMode, filterRows, inboxOrder } from '@v2/model/gapMatri
 import { layersFor } from '@v2/model/composition.js'
 import { FLAG_REASONS, FLAG_STATUSES } from '@v2/model/gapFlags.js'
 import { DIRS } from '@v2/render/frames.js'
+import { libPath } from '@game/systems/lpcLayout.js'
 import CharacterCanvas from './CharacterCanvas.vue'
 import { store, catalogue, refreshRules } from '@v2/store'
 import { castList, refreshCast } from '@v2/castState'
 import { gap, flags, refreshFlags, addFlag, setFlagStatus, saveRule } from '@v2/gapState'
+import { openWorkshop } from '@v2/workshopState'
+import { layerKeyOf } from '@v2/model/composition.js'
 
 const ALL_ROWS = matrixRows(catalogue)
+const libPathOf = (l: any, m: string) => libPath(l, m)
 const SLOTS = [...new Set(ALL_ROWS.map(r => r.slot))]
 const SHORT: Record<string, string> = { backslash: 'bslash', halfslash: 'hslash', spellcast: 'spell', combat_idle: 'c.idle' }
 
@@ -34,12 +38,12 @@ const publishedKeys = computed(() => {
   for (const c of castList.value) if (c.published) for (const l of c.layers ?? []) s.add(ruleKey(l))
   return s
 })
-const rows = computed(() => inboxOrder(
+const rows = computed(() => (store.sheetVersion, inboxOrder(
   filterRows(ALL_ROWS, { slot: f.slot, q: f.q, onlyGaps: f.onlyGaps, keys: wornKeys.value }, store.rules),
-  publishedKeys.value, store.rules))
+  publishedKeys.value, store.rules)))
 const shown = computed(() => rows.value.slice(0, limit.value))
-const colGaps = computed(() => Object.fromEntries(DEFAULT_ANIMS.map((m: string) =>
-  [m, rows.value.filter(r => cellMode(r, m, store.rules) !== 'own').length])))
+const colGaps = computed(() => (store.sheetVersion, Object.fromEntries(DEFAULT_ANIMS.map((m: string) =>
+  [m, rows.value.filter(r => cellMode(r, m, store.rules) !== 'own').length]))))
 
 const openFlags = computed(() => {
   const s = new Set<string>()
@@ -70,6 +74,13 @@ async function submitFlag() {
   if (!sel.value) return
   await addFlag(sel.value.row.key, sel.value.motion, draft.reason, draft.comment)
   draft.comment = ''
+}
+/** Draw the art in the workshop, on the current character wearing this item. */
+function toWorkshop() {
+  if (!sel.value) return
+  const row = sel.value.row
+  const l = previewLayers.value.find((x: any) => x.id === row.layer.id && (x.itemName ?? '') === row.itemName)
+  if (l) openWorkshop({ layerKey: layerKeyOf(l), motion: sel.value.motion, comp: { name: '', sel: { ...store.comp.sel, [row.slot]: { id: row.entryId } } } })
 }
 function applyRule() {
   if (!sel.value) return
@@ -122,7 +133,8 @@ onMounted(() => { refreshFlags(); if (!castList.value.length) refreshCast() })
           <CharacterCanvas v-for="d in DIRS" :key="d" :layers="previewLayers" :motion="sel.motion" :dir="d" :scale="2" missing-overlay />
         </div>
         <template v-if="selRule?.rule === 'own'">
-          <p class="ok">This item has its own {{ sel.motion }} art.</p>
+          <p class="ok">This item has its own {{ sel.motion }} art<template v-if="store.custom[libPathOf(sel.row.layer, sel.motion)]"> (custom, drawn in the workshop)</template>.</p>
+          <button @click="toWorkshop">🖌 Open it in the workshop</button>
         </template>
         <template v-else>
           <h3>When the character plays {{ sel.motion }}</h3>
@@ -133,7 +145,8 @@ onMounted(() => { refreshFlags(); if (!castList.value.length) refreshCast() })
             <select v-model="choice.from" :disabled="choice.rule !== 'borrow'"><option v-for="m in ownMotions" :key="m" :value="m">{{ m }}</option></select>
             <span class="muted">(retimed)</span></label>
           <button class="primary" :disabled="gap.saving || !store.rulesLoaded" @click="applyRule">Save rule for the game</button>
-          <p class="muted small">Applies to every character wearing this item. Custom art for the motion comes with the motion workshop.</p>
+          <p class="muted small">Applies to every character wearing this item.</p>
+          <button @click="toWorkshop">🖌 Draw the {{ sel.motion }} in the workshop</button>
         </template>
 
         <h3>Flags</h3>

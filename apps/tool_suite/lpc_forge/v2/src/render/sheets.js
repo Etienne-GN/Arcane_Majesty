@@ -17,11 +17,48 @@ const cache = new Lru(300);
 
 function swapKey(sp) { return sp ? `${sp.sourceKey}:${sp.tintName}` : ''; }
 
+// Workshop: the sheet being drawn stands in for its file (by path, without the
+// leading slash), with a version bumped on every edit; custom sheets carry their
+// save time in the URL so a re-save is never served from the browser cache.
+const overrides = new Map();   // 'lpc_custom/…png' → { source: canvas, version }
+const stamps = new Map();      // 'weapon/…/run/bg.png' → updatedAt
+
+export function setSheetOverride(path, source) {
+    const prev = overrides.get(path);
+    for (const k of [...cache.map.keys()]) if (k.startsWith(`override:${path}|`)) cache.delete(k);
+    if (source) overrides.set(path, { source, version: (prev?.version ?? 0) + 1 });
+    else overrides.delete(path);
+}
+
+/** Record the custom manifest's save times (cache busting) and drop sheets whose file changed. */
+export function setCustomStamps(manifest) {
+    for (const [rel, m] of Object.entries(manifest)) {
+        if (stamps.get(rel) !== m.updatedAt) invalidateSheet(rel);
+        stamps.set(rel, m.updatedAt);
+    }
+    for (const rel of [...stamps.keys()]) if (!manifest[rel]) { stamps.delete(rel); invalidateSheet(rel); }
+}
+
+/** Forget every cached tint of a sheet (library or custom), by library-relative path. */
+export function invalidateSheet(rel) {
+    for (const k of [...cache.map.keys()]) {
+        if (k.startsWith(`/lpc/${rel}|`) || k.startsWith(`/lpc_custom/${rel}|`)) cache.delete(k);
+    }
+}
+
 /** Sheet = { canvas, w, h, emptyRows:Set<number>, activeCols:number } — or null when the PNG is missing/broken. */
 export function loadSheet(layer, concrete) {
-    const path = '/' + animPath(layer, concrete);
+    const rel = animPath(layer, concrete);
+    const ov = overrides.get(rel);
+    if (ov) {
+        const key = `override:${rel}|${ov.version}|${swapKey(layer.swapParams)}`;
+        if (!cache.has(key)) cache.set(key, Promise.resolve(fromSource(ov.source, layer.swapParams)));
+        return cache.get(key);
+    }
+    const path = '/' + rel;
     const key = path + '|' + swapKey(layer.swapParams);
-    if (!cache.has(key)) cache.set(key, build(path, layer.swapParams));
+    const stamp = rel.startsWith('lpc_custom/') ? stamps.get(rel.slice('lpc_custom/'.length)) : null;
+    if (!cache.has(key)) cache.set(key, build(stamp ? `${path}?v=${encodeURIComponent(stamp)}` : path, layer.swapParams));
     return cache.get(key);
 }
 
@@ -29,9 +66,14 @@ async function build(path, swap) {
     const img = new Image();
     img.src = path;
     try { await img.decode(); } catch { return null; }
+    return fromSource(img, swap);
+}
+
+/** Sheet from a decoded image or canvas, palette-swapped like the game does it. */
+function fromSource(img, swap) {
     const canvas = document.createElement('canvas');
-    canvas.width = img.naturalWidth;
-    canvas.height = img.naturalHeight;
+    canvas.width = img.naturalWidth ?? img.width;
+    canvas.height = img.naturalHeight ?? img.height;
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
     ctx.drawImage(img, 0, 0);
     const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
