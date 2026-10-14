@@ -3,6 +3,7 @@
  * from CharacterRenderer so it can be unit-tested in plain Node. Re-exported from
  * CharacterRenderer.js, so existing imports are unaffected.
  */
+import { libPath, hasCustomFile } from './lpcLayout.js';
 
 // Logical animations the creator/preview works in. Per layer these are resolved
 // to the concrete file a layer actually ships (see ANIM_ALIASES / resolveAnim) —
@@ -26,11 +27,14 @@ export const ANIM_ALIASES = {
  * Resolve a logical animation to the concrete file name a layer actually has.
  * Returns null when the layer ships no file for that motion. Layers without a
  * manifest (`layer.anims`) fall back to the literal name (legacy behaviour).
+ * A sheet registered in the custom overlay (lpcLayout.setCustomFiles) counts as
+ * shipped, so authored motions work even on stale cast-file `anims` snapshots.
  */
 export function resolveAnim(layer, logical) {
     const candidates = ANIM_ALIASES[logical] ?? [logical];
     if (!layer.anims) return candidates[0];
     for (const c of candidates) if (layer.anims.includes(c)) return c;
+    for (const c of candidates) if (hasCustomFile(libPath(layer, c))) return c;
     return null;
 }
 

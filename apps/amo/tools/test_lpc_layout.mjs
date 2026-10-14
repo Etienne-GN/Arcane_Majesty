@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /** Unit tests for lpcLayout.js (shared by the game and LPC Forge v2). Run: node tools/test_lpc_layout.mjs */
-import { SLOTS, renderType, animPath, frameRateFor, walkSkip, slotIndex, nextVisible } from '../src/systems/lpcLayout.js';
+import { SLOTS, renderType, animPath, libPath, setCustomFiles, hasCustomFile, frameRateFor, walkSkip, slotIndex, nextVisible } from '../src/systems/lpcLayout.js';
+import { resolveAnim } from '../src/systems/animResolve.js';
 
 let passed = 0; const fails = [];
 function check(name, got, want) {
@@ -44,6 +45,26 @@ check('skip hidden backward', nextVisible(list, 3, -1), 1);
 check('wraps', nextVisible(list, 3, 1), 0);
 check('from a hidden item moves on', nextVisible(list, 2, 1), 3);
 check('all hidden → stays', nextVisible([{ id: 'x', hidden: true }], 0, 1), 0);
+
+// Custom overlay (Forge motion workshop): registered files win and count as owned art.
+const redCape = { type: 'cape', id: 'solid/female', color: 'red', anims: ['walk', 'hurt'] };
+const navyCape = { ...redCape, color: 'navy' };
+check('libPath has no prefix', libPath(redCape, 'run'), 'cape/solid/female/run/red.png');
+check('no custom: run unresolved', resolveAnim(redCape, 'run'), null);
+setCustomFiles(['cape/solid/female/run/red.png']);
+check('registered', hasCustomFile('cape/solid/female/run/red.png'), true);
+check('custom run resolves', resolveAnim(redCape, 'run'), 'run');
+check('custom path', animPath(redCape, 'run'), 'lpc_custom/cape/solid/female/run/red.png');
+check('library path untouched', animPath(redCape, 'walk'), 'lpc/cape/solid/female/walk/red.png');
+check('other colour not covered', resolveAnim(navyCape, 'run'), null);
+check('other colour path stays library', animPath(navyCape, 'run'), 'lpc/cape/solid/female/run/navy.png');
+const sword = { type: 'weapon', id: 'sword/arming/universal', itemName: 'bg', anims: ['walk'] };
+setCustomFiles(['weapon/sword/arming/universal/attack_slash/bg.png']);
+check('alias candidate found in overlay', resolveAnim(sword, 'slash'), 'attack_slash');
+check('registry replaced', hasCustomFile('cape/solid/female/run/red.png'), false);
+setCustomFiles([]);
+check('cleared', resolveAnim(redCape, 'run'), null);
+check('no manifest layer unchanged', resolveAnim({ type: 'body', id: 'bodies/male' }, 'run'), 'run');
 
 if (fails.length) { console.error(`✗ lpcLayout: ${fails.length} failed\n  ` + fails.join('\n  ')); process.exit(1); }
 console.log(`✓ lpcLayout: ${passed} passed`);

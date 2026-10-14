@@ -26,6 +26,7 @@ import { DEFAULT_ANIMS, ANIM_ALIASES, resolveAnim } from './animResolve.js';
 export { DEFAULT_ANIMS, ANIM_ALIASES, resolveAnim };
 // Paths and frame rules shared with LPC Forge v2 (Phaser-free).
 import { animPath as animUrl, COLOR_TYPES, frameRateFor } from './lpcLayout.js';
+import './lpcCustom.js';   // registers Forge-authored sheets (public/lpc_custom)
 import { remapPixels } from './lpcPalettes.js';
 // Per-item motion rules (fallback / hide / retimed borrow), shared with LPC Forge v2.
 import { resolveMotion, neededAnims, frameMap } from './motionRules.js';

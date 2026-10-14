@@ -12,7 +12,8 @@
  * Pure Node (PNG header read only) — no deps, CI-friendly.
  * Run from apps/amo/:  node tools/validate_catalogue.mjs   (or: npm run test:catalogue)
  */
-import { readFileSync, existsSync } from 'fs';
+import { readFileSync, existsSync, readdirSync, statSync } from 'fs';
+import { join, relative } from 'path';
 
 const BASE    = './ressources/lpc_merged/spritesheets';
 const CATFILE = './src/data/character_catalogue.json';
@@ -94,6 +95,24 @@ for (const [key, list] of Object.entries(cat)) {
             }
         }
     }
+}
+
+// (4) Custom overlay (public/lpc_custom, written by LPC Forge's workshop): every
+// listed sheet exists with whole 64px cells and known licences; no unlisted PNGs.
+const CUSTOM_DIR = './public/lpc_custom';
+const custom = JSON.parse(readFileSync('./src/data/lpc_custom.json', 'utf8'));
+for (const [rel, meta] of Object.entries(custom)) {
+    const p = `${CUSTOM_DIR}/${rel}`;
+    if (!existsSync(p)) { errors.push(`[lpc_custom] ${rel}: listed but missing`); continue; }
+    const { w, h } = pngSize(p);
+    if (!dimsOk(w, h)) errors.push(`[lpc_custom] ${rel}: ${w}x${h} is not a whole 64px grid`);
+    if (!Array.isArray(meta?.licenses) || !meta.licenses.length || meta.licenses.includes('unknown'))
+        errors.push(`[lpc_custom] ${rel}: licences unknown — set them in src/data/lpc_custom.json`);
+}
+const walk = d => readdirSync(d).flatMap(f => statSync(join(d, f)).isDirectory() ? walk(join(d, f)) : [join(d, f)]);
+for (const f of existsSync(CUSTOM_DIR) ? walk(CUSTOM_DIR) : []) {
+    const rel = relative(CUSTOM_DIR, f).split('\\').join('/');
+    if (rel.endsWith('.png') && !custom[rel]) errors.push(`[lpc_custom] ${rel}: not listed in src/data/lpc_custom.json`);
 }
 
 if (errors.length) {

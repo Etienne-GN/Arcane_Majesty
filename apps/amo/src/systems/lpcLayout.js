@@ -33,27 +33,41 @@ export const WEAPON_TYPES = new Set(['weapon']);
 // These types use  type/id/anim/{color}.png  (color stored in layer.color)
 export const COLOR_TYPES = new Set(['cape', 'backpack']);
 
-/** Relative URL path (no leading slash) of a layer's PNG for one concrete anim. */
-export function animPath(layer, anim) {
+/** A layer's PNG for one concrete anim, relative to the library root (no lpc/ prefix). */
+export function libPath(layer, anim) {
     if (layer.itemName) {
         // bodies using per-animation subdirs: body/bodies/skeleton/walk/skeleton.png
-        return `lpc/${layer.type}/${layer.id}/${anim}/${layer.itemName}.png`;
+        return `${layer.type}/${layer.id}/${anim}/${layer.itemName}.png`;
     }
     if (layer.color != null) {
         // Any colored layer: cape, backpack, tail, wings, etc.
-        return `lpc/${layer.type}/${layer.id}/${anim}/${layer.color}.png`;
+        return `${layer.type}/${layer.id}/${anim}/${layer.color}.png`;
     }
     if (WEAPON_TYPES.has(layer.type)) {
         // weapon/sword/longsword/walk/longsword.png
         const parts = layer.id.split('/');
-        return `lpc/${layer.type}/${layer.id}/${anim}/${parts[parts.length - 1]}.png`;
+        return `${layer.type}/${layer.id}/${anim}/${parts[parts.length - 1]}.png`;
     }
     if (COLOR_TYPES.has(layer.type)) {
         // Fallback for cape/backpack when no color specified
-        return `lpc/${layer.type}/${layer.id}/${anim}/red.png`;
+        return `${layer.type}/${layer.id}/${anim}/red.png`;
     }
     // body/bodies/male/walk.png
-    return `lpc/${layer.type}/${layer.id}/${anim}.png`;
+    return `${layer.type}/${layer.id}/${anim}.png`;
+}
+
+// Custom overlay: sheets authored in LPC Forge's motion workshop, served from
+// lpc_custom/ at the same relative path. A registered file wins over the
+// library and counts as the layer's own art (animResolve.resolveAnim). The game
+// registers src/data/lpc_custom.json (lpcCustom.js); the Forge fetches it.
+let customFiles = new Set();
+export function setCustomFiles(paths) { customFiles = new Set(paths); }
+export function hasCustomFile(relPath) { return customFiles.has(relPath); }
+
+/** Relative URL path (no leading slash) of a layer's PNG for one concrete anim. */
+export function animPath(layer, anim) {
+    const rel = libPath(layer, anim);
+    return (customFiles.has(rel) ? 'lpc_custom/' : 'lpc/') + rel;
 }
 
 /** Playback rate (frames/s) per animation — the game's values. */
