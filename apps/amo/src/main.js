@@ -76,4 +76,6 @@ const config = {
     ]
 };
 
-new Phaser.Game(config);
+const game = new Phaser.Game(config);
+// Dev only: a handle for headless checks (tools/console.mjs --eval).
+if (import.meta.env.DEV) window.__game = game;

@@ -28,8 +28,8 @@ class FakeKeyboardEvent {
 }
 globalThis.KeyboardEvent = FakeKeyboardEvent;
 
-// Every KEY_CODES entry is well-formed (23 actions).
-check('KEY_CODES has 23 entries', Object.keys(KEY_CODES).length, 23);
+// Every KEY_CODES entry is well-formed (27 actions: 23 + hotbar 1–4).
+check('KEY_CODES has 27 entries', Object.keys(KEY_CODES).length, 27);
 for (const [name, def] of Object.entries(KEY_CODES)) {
     check(`key ${name}.keyCode numeric`, typeof def.keyCode, 'number');
     check(`key ${name}.code string`, typeof def.code, 'string');

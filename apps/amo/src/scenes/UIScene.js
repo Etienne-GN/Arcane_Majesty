@@ -6,6 +6,7 @@ import { statusManager } from '../systems/StatusManager.js';
 import { STATUS_DEFS } from '../data/statuses.js';
 import { isMobile } from '../utils/platform.js';
 import LauncherControls from '../controls/LauncherControls.js';
+import { HOTBAR_SIZE, hotbarView } from '../systems/hotbar.js';
 
 export default class UIScene extends Phaser.Scene {
     constructor() { super('UIScene'); }
@@ -93,6 +94,8 @@ export default class UIScene extends Phaser.Scene {
         this._controls = new LauncherControls(this);
         this._joyVec   = this._controls.joyVec;
         this._controls.create(w, h);
+
+        this._initHotbar(w, h);
 
         // Gold display (top right, below minimap)
         this.goldText = this.add.text(w - pad, this._mmH + pad + 12, '', {
@@ -200,6 +203,62 @@ export default class UIScene extends Phaser.Scene {
 
         this._controls.update();
         this._updateMinimap();
+        this._updateHotbar();
+    }
+
+    // Consumable hotbar (systems/hotbar.js): bottom centre on desktop, a row
+    // just above the skill ring when the touch deck is shown. Tap or 1–4 to use.
+    _initHotbar(w, h) {
+        const touch = this._controls._deckVisible();
+        const size = touch ? 36 : 40, gap = 6;
+        const rowW = HOTBAR_SIZE * size + (HOTBAR_SIZE - 1) * gap;
+        let x0, y0;
+        if (touch && this._controls._atkData) {
+            const { atkX, atkY, R_ARM, R_SK } = this._controls._atkData;
+            x0 = Math.round(Math.min(w - 8 - rowW, atkX - R_ARM / 2 - rowW / 2));
+            y0 = Math.round(atkY - R_ARM - R_SK - 12 - size);
+        } else {
+            x0 = Math.round(w / 2 - rowW / 2);
+            y0 = h - 20 - size;
+        }
+        this._hotbar = [];
+        for (let i = 0; i < HOTBAR_SIZE; i++) {
+            const x = x0 + i * (size + gap);
+            const bg = this.add.rectangle(x, y0, size, size, 0x0a0a1e, 0.75).setOrigin(0).setDepth(30)
+                .setStrokeStyle(2, 0x333366).setInteractive();
+            bg.on('pointerdown', () => {
+                if (this.scene.isPaused('GameScene')) return;
+                this.scene.get('GameScene')?._useHotbar?.(i);
+            });
+            const icon = this.add.image(x + size / 2, y0 + size / 2, '__DEFAULT').setDisplaySize(size - 12, size - 12).setDepth(31).setVisible(false);
+            const block = this.add.rectangle(x + 8, y0 + 8, size - 16, size - 16, 0x8855ff).setOrigin(0).setDepth(31).setVisible(false);
+            const key = this.add.text(x + 3, y0 + 1, `${i + 1}`, { font: '11px monospace', fill: '#8888bb' }).setDepth(33);
+            const count = this.add.text(x + size - 3, y0 + size - 1, '', { font: 'bold 12px monospace', fill: '#ffffff', stroke: '#000', strokeThickness: 2 }).setOrigin(1, 1).setDepth(33);
+            const shade = this.add.rectangle(x, y0, size, size, 0x000000, 0.55).setOrigin(0).setDepth(32).setVisible(false);
+            this._hotbar.push({ bg, icon, block, key, count, shade, id: undefined });
+        }
+    }
+
+    _updateHotbar() {
+        if (!this._hotbar) return;
+        const view = hotbarView(this.stats);
+        const game = this.scene.get('GameScene');
+        const cooling = game?.time && (this.stats._hotbarReadyAt ?? 0) > game.time.now;
+        this._hotbar.forEach((b, i) => {
+            const v = view[i] ?? null;
+            if ((v?.id ?? null) !== b.id) {
+                b.id = v?.id ?? null;
+                const hasIcon = v?.icon && this.textures.exists(v.icon);
+                b.icon.setVisible(!!hasIcon);
+                if (hasIcon) b.icon.setTexture(v.icon);
+                b.block.setVisible(!!v && !hasIcon);
+                if (v && !hasIcon) b.block.setFillStyle(v.color);
+            }
+            const alpha = v && !v.ready ? 0.35 : 1;
+            b.icon.setAlpha(alpha); b.block.setAlpha(alpha);
+            b.count.setText(v ? `${v.count}` : '');
+            b.shade.setVisible(!!v && v.ready && !!cooling);
+        });
     }
 
     // Lay out status chips: [{ label, secs|null, stacks, buff, tint }] from (x, y), wrapping at maxW

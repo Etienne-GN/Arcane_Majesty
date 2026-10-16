@@ -3,6 +3,7 @@ import { playerStats } from '../systems/PlayerStats.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
 import { ITEMS, SATCHEL_TIERS } from '../data/items.js';
 import { DIALOGUES } from '../data/dialogues.js';
+import { HOTBAR_SIZE, assignHotbar, canHotbar } from '../systems/hotbar.js';
 
 const SLOT = 56;
 const EQUIP_PANEL_W = 192;
@@ -64,6 +65,8 @@ export default class InventoryScene extends Phaser.Scene {
         // Equipment panel (left)
         this._drawEquipPanel(px + 4, py + 56, EQUIP_PANEL_W);
 
+        this._drawHotbarStrip(px + 4, py + 56 + 24 + EQUIP_SLOTS.length * 82 + 4, EQUIP_PANEL_W);
+
         // Satchel grid + description (right)
         this._drawSatchelGrid(divX + 8, py + 56, pw - EQUIP_PANEL_W - 28);
 
@@ -123,6 +126,24 @@ export default class InventoryScene extends Phaser.Scene {
                 bg.on('pointerout',  () => bg.setFillStyle(0x0c0c20));
             }
         });
+    }
+
+    // The four hotbar slots (keys 1–4 in play); tap a filled one to clear it.
+    _drawHotbarStrip(x, y, panelW) {
+        this.add.text(x + panelW / 2, y, 'HOTBAR', { font: 'bold 12px monospace', fill: '#8888bb' }).setOrigin(0.5, 0);
+        const size = Math.floor((panelW - 3 * 6) / HOTBAR_SIZE);
+        for (let i = 0; i < HOTBAR_SIZE; i++) {
+            const id = playerStats.hotbar?.[i] ?? null, def = id ? ITEMS[id] : null;
+            const bx = x + i * (size + 6), by = y + 18;
+            const bg = this.add.rectangle(bx, by, size, size, 0x0c0c20).setOrigin(0).setStrokeStyle(2, def ? 0x5533aa : 0x282840).setInteractive();
+            this.add.text(bx + 3, by + 1, `${i + 1}`, { font: '11px monospace', fill: '#555577' });
+            if (def) {
+                if (def.icon && this.textures.exists(def.icon)) this.add.image(bx + size / 2, by + size / 2, def.icon).setDisplaySize(size - 14, size - 14);
+                else this.add.rectangle(bx + 8, by + 8, size - 16, size - 16, def.color ?? 0x8855ff).setOrigin(0);
+                this.add.text(bx + size - 3, by + size - 1, `${playerStats.countItem(id)}`, { font: '11px monospace', fill: '#fff' }).setOrigin(1, 1);
+                bg.on('pointerdown', () => { assignHotbar(playerStats, i, null); this.scene.restart(); });
+            }
+        }
     }
 
     _drawSatchelGrid(x, y, availW) {
@@ -193,7 +214,8 @@ export default class InventoryScene extends Phaser.Scene {
                             : '';
                         this.descText.setText(`${item.name}${statStr}\n${item.description}`);
                         this.actionHint.setText(
-                            item.slot ? '[E] Equip   [ESC/I] Close' : '[U] Use   [ESC/I] Close'
+                            item.slot ? '[E] Equip   [ESC/I] Close'
+                                : canHotbar(item.id) ? '[U] Use   [1-4] Hotbar   [ESC/I] Close' : '[U] Use   [ESC/I] Close'
                         );
                     });
                 } else {
@@ -226,6 +248,11 @@ export default class InventoryScene extends Phaser.Scene {
                 }
             }
         });
+        ['ONE', 'TWO', 'THREE', 'FOUR'].forEach((k, slot) => this.input.keyboard.on(`keydown-${k}`, () => {
+            const item = inventory[this.selectedIdx];
+            if (item && assignHotbar(playerStats, slot, item.id)) this.scene.restart();
+            else this.cameras.main.shake(80, 0.007);
+        }));
         this.input.keyboard.on('keydown-E', () => {
             if (this.selectedIdx < 0) return;
             const item = inventory[this.selectedIdx];

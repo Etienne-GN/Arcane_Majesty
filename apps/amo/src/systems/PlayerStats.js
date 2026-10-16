@@ -205,6 +205,8 @@ export class PlayerStats {
 
         // Skill bar slots — 4 mappable spell slots (Q/R/F/T)
         this.skillSlots = [null, null, null, null];
+        // Consumable item ids on keys 1–4 (systems/hotbar.js)
+        this.hotbar = [null, null, null, null];
 
         this.skillPoints = 0;
 
@@ -708,6 +710,7 @@ export class PlayerStats {
         RESONANCE_ELEMENTS.forEach(e => { this.resonance[e] = 0; });
         Object.keys(SPELLS).forEach(id => { this.spells[id] = 0; this.spellCooldowns[id] = 0; });
         this.skillSlots = [null, null, null, null];
+        this.hotbar     = [null, null, null, null];
         this.attunedGates      = [];
         this.exploredChunks    = [];
         this.questLog          = {};

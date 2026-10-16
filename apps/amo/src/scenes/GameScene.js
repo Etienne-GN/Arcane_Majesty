@@ -28,6 +28,7 @@ import { nodeKey, markNodeHarvested, nodeRegrowRemaining, markBossDefeated, isBo
 import { ENEMY_KITS } from '../data/enemyMagic.js';
 import { affinityOf, affinityMult } from '../data/enemyAffinities.js';
 import { targetInfo } from '../systems/targetInfo.js';
+import { useHotbar } from '../systems/hotbar.js';
 import { eliteCap, rollElite, pickAffixes, eliteStats, eliteRareDrop } from '../data/elites.js';
 import { conductTargets, CONDUCT_FRACTION, DETONATE_RADIUS, detonateDamage } from '../systems/reactions.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
@@ -439,6 +440,9 @@ export default class GameScene extends Phaser.Scene {
             this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T),
         ];
 
+        // Consumable hotbar — 1 / 2 / 3 / 4 (systems/hotbar.js)
+        this.hotbarKeys = ['ONE', 'TWO', 'THREE', 'FOUR'].map(k => this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[k]));
+
         // Augmentation keys
         this.blinkKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.sightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.V);
@@ -655,6 +659,18 @@ export default class GameScene extends Phaser.Scene {
             this._checkInteractions();
         } else {
             this.player.triggerAttack();
+        }
+    }
+
+    // Hotbar slot i (keys 1–4, or a tap on the HUD box)
+    _useHotbar(i) {
+        const r = useHotbar(playerStats, i, this.time.now);
+        const name = ITEMS[playerStats.hotbar?.[i]]?.name ?? '';
+        if (r.ok) {
+            soundManager.collect();
+            this.scene.get('UIScene')?.showNotification?.(name, 900);
+        } else if (r.reason === 'none') {
+            this.scene.get('UIScene')?.showNotification?.(`No ${name} left`, 900);
         }
     }
 
@@ -2915,6 +2931,10 @@ export default class GameScene extends Phaser.Scene {
                 if (Phaser.Input.Keyboard.JustDown(key)) this._tryActivateSlot(i);
             });
         }
+
+        this.hotbarKeys.forEach((key, i) => {
+            if (Phaser.Input.Keyboard.JustDown(key)) this._useHotbar(i);
+        });
 
         // Reticle follows mouse while targeting / campfire placement
         if (this._targeting)       this._updateReticle();

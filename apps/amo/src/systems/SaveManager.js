@@ -42,6 +42,7 @@ export class SaveManager {
             resonance:     { ...stats.resonance },
             spellCooldowns: { ...stats.spellCooldowns },
             skillSlots:    [...(stats.skillSlots ?? [])],
+            hotbar:        [...(stats.hotbar ?? [null, null, null, null])],
             attunedGates:   [...(stats.attunedGates   ?? [])],
             exploredChunks: [...(stats.exploredChunks ?? [])],
             questLog:          JSON.parse(JSON.stringify(stats.questLog ?? {})),
@@ -98,6 +99,7 @@ export class SaveManager {
             if (d.resonance)      stats.resonance       = { ...(stats.resonance ?? {}), ...d.resonance };
             if (d.spellCooldowns) stats.spellCooldowns  = { ...(stats.spellCooldowns ?? {}), ...d.spellCooldowns };
             if (d.skillSlots)     stats.skillSlots  = [...d.skillSlots];
+            stats.hotbar = Array.isArray(d.hotbar) ? [...d.hotbar, null, null, null, null].slice(0, 4) : [null, null, null, null];
             if (d.attunedGates)    stats.attunedGates    = [...d.attunedGates];
             if (d.exploredChunks)  stats.exploredChunks  = [...d.exploredChunks];
             if (d.questLog)            stats.questLog          = JSON.parse(JSON.stringify(d.questLog));
