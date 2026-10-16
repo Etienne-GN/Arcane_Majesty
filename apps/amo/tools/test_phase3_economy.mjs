@@ -196,4 +196,17 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     eq(s.upgradeEquipped('weapon'), { ok: false, reason: 'empty' }, 'nothing equipped there');
 }
 
+// ---- C4 review fix: two copies of one accessory, one upgrade → no drift
+{
+    const s = new PlayerStats();
+    const base = { ...s.attributes };
+    s.addItem('iron_ring'); s.addItem('iron_ring');
+    s.equipItem('iron_ring'); s.equipItem('iron_ring');
+    eq([s.equipment.accessory1, s.equipment.accessory2], ['iron_ring', 'iron_ring'], 'two rings worn');
+    s.addItem('mineral_ore', 2);
+    ok(s.upgradeEquipped('accessory1').ok, 'upgrade one ring');
+    s.unequipItem('accessory1'); s.unequipItem('accessory2');
+    eq(s.attributes, base, 'both rings off: attributes back to base');
+}
+
 console.log(`phase 3 economy: ${n} checks passed`);

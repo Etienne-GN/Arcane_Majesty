@@ -605,10 +605,12 @@ export class PlayerStats {
         const cost = upgradeCost(ITEMS[id], level + 1);
         if (!cost.every(c => this.countItem(c.id) >= c.qty)) return { ok: false, reason: 'materials' };
         cost.forEach(c => this.consumeItem(c.id, c.qty));
-        this._unapplyEquipStats(id);
+        // Upgrades are per item id: every worn copy (two identical rings) moves together.
+        const worn = Object.values(this.equipment).filter(e => e === id).length;
+        for (let i = 0; i < worn; i++) this._unapplyEquipStats(id);
         this.gearUpgrades ??= {};
         this.gearUpgrades[id] = level + 1;
-        this._applyEquipStats(id);
+        for (let i = 0; i < worn; i++) this._applyEquipStats(id);
         return { ok: true, level: level + 1 };
     }
 

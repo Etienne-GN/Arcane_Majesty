@@ -97,6 +97,20 @@ export default class ShopScene extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-ESC', () => this._close());
         this.input.on('wheel', (p, _o, _dx, dy) => { if (p.x < DIV) this._scrollBuy(dy > 0 ? 1 : -1); });
+        // Arrow keys and a touch drag scroll the buy list too (it outgrows the screen)
+        this.input.keyboard.on('keydown-UP',   () => this._scrollBuy(-1));
+        this.input.keyboard.on('keydown-DOWN', () => this._scrollBuy(1));
+        let dragY = null, dragAcc = 0;
+        this.input.on('pointerdown', p => { dragY = p.x < DIV ? p.y : null; dragAcc = 0; });
+        this.input.on('pointermove', p => {
+            if (dragY === null || !p.isDown) return;
+            dragAcc += dragY - p.y; dragY = p.y;
+            while (Math.abs(dragAcc) >= ROW_H) {
+                this._scrollBuy(dragAcc > 0 ? 1 : -1);
+                dragAcc += dragAcc > 0 ? -ROW_H : ROW_H;
+            }
+        });
+        this.input.on('pointerup', () => { dragY = null; });
         this._gpNav = new GamepadNav(this);
     }
 
