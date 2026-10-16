@@ -6,6 +6,7 @@ import { SaveManager } from '../systems/SaveManager.js';
 import { questManager } from '../systems/QuestManager.js';
 import { MenuFocus } from '../systems/MenuFocus.js';
 import { STATION_LABELS, CRAFT_KIND, availableRecipes, craftRank, extraOutput } from '../data/stations.js';
+import { isLocked } from '../data/recipeScrolls.js';
 
 // A campfire offers REST / COOK / BREW; a station (data/stations.js) only its own craft.
 const FIRE_TABS = ['REST', 'COOK', 'BREW'];
@@ -309,16 +310,19 @@ export default class CampfireScene extends Phaser.Scene {
 
     // All ingredients have been picked up at least once → recipe is fully revealed.
     _isDiscovered(recipe) {
+        if (this._learned(recipe)) return true;   // a read scroll reveals the whole recipe
         return this._ingredientIds(recipe).every(id => playerStats.seenItems.has(id));
     }
 
     // At least one ingredient has been seen → recipe appears in the list (possibly as ???).
     _isSeen(recipe) {
+        if (this._learned(recipe)) return true;
         return this._ingredientIds(recipe).some(id => playerStats.seenItems.has(id));
     }
 
-    // Scroll-locked recipes (Task: recipe scrolls) — none yet.
-    _isLocked() { return false; }
+    // Scroll-locked recipes stay hidden until their scroll is read (data/recipeScrolls.js)
+    _isLocked(output) { return isLocked(output); }
+    _learned(recipe) { return isLocked(recipe.output) && (playerStats.knownRecipes ?? []).includes(recipe.output); }
 
     _scrollRecipes(mode, d) {
         this._recipeScroll ??= {};

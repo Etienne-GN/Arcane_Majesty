@@ -1,3 +1,5 @@
+import { scrollItems } from './recipeScrolls.js';
+
 // Satchel tier progression (Weathered Pouch → Void-Fold)
 export const SATCHEL_TIERS = [
     { tier: 1, name: 'Weathered Pouch',    slots: 10 },
@@ -70,6 +72,10 @@ export const MERCHANT_CATALOG = [
     { id: 'phantom_blade',         price: 155, currency: 'glint' },
     { id: 'resonance_bow',         price: 200, currency: 'gold' },
     { id: 'forest_longbow',        price: 140, currency: 'gold' },
+    // Recipe scrolls — shown once your craft rank of that kind reaches `requires.rank`
+    { id: 'recipe_hearty_stew',      price: 90,  currency: 'glint', requires: { kind: 'cooking', rank: 1 } },
+    { id: 'recipe_moonpetal_elixir', price: 120, currency: 'glint', requires: { kind: 'alchemy', rank: 2 } },
+    { id: 'recipe_anglers_platter',  price: 140, currency: 'glint', requires: { kind: 'cooking', rank: 2 } },
 ];
 
 export const ITEMS = {
@@ -1599,3 +1605,7 @@ export const COOKING_RECIPES = [
     { output: 'bone_herb_soup',      label: 'Bone & Herb Soup',     ingredients: [{ id: 'bone_fragment', qty: 2 }, { id: 'forest_herb',  qty: 2 }] },
     { input: ['boar_meat', 'deer_meat', 'rabbit_meat', 'mushroom_spore'], output: 'grand_feast', label: 'Grand Feast', multi: true },
 ];
+
+// Recipe scrolls (data/recipeScrolls.js) — one item per scroll-locked recipe.
+const RECIPE_LABELS = Object.fromEntries([...COOKING_RECIPES, ...POTION_RECIPES].map(r => [r.output, r.label]));
+Object.assign(ITEMS, scrollItems(RECIPE_LABELS));

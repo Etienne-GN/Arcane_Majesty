@@ -3,6 +3,7 @@ import { playerStats } from '../systems/PlayerStats.js';
 import { ITEMS, MERCHANT_CATALOG } from '../data/items.js';
 import { itemCurrency, shopPrice, recordSale, BUYBACK_MAX } from '../data/economy.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
+import { craftRank } from '../data/stations.js';
 import { SaveManager } from '../systems/SaveManager.js';
 
 // Session-persistent buyback list (cleared on page reload, not on shop re-open):
@@ -28,7 +29,12 @@ export default class ShopScene extends Phaser.Scene {
 
     // Arcane goods for glint, mundane goods for gold; a few are rank-gated (recipe scrolls).
     _catalog() {
-        return MERCHANT_CATALOG.filter(e => ITEMS[e.id]);
+        const known = new Set(playerStats.knownRecipes ?? []);
+        return MERCHANT_CATALOG.filter(e => {
+            if (!ITEMS[e.id]) return false;
+            if (e.id.startsWith('recipe_') && known.has(e.id.slice('recipe_'.length))) return false;
+            return !e.requires || craftRank(playerStats.craftCounts?.[e.requires.kind] ?? 0) >= e.requires.rank;
+        });
     }
 
     create() {

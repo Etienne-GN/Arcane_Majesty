@@ -105,7 +105,7 @@ export const QUESTS = {
             { id: 'collect_shards', type: 'collect', target: 'void_shard', label: 'Collect Void Shards (0/5)', required: 5 },
             { id: 'talk_hermit',    type: 'talk',    target: 'hermit',     label: 'Return to the Hermit',     required: 1 },
         ],
-        reward: { glint: 60, xp: 100, items: ['mana_potion', 'mana_potion', 'ancient_scroll'] },
+        reward: { glint: 60, xp: 100, items: ['mana_potion', 'mana_potion', 'ancient_scroll', 'recipe_void_tonic'] },
     },
 
     side_hunters_larder: {
@@ -118,7 +118,7 @@ export const QUESTS = {
             { id: 'cook_venison', type: 'cook', target: 'roasted_venison', label: 'Cook Roasted Venison', required: 1 },
             { id: 'cook_rabbit',  type: 'cook', target: 'roasted_rabbit',  label: 'Cook Roasted Rabbit',  required: 1 },
         ],
-        reward: { glint: 50, xp: 70, items: ['roasted_boar', 'hearty_stew'] },
+        reward: { glint: 50, xp: 70, items: ['roasted_boar', 'hearty_stew', 'recipe_grand_feast'] },
     },
 
     hidden_void_fragment: {

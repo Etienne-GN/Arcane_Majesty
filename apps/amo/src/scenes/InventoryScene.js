@@ -246,6 +246,8 @@ export default class InventoryScene extends Phaser.Scene {
                 } else {
                     this.scene.restart();
                 }
+            } else if (itemId.startsWith('recipe_')) {
+                this.actionHint.setText('You already know this recipe.');
             }
         });
         ['ONE', 'TWO', 'THREE', 'FOUR'].forEach((k, slot) => this.input.keyboard.on(`keydown-${k}`, () => {

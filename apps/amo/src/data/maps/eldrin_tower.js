@@ -150,7 +150,7 @@ export const ELDRIN_TOWER = {
             { x: 25, y: 40, dialogue: 'stub_ch12_dawns_embrace_greeting', afterDialogue: 'stub_ch12_dawns_embrace_greeting', name: 'Placeholder', spriteKey: 'spr_old_dude', animProfile: 'lpc_universal' },
         ],
         chests:         [
-            { x: 10, y: 17, items: ['longsword'] },
+            { x: 10, y: 17, items: ['longsword', 'recipe_deepwater_elixir'] },
         ],
         campfires:      [],
         stations:       [{ x: 15, y: 18, type: 'alchemy', rank: 3 }],   // Eldrin's own alchemy table

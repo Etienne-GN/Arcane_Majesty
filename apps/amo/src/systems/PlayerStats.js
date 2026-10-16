@@ -228,6 +228,8 @@ export class PlayerStats {
         this.weaponEnchants = {};
         // Crafts made of each kind → craft rank (data/stations.js)
         this.craftCounts = { cooking: 0, alchemy: 0 };
+        // Scroll-locked recipes learned (data/recipeScrolls.js)
+        this.knownRecipes = [];
         // Where the player is (kept fresh by GameScene) and where they rise after
         // death (last campfire / rift-gate) — see systems/respawn.js.
         this.location     = null;
@@ -665,6 +667,14 @@ export class PlayerStats {
         return this.weaponEnchants?.[w] ?? ITEMS[w]?.enchant ?? null;
     }
 
+    // Reading a recipe scroll. False (scroll kept) when the recipe is already known.
+    learnRecipe(output) {
+        this.knownRecipes ??= [];
+        if (this.knownRecipes.includes(output)) return false;
+        this.knownRecipes.push(output);
+        return true;
+    }
+
     countItem(itemId) {
         return this.inventory.reduce((n, i) => n + (i.id === itemId ? (i.qty ?? 1) : 0), 0);
     }
@@ -733,6 +743,7 @@ export class PlayerStats {
         this.chestContents    = {};
         this.weaponEnchants   = {};
         this.craftCounts      = { cooking: 0, alchemy: 0 };
+        this.knownRecipes     = [];
         this.location         = null;
         this.respawnPoint     = null;
         this.worldState       = {};

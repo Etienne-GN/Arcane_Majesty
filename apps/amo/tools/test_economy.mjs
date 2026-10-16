@@ -32,6 +32,11 @@ for (const m of maps) {
     for (const c of m.spawns?.chests ?? []) for (const it of c.contents ?? c.items ?? []) src(it.id ?? it, `chest:${m.id}`);
 }
 for (const r of [...COOKING_RECIPES, ...POTION_RECIPES, ...CRAFTING_RECIPES]) src(r.output, 'recipe');
+// Recipe scrolls: any unknown one can drop from an elite (data/recipeScrolls.js)
+const { SCROLL_RECIPES, scrollId } = await import('../src/data/recipeScrolls.js');
+SCROLL_RECIPES.forEach(o => src(scrollId(o), 'elite'));
+for (const id of Object.keys(ITEMS).filter(k => k.startsWith('recipe_'))) ok(sources.has(id), `${id} has a source`);
+for (const id of ['mineral_ore', 'silver_ore', 'heartwood', 'ice_crystal', 'aether_shard']) ok(sources.has(id), `upgrade material ${id} has a source`);
 
 // ---- every recipe is well-formed and every input is obtainable
 for (const r of [...COOKING_RECIPES, ...POTION_RECIPES, ...CRAFTING_RECIPES]) {

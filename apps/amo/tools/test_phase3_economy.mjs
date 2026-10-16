@@ -130,4 +130,37 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     }
 }
 
+// ---- C3: recipe scrolls
+{
+    const RS = await import('../src/data/recipeScrolls.js');
+    const ST = await import('../src/data/stations.js');
+    const { ITEMS, MERCHANT_CATALOG, COOKING_RECIPES } = await import('../src/data/items.js');
+    eq(RS.SCROLL_RECIPES.length, 12, 'a dozen scroll-locked recipes');
+    for (const out of RS.SCROLL_RECIPES) {
+        const it = ITEMS[RS.scrollId(out)];
+        ok(it && typeof it.onUse === 'function' && it.stackable === false, `${out}: a usable scroll item`);
+        ok(it.name.startsWith('Recipe: '), `${out}: named "Recipe: …"`);
+    }
+    // Review Focus 4: hidden until read, a second read does nothing
+    const s = new PlayerStats();
+    const hidden = ST.availableRecipes(COOKING_RECIPES, 'cooking', { station: 'hearth', rank: 2 }, s.knownRecipes, RS.isLocked);
+    ok(!hidden.some(r => r.output === 'grand_feast'), 'locked recipe hidden');
+    s.addItem('recipe_grand_feast');
+    ok(s.useItem('recipe_grand_feast'), 'reading the scroll teaches it');
+    ok(s.knownRecipes.includes('grand_feast') && s.countItem('recipe_grand_feast') === 0, 'learned and consumed');
+    s.addItem('recipe_grand_feast');
+    ok(!s.useItem('recipe_grand_feast') && s.countItem('recipe_grand_feast') === 1, 'a known recipe is not consumed again');
+    const shown = ST.availableRecipes(COOKING_RECIPES, 'cooking', { station: 'hearth', rank: 2 }, s.knownRecipes, RS.isLocked);
+    ok(shown.some(r => r.output === 'grand_feast'), 'known recipe shown');
+    eq(RS.rollEliteScroll(() => 0.5, []), null, 'no scroll above the chance');
+    ok(RS.SCROLL_RECIPES.map(RS.scrollId).includes(RS.rollEliteScroll(() => 0.01, [])), 'a scroll under the chance');
+    eq(RS.rollEliteScroll(() => 0.01, [...RS.SCROLL_RECIPES]), null, 'nothing left to learn → no scroll');
+    const scrolls = MERCHANT_CATALOG.filter(e => e.id.startsWith('recipe_'));
+    ok(scrolls.length === 3, 'three scrolls on sale');
+    for (const e of scrolls) ok(e.requires?.rank >= 1 && ['cooking', 'alchemy'].includes(e.requires.kind), `${e.id}: rank-gated`);
+    SaveManager.save(s, 'st', 'ch2');
+    const t = new PlayerStats(); SaveManager.load(t, 'st', 'ch2');
+    eq(t.knownRecipes, ['grand_feast'], 'known recipes are saved');
+}
+
 console.log(`phase 3 economy: ${n} checks passed`);

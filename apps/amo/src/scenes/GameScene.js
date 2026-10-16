@@ -30,6 +30,7 @@ import { affinityOf, affinityMult } from '../data/enemyAffinities.js';
 import { targetInfo } from '../systems/targetInfo.js';
 import { useHotbar } from '../systems/hotbar.js';
 import { STATION_LABELS } from '../data/stations.js';
+import { rollEliteScroll } from '../data/recipeScrolls.js';
 import { eliteCap, rollElite, pickAffixes, eliteStats, eliteRareDrop } from '../data/elites.js';
 import { conductTargets, CONDUCT_FRACTION, DETONATE_RADIUS, detonateDamage } from '../systems/reactions.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
@@ -398,6 +399,7 @@ export default class GameScene extends Phaser.Scene {
             // Boss guaranteed drops: void_channel (T4 staff) + arcane_sceptre (T4 staff alt)
             this._spawnPickup(bx - 14, by + 10, 'void_channel');
             this._spawnPickup(bx + 14, by + 10, 'arcane_sceptre');
+            this._spawnPickup(bx, by + 24, 'recipe_clarity_elixir');
             SaveManager.save(playerStats, this._storyId, this._characterId);
             this.time.delayedCall(1200, () => {
                 this.scene.pause();
@@ -3339,6 +3341,8 @@ export default class GameScene extends Phaser.Scene {
         enemy.affixes = affixes;
         enemy.lootRolls = 2;
         enemy.bonusDrops = [eliteRareDrop(this._mapDef, Math.random)];
+        const scroll = rollEliteScroll(Math.random, playerStats.knownRecipes);
+        if (scroll) enemy.bonusDrops.push(scroll);
         enemy.setScale(enemy.scaleX * 1.2);
         if (affixes.includes('arcane') && !enemy.spellKit.includes('arcane_bolt')) enemy.spellKit = [...enemy.spellKit, 'arcane_bolt'];
         if (affixes.includes('swift')) statusManager.apply(enemy, 'hastened', { duration: -1 });
