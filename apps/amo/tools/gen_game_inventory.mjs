@@ -99,7 +99,7 @@ table(['System', 'How it works'], [
     ['Pillar gates & cracked boulders', 'The Earth Pillar spell raises stone that opens pillar gates and shatters cracked boulders.'],
     ['Recipe discovery', 'A recipe appears once you have held one of its ingredients, and is fully revealed once you have held all of them.'],
     ['Satchel', `Inventory size by satchel tier: ${SATCHEL_TIERS.map(t => `${t.name} ${t.slots}`).join(', ')}.`],
-    ['Currencies', 'Gold (mundane trade) and Glint (arcane); shops price in both, with a 20% regional discount on the favoured one.'],
+    ['Currencies', "Gold buys mundane goods (food, tools, bags, materials, plain gear); Glint buys arcane goods (potions, scrolls, staves, spell-blades, shadow daggers, enchanted or rare gear). Selling pays in the item's currency; a 20% regional discount applies to the favoured one; the shop buys back your last 10 sales."],
     ['Memories', 'Completing quests recovers lore fragments ("Archive of Souls"), readable in the Codex.'],
     ['Campaign', "Eldoria's Prophecy: chapters gate which maps you can enter; completing a chapter grants its unlocks; progress is saved."],
     ['Saving', 'Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents.'],
@@ -224,9 +224,9 @@ table(['Ingredient', 'Used in', 'Source'], [...ingredientIds].map(id => {
 
 // ------------------------------------------------------------------ shops
 P('## Shops');
-P(`Merchant catalogue (${MERCHANT_CATALOG.length} entries). Prices: Glint / Gold.`);
+P(`Merchant catalogue (${MERCHANT_CATALOG.length} entries). Each item has one price, in gold (mundane goods) or glint (arcane goods).`);
 P();
-table(['Item', 'Glint', 'Gold'], MERCHANT_CATALOG.map(m => [name(m.id), m.price, m.goldPrice ?? '']));
+table(['Item', 'Price', 'Currency'], MERCHANT_CATALOG.map(m => [name(m.id), m.price, m.currency]));
 
 // ------------------------------------------------------------------ world objects
 P('## Gathering & world objects');

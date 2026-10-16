@@ -53,4 +53,30 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     eq(u.hotbar, [null, null, null, null], 'an old save gets an empty hotbar');
 }
 
+// ---- C5: currency roles + buy-back
+{
+    const EC = await import('../src/data/economy.js');
+    const { MERCHANT_CATALOG, ITEMS } = await import('../src/data/items.js');
+    eq(EC.itemCurrency('health_potion'), 'glint', 'potions are arcane');
+    eq(EC.itemCurrency('novice_staff'), 'glint', 'staves are arcane');
+    eq(EC.itemCurrency('iron_axe'), 'gold', 'tools are mundane');
+    eq(EC.itemCurrency('boar_meat'), 'gold', 'food is mundane');
+    eq(EC.itemCurrency('hunters_shortbow'), 'gold', 'plain bows are mundane');
+    for (const e of MERCHANT_CATALOG) {
+        ok(ITEMS[e.id], `${e.id} is an item`);
+        ok(e.currency === EC.itemCurrency(e.id), `${e.id}: one currency, the item's own`);
+        ok(Number.isInteger(e.price) && e.price > 0, `${e.id}: a price`);
+        ok(!('goldPrice' in e), `${e.id}: no second price`);
+    }
+    // Review Focus 3: the discount only touches the favoured currency
+    const gold = { id: 'iron_axe', price: 32, currency: 'gold' }, glint = { id: 'mana_potion', price: 20, currency: 'glint' };
+    eq([EC.shopPrice(gold, 'rural'), EC.shopPrice(glint, 'rural')], [26, 20], 'rural discounts gold only');
+    eq([EC.shopPrice(gold, 'outskirt'), EC.shopPrice(glint, 'outskirt')], [32, 16], 'outskirt discounts glint only');
+    eq(EC.shopPrice(gold, 'neutral'), 32, 'neutral: list price');
+    const bb = [];
+    for (let i = 0; i < 12; i++) EC.recordSale(bb, { id: `x${i}`, price: i, currency: 'gold' });
+    eq(bb.length, EC.BUYBACK_MAX, 'buy-back keeps the last 10');
+    eq(bb[0].id, 'x11', 'newest first');
+}
+
 console.log(`phase 3 economy: ${n} checks passed`);

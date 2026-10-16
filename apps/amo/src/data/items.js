@@ -34,42 +34,42 @@ export const ENEMY_FAMILIES = {
     corrupted: /corrupt|plague|rot_|blight|void_fox|void_crawler|dark_deer|hollow_cat/,
 };
 
-// Merchant catalog — T1-T2 weapons + consumables + tools + armor
-// goldPrice: mundane/physical coin — cheaper for rural goods, pricier for arcane items
-// price (glint): arcane energy token — cheaper for magical gear, pricier for mundane staples
+// Merchant catalog — T1-T2 weapons + consumables + tools + armor.
+// One currency per item (data/economy.js): gold for mundane goods, glint for
+// arcane ones. Price = the lower of the old glint / gold prices.
 export const MERCHANT_CATALOG = [
-    { id: 'empty_bottle',         price: 5,   goldPrice: 4   },
-    { id: 'health_potion',        price: 25,  goldPrice: 18  },  // rural staple — gold cheap
-    { id: 'mana_potion',          price: 20,  goldPrice: 30  },  // arcane brew — gold expensive
-    { id: 'forest_herb',          price: 12,  goldPrice: 7   },  // forest product — gold very cheap
-    { id: 'iron_axe',             price: 45,  goldPrice: 32  },  // mundane tool — gold cheap
-    { id: 'iron_pickaxe',         price: 50,  goldPrice: 36  },  // mundane tool — gold cheap
-    { id: 'fishing_rod',          price: 35,  goldPrice: 25  },  // mundane tool — gold cheap
-    { id: 'sickle',               price: 30,  goldPrice: 22  },  // mundane tool — gold cheap
-    { id: 'sea_salt',             price: 8,   goldPrice: 5   },  // trade good — gold cheap
-    { id: 'scholars_cowl',        price: 60,  goldPrice: 85  },  // arcane gear — gold expensive
-    { id: 'scholars_tunic',       price: 70,  goldPrice: 98  },  // arcane gear — gold expensive
-    { id: 'iron_ring',            price: 40,  goldPrice: 30  },
-    { id: 'expanded_haversack',   price: 120, goldPrice: 90  },  // mundane bag — gold cheap
-    { id: 'tent',                 price: 120, goldPrice: 85  },  // camp gear — gold cheap
+    { id: 'empty_bottle',          price: 4,   currency: 'gold' },
+    { id: 'health_potion',         price: 18,  currency: 'glint' },
+    { id: 'mana_potion',           price: 20,  currency: 'glint' },
+    { id: 'forest_herb',           price: 7,   currency: 'gold' },
+    { id: 'iron_axe',              price: 32,  currency: 'gold' },
+    { id: 'iron_pickaxe',          price: 36,  currency: 'gold' },
+    { id: 'fishing_rod',           price: 25,  currency: 'gold' },
+    { id: 'sickle',                price: 22,  currency: 'gold' },
+    { id: 'sea_salt',              price: 5,   currency: 'gold' },
+    { id: 'scholars_cowl',         price: 60,  currency: 'gold' },
+    { id: 'scholars_tunic',        price: 70,  currency: 'gold' },
+    { id: 'iron_ring',             price: 30,  currency: 'gold' },
+    { id: 'expanded_haversack',    price: 90,  currency: 'gold' },
+    { id: 'tent',                  price: 85,  currency: 'gold' },
     // T1 weapons
-    { id: 'novice_staff',         price: 80,  goldPrice: 115 },  // arcane — gold expensive
-    { id: 'weathered_sage_staff', price: 65,  goldPrice: 92  },
-    { id: 'iron_spell_blade',     price: 70,  goldPrice: 95  },
-    { id: 'etched_shortsword',    price: 60,  goldPrice: 44  },  // mundane sword — gold cheap
-    { id: 'crude_dagger',         price: 55,  goldPrice: 38  },
-    { id: 'shadow_shiv',          price: 55,  goldPrice: 78  },  // shadow-touched — gold expensive
-    { id: 'carved_shortbow',      price: 75,  goldPrice: 58  },
-    { id: 'hunters_shortbow',     price: 70,  goldPrice: 52  },  // practical bow — gold cheap
+    { id: 'novice_staff',          price: 80,  currency: 'glint' },
+    { id: 'weathered_sage_staff',  price: 65,  currency: 'glint' },
+    { id: 'iron_spell_blade',      price: 70,  currency: 'glint' },
+    { id: 'etched_shortsword',     price: 44,  currency: 'glint' },
+    { id: 'crude_dagger',          price: 38,  currency: 'glint' },
+    { id: 'shadow_shiv',           price: 55,  currency: 'glint' },
+    { id: 'carved_shortbow',       price: 58,  currency: 'gold' },
+    { id: 'hunters_shortbow',      price: 52,  currency: 'gold' },
     // T2 weapons
-    { id: 'adepts_spire',         price: 200, goldPrice: 290 },
-    { id: 'mossy_branch_staff',   price: 175, goldPrice: 250 },
-    { id: 'spell_blade',          price: 180, goldPrice: 260 },
-    { id: 'arcane_saber',         price: 165, goldPrice: 235 },
-    { id: 'umbral_dagger',        price: 160, goldPrice: 230 },
-    { id: 'phantom_blade',        price: 155, goldPrice: 218 },
-    { id: 'resonance_bow',        price: 200, goldPrice: 280 },
-    { id: 'forest_longbow',       price: 185, goldPrice: 140 },  // forest longbow — gold cheap
+    { id: 'adepts_spire',          price: 200, currency: 'glint' },
+    { id: 'mossy_branch_staff',    price: 175, currency: 'glint' },
+    { id: 'spell_blade',           price: 180, currency: 'glint' },
+    { id: 'arcane_saber',          price: 165, currency: 'glint' },
+    { id: 'umbral_dagger',         price: 160, currency: 'glint' },
+    { id: 'phantom_blade',         price: 155, currency: 'glint' },
+    { id: 'resonance_bow',         price: 200, currency: 'gold' },
+    { id: 'forest_longbow',        price: 140, currency: 'gold' },
 ];
 
 export const ITEMS = {
