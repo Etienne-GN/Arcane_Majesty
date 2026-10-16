@@ -170,6 +170,11 @@ export default class BootScene extends Phaser.Scene {
         // Decoration sheets catalogued 2026-08-29 (nature/village props + winter biome kit)
         this.load.image('tileset_v2free', 'assets/catalogued/tilesets/assets_spritesheet_v2_free/assets_spritesheet_v2_free.png');
         this.load.json('tileset_v2free_cat', 'assets/catalogued/tilesets/assets_spritesheet_v2_free/assets_spritesheet_v2_free.catalogue.json');
+        // Alchemy tables, ranks 1–3 (stations — data/stations.js); animated strips, 120 ms a frame
+        const ALCH = 'assets/catalogued/tilesets/pixel_crawler_anokolisa/Alchemy_Table_0';
+        this.load.spritesheet('alchemy_table_1', `${ALCH}1-Sheet.png`, { frameWidth: 32, frameHeight: 64, endFrame: 62 });
+        this.load.spritesheet('alchemy_table_2', `${ALCH}2-Sheet.png`, { frameWidth: 48, frameHeight: 64, endFrame: 50 });
+        this.load.spritesheet('alchemy_table_3', `${ALCH}3-Sheet.png`, { frameWidth: 80, frameHeight: 80, endFrame: 21 });
         this.load.image('tileset_v11', 'assets/catalogued/tilesets/assets_version1.1/assets_version1.1.png');
         this.load.json('tileset_v11_cat', 'assets/catalogued/tilesets/assets_version1.1/assets_version1.1.catalogue.json');
         this.load.image('tileset_decorations2', 'assets/catalogued/tilesets/Decorations2/Decorations2.png');

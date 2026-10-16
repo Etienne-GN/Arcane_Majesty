@@ -33,3 +33,9 @@ THALORIA.portals.push({
     targetX: 24 * 32 + 16,
     targetY: 40 * 32 + 16,
 });
+
+// The city's hearth and alchemy table (data/stations.js), either side of the sign.
+THALORIA.spawns.stations = [
+    { x: 2,  y: 2, type: 'hearth',  rank: 2 },
+    { x: 11, y: 2, type: 'alchemy', rank: 2 },
+];

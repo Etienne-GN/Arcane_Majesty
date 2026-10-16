@@ -153,6 +153,7 @@ export const ELDRIN_TOWER = {
             { x: 10, y: 17, items: ['longsword'] },
         ],
         campfires:      [],
+        stations:       [{ x: 15, y: 18, type: 'alchemy', rank: 3 }],   // Eldrin's own alchemy table
         signs: [
             {
                 x: 10, y: 30,

@@ -63,6 +63,11 @@ export const HERMIT_HUT = {
             { x: 3, y: 7, items: ['health_potion', 'mana_potion', 'forest_herb'] },
         ],
         campfires: [],
+        // Cooking hearth against the north wall, alchemy table by the shelves (data/stations.js)
+        stations: [
+            { x: 13, y: 2, type: 'hearth',  rank: 1 },
+            { x: 6,  y: 2, type: 'alchemy', rank: 1 },
+        ],
         signs: [
             {
                 x: 16, y: 3,

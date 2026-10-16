@@ -115,4 +115,19 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     eq(t.craftCounts, { cooking: 30, alchemy: 0 }, 'craft counts are saved');
 }
 
+// ---- C1: stations placed
+{
+    const { getMap } = await import('../src/data/maps/index.js');
+    const want = { hermit_hut: [['alchemy', 1], ['hearth', 1]], thaloria: [['alchemy', 2], ['hearth', 2]], eldrin_tower: [['alchemy', 3]] };
+    for (const [id, list] of Object.entries(want)) {
+        const m = getMap(id), st = m.spawns.stations ?? [];
+        eq(st.map(s => [s.type, s.rank]).sort(), list, `${id}: stations`);
+        for (const s of st) {
+            ok(m.tiles[s.y]?.[s.x] !== undefined && m.tiles[s.y][s.x] !== 1, `${id}: station at ${s.x},${s.y} is on a floor tile`);
+            const busy = [...(m.spawns.npcs ?? []), ...(m.spawns.chests ?? []), ...(m.spawns.signs ?? [])].some(o => o.x === s.x && o.y === s.y);
+            ok(!busy, `${id}: station at ${s.x},${s.y} is not on an NPC, chest or sign`);
+        }
+    }
+}
+
 console.log(`phase 3 economy: ${n} checks passed`);

@@ -29,6 +29,7 @@ import { ENEMY_KITS } from '../data/enemyMagic.js';
 import { affinityOf, affinityMult } from '../data/enemyAffinities.js';
 import { targetInfo } from '../systems/targetInfo.js';
 import { useHotbar } from '../systems/hotbar.js';
+import { STATION_LABELS } from '../data/stations.js';
 import { eliteCap, rollElite, pickAffixes, eliteStats, eliteRareDrop } from '../data/elites.js';
 import { conductTargets, CONDUCT_FRACTION, DETONATE_RADIUS, detonateDamage } from '../systems/reactions.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
@@ -305,6 +306,9 @@ export default class GameScene extends Phaser.Scene {
                 font: '7px monospace', fill: '#ffff88'
             }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
         });
+
+        // Stations — cooking hearths and alchemy tables (data/stations.js)
+        this._buildStations(mapDef.spawns.stations ?? []);
 
         // Chests
         this.chests = this.physics.add.staticGroup();
@@ -660,6 +664,54 @@ export default class GameScene extends Phaser.Scene {
         } else {
             this.player.triggerAttack();
         }
+    }
+
+    // Hearths use the catalogued stone fireplace; alchemy tables their own
+    // animated sheet per rank. Each blocks movement at its base (catalogue
+    // hitbox) and opens CampfireScene in station mode on [E].
+    _buildStations(defs) {
+        this.stations = [];
+        const ALCHEMY_FRAMES = { 1: 63, 2: 51, 3: 22 };
+        const HITBOX = {
+            hearth:    { x: 3, y: 45, w: 51, h: 43, sw: 64, sh: 96 },
+            alchemy_1: { x: 1, y: 48, w: 29, h: 16, sw: 32, sh: 64 },
+            alchemy_2: { x: 2, y: 42, w: 43, h: 22, sw: 48, sh: 64 },
+            alchemy_3: { x: 6, y: 60, w: 68, h: 20, sw: 80, sh: 80 },
+        };
+        defs.forEach(def => {
+            const bx = def.x * TILE_SIZE + TILE_SIZE / 2;
+            const by = (def.y + 1) * TILE_SIZE;                 // bottom of the tile
+            let sprite, hb;
+            if (def.type === 'hearth') {
+                const tex = this.textures.get('tileset_base');
+                if (!tex.has('cat_fireplace_stone_lit')) tex.add('cat_fireplace_stone_lit', 0, 32, 3232, 64, 96);
+                sprite = this.add.image(bx, by, 'tileset_base', 'cat_fireplace_stone_lit').setOrigin(0.5, 1);
+                hb = HITBOX.hearth;
+            } else {
+                const rank = Phaser.Math.Clamp(def.rank ?? 1, 1, 3);
+                const key = `alchemy_table_${rank}`, anim = `${key}_idle`;
+                if (!this.anims.exists(anim)) {
+                    this.anims.create({ key: anim, frames: this.anims.generateFrameNumbers(key, { start: 0, end: ALCHEMY_FRAMES[rank] - 1 }), frameRate: 1000 / 120, repeat: -1 });
+                }
+                sprite = this.add.sprite(bx, by, key, 0).setOrigin(0.5, 1).play(anim);
+                hb = HITBOX[`alchemy_${rank}`];
+            }
+            sprite.setDepth(by);
+            sprite.stationDef = def;
+            const left = bx - hb.sw / 2, top = by - hb.sh;
+            const wall = this.wallGroup.create(left + hb.x + hb.w / 2, top + hb.y + hb.h / 2, 'tile_tree');
+            wall.setAlpha(0).setDisplaySize(hb.w, hb.h).refreshBody();
+            sprite.ePrompt = this.add.text(bx, top + hb.y - 2, `[E] ${STATION_LABELS[def.type]}`, {
+                font: '7px monospace', fill: '#ffff88', stroke: '#000', strokeThickness: 2
+            }).setOrigin(0.5, 1).setDepth(by + 2).setResolution(3).setAlpha(0);
+            this.stations.push(sprite);
+        });
+    }
+
+    // Nearest station within interact range of the player, or null
+    _stationNear(range = 52) {
+        const px = this.player.x, py = this.player.y;
+        return (this.stations ?? []).find(st => Phaser.Math.Distance.Between(px, py, st.x, st.y - 16) < range) ?? null;
     }
 
     // Hotbar slot i (keys 1–4, or a tap on the HUD box)
@@ -3005,6 +3057,8 @@ export default class GameScene extends Phaser.Scene {
         this.npcs.getChildren().forEach(npc           => npc.ePrompt?.setAlpha(near(npc) ? 1 : 0));
         this.chests.getChildren().forEach(chest       => chest.ePrompt?.setAlpha(near(chest) ? 1 : 0));
         this.campfires.getChildren().forEach(cf       => cf.ePrompt?.setAlpha(near(cf) ? 1 : 0));
+        const nearStation = this._stationNear(range);
+        (this.stations ?? []).forEach(st => st.ePrompt?.setAlpha(st === nearStation ? 1 : 0));
         this.signs.getChildren().forEach(sign         => sign.ePrompt?.setAlpha(near(sign) ? 1 : 0));
         this.crackedBoulders.getChildren().forEach(b  => b.ePrompt?.setAlpha(near(b) && b.active ? 1 : 0));
         this.gatheringGroup.getChildren().forEach(nd  => nd.ePrompt?.setAlpha(near(nd) && !nd.gathered ? 1 : 0));
@@ -3018,6 +3072,7 @@ export default class GameScene extends Phaser.Scene {
             this.npcs.getChildren().some(n => near(n)) ||
             this.chests.getChildren().some(c => near(c) && !c.opened) ||
             this.campfires.getChildren().some(cf => near(cf)) ||
+            !!nearStation ||
             this.signs.getChildren().some(s => near(s)) ||
             this.crackedBoulders.getChildren().some(b => near(b) && b.active) ||
             this.gatheringGroup.getChildren().some(nd => near(nd) && !nd.gathered) ||
@@ -3081,6 +3136,15 @@ export default class GameScene extends Phaser.Scene {
             this.scene.pause();
             this.scene.launch('CampfireScene');
         });
+
+        // Station — hearth or alchemy table
+        const station = this._stationNear();
+        if (station && !this.scene.isActive('CampfireScene')) {
+            soundManager.interact();
+            this.scene.pause();
+            this.scene.launch('CampfireScene', { station: { type: station.stationDef.type, rank: station.stationDef.rank } });
+            return;
+        }
 
         // Sign
         this.physics.overlap(this.player.interactBox, this.signs, (box, sign) => {
