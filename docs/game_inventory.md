@@ -1,8 +1,8 @@
 # Arcane Majesty (amo) — Complete Game Inventory
 
-_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-10. Regenerate after changing the data; don't hand-edit._
+_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-16. Regenerate after changing the data; don't hand-edit._
 
-**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 24 status effects · 185 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 112 enemy/creature types + 1 boss · 25 quests · 12 campaign chapters · 24 maps · 5 playable characters · 24 dialogues
+**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 24 status effects · 197 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 112 enemy/creature types + 1 boss · 25 quests · 12 campaign chapters · 24 maps · 5 playable characters · 24 dialogues
 
 ## Contents
 1. [Systems & controls](#systems--controls)
@@ -31,8 +31,9 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | Arrows / WASD | Move (speed 100 + 4 × Agility, × status speed) |
 | Z | Attack (basic strike) |
 | X | Power attack |
-| E | Interact (talk, chests, signs, gathering, rift-gates) |
+| E | Interact (talk, chests, signs, gathering, rift-gates, hearths, alchemy tables) |
 | Q R F T | Cast the spells in slots 1–4 |
+| 1 2 3 4 | Use the consumable on hotbar slot 1–4 (assign from the Inventory with 1–4; touch: the row above the skill ring) |
 | SPACE | Blink-Step (skill, 8 MP) |
 | V | Aetheric Sight (skill: slows enemies, shows their detection range) |
 | B | Build a campfire anywhere (costs 3 Wood) |
@@ -58,12 +59,16 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | Campfires | Placed (B, 3 Wood) or found. Rest (+30% HP/MP; full rest with a Tent: full restore + 50 XP), Cook, Brew. |
 | Scholar's Eye | Walking near ruins and ancient markers reveals lore echoes, collected in the Codex. |
 | Pillar gates & cracked boulders | The Earth Pillar spell raises stone that opens pillar gates and shatters cracked boulders. |
+| Stations | Cooking Hearth and Alchemy Table (rank 1–3) make feasts, three-ingredient dishes, greater potions and elixirs; they also make every campfire recipe of their kind. Hermit's Hut: hearth 1, alchemy 1; Thaloria: hearth 2, alchemy 2; Eldrin's Tower: alchemy 3. |
+| Craft ranks | Cooking and alchemy ranks rise at 25 and 75 crafts; rank 2/3 give a 15%/30% chance of a second dish or potion. |
+| Recipe scrolls | A dozen rare recipes stay hidden until their scroll is read; scrolls drop from elites (12%), the Void General, some chests, shops (by craft rank) and quests. |
+| Gear upgrades | At the forge (UPGRADE EQUIPPED): +1/+2/+3 per item; weapons +8% damage per level, armour and accessories +1 to each stat per level; cost by tier (ore, silver, heartwood, heartwood + ice crystal; aether shard at +3). |
 | Recipe discovery | A recipe appears once you have held one of its ingredients, and is fully revealed once you have held all of them. |
 | Satchel | Inventory size by satchel tier: Weathered Pouch 10, Expanded Haversack 20, Runic Satchel 35, Void-Fold 60. |
-| Currencies | Gold (mundane trade) and Glint (arcane); shops price in both, with a 20% regional discount on the favoured one. |
+| Currencies | Gold buys mundane goods (food, tools, bags, materials, plain gear); Glint buys arcane goods (potions, scrolls, staves, spell-blades, shadow daggers, enchanted or rare gear). Selling pays in the item's currency; a 20% regional discount applies to the favoured one; the shop buys back your last 10 sales. |
 | Memories | Completing quests recovers lore fragments ("Archive of Souls"), readable in the Codex. |
 | Campaign | Eldoria's Prophecy: chapters gate which maps you can enter; completing a chapter grants its unlocks; progress is saved. |
-| Saving | Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents. |
+| Saving | Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades. |
 | Online | Server select, online characters, chat; other players are visible (presence). The campaign is single-player. |
 | Character creator | LPC layered characters with palette swaps, export of the character and sheet (with licences). |
 
@@ -284,86 +289,86 @@ Values given per tier (Novice / Apprentice / Adept). Discover = resonance needed
 **Reactions:** Freeze — cold on a wet target freezes it for 3 s. Conduct — lightning on a wet target arcs to every other wet enemy within 90 px for 50% damage. Detonate — fire on a void-tainted target bursts for 15 + 30% of the hit around it. Steam — fire and water cancel out. Shatter — a physical hit on a frozen target deals ×1.5.
 
 ## Cooking
-At a campfire (REST / **COOK** / BREW). Recipes appear as their ingredients are discovered.
+At a campfire (REST / **COOK** / BREW) or a cooking hearth. Recipes appear as their ingredients are discovered; 🔒 recipes need their scroll.
 
-| Dish | Ingredients | Effect |
-|---|---|---|
-| Roasted Boar | Boar Meat | Slow-cooked over an open flame. Restores 40 HP and regenerates 5 HP/s for 10s. |
-| Roasted Venison | Venison | Lean and flavourful. Restores 30 HP and regenerates 4 HP/s for 10s. |
-| Roasted Rabbit | Rabbit Meat | Small but nourishing. Restores 18 HP and regenerates 3 HP/s for 8s. |
-| Mushroom Soup | 2× Mushroom Spore | Earthy and warm. Restores 20 HP and 20 MP, then regenerates 15 HP over time. |
-| Herb Tea | 3× Forest Herb | Steeped forest herbs. Slowly regenerates 35 HP and boosts mana recovery for 12s. |
-| Forest Salad | 4× Forest Herb | Fresh herbs tossed together. Restores 18 MP and regenerates 15 HP over time. |
-| Spiced Venison | Venison + 2× Forest Herb | Venison rubbed with forest herbs. Restores 45 HP and regenerates 30 HP over time. |
-| Ember-Glazed Boar | Boar Meat + Ember Stone | Boar crust-seared with ember stone. Restores 55 HP instantly. |
-| Spicy Rabbit Skewer | Rabbit Meat + Ember Stone | Rabbit glazed with ember spice. Restores 28 HP and regenerates 22 HP over time. |
-| Bone Broth | Venison + 2× Bone Fragment | Rich marrow broth. Regenerates 60 HP over time and raises max HP by 8 for 10 minutes. |
-| Mushroom Medley | 3× Mushroom Spore + Forest Herb | Sautéed spores and herbs. Restores 15 HP, 30 MP, and triples mana recovery for 10s. |
-| Void Stew | Venison + Void Shard | Tainted meat in corrupted broth. Restores 75 HP but drains 25 MP. Eat at your own risk. |
-| Hearty Stew | Boar Meat + Venison + Rabbit Meat | A thick hunter's stew. Restores 60 HP, full mana regen, and +10 max HP for 10 minutes. |
-| Hunter's Feast | Boar Meat + Venison | A mixed grill of boar and venison. Restores 50 HP, 18 MP, and regenerates 30 HP. |
-| Herb-Crusted Rabbit | Rabbit Meat + 2× Forest Herb + Mushroom Spore | Rabbit rolled in forest herbs and mushroom dust. Restores 30 HP, 15 MP, and regenerates 20 HP. |
-| Wild Herb Broth | Venison + 3× Forest Herb | Thin venison broth steeped with herbs. Restores 12 HP and 25 MP. |
-| Herb & Mushroom Pie | Venison + 2× Forest Herb + 2× Mushroom Spore | A hearty forest pie. Restores 35 HP, 25 MP, and regenerates 20 HP over time. |
-| Lucky Rabbit's Stew | Rabbit Meat + Rabbit's Foot + Forest Herb | Brewed with a rabbit's foot. Restores 22 HP and applies Blessed for 20s. |
-| Frost-Cured Venison | Venison + Ice Crystal | Venison slowly cured in enchanted ice. Restores 35 HP and regenerates 28 HP over time. |
-| Double Boar Rack | 2× Boar Meat | Two whole boar ribs roasted to perfection. Restores 65 HP instantly. |
-| Char-Seared Venison | 2× Venison + Ember Stone | Venison blackened over fierce ember heat. Restores 60 HP instantly. |
-| Ice-Smoked Boar | Boar Meat + Ice Crystal | Boar slow-smoked over crystalline ice vapour. Restores 50 HP and regenerates 30 HP. |
-| Boar & Mushroom Stew | Boar Meat + 2× Mushroom Spore + Bone Fragment | Boar simmered with rich mushrooms. Restores 50 HP and regenerates 40 HP over time. |
-| Grilled Trout | River Trout | Trout on a stick over the fire. Restores 35 HP and regenerates 30 HP. |
-| Salt-Baked Perch | Lake Perch + Sea Salt | Perch baked in a crust of salt. Restores 45 HP and regenerates 40 HP. |
-| Smoked Eel | Cave Eel + Forest Herb | Oily eel smoked over herbs. Restores 30 HP and 20 MP. |
-| Aether Carp Broth | Aether Carp + Moonpetal | A clear broth that tastes faintly of lightning. Restores 60 MP and deepens water (+3) and arcane (+2) resonance. |
-| Tidewater Chowder | 3× Freshwater Mussel + Sea Salt + Forest Herb | Mussels, salt and herbs in a thick broth. Restores 40 HP, +10 max HP for 10 minutes, and deepens water resonance (+2). |
-| Berry Compote | 3× Wild Berries + Honeyberry | Stewed berries sweetened with honeyberry. Restores 25 HP and applies Swift for 20s. |
-| Honey-Glazed Boar | Boar Meat + 2× Honeyberry | Boar roasted under a honeyberry glaze. Restores 55 HP and regenerates 40 HP. |
-| Bolete & Rabbit Skewer | Rabbit Meat + 2× Bitter Bolete | Rabbit and bolete, charred together. Restores 35 HP and regenerates 20 HP. |
-| Glowcap Soup | 2× Glowcap + Mushroom Spore | A faintly glowing soup. Restores 40 MP and boosts mana recovery for 12s. |
-| Silverleaf Salad | 2× Silverleaf + 2× Wild Berries | Silverleaf and wild berries. Applies Regenerating for 20s. |
-| Emberroot Stew | Venison + 2× Emberroot | Venison stewed with fiery root. Restores 45 HP and drives out Cold and Frozen. |
-| Frostmoss Tea | 2× Frostmoss + Forest Herb | A cold, bitter tea. Restores 20 HP and puts out Burning. |
-| Angler's Platter | River Trout + Lake Perch + Cave Eel + Sea Salt | Trout, perch and eel, salted and grilled. Restores 80 HP and applies Blessed for 60s. |
-| Mushroom Risotto | 3× Mushroom Spore + Venison + Forest Herb | Dense spore risotto with venison bits. Restores 22 HP, 40 MP, and boosts mana regen for 15s. |
-| Venison Tartare | 2× Venison | Finely prepared raw venison. Restores 20 HP and 20 MP instantly. |
-| Spectral Broth | Venison + Spectral Dust | Venison simmered with spectral dust. Restores 25 HP and 35 MP, and triples mana regen for 8s. |
-| Void Jerky | Rabbit Meat + Void Shard | Rabbit dried in void brine. Restores 40 HP but drains 10 MP. Unsettling aftertaste. |
-| Corrupted Stew | Boar Meat + Corrupted Essence | Boar cooked in corrupted essence. Restores 90 HP but drains 30 MP. Power comes at a price. |
-| Bone & Herb Soup | 2× Bone Fragment + 2× Forest Herb | Slow-simmered bone stock with herbs. Raises max HP by 12 for 10 minutes and regenerates 25 HP over time. |
-| Grand Feast | Boar Meat + Venison + Rabbit Meat + Mushroom Spore | The ultimate campfire meal — all meats, all flavours. Fully restores HP and MP, regenerates 80 HP and leaves you Blessed for a minute. |
+| Dish | Where | Ingredients | Effect |
+|---|---|---|---|
+| Roasted Boar | Campfire | Boar Meat | Slow-cooked over an open flame. Restores 40 HP and regenerates 5 HP/s for 10s. |
+| Roasted Venison | Campfire | Venison | Lean and flavourful. Restores 30 HP and regenerates 4 HP/s for 10s. |
+| Roasted Rabbit | Campfire | Rabbit Meat | Small but nourishing. Restores 18 HP and regenerates 3 HP/s for 8s. |
+| Mushroom Soup | Campfire | 2× Mushroom Spore | Earthy and warm. Restores 20 HP and 20 MP, then regenerates 15 HP over time. |
+| Herb Tea | Campfire | 3× Forest Herb | Steeped forest herbs. Slowly regenerates 35 HP and boosts mana recovery for 12s. |
+| Forest Salad | Campfire | 4× Forest Herb | Fresh herbs tossed together. Restores 18 MP and regenerates 15 HP over time. |
+| Spiced Venison | Campfire | Venison + 2× Forest Herb | Venison rubbed with forest herbs. Restores 45 HP and regenerates 30 HP over time. |
+| Ember-Glazed Boar | Campfire | Boar Meat + Ember Stone | Boar crust-seared with ember stone. Restores 55 HP instantly. |
+| Spicy Rabbit Skewer | Campfire | Rabbit Meat + Ember Stone | Rabbit glazed with ember spice. Restores 28 HP and regenerates 22 HP over time. |
+| Bone Broth | Campfire | Venison + 2× Bone Fragment | Rich marrow broth. Regenerates 60 HP over time and raises max HP by 8 for 10 minutes. |
+| Mushroom Medley | Campfire | 3× Mushroom Spore + Forest Herb | Sautéed spores and herbs. Restores 15 HP, 30 MP, and triples mana recovery for 10s. |
+| Void Stew | Campfire | Venison + Void Shard | Tainted meat in corrupted broth. Restores 75 HP but drains 25 MP. Eat at your own risk. |
+| Hearty Stew | Cooking Hearth 2 🔒 scroll | Boar Meat + Venison + Rabbit Meat | A thick hunter's stew. Restores 60 HP, full mana regen, and +10 max HP for 10 minutes. |
+| Hunter's Feast | Cooking Hearth 1 | Boar Meat + Venison | A mixed grill of boar and venison. Restores 50 HP, 18 MP, and regenerates 30 HP. |
+| Herb-Crusted Rabbit | Cooking Hearth 1 | Rabbit Meat + 2× Forest Herb + Mushroom Spore | Rabbit rolled in forest herbs and mushroom dust. Restores 30 HP, 15 MP, and regenerates 20 HP. |
+| Wild Herb Broth | Campfire | Venison + 3× Forest Herb | Thin venison broth steeped with herbs. Restores 12 HP and 25 MP. |
+| Herb & Mushroom Pie | Cooking Hearth 1 🔒 scroll | Venison + 2× Forest Herb + 2× Mushroom Spore | A hearty forest pie. Restores 35 HP, 25 MP, and regenerates 20 HP over time. |
+| Lucky Rabbit's Stew | Cooking Hearth 1 | Rabbit Meat + Rabbit's Foot + Forest Herb | Brewed with a rabbit's foot. Restores 22 HP and applies Blessed for 20s. |
+| Frost-Cured Venison | Campfire | Venison + Ice Crystal | Venison slowly cured in enchanted ice. Restores 35 HP and regenerates 28 HP over time. |
+| Double Boar Rack | Campfire | 2× Boar Meat | Two whole boar ribs roasted to perfection. Restores 65 HP instantly. |
+| Char-Seared Venison | Campfire | 2× Venison + Ember Stone | Venison blackened over fierce ember heat. Restores 60 HP instantly. |
+| Ice-Smoked Boar | Campfire | Boar Meat + Ice Crystal | Boar slow-smoked over crystalline ice vapour. Restores 50 HP and regenerates 30 HP. |
+| Boar & Mushroom Stew | Cooking Hearth 1 | Boar Meat + 2× Mushroom Spore + Bone Fragment | Boar simmered with rich mushrooms. Restores 50 HP and regenerates 40 HP over time. |
+| Grilled Trout | Campfire | River Trout | Trout on a stick over the fire. Restores 35 HP and regenerates 30 HP. |
+| Salt-Baked Perch | Campfire | Lake Perch + Sea Salt | Perch baked in a crust of salt. Restores 45 HP and regenerates 40 HP. |
+| Smoked Eel | Campfire | Cave Eel + Forest Herb | Oily eel smoked over herbs. Restores 30 HP and 20 MP. |
+| Aether Carp Broth | Campfire | Aether Carp + Moonpetal | A clear broth that tastes faintly of lightning. Restores 60 MP and deepens water (+3) and arcane (+2) resonance. |
+| Tidewater Chowder | Cooking Hearth 1 | 3× Freshwater Mussel + Sea Salt + Forest Herb | Mussels, salt and herbs in a thick broth. Restores 40 HP, +10 max HP for 10 minutes, and deepens water resonance (+2). |
+| Berry Compote | Campfire | 3× Wild Berries + Honeyberry | Stewed berries sweetened with honeyberry. Restores 25 HP and applies Swift for 20s. |
+| Honey-Glazed Boar | Campfire | Boar Meat + 2× Honeyberry | Boar roasted under a honeyberry glaze. Restores 55 HP and regenerates 40 HP. |
+| Bolete & Rabbit Skewer | Campfire | Rabbit Meat + 2× Bitter Bolete | Rabbit and bolete, charred together. Restores 35 HP and regenerates 20 HP. |
+| Glowcap Soup | Campfire | 2× Glowcap + Mushroom Spore | A faintly glowing soup. Restores 40 MP and boosts mana recovery for 12s. |
+| Silverleaf Salad | Campfire | 2× Silverleaf + 2× Wild Berries | Silverleaf and wild berries. Applies Regenerating for 20s. |
+| Emberroot Stew | Campfire | Venison + 2× Emberroot | Venison stewed with fiery root. Restores 45 HP and drives out Cold and Frozen. |
+| Frostmoss Tea | Campfire | 2× Frostmoss + Forest Herb | A cold, bitter tea. Restores 20 HP and puts out Burning. |
+| Angler's Platter | Cooking Hearth 2 🔒 scroll | River Trout + Lake Perch + Cave Eel + Sea Salt | Trout, perch and eel, salted and grilled. Restores 80 HP and applies Blessed for 60s. |
+| Mushroom Risotto | Cooking Hearth 1 | 3× Mushroom Spore + Venison + Forest Herb | Dense spore risotto with venison bits. Restores 22 HP, 40 MP, and boosts mana regen for 15s. |
+| Venison Tartare | Campfire | 2× Venison | Finely prepared raw venison. Restores 20 HP and 20 MP instantly. |
+| Spectral Broth | Campfire 🔒 scroll | Venison + Spectral Dust | Venison simmered with spectral dust. Restores 25 HP and 35 MP, and triples mana regen for 8s. |
+| Void Jerky | Campfire | Rabbit Meat + Void Shard | Rabbit dried in void brine. Restores 40 HP but drains 10 MP. Unsettling aftertaste. |
+| Corrupted Stew | Campfire | Boar Meat + Corrupted Essence | Boar cooked in corrupted essence. Restores 90 HP but drains 30 MP. Power comes at a price. |
+| Bone & Herb Soup | Campfire | 2× Bone Fragment + 2× Forest Herb | Slow-simmered bone stock with herbs. Raises max HP by 12 for 10 minutes and regenerates 25 HP over time. |
+| Grand Feast | Cooking Hearth 2 🔒 scroll | Boar Meat + Venison + Rabbit Meat + Mushroom Spore | The ultimate campfire meal — all meats, all flavours. Fully restores HP and MP, regenerates 80 HP and leaves you Blessed for a minute. |
 
 ## Brewing (potions)
-At a campfire (BREW). Every potion needs an Empty Bottle.
+At a campfire (BREW) or an alchemy table. Every potion needs an Empty Bottle; 🔒 recipes need their scroll.
 
-| Potion | Ingredients | Effect |
-|---|---|---|
-| Health Potion | 2× Forest Herb + Empty Bottle | Restores 30 HP. |
-| Greater Health Potion | 4× Forest Herb + Empty Bottle | A concentrated herbal tincture. Restores 60 HP. |
-| Mana Potion | 2× Mushroom Spore + Empty Bottle | Restores 25 MP instantly and accelerates mana regen for 8s. |
-| Greater Mana Potion | 4× Mushroom Spore + Empty Bottle | A concentrated spore infusion. Restores 60 MP. |
-| Double-Down Elixir | 2× Forest Herb + 2× Mushroom Spore + Empty Bottle | Equal parts health and mana restoration. Restores 35 HP and 35 MP at once. |
-| Regeneration Potion | 3× Forest Herb + Heart Crystal + Empty Bottle | Crystallised heart essence in herb tincture. Regenerates 80 HP over 20 seconds. |
-| Frost Vial | 2× Ice Crystal + Empty Bottle | A cooling draught of condensed tundra ice. Restores 20 HP and regenerates 24 HP over 8s. |
-| Ember Tonic | 2× Ember Stone + Empty Bottle | Volcanic stone dissolved into a burning brew. Restores 35 HP instantly. |
-| Iron Skin Tonic | 2× Bone Fragment + Empty Bottle | Ground bone dissolved in water. Raises max HP by 15 for 10 minutes. |
-| Silverleaf Draught | 2× Silverleaf + Empty Bottle | A bright green draught. Restores 50 HP. |
-| Warming Draught | 2× Emberroot + Empty Bottle | Emberroot steeped hot. Drives out Cold and Frozen and applies Regenerating for 10s. |
-| Cooling Draught | 2× Frostmoss + Empty Bottle | Frostmoss steeped cold. Puts out Burning and restores 25 HP. |
-| Moonpetal Elixir | 2× Moonpetal + Glowcap + Empty Bottle | Moonpetal and glowcap. Restores 60 MP and boosts mana recovery for 15s. |
-| Berry Cordial | 2× Honeyberry + 2× Wild Berries + Empty Bottle | A sweet, heady cordial. Applies Swift for 30s. |
-| Tidewater Draught | 2× Freshwater Mussel + Sea Salt + Empty Bottle | River water, salt and mussel, drunk cold. Restores 15 MP and deepens water resonance (+6). |
-| Deepwater Elixir | River Pearl + Aether Carp + Empty Bottle | A river pearl dissolved with aether carp. Fully restores MP and deepens water resonance (+4). |
-| Antidote | Venom Sac + Forest Herb + Empty Bottle | Neutralises poison. Clears the Poisoned status and restores 5 HP. |
-| Antitoxin | 2× Venom Sac + Ice Crystal + Empty Bottle | Double-strength venom neutraliser. Clears Poisoned, restores 12 HP, and applies Blessed for 15s. |
-| Blessing Draught | 2× Rabbit's Foot + Spectral Dust + Empty Bottle | Brewed from lucky charms and spectral essence. Applies Blessed for 30s (+10% all stats). |
-| Speed Draught | Rabbit's Foot + Ice Crystal + Empty Bottle | Lucky charm and frost combined. Applies Swift for 20s — you move 25% faster. |
-| Thorn Potion | Venom Sac + 2× Forest Herb + Empty Bottle | Venom and herb extract. Applies Blessed for 15s and regenerates 20 HP over time. |
-| Wildfire Tonic | 2× Ember Stone + Venom Sac + Empty Bottle | Ember and venom fused. Restores 30 HP and applies Blessed for 18s. |
-| Void Tonic | 2× Void Shard + Spectral Dust + Empty Bottle | Crystallised void energy dissolved in spectral dust. Restores 45 MP and triples mana regen for 12s. |
-| Spectral Veil | 2× Spectral Dust + Empty Bottle | Pure spectral essence bottled. Applies Blessed for 25s and restores 10 MP. |
-| Elixir of Clarity | Spectral Dust + Heart Crystal + Empty Bottle | Spectral dust and heart crystal. Restores 40 MP and triples mana recovery for 20s. |
-| Moonveil Tonic | Ice Crystal + Spectral Dust + Rabbit's Foot + Empty Bottle | Ice, spectral dust and luck fused. Restores 22 HP, 22 MP, and applies Blessed for 30s. |
-| Corrupted Flask | Corrupted Essence + Empty Bottle | Distilled corrupted essence. Restores 55 MP but drains 20 HP. Dangerous. |
+| Potion | Where | Ingredients | Effect |
+|---|---|---|---|
+| Health Potion | Campfire | 2× Forest Herb + Empty Bottle | Restores 30 HP. |
+| Greater Health Potion | Alchemy Table 1 | 4× Forest Herb + Empty Bottle | A concentrated herbal tincture. Restores 60 HP. |
+| Mana Potion | Campfire | 2× Mushroom Spore + Empty Bottle | Restores 25 MP instantly and accelerates mana regen for 8s. |
+| Greater Mana Potion | Alchemy Table 1 | 4× Mushroom Spore + Empty Bottle | A concentrated spore infusion. Restores 60 MP. |
+| Double-Down Elixir | Alchemy Table 2 🔒 scroll | 2× Forest Herb + 2× Mushroom Spore + Empty Bottle | Equal parts health and mana restoration. Restores 35 HP and 35 MP at once. |
+| Regeneration Potion | Alchemy Table 1 | 3× Forest Herb + Heart Crystal + Empty Bottle | Crystallised heart essence in herb tincture. Regenerates 80 HP over 20 seconds. |
+| Frost Vial | Campfire | 2× Ice Crystal + Empty Bottle | A cooling draught of condensed tundra ice. Restores 20 HP and regenerates 24 HP over 8s. |
+| Ember Tonic | Campfire | 2× Ember Stone + Empty Bottle | Volcanic stone dissolved into a burning brew. Restores 35 HP instantly. |
+| Iron Skin Tonic | Campfire | 2× Bone Fragment + Empty Bottle | Ground bone dissolved in water. Raises max HP by 15 for 10 minutes. |
+| Silverleaf Draught | Campfire | 2× Silverleaf + Empty Bottle | A bright green draught. Restores 50 HP. |
+| Warming Draught | Campfire | 2× Emberroot + Empty Bottle | Emberroot steeped hot. Drives out Cold and Frozen and applies Regenerating for 10s. |
+| Cooling Draught | Campfire | 2× Frostmoss + Empty Bottle | Frostmoss steeped cold. Puts out Burning and restores 25 HP. |
+| Moonpetal Elixir | Alchemy Table 2 🔒 scroll | 2× Moonpetal + Glowcap + Empty Bottle | Moonpetal and glowcap. Restores 60 MP and boosts mana recovery for 15s. |
+| Berry Cordial | Campfire | 2× Honeyberry + 2× Wild Berries + Empty Bottle | A sweet, heady cordial. Applies Swift for 30s. |
+| Tidewater Draught | Campfire | 2× Freshwater Mussel + Sea Salt + Empty Bottle | River water, salt and mussel, drunk cold. Restores 15 MP and deepens water resonance (+6). |
+| Deepwater Elixir | Alchemy Table 3 🔒 scroll | River Pearl + Aether Carp + Empty Bottle | A river pearl dissolved with aether carp. Fully restores MP and deepens water resonance (+4). |
+| Antidote | Campfire | Venom Sac + Forest Herb + Empty Bottle | Neutralises poison. Clears the Poisoned status and restores 5 HP. |
+| Antitoxin | Campfire | 2× Venom Sac + Ice Crystal + Empty Bottle | Double-strength venom neutraliser. Clears Poisoned, restores 12 HP, and applies Blessed for 15s. |
+| Blessing Draught | Campfire | 2× Rabbit's Foot + Spectral Dust + Empty Bottle | Brewed from lucky charms and spectral essence. Applies Blessed for 30s (+10% all stats). |
+| Speed Draught | Campfire | Rabbit's Foot + Ice Crystal + Empty Bottle | Lucky charm and frost combined. Applies Swift for 20s — you move 25% faster. |
+| Thorn Potion | Campfire | Venom Sac + 2× Forest Herb + Empty Bottle | Venom and herb extract. Applies Blessed for 15s and regenerates 20 HP over time. |
+| Wildfire Tonic | Campfire 🔒 scroll | 2× Ember Stone + Venom Sac + Empty Bottle | Ember and venom fused. Restores 30 HP and applies Blessed for 18s. |
+| Void Tonic | Campfire 🔒 scroll | 2× Void Shard + Spectral Dust + Empty Bottle | Crystallised void energy dissolved in spectral dust. Restores 45 MP and triples mana regen for 12s. |
+| Spectral Veil | Campfire | 2× Spectral Dust + Empty Bottle | Pure spectral essence bottled. Applies Blessed for 25s and restores 10 MP. |
+| Elixir of Clarity | Alchemy Table 3 🔒 scroll | Spectral Dust + Heart Crystal + Empty Bottle | Spectral dust and heart crystal. Restores 40 MP and triples mana recovery for 20s. |
+| Moonveil Tonic | Alchemy Table 2 🔒 scroll | Ice Crystal + Spectral Dust + Rabbit's Foot + Empty Bottle | Ice, spectral dust and luck fused. Restores 22 HP, 22 MP, and applies Blessed for 30s. |
+| Corrupted Flask | Campfire | Corrupted Essence + Empty Bottle | Distilled corrupted essence. Restores 55 MP but drains 20 HP. Dangerous. |
 
 ## Crafting
 At the crafting bench (C).
@@ -407,6 +412,15 @@ At the crafting bench (C).
 | Iron Axe | 1 | tool | 2× Mineral Ore + 2× Wood | Required to gather Wood nodes. |
 | Iron Pickaxe | 1 | tool | 3× Mineral Ore + Wood | Required to gather Mineral Ore nodes. |
 | Runic Satchel | 3 | tool | 3× Deer Hide + 4× Reed Fibre + 2× Spectral Dust | "Weightless" runes stitched into the lining. Upgrades Satchel to Tier III (35 slots). |
+
+**Gear upgrades** at the forge (UPGRADE EQUIPPED), materials by item tier:
+
+| Tier | +1 | +2 | +3 |
+|---|---|---|---|
+| 1 | 2× Mineral Ore | 4× Mineral Ore | 6× Mineral Ore + Aether-Shard |
+| 2 | 2× Silver Ore | 4× Silver Ore | 6× Silver Ore + Aether-Shard |
+| 3 | 2× Heartwood | 4× Heartwood | 6× Heartwood + Aether-Shard |
+| 4–5 | Heartwood + Ice Crystal | 2× Heartwood + 2× Ice Crystal | 3× Heartwood + 3× Ice Crystal + Aether-Shard |
 
 ## Enchantments
 Some weapons come with an enchantment. At the forge (Crafting) any enchantment can be bound to the **equipped weapon**, replacing the one it had.
@@ -520,7 +534,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Heartwood Bracer | accessory | 3 | +2 STR +2 AGI | A bracer of resin-hardened heartwood. +2 STR, +2 AGI. | crafting |
 | Pearl Pendant | accessory | 3 | +3 INT +1 STA | Two river pearls on a silver chain. Water mages swear by it. +3 INT, +1 STA. | crafting |
 
-### Other consumables, tools & key items (7)
+### Other consumables, tools & key items (19)
 | Item | Description | Buy / sell | Source |
 |---|---|---|---|
 | Eldritch Tome | Forbidden knowledge. Grants 150 XP, 1 skill point, and deep arcane resonance. | 150 / 50 | void_stalker 15%, chest |
@@ -530,6 +544,18 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Void-Fold Relic | Folds micro-rifts into your pouch. Upgrades Satchel to Tier IV (60 slots). | 600 / 200 | — |
 | Legion Lore Fragment | A page from the frozen scout's journal, describing the Legion's movements before the cold took them. Grants 60 XP. | 0 / 15 | quest: The Frozen Camp |
 | Soul-Gem of Still Waters | A relic gem recovered from the Widow's Overlook shrine. Permanently increases Max Mana by 15. | 0 / 60 | quest: The Widow's Watch |
+| Recipe: Grand Feast | Teaches the recipe for Grand Feast. Read it to learn it for good. | 0 / 25 | quest: The Hunter's Larder |
+| Recipe: Hearty Stew | Teaches the recipe for Hearty Stew. Read it to learn it for good. | 0 / 25 | shop |
+| Recipe: Angler's Platter | Teaches the recipe for Angler's Platter. Read it to learn it for good. | 0 / 25 | shop |
+| Recipe: Herb & Mushroom Pie | Teaches the recipe for Herb & Mushroom Pie. Read it to learn it for good. | 0 / 25 | — |
+| Recipe: Spectral Broth | Teaches the recipe for Spectral Broth. Read it to learn it for good. | 0 / 25 | — |
+| Recipe: Elixir of Clarity | Teaches the recipe for Elixir of Clarity. Read it to learn it for good. | 0 / 25 | — |
+| Recipe: Deepwater Elixir | Teaches the recipe for Deepwater Elixir. Read it to learn it for good. | 0 / 25 | — |
+| Recipe: Moonveil Tonic | Teaches the recipe for Moonveil Tonic. Read it to learn it for good. | 0 / 25 | — |
+| Recipe: Double-Down Elixir | Teaches the recipe for Double-Down Elixir. Read it to learn it for good. | 0 / 25 | — |
+| Recipe: Wildfire Tonic | Teaches the recipe for Wildfire Tonic. Read it to learn it for good. | 0 / 25 | — |
+| Recipe: Void Tonic | Teaches the recipe for Void Tonic. Read it to learn it for good. | 0 / 25 | quest: The Hermit's Offering |
+| Recipe: Moonpetal Elixir | Teaches the recipe for Moonpetal Elixir. Read it to learn it for good. | 0 / 25 | shop |
 
 ### Ingredients & materials (41)
 | Ingredient | Used in | Source |
@@ -577,40 +603,43 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Reed Fibre | 8 recipes | gathering: Shallows, gathering: Reed Bed |
 
 ## Shops
-Merchant catalogue (30 entries). Prices: Glint / Gold.
+Merchant catalogue (33 entries). Each item has one price, in gold (mundane goods) or glint (arcane goods).
 
-| Item | Glint | Gold |
+| Item | Price | Currency |
 |---|---|---|
-| Empty Bottle | 5 | 4 |
-| Health Potion | 25 | 18 |
-| Mana Potion | 20 | 30 |
-| Forest Herb | 12 | 7 |
-| Iron Axe | 45 | 32 |
-| Iron Pickaxe | 50 | 36 |
-| Fishing Rod | 35 | 25 |
-| Sickle | 30 | 22 |
-| Sea Salt | 8 | 5 |
-| Scholar's Cowl | 60 | 85 |
-| Scholar's Tunic | 70 | 98 |
-| Iron Ring | 40 | 30 |
-| Expanded Haversack | 120 | 90 |
-| Traveler's Tent | 120 | 85 |
-| Novice Staff | 80 | 115 |
-| Weathered Sage's Staff | 65 | 92 |
-| Iron Spell-Blade | 70 | 95 |
-| Etched Shortsword | 60 | 44 |
-| Crude Dagger | 55 | 38 |
-| Shadow Shiv | 55 | 78 |
-| Carved Shortbow | 75 | 58 |
-| Hunter's Shortbow | 70 | 52 |
-| Adept's Spire | 200 | 290 |
-| Mossy Branch Staff | 175 | 250 |
-| Spell-Blade | 180 | 260 |
-| Arcane Saber | 165 | 235 |
-| Umbral Dagger | 160 | 230 |
-| Phantom Blade | 155 | 218 |
-| Resonance Bow | 200 | 280 |
-| Forest Longbow | 185 | 140 |
+| Empty Bottle | 4 | gold |
+| Health Potion | 18 | glint |
+| Mana Potion | 20 | glint |
+| Forest Herb | 7 | gold |
+| Iron Axe | 32 | gold |
+| Iron Pickaxe | 36 | gold |
+| Fishing Rod | 25 | gold |
+| Sickle | 22 | gold |
+| Sea Salt | 5 | gold |
+| Scholar's Cowl | 60 | gold |
+| Scholar's Tunic | 70 | gold |
+| Iron Ring | 30 | gold |
+| Expanded Haversack | 90 | gold |
+| Traveler's Tent | 85 | gold |
+| Novice Staff | 80 | glint |
+| Weathered Sage's Staff | 65 | glint |
+| Iron Spell-Blade | 70 | glint |
+| Etched Shortsword | 44 | glint |
+| Crude Dagger | 38 | glint |
+| Shadow Shiv | 55 | glint |
+| Carved Shortbow | 58 | gold |
+| Hunter's Shortbow | 52 | gold |
+| Adept's Spire | 200 | glint |
+| Mossy Branch Staff | 175 | glint |
+| Spell-Blade | 180 | glint |
+| Arcane Saber | 165 | glint |
+| Umbral Dagger | 160 | glint |
+| Phantom Blade | 155 | glint |
+| Resonance Bow | 200 | gold |
+| Forest Longbow | 140 | gold |
+| Recipe: Hearty Stew | 90 | glint |
+| Recipe: Moonpetal Elixir | 120 | glint |
+| Recipe: Angler's Platter | 140 | glint |
 
 ## Gathering & world objects
 Walk up to a node and press **E**. Some need a tool in the satchel. Each harvest rolls the node's pool (rare extras roll on top); a harvested node regrows after a few minutes, and every node is full again when the map loads.
@@ -817,8 +846,8 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 | The Covenant Scholar | hidden | Reach 30 Arcane Resonance (0/30) → Attune to 3 Rift-Gates (0/3) | 300 XP, Staff of the First Covenant |
 | The Hunter's Trial | hidden | Defeat enemies with a Resonance Bow (0/12) → Defeat the Void General with a bow | 250 XP, The Eternal Draw |
 | Void-Touched Beasts | side | Hunt Corrupted Boars (0/3) → Hunt Corrupted Deer (0/2) → Hunt Corrupted Rabbits (0/3) | 90 XP, 70 Glint, Health Potion, Void Shard |
-| The Hermit's Offering | side | Collect Void Shards (0/5) → Return to the Hermit | 100 XP, 60 Glint, Mana Potion, Mana Potion, Ancient Scroll |
-| The Hunter's Larder | side | Cook Roasted Boar → Cook Roasted Venison → Cook Roasted Rabbit | 70 XP, 50 Glint, Roasted Boar, Hearty Stew |
+| The Hermit's Offering | side | Collect Void Shards (0/5) → Return to the Hermit | 100 XP, 60 Glint, Mana Potion, Mana Potion, Ancient Scroll, Recipe: Void Tonic |
+| The Hunter's Larder | side | Cook Roasted Boar → Cook Roasted Venison → Cook Roasted Rabbit | 70 XP, 50 Glint, Roasted Boar, Hearty Stew, Recipe: Grand Feast |
 | The Void Fragment | hidden | Defeat Shadow Sprites (0/10) → Defeat the Void General | 250 XP, Cleaver of Vorgos |
 | Whisperer of Doubt | main | Force Malphas to retreat | 400 XP, 200 Glint |
 | The Frozen Camp | side | Read the scout's journal | 60 XP, 40 Glint, Legion Lore Fragment |

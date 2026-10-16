@@ -17,6 +17,9 @@ const OUT = join(here, '../../../docs/game_inventory.md');
 const { SPELLS, RESONANCE_ELEMENTS, RESONANCE_GAINS, TIER_NAMES } = await import(SRC + 'data/spells.js');
 const { ITEMS, COOKING_RECIPES, POTION_RECIPES, ENCHANTS, MERCHANT_CATALOG, SATCHEL_TIERS } = await import(SRC + 'data/items.js');
 const { CRAFTING_RECIPES, ENCHANT_RECIPES } = await import(SRC + 'data/craftingRecipes.js');
+const { recipeStation, STATION_LABELS } = await import(SRC + 'data/stations.js');
+const { isLocked } = await import(SRC + 'data/recipeScrolls.js');
+const { upgradeCost } = await import(SRC + 'data/upgrades.js');
 const { NODE_TYPES, YIELD_TABLES } = await import(SRC + 'data/gathering.js');
 const { ENEMY_SPELLS, ENEMY_KITS, BOSS_AEGIS } = await import(SRC + 'data/enemyMagic.js');
 const { FAMILIES, ENEMY_FAMILY, affinityOf } = await import(SRC + 'data/enemyAffinities.js');
@@ -82,7 +85,8 @@ P('## Systems & controls');
 P();
 table(['Key', 'Action'], [
     ['Arrows / WASD', 'Move (speed 100 + 4 × Agility, × status speed)'], ['Z', 'Attack (basic strike)'], ['X', 'Power attack'],
-    ['E', 'Interact (talk, chests, signs, gathering, rift-gates)'], ['Q R F T', 'Cast the spells in slots 1–4'],
+    ['E', 'Interact (talk, chests, signs, gathering, rift-gates, hearths, alchemy tables)'], ['Q R F T', 'Cast the spells in slots 1–4'],
+    ['1 2 3 4', 'Use the consumable on hotbar slot 1–4 (assign from the Inventory with 1–4; touch: the row above the skill ring)'],
     ['SPACE', 'Blink-Step (skill, 8 MP)'], ['V', 'Aetheric Sight (skill: slows enemies, shows their detection range)'],
     ['B', 'Build a campfire anywhere (costs 3 Wood)'], ['G', 'Aetheric Tear — open a rift to a known place (85% of max MP, cooldown)'],
     ['I', 'Inventory'], ['P', 'Stats'], ['K', 'Skill tree'], ['J', 'Spellbook'], ['M', 'World map'], ['N', 'Quest journal'],
@@ -97,12 +101,16 @@ table(['System', 'How it works'], [
     ['Campfires', 'Placed (B, 3 Wood) or found. Rest (+30% HP/MP; full rest with a Tent: full restore + 50 XP), Cook, Brew.'],
     ["Scholar's Eye", 'Walking near ruins and ancient markers reveals lore echoes, collected in the Codex.'],
     ['Pillar gates & cracked boulders', 'The Earth Pillar spell raises stone that opens pillar gates and shatters cracked boulders.'],
+    ['Stations', 'Cooking Hearth and Alchemy Table (rank 1–3) make feasts, three-ingredient dishes, greater potions and elixirs; they also make every campfire recipe of their kind. Hermit\'s Hut: hearth 1, alchemy 1; Thaloria: hearth 2, alchemy 2; Eldrin\'s Tower: alchemy 3.'],
+    ['Craft ranks', 'Cooking and alchemy ranks rise at 25 and 75 crafts; rank 2/3 give a 15%/30% chance of a second dish or potion.'],
+    ['Recipe scrolls', 'A dozen rare recipes stay hidden until their scroll is read; scrolls drop from elites (12%), the Void General, some chests, shops (by craft rank) and quests.'],
+    ['Gear upgrades', 'At the forge (UPGRADE EQUIPPED): +1/+2/+3 per item; weapons +8% damage per level, armour and accessories +1 to each stat per level; cost by tier (ore, silver, heartwood, heartwood + ice crystal; aether shard at +3).'],
     ['Recipe discovery', 'A recipe appears once you have held one of its ingredients, and is fully revealed once you have held all of them.'],
     ['Satchel', `Inventory size by satchel tier: ${SATCHEL_TIERS.map(t => `${t.name} ${t.slots}`).join(', ')}.`],
     ['Currencies', "Gold buys mundane goods (food, tools, bags, materials, plain gear); Glint buys arcane goods (potions, scrolls, staves, spell-blades, shadow daggers, enchanted or rare gear). Selling pays in the item's currency; a 20% regional discount applies to the favoured one; the shop buys back your last 10 sales."],
     ['Memories', 'Completing quests recovers lore fragments ("Archive of Souls"), readable in the Codex.'],
     ['Campaign', "Eldoria's Prophecy: chapters gate which maps you can enter; completing a chapter grants its unlocks; progress is saved."],
-    ['Saving', 'Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents.'],
+    ['Saving', 'Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades.'],
     ['Online', 'Server select, online characters, chat; other players are visible (presence). The campaign is single-player.'],
     ['Character creator', 'LPC layered characters with palette swaps, export of the character and sheet (with licences).'],
 ]);
@@ -163,17 +171,21 @@ P();
 
 // ------------------------------------------------------------------ cooking / brewing / crafting
 P('## Cooking');
-P('At a campfire (REST / **COOK** / BREW). Recipes appear as their ingredients are discovered.');
+P('At a campfire (REST / **COOK** / BREW) or a cooking hearth. Recipes appear as their ingredients are discovered; 🔒 recipes need their scroll.');
 P();
-table(['Dish', 'Ingredients', 'Effect'], COOKING_RECIPES.map(r => [ITEMS[r.output]?.name ?? r.output, ing(recipeNeeds(r)), ITEMS[r.output]?.description ?? '']));
+const where = r => { const st = recipeStation(r); return (st ? `${STATION_LABELS[st.station]} ${st.rank}` : 'Campfire') + (isLocked(r.output) ? ' 🔒 scroll' : ''); };
+table(['Dish', 'Where', 'Ingredients', 'Effect'], COOKING_RECIPES.map(r => [ITEMS[r.output]?.name ?? r.output, where(r), ing(recipeNeeds(r)), ITEMS[r.output]?.description ?? '']));
 P('## Brewing (potions)');
-P('At a campfire (BREW). Every potion needs an Empty Bottle.');
+P('At a campfire (BREW) or an alchemy table. Every potion needs an Empty Bottle; 🔒 recipes need their scroll.');
 P();
-table(['Potion', 'Ingredients', 'Effect'], POTION_RECIPES.map(r => [ITEMS[r.output]?.name ?? r.output, ing(recipeNeeds(r)), ITEMS[r.output]?.description ?? '']));
+table(['Potion', 'Where', 'Ingredients', 'Effect'], POTION_RECIPES.map(r => [ITEMS[r.output]?.name ?? r.output, where(r), ing(recipeNeeds(r)), ITEMS[r.output]?.description ?? '']));
 P('## Crafting');
 P('At the crafting bench (C).');
 P();
 table(['Item', 'Tier', 'Category', 'Ingredients', 'Result'], CRAFTING_RECIPES.map(r => [r.label, r.tier, r.category, ing(r.ingredients), ITEMS[r.output]?.description ?? '']));
+P('**Gear upgrades** at the forge (UPGRADE EQUIPPED), materials by item tier:');
+P();
+table(['Tier', '+1', '+2', '+3'], [1, 2, 3, 4].map(t => [t === 4 ? '4–5' : t, ...[1, 2, 3].map(l => ing(upgradeCost({ tier: t }, l)))]));
 P('## Enchantments');
 P('Some weapons come with an enchantment. At the forge (Crafting) any enchantment can be bound to the **equipped weapon**, replacing the one it had.');
 P();
