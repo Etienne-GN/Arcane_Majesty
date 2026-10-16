@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { soundManager } from './SoundManager.js';
 import { ITEMS, ENEMY_FAMILIES } from '../data/items.js';
 import { statusManager } from './StatusManager.js';
+import { weaponDamageMult } from '../data/upgrades.js';
 
 export default class CombatManager {
     constructor(scene, player, enemyGroup) {
@@ -137,6 +138,7 @@ export default class CombatManager {
             if (wt === 'umbral_dagger') dmg = Math.floor(dmg * 0.78);
         }
 
+        dmg = Math.floor(dmg * weaponDamageMult(stats.upgradeLevel?.(stats.equipment.weapon) ?? 0));   // forge upgrade
         if (isPower) dmg = Math.floor(dmg * 1.8);
         if (isCrit)  dmg = Math.floor(dmg * 1.6);
         dmg = Math.floor(dmg * statusManager.statsMult(this.player));   // blessed / cursed

@@ -1,5 +1,6 @@
 import { ITEMS, SATCHEL_TIERS } from '../data/items.js';
 import { SPELLS, RESONANCE_ELEMENTS } from '../data/spells.js';
+import { UPGRADE_MAX, upgradeCost, upgradedStats } from '../data/upgrades.js';
 
 // Mastery skills — unlocked with Resonance Insights earned through lore/quests
 export const MASTERY_DEFS = {
@@ -230,6 +231,8 @@ export class PlayerStats {
         this.craftCounts = { cooking: 0, alchemy: 0 };
         // Scroll-locked recipes learned (data/recipeScrolls.js)
         this.knownRecipes = [];
+        // Forge upgrade level per item id, 1–3 (data/upgrades.js)
+        this.gearUpgrades = {};
         // Where the player is (kept fresh by GameScene) and where they rise after
         // death (last campfire / rift-gate) — see systems/respawn.js.
         this.location     = null;
@@ -590,10 +593,30 @@ export class PlayerStats {
         });
     }
 
+    upgradeLevel(itemId) { return this.gearUpgrades?.[itemId] ?? 0; }
+
+    // Forge upgrade of the item in an equipment slot: the stats come off at the
+    // old level and go back on at the new one, so nothing drifts.
+    upgradeEquipped(slot) {
+        const id = this.equipment[slot];
+        if (!id) return { ok: false, reason: 'empty' };
+        const level = this.upgradeLevel(id);
+        if (level >= UPGRADE_MAX) return { ok: false, reason: 'max' };
+        const cost = upgradeCost(ITEMS[id], level + 1);
+        if (!cost.every(c => this.countItem(c.id) >= c.qty)) return { ok: false, reason: 'materials' };
+        cost.forEach(c => this.consumeItem(c.id, c.qty));
+        this._unapplyEquipStats(id);
+        this.gearUpgrades ??= {};
+        this.gearUpgrades[id] = level + 1;
+        this._applyEquipStats(id);
+        return { ok: true, level: level + 1 };
+    }
+
+    // Equipment stats include the item's forge upgrade (data/upgrades.js)
     _applyEquipStats(itemId) {
         const def = ITEMS[itemId];
         if (!def?.stats) return;
-        for (const [stat, val] of Object.entries(def.stats)) {
+        for (const [stat, val] of Object.entries(upgradedStats(def, this.upgradeLevel(itemId)))) {
             if (!(stat in this.attributes)) continue;
             this.attributes[stat] += val;
             if (stat === 'stamina')      { this.maxHealth += val * 8; this.health = Math.min(this.health + val * 8, this.maxHealth); }
@@ -604,7 +627,7 @@ export class PlayerStats {
     _unapplyEquipStats(itemId) {
         const def = ITEMS[itemId];
         if (!def?.stats) return;
-        for (const [stat, val] of Object.entries(def.stats)) {
+        for (const [stat, val] of Object.entries(upgradedStats(def, this.upgradeLevel(itemId)))) {
             if (!(stat in this.attributes)) continue;
             this.attributes[stat] -= val;
             if (stat === 'stamina')      { this.maxHealth = Math.max(1, this.maxHealth - val * 8); this.health = Math.min(this.health, this.maxHealth); }
@@ -744,6 +767,7 @@ export class PlayerStats {
         this.weaponEnchants   = {};
         this.craftCounts      = { cooking: 0, alchemy: 0 };
         this.knownRecipes     = [];
+        this.gearUpgrades     = {};
         this.location         = null;
         this.respawnPoint     = null;
         this.worldState       = {};

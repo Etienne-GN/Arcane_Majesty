@@ -4,6 +4,7 @@ import { ITEMS, MERCHANT_CATALOG } from '../data/items.js';
 import { itemCurrency, shopPrice, recordSale, BUYBACK_MAX } from '../data/economy.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
 import { craftRank } from '../data/stations.js';
+import { upgradeLabel } from '../data/upgrades.js';
 import { SaveManager } from '../systems/SaveManager.js';
 
 // Session-persistent buyback list (cleared on page reload, not on shop re-open):
@@ -163,7 +164,7 @@ export default class ShopScene extends Phaser.Scene {
             const cur = itemCurrency(item.id);
 
             const bg = this.add.rectangle(x0, y, panW, rH, 0x000000, 0).setOrigin(0).setInteractive();
-            const nm = this.add.text(x0 + 8, y + 5, `${def.name}${qty}`, { font: '15px monospace', fill: col });
+            const nm = this.add.text(x0 + 8, y + 5, `${upgradeLabel(def.name, playerStats.upgradeLevel?.(item.id) ?? 0)}${qty}`, { font: '15px monospace', fill: col });
             const sp = def.sellPrice ?? 0;
             const pr = this.add.text(this.scale.width - 8, y + 5, `${sp}${CUR[cur].tag}`, {
                 font: '14px monospace', fill: CUR[cur].color

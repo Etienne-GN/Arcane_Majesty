@@ -163,4 +163,37 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     eq(t.knownRecipes, ['grand_feast'], 'known recipes are saved');
 }
 
+// ---- C4: gear upgrades
+{
+    const UP = await import('../src/data/upgrades.js');
+    const { ITEMS } = await import('../src/data/items.js');
+    eq(UP.upgradeCost(ITEMS.scholars_tunic, 1), [{ id: 'mineral_ore', qty: 2 }], 'T1 +1 costs 2 ore');
+    eq(UP.upgradeCost(ITEMS.scholars_tunic, 3), [{ id: 'mineral_ore', qty: 6 }, { id: 'aether_shard', qty: 1 }], '+3 adds an aether shard');
+    eq(UP.upgradeCost(ITEMS.adepts_spire, 2), [{ id: 'silver_ore', qty: 4 }], 'T2 uses silver');
+    eq(UP.upgradedStats(ITEMS.scholars_tunic, 2), { stamina: 3 }, 'armour: +2 to its stat');
+    eq(UP.upgradedStats(ITEMS.etched_shortsword, 2), ITEMS.etched_shortsword.stats, 'weapons keep their stats');
+    eq(UP.weaponDamageMult(3), 1.24, '+3 weapon: +24% damage');
+    eq(UP.upgradeLabel('Iron Ring', 2), 'Iron Ring +2', '"+N" after the name');
+    eq(UP.upgradeLabel('Iron Ring', 0), 'Iron Ring', 'no suffix at 0');
+
+    // Review Focus 2: upgrade equipped armour, unequip, reload — no drift
+    const s = new PlayerStats();
+    const base = { ...s.attributes }, baseHp = s.maxHealth;
+    s.addItem('scholars_tunic'); s.equipItem('scholars_tunic');
+    eq(s.upgradeEquipped('body'), { ok: false, reason: 'materials' }, 'needs materials');
+    s.addItem('mineral_ore', 20); s.addItem('aether_shard', 1);
+    ok(s.upgradeEquipped('body').ok && s.upgradeEquipped('body').ok && s.upgradeEquipped('body').ok, 'three upgrades');
+    eq(s.upgradeEquipped('body'), { ok: false, reason: 'max' }, '+3 is the cap');
+    eq(s.attributes.stamina, base.stamina + 4, 'tunic +3: 1 + 3 STA');
+    eq(s.maxHealth, baseHp + 32, '4 STA → +32 max HP');
+    eq(s.countItem('mineral_ore'), 20 - 2 - 4 - 6, 'materials consumed');
+    SaveManager.save(s, 'st', 'ch3');
+    const t = new PlayerStats(); SaveManager.load(t, 'st', 'ch3');
+    eq(t.gearUpgrades, { scholars_tunic: 3 }, 'upgrades are saved');
+    ok(t.unequipItem('body'), 'unequip after reload');
+    eq(t.attributes, base, 'attributes back to base');
+    eq(t.maxHealth, baseHp, 'max HP back to base');
+    eq(s.upgradeEquipped('weapon'), { ok: false, reason: 'empty' }, 'nothing equipped there');
+}
+
 console.log(`phase 3 economy: ${n} checks passed`);

@@ -4,6 +4,7 @@ import { GamepadNav } from '../systems/GamepadNav.js';
 import { ITEMS, SATCHEL_TIERS } from '../data/items.js';
 import { DIALOGUES } from '../data/dialogues.js';
 import { HOTBAR_SIZE, assignHotbar, canHotbar } from '../systems/hotbar.js';
+import { upgradedStats, upgradeLabel } from '../data/upgrades.js';
 
 const SLOT = 56;
 const EQUIP_PANEL_W = 192;
@@ -108,7 +109,7 @@ export default class InventoryScene extends Phaser.Scene {
                 } else {
                     this.add.rectangle(x + 8, sy + 24, 24, 24, equippedDef.color ?? 0x8855ff).setOrigin(0);
                 }
-                this.add.text(x + 40, sy + 22, equippedDef.name, {
+                this.add.text(x + 40, sy + 22, upgradeLabel(equippedDef.name, playerStats.upgradeLevel(equippedId)), {
                     font: '14px monospace', fill: '#bbbbdd',
                     wordWrap: { width: panelW - 44 }
                 });
@@ -209,10 +210,11 @@ export default class InventoryScene extends Phaser.Scene {
                     slotBg.on('pointerdown', () => {
                         this.selectedIdx = idx;
                         const def = ITEMS[item.id];
+                        const lvl = playerStats.upgradeLevel(item.id);
                         const statStr = def?.stats
-                            ? '  ' + Object.entries(def.stats).map(([k, v]) => `+${v} ${k.substring(0,3).toUpperCase()}`).join(' ')
+                            ? '  ' + Object.entries(upgradedStats(def, lvl)).map(([k, v]) => `+${v} ${k.substring(0,3).toUpperCase()}`).join(' ')
                             : '';
-                        this.descText.setText(`${item.name}${statStr}\n${item.description}`);
+                        this.descText.setText(`${upgradeLabel(item.name, lvl)}${statStr}\n${item.description}`);
                         this.actionHint.setText(
                             item.slot ? '[E] Equip   [ESC/I] Close'
                                 : canHotbar(item.id) ? '[U] Use   [1-4] Hotbar   [ESC/I] Close' : '[U] Use   [ESC/I] Close'

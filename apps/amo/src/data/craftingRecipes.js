@@ -143,6 +143,7 @@ export const CATEGORY_LABELS = {
     accessory: 'ACCESSORIES',
     tool:      'TOOLS & BAGS',
     enchant:   'ENCHANT EQUIPPED WEAPON',
+    upgrade:   'UPGRADE EQUIPPED',
 };
 
 export const TIER_COLORS = {

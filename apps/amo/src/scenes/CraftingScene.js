@@ -5,6 +5,28 @@ import { ITEMS, ENCHANTS } from '../data/items.js';
 import { CRAFTING_RECIPES, ENCHANT_RECIPES, CATEGORY_LABELS, TIER_COLORS } from '../data/craftingRecipes.js';
 import { soundManager } from '../systems/SoundManager.js';
 import { SaveManager } from '../systems/SaveManager.js';
+import { UPGRADE_MAX, upgradeCost, upgradedStats, weaponDamageMult, upgradeLabel } from '../data/upgrades.js';
+
+const EQUIP_SLOT_NAMES = ['weapon', 'head', 'body', 'accessory1', 'accessory2'];
+const STAT_LABELS = { strength: 'STR', intelligence: 'INT', stamina: 'STA', agility: 'AGI' };
+const statLine = st => Object.entries(st).map(([k, v]) => `+${v} ${STAT_LABELS[k] ?? k}`).join('  ');
+
+// One "UPGRADE EQUIPPED" row per filled equipment slot (data/upgrades.js);
+// rebuilt on every draw since it follows what is equipped.
+function upgradeRows() {
+    return EQUIP_SLOT_NAMES.flatMap(slot => {
+        const id = playerStats.equipment[slot];
+        const def = id ? ITEMS[id] : null;
+        if (!def) return [];
+        const lvl = playerStats.upgradeLevel(id);
+        const max = lvl >= UPGRADE_MAX;
+        return [{
+            id: `upgrade_${slot}`, category: 'upgrade', slot, output: id, tier: def.tier ?? 1, level: lvl,
+            label: max ? `${upgradeLabel(def.name, lvl)} (max)` : `${upgradeLabel(def.name, lvl)} → +${lvl + 1}`,
+            ingredients: max ? [] : upgradeCost(def, lvl + 1),
+        }];
+    });
+}
 
 // Enchant recipes share the recipe list: they bind to the equipped weapon.
 const ALL_RECIPES = [
@@ -107,7 +129,7 @@ export default class CraftingScene extends Phaser.Scene {
         const ROW_H = 52;
 
         const byCategory = {};
-        ALL_RECIPES.forEach(r => {
+        [...ALL_RECIPES, ...upgradeRows()].forEach(r => {
             (byCategory[r.category] = byCategory[r.category] ?? []).push(r);
         });
 
@@ -138,12 +160,14 @@ export default class CraftingScene extends Phaser.Scene {
                     font: `${canCraft ? 'bold ' : ''}16px monospace`,
                     fill: canCraft ? rarCol : '#443322'
                 }));
-                const blurb = recipe.enchant ? ENCHANTS[recipe.enchant]?.description : item?.description;
+                const blurb = recipe.enchant ? ENCHANTS[recipe.enchant]?.description
+                    : recipe.category === 'upgrade' ? (item?.slot === 'weapon' ? 'Weapon damage +8% per level' : 'Each stat +1 per level')
+                    : item?.description;
                 track(this.add.text(x + 18, oy + 28, blurb?.split('.')[0] ?? '', {
                     font: '12px monospace', fill: '#443322'
                 }));
 
-                const statusTxt = canCraft ? '[CRAFT]' : 'missing';
+                const statusTxt = canCraft ? (recipe.category === 'upgrade' ? '[UPGRADE]' : '[CRAFT]') : (recipe.category === 'upgrade' && recipe.level >= UPGRADE_MAX ? 'max' : 'missing');
                 track(this.add.text(x + maxW - 8, oy + 20, statusTxt, {
                     font: '12px monospace',
                     fill: canCraft ? '#88cc44' : '#331100'
@@ -217,8 +241,15 @@ export default class CraftingScene extends Phaser.Scene {
             oy += 44;
         }
 
-        // Stat bonuses
-        if (item?.stats) {
+        if (recipe.category === 'upgrade') {
+            const lvl = recipe.level;
+            const line = item?.slot === 'weapon'
+                ? `Weapon damage +${Math.round((weaponDamageMult(lvl) - 1) * 100)}%` + (lvl < UPGRADE_MAX ? ` → +${Math.round((weaponDamageMult(lvl + 1) - 1) * 100)}%` : '')
+                : statLine(upgradedStats(item, lvl)) + (lvl < UPGRADE_MAX ? `  →  ${statLine(upgradedStats(item, lvl + 1))}` : '');
+            track(this.add.text(x, oy, line, { font: '15px monospace', fill: '#88cc44', wordWrap: { width: w } }));
+            oy += 44;
+        } else if (item?.stats) {
+            // Stat bonuses
             const statLabels = { strength: 'STR', intelligence: 'INT', stamina: 'STA', agility: 'AGI' };
             const statLine = Object.entries(item.stats)
                 .map(([k, v]) => `+${v} ${statLabels[k] ?? k}`).join('  ');
@@ -256,7 +287,7 @@ export default class CraftingScene extends Phaser.Scene {
         // Craft button
         const btnCol  = canCraft ? 0x331a00 : 0x0f0a00;
         const btnBord = canCraft ? tierCol  : 0x221100;
-        const btnTxt  = canCraft ? (recipe.enchant ? 'ENCHANT' : 'CRAFT') : this._blocker(recipe);
+        const btnTxt  = canCraft ? (recipe.enchant ? 'ENCHANT' : recipe.category === 'upgrade' ? 'UPGRADE' : 'CRAFT') : this._blocker(recipe);
         const btnTxtC = canCraft ? '#ffcc44' : '#443322';
 
         const btn = track(this.add.rectangle(x, oy, w, 36, btnCol).setOrigin(0));
@@ -288,6 +319,19 @@ export default class CraftingScene extends Phaser.Scene {
     _craft(recipe) {
         if (!this._canCraft(recipe)) return;
 
+        if (recipe.category === 'upgrade') {
+            const r = playerStats.upgradeEquipped(recipe.slot);
+            if (!r.ok) return;
+            soundManager.menuSelect();
+            SaveManager.save(playerStats);
+            this._feedback = { msg: `${upgradeLabel(ITEMS[recipe.output]?.name, r.level)}!`, color: '#ffcc44' };
+            this.time.delayedCall(2500, () => { this._feedback = null; this._drawDetail(); });
+            this._selected = upgradeRows().find(u => u.id === recipe.id) ?? null;
+            this._drawList();
+            this._drawDetail();
+            return;
+        }
+
         // Consume ingredients (by quantity: stacks are one slot with a qty)
         for (const ing of recipe.ingredients) playerStats.consumeItem(ing.id, ing.qty);
 
@@ -317,6 +361,7 @@ export default class CraftingScene extends Phaser.Scene {
 
     // Why a recipe can't be made right now, or null if it can.
     _blocker(recipe) {
+        if (recipe.category === 'upgrade' && recipe.level >= UPGRADE_MAX) return 'MAX LEVEL';
         if (recipe.enchant) {
             if (!playerStats.equipment.weapon) return 'NO WEAPON EQUIPPED';
             if (playerStats.activeEnchant() === recipe.enchant) return 'ALREADY ENCHANTED';

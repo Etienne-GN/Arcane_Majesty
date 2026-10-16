@@ -31,6 +31,7 @@ import { targetInfo } from '../systems/targetInfo.js';
 import { useHotbar } from '../systems/hotbar.js';
 import { STATION_LABELS } from '../data/stations.js';
 import { rollEliteScroll } from '../data/recipeScrolls.js';
+import { weaponDamageMult } from '../data/upgrades.js';
 import { eliteCap, rollElite, pickAffixes, eliteStats, eliteRareDrop } from '../data/elites.js';
 import { conductTargets, CONDUCT_FRACTION, DETONATE_RADIUS, detonateDamage } from '../systems/reactions.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
@@ -1669,7 +1670,8 @@ export default class GameScene extends Phaser.Scene {
         const stats       = this.player.stats;
         const shotCount   = this.player._bowShotCount ?? 0;
         const isTriple    = passive === 'triple_shot' && shotCount % 3 === 0;
-        const base        = Math.floor(8 + stats.attributes.strength * 1.5 + stats.attributes.intelligence * 1.0 + Phaser.Math.Between(-2, 3));
+        const base        = Math.floor((8 + stats.attributes.strength * 1.5 + stats.attributes.intelligence * 1.0 + Phaser.Math.Between(-2, 3))
+                                       * weaponDamageMult(stats.upgradeLevel?.(stats.equipment.weapon) ?? 0));   // forge upgrade
         let bowDmg        = augmented ? Math.floor(base * 1.20) : base;
         if (isTriple) {
             bowDmg = Math.floor(bowDmg * 2);

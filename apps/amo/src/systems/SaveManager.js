@@ -58,6 +58,7 @@ export class SaveManager {
             weaponEnchants:    { ...(stats.weaponEnchants ?? {}) },
             craftCounts:       { cooking: 0, alchemy: 0, ...(stats.craftCounts ?? {}) },
             knownRecipes:      [...(stats.knownRecipes ?? [])],
+            gearUpgrades:      { ...(stats.gearUpgrades ?? {}) },
             location:          stats.location ? { ...stats.location } : null,
             respawnPoint:      stats.respawnPoint ? { ...stats.respawnPoint } : null,
             worldState:        prunedWorldState(stats, Date.now()),
@@ -115,6 +116,7 @@ export class SaveManager {
             stats.weaponEnchants = { ...(d.weaponEnchants ?? {}) };
             stats.craftCounts = { cooking: 0, alchemy: 0, ...(d.craftCounts ?? {}) };
             stats.knownRecipes = [...(d.knownRecipes ?? [])];
+            stats.gearUpgrades = { ...(d.gearUpgrades ?? {}) };
             stats.location     = d.location ? { ...d.location } : null;
             stats.respawnPoint = d.respawnPoint ? { ...d.respawnPoint } : null;
             stats.worldState   = d.worldState ? JSON.parse(JSON.stringify(d.worldState)) : {};
