@@ -56,6 +56,7 @@ export class SaveManager {
             campaign:          stats.campaign ? JSON.parse(JSON.stringify(stats.campaign)) : null,
             chestContents:     JSON.parse(JSON.stringify(stats.chestContents ?? {})),
             weaponEnchants:    { ...(stats.weaponEnchants ?? {}) },
+            craftCounts:       { cooking: 0, alchemy: 0, ...(stats.craftCounts ?? {}) },
             location:          stats.location ? { ...stats.location } : null,
             respawnPoint:      stats.respawnPoint ? { ...stats.respawnPoint } : null,
             worldState:        prunedWorldState(stats, Date.now()),
@@ -111,6 +112,7 @@ export class SaveManager {
             stats.campaign = d.campaign ? JSON.parse(JSON.stringify(d.campaign)) : null;
             stats.chestContents = d.chestContents ? JSON.parse(JSON.stringify(d.chestContents)) : {};
             stats.weaponEnchants = { ...(d.weaponEnchants ?? {}) };
+            stats.craftCounts = { cooking: 0, alchemy: 0, ...(d.craftCounts ?? {}) };
             stats.location     = d.location ? { ...d.location } : null;
             stats.respawnPoint = d.respawnPoint ? { ...d.respawnPoint } : null;
             stats.worldState   = d.worldState ? JSON.parse(JSON.stringify(d.worldState)) : {};

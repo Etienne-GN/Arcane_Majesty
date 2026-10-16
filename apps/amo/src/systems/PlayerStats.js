@@ -226,6 +226,8 @@ export class PlayerStats {
         // Enchantments applied at the forge, by weapon id; they replace the
         // weapon's own (pre-rolled) enchantment.
         this.weaponEnchants = {};
+        // Crafts made of each kind → craft rank (data/stations.js)
+        this.craftCounts = { cooking: 0, alchemy: 0 };
         // Where the player is (kept fresh by GameScene) and where they rise after
         // death (last campfire / rift-gate) — see systems/respawn.js.
         this.location     = null;
@@ -730,6 +732,7 @@ export class PlayerStats {
         this._tempMaxHpTimer  = 0;
         this.chestContents    = {};
         this.weaponEnchants   = {};
+        this.craftCounts      = { cooking: 0, alchemy: 0 };
         this.location         = null;
         this.respawnPoint     = null;
         this.worldState       = {};

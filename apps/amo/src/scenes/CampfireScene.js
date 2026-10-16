@@ -5,8 +5,11 @@ import { soundManager } from '../systems/SoundManager.js';
 import { SaveManager } from '../systems/SaveManager.js';
 import { questManager } from '../systems/QuestManager.js';
 import { MenuFocus } from '../systems/MenuFocus.js';
+import { STATION_LABELS, CRAFT_KIND, availableRecipes, craftRank, extraOutput } from '../data/stations.js';
 
-const TABS = ['REST', 'COOK', 'BREW'];
+// A campfire offers REST / COOK / BREW; a station (data/stations.js) only its own craft.
+const FIRE_TABS = ['REST', 'COOK', 'BREW'];
+const STATION_TABS = { hearth: ['COOK'], alchemy: ['BREW'] };
 const TAB_KEYS = ['ONE', 'TWO', 'THREE'];
 const RECIPE_ROW_HEIGHT = 48;
 
@@ -15,6 +18,8 @@ export default class CampfireScene extends Phaser.Scene {
 
     init(data) {
         this._onClose = data?.onClose ?? null;
+        this._station = data?.station ?? null;   // { type: 'hearth' | 'alchemy', rank } or null
+        this._tabs = this._station ? STATION_TABS[this._station.type] : FIRE_TABS;
         this._tab = 0;
     }
 
@@ -30,15 +35,16 @@ export default class CampfireScene extends Phaser.Scene {
         this._border.lineStyle(4, 0xcc6622);
         this._border.strokeRect(px, py, pw, ph);
 
-        this.add.text(w / 2, py + 16, 'CAMPFIRE', {
+        const title = this._station ? `${STATION_LABELS[this._station.type].toUpperCase()} — RANK ${this._station.rank}` : 'CAMPFIRE';
+        this.add.text(w / 2, py + 16, title, {
             font: 'bold 24px monospace', fill: '#ff9944'
         }).setOrigin(0.5, 0);
 
         // Tab bar
         const tabY = py + 48;
-        const tabW = Math.floor(pw / TABS.length);
+        const tabW = Math.floor(pw / this._tabs.length);
         this._tabBtns = [];
-        TABS.forEach((label, i) => {
+        this._tabs.forEach((label, i) => {
             const tx = px + i * tabW;
             const bg = this.add.rectangle(tx, tabY, tabW, 32, 0x110900).setOrigin(0);
             const txt = this.add.text(tx + tabW / 2, tabY + 16, label, {
@@ -60,7 +66,7 @@ export default class CampfireScene extends Phaser.Scene {
         this._contentObjs = [];
         this._feedback = null;
 
-        this.add.text(w / 2, py + ph - 16, '[1] REST  [2] COOK  [3] BREW  [ESC] Close', {
+        this.add.text(w / 2, py + ph - 16, `${this._tabs.map((t, i) => `[${i + 1}] ${t}`).join('  ')}  [ESC] Close`, {
             font: '14px monospace', fill: '#443322'
         }).setOrigin(0.5, 1);
 
@@ -70,26 +76,28 @@ export default class CampfireScene extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-ESC',   () => this._close());
         this.input.keyboard.on('keydown-ONE',   () => this._switchTab(0));
+        if (this._tabs.length > 1) {
+            this.input.keyboard.on('keydown-TWO',   () => this._switchTab(1));
+            this.input.keyboard.on('keydown-THREE', () => this._switchTab(2));
+        }
         this.add.text(w - 12, 8, '✕', {
             font: 'bold 28px monospace', fill: '#aa4444', stroke: '#000000', strokeThickness: 2
         }).setOrigin(1, 0).setInteractive().setDepth(50).on('pointerdown', () => this._close());
-        this.input.keyboard.on('keydown-TWO',   () => this._switchTab(1));
-        this.input.keyboard.on('keydown-THREE', () => this._switchTab(2));
-        this.input.keyboard.on('keydown-Q',     () => { if (this._tab === 0) this._quickRest(); });
-        this.input.keyboard.on('keydown-F',     () => { if (this._tab === 0 && playerStats.inventory.some(i => i.id === 'tent')) this._fullRest(); });
-        this.input.keyboard.on('keydown-UP',    () => { if (this._tab >= 1) this._scrollRecipes(this._tab === 1 ? 'cook' : 'brew', -1); });
-        this.input.keyboard.on('keydown-DOWN',  () => { if (this._tab >= 1) this._scrollRecipes(this._tab === 1 ? 'cook' : 'brew', 1); });
+        this.input.keyboard.on('keydown-Q',     () => { if (this._mode() === 'rest') this._quickRest(); });
+        this.input.keyboard.on('keydown-F',     () => { if (this._mode() === 'rest' && playerStats.inventory.some(i => i.id === 'tent')) this._fullRest(); });
+        this.input.keyboard.on('keydown-UP',    () => { if (this._mode() !== 'rest') this._scrollRecipes(this._mode(), -1); });
+        this.input.keyboard.on('keydown-DOWN',  () => { if (this._mode() !== 'rest') this._scrollRecipes(this._mode(), 1); });
 
         // Mouse wheel + touch-drag scroll for the cook/brew recipe lists.
         this.input.on('wheel', (_p, _o, _dx, dy) => {
-            if (this._tab >= 1) this._scrollRecipes(this._tab === 1 ? 'cook' : 'brew', dy > 0 ? 1 : -1);
+            if (this._mode() !== 'rest') this._scrollRecipes(this._mode(), dy > 0 ? 1 : -1);
         });
         let dragY = null, dragAcc = 0;
         this.input.on('pointerdown', (p) => { dragY = p.y; dragAcc = 0; });
         this.input.on('pointermove', (p) => {
-            if (dragY === null || !p.isDown || this._tab < 1) return;
+            if (dragY === null || !p.isDown || this._mode() === 'rest') return;
             dragAcc += dragY - p.y; dragY = p.y;
-            const mode = this._tab === 1 ? 'cook' : 'brew';
+            const mode = this._mode();
             while (Math.abs(dragAcc) >= RECIPE_ROW_HEIGHT) {
                 this._scrollRecipes(mode, dragAcc > 0 ? 1 : -1);
                 dragAcc += dragAcc > 0 ? -RECIPE_ROW_HEIGHT : RECIPE_ROW_HEIGHT;
@@ -98,7 +106,11 @@ export default class CampfireScene extends Phaser.Scene {
         this.input.on('pointerup', () => { dragY = null; dragAcc = 0; });
     }
 
+    // 'rest' | 'cook' | 'brew' for the active tab
+    _mode() { return this._tabs[this._tab].toLowerCase(); }
+
     _switchTab(idx) {
+        if (idx >= this._tabs.length) return;
         this._tab = idx;
         this._tabBtns.forEach(({ bg, txt }, i) => {
             const active = i === idx;
@@ -106,9 +118,9 @@ export default class CampfireScene extends Phaser.Scene {
             txt.setStyle({ fill: active ? '#ffaa44' : '#664422' });
         });
         this._clearContent();
-        if (idx === 0) this._drawRest();
-        if (idx === 1) this._drawRecipes('cook');
-        if (idx === 2) this._drawRecipes('brew');
+        const mode = this._mode();
+        if (mode === 'rest') this._drawRest();
+        else this._drawRecipes(mode);
         this._focus?.setItems(this._contentFocus, { cols: 1 });
     }
 
@@ -123,8 +135,8 @@ export default class CampfireScene extends Phaser.Scene {
     update(time, delta) {
         const gp = this._focus?.poll(delta);
         if (!gp) return;
-        if (gp.RB) this._switchTab((this._tab + 1) % TABS.length);
-        if (gp.LB) this._switchTab((this._tab - 1 + TABS.length) % TABS.length);
+        if (gp.RB) this._switchTab((this._tab + 1) % this._tabs.length);
+        if (gp.LB) this._switchTab((this._tab - 1 + this._tabs.length) % this._tabs.length);
     }
 
     _track(o) { this._contentObjs.push(o); return o; }
@@ -160,12 +172,27 @@ export default class CampfireScene extends Phaser.Scene {
 
     _drawRecipes(mode) {
         const px = this._px, pw = this._pw;
-        // Show recipes where the player has seen at least one ingredient.
-        const recipes = (mode === 'cook' ? COOKING_RECIPES : POTION_RECIPES)
+        // What this fire / station can make, then only recipes where the
+        // player has seen at least one ingredient.
+        const kind  = CRAFT_KIND[mode];
+        const where = this._station ? { station: this._station.type, rank: this._station.rank } : { station: null };
+        const recipes = availableRecipes(mode === 'cook' ? COOKING_RECIPES : POTION_RECIPES, kind, where, playerStats.knownRecipes ?? [], this._isLocked)
             .filter(r => this._isSeen(r));
 
+        // Craft rank line (and, at a campfire, where the big recipes are made)
+        const count = playerStats.craftCounts?.[kind] ?? 0;
+        const label = kind === 'cooking' ? 'Cooking' : 'Alchemy';
+        this._track(this.add.text(px + pw - 20, this._py + 26, `${label} rank ${craftRank(count)} (${count} crafts)`, {
+            font: '12px monospace', fill: '#886644'
+        }).setOrigin(1, 0.5).setDepth(5));
+        if (!this._station) {
+            this._track(this.add.text(px + 20, this._py + this._ph - 34, 'Feasts and elixirs need a hearth or an alchemy table.', {
+                font: '12px monospace', fill: '#554433'
+            }).setOrigin(0, 1));
+        }
+
         const viewY      = this._contentY + 4;
-        const viewBottom = this._py + this._ph - 30;
+        const viewBottom = this._py + this._ph - 40;
         const rowStep    = RECIPE_ROW_HEIGHT;
         const perPage    = Math.max(1, Math.floor((viewBottom - viewY) / rowStep));
 
@@ -290,6 +317,9 @@ export default class CampfireScene extends Phaser.Scene {
         return this._ingredientIds(recipe).some(id => playerStats.seenItems.has(id));
     }
 
+    // Scroll-locked recipes (Task: recipe scrolls) — none yet.
+    _isLocked() { return false; }
+
     _scrollRecipes(mode, d) {
         this._recipeScroll ??= {};
         this._recipeScroll[mode] = Math.max(0, (this._recipeScroll[mode] ?? 0) + d);
@@ -318,9 +348,20 @@ export default class CampfireScene extends Phaser.Scene {
 
         playerStats.addItem(recipe.output);
         if (mode === 'cook') questManager.onCook(recipe.output);
+
+        // Craft count → rank; rank 2/3 sometimes yields a second one
+        const kind = CRAFT_KIND[mode];
+        playerStats.craftCounts ??= { cooking: 0, alchemy: 0 };
+        const before = craftRank(playerStats.craftCounts[kind] ?? 0);
+        playerStats.craftCounts[kind] = (playerStats.craftCounts[kind] ?? 0) + 1;
+        const rank = craftRank(playerStats.craftCounts[kind]);
+        const twice = extraOutput(rank) && playerStats.addItem(recipe.output);
+
         soundManager.collect();
         SaveManager.save(playerStats);
-        this._showFeedback(`${mode === 'cook' ? 'Cooked' : 'Brewed'}: ${recipe.label}!`, '#ffcc44');
+        const verb = mode === 'cook' ? 'Cooked' : 'Brewed';
+        if (rank > before) this._showFeedback(`${kind === 'cooking' ? 'Cooking' : 'Alchemy'} rank ${rank}!  ${verb}: ${recipe.label}`, '#ffee88');
+        else this._showFeedback(`${verb}: ${recipe.label}${twice ? ' ×2!' : '!'}`, '#ffcc44');
         this._switchTab(this._tab);
     }
 
