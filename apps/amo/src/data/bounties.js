@@ -12,7 +12,7 @@ import { ITEMS } from './items.js';
 export const BOUNTIES_PER_DAY = 3;
 export const BOUNTY_BOARD_NAME = 'the Bounty Board';
 
-// The local calendar day number. (The game day replaces this once Phase 5's clock exists.)
+// The local calendar day number. (Boards in play use the game day — systems/gameClock.js.)
 export function realDay(now = Date.now()) {
     return Math.floor((now - new Date(now).getTimezoneOffset() * 60000) / 86400000);
 }

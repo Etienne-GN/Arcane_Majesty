@@ -15,7 +15,8 @@ import { campaignManager } from '../systems/CampaignManager.js';
 import { ITEMS } from '../data/items.js';
 import { TILE_SIZE, ENEMY_TYPES } from '../data/worldMap.js';
 import { getMap } from '../data/maps/index.js';
-import { realDay, boardIdFor, regionPools } from '../data/bounties.js';
+import { boardIdFor, regionPools } from '../data/bounties.js';
+import { gameDay } from '../systems/gameClock.js';
 import { catalogueLayout } from '../utils/catalogueLayout.js';
 import { DIALOGUES } from '../data/dialogues.js';
 import { SPELLS, TIER_NAMES, RESONANCE_GAINS, scaledStatus, spellRadius, spellDamageAt } from '../data/spells.js';
@@ -767,7 +768,7 @@ export default class GameScene extends Phaser.Scene {
         const regionMap = getMap(board.boardDef.region ?? this._mapId) ?? this._mapDef;
         const data = {
             boardId: board.boardId,
-            day:     realDay(),
+            day:     gameDay(playerStats.gameMinutes),   // a new set of bounties every game day
             pools:   regionPools(regionMap, ENEMY_TYPES),
             band:    mapLevelBand(regionMap),
             where:   { region: regionMap.displayName ?? regionMap.id, place: this._mapDef.displayName ?? this._mapId },

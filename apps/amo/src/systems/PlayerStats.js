@@ -237,6 +237,8 @@ export class PlayerStats {
         this.flags           = {};
         this.generatedQuests = {};
         this.bounties        = {};
+        // Game clock (systems/gameClock.js): total game minutes, starting at 08:00 on day 0
+        this.gameMinutes     = 480;
         // Where the player is (kept fresh by GameScene) and where they rise after
         // death (last campfire / rift-gate) — see systems/respawn.js.
         this.location     = null;
@@ -777,6 +779,7 @@ export class PlayerStats {
         this.flags            = {};
         this.generatedQuests  = {};
         this.bounties         = {};
+        this.gameMinutes      = 480;
         this.location         = null;
         this.respawnPoint     = null;
         this.worldState       = {};

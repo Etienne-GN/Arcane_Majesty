@@ -62,6 +62,7 @@ export class SaveManager {
             flags:             { ...(stats.flags ?? {}) },
             generatedQuests:   JSON.parse(JSON.stringify(stats.generatedQuests ?? {})),
             bounties:          JSON.parse(JSON.stringify(stats.bounties ?? {})),
+            gameMinutes:       stats.gameMinutes ?? 480,
             location:          stats.location ? { ...stats.location } : null,
             respawnPoint:      stats.respawnPoint ? { ...stats.respawnPoint } : null,
             worldState:        prunedWorldState(stats, Date.now()),
@@ -123,6 +124,7 @@ export class SaveManager {
             stats.flags           = { ...(d.flags ?? {}) };
             stats.generatedQuests = d.generatedQuests ? JSON.parse(JSON.stringify(d.generatedQuests)) : {};
             stats.bounties        = d.bounties ? JSON.parse(JSON.stringify(d.bounties)) : {};
+            stats.gameMinutes     = Number.isFinite(d.gameMinutes) ? d.gameMinutes : 480;
             stats.location     = d.location ? { ...d.location } : null;
             stats.respawnPoint = d.respawnPoint ? { ...d.respawnPoint } : null;
             stats.worldState   = d.worldState ? JSON.parse(JSON.stringify(d.worldState)) : {};
