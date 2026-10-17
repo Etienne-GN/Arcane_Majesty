@@ -1,8 +1,8 @@
 # Arcane Majesty (amo) — Complete Game Inventory
 
-_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-16. Regenerate after changing the data; don't hand-edit._
+_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-17. Regenerate after changing the data; don't hand-edit._
 
-**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 24 status effects · 197 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 112 enemy/creature types + 1 boss · 25 quests · 12 campaign chapters · 24 maps · 5 playable characters · 24 dialogues
+**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 24 status effects · 197 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 112 enemy/creature types + 1 boss · 27 quests · 12 campaign chapters · 24 maps · 5 playable characters · 25 dialogues
 
 ## Contents
 1. [Systems & controls](#systems--controls)
@@ -66,9 +66,12 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | Recipe discovery | A recipe appears once you have held one of its ingredients, and is fully revealed once you have held all of them. |
 | Satchel | Inventory size by satchel tier: Weathered Pouch 10, Expanded Haversack 20, Runic Satchel 35, Void-Fold 60. |
 | Currencies | Gold buys mundane goods (food, tools, bags, materials, plain gear); Glint buys arcane goods (potions, scrolls, staves, spell-blades, shadow daggers, enchanted or rare gear). Selling pays in the item's currency; a 20% regional discount applies to the favoured one; the shop buys back your last 10 sales. |
+| Quest givers & turn-ins | Some quests are offered by an NPC after you talk to them (Accept / Not now) and are turned in by talking to them again — a "Return to …" step is added automatically and only counts once the other objectives are done. Quests can require earlier quests, a dialogue choice or a campaign chapter; "bring" objectives count your inventory live and take the items on turn-in. Rewards can include XP, Glint, Gold, items, a recipe, a spell and Resonance Insights. |
+| Dialogue choices | Some lines offer numbered choices (↑↓ / 1–4 / click, E to confirm); a choice can start a quest or change what people say later. |
+| Bounty boards | Thaloria and Silvara's camp have a Bounty Board: 3 new bounties each day — hunt 4–8 of a regional creature, bring down an elite, or bring 3–6 of a regional gathered item — one at a time per board, turned in at the board. Rewards scale with the region's level band (e.g. a 6-kill hunt pays 75 XP / 27 Gold at Lv 1–3 and 165 XP / 57 Gold at Lv 7–9; elites also pay Glint). Thaloria's board hunts the Summit of Despair. |
 | Memories | Completing quests recovers lore fragments ("Archive of Souls"), readable in the Codex. |
 | Campaign | Eldoria's Prophecy: chapters gate which maps you can enter; completing a chapter grants its unlocks; progress is saved. |
-| Saving | Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades. |
+| Saving | Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties. |
 | Online | Server select, online characters, chat; other players are visible (presence). The campaign is single-player. |
 | Character creator | LPC layered characters with palette swaps, export of the character and sheet (with licences). |
 
@@ -837,33 +840,35 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 **The Void General** — 350 HP, 20 damage, 280 XP. Three phases (enrages at 75/50/25% HP) with a burst attack and phase-3 special attacks. From 50% HP he channels a **Void Aegis** (1.6s, every 16s): silence or stun him to break the channel, or Unravel the shield once it is up — while it holds he takes 35% damage. Guaranteed drops: Void Channel and Arcane Sceptre (tier 4 staves).
 
 ## Quests
-| Quest | Type | Steps | Reward |
-|---|---|---|---|
-| The Forest Hunt | main | Speak with the Hermit → Defeat Forest Wolves → Defeat Shadow Sprites → Attune to an Aetheric Monolith → Defeat the Void General | 300 XP, 150 Glint |
-| Silvara's Supply Run | side | Gather Wood (0/3) → Gather Mineral Ore (0/2) → Return to Silvara | 100 XP, 80 Glint, Health Potion, Mana Potion |
-| Echoes of the Ancient Ones | side | Read Ancient Signs (0/3) | 80 XP, 60 Glint, Ancient Scroll |
-| Initiation of the Twilight Order | hidden | Comprehend Shadow Veil → Defeat enemies in Shadow Veil (0/8) | 250 XP, The Twilight Fang |
-| The Covenant Scholar | hidden | Reach 30 Arcane Resonance (0/30) → Attune to 3 Rift-Gates (0/3) | 300 XP, Staff of the First Covenant |
-| The Hunter's Trial | hidden | Defeat enemies with a Resonance Bow (0/12) → Defeat the Void General with a bow | 250 XP, The Eternal Draw |
-| Void-Touched Beasts | side | Hunt Corrupted Boars (0/3) → Hunt Corrupted Deer (0/2) → Hunt Corrupted Rabbits (0/3) | 90 XP, 70 Glint, Health Potion, Void Shard |
-| The Hermit's Offering | side | Collect Void Shards (0/5) → Return to the Hermit | 100 XP, 60 Glint, Mana Potion, Mana Potion, Ancient Scroll, Recipe: Void Tonic |
-| The Hunter's Larder | side | Cook Roasted Boar → Cook Roasted Venison → Cook Roasted Rabbit | 70 XP, 50 Glint, Roasted Boar, Hearty Stew, Recipe: Grand Feast |
-| The Void Fragment | hidden | Defeat Shadow Sprites (0/10) → Defeat the Void General | 250 XP, Cleaver of Vorgos |
-| Whisperer of Doubt | main | Force Malphas to retreat | 400 XP, 200 Glint |
-| The Frozen Camp | side | Read the scout's journal | 60 XP, 40 Glint, Legion Lore Fragment |
-| The Widow's Watch | side | Gather Wood (0/1) → Gather Mineral Ore (0/1) | 80 XP, Soul-Gem of Still Waters |
-| Echoes in the Rime | side | Clear the Frost-Shades (0/2) | 100 XP, Aether-Shard, Aether-Shard |
-| Read the Erasure | main | Examine the Strata Wall | 30 XP |
-| Dreamweaver's Call (placeholder) | main | Speak with the placeholder | 10 XP |
-| Odyssey's Dawn (placeholder) | main | Speak with the placeholder | 10 XP |
-| Sylvan Sanctuary (placeholder) | main | Speak with the placeholder | 10 XP |
-| Treachery's Bite (placeholder) | main | Speak with the placeholder | 10 XP |
-| The Solitary Path (placeholder) | main | Speak with the placeholder | 10 XP |
-| Inferno's Trial (placeholder) | main | Speak with the placeholder | 10 XP |
-| Eldoria's Heartbeat (placeholder) | main | Speak with the placeholder | 10 XP |
-| Heart of War (placeholder) | main | Speak with the placeholder | 10 XP |
-| The Weight of Eternity (placeholder) | main | Speak with the placeholder | 10 XP |
-| Dawn's Embrace (placeholder) | main | Speak with the placeholder | 10 XP |
+| Quest | Type | Given by | Requires | Steps | Reward |
+|---|---|---|---|---|---|
+| The Forest Hunt | main | — | — | Speak with the Hermit → Defeat Forest Wolves → Defeat Shadow Sprites → Attune to an Aetheric Monolith → Defeat the Void General | 300 XP, 150 Glint |
+| Silvara's Supply Run | side | — | — | Gather Wood (0/3) → Gather Mineral Ore (0/2) → Return to Silvara | 100 XP, 80 Glint, Health Potion, Mana Potion |
+| Echoes of the Ancient Ones | side | — | — | Read Ancient Signs (0/3) | 80 XP, 60 Glint, Ancient Scroll |
+| Initiation of the Twilight Order | hidden | — | — | Comprehend Shadow Veil → Defeat enemies in Shadow Veil (0/8) | 250 XP, The Twilight Fang |
+| The Covenant Scholar | hidden | — | — | Reach 30 Arcane Resonance (0/30) → Attune to 3 Rift-Gates (0/3) | 300 XP, Staff of the First Covenant |
+| The Hunter's Trial | hidden | — | — | Defeat enemies with a Resonance Bow (0/12) → Defeat the Void General with a bow | 250 XP, The Eternal Draw |
+| Void-Touched Beasts | side | — | — | Hunt Corrupted Boars (0/3) → Hunt Corrupted Deer (0/2) → Hunt Corrupted Rabbits (0/3) | 90 XP, 70 Glint, Health Potion, Void Shard |
+| The Hermit's Offering | side | — | — | Collect Void Shards (0/5) → Return to the Hermit | 100 XP, 60 Glint, Mana Potion, Mana Potion, Ancient Scroll, Recipe: Void Tonic |
+| The Hunter's Larder | side | — | — | Cook Roasted Boar → Cook Roasted Venison → Cook Roasted Rabbit | 70 XP, 50 Glint, Roasted Boar, Hearty Stew, Recipe: Grand Feast |
+| The Hermit's Remedy | side | the Hermit | — | Bring Moonpetal → Bring Glowcap → Return to the Hermit | 120 XP, 40 Gold, Recipe: Moonveil Tonic, 1 Insight |
+| Shadows at the Threshold | side | the Hermit | The Hermit's Remedy | Defeat Shadow Sprites (0/6) → Return to the Hermit | 200 XP, 60 Glint, Spell: Cleanse |
+| The Void Fragment | hidden | — | — | Defeat Shadow Sprites (0/10) → Defeat the Void General | 250 XP, Cleaver of Vorgos |
+| Whisperer of Doubt | main | — | — | Force Malphas to retreat | 400 XP, 200 Glint |
+| The Frozen Camp | side | — | — | Read the scout's journal | 60 XP, 40 Glint, Legion Lore Fragment |
+| The Widow's Watch | side | — | — | Gather Wood (0/1) → Gather Mineral Ore (0/1) | 80 XP, Soul-Gem of Still Waters |
+| Echoes in the Rime | side | — | — | Clear the Frost-Shades (0/2) | 100 XP, Aether-Shard, Aether-Shard |
+| Read the Erasure | main | — | — | Examine the Strata Wall | 30 XP |
+| Dreamweaver's Call (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| Odyssey's Dawn (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| Sylvan Sanctuary (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| Treachery's Bite (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| The Solitary Path (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| Inferno's Trial (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| Eldoria's Heartbeat (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| Heart of War (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| The Weight of Eternity (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
+| Dawn's Embrace (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
 
 ## Campaign
 **Eldoria's Prophecy** — protagonist: eldrin.
@@ -925,4 +930,4 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 | Eldoria's Prophecy | Vorgos activates Eldrin Nightshade to secure the Heart Stone of Creation — a contingency for a wound the world has not yet suffered. |
 
 ## Dialogues
-`hermit_intro`, `hermit_after`, `hermit_quest_done`, `hermit_hut_greeting`, `hermit_hut_after`, `merchant_greeting`, `merchant_after`, `silvara_lore`, `eldrin_premonition`, `eldrin_second_vision`, `boss_encounter`, `boss_defeated`, `ancient_scroll_read`, `eldritch_tome_read`, `stub_ch02_dreamweavers_call_greeting`, `stub_ch03_odysseys_dawn_greeting`, `stub_ch05_sylvan_sanctuary_greeting`, `stub_ch06_treacherys_bite_greeting`, `stub_ch07_the_solitary_path_greeting`, `stub_ch08_infernos_trial_greeting`, `stub_ch09_eldorias_heartbeat_greeting`, `stub_ch10_heart_of_war_greeting`, `stub_ch11_the_weight_of_eternity_greeting`, `stub_ch12_dawns_embrace_greeting`
+`hermit_intro`, `hermit_after`, `hermit_quest_done`, `hermit_hut_greeting`, `hermit_hut_after`, `hermit_remedy_accepted`, `merchant_greeting`, `merchant_after`, `silvara_lore`, `eldrin_premonition`, `eldrin_second_vision`, `boss_encounter`, `boss_defeated`, `ancient_scroll_read`, `eldritch_tome_read`, `stub_ch02_dreamweavers_call_greeting`, `stub_ch03_odysseys_dawn_greeting`, `stub_ch05_sylvan_sanctuary_greeting`, `stub_ch06_treacherys_bite_greeting`, `stub_ch07_the_solitary_path_greeting`, `stub_ch08_infernos_trial_greeting`, `stub_ch09_eldorias_heartbeat_greeting`, `stub_ch10_heart_of_war_greeting`, `stub_ch11_the_weight_of_eternity_greeting`, `stub_ch12_dawns_embrace_greeting`

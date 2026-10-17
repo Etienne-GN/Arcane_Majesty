@@ -27,6 +27,9 @@ const { ELITE_CHANCE, AFFIX_LABELS } = await import(SRC + 'data/elites.js');
 const W = await import(SRC + 'data/worldMap.js');
 const { STATUS_DEFS } = await import(SRC + 'data/statuses.js');
 const { QUESTS } = await import(SRC + 'data/quests.js');
+const { questSteps, rewardParts } = await import(SRC + 'data/questRules.js');
+const { npcName } = await import(SRC + 'data/npcs.js');
+const { BOUNTIES_PER_DAY, bountyReward } = await import(SRC + 'data/bounties.js');
 const { CHARACTERS } = await import(SRC + 'data/characters.js');
 const { STORIES } = await import(SRC + 'data/stories.js');
 const { DIALOGUES } = await import(SRC + 'data/dialogues.js');
@@ -108,9 +111,12 @@ table(['System', 'How it works'], [
     ['Recipe discovery', 'A recipe appears once you have held one of its ingredients, and is fully revealed once you have held all of them.'],
     ['Satchel', `Inventory size by satchel tier: ${SATCHEL_TIERS.map(t => `${t.name} ${t.slots}`).join(', ')}.`],
     ['Currencies', "Gold buys mundane goods (food, tools, bags, materials, plain gear); Glint buys arcane goods (potions, scrolls, staves, spell-blades, shadow daggers, enchanted or rare gear). Selling pays in the item's currency; a 20% regional discount applies to the favoured one; the shop buys back your last 10 sales."],
+    ['Quest givers & turn-ins', 'Some quests are offered by an NPC after you talk to them (Accept / Not now) and are turned in by talking to them again — a "Return to …" step is added automatically and only counts once the other objectives are done. Quests can require earlier quests, a dialogue choice or a campaign chapter; "bring" objectives count your inventory live and take the items on turn-in. Rewards can include XP, Glint, Gold, items, a recipe, a spell and Resonance Insights.'],
+    ['Dialogue choices', 'Some lines offer numbered choices (↑↓ / 1–4 / click, E to confirm); a choice can start a quest or change what people say later.'],
+    ['Bounty boards', `Thaloria and Silvara's camp have a Bounty Board: ${BOUNTIES_PER_DAY} new bounties each day — hunt 4–8 of a regional creature, bring down an elite, or bring 3–6 of a regional gathered item — one at a time per board, turned in at the board. Rewards scale with the region's level band (e.g. a 6-kill hunt pays ${bountyReward('hunt', { max: 3 }, 6).xp} XP / ${bountyReward('hunt', { max: 3 }, 6).gold} Gold at Lv 1–3 and ${bountyReward('hunt', { max: 9 }, 6).xp} XP / ${bountyReward('hunt', { max: 9 }, 6).gold} Gold at Lv 7–9; elites also pay Glint). Thaloria's board hunts the Summit of Despair.`],
     ['Memories', 'Completing quests recovers lore fragments ("Archive of Souls"), readable in the Codex.'],
     ['Campaign', "Eldoria's Prophecy: chapters gate which maps you can enter; completing a chapter grants its unlocks; progress is saved."],
-    ['Saving', 'Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades.'],
+    ['Saving', 'Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties.'],
     ['Online', 'Server select, online characters, chat; other players are visible (presence). The campaign is single-player.'],
     ['Character creator', 'LPC layered characters with palette swaps, export of the character and sheet (with licences).'],
 ]);
@@ -302,9 +308,11 @@ P();
 
 // ------------------------------------------------------------------ quests / campaign
 P('## Quests');
-table(['Quest', 'Type', 'Steps', 'Reward'], Object.values(QUESTS).map(q => [
-    q.title, q.type ?? '', (q.steps ?? []).map(s => s.label ?? `${s.type} ${s.target}`).join(' → '),
-    [q.reward?.xp && `${q.reward.xp} XP`, q.reward?.glint && `${q.reward.glint} Glint`, ...(q.reward?.items ?? []).map(name)].filter(Boolean).join(', ') || '—']));
+table(['Quest', 'Type', 'Given by', 'Requires', 'Steps', 'Reward'], Object.values(QUESTS).map(q => [
+    q.title, q.type ?? '', q.giver ? npcName(q.giver) : '—',
+    (q.requires ?? []).map(id => QUESTS[id]?.title ?? id).join(', ') || '—',
+    questSteps(q).map(s => s.label ?? `${s.type} ${s.target}`).join(' → '),
+    rewardParts(q.reward, { itemName: name, recipeName: name, spellName: id => SPELLS[id]?.name ?? id }).join(', ') || '—']));
 P('## Campaign');
 P(`**${CAMPAIGN.title}** — protagonist: ${CAMPAIGN.protagonist ?? 'Eldrin'}.`);
 P();
