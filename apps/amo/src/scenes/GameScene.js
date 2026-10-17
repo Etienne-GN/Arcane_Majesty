@@ -417,6 +417,7 @@ export default class GameScene extends Phaser.Scene {
                 inVeil:     this.player._shadowVeilActive,
                 weaponType: playerStats.activeWeaponType,
                 isBoss:     true,
+                mapId:      this._mapId,
             });
             playerStats.trackKill('void_general');
             // Boss guaranteed drops: void_channel (T4 staff) + arcane_sceptre (T4 staff alt)
@@ -543,7 +544,8 @@ export default class GameScene extends Phaser.Scene {
         }
 
         // Quest completion notifications
-        questManager.onQuestEvent((questId, stepId, progress) => {
+        // Removed on shutdown: create() runs again on every map change
+        const offQuest = questManager.onQuestEvent((questId, stepId, progress) => {
             if (progress === -1) {
                 const title = questManager.questDef(questId)?.title ?? questId.replace(/_/g, ' ');
                 this.scene.get('UIScene')?.showNotification?.(`Quest complete!\n${title}`, 3500);
@@ -553,6 +555,7 @@ export default class GameScene extends Phaser.Scene {
                 this.scene.get('UIScene')?.showNotification?.('Quest updated — open QUEST in menu', 1600);
             }
         });
+        this.events.once('shutdown', offQuest);
 
         // Ambient firefly particles
         this._spawnFireflies(mapW, mapH);
@@ -789,7 +792,7 @@ export default class GameScene extends Phaser.Scene {
             day:     gameDay(playerStats.gameMinutes),   // a new set of bounties every game day
             pools:   regionPools(regionMap, ENEMY_TYPES),
             band:    mapLevelBand(regionMap),
-            where:   { region: regionMap.displayName ?? regionMap.id, place: this._mapDef.displayName ?? this._mapId },
+            where:   { region: regionMap.displayName ?? regionMap.id, place: this._mapDef.displayName ?? this._mapId, regionId: regionMap.id },
         };
         const open = () => {
             if (this.scene.isPaused()) return;
@@ -3342,11 +3345,13 @@ export default class GameScene extends Phaser.Scene {
 
     // After a talk, the NPC offers the next quest they give that can start now.
     // Waits out the quest-complete flash (a paused camera would freeze it on screen).
-    _offerQuest(npcId, speaker) {
+    _offerQuest(npcId, speaker, npc = null) {
         const quest = questManager.offerFor(npcId, id => campaignManager.isChapterReached(id));
         if (!quest) return;
         this.time.delayedCall(400, () => {
             if (this.scene.isPaused() || this.scene.isActive('DialogueScene')) return;
+            // Walked off already? They'll offer it next time you talk.
+            if (npc && Phaser.Math.Distance.Between(this.player.x, this.player.y, npc.x, npc.y) > 80) return;
             this.scene.pause();
             this.scene.launch('DialogueScene', {
                 lines: [{
@@ -3403,7 +3408,7 @@ export default class GameScene extends Phaser.Scene {
                     questManager.onTalk(npcId);   // every talk — turn-ins happen on a later visit
                     npc.talked = true;
                     SaveManager.save(playerStats, this._storyId, this._characterId);
-                    this._offerQuest(npcId, def.name);
+                    this._offerQuest(npcId, def.name, npc);
                 }
             });
         });
@@ -3561,6 +3566,7 @@ export default class GameScene extends Phaser.Scene {
                 weaponType: playerStats.activeWeaponType,
                 isBoss:     false,
                 isElite:    !!enemy.elite,
+                mapId:      this._mapId,
             });
             if (playerStats.activeWeaponType === 'resonance_bow' &&
                 !questManager.isActive('hidden_hunters_trial') &&

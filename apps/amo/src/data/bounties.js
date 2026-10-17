@@ -58,7 +58,7 @@ export function bountyReward(kind, band, n) {
 
 const FALLBACK = { creatures: ['wolf'], items: ['wood'] };
 
-export function generateBounties(boardId, day, pools, band, { region, place }) {
+export function generateBounties(boardId, day, pools, band, { region, place, regionId }) {
     const rng = seededRng(hashString(boardId) ^ Math.imul(day, 2654435761));
     const usable = pools.creatures.length || pools.items.length ? pools : FALLBACK;
     const kinds = !usable.creatures.length ? ['gather', 'gather', 'gather']
@@ -78,12 +78,12 @@ export function generateBounties(boardId, day, pools, band, { region, place }) {
         if (kind === 'hunt') {
             const type = draw('creatures'), n = 4 + Math.floor(rng() * 5), name = creatureLabel(type);
             return { ...base, title: `Bounty: ${name} Cull`, description: `Too many ${name} roam ${region}. Hunt ${n} of them.`,
-                steps: [{ id: 'hunt', type: 'kill', target: type, label: `Defeat ${name} (0/${n})`, required: n }],
+                steps: [{ id: 'hunt', type: 'kill', target: type, ...(regionId ? { map: regionId } : {}), label: `Defeat ${name} (0/${n})`, required: n }],
                 reward: bountyReward(kind, band, n) };
         }
         if (kind === 'elite') {
-            return { ...base, title: 'Bounty: Elite Quarry', description: 'Bring down an elite creature — the gold-framed ones that hit harder.',
-                steps: [{ id: 'elite', type: 'kill_elite', target: 'any', label: 'Defeat an elite creature', required: 1 }],
+            return { ...base, title: 'Bounty: Elite Quarry', description: `Bring down an elite creature in ${region} — the gold-framed ones that hit harder.`,
+                steps: [{ id: 'elite', type: 'kill_elite', target: 'any', ...(regionId ? { map: regionId } : {}), label: `Defeat an elite creature in ${region}`, required: 1 }],
                 reward: bountyReward(kind, band, 1) };
         }
         const id = draw('items'), n = 3 + Math.floor(rng() * 4), name = ITEMS[id]?.name ?? id;

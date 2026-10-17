@@ -399,4 +399,36 @@ const ELITE = {
     ok(!main[0].turnIn, 'a first-step talk ("Speak with the Hermit") is not a turn-in');
 }
 
+// ---- Small fix: quest listeners can be removed (GameScene drops its own on each map change)
+{
+    freshPlayer({ t_elite: ELITE });
+    let calls = 0;
+    const off = questManager.onQuestEvent(() => calls++);
+    ok(typeof off === 'function', 'onQuestEvent returns an unsubscribe');
+    questManager.startQuest('t_elite');
+    const after1 = calls;
+    off();
+    questManager.onKill('wolf', { isElite: true });
+    eq(calls, after1, 'no calls after unsubscribing');
+}
+
+// ---- Small fix: bounty kills only count in the board's region
+{
+    const B = await import('../src/data/bounties.js');
+    const pools = { creatures: ['wolf'], items: ['wood'] };
+    const [hunt, elite] = B.generateBounties('board_r', 9, pools, { min: 1, max: 3 }, { region: 'the Summit', place: 'Thaloria', regionId: 'summit_of_despair' });
+    eq([hunt.steps[0].map, elite.steps[0].map], ['summit_of_despair', 'summit_of_despair'], 'kill steps name the region map');
+    const s = freshPlayer({ [hunt.id]: hunt, [elite.id]: elite });
+    questManager.startQuest(hunt.id); questManager.startQuest(elite.id);
+    questManager.onKill('wolf', { isElite: true, mapId: 'prologue_forest' });
+    eq([s.questLog[hunt.id].progress.hunt, s.questLog[elite.id].progress.elite], [0, 0], 'kills elsewhere do not count');
+    questManager.onKill('wolf', { isElite: true, mapId: 'summit_of_despair' });
+    eq([s.questLog[hunt.id].progress.hunt, s.questLog[elite.id].progress.elite], [1, 1], 'kills in the region do');
+    const legacy = { ...hunt, id: 'legacy_b', steps: [{ ...hunt.steps[0], map: undefined }] };
+    s.generatedQuests.legacy_b = legacy;
+    questManager.startQuest('legacy_b');
+    questManager.onKill('wolf', { mapId: 'anywhere' });
+    eq(s.questLog.legacy_b.progress.hunt, 1, 'bounties saved before this still count anywhere');
+}
+
 console.log(`test_phase4_quests: ${n} checks passed`);

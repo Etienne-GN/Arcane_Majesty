@@ -138,6 +138,7 @@ export default class DialogueScene extends Phaser.Scene {
             .on('pointerover', () => { this._choiceIndex = i; this._paintChoices(); })
             .on('pointerdown', () => { this._choiceIndex = i; this._pick(); }));
         this._choiceIndex = 0;
+        this._choicesAt = this.time.now;   // a short grace so mashing E through the text doesn't pick for you
         this._paintChoices();
     }
 
@@ -163,7 +164,7 @@ export default class DialogueScene extends Phaser.Scene {
 
     _pick() {
         const choice = this.lines[this.index]?.choices?.[this._choiceIndex];
-        if (!choice) return;
+        if (!choice || this.time.now - (this._choicesAt ?? 0) < 350) return;
         this._clearChoices();
         const next = applyChoice(choice, playerStats.flags, id => questManager.startQuest(id));
         if (next && DIALOGUES[next]) {

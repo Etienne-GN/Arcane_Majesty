@@ -145,9 +145,10 @@ class QuestManager {
 
     // ── Event hooks ───────────────────────────────────────────────────────────
 
-    onKill(enemyType, { inVeil = false, weaponType = null, isBoss = false, isElite = false } = {}) {
+    onKill(enemyType, { inVeil = false, weaponType = null, isBoss = false, isElite = false, mapId = null } = {}) {
         for (const [qId, quest] of this._active()) {
             for (const step of questSteps(quest)) {
+                if (step.map && step.map !== mapId) continue;   // bounty kills count in their region only
                 if (step.type === 'kill') {
                     if (step.target === enemyType || step.target === 'any') {
                         if (!step.bossOnly || isBoss) this.advanceStep(qId, step.id);
@@ -255,7 +256,11 @@ class QuestManager {
     getActiveQuests()    { return Object.entries(playerStats.questLog).filter(([,v]) => v.status === 'active').map(([id]) => this.questDef(id)).filter(Boolean); }
     getCompletedQuests() { return Object.entries(playerStats.questLog).filter(([,v]) => v.status === 'completed').map(([id]) => this.questDef(id)).filter(Boolean); }
 
-    onQuestEvent(fn) { this._callbacks.push(fn); }
+    // Returns a function that removes the listener.
+    onQuestEvent(fn) {
+        this._callbacks.push(fn);
+        return () => { this._callbacks = this._callbacks.filter(f => f !== fn); };
+    }
     _notify(questId, stepId, progress) { this._callbacks.forEach(fn => fn(questId, stepId, progress)); }
 }
 
