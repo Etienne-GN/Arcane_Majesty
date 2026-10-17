@@ -43,7 +43,8 @@ const sm = {
             stacks,
             dotTimer:   def.dotInterval  ?? 0,
             regenTimer: def.regenInterval ?? 0,
-            quiet:      !!opts.quiet,   // weather-applied: counts, but no tint (rain would dye everything)
+            // weather-applied: counts, but no tint (rain would dye everything); a visible soak stays visible
+            quiet:      !!opts.quiet && (existing ? !!existing.quiet : true),
         };
 
         this._updateTint(entity);

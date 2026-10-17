@@ -863,9 +863,12 @@ export default class GameScene extends Phaser.Scene {
         this._leaveT -= delta;
         if (this._leaveT <= 0) {
             this._leaveT = 1000;
-            this.enemies.getChildren()
-                .filter(e => e._leaveWhenCalm && e.active && e.state !== 'chase' && e.state !== 'attack')
-                .forEach(e => this._despawnTimed(e));
+            const now = playerStats.gameMinutes;
+            this.enemies.getChildren().forEach(e => {
+                if (!e._leaveWhenCalm || !e.active) return;
+                if (spawnActive(e.spawnDef, now)) { e._leaveWhenCalm = false; return; }   // its hour came round again
+                if (e.state !== 'chase' && e.state !== 'attack') this._despawnTimed(e);
+            });
         }
         this._drawDarkness();
     }
@@ -918,6 +921,7 @@ export default class GameScene extends Phaser.Scene {
         if (!this._dark) {
             this._dark = this.add.renderTexture(0, 0, w, h).setOrigin(0).setDepth(1e6);
             this._lightImg = this.make.image({ key: 'light_soft', add: false });
+            this.events.once('shutdown', () => { this._lightImg?.destroy(); this._lightImg = null; });
         } else if (this._dark.width !== w || this._dark.height !== h) {
             this._dark.resize(w, h);
         }
@@ -3522,11 +3526,12 @@ export default class GameScene extends Phaser.Scene {
     _showChapterTitle(title) {
         // Fixed to camera — uses setScrollFactor(0)
         const w = this.scale.width, h = this.scale.height;
-        const bar = this.add.rectangle(0, h / 2 - 14, w, 28, 0x000000, 0.75).setOrigin(0).setScrollFactor(0).setDepth(200).setAlpha(0);
+        // Above the night darkness (depth 1e6)
+        const bar = this.add.rectangle(0, h / 2 - 14, w, 28, 0x000000, 0.75).setOrigin(0).setScrollFactor(0).setDepth(1e6 + 1).setAlpha(0);
         const txt = this.add.text(w / 2, h / 2, title, {
             font: 'bold 13px monospace', fill: '#ffd700',
             stroke: '#000', strokeThickness: 2
-        }).setOrigin(0.5).setScrollFactor(0).setDepth(201).setAlpha(0);
+        }).setOrigin(0.5).setScrollFactor(0).setDepth(1e6 + 2).setAlpha(0);
 
         this.tweens.add({
             targets: [bar, txt], alpha: 1, duration: 600, hold: 2200,

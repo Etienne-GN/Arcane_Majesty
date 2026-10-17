@@ -161,6 +161,10 @@ const at = (day, h, m = 0) => day * 1440 + h * 60 + m;
     const b = ent();
     statusManager.apply(b, 'wet', { duration: 15000 });
     ok(b.tints.includes(STATUS_DEFS.wet.tint), 'a soaking spell still tints');
+    statusManager.apply(b, 'wet', { duration: 15000, quiet: true });
+    ok(!b._statuses.wet.quiet, 'rain re-soaking a spell-soaked target keeps it visible');
+    statusManager.apply(a, 'wet', { duration: 15000 });
+    ok(!a._statuses.wet.quiet, 'a spell on a rain-soaked target makes it visible');
 }
 
 // ---- E1: moonpetal blooms at night; night creatures in the prologue forest
