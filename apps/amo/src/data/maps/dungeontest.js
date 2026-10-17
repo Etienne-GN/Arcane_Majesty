@@ -1140,6 +1140,7 @@ const DUNGEONTEST_SHEET_DECORATIONS = [
 export const DUNGEONTEST = {
     id: 'dungeontest',
     displayName: 'Dungeon Test',
+    biome: 'indoor',            // data/weather.js
     tiles: TILES,
     backgroundColor: '#0b0b0e',
     lightTint: null,

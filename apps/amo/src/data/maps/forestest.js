@@ -813,6 +813,7 @@ const FORESTEST_WATER = [
 export const FORESTEST = {
     id: 'forestest',
     displayName: 'The Forestest (Test)',
+    biome: 'forest',            // data/weather.js
     tiles: TILES,
     lightTint: null,
     playerStart: { x: 1, y: 12 },

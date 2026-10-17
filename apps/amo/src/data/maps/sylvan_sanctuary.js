@@ -4,6 +4,7 @@ import { makeStubMap, STUB_ENTRY_X, STUB_ENTRY_Y } from './_stubs.js';
 
 export const SYLVAN_SANCTUARY = makeStubMap({
     id: 'sylvan_sanctuary',
+    biome: 'forest',
     displayName: 'Sylvan Sanctuary',
     chapterTitle: 'Act II: Sylvan Sanctuary',
     signText: 'Sylvan Sanctuary\n\n[SCAFFOLDING] Song 5. The Elemental\'s trial of intent, not combat. The Hermit offers guidance here.',

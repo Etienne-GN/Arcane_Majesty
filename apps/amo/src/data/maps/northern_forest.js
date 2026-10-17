@@ -108,6 +108,7 @@ const DENSE_TILES = [
 export const NORTHERN_FOREST = {
     id: 'northern_forest',
     displayName: 'Northern Dense Forest',
+    biome: 'forest',            // data/weather.js
     tiles: DENSE_TILES,
     lightTint: 0x182808,   // dense canopy — faint cool-green shadow
     playerStart: { x: 19, y: 41 },

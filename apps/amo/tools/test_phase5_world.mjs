@@ -81,4 +81,60 @@ const at = (day, h, m = 0) => day * 1440 + h * 60 + m;
     eq(s.gameMinutes, 480, 'reset restarts the clock');
 }
 
+// ---- E2: weather rules
+{
+    const W = await import('../src/data/weather.js');
+    const { listMaps, getMap } = await import('../src/data/maps/index.js');
+
+    eq(Object.keys(W.WEATHER).sort(), ['clear', 'rain', 'sandstorm', 'snow', 'storm'], 'five kinds of weather');
+    for (const m of listMaps()) {
+        const def = getMap(m.id ?? m);
+        ok(W.BIOME_WEATHER[W.mapBiome(def)], `${def.id}: biome ${W.mapBiome(def)} is known`);
+    }
+    eq(W.mapBiome({ id: 'x' }), 'temperate', 'maps default to temperate');
+    for (const id of ['hermit_hut', 'echoes_of_stone', 'heartstone_chamber', 'dungeontest', 'the_descent']) eq(W.mapBiome(getMap(id)), 'indoor', `${id} is indoors`);
+    eq(W.mapBiome(getMap('summit_of_despair')), 'snow', 'the summit is snowy');
+    eq(W.mapBiome(getMap('prologue_forest')), 'forest', 'the prologue forest is a forest');
+    eq(W.mapBiome(getMap('fire_gate')), 'arid', 'the fire gate is arid');
+
+    const days = 60, seen = def => {
+        const kinds = new Set();
+        let t = 0, prev = null;
+        while (t < days * 1440) {
+            const w = W.weatherAt(def, t);
+            kinds.add(w.id);
+            if (w.to === Infinity) break;          // a one-weather table never changes
+            if (prev && w.from !== prev.to) throw new Error('segments are not contiguous');
+            if (w.to - w.from < 240 || w.to - w.from > 480) throw new Error(`segment length ${w.to - w.from}`);
+            ok(t >= w.from && t < w.to, `${def.id}: time ${t} is inside its segment`);
+            prev = w; t = w.to;
+        }
+        return kinds;
+    };
+    const forest = seen(getMap('prologue_forest'));
+    ok(forest.has('rain') && forest.has('clear') && forest.has('storm') && !forest.has('snow') && !forest.has('sandstorm'), 'forest weather');
+    const summit = seen(getMap('summit_of_despair'));
+    ok(summit.has('snow') && !summit.has('rain') && !summit.has('sandstorm'), 'snowy weather');
+    const arid = seen(getMap('fire_gate'));
+    ok(arid.has('sandstorm') && !arid.has('rain') && !arid.has('snow'), 'arid weather');
+    eq([...seen(getMap('hermit_hut'))], ['clear'], 'indoors is always clear');
+    eq(W.weatherAt(getMap('hermit_hut'), 99999).id, 'clear', 'indoors at any time');
+
+    eq(W.weatherAt(getMap('prologue_forest'), 7777), W.weatherAt(getMap('prologue_forest'), 7777), 'deterministic');
+    eq(W.weatherAt({ id: 'custom', weather: { rain: 1 } }, 5000).id, 'rain', 'a map can set its own table');
+    ok([0, 3000, 9000, 20000].some(t => W.weatherAt(getMap('prologue_forest'), t).id !== W.weatherAt(getMap('northern_forest'), t).id
+        || W.weatherAt(getMap('prologue_forest'), t).from !== W.weatherAt(getMap('northern_forest'), t).from), 'maps have their own weather');
+
+    eq([W.spellWeatherMult('rain', 'fire'), W.spellWeatherMult('storm', 'lightning'), W.spellWeatherMult('rain', 'ice')], [0.8, 1.2, 1], 'rain dampens fire, feeds lightning');
+    eq([W.spellWeatherMult('clear', 'fire'), W.spellWeatherMult('snow', 'lightning'), W.spellWeatherMult('rain', null)], [1, 1, 1], 'no change otherwise');
+    ok(W.isWet('rain') && W.isWet('storm') && !W.isWet('snow') && !W.isWet('clear'), 'rain and storms soak');
+    eq(W.sightMult('sandstorm'), 0.6, 'sandstorms cut sight');
+    eq(W.sightMult('rain'), 1, 'rain does not');
+    eq(W.stormStrikeDamage({ min: 1, max: 3 }), 16, 'storm strike damage by band');
+    eq([W.RAIN_TICK_MS, W.SNOW_TICK_MS, W.WARM_RADIUS], [10000, 20000, 120], 'tick and warmth constants');
+    ok(W.isWarm(0, 0, [{ x: 100, y: 50 }], false), 'near a fire is warm');
+    ok(!W.isWarm(0, 0, [{ x: 200, y: 0 }], false), 'far from fires is not');
+    ok(W.isWarm(0, 0, [], true), 'Warming keeps you warm');
+}
+
 console.log(`test_phase5_world: ${n} checks passed`);

@@ -4,6 +4,7 @@ import { makeStubMap, STUB_ENTRY_X, STUB_ENTRY_Y } from './_stubs.js';
 
 export const INFERNO_LABYRINTH = makeStubMap({
     id: 'inferno_labyrinth',
+    biome: 'indoor',
     displayName: 'Inferno Labyrinth',
     chapterTitle: "Act II: Inferno's Trial",
     signText: 'Inferno Labyrinth\n\n[SCAFFOLDING] Song 8 — Inferno\'s Trial. Xarathos, the Pyre-Lord — floor-is-lava, mana-steal Super-Nova.',

@@ -542,6 +542,7 @@ const WATER_TILES = [
 export const BIG_FOREST = {
     id: 'big_forest',
     displayName: 'Big Forest (Test)',
+    biome: 'forest',            // data/weather.js
     tiles: TILES,
     lightTint: null,
     playerStart: { x: 32, y: 3 },

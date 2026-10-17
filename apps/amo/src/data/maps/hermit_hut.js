@@ -34,6 +34,7 @@ const HUT_TILES = [
 export const HERMIT_HUT = {
     id: 'hermit_hut',
     displayName: "Hermit's Hut",
+    biome: 'indoor',            // data/weather.js
     tiles: HUT_TILES,
     lightTint: 0x1a1208,  // warm dim candlelight tint
     playerStart: { x: 10, y: 10 },

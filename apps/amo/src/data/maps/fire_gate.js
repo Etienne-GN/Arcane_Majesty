@@ -4,6 +4,7 @@ import { makeStubMap, STUB_ENTRY_X, STUB_ENTRY_Y } from './_stubs.js';
 
 export const FIRE_GATE = makeStubMap({
     id: 'fire_gate',
+    biome: 'arid',
     displayName: 'Fire Gate',
     chapterTitle: "Act II: Treachery's Bite",
     signText: 'The Fire Gate\n\n[SCAFFOLDING] Song 6 — Treachery\'s Bite. The black-glass stair. Oren flees with the journal.',

@@ -5,6 +5,7 @@ import { makeStubMap, STUB_ENTRY_X, STUB_ENTRY_Y } from './_stubs.js';
 
 export const AETHERIC_VISION = makeStubMap({
     id: 'aetheric_vision',
+    biome: 'indoor',
     displayName: 'Aetheric Vision',
     chapterTitle: "Act I: Dreamweaver's Call",
     signText: 'Aetheric Vision\n\n[SCAFFOLDING] Song 2 — Dreamweaver\'s Call. Vorgos pulls Eldrin out of time to witness the Violet Sky.',

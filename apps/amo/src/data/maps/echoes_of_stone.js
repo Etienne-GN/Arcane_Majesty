@@ -34,6 +34,7 @@ const STUDY_TILES = asciiToTiles(STUDY_ASCII);
 export const ECHOES_OF_STONE = {
     id: 'echoes_of_stone',
     displayName: 'Echoes of Stones',
+    biome: 'indoor',            // data/weather.js
     tiles: STUDY_TILES,
     lightTint: 0x1a1408, // dust and dim study-lamp light
     playerStart: { x: 5, y: 9 },

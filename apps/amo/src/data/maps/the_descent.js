@@ -4,6 +4,7 @@ import { makeStubMap, STUB_ENTRY_X, STUB_ENTRY_Y } from './_stubs.js';
 
 export const THE_DESCENT = makeStubMap({
     id: 'the_descent',
+    biome: 'indoor',
     displayName: 'The Descent',
     chapterTitle: 'Act II: The Solitary Path',
     signText: 'The Descent\n\n[SCAFFOLDING] Song 7 — The Solitary Path. The cold-to-ash transition into the upper Inferno Labyrinth.',

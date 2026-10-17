@@ -3,6 +3,7 @@ import { makeStubMap, STUB_ENTRY_X, STUB_ENTRY_Y } from './_stubs.js';
 
 export const ANCIENT_DOOR = makeStubMap({
     id: 'ancient_door',
+    biome: 'indoor',
     displayName: 'The Ancient Door',
     chapterTitle: 'Act III: Heart of War',
     signText: 'The Ancient Door\n\n[SCAFFOLDING] Song 10 — Heart of War, continued. The door opens; the Balrog\'s payoff — no death, no taming, no banner.',

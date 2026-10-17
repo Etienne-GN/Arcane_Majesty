@@ -46,6 +46,7 @@ const SUMMIT_TILES = asciiToTiles(SUMMIT_ASCII);
 export const SUMMIT_OF_DESPAIR = {
     id: 'summit_of_despair',
     displayName: 'Summit of Despair',
+    biome: 'snow',            // data/weather.js
     tiles: SUMMIT_TILES,
     lightTint: 0x0a1830, // blizzard blue-grey, low visibility
     playerStart: { x: 8, y: 18 },

@@ -712,6 +712,7 @@ const WINTERTEST_SHEET_DECORATIONS = [
 export const WINTERTEST = {
     id: 'wintertest',
     displayName: 'Winter Test',
+    biome: 'snow',            // data/weather.js
     tiles: TILES,
     lightTint: null,
     playerStart: { x: 24, y: 30 },

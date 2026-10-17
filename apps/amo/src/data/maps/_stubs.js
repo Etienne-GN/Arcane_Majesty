@@ -46,7 +46,7 @@ export const STUB_ENTRY_Y = SPAWN_ROW * 32 + 16;
  */
 export function makeStubMap({
     id, displayName, chapterTitle, signText,
-    npcs = [], quests = [], forwardPortal = null,
+    npcs = [], quests = [], forwardPortal = null, biome = 'temperate',
 }) {
     const tiles = [];
     for (let y = 0; y < HEIGHT; y++) {
@@ -76,6 +76,7 @@ export function makeStubMap({
         displayName,
         tiles,
         lightTint: null,
+        biome,                 // data/weather.js
         playerStart: { x: SPAWN_COL, y: SPAWN_ROW },
         portals,
         decorations: [],

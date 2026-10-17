@@ -4,6 +4,7 @@ import { makeStubMap, STUB_ENTRY_X, STUB_ENTRY_Y } from './_stubs.js';
 
 export const HEARTSTONE_CHAMBER = makeStubMap({
     id: 'heartstone_chamber',
+    biome: 'indoor',
     displayName: 'Heartstone Chamber',
     chapterTitle: 'Act III: Heart of War',
     signText: 'Heartstone Chamber\n\n[SCAFFOLDING] Song 10 — Heart of War. The Shadow Balrog: no HP bar, no kill — a survival/humility encounter.',

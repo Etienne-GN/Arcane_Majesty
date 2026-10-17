@@ -7,6 +7,7 @@ import {
 export const PROLOGUE_FOREST = {
     id: 'prologue_forest',
     displayName: 'Prologue Forest',
+    biome: 'forest',            // data/weather.js
     tiles: PROLOGUE_MAP,
     lightTint: null,
     playerStart: PLAYER_START,
