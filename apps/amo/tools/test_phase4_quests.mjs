@@ -296,4 +296,92 @@ const ELITE = {
     eq(QR.questDetail(ELITE, { status: 'active', progress: {} }, ctx).turnIn, 'Turn in: the Bounty Board', 'no place, no dash');
 }
 
+// ---- D2: bounty generation and board state
+{
+    const B = await import('../src/data/bounties.js');
+    const { ENEMY_TYPES } = await import('../src/data/worldMap.js');
+    const { ITEMS } = await import('../src/data/items.js');
+    const { getMap } = await import('../src/data/maps/index.js');
+
+    eq(B.BOUNTIES_PER_DAY, 3, 'three bounties a day');
+    eq(B.boardIdFor('thaloria'), 'board_thaloria', 'board id');
+    const d0 = B.realDay(new Date(2026, 9, 16, 0, 5).getTime());
+    eq(B.realDay(new Date(2026, 9, 16, 23, 55).getTime()), d0, 'the same local calendar day');
+    eq(B.realDay(new Date(2026, 9, 17, 0, 5).getTime()), d0 + 1, 'the next day');
+    const r1 = B.seededRng(42), r2 = B.seededRng(42);
+    eq([r1(), r1()], [r2(), r2()], 'seeded rng is deterministic');
+
+    const forest = B.regionPools(getMap('prologue_forest'), ENEMY_TYPES);
+    ok(forest.creatures.includes('wolf'), 'forest creatures include wolves');
+    ok(forest.creatures.every(t => ENEMY_TYPES[t] && !ENEMY_TYPES[t].passive), 'no passive wildlife in hunts');
+    ok(!forest.creatures.includes('void_general'), 'no bosses');
+    ok(forest.items.length && forest.items.every(id => ITEMS[id]), 'gathered items exist');
+    const summit = B.regionPools(getMap('summit_of_despair'), ENEMY_TYPES);
+    ok(summit.creatures.includes('frost_shade') && summit.items.includes('frostmoss'), 'summit pools are regional');
+
+    const where = { region: 'the Prologue Forest', place: 'Prologue Forest' };
+    const band = { min: 1, max: 3 };
+    const offers = B.generateBounties('board_x', 500, forest, band, where);
+    eq(offers.length, 3, 'three offers');
+    eq(offers.map(o => o.kind), ['hunt', 'elite', 'gather'], 'one of each kind');
+    eq(JSON.stringify(B.generateBounties('board_x', 500, forest, band, where)), JSON.stringify(offers), 'same board and day, same offers');
+    ok([501, 502, 503].some(d => JSON.stringify(B.generateBounties('board_x', d, forest, band, where).map(o => o.steps)) !== JSON.stringify(offers.map(o => o.steps))), 'other days differ');
+    eq(JSON.parse(JSON.stringify(offers)), offers, 'offers are plain data (saved as-is)');
+    const [hunt, elite, gather] = offers;
+    ok(hunt.steps[0].type === 'kill' && forest.creatures.includes(hunt.steps[0].target), 'hunt targets a regional creature');
+    ok(hunt.steps[0].required >= 4 && hunt.steps[0].required <= 8, 'hunt asks for 4–8');
+    eq([elite.steps[0].type, elite.steps[0].required], ['kill_elite', 1], 'elite hunt');
+    ok(gather.steps[0].type === 'have' && gather.steps[0].consume && forest.items.includes(gather.steps[0].target), 'gather brings a regional item');
+    ok(gather.steps[0].required >= 3 && gather.steps[0].required <= 6, 'gather asks for 3–6');
+    for (const o of offers) {
+        ok(o.id.startsWith('bounty_board_x_500_') && o.type === 'bounty' && o.repeatable, `${o.kind}: bounty quest shape`);
+        eq([o.giver, o.turnIn, o.turnInName, o.giverName, o.turnInPlace], ['board_x', 'board_x', 'the Bounty Board', 'the Bounty Board', 'Prologue Forest'], `${o.kind}: turned in at the board`);
+        ok(o.reward.xp > 0 && o.reward.gold > 0, `${o.kind}: pays xp and gold`);
+    }
+    ok(elite.reward.glint > 0, 'elites also pay glint');
+    const high = B.generateBounties('board_x', 500, forest, { min: 9, max: 11 }, where);
+    ok(high.every((o, i) => o.reward.xp > offers[i].reward.xp && o.reward.gold > offers[i].reward.gold), 'rewards grow with the region band');
+    eq(B.bountyReward('hunt', band, 6), { xp: 75, gold: 27 }, 'hunt reward formula');
+    eq(B.bountyReward('elite', band, 1), { xp: 120, gold: 30, glint: 15 }, 'elite reward formula');
+    eq(B.bountyReward('gather', band, 4), { xp: 42, gold: 36 }, 'gather reward formula');
+
+    eq(B.generateBounties('b', 1, { creatures: [], items: ['wood', 'resin'] }, band, where).map(o => o.kind), ['gather', 'gather', 'gather'], 'no creatures: all gathers');
+    eq(B.generateBounties('b', 1, { creatures: ['wolf', 'wisp'], items: [] }, band, where).map(o => o.kind), ['hunt', 'elite', 'hunt'], 'no items: two hunts');
+    eq(B.generateBounties('b', 1, { creatures: [], items: [] }, band, where).length, 3, 'empty pools still offer three');
+
+    // Board state across days (Review Focus 4) and an old save
+    const s = freshPlayer();
+    delete s.bounties;
+    const view1 = B.boardView(s, 'board_x', 500, forest, band, where);
+    eq(view1.offers.map(o => o.def.kind), ['hunt', 'elite', 'gather'], 'the board shows the day\'s offers');
+    eq(view1.active, null, 'nothing active yet');
+    eq(B.acceptBounty(s, 'board_x', 5).reason, 'none', 'no such offer');
+    const acc = B.acceptBounty(s, 'board_x', 0);
+    ok(acc.ok && acc.questId === hunt.id, 'accept the hunt');
+    questManager.startQuest(acc.questId);
+    ok(questManager.isActive(hunt.id), 'the accepted bounty is an active quest');
+    eq(B.acceptBounty(s, 'board_x', 1).reason, 'busy', 'one active bounty per board');
+    eq(B.boardView(s, 'board_x', 500, forest, band, where).offers[0].taken, true, 'the taken offer stays taken');
+
+    for (let i = 0; i < hunt.steps[0].required; i++) questManager.onKill(hunt.steps[0].target);
+    ok(questManager.isActive(hunt.id), 'kills done, still to turn in');
+    const gold0 = s.gold;
+    questManager.onTalk('board_x');
+    ok(questManager.isCompleted(hunt.id), 'turned in at the board');
+    eq(s.gold, gold0 + hunt.reward.gold, 'bounty pays out');
+    eq(B.boardView(s, 'board_x', 500, forest, band, where).active, null, 'a finished bounty frees the board');
+    eq(B.acceptBounty(s, 'board_x', 0).reason, 'taken', 'the same offer cannot be taken twice in a day');
+    const acc2 = B.acceptBounty(s, 'board_x', 1);
+    ok(acc2.ok, 'another offer can be taken');
+    questManager.startQuest(acc2.questId);
+
+    const view2 = B.boardView(s, 'board_x', 501, forest, band, where);
+    ok(view2.offers.every(o => o.def.id.includes('_501_')), 'a new day brings new offers');
+    eq(view2.active, acc2.questId, 'yesterday\'s active bounty is still tracked');
+    ok(s.generatedQuests[acc2.questId] && questManager.isActive(acc2.questId), 'and still in the journal');
+    ok(!s.generatedQuests[hunt.id] && !s.questLog[hunt.id], 'yesterday\'s finished bounty is pruned');
+    eq(B.acceptBounty(s, 'board_x', 0).reason, 'busy', 'still one at a time across days');
+    eq(B.boardView(s, 'board_y', 501, forest, band, where).active, null, 'boards are independent');
+}
+
 console.log(`test_phase4_quests: ${n} checks passed`);
