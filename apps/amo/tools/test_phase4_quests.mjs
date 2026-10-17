@@ -270,4 +270,30 @@ const ELITE = {
         'without a campaign nothing is chapter-gated');
 }
 
+// ---- Journal detail: giver, turn-in, requirements, live steps, rewards
+{
+    const ctx = {
+        countItem: id => (id === 'moonpetal' ? 2 : 0), isCompleted: id => id === 't_fetch',
+        flags: { ok_flag: true }, titleOf: id => `T(${id})`,
+        itemName: id => id, recipeName: id => id, spellName: id => id,
+    };
+    const q = { ...FETCH, requires: ['t_fetch', 'other'], requiresFlags: ['ok_flag'] };
+    const log = { status: 'active', progress: { herbs: 0, [QR.TURN_IN_STEP]: 0 } };
+    const d = QR.questDetail(q, log, ctx);
+    eq(d.giver, 'Given by: the Hermit', 'giver line');
+    eq(d.turnIn, "Turn in: the Hermit — Hermit's Hut", 'turn-in line with place');
+    eq(d.requires, 'Requires: T(t_fetch) ✓, T(other) ✗', 'requirements with their state');
+    eq(d.steps, [
+        { text: 'Bring Moonpetal (2/3)', done: false },
+        { text: 'Return to the Hermit', done: false },
+    ], 'steps show live hand-in counts');
+    eq(d.reward, 'Reward: 50 XP, 3 Glint, 7 Gold, health_potion, Recipe: moonveil_tonic, Spell: cleanse, 2 Insight', 'full reward line');
+
+    const old = QUESTS.side_supply_run;
+    const d2 = QR.questDetail(old, { status: 'active', progress: { gather_wood: 2 } }, ctx);
+    eq([d2.giver, d2.turnIn, d2.requires], [null, null, null], 'old quests have no giver lines');
+    eq(d2.steps[0], { text: 'Gather Wood (2/3)', done: false }, 'old (0/N) labels still fill in');
+    eq(QR.questDetail(ELITE, { status: 'active', progress: {} }, ctx).turnIn, 'Turn in: the Bounty Board', 'no place, no dash');
+}
+
 console.log(`test_phase4_quests: ${n} checks passed`);

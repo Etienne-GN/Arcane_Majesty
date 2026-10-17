@@ -1,5 +1,8 @@
 import Phaser from 'phaser';
-import { QUESTS } from '../data/quests.js';
+import { ITEMS } from '../data/items.js';
+import { SPELLS } from '../data/spells.js';
+import { questManager } from '../systems/QuestManager.js';
+import { questDetail } from '../data/questRules.js';
 import { playerStats } from '../systems/PlayerStats.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
 
@@ -86,12 +89,10 @@ export default class QuestJournalScene extends Phaser.Scene {
     }
 
     _buildQuestList() {
+        // Unknown ids (a quest removed since the save) are skipped.
         const logKeys = Object.keys(playerStats.questLog);
-        this._questIds = [
-            ...logKeys.filter(id => QUESTS[id]?.type === 'main'),
-            ...logKeys.filter(id => QUESTS[id]?.type === 'side'),
-            ...logKeys.filter(id => QUESTS[id]?.type === 'hidden'),
-        ];
+        const typeOf = id => questManager.questDef(id)?.type;
+        this._questIds = ['main', 'side', 'hidden', 'bounty'].flatMap(t => logKeys.filter(id => typeOf(id) === t));
     }
 
     _drawList() {
@@ -106,10 +107,10 @@ export default class QuestJournalScene extends Phaser.Scene {
             return;
         }
 
-        const TYPE_COLORS = { main: 0xffd700, side: 0x88ddaa, hidden: 0xcc88ff };
+        const TYPE_COLORS = { main: 0xffd700, side: 0x88ddaa, hidden: 0xcc88ff, bounty: 0xff9955 };
 
         this._questIds.forEach((id, i) => {
-            const quest = QUESTS[id];
+            const quest = questManager.questDef(id);
             const log   = playerStats.questLog[id];
             const done  = log?.status === 'completed';
             const sel   = i === this._selectedIndex;
@@ -140,57 +141,58 @@ export default class QuestJournalScene extends Phaser.Scene {
         }
 
         const id    = this._questIds[this._selectedIndex];
-        const quest = QUESTS[id];
+        const quest = questManager.questDef(id);
         const log   = playerStats.questLog[id];
         if (!quest || !log) return;
 
-        const TYPE_LABELS = { main: 'Main Quest', side: 'Side Quest', hidden: 'Hidden Quest' };
-        const TYPE_COLORS = { main: '#ffd700', side: '#88ddaa', hidden: '#cc88ff' };
+        const TYPE_LABELS = { main: 'Main Quest', side: 'Side Quest', hidden: 'Hidden Quest', bounty: 'Bounty' };
+        const TYPE_COLORS = { main: '#ffd700', side: '#88ddaa', hidden: '#cc88ff', bounty: '#ff9955' };
         const done  = log.status === 'completed';
+        const detail = questDetail(quest, log, {
+            countItem:  itemId => playerStats.countItem(itemId),
+            isCompleted: qid => questManager.isCompleted(qid),
+            titleOf:    qid => questManager.questDef(qid)?.title ?? qid,
+            itemName:   itemId => ITEMS[itemId]?.name ?? itemId,
+            recipeName: out => ITEMS[out]?.name ?? out,
+            spellName:  sp => SPELLS[sp]?.name ?? sp,
+        });
 
         let y = 52;
         const push = (obj) => { this._detailGfx.push(obj); return obj; };
+        // Word-wrap at ~38 chars
+        const wrap = (text, fill) => {
+            let line = '';
+            const flush = () => { push(this.add.text(x, y, line, { font: '14px monospace', fill })); y += 20; };
+            text.split(' ').forEach(word => {
+                const test = line ? `${line} ${word}` : word;
+                if (test.length > 38) { flush(); line = word; } else line = test;
+            });
+            if (line) flush();
+        };
 
         push(this.add.text(x, y, quest.title, { font: 'bold 18px monospace', fill: done ? '#555566' : '#ffffff' }));
         y += 28;
         push(this.add.text(x, y, TYPE_LABELS[quest.type] ?? '', { font: '14px monospace', fill: TYPE_COLORS[quest.type] ?? '#ffffff' }));
-        y += 26;
+        y += 24;
+        [detail.giver, detail.turnIn, detail.requires].filter(Boolean).forEach(t => wrap(t, '#8899bb'));
+        y += 6;
 
-        // Description — word-wrap at ~38 chars
-        const words = quest.description.split(' ');
-        let line = '';
-        words.forEach(word => {
-            const test = line ? `${line} ${word}` : word;
-            if (test.length > 38) { push(this.add.text(x, y, line, { font: '14px monospace', fill: '#667788' })); y += 20; line = word; }
-            else line = test;
-        });
-        if (line) { push(this.add.text(x, y, line, { font: '14px monospace', fill: '#667788' })); y += 20; }
+        wrap(quest.description, '#667788');
         y += 10;
 
         push(this.add.text(x, y, 'OBJECTIVES:', { font: 'bold 14px monospace', fill: '#aabbcc' }));
         y += 22;
 
-        quest.steps.forEach(step => {
-            const prog  = log.progress[step.id] ?? 0;
-            const stepDone = prog >= step.required;
-            const check = stepDone ? '✓' : '○';
-            const col   = stepDone ? '#44aa44' : '#aabbcc';
-            let label   = step.label;
-            if (step.required > 1) label = label.replace(/\(0\/\d+\)/, `(${prog}/${step.required})`);
-            push(this.add.text(x, y, `${check} ${label}`, { font: '14px monospace', fill: col }));
+        detail.steps.forEach(st => {
+            push(this.add.text(x, y, `${st.done ? '✓' : '○'} ${st.text}`, { font: '14px monospace', fill: st.done ? '#44aa44' : '#aabbcc' }));
             y += 20;
         });
 
         y += 12;
         if (done) {
             push(this.add.text(x, y, '— Completed —', { font: '14px monospace', fill: '#444455' }));
-        } else {
-            const r = quest.reward;
-            const parts = [];
-            if (r.glint) parts.push(`${r.glint} Glint`);
-            if (r.xp)    parts.push(`${r.xp} XP`);
-            if (r.items?.length) parts.push(`${r.items.length} Item${r.items.length > 1 ? 's' : ''}`);
-            if (parts.length) push(this.add.text(x, y, `Reward: ${parts.join(', ')}`, { font: '14px monospace', fill: '#ccaa44' }));
+        } else if (detail.reward) {
+            wrap(detail.reward, '#ccaa44');
         }
     }
 

@@ -12,7 +12,7 @@
 //   repeatable     can be started again once completed
 //   offer          the giver's offer line (default: the description)
 // Step type `have { target: itemId, required: qty, consume? }` counts the inventory live.
-import { npcName } from './npcs.js';
+import { npcName, npcPlace } from './npcs.js';
 
 export const TURN_IN_STEP = '__turn_in';
 
@@ -77,4 +77,27 @@ export function applyChoice(choice, flags, startQuest) {
     if (choice.setFlag) flags[choice.setFlag] = true;
     if (choice.startQuest) startQuest(choice.startQuest);
     return choice.next ?? null;
+}
+
+// What the journal shows for one quest: who gave it, where to turn it in,
+// what it required, each step with live counts, and the full reward.
+export function questDetail(q, log, { countItem, isCompleted, titleOf, itemName, recipeName, spellName }) {
+    const npc = turnInOf(q);
+    const place = q.turnInPlace ?? npcPlace(npc);
+    const steps = questSteps(q).map(st => {
+        const prog = stepProgress(st, log, countItem);
+        let text = st.label;
+        if (st.required > 1) text = /\(0\/\d+\)/.test(text)
+            ? text.replace(/\(0\/\d+\)/, `(${prog}/${st.required})`)
+            : `${text} (${prog}/${st.required})`;
+        return { text, done: prog >= st.required };
+    });
+    const parts = rewardParts(q.reward, { itemName, recipeName, spellName });
+    return {
+        giver:    q.giver ? `Given by: ${q.giverName ?? npcName(q.giver)}` : null,
+        turnIn:   npc ? `Turn in: ${q.turnInName ?? npcName(npc)}${place ? ` — ${place}` : ''}` : null,
+        requires: q.requires?.length ? `Requires: ${q.requires.map(id => `${titleOf(id)} ${isCompleted(id) ? '✓' : '✗'}`).join(', ')}` : null,
+        steps,
+        reward:   parts.length ? `Reward: ${parts.join(', ')}` : null,
+    };
 }
