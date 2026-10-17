@@ -2,7 +2,7 @@
 
 _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-17. Regenerate after changing the data; don't hand-edit._
 
-**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 24 status effects · 197 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 112 enemy/creature types + 1 boss · 27 quests · 12 campaign chapters · 24 maps · 5 playable characters · 25 dialogues
+**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 25 status effects · 197 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 112 enemy/creature types + 1 boss · 27 quests · 12 campaign chapters · 24 maps · 5 playable characters · 25 dialogues
 
 ## Contents
 1. [Systems & controls](#systems--controls)
@@ -69,9 +69,12 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | Quest givers & turn-ins | Some quests are offered by an NPC after you talk to them (Accept / Not now) and are turned in by talking to them again — a "Return to …" step is added automatically and only counts once the other objectives are done. Quests can require earlier quests, a dialogue choice or a campaign chapter; "bring" objectives count your inventory live and take the items on turn-in. Rewards can include XP, Glint, Gold, items, a recipe, a spell and Resonance Insights. |
 | Dialogue choices | Some lines offer numbered choices (↑↓ / 1–4 / click, E to confirm); a choice can start a quest or change what people say later. |
 | Bounty boards | Thaloria and Silvara's camp have a Bounty Board: 3 new bounties each day — hunt 4–8 of a regional creature, bring down an elite, or bring 3–6 of a regional gathered item — one at a time per board, turned in at the board. Rewards scale with the region's level band (e.g. a 6-kill hunt pays 75 XP / 27 Gold at Lv 1–3 and 165 XP / 57 Gold at Lv 7–9; elites also pay Glint). Thaloria's board hunts the Summit of Despair. |
+| Clock | One real minute is one game hour (a 24-minute day); a new game starts at 08:00 on day 0. The HUD shows the day, the time and the weather. The clock only runs while you play (not behind menus) and is saved. Bounty boards refresh every game day. |
+| Day & night | Night is 20:00–05:59 (dusk 18–20, dawn 6–7): outdoor maps darken, with light around you, campfires and hearths. Void-touched creatures deal 20% more damage at night. Some creatures only come out at night (shadow sprites and a void fox in the Prologue Forest) and leave at dawn once they stop fighting. Moonpetal only grows at night. |
+| Weather | Each map's weather follows its biome and changes every 4–8 game hours — temperate: Clear/Rain/Storm; forest: Clear/Rain/Storm; snow: Clear/Snow/Storm; arid: Clear/Sandstorm; indoor: Clear. Rain and storms soak everyone every 10 s (fire spells ×0.8, lightning ×1.2, on top of Wet) and standing in the rain builds water, ice and nature resonance. Storms drop a lightning strike every 6–12 s, marked by a ring 1.2s before it lands (16 damage at Lv 1–3, more in higher regions). Snow makes you Cold every 20 s unless you are within 120 px of a campfire or hearth or under Warming (Warmth Aura, Warming Draught: 60 s). Sandstorms cut enemy sight to 60%. |
 | Memories | Completing quests recovers lore fragments ("Archive of Souls"), readable in the Codex. |
 | Campaign | Eldoria's Prophecy: chapters gate which maps you can enter; completing a chapter grants its unlocks; progress is saved. |
-| Saving | Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties. |
+| Saving | Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties, the game clock. |
 | Online | Server select, online characters, chat; other players are visible (presence). The campaign is single-player. |
 | Character creator | LPC layered characters with palette swaps, export of the character and sheet (with licences). |
 
@@ -277,6 +280,7 @@ Values given per tier (Novice / Apprentice / Adept). Discover = resonance needed
 | Cursed | 20.0s | statsMult: 0.85, damageTakenMult: 1.15 |
 | Blessed | 30.0s | statsMult: 1.1, damageTakenMult: 0.9, magical: true, buff: true |
 | Swift | 20.0s | speedMult: 1.25, magical: true, buff: true |
+| Warming | 60.0s | buff: true |
 | Regen | 15.0s | regenAmt: 3, regenInterval: 1000, magical: true, buff: true |
 | Void-Tainted | 30.0s | shadowDmgTakenMult: 1.25 |
 | Marked | 4.0s | (flag used by spells/AI) |
@@ -355,7 +359,7 @@ At a campfire (BREW) or an alchemy table. Every potion needs an Empty Bottle; �
 | Ember Tonic | Campfire | 2× Ember Stone + Empty Bottle | Volcanic stone dissolved into a burning brew. Restores 35 HP instantly. |
 | Iron Skin Tonic | Campfire | 2× Bone Fragment + Empty Bottle | Ground bone dissolved in water. Raises max HP by 15 for 10 minutes. |
 | Silverleaf Draught | Campfire | 2× Silverleaf + Empty Bottle | A bright green draught. Restores 50 HP. |
-| Warming Draught | Campfire | 2× Emberroot + Empty Bottle | Emberroot steeped hot. Drives out Cold and Frozen and applies Regenerating for 10s. |
+| Warming Draught | Campfire | 2× Emberroot + Empty Bottle | Emberroot steeped hot. Drives out Cold and Frozen, applies Regenerating for 10s and Warming for 60s (no chill from snow). |
 | Cooling Draught | Campfire | 2× Frostmoss + Empty Bottle | Frostmoss steeped cold. Puts out Burning and restores 25 HP. |
 | Moonpetal Elixir | Alchemy Table 2 🔒 scroll | 2× Moonpetal + Glowcap + Empty Bottle | Moonpetal and glowcap. Restores 60 MP and boosts mana recovery for 15s. |
 | Berry Cordial | Campfire | 2× Honeyberry + 2× Wild Berries + Empty Bottle | A sweet, heady cordial. Applies Swift for 30s. |
@@ -889,32 +893,32 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 | 12 | Dawn's Embrace | eldrin_tower | Dawn's Embrace (placeholder) | — |
 
 ## Maps
-| Map id | Name | Size (tiles) | Kind |
-|---|---|---|---|
-| prologue_forest | Prologue Forest | 50×40 | game map |
-| hermit_hut | Hermit's Hut | 20×14 | game map |
-| eldrin_tower | Eldrin's Tower | 50×45 | game map |
-| northern_forest | Northern Dense Forest | 40×45 | game map |
-| big_forest | Big Forest (Test) | 64×56 | game map |
-| samplemap | Sample Map (Tiled Import) |  | test / showcase |
-| summit_of_despair | Summit of Despair | 18×20 | game map |
-| echoes_of_stone | Echoes of Stones | 12×12 | game map |
-| aetheric_vision | Aetheric Vision | 14×10 | chapter placeholder |
-| thaloria | Thaloria | 14×10 | chapter placeholder |
-| east_road | East Road | 14×10 | chapter placeholder |
-| sylvan_sanctuary | Sylvan Sanctuary | 14×10 | chapter placeholder |
-| fire_gate | Fire Gate | 14×10 | chapter placeholder |
-| the_descent | The Descent | 14×10 | chapter placeholder |
-| inferno_labyrinth | Inferno Labyrinth | 14×10 | chapter placeholder |
-| ruins_of_eldoria | Ruins of Eldoria | 14×10 | chapter placeholder |
-| heartstone_chamber | Heartstone Chamber | 14×10 | chapter placeholder |
-| ancient_door | The Ancient Door | 14×10 | chapter placeholder |
-| lpc_showcase | LPC Collection Showcase (Test) | 82×100 | test / showcase |
-| pipoya_showcase | Pipoya Collection Showcase (Test) | 50×205 | test / showcase |
-| forestest | The Forestest (Test) | 64×48 | test / showcase |
-| wintertest | Winter Test | 48×36 | test / showcase |
-| dungeontest | Dungeon Test | 50×40 | test / showcase |
-| worldtest | The Grand Tour (Test) | 128×100 | test / showcase |
+| Map id | Name | Size (tiles) | Kind | Biome (weather) |
+|---|---|---|---|---|
+| prologue_forest | Prologue Forest | 50×40 | game map | forest |
+| hermit_hut | Hermit's Hut | 20×14 | game map | indoor |
+| eldrin_tower | Eldrin's Tower | 50×45 | game map | temperate |
+| northern_forest | Northern Dense Forest | 40×45 | game map | forest |
+| big_forest | Big Forest (Test) | 64×56 | game map | forest |
+| samplemap | Sample Map (Tiled Import) |  | test / showcase | temperate |
+| summit_of_despair | Summit of Despair | 18×20 | game map | snow |
+| echoes_of_stone | Echoes of Stones | 12×12 | game map | indoor |
+| aetheric_vision | Aetheric Vision | 14×10 | chapter placeholder | indoor |
+| thaloria | Thaloria | 14×10 | chapter placeholder | temperate |
+| east_road | East Road | 14×10 | chapter placeholder | temperate |
+| sylvan_sanctuary | Sylvan Sanctuary | 14×10 | chapter placeholder | forest |
+| fire_gate | Fire Gate | 14×10 | chapter placeholder | arid |
+| the_descent | The Descent | 14×10 | chapter placeholder | indoor |
+| inferno_labyrinth | Inferno Labyrinth | 14×10 | chapter placeholder | indoor |
+| ruins_of_eldoria | Ruins of Eldoria | 14×10 | chapter placeholder | temperate |
+| heartstone_chamber | Heartstone Chamber | 14×10 | chapter placeholder | indoor |
+| ancient_door | The Ancient Door | 14×10 | chapter placeholder | indoor |
+| lpc_showcase | LPC Collection Showcase (Test) | 82×100 | test / showcase | temperate |
+| pipoya_showcase | Pipoya Collection Showcase (Test) | 50×205 | test / showcase | temperate |
+| forestest | The Forestest (Test) | 64×48 | test / showcase | forest |
+| wintertest | Winter Test | 48×36 | test / showcase | snow |
+| dungeontest | Dungeon Test | 50×40 | test / showcase | indoor |
+| worldtest | The Grand Tour (Test) | 128×100 | test / showcase | temperate |
 
 ## Characters & stories
 | Character | Role | About |

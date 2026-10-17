@@ -30,6 +30,8 @@ const { QUESTS } = await import(SRC + 'data/quests.js');
 const { questSteps, rewardParts } = await import(SRC + 'data/questRules.js');
 const { npcName } = await import(SRC + 'data/npcs.js');
 const { BOUNTIES_PER_DAY, bountyReward } = await import(SRC + 'data/bounties.js');
+const { BIOME_WEATHER, WEATHER, mapBiome, STORM, stormStrikeDamage } = await import(SRC + 'data/weather.js');
+const { NIGHT_DAMAGE_MULT } = await import(SRC + 'systems/gameClock.js');
 const { CHARACTERS } = await import(SRC + 'data/characters.js');
 const { STORIES } = await import(SRC + 'data/stories.js');
 const { DIALOGUES } = await import(SRC + 'data/dialogues.js');
@@ -114,9 +116,12 @@ table(['System', 'How it works'], [
     ['Quest givers & turn-ins', 'Some quests are offered by an NPC after you talk to them (Accept / Not now) and are turned in by talking to them again — a "Return to …" step is added automatically and only counts once the other objectives are done. Quests can require earlier quests, a dialogue choice or a campaign chapter; "bring" objectives count your inventory live and take the items on turn-in. Rewards can include XP, Glint, Gold, items, a recipe, a spell and Resonance Insights.'],
     ['Dialogue choices', 'Some lines offer numbered choices (↑↓ / 1–4 / click, E to confirm); a choice can start a quest or change what people say later.'],
     ['Bounty boards', `Thaloria and Silvara's camp have a Bounty Board: ${BOUNTIES_PER_DAY} new bounties each day — hunt 4–8 of a regional creature, bring down an elite, or bring 3–6 of a regional gathered item — one at a time per board, turned in at the board. Rewards scale with the region's level band (e.g. a 6-kill hunt pays ${bountyReward('hunt', { max: 3 }, 6).xp} XP / ${bountyReward('hunt', { max: 3 }, 6).gold} Gold at Lv 1–3 and ${bountyReward('hunt', { max: 9 }, 6).xp} XP / ${bountyReward('hunt', { max: 9 }, 6).gold} Gold at Lv 7–9; elites also pay Glint). Thaloria's board hunts the Summit of Despair.`],
+    ['Clock', 'One real minute is one game hour (a 24-minute day); a new game starts at 08:00 on day 0. The HUD shows the day, the time and the weather. The clock only runs while you play (not behind menus) and is saved. Bounty boards refresh every game day.'],
+    ['Day & night', `Night is 20:00–05:59 (dusk 18–20, dawn 6–7): outdoor maps darken, with light around you, campfires and hearths. Void-touched creatures deal ${Math.round((NIGHT_DAMAGE_MULT - 1) * 100)}% more damage at night. Some creatures only come out at night (shadow sprites and a void fox in the Prologue Forest) and leave at dawn once they stop fighting. Moonpetal only grows at night.`],
+    ['Weather', `Each map's weather follows its biome and changes every 4–8 game hours — ${Object.entries(BIOME_WEATHER).map(([b, t]) => `${b}: ${Object.keys(t).map(k => WEATHER[k]).join('/')}`).join('; ')}. Rain and storms soak everyone every 10 s (fire spells ×0.8, lightning ×1.2, on top of Wet) and standing in the rain builds water, ice and nature resonance. Storms drop a lightning strike every 6–12 s, marked by a ring ${STORM.telegraphMs / 1000}s before it lands (${stormStrikeDamage({ max: 3 })} damage at Lv 1–3, more in higher regions). Snow makes you Cold every 20 s unless you are within 120 px of a campfire or hearth or under Warming (Warmth Aura, Warming Draught: 60 s). Sandstorms cut enemy sight to 60%.`],
     ['Memories', 'Completing quests recovers lore fragments ("Archive of Souls"), readable in the Codex.'],
     ['Campaign', "Eldoria's Prophecy: chapters gate which maps you can enter; completing a chapter grants its unlocks; progress is saved."],
-    ['Saving', 'Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties.'],
+    ['Saving', 'Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties, the game clock.'],
     ['Online', 'Server select, online characters, chat; other players are visible (presence). The campaign is single-player.'],
     ['Character creator', 'LPC layered characters with palette swaps, export of the character and sheet (with licences).'],
 ]);
@@ -322,12 +327,12 @@ table(['#', 'Chapter', 'Maps', 'Quests to complete', 'Unlocks'], CAMPAIGN.chapte
 
 // ------------------------------------------------------------------ maps / characters / dialogues
 P('## Maps');
-table(['Map id', 'Name', 'Size (tiles)', 'Kind'], listMaps().map(entry => {
+table(['Map id', 'Name', 'Size (tiles)', 'Kind', 'Biome (weather)'], listMaps().map(entry => {
     const id = entry.id ?? entry;
     const m = getMap(id);
     const stub = m.tiles && m.tiles.length === 10 && m.tiles[0].length === 14;   // the shared chapter stub size
     const kind = /test|showcase|samplemap/.test(id) ? 'test / showcase' : m.tiledMap ? 'Tiled map' : stub ? 'chapter placeholder' : 'game map';
-    return [id, m.displayName ?? m.chapterTitle ?? '', m.tiles ? `${m.tiles[0].length}×${m.tiles.length}` : '', kind];
+    return [id, m.displayName ?? m.chapterTitle ?? '', m.tiles ? `${m.tiles[0].length}×${m.tiles.length}` : '', kind, mapBiome(m)];
 }));
 P('## Characters & stories');
 table(['Character', 'Role', 'About'], CHARACTERS.map(c => [c.name, c.role ?? '', (c.description ?? '').split(/(?<=\.)\s/)[0]]));
