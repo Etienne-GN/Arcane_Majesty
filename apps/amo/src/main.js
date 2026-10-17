@@ -27,6 +27,7 @@ import OnlineCharacterScene     from './scenes/OnlineCharacterScene.js';
 import ChestScene               from './scenes/ChestScene.js';
 import ChatScene                from './scenes/ChatScene.js';
 import StatScene                from './scenes/StatScene.js';
+import BountyBoardScene         from './scenes/BountyBoardScene.js';
 
 const ZOOM = 2; // base renderer zoom (pixel art sharpness on hi-DPI); game world zoom is set via camera in GameScene
 const config = {
@@ -55,6 +56,7 @@ const config = {
         GameOverScene,
         SpellbookScene,
         CampfireScene,
+        BountyBoardScene,
         CraftingScene,
         ShopScene,
         FastTravelScene,

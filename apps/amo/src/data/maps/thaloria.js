@@ -39,3 +39,7 @@ THALORIA.spawns.stations = [
     { x: 2,  y: 2, type: 'hearth',  rank: 2 },
     { x: 11, y: 2, type: 'alchemy', rank: 2 },
 ];
+
+// The city's bounty board (data/bounties.js). Its bounties are for the
+// Summit of Despair, up the East Road — the city map itself has no creatures.
+THALORIA.spawns.bountyBoards = [{ x: 3, y: 6, region: 'summit_of_despair' }];

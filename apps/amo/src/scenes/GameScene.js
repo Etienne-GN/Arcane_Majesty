@@ -15,6 +15,7 @@ import { campaignManager } from '../systems/CampaignManager.js';
 import { ITEMS } from '../data/items.js';
 import { TILE_SIZE, ENEMY_TYPES } from '../data/worldMap.js';
 import { getMap } from '../data/maps/index.js';
+import { realDay, boardIdFor, regionPools } from '../data/bounties.js';
 import { catalogueLayout } from '../utils/catalogueLayout.js';
 import { DIALOGUES } from '../data/dialogues.js';
 import { SPELLS, TIER_NAMES, RESONANCE_GAINS, scaledStatus, spellRadius, spellDamageAt } from '../data/spells.js';
@@ -311,6 +312,8 @@ export default class GameScene extends Phaser.Scene {
 
         // Stations — cooking hearths and alchemy tables (data/stations.js)
         this._buildStations(mapDef.spawns.stations ?? []);
+        // Bounty boards (data/bounties.js) — at most one per map
+        this._buildBountyBoards(mapDef.spawns.bountyBoards ?? []);
 
         // Chests
         this.chests = this.physics.add.staticGroup();
@@ -723,6 +726,57 @@ export default class GameScene extends Phaser.Scene {
     _stationNear(range = 52) {
         const px = this.player.x, py = this.player.y;
         return (this.stations ?? []).find(st => Phaser.Math.Distance.Between(px, py, st.x, st.y - 16) < range) ?? null;
+    }
+
+    _buildBountyBoards(defs) {
+        this.bountyBoards = [];
+        const tex = this.textures.get('tileset_base');
+        if (!tex.has('cat_bulletin_board_papers')) tex.add('cat_bulletin_board_papers', 0, 192, 896, 64, 64);
+        const hb = { x: 3, y: 51, w: 58, h: 12, sw: 64, sh: 64 };   // catalogue hitbox
+        defs.slice(0, 1).forEach(def => {
+            const bx = def.x * TILE_SIZE + TILE_SIZE / 2;
+            const by = (def.y + 1) * TILE_SIZE;
+            const sprite = this.add.image(bx, by, 'tileset_base', 'cat_bulletin_board_papers').setOrigin(0.5, 1).setDepth(by);
+            sprite.boardDef = def;
+            sprite.boardId = boardIdFor(this._mapId);
+            const left = bx - hb.sw / 2, top = by - hb.sh;
+            const wall = this.wallGroup.create(left + hb.x + hb.w / 2, top + hb.y + hb.h / 2, 'tile_tree');
+            wall.setAlpha(0).setDisplaySize(hb.w, hb.h).refreshBody();
+            sprite.ePrompt = this.add.text(bx, top - 2, '[E] Bounty Board', {
+                font: '7px monospace', fill: '#ffff88', stroke: '#000', strokeThickness: 2
+            }).setOrigin(0.5, 1).setDepth(by + 2).setResolution(3).setAlpha(0);
+            this.bountyBoards.push(sprite);
+        });
+    }
+
+    _bountyBoardNear(range = 52) {
+        const px = this.player.x, py = this.player.y;
+        return (this.bountyBoards ?? []).find(b => Phaser.Math.Distance.Between(px, py, b.x, b.y - 8) < range) ?? null;
+    }
+
+    // E at a board: turn in a finished bounty, then show today's offers.
+    _useBountyBoard(board) {
+        const st = playerStats.bounties?.[board.boardId];
+        const activeBefore = st?.active;
+        questManager.onTalk(board.boardId);
+        const turnedIn = !!activeBefore && questManager.isCompleted(activeBefore);
+        if (turnedIn) SaveManager.save(playerStats, this._storyId, this._characterId);
+
+        const regionMap = getMap(board.boardDef.region ?? this._mapId) ?? this._mapDef;
+        const data = {
+            boardId: board.boardId,
+            day:     realDay(),
+            pools:   regionPools(regionMap, ENEMY_TYPES),
+            band:    mapLevelBand(regionMap),
+            where:   { region: regionMap.displayName ?? regionMap.id, place: this._mapDef.displayName ?? this._mapId },
+        };
+        const open = () => {
+            if (this.scene.isPaused()) return;
+            this.scene.pause();
+            this.scene.launch('BountyBoardScene', data);
+        };
+        // Let the quest-complete flash play out first (a paused camera freezes it on screen).
+        if (turnedIn) this.time.delayedCall(400, open); else open();
     }
 
     // Hotbar slot i (keys 1–4, or a tap on the HUD box)
@@ -3071,6 +3125,8 @@ export default class GameScene extends Phaser.Scene {
         this.campfires.getChildren().forEach(cf       => cf.ePrompt?.setAlpha(near(cf) ? 1 : 0));
         const nearStation = this._stationNear(range);
         (this.stations ?? []).forEach(st => st.ePrompt?.setAlpha(st === nearStation ? 1 : 0));
+        const nearBoard = this._bountyBoardNear(range);
+        (this.bountyBoards ?? []).forEach(b => b.ePrompt?.setAlpha(b === nearBoard ? 1 : 0));
         this.signs.getChildren().forEach(sign         => sign.ePrompt?.setAlpha(near(sign) ? 1 : 0));
         this.crackedBoulders.getChildren().forEach(b  => b.ePrompt?.setAlpha(near(b) && b.active ? 1 : 0));
         this.gatheringGroup.getChildren().forEach(nd  => nd.ePrompt?.setAlpha(near(nd) && !nd.gathered ? 1 : 0));
@@ -3085,6 +3141,7 @@ export default class GameScene extends Phaser.Scene {
             this.chests.getChildren().some(c => near(c) && !c.opened) ||
             this.campfires.getChildren().some(cf => near(cf)) ||
             !!nearStation ||
+            !!nearBoard ||
             this.signs.getChildren().some(s => near(s)) ||
             this.crackedBoulders.getChildren().some(b => near(b) && b.active) ||
             this.gatheringGroup.getChildren().some(nd => near(nd) && !nd.gathered) ||
@@ -3177,6 +3234,14 @@ export default class GameScene extends Phaser.Scene {
             soundManager.interact();
             this.scene.pause();
             this.scene.launch('CampfireScene', { station: { type: station.stationDef.type, rank: station.stationDef.rank } });
+            return;
+        }
+
+        // Bounty board
+        const board = this._bountyBoardNear();
+        if (board && !this.scene.isActive('BountyBoardScene')) {
+            soundManager.interact();
+            this._useBountyBoard(board);
             return;
         }
 

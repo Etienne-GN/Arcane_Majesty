@@ -38,6 +38,7 @@ export const PROLOGUE_FOREST = {
         crackedBoulders: CRACKED_BOULDER_POSITIONS,
         riftGates:      RIFT_GATE_POSITIONS,
         pillarGates:    PILLAR_GATE_POSITIONS,
+        bountyBoards:   [{ x: 19, y: 6 }],        // Silvara's camp — hunts and gathers from this forest
         boss: { spawn: BOSS_SPAWN, arenaBounds: BOSS_ARENA_BOUNDS },
     },
     currencyBias: 'rural',
