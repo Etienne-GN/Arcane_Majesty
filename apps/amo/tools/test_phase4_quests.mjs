@@ -384,4 +384,19 @@ const ELITE = {
     eq(B.boardView(s, 'board_y', 501, forest, band, where).active, null, 'boards are independent');
 }
 
+// ---- Review fix: an authored final "Return to …" talk step waits for the other objectives
+{
+    const s = freshPlayer();
+    questManager.startQuest('side_supply_run');
+    questManager.onTalk('silvara');
+    eq(s.questLog.side_supply_run.progress.return_silvara, 0, 'talking to Silvara before gathering does not tick "Return to Silvara"');
+    for (let i = 0; i < 3; i++) questManager.onGather('wood');
+    for (let i = 0; i < 2; i++) questManager.onGather('mineral_ore');
+    ok(questManager.isActive('side_supply_run'), 'gathering alone does not finish it');
+    questManager.onTalk('silvara');
+    ok(questManager.isCompleted('side_supply_run'), 'returning to Silvara does');
+    const main = QR.questSteps(QUESTS.main_forest_hunt);
+    ok(!main[0].turnIn, 'a first-step talk ("Speak with the Hermit") is not a turn-in');
+}
+
 console.log(`test_phase4_quests: ${n} checks passed`);

@@ -519,6 +519,8 @@ export default class GameScene extends Phaser.Scene {
         if (!this._questRecheckHooked) {
             this._questRecheckHooked = true;
             this.events.on('resume', () => questManager.recheck());
+            // A paused camera freezes a running flash on screen (quest complete, then a shop or dialogue opens)
+            this.events.on('pause', () => this.cameras.main.flashEffect.reset());
         }
 
         // Quest completion notifications

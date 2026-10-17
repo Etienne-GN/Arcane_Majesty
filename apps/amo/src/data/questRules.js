@@ -24,7 +24,11 @@ export function questSteps(q) {
     if (stepsMemo.has(q)) return stepsMemo.get(q);
     const npc = turnInOf(q);
     const ends = q.steps.some(s => s.type === 'talk' && s.target === npc);
-    const steps = !npc || ends ? q.steps : [...q.steps, {
+    const last = q.steps[q.steps.length - 1];
+    // An authored closing talk ("Return to Silvara") is a turn-in too: it waits for the rest.
+    const authored = q.steps.length > 1 && last?.type === 'talk'
+        ? [...q.steps.slice(0, -1), { ...last, turnIn: true }] : q.steps;
+    const steps = !npc || ends ? authored : [...authored, {
         id: TURN_IN_STEP, type: 'talk', target: npc,
         label: `Return to ${q.turnInName ?? npcName(npc)}`, required: 1, turnIn: true,
     }];
