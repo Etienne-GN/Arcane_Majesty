@@ -163,4 +163,26 @@ const at = (day, h, m = 0) => day * 1440 + h * 60 + m;
     ok(b.tints.includes(STATUS_DEFS.wet.tint), 'a soaking spell still tints');
 }
 
+// ---- E1: moonpetal blooms at night; night creatures in the prologue forest
+{
+    const G = await import('../src/data/gathering.js');
+    const { seededRng } = await import('../src/data/bounties.js');
+    const { ENEMY_SPAWNS, ENEMY_TYPES } = await import('../src/data/worldMap.js');
+    ok(G.YIELD_TABLES.forest_herbs.find(e => e.id === 'moonpetal').nightOnly, 'moonpetal is night-only in forest herbs');
+    ok(G.YIELD_TABLES.meadow_herbs.find(e => e.id === 'moonpetal').nightOnly, 'and in meadow herbs');
+    const harvest = (night, seed) => {
+        const rng = seededRng(seed), got = new Set();
+        for (let i = 0; i < 400; i++) G.rollHarvest({ type: 'herb' }, rng, { night }).forEach(r => got.add(r.id));
+        return got;
+    };
+    ok(!harvest(false, 7).has('moonpetal'), 'no moonpetal by day');
+    ok(harvest(true, 7).has('moonpetal'), 'moonpetal at night');
+    ok(harvest(false, 7).has('forest_herb'), 'day herbs still grow');
+    ok(G.rollHarvest({ type: 'herb' }, seededRng(3)).length > 0, 'old callers (no options) still harvest');
+
+    const night = ENEMY_SPAWNS.filter(s => s.time === 'night');
+    ok(night.length >= 3, 'the prologue forest has night creatures');
+    ok(night.every(s => ENEMY_TYPES[s.type] && C.nightDamageMult(s.type, at(0, 23)) === 1.2), 'they are void-touched (stronger at night)');
+}
+
 console.log(`test_phase5_world: ${n} checks passed`);

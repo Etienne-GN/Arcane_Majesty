@@ -16,8 +16,8 @@ import { ITEMS } from '../data/items.js';
 import { TILE_SIZE, ENEMY_TYPES } from '../data/worldMap.js';
 import { getMap } from '../data/maps/index.js';
 import { boardIdFor, regionPools } from '../data/bounties.js';
-import { gameDay } from '../systems/gameClock.js';
-import { WEATHER, weatherAt, isWet, spellWeatherMult, sightMult, isWarm,
+import { gameDay, advanceClock, isNight, ambientAt, spawnActive } from '../systems/gameClock.js';
+import { mapBiome, WEATHER, weatherAt, isWet, spellWeatherMult, sightMult, isWarm,
          RAIN_TICK_MS, SNOW_TICK_MS, STORM, stormStrikeDamage } from '../data/weather.js';
 import { catalogueLayout } from '../utils/catalogueLayout.js';
 import { DIALOGUES } from '../data/dialogues.js';
@@ -211,6 +211,11 @@ export default class GameScene extends Phaser.Scene {
         this._rainT = 0;
         this._snowT = SNOW_TICK_MS;
         this._strikeT = STORM.maxMs;
+        // Day and night (systems/gameClock.js): timed spawns sleep until their hour
+        this._night   = isNight(playerStats.gameMinutes);
+        this._dormant = [];
+        this._leaveT  = 1000;
+        this._dark    = null;
         this._eliteCap   = this._serverUrl ? 0 : eliteCap((mapDef.spawns.enemies ?? []).filter(s => !ENEMY_TYPES[s.type]?.passive).length);
         this._eliteCount = 0;
         // Enemies
@@ -219,13 +224,18 @@ export default class GameScene extends Phaser.Scene {
         (mapDef.spawns.enemies ?? []).forEach((spawn, idx) => {
             const ex = spawn.x * TILE_SIZE + TILE_SIZE / 2;
             const ey = spawn.y * TILE_SIZE + TILE_SIZE / 2;
+            // Day- or night-only creatures wait for their hour (online, the server decides)
+            if (!this._serverUrl && !spawnActive(spawn, playerStats.gameMinutes)) {
+                this._dormant.push({ type: spawn.type, x: ex, y: ey, time: spawn.time });
+                return;
+            }
             const enemy = this._spawnEnemy(spawn.type, ex, ey);
             this._maybeElite(enemy);
             enemy.netId = idx;
             this._enemyById.set(idx, enemy);
             // Single-player: map creatures come back after a while (online, the server respawns them)
             if (!this._serverUrl) {
-                enemy.spawnDef = { type: spawn.type, x: ex, y: ey };
+                enemy.spawnDef = { type: spawn.type, x: ex, y: ey, time: spawn.time };
                 enemy.once('died', () => { if (enemy.elite) this._eliteCount--; this._scheduleRespawn(enemy.spawnDef); });
             }
         });
@@ -836,6 +846,89 @@ export default class GameScene extends Phaser.Scene {
                 }
             }
         }
+    }
+
+    // ── Day and night ─────────────────────────────────────────────────────
+    _tickDayNight(delta) {
+        const night = isNight(playerStats.gameMinutes);
+        if (night !== this._night) {
+            this._night = night;
+            this.scene.get('UIScene')?.showNotification?.(night ? 'Night falls.' : 'Dawn breaks.', 2000);
+            if (!this._serverUrl) this._refreshTimedSpawns();
+        }
+        // Out-of-hour creatures that were fighting leave once they calm down
+        this._leaveT -= delta;
+        if (this._leaveT <= 0) {
+            this._leaveT = 1000;
+            this.enemies.getChildren()
+                .filter(e => e._leaveWhenCalm && e.active && e.state !== 'chase' && e.state !== 'attack')
+                .forEach(e => this._despawnTimed(e));
+        }
+        this._drawDarkness();
+    }
+
+    _refreshTimedSpawns() {
+        const now = playerStats.gameMinutes;
+        const wake = this._dormant.filter(d => spawnActive(d, now));
+        this._dormant = this._dormant.filter(d => !spawnActive(d, now));
+        wake.forEach(d => this._tryRespawn(d));
+        this.enemies.getChildren().forEach(e => {
+            const d = e.spawnDef;
+            if (!e.active || !d?.time || spawnActive(d, now)) return;
+            if (e.state === 'chase' || e.state === 'attack') e._leaveWhenCalm = true;   // not yanked mid-fight
+            else this._despawnTimed(e);
+        });
+    }
+
+    // A timed creature fades away and sleeps until its hour comes round again.
+    _despawnTimed(e) {
+        e._leaveWhenCalm = false;
+        if (e.elite) this._eliteCount--;
+        if (this._target === e) this._target = null;
+        this._dormant.push(e.spawnDef);
+        e.body && (e.body.enable = false);
+        e.healthBar?.setVisible?.(false);
+        this.tweens.add({ targets: e, alpha: 0, duration: 400, onComplete: () => e.destroy() });
+    }
+
+    // Night darkness: a camera-sized layer over the world with soft holes of
+    // light around the player, campfires and hearths. Indoors stays lit.
+    _drawDarkness() {
+        const amb = ambientAt(playerStats.gameMinutes);
+        if (amb.alpha <= 0 || mapBiome(this._mapDef) === 'indoor') { this._dark?.setVisible(false); return; }
+        const v = this.cameras.main.worldView;
+        if (!v.width) return;
+        if (!this.textures.exists('light_soft')) {
+            const c = this.textures.createCanvas('light_soft', 256, 256);
+            const ctx = c.getContext();
+            const g = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
+            g.addColorStop(0, 'rgba(0,0,0,1)');
+            g.addColorStop(0.5, 'rgba(0,0,0,0.85)');
+            g.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = g;
+            ctx.fillRect(0, 0, 256, 256);
+            c.refresh();
+        }
+        // worldView is last frame's (the camera updates after this); a margin covers its lag
+        const M = 96;
+        const w = Math.ceil(v.width) + 2 * M, h = Math.ceil(v.height) + 2 * M;
+        if (!this._dark) {
+            this._dark = this.add.renderTexture(0, 0, w, h).setOrigin(0).setDepth(1e6);
+            this._lightImg = this.make.image({ key: 'light_soft', add: false });
+        } else if (this._dark.width !== w || this._dark.height !== h) {
+            this._dark.resize(w, h);
+        }
+        this._dark.setVisible(true).setPosition(Math.floor(v.x) - M, Math.floor(v.y) - M);
+        this._dark.clear().fill(amb.color, amb.alpha);
+        const light = (x, y, r) => {
+            if (x < v.x - r || x > v.right + r || y < v.y - r || y > v.bottom + r) return;
+            this._lightImg.setScale(r / 128).setPosition(x - this._dark.x, y - this._dark.y);
+            this._dark.erase(this._lightImg);
+        };
+        // Radii in world px — the camera is zoomed 1.5–3×
+        light(this.player.x, this.player.y, 60);
+        this.campfires.getChildren().forEach(cf => light(cf.x, cf.y, 90));
+        (this.stations ?? []).filter(st => st.stationDef.type === 'hearth').forEach(st => light(st.x, st.y - 30, 80));
     }
 
     _liveEnemies() {
@@ -3001,7 +3094,9 @@ export default class GameScene extends Phaser.Scene {
             playerStats.location = { mapId: this._mapId, x: Math.round(this.player.x), y: Math.round(this.player.y) };
         }
 
+        advanceClock(playerStats, delta);   // one real minute = one game hour; stops while paused
         this._tickWeather(delta);
+        this._tickDayNight(delta);
 
         // Hovering an enemy targets it
         this._hoverTimer = (this._hoverTimer ?? 0) - delta;
@@ -3377,7 +3472,7 @@ export default class GameScene extends Phaser.Scene {
                 return;
             }
             const got = [];
-            for (const { id, qty } of rollHarvest(def)) {
+            for (const { id, qty } of rollHarvest(def, Math.random, { night: isNight(playerStats.gameMinutes) })) {
                 if (!playerStats.addItem(id, qty)) break;   // satchel full
                 for (let i = 0; i < qty; i++) questManager.onGather(id);
                 got.push(`+${qty} ${ITEMS[id]?.name ?? id}`);
@@ -3512,6 +3607,7 @@ export default class GameScene extends Phaser.Scene {
     // Respawn at the spawn point once the player is out of the way (retry every 10 s)
     _tryRespawn(def) {
         if (!this.player?.active) return;
+        if (!spawnActive(def, playerStats.gameMinutes)) { this._dormant.push(def); return; }
         if (!canRespawnAt(def, this.player)) {
             this.time.delayedCall(10000, () => this._tryRespawn(def));
             return;

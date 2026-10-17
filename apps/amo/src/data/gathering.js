@@ -38,8 +38,8 @@ export const NODE_TYPES = {
 export const YIELD_TABLES = {
     deadwood:         [{ id: 'wood', w: 1, min: 1, max: 2 }, { id: 'resin', chance: 0.20, min: 1, max: 1 }, { id: 'heartwood', chance: 0.08, min: 1, max: 1 }],
     ore_seam:         [{ id: 'mineral_ore', w: 1, min: 1, max: 2 }, { id: 'silver_ore', chance: 0.25, min: 1, max: 1 }],
-    forest_herbs:     [{ id: 'forest_herb', w: 8, min: 1, max: 2 }, { id: 'silverleaf', w: 3, min: 1, max: 1 }, { id: 'moonpetal', w: 1, min: 1, max: 1 }],
-    meadow_herbs:     [{ id: 'silverleaf', w: 5, min: 1, max: 2 }, { id: 'forest_herb', w: 4, min: 1, max: 2 }, { id: 'moonpetal', w: 2, min: 1, max: 1 }],
+    forest_herbs:     [{ id: 'forest_herb', w: 8, min: 1, max: 2 }, { id: 'silverleaf', w: 3, min: 1, max: 1 }, { id: 'moonpetal', w: 1, min: 1, max: 1, nightOnly: true }],
+    meadow_herbs:     [{ id: 'silverleaf', w: 5, min: 1, max: 2 }, { id: 'forest_herb', w: 4, min: 1, max: 2 }, { id: 'moonpetal', w: 2, min: 1, max: 1, nightOnly: true }],
     mountain_herbs:   [{ id: 'frostmoss', w: 7, min: 1, max: 2 }, { id: 'forest_herb', w: 3, min: 1, max: 1 }, { id: 'silverleaf', w: 1, min: 1, max: 1 }],
     desert_herbs:     [{ id: 'emberroot', w: 7, min: 1, max: 2 }, { id: 'forest_herb', w: 2, min: 1, max: 1 }],
     forest_mushrooms: [{ id: 'mushroom_spore', w: 6, min: 1, max: 2 }, { id: 'bitter_bolete', w: 4, min: 1, max: 1 }, { id: 'glowcap', w: 1, min: 1, max: 1 }],
@@ -69,8 +69,10 @@ export function resolveNode(def) {
 }
 
 // Roll a node's harvest: returns [{ id, qty }] with one entry per item id.
-export function rollHarvest(def, rng = Math.random) {
-    const { pool, rolls } = resolveNode(def);
+// Entries marked `nightOnly` (moonpetal blooms after dark) only count when `night`.
+export function rollHarvest(def, rng = Math.random, { night = false } = {}) {
+    const { pool: all, rolls } = resolveNode(def);
+    const pool = all.filter(e => night || !e.nightOnly);
     const weighted = pool.filter(e => e.w);
     const total = weighted.reduce((s, e) => s + e.w, 0);
     const out = {};

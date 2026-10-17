@@ -763,6 +763,12 @@ export const NPC_POSITIONS = [
 ];
 
 export const ENEMY_SPAWNS = [
+    // Night only (systems/gameClock.js): void-touched things come out after dark
+    { x: 14, y: 22, type: 'shadow_sprite', time: 'night' },
+    { x: 10, y: 28, type: 'shadow_sprite', time: 'night' },
+    { x: 5,  y: 22, type: 'shadow_sprite', time: 'night' },
+    { x: 18, y: 24, type: 'void_fox',      time: 'night' },
+
     // Wisps — eastern ruins fringe
     { x: 38, y: 3,  type: 'wisp'          },
     { x: 42, y: 2,  type: 'wisp'          },
