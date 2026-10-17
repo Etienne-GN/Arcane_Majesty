@@ -233,6 +233,10 @@ export class PlayerStats {
         this.knownRecipes = [];
         // Forge upgrade level per item id, 1–3 (data/upgrades.js)
         this.gearUpgrades = {};
+        // Quests: dialogue flags, generated (bounty) quest definitions, bounty board state
+        this.flags           = {};
+        this.generatedQuests = {};
+        this.bounties        = {};
         // Where the player is (kept fresh by GameScene) and where they rise after
         // death (last campfire / rift-gate) — see systems/respawn.js.
         this.location     = null;
@@ -770,6 +774,9 @@ export class PlayerStats {
         this.craftCounts      = { cooking: 0, alchemy: 0 };
         this.knownRecipes     = [];
         this.gearUpgrades     = {};
+        this.flags            = {};
+        this.generatedQuests  = {};
+        this.bounties         = {};
         this.location         = null;
         this.respawnPoint     = null;
         this.worldState       = {};

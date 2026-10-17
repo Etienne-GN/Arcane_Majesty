@@ -59,6 +59,9 @@ export class SaveManager {
             craftCounts:       { cooking: 0, alchemy: 0, ...(stats.craftCounts ?? {}) },
             knownRecipes:      [...(stats.knownRecipes ?? [])],
             gearUpgrades:      { ...(stats.gearUpgrades ?? {}) },
+            flags:             { ...(stats.flags ?? {}) },
+            generatedQuests:   JSON.parse(JSON.stringify(stats.generatedQuests ?? {})),
+            bounties:          JSON.parse(JSON.stringify(stats.bounties ?? {})),
             location:          stats.location ? { ...stats.location } : null,
             respawnPoint:      stats.respawnPoint ? { ...stats.respawnPoint } : null,
             worldState:        prunedWorldState(stats, Date.now()),
@@ -117,6 +120,9 @@ export class SaveManager {
             stats.craftCounts = { cooking: 0, alchemy: 0, ...(d.craftCounts ?? {}) };
             stats.knownRecipes = [...(d.knownRecipes ?? [])];
             stats.gearUpgrades = { ...(d.gearUpgrades ?? {}) };
+            stats.flags           = { ...(d.flags ?? {}) };
+            stats.generatedQuests = d.generatedQuests ? JSON.parse(JSON.stringify(d.generatedQuests)) : {};
+            stats.bounties        = d.bounties ? JSON.parse(JSON.stringify(d.bounties)) : {};
             stats.location     = d.location ? { ...d.location } : null;
             stats.respawnPoint = d.respawnPoint ? { ...d.respawnPoint } : null;
             stats.worldState   = d.worldState ? JSON.parse(JSON.stringify(d.worldState)) : {};

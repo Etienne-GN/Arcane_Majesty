@@ -1,5 +1,6 @@
 import { QUESTS } from '../data/quests.js';
 import { playerStats } from './PlayerStats.js';
+import { questSteps, objectivesDone, isQuestDone, canStart, consumeOnTurnIn } from '../data/questRules.js';
 
 const MEMORY_FRAGMENTS = {
     main_forest_hunt: {
@@ -49,11 +50,26 @@ class QuestManager {
         this._callbacks = [];
     }
 
+    // Authored quests first, then generated ones (bounties) kept in the save.
+    questDef(questId) { return QUESTS[questId] ?? playerStats.generatedQuests?.[questId]; }
+
+    _count = id => playerStats.countItem(id);
+
+    // [questId, def] for every active quest whose definition still exists.
+    _active() {
+        return Object.keys(playerStats.questLog)
+            .filter(id => this.isActive(id))
+            .map(id => [id, this.questDef(id)])
+            .filter(([, q]) => q);
+    }
+
     startQuest(questId) {
-        if (!QUESTS[questId]) return;
-        if (playerStats.questLog[questId]) return;
+        const quest = this.questDef(questId);
+        if (!quest) return;
+        const prev = playerStats.questLog[questId];
+        if (prev && !(prev.status === 'completed' && quest.repeatable)) return;
         const log = { status: 'active', progress: {} };
-        QUESTS[questId].steps.forEach(s => { log.progress[s.id] = 0; });
+        questSteps(quest).forEach(s => { log.progress[s.id] = 0; });
         playerStats.questLog[questId] = log;
         this._notify(questId, null, 0);
     }
@@ -62,11 +78,26 @@ class QuestManager {
     isCompleted(questId) { return playerStats.questLog[questId]?.status === 'completed'; }
     getStatus(questId)   { return playerStats.questLog[questId]?.status ?? 'unknown'; }
 
+    canOffer(questId, chapterReached = () => true) {
+        return canStart(this.questDef(questId), {
+            log: playerStats.questLog[questId], isCompleted: id => this.isCompleted(id),
+            flags: playerStats.flags ?? {}, chapterReached,
+        });
+    }
+
+    // The first authored quest this NPC gives that can start now, or null.
+    offerFor(npcId, chapterReached) {
+        return Object.values(QUESTS).find(q => q.giver === npcId && this.canOffer(q.id, chapterReached)) ?? null;
+    }
+
     advanceStep(questId, stepId, amount = 1) {
         const log = playerStats.questLog[questId];
         if (!log || log.status !== 'active') return;
-        const step = QUESTS[questId]?.steps.find(s => s.id === stepId);
-        if (!step) return;
+        const quest = this.questDef(questId);
+        const step = questSteps(quest).find(s => s.id === stepId);
+        if (!step || step.type === 'have') return;
+        // The "Return to …" step only counts once everything else is done (items counted live).
+        if (step.turnIn && !objectivesDone(quest, log, this._count)) return;
         const current = log.progress[stepId] ?? 0;
         if (current >= step.required) return;
         log.progress[stepId] = Math.min(step.required, current + amount);
@@ -74,29 +105,36 @@ class QuestManager {
         if (log.progress[stepId] >= step.required) this._checkCompletion(questId);
     }
 
+    // Re-evaluates live (`have`) objectives — call after the inventory changes.
+    recheck() {
+        for (const [qId] of this._active()) this._checkCompletion(qId);
+    }
+
     _checkCompletion(questId) {
         const log = playerStats.questLog[questId];
-        const quest = QUESTS[questId];
-        if (!log || !quest) return;
-        const allDone = quest.steps.every(s => (log.progress[s.id] ?? 0) >= s.required);
-        if (allDone && log.status === 'active') {
-            log.status = 'completed';
-            this._giveReward(quest);
-            this._notify(questId, null, -1);
-        }
+        const quest = this.questDef(questId);
+        if (!log || !quest || log.status !== 'active') return;
+        if (!isQuestDone(quest, log, this._count)) return;
+        consumeOnTurnIn(quest).forEach(({ id, qty }) => playerStats.consumeItem(id, qty));
+        log.status = 'completed';
+        this._giveReward(quest);
+        this._notify(questId, null, -1);
     }
 
     _giveReward(quest) {
         const r = quest.reward;
         if (!r) return;
         if (r.glint) playerStats.glint += r.glint;
+        if (r.gold)  playerStats.gold  += r.gold;
         if (r.xp)    playerStats.gainXp(r.xp);
         r.items?.forEach(id => playerStats.addItem(id));
+        if (r.recipe) playerStats.learnRecipe(r.recipe);
+        if (r.spell)  playerStats.forceUnlockSpell(r.spell, 1);
 
-        // Resonance Insights: hidden quests give 3, main give 2, side give 1
-        const insightMap = { hidden: 3, main: 2, side: 1 };
-        const insights = insightMap[quest.type] ?? 1;
-        playerStats.gainResonanceInsight(insights);
+        // Resonance Insights: hidden quests give 3, main 2, side 1, bounties 0 — unless the reward says
+        const insightMap = { hidden: 3, main: 2, side: 1, bounty: 0 };
+        const insights = 'insight' in r ? r.insight : (insightMap[quest.type] ?? 1);
+        if (insights) playerStats.gainResonanceInsight(insights);
 
         // Archive of Souls — push lore memory fragment on completion
         const fragment = MEMORY_FRAGMENTS[quest.id];
@@ -107,10 +145,9 @@ class QuestManager {
 
     // ── Event hooks ───────────────────────────────────────────────────────────
 
-    onKill(enemyType, { inVeil = false, weaponType = null, isBoss = false } = {}) {
-        for (const qId of Object.keys(playerStats.questLog)) {
-            if (!this.isActive(qId)) continue;
-            for (const step of QUESTS[qId].steps) {
+    onKill(enemyType, { inVeil = false, weaponType = null, isBoss = false, isElite = false } = {}) {
+        for (const [qId, quest] of this._active()) {
+            for (const step of questSteps(quest)) {
                 if (step.type === 'kill') {
                     if (step.target === enemyType || step.target === 'any') {
                         if (!step.bossOnly || isBoss) this.advanceStep(qId, step.id);
@@ -118,6 +155,9 @@ class QuestManager {
                 }
                 if (step.type === 'kill_with_veil' && inVeil) {
                     if (step.target === enemyType || step.target === 'any') this.advanceStep(qId, step.id);
+                }
+                if (step.type === 'kill_elite' && isElite && (step.target === enemyType || step.target === 'any')) {
+                    this.advanceStep(qId, step.id);
                 }
                 if (step.type === 'kill_with_weapon' && weaponType === step.target) {
                     if (!step.bossOnly || isBoss) this.advanceStep(qId, step.id);
@@ -127,27 +167,25 @@ class QuestManager {
     }
 
     onTalk(npcId) {
-        for (const qId of Object.keys(playerStats.questLog)) {
-            if (!this.isActive(qId)) continue;
-            for (const step of QUESTS[qId].steps) {
+        for (const [qId, quest] of this._active()) {
+            for (const step of questSteps(quest)) {
                 if (step.type === 'talk' && step.target === npcId) this.advanceStep(qId, step.id);
             }
         }
     }
 
     onGather(resourceId, amount = 1) {
-        for (const qId of Object.keys(playerStats.questLog)) {
-            if (!this.isActive(qId)) continue;
-            for (const step of QUESTS[qId].steps) {
+        for (const [qId, quest] of this._active()) {
+            for (const step of questSteps(quest)) {
                 if (step.type === 'gather' && step.target === resourceId) this.advanceStep(qId, step.id, amount);
             }
         }
+        this.recheck();
     }
 
     onReadSign() {
-        for (const qId of Object.keys(playerStats.questLog)) {
-            if (!this.isActive(qId)) continue;
-            for (const step of QUESTS[qId].steps) {
+        for (const [qId, quest] of this._active()) {
+            for (const step of questSteps(quest)) {
                 if (step.type === 'read_signs') this.advanceStep(qId, step.id);
             }
         }
@@ -155,9 +193,8 @@ class QuestManager {
 
     onAttune(gateId) {
         const attunedCount = playerStats.attunedGates.length;
-        for (const qId of Object.keys(playerStats.questLog)) {
-            if (!this.isActive(qId)) continue;
-            for (const step of QUESTS[qId].steps) {
+        for (const [qId, quest] of this._active()) {
+            for (const step of questSteps(quest)) {
                 if (step.type === 'attune' && (step.target === gateId || step.target === 'any')) {
                     this.advanceStep(qId, step.id);
                 }
@@ -170,41 +207,39 @@ class QuestManager {
     }
 
     onSpellLearned(spellId) {
-        for (const qId of Object.keys(playerStats.questLog)) {
-            if (!this.isActive(qId)) continue;
-            for (const step of QUESTS[qId].steps) {
+        for (const [qId, quest] of this._active()) {
+            for (const step of questSteps(quest)) {
                 if (step.type === 'spell' && step.target === spellId) this.advanceStep(qId, step.id);
             }
         }
     }
 
     onPickup(itemId) {
-        for (const qId of Object.keys(playerStats.questLog)) {
-            if (!this.isActive(qId)) continue;
-            for (const step of QUESTS[qId].steps) {
+        for (const [qId, quest] of this._active()) {
+            for (const step of questSteps(quest)) {
                 if (step.type === 'collect' && (step.target === itemId || step.target === 'any')) {
                     this.advanceStep(qId, step.id);
                 }
             }
         }
+        this.recheck();
     }
 
     onCook(outputId) {
-        for (const qId of Object.keys(playerStats.questLog)) {
-            if (!this.isActive(qId)) continue;
-            for (const step of QUESTS[qId].steps) {
+        for (const [qId, quest] of this._active()) {
+            for (const step of questSteps(quest)) {
                 if (step.type === 'cook' && (step.target === outputId || step.target === 'any')) {
                     this.advanceStep(qId, step.id);
                 }
             }
         }
+        this.recheck();
     }
 
     onResonanceReached(element, value) {
         const key = `${element}_resonance`;
-        for (const qId of Object.keys(playerStats.questLog)) {
-            if (!this.isActive(qId)) continue;
-            for (const step of QUESTS[qId].steps) {
+        for (const [qId, quest] of this._active()) {
+            for (const step of questSteps(quest)) {
                 if (step.type === 'reach' && step.target === key) {
                     const prev = playerStats.questLog[qId].progress[step.id] ?? 0;
                     if (value > prev) {
@@ -217,8 +252,8 @@ class QuestManager {
         }
     }
 
-    getActiveQuests()    { return Object.entries(playerStats.questLog).filter(([,v]) => v.status === 'active').map(([id]) => QUESTS[id]).filter(Boolean); }
-    getCompletedQuests() { return Object.entries(playerStats.questLog).filter(([,v]) => v.status === 'completed').map(([id]) => QUESTS[id]).filter(Boolean); }
+    getActiveQuests()    { return Object.entries(playerStats.questLog).filter(([,v]) => v.status === 'active').map(([id]) => this.questDef(id)).filter(Boolean); }
+    getCompletedQuests() { return Object.entries(playerStats.questLog).filter(([,v]) => v.status === 'completed').map(([id]) => this.questDef(id)).filter(Boolean); }
 
     onQuestEvent(fn) { this._callbacks.push(fn); }
     _notify(questId, stepId, progress) { this._callbacks.forEach(fn => fn(questId, stepId, progress)); }
