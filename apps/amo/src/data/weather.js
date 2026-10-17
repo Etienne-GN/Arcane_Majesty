@@ -69,6 +69,7 @@ export const sightMult = id => (id === 'sandstorm' ? 0.6 : 1);
 
 export const RAIN_TICK_MS = 10000;
 export const SNOW_TICK_MS = 20000;
+export const SNOW_COLD_MS = 8000;    // each chill is short: snow slows you in pulses, not for good
 export const WARM_RADIUS  = 120;
 export const STORM = { minMs: 6000, maxMs: 12000, telegraphMs: 1200, radius: 40 };
 export const stormStrikeDamage = band => 10 + 2 * band.max;

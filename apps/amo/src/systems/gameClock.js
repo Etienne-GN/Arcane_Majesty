@@ -1,6 +1,6 @@
 // Game clock: one real minute = one game hour (a 24-minute day). The time is
 // stats.gameMinutes — total game minutes since the character began (saved).
-// Night is 20:00–05:59: the world darkens (dusk 18–20, dawn 6–7), void
+// Night is 21:00–04:59: the world darkens (dusk 19–21, dawn 5–6), void
 // creatures hit 20% harder and spawns can be day- or night-only.
 // Pure — tools/test_phase5_world.mjs.
 import { ENEMY_FAMILY } from '../data/enemyAffinities.js';
@@ -26,15 +26,15 @@ export function clockLabel(min) {
 
 export function isNight(min) {
     const h = gameHour(min);
-    return h >= 20 || h < 6;
+    return h >= 21 || h < 5;
 }
 
 // The darkness laid over the world: none by day, NIGHT_ALPHA at night, ramps at dusk and dawn.
 export function ambientAt(min) {
     const h = gameHour(min);
-    if (h >= 7 && h < 18) return { color: 0x0a1030, alpha: 0 };
-    if (h >= 18 && h < 20) return { color: 0x2a1838, alpha: NIGHT_ALPHA * (h - 18) / 2 };
-    if (h >= 6 && h < 7)   return { color: 0x302040, alpha: NIGHT_ALPHA * (7 - h) };
+    if (h >= 6 && h < 19) return { color: 0x0a1030, alpha: 0 };
+    if (h >= 19 && h < 21) return { color: 0x2a1838, alpha: NIGHT_ALPHA * (h - 19) / 2 };
+    if (h >= 5 && h < 6)   return { color: 0x302040, alpha: NIGHT_ALPHA * (6 - h) };
     return { color: 0x0a1030, alpha: NIGHT_ALPHA };
 }
 

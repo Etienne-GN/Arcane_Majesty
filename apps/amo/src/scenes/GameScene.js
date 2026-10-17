@@ -18,7 +18,7 @@ import { getMap } from '../data/maps/index.js';
 import { boardIdFor, regionPools } from '../data/bounties.js';
 import { gameDay, advanceClock, isNight, ambientAt, spawnActive } from '../systems/gameClock.js';
 import { mapBiome, WEATHER, weatherAt, isWet, spellWeatherMult, sightMult, isWarm,
-         RAIN_TICK_MS, SNOW_TICK_MS, STORM, stormStrikeDamage } from '../data/weather.js';
+         RAIN_TICK_MS, SNOW_TICK_MS, SNOW_COLD_MS, STORM, stormStrikeDamage } from '../data/weather.js';
 import { catalogueLayout } from '../utils/catalogueLayout.js';
 import { DIALOGUES } from '../data/dialogues.js';
 import { SPELLS, TIER_NAMES, RESONANCE_GAINS, scaledStatus, spellRadius, spellDamageAt } from '../data/spells.js';
@@ -844,7 +844,7 @@ export default class GameScene extends Phaser.Scene {
                     ...(this.stations ?? []).filter(st => st.stationDef.type === 'hearth'),
                 ];
                 if (!isWarm(this.player.x, this.player.y, fires, statusManager.has(this.player, 'warming'))) {
-                    statusManager.apply(this.player, 'cold');
+                    statusManager.apply(this.player, 'cold', { duration: SNOW_COLD_MS });
                     this.scene.get('UIScene')?.showNotification?.('The cold bites. Find a fire.', 1600);
                 }
             }

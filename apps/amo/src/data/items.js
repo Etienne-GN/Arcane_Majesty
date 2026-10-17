@@ -1461,7 +1461,7 @@ export const ITEMS = {
     },
     warming_draught: {
         id: 'warming_draught', name: 'Warming Draught',
-        description: 'Emberroot steeped hot. Drives out Cold and Frozen, applies Regenerating for 10s and Warming for 60s (no chill from snow).',
+        description: 'Emberroot steeped hot. Drives out Cold and Frozen, applies Regenerating for 10s and Warming for 90s (no chill from snow).',
         color: 0xff7744, icon: 'itm_hp_potion', stackable: true, buyPrice: 0, sellPrice: 16,
         onUse: (stats) => {
             stats._clearStatus?.('cold'); stats._clearStatus?.('frozen');

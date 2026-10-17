@@ -52,7 +52,7 @@ export function regionPools(mapDef, enemyTypes) {
 export function bountyReward(kind, band, n) {
     const L = band.max;
     if (kind === 'hunt')  return { xp: 15 * L + 5 * n, gold: 5 * L + 2 * n };
-    if (kind === 'elite') return { xp: 40 * L, gold: 10 * L, glint: 5 * L };
+    if (kind === 'elite') return { xp: 25 * L, gold: 10 * L, glint: 5 * L };   // the elite itself already gives 3× XP
     return { xp: 10 * L + 3 * n, gold: 8 * L + 3 * n };
 }
 

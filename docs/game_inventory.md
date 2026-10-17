@@ -70,8 +70,8 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | Dialogue choices | Some lines offer numbered choices (↑↓ / 1–4 / click, E to confirm); a choice can start a quest or change what people say later. |
 | Bounty boards | Thaloria and Silvara's camp have a Bounty Board: 3 new bounties each day — hunt 4–8 of a regional creature, bring down an elite, or bring 3–6 of a regional gathered item — one at a time per board, turned in at the board. Rewards scale with the region's level band (e.g. a 6-kill hunt pays 75 XP / 27 Gold at Lv 1–3 and 165 XP / 57 Gold at Lv 7–9; elites also pay Glint). Thaloria's board hunts the Summit of Despair. |
 | Clock | One real minute is one game hour (a 24-minute day); a new game starts at 08:00 on day 0. The HUD shows the day, the time and the weather. The clock only runs while you play (not behind menus) and is saved. Bounty boards refresh every game day. |
-| Day & night | Night is 20:00–05:59 (dusk 18–20, dawn 6–7): outdoor maps darken, with light around you, campfires and hearths. Void-touched creatures deal 20% more damage at night. Some creatures only come out at night (shadow sprites and a void fox in the Prologue Forest) and leave at dawn once they stop fighting. Moonpetal only grows at night. |
-| Weather | Each map's weather follows its biome and changes every 4–8 game hours — temperate: Clear/Rain/Storm; forest: Clear/Rain/Storm; snow: Clear/Snow/Storm; arid: Clear/Sandstorm; indoor: Clear. Rain and storms soak everyone every 10 s (fire spells ×0.8, lightning ×1.2, on top of Wet) and standing in the rain builds water, ice and nature resonance. Storms drop a lightning strike every 6–12 s, marked by a ring 1.2s before it lands (16 damage at Lv 1–3, more in higher regions). Snow makes you Cold every 20 s unless you are within 120 px of a campfire or hearth or under Warming (Warmth Aura, Warming Draught: 60 s). Sandstorms cut enemy sight to 60%. |
+| Day & night | Night is 21:00–04:59 (dusk 19–21, dawn 5–6): outdoor maps darken, with light around you, campfires and hearths. Void-touched creatures deal 20% more damage at night. Some creatures only come out at night (shadow sprites and a void fox in the Prologue Forest) and leave at dawn once they stop fighting. Moonpetal only grows at night. |
+| Weather | Each map's weather follows its biome and changes every 4–8 game hours — temperate: Clear/Rain/Storm; forest: Clear/Rain/Storm; snow: Clear/Snow/Storm; arid: Clear/Sandstorm; indoor: Clear. Rain and storms soak everyone every 10 s (fire spells ×0.8, lightning ×1.2, on top of Wet) and standing in the rain builds water, ice and nature resonance. Storms drop a lightning strike every 6–12 s, marked by a ring 1.2s before it lands (16 damage at Lv 1–3, more in higher regions). Snow chills you (Cold for 8 s) every 20 s unless you are within 120 px of a campfire or hearth or under Warming (Warmth Aura, Warming Draught: 90 s). Sandstorms cut enemy sight to 60%. |
 | Memories | Completing quests recovers lore fragments ("Archive of Souls"), readable in the Codex. |
 | Campaign | Eldoria's Prophecy: chapters gate which maps you can enter; completing a chapter grants its unlocks; progress is saved. |
 | Saving | Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties, the game clock. |
@@ -280,7 +280,7 @@ Values given per tier (Novice / Apprentice / Adept). Discover = resonance needed
 | Cursed | 20.0s | statsMult: 0.85, damageTakenMult: 1.15 |
 | Blessed | 30.0s | statsMult: 1.1, damageTakenMult: 0.9, magical: true, buff: true |
 | Swift | 20.0s | speedMult: 1.25, magical: true, buff: true |
-| Warming | 60.0s | buff: true |
+| Warming | 90.0s | buff: true |
 | Regen | 15.0s | regenAmt: 3, regenInterval: 1000, magical: true, buff: true |
 | Void-Tainted | 30.0s | shadowDmgTakenMult: 1.25 |
 | Marked | 4.0s | (flag used by spells/AI) |
@@ -359,7 +359,7 @@ At a campfire (BREW) or an alchemy table. Every potion needs an Empty Bottle; �
 | Ember Tonic | Campfire | 2× Ember Stone + Empty Bottle | Volcanic stone dissolved into a burning brew. Restores 35 HP instantly. |
 | Iron Skin Tonic | Campfire | 2× Bone Fragment + Empty Bottle | Ground bone dissolved in water. Raises max HP by 15 for 10 minutes. |
 | Silverleaf Draught | Campfire | 2× Silverleaf + Empty Bottle | A bright green draught. Restores 50 HP. |
-| Warming Draught | Campfire | 2× Emberroot + Empty Bottle | Emberroot steeped hot. Drives out Cold and Frozen, applies Regenerating for 10s and Warming for 60s (no chill from snow). |
+| Warming Draught | Campfire | 2× Emberroot + Empty Bottle | Emberroot steeped hot. Drives out Cold and Frozen, applies Regenerating for 10s and Warming for 90s (no chill from snow). |
 | Cooling Draught | Campfire | 2× Frostmoss + Empty Bottle | Frostmoss steeped cold. Puts out Burning and restores 25 HP. |
 | Moonpetal Elixir | Alchemy Table 2 🔒 scroll | 2× Moonpetal + Glowcap + Empty Bottle | Moonpetal and glowcap. Restores 60 MP and boosts mana recovery for 15s. |
 | Berry Cordial | Campfire | 2× Honeyberry + 2× Wild Berries + Empty Bottle | A sweet, heady cordial. Applies Swift for 30s. |

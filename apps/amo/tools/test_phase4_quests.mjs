@@ -342,7 +342,7 @@ const ELITE = {
     const high = B.generateBounties('board_x', 500, forest, { min: 9, max: 11 }, where);
     ok(high.every((o, i) => o.reward.xp > offers[i].reward.xp && o.reward.gold > offers[i].reward.gold), 'rewards grow with the region band');
     eq(B.bountyReward('hunt', band, 6), { xp: 75, gold: 27 }, 'hunt reward formula');
-    eq(B.bountyReward('elite', band, 1), { xp: 120, gold: 30, glint: 15 }, 'elite reward formula');
+    eq(B.bountyReward('elite', band, 1), { xp: 75, gold: 30, glint: 15 }, 'elite reward formula (the elite itself already gives 3× XP)');
     eq(B.bountyReward('gather', band, 4), { xp: 42, gold: 36 }, 'gather reward formula');
 
     eq(B.generateBounties('b', 1, { creatures: [], items: ['wood', 'resin'] }, band, where).map(o => o.kind), ['gather', 'gather', 'gather'], 'no creatures: all gathers');
