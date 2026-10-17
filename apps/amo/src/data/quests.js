@@ -121,6 +121,38 @@ export const QUESTS = {
         reward: { glint: 50, xp: 70, items: ['roasted_boar', 'hearty_stew', 'recipe_grand_feast'] },
     },
 
+    // ── The Hermit's requests (Phase 4: giver, turn-in, flags, hand-ins) ────
+    // Offered in the Hermit's Hut once you offer to help (a dialogue choice
+    // sets the flag); both are turned in by talking to him again.
+
+    side_hermits_remedy: {
+        id: 'side_hermits_remedy',
+        title: "The Hermit's Remedy",
+        type: 'side',
+        giver: 'hermit',
+        requiresFlags: ['offered_hermit_help'],
+        description: 'The Hermit\'s hands shake when he reads by the fire. He needs moonpetal and glowcap for a tonic that steadies them.',
+        steps: [
+            { id: 'bring_moonpetal', type: 'have', target: 'moonpetal', label: 'Bring Moonpetal', required: 3, consume: true },
+            { id: 'bring_glowcap',   type: 'have', target: 'glowcap',   label: 'Bring Glowcap',   required: 2, consume: true },
+        ],
+        reward: { xp: 120, gold: 40, recipe: 'moonveil_tonic', insight: 1 },
+    },
+
+    side_shadows_at_the_threshold: {
+        id: 'side_shadows_at_the_threshold',
+        title: 'Shadows at the Threshold',
+        type: 'side',
+        giver: 'hermit',
+        requires: ['side_hermits_remedy'],
+        offer: 'Steadier hands, clearer eyes. And now I see them — shadow-sprites, gathering at the forest\'s eastern edge. Thin them out before they reach my door.',
+        description: 'Shadow-sprites gather at the eastern edge of the forest. The Hermit wants them thinned out before they reach his door.',
+        steps: [
+            { id: 'kill_sprites', type: 'kill', target: 'shadow_sprite', label: 'Defeat Shadow Sprites (0/6)', required: 6 },
+        ],
+        reward: { xp: 200, glint: 60, spell: 'cleanse' },
+    },
+
     hidden_void_fragment: {
         id: 'hidden_void_fragment',
         title: 'The Void Fragment',

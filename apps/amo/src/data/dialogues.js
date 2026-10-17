@@ -34,6 +34,19 @@ export const DIALOGUES = {
     hermit_hut_after: [
         { speaker: 'Hermit', text: 'The resonance lines converge southeast of here. You will feel it before you see it.' },
         { speaker: 'Hermit', text: 'Trust the pull. That is all the instruction Vorgos left for those who carry his mark.' },
+        {
+            speaker: 'Hermit', unlessFlag: 'offered_hermit_help',
+            text: 'Forty years of reading by firelight. My hands are not what they were.',
+            choices: [
+                { text: 'Can I help?', setFlag: 'offered_hermit_help', startQuest: 'side_hermits_remedy', next: 'hermit_remedy_accepted' },
+                { text: 'Rest well, Hermit.' },
+            ],
+        },
+    ],
+
+    hermit_remedy_accepted: [
+        { speaker: 'Hermit', text: 'Moonpetal, three blooms. Glowcap, two caps. The herb patches and mushroom rings outside will have them.' },
+        { speaker: 'Hermit', text: 'Bring them here and I will show you the tonic in return. A fair trade, for a scholar.' },
     ],
 
     // ── Silvara ───────────────────────────────────────────────────────────────

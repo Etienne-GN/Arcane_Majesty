@@ -76,19 +76,24 @@ export class CampaignManager {
         return chapter.quests.every(qid => this._questManager.isCompleted(qid));
     }
 
+    /** True once every chapter before chapterId is done — the gate for
+     * entering its maps and for quests with a `chapter` requirement.
+     * Without a campaign nothing is gated; an unknown chapter never opens. */
+    isChapterReached(chapterId) {
+        if (!this._campaign) return true;
+        const idx = this._campaign.chapters.findIndex(c => c.id === chapterId);
+        if (idx < 0) return false;
+        const progress = this._ensureProgress();
+        return this._campaign.chapters.slice(0, idx).every(
+            c => (progress?.completed ?? []).includes(c.id) || this.isChapterComplete(c.id)
+        );
+    }
+
     /** { allowed: boolean, reason: string|null } for entering mapId. */
     canEnter(mapId) {
         const chapter = this.chapterFor(mapId);
         if (!chapter) return { allowed: true, reason: null };
-
-        const progress = this._ensureProgress();
-        const idx = this._campaign.chapters.findIndex(c => c.id === chapter.id);
-        const earlierChapters = this._campaign.chapters.slice(0, idx);
-        const allEarlierDone = earlierChapters.every(
-            c => (progress?.completed ?? []).includes(c.id) || this.isChapterComplete(c.id)
-        );
-
-        if (allEarlierDone) return { allowed: true, reason: null };
+        if (this.isChapterReached(chapter.id)) return { allowed: true, reason: null };
         return { allowed: false, reason: `The way to ${chapter.title} is not yet open.` };
     }
 

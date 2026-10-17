@@ -208,4 +208,66 @@ const ELITE = {
     eq([old.flags, old.generatedQuests, old.bounties], [{}, {}, {}], 'old saves load with empty defaults');
 }
 
+// ---- Authored content: the Hermit's quests, NPC ids, dialogue choices
+{
+    const { ITEMS } = await import('../src/data/items.js');
+    const { SPELLS } = await import('../src/data/spells.js');
+    const { DIALOGUES } = await import('../src/data/dialogues.js');
+    const { HERMIT_HUT } = await import('../src/data/maps/hermit_hut.js');
+    const { NPC_POSITIONS } = await import('../src/data/worldMap.js');
+
+    const s = freshPlayer();
+    eq(questManager.offerFor('hermit'), null, 'the Hermit offers nothing before you offer to help');
+    s.flags.offered_hermit_help = true;
+    eq(questManager.offerFor('hermit')?.id, 'side_hermits_remedy', 'then he offers the remedy');
+    questManager.startQuest('side_hermits_remedy');
+    eq(questManager.offerFor('hermit'), null, 'nothing else while the remedy is open');
+    s.addItem('moonpetal', 3); s.addItem('glowcap', 2);
+    questManager.onTalk('hermit');
+    ok(questManager.isCompleted('side_hermits_remedy'), 'the remedy is handed in by talking to him');
+    eq([s.countItem('moonpetal'), s.countItem('glowcap')], [0, 0], 'the herbs are handed over');
+    ok(s.knownRecipes.includes('moonveil_tonic'), 'the remedy teaches Moonveil Tonic');
+    eq(questManager.offerFor('hermit')?.id, 'side_shadows_at_the_threshold', 'then the threshold quest is offered');
+
+    eq(HERMIT_HUT.spawns.npcs[0].id, 'hermit', 'the hut Hermit has the hermit id');
+    eq(NPC_POSITIONS.find(p => p.isShop).id, 'silvara', 'Silvara has her id');
+
+    for (const q of Object.values(QUESTS)) {
+        for (const who of [q.giver, q.turnIn].filter(Boolean)) ok(NPCS[who], `${q.id}: NPC ${who} is known`);
+        for (const r of q.requires ?? []) ok(QUESTS[r], `${q.id}: required quest ${r} exists`);
+        for (const st of q.steps) if (st.type === 'have') ok(ITEMS[st.target], `${q.id}: have item ${st.target} exists`);
+        if (q.reward?.recipe) ok(ITEMS[q.reward.recipe], `${q.id}: recipe output ${q.reward.recipe} exists`);
+        if (q.reward?.spell) ok(SPELLS[q.reward.spell], `${q.id}: spell ${q.reward.spell} exists`);
+    }
+    let choices = 0;
+    for (const [key, lines] of Object.entries(DIALOGUES)) for (const line of lines) for (const c of line.choices ?? []) {
+        choices++;
+        ok(c.text, `${key}: a choice has text`);
+        if (c.startQuest) ok(QUESTS[c.startQuest], `${key}: choice starts a real quest`);
+        if (c.next) ok(DIALOGUES[c.next], `${key}: choice leads to a real dialogue`);
+    }
+    ok(DIALOGUES.hermit_hut_after.some(l => l.choices?.some(c => c.startQuest === 'side_hermits_remedy' && c.setFlag === 'offered_hermit_help')),
+        'the Hermit\'s after-dialogue lets you offer help');
+    ok(choices >= 2, 'dialogue choices exist');
+}
+
+// ---- Campaign: the `chapter` requirement's source
+{
+    const { CampaignManager } = await import('../src/systems/CampaignManager.js');
+    const done = new Set();
+    const qm = { onQuestEvent() {}, isCompleted: id => done.has(id) };
+    const campaign = { id: 'c', chapters: [
+        { id: 'a', maps: ['m1'], quests: ['qa'], unlocks: [] },
+        { id: 'b', maps: ['m2'], quests: ['qb'], unlocks: [] },
+    ] };
+    const cm = new CampaignManager({ campaign, questManager: qm, playerStats: { campaign: null } });
+    ok(cm.isChapterReached('a'), 'the first chapter is reached from the start');
+    ok(!cm.isChapterReached('b'), 'a later chapter is not');
+    done.add('qa');
+    ok(cm.isChapterReached('b'), 'it is once the earlier chapters are done');
+    ok(!cm.isChapterReached('nope'), 'an unknown chapter is never reached');
+    ok(new CampaignManager({ campaign: null, questManager: qm, playerStats: { campaign: null } }).isChapterReached('a'),
+        'without a campaign nothing is chapter-gated');
+}
+
 console.log(`test_phase4_quests: ${n} checks passed`);

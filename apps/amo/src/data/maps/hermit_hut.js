@@ -52,6 +52,7 @@ export const HERMIT_HUT = {
         npcs: [
             {
                 x: 10, y: 5,
+                id: 'hermit',                       // data/npcs.js — quest giver and turn-in
                 dialogue: 'hermit_hut_greeting',
                 afterDialogue: 'hermit_hut_after',
                 name: 'Hermit',

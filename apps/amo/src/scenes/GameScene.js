@@ -511,10 +511,18 @@ export default class GameScene extends Phaser.Scene {
 
         this._lastLevel = playerStats.level;
 
+        // Hand-in quests count the inventory live: re-check whenever an overlay
+        // (shop, crafting, inventory…) closes. Hooked once — this scene instance survives map changes.
+        if (!this._questRecheckHooked) {
+            this._questRecheckHooked = true;
+            this.events.on('resume', () => questManager.recheck());
+        }
+
         // Quest completion notifications
         questManager.onQuestEvent((questId, stepId, progress) => {
             if (progress === -1) {
-                this.scene.get('UIScene')?.showNotification?.(`Quest complete!\n${questId.replace(/_/g,' ')}`, 3500);
+                const title = questManager.questDef(questId)?.title ?? questId.replace(/_/g, ' ');
+                this.scene.get('UIScene')?.showNotification?.(`Quest complete!\n${title}`, 3500);
                 soundManager.levelUp();
                 this.cameras.main.flash(300, 160, 200, 80, true);
             } else if (stepId) {
@@ -3083,13 +3091,35 @@ export default class GameScene extends Phaser.Scene {
             !!this._riftGates?.some(g => Phaser.Math.Distance.Between(px, py, g.wx, g.wy) < range);
     }
 
+    // After a talk, the NPC offers the next quest they give that can start now.
+    // Waits out the quest-complete flash (a paused camera would freeze it on screen).
+    _offerQuest(npcId, speaker) {
+        const quest = questManager.offerFor(npcId, id => campaignManager.isChapterReached(id));
+        if (!quest) return;
+        this.time.delayedCall(400, () => {
+            if (this.scene.isPaused() || this.scene.isActive('DialogueScene')) return;
+            this.scene.pause();
+            this.scene.launch('DialogueScene', {
+                lines: [{
+                    speaker, text: quest.offer ?? quest.description,
+                    choices: [{ text: `Accept: ${quest.title}`, startQuest: quest.id }, { text: 'Not now' }],
+                }],
+                onComplete: () => SaveManager.save(playerStats, this._storyId, this._characterId),
+            });
+        });
+    }
+
     _checkInteractions() {
         // NPC
         this.physics.overlap(this.player.interactBox, this.npcs, (box, npc) => {
             const def = npc.npcDef;
             soundManager.interact();
+            // Quest NPC id (data/npcs.js); maps without one fall back to the dialogue key
+            const npcId = def.id ?? (def.isShop ? 'silvara' : (def.dialogue?.replace(/_greeting$|_prolog$/, '') ?? 'hermit'));
 
             if (def.isShop) {
+                // Talking to a merchant counts for "Return to …" steps too
+                questManager.onTalk(npcId);
                 // Merchant: first interaction shows greeting, then opens shop
                 const shopData = { currencyBias: this._mapDef?.currencyBias ?? 'neutral' };
                 if (!npc.talked) {
@@ -3110,7 +3140,6 @@ export default class GameScene extends Phaser.Scene {
                 return;
             }
 
-            const npcId = def.isShop ? 'silvara' : (def.dialogue?.replace(/_greeting$|_prolog$/, '') ?? 'hermit');
             const key   = npc.talked ? def.afterDialogue : def.dialogue;
             const lines = DIALOGUES[key] ?? [{ speaker: def.name, text: '...' }];
             this.scene.pause();
@@ -3122,9 +3151,10 @@ export default class GameScene extends Phaser.Scene {
                         soundManager.collect();
                         this.scene.get('UIScene')?.showNotification?.(`Received: ${def.reward.replace(/_/g, ' ')}`, 2000);
                     }
-                    if (!npc.talked) questManager.onTalk(npcId);
+                    questManager.onTalk(npcId);   // every talk — turn-ins happen on a later visit
                     npc.talked = true;
                     SaveManager.save(playerStats, this._storyId, this._characterId);
+                    this._offerQuest(npcId, def.name);
                 }
             });
         });
@@ -3271,6 +3301,7 @@ export default class GameScene extends Phaser.Scene {
                 inVeil:     this.player._shadowVeilActive,
                 weaponType: playerStats.activeWeaponType,
                 isBoss:     false,
+                isElite:    !!enemy.elite,
             });
             if (playerStats.activeWeaponType === 'resonance_bow' &&
                 !questManager.isActive('hidden_hunters_trial') &&
