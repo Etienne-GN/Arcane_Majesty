@@ -49,6 +49,47 @@ export const DIALOGUES = {
         { speaker: 'Hermit', text: 'Bring them here and I will show you the tonic in return. A fair trade, for a scholar.' },
     ],
 
+    // ── Chapter 3 — Odyssey's Dawn (Thaloria, East Road) ─────────────────────
+    innkeeper_greeting: [
+        { speaker: 'Innkeeper', text: 'Morning, scholar. Out of your tower before the bell? The road east is hard-frozen this week — good for walking, bad for sleeping.' },
+        { speaker: 'Innkeeper', text: 'Mind the travelers in the common room. They talk more than they drink, and they drink plenty.' },
+    ],
+    innkeeper_after: [
+        { speaker: 'Innkeeper', text: 'Safe road, scholar. The fire will still be here when you come back.' },
+    ],
+    trader_greeting: [
+        { speaker: 'Trader', text: 'You walk east? Then hear this for free — it is the only free thing on this road.' },
+        { speaker: 'Trader', text: 'A stranger paid me well on the road last month. One question, polite as a priest: had I heard tell of "the Anchor"? Then he went on east, and asked no second question.' },
+        { speaker: 'Trader', text: 'I could not tell you why the road felt thinner after he passed. It just did.' },
+    ],
+    trader_after: [
+        { speaker: 'Trader', text: 'One question per village, they say. Always the same one. Always moving east.' },
+    ],
+    thaloria_merchant_greeting: [
+        { speaker: 'Merchant', text: 'Reagents, road food, sturdy boots. Everything a scholar forgets to pack.' },
+    ],
+    oren_meeting: [
+        { speaker: 'Oren', text: 'Ho, the road! Hallo, hallo — forgive the hail. It is not every day I catch up with a fellow walker on this road, and I have been trying since the last village.' },
+        { speaker: 'Oren', text: 'You go at a proper pace for a man of letters, Eldrin. Oren — chronicler. Of lost libraries, mostly. There is a whole world in the ruins, if you know where to look.' },
+        { speaker: null, text: 'You never told him your name.' },
+        {
+            speaker: 'Oren', text: 'You are bound east too. I have walked further for worse. Shall we share the road?',
+            choices: [
+                { text: 'Walk, then. The road is wide enough for two.', setFlag: 'oren_joined', next: 'oren_joined' },
+                { text: 'I walk alone.', next: 'oren_declined' },
+            ],
+        },
+    ],
+    oren_joined: [
+        { speaker: 'Oren', text: 'Ha! Then tell me about your old stones, and I will tell you about my lost libraries. The mountains have been waiting for us.' },
+    ],
+    oren_declined: [
+        { speaker: 'Oren', text: 'As you like. A man\'s road is his own. But the mountains are wide, and I go the same way.' },
+    ],
+    oren_after: [
+        { speaker: 'Oren', text: 'The mountains have been waiting for us. Lead on — I am right behind you.' },
+    ],
+
     // ── Silvara ───────────────────────────────────────────────────────────────
 
     merchant_greeting: [
@@ -127,9 +168,6 @@ export const DIALOGUES = {
 
     stub_ch02_dreamweavers_call_greeting: [
         { speaker: 'Placeholder', text: '[SCAFFOLDING] This will be Song 2 — Dreamweaver\'s Call. Speak to me again to complete this placeholder chapter.' },
-    ],
-    stub_ch03_odysseys_dawn_greeting: [
-        { speaker: 'Placeholder', text: '[SCAFFOLDING] This will be Song 3 — Odyssey\'s Dawn. Speak to me again to complete this placeholder chapter.' },
     ],
     stub_ch05_sylvan_sanctuary_greeting: [
         { speaker: 'Placeholder', text: '[SCAFFOLDING] This will be Song 5 — Sylvan Sanctuary. Speak to me again to complete this placeholder chapter.' },

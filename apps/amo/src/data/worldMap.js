@@ -177,6 +177,23 @@ export const ENEMY_TYPES = {
         keepDistance: true, minRange: 80,
         lootTable: [{ id: 'bone_fragment', chance: 0.60 }, { id: 'health_potion', chance: 0.20 }]
     },
+    // ── East Road (Chapter 3) — bestiary.md's Whispering Woods roster ─────────
+    blight_ent: {
+        spriteKey: 'spr_treant', tint: 0x887766,
+        health: 80, damage: 18, speed: 26, sightRange: 70, attackRange: 34, xpReward: 46, patrolRadius: 28,
+        lootTable: [{ id: 'heartwood', chance: 0.25 }, { id: 'forest_herb', chance: 0.40 }]
+    },
+    root_wraith: {
+        spriteKey: 'spr_wisp', tint: 0x55aa44,
+        health: 22, damage: 7, speed: 105, sightRange: 120, attackRange: 26, xpReward: 20, patrolRadius: 70,
+        lootTable: [{ id: 'forest_herb', chance: 0.35 }]
+    },
+    // Game-only optional miniboss: a Shadow-Touched guardian statue off the road (map spec G2)
+    corrupted_sentinel: {
+        spriteKey: 'spr_treant', tint: 0x6a5a88,
+        health: 240, damage: 17, speed: 22, sightRange: 90, attackRange: 38, xpReward: 140, patrolRadius: 12,
+        lootTable: [{ id: 'resonance_amulet', chance: 1.0 }, { id: 'mineral_ore', chance: 0.6 }]
+    },
     stone_golem: {
         spriteKey: 'spr_treant', tint: 0x888877,
         health: 120, damage: 22, speed: 28, sightRange: 80, attackRange: 36, xpReward: 55, patrolRadius: 32,

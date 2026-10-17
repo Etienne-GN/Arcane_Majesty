@@ -277,6 +277,7 @@ export default class GameScene extends Phaser.Scene {
             const sprite = this.signs.create(sx, sy, 'sign_post');
             sprite.setDepth(6);
             sprite.signText = sign.text;
+            sprite.signId   = sign.id ?? null;   // quests can ask for one sign (read_signs target)
             sprite.ePrompt = this.add.text(sx, sy - TILE_SIZE / 2 - 4, '[E]', {
                 font: '7px monospace', fill: '#ffff88'
             }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
@@ -3379,7 +3380,7 @@ export default class GameScene extends Phaser.Scene {
                 // Talking to a merchant counts for "Return to …" steps too
                 questManager.onTalk(npcId);
                 // Merchant: first interaction shows greeting, then opens shop
-                const shopData = { currencyBias: this._mapDef?.currencyBias ?? 'neutral' };
+                const shopData = { currencyBias: this._mapDef?.currencyBias ?? 'neutral', shopName: def.shopName };
                 if (!npc.talked) {
                     npc.talked = true;
                     const lines = DIALOGUES[def.dialogue] ?? [{ speaker: def.name, text: '...' }];
@@ -3451,7 +3452,7 @@ export default class GameScene extends Phaser.Scene {
         // Sign
         this.physics.overlap(this.player.interactBox, this.signs, (box, sign) => {
             soundManager.interact();
-            questManager.onReadSign();
+            questManager.onReadSign(sign.signId);
             this.scene.pause();
             this.scene.launch('DialogueScene', {
                 lines: sign.signText.split('\n\n').map(t => ({ speaker: null, text: t }))

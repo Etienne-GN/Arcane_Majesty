@@ -106,6 +106,13 @@ hidden in later, more dangerous locations per that document's own rule.
   and the rest of Act II.
 - **Trader (inn)** — unnamed in the Bible; shares the Legion rumor.
 
+## Built (2026-10-17)
+Both maps are real now: `apps/amo/tools/maps/gen_thaloria.py` and `gen_east_road.py`
+generate `thaloria.js` / `east_road.js`. Quests `main_odysseys_dawn`,
+`side_traders_rumor`, `side_scholars_saddlebags`; creatures `blight_ent`,
+`root_wraith`, `corrupted_sentinel`; NPCs Oren, the Innkeeper, the Trader and
+the Merchant (unnamed roles). Plan: `docs/superpowers/plans/2026-10-17-chapter3-odysseys-dawn.md`.
+
 ## DB Sync Log (G-items)
 | # | Gap | Status |
 |---|---|---|

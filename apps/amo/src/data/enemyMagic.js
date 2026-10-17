@@ -35,6 +35,9 @@ export const ENEMY_KITS = {
     mushroom_shaman: ['mend', 'dark_empower'],
     arcane_sentinel: ['mana_ward', 'arcane_bolt'],
     runic_turret:    ['arcane_bolt'],
+    root_wraith:     ['thorn_bolt'],          // entangles (bestiary.md)
+    blight_ent:      ['hex_silence'],         // its spores dampen mana
+    corrupted_sentinel: ['void_bolt'],
     mirror_shade:    ['unweave', 'hex_silence'],
     grave_wraith:    ['hex_curse'],
     soul_eater:      ['dark_empower'],

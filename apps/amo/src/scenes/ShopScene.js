@@ -26,6 +26,7 @@ export default class ShopScene extends Phaser.Scene {
 
     init(data) {
         this._currencyBias = data?.currencyBias ?? 'neutral';
+        this._shopName     = data?.shopName ?? "SILVARA'S TRADING POST";
     }
 
     // Arcane goods for glint, mundane goods for gold; a few are rank-gated (recipe scrolls).
@@ -46,7 +47,7 @@ export default class ShopScene extends Phaser.Scene {
         this.add.rectangle(0, 0, w, h, 0x04030e, 0.97).setOrigin(0);
 
         this.add.rectangle(0, 0, w, 44, 0x110826, 1).setOrigin(0);
-        this.add.text(12, 8, "SILVARA'S TRADING POST", {
+        this.add.text(12, 8, this._shopName, {
             font: 'bold 20px monospace', fill: '#ffd700', stroke: '#000', strokeThickness: 2
         });
 

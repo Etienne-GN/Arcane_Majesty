@@ -83,9 +83,9 @@ export const SUMMIT_OF_DESPAIR = {
             id: 'to_east_road',
             x: 8, y: 19,
             label: 'Back down to the East Road',
-            targetMap: 'east_road', // NOT YET BUILT — wire for real once it exists
-            targetX: STUB_ENTRY_X,
-            targetY: STUB_ENTRY_Y,
+            targetMap: 'east_road',
+            targetX: 49 * 32 + 16,   // the East Road's east end, below the climb
+            targetY: 10 * 32 + 16,
         },
         {
             id: 'to_sylvan_sanctuary',

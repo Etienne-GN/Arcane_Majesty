@@ -120,7 +120,9 @@ for (const mapId of registeredMapIds) {
     const talkTargets = new Set();
     for (const mapId of registeredMapIds) {
         for (const npc of getMap(mapId).spawns?.npcs ?? []) {
-            if (npc.dialogue) talkTargets.add(npc.dialogue.replace(/_greeting$|_prolog$/, ''));
+            // Same rule as GameScene: an NPC's quest id is its `id`, else derived from its dialogue key
+            if (npc.id) talkTargets.add(npc.id);
+            else if (npc.dialogue) talkTargets.add(npc.dialogue.replace(/_greeting$|_prolog$/, ''));
         }
     }
 

@@ -39,6 +39,14 @@ const MEMORY_FRAGMENTS = {
         title: 'Hermit Correspondence',
         text:  "Scrawled on bark — 'The Hermit took the shards without a word and placed them one by one into the campfire. They did not burn. They sang — a low resonance that lasted long after he left the clearing.'"
     },
+    main_odysseys_dawn: {
+        title: 'The Second Journal',
+        text:  "Eldrin's hand, the fourth day — 'Magic is expensive. It costs what it costs, and then it costs more, because it calls to everything that feeds on cost. I will use it as a man uses money on a long road: sparingly, in the dark, and never twice in the same place.'"
+    },
+    side_traders_rumor: {
+        title: 'The Anchor',
+        text:  "A trader's rumor — 'Strangers ask about \"the Anchor\", quietly, one question per village, moving in a line eastward.' Someone else is hunting the same prize."
+    },
     side_hunters_larder: {
         title: "Cook's Wisdom",
         text:  "Margin note in a worn recipe book — 'A hunter who does not eat is a hunter who is already dead. The fire asks nothing of you — only that you bring it something worth cooking.'"
@@ -184,10 +192,12 @@ class QuestManager {
         this.recheck();
     }
 
-    onReadSign() {
+    // signId: the sign's `id` on the map; a step targets one sign, or 'any' (or nothing) for any sign.
+    onReadSign(signId = null) {
         for (const [qId, quest] of this._active()) {
             for (const step of questSteps(quest)) {
-                if (step.type === 'read_signs') this.advanceStep(qId, step.id);
+                if (step.type !== 'read_signs') continue;
+                if (!step.target || step.target === 'any' || step.target === signId) this.advanceStep(qId, step.id);
             }
         }
     }

@@ -239,6 +239,48 @@ export const QUESTS = {
         reward: { glint: 0, xp: 100, items: ['aether_shard', 'aether_shard'] },
     },
 
+    // ── Eldoria's Prophecy: Chapter 3 — Odyssey's Dawn (Thaloria, East Road) ─
+    // Sources: campaign bible Song 3, the map spec thaloria_and_east_road.md,
+    // the book (ch04–ch05) and the DB (Oren; event "The Race for the Anchor").
+    main_odysseys_dawn: {
+        id: 'main_odysseys_dawn',
+        title: "Odyssey's Dawn",
+        type: 'main',
+        description: 'The tower is sealed behind you. Leave Thaloria by the East Gate and follow the Compass east along the winter road.',
+        steps: [
+            { id: 'first_combat', type: 'kill',   target: 'void_stalker',   label: 'Survive the void-stalkers on the road (0/3)', required: 3 },
+            { id: 'first_node',   type: 'attune', target: 'gate_east_road', label: 'Attune to the Rift-Gate node on the East Road', required: 1 },
+            { id: 'meet_oren',    type: 'talk',   target: 'oren',           label: "Meet the traveler at the shepherd's lean-to", required: 1 },
+        ],
+        reward: { glint: 60, xp: 250, items: ['iron_spell_blade'] },
+    },
+
+    side_traders_rumor: {
+        id: 'side_traders_rumor',
+        title: "Trader's Rumor",
+        type: 'side',
+        giver: 'thaloria_trader',
+        offer: 'He stopped at the old waystone past the birches — I saw him writing on it. Go and look, if you walk that way. Then tell me I imagined it.',
+        description: 'A stranger on the East Road asked the Trader one polite question: had he heard of "the Anchor"? Find the waystone where the stranger stopped.',
+        steps: [
+            { id: 'read_waystone', type: 'read_signs', target: 'waystone_anchor', label: 'Read the waystone on the East Road', required: 1 },
+        ],
+        reward: { xp: 100, gold: 30 },
+    },
+
+    side_scholars_saddlebags: {
+        id: 'side_scholars_saddlebags',
+        title: "The Scholar's Saddlebags",
+        type: 'side',
+        giver: 'innkeeper',
+        offer: 'Your saddlebag came back split along the seam — the porter swears half of it went over the side of his cart on the East Road. Pages, mostly. Yours, I think.',
+        description: 'Your saddlebag split on the East Road and your field notes scattered. Gather three pages and bring them back to the Innkeeper, who kept the rest.',
+        steps: [
+            { id: 'pages', type: 'have', target: 'scattered_journal_page', label: 'Recover your journal pages', required: 3, consume: true },
+        ],
+        reward: { xp: 120, gold: 45, items: ['health_potion', 'mana_potion'] },
+    },
+
     main_read_the_erasure: {
         id: 'main_read_the_erasure',
         title: 'Read the Erasure',
@@ -265,17 +307,6 @@ export const QUESTS = {
         description: 'SCAFFOLDING — Song 2 is not built yet. Speak with the placeholder to complete this chapter.',
         steps: [
             { id: 'talk_stub', type: 'talk', target: 'stub_ch02_dreamweavers_call', label: 'Speak with the placeholder', required: 1 },
-        ],
-        reward: { glint: 0, xp: 10, items: [] },
-    },
-
-    stub_ch03_odysseys_dawn: {
-        id: 'stub_ch03_odysseys_dawn',
-        title: "Odyssey's Dawn (placeholder)",
-        type: 'main',
-        description: 'SCAFFOLDING — Song 3 is not built yet. Speak with the placeholder to complete this chapter.',
-        steps: [
-            { id: 'talk_stub', type: 'talk', target: 'stub_ch03_odysseys_dawn', label: 'Speak with the placeholder', required: 1 },
         ],
         reward: { glint: 0, xp: 10, items: [] },
     },

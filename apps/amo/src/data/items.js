@@ -1459,6 +1459,12 @@ export const ITEMS = {
         color: 0x88ee88, icon: 'itm_hp_potion', stackable: true, buyPrice: 0, sellPrice: 18,
         onUse: (stats) => { stats.health = Math.min(stats.health + 50, stats.maxHealth); return true; }
     },
+    // Chapter 3 — The Scholar's Saddlebags (quest item)
+    scattered_journal_page: {
+        id: 'scattered_journal_page', name: 'Scattered Journal Page',
+        description: 'A page of your own field notes, frost-stiff, torn loose when your saddlebag split on the East Road.',
+        color: 0xe8dcc0, icon: 'itm_scroll', stackable: true, buyPrice: 0, sellPrice: 0,
+    },
     warming_draught: {
         id: 'warming_draught', name: 'Warming Draught',
         description: 'Emberroot steeped hot. Drives out Cold and Frozen, applies Regenerating for 10s and Warming for 90s (no chill from snow).',

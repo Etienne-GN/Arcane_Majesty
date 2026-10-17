@@ -7,6 +7,21 @@ import { affinityOf } from './enemyAffinities.js';
 import { scaleEnemyStats } from './levelBands.js';
 
 export const BESTIARY_LORE = {
+    blight_ent: {
+        name: 'Blight-Ent',
+        threat: 'MEDIUM',
+        desc: 'An ancient tree fused with Nythorian rot. Slow and heavy-handed; when struck it sheds spores that dampen the mana of anyone breathing them.',
+    },
+    root_wraith: {
+        name: 'Root-Wraith',
+        threat: 'LOW',
+        desc: 'A small, fast knot of living vine. It lashes out to entangle, and holds a scholar still long enough for worse things to arrive.',
+    },
+    corrupted_sentinel: {
+        name: 'Corrupted Sentinel',
+        threat: 'HIGH',
+        desc: 'A guardian statue off the East Road, its old wards gone sour with shadow. It does not leave its post, and does not forgive trespass.',
+    },
     wisp: {
         name: 'Forest Wisp',
         threat: 'LOW',

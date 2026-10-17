@@ -2,7 +2,7 @@
 
 _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-17. Regenerate after changing the data; don't hand-edit._
 
-**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 25 status effects · 197 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 112 enemy/creature types + 1 boss · 27 quests · 12 campaign chapters · 24 maps · 5 playable characters · 25 dialogues
+**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 25 status effects · 198 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 24 maps · 5 playable characters · 33 dialogues
 
 ## Contents
 1. [Systems & controls](#systems--controls)
@@ -460,7 +460,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
 |---|---|---|---|---|---|---|
 | Longsword | 1 | common | +3 STR +1 INT | 90 / 30 | A well-balanced longsword. Hits cost 2 MP, deal +35% arcane. +3 STR, +1 INT. | crafting |
-| Iron Spell-Blade | 1 | common | +2 STR +1 INT | 70 / 24 | Iron blade with a mana crystal at the hilt. Hits cost 2 MP, deal +35% arcane. +2 STR, +1 INT. | shop |
+| Iron Spell-Blade | 1 | common | +2 STR +1 INT | 70 / 24 | Iron blade with a mana crystal at the hilt. Hits cost 2 MP, deal +35% arcane. +2 STR, +1 INT. | shop, quest: Odyssey's Dawn |
 | Etched Shortsword | 1 | common | +1 STR +2 INT | 60 / 20 | Simple blade etched with arcane runes. Hits cost 2 MP, deal +35% arcane. +1 STR, +2 INT. | shop |
 | Tusk Blade | 2 | uncommon | +3 STR | 0 / 40 | A dagger ground from boar ivory and iron. Brutal at close range. +3 STR. | crafting |
 | Katana | 2 | uncommon | +4 STR +2 INT | 160 / 55 | A razor-sharp katana. Swift strikes cost 2 MP, deal +40% arcane. +4 STR, +2 INT. | crafting |
@@ -535,13 +535,13 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Bone Ring | accessory | 1 | +1 STR +1 AGI | Carved from tusk and bone. Crude but effective. +1 STR, +1 AGI. | crafting |
 | Void Pendant | accessory | 3 | +3 INT | Crystallised corruption shaped into a focus. +3 INT. Deepens shadow resonance. | crafting |
 | Iron Ring | accessory | 1 | +1 STR | A plain iron ring. +1 STR. | shop |
-| Resonance Amulet | accessory | 2 | +2 INT +1 AGI | Hums faintly with Aether. +2 INT, +1 AGI. | crafting |
+| Resonance Amulet | accessory | 2 | +2 INT +1 AGI | Hums faintly with Aether. +2 INT, +1 AGI. | corrupted_sentinel 100%, crafting |
 | Silver Ring | accessory | 2 | +2 INT +1 AGI | A plain band of worked silver. +2 INT, +1 AGI. | crafting |
 | Ember Amulet | accessory | 2 | +2 STR +1 INT | An ember stone set in silver, always warm against the chest. +2 STR, +1 INT. | crafting |
 | Heartwood Bracer | accessory | 3 | +2 STR +2 AGI | A bracer of resin-hardened heartwood. +2 STR, +2 AGI. | crafting |
 | Pearl Pendant | accessory | 3 | +3 INT +1 STA | Two river pearls on a silver chain. Water mages swear by it. +3 INT, +1 STA. | crafting |
 
-### Other consumables, tools & key items (19)
+### Other consumables, tools & key items (20)
 | Item | Description | Buy / sell | Source |
 |---|---|---|---|
 | Eldritch Tome | Forbidden knowledge. Grants 150 XP, 1 skill point, and deep arcane resonance. | 150 / 50 | void_stalker 15%, chest |
@@ -551,6 +551,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Void-Fold Relic | Folds micro-rifts into your pouch. Upgrades Satchel to Tier IV (60 slots). | 600 / 200 | — |
 | Legion Lore Fragment | A page from the frozen scout's journal, describing the Legion's movements before the cold took them. Grants 60 XP. | 0 / 15 | quest: The Frozen Camp |
 | Soul-Gem of Still Waters | A relic gem recovered from the Widow's Overlook shrine. Permanently increases Max Mana by 15. | 0 / 60 | quest: The Widow's Watch |
+| Scattered Journal Page | A page of your own field notes, frost-stiff, torn loose when your saddlebag split on the East Road. | 0 / 0 | — |
 | Recipe: Grand Feast | Teaches the recipe for Grand Feast. Read it to learn it for good. | 0 / 25 | quest: The Hunter's Larder |
 | Recipe: Hearty Stew | Teaches the recipe for Hearty Stew. Read it to learn it for good. | 0 / 25 | shop |
 | Recipe: Angler's Platter | Teaches the recipe for Angler's Platter. Read it to learn it for good. | 0 / 25 | shop |
@@ -571,7 +572,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Venison | 15 recipes | deer 85%, deer_doe 80%, dark_deer 85%, dark_deer_doe 80%, lion 50%, lioness 45% (+4 more) |
 | Rabbit Meat | 8 recipes | rabbit 90%, chicken 90%, arctic_fox 50% |
 | Mushroom Spore | 11 recipes | mushroom_shaman 60%, mushroom_walker 70%, amanita_walker 80%, blight_moth 30%, gathering: Mushroom Ring |
-| Forest Herb | 19 recipes | wolf 35%, scout 25%, treant 40%, vine_horror 50%, forest_fox 30%, mushroom_walker 30% (+5 more) |
+| Forest Herb | 19 recipes | wolf 35%, scout 25%, treant 40%, blight_ent 40%, root_wraith 35%, vine_horror 50% (+7 more) |
 | Ember Stone | 8 recipes | ember_imp 50%, lava_elemental 70%, ash_crawler 40%, forge_daemon 60%, cinder_hawk 30%, fire_lizard 25% (+2 more) |
 | Bone Fragment | 5 recipes | skeleton_archer 60%, grizzly_bear 40%, giant_rat 50%, polar_bear 45%, shark 60% |
 | Void Shard | 11 recipes | rift_walker 40%, soul_eater 40%, carrion_crow 30%, hollow_cat 35%, plague_heron 35%, rot_frog 30% (+11 more) |
@@ -601,11 +602,11 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Ancient Scroll | 1 recipes | shadow_sprite 15%, dark_druid 20%, cursed_knight 10%, runic_turret 15%, forge_daemon 10%, wendigo 10% (+6 more) |
 | Wolf Pelt | 3 recipes | grizzly_bear 50%, black_bear 40%, lion 60%, lioness 50%, polar_bear 65%, arctic_fox 40% (+1 more) |
 | Deer Hide | 6 recipes | deer 50%, deer_doe 45%, dark_deer 55%, dark_deer_doe 45%, cow 50%, llama 70% (+5 more) |
-| Mineral Ore | 8 recipes | stone_golem 50%, runic_turret 40%, crystal_golem 60%, crag_fiend 40%, gathering: Ore Seam |
+| Mineral Ore | 8 recipes | corrupted_sentinel 60%, stone_golem 50%, runic_turret 40%, crystal_golem 60%, crag_fiend 40%, gathering: Ore Seam |
 | Wood | 5 recipes | gathering: Deadwood |
 | Silver Ore | 12 recipes | gathering: Ore Seam |
 | Tree Resin | 3 recipes | gathering: Deadwood |
-| Heartwood | 8 recipes | gathering: Deadwood |
+| Heartwood | 8 recipes | blight_ent 25%, gathering: Deadwood |
 | Aether-Shard | 7 recipes | gathering: Crystal Outcrop, quest: Echoes in the Rime |
 | Reed Fibre | 8 recipes | gathering: Shallows, gathering: Reed Bed |
 
@@ -666,10 +667,10 @@ Walk up to a node and press **E**. Some need a tool in the satchel. Each harvest
 ### Yield pools
 | Pool | Gives | Placed on |
 |---|---|---|
-| deadwood | Wood 1–2 (100%), Tree Resin 1 (bonus 20%), Heartwood 1 (bonus 8%) | Prologue Forest ×3, Northern Dense Forest ×1, The Grand Tour (Test) ×4 |
-| ore_seam | Mineral Ore 1–2 (100%), Silver Ore 1 (bonus 25%) | Prologue Forest ×3, The Grand Tour (Test) ×7 |
-| forest_herbs | Forest Herb 1–2 (67%), Silverleaf 1 (25%), Moonpetal 1 (8%) | Prologue Forest ×4, Northern Dense Forest ×1, The Grand Tour (Test) ×6 |
-| meadow_herbs | Silverleaf 1–2 (45%), Forest Herb 1–2 (36%), Moonpetal 1 (18%) | Prologue Forest ×1, Northern Dense Forest ×1, The Grand Tour (Test) ×2 |
+| deadwood | Wood 1–2 (100%), Tree Resin 1 (bonus 20%), Heartwood 1 (bonus 8%) | Prologue Forest ×3, Northern Dense Forest ×1, East Road ×3, The Grand Tour (Test) ×4 |
+| ore_seam | Mineral Ore 1–2 (100%), Silver Ore 1 (bonus 25%) | Prologue Forest ×3, East Road ×2, The Grand Tour (Test) ×7 |
+| forest_herbs | Forest Herb 1–2 (67%), Silverleaf 1 (25%), Moonpetal 1 (8%) | Prologue Forest ×4, Northern Dense Forest ×1, East Road ×1, The Grand Tour (Test) ×6 |
+| meadow_herbs | Silverleaf 1–2 (45%), Forest Herb 1–2 (36%), Moonpetal 1 (18%) | Prologue Forest ×1, Northern Dense Forest ×1, East Road ×1, The Grand Tour (Test) ×2 |
 | mountain_herbs | Frostmoss 1–2 (64%), Forest Herb 1 (27%), Silverleaf 1 (9%) | Summit of Despair ×2, The Grand Tour (Test) ×4 |
 | desert_herbs | Emberroot 1–2 (78%), Forest Herb 1 (22%) | The Grand Tour (Test) ×4 |
 | forest_mushrooms | Mushroom Spore 1–2 (55%), Bitter Bolete 1 (36%), Glowcap 1 (9%) | Prologue Forest ×3, Northern Dense Forest ×2, The Grand Tour (Test) ×5 |
@@ -687,7 +688,7 @@ Walk up to a node and press **E**. Some need a tool in the satchel. Each harvest
 Prologue world objects: 3 campfires, 3 chests, 3 rift-gates, 3 readable signs, 3 pillar gates, 3 cracked boulders, 1 NPC (Silvara).
 
 ## Enemies & creatures
-### Hostile (77)
+### Hostile (80)
 | Creature | Family | HP | Damage | Speed | XP | Loot |
 |---|---|---|---|---|---|---|
 | wisp | — | 18 | 5 | 85 | 15 | Mana Potion 30% |
@@ -700,6 +701,9 @@ Prologue world objects: 3 campfires, 3 chests, 3 rift-gates, 3 readable signs, 3
 | dark druid | — | 38 | 14 | 48 | 32 | Ancient Scroll 20%, Mana Potion 35% |
 | feral boar | — | 30 | 16 | 115 | 24 | Boar Meat 70%, Boar Tusk 25% |
 | skeleton archer | Undead | 30 | 10 | 45 | 28 | Bone Fragment 60%, Health Potion 20% |
+| blight ent | Plant / fungus | 80 | 18 | 26 | 46 | Heartwood 25%, Forest Herb 40% |
+| root wraith | Plant / fungus | 22 | 7 | 105 | 20 | Forest Herb 35% |
+| corrupted sentinel | Construct | 240 | 17 | 22 | 140 | Resonance Amulet 100%, Mineral Ore 60% |
 | stone golem | Construct | 120 | 22 | 28 | 55 | Mineral Ore 50%, Health Potion 30% |
 | grave wraith | Undead | 35 | 18 | 90 | 38 | Spectral Dust 50%, Mana Potion 30% |
 | cursed knight | Undead | 80 | 20 | 50 | 48 | Health Potion 40%, Spectral Dust 30%, Ancient Scroll 10% |
@@ -816,8 +820,8 @@ Spell damage of an element is multiplied by the creature's affinity; immune stat
 | Frost-born | ice ×0.25, fire ×1.5 | cold, frozen | frost bear, ice revenant, blizzard sprite, wendigo, glacier crab, frost shade, polar bear |
 | Void-touched | shadow ×0.5, arcane ×1.4 | — | void stalker, void spawn, void crawler, void fox, shadow sprite, soul eater, rift walker, mirror shade, void general |
 | Undead | fire ×1.3, arcane ×1.3 | poison | skeleton archer, grave wraith, cursed knight |
-| Plant / fungus | fire ×1.5, earth ×0.5, nature ×0.5 | — | treant, vine horror, mushroom shaman, mushroom walker, amanita walker |
-| Construct | lightning ×1.3 | poison | stone golem, crystal golem, runic turret, arcane sentinel |
+| Plant / fungus | fire ×1.5, earth ×0.5, nature ×0.5 | — | treant, blight ent, root wraith, vine horror, mushroom shaman, mushroom walker, amanita walker |
+| Construct | lightning ×1.3 | poison | stone golem, corrupted sentinel, crystal golem, runic turret, arcane sentinel |
 | Aquatic | water ×0.5, lightning ×1.4 | — | shark, bog lurker, giant frog, rot frog, rot toad |
 
 ### Elites
@@ -834,10 +838,10 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 | Mend | heals the most hurt ally 20% + Mending | 1.4s | 8s | 140 | dark druid, mushroom shaman |
 | Arcane Bolt | 10 damage | 0.9s | 3.5s | 170 | arcane sentinel, runic turret |
 | Frost Bolt | 9 damage + Cold (60%) | 1s | 4s | 160 | ice revenant, blizzard sprite, frost shade |
-| Void Bolt | 12 damage + Cursed (30%) | 1.1s | 4.5s | 170 | rift walker, deep horror |
-| Thorn Lash | 8 damage + Entangled (35%) | 0.9s | 4s | 150 | dark druid |
+| Void Bolt | 12 damage + Cursed (30%) | 1.1s | 4.5s | 170 | corrupted sentinel, rift walker, deep horror |
+| Thorn Lash | 8 damage + Entangled (35%) | 0.9s | 4s | 150 | dark druid, root wraith |
 | Hex of Weakness | Cursed on you | 1.3s | 12s | 150 | grave wraith |
-| Hex of Silence | Silenced on you | 1.1s | 14s | 150 | mirror shade |
+| Hex of Silence | Silenced on you | 1.1s | 14s | 150 | blight ent, mirror shade |
 | Unweave | strips your magical buffs | 1.2s | 15s | 150 | mirror shade |
 
 ## Boss
@@ -862,9 +866,11 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 | The Frozen Camp | side | — | — | Read the scout's journal | 60 XP, 40 Glint, Legion Lore Fragment |
 | The Widow's Watch | side | — | — | Gather Wood (0/1) → Gather Mineral Ore (0/1) | 80 XP, Soul-Gem of Still Waters |
 | Echoes in the Rime | side | — | — | Clear the Frost-Shades (0/2) | 100 XP, Aether-Shard, Aether-Shard |
+| Odyssey's Dawn | main | — | — | Survive the void-stalkers on the road (0/3) → Attune to the Rift-Gate node on the East Road → Meet the traveler at the shepherd's lean-to | 250 XP, 60 Glint, Iron Spell-Blade |
+| Trader's Rumor | side | the Trader | — | Read the waystone on the East Road → Return to the Trader | 100 XP, 30 Gold |
+| The Scholar's Saddlebags | side | the Innkeeper | — | Recover your journal pages → Return to the Innkeeper | 120 XP, 45 Gold, Health Potion, Mana Potion |
 | Read the Erasure | main | — | — | Examine the Strata Wall | 30 XP |
 | Dreamweaver's Call (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
-| Odyssey's Dawn (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
 | Sylvan Sanctuary (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
 | Treachery's Bite (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
 | The Solitary Path (placeholder) | main | — | — | Speak with the placeholder | 10 XP |
@@ -881,7 +887,7 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 |---|---|---|---|---|
 | 1 | Echoes of Stone | eldrin_tower, echoes_of_stone | Read the Erasure | — |
 | 2 | Dreamweaver's Call | aetheric_vision | Dreamweaver's Call (placeholder) | — |
-| 3 | Odyssey's Dawn | thaloria, east_road | Odyssey's Dawn (placeholder) | — |
+| 3 | Odyssey's Dawn | thaloria, east_road | Odyssey's Dawn | — |
 | 4 | Summit of Despair | summit_of_despair | Whisperer of Doubt | — |
 | 5 | Sylvan Sanctuary | sylvan_sanctuary | Sylvan Sanctuary (placeholder) | ability aetheric_sight |
 | 6 | Treachery's Bite | fire_gate | Treachery's Bite (placeholder) | — |
@@ -904,8 +910,8 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 | summit_of_despair | Summit of Despair | 18×20 | game map | snow |
 | echoes_of_stone | Echoes of Stones | 12×12 | game map | indoor |
 | aetheric_vision | Aetheric Vision | 14×10 | chapter placeholder | indoor |
-| thaloria | Thaloria | 14×10 | chapter placeholder | temperate |
-| east_road | East Road | 14×10 | chapter placeholder | temperate |
+| thaloria | Thaloria | 32×26 | game map | temperate |
+| east_road | East Road | 52×34 | game map | temperate |
 | sylvan_sanctuary | Sylvan Sanctuary | 14×10 | chapter placeholder | forest |
 | fire_gate | Fire Gate | 14×10 | chapter placeholder | arid |
 | the_descent | The Descent | 14×10 | chapter placeholder | indoor |
@@ -934,4 +940,4 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 | Eldoria's Prophecy | Vorgos activates Eldrin Nightshade to secure the Heart Stone of Creation — a contingency for a wound the world has not yet suffered. |
 
 ## Dialogues
-`hermit_intro`, `hermit_after`, `hermit_quest_done`, `hermit_hut_greeting`, `hermit_hut_after`, `hermit_remedy_accepted`, `merchant_greeting`, `merchant_after`, `silvara_lore`, `eldrin_premonition`, `eldrin_second_vision`, `boss_encounter`, `boss_defeated`, `ancient_scroll_read`, `eldritch_tome_read`, `stub_ch02_dreamweavers_call_greeting`, `stub_ch03_odysseys_dawn_greeting`, `stub_ch05_sylvan_sanctuary_greeting`, `stub_ch06_treacherys_bite_greeting`, `stub_ch07_the_solitary_path_greeting`, `stub_ch08_infernos_trial_greeting`, `stub_ch09_eldorias_heartbeat_greeting`, `stub_ch10_heart_of_war_greeting`, `stub_ch11_the_weight_of_eternity_greeting`, `stub_ch12_dawns_embrace_greeting`
+`hermit_intro`, `hermit_after`, `hermit_quest_done`, `hermit_hut_greeting`, `hermit_hut_after`, `hermit_remedy_accepted`, `innkeeper_greeting`, `innkeeper_after`, `trader_greeting`, `trader_after`, `thaloria_merchant_greeting`, `oren_meeting`, `oren_joined`, `oren_declined`, `oren_after`, `merchant_greeting`, `merchant_after`, `silvara_lore`, `eldrin_premonition`, `eldrin_second_vision`, `boss_encounter`, `boss_defeated`, `ancient_scroll_read`, `eldritch_tome_read`, `stub_ch02_dreamweavers_call_greeting`, `stub_ch05_sylvan_sanctuary_greeting`, `stub_ch06_treacherys_bite_greeting`, `stub_ch07_the_solitary_path_greeting`, `stub_ch08_infernos_trial_greeting`, `stub_ch09_eldorias_heartbeat_greeting`, `stub_ch10_heart_of_war_greeting`, `stub_ch11_the_weight_of_eternity_greeting`, `stub_ch12_dawns_embrace_greeting`

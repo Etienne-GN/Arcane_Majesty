@@ -44,7 +44,7 @@ export const ELDORIAS_PROPHECY = {
             id: 'ch03_odysseys_dawn', song: 3, act: 1,
             title: "Odyssey's Dawn",
             maps: ['thaloria', 'east_road'],
-            quests: ['stub_ch03_odysseys_dawn'],
+            quests: ['main_odysseys_dawn'],
             // Bible names "Spell-Blade + Rift-Gate tease" — same reasoning
             // as chapter 2; nothing safe to map it to yet.
             unlocks: [],

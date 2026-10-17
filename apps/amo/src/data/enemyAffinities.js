@@ -20,8 +20,8 @@ export const ENEMY_FAMILY = {
     void_stalker: 'void', void_spawn: 'void', void_crawler: 'void', void_fox: 'void',
     shadow_sprite: 'void', soul_eater: 'void', rift_walker: 'void', mirror_shade: 'void', void_general: 'void',
     skeleton_archer: 'undead', grave_wraith: 'undead', cursed_knight: 'undead',
-    treant: 'plant', vine_horror: 'plant', mushroom_shaman: 'plant', mushroom_walker: 'plant', amanita_walker: 'plant',
-    stone_golem: 'construct', crystal_golem: 'construct', runic_turret: 'construct', arcane_sentinel: 'construct',
+    treant: 'plant', blight_ent: 'plant', root_wraith: 'plant', vine_horror: 'plant', mushroom_shaman: 'plant', mushroom_walker: 'plant', amanita_walker: 'plant',
+    stone_golem: 'construct', corrupted_sentinel: 'construct', crystal_golem: 'construct', runic_turret: 'construct', arcane_sentinel: 'construct',
     shark: 'aquatic', bog_lurker: 'aquatic', giant_frog: 'aquatic', rot_frog: 'aquatic', rot_toad: 'aquatic',
 };
 
