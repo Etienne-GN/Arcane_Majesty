@@ -7,6 +7,8 @@ import { STATUS_DEFS } from '../data/statuses.js';
 import { isMobile } from '../utils/platform.js';
 import LauncherControls from '../controls/LauncherControls.js';
 import { HOTBAR_SIZE, hotbarView } from '../systems/hotbar.js';
+import { clockLabel } from '../systems/gameClock.js';
+import { WEATHER } from '../data/weather.js';
 
 export default class UIScene extends Phaser.Scene {
     constructor() { super('UIScene'); }
@@ -107,6 +109,13 @@ export default class UIScene extends Phaser.Scene {
             font: '16px monospace', fill: '#cc99ff'
         }).setOrigin(1, 0);
 
+        // Clock and weather (systems/gameClock.js, data/weather.js), under the counters
+        this.worldText = this.add.text(w - pad, this._mmH + pad + 62, '', {
+            font: '14px monospace', fill: '#aabbdd', stroke: '#000', strokeThickness: 3,
+        }).setOrigin(1, 0);
+        this._wxShown = undefined;
+        this._wxObjs  = [];
+
         // Notification text center-top
         this.notifText = this.add.text(w / 2, 72, '', {
             font: 'bold 20px monospace', fill: '#ffd700',
@@ -204,6 +213,56 @@ export default class UIScene extends Phaser.Scene {
         this._controls.update();
         this._updateMinimap();
         this._updateHotbar();
+        this._updateWorld();
+    }
+
+    // HUD clock + weather word, and the screen-space weather overlay (behind the HUD).
+    _updateWorld() {
+        const game = this.scene.get('GameScene');
+        const wx = game?._weatherId ?? null;
+        const word = wx && wx !== 'clear' ? ` · ${WEATHER[wx]}` : '';
+        this.worldText.setText(`${clockLabel(this.stats.gameMinutes ?? 480)}${word}`);
+        if (wx !== this._wxShown) this._buildWeather(wx);
+    }
+
+    _buildWeather(id) {
+        this._wxShown = id;
+        this._wxObjs.forEach(o => o.destroy());
+        this._wxObjs = [];
+        if (!id || id === 'clear') return;
+        const w = this.scale.width, h = this.scale.height;
+        const tex = (key, draw) => {
+            if (this.textures.exists(key)) return;
+            const g = this.make.graphics({ x: 0, y: 0 }, false);
+            draw(g);
+            g.destroy();
+        };
+        tex('wx_rain', g => { g.fillStyle(0xaaccff, 1).fillRect(0, 0, 2, 12); g.generateTexture('wx_rain', 2, 12); });
+        tex('wx_snow', g => { g.fillStyle(0xffffff, 1).fillCircle(2, 2, 2); g.generateTexture('wx_snow', 4, 4); });
+        tex('wx_sand', g => { g.fillStyle(0xd8b878, 1).fillRect(0, 0, 4, 2); g.generateTexture('wx_sand', 4, 2); });
+        const add = o => { this._wxObjs.push(o.setDepth(-1)); return o; };
+        const tint = { rain: [0x223355, 0.18], storm: [0x111833, 0.32], snow: [0xddeeff, 0.10], sandstorm: [0xc2a060, 0.30] }[id];
+        if (tint) add(this.add.rectangle(0, 0, w, h, tint[0], tint[1]).setOrigin(0));
+        if (id === 'rain' || id === 'storm') {
+            add(this.add.particles(0, 0, 'wx_rain', {
+                // Spawned across the whole screen so a change of weather fills it at once
+                x: { min: -100, max: w + 100 }, y: { min: -20, max: h }, speedY: { min: 520, max: 680 }, speedX: { min: -90, max: -60 },
+                lifespan: { min: 400, max: 1200 }, alpha: { min: 0.35, max: 0.6 },
+                quantity: id === 'storm' ? 6 : 3, frequency: 20,
+            }));
+        } else if (id === 'snow') {
+            add(this.add.particles(0, 0, 'wx_snow', {
+                x: { min: -40, max: w + 40 }, y: { min: -10, max: h }, speedY: { min: 40, max: 90 }, speedX: { min: -25, max: 25 },
+                lifespan: { min: 3000, max: 7000 }, alpha: { min: 0.5, max: 0.9 }, scale: { min: 0.6, max: 1.4 },
+                quantity: 2, frequency: 30,
+            }));
+        } else if (id === 'sandstorm') {
+            add(this.add.particles(0, 0, 'wx_sand', {
+                x: { min: -20, max: w }, y: { min: 0, max: h }, speedX: { min: 320, max: 480 }, speedY: { min: -30, max: 30 },
+                lifespan: { min: 800, max: 2500 }, alpha: { min: 0.3, max: 0.7 },
+                quantity: 6, frequency: 25,
+            }));
+        }
     }
 
     // Consumable hotbar (systems/hotbar.js): bottom centre on desktop, a row

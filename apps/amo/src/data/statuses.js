@@ -60,6 +60,10 @@ export const STATUS_DEFS = {
         id: 'swift', label: 'Swift', duration: 20000, tint: 0xaaffdd,
         speedMult: 1.25, magical: true, buff: true,
     },
+    // Keeps the snow's cold off (data/weather.js) — from Warmth Aura and the Warming Draught.
+    warming: {
+        id: 'warming', label: 'Warming', duration: 60000, tint: 0xffaa66, buff: true,
+    },
     regen: {
         id: 'regen', label: 'Regen', duration: 15000, tint: 0x44ff88,
         regenAmt: 3, regenInterval: 1000, magical: true, buff: true,

@@ -204,7 +204,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
             if (dist <= this.attackRange) this._doAttack(player);
         } else {
             const scentMult      = 1 + (playerStats.manaScent / 100) * 2;
-            const effectiveSight = this.sightRange * scentMult;
+            const effectiveSight = this.sightRange * scentMult * (this.scene._sightMult ?? 1);   // sandstorms blind
 
             if (this.keepDistance) {
                 // Ranged: back away if too close, attack from distance

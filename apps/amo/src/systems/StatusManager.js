@@ -43,6 +43,7 @@ const sm = {
             stacks,
             dotTimer:   def.dotInterval  ?? 0,
             regenTimer: def.regenInterval ?? 0,
+            quiet:      !!opts.quiet,   // weather-applied: counts, but no tint (rain would dye everything)
         };
 
         this._updateTint(entity);
@@ -184,7 +185,7 @@ const sm = {
 
     _updateTint(entity) {
         for (const id of STATUS_TINT_PRIORITY) {
-            if (this.has(entity, id) && STATUS_DEFS[id]?.tint) {
+            if (this.has(entity, id) && STATUS_DEFS[id]?.tint && !entity._statuses[id].quiet) {
                 entity.setTint?.(STATUS_DEFS[id].tint);
                 return;
             }

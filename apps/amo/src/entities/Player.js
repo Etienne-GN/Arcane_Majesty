@@ -579,6 +579,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         statusManager.remove(this, 'cold');
         statusManager.remove(this, 'frozen');
         statusManager.apply(this, 'regen', { duration: this._selfDuration('warmth_aura') });
+        statusManager.apply(this, 'warming');   // no chill from snow for a minute
         this.setTint(0xff8844);
         this.scene.time.delayedCall(220, () => { if (this.active && !this.invincible) this.clearTint(); });
         soundManager.spell();

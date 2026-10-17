@@ -17,6 +17,8 @@ import { TILE_SIZE, ENEMY_TYPES } from '../data/worldMap.js';
 import { getMap } from '../data/maps/index.js';
 import { boardIdFor, regionPools } from '../data/bounties.js';
 import { gameDay } from '../systems/gameClock.js';
+import { WEATHER, weatherAt, isWet, spellWeatherMult, sightMult, isWarm,
+         RAIN_TICK_MS, SNOW_TICK_MS, STORM, stormStrikeDamage } from '../data/weather.js';
 import { catalogueLayout } from '../utils/catalogueLayout.js';
 import { DIALOGUES } from '../data/dialogues.js';
 import { SPELLS, TIER_NAMES, RESONANCE_GAINS, scaledStatus, spellRadius, spellDamageAt } from '../data/spells.js';
@@ -203,6 +205,12 @@ export default class GameScene extends Phaser.Scene {
         (mapDef.quests ?? []).forEach(qid => questManager.startQuest(qid));
 
         this._levelBand = mapLevelBand(mapDef);
+        // Weather (data/weather.js) — re-read from the clock each frame; timers restart per map
+        this._weatherId = null;
+        this._sightMult = 1;
+        this._rainT = 0;
+        this._snowT = SNOW_TICK_MS;
+        this._strikeT = STORM.maxMs;
         this._eliteCap   = this._serverUrl ? 0 : eliteCap((mapDef.spawns.enemies ?? []).filter(s => !ENEMY_TYPES[s.type]?.passive).length);
         this._eliteCount = 0;
         // Enemies
@@ -780,6 +788,89 @@ export default class GameScene extends Phaser.Scene {
         };
         // Let the quest-complete flash play out first (a paused camera freezes it on screen).
         if (turnedIn) this.time.delayedCall(400, open); else open();
+    }
+
+    // ── Weather ───────────────────────────────────────────────────────────
+    // The sky is a pure function of the map and the game clock; this applies it.
+    // Runs from update(), so nothing ticks while the scene is paused.
+    _tickWeather(delta) {
+        const id = weatherAt(this._mapDef, playerStats.gameMinutes).id;
+        if (id !== this._weatherId) {
+            const first = this._weatherId === null;
+            this._weatherId = id;
+            this._sightMult = sightMult(id);
+            if (!first) {
+                const say = { clear: 'The sky clears.', rain: 'Rain begins to fall.', storm: 'A storm breaks overhead.',
+                              snow: 'Snow begins to fall.', sandstorm: 'A sandstorm rolls in.' }[id];
+                if (say) this.scene.get('UIScene')?.showNotification?.(say, 2200);
+            }
+        }
+        if (isWet(id)) {
+            this._rainT -= delta;
+            if (this._rainT <= 0) {
+                this._rainT = RAIN_TICK_MS;
+                // Everyone out in it gets soaked; standing in the rain feeds water, ice and nature
+                statusManager.apply(this.player, 'wet', { duration: 15000, quiet: true });
+                this._liveEnemies().forEach(e => statusManager.apply(e, 'wet', { duration: 15000, quiet: true }));
+                Object.entries(RESONANCE_GAINS.stand_in_rain).forEach(([el, amt]) => playerStats.gainResonance(el, amt));
+            }
+        }
+        if (id === 'storm') {
+            this._strikeT -= delta;
+            if (this._strikeT <= 0) {
+                this._strikeT = Phaser.Math.Between(STORM.minMs, STORM.maxMs);
+                this._stormStrike();
+            }
+        }
+        if (id === 'snow') {
+            this._snowT -= delta;
+            if (this._snowT <= 0) {
+                this._snowT = SNOW_TICK_MS;
+                const fires = [
+                    ...this.campfires.getChildren(),
+                    ...(this.stations ?? []).filter(st => st.stationDef.type === 'hearth'),
+                ];
+                if (!isWarm(this.player.x, this.player.y, fires, statusManager.has(this.player, 'warming'))) {
+                    statusManager.apply(this.player, 'cold');
+                    this.scene.get('UIScene')?.showNotification?.('The cold bites. Find a fire.', 1600);
+                }
+            }
+        }
+    }
+
+    _liveEnemies() {
+        return [...this.enemies.getChildren(), ...(this.boss?.active ? [this.boss] : [])].filter(e => e.active);
+    }
+
+    // A telegraphed lightning strike: a ring marks the spot, then it lands.
+    _stormStrike() {
+        const near = Math.random() < 0.6 ? this.player
+            : Phaser.Utils.Array.GetRandom(this._liveEnemies().filter(e => Phaser.Math.Distance.Between(e.x, e.y, this.player.x, this.player.y) < 260)) ?? this.player;
+        const x = near.x + Phaser.Math.Between(-50, 50), y = near.y + Phaser.Math.Between(-50, 50);
+        const ring = this.add.graphics().setDepth(61);
+        ring.lineStyle(2, 0xffee66, 0.9).strokeCircle(x, y, STORM.radius);
+        ring.fillStyle(0xffee66, 0.12).fillCircle(x, y, STORM.radius);
+        this.tweens.add({ targets: ring, alpha: 0.35, yoyo: true, repeat: -1, duration: 150 });
+        this.time.delayedCall(STORM.telegraphMs, () => {
+            ring.destroy();
+            if (!this.player?.active) return;
+            const bolt = this.add.graphics().setDepth(63);
+            bolt.lineStyle(3, 0xffffaa, 1);
+            bolt.beginPath();
+            bolt.moveTo(x + Phaser.Math.Between(-30, 30), y - 260);
+            for (let i = 1; i <= 5; i++) bolt.lineTo(x + Phaser.Math.Between(-14, 14) * (5 - i) / 5, y - 260 + i * 52);
+            bolt.strokePath();
+            this.tweens.add({ targets: bolt, alpha: 0, duration: 260, onComplete: () => bolt.destroy() });
+            this.cameras.main.flash(80, 255, 255, 220, true);
+            soundManager.hit?.();
+            const dmg = stormStrikeDamage(this._levelBand);
+            if (Phaser.Math.Distance.Between(x, y, this.player.x, this.player.y) <= STORM.radius) this.player.takeDamage(dmg);
+            for (const e of this._liveEnemies()) {
+                if (Phaser.Math.Distance.Between(x, y, e.x, e.y) <= STORM.radius) {
+                    e.takeDamage(Math.floor(dmg * statusManager.incomingDmgMult(e, 'lightning')));
+                }
+            }
+        });
     }
 
     // Hotbar slot i (keys 1–4, or a tap on the HUD box)
@@ -1455,7 +1546,8 @@ export default class GameScene extends Phaser.Scene {
         if (el === 'lightning') this._conductedThisCast?.add(e);
         const m   = el ? statusManager.incomingDmgMult(e, el) : 1;
         const aff = affinityMult(e.enemyType, el);   // family resistances / weaknesses
-        e.takeDamage(Math.floor(dmg * m * aff));
+        const wx  = spellWeatherMult(this._weatherId, el);   // rain dampens fire, feeds lightning
+        e.takeDamage(Math.floor(dmg * m * aff * wx));
         if (aff > 1) this.combatManager?._spawnNumber(e.x, e.y - 34, 'weak!', '#ffaa33', false);
         else if (aff < 1) this.combatManager?._spawnNumber(e.x, e.y - 34, 'resist', '#8899aa', false);
         // Conduct: lightning arcs through water (one hop, no re-entry)
@@ -2908,6 +3000,8 @@ export default class GameScene extends Phaser.Scene {
             this._locTimer = 500;
             playerStats.location = { mapId: this._mapId, x: Math.round(this.player.x), y: Math.round(this.player.y) };
         }
+
+        this._tickWeather(delta);
 
         // Hovering an enemy targets it
         this._hoverTimer = (this._hoverTimer ?? 0) - delta;

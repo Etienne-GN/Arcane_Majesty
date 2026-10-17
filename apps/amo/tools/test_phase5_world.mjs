@@ -137,4 +137,30 @@ const at = (day, h, m = 0) => day * 1440 + h * 60 + m;
     ok(W.isWarm(0, 0, [], true), 'Warming keeps you warm');
 }
 
+// ---- E2: Warming
+{
+    const { STATUS_DEFS } = await import('../src/data/statuses.js');
+    const { ITEMS } = await import('../src/data/items.js');
+    const w = STATUS_DEFS.warming;
+    ok(w && w.label === 'Warming' && w.duration === 60000 && w.buff, 'Warming is a 60 s buff');
+    const s = new PlayerStats();
+    ITEMS.warming_draught.onUse(s);
+    ok(s._statusApplyQueue.some(q => q.id === 'warming'), 'a Warming Draught warms you');
+    ok(/Warming/.test(ITEMS.warming_draught.description), 'and says so');
+}
+
+// ---- E2: rain soaks without dyeing the world blue
+{
+    const { statusManager } = await import('../src/systems/StatusManager.js');
+    const { STATUS_DEFS } = await import('../src/data/statuses.js');
+    const ent = () => ({ tints: [], setTint(t) { this.tints.push(t); }, clearTint() { this.tints.push(null); } });
+    const a = ent();
+    statusManager.apply(a, 'wet', { duration: 15000, quiet: true });
+    ok(statusManager.has(a, 'wet'), 'quiet wet still counts');
+    ok(!a.tints.includes(STATUS_DEFS.wet.tint), 'but does not tint');
+    const b = ent();
+    statusManager.apply(b, 'wet', { duration: 15000 });
+    ok(b.tints.includes(STATUS_DEFS.wet.tint), 'a soaking spell still tints');
+}
+
 console.log(`test_phase5_world: ${n} checks passed`);
