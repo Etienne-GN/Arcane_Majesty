@@ -3421,7 +3421,9 @@ export default class GameScene extends Phaser.Scene {
         });
 
         // Station — hearth or alchemy table
-        const station = this._stationNear();
+        // A closed chest within reach wins over a station or board beside it
+        const chestInReach = this.chests.getChildren().some(c => !c.opened && this.physics.overlap(this.player.interactBox, c));
+        const station = chestInReach ? null : this._stationNear();
         if (station && !this.scene.isActive('CampfireScene')) {
             soundManager.interact();
             this.scene.pause();
@@ -3430,7 +3432,7 @@ export default class GameScene extends Phaser.Scene {
         }
 
         // Bounty board
-        const board = this._bountyBoardNear();
+        const board = chestInReach ? null : this._bountyBoardNear();
         if (board && !this.scene.isActive('BountyBoardScene')) {
             soundManager.interact();
             this._useBountyBoard(board);
@@ -3632,7 +3634,7 @@ export default class GameScene extends Phaser.Scene {
         enemy.affixes = affixes;
         enemy.lootRolls = 2;
         enemy.bonusDrops = [eliteRareDrop(this._mapDef, Math.random)];
-        const scroll = rollEliteScroll(Math.random, playerStats.knownRecipes);
+        const scroll = rollEliteScroll(Math.random, playerStats.knownRecipes, playerStats.inventory.map(i => i.id));
         if (scroll) enemy.bonusDrops.push(scroll);
         enemy.setScale(enemy.scaleX * 1.2);
         if (affixes.includes('arcane') && !enemy.spellKit.includes('arcane_bolt')) enemy.spellKit = [...enemy.spellKit, 'arcane_bolt'];

@@ -89,7 +89,11 @@ export default class CraftingScene extends Phaser.Scene {
         this._detailObjs = [];
         this._listScroll    = 0;
         this._listScrollMax = 0;
-        this._listAvailH    = ph - 92;
+        this._listAvailH    = ph - 112;   // stops above the [ESC] Close footer
+        // Rows scroll under this window only — never over the title above it
+        const maskG = this.make.graphics({ x: 0, y: 0 }, false);
+        maskG.fillStyle(0xffffff).fillRect(leftX - 2, listTop, colW + 4, this._listAvailH);
+        this._listMask = maskG.createGeometryMask();
 
         this._drawList();
         this._drawDetail();
@@ -121,7 +125,7 @@ export default class CraftingScene extends Phaser.Scene {
     _drawList() {
         this._rowObjs.forEach(o => o?.destroy?.());
         this._rowObjs = [];
-        const track = o => { this._rowObjs.push(o); return o; };
+        const track = o => { o.setMask?.(this._listMask); this._rowObjs.push(o); return o; };
 
         const x = this._leftX, maxW = this._colW;
         let oy = this._listTop - this._listScroll;
@@ -146,7 +150,9 @@ export default class CraftingScene extends Phaser.Scene {
                 const bgCol   = isSelected ? 0x1a1000 : (canCraft ? 0x110c00 : 0x080600);
                 const border  = isSelected ? tierCol  : (canCraft ? 0x553311 : 0x221100);
 
-                const bg = track(this.add.rectangle(x, oy, maxW, ROW_H - 4, bgCol).setOrigin(0).setInteractive());
+                const bg = track(this.add.rectangle(x, oy, maxW, ROW_H - 4, bgCol).setOrigin(0));
+                // Clickable only while (partly) inside the visible window
+                if (oy + ROW_H - 4 > this._listTop && oy < this._listTop + this._listAvailH) bg.setInteractive();
                 const bdrG = track(this.add.graphics());
                 bdrG.lineStyle(2, border);
                 bdrG.strokeRect(x, oy, maxW, ROW_H - 4);

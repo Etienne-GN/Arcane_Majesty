@@ -24,10 +24,10 @@ export function scrollItems(labels) {
     }));
 }
 
-// An elite's chance at a scroll the player doesn't know yet.
-export function rollEliteScroll(rng, knownRecipes = []) {
+// An elite's chance at a scroll the player neither knows nor carries yet.
+export function rollEliteScroll(rng, knownRecipes = [], carriedIds = []) {
     if (rng() >= ELITE_SCROLL_CHANCE) return null;
-    const known = new Set(knownRecipes);
-    const left = SCROLL_RECIPES.filter(o => !known.has(o));
+    const known = new Set(knownRecipes), carried = new Set(carriedIds);
+    const left = SCROLL_RECIPES.filter(o => !known.has(o) && !carried.has(scrollId(o)));
     return left.length ? scrollId(left[Math.floor(rng() * left.length)]) : null;
 }
