@@ -40,7 +40,11 @@ for (const { name, label } of TRAY) {
 }
 
 // Secondary buttons — 3 direct-dispatch actions targeting GameScene._try* methods.
-check('SECONDARY 3 entries', SECONDARY.length, 3);
+check('SECONDARY 5 entries', SECONDARY.length, 5);
+check('SECONDARY has HOP', SECONDARY.some(s => s.action === '_tryHop'), true);
+check('SECONDARY has RUN toggle', SECONDARY.some(s => s.action === '_tryToggleSprint'), true);
+check('SECONDARY angles distinct', new Set(SECONDARY.map(s => s.angle)).size, 5);
+check('blink is on H', KEY_CODES.blink.code, 'KeyH');
 for (const { label, action, angle, color } of SECONDARY) {
     check(`SECONDARY ${label} action`, typeof action, 'string');
     check(`SECONDARY ${label} _try prefix`, action.slice(0, 4), '_try');

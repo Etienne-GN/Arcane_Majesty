@@ -25,7 +25,9 @@ export const TRAY = [
 // Secondary action buttons — interleaved between the skill-slot ring and the
 // attack button (upper-left arc of the attack cluster), dispatched DIRECTLY.
 export const SECONDARY = [
-    { label: 'PWR', action: '_tryPower',  angle: 95,  color: 0xddaa55 },
-    { label: 'BLK', action: '_tryBlink',  angle: 125, color: 0x55ccff },
-    { label: 'SGT', action: '_trySight',  angle: 155, color: 0xcc99ff },
+    { label: 'HOP', action: '_tryHop',          angle: 65,  color: 0x88ee88 },
+    { label: 'PWR', action: '_tryPower',        angle: 95,  color: 0xddaa55 },
+    { label: 'BLK', action: '_tryBlink',        angle: 125, color: 0x55ccff },
+    { label: 'SGT', action: '_trySight',        angle: 155, color: 0xcc99ff },
+    { label: 'RUN', action: '_tryToggleSprint', angle: 185, color: 0x66cc66 },
 ];

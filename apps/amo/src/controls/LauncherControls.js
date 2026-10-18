@@ -408,6 +408,7 @@ export default class LauncherControls {
     }
 
     _updateGamepad() {
+        this.padSprint = false;
         if (!this.scene.input.gamepad?.total) return;
         const pad = this.scene.input.gamepad.getPad(0);
         if (!pad) return;
@@ -429,6 +430,8 @@ export default class LauncherControls {
         }
 
         const just = (i) => (pad.buttons[i]?.value > 0.5) && !this._padPrev[i];
+        // W1: hold LT (6) to sprint, tap RT (7) to hop
+        this.padSprint = (pad.buttons[6]?.value ?? 0) > 0.5;
         const gs   = this.game();
         const paused = this.scene.scene.isPaused('GameScene');
 
@@ -446,6 +449,7 @@ export default class LauncherControls {
             });
             if (just(4)) this._toggleTray();
             if (just(9)) tapKey(window, KEY_CODES.esc);
+            if (just(7)) gs._tryHop?.();
         }
 
         const next = {};
