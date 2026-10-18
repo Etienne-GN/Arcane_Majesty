@@ -1,6 +1,7 @@
 import { ITEMS, SATCHEL_TIERS } from '../data/items.js';
 import { SPELLS, RESONANCE_ELEMENTS } from '../data/spells.js';
 import { UPGRADE_MAX, upgradeCost, upgradedStats } from '../data/upgrades.js';
+import { vigorMax } from './movementRules.js';
 
 // Mastery skills — unlocked with Resonance Insights earned through lore/quests
 export const MASTERY_DEFS = {
@@ -239,6 +240,11 @@ export class PlayerStats {
         this.bounties        = {};
         // Game clock (systems/gameClock.js): total game minutes, starting at 08:00 on day 0
         this.gameMinutes     = 480;
+        // Vigor (W1, systems/movementRules.js): spent by sprinting and hopping, refills
+        // in seconds. Not saved — a load starts full. Not the Stamina attribute.
+        this.vigor        = vigorMax(this.attributes.agility);
+        this.vigorWinded  = false;
+        this._vigorIdleMs = 0;
         // Where the player is (kept fresh by GameScene) and where they rise after
         // death (last campfire / rift-gate) — see systems/respawn.js.
         this.location     = null;
@@ -331,6 +337,8 @@ export class PlayerStats {
         if (!weaponId) return 'staff';
         return ITEMS[weaponId]?.weaponType ?? 'staff';
     }
+
+    get maxVigor() { return vigorMax(this.attributes.agility); }
 
     // Fatigue fraction 0→1 based on mana level (for speed/power scaling)
     get fatigueFraction() {
@@ -780,6 +788,9 @@ export class PlayerStats {
         this.generatedQuests  = {};
         this.bounties         = {};
         this.gameMinutes      = 480;
+        this.vigor            = vigorMax(this.attributes.agility);
+        this.vigorWinded      = false;
+        this._vigorIdleMs     = 0;
         this.location         = null;
         this.respawnPoint     = null;
         this.worldState       = {};

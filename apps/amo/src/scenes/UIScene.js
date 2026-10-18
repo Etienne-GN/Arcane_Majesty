@@ -40,6 +40,11 @@ export default class UIScene extends Phaser.Scene {
         this.mpBar = this.add.rectangle(pad + 32, pad + 36, barW, barH, 0x2244cc).setOrigin(0, 0.5);
         this.mpNum = this.add.text(pad + 32 + barW + 6, pad + 26, '', { font: '16px monospace', fill: '#aabbff' });
 
+        // Vigor bar (W1) — thin, under MP: sprint and hop spend it
+        this.add.text(pad, pad + 44, 'VG', { font: '10px monospace', fill: '#66cc77' });
+        this.vgBg  = this.add.rectangle(pad + 32, pad + 47, barW, 6, 0x0c2a12).setOrigin(0, 0.5);
+        this.vgBar = this.add.rectangle(pad + 32, pad + 47, barW, 6, 0x44cc66).setOrigin(0, 0.5);
+
         // ManaScent / Ping bar
         this.add.text(pad, pad + 56, 'PG', { font: '14px monospace', fill: '#556655' });
         this.pingBg  = this.add.rectangle(pad + 32, pad + 64, barW, 10, 0x111111).setOrigin(0, 0.5);
@@ -177,6 +182,9 @@ export default class UIScene extends Phaser.Scene {
             this.mpBar.setFillStyle(0x2244cc);
         }
         this.mpNum.setText(`${s.mana}/${s.maxMana}`);
+        this.vgBar.width = barW * Math.max(0, Math.min(1, s.vigor / s.maxVigor));
+        this.vgBar.setFillStyle(s.vigorWinded ? 0x557755 : 0x44cc66)
+            .setAlpha(s.vigorWinded ? Math.sin(Date.now() * 0.01) * 0.3 + 0.7 : 1);
 
         const ping = Math.max(0, Math.min(1, s.manaScent / 100));
         this.pingBar.width = barW * ping;

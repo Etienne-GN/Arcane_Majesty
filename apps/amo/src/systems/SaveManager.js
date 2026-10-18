@@ -125,6 +125,9 @@ export class SaveManager {
             stats.generatedQuests = d.generatedQuests ? JSON.parse(JSON.stringify(d.generatedQuests)) : {};
             stats.bounties        = d.bounties ? JSON.parse(JSON.stringify(d.bounties)) : {};
             stats.gameMinutes     = Number.isFinite(d.gameMinutes) ? d.gameMinutes : 480;
+            stats.vigor        = stats.maxVigor;   // Vigor is not saved: a load starts full
+            stats.vigorWinded  = false;
+            stats._vigorIdleMs = 0;
             stats.location     = d.location ? { ...d.location } : null;
             stats.respawnPoint = d.respawnPoint ? { ...d.respawnPoint } : null;
             stats.worldState   = d.worldState ? JSON.parse(JSON.stringify(d.worldState)) : {};

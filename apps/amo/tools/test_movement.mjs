@@ -111,4 +111,36 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     ok(!M.isHoppableDecoration({ name: 'water_edge_n', x: 4, y: 8 }, null, new Set(['4,7'])), 'other cells are not');
 }
 
+// ---- PlayerStats + save
+{
+    const store = new Map();
+    globalThis.localStorage = {
+        getItem: k => (store.has(k) ? store.get(k) : null),
+        setItem: (k, v) => store.set(k, String(v)),
+        removeItem: k => store.delete(k),
+    };
+    const { PlayerStats } = await import('../src/systems/PlayerStats.js');
+    const { SaveManager } = await import('../src/systems/SaveManager.js');
+    const s = new PlayerStats();
+    eq(s.maxVigor, M.vigorMax(s.attributes.agility), 'max Vigor from agility');
+    eq(s.vigor, s.maxVigor, 'a new character starts full');
+    eq(s.vigorWinded, false, 'not winded');
+    ok(s.attributes.stamina !== undefined, 'the Stamina attribute is untouched');
+    s.attributes.agility = 20;
+    eq(s.maxVigor, 120, 'max follows agility live');
+
+    s.vigor = 3; s.vigorWinded = true;
+    s.reset();
+    eq([s.vigor, s.vigorWinded], [s.maxVigor, false], 'reset refills');
+
+    const save = new PlayerStats();
+    save.skills.blink_step.level = 2;
+    SaveManager.save(save, 'story_test', 'eldrin');
+    const loaded = new PlayerStats();
+    loaded.vigor = 1; loaded.vigorWinded = true;
+    SaveManager.load(loaded, 'story_test', 'eldrin');
+    eq([loaded.vigor, loaded.vigorWinded], [loaded.maxVigor, false], 'loading starts full');
+    eq(loaded.skills.blink_step.level, 2, 'Blink-Step level survives');
+}
+
 console.log(`test_movement: ${n} checks passed`);
