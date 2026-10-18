@@ -245,6 +245,9 @@ export class PlayerStats {
         this.vigor        = vigorMax(this.attributes.agility);
         this.vigorWinded  = false;
         this._vigorIdleMs = 0;
+        // Interiors (W3, systems/interiors.js): where each door you went through
+        // leads back to, innermost last. Cleared on any outdoor map.
+        this.interiorReturn = [];
         // Where the player is (kept fresh by GameScene) and where they rise after
         // death (last campfire / rift-gate) — see systems/respawn.js.
         this.location     = null;
@@ -791,6 +794,7 @@ export class PlayerStats {
         this.vigor            = vigorMax(this.attributes.agility);
         this.vigorWinded      = false;
         this._vigorIdleMs     = 0;
+        this.interiorReturn   = [];
         this.location         = null;
         this.respawnPoint     = null;
         this.worldState       = {};

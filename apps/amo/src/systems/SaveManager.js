@@ -63,6 +63,7 @@ export class SaveManager {
             generatedQuests:   JSON.parse(JSON.stringify(stats.generatedQuests ?? {})),
             bounties:          JSON.parse(JSON.stringify(stats.bounties ?? {})),
             gameMinutes:       stats.gameMinutes ?? 480,
+            interiorReturn:    (stats.interiorReturn ?? []).map(e => ({ mapId: e.mapId, x: e.x, y: e.y })),
             location:          stats.location ? { ...stats.location } : null,
             respawnPoint:      stats.respawnPoint ? { ...stats.respawnPoint } : null,
             worldState:        prunedWorldState(stats, Date.now()),
@@ -125,6 +126,7 @@ export class SaveManager {
             stats.generatedQuests = d.generatedQuests ? JSON.parse(JSON.stringify(d.generatedQuests)) : {};
             stats.bounties        = d.bounties ? JSON.parse(JSON.stringify(d.bounties)) : {};
             stats.gameMinutes     = Number.isFinite(d.gameMinutes) ? d.gameMinutes : 480;
+            stats.interiorReturn  = Array.isArray(d.interiorReturn) ? d.interiorReturn.map(e => ({ mapId: e.mapId, x: e.x, y: e.y })) : [];
             stats.vigor        = stats.maxVigor;   // Vigor is not saved: a load starts full
             stats.vigorWinded  = false;
             stats._vigorIdleMs = 0;
