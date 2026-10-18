@@ -1,0 +1,91 @@
+// W2 region streaming: chunk maths, the streamer, the region format.
+// Run: node tools/test_region.mjs
+import assert from 'node:assert';
+
+const R = await import('../src/systems/regionChunks.js');
+
+let n = 0;
+const ok = (cond, msg) => { assert.ok(cond, msg); n++; };
+const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
+const sorted = s => [...s].sort();
+
+// ---- Chunk maths
+{
+    eq(R.CHUNK, 16, '16-tile chunks');
+    eq(R.chunkKey(3, 4), '3,4', 'key');
+    eq(R.chunkOfTile(0, 0), { cx: 0, cy: 0 }, 'origin');
+    eq(R.chunkOfTile(15, 16), { cx: 0, cy: 1 }, 'tile 15 is chunk 0, tile 16 chunk 1');
+
+    // 64×64 tiles = 4×4 chunks of 512 px. A 320×224 view at (600, 600) touches only chunk 1,1.
+    const view = { x: 600, y: 600, w: 320, h: 224 };
+    eq(sorted(R.activeChunks(view, 64, 64, 16, 0)), ['1,1'], 'the view alone');
+    eq(R.activeChunks(view, 64, 64, 16, 1).size, 9, 'one chunk of margin around it');
+    eq(sorted(R.activeChunks({ x: 0, y: 0, w: 320, h: 224 }, 64, 64, 16, 1)), ['0,0', '0,1', '1,0', '1,1'], 'clamped at the map edge');
+    eq(sorted(R.activeChunks({ x: 0, y: 0, w: 448, h: 320 }, 14, 10, 16, 1)), ['0,0'], 'a 14×10 map is one chunk');
+    eq(sorted(R.activeChunks({ x: 500, y: 0, w: 30, h: 30 }, 64, 64, 16, 0)), ['0,0', '1,0'], 'a view across a border touches both');
+
+    const b = R.bucketByChunk([{ x: 1, y: 1 }, { x: 17, y: 2 }, { x: 3, y: 15 }], it => it);
+    eq(b.get('0,0').length, 2, 'bucketed by tile');
+    eq(b.get('1,0').length, 1, 'next chunk');
+
+    eq(R.diffChunks(new Set(['a', 'b']), new Set(['b', 'c'])), { enter: ['c'], leave: ['a'] }, 'diff');
+}
+
+// ---- The streamer
+{
+    const log = [];
+    const s = new R.ChunkStreamer({ cols: 64, rows: 64 });
+    const items = [];
+    for (let y = 0; y < 64; y += 4) for (let x = 0; x < 64; x += 4) items.push({ x, y });
+    let live = 0;
+    s.addLayer('dots', items, it => it, it => { live++; return { it }; }, () => { live--; });
+    s.onEnter = k => log.push(`+${k}`);
+    s.onLeave = k => log.push(`-${k}`);
+
+    const view = { x: 600, y: 600, w: 320, h: 224 };     // chunk 1,1
+    s.update(view, 0);
+    ok(s.isActive('1,1'), 'the chunk under the view is built at once (urgent)');
+    eq(s.builtCount(), 1, 'margin chunks wait (perFrame 0)');
+    eq(s.queuedCount(), 8, 'eight margin chunks queued');
+    eq(live, 16, '16 dots in a chunk');
+    ok(s.isTileActive(20, 20) && !s.isTileActive(5, 5), 'isTileActive follows built chunks');
+    ok(s.isPxActive(600, 600) && !s.isPxActive(10, 10), 'isPxActive');
+
+    s.update(view, 1);
+    eq(s.builtCount(), 2, 'one margin chunk per frame');
+    s.update(view, 100);
+    eq(s.builtCount(), 9, 'all built');
+    eq(s.queuedCount(), 0, 'queue drained');
+    eq(live, 9 * 16, 'handles created per chunk');
+    eq(s.handleCount(), 9 * 16, 'handleCount');
+
+    // Teleport across the map: the new view's chunk is built in the same update.
+    log.length = 0;
+    s.update({ x: 1700, y: 1700, w: 320, h: 224 }, 0);   // chunk 3,3
+    ok(s.isActive('3,3'), 'teleport target built immediately');
+    ok(!s.isActive('0,0') && !s.isActive('1,1'), 'old chunks destroyed');
+    ok(log.includes('-1,1') && log.includes('+3,3'), 'onLeave / onEnter fired');
+    ok(log.indexOf('-1,1') < log.indexOf('+3,3'), 'leaves before enters');
+    eq(live, s.builtCount() * 16, 'no leaked handles');
+
+    // A queued chunk that leaves before being built never fires onEnter or onLeave.
+    log.length = 0;
+    const s2 = new R.ChunkStreamer({ cols: 64, rows: 64 });
+    s2.addLayer('dots', items, it => it, () => ({}), () => {});
+    s2.onEnter = k => log.push(`+${k}`); s2.onLeave = k => log.push(`-${k}`);
+    s2.update(view, 0);
+    s2.update({ x: 1700, y: 1700, w: 320, h: 224 }, 0);
+    ok(!log.some(e => e === '+0,0' || e === '-0,0'), 'never-built chunks are silent');
+
+    // Nearest margin chunk first.
+    const s3 = new R.ChunkStreamer({ cols: 64, rows: 64 });
+    s3.addLayer('dots', items, it => it, () => ({}), () => {});
+    s3.update({ x: 1000, y: 600, w: 20, h: 20 }, 0);     // chunk 1,1, right half
+    s3.update({ x: 1000, y: 600, w: 20, h: 20 }, 1);
+    ok(s3.isActive('2,1'), 'the nearest margin chunk (east, the view sits by its edge) comes first');
+
+    s.destroyAll();
+    eq([s.builtCount(), live], [0, 0], 'destroyAll');
+}
+
+console.log(`test_region: ${n} checks passed`);
