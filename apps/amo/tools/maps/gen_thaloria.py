@@ -28,6 +28,10 @@ sys.path.insert(0, str(Path(__file__).parent))
 from sheetmap import SheetMap, tiles_js, js_item, AMO  # noqa: E402
 
 MAP_OUT = AMO / 'src/data/maps/thaloria.js'
+# Doors into Thaloria's interiors (W3), written by tools/maps/gen_interiors.py
+import json as _json  # noqa: E402
+DOORS_JSON = AMO / 'src/data/maps/interiors/doors.json'
+CITY_DOORS = _json.loads(DOORS_JSON.read_text()).get('thaloria', []) if DOORS_JSON.exists() else []
 W, H = 32, 26
 rng = random.Random(503)
 sm = SheetMap()
@@ -271,6 +275,7 @@ export const THALORIA = {{
             {{ x: 27, y: 22, type: 'alchemy', rank: 2 }},
         ],
         bountyBoards: [{{ x: 8, y: 22, region: 'east_road' }}],
+        doors: {_json.dumps(CITY_DOORS)},
         signs: [
             {{ x: 13, y: 8, id: 'bell_tower',
                text: "The Bell Tower\\n\\nThe college bell sounds its hour, as it always has, a little off true. No one in Thaloria remembers it ever striking correctly." }},

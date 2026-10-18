@@ -397,6 +397,7 @@ export const THALORIA = {
             { x: 27, y: 22, type: 'alchemy', rank: 2 },
         ],
         bountyBoards: [{ x: 8, y: 22, region: 'east_road' }],
+        doors: [{"x": 5, "y": 16, "interior": "thaloria_inn", "label": "Enter the Inn"}, {"x": 11, "y": 6, "interior": "thaloria_bell_tower", "label": "Enter the Bell Tower"}, {"x": 21, "y": 16, "interior": "thaloria_house_teal", "label": "A house", "locked": {"flag": "thaloria_house_teal_open", "text": "Locked. No one answers."}}],
         signs: [
             { x: 13, y: 8, id: 'bell_tower',
                text: "The Bell Tower\n\nThe college bell sounds its hour, as it always has, a little off true. No one in Thaloria remembers it ever striking correctly." },

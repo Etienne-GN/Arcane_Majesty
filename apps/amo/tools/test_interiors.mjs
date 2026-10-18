@@ -85,4 +85,41 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     eq(s.interiorReturn, [], 'reset empties it');
 }
 
+// ---- Every registered interior is walkable and wired; Thaloria's doors lead somewhere
+{
+    const { getMap, listMaps } = await import('../src/data/maps/index.js');
+    const open = (m, x, y) => m.tiles[y]?.[x] === 0;
+    const interiors = listMaps().map(e => getMap(e.id ?? e)).filter(m => m.interior);
+    ok(interiors.length >= 4, `interiors registered (${interiors.length})`);
+    for (const m of interiors) {
+        eq([m.treeArt, m.biome], [false, 'indoor'], `${m.id}: wall-only, indoor`);
+        ok(open(m, m.playerStart.x, m.playerStart.y), `${m.id}: start on the floor`);
+        const exit = m.portals.find(p => p.targetMap === I.RETURN_KEY);
+        ok(exit && open(m, exit.x, exit.y), `${m.id}: an exit in the opening`);
+        ok(getMap(m.exitFallback.map).id === m.exitFallback.map, `${m.id}: fallback map exists`);
+        // BFS from the start over floor (0) minus furniture is the generator's job;
+        // here: every chest, book and door has an open neighbour reachable on the tile grid.
+        const seen = new Set([`${m.playerStart.x},${m.playerStart.y}`]); const q = [[m.playerStart.x, m.playerStart.y]];
+        while (q.length) { const [x, y] = q.shift(); for (const [nx, ny] of [[x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]]) { const k = `${nx},${ny}`; if (!seen.has(k) && open(m, nx, ny)) { seen.add(k); q.push([nx, ny]); } } }
+        const near = ({ x, y }) => [[x, y], [x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]].some(([a, b]) => seen.has(`${a},${b}`));
+        for (const c of m.spawns.chests) ok(near(c), `${m.id}: chest at ${c.x},${c.y} reachable`);
+        for (const s of m.spawns.signs) ok(near(s), `${m.id}: book at ${s.x},${s.y} reachable`);
+        for (const d of m.spawns.doors ?? []) {
+            ok(near(d), `${m.id}: door at ${d.x},${d.y} reachable`);
+            ok(getMap(d.interior).id === d.interior, `${m.id}: door leads to ${d.interior}`);
+        }
+    }
+    const T = getMap('thaloria');
+    const doors = T.spawns.doors ?? [];
+    eq(doors.map(d => d.interior).sort(), ['thaloria_bell_tower', 'thaloria_house_teal', 'thaloria_inn'], 'Thaloria has three doors');
+    for (const d of doors) {
+        ok(getMap(d.interior).interior, `${d.interior} is an interior`);
+        const back = I.doorReturnPoint(d);
+        ok(open(T, Math.floor(back.x / 32), Math.floor(back.y / 32)) || [2, 3].includes(T.tiles[Math.floor(back.y / 32)][Math.floor(back.x / 32)]),
+            `${d.interior}: you come back out onto open ground`);
+    }
+    ok(doors.find(d => d.interior === 'thaloria_house_teal').locked?.flag, 'the teal house is locked');
+    ok(getMap('thaloria_inn').spawns.doors.some(d => d.interior === 'thaloria_inn_cellar'), 'the inn has a way down to its cellar');
+}
+
 console.log(`test_interiors: ${n} checks passed`);
