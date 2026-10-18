@@ -43,6 +43,7 @@ import { ANIM_PROFILES } from '../data/animProfiles.js';
 import { CharacterRenderer, DEFAULT_ANIMS } from '../systems/CharacterRenderer.js';
 import { enrichLayers, weaponLayersForItem, WEAPON_ATTACK_ANIM } from '../systems/catalogueLayers.js';
 import { openChest } from './ChestScene.js';
+import { isHoppableDecoration } from '../systems/movementRules.js';
 
 export default class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
@@ -111,6 +112,10 @@ export default class GameScene extends Phaser.Scene {
 
         // World
         this.wallGroup = this.physics.add.staticGroup();
+        // Low obstacles a hop clears (fences, logs, small rocks): walls for everyone
+        // except a hopping player (movementRules.isHoppableDecoration).
+        this.hopGroup  = this.physics.add.staticGroup();
+        this._hopCells = new Set((this._mapDef.hopCells ?? []).map(([x, y]) => `${x},${y}`));
         this._buildWorld(mapW, mapH);
 
         // Interior lighting overlay
@@ -435,6 +440,9 @@ export default class GameScene extends Phaser.Scene {
 
         // Physics
         this.physics.add.collider(this.player, this.wallGroup);
+        this.physics.add.collider(this.player, this.hopGroup, null, () => !this.player.isHopping);
+        this.physics.add.collider(this.enemies, this.hopGroup);
+        this.physics.add.collider(this.pickups, this.hopGroup);
         this.physics.add.collider(this.enemies, this.wallGroup);
         this.physics.add.collider(this.pickups, this.wallGroup);
         this.physics.add.collider(this.player, this.npcs);
@@ -475,7 +483,11 @@ export default class GameScene extends Phaser.Scene {
         this.hotbarKeys = ['ONE', 'TWO', 'THREE', 'FOUR'].map(k => this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes[k]));
 
         // Augmentation keys
-        this.blinkKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.blinkKey  = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
+        // W1 movement: Shift sprints, Space hops (and dodges)
+        this.sprintKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+        this.hopKey    = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this._touchSprint = false;
         this.sightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.V);
 
         // Targeting state
@@ -626,6 +638,7 @@ export default class GameScene extends Phaser.Scene {
             enemy.isNetworked = true;
             this._enemyById.set(id, enemy);
             this.physics.add.collider(enemy, this.wallGroup);
+            this.physics.add.collider(enemy, this.hopGroup);
         });
 
         this.events.once('shutdown', () => {
@@ -1012,6 +1025,33 @@ export default class GameScene extends Phaser.Scene {
     _tryBlink() {
         if (!this.player?.active) return;
         this.player.blinkStep();
+    }
+
+    _tryHop() {
+        if (!this.player?.active || this._targeting || this._campfirePlacing) return;
+        this.player.tryHop((x, y) => this._hopBlockedAt(x, y));
+    }
+
+    _tryToggleSprint() {
+        this._touchSprint = !this._touchSprint;
+        this.scene.get('UIScene')?.showNotification?.(this._touchSprint ? 'Run: on' : 'Run: off', 700);
+    }
+
+    // What the player's feet would touch standing at (px, py): 'wall', 'hop' or null.
+    _hopBlockedAt(px, py) {
+        const b  = this.player.body;
+        const rx = px + (b.x - this.player.x) + 2, ry = py + (b.y - this.player.y) + 2;
+        const rw = b.width - 4, rh = b.height - 4;
+        const wb = this.physics.world.bounds;
+        if (rx < wb.x || ry < wb.y || rx + rw > wb.right || ry + rh > wb.bottom) return 'wall';
+        const hard = [this.wallGroup, this.npcs, this.signs, this.campfires, this.crackedBoulders];
+        let hop = false;
+        for (const body of this.physics.overlapRect(rx, ry, rw, rh, false, true)) {
+            const go = body.gameObject;
+            if (this.hopGroup.contains(go)) { hop = true; continue; }
+            if (hard.some(g => g?.contains?.(go))) return 'wall';
+        }
+        return hop ? 'hop' : null;
     }
 
     _trySight() {
@@ -3084,7 +3124,8 @@ export default class GameScene extends Phaser.Scene {
             img.setDepth(depth);
 
             if (body) {
-                const wall = this.wallGroup.create(body.x + body.w / 2, body.y + body.h / 2, 'tile_tree');
+                const group = isHoppableDecoration(d, entry, this._hopCells) ? this.hopGroup : this.wallGroup;
+                const wall = group.create(body.x + body.w / 2, body.y + body.h / 2, 'tile_tree');
                 wall.setAlpha(0);
                 wall.setDisplaySize(body.w, body.h);
                 wall.refreshBody();
@@ -3131,11 +3172,14 @@ export default class GameScene extends Phaser.Scene {
         }
 
         const joyVec = this.scene.get('UIScene')?._joyVec ?? null;
-        this.player.update(this.cursors, this.wasd, this.attackKey, this.powerKey, delta, joyVec);
+        const joyFull = joyVec && Math.hypot(joyVec.x, joyVec.y) >= 0.9;
+        const sprint  = this.sprintKey.isDown || (this._touchSprint && joyFull) ||
+            !!this.scene.get('UIScene')?._controls?.padSprint;
+        this.player.update(this.cursors, this.wasd, this.attackKey, this.powerKey, delta, joyVec, { sprint });
         this.player.setDepth(this.player.y + 1);
 
         if (this._lpcContainer) {
-            this._lpcContainer.setPosition(this.player.x, this.player.y);
+            this._lpcContainer.setPosition(this.player.x, this.player.y - this.player.hopLift);
             this._lpcContainer.setDepth(this.player.y + 1);
             if (this.player.isAttacking && !this._lpcWasAttacking) {
                 this._lpcSlashUntil = time + 750;
@@ -3144,8 +3188,10 @@ export default class GameScene extends Phaser.Scene {
             const showSlash = (this._lpcSlashUntil ?? 0) > time;
             // Attack reads per weapon type (staves cast, bows shoot, blades slash).
             const atkAnim = WEAPON_ATTACK_ANIM[ITEMS[playerStats.equipment.weapon]?.weaponType] ?? 'slash';
-            const lpcAnim = showSlash ? atkAnim
-                : (this.player.body.speed > 5 ? 'walk' : 'idle');
+            const lpcAnim = this.player.isHopping ? 'jump'
+                : showSlash ? atkAnim
+                : this.player.body.speed > 5 ? (this.player.isSprinting ? 'run' : 'walk')
+                : 'idle';
             this._lpcRenderer.play(this._lpcContainer, lpcAnim, this.player.facing);
         }
 
@@ -3239,9 +3285,10 @@ export default class GameScene extends Phaser.Scene {
             }
         }
 
-        // Augmentation keys — Blink-Step [SPACE] / Aetheric Sight [V]
+        // Augmentation keys — Blink-Step [H] / Aetheric Sight [V]; hop [SPACE]
         if (Phaser.Input.Keyboard.JustDown(this.blinkKey)) this._tryBlink();
         if (Phaser.Input.Keyboard.JustDown(this.sightKey)) this._trySight();
+        if (Phaser.Input.Keyboard.JustDown(this.hopKey))   this._tryHop();
 
         // Skill slot activation (Q/R/F/T)
         if (!this.player.isAttacking) {

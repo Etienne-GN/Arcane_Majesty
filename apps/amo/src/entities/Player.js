@@ -6,6 +6,7 @@ import { statusManager } from '../systems/StatusManager.js';
 import { SPELLS, RESONANCE_GAINS, scaledStatus } from '../data/spells.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { CHARACTERS } from '../data/characters.js';
+import { MOVE, tickVigor, canSprint, spendHop, moveSpeed, hopLanding } from '../systems/movementRules.js';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, stats = playerStats, characterId = 'eldrin') {
@@ -63,13 +64,24 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         // Aetheric Tear cooldown (ms remaining)
         this._tearCooldown = 0;
+
+        // W1 movement: sprint + hop (systems/movementRules.js)
+        this.isSprinting   = false;
+        this.isHopping     = false;
+        this.hopLift       = 0;
+        this._hopT         = 0;
+        this._hopVel       = { x: 0, y: 0 };
+        this._hopIframeMs  = 0;
+        this._moveDir      = null;   // last movement direction (unit-ish), null when standing
+        this._baseOffset   = { x: 20, y: 32 };   // matches body.setOffset above
+        this._baseOrigin   = { x: this.displayOriginX, y: this.displayOriginY };
     }
 
     _setupAnimations(scene) {
         buildEntityAnims(scene.anims, this._charDef.animPrefix, this._charDef.animProfile);
     }
 
-    update(cursors, wasd, attackKey, powerKey, delta, joyVec = null) {
+    update(cursors, wasd, attackKey, powerKey, delta, joyVec = null, move = {}) {
         if (!this.active) return;
 
         this.attackCooldown = Math.max(0, this.attackCooldown - delta);
@@ -77,6 +89,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.stats.tickSpellCooldowns(delta);
         this.stats.tickMana(delta);
         statusManager.tick(this, delta);
+        tickVigor(this.stats, delta, this.isSprinting);
+        this.isSprinting = false;   // re-decided by this frame's movement below
+        if (this._hopIframeMs > 0) this._hopIframeMs -= delta;
 
         // ── Mana Exhaustion / Collapse ───────────────────────────────────────
         if (this.stats.manaCollapsed) {
@@ -125,6 +140,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.clearTint();
         }
 
+        if (this.isHopping) {
+            this._tickHop(delta);
+            this._updateAuxBoxes();
+            return;
+        }
+
         if (this.isAttacking) {
             this._applyMovementVelocity(cursors, wasd, joyVec);
             this._updateAuxBoxes();
@@ -149,7 +170,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         // Speed: full AGI-based speed, reduced by fatigue and status debuffs
         const baseSpeed  = 100 + this.stats.attributes.agility * 4;
         const statusMult = statusManager.speedMult(this);
-        const speed = Math.floor(baseSpeed * (1 - this.stats.fatigueFraction * 0.75) * statusMult);
+        const moving     = (joyVec && (joyVec.x || joyVec.y)) ||
+            cursors.left.isDown || cursors.right.isDown || cursors.up.isDown || cursors.down.isDown ||
+            wasd.left.isDown || wasd.right.isDown || wasd.up.isDown || wasd.down.isDown;
+        const sprinting  = !!move.sprint && !!moving && canSprint(this.stats);
+        const speed = moveSpeed(baseSpeed, this.stats.fatigueFraction, statusMult, sprinting);
+        this.isSprinting = sprinting;
         let vx = 0, vy = 0;
 
         const jx = joyVec?.x ?? 0;
@@ -168,10 +194,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         this.setVelocity(vx, vy);
+        this._moveDir = (vx || vy) ? { x: Math.sign(vx), y: Math.sign(vy) } : null;
 
         if (vx !== 0 || vy !== 0) {
             const key = `${this._charDef.animPrefix}_walk_${this.facing}`;
             if (this.anims.currentAnim?.key !== key) this.play(key);
+            this.anims.timeScale = sprinting ? 1.5 : 1;   // sheets without a run anim stride faster
 
             this._stepTimer -= delta;
             if (this._stepTimer <= 0) {
@@ -180,6 +208,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         } else {
             const idleKey = `${this._charDef.animPrefix}_idle_${this.facing}`;
             if (this.anims.currentAnim?.key !== idleKey) this.play(idleKey);
+            this.anims.timeScale = 1;
         }
 
         // Attacks blocked while exhausted
@@ -681,6 +710,51 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         return true;
     }
 
+    // W1 hop: a short jump that clears low obstacles; the first 0.25 s is a dodge.
+    // blockedAt(x, y) → 'wall' | 'hop' | null for this player's feet at (x, y) (GameScene._hopBlockedAt).
+    tryHop(blockedAt) {
+        if (!this.active || this.isHopping || this.isAttacking) return false;
+        if (statusManager.isStunned(this) || this.stats.manaCollapsed) return false;
+        if (!spendHop(this.stats)) {
+            this.scene.scene.get('UIScene')?.showNotification?.('Too winded to hop.', 900);
+            return false;
+        }
+        const facingDir = { up: { x: 0, y: -1 }, down: { x: 0, y: 1 }, left: { x: -1, y: 0 }, right: { x: 1, y: 0 } }[this.facing];
+        const dir  = this._moveDir ?? facingDir;
+        const len  = Math.hypot(dir.x, dir.y) || 1;
+        const dist = hopLanding({ x: this.x, y: this.y }, dir, blockedAt);
+        const v    = dist / (MOVE.HOP_MS / 1000);
+        this._hopVel      = { x: dir.x / len * v, y: dir.y / len * v };
+        this._hopT        = 0;
+        this._hopIframeMs = MOVE.HOP_IFRAME_MS;
+        this.isHopping    = true;
+        this.anims.stop();   // hold the current frame; the LPC overlay plays 'jump'
+        return true;
+    }
+
+    _tickHop(delta) {
+        this._hopT += delta;
+        const t = Math.min(1, this._hopT / MOVE.HOP_MS);
+        const arc = Math.sin(Math.PI * t);
+        this.setVelocity(this._hopVel.x, this._hopVel.y);
+        this._setHopLift(arc * MOVE.HOP_LIFT);
+        this.shadow.setScale(1 - 0.3 * arc);
+        if (t >= 1) {
+            this.isHopping = false;
+            this.setVelocity(0);
+            this._setHopLift(0);
+            this.shadow.setScale(1);
+        }
+    }
+
+    // Raise the drawn sprite without moving the physics body: the display origin
+    // and the body offset move together, so body.position stays put.
+    _setHopLift(h) {
+        this.hopLift = h;
+        this.setDisplayOrigin(this._baseOrigin.x, this._baseOrigin.y + h);
+        this.body.setOffset(this._baseOffset.x, this._baseOffset.y + h);
+    }
+
     activateAethericSight() {
         const level = this.stats.skills['aetheric_sight']?.level ?? 0;
         if (!level) {
@@ -720,6 +794,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         // Shadow Veil: immune while active
         if (this._shadowVeilActive) return;
+
+        // Hop dodge: the first moments of a hop take no hits
+        if (this._hopIframeMs > 0) return;
 
         if (this.invincible) return;
 
