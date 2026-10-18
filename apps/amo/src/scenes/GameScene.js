@@ -1095,10 +1095,14 @@ export default class GameScene extends Phaser.Scene {
         const wb = this.physics.world.bounds;
         if (rx < wb.x || ry < wb.y || rx + rw > wb.right || ry + rh > wb.bottom) return 'wall';
         // Trees are tilemap tiles now (W2), not bodies
-        const tiles = this._mapDef.tiles;
+        const tiles = this._mapDef.tiles ?? [];   // Tiled-path maps have no tile grid
         for (let ty = Math.floor(ry / TILE_SIZE); ty <= Math.floor((ry + rh) / TILE_SIZE); ty++)
             for (let tx = Math.floor(rx / TILE_SIZE); tx <= Math.floor((rx + rw) / TILE_SIZE); tx++)
                 if (tiles[ty]?.[tx] === 1) return 'wall';
+        // Tiled maps collide through their blocking layers
+        for (const layer of this._tiledBlockingLayers ?? []) {
+            if ([[rx, ry], [rx + rw, ry], [rx, ry + rh], [rx + rw, ry + rh]].some(([x, y]) => layer.getTileAtWorldXY(x, y)?.collides)) return 'wall';
+        }
         const hard = [this.wallGroup, this.npcs, this.signs, this.campfires, this.crackedBoulders];
         let hop = false;
         for (const body of this.physics.overlapRect(rx, ry, rw, rh, false, true)) {
