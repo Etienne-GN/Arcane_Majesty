@@ -151,11 +151,14 @@ export default class UIScene extends Phaser.Scene {
         const g = this.make.graphics({ x: 0, y: 0, add: false });
         this.mmStatic.clear();
         tiles.forEach((row, r) => {
-            row.forEach((tile, c) => {
-                const color = tile === 1 ? 0x0d2010 : tile === 2 ? 0x5a4a2a : 0x1e3a14;
-                g.fillStyle(color);
-                g.fillRect(c * tw, r * th, tw, th);
-            });
+            let start = 0;
+            const colorOf = t => (t === 1 ? 0x0d2010 : t === 2 ? 0x5a4a2a : 0x1e3a14);
+            for (let c = 1; c <= row.length; c++) {
+                if (c < row.length && colorOf(row[c]) === colorOf(row[start])) continue;
+                g.fillStyle(colorOf(row[start]));
+                g.fillRect(start * tw, r * th, (c - start) * tw, th);
+                start = c;
+            }
         });
         this.mmStatic.draw(g);
         g.destroy();

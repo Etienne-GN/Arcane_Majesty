@@ -44,7 +44,7 @@ import { CharacterRenderer, DEFAULT_ANIMS } from '../systems/CharacterRenderer.j
 import { enrichLayers, weaponLayersForItem, WEAPON_ATTACK_ANIM } from '../systems/catalogueLayers.js';
 import { openChest } from './ChestScene.js';
 import { isHoppableDecoration } from '../systems/movementRules.js';
-import { ChunkStreamer, chunkKey, chunkOfTile } from '../systems/regionChunks.js';
+import { ChunkStreamer, chunkKey, chunkOfTile, bucketByChunk } from '../systems/regionChunks.js';
 
 export default class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
@@ -2999,14 +2999,9 @@ export default class GameScene extends Phaser.Scene {
         tiles.forEach((row, r) => row.forEach((tile, c) => { if (tile === 1) treeCells.push({ x: c, y: r }); }));
         // 8 tiles of pad around the view: as far as the largest sprite reaches (W2 budget)
         this._streamer = new ChunkStreamer({ cols: tiles[0].length, rows: tiles.length, pad: 8 * TILE_SIZE });
-        this._streamer.addLayer('trees', treeCells, cell => cell, cell => {
-            const x = cell.x * TILE_SIZE + TILE_SIZE / 2;
-            const y = cell.y * TILE_SIZE + TILE_SIZE / 2;
-            const trunk = this.add.image(x, y + 4, 'lpc_trunk', 0).setDisplaySize(20, 24).setDepth(y + 0.5);
-            // Treetop: crop bottom ~30% to remove grass tuft below the foliage
-            const top = this.add.image(x, y - 12, 'lpc_treetop', 0).setCrop(0, 0, 96, 80).setDisplaySize(44, 36).setDepth(y + 2000);
-            return [trunk, top];
-        }, imgs => imgs.forEach(i => i.destroy()));
+        // One streamed item per chunk of trees: trunks + one baked canopy texture (W2 budget)
+        const treeChunks = [...bucketByChunk(treeCells, cell => cell).values()].map(cells => ({ x: cells[0].x, y: cells[0].y, cells }));
+        this._streamer.addLayer('trees', treeChunks, it => it, it => this._buildTreeChunk(it.cells), objs => objs.forEach(o => o.destroy()));
 
         this._placeCatalogueDecorations();
     }
@@ -3104,6 +3099,34 @@ export default class GameScene extends Phaser.Scene {
         const zoom = cam.zoom || 1;
         const w = cam.width / zoom, h = cam.height / zoom;
         return { x: this.player.x - w / 2, y: this.player.y - h / 2, w, h };
+    }
+
+    // A chunk of trees: one trunk image per tree (trunks sort with characters) and
+    // every canopy baked into one texture — canopies always draw above characters,
+    // so one layer per chunk looks the same and saves an object per tree (W2 budget).
+    _buildTreeChunk(cells) {
+        const tex = this.textures.get('lpc_treetop');
+        // Treetop: the top 80 rows only (the rest is a grass tuft below the foliage)
+        if (!tex.has('canopy_crop')) tex.add('canopy_crop', 0, 0, 0, 96, 80);
+        const sorted = cells.slice().sort((a, b) => a.y - b.y || a.x - b.x);
+        const at = c => ({ x: c.x * TILE_SIZE + TILE_SIZE / 2, y: c.y * TILE_SIZE + TILE_SIZE / 2 });
+        const objs = [];
+        let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+        for (const c of sorted) {
+            const { x, y } = at(c);
+            objs.push(this.add.image(x, y + 4, 'lpc_trunk', 0).setDisplaySize(20, 24).setDepth(y + 0.5));
+            x0 = Math.min(x0, x - 22); x1 = Math.max(x1, x + 22);
+            y0 = Math.min(y0, y - 30); y1 = Math.max(y1, y - 4);
+        }
+        const rt = this.add.renderTexture(x0, y0, Math.ceil(x1 - x0), Math.ceil(y1 - y0)).setOrigin(0, 0);
+        rt.setDepth(at(sorted[sorted.length - 1]).y + 2000);
+        for (const c of sorted) {
+            const { x, y } = at(c);
+            // Same size and place as the old per-tree canopy: 44×36 over the full frame, top at y − 30
+            rt.stamp('lpc_treetop', 'canopy_crop', x - x0, y - 30 - y0, { originX: 0.5, originY: 0, scaleX: 44 / 96, scaleY: 36 / 112 });
+        }
+        objs.push(rt);
+        return objs;
     }
 
     // Places a list at once (not streamed) — kept for callers outside the map's own decorations.
