@@ -35,6 +35,9 @@ FLOORS = {
     'cobble':      ['dark_stone_floor_fill_a'],
 }
 
+# Furniture a book can lie on (gen_interiors puts book signs only on these)
+BOOK_HOLDERS = {'bookshelf_books', 'shelf_dishes_pewter', 'wood_table_two_tier_end_l', 'wood_table_two_tier_mid',
+                'wood_table_rail_post_r', 'table_round_pedestal_gold', 'dresser_wood_drawers', 'cabinet_wood_red_two_door_a'}
 NEVER_BLOCK = {'rug_oval_maroon_gold_trim', 'rug_oval_mint_checker_a', 'rug_rounded_orange_gold_trim'}
 TALL_LEAN = {'bookshelf_books': 2, 'shelf_dishes_pewter': 2}   # rows of the sprite drawn over the wall face
 

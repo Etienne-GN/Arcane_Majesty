@@ -26,7 +26,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from sheetmap import SheetMap, tiles_js, AMO  # noqa: E402
-from interiors.templates import TEMPLATES, WALLS, FLOORS, NEVER_BLOCK, TALL_LEAN, COUNTER, LOOT, BOOKS  # noqa: E402
+from interiors.templates import TEMPLATES, WALLS, FLOORS, NEVER_BLOCK, TALL_LEAN, COUNTER, LOOT, BOOKS, BOOK_HOLDERS  # noqa: E402
 
 OUT = AMO / 'src/data/maps/interiors'
 ATLASES = ['lpc/obj_misk_atlas', 'lpc/build_atlas', 'lpc/base_out_atlas', 'lpc/terrain_atlas']
@@ -191,12 +191,24 @@ def build(spec, seed):
             x, y = wall_cells.pop()
             room.taken.add((x, y))
             room.chests.append({'x': x, 'y': y, 'items': rng.sample(LOOT[tpl['loot']], 2)})
+    # Books lie on furniture (the sign is invisible; the shelf or table is its art),
+    # on a cell you can stand beside. A room with no such furniture gets no book.
     pool, nb = tpl['books']
+    reach = room.reachable()
+    holders = []
+    for it in room.items:
+        if it['blocking'] and it['name'] in BOOK_HOLDERS:
+            wt, ht = size_of(it['name'])
+            holders += [(it['x'] + dx, it['y'] + dy) for dx in range(wt) for dy in range(ht)
+                        if (it['x'] + dx, it['y'] + dy) in room.taken and room.touchable((it['x'] + dx, it['y'] + dy), reach)]
+    rng.shuffle(holders)
+    used = set()
     for i in range(count(nb, rng)):
-        if wall_cells:
-            x, y = wall_cells.pop()
-            room.taken.add((x, y))
-            room.books.append({'x': x, 'y': y, 'kind': 'book', 'text': BOOKS[pool][i % len(BOOKS[pool])]})
+        cell = next((c for c in holders if c not in used), None)
+        if cell is None:
+            break
+        used.add(cell)
+        room.books.append({'x': cell[0], 'y': cell[1], 'kind': 'book', 'text': BOOKS[pool][i % len(BOOKS[pool])]})
     if rng.random() < tpl['stash'] and wall_cells:
         x, y = wall_cells.pop()
         room.taken.add((x, y))

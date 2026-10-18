@@ -136,4 +136,28 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     }
 }
 
+
+// ---- Review fix: a book is on a piece of furniture (the sign is invisible; the furniture is its art)
+{
+    const fs = await import('node:fs');
+    const { getMap, listMaps } = await import('../src/data/maps/index.js');
+    for (const m of listMaps().map(e => getMap(e.id ?? e)).filter(m => m.interior)) {
+        const covered = new Set();
+        for (const g of m.sheetDecorations) {
+            const cat = JSON.parse(fs.readFileSync(new URL(`../public/${m.extraSheets.find(s => s.texKey === g.texKey).cat}`, import.meta.url)));
+            const by = Object.fromEntries(cat.entries.map(e => [e.name, e]));
+            for (const it of g.items) {
+                if (it.blocking === false) continue;          // floors, wall faces, rugs
+                const e = by[it.name];
+                const w = Math.ceil((e.kind === 'tile' ? cat.gridTileWidth : e.w) * (g.scale ?? 1) / 32);
+                const h = Math.ceil((e.kind === 'tile' ? cat.gridTileHeight : e.h) * (g.scale ?? 1) / 32);
+                for (let dx = 0; dx < w; dx++) for (let dy = 0; dy < h; dy++) covered.add(`${it.x + dx},${it.y + dy}`);
+            }
+        }
+        for (const b of m.spawns.signs.filter(s => s.kind === 'book')) {
+            ok(covered.has(`${b.x},${b.y}`), `${m.id}: the book at ${b.x},${b.y} lies on furniture, not bare floor`);
+        }
+    }
+}
+
 console.log(`test_interiors: ${n} checks passed`);
