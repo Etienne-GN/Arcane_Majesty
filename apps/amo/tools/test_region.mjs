@@ -88,4 +88,38 @@ const sorted = s => [...s].sort();
     eq([s.builtCount(), live], [0, 0], 'destroyAll');
 }
 
+// ---- Region format
+{
+    const F = await import('../src/systems/regionFormat.js');
+    const rows = [[0, 1, 2], [3, 4, 5]];
+    eq(F.decodeGrid(F.encodeGrid(rows), 3, 2), rows, 'grid round-trip');
+    const cells = [[0, 0], [2, 1], [1, 1]];
+    eq(F.decodeBitsToCells(F.encodeBits(cells, 3, 2), 3, 2).sort(), cells.slice().sort(), 'bitset round-trip');
+
+    const raw = {
+        format: 1, id: 'tiny', displayName: 'Tiny', width: 3, height: 2,
+        tiles: F.encodeGrid(rows), hop: F.encodeBits([[2, 1]], 3, 2),
+        sheets: [
+            { texKey: 'tm_a', catKey: 'tm_a_cat', png: 'a.png', cat: 'a.json', scale: 1 },
+            { texKey: 'tm_a', catKey: 'tm_a_cat', png: 'a.png', cat: 'a.json', scale: 2 },
+        ],
+        names: ['rock', 'fence_wood_up_down'],
+        deco: [[0, 0, 1, 0, 1], [0, 1, 2, 1, 2 | 8, 5], [1, 0, 0, 1, 0]],
+        playerStart: { x: 0, y: 0 }, spawns: { enemies: [] }, portals: [],
+    };
+    const m = F.decodeRegion(raw);
+    eq(m.tiles, rows, 'tiles decoded');
+    eq([m.id, m.displayName, m.region], ['tiny', 'Tiny', true], 'fields kept, region flag');
+    eq(m.extraSheets, [{ texKey: 'tm_a', catKey: 'tm_a_cat', png: 'a.png', cat: 'a.json' }], 'one load per texture');
+    eq(m.sheetDecorations.length, 2, 'one group per sheet+scale');
+    eq(m.sheetDecorations[0].items, [
+        { name: 'rock', x: 1, y: 0, blocking: true },
+        { name: 'fence_wood_up_down', x: 2, y: 1, blocking: false, hoppable: false, depthOffset: 5 },
+    ], 'flags and depth offset decoded');
+    eq(m.sheetDecorations[1], { texKey: 'tm_a', catKey: 'tm_a_cat', scale: 2, items: [{ name: 'rock', x: 0, y: 1 }] }, 'scaled group');
+    eq(m.hopCells, [[2, 1]], 'hop cells');
+    ok(!('deco' in m) && !('names' in m) && !('sheets' in m), 'packed fields are not left on the map');
+    assert.throws(() => F.decodeRegion({ ...raw, format: 2 }), /format/); n++;
+}
+
 console.log(`test_region: ${n} checks passed`);
