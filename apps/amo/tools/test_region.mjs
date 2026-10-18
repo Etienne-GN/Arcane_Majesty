@@ -122,4 +122,23 @@ const sorted = s => [...s].sort();
     assert.throws(() => F.decodeRegion({ ...raw, format: 2 }), /format/); n++;
 }
 
+// ---- The stream-test region is registered and big
+{
+    const { getMap } = await import('../src/data/maps/index.js');
+    const m = getMap('streamtest');
+    eq(m.id, 'streamtest', 'registered');
+    eq([m.tiles[0].length, m.tiles.length], [256, 256], '256×256');
+    const trees = m.tiles.flat().filter(v => v === 1).length;
+    ok(trees > 15000 && trees < 40000, `a real forest (${trees} trees)`);
+    const deco = m.sheetDecorations.reduce((a, g) => a + g.items.length, 0);
+    ok(deco >= 10000, `thousands of decorations (${deco})`);
+    ok(m.spawns.enemies.length >= 100, 'a hundred creatures');
+    const open = (x, y) => [0, 2, 3].includes(m.tiles[y]?.[x]);
+    ok(open(m.playerStart.x, m.playerStart.y), 'player starts on open ground');
+    ok(m.spawns.enemies.every(e => open(e.x, e.y)), 'every creature on open ground');
+    const fs = await import('node:fs');
+    const bytes = fs.statSync(new URL('../src/data/maps/regions/streamtest.js', import.meta.url)).size;
+    ok(bytes < 3 * 1024 * 1024, `under 3 MB (${(bytes / 1024 / 1024).toFixed(2)} MB)`);
+}
+
 console.log(`test_region: ${n} checks passed`);
