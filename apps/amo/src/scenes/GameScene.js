@@ -2228,9 +2228,10 @@ export default class GameScene extends Phaser.Scene {
                 this.scene.get('UIScene')?.showNotification?.('The way out is blocked.', 1500);
                 return;
             }
-            portalDef = { ...portalDef, ...back };
+            portalDef = { ...portalDef, ...back, isReturn: true };
         }
-        const gate = campaignManager.canEnter(portalDef.targetMap);
+        // Going back out the way you came in is never gated (W3)
+        const gate = portalDef.isReturn ? { allowed: true } : campaignManager.canEnter(portalDef.targetMap);
         if (!gate.allowed) {
             this.scene.get('UIScene')?.showNotification?.(gate.reason, 2500);
             return; // player simply doesn't leave — no fade, no state change
