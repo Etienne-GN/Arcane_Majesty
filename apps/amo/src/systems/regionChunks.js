@@ -37,8 +37,10 @@ export function diffChunks(prev, next) {
 }
 
 export class ChunkStreamer {
-    constructor({ cols, rows, size = CHUNK, margin = 1, tilePx = TILE_PX }) {
-        Object.assign(this, { cols, rows, size, margin, tilePx });
+    // pad (px): keep built what the view grown by pad touches, instead of whole
+    // chunks of margin — a small view then keeps 4 chunks, not 9–16.
+    constructor({ cols, rows, size = CHUNK, margin = 1, tilePx = TILE_PX, pad = null }) {
+        Object.assign(this, { cols, rows, size, margin, tilePx, pad });
         this._layers = [];
         this._built  = new Map();   // key → [{ layer, handles }]
         this._wanted = new Set();   // built or queued
@@ -52,7 +54,10 @@ export class ChunkStreamer {
     }
 
     update(view, perFrame = 1) {
-        const want   = activeChunks(view, this.cols, this.rows, this.size, this.margin, this.tilePx);
+        const p = this.pad;
+        const want   = p == null
+            ? activeChunks(view, this.cols, this.rows, this.size, this.margin, this.tilePx)
+            : activeChunks({ x: view.x - p, y: view.y - p, w: view.w + 2 * p, h: view.h + 2 * p }, this.cols, this.rows, this.size, 0, this.tilePx);
         const urgent = activeChunks(view, this.cols, this.rows, this.size, 0, this.tilePx);
         const { enter, leave } = diffChunks(this._wanted, want);
         for (const k of leave) this._unbuild(k);

@@ -44,6 +44,7 @@ import { CharacterRenderer, DEFAULT_ANIMS } from '../systems/CharacterRenderer.j
 import { enrichLayers, weaponLayersForItem, WEAPON_ATTACK_ANIM } from '../systems/catalogueLayers.js';
 import { openChest } from './ChestScene.js';
 import { isHoppableDecoration } from '../systems/movementRules.js';
+import { ChunkStreamer } from '../systems/regionChunks.js';
 
 export default class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
@@ -128,6 +129,9 @@ export default class GameScene extends Phaser.Scene {
         const py = this._spawnY ?? (mapDef.playerStart.y * TILE_SIZE + TILE_SIZE / 2);
         this.player = new Player(this, px, py, playerStats, this._characterId);
         this.player.on('died', () => this._onPlayerDied());
+        // W2: build what is under the camera now; the margin streams in over the next frames
+        this.cameras.main.setZoom(isMobile ? 1.5 : 3);
+        this._streamer?.update(this._streamView(), 0);
 
         // Tiled-map blocking layers were built before the player existed
         // (see _buildWorldFromTiled) — wire up their colliders now.
@@ -166,6 +170,7 @@ export default class GameScene extends Phaser.Scene {
         };
         playerStats.onEquipChange(this._onEquipChange);
         this.events.once('shutdown', () => playerStats.offEquipChange(this._onEquipChange));
+        this.events.once('shutdown', () => { this._streamer = null; });
 
         // Apply the currently-equipped weapon now — on a map change the container
         // is rebuilt fresh and no equip event fires, so the weapon must be re-added
@@ -440,6 +445,11 @@ export default class GameScene extends Phaser.Scene {
 
         // Physics
         this.physics.add.collider(this.player, this.wallGroup);
+        if (this._treeLayer) {
+            this.physics.add.collider(this.player, this._treeLayer);
+            this.physics.add.collider(this.enemies, this._treeLayer);
+            this.physics.add.collider(this.pickups, this._treeLayer);
+        }
         this.physics.add.collider(this.player, this.hopGroup, null, () => !this.player.isHopping);
         this.physics.add.collider(this.enemies, this.hopGroup);
         this.physics.add.collider(this.pickups, this.hopGroup);
@@ -639,6 +649,7 @@ export default class GameScene extends Phaser.Scene {
             this._enemyById.set(id, enemy);
             this.physics.add.collider(enemy, this.wallGroup);
             this.physics.add.collider(enemy, this.hopGroup);
+            if (this._treeLayer) this.physics.add.collider(enemy, this._treeLayer);
         });
 
         this.events.once('shutdown', () => {
@@ -1044,6 +1055,11 @@ export default class GameScene extends Phaser.Scene {
         const rw = b.width - 4, rh = b.height - 4;
         const wb = this.physics.world.bounds;
         if (rx < wb.x || ry < wb.y || rx + rw > wb.right || ry + rh > wb.bottom) return 'wall';
+        // Trees are tilemap tiles now (W2), not bodies
+        const tiles = this._mapDef.tiles;
+        for (let ty = Math.floor(ry / TILE_SIZE); ty <= Math.floor((ry + rh) / TILE_SIZE); ty++)
+            for (let tx = Math.floor(rx / TILE_SIZE); tx <= Math.floor((rx + rw) / TILE_SIZE); tx++)
+                if (tiles[ty]?.[tx] === 1) return 'wall';
         const hard = [this.wallGroup, this.npcs, this.signs, this.campfires, this.crackedBoulders];
         let hop = false;
         for (const body of this.physics.overlapRect(rx, ry, rw, rh, false, true)) {
@@ -2925,6 +2941,7 @@ export default class GameScene extends Phaser.Scene {
 
     _buildWorld(mapW, mapH) {
         if (this._mapDef.tiledMap) {
+            this._streamer = null; this._treeLayer = null;
             this._buildWorldFromTiled(this._mapDef.tiledMap);
             return;
         }
@@ -2954,29 +2971,26 @@ export default class GameScene extends Phaser.Scene {
         const tileset = tilemap.addTilesetImage(tsKey, tsKey);
         tilemap.createLayer(0, tileset, 0, 0).setDepth(0);
 
-        // Tree/wall sprites — invisible physics body + LPC trunk + treetop visuals
-        tiles.forEach((row, r) => {
-            row.forEach((tile, c) => {
-                if (tile === 1) {
-                    const x = c * TILE_SIZE + TILE_SIZE / 2;
-                    const y = r * TILE_SIZE + TILE_SIZE / 2;
-                    const wall = this.wallGroup.create(x, y, 'tile_tree');
-                    wall.setAlpha(0);
-                    wall.refreshBody();
+        // Trees (tile 1): one invisible tilemap layer collides for all of them;
+        // their trunk + canopy images are streamed per chunk (W2).
+        const collideData = tiles.map(row => row.map(t => (t === 1 ? 0 : -1)));
+        const cmap = this.make.tilemap({ data: collideData, tileWidth: TILE_SIZE, tileHeight: TILE_SIZE });
+        const cts  = cmap.addTilesetImage(tsKey, tsKey);
+        this._treeLayer = cmap.createLayer(0, cts, 0, 0).setVisible(false);
+        this._treeLayer.setCollision(0);
 
-                    // Trunk: centered at tile, slightly lower
-                    const trunk = this.add.image(x, y + 4, 'lpc_trunk', 0);
-                    trunk.setDisplaySize(20, 24);
-                    trunk.setDepth(y + 0.5);
-
-                    // Treetop: crop bottom ~30% to remove grass tuft below the foliage
-                    const top = this.add.image(x, y - 12, 'lpc_treetop', 0);
-                    top.setCrop(0, 0, 96, 80);
-                    top.setDisplaySize(44, 36);
-                    top.setDepth(y + 2000);
-                }
-            });
-        });
+        const treeCells = [];
+        tiles.forEach((row, r) => row.forEach((tile, c) => { if (tile === 1) treeCells.push({ x: c, y: r }); }));
+        // 8 tiles of pad around the view: as far as the largest sprite reaches (W2 budget)
+        this._streamer = new ChunkStreamer({ cols: tiles[0].length, rows: tiles.length, pad: 8 * TILE_SIZE });
+        this._streamer.addLayer('trees', treeCells, cell => cell, cell => {
+            const x = cell.x * TILE_SIZE + TILE_SIZE / 2;
+            const y = cell.y * TILE_SIZE + TILE_SIZE / 2;
+            const trunk = this.add.image(x, y + 4, 'lpc_trunk', 0).setDisplaySize(20, 24).setDepth(y + 0.5);
+            // Treetop: crop bottom ~30% to remove grass tuft below the foliage
+            const top = this.add.image(x, y - 12, 'lpc_treetop', 0).setCrop(0, 0, 96, 80).setDisplaySize(44, 36).setDepth(y + 2000);
+            return [trunk, top];
+        }, imgs => imgs.forEach(i => i.destroy()));
 
         this._placeCatalogueDecorations();
     }
@@ -3051,86 +3065,112 @@ export default class GameScene extends Phaser.Scene {
             { items: this._mapDef.lpcBuildDecorations,   catKey: 'build_atlas_cat',    texKey: 'build_atlas' },
             { items: this._mapDef.lpcObjMiskDecorations, catKey: 'obj_misk_atlas_cat', texKey: 'obj_misk_atlas' },
         ];
-        sources.forEach(s => this._placeCatalogueItems(s.items, s.catKey, s.texKey));
         // Any other catalogued sheet, named per group rather than by a fixed
         // mapDef field: [{ catKey, texKey, items }] (see extraSheets in preload).
         // A group may set `scale` (e.g. 2 to draw a 16px sheet on the 32px grid).
-        this._mapDef.sheetDecorations?.forEach(g => this._placeCatalogueItems(g.items, g.catKey, g.texKey, g.scale ?? 1));
+        // W2: every decoration is streamed per chunk, with its collision body.
+        const groups = [...sources.map(s => ({ ...s, scale: 1 })),
+            ...(this._mapDef.sheetDecorations ?? []).map(g => ({ items: g.items, catKey: g.catKey, texKey: g.texKey, scale: g.scale ?? 1 }))];
+        const all = [];
+        for (const g of groups) {
+            if (!g.items?.length) continue;
+            const ctx = this._catalogueCtx(g.catKey, g.texKey, g.scale);
+            if (ctx) for (const d of g.items) all.push({ ctx, d });
+        }
+        this._streamer.addLayer('deco', all, it => it.d, it => this._placeCatalogueItem(it.ctx, it.d),
+            h => { h?.img.destroy(); h?.wall?.destroy(); });
     }
 
+    // The world rectangle the streamer keeps built: the camera view around the
+    // player (computed, so it is right before the camera has followed).
+    _streamView() {
+        const cam = this.cameras.main;
+        const zoom = cam.zoom || 1;
+        const w = cam.width / zoom, h = cam.height / zoom;
+        return { x: this.player.x - w / 2, y: this.player.y - h / 2, w, h };
+    }
+
+    // Places a list at once (not streamed) — kept for callers outside the map's own decorations.
     _placeCatalogueItems(items, catKey, texKey, scale = 1) {
         if (!items || !items.length) return;
+        const ctx = this._catalogueCtx(catKey, texKey, scale);
+        if (ctx) items.forEach(d => this._placeCatalogueItem(ctx, d));
+    }
 
+    _catalogueCtx(catKey, texKey, scale = 1) {
         const catJson = this.cache.json.get(catKey);
         if (!catJson) {
             console.warn(`${catKey} not loaded — skipping items`);
-            return;
+            return null;
         }
         const byName = {};
         catJson.entries.forEach(e => { byName[e.name] = e; });
-        const tw = catJson.gridTileWidth, th = catJson.gridTileHeight;
-        const tex = this.textures.get(texKey);
+        return { catKey, texKey, scale, byName, tw: catJson.gridTileWidth, th: catJson.gridTileHeight, tex: this.textures.get(texKey) };
+    }
 
-        items.forEach(d => {
-            const entry = byName[d.name];
-            if (!entry) {
-                console.warn(`"${d.name}" not found in ${catKey}`);
-                return;
-            }
-            let cx, cy, cw, ch;
-            if (entry.kind === 'tile') {
-                cx = entry.col * tw; cy = entry.row * th; cw = tw; ch = th;
-            } else {
-                cx = entry.x; cy = entry.y; cw = entry.w; ch = entry.h;
-            }
-            // Animated entries carry their frames as pixel boxes; drawn as a
-            // still they'd show the whole strip, so each frame becomes a
-            // texture frame and the sprite loops through them.
-            const frames = entry.frames?.length > 1 ? entry.frames : null;
-            // Frames may differ in height (e.g. spikes rising above their
-            // tile), so size by the largest and anchor each frame's bottom.
-            if (frames) { cw = Math.max(...frames.map(f => f.w)); ch = Math.max(...frames.map(f => f.h)); }
-            const frameKey = `cat_${d.name}`;
-            if (!frames && !tex.has(frameKey)) tex.add(frameKey, 0, cx, cy, cw, ch);
+    // One catalogue item → { img, wall } (wall: its collision body, if any), or null.
+    _placeCatalogueItem(ctx, d) {
+        const { catKey, texKey, scale, byName, tw, th, tex } = ctx;
+        const entry = byName[d.name];
+        if (!entry) {
+            console.warn(`"${d.name}" not found in ${catKey}`);
+            return null;
+        }
+        let cx, cy, cw, ch;
+        if (entry.kind === 'tile') {
+            cx = entry.col * tw; cy = entry.row * th; cw = tw; ch = th;
+        } else {
+            cx = entry.x; cy = entry.y; cw = entry.w; ch = entry.h;
+        }
+        // Animated entries carry their frames as pixel boxes; drawn as a
+        // still they'd show the whole strip, so each frame becomes a
+        // texture frame and the sprite loops through them.
+        const frames = entry.frames?.length > 1 ? entry.frames : null;
+        // Frames may differ in height (e.g. spikes rising above their
+        // tile), so size by the largest and anchor each frame's bottom.
+        if (frames) { cw = Math.max(...frames.map(f => f.w)); ch = Math.max(...frames.map(f => f.h)); }
+        const frameKey = `cat_${d.name}`;
+        if (!frames && !tex.has(frameKey)) tex.add(frameKey, 0, cx, cy, cw, ch);
 
-            // On-map size: the sprite's pixels times the group's scale.
-            const sw = cw * scale, sh = ch * scale;
-            const px = d.x * TILE_SIZE + sw / 2;
-            const py = d.y * TILE_SIZE + sh / 2;
-            let img;
-            if (frames) {
-                const animKey = `catanim_${texKey}_${d.name}`;
-                frames.forEach((f, i) => {
-                    if (!tex.has(`${frameKey}_f${i}`)) tex.add(`${frameKey}_f${i}`, 0, f.x, f.y, f.w, f.h);
+        // On-map size: the sprite's pixels times the group's scale.
+        const sw = cw * scale, sh = ch * scale;
+        const px = d.x * TILE_SIZE + sw / 2;
+        const py = d.y * TILE_SIZE + sh / 2;
+        let img;
+        if (frames) {
+            const animKey = `catanim_${texKey}_${d.name}`;
+            frames.forEach((f, i) => {
+                if (!tex.has(`${frameKey}_f${i}`)) tex.add(`${frameKey}_f${i}`, 0, f.x, f.y, f.w, f.h);
+            });
+            if (!this.anims.exists(animKey)) {
+                this.anims.create({
+                    key: animKey,
+                    frames: frames.map((_, i) => ({ key: texKey, frame: `${frameKey}_f${i}` })),
+                    frameRate: 1000 / (entry.frameDurationMs ?? 120),
+                    repeat: -1,
                 });
-                if (!this.anims.exists(animKey)) {
-                    this.anims.create({
-                        key: animKey,
-                        frames: frames.map((_, i) => ({ key: texKey, frame: `${frameKey}_f${i}` })),
-                        frameRate: 1000 / (entry.frameDurationMs ?? 120),
-                        repeat: -1,
-                    });
-                }
-                img = this.add.sprite(px, py + sh / 2, texKey, `${frameKey}_f0`).setOrigin(0.5, 1).setScale(scale).play(animKey);
-            } else {
-                img = this.add.image(px, py, texKey, frameKey).setScale(scale);
             }
-            // Draw layer + hitbox from the catalogue (set in the sprite ledger);
-            // entries not decided yet keep the old centre depth / whole-box blocking.
-            const hb = entry.hitbox;
-            const placed = scale === 1 || !hb ? entry
-                : { ...entry, hitbox: { x: hb.x * scale, y: hb.y * scale, w: hb.w * scale, h: hb.h * scale } };
-            const { depth, body } = catalogueLayout(placed, { left: px - sw / 2, top: py - sh / 2, w: sw, h: sh }, d);
-            img.setDepth(depth);
+            img = this.add.sprite(px, py + sh / 2, texKey, `${frameKey}_f0`).setOrigin(0.5, 1).setScale(scale).play(animKey);
+        } else {
+            img = this.add.image(px, py, texKey, frameKey).setScale(scale);
+        }
+        // Draw layer + hitbox from the catalogue (set in the sprite ledger);
+        // entries not decided yet keep the old centre depth / whole-box blocking.
+        const hb = entry.hitbox;
+        const placed = scale === 1 || !hb ? entry
+            : { ...entry, hitbox: { x: hb.x * scale, y: hb.y * scale, w: hb.w * scale, h: hb.h * scale } };
+        const { depth, body } = catalogueLayout(placed, { left: px - sw / 2, top: py - sh / 2, w: sw, h: sh }, d);
+        img.setDepth(depth);
 
-            if (body) {
-                const group = isHoppableDecoration(d, entry, this._hopCells) ? this.hopGroup : this.wallGroup;
-                const wall = group.create(body.x + body.w / 2, body.y + body.h / 2, 'tile_tree');
-                wall.setAlpha(0);
-                wall.setDisplaySize(body.w, body.h);
-                wall.refreshBody();
-            }
-        });
+        let wall = null;
+        if (body) {
+            const group = isHoppableDecoration(d, entry, this._hopCells) ? this.hopGroup : this.wallGroup;
+            wall = group.create(body.x + body.w / 2, body.y + body.h / 2, 'tile_tree');
+            wall.setAlpha(0);
+            wall.setDisplaySize(body.w, body.h);
+            wall.refreshBody();
+        }
+        return { img, wall };
     }
 
     update(time, delta) {
@@ -3176,6 +3216,7 @@ export default class GameScene extends Phaser.Scene {
         const sprint  = this.sprintKey.isDown || (this._touchSprint && joyFull) ||
             !!this.scene.get('UIScene')?._controls?.padSprint;
         this.player.update(this.cursors, this.wasd, this.attackKey, this.powerKey, delta, joyVec, { sprint });
+        this._streamer?.update(this._streamView(), 1);
         this.player.setDepth(this.player.y + 1);
 
         if (this._lpcContainer) {

@@ -141,4 +141,18 @@ const sorted = s => [...s].sort();
     ok(bytes < 3 * 1024 * 1024, `under 3 MB (${(bytes / 1024 / 1024).toFixed(2)} MB)`);
 }
 
+
+// ---- A pixel pad instead of whole-chunk margins (W2 budget ruling)
+{
+    // view 800..900 px; padded by 256 → 544..1156 px → chunks 1..2 on each axis
+    const view = { x: 800, y: 800, w: 100, h: 100 };
+    const s = new R.ChunkStreamer({ cols: 64, rows: 64, pad: 256 });
+    s.addLayer('dots', [], it => it, () => ({}), () => {});
+    s.update(view, 0);
+    eq([s.builtCount(), s.queuedCount()], [1, 3], 'the view itself is urgent; the pad streams in');
+    s.update(view, 100);
+    eq(sorted([...['1,1', '2,1', '1,2', '2,2'].filter(k => s.isActive(k))]), ['1,1', '1,2', '2,1', '2,2'], 'the pad reaches the near neighbours');
+    eq(s.builtCount(), 4, 'and nothing else (a 1-chunk margin would build 9)');
+}
+
 console.log(`test_region: ${n} checks passed`);
