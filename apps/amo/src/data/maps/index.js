@@ -24,6 +24,7 @@ import { DUNGEONTEST }       from './dungeontest.js';
 import { WORLDTEST }         from './worldtest.js';
 import { decodeRegion } from '../../systems/regionFormat.js';
 import STREAMTEST_RAW from './regions/streamtest.js';
+import { INTERIORS } from './interiors/index.js';
 
 const REGISTRY = {
     prologue_forest:  PROLOGUE_FOREST,
@@ -51,6 +52,7 @@ const REGISTRY = {
     dungeontest:        DUNGEONTEST,
     worldtest:          WORLDTEST,
     streamtest:         decodeRegion(STREAMTEST_RAW),
+    ...INTERIORS,
 };
 
 export function getMap(id) {
