@@ -227,9 +227,16 @@ def emit(spec, room, parents):
         sm.add(find_sheet(it['name']), it['name'], it['x'], it['y'], blocking=it['blocking'])
 
     doors = []
+    reach = room.reachable()
     for key, d in spec.get('slot_doors', {}).items():
         x, y = room.slots[key]
-        doors.append({'x': x, 'y': y, 'interior': d['interior'], 'label': d['label'], 'facing': 'up', **({'look': d['look']} if 'look' in d else {})})
+        # Face the door from an open, reachable floor tile beside it: that tile is
+        # where you come back up (interiors.doorReturnPoint). 'up' = you stand south.
+        facing = next((f for f, (nx, ny) in (('up', (x, y + 1)), ('down', (x, y - 1)), ('left', (x + 1, y)), ('right', (x - 1, y)))
+                       if (nx, ny) in reach and room.tiles[ny][nx] == 0), None)
+        if facing is None:
+            raise SystemExit(f"{spec['id']}: door slot {key} at {x},{y} has no open tile beside it")
+        doors.append({'x': x, 'y': y, 'interior': d['interior'], 'label': d['label'], 'facing': facing, **({'look': d['look']} if 'look' in d else {})})
     if spec.get('parent'):
         p = parents[spec['parent']]
         fb = {'map': p['city'], 'x': p['door'][0], 'y': p['door'][1] + 1}

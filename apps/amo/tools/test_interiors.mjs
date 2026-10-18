@@ -122,4 +122,18 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     ok(getMap('thaloria_inn').spawns.doors.some(d => d.interior === 'thaloria_inn_cellar'), 'the inn has a way down to its cellar');
 }
 
+
+// ---- Review fix: every door, on any map, returns you to open floor you can stand on
+{
+    const { getMap, listMaps } = await import('../src/data/maps/index.js');
+    for (const e of listMaps()) {
+        const m = getMap(e.id ?? e);
+        for (const d of m.spawns?.doors ?? []) {
+            const back = I.doorReturnPoint(d);
+            const tx = Math.floor(back.x / 32), ty = Math.floor(back.y / 32);
+            ok([0, 2, 3].includes(m.tiles[ty]?.[tx]), `${m.id}: door to ${d.interior} returns you onto open ground (${tx},${ty})`);
+        }
+    }
+}
+
 console.log(`test_interiors: ${n} checks passed`);

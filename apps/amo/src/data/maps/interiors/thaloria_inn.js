@@ -277,7 +277,7 @@ export const MAP = {
             "y": 11,
             "interior": "thaloria_inn_cellar",
             "label": "Down to the cellar",
-            "facing": "up",
+            "facing": "down",
             "look": "hatch"
         }
     ]
