@@ -45,6 +45,7 @@ import { enrichLayers, weaponLayersForItem, WEAPON_ATTACK_ANIM } from '../system
 import { openChest } from './ChestScene.js';
 import { isHoppableDecoration } from '../systems/movementRules.js';
 import { ChunkStreamer, chunkKey, chunkOfTile, bucketByChunk } from '../systems/regionChunks.js';
+import { RETURN_KEY, doorLockState, doorReturnPoint, pushReturn, resolvePortal, clearReturnsOutside } from '../systems/interiors.js';
 
 export default class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
@@ -90,6 +91,7 @@ export default class GameScene extends Phaser.Scene {
 
     create() {
         const mapDef = this._mapDef = getMap(this._mapId);
+        clearReturnsOutside(playerStats, mapDef);   // W3: outdoors, no door is waiting to be walked back through
         this._target = null;   // the scene object is reused across maps
         // Patch add.particles so one-shot emitters (explode:true) auto-destroy
         // after their longest particle lifespan. Continuous emitters (frequency-
@@ -304,8 +306,28 @@ export default class GameScene extends Phaser.Scene {
             sprite.setDepth(6);
             sprite.signText = sign.text;
             sprite.signId   = sign.id ?? null;   // quests can ask for one sign (read_signs target)
-            sprite.ePrompt = this.add.text(sx, sy - TILE_SIZE / 2 - 4, '[E]', {
+            if (sign.kind === 'book') sprite.setAlpha(0);   // W3: the shelf or desk under it is the art
+            sprite.ePrompt = this.add.text(sx, sy - TILE_SIZE / 2 - 4, sign.kind === 'book' ? '[E] Read' : '[E]', {
                 font: '7px monospace', fill: '#ffff88'
+            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
+        });
+
+        // Doors into interiors (W3). The building's drawn door is the art; this is
+        // the trigger. A 'hatch' (a cellar trapdoor) draws its own frame.
+        this.doors = this.physics.add.staticGroup();
+        (mapDef.spawns.doors ?? []).forEach(def => {
+            const dx = def.x * TILE_SIZE + TILE_SIZE / 2;
+            const dy = def.y * TILE_SIZE + TILE_SIZE / 2;
+            const door = this.doors.create(dx, dy, 'tile_tree').setAlpha(0);
+            door.refreshBody();
+            door.doorDef = def;
+            if (def.look === 'hatch') {
+                const g = this.add.graphics().setDepth(dy - 40);
+                g.fillStyle(0x0a0604, 1).fillRect(dx - 12, dy - 12, 24, 24);
+                g.lineStyle(3, 0x4a2c10, 1).strokeRect(dx - 12, dy - 12, 24, 24);
+            }
+            door.ePrompt = this.add.text(dx, dy - TILE_SIZE / 2 - 4, `[E] ${def.label ?? 'Enter'}`, {
+                font: '7px monospace', fill: def.locked ? '#cc9966' : '#ffff88'
             }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
         });
 
@@ -369,6 +391,7 @@ export default class GameScene extends Phaser.Scene {
             const sprite = this.chests.create(cx, cy, 'chest');
             sprite.setDepth(8);
             sprite.chestDef = def;
+            if (def.hidden && !playerStats.chestContents?.[`${this._mapId}:${def.x},${def.y}`]) sprite.setAlpha(0);   // W3 stash
             // Contents persist per chest in the save (what the player took or
             // stored stays that way); only an unopened chest starts from its def.
             sprite.chestKey = `${this._mapId}:${def.x},${def.y}`;
@@ -383,7 +406,7 @@ export default class GameScene extends Phaser.Scene {
             }
             sprite._wasOpened = false;
 
-            sprite.ePrompt = this.add.text(cx, cy - TILE_SIZE / 2 - 4, '[E]', {
+            sprite.ePrompt = this.add.text(cx, cy - TILE_SIZE / 2 - 4, def.hidden ? '[E] ?' : '[E]', {
                 font: '7px monospace', fill: '#ffff88'
             }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
         });
@@ -2198,6 +2221,15 @@ export default class GameScene extends Phaser.Scene {
 
     _enterPortal(portalDef) {
         if (this._transitioning) return;
+        // An interior's exit goes back through the door you came in by (W3)
+        if (portalDef.targetMap === RETURN_KEY) {
+            const back = resolvePortal(portalDef, playerStats, this._mapDef);
+            if (!back) {
+                this.scene.get('UIScene')?.showNotification?.('The way out is blocked.', 1500);
+                return;
+            }
+            portalDef = { ...portalDef, ...back };
+        }
         const gate = campaignManager.canEnter(portalDef.targetMap);
         if (!gate.allowed) {
             this.scene.get('UIScene')?.showNotification?.(gate.reason, 2500);
@@ -2220,6 +2252,28 @@ export default class GameScene extends Phaser.Scene {
                 serverUrl:       this._serverUrl,
                 onlineCharacter: this._onlineCharacter,
             });
+        });
+    }
+
+    _useDoor(def) {
+        if (this._transitioning) return;
+        soundManager.interact();
+        const lock = doorLockState(def, playerStats);
+        if (!lock.open) {
+            this.scene.get('UIScene')?.showNotification?.(lock.reason, 1800);
+            return;
+        }
+        const target = getMap(def.interior);
+        if (target?.id !== def.interior) {
+            console.warn(`door at ${def.x},${def.y} leads to unknown interior "${def.interior}"`);
+            this.scene.get('UIScene')?.showNotification?.('The door will not open.', 1500);
+            return;
+        }
+        pushReturn(playerStats, { mapId: this._mapId, ...doorReturnPoint(def) });
+        this._enterPortal({
+            targetMap: def.interior,
+            targetX: target.playerStart.x * TILE_SIZE + TILE_SIZE / 2,
+            targetY: target.playerStart.y * TILE_SIZE + TILE_SIZE / 2,
         });
     }
 
@@ -2996,7 +3050,9 @@ export default class GameScene extends Phaser.Scene {
         this._treeLayer.setCollision(0);
 
         const treeCells = [];
-        tiles.forEach((row, r) => row.forEach((tile, c) => { if (tile === 1) treeCells.push({ x: c, y: r }); }));
+        // Interiors draw their walls themselves: tile 1 is collision only there (W3)
+        if (this._mapDef.treeArt !== false)
+            tiles.forEach((row, r) => row.forEach((tile, c) => { if (tile === 1) treeCells.push({ x: c, y: r }); }));
         // 8 tiles of pad around the view: as far as the largest sprite reaches (W2 budget)
         this._streamer = new ChunkStreamer({ cols: tiles[0].length, rows: tiles.length, pad: 8 * TILE_SIZE });
         // One streamed item per chunk of trees: trunks + one baked canopy texture (W2 budget)
@@ -3457,6 +3513,7 @@ export default class GameScene extends Phaser.Scene {
         const nearBoard = this._bountyBoardNear(range);
         (this.bountyBoards ?? []).forEach(b => b.ePrompt?.setAlpha(b === nearBoard ? 1 : 0));
         this.signs.getChildren().forEach(sign         => sign.ePrompt?.setAlpha(near(sign) ? 1 : 0));
+        this.doors.getChildren().forEach(d => d.ePrompt?.setAlpha(near(d) ? 1 : 0));
         this.crackedBoulders.getChildren().forEach(b  => b.ePrompt?.setAlpha(near(b) && b.active ? 1 : 0));
         this.gatheringGroup.getChildren().forEach(nd  => nd.ePrompt?.setAlpha(near(nd) && !nd.gathered ? 1 : 0));
         this._riftGates?.forEach(g => {
@@ -3466,6 +3523,7 @@ export default class GameScene extends Phaser.Scene {
         });
         // Expose for UIScene ATK button context
         this._nearInteract =
+            this.doors.getChildren().some(d => near(d)) ||
             this.npcs.getChildren().some(n => near(n)) ||
             this.chests.getChildren().some(c => near(c) && !c.opened) ||
             this.campfires.getChildren().some(cf => near(cf)) ||
@@ -3498,6 +3556,10 @@ export default class GameScene extends Phaser.Scene {
     }
 
     _checkInteractions() {
+        // Doors first — only when the interaction box is on the door itself (W3)
+        let door = null;
+        this.physics.overlap(this.player.interactBox, this.doors, (_b, d) => { door ??= d; });
+        if (door) { this._useDoor(door.doorDef); return; }
         // NPC
         this.physics.overlap(this.player.interactBox, this.npcs, (box, npc) => {
             const def = npc.npcDef;
@@ -3648,6 +3710,10 @@ export default class GameScene extends Phaser.Scene {
             if (this.scene.isActive('ChestScene')) return;
             soundManager.openChest();
             openChest(chest, this._storyId, this._characterId);
+            if (chest.alpha === 0) {
+                chest.setAlpha(1);
+                this.scene.get('UIScene')?.showNotification?.('Something was hidden here…', 1600);
+            }
             this.scene.pause();
             this.scene.launch('ChestScene');
         });
