@@ -44,7 +44,7 @@ import { CharacterRenderer, DEFAULT_ANIMS } from '../systems/CharacterRenderer.j
 import { enrichLayers, weaponLayersForItem, WEAPON_ATTACK_ANIM } from '../systems/catalogueLayers.js';
 import { openChest } from './ChestScene.js';
 import { isHoppableDecoration } from '../systems/movementRules.js';
-import { ChunkStreamer } from '../systems/regionChunks.js';
+import { ChunkStreamer, chunkKey, chunkOfTile } from '../systems/regionChunks.js';
 
 export default class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
@@ -132,6 +132,17 @@ export default class GameScene extends Phaser.Scene {
         // W2: build what is under the camera now; the margin streams in over the next frames
         this.cameras.main.setZoom(isMobile ? 1.5 : 3);
         this._streamer?.update(this._streamView(), 0);
+        this._sleeping = new Map();
+        this._streamEnemies = !this._serverUrl && !!this._streamer;
+        if (this._streamer) this._streamer.onEnter = k => {
+            const defs = this._sleeping.get(k);
+            if (!defs || !this.enemies) return;
+            this._sleeping.delete(k);
+            for (const d of defs) {
+                if (spawnActive(d, playerStats.gameMinutes)) this._spawnFromDef(d);
+                else this._dormant.push(d);
+            }
+        };
 
         // Tiled-map blocking layers were built before the player existed
         // (see _buildWorldFromTiled) — wire up their colliders now.
@@ -237,6 +248,11 @@ export default class GameScene extends Phaser.Scene {
             // Day- or night-only creatures wait for their hour (online, the server decides)
             if (!this._serverUrl && !spawnActive(spawn, playerStats.gameMinutes)) {
                 this._dormant.push({ type: spawn.type, x: ex, y: ey, time: spawn.time });
+                return;
+            }
+            // W2: creatures outside the streamed area sleep until their chunk comes in
+            if (this._streamEnemies && !this._streamer.isTileActive(spawn.x, spawn.y)) {
+                this._sleepDef({ type: spawn.type, x: ex, y: ey, time: spawn.time });
                 return;
             }
             const enemy = this._spawnEnemy(spawn.type, ex, ey);
@@ -3204,6 +3220,8 @@ export default class GameScene extends Phaser.Scene {
         });
 
         // Music mood — throttled to every 500ms
+        this._sleepT = (this._sleepT ?? 0) + delta;
+        if (this._sleepT >= 500) { this._sleepT = 0; this._sleepFarEnemies(); }
         this._musicMoodTimer = (this._musicMoodTimer ?? 0) + delta;
         if (this._musicMoodTimer >= 500) {
             this._musicMoodTimer = 0;
@@ -3710,14 +3728,48 @@ export default class GameScene extends Phaser.Scene {
     _tryRespawn(def) {
         if (!this.player?.active) return;
         if (!spawnActive(def, playerStats.gameMinutes)) { this._dormant.push(def); return; }
+        // Out of range: sleep until its chunk streams in (W2)
+        if (this._streamEnemies && !this._streamer.isPxActive(def.x, def.y)) { this._sleepDef(def); return; }
         if (!canRespawnAt(def, this.player)) {
             this.time.delayedCall(10000, () => this._tryRespawn(def));
             return;
         }
-        const enemy = this._spawnEnemy(def.type, def.x, def.y);
-        this._maybeElite(enemy);
+        this._spawnFromDef(def);
+    }
+
+    // Spawn a map creature from its def. A def that slept (W2) wakes with its HP,
+    // level and elite affixes, and never re-rolls an elite.
+    _spawnFromDef(def) {
+        const enemy = this._spawnEnemy(def.type, def.x, def.y, def._level ?? null);
+        if (def._affixes) { this._eliteCount++; this._makeElite(enemy, def._affixes); }
+        else if (!def._slept) this._maybeElite(enemy);
+        if (def._hp != null) { enemy.health = Math.min(enemy.maxHealth, def._hp); enemy._drawHealthBar?.(); }
+        def._hp = null; def._level = null; def._affixes = null; def._slept = false;
         enemy.spawnDef = def;
         enemy.once('died', () => { if (enemy.elite) this._eliteCount--; this._scheduleRespawn(def); });
+        return enemy;
+    }
+
+    _sleepDef(def) {
+        const { cx, cy } = chunkOfTile(Math.floor(def.x / TILE_SIZE), Math.floor(def.y / TILE_SIZE));
+        const k = chunkKey(cx, cy);
+        if (!this._sleeping.has(k)) this._sleeping.set(k, []);
+        this._sleeping.get(k).push(def);
+    }
+
+    // Calm creatures whose home and current chunk are both out of range sleep (W2).
+    _sleepFarEnemies() {
+        if (!this._streamEnemies) return;
+        this.enemies.getChildren().slice().forEach(e => {
+            const d = e.spawnDef;
+            if (!e.active || !d || e.state === 'chase' || e.state === 'attack') return;
+            if (this._streamer.isPxActive(d.x, d.y) || this._streamer.isPxActive(e.x, e.y)) return;
+            d._hp = e.health; d._level = e.level ?? null; d._affixes = e.elite ? e.affixes : null; d._slept = true;
+            if (e.elite) this._eliteCount--;
+            if (this._target === e) this._target = null;
+            e.destroy();
+            this._sleepDef(d);
+        });
     }
 
     _maybeElite(enemy) {
