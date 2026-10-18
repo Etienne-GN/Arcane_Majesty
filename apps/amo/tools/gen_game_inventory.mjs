@@ -98,6 +98,7 @@ table(['Key', 'Action'], [
     ['L', 'Codex (world lore, bestiary, recovered memories)'], ['C', 'Crafting bench'], ['ESC', 'Menu'], ['Gamepad', 'Full support (menus and play)'],
 ]);
 table(['System', 'How it works'], [
+    ['Doors & interiors', 'Buildings with a door can be entered (E). Leaving puts you back in front of the door you came through, even from a room inside a room (the inn\'s cellar). Some doors are locked until you carry a key or have earned the way in. Shelves and desks may hold a book to read (E); some homes hide a stash.'],
     ['Vigor', 'The green bar under MP (100, +2 per Agility above 10). Sprinting and hopping spend it; it refills at 25/s after 0.8 s of rest. It is not the Stamina attribute.'],
     ['Resonance', `Acting with an element (kills, casting, resting…) builds resonance in it (${RESONANCE_ELEMENTS.join(', ')}). Crossing a spell's threshold **discovers** it; further thresholds raise it to ${TIER_NAMES.join(' → ')}.`],
     ['Mana scent', 'Casting and blinking leave an "Aetheric Scent" (0–100) that decays over time; enemies detect you from up to 3× further while it is high.'],
@@ -122,7 +123,7 @@ table(['System', 'How it works'], [
     ['Weather', `Each map's weather follows its biome and changes every 4–8 game hours — ${Object.entries(BIOME_WEATHER).map(([b, t]) => `${b}: ${Object.keys(t).map(k => WEATHER[k]).join('/')}`).join('; ')}. Rain and storms soak everyone every 10 s (fire spells ×0.8, lightning ×1.2, on top of Wet) and standing in the rain builds water, ice and nature resonance. Storms drop a lightning strike every 6–12 s, marked by a ring ${STORM.telegraphMs / 1000}s before it lands (${stormStrikeDamage({ max: 3 })} damage at Lv 1–3, more in higher regions). Snow chills you (Cold for 8 s) every 20 s unless you are within 120 px of a campfire or hearth or under Warming (Warmth Aura, Warming Draught: 90 s). Sandstorms cut enemy sight to 60%.`],
     ['Memories', 'Completing quests recovers lore fragments ("Archive of Souls"), readable in the Codex.'],
     ['Campaign', "Eldoria's Prophecy: chapters gate which maps you can enter; completing a chapter grants its unlocks; progress is saved."],
-    ['Saving', 'Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties, the game clock.'],
+    ['Saving', 'Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties, the game clock, the doors you came in by.'],
     ['Online', 'Server select, online characters, chat; other players are visible (presence). The campaign is single-player.'],
     ['Character creator', 'LPC layered characters with palette swaps, export of the character and sheet (with licences).'],
 ]);

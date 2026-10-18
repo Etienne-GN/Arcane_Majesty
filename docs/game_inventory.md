@@ -2,7 +2,7 @@
 
 _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-18. Regenerate after changing the data; don't hand-edit._
 
-**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 25 status effects · 198 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 24 maps · 5 playable characters · 33 dialogues
+**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 25 status effects · 198 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 29 maps · 5 playable characters · 33 dialogues
 
 ## Contents
 1. [Systems & controls](#systems--controls)
@@ -53,6 +53,7 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 
 | System | How it works |
 |---|---|
+| Doors & interiors | Buildings with a door can be entered (E). Leaving puts you back in front of the door you came through, even from a room inside a room (the inn's cellar). Some doors are locked until you carry a key or have earned the way in. Shelves and desks may hold a book to read (E); some homes hide a stash. |
 | Vigor | The green bar under MP (100, +2 per Agility above 10). Sprinting and hopping spend it; it refills at 25/s after 0.8 s of rest. It is not the Stamina attribute. |
 | Resonance | Acting with an element (kills, casting, resting…) builds resonance in it (fire, arcane, lightning, shadow, earth, ice, nature, wind, water). Crossing a spell's threshold **discovers** it; further thresholds raise it to Novice → Apprentice → Adept. |
 | Mana scent | Casting and blinking leave an "Aetheric Scent" (0–100) that decays over time; enemies detect you from up to 3× further while it is high. |
@@ -77,7 +78,7 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | Weather | Each map's weather follows its biome and changes every 4–8 game hours — temperate: Clear/Rain/Storm; forest: Clear/Rain/Storm; snow: Clear/Snow/Storm; arid: Clear/Sandstorm; indoor: Clear. Rain and storms soak everyone every 10 s (fire spells ×0.8, lightning ×1.2, on top of Wet) and standing in the rain builds water, ice and nature resonance. Storms drop a lightning strike every 6–12 s, marked by a ring 1.2s before it lands (16 damage at Lv 1–3, more in higher regions). Snow chills you (Cold for 8 s) every 20 s unless you are within 120 px of a campfire or hearth or under Warming (Warmth Aura, Warming Draught: 90 s). Sandstorms cut enemy sight to 60%. |
 | Memories | Completing quests recovers lore fragments ("Archive of Souls"), readable in the Codex. |
 | Campaign | Eldoria's Prophecy: chapters gate which maps you can enter; completing a chapter grants its unlocks; progress is saved. |
-| Saving | Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties, the game clock. |
+| Saving | Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties, the game clock, the doors you came in by. |
 | Online | Server select, online characters, chat; other players are visible (presence). The campaign is single-player. |
 | Character creator | LPC layered characters with palette swaps, export of the character and sheet (with licences). |
 
@@ -928,6 +929,11 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 | wintertest | Winter Test | 48×36 | test / showcase | snow |
 | dungeontest | Dungeon Test | 50×40 | test / showcase | indoor |
 | worldtest | The Grand Tour (Test) | 128×100 | test / showcase | temperate |
+| streamtest | Stream Test (256×256) | 256×256 | test / showcase | forest |
+| thaloria_bell_tower | Thaloria — the Bell Tower | 11×9 | game map | indoor |
+| thaloria_house_teal | Thaloria — a house | 11×9 | game map | indoor |
+| thaloria_inn | Thaloria — the Inn | 18×13 | game map | indoor |
+| thaloria_inn_cellar | Thaloria — the Inn's cellar | 13×8 | game map | indoor |
 
 ## Characters & stories
 | Character | Role | About |
