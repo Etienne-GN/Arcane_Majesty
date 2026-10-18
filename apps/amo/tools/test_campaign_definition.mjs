@@ -77,8 +77,11 @@ ok('chapter 1\'s maps are real content, not scaffolding (no [SCAFFOLDING] sign)'
 for (const mapId of registeredMapIds) {
     const def = getMap(mapId);
     for (const portal of def.portals ?? []) {
-        ok(`${mapId}'s portal "${portal.id}" targets a registered map ("${portal.targetMap}")`,
-            registeredMapIds.has(portal.targetMap));
+        // An interior's exit ('__return') goes back through the door you came in by;
+        // with no door on record it uses the interior's exitFallback, which must exist.
+        const target = portal.targetMap === '__return' && def.interior ? def.exitFallback?.map : portal.targetMap;
+        ok(`${mapId}'s portal "${portal.id}" targets a registered map ("${target}")`,
+            registeredMapIds.has(target));
     }
 }
 
