@@ -148,7 +148,7 @@ export class PlayerStats {
                 category: SKILL_CATEGORY.ACTIVE,
                 level: 0,
                 maxLevel: 3,
-                description: 'Aether dash in facing direction. 8 MP. [SPACE]',
+                description: 'Aether dash in facing direction. 8 MP. [H]',
                 requirements: { level: 3, agility: 8, resonance: { arcane: 3 } }
             },
             'mana_shield': {

@@ -89,15 +89,16 @@ P();
 P('## Systems & controls');
 P();
 table(['Key', 'Action'], [
-    ['Arrows / WASD', 'Move (speed 100 + 4 × Agility, × status speed)'], ['Z', 'Attack (basic strike)'], ['X', 'Power attack'],
+    ['Arrows / WASD', 'Move (speed 100 + 4 × Agility, × status speed)'], ['SHIFT (hold)', 'Sprint: ×1.6 speed, spends 20 Vigor/s; at 0 Vigor you are winded until it is back to 30 (touch: RUN toggle + push the stick fully; gamepad: hold LT)'], ['SPACE', 'Hop up to 2 tiles over fences, logs, small rocks and crates (25 Vigor); invulnerable for the first 0.25 s, so it is also your dodge (touch: HOP; gamepad: RT)'], ['Z', 'Attack (basic strike)'], ['X', 'Power attack'],
     ['E', 'Interact (talk, chests, signs, gathering, rift-gates, hearths, alchemy tables)'], ['Q R F T', 'Cast the spells in slots 1–4'],
     ['1 2 3 4', 'Use the consumable on hotbar slot 1–4 (assign from the Inventory with 1–4; touch: the row above the skill ring)'],
-    ['SPACE', 'Blink-Step (skill, 8 MP)'], ['V', 'Aetheric Sight (skill: slows enemies, shows their detection range)'],
+    ['H', 'Blink-Step (skill, 8 MP)'], ['V', 'Aetheric Sight (skill: slows enemies, shows their detection range)'],
     ['B', 'Build a campfire anywhere (costs 3 Wood)'], ['G', 'Aetheric Tear — open a rift to a known place (85% of max MP, cooldown)'],
     ['I', 'Inventory'], ['P', 'Stats'], ['K', 'Skill tree'], ['J', 'Spellbook'], ['M', 'World map'], ['N', 'Quest journal'],
     ['L', 'Codex (world lore, bestiary, recovered memories)'], ['C', 'Crafting bench'], ['ESC', 'Menu'], ['Gamepad', 'Full support (menus and play)'],
 ]);
 table(['System', 'How it works'], [
+    ['Vigor', 'The green bar under MP (100, +2 per Agility above 10). Sprinting and hopping spend it; it refills at 25/s after 0.8 s of rest. It is not the Stamina attribute.'],
     ['Resonance', `Acting with an element (kills, casting, resting…) builds resonance in it (${RESONANCE_ELEMENTS.join(', ')}). Crossing a spell's threshold **discovers** it; further thresholds raise it to ${TIER_NAMES.join(' → ')}.`],
     ['Mana scent', 'Casting and blinking leave an "Aetheric Scent" (0–100) that decays over time; enemies detect you from up to 3× further while it is high.'],
     ['Mana exhaustion', 'Below 20% MP you suffer growing fatigue (up to −50%); emptying your mana exhausts or collapses you until you recover.'],

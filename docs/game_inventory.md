@@ -1,6 +1,6 @@
 # Arcane Majesty (amo) — Complete Game Inventory
 
-_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-17. Regenerate after changing the data; don't hand-edit._
+_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-18. Regenerate after changing the data; don't hand-edit._
 
 **At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 25 status effects · 198 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 24 maps · 5 playable characters · 33 dialogues
 
@@ -29,12 +29,14 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | Key | Action |
 |---|---|
 | Arrows / WASD | Move (speed 100 + 4 × Agility, × status speed) |
+| SHIFT (hold) | Sprint: ×1.6 speed, spends 20 Vigor/s; at 0 Vigor you are winded until it is back to 30 (touch: RUN toggle + push the stick fully; gamepad: hold LT) |
+| SPACE | Hop up to 2 tiles over fences, logs, small rocks and crates (25 Vigor); invulnerable for the first 0.25 s, so it is also your dodge (touch: HOP; gamepad: RT) |
 | Z | Attack (basic strike) |
 | X | Power attack |
 | E | Interact (talk, chests, signs, gathering, rift-gates, hearths, alchemy tables) |
 | Q R F T | Cast the spells in slots 1–4 |
 | 1 2 3 4 | Use the consumable on hotbar slot 1–4 (assign from the Inventory with 1–4; touch: the row above the skill ring) |
-| SPACE | Blink-Step (skill, 8 MP) |
+| H | Blink-Step (skill, 8 MP) |
 | V | Aetheric Sight (skill: slows enemies, shows their detection range) |
 | B | Build a campfire anywhere (costs 3 Wood) |
 | G | Aetheric Tear — open a rift to a known place (85% of max MP, cooldown) |
@@ -51,6 +53,7 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 
 | System | How it works |
 |---|---|
+| Vigor | The green bar under MP (100, +2 per Agility above 10). Sprinting and hopping spend it; it refills at 25/s after 0.8 s of rest. It is not the Stamina attribute. |
 | Resonance | Acting with an element (kills, casting, resting…) builds resonance in it (fire, arcane, lightning, shadow, earth, ice, nature, wind, water). Crossing a spell's threshold **discovers** it; further thresholds raise it to Novice → Apprentice → Adept. |
 | Mana scent | Casting and blinking leave an "Aetheric Scent" (0–100) that decays over time; enemies detect you from up to 3× further while it is high. |
 | Mana exhaustion | Below 20% MP you suffer growing fatigue (up to −50%); emptying your mana exhausts or collapses you until you recover. |
@@ -103,7 +106,7 @@ Combat formulas: melee damage 8 + 2 × Strength (weapon type modifiers apply); c
 | Power Slash | active / infight | 5 | level 2, strength 10 | Deals heavy damage to a single target. |
 | Keen Eye | passive / crit | 5 | agility 8 | Increases critical hit chance. |
 | Arcane Ward | passive / subtle | 3 | level 2, intelligence 8 | Reduces damage taken by 10% per level. |
-| Blink-Step | active / infight | 3 | level 3, agility 8, arcane resonance 3 | Aether dash in facing direction. 8 MP. [SPACE] |
+| Blink-Step | active / infight | 3 | level 3, agility 8, arcane resonance 3 | Aether dash in facing direction. 8 MP. [H] |
 | Mana-Shield | passive / subtle | 3 | level 2, intelligence 8, arcane resonance 5 | Absorbs 30/50/70% of incoming damage using mana. |
 | Aetheric Sight | active / subtle | 3 | level 4, intelligence 12, arcane resonance 8 | Slow enemies for 2/3/4s. Reveals detection ranges. [V] |
 | Shadow Step | passive / subtle | 3 | shadow resonance 10 | Shadow Veil lasts +1s/lv, costs 10% less MP/lv. |
