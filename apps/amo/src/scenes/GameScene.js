@@ -1073,7 +1073,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     _tryBlink() {
-        if (!this.player?.active) return;
+        if (!this.player?.active || this.player.isHopping) return;   // never out of a validated hop
         this.player.blinkStep();
     }
 
@@ -3315,8 +3315,9 @@ export default class GameScene extends Phaser.Scene {
 
         const joyVec = this.scene.get('UIScene')?._joyVec ?? null;
         const joyFull = joyVec && Math.hypot(joyVec.x, joyVec.y) >= 0.9;
-        const sprint  = this.sprintKey.isDown || (this._touchSprint && joyFull) ||
-            !!this.scene.get('UIScene')?._controls?.padSprint;
+        // No sprint while aiming a spell or placing a campfire (W1 spec)
+        const sprint  = !this._targeting && !this._campfirePlacing && (this.sprintKey.isDown || (this._touchSprint && joyFull) ||
+            !!this.scene.get('UIScene')?._controls?.padSprint);
         this.player.update(this.cursors, this.wasd, this.attackKey, this.powerKey, delta, joyVec, { sprint });
         this._streamer?.update(this._streamView(), 1);
         this.player.setDepth(this.player.y + 1);
