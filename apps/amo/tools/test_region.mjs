@@ -155,4 +155,19 @@ const sorted = s => [...s].sort();
     eq(s.builtCount(), 4, 'and nothing else (a 1-chunk margin would build 9)');
 }
 
+// ---- W5: streamtest's dense layer and landmarks
+{
+    const { getMap } = await import('../src/data/maps/index.js');
+    const { denseMask } = await import('../src/systems/mapPaint.js');
+    const m = getMap('streamtest');
+    const mask = denseMask(m);
+    ok(mask, 'streamtest has a dense layer');
+    const frac = mask.reduce((a, b) => a + b, 0) / mask.length;
+    ok(frac > 0.05 && frac < 0.6, `a real share of it is dense (${(frac * 100).toFixed(1)}%)`);
+    ok(!mask[m.playerStart.y * 256 + m.playerStart.x], 'the start is not dense');
+    eq(m.spawns.landmarks.length, 5, 'five landmarks');
+    eq(new Set(m.spawns.landmarks.map(l => l.id)).size, 5, 'unique ids');
+    ok(m.spawns.landmarks.every(l => m.tiles[l.y][l.x] === 0 && l.radius === 3 && l.xp === 20), 'each stands in a clearing, radius 3, 20 XP');
+}
+
 console.log(`test_region: ${n} checks passed`);

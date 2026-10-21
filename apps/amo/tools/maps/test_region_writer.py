@@ -35,6 +35,12 @@ with tempfile.TemporaryDirectory() as d:
     assert [s['scale'] for s in raw['sheets']] == [1, 2]
     assert base64.b64decode(raw['hop'])[0] & (1 << 5), 'hop bit for (2,1) = index 5'
     assert raw['displayName'] == 'Tiny'
+    assert 'dense' not in raw and 'chart' not in raw, 'no layers unless given'
+    out2 = Path(d) / 'layers.js'
+    write_region(out2, id='layers', tiles=tiles, sm=SheetMap(), fields={}, dense_cells=[(0, 1)], chart_cells=[(2, 0)])
+    raw2 = json.loads(re.search(r'export default (\{.*\});\s*$', out2.read_text(), re.S).group(1))
+    assert base64.b64decode(raw2['dense'])[0] == 1 << 3, 'dense bit for (0,1) = index 3'
+    assert base64.b64decode(raw2['chart'])[0] == 1 << 2, 'chart bit for (2,0) = index 2'
 
 try:
     sm2 = SheetMap()

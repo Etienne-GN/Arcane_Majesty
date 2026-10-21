@@ -42,7 +42,7 @@ def _flags(it):
     return f
 
 
-def write_region(out_path, *, id, tiles, sm: SheetMap, fields, hop_cells=(), header=''):
+def write_region(out_path, *, id, tiles, sm: SheetMap, fields, hop_cells=(), dense_cells=(), chart_cells=(), header=''):
     h, w = len(tiles), len(tiles[0])
     sheets, names, deco, name_idx = [], [], [], {}
     for (sheet, scale), items in sm.groups.items():
@@ -66,6 +66,11 @@ def write_region(out_path, *, id, tiles, sm: SheetMap, fields, hop_cells=(), hea
     raw = {'format': 1, 'id': id, 'width': w, 'height': h, 'tiles': pack_tiles(tiles),
            'hop': pack_bits(hop_cells, w, h) if hop_cells else None,
            'sheets': sheets, 'names': names, 'deco': deco, **fields}
+    # W5 layers, per tile: dense forest (smaller reveal radius, vignette) and a chart's roads
+    if dense_cells:
+        raw['dense'] = pack_bits(dense_cells, w, h)
+    if chart_cells:
+        raw['chart'] = pack_bits(chart_cells, w, h)
     text = ''.join(f'// {line}\n' for line in header.splitlines()) if header else ''
     text += 'export default ' + json.dumps(raw, separators=(',', ':')) + ';\n'
     Path(out_path).parent.mkdir(parents=True, exist_ok=True)
