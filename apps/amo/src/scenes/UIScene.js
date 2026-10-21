@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { TILE_SIZE } from '../data/worldMap.js';
-import { getMap } from '../data/maps/index.js';
+import { visibleFeatures } from '../systems/mapMarkers.js';
 import { statusManager } from '../systems/StatusManager.js';
 import { STATUS_DEFS } from '../data/statuses.js';
 import { isMobile } from '../utils/platform.js';
@@ -9,6 +9,8 @@ import LauncherControls from '../controls/LauncherControls.js';
 import { HOTBAR_SIZE, hotbarView } from '../systems/hotbar.js';
 import { clockLabel } from '../systems/gameClock.js';
 import { WEATHER } from '../data/weather.js';
+
+const MINIMAP_TILES = 48;   // W5: tiles across the minimap window
 
 export default class UIScene extends Phaser.Scene {
     constructor() { super('UIScene'); }
@@ -138,12 +140,12 @@ export default class UIScene extends Phaser.Scene {
                 .fillRect(0, d, d, h - 2 * d).fillRect(w - d, d, d, h - 2 * d);
         }
 
-        // ---- Minimap ----
+        // ---- Minimap (W5): a 48-tile window of the explored map, centred on the player ----
         const mmX = w - this._mmW - pad;
         const mmY = pad;
-
-        this.mmStatic = this.add.renderTexture(mmX, mmY, this._mmW, this._mmH).setDepth(40).setOrigin(0);
-        this._currentMapId = null; // forces draw on first _updateMinimap tick
+        this.add.rectangle(mmX, mmY, this._mmW, this._mmH, 0x000000, 1).setOrigin(0).setDepth(39);
+        this.mmImage = null;   // shows GameScene._mapImg, cropped
+        this._mmKey  = null;
 
         const mmBdr = this.add.graphics().setDepth(42);
         mmBdr.lineStyle(2, 0x4444aa);
@@ -152,27 +154,6 @@ export default class UIScene extends Phaser.Scene {
         this.mmDynamic = this.add.graphics().setDepth(41);
         this._mmX = mmX;
         this._mmY = mmY;
-    }
-
-    _drawMinimapStatic(tiles) {
-        const rows = tiles.length;
-        const cols = tiles[0].length;
-        const tw = this._mmW / cols;   // tile width in minimap pixels
-        const th = this._mmH / rows;   // tile height in minimap pixels
-        const g = this.make.graphics({ x: 0, y: 0, add: false });
-        this.mmStatic.clear();
-        tiles.forEach((row, r) => {
-            let start = 0;
-            const colorOf = t => (t === 1 ? 0x0d2010 : t === 2 ? 0x5a4a2a : 0x1e3a14);
-            for (let c = 1; c <= row.length; c++) {
-                if (c < row.length && colorOf(row[c]) === colorOf(row[start])) continue;
-                g.fillStyle(colorOf(row[start]));
-                g.fillRect(start * tw, r * th, (c - start) * tw, th);
-                start = c;
-            }
-        });
-        this.mmStatic.draw(g);
-        g.destroy();
     }
 
     update() {
@@ -386,24 +367,47 @@ export default class UIScene extends Phaser.Scene {
     _updateMinimap() {
         const game = this.scene.get('GameScene');
         if (!game || !game.player?.active) return;
-
-        // Redraw static layer whenever the player travels to a new map
-        const mapId = game._mapId ?? 'prologue_forest';
-        if (mapId !== this._currentMapId) {
-            this._currentMapId = mapId;
-            this._drawMinimapStatic(getMap(mapId).tiles);
+        const mi = game._mapImg ?? null;
+        if ((mi?.key ?? null) !== this._mmKey) {
+            this.mmImage?.destroy();
+            this.mmImage = mi ? this.add.image(0, 0, mi.key).setOrigin(0).setDepth(40) : null;
+            this._mmKey = mi?.key ?? null;
         }
-
-        const tiles  = getMap(mapId).tiles;
-        const worldW = tiles[0].length * TILE_SIZE;
-        const worldH = tiles.length    * TILE_SIZE;
-
         const g = this.mmDynamic;
         g.clear();
-        const px = this._mmX + (game.player.x / worldW) * this._mmW;
-        const py = this._mmY + (game.player.y / worldH) * this._mmH;
-        g.fillStyle(0xffffff);
-        g.fillRect(px - 2, py - 2, 4, 4);
+        if (!mi) return;   // no tile grid (a Tiled map): the box stays black
+
+        const s = this._mmW / MINIMAP_TILES;              // minimap px per tile
+        const cols = MINIMAP_TILES, rows = this._mmH / s;
+        const ptx = game.player.x / TILE_SIZE, pty = game.player.y / TILE_SIZE;
+        const left = ptx - cols / 2, top = pty - rows / 2;
+        // Whole texels only, so nothing spills past the frame
+        const cx0 = Math.max(0, Math.ceil(left)), cy0 = Math.max(0, Math.ceil(top));
+        const cx1 = Math.min(mi.w, Math.floor(left + cols)), cy1 = Math.min(mi.h, Math.floor(top + rows));
+        if (cx1 <= cx0 || cy1 <= cy0) this.mmImage.setVisible(false);
+        else this.mmImage.setVisible(true).setScale(s).setPosition(this._mmX - left * s, this._mmY - top * s).setCrop(cx0, cy0, cx1 - cx0, cy1 - cy0);
+
+        const toMM = (tx, ty) => [this._mmX + (tx + 0.5 - left) * s, this._mmY + (ty + 0.5 - top) * s];
+        const inBox = (x, y) => x >= this._mmX && y >= this._mmY && x <= this._mmX + this._mmW && y <= this._mmY + this._mmH;
+        const f = this._mmFeatures(game);
+        for (const d of f.doors) {
+            const [x, y] = toMM(d.x, d.y);
+            if (inBox(x, y)) g.fillStyle(d.locked ? 0xaa3333 : 0xc89a5a).fillRect(x - 2, y - 2, 4, 4);
+        }
+        for (const l of f.landmarks) {
+            const [x, y] = toMM(l.x, l.y);
+            if (inBox(x, y)) g.fillStyle(l.discovered ? 0xffe080 : 0x888888).fillCircle(x, y, 2.5);
+        }
+        const px = this._mmX + (ptx - left) * s, py = this._mmY + (pty - top) * s;
+        g.fillStyle(0xffffff).fillRect(px - 2, py - 2, 4, 4);
+    }
+
+    // Doors and landmarks seen on this map — recomputed at most every 500 ms (a big region has many).
+    _mmFeatures(game) {
+        const now = this.time.now;
+        if (this._mmF && this._mmF.map === game._mapId && now - this._mmF.t < 500) return this._mmF.f;
+        this._mmF = { map: game._mapId, t: now, f: visibleFeatures(game._mapDef, game._fog ?? null, this.stats, game._mapId) };
+        return this._mmF.f;
     }
 
     showNotification(msg, duration = 2500) {
