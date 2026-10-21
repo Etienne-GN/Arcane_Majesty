@@ -263,6 +263,12 @@ export class PlayerStats {
         // Explored map chunks — 4×4 tile cells, key format "cx_cy"
         this.exploredChunks = [];
 
+        // W5: fog of war per map ({ mapId: base64 bitset, one bit per 4×4 tiles }),
+        // regions charted (chart items), landmarks discovered
+        this.explored   = {};
+        this.charted    = {};
+        this.discovered = {};
+
         // Quest log: { questId: { status: 'active'|'completed', progress: { stepId: n } } }
         this.questLog          = {};
         // Campaign progress: { id, chapter, completed: [] } or null — see
@@ -767,6 +773,9 @@ export class PlayerStats {
         this.hotbar     = [null, null, null, null];
         this.attunedGates      = [];
         this.exploredChunks    = [];
+        this.explored          = {};
+        this.charted           = {};
+        this.discovered        = {};
         this.questLog          = {};
         this.campaign          = null;
         this.recoveredMemories = [];

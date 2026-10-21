@@ -64,6 +64,9 @@ export class SaveManager {
             bounties:          JSON.parse(JSON.stringify(stats.bounties ?? {})),
             gameMinutes:       stats.gameMinutes ?? 480,
             interiorReturn:    (stats.interiorReturn ?? []).map(e => ({ mapId: e.mapId, x: e.x, y: e.y })),
+            explored:          { ...(stats.explored ?? {}) },
+            charted:           { ...(stats.charted ?? {}) },
+            discovered:        { ...(stats.discovered ?? {}) },
             location:          stats.location ? { ...stats.location } : null,
             respawnPoint:      stats.respawnPoint ? { ...stats.respawnPoint } : null,
             worldState:        prunedWorldState(stats, Date.now()),
@@ -127,6 +130,10 @@ export class SaveManager {
             stats.bounties        = d.bounties ? JSON.parse(JSON.stringify(d.bounties)) : {};
             stats.gameMinutes     = Number.isFinite(d.gameMinutes) ? d.gameMinutes : 480;
             stats.interiorReturn  = Array.isArray(d.interiorReturn) ? d.interiorReturn.map(e => ({ mapId: e.mapId, x: e.x, y: e.y })) : [];
+            const keep = (o, valid) => Object.fromEntries(Object.entries(o && typeof o === 'object' ? o : {}).filter(([, v]) => valid(v)));
+            stats.explored   = keep(d.explored, v => typeof v === 'string');
+            stats.charted    = keep(d.charted, v => v === true);
+            stats.discovered = keep(d.discovered, v => v === true);
             stats.vigor        = stats.maxVigor;   // Vigor is not saved: a load starts full
             stats.vigorWinded  = false;
             stats._vigorIdleMs = 0;
