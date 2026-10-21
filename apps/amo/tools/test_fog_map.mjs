@@ -130,4 +130,89 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     ok(!P.isDenseAt(P.denseMask(thick), 8, -1, 0) && !P.isDenseAt(P.denseMask(thick), 8, 0, 9), 'outside the map is not dense');
 }
 
+// ---- Features and quest markers
+{
+    const K = await import('../src/systems/mapMarkers.js');
+    const grid = Array.from({ length: 20 }, () => new Array(20).fill(0));
+    const def = {
+        tiles: grid,
+        portals: [{ id: 'p', x: 0, y: 5, targetMap: 'east_road', label: 'East' }],
+        spawns: {
+            doors: [{ x: 5, y: 5, interior: 'room', label: 'Room' }, { x: 9, y: 9, interior: 'vault', label: 'Vault', locked: { flag: 'vault_key' } }],
+            riftGates: [{ id: 'g1', x: 15, y: 15, label: 'Gate' }],
+            landmarks: [{ id: 'lm1', name: 'Old Oak', x: 12, y: 2, radius: 3, xp: 10 }],
+            npcs: [{ x: 3, y: 3, id: 'oren', name: 'Oren' }, { x: 4, y: 4, dialogue: 'hermit_greeting' }],
+            enemies: [{ x: 10, y: 10, type: 'wolf' }, { x: 14, y: 12, type: 'wolf' }],
+            signs: [{ x: 7, y: 7, id: 'stone', text: '…' }],
+        },
+    };
+    eq([K.npcQuestId(def.spawns.npcs[0]), K.npcQuestId(def.spawns.npcs[1]), K.npcQuestId({ isShop: true })], ['oren', 'hermit', 'silvara'], 'NPC quest ids follow GameScene');
+
+    const s = new PlayerStats();
+    const fog = F.createFog(20, 20);
+    const none = K.visibleFeatures(def, fog, s);
+    eq([none.exits, none.doors, none.gates, none.landmarks], [[], [], [], []], 'nothing seen yet: nothing shown');
+    F.revealAround(fog, 5, 5, 6);
+    const seen = K.visibleFeatures(def, fog, s);
+    eq(seen.exits, [{ x: 0, y: 5, label: 'East', targetMap: 'east_road' }], 'an exit once its tile is explored');
+    eq(seen.doors.map(d => [d.interior, d.locked]), [['room', false], ['vault', true]], 'doors once seen, locked ones flagged');
+    s.flags.vault_key = true;
+    eq(K.visibleFeatures(def, fog, s).doors[1].locked, false, 'an opened lock is no longer flagged');
+    s.attunedGates.push('g1');
+    eq(K.visibleFeatures(def, fog, s).gates, [{ x: 15, y: 15, id: 'g1', label: 'Gate', attuned: true }], 'an attuned gate shows even under fog');
+    s.charted.here = true;
+    eq(K.visibleFeatures(def, fog, s, 'here').landmarks, [{ x: 12, y: 2, id: 'lm1', name: '?', discovered: false }], 'a chart shows where landmarks are, unnamed');
+    s.discovered.lm1 = true;
+    eq(K.visibleFeatures(def, fog, s, 'here').landmarks[0].name, 'Old Oak', 'a discovered landmark shows its name');
+    eq(K.visibleFeatures(def, null, new PlayerStats()).doors.length, 2, 'no fog (interior): everything shows');
+
+    const q = { id: 'q1', title: 'Q', type: 'main', steps: [
+        { id: 't', type: 'talk', target: 'oren', label: 'Talk to Oren', required: 1 },
+        { id: 'k', type: 'kill', target: 'wolf', label: 'Wolves', required: 2 },
+        { id: 's', type: 'read_signs', target: 'stone', label: 'Read', required: 1 },
+        { id: 'a', type: 'attune', target: 'any', label: 'Attune', required: 1 },
+        { id: 'w', type: 'gather', target: 'wood', label: 'Wood', required: 3, where: { map: 'here', x: 1, y: 2 } },
+        { id: 'x', type: 'kill', target: 'any', label: 'Anything', required: 5 },
+        { id: 'r', type: 'read_signs', target: 'any', label: 'Signs', required: 3 },
+    ] };
+    const log = { status: 'active', progress: { t: 0, k: 0, s: 0, a: 0, w: 0, x: 0, r: 0 } };
+    const at = ms => ms.map(m => [m.stepId, m.x, m.y]);
+    const state = { active: [{ quest: q, log }], countItem: () => 0, attunedGates: [] };
+    eq(at(K.markersFor(state, 'here', def)), [['t', 3, 3], ['k', 12, 11], ['s', 7, 7], ['a', 15, 15], ['w', 1, 2]],
+       'talk → NPC, kill → centre of that type\'s spawns, sign, gate, explicit where; "any" targets unmarked');
+    ok(K.markersFor(state, 'here', def).every(m => m.main && m.title === 'Q' && m.questId === 'q1'), 'markers carry their quest');
+    eq(at(K.markersFor(state, 'elsewhere', def)).map(([id]) => id).includes('w'), false, '`where` on another map: not here');
+    log.progress.k = 2;
+    eq(at(K.markersFor(state, 'here', def)).map(([id]) => id).includes('k'), false, 'a finished step loses its marker');
+    eq(at(K.markersFor({ ...state, attunedGates: ['g1'] }, 'here', def)).map(([id]) => id).includes('a'), false, 'attune any: no unattuned gate, no marker');
+
+    const given = { id: 'q2', title: 'Given', type: 'side', giver: 'oren', steps: [{ id: 'k', type: 'kill', target: 'wolf', label: 'Wolves', required: 1 }] };
+    const glog = { status: 'active', progress: { k: 0, __turn_in: 0 } };
+    const gstate = { active: [{ quest: given, log: glog }], countItem: () => 0, attunedGates: [] };
+    eq(at(K.markersFor(gstate, 'here', def)), [['k', 12, 11]], 'the turn-in waits for the objectives');
+    glog.progress.k = 1;
+    eq(at(K.markersFor(gstate, 'here', def)), [['__turn_in', 3, 3]], 'then it points back to the giver');
+
+    const rooms = { room: { id: 'room', interior: true, tiles: [[0]], spawns: { npcs: [{ x: 0, y: 0, id: 'inside' }] } } };
+    const indoor = { active: [{ quest: { id: 'q3', title: 'In', type: 'side', steps: [{ id: 'i', type: 'talk', target: 'inside', label: 'Inside', required: 1 }] }, log: { status: 'active', progress: { i: 0 } } }], countItem: () => 0, attunedGates: [] };
+    const via = K.markersFor(indoor, 'here', def, { getMap: id => rooms[id] ?? { tiles: [[0]], spawns: {} } });
+    eq(via.map(m => [m.stepId, m.x, m.y, m.viaDoor]), [['i', 5, 5, true]], 'a target inside a building marks its door');
+    eq(K.markersFor(indoor, 'room', rooms.room).map(m => [m.x, m.y, m.viaDoor]), [[0, 0, false]], 'and the room itself marks the NPC');
+
+    // Every real quest on every real map: no throw, markers inside the map
+    const { getMap, listMaps } = await import('../src/data/maps/index.js');
+    const { QUESTS } = await import('../src/data/quests.js');
+    const all = { active: Object.values(QUESTS).map(qq => ({ quest: qq, log: { status: 'active', progress: {} } })), countItem: () => 0, attunedGates: [] };
+    let marks = 0;
+    for (const { id } of listMaps()) {
+        const m = getMap(id);
+        const list = K.markersFor(all, id, m, { getMap });
+        const w = m.tiles?.[0]?.length ?? m.mapCols ?? 0, h = m.tiles?.length ?? m.mapRows ?? 0;
+        ok(list.every(mk => mk.x >= 0 && mk.y >= 0 && mk.x < w && mk.y < h), `${id}: every marker lies inside the map`);
+        K.visibleFeatures(m, null, new PlayerStats());
+        marks += list.length;
+    }
+    ok(marks > 10, `real quests produce markers somewhere (${marks})`);
+}
+
 console.log(`test_fog_map: ${n} checks passed`);
