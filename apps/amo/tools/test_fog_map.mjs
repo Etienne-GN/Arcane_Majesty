@@ -193,6 +193,11 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     glog.progress.k = 1;
     eq(at(K.markersFor(gstate, 'here', def)), [['__turn_in', 3, 3]], 'then it points back to the giver');
 
+    // A hunt bounty counts kills on its own map only (step.map, QuestManager.onKill): mark it nowhere else
+    const hunt = { active: [{ quest: { id: 'b1', title: 'Bounty', type: 'bounty', steps: [{ id: 'hunt', type: 'kill', target: 'wolf', map: 'there', label: 'Wolves', required: 4 }] }, log: { status: 'active', progress: { hunt: 0 } } }], countItem: () => 0, attunedGates: [] };
+    eq(at(K.markersFor(hunt, 'here', def)), [], 'a hunt bounty for another map: no marker here');
+    eq(at(K.markersFor(hunt, 'there', def)), [['hunt', 12, 11]], 'and its own map is marked');
+
     const rooms = { room: { id: 'room', interior: true, tiles: [[0]], spawns: { npcs: [{ x: 0, y: 0, id: 'inside' }] } } };
     const indoor = { active: [{ quest: { id: 'q3', title: 'In', type: 'side', steps: [{ id: 'i', type: 'talk', target: 'inside', label: 'Inside', required: 1 }] }, log: { status: 'active', progress: { i: 0 } } }], countItem: () => 0, attunedGates: [] };
     const via = K.markersFor(indoor, 'here', def, { getMap: id => rooms[id] ?? { tiles: [[0]], spawns: {} } });

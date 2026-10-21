@@ -31,6 +31,7 @@ const centre = list => ({
 // Where one step points on this map, or null. NPCs at their spawn until W4 gives them schedules.
 export function stepLocation(step, mapId, def, { attunedGates = [] } = {}) {
     if (step.where) return step.where.map === mapId ? { x: step.where.x, y: step.where.y } : null;
+    if (step.map && step.map !== mapId) return null;   // a bounty's kills only count on its own map
     const sp = def.spawns ?? {};
     switch (step.type) {
         case 'talk': {
