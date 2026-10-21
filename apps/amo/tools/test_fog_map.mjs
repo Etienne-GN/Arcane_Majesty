@@ -215,4 +215,32 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     ok(marks > 10, `real quests produce markers somewhere (${marks})`);
 }
 
+// ---- World layout
+{
+    const L = await import('../src/systems/worldLayout.js');
+    const { getMap, listMaps } = await import('../src/data/maps/index.js');
+    eq(L.WORLD_ANCHORS.thaloria, { x: 1100, y: 200, lore: 'Thaloria' }, "Thaloria's lore coordinates");
+    eq(L.exitDirection({ x: 31, y: 12 }, getMap('thaloria')).dx > 0.9, true, "Thaloria's east gate points east");
+
+    const a = L.layoutWorld(['thaloria', 'east_road', 'summit_of_despair', 'thaloria_inn', 'not_a_map'], getMap);
+    const pos = id => a.nodes.find(nd => nd.id === id);
+    eq(a.nodes.map(nd => nd.id).sort(), ['east_road', 'summit_of_despair', 'thaloria'], 'interiors and unknown ids are left out');
+    eq([pos('thaloria').x, pos('thaloria').y, pos('thaloria').anchored], [1100, 200, true], 'anchored maps sit on their lore coordinates');
+    ok(pos('east_road').x > 1100 && !pos('east_road').anchored, 'East Road (no lore location) is placed beside a linked neighbour, east of Thaloria');
+    eq(a.edges, [['east_road', 'summit_of_despair'], ['east_road', 'thaloria']], 'edges between visited maps joined by an exit');
+    eq(pos('thaloria').name, 'Thaloria', 'nodes carry the display name');
+
+    const solo = L.layoutWorld(['thaloria'], getMap);
+    eq(solo.stubs.map(s => s.targetMap).sort(), ['east_road', 'eldrin_tower'], 'exits to unvisited maps are stubs');
+    eq(L.layoutWorld(['thaloria'], getMap, { knownExit: () => false }).stubs, [], 'only exits you have seen');
+
+    const every = listMaps().map(m => m.id);
+    const big = L.layoutWorld(every, getMap);
+    ok(big.nodes.every(nd => Number.isFinite(nd.x) && Number.isFinite(nd.y)), 'every map gets a position, linked or not');
+    let close = 0;
+    for (const p of big.nodes) for (const q of big.nodes) if (p !== q && Math.hypot(p.x - q.x, p.y - q.y) < L.STEP / 2 && !(p.anchored && q.anchored)) close++;
+    eq(close, 0, 'no placed node lands on top of another');
+    eq(JSON.stringify(L.layoutWorld(every, getMap)), JSON.stringify(big), 'deterministic');
+}
+
 console.log(`test_fog_map: ${n} checks passed`);
