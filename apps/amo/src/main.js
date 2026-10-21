@@ -13,7 +13,7 @@ import CraftingScene   from './scenes/CraftingScene.js';
 import ShopScene       from './scenes/ShopScene.js';
 import FastTravelScene    from './scenes/FastTravelScene.js';
 import AethericTearScene  from './scenes/AethericTearScene.js';
-import WorldMapScene      from './scenes/WorldMapScene.js';
+import MapScene           from './scenes/MapScene.js';
 import QuestJournalScene  from './scenes/QuestJournalScene.js';
 import CodexScene         from './scenes/CodexScene.js';
 import OptionsScene          from './scenes/OptionsScene.js';
@@ -61,7 +61,7 @@ const config = {
         ShopScene,
         FastTravelScene,
         AethericTearScene,
-        WorldMapScene,
+        MapScene,
         QuestJournalScene,
         CodexScene,
         OptionsScene,
