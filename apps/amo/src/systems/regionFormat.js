@@ -30,6 +30,13 @@ export function decodeBitsToCells(b64, w, h) {
     return cells;
 }
 
+// A bitset as one byte per cell (0/1), row-major — for per-tile layers read often (dense, chart).
+export function decodeBitsToMask(b64, w, h) {
+    const bytes = fromB64(b64), out = new Uint8Array(w * h);
+    for (let i = 0; i < w * h; i++) if (bytes[i >> 3] & (1 << (i & 7))) out[i] = 1;
+    return out;
+}
+
 export function decodeRegion(raw) {
     if (raw.format !== 1) throw new Error(`region ${raw.id}: unknown format ${raw.format}`);
     const { format, width, height, tiles, hop, sheets, names, deco, ...rest } = raw;

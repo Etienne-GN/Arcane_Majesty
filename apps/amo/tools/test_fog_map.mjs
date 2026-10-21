@@ -89,4 +89,45 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     eq([s.explored, s.charted, s.discovered], [{}, {}, {}], 'reset empties them');
 }
 
+// ---- Map painting
+{
+    const P = await import('../src/systems/mapPaint.js');
+    const { encodeBits, decodeBitsToMask } = await import('../src/systems/regionFormat.js');
+    eq([...decodeBitsToMask(encodeBits([[1, 0], [2, 1]], 3, 2), 3, 2)], [0, 1, 0, 0, 0, 1], 'bitset → one byte per cell');
+
+    const rgb = (img, x, y) => { const i = (y * img.w + x) * 4; return (img.data[i] << 16) | (img.data[i + 1] << 8) | img.data[i + 2]; };
+    const alpha = (img, x, y) => img.data[(y * img.w + x) * 4 + 3];
+    const def = { tiles: [[0, 1, 2, 3, 9, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0], [4, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0]] };
+
+    const known = P.paintMap(def, null);
+    eq([known.w, known.h, known.data.length], [8, 4, 8 * 4 * 4], 'one RGBA pixel per tile');
+    eq([rgb(known, 0, 0), rgb(known, 1, 0), rgb(known, 2, 0), rgb(known, 3, 0), rgb(known, 0, 2)],
+       [P.TERRAIN[0], P.TERRAIN[1], P.TERRAIN[2], P.TERRAIN[3], P.TERRAIN[4]], 'terrain colours by tile value');
+    eq(rgb(known, 4, 0), P.TERRAIN[0], 'an unknown tile value paints as grass');
+    eq(alpha(known, 4, 0), 255, 'opaque');
+
+    const fog = F.createFog(8, 4);
+    const dark = P.paintMap(def, fog);
+    ok([...Array(32).keys()].every(i => rgb(dark, i % 8, Math.floor(i / 8)) === P.UNKNOWN), 'fresh fog paints everything black');
+    const charted = P.paintMap(def, fog, { charted: true });
+    eq([rgb(charted, 2, 0), rgb(charted, 3, 0), rgb(charted, 1, 0)], [P.CHART_ROAD, P.CHART_ROAD, P.UNKNOWN], 'a chart shows roads and streets under the fog, nothing else');
+    const own = P.paintMap({ ...def, chart: encodeBits([[0, 0]], 8, 4) }, fog, { charted: true });
+    eq([rgb(own, 0, 0), rgb(own, 2, 0)], [P.CHART_ROAD, P.UNKNOWN], "a region's own chart layer replaces the road default");
+
+    const img = P.paintMap(def, fog);
+    const cells = F.revealAround(fog, 1, 1, 1);
+    P.paintCells(img, def, fog, cells);
+    eq([rgb(img, 1, 0), rgb(img, 5, 0)], [P.TERRAIN[1], P.UNKNOWN], 'paintCells repaints only the revealed cells');
+
+    const room = P.paintMap({ interior: true, tiles: [[1, 0]] }, null);
+    eq([rgb(room, 0, 0), rgb(room, 1, 0)], [P.INTERIOR_TERRAIN[1], P.INTERIOR_TERRAIN[0]], 'interiors use the room palette');
+    eq(P.paintMap({ mapCols: 60, mapRows: 60 }, null), null, 'no tile grid: nothing to paint');
+
+    eq(P.denseMask(def), null, 'no dense layer: null');
+    ok(!P.isDenseAt(null, 8, 1, 1), 'null mask is never dense');
+    const thick = { ...def, dense: encodeBits([[2, 1]], 8, 4) };
+    ok(P.isDenseAt(P.denseMask(thick), 8, 2, 1) && !P.isDenseAt(P.denseMask(thick), 8, 3, 1), 'dense where the layer says');
+    ok(!P.isDenseAt(P.denseMask(thick), 8, -1, 0) && !P.isDenseAt(P.denseMask(thick), 8, 0, 9), 'outside the map is not dense');
+}
+
 console.log(`test_fog_map: ${n} checks passed`);
