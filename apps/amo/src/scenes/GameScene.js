@@ -46,6 +46,9 @@ import { openChest } from './ChestScene.js';
 import { isHoppableDecoration } from '../systems/movementRules.js';
 import { ChunkStreamer, chunkKey, chunkOfTile, bucketByChunk } from '../systems/regionChunks.js';
 import { RETURN_KEY, doorLockState, doorReturnPoint, pushReturn, resolvePortal, clearReturnsOutside } from '../systems/interiors.js';
+import { fogFor, revealAround, encodeFog, newlyDiscovered, REVEAL_RADIUS, DENSE_REVEAL_RADIUS } from '../systems/fog.js';
+import { denseMask, isDenseAt } from '../systems/mapPaint.js';
+import { buildMapTexture, repaintMapTexture } from '../systems/mapTexture.js';
 
 export default class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
@@ -120,6 +123,7 @@ export default class GameScene extends Phaser.Scene {
         this.hopGroup  = this.physics.add.staticGroup();
         this._hopCells = new Set((this._mapDef.hopCells ?? []).map(([x, y]) => `${x},${y}`));
         this._buildWorld(mapW, mapH);
+        this._initExploration();
 
         // Interior lighting overlay
         if (mapDef.lightTint != null) {
@@ -3155,6 +3159,42 @@ export default class GameScene extends Phaser.Scene {
 
     // The world rectangle the streamer keeps built: the camera view around the
     // player (computed, so it is right before the camera has followed).
+    // W5: this map's fog, its overview texture (minimap and M), its dense-forest layer.
+    _initExploration() {
+        const def = this._mapDef;
+        this._fog = fogFor(def, this._mapId, playerStats);
+        this._mapCharted = !!playerStats.charted?.[this._mapId];
+        this._mapImg = buildMapTexture(this, this._mapId, def, this._fog, { charted: this._mapCharted });
+        this._dense = denseMask(def);
+        this._inDense = false;
+        this._exploreT = 0;   // the first update reveals around the spawn point
+    }
+
+    // Every 200 ms: reveal around the player (less in dense forest), save the fog,
+    // discover landmarks, and repaint once a chart has been read for this map.
+    _tickExploration(delta) {
+        this._exploreT -= delta;
+        if (this._exploreT > 0) return;
+        this._exploreT = 200;
+        const def = this._mapDef, tx = this.player.x / TILE_SIZE, ty = this.player.y / TILE_SIZE;
+        this._inDense = isDenseAt(this._dense, def.tiles?.[0]?.length ?? 0, Math.floor(tx), Math.floor(ty));
+        const charted = !!playerStats.charted?.[this._mapId];
+        if (charted !== this._mapCharted) {
+            this._mapCharted = charted;
+            this._mapImg = buildMapTexture(this, this._mapId, def, this._fog, { charted });
+        }
+        const cells = revealAround(this._fog, tx, ty, this._inDense ? DENSE_REVEAL_RADIUS : REVEAL_RADIUS);
+        if (cells.length) {
+            repaintMapTexture(this, this._mapImg, def, this._fog, cells, { charted });
+            playerStats.explored[this._mapId] = encodeFog(this._fog);
+        }
+        for (const lm of newlyDiscovered(def.spawns?.landmarks ?? [], tx, ty, playerStats.discovered)) {
+            playerStats.discovered[lm.id] = true;
+            if (lm.xp) playerStats.gainXp(lm.xp);
+            this.scene.get('UIScene')?.showNotification?.(`Discovered: ${lm.name}`, 3000);
+        }
+    }
+
     _streamView() {
         const cam = this.cameras.main;
         const zoom = cam.zoom || 1;
@@ -3320,6 +3360,7 @@ export default class GameScene extends Phaser.Scene {
             !!this.scene.get('UIScene')?._controls?.padSprint);
         this.player.update(this.cursors, this.wasd, this.attackKey, this.powerKey, delta, joyVec, { sprint });
         this._streamer?.update(this._streamView(), 1);
+        this._tickExploration(delta);
         this.player.setDepth(this.player.y + 1);
 
         if (this._lpcContainer) {

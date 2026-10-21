@@ -127,6 +127,17 @@ export default class UIScene extends Phaser.Scene {
             stroke: '#000', strokeThickness: 4, align: 'center'
         }).setOrigin(0.5, 0).setAlpha(0).setDepth(50);
 
+        // W5: dense forest darkens the edges of the view (fades in and out in UIScene.update).
+        // Stacked translucent edge bands: a stretched gradient texture rendered too faint.
+        this._vignette = this.add.graphics().setDepth(-2).setAlpha(0);
+        const VG_BANDS = 32, vgBand = Math.min(w, h) * 0.32 / VG_BANDS;
+        for (let i = 0; i < VG_BANDS; i++) {
+            const d = vgBand * (VG_BANDS - i);
+            this._vignette.fillStyle(0x000000, 0.05)
+                .fillRect(0, 0, w, d).fillRect(0, h - d, w, d)
+                .fillRect(0, d, d, h - 2 * d).fillRect(w - d, d, d, h - 2 * d);
+        }
+
         // ---- Minimap ----
         const mmX = w - this._mmW - pad;
         const mmY = pad;
@@ -221,6 +232,8 @@ export default class UIScene extends Phaser.Scene {
         const wtColor = { staff: '#556677', spell_blade: '#44ccff', umbral_dagger: '#cc44ff', resonance_bow: '#88ddaa' }[wt] ?? '#556677';
         this._weaponLabel?.setText(`[${wtLabel}]`).setStyle({ fill: wtColor });
 
+        const dense = !!this.scene.get('GameScene')?._inDense;
+        this._vignette.alpha += ((dense ? 1 : 0) - this._vignette.alpha) * Math.min(1, this.game.loop.delta / 600);
         this._controls.update();
         this._updateMinimap();
         this._updateHotbar();
