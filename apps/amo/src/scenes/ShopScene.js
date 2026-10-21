@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
-import { ITEMS, MERCHANT_CATALOG } from '../data/items.js';
+import { ITEMS, MERCHANT_CATALOG, CATALOGS } from '../data/items.js';
 import { itemCurrency, shopPrice, recordSale, BUYBACK_MAX } from '../data/economy.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
 import { craftRank } from '../data/stations.js';
@@ -27,12 +27,13 @@ export default class ShopScene extends Phaser.Scene {
     init(data) {
         this._currencyBias = data?.currencyBias ?? 'neutral';
         this._shopName     = data?.shopName ?? "SILVARA'S TRADING POST";
+        this._entries      = CATALOGS[data?.catalog] ?? MERCHANT_CATALOG;
     }
 
     // Arcane goods for glint, mundane goods for gold; a few are rank-gated (recipe scrolls).
     _catalog() {
         const known = new Set(playerStats.knownRecipes ?? []);
-        return MERCHANT_CATALOG.filter(e => {
+        return this._entries.filter(e => {
             if (!ITEMS[e.id]) return false;
             if (e.id.startsWith('recipe_') && known.has(e.id.slice('recipe_'.length))) return false;
             return !e.requires || craftRank(playerStats.craftCounts?.[e.requires.kind] ?? 0) >= e.requires.rank;

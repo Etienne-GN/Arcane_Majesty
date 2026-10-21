@@ -78,6 +78,13 @@ export const MERCHANT_CATALOG = [
     { id: 'recipe_anglers_platter',  price: 140, currency: 'glint', requires: { kind: 'cooking', rank: 2 } },
 ];
 
+// W5: a cartographer's stock (shop NPCs with `catalog: 'cartographer'`)
+export const CARTOGRAPHER_CATALOG = [
+    { id: 'chart_thaloria',  price: 40, currency: 'gold' },
+    { id: 'chart_east_road', price: 60, currency: 'gold' },
+];
+export const CATALOGS = { cartographer: CARTOGRAPHER_CATALOG };
+
 export const ITEMS = {
     // ── Consumables ──────────────────────────────────────────────────────────
     health_potion: {
@@ -101,6 +108,19 @@ export const ITEMS = {
         description: 'Arcane knowledge. Grants 50 XP and deepens arcane resonance.',
         color: 0xddaa00, icon: 'itm_scroll', stackable: false, buyPrice: 60, sellPrice: 20,
         onUse: (stats) => { stats.gainXp(50); stats.gainResonance('arcane', 4); return true; }
+    },
+    // W5 charts: reading one marks the region's roads and landmarks on your map (M)
+    chart_thaloria: {
+        id: 'chart_thaloria', name: 'Chart of Thaloria',
+        description: "A surveyor's chart of the city's streets and landmarks. Read it to mark them on your map (M).",
+        color: 0xc8b48a, icon: 'itm_scroll', stackable: true, buyPrice: 40, sellPrice: 12, chartOf: 'thaloria',
+        onUse: (stats) => { if (stats.charted.thaloria) return false; stats.charted.thaloria = true; return true; },
+    },
+    chart_east_road: {
+        id: 'chart_east_road', name: 'Chart of the East Road',
+        description: 'The road from the East Gate to the foot of the mountains, with its waystones and shelters. Read it to mark them on your map (M).',
+        color: 0xc8b48a, icon: 'itm_scroll', stackable: true, buyPrice: 60, sellPrice: 18, chartOf: 'east_road',
+        onUse: (stats) => { if (stats.charted.east_road) return false; stats.charted.east_road = true; return true; },
     },
     forest_herb: {
         id: 'forest_herb', name: 'Forest Herb',

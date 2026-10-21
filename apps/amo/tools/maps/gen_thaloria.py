@@ -172,6 +172,7 @@ for x, y in [(12, 11), (19, 11)]:
     try_put(BC, 'knight_statue_gray', x, y, grounds=('cobble',))
 
 # ------------------------------------------------------------------ the market yard (south of the south street)
+reserve(19, 22, 19, 22)    # the cartographer
 reserve(7, 21, 9, 22)      # the bounty board (spawns.bountyBoards at 8,22 — 2x2 sprite, bottom on row 22)
 reserve(23, 20, 24, 22)    # the hearth (3 tiles tall, bottom on row 22)
 reserve(26, 21, 28, 22)    # the alchemy table
@@ -267,6 +268,9 @@ export const THALORIA = {{
             {{ x: 16, y: 22, id: 'thaloria_merchant', name: 'Merchant', isShop: true, shopName: 'THALORIA MARKET',
                dialogue: 'thaloria_merchant_greeting', afterDialogue: 'thaloria_merchant_greeting',
                spriteKey: 'spr_merchant', animProfile: 'lpc_universal', tint: 0xbbccdd }},
+            {{ x: 19, y: 22, id: 'thaloria_cartographer', name: 'Cartographer', isShop: true, shopName: 'THE CARTOGRAPHER', catalog: 'cartographer',
+               dialogue: 'cartographer_greeting', afterDialogue: 'cartographer_greeting',
+               spriteKey: 'spr_old_dude', animProfile: 'lpc_universal', tint: 0xbbaa88 }},
         ],
         chests: [],
         campfires: [],

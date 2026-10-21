@@ -3618,7 +3618,7 @@ export default class GameScene extends Phaser.Scene {
                 // Talking to a merchant counts for "Return to …" steps too
                 questManager.onTalk(npcId);
                 // Merchant: first interaction shows greeting, then opens shop
-                const shopData = { currencyBias: this._mapDef?.currencyBias ?? 'neutral', shopName: def.shopName };
+                const shopData = { currencyBias: this._mapDef?.currencyBias ?? 'neutral', shopName: def.shopName, catalog: def.catalog };
                 if (!npc.talked) {
                     npc.talked = true;
                     const lines = DIALOGUES[def.dialogue] ?? [{ speaker: def.name, text: '...' }];

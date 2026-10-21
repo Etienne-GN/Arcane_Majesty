@@ -243,4 +243,30 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     eq(JSON.stringify(L.layoutWorld(every, getMap)), JSON.stringify(big), 'deterministic');
 }
 
+// ---- Charts
+{
+    const { ITEMS, CATALOGS, MERCHANT_CATALOG } = await import('../src/data/items.js');
+    const { getMap } = await import('../src/data/maps/index.js');
+    const charts = Object.values(ITEMS).filter(i => i.chartOf);
+    eq(charts.map(c => c.id).sort(), ['chart_east_road', 'chart_thaloria'], 'two charts');
+    ok(charts.every(c => getMap(c.chartOf).id === c.chartOf), 'each charts a registered map');
+    const sold = new Set(CATALOGS.cartographer.map(e => e.id));
+    ok(charts.every(c => sold.has(c.id)), 'the cartographer sells every chart');
+    ok(CATALOGS.cartographer.every(e => ITEMS[e.id] && e.price > 0 && (e.currency === 'gold' || e.currency === 'glint')), 'catalogue entries are real items with a price');
+    ok(!MERCHANT_CATALOG.some(e => ITEMS[e.id]?.chartOf), 'ordinary merchants do not sell charts');
+
+    const s = new PlayerStats();
+    s.addItem('chart_thaloria', 2);
+    ok(s.useItem('chart_thaloria'), 'reading a chart works');
+    eq(s.charted, { thaloria: true }, 'and charts Thaloria');
+    eq(s.countItem('chart_thaloria'), 1, 'one copy used up');
+    ok(!s.useItem('chart_thaloria'), 'a second copy is refused');
+    eq(s.countItem('chart_thaloria'), 1, 'and kept');
+
+    const t = getMap('thaloria');
+    const carto = t.spawns.npcs.find(n => n.catalog === 'cartographer');
+    ok(carto && carto.isShop, 'Thaloria has a cartographer shop');
+    ok(t.tiles[carto.y][carto.x] !== 1, 'standing on open ground');
+}
+
 console.log(`test_fog_map: ${n} checks passed`);

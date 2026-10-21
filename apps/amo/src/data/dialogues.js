@@ -68,6 +68,9 @@ export const DIALOGUES = {
     thaloria_merchant_greeting: [
         { speaker: 'Merchant', text: 'Reagents, road food, sturdy boots. Everything a scholar forgets to pack.' },
     ],
+    cartographer_greeting: [
+        { speaker: 'Cartographer', text: 'Charts of the city and the road east, drawn from my own feet. Read one, and you will not walk in circles.' },
+    ],
     oren_meeting: [
         { speaker: 'Oren', text: 'Ho, the road! Hallo, hallo — forgive the hail. It is not every day I catch up with a fellow walker on this road, and I have been trying since the last village.' },
         { speaker: 'Oren', text: 'You go at a proper pace for a man of letters, Eldrin. Oren — chronicler. Of lost libraries, mostly. There is a whole world in the ruins, if you know where to look.' },
