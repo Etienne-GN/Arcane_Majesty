@@ -279,6 +279,11 @@ export const THALORIA = {{
             {{ x: 27, y: 22, type: 'alchemy', rank: 2 }},
         ],
         bountyBoards: [{{ x: 8, y: 22, region: 'east_road' }}],
+        landmarks: [
+            {{ id: 'thaloria_bell_tower_square', name: 'The Bell Tower', x: 12, y: 8, radius: 3, xp: 15 }},
+            {{ id: 'thaloria_market', name: 'Thaloria Market', x: 15, y: 21, radius: 3, xp: 15 }},
+            {{ id: 'thaloria_east_gate', name: 'The East Gate', x: 29, y: 12, radius: 2, xp: 15 }},
+        ],
         doors: {_json.dumps(CITY_DOORS)},
         signs: [
             {{ x: 13, y: 8, id: 'bell_tower',

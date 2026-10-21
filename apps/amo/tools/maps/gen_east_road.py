@@ -260,6 +260,10 @@ export const EAST_ROAD = {{
         ],
         gatheringNodes: {arr(nodes, '        ')},
         crackedBoulders: [],
+        landmarks: [
+            {{ id: 'east_road_waystone', name: 'The Old Waystone', x: {S['waystone'][0]}, y: {S['waystone'][1]}, radius: 2, xp: 25 }},
+            {{ id: 'east_road_lean_to', name: "The Shepherd's Lean-to", x: {S['leanto_sign'][0]}, y: {S['leanto_sign'][1]}, radius: 3, xp: 25 }},
+        ],
         riftGates: [
             {{ x: {S['gate'][0]}, y: {S['gate'][1]}, id: 'gate_east_road', label: 'East Road Monolith' }},
         ],

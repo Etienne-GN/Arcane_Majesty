@@ -297,6 +297,10 @@ export const EAST_ROAD = {
             { x: 33, y: 5, type: "herb", yields: "meadow_herbs" },
         ],
         crackedBoulders: [],
+        landmarks: [
+            { id: 'east_road_waystone', name: 'The Old Waystone', x: 25, y: 12, radius: 2, xp: 25 },
+            { id: 'east_road_lean_to', name: "The Shepherd's Lean-to", x: 43, y: 8, radius: 3, xp: 25 },
+        ],
         riftGates: [
             { x: 29, y: 7, id: 'gate_east_road', label: 'East Road Monolith' },
         ],

@@ -400,6 +400,11 @@ export const THALORIA = {
             { x: 27, y: 22, type: 'alchemy', rank: 2 },
         ],
         bountyBoards: [{ x: 8, y: 22, region: 'east_road' }],
+        landmarks: [
+            { id: 'thaloria_bell_tower_square', name: 'The Bell Tower', x: 12, y: 8, radius: 3, xp: 15 },
+            { id: 'thaloria_market', name: 'Thaloria Market', x: 15, y: 21, radius: 3, xp: 15 },
+            { id: 'thaloria_east_gate', name: 'The East Gate', x: 29, y: 12, radius: 2, xp: 15 },
+        ],
         doors: [{"x": 5, "y": 16, "interior": "thaloria_inn", "label": "Enter the Inn"}, {"x": 11, "y": 6, "interior": "thaloria_bell_tower", "label": "Enter the Bell Tower"}, {"x": 21, "y": 16, "interior": "thaloria_house_teal", "label": "A house", "locked": {"flag": "thaloria_house_teal_open", "text": "Locked. No one answers."}}],
         signs: [
             { x: 13, y: 8, id: 'bell_tower',

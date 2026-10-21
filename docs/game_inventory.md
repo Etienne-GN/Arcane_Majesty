@@ -1,8 +1,8 @@
 # Arcane Majesty (amo) — Complete Game Inventory
 
-_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-18. Regenerate after changing the data; don't hand-edit._
+_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-21. Regenerate after changing the data; don't hand-edit._
 
-**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 25 status effects · 198 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 29 maps · 5 playable characters · 33 dialogues
+**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 25 status effects · 200 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 29 maps · 5 playable characters · 34 dialogues
 
 ## Contents
 1. [Systems & controls](#systems--controls)
@@ -44,7 +44,7 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | P | Stats |
 | K | Skill tree |
 | J | Spellbook |
-| M | World map |
+| M | Map: Region tab (explored ground, exits, doors, rift-gates, landmarks, quest markers; WASD/drag to pan, wheel or + − to zoom) and World tab (the places you have been); TAB, LB or RB switches |
 | N | Quest journal |
 | L | Codex (world lore, bestiary, recovered memories) |
 | C | Crafting bench |
@@ -54,6 +54,10 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | System | How it works |
 |---|---|
 | Doors & interiors | Buildings with a door can be entered (E). Leaving puts you back in front of the door you came through, even from a room inside a room (the inn's cellar). Some doors are locked until you carry a key or have earned the way in. Shelves and desks may hold a book to read (E); some homes hide a stash. |
+| Map & fog of war | Every outdoor map starts unknown. Walking reveals about 6 tiles around you (4 in dense forest) and the map remembers it; rooms are always fully known. The minimap shows the 48 tiles around you; M shows the whole map. Exits, doors and rift-gates appear once you have seen them; the active quest steps are marked (◆) where they lead, a step inside a building marks its door. |
+| Charts | A cartographer by Thaloria's market sells charts (Thaloria 40 Gold, the East Road 60 Gold). Reading one shows the region's roads under the fog and marks where its landmarks are. |
+| Landmarks | Notable places. Reaching one the first time shows "Discovered: …", gives XP and pins it on your map. |
+| Dense forest | Deep woods shrink how far you see and darken the edges of the screen. Keep to the roads, or trust your map. |
 | Vigor | The green bar under MP (100, +2 per Agility above 10). Sprinting and hopping spend it; it refills at 25/s after 0.8 s of rest. It is not the Stamina attribute. |
 | Resonance | Acting with an element (kills, casting, resting…) builds resonance in it (fire, arcane, lightning, shadow, earth, ice, nature, wind, water). Crossing a spell's threshold **discovers** it; further thresholds raise it to Novice → Apprentice → Adept. |
 | Mana scent | Casting and blinking leave an "Aetheric Scent" (0–100) that decays over time; enemies detect you from up to 3× further while it is high. |
@@ -78,7 +82,7 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | Weather | Each map's weather follows its biome and changes every 4–8 game hours — temperate: Clear/Rain/Storm; forest: Clear/Rain/Storm; snow: Clear/Snow/Storm; arid: Clear/Sandstorm; indoor: Clear. Rain and storms soak everyone every 10 s (fire spells ×0.8, lightning ×1.2, on top of Wet) and standing in the rain builds water, ice and nature resonance. Storms drop a lightning strike every 6–12 s, marked by a ring 1.2s before it lands (16 damage at Lv 1–3, more in higher regions). Snow chills you (Cold for 8 s) every 20 s unless you are within 120 px of a campfire or hearth or under Warming (Warmth Aura, Warming Draught: 90 s). Sandstorms cut enemy sight to 60%. |
 | Memories | Completing quests recovers lore fragments ("Archive of Souls"), readable in the Codex. |
 | Campaign | Eldoria's Prophecy: chapters gate which maps you can enter; completing a chapter grants its unlocks; progress is saved. |
-| Saving | Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties, the game clock, the doors you came in by. |
+| Saving | Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map (fog per map), charts read, landmarks discovered, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties, the game clock, the doors you came in by. |
 | Online | Server select, online characters, chat; other players are visible (presence). The campaign is single-player. |
 | Character creator | LPC layered characters with palette swaps, export of the character and sheet (with licences). |
 
@@ -545,9 +549,11 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Heartwood Bracer | accessory | 3 | +2 STR +2 AGI | A bracer of resin-hardened heartwood. +2 STR, +2 AGI. | crafting |
 | Pearl Pendant | accessory | 3 | +3 INT +1 STA | Two river pearls on a silver chain. Water mages swear by it. +3 INT, +1 STA. | crafting |
 
-### Other consumables, tools & key items (20)
+### Other consumables, tools & key items (22)
 | Item | Description | Buy / sell | Source |
 |---|---|---|---|
+| Chart of Thaloria | A surveyor's chart of the city's streets and landmarks. Read it to mark them on your map (M). | 40 / 12 | — |
+| Chart of the East Road | The road from the East Gate to the foot of the mountains, with its waystones and shelters. Read it to mark them on your map (M). | 60 / 18 | — |
 | Eldritch Tome | Forbidden knowledge. Grants 150 XP, 1 skill point, and deep arcane resonance. | 150 / 50 | void_stalker 15%, chest |
 | Traveler's Tent | A compact tent. Full rest: restores HP and MP to max, clears exhaustion, grants 50 bonus XP. | 120 / 40 | shop |
 | Turkey Meat | Plump and savoury. Restores 12 HP. | 0 / 5 | turkey 80% |
@@ -949,4 +955,4 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 | Eldoria's Prophecy | Vorgos activates Eldrin Nightshade to secure the Heart Stone of Creation — a contingency for a wound the world has not yet suffered. |
 
 ## Dialogues
-`hermit_intro`, `hermit_after`, `hermit_quest_done`, `hermit_hut_greeting`, `hermit_hut_after`, `hermit_remedy_accepted`, `innkeeper_greeting`, `innkeeper_after`, `trader_greeting`, `trader_after`, `thaloria_merchant_greeting`, `oren_meeting`, `oren_joined`, `oren_declined`, `oren_after`, `merchant_greeting`, `merchant_after`, `silvara_lore`, `eldrin_premonition`, `eldrin_second_vision`, `boss_encounter`, `boss_defeated`, `ancient_scroll_read`, `eldritch_tome_read`, `stub_ch02_dreamweavers_call_greeting`, `stub_ch05_sylvan_sanctuary_greeting`, `stub_ch06_treacherys_bite_greeting`, `stub_ch07_the_solitary_path_greeting`, `stub_ch08_infernos_trial_greeting`, `stub_ch09_eldorias_heartbeat_greeting`, `stub_ch10_heart_of_war_greeting`, `stub_ch11_the_weight_of_eternity_greeting`, `stub_ch12_dawns_embrace_greeting`
+`hermit_intro`, `hermit_after`, `hermit_quest_done`, `hermit_hut_greeting`, `hermit_hut_after`, `hermit_remedy_accepted`, `innkeeper_greeting`, `innkeeper_after`, `trader_greeting`, `trader_after`, `thaloria_merchant_greeting`, `cartographer_greeting`, `oren_meeting`, `oren_joined`, `oren_declined`, `oren_after`, `merchant_greeting`, `merchant_after`, `silvara_lore`, `eldrin_premonition`, `eldrin_second_vision`, `boss_encounter`, `boss_defeated`, `ancient_scroll_read`, `eldritch_tome_read`, `stub_ch02_dreamweavers_call_greeting`, `stub_ch05_sylvan_sanctuary_greeting`, `stub_ch06_treacherys_bite_greeting`, `stub_ch07_the_solitary_path_greeting`, `stub_ch08_infernos_trial_greeting`, `stub_ch09_eldorias_heartbeat_greeting`, `stub_ch10_heart_of_war_greeting`, `stub_ch11_the_weight_of_eternity_greeting`, `stub_ch12_dawns_embrace_greeting`

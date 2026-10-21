@@ -269,4 +269,21 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     ok(t.tiles[carto.y][carto.x] !== 1, 'standing on open ground');
 }
 
+// ---- Landmarks on the Chapter 3 maps
+{
+    const { getMap, listMaps } = await import('../src/data/maps/index.js');
+    eq((getMap('thaloria').spawns.landmarks ?? []).map(l => l.id), ['thaloria_bell_tower_square', 'thaloria_market', 'thaloria_east_gate'], "Thaloria's landmarks");
+    eq((getMap('east_road').spawns.landmarks ?? []).map(l => l.id), ['east_road_waystone', 'east_road_lean_to'], "the East Road's landmarks");
+    const ids = [];
+    for (const { id } of listMaps()) {
+        const m = getMap(id);
+        for (const l of m.spawns?.landmarks ?? []) {
+            ids.push(l.id);
+            ok(typeof l.name === 'string' && l.name && Number.isFinite(l.xp) && l.radius > 0, `${id}/${l.id}: name, xp, radius`);
+            ok(m.tiles[l.y]?.[l.x] !== undefined && m.tiles[l.y][l.x] !== 1, `${id}/${l.id}: on the map, on open ground`);
+        }
+    }
+    eq(new Set(ids).size, ids.length, 'landmark ids are unique across all maps (discovered is keyed by id)');
+}
+
 console.log(`test_fog_map: ${n} checks passed`);

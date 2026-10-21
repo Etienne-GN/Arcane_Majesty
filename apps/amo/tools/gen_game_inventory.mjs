@@ -94,11 +94,15 @@ table(['Key', 'Action'], [
     ['1 2 3 4', 'Use the consumable on hotbar slot 1–4 (assign from the Inventory with 1–4; touch: the row above the skill ring)'],
     ['H', 'Blink-Step (skill, 8 MP)'], ['V', 'Aetheric Sight (skill: slows enemies, shows their detection range)'],
     ['B', 'Build a campfire anywhere (costs 3 Wood)'], ['G', 'Aetheric Tear — open a rift to a known place (85% of max MP, cooldown)'],
-    ['I', 'Inventory'], ['P', 'Stats'], ['K', 'Skill tree'], ['J', 'Spellbook'], ['M', 'World map'], ['N', 'Quest journal'],
+    ['I', 'Inventory'], ['P', 'Stats'], ['K', 'Skill tree'], ['J', 'Spellbook'], ['M', 'Map: Region tab (explored ground, exits, doors, rift-gates, landmarks, quest markers; WASD/drag to pan, wheel or + − to zoom) and World tab (the places you have been); TAB, LB or RB switches'], ['N', 'Quest journal'],
     ['L', 'Codex (world lore, bestiary, recovered memories)'], ['C', 'Crafting bench'], ['ESC', 'Menu'], ['Gamepad', 'Full support (menus and play)'],
 ]);
 table(['System', 'How it works'], [
     ['Doors & interiors', 'Buildings with a door can be entered (E). Leaving puts you back in front of the door you came through, even from a room inside a room (the inn\'s cellar). Some doors are locked until you carry a key or have earned the way in. Shelves and desks may hold a book to read (E); some homes hide a stash.'],
+    ['Map & fog of war', 'Every outdoor map starts unknown. Walking reveals about 6 tiles around you (4 in dense forest) and the map remembers it; rooms are always fully known. The minimap shows the 48 tiles around you; M shows the whole map. Exits, doors and rift-gates appear once you have seen them; the active quest steps are marked (◆) where they lead, a step inside a building marks its door.'],
+    ['Charts', "A cartographer by Thaloria's market sells charts (Thaloria 40 Gold, the East Road 60 Gold). Reading one shows the region's roads under the fog and marks where its landmarks are."],
+    ['Landmarks', 'Notable places. Reaching one the first time shows "Discovered: …", gives XP and pins it on your map.'],
+    ['Dense forest', 'Deep woods shrink how far you see and darken the edges of the screen. Keep to the roads, or trust your map.'],
     ['Vigor', 'The green bar under MP (100, +2 per Agility above 10). Sprinting and hopping spend it; it refills at 25/s after 0.8 s of rest. It is not the Stamina attribute.'],
     ['Resonance', `Acting with an element (kills, casting, resting…) builds resonance in it (${RESONANCE_ELEMENTS.join(', ')}). Crossing a spell's threshold **discovers** it; further thresholds raise it to ${TIER_NAMES.join(' → ')}.`],
     ['Mana scent', 'Casting and blinking leave an "Aetheric Scent" (0–100) that decays over time; enemies detect you from up to 3× further while it is high.'],
@@ -123,7 +127,7 @@ table(['System', 'How it works'], [
     ['Weather', `Each map's weather follows its biome and changes every 4–8 game hours — ${Object.entries(BIOME_WEATHER).map(([b, t]) => `${b}: ${Object.keys(t).map(k => WEATHER[k]).join('/')}`).join('; ')}. Rain and storms soak everyone every 10 s (fire spells ×0.8, lightning ×1.2, on top of Wet) and standing in the rain builds water, ice and nature resonance. Storms drop a lightning strike every 6–12 s, marked by a ring ${STORM.telegraphMs / 1000}s before it lands (${stormStrikeDamage({ max: 3 })} damage at Lv 1–3, more in higher regions). Snow chills you (Cold for 8 s) every 20 s unless you are within 120 px of a campfire or hearth or under Warming (Warmth Aura, Warming Draught: 90 s). Sandstorms cut enemy sight to 60%.`],
     ['Memories', 'Completing quests recovers lore fragments ("Archive of Souls"), readable in the Codex.'],
     ['Campaign', "Eldoria's Prophecy: chapters gate which maps you can enter; completing a chapter grants its unlocks; progress is saved."],
-    ['Saving', 'Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties, the game clock, the doors you came in by.'],
+    ['Saving', 'Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map (fog per map), charts read, landmarks discovered, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties, the game clock, the doors you came in by.'],
     ['Online', 'Server select, online characters, chat; other players are visible (presence). The campaign is single-player.'],
     ['Character creator', 'LPC layered characters with palette swaps, export of the character and sheet (with licences).'],
 ]);
