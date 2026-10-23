@@ -104,4 +104,93 @@ const fxMap = id => FX[id] ?? FX.ft;   // like getMap: an unknown id falls back 
     ok(r.legs[0].path.every(([x, y]) => nav.isWalkable('thaloria', x, y)), 'every tile of it is walkable');
 }
 
+// ---- Schedules
+const S = await import('../src/systems/schedules.js');
+const { ROLES } = await import('../src/data/townsfolk/roles.js');
+const FT_TOWN = {
+    id: 'ft',
+    places: {
+        home:   { x: 2, y: 5, indoors: true },
+        stall:  { x: 15, y: 7, facing: 'down' },
+        seat:   { interior: 'ft_inn', x: 2, y: 2, facing: 'down' },
+        corner: { x: 18, y: 1, facing: 'left', outdoors: true },
+        sq:     { x: 5, y: 5, w: 6, h: 3 },
+        loop:   { route: [[1, 8], [18, 8]] },
+        bed:    { interior: 'ft_cellar', x: 2, y: 2 },
+    },
+    residents: [
+        { id: 'm1', role: 'merchant', look: 'look_00', home: 'home', work: 'stall', evening: 'seat' },
+        { id: 'k1', role: 'child', look: 'look_18', home: 'home', wander: 'sq' },
+        { id: 'g1', role: 'guard', shift: 'day', look: 'look_21', home: 'home', patrol: 'loop' },
+        { id: 'b1', role: 'beggar', look: 'look_01', work: 'corner' },
+        { id: 'n1', role: 'merchant', look: 'look_02', npc: { id: 'oren', name: 'X' },
+          schedule: [{ from: 6, to: 22, at: 'stall', activity: 'work' }, { from: 22, to: 6, at: 'bed', activity: 'sleep' }] },
+    ],
+};
+const fxTown = S.makeTown(FT_TOWN, { getMap: fxMap, walk: {}, roles: ROLES });
+const R = id => fxTown.residents.find(r => r.id === id);
+const D = 1440;   // day 1, midnight
+const px = t => t * 32 + 16;
+{
+    eq(S.WALK_PX_PER_SEC, 60, 'walking pace from the spec');
+    eq(S.scheduleOf(R('m1'), ROLES).map(s => s.at), ['home', 'stall', 'seat'], 'a role\'s day with the resident\'s own places');
+    eq(S.scheduleOf(R('k1'), ROLES).find(s => s.activity === 'wander').at, 'wander:sq', 'wander:@wander becomes the resident\'s area');
+    eq(S.scheduleOf(R('g1'), ROLES)[0].at, 'patrol:loop', 'a guard\'s shift picks its schedule');
+    eq(S.slotAt(S.scheduleOf(R('m1'), ROLES), 3).slot.activity, 'sleep', '03:00: asleep');
+    eq(S.slotAt(S.scheduleOf(R('m1'), ROLES), 8).slot.activity, 'work', '08:00 sharp: work');
+    eq(S.slotAt(S.scheduleOf(R('m1'), ROLES), 23.9).slot.activity, 'sit', '23:54: still in the inn');
+    eq(S.slotAt(S.scheduleOf(R('k1'), ROLES), 2).slot.activity, 'sleep', 'a slot wrapping midnight (20→7) covers 02:00');
+    eq(S.slotAt([{ from: 8, to: 9, at: 'x', activity: 'work' }], 12), null, 'no slot: null');
+
+    const night = S.whereAt(R('m1'), D + 3 * 60, fxTown);
+    eq([night.mapId, night.x, night.y, night.visible, night.moving], ['ft', px(2), px(5), false, false], '03:00: home, out of sight');
+    const leaving = S.whereAt(R('m1'), D + 8 * 60, fxTown);
+    eq([leaving.x, leaving.y, leaving.moving, leaving.pose, leaving.visible], [px(2), px(5), true, 'walk', true], '08:00: steps out of the door');
+    const work = S.whereAt(R('m1'), D + 9 * 60, fxTown);
+    eq([work.mapId, work.x, work.y, work.pose, work.facing, work.activity, work.visible], ['ft', px(15), px(7), 'idle', 'down', 'work', true], '09:00: at the stall');
+    ok(S.whereAt(R('m1'), D + 18 * 60 + 0.2, fxTown).moving, '18:00: on the way to the inn');
+    const inn = S.whereAt(R('m1'), D + 20 * 60, fxTown);
+    eq([inn.mapId, inn.x, inn.y, inn.pose], ['ft_inn', px(2), px(2), 'sit'], '20:00: sitting in the inn');
+    eq(S.whereAt(R('m1'), D + 9 * 60 + 7, fxTown), S.whereAt(R('m1'), D + 9 * 60 + 7, fxTown), 'the same minute, the same answer');
+
+    const kid = S.whereAt(R('k1'), D + 9 * 60 + 30, fxTown), ktx = Math.floor(kid.x / 32), kty = Math.floor(kid.y / 32);
+    ok(kid.visible && ktx >= 5 && ktx < 11 && kty >= 5 && kty < 8, '09:30: the child is somewhere in the square');
+    ok(!S.whereAt(R('k1'), D + 21 * 60, fxTown).visible, '21:00: the child is in bed');
+    const spots = new Set(); for (let t = 0; t < 120; t += 20) { const p = S.whereAt(R('k1'), D + 9 * 60 + t + 19, fxTown); spots.add(`${p.x},${p.y}`); }
+    ok(spots.size >= 2, 'a wanderer moves between spots');
+
+    const guard = S.whereAt(R('g1'), D + 10 * 60, fxTown);
+    ok(guard.visible && guard.moving && guard.pose === 'walk' && guard.y === px(8), '10:00: the guard walks the patrol row');
+    ok(!S.whereAt(R('g1'), D + 3 * 60, fxTown).visible, '03:00: the day guard sleeps');
+    const beg = S.whereAt(R('b1'), D + 3 * 60, fxTown);
+    eq([beg.visible, beg.pose, beg.x, beg.y], [true, 'sit', px(18), px(1)], 'the beggar sleeps sitting in their corner');
+    const n1 = S.whereAt(R('n1'), D + 23 * 60, fxTown);
+    eq([n1.mapId, n1.visible], ['ft_cellar', false], 'asleep in an interior: there, but out of sight');
+
+    // No one ever jumps: between two samples a quarter-minute apart, on the same map,
+    // a person moves at most a quarter-minute's walk.
+    for (const r of fxTown.residents) {
+        let prev = S.whereAt(r, D, fxTown);
+        for (let t = D + 0.25; t <= D + 2880; t += 0.25) {
+            const p = S.whereAt(r, t, fxTown);
+            if (p.mapId === prev.mapId) assert.ok(Math.hypot(p.x - prev.x, p.y - prev.y) <= S.PX_PER_MIN * 0.25 + 0.01, `${r.id} jumps at minute ${t - D} (${prev.x},${prev.y} → ${p.x},${p.y})`);
+            prev = p;
+        }
+        n++;
+    }
+
+    eq(S.namedPeople(fxTown, D + 10 * 60), [{ npcId: 'oren', mapId: 'ft', x: 15, y: 7 }], 'named people, in tiles');
+    eq(S.validateTown(fxTown, { looks: ['look_00', 'look_01', 'look_02', 'look_18', 'look_21'] }), [], 'the fixture town is sound');
+    const broken = S.makeTown({ ...FT_TOWN, residents: [
+        { id: 'gap', role: 'merchant', look: 'look_00', schedule: [{ from: 8, to: 18, at: 'stall', activity: 'work' }] },
+        { id: 'lost', role: 'merchant', look: 'look_00', home: 'nowhere', work: 'stall', evening: 'seat' },
+        { id: 'wall', role: 'merchant', look: 'look_99', schedule: [{ from: 0, to: 24, at: 'inwall', activity: 'work' }] },
+    ], places: { ...FT_TOWN.places, inwall: { interior: 'ft_inn', x: 0, y: 0 } } }, { getMap: fxMap, walk: {}, roles: ROLES });
+    const probs = S.validateTown(broken, { looks: ['look_00'] }).join('\n');
+    ok(/gap: no slot at 00:00/.test(probs), 'a gap in the day is reported');
+    ok(/lost: unknown place "nowhere"/.test(probs), 'an unknown place is reported');
+    ok(/wall: place "inwall" is not walkable/.test(probs), 'a place inside a wall is reported');
+    ok(/wall: unknown look "look_99"/.test(probs), 'an unknown look is reported');
+}
+
 console.log(`test_townsfolk: ${n} checks passed`);
