@@ -46,6 +46,7 @@ import { openChest } from './ChestScene.js';
 import { isHoppableDecoration } from '../systems/movementRules.js';
 import { ChunkStreamer, chunkKey, chunkOfTile, bucketByChunk } from '../systems/regionChunks.js';
 import { RETURN_KEY, doorLockState, doorReturnPoint, pushReturn, resolvePortal, clearReturnsOutside } from '../systems/interiors.js';
+import { DECORATION_SOURCES } from '../systems/walkGrid.js';
 import { fogFor, revealAround, encodeFog, newlyDiscovered, REVEAL_RADIUS, DENSE_REVEAL_RADIUS } from '../systems/fog.js';
 import { denseMask, isDenseAt } from '../systems/mapPaint.js';
 import { buildMapTexture, repaintMapTexture } from '../systems/mapTexture.js';
@@ -3121,26 +3122,9 @@ export default class GameScene extends Phaser.Scene {
     // Each entry is one { mapDef array, catalogue.json cache key, texture key }
     // triple. _placeCatalogueItems() already no-ops on an undefined/empty
     // array, so a map need only define the arrays it actually uses — adding
-    // a new catalogued sheet to the game means adding one line here.
+    // a new catalogued sheet means adding one line to DECORATION_SOURCES (systems/walkGrid.js).
     _placeCatalogueDecorations() {
-        const sources = [
-            { items: this._mapDef.decorations,       catKey: 'tileset_base_cat',    texKey: 'tileset_base' },
-            { items: this._mapDef.waterTiles,         catKey: 'tileset_water_cat',   texKey: 'tileset_water' },
-            { items: this._mapDef.snowDecorations,    catKey: 'tileset_snowy_cat',   texKey: 'tileset_snowy' },
-            { items: this._mapDef.addworkDecorations, catKey: 'tileset_addwork_cat', texKey: 'tileset_addwork' },
-            // Cainos "Pixel Art Top Down - Basic" pack (6 sheets)
-            { items: this._mapDef.patdGrassDecorations,       catKey: 'tileset_patd_grass_cat',       texKey: 'tileset_patd_grass' },
-            { items: this._mapDef.patdStoneGroundDecorations, catKey: 'tileset_patd_stoneground_cat', texKey: 'tileset_patd_stoneground' },
-            { items: this._mapDef.patdWallDecorations,        catKey: 'tileset_patd_wall_cat',        texKey: 'tileset_patd_wall' },
-            { items: this._mapDef.patdStructDecorations,      catKey: 'tileset_patd_struct_cat',      texKey: 'tileset_patd_struct' },
-            { items: this._mapDef.patdPropsDecorations,       catKey: 'tileset_patd_props_cat',       texKey: 'tileset_patd_props' },
-            { items: this._mapDef.patdPlantDecorations,       catKey: 'tileset_patd_plant_cat',       texKey: 'tileset_patd_plant' },
-            // LPC 4-atlas collection (fully named, see LPC_ATLAS_PLAN.md)
-            { items: this._mapDef.lpcTerrainDecorations, catKey: 'terrain_atlas_cat',   texKey: 'terrain_atlas' },
-            { items: this._mapDef.lpcBaseOutDecorations, catKey: 'base_out_atlas_cat', texKey: 'base_out_atlas' },
-            { items: this._mapDef.lpcBuildDecorations,   catKey: 'build_atlas_cat',    texKey: 'build_atlas' },
-            { items: this._mapDef.lpcObjMiskDecorations, catKey: 'obj_misk_atlas_cat', texKey: 'obj_misk_atlas' },
-        ];
+        const sources = DECORATION_SOURCES.map(s => ({ items: this._mapDef[s.field], catKey: s.catKey, texKey: s.texKey }));
         // Any other catalogued sheet, named per group rather than by a fixed
         // mapDef field: [{ catKey, texKey, items }] (see extraSheets in preload).
         // A group may set `scale` (e.g. 2 to draw a 16px sheet on the 32px grid).
