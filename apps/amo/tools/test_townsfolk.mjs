@@ -193,4 +193,24 @@ const px = t => t * 32 + 16;
     ok(/wall: unknown look "look_99"/.test(probs), 'an unknown look is reported');
 }
 
+// ---- Barks
+{
+    const B = await import('../src/systems/barks.js');
+    const { BARKS } = await import('../src/data/townsfolk/barks.js');
+    const pools = {
+        guard: [{ text: 'night', hours: [21, 5] }, { text: 'rain', weather: ['rain', 'storm'] }, { text: 'plain' }],
+        anyone: [{ text: 'flagged', flag: 'met_oren' }, { text: 'not yet', notFlag: 'met_oren' }],
+    };
+    const all = (role, ctx) => { const seen = new Set(); for (let i = 0; i < 200; i++) { let k = i; seen.add(B.pickBark(role, ctx, () => ((k = (k * 9301 + 49297) % 233280) / 233280), pools)); } return [...seen].sort(); };
+    eq(all('guard', { hour: 23, weather: 'clear', flags: {} }), ['night', 'not yet', 'plain'], 'at night, a clear sky, before meeting Oren');
+    eq(all('guard', { hour: 12, weather: 'rain', flags: { met_oren: true } }), ['flagged', 'plain', 'rain'], 'by day in the rain, after meeting Oren');
+    eq(B.pickBark('nobody', { hour: 12, weather: 'clear', flags: { met_oren: true } }, () => 0, pools), 'flagged', 'an unknown role still has the shared lines');
+    eq(B.pickBark('nobody', { hour: 12, weather: 'clear', flags: {} }, () => 0, { anyone: [] }), null, 'nothing fits: null');
+    let fit = 0, plain = 0;
+    for (let i = 0; i < 1000; i++) { const t = B.pickBark('guard', { hour: 23, weather: 'clear', flags: { met_oren: true } }, () => i / 1000, pools); if (t === 'night') fit++; if (t === 'plain') plain++; }
+    ok(fit > plain * 2, 'a line that fits the moment is likelier than a plain one');
+    for (const role of ['guard', 'merchant', 'labourer', 'child', 'priest', 'noble', 'beggar', 'drunk', 'anyone']) ok(BARKS[role]?.length >= 3, `${role} has lines`);
+    ok(Object.values(BARKS).flat().every(l => !/\b(song|album|verse|chorus|lyric)/i.test(l.text)), 'no line mentions songs or albums');
+}
+
 console.log(`test_townsfolk: ${n} checks passed`);
