@@ -17,7 +17,8 @@ import { TILE_SIZE, ENEMY_TYPES } from '../data/worldMap.js';
 import { getMap } from '../data/maps/index.js';
 import { townFor } from '../data/townsfolk/index.js';
 import { boardIdFor, regionPools } from '../data/bounties.js';
-import { gameDay, advanceClock, isNight, ambientAt, spawnActive } from '../systems/gameClock.js';
+import { gameDay, gameHour, advanceClock, isNight, ambientAt, spawnActive } from '../systems/gameClock.js';
+import { pickBark } from '../systems/barks.js';
 import { mapBiome, WEATHER, weatherAt, isWet, spellWeatherMult, sightMult, isWarm,
          RAIN_TICK_MS, SNOW_TICK_MS, SNOW_COLD_MS, STORM, stormStrikeDamage } from '../data/weather.js';
 import { catalogueLayout } from '../utils/catalogueLayout.js';
@@ -3552,6 +3553,7 @@ export default class GameScene extends Phaser.Scene {
         const near = (obj) => Phaser.Math.Distance.Between(px, py, obj.x, obj.y) < range;
 
         this.npcs.getChildren().forEach(npc           => npc.ePrompt?.setAlpha(near(npc) ? 1 : 0));
+        this._townsfolk?.updatePrompts(near);
         this.chests.getChildren().forEach(chest       => chest.ePrompt?.setAlpha(near(chest) ? 1 : 0));
         this.campfires.getChildren().forEach(cf       => cf.ePrompt?.setAlpha(near(cf) ? 1 : 0));
         const nearStation = this._stationNear(range);
@@ -3571,6 +3573,7 @@ export default class GameScene extends Phaser.Scene {
         this._nearInteract =
             this.doors.getChildren().some(d => near(d)) ||
             this.npcs.getChildren().some(n => near(n)) ||
+            this._townsfolk?.anyNear(near) ||
             this.chests.getChildren().some(c => near(c) && !c.opened) ||
             this.campfires.getChildren().some(cf => near(cf)) ||
             !!nearStation ||
@@ -3606,54 +3609,12 @@ export default class GameScene extends Phaser.Scene {
         let door = null;
         this.physics.overlap(this.player.interactBox, this.doors, (_b, d) => { door ??= d; });
         if (door) { this._useDoor(door.doorDef); return; }
+        // Townsfolk (W4): the nearest one you face answers
+        let folk = null;
+        if (this._townsfolk) this.physics.overlap(this.player.interactBox, this._townsfolk.group, (_b, s) => { folk ??= s; });
+        if (folk) { this._talkToTownsperson(folk); return; }
         // NPC
-        this.physics.overlap(this.player.interactBox, this.npcs, (box, npc) => {
-            const def = npc.npcDef;
-            soundManager.interact();
-            // Quest NPC id (data/npcs.js); maps without one fall back to the dialogue key
-            const npcId = def.id ?? (def.isShop ? 'silvara' : (def.dialogue?.replace(/_greeting$|_prolog$/, '') ?? 'hermit'));
-
-            if (def.isShop) {
-                // Talking to a merchant counts for "Return to …" steps too
-                questManager.onTalk(npcId);
-                // Merchant: first interaction shows greeting, then opens shop
-                const shopData = { currencyBias: this._mapDef?.currencyBias ?? 'neutral', shopName: def.shopName, catalog: def.catalog };
-                if (!npc.talked) {
-                    npc.talked = true;
-                    const lines = DIALOGUES[def.dialogue] ?? [{ speaker: def.name, text: '...' }];
-                    this.scene.pause();
-                    this.scene.launch('DialogueScene', {
-                        lines,
-                        onComplete: () => {
-                            this.scene.pause();
-                            this.scene.launch('ShopScene', shopData);
-                        }
-                    });
-                } else {
-                    this.scene.pause();
-                    this.scene.launch('ShopScene', shopData);
-                }
-                return;
-            }
-
-            const key   = npc.talked ? def.afterDialogue : def.dialogue;
-            const lines = DIALOGUES[key] ?? [{ speaker: def.name, text: '...' }];
-            this.scene.pause();
-            this.scene.launch('DialogueScene', {
-                lines,
-                onComplete: () => {
-                    if (!npc.talked && def.reward) {
-                        playerStats.addItem(def.reward);
-                        soundManager.collect();
-                        this.scene.get('UIScene')?.showNotification?.(`Received: ${def.reward.replace(/_/g, ' ')}`, 2000);
-                    }
-                    questManager.onTalk(npcId);   // every talk — turn-ins happen on a later visit
-                    npc.talked = true;
-                    SaveManager.save(playerStats, this._storyId, this._characterId);
-                    this._offerQuest(npcId, def.name, npc);
-                }
-            });
-        });
+        this.physics.overlap(this.player.interactBox, this.npcs, (_box, npc) => this._talkToNpc(npc));
 
         // Campfire — basic rest always available; Full Rest requires Traveler's Tent
         this.physics.overlap(this.player.interactBox, this.campfires, (_box, cf) => {
@@ -3763,6 +3724,73 @@ export default class GameScene extends Phaser.Scene {
             this.scene.pause();
             this.scene.launch('ChestScene');
         });
+    }
+
+    // Talk to an NPC — a fixed spawn or a named townsperson (W4). Shops open only
+    // while the keeper's schedule says work.
+    _talkToNpc(npc) {
+        const def = npc.npcDef;
+        soundManager.interact();
+        // Quest NPC id (data/npcs.js); maps without one fall back to the dialogue key
+        const npcId = def.id ?? (def.isShop ? 'silvara' : (def.dialogue?.replace(/_greeting$|_prolog$/, '') ?? 'hermit'));
+
+        if (def.isShop) {
+            // Talking to a merchant counts for "Return to …" steps too
+            questManager.onTalk(npcId);
+            if (npc.activity && npc.activity !== 'work') {
+                this.scene.get('UIScene')?.showNotification?.('Closed — come back in the morning', 2000);
+                return;
+            }
+            // Merchant: first interaction shows greeting, then opens shop
+            const shopData = { currencyBias: this._mapDef?.currencyBias ?? 'neutral', shopName: def.shopName, catalog: def.catalog };
+            if (!npc.talked) {
+                npc.talked = true;
+                this._talkedNpcs?.add(npcId);
+                const lines = DIALOGUES[def.dialogue] ?? [{ speaker: def.name, text: '...' }];
+                this.scene.pause();
+                this.scene.launch('DialogueScene', {
+                    lines,
+                    onComplete: () => {
+                        this.scene.pause();
+                        this.scene.launch('ShopScene', shopData);
+                    }
+                });
+            } else {
+                this.scene.pause();
+                this.scene.launch('ShopScene', shopData);
+            }
+            return;
+        }
+
+        const key   = npc.talked ? def.afterDialogue : def.dialogue;
+        const lines = DIALOGUES[key] ?? [{ speaker: def.name, text: '...' }];
+        this.scene.pause();
+        this.scene.launch('DialogueScene', {
+            lines,
+            onComplete: () => {
+                if (!npc.talked && def.reward) {
+                    playerStats.addItem(def.reward);
+                    soundManager.collect();
+                    this.scene.get('UIScene')?.showNotification?.(`Received: ${def.reward.replace(/_/g, ' ')}`, 2000);
+                }
+                questManager.onTalk(npcId);   // every talk — turn-ins happen on a later visit
+                npc.talked = true;
+                this._talkedNpcs?.add(npcId);
+                SaveManager.save(playerStats, this._storyId, this._characterId);
+                this._offerQuest(npcId, def.name, npc);
+            }
+        });
+    }
+
+    // W4: a named townsperson talks as any NPC does; anyone else answers with a bark.
+    // Either way they stop and face you for a moment.
+    _talkToTownsperson(spr) {
+        this._townsfolk.holdFor(spr, 3000);
+        if (spr.npcDef) { this._talkToNpc(spr); return; }
+        soundManager.interact();
+        const min = playerStats.gameMinutes;
+        const line = pickBark(spr.resident.role, { hour: gameHour(min), weather: weatherAt(this._mapDef, min).id, flags: playerStats.flags });
+        this._townsfolk.say(spr, line ?? '…');
     }
 
     _showChapterTitle(title) {
