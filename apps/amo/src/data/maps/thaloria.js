@@ -314,7 +314,6 @@ const THALORIA_DECORATIONS = [
     { name: "flower_white_cluster", x: 24, y: 19 },
     { name: "bush_round_green_light", x: 1, y: 4 },
     { name: "flower_white_cluster", x: 1, y: 5 },
-    { name: "flower_pink_bush", x: 25, y: 20 },
     { name: "bush_round_green_light", x: 7, y: 1 },
     { name: "flower_pink_bush", x: 15, y: 19 },
     { name: "flower_white_cluster", x: 8, y: 1 },
@@ -381,18 +380,9 @@ export const THALORIA = {
     ],
     spawns: {
         enemies: [],               // the city is safe (map spec)
-        npcs: [
-            { x: 4, y: 19, id: 'innkeeper', name: 'Innkeeper', dialogue: 'innkeeper_greeting', afterDialogue: 'innkeeper_after',
-               spriteKey: 'spr_old_dude', animProfile: 'lpc_universal', tint: 0xddccbb },
-            { x: 7, y: 19, id: 'thaloria_trader', name: 'Trader', dialogue: 'trader_greeting', afterDialogue: 'trader_after',
-               spriteKey: 'spr_merchant', animProfile: 'lpc_universal', tint: 0xccbbaa },
-            { x: 16, y: 22, id: 'thaloria_merchant', name: 'Merchant', isShop: true, shopName: 'THALORIA MARKET',
-               dialogue: 'thaloria_merchant_greeting', afterDialogue: 'thaloria_merchant_greeting',
-               spriteKey: 'spr_merchant', animProfile: 'lpc_universal', tint: 0xbbccdd },
-            { x: 19, y: 22, id: 'thaloria_cartographer', name: 'Cartographer', isShop: true, shopName: 'THE CARTOGRAPHER', catalog: 'cartographer',
-               dialogue: 'cartographer_greeting', afterDialogue: 'cartographer_greeting',
-               spriteKey: 'spr_old_dude', animProfile: 'lpc_universal', tint: 0xbbaa88 },
-        ],
+        // W4: the Innkeeper, the Trader, the Merchant and the Cartographer live on
+        // schedules now (src/data/townsfolk/thaloria.js)
+        npcs: [],
         chests: [],
         campfires: [],
         stations: [

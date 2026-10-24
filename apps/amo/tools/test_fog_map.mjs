@@ -269,9 +269,11 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     eq(s.countItem('chart_thaloria'), 1, 'and kept');
 
     const t = getMap('thaloria');
-    const carto = t.spawns.npcs.find(n => n.catalog === 'cartographer');
-    ok(carto && carto.isShop, 'Thaloria has a cartographer shop');
-    ok(t.tiles[carto.y][carto.x] !== 1, 'standing on open ground');
+    const { THALORIA_TOWN } = await import('../src/data/townsfolk/thaloria.js');
+    const carto = THALORIA_TOWN.residents.find(r => r.npc?.catalog === 'cartographer');
+    ok(carto && carto.npc.isShop, 'Thaloria has a cartographer shop');
+    const stall = THALORIA_TOWN.places[carto.work];
+    ok(t.tiles[stall.y][stall.x] !== 1, 'whose stall stands on open ground');
 }
 
 // ---- Landmarks on the Chapter 3 maps

@@ -92,8 +92,10 @@ const { getMap } = await import('../src/data/maps/index.js');
     }
     ok(link(T, getMap('eldrin_tower')), 'Thaloria still leads to Eldrin\'s Tower');
     ok(walk(T, T.playerStart.x * 32 + 16, T.playerStart.y * 32 + 16) && walk(E, E.playerStart.x * 32 + 16, E.playerStart.y * 32 + 16), 'player starts are open ground');
-    const npcIds = m => (m.spawns.npcs ?? []).map(n => n.id);
-    ok(npcIds(T).includes('innkeeper') && npcIds(T).includes('thaloria_trader'), 'the inn\'s people are in Thaloria');
+    const { getTown } = await import('../src/data/townsfolk/index.js');
+    const townIds = (getTown(T.id)?.residents ?? []).filter(r => r.npc).map(r => r.npc.id);
+    const npcIds = m => [...(m.spawns.npcs ?? []).map(n => n.id), ...(m === T ? townIds : [])];
+    ok(npcIds(T).includes('innkeeper') && npcIds(T).includes('thaloria_trader'), 'the inn\'s people live in Thaloria');
     ok(npcIds(E).includes('oren'), 'Oren waits on the East Road');
     ok(!(T.spawns.enemies ?? []).length, 'the city is safe');
     ok((T.spawns.signs ?? []).some(s => s.id === 'bell_tower'), 'the bell tower sign');
@@ -105,7 +107,7 @@ const { getMap } = await import('../src/data/maps/index.js');
     ok((E.spawns.enemies ?? []).filter(e => e.type === 'void_stalker' && e.time === 'night').length >= 3, 'the night ambush at the copse');
     ok((T.quests ?? []).includes('main_odysseys_dawn'), 'arriving in Thaloria starts Odyssey\'s Dawn');
     ok(T.spawns.bountyBoards?.length && T.spawns.stations?.length === 2, 'Thaloria keeps its board and stations');
-    for (const m of [T, E]) for (const n of m.spawns.npcs ?? []) ok(!n.id || NPCS[n.id], `${m.id}: NPC ${n.id} known`);
+    for (const m of [T, E]) for (const id of npcIds(m)) ok(!id || NPCS[id], `${m.id}: NPC ${id} known`);
 }
 
 console.log(`test_chapter3: ${n} checks passed`);

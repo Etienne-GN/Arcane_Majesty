@@ -180,6 +180,12 @@ reserve(3, 19, 7, 19)      # the Innkeeper and the Trader by the inn door
 for x in (10, 13, 18):
     try_put('roleworld_wizard/exterior_asset', 'market_stall', x, 20)
 reserve(16, 22, 17, 22)    # the merchant
+# W4 townsfolk work spots (src/data/townsfolk/thaloria.js): nothing drawn on them
+reserve(11, 22, 11, 22)    # stall keeper A
+reserve(14, 22, 14, 22)    # stall keeper B
+reserve(22, 23, 22, 23)    # the yard labourer, by the hearth
+reserve(25, 20, 25, 20)    # the woodpile porter
+reserve(10, 14, 10, 14)    # the beggar's corner
 for name, x, y in [('barrel_dark', 9, 23), ('crate_wood_light', 15, 23), ('crate_wood_light_open', 20, 23),
                    ('haybale_yellow', 21, 22), ('mailbox_wood_red_roof', 22, 9)]:
     try_put(BC, name, x, y, grounds=('grass', 'path'))
@@ -260,18 +266,9 @@ export const THALORIA = {{
     ],
     spawns: {{
         enemies: [],               // the city is safe (map spec)
-        npcs: [
-            {{ x: 4, y: 19, id: 'innkeeper', name: 'Innkeeper', dialogue: 'innkeeper_greeting', afterDialogue: 'innkeeper_after',
-               spriteKey: 'spr_old_dude', animProfile: 'lpc_universal', tint: 0xddccbb }},
-            {{ x: 7, y: 19, id: 'thaloria_trader', name: 'Trader', dialogue: 'trader_greeting', afterDialogue: 'trader_after',
-               spriteKey: 'spr_merchant', animProfile: 'lpc_universal', tint: 0xccbbaa }},
-            {{ x: 16, y: 22, id: 'thaloria_merchant', name: 'Merchant', isShop: true, shopName: 'THALORIA MARKET',
-               dialogue: 'thaloria_merchant_greeting', afterDialogue: 'thaloria_merchant_greeting',
-               spriteKey: 'spr_merchant', animProfile: 'lpc_universal', tint: 0xbbccdd }},
-            {{ x: 19, y: 22, id: 'thaloria_cartographer', name: 'Cartographer', isShop: true, shopName: 'THE CARTOGRAPHER', catalog: 'cartographer',
-               dialogue: 'cartographer_greeting', afterDialogue: 'cartographer_greeting',
-               spriteKey: 'spr_old_dude', animProfile: 'lpc_universal', tint: 0xbbaa88 }},
-        ],
+        // W4: the Innkeeper, the Trader, the Merchant and the Cartographer live on
+        // schedules now (src/data/townsfolk/thaloria.js)
+        npcs: [],
         chests: [],
         campfires: [],
         stations: [

@@ -232,4 +232,54 @@ const px = t => t * 32 + 16;
     ok(readFileSync(new URL('../public/assets/characters/townsfolk/CREDITS.md', import.meta.url), 'utf8').length > 200, 'the looks are credited');
 }
 
+// ---- Thaloria's people
+{
+    const TF = await import('../src/data/townsfolk/index.js');
+    const { LOOKS } = await import('../src/data/townsfolk/looks.js');
+    const { NPCS } = await import('../src/data/npcs.js');
+    const { getMap } = await import('../src/data/maps/index.js');
+    const town = TF.getTown('thaloria');
+    ok(TF.TOWN_IDS.every(id => W.WALK_ROOTS.includes(id)), 'every town has baked walk grids');
+    eq(S.validateTown(town, { looks: LOOKS.map(l => l.id) }), [], 'Thaloria\'s people all have a place, a path and a look');
+    ok(town.residents.length >= 20, 'twenty-odd people');
+    eq(new Set(town.residents.map(r => r.id)).size, town.residents.length, 'resident ids are unique');
+    eq(TF.townFor('thaloria_inn_cellar'), town, 'the inn\'s cellar belongs to Thaloria');
+    eq(TF.townFor('east_road'), null, 'the East Road has no town');
+    const named = town.residents.filter(r => r.npc).map(r => r.npc.id).sort();
+    eq(named, ['innkeeper', 'thaloria_cartographer', 'thaloria_merchant', 'thaloria_trader'], 'the four named people live here');
+    ok(named.every(id => NPCS[id]), 'and are in the NPC table');
+    ok(!(getMap('thaloria').spawns.npcs ?? []).some(n => named.includes(n.id)), 'they no longer stand as fixed spawns');
+
+    for (const r of town.residents) {
+        let prev = S.whereAt(r, D, town);
+        for (let t = D + 0.25; t <= D + 2880; t += 0.25) {
+            const p = S.whereAt(r, t, town);
+            if (p.mapId === prev.mapId) assert.ok(Math.hypot(p.x - prev.x, p.y - prev.y) <= S.PX_PER_MIN * 0.25 + 0.01, `${r.id} jumps at minute ${t - D}`);
+            prev = p;
+        }
+        n++;
+    }
+
+    // Spec acceptance, on paper
+    const at = h => town.residents.map(r => S.whereAt(r, D + h * 60, town)).filter(p => p.visible);
+    const tile = p => [Math.floor(p.x / 32), Math.floor(p.y / 32)];
+    const market = at(9).filter(p => p.mapId === 'thaloria' && (([x, y]) => x >= 9 && x < 23 && y >= 10 && y < 25)(tile(p)));
+    ok(market.length >= 8, `09:00: the market and square are busy (${market.length})`);
+    const late = at(23);
+    ok(late.filter(p => p.mapId === 'thaloria').length <= 4, `23:00: the streets are nearly empty (${late.filter(p => p.mapId === 'thaloria').length})`);
+    ok(late.filter(p => p.mapId === 'thaloria_inn').length >= 8, `23:00: the inn is full (${late.filter(p => p.mapId === 'thaloria_inn').length})`);
+
+    // Following one person through a day: home → work → inn → home
+    const who = town.residents.find(r => r.id === 'stallholder_a'), seq = [];
+    for (let t = D + 60; t <= D + 1440 + 120; t += 5) {
+        const a = S.whereAt(who, t, town).activity;
+        if (seq.at(-1) !== a) seq.push(a);
+    }
+    eq(seq, ['sleep', 'travel', 'work', 'travel', 'sit', 'travel', 'sleep'], 'a stallholder\'s day');
+
+    const people = TF.namedPeopleAt(D + 10 * 60);
+    ok(people.some(p => p.npcId === 'innkeeper' && p.mapId === 'thaloria_inn'), '10:00: the Innkeeper is in the inn');
+    ok(people.some(p => p.npcId === 'thaloria_trader' && p.mapId === 'thaloria'), '10:00: the Trader is outside');
+}
+
 console.log(`test_townsfolk: ${n} checks passed`);
