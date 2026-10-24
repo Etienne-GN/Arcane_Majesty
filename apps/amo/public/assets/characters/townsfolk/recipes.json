@@ -1,0 +1,992 @@
+{
+  "seed": 1,
+  "looks": [
+    {
+      "id": "look_00",
+      "group": "adult",
+      "comp": {
+        "name": "look_00",
+        "sel": {
+          "body": {
+            "id": "bodies/male",
+            "tint": 1
+          },
+          "head": {
+            "id": "heads/human/elderly_small",
+            "tint": 1
+          },
+          "eyes": {
+            "id": "human/adult/closing",
+            "color": "yellow"
+          },
+          "torso_clothes": {
+            "id": "legacy2017/jaidyn/tunic",
+            "tint": 15
+          },
+          "legs": {
+            "id": "legacy2017/gentleman/pants",
+            "tint": 39
+          },
+          "hair": {
+            "id": "loose/adult",
+            "tint": 39
+          },
+          "feet": {
+            "id": "boots/basic/male",
+            "color": "iron"
+          },
+          "hat": {
+            "id": "legacy2017/gentleman/bowler",
+            "tint": 37
+          },
+          "torso_jacket": {
+            "id": "legacy2017/gentleman/trenchcoat",
+            "color": "gray"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_01",
+      "group": "adult",
+      "comp": {
+        "name": "look_01",
+        "sel": {
+          "body": {
+            "id": "bodies/female",
+            "tint": 5
+          },
+          "head": {
+            "id": "heads/human/female_small",
+            "tint": 5
+          },
+          "eyes": {
+            "id": "human/adult/shock",
+            "color": "orange"
+          },
+          "torso_clothes": {
+            "id": "clothes/longsleeve/longsleeves_cuffed/female",
+            "tint": 11
+          },
+          "legs": {
+            "id": "formal_striped/thin",
+            "color": "base"
+          },
+          "hair": {
+            "id": "sara/adult/fg",
+            "tint": 25
+          },
+          "feet": {
+            "id": "shoes/basic/thin",
+            "color": "black"
+          },
+          "hat": {
+            "id": "headband/tied/adult",
+            "tint": 40
+          },
+          "neck": {
+            "id": "necklace/beaded_small/female",
+            "color": "ceramic"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_02",
+      "group": "adult",
+      "comp": {
+        "name": "look_02",
+        "sel": {
+          "body": {
+            "id": "bodies/female",
+            "tint": 2
+          },
+          "head": {
+            "id": "heads/human/female_small",
+            "tint": 2
+          },
+          "eyes": {
+            "id": "human/adult/anger",
+            "color": "green"
+          },
+          "torso_clothes": {
+            "id": "clothes/sleeveless/sleeveless2_vneck/female",
+            "tint": 40
+          },
+          "legs": {
+            "id": "shorts/shorts/thin",
+            "color": "forest"
+          },
+          "hair": {
+            "id": "shoulderl/adult/fg",
+            "tint": 39
+          },
+          "feet": {
+            "id": "boots/revised/thin",
+            "color": "green"
+          },
+          "hat": {
+            "id": "headband/tied/adult",
+            "tint": 38
+          },
+          "torso_waist": {
+            "id": "legacy2017/gentleman/belt",
+            "tint": 41
+          },
+          "neck": {
+            "id": "necklace/chain/female",
+            "color": "steel"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_03",
+      "group": "adult",
+      "comp": {
+        "name": "look_03",
+        "sel": {
+          "body": {
+            "id": "bodies/female",
+            "tint": 6
+          },
+          "head": {
+            "id": "heads/human/elderly_small",
+            "tint": 6
+          },
+          "eyes": {
+            "id": "human/elderly/look_r",
+            "color": "gray"
+          },
+          "torso_clothes": {
+            "id": "clothes/shortsleeve/tshirt/female",
+            "tint": 19
+          },
+          "legs": {
+            "id": "cuffed/thin",
+            "color": "bluegray"
+          },
+          "hair": {
+            "id": "braid2/adult/fg",
+            "tint": 29
+          },
+          "feet": {
+            "id": "boots/basic/thin",
+            "color": "green"
+          },
+          "hat": {
+            "id": "headband/thick/adult",
+            "tint": 11
+          }
+        }
+      }
+    },
+    {
+      "id": "look_04",
+      "group": "adult",
+      "comp": {
+        "name": "look_04",
+        "sel": {
+          "body": {
+            "id": "bodies/male",
+            "tint": 2
+          },
+          "head": {
+            "id": "heads/human/male_gaunt",
+            "tint": 2
+          },
+          "eyes": {
+            "id": "human/adult/default",
+            "color": "purple"
+          },
+          "torso_clothes": {
+            "id": "clothes/shortsleeve/shortsleeves2/male",
+            "tint": 23
+          },
+          "legs": {
+            "id": "legacy2017/gentleman/pants_striped",
+            "tint": 45
+          },
+          "hair": {
+            "id": "balding/adult",
+            "tint": 25
+          },
+          "feet": {
+            "id": "shoes/revised/male",
+            "color": "tan"
+          },
+          "torso_waist": {
+            "id": "waist/belt_double/male",
+            "color": "tan"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_05",
+      "group": "adult",
+      "comp": {
+        "name": "look_05",
+        "sel": {
+          "body": {
+            "id": "bodies/male",
+            "tint": 1
+          },
+          "head": {
+            "id": "heads/human/elderly_small",
+            "tint": 1
+          },
+          "eyes": {
+            "id": "human/adult/sad",
+            "color": "brown"
+          },
+          "torso_clothes": {
+            "id": "clothes/sleeveless/sleeveless1/male",
+            "tint": 40
+          },
+          "legs": {
+            "id": "formal_striped/male",
+            "color": "forest"
+          },
+          "hair": {
+            "id": "curls_large/adult/fg",
+            "tint": 37
+          },
+          "feet": {
+            "id": "boots/basic/male",
+            "color": "tan"
+          },
+          "torso_jacket": {
+            "id": "jacket/trim/frock_buttons",
+            "color": "bronze"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_06",
+      "group": "adult",
+      "comp": {
+        "name": "look_06",
+        "sel": {
+          "body": {
+            "id": "bodies/male",
+            "tint": 2
+          },
+          "head": {
+            "id": "heads/human/male",
+            "tint": 2
+          },
+          "eyes": {
+            "id": "human/elderly/shock",
+            "color": "red"
+          },
+          "torso_clothes": {
+            "id": "legacy2017/jaidyn/tunic",
+            "tint": 45
+          },
+          "legs": {
+            "id": "pants2/male",
+            "color": "bluegray"
+          },
+          "hair": {
+            "id": "bunches/adult/fg",
+            "tint": 24
+          },
+          "feet": {
+            "id": "boots/rimmed/male",
+            "color": "brown"
+          },
+          "beards": {
+            "id": "beard/5oclock_shadow",
+            "tint": 27
+          },
+          "hat": {
+            "id": "cloth/hijab/male",
+            "tint": 28
+          }
+        }
+      }
+    },
+    {
+      "id": "look_07",
+      "group": "adult",
+      "comp": {
+        "name": "look_07",
+        "sel": {
+          "body": {
+            "id": "bodies/female",
+            "tint": 2
+          },
+          "head": {
+            "id": "heads/human/elderly_small",
+            "tint": 2
+          },
+          "eyes": {
+            "id": "human/adult/sad2",
+            "color": "red"
+          },
+          "torso_clothes": {
+            "id": "clothes/sleeveless/sleeveless1/female",
+            "tint": 16
+          },
+          "legs": {
+            "id": "pantaloons/thin",
+            "color": "maroon"
+          },
+          "feet": {
+            "id": "boots/basic/thin",
+            "color": "silver"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_08",
+      "group": "adult",
+      "comp": {
+        "name": "look_08",
+        "sel": {
+          "body": {
+            "id": "bodies/male",
+            "tint": 5
+          },
+          "head": {
+            "id": "heads/human/male_small",
+            "tint": 5
+          },
+          "eyes": {
+            "id": "human/adult/closing",
+            "color": "yellow"
+          },
+          "torso_clothes": {
+            "id": "clothes/vest_open/male",
+            "color": "pink"
+          },
+          "legs": {
+            "id": "formal/male",
+            "color": "brown"
+          },
+          "feet": {
+            "id": "boots/basic/male",
+            "color": "sky"
+          },
+          "neck": {
+            "id": "necklace/chain/male",
+            "color": "gold"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_09",
+      "group": "adult",
+      "comp": {
+        "name": "look_09",
+        "sel": {
+          "body": {
+            "id": "bodies/male",
+            "tint": 7
+          },
+          "head": {
+            "id": "heads/human/male_elderly",
+            "tint": 7
+          },
+          "eyes": {
+            "id": "human/adult/eyeroll",
+            "color": "orange"
+          },
+          "torso_clothes": {
+            "id": "clothes/sleeveless/sleeveless2_cardigan/male",
+            "tint": 37
+          },
+          "legs": {
+            "id": "pantaloons/male",
+            "color": "slate"
+          },
+          "hair": {
+            "id": "page/adult",
+            "tint": 36
+          },
+          "feet": {
+            "id": "boots/fold/male",
+            "color": "tan"
+          },
+          "neck": {
+            "id": "amulet/cross/male",
+            "color": "bronze_yellow"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_10",
+      "group": "adult",
+      "comp": {
+        "name": "look_10",
+        "sel": {
+          "body": {
+            "id": "bodies/male",
+            "tint": 5
+          },
+          "head": {
+            "id": "heads/human/male_plump",
+            "tint": 5
+          },
+          "eyes": {
+            "id": "human/adult/shock",
+            "color": "gray"
+          },
+          "torso_clothes": {
+            "id": "clothes/shortsleeve/tshirt_scoop/male",
+            "tint": 17
+          },
+          "legs": {
+            "id": "legacy2017/gentleman/pants_striped",
+            "tint": 38
+          },
+          "hair": {
+            "id": "mop/adult",
+            "tint": 31
+          },
+          "feet": {
+            "id": "boots/rimmed/male",
+            "color": "red"
+          },
+          "hat": {
+            "id": "formal/bowler/adult",
+            "color": "teal"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_11",
+      "group": "adult",
+      "comp": {
+        "name": "look_11",
+        "sel": {
+          "body": {
+            "id": "bodies/male",
+            "tint": 2
+          },
+          "head": {
+            "id": "heads/human/male_elderly",
+            "tint": 2
+          },
+          "eyes": {
+            "id": "human/elderly/shock",
+            "color": "gray"
+          },
+          "torso_clothes": {
+            "id": "legacy2017/jaidyn/sleeveless",
+            "tint": 36
+          },
+          "legs": {
+            "id": "cuffed/male",
+            "color": "orange"
+          },
+          "hair": {
+            "id": "flat_top_fade/adult",
+            "tint": 29
+          },
+          "feet": {
+            "id": "shoes/revised/male",
+            "color": "pink"
+          },
+          "neck": {
+            "id": "scarf",
+            "color": "black"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_12",
+      "group": "adult",
+      "comp": {
+        "name": "look_12",
+        "sel": {
+          "body": {
+            "id": "bodies/female",
+            "tint": 5
+          },
+          "head": {
+            "id": "heads/human/female_small",
+            "tint": 5
+          },
+          "eyes": {
+            "id": "human/adult/look_l",
+            "color": "purple"
+          },
+          "torso_clothes": {
+            "id": "aprons/apron_full/female",
+            "color": "tan"
+          },
+          "legs": {
+            "id": "formal_striped/thin",
+            "color": "charcoal"
+          },
+          "hair": {
+            "id": "relm_xlong/adult/fg",
+            "tint": 23
+          },
+          "feet": {
+            "id": "shoes/basic/thin",
+            "color": "pink"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_13",
+      "group": "adult",
+      "comp": {
+        "name": "look_13",
+        "sel": {
+          "body": {
+            "id": "bodies/male",
+            "tint": 4
+          },
+          "head": {
+            "id": "heads/human/male_small",
+            "tint": 4
+          },
+          "eyes": {
+            "id": "human/adult/shock",
+            "color": "red"
+          },
+          "torso_clothes": {
+            "id": "aprons/apron/male",
+            "color": "purple"
+          },
+          "legs": {
+            "id": "legacy2017/gentleman/pants_striped",
+            "tint": 23
+          },
+          "feet": {
+            "id": "sandals/male",
+            "color": "slate"
+          },
+          "hat": {
+            "id": "cloth/hood_sack/adult",
+            "tint": 26
+          },
+          "torso_jacket": {
+            "id": "legacy2017/gentleman/jacket",
+            "color": "brown"
+          },
+          "neck": {
+            "id": "necklace/beaded_small/male",
+            "color": "gold"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_14",
+      "group": "adult",
+      "comp": {
+        "name": "look_14",
+        "sel": {
+          "body": {
+            "id": "bodies/female",
+            "tint": 0
+          },
+          "head": {
+            "id": "heads/human/female_small",
+            "tint": 0
+          },
+          "eyes": {
+            "id": "human/adult/look_r",
+            "color": "orange"
+          },
+          "torso_clothes": {
+            "id": "clothes/sleeveless/tanktop/female",
+            "color": "tan"
+          },
+          "legs": {
+            "id": "pants/female",
+            "color": "blue"
+          },
+          "hair": {
+            "id": "legacy2017/jaidyn/curly_braid",
+            "tint": 24
+          },
+          "hat": {
+            "id": "legacy2017/gentleman/bowler",
+            "tint": 16
+          },
+          "torso_waist": {
+            "id": "waist/belt_robe/female",
+            "color": "white"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_15",
+      "group": "adult",
+      "comp": {
+        "name": "look_15",
+        "sel": {
+          "body": {
+            "id": "bodies/male",
+            "tint": 1
+          },
+          "head": {
+            "id": "heads/human/male_elderly",
+            "tint": 1
+          },
+          "eyes": {
+            "id": "human/adult/anger",
+            "color": "green"
+          },
+          "torso_clothes": {
+            "id": "clothes/sleeveless/sleeveless2_vneck/male",
+            "tint": 37
+          },
+          "legs": {
+            "id": "legacy2017/gentleman/pants_striped",
+            "tint": 41
+          },
+          "hair": {
+            "id": "ponytail/adult/fg",
+            "tint": 39
+          },
+          "feet": {
+            "id": "boots/fold/male",
+            "color": "lavender"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_16",
+      "group": "adult",
+      "comp": {
+        "name": "look_16",
+        "sel": {
+          "body": {
+            "id": "bodies/female",
+            "tint": 0
+          },
+          "head": {
+            "id": "heads/human/elderly_small",
+            "tint": 0
+          },
+          "eyes": {
+            "id": "human/elderly/sad",
+            "color": "purple"
+          },
+          "torso_clothes": {
+            "id": "aprons/apron/female",
+            "color": "pink"
+          },
+          "legs": {
+            "id": "skirts/straight/thin",
+            "tint": 25
+          },
+          "hair": {
+            "id": "bangslong2/adult/fg",
+            "tint": 25
+          },
+          "feet": {
+            "id": "shoes/basic/thin",
+            "color": "brown"
+          },
+          "hat": {
+            "id": "headband/hairtie/adult",
+            "tint": 23
+          },
+          "torso_jacket": {
+            "id": "jacket/tabard/female",
+            "color": "charcoal"
+          },
+          "torso_waist": {
+            "id": "legacy2017/gentleman/belt",
+            "tint": 17
+          }
+        }
+      }
+    },
+    {
+      "id": "look_17",
+      "group": "adult",
+      "comp": {
+        "name": "look_17",
+        "sel": {
+          "body": {
+            "id": "bodies/male",
+            "tint": 4
+          },
+          "head": {
+            "id": "heads/human/male",
+            "tint": 4
+          },
+          "eyes": {
+            "id": "human/adult/shame",
+            "color": "blue"
+          },
+          "torso_clothes": {
+            "id": "clothes/longsleeve/longsleeves_cuffed/male",
+            "tint": 16
+          },
+          "legs": {
+            "id": "pantaloons/male",
+            "color": "lavender"
+          },
+          "hair": {
+            "id": "wavy/adult/fg",
+            "tint": 29
+          },
+          "feet": {
+            "id": "sandals/male",
+            "color": "gold"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_18",
+      "group": "child",
+      "comp": {
+        "name": "look_18",
+        "sel": {
+          "body": {
+            "id": "bodies/child",
+            "tint": 6
+          },
+          "head": {
+            "id": "heads/human/child",
+            "tint": 6
+          },
+          "eyes": {
+            "id": "human/child",
+            "color": "green"
+          },
+          "torso_clothes": {
+            "id": "clothes/shirt/child",
+            "color": "blue"
+          },
+          "legs": {
+            "id": "pants/child",
+            "color": "brown"
+          },
+          "hair": {
+            "id": "parted_side_bangs2/child",
+            "tint": 39
+          },
+          "hat": {
+            "id": "headband/thick/child",
+            "tint": 41
+          }
+        }
+      }
+    },
+    {
+      "id": "look_19",
+      "group": "child",
+      "comp": {
+        "name": "look_19",
+        "sel": {
+          "body": {
+            "id": "bodies/child",
+            "tint": 5
+          },
+          "head": {
+            "id": "heads/human/child",
+            "tint": 5
+          },
+          "eyes": {
+            "id": "human/child",
+            "color": "red"
+          },
+          "torso_clothes": {
+            "id": "clothes/shirt/child",
+            "color": "pink"
+          },
+          "legs": {
+            "id": "pants/child",
+            "color": "lightblue"
+          },
+          "hair": {
+            "id": "relm_short/child",
+            "tint": 40
+          },
+          "hat": {
+            "id": "headband/hairtie/child",
+            "tint": 15
+          }
+        }
+      }
+    },
+    {
+      "id": "look_20",
+      "group": "child",
+      "comp": {
+        "name": "look_20",
+        "sel": {
+          "body": {
+            "id": "bodies/child",
+            "tint": 5
+          },
+          "head": {
+            "id": "heads/human/child",
+            "tint": 5
+          },
+          "eyes": {
+            "id": "human/child",
+            "color": "green"
+          },
+          "torso_clothes": {
+            "id": "clothes/shirt/child",
+            "color": "white"
+          },
+          "legs": {
+            "id": "pants/child",
+            "color": "darkblue"
+          },
+          "hair": {
+            "id": "wavy/child",
+            "tint": 24
+          }
+        }
+      }
+    },
+    {
+      "id": "look_21",
+      "group": "guard",
+      "comp": {
+        "name": "look_21",
+        "sel": {
+          "body": {
+            "id": "bodies/male",
+            "tint": 3
+          },
+          "torso_armour": {
+            "id": "armour/plate/male"
+          },
+          "legs": {
+            "id": "armour/plate/male"
+          },
+          "hat": {
+            "id": "helmet/kettle/adult"
+          },
+          "head": {
+            "id": "heads/human/elderly_small",
+            "tint": 3
+          },
+          "eyes": {
+            "id": "human/adult/shock",
+            "color": "brown"
+          },
+          "torso_clothes": {
+            "id": "clothes/shortsleeve/tshirt_vneck/male",
+            "tint": 15
+          },
+          "hair": {
+            "id": "long_messy/adult",
+            "tint": 31
+          },
+          "feet": {
+            "id": "boots/revised/male",
+            "color": "silver"
+          },
+          "beards": {
+            "id": "mustache/lampshade",
+            "tint": 37
+          }
+        }
+      }
+    },
+    {
+      "id": "look_22",
+      "group": "guard",
+      "comp": {
+        "name": "look_22",
+        "sel": {
+          "body": {
+            "id": "bodies/female",
+            "tint": 5
+          },
+          "torso_armour": {
+            "id": "armour/plate/female"
+          },
+          "legs": {
+            "id": "armour/plate/thin"
+          },
+          "hat": {
+            "id": "helmet/kettle/adult"
+          },
+          "head": {
+            "id": "heads/human/female_small",
+            "tint": 5
+          },
+          "eyes": {
+            "id": "human/elderly/shock",
+            "color": "green"
+          },
+          "torso_clothes": {
+            "id": "clothes/tunic/female",
+            "color": "forest"
+          },
+          "hair": {
+            "id": "bedhead/adult",
+            "tint": 38
+          },
+          "feet": {
+            "id": "boots/revised/thin",
+            "color": "purple"
+          },
+          "neck": {
+            "id": "necklace/beaded_small/female",
+            "color": "brass"
+          }
+        }
+      }
+    },
+    {
+      "id": "look_23",
+      "group": "guard",
+      "comp": {
+        "name": "look_23",
+        "sel": {
+          "body": {
+            "id": "bodies/female",
+            "tint": 7
+          },
+          "torso_armour": {
+            "id": "armour/plate/female"
+          },
+          "legs": {
+            "id": "armour/plate/thin"
+          },
+          "hat": {
+            "id": "helmet/kettle/adult"
+          },
+          "head": {
+            "id": "heads/human/female_small",
+            "tint": 7
+          },
+          "eyes": {
+            "id": "human/adult/shock",
+            "color": "green"
+          },
+          "torso_clothes": {
+            "id": "clothes/longsleeve/longsleeves_cuffed/female",
+            "tint": 19
+          },
+          "hair": {
+            "id": "bedhead/adult",
+            "tint": 37
+          },
+          "feet": {
+            "id": "shoes/basic/thin",
+            "color": "purple"
+          }
+        }
+      }
+    }
+  ]
+}

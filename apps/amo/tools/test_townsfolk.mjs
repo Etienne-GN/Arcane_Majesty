@@ -213,4 +213,23 @@ const px = t => t * 32 + 16;
     ok(Object.values(BARKS).flat().every(l => !/\b(song|album|verse|chorus|lyric)/i.test(l.text)), 'no line mentions songs or albums');
 }
 
+// ---- Looks
+{
+    const L = await import('../src/systems/townsfolkLooks.js');
+    const { LOOKS } = await import('../src/data/townsfolk/looks.js');
+    eq(L.LOOK_SIZE, { w: 576, h: 768 }, 'look sheet size');
+    eq(L.lookFrames('walk', 'up'), [1, 2, 3, 4, 5, 6, 7, 8], 'walk up skips the standing column');
+    eq(L.lookFrames('idle', 'down'), [6 * 9, 6 * 9 + 1], 'idle down: row 6');
+    eq(L.lookFrames('sit', 'right').length, 3, 'three sit poses');
+    ok(L.SIT_FRAME >= 0 && L.SIT_FRAME < 3, 'the held sit pose is one of them');
+    eq(LOOKS.length, 24, '24 baked looks');
+    eq(LOOKS.map(l => l.group).filter(g => g === 'child').length, 3, 'three children');
+    eq(LOOKS.map(l => l.group).filter(g => g === 'guard').length, 3, 'three guards');
+    for (const l of LOOKS) {
+        const png = readFileSync(new URL(`../public/${l.file}`, import.meta.url));
+        eq([png.readUInt32BE(16), png.readUInt32BE(20)], [576, 768], `${l.id} is a 576×768 sheet`);
+    }
+    ok(readFileSync(new URL('../public/assets/characters/townsfolk/CREDITS.md', import.meta.url), 'utf8').length > 200, 'the looks are credited');
+}
+
 console.log(`test_townsfolk: ${n} checks passed`);
