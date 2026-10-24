@@ -1,6 +1,6 @@
 # Arcane Majesty (amo) — Complete Game Inventory
 
-_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-21. Regenerate after changing the data; don't hand-edit._
+_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-24. Regenerate after changing the data; don't hand-edit._
 
 **At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 25 status effects · 200 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 29 maps · 5 playable characters · 34 dialogues
 
@@ -33,7 +33,7 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | SPACE | Hop up to 2 tiles over fences, logs, small rocks and crates (25 Vigor); invulnerable for the first 0.25 s, so it is also your dodge (touch: HOP; gamepad: RT) |
 | Z | Attack (basic strike) |
 | X | Power attack |
-| E | Interact (talk, chests, signs, gathering, rift-gates, hearths, alchemy tables) |
+| E | Interact (talk to anyone, chests, signs, gathering, rift-gates, hearths, alchemy tables) |
 | Q R F T | Cast the spells in slots 1–4 |
 | 1 2 3 4 | Use the consumable on hotbar slot 1–4 (assign from the Inventory with 1–4; touch: the row above the skill ring) |
 | H | Blink-Step (skill, 8 MP) |
@@ -56,6 +56,8 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | Doors & interiors | Buildings with a door can be entered (E). Leaving puts you back in front of the door you came through, even from a room inside a room (the inn's cellar). Some doors are locked until you carry a key or have earned the way in. Shelves and desks may hold a book to read (E); some homes hide a stash. |
 | Map & fog of war | Every outdoor map starts unknown. Walking reveals about 6 tiles around you (4 in dense forest) and the map remembers it; rooms are always fully known. The minimap shows the 48 tiles around you; M shows the whole map. Exits, doors and rift-gates appear once you have seen them; the active quest steps are marked (◆) where they lead, a step inside a building marks its door. |
 | Charts | A cartographer by Thaloria's market sells charts (Thaloria 40 Gold, the East Road 60 Gold). Reading one shows the region's roads under the fog and marks where its landmarks are. |
+| Townsfolk | Cities have people with a day of their own: they sleep at home, walk to work, sit in the inn at night and wander the streets in between — where anyone is follows the clock, so the market is busy in the morning and the inn full at night. Guards patrol and carry light after dark. E on anyone: named people talk and give quests as before; everyone else has something to say about the hour, the weather or the road. People step aside when you block their way. |
+| Shop hours | A shopkeeper sells only while at work (Thaloria's market: 08:00–18:00). Find them at the inn in the evening — "Closed — come back in the morning". |
 | Landmarks | Notable places. Reaching one the first time shows "Discovered: …", gives XP and pins it on your map. |
 | Dense forest | Deep woods shrink how far you see and darken the edges of the screen. Keep to the roads, or trust your map. |
 | Vigor | The green bar under MP (100, +2 per Agility above 10). Sprinting and hopping spend it; it refills at 25/s after 0.8 s of rest. It is not the Stamina attribute. |
