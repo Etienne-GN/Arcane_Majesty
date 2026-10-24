@@ -173,6 +173,8 @@ export function createNav({ root, getMap, walk = {} }) {
             return route;
         },
         cacheSize: () => routes.size,
+        // The tiles in front of a map's doors (where a walker leaves for the room behind).
+        doorFronts: id => [...nodes.values()].filter(n => n.parent === id).map(n => n.front),
     };
     return nav;
 }

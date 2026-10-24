@@ -3,7 +3,7 @@
 // first. Each follows whereAt() and gives way to the player (crowd.js). Phaser
 // glue; the rules are in schedules.js and crowd.js.
 import { whereAt } from './schedules.js';
-import { chooseLive, inTheWay, steer } from './crowd.js';
+import { chooseLive, inTheWay, steer, sideFor, tooClose } from './crowd.js';
 import { LOOK_DIRS, lookFrames, lookKey, SIT_FRAME } from './townsfolkLooks.js';
 import { isNight } from './gameClock.js';
 import { LOOKS } from '../data/townsfolk/looks.js';
@@ -43,7 +43,8 @@ export class TownsfolkManager {
         }
         const keep = new Set(chooseLive(cands, player.x, player.y));
         for (const [id, spr] of this.live) if (!keep.has(id)) this._despawn(id, spr);
-        for (const c of cands) if (keep.has(c.id) && !this.live.has(c.id)) this._spawn(this._byId.get(c.id), c);
+        const feet = { x: player.x, y: player.y + 16 };
+        for (const c of cands) if (keep.has(c.id) && !this.live.has(c.id) && !tooClose(c, feet)) this._spawn(this._byId.get(c.id), c);
     }
 
     _ensureAnims(key) {
@@ -90,8 +91,9 @@ export class TownsfolkManager {
         const feet = { x: player.x, y: player.y + 16 };
         const blocked = !hold && p.moving && inTheWay(p, next, feet);
         const dx = next.x - p.x, dy = next.y - p.y, len = Math.hypot(dx, dy) || 1, nx = -dy / len, ny = dx / len;
-        const free = this.town.nav.isWalkable(this.mapId, Math.floor((p.x + nx * 32) / 32), Math.floor((p.y + ny * 32) / 32));
-        spr.steer = steer(spr.steer, { blocked, hold, dtMs: delta, moving: p.moving, sideFree: free ? 1 : -1 });
+        const walkable = k => this.town.nav.isWalkable(this.mapId, Math.floor((p.x + k * nx * 32) / 32), Math.floor((p.y + k * ny * 32) / 32));
+        const sideFree = blocked ? sideFor((feet.x - p.x) * nx + (feet.y - p.y) * ny, walkable(1), walkable(-1)) : 0;
+        spr.steer = steer(spr.steer, { blocked, hold, dtMs: delta, moving: p.moving, sideFree });
         const off = spr.steer.side * spr.steer.offset;
         spr.body.reset(p.x + nx * off, p.y + ny * off - FEET_LIFT);
         spr.setDepth(spr.y);

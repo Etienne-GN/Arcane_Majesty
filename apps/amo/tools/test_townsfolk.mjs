@@ -260,6 +260,18 @@ const px = t => t * 32 + 16;
         n++;
     }
 
+    // A new game starts at minute 480 and the clock adds a frame at a time:
+    // no float drift may flip a wander bucket (review fix).
+    for (const r of town.residents) {
+        let prev = S.whereAt(r, 480, town);
+        for (let k = 1; k <= 60 * 60 * 8; k++) {
+            const t = 480 + k / 60, p = S.whereAt(r, t, town);
+            if (p.mapId === prev.mapId) assert.ok(Math.hypot(p.x - prev.x, p.y - prev.y) <= S.PX_PER_MIN / 60 * 1.5 + 0.01, `${r.id} jumps on day 0 at minute ${t.toFixed(3)}`);
+            prev = p;
+        }
+        n++;
+    }
+
     // Spec acceptance, on paper
     const at = h => town.residents.map(r => S.whereAt(r, D + h * 60, town)).filter(p => p.visible);
     const tile = p => [Math.floor(p.x / 32), Math.floor(p.y / 32)];
@@ -310,6 +322,15 @@ const px = t => t * 32 + 16;
     for (let i = 0; i < 30; i++) h = C.steer(h, { blocked: false, hold: true, dtMs: 100, moving: true, sideFree: 1 });
     ok(Math.abs(h.lagMin - 3) < 1e-9 && h.side === 0, 'held in talk for 3 s: stands, three minutes behind');
     eq(C.steer({ lagMin: 2, offset: 0 }, { blocked: false, dtMs: 16, moving: false }).lagMin, 0, 'not walking: back on the clock');
+    ok(C.tooClose({ x: 100, y: 100 }, { x: 110, y: 105 }) && !C.tooClose({ x: 100, y: 100 }, { x: 140, y: 100 }), 'nobody appears on top of the player (review fix)');
+    // Which side to step to (review fix): away from the player, else the other free side, else keep waiting.
+    eq(C.sideFor(5, true, true), -1, 'the player is on the + side: step to the − side');
+    eq(C.sideFor(-5, true, true), 1, 'and the other way round');
+    eq(C.sideFor(5, true, false), 1, 'the far side is a wall: the free side, even toward the player');
+    eq(C.sideFor(0, false, false), 0, 'a doorway: no side to step to');
+    let d = {};
+    for (let i = 0; i < 30; i++) d = C.steer(d, { blocked: true, dtMs: 100, moving: true, sideFree: 0 });
+    ok(d.side === 0 && d.offset === 0 && Math.abs(d.lagMin - 3) < 1e-9, 'in a doorway it waits (never slides into the wall)');
 }
 
 // ---- Talk markers follow people

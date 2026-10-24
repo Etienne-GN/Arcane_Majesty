@@ -15,11 +15,23 @@ export function chooseLive(cands, px, py, cap = LIVE_CAP) {
         .sort((a, b) => a.d - b.d || (a.id < b.id ? -1 : 1)).slice(0, cap).map(c => c.id);
 }
 
+// A person may not appear where the player's feet are (they would be shoved out).
+export const tooClose = (at, feet, r = 28) => Math.hypot(at.x - feet.x, at.y - feet.y) < r;
+
 export function inTheWay(at, next, player, reach = 22) {
     const dx = next.x - at.x, dy = next.y - at.y, len = Math.hypot(dx, dy);
     if (len < 0.01) return false;
     const px = player.x - at.x, py = player.y - at.y, ahead = (px * dx + py * dy) / len;
     return ahead > 0 && ahead <= reach && Math.abs(px * dy - py * dx) / len < 14;
+}
+
+// Which way a blocked walker steps (+1/−1 along its path's normal, 0 = keep waiting):
+// away from the player (lateral = the player's offset along that normal), else the
+// other side if it is free — never into a wall.
+export function sideFor(lateral, plusFree, minusFree) {
+    const away = lateral > 0 ? -1 : 1;
+    const free = side => (side > 0 ? plusFree : minusFree);
+    return free(away) ? away : free(-away) ? -away : 0;
 }
 
 export function steer(state, { blocked, hold = false, dtMs, moving, sideFree = 1 }) {

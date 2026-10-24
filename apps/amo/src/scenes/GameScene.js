@@ -771,6 +771,7 @@ export default class GameScene extends Phaser.Scene {
 
         const hasInteractable =
             this.npcs?.getChildren().some(n => near(n)) ||
+            this._townsfolk?.anyNear(near) ||
             this.chests?.getChildren().some(c => near(c) && !c.opened) ||
             this.campfires?.getChildren().some(cf => near(cf)) ||
             this.signs?.getChildren().some(s => near(s)) ||

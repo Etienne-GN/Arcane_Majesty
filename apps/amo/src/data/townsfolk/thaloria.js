@@ -16,7 +16,7 @@ export const THALORIA_TOWN = {
         house_east:   { x: 26, y: 8, indoors: true },
         house_south:  { x: 26, y: 18, indoors: true },
         teal_house:   { interior: 'thaloria_house_teal', x: 5, y: 6 },
-        inn_rooms:    { interior: 'thaloria_inn', x: 14, y: 4, indoors: true },   // upstairs
+        inn_rooms:    { interior: 'thaloria_inn', x: 16, y: 10, indoors: true },  // they turn in below, by the cellar hatch
         // work
         stall_merchant: { x: 16, y: 22, facing: 'down' },
         stall_carto:    { x: 19, y: 22, facing: 'down' },

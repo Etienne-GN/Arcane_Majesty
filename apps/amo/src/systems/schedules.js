@@ -31,7 +31,9 @@ export function slotAt(schedule, hour) {
     return index < 0 ? null : { slot: schedule[index], index };
 }
 const durationOf = s => ((((s.to - s.from) % 24) + 24) % 24 || 24) * 60;
-const startOf = (s, t) => t - ((((t - s.from * 60) % 1440) + 1440) % 1440);   // latest start ≤ t
+// Latest start ≤ t. Slot starts are whole minutes; rounding keeps float drift in
+// ((x % 1440) + 1440) from flipping a wander bucket on a frame-by-frame clock.
+const startOf = (s, t) => { let d = (t - s.from * 60) % 1440; if (d < 0) d += 1440; return Math.round(t - d); };
 
 export function makeTown(data, { getMap, walk, roles }) {
     return { id: data.id, places: data.places, residents: data.residents, roles, nav: createNav({ root: data.id, getMap, walk }), _loops: new Map() };
@@ -137,6 +139,8 @@ export function validateTown(town, { looks = null } = {}) {
             const mapId = mapOf(town, pl);
             if (!nav.has(mapId)) { out.push(`${r.id}: place "${name}" is on "${mapId}", outside the town`); placesOk = false; continue; }
             if (kind === 'point' && !nav.isWalkable(mapId, pl.x, pl.y)) { out.push(`${r.id}: place "${name}" is not walkable`); placesOk = false; }
+            // Inside a room, going "indoors" must mean through one of its doors, not into open floor.
+            if (kind === 'point' && pl.indoors && pl.interior && !nav.doorFronts(mapId).some(([x, y]) => x === pl.x && y === pl.y)) out.push(`${r.id}: indoors place "${name}" is not in front of a door`);
             if (kind === 'patrol' && !pl.route?.every(([x, y]) => nav.isWalkable(mapId, x, y))) { out.push(`${r.id}: patrol "${name}" has a blocked waypoint`); placesOk = false; }
             if (kind === 'wander') {
                 if ((pl.w + pl.h) * TILE * 1.5 > WANDER_EVERY * PX_PER_MIN) out.push(`${r.id}: area "${name}" is too big to cross between moves`);
