@@ -28,13 +28,16 @@ const centre = list => ({
     y: Math.round(list.reduce((a, e) => a + e.y, 0) / list.length),
 });
 
-// Where one step points on this map, or null. NPCs at their spawn until W4 gives them schedules.
-export function stepLocation(step, mapId, def, { attunedGates = [] } = {}) {
+// Where one step points on this map, or null. NPCs on a schedule are where `people` says (W4); others at their spawn.
+export function stepLocation(step, mapId, def, { attunedGates = [], people = null } = {}) {
     if (step.where) return step.where.map === mapId ? { x: step.where.x, y: step.where.y } : null;
     if (step.map && step.map !== mapId) return null;   // a bounty's kills only count on its own map
     const sp = def.spawns ?? {};
     switch (step.type) {
         case 'talk': {
+            // W4: a person on a schedule is where the clock puts them (or on another map)
+            const who = people?.find(p => p.npcId === step.target);
+            if (who) return who.mapId === mapId ? { x: who.x, y: who.y } : null;
             const npc = (sp.npcs ?? []).find(n => npcQuestId(n) === step.target);
             return npc ? { x: npc.x, y: npc.y } : null;
         }
@@ -59,20 +62,20 @@ export function stepLocation(step, mapId, def, { attunedGates = [] } = {}) {
 
 // One marker per unfinished step that points somewhere on this map. A target inside a
 // building (up to two doors deep) marks that building's door instead.
-export function markersFor({ active, countItem = () => 0, attunedGates = [] }, mapId, def, { getMap = null } = {}, depth = 0) {
+export function markersFor({ active, countItem = () => 0, attunedGates = [] }, mapId, def, { getMap = null, people = null } = {}, depth = 0) {
     const out = [];
     for (const { quest, log } of active) {
         const done = objectivesDone(quest, log, countItem);
         for (const step of questSteps(quest)) {
             if (stepProgress(step, log, countItem) >= step.required) continue;
             if (step.turnIn && !done) continue;
-            const at = stepLocation(step, mapId, def, { attunedGates });
+            const at = stepLocation(step, mapId, def, { attunedGates, people });
             if (at) out.push({ questId: quest.id, stepId: step.id, title: quest.title, label: step.label, main: quest.type === 'main', ...at, viaDoor: false });
         }
     }
     if (getMap && depth < 2) {
         for (const door of def.spawns?.doors ?? []) {
-            const inner = markersFor({ active, countItem, attunedGates }, door.interior, getMap(door.interior), { getMap }, depth + 1);
+            const inner = markersFor({ active, countItem, attunedGates }, door.interior, getMap(door.interior), { getMap, people }, depth + 1);
             for (const m of inner) out.push({ ...m, x: door.x, y: door.y, viaDoor: true });
         }
     }

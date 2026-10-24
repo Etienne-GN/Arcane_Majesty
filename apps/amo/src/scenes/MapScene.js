@@ -6,6 +6,7 @@ import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { questManager } from '../systems/QuestManager.js';
 import { getMap } from '../data/maps/index.js';
+import { namedPeopleAt } from '../data/townsfolk/index.js';
 import { TILE_SIZE } from '../data/worldMap.js';
 import { MenuFocus } from '../systems/MenuFocus.js';
 import { visibleFeatures, markersFor } from '../systems/mapMarkers.js';
@@ -106,7 +107,7 @@ export default class MapScene extends Phaser.Scene {
         this._mw = def.tiles?.[0]?.length ?? 0;
         this._mh = def.tiles?.length ?? 0;
         this._features = visibleFeatures(def, this._fog, playerStats, this._mapId);
-        this._markers = markersFor(questState(), this._mapId, def, { getMap });
+        this._markers = markersFor(questState(), this._mapId, def, { getMap, people: namedPeopleAt(playerStats.gameMinutes) });
         if (!this._mapImg || !this._mw) {
             this._img = null;
             this._region.add(this.add.text(this._vw / 2, HEADER + this._vh / 2, 'No map of this place.', { font: '12px monospace', fill: '#887766' }).setOrigin(0.5));
@@ -221,14 +222,14 @@ export default class MapScene extends Phaser.Scene {
             g.lineStyle(1, 0x445566, 0.7).lineBetween(x0, y0, x1, y1);
             this._world.add(this.add.text(x1, y1, '?', { font: 'bold 10px monospace', fill: '#667788' }).setOrigin(0.5));
         }
-        const qs = questState();
+        const qs = questState(), people = namedPeopleAt(playerStats.gameMinutes);
         for (const n of L.nodes) {
             const [x, y] = at[n.id];
             const isHere = n.id === here;
             g.fillStyle(isHere ? 0xffd700 : 0x88aacc, 1).fillCircle(x, y, isHere ? 7 : 5);
             if (isHere) g.lineStyle(2, 0xffffff, 0.8).strokeCircle(x, y, 10);
             this._world.add(this.add.text(x, y + 12, n.name, { font: '9px monospace', fill: isHere ? '#ffd700' : '#aabbcc', stroke: '#000', strokeThickness: 2 }).setOrigin(0.5, 0));
-            if (markersFor(qs, n.id, getMap(n.id), { getMap }).length) {
+            if (markersFor(qs, n.id, getMap(n.id), { getMap, people }).length) {
                 this._world.add(this.add.text(x + 9, y - 14, '!', { font: 'bold 13px monospace', fill: '#ffd700', stroke: '#000', strokeThickness: 3 }).setOrigin(0.5));
             }
         }

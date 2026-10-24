@@ -312,4 +312,19 @@ const px = t => t * 32 + 16;
     eq(C.steer({ lagMin: 2, offset: 0 }, { blocked: false, dtMs: 16, moving: false }).lagMin, 0, 'not walking: back on the clock');
 }
 
+// ---- Talk markers follow people
+{
+    const K = await import('../src/systems/mapMarkers.js');
+    const def = { id: 'here', tiles: grid(20, 20), spawns: { npcs: [{ x: 3, y: 3, id: 'oren', name: 'Oren' }], doors: [{ x: 9, y: 9, interior: 'room' }] } };
+    const room = { id: 'room', interior: true, tiles: grid(4, 4), spawns: {} };
+    const getMap = id => (id === 'room' ? room : def);
+    const quest = { id: 'q', title: 'Q', type: 'main', steps: [{ id: 's', type: 'talk', target: 'oren', required: 1, label: 'Talk to Oren' }] };
+    const state = { active: [{ quest, log: { status: 'active', progress: { s: 0 } } }], countItem: () => 0, attunedGates: [] };
+    const at = ms => ms.map(m => [m.x, m.y, m.viaDoor]);
+    eq(at(K.markersFor(state, 'here', def, { getMap })), [[3, 3, false]], 'no schedule known: the spawn');
+    eq(at(K.markersFor(state, 'here', def, { getMap, people: [{ npcId: 'oren', mapId: 'here', x: 12, y: 4 }] })), [[12, 4, false]], 'where they are now');
+    eq(at(K.markersFor(state, 'here', def, { getMap, people: [{ npcId: 'oren', mapId: 'room', x: 1, y: 1 }] })), [[9, 9, true]], 'inside: the door of where they are');
+    eq(at(K.markersFor(state, 'here', def, { getMap, people: [{ npcId: 'oren', mapId: 'far', x: 1, y: 1 }] })), [], 'on another map: no marker here, not the old spawn');
+}
+
 console.log(`test_townsfolk: ${n} checks passed`);
