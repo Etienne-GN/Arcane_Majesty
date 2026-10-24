@@ -282,4 +282,34 @@ const px = t => t * 32 + 16;
     ok(people.some(p => p.npcId === 'thaloria_trader' && p.mapId === 'thaloria'), '10:00: the Trader is outside');
 }
 
+// ---- Crowds
+{
+    const C = await import('../src/systems/crowd.js');
+    eq([C.LIVE_CAP, C.WAIT_BEFORE_SIDESTEP_MS], [30, 600], 'cap and wait from the spec');
+    const cands = Array.from({ length: 40 }, (_, i) => ({ id: `p${i}`, x: i * 10, y: 0 }));
+    eq(C.chooseLive(cands, 0, 0).length, 30, 'at most 30 live');
+    eq(C.chooseLive(cands, 395, 0, 2), ['p39', 'p38'], 'nearest first');
+    ok(C.inTheWay({ x: 0, y: 0 }, { x: 10, y: 0 }, { x: 15, y: 3 }), 'the player just ahead is in the way');
+    ok(!C.inTheWay({ x: 0, y: 0 }, { x: 10, y: 0 }, { x: -15, y: 0 }), 'behind is not');
+    ok(!C.inTheWay({ x: 0, y: 0 }, { x: 10, y: 0 }, { x: 15, y: 30 }), 'well to the side is not');
+    ok(!C.inTheWay({ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 1, y: 1 }), 'standing still: never in the way');
+
+    let s = {};
+    for (let i = 0; i < 5; i++) s = C.steer(s, { blocked: true, dtMs: 100, moving: true, sideFree: 1 });
+    ok(Math.abs(s.lagMin - 0.5) < 1e-9 && s.side === 0, 'blocked for 0.5 s: waits, half a game minute behind');
+    s = C.steer(s, { blocked: true, dtMs: 100, moving: true, sideFree: -1 });
+    eq(s.side, -1, 'after 0.6 s: steps aside, to the free side');
+    for (let i = 0; i < 10; i++) s = C.steer(s, { blocked: true, dtMs: 100, moving: true, sideFree: -1 });
+    ok(s.offset === C.SIDESTEP_PX && Math.abs(s.lagMin - 0.6) < 1e-9, 'slides out to the full step and keeps walking');
+    for (let i = 0; i < 20; i++) s = C.steer(s, { blocked: false, dtMs: 100, moving: true, sideFree: 1 });
+    ok(s.offset === 0 && s.side === 0, 'clear again: back onto the path');
+    ok(s.lagMin < 0.6, 'and catching up on the clock');
+    for (let i = 0; i < 100; i++) s = C.steer(s, { blocked: false, dtMs: 100, moving: true, sideFree: 1 });
+    eq(s.lagMin, 0, 'caught up in the end');
+    let h = {};
+    for (let i = 0; i < 30; i++) h = C.steer(h, { blocked: false, hold: true, dtMs: 100, moving: true, sideFree: 1 });
+    ok(Math.abs(h.lagMin - 3) < 1e-9 && h.side === 0, 'held in talk for 3 s: stands, three minutes behind');
+    eq(C.steer({ lagMin: 2, offset: 0 }, { blocked: false, dtMs: 16, moving: false }).lagMin, 0, 'not walking: back on the clock');
+}
+
 console.log(`test_townsfolk: ${n} checks passed`);

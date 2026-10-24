@@ -15,6 +15,7 @@ import { campaignManager } from '../systems/CampaignManager.js';
 import { ITEMS } from '../data/items.js';
 import { TILE_SIZE, ENEMY_TYPES } from '../data/worldMap.js';
 import { getMap } from '../data/maps/index.js';
+import { townFor } from '../data/townsfolk/index.js';
 import { boardIdFor, regionPools } from '../data/bounties.js';
 import { gameDay, advanceClock, isNight, ambientAt, spawnActive } from '../systems/gameClock.js';
 import { mapBiome, WEATHER, weatherAt, isWet, spellWeatherMult, sightMult, isWarm,
@@ -47,6 +48,7 @@ import { isHoppableDecoration } from '../systems/movementRules.js';
 import { ChunkStreamer, chunkKey, chunkOfTile, bucketByChunk } from '../systems/regionChunks.js';
 import { RETURN_KEY, doorLockState, doorReturnPoint, pushReturn, resolvePortal, clearReturnsOutside } from '../systems/interiors.js';
 import { DECORATION_SOURCES } from '../systems/walkGrid.js';
+import { TownsfolkManager } from '../systems/TownsfolkManager.js';
 import { fogFor, revealAround, encodeFog, newlyDiscovered, REVEAL_RADIUS, DENSE_REVEAL_RADIUS } from '../systems/fog.js';
 import { denseMask, isDenseAt } from '../systems/mapPaint.js';
 import { buildMapTexture, repaintMapTexture } from '../systems/mapTexture.js';
@@ -82,6 +84,9 @@ export default class GameScene extends Phaser.Scene {
             if (!this.textures.exists(sh.texKey)) this.load.image(sh.texKey, sh.png);
             if (!this.cache.json.exists(sh.catKey)) this.load.json(sh.catKey, sh.cat);
         });
+        // W4: the look sheets of this town's people
+        const town = townFor(this._mapId);
+        if (town) TownsfolkManager.preload(this, town);
         if (!this._onlineCharacter?.rendererLayers?.length) return;
         // Backfill the per-layer anim manifest from the catalogue so legacy saves
         // (pre-manifest) resolve correctly and never request a missing sheet.
@@ -500,6 +505,12 @@ export default class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.enemies, this.wallGroup);
         this.physics.add.collider(this.pickups, this.wallGroup);
         this.physics.add.collider(this.player, this.npcs);
+        // W4: townsfolk on schedules (only maps that belong to a town)
+        this._talkedNpcs = new Set();
+        const town = this._mapDef.tiles ? townFor(this._mapId) : null;
+        this._townsfolk = town ? new TownsfolkManager(this, town, this._mapId) : null;
+        if (this._townsfolk) this.physics.add.collider(this.player, this._townsfolk.group);
+        this.events.once('shutdown', () => { this._townsfolk?.destroy(); this._townsfolk = null; });
         this.physics.add.collider(this.player, this.campfires);
         this.physics.add.collider(this.player, this.signs);
         this.physics.add.collider(this.player, this.crackedBoulders);
@@ -1005,6 +1016,8 @@ export default class GameScene extends Phaser.Scene {
         light(this.player.x, this.player.y, 60);
         this.campfires.getChildren().forEach(cf => light(cf.x, cf.y, 90));
         (this.stations ?? []).filter(st => st.stationDef.type === 'hearth').forEach(st => light(st.x, st.y - 30, 80));
+        // W4: the night watch carries lanterns
+        this._townsfolk?.lanterns(playerStats.gameMinutes).forEach(g => light(g.x, g.y - 6, 70));
     }
 
     _liveEnemies() {
@@ -3345,6 +3358,8 @@ export default class GameScene extends Phaser.Scene {
         this.player.update(this.cursors, this.wasd, this.attackKey, this.powerKey, delta, joyVec, { sprint });
         this._streamer?.update(this._streamView(), 1);
         this._tickExploration(delta);
+        this._townsfolk?.update(delta, playerStats.gameMinutes, this.player,
+            (x, y) => (this._streamer ? this._streamer.isPxActive(x, y) : true));
         this.player.setDepth(this.player.y + 1);
 
         if (this._lpcContainer) {
