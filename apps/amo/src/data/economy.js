@@ -4,7 +4,7 @@
 import { ITEMS, POTION_RECIPES } from './items.js';
 
 const POTIONS = new Set(['health_potion', 'mana_potion', ...POTION_RECIPES.map(r => r.output)]);
-const ARCANE_WEAPONS = new Set(['staff', 'spell_blade', 'umbral_dagger']);
+const ARCANE_WEAPONS = new Set(['staff', 'wand', 'spell_blade', 'umbral_dagger']);
 const ARCANE_RARITY = new Set(['rare', 'epic', 'legendary']);
 const ARCANE_ITEMS = new Set(['ancient_scroll', 'eldritch_tome']);
 

@@ -59,6 +59,8 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     const { MERCHANT_CATALOG, ITEMS } = await import('../src/data/items.js');
     eq(EC.itemCurrency('health_potion'), 'glint', 'potions are arcane');
     eq(EC.itemCurrency('novice_staff'), 'glint', 'staves are arcane');
+    eq(EC.itemCurrency('willow_wand'), 'glint', 'wands are arcane (Combat C1)');
+    eq(EC.itemCurrency('hunting_spear'), 'gold', 'spears are mundane');
     eq(EC.itemCurrency('iron_axe'), 'gold', 'tools are mundane');
     eq(EC.itemCurrency('boar_meat'), 'gold', 'food is mundane');
     eq(EC.itemCurrency('hunters_shortbow'), 'gold', 'plain bows are mundane');
