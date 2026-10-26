@@ -33,3 +33,4 @@ Come back to these in a polishing phase. Add to it freely.
 - The boss's floating text draws under walls and roofs (depth 26), the bug fixed for
   speech bubbles on 2026-10-26.
 - Two Thaloria residents share a look (`look_05`: `beggar_gate`, `stallholder_b`) and both work near the market by day.
+- Combat C1 review leftovers: touch can raise the shield while out of mana (keyboard can't); the blue block tint and other tints (status colours, hurt flash) clear each other; a stun in the middle of a block keeps the block up for the whole stun; hold-to-block works on the keyboard only (touch and gamepad get 0.7 s per press).
