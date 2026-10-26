@@ -43,7 +43,7 @@ import { conductTargets, CONDUCT_FRACTION, DETONATE_RADIUS, detonateDamage } fro
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { ANIM_PROFILES } from '../data/animProfiles.js';
 import { CharacterRenderer, DEFAULT_ANIMS } from '../systems/CharacterRenderer.js';
-import { enrichLayers, weaponLayersForItem, WEAPON_ATTACK_ANIM } from '../systems/catalogueLayers.js';
+import { enrichLayers, weaponLayersForItem, offHandLayersForItem, WEAPON_ATTACK_ANIM } from '../systems/catalogueLayers.js';
 import { openChest } from './ChestScene.js';
 import { isHoppableDecoration } from '../systems/movementRules.js';
 import { ChunkStreamer, chunkKey, chunkOfTile, bucketByChunk } from '../systems/regionChunks.js';
@@ -190,8 +190,9 @@ export default class GameScene extends Phaser.Scene {
         // it can be removed on shutdown — otherwise every map change (a fresh
         // GameScene.create) would stack another listener bound to a dead container.
         this._onEquipChange = (slot, itemId) => {
-            if (slot !== 'weapon' || !this._lpcContainer) return;
-            this._updateLpcWeaponLayer(itemId);
+            if (!this._lpcContainer) return;
+            if (slot === 'weapon') this._updateLpcWeaponLayer(itemId);
+            if (slot === 'offHand') this._updateLpcOffHandLayer(itemId);
         };
         playerStats.onEquipChange(this._onEquipChange);
         this.events.once('shutdown', () => playerStats.offEquipChange(this._onEquipChange));
@@ -201,6 +202,7 @@ export default class GameScene extends Phaser.Scene {
         // is rebuilt fresh and no equip event fires, so the weapon must be re-added
         // here or it stays invisible.
         if (this._lpcContainer) this._updateLpcWeaponLayer(playerStats.equipment.weapon);
+        if (this._lpcContainer) this._updateLpcOffHandLayer(playerStats.equipment.offHand);
 
         // Remote players from the network
         this._remotePlayers = new Map(); // socketId → RemotePlayer
@@ -4057,6 +4059,23 @@ export default class GameScene extends Phaser.Scene {
             // Remove right before adding so the old weapon stays visible until the
             // new one's sheets are ready (no flicker) and never lingers after.
             removeWeaponLayers();
+            for (const layer of layers) this._lpcRenderer.addLayer(this._lpcContainer, layer);
+        });
+    }
+
+    // Combat C1: the off-hand overlay — shields only for now (catalogueLayers.js).
+    _updateLpcOffHandLayer(itemId) {
+        const container = this._lpcContainer;
+        if (!container) return;
+        const remove = () => {
+            for (const k of Object.keys(container._lpcLayers)) if (k.startsWith('shield:')) this._lpcRenderer.removeLayer(container, k);
+        };
+        const token = (this._lpcOffToken = (this._lpcOffToken ?? 0) + 1);
+        const layers = offHandLayersForItem(ITEMS[itemId]);
+        if (!layers.length) { remove(); return; }
+        this._lpcRenderer.loadLayers(layers, DEFAULT_ANIMS, () => {
+            if (!this._lpcContainer || token !== this._lpcOffToken) return;
+            remove();
             for (const layer of layers) this._lpcRenderer.addLayer(this._lpcContainer, layer);
         });
     }

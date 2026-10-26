@@ -118,5 +118,6 @@ const SHIELD_SPRITE = 'heater/original/wood/fg';
 export function offHandLayersForItem(item) {
     if (!item || item.weaponType !== 'shield') return [];
     const e = (CATALOGUE.shield ?? []).find(s => s.id === SHIELD_SPRITE);
-    return e ? [{ type: 'shield', id: e.id, zPos: e.zPos ?? 150, itemName: e.itemName, anims: e.anims }] : [];
+    // The heater sheets come in wood colours (idle/oak.png, brown.png…)
+    return e ? [{ type: 'shield', id: e.id, zPos: e.zPos ?? 150, color: item.lpcColor ?? 'oak', anims: e.anims }] : [];
 }
