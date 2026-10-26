@@ -3,6 +3,7 @@ import { soundManager } from './SoundManager.js';
 import { ITEMS, ENEMY_FAMILIES } from '../data/items.js';
 import { statusManager } from './StatusManager.js';
 import { weaponDamageMult } from '../data/upgrades.js';
+import { WEAPON_TYPES } from './weapons.js';
 
 export default class CombatManager {
     constructor(scene, player, enemyGroup) {
@@ -23,7 +24,7 @@ export default class CombatManager {
 
         const isPower   = this.player.isPowerAttack ?? false;
         const stats     = this.player.stats;
-        const weaponId  = stats.equipment.weapon;
+        const weaponId  = this.player._swingItem !== undefined ? this.player._swingItem : stats.equipment.weapon;
         const weaponDef = weaponId ? ITEMS[weaponId] : null;
         const enchant   = stats.activeEnchant?.() ?? weaponDef?.enchant ?? null;
         const passive   = weaponDef?.passive ?? null;
@@ -124,7 +125,9 @@ export default class CombatManager {
 
     _calcDamage(isPower = false) {
         const stats      = this.player.stats;
-        const wt         = stats.activeWeaponType;
+        const swingItem  = this.player._swingItem !== undefined ? this.player._swingItem : stats.equipment.weapon;
+        const wt         = ITEMS[swingItem]?.weaponType ?? 'fists';
+        const typeMult   = WEAPON_TYPES[this.player._swingType ?? 'fists']?.dmgMult ?? 1;
         const base       = 8 + stats.attributes.strength * 2;
         const strikeBonus = (stats.skills['basic_strike']?.level ?? 0) * 3;
         const slashBonus  = isPower ? (stats.skills['power_slash']?.level ?? 0) * 6 : 0;
@@ -138,7 +141,7 @@ export default class CombatManager {
             if (wt === 'umbral_dagger') dmg = Math.floor(dmg * 0.78);
         }
 
-        dmg = Math.floor(dmg * weaponDamageMult(stats.upgradeLevel?.(stats.equipment.weapon) ?? 0));   // forge upgrade
+        dmg = Math.floor(dmg * typeMult * weaponDamageMult(stats.upgradeLevel?.(swingItem) ?? 0));   // weapon type + forge upgrade
         if (isPower) dmg = Math.floor(dmg * 1.8);
         if (isCrit)  dmg = Math.floor(dmg * 1.6);
         dmg = Math.floor(dmg * statusManager.statsMult(this.player));   // blessed / cursed

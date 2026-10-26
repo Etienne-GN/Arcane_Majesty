@@ -168,7 +168,7 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
         this.play('boss_idle', true);
         if (this.attackCooldown <= 0) {
             this.attackCooldown = this.ATTACK_COOLDOWN;
-            player.takeDamage(Math.round(this.damage * statusManager.statsMult(this)));
+            player.takeDamage(Math.round(this.damage * statusManager.statsMult(this)), this);
             soundManager.hit();
             this.setTint(0xdd44ff);
             this.scene.time.delayedCall(180, () => {
@@ -197,7 +197,7 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
         this.scene.cameras.main.shake(250, 0.012);
 
         const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
-        if (dist <= 110) player.takeDamage(Math.floor(this.damage * 0.75));
+        if (dist <= 110) player.takeDamage(Math.floor(this.damage * 0.75), this);
 
         soundManager.hit();
     }
@@ -346,7 +346,7 @@ export default class BossEnemy extends Phaser.Physics.Arcade.Sprite {
                     tint: [0x6600cc, 0x220044, 0xff00cc], quantity: 18, explode: true,
                 }).setDepth(28);
                 if (player.active && Phaser.Math.Distance.Between(player.x, player.y, pos.x, pos.y) <= 28)
-                    player.takeDamage(Math.floor(this.damage * 0.60));
+                    player.takeDamage(Math.floor(this.damage * 0.60), pos);
             });
         });
     }

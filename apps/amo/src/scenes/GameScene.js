@@ -50,6 +50,7 @@ import { ChunkStreamer, chunkKey, chunkOfTile, bucketByChunk } from '../systems/
 import { RETURN_KEY, doorLockState, doorReturnPoint, pushReturn, resolvePortal, clearReturnsOutside } from '../systems/interiors.js';
 import { DECORATION_SOURCES } from '../systems/walkGrid.js';
 import { TownsfolkManager } from '../systems/TownsfolkManager.js';
+import { typeOf } from '../systems/weapons.js';
 import { fogFor, revealAround, encodeFog, newlyDiscovered, REVEAL_RADIUS, DENSE_REVEAL_RADIUS } from '../systems/fog.js';
 import { denseMask, isDenseAt } from '../systems/mapPaint.js';
 import { buildMapTexture, repaintMapTexture } from '../systems/mapTexture.js';
@@ -1089,7 +1090,7 @@ export default class GameScene extends Phaser.Scene {
 
     _tryPower() {
         if (!this.player?.active) return;
-        this.player.triggerPower();
+        this.player.useMove('second');
     }
 
     _tryBlink() {
@@ -2019,18 +2020,18 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // ── Resonance Bow ranged strike ───────────────────────────────────────────
-    _bowStrike(px, py, facing, augmented) {
-        const weaponDef  = ITEMS[playerStats.equipment.weapon];
+    _bowStrike(px, py, facing, augmented, itemId = playerStats.equipment.weapon, opts = {}) {
+        const weaponDef  = ITEMS[itemId];
         const passive    = weaponDef?.passive ?? null;
         const loreAbil   = weaponDef?.loreAbility ?? null;
         const isVoidPierce = passive === 'void_piercer';
-        const range      = isVoidPierce ? 220 : 150;
+        const range      = isVoidPierce ? 220 : (opts.range ?? 150);
 
         const dirMap = { right: [1, 0], left: [-1, 0], down: [0, 1], up: [0, -1] };
         const [dx, dy] = dirMap[facing] ?? [0, 1];
 
         // Arrow particle trail (longer for void_piercer)
-        const trailColor = isVoidPierce ? [0xcc88ff, 0xffffff] : [0x88ffaa, 0xffffff];
+        const trailColor = opts.magic ? [0xaa88ff, 0xffffff] : isVoidPierce ? [0xcc88ff, 0xffffff] : [0x88ffaa, 0xffffff];
         for (let s = 1; s <= 6; s++) {
             const ax = px + dx * (range * s / 6);
             const ay = py + dy * (range * s / 6);
@@ -2048,7 +2049,7 @@ export default class GameScene extends Phaser.Scene {
         const shotCount   = this.player._bowShotCount ?? 0;
         const isTriple    = passive === 'triple_shot' && shotCount % 3 === 0;
         const base        = Math.floor((8 + stats.attributes.strength * 1.5 + stats.attributes.intelligence * 1.0 + Phaser.Math.Between(-2, 3))
-                                       * weaponDamageMult(stats.upgradeLevel?.(stats.equipment.weapon) ?? 0));   // forge upgrade
+                                       * weaponDamageMult(stats.upgradeLevel?.(itemId) ?? 0) * (opts.dmgMult ?? 1));   // forge upgrade, weapon type
         let bowDmg        = augmented ? Math.floor(base * 1.20) : base;
         if (isTriple) {
             bowDmg = Math.floor(bowDmg * 2);
@@ -3373,7 +3374,7 @@ export default class GameScene extends Phaser.Scene {
             this._lpcWasAttacking = this.player.isAttacking;
             const showSlash = (this._lpcSlashUntil ?? 0) > time;
             // Attack reads per weapon type (staves cast, bows shoot, blades slash).
-            const atkAnim = WEAPON_ATTACK_ANIM[ITEMS[playerStats.equipment.weapon]?.weaponType] ?? 'slash';
+            const atkAnim = WEAPON_ATTACK_ANIM[this.player._swingType ?? typeOf(ITEMS[playerStats.equipment.weapon])] ?? 'slash';
             const lpcAnim = this.player.isHopping ? 'jump'
                 : showSlash ? atkAnim
                 : this.player.body.speed > 5 ? (this.player.isSprinting ? 'run' : 'walk')
@@ -3875,7 +3876,7 @@ export default class GameScene extends Phaser.Scene {
         enemy.on('aoeDeath', (ax, ay, radius, damage) => {
             const dist = Phaser.Math.Distance.Between(ax, ay, this.player.x, this.player.y);
             if (dist <= radius) {
-                this.player.takeDamage(damage);
+                this.player.takeDamage(damage, { x: ax, y: ay });
                 this.cameras.main.shake(120, 0.006);
             }
         });

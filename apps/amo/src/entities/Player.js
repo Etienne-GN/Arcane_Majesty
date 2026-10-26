@@ -7,6 +7,7 @@ import { SPELLS, RESONANCE_GAINS, scaledStatus } from '../data/spells.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { CHARACTERS } from '../data/characters.js';
 import { MOVE, tickVigor, canSprint, spendHop, moveSpeed, hopLanding } from '../systems/movementRules.js';
+import { WEAPON_TYPES, typeOf, isFrontal } from '../systems/weapons.js';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, stats = playerStats, characterId = 'eldrin') {
@@ -213,10 +214,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         // Attacks blocked while exhausted
         if (!this.stats.manaExhausted) {
-            if (Phaser.Input.Keyboard.JustDown(attackKey) && this.attackCooldown <= 0) {
-                this._attack();
-            }
-            if (Phaser.Input.Keyboard.JustDown(powerKey)) this.triggerPower();
+            if (Phaser.Input.Keyboard.JustDown(attackKey)) this.useMove('attack');
+            if (Phaser.Input.Keyboard.JustDown(powerKey)) this.useMove('second');
+        }
+        if (this.isBlocking) {
+            const moves = this.stats.resolvedMoves();
+            const held = (attackKey.isDown && moves.attack.kind === 'block') || (powerKey.isDown && moves.second.kind === 'block');
+            if (held) this._blockUntil = Math.max(this._blockUntil, this.scene.time.now + 100);
+            if (this.scene.time.now > this._blockUntil) { this.isBlocking = false; this.clearTint(); }
+            else this.setVelocity(this.body.velocity.x * 0.5, this.body.velocity.y * 0.5);
         }
 
         this._updateAuxBoxes();
@@ -230,31 +236,53 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         return true;
     }
 
-    _weaponCooldown() {
-        const t     = this.stats.activeWeaponType;
-        const base  = { staff: 400, spell_blade: 480, umbral_dagger: 260, resonance_bow: 650 }[t] ?? 400;
-        const swift = ITEMS[this.stats.equipment.weapon]?.enchant === 'swiftness' ? 0.85 : 1;
+    _weaponCooldown(type = typeOf(ITEMS[this.stats.equipment.weapon]), itemId = this.stats.equipment.weapon) {
+        const base  = WEAPON_TYPES[type]?.cooldown ?? 400;
+        const swift = ITEMS[itemId]?.enchant === 'swiftness' ? 0.85 : 1;
         return Math.floor(base * swift);
     }
 
-    triggerAttack() {
-        if (this.attackCooldown > 0) return;
-        if (statusManager.isStunned(this)) return;
-        this._attack();
+    // Combat C1: run what a button holds (data in weapons.js / stats.resolvedMoves).
+    useMove(button) {
+        if (!this.active || statusManager.isStunned(this)) return;
+        const move = this.stats.resolvedMoves()[button];
+        if (!move) return;
+        if (move.kind === 'block') { this._block(); return; }
+        if (move.kind === 'power') { this.triggerPower(); return; }
+        if (this.attackCooldown > 0 || this.stats.manaExhausted) return;
+        this._attack(move.hand);
     }
 
-    _attack() {
+    // Raise the shield for 700 ms; update() keeps it up while the button is held.
+    // takeDamage cuts a hit from the front half by 70%.
+    _block() {
+        this.isBlocking = true;
+        this._blockUntil = this.scene.time.now + WEAPON_TYPES.shield.cooldown;
+        this.setTint(0x88aaff);
+    }
+
+    triggerAttack() { this.useMove('attack'); }
+
+    _attack(hand = 'main') {
+        const itemId = hand === 'off' ? this.stats.equipment.offHand : this.stats.equipment.weapon;
+        const type = typeOf(ITEMS[itemId]);
+        const tdef = WEAPON_TYPES[type];
+        // The old per-weapon behaviour (mana-augmented strikes, the dagger's second
+        // hit, the bow's shot count) keys on the item's own legacy weaponType.
+        const wt = ITEMS[itemId]?.weaponType ?? type;
+        this._swingItem = itemId ?? null;
+        this._swingType = type;
+        this._reach = tdef.reach;
         this.isAttacking   = true;
         this.isPowerAttack = false;
-        const wt = this.stats.activeWeaponType;
-        this.attackCooldown = this._weaponCooldown();
+        this.attackCooldown = this._weaponCooldown(type, itemId);
         this.setVelocity(0);
         this.play(`${this._charDef.animPrefix}_attack_${this.facing}`);
 
         // Mana augmentation for non-staff weapons
         const costMap    = { spell_blade: 2, umbral_dagger: 1, resonance_bow: 3 };
         const manaCost   = costMap[wt] ?? 0;
-        const isVoidRend = ITEMS[this.stats.equipment.weapon]?.passive === 'void_rend';
+        const isVoidRend = ITEMS[itemId]?.passive === 'void_rend';
         this._augmentedStrike = false;
         if (manaCost > 0) {
             if (isVoidRend) {
@@ -281,16 +309,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         const tintMap = { staff: 0xffee88, spell_blade: 0x44eeff, umbral_dagger: 0xcc44ff, resonance_bow: 0x88ffaa };
         this.setTint(tintMap[wt] ?? 0xffee88);
         this.scene.time.delayedCall(100, () => { if (this.active && !this.invincible) this.clearTint(); });
-        this._spawnAttackArc(wt, this.facing);
+        this._spawnAttackArc(tdef.arc === 'bow' ? 'resonance_bow' : tdef.arc, this.facing);
         soundManager.attack();
 
-        if (wt === 'resonance_bow') {
+        if (tdef.range) {
             // Ranged: scene handles damage via _bowStrike after travel delay
             this.scene.time.delayedCall(120, () => {
-                if (this.active) this.scene._bowStrike?.(this.x, this.y, this.facing, this._augmentedStrike);
+                if (this.active) this.scene._bowStrike?.(this.x, this.y, this.facing, this._augmentedStrike, itemId, { range: tdef.range, dmgMult: tdef.dmgMult, magic: type === 'wand' });
             });
         } else {
-            if (wt === 'umbral_dagger') this.attackHitbox.body.setSize(32, 32);
+            this.attackHitbox.body.setSize(tdef.hitbox, tdef.hitbox);
             this.attackHitbox.setActive(true);
         }
 
@@ -333,6 +361,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.play(`${this._charDef.animPrefix}_attack_${this.facing}`);
 
         const wt = this.stats.activeWeaponType;
+        this._swingItem = this.stats.equipment.weapon ?? null;
+        this._swingType = typeOf(ITEMS[this._swingItem]);
+        this._reach = WEAPON_TYPES[this._swingType].reach;
 
         // Temporarily enlarge the hitbox for Power Slash
         this.attackHitbox.body.setSize(60, 60);
@@ -370,11 +401,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     _updateAuxBoxes() {
-        const reach = 30;
-        const offsets = { down: [0, reach], up: [0, -reach], left: [-reach, 0], right: [reach, 0] };
-        const [ox, oy] = offsets[this.facing];
-        this.interactBox.setPosition(this.x + ox, this.y + oy);
-        this.attackHitbox.setPosition(this.x + ox, this.y + oy);
+        // The interaction reach is fixed; the hit zone follows the weapon (Combat C1)
+        const dir = { down: [0, 1], up: [0, -1], left: [-1, 0], right: [1, 0] }[this.facing];
+        const reach = this._reach ?? 30;
+        this.interactBox.setPosition(this.x + dir[0] * 30, this.y + dir[1] * 30);
+        this.attackHitbox.setPosition(this.x + dir[0] * reach, this.y + dir[1] * reach);
     }
 
     _spawnAttackArc(wt, facing, isPower = false) {
@@ -789,7 +820,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         return burnDmg;
     }
 
-    takeDamage(amount) {
+    takeDamage(amount, source = null) {
         if (!this.active) return;
 
         // Shadow Veil: immune while active
@@ -799,6 +830,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         if (this._hopIframeMs > 0) return;
 
         if (this.invincible) return;
+
+        // Combat C1: a raised shield stops 70% of a hit from the front half.
+        // Hits with no source (the storm, statuses) are never blocked.
+        if (this.isBlocking && source && isFrontal(this.facing, this, source)) amount = Math.max(1, Math.round(amount * 0.3));
 
         const ward     = (this.stats.skills['arcane_ward']?.level ?? 0) * 0.10;
         const skin     = this.stats.getSpellLevel('stone_skin') > 0

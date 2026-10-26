@@ -303,7 +303,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
             this.scene.setTarget?.(this);
             this.attackCooldown = this.ATTACK_COOLDOWN;
             const dealt = Math.round(this.damage * statusManager.statsMult(this) * nightDamageMult(this.enemyType, playerStats.gameMinutes));
-            player.takeDamage(dealt);
+            player.takeDamage(dealt, this);
             if (this.affixes.includes('vampiric')) this.health = Math.min(this.maxHealth, this.health + Math.round(dealt * 0.3));
             soundManager.hit();
             this.setTint(0xff8800);
@@ -435,7 +435,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
             g.lineBetween(this.x, this.y, player.x, player.y);
             this.scene.tweens.add({ targets: g, alpha: 0, duration: 200, onComplete: () => g.destroy() });
             flash(player.x, player.y);
-            if (sp.kind === 'bolt') player.takeDamage(Math.round(sp.dmg * levelDamageMult(this.level) * statusManager.statsMult(this) * nightDamageMult(this.enemyType, playerStats.gameMinutes)));
+            if (sp.kind === 'bolt') player.takeDamage(Math.round(sp.dmg * levelDamageMult(this.level) * statusManager.statsMult(this) * nightDamageMult(this.enemyType, playerStats.gameMinutes)), this);
             if (sp.dispel) {
                 const gone = statusManager.dispel(player);
                 if (gone.includes('warded')) player._wardShield = 0;
