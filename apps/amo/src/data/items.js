@@ -63,9 +63,17 @@ export const MERCHANT_CATALOG = [
     { id: 'shadow_shiv',           price: 55,  currency: 'glint' },
     { id: 'carved_shortbow',       price: 58,  currency: 'gold' },
     { id: 'hunters_shortbow',      price: 52,  currency: 'gold' },
+    { id: 'willow_wand',           price: 60,  currency: 'glint' },
+    { id: 'ash_bo',                price: 55,  currency: 'gold' },
+    { id: 'hunting_spear',         price: 70,  currency: 'gold' },
+    { id: 'iron_mace',             price: 75,  currency: 'gold' },
+    { id: 'hand_axe',              price: 70,  currency: 'gold' },
+    { id: 'wooden_shield',         price: 50,  currency: 'gold' },
+    { id: 'light_crossbow',        price: 95,  currency: 'gold' },
     // T2 weapons
     { id: 'adepts_spire',          price: 200, currency: 'glint' },
     { id: 'mossy_branch_staff',    price: 175, currency: 'glint' },
+    { id: 'claymore',              price: 210, currency: 'gold' },
     { id: 'spell_blade',           price: 180, currency: 'glint' },
     { id: 'arcane_saber',          price: 165, currency: 'glint' },
     { id: 'umbral_dagger',         price: 160, currency: 'glint' },
@@ -853,6 +861,78 @@ export const ITEMS = {
 
     // ── STAFF — spell amplification, no mana cost on physical hits ────────────
 
+    // ── Combat C1: the new weapon types ──────────────────────────────────────
+    willow_wand: {
+        id: 'willow_wand', name: 'Willow Wand',
+        description: 'A slim willow wand. Quick, light bolts — best against one enemy up close. +2 INT.',
+        color: 0x9bbb66, icon: 'itm_wand_01', stackable: false, slot: 'weapon', tier: 1, weaponType: 'wand', rarity: 'common',
+        stats: { intelligence: 2 }, buyPrice: 60, sellPrice: 20,
+    },
+    crystal_wand: {
+        id: 'crystal_wand', name: 'Crystal Wand',
+        description: 'A wand tipped with clear crystal. Quick bolts that bite harder. +4 INT, +1 AGI.',
+        color: 0x99ddff, icon: 'itm_wand_02', stackable: false, slot: 'weapon', tier: 2, weaponType: 'wand', rarity: 'uncommon',
+        stats: { intelligence: 4, agility: 1 }, buyPrice: 170, sellPrice: 55,
+    },
+    ash_bo: {
+        id: 'ash_bo', name: 'Ash Bo Staff',
+        description: 'A fighting pole of seasoned ash. Fast blows with good reach. Two hands. +2 AGI, +1 STR.',
+        color: 0xb08850, icon: 'itm_log', stackable: false, slot: 'weapon', tier: 1, weaponType: 'bo', rarity: 'common',
+        stats: { agility: 2, strength: 1 }, buyPrice: 55, sellPrice: 18,
+        lpcLayer: [{ type: 'weapon', id: 'polearm/cane/male', itemName: 'cane', zPos: 140 }],
+    },
+    hunting_spear: {
+        id: 'hunting_spear', name: 'Hunting Spear',
+        description: 'A plain ash spear with an iron point. The longest reach — keep enemies away. Two hands. +3 STR.',
+        color: 0xa0a0a0, icon: 'itm_stone_sword', stackable: false, slot: 'weapon', tier: 1, weaponType: 'spear', rarity: 'common',
+        stats: { strength: 3 }, buyPrice: 70, sellPrice: 24,
+    },
+    iron_spear: {
+        id: 'iron_spear', name: 'Iron Spear',
+        description: 'A soldier\'s spear, iron from socket to point. Two hands. +5 STR, +1 AGI.',
+        color: 0xb8b8c8, icon: 'itm_stone_sword', stackable: false, slot: 'weapon', tier: 2, weaponType: 'spear', rarity: 'uncommon',
+        stats: { strength: 5, agility: 1 }, buyPrice: 180, sellPrice: 60,
+    },
+    iron_mace: {
+        id: 'iron_mace', name: 'Iron Mace',
+        description: 'A flanged iron head on a short haft. Slow blows that crack armour. +4 STR.',
+        color: 0x888899, icon: 'itm_stone', stackable: false, slot: 'weapon', tier: 1, weaponType: 'mace', rarity: 'common',
+        stats: { strength: 4 }, buyPrice: 75, sellPrice: 25,
+    },
+    hand_axe: {
+        id: 'hand_axe', name: 'Hand Axe',
+        description: 'A woodsman\'s axe balanced for fighting. Strong chops that can hit two. +3 STR, +1 STA.',
+        color: 0x996644, icon: 'itm_pickaxe', stackable: false, slot: 'weapon', tier: 1, weaponType: 'axe', rarity: 'common',
+        stats: { strength: 3, stamina: 1 }, buyPrice: 70, sellPrice: 23,
+    },
+    wooden_shield: {
+        id: 'wooden_shield', name: 'Wooden Shield',
+        description: 'Planks bound in iron. Off hand. Raise it to stop most of the damage. +2 STA.',
+        color: 0x8a6a3a, icon: 'itm_wooden_box', stackable: false, slot: 'weapon', tier: 1, weaponType: 'shield', rarity: 'common',
+        stats: { stamina: 2 }, buyPrice: 50, sellPrice: 16,
+    },
+    iron_heater: {
+        id: 'iron_heater', name: 'Iron Heater Shield',
+        description: 'A knight\'s heater shield faced with iron. Off hand. +4 STA, +1 STR.',
+        color: 0x9999aa, icon: 'itm_wooden_box', stackable: false, slot: 'weapon', tier: 2, weaponType: 'shield', rarity: 'uncommon',
+        stats: { stamina: 4, strength: 1 }, buyPrice: 160, sellPrice: 52,
+    },
+    light_crossbow: {
+        id: 'light_crossbow', name: 'Light Crossbow',
+        description: 'A hunter\'s crossbow. Slow to reload, hits very hard at range. Two hands. +3 AGI, +2 STR.',
+        color: 0x7a5a3a, icon: 'itm_bow_02', stackable: false, slot: 'weapon', tier: 1, weaponType: 'crossbow', rarity: 'common',
+        stats: { agility: 3, strength: 2 }, buyPrice: 95, sellPrice: 32,
+    },
+    claymore: {
+        id: 'claymore', name: 'Claymore',
+        description: 'A great two-handed sword. Slow, wide, heavy sweeps. Two hands. +6 STR.',
+        color: 0xc0c0d0, icon: 'itm_sword_02', stackable: false, slot: 'weapon', tier: 2, weaponType: 'greatsword', rarity: 'uncommon',
+        stats: { strength: 6 }, buyPrice: 210, sellPrice: 70,
+        lpcLayer: [
+            { type: 'weapon', id: 'sword/longsword',                 zPos: 140 },
+            { type: 'weapon', id: 'sword/longsword', itemName: 'behind/longsword', zPos: 5   },
+        ],
+    },
     novice_staff: {
         id: 'novice_staff', name: 'Novice Staff',
         description: 'Oak wood. Basic arcane focus. +2 INT.',

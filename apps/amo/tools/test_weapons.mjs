@@ -67,4 +67,20 @@ ok(W.isBehind('left', me, { x: 140, y: 100 }), 'an enemy facing left, struck fro
 ok(!W.isBehind('left', me, { x: 100, y: 140 }), 'struck from its side: not behind');
 ok(!W.isBehind('down', me, { x: 100, y: 140 }), 'struck from the front: not behind');
 
+// ---- the new weapon items
+{
+    const { ITEMS, MERCHANT_CATALOG } = await import('../src/data/items.js');
+    const ids = ['willow_wand', 'crystal_wand', 'ash_bo', 'hunting_spear', 'iron_spear', 'iron_mace', 'hand_axe', 'wooden_shield', 'iron_heater', 'light_crossbow'];
+    for (const id of ids) {
+        const d = ITEMS[id];
+        ok(d && d.slot === 'weapon' && W.typeOf(d) !== 'fists' && d.tier >= 1 && d.tier <= 2 && d.name && d.description, `${id}: a tier 1-2 ${W.typeOf(d)}`);
+    }
+    for (const t of Object.keys(W.WEAPON_TYPES).filter(t => !['fists', 'greatsword'].includes(t))) {
+        ok(Object.values(ITEMS).some(d => W.typeOf(d) === t), `at least one ${t} exists`);
+    }
+    for (const id of ['willow_wand', 'ash_bo', 'hunting_spear', 'iron_mace', 'hand_axe', 'wooden_shield', 'light_crossbow']) ok(MERCHANT_CATALOG.some(e => e.id === id), `the Merchant sells ${id}`);
+    ok(ITEMS.claymore && W.typeOf(ITEMS.claymore) === 'greatsword' && W.WEAPON_TYPES.greatsword.available, 'C0 was IN: the Claymore, a two-handed sword');
+    ok(MERCHANT_CATALOG.some(e => e.id === 'claymore'), 'sold by the Merchant');
+}
+
 console.log(`test_weapons: ${n} checks passed`);

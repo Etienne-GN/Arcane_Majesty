@@ -6,6 +6,7 @@
  * a sheet that doesn't exist — same guarantee the creator gets from the catalogue.
  */
 import CATALOGUE from '../data/character_catalogue.json';
+import { WEAPON_TYPES } from './weapons.js';
 
 // Catalogue key → on-disk render type (mirrors CharacterCreatorScene.RENDER_TYPE
 // and gen tooling). Used only to index; entry.renderType overrides per entry.
@@ -61,6 +62,10 @@ const WEAPON_TYPE_SPRITE = {
     umbral_dagger: 'sword/dagger',
     staff:         'magic/simple/foreground',
     resonance_bow: 'ranged/bow/normal',
+    spear:         'polearm/spear/foreground',
+    mace:          'blunt/mace',
+    axe:           'blunt/waraxe',
+    crossbow:      'ranged/crossbow/foreground',
 };
 const WEAPON_SPRITE_OVERRIDE = {
     // explicit / unambiguous matches (kept conservative — extend as desired)
@@ -75,13 +80,11 @@ const WEAPON_SPRITE_OVERRIDE = {
     // sprites (crystal/gnarled/…) would vanish during a cast, so no overrides here.
 };
 
-// Logical attack animation per weaponType, so the player's attack reads correctly
-// (staves cast, bows shoot) instead of everything playing 'slash'.
+// Logical attack animation per weapon type, from weapons.js (staves and wands
+// cast, bows shoot, spears thrust, blades slash). Legacy weaponType keys kept.
 export const WEAPON_ATTACK_ANIM = {
-    staff:         'spellcast',
-    resonance_bow: 'shoot',
-    spell_blade:   'slash',
-    umbral_dagger: 'slash',
+    ...Object.fromEntries(Object.entries(WEAPON_TYPES).map(([t, d]) => [t, d.anim])),
+    resonance_bow: 'shoot', spell_blade: 'slash', umbral_dagger: 'slash',
 };
 
 /** Renderer layers (main + companions, with anims) for a catalogue weapon id. */
@@ -106,4 +109,14 @@ export function weaponLayersForItem(item) {
     if (item.lpcLayer) return enrichLayers(Array.isArray(item.lpcLayer) ? item.lpcLayer : [item.lpcLayer]);
     const catId = WEAPON_SPRITE_OVERRIDE[item.id] ?? WEAPON_TYPE_SPRITE[item.weaponType];
     return catId ? weaponLayersFor(catId) : [];
+}
+
+// Combat C1: what is drawn in the off hand. Only shields for now — LPC weapon
+// sprites switch hands with direction, so other off-hand weapons wait for reworked
+// sprites (docs/polish_backlog.md).
+const SHIELD_SPRITE = 'heater/original/wood/fg';
+export function offHandLayersForItem(item) {
+    if (!item || item.weaponType !== 'shield') return [];
+    const e = (CATALOGUE.shield ?? []).find(s => s.id === SHIELD_SPRITE);
+    return e ? [{ type: 'shield', id: e.id, zPos: e.zPos ?? 150, itemName: e.itemName, anims: e.anims }] : [];
 }
