@@ -5,14 +5,18 @@ import { ITEMS, SATCHEL_TIERS } from '../data/items.js';
 import { DIALOGUES } from '../data/dialogues.js';
 import { HOTBAR_SIZE, assignHotbar, canHotbar } from '../systems/hotbar.js';
 import { upgradedStats, upgradeLabel } from '../data/upgrades.js';
+import { WEAPON_TYPES, typeOf } from '../systems/weapons.js';
 
 const SLOT = 56;
 const EQUIP_PANEL_W = 192;
+const SLOT_H = 58;        // equipment slot height (seven slots: head, body, two hands, two rings… must fit)
+const HOTBAR_CELL = 43;   // the hotbar strip's cell size: floor((EQUIP_PANEL_W - 3 * 6) / HOTBAR_SIZE)
 
 const EQUIP_SLOTS = [
     { key: 'head',       label: 'HEAD'  },
     { key: 'body',       label: 'BODY'  },
-    { key: 'weapon',     label: 'WEAP'  },
+    { key: 'weapon',     label: 'MAIN'  },
+    { key: 'offHand',    label: 'OFF'   },
     { key: 'accessory1', label: 'ACC 1' },
     { key: 'accessory2', label: 'ACC 2' },
 ];
@@ -66,7 +70,8 @@ export default class InventoryScene extends Phaser.Scene {
         // Equipment panel (left)
         this._drawEquipPanel(px + 4, py + 56, EQUIP_PANEL_W);
 
-        this._drawHotbarStrip(px + 4, py + 56 + 24 + EQUIP_SLOTS.length * 82 + 4, EQUIP_PANEL_W);
+        this._drawHotbarStrip(px + 4, py + 56 + 24 + EQUIP_SLOTS.length * (SLOT_H + 6) + 4, EQUIP_PANEL_W);
+        this._drawButtonsStrip(px + 4, py + 56 + 24 + EQUIP_SLOTS.length * (SLOT_H + 6) + 4 + 18 + HOTBAR_CELL + 10, EQUIP_PANEL_W);
 
         // Satchel grid + description (right)
         this._drawSatchelGrid(divX + 8, py + 56, pw - EQUIP_PANEL_W - 28);
@@ -87,7 +92,7 @@ export default class InventoryScene extends Phaser.Scene {
             font: 'bold 14px monospace', fill: '#8888bb'
         }).setOrigin(0.5, 0);
 
-        const slotH = 76, gap = 6;
+        const slotH = SLOT_H, gap = 6;
 
         EQUIP_SLOTS.forEach(({ key, label }, i) => {
             const sy = y + 24 + i * (slotH + gap);
@@ -215,10 +220,7 @@ export default class InventoryScene extends Phaser.Scene {
                             ? '  ' + Object.entries(upgradedStats(def, lvl)).map(([k, v]) => `+${v} ${k.substring(0,3).toUpperCase()}`).join(' ')
                             : '';
                         this.descText.setText(`${upgradeLabel(item.name, lvl)}${statStr}\n${item.description}`);
-                        this.actionHint.setText(
-                            item.slot ? '[E] Equip   [ESC/I] Close'
-                                : canHotbar(item.id) ? '[U] Use   [1-4] Hotbar   [ESC/I] Close' : '[U] Use   [ESC/I] Close'
-                        );
+                        this._showActions(item);
                     });
                 } else {
                     slotBg.on('pointerover', () => slotBg.setFillStyle(0x111130));
@@ -257,11 +259,54 @@ export default class InventoryScene extends Phaser.Scene {
             if (item && assignHotbar(playerStats, slot, item.id)) this.scene.restart();
             else this.cameras.main.shake(80, 0.007);
         }));
+        this.input.keyboard.on('keydown-O', () => {
+            const item = inventory[this.selectedIdx];
+            if (item && playerStats.equipItem(item.id, 'off')) this.scene.restart();
+            else this.cameras.main.shake(80, 0.007);
+        });
         this.input.keyboard.on('keydown-E', () => {
             if (this.selectedIdx < 0) return;
             const item = inventory[this.selectedIdx];
             if (item && playerStats.equipItem(item.id)) this.scene.restart();
             else this.cameras.main.shake(80, 0.007);
+        });
+    }
+
+    // [Equip] / [Off hand] / [Use] as buttons too, so touch and mouse can act (C1)
+    _showActions(item) {
+        this._actionBtns?.forEach(b => b.destroy());
+        this._actionBtns = [];
+        const def = ITEMS[item.id];
+        const acts = [];
+        if (item.slot) acts.push(['[E] Equip', () => playerStats.equipItem(item.id, 'main')]);
+        if (def?.slot === 'weapon' && (def.weaponType === 'shield' || WEAPON_TYPES[typeOf(def)].hands === 1)) acts.push(['[O] Off hand', () => playerStats.equipItem(item.id, 'off')]);
+        if (!item.slot) acts.push(['[U] Use', () => { this.input.keyboard.emit('keydown-U'); return false; }]);
+        const y = this.actionHint.y, cx = this.actionHint.x;
+        this.actionHint.setText(!item.slot && canHotbar(item.id) ? '[1-4] Hotbar' : '');
+        acts.forEach(([label, fn], i) => {
+            const b = this.add.text(cx + (i - (acts.length - 1) / 2) * 150, y + 22, label, { font: '14px monospace', fill: '#bbbbee', backgroundColor: '#1a1a40', padding: { x: 6, y: 3 } })
+                .setOrigin(0.5, 0).setInteractive({ useHandCursor: true })
+                .on('pointerdown', () => { if (fn()) this.scene.restart(); else if (item.slot) this.cameras.main.shake(80, 0.007); });
+            this._actionBtns.push(b);
+        });
+    }
+
+    // Combat C1: what the two action buttons do — tap to cycle through the moves
+    // your weapons offer (Attack = Z / the attack button, Second = X / PWR).
+    _drawButtonsStrip(x, y, panelW) {
+        this.add.text(x + panelW / 2, y, 'BUTTONS', { font: 'bold 12px monospace', fill: '#8888bb' }).setOrigin(0.5, 0);
+        const moves = playerStats.availableMoves(), now = playerStats.resolvedMoves();
+        [['attack', 'Attack'], ['second', 'Second']].forEach(([key, label], i) => {
+            const by = y + 18 + i * 40, cur = now[key];
+            const t = this.add.text(x + 4, by, `${label}: ${cur.label}  ▸\n  ${WEAPON_TYPES[cur.type].label}`, {
+                font: '12px monospace', fill: '#ccccee', backgroundColor: '#12122e', padding: { x: 4, y: 3 },
+                fixedWidth: panelW - 8,
+            }).setInteractive({ useHandCursor: true });
+            t.on('pointerdown', () => {
+                const at = moves.findIndex(m => m.id === cur.id);
+                playerStats.setMoveSlot(key, moves[(at + 1) % moves.length].id);
+                this.scene.restart();
+            });
         });
     }
 
