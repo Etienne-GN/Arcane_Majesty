@@ -29,3 +29,4 @@ Come back to these in a polishing phase. Add to it freely.
 - Named shopkeepers greet you again after you go through a door and back.
 - The boss's floating text draws under walls and roofs (depth 26), the bug fixed for
   speech bubbles on 2026-10-26.
+- Two Thaloria residents share a look (`look_05`: `beggar_gate`, `stallholder_b`) and both work near the market by day.
