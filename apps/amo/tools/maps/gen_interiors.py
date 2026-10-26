@@ -14,7 +14,8 @@ The player enters on (cx, h-2) facing up; the exit portal sits in the opening.
 Every slot, chest, book and NPC must be reachable from the entrance, or the
 seed is rejected and the next one tried.
 
-Run from apps/amo/: python3 tools/maps/gen_interiors.py [city ...]
+Run from apps/amo/: python3 tools/maps/gen_interiors.py
+index.js lists only the cities generated in this run, so always run it for every city (the default).
 Preview one: python3 tools/maps/render_map_preview.py thaloria_inn out.png
 """
 import importlib
@@ -305,12 +306,14 @@ def main(cities):
         for s in mod.INTERIORS:
             specs.append({**s, 'city': mod.CITY})
     parents = {s['id']: s for s in specs}
+    places = {}
     for spec in specs:
         for k in range(40):
             room = build(spec, spec['seed'] * 1000 + k)
             if room:
                 spec['_seed'] = spec['seed'] * 1000 + k
                 emit(spec, room, parents)
+                places[spec['id']] = {**{key: list(xy) for key, xy in room.slots.items()}, 'entry': [room.cx, room.h - 2]}
                 print(f"{spec['id']}: {room.w}x{room.h}, {len(room.items)} pieces, {len(room.chests)} chests, {len(room.books)} books (seed {spec['_seed']})")
                 break
         else:
@@ -329,7 +332,9 @@ def main(cities):
             {'x': s['door'][0], 'y': s['door'][1], 'interior': s['id'], 'label': s['label'],
              **({'locked': s['locked']} if 'locked' in s else {})}
             for s in specs if s['city'] == city and 'door' in s] for city in {s['city'] for s in specs}}, indent=2))
+    # Each room's work spots (template slots) and entry tile, for W4 townsfolk places
+    (OUT / 'places.json').write_text(json.dumps(places, indent=2, sort_keys=True))
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:] or ['thaloria'])
+    main(sys.argv[1:] or ['thaloria', 'east_road'])

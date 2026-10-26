@@ -239,7 +239,7 @@ export const MAP = {
 ],
     tileset: { key: 'tileset_base', floorFrame: -1, pathFrame: -1 },
     playerStart: { x: 9, y: 11 },
-    exitFallback: {"map": "thaloria", "x": 5, "y": 17},
+    exitFallback: {"map": "thaloria", "x": 72, "y": 79},
     extraSheets: THALORIA_INN_EXTRA_SHEETS,
     sheetDecorations: THALORIA_INN_SHEET_DECORATIONS,
     portals: [{ id: "thaloria_inn_exit", x: 9, y: 12, label: 'Leave', targetMap: '__return', targetX: 0, targetY: 0 }],

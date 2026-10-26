@@ -160,4 +160,19 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     }
 }
 
+// ---- W6: every room publishes its work spots (W4 townsfolk use them)
+{
+    const { getMap } = await import('../src/data/maps/index.js');
+    const places = JSON.parse((await import('node:fs')).readFileSync(new URL('../src/data/maps/interiors/places.json', import.meta.url)));
+    for (const [id, slots] of Object.entries(places)) {
+        const m = getMap(id);
+        ok(m.id === id && m.interior, `${id}: a registered room`);
+        for (const [k, [x, y]] of Object.entries(slots)) ok(m.tiles[y]?.[x] === 0, `${id}: the ${k} spot is on the floor`);
+    }
+    for (const [id, slot] of [['thaloria_smithy', 'smith'], ['thaloria_temple', 'altar'], ['thaloria_guild_hall', 'master'], ['thaloria_barracks', 'sergeant'], ['thaloria_market_hall', 'counter'], ['thaloria_alchemist', 'counter'], ['thaloria_bell_tower', 'desk']]) {
+        ok(places[id]?.[slot], `${id} has its ${slot} spot`);
+    }
+    ok(getMap('east_road_cave').interior, 'the Hollow, a cave in the Wilds');
+}
+
 console.log(`test_interiors: ${n} checks passed`);

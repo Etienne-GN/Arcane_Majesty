@@ -107,7 +107,7 @@ export const MAP = {
 ],
     tileset: { key: 'tileset_base', floorFrame: -1, pathFrame: -1 },
     playerStart: { x: 5, y: 7 },
-    exitFallback: {"map": "thaloria", "x": 11, "y": 7},
+    exitFallback: {"map": "thaloria", "x": 88, "y": 25},
     extraSheets: THALORIA_BELL_TOWER_EXTRA_SHEETS,
     sheetDecorations: THALORIA_BELL_TOWER_SHEET_DECORATIONS,
     portals: [{ id: "thaloria_bell_tower_exit", x: 5, y: 8, label: 'Leave', targetMap: '__return', targetX: 0, targetY: 0 }],

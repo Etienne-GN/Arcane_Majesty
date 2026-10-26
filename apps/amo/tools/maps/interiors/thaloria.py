@@ -1,17 +1,8 @@
-"""Thaloria's interiors (W3). `door` is the tile on the city map; `fallback` the
-street tile in front of it (used only when the return stack is empty)."""
+"""Thaloria's interiors (W3, W6): every building in tools/maps/thaloria_layout.py that
+has an `interior`, at its door, plus the inn's cellar. The four rooms W3 built (the
+inn, its cellar, the bell tower, the teal house) keep their template and seed, so
+their layouts do not change."""
+from thaloria_layout import BUILDINGS, CELLAR, door_of
 
 CITY = 'thaloria'
-
-INTERIORS = [
-    {'id': 'thaloria_inn', 'template': 'inn', 'seed': 1, 'displayName': 'Thaloria — the Inn',
-     'door': (5, 16), 'label': 'Enter the Inn', 'currencyBias': 'neutral',
-     'slot_doors': {'cellar': {'interior': 'thaloria_inn_cellar', 'label': 'Down to the cellar', 'look': 'hatch'}}},
-    {'id': 'thaloria_inn_cellar', 'template': 'cellar', 'seed': 2, 'displayName': 'Thaloria — the Inn\'s cellar',
-     'parent': 'thaloria_inn', 'label': 'Cellar'},
-    {'id': 'thaloria_bell_tower', 'template': 'tower', 'seed': 3, 'displayName': 'Thaloria — the Bell Tower',
-     'door': (11, 6), 'label': 'Enter the Bell Tower'},
-    {'id': 'thaloria_house_teal', 'template': 'house', 'seed': 4, 'displayName': 'Thaloria — a house',
-     'door': (21, 16), 'label': 'A house',
-     'locked': {'flag': 'thaloria_house_teal_open', 'text': 'Locked. No one answers.'}},
-]
+INTERIORS = [{**b['interior'], 'door': door_of(b)} for b in BUILDINGS if b['interior']] + [CELLAR]

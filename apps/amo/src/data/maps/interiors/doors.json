@@ -1,26 +1,112 @@
 {
   "thaloria": [
     {
-      "x": 5,
-      "y": 16,
-      "interior": "thaloria_inn",
-      "label": "Enter the Inn"
+      "x": 16,
+      "y": 24,
+      "interior": "thaloria_manor",
+      "label": "The manor"
     },
     {
-      "x": 11,
-      "y": 6,
+      "x": 41,
+      "y": 24,
+      "interior": "thaloria_house_noble_a",
+      "label": "A fine house"
+    },
+    {
+      "x": 41,
+      "y": 50,
+      "interior": "thaloria_house_noble_c",
+      "label": "A fine house"
+    },
+    {
+      "x": 75,
+      "y": 24,
+      "interior": "thaloria_temple",
+      "label": "The temple"
+    },
+    {
+      "x": 88,
+      "y": 24,
       "interior": "thaloria_bell_tower",
       "label": "Enter the Bell Tower"
     },
     {
-      "x": 21,
-      "y": 16,
+      "x": 84,
+      "y": 50,
+      "interior": "thaloria_guild_hall",
+      "label": "The Archivist's Guild"
+    },
+    {
+      "x": 106,
+      "y": 50,
+      "interior": "thaloria_barracks",
+      "label": "The barracks"
+    },
+    {
+      "x": 12,
+      "y": 78,
+      "interior": "thaloria_house_low_a",
+      "label": "A house"
+    },
+    {
+      "x": 40,
+      "y": 78,
+      "interior": "thaloria_smithy",
+      "label": "The smithy"
+    },
+    {
+      "x": 51,
+      "y": 78,
+      "interior": "thaloria_house_low_c",
+      "label": "A house"
+    },
+    {
+      "x": 23,
+      "y": 98,
+      "interior": "thaloria_house_low_e",
+      "label": "A house"
+    },
+    {
+      "x": 50,
+      "y": 98,
       "interior": "thaloria_house_teal",
       "label": "A house",
       "locked": {
         "flag": "thaloria_house_teal_open",
         "text": "Locked. No one answers."
       }
+    },
+    {
+      "x": 72,
+      "y": 78,
+      "interior": "thaloria_inn",
+      "label": "Enter the Inn"
+    },
+    {
+      "x": 86,
+      "y": 78,
+      "interior": "thaloria_market_hall",
+      "label": "The market hall"
+    },
+    {
+      "x": 102,
+      "y": 78,
+      "interior": "thaloria_alchemist",
+      "label": "The alchemist's"
+    },
+    {
+      "x": 103,
+      "y": 98,
+      "interior": "thaloria_house_market_a",
+      "label": "A house"
+    }
+  ],
+  "east_road": [
+    {
+      "x": 166,
+      "y": 112,
+      "interior": "east_road_cave",
+      "label": "Enter the Hollow"
     }
   ]
 }

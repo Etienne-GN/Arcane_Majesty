@@ -156,4 +156,42 @@ TEMPLATES = {
         ],
         'slots': {'master': 'north'},
     },
+    # W6: the noble hill's manor — a big house: two beds, books, a long table
+    'manor': {
+        'size': ((13, 16), (10, 12)), 'walls': ['mint', 'red_brick'], 'floors': ['checker', 'cream_tile'],
+        'light': 0x1a1208, 'loot': 'home', 'books': ('home', (1, 2)), 'chests': (1, 2), 'stash': 1 / 3,
+        'place': [
+            ('floor',  ['rug_oval_maroon_gold_trim'], 1),
+            ('north',  ['bed_double_red_a', 'bed_double_blue'], 2),
+            ('north',  ['bookshelf_books'], (1, 2)),
+            ('north',  ['dresser_wood_drawers', 'cabinet_wood_red_two_door_a'], 1),
+            ('row',    [TABLE_LONG], 1),
+            ('centre', ['armchair_wood_red_slat_front_a', 'chair_wood_padded'], (2, 3)),
+            ('corner', ['potted_plant_flowering', 'potted_shrub_bush'], (2, 3)),
+        ],
+        'slots': {},
+    },
+    # W6: the city watch sleeps here — a row of beds, a table, stores
+    'barracks': {
+        'size': ((14, 17), (10, 12)), 'walls': ['stone'], 'floors': ['slate', 'grey_stone'],
+        'light': 0x12100a, 'loot': 'larder', 'books': ('home', (0, 0)), 'chests': (1, 2), 'stash': 0,
+        'place': [
+            ('north',  ['bed_red_plain'], (3, 4)),
+            ('row',    [TABLE_LONG], 1),
+            ('centre', ['bench_wood_plain_a', 'bench_wood_plain_b'], (2, 3)),
+            ('corner', ['barrel_a', 'wooden_barrel_a', 'market_crate_empty_c'], (2, 3)),
+        ],
+        'slots': {'sergeant': 'centre'},
+    },
+    # W6: the Hollow, a cave in the Wilds — boulders and mushrooms, a stash or two
+    'cave': {
+        'size': ((12, 15), (9, 11)), 'walls': ['stone'], 'floors': ['cobble'],
+        'light': 0x050508, 'loot': 'stash', 'books': ('home', (0, 0)), 'chests': (2, 2), 'stash': 0,
+        'place': [
+            ('side',   ['boulder_large', 'gray_boulder_a', 'dark_rock_cluster', 'upright_boulder_gray_a'], (3, 5)),
+            ('corner', ['dark_boulder_cluster_a', 'rock_pair_cluster_a', 'gray_boulder_b'], (2, 3)),
+            ('centre', ['gray_boulder_b', 'mushroom_cluster_brown_a', 'rock_pair_cluster_a'], (1, 3)),
+        ],
+        'slots': {},
+    },
 }

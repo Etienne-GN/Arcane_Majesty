@@ -1,0 +1,150 @@
+{
+  "east_road_cave": {
+    "entry": [
+      7,
+      9
+    ]
+  },
+  "thaloria_alchemist": {
+    "counter": [
+      3,
+      4
+    ],
+    "entry": [
+      5,
+      8
+    ]
+  },
+  "thaloria_barracks": {
+    "entry": [
+      8,
+      8
+    ],
+    "sergeant": [
+      2,
+      7
+    ]
+  },
+  "thaloria_bell_tower": {
+    "desk": [
+      2,
+      4
+    ],
+    "entry": [
+      5,
+      7
+    ]
+  },
+  "thaloria_guild_hall": {
+    "entry": [
+      9,
+      10
+    ],
+    "master": [
+      15,
+      3
+    ]
+  },
+  "thaloria_house_low_a": {
+    "entry": [
+      4,
+      6
+    ]
+  },
+  "thaloria_house_low_c": {
+    "entry": [
+      5,
+      8
+    ]
+  },
+  "thaloria_house_low_e": {
+    "entry": [
+      4,
+      6
+    ]
+  },
+  "thaloria_house_market_a": {
+    "entry": [
+      5,
+      7
+    ]
+  },
+  "thaloria_house_noble_a": {
+    "entry": [
+      4,
+      6
+    ]
+  },
+  "thaloria_house_noble_c": {
+    "entry": [
+      5,
+      6
+    ]
+  },
+  "thaloria_house_teal": {
+    "entry": [
+      5,
+      7
+    ]
+  },
+  "thaloria_inn": {
+    "cellar": [
+      16,
+      11
+    ],
+    "counter": [
+      3,
+      4
+    ],
+    "entry": [
+      9,
+      11
+    ],
+    "hearth": [
+      1,
+      3
+    ]
+  },
+  "thaloria_inn_cellar": {
+    "entry": [
+      6,
+      6
+    ]
+  },
+  "thaloria_manor": {
+    "entry": [
+      7,
+      9
+    ]
+  },
+  "thaloria_market_hall": {
+    "counter": [
+      3,
+      4
+    ],
+    "entry": [
+      6,
+      6
+    ]
+  },
+  "thaloria_smithy": {
+    "entry": [
+      5,
+      7
+    ],
+    "smith": [
+      5,
+      5
+    ]
+  },
+  "thaloria_temple": {
+    "altar": [
+      8,
+      3
+    ],
+    "entry": [
+      7,
+      12
+    ]
+  }
+}
