@@ -370,7 +370,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.attackHitbox.setActive(true);
         soundManager.attack();
 
-        this._spawnAttackArc(wt, this.facing, true);
+        const parc = WEAPON_TYPES[this._swingType].arc;
+        this._spawnAttackArc(parc === 'bow' ? 'resonance_bow' : parc, this.facing, true);
 
         this.scene.time.delayedCall(this.ATTACK_COOLDOWN * 0.5, () => {
             this.isAttacking = false;

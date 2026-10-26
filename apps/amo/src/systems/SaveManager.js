@@ -117,11 +117,11 @@ export class SaveManager {
             stats.inventory       = d.inventory ?? [];
             if (d.equipment) Object.assign(stats.equipment, d.equipment);
             stats.moveSlots = { attack: null, second: null, ...d.moveSlots };
-            SaveManager.migrateCombatC1(stats, d);
             Object.assign(stats.attributes, d.attributes);
             Object.entries(d.skills ?? {}).forEach(([k, v]) => {
                 if (stats.skills[k]) stats.skills[k].level = v.level;
             });
+            SaveManager.migrateCombatC1(stats, d);   // after the saved attributes, so the staff's stats stay
             if (d.spells)         stats.spells         = { ...(stats.spells ?? {}), ...d.spells };
             if (d.resonance)      stats.resonance       = { ...(stats.resonance ?? {}), ...d.resonance };
             if (d.spellCooldowns) stats.spellCooldowns  = { ...(stats.spellCooldowns ?? {}), ...d.spellCooldowns };

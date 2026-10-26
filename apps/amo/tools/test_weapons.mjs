@@ -83,4 +83,17 @@ ok(!W.isBehind('down', me, { x: 100, y: 140 }), 'struck from the front: not behi
     ok(MERCHANT_CATALOG.some(e => e.id === 'claymore'), 'sold by the Merchant');
 }
 
+// ---- review fixes: the weapon that actually swung, and what the screen calls it
+{
+    const { ITEMS } = await import('../src/data/items.js');
+    eq([W.creditType(ITEMS.crude_dagger), W.creditType(ITEMS.hunters_shortbow), W.creditType(null), W.creditType(ITEMS.iron_mace)],
+       ['umbral_dagger', 'resonance_bow', 'fists', 'mace'], 'quest credit keeps the old weapon names; empty hands are fists');
+    eq([W.weaponLabel(ITEMS.crude_dagger), W.weaponLabel(null), W.weaponLabel(ITEMS.hunting_spear)], ['Umbral Dagger', 'Fists', 'Spear'], 'the screen never calls empty hands a staff');
+    const { PlayerStats } = await import('../src/systems/PlayerStats.js');
+    const s = new PlayerStats();
+    s.weaponEnchants = { crude_dagger: 'venomous', longsword: 'keen' };
+    s.equipment.weapon = 'longsword'; s.equipment.offHand = 'crude_dagger';
+    eq([s.activeEnchant(), s.activeEnchant('crude_dagger')], ['keen', 'venomous'], 'each hand uses its own enchantment');
+}
+
 console.log(`test_weapons: ${n} checks passed`);

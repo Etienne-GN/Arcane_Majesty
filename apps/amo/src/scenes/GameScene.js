@@ -50,7 +50,7 @@ import { ChunkStreamer, chunkKey, chunkOfTile, bucketByChunk } from '../systems/
 import { RETURN_KEY, doorLockState, doorReturnPoint, pushReturn, resolvePortal, clearReturnsOutside } from '../systems/interiors.js';
 import { DECORATION_SOURCES } from '../systems/walkGrid.js';
 import { TownsfolkManager } from '../systems/TownsfolkManager.js';
-import { typeOf } from '../systems/weapons.js';
+import { typeOf, creditType } from '../systems/weapons.js';
 import { fogFor, revealAround, encodeFog, newlyDiscovered, REVEAL_RADIUS, DENSE_REVEAL_RADIUS } from '../systems/fog.js';
 import { denseMask, isDenseAt } from '../systems/mapPaint.js';
 import { buildMapTexture, repaintMapTexture } from '../systems/mapTexture.js';
@@ -479,7 +479,7 @@ export default class GameScene extends Phaser.Scene {
             Object.entries(RESONANCE_GAINS.kill_boss).forEach(([el, amt]) => playerStats.gainResonance(el, amt));
             questManager.onKill('void_general', {
                 inVeil:     this.player._shadowVeilActive,
-                weaponType: playerStats.activeWeaponType,
+                weaponType: this._killWeaponType(),
                 isBoss:     true,
                 mapId:      this._mapId,
             });
@@ -1089,6 +1089,10 @@ export default class GameScene extends Phaser.Scene {
             this._enterTargetingMode(spellId);
         }
     }
+
+    // Combat C1: the item behind the last swing (either hand), else the main hand
+    _swingItemNow() { return this.player?._swingItem !== undefined ? this.player._swingItem : playerStats.equipment.weapon; }
+    _killWeaponType() { return creditType(ITEMS[this._swingItemNow()]); }
 
     _tryPower() {
         if (!this.player?.active) return;
@@ -3842,12 +3846,12 @@ export default class GameScene extends Phaser.Scene {
             Object.entries(gains).forEach(([el, amt]) => playerStats.gainResonance(el, amt));
             questManager.onKill(type, {
                 inVeil:     this.player._shadowVeilActive,
-                weaponType: playerStats.activeWeaponType,
+                weaponType: this._killWeaponType(),
                 isBoss:     false,
                 isElite:    !!enemy.elite,
                 mapId:      this._mapId,
             });
-            if (playerStats.activeWeaponType === 'resonance_bow' &&
+            if (this._killWeaponType() === 'resonance_bow' &&
                 !questManager.isActive('hidden_hunters_trial') &&
                 !questManager.isCompleted('hidden_hunters_trial')) {
                 questManager.startQuest('hidden_hunters_trial');
@@ -3857,7 +3861,7 @@ export default class GameScene extends Phaser.Scene {
         });
 
         enemy.on('gold', (amount) => {
-            const hasSH = ITEMS[playerStats.equipment.weapon]?.passive === 'shadow_harvest';
+            const hasSH = ITEMS[this._swingItemNow()]?.passive === 'shadow_harvest';
             const gold  = hasSH && enemy._killedInVeil ? Math.floor(amount * 1.5) : amount;
             playerStats.glint += gold;
             const txt = this.add.text(enemy.x + 8, enemy.y - 10, `+${gold}gl`, {

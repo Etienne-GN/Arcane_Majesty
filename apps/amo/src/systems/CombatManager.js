@@ -26,7 +26,7 @@ export default class CombatManager {
         const stats     = this.player.stats;
         const weaponId  = this.player._swingItem !== undefined ? this.player._swingItem : stats.equipment.weapon;
         const weaponDef = weaponId ? ITEMS[weaponId] : null;
-        const enchant   = stats.activeEnchant?.() ?? weaponDef?.enchant ?? null;
+        const enchant   = stats.activeEnchant?.(weaponId) ?? weaponDef?.enchant ?? null;
         const passive   = weaponDef?.passive ?? null;
 
         let { dmg, isCrit } = this._calcDamage(isPower);
@@ -132,7 +132,7 @@ export default class CombatManager {
         const strikeBonus = (stats.skills['basic_strike']?.level ?? 0) * 3;
         const slashBonus  = isPower ? (stats.skills['power_slash']?.level ?? 0) * 6 : 0;
         const critChance  = 0.08 + stats.attributes.agility * 0.012 + (stats.skills['keen_eye']?.level ?? 0) * 0.05
-                          + (stats.activeEnchant?.() === 'keen' ? 0.08 : 0);
+                          + (stats.activeEnchant?.(swingItem) === 'keen' ? 0.08 : 0);
         const isCrit      = !isPower && Math.random() < critChance;
         let dmg = base + strikeBonus + slashBonus + Phaser.Math.Between(-2, 3);
 

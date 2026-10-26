@@ -1,3 +1,5 @@
+import { weaponLabel } from '../systems/weapons.js';
+import { ITEMS } from '../data/items.js';
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { TILE_SIZE } from '../data/worldMap.js';
@@ -209,7 +211,7 @@ export default class UIScene extends Phaser.Scene {
         }
 
         const wt = this.stats.activeWeaponType;
-        const wtLabel = { staff: 'Staff', spell_blade: 'Spell-Blade', umbral_dagger: 'Umbral Dagger', resonance_bow: 'Resonance Bow' }[wt] ?? wt;
+        const wtLabel = weaponLabel(ITEMS[this.stats.equipment.weapon]);
         const wtColor = { staff: '#556677', spell_blade: '#44ccff', umbral_dagger: '#cc44ff', resonance_bow: '#88ddaa' }[wt] ?? '#556677';
         this._weaponLabel?.setText(`[${wtLabel}]`).setStyle({ fill: wtColor });
 

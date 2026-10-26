@@ -35,6 +35,14 @@ export function typeOf(def) {
     return WEAPON_TYPES[t] && t !== 'fists' ? t : 'fists';
 }
 
+// The weapon type quests credit a kill to: the item's own weaponType (old items keep
+// their old names, e.g. 'umbral_dagger'), 'fists' for empty hands.
+export const creditType = def => (def?.slot === 'weapon' && def.weaponType) || 'fists';
+
+// What the screen calls the weapon in hand
+const LEGACY_LABEL = { staff: 'Staff', spell_blade: 'Spell-Blade', umbral_dagger: 'Umbral Dagger', resonance_bow: 'Resonance Bow' };
+export const weaponLabel = def => LEGACY_LABEL[def?.weaponType] ?? WEAPON_TYPES[typeOf(def)].label;
+
 const twoHanded = def => WEAPON_TYPES[typeOf(def)].hands === 2;
 
 // Where an item goes and what must come off first. null: not a weapon.

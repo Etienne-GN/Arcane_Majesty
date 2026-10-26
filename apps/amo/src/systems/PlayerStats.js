@@ -584,7 +584,10 @@ export class PlayerStats {
         }
         if (!(eqSlot in this.equipment)) return false;
 
-        // Out of the satchel first, so a full satchel can still swap
+        // Everything that comes off must fit back in the satchel (the item being
+        // equipped frees one slot); otherwise refuse — never hide an item.
+        const back = [...new Set([...clear, eqSlot])].filter(slot => this.equipment[slot]).length;
+        if (this.inventory.length - 1 + back > this.getSatchelCapacity()) return false;
         this.inventory.splice(idx, 1);
         for (const slot of [...clear, eqSlot]) {
             if (this.equipment[slot]) { this._returnEquippedToInventory(slot); this._notifyEquipChange(slot, null); }
@@ -737,8 +740,7 @@ export class PlayerStats {
     // Stack-aware inventory queries. Stackable items live in one slot with a
     // qty, so a count is the sum of quantities, not the number of slots.
     // The equipped weapon's enchantment: one applied at the forge, else its own.
-    activeEnchant() {
-        const w = this.equipment.weapon;
+    activeEnchant(w = this.equipment.weapon) {   // Combat C1: the hand that swung
         if (!w) return null;
         return this.weaponEnchants?.[w] ?? ITEMS[w]?.enchant ?? null;
     }

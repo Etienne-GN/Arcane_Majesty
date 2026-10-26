@@ -139,6 +139,31 @@ if (statusManager?.speedMult) {
     old3.equipment.offHand = 'crude_dagger';                      // left over from the last character in memory
     SaveManager.migrateCombatC1(old3, { equipment: { weapon: 'longsword' } });
     eq(old3.equipment.offHand, null, 'an old save never inherits an off-hand weapon from memory');
+    // a two-hander with both hands full and a full satchel: refused, nothing hidden
+    {
+        const f = new PlayerStats();
+        f.addItem('longsword', 1); f.addItem('crude_dagger', 1);
+        f.equipItem('longsword'); f.equipItem('crude_dagger', 'off');
+        while (f.inventory.length < f.getSatchelCapacity() - 1) f.inventory.push({ id: 'wood', name: 'Wood', qty: 1, stackable: false });
+        f.addItem('claymore', 1);
+        eq(f.inventory.length, f.getSatchelCapacity(), 'the satchel is full, the Claymore in it');
+        ok(!f.equipItem('claymore'), 'equipping it would need two free slots: refused');
+        eq([f.equipment.weapon, f.equipment.offHand, f.inventory.length], ['longsword', 'crude_dagger', f.getSatchelCapacity()], 'nothing moved, nothing hidden');
+    }
+    // through a real save + load: the free staff's stats count, and taking it off restores the save
+    {
+        const p0 = new PlayerStats();
+        SaveManager.save(p0, 'c1review', 'eldrin');
+        const raw = JSON.parse(localStorage.getItem('amo_save_c1review_eldrin'));
+        delete raw.equipment.offHand; delete raw.moveSlots; raw.equipment.weapon = null;
+        localStorage.setItem('amo_save_c1review_eldrin', JSON.stringify(raw));
+        const p1 = new PlayerStats();
+        SaveManager.load(p1, 'c1review', 'eldrin');
+        const staffInt = ITEMS.novice_staff.stats?.intelligence ?? 0;
+        eq([p1.equipment.weapon, p1.attributes.intelligence], ['novice_staff', raw.attributes.intelligence + staffInt], 'the free staff\'s Intelligence counts after load');
+        p1.unequipItem('weapon');
+        eq([p1.attributes.intelligence, p1.maxMana], [raw.attributes.intelligence, raw.maxMana], 'and taking it off gives back exactly the saved character');
+    }
 }
 
 console.log(`✓ player-stats tests passed (${n} assertions).`);
