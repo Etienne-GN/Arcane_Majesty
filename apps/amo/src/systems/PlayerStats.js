@@ -1,4 +1,5 @@
 import { ITEMS, SATCHEL_TIERS } from '../data/items.js';
+import { equipPlan, resolveMoves, movesFor } from './weapons.js';
 import { SPELLS, RESONANCE_ELEMENTS } from '../data/spells.js';
 import { UPGRADE_MAX, upgradeCost, upgradedStats } from '../data/upgrades.js';
 import { vigorMax } from './movementRules.js';
@@ -98,7 +99,8 @@ export class PlayerStats {
         this.satchelTier = 1;
 
         // Equipment slots
-        this.equipment = { head: null, body: null, weapon: null, accessory1: null, accessory2: null };
+        this.equipment = { head: null, body: null, weapon: null, offHand: null, accessory1: null, accessory2: null };
+        this.moveSlots = { attack: null, second: null };   // Combat C1: null = the default move
 
         this.skills = {
             'basic_strike': {
@@ -562,26 +564,33 @@ export class PlayerStats {
         return true;
     }
 
-    // Equip an item from inventory to its equipment slot
-    equipItem(itemId) {
+    // Equip an item from inventory. Weapons go to a hand (Combat C1): the main hand
+    // by default, the off hand on request; two-handers and shields follow
+    // weapons.js equipPlan, and whatever they displace returns to the satchel.
+    equipItem(itemId, hand = 'main') {
         const def = ITEMS[itemId];
         if (!def?.slot) return false;
         const idx = this.inventory.findIndex(i => i.id === itemId);
         if (idx < 0) return false;
 
-        // For accessories, use first free slot
         let eqSlot = def.slot;
-        if (eqSlot === 'accessory') {
+        const clear = [];
+        if (def.slot === 'weapon') {
+            const plan = equipPlan(this.equipment, def, hand, ITEMS);
+            eqSlot = plan.slot;
+            clear.push(...plan.clear);
+        } else if (eqSlot === 'accessory') {
             eqSlot = this.equipment.accessory1 === null ? 'accessory1' : 'accessory2';
         }
         if (!(eqSlot in this.equipment)) return false;
 
-        // Swap out current item in that slot back to inventory
-        if (this.equipment[eqSlot]) this._returnEquippedToInventory(eqSlot);
-
+        // Out of the satchel first, so a full satchel can still swap
+        this.inventory.splice(idx, 1);
+        for (const slot of [...clear, eqSlot]) {
+            if (this.equipment[slot]) { this._returnEquippedToInventory(slot); this._notifyEquipChange(slot, null); }
+        }
         this.equipment[eqSlot] = itemId;
         this._applyEquipStats(itemId);
-        this.inventory.splice(idx, 1);
         this._notifyEquipChange(eqSlot, itemId);
         return true;
     }
@@ -601,6 +610,25 @@ export class PlayerStats {
         });
         this._notifyEquipChange(slot, null);
         return true;
+    }
+
+    // Combat C1: the two action buttons
+    availableMoves() { return movesFor(this.equipment, ITEMS); }
+    resolvedMoves()  { return resolveMoves(this.moveSlots, this.equipment, ITEMS); }
+    setMoveSlot(button, moveId) {
+        if (!(button in this.moveSlots)) return false;
+        if (moveId !== null && !this.availableMoves().some(m => m.id === moveId)) return false;
+        this.moveSlots[button] = moveId;
+        return true;
+    }
+    // A new game's weapons (data/characters.js startKit)
+    giveStartKit(kit = {}) {
+        for (const [slot, hand] of [['weapon', 'main'], ['offHand', 'off']]) {
+            const id = kit?.[slot];
+            if (!id || !ITEMS[id]) continue;
+            this.addItem(id, 1);
+            this.equipItem(id, hand);
+        }
     }
 
     _returnEquippedToInventory(slot) {
@@ -759,7 +787,8 @@ export class PlayerStats {
         this.skillPoints = 0;
         this.attributePoints = 0;
         this.satchelTier = 1;
-        this.equipment = { head: null, body: null, weapon: null, accessory1: null, accessory2: null };
+        this.equipment = { head: null, body: null, weapon: null, offHand: null, accessory1: null, accessory2: null };
+        this.moveSlots = { attack: null, second: null };   // Combat C1: null = the default move
         this.inventory = [];
         this.attributes  = { strength: 5, intelligence: 5, stamina: 5, agility: 5 };
         this.maxHealth   = 60 + this.attributes.stamina      * 8;

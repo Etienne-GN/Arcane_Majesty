@@ -102,4 +102,39 @@ if (statusManager?.speedMult) {
     eq(Object.keys(s.chestContents).length, 0, 'chest contents reset');
 }
 
+// ---- Combat C1: two hands, move slots, starting kits, old saves
+{
+    const { PlayerStats } = await import('../src/systems/PlayerStats.js');
+    const s = new PlayerStats();
+    eq(s.equipment.offHand, null, 'a fresh character has an empty off hand');
+    eq(s.moveSlots, { attack: null, second: null }, 'and default buttons');
+    const give = id => s.addItem(id, 1);
+    give('longsword'); give('novice_staff');
+    ok(s.equipItem('longsword') && s.equipItem('novice_staff', 'off'), 'full Gandalf: sword in the main hand, staff in the off hand');
+    eq([s.equipment.weapon, s.equipment.offHand], ['longsword', 'novice_staff'], 'both hands held');
+    eq([s.resolvedMoves().attack.type, s.resolvedMoves().second.type], ['sword', 'staff'], 'attack slashes, the second button blasts');
+    ok(s.setMoveSlot('attack', 'off:basic') && s.setMoveSlot('second', 'main:basic'), 'swap the buttons');
+    eq([s.resolvedMoves().attack.type, s.resolvedMoves().second.type], ['staff', 'sword'], 'staff on attack now');
+    ok(!s.setMoveSlot('attack', 'off:block'), 'a move the gear does not offer is refused');
+    give('hunters_shortbow');
+    ok(s.equipItem('hunters_shortbow'), 'a bow takes both hands');
+    eq([s.equipment.weapon, s.equipment.offHand], ['hunters_shortbow', null], 'the off hand was freed');
+    ok(s.inventory.some(i => i.id === 'novice_staff') && s.inventory.some(i => i.id === 'longsword'), 'nothing lost: both went back to the satchel');
+    eq(s.resolvedMoves().attack.id, 'main:basic', 'a stale slot falls back to the default');
+
+    const k = new PlayerStats();
+    k.giveStartKit({ weapon: 'etched_shortsword', offHand: 'crude_dagger' });
+    eq([k.equipment.weapon, k.equipment.offHand], ['etched_shortsword', 'crude_dagger'], 'Seraphina\'s starting kit: sword and dagger');
+
+    // an old save: no offHand, no moveSlots, empty weapon
+    const old = new PlayerStats();
+    const data = { equipment: { head: null, body: null, weapon: null, accessory1: null, accessory2: null }, inventory: [] };
+    SaveManager.migrateCombatC1(old, data);
+    eq(old.equipment.weapon, 'novice_staff', 'an old empty-handed save gets a Novice Staff (it attacked like a staff)');
+    const old2 = new PlayerStats();
+    old2.equipment.weapon = 'longsword';
+    SaveManager.migrateCombatC1(old2, { equipment: { weapon: 'longsword' } });
+    eq([old2.equipment.weapon, old2.equipment.offHand], ['longsword', null], 'an old armed save keeps its weapon in the main hand');
+}
+
 console.log(`✓ player-stats tests passed (${n} assertions).`);

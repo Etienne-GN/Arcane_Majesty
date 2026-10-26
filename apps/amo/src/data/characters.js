@@ -3,6 +3,7 @@
 export const CHARACTERS = [
     {
         id:          'eldrin',
+        startKit:    { weapon: 'novice_staff' },   // Combat C1: what a new game starts holding
         name:        'Eldrin',
         class:       'Blind Prophet',
         description: 'Activated by Vorgos in the Epoch of Silence to secure the Heart Stone of Creation — a cure for a wound the world has not yet suffered.',
@@ -14,6 +15,7 @@ export const CHARACTERS = [
     },
     {
         id:          'eldrin_forge',
+        startKit:    { weapon: 'novice_staff' },   // Combat C1: what a new game starts holding
         name:        'Eldrin',
         class:       'Blind Prophet (Forge)',
         description: 'The same Eldrin, rendered from the lpc-forge composition — a variant skin, not a different character.',
@@ -25,6 +27,7 @@ export const CHARACTERS = [
     },
     {
         id:          'kael',
+        startKit:    { weapon: 'longsword' },   // Combat C1: what a new game starts holding
         name:        'Kael',
         class:       'Living Lock',
         description: "Descendant of Acheron's most loyal servant — his bloodline was chosen to carry the Aurorian Spark so the Thirst could never fully consume Acheron's divine light.",
@@ -36,6 +39,7 @@ export const CHARACTERS = [
     },
     {
         id:          'anya',
+        startKit:    { weapon: 'willow_wand' },   // Combat C1: what a new game starts holding
         name:        'Anya',
         class:       'Void Echo',
         description: 'Torn from Auroria by Vorgos at the moment of the Great Darkness and cast into the Underworld — her sacrifice sealed Nyktoros and made her the Silent Guardian of the prison.',
@@ -47,6 +51,7 @@ export const CHARACTERS = [
     },
     {
         id:          'seraphina',
+        startKit:    { weapon: 'etched_shortsword', offHand: 'crude_dagger' },   // Combat C1: what a new game starts holding
         name:        'Seraphina',
         class:       'Queen of Carnage',
         description: 'A rebel who stood against Malakar during the Shadow Civil War. In the Age of Shadows she founds the Shadow Legion and becomes its ruthless queen.',

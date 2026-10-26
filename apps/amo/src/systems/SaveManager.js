@@ -1,3 +1,4 @@
+import { ITEMS } from '../data/items.js';
 import { xpForLevel } from './PlayerStats.js';
 import { prunedWorldState } from './WorldState.js';
 function saveKey(storyId, characterId) {
@@ -10,6 +11,18 @@ function saveKey(storyId, characterId) {
 let _slot = { storyId: null, characterId: null };
 
 export class SaveManager {
+    // Combat C1: before two hands an empty weapon slot attacked like a staff. Such a
+    // save (no offHand in its equipment) is given a Novice Staff in the main hand.
+    static migrateCombatC1(stats, d) {
+        if (stats?.equipment && d?.equipment && !('offHand' in d.equipment)) {
+            stats.equipment.offHand ??= null;
+            if (!stats.equipment.weapon && ITEMS.novice_staff) {
+                stats.equipment.weapon = 'novice_staff';
+                stats._applyEquipStats?.('novice_staff');   // as a normal equip would
+            }
+        }
+    }
+
     static setSlot(storyId, characterId) {
         _slot = { storyId: storyId ?? null, characterId: characterId ?? null };
     }
@@ -35,6 +48,7 @@ export class SaveManager {
             satchelTier:   stats.satchelTier ?? 1,
             attributes:    { ...stats.attributes },
             equipment:     { ...stats.equipment },
+            moveSlots:     { ...stats.moveSlots },
             skills:        Object.fromEntries(
                                Object.entries(stats.skills).map(([k, v]) => [k, { level: v.level }])
                            ),
@@ -102,6 +116,8 @@ export class SaveManager {
             stats.satchelTier     = d.satchelTier ?? 1;
             stats.inventory       = d.inventory ?? [];
             if (d.equipment) Object.assign(stats.equipment, d.equipment);
+            stats.moveSlots = { attack: null, second: null, ...d.moveSlots };
+            SaveManager.migrateCombatC1(stats, d);
             Object.assign(stats.attributes, d.attributes);
             Object.entries(d.skills ?? {}).forEach(([k, v]) => {
                 if (stats.skills[k]) stats.skills[k].level = v.level;

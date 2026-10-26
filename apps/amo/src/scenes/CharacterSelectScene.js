@@ -226,6 +226,7 @@ export default class CharacterSelectScene extends Phaser.Scene {
         } else {
             SaveManager.deleteSave(this._storyId, c.id);
             playerStats.reset();
+            playerStats.giveStartKit(c.startKit);
             this.registry.remove('prologueSeen');
         }
 
