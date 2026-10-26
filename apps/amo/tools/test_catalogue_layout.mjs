@@ -34,8 +34,14 @@ eq(catalogueLayout({ hitbox: null, layer: 'under' }, box, { depthOffset: 1 }).de
     const { readFileSync } = await import('node:fs');
     for (const f of ['src/systems/TownsfolkManager.js', 'src/scenes/GameScene.js']) {
         const src = readFileSync(new URL(`../${f}`, import.meta.url), 'utf8');
-        assert.ok(!/setDepth\(2[56]\)\.setResolution/.test(src) && !/setDepth\(2[56]\);\s*$/m.test(src.split('say(')[1] ?? ''), `${f}: no world label at a fixed low depth`); n++;
+        const low = [...src.matchAll(/\.setDepth\(([^)]*)\)\.setResolution\(3\)/g)].map(m => m[1]).filter(d => !d.startsWith('LABEL_DEPTH'));
+        assert.deepStrictEqual(low, [], `${f}: every world label at LABEL_DEPTH`); n++;
     }
+}
+
+{
+    const src = (await import('node:fs')).readFileSync(new URL('../src/scenes/GameScene.js', import.meta.url), 'utf8');
+    assert.ok(/setScrollFactor\(0\)\.setDepth\(LABEL_DEPTH \+ 1\)/.test(src) && /setScrollFactor\(0\)\.setDepth\(LABEL_DEPTH \+ 2\)/.test(src), 'the chapter banner draws over name labels'); n++;
 }
 
 console.log(`✓ catalogue-layout tests passed (${n} assertions).`);

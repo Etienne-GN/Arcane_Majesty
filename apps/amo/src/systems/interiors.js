@@ -3,6 +3,8 @@
 // order. Pure — tools/test_interiors.mjs. GameScene uses it for doors and the
 // '__return' exit portal every generated interior has.
 
+import { stampLayout } from './respawn.js';
+
 export const RETURN_KEY = '__return';
 
 export function doorLockState(def, stats) {
@@ -20,19 +22,22 @@ export function doorReturnPoint(def, tilePx = 32) {
     return { x: (def.x + back[0]) * tilePx + tilePx / 2, y: (def.y + back[1]) * tilePx + tilePx / 2 };
 }
 
-export function pushReturn(stats, entry) {
+// W6: a way back remembers the layout of the map it leads to (no field = 1), like
+// saved spots (respawn.js). One made before that map was rebuilt may now be a wall.
+export function pushReturn(stats, entry, layout = 1) {
     stats.interiorReturn ??= [];
-    stats.interiorReturn.push({ mapId: entry.mapId, x: entry.x, y: entry.y });
+    stats.interiorReturn.push(stampLayout({ mapId: entry.mapId, x: entry.x, y: entry.y }, layout));
 }
 
-export function resolvePortal(portalDef, stats, mapDef, tilePx = 32) {
+export function resolvePortal(portalDef, stats, mapDef, tilePx = 32, layoutOf = () => 1) {
     if (portalDef.targetMap !== RETURN_KEY) {
         return { targetMap: portalDef.targetMap, targetX: portalDef.targetX, targetY: portalDef.targetY };
     }
     const top = stats.interiorReturn?.pop();
-    if (top) return { targetMap: top.mapId, targetX: top.x, targetY: top.y };
     const fb = mapDef?.exitFallback;
+    if (top && (top.layout ?? 1) === (layoutOf(top.mapId) ?? 1)) return { targetMap: top.mapId, targetX: top.x, targetY: top.y };
     if (fb) return { targetMap: fb.map, targetX: fb.x * tilePx + tilePx / 2, targetY: fb.y * tilePx + tilePx / 2 };
+    if (top) return { targetMap: top.mapId, targetX: undefined, targetY: undefined };   // a rebuilt map: its start
     return null;
 }
 

@@ -823,7 +823,7 @@ export default class GameScene extends Phaser.Scene {
             wall.setAlpha(0).setDisplaySize(hb.w, hb.h).refreshBody();
             sprite.ePrompt = this.add.text(bx, top + hb.y - 2, `[E] ${STATION_LABELS[def.type]}`, {
                 font: '7px monospace', fill: '#ffff88', stroke: '#000', strokeThickness: 2
-            }).setOrigin(0.5, 1).setDepth(by + 2).setResolution(3).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3).setAlpha(0);
             this.stations.push(sprite);
         });
     }
@@ -850,7 +850,7 @@ export default class GameScene extends Phaser.Scene {
             wall.setAlpha(0).setDisplaySize(hb.w, hb.h).refreshBody();
             sprite.ePrompt = this.add.text(bx, top - 2, '[E] Bounty Board', {
                 font: '7px monospace', fill: '#ffff88', stroke: '#000', strokeThickness: 2
-            }).setOrigin(0.5, 1).setDepth(by + 2).setResolution(3).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3).setAlpha(0);
             this.bountyBoards.push(sprite);
         });
     }
@@ -2193,12 +2193,12 @@ export default class GameScene extends Phaser.Scene {
             // Label
             const label = this.add.text(wx, wy - 28, gate.label, {
                 font: '6px monospace', fill: '#66aaff', stroke: '#000022', strokeThickness: 1
-            }).setOrigin(0.5, 1).setDepth(wy + 10).setResolution(3).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3).setAlpha(0);
 
             // [E] prompt
             const prompt = this.add.text(wx, wy + 26, '[E]', {
                 font: '7px monospace', fill: '#88ccff'
-            }).setOrigin(0.5).setDepth(wy + 10).setResolution(3).setAlpha(0);
+            }).setOrigin(0.5).setDepth(LABEL_DEPTH).setResolution(3).setAlpha(0);
 
             // Interaction zone
             const zone = this.add.zone(wx, wy, 48, 48);
@@ -2247,7 +2247,7 @@ export default class GameScene extends Phaser.Scene {
         if (this._transitioning) return;
         // An interior's exit goes back through the door you came in by (W3)
         if (portalDef.targetMap === RETURN_KEY) {
-            const back = resolvePortal(portalDef, playerStats, this._mapDef);
+            const back = resolvePortal(portalDef, playerStats, this._mapDef, TILE_SIZE, id => getMap(id)?.layoutVersion ?? 1);
             if (!back) {
                 this.scene.get('UIScene')?.showNotification?.('The way out is blocked.', 1500);
                 return;
@@ -2294,7 +2294,7 @@ export default class GameScene extends Phaser.Scene {
             this.scene.get('UIScene')?.showNotification?.('The door will not open.', 1500);
             return;
         }
-        pushReturn(playerStats, { mapId: this._mapId, ...doorReturnPoint(def) });
+        pushReturn(playerStats, { mapId: this._mapId, ...doorReturnPoint(def) }, this._mapDef.layoutVersion ?? 1);
         this._enterPortal({
             targetMap: def.interior,
             targetX: target.playerStart.x * TILE_SIZE + TILE_SIZE / 2,
@@ -2445,7 +2445,7 @@ export default class GameScene extends Phaser.Scene {
         // "CHANNELING…" label above player
         const castLabel = this.add.text(px, py - 36, 'CHANNELING…', {
             font: 'bold 8px monospace', fill: '#cc88ff', stroke: '#000', strokeThickness: 2,
-        }).setOrigin(0.5).setDepth(70).setResolution(3);
+        }).setOrigin(0.5).setDepth(LABEL_DEPTH).setResolution(3);
         this._castVfx.push(castLabel);
 
         // Progress bar
@@ -2569,7 +2569,7 @@ export default class GameScene extends Phaser.Scene {
 
         const castLabel = this.add.text(px, py - 50, 'INSCRIBING…', {
             font: 'bold 8px monospace', fill: '#ffdd88', stroke: '#000', strokeThickness: 2,
-        }).setOrigin(0.5).setDepth(72).setResolution(3);
+        }).setOrigin(0.5).setDepth(LABEL_DEPTH).setResolution(3);
 
         const barW = 52, barH = 5;
         const barBg   = this.add.rectangle(px, py - 38, barW, barH, 0x111111, 0.9).setOrigin(0.5).setDepth(72);
@@ -3797,12 +3797,12 @@ export default class GameScene extends Phaser.Scene {
     _showChapterTitle(title) {
         // Fixed to camera — uses setScrollFactor(0)
         const w = this.scale.width, h = this.scale.height;
-        // Above the night darkness (depth 1e6)
-        const bar = this.add.rectangle(0, h / 2 - 14, w, 28, 0x000000, 0.75).setOrigin(0).setScrollFactor(0).setDepth(1e6 + 1).setAlpha(0);
+        // Above the night darkness and the world's labels
+        const bar = this.add.rectangle(0, h / 2 - 14, w, 28, 0x000000, 0.75).setOrigin(0).setScrollFactor(0).setDepth(LABEL_DEPTH + 1).setAlpha(0);
         const txt = this.add.text(w / 2, h / 2, title, {
             font: 'bold 13px monospace', fill: '#ffd700',
             stroke: '#000', strokeThickness: 2
-        }).setOrigin(0.5).setScrollFactor(0).setDepth(1e6 + 2).setAlpha(0);
+        }).setOrigin(0.5).setScrollFactor(0).setDepth(LABEL_DEPTH + 2).setAlpha(0);
 
         this.tweens.add({
             targets: [bar, txt], alpha: 1, duration: 600, hold: 2200,

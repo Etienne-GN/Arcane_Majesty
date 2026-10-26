@@ -178,4 +178,22 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     ok(getMap('east_road_cave').interior, 'the Hollow, a cave in the Wilds');
 }
 
+// ---- W6: a door's way back remembers the city's layout; an old one is not trusted
+{
+    const I2 = await import('../src/systems/interiors.js');
+    const layoutOf = id => (id === 'thaloria' ? 2 : 1);
+    const inn = { exitFallback: { map: 'thaloria', x: 72, y: 79 } };
+    const exit = { targetMap: I2.RETURN_KEY };
+    const old = { interiorReturn: [{ mapId: 'thaloria', x: 5 * 32 + 16, y: 17 * 32 + 16 }] };   // saved before W6
+    eq(I2.resolvePortal(exit, old, inn, 32, layoutOf), { targetMap: 'thaloria', targetX: 72 * 32 + 16, targetY: 79 * 32 + 16 }, 'an old way back (now inside the wall) gives way to the door\'s own front');
+    const now = {};
+    I2.pushReturn(now, { mapId: 'thaloria', x: 100, y: 200 }, 2);
+    eq(now.interiorReturn, [{ mapId: 'thaloria', x: 100, y: 200, layout: 2 }], 'a new way back carries its layout');
+    eq(I2.resolvePortal(exit, now, inn, 32, layoutOf), { targetMap: 'thaloria', targetX: 100, targetY: 200 }, 'and is trusted');
+    const cellar = {};
+    I2.pushReturn(cellar, { mapId: 'thaloria_inn', x: 10, y: 20 });
+    eq(I2.resolvePortal(exit, cellar, {}, 32, layoutOf), { targetMap: 'thaloria_inn', targetX: 10, targetY: 20 }, 'a room\'s way back (layout 1) is unchanged');
+    eq(I2.resolvePortal(exit, { interiorReturn: [{ mapId: 'thaloria', x: 1, y: 1 }] }, {}, 32, layoutOf), { targetMap: 'thaloria', targetX: undefined, targetY: undefined }, 'no fallback: the city\'s start, never the old spot');
+}
+
 console.log(`test_interiors: ${n} checks passed`);
