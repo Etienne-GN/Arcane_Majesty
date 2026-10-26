@@ -12,6 +12,10 @@ export const CHAR_FEET_OFFSET = 28;
 export const UNDER_DEPTH = 2;
 // Always above everything y-sorted.
 export const OVER_DEPTH = 100000;
+// The night darkness, above the whole world (every 'over' piece included).
+export const DARK_DEPTH = 1e6;
+// World text — speech bubbles, names, "E" prompts — reads above everything, darkness too.
+export const LABEL_DEPTH = 2e6;
 
 /**
  * entry: catalogue entry (may carry `layer` and `hitbox`)

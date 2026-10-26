@@ -25,4 +25,17 @@ assert.ok(catalogueLayout({ hitbox: null, layer: 'over' }, box, {}).depth >= OVE
 // depthOffset still applies
 eq(catalogueLayout({ hitbox: null, layer: 'under' }, box, { depthOffset: 1 }).depth, UNDER_DEPTH + 1);
 
+// World text (speech bubbles, names, "E" prompts) reads above everything: every
+// y-sorted thing, every 'over' piece on the biggest map, and the night darkness.
+{
+    const L = await import('../src/utils/catalogueLayout.js');
+    assert.ok(L.DARK_DEPTH > OVER_DEPTH + 256 * 32 * 2, 'the darkness covers every over piece'); n++;
+    assert.ok(L.LABEL_DEPTH > L.DARK_DEPTH, 'labels read above the darkness'); n++;
+    const { readFileSync } = await import('node:fs');
+    for (const f of ['src/systems/TownsfolkManager.js', 'src/scenes/GameScene.js']) {
+        const src = readFileSync(new URL(`../${f}`, import.meta.url), 'utf8');
+        assert.ok(!/setDepth\(2[56]\)\.setResolution/.test(src) && !/setDepth\(2[56]\);\s*$/m.test(src.split('say(')[1] ?? ''), `${f}: no world label at a fixed low depth`); n++;
+    }
+}
+
 console.log(`✓ catalogue-layout tests passed (${n} assertions).`);

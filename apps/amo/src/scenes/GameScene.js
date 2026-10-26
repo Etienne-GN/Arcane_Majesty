@@ -21,7 +21,7 @@ import { gameDay, gameHour, advanceClock, isNight, ambientAt, spawnActive } from
 import { pickBark } from '../systems/barks.js';
 import { mapBiome, WEATHER, weatherAt, isWet, spellWeatherMult, sightMult, isWarm,
          RAIN_TICK_MS, SNOW_TICK_MS, SNOW_COLD_MS, STORM, stormStrikeDamage } from '../data/weather.js';
-import { catalogueLayout } from '../utils/catalogueLayout.js';
+import { catalogueLayout, DARK_DEPTH, LABEL_DEPTH } from '../utils/catalogueLayout.js';
 import { DIALOGUES } from '../data/dialogues.js';
 import { SPELLS, TIER_NAMES, RESONANCE_GAINS, scaledStatus, spellRadius, spellDamageAt } from '../data/spells.js';
 import { statusManager } from '../systems/StatusManager.js';
@@ -305,7 +305,7 @@ export default class GameScene extends Phaser.Scene {
 
             sprite.ePrompt = this.add.text(cx, cy - TILE_SIZE / 2 - 4, '[E] Rest', {
                 font: '7px monospace', fill: '#ffbb44'
-            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3).setAlpha(0);
         });
 
         // Sign posts
@@ -320,7 +320,7 @@ export default class GameScene extends Phaser.Scene {
             if (sign.kind === 'book') sprite.setAlpha(0);   // W3: the shelf or desk under it is the art
             sprite.ePrompt = this.add.text(sx, sy - TILE_SIZE / 2 - 4, sign.kind === 'book' ? '[E] Read' : '[E]', {
                 font: '7px monospace', fill: '#ffff88'
-            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3).setAlpha(0);
         });
 
         // Doors into interiors (W3). The building's drawn door is the art; this is
@@ -339,7 +339,7 @@ export default class GameScene extends Phaser.Scene {
             }
             door.ePrompt = this.add.text(dx, dy - TILE_SIZE / 2 - 4, `[E] ${def.label ?? 'Enter'}`, {
                 font: '7px monospace', fill: def.locked ? '#cc9966' : '#ffff88'
-            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3).setAlpha(0);
         });
 
         // Item pickups group
@@ -381,12 +381,12 @@ export default class GameScene extends Phaser.Scene {
             const nameColor = def.isShop ? '#ffdd88' : '#aaffaa';
             this.add.text(nx, ny - TILE_SIZE / 2 - 2, def.name, {
                 font: '7px monospace', fill: nameColor, stroke: '#000', strokeThickness: 1
-            }).setOrigin(0.5, 1).setDepth(25).setResolution(3);
+            }).setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3);
 
             const promptLabel = def.isShop ? '[E] Shop' : '[E]';
             sprite.ePrompt = this.add.text(nx, ny - TILE_SIZE / 2 - 12, promptLabel, {
                 font: '7px monospace', fill: '#ffff88'
-            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3).setAlpha(0);
         });
 
         // Stations — cooking hearths and alchemy tables (data/stations.js)
@@ -419,7 +419,7 @@ export default class GameScene extends Phaser.Scene {
 
             sprite.ePrompt = this.add.text(cx, cy - TILE_SIZE / 2 - 4, def.hidden ? '[E] ?' : '[E]', {
                 font: '7px monospace', fill: '#ffff88'
-            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3).setAlpha(0);
         });
 
         // Gathering nodes (data/gathering.js) — some need a tool (axe, pickaxe, sickle, rod)
@@ -434,7 +434,7 @@ export default class GameScene extends Phaser.Scene {
             spr.gathered = false;
             spr.ePrompt  = this.add.text(nx, ny - TILE_SIZE / 2 - 4, '[E]', {
                 font: '7px monospace', fill: type.prompt
-            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3).setAlpha(0);
             // Still regrowing from an earlier visit?
             const left = nodeRegrowRemaining(playerStats, this._mapId, nodeKey(def), Date.now(), def.regrowMs ?? type.regrowMs);
             if (left > 0) { spr.setAlpha(0); this._setNodeGathered(spr, left); }
@@ -452,7 +452,7 @@ export default class GameScene extends Phaser.Scene {
             spr.boulderDef = def;
             spr.ePrompt = this.add.text(bx, by - TILE_SIZE / 2 - 4, '[E]', {
                 font: '7px monospace', fill: '#aa8844'
-            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3).setAlpha(0);
         });
 
         // Boss
@@ -751,7 +751,7 @@ export default class GameScene extends Phaser.Scene {
             // [E] hint
             const hint = this.add.text(gx, gy - 20, '[E]', {
                 font: '7px monospace', fill: '#998855'
-            }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
+            }).setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3).setAlpha(0);
 
             // Physics zone blocking the gate
             const zone = this.add.zone(gx, gy, def.w, def.h);
@@ -1001,7 +1001,7 @@ export default class GameScene extends Phaser.Scene {
         const M = 96;
         const w = Math.ceil(v.width) + 2 * M, h = Math.ceil(v.height) + 2 * M;
         if (!this._dark) {
-            this._dark = this.add.renderTexture(0, 0, w, h).setOrigin(0).setDepth(1e6);
+            this._dark = this.add.renderTexture(0, 0, w, h).setOrigin(0).setDepth(DARK_DEPTH);
             this._lightImg = this.make.image({ key: 'light_soft', add: false });
             this.events.once('shutdown', () => { this._lightImg?.destroy(); this._lightImg = null; });
         } else if (this._dark.width !== w || this._dark.height !== h) {
@@ -2867,7 +2867,7 @@ export default class GameScene extends Phaser.Scene {
 
         cf.ePrompt = this.add.text(tx, ty - TILE_SIZE / 2 - 4, '[E] Rest', {
             font: '7px monospace', fill: '#ffbb44'
-        }).setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
+        }).setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3).setAlpha(0);
 
         this.scene.get('UIScene')?.showNotification?.('Campfire placed — rest to restore HP/MP.', 2200);
         soundManager.collect();

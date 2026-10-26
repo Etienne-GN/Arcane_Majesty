@@ -7,6 +7,7 @@ import { chooseLive, inTheWay, steer, sideFor, tooClose } from './crowd.js';
 import { LOOK_DIRS, lookFrames, lookKey, SIT_FRAME } from './townsfolkLooks.js';
 import { isNight } from './gameClock.js';
 import { LOOKS } from '../data/townsfolk/looks.js';
+import { LABEL_DEPTH } from '../utils/catalogueLayout.js';
 
 const RESELECT_MS = 250;
 const FEET_LIFT = 16;   // sprite centre above the clock position (the feet sit near the tile centre)
@@ -68,10 +69,10 @@ export class TownsfolkManager {
         if (r.npc) {
             spr.npcDef = r.npc;
             spr.talked = !!this.scene._talkedNpcs?.has(r.npc.id);
-            spr.nameLabel = this.scene.add.text(spr.x, spr.y - 30, r.npc.name, textStyle(r.npc.isShop ? '#ffdd88' : '#aaffaa')).setOrigin(0.5, 1).setDepth(25).setResolution(3);
+            spr.nameLabel = this.scene.add.text(spr.x, spr.y - 30, r.npc.name, textStyle(r.npc.isShop ? '#ffdd88' : '#aaffaa')).setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3);
         }
         spr.ePrompt = this.scene.add.text(spr.x, spr.y - 40, r.npc?.isShop ? '[E] Shop' : '[E]', { font: '7px monospace', fill: '#ffff88' })
-            .setOrigin(0.5, 1).setDepth(25).setResolution(3).setAlpha(0);
+            .setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3).setAlpha(0);
         this.live.set(r.id, spr);
     }
 
@@ -123,7 +124,7 @@ export class TownsfolkManager {
         spr.bubble = this.scene.add.text(spr.x, spr.y - 30, text, {
             font: '7px monospace', fill: '#ffffff', backgroundColor: '#000000aa', padding: { x: 3, y: 2 },
             wordWrap: { width: 140 }, align: 'center',
-        }).setOrigin(0.5, 1).setDepth(26).setResolution(3);
+        }).setOrigin(0.5, 1).setDepth(LABEL_DEPTH).setResolution(3);
         const b = spr.bubble;
         this.scene.time.delayedCall(2600, () => { if (spr.bubble === b) { b.destroy(); spr.bubble = null; } });
     }
