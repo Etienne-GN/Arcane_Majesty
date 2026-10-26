@@ -84,8 +84,8 @@ export const SUMMIT_OF_DESPAIR = {
             x: 8, y: 19,
             label: 'Back down to the East Road',
             targetMap: 'east_road',
-            targetX: 49 * 32 + 16,   // the East Road's east end, below the climb
-            targetY: 10 * 32 + 16,
+            targetX: 189 * 32 + 16,   // the Wilds' east end, below the climb (tools/maps/east_road_layout.py EAST_ARRIVAL)
+            targetY: 40 * 32 + 16,
         },
         {
             id: 'to_sylvan_sanctuary',

@@ -54,4 +54,4 @@ LANDMARKS = [
 # TREE_THRESHOLD; the deep stands (noise above DENSE_NOISE, 6+ tiles from a path)
 # are the W5 dense layer. Tuned so 45–70% of the map is open ground.
 TREE_THRESHOLD = 0.0
-DENSE_NOISE = 0.2
+DENSE_NOISE = 0.05

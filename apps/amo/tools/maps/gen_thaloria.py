@@ -23,15 +23,14 @@ sys.path.insert(0, str(Path(__file__).parent))
 from sheetmap import SheetMap, AMO  # noqa: E402
 from region_writer import write_region  # noqa: E402
 import thaloria_layout as L  # noqa: E402
+import east_road_layout as ER  # noqa: E402
 
 OUT = AMO / 'src/data/maps/regions/thaloria.js'
 PLACES_OUT = AMO / 'src/data/townsfolk/thaloria_places.js'
 INTERIORS = AMO / 'src/data/maps/interiors'
 DOORS = json.loads((INTERIORS / 'doors.json').read_text()).get('thaloria', [])
 ROOM_SLOTS = json.loads((INTERIORS / 'places.json').read_text())
-# The Wilds' west entry. W6 Task 4 switches this to east_road_layout.WEST_ARRIVAL
-# when the Wilds replace today's East Road (whose west entry is (2, 17)).
-EAST_ROAD_ARRIVAL = (2, 17)
+EAST_ROAD_ARRIVAL = ER.WEST_ARRIVAL      # the Wilds' west entry, from the East Gate
 W, H = L.W, L.H
 rng = random.Random(503)
 sm = SheetMap()

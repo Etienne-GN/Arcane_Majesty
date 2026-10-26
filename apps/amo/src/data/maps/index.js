@@ -7,7 +7,6 @@ import { SAMPLEMAP }       from './samplemap.js';
 import { SUMMIT_OF_DESPAIR } from './summit_of_despair.js';
 import { ECHOES_OF_STONE }   from './echoes_of_stone.js';
 import { AETHERIC_VISION }   from './aetheric_vision.js';
-import { EAST_ROAD }         from './east_road.js';
 import { SYLVAN_SANCTUARY }  from './sylvan_sanctuary.js';
 import { FIRE_GATE }         from './fire_gate.js';
 import { THE_DESCENT }       from './the_descent.js';
@@ -24,6 +23,7 @@ import { WORLDTEST }         from './worldtest.js';
 import { decodeRegion } from '../../systems/regionFormat.js';
 import STREAMTEST_RAW from './regions/streamtest.js';
 import THALORIA_RAW from './regions/thaloria.js';
+import EAST_ROAD_RAW from './regions/east_road.js';
 import { INTERIORS } from './interiors/index.js';
 
 const REGISTRY = {
@@ -37,7 +37,7 @@ const REGISTRY = {
     echoes_of_stone:  ECHOES_OF_STONE,
     aetheric_vision:    AETHERIC_VISION,
     thaloria:           decodeRegion(THALORIA_RAW),
-    east_road:          EAST_ROAD,
+    east_road:          decodeRegion(EAST_ROAD_RAW),
     sylvan_sanctuary:   SYLVAN_SANCTUARY,
     fire_gate:          FIRE_GATE,
     the_descent:        THE_DESCENT,

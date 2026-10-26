@@ -139,6 +139,18 @@ def main():
                 depth = top + sh / 2 + off
             draws.append((depth, order, crop, dx, dy))
             order += 1
+    # Tree tiles (1), drawn as GameScene._buildTreeChunk does: a trunk that sorts
+    # with the props, and a canopy above everything (interiors set treeArt: false)
+    if m.get('treeArt') is not False:
+        trunk = Image.open(PUBLIC / 'assets/catalogued/tilesets/lpc/trunk.png').convert('RGBA').crop((0, 0, 96, 96)).resize((20, 24), Image.LANCZOS)
+        canopy = Image.open(PUBLIC / 'assets/catalogued/tilesets/lpc/treetop.png').convert('RGBA').crop((0, 0, 96, 80)).resize((44, round(80 * 36 / 112)), Image.LANCZOS)
+        for r, row in enumerate(tiles):
+            for c, t in enumerate(row):
+                if t == 1:
+                    x, y = c * TILE + TILE // 2, r * TILE + TILE // 2
+                    draws.append((y + 0.5, order, trunk, x - 10, y + 4 - 12))
+                    draws.append((OVER_DEPTH + y, order + 1, canopy, x - 22, y - 30))
+                    order += 2
     for _, _, crop, x, y in sorted(draws, key=lambda t: (t[0], t[1])):
         canvas.alpha_composite(crop, (int(x), int(y)))
     if shrink > 1:

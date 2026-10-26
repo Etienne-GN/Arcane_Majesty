@@ -58,4 +58,41 @@ const landsOpen = p => { const t = getMap(p.targetMap), tx = Math.floor(p.target
     ok(T.spawns.signs.some(s => s.id === 'archivists_guild'), "the Archivist's Guild sign");
 }
 
+// ---- The Thalorian Wilds
+{
+    const E = getMap('east_road');
+    eq([E.tiles[0].length, E.tiles.length, E.layoutVersion, E.displayName], [192, 160, 2, 'The Thalorian Wilds'], 'the Wilds: a 192×160 region, layout 2');
+    for (const e of listMaps()) {
+        for (const p of getMap(e.id).portals ?? []) if (p.targetMap === 'east_road') ok(landsOpen(p), `${e.id} → the Wilds lands on open ground`);
+    }
+    const inE = reachFrom(E, [2, 80]);
+    for (const p of E.portals) ok(inE(p.x, p.y), `the Wilds: the ${p.id} exit is reachable from the west entry`);
+    const sp = E.spawns;
+    for (const s of sp.signs) ok(inE(s.x, s.y), `the ${s.id} sign is reachable`);
+    for (const c of sp.chests) ok(inE(c.x, c.y), `the chest at ${c.x},${c.y} is reachable`);
+    for (const g of sp.riftGates) ok(inE(g.x, g.y), `the ${g.id} gate is reachable`);
+    for (const npc of sp.npcs) ok(inE(npc.x, npc.y), `${npc.id} is reachable`);
+    const sent = sp.enemies.find(e => e.type === 'corrupted_sentinel');
+    ok(sent && inE(sent.x, sent.y), 'the Corrupted Sentinel is reachable');
+    for (const d of sp.doors) { const b = I.doorReturnPoint(d); ok(inE(Math.floor(b.x / 32), Math.floor(b.y / 32)), `${d.interior}: its entrance is reachable without a hop (the ford)`); }
+    ok(sp.landmarks.length >= 8 && sp.landmarks.every(l => inE(l.x, l.y)), `8+ landmarks, each one walkable to (${sp.landmarks.length})`);
+    const cells = E.tiles.flat(), open = cells.filter(t => t !== 1).length / cells.length;
+    ok(open >= 0.45 && open <= 0.7, `forest wilds: ${Math.round(open * 100)}% open ground (45–70%)`);
+    const { denseMask } = await import('../src/systems/mapPaint.js');
+    const dm = denseMask(E);
+    let dense = 0, opened = 0;
+    E.tiles.forEach((row, y) => row.forEach((t, x) => { if (t !== 1) { opened++; if (dm[y * 192 + x]) dense++; } }));
+    ok(dense / opened >= 0.1, `dense stands to get lost in (${Math.round(dense / opened * 100)}% of open ground)`);
+    const wet = E.sheetDecorations.flatMap(g => g.items).filter(i => i.name.startsWith('water1_'));
+    ok(wet.filter(i => i.hoppable === true).length >= 20, 'a stream you can hop');
+    ok(wet.filter(i => i.hoppable !== true).length >= 100, 'a pool you cannot');
+    ok(sp.enemies.length >= 35, `creatures scaled to the area (${sp.enemies.length})`);
+    const fire = sp.campfires[0];
+    ok(sp.enemies.filter(e => e.time === 'night' && Math.hypot(e.x - fire.x, e.y - fire.y) <= 6).length >= 3, 'the night ambush round the copse fire');
+    const pages = sp.chests.filter(c => c.items.includes('scattered_journal_page'));
+    eq(pages.length, 3, 'three journal pages');
+    ok(pages.every((a, i) => pages.every((b, j) => i === j || Math.hypot(a.x - b.x, a.y - b.y) >= 40)), 'spread across the wilds');
+    ok(P.mapTree('east_road', getMap).some(t => t.id === 'east_road_cave'), 'the Hollow is behind its door');
+}
+
 console.log(`test_world_content: ${n} checks passed`);
