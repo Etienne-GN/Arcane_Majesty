@@ -39,7 +39,7 @@ export default class GameOverScene extends Phaser.Scene {
         }).setOrigin(0.5).setAlpha(0);
 
         // Settle the death now (penalty + saved rise point), whichever button follows
-        const { glintLost, target } = resolveDeath(playerStats, this._mapId, id => !!getMap(id), { online: !!this._serverUrl });
+        const { glintLost, target } = resolveDeath(playerStats, this._mapId, id => !!getMap(id), { online: !!this._serverUrl, layoutOf: id => getMap(id)?.layoutVersion ?? 1 });
         this._riseTarget = target;
         this._glintLost  = glintLost;
         if (!this._serverUrl) SaveManager.save(playerStats, this._storyId, this._characterId);

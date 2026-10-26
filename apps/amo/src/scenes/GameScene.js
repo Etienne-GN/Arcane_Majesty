@@ -28,7 +28,7 @@ import { statusManager } from '../systems/StatusManager.js';
 import { STATUS_DEFS } from '../data/statuses.js';
 import { ELEMENT_COLORS } from '../controls/launcherDefs.js';
 import { resolveNode, rollHarvest } from '../data/gathering.js';
-import { setRespawnPoint, canRespawnAt } from '../systems/respawn.js';
+import { setRespawnPoint, canRespawnAt, stampLayout } from '../systems/respawn.js';
 import { mapLevelBand, rollEnemyLevel, scaleEnemyStats } from '../data/levelBands.js';
 import { nodeKey, markNodeHarvested, nodeRegrowRemaining, markBossDefeated, isBossDefeated } from '../systems/WorldState.js';
 import { ENEMY_KITS } from '../data/enemyMagic.js';
@@ -2262,7 +2262,7 @@ export default class GameScene extends Phaser.Scene {
         }
         this._transitioning = true;
         // Save as if already through the door, so Continue doesn't put us back on this side
-        playerStats.location = { mapId: portalDef.targetMap, x: portalDef.targetX, y: portalDef.targetY };
+        playerStats.location = stampLayout({ mapId: portalDef.targetMap, x: portalDef.targetX, y: portalDef.targetY }, getMap(portalDef.targetMap)?.layoutVersion);
         SaveManager.save(playerStats, this._storyId, this._characterId);
         this.cameras.main.fadeOut(300);
         this.time.delayedCall(320, () => {
@@ -2304,7 +2304,7 @@ export default class GameScene extends Phaser.Scene {
 
     _interactRiftGate(gate) {
         const ps = this.player.stats;
-        setRespawnPoint(ps, this._mapId, gate.wx, gate.wy + TILE_SIZE, gate.label);
+        setRespawnPoint(ps, this._mapId, gate.wx, gate.wy + TILE_SIZE, gate.label, this._mapDef.layoutVersion ?? 1);
         if (!gate.attuned) {
             gate.attuned = true;
             if (!ps.attunedGates.includes(gate.id)) ps.attunedGates.push(gate.id);
@@ -2338,7 +2338,7 @@ export default class GameScene extends Phaser.Scene {
         this.cameras.main.centerOn(gate.wx, gate.wy);
         this.cameras.main.flash(400, 100, 180, 255, false);
         this.scene.get('UIScene')?.showNotification?.(`Arrived: ${gate.label}`, 2200);
-        setRespawnPoint(this.player.stats, this._mapId, gate.wx, gate.wy + TILE_SIZE, gate.label);
+        setRespawnPoint(this.player.stats, this._mapId, gate.wx, gate.wy + TILE_SIZE, gate.label, this._mapDef.layoutVersion ?? 1);
         SaveManager.save(this.player.stats);
         soundManager.save();
     }
@@ -3319,7 +3319,7 @@ export default class GameScene extends Phaser.Scene {
         this._locTimer = (this._locTimer ?? 0) - delta;
         if (this._locTimer <= 0 && !this._serverUrl) {
             this._locTimer = 500;
-            playerStats.location = { mapId: this._mapId, x: Math.round(this.player.x), y: Math.round(this.player.y) };
+            playerStats.location = stampLayout({ mapId: this._mapId, x: Math.round(this.player.x), y: Math.round(this.player.y) }, this._mapDef.layoutVersion);
         }
 
         advanceClock(playerStats, delta);   // one real minute = one game hour; stops while paused
@@ -3620,7 +3620,7 @@ export default class GameScene extends Phaser.Scene {
         // Campfire — basic rest always available; Full Rest requires Traveler's Tent
         this.physics.overlap(this.player.interactBox, this.campfires, (_box, cf) => {
             if (!this._serverUrl) {
-                setRespawnPoint(playerStats, this._mapId, cf.x, cf.y + TILE_SIZE, 'the campfire');
+                setRespawnPoint(playerStats, this._mapId, cf.x, cf.y + TILE_SIZE, 'the campfire', this._mapDef.layoutVersion ?? 1);
                 SaveManager.save(playerStats, this._storyId, this._characterId);
             }
             playerStats.gainResonance('fire', RESONANCE_GAINS.rest_campfire.fire);

@@ -231,7 +231,7 @@ export default class CharacterSelectScene extends Phaser.Scene {
 
         this.cameras.main.fadeOut(400);
         this.time.delayedCall(400, () => {
-            const resume = isContinue ? continueTarget(playerStats, id => !!getMap(id)) : null;
+            const resume = isContinue ? continueTarget(playerStats, id => !!getMap(id), id => getMap(id)?.layoutVersion ?? 1) : null;
             this.scene.start('GameScene', {
                 characterId: c.id,
                 storyId:     this._storyId,

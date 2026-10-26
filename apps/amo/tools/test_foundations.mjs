@@ -193,4 +193,28 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     ok(/create\(\)[\s\S]*resolveDeath\(/.test(go) && !/_tryAgain\(\)[\s\S]*applyDeathPenalty/.test(go), 'death is settled on the Game Over screen, for both buttons');
 }
 
+// ---- W6: a saved spot is trusted only on the layout it was saved on
+{
+    const R = await import('../src/systems/respawn.js');
+    const s = { location: null, respawnPoint: null };
+    eq(R.stampLayout({ mapId: 'm', x: 1, y: 2 }, 1), { mapId: 'm', x: 1, y: 2 }, 'layout 1 adds nothing (old saves look the same)');
+    eq(R.stampLayout({ mapId: 'm', x: 1, y: 2 }, 2), { mapId: 'm', x: 1, y: 2, layout: 2 }, 'a newer layout is stamped');
+    const layoutOf = id => (id === 'thaloria' ? 2 : 1);
+    s.location = { mapId: 'thaloria', x: 500, y: 400 };                     // an old save (no stamp)
+    eq(R.continueTarget(s, () => true, layoutOf), { mapId: 'thaloria', spawnX: undefined, spawnY: undefined }, 'old spot on a rebuilt map: that map\'s start');
+    s.location = { mapId: 'thaloria', x: 500, y: 400, layout: 2 };
+    eq(R.continueTarget(s, () => true, layoutOf), { mapId: 'thaloria', spawnX: 500, spawnY: 400 }, 'a spot saved on the new layout resumes');
+    s.location = { mapId: 'summit_of_despair', x: 100, y: 200 };
+    eq(R.continueTarget(s, () => true, layoutOf), { mapId: 'summit_of_despair', spawnX: 100, spawnY: 200 }, 'other maps resume exactly as before');
+    R.setRespawnPoint(s, 'east_road', 480, 768, 'the campfire');            // saved before W6: layout 1
+    eq(R.respawnTarget(s, 'east_road', () => true, id => (id === 'east_road' ? 2 : 1)), { mapId: 'east_road', spawnX: undefined, spawnY: undefined, label: null }, 'an old campfire on a rebuilt map: its start');
+    R.setRespawnPoint(s, 'east_road', 480, 768, 'the campfire', 2);
+    eq(s.respawnPoint, { mapId: 'east_road', x: 480, y: 768, label: 'the campfire', layout: 2 }, 'a new respawn point carries its layout');
+    eq(R.respawnTarget(s, 'east_road', () => true, id => (id === 'east_road' ? 2 : 1)).spawnX, 480, 'and is trusted');
+    s.glint = 100; s.maxHealth = 100; s.maxMana = 50;
+    const { target } = R.resolveDeath(s, 'east_road', () => true, { layoutOf: id => (id === 'east_road' ? 2 : 1) });
+    eq(s.location, { mapId: 'east_road', x: 480, y: 768, layout: 2 }, 'dying saves the respawn spot with its layout');
+    eq(target.spawnY, 768, 'and returns it');
+}
+
 console.log(`✓ foundations tests passed (${n} assertions).`);
