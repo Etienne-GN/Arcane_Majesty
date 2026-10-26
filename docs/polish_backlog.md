@@ -21,6 +21,8 @@ Come back to these in a polishing phase. Add to it freely.
 - The user has many sprite changes in mind (characters, props). List them here as they come.
 - **Weapon sprites switch hands with direction:** the weapon is in the right hand walking right and the left hand walking left. Every weapon sprite needs reworking so the main-hand weapon stays in the same hand in all four directions, and an off-hand weapon (combat design, two hands) has a hand of its own.
 
+- **Combat C1 art gaps:** the wand has no LPC art (nothing drawn in hand); the bo staff borrows the cane; off-hand weapons other than shields are not drawn (they work in play); both shields use the oak heater; new weapons reuse old icons (spear = stone sword, mace = stone, axe = pickaxe, shield = wooden box, bo = log). Story heroes (baked sheets) show no weapon art at all — only creator-made characters draw weapons.
+
 ## Small things left from earlier work (W3–W5 reviews)
 
 - A seated townsperson stands up while you talk to them.

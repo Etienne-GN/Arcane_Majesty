@@ -2,27 +2,28 @@
 
 _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-26. Regenerate after changing the data; don't hand-edit._
 
-**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 25 status effects · 200 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 43 maps · 5 playable characters · 34 dialogues
+**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 25 status effects · 211 items (56 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 43 maps · 5 playable characters · 34 dialogues
 
 ## Contents
 1. [Systems & controls](#systems--controls)
-2. [Character & progression](#character--progression)
-3. [Magic — all spells](#magic--all-spells)
-4. [Status effects](#status-effects)
-5. [Cooking](#cooking)
-6. [Brewing (potions)](#brewing-potions)
-7. [Crafting](#crafting)
-8. [Enchantments](#enchantments)
-9. [Items](#items)
-10. [Shops](#shops)
-11. [Gathering & world objects](#gathering--world-objects)
-12. [Enemies & creatures](#enemies--creatures)
-13. [Boss](#boss)
-14. [Quests](#quests)
-15. [Campaign](#campaign)
-16. [Maps](#maps)
-17. [Characters & stories](#characters--stories)
-18. [Dialogues](#dialogues)
+2. [Combat](#combat)
+3. [Character & progression](#character--progression)
+4. [Magic — all spells](#magic--all-spells)
+5. [Status effects](#status-effects)
+6. [Cooking](#cooking)
+7. [Brewing (potions)](#brewing-potions)
+8. [Crafting](#crafting)
+9. [Enchantments](#enchantments)
+10. [Items](#items)
+11. [Shops](#shops)
+12. [Gathering & world objects](#gathering--world-objects)
+13. [Enemies & creatures](#enemies--creatures)
+14. [Boss](#boss)
+15. [Quests](#quests)
+16. [Campaign](#campaign)
+17. [Maps](#maps)
+18. [Characters & stories](#characters--stories)
+19. [Dialogues](#dialogues)
 
 ## Systems & controls
 
@@ -31,8 +32,8 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | Arrows / WASD | Move (speed 100 + 4 × Agility, × status speed) |
 | SHIFT (hold) | Sprint: ×1.6 speed, spends 20 Vigor/s; at 0 Vigor you are winded until it is back to 30 (touch: RUN toggle + push the stick fully; gamepad: hold LT) |
 | SPACE | Hop up to 2 tiles over fences, logs, small rocks and crates (25 Vigor); invulnerable for the first 0.25 s, so it is also your dodge (touch: HOP; gamepad: RT) |
-| Z | Attack (basic strike) |
-| X | Power attack |
+| Z | Attack button — does the move you chose for it (see Combat) |
+| X | Second button — does the move you chose for it (see Combat) |
 | E | Interact (talk to anyone, chests, signs, gathering, rift-gates, hearths, alchemy tables) |
 | Q R F T | Cast the spells in slots 1–4 |
 | 1 2 3 4 | Use the consumable on hotbar slot 1–4 (assign from the Inventory with 1–4; touch: the row above the skill ring) |
@@ -89,6 +90,51 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | Saving | Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map (fog per map), charts read, landmarks discovered, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties, the game clock, the doors you came in by. |
 | Online | Server select, online characters, chat; other players are visible (presence). The campaign is single-player. |
 | Character creator | LPC layered characters with palette swaps, export of the character and sheet (with licences). |
+
+## Combat
+
+### Your two hands
+You have a **main hand** and an **off hand**. Put a weapon in each, or one big weapon in both.
+
+- **One-handed** weapons (wand, staff, dagger, sword, mace, axe) can go in either hand. Mix them: a sword and a staff, two daggers, a wand and a dagger.
+- **Two-handed** weapons (bo staff, spear, two-handed sword, bow, crossbow) take both hands.
+- A **shield** goes in the off hand only.
+- An **empty hand** is a fist. You can always punch.
+
+To equip: open the satchel (I), pick the weapon, then **Equip** (E) for the main hand or **Off hand** (O). Whatever was in the way goes back into your satchel — you never lose it.
+
+### Your two buttons
+**Attack** (Z, or the big attack button) and the **second button** (X, or PWR) each do one move. The game picks good ones when you equip:
+
+- Attack: your main hand's move.
+- Second button: your off hand's move — or **Block** with a shield — or, with nothing in the off hand or a two-handed weapon, your main weapon's **power strike** (slower, stronger; learn Power Slash in the skill tree first).
+
+You can change them in the satchel, under **BUTTONS**: tap a button's line to switch to the next move.
+
+**Example — Eldrin with a sword and a staff.** He puts the sword in his main hand and the staff in his off hand. Attack slashes, the second button casts a Blast. He prefers magic first, so he taps BUTTONS → Attack until it says *Blast*: now Z casts and X slashes.
+
+**Spells** stay on Q / R / F / T. You can cast them with any weapon in hand — or none.
+
+### The weapons
+| Weapon | Hands | Basic move | What it is good for | Speed (ms between hits) | Reach |
+|---|---|---|---|---|---|
+| Wand | one | Bolt | quick, light magic — best against one enemy up close | 300 | 140 px (ranged) |
+| Staff | one | Blast | slow, strong magic — best against a crowd | 400 | 30 px |
+| Bo staff | two | Strike | fast pole blows with good reach | 360 | 40 px |
+| Spear | two | Thrust | the longest reach — keep enemies away | 520 | 48 px |
+| Dagger | one | Stab | very fast, very close | 260 | 26 px |
+| One-handed sword | one | Slash | balanced — good at everything | 480 | 30 px |
+| Two-handed sword | two | Sweep | slow, wide and heavy — for crowds and big hits | 750 | 34 px |
+| Mace | one | Smash | slow blows that crack armour | 600 | 30 px |
+| Axe | one | Chop | strong chops that can hit two | 560 | 30 px |
+| Shield | off hand | Block | raise it to stop most of a hit from the front | 700 | — |
+| Bow | two | Shoot | long range — hit them before they reach you | 650 | 150 px (ranged) |
+| Crossbow | two | Shoot bolt | slow to reload, hits very hard at range | 1100 | 220 px (ranged) |
+| Fists | one | Punch | weak but always there | 300 | 24 px |
+
+
+### Blocking
+With a shield, the Block move raises it: for a moment, a hit **from the front** does only **30%** of its damage (never less than 1), and you move at half speed. Hits from behind get through — face your enemy! Lightning and poison are never blocked. Hold the button to keep the shield up (keyboard, gamepad); on touch, tap again.
 
 ## Character & progression
 
@@ -466,7 +512,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 
 ## Items
 
-### Weapons (45)
+### Weapons (56)
 **spell blade** (14)
 
 | Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
@@ -485,6 +531,57 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Arcane War-Blade | 4 | epic | +6 INT +6 STR | 800 / 267 | Battle-tested arcane fury. Hits cost 2 MP, +35% arcane. +6 INT, +6 STR. [Flame-Kissed] [Lore: 20% arcane burst hits 2 more] | crafting |
 | Blade of the Covenant | 5 | legendary | +9 INT +7 STR | 0 / 999 | One of the original Covenant weapons. Hits cost 2 MP, deal +35% arcane. +9 INT, +7 STR. [Blade strikes grant 2 MP if INT > 12] | — |
 | Cleaver of Vorgos | 5 | legendary | +12 STR +4 INT | 0 / 999 | The warlord Vorgos's legendary blade. Hits cost 2 MP, deal +35% arcane. +12 STR, +4 INT. [3× damage vs enemies below 30% HP] | quest: The Void Fragment |
+
+**wand** (2)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Willow Wand | 1 | common | +2 INT | 60 / 20 | A slim willow wand. Quick, light bolts — best against one enemy up close. +2 INT. | shop |
+| Crystal Wand | 2 | uncommon | +4 INT +1 AGI | 170 / 55 | A wand tipped with clear crystal. Quick bolts that bite harder. +4 INT, +1 AGI. | — |
+
+**bo** (1)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Ash Bo Staff | 1 | common | +2 AGI +1 STR | 55 / 18 | A fighting pole of seasoned ash. Fast blows with good reach. Two hands. +2 AGI, +1 STR. | shop |
+
+**spear** (2)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Hunting Spear | 1 | common | +3 STR | 70 / 24 | A plain ash spear with an iron point. The longest reach — keep enemies away. Two hands. +3 STR. | shop |
+| Iron Spear | 2 | uncommon | +5 STR +1 AGI | 180 / 60 | A soldier's spear, iron from socket to point. Two hands. +5 STR, +1 AGI. | — |
+
+**mace** (1)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Iron Mace | 1 | common | +4 STR | 75 / 25 | A flanged iron head on a short haft. Slow blows that crack armour. +4 STR. | shop |
+
+**axe** (1)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Hand Axe | 1 | common | +3 STR +1 STA | 70 / 23 | A woodsman's axe balanced for fighting. Strong chops that can hit two. +3 STR, +1 STA. | shop |
+
+**shield** (2)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Wooden Shield | 1 | common | +2 STA | 50 / 16 | Planks bound in iron. Off hand. Raise it to stop most of the damage. +2 STA. | shop |
+| Iron Heater Shield | 2 | uncommon | +4 STA +1 STR | 160 / 52 | A knight's heater shield faced with iron. Off hand. +4 STA, +1 STR. | — |
+
+**crossbow** (1)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Light Crossbow | 1 | common | +3 AGI +2 STR | 95 / 32 | A hunter's crossbow. Slow to reload, hits very hard at range. Two hands. +3 AGI, +2 STR. | shop |
+
+**greatsword** (1)
+
+| Weapon | Tier | Rarity | Stats | Buy / sell | Description | Source |
+|---|---|---|---|---|---|---|
+| Claymore | 2 | uncommon | +6 STR | 210 / 70 | A great two-handed sword. Slow, wide, heavy sweeps. Two hands. +6 STR. | shop |
 
 **staff** (11)
 
@@ -625,7 +722,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Reed Fibre | 8 recipes | gathering: Shallows, gathering: Reed Bed |
 
 ## Shops
-Merchant catalogue (33 entries). Each item has one price, in gold (mundane goods) or glint (arcane goods).
+Merchant catalogue (41 entries). Each item has one price, in gold (mundane goods) or glint (arcane goods).
 
 | Item | Price | Currency |
 |---|---|---|
@@ -651,8 +748,16 @@ Merchant catalogue (33 entries). Each item has one price, in gold (mundane goods
 | Shadow Shiv | 55 | glint |
 | Carved Shortbow | 58 | gold |
 | Hunter's Shortbow | 52 | gold |
+| Willow Wand | 60 | glint |
+| Ash Bo Staff | 55 | gold |
+| Hunting Spear | 70 | gold |
+| Iron Mace | 75 | gold |
+| Hand Axe | 70 | gold |
+| Wooden Shield | 50 | gold |
+| Light Crossbow | 95 | gold |
 | Adept's Spire | 200 | glint |
 | Mossy Branch Staff | 175 | glint |
+| Claymore | 210 | gold |
 | Spell-Blade | 180 | glint |
 | Arcane Saber | 165 | glint |
 | Umbral Dagger | 160 | glint |

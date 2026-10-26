@@ -40,6 +40,7 @@ const campaigns = await import(SRC + 'data/campaigns/eldorias_prophecy.js');
 const CAMPAIGN = Object.values(campaigns).find(v => v?.chapters);
 globalThis.localStorage ??= { getItem: () => null, setItem() {}, removeItem() {} };
 const { PlayerStats, MASTERY_DEFS, xpForLevel } = await import(SRC + 'systems/PlayerStats.js');
+const { WEAPON_TYPES } = await import(SRC + 'systems/weapons.js');
 
 const out = [];
 const P = (s = '') => out.push(s);
@@ -80,7 +81,7 @@ P('**At a glance:** ' + [
 ].join(' · '));
 P();
 P('## Contents');
-['Systems & controls', 'Character & progression', 'Magic — all spells', 'Status effects', 'Cooking', 'Brewing (potions)', 'Crafting', 'Enchantments',
+['Systems & controls', 'Combat', 'Character & progression', 'Magic — all spells', 'Status effects', 'Cooking', 'Brewing (potions)', 'Crafting', 'Enchantments',
  'Items', 'Shops', 'Gathering & world objects', 'Enemies & creatures', 'Boss', 'Quests', 'Campaign', 'Maps', 'Characters & stories', 'Dialogues']
     .forEach((s, i) => P(`${i + 1}. [${s}](#${s.toLowerCase().replace(/[^a-z0-9 -]/g, '').replace(/ /g, '-')})`));   // GitHub anchors
 P();
@@ -89,7 +90,7 @@ P();
 P('## Systems & controls');
 P();
 table(['Key', 'Action'], [
-    ['Arrows / WASD', 'Move (speed 100 + 4 × Agility, × status speed)'], ['SHIFT (hold)', 'Sprint: ×1.6 speed, spends 20 Vigor/s; at 0 Vigor you are winded until it is back to 30 (touch: RUN toggle + push the stick fully; gamepad: hold LT)'], ['SPACE', 'Hop up to 2 tiles over fences, logs, small rocks and crates (25 Vigor); invulnerable for the first 0.25 s, so it is also your dodge (touch: HOP; gamepad: RT)'], ['Z', 'Attack (basic strike)'], ['X', 'Power attack'],
+    ['Arrows / WASD', 'Move (speed 100 + 4 × Agility, × status speed)'], ['SHIFT (hold)', 'Sprint: ×1.6 speed, spends 20 Vigor/s; at 0 Vigor you are winded until it is back to 30 (touch: RUN toggle + push the stick fully; gamepad: hold LT)'], ['SPACE', 'Hop up to 2 tiles over fences, logs, small rocks and crates (25 Vigor); invulnerable for the first 0.25 s, so it is also your dodge (touch: HOP; gamepad: RT)'], ['Z', 'Attack button — does the move you chose for it (see Combat)'], ['X', 'Second button — does the move you chose for it (see Combat)'],
     ['E', 'Interact (talk to anyone, chests, signs, gathering, rift-gates, hearths, alchemy tables)'], ['Q R F T', 'Cast the spells in slots 1–4'],
     ['1 2 3 4', 'Use the consumable on hotbar slot 1–4 (assign from the Inventory with 1–4; touch: the row above the skill ring)'],
     ['H', 'Blink-Step (skill, 8 MP)'], ['V', 'Aetheric Sight (skill: slows enemies, shows their detection range)'],
@@ -136,6 +137,41 @@ table(['System', 'How it works'], [
     ['Character creator', 'LPC layered characters with palette swaps, export of the character and sheet (with licences).'],
 ]);
 
+// ------------------------------------------------------------------ combat (Combat C1)
+P('## Combat');
+P();
+P('### Your two hands');
+P('You have a **main hand** and an **off hand**. Put a weapon in each, or one big weapon in both.');
+P();
+P('- **One-handed** weapons (wand, staff, dagger, sword, mace, axe) can go in either hand. Mix them: a sword and a staff, two daggers, a wand and a dagger.');
+P('- **Two-handed** weapons (bo staff, spear, two-handed sword, bow, crossbow) take both hands.');
+P('- A **shield** goes in the off hand only.');
+P('- An **empty hand** is a fist. You can always punch.');
+P();
+P('To equip: open the satchel (I), pick the weapon, then **Equip** (E) for the main hand or **Off hand** (O). Whatever was in the way goes back into your satchel — you never lose it.');
+P();
+P('### Your two buttons');
+P('**Attack** (Z, or the big attack button) and the **second button** (X, or PWR) each do one move. The game picks good ones when you equip:');
+P();
+P('- Attack: your main hand\'s move.');
+P('- Second button: your off hand\'s move — or **Block** with a shield — or, with nothing in the off hand or a two-handed weapon, your main weapon\'s **power strike** (slower, stronger; learn Power Slash in the skill tree first).');
+P();
+P('You can change them in the satchel, under **BUTTONS**: tap a button\'s line to switch to the next move.');
+P();
+P('**Example — Eldrin with a sword and a staff.** He puts the sword in his main hand and the staff in his off hand. Attack slashes, the second button casts a Blast. He prefers magic first, so he taps BUTTONS → Attack until it says *Blast*: now Z casts and X slashes.');
+P();
+P('**Spells** stay on Q / R / F / T. You can cast them with any weapon in hand — or none.');
+P();
+P('### The weapons');
+table(['Weapon', 'Hands', 'Basic move', 'What it is good for', 'Speed (ms between hits)', 'Reach'],
+    Object.entries(WEAPON_TYPES).filter(([, d]) => d.available).map(([, d]) => [
+        d.label, d.hands === 'off' ? 'off hand' : d.hands === 2 ? 'two' : 'one', d.basic, d.feel, d.cooldown,
+        d.range ? `${d.range} px (ranged)` : d.reach ? `${d.reach} px` : '—',
+    ]));
+P();
+P('### Blocking');
+P('With a shield, the Block move raises it: for a moment, a hit **from the front** does only **30%** of its damage (never less than 1), and you move at half speed. Hits from behind get through — face your enemy! Lightning and poison are never blocked. Hold the button to keep the shield up (keyboard, gamepad); on touch, tap again.');
+P();
 // ------------------------------------------------------------------ character
 P('## Character & progression');
 P();
