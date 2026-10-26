@@ -161,7 +161,7 @@ In that case it uses `sword/longsword_alt` with the `slash` animation, its own d
 
 Write the result line under "C0 result" in this plan, in the form `C0 result: IN|DEFERRED — <one sentence on what the sheet showed>`. Ledger it.
 
-**C0 result:** _(filled in by the executor)_
+**C0 result:** IN — `sword/longsword` slash is a 192 px oversized sweep with a clear arc in all four directions (up in its `behind` layer), visibly longer than `sword/arming`; the Claymore uses `sword/longsword` + `behind/longsword` (not `longsword_alt`, which is a plain 128 px sheet).
 
 - [ ] **Step 4: Commit**
 
