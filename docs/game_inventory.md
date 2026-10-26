@@ -1,8 +1,8 @@
 # Arcane Majesty (amo) — Complete Game Inventory
 
-_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-24. Regenerate after changing the data; don't hand-edit._
+_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-26. Regenerate after changing the data; don't hand-edit._
 
-**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 25 status effects · 200 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 29 maps · 5 playable characters · 34 dialogues
+**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 25 status effects · 200 items (45 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 43 maps · 5 playable characters · 34 dialogues
 
 ## Contents
 1. [Systems & controls](#systems--controls)
@@ -58,6 +58,8 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | Charts | A cartographer by Thaloria's market sells charts (Thaloria 40 Gold, the East Road 60 Gold). Reading one shows the region's roads under the fog and marks where its landmarks are. |
 | Townsfolk | Cities have people with a day of their own: they sleep at home, walk to work, sit in the inn at night and wander the streets in between — where anyone is follows the clock, so the market is busy in the morning and the inn full at night. Guards patrol and carry light after dark. E on anyone: named people talk and give quests as before; everyone else has something to say about the hour, the weather or the road. People step aside when you block their way. |
 | Shop hours | A shopkeeper sells only while at work (Thaloria's market: 08:00–18:00). Find them at the inn in the evening — "Closed — come back in the morning". |
+| Thaloria | A walled city in five districts: the noble hill with the manor, the temple quarter with the bell tower and the Archivist's Guild, the fountain square, the lower town with the smithy, and the market with the inn. Sixteen buildings open — the temple, the Guild, the barracks, the market hall, the alchemist's, houses — and some forty people live their day in it. The West Gate leads to Eldrin's Tower, the East Gate to the wilds. |
+| The Thalorian Wilds | The forest around the East Road, big enough to get lost in: deep stands where you see less, side paths to the birch copse, the Monolith Rise, the Sentinel's clearing, a broken watchtower and the Still Pool. Hop its stream, or walk across on the Stepping Stones to reach the Hollow, a cave. Nine landmarks to find; the map (M) is the way out. |
 | Landmarks | Notable places. Reaching one the first time shows "Discovered: …", gives XP and pins it on your map. |
 | Dense forest | Deep woods shrink how far you see and darken the edges of the screen. Keep to the roads, or trust your map. |
 | Vigor | The green bar under MP (100, +2 per Agility above 10). Sprinting and hopping spend it; it refills at 25/s after 0.8 s of rest. It is not the Stamina attribute. |
@@ -679,10 +681,10 @@ Walk up to a node and press **E**. Some need a tool in the satchel. Each harvest
 ### Yield pools
 | Pool | Gives | Placed on |
 |---|---|---|
-| deadwood | Wood 1–2 (100%), Tree Resin 1 (bonus 20%), Heartwood 1 (bonus 8%) | Prologue Forest ×3, Northern Dense Forest ×1, East Road ×3, The Grand Tour (Test) ×4 |
-| ore_seam | Mineral Ore 1–2 (100%), Silver Ore 1 (bonus 25%) | Prologue Forest ×3, East Road ×2, The Grand Tour (Test) ×7 |
-| forest_herbs | Forest Herb 1–2 (67%), Silverleaf 1 (25%), Moonpetal 1 (8%) | Prologue Forest ×4, Northern Dense Forest ×1, East Road ×1, The Grand Tour (Test) ×6 |
-| meadow_herbs | Silverleaf 1–2 (45%), Forest Herb 1–2 (36%), Moonpetal 1 (18%) | Prologue Forest ×1, Northern Dense Forest ×1, East Road ×1, The Grand Tour (Test) ×2 |
+| deadwood | Wood 1–2 (100%), Tree Resin 1 (bonus 20%), Heartwood 1 (bonus 8%) | Prologue Forest ×3, Northern Dense Forest ×1, The Thalorian Wilds ×6, The Grand Tour (Test) ×4 |
+| ore_seam | Mineral Ore 1–2 (100%), Silver Ore 1 (bonus 25%) | Prologue Forest ×3, The Thalorian Wilds ×4, The Grand Tour (Test) ×7 |
+| forest_herbs | Forest Herb 1–2 (67%), Silverleaf 1 (25%), Moonpetal 1 (8%) | Prologue Forest ×4, Northern Dense Forest ×1, The Thalorian Wilds ×2, The Grand Tour (Test) ×6 |
+| meadow_herbs | Silverleaf 1–2 (45%), Forest Herb 1–2 (36%), Moonpetal 1 (18%) | Prologue Forest ×1, Northern Dense Forest ×1, The Thalorian Wilds ×2, The Grand Tour (Test) ×2 |
 | mountain_herbs | Frostmoss 1–2 (64%), Forest Herb 1 (27%), Silverleaf 1 (9%) | Summit of Despair ×2, The Grand Tour (Test) ×4 |
 | desert_herbs | Emberroot 1–2 (78%), Forest Herb 1 (22%) | The Grand Tour (Test) ×4 |
 | forest_mushrooms | Mushroom Spore 1–2 (55%), Bitter Bolete 1 (36%), Glowcap 1 (9%) | Prologue Forest ×3, Northern Dense Forest ×2, The Grand Tour (Test) ×5 |
@@ -922,8 +924,8 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 | summit_of_despair | Summit of Despair | 18×20 | game map | snow |
 | echoes_of_stone | Echoes of Stones | 12×12 | game map | indoor |
 | aetheric_vision | Aetheric Vision | 14×10 | chapter placeholder | indoor |
-| thaloria | Thaloria | 32×26 | game map | temperate |
-| east_road | East Road | 52×34 | game map | temperate |
+| thaloria | Thaloria | 128×112 | game map | temperate |
+| east_road | The Thalorian Wilds | 192×160 | game map | temperate |
 | sylvan_sanctuary | Sylvan Sanctuary | 14×10 | chapter placeholder | forest |
 | fire_gate | Fire Gate | 14×10 | chapter placeholder | arid |
 | the_descent | The Descent | 14×10 | chapter placeholder | indoor |
@@ -938,10 +940,24 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 | dungeontest | Dungeon Test | 50×40 | test / showcase | indoor |
 | worldtest | The Grand Tour (Test) | 128×100 | test / showcase | temperate |
 | streamtest | Stream Test (256×256) | 256×256 | test / showcase | forest |
+| east_road_cave | The Thalorian Wilds — the Hollow | 15×11 | game map | indoor |
+| thaloria_alchemist | Thaloria — the alchemist's | 10×10 | game map | indoor |
+| thaloria_barracks | Thaloria — the barracks | 16×10 | game map | indoor |
 | thaloria_bell_tower | Thaloria — the Bell Tower | 11×9 | game map | indoor |
+| thaloria_guild_hall | Thaloria — the Archivist's Guild | 18×12 | game map | indoor |
+| thaloria_house_low_a | Thaloria — a house | 9×8 | game map | indoor |
+| thaloria_house_low_c | Thaloria — a house | 11×10 | game map | indoor |
+| thaloria_house_low_e | Thaloria — a house | 9×8 | game map | indoor |
+| thaloria_house_market_a | Thaloria — a house | 11×9 | game map | indoor |
+| thaloria_house_noble_a | Thaloria — a fine house | 8×8 | game map | indoor |
+| thaloria_house_noble_c | Thaloria — a fine house | 11×8 | game map | indoor |
 | thaloria_house_teal | Thaloria — a house | 11×9 | game map | indoor |
 | thaloria_inn | Thaloria — the Inn | 18×13 | game map | indoor |
 | thaloria_inn_cellar | Thaloria — the Inn's cellar | 13×8 | game map | indoor |
+| thaloria_manor | Thaloria — the manor | 14×11 | game map | indoor |
+| thaloria_market_hall | Thaloria — the market hall | 12×8 | game map | indoor |
+| thaloria_smithy | Thaloria — the smithy | 11×9 | game map | indoor |
+| thaloria_temple | Thaloria — the temple | 15×14 | game map | indoor |
 
 ## Characters & stories
 | Character | Role | About |

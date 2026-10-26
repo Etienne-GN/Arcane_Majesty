@@ -113,8 +113,21 @@ generate `thaloria.js` / `east_road.js`. Quests `main_odysseys_dawn`,
 `root_wraith`, `corrupted_sentinel`; NPCs Oren, the Innkeeper, the Trader and
 the Merchant (unnamed roles). Plan: `docs/superpowers/plans/2026-10-17-chapter3-odysseys-dawn.md`.
 
+**Rebuilt at scale (W6, 2026-10-26):**
+- **Thaloria** is a 128×112 walled region (`tools/maps/thaloria_layout.py` + `gen_thaloria.py`):
+  - five districts and 16 doors (17 rooms with the inn's cellar);
+  - 40 townsfolk on schedules (`src/data/townsfolk/thaloria.js`).
+- **The East Road** is now **the Thalorian Wilds**, a 192×160 forest region (`east_road_layout.py` + `gen_east_road.py`):
+  - nine landmarks;
+  - the Hollow (a cave).
+- **Chapter 3's quests** are unchanged.
+- **The scholars' hall** is the Archivist's Guild (DB organisation, album canon).
+
 ## DB Sync Log (G-items)
 | # | Gap | Status |
 |---|---|---|
 | G1 | New location "East Road" (wilderness corridor between Thaloria city and Summit of Despair) not yet in DB | pending |
 | G2 | New NPC "Corrupted Sentinel" (optional East Road miniboss) — game-only content, not book/album canon | pending |
+| G3 | New location name "The Thalorian Wilds" — the forest region around the East Road (display name of `east_road`; complements G1) | pending |
+| G4 | New game-only landmarks in the Thalorian Wilds: The Birch Copse, The Monolith Rise, The Sentinel's Clearing, The Broken Watchtower, The Still Pool, The Stepping Stones, The Hollow (a cave) — `origin: "game"`, LOCATED_IN Thaloria (region) | pending |
+| G5 | Thaloria (city) now has an Archivist's Guild hall (existing Organization "Archivist's Guild"; a `HEADQUARTERED_AT`-style link is the user's call) | pending |
