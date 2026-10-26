@@ -15,7 +15,7 @@ export class SaveManager {
     // save (no offHand in its equipment) is given a Novice Staff in the main hand.
     static migrateCombatC1(stats, d) {
         if (stats?.equipment && d?.equipment && !('offHand' in d.equipment)) {
-            stats.equipment.offHand ??= null;
+            stats.equipment.offHand = null;   // the save had none: never keep one from memory
             if (!stats.equipment.weapon && ITEMS.novice_staff) {
                 stats.equipment.weapon = 'novice_staff';
                 stats._applyEquipStats?.('novice_staff');   // as a normal equip would

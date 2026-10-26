@@ -135,6 +135,10 @@ if (statusManager?.speedMult) {
     old2.equipment.weapon = 'longsword';
     SaveManager.migrateCombatC1(old2, { equipment: { weapon: 'longsword' } });
     eq([old2.equipment.weapon, old2.equipment.offHand], ['longsword', null], 'an old armed save keeps its weapon in the main hand');
+    const old3 = new PlayerStats();
+    old3.equipment.offHand = 'crude_dagger';                      // left over from the last character in memory
+    SaveManager.migrateCombatC1(old3, { equipment: { weapon: 'longsword' } });
+    eq(old3.equipment.offHand, null, 'an old save never inherits an off-hand weapon from memory');
 }
 
 console.log(`✓ player-stats tests passed (${n} assertions).`);
