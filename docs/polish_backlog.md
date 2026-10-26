@@ -19,6 +19,7 @@ Come back to these in a polishing phase. Add to it freely.
 ## Sprites
 
 - The user has many sprite changes in mind (characters, props). List them here as they come.
+- **Weapon sprites switch hands with direction:** the weapon is in the right hand walking right and the left hand walking left. Every weapon sprite needs reworking so the main-hand weapon stays in the same hand in all four directions, and an off-hand weapon (combat design, two hands) has a hand of its own.
 
 ## Small things left from earlier work (W3–W5 reviews)
 

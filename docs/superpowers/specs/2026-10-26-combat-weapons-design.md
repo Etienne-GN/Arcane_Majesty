@@ -280,6 +280,7 @@ Each stage has its own plan and ends playable. `npm test` stays green, and each 
 
 ## Risks
 
+- **Weapon hand.** LPC weapon sprites switch hands with the facing direction (right hand facing right, left hand facing left). A true off-hand drawing needs reworked weapon sprites. That work is later (polish backlog). Until then, the off-hand weapon may be drawn only where it looks right, or not at all, while still working in play.
 - **Animations.** The LPC set has slash, thrust, shoot and cast. Fists use a weaponless slash or thrust, and the bo staff borrows the spear's pole art without the tip. The two-handed sword depends on C0. Gaps go to the polish backlog.
 - **Balance.** The numbers above are a starting point. Each stage ends with a headless fight check against Chapter 1–3 enemies. Tuning that changes a number goes in the ledger.
 - **Old saves.** Equipment, resonance and known spells migrate without loss, tested like W6's `layoutVersion`.
