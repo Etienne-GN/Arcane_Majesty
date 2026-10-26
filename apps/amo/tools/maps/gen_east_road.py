@@ -10,7 +10,7 @@ the East Road from Thaloria's East Gate (west) to the climb to the Summit of Des
                things gather round the fire after dark)
   south        the Sentinel's clearing (the optional miniboss); the broken watchtower
   south-east   the Still Pool, whose stream runs east to the edge — hop it, or cross
-               at the ford on the way to the Hollow, a cave (an interior)
+               at the Stepping Stones on the way to the Hollow, a cave (an interior)
   east         the shepherd's lean-to where Oren falls in beside you
 
 Sources: map spec data/lore/campaigns/eldorias_prophecy/thaloria_and_east_road.md;
@@ -43,6 +43,7 @@ BC = 'SampleMap/[Base]BaseChip_pipo'
 WATER = 'SampleMap/[A]Water_pipo'
 LPC_BU = 'lpc/build_atlas'
 CABIN = 'snowy_asset_pack_nyx/decoration_log_cabin'
+STONES = 'assets_spritesheet_v2_free_restored/rock_pebble_dark'
 
 tiles = [[0] * W for _ in range(H)]
 water, stream, occupied = set(), set(), set()
@@ -78,9 +79,12 @@ for y in range(cy - r - 2, cy + r + 3):
 for (x0, y0), (x1, y1) in zip(L.STREAM, L.STREAM[1:]):
     stream.update((x, y0) for x in range(min(x0, x1), max(x0, x1) + 1))
     stream.update((x1, y) for y in range(min(y0, y1), max(y0, y1) + 1))
-stream -= set(L.FORD) | water
-water |= stream
-for x, y in L.FORD:
+stream.update((x, L.STREAM[0][1] + 1) for x in range(L.STREAM_WIDE[0], L.STREAM_WIDE[1] + 1))
+stream -= water
+ford = set(L.FORD)                                  # water you walk on: a stone in each
+stream -= ford
+water |= stream | ford
+for x, y in ford:
     tiles[y][x] = 2
 
 keep_open = set()
@@ -166,7 +170,7 @@ def water_piece(x, y):
 
 
 for x, y in sorted(water):
-    sm.add(WATER, water_piece(x, y), x, y, blocking=True, hoppable=(x, y) in stream)   # 'under': above the floor, below everything else
+    sm.add(WATER, water_piece(x, y), x, y, blocking=(x, y) not in ford, hoppable=(x, y) in stream)   # 'under': above the floor, below everything else
     occupied.add((x, y))
 
 
@@ -199,6 +203,9 @@ for x, y in [*S.values(), L.WEST_ARRIVAL, L.EAST_ARRIVAL, *AMBUSH]:
 cdx, cdy = L.CAVE_DOOR
 reserve(cdx, cdy + 1, 0)
 
+# the Stepping Stones: a flat stone in each ford tile, drawn over the water
+for x, y in sorted(ford):
+    put(STONES, 'rock_pebble_dark', x, y, depthOffset=1)
 # the Hollow's mouth: a dark arch (the door is its lower tile) in a heap of boulders
 put(BC, 'archway_dark_silhouette', cdx, cdy - 1, blocking=False)
 for x, y in [(cdx - 2, cdy - 1), (cdx - 1, cdy - 2), (cdx + 1, cdy - 2), (cdx + 2, cdy - 1)]:
@@ -249,7 +256,7 @@ reach, q = {L.WEST_ARRIVAL}, deque([L.WEST_ARRIVAL])
 while q:
     x, y = q.popleft()
     for nx, ny in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
-        if inside(nx, ny) and (nx, ny) not in reach and tiles[ny][nx] != 1 and (nx, ny) not in water:
+        if inside(nx, ny) and (nx, ny) not in reach and tiles[ny][nx] != 1 and ((nx, ny) not in water or (nx, ny) in ford):
             reach.add((nx, ny))
             q.append((nx, ny))
 for name, (x, y) in [*S.items(), ('the east exit', L.EAST_ARRIVAL), ('the Hollow', (cdx, cdy + 1))]:

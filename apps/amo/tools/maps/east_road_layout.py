@@ -32,7 +32,8 @@ CLEARINGS = [                                 # (x0, y0, x1, y1) kept free of tr
 ]
 LAKE = (138, 98, 8)                           # the Still Pool: centre and radius
 STREAM = [(147, 98), (190, 98)]               # 1 wide, east to the map edge; hop it
-FORD = [(166, 98)]                            # stepping stones where the Hollow's path crosses
+STREAM_WIDE = (161, 171)                      # the stream runs 2 wide (rows 98-99) here, round the crossing
+FORD = [(166, 98), (166, 99)]                 # the Stepping Stones, where the Hollow's path crosses
 CAVE_DOOR = (166, 112)                        # the Hollow (its path ends on the tile below)
 SPOTS = {
     'waystone': (52, 70), 'gate': (70, 26), 'copse_fire': (36, 116), 'sentinel': (101, 95),
@@ -47,7 +48,7 @@ LANDMARKS = [
     {'id': 'east_road_sentinel_clearing', 'name': "The Sentinel's Clearing", 'x': 101, 'y': 97, 'radius': 4, 'xp': 20},
     {'id': 'east_road_broken_watchtower', 'name': 'The Broken Watchtower', 'x': 85, 'y': 122, 'radius': 4, 'xp': 20},
     {'id': 'east_road_still_pool', 'name': 'The Still Pool', 'x': 128, 'y': 92, 'radius': 4, 'xp': 20},
-    {'id': 'east_road_the_ford', 'name': 'The Ford', 'x': 166, 'y': 99, 'radius': 2, 'xp': 15},
+    {'id': 'east_road_stepping_stones', 'name': 'The Stepping Stones', 'x': 166, 'y': 99, 'radius': 2, 'xp': 15},
     {'id': 'east_road_the_hollow', 'name': 'The Hollow', 'x': 166, 'y': 114, 'radius': 3, 'xp': 20},
 ]
 # Forest density (gen_east_road.py): trees where the noise (+ jitter) is above

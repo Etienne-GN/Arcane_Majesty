@@ -283,7 +283,7 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
         'thaloria_west_gate', 'thaloria_square', 'thaloria_temple', 'thaloria_guild', 'thaloria_manor'], "Thaloria's landmarks");
     eq((getMap('east_road').spawns.landmarks ?? []).map(l => l.id), ['east_road_waystone', 'east_road_lean_to', 'east_road_birch_copse',
         'east_road_monolith_rise', 'east_road_sentinel_clearing', 'east_road_broken_watchtower', 'east_road_still_pool',
-        'east_road_the_ford', 'east_road_the_hollow'], "the Wilds' landmarks");
+        'east_road_stepping_stones', 'east_road_the_hollow'], "the Wilds' landmarks");
     const ids = [];
     for (const { id } of listMaps()) {
         const m = getMap(id);

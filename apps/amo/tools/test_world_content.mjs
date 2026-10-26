@@ -93,6 +93,15 @@ const landsOpen = p => { const t = getMap(p.targetMap), tx = Math.floor(p.target
     eq(pages.length, 3, 'three journal pages');
     ok(pages.every((a, i) => pages.every((b, j) => i === j || Math.hypot(a.x - b.x, a.y - b.y) >= 40)), 'spread across the wilds');
     ok(P.mapTree('east_road', getMap).some(t => t.id === 'east_road_cave'), 'the Hollow is behind its door');
+    // The Stepping Stones: where the Hollow's path crosses the stream, stones stand in the water
+    const items = E.sheetDecorations.flatMap(g => g.items);
+    const stones = items.filter(i => i.name === 'rock_pebble_dark');
+    ok(stones.length >= 2, `stepping stones across the stream (${stones.length})`);
+    for (const st of stones) {
+        ok(items.some(i => i.x === st.x && i.y === st.y && i.name.startsWith('water1_') && !i.blocking), `water under the stone at ${st.x},${st.y}, and you can walk on it`);
+        ok(inE(st.x, st.y) && maskOf(E)[st.y * 192 + st.x] === 1, `the stone at ${st.x},${st.y} is walkable from the west`);
+    }
+    ok(sp.landmarks.some(l => l.id === 'east_road_stepping_stones' && l.name === 'The Stepping Stones'), 'the landmark is named for what you see');
 }
 
 console.log(`test_world_content: ${n} checks passed`);
