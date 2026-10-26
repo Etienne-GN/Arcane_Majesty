@@ -1,7 +1,7 @@
 // Aetheric Vision — Song 2, "Dreamweaver's Call". SCAFFOLDING — real content
 // per data/lore/campaigns/eldorias_prophecy's own future spec for this
 // location; see docs/superpowers/plans/2026-09-08-eldorias-prophecy-campaign-spine.md.
-import { makeStubMap, STUB_ENTRY_X, STUB_ENTRY_Y } from './_stubs.js';
+import { makeStubMap } from './_stubs.js';
 
 export const AETHERIC_VISION = makeStubMap({
     id: 'aetheric_vision',
@@ -14,7 +14,7 @@ export const AETHERIC_VISION = makeStubMap({
     forwardPortal: {
         label: 'The vision fades —',
         targetMap: 'thaloria',
-        targetX: STUB_ENTRY_X,
-        targetY: STUB_ENTRY_Y,
+        targetX: 9 * 32 + 16,      // inside Thaloria's West Gate (tools/maps/thaloria_layout.py WEST_ARRIVAL)
+        targetY: 55 * 32 + 16,
     },
 });

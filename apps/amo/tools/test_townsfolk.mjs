@@ -99,8 +99,8 @@ const fxMap = id => FX[id] ?? FX.ft;   // like getMap: an unknown id falls back 
     eq(W.computeWalk(getMap, catalogueOf), WALK, 'src/data/townsfolk/walk.js is current (run: node tools/gen_walk_grids.mjs)');
     const nav = P.createNav({ root: 'thaloria', getMap, walk: WALK });
     ok(nav.has('thaloria_inn') && nav.has('thaloria_inn_cellar') && nav.has('thaloria_bell_tower'), 'Thaloria\'s interiors are in its tree');
-    const r = nav.route({ mapId: 'thaloria', x: 2, y: 12 }, { mapId: 'thaloria_inn', x: 9, y: 9 });
-    ok(r && !r.fallback && r.legs.length === 2, 'from the west road into the inn, on real paths');
+    const r = nav.route({ mapId: 'thaloria', x: 9, y: 55 }, { mapId: 'thaloria_inn', x: 9, y: 9 });
+    ok(r && !r.fallback && r.legs.length === 2, 'from the West Gate into the inn, on real paths');
     ok(r.legs[0].path.every(([x, y]) => nav.isWalkable('thaloria', x, y)), 'every tile of it is walkable');
 }
 
@@ -241,8 +241,11 @@ const px = t => t * 32 + 16;
     const town = TF.getTown('thaloria');
     ok(TF.TOWN_IDS.every(id => W.WALK_ROOTS.includes(id)), 'every town has baked walk grids');
     eq(S.validateTown(town, { looks: LOOKS.map(l => l.id) }), [], 'Thaloria\'s people all have a place, a path and a look');
-    ok(town.residents.length >= 20, 'twenty-odd people');
+    ok(town.residents.length >= 40, 'forty people');
     eq(new Set(town.residents.map(r => r.id)).size, town.residents.length, 'resident ids are unique');
+    const seats = town.residents.flatMap(r => S.scheduleOf(r, town.roles).map(s => s.at)).filter(a => a.startsWith('inn_seat_'));
+    eq(seats.length, new Set(seats).size, 'no two people share an inn seat');
+    ok(town.residents.filter(r => r.role === 'guard').length >= 8, 'the watch: gates and patrols, day and night');
     eq(TF.townFor('thaloria_inn_cellar'), town, 'the inn\'s cellar belongs to Thaloria');
     eq(TF.townFor('east_road'), null, 'the East Road has no town');
     const named = town.residents.filter(r => r.npc).map(r => r.npc.id).sort();
@@ -275,11 +278,11 @@ const px = t => t * 32 + 16;
     // Spec acceptance, on paper
     const at = h => town.residents.map(r => S.whereAt(r, D + h * 60, town)).filter(p => p.visible);
     const tile = p => [Math.floor(p.x / 32), Math.floor(p.y / 32)];
-    const market = at(9).filter(p => p.mapId === 'thaloria' && (([x, y]) => x >= 9 && x < 23 && y >= 10 && y < 25)(tile(p)));
+    const market = at(9).filter(p => p.mapId === 'thaloria' && (([x, y]) => x >= 66 && x < 95 && y >= 84 && y < 102)(tile(p)));
     ok(market.length >= 8, `09:00: the market and square are busy (${market.length})`);
     const late = at(23);
-    ok(late.filter(p => p.mapId === 'thaloria').length <= 4, `23:00: the streets are nearly empty (${late.filter(p => p.mapId === 'thaloria').length})`);
-    ok(late.filter(p => p.mapId === 'thaloria_inn').length >= 8, `23:00: the inn is full (${late.filter(p => p.mapId === 'thaloria_inn').length})`);
+    ok(late.filter(p => p.mapId === 'thaloria').length <= 8, `23:00: the streets are nearly empty (${late.filter(p => p.mapId === 'thaloria').length})`);
+    ok(late.filter(p => p.mapId === 'thaloria_inn').length >= 10, `23:00: the inn is full (${late.filter(p => p.mapId === 'thaloria_inn').length})`);
 
     // Following one person through a day: home → work → inn → home
     const who = town.residents.find(r => r.id === 'stallholder_a'), seq = [];

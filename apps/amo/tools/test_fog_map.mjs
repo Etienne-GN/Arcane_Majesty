@@ -225,7 +225,7 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     const L = await import('../src/systems/worldLayout.js');
     const { getMap, listMaps } = await import('../src/data/maps/index.js');
     eq(L.WORLD_ANCHORS.thaloria, { x: 1100, y: 200, lore: 'Thaloria' }, "Thaloria's lore coordinates");
-    eq(L.exitDirection({ x: 31, y: 12 }, getMap('thaloria')).dx > 0.9, true, "Thaloria's east gate points east");
+    eq(L.exitDirection({ x: 127, y: 54 }, getMap('thaloria')).dx > 0.9, true, "Thaloria's east gate points east");
 
     const a = L.layoutWorld(['thaloria', 'east_road', 'summit_of_despair', 'thaloria_inn', 'not_a_map'], getMap);
     const pos = id => a.nodes.find(nd => nd.id === id);
@@ -279,7 +279,8 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
 // ---- Landmarks on the Chapter 3 maps
 {
     const { getMap, listMaps } = await import('../src/data/maps/index.js');
-    eq((getMap('thaloria').spawns.landmarks ?? []).map(l => l.id), ['thaloria_bell_tower_square', 'thaloria_market', 'thaloria_east_gate'], "Thaloria's landmarks");
+    eq((getMap('thaloria').spawns.landmarks ?? []).map(l => l.id), ['thaloria_bell_tower_square', 'thaloria_market', 'thaloria_east_gate',
+        'thaloria_west_gate', 'thaloria_square', 'thaloria_temple', 'thaloria_guild', 'thaloria_manor'], "Thaloria's landmarks");
     eq((getMap('east_road').spawns.landmarks ?? []).map(l => l.id), ['east_road_waystone', 'east_road_lean_to'], "the East Road's landmarks");
     const ids = [];
     for (const { id } of listMaps()) {

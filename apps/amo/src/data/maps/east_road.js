@@ -239,8 +239,8 @@ export const EAST_ROAD = {
             x: 0, y: 17,
             label: 'Back through the East Gate to Thaloria',
             targetMap: 'thaloria',
-            targetX: 29 * 32 + 16,
-            targetY: 12 * 32 + 16,
+            targetX: 120 * 32 + 16,
+            targetY: 54 * 32 + 16,
         },
         {
             id: 'east_road_to_summit',

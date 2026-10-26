@@ -26,6 +26,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).parent))
 from sheetmap import SheetMap, tiles_js, js_item, AMO  # noqa: E402
+import thaloria_layout as TL  # noqa: E402
 
 MAP_OUT = AMO / 'src/data/maps/east_road.js'
 W, H = 52, 34
@@ -224,8 +225,8 @@ export const EAST_ROAD = {{
             x: 0, y: {WEST_Y},
             label: 'Back through the East Gate to Thaloria',
             targetMap: 'thaloria',
-            targetX: 29 * 32 + 16,
-            targetY: 12 * 32 + 16,
+            targetX: {TL.EAST_ARRIVAL[0]} * 32 + 16,
+            targetY: {TL.EAST_ARRIVAL[1]} * 32 + 16,
         }},
         {{
             id: 'east_road_to_summit',

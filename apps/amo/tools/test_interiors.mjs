@@ -111,7 +111,10 @@ const eq = (a, b, msg) => { assert.deepStrictEqual(a, b, msg); n++; };
     }
     const T = getMap('thaloria');
     const doors = T.spawns.doors ?? [];
-    eq(doors.map(d => d.interior).sort(), ['thaloria_bell_tower', 'thaloria_house_teal', 'thaloria_inn'], 'Thaloria has three doors');
+    eq(doors.map(d => d.interior).sort(), ['thaloria_alchemist', 'thaloria_barracks', 'thaloria_bell_tower', 'thaloria_guild_hall',
+        'thaloria_house_low_a', 'thaloria_house_low_c', 'thaloria_house_low_e', 'thaloria_house_market_a', 'thaloria_house_noble_a',
+        'thaloria_house_noble_c', 'thaloria_house_teal', 'thaloria_inn', 'thaloria_manor', 'thaloria_market_hall', 'thaloria_smithy',
+        'thaloria_temple'], 'Thaloria has sixteen doors (W6)');
     for (const d of doors) {
         ok(getMap(d.interior).interior, `${d.interior} is an interior`);
         const back = I.doorReturnPoint(d);

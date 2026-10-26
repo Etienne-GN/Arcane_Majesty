@@ -36,6 +36,6 @@ RUINS_OF_ELDORIA.portals.push({
     x: 0, y: 7,
     label: 'The road to Thaloria',
     targetMap: 'thaloria',
-    targetX: STUB_ENTRY_X,
-    targetY: STUB_ENTRY_Y,
+    targetX: 9 * 32 + 16,      // inside Thaloria's West Gate (tools/maps/thaloria_layout.py WEST_ARRIVAL)
+    targetY: 55 * 32 + 16,
 });
