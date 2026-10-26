@@ -43,7 +43,11 @@
 
 - **`equipment.weapon` stays the name of the main hand,** and `equipment.offHand` is added. The spec says `mainHand`/`offHand`. Keeping `weapon` means no save migration, no server change, and every existing `equipment.weapon` reader keeps meaning "main hand".
 - **Move slot ids are hand-relative:** `'main:basic'`, `'main:power'`, `'off:basic'`, `'off:block'`. A slot names a hand and a kind, never an item, so it survives weapon swaps. A slot naming a move that the current gear does not offer falls back to the default.
-- **Block is a timed raise:** 700 ms per press, kept raised while the key is held on keyboard or gamepad. It cuts **all** incoming damage by 70%, not only frontal damage, because `Player.takeDamage(amount)` receives no attacker. Touch: each press raises it for 700 ms.
+- **Block is a timed raise, from the front.**
+  - Each press raises the shield for 700 ms, and holding the key keeps it up (keyboard, gamepad); on touch, tap again.
+  - It cuts a hit by 70% when the hit comes from the **front half**, 90° either side of where the player faces.
+  - To know that, `Player.takeDamage(amount, source)` gains a `source` point. Six of its seven callers pass the attacker's position (enemy melee and bolts, the boss's three attacks, an exploding enemy). The lightning storm passes none and is never blocked, nor is status damage.
+  - The same geometry gives a tested `isBehind()` for the dagger's Backstab in C3. Enemies already track their facing.
 - **The power strike stays gated by the existing `power_slash` skill,** as today. Until it is learned, the second-button default (when it is a power strike) flashes, exactly as X does today.
 - **Bare hands are fists.** Today an empty weapon slot behaves like a staff. Two consequences:
   - **Story characters start armed:** Eldrin a Novice Staff, Kael a Longsword, Anya a new Willow Wand, Seraphina an Etched Shortsword and, in the off hand, a Crude Dagger.
@@ -74,7 +78,7 @@
    You never lose an item, and never end with two items in one hand. Pinned by `test_weapons` plan tests and `test_player_stats` equip tests (Tasks 1–2).
 3. **A move slot that no longer fits the gear,** for example "off:basic" after unequipping the off hand. It falls back to the default, never to nothing. Pinned by `resolveMoves` tests (Task 1).
 4. **Every weapon type actually damages an enemy** from both buttons, including fists, the wand and the crossbow. Pinned by the headless fight matrix (Task 7).
-5. **Blocking while hit by a spell, a melee hit and a projectile:** the damage is reduced by 70% and never below 1. Pinned by a headless block check (Task 7).
+5. **Blocking when hit from the front, from behind, and by damage with no source** (the storm): only the frontal hit is reduced by 70% (never below 1). Pinned by `isFrontal` tests (Task 1) and a headless block check (Task 7).
 
 ---
 
@@ -184,6 +188,8 @@ git commit -m "chore(amo): C0 — two-handed sword art check (<IN|DEFERRED>)"
   - `movesFor(equipment, itemsById) → [{ id, hand, kind, type, label }]`
   - `defaultMoves(equipment, itemsById) → { attack: moveId, second: moveId }`
   - `resolveMoves(slots, equipment, itemsById) → { attack: move, second: move }` (full move objects)
+  - `isFrontal(facing, at: {x,y}, from: {x,y}) → bool` (from lies in the front half)
+  - `isBehind(targetFacing, targetPos, attackerPos, cos = 0.5) → bool` (attacker in the rear 120°; for C3's Backstab)
 
 - [ ] **Step 1: Write the failing test** (`tools/test_weapons.mjs`)
 
@@ -246,6 +252,16 @@ const gone = W.resolveMoves({ attack: 'off:basic', second: 'off:block' }, eqp('b
 eq([gone.attack.id, gone.second.id], ['main:basic', 'main:power'], 'slots the gear no longer offers fall back to the defaults');
 ok(W.resolveMoves({ attack: null, second: null }, eqp(), I).attack.type === 'fists', 'bare hands: attack is a punch');
 eq(W.movesFor(eqp('sword1', 'staff1'), I).map(m => m.label), ['Slash', 'Power Slash', 'Blast'], 'move labels name the weapon move');
+
+// ---- where a hit comes from (frontal block now, Backstab in C3)
+const me = { x: 100, y: 100 };
+ok(W.isFrontal('right', me, { x: 140, y: 100 }), 'a hit from the right while facing right: frontal');
+ok(W.isFrontal('right', me, { x: 120, y: 60 }), 'from the front-right diagonal: frontal');
+ok(!W.isFrontal('right', me, { x: 60, y: 100 }), 'from behind: not frontal');
+ok(W.isFrontal('up', me, { x: 100, y: 100 }), 'from the very same spot: frontal (never a free pass)');
+ok(W.isBehind('left', me, { x: 140, y: 100 }), 'an enemy facing left, struck from its right: behind it');
+ok(!W.isBehind('left', me, { x: 100, y: 140 }), 'struck from its side: not behind');
+ok(!W.isBehind('down', me, { x: 100, y: 140 }), 'struck from the front: not behind');
 
 console.log(`test_weapons: ${n} checks passed`);
 ```
@@ -328,6 +344,19 @@ export function defaultMoves(equipment, items) {
     const ids = movesFor(equipment, items).map(m => m.id);
     const offWeapon = equipment.offHand && ids.includes('off:basic');
     return { attack: 'main:basic', second: ids.includes('off:block') ? 'off:block' : offWeapon ? 'off:basic' : 'main:power' };
+}
+
+// Where a hit comes from. Facing is 'up' | 'down' | 'left' | 'right'.
+const DIR = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+export function isFrontal(facing, at, from) {
+    const [fx, fy] = DIR[facing] ?? [0, 1], dx = from.x - at.x, dy = from.y - at.y;
+    return fx * dx + fy * dy >= 0;                       // the front half, 90° either side
+}
+// Backstab (C3): the attacker stands in the target's rear cone (cos 0.5 = 120° wide)
+export function isBehind(targetFacing, targetPos, attackerPos, cos = 0.5) {
+    const [fx, fy] = DIR[targetFacing] ?? [0, 1], dx = attackerPos.x - targetPos.x, dy = attackerPos.y - targetPos.y;
+    const len = Math.hypot(dx, dy);
+    return len > 0 && (fx * dx + fy * dy) / len <= -cos;
 }
 
 export function resolveMoves(slots, equipment, items) {
@@ -772,7 +801,7 @@ This task changes Phaser code. Its unit tests are the pure ones above; it is pro
 1. **Import** at the top:
 
 ```js
-import { WEAPON_TYPES, typeOf } from '../systems/weapons.js';
+import { WEAPON_TYPES, typeOf, isFrontal } from '../systems/weapons.js';
 ```
 
 2. **Add** above `triggerAttack()`:
@@ -883,12 +912,25 @@ Then in the rest of `_attack`:
         this._reach = WEAPON_TYPES[this._swingType].reach;
 ```
 
-9. **`takeDamage(amount)`**: directly before `const ward = …` add:
+9. **`takeDamage(amount)` becomes `takeDamage(amount, source = null)`.** Directly before `const ward = …` add:
 
 ```js
-        // Combat C1: a raised shield stops 70% of the damage
-        if (this.isBlocking) amount = Math.max(1, Math.round(amount * 0.3));
+        // Combat C1: a raised shield stops 70% of a hit from the front half.
+        // Hits with no source (the storm, statuses) are never blocked.
+        if (this.isBlocking && source && isFrontal(this.facing, this, source)) amount = Math.max(1, Math.round(amount * 0.3));
 ```
+
+10. **Pass the source at the callers** (`grep -n "player.takeDamage(" src/entities/*.js src/scenes/GameScene.js`):
+
+| File:line (approx.) | Call becomes |
+|---|---|
+| `Enemy.js:306` (melee) | `player.takeDamage(dealt, this)` |
+| `Enemy.js:438` (bolt) | `player.takeDamage(…, this)` |
+| `BossEnemy.js:171` (melee) | `player.takeDamage(…, this)` |
+| `BossEnemy.js:200` (slam) | `player.takeDamage(…, this)` |
+| `BossEnemy.js:349` (marks) | `player.takeDamage(…, pos)` |
+| `GameScene.js:~3878` (`aoeDeath`) | `this.player.takeDamage(damage, { x: ax, y: ay })` |
+| `GameScene.js:~1051` (storm) | unchanged — no source, never blocked |
 
 Make sure `ITEMS` is imported in `Player.js`; it is already used there.
 
@@ -952,8 +994,8 @@ Expected: `RESULT {"first":"sword","second":"staff","moves":["Slash","Power Slas
 - [ ] **Step 6: Commit**
 
 ```bash
-git add src/entities/Player.js src/systems/CombatManager.js src/scenes/GameScene.js
-git commit -m "feat(amo): the attack and second buttons swing the chosen move — every weapon type strikes with its own timing, reach and damage; a shield blocks 70%"
+git add src/entities/Player.js src/entities/Enemy.js src/entities/BossEnemy.js src/systems/CombatManager.js src/scenes/GameScene.js
+git commit -m "feat(amo): the attack and second buttons swing the chosen move — every weapon type strikes with its own timing, reach and damage; a shield blocks 70% of a hit from the front"
 ```
 
 ---
@@ -1126,11 +1168,13 @@ Expected: every entry greater than 0. Ranged types (wand, bows) hit at 40 px, in
 
 - [ ] **Step 2: Block (Review Focus 5)**
 
-Run: equip `longsword` + `wooden_shield`, then:
-- `gs.player.useMove('second')` and `gs.player.takeDamage(20)`, recording health lost;
-- wait 1 s (block over), then `takeDamage(20)` again.
+Run: equip `longsword` + `wooden_shield`, face right (`gs.player.facing='right'`), then, recording health lost each time:
+- `useMove('second')`, then `takeDamage(20, {x: player.x + 40, y: player.y})` (from the front);
+- `useMove('second')`, then `takeDamage(20, {x: player.x - 40, y: player.y})` (from behind);
+- `useMove('second')`, then `takeDamage(20)` (no source, like the storm);
+- wait 1 s (block over), then `takeDamage(20, {x: player.x + 40, y: player.y})`.
 
-Expected: about 6 blocked and 20 unblocked (minus any existing ward or skin), and a blocked hit never 0.
+Expected: about 6, 20, 20 and 20 (minus any existing ward or skin), and the blocked hit is never 0.
 
 - [ ] **Step 3: Save, Continue and an old save (Review Focus 1)**
 
@@ -1224,7 +1268,7 @@ table(['Weapon', 'Hands', 'Basic move', 'What it is good for', 'Speed (ms betwee
     ]));
 P();
 P('### Blocking');
-P('With a shield, the Block move raises it: for a moment you take only **30%** of the damage (never less than 1), and you move at half speed. Hold the button to keep it up (keyboard, gamepad); on touch, tap again.');
+P('With a shield, the Block move raises it: for a moment, a hit **from the front** does only **30%** of its damage (never less than 1), and you move at half speed. Hits from behind get through — face your enemy! Lightning and poison are never blocked. Hold the button to keep the shield up (keyboard, gamepad); on touch, tap again.');
 P();
 ```
 
