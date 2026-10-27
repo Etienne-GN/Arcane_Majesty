@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { playerStats, MASTERY_DEFS } from '../systems/PlayerStats.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
+import { unlockLevel } from '../systems/mastery.js';
 
 export default class SkillTreeScene extends Phaser.Scene {
     constructor() { super('SkillTreeScene'); }
@@ -168,8 +169,9 @@ export default class SkillTreeScene extends Phaser.Scene {
                 const parts = Object.entries(skill.requirements.resonance);
                 for (let ri = parts.length - 1; ri >= 0; ri--) {
                     const [el, val] = parts[ri];
-                    const met = (playerStats.resonance[el] ?? 0) >= val;
-                    const t = this.add.text(rx, y + 34, `${el[0].toUpperCase()}${el.slice(1)}≥${val}${met ? '✓' : ''}`, {
+                    const need = unlockLevel(val);                              // Combat C2: element mastery level
+                    const met = playerStats.elementLevel(el) >= need;
+                    const t = this.add.text(rx, y + 34, `${el[0].toUpperCase()}${el.slice(1)} lv ${need}${met ? '✓' : ''}`, {
                         font: '14px monospace', fill: met ? '#446633' : (RES_COLORS[el] ?? '#888888'),
                     }).setOrigin(1, 0);
                     rx -= t.width + 8;

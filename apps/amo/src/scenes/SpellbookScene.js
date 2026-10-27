@@ -3,6 +3,7 @@ import { playerStats } from '../systems/PlayerStats.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
 import { SPELLS, TIER_NAMES, RESONANCE_ELEMENTS, spellTooltip } from '../data/spells.js';
 import { ELEMENT_COLORS } from '../controls/launcherDefs.js';
+import { ceilingOf, FAMILY, pointsFor, unlockLevels } from '../systems/mastery.js';
 
 const ELEMENT_LABELS = {
     fire: 'Fire', arcane: 'Arcane', lightning: 'Lightning', shadow: 'Shadow',
@@ -120,7 +121,7 @@ export default class SpellbookScene extends Phaser.Scene {
 
     // ── Resonance bars ────────────────────────────────────────────────────────
     _drawResonanceBars(x, y, panelW, panelH = 480) {
-        this.add.text(x + panelW / 2, y + 4, 'RESONANCE', {
+        this.add.text(x + panelW / 2, y + 4, 'ELEMENT MASTERY', {
             font: 'bold 16px monospace', fill: '#886699'
         }).setOrigin(0.5, 0);
 
@@ -128,23 +129,17 @@ export default class SpellbookScene extends Phaser.Scene {
         // Shrink the row pitch on short windows so every element fits.
         const step = Math.max(32, Math.min(48, Math.floor((panelH - 36) / RESONANCE_ELEMENTS.length)));
         for (const el of RESONANCE_ELEMENTS) {
-            const val   = playerStats.resonance[el];
+            const lv    = playerStats.elementLevel(el);                     // Combat C2
+            const cap   = ceilingOf(playerStats.talents, FAMILY(el));
+            const pts   = playerStats.mastery.elements[el] ?? 0;
             const color = ELEMENT_COLORS[el];
             const label = ELEMENT_LABELS[el];
             const hexC  = `#${color.toString(16).padStart(6, '0')}`;
-
-            let maxThreshold = 1;
-            for (const spell of Object.values(SPELLS)) {
-                if (spell.element !== el) continue;
-                const top = spell.masteryThresholds?.[spell.masteryThresholds.length - 1]
-                    ?? spell.discoverCondition?.threshold ?? 0;
-                if (top > maxThreshold) maxThreshold = top;
-            }
-            const pct  = Math.min(1, val / maxThreshold);
+            const pct   = lv < cap ? Math.max(0, Math.min(1, (pts - pointsFor(lv)) / (pointsFor(lv + 1) - pointsFor(lv)))) : 1;
             const barW = panelW - 56;
 
             this.add.text(x + 8, oy, label, { font: '14px monospace', fill: hexC });
-            this.add.text(x + panelW - 8, oy, `${val}`, { font: '14px monospace', fill: '#555566' }).setOrigin(1, 0);
+            this.add.text(x + panelW - 8, oy, `${lv} / ${cap}`, { font: '14px monospace', fill: cap === 10 ? '#ddcc88' : '#555566' }).setOrigin(1, 0);
 
             this.add.rectangle(x + 8, oy + 20, barW, 10, 0x1a1a2a).setOrigin(0);
             if (pct > 0) {
@@ -248,8 +243,8 @@ export default class SpellbookScene extends Phaser.Scene {
                 }
             } else {
                 // Unknown spell
-                const res  = playerStats.resonance[spell.element];
-                const need = spell.discoverCondition?.threshold ?? null;
+                const lvNow = playerStats.elementLevel(spell.element);      // Combat C2: spells come with element mastery
+                const need  = unlockLevels(spell)?.[0] ?? null;
 
                 track(this.add.text(x + 20, oy + 14, '??? — Undiscovered', {
                     font: 'bold 18px monospace', fill: '#2e2e44'
@@ -260,13 +255,13 @@ export default class SpellbookScene extends Phaser.Scene {
                         font: '14px monospace', fill: '#3a3a55'
                     }));
                 } else {
-                    track(this.add.text(x + 20, oy + 42, `${ELEMENT_LABELS[spell.element]} resonance: ${res} / ${need}`, {
+                    track(this.add.text(x + 20, oy + 42, `${ELEMENT_LABELS[spell.element]} mastery: ${lvNow} / ${need} needed`, {
                         font: '14px monospace', fill: '#3a3a55'
                     }));
                     const barW = maxW - 48;
                     track(this.add.rectangle(x + 20, oy + 66, barW, 8, 0x111122).setOrigin(0));
-                    if (res > 0) {
-                        const pct = Math.min(1, res / need);
+                    if (lvNow > 1) {
+                        const pct = Math.min(1, (lvNow - 1) / (need - 1));
                         track(this.add.rectangle(x + 20, oy + 66, Math.floor(barW * pct), 8, (color & 0x7f7f7f)).setOrigin(0));
                     }
                 }

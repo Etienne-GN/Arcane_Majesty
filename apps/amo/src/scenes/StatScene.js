@@ -1,6 +1,9 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { ITEMS } from '../data/items.js';
+import { WEAPON_TYPES } from '../systems/weapons.js';
+import { ceilingOf, FAMILY, pointsFor } from '../systems/mastery.js';
+import { RESONANCE_ELEMENTS } from '../data/spells.js';
 
 export default class StatScene extends Phaser.Scene {
     constructor() { super('StatScene'); }
@@ -81,6 +84,19 @@ export default class StatScene extends Phaser.Scene {
             oy += 20;
         }
 
+        // ── Mastery (Combat C2): weapons left, magic right, below both columns ──
+        oy = Math.max(oy, py + 52 + 24 + 4 * 20 + 28 + 24 + 5 * 20) + 16;
+        const T = playerStats.talents ?? {};
+        const weaponRows = Object.entries(WEAPON_TYPES).filter(([, d]) => d.available)
+            .map(([t, d]) => [d.label, playerStats.weaponLevel(t), ceilingOf(T, t), playerStats.mastery.weapons[t] ?? 0]);
+        const magicRows = RESONANCE_ELEMENTS
+            .map(el => [`${el[0].toUpperCase()}${el.slice(1)} magic`, playerStats.elementLevel(el), ceilingOf(T, FAMILY(el)), playerStats.mastery.elements[el] ?? 0]);
+        this._section(col1x, oy, 'WEAPON MASTERY  (level / your best)');
+        this._section(col2x, oy, 'MAGIC MASTERY  (level / your best)');
+        this._masteryRows(col1x, oy + 22, weaponRows);
+        this._masteryRows(col2x, oy + 22, magicRows);
+        this.add.text(col2x, oy + 22 + magicRows.length * 15 + 8, 'Gold = Gifted (can reach 10)', { font: 'italic 11px monospace', fill: '#ddcc88' });
+
         // XP bar at the bottom
         const barX = px + 16, barY = py + ph - 24, barW = pw - 32, barH = 10;
         const fill  = Math.round(barW * (playerStats.xp / playerStats.xpToNextLevel));
@@ -95,6 +111,19 @@ export default class StatScene extends Phaser.Scene {
         // Close
         this.input.keyboard.on('keydown-P',   () => this._close());
         this.input.keyboard.on('keydown-ESC', () => this._close());
+    }
+
+    // One line per mastery: name (gold if Gifted), level / ceiling, progress to the next level.
+    _masteryRows(x, y, rows) {
+        const g = this.add.graphics();
+        for (const [label, lv, cap, pts] of rows) {
+            const next = lv < cap ? (pts - pointsFor(lv)) / (pointsFor(lv + 1) - pointsFor(lv)) : 1;
+            this.add.text(x, y, label, { font: '12px monospace', fill: cap === 10 ? '#ddcc88' : '#8899aa' });
+            this.add.text(x + 150, y, `${lv} / ${cap}`, { font: '12px monospace', fill: '#aabbdd' });
+            g.fillStyle(0x1a1a2a).fillRect(x + 210, y + 4, 90, 7);
+            g.fillStyle(lv >= cap ? 0x667788 : 0x5588dd).fillRect(x + 210, y + 4, Math.round(90 * Math.max(0, Math.min(1, next))), 7);
+            y += 15;
+        }
     }
 
     _section(x, y, label) {

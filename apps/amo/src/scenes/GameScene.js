@@ -50,8 +50,8 @@ import { ChunkStreamer, chunkKey, chunkOfTile, bucketByChunk } from '../systems/
 import { RETURN_KEY, doorLockState, doorReturnPoint, pushReturn, resolvePortal, clearReturnsOutside } from '../systems/interiors.js';
 import { DECORATION_SOURCES } from '../systems/walkGrid.js';
 import { TownsfolkManager } from '../systems/TownsfolkManager.js';
-import { typeOf, creditType } from '../systems/weapons.js';
-import { hitGain, levelDamageMult, focusBonus } from '../systems/mastery.js';
+import { typeOf, creditType, WEAPON_TYPES } from '../systems/weapons.js';
+import { hitGain, levelDamageMult, focusBonus, FAMILY } from '../systems/mastery.js';
 import { talentsFor } from '../data/talents.js';
 import { fogFor, revealAround, encodeFog, newlyDiscovered, REVEAL_RADIUS, DENSE_REVEAL_RADIUS } from '../systems/fog.js';
 import { denseMask, isDenseAt } from '../systems/mapPaint.js';
@@ -228,6 +228,12 @@ export default class GameScene extends Phaser.Scene {
         };
         playerStats.onSpellEvent(this._onSpellEvent);
         playerStats.setTalents(talentsFor(this._characterId, this._onlineCharacter?.classId));   // Combat C2
+        this._onMasteryUp = (kind, key, level) => {
+            const name = kind === 'weapon' ? WEAPON_TYPES[key]?.label : `${key[0].toUpperCase()}${key.slice(1)} magic`;
+            this.scene.get('UIScene')?.showNotification?.(`${name} mastery ${level}${level >= playerStats.ceilingFor(kind === 'weapon' ? key : FAMILY(key)) ? ' — your best' : ''}`, 2600);
+        };
+        playerStats.onMasteryUp(this._onMasteryUp);
+        this.events.once('shutdown', () => playerStats.offMasteryUp(this._onMasteryUp));
         this.events.once('shutdown', () => playerStats.offSpellEvent(this._onSpellEvent));
 
         // Resonance gain → quest hook + hidden quest trigger
@@ -4127,6 +4133,7 @@ export default class GameScene extends Phaser.Scene {
 
         // Resonance — cover all elemental gates (Arcane ≥15, Shadow ≥10)
         Object.keys(s.resonance).forEach(el => { s.resonance[el] = 60; });
+        Object.keys(s.resonance).forEach(el => { s.mastery.elements[el] = 1800; });   // C2: gates read element level (1800 = level 10)
 
         // Points — enough to max several skill branches
         s.skillPoints     = 25;
