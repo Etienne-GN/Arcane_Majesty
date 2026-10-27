@@ -41,6 +41,7 @@ const CAMPAIGN = Object.values(campaigns).find(v => v?.chapters);
 globalThis.localStorage ??= { getItem: () => null, setItem() {}, removeItem() {} };
 const { PlayerStats, MASTERY_DEFS, xpForLevel } = await import(SRC + 'systems/PlayerStats.js');
 const { WEAPON_TYPES } = await import(SRC + 'systems/weapons.js');
+const { unlockLevel, unlockLevels, PASSIVE_CAP_LEVEL } = await import(SRC + 'systems/mastery.js');
 
 const out = [];
 const P = (s = '') => out.push(s);
@@ -109,7 +110,7 @@ table(['System', 'How it works'], [
     ['Landmarks', 'Notable places. Reaching one the first time shows "Discovered: …", gives XP and pins it on your map.'],
     ['Dense forest', 'Deep woods shrink how far you see and darken the edges of the screen. Keep to the roads, or trust your map.'],
     ['Vigor', 'The green bar under MP (100, +2 per Agility above 10). Sprinting and hopping spend it; it refills at 25/s after 0.8 s of rest. It is not the Stamina attribute.'],
-    ['Resonance', `Acting with an element (kills, casting, resting…) builds resonance in it (${RESONANCE_ELEMENTS.join(', ')}). Crossing a spell's threshold **discovers** it; further thresholds raise it to ${TIER_NAMES.join(' → ')}.`],
+    ['Element mastery', `Each element (${RESONANCE_ELEMENTS.join(', ')}) has a mastery from 1 to 10. Being around it (kills, rain, campfires, scrolls…) gives a feel for it, but only up to mastery ${PASSIVE_CAP_LEVEL}; spells that hit raise it further, up to what your talent allows. A spell is **discovered** at its element's Novice level and grows ${TIER_NAMES.join(' → ')} two and four levels later (see Combat → Spells and the elements).`],
     ['Mana scent', 'Casting and blinking leave an "Aetheric Scent" (0–100) that decays over time; enemies detect you from up to 3× further while it is high.'],
     ['Mana exhaustion', 'Below 20% MP you suffer growing fatigue (up to −50%); emptying your mana exhausts or collapses you until you recover.'],
     ['Aetheric Tear', 'Teleport by tearing space (G): costs 85% of max MP (75% with a mastery). A mastery lets you target any explored location.'],
@@ -132,7 +133,7 @@ table(['System', 'How it works'], [
     ['Weather', `Each map's weather follows its biome and changes every 4–8 game hours — ${Object.entries(BIOME_WEATHER).map(([b, t]) => `${b}: ${Object.keys(t).map(k => WEATHER[k]).join('/')}`).join('; ')}. Rain and storms soak everyone every 10 s (fire spells ×0.8, lightning ×1.2, on top of Wet) and standing in the rain builds water, ice and nature resonance. Storms drop a lightning strike every 6–12 s, marked by a ring ${STORM.telegraphMs / 1000}s before it lands (${stormStrikeDamage({ max: 3 })} damage at Lv 1–3, more in higher regions). Snow chills you (Cold for 8 s) every 20 s unless you are within 120 px of a campfire or hearth or under Warming (Warmth Aura, Warming Draught: 90 s). Sandstorms cut enemy sight to 60%.`],
     ['Memories', 'Completing quests recovers lore fragments ("Archive of Souls"), readable in the Codex.'],
     ['Campaign', "Eldoria's Prophecy: chapters gate which maps you can enter; completing a chapter grants its unlocks; progress is saved."],
-    ['Saving', 'Stats, inventory, equipment, spells, resonance, quests, campaign, codex, explored map (fog per map), charts read, landmarks discovered, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties, the game clock, the doors you came in by.'],
+    ['Saving', 'Stats, inventory, equipment, spells, resonance, weapon and element mastery, quests, campaign, codex, explored map (fog per map), charts read, landmarks discovered, attuned gates, chest contents, hotbar, craft counts, known recipes, gear upgrades, dialogue choices (flags), bounty boards and accepted bounties, the game clock, the doors you came in by.'],
     ['Online', 'Server select, online characters, chat; other players are visible (presence). The campaign is single-player.'],
     ['Character creator', 'LPC layered characters with palette swaps, export of the character and sheet (with licences).'],
 ]);
@@ -172,6 +173,46 @@ P();
 P('### Blocking');
 P('With a shield, the Block move raises it: for a moment, a hit **from the front** does only **30%** of its damage (never less than 1), and you move at half speed. Hits from behind get through — face your enemy! Lightning and poison are never blocked. Hold the button to keep the shield up (keyboard, gamepad); on touch, tap again.');
 P();
+P('### Getting better: mastery');
+P('Every weapon, and every kind of magic, has a **mastery from 1 to 10**. Everyone starts at 1. You get better at what you **use**:');
+P();
+P('- Each hit with a weapon teaches it a little; each **kill** teaches more. Weak enemies teach you almost nothing — fight things your size.');
+P('- Each spell that hits teaches its element (fire, water…) — and your wand or staff, if you hold one.');
+P('- Every level makes it better: **+8% damage** and a little faster. At 10 that is +72%.');
+P('- The character screen (P) shows every mastery as *level / your best*. A notice pops up each time one goes up.');
+P();
+P('### Talent: how far you can go');
+P('Nobody is great at everything. Each hero has a talent for each weapon and each kind of magic:');
+P();
+table(['Talent', 'Mastery can reach'], [['Gifted', '10 — the very best'], ['Trained', '6 — solid'], ['Untrained', '3 — a usable backup']]);
+P();
+const TAL = await import(SRC + 'data/talents.js');
+const tl = v => (v === 'gifted' ? 'Gifted' : v === 'trained' ? 'Trained' : '·');
+const talentKeys = [...Object.entries(WEAPON_TYPES).filter(([, d]) => d.available).map(([t, d]) => [t, d.label]), ['elemental', 'Elemental magic'], ['light', 'Light magic (arcane)'], ['dark', 'Dark magic (shadow)']];
+table(['', 'Eldrin', 'Kael', 'Anya', 'Seraphina'], talentKeys.map(([k, label]) => [label, ...['eldrin', 'kael', 'anya', 'seraphina'].map(c => tl(TAL.STORY_TALENTS[c][k]))]));
+P();
+P('A dot (·) means Untrained: the hero can still use it, up to 3.');
+P();
+P('**Example — Eldrin with a sword.** He can fight with a sword, and he gets better at it — but only up to 3. His staff can reach 10.');
+P();
+P('### Classes (characters you create)');
+P('A character you create picks a **class** the first time it enters the world. The class sets its talents — you can still pick up any weapon.');
+P();
+table(['Class', 'What it is', 'Gifted (10)', 'Trained (6)'], TAL.CLASS_IDS.map(id => {
+    const name = k => Object.fromEntries(talentKeys)[k] ?? k;
+    const c = TAL.CLASSES[id], by = v => Object.entries(c.talents).filter(([, x]) => x === v).map(([k]) => name(k)).join(', ');
+    return [c.name, c.blurb, by('gifted'), by('trained')];
+}));
+P();
+P('### Spells and the elements');
+P('Your spells belong to you, not to your stick: you can cast them with a wand, a staff, a sword in hand — or nothing.');
+P();
+P('- A **wand** makes spells quicker (shorter waits) but a little weaker.');
+P('- A **staff** makes spells stronger and wider, but slower to come back.');
+P('- New spells come with your **element mastery**: the higher your water mastery, the more water spells you know, and the stronger their tiers (Novice → Apprentice → Adept).');
+P(`- Being around an element — rain, a campfire, fighting its creatures — gives you a **feel** for it, but only up to mastery ${PASSIVE_CAP_LEVEL}: enough for the easiest spell or two. After that, you learn by casting in fights, or faster from scrolls, tomes and teachers.`);
+P('- Each hero starts knowing one or two spells: Eldrin Fireball and Tidal Bolt, Anya Mana Dart and Shadow Bolt, Seraphina Shadow Bolt. Kael knows none — he is a swordsman.');
+P();
 // ------------------------------------------------------------------ character
 P('## Character & progression');
 P();
@@ -188,26 +229,26 @@ table(['Level', 'XP to next', 'Total XP to reach'], [1, 2, 3, 5, 10, 15, 20, 25,
 P('### Skills');
 table(['Skill', 'Type', 'Max level', 'Requirements', 'Effect'], Object.values(ps.skills).map(s => [
     s.name, `${s.category} / ${s.type}`, s.maxLevel,
-    s.requirements ? Object.entries(s.requirements).map(([k, v]) => typeof v === 'object' ? Object.entries(v).map(([e, n]) => `${e} resonance ${n}`).join(', ') : `${k} ${v}`).join(', ') : '—',
+    s.requirements ? Object.entries(s.requirements).map(([k, v]) => typeof v === 'object' ? Object.entries(v).map(([e, n]) => `${e} mastery ${unlockLevel(n)}`).join(', ') : `${k} ${v}`).join(', ') : '—',
     s.description,
 ]));
 P('### Masteries (bought with Resonance Insights from quests: hidden 3, main 2, side 1)');
 table(['Mastery', 'Cost', 'Effect'], Object.values(MASTERY_DEFS).map(m => [m.name, m.cost, m.description]));
-P('### Resonance gains');
+P(`### The feel for an element (counts only up to element mastery ${PASSIVE_CAP_LEVEL})`);
 table(['Action', 'Resonance gained'], Object.entries(RESONANCE_GAINS).map(([k, v]) => [k.replace(/_/g, ' '), Object.entries(v).map(([e, n]) => `${e} +${n}`).join(', ')]));
 
 // ------------------------------------------------------------------ spells
 P('## Magic — all spells');
 P();
-P(`Values given per tier (${TIER_NAMES.join(' / ')}). Discover = resonance needed in the element; mastery = resonance for the next tiers.`);
+P(`Values given per tier (${TIER_NAMES.join(' / ')}). Learned at = the element mastery that teaches the spell, then raises it to ${TIER_NAMES.slice(1).join(' and ')}.`);
 P();
 for (const el of RESONANCE_ELEMENTS) {
     const list = Object.values(SPELLS).filter(s => s.element === el)
         .sort((a, b) => (a.discoverCondition?.threshold ?? 999) - (b.discoverCondition?.threshold ?? 999));
     P(`### ${el[0].toUpperCase() + el.slice(1)} (${list.length})`);
-    table(['Spell', 'Discover / mastery', 'Targeting', 'Damage (base, per-level, scaling)', 'Mana', 'Cooldown (ms)', 'Range', 'Status', 'Learn from', 'Lore'], list.map(s => [
+    table(['Spell', 'Learned at (element mastery)', 'Targeting', 'Damage (base, per-level, scaling)', 'Mana', 'Cooldown (ms)', 'Range', 'Status', 'Learn from', 'Lore'], list.map(s => [
         `**${s.name}**${s.passive ? ' (passive)' : ''}${s.dispel ? ' · dispels' : ''}${s.interrupt ? ' · interrupts' : ''}`,
-        `${s.discoverCondition?.threshold ?? '—'} / ${(s.masteryThresholds ?? []).join(', ')}`,
+        unlockLevels(s) ? unlockLevels(s).join(' / ') : '—',
         (s.targetingType ?? '').replace(/_/g, ' '),
         s.baseDmg ? tiers(s.baseDmg) : '—',
         tiers(s.manaCost), tiers(s.cooldown), s.range ? tiers(s.range) + (s.radius ? ` (area ${tiers(s.radius)})` : '') : '—',
