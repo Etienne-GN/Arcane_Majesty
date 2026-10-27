@@ -241,11 +241,11 @@ export default class OnlineCharacterScene extends Phaser.Scene {
         objs.push(this.add.text(w / 2, 92, 'Your class decides what you can master. You can still pick up any weapon.', { font: '14px monospace', fill: '#aaaacc' }).setOrigin(0.5).setDepth(101));
         CLASS_IDS.forEach((id, i) => {
             const c = CLASSES[id], col = i % 2, row = Math.floor(i / 2);
-            const bx = w / 2 + (col ? 20 : -20 - 340), by = 130 + row * 90;
-            const bg = this.add.rectangle(bx, by, 340, 78, 0x12122e).setOrigin(0).setStrokeStyle(2, 0x5533aa).setInteractive({ useHandCursor: true }).setDepth(101);
+            const cw = Math.min(380, Math.floor(w / 2) - 30), bx = w / 2 + (col ? 10 : -10 - cw), by = 130 + row * 90;
+            const bg = this.add.rectangle(bx, by, cw, 78, 0x12122e).setOrigin(0).setStrokeStyle(2, 0x5533aa).setInteractive({ useHandCursor: true }).setDepth(101);
             const gifted = Object.entries(c.talents).filter(([, v]) => v === 'gifted').map(([k]) => k).join(', ');
             objs.push(bg, this.add.text(bx + 10, by + 8, c.name, { font: 'bold 18px monospace', fill: '#ffdd88' }).setDepth(102),
-                this.add.text(bx + 10, by + 32, c.blurb, { font: '12px monospace', fill: '#ccccee' }).setDepth(102),
+                this.add.text(bx + 10, by + 32, c.blurb, { font: '12px monospace', fill: '#ccccee', wordWrap: { width: cw - 20 } }).setDepth(102),
                 this.add.text(bx + 10, by + 52, `Gifted: ${gifted}`, { font: '11px monospace', fill: '#88aa88' }).setDepth(102));
             bg.on('pointerdown', () => {
                 dat.classId = id;

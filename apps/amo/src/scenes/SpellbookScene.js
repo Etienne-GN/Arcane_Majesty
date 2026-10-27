@@ -255,7 +255,7 @@ export default class SpellbookScene extends Phaser.Scene {
                         font: '14px monospace', fill: '#3a3a55'
                     }));
                 } else {
-                    track(this.add.text(x + 20, oy + 42, `${ELEMENT_LABELS[spell.element]} mastery: ${lvNow} / ${need} needed`, {
+                    track(this.add.text(x + 20, oy + 42, `Needs ${ELEMENT_LABELS[spell.element]} mastery ${need}  (yours: ${lvNow})`, {
                         font: '14px monospace', fill: '#3a3a55'
                     }));
                     const barW = maxW - 48;
