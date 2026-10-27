@@ -53,4 +53,25 @@ eq(M.unlockLevel(3), 2, 'a skill-tree requirement of resonance 3 means level 2')
 eq(M.pointsFromResonance(18, 10), 90, 'resonance converts at 5 points each');
 eq(M.pointsFromResonance(999, 3), M.pointsFor(3), '… capped by talent');
 
+// ---- talents (spec §3 tables)
+{
+    const T = await import('../src/data/talents.js');
+    const { CHARACTERS } = await import('../src/data/characters.js');
+    const { WEAPON_TYPES } = await import('../src/systems/weapons.js');
+    const keys = [...Object.keys(WEAPON_TYPES).filter(t => t !== 'fists'), 'fists', 'elemental', 'light', 'dark'];
+    const all = [...Object.values(T.STORY_TALENTS), ...Object.values(T.CLASSES).map(c => c.talents)];
+    ok(all.every(t => Object.entries(t).every(([k, v]) => keys.includes(k) && ['gifted', 'trained'].includes(v))), 'every talent names a real weapon or family');
+    eq([T.talentsFor('eldrin').staff, T.talentsFor('eldrin').elemental, T.talentsFor('eldrin').sword], ['gifted', 'gifted', undefined], 'Eldrin: a mage, never a top swordsman');
+    eq([T.talentsFor('kael').sword, T.talentsFor('kael').greatsword, T.talentsFor('kael').wand], ['gifted', 'gifted', undefined], 'Kael: both swords, never the best mage');
+    eq([T.talentsFor('anya').light, T.talentsFor('anya').dark], ['gifted', 'gifted'], 'Anya: masters two kinds of magic');
+    eq([T.talentsFor('seraphina').dagger, T.talentsFor('seraphina').sword, T.talentsFor('seraphina').dark], ['gifted', 'gifted', 'gifted'], 'Seraphina: dagger, sword and dark magic');
+    eq(T.talentsFor('eldrin_forge'), T.talentsFor('eldrin'), 'the forge Eldrin is Eldrin');
+    eq(T.CLASS_IDS, ['warrior', 'ranger', 'mage', 'brawler', 'spellsword', 'shadowblade', 'seer', 'druid'], 'eight classes');
+    eq(T.talentsFor('online', 'brawler').fists, 'gifted', 'a created character takes its class\'s talents');
+    eq(T.talentsFor('online', undefined), {}, 'no class yet: untrained at everything');
+    const { SPELLS } = await import('../src/data/spells.js');
+    for (const c of CHARACTERS) for (const id of c.startKit?.spells ?? []) ok(SPELLS[id], `${c.id} starts knowing ${id}`);
+    eq((CHARACTERS.find(c => c.id === 'eldrin').startKit.spells ?? []).sort(), ['fireball', 'tidal_bolt'], 'Eldrin starts with fire and water');
+}
+
 console.log(`test_mastery: ${n} checks passed`);
