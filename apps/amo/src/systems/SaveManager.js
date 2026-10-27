@@ -1,7 +1,7 @@
 import { ITEMS } from '../data/items.js';
 import { xpForLevel } from './PlayerStats.js';
 import { prunedWorldState } from './WorldState.js';
-import { pointsFromResonance, ceilingOf, FAMILY } from './mastery.js';
+import { pointsFromResonance, ceilingOf, FAMILY, pointsFor, unlockLevel } from './mastery.js';
 import { talentsFor } from '../data/talents.js';
 function saveKey(storyId, characterId) {
     return `amo_save_${storyId}_${characterId}`;
@@ -26,13 +26,18 @@ export class SaveManager {
     }
 
     // Combat C2: saves from before mastery convert their resonance (5 points each,
-    // under the talent ceiling). Known spells are never touched.
+    // at least the level its gates needed, under the talent ceiling). Known spells
+    // are never lowered; spells the new level allows are added.
     static migrateCombatC2(stats, d) {
         if (!stats?.mastery) return;
         if (d?.mastery) { stats.mastery = { weapons: { ...d.mastery.weapons }, elements: { ...d.mastery.elements } }; return; }
         stats.mastery = { weapons: {}, elements: {} };
         for (const [el, res] of Object.entries(d?.resonance ?? {})) {
-            if (res > 0) stats.mastery.elements[el] = pointsFromResonance(res, ceilingOf(stats.talents, FAMILY(el)));
+            if (!(res > 0)) continue;
+            // 5 points per resonance, but never below the level the old resonance's gates need
+            const ceiling = ceilingOf(stats.talents, FAMILY(el));
+            stats.mastery.elements[el] = Math.min(pointsFor(ceiling), Math.max(pointsFromResonance(res, ceiling), pointsFor(unlockLevel(res))));
+            stats._checkSpellProgress?.(el);   // only adds: spells the new level allows
         }
     }
 

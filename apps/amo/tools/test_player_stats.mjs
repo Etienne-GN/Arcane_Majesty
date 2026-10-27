@@ -220,9 +220,22 @@ if (statusManager?.speedMult) {
     localStorage.setItem('amo_save_c2test_eldrin', JSON.stringify(raw));
     const o2 = new PlayerStats();
     SaveManager.load(o2, 'c2test', 'eldrin');
-    eq(o2.mastery.elements.water, 200, 'old water resonance 40 becomes 200 points');
+    eq(o2.mastery.elements.water, M.pointsFor(M.unlockLevel(40)), 'old water resonance 40: at least the level its gates needed (8), above 5 x 40');
     eq(o2.mastery.elements.shadow, M.pointsFor(6), 'Eldrin is trained in dark magic: capped at 6');
-    eq(o2.getSpellLevel('riptide'), 2, 'a spell the old save knew stays at its tier');
+    ok(o2.getSpellLevel('riptide') >= 2, 'a spell the old save knew never drops below its tier');
+    // old save: every gate the old resonance met stays met (review: Important 2)
+    const raw3 = JSON.parse(localStorage.getItem('amo_save_c2test_eldrin'));
+    delete raw3.mastery; raw3.resonance = { ...raw3.resonance, arcane: 15, water: 40 }; raw3.spells = { ...raw3.spells, tidal_bolt: 0 };
+    localStorage.setItem('amo_save_c2test_eldrin', JSON.stringify(raw3));
+    const o3 = new PlayerStats();
+    SaveManager.load(o3, 'c2test', 'eldrin');
+    ok(o3.elementLevel('arcane') >= M.unlockLevel(15), 'an old arcane-15 skill gate stays met after the conversion');
+    ok(o3.getSpellLevel('tidal_bolt') > 0, 'spells the converted level allows are known at load');
+    // saved mastery above the ceiling (another character's points) never counts past it (review: Minor 2 re-graded)
+    const c = new PlayerStats();
+    c.setTalents(talentsFor('eldrin'));
+    c.mastery.weapons.fists = 1800;
+    eq(c.weaponLevel('fists'), 3, 'mastery never reads above the talent ceiling');
 }
 
 console.log(`✓ player-stats tests passed (${n} assertions).`);

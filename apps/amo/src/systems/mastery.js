@@ -3,6 +3,7 @@
 // wand/staff focus bonus, and which spell tiers an element level unlocks.
 // Pure — tools/test_mastery.mjs.
 import { typeOf } from './weapons.js';
+import { SPELLS } from '../data/spells.js';
 
 export const MAX_LEVEL = 10;
 export const PASSIVE_CAP_LEVEL = 2;   // the feel for an element (rain, kills by type…) stops here
@@ -51,10 +52,17 @@ export function focusBonus(focus, L = 1) {
 
 // A spell's Novice / Apprentice / Adept element levels (from its old resonance threshold).
 export const unlockLevel = threshold => Math.min(MAX_LEVEL, Math.max(2, Math.ceil(threshold / 6) + 1));
+// The easiest spell(s) of each element (lowest threshold) open at the passive cap,
+// so the feel for any element teaches something that can then be practised.
+const EASIEST = {};
+for (const sp of Object.values(SPELLS)) {
+    const t = sp.discoverCondition?.threshold;
+    if (t != null) EASIEST[sp.element] = Math.min(EASIEST[sp.element] ?? Infinity, t);
+}
 export function unlockLevels(spell) {
     const t = spell?.discoverCondition?.threshold;
     if (t == null) return null;
-    const novice = unlockLevel(t);
+    const novice = t <= EASIEST[spell.element] ? PASSIVE_CAP_LEVEL : unlockLevel(t);
     return [novice, Math.min(MAX_LEVEL, novice + 2), Math.min(MAX_LEVEL, novice + 4)];
 }
 export function tierAt(spell, elementLevel) {

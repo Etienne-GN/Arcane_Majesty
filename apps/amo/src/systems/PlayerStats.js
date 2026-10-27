@@ -635,8 +635,9 @@ export class PlayerStats {
     // ── Combat C2: mastery ───────────────────────────────────────────────────
     setTalents(t) { this.talents = t ?? {}; }
     ceilingFor(key) { return ceilingOf(this.talents, key); }
-    weaponLevel(type)  { return levelOf(this.mastery.weapons[type] ?? 0); }
-    elementLevel(el)   { return levelOf(this.mastery.elements[el] ?? 0); }
+    // never above the ceiling, even with points saved under another character's talents
+    weaponLevel(type)  { return Math.min(levelOf(this.mastery.weapons[type] ?? 0), this.ceilingFor(type)); }
+    elementLevel(el)   { return Math.min(levelOf(this.mastery.elements[el] ?? 0), this.ceilingFor(FAMILY(el))); }
     focusType() { return focusOf(this.equipment, ITEMS); }
     onMasteryUp(fn)  { this._masteryCallbacks.push(fn); }
     offMasteryUp(fn) { this._masteryCallbacks = this._masteryCallbacks.filter(f => f !== fn); }

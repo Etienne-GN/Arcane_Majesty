@@ -39,6 +39,8 @@ export default class OnlineCharacterScene extends Phaser.Scene {
     create() {
         const w = this.scale.width, h = this.scale.height;
         this._selectedSlot  = -1;
+        this._entering      = false;
+        this._classPicker   = null;
         this._cards         = [];
         this._previews      = [];
 
@@ -159,6 +161,14 @@ export default class OnlineCharacterScene extends Phaser.Scene {
     update(time, delta) {
         const gp = this._gpNav.poll(delta);
         if (!gp) return;
+        if (this._classPicker) {   // Combat C2: the class picker owns the pad while it is open
+            if (gp.left) this._classPicker.move(-1, 0);
+            if (gp.right) this._classPicker.move(1, 0);
+            if (gp.up) this._classPicker.move(0, -1);
+            if (gp.down) this._classPicker.move(0, 1);
+            if (gp.A) this._classPicker.choose();
+            return;
+        }
         if (gp.left)  this._moveSlot(-1);
         if (gp.right) this._moveSlot(1);
         if (gp.A)     { if (this._selectedSlot >= 0 && this._slotData[this._selectedSlot]) this._enterWorld(); else if (this._selectedSlot >= 0) this._clickSlot(this._selectedSlot); }
@@ -220,6 +230,8 @@ export default class OnlineCharacterScene extends Phaser.Scene {
         if (!dat) return;
         if (this._classPicker) return;                          // the picker is open: click a class
         if (!dat.classId) { this._pickClass(dat); return; }   // Combat C2: asked once
+        if (this._entering) return;   // one Enter can reach two handlers
+        this._entering = true;
         soundManager.menuSelect();
         this.cameras.main.fadeOut(400);
         this.time.delayedCall(400, () => {
@@ -232,13 +244,38 @@ export default class OnlineCharacterScene extends Phaser.Scene {
     }
 
     // Combat C2: a created character picks a class once; it is saved in the slot.
+    // Mouse/touch click a card; arrows or the gamepad stick move, Enter / A chooses.
     _pickClass(dat) {
         const w = this.scale.width, h = this.scale.height;
-        const objs = [];
-        this._classPicker = true;
+        const slot = this._selectedSlot;   // the slot asked for, whatever moves underneath
+        const objs = [], cards = [];
         objs.push(this.add.rectangle(0, 0, w, h, 0x000000, 0.85).setOrigin(0).setInteractive().setDepth(100));
         objs.push(this.add.text(w / 2, 60, `Choose ${dat.charName ?? 'your hero'}'s class`, { font: 'bold 24px monospace', fill: '#ffd700' }).setOrigin(0.5).setDepth(101));
         objs.push(this.add.text(w / 2, 92, 'Your class decides what you can master. You can still pick up any weapon.', { font: '14px monospace', fill: '#aaaacc' }).setOrigin(0.5).setDepth(101));
+        const choose = (id) => {
+            dat.classId = id;
+            try {
+                const raw = JSON.parse(localStorage.getItem(SLOT_KEY(slot)) ?? 'null');
+                if (raw) { raw.classId = id; localStorage.setItem(SLOT_KEY(slot), JSON.stringify(raw)); }
+            } catch { /* the choice still holds for this session */ }
+            this.input.keyboard?.off('keydown', onKey);
+            objs.forEach(o => o.destroy());
+            this._classPicker = null;
+            this._selectedSlot = slot;
+            this._enterWorld();
+        };
+        const highlight = (i) => {
+            this._classPicker.idx = (i + CLASS_IDS.length) % CLASS_IDS.length;
+            cards.forEach((bg, j) => bg.setStrokeStyle(j === this._classPicker.idx ? 3 : 2, j === this._classPicker.idx ? 0xffd700 : 0x5533aa));
+        };
+        const move = (dx, dy) => { highlight(this._classPicker.idx + dx + dy * 2); soundManager.menuHover(); };
+        const onKey = (ev) => {
+            const k = ev.key;
+            if (k === 'ArrowLeft') move(-1, 0); else if (k === 'ArrowRight') move(1, 0);
+            else if (k === 'ArrowUp') move(0, -1); else if (k === 'ArrowDown') move(0, 1);
+            else if (k === 'Enter' || k === ' ') choose(CLASS_IDS[this._classPicker.idx]);
+        };
+        this._classPicker = { idx: 0, move, choose: () => choose(CLASS_IDS[this._classPicker.idx]) };
         CLASS_IDS.forEach((id, i) => {
             const c = CLASSES[id], col = i % 2, row = Math.floor(i / 2);
             const cw = Math.min(380, Math.floor(w / 2) - 30), bx = w / 2 + (col ? 10 : -10 - cw), by = 130 + row * 90;
@@ -247,17 +284,12 @@ export default class OnlineCharacterScene extends Phaser.Scene {
             objs.push(bg, this.add.text(bx + 10, by + 8, c.name, { font: 'bold 18px monospace', fill: '#ffdd88' }).setDepth(102),
                 this.add.text(bx + 10, by + 32, c.blurb, { font: '12px monospace', fill: '#ccccee', wordWrap: { width: cw - 20 } }).setDepth(102),
                 this.add.text(bx + 10, by + 52, `Gifted: ${gifted}`, { font: '11px monospace', fill: '#88aa88' }).setDepth(102));
-            bg.on('pointerdown', () => {
-                dat.classId = id;
-                const n = this._selectedSlot;
-                try {
-                    const raw = JSON.parse(localStorage.getItem(SLOT_KEY(n)) ?? 'null');
-                    if (raw) { raw.classId = id; localStorage.setItem(SLOT_KEY(n), JSON.stringify(raw)); }
-                } catch { /* the choice still holds for this session */ }
-                objs.forEach(o => o.destroy());
-                this._classPicker = false;
-                this._enterWorld();
-            });
+            cards.push(bg);
+            bg.on('pointerover', () => highlight(i));
+            bg.on('pointerdown', () => choose(id));
         });
+        highlight(0);
+        // the Enter that opened the picker must not choose at once
+        this.time.delayedCall(0, () => this.input.keyboard?.on('keydown', onKey));
     }
 }

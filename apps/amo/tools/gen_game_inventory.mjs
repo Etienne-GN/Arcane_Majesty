@@ -210,7 +210,7 @@ P();
 P('- A **wand** makes spells quicker (shorter waits) but a little weaker.');
 P('- A **staff** makes spells stronger and wider, but slower to come back.');
 P('- New spells come with your **element mastery**: the higher your water mastery, the more water spells you know, and the stronger their tiers (Novice → Apprentice → Adept).');
-P(`- Being around an element — rain, a campfire, fighting its creatures — gives you a **feel** for it, but only up to mastery ${PASSIVE_CAP_LEVEL}: enough for the easiest spell or two. After that, you learn by casting in fights, or faster from scrolls, tomes and teachers.`);
+P(`- Being around an element — rain, a campfire, fighting its creatures — gives you a **feel** for it, but only up to mastery ${PASSIVE_CAP_LEVEL}: enough for the easiest spell of each element. After that, you learn by **casting its spells in fights**: every hit counts. (Scrolls and tomes add to the feel; teachers are coming.)`);
 P('- Each hero starts knowing one or two spells: Eldrin Fireball and Tidal Bolt, Anya Mana Dart and Shadow Bolt, Seraphina Shadow Bolt. Kael knows none — he is a swordsman.');
 P();
 // ------------------------------------------------------------------ character

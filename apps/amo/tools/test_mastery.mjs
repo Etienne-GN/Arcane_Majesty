@@ -45,7 +45,12 @@ eq(M.unlockLevels(SPELLS.tidal_bolt), [2, 4, 6], 'Tidal Bolt: Novice at water 2'
 eq(M.unlockLevels(SPELLS.riptide)[0], 4, 'Riptide waits for water 4');
 eq([M.tierAt(SPELLS.tidal_bolt, 1), M.tierAt(SPELLS.tidal_bolt, 2), M.tierAt(SPELLS.tidal_bolt, 6)], [0, 1, 3], 'tiers climb with the element');
 const byPassive = Object.values(SPELLS).filter(sp => sp.discoverCondition && M.tierAt(sp, M.PASSIVE_CAP_LEVEL) > 0).map(sp => sp.id).sort();
-eq(byPassive, ['drying_wind', 'fire_nova', 'fireball', 'rock_bullet', 'tidal_bolt'], 'the feel for an element alone teaches only these');
+const { RESONANCE_ELEMENTS } = await import('../src/data/spells.js');
+for (const el of RESONANCE_ELEMENTS) {
+    const learnable = Object.values(SPELLS).filter(sp => sp.element === el && sp.discoverCondition);
+    if (learnable.length) ok(learnable.some(sp => M.tierAt(sp, M.PASSIVE_CAP_LEVEL) > 0), `the feel for ${el} teaches its easiest spell, so ${el} can be practised`);
+}
+ok(byPassive.includes('arc_bolt') && byPassive.includes('mana_dart') && !byPassive.includes('riptide'), 'the easiest of each element, never the harder ones');
 ok(Object.values(SPELLS).every(sp => !sp.discoverCondition || M.unlockLevels(sp).every(l => l >= 2 && l <= 10)), 'every unlock is between 2 and 10');
 eq(M.unlockLevel(3), 2, 'a skill-tree requirement of resonance 3 means level 2');
 

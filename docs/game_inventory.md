@@ -199,7 +199,7 @@ Your spells belong to you, not to your stick: you can cast them with a wand, a s
 - A **wand** makes spells quicker (shorter waits) but a little weaker.
 - A **staff** makes spells stronger and wider, but slower to come back.
 - New spells come with your **element mastery**: the higher your water mastery, the more water spells you know, and the stronger their tiers (Novice → Apprentice → Adept).
-- Being around an element — rain, a campfire, fighting its creatures — gives you a **feel** for it, but only up to mastery 2: enough for the easiest spell or two. After that, you learn by casting in fights, or faster from scrolls, tomes and teachers.
+- Being around an element — rain, a campfire, fighting its creatures — gives you a **feel** for it, but only up to mastery 2: enough for the easiest spell of each element. After that, you learn by **casting its spells in fights**: every hit counts. (Scrolls and tomes add to the feel; teachers are coming.)
 - Each hero starts knowing one or two spells: Eldrin Fireball and Tidal Bolt, Anya Mana Dart and Shadow Bolt, Seraphina Shadow Bolt. Kael knows none — he is a swordsman.
 
 ## Character & progression
@@ -294,7 +294,7 @@ Values given per tier (Novice / Apprentice / Adept). Learned at = the element ma
 ### Arcane (15)
 | Spell | Learned at (element mastery) | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
-| **Mana Dart** | 3 / 5 / 7 | targeted directional | 8 / 4 / 0.6 | 10 / 8 / 6 | 1100 / 900 / 700 | 160 / 180 / 200 | — | resonance | The first spell Eldrin ever truly understood. |
+| **Mana Dart** | 2 / 4 / 6 | targeted directional | 8 / 4 / 0.6 | 10 / 8 / 6 | 1100 / 900 / 700 | 160 / 180 / 200 | — | resonance | The first spell Eldrin ever truly understood. |
 | **Counterspell** · interrupts | 3 / 5 / 7 | targeted directional | 6 / 3 / 0.4 | 12 / 10 / 8 | 5000 / 4000 / 3000 | 170 / 190 / 210 | silenced (100%, 5000ms) | scroll, tome, npc | A sharp, precise pulse of mana aimed at a spell still being shaped. |
 | **Arcane Burst** | 4 / 6 / 8 | targeted aoe | 18 / 8 / 0.8 | 22 / 18 / 14 | 2200 / 1800 / 1400 | 160 / 180 / 200 (area 55 / 70 / 85) | — | scroll, chest | A wide, short-range detonation of raw mana — no finesse, no geometry. |
 | **Luminance** | 5 / 7 / 9 | targeted aoe | 5 / 2 / 0.3 | 14 / 11 / 8 | 4000 / 3200 / 2500 | 160 / 180 / 200 (area 100 / 120 / 140) | silenced (40%, 5000ms) | tome, scroll, market | A bright light, sustained. |
@@ -313,7 +313,7 @@ Values given per tier (Novice / Apprentice / Adept). Learned at = the element ma
 ### Lightning (5)
 | Spell | Learned at (element mastery) | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
-| **Arc Bolt** | 3 / 5 / 7 | targeted directional | 16 / 8 / 1 | 18 / 15 / 12 | 1800 / 1500 / 1200 | 130 / 150 / 170 | shocked (25%, 3000ms) | resonance | Wisps carry electrical mana in their cores. |
+| **Arc Bolt** | 2 / 4 / 6 | targeted directional | 16 / 8 / 1 | 18 / 15 / 12 | 1800 / 1500 / 1200 | 130 / 150 / 170 | shocked (25%, 3000ms) | resonance | Wisps carry electrical mana in their cores. |
 | **Static Field** | 4 / 6 / 8 | targeted aoe | 6 / 3 / 0.4 | 22 / 18 / 14 | 7000 / 5600 / 4400 | 160 / 180 / 200 (area 70 / 85 / 100) | shocked (50%, 2500ms) | scroll, runestone | A zone of charged air. |
 | **Thunder Clap** | 6 / 8 / 10 | targeted aoe | 10 / 5 / 0.7 | 20 / 16 / 12 | 3000 / 2400 / 1800 | 160 / 180 / 200 (area 60 / 75 / 90) | shocked (60%, 3000ms) | scroll, chest, market | The sound arrives before you expect it. |
 | **Chain Lightning** | 7 / 9 / 10 | targeted directional | 14 / 7 / 0.9 | 24 / 19 / 14 | 3800 / 3000 / 2300 | 155 / 175 / 200 | shocked (30%, 2500ms) | tome, scroll, chest | Hits one. |
@@ -322,7 +322,7 @@ Values given per tier (Novice / Apprentice / Adept). Learned at = the element ma
 ### Shadow (6)
 | Spell | Learned at (element mastery) | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
-| **Shadow Bolt** | 3 / 5 / 7 | targeted directional | 20 / 9 / 1 | 18 / 14 / 10 | 1600 / 1300 / 1000 | 160 / 185 / 210 | void_tainted (30%, 20000ms) | scroll, chest, market | A dense projectile of shadow mana. |
+| **Shadow Bolt** | 2 / 4 / 6 | targeted directional | 20 / 9 / 1 | 18 / 14 / 10 | 1600 / 1300 / 1000 | 160 / 185 / 210 | void_tainted (30%, 20000ms) | scroll, chest, market | A dense projectile of shadow mana. |
 | **Shadow Veil** | 4 / 6 / 8 | self | — | 22 / 18 / 14 | 5000 / 4200 / 3200 | — | — | resonance | The Void Wraith's corruption left a residue in Eldrin's mana pathways. |
 | **Hush** | 5 / 7 / 9 | targeted aoe | 0 / 0 / 0 | 18 / 14 / 10 | 6000 / 4800 / 3800 | 160 / 180 / 200 (area 80 / 95 / 112) | hushed (80%, 12000ms) | scroll, npc, tome | Silence, enforced. |
 | **Void Pulse** | 6 / 8 / 10 | targeted aoe | 12 / 6 / 0.8 | 20 / 16 / 12 | 3200 / 2600 / 2000 | 160 / 180 / 200 (area 70 / 85 / 100) | void_tainted (45%, 20000ms) | scroll, npc, chest | Shadow mana, compressed and released. |
@@ -346,7 +346,7 @@ Values given per tier (Novice / Apprentice / Adept). Learned at = the element ma
 ### Ice (5)
 | Spell | Learned at (element mastery) | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
-| **Frost Shard** | 3 / 5 / 7 | targeted directional | 14 / 7 / 0.9 | 16 / 13 / 10 | 1600 / 1300 / 1000 | 150 / 170 / 195 | cold (60%, 15000ms) | scroll, market, chest | Ice mana compressed to a single crystal, launched with velocity. |
+| **Frost Shard** | 2 / 4 / 6 | targeted directional | 14 / 7 / 0.9 | 16 / 13 / 10 | 1600 / 1300 / 1000 | 150 / 170 / 195 | cold (60%, 15000ms) | scroll, market, chest | Ice mana compressed to a single crystal, launched with velocity. |
 | **Frostbite** | 4 / 6 / 8 | targeted aoe | 8 / 4 / 0.5 | 20 / 16 / 12 | 3200 / 2600 / 2000 | 160 / 180 / 200 (area 80 / 95 / 110) | cold (90%, 20000ms) | scroll, npc, tome | An area of cold mana, sustained long enough for flesh to begin to lose sensation. |
 | **Glacial Spike** | 5 / 7 / 9 | targeted directional | 28 / 12 / 1.1 | 25 / 20 / 15 | 3000 / 2400 / 1900 | 165 / 190 / 215 | cold (80%, 15000ms) | scroll, tome, chest | A single spike of solid ice, large enough to be alarming, launched on a flat trajectory. |
 | **Blizzard Shard** | 7 / 9 / 10 | targeted aoe | 7 / 4 / 0.6 | 28 / 22 / 16 | 4500 / 3600 / 2800 | 160 / 180 / 200 (area 85 / 100 / 118) | cold (55%, 15000ms) | tome, quest, chest | Seven shards at once, arranged by mana geometry rather than aim. |
@@ -355,7 +355,7 @@ Values given per tier (Novice / Apprentice / Adept). Learned at = the element ma
 ### Nature (8)
 | Spell | Learned at (element mastery) | Targeting | Damage (base, per-level, scaling) | Mana | Cooldown (ms) | Range | Status | Learn from | Lore |
 |---|---|---|---|---|---|---|---|---|---|
-| **Vine Grasp** | 3 / 5 / 7 | targeted aoe | 6 / 3 / 0.3 | 18 / 14 / 10 | 3800 / 3000 / 2400 | 160 / 180 / 200 (area 75 / 90 / 108) | entangled (85%, 5000ms) | scroll, npc, runestone | In the old forests near Valdric, the roots move toward warmth. |
+| **Vine Grasp** | 2 / 4 / 6 | targeted aoe | 6 / 3 / 0.3 | 18 / 14 / 10 | 3800 / 3000 / 2400 | 160 / 180 / 200 (area 75 / 90 / 108) | entangled (85%, 5000ms) | scroll, npc, runestone | In the old forests near Valdric, the roots move toward warmth. |
 | **Vessel Mend** | 3 / 5 / 7 | self | — | 20 / 16 / 12 | 8000 / 6400 / 5000 | — | regen (100%, 20000ms) | npc, scroll, tome | Draws on nature mana to accelerate the body's own repair. |
 | **Acid Splash** | 4 / 6 / 8 | targeted aoe | 8 / 4 / 0.5 | 16 / 13 / 10 | 2600 / 2100 / 1700 | 160 / 180 / 200 (area 80 / 95 / 112) | poison (70%, 15000ms) | scroll, chest, market | Nature produces toxins for reasons nature does not explain. |
 | **Barkskin** | 5 / 7 / 9 | self | — | 18 / 15 / 12 | 8000 / 6400 / 5000 | — | blessed (100%, 30000ms) | scroll, npc, quest | The surface hardens, briefly. |
