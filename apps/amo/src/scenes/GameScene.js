@@ -51,6 +51,7 @@ import { RETURN_KEY, doorLockState, doorReturnPoint, pushReturn, resolvePortal, 
 import { DECORATION_SOURCES } from '../systems/walkGrid.js';
 import { TownsfolkManager } from '../systems/TownsfolkManager.js';
 import { typeOf, creditType } from '../systems/weapons.js';
+import { hitGain, levelDamageMult, focusBonus } from '../systems/mastery.js';
 import { fogFor, revealAround, encodeFog, newlyDiscovered, REVEAL_RADIUS, DENSE_REVEAL_RADIUS } from '../systems/fog.js';
 import { denseMask, isDenseAt } from '../systems/mapPaint.js';
 import { buildMapTexture, repaintMapTexture } from '../systems/mapTexture.js';
@@ -1510,7 +1511,19 @@ export default class GameScene extends Phaser.Scene {
     // ── Spell damage + effects ─────────────────────────────────────────────
 
     _spellDamage(id) {
-        return spellDamageAt(SPELLS[id], playerStats.getSpellLevel(id), this.player.stats.attributes.intelligence, this.spellDamageMult());
+        const el = SPELLS[id]?.element, focus = playerStats.focusType();
+        const mult = this.spellDamageMult() * levelDamageMult(playerStats.elementLevel(el))
+                   * focusBonus(focus, focus ? playerStats.weaponLevel(focus) : 1).power;   // C2: element mastery + focus
+        return spellDamageAt(SPELLS[id], playerStats.getSpellLevel(id), this.player.stats.attributes.intelligence, mult);
+    }
+
+    // Combat C2: a spell that hits teaches its element, and the wand or staff in hand.
+    _spellPractice(e, el) {
+        if (!el || !e) return;
+        const gain = hitGain(!e.active || e.health <= 0, e.level ?? 1, playerStats.level);
+        playerStats.gainElementPoints(el, gain);
+        const focus = playerStats.focusType();
+        if (focus) playerStats.gainWeaponPoints(focus, gain);
     }
 
     // Spell damage multiplier: weapon amplifier, Arcane Mastery, blessed / cursed (also shown in the Spellbook)
@@ -1525,7 +1538,8 @@ export default class GameScene extends Phaser.Scene {
         const level = playerStats.getSpellLevel(id);
         const dmg   = this._spellDamage(id);
         const range = spell?.range?.[level - 1] ?? 80;
-        const radius = spell?.radius?.[level - 1] ?? range;   // area size (range = how far it can be cast)
+        const focus  = playerStats.focusType();
+        const radius = Math.round((spell?.radius?.[level - 1] ?? range) * focusBonus(focus, focus ? playerStats.weaponLevel(focus) : 1).radius);   // area size (range = how far it can be cast); a staff widens
         const status = scaledStatus(spell, level);   // duration grows with the spell's tier
 
         // Spells with bespoke mechanics first
@@ -1588,6 +1602,7 @@ export default class GameScene extends Phaser.Scene {
                 if (target) {
                     const actualDmg = Math.min(dmg, target.health);
                     target.takeDamage(actualDmg);
+                    this._spellPractice(target, spell.element);   // Combat C2
                     this._checkSteamEvent(target);
                     const healAmt = Math.floor(actualDmg * (spell.healFraction ?? 0.5));
                     playerStats.health = Math.min(playerStats.maxHealth, playerStats.health + healAmt);
@@ -1775,6 +1790,7 @@ export default class GameScene extends Phaser.Scene {
         const aff = affinityMult(e.enemyType, el);   // family resistances / weaknesses
         const wx  = spellWeatherMult(this._weatherId, el);   // rain dampens fire, feeds lightning
         e.takeDamage(Math.floor(dmg * m * aff * wx));
+        this._spellPractice(e, el);   // Combat C2
         if (aff > 1) this.combatManager?._spawnNumber(e.x, e.y - 34, 'weak!', '#ffaa33', false);
         else if (aff < 1) this.combatManager?._spawnNumber(e.x, e.y - 34, 'resist', '#8899aa', false);
         // Conduct: lightning arcs through water (one hop, no re-entry)
@@ -1924,6 +1940,7 @@ export default class GameScene extends Phaser.Scene {
 
         toKnock.forEach(({ e, isBoss }) => {
             e.takeDamage(isBoss ? Math.floor(dmg * 0.65) : dmg);
+            this._spellPractice(e, 'earth');   // Combat C2
             this._knockupEnemy(e, isBoss);
         });
 
@@ -2028,6 +2045,7 @@ export default class GameScene extends Phaser.Scene {
     // ── Resonance Bow ranged strike ───────────────────────────────────────────
     _bowStrike(px, py, facing, augmented, itemId = playerStats.equipment.weapon, opts = {}) {
         const weaponDef  = ITEMS[itemId];
+        const swingType  = typeOf(weaponDef);
         const passive    = weaponDef?.passive ?? null;
         const loreAbil   = weaponDef?.loreAbility ?? null;
         const isVoidPierce = passive === 'void_piercer';
@@ -2055,7 +2073,8 @@ export default class GameScene extends Phaser.Scene {
         const shotCount   = this.player._bowShotCount ?? 0;
         const isTriple    = passive === 'triple_shot' && shotCount % 3 === 0;
         const base        = Math.floor((8 + stats.attributes.strength * 1.5 + stats.attributes.intelligence * 1.0 + Phaser.Math.Between(-2, 3))
-                                       * weaponDamageMult(stats.upgradeLevel?.(itemId) ?? 0) * (opts.dmgMult ?? 1));   // forge upgrade, weapon type
+                                       * weaponDamageMult(stats.upgradeLevel?.(itemId) ?? 0) * (opts.dmgMult ?? 1)
+                                       * levelDamageMult(playerStats.weaponLevel(swingType)));   // forge upgrade, weapon type, C2 mastery
         let bowDmg        = augmented ? Math.floor(base * 1.20) : base;
         if (isTriple) {
             bowDmg = Math.floor(bowDmg * 2);
@@ -2081,6 +2100,7 @@ export default class GameScene extends Phaser.Scene {
             if (!e?.active) return;
             const dmg = e === this.boss ? Math.floor(bowDmg * 0.65 * mult) : Math.floor(bowDmg * mult);
             e.takeDamage(dmg);
+            playerStats.gainWeaponPoints(swingType, hitGain(!e.active || e.health <= 0, e.level ?? 1, playerStats.level));   // Combat C2
             this.combatManager._spawnNumber(e.x, e.y - 20, `${dmg}`, '#88ffaa', false);
             this.combatManager._spawnSparks(e.x, e.y, 0x88ffaa, 4);
         };

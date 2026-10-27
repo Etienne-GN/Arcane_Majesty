@@ -8,6 +8,7 @@ import { buildEntityAnims } from '../utils/buildEntityAnims.js';
 import { CHARACTERS } from '../data/characters.js';
 import { MOVE, tickVigor, canSprint, spendHop, moveSpeed, hopLanding } from '../systems/movementRules.js';
 import { WEAPON_TYPES, typeOf, isFrontal } from '../systems/weapons.js';
+import { levelCooldownMult } from '../systems/mastery.js';
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, stats = playerStats, characterId = 'eldrin') {
@@ -239,7 +240,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     _weaponCooldown(type = typeOf(ITEMS[this.stats.equipment.weapon]), itemId = this.stats.equipment.weapon) {
         const base  = WEAPON_TYPES[type]?.cooldown ?? 400;
         const swift = ITEMS[itemId]?.enchant === 'swiftness' ? 0.85 : 1;
-        return Math.floor(base * swift);
+        return Math.floor(base * swift * levelCooldownMult(this.stats.weaponLevel?.(type) ?? 1));   // C2: 2% faster a level
     }
 
     // Combat C1: run what a button holds (data in weapons.js / stats.resolvedMoves).

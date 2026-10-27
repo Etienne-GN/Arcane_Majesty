@@ -4,6 +4,7 @@ import { ITEMS, ENEMY_FAMILIES } from '../data/items.js';
 import { statusManager } from './StatusManager.js';
 import { weaponDamageMult } from '../data/upgrades.js';
 import { WEAPON_TYPES } from './weapons.js';
+import { hitGain, levelDamageMult } from './mastery.js';
 
 export default class CombatManager {
     constructor(scene, player, enemyGroup) {
@@ -60,6 +61,8 @@ export default class CombatManager {
         }
 
         enemy.takeDamage(dmg);
+        // Combat C2: the weapon that struck learns from it
+        stats.gainWeaponPoints?.(this.player._swingType ?? 'fists', hitGain(!enemy.active || enemy.health <= 0, enemy.level ?? 1, stats.level));
         // Elite affix: thorns reflect part of a melee hit
         if (enemy.affixes?.includes('thorned')) stats.health = Math.max(1, stats.health - Math.round(dmg * 0.15));
 
@@ -127,7 +130,8 @@ export default class CombatManager {
         const stats      = this.player.stats;
         const swingItem  = this.player._swingItem !== undefined ? this.player._swingItem : stats.equipment.weapon;
         const wt         = ITEMS[swingItem]?.weaponType ?? 'fists';
-        const typeMult   = WEAPON_TYPES[this.player._swingType ?? 'fists']?.dmgMult ?? 1;
+        const swingType  = this.player._swingType ?? 'fists';
+        const typeMult   = (WEAPON_TYPES[swingType]?.dmgMult ?? 1) * levelDamageMult(stats.weaponLevel?.(swingType) ?? 1);   // C2: +8% a level
         const base       = 8 + stats.attributes.strength * 2;
         const strikeBonus = (stats.skills['basic_strike']?.level ?? 0) * 3;
         const slashBonus  = isPower ? (stats.skills['power_slash']?.level ?? 0) * 6 : 0;
