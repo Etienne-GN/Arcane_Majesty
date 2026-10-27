@@ -1,6 +1,8 @@
 import { ITEMS } from '../data/items.js';
 import { xpForLevel } from './PlayerStats.js';
 import { prunedWorldState } from './WorldState.js';
+import { pointsFromResonance, ceilingOf, FAMILY } from './mastery.js';
+import { talentsFor } from '../data/talents.js';
 function saveKey(storyId, characterId) {
     return `amo_save_${storyId}_${characterId}`;
 }
@@ -20,6 +22,17 @@ export class SaveManager {
                 stats.equipment.weapon = 'novice_staff';
                 stats._applyEquipStats?.('novice_staff');   // as a normal equip would
             }
+        }
+    }
+
+    // Combat C2: saves from before mastery convert their resonance (5 points each,
+    // under the talent ceiling). Known spells are never touched.
+    static migrateCombatC2(stats, d) {
+        if (!stats?.mastery) return;
+        if (d?.mastery) { stats.mastery = { weapons: { ...d.mastery.weapons }, elements: { ...d.mastery.elements } }; return; }
+        stats.mastery = { weapons: {}, elements: {} };
+        for (const [el, res] of Object.entries(d?.resonance ?? {})) {
+            if (res > 0) stats.mastery.elements[el] = pointsFromResonance(res, ceilingOf(stats.talents, FAMILY(el)));
         }
     }
 
@@ -49,6 +62,7 @@ export class SaveManager {
             attributes:    { ...stats.attributes },
             equipment:     { ...stats.equipment },
             moveSlots:     { ...stats.moveSlots },
+            mastery:       JSON.parse(JSON.stringify(stats.mastery ?? { weapons: {}, elements: {} })),
             skills:        Object.fromEntries(
                                Object.entries(stats.skills).map(([k, v]) => [k, { level: v.level }])
                            ),
@@ -124,6 +138,8 @@ export class SaveManager {
             SaveManager.migrateCombatC1(stats, d);   // after the saved attributes, so the staff's stats stay
             if (d.spells)         stats.spells         = { ...(stats.spells ?? {}), ...d.spells };
             if (d.resonance)      stats.resonance       = { ...(stats.resonance ?? {}), ...d.resonance };
+            stats.setTalents?.(talentsFor(characterId));
+            SaveManager.migrateCombatC2(stats, d);
             if (d.spellCooldowns) stats.spellCooldowns  = { ...(stats.spellCooldowns ?? {}), ...d.spellCooldowns };
             if (d.skillSlots)     stats.skillSlots  = [...d.skillSlots];
             stats.hotbar = Array.isArray(d.hotbar) ? [...d.hotbar, null, null, null, null].slice(0, 4) : [null, null, null, null];

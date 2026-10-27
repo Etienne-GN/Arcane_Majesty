@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { continueTarget } from '../systems/respawn.js';
 import { CHARACTERS } from '../data/characters.js';
+import { talentsFor } from '../data/talents.js';
 import { listMaps, getMap } from '../data/maps/index.js';
 import { SaveManager } from '../systems/SaveManager.js';
 import { playerStats } from '../systems/PlayerStats.js';
@@ -227,6 +228,7 @@ export default class CharacterSelectScene extends Phaser.Scene {
             SaveManager.deleteSave(this._storyId, c.id);
             playerStats.reset();
             playerStats.giveStartKit(c.startKit);
+            playerStats.setTalents(talentsFor(c.id));   // Combat C2
             this.registry.remove('prologueSeen');
         }
 

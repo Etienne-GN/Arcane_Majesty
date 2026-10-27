@@ -3,6 +3,7 @@ import { equipPlan, resolveMoves, movesFor } from './weapons.js';
 import { SPELLS, RESONANCE_ELEMENTS } from '../data/spells.js';
 import { UPGRADE_MAX, upgradeCost, upgradedStats } from '../data/upgrades.js';
 import { vigorMax } from './movementRules.js';
+import { addPoints, levelOf, ceilingOf, FAMILY, tierAt, unlockLevel, focusOf, focusBonus } from './mastery.js';
 
 // Mastery skills — unlocked with Resonance Insights earned through lore/quests
 export const MASTERY_DEFS = {
@@ -101,6 +102,9 @@ export class PlayerStats {
         // Equipment slots
         this.equipment = { head: null, body: null, weapon: null, offHand: null, accessory1: null, accessory2: null };
         this.moveSlots = { attack: null, second: null };   // Combat C1: null = the default move
+        this.mastery = { weapons: {}, elements: {} };   // Combat C2: points, grown by use
+        this.talents = {};                                 // set from the character (data/talents.js)
+        this._masteryCallbacks = [];
 
         this.skills = {
             'basic_strike': {
@@ -401,7 +405,7 @@ export class PlayerStats {
         if (r.agility      && this.attributes.agility       < r.agility)      return false;
         if (r.resonance) {
             for (const [el, val] of Object.entries(r.resonance)) {
-                if ((this.resonance[el] ?? 0) < val) return false;
+                if (this.elementLevel(el) < unlockLevel(val)) return false;   // C2: element mastery
             }
         }
         return true;
@@ -442,30 +446,21 @@ export class PlayerStats {
     gainResonance(element, amount) {
         if (!(element in this.resonance)) return;
         this.resonance[element] = Math.min(999, this.resonance[element] + amount);
-        this._checkSpellProgress(element);
+        this.gainElementPoints(element, amount, { passive: true });   // C2: the feel for an element, capped at level 2
         this._resonanceGainCallbacks?.forEach(fn => fn(element, this.resonance[element]));
     }
 
+    // Spells of an element unlock with its mastery level (mastery.js tierAt).
+    // Never lowers a tier a spell already has.
     _checkSpellProgress(element) {
+        const lv = this.elementLevel(element);
         for (const [id, spell] of Object.entries(SPELLS)) {
-            if (spell.element !== element) continue;
-            const current = this.spells[id];
-            if (current >= 3) continue;
-
-            const rawRes = this.resonance[element];
-            // resonant_mind mastery: treat resonance as 15% higher for threshold checks
-            const res = this.masteries?.resonant_mind ? Math.floor(rawRes * 1.15) : rawRes;
-            if (!spell.discoverCondition) continue;
-            const thresholds = [spell.discoverCondition.threshold, ...(spell.masteryThresholds ?? [])];
-
-            let newLevel = 0;
-            for (const t of thresholds) { if (res >= t) newLevel++; }
-            newLevel = Math.min(newLevel, 3);
-
+            if (spell.element !== element || !spell.discoverCondition) continue;
+            const current = this.spells[id] ?? 0;
+            const newLevel = Math.min(3, tierAt(spell, lv));
             if (newLevel > current) {
                 this.spells[id] = newLevel;
-                const isDiscovery = current === 0;
-                this._resonanceCallbacks.forEach(fn => fn(id, newLevel, isDiscovery));
+                this._resonanceCallbacks.forEach(fn => fn(id, newLevel, current === 0));
             }
         }
     }
@@ -504,7 +499,9 @@ export class PlayerStats {
         const spell = SPELLS[id];
         if (!spell) return;
         const tier = Math.max(0, this.spells[id] - 1);
-        this.spellCooldowns[id] = spell.cooldown?.[tier] ?? 2000;
+        const focus = this.focusType();
+        const f = focusBonus(focus, focus ? this.weaponLevel(focus) : 1);   // C2: a wand quickens, a staff slows
+        this.spellCooldowns[id] = Math.round((spell.cooldown?.[tier] ?? 2000) * f.cooldown);
     }
 
     trackKill(enemyType) {
@@ -632,6 +629,33 @@ export class PlayerStats {
             this.addItem(id, 1);
             this.equipItem(id, hand);
         }
+        for (const id of kit?.spells ?? []) this.forceUnlockSpell(id, 1);
+    }
+
+    // ── Combat C2: mastery ───────────────────────────────────────────────────
+    setTalents(t) { this.talents = t ?? {}; }
+    ceilingFor(key) { return ceilingOf(this.talents, key); }
+    weaponLevel(type)  { return levelOf(this.mastery.weapons[type] ?? 0); }
+    elementLevel(el)   { return levelOf(this.mastery.elements[el] ?? 0); }
+    focusType() { return focusOf(this.equipment, ITEMS); }
+    onMasteryUp(fn)  { this._masteryCallbacks.push(fn); }
+    offMasteryUp(fn) { this._masteryCallbacks = this._masteryCallbacks.filter(f => f !== fn); }
+    gainWeaponPoints(type, gain) {
+        const before = this.weaponLevel(type);
+        this.mastery.weapons[type] = addPoints(this.mastery.weapons[type] ?? 0, gain, this.ceilingFor(type));
+        const after = this.weaponLevel(type);
+        if (after > before) this._masteryCallbacks.forEach(fn => fn('weapon', type, after));
+        return after;
+    }
+    gainElementPoints(el, gain, { passive = false } = {}) {
+        if (!(el in this.resonance)) return 1;
+        const before = this.elementLevel(el);
+        const g = this.masteries?.resonant_mind ? gain * 1.15 : gain;   // the Resonant Mind mastery
+        this.mastery.elements[el] = addPoints(this.mastery.elements[el] ?? 0, g, this.ceilingFor(FAMILY(el)), { passive });
+        const after = this.elementLevel(el);
+        if (after > before) this._masteryCallbacks.forEach(fn => fn('element', el, after));
+        this._checkSpellProgress(el);
+        return after;
     }
 
     _returnEquippedToInventory(slot) {
@@ -791,6 +815,7 @@ export class PlayerStats {
         this.satchelTier = 1;
         this.equipment = { head: null, body: null, weapon: null, offHand: null, accessory1: null, accessory2: null };
         this.moveSlots = { attack: null, second: null };   // Combat C1: null = the default move
+        this.mastery = { weapons: {}, elements: {} };   // Combat C2: points, grown by use
         this.inventory = [];
         this.attributes  = { strength: 5, intelligence: 5, stamina: 5, agility: 5 };
         this.maxHealth   = 60 + this.attributes.stamina      * 8;

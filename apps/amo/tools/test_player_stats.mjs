@@ -16,6 +16,8 @@ const { PlayerStats, xpForLevel } = await import('../src/systems/PlayerStats.js'
 const { SaveManager } = await import('../src/systems/SaveManager.js');
 const { statusManager } = await import('../src/systems/StatusManager.js').catch(() => ({}));
 const { ITEMS } = await import('../src/data/items.js');
+const { SPELLS } = await import('../src/data/spells.js');
+const SPELLS_COOLDOWN = id => SPELLS[id].cooldown[0];
 
 let n = 0;
 const ok = (cond, msg) => { assert.ok(cond, msg); n++; };
@@ -164,6 +166,63 @@ if (statusManager?.speedMult) {
         p1.unequipItem('weapon');
         eq([p1.attributes.intelligence, p1.maxMana], [raw.attributes.intelligence, raw.maxMana], 'and taking it off gives back exactly the saved character');
     }
+}
+
+// ---- Combat C2: mastery, talents, spells by element level
+{
+    const { talentsFor } = await import('../src/data/talents.js');
+    const M = await import('../src/systems/mastery.js');
+    const e = new PlayerStats();
+    e.setTalents(talentsFor('eldrin'));
+    eq(e.mastery, { weapons: {}, elements: {} }, 'a fresh character has no mastery yet');
+    eq([e.weaponLevel('sword'), e.elementLevel('water')], [1, 1], 'everyone starts at 1');
+    for (let i = 0; i < 500; i++) e.gainResonance('water', 2);          // a very long time in the rain
+    eq(e.elementLevel('water'), 2, 'rain alone stops at water 2');
+    eq([e.getSpellLevel('tidal_bolt'), e.getSpellLevel('riptide')], [1, 0], 'it teaches Tidal Bolt, never Riptide');
+    e.gainElementPoints('water', 9999);
+    eq(e.elementLevel('water'), 10, 'Eldrin is gifted in the elements: water can reach 10');
+    eq(e.getSpellLevel('riptide'), 3, 'and the spells follow, up to Adept');
+    e.gainWeaponPoints('sword', 9999);
+    eq(e.weaponLevel('sword'), 3, 'but a sword stops at 3 for him');
+    const ups = [];
+    const k = new PlayerStats();
+    k.setTalents(talentsFor('kael'));
+    k.onMasteryUp((kind, key, level) => ups.push([kind, key, level]));
+    k.gainWeaponPoints('sword', 40);
+    eq(ups, [['weapon', 'sword', 2]], 'a level-up is announced once');
+    k.gainElementPoints('arcane', 99999);
+    eq(k.elementLevel('arcane'), 6, 'Kael is trained in light magic (the Spark): 6');
+    k.gainElementPoints('fire', 99999);
+    eq(k.elementLevel('fire'), 3, 'untrained in the elements: 3');
+    // starting kit spells
+    const a = new PlayerStats();
+    a.giveStartKit({ weapon: 'willow_wand', spells: ['mana_dart', 'shadow_bolt'] });
+    eq([a.getSpellLevel('mana_dart'), a.getSpellLevel('shadow_bolt')], [1, 1], 'Anya starts knowing her two spells');
+    // the focus
+    a.setTalents(talentsFor('anya'));
+    eq(a.focusType(), 'wand', 'a wand in hand is the focus');
+    a.startSpellCooldown('mana_dart');
+    ok(a.spellCooldowns.mana_dart < SPELLS_COOLDOWN('mana_dart'), 'a wand shortens the cooldown');
+    // skill-tree requirements read element levels
+    const s = new PlayerStats();
+    s.level = 9; s.attributes.agility = 20; s.attributes.intelligence = 20;
+    const reqSkill = Object.entries(s.skills).find(([, sk]) => sk.requirements?.resonance?.arcane === 3);
+    if (reqSkill) {
+        ok(!s.canUnlock(reqSkill[0]), 'arcane level 1: the skill is locked');
+        s.gainElementPoints('arcane', M.pointsFor(2));
+        ok(s.canUnlock(reqSkill[0]), 'arcane level 2: unlocked');
+    }
+    // old save: resonance converts, known spells stay
+    const o = new PlayerStats();
+    SaveManager.save(o, 'c2test', 'eldrin');
+    const raw = JSON.parse(localStorage.getItem('amo_save_c2test_eldrin'));
+    delete raw.mastery; raw.resonance = { ...raw.resonance, water: 40, shadow: 999 }; raw.spells = { ...raw.spells, riptide: 2 };
+    localStorage.setItem('amo_save_c2test_eldrin', JSON.stringify(raw));
+    const o2 = new PlayerStats();
+    SaveManager.load(o2, 'c2test', 'eldrin');
+    eq(o2.mastery.elements.water, 200, 'old water resonance 40 becomes 200 points');
+    eq(o2.mastery.elements.shadow, M.pointsFor(6), 'Eldrin is trained in dark magic: capped at 6');
+    eq(o2.getSpellLevel('riptide'), 2, 'a spell the old save knew stays at its tier');
 }
 
 console.log(`✓ player-stats tests passed (${n} assertions).`);
