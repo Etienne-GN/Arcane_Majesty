@@ -3,6 +3,7 @@ import { soundManager } from '../systems/SoundManager.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
 import { CharacterRenderer } from '../systems/CharacterRenderer.js';
 import { enrichLayers } from '../systems/catalogueLayers.js';
+import { CLASSES, CLASS_IDS } from '../data/talents.js';
 
 const MAX_SLOTS = 5;
 const SLOT_KEY  = (n) => `amo_char_slot_${n}`;
@@ -217,6 +218,8 @@ export default class OnlineCharacterScene extends Phaser.Scene {
     _enterWorld() {
         const dat = this._slotData[this._selectedSlot];
         if (!dat) return;
+        if (this._classPicker) return;                          // the picker is open: click a class
+        if (!dat.classId) { this._pickClass(dat); return; }   // Combat C2: asked once
         soundManager.menuSelect();
         this.cameras.main.fadeOut(400);
         this.time.delayedCall(400, () => {
@@ -224,6 +227,36 @@ export default class OnlineCharacterScene extends Phaser.Scene {
                 serverUrl:       this._serverUrl,
                 onlineCharacter: dat,
                 characterId:     'eldrin',
+            });
+        });
+    }
+
+    // Combat C2: a created character picks a class once; it is saved in the slot.
+    _pickClass(dat) {
+        const w = this.scale.width, h = this.scale.height;
+        const objs = [];
+        this._classPicker = true;
+        objs.push(this.add.rectangle(0, 0, w, h, 0x000000, 0.85).setOrigin(0).setInteractive().setDepth(100));
+        objs.push(this.add.text(w / 2, 60, `Choose ${dat.charName ?? 'your hero'}'s class`, { font: 'bold 24px monospace', fill: '#ffd700' }).setOrigin(0.5).setDepth(101));
+        objs.push(this.add.text(w / 2, 92, 'Your class decides what you can master. You can still pick up any weapon.', { font: '14px monospace', fill: '#aaaacc' }).setOrigin(0.5).setDepth(101));
+        CLASS_IDS.forEach((id, i) => {
+            const c = CLASSES[id], col = i % 2, row = Math.floor(i / 2);
+            const bx = w / 2 + (col ? 20 : -20 - 340), by = 130 + row * 90;
+            const bg = this.add.rectangle(bx, by, 340, 78, 0x12122e).setOrigin(0).setStrokeStyle(2, 0x5533aa).setInteractive({ useHandCursor: true }).setDepth(101);
+            const gifted = Object.entries(c.talents).filter(([, v]) => v === 'gifted').map(([k]) => k).join(', ');
+            objs.push(bg, this.add.text(bx + 10, by + 8, c.name, { font: 'bold 18px monospace', fill: '#ffdd88' }).setDepth(102),
+                this.add.text(bx + 10, by + 32, c.blurb, { font: '12px monospace', fill: '#ccccee' }).setDepth(102),
+                this.add.text(bx + 10, by + 52, `Gifted: ${gifted}`, { font: '11px monospace', fill: '#88aa88' }).setDepth(102));
+            bg.on('pointerdown', () => {
+                dat.classId = id;
+                const n = this._selectedSlot;
+                try {
+                    const raw = JSON.parse(localStorage.getItem(SLOT_KEY(n)) ?? 'null');
+                    if (raw) { raw.classId = id; localStorage.setItem(SLOT_KEY(n), JSON.stringify(raw)); }
+                } catch { /* the choice still holds for this session */ }
+                objs.forEach(o => o.destroy());
+                this._classPicker = false;
+                this._enterWorld();
             });
         });
     }

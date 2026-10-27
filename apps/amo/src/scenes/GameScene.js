@@ -52,6 +52,7 @@ import { DECORATION_SOURCES } from '../systems/walkGrid.js';
 import { TownsfolkManager } from '../systems/TownsfolkManager.js';
 import { typeOf, creditType } from '../systems/weapons.js';
 import { hitGain, levelDamageMult, focusBonus } from '../systems/mastery.js';
+import { talentsFor } from '../data/talents.js';
 import { fogFor, revealAround, encodeFog, newlyDiscovered, REVEAL_RADIUS, DENSE_REVEAL_RADIUS } from '../systems/fog.js';
 import { denseMask, isDenseAt } from '../systems/mapPaint.js';
 import { buildMapTexture, repaintMapTexture } from '../systems/mapTexture.js';
@@ -226,6 +227,7 @@ export default class GameScene extends Phaser.Scene {
             questManager.onSpellLearned(id);
         };
         playerStats.onSpellEvent(this._onSpellEvent);
+        playerStats.setTalents(talentsFor(this._characterId, this._onlineCharacter?.classId));   // Combat C2
         this.events.once('shutdown', () => playerStats.offSpellEvent(this._onSpellEvent));
 
         // Resonance gain → quest hook + hidden quest trigger
