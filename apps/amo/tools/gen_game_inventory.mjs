@@ -42,6 +42,9 @@ globalThis.localStorage ??= { getItem: () => null, setItem() {}, removeItem() {}
 const { PlayerStats, MASTERY_DEFS, xpForLevel } = await import(SRC + 'systems/PlayerStats.js');
 const { WEAPON_TYPES } = await import(SRC + 'systems/weapons.js');
 const { unlockLevel, unlockLevels, PASSIVE_CAP_LEVEL } = await import(SRC + 'systems/mastery.js');
+const { STYLES, STYLE_IDS, STYLE_SKILLS } = await import(SRC + 'data/styles.js');
+const { MANUAL_BONUS, LESSON_BONUS, lessonPrice } = await import(SRC + 'systems/styles.js');
+const { MANUAL_PRICE, GUILD_CATALOG, ELITE_MANUAL_CHANCE } = await import(SRC + 'data/items.js');
 
 const out = [];
 const P = (s = '') => out.push(s);
@@ -96,7 +99,7 @@ table(['Key', 'Action'], [
     ['1 2 3 4', 'Use the consumable on hotbar slot 1–4 (assign from the Inventory with 1–4; touch: the row above the skill ring)'],
     ['H', 'Blink-Step (skill, 8 MP)'], ['V', 'Aetheric Sight (skill: slows enemies, shows their detection range)'],
     ['B', 'Build a campfire anywhere (costs 3 Wood)'], ['G', 'Aetheric Tear — open a rift to a known place (85% of max MP, cooldown)'],
-    ['I', 'Inventory'], ['P', 'Stats'], ['K', 'Skill tree'], ['J', 'Spellbook'], ['M', 'Map: Region tab (explored ground, exits, doors, rift-gates, landmarks, quest markers; WASD/drag to pan, wheel or + − to zoom) and World tab (the places you have been); TAB, LB or RB switches'], ['N', 'Quest journal'],
+    ['I', 'Inventory'], ['P', 'Stats'], ['K', 'Skill tree'], ['J', 'Spellbook'], ['Y', 'Fighting styles: learning bars, and put style skills on Q / R / F / T'], ['M', 'Map: Region tab (explored ground, exits, doors, rift-gates, landmarks, quest markers; WASD/drag to pan, wheel or + − to zoom) and World tab (the places you have been); TAB, LB or RB switches'], ['N', 'Quest journal'],
     ['L', 'Codex (world lore, bestiary, recovered memories)'], ['C', 'Crafting bench'], ['ESC', 'Menu'], ['Gamepad', 'Full support (menus and play)'],
 ]);
 table(['System', 'How it works'], [
@@ -203,6 +206,39 @@ table(['Class', 'What it is', 'Gifted (10)', 'Trained (6)'], TAL.CLASS_IDS.map(i
     const c = TAL.CLASSES[id], by = v => Object.entries(c.talents).filter(([, x]) => x === v).map(([k]) => name(k)).join(', ');
     return [c.name, c.blurb, by('gifted'), by('trained')];
 }));
+P();
+P('### Fighting styles');
+P('Every weapon has **fighting styles**. A style gives you **three skills** — special moves you put on Q / R / F / T, next to your spells.');
+P();
+P('- Each skill opens at a **weapon mastery**: the first at **2**, the second at **5**, the third at **8**.');
+P('- So your talent decides how many you get: **Untrained** (up to 3) gets the first skill, **Trained** (up to 6) two, **Gifted** (up to 10) all three.');
+P('- A skill only works with its weapon **in your hands**. If it is not, the skill is greyed out and does nothing.');
+P('- Skills cost no mana. Each one has a wait (shown on its slot) before you can use it again.');
+P();
+for (const id of STYLE_IDS) {
+    const st = STYLES[id];
+    P(`**${WEAPON_TYPES[st.weapon].label} — ${st.name}.** ${st.blurb}`);
+    P();
+    table(['Skill', 'Opens at mastery', 'What it does', 'Wait'], st.skills.map(sid => {
+        const k = STYLE_SKILLS[sid];
+        return [k.name, k.unlock, k.desc, `${k.cd / 1000} s`];
+    }));
+    P();
+}
+P('### Learning a style');
+P('A style is learned by filling its bar to **100%**. There are three ways, from slow to fast:');
+P();
+table(['Way', 'How much', 'Where'], [
+    ['**Practice** (free, slow)', '1% for each enemy you defeat with that weapon — less for weak enemies, more for strong ones', 'Anywhere. The STYLES screen shows which style you are practising.'],
+    ['**A manual** (faster)', `+${MANUAL_BONUS}% at once, and after that your practice counts **double**`, `The Archivist's Guild in Thaloria (${MANUAL_PRICE} gold each: ${GUILD_CATALOG.map(e => STYLES[e.id.replace('manual_', '')].name).join(', ')}). Elites sometimes drop one (${Math.round(ELITE_MANUAL_CHANCE * 100)}%). Read it from your satchel (I).`],
+    ['**A teacher** (fastest, costs gold)', `+${LESSON_BONUS}% a lesson, **one lesson a day**, during the teacher's working hours. Lessons cost ${[0, 1, 2].map(lessonPrice).join(', then ')} gold`, 'In Thaloria: the **sergeant** in the barracks teaches Guard (one-handed sword), the **smith** in the smithy teaches Crusher (mace).'],
+]);
+P();
+P('When the bar is full you get a message, and the style\'s skills appear as your mastery allows.');
+P();
+P('**To use a skill:** open **STYLES** (Y, or STYLE on the touch menu). Pick a skill, then press **Q, R, F or T** (gamepad: LB, RB, X, Y) to put it on that slot. Press the same key again to take it off.');
+P();
+P('**Example — Kael with a sword.** Kael wins fights with his sword until Guard is learned (or takes lessons from the sergeant). At sword mastery 2 he opens STYLES and puts **Parry** on Q. When a wolf leaps at him, he presses Q just before it bites: the bite does nothing and the wolf is dazed. At mastery 5 he adds **Riposte** on R — right after a parry it hits even harder.');
 P();
 P('### Spells and the elements');
 P('Your spells belong to you, not to your stick: you can cast them with a wand, a staff, a sword in hand — or nothing.');

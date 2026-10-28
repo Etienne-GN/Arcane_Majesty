@@ -1,8 +1,8 @@
 # Arcane Majesty (amo) — Complete Game Inventory
 
-_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-27. Regenerate after changing the data; don't hand-edit._
+_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-28. Regenerate after changing the data; don't hand-edit._
 
-**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 25 status effects · 211 items (56 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 43 maps · 5 playable characters · 34 dialogues
+**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 39 status effects · 220 items (56 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 43 maps · 5 playable characters · 35 dialogues
 
 ## Contents
 1. [Systems & controls](#systems--controls)
@@ -45,6 +45,7 @@ _Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026
 | P | Stats |
 | K | Skill tree |
 | J | Spellbook |
+| Y | Fighting styles: learning bars, and put style skills on Q / R / F / T |
 | M | Map: Region tab (explored ground, exits, doors, rift-gates, landmarks, quest markers; WASD/drag to pan, wheel or + − to zoom) and World tab (the places you have been); TAB, LB or RB switches |
 | N | Quest journal |
 | L | Codex (world lore, bestiary, recovered memories) |
@@ -192,6 +193,111 @@ A character you create picks a **class** the first time it enters the world. The
 | Seer | Wand and light magic — healer and guide. | Wand, Light magic (arcane) | Staff, Bo staff, Dagger, Elemental magic |
 | Druid | Bo staff, staff and the elements — the hermit. | Bo staff, Staff, Elemental magic | Spear, Bow, Light magic (arcane) |
 
+
+### Fighting styles
+Every weapon has **fighting styles**. A style gives you **three skills** — special moves you put on Q / R / F / T, next to your spells.
+
+- Each skill opens at a **weapon mastery**: the first at **2**, the second at **5**, the third at **8**.
+- So your talent decides how many you get: **Untrained** (up to 3) gets the first skill, **Trained** (up to 6) two, **Gifted** (up to 10) all three.
+- A skill only works with its weapon **in your hands**. If it is not, the skill is greyed out and does nothing.
+- Skills cost no mana. Each one has a wait (shown on its slot) before you can use it again.
+
+**One-handed sword — Guard.** Stop their blow, then answer it.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Parry | 2 | Raise your blade: the next hit from the front does nothing and dazes the attacker. | 4 s |
+| Riposte | 5 | A hard counter-cut. Even harder right after a parry. | 5 s |
+| Steady Advance | 8 | Hold your guard: take 40% less damage for 5 seconds. | 20 s |
+
+
+**Two-handed sword — Reaver.** Big swings that clear a crowd.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Whirlwind | 2 | Spin with the blade and hit everyone around you. | 5 s |
+| Cleave | 5 | One huge swing that cuts up to four enemies in front. | 6 s |
+| Rampage | 8 | For 6 seconds: 40% more damage and faster swings. | 25 s |
+
+
+**Dagger — Shadow.** Disappear, then strike from behind.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Vanish | 2 | Enemies lose sight of you for 3 seconds. Your next hit does double damage. | 15 s |
+| Backstab | 5 | A quick stab — three times as strong from behind. | 6 s |
+| Shadowstep | 8 | Step behind the nearest enemy and face its back. | 10 s |
+
+
+**Spear — Lancer.** Lunge and leap — strike from far away.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Piercing Lunge | 2 | Lunge forward and pierce everything in a line. | 5 s |
+| Leaping Strike | 5 | Jump ahead and land in the middle of them. | 8 s |
+| Run Through | 8 | A thrust that goes through a whole row of enemies. | 9 s |
+
+
+**Bo staff — Spinning Staff.** Fast blows and a guard against arrows.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Flurry of Blows | 2 | Four fast blows in front of you. | 5 s |
+| Deflect Arrows | 5 | Spin the staff: for 3 seconds, hits from far away do nothing. | 15 s |
+| Windmill | 8 | A wide spin that throws enemies back. | 9 s |
+
+
+**Mace — Crusher.** Break bones, stun, crack armour.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Bone Breaker | 2 | A heavy blow that slows the target for 4 seconds. | 6 s |
+| Stunning Blow | 5 | A blow to the head: the target is stunned. | 9 s |
+| Shatter Armour | 8 | Crack their armour: they take 30% more damage for 8 seconds. | 12 s |
+
+
+**Axe — Berserker.** Rage, bleed them, swing faster.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Rage | 2 | For 8 seconds: 25% more damage, but you take 10% more. | 25 s |
+| Bleeding Chop | 5 | A chop that makes the target bleed. | 6 s |
+| Frenzy | 8 | Swing 40% faster for 5 seconds. | 25 s |
+
+
+**Shield — Bulwark.** Hold the line — nothing gets through.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Perfect Block | 2 | For a moment, every hit does nothing and dazes the attacker. | 5 s |
+| Taunt | 5 | Call enemies to you: they stop casting and come. You take 30% less damage for 4 seconds. | 15 s |
+| Shield Wall | 8 | For 6 seconds hits from the front do almost nothing, but you walk slower. | 25 s |
+
+
+**Fists — Brawler.** Big punches, throws and headbutts.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Haymaker | 2 | A big punch that knocks the target back. | 5 s |
+| Grab & Throw | 5 | Grab the enemy and throw it away. It is stunned for a second. | 8 s |
+| Headbutt | 8 | A headbutt that stuns the target for 2 seconds. | 10 s |
+
+
+### Learning a style
+A style is learned by filling its bar to **100%**. There are three ways, from slow to fast:
+
+| Way | How much | Where |
+|---|---|---|
+| **Practice** (free, slow) | 1% for each enemy you defeat with that weapon — less for weak enemies, more for strong ones | Anywhere. The STYLES screen shows which style you are practising. |
+| **A manual** (faster) | +40% at once, and after that your practice counts **double** | The Archivist's Guild in Thaloria (150 gold each: Reaver, Shadow, Lancer, Spinning Staff, Berserker, Bulwark, Brawler). Elites sometimes drop one (10%). Read it from your satchel (I). |
+| **A teacher** (fastest, costs gold) | +35% a lesson, **one lesson a day**, during the teacher's working hours. Lessons cost 100, then 200, then 300 gold | In Thaloria: the **sergeant** in the barracks teaches Guard (one-handed sword), the **smith** in the smithy teaches Crusher (mace). |
+
+
+When the bar is full you get a message, and the style's skills appear as your mastery allows.
+
+**To use a skill:** open **STYLES** (Y, or STYLE on the touch menu). Pick a skill, then press **Q, R, F or T** (gamepad: LB, RB, X, Y) to put it on that slot. Press the same key again to take it off.
+
+**Example — Kael with a sword.** Kael wins fights with his sword until Guard is learned (or takes lessons from the sergeant). At sword mastery 2 he opens STYLES and puts **Parry** on Q. When a wolf leaps at him, he presses Q just before it bites: the bite does nothing and the wolf is dazed. At mastery 5 he adds **Riposte** on R — right after a parry it hits even harder.
 
 ### Spells and the elements
 Your spells belong to you, not to your stick: you can cast them with a wand, a staff, a sword in hand — or nothing.
@@ -416,6 +522,20 @@ Values given per tier (Novice / Apprentice / Adept). Learned at = the element ma
 | Void Aegis | until removed | damageTakenMult: 0.35, magical: true, buff: true |
 | Hushed | 15.0s | (flag used by spells/AI) |
 | Resonance Stun | 2.0s | speedMult: 0, stunned: true |
+| Dazed | 2.0s | speedMult: 0, stunned: true |
+| Crippled | 4.0s | speedMult: 0.5 |
+| Sundered | 8.0s | damageTakenMult: 1.3 |
+| Bleeding | 6.0s | dotDmg: 3, dotInterval: 1000 |
+| Parry | 2.0s | buff: true |
+| Steady | 5.0s | buff: true, damageTakenMult: 0.6 |
+| Rampage | 6.0s | buff: true, statsMult: 1.4, swingMult: 0.8 |
+| Vanished | 3.0s | buff: true |
+| Rage | 8.0s | buff: true, statsMult: 1.25, damageTakenMult: 1.1 |
+| Frenzy | 5.0s | buff: true, swingMult: 0.6 |
+| Deflect | 3.0s | buff: true |
+| Perfect Block | 2.0s | buff: true |
+| Taunt | 4.0s | buff: true, damageTakenMult: 0.7 |
+| Shield Wall | 6.0s | buff: true, speedMult: 0.6 |
 
 **Reactions:** Freeze — cold on a wet target freezes it for 3 s. Conduct — lightning on a wet target arcs to every other wet enemy within 90 px for 50% damage. Detonate — fire on a void-tainted target bursts for 15 + 30% of the hit around it. Steam — fire and water cancel out. Shatter — a physical hit on a frozen target deals ×1.5.
 
@@ -716,7 +836,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Heartwood Bracer | accessory | 3 | +2 STR +2 AGI | A bracer of resin-hardened heartwood. +2 STR, +2 AGI. | crafting |
 | Pearl Pendant | accessory | 3 | +3 INT +1 STA | Two river pearls on a silver chain. Water mages swear by it. +3 INT, +1 STA. | crafting |
 
-### Other consumables, tools & key items (22)
+### Other consumables, tools & key items (31)
 | Item | Description | Buy / sell | Source |
 |---|---|---|---|
 | Chart of Thaloria | A surveyor's chart of the city's streets and landmarks. Read it to mark them on your map (M). | 40 / 12 | — |
@@ -741,6 +861,15 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Recipe: Wildfire Tonic | Teaches the recipe for Wildfire Tonic. Read it to learn it for good. | 0 / 25 | — |
 | Recipe: Void Tonic | Teaches the recipe for Void Tonic. Read it to learn it for good. | 0 / 25 | quest: The Hermit's Offering |
 | Recipe: Moonpetal Elixir | Teaches the recipe for Moonpetal Elixir. Read it to learn it for good. | 0 / 25 | shop |
+| Manual: Guard | Teaches the Guard style of the one-handed sword (+40%), and practice counts double after. Stop their blow, then answer it. | 150 / 40 | — |
+| Manual: Reaver | Teaches the Reaver style of the two-handed sword (+40%), and practice counts double after. Big swings that clear a crowd. | 150 / 40 | — |
+| Manual: Shadow | Teaches the Shadow style of the dagger (+40%), and practice counts double after. Disappear, then strike from behind. | 150 / 40 | — |
+| Manual: Lancer | Teaches the Lancer style of the spear (+40%), and practice counts double after. Lunge and leap — strike from far away. | 150 / 40 | — |
+| Manual: Spinning Staff | Teaches the Spinning Staff style of the bo staff (+40%), and practice counts double after. Fast blows and a guard against arrows. | 150 / 40 | — |
+| Manual: Crusher | Teaches the Crusher style of the mace (+40%), and practice counts double after. Break bones, stun, crack armour. | 150 / 40 | — |
+| Manual: Berserker | Teaches the Berserker style of the axe (+40%), and practice counts double after. Rage, bleed them, swing faster. | 150 / 40 | — |
+| Manual: Bulwark | Teaches the Bulwark style of the shield (+40%), and practice counts double after. Hold the line — nothing gets through. | 150 / 40 | — |
+| Manual: Brawler | Teaches the Brawler style of the fists (+40%), and practice counts double after. Big punches, throws and headbutts. | 150 / 40 | — |
 
 ### Ingredients & materials (41)
 | Ingredient | Used in | Source |
@@ -1144,4 +1273,4 @@ Caster creatures shape spells in the open: a coloured ring fills around them whi
 | Eldoria's Prophecy | Vorgos activates Eldrin Nightshade to secure the Heart Stone of Creation — a contingency for a wound the world has not yet suffered. |
 
 ## Dialogues
-`hermit_intro`, `hermit_after`, `hermit_quest_done`, `hermit_hut_greeting`, `hermit_hut_after`, `hermit_remedy_accepted`, `innkeeper_greeting`, `innkeeper_after`, `trader_greeting`, `trader_after`, `thaloria_merchant_greeting`, `cartographer_greeting`, `oren_meeting`, `oren_joined`, `oren_declined`, `oren_after`, `merchant_greeting`, `merchant_after`, `silvara_lore`, `eldrin_premonition`, `eldrin_second_vision`, `boss_encounter`, `boss_defeated`, `ancient_scroll_read`, `eldritch_tome_read`, `stub_ch02_dreamweavers_call_greeting`, `stub_ch05_sylvan_sanctuary_greeting`, `stub_ch06_treacherys_bite_greeting`, `stub_ch07_the_solitary_path_greeting`, `stub_ch08_infernos_trial_greeting`, `stub_ch09_eldorias_heartbeat_greeting`, `stub_ch10_heart_of_war_greeting`, `stub_ch11_the_weight_of_eternity_greeting`, `stub_ch12_dawns_embrace_greeting`
+`hermit_intro`, `hermit_after`, `hermit_quest_done`, `hermit_hut_greeting`, `hermit_hut_after`, `hermit_remedy_accepted`, `innkeeper_greeting`, `innkeeper_after`, `trader_greeting`, `trader_after`, `thaloria_merchant_greeting`, `archivist_guild_greeting`, `cartographer_greeting`, `oren_meeting`, `oren_joined`, `oren_declined`, `oren_after`, `merchant_greeting`, `merchant_after`, `silvara_lore`, `eldrin_premonition`, `eldrin_second_vision`, `boss_encounter`, `boss_defeated`, `ancient_scroll_read`, `eldritch_tome_read`, `stub_ch02_dreamweavers_call_greeting`, `stub_ch05_sylvan_sanctuary_greeting`, `stub_ch06_treacherys_bite_greeting`, `stub_ch07_the_solitary_path_greeting`, `stub_ch08_infernos_trial_greeting`, `stub_ch09_eldorias_heartbeat_greeting`, `stub_ch10_heart_of_war_greeting`, `stub_ch11_the_weight_of_eternity_greeting`, `stub_ch12_dawns_embrace_greeting`
