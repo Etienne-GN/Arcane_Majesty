@@ -7,9 +7,10 @@ import { GamepadNav } from '../systems/GamepadNav.js';
 import { STYLES, STYLE_IDS, STYLE_SKILLS } from '../data/styles.js';
 import { WEAPON_TYPES } from '../systems/weapons.js';
 import { practising } from '../systems/styles.js';
+import { SLOT_PAD } from '../controls/launcherDefs.js';
 
 const SLOT_KEYS = ['Q', 'R', 'F', 'T'];
-const PAD_SLOTS = ['LB', 'RB', 'X', 'Y'];
+const PAD_SLOTS = SLOT_PAD.map(b => b.name);   // the same buttons that fire Q / R / F / T in play
 const STATE_COLOR = { ready: '#ffffff', weapon: '#aaccff', mastery: '#777788', style: '#4a4a5e' };
 
 export default class StylesScene extends Phaser.Scene {
@@ -38,7 +39,7 @@ export default class StylesScene extends Phaser.Scene {
         const k = this._selSkill();
         const state = playerStats.styleSkillState(k.id);
         const how = state === 'ready' || state === 'weapon'
-            ? `Press ${SLOT_KEYS.join(', ')} (pad: ${PAD_SLOTS.join(', ')}) to put it on a slot — again to take it off.`
+            ? `Press ${SLOT_KEYS.join(', ')} (pad: ${PAD_SLOTS.join(', ')}) to put it on a slot — again to take it off. Close: Esc, Y (pad: Start).`
             : state === 'mastery' ? `Needs ${WEAPON_TYPES[k.weapon].label.toLowerCase()} mastery ${k.unlock} (yours: ${playerStats.weaponLevel(k.weapon)}).`
             : `Learn the ${STYLES[k.style].name} style first.`;
         this.add.text(px + 16, fy, `${k.name} — ${k.desc}  (every ${k.cd / 1000} s)`, { font: '14px monospace', fill: '#ffeebb', wordWrap: { width: pw - 32 } });
@@ -112,7 +113,7 @@ export default class StylesScene extends Phaser.Scene {
         if (gp.left) this._move(-3);
         if (gp.right) this._move(3);
         PAD_SLOTS.forEach((b, i) => { if (gp[b]) this._assign(i); });
-        if (gp.B || gp.start) this._close();
+        if (gp.start) this._close();   // B puts a skill on Q, as it fires Q in play
     }
 
     _close() {

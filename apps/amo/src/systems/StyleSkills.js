@@ -3,7 +3,7 @@
 import Phaser from 'phaser';
 import { STYLE_SKILLS } from '../data/styles.js';
 import { ITEMS } from '../data/items.js';
-import { targetsIn, skillMult } from './styles.js';
+import { targetsIn, skillMult, pathClear } from './styles.js';
 import { WEAPON_TYPES, typeOf, isBehind } from './weapons.js';
 import { statusManager } from './StatusManager.js';
 import { soundManager } from './SoundManager.js';
@@ -33,9 +33,13 @@ export function performSkill(scene, id) {
             for (let i = 0; i < k.hits; i++) scene.time.delayedCall(i * k.gap, () => { if (player.active) strike(scene, k, { kind: 'front', reach: k.reach, radius: k.radius }, at()); });
             break;
         case 'dash': {
-            const [fx, fy] = DIR[player.facing] ?? [0, 1];
-            player.setVelocity(fx * k.dist / 0.15, fy * k.dist / 0.15);
-            scene.time.delayedCall(150, () => { if (!player.active) return; player.setVelocity(0); strike(scene, k, { kind: 'line', length: k.length }, at()); });
+            // A tween, not a velocity: the player's own movement code resets velocity every frame
+            const to = reach(scene, k.dist);
+            scene.tweens.add({
+                targets: player, x: to.x, y: to.y, duration: 150,
+                onUpdate: () => player.body?.reset(player.x, player.y),
+                onComplete: () => { if (player.active) strike(scene, k, { kind: 'line', length: k.length }, at()); },
+            });
             break;
         }
         case 'leap': leap(scene, k); break;
@@ -88,9 +92,8 @@ function strike(scene, k, shape, origin) {
 function leap(scene, k) {
     const player = scene.player, [fx, fy] = DIR[player.facing] ?? [0, 1];
     const first = targetsIn({ kind: 'line', length: k.dist + 16, width: 28 }, player, player.facing, scene._liveEnemies())[0];
-    let d = first ? Math.max(0, (first.x - player.x) * fx + (first.y - player.y) * fy - 16) : k.dist;
-    while (d > 0 && scene._hopBlockedAt?.(player.x + fx * d, player.y + fy * d) === 'wall') d -= 10;
-    const to = { x: player.x + fx * Math.max(0, d), y: player.y + fy * Math.max(0, d) };
+    const d = first ? Math.max(0, (first.x - player.x) * fx + (first.y - player.y) * fy - 16) : k.dist;
+    const to = reach(scene, d);
     player._hopIframeMs = 320;
     scene.tweens.add({
         targets: player, x: to.x, y: to.y, duration: 300, ease: 'Sine.easeInOut',
@@ -113,11 +116,23 @@ function shadowstep(scene, k) {
     if (!near) { ui?.showNotification?.('No enemy close enough', 1200); return false; }
     const [fx, fy] = DIR[near.facing] ?? [0, 1];
     const x = near.x - fx * 24, y = near.y - fy * 24;
-    if (scene._hopBlockedAt?.(x, y) === 'wall') { ui?.showNotification?.('No room behind it', 1200); return false; }
+    const blocked = scene._hopBlockedAt?.bind(scene);
+    if (blocked && !pathClear(player, { x, y }, blocked)) { ui?.showNotification?.('No way through to it', 1200); return false; }
     scene.add.particles(player.x, player.y, 'particle', { speed: { min: 20, max: 60 }, scale: { start: 0.8, end: 0 }, lifespan: 300, tint: [0x6600cc, 0x220044], quantity: 12, explode: true }).setDepth(60);
     player.body.reset(x, y);
     player.facing = Math.abs(near.x - x) > Math.abs(near.y - y) ? (near.x > x ? 'right' : 'left') : (near.y > y ? 'down' : 'up');
     return true;
+}
+
+// The farthest point up to `dist` px ahead whose whole path is clear of walls (never through one).
+function reach(scene, dist) {
+    const player = scene.player, [fx, fy] = DIR[player.facing] ?? [0, 1];
+    const blocked = scene._hopBlockedAt?.bind(scene);
+    for (let d = dist; d > 0; d -= 4) {
+        const to = { x: player.x + fx * d, y: player.y + fy * d };
+        if (!blocked || pathClear(player, to, blocked)) return to;
+    }
+    return { x: player.x, y: player.y };
 }
 
 function spinRing(scene, r, color = 0xffcc66) {

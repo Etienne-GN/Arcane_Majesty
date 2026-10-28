@@ -1,7 +1,7 @@
 // Combat C3 (spec §4): learning a style — practice < manual < teacher — and what
 // its skills need. Pure — tools/test_styles.mjs.
 import { STYLES, STYLE_SKILLS, stylesFor } from '../data/styles.js';
-import { typeOf } from './weapons.js';
+import { typeOf, WEAPON_TYPES } from './weapons.js';
 
 export const STYLE_UNLOCKS = [2, 5, 8];
 export const MANUAL_BONUS = 40, LESSON_BONUS = 35;
@@ -51,9 +51,21 @@ export function skillState(st, skillId, weaponLevel, inHand) {
     return inHand ? 'ready' : 'weapon';
 }
 
-// Weapon types in either hand; an empty hand is a fist.
+// Weapon types in either hand; an empty hand is a fist — but a two-handed weapon fills both.
 export function handTypes(equipment, items) {
-    return new Set([typeOf(items[equipment.weapon]), typeOf(items[equipment.offHand])]);
+    const main = typeOf(items[equipment.weapon]);
+    if (WEAPON_TYPES[main].hands === 2) return new Set([main]);
+    return new Set([main, typeOf(items[equipment.offHand])]);
+}
+
+// Whether the straight path from a to b crosses no wall, sampled every `step` px
+// (blockedAt(x, y) → 'wall' | 'hop' | null, as for the hop). Leaps and Shadowstep use it.
+export function pathClear(a, b, blockedAt, step = 8) {
+    const d = Math.hypot(b.x - a.x, b.y - a.y);
+    for (let s = step; s <= d; s += step) {
+        if (blockedAt(a.x + (b.x - a.x) * s / d, a.y + (b.y - a.y) * s / d) === 'wall') return false;
+    }
+    return blockedAt(b.x, b.y) !== 'wall';
 }
 
 // Which of `list` ({x, y}) a skill's shape reaches from origin o, nearest first.

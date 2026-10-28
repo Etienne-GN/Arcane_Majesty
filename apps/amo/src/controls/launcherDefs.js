@@ -9,6 +9,8 @@ export const ELEMENT_COLORS = {
 };
 
 export const SLOT_KEYS = ['Q', 'R', 'F', 'T'];
+// The gamepad buttons that fire Q / R / F / T in play — and put a skill on them in STYLES.
+export const SLOT_PAD = [{ name: 'B', index: 1 }, { name: 'X', index: 2 }, { name: 'Y', index: 3 }, { name: 'RB', index: 5 }];
 
 // Menu pad buttons — each dispatches the same hotkey a physical keyboard sends,
 // so GameScene's keydown handlers drive the whole flow (pause GameScene + launch).

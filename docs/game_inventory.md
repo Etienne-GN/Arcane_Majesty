@@ -295,7 +295,7 @@ A style is learned by filling its bar to **100%**. There are three ways, from sl
 
 When the bar is full you get a message, and the style's skills appear as your mastery allows.
 
-**To use a skill:** open **STYLES** (Y, or STYLE on the touch menu). Pick a skill, then press **Q, R, F or T** (gamepad: LB, RB, X, Y) to put it on that slot. Press the same key again to take it off.
+**To use a skill:** open **STYLES** (Y, or STYLE on the touch menu). Pick a skill, then press **Q, R, F or T** (gamepad: B, X, Y, RB — the same buttons that use them in a fight) to put it on that slot. Press the same key again to take it off. Close with Esc or Y (gamepad: Start).
 
 **Example — Kael with a sword.** Kael wins fights with his sword until Guard is learned (or takes lessons from the sergeant). At sword mastery 2 he opens STYLES and puts **Parry** on Q. When a wolf leaps at him, he presses Q just before it bites: the bite does nothing and the wolf is dazed. At mastery 5 he adds **Riposte** on R — right after a parry it hits even harder.
 

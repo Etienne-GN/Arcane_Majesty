@@ -9,7 +9,7 @@
  * _try* action.
  * Run: node tools/test_launcher_controls.mjs
  */
-import { ELEMENT_COLORS, SLOT_KEYS, TRAY, SECONDARY } from '../src/controls/launcherDefs.js';
+import { ELEMENT_COLORS, SLOT_KEYS, TRAY, SECONDARY, SLOT_PAD } from '../src/controls/launcherDefs.js';
 import { RESONANCE_ELEMENTS } from '../src/data/spells.js';
 import { KEY_CODES } from '../src/controls/keys.js';
 
@@ -34,6 +34,8 @@ check('SLOT_KEYS distinct', new Set(SLOT_KEYS).size, SLOT_KEYS.length);
 // Menu tray — 7 entries; every name must resolve in KEY_CODES so tapKey drives
 // GameScene's real keydown handlers (the whole point of the tray).
 check('TRAY 8 entries', TRAY.length, 8);
+check('pad buttons for Q/R/F/T (shared by play and STYLES, review I4)', SLOT_PAD?.map(b => b.name), ['B', 'X', 'Y', 'RB']);
+check('… and their indices', SLOT_PAD?.map(b => b.index), [1, 2, 3, 5]);
 check('TRAY opens STYLES', TRAY.some(t => t.name === 'styles' && t.label === 'STYLE'), true);
 check('Y opens STYLES', KEY_CODES.styles?.code, 'KeyY');
 for (const { name, label } of TRAY) {

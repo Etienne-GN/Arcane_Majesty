@@ -76,6 +76,16 @@ eq(S.skillMult(D.STYLE_SKILLS.backstab, { behind: false }), 1.5, '… from the f
 eq(S.skillMult(D.STYLE_SKILLS.riposte, { parried: true }), 3, 'Riposte after a parry: 2 x 1.5');
 eq(S.skillMult(D.STYLE_SKILLS.haymaker, { vanished: true }), 4.4, 'any hit out of Vanish: x2');
 
+// ---- review fixes
+ok(!S.handTypes(eqp('claymore'), ITEMS).has('fists'), 'a two-handed weapon fills both hands: no fist skills (review I3)');
+ok(S.handTypes(eqp('crude_dagger'), ITEMS).has('fists'), 'a one-handed weapon leaves a fist free');
+{
+    const wallAt = (x, y) => (x >= 40 && x < 72 ? 'wall' : null);   // a 32 px wall from x 40 to 72
+    eq(S.pathClear({ x: 0, y: 0 }, { x: 90, y: 0 }, wallAt), false, 'no leaping through a wall (review I1)');
+    eq(S.pathClear({ x: 0, y: 0 }, { x: 30, y: 0 }, wallAt), true, 'open ground is clear');
+    eq(S.pathClear({ x: 100, y: 0 }, { x: 140, y: 0 }, wallAt), true, 'beyond the wall is clear');
+}
+
 // ---- manuals as items (Task 2)
 {
     const { CATALOGS, rollEliteManual, manualId } = await import('../src/data/items.js');

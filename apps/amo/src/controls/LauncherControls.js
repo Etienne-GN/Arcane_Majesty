@@ -6,7 +6,7 @@ import { isMobile } from '../utils/platform.js';
 import { tapKey } from './InputBus.js';
 import { KEY_CODES } from './keys.js';
 import { isLauncherMode } from './mode.js';
-import { ELEMENT_COLORS, SLOT_KEYS, TRAY, SECONDARY } from './launcherDefs.js';
+import { ELEMENT_COLORS, SLOT_KEYS, TRAY, SECONDARY, SLOT_PAD } from './launcherDefs.js';
 
 // Combat C3: ring colours for weapon skills
 const WEAPON_COLORS = { sword: 0xdddddd, greatsword: 0xeecc88, dagger: 0xbb88ff, spear: 0xccaa66, bo: 0xaa8855,
@@ -467,7 +467,7 @@ export default class LauncherControls {
                 gs._tryMainAction?.();
                 this._flashButton(this._atkData.atkX, this._atkData.atkY, this._atkData.R_ATK, 0xee8833);
             }
-            [1, 2, 3, 5].forEach((btnIdx, slotIdx) => {
+            SLOT_PAD.map(b => b.index).forEach((btnIdx, slotIdx) => {
                 if (just(btnIdx)) {
                     gs._tryActivateSlot?.(slotIdx);
                     const s = this._slotData[slotIdx];
