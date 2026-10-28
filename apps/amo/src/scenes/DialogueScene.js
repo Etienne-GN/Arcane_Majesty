@@ -166,6 +166,7 @@ export default class DialogueScene extends Phaser.Scene {
         const choice = this.lines[this.index]?.choices?.[this._choiceIndex];
         if (!choice || this.time.now - (this._choicesAt ?? 0) < 350) return;
         this._clearChoices();
+        choice.onPick?.();   // a choice may act (Combat C3: take a lesson)
         const next = applyChoice(choice, playerStats.flags, id => questManager.startQuest(id));
         if (next && DIALOGUES[next]) {
             this.lines = visibleLines(DIALOGUES[next], playerStats.flags);

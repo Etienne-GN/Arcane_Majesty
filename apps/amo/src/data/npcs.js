@@ -11,6 +11,10 @@ export const NPCS = {
     thaloria_trader: { name: 'the Trader',    place: 'Thaloria (outside the inn)' },
     thaloria_merchant: { name: 'the Merchant', place: 'Thaloria (the market yard)' },
     thaloria_cartographer: { name: 'the Cartographer', place: 'Thaloria (by the market)' },   // W5: sells charts
+    // Combat C3: teachers and the manual shop (unnamed roles)
+    sergeant:         { name: 'the Sergeant',  place: 'Thaloria (the barracks)' },        // teaches Guard
+    smith:            { name: 'the Smith',     place: 'Thaloria (the smithy)' },          // teaches Crusher
+    archivist_master: { name: 'the Archivist', place: "Thaloria (the Archivist's Guild)" }, // sells style manuals
 };
 
 export const npcName  = id => NPCS[id]?.name ?? String(id).replace(/_/g, ' ');

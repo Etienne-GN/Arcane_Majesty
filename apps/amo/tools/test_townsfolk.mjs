@@ -242,6 +242,12 @@ const px = t => t * 32 + 16;
     ok(TF.TOWN_IDS.every(id => W.WALK_ROOTS.includes(id)), 'every town has baked walk grids');
     eq(S.validateTown(town, { looks: LOOKS.map(l => l.id) }), [], 'Thaloria\'s people all have a place, a path and a look');
     ok(town.residents.length >= 40, 'forty people');
+    // Combat C3: the first teachers and the manual shop
+    const by = id => town.residents.find(r => r.id === id);
+    const sergeant = town.residents.find(r => r.npc?.teaches === 'guard');
+    ok(sergeant && sergeant.work === 'thaloria_barracks__sergeant', 'the barracks sergeant teaches Guard');
+    eq(by('smith')?.npc?.teaches, 'crusher', 'the smith teaches Crusher');
+    ok(by('archivist_master')?.npc?.isShop && by('archivist_master').npc.catalog === 'guild', 'the Archivist\'s Guild sells manuals');
     eq(new Set(town.residents.map(r => r.id)).size, town.residents.length, 'resident ids are unique');
     const seats = town.residents.flatMap(r => S.scheduleOf(r, town.roles).map(s => s.at)).filter(a => a.startsWith('inn_seat_'));
     eq(seats.length, new Set(seats).size, 'no two people share an inn seat');
@@ -249,7 +255,7 @@ const px = t => t * 32 + 16;
     eq(TF.townFor('thaloria_inn_cellar'), town, 'the inn\'s cellar belongs to Thaloria');
     eq(TF.townFor('east_road'), null, 'the East Road has no town');
     const named = town.residents.filter(r => r.npc).map(r => r.npc.id).sort();
-    eq(named, ['innkeeper', 'thaloria_cartographer', 'thaloria_merchant', 'thaloria_trader'], 'the four named people live here');
+    eq(named, ['archivist_master', 'innkeeper', 'sergeant', 'smith', 'thaloria_cartographer', 'thaloria_merchant', 'thaloria_trader'], 'the named people live here (C3: two teachers and the Guild)');
     ok(named.every(id => NPCS[id]), 'and are in the NPC table');
     ok(!(getMap('thaloria').spawns.npcs ?? []).some(n => named.includes(n.id)), 'they no longer stand as fixed spawns');
 

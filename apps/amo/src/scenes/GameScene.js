@@ -12,7 +12,7 @@ import { soundManager } from '../systems/SoundManager.js';
 import { musicManager } from '../systems/MusicManager.js';
 import { questManager } from '../systems/QuestManager.js';
 import { campaignManager } from '../systems/CampaignManager.js';
-import { ITEMS } from '../data/items.js';
+import { ITEMS, rollEliteManual } from '../data/items.js';
 import { TILE_SIZE, ENEMY_TYPES } from '../data/worldMap.js';
 import { getMap } from '../data/maps/index.js';
 import { townFor } from '../data/townsfolk/index.js';
@@ -53,6 +53,7 @@ import { TownsfolkManager } from '../systems/TownsfolkManager.js';
 import { typeOf, creditType, WEAPON_TYPES } from '../systems/weapons.js';
 import { STYLES, STYLE_SKILLS } from '../data/styles.js';
 import { performSkill } from '../systems/StyleSkills.js';
+import { lessonCheck, takeLesson } from '../systems/styles.js';
 import { hitGain, levelDamageMult, focusBonus, FAMILY } from '../systems/mastery.js';
 import { talentsFor } from '../data/talents.js';
 import { fogFor, revealAround, encodeFog, newlyDiscovered, REVEAL_RADIUS, DENSE_REVEAL_RADIUS } from '../systems/fog.js';
@@ -3794,6 +3795,9 @@ export default class GameScene extends Phaser.Scene {
         // Quest NPC id (data/npcs.js); maps without one fall back to the dialogue key
         const npcId = def.id ?? (def.isShop ? 'silvara' : (def.dialogue?.replace(/_greeting$|_prolog$/, '') ?? 'hermit'));
 
+        // Combat C3: a teacher offers a lesson in their style
+        if (def.teaches) { questManager.onTalk(npcId); this._offerLesson(npc, def); return; }
+
         if (def.isShop) {
             // Talking to a merchant counts for "Return to …" steps too
             questManager.onTalk(npcId);
@@ -3840,6 +3844,33 @@ export default class GameScene extends Phaser.Scene {
                 this._offerQuest(npcId, def.name, npc);
             }
         });
+    }
+
+    // Combat C3: one lesson a day during work hours, +35%, 100 / 200 / 300 gold (systems/styles.js)
+    _offerLesson(npc, def) {
+        const st = STYLES[def.teaches], weapon = WEAPON_TYPES[st.weapon].label.toLowerCase();
+        const ui = this.scene.get('UIScene');
+        if (npc.activity && npc.activity !== 'work') { ui?.showNotification?.(`The ${def.name.toLowerCase()} teaches during working hours`, 2000); return; }
+        const say = (text, choices) => {
+            this.scene.pause();
+            this.scene.launch('DialogueScene', { lines: [{ speaker: def.name, text, ...(choices ? { choices } : {}) }] });
+        };
+        const day = gameDay(playerStats.gameMinutes);
+        const c = lessonCheck(playerStats.styles, st.id, day, playerStats.gold);
+        if (c.reason === 'known') return say(`You know all I can teach you of ${st.name}. Now go and use it.`);
+        if (c.reason === 'today') return say('Enough for today. Come back tomorrow.');
+        if (c.reason === 'gold') return say(`A lesson in ${st.name} is ${c.price} gold. Come back when you have it.`);
+        say(`I can teach you the ${st.name} style of the ${weapon}. ${st.blurb} A lesson is ${c.price} gold.`, [
+            { text: `Take a lesson (${c.price} gold)`, onPick: () => {
+                playerStats.gold -= takeLesson(playerStats.styles, st.id, day);
+                const pct = Math.floor(playerStats.styles.progress[st.id]);
+                soundManager.collect();
+                ui?.showNotification?.(`${st.name} +35% (now ${pct}%)`, 2400);
+                playerStats.announceStyle(st.id);
+                SaveManager.save(playerStats, this._storyId, this._characterId);
+            } },
+            { text: 'Not now' },
+        ]);
     }
 
     // W4: a named townsperson talks as any NPC does; anyone else answers with a bark.
@@ -4011,6 +4042,8 @@ export default class GameScene extends Phaser.Scene {
         enemy.bonusDrops = [eliteRareDrop(this._mapDef, Math.random)];
         const scroll = rollEliteScroll(Math.random, playerStats.knownRecipes, playerStats.inventory.map(i => i.id));
         if (scroll) enemy.bonusDrops.push(scroll);
+        const manual = rollEliteManual(Math.random, playerStats.styles, playerStats.inventory.map(i => i.id));   // Combat C3
+        if (manual) enemy.bonusDrops.push(manual);
         enemy.setScale(enemy.scaleX * 1.2);
         if (affixes.includes('arcane') && !enemy.spellKit.includes('arcane_bolt')) enemy.spellKit = [...enemy.spellKit, 'arcane_bolt'];
         if (affixes.includes('swift')) statusManager.apply(enemy, 'hastened', { duration: -1 });

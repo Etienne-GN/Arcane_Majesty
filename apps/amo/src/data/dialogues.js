@@ -68,6 +68,10 @@ export const DIALOGUES = {
     thaloria_merchant_greeting: [
         { speaker: 'Merchant', text: 'Reagents, road food, sturdy boots. Everything a scholar forgets to pack.' },
     ],
+    // Combat C3: the Archivist's Guild sells style manuals (no new lore)
+    archivist_guild_greeting: [
+        { speaker: 'Archivist', text: 'Manuals on the arts of the blade, the pole and the fist. Read one well, and your practice will count for twice as much.' },
+    ],
     cartographer_greeting: [
         { speaker: 'Cartographer', text: 'Charts of the city and the road east, drawn from my own feet. Read one, and you will not walk in circles.' },
     ],

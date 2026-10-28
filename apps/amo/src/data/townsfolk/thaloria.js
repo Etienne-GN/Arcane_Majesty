@@ -46,14 +46,20 @@ export const THALORIA_TOWN = {
         { id: 'hall_keeper', role: 'merchant', look: 'look_07', home: 'door_house_low_f', work: 'thaloria_market_hall__counter', evening: 'door_house_low_f' },
         { id: 'alchemist', role: 'merchant', look: 'look_08', home: 'door_house_market_a', work: 'thaloria_alchemist__counter', evening: 'door_house_market_a' },
         // labour
-        { id: 'smith', role: 'labourer', look: 'look_09', home: 'door_house_low_c', work: 'thaloria_smithy__smith', evening: 'inn_seat_7' },
+        // Combat C3: teachers (a `teaches` style, data/styles.js) — one lesson a day during work hours
+        { id: 'smith', role: 'labourer', look: 'look_09', home: 'door_house_low_c', work: 'thaloria_smithy__smith', evening: 'inn_seat_7',
+          npc: { id: 'smith', name: 'Smith', teaches: 'crusher' } },
+        { id: 'sergeant', role: 'labourer', look: 'look_23', home: 'door_barracks', work: 'thaloria_barracks__sergeant', evening: 'door_barracks',
+          npc: { id: 'sergeant', name: 'Sergeant', teaches: 'guard' } },
         { id: 'labourer_well', role: 'labourer', look: 'look_10', home: 'door_house_low_a', work: 'well', evening: 'inn_seat_8' },
         { id: 'labourer_yard', role: 'labourer', look: 'look_11', home: 'door_house_low_e', work: 'hearth_yard', evening: 'inn_seat_9' },
         { id: 'porter', role: 'labourer', look: 'look_12', home: 'door_house_teal', work: 'woodpile', evening: 'inn_seat_10' },
         // the temple quarter and the Archivist's Guild
         { id: 'priest', role: 'priest', look: 'look_13', home: 'door_temple', work: 'thaloria_temple__altar' },
         { id: 'acolyte', role: 'priest', look: 'look_14', home: 'door_temple', work: 'temple_steps' },
-        { id: 'archivist_master', role: 'priest', look: 'look_15', home: 'door_guild_hall', work: 'thaloria_guild_hall__master' },
+        { id: 'archivist_master', role: 'priest', look: 'look_15', home: 'door_guild_hall', work: 'thaloria_guild_hall__master',
+          npc: { id: 'archivist_master', name: 'Archivist', isShop: true, shopName: "THE ARCHIVIST'S GUILD", catalog: 'guild',
+                 dialogue: 'archivist_guild_greeting', afterDialogue: 'archivist_guild_greeting' } },
         { id: 'archivist_a', role: 'priest', look: 'look_16', schedule: archivist('door_house_noble_c') },
         { id: 'archivist_b', role: 'priest', look: 'look_17', schedule: archivist('door_guild_hall') },
         { id: 'bell_ringer', role: 'priest', look: 'look_06', home: 'door_guild_hall', work: 'thaloria_bell_tower__desk' },
