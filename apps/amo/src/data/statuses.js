@@ -107,6 +107,24 @@ export const STATUS_DEFS = {
         id: 'resonance_stun', label: 'Resonance Stun', duration: 2000, tint: 0xdd88ff,
         speedMult: 0, stunned: true,
     },
+    // ── Combat C3: fighting-style effects (data/styles.js) ───────────────────
+    // On whoever is hit
+    dazed:    { id: 'dazed',    label: 'Dazed',    duration: 2000, tint: 0xffee99, speedMult: 0, stunned: true },
+    crippled: { id: 'crippled', label: 'Crippled', duration: 4000, tint: 0xbb9977, speedMult: 0.5 },
+    sundered: { id: 'sundered', label: 'Sundered', duration: 8000, tint: 0xcc7744, damageTakenMult: 1.3 },
+    bleeding: { id: 'bleeding', label: 'Bleeding', duration: 6000, tint: 0xcc2222, dotDmg: 3, dotInterval: 1000 },
+    // Stances on you — not magic, so dispels leave them. swingMult: weapon cooldown multiplier.
+    // Defaults keep the 2 s floor; the skills pass their own windows (Parry 0.8 s, Perfect Block 0.6 s).
+    parrying:      { id: 'parrying',      label: 'Parry',         duration: 2000, tint: 0xddeeff, buff: true },
+    steady:        { id: 'steady',        label: 'Steady',        duration: 5000, tint: 0xccccdd, buff: true, damageTakenMult: 0.6 },
+    rampage:       { id: 'rampage',       label: 'Rampage',       duration: 6000, tint: 0xff6633, buff: true, statsMult: 1.4, swingMult: 0.8 },
+    vanished:      { id: 'vanished',      label: 'Vanished',      duration: 3000, tint: null,     buff: true },
+    raging:        { id: 'raging',        label: 'Rage',          duration: 8000, tint: 0xff3322, buff: true, statsMult: 1.25, damageTakenMult: 1.1 },
+    frenzy:        { id: 'frenzy',        label: 'Frenzy',        duration: 5000, tint: 0xff9933, buff: true, swingMult: 0.6 },
+    deflecting:    { id: 'deflecting',    label: 'Deflect',       duration: 3000, tint: 0xbbddaa, buff: true },
+    perfect_block: { id: 'perfect_block', label: 'Perfect Block', duration: 2000, tint: 0x88aaff, buff: true },
+    taunting:      { id: 'taunting',      label: 'Taunt',         duration: 4000, tint: 0xffaa66, buff: true, damageTakenMult: 0.7 },
+    shield_wall:   { id: 'shield_wall',   label: 'Shield Wall',   duration: 6000, tint: 0x8899cc, buff: true, speedMult: 0.6 },
 };
 
 // Tint priority (highest to lowest) for rendering when multiple statuses active
@@ -115,4 +133,6 @@ export const STATUS_TINT_PRIORITY = [
     'void_aegis', 'mana_ward', 'empowered', 'hastened', 'mending',
     'cursed', 'blessed', 'swift', 'warded', 'wet', 'poison',
     'dirty', 'silenced', 'void_tainted', 'marked',
+    'dazed', 'bleeding', 'sundered', 'crippled',
+    'perfect_block', 'parrying', 'shield_wall', 'rampage', 'raging', 'frenzy', 'steady', 'taunting', 'deflecting', 'vanished',
 ];

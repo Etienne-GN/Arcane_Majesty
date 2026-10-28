@@ -176,7 +176,8 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         if (this._tickCasting(player, delta)) return;
 
         this.prevState = this.state;
-        const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
+        // Combat C3: a vanished player cannot be seen (Shadow style)
+        const dist = statusManager.has(player, 'vanished') ? Infinity : Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
 
         // Aetheric Sight: GameScene flags _aethericSightActive to slow enemies
         const sightSlow  = this.scene._aethericSightActive ? 0.25 : 1;
@@ -357,7 +358,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
             return true;
         }
 
-        const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
+        const dist = statusManager.has(player, 'vanished') ? Infinity : Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);   // C3: no target while vanished
         if (this._castGap > 0 || dist > this.sightRange || !statusManager.canCast(this)) return false;
         const allies = this._alliesInReach().map(e => ({
             entity: e, hpFrac: e.health / e.maxHealth,

@@ -89,8 +89,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.attackCooldown = Math.max(0, this.attackCooldown - delta);
         this.powerCooldown  = Math.max(0, this.powerCooldown  - delta);
         this.stats.tickSpellCooldowns(delta);
+        this.stats.tickSkillCooldowns?.(delta);   // Combat C3 style skills
         this.stats.tickMana(delta);
         statusManager.tick(this, delta);
+        // Combat C3: Vanish fades you out while it lasts
+        const vanished = statusManager.has(this, 'vanished');
+        if (vanished !== !!this._vanishShown) { this._vanishShown = vanished; this.setAlpha(vanished ? 0.35 : 1); }
         tickVigor(this.stats, delta, this.isSprinting);
         this.isSprinting = false;   // re-decided by this frame's movement below
         if (this._hopIframeMs > 0) this._hopIframeMs -= delta;
@@ -240,7 +244,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     _weaponCooldown(type = typeOf(ITEMS[this.stats.equipment.weapon]), itemId = this.stats.equipment.weapon) {
         const base  = WEAPON_TYPES[type]?.cooldown ?? 400;
         const swift = ITEMS[itemId]?.enchant === 'swiftness' ? 0.85 : 1;
-        return Math.floor(base * swift * levelCooldownMult(this.stats.weaponLevel?.(type) ?? 1));   // C2: 2% faster a level
+        return Math.floor(base * swift * levelCooldownMult(this.stats.weaponLevel?.(type) ?? 1) * statusManager.swingMult(this));   // C2: 2% faster a level; C3 stances
     }
 
     // Combat C1: run what a button holds (data in weapons.js / stats.resolvedMoves).
@@ -833,6 +837,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         if (this.invincible) return;
 
+        // Combat C3 stances (data/styles.js): a perfect block or a parry stops the hit and
+        // dazes the attacker; Deflect stops hits from afar; Shield Wall all but stops the front.
+        if (source && this._styleGuard(source)) return;
+        if (statusManager.has(this, 'shield_wall') && source && isFrontal(this.facing, this, source)) amount = Math.max(1, Math.round(amount * 0.1));
+
         // Combat C1: a raised shield stops 70% of a hit from the front half.
         // Hits with no source (the storm, statuses) are never blocked.
         if (this.isBlocking && source && isFrontal(this.facing, this, source)) amount = Math.max(1, Math.round(amount * 0.3));
@@ -879,6 +888,21 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
         // Cancel Aetheric Tear channel if hit while casting
         this.scene._cancelTearCast?.();
+    }
+
+    // True when a stance stops this hit entirely.
+    _styleGuard(source) {
+        const say = (text, color) => this.scene.combatManager?._spawnNumber(this.x, this.y - 26, text, color, true);
+        const daze = ms => { if (source.active !== false && source.takeDamage) statusManager.apply(source, 'dazed', { duration: ms }); };
+        if (statusManager.has(this, 'perfect_block')) { daze(1000); say('Blocked!', '#88aaff'); soundManager.interact?.(); return true; }
+        if (statusManager.has(this, 'parrying') && isFrontal(this.facing, this, source)) {
+            statusManager.remove(this, 'parrying');
+            this._parriedAt = this.scene.time.now;
+            daze(1200); say('Parry!', '#ddeeff'); soundManager.interact?.();
+            return true;
+        }
+        if (statusManager.has(this, 'deflecting') && Phaser.Math.Distance.Between(this.x, this.y, source.x, source.y) > 60) { say('Deflected', '#bbddaa'); return true; }
+        return false;
     }
 
     destroy(fromScene) {

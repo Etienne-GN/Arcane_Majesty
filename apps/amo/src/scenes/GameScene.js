@@ -51,6 +51,8 @@ import { RETURN_KEY, doorLockState, doorReturnPoint, pushReturn, resolvePortal, 
 import { DECORATION_SOURCES } from '../systems/walkGrid.js';
 import { TownsfolkManager } from '../systems/TownsfolkManager.js';
 import { typeOf, creditType, WEAPON_TYPES } from '../systems/weapons.js';
+import { STYLES, STYLE_SKILLS } from '../data/styles.js';
+import { performSkill } from '../systems/StyleSkills.js';
 import { hitGain, levelDamageMult, focusBonus, FAMILY } from '../systems/mastery.js';
 import { talentsFor } from '../data/talents.js';
 import { fogFor, revealAround, encodeFog, newlyDiscovered, REVEAL_RADIUS, DENSE_REVEAL_RADIUS } from '../systems/fog.js';
@@ -234,6 +236,14 @@ export default class GameScene extends Phaser.Scene {
         };
         playerStats.onMasteryUp(this._onMasteryUp);
         this.events.once('shutdown', () => playerStats.offMasteryUp(this._onMasteryUp));
+        // Combat C3: a style learned
+        this._onStyleLearned = id => {
+            const st = STYLES[id];
+            this.scene.get('UIScene')?.showNotification?.(`You learned the ${st.name} style! Open STYLES (Y) to use its skills.`, 3200);
+            soundManager.levelUp?.();
+        };
+        playerStats.onStyleEvent(this._onStyleLearned);
+        this.events.once('shutdown', () => playerStats.offStyleEvent(this._onStyleLearned));
         this.events.once('shutdown', () => playerStats.offSpellEvent(this._onSpellEvent));
 
         // Resonance gain → quest hook + hidden quest trigger
@@ -1084,9 +1094,10 @@ export default class GameScene extends Phaser.Scene {
     _tryActivateSlot(i) {
         const spellId = playerStats.getSlotSpell(i);
         if (!spellId) {
-            this.scene.get('UIScene')?.showNotification?.('No skill in that slot — assign one in TOME (menu)', 1600);
+            this.scene.get('UIScene')?.showNotification?.('Nothing on that slot — put a spell there in TOME, or a skill in STYLES', 1600);
             return;
         }
+        if (STYLE_SKILLS[spellId]) { this._useStyleSkill(spellId); return; }
         const spell = SPELLS[spellId];
         if (!spell) return;
 
@@ -1097,6 +1108,18 @@ export default class GameScene extends Phaser.Scene {
         } else {
             this._enterTargetingMode(spellId);
         }
+    }
+
+    // Combat C3: a fighting-style skill from Q/R/F/T (systems/StyleSkills.js)
+    _useStyleSkill(id) {
+        if (!this.player?.active || this._targeting) return;
+        const k = STYLE_SKILLS[id], label = WEAPON_TYPES[k.weapon].label;
+        const state = playerStats.styleSkillState(id);
+        const say = t => this.scene.get('UIScene')?.showNotification?.(t, 1600);
+        if (state === 'weapon') { say(`${k.name} needs a ${label.toLowerCase()} in hand`); return; }
+        if (state === 'mastery') { say(`${k.name} needs ${label.toLowerCase()} mastery ${k.unlock}`); return; }
+        if (state === 'style') { say(`Learn the ${STYLES[k.style].name} style first`); return; }
+        performSkill(this, id);
     }
 
     // Combat C1: the item behind the last swing (either hand), else the main hand

@@ -127,6 +127,16 @@ const sm = {
         return m;
     },
 
+    // Weapon cooldown multiplier (Combat C3 stances: Frenzy, Rampage)
+    swingMult(entity) {
+        let m = 1;
+        for (const id of Object.keys(entity._statuses ?? {})) {
+            const v = STATUS_DEFS[id]?.swingMult;
+            if (v !== undefined) m *= v;
+        }
+        return m;
+    },
+
     // Damage taken multiplier (blessed, cursed, mana ward, void aegis…)
     damageTakenMult(entity) {
         let m = 1;
@@ -151,7 +161,7 @@ const sm = {
     },
 
     isStunned(entity) {
-        return ['frozen', 'shocked', 'entangled'].some(id => this.has(entity, id));
+        return ['frozen', 'shocked', 'entangled', 'dazed'].some(id => this.has(entity, id));
     },
 
     isSilenced(entity) {

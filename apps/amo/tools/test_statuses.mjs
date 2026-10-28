@@ -62,4 +62,19 @@ for (const [id, d] of Object.entries(STATUS_DEFS)) {
 ok(SPELLS.fireball?.element === 'fire' && SPELLS.fireball.discoverCondition.threshold <= 5, 'Fireball is an early fire spell');
 ok(SPELLS.fireball.radius.length === 3 && SPELLS.fireball.projectileSpeed > 0, 'Fireball has a blast radius and flight speed');
 
+// ---- Combat C3: style statuses
+{
+    const sm = statusManager;
+    for (const id of ['dazed', 'crippled', 'sundered', 'bleeding', 'parrying', 'steady', 'rampage', 'vanished', 'raging', 'frenzy', 'deflecting', 'perfect_block', 'taunting', 'shield_wall'])
+        ok(STATUS_DEFS[id], `status ${id} exists`);
+    const e = mob(); sm.apply(e, 'dazed');
+    ok(sm.isStunned(e), 'dazed stuns');
+    const p = mob(); sm.apply(p, 'frenzy'); sm.apply(p, 'rampage');
+    ok(Math.round(sm.swingMult(p) * 100) / 100 === 0.48, 'frenzy and rampage speed swings up together');
+    ok(sm.swingMult(mob()) === 1, 'no stance: normal swings');
+    const q = mob(); sm.apply(q, 'sundered');
+    ok(sm.damageTakenMult(q) === 1.3, 'sundered: +30% damage taken');
+    ok(['parrying', 'steady', 'rampage', 'vanished', 'raging', 'frenzy', 'deflecting', 'perfect_block', 'taunting', 'shield_wall'].every(id => !STATUS_DEFS[id].magical), 'a sword stance is not magic: dispels leave it');
+}
+
 console.log(`✓ status tests passed (${n} assertions).`);

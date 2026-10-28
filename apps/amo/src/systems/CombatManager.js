@@ -32,6 +32,12 @@ export default class CombatManager {
 
         let { dmg, isCrit } = this._calcDamage(isPower);
 
+        // Combat C3: the first hit out of Vanish does double damage and ends it
+        if (statusManager.has(this.player, 'vanished')) {
+            dmg *= 2;
+            statusManager.remove(this.player, 'vanished');
+        }
+
         // Lore: eclipse_mark — 2× damage on marked enemy, then clear mark
         if (enemy._eclipseMarkTimer > 0) {
             dmg = Math.floor(dmg * 2);
