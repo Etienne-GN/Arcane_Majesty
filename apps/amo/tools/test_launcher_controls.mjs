@@ -33,7 +33,9 @@ check('SLOT_KEYS distinct', new Set(SLOT_KEYS).size, SLOT_KEYS.length);
 
 // Menu tray — 7 entries; every name must resolve in KEY_CODES so tapKey drives
 // GameScene's real keydown handlers (the whole point of the tray).
-check('TRAY 7 entries', TRAY.length, 7);
+check('TRAY 8 entries', TRAY.length, 8);
+check('TRAY opens STYLES', TRAY.some(t => t.name === 'styles' && t.label === 'STYLE'), true);
+check('Y opens STYLES', KEY_CODES.styles?.code, 'KeyY');
 for (const { name, label } of TRAY) {
     failIf(!KEY_CODES[name], `TRAY "${label}" (${name}) missing from KEY_CODES`);
     check(`TRAY ${label} keyCode numeric`, typeof KEY_CODES[name]?.keyCode, 'number');

@@ -614,6 +614,7 @@ export default class GameScene extends Phaser.Scene {
         this.input.keyboard.on('keydown-P', () => { this.scene.pause(); this.scene.launch('StatScene'); });
         this.input.keyboard.on('keydown-K', () => { this.scene.pause(); this.scene.launch('SkillTreeScene'); });
         this.input.keyboard.on('keydown-J', () => { this.scene.pause(); this.scene.launch('SpellbookScene'); });
+        this.input.keyboard.on('keydown-Y', () => { this.scene.pause(); this.scene.launch('StylesScene'); });   // Combat C3
         this.input.keyboard.on('keydown-I', () => { this.scene.pause(); this.scene.launch('InventoryScene'); });
         this.input.keyboard.on('keydown-M', () => { this.scene.pause(); this.scene.launch('MapScene'); });
         this.input.keyboard.on('keydown-N', () => { this.scene.pause(); this.scene.launch('QuestJournalScene'); });

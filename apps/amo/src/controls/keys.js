@@ -29,4 +29,5 @@ export const KEY_CODES = {
     codex:        { keyCode: 76, code: 'KeyL',      key: 'l' },
     crafting:     { keyCode: 67, code: 'KeyC',      key: 'c' },
     stats:        { keyCode: 80, code: 'KeyP',      key: 'p' },
+    styles:       { keyCode: 89, code: 'KeyY',      key: 'y' },
 };

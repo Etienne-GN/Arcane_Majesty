@@ -16,6 +16,7 @@ export const TRAY = [
     { label: 'INV',   name: 'inventory' },
     { label: 'SKLS',  name: 'skillTree' },
     { label: 'TOME',  name: 'spellbook' },
+    { label: 'STYLE', name: 'styles' },
     { label: 'MAP',   name: 'worldMap' },
     { label: 'QUEST', name: 'questJournal' },
     { label: 'CODEX', name: 'codex' },

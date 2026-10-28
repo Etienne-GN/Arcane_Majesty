@@ -29,7 +29,7 @@ class FakeKeyboardEvent {
 globalThis.KeyboardEvent = FakeKeyboardEvent;
 
 // Every KEY_CODES entry is well-formed (28 actions: 23 + hotbar 1–4 + hop).
-check('KEY_CODES has 28 entries', Object.keys(KEY_CODES).length, 28);
+check('KEY_CODES has 29 entries', Object.keys(KEY_CODES).length, 29);   // C3: styles (Y)
 for (const [name, def] of Object.entries(KEY_CODES)) {
     check(`key ${name}.keyCode numeric`, typeof def.keyCode, 'number');
     check(`key ${name}.code string`, typeof def.code, 'string');

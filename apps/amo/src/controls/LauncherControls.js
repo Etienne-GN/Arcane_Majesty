@@ -1,11 +1,16 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { SPELLS } from '../data/spells.js';
+import { STYLE_SKILLS } from '../data/styles.js';
 import { isMobile } from '../utils/platform.js';
 import { tapKey } from './InputBus.js';
 import { KEY_CODES } from './keys.js';
 import { isLauncherMode } from './mode.js';
 import { ELEMENT_COLORS, SLOT_KEYS, TRAY, SECONDARY } from './launcherDefs.js';
+
+// Combat C3: ring colours for weapon skills
+const WEAPON_COLORS = { sword: 0xdddddd, greatsword: 0xeecc88, dagger: 0xbb88ff, spear: 0xccaa66, bo: 0xaa8855,
+                        mace: 0xbbbbcc, axe: 0xdd7755, shield: 0x88aaff, fists: 0xffcc99 };
 
 export default class LauncherControls {
     constructor(uiScene) {
@@ -248,6 +253,28 @@ export default class LauncherControls {
                 slotG.lineStyle(1, 0x1a1a3a, alpha * 0.70);
                 slotG.strokeCircle(sx, sy, R_SK);
                 nameLabel.setText('—').setStyle({ fill: '#252545' });
+                costLabel.setText('');
+                continue;
+            }
+
+            // Combat C3: a weapon skill — its weapon's colour, grey when that weapon is not in hand
+            const skill = STYLE_SKILLS[spellId];
+            if (skill) {
+                const inHand = playerStats.styleSkillState(spellId) === 'ready';
+                const col = inHand ? (WEAPON_COLORS[skill.weapon] ?? 0xcccccc) : 0x444455;
+                slotG.fillStyle(0x080818, alpha * 0.92);
+                slotG.fillCircle(sx, sy, R_SK);
+                slotG.lineStyle(2, col, alpha * 0.90);
+                slotG.strokeCircle(sx, sy, R_SK);
+                const cd = playerStats.skillCooldowns?.[spellId] ?? 0;
+                if (cd > 0) {
+                    cdG.fillStyle(0x000000, 0.62);
+                    cdG.fillCircle(sx, sy, R_SK);
+                    nameLabel.setText(`${Math.ceil(cd / 1000)}s`).setStyle({ fill: '#777788' });
+                } else {
+                    const abbr = skill.name.split(/[ &]+/).map(ww => ww[0]).join('').toUpperCase().substring(0, 4);
+                    nameLabel.setText(abbr).setStyle({ fill: `#${col.toString(16).padStart(6, '0')}` });
+                }
                 costLabel.setText('');
                 continue;
             }

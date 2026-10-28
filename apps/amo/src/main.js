@@ -8,6 +8,7 @@ import InventoryScene  from './scenes/InventoryScene.js';
 import DialogueScene   from './scenes/DialogueScene.js';
 import GameOverScene   from './scenes/GameOverScene.js';
 import SpellbookScene  from './scenes/SpellbookScene.js';
+import StylesScene     from './scenes/StylesScene.js';
 import CampfireScene   from './scenes/CampfireScene.js';
 import CraftingScene   from './scenes/CraftingScene.js';
 import ShopScene       from './scenes/ShopScene.js';
@@ -55,6 +56,7 @@ const config = {
         DialogueScene,
         GameOverScene,
         SpellbookScene,
+        StylesScene,
         CampfireScene,
         BountyBoardScene,
         CraftingScene,
