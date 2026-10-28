@@ -76,4 +76,15 @@ eq(S.skillMult(D.STYLE_SKILLS.backstab, { behind: false }), 1.5, '… from the f
 eq(S.skillMult(D.STYLE_SKILLS.riposte, { parried: true }), 3, 'Riposte after a parry: 2 x 1.5');
 eq(S.skillMult(D.STYLE_SKILLS.haymaker, { vanished: true }), 4.4, 'any hit out of Vanish: x2');
 
+// ---- manuals as items (Task 2)
+{
+    const { CATALOGS, rollEliteManual, manualId } = await import('../src/data/items.js');
+    eq(CATALOGS.guild.map(e => e.id).sort(), ['brawler', 'berserker', 'bulwark', 'lancer', 'reaver', 'shadow', 'spinning_staff'].map(manualId).sort(), 'the Guild sells the seven untaught manuals');
+    ok(D.STYLE_IDS.every(id => ITEMS[manualId(id)]?.manualOf === id), 'one manual item per style');
+    const st2 = S.emptyStyles(); st2.progress.guard = 100; st2.manuals.reaver = true;
+    eq(rollEliteManual(() => 0.5, st2), null, 'most elites drop no manual');
+    const seen = new Set(); for (let i = 0; i < 9; i++) { let k = 0; const r = [0, i / 9 + 0.01]; seen.add(rollEliteManual(() => r[k++], st2, [manualId('shadow')])); }
+    ok(!seen.has(manualId('guard')) && !seen.has(manualId('reaver')) && !seen.has(manualId('shadow')), 'never a known, read or carried style');
+}
+
 console.log(`test_styles: ${n} checks passed`);

@@ -3,7 +3,9 @@ import { equipPlan, resolveMoves, movesFor } from './weapons.js';
 import { SPELLS, RESONANCE_ELEMENTS } from '../data/spells.js';
 import { UPGRADE_MAX, upgradeCost, upgradedStats } from '../data/upgrades.js';
 import { vigorMax } from './movementRules.js';
-import { addPoints, levelOf, ceilingOf, FAMILY, tierAt, unlockLevel, focusOf, focusBonus } from './mastery.js';
+import { addPoints, levelOf, ceilingOf, FAMILY, tierAt, unlockLevel, focusOf, focusBonus, hitGain } from './mastery.js';
+import { STYLE_SKILLS } from '../data/styles.js';
+import { emptyStyles, practising, practiceGain, readManual, skillState, handTypes } from './styles.js';
 
 // Mastery skills — unlocked with Resonance Insights earned through lore/quests
 export const MASTERY_DEFS = {
@@ -105,6 +107,9 @@ export class PlayerStats {
         this.mastery = { weapons: {}, elements: {} };   // Combat C2: points, grown by use
         this.talents = {};                                 // set from the character (data/talents.js)
         this._masteryCallbacks = [];
+        this.styles = emptyStyles();                       // Combat C3: learning bars, manuals, lessons
+        this.skillCooldowns = {};                          // style skill id → ms left (never saved)
+        this._styleCallbacks = [];
 
         this.skills = {
             'basic_strike': {
@@ -418,10 +423,12 @@ export class PlayerStats {
         return true;
     }
 
-    // Skill slot management
+    // Skill slot management — a slot holds a spell or a style skill (C3)
     assignSkillSlot(index, spellId) {
         if (index < 0 || index > 3) return false;
-        if (spellId !== null && this.getSpellLevel(spellId) === 0) return false;
+        if (spellId !== null && STYLE_SKILLS[spellId]) {
+            if (!['ready', 'weapon'].includes(this.styleSkillState(spellId))) return false;
+        } else if (spellId !== null && this.getSpellLevel(spellId) === 0) return false;
         for (let i = 0; i < 4; i++) {
             if (this.skillSlots[i] === spellId) this.skillSlots[i] = null;
         }
@@ -648,6 +655,38 @@ export class PlayerStats {
         if (after > before) this._masteryCallbacks.forEach(fn => fn('weapon', type, after));
         return after;
     }
+    // A hit with a weapon teaches the weapon; a kill also practises its style (C3).
+    learnFromHit(type, killed, enemyLevel = 1) {
+        const g = hitGain(killed, enemyLevel, this.level);
+        this.gainWeaponPoints(type, g);
+        if (!killed) return;
+        const id = practising(this.styles, type);
+        if (id && practiceGain(this.styles, id, g)) this._styleCallbacks.forEach(fn => fn(id));
+    }
+
+    // ── Combat C3: styles ────────────────────────────────────────────────────
+    onStyleEvent(fn)  { this._styleCallbacks.push(fn); }
+    offStyleEvent(fn) { this._styleCallbacks = this._styleCallbacks.filter(f => f !== fn); }
+    knowsStyle(id) { return (this.styles.progress[id] ?? 0) >= 100; }
+    // Reading a manual: +40%, practice counts double. False if read or known already.
+    readStyleManual(id) {
+        if (!readManual(this.styles, id)) return false;
+        if (this.knowsStyle(id)) this._styleCallbacks.forEach(fn => fn(id));
+        return true;
+    }
+    // A finished bar from a lesson or anything else outside practice
+    announceStyle(id) { if (this.knowsStyle(id)) this._styleCallbacks.forEach(fn => fn(id)); }
+    styleSkillState(skillId) {
+        const k = STYLE_SKILLS[skillId];
+        if (!k) return 'style';
+        return skillState(this.styles, skillId, this.weaponLevel(k.weapon), handTypes(this.equipment, ITEMS).has(k.weapon));
+    }
+    skillReady(id) { return this.styleSkillState(id) === 'ready' && !(this.skillCooldowns[id] > 0); }
+    startSkillCooldown(id) { if (STYLE_SKILLS[id]) this.skillCooldowns[id] = STYLE_SKILLS[id].cd; }
+    tickSkillCooldowns(delta) {
+        for (const id of Object.keys(this.skillCooldowns)) this.skillCooldowns[id] = Math.max(0, this.skillCooldowns[id] - delta);
+    }
+
     gainElementPoints(el, gain, { passive = false } = {}) {
         if (!(el in this.resonance)) return 1;
         const before = this.elementLevel(el);
@@ -817,6 +856,8 @@ export class PlayerStats {
         this.equipment = { head: null, body: null, weapon: null, offHand: null, accessory1: null, accessory2: null };
         this.moveSlots = { attack: null, second: null };   // Combat C1: null = the default move
         this.mastery = { weapons: {}, elements: {} };   // Combat C2: points, grown by use
+        this.styles = emptyStyles();                     // Combat C3
+        this.skillCooldowns = {};
         this.inventory = [];
         this.attributes  = { strength: 5, intelligence: 5, stamina: 5, agility: 5 };
         this.maxHealth   = 60 + this.attributes.stamina      * 8;

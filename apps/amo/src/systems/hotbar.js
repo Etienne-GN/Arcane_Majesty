@@ -10,7 +10,7 @@ const READ_ONLY = new Set(['ancient_scroll', 'eldritch_tome']);
 
 export function canHotbar(itemId) {
     const def = ITEMS[itemId];
-    return !!def && !def.slot && typeof def.onUse === 'function' && !READ_ONLY.has(itemId);
+    return !!def && !def.slot && !def.manualOf && typeof def.onUse === 'function' && !READ_ONLY.has(itemId);   // manuals: read from the Inventory
 }
 
 export function assignHotbar(stats, i, itemId) {

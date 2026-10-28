@@ -4,7 +4,7 @@ import { ITEMS, ENEMY_FAMILIES } from '../data/items.js';
 import { statusManager } from './StatusManager.js';
 import { weaponDamageMult } from '../data/upgrades.js';
 import { WEAPON_TYPES } from './weapons.js';
-import { hitGain, levelDamageMult } from './mastery.js';
+import { levelDamageMult } from './mastery.js';
 
 export default class CombatManager {
     constructor(scene, player, enemyGroup) {
@@ -61,8 +61,8 @@ export default class CombatManager {
         }
 
         enemy.takeDamage(dmg);
-        // Combat C2: the weapon that struck learns from it
-        stats.gainWeaponPoints?.(this.player._swingType ?? 'fists', hitGain(!enemy.active || enemy.health <= 0, enemy.level ?? 1, stats.level));
+        // Combat C2/C3: the weapon that struck learns from it; a kill practises its style
+        stats.learnFromHit?.(this.player._swingType ?? 'fists', !enemy.active || enemy.health <= 0, enemy.level ?? 1);
         // Elite affix: thorns reflect part of a melee hit
         if (enemy.affixes?.includes('thorned')) stats.health = Math.max(1, stats.health - Math.round(dmg * 0.15));
 

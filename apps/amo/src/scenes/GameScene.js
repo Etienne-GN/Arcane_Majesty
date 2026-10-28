@@ -2108,7 +2108,7 @@ export default class GameScene extends Phaser.Scene {
             if (!e?.active) return;
             const dmg = e === this.boss ? Math.floor(bowDmg * 0.65 * mult) : Math.floor(bowDmg * mult);
             e.takeDamage(dmg);
-            playerStats.gainWeaponPoints(swingType, hitGain(!e.active || e.health <= 0, e.level ?? 1, playerStats.level));   // Combat C2
+            playerStats.learnFromHit(swingType, !e.active || e.health <= 0, e.level ?? 1);   // Combat C2/C3
             this.combatManager._spawnNumber(e.x, e.y - 20, `${dmg}`, '#88ffaa', false);
             this.combatManager._spawnSparks(e.x, e.y, 0x88ffaa, 4);
         };

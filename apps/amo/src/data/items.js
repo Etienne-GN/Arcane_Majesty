@@ -1,4 +1,5 @@
 import { scrollItems } from './recipeScrolls.js';
+import { STYLES, STYLE_IDS } from './styles.js';
 
 // Satchel tier progression (Weathered Pouch → Void-Fold)
 export const SATCHEL_TIERS = [
@@ -91,7 +92,13 @@ export const CARTOGRAPHER_CATALOG = [
     { id: 'chart_thaloria',  price: 40, currency: 'gold' },
     { id: 'chart_east_road', price: 60, currency: 'gold' },
 ];
-export const CATALOGS = { cartographer: CARTOGRAPHER_CATALOG };
+// Combat C3: style manuals. The Archivist's Guild sells the ones no Thaloria
+// teacher teaches (the sergeant teaches Guard, the smith Crusher).
+export const MANUAL_PRICE = 150;
+export const manualId = styleId => `manual_${styleId}`;
+export const GUILD_CATALOG = ['reaver', 'shadow', 'lancer', 'spinning_staff', 'berserker', 'bulwark', 'brawler']
+    .map(id => ({ id: manualId(id), price: MANUAL_PRICE, currency: 'gold' }));
+export const CATALOGS = { cartographer: CARTOGRAPHER_CATALOG, guild: GUILD_CATALOG };
 
 export const ITEMS = {
     // ── Consumables ──────────────────────────────────────────────────────────
@@ -1716,3 +1723,25 @@ export const COOKING_RECIPES = [
 // Recipe scrolls (data/recipeScrolls.js) — one item per scroll-locked recipe.
 const RECIPE_LABELS = Object.fromEntries([...COOKING_RECIPES, ...POTION_RECIPES].map(r => [r.output, r.label]));
 Object.assign(ITEMS, scrollItems(RECIPE_LABELS));
+
+// Combat C3: one manual per style. Reading it adds 40% and doubles practice (systems/styles.js).
+const WEAPON_NAMES = { sword: 'one-handed sword', greatsword: 'two-handed sword', dagger: 'dagger', spear: 'spear', bo: 'bo staff',
+                       mace: 'mace', axe: 'axe', shield: 'shield', fists: 'fists' };
+for (const st of Object.values(STYLES)) {
+    const id = manualId(st.id);
+    ITEMS[id] = {
+        id, name: `Manual: ${st.name}`, manualOf: st.id,
+        description: `Teaches the ${st.name} style of the ${WEAPON_NAMES[st.weapon] ?? st.weapon} (+40%), and practice counts double after. ${st.blurb}`,
+        color: 0xb08850, icon: 'itm_book', stackable: false, rarity: 'rare', buyPrice: MANUAL_PRICE, sellPrice: 40,
+        onUse: (stats) => stats.readStyleManual(st.id),
+    };
+}
+
+// An elite's chance at a manual for a style the player neither knows nor carries.
+export const ELITE_MANUAL_CHANCE = 0.10;
+export function rollEliteManual(rng, styles, carriedIds = []) {
+    if (rng() >= ELITE_MANUAL_CHANCE) return null;
+    const carried = new Set(carriedIds);
+    const left = STYLE_IDS.filter(id => (styles?.progress?.[id] ?? 0) < 100 && !styles?.manuals?.[id] && !carried.has(manualId(id)));
+    return left.length ? manualId(left[Math.floor(rng() * left.length)]) : null;
+}

@@ -238,4 +238,47 @@ if (statusManager?.speedMult) {
     eq(c.weaponLevel('fists'), 3, 'mastery never reads above the talent ceiling');
 }
 
+// ---- Combat C3: styles
+{
+    const { STYLE_SKILLS } = await import('../src/data/styles.js');
+    const s = new PlayerStats();
+    s.setTalents({ sword: 'gifted' });
+    s.learnFromHit('sword', true, s.level);
+    eq(s.styles.progress.guard, 1, 'a sword kill practises Guard');
+    ok(s.mastery.weapons.sword > 0, '… and still teaches the sword');
+    s.learnFromHit('sword', false, s.level);
+    eq(s.styles.progress.guard, 1, 'a hit that does not kill teaches no style');
+    let learned = null; s.onStyleEvent(id => { learned = id; });
+    s.addItem('manual_guard');
+    ok(ITEMS.manual_guard.onUse(s), 'reading the Guard manual');
+    s.styles.progress.guard = 99.5; s.learnFromHit('sword', true, s.level);
+    eq(learned, 'guard', 'learning a style is announced');
+    eq(s.styleSkillState('parry'), 'mastery', 'sword mastery 1: Parry waits');
+    s.mastery.weapons.sword = 40;
+    s.equipment.weapon = 'longsword';
+    eq(s.styleSkillState('parry'), 'ready', 'sword mastery 2 with a sword in hand: ready');
+    ok(s.assignSkillSlot(0, 'parry'), 'Parry goes on Q');
+    ok(!s.assignSkillSlot(1, 'riposte'), 'Riposte (mastery 5) cannot be slotted yet');
+    s.equipment.weapon = null;
+    eq(s.styleSkillState('parry'), 'weapon', 'no sword in hand: greyed');
+    s.startSkillCooldown('parry');
+    ok(!s.skillReady('parry'), 'cooling down');
+    s.tickSkillCooldowns(STYLE_SKILLS.parry.cd);
+    ok(s.skillCooldowns.parry === 0, 'cooled');
+    // save round trip
+    SaveManager.save(s, 'c3test', 'eldrin');
+    const o = new PlayerStats();
+    SaveManager.load(o, 'c3test', 'eldrin');
+    eq(o.styles.progress.guard, 100, 'style progress is saved');
+    eq(o.skillSlots[0], 'parry', 'a skill on a slot is saved');
+    // old save: no styles field
+    const raw = JSON.parse(localStorage.getItem('amo_save_c3test_eldrin'));
+    delete raw.styles; localStorage.setItem('amo_save_c3test_eldrin', JSON.stringify(raw));
+    const o2 = new PlayerStats();
+    SaveManager.load(o2, 'c3test', 'eldrin');
+    eq(o2.styles.progress, {}, 'an old save starts with no styles');
+    const { canHotbar } = await import('../src/systems/hotbar.js');
+    ok(!canHotbar('manual_guard'), 'manuals are read from the Inventory, not the hotbar');
+}
+
 console.log(`✓ player-stats tests passed (${n} assertions).`);

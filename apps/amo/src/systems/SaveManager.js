@@ -2,6 +2,7 @@ import { ITEMS } from '../data/items.js';
 import { xpForLevel } from './PlayerStats.js';
 import { prunedWorldState } from './WorldState.js';
 import { pointsFromResonance, ceilingOf, FAMILY, pointsFor, unlockLevel } from './mastery.js';
+import { emptyStyles } from './styles.js';
 import { talentsFor } from '../data/talents.js';
 function saveKey(storyId, characterId) {
     return `amo_save_${storyId}_${characterId}`;
@@ -68,6 +69,7 @@ export class SaveManager {
             equipment:     { ...stats.equipment },
             moveSlots:     { ...stats.moveSlots },
             mastery:       JSON.parse(JSON.stringify(stats.mastery ?? { weapons: {}, elements: {} })),
+            styles:        JSON.parse(JSON.stringify(stats.styles ?? emptyStyles())),
             skills:        Object.fromEntries(
                                Object.entries(stats.skills).map(([k, v]) => [k, { level: v.level }])
                            ),
@@ -145,6 +147,7 @@ export class SaveManager {
             if (d.resonance)      stats.resonance       = { ...(stats.resonance ?? {}), ...d.resonance };
             stats.setTalents?.(talentsFor(characterId));
             SaveManager.migrateCombatC2(stats, d);
+            stats.styles = { ...emptyStyles(), ...(d.styles ? JSON.parse(JSON.stringify(d.styles)) : {}) };   // Combat C3
             if (d.spellCooldowns) stats.spellCooldowns  = { ...(stats.spellCooldowns ?? {}), ...d.spellCooldowns };
             if (d.skillSlots)     stats.skillSlots  = [...d.skillSlots];
             stats.hotbar = Array.isArray(d.hotbar) ? [...d.hotbar, null, null, null, null].slice(0, 4) : [null, null, null, null];
