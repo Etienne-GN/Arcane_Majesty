@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
-import { ITEMS, MERCHANT_CATALOG, CATALOGS } from '../data/items.js';
+import { ITEMS, MERCHANT_CATALOG, CATALOGS, alreadyLearned } from '../data/items.js';
 import { itemCurrency, shopPrice, recordSale, BUYBACK_MAX } from '../data/economy.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
 import { craftRank } from '../data/stations.js';
@@ -36,6 +36,7 @@ export default class ShopScene extends Phaser.Scene {
         return this._entries.filter(e => {
             if (!ITEMS[e.id]) return false;
             if (e.id.startsWith('recipe_') && known.has(e.id.slice('recipe_'.length))) return false;
+            if (alreadyLearned(e.id, playerStats)) return false;   // C4: scrolls for known spells, manuals read or known
             return !e.requires || craftRank(playerStats.craftCounts?.[e.requires.kind] ?? 0) >= e.requires.rank;
         });
     }

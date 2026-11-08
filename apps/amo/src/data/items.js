@@ -1755,6 +1755,14 @@ for (const sid of SCROLL_SPELLS) {
 }
 GUILD_CATALOG.push(...guildScrolls().map(sid => ({ id: spellScrollId(sid), price: scrollPrice(SPELLS[sid]), currency: 'gold' })));
 
+// A scroll for a known spell, or a manual already read or for a known style: shops hide it.
+export function alreadyLearned(itemId, stats) {
+    const def = ITEMS[itemId];
+    if (def?.spellOf) return (stats.spells?.[def.spellOf] ?? 0) > 0;
+    if (def?.manualOf) return !!stats.styles?.manuals?.[def.manualOf] || (stats.styles?.progress?.[def.manualOf] ?? 0) >= 100;
+    return false;
+}
+
 // An elite's chance at a manual for a style the player neither knows nor carries.
 export const ELITE_MANUAL_CHANCE = 0.10;
 export function rollEliteManual(rng, styles, carriedIds = []) {

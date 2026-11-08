@@ -61,4 +61,20 @@ eq(s.spells.fireball, 3, '… Adept stays Adept');
 eq(s.spellLessons, {}, 'lessons start empty');
 eq(s.spellLessonDay, {}, 'lesson days start empty');
 
+// ---- the shop hides what you can no longer use (C4 review)
+{
+    const { alreadyLearned } = await import('../src/data/items.js');
+    const t = new PlayerStats();
+    t.spells.fireball = 0;
+    eq(alreadyLearned('spell_scroll_fireball', t), false, 'an unknown spell: its scroll is for sale');
+    t.spells.fireball = 1;
+    eq(alreadyLearned('spell_scroll_fireball', t), true, 'a known spell: its scroll is hidden');
+    eq(alreadyLearned('manual_reaver', t), false, 'an unread manual is for sale');
+    t.styles.manuals.reaver = true;
+    eq(alreadyLearned('manual_reaver', t), true, 'a read manual is hidden');
+    t.styles.progress.shadow = 100;
+    eq(alreadyLearned('manual_shadow', t), true, 'a known style\'s manual is hidden');
+    eq(alreadyLearned('health_potion', t), false, 'anything else is unaffected');
+}
+
 console.log(`test_spell_learning: ${n} checks passed`);
