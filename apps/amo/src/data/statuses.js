@@ -5,6 +5,8 @@
 // damageTakenMult: multiplier on the damage the entity takes
 // dotDmg / dotInterval: damage per tick / ms between ticks
 // regenAmt / regenInterval: HP restored per tick / ms between ticks
+// manaRegen: mana restored per regenInterval (Combat C4 Channel)
+// rangedMult / spellMult / manaCostMult: multiply shots / spell damage / spell mana (Combat C4)
 // magical + buff: a beneficial spell effect — removed by dispels (Unravel,
 //   Purifying Sweep on enemies; the Unweave hex on the player)
 
@@ -125,6 +127,13 @@ export const STATUS_DEFS = {
     perfect_block: { id: 'perfect_block', label: 'Perfect Block', duration: 2000, tint: 0x88aaff, buff: true },
     taunting:      { id: 'taunting',      label: 'Taunt',         duration: 4000, tint: 0xffaa66, buff: true, damageTakenMult: 0.7 },
     shield_wall:   { id: 'shield_wall',   label: 'Shield Wall',   duration: 6000, tint: 0x8899cc, buff: true, speedMult: 0.6 },
+    // Combat C4 (range and magic styles)
+    snared:     { id: 'snared',     label: 'Snared',     duration: 3000, tint: 0x88aa55, speedMult: 0 },
+    hunted:     { id: 'hunted',     label: 'Hunted',     duration: 8000, tint: 0xff5555, damageTakenMult: 1.4 },
+    aiming:     { id: 'aiming',     label: 'Steady Aim', duration: 6000, tint: 0xddddaa, buff: true, rangedMult: 1.5, speedMult: 0.7 },
+    echoing:    { id: 'echoing',    label: 'Echo',       duration: 6000, tint: 0xcc99ff, buff: true },
+    channeling: { id: 'channeling', label: 'Channel',    duration: 4000, tint: 0x88ccff, buff: true, manaRegen: 6, regenInterval: 1000, speedMult: 0.5 },
+    overloaded: { id: 'overloaded', label: 'Overload',   duration: 6000, tint: 0xff88ff, buff: true, spellMult: 1.4, manaCostMult: 1.5 },
 };
 
 // Tint priority (highest to lowest) for rendering when multiple statuses active

@@ -1,6 +1,6 @@
 // Combat C3 (spec §4): learning a style — practice < manual < teacher — and what
 // its skills need. Pure — tools/test_styles.mjs.
-import { STYLES, STYLE_SKILLS, stylesFor } from '../data/styles.js';
+import { STYLES, STYLE_IDS, STYLE_SKILLS, stylesFor } from '../data/styles.js';
 import { typeOf, WEAPON_TYPES } from './weapons.js';
 
 export const STYLE_UNLOCKS = [2, 5, 8];
@@ -95,3 +95,28 @@ export function skillMult(k, { behind = false, parried = false, vanished = false
     if (vanished) m *= 2;
     return Math.round(m * 100) / 100;
 }
+
+// C4: one STYLES card per weapon — its first style; the others wait behind it.
+export const cardStyles = () => STYLE_IDS.map(id => STYLES[id]).filter(s => stylesFor(s.weapon)[0].id === s.id);
+export const laterStyles = weapon => stylesFor(weapon).slice(1);
+
+// Chain: from `first`, jump to the nearest enemy not yet hit within `radius` of the last one.
+export function chainTargets(first, list, jumps, radius) {
+    const out = [first];
+    while (out.length <= jumps) {
+        const last = out[out.length - 1];
+        const next = list.filter(e => !out.includes(e))
+            .map(e => ({ e, d: Math.hypot(e.x - last.x, e.y - last.y) }))
+            .filter(o => o.d <= radius).sort((a, b) => a.d - b.d)[0]?.e;
+        if (!next) break;
+        out.push(next);
+    }
+    return out;
+}
+
+// Release: more mana, bigger blast. Below RELEASE_MIN_MANA it does not go off.
+export const RELEASE_MIN_MANA = 10;
+export const releaseMult = (k, mana) => Math.round((k.mult + mana / k.manaPer) * 100) / 100;
+
+// Echo: an aimed spell happens again ECHO_DELAY ms later at ECHO_POWER of its damage.
+export const ECHO_DELAY = 400, ECHO_POWER = 0.5;

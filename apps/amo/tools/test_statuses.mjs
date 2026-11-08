@@ -77,4 +77,24 @@ ok(SPELLS.fireball.radius.length === 3 && SPELLS.fireball.projectileSpeed > 0, '
     ok(['parrying', 'steady', 'rampage', 'vanished', 'raging', 'frenzy', 'deflecting', 'perfect_block', 'taunting', 'shield_wall'].every(id => !STATUS_DEFS[id].magical), 'a sword stance is not magic: dispels leave it');
 }
 
+// ---- Combat C4 statuses
+for (const id of ['snared', 'hunted', 'aiming', 'echoing', 'channeling', 'overloaded']) ok(STATUS_DEFS[id], `${id} exists`);
+{
+    const sm = statusManager;
+    const e = mob();
+    sm.apply(e, 'aiming'); sm.apply(e, 'overloaded');
+    ok(sm.mult(e, 'rangedMult') === 1.5, 'aiming: shots ×1.5');
+    ok(sm.mult(e, 'spellMult') === 1.4, 'overloaded: spells ×1.4');
+    ok(sm.mult(e, 'manaCostMult') === 1.5, 'overloaded: mana ×1.5');
+    ok(sm.mult(mob(), 'spellMult') === 1, 'nothing: ×1');
+    const s = mob(); sm.apply(s, 'snared');
+    ok(sm.speedMult(s) === 0, 'snared: cannot move');
+    ok(!sm.isStunned(s), '… but is not stunned');
+    const p = Object.assign(mob(), { stats: { mana: 10, maxMana: 100 } });
+    sm.apply(p, 'channeling'); sm.tick(p, 1000);
+    ok(p.stats.mana === 16, 'channeling: +6 mana a second');
+    p.stats.mana = 99; sm.tick(p, 1000);
+    ok(p.stats.mana === 100, '… never above max');
+}
+
 console.log(`✓ status tests passed (${n} assertions).`);

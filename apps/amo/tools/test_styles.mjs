@@ -11,10 +11,10 @@ const { WEAPON_TYPES } = await import('../src/systems/weapons.js');
 const { ITEMS } = await import('../src/data/items.js');
 
 // ---- data
-eq(D.STYLE_IDS, ['guard', 'reaver', 'shadow', 'lancer', 'spinning_staff', 'crusher', 'berserker', 'bulwark', 'brawler'], 'nine close-combat styles');
-eq(Object.keys(D.STYLE_SKILLS).length, 27, 'three skills each');
+eq(D.STYLE_IDS.slice(0, 9), ['guard', 'reaver', 'shadow', 'lancer', 'spinning_staff', 'crusher', 'berserker', 'bulwark', 'brawler'], 'nine close-combat styles first');
 for (const st of Object.values(D.STYLES)) {
     ok(WEAPON_TYPES[st.weapon], `${st.id} names a real weapon`);
+    if (st.later) { eq(st.skills, [], `${st.id}: skills come later`); continue; }
     eq(st.skills.map(id => D.STYLE_SKILLS[id].unlock), [2, 5, 8], `${st.id}: skills at mastery 2, 5, 8`);
     ok(st.skills.every(id => D.STYLE_SKILLS[id].style === st.id && D.STYLE_SKILLS[id].weapon === st.weapon), `${st.id}: its skills point back`);
 }
@@ -96,5 +96,31 @@ ok(S.handTypes(eqp('crude_dagger'), ITEMS).has('fists'), 'a one-handed weapon le
     const seen = new Set(); for (let i = 0; i < 9; i++) { let k = 0; const r = [0, i / 9 + 0.01]; seen.add(rollEliteManual(() => r[k++], st2, [manualId('shadow')])); }
     ok(!seen.has(manualId('guard')) && !seen.has(manualId('reaver')) && !seen.has(manualId('shadow')), 'never a known, read or carried style');
 }
+
+// ---- C4: range and magic styles
+eq(D.STYLE_IDS, ['guard', 'reaver', 'shadow', 'lancer', 'spinning_staff', 'crusher', 'berserker', 'bulwark', 'brawler',
+                 'hunter', 'marksman', 'quickcast', 'channeler', 'hex', 'warder'], 'C3 + C4 styles, the later two last');
+eq(Object.keys(D.STYLE_SKILLS).length, 39, '13 styles with three skills');
+eq(S.cardStyles().map(s => s.weapon), ['sword', 'greatsword', 'dagger', 'spear', 'bo', 'mace', 'axe', 'shield', 'fists',
+                                       'bow', 'crossbow', 'wand', 'staff'], 'one card per weapon');
+eq(S.laterStyles('wand').map(s => s.id), ['hex'], 'Hex waits behind Quickcast');
+eq(S.laterStyles('sword'), [], 'the sword has only Guard yet');
+eq(D.STYLES.warder.later && D.STYLES.warder.skills.length, 0, 'Warder: no skills yet');
+eq(S.practising(S.emptyStyles(), 'staff'), 'channeler', 'the staff practises Channeler');
+for (const id of ['aimed_shot', 'snare', 'mark_prey', 'headshot', 'pierce', 'snap_cast', 'chain'])
+    ok(['shot', 'volley', 'chain'].includes(D.STYLE_SKILLS[id].kind), `${id} is a shot`);
+eq(D.STYLE_SKILLS.pierce.pierce, true, 'Pierce goes through');
+eq(D.STYLE_SKILLS.release.kind, 'release', 'Release spends mana');
+
+// chain: nearest unhit within radius of the previous
+const C = [{ x: 0, y: 0 }, { x: 50, y: 0 }, { x: 100, y: 0 }, { x: 500, y: 0 }, { x: 30, y: 30 }];
+eq(S.chainTargets(C[0], C, 3, 90), [C[0], C[4], C[1], C[2]], 'jumps nearest first, never twice');
+eq(S.chainTargets(C[3], C, 3, 90), [C[3]], 'nobody near: one hit');
+eq(S.chainTargets(C[0], C, 1, 90).length, 2, 'jumps are capped');
+
+// release
+eq(S.releaseMult(D.STYLE_SKILLS.release, 0), 1.2, 'no mana: the base');
+eq(S.releaseMult(D.STYLE_SKILLS.release, 80), 3.2, '80 mana: +2');
+eq(S.RELEASE_MIN_MANA, 10, 'Release needs 10 mana');
 
 console.log(`test_styles: ${n} checks passed`);

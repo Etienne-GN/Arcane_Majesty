@@ -100,6 +100,16 @@ const sm = {
                     if (h.maxHealth) h.health = Math.min(h.maxHealth, h.health + def.regenAmt);
                 }
             }
+
+            // Mana back (Combat C4 Channel) — the player's mana lives on .stats
+            if (def.manaRegen) {
+                state.regenTimer -= delta;
+                if (state.regenTimer <= 0) {
+                    state.regenTimer += def.regenInterval;
+                    const s = entity.stats;
+                    if (s?.maxMana) s.mana = Math.min(s.maxMana, s.mana + def.manaRegen);
+                }
+            }
         }
     },
 
@@ -123,6 +133,16 @@ const sm = {
         for (const id of Object.keys(entity._statuses ?? {})) {
             const v = STATUS_DEFS[id]?.statsMult;
             if (v !== undefined) m *= v;
+        }
+        return m;
+    },
+
+    // Product of one numeric status field (Combat C4: rangedMult, spellMult, manaCostMult)
+    mult(entity, field) {
+        let m = 1;
+        for (const id of Object.keys(entity._statuses ?? {})) {
+            const v = STATUS_DEFS[id]?.[field];
+            if (typeof v === 'number') m *= v;
         }
         return m;
     },
