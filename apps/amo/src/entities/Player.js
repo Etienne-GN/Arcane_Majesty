@@ -522,6 +522,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     // ── Spell casting ────────────────────────────────────────────────────────
 
+    // A spell's mana with Overload (Combat C4)
+    spellManaCost(id) { return Math.ceil(this.stats.getSpellManaCost(id) * statusManager.mult(this, 'manaCostMult')); }
+
     _spellCheck(id) {
         if (!this.stats.getSpellLevel(id)) {
             this.scene.scene.get('UIScene')?.showNotification?.(`${id.replace(/_/g,' ')} not yet comprehended.`, 1400);
@@ -540,7 +543,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             return false;
         }
         if (!this.stats.canCastSpell(id)) return false;
-        const cost = this.stats.getSpellManaCost(id);
+        const cost = this.spellManaCost(id);
         if (this.stats.mana < cost) {
             this.scene.scene.get('UIScene')?.showNotification?.('Not enough mana!', 1200);
             return false;

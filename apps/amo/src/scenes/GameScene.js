@@ -53,7 +53,7 @@ import { TownsfolkManager } from '../systems/TownsfolkManager.js';
 import { typeOf, creditType, WEAPON_TYPES } from '../systems/weapons.js';
 import { STYLES, STYLE_SKILLS } from '../data/styles.js';
 import { performSkill } from '../systems/StyleSkills.js';
-import { lessonCheck, takeLesson } from '../systems/styles.js';
+import { lessonCheck, takeLesson, ECHO_DELAY, ECHO_POWER } from '../systems/styles.js';
 import { hitGain, levelDamageMult, focusBonus, FAMILY } from '../systems/mastery.js';
 import { talentsFor } from '../data/talents.js';
 import { fogFor, revealAround, encodeFog, newlyDiscovered, REVEAL_RADIUS, DENSE_REVEAL_RADIUS } from '../systems/fog.js';
@@ -1303,6 +1303,16 @@ export default class GameScene extends Phaser.Scene {
 
         this._spellVFX(spellId, targetX, targetY);
         this._applySpellEffects(spellId, targetX, targetY);
+
+        // Combat C4 Echo: an aimed spell happens again, once, at half power
+        if (!this._echo && spell.targetingType !== 'self' && statusManager.has(this.player, 'echoing')) {
+            this.time.delayedCall(ECHO_DELAY, () => {
+                if (!this.player?.active) return;
+                this._echo = true;
+                try { this._spellVFX(spellId, targetX, targetY); this._applySpellEffects(spellId, targetX, targetY); }
+                finally { this._echo = false; }
+            });
+        }
     }
 
     // ── All world-space VFX ────────────────────────────────────────────────
@@ -1546,7 +1556,8 @@ export default class GameScene extends Phaser.Scene {
     _spellDamage(id) {
         const el = SPELLS[id]?.element, focus = playerStats.focusType();
         const mult = this.spellDamageMult() * levelDamageMult(playerStats.elementLevel(el))
-                   * focusBonus(focus, focus ? playerStats.weaponLevel(focus) : 1).power;   // C2: element mastery + focus
+                   * focusBonus(focus, focus ? playerStats.weaponLevel(focus) : 1).power   // C2: element mastery + focus
+                   * (this._echo ? ECHO_POWER : 1);                                          // C4: an Echo hits at half power
         return spellDamageAt(SPELLS[id], playerStats.getSpellLevel(id), this.player.stats.attributes.intelligence, mult);
     }
 
@@ -1556,14 +1567,14 @@ export default class GameScene extends Phaser.Scene {
         const gain = hitGain(!e.active || e.health <= 0, e.level ?? 1, playerStats.level);
         playerStats.gainElementPoints(el, gain);
         const focus = playerStats.focusType();
-        if (focus) playerStats.gainWeaponPoints(focus, gain);
+        if (focus) playerStats.learnFromHit(focus, !e.active || e.health <= 0, e.level ?? 1);   // C4: a spell kill practises the wand / staff style
     }
 
     // Spell damage multiplier: weapon amplifier, Arcane Mastery, blessed / cursed (also shown in the Spellbook)
     spellDamageMult() {
         const hasAmp      = ITEMS[playerStats.equipment.weapon]?.passive === 'spell_amplifier';
         const masteryMult = 1 + (playerStats.skills['arcane_mastery']?.level ?? 0) * 0.10;
-        return (hasAmp ? 1.25 : 1) * masteryMult * (this.player ? statusManager.statsMult(this.player) : 1);
+        return (hasAmp ? 1.25 : 1) * masteryMult * (this.player ? statusManager.statsMult(this.player) * statusManager.mult(this.player, 'spellMult') : 1);   // C4 Overload
     }
 
     _applySpellEffects(id, tx, ty) {
@@ -2075,6 +2086,32 @@ export default class GameScene extends Phaser.Scene {
         this.scene.get('UIScene')?.showNotification?.('The stone crumbles — a hidden path opens.', 2500);
     }
 
+    // One shot's damage (Combat C4: shared by normal shots and style skills)
+    _rangedDamage(itemId, dmgMult = 1, type = typeOf(ITEMS[itemId])) {
+        const stats = this.player.stats;
+        return Math.floor((8 + stats.attributes.strength * 1.5 + stats.attributes.intelligence * 1.0 + Phaser.Math.Between(-2, 3))
+            * weaponDamageMult(stats.upgradeLevel?.(itemId) ?? 0) * dmgMult
+            * levelDamageMult(playerStats.weaponLevel(type))
+            * statusManager.mult(this.player, 'rangedMult'));   // Steady Aim
+    }
+
+    // A shot's particle trail straight ahead
+    _shotTrail(px, py, facing, range, colors) {
+        const [dx, dy] = { right: [1, 0], left: [-1, 0], down: [0, 1], up: [0, -1] }[facing] ?? [0, 1];
+        for (let s = 1; s <= 6; s++) {
+            const ax = px + dx * (range * s / 6);
+            const ay = py + dy * (range * s / 6);
+            this.time.delayedCall(s * 18, () => {
+                if (!this.player?.active) return;
+                this.add.particles(ax, ay, 'particle', {
+                    speed: { min: 8, max: 25 }, angle: { min: 0, max: 360 },
+                    scale: { start: 0.45, end: 0 }, lifespan: { min: 80, max: 160 },
+                    tint: colors, quantity: 3, explode: true,
+                }).setDepth(62);
+            });
+        }
+    }
+
     // ── Resonance Bow ranged strike ───────────────────────────────────────────
     _bowStrike(px, py, facing, augmented, itemId = playerStats.equipment.weapon, opts = {}) {
         const weaponDef  = ITEMS[itemId];
@@ -2089,25 +2126,12 @@ export default class GameScene extends Phaser.Scene {
 
         // Arrow particle trail (longer for void_piercer)
         const trailColor = opts.magic ? [0xaa88ff, 0xffffff] : isVoidPierce ? [0xcc88ff, 0xffffff] : [0x88ffaa, 0xffffff];
-        for (let s = 1; s <= 6; s++) {
-            const ax = px + dx * (range * s / 6);
-            const ay = py + dy * (range * s / 6);
-            this.time.delayedCall(s * 18, () => {
-                if (!this.player?.active) return;
-                this.add.particles(ax, ay, 'particle', {
-                    speed: { min: 8, max: 25 }, angle: { min: 0, max: 360 },
-                    scale: { start: 0.45, end: 0 }, lifespan: { min: 80, max: 160 },
-                    tint: trailColor, quantity: 3, explode: true,
-                }).setDepth(62);
-            });
-        }
+        this._shotTrail(px, py, facing, range, trailColor);
 
         const stats       = this.player.stats;
         const shotCount   = this.player._bowShotCount ?? 0;
         const isTriple    = passive === 'triple_shot' && shotCount % 3 === 0;
-        const base        = Math.floor((8 + stats.attributes.strength * 1.5 + stats.attributes.intelligence * 1.0 + Phaser.Math.Between(-2, 3))
-                                       * weaponDamageMult(stats.upgradeLevel?.(itemId) ?? 0) * (opts.dmgMult ?? 1)
-                                       * levelDamageMult(playerStats.weaponLevel(swingType)));   // forge upgrade, weapon type, C2 mastery
+        const base        = this._rangedDamage(itemId, opts.dmgMult ?? 1, swingType);   // forge upgrade, weapon type, C2 mastery, C4 Steady Aim
         let bowDmg        = augmented ? Math.floor(base * 1.20) : base;
         if (isTriple) {
             bowDmg = Math.floor(bowDmg * 2);

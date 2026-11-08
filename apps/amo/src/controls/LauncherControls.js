@@ -10,7 +10,8 @@ import { ELEMENT_COLORS, SLOT_KEYS, TRAY, SECONDARY, SLOT_PAD } from './launcher
 
 // Combat C3: ring colours for weapon skills
 const WEAPON_COLORS = { sword: 0xdddddd, greatsword: 0xeecc88, dagger: 0xbb88ff, spear: 0xccaa66, bo: 0xaa8855,
-                        mace: 0xbbbbcc, axe: 0xdd7755, shield: 0x88aaff, fists: 0xffcc99 };
+                        mace: 0xbbbbcc, axe: 0xdd7755, shield: 0x88aaff, fists: 0xffcc99,
+                        bow: 0x88ffaa, crossbow: 0xddcc88, wand: 0xcc99ff, staff: 0x88ccff };
 
 export default class LauncherControls {
     constructor(uiScene) {
