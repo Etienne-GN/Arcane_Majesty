@@ -1,8 +1,8 @@
 # Arcane Majesty (amo) — Complete Game Inventory
 
-_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-10-28. Regenerate after changing the data; don't hand-edit._
+_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-11-08. Regenerate after changing the data; don't hand-edit._
 
-**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 39 status effects · 220 items (56 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 43 maps · 5 playable characters · 35 dialogues
+**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 45 status effects · 266 items (56 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 43 maps · 5 playable characters · 35 dialogues
 
 ## Contents
 1. [Systems & controls](#systems--controls)
@@ -200,7 +200,8 @@ Every weapon has **fighting styles**. A style gives you **three skills** — spe
 - Each skill opens at a **weapon mastery**: the first at **2**, the second at **5**, the third at **8**.
 - So your talent decides how many you get: **Untrained** (up to 3) gets the first skill, **Trained** (up to 6) two, **Gifted** (up to 10) all three.
 - A skill only works with its weapon **in your hands**. If it is not, the skill is greyed out and does nothing.
-- Skills cost no mana. Each one has a wait (shown on its slot) before you can use it again.
+- Skills cost no mana (except **Release**, which pours out all of it). Each one has a wait (shown on its slot) before you can use it again.
+- **Bow, crossbow and wand skills shoot straight ahead, the way you are facing** — turn towards your target first.
 
 **One-handed sword — Guard.** Stop their blow, then answer it.
 
@@ -283,13 +284,51 @@ Every weapon has **fighting styles**. A style gives you **three skills** — spe
 | Headbutt | 8 | A headbutt that stuns the target for 2 seconds. | 10 s |
 
 
+**Bow — Hunter.** Patient shots: hit hard, hold them, mark them.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Aimed Shot | 2 | A careful shot that flies farther and hits hard. | 5 s |
+| Snare | 5 | A shot at the legs: the target cannot move for 3 seconds. | 9 s |
+| Mark Prey | 8 | Mark the target: it takes 40% more damage from everything for 8 seconds. | 15 s |
+
+
+**Crossbow — Marksman.** Steady aim, a bolt to the head, a bolt through a row.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Steady Aim | 2 | For 6 seconds your shots do 50% more damage, but you walk slower. | 20 s |
+| Headshot | 5 | A bolt to the head: huge damage, and the target is stunned. | 9 s |
+| Pierce | 8 | A bolt that goes through every enemy in the row. | 8 s |
+
+
+**Wand — Quickcast.** Fast bolts, echoing spells, a bolt that jumps.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Snap Cast | 2 | Three quick bolts, one after another. | 4 s |
+| Echo | 5 | For 6 seconds, every spell you aim happens again a moment later, at half power. | 20 s |
+| Chain | 8 | A bolt that jumps from enemy to enemy — up to three more. | 8 s |
+
+
+**Staff — Channeler.** Gather mana, overload your spells, then let it all out.
+
+| Skill | Opens at mastery | What it does | Wait |
+|---|---|---|---|
+| Channel | 2 | For 4 seconds you get back 6 mana a second, but walk at half speed. | 15 s |
+| Overload | 5 | For 6 seconds spells do 40% more damage but cost 50% more mana. | 20 s |
+| Release | 8 | Pour out all your mana in a blast around you. More mana, bigger blast. | 12 s |
+
+
+**Coming later:** Hex (wand) and Warder (staff). Their manuals are on sale already — reading one now gives you a head start.
+
 ### Learning a style
 A style is learned by filling its bar to **100%**. There are three ways, from slow to fast:
 
 | Way | How much | Where |
 |---|---|---|
-| **Practice** (free, slow) | 1% for each enemy you defeat with that weapon — less for weak enemies, more for strong ones | Anywhere. The STYLES screen shows which style you are practising. |
-| **A manual** (faster) | +40% at once, and after that your practice counts **double** | The Archivist's Guild in Thaloria (150 gold each: Reaver, Shadow, Lancer, Spinning Staff, Berserker, Bulwark, Brawler). Elites sometimes drop one (10%). Read it from your satchel (I). |
+| **Practice** (free, slow) | 1% for each enemy you defeat with that weapon — less for weak enemies, more for strong ones. With a wand or staff in hand, enemies your **spells** defeat count too | Anywhere. The STYLES screen shows which style you are practising. |
+| **A manual** (faster) | +40% at once, and after that your practice counts **double** | The Archivist's Guild in Thaloria (150 gold each: Reaver, Shadow, Lancer, Spinning Staff, Berserker, Bulwark, Brawler, Hunter, Marksman, Quickcast, Channeler, Hex, Warder). Elites sometimes drop one (10%). Read it from your satchel (I). |
 | **A teacher** (fastest, costs gold) | +35% a lesson, **one lesson a day**, during the teacher's working hours. Lessons cost 100, then 200, then 300 gold | In Thaloria: the **sergeant** in the barracks teaches Guard (one-handed sword), the **smith** in the smithy teaches Crusher (mace). |
 
 
@@ -298,6 +337,20 @@ When the bar is full you get a message, and the style's skills appear as your ma
 **To use a skill:** open **STYLES** (Y, or STYLE on the touch menu). Pick a skill, then press **Q, R, F or T** (gamepad: B, X, Y, RB — the same buttons that use them in a fight) to put it on that slot. Press the same key again to take it off. Close with Esc or Y (gamepad: Start).
 
 **Example — Kael with a sword.** Kael wins fights with his sword until Guard is learned (or takes lessons from the sergeant). At sword mastery 2 he opens STYLES and puts **Parry** on Q. When a wolf leaps at him, he presses Q just before it bites: the bite does nothing and the wolf is dazed. At mastery 5 he adds **Riposte** on R — right after a parry it hits even harder.
+
+**Example — Seraphina with a wand.** She puts **Snap Cast** on Q and **Echo** on R. She presses R, then casts a fire spell at a wolf pack: the spell bursts, and a moment later it bursts again at half strength. With a staff instead, **Release** (mastery 8) pours out all her mana in one blast around her — the more mana she has, the bigger it is (it needs at least 10).
+
+### Learning spells
+Spells are learned the same three ways as styles:
+
+| Way | What you get | Where |
+|---|---|---|
+| **Practice** (free) | Casting spells in fights raises that element's level, and new spells and tiers open as it grows | Anywhere. |
+| **A spell scroll** | One spell at **Novice**, at once — even one your element level has not reached yet | The Archivist's Guild sells the easy ones (Fireball 55, Tidal Bolt 55, Drying Wind 65, Rock Bullet 70, Frost Shard 80, Water Conjure 80, Vine Grasp 80, Wind Knife 80, Shadow Bolt 90 gold). Elites sometimes drop others (8%). Read it from your satchel (I); a scroll for a spell you know is kept. |
+| **A teacher** (costs gold) | One spell at **Novice** a lesson, **one lesson a day**, easiest first | In Thaloria: the **priest** in the temple teaches arcane spells (Seeker Dart, Cleanse, Counterspell, Unravel, Benediction, Arcane Circle, Aetheric Ward, Aetheric Inscription). Lessons cost 100, then 200, then 300 gold. |
+
+
+A spell from a scroll or a teacher starts at **Novice**. Its **Apprentice** and **Adept** tiers still come only from that element's level — practise it.
 
 ### Spells and the elements
 Your spells belong to you, not to your stick: you can cast them with a wand, a staff, a sword in hand — or nothing.
@@ -536,6 +589,12 @@ Values given per tier (Novice / Apprentice / Adept). Learned at = the element ma
 | Perfect Block | 2.0s | buff: true |
 | Taunt | 4.0s | buff: true, damageTakenMult: 0.7 |
 | Shield Wall | 6.0s | buff: true, speedMult: 0.6 |
+| Snared | 3.0s | speedMult: 0 |
+| Hunted | 8.0s | damageTakenMult: 1.4 |
+| Steady Aim | 6.0s | buff: true, rangedMult: 1.5, speedMult: 0.7 |
+| Echo | 6.0s | buff: true |
+| Channel | 4.0s | buff: true, manaRegen: 6, regenInterval: 1000, speedMult: 0.5 |
+| Overload | 6.0s | buff: true, spellMult: 1.4, manaCostMult: 1.5 |
 
 **Reactions:** Freeze — cold on a wet target freezes it for 3 s. Conduct — lightning on a wet target arcs to every other wet enemy within 90 px for 50% damage. Detonate — fire on a void-tainted target bursts for 15 + 30% of the hit around it. Steam — fire and water cancel out. Shatter — a physical hit on a frozen target deals ×1.5.
 
@@ -836,7 +895,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Heartwood Bracer | accessory | 3 | +2 STR +2 AGI | A bracer of resin-hardened heartwood. +2 STR, +2 AGI. | crafting |
 | Pearl Pendant | accessory | 3 | +3 INT +1 STA | Two river pearls on a silver chain. Water mages swear by it. +3 INT, +1 STA. | crafting |
 
-### Other consumables, tools & key items (31)
+### Other consumables, tools & key items (77)
 | Item | Description | Buy / sell | Source |
 |---|---|---|---|
 | Chart of Thaloria | A surveyor's chart of the city's streets and landmarks. Read it to mark them on your map (M). | 40 / 12 | — |
@@ -870,6 +929,52 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Manual: Berserker | Teaches the Berserker style of the axe (+40%), and practice counts double after. Rage, bleed them, swing faster. | 150 / 40 | — |
 | Manual: Bulwark | Teaches the Bulwark style of the shield (+40%), and practice counts double after. Hold the line — nothing gets through. | 150 / 40 | — |
 | Manual: Brawler | Teaches the Brawler style of the fists (+40%), and practice counts double after. Big punches, throws and headbutts. | 150 / 40 | — |
+| Manual: Hunter | Teaches the Hunter style of the bow (+40%), and practice counts double after. Patient shots: hit hard, hold them, mark them. | 150 / 40 | — |
+| Manual: Marksman | Teaches the Marksman style of the crossbow (+40%), and practice counts double after. Steady aim, a bolt to the head, a bolt through a row. | 150 / 40 | — |
+| Manual: Quickcast | Teaches the Quickcast style of the wand (+40%), and practice counts double after. Fast bolts, echoing spells, a bolt that jumps. | 150 / 40 | — |
+| Manual: Channeler | Teaches the Channeler style of the staff (+40%), and practice counts double after. Gather mana, overload your spells, then let it all out. | 150 / 40 | — |
+| Manual: Hex | Starts the Hex style of the wand (+40%). Its skills come in a later update. Curse them: weaken, slow, drain. | 150 / 40 | — |
+| Manual: Warder | Starts the Warder style of the staff (+40%). Its skills come in a later update. Circles and barriers that keep you safe. | 150 / 40 | — |
+| Scroll: Needle Volley | Teaches the arcane spell Needle Volley (Novice). Practise arcane magic for its higher tiers. | 190 / 47 | — |
+| Scroll: Luminance | Teaches the arcane spell Luminance (Novice). Practise arcane magic for its higher tiers. | 140 / 35 | — |
+| Scroll: Phantom Script | Teaches the arcane spell Phantom Script (Novice). Practise arcane magic for its higher tiers. | 215 / 53 | — |
+| Scroll: Fireball | Teaches the fire spell Fireball (Novice). Practise fire magic for its higher tiers. | 55 / 13 | — |
+| Scroll: Flame Lance | Teaches the fire spell Flame Lance (Novice). Practise fire magic for its higher tiers. | 215 / 53 | — |
+| Scroll: Warmth Aura | Teaches the fire spell Warmth Aura (Novice). Practise fire magic for its higher tiers. | 100 / 25 | — |
+| Scroll: Thunder Clap | Teaches the lightning spell Thunder Clap (Novice). Practise lightning magic for its higher tiers. | 165 / 41 | — |
+| Scroll: Void Pulse | Teaches the shadow spell Void Pulse (Novice). Practise shadow magic for its higher tiers. | 180 / 45 | — |
+| Scroll: Hush | Teaches the shadow spell Hush (Novice). Practise shadow magic for its higher tiers. | 140 / 35 | — |
+| Scroll: Eclipse Mark | Teaches the shadow spell Eclipse Mark (Novice). Practise shadow magic for its higher tiers. | 230 / 57 | — |
+| Scroll: Rubble Spray | Teaches the earth spell Rubble Spray (Novice). Practise earth magic for its higher tiers. | 115 / 28 | — |
+| Scroll: Mud Wall | Teaches the earth spell Mud Wall (Novice). Practise earth magic for its higher tiers. | 210 / 52 | — |
+| Scroll: Mud Trap | Teaches the earth spell Mud Trap (Novice). Practise earth magic for its higher tiers. | 150 / 37 | — |
+| Scroll: Stone Cannon | Teaches the earth spell Stone Cannon (Novice). Practise earth magic for its higher tiers. | 240 / 60 | — |
+| Scroll: Frost Shard | Teaches the ice spell Frost Shard (Novice). Practise ice magic for its higher tiers. | 80 / 20 | — |
+| Scroll: Water Conjure | Teaches the water spell Water Conjure (Novice). Practise water magic for its higher tiers. | 80 / 20 | — |
+| Scroll: Frostbite | Teaches the ice spell Frostbite (Novice). Practise ice magic for its higher tiers. | 130 / 32 | — |
+| Scroll: Water Blade | Teaches the water spell Water Blade (Novice). Practise water magic for its higher tiers. | 160 / 40 | — |
+| Scroll: Vine Grasp | Teaches the nature spell Vine Grasp (Novice). Practise nature magic for its higher tiers. | 80 / 20 | — |
+| Scroll: Acid Splash | Teaches the nature spell Acid Splash (Novice). Practise nature magic for its higher tiers. | 115 / 28 | — |
+| Scroll: Vessel Mend | Teaches the nature spell Vessel Mend (Novice). Practise nature magic for its higher tiers. | 100 / 25 | — |
+| Scroll: Barkskin | Teaches the nature spell Barkskin (Novice). Practise nature magic for its higher tiers. | 150 / 37 | — |
+| Scroll: Counterspell | Teaches the arcane spell Counterspell (Novice). Practise arcane magic for its higher tiers. | 100 / 25 | — |
+| Scroll: Arcane Burst | Teaches the arcane spell Arcane Burst (Novice). Practise arcane magic for its higher tiers. | 115 / 28 | — |
+| Scroll: Flame Wall | Teaches the fire spell Flame Wall (Novice). Practise fire magic for its higher tiers. | 180 / 45 | — |
+| Scroll: Chain Lightning | Teaches the lightning spell Chain Lightning (Novice). Practise lightning magic for its higher tiers. | 200 / 50 | — |
+| Scroll: Static Field | Teaches the lightning spell Static Field (Novice). Practise lightning magic for its higher tiers. | 130 / 32 | — |
+| Scroll: Shadow Bolt | Teaches the shadow spell Shadow Bolt (Novice). Practise shadow magic for its higher tiers. | 90 / 22 | — |
+| Scroll: Life Drain | Teaches the shadow spell Life Drain (Novice). Practise shadow magic for its higher tiers. | 265 / 66 | — |
+| Scroll: Rock Bullet | Teaches the earth spell Rock Bullet (Novice). Practise earth magic for its higher tiers. | 70 / 17 | — |
+| Scroll: Glacial Spike | Teaches the ice spell Glacial Spike (Novice). Practise ice magic for its higher tiers. | 150 / 37 | — |
+| Scroll: Wind Knife | Teaches the wind spell Wind Knife (Novice). Practise wind magic for its higher tiers. | 80 / 20 | — |
+| Scroll: Drying Wind | Teaches the wind spell Drying Wind (Novice). Practise wind magic for its higher tiers. | 65 / 16 | — |
+| Scroll: Gale Slash | Teaches the wind spell Gale Slash (Novice). Practise wind magic for its higher tiers. | 100 / 25 | — |
+| Scroll: Tempest Step | Teaches the wind spell Tempest Step (Novice). Practise wind magic for its higher tiers. | 130 / 32 | — |
+| Scroll: Wind Barrier | Teaches the wind spell Wind Barrier (Novice). Practise wind magic for its higher tiers. | 160 / 40 | — |
+| Scroll: Tidal Bolt | Teaches the water spell Tidal Bolt (Novice). Practise water magic for its higher tiers. | 55 / 13 | — |
+| Scroll: Healing Spring | Teaches the water spell Healing Spring (Novice). Practise water magic for its higher tiers. | 100 / 25 | — |
+| Scroll: Riptide | Teaches the water spell Riptide (Novice). Practise water magic for its higher tiers. | 130 / 32 | — |
+| Scroll: Tide Step | Teaches the water spell Tide Step (Novice). Practise water magic for its higher tiers. | 190 / 47 | — |
 
 ### Ingredients & materials (41)
 | Ingredient | Used in | Source |

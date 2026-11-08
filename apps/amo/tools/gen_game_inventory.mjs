@@ -43,8 +43,9 @@ const { PlayerStats, MASTERY_DEFS, xpForLevel } = await import(SRC + 'systems/Pl
 const { WEAPON_TYPES } = await import(SRC + 'systems/weapons.js');
 const { unlockLevel, unlockLevels, PASSIVE_CAP_LEVEL } = await import(SRC + 'systems/mastery.js');
 const { STYLES, STYLE_IDS, STYLE_SKILLS } = await import(SRC + 'data/styles.js');
-const { MANUAL_BONUS, LESSON_BONUS, lessonPrice } = await import(SRC + 'systems/styles.js');
+const { MANUAL_BONUS, LESSON_BONUS, lessonPrice, RELEASE_MIN_MANA } = await import(SRC + 'systems/styles.js');
 const { MANUAL_PRICE, GUILD_CATALOG, ELITE_MANUAL_CHANCE } = await import(SRC + 'data/items.js');
+const { guildScrolls, scrollPrice, ELITE_SCROLL_CHANCE, teachableSpells } = await import(SRC + 'systems/spellLearning.js');
 
 const out = [];
 const P = (s = '') => out.push(s);
@@ -213,10 +214,12 @@ P();
 P('- Each skill opens at a **weapon mastery**: the first at **2**, the second at **5**, the third at **8**.');
 P('- So your talent decides how many you get: **Untrained** (up to 3) gets the first skill, **Trained** (up to 6) two, **Gifted** (up to 10) all three.');
 P('- A skill only works with its weapon **in your hands**. If it is not, the skill is greyed out and does nothing.');
-P('- Skills cost no mana. Each one has a wait (shown on its slot) before you can use it again.');
+P('- Skills cost no mana (except **Release**, which pours out all of it). Each one has a wait (shown on its slot) before you can use it again.');
+P('- **Bow, crossbow and wand skills shoot straight ahead, the way you are facing** — turn towards your target first.');
 P();
 for (const id of STYLE_IDS) {
     const st = STYLES[id];
+    if (st.later) continue;
     P(`**${WEAPON_TYPES[st.weapon].label} — ${st.name}.** ${st.blurb}`);
     P();
     table(['Skill', 'Opens at mastery', 'What it does', 'Wait'], st.skills.map(sid => {
@@ -225,12 +228,14 @@ for (const id of STYLE_IDS) {
     }));
     P();
 }
+P(`**Coming later:** ${STYLE_IDS.filter(id => STYLES[id].later).map(id => `${STYLES[id].name} (${WEAPON_TYPES[STYLES[id].weapon].label.toLowerCase()})`).join(' and ')}. Their manuals are on sale already — reading one now gives you a head start.`);
+P();
 P('### Learning a style');
 P('A style is learned by filling its bar to **100%**. There are three ways, from slow to fast:');
 P();
 table(['Way', 'How much', 'Where'], [
-    ['**Practice** (free, slow)', '1% for each enemy you defeat with that weapon — less for weak enemies, more for strong ones', 'Anywhere. The STYLES screen shows which style you are practising.'],
-    ['**A manual** (faster)', `+${MANUAL_BONUS}% at once, and after that your practice counts **double**`, `The Archivist's Guild in Thaloria (${MANUAL_PRICE} gold each: ${GUILD_CATALOG.map(e => STYLES[e.id.replace('manual_', '')].name).join(', ')}). Elites sometimes drop one (${Math.round(ELITE_MANUAL_CHANCE * 100)}%). Read it from your satchel (I).`],
+    ['**Practice** (free, slow)', '1% for each enemy you defeat with that weapon — less for weak enemies, more for strong ones. With a wand or staff in hand, enemies your **spells** defeat count too', 'Anywhere. The STYLES screen shows which style you are practising.'],
+    ['**A manual** (faster)', `+${MANUAL_BONUS}% at once, and after that your practice counts **double**`, `The Archivist's Guild in Thaloria (${MANUAL_PRICE} gold each: ${GUILD_CATALOG.filter(e => e.id.startsWith('manual_')).map(e => STYLES[e.id.replace('manual_', '')].name).join(', ')}). Elites sometimes drop one (${Math.round(ELITE_MANUAL_CHANCE * 100)}%). Read it from your satchel (I).`],
     ['**A teacher** (fastest, costs gold)', `+${LESSON_BONUS}% a lesson, **one lesson a day**, during the teacher's working hours. Lessons cost ${[0, 1, 2].map(lessonPrice).join(', then ')} gold`, 'In Thaloria: the **sergeant** in the barracks teaches Guard (one-handed sword), the **smith** in the smithy teaches Crusher (mace).'],
 ]);
 P();
@@ -239,6 +244,19 @@ P();
 P('**To use a skill:** open **STYLES** (Y, or STYLE on the touch menu). Pick a skill, then press **Q, R, F or T** (gamepad: B, X, Y, RB — the same buttons that use them in a fight) to put it on that slot. Press the same key again to take it off. Close with Esc or Y (gamepad: Start).');
 P();
 P('**Example — Kael with a sword.** Kael wins fights with his sword until Guard is learned (or takes lessons from the sergeant). At sword mastery 2 he opens STYLES and puts **Parry** on Q. When a wolf leaps at him, he presses Q just before it bites: the bite does nothing and the wolf is dazed. At mastery 5 he adds **Riposte** on R — right after a parry it hits even harder.');
+P();
+P(`**Example — Seraphina with a wand.** She puts **Snap Cast** on Q and **Echo** on R. She presses R, then casts a fire spell at a wolf pack: the spell bursts, and a moment later it bursts again at half strength. With a staff instead, **Release** (mastery 8) pours out all her mana in one blast around her — the more mana she has, the bigger it is (it needs at least ${RELEASE_MIN_MANA}).`);
+P();
+P('### Learning spells');
+P('Spells are learned the same three ways as styles:');
+P();
+table(['Way', 'What you get', 'Where'], [
+    ['**Practice** (free)', 'Casting spells in fights raises that element\'s level, and new spells and tiers open as it grows', 'Anywhere.'],
+    ['**A spell scroll**', 'One spell at **Novice**, at once — even one your element level has not reached yet', `The Archivist's Guild sells the easy ones (${guildScrolls().map(id => `${SPELLS[id].name} ${scrollPrice(SPELLS[id])}`).join(', ')} gold). Elites sometimes drop others (${Math.round(ELITE_SCROLL_CHANCE * 100)}%). Read it from your satchel (I); a scroll for a spell you know is kept.`],
+    ['**A teacher** (costs gold)', 'One spell at **Novice** a lesson, **one lesson a day**, easiest first', `In Thaloria: the **priest** in the temple teaches arcane spells (${teachableSpells('arcane').map(id => SPELLS[id].name).join(', ')}). Lessons cost ${[0, 1, 2].map(lessonPrice).join(', then ')} gold.`],
+]);
+P();
+P('A spell from a scroll or a teacher starts at **Novice**. Its **Apprentice** and **Adept** tiers still come only from that element\'s level — practise it.');
 P();
 P('### Spells and the elements');
 P('Your spells belong to you, not to your stick: you can cast them with a wand, a staff, a sword in hand — or nothing.');
