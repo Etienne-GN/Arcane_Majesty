@@ -55,7 +55,9 @@ export const THALORIA_TOWN = {
         { id: 'labourer_yard', role: 'labourer', look: 'look_11', home: 'door_house_low_e', work: 'hearth_yard', evening: 'inn_seat_9' },
         { id: 'porter', role: 'labourer', look: 'look_12', home: 'door_house_teal', work: 'woodpile', evening: 'inn_seat_10' },
         // the temple quarter and the Archivist's Guild
-        { id: 'priest', role: 'priest', look: 'look_13', home: 'door_temple', work: 'thaloria_temple__altar' },
+        // Combat C4: a spell teacher (a `teachesElement`, systems/spellLearning.js)
+        { id: 'priest', role: 'priest', look: 'look_13', home: 'door_temple', work: 'thaloria_temple__altar',
+          npc: { id: 'priest', name: 'Priest', teachesElement: 'arcane' } },
         { id: 'acolyte', role: 'priest', look: 'look_14', home: 'door_temple', work: 'temple_steps' },
         { id: 'archivist_master', role: 'priest', look: 'look_15', home: 'door_guild_hall', work: 'thaloria_guild_hall__master',
           npc: { id: 'archivist_master', name: 'Archivist', isShop: true, shopName: "THE ARCHIVIST'S GUILD", catalog: 'guild',

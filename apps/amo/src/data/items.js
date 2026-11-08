@@ -1,5 +1,7 @@
 import { scrollItems } from './recipeScrolls.js';
 import { STYLES, STYLE_IDS } from './styles.js';
+import { SPELLS } from './spells.js';
+import { SCROLL_SPELLS, spellScrollId, scrollPrice, guildScrolls } from '../systems/spellLearning.js';
 
 // Satchel tier progression (Weathered Pouch → Void-Fold)
 export const SATCHEL_TIERS = [
@@ -1739,6 +1741,19 @@ for (const st of Object.values(STYLES)) {
         onUse: (stats) => stats.readStyleManual(st.id),
     };
 }
+
+// Combat C4: one scroll per scroll-taught spell — reading it teaches the spell at Novice
+// (systems/spellLearning.js). The Guild sells the easy ones; elites drop the rest.
+for (const sid of SCROLL_SPELLS) {
+    const sp = SPELLS[sid], id = spellScrollId(sid), price = scrollPrice(sp);
+    ITEMS[id] = {
+        id, name: `Scroll: ${sp.name}`, spellOf: sid,
+        description: `Teaches the ${sp.element} spell ${sp.name} (Novice). Practise ${sp.element} magic for its higher tiers.`,
+        color: 0xc8a0ff, icon: 'itm_scroll', stackable: false, rarity: 'uncommon', buyPrice: price, sellPrice: Math.floor(price / 4),
+        onUse: (stats) => stats.learnSpell(sid),
+    };
+}
+GUILD_CATALOG.push(...guildScrolls().map(sid => ({ id: spellScrollId(sid), price: scrollPrice(SPELLS[sid]), currency: 'gold' })));
 
 // An elite's chance at a manual for a style the player neither knows nor carries.
 export const ELITE_MANUAL_CHANCE = 0.10;

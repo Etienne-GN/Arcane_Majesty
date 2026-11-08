@@ -108,6 +108,8 @@ export class PlayerStats {
         this.talents = {};                                 // set from the character (data/talents.js)
         this._masteryCallbacks = [];
         this.styles = emptyStyles();                       // Combat C3: learning bars, manuals, lessons
+        this.spellLessons = {};                            // Combat C4: element → lessons taken from a spell teacher
+        this.spellLessonDay = {};                          // element → the game day of the last one
         this.skillCooldowns = {};                          // style skill id → ms left (never saved)
         this._styleCallbacks = [];
 
@@ -473,6 +475,15 @@ export class PlayerStats {
     }
 
     getSpellLevel(id) { return this.spells[id] ?? 0; }
+
+    // Combat C4: a scroll or a teacher gives a spell at Novice; never lowers a tier.
+    learnSpell(id) {
+        if (!SPELLS[id] || (this.spells[id] ?? 0) > 0) return false;
+        this.spells[id] = 1;
+        this._resonanceCallbacks.forEach(fn => fn(id, 1, true));
+        this._checkSpellProgress(SPELLS[id].element);
+        return true;
+    }
 
     // Grants a spell outright, bypassing the resonance-threshold discovery
     // system — used only by CampaignManager to deliver the bible's unlock
@@ -857,6 +868,8 @@ export class PlayerStats {
         this.moveSlots = { attack: null, second: null };   // Combat C1: null = the default move
         this.mastery = { weapons: {}, elements: {} };   // Combat C2: points, grown by use
         this.styles = emptyStyles();                     // Combat C3
+        this.spellLessons = {};                          // Combat C4
+        this.spellLessonDay = {};
         this.skillCooldowns = {};
         this.inventory = [];
         this.attributes  = { strength: 5, intelligence: 5, stamina: 5, agility: 5 };

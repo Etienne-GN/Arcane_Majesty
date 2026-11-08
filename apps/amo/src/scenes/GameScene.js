@@ -54,6 +54,7 @@ import { typeOf, creditType, WEAPON_TYPES } from '../systems/weapons.js';
 import { STYLES, STYLE_SKILLS } from '../data/styles.js';
 import { performSkill } from '../systems/StyleSkills.js';
 import { lessonCheck, takeLesson, ECHO_DELAY, ECHO_POWER } from '../systems/styles.js';
+import { spellLessonCheck, rollSpellScroll } from '../systems/spellLearning.js';
 import { hitGain, levelDamageMult, focusBonus, FAMILY } from '../systems/mastery.js';
 import { talentsFor } from '../data/talents.js';
 import { fogFor, revealAround, encodeFog, newlyDiscovered, REVEAL_RADIUS, DENSE_REVEAL_RADIUS } from '../systems/fog.js';
@@ -3821,6 +3822,7 @@ export default class GameScene extends Phaser.Scene {
 
         // Combat C3: a teacher offers a lesson in their style
         if (def.teaches) { questManager.onTalk(npcId); this._offerLesson(npc, def); return; }
+        if (def.teachesElement) { questManager.onTalk(npcId); this._offerSpellLesson(npc, def); return; }
 
         if (def.isShop) {
             // Talking to a merchant counts for "Return to …" steps too
@@ -3891,6 +3893,34 @@ export default class GameScene extends Phaser.Scene {
                 soundManager.collect();
                 ui?.showNotification?.(`${st.name} +35% (now ${pct}%)`, 2400);
                 playerStats.announceStyle(st.id);
+                SaveManager.save(playerStats, this._storyId, this._characterId);
+            } },
+            { text: 'Not now' },
+        ]);
+    }
+
+    // Combat C4: a spell teacher gives one spell of their element a lesson (systems/spellLearning.js)
+    _offerSpellLesson(npc, def) {
+        const el = def.teachesElement, ui = this.scene.get('UIScene');
+        if (npc.activity && npc.activity !== 'work') { ui?.showNotification?.(`The ${def.name.toLowerCase()} teaches during working hours`, 2000); return; }
+        const say = (text, choices) => {
+            this.scene.pause();
+            this.scene.launch('DialogueScene', { lines: [{ speaker: def.name, text, ...(choices ? { choices } : {}) }] });
+        };
+        const day = gameDay(playerStats.gameMinutes);
+        const c = spellLessonCheck(playerStats.spellLessons, playerStats.spellLessonDay, el, day, playerStats.gold, playerStats.spells);
+        if (c.reason === 'none') return say(`I have taught you every ${el} spell I know.`);
+        if (c.reason === 'today') return say('Enough for today. Come back tomorrow.');
+        if (c.reason === 'gold') return say(`A lesson is ${c.price} gold. Come back when you have it.`);
+        const name = SPELLS[c.spell].name;
+        say(`I can teach you ${name}, a spell of ${el} magic. A lesson is ${c.price} gold.`, [
+            { text: `Take a lesson (${c.price} gold)`, onPick: () => {
+                playerStats.gold -= c.price;
+                playerStats.spellLessons[el] = (playerStats.spellLessons[el] ?? 0) + 1;
+                playerStats.spellLessonDay[el] = day;
+                playerStats.learnSpell(c.spell);
+                soundManager.collect();
+                ui?.showNotification?.(`${name} learned — put it on Q/R/F/T in TOME`, 2600);
                 SaveManager.save(playerStats, this._storyId, this._characterId);
             } },
             { text: 'Not now' },
@@ -4068,6 +4098,8 @@ export default class GameScene extends Phaser.Scene {
         if (scroll) enemy.bonusDrops.push(scroll);
         const manual = rollEliteManual(Math.random, playerStats.styles, playerStats.inventory.map(i => i.id));   // Combat C3
         if (manual) enemy.bonusDrops.push(manual);
+        const spellScroll = rollSpellScroll(Math.random, playerStats.spells, playerStats.inventory.map(i => i.id));   // Combat C4
+        if (spellScroll) enemy.bonusDrops.push(spellScroll);
         enemy.setScale(enemy.scaleX * 1.2);
         if (affixes.includes('arcane') && !enemy.spellKit.includes('arcane_bolt')) enemy.spellKit = [...enemy.spellKit, 'arcane_bolt'];
         if (affixes.includes('swift')) statusManager.apply(enemy, 'hastened', { duration: -1 });

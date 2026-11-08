@@ -14,7 +14,8 @@ export const NPCS = {
     // Combat C3: teachers and the manual shop (unnamed roles)
     sergeant:         { name: 'the Sergeant',  place: 'Thaloria (the barracks)' },        // teaches Guard
     smith:            { name: 'the Smith',     place: 'Thaloria (the smithy)' },          // teaches Crusher
-    archivist_master: { name: 'the Archivist', place: "Thaloria (the Archivist's Guild)" }, // sells style manuals
+    archivist_master: { name: 'the Archivist', place: "Thaloria (the Archivist's Guild)" }, // sells style manuals and spell scrolls
+    priest:           { name: 'the Priest',    place: 'Thaloria (the temple)' },          // C4: teaches arcane spells
 };
 
 export const npcName  = id => NPCS[id]?.name ?? String(id).replace(/_/g, ' ');

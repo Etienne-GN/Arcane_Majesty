@@ -70,6 +70,8 @@ export class SaveManager {
             moveSlots:     { ...stats.moveSlots },
             mastery:       JSON.parse(JSON.stringify(stats.mastery ?? { weapons: {}, elements: {} })),
             styles:        JSON.parse(JSON.stringify(stats.styles ?? emptyStyles())),
+            spellLessons:   { ...(stats.spellLessons ?? {}) },     // Combat C4
+            spellLessonDay: { ...(stats.spellLessonDay ?? {}) },
             skills:        Object.fromEntries(
                                Object.entries(stats.skills).map(([k, v]) => [k, { level: v.level }])
                            ),
@@ -148,6 +150,8 @@ export class SaveManager {
             stats.setTalents?.(talentsFor(characterId));
             SaveManager.migrateCombatC2(stats, d);
             stats.styles = { ...emptyStyles(), ...(d.styles ? JSON.parse(JSON.stringify(d.styles)) : {}) };   // Combat C3
+            stats.spellLessons = { ...(d.spellLessons ?? {}) };       // Combat C4 (a load always replaces them)
+            stats.spellLessonDay = { ...(d.spellLessonDay ?? {}) };
             if (d.spellCooldowns) stats.spellCooldowns  = { ...(stats.spellCooldowns ?? {}), ...d.spellCooldowns };
             if (d.skillSlots)     stats.skillSlots  = [...d.skillSlots];
             stats.hotbar = Array.isArray(d.hotbar) ? [...d.hotbar, null, null, null, null].slice(0, 4) : [null, null, null, null];

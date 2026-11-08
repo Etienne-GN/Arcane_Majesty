@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { SPELLS } from '../data/spells.js';
 import { playerStats } from '../systems/PlayerStats.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
 import { ITEMS, SATCHEL_TIERS } from '../data/items.js';
@@ -252,6 +253,8 @@ export default class InventoryScene extends Phaser.Scene {
                 }
             } else if (itemId.startsWith('recipe_')) {
                 this.actionHint.setText('You already know this recipe.');
+            } else if (ITEMS[itemId]?.spellOf) {   // Combat C4: a spell scroll is kept
+                this.actionHint.setText(`You already know ${SPELLS[ITEMS[itemId].spellOf]?.name ?? 'this spell'}.`);
             }
         });
         ['ONE', 'TWO', 'THREE', 'FOUR'].forEach((k, slot) => this.input.keyboard.on(`keydown-${k}`, () => {

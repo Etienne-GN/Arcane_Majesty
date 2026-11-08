@@ -255,7 +255,8 @@ const px = t => t * 32 + 16;
     eq(TF.townFor('thaloria_inn_cellar'), town, 'the inn\'s cellar belongs to Thaloria');
     eq(TF.townFor('east_road'), null, 'the East Road has no town');
     const named = town.residents.filter(r => r.npc).map(r => r.npc.id).sort();
-    eq(named, ['archivist_master', 'innkeeper', 'sergeant', 'smith', 'thaloria_cartographer', 'thaloria_merchant', 'thaloria_trader'], 'the named people live here (C3: two teachers and the Guild)');
+    eq(named, ['archivist_master', 'innkeeper', 'priest', 'sergeant', 'smith', 'thaloria_cartographer', 'thaloria_merchant', 'thaloria_trader'], 'the named people live here (C3: two teachers and the Guild; C4: the priest)');
+    eq(by('priest')?.npc?.teachesElement, 'arcane', 'C4: the priest teaches arcane spells');
     ok(named.every(id => NPCS[id]), 'and are in the NPC table');
     ok(!(getMap('thaloria').spawns.npcs ?? []).some(n => named.includes(n.id)), 'they no longer stand as fixed spawns');
 
