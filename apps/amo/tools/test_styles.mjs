@@ -89,7 +89,8 @@ ok(S.handTypes(eqp('crude_dagger'), ITEMS).has('fists'), 'a one-handed weapon le
 // ---- manuals as items (Task 2)
 {
     const { CATALOGS, rollEliteManual, manualId } = await import('../src/data/items.js');
-    eq(CATALOGS.guild.map(e => e.id).sort(), ['brawler', 'berserker', 'bulwark', 'lancer', 'reaver', 'shadow', 'spinning_staff'].map(manualId).sort(), 'the Guild sells the seven untaught manuals');
+    eq(CATALOGS.guild.map(e => e.id).filter(id => id.startsWith('manual_')).slice(0, 7).sort(), ['brawler', 'berserker', 'bulwark', 'lancer', 'reaver', 'shadow', 'spinning_staff'].map(manualId).sort(), 'the Guild sells the seven untaught close-combat manuals');
+    ok(!CATALOGS.guild.some(e => e.id === manualId('guard') || e.id === manualId('crusher')), '… not the ones Thaloria teachers teach');
     ok(D.STYLE_IDS.every(id => ITEMS[manualId(id)]?.manualOf === id), 'one manual item per style');
     const st2 = S.emptyStyles(); st2.progress.guard = 100; st2.manuals.reaver = true;
     eq(rollEliteManual(() => 0.5, st2), null, 'most elites drop no manual');
@@ -122,5 +123,15 @@ eq(S.chainTargets(C[0], C, 1, 90).length, 2, 'jumps are capped');
 eq(S.releaseMult(D.STYLE_SKILLS.release, 0), 1.2, 'no mana: the base');
 eq(S.releaseMult(D.STYLE_SKILLS.release, 80), 3.2, '80 mana: +2');
 eq(S.RELEASE_MIN_MANA, 10, 'Release needs 10 mana');
+
+// ---- C4 manuals
+{
+    const { GUILD_CATALOG, manualId, rollEliteManual } = await import('../src/data/items.js');
+    eq(GUILD_CATALOG.map(e => e.id).slice(7, 13), ['hunter', 'marksman', 'quickcast', 'channeler', 'hex', 'warder'].map(manualId), 'the Guild adds the C4 manuals');
+    ok(ITEMS.manual_hex.description.includes('later'), 'the Hex manual says its skills come later');
+    ok(ITEMS.manual_hunter.description.includes('bow'), 'the Hunter manual names its weapon');
+    const all = Object.fromEntries(D.STYLE_IDS.map(id => [id, 100]));
+    eq(rollEliteManual(() => 0, { progress: all, manuals: {} }, []), null, 'nothing left to drop');
+}
 
 console.log(`test_styles: ${n} checks passed`);

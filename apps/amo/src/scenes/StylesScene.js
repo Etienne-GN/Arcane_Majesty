@@ -1,22 +1,24 @@
-// Combat C3: the STYLES screen (Y, or STYLE on the touch tray). One card per
-// close-combat weapon: its mastery, its style's learning bar, and the style's three
-// skills — which can be put on Q/R/F/T next to spells. Rules: systems/styles.js.
+// Combat C3/C4: the STYLES screen (Y, or STYLE on the touch tray). One card per
+// weapon: its mastery, its first style's learning bar and three skills — which can be
+// put on Q/R/F/T next to spells — and any later style's bar. Rules: systems/styles.js.
 import Phaser from 'phaser';
 import { playerStats } from '../systems/PlayerStats.js';
 import { GamepadNav } from '../systems/GamepadNav.js';
-import { STYLES, STYLE_IDS, STYLE_SKILLS } from '../data/styles.js';
+import { STYLES, STYLE_SKILLS } from '../data/styles.js';
 import { WEAPON_TYPES } from '../systems/weapons.js';
-import { practising } from '../systems/styles.js';
+import { practising, cardStyles, laterStyles } from '../systems/styles.js';
 import { SLOT_PAD } from '../controls/launcherDefs.js';
 
 const SLOT_KEYS = ['Q', 'R', 'F', 'T'];
 const PAD_SLOTS = SLOT_PAD.map(b => b.name);   // the same buttons that fire Q / R / F / T in play
 const STATE_COLOR = { ready: '#ffffff', weapon: '#aaccff', mastery: '#777788', style: '#4a4a5e' };
+const CARDS = cardStyles();   // one per weapon (13)
+const COLS = 4, ROWS = Math.ceil(CARDS.length / COLS);
 
 export default class StylesScene extends Phaser.Scene {
     constructor() { super('StylesScene'); }
 
-    init(data) { this._sel = data?.sel ?? 0; }   // 0..26: card * 3 + row
+    init(data) { this._sel = data?.sel ?? 0; }   // card * 3 + row
 
     create() {
         const w = this.scale.width, h = this.scale.height;
@@ -28,11 +30,11 @@ export default class StylesScene extends Phaser.Scene {
         this.add.text(w - 28, py + 8, '✕', { font: 'bold 26px monospace', fill: '#aa4444' }).setOrigin(1, 0)
             .setInteractive({ useHandCursor: true }).on('pointerdown', () => this._close());
 
-        // 3 × 3 cards between the title and the footer
+        // COLS × ROWS cards between the title and the footer
         const top = py + 52, footH = 86, gap = 10;
-        const cardW = Math.floor((pw - 4 * gap) / 3), cardH = Math.floor((ph - 52 - footH - 3 * gap) / 3);
-        const f = cardH < 150 ? 12 : 14, line = f + 5;
-        STYLE_IDS.forEach((id, i) => this._card(STYLES[id], i, px + gap + (i % 3) * (cardW + gap), top + Math.floor(i / 3) * (cardH + gap), cardW, cardH, f, line));
+        const cardW = Math.floor((pw - (COLS + 1) * gap) / COLS), cardH = Math.floor((ph - 52 - footH - ROWS * gap) / ROWS);
+        const f = cardH < 140 ? 12 : cardW < 380 ? 13 : 14, line = f + 5;
+        CARDS.forEach((st, i) => this._card(st, i, px + gap + (i % COLS) * (cardW + gap), top + Math.floor(i / COLS) * (cardH + gap), cardW, cardH, f, line));
 
         // Footer: the selected skill, and how to learn
         const fy = py + ph - footH;
@@ -77,6 +79,10 @@ export default class StylesScene extends Phaser.Scene {
         if (!known && practising(playerStats.styles, st.weapon) === st.id) notes.push('● practising');
         if (playerStats.styles.manuals[st.id]) notes.push('manual read');
         if (playerStats.styles.lessons[st.id]) notes.push(`lessons: ${playerStats.styles.lessons[st.id]}`);
+        for (const l of laterStyles(st.weapon)) {
+            const p = playerStats.styles.progress[l.id] ?? 0;
+            if (p > 0) notes.push(`${l.name} ${Math.floor(p)}% · skills later`);
+        }
         this.add.text(x + 8, ty, notes.join('  ·  ') || ' ', { font: `${f - 1}px monospace`, fill: '#9999bb' });
         ty += line;
         st.skills.forEach((sid, j) => {
@@ -84,20 +90,20 @@ export default class StylesScene extends Phaser.Scene {
             const slot = playerStats.skillSlots.indexOf(sid);
             const sel = this._sel === i * 3 + j;
             const tag = slot >= 0 ? `[${SLOT_KEYS[slot]}] ` : '    ';
-            const need = state === 'mastery' ? `  needs ${k.unlock}` : state === 'style' ? '' : state === 'weapon' ? '  (not in hand)' : '';
-            const t = this.add.text(x + 8, ty + j * (line + 1), `${sel ? '▶' : ' '}${tag}${k.name} · mastery ${k.unlock}${need}`, {
+            const need = state === 'weapon' ? (cw < 330 ? '  (not held)' : '  (not in hand)') : '';   // the colour shows a mastery lock
+            const t = this.add.text(x + 8, ty + j * (line + 1), `${sel ? '▶' : ' '}${tag}${k.name} · lv ${k.unlock}${need}`, {
                 font: `${f}px monospace`, fill: sel ? '#ffd700' : STATE_COLOR[state],
             }).setInteractive({ useHandCursor: true });
             t.on('pointerdown', () => this._select(i * 3 + j));
         });
     }
 
-    _selSkill() { return STYLE_SKILLS[STYLES[STYLE_IDS[Math.floor(this._sel / 3)]].skills[this._sel % 3]]; }
-    _select(n) { this.scene.restart({ sel: Phaser.Math.Clamp(n, 0, STYLE_IDS.length * 3 - 1) }); }
+    _selSkill() { return STYLE_SKILLS[CARDS[Math.floor(this._sel / 3)].skills[this._sel % 3]]; }
+    _select(n) { this.scene.restart({ sel: Phaser.Math.Clamp(n, 0, CARDS.length * 3 - 1) }); }
     // ±1: the next skill (into the next card); ±3: the same skill one card along
     _move(d) {
         const n = this._sel + d;
-        if (n >= 0 && n < STYLE_IDS.length * 3) this._select(n);
+        if (n >= 0 && n < CARDS.length * 3) this._select(n);
     }
     _assign(slot) {
         const id = this._selSkill().id;

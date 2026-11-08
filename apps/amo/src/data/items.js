@@ -96,7 +96,8 @@ export const CARTOGRAPHER_CATALOG = [
 // teacher teaches (the sergeant teaches Guard, the smith Crusher).
 export const MANUAL_PRICE = 150;
 export const manualId = styleId => `manual_${styleId}`;
-export const GUILD_CATALOG = ['reaver', 'shadow', 'lancer', 'spinning_staff', 'berserker', 'bulwark', 'brawler']
+export const GUILD_CATALOG = ['reaver', 'shadow', 'lancer', 'spinning_staff', 'berserker', 'bulwark', 'brawler',
+                               'hunter', 'marksman', 'quickcast', 'channeler', 'hex', 'warder']   // C4: range and magic; Hex and Warder's skills come later
     .map(id => ({ id: manualId(id), price: MANUAL_PRICE, currency: 'gold' }));
 export const CATALOGS = { cartographer: CARTOGRAPHER_CATALOG, guild: GUILD_CATALOG };
 
@@ -1726,12 +1727,14 @@ Object.assign(ITEMS, scrollItems(RECIPE_LABELS));
 
 // Combat C3: one manual per style. Reading it adds 40% and doubles practice (systems/styles.js).
 const WEAPON_NAMES = { sword: 'one-handed sword', greatsword: 'two-handed sword', dagger: 'dagger', spear: 'spear', bo: 'bo staff',
-                       mace: 'mace', axe: 'axe', shield: 'shield', fists: 'fists' };
+                       mace: 'mace', axe: 'axe', shield: 'shield', fists: 'fists', bow: 'bow', crossbow: 'crossbow', wand: 'wand', staff: 'staff' };
 for (const st of Object.values(STYLES)) {
     const id = manualId(st.id);
     ITEMS[id] = {
         id, name: `Manual: ${st.name}`, manualOf: st.id,
-        description: `Teaches the ${st.name} style of the ${WEAPON_NAMES[st.weapon] ?? st.weapon} (+40%), and practice counts double after. ${st.blurb}`,
+        description: st.later
+            ? `Starts the ${st.name} style of the ${WEAPON_NAMES[st.weapon] ?? st.weapon} (+40%). Its skills come in a later update. ${st.blurb}`
+            : `Teaches the ${st.name} style of the ${WEAPON_NAMES[st.weapon] ?? st.weapon} (+40%), and practice counts double after. ${st.blurb}`,
         color: 0xb08850, icon: 'itm_book', stackable: false, rarity: 'rare', buyPrice: MANUAL_PRICE, sellPrice: 40,
         onUse: (stats) => stats.readStyleManual(st.id),
     };
