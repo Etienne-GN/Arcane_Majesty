@@ -361,7 +361,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     _outOfAmmo(type, kind) {
         this.attackCooldown = 400;
         const what = kind ? `${ITEMS[kind]?.name ?? kind}s` : type === 'bolt' ? 'bolts' : 'arrows';
-        this.scene.scene.get('UIScene')?.showNotification?.(`Out of ${what}`, 1200);
+        const owed = this.stats.flags?.archerKitOwed ? ' — make room in your satchel for the 30 waiting for you' : '';
+        this.scene.scene.get('UIScene')?.showNotification?.(`Out of ${what}${owed}`, owed ? 2500 : 1200);
     }
 
     _powerSlash() {

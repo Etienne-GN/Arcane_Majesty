@@ -680,13 +680,23 @@ export class PlayerStats {
         return JSON.stringify(this.quiverLoad) !== before;
     }
     // Spec §5: what a new archer starts with — a small quiver, 30 arrows (bolts for a crossbow), a few Sticks and Feathers.
+    // The quiver goes straight to its slot (it needs no satchel room); arrows that
+    // find no room are owed (flags.archerKitOwed) and paid when there is — payArcherKit.
     giveArcherKit(type) {
         const ammo = type === 'crossbow' ? 'bolt' : 'basic_arrow';
-        if (!this.equipment.quiver && this.addItem('small_quiver')) this.equipItem('small_quiver');
-        this.addItem(ammo, 30);
+        if (!this.equipment.quiver) { this.equipment.quiver = 'small_quiver'; this._notifyEquipChange('quiver', 'small_quiver'); }
+        if (!this.addItem(ammo, 30)) (this.flags ??= {}).archerKitOwed = ammo;
         this.addItem('stick', 4);
         this.addItem('feather', 2);
         this.refillQuiver(WEAPON_TYPES[type].ammo);
+    }
+    // The owed kit arrows, once the satchel has room. True when paid now.
+    payArcherKit() {
+        const id = this.flags?.archerKitOwed;
+        if (!id || !this.addItem(id, 30)) return false;
+        delete this.flags.archerKitOwed;
+        this.refillQuiver();
+        return true;
     }
     // Would addItem(id) find room? (a stack to join, or a free slot)
     canAddItem(id) {

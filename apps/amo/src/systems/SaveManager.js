@@ -167,7 +167,6 @@ export class SaveManager {
             stats.styles = { ...emptyStyles(), ...(d.styles ? JSON.parse(JSON.stringify(d.styles)) : {}) };   // Combat C3
             stats.spellLessons = { ...(d.spellLessons ?? {}) };       // Combat C4 (a load always replaces them)
             stats.spellLessonDay = { ...(d.spellLessonDay ?? {}) };
-            SaveManager.migrateCombatC5(stats, d);   // after the inventory and equipment
             if (d.spellCooldowns) stats.spellCooldowns  = { ...(stats.spellCooldowns ?? {}), ...d.spellCooldowns };
             if (d.skillSlots)     stats.skillSlots  = [...d.skillSlots];
             stats.hotbar = Array.isArray(d.hotbar) ? [...d.hotbar, null, null, null, null].slice(0, 4) : [null, null, null, null];
@@ -186,6 +185,7 @@ export class SaveManager {
             stats.knownRecipes = [...(d.knownRecipes ?? [])];
             stats.gearUpgrades = { ...(d.gearUpgrades ?? {}) };
             stats.flags           = { ...(d.flags ?? {}) };
+            SaveManager.migrateCombatC5(stats, d);   // after the inventory, equipment and flags (it may owe arrows)
             stats.generatedQuests = d.generatedQuests ? JSON.parse(JSON.stringify(d.generatedQuests)) : {};
             stats.bounties        = d.bounties ? JSON.parse(JSON.stringify(d.bounties)) : {};
             stats.gameMinutes     = Number.isFinite(d.gameMinutes) ? d.gameMinutes : 480;

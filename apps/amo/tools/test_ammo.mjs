@@ -165,4 +165,17 @@ const full = new PlayerStats();
 for (let i = 0; i < full.getSatchelCapacity(); i++) full.inventory.push({ id: `junk${i}`, qty: 1 });
 ok(!full.canAddItem('stick'), 'a full satchel has no room for a new stack');
 
+
+// Final review fix: an old archer save with a full satchel still gets the kit
+const fullOld = { ...old, characterId: 'fullold', inventory: Array.from({ length: 10 }, (_, i) => ({ id: `junk${i}`, qty: 1 })), satchelTier: 1 };
+store.set('amo_save_story_fullold', JSON.stringify(fullOld));
+const f = new PlayerStats();
+SaveManager.load(f, 'story', 'fullold');
+eq(f.equipment.quiver, 'small_quiver', 'full satchel: the quiver still goes on (it needs no satchel room)');
+eq(f.flags.archerKitOwed, 'basic_arrow', 'the arrows are owed, not lost');
+ok(!f.payArcherKit(), 'still no room: still owed');
+f.inventory.pop();
+ok(f.payArcherKit(), 'room made: paid');
+eq([f.readyAmmo('arrow'), f.flags.archerKitOwed], [30, undefined], '30 ready, nothing owed');
+
 console.log(`✓ ammo tests passed (${n})`);

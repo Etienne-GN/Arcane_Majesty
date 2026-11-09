@@ -3419,6 +3419,7 @@ export default class GameScene extends Phaser.Scene {
         if (this._refillAcc >= 500) {
             this._refillAcc = 0;
             if (this.time.now - (this.player._fightAt ?? -1e9) >= REFILL_MS) playerStats.refillQuiver();
+            if (playerStats.flags?.archerKitOwed && playerStats.payArcherKit()) this.scene.get('UIScene')?.showNotification?.('Your 30 arrows are in your satchel now', 2500);
         }
         this._tickWeather(delta);
         this._tickDayNight(delta);
