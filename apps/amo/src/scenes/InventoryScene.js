@@ -10,7 +10,7 @@ import { WEAPON_TYPES, typeOf } from '../systems/weapons.js';
 
 const SLOT = 56;
 const EQUIP_PANEL_W = 192;
-const SLOT_H = 58;        // equipment slot height (seven slots: head, body, two hands, two rings… must fit)
+const SLOT_H = 58;        // equipment slot height (head, body, two hands, quiver, two rings… must fit)
 const HOTBAR_CELL = 43;   // the hotbar strip's cell size: floor((EQUIP_PANEL_W - 3 * 6) / HOTBAR_SIZE)
 
 const EQUIP_SLOTS = [
@@ -18,6 +18,7 @@ const EQUIP_SLOTS = [
     { key: 'body',       label: 'BODY'  },
     { key: 'weapon',     label: 'MAIN'  },
     { key: 'offHand',    label: 'OFF'   },
+    { key: 'quiver',     label: 'QUIVER' },   // Combat C5
     { key: 'accessory1', label: 'ACC 1' },
     { key: 'accessory2', label: 'ACC 2' },
 ];
@@ -110,10 +111,11 @@ export default class InventoryScene extends Phaser.Scene {
 
             if (equippedDef) {
                 const eIcon = equippedDef.icon;
+                const sq = key === 'quiver' ? 16 : 24;   // the quiver's square is smaller: its load line goes below
                 if (eIcon && this.textures.exists(eIcon)) {
-                    this.add.image(x + 20, sy + 36, eIcon).setDisplaySize(24, 24).setOrigin(0.5);
+                    this.add.image(x + 20, sy + 24 + sq / 2, eIcon).setDisplaySize(sq, sq).setOrigin(0.5);
                 } else {
-                    this.add.rectangle(x + 8, sy + 24, 24, 24, equippedDef.color ?? 0x8855ff).setOrigin(0);
+                    this.add.rectangle(x + 8, sy + 22, sq, sq, equippedDef.color ?? 0x8855ff).setOrigin(0);
                 }
                 this.add.text(x + 40, sy + 22, upgradeLabel(equippedDef.name, playerStats.upgradeLevel(equippedId)), {
                     font: '14px monospace', fill: '#bbbbdd',
@@ -125,14 +127,24 @@ export default class InventoryScene extends Phaser.Scene {
                 });
                 bg.on('pointerover', () => bg.setFillStyle(0x1c1c40));
                 bg.on('pointerout',  () => bg.setFillStyle(0x12122e));
-            } else {
+            } else if (key !== 'quiver') {
                 this.add.text(x + panelW / 2, sy + slotH / 2 + 6, '—', {
                     font: '18px monospace', fill: '#2a2a44'
                 }).setOrigin(0.5);
+            }
+            if (!equippedDef) {
                 bg.on('pointerover', () => bg.setFillStyle(0x111130));
                 bg.on('pointerout',  () => bg.setFillStyle(0x0c0c20));
             }
+            if (key === 'quiver') this.add.text(x + 6, sy + slotH - 17, this._quiverLine(), { font: '11px monospace', fill: '#998866', fixedWidth: panelW - 10 });
         });
+    }
+
+    // Combat C5: what the quiver holds ready, e.g. "Basic 24 · Poison 10"
+    _quiverLine() {
+        const ready = playerStats.quiver().filter(c => c.id);
+        if (ready.length) return ready.map(c => `${ITEMS[c.id].name.replace(/ Arrow$/, '')} ${c.qty}`).join('·');
+        return playerStats.equipment.quiver ? 'empty — buy or craft arrows' : `none — ${playerStats.quiverLayout().cap} arrows ready`;
     }
 
     // The four hotbar slots (keys 1–4 in play); tap a filled one to clear it.

@@ -213,7 +213,11 @@ export default class UIScene extends Phaser.Scene {
         const wt = this.stats.activeWeaponType;
         const wtLabel = weaponLabel(ITEMS[this.stats.equipment.weapon]);
         const wtColor = { staff: '#556677', spell_blade: '#44ccff', umbral_dagger: '#cc44ff', resonance_bow: '#88ddaa' }[wt] ?? '#556677';
-        this._weaponLabel?.setText(`[${wtLabel}]`).setStyle({ fill: wtColor });
+        // Combat C5: a bow or crossbow shows its arrows ready (and spare in the satchel)
+        const ammoType = this.stats.heldAmmoType?.();
+        const ready = ammoType ? this.stats.readyAmmo(ammoType) : 0;
+        const ammoTxt = ammoType ? ` ➶ ${ready} (+${this.stats.spareAmmo(ammoType)})` : '';
+        this._weaponLabel?.setText(`[${wtLabel}]${ammoTxt}`).setStyle({ fill: ammoType && !ready ? '#ff6655' : wtColor });
 
         const dense = !!this.scene.get('GameScene')?._inDense;
         this._vignette.alpha += ((dense ? 1 : 0) - this._vignette.alpha) * Math.min(1, this.game.loop.delta / 600);
