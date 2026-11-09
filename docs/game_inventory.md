@@ -1,8 +1,8 @@
 # Arcane Majesty (amo) — Complete Game Inventory
 
-_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-11-08. Regenerate after changing the data; don't hand-edit._
+_Generated from the game data by `apps/amo/tools/gen_game_inventory.mjs` on 2026-11-09. Regenerate after changing the data; don't hand-edit._
 
-**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 45 status effects · 266 items (56 weapons) · 43 cooking recipes · 27 potion recipes · 37 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 43 maps · 5 playable characters · 35 dialogues
+**At a glance:** 72 spells in 9 elements · 9 skills · 6 masteries · 45 status effects · 276 items (56 weapons) · 43 cooking recipes · 27 potion recipes · 45 crafting recipes · 17 enchantments · 115 enemy/creature types + 1 boss · 29 quests · 12 campaign chapters · 43 maps · 5 playable characters · 35 dialogues
 
 ## Contents
 1. [Systems & controls](#systems--controls)
@@ -352,13 +352,51 @@ Spells are learned the same three ways as styles:
 
 A spell from a scroll or a teacher starts at **Novice**. Its **Apprentice** and **Adept** tiers still come only from that element's level — practise it.
 
+### Arrows, bolts and quivers
+A **bow** shoots arrows and a **crossbow** shoots bolts. Each shot uses one. You can only shoot what is **in your quiver**.
+
+- **Out of a fight** (3 seconds without attacking or being hit), your quiver fills itself from the arrows in your satchel.
+- **In a fight** it does not: when it is empty you are **"Out of arrows"** until you step back for a moment.
+- **Without a quiver** you can still keep 10 arrows ready.
+- Your quiver sits in its own slot in the satchel (I), under your two hands. Next to your weapon at the bottom of the screen, ➶ shows how many arrows are ready, and (+…) how many more are in your satchel. It turns red when you have none ready.
+
+| Quiver | Holds | Kinds | Where |
+|---|---|---|---|
+| (none) | 10 | 1 | — |
+| Small Quiver | 30 | 1 (30 each) | Merchant, 25 gold |
+| Large Quiver | 60 | 2 (30 each) | Craft (C): 2× Deer Hide + Tree Resin |
+| Hunter's Quiver | 90 | 3 (30 each) | Craft (C): 3× Deer Hide + Wolf Pelt + 2× Tree Resin |
+
+A **kind** is one sort of ammunition: basic arrows, poison arrows, bolts… Each part of the quiver holds one kind.
+
+| Ammunition | For | Make it (C) | Buy it | What it does | Comes back |
+|---|---|---|---|---|---|
+| Basic Arrow | Bow | 2× Stick + Feather → 10 | Merchant: 10 for 8 gold | Plain | About 1 in 3 |
+| Broadhead Arrow | Bow | 10× Basic Arrow + Mineral Ore + Tree Resin → 10 | — | +35% damage | About 1 in 3 |
+| Poison Arrow | Bow | 10× Basic Arrow + Venom Sac → 10 | — | Poisons the enemy it hits | About 1 in 3, as Basic Arrows |
+| Explosive Arrow | Bow | 10× Basic Arrow + Ember Stone + Tree Resin → 10 | — | Bursts and hurts every enemy within 48 px (60% of the hit) | Never |
+| Bolt | Crossbow | 2× Stick + Mineral Ore → 10 | Merchant: 10 for 12 gold | Plain | About 1 in 3 |
+
+**Materials:** **Sticks** — 1 Wood makes 4 (C), and chopping deadwood sometimes gives a few. **Feathers** — dropped by birds (hawks, crows, herons, vultures, chickens, turkeys); the Merchant sells 5 for 4 gold. Mineral Ore, Resin, Venom Sacs and Ember Stones you already know.
+
+**Getting arrows back.** When an enemy dies, about a third of the arrows and bolts that hit it fall on the ground where it died — walk over them to pick them up.
+- A **poison** arrow comes back as a basic arrow (its poison is used up).
+- An **explosive** arrow never comes back — and if it is the one that **kills** the enemy, the blast destroys **every** arrow in it.
+- Arrows shot at the **boss** do not come back.
+
+**Choosing an arrow.** Plain **Shoot** (and the bow and crossbow skills) uses the first kind in your quiver. To shoot another kind, open the satchel (I) and click the **Second** button until it says, for example, **Shoot: Poison Arrow**.
+
+**Example — Anya with a bow and a Large Quiver.** Basic arrows fill the first part of her quiver and poison arrows the second. **Attack** shoots basic arrows. She sets the **Second** button to **Shoot: Poison Arrow** and saves it for the wolf leader. After the fight she picks up the arrows that fell, waits a few seconds, and her quiver is full again.
+
+A new character who starts with a bow gets a Small Quiver, 30 basic arrows, and a few Sticks and Feathers.
+
 ### Spells and the elements
 Your spells belong to you, not to your stick: you can cast them with a wand, a staff, a sword in hand — or nothing.
 
 - A **wand** makes spells quicker (shorter waits) but a little weaker.
 - A **staff** makes spells stronger and wider, but slower to come back.
 - New spells come with your **element mastery**: the higher your water mastery, the more water spells you know, and the stronger their tiers (Novice → Apprentice → Adept).
-- Being around an element — rain, a campfire, fighting its creatures — gives you a **feel** for it, but only up to mastery 2: enough for the easiest spell of each element. After that, you learn by **casting its spells in fights**: every hit counts. (Scrolls and tomes add to the feel; teachers are coming.)
+- Being around an element — rain, a campfire, fighting its creatures — gives you a **feel** for it, but only up to mastery 2: enough for the easiest spell of each element. After that, you learn by **casting its spells in fights**: every hit counts.
 - Each hero starts knowing one or two spells: Eldrin Fireball and Tidal Bolt, Anya Mana Dart and Shadow Bolt, Seraphina Shadow Bolt. Kael knows none — he is a swordsman.
 
 ## Character & progression
@@ -722,6 +760,14 @@ At the crafting bench (C).
 | Iron Axe | 1 | tool | 2× Mineral Ore + 2× Wood | Required to gather Wood nodes. |
 | Iron Pickaxe | 1 | tool | 3× Mineral Ore + Wood | Required to gather Mineral Ore nodes. |
 | Runic Satchel | 3 | tool | 3× Deer Hide + 4× Reed Fibre + 2× Spectral Dust | "Weightless" runes stitched into the lining. Upgrades Satchel to Tier III (35 slots). |
+| Sticks ×4 | 1 | ammo | Wood | A straight, dry stick. Two make the shafts for ten arrows or ten bolts. Cut from Wood (1 Wood → 4 Sticks). |
+| Basic Arrows ×10 | 1 | ammo | 2× Stick + Feather | A plain arrow. Shot by a bow from your quiver. About a third come back after a kill. |
+| Bolts ×10 | 1 | ammo | 2× Stick + Mineral Ore | A short, heavy crossbow bolt. About a third come back after a kill. |
+| Broadhead Arrows ×10 | 2 | ammo | 10× Basic Arrow + Mineral Ore + Tree Resin | A wide iron head: +35% damage. About a third come back. |
+| Poison Arrows ×10 | 2 | ammo | 10× Basic Arrow + Venom Sac | Dipped in venom: the enemy it hits is Poisoned. The poison is spent — about a third come back as basic arrows. |
+| Explosive Arrows ×10 | 3 | ammo | 10× Basic Arrow + Ember Stone + Tree Resin | Bursts where it lands and hurts every enemy close by. Nothing comes back from an enemy it kills. |
+| Large Quiver | 2 | ammo | 2× Deer Hide + Tree Resin | Two kinds, 30 of each (60) — say basic and poison arrows. |
+| Hunter's Quiver | 3 | ammo | 3× Deer Hide + Wolf Pelt + 2× Tree Resin | Three kinds, 30 of each (90). |
 
 **Gear upgrades** at the forge (UPGRADE EQUIPPED), materials by item tier:
 
@@ -976,7 +1022,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Scroll: Riptide | Teaches the water spell Riptide (Novice). Practise water magic for its higher tiers. | 130 / 32 | — |
 | Scroll: Tide Step | Teaches the water spell Tide Step (Novice). Practise water magic for its higher tiers. | 190 / 47 | — |
 
-### Ingredients & materials (41)
+### Ingredients & materials (44)
 | Ingredient | Used in | Source |
 |---|---|---|
 | Boar Meat | 10 recipes | feral_boar 70%, boar 80%, grizzly_bear 70%, black_bear 65%, pig 90%, corrupted_boar 60% |
@@ -984,7 +1030,7 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Rabbit Meat | 8 recipes | rabbit 90%, chicken 90%, arctic_fox 50% |
 | Mushroom Spore | 11 recipes | mushroom_shaman 60%, mushroom_walker 70%, amanita_walker 80%, blight_moth 30%, gathering: Mushroom Ring |
 | Forest Herb | 19 recipes | wolf 35%, scout 25%, treant 40%, blight_ent 40%, root_wraith 35%, vine_horror 50% (+7 more) |
-| Ember Stone | 8 recipes | ember_imp 50%, lava_elemental 70%, ash_crawler 40%, forge_daemon 60%, cinder_hawk 30%, fire_lizard 25% (+2 more) |
+| Ember Stone | 9 recipes | ember_imp 50%, lava_elemental 70%, ash_crawler 40%, forge_daemon 60%, cinder_hawk 30%, fire_lizard 25% (+2 more) |
 | Bone Fragment | 5 recipes | skeleton_archer 60%, grizzly_bear 40%, giant_rat 50%, polar_bear 45%, shark 60% |
 | Void Shard | 11 recipes | rift_walker 40%, soul_eater 40%, carrion_crow 30%, hollow_cat 35%, plague_heron 35%, rot_frog 30% (+11 more) |
 | Rabbit's Foot | 5 recipes | rabbit 25% |
@@ -1008,21 +1054,24 @@ Some weapons come with an enchantment. At the forge (Crafting) any enchantment c
 | Empty Bottle | 27 recipes | shop |
 | Heart Crystal | 6 recipes | gathering: Crystal Outcrop, chest |
 | River Pearl | 5 recipes | gathering: Shallows |
-| Venom Sac | 6 recipes | giant_spider 40%, bog_lurker 40%, rot_toad 50%, plague_rat 15%, giant_rat 20%, amanita_walker 35% (+13 more) |
+| Venom Sac | 7 recipes | giant_spider 40%, bog_lurker 40%, rot_toad 50%, plague_rat 15%, giant_rat 20%, amanita_walker 35% (+13 more) |
 | Boar Tusk | 3 recipes | feral_boar 25%, boar 30%, corrupted_boar 20% |
 | Ancient Scroll | 1 recipes | shadow_sprite 15%, dark_druid 20%, cursed_knight 10%, runic_turret 15%, forge_daemon 10%, wendigo 10% (+6 more) |
-| Wolf Pelt | 3 recipes | grizzly_bear 50%, black_bear 40%, lion 60%, lioness 50%, polar_bear 65%, arctic_fox 40% (+1 more) |
-| Deer Hide | 6 recipes | deer 50%, deer_doe 45%, dark_deer 55%, dark_deer_doe 45%, cow 50%, llama 70% (+5 more) |
-| Mineral Ore | 8 recipes | corrupted_sentinel 60%, stone_golem 50%, runic_turret 40%, crystal_golem 60%, crag_fiend 40%, gathering: Ore Seam |
-| Wood | 5 recipes | gathering: Deadwood |
+| Wolf Pelt | 4 recipes | grizzly_bear 50%, black_bear 40%, lion 60%, lioness 50%, polar_bear 65%, arctic_fox 40% (+1 more) |
+| Deer Hide | 8 recipes | deer 50%, deer_doe 45%, dark_deer 55%, dark_deer_doe 45%, cow 50%, llama 70% (+5 more) |
+| Mineral Ore | 10 recipes | corrupted_sentinel 60%, stone_golem 50%, runic_turret 40%, crystal_golem 60%, crag_fiend 40%, gathering: Ore Seam |
+| Wood | 6 recipes | gathering: Deadwood |
 | Silver Ore | 12 recipes | gathering: Ore Seam |
-| Tree Resin | 3 recipes | gathering: Deadwood |
+| Tree Resin | 7 recipes | gathering: Deadwood |
 | Heartwood | 8 recipes | blight_ent 25%, gathering: Deadwood |
 | Aether-Shard | 7 recipes | gathering: Crystal Outcrop, quest: Echoes in the Rime |
 | Reed Fibre | 8 recipes | gathering: Shallows, gathering: Reed Bed |
+| Stick | 2 recipes | gathering: Deadwood, crafting |
+| Feather | 1 recipes | cinder_hawk 60%, crow 60%, carrion_crow 60%, turkey 60%, chicken 60%, heron 60% (+4 more) |
+| Basic Arrow | 3 recipes | shop, crafting |
 
 ## Shops
-Merchant catalogue (41 entries). Each item has one price, in gold (mundane goods) or glint (arcane goods).
+Merchant catalogue (45 entries). Each item has one price, in gold (mundane goods) or glint (arcane goods).
 
 | Item | Price | Currency |
 |---|---|---|
@@ -1055,6 +1104,10 @@ Merchant catalogue (41 entries). Each item has one price, in gold (mundane goods
 | Hand Axe | 70 | gold |
 | Wooden Shield | 50 | gold |
 | Light Crossbow | 95 | gold |
+| Basic Arrow ×10 | 8 | gold |
+| Bolt ×10 | 12 | gold |
+| Feather ×5 | 4 | gold |
+| Small Quiver | 25 | gold |
 | Adept's Spire | 200 | glint |
 | Mossy Branch Staff | 175 | glint |
 | Claymore | 210 | gold |
@@ -1086,7 +1139,7 @@ Walk up to a node and press **E**. Some need a tool in the satchel. Each harvest
 ### Yield pools
 | Pool | Gives | Placed on |
 |---|---|---|
-| deadwood | Wood 1–2 (100%), Tree Resin 1 (bonus 20%), Heartwood 1 (bonus 8%) | Prologue Forest ×3, Northern Dense Forest ×1, The Thalorian Wilds ×6, The Grand Tour (Test) ×4 |
+| deadwood | Wood 1–2 (100%), Tree Resin 1 (bonus 20%), Heartwood 1 (bonus 8%), Stick 2–4 (bonus 30%) | Prologue Forest ×3, Northern Dense Forest ×1, The Thalorian Wilds ×6, The Grand Tour (Test) ×4 |
 | ore_seam | Mineral Ore 1–2 (100%), Silver Ore 1 (bonus 25%) | Prologue Forest ×3, The Thalorian Wilds ×4, The Grand Tour (Test) ×7 |
 | forest_herbs | Forest Herb 1–2 (67%), Silverleaf 1 (25%), Moonpetal 1 (8%) | Prologue Forest ×4, Northern Dense Forest ×1, The Thalorian Wilds ×2, The Grand Tour (Test) ×6 |
 | meadow_herbs | Silverleaf 1–2 (45%), Forest Herb 1–2 (36%), Moonpetal 1 (18%) | Prologue Forest ×1, Northern Dense Forest ×1, The Thalorian Wilds ×2, The Grand Tour (Test) ×2 |
@@ -1136,7 +1189,7 @@ Prologue world objects: 3 campfires, 3 chests, 3 rift-gates, 3 readable signs, 3
 | lava elemental | Fire-born | 90 | 20 | 35 | 52 | Ember Stone 70%, Health Potion 30% |
 | ash crawler | Fire-born | 42 | 16 | 70 | 35 | Ember Stone 40% |
 | forge daemon | Fire-born | 100 | 25 | 45 | 60 | Ember Stone 60%, Health Potion 40%, Ancient Scroll 10% |
-| cinder hawk | Fire-born | 22 | 14 | 130 | 28 | Ember Stone 30% |
+| cinder hawk | Fire-born | 22 | 14 | 130 | 28 | Feather 60%, Ember Stone 30% |
 | frost bear | Frost-born | 100 | 22 | 70 | 55 | Ice Crystal 50%, Health Potion 40% |
 | ice revenant | Frost-born | 45 | 16 | 65 | 38 | Ice Crystal 60%, Spectral Dust 30% |
 | blizzard sprite | Frost-born | 30 | 12 | 58 | 32 | Ice Crystal 50%, Mana Potion 30% |
@@ -1155,7 +1208,7 @@ Prologue world objects: 3 campfires, 3 chests, 3 rift-gates, 3 readable signs, 3
 | grizzly bear | — | 70 | 20 | 80 | 40 | Boar Meat 70%, Wolf Pelt 50%, Bone Fragment 40% |
 | black bear | — | 55 | 16 | 90 | 32 | Boar Meat 65%, Wolf Pelt 40% |
 | giant rat | — | 18 | 7 | 88 | 12 | Bone Fragment 50%, Venom Sac 20% |
-| carrion crow | — | 15 | 6 | 110 | 8 | Void Shard 30% |
+| carrion crow | — | 15 | 6 | 110 | 8 | Feather 60%, Void Shard 30% |
 | hollow cat | — | 20 | 8 | 95 | 10 | Void Shard 35% |
 | lion | — | 65 | 18 | 95 | 38 | Wolf Pelt 60%, Venison 50% |
 | lioness | — | 55 | 15 | 105 | 32 | Wolf Pelt 50%, Venison 45% |
@@ -1164,10 +1217,10 @@ Prologue world objects: 3 campfires, 3 chests, 3 rift-gates, 3 readable signs, 3
 | polar bear | Frost-born | 80 | 24 | 75 | 45 | Wolf Pelt 65%, Bone Fragment 45% |
 | shark | Aquatic | 90 | 28 | 110 | 55 | Venison 50%, Bone Fragment 60% |
 | bird eagle | — | 18 | 8 | 130 | 12 | Deer Hide 25% |
-| plague heron | — | 20 | 7 | 90 | 10 | Void Shard 35% |
+| plague heron | — | 20 | 7 | 90 | 10 | Feather 60%, Void Shard 35% |
 | rot frog | Aquatic | 28 | 9 | 65 | 12 | Venom Sac 40%, Void Shard 30% |
 | ember lizard | Fire-born | 22 | 8 | 100 | 10 | Ember Stone 50%, Void Shard 30% |
-| ash vulture | — | 20 | 7 | 85 | 10 | Void Shard 40% |
+| ash vulture | — | 20 | 7 | 85 | 10 | Feather 60%, Void Shard 40% |
 | corrupted elk | — | 55 | 18 | 100 | 22 | Deer Hide 40%, Void Shard 50%, Ice Crystal 30% |
 | void fox | Void-touched | 25 | 10 | 115 | 12 | Wolf Pelt 30%, Void Shard 40% |
 | void crawler | Void-touched | 18 | 9 | 85 | 10 | Void Shard 40% |
@@ -1199,7 +1252,7 @@ Prologue world objects: 3 campfires, 3 chests, 3 rift-gates, 3 readable signs, 3
 | deer doe | — | 12 | 0 | 125 | 0 | Venison 80%, Deer Hide 45% |
 | forest fox | — | 10 | 0 | 135 | 0 | Forest Herb 30% |
 | rabbit | — | 6 | 0 | 130 | 0 | Rabbit Meat 90%, Rabbit's Foot 25% |
-| crow | — | 8 | 0 | 140 | 0 | — |
+| crow | — | 8 | 0 | 140 | 0 | Feather 60% |
 | stray cat | — | 10 | 0 | 120 | 0 | — |
 | dark deer | — | 16 | 0 | 118 | 0 | Venison 85%, Deer Hide 55% |
 | dark deer doe | — | 12 | 0 | 122 | 0 | Venison 80%, Deer Hide 45% |
@@ -1207,12 +1260,12 @@ Prologue world objects: 3 campfires, 3 chests, 3 rift-gates, 3 readable signs, 3
 | white mouse | — | 4 | 0 | 110 | 0 | — |
 | shiba | — | 12 | 0 | 100 | 0 | — |
 | goat | — | 14 | 0 | 90 | 0 | Venison 60% |
-| turkey | — | 8 | 0 | 85 | 0 | Turkey Meat 80% |
+| turkey | — | 8 | 0 | 85 | 0 | Feather 60%, Turkey Meat 80% |
 | cow | — | 22 | 0 | 50 | 0 | Venison 90%, Deer Hide 50% |
 | llama | — | 18 | 0 | 70 | 0 | Deer Hide 70% |
 | pig | — | 16 | 0 | 80 | 0 | Boar Meat 90% |
 | sheep | — | 14 | 0 | 55 | 0 | Deer Hide 80%, Forest Herb 30% |
-| chicken | — | 6 | 0 | 90 | 0 | Rabbit Meat 90%, Forest Herb 20% |
+| chicken | — | 6 | 0 | 90 | 0 | Feather 60%, Rabbit Meat 90%, Forest Herb 20% |
 | arctic fox | — | 10 | 0 | 135 | 0 | Wolf Pelt 40%, Rabbit Meat 50% |
 | bird bluejay | — | 4 | 0 | 150 | 0 | — |
 | bird sparrow | — | 4 | 0 | 140 | 0 | — |
@@ -1222,10 +1275,10 @@ Prologue world objects: 3 campfires, 3 chests, 3 rift-gates, 3 readable signs, 3
 | bird black | — | 4 | 0 | 138 | 0 | — |
 | bird blue | — | 4 | 0 | 142 | 0 | — |
 | bird white | — | 4 | 0 | 140 | 0 | — |
-| heron | — | 10 | 0 | 115 | 0 | — |
+| heron | — | 10 | 0 | 115 | 0 | Feather 60% |
 | giant frog | Aquatic | 18 | 0 | 80 | 0 | Venom Sac 20% |
 | fire lizard | Fire-born | 12 | 0 | 120 | 0 | Ember Stone 25% |
-| vulture | — | 14 | 0 | 100 | 0 | — |
+| vulture | — | 14 | 0 | 100 | 0 | Feather 60% |
 | elk | — | 22 | 0 | 125 | 0 | Venison 80%, Deer Hide 50% |
 | cave fish | — | 6 | 0 | 90 | 0 | — |
 | glow moth | — | 5 | 0 | 110 | 0 | — |

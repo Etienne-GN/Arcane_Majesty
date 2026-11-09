@@ -46,6 +46,7 @@ const { STYLES, STYLE_IDS, STYLE_SKILLS } = await import(SRC + 'data/styles.js')
 const { MANUAL_BONUS, LESSON_BONUS, lessonPrice, RELEASE_MIN_MANA } = await import(SRC + 'systems/styles.js');
 const { MANUAL_PRICE, GUILD_CATALOG, ELITE_MANUAL_CHANCE } = await import(SRC + 'data/items.js');
 const { guildScrolls, scrollPrice, ELITE_SCROLL_CHANCE, teachableSpells } = await import(SRC + 'systems/spellLearning.js');
+const { AMMO, AMMO_IDS, KIND_CAP, NO_QUIVER_CAP, REFILL_MS, BACK_SHARE } = await import(SRC + 'systems/ammo.js');
 
 const out = [];
 const P = (s = '') => out.push(s);
@@ -258,13 +259,51 @@ table(['Way', 'What you get', 'Where'], [
 P();
 P('A spell from a scroll or a teacher starts at **Novice**. Its **Apprentice** and **Adept** tiers still come only from that element\'s level — practise it.');
 P();
+P('### Arrows, bolts and quivers');
+P('A **bow** shoots arrows and a **crossbow** shoots bolts. Each shot uses one. You can only shoot what is **in your quiver**.');
+P();
+P(`- **Out of a fight** (${REFILL_MS / 1000} seconds without attacking or being hit), your quiver fills itself from the arrows in your satchel.`);
+P('- **In a fight** it does not: when it is empty you are **"Out of arrows"** until you step back for a moment.');
+P(`- **Without a quiver** you can still keep ${NO_QUIVER_CAP} arrows ready.`);
+P('- Your quiver sits in its own slot in the satchel (I), under your two hands. Next to your weapon at the bottom of the screen, ➶ shows how many arrows are ready, and (+…) how many more are in your satchel. It turns red when you have none ready.');
+P();
+const quivers = ['small_quiver', 'large_quiver', 'hunters_quiver'];
+const shopOf = id => MERCHANT_CATALOG.find(m => m.id === id);
+const craftOf = id => CRAFTING_RECIPES.find(r => r.output === id);
+table(['Quiver', 'Holds', 'Kinds', 'Where'], [
+    ['(none)', NO_QUIVER_CAP, 1, '—'],
+    ...quivers.map(id => [name(id), ITEMS[id].quiver.kinds * KIND_CAP, `${ITEMS[id].quiver.kinds} (${KIND_CAP} each)`,
+        shopOf(id) ? `Merchant, ${shopOf(id).price} ${shopOf(id).currency}` : `Craft (C): ${ing(craftOf(id).ingredients)}`]),
+]);
+P('A **kind** is one sort of ammunition: basic arrows, poison arrows, bolts… Each part of the quiver holds one kind.');
+P();
+const effect = id => AMMO[id].burst ? `Bursts and hurts every enemy within ${AMMO[id].burst.radius} px (${Math.round(AMMO[id].burst.mult * 100)}% of the hit)`
+    : AMMO[id].status ? 'Poisons the enemy it hits' : AMMO[id].mult !== 1 ? `+${Math.round((AMMO[id].mult - 1) * 100)}% damage` : 'Plain';
+const backTxt = id => !AMMO[id].back ? 'Never' : AMMO[id].back === id ? `About 1 in ${Math.round(1 / BACK_SHARE)}` : `About 1 in ${Math.round(1 / BACK_SHARE)}, as ${name(AMMO[id].back)}s`;
+table(['Ammunition', 'For', 'Make it (C)', 'Buy it', 'What it does', 'Comes back'], AMMO_IDS.map(id => {
+    const r = craftOf(id), s = shopOf(id);
+    return [name(id), AMMO[id].type === 'bolt' ? 'Crossbow' : 'Bow', r ? `${ing(r.ingredients)} → ${r.makes}` : '—', s ? `Merchant: ${s.qty ?? 1} for ${s.price} ${s.currency}` : '—', effect(id), backTxt(id)];
+}));
+P(`**Materials:** **Sticks** — 1 Wood makes ${craftOf('stick').makes} (C), and chopping deadwood sometimes gives a few. **Feathers** — dropped by birds (hawks, crows, herons, vultures, chickens, turkeys); the Merchant sells ${shopOf('feather').qty} for ${shopOf('feather').price} ${shopOf('feather').currency}. Mineral Ore, Resin, Venom Sacs and Ember Stones you already know.`);
+P();
+P('**Getting arrows back.** When an enemy dies, about a third of the arrows and bolts that hit it fall on the ground where it died — walk over them to pick them up.');
+P('- A **poison** arrow comes back as a basic arrow (its poison is used up).');
+P('- An **explosive** arrow never comes back — and if it is the one that **kills** the enemy, the blast destroys **every** arrow in it.');
+P('- Arrows shot at the **boss** do not come back.');
+P();
+P('**Choosing an arrow.** Plain **Shoot** (and the bow and crossbow skills) uses the first kind in your quiver. To shoot another kind, open the satchel (I) and click the **Second** button until it says, for example, **Shoot: Poison Arrow**.');
+P();
+P('**Example — Anya with a bow and a Large Quiver.** Basic arrows fill the first part of her quiver and poison arrows the second. **Attack** shoots basic arrows. She sets the **Second** button to **Shoot: Poison Arrow** and saves it for the wolf leader. After the fight she picks up the arrows that fell, waits a few seconds, and her quiver is full again.');
+P();
+P('A new character who starts with a bow gets a Small Quiver, 30 basic arrows, and a few Sticks and Feathers.');
+P();
 P('### Spells and the elements');
 P('Your spells belong to you, not to your stick: you can cast them with a wand, a staff, a sword in hand — or nothing.');
 P();
 P('- A **wand** makes spells quicker (shorter waits) but a little weaker.');
 P('- A **staff** makes spells stronger and wider, but slower to come back.');
 P('- New spells come with your **element mastery**: the higher your water mastery, the more water spells you know, and the stronger their tiers (Novice → Apprentice → Adept).');
-P(`- Being around an element — rain, a campfire, fighting its creatures — gives you a **feel** for it, but only up to mastery ${PASSIVE_CAP_LEVEL}: enough for the easiest spell of each element. After that, you learn by **casting its spells in fights**: every hit counts. (Scrolls and tomes add to the feel; teachers are coming.)`);
+P(`- Being around an element — rain, a campfire, fighting its creatures — gives you a **feel** for it, but only up to mastery ${PASSIVE_CAP_LEVEL}: enough for the easiest spell of each element. After that, you learn by **casting its spells in fights**: every hit counts.`);
 P('- Each hero starts knowing one or two spells: Eldrin Fireball and Tidal Bolt, Anya Mana Dart and Shadow Bolt, Seraphina Shadow Bolt. Kael knows none — he is a swordsman.');
 P();
 // ------------------------------------------------------------------ character
@@ -390,7 +429,7 @@ table(['Ingredient', 'Used in', 'Source'], [...ingredientIds].map(id => {
 P('## Shops');
 P(`Merchant catalogue (${MERCHANT_CATALOG.length} entries). Each item has one price, in gold (mundane goods) or glint (arcane goods).`);
 P();
-table(['Item', 'Price', 'Currency'], MERCHANT_CATALOG.map(m => [name(m.id), m.price, m.currency]));
+table(['Item', 'Price', 'Currency'], MERCHANT_CATALOG.map(m => [`${name(m.id)}${m.qty > 1 ? ` ×${m.qty}` : ''}`, m.price, m.currency]));
 
 // ------------------------------------------------------------------ world objects
 P('## Gathering & world objects');
