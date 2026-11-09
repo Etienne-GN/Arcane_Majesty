@@ -73,4 +73,68 @@ eq(W.resolveMoves({ attack: null, second: 'ammo:poison_arrow' }, eqp, ITEMS, ['p
 eq(W.resolveMoves({ attack: null, second: 'ammo:poison_arrow' }, eqp, ITEMS, []).second.id, 'main:power', 'gone from the quiver: back to the default');
 eq(W.movesFor(eqp, ITEMS).length, 2, 'no quiver kinds: as before');
 
+// ---- PlayerStats
+const { PlayerStats } = await import('../src/systems/PlayerStats.js');
+const { SaveManager } = await import('../src/systems/SaveManager.js');
+const s = new PlayerStats();
+s.satchelTier = 3;
+eq(s.equipment.quiver, null, 'a quiver slot, empty');
+eq(s.quiverLayout(), { kinds: 1, cap: 10 }, 'no quiver: 10 ready');
+s.addItem('hunters_shortbow'); s.equipItem('hunters_shortbow');
+eq(s.heldAmmoType(), 'arrow', 'a bow wants arrows');
+s.addItem('basic_arrow', 25);
+ok(s.refillQuiver(), 'refills');
+eq(s.readyAmmo('arrow'), 10, 'ten ready without a quiver');
+eq(s.spareAmmo('arrow'), 15, 'fifteen spare in the pack');
+s.addItem('small_quiver'); ok(s.equipItem('small_quiver'), 'wear a quiver');
+s.refillQuiver();
+eq(s.readyAmmo('arrow'), 25, 'the small quiver holds them all');
+eq(s.takeAmmo('arrow'), 'basic_arrow', 'shoot one');
+eq([s.readyAmmo('arrow'), s.countItem('basic_arrow')], [24, 24], 'the load and the pack both drop');
+s.consumeItem('basic_arrow', 20);
+eq(s.readyAmmo('arrow'), 4, 'Review Focus 3: used for crafting — the ready count follows the pack');
+s.consumeItem('basic_arrow', 4);
+eq(s.takeAmmo('arrow'), null, 'out of arrows');
+eq(s.loadedKinds(), ['basic_arrow'], 'the spent kind keeps its place until the refill');
+s.refillQuiver();
+eq(s.loadedKinds(), [], 'refill: the spent kind leaves');
+ok(s.canAddItem('basic_arrow') && s.canAddItem('stick'), 'room in the satchel');
+
+// the archer kit (spec §5: a new character with a bow)
+const k2 = new PlayerStats();
+k2.giveStartKit({ weapon: 'hunters_shortbow' });
+eq([k2.equipment.quiver, k2.countItem('basic_arrow'), k2.readyAmmo('arrow')], ['small_quiver', 30, 30], 'a small quiver and 30 arrows, ready');
+ok(k2.countItem('stick') > 0 && k2.countItem('feather') > 0, 'a few sticks and feathers');
+const k3 = new PlayerStats();
+k3.giveStartKit({ weapon: 'novice_staff' });
+eq([k3.equipment.quiver, k3.countItem('basic_arrow')], [null, 0], 'a staff: no arrows');
+
+// moves come from the quiver
+s.addItem('poison_arrow', 10); s.refillQuiver();
+ok(s.availableMoves().some(m => m.id === 'ammo:poison_arrow'), 'Shoot: Poison Arrow is a move');
+
+// saves
+const k4 = new PlayerStats();
+k4.giveStartKit({ weapon: 'hunters_shortbow' });
+k4.takeAmmo('arrow');
+SaveManager.save(k4, 'story', 'anya');
+const back = new PlayerStats();
+SaveManager.load(back, 'story', 'anya');
+eq([back.equipment.quiver, back.readyAmmo('arrow')], ['small_quiver', 29], 'the quiver and its load are saved');
+
+// Review Focus 1: a save from before C5
+const old = JSON.parse(store.get('amo_save_story_anya'));
+delete old.equipment.quiver; delete old.quiverLoad;
+old.inventory = old.inventory.filter(i => !['basic_arrow', 'stick', 'feather', 'small_quiver'].includes(i.id));
+store.set('amo_save_story_old', JSON.stringify({ ...old, characterId: 'old' }));
+const o = new PlayerStats();
+SaveManager.load(o, 'story', 'old');
+eq([o.equipment.quiver, o.readyAmmo('arrow')], ['small_quiver', 30], 'an old archer gets the kit and can shoot');
+const oldMage = { ...old, characterId: 'mage', equipment: { ...old.equipment, weapon: 'novice_staff' }, inventory: [] };
+store.set('amo_save_story_mage', JSON.stringify(oldMage));
+const m = new PlayerStats();
+m.equipment.quiver = 'small_quiver';   // left from the last character in memory
+SaveManager.load(m, 'story', 'mage');
+eq([m.equipment.quiver, m.countItem('basic_arrow')], [null, 0], 'an old save without a bow: no quiver, nothing added');
+
 console.log(`✓ ammo tests passed (${n})`);

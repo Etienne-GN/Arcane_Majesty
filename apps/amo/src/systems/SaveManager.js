@@ -4,6 +4,7 @@ import { prunedWorldState } from './WorldState.js';
 import { pointsFromResonance, ceilingOf, FAMILY, pointsFor, unlockLevel } from './mastery.js';
 import { emptyStyles } from './styles.js';
 import { talentsFor } from '../data/talents.js';
+import { WEAPON_TYPES, typeOf } from './weapons.js';
 function saveKey(storyId, characterId) {
     return `amo_save_${storyId}_${characterId}`;
 }
@@ -42,6 +43,19 @@ export class SaveManager {
         }
     }
 
+    // Combat C5: the quiver. The load is restored; a save from before the quiver
+    // (no quiver key in its equipment) has its slot emptied, and an archer — a bow or
+    // crossbow worn or carried — gets the archer kit once, so they can still shoot.
+    static migrateCombatC5(stats, d) {
+        if (!stats?.equipment) return;
+        stats.quiverLoad = Array.isArray(d?.quiverLoad) ? d.quiverLoad.map(c => ({ id: c?.id ?? null, qty: c?.qty ?? 0 })) : [];
+        if (d?.equipment && 'quiver' in d.equipment) return;
+        stats.equipment.quiver = null;
+        const ids = [stats.equipment.weapon, stats.equipment.offHand, ...(stats.inventory ?? []).map(i => i.id)];
+        const types = new Set(ids.map(id => typeOf(ITEMS[id])).filter(t => WEAPON_TYPES[t]?.ammo));
+        for (const t of types) stats.giveArcherKit?.(t);
+    }
+
     static setSlot(storyId, characterId) {
         _slot = { storyId: storyId ?? null, characterId: characterId ?? null };
     }
@@ -68,6 +82,7 @@ export class SaveManager {
             attributes:    { ...stats.attributes },
             equipment:     { ...stats.equipment },
             moveSlots:     { ...stats.moveSlots },
+            quiverLoad:    (stats.quiverLoad ?? []).map(c => ({ id: c.id ?? null, qty: c.qty ?? 0 })),   // Combat C5
             mastery:       JSON.parse(JSON.stringify(stats.mastery ?? { weapons: {}, elements: {} })),
             styles:        JSON.parse(JSON.stringify(stats.styles ?? emptyStyles())),
             spellLessons:   { ...(stats.spellLessons ?? {}) },     // Combat C4
@@ -152,6 +167,7 @@ export class SaveManager {
             stats.styles = { ...emptyStyles(), ...(d.styles ? JSON.parse(JSON.stringify(d.styles)) : {}) };   // Combat C3
             stats.spellLessons = { ...(d.spellLessons ?? {}) };       // Combat C4 (a load always replaces them)
             stats.spellLessonDay = { ...(d.spellLessonDay ?? {}) };
+            SaveManager.migrateCombatC5(stats, d);   // after the inventory and equipment
             if (d.spellCooldowns) stats.spellCooldowns  = { ...(stats.spellCooldowns ?? {}), ...d.spellCooldowns };
             if (d.skillSlots)     stats.skillSlots  = [...d.skillSlots];
             stats.hotbar = Array.isArray(d.hotbar) ? [...d.hotbar, null, null, null, null].slice(0, 4) : [null, null, null, null];

@@ -1,5 +1,6 @@
 import { ITEMS, SATCHEL_TIERS } from '../data/items.js';
-import { equipPlan, resolveMoves, movesFor } from './weapons.js';
+import { equipPlan, resolveMoves, movesFor, WEAPON_TYPES, typeOf } from './weapons.js';
+import { AMMO, AMMO_IDS, quiverLayout, fitLoad, refillLoad, pickAmmo } from './ammo.js';
 import { SPELLS, RESONANCE_ELEMENTS } from '../data/spells.js';
 import { UPGRADE_MAX, upgradeCost, upgradedStats } from '../data/upgrades.js';
 import { vigorMax } from './movementRules.js';
@@ -102,8 +103,9 @@ export class PlayerStats {
         this.satchelTier = 1;
 
         // Equipment slots
-        this.equipment = { head: null, body: null, weapon: null, offHand: null, accessory1: null, accessory2: null };
+        this.equipment = { head: null, body: null, weapon: null, offHand: null, accessory1: null, accessory2: null, quiver: null };
         this.moveSlots = { attack: null, second: null };   // Combat C1: null = the default move
+        this.quiverLoad = [];                              // Combat C5: arrows ready, one { id, qty } per compartment
         this.mastery = { weapons: {}, elements: {} };   // Combat C2: points, grown by use
         this.talents = {};                                 // set from the character (data/talents.js)
         this._masteryCallbacks = [];
@@ -631,8 +633,8 @@ export class PlayerStats {
     }
 
     // Combat C1: the two action buttons
-    availableMoves() { return movesFor(this.equipment, ITEMS); }
-    resolvedMoves()  { return resolveMoves(this.moveSlots, this.equipment, ITEMS); }
+    availableMoves() { return movesFor(this.equipment, ITEMS, this.loadedKinds()); }
+    resolvedMoves()  { return resolveMoves(this.moveSlots, this.equipment, ITEMS, this.loadedKinds()); }
     setMoveSlot(button, moveId) {
         if (!(button in this.moveSlots)) return false;
         if (moveId !== null && !this.availableMoves().some(m => m.id === moveId)) return false;
@@ -648,6 +650,47 @@ export class PlayerStats {
             this.equipItem(id, hand);
         }
         for (const id of kit?.spells ?? []) this.forceUnlockSpell(id, 1);
+        const t = typeOf(ITEMS[kit?.weapon]);
+        if (WEAPON_TYPES[t].ammo) this.giveArcherKit(t);   // Combat C5
+    }
+
+    // ── Combat C5: the quiver (rules: systems/ammo.js) ───────────────────────
+    // The load reserves arrows that stay in the satchel; quiver() fits it to the
+    // pack every time, so crafting or selling them never leaves a ghost arrow.
+    quiverLayout() { return quiverLayout(ITEMS[this.equipment.quiver]); }
+    _ammoCounts()  { return Object.fromEntries(AMMO_IDS.map(id => [id, this.countItem(id)])); }
+    quiver()       { return (this.quiverLoad = fitLoad(this.quiverLoad, this.quiverLayout(), this._ammoCounts())); }
+    heldAmmoType() { return WEAPON_TYPES[typeOf(ITEMS[this.equipment.weapon])].ammo ?? null; }
+    readyAmmo(type) { return this.quiver().reduce((n, c) => n + (AMMO[c.id]?.type === type ? c.qty : 0), 0); }
+    spareAmmo(type) { return AMMO_IDS.filter(id => AMMO[id].type === type).reduce((n, id) => n + this.countItem(id), 0) - this.readyAmmo(type); }
+    loadedKinds()  { return this.quiver().filter(c => c.id).map(c => c.id); }
+    // One arrow or bolt off the string: the chosen kind, or the first ready. null: out.
+    takeAmmo(type, kind = null) {
+        const load = this.quiver(), i = pickAmmo(load, type, kind);
+        if (i < 0) return null;
+        const id = load[i].id;
+        load[i].qty--;
+        this.consumeItem(id, 1);
+        return id;
+    }
+    // Out of a fight: top the quiver up from the satchel. True when something changed.
+    refillQuiver(prefer = this.heldAmmoType() ?? 'arrow') {
+        const before = JSON.stringify(this.quiver());
+        this.quiverLoad = refillLoad(this.quiverLoad, this.quiverLayout(), this._ammoCounts(), prefer);
+        return JSON.stringify(this.quiverLoad) !== before;
+    }
+    // Spec §5: what a new archer starts with — a small quiver, 30 arrows (bolts for a crossbow), a few Sticks and Feathers.
+    giveArcherKit(type) {
+        const ammo = type === 'crossbow' ? 'bolt' : 'basic_arrow';
+        if (!this.equipment.quiver && this.addItem('small_quiver')) this.equipItem('small_quiver');
+        this.addItem(ammo, 30);
+        this.addItem('stick', 4);
+        this.addItem('feather', 2);
+        this.refillQuiver(WEAPON_TYPES[type].ammo);
+    }
+    // Would addItem(id) find room? (a stack to join, or a free slot)
+    canAddItem(id) {
+        return (!!ITEMS[id]?.stackable && this.inventory.some(i => i.id === id)) || this.inventory.length < this.getSatchelCapacity();
     }
 
     // ── Combat C2: mastery ───────────────────────────────────────────────────
@@ -864,8 +907,9 @@ export class PlayerStats {
         this.skillPoints = 0;
         this.attributePoints = 0;
         this.satchelTier = 1;
-        this.equipment = { head: null, body: null, weapon: null, offHand: null, accessory1: null, accessory2: null };
+        this.equipment = { head: null, body: null, weapon: null, offHand: null, accessory1: null, accessory2: null, quiver: null };
         this.moveSlots = { attack: null, second: null };   // Combat C1: null = the default move
+        this.quiverLoad = [];                              // Combat C5: arrows ready, one { id, qty } per compartment
         this.mastery = { weapons: {}, elements: {} };   // Combat C2: points, grown by use
         this.styles = emptyStyles();                     // Combat C3
         this.spellLessons = {};                          // Combat C4
