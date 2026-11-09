@@ -756,6 +756,51 @@ export const ITEMS = {
         color: 0x8888aa, icon: 'itm_iron_ore', stackable: true, sellPrice: 8, onUse: () => false,
     },
 
+    // ── Arrows, bolts and quivers (Combat C5; rules in systems/ammo.js) ──────
+    stick: {
+        id: 'stick', name: 'Stick', description: 'A straight, dry stick. Two make the shafts for ten arrows or ten bolts. Cut from Wood (1 Wood → 4 Sticks).',
+        color: 0xa07850, icon: 'itm_log', stackable: true, buyPrice: 0, sellPrice: 0, onUse: () => false,
+    },
+    feather: {
+        id: 'feather', name: 'Feather', description: 'A flight feather from a winged creature. One fletches ten arrows.',
+        color: 0xf0f0e8, icon: 'itm_feather', stackable: true, buyPrice: 1, sellPrice: 0, onUse: () => false,
+    },
+    basic_arrow: {
+        id: 'basic_arrow', name: 'Basic Arrow', description: 'A plain arrow. Shot by a bow from your quiver. About a third come back after a kill.',
+        color: 0xc8b088, stackable: true, buyPrice: 1, sellPrice: 0, ammo: 'arrow', onUse: () => false,
+    },
+    broadhead_arrow: {
+        id: 'broadhead_arrow', name: 'Broadhead Arrow', description: 'A wide iron head: +35% damage. About a third come back.',
+        color: 0x9999aa, stackable: true, buyPrice: 0, sellPrice: 0, ammo: 'arrow', onUse: () => false,
+    },
+    poison_arrow: {
+        id: 'poison_arrow', name: 'Poison Arrow', description: 'Dipped in venom: the enemy it hits is Poisoned. The poison is spent — about a third come back as basic arrows.',
+        color: 0x66cc22, stackable: true, buyPrice: 0, sellPrice: 0, ammo: 'arrow', onUse: () => false,
+    },
+    explosive_arrow: {
+        id: 'explosive_arrow', name: 'Explosive Arrow', description: 'Bursts where it lands and hurts every enemy close by. Nothing comes back from an enemy it kills.',
+        color: 0xff6622, stackable: true, buyPrice: 0, sellPrice: 0, ammo: 'arrow', onUse: () => false,
+    },
+    bolt: {
+        id: 'bolt', name: 'Bolt', description: 'A short, heavy crossbow bolt. About a third come back after a kill.',
+        color: 0x887766, stackable: true, buyPrice: 1, sellPrice: 0, ammo: 'bolt', onUse: () => false,
+    },
+    small_quiver: {
+        id: 'small_quiver', name: 'Small Quiver', description: 'Holds 30 arrows or bolts of one kind. Out of a fight it refills from your satchel.',
+        color: 0x8b5a2b, stackable: false, slot: 'quiver', tier: 1, quiver: { kinds: 1 }, buyPrice: 25, sellPrice: 8,
+        onUse: (stats) => stats.equipItem('small_quiver'),
+    },
+    large_quiver: {
+        id: 'large_quiver', name: 'Large Quiver', description: 'Two kinds, 30 of each (60) — say basic and poison arrows.',
+        color: 0x6b4423, stackable: false, slot: 'quiver', tier: 2, quiver: { kinds: 2 }, buyPrice: 0, sellPrice: 20,
+        onUse: (stats) => stats.equipItem('large_quiver'),
+    },
+    hunters_quiver: {
+        id: 'hunters_quiver', name: "Hunter's Quiver", description: 'Three kinds, 30 of each (90).',
+        color: 0x4a3018, stackable: false, slot: 'quiver', tier: 3, quiver: { kinds: 3 }, buyPrice: 0, sellPrice: 40,
+        onUse: (stats) => stats.equipItem('hunters_quiver'),
+    },
+
     // ── Satchel upgrades ─────────────────────────────────────────────────────
     expanded_haversack: {
         id: 'expanded_haversack', name: 'Expanded Haversack',

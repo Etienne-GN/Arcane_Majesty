@@ -5,7 +5,8 @@
 // equipment.weapon is the MAIN hand (kept for old saves and the server);
 // equipment.offHand is the off hand. An empty hand is a fist.
 // A move id names a hand and a kind, never an item: 'main:basic', 'main:power',
-// 'off:basic', 'off:block' — so a slot survives a weapon swap.
+// 'off:basic', 'off:block' — so a slot survives a weapon swap. Combat C5 adds
+// 'ammo:<itemId>' for each arrow or bolt kind in the quiver ("Shoot: Poison Arrow").
 
 // cooldown ms between swings · reach px from the body to the hit zone · hitbox px
 // · dmgMult on the melee formula · range px for ranged types · anim = the LPC
@@ -21,8 +22,8 @@ export const WEAPON_TYPES = {
     mace:       { label: 'Mace',             hands: 1,     basic: 'Smash',      feel: 'slow blows that crack armour',                        cooldown: 600,  reach: 30, hitbox: 40, dmgMult: 1.25,            anim: 'slash',     arc: 'spell_blade',   available: true },
     axe:        { label: 'Axe',              hands: 1,     basic: 'Chop',       feel: 'strong chops that can hit two',                       cooldown: 560,  reach: 30, hitbox: 48, dmgMult: 1.2,             anim: 'slash',     arc: 'spell_blade',   available: true },
     shield:     { label: 'Shield',           hands: 'off', basic: 'Block',      feel: 'raise it to stop most of a hit from the front',            cooldown: 700,  reach: 0,  hitbox: 0,  dmgMult: 0.5,             anim: 'idle',      arc: 'spell_blade',   available: true },
-    bow:        { label: 'Bow',              hands: 2,     basic: 'Shoot',      feel: 'long range — hit them before they reach you',          cooldown: 650,  reach: 30, hitbox: 40, dmgMult: 1.0,  range: 150, anim: 'shoot',     arc: 'bow',           available: true },
-    crossbow:   { label: 'Crossbow',         hands: 2,     basic: 'Shoot bolt', feel: 'slow to reload, hits very hard at range',             cooldown: 1100, reach: 30, hitbox: 40, dmgMult: 1.8,  range: 220, anim: 'thrust',    arc: 'bow',           available: true },
+    bow:        { label: 'Bow',              hands: 2,     basic: 'Shoot',      feel: 'long range — hit them before they reach you',          cooldown: 650,  reach: 30, hitbox: 40, dmgMult: 1.0,  range: 150, ammo: 'arrow', anim: 'shoot',     arc: 'bow',           available: true },
+    crossbow:   { label: 'Crossbow',         hands: 2,     basic: 'Shoot bolt', feel: 'slow to reload, hits very hard at range',             cooldown: 1100, reach: 30, hitbox: 40, dmgMult: 1.8,  range: 220, ammo: 'bolt',  anim: 'thrust',    arc: 'bow',           available: true },
     fists:      { label: 'Fists',            hands: 1,     basic: 'Punch',      feel: 'weak but always there',                               cooldown: 300,  reach: 24, hitbox: 30, dmgMult: 0.6,             anim: 'thrust',    arc: 'umbral_dagger', available: true },
 };
 
@@ -59,21 +60,28 @@ export function equipPlan(equipment, def, hand = 'main', items = {}) {
 
 export const MOVE_IDS = ['main:basic', 'main:power', 'off:basic', 'off:block'];
 
-export function movesFor(equipment, items) {
+export function movesFor(equipment, items, loaded = []) {
     const mainDef = equipment.weapon ? items[equipment.weapon] : null;
     const offDef = equipment.offHand ? items[equipment.offHand] : null;
     const main = typeOf(mainDef), out = [];
     out.push({ id: 'main:basic', hand: 'main', kind: 'basic', type: main, label: WEAPON_TYPES[main].basic });
     out.push({ id: 'main:power', hand: 'main', kind: 'power', type: main, label: `Power ${WEAPON_TYPES[main].basic}` });
-    if (WEAPON_TYPES[main].hands === 2) return out;
+    if (WEAPON_TYPES[main].hands === 2) {
+        // Combat C5: every kind in the quiver this weapon shoots is a move of its own
+        const ammo = WEAPON_TYPES[main].ammo;
+        for (const id of new Set(loaded)) {
+            if (ammo && items[id]?.ammo === ammo) out.push({ id: `ammo:${id}`, hand: 'main', kind: 'ammo', ammo: id, type: main, label: `Shoot: ${items[id].name}` });
+        }
+        return out;
+    }
     const off = typeOf(offDef);
     if (off === 'shield') out.push({ id: 'off:block', hand: 'off', kind: 'block', type: 'shield', label: 'Block' });
     else out.push({ id: 'off:basic', hand: 'off', kind: 'basic', type: off, label: WEAPON_TYPES[off].basic });
     return out;
 }
 
-export function defaultMoves(equipment, items) {
-    const ids = movesFor(equipment, items).map(m => m.id);
+export function defaultMoves(equipment, items, loaded = []) {
+    const ids = movesFor(equipment, items, loaded).map(m => m.id);
     const offWeapon = equipment.offHand && ids.includes('off:basic');
     return { attack: 'main:basic', second: ids.includes('off:block') ? 'off:block' : offWeapon ? 'off:basic' : 'main:power' };
 }
@@ -91,8 +99,8 @@ export function isBehind(targetFacing, targetPos, attackerPos, cos = 0.5) {
     return len > 0 && (fx * dx + fy * dy) / len <= -cos;
 }
 
-export function resolveMoves(slots, equipment, items) {
-    const list = movesFor(equipment, items), by = Object.fromEntries(list.map(m => [m.id, m]));
-    const d = defaultMoves(equipment, items);
+export function resolveMoves(slots, equipment, items, loaded = []) {
+    const list = movesFor(equipment, items, loaded), by = Object.fromEntries(list.map(m => [m.id, m]));
+    const d = defaultMoves(equipment, items, loaded);
     return { attack: by[slots?.attack] ?? by[d.attack], second: by[slots?.second] ?? by[d.second] };
 }
