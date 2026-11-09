@@ -271,7 +271,7 @@ export const ENEMY_TYPES = {
     cinder_hawk: {
         spriteKey: 'spr_wisp', tint: 0xff8800,
         health: 22, damage: 14, speed: 130, sightRange: 150, attackRange: 28, xpReward: 28, patrolRadius: 96,
-        lootTable: [{ id: 'ember_stone', chance: 0.30 }]
+        lootTable: [{ id: 'feather', chance: 0.6 }, { id: 'ember_stone', chance: 0.30 }]
     },
 
     // ── Tundra / Frostholm ────────────────────────────────────────────────────
@@ -447,7 +447,7 @@ export const ENEMY_TYPES = {
     crow: {
         spriteKey: 'spr_wisp', tint: 0x222222,
         health: 8, damage: 0, speed: 140, xpReward: 0, goldDrop: 0, patrolRadius: 64,
-        passive: true, fleeRadius: 80, lootTable: []
+        passive: true, fleeRadius: 80, lootTable: [{ id: 'feather', chance: 0.6 }]
     },
     stray_cat: {
         spriteKey: 'spr_wisp', tint: 0xaaaa88,
@@ -457,7 +457,7 @@ export const ENEMY_TYPES = {
     carrion_crow: {
         spriteKey: 'spr_wisp', tint: 0x110000,
         health: 15, damage: 6, speed: 110, sightRange: 90, attackRange: 26, xpReward: 8, patrolRadius: 64,
-        tint: 0x330011, lootTable: [{ id: 'void_shard', chance: 0.30 }]
+        tint: 0x330011, lootTable: [{ id: 'feather', chance: 0.6 }, { id: 'void_shard', chance: 0.30 }]
     },
     hollow_cat: {
         spriteKey: 'spr_wisp', tint: 0x220033,
@@ -537,7 +537,7 @@ export const ENEMY_TYPES = {
         bodyConfig: { w: 22, h: 18, ox: 53, oy: 104 },
         health: 8, damage: 0, speed: 85, xpReward: 0, goldDrop: 0, patrolRadius: 64,
         passive: true, fleeRadius: 80,
-        lootTable: [{ id: 'turkey_meat', chance: 0.80 }]
+        lootTable: [{ id: 'feather', chance: 0.6 }, { id: 'turkey_meat', chance: 0.80 }]
     },
     // ── LPC Farm Animals — Daniel Eddeland, CC-BY 3.0 ────────────────────────
     cow: {
@@ -573,7 +573,7 @@ export const ENEMY_TYPES = {
         bodyConfig: { w: 16, h: 10, ox: 8, oy: 20 },
         health: 6, damage: 0, speed: 90, xpReward: 0, goldDrop: 0, patrolRadius: 56,
         passive: true, fleeRadius: 80, grazes: true,
-        lootTable: [{ id: 'rabbit_meat', chance: 0.90 }, { id: 'forest_herb', chance: 0.20 }]
+        lootTable: [{ id: 'feather', chance: 0.6 }, { id: 'rabbit_meat', chance: 0.90 }, { id: 'forest_herb', chance: 0.20 }]
     },
 
     // ── LPC animals — snow zones (future regions) ────────────────────────────
@@ -612,7 +612,7 @@ export const ENEMY_TYPES = {
     heron: {
         spriteKey: 'spr_wisp', tint: 0xaaddcc,
         health: 10, damage: 0, speed: 115, xpReward: 0, goldDrop: 0, patrolRadius: 80,
-        passive: true, fleeRadius: 100, lootTable: []
+        passive: true, fleeRadius: 100, lootTable: [{ id: 'feather', chance: 0.6 }]
     },
     giant_frog: {
         spriteKey: 'spr_scout', tint: 0x44aa44,
@@ -622,7 +622,7 @@ export const ENEMY_TYPES = {
     plague_heron: {
         spriteKey: 'spr_wisp', tint: 0x226633,
         health: 20, damage: 7, speed: 90, sightRange: 100, attackRange: 26, xpReward: 10, patrolRadius: 64,
-        lootTable: [{ id: 'void_shard', chance: 0.35 }]
+        lootTable: [{ id: 'feather', chance: 0.6 }, { id: 'void_shard', chance: 0.35 }]
     },
     rot_frog: {
         spriteKey: 'spr_scout', tint: 0x224400,
@@ -639,7 +639,7 @@ export const ENEMY_TYPES = {
     vulture: {
         spriteKey: 'spr_wisp', tint: 0x886644,
         health: 14, damage: 0, speed: 100, xpReward: 0, goldDrop: 0, patrolRadius: 80,
-        passive: true, fleeRadius: 110, lootTable: []
+        passive: true, fleeRadius: 110, lootTable: [{ id: 'feather', chance: 0.6 }]
     },
     ember_lizard: {
         spriteKey: 'spr_wisp', tint: 0xcc2200,
@@ -649,7 +649,7 @@ export const ENEMY_TYPES = {
     ash_vulture: {
         spriteKey: 'spr_wisp', tint: 0x441100,
         health: 20, damage: 7, speed: 85, sightRange: 110, attackRange: 26, xpReward: 10, patrolRadius: 72,
-        lootTable: [{ id: 'void_shard', chance: 0.40 }]
+        lootTable: [{ id: 'feather', chance: 0.6 }, { id: 'void_shard', chance: 0.40 }]
     },
 
     // ── Regional wildlife — Tundra ────────────────────────────────────────────

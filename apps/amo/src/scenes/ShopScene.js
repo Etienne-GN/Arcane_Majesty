@@ -151,7 +151,7 @@ export default class ShopScene extends Phaser.Scene {
             const col = favoured === entry.currency ? cur.bright : cur.color;
 
             const bg  = this.add.rectangle(0, y, dv, rH, 0x000000, 0).setOrigin(0).setInteractive();
-            const nm  = this.add.text(10, y + 5, def.name, { font: '15px monospace', fill: `#${(def.color ?? 0x9999cc).toString(16).padStart(6, '0')}` });
+            const nm  = this.add.text(10, y + 5, `${def.name}${entry.qty > 1 ? ` ×${entry.qty}` : ''}`, { font: '15px monospace', fill: `#${(def.color ?? 0x9999cc).toString(16).padStart(6, '0')}` });
             const pr  = this.add.text(dv - 6, y + 5, `[${price}${cur.tag}]`, { font: '13px monospace', fill: col }).setOrigin(1, 0).setInteractive();
             pr.on('pointerdown', () => this._buy(entry, price, nm));
             pr.on('pointerover', () => pr.setStyle({ fill: '#ffffff' }));
@@ -230,7 +230,7 @@ export default class ShopScene extends Phaser.Scene {
     _buy(entry, price, nameText) {
         const cur = entry.currency;
         if ((playerStats[cur] ?? 0) < price) { this._descText.setText(`Not enough ${CUR[cur].name}!`); return; }
-        if (!playerStats.addItem(entry.id)) { this._descText.setText('Inventory full!'); return; }
+        if (!playerStats.addItem(entry.id, entry.qty ?? 1)) { this._descText.setText('Inventory full!'); return; }
         playerStats[cur] = (playerStats[cur] ?? 0) - price;
         this._refreshBalances();
 

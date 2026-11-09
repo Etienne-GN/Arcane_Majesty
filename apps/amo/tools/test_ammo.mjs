@@ -137,4 +137,32 @@ m.equipment.quiver = 'small_quiver';   // left from the last character in memory
 SaveManager.load(m, 'story', 'mage');
 eq([m.equipment.quiver, m.countItem('basic_arrow')], [null, 0], 'an old save without a bow: no quiver, nothing added');
 
+// ---- getting ammunition
+const { CRAFTING_RECIPES, CATEGORY_LABELS } = await import('../src/data/craftingRecipes.js');
+const { MERCHANT_CATALOG } = await import('../src/data/items.js');
+const { YIELD_TABLES } = await import('../src/data/gathering.js');
+const WM = await import('../src/data/worldMap.js');
+const R = id => CRAFTING_RECIPES.find(r => r.id === id);
+const need = r => Object.fromEntries(r.ingredients.map(i => [i.id, i.qty]));
+eq([R('stick').makes, need(R('stick'))], [4, { wood: 1 }], '1 Wood makes 4 Sticks');
+eq([R('basic_arrow').makes, need(R('basic_arrow'))], [10, { stick: 2, feather: 1 }], 'basic arrows');
+eq(need(R('broadhead_arrow')), { basic_arrow: 10, mineral_ore: 1, resin: 1 }, 'broadheads');
+eq(need(R('poison_arrow')), { basic_arrow: 10, venom_sac: 1 }, 'poison arrows');
+eq(need(R('explosive_arrow')), { basic_arrow: 10, ember_stone: 1, resin: 1 }, 'explosive arrows');
+eq([R('bolt').makes, need(R('bolt'))], [10, { stick: 2, mineral_ore: 1 }], 'bolts');
+ok(['large_quiver', 'hunters_quiver'].every(id => R(id) && R(id).ingredients.some(i => i.id === 'deer_hide') && R(id).ingredients.some(i => i.id === 'resin')), 'quivers: hide + resin');
+ok(CATEGORY_LABELS.ammo, 'a crafting heading');
+const shop = Object.fromEntries(MERCHANT_CATALOG.map(e => [e.id, e]));
+ok(['basic_arrow', 'bolt', 'feather', 'small_quiver'].every(id => shop[id]), 'the Merchant sells them');
+ok(shop.basic_arrow.qty === 10 && shop.bolt.qty === 10, 'arrows and bolts by ten');
+ok(!shop.large_quiver && !shop.hunters_quiver, 'the big quivers are crafted');
+ok(YIELD_TABLES.deadwood.some(e => e.id === 'stick' && e.chance > 0), 'sticks sometimes drop from deadwood');
+const winged = ['cinder_hawk', 'crow', 'carrion_crow', 'turkey', 'chicken', 'heron', 'plague_heron', 'vulture', 'ash_vulture'];
+ok(winged.every(t => WM.ENEMY_TYPES[t]?.lootTable?.some(l => l.id === 'feather')), 'winged creatures drop feathers');
+
+// Review Focus 4: no room, no craft
+const full = new PlayerStats();
+for (let i = 0; i < full.getSatchelCapacity(); i++) full.inventory.push({ id: `junk${i}`, qty: 1 });
+ok(!full.canAddItem('stick'), 'a full satchel has no room for a new stack');
+
 console.log(`✓ ammo tests passed (${n})`);

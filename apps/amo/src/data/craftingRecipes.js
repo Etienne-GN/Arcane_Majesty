@@ -1,6 +1,7 @@
 // Gear crafting recipes — ingredients → output equipment
 // Each ingredient: { id, qty }
-// category: 'weapon' | 'armor' | 'accessory' | 'tool'
+// category: 'weapon' | 'armor' | 'accessory' | 'tool' | 'ammo' (Combat C5)
+// makes: how many one craft gives (default 1)
 
 export const CRAFTING_RECIPES = [
     // ── Accessories ───────────────────────────────────────────────────────────
@@ -112,6 +113,16 @@ export const CRAFTING_RECIPES = [
     { id: 'iron_axe', output: 'iron_axe', category: 'tool', label: 'Iron Axe', tier: 1, ingredients: [{ id: 'mineral_ore', qty: 2 }, { id: 'wood', qty: 2 }] },
     { id: 'iron_pickaxe', output: 'iron_pickaxe', category: 'tool', label: 'Iron Pickaxe', tier: 1, ingredients: [{ id: 'mineral_ore', qty: 3 }, { id: 'wood', qty: 1 }] },
     { id: 'runic_satchel', output: 'runic_satchel', category: 'tool', label: 'Runic Satchel', tier: 3, ingredients: [{ id: 'deer_hide', qty: 3 }, { id: 'reed_fibre', qty: 4 }, { id: 'spectral_dust', qty: 2 }] },
+
+    // ── Arrows, bolts and quivers (Combat C5): each arrow recipe makes 10 ─────
+    { id: 'stick',           output: 'stick',           category: 'ammo', label: 'Sticks ×4',            tier: 1, makes: 4,  ingredients: [{ id: 'wood', qty: 1 }] },
+    { id: 'basic_arrow',     output: 'basic_arrow',     category: 'ammo', label: 'Basic Arrows ×10',     tier: 1, makes: 10, ingredients: [{ id: 'stick', qty: 2 }, { id: 'feather', qty: 1 }] },
+    { id: 'bolt',            output: 'bolt',            category: 'ammo', label: 'Bolts ×10',            tier: 1, makes: 10, ingredients: [{ id: 'stick', qty: 2 }, { id: 'mineral_ore', qty: 1 }] },
+    { id: 'broadhead_arrow', output: 'broadhead_arrow', category: 'ammo', label: 'Broadhead Arrows ×10', tier: 2, makes: 10, ingredients: [{ id: 'basic_arrow', qty: 10 }, { id: 'mineral_ore', qty: 1 }, { id: 'resin', qty: 1 }] },
+    { id: 'poison_arrow',    output: 'poison_arrow',    category: 'ammo', label: 'Poison Arrows ×10',    tier: 2, makes: 10, ingredients: [{ id: 'basic_arrow', qty: 10 }, { id: 'venom_sac', qty: 1 }] },
+    { id: 'explosive_arrow', output: 'explosive_arrow', category: 'ammo', label: 'Explosive Arrows ×10', tier: 3, makes: 10, ingredients: [{ id: 'basic_arrow', qty: 10 }, { id: 'ember_stone', qty: 1 }, { id: 'resin', qty: 1 }] },
+    { id: 'large_quiver',    output: 'large_quiver',    category: 'ammo', label: 'Large Quiver',         tier: 2, ingredients: [{ id: 'deer_hide', qty: 2 }, { id: 'resin', qty: 1 }] },
+    { id: 'hunters_quiver',  output: 'hunters_quiver',  category: 'ammo', label: "Hunter's Quiver",      tier: 3, ingredients: [{ id: 'deer_hide', qty: 3 }, { id: 'wolf_pelt', qty: 1 }, { id: 'resin', qty: 2 }] },
 ];
 
 // Enchanting at the forge: binds an enchantment (ENCHANTS in items.js) to the
@@ -142,6 +153,7 @@ export const CATEGORY_LABELS = {
     armor:     'ARMOR',
     accessory: 'ACCESSORIES',
     tool:      'TOOLS & BAGS',
+    ammo:      'ARROWS & QUIVERS',
     enchant:   'ENCHANT EQUIPPED WEAPON',
     upgrade:   'UPGRADE EQUIPPED',
 };

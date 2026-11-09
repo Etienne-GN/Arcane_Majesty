@@ -36,7 +36,8 @@ export const NODE_TYPES = {
 // Weighted pools. Regional variety comes from pointing a node at another pool
 // (e.g. a herb patch on the mountain uses 'mountain_herbs').
 export const YIELD_TABLES = {
-    deadwood:         [{ id: 'wood', w: 1, min: 1, max: 2 }, { id: 'resin', chance: 0.20, min: 1, max: 1 }, { id: 'heartwood', chance: 0.08, min: 1, max: 1 }],
+    deadwood:         [{ id: 'wood', w: 1, min: 1, max: 2 }, { id: 'resin', chance: 0.20, min: 1, max: 1 }, { id: 'heartwood', chance: 0.08, min: 1, max: 1 },
+                       { id: 'stick', chance: 0.30, min: 2, max: 4 }],   // Combat C5
     ore_seam:         [{ id: 'mineral_ore', w: 1, min: 1, max: 2 }, { id: 'silver_ore', chance: 0.25, min: 1, max: 1 }],
     forest_herbs:     [{ id: 'forest_herb', w: 8, min: 1, max: 2 }, { id: 'silverleaf', w: 3, min: 1, max: 1 }, { id: 'moonpetal', w: 1, min: 1, max: 1, nightOnly: true }],
     meadow_herbs:     [{ id: 'silverleaf', w: 5, min: 1, max: 2 }, { id: 'forest_herb', w: 4, min: 1, max: 2 }, { id: 'moonpetal', w: 2, min: 1, max: 1, nightOnly: true }],

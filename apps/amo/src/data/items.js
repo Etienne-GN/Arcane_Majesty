@@ -73,6 +73,11 @@ export const MERCHANT_CATALOG = [
     { id: 'hand_axe',              price: 70,  currency: 'gold' },
     { id: 'wooden_shield',         price: 50,  currency: 'gold' },
     { id: 'light_crossbow',        price: 95,  currency: 'gold' },
+    // Combat C5: arrows and bolts by ten, feathers by five
+    { id: 'basic_arrow',           price: 8,   currency: 'gold', qty: 10 },
+    { id: 'bolt',                  price: 12,  currency: 'gold', qty: 10 },
+    { id: 'feather',               price: 4,   currency: 'gold', qty: 5 },
+    { id: 'small_quiver',          price: 25,  currency: 'gold' },
     // T2 weapons
     { id: 'adepts_spire',          price: 200, currency: 'glint' },
     { id: 'mossy_branch_staff',    price: 175, currency: 'glint' },

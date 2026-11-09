@@ -342,7 +342,7 @@ export default class CraftingScene extends Phaser.Scene {
         for (const ing of recipe.ingredients) playerStats.consumeItem(ing.id, ing.qty);
 
         if (recipe.enchant) playerStats.weaponEnchants[playerStats.equipment.weapon] = recipe.enchant;
-        else                playerStats.addItem(recipe.output);
+        else                playerStats.addItem(recipe.output, recipe.makes ?? 1);
         soundManager.menuSelect();
         SaveManager.save(playerStats);
 
@@ -372,6 +372,7 @@ export default class CraftingScene extends Phaser.Scene {
             if (!playerStats.equipment.weapon) return 'NO WEAPON EQUIPPED';
             if (playerStats.activeEnchant() === recipe.enchant) return 'ALREADY ENCHANTED';
         }
+        if (!recipe.enchant && recipe.category !== 'upgrade' && !playerStats.canAddItem(recipe.output)) return 'SATCHEL FULL';   // never eat the materials for nothing
         return recipe.ingredients.every(ing => this._countItem(ing.id) >= ing.qty) ? null : 'MISSING MATERIALS';
     }
 
