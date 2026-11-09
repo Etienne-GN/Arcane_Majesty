@@ -255,7 +255,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         if (move.kind === 'block') { this._block(); return; }
         if (move.kind === 'power') { this.triggerPower(); return; }
         if (this.attackCooldown > 0 || this.stats.manaExhausted) return;
-        this._attack(move.hand);
+        this._attack(move.hand, move.ammo ?? null);
     }
 
     // Raise the shield for 700 ms; update() keeps it up while the button is held.
@@ -268,10 +268,17 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     triggerAttack() { this.useMove('attack'); }
 
-    _attack(hand = 'main') {
+    _attack(hand = 'main', ammoKind = null) {
         const itemId = hand === 'off' ? this.stats.equipment.offHand : this.stats.equipment.weapon;
         const type = typeOf(ITEMS[itemId]);
         const tdef = WEAPON_TYPES[type];
+        // Combat C5: a bow or crossbow shot takes an arrow or bolt from the quiver
+        let ammo = null;
+        if (tdef.ammo) {
+            ammo = this.stats.takeAmmo(tdef.ammo, ammoKind);
+            if (!ammo) { this._outOfAmmo(tdef.ammo, ammoKind); return; }
+        }
+        this._fightAt = this.scene.time.now;
         // The old per-weapon behaviour (mana-augmented strikes, the dagger's second
         // hit, the bow's shot count) keys on the item's own legacy weaponType.
         const wt = ITEMS[itemId]?.weaponType ?? type;
@@ -320,7 +327,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         if (tdef.range) {
             // Ranged: scene handles damage via _bowStrike after travel delay
             this.scene.time.delayedCall(120, () => {
-                if (this.active) this.scene._bowStrike?.(this.x, this.y, this.facing, this._augmentedStrike, itemId, { range: tdef.range, dmgMult: tdef.dmgMult, magic: type === 'wand' });
+                if (this.active) this.scene._bowStrike?.(this.x, this.y, this.facing, this._augmentedStrike, itemId, { range: tdef.range, dmgMult: tdef.dmgMult, magic: type === 'wand', ammo });
             });
         } else {
             this.attackHitbox.body.setSize(tdef.hitbox, tdef.hitbox);
@@ -348,6 +355,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 });
             }
         });
+    }
+
+    // Combat C5: nothing to shoot — say so, and wait a moment before trying again
+    _outOfAmmo(type, kind) {
+        this.attackCooldown = 400;
+        const what = kind ? `${ITEMS[kind]?.name ?? kind}s` : type === 'bolt' ? 'bolts' : 'arrows';
+        this.scene.scene.get('UIScene')?.showNotification?.(`Out of ${what}`, 1200);
     }
 
     _powerSlash() {
@@ -831,6 +845,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     takeDamage(amount, source = null) {
         if (!this.active) return;
+        this._fightAt = this.scene.time.now;   // Combat C5: no quiver refill while under attack
 
         // Shadow Veil: immune while active
         if (this._shadowVeilActive) return;

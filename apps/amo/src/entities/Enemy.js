@@ -497,6 +497,8 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
             alpha: 0, scaleX: 1.5, scaleY: 0.1,
             duration: 320,
             onComplete: () => {
+                // Combat C5: told after the fall, once the killing arrow (explosive or not) is counted
+                if (this._ammoIn || this._blownUp) this.emit('ammoBack', this.x, this.y, this._ammoIn, !!this._blownUp);
                 this.emit('died', this.xpReward);
                 this.destroy();
             }

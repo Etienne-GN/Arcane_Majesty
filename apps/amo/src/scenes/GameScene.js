@@ -38,6 +38,8 @@ import { useHotbar } from '../systems/hotbar.js';
 import { STATION_LABELS } from '../data/stations.js';
 import { rollEliteScroll } from '../data/recipeScrolls.js';
 import { weaponDamageMult } from '../data/upgrades.js';
+import { AMMO, REFILL_MS, ammoBack } from '../systems/ammo.js';
+import { ammoImpact } from '../systems/Archery.js';
 import { eliteCap, rollElite, pickAffixes, eliteStats, eliteRareDrop } from '../data/elites.js';
 import { conductTargets, CONDUCT_FRACTION, DETONATE_RADIUS, detonateDamage } from '../systems/reactions.js';
 import { buildEntityAnims } from '../utils/buildEntityAnims.js';
@@ -369,11 +371,11 @@ export default class GameScene extends Phaser.Scene {
         // Item pickups group
         this.pickups = this.physics.add.group();
         this.physics.add.overlap(this.player, this.pickups, (player, pickup) => {
-            const id = pickup.itemId;
-            playerStats.addItem(id);
+            const id = pickup.itemId, qty = pickup.qty ?? 1;
+            playerStats.addItem(id, qty);
             soundManager.collect();
             const ui = this.scene.get('UIScene');
-            ui?.showNotification?.(`Picked up ${id.replace(/_/g, ' ')}`, 1500);
+            ui?.showNotification?.(`Picked up ${qty > 1 ? `${qty} × ${ITEMS[id]?.name ?? id}` : id.replace(/_/g, ' ')}`, 1500);
             questManager.onPickup(id);
             if (id === 'void_shard' && !questManager.isActive('side_void_offering') && !questManager.isCompleted('side_void_offering')) {
                 questManager.startQuest('side_void_offering');
@@ -1301,6 +1303,7 @@ export default class GameScene extends Phaser.Scene {
             default:               castOk = this.player.castGeneric(spellId); break;
         }
         if (!castOk) return;
+        this.player._fightAt = this.time.now;   // Combat C5: casting is fighting (no quiver refill)
 
         this._spellVFX(spellId, targetX, targetY);
         this._applySpellEffects(spellId, targetX, targetY);
@@ -2133,7 +2136,8 @@ export default class GameScene extends Phaser.Scene {
         const shotCount   = this.player._bowShotCount ?? 0;
         const isTriple    = passive === 'triple_shot' && shotCount % 3 === 0;
         const base        = this._rangedDamage(itemId, opts.dmgMult ?? 1, swingType);   // forge upgrade, weapon type, C2 mastery, C4 Steady Aim
-        let bowDmg        = augmented ? Math.floor(base * 1.20) : base;
+        const ammo        = opts.ammo ?? null;   // Combat C5: the arrow or bolt in flight
+        let bowDmg        = Math.floor((augmented ? base * 1.20 : base) * (AMMO[ammo]?.mult ?? 1));
         if (isTriple) {
             bowDmg = Math.floor(bowDmg * 2);
             this.combatManager._spawnNumber(px, py - 14, '3×', '#ffd700', true);
@@ -2154,17 +2158,18 @@ export default class GameScene extends Phaser.Scene {
         if (this.boss?.active) check(this.boss);
         hits.sort((a, b) => a.dist - b.dist);
 
-        const applyHit = (e, mult = 1) => {
+        const applyHit = (e, mult = 1, first = false) => {
             if (!e?.active) return;
             const dmg = e === this.boss ? Math.floor(bowDmg * 0.65 * mult) : Math.floor(bowDmg * mult);
             e.takeDamage(dmg);
             playerStats.learnFromHit(swingType, !e.active || e.health <= 0, e.level ?? 1);   // Combat C2/C3
             this.combatManager._spawnNumber(e.x, e.y - 20, `${dmg}`, '#88ffaa', false);
             this.combatManager._spawnSparks(e.x, e.y, 0x88ffaa, 4);
+            if (first && ammo) ammoImpact(this, e, ammo, dmg);   // the arrow counts in the first enemy it hits
         };
 
         if (hits[0]) {
-            applyHit(hits[0].e);
+            applyHit(hits[0].e, 1, true);
             // void_piercer: pierce to second enemy
             if (isVoidPierce && hits[1]) {
                 this.time.delayedCall(80, () => applyHit(hits[1].e, 0.75));
@@ -3408,6 +3413,13 @@ export default class GameScene extends Phaser.Scene {
         }
 
         advanceClock(playerStats, delta);   // one real minute = one game hour; stops while paused
+
+        // Combat C5: REFILL_MS with no fighting and the quiver tops up from the satchel (checked twice a second)
+        this._refillAcc = (this._refillAcc ?? 0) + delta;
+        if (this._refillAcc >= 500) {
+            this._refillAcc = 0;
+            if (this.time.now - (this.player._fightAt ?? -1e9) >= REFILL_MS) playerStats.refillQuiver();
+        }
         this._tickWeather(delta);
         this._tickDayNight(delta);
 
@@ -4012,6 +4024,11 @@ export default class GameScene extends Phaser.Scene {
             itemIds.forEach((id, i) => this._spawnPickup(ex2 + i * 14, ey2, id));
         });
 
+        // Combat C5: about a third of the arrows in it come back, on the ground where it fell
+        enemy.on('ammoBack', (ax, ay, hits, blownUp) => {
+            ammoBack(hits, blownUp).forEach(({ id, qty }, i) => this._spawnPickup(ax - 10 + i * 14, ay + 10, id, qty));
+        });
+
         enemy.on('split', (splitType, sx, sy) => {
             this._spawnEnemy(splitType, sx, sy);
         });
@@ -4131,10 +4148,11 @@ export default class GameScene extends Phaser.Scene {
         }
     }
 
-    _spawnPickup(x, y, itemId) {
+    _spawnPickup(x, y, itemId, qty = 1) {
         const pickup = this.pickups.create(x, y, 'item_pickup');
         pickup.setDepth(7);
         pickup.itemId = itemId;
+        pickup.qty = qty;
         pickup.body.setAllowGravity(false);
 
         // Gentle bob

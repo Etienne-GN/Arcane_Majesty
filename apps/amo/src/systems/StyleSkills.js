@@ -7,6 +7,8 @@ import { targetsIn, skillMult, pathClear, chainTargets, releaseMult, RELEASE_MIN
 import { WEAPON_TYPES, typeOf, isBehind } from './weapons.js';
 import { statusManager } from './StatusManager.js';
 import { soundManager } from './SoundManager.js';
+import { AMMO } from './ammo.js';
+import { ammoImpact } from './Archery.js';
 
 const DIR = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
 
@@ -16,6 +18,13 @@ export function performSkill(scene, id) {
     if (!k || !player?.active || !stats.skillReady(id) || statusManager.isStunned(player)) return false;
     if (k.kind === 'shadowstep' && !shadowstep(scene, k)) return false;
     if (k.kind === 'release' && !release(scene, k)) return false;
+    // Combat C5: a bow or crossbow skill needs an arrow or bolt ready — no shot, no cooldown
+    const ammoType = k.kind === 'shot' ? WEAPON_TYPES[k.weapon].ammo : null;
+    if (ammoType && !stats.readyAmmo(ammoType)) {
+        scene.scene.get('UIScene')?.showNotification?.(`Out of ${ammoType === 'bolt' ? 'bolts' : 'arrows'}`, 1200);
+        return false;
+    }
+    player._fightAt = scene.time.now;
 
     // The hand that holds the skill's weapon swings (fists: an empty hand)
     const { weapon, offHand } = stats.equipment;
@@ -118,11 +127,17 @@ const heldItem = (stats, type) => [stats.equipment.weapon, stats.equipment.offHa
 // One arrow / bolt / wand bolt straight ahead: the first enemy in the row, or all of them (pierce).
 function shot(scene, k, mult = k.mult) {
     const player = scene.player, w = WEAPON_TYPES[k.weapon];
+    const ammo = w.ammo ? player.stats.takeAmmo(w.ammo) : null;   // C5: the same arrow a plain Shoot would use
+    if (w.ammo && !ammo) return [];
     const range = Math.round((w.range ?? 150) * (k.rangeMult ?? 1));
     scene._shotTrail(player.x, player.y, player.facing, range, TRAIL[k.weapon] ?? TRAIL.bow);
     const hits = targetsIn({ kind: 'line', length: range, width: 22, max: k.pierce ? 0 : 1 }, player, player.facing, scene._liveEnemies());
-    const base = scene._rangedDamage(heldItem(player.stats, k.weapon), w.dmgMult, k.weapon);
-    for (const e of hits) hit(scene, k, e, Math.max(1, Math.floor(base * mult * (e === scene.boss ? 0.65 : 1))), false);
+    const base = scene._rangedDamage(heldItem(player.stats, k.weapon), w.dmgMult, k.weapon) * (AMMO[ammo]?.mult ?? 1);
+    hits.forEach((e, i) => {
+        const dmg = Math.max(1, Math.floor(base * mult * (e === scene.boss ? 0.65 : 1)));
+        hit(scene, k, e, dmg, false);
+        if (i === 0 && ammo) ammoImpact(scene, e, ammo, dmg);   // the arrow counts in the first enemy it hits
+    });
     return hits;
 }
 
