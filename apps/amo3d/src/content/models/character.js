@@ -42,7 +42,8 @@ export const DEFAULT_LOOK = {
     skin: '#e2b48f', eyes: '#5ab8f0',
     hair: { style: 'tousled', color: '#3a2418' },
     facialHair: { style: 'stubble', color: '#a07a62' },
-    outfit: { coat: '#a3141f', collar: '#7a0f17', trim: '#d4a84a', vest: '#1c1714', shirt: '#16120f',
+    hood: false, cape: false,
+    outfit: { style: 'longcoat', coat: '#a3141f', collar: '#7a0f17', trim: '#d4a84a', vest: '#1c1714', shirt: '#16120f',
         pants: '#221c18', leather: '#5a3520', leatherDark: '#3e2416' },
 };
 const merge = look => ({
@@ -102,13 +103,23 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         legs[side] = { thigh, shin };
     }
 
+    // Outfit cut (parts library): how open the front is, how long the skirt, what shows on the chest.
+    const CUTS = {
+        longcoat: { open: 0.11, len: 0.78, lapels: true, vest: true, collar: true, straps: true, hem: true },
+        robe:     { open: 0.0, len: 0.93, sash: true },
+        tunic:    { open: 0.02, len: 0.44, straps: true },
+        armour:   { open: 0.02, len: 0.4, plate: true },
+    };
+    const cut = CUTS[O.style] ?? CUTS.longcoat;
+    M.steel = mat('#9aa0a8', { metalness: 0.75, roughness: 0.35 });
     // Coat skirt: two front flaps that follow the legs, and a back panel that flares.
-    const flapL = coatPanel(Math.PI * 0.11, Math.PI * 0.5, 0.78, M.coat);
-    const flapR = coatPanel(Math.PI * 1.39, Math.PI * 0.5, 0.78, M.coat);
-    const back = coatPanel(Math.PI * 0.61, Math.PI * 0.78, 0.8, M.coat);
+    const fl = Math.PI * (0.5 + (0.11 - cut.open));   // closed cuts overlap at the front
+    const flapL = coatPanel(Math.PI * cut.open, fl, cut.len, M.coat);
+    const flapR = coatPanel(Math.PI * 2 - Math.PI * cut.open - fl, fl, cut.len, M.coat);
+    const back = coatPanel(Math.PI * 0.61, Math.PI * 0.78, cut.len + 0.02, M.coat);
     for (const p of [flapL, flapR, back]) { p.joint.position.y = 0.04; hips.add(p.joint); }
     // Gold hem along the front edges of the flaps.
-    for (const [p, th] of [[flapL, Math.PI * 0.11], [flapR, Math.PI * 1.89]]) {
+    for (const [p, th] of cut.hem ? [[flapL, Math.PI * 0.11], [flapR, Math.PI * 1.89]] : []) {
         const edge = mesh(new THREE.BoxGeometry(0.025, 0.78, 0.025), M.gold);
         edge.position.set(Math.sin(th) * 0.26, -0.39, Math.cos(th) * 0.26);
         edge.rotation.x = -0.14 * Math.sign(Math.cos(th));
@@ -124,17 +135,30 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     chestGeo.scale(1, 1, 0.74);
     spine.add(new THREE.Mesh(chestGeo, M.coat));
     // Open front: dark vest with gold filigree, a dark shirt and a V of skin at the throat.
-    const vest = mesh(new THREE.BoxGeometry(0.17, 0.46, 0.06), M.vest, 0, 0.27, 0.125);
-    spine.add(vest);
-    for (const [y, w] of [[0.16, 0.12], [0.26, 0.1], [0.36, 0.12], [0.44, 0.08]]) {
-        spine.add(mesh(new THREE.BoxGeometry(w, 0.012, 0.01), M.gold, 0, y, 0.158));
+    if (cut.vest) {
+        spine.add(mesh(new THREE.BoxGeometry(0.17, 0.46, 0.06), M.vest, 0, 0.27, 0.125));
+        for (const [y, w] of [[0.16, 0.12], [0.26, 0.1], [0.36, 0.12], [0.44, 0.08]]) {
+            spine.add(mesh(new THREE.BoxGeometry(w, 0.012, 0.01), M.gold, 0, y, 0.158));
+        }
+        spine.add(mesh(new THREE.BoxGeometry(0.012, 0.36, 0.01), M.gold, 0, 0.28, 0.158));
     }
-    spine.add(mesh(new THREE.BoxGeometry(0.012, 0.36, 0.01), M.gold, 0, 0.28, 0.158));
+    if (cut.plate) {   // breastplate with a trim ridge, steel pauldrons on both shoulders
+        const plate = mesh(new THREE.CylinderGeometry(0.225, 0.19, 0.42, 10, 1, false, -Math.PI * 0.45, Math.PI * 0.9), M.steel, 0, 0.32, 0.005);
+        plate.scale.set(1, 1, 0.8);
+        spine.add(plate);
+        spine.add(mesh(new THREE.BoxGeometry(0.03, 0.4, 0.02), M.gold, 0, 0.32, 0.175));
+        for (const sg of [1, -1]) {
+            const pd = mesh(new THREE.SphereGeometry(0.12, 8, 5, 0, Math.PI * 2, 0, Math.PI / 2), M.steel, sg * 0.25, 0.52, 0);
+            pd.scale.set(1.05, 0.75, 1.1);
+            pd.rotation.z = -sg * 0.3;
+            spine.add(pd);
+        }
+    }
     const throat = mesh(new THREE.ConeGeometry(0.06, 0.13, 3), M.skin, 0, 0.5, 0.135);
     throat.rotation.x = Math.PI;
     spine.add(throat);
     // Lapels: red wedges along the V, edged in gold.
-    for (const s of [1, -1]) {
+    for (const s of cut.lapels ? [1, -1] : []) {
         const lapel = mesh(new THREE.BoxGeometry(0.07, 0.36, 0.03), M.coat, s * 0.1, 0.33, 0.135);
         lapel.rotation.z = s * 0.28;
         spine.add(lapel);
@@ -143,7 +167,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         spine.add(trim);
     }
     // High popped collar: two flared wedges behind the neck.
-    for (const s of [1, -1]) {
+    for (const s of cut.collar ? [1, -1] : []) {
         const collar = mesh(new THREE.BoxGeometry(0.15, 0.17, 0.03), M.coatDark, s * 0.09, 0.62, -0.02);
         collar.rotation.set(-0.25, s * 0.9, s * -0.25);
         spine.add(collar);
@@ -151,18 +175,21 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         ce.rotation.set(-0.25, s * 0.9, s * -0.25);
         spine.add(ce);
     }
-    const collarBack = mesh(new THREE.BoxGeometry(0.2, 0.18, 0.03), M.coatDark, 0, 0.63, -0.1);
-    collarBack.rotation.x = -0.3;
-    spine.add(collarBack);
+    if (cut.collar) {
+        const collarBack = mesh(new THREE.BoxGeometry(0.2, 0.18, 0.03), M.coatDark, 0, 0.63, -0.1);
+        collarBack.rotation.x = -0.3;
+        spine.add(collarBack);
+    }
     // Crossed leather straps with small gold buckles.
-    for (const s of [1, -1]) {
+    for (const s of cut.straps ? [1, -1] : []) {
         const strap = mesh(new THREE.BoxGeometry(0.035, 0.6, 0.02), M.leather, s * 0.02, 0.29, 0.16);
         strap.rotation.z = s * 0.55;
         spine.add(strap);
         spine.add(mesh(new THREE.BoxGeometry(0.035, 0.03, 0.025), M.gold, s * 0.07, 0.36, 0.172));
     }
     // Wide belt, big gold buckle, satchel with a gold clasp on the left hip.
-    spine.add(mesh(new THREE.CylinderGeometry(0.192, 0.19, 0.08, 10), M.leather, 0, 0.02, 0));
+    spine.add(mesh(new THREE.CylinderGeometry(0.192, 0.19, cut.sash ? 0.11 : 0.08, 10), cut.sash ? M.coatDark : M.leather, 0, 0.02, 0));
+    if (cut.sash) spine.add(mesh(new THREE.BoxGeometry(0.06, 0.3, 0.015), M.coatDark, 0.08, -0.12, 0.17));   // sash tail
     spine.add(mesh(new THREE.BoxGeometry(0.075, 0.075, 0.02), M.gold, 0, 0.02, 0.148));
     spine.add(mesh(new THREE.BoxGeometry(0.045, 0.045, 0.022), M.leather, 0, 0.02, 0.15));
     const satchel = new THREE.Group();
@@ -173,10 +200,22 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     satchel.add(mesh(new THREE.BoxGeometry(0.03, 0.05, 0.02), M.gold, 0, 0.01, 0.045));
     spine.add(satchel);
     // Left shoulder: leather and gold ornament.
-    const pauldron = mesh(new THREE.SphereGeometry(0.1, 8, 5, 0, Math.PI * 2, 0, Math.PI / 2), M.leatherDark, 0.24, 0.53, 0);
-    pauldron.scale.set(1, 0.7, 1.1);
-    spine.add(pauldron);
-    spine.add(mesh(new THREE.TorusGeometry(0.06, 0.012, 4, 10), M.gold, 0.25, 0.55, 0.05));
+    if (O.style === 'longcoat' || !O.style) {
+        const pauldron = mesh(new THREE.SphereGeometry(0.1, 8, 5, 0, Math.PI * 2, 0, Math.PI / 2), M.leatherDark, 0.24, 0.53, 0);
+        pauldron.scale.set(1, 0.7, 1.1);
+        spine.add(pauldron);
+        spine.add(mesh(new THREE.TorusGeometry(0.06, 0.012, 4, 10), M.gold, 0.25, 0.55, 0.05));
+    }
+    // Cape: hangs from the shoulders and flares with speed (animated with the coat's back panel).
+    let cape = null;
+    if (L.cape) {
+        cape = new THREE.Group();
+        cape.position.set(0, 0.56, -0.17);
+        spine.add(cape);
+        const cg = new THREE.PlaneGeometry(0.52, 1.15, 2, 6).translate(0, -0.575, 0);
+        cape.add(new THREE.Mesh(cg, M.coatDark));
+        cape.add(mesh(new THREE.BoxGeometry(0.5, 0.04, 0.03), M.gold, 0, 0, 0.01));
+    }
 
     // ---- head ----
     const head = new THREE.Group();
@@ -195,7 +234,13 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         head.add(brow);
         head.add(mesh(new THREE.SphereGeometry(0.025, 5, 4), M.skin, s * 0.112, 0.13, -0.005));   // ears
     }
-    buildHair(L.hair.style, head, M.hair);   // parts library
+    buildHair(L.hood ? 'short' : L.hair.style, head, M.hair);   // parts library (a hood keeps the hair close)
+    if (L.hood) {   // a sphere shell with the face cut away, and a pointed back
+        head.add(mesh(new THREE.SphereGeometry(0.165, 12, 8, Math.PI * 0.78, Math.PI * 1.44, 0, Math.PI * 0.66), M.coatDark, 0, 0.13, -0.01));
+        const tip = mesh(new THREE.ConeGeometry(0.08, 0.18, 6), M.coatDark, 0, 0.2, -0.14);
+        tip.rotation.x = -1.1;
+        head.add(tip);
+    }
 
     // ---- arms: red sleeves, gold-worked leather bracers ----
     const arms = {};
@@ -326,6 +371,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         flapL.joint.rotation.x = Math.min(0.2, legs.L.thigh.rotation.x * 0.8) - air * 0.3;
         flapR.joint.rotation.x = Math.min(0.2, legs.R.thigh.rotation.x * 0.8) - air * 0.3;
         back.joint.rotation.x = 0.04 + amp * 0.22 + run * 0.35 + air * 0.35 + Math.sin(t * 3.1) * 0.02;
+        if (cape) cape.rotation.x = 0.06 + amp * 0.3 + run * 0.45 + air * 0.4 + Math.sin(t * 2.7) * 0.03;
         ripple(back, 0.4 + amp);
 
         if (crystal) crystal.rotation.y += dt * 1.5;

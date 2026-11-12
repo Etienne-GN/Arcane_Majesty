@@ -139,6 +139,15 @@ function render() {
     box.append(chips(FACIAL_STYLES, 'look.facialHair.style'), color('Colour', 'look.facialHair.color'));
 
     box.append(el('h2', {}, 'Outfit'));
+    box.append(chips(['longcoat', 'robe', 'tunic', 'armour'], 'look.outfit.style'));
+    const extras = el('div', { className: 'chips' });
+    extras.style.marginTop = '8px';
+    for (const k of ['hood', 'cape']) {
+        const c = el('span', { className: `chip${def.look[k] ? ' on' : ''}` }, k);
+        c.onclick = () => { set(`look.${k}`, !def.look[k]); c.classList.toggle('on', !!def.look[k]); };
+        extras.append(c);
+    }
+    box.append(extras);
     for (const [k, label] of [['coat', 'Coat'], ['collar', 'Collar & lining'], ['trim', 'Trim (metal)'], ['vest', 'Vest'], ['shirt', 'Shirt'],
         ['pants', 'Trousers'], ['leather', 'Leather'], ['leatherDark', 'Boots & dark leather']]) box.append(color(label, `look.outfit.${k}`));
 
@@ -186,7 +195,9 @@ function randomize() {
         skin: pick(SKIN), eyes: pick(['#5ab8f0', '#4fd06a', '#8a6a3a', '#3a5a8a', '#9a7a4a', '#7a3ac0']),
         hair: { style: pick(HAIR_STYLES), color: hair },
         facialHair: { style: pick(FACIAL_STYLES), color: hair },
+        hood: Math.random() < 0.25, cape: Math.random() < 0.3,
         outfit: {
+            style: pick(['longcoat', 'robe', 'tunic', 'armour']),
             coat: hsl(base, 0.55, 0.32), collar: hsl(base, 0.55, 0.2), trim: pick(['#d4a84a', '#c8ccd4', '#b87333']),
             vest: hsl((base + 0.5) % 1, 0.25, 0.12), shirt: hsl(base, 0.1, 0.1), pants: hsl((base + 0.1) % 1, 0.15, 0.14),
             leather: pick(['#5a3520', '#6e4a2c', '#3a2a1a']), leatherDark: '#3e2416',
