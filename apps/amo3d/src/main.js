@@ -1,6 +1,6 @@
 // Arcane Majesty 3D — boot. Wires the engine (renderer, input, camera, maps, loop), the game
 // (an amo character sheet, the player controller, spells, HUD, saving) and the content (maps).
-import { movementRules, PlayerStats as PS, items as itemRules, weapons as weaponRules } from '@rules';
+import { movementRules, PlayerStats as PS, items as itemRules, weapons as weaponRules, talents as talentRules } from '@rules';
 import { pickQuality, nextQuality } from './engine/quality.js';
 import { createRenderer } from './engine/renderer.js';
 import { createOrbitCamera } from './engine/camera.js';
@@ -15,6 +15,7 @@ import { createFireballs, FIREBALL } from './game/fireball.js';
 import { loadGame, saveGame, deleteSave } from './game/save.js';
 import { createLoot } from './game/loot.js';
 import { createInventory } from './game/inventory.js';
+import { createSheet } from './game/sheet.js';
 import { createCharacter } from './content/models/eldrin.js';
 import { createOutdoor } from './content/glade.js';
 import { createTower } from './content/eldrinTower.js';
@@ -43,8 +44,10 @@ stats.maxMana = 10 + stats.attributes.intelligence * 8;   // amo's formula, re-d
 stats.mana = stats.maxMana;
 stats.vigor = stats.maxVigor;
 stats.learnSpell('fireball');
+stats.setTalents(talentRules.talentsFor('eldrin'));   // amo: gifted wand, staff, elemental; trained bo, light, dark
 const savedAt = loadGame(stats);
 const loot = createLoot({ stats, hud });
+const sheet = createSheet({ stats });
 const inventory = createInventory({
     stats, hud,
     onDrop: id => {   // a dropped item lands in front of Eldrin as a pickup
@@ -105,7 +108,8 @@ function tick(dt) {
     if (act.keys.includes('F2')) { save(); nextQuality(quality); location.reload(); return; }
     if (act.keys.includes('F3')) perf.toggle();
     if (act.inventory) inventory.toggle();
-    if (inventory.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
+    if (act.sheet) sheet.toggle();
+    if (inventory.open || sheet.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
     const map = world.current;
     let lift = 0;
     const ctx = { player: player.state, camera, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop };
@@ -137,5 +141,5 @@ window.__poc = {
     enterMap: (id, sp) => world.enter(id, sp),
     cast: () => input.press('cast'),
     strike: () => input.press('strike'),
-    loot, inventory,
+    loot, inventory, sheet,
 };
