@@ -33,7 +33,7 @@ The first thing anyone sees, so it has to look epic — built live in the engine
 | **Title screen**: a slow cinematic camera drifting through Eldrin's vale at dusk — the tower's lit windows, the waterfall mist, fireflies, light shafts — with the ARCANE MAJESTY title rising in gold over it; a soft vignette, embers drifting past the lens, the logo's arcane sigil slowly turning | N |
 | **Main menu** over the same live scene: Continue (last save), New Game, Options (quality, audio), Credits — mouse, gamepad and touch | B (MenuScene, OfflineMenuScene) |
 | Seamless start: Continue/New Game flies the camera down from the cinematic shot to Eldrin and hands over control | N |
-| **Album music on the title screen, wired in Phase 1.5 itself** (not waiting for Phase 5): a minimal music player for one track — ask the user which album track opens the game | N |
+| **Album music on the title screen, wired in Phase 1.5 itself** (not waiting for Phase 5): a minimal music player for one track — the user chose **"Echoes of Stone"** (Eldoria's Prophecy, track 01, `assets/music/Eldoria's Prophecy/01 - Echoes of Stone.mp3`) | N |
 
 ## Phase 2 — Camp & craft (moved up: it makes the glade a place to live in)
 | amo | Kind |
