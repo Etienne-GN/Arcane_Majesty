@@ -142,7 +142,7 @@ export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTun
             const dmg = Math.max(1, Math.floor(base * W.dmgMult * mastery.levelDamageMult(lvl) * buffMult('statsMult')));
             h.hit(dmg, p.pos, 0, ctx);
             const killed = !h.alive;
-            if (h.kind !== 'shadow') hud.floater(h.pos.clone().setY(h.pos.y + 1.9), `${dmg}`, '#ffe0a0');
+            if (h.kind === 'deer') hud.floater(h.pos.clone().setY(h.pos.y + 1.9), `${dmg}`, '#ffe0a0');
             const before = lvl, after = stats.gainWeaponPoints(type, mastery.hitGain(killed));
             if (killed) {   // a kill also practises the weapon's current style (amo C3)
                 const sid = styleRules.practising(stats.styles, type);
@@ -262,7 +262,7 @@ export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTun
                 p.knock.multiplyScalar(Math.exp(-dt * 9));
             }
             for (const h of m.hittables ?? []) {
-                if (h.kind !== 'shadow' || !h.alive) continue;
+                if (h.kind === 'deer' || !h.alive) continue;
                 const dx = p.pos.x - h.pos.x, dz = p.pos.z - h.pos.z, d = Math.hypot(dx, dz);
                 if (d < 0.8 && d > 1e-4) { p.pos.x = h.pos.x + (dx / d) * 0.8; p.pos.z = h.pos.z + (dz / d) * 0.8; }
             }

@@ -9,6 +9,7 @@ import { flat, mulberry32, colliderAt, pushOut, fbm, smoothstep } from '../engin
 import { valeHeight, valeReserved, valeColor, valeTreeOK, bridgeDeck, inStream, buildEldrin, STAIR_BASE, ELDRIN } from './eldrinVale.js';
 import { createDeer } from './actors/deer.js';
 import { createShadows } from './actors/shadowSoldier.js';
+import { createWolves } from './actors/wolf.js';
 import { bakeStatic } from '../engine/batch.js';
 
 export const WATER = -1.2;
@@ -459,6 +460,23 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
     const shadows = createShadows({ scene, map, rng, posts: [{ x: -16, z: 3 }, { x: -14, z: 14.5 }, { x: -64, z: -16 }] });
     map.hittables.push(...shadows.list);
     map.shadows = shadows;
+
+    // ---------- a wolf den in the forest (amo's ENEMY_TYPES.wolf) ----------
+    let den = null;
+    for (let i = 0; i < 600 && !den; i++) {
+        const t = trees[Math.floor(rng() * trees.length)];
+        const d = Math.hypot(t.x, t.z);
+        if (d < 24 || d > 50) continue;
+        const x = t.x + (rng() - 0.5) * 6, z = t.z + (rng() - 0.5) * 6;
+        if (map.blockedAt(x, z, 1.5) || reserved(x, z) || homes.some(h => Math.hypot(h.x - x, h.z - z) < 18)) continue;
+        if ([[-16, 3], [-14, 14.5], [-64, -16]].some(([px, pz]) => Math.hypot(px - x, pz - z) < 16)) continue;
+        den = { x, z };
+    }
+    if (den) {
+        const wolves = createWolves({ scene, map, rng, den });
+        map.hittables.push(...wolves);
+        map.den = den;
+    }
 
     // Batch every static mesh into one draw per material (phones care about draw calls).
     sky.userData.dynamic = true;

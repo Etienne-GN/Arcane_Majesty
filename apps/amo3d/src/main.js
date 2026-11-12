@@ -20,6 +20,7 @@ import { createHotbar } from './game/hotbar.js';
 import { createSkills } from './game/skills.js';
 import { createArchery } from './game/archery.js';
 import { createCharacter } from './content/models/eldrin.js';
+import { setPlatesVisible } from './content/actors/enemyCore.js';
 import { createOutdoor } from './content/glade.js';
 import { createTower } from './content/eldrinTower.js';
 
@@ -81,6 +82,7 @@ const world = createMapManager({
         Object.assign(cam, { yaw: (sp.facing ?? 0) + Math.PI, pitch: map.camera.pitch, dist: map.camera.dist, maxDist: map.camera.maxDist });
         cam.snapTo(player.state.pos);
         world.maps.outdoor?.shadows?.setVisible(id === 'outdoor');
+        setPlatesVisible(id === 'outdoor');
         lastLevel = map.levelName?.(player.state.pos.y) ?? '';
         hud.banner(lastLevel ? `${map.name} — ${lastLevel}` : map.name);
         save();

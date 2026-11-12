@@ -86,7 +86,7 @@ export function createArchery({ stats, player, hud, cam, world, loot }) {
                     if (!h.alive || Math.hypot(h.pos.x - s.pos.x, h.pos.z - s.pos.z) > 0.5 || s.pos.y < h.pos.y || s.pos.y > h.pos.y + 2.1) continue;
                     const dmg = damage(s.id, s.type);
                     h.hit(dmg, player.state.pos, 0, player.lastCtx, AMMO[s.id]?.status ? { id: AMMO[s.id].status } : null);
-                    if (h.kind !== 'shadow') hud.floater(h.pos.clone().setY(h.pos.y + 1.9), `${dmg}`, '#ffe0a0');
+                    if (h.kind === 'deer') hud.floater(h.pos.clone().setY(h.pos.y + 1.9), `${dmg}`, '#ffe0a0');
                     const killed = !h.alive;
                     recordHit(h, s.id, killed);
                     stats.gainWeaponPoints(s.type, M.hitGain(killed));
