@@ -1,5 +1,8 @@
 // HUD: bars, the spell slot, banners, messages, the door prompt, damage floaters, hurt vignette.
 import * as THREE from 'three';
+import { statuses } from '@rules';
+
+const { STATUS_DEFS } = statuses;
 
 export function createHud() {
     const $ = id => document.getElementById(id);
@@ -10,6 +13,11 @@ export function createHud() {
         banner: $('banner'), prompt: $('prompt'), msg: $('msg'), fade: $('fade'), fadeText: $('fade-text'), floaters: $('floaters'),
     };
     let bannerT = 0, msgT = 0, hurtK = 0;
+    // Status icons (buffs and debuffs on Eldrin): amo label, tint and time left.
+    const icons = document.createElement('div');
+    icons.style.cssText = 'position:fixed;left:18px;bottom:236px;display:flex;flex-wrap:wrap;gap:6px;max-width:300px;pointer-events:none;z-index:4';
+    document.body.append(icons);
+    let iconKey = '';
     const floaters = [];
     const tmp = new THREE.Vector3();
 
@@ -46,6 +54,20 @@ export function createHud() {
             ui.slot.classList.toggle('dry', s.mana < s.getSpellManaCost(spell.id));
             ui.slotCost.textContent = s.getSpellManaCost(spell.id);
 
+            const list = Object.entries(player.buffs ?? {});
+            const key = list.map(([id, b]) => `${id}:${Math.ceil(b.left)}`).join('|');
+            if (key !== iconKey) {
+                iconKey = key;
+                icons.textContent = '';
+                for (const [id, b] of list) {
+                    const d = STATUS_DEFS[id];
+                    const tag = document.createElement('div');
+                    const tint = `#${(d?.tint ?? 0xcccccc).toString(16).padStart(6, '0')}`;
+                    tag.style.cssText = `font:12px Georgia,serif;color:#eee6d2;padding:3px 8px;border-radius:7px;background:#000a;border:1px solid ${tint};text-shadow:0 1px 2px #000`;
+                    tag.textContent = `${d?.label ?? id} ${Math.ceil(b.left)}s`;
+                    icons.append(tag);
+                }
+            }
             if ((bannerT -= dt) <= 0) ui.banner.style.opacity = 0;
             if ((msgT -= dt) <= 0) ui.msg.style.opacity = 0;
             hurtK = Math.max(0, hurtK - dt * 1.5);

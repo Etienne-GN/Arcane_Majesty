@@ -202,7 +202,7 @@ export function createShadows({ scene, map, rng, posts }) {
         const s = {
             state: 'idle', timer: 1 + rng() * 2, heading: rng() * 6.28, hp: DEF.health, speed: 0, phase: 0,
             attackCd: 1.2, swingT: 0, hitDone: false, guardT: 0, guard: 0, flash: 0, stagger: 0, strafeDir: 1,
-            burnLeft: 0, burnTick: 0, deadT: 0, notice: 0, target: null, lunge: 0, seen: false, t: 0,
+            fx: {}, deadT: 0, notice: 0, target: null, lunge: 0, seen: false, t: 0,
         };
         const plate = document.createElement('div');
         plate.innerHTML = `<div style="font:13px Georgia,serif;color:#e6d6ff;text-shadow:0 1px 3px #000;letter-spacing:.06em;text-align:center">Shadow Soldier <span style="opacity:.6;font-size:11px">· ${(affinityOf(TYPE).family ?? '').replace(/^./, c => c.toUpperCase())}-touched</span></div>
@@ -214,6 +214,16 @@ export function createShadows({ scene, map, rng, posts }) {
         const dir = new THREE.Vector3(), prev = new THREE.Vector3(), tmp = new THREE.Vector3();
         let lastCtx = null;   // fireball hits arrive without a ctx
 
+        // Statuses on this soldier — amo STATUS_DEFS (dotDmg/dotInterval, stunned, speedMult, damageTakenMult).
+        const fxMult = field => Object.keys(s.fx).reduce((m, id) => m * (STATUS_DEFS[id]?.[field] ?? 1), 1);
+        const isStunned = () => Object.keys(s.fx).some(id => STATUS_DEFS[id]?.stunned);
+        function addStatus(id, ms) {
+            const def = STATUS_DEFS[id];
+            if (!def || affinityOf(TYPE).immune.includes(id)) return;
+            const cur = s.fx[id];
+            s.fx[id] = { left: Math.max(cur?.left ?? 0, (ms ?? def.duration) / 1000), tick: cur?.tick ?? 0 };
+        }
+
         function face(target, k) {
             const want = Math.atan2(target.x - pos.x, target.z - pos.z);
             const diff = ((((want - s.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI;
@@ -221,10 +231,10 @@ export function createShadows({ scene, map, rng, posts }) {
             return Math.abs(diff);
         }
 
-        function hit(dmg, from, burnMs, ctx = lastCtx) {
+        function hit(dmg, from, burnMs, ctx = lastCtx, status = null) {
             if (s.state === 'dead') return 'handled';
             const mult = affinityMult(TYPE, 'fire');
-            let amount = Math.max(1, Math.round(dmg * mult));
+            let amount = Math.max(1, Math.round(dmg * mult * fxMult('damageTakenMult')));
             // A raised shield turns fire that comes from the front.
             const toFrom = Math.atan2(from.x - pos.x, from.z - pos.z);
             const off = Math.abs(((((toFrom - s.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI);
@@ -238,7 +248,8 @@ export function createShadows({ scene, map, rng, posts }) {
                         size: [0.1, 0.02], c0: [0.8, 0.6, 1, 1], c1: [0.4, 0.1, 1, 0] });
                 }
             } else {
-                if (burnMs) { s.burnLeft = Math.max(s.burnLeft, burnMs / 1000); s.burnTick = 0; }
+                if (burnMs) addStatus('burning', burnMs);
+                if (status) addStatus(status.id, status.ms);
                 s.stagger = 0.35;
                 if (s.state === 'windup') { s.state = 'chase'; s.attackCd = 0.8; }   // a hit interrupts the swing
             }
@@ -252,7 +263,7 @@ export function createShadows({ scene, map, rng, posts }) {
         }
 
         function die(ctx) {
-            s.state = 'dead'; s.deadT = 0; s.hp = 0; s.burnLeft = 0;
+            s.state = 'dead'; s.deadT = 0; s.hp = 0; s.fx = {};
             ctx?.onKill?.(DEF.xpReward, pos.clone().setY(pos.y + 2.4));
             ctx?.dropLoot?.(DEF.lootTable, pos.clone(), rng);
             for (let i = 0; i < 90; i++) {
@@ -283,6 +294,9 @@ export function createShadows({ scene, map, rng, posts }) {
                 d.body.position.y = -0.5 * k;
                 d.root.visible = k < 1;
                 if (s.deadT > 18) respawn();
+            } else if (isStunned()) {
+                if (s.state === 'windup' || s.state === 'swing') { s.state = 'chase'; s.attackCd = 0.8; }
+                s.guardT = 0;
             } else {
                 const playerUp = !ctx.player.dead;
                 if (s.state === 'idle' || s.state === 'patrol') {
@@ -346,6 +360,7 @@ export function createShadows({ scene, map, rng, posts }) {
                 let sp = want > 0 ? want : want < 0 ? 1.3 : 0;
                 if (s.stagger > 0) { dir.set(-Math.sin(s.heading), 0, -Math.cos(s.heading)); sp = 1.6; }
                 if (s.guard > 0.5 && want > 0) sp *= 0.6;
+                sp *= isStunned() ? 0 : fxMult('speedMult');
                 s.speed += (sp - s.speed) * Math.min(1, dt * 8);
                 pos.addScaledVector(dir, s.speed * dt);
                 if (s.lunge > 0) {
@@ -362,17 +377,23 @@ export function createShadows({ scene, map, rng, posts }) {
                 pos.y = map.heightAt(pos.x, pos.z);
             }
 
-            // Burning (amo's STATUS_DEFS.burning: dotDmg every dotInterval).
-            if (s.burnLeft > 0 && s.state !== 'dead') {
-                s.burnLeft -= dt;
-                s.burnTick += dt * 1000;
-                const B = STATUS_DEFS.burning;
-                if (s.burnTick >= B.dotInterval) {
-                    s.burnTick -= B.dotInterval;
-                    s.hp -= B.dotDmg;
-                    ctx.floater(pos.clone().setY(pos.y + 2.0), `${B.dotDmg}`, '#ffb070');
-                    if (s.hp <= 0) die(ctx);
+            // Statuses tick: damage over time (burning, poison, bleeding), then wear off.
+            for (const [id, f] of Object.entries(s.fx)) {
+                if (s.state === 'dead') break;
+                const B = STATUS_DEFS[id];
+                f.left -= dt;
+                if (B?.dotDmg) {
+                    f.tick += dt * 1000;
+                    if (f.tick >= B.dotInterval) {
+                        f.tick -= B.dotInterval;
+                        s.hp -= B.dotDmg;
+                        ctx.floater(pos.clone().setY(pos.y + 2.0), `${B.dotDmg}`, `#${(B.tint ?? 0xffb070).toString(16).padStart(6, '0')}`);
+                        if (s.hp <= 0) { die(ctx); break; }
+                    }
                 }
+                if (f.left <= 0) delete s.fx[id];
+            }
+            if (s.fx.burning && s.state !== 'dead') {
                 if (rng() < dt * 30) ctx.fx.fire.emit({ x: pos.x + (rng() - 0.5) * 0.5, y: pos.y + 0.8 + rng() * 0.8, z: pos.z + (rng() - 0.5) * 0.5,
                     vx: 0, vy: 1.2 + rng(), vz: 0, life: 0.5, size: [0.35, 0.05], c0: [1, 0.6, 0.15, 0.9], c1: [0.8, 0.15, 0.02, 0] });
             }
@@ -472,7 +493,7 @@ export function createShadows({ scene, map, rng, posts }) {
         }
 
         function respawn() {
-            Object.assign(s, { state: 'idle', hp: DEF.health, timer: 2, burnLeft: 0, guard: 0, guardT: 0, seen: false, deadT: 0 });
+            Object.assign(s, { state: 'idle', hp: DEF.health, timer: 2, fx: {}, guard: 0, guardT: 0, seen: false, deadT: 0 });
             pos.set(post.x, map.heightAt(post.x, post.z), post.z);
             for (const m of [d.M.body, d.M.plate]) m.opacity = 0.84;
             d.M.cloth.opacity = 0.75;
@@ -488,7 +509,8 @@ export function createShadows({ scene, map, rng, posts }) {
             get debug() { return { state: s.state, cd: +s.attackCd.toFixed(2), sp: +s.speed.toFixed(2), hp: s.hp, guard: +s.guard.toFixed(2) }; },
             get alive() { return s.state !== 'dead'; },
             get engaged() { return s.state !== 'dead' && s.state !== 'idle' && s.state !== 'patrol' && s.state !== 'return'; },
-            update, hit, reset: () => { if (s.state !== 'dead') { s.state = 'return'; s.burnLeft = 0; } },
+            update, hit, reset: () => { if (s.state !== 'dead') { s.state = 'return'; s.fx = {}; } },
+            get statuses() { return Object.keys(s.fx); },
         };
     }
 

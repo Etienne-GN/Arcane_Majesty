@@ -64,7 +64,7 @@ export function createSkills({ stats, player, hud, cam, world }) {
             if (n >= max) break;
             const base = 8 + stats.attributes.strength * 2 + Math.floor(Math.random() * 6) - 2;
             const dmg = Math.max(1, Math.floor(base * W.dmgMult * M.levelDamageMult(stats.weaponLevel(weapon)) * (k.mult ?? 1) * player.statsMult()));
-            h.hit(dmg, p.pos, 0, ctx);
+            h.hit(dmg, p.pos, 0, ctx, k.status ? { id: k.status, ms: k.statusMs } : null);
             if (h.kind !== 'shadow') hud.floater(h.pos.clone().setY(h.pos.y + 1.9), `${dmg}`, '#ffe0a0');
             stats.gainWeaponPoints(weapon, M.hitGain(!h.alive));
             n++;
