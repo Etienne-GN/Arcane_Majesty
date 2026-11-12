@@ -4,6 +4,7 @@
 // satchel, gold-worked bracers, tousled dark hair, stubble, blue eyes — and his staff.
 import * as THREE from 'three';
 import { bakeRig } from '../../engine/batch.js';
+import { buildWeapon } from './weapons.js';
 
 const mat = (color, opts = {}) =>
     new THREE.MeshStandardMaterial({ color, flatShading: true, roughness: 0.85, ...opts });
@@ -217,20 +218,38 @@ export function createCharacter() {
         arms[side] = { upper, fore };
     }
 
-    // ---- the staff, right hand, crystal on top ----
-    const staff = new THREE.Group();
-    staff.position.y = -0.31;
-    staff.rotation.x = 0.75;
-    arms.R.fore.add(staff);
-    staff.add(mesh(new THREE.CylinderGeometry(0.022, 0.03, 1.75, 6), M.wood, 0, 0.2, 0));
-    staff.add(mesh(new THREE.TorusGeometry(0.06, 0.012, 4, 8), M.gold, 0, 1.06, 0));
-    const crystal = mesh(new THREE.OctahedronGeometry(0.075), M.crystal, 0, 1.18, 0);
-    crystal.userData.keep = true;   // spins
-    crystal.scale.y = 1.6;
-    staff.add(crystal);
+    // ---- weapon mounts: right hand (main) and left forearm (off hand) ----
+    // Empty hands still carry Eldrin's own staff.
+    const mainMount = new THREE.Group();
+    mainMount.position.y = -0.31;
+    mainMount.rotation.x = 0.75;
+    arms.R.fore.add(mainMount);
+    const offMount = new THREE.Group();
+    offMount.position.set(0.06, -0.2, 0.05);
+    arms.L.fore.add(offMount);
+    let crystal = null, tip = null, mainType = 'staff', offType = null;
 
     root.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     bakeRig(root);
+
+    // main / off: { type, accent } (amo weapon type + the item's colour) or null.
+    function setWeapons(main, off) {
+        mainMount.clear();
+        offMount.clear();
+        const m = buildWeapon(main?.type ?? 'staff', { accent: main?.accent, crystalMat: (main?.type ?? 'staff') === 'staff' ? M.crystal : null });
+        mainMount.add(m.group);
+        crystal = m.crystal; tip = m.tip; mainType = main?.type ?? 'staff';
+        offType = off?.type ?? null;
+        if (off) {
+            const o = buildWeapon(off.type, { accent: off.accent });
+            if (off.type === 'shield') o.group.rotation.set(0, 0, 0);
+            else o.group.rotation.x = 0.75;
+            offMount.add(o.group);
+        }
+        mainMount.rotation.x = mainType === 'bow' || mainType === 'crossbow' ? 0.1 : 0.75;
+        for (const g of [mainMount, offMount]) g.traverse(o => { if (o.isMesh) o.castShadow = true; });
+    }
+    setWeapons(null, null);
 
     let phase = 0, amp = 0, run = 0, air = 0, t = 0;
     const calm = new THREE.Color(0x3ce0d0), blaze = new THREE.Color(0xff7a20);
@@ -247,7 +266,7 @@ export function createCharacter() {
     }
 
     // speed in m/s, sprinting bool, hopK 0..1 progress (null when grounded), castK 0..1 (null when not casting)
-    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null }) {
+    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false }) {
         t += dt;
         const ease = k => 1 - Math.exp(-dt * k);
         amp += (Math.min(1, speed / 4) - amp) * ease(10);
@@ -290,7 +309,14 @@ export function createCharacter() {
             spine.rotation.y += -0.25 * w;
         }
         // Strike: a short sweeping blow with the staff, right to left, the body twisting into it.
-        if (strikeK != null) {
+        if (strikeK != null && thrust) {   // spears, daggers, bo: a straight stab forward
+            const k = Math.min(1, strikeK), w = Math.sin(k * Math.PI);
+            arms.R.upper.rotation.x = arms.R.upper.rotation.x * (1 - w) - 1.45 * w;
+            arms.R.upper.rotation.z = -0.12;
+            arms.R.fore.rotation.x = -0.75 * (1 - w) - 0.05 * w;
+            mainMount.rotation.x = 0.75 + 0.8 * w;
+            spine.rotation.x += 0.18 * w;
+        } else if (strikeK != null) {
             const k = Math.min(1, strikeK), w = Math.sin(k * Math.PI);
             arms.R.upper.rotation.x = arms.R.upper.rotation.x * (1 - w) - 1.3 * w;
             arms.R.upper.rotation.z = -0.12 - 0.9 * w + 1.5 * w * k;
@@ -306,9 +332,9 @@ export function createCharacter() {
         back.joint.rotation.x = 0.04 + amp * 0.22 + run * 0.35 + air * 0.35 + Math.sin(t * 3.1) * 0.02;
         ripple(back, 0.4 + amp);
 
-        crystal.rotation.y += dt * 1.5;
+        if (crystal) crystal.rotation.y += dt * 1.5;
         M.crystal.emissiveIntensity = 1.8 + Math.sin(t * 3) * 0.6;
     }
 
-    return { root, update, crystalWorld: v => crystal.getWorldPosition(v) };
+    return { root, update, setWeapons, get mainType() { return mainType; }, crystalWorld: v => (tip ?? arms.R.fore).getWorldPosition(v) };
 }

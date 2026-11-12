@@ -2,13 +2,20 @@
 // and hop come from amo's movementRules; the fireball from amo's SPELLS; getting hurt uses amo's
 // 800 ms invulnerability and the hop's i-frames.
 import * as THREE from 'three';
-import { movementRules, weapons, mastery } from '@rules';
+import { movementRules, weapons, mastery, items as itemRules } from '@rules';
 import { FIREBALL } from './fireball.js';
 
 const { MOVE, tickVigor, canSprint, spendHop, moveSpeed, hopLanding } = movementRules;
-const STAFF = weapons.WEAPON_TYPES.staff;          // amo: cooldown 400 ms, reach 30 px, dmgMult 1.0
+const { WEAPON_TYPES, typeOf } = weapons;
 const STRIKE_TIME = 0.32, STRIKE_HIT = 0.42;
-const STRIKE_REACH = (STAFF.reach / 32) * 2 + 0.4; // 3D tuning, like the fireball's range
+// The weapon in the main hand (Eldrin's own staff when it is empty); bows bash like fists until archery.
+const strikeType = stats => {
+    const id = stats.equipment.weapon;
+    if (!id) return 'staff';
+    const t = typeOf(itemRules.ITEMS[id]);
+    return t === 'bow' || t === 'crossbow' ? 'fists' : t;
+};
+const reachOf = type => (WEAPON_TYPES[type].reach / 32) * 2 + 0.4;   // 3D tuning, like the fireball's range
 
 export const PX = 32;                          // amo pixels per metre (a 16 px tile = 0.5 m)
 const PLAYER_R = 0.35;
@@ -96,19 +103,20 @@ export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTun
     function strikeHits(ctx) {
         const m = map();
         const fx = Math.sin(p.facing), fz = Math.cos(p.facing);
+        const type = p.strike.type, W = WEAPON_TYPES[type], reach = reachOf(type);
         let any = false;
         for (const h of m.hittables ?? []) {
             if (!h.alive) continue;
             const dx = h.pos.x - p.pos.x, dz = h.pos.z - p.pos.z, d = Math.hypot(dx, dz);
-            if (d > STRIKE_REACH || d < 1e-4 || (dx * fx + dz * fz) / d < 0.35 || Math.abs(h.pos.y - p.pos.y) > 1.5) continue;
-            const lvl = stats.weaponLevel('staff');
+            if (d > reach || d < 1e-4 || (dx * fx + dz * fz) / d < 0.35 || Math.abs(h.pos.y - p.pos.y) > 1.5) continue;
+            const lvl = stats.weaponLevel(type);
             const base = 8 + stats.attributes.strength * 2 + Math.floor(Math.random() * 6) - 2;
-            const dmg = Math.max(1, Math.floor(base * STAFF.dmgMult * mastery.levelDamageMult(lvl)));
+            const dmg = Math.max(1, Math.floor(base * W.dmgMult * mastery.levelDamageMult(lvl)));
             h.hit(dmg, p.pos, 0, ctx);
             const killed = !h.alive;
             if (h.kind !== 'shadow') hud.floater(h.pos.clone().setY(h.pos.y + 1.9), `${dmg}`, '#ffe0a0');
-            const before = lvl, after = stats.gainWeaponPoints('staff', mastery.hitGain(killed));
-            if (after > before) hud.banner(`Staff mastery ${after}`);
+            const before = lvl, after = stats.gainWeaponPoints(type, mastery.hitGain(killed));
+            if (after > before) hud.banner(`${W.label} mastery ${after}`);
             any = true;
         }
         if (any) cam.kick(0.08);
@@ -148,8 +156,9 @@ export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTun
 
         if (act.cast) tryCast();
         if (act.strike && !p.strike && !p.cast && p.strikeCd <= 0 && !p.hop) {
-            p.strike = { t: 0, hit: false };
-            p.strikeCd = (STAFF.cooldown / 1000) * mastery.levelCooldownMult(stats.weaponLevel('staff')) + STRIKE_TIME * 0.6;
+            const type = strikeType(stats);
+            p.strike = { t: 0, hit: false, type, thrust: WEAPON_TYPES[type].anim === 'thrust' };
+            p.strikeCd = (WEAPON_TYPES[type].cooldown / 1000) * mastery.levelCooldownMult(stats.weaponLevel(type)) + STRIKE_TIME * 0.6;
         }
         if (p.strike) {
             p.strike.t += dt / STRIKE_TIME;
@@ -234,7 +243,7 @@ export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTun
         hero.root.position.copy(p.pos);
         hero.root.position.y += lift;
         hero.root.rotation.y = p.facing;
-        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : null, strikeK: p.strike ? p.strike.t : null });
+        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : null, strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust });
 
         // Doors.
         let nearLabel = null, inside = false;

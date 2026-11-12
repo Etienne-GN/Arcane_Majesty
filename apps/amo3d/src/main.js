@@ -1,6 +1,6 @@
 // Arcane Majesty 3D — boot. Wires the engine (renderer, input, camera, maps, loop), the game
 // (an amo character sheet, the player controller, spells, HUD, saving) and the content (maps).
-import { movementRules, PlayerStats as PS } from '@rules';
+import { movementRules, PlayerStats as PS, items as itemRules, weapons as weaponRules } from '@rules';
 import { pickQuality, nextQuality } from './engine/quality.js';
 import { createRenderer } from './engine/renderer.js';
 import { createOrbitCamera } from './engine/camera.js';
@@ -79,6 +79,13 @@ const world = createMapManager({
     },
 });
 const player = createPlayer({ stats, hero, cam, world, hud, fireballs, spellTuning: SPELL_TUNING });
+
+// What Eldrin holds follows his equipment (amo's equip events).
+const ITEMS = itemRules.ITEMS;
+const handOf = id => id ? { type: weaponRules.typeOf(ITEMS[id]) === 'fists' && ITEMS[id]?.slot === 'offHand' ? 'shield' : weaponRules.typeOf(ITEMS[id]), accent: ITEMS[id]?.color } : null;
+const showWeapons = () => hero.setWeapons(handOf(stats.equipment.weapon), handOf(stats.equipment.offHand));
+stats.onEquipChange(showWeapons);
+showWeapons();
 
 // ---------- saving ----------
 function save() {

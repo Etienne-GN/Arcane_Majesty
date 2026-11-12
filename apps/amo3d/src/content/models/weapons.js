@@ -1,0 +1,127 @@
+// Weapon models, built in code — one per amo weapon type. Each is a group whose grip sits at the
+// origin and whose length runs along +y (the hand mounts tilt it). `tip` marks where spells leave.
+import * as THREE from 'three';
+
+const mat = (color, opts = {}) => new THREE.MeshStandardMaterial({ color, flatShading: true, roughness: 0.6, ...opts });
+const STEEL = () => mat(0xc9ccd2, { metalness: 0.75, roughness: 0.3 });
+const DARK = () => mat(0x2a2422, { metalness: 0.3 });
+const LEATHER = () => mat(0x5a3520);
+const WOOD = () => mat(0x6b4a2b);
+const GOLD = () => mat(0xd4a84a, { metalness: 0.7, roughness: 0.35 });
+
+function part(group, geo, m, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0) {
+    const o = new THREE.Mesh(geo, m);
+    o.position.set(x, y, z);
+    o.rotation.set(rx, ry, rz);
+    o.castShadow = true;
+    group.add(o);
+    return o;
+}
+
+// accent: the item's colour (amo item.color), used for gems, wraps and trims.
+export function buildWeapon(type, { accent = 0x8855ff, crystalMat = null } = {}) {
+    const g = new THREE.Group();
+    const tip = new THREE.Object3D();
+    g.add(tip);
+    const glow = crystalMat ?? new THREE.MeshStandardMaterial({ color: accent, emissive: accent, emissiveIntensity: 1.6, flatShading: true });
+    let crystal = null;
+
+    switch (type) {
+        case 'staff': {
+            part(g, new THREE.CylinderGeometry(0.022, 0.03, 1.75, 6), WOOD(), 0, 0.2, 0);
+            part(g, new THREE.TorusGeometry(0.06, 0.012, 4, 8), GOLD(), 0, 1.06, 0);
+            crystal = part(g, new THREE.OctahedronGeometry(0.075), glow, 0, 1.18, 0);
+            crystal.scale.y = 1.6;
+            tip.position.set(0, 1.18, 0);
+            break;
+        }
+        case 'wand': {
+            part(g, new THREE.CylinderGeometry(0.012, 0.02, 0.42, 6), WOOD(), 0, 0.14, 0);
+            part(g, new THREE.CylinderGeometry(0.024, 0.024, 0.06, 6), GOLD(), 0, 0.02, 0);
+            crystal = part(g, new THREE.OctahedronGeometry(0.035), glow, 0, 0.38, 0);
+            tip.position.set(0, 0.38, 0);
+            break;
+        }
+        case 'bo': {
+            part(g, new THREE.CylinderGeometry(0.024, 0.024, 1.9, 6), WOOD(), 0, 0.15, 0);
+            for (const y of [-0.75, 1.05]) part(g, new THREE.CylinderGeometry(0.03, 0.03, 0.12, 6), mat(accent), 0, y, 0);
+            tip.position.set(0, 1.1, 0);
+            break;
+        }
+        case 'spear': {
+            part(g, new THREE.CylinderGeometry(0.02, 0.024, 2.0, 6), WOOD(), 0, 0.3, 0);
+            part(g, new THREE.ConeGeometry(0.05, 0.28, 4), STEEL(), 0, 1.44, 0).scale.z = 0.35;
+            part(g, new THREE.CylinderGeometry(0.03, 0.03, 0.08, 6), mat(accent), 0, 1.27, 0);
+            tip.position.set(0, 1.55, 0);
+            break;
+        }
+        case 'dagger': {
+            part(g, new THREE.CylinderGeometry(0.016, 0.016, 0.11, 6), LEATHER(), 0, 0, 0);
+            part(g, new THREE.BoxGeometry(0.11, 0.022, 0.03), GOLD(), 0, 0.065, 0);
+            part(g, new THREE.BoxGeometry(0.035, 0.24, 0.01), STEEL(), 0, 0.19, 0);
+            part(g, new THREE.ConeGeometry(0.025, 0.07, 4), STEEL(), 0, 0.34, 0).scale.z = 0.3;
+            part(g, new THREE.SphereGeometry(0.02, 6, 4), mat(accent), 0, -0.06, 0);
+            tip.position.set(0, 0.34, 0);
+            break;
+        }
+        case 'sword': case 'greatsword': {
+            const big = type === 'greatsword' ? 1.45 : 1;
+            part(g, new THREE.CylinderGeometry(0.018, 0.018, 0.16 * big, 6), LEATHER(), 0, 0, 0);
+            part(g, new THREE.SphereGeometry(0.028, 6, 4), mat(accent), 0, -0.09 * big, 0);
+            part(g, new THREE.BoxGeometry(0.22 * big, 0.03, 0.045), GOLD(), 0, 0.09 * big, 0);
+            part(g, new THREE.BoxGeometry(0.055 * big, 0.78 * big, 0.012), STEEL(), 0, 0.5 * big, 0);
+            part(g, new THREE.ConeGeometry(0.04 * big, 0.12 * big, 4), STEEL(), 0, 0.95 * big, 0).scale.z = 0.3;
+            part(g, new THREE.BoxGeometry(0.012, 0.6 * big, 0.014), mat(accent, { emissive: accent, emissiveIntensity: 0.4 }), 0, 0.45 * big, 0);
+            tip.position.set(0, 0.95 * big, 0);
+            break;
+        }
+        case 'mace': {
+            part(g, new THREE.CylinderGeometry(0.02, 0.022, 0.6, 6), WOOD(), 0, 0.2, 0);
+            part(g, new THREE.DodecahedronGeometry(0.09, 0), DARK(), 0, 0.56, 0);
+            for (let i = 0; i < 6; i++) {
+                const a = (i / 6) * Math.PI * 2;
+                part(g, new THREE.ConeGeometry(0.025, 0.08, 4), STEEL(), Math.cos(a) * 0.09, 0.56, Math.sin(a) * 0.09, 0, 0, -Math.cos(a) * Math.PI / 2).rotation.x = Math.sin(a) * Math.PI / 2;
+            }
+            tip.position.set(0, 0.6, 0);
+            break;
+        }
+        case 'axe': {
+            part(g, new THREE.CylinderGeometry(0.02, 0.024, 0.75, 6), WOOD(), 0, 0.27, 0);
+            const head = new THREE.Shape();
+            head.moveTo(0, 0.06); head.quadraticCurveTo(0.2, 0.16, 0.22, 0); head.quadraticCurveTo(0.2, -0.16, 0, -0.06); head.lineTo(0, 0.06);
+            part(g, new THREE.ExtrudeGeometry(head, { depth: 0.02, bevelEnabled: false }), STEEL(), 0.02, 0.6, -0.01);
+            part(g, new THREE.BoxGeometry(0.05, 0.1, 0.05), DARK(), 0, 0.6, 0);
+            part(g, new THREE.CylinderGeometry(0.026, 0.026, 0.1, 6), mat(accent), 0, 0.02, 0);
+            tip.position.set(0.2, 0.6, 0);
+            break;
+        }
+        case 'shield': {
+            const kite = new THREE.Shape();
+            kite.moveTo(0, 0.3); kite.quadraticCurveTo(0.22, 0.28, 0.22, 0.1); kite.quadraticCurveTo(0.18, -0.2, 0, -0.38);
+            kite.quadraticCurveTo(-0.18, -0.2, -0.22, 0.1); kite.quadraticCurveTo(-0.22, 0.28, 0, 0.3);
+            const face = part(g, new THREE.ExtrudeGeometry(kite, { depth: 0.035, bevelEnabled: true, bevelSize: 0.012, bevelThickness: 0.012, bevelSegments: 1 }), mat(accent), 0, 0, 0, 0, Math.PI / 2, 0);
+            face.position.x = -0.02;
+            const boss = part(g, new THREE.SphereGeometry(0.05, 8, 5), GOLD(), 0.04, 0.02, 0);
+            boss.scale.x = 0.6;
+            tip.position.set(0.05, 0, 0);
+            break;
+        }
+        case 'bow': case 'crossbow': {
+            if (type === 'bow') {
+                const curve = new THREE.QuadraticBezierCurve3(new THREE.Vector3(0, -0.6, 0), new THREE.Vector3(0, 0, 0.32), new THREE.Vector3(0, 0.6, 0));
+                part(g, new THREE.TubeGeometry(curve, 12, 0.018, 5), WOOD(), 0, 0.1, 0);
+                part(g, new THREE.CylinderGeometry(0.003, 0.003, 1.2, 3), mat(0xeeeeee), 0, 0.1, 0);
+                part(g, new THREE.CylinderGeometry(0.025, 0.025, 0.12, 6), mat(accent), 0, 0.1, 0.32);
+            } else {
+                part(g, new THREE.BoxGeometry(0.06, 0.06, 0.6), WOOD(), 0, 0.05, 0.2);
+                part(g, new THREE.BoxGeometry(0.6, 0.03, 0.04), DARK(), 0, 0.05, 0.42);
+                part(g, new THREE.BoxGeometry(0.05, 0.05, 0.05), mat(accent), 0, 0.02, 0.0);
+            }
+            tip.position.set(0, 0.1, 0.4);
+            break;
+        }
+        default: // fists: nothing in hand
+            break;
+    }
+    return { group: g, tip, crystal };
+}
