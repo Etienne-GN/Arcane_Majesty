@@ -18,6 +18,13 @@ cd apps/amo3d && npm install && npm run dev   # http://localhost:5190
 - **The tower interior** (`tower.js`) is a separate map loaded through the door: Hall, Study and Crypt joined by
   staircases, floors above the hero cut away, walls on the camera side hidden. It is bigger on the inside than
   the outside (a wizard's tower — and the stairs need the room).
+- **Shadow Soldiers** (`shadow.js`): translucent shadow-men with sword and kite shield, red eyes, dark fumes.
+  They patrol, notice, chase, circle with the shield up, telegraph an overhead swing, block fireballs from the
+  front, flinch, burn, dissolve on death and reform later. Stats are amo's `ENEMY_TYPES.mirror_shade`; fire goes
+  through amo's affinity table, burning through `STATUS_DEFS.burning`, kills through `PlayerStats.gainXp`.
+  Eldrin has health, an 800 ms invulnerability after a hit (amo's value), knockback, falls and returns at the
+  start; hopping through a swing dodges it (amo's hop i-frames). `__poc.advance(seconds)` steps the game
+  logic for headless tests.
 - **amo's rules, imported unchanged** through the `@amo` alias: the hero is a real `PlayerStats` (mana, regen,
   fatigue when mana runs low, learned spells, cooldowns); movement uses `movementRules.js` (Vigor, sprint, hop,
   hoppable fences/logs/rocks); the fireball uses `SPELLS.fireball` (mana cost, cooldown, damage formula,

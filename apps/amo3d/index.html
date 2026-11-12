@@ -15,6 +15,8 @@
         .bar > div { height: 100%; width: 100%; transition: background .2s; }
         #vigor-fill { background: linear-gradient(90deg, #3d8f4a, #8fd16a); }
         #vigor.winded #vigor-fill { background: linear-gradient(90deg, #8f3d3d, #d1846a); }
+        #hp-fill { background: linear-gradient(90deg, #8a1f1f, #e05a4a); }
+        #hurt { position: fixed; inset: 0; pointer-events: none; opacity: 0; background: radial-gradient(ellipse at center, transparent 45%, #a0000088 100%); }
         #mana-fill { background: linear-gradient(90deg, #2d4f9a, #6aa8f0); }
         #speed { font-size: 13px; margin-top: 8px; opacity: .85; }
         #slot { left: 50%; bottom: 22px; transform: translateX(-50%); width: 58px; height: 58px; border: 2px solid #f3d88b; border-radius: 10px;
@@ -44,6 +46,9 @@
     <div id="prompt" class="hud"></div>
     <div id="msg" class="hud"></div>
     <div id="status" class="hud">
+        <div id="lvl" class="label" style="color:#c9b6ff"></div>
+        <div class="label"><span>Health</span><span id="hp-num"></span></div>
+        <div class="bar"><div id="hp-fill"></div></div>
         <div class="label"><span>Vigor</span><span id="vigor-num"></span></div>
         <div id="vigor" class="bar"><div id="vigor-fill"></div></div>
         <div class="label"><span>Mana</span><span id="mana-num"></span></div>
@@ -55,8 +60,9 @@
     <div id="help" class="hud">
         <b>WASD</b> move · <b>Shift</b> sprint · <b>Space</b> hop · <b>F / right-click</b> fireball<br />
         <b>drag mouse</b> orbit camera · <b>wheel</b> zoom · <b>Q / E</b> turn camera<br />
-        walk into the tower door to enter · hop clears fences, logs, small rocks
+        hop through a sword swing to dodge it · shields block fireballs from the front
     </div>
+    <div id="hurt"></div>
     <div id="floaters"></div>
     <div id="fade"><span id="fade-text"></span></div>
     <script type="module" src="/src/main.js"></script>

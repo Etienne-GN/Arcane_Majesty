@@ -45,7 +45,60 @@ stats.learnSpell('fireball');
 const BASE_SPEED = () => 100 + stats.attributes.agility * 4;   // px/s — amo's Player.js
 
 const hero = createCharacter();
-const player = { pos: new THREE.Vector3(), vy: 0, facing: 0, hop: null, cast: null, speed: 0, sprinting: false };
+const player = {
+    pos: new THREE.Vector3(), vy: 0, facing: 0, hop: null, cast: null, speed: 0, sprinting: false,
+    invuln: 0, knock: new THREE.Vector3(), sinceHurt: 99, dead: null,
+};
+hero.root.rotation.order = 'YXZ';
+const INVINCIBLE_S = 0.8;   // amo's Player.INVINCIBLE_DURATION (800 ms)
+
+// ---------- getting hurt, falling, coming back ----------
+function hurtPlayer(dmg, from) {
+    if (player.dead) return false;
+    if (player.hop && player.hop.t * MOVE.HOP_MS < MOVE.HOP_IFRAME_MS) {   // amo's hop i-frames: a dodge
+        floater(player.pos.clone().setY(player.pos.y + 2.1), 'Dodged', '#9fd0ff');
+        return false;
+    }
+    if (player.invuln > 0) return false;
+    stats.health = Math.max(0, stats.health - dmg);
+    player.invuln = INVINCIBLE_S;
+    player.sinceHurt = 0;
+    const away = new THREE.Vector3(player.pos.x - from.x, 0, player.pos.z - from.z).normalize();
+    player.knock.copy(away).multiplyScalar(6);
+    cam.shake = Math.max(cam.shake, 0.18);
+    ui.hurt.style.opacity = 0.75;
+    floater(player.pos.clone().setY(player.pos.y + 2.1), `-${dmg}`, '#ff5050');
+    if (stats.health <= 0) {
+        player.dead = { t: 0 };
+        player.cast = null; player.hop = null;
+        message('Eldrin falls…');
+    }
+    return true;
+}
+function onKill(xp, at) {
+    const before = stats.level;
+    stats.gainXp(xp);   // amo's PlayerStats: levels, skill and attribute points
+    floater(at, `+${xp} XP`, '#c9b6ff');
+    if (stats.level > before) banner(`Level ${stats.level}`);
+}
+function stepDead(dt) {
+    const d = player.dead;
+    d.t += dt;
+    hero.root.rotation.x = -Math.min(1, d.t / 0.6) * Math.PI / 2 * 0.95;
+    hero.root.position.y = player.pos.y + 0.12 * Math.min(1, d.t / 0.6);
+    if (d.t > 2.6 && !transition) {
+        transition = { t: 0, to: 'outdoor', spawn: 'start', swapped: false, revive: true };
+    }
+}
+function revive() {
+    player.dead = null;
+    hero.root.rotation.x = 0;
+    stats.health = stats.maxHealth;
+    stats.mana = stats.maxMana;
+    stats.vigor = stats.maxVigor;
+    stats.vigorWinded = false;
+    for (const h of maps.outdoor?.hittables ?? []) h.reset?.();
+}
 
 // ---------- maps ----------
 const builders = { outdoor: createOutdoor, tower: createTower };
@@ -71,6 +124,7 @@ function enterMap(id, spawnName) {
     Object.assign(cam, { yaw: sp.facing + Math.PI, pitch: map.camera.pitch, dist: map.camera.dist });
     cam.target.copy(player.pos).setY(player.pos.y + 1.4);
     triggerLock = true;
+    maps.outdoor?.shadows?.setVisible(id === 'outdoor');
     banner(map.levelName ? `${map.name} — ${map.levelName(player.pos.y)}` : map.name);
 }
 
@@ -130,6 +184,12 @@ function tryCast() {
 
 function step(dt) {
     const ms = dt * 1000;
+    player.invuln = Math.max(0, player.invuln - dt);
+    player.sinceHurt += dt;
+    ui.hurt.style.opacity = Math.max(0, parseFloat(ui.hurt.style.opacity || 0) - dt * 1.5);
+    if (player.dead) { stepDead(dt); updateCamera(dt, 0); return; }
+    // Out of a fight for a while, Eldrin catches his breath (POC rule).
+    if (player.sinceHurt > 6 && !(map.hittables ?? []).some(h => h.engaged)) stats.health = Math.min(stats.maxHealth, stats.health + 4 * dt);
     if (held('KeyQ')) cam.yaw += dt * 2;
     if (held('KeyE')) cam.yaw -= dt * 2;
 
@@ -198,6 +258,19 @@ function step(dt) {
             if (!player.cast) player.facing += angleDiff(player.facing, Math.atan2(dir.x, dir.z)) * Math.min(1, dt * 12);
         } else player.speed = 0;
 
+        // Knockback from a sword hit, and never inside an enemy.
+        if (player.knock.lengthSq() > 0.01) {
+            tryPos.copy(player.pos).addScaledVector(player.knock, dt);
+            map.resolve(tryPos, PLAYER_R);
+            if (passable(tryPos.x, tryPos.z)) { player.pos.x = tryPos.x; player.pos.z = tryPos.z; }
+            player.knock.multiplyScalar(Math.exp(-dt * 9));
+        }
+        for (const h of map.hittables ?? []) {
+            if (h.kind !== 'shadow' || !h.alive) continue;
+            const dx = player.pos.x - h.pos.x, dz = player.pos.z - h.pos.z, d = Math.hypot(dx, dz);
+            if (d < 0.8 && d > 1e-4) { player.pos.x = h.pos.x + (dx / d) * 0.8; player.pos.z = h.pos.z + (dz / d) * 0.8; }
+        }
+
         // Ground: terrain snaps; indoors, step up small ledges and fall down stair wells.
         const g = map.groundAt(player.pos.x, player.pos.z, player.pos.y);
         if (map.terrain || (g !== null && g >= player.pos.y - 0.05)) { player.pos.y = g; player.vy = 0; }
@@ -230,6 +303,10 @@ function step(dt) {
     ui.prompt.textContent = nearLabel ? `⟶ ${nearLabel}` : '';
     ui.prompt.style.opacity = nearLabel ? 1 : 0;
 
+    updateCamera(dt, lift);
+}
+
+function updateCamera(dt, lift) {
     // Camera: smoothed follow, never under the ground, a little shake on blasts.
     const k = 1 - Math.exp(-dt * 10);
     cam.target.lerp(tmp.set(player.pos.x, player.pos.y + 1.4 + lift * 0.5, player.pos.z), k);
@@ -252,6 +329,7 @@ function stepTransition(dt) {
     if (!transition.swapped && transition.t >= 0.35) {
         const first = !maps[transition.to];
         if (first && !transition.loading) { transition.loading = true; ui.fadeText.textContent = 'Loading…'; return true; } // paint once first
+        if (transition.revive) revive();
         enterMap(transition.to, transition.spawn);
         transition.swapped = true;
         transition.t = 0.35;
@@ -267,7 +345,7 @@ function stepTransition(dt) {
 const $ = id => document.getElementById(id);
 const ui = {
     vFill: $('vigor-fill'), vBar: $('vigor'), vNum: $('vigor-num'),
-    mFill: $('mana-fill'), mNum: $('mana-num'),
+    mFill: $('mana-fill'), mNum: $('mana-num'), hFill: $('hp-fill'), hNum: $('hp-num'), lvl: $('lvl'), hurt: $('hurt'),
     speed: $('speed'), fps: $('fps'), slotCd: $('slot-cd'), slot: $('slot'), slotCost: $('slot-cost'),
     banner: $('banner'), prompt: $('prompt'), msg: $('msg'), fade: $('fade'), fadeText: $('fade-text'), floaters: $('floaters'),
 };
@@ -289,6 +367,9 @@ function hud(dt) {
     ui.vFill.style.width = `${(s.vigor / s.maxVigor) * 100}%`;
     ui.vBar.classList.toggle('winded', s.vigorWinded);
     ui.vNum.textContent = `${Math.round(s.vigor)} / ${s.maxVigor}${s.vigorWinded ? ' · winded' : ''}`;
+    ui.hFill.style.width = `${(s.health / s.maxHealth) * 100}%`;
+    ui.hNum.textContent = `${Math.ceil(s.health)} / ${s.maxHealth}`;
+    ui.lvl.textContent = `Level ${s.level} · ${s.xp} / ${s.xpToNextLevel} XP`;
     ui.mFill.style.width = `${(s.mana / s.maxMana) * 100}%`;
     ui.mNum.textContent = `${Math.round(s.mana)} / ${s.maxMana}${s.fatigueFraction > 0 ? ` · fatigue ${Math.round(s.fatigueFraction * 100)}%` : ''}`;
     ui.speed.textContent = `${player.speed.toFixed(1)} m/s${player.hop ? ' · hop' : ''}${player.sprinting ? ' · sprint' : ''}`;
@@ -319,16 +400,22 @@ function hud(dt) {
 // ---------- loop ----------
 enterMap('outdoor', 'start');
 const timer = new THREE.Timer();
-renderer.setAnimationLoop(now => {
-    timer.update(now);
-    const dt = Math.min(timer.getDelta(), 0.05);
+let simT = 0;
+function tick(dt) {
+    simT += dt;
     const frozen = stepTransition(dt);
     if (!frozen) step(dt);
-    map.update(timer.getElapsed(), dt, { player, camera, fx: map.fx ?? fireballs });
+    map.update(simT, dt, { player, camera, fx: map.fx ?? fireballs, hurtPlayer, floater, onKill });
     fireballs.update(dt, map, map.hittables);
     hud(dt);
+}
+renderer.setAnimationLoop(now => {
+    timer.update(now);
+    tick(Math.max(0, Math.min(timer.getDelta(), 0.05)));   // the first delta can be negative
     renderer.render(map.scene, camera);
 });
+// Headless checks: run the game logic for `seconds` in fixed 1/30 s steps, without drawing.
+const advance = seconds => { for (let i = 0; i < Math.round(seconds * 30); i++) tick(1 / 30); return true; };
 
 // Handle for headless checks.
-window.__poc = { player, stats, keys, cam, maps, enterMap: (id, sp) => enterMap(id, sp), get map() { return map; }, cast: () => { wantCast = true; } };
+window.__poc = { player, stats, hurtPlayer, advance, keys, cam, maps, enterMap: (id, sp) => enterMap(id, sp), get map() { return map; }, cast: () => { wantCast = true; } };

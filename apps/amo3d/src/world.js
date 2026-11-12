@@ -8,6 +8,7 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { flat, mulberry32, colliderAt, pushOut, fbm, smoothstep } from './lib.js';
 import { valeHeight, valeReserved, valeColor, valeTreeOK, bridgeDeck, inStream, buildEldrin, STAIR_BASE, ELDRIN } from './eldrin.js';
 import { createDeer } from './deer.js';
+import { createShadows } from './shadow.js';
 
 export const WATER = -1.2;
 export const WORLD_R = 98;
@@ -426,6 +427,7 @@ export function createOutdoor() {
             scene.fog.far = 230 - 105 * moodK;
             sky.material.uniforms.bottom.value.copy(scene.fog.color);
             eldrin.update(t, dt, moodK);
+            shadows.update(dt);
             sun.position.copy(ctx.player.pos).add(SUN_OFFSET);
             sun.target.position.copy(ctx.player.pos);
             sky.position.copy(ctx.camera.position);
@@ -448,6 +450,12 @@ export function createOutdoor() {
         scene.add(deer.root);
         map.hittables.push(deer);
     });
+
+    // ---------- shadow soldiers ----------
+    // Posts: on the road ahead of the start, at the standing stones, and on the shore road to the tower.
+    const shadows = createShadows({ scene, map, rng, posts: [{ x: -16, z: 3 }, { x: -14, z: 14.5 }, { x: -64, z: -16 }] });
+    map.hittables.push(...shadows.list);
+    map.shadows = shadows;
 
     return map;
 }

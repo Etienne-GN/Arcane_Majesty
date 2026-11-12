@@ -100,7 +100,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake }) {
             const st = scaledStatus(spell, 1);
             const burn = st && R() < st.chance ? st.duration : 0;
             const killed = h.hit(dmg, p, burn);
-            onDamage?.(h.pos.clone().setY(h.pos.y + 1.9), dmg, killed, burn > 0);
+            if (killed !== 'handled') onDamage?.(h.pos.clone().setY(h.pos.y + 1.9), dmg, killed, burn > 0);
         }
         void map;
     }
@@ -118,8 +118,10 @@ export function createFireballs({ PX, tuning, onDamage, onShake }) {
                 b.traveled += stepLen / n;
                 const what = map.projectileHit(b.pos);
                 if (what) hit = { normal: what === 'ground' ? (map.terrain ? map.groundNormal(b.pos.x, b.pos.z) : UP.clone()) : b.vel.clone().normalize().negate() };
-                for (const h of hittables) {
-                    if (h.alive && tmp.copy(h.pos).setY(h.pos.y + 1).distanceTo(b.pos) < 0.85) hit = { normal: b.vel.clone().normalize().negate() };
+                for (const h of hittables) {   // an upright body: radius 0.6, feet to 2.1 m
+                    if (h.alive && Math.hypot(h.pos.x - b.pos.x, h.pos.z - b.pos.z) < 0.6 && b.pos.y > h.pos.y && b.pos.y < h.pos.y + 2.1) {
+                        hit = { normal: b.vel.clone().normalize().negate() };
+                    }
                 }
                 if (!hit && b.traveled >= b.range) hit = { normal: UP.clone() };
             }
