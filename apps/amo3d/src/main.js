@@ -14,6 +14,7 @@ import { createPlayer, PX } from './game/player.js';
 import { createFireballs, FIREBALL } from './game/fireball.js';
 import { loadGame, saveGame, deleteSave } from './game/save.js';
 import { createLoot } from './game/loot.js';
+import { createInventory } from './game/inventory.js';
 import { createCharacter } from './content/models/eldrin.js';
 import { createOutdoor } from './content/glade.js';
 import { createTower } from './content/eldrinTower.js';
@@ -44,6 +45,13 @@ stats.vigor = stats.maxVigor;
 stats.learnSpell('fireball');
 const savedAt = loadGame(stats);
 const loot = createLoot({ stats, hud });
+const inventory = createInventory({
+    stats, hud,
+    onDrop: id => {   // a dropped item lands in front of Eldrin as a pickup
+        const p = player.state;
+        loot.drop([{ id, chance: 1 }], p.pos.clone().set(p.pos.x + Math.sin(p.facing) * 1.8, p.pos.y, p.pos.z + Math.cos(p.facing) * 1.8));
+    },
+});
 
 const hero = createCharacter();
 const fireballs = createFireballs({
@@ -89,6 +97,8 @@ function tick(dt) {
     const act = input.poll(dt);
     if (act.keys.includes('F2')) { save(); nextQuality(quality); location.reload(); return; }
     if (act.keys.includes('F3')) perf.toggle();
+    if (act.inventory) inventory.toggle();
+    if (inventory.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
     const map = world.current;
     let lift = 0;
     const ctx = { player: player.state, camera, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop };
@@ -120,5 +130,5 @@ window.__poc = {
     enterMap: (id, sp) => world.enter(id, sp),
     cast: () => input.press('cast'),
     strike: () => input.press('strike'),
-    loot,
+    loot, inventory,
 };

@@ -70,6 +70,7 @@ export function createInput({ canvas, cam }) {
             if (edge(0)) pressed.add('hop');
             if (edge(2) || edge(7)) pressed.add('cast');
             if (edge(1)) pressed.add('strike');
+            if (edge(8) || edge(3)) pressed.add('inventory');
             if (edge(0) || edge(2) || edge(7)) lastDevice = 'gamepad';
             padPrev = pad.buttons.map(x => x.pressed);
         }
@@ -79,7 +80,7 @@ export function createInput({ canvas, cam }) {
 
         const len = Math.hypot(mx, my);
         if (len > 1) { mx /= len; my /= len; }
-        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), strike: pressed.has('strike'), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
+        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), strike: pressed.has('strike'), inventory: pressed.has('inventory'), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
         pressed.clear();
         return out;
     }
