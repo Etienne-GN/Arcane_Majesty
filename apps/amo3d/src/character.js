@@ -127,9 +127,10 @@ export function createCharacter() {
     root.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
 
     let phase = 0, amp = 0, run = 0, air = 0, t = 0;
+    const calm = new THREE.Color(0x3ce0d0), blaze = new THREE.Color(0xff7a20);
 
-    // speed in m/s, sprinting bool, hopK 0..1 progress (null when grounded)
-    function update(dt, { speed, sprinting, hopK }) {
+    // speed in m/s, sprinting bool, hopK 0..1 progress (null when grounded), castK 0..1 (null when not casting)
+    function update(dt, { speed, sprinting, hopK, castK = null }) {
         t += dt;
         const ease = k => 1 - Math.exp(-dt * k);
         amp += (Math.min(1, speed / 4) - amp) * ease(10);
@@ -161,6 +162,18 @@ export function createCharacter() {
         spine.rotation.y = g * s * 0.08 * amp;
         head.rotation.x = -spine.rotation.x * 0.6;
 
+        // Cast: the staff arm thrusts forward, the body leans in, the crystal flares orange.
+        if (castK != null) {
+            const w = Math.sin(Math.min(1, castK) * Math.PI);
+            arms.R.upper.rotation.x = arms.R.upper.rotation.x * (1 - w) - 1.5 * w;
+            arms.R.upper.rotation.z = -0.1 - 0.15 * w;
+            arms.R.fore.rotation.x = -0.75 * (1 - w) - 0.15 * w;
+            arms.L.upper.rotation.x = arms.L.upper.rotation.x * (1 - w) - 0.6 * w;
+            spine.rotation.x += 0.12 * w;
+            spine.rotation.y += -0.25 * w;
+        }
+        M.crystal.emissive.copy(calm).lerp(blaze, castK != null ? Math.sin(Math.min(1, castK) * Math.PI) : 0);
+
         cloak.rotation.x = 0.12 + amp * 0.35 + run * 0.35 + air * 0.4 + Math.sin(t * 3.1) * 0.03;
         // Ripple the cloak's lower rows.
         const pos = cloakGeo.attributes.position.array;
@@ -176,5 +189,5 @@ export function createCharacter() {
         M.crystal.emissiveIntensity = 1.8 + Math.sin(t * 3) * 0.6;
     }
 
-    return { root, update };
+    return { root, update, crystalWorld: v => crystal.getWorldPosition(v) };
 }

@@ -10,31 +10,55 @@
         canvas:active { cursor: grabbing; }
         .hud { position: fixed; pointer-events: none; color: #eee6d2; text-shadow: 0 1px 3px #000c; }
         #status { left: 18px; bottom: 18px; width: 260px; }
-        #status .label { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; display: flex; justify-content: space-between; }
-        #vigor { height: 10px; border: 1px solid #eee6d288; border-radius: 6px; background: #0008; overflow: hidden; margin-top: 4px; }
-        #vigor-fill { height: 100%; width: 100%; background: linear-gradient(90deg, #3d8f4a, #8fd16a); transition: background .2s; }
+        .label { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; display: flex; justify-content: space-between; margin-top: 8px; }
+        .bar { height: 10px; border: 1px solid #eee6d288; border-radius: 6px; background: #0008; overflow: hidden; margin-top: 4px; }
+        .bar > div { height: 100%; width: 100%; transition: background .2s; }
+        #vigor-fill { background: linear-gradient(90deg, #3d8f4a, #8fd16a); }
         #vigor.winded #vigor-fill { background: linear-gradient(90deg, #8f3d3d, #d1846a); }
+        #mana-fill { background: linear-gradient(90deg, #2d4f9a, #6aa8f0); }
         #speed { font-size: 13px; margin-top: 8px; opacity: .85; }
+        #slot { left: 50%; bottom: 22px; transform: translateX(-50%); width: 58px; height: 58px; border: 2px solid #f3d88b; border-radius: 10px;
+            background: radial-gradient(circle at 50% 45%, #ffd27a 0, #ff7a20 30%, #7a1f08 70%, #2a0c04 100%); overflow: hidden; box-shadow: 0 0 14px #ff7a2066; }
+        #slot.dry { filter: grayscale(.85) brightness(.6); }
+        #slot-cd { position: absolute; left: 0; right: 0; bottom: 0; height: 0; background: #000a; }
+        #slot-key { position: absolute; left: 4px; top: 1px; font-size: 12px; color: #fff; }
+        #slot-cost { position: absolute; right: 4px; bottom: 1px; font-size: 12px; color: #9fd0ff; }
+        #slot-name { position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; opacity: .75; }
         #help { right: 18px; bottom: 18px; font-size: 13px; line-height: 1.6; text-align: right; opacity: .85; }
         #help b { color: #f3d88b; font-weight: normal; }
         #title { left: 18px; top: 14px; font-size: 22px; letter-spacing: .12em; }
         #title small { display: block; font-size: 12px; letter-spacing: .05em; opacity: .7; margin-top: 2px; }
         #fps { right: 18px; top: 14px; font-size: 12px; opacity: .6; font-family: monospace; }
+        #banner { left: 50%; top: 70px; transform: translateX(-50%); font-size: 28px; letter-spacing: .14em; opacity: 0; transition: opacity .6s; white-space: nowrap; }
+        #prompt { left: 50%; top: 58%; transform: translateX(-50%); font-size: 16px; letter-spacing: .08em; color: #f3d88b; opacity: 0; transition: opacity .3s; }
+        #msg { left: 50%; bottom: 110px; transform: translateX(-50%); font-size: 15px; color: #ffb08a; opacity: 0; transition: opacity .3s; }
+        #fade { position: fixed; inset: 0; background: #000; opacity: 0; pointer-events: none; display: grid; place-items: center; color: #eee6d2; letter-spacing: .2em; }
+        #floaters { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+        .floater { position: absolute; left: 0; top: 0; font-size: 22px; font-weight: bold; text-shadow: 0 2px 4px #000, 0 0 8px #000a; white-space: nowrap; }
     </style>
 </head>
 <body>
-    <div id="title" class="hud">ARCANE MAJESTY — 3D<small>proof of concept · movement rules imported from amo</small></div>
+    <div id="title" class="hud">ARCANE MAJESTY — 3D<small>proof of concept · rules imported from amo</small></div>
     <div id="fps" class="hud"></div>
+    <div id="banner" class="hud"></div>
+    <div id="prompt" class="hud"></div>
+    <div id="msg" class="hud"></div>
     <div id="status" class="hud">
         <div class="label"><span>Vigor</span><span id="vigor-num"></span></div>
-        <div id="vigor"><div id="vigor-fill"></div></div>
+        <div id="vigor" class="bar"><div id="vigor-fill"></div></div>
+        <div class="label"><span>Mana</span><span id="mana-num"></span></div>
+        <div class="bar"><div id="mana-fill"></div></div>
         <div id="speed"></div>
     </div>
+    <div id="slot-name" class="hud">Fireball</div>
+    <div id="slot" class="hud"><div id="slot-cd"></div><span id="slot-key">F</span><span id="slot-cost"></span></div>
     <div id="help" class="hud">
-        <b>WASD / arrows</b> move · <b>Shift</b> sprint · <b>Space</b> hop<br />
+        <b>WASD</b> move · <b>Shift</b> sprint · <b>Space</b> hop · <b>F / right-click</b> fireball<br />
         <b>drag mouse</b> orbit camera · <b>wheel</b> zoom · <b>Q / E</b> turn camera<br />
-        hop clears fences, logs and small rocks
+        walk into the tower door to enter · hop clears fences, logs, small rocks
     </div>
+    <div id="floaters"></div>
+    <div id="fade"><span id="fade-text"></span></div>
     <script type="module" src="/src/main.js"></script>
 </body>
 </html>

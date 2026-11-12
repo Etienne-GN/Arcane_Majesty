@@ -6,16 +6,24 @@ A side experiment: can Arcane Majesty go 3D while reusing amo's game rules?
 cd apps/amo3d && npm install && npm run dev   # http://localhost:5190
 ```
 
-**Controls:** WASD/arrows move · Shift sprint · Space hop · drag to orbit · wheel zoom · Q/E turn camera.
+**Controls:** WASD move · Shift sprint · Space hop · F / right-click fireball · drag to orbit · wheel zoom · Q/E turn camera.
 
 ## What it shows
-- **Three.js** low-poly scene: noise terrain, lake, forest clusters, standing stones with an aether shard,
-  a ruined tower, a fenced pen, a mountain rim, real-time shadows, fog.
-- **A procedural hero** (no assets): a joint hierarchy animated in code — idle, walk, sprint, hop, a cloak that flares.
-- **amo's movement rules, imported unchanged** from `apps/amo/src/systems/movementRules.js` through the `@amo`
-  alias: Vigor drain/regen and being winded, sprint speed, hop cost and timing, and `hopLanding` — fences,
-  logs and small rocks block walking but a hop clears them, exactly like in the 2D game.
-  Scale: amo's 16 px tile = 0.5 m (`PX = 32` in `src/main.js`).
+- **No assets at all** — every mesh, texture and effect is generated in code (Three.js).
+- **Thaloria Glade** (`world.js`): noise terrain, lake, mixed forest (oak, birch, autumn maple, pine),
+  standing stones, fenced pen, mountain rim, wandering deer (`deer.js`: graze, look up, flee, get hit).
+- **Eldrin's Tower** (`eldrin.js`), after the reference painting: ivy-clad tower with a timber gallery and a
+  mossy cone roof, smoking chimney, cottage annex, pavilion, stone stairs, a two-tier waterfall off a cliff,
+  a stream into the lake under a walkable stone arch bridge, and its own mood (mist, light shafts, fireflies).
+- **The tower interior** (`tower.js`) is a separate map loaded through the door: Hall, Study and Crypt joined by
+  staircases, floors above the hero cut away, walls on the camera side hidden. It is bigger on the inside than
+  the outside (a wizard's tower — and the stairs need the room).
+- **amo's rules, imported unchanged** through the `@amo` alias: the hero is a real `PlayerStats` (mana, regen,
+  fatigue when mana runs low, learned spells, cooldowns); movement uses `movementRules.js` (Vigor, sprint, hop,
+  hoppable fences/logs/rocks); the fireball uses `SPELLS.fireball` (mana cost, cooldown, damage formula,
+  60% burning). Scale: amo's 16 px tile = 0.5 m.
+- **POC-only tuning** (amo untouched): sprint drains 7 Vigor/s instead of 20; fireball range ×3, speed ×1.6,
+  blast ×2 because 2D screen distances feel short in 3D.
 
 ## Not here (yet)
-Rigged/skinned models (glTF), combat, the server, any of the real maps.
+Rigged/skinned models (glTF), melee combat, enemies that fight back, the server, any of the real maps.
