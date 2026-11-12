@@ -1,5 +1,6 @@
 // Arcane Majesty 3D — boot. Wires the engine (renderer, input, camera, maps, loop), the game
 // (an amo character sheet, the player controller, spells, HUD, saving) and the content (maps).
+import * as THREE from 'three';
 import { movementRules, PlayerStats as PS, items as itemRules, weapons as weaponRules, talents as talentRules } from '@rules';
 import { pickQuality, nextQuality } from './engine/quality.js';
 import { createRenderer } from './engine/renderer.js';
@@ -21,6 +22,8 @@ import { createSkills } from './game/skills.js';
 import { createArchery } from './game/archery.js';
 import { createCharacter } from './content/models/eldrin.js';
 import { setPlatesVisible } from './content/actors/enemyCore.js';
+import { createTitle } from './game/title.js';
+import { hasSave } from './game/save.js';
 import { createOutdoor } from './content/glade.js';
 import { createTower } from './content/eldrinTower.js';
 
@@ -29,7 +32,9 @@ movementRules.MOVE.SPRINT_DRAIN_PER_S = 7;                              // amo: 
 const SPELL_TUNING = { rangeMult: 3, speedMult: 1.6, radiusMult: 2 };   // 2D screen distances feel short in 3D
 
 const params = new URLSearchParams(location.search);
+const hadSave = hasSave();
 if (params.get('new') === '1') deleteSave();
+const SHOW_TITLE = params.get('play') !== '1' && params.get('new') !== '1';
 
 // ---------- engine ----------
 const quality = pickQuality();
@@ -110,9 +115,35 @@ addEventListener('pagehide', save);
 document.addEventListener('visibilitychange', () => { if (document.hidden) save(); });
 
 // ---------- loop ----------
+// ---------- title screen ----------
+// While it shows, Eldrin waits out of sight at the foot of his tower (enemies ignore him), the
+// camera belongs to the title, and the vale's mood is on.
+const title = SHOW_TITLE ? createTitle({
+    camera, hasSave: hadSave, quality,
+    onNewGame: () => { save(); location.href = `${location.pathname}?new=1&play=1`; },
+    onStart: () => { player.state.dead = null; hero.root.visible = true; },
+}) : null;
+let titleSpot = null;
+if (title) {
+    titleSpot = player.state.pos.clone();
+    player.state.dead = { t: -1e9 };
+    hero.root.visible = false;
+}
+// The game camera's own target, kept fresh during the title's fly-down.
+const gameCam = {
+    position: new THREE.Vector3(), get target() { return cam.target; },
+    update(dt) { const save = camera.position.clone(); cam.update(dt, player.state.pos, 0, world.current.terrain ? world.current.heightAt : null); this.position.copy(camera.position); camera.position.copy(save); },
+};
+
 let simT = 0;
 function tick(dt) {
     simT += dt;
+    if (title?.active) {
+        input.poll(dt);   // drain input while the title owns the screen
+        title.update(dt, gameCam);
+        world.current.update(simT, dt, { player: { pos: title.focus, dead: true, speed: 0 }, camera, fx: world.current.fx ?? fireballs, hurtPlayer: () => false, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop });
+        return;
+    }
     const act = input.poll(dt);
     if (act.keys.includes('F2')) { save(); nextQuality(quality); location.reload(); return; }
     if (act.keys.includes('F3')) perf.toggle();
@@ -157,5 +188,5 @@ window.__poc = {
     enterMap: (id, sp) => world.enter(id, sp),
     cast: () => input.press('cast'),
     strike: () => input.press('strike'),
-    loot, inventory, sheet, hotbar, skills, archery, player: player.state, playerApi: player,
+    loot, inventory, sheet, hotbar, skills, archery, title, player: player.state, playerApi: player,
 };
