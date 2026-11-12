@@ -20,6 +20,7 @@ import { createSheet } from './game/sheet.js';
 import { createHotbar } from './game/hotbar.js';
 import { createSkills } from './game/skills.js';
 import { createArchery } from './game/archery.js';
+import { createGathering } from './game/gathering.js';
 import { createCharacter } from './content/models/eldrin.js';
 import { setPlatesVisible } from './content/actors/enemyCore.js';
 import { createTitle } from './game/title.js';
@@ -84,6 +85,7 @@ const world = createMapManager({
         loot.clear();
         loot.setScene(map.scene);
         archery?.setScene(map.scene);
+        gathering?.setMap(map);
         Object.assign(cam, { yaw: (sp.facing ?? 0) + Math.PI, pitch: map.camera.pitch, dist: map.camera.dist, maxDist: map.camera.maxDist });
         cam.snapTo(player.state.pos);
         world.maps.outdoor?.shadows?.setVisible(id === 'outdoor');
@@ -102,6 +104,9 @@ const showWeapons = () => hero.setWeapons(handOf(stats.equipment.weapon), handOf
 stats.onEquipChange(showWeapons);
 const skills = createSkills({ stats, player, hud, cam, world });
 const archery = createArchery({ stats, player, hud, cam, world, loot });
+const gathering = createGathering({ stats, hud });
+hud.ui.prompt.style.pointerEvents = 'auto';   // touch: tap the prompt to gather
+hud.ui.prompt.addEventListener('pointerdown', () => input.press('gather'));
 showWeapons();
 
 // ---------- saving ----------
@@ -156,11 +161,15 @@ function tick(dt) {
     skills.update(dt);
     if (inventory.open || sheet.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
     const map = world.current;
+    // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
+    const gatherText = gathering.update(simT * 1000, player.state);
+    if (gatherText && (act.gather || (act.hop && input.device === 'gamepad'))) { gathering.harvest(simT * 1000); act.hop = false; }
     let lift = 0;
     const ctx = { player: player.state, camera, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop };
     if (!world.step(dt)) lift = player.step(dt, act, ctx);
     const p = player.state;
     cam.update(dt, p.pos, lift, map.terrain ? map.heightAt : null);
+    if (gatherText && !hud.ui.prompt.textContent) { hud.ui.prompt.textContent = gatherText; hud.ui.prompt.style.opacity = 1; }
     if (map.levelName && !p.hop && p.vy === 0) {
         const lv = map.levelName(p.pos.y);
         if (lv !== lastLevel) { hud.banner(`${map.name} — ${lv}`); lastLevel = lv; }
@@ -188,5 +197,5 @@ window.__poc = {
     enterMap: (id, sp) => world.enter(id, sp),
     cast: () => input.press('cast'),
     strike: () => input.press('strike'),
-    loot, inventory, sheet, hotbar, skills, archery, title, player: player.state, playerApi: player,
+    loot, inventory, sheet, hotbar, skills, archery, title, gathering, player: player.state, playerApi: player,
 };

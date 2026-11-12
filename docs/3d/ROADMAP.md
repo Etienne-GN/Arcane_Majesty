@@ -36,6 +36,7 @@ The first thing anyone sees, so it has to look epic — built live in the engine
 | **Album music on the title screen, wired in Phase 1.5 itself** (not waiting for Phase 5): a minimal music player for one track — the user chose **"Echoes of Stone"** (Eldoria's Prophecy, track 01, `assets/music/Eldoria's Prophecy/01 - Echoes of Stone.mp3`) | N |
 
 ## Phase 2 — Camp & craft (moved up: it makes the glade a place to live in)
+Status: **2.1 gathering done** (38 spots in the glade: herbs, mushrooms, berries, deadwood, ore, shallows, reeds; G / Enter / pad A / tap; tools; amo rollHarvest; regrow). Next: 2.2 campfire cooking.
 | amo | Kind |
 |---|---|
 | Gathering (gathering.js): herbs, wood, stone, feathers, deadwood sticks — nodes in the world | R + N |

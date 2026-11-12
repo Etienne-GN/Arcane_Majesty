@@ -478,6 +478,31 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
         map.den = den;
     }
 
+    // ---------- gathering spots (amo gathering.js node types) ----------
+    // Each type where it belongs: mushrooms under trees, reeds and mussels at the lake edge, ore on rocky slopes.
+    const spots = [];
+    const free = (x, z, r = 1.2) => !map.blockedAt(x, z, r) && !reserved(x, z) && !spots.some(s => Math.hypot(s.x - x, s.z - z) < 4);
+    const want = { herb: 10, mushroom: 6, berry: 6, wood: 5, mineral: 4, shallows: 3, reeds: 4 };
+    for (let i = 0; i < 6000 && Object.values(want).some(n => n > 0); i++) {
+        const a2 = rng() * Math.PI * 2, d = 8 + Math.sqrt(rng()) * 70;
+        const x = Math.cos(a2) * d, z = Math.sin(a2) * d, h = heightAt(x, z);
+        const nearTree = trees.some(t => Math.hypot(t.x - x, t.z - z) < 3.5);
+        const shore = h > WATER - 0.25 && h < WATER + 0.25;
+        let type = null;
+        if (want.shallows > 0 && h > WATER - 0.55 && h < WATER - 0.15 && free(x, z, 0.5)) type = 'shallows';
+        else if (want.reeds > 0 && shore && free(x, z, 0.5)) type = 'reeds';
+        else if (h < WATER + 0.4 || h > 9) continue;
+        else if (want.mineral > 0 && h > 3 && free(x, z)) type = 'mineral';
+        else if (want.mushroom > 0 && nearTree && free(x, z)) type = 'mushroom';
+        else if (want.wood > 0 && nearTree && free(x, z)) type = 'wood';
+        else if (want.berry > 0 && !nearTree && rng() < 0.4 && free(x, z)) type = 'berry';
+        else if (want.herb > 0 && free(x, z)) type = 'herb';
+        if (!type) continue;
+        want[type]--;
+        spots.push({ type, x, z });
+    }
+    map.gatherSpots = spots;
+
     // Batch every static mesh into one draw per material (phones care about draw calls).
     sky.userData.dynamic = true;
     shard.userData.dynamic = true;

@@ -22,6 +22,7 @@ export function createInput({ canvas, cam }) {
             const sk = ['KeyZ', 'KeyX', 'KeyV'].indexOf(e.code);
             if (sk >= 0) pressed.add(`skill:${sk}`);
             if (e.code === 'KeyR') pressed.add('strike');
+            if (e.code === 'KeyG' || e.code === 'Enter') pressed.add('gather');
             pressed.add(`key:${e.code}`);
         }
         keys.add(e.code);
@@ -87,7 +88,7 @@ export function createInput({ canvas, cam }) {
 
         const len = Math.hypot(mx, my);
         if (len > 1) { mx /= len; my /= len; }
-        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), strike: pressed.has('strike'), inventory: pressed.has('inventory'), sheet: pressed.has('sheet'), hotbar: [0, 1, 2, 3].findIndex(i => pressed.has(`hotbar:${i}`)), skill: [0, 1, 2].findIndex(i => pressed.has(`skill:${i}`)), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
+        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), strike: pressed.has('strike'), gather: pressed.has('gather'), inventory: pressed.has('inventory'), sheet: pressed.has('sheet'), hotbar: [0, 1, 2, 3].findIndex(i => pressed.has(`hotbar:${i}`)), skill: [0, 1, 2].findIndex(i => pressed.has(`skill:${i}`)), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
         pressed.clear();
         return out;
     }
