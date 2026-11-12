@@ -13,6 +13,7 @@ import { createHud } from './game/hud.js';
 import { createPlayer, PX } from './game/player.js';
 import { createFireballs, FIREBALL } from './game/fireball.js';
 import { loadGame, saveGame, deleteSave } from './game/save.js';
+import { createLoot } from './game/loot.js';
 import { createCharacter } from './content/models/eldrin.js';
 import { createOutdoor } from './content/glade.js';
 import { createTower } from './content/eldrinTower.js';
@@ -42,6 +43,7 @@ stats.mana = stats.maxMana;
 stats.vigor = stats.maxVigor;
 stats.learnSpell('fireball');
 const savedAt = loadGame(stats);
+const loot = createLoot({ stats, hud });
 
 const hero = createCharacter();
 const fireballs = createFireballs({
@@ -58,6 +60,8 @@ const world = createMapManager({
     onEnter(map, id, sp) {
         player.place(sp);
         fireballs.setScene(map.scene);
+        loot.clear();
+        loot.setScene(map.scene);
         Object.assign(cam, { yaw: (sp.facing ?? 0) + Math.PI, pitch: map.camera.pitch, dist: map.camera.dist, maxDist: map.camera.maxDist });
         cam.snapTo(player.state.pos);
         world.maps.outdoor?.shadows?.setVisible(id === 'outdoor');
@@ -87,7 +91,7 @@ function tick(dt) {
     if (act.keys.includes('F3')) perf.toggle();
     const map = world.current;
     let lift = 0;
-    const ctx = { player: player.state, camera, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill };
+    const ctx = { player: player.state, camera, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop };
     if (!world.step(dt)) lift = player.step(dt, act, ctx);
     const p = player.state;
     cam.update(dt, p.pos, lift, map.terrain ? map.heightAt : null);
@@ -97,6 +101,7 @@ function tick(dt) {
     }
     map.update(simT, dt, ctx);
     fireballs.update(dt, map, map.hittables);
+    loot.update(dt, player.state, map);
     hud.update(dt, { stats, player: p, camera, spell: FIREBALL });
 }
 
@@ -115,4 +120,5 @@ window.__poc = {
     enterMap: (id, sp) => world.enter(id, sp),
     cast: () => input.press('cast'),
     strike: () => input.press('strike'),
+    loot,
 };

@@ -254,6 +254,7 @@ export function createShadows({ scene, map, rng, posts }) {
         function die(ctx) {
             s.state = 'dead'; s.deadT = 0; s.hp = 0; s.burnLeft = 0;
             ctx?.onKill?.(DEF.xpReward, pos.clone().setY(pos.y + 2.4));
+            ctx?.dropLoot?.(DEF.lootTable, pos.clone(), rng);
             for (let i = 0; i < 90; i++) {
                 const a = rng() * 6.28, sp = 0.6 + rng() * 2.2;
                 smoke.emit({ x: pos.x + (rng() - 0.5) * 0.6, y: pos.y + 0.3 + rng() * 1.6, z: pos.z + (rng() - 0.5) * 0.6,
