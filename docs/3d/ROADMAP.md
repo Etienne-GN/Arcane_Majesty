@@ -26,6 +26,15 @@ perf overlay, saving (SaveManager, **R**), Android build, batching. Owed: mid-ra
 | Enemy.js / BossEnemy.js → data-driven enemies: enemyMagic, elites, affinities, levelBands, bestiary | B + R | 8 |
 | **GameOverScene** (death, respawn.js) | B + R | 8 |
 
+## Phase 1.5 — Title screen & main menu (right after combat)
+The first thing anyone sees, so it has to look epic — built live in the engine, not a picture.
+| amo | Kind |
+|---|---|
+| **Title screen**: a slow cinematic camera drifting through Eldrin's vale at dusk — the tower's lit windows, the waterfall mist, fireflies, light shafts — with the ARCANE MAJESTY title rising in gold over it; a soft vignette, embers drifting past the lens, the logo's arcane sigil slowly turning | N |
+| **Main menu** over the same live scene: Continue (last save), New Game, Options (quality, audio), Credits — mouse, gamepad and touch | B (MenuScene, OfflineMenuScene) |
+| Seamless start: Continue/New Game flies the camera down from the cinematic shot to Eldrin and hands over control | N |
+| Room for the album music on the title screen later (Phase 5 brings the music system) | N |
+
 ## Phase 2 — Camp & craft (moved up: it makes the glade a place to live in)
 | amo | Kind |
 |---|---|
@@ -79,7 +88,7 @@ perf overlay, saving (SaveManager, **R**), Android build, batching. Owed: mid-ra
 ## Phase 7 — Menus, platforms, polish
 | amo | Kind |
 |---|---|
-| **BootScene** (loading), **MenuScene**, **OfflineMenuScene**, **CharacterSelectScene** (save slots) | B |
+| **BootScene** (loading), **CharacterSelectScene** (save slots) — the title screen and main menu came in Phase 1.5 | B |
 | **OptionsScene**: graphics (quality presets), audio, controls remapping | B + N |
 | **CreditsScene** (now: everything is ours) | B |
 | GamepadNav / MenuFocus → every menu usable with a gamepad and touch | B |
