@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Arcane Majesty 3D — POC</title>
+    <style>
+        html, body { margin: 0; height: 100%; overflow: hidden; background: #10141a; font-family: Georgia, 'Times New Roman', serif; }
+        canvas { display: block; touch-action: none; cursor: grab; }
+        canvas:active { cursor: grabbing; }
+        .hud { position: fixed; pointer-events: none; color: #eee6d2; text-shadow: 0 1px 3px #000c; }
+        #status { left: 18px; bottom: 18px; width: 260px; }
+        #status .label { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; display: flex; justify-content: space-between; }
+        #vigor { height: 10px; border: 1px solid #eee6d288; border-radius: 6px; background: #0008; overflow: hidden; margin-top: 4px; }
+        #vigor-fill { height: 100%; width: 100%; background: linear-gradient(90deg, #3d8f4a, #8fd16a); transition: background .2s; }
+        #vigor.winded #vigor-fill { background: linear-gradient(90deg, #8f3d3d, #d1846a); }
+        #speed { font-size: 13px; margin-top: 8px; opacity: .85; }
+        #help { right: 18px; bottom: 18px; font-size: 13px; line-height: 1.6; text-align: right; opacity: .85; }
+        #help b { color: #f3d88b; font-weight: normal; }
+        #title { left: 18px; top: 14px; font-size: 22px; letter-spacing: .12em; }
+        #title small { display: block; font-size: 12px; letter-spacing: .05em; opacity: .7; margin-top: 2px; }
+        #fps { right: 18px; top: 14px; font-size: 12px; opacity: .6; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <div id="title" class="hud">ARCANE MAJESTY — 3D<small>proof of concept · movement rules imported from amo</small></div>
+    <div id="fps" class="hud"></div>
+    <div id="status" class="hud">
+        <div class="label"><span>Vigor</span><span id="vigor-num"></span></div>
+        <div id="vigor"><div id="vigor-fill"></div></div>
+        <div id="speed"></div>
+    </div>
+    <div id="help" class="hud">
+        <b>WASD / arrows</b> move · <b>Shift</b> sprint · <b>Space</b> hop<br />
+        <b>drag mouse</b> orbit camera · <b>wheel</b> zoom · <b>Q / E</b> turn camera<br />
+        hop clears fences, logs and small rocks
+    </div>
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
