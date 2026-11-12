@@ -9,6 +9,7 @@ const { ENEMY_TYPES } = enemies;
 const { affinityMult, affinityOf } = enemyAffinities;
 const { STATUS_DEFS } = statuses;
 import { Particles } from '../../engine/lib.js';
+import { bakeRig } from '../../engine/batch.js';
 
 const TYPE = 'mirror_shade';
 const DEF = ENEMY_TYPES[TYPE];
@@ -86,6 +87,7 @@ function buildSoldier() {
             const len = 0.5 + Math.random() * 0.18;
             const g = new THREE.PlaneGeometry(0.1, len, 1, 4).translate(0, -len / 2, 0);
             const s = part(g, M.cloth, x, 0.02, z);
+            s.userData.keep = true;   // rippled every frame: never merged
             if (flip) s.rotation.y = Math.PI;
             hips.add(s);
             strips.push({ s, base: g.attributes.position.array.slice(), g, ph: Math.random() * 6, back: !!flip });
@@ -177,6 +179,7 @@ function buildSoldier() {
     shield.add(rune);
 
     root.traverse(o => { if (o.isMesh) o.castShadow = true; });
+    bakeRig(root);
     const fumeParts = [];
     root.traverse(o => { if (o.isMesh && (o.material === M.body || o.material === M.plate)) fumeParts.push(o); });
     return { root, body, hips, spine, head, legs, arms, sword, shield, strips, eyes, M, fumeParts, edge };
@@ -480,7 +483,7 @@ export function createShadows({ scene, map, rng, posts }) {
         }
 
         return {
-            pos, kind: 'shadow',
+            pos, kind: 'shadow', root: d.root,
             get debug() { return { state: s.state, cd: +s.attackCd.toFixed(2), sp: +s.speed.toFixed(2), hp: s.hp, guard: +s.guard.toFixed(2) }; },
             get alive() { return s.state !== 'dead'; },
             get engaged() { return s.state !== 'dead' && s.state !== 'idle' && s.state !== 'patrol' && s.state !== 'return'; },

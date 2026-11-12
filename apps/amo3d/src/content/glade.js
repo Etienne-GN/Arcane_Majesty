@@ -9,6 +9,7 @@ import { flat, mulberry32, colliderAt, pushOut, fbm, smoothstep } from '../engin
 import { valeHeight, valeReserved, valeColor, valeTreeOK, bridgeDeck, inStream, buildEldrin, STAIR_BASE, ELDRIN } from './eldrinVale.js';
 import { createDeer } from './actors/deer.js';
 import { createShadows } from './actors/shadowSoldier.js';
+import { bakeStatic } from '../engine/batch.js';
 
 export const WATER = -1.2;
 export const WORLD_R = 98;
@@ -458,6 +459,12 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
     const shadows = createShadows({ scene, map, rng, posts: [{ x: -16, z: 3 }, { x: -14, z: 14.5 }, { x: -64, z: -16 }] });
     map.hittables.push(...shadows.list);
     map.shadows = shadows;
+
+    // Batch every static mesh into one draw per material (phones care about draw calls).
+    sky.userData.dynamic = true;
+    shard.userData.dynamic = true;
+    for (const h of map.hittables) if (h.root) h.root.userData.dynamic = true;
+    map.batch = bakeStatic(scene);
 
     return map;
 }

@@ -1,0 +1,9 @@
+{
+  "appId": "com.arcanemajesty.amo3d",
+  "appName": "Arcane Majesty 3D",
+  "webDir": "dist",
+  "backgroundColor": "#10141a",
+  "android": {
+    "backgroundColor": "#10141a"
+  }
+}

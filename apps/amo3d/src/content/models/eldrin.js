@@ -3,6 +3,7 @@
 // vest with gold filigree, crossed leather straps, wide belt with a gold buckle, a
 // satchel, gold-worked bracers, tousled dark hair, stubble, blue eyes — and his staff.
 import * as THREE from 'three';
+import { bakeRig } from '../../engine/batch.js';
 
 const mat = (color, opts = {}) =>
     new THREE.MeshStandardMaterial({ color, flatShading: true, roughness: 0.85, ...opts });
@@ -224,10 +225,12 @@ export function createCharacter() {
     staff.add(mesh(new THREE.CylinderGeometry(0.022, 0.03, 1.75, 6), M.wood, 0, 0.2, 0));
     staff.add(mesh(new THREE.TorusGeometry(0.06, 0.012, 4, 8), M.gold, 0, 1.06, 0));
     const crystal = mesh(new THREE.OctahedronGeometry(0.075), M.crystal, 0, 1.18, 0);
+    crystal.userData.keep = true;   // spins
     crystal.scale.y = 1.6;
     staff.add(crystal);
 
     root.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+    bakeRig(root);
 
     let phase = 0, amp = 0, run = 0, air = 0, t = 0;
     const calm = new THREE.Color(0x3ce0d0), blaze = new THREE.Color(0xff7a20);

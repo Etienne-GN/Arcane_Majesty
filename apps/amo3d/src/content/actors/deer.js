@@ -1,6 +1,7 @@
 // A procedural deer (stag or doe) with a small brain: graze, wander, look up, flee, get hit.
 import * as THREE from 'three';
 import { flat, shadows } from '../../engine/lib.js';
+import { bakeRig } from '../../engine/batch.js';
 
 function limb(len, r0, r1, m) {
     const j = new THREE.Group();
@@ -204,6 +205,7 @@ export function createDeer({ home, stag = false, rng, map }) {
         }
     }
 
+    bakeRig(d.root);
     return { root: d.root, pos, update, hit, get alive() { return s.state !== 'dead'; } };
 }
 
