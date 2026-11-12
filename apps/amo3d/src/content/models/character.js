@@ -5,6 +5,7 @@
 import * as THREE from 'three';
 import { bakeRig } from '../../engine/batch.js';
 import { buildWeapon } from './weapons.js';
+import { buildHair, buildFacialHair } from './parts/hair.js';
 
 const mat = (color, opts = {}) =>
     new THREE.MeshStandardMaterial({ color, flatShading: true, roughness: 0.85, ...opts });
@@ -185,9 +186,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     const skull = mesh(new THREE.SphereGeometry(0.12, 12, 10), M.skin, 0, 0.13, 0);
     skull.scale.set(0.92, 1.08, 1);
     head.add(skull);
-    // Stubble: a darker shell over the jaw.
-    const jaw = L.facialHair.style === 'none' ? null : mesh(new THREE.SphereGeometry(0.123, 12, 8, Math.PI * 0.2, Math.PI * 0.6, Math.PI * 0.6, Math.PI * 0.25), M.stubble, 0, 0.13, 0.003);
-    if (jaw) { jaw.scale.set(0.93, 1.08, 1.01); head.add(jaw); }
+    buildFacialHair(L.facialHair.style, head, M.stubble);   // parts library
     head.add(mesh(new THREE.BoxGeometry(0.022, 0.05, 0.03), M.skin, 0, 0.12, 0.118));            // nose
     for (const s of [1, -1]) {
         head.add(mesh(new THREE.SphereGeometry(0.016, 6, 5), M.eye, s * 0.042, 0.15, 0.103));
@@ -196,31 +195,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         head.add(brow);
         head.add(mesh(new THREE.SphereGeometry(0.025, 5, 4), M.skin, s * 0.112, 0.13, -0.005));   // ears
     }
-    // Tousled dark hair: a cap open at the face, a swept fringe, and soft clumps falling over the ears.
-    const cap = mesh(new THREE.SphereGeometry(0.13, 12, 8, Math.PI * 0.78, Math.PI * 1.44, 0, Math.PI * 0.62), M.hair, 0, 0.14, -0.008);
-    cap.scale.set(0.97, 1.08, 1.04);
-    head.add(cap);
-    const crown = mesh(new THREE.SphereGeometry(0.128, 12, 6, 0, Math.PI * 2, 0, Math.PI * 0.3), M.hair, 0, 0.15, 0);
-    crown.scale.set(1.0, 1.15, 1.05);
-    head.add(crown);
-    const clumps = [
-        // x, y, z, sx, sy, sz, rx, rz — flattened blobs read as locks of hair
-        [0.03, 0.245, 0.085, 0.065, 0.03, 0.05, 0.5, -0.5],     // fringe swept to his left
-        [-0.04, 0.238, 0.09, 0.055, 0.028, 0.045, 0.7, 0.4],
-        [0.075, 0.215, 0.085, 0.04, 0.025, 0.04, 1.0, -0.9],   // a lock over the brow
-        [0.0, 0.272, 0.02, 0.075, 0.035, 0.07, 0.2, 0.2],
-        [-0.05, 0.265, -0.04, 0.06, 0.035, 0.06, -0.4, 0.5],
-        [0.06, 0.26, -0.05, 0.06, 0.035, 0.06, -0.4, -0.5],
-        [0.112, 0.16, 0.0, 0.03, 0.06, 0.05, 0.0, -0.2],        // over the ears
-        [-0.112, 0.16, 0.0, 0.03, 0.06, 0.05, 0.0, 0.2],
-        [0.0, 0.16, -0.12, 0.08, 0.06, 0.03, -0.2, 0.0],        // nape
-    ];
-    for (const [x, y, z, sx, sy, sz, rx, rz] of clumps) {
-        const c = mesh(new THREE.IcosahedronGeometry(1, 0), M.hair, x, y, z);
-        c.scale.set(sx, sy, sz);
-        c.rotation.set(rx, 0, rz);
-        head.add(c);
-    }
+    buildHair(L.hair.style, head, M.hair);   // parts library
 
     // ---- arms: red sleeves, gold-worked leather bracers ----
     const arms = {};
