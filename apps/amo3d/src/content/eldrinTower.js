@@ -3,7 +3,7 @@
 // walls render back-faces only, so the near wall never blocks the view.
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { flat, mulberry32, faceShade, colliderAt, pushOut, shadows, Particles } from './lib.js';
+import { flat, mulberry32, faceShade, colliderAt, pushOut, shadows, Particles } from '../engine/lib.js';
 
 const R = 8;          // inner radius
 const STEP = 0.5;     // how high a foot can step up
@@ -439,6 +439,7 @@ export function createTower() {
             const d = Math.hypot(pos.x, pos.z), max = R - r - 0.05;
             if (d > max) { pos.x *= max / d; pos.z *= max / d; }
         },
+        passable: (x, z, y) => !map.stepBlocked(x, z, y),
         // Ramps and floors are solid from below too.
         stepBlocked(x, z, y) {
             for (const s of surfacesAt(x, z)) if (s.h > y + STEP && s.base < y + 1.7) return true;

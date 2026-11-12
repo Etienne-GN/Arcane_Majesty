@@ -5,10 +5,10 @@
 // (the vocabulary of amo's movementRules.hopLanding).
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { flat, mulberry32, colliderAt, pushOut, fbm, smoothstep } from './lib.js';
-import { valeHeight, valeReserved, valeColor, valeTreeOK, bridgeDeck, inStream, buildEldrin, STAIR_BASE, ELDRIN } from './eldrin.js';
-import { createDeer } from './deer.js';
-import { createShadows } from './shadow.js';
+import { flat, mulberry32, colliderAt, pushOut, fbm, smoothstep } from '../engine/lib.js';
+import { valeHeight, valeReserved, valeColor, valeTreeOK, bridgeDeck, inStream, buildEldrin, STAIR_BASE, ELDRIN } from './eldrinVale.js';
+import { createDeer } from './actors/deer.js';
+import { createShadows } from './actors/shadowSoldier.js';
 
 export const WATER = -1.2;
 export const WORLD_R = 98;
@@ -46,7 +46,7 @@ export function heightAt(x, z) {
     return h;
 }
 
-export function createOutdoor() {
+export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap: 2048, fogFar: 1 } } = {}) {
     const scene = new THREE.Scene();
     const rng = mulberry32(1337);
     const colliders = [];
@@ -69,7 +69,7 @@ export function createOutdoor() {
     // ---------- sky, fog, light ----------
     const horizon = new THREE.Color(0xc9d6d4);
     scene.background = horizon;
-    scene.fog = new THREE.Fog(horizon, 55, 230);
+    scene.fog = new THREE.Fog(horizon, 55, 230 * quality.fogFar);
     const sky = new THREE.Mesh(
         new THREE.SphereGeometry(450, 32, 16),
         new THREE.ShaderMaterial({
@@ -94,7 +94,8 @@ export function createOutdoor() {
     let moodK = 0;
     const sun = new THREE.DirectionalLight(0xfff0d0, 2.8);
     sun.castShadow = true;
-    sun.shadow.mapSize.set(2048, 2048);
+    sun.castShadow = quality.shadows;
+    sun.shadow.mapSize.set(quality.shadowMap, quality.shadowMap);
     Object.assign(sun.shadow.camera, { left: -32, right: 32, top: 32, bottom: -32, near: 1, far: 160 });
     sun.shadow.bias = -0.0004;
     sun.shadow.normalBias = 0.04;
@@ -225,8 +226,8 @@ export function createOutdoor() {
         const x = (rng() - 0.5) * 170, z = (rng() - 0.5) * 170;
         const h = heightAt(x, z);
         if (h < WATER + 0.4 || h > 6 || reserved(x, z)) continue;
-        if (bushList.length < 220 && fbm(x * 0.035 + 7, z * 0.035 - 3, 3) > 0.47 && rng() < 0.3) bushList.push({ x, z, h, s: 0.5 + rng() * 0.6 });
-        else if (flowerList.length < 900 && Math.hypot(x, z) < 60) flowerList.push({ x, z, h });
+        if (bushList.length < 220 * quality.foliage && fbm(x * 0.035 + 7, z * 0.035 - 3, 3) > 0.47 && rng() < 0.3) bushList.push({ x, z, h, s: 0.5 + rng() * 0.6 });
+        else if (flowerList.length < 900 * quality.foliage && Math.hypot(x, z) < 60) flowerList.push({ x, z, h });
     }
     const bushes = new THREE.InstancedMesh(
         mergeGeometries([new THREE.IcosahedronGeometry(0.7, 1).translate(0, 0.45, 0), new THREE.IcosahedronGeometry(0.5, 1).translate(0.5, 0.35, 0.2)]),
@@ -270,7 +271,7 @@ export function createOutdoor() {
 
     // ---------- grass tufts ----------
     const tufts = [];
-    for (let i = 0; i < 9000 && tufts.length < 5000; i++) {
+    for (let i = 0; i < 9000 && tufts.length < 5000 * quality.foliage; i++) {
         const x = (rng() - 0.5) * 150, z = (rng() - 0.5) * 150;
         const h = heightAt(x, z);
         if (h < WATER + 0.4 || h > 6 || valeReserved(x, z, -1)) continue;
@@ -399,6 +400,7 @@ export function createOutdoor() {
             return null;
         },
         resolve: (pos, r) => pushOut(colliders, pos, r),
+        passable: (x, z) => heightAt(x, z) >= WATER - 0.7 && Math.hypot(x, z) <= WORLD_R,
         projectileHit(p) {
             if (p.y < heightAt(p.x, p.z) + 0.05) return 'ground';
             const c = colliderAt(colliders, p.x, p.z, 0.15, p.y);
@@ -424,7 +426,7 @@ export function createOutdoor() {
             hemi.intensity = 1.1 - 0.45 * moodK;
             scene.fog.color.copy(horizon).lerp(valeFog, moodK);
             scene.fog.near = 55 - 37 * moodK;
-            scene.fog.far = 230 - 105 * moodK;
+            scene.fog.far = (230 - 105 * moodK) * quality.fogFar;
             sky.material.uniforms.bottom.value.copy(scene.fog.color);
             eldrin.update(t, dt, moodK);
             shadows.update(dt);

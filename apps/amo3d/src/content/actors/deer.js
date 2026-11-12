@@ -1,6 +1,6 @@
 // A procedural deer (stag or doe) with a small brain: graze, wander, look up, flee, get hit.
 import * as THREE from 'three';
-import { flat, shadows } from './lib.js';
+import { flat, shadows } from '../../engine/lib.js';
 
 function limb(len, r0, r1, m) {
     const j = new THREE.Group();

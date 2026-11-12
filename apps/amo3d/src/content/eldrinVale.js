@@ -4,7 +4,7 @@
 // Everything here is laid out in a local frame: u = right, v = away from the start point.
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { flat, faceShade, fbm, smoothstep, Particles, radialTexture } from './lib.js';
+import { flat, faceShade, fbm, smoothstep, Particles, radialTexture } from '../engine/lib.js';
 
 const T = { x: -60, z: -44 };
 const F = new THREE.Vector2(T.x, T.z).normalize();          // forward (away from spawn)

@@ -1,0 +1,89 @@
+// One input layer for keyboard + mouse, gamepad and touch. The game reads actions, never keys:
+//   move {x, y}  — x right, y forward, length ≤ 1 (analog on sticks and the touch joystick)
+//   sprint       — held
+//   hop, cast    — pressed this frame (edge-triggered, consumed by poll)
+// The camera is orbited directly (mouse drag, right stick, touch drag on the right half).
+const DEAD = 0.18;
+
+export function createInput({ canvas, cam }) {
+    const keys = new Set();
+    const pressed = new Set();          // edge-triggered actions waiting for the next poll
+    const touch = { x: 0, y: 0, sprint: false };
+    let padPrev = [];
+    let lastDevice = 'keyboard';
+
+    addEventListener('keydown', e => {
+        if (e.code === 'Space') e.preventDefault();
+        if (!e.repeat) {
+            if (e.code === 'Space') pressed.add('hop');
+            if (e.code === 'KeyF' || e.code === 'Digit1') pressed.add('cast');
+            pressed.add(`key:${e.code}`);
+        }
+        keys.add(e.code);
+        lastDevice = 'keyboard';
+    });
+    addEventListener('keyup', e => keys.delete(e.code));
+    addEventListener('blur', () => { keys.clear(); Object.assign(touch, { x: 0, y: 0, sprint: false }); });
+    const held = (...codes) => codes.some(c => keys.has(c));
+
+    // Mouse: left-drag orbits, wheel zooms, right-click casts. Touch pointers are handled by touch.js.
+    let drag = null;
+    canvas.addEventListener('contextmenu', e => e.preventDefault());
+    canvas.addEventListener('pointerdown', e => {
+        if (e.pointerType === 'touch') return;
+        if (e.button === 2) { pressed.add('cast'); return; }
+        drag = { x: e.clientX, y: e.clientY };
+        canvas.setPointerCapture(e.pointerId);
+    });
+    canvas.addEventListener('pointerup', () => { drag = null; });
+    canvas.addEventListener('pointermove', e => {
+        if (!drag) return;
+        cam.orbit(-(e.clientX - drag.x) * 0.006, (e.clientY - drag.y) * 0.004);
+        drag = { x: e.clientX, y: e.clientY };
+    });
+    canvas.addEventListener('wheel', e => { e.preventDefault(); cam.zoom(e.deltaY > 0 ? 1.1 : 0.9); }, { passive: false });
+
+    const dz = v => (Math.abs(v) < DEAD ? 0 : (v - Math.sign(v) * DEAD) / (1 - DEAD));
+
+    function poll(dt) {
+        let mx = held('KeyD', 'ArrowRight') - held('KeyA', 'ArrowLeft');
+        let my = held('KeyW', 'ArrowUp') - held('KeyS', 'ArrowDown');
+        let sprint = held('ShiftLeft', 'ShiftRight');
+        if (held('KeyQ')) cam.orbit(dt * 2, 0);
+        if (held('KeyE')) cam.orbit(-dt * 2, 0);
+
+        // Gamepad (standard mapping): left stick move, right stick camera, A hop, X / RT cast,
+        // LB or left-stick click sprint, LT/RT-less pads still work.
+        const pad = [...(navigator.getGamepads?.() ?? [])].find(p => p && p.connected);
+        if (pad) {
+            const b = i => !!pad.buttons[i]?.pressed;
+            const lx = dz(pad.axes[0] ?? 0), ly = dz(pad.axes[1] ?? 0), rx = dz(pad.axes[2] ?? 0), ry = dz(pad.axes[3] ?? 0);
+            if (lx || ly) { mx = lx; my = -ly; lastDevice = 'gamepad'; }
+            if (rx || ry) cam.orbit(-rx * dt * 2.6, ry * dt * 1.6);
+            if (b(4) || b(10)) sprint = true;
+            const edge = i => b(i) && !padPrev[i];
+            if (edge(0)) pressed.add('hop');
+            if (edge(2) || edge(7)) pressed.add('cast');
+            if (edge(0) || edge(2) || edge(7)) lastDevice = 'gamepad';
+            padPrev = pad.buttons.map(x => x.pressed);
+        }
+
+        if (touch.x || touch.y) { mx = touch.x; my = touch.y; }
+        if (touch.sprint) sprint = true;
+
+        const len = Math.hypot(mx, my);
+        if (len > 1) { mx /= len; my /= len; }
+        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
+        pressed.clear();
+        return out;
+    }
+
+    return {
+        poll,
+        press: action => pressed.add(action),   // touch buttons and tests
+        touch,
+        keys,
+        get device() { return lastDevice; },
+        set device(d) { lastDevice = d; },
+    };
+}

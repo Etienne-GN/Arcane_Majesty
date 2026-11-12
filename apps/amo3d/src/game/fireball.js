@@ -1,7 +1,9 @@
 // Fireball: projectile + trail + explosion, driven by amo's SPELLS.fireball numbers.
 import * as THREE from 'three';
-import { SPELLS, spellDamageAt, scaledStatus, spellRadius } from '@amo/data/spells.js';
-import { Particles, radialTexture } from './lib.js';
+import { spells } from '@rules';
+
+const { SPELLS, spellDamageAt, scaledStatus, spellRadius } = spells;
+import { Particles, radialTexture } from '../engine/lib.js';
 
 export const FIREBALL = SPELLS.fireball;
 

@@ -3,10 +3,12 @@
 // Stats are amo's ENEMY_TYPES.mirror_shade (a Void-touched shade); fire damage goes through
 // amo's affinity table, burning through amo's STATUS_DEFS.
 import * as THREE from 'three';
-import { ENEMY_TYPES } from '@amo/data/worldMap.js';
-import { affinityMult, affinityOf } from '@amo/data/enemyAffinities.js';
-import { STATUS_DEFS } from '@amo/data/statuses.js';
-import { Particles } from './lib.js';
+import { enemies, enemyAffinities, statuses } from '@rules';
+
+const { ENEMY_TYPES } = enemies;
+const { affinityMult, affinityOf } = enemyAffinities;
+const { STATUS_DEFS } = statuses;
+import { Particles } from '../../engine/lib.js';
 
 const TYPE = 'mirror_shade';
 const DEF = ENEMY_TYPES[TYPE];

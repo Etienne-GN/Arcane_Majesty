@@ -1,16 +1,17 @@
 import { defineConfig } from 'vite';
 import { fileURLToPath } from 'node:url';
 
-const amoSrc = fileURLToPath(new URL('../amo/src', import.meta.url));
+const rules = fileURLToPath(new URL('../../packages/rules/index.js', import.meta.url));
 
 export default defineConfig({
+    base: './',   // relative paths, so the build also runs from a phone's file system (Capacitor)
     resolve: {
-        // The POC imports amo's pure rule modules directly — no copies.
-        alias: { '@amo': amoSrc },
+        // amo's engine-free rules, shared through packages/rules — no copies.
+        alias: { '@rules': rules },
     },
     server: {
         port: 5190,
         strictPort: true,
-        fs: { allow: ['..'] },
+        fs: { allow: ['../..'] },
     },
 });
