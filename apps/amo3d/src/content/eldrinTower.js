@@ -455,6 +455,7 @@ export function createTower() {
         triggers: [{ x: -R + 0.9, z: 0, r: 0.9, yMax: 1, yMin: -0.5, label: 'Leave the tower', to: 'outdoor', spawn: 'door' }],
         spawns: { door: { x: -R + 3.0, y: 0, z: 0, facing: Math.PI / 2 } },
         hittables: [],
+        stations: [{ mode: 'hearth', pos: new THREE.Vector3(FP.x - 1.3, 0, FP.z) }],   // the hall's fireplace
         fx,
         update(t, dt, ctx) {
             const cur = levelOf(ctx.player.pos.y);

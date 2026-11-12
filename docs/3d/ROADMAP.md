@@ -36,7 +36,7 @@ The first thing anyone sees, so it has to look epic — built live in the engine
 | **Album music on the title screen, wired in Phase 1.5 itself** (not waiting for Phase 5): a minimal music player for one track — the user chose **"Echoes of Stone"** (Eldoria's Prophecy, track 01, `assets/music/Eldoria's Prophecy/01 - Echoes of Stone.mp3`) | N |
 
 ## Phase 2 — Camp & craft (moved up: it makes the glade a place to live in)
-Status: **2.1 gathering done** (38 spots in the glade: herbs, mushrooms, berries, deadwood, ore, shallows, reeds; G / Enter / pad A / tap; tools; amo rollHarvest; regrow). **2.2 campfire done** (a campfire near the start: G opens Cook / Rest; amo COOKING_RECIPES via availableRecipes, scroll locks, craftRank + extraOutput; rest heals and saves; deer drop venison). Next: 2.3 crafting stations (workbench, alchemy, forge).
+Status: **2.1 gathering done** (38 spots in the glade: herbs, mushrooms, berries, deadwood, ore, shallows, reeds; G / Enter / pad A / tap; tools; amo rollHarvest; regrow). **2.2 campfire done** (a campfire near the start: G opens Cook / Rest; amo COOKING_RECIPES via availableRecipes, scroll locks, craftRank + extraOutput; rest heals and saves; deer drop venison). **2.3 stations done** (one crafting screen, four stations: campfire, the tower hall hearth, the pavilion cauldron = alchemy, the pavilion workbench = amo CRAFTING_RECIPES incl. arrows/quivers; ranks + double batches for cooking and alchemy). Forge enchanting (ENCHANT_RECIPES) waits for a forge. Next: 2.4 storage chests.
 | amo | Kind |
 |---|---|
 | Gathering (gathering.js): herbs, wood, stone, feathers, deadwood sticks — nodes in the world | R + N |

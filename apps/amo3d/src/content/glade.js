@@ -510,6 +510,7 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
     for (let i = 0; i < 40 && map.blockedAt(fireAt.x, fireAt.z, 1.2); i++) fireAt = { x: 4 + (rng() - 0.5) * 8, z: -5 + (rng() - 0.5) * 8 };
     map.campfire = buildCampfire(scene, fireAt, heightAt(fireAt.x, fireAt.z));
     addCollider({ x: fireAt.x, z: fireAt.z, r: 0.6, kind: 'hop' }, 0.6);
+    map.stations = [{ mode: 'campfire', pos: map.campfire.pos }, ...eldrin.stations];
 
     // Batch every static mesh into one draw per material (phones care about draw calls).
     sky.userData.dynamic = true;

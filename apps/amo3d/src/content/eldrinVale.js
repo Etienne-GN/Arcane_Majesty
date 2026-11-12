@@ -329,6 +329,11 @@ export function buildEldrin({ scene, heightAt, addCollider, rng }) {
     cauldron.position.set(1.6, 0.45, -1.0);
     pav.add(cauldron);
     place(pav, PAVILION.u, PAVILION.v, TY, 0.15);
+    pav.updateMatrixWorld(true);
+    const stations = [   // the pavilion's workbench and its cauldron are crafting stations
+        { mode: 'workbench', pos: pav.localToWorld(new THREE.Vector3(0, 0, -0.3)) },
+        { mode: 'alchemy', pos: pav.localToWorld(new THREE.Vector3(1.6, 0, -1.0)) },
+    ];
     for (const [du, dv] of [[-2.1, -1.6], [2.1, -1.6], [-2.1, 1.6], [2.1, 1.6], [0, 1.2], [0, -0.3]]) addCollider({ ...W(PAVILION.u - du, PAVILION.v + dv), r: du === 0 ? 1.1 : 0.2, kind: 'wall' }, 3);
 
     // ===== stone stairs down from the door =====
@@ -548,7 +553,7 @@ export function buildEldrin({ scene, heightAt, addCollider, rng }) {
     const spawnOut = W(-0.6, -R0 - 3.2);
 
     return {
-        doorOut, spawnOut, facingOut: Math.atan2(-F.x, -F.y),
+        doorOut, spawnOut, facingOut: Math.atan2(-F.x, -F.y), stations,
         // 0 far away → 1 in the vale: darker, mistier, shafts of light, fireflies.
         mood: (px, pz) => smoothstep(52, 22, Math.hypot(px - T.x, pz - T.z)),
         update(t, dt, moodK) {

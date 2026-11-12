@@ -1,12 +1,25 @@
-// Campfire — amo's cooking: the recipes a fire allows (stations.availableRecipes over COOKING_RECIPES,
+// Crafting stations — campfire, hearth, alchemy cauldron, workbench. Cooking at the campfire is amo's cooking: the recipes a fire allows (stations.availableRecipes over COOKING_RECIPES,
 // scroll-locked ones hidden until learned), ingredients consumed from the satchel, the cooking rank
 // from craftCounts and its double-output roll (craftRank, extraOutput). Rest restores and saves.
 // The fire itself is a small code-built model with flames, embers and light.
 import * as THREE from 'three';
-import { items as itemRules, stations as St, recipeScrolls } from '@rules';
+import { items as itemRules, stations as St, recipeScrolls, craftingRecipes } from '@rules';
 import { flat } from '../engine/lib.js';
 
-const { ITEMS, COOKING_RECIPES } = itemRules;
+const { ITEMS, COOKING_RECIPES, POTION_RECIPES } = itemRules;
+const locked = recipeScrolls.isLocked;
+// What each station makes (amo stations.js: a fire makes the simple dishes, the hearth everything
+// cooked, the cauldron every potion; the workbench is amo's gear CRAFTING_RECIPES).
+const MODES = {
+    campfire:  { title: 'Campfire', verb: 'Cook', kind: 'cooking', rest: true, list: s => St.availableRecipes(COOKING_RECIPES, 'cooking', { station: null }, s.knownRecipes ?? [], locked) },
+    hearth:    { title: 'The Hearth', verb: 'Cook', kind: 'cooking', list: s => St.availableRecipes(COOKING_RECIPES, 'cooking', { station: 'hearth', rank: 2 }, s.knownRecipes ?? [], locked) },
+    alchemy:   { title: 'Alchemy', verb: 'Brew', kind: 'alchemy', list: s => St.availableRecipes(POTION_RECIPES, 'alchemy', { station: 'alchemy', rank: 2 }, s.knownRecipes ?? [], locked) },
+    workbench: { title: 'Workbench', verb: 'Craft', kind: null, list: () => craftingRecipes.CRAFTING_RECIPES },
+};
+export const STATION_PROMPT = {
+    campfire: 'G — Cook or rest at the campfire', hearth: 'G — Cook at the hearth',
+    alchemy: 'G — Brew at the cauldron', workbench: 'G — Craft at the workbench',
+};
 const CSS = `
 #camp { position: fixed; inset: 0; z-index: 8; display: none; place-items: center; background: #05060acc;
     font-family: Georgia, 'Times New Roman', serif; color: #eee6d2; }
@@ -68,7 +81,7 @@ export function createCampfire({ stats, hud, onRest }) {
     const root = document.createElement('div');
     root.id = 'camp';
     document.body.append(root);
-    let open = false;
+    let open = false, mode = 'campfire';
     const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 
     const needs = r => r.ingredients ?? [{ id: r.input, qty: 1 }];
@@ -76,13 +89,17 @@ export function createCampfire({ stats, hud, onRest }) {
 
     function cook(r) {
         if (!canCook(r)) return;
+        const M = MODES[mode];
         for (const n of needs(r)) stats.removeItem(n.id, n.qty);
-        const rank = St.craftRank(stats.craftCounts?.cooking ?? 0);
-        const qty = 1 + (St.extraOutput(rank) ? 1 : 0);
-        if (!stats.addItem(r.output, qty)) hud.message('Your satchel is full — it is left by the fire');
-        stats.craftCounts = { cooking: 0, alchemy: 0, ...(stats.craftCounts ?? {}) };
-        stats.craftCounts.cooking++;
-        hud.message(qty > 1 ? `${r.label} ×2 — a fine batch` : r.label);
+        const rank = M.kind ? St.craftRank(stats.craftCounts?.[M.kind] ?? 0) : 1;
+        const bonus = M.kind && St.extraOutput(rank);
+        const qty = (r.makes ?? 1) * (bonus ? 2 : 1);
+        if (!stats.addItem(r.output, qty)) hud.message('Your satchel is full');
+        if (M.kind) {
+            stats.craftCounts = { cooking: 0, alchemy: 0, ...(stats.craftCounts ?? {}) };
+            stats.craftCounts[M.kind]++;
+        }
+        hud.message(bonus ? `${r.label} — a double batch` : r.label);
         render();
     }
 
@@ -90,14 +107,18 @@ export function createCampfire({ stats, hud, onRest }) {
         root.textContent = '';
         const panel = el('div', 'panel');
         const top = el('div', 'top');
-        const rest = el('button', null, 'Rest by the fire');
-        rest.onclick = () => { onRest(); hud.message('You rest. Health, mana and Vigor return. Game saved.'); render(); };
+        const M = MODES[mode];
+        if (M.rest) {
+            const rest = el('button', null, 'Rest by the fire');
+            rest.onclick = () => { onRest(); hud.message('You rest. Health, mana and Vigor return. Game saved.'); render(); };
+            top.append(rest);
+        }
         const close = el('button', 'ghost', 'Close ✕');
-        close.onclick = toggle;
-        top.append(rest, close);
-        const rank = St.craftRank(stats.craftCounts?.cooking ?? 0);
-        panel.append(top, el('h2', null, 'Campfire'), el('div', 'meta', `Cooking rank ${rank} · ${stats.craftCounts?.cooking ?? 0} dishes cooked`));
-        const list = St.availableRecipes(COOKING_RECIPES, 'cooking', { station: null }, stats.knownRecipes ?? [], recipeScrolls.isLocked);
+        close.onclick = () => toggle();
+        top.append(close);
+        const meta = M.kind ? `${M.kind === 'cooking' ? 'Cooking' : 'Alchemy'} rank ${St.craftRank(stats.craftCounts?.[M.kind] ?? 0)} · ${stats.craftCounts?.[M.kind] ?? 0} made` : 'Gear, tools, arrows and quivers';
+        panel.append(top, el('h2', null, M.title), el('div', 'meta', meta));
+        const list = M.list(stats);
         const sorted = [...list].sort((a, b) => Number(canCook(b)) - Number(canCook(a)));
         for (const r of sorted) {
             const row = el('div', `row${canCook(r) ? '' : ' cant'}`);
@@ -112,7 +133,7 @@ export function createCampfire({ stats, hud, onRest }) {
             const desc = ITEMS[r.output]?.description;
             left.append(sub);
             if (desc) left.append(el('div', 'sub', desc));
-            const b = el('button', null, 'Cook');
+            const b = el('button', null, M.verb);
             b.disabled = !canCook(r);
             b.onclick = () => cook(r);
             row.append(left, b);
@@ -121,7 +142,8 @@ export function createCampfire({ stats, hud, onRest }) {
         root.append(panel);
     }
 
-    function toggle() {
+    function toggle(m) {
+        if (m && !open) mode = m;
         open = !open;
         root.classList.toggle('open', open);
         if (open) render();

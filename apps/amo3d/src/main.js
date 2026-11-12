@@ -21,7 +21,7 @@ import { createHotbar } from './game/hotbar.js';
 import { createSkills } from './game/skills.js';
 import { createArchery } from './game/archery.js';
 import { createGathering } from './game/gathering.js';
-import { createCampfire } from './game/campfire.js';
+import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createCharacter } from './content/models/eldrin.js';
 import { setPlatesVisible } from './content/actors/enemyCore.js';
 import { createTitle } from './game/title.js';
@@ -167,10 +167,11 @@ function tick(dt) {
     if (inventory.open || sheet.open || campfire.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
-    const fire = map.campfire && Math.hypot(map.campfire.pos.x - player.state.pos.x, map.campfire.pos.z - player.state.pos.z) < 2.3;
-    const gatherText = fire ? 'G — Cook or rest at the campfire' : gathering.update(simT * 1000, player.state);
+    const pp = player.state.pos;
+    const station = (map.stations ?? []).find(st => Math.hypot(st.pos.x - pp.x, st.pos.z - pp.z) < 2.3 && Math.abs(st.pos.y - pp.y) < 1.6);
+    const gatherText = station ? STATION_PROMPT[station.mode] : gathering.update(simT * 1000, player.state);
     if (gatherText && (act.gather || (act.hop && input.device === 'gamepad'))) {
-        if (fire) campfire.toggle(); else gathering.harvest(simT * 1000);
+        if (station) campfire.toggle(station.mode); else gathering.harvest(simT * 1000);
         act.hop = false;
     }
     let lift = 0;
