@@ -17,6 +17,7 @@ import { createLoot } from './game/loot.js';
 import { createInventory } from './game/inventory.js';
 import { createSheet } from './game/sheet.js';
 import { createHotbar } from './game/hotbar.js';
+import { createSkills } from './game/skills.js';
 import { createCharacter } from './content/models/eldrin.js';
 import { createOutdoor } from './content/glade.js';
 import { createTower } from './content/eldrinTower.js';
@@ -90,6 +91,7 @@ const ITEMS = itemRules.ITEMS;
 const handOf = id => id ? { type: weaponRules.typeOf(ITEMS[id]) === 'fists' && ITEMS[id]?.slot === 'offHand' ? 'shield' : weaponRules.typeOf(ITEMS[id]), accent: ITEMS[id]?.color } : null;
 const showWeapons = () => hero.setWeapons(handOf(stats.equipment.weapon), handOf(stats.equipment.offHand));
 stats.onEquipChange(showWeapons);
+const skills = createSkills({ stats, player, hud, cam, world });
 showWeapons();
 
 // ---------- saving ----------
@@ -113,6 +115,8 @@ function tick(dt) {
     if (act.sheet) sheet.toggle();
     if (act.hotbar >= 0 && !player.state.dead) hotbar.use(act.hotbar);
     hotbar.update(dt);
+    if (act.skill >= 0 && !inventory.open && !sheet.open) skills.use(act.skill);
+    skills.update(dt);
     if (inventory.open || sheet.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
     const map = world.current;
     let lift = 0;
@@ -145,5 +149,5 @@ window.__poc = {
     enterMap: (id, sp) => world.enter(id, sp),
     cast: () => input.press('cast'),
     strike: () => input.press('strike'),
-    loot, inventory, sheet, hotbar,
+    loot, inventory, sheet, hotbar, skills, player: player.state, playerApi: player,
 };

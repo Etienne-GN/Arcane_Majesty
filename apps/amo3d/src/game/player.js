@@ -2,7 +2,9 @@
 // and hop come from amo's movementRules; the fireball from amo's SPELLS; getting hurt uses amo's
 // 800 ms invulnerability and the hop's i-frames.
 import * as THREE from 'three';
-import { movementRules, weapons, mastery, items as itemRules, styles as styleRules } from '@rules';
+import { movementRules, weapons, mastery, items as itemRules, styles as styleRules, statuses } from '@rules';
+
+const { STATUS_DEFS } = statuses;
 import { FIREBALL } from './fireball.js';
 
 const { MOVE, tickVigor, canSprint, spendHop, moveSpeed, hopLanding } = movementRules;
@@ -29,12 +31,29 @@ const angleDiff = (a, b) => ((((b - a) + Math.PI) % (Math.PI * 2)) + Math.PI * 2
 export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTuning }) {
     const p = {
         pos: new THREE.Vector3(), vy: 0, facing: 0, hop: null, cast: null, speed: 0, sprinting: false,
-        invuln: 0, knock: new THREE.Vector3(), sinceHurt: 99, dead: null, strike: null, strikeCd: 0,
+        invuln: 0, knock: new THREE.Vector3(), sinceHurt: 99, dead: null, strike: null, strikeCd: 0, spin: null,
+        buffs: {},   // statusId → { left (s), tick (ms) } — amo STATUS_DEFS buffs
     };
     hero.root.rotation.order = 'YXZ';
     const baseSpeed = () => 100 + stats.attributes.agility * 4;   // px/s — amo's Player.js
     const dir = new THREE.Vector3(), tryPos = new THREE.Vector3(), tmp = new THREE.Vector3();
     let triggerLock = false;
+    let lastCtx = null;
+
+    // ---- buffs (amo STATUS_DEFS fields: damageTakenMult, statsMult, swingMult, speedMult, manaRegen) ----
+    const buffMult = field => Object.keys(p.buffs).reduce((m, id) => m * (STATUS_DEFS[id]?.[field] ?? 1), 1);
+    function addBuff(id, ms) { p.buffs[id] = { left: ms / 1000, tick: 0 }; }
+    function tickBuffs(dt) {
+        for (const [id, b] of Object.entries(p.buffs)) {
+            b.left -= dt;
+            const def = STATUS_DEFS[id];
+            if (def?.manaRegen) {
+                b.tick += dt * 1000;
+                while (b.tick >= (def.regenInterval ?? 1000)) { b.tick -= def.regenInterval ?? 1000; stats.mana = Math.min(stats.maxMana, stats.mana + def.manaRegen); }
+            }
+            if (b.left <= 0) delete p.buffs[id];
+        }
+    }
 
     const map = () => world.current;
     const blockedPx = (px, py) => map().blockedAt(px / PX, py / PX, PLAYER_R, p.pos.y);   // amo's blockedAt(x, y), pixels
@@ -54,6 +73,15 @@ export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTun
             return false;
         }
         if (p.invuln > 0) return false;
+        // Parry: the next blow from the front does nothing (amo 'parrying').
+        if (p.buffs.parrying && ((from.x - p.pos.x) * Math.sin(p.facing) + (from.z - p.pos.z) * Math.cos(p.facing)) > 0) {
+            delete p.buffs.parrying;
+            p.invuln = 0.3;
+            hud.floater(p.pos.clone().setY(p.pos.y + 2.1), 'Parried', '#f3d88b');
+            cam.kick(0.1);
+            return false;
+        }
+        dmg = Math.max(1, Math.round(dmg * buffMult('damageTakenMult')));
         stats.health = Math.max(0, stats.health - dmg);
         p.invuln = INVINCIBLE_S;
         p.sinceHurt = 0;
@@ -111,7 +139,7 @@ export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTun
             if (d > reach || d < 1e-4 || (dx * fx + dz * fz) / d < 0.35 || Math.abs(h.pos.y - p.pos.y) > 1.5) continue;
             const lvl = stats.weaponLevel(type);
             const base = 8 + stats.attributes.strength * 2 + Math.floor(Math.random() * 6) - 2;
-            const dmg = Math.max(1, Math.floor(base * W.dmgMult * mastery.levelDamageMult(lvl)));
+            const dmg = Math.max(1, Math.floor(base * W.dmgMult * mastery.levelDamageMult(lvl) * buffMult('statsMult')));
             h.hit(dmg, p.pos, 0, ctx);
             const killed = !h.alive;
             if (h.kind !== 'shadow') hud.floater(h.pos.clone().setY(h.pos.y + 1.9), `${dmg}`, '#ffe0a0');
@@ -137,7 +165,9 @@ export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTun
 
     function step(dt, act, ctx) {
         const m = map();
+        lastCtx = ctx;
         p.strikeCd = Math.max(0, p.strikeCd - dt);
+        tickBuffs(dt);
         const ms = dt * 1000;
         p.invuln = Math.max(0, p.invuln - dt);
         p.sinceHurt += dt;
@@ -166,7 +196,7 @@ export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTun
         if (act.strike && !p.strike && !p.cast && p.strikeCd <= 0 && !p.hop) {
             const type = strikeType(stats);
             p.strike = { t: 0, hit: false, type, thrust: WEAPON_TYPES[type].anim === 'thrust' };
-            p.strikeCd = (WEAPON_TYPES[type].cooldown / 1000) * mastery.levelCooldownMult(stats.weaponLevel(type)) + STRIKE_TIME * 0.6;
+            p.strikeCd = ((WEAPON_TYPES[type].cooldown / 1000) * mastery.levelCooldownMult(stats.weaponLevel(type)) + STRIKE_TIME * 0.6) * buffMult('swingMult');
         }
         if (p.strike) {
             p.strike.t += dt / STRIKE_TIME;
@@ -211,7 +241,7 @@ export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTun
             if (moving) {
                 const wading = !!m.wading?.(p.pos.x, p.pos.z);
                 // Analog sticks walk slower when pushed less; full tilt = amo's speed.
-                const speed = (moveSpeed(baseSpeed(), stats.fatigueFraction, wading ? 0.6 : 1, p.sprinting) / PX) * (p.cast ? 0.45 : 1) * Math.max(0.35, push);
+                const speed = (moveSpeed(baseSpeed(), stats.fatigueFraction, wading ? 0.6 : 1, p.sprinting) / PX) * (p.cast ? 0.45 : 1) * Math.max(0.35, push) * buffMult('speedMult');
                 tryPos.copy(p.pos).addScaledVector(dir, speed * dt);
                 m.resolve(tryPos, PLAYER_R);
                 if (!passable(tryPos.x, tryPos.z)) {
@@ -250,7 +280,8 @@ export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTun
 
         hero.root.position.copy(p.pos);
         hero.root.position.y += lift;
-        hero.root.rotation.y = p.facing;
+        if (p.spin) { p.spin.t += dt / 0.4; if (p.spin.t >= 1) p.spin = null; }
+        hero.root.rotation.y = p.facing + (p.spin ? p.spin.t * Math.PI * 2 : 0);
         hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : null, strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust });
 
         // Doors.
@@ -269,5 +300,11 @@ export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTun
         return lift;
     }
 
-    return { state: p, place, step, hurt, onKill, revive };
+    return {
+        state: p, place, step, hurt, onKill, revive, addBuff,
+        statsMult: () => buffMult('statsMult'),
+        playStrike: () => { p.strike = { t: 0, hit: true, type: 'staff', thrust: false }; },
+        playSpin: () => { p.spin = { t: 0 }; },
+        get lastCtx() { return lastCtx; },
+    };
 }
