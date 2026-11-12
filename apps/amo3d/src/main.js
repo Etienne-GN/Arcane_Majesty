@@ -22,6 +22,7 @@ import { createSkills } from './game/skills.js';
 import { createArchery } from './game/archery.js';
 import { createGathering } from './game/gathering.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
+import { createChests } from './game/chest.js';
 import { createCharacter } from './content/models/eldrin.js';
 import { setPlatesVisible } from './content/actors/enemyCore.js';
 import { createTitle } from './game/title.js';
@@ -106,6 +107,7 @@ stats.onEquipChange(showWeapons);
 const skills = createSkills({ stats, player, hud, cam, world });
 const archery = createArchery({ stats, player, hud, cam, world, loot });
 const gathering = createGathering({ stats, hud });
+const chests = createChests({ stats, hud });
 const campfire = createCampfire({
     stats, hud,
     onRest: () => { stats.health = stats.maxHealth; stats.mana = stats.maxMana; stats.vigor = stats.maxVigor; stats.vigorWinded = false; save(); },
@@ -164,14 +166,16 @@ function tick(dt) {
     hotbar.update(dt);
     if (act.skill >= 0 && !inventory.open && !sheet.open) skills.use(act.skill);
     skills.update(dt);
-    if (inventory.open || sheet.open || campfire.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
+    if (inventory.open || sheet.open || campfire.open || chests.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
     const pp = player.state.pos;
     const station = (map.stations ?? []).find(st => Math.hypot(st.pos.x - pp.x, st.pos.z - pp.z) < 2.3 && Math.abs(st.pos.y - pp.y) < 1.6);
     const gatherText = station ? STATION_PROMPT[station.mode] : gathering.update(simT * 1000, player.state);
     if (gatherText && (act.gather || (act.hop && input.device === 'gamepad'))) {
-        if (station) campfire.toggle(station.mode); else gathering.harvest(simT * 1000);
+        if (station?.mode === 'chest') chests.toggle(station.key, station.title);
+        else if (station) campfire.toggle(station.mode);
+        else gathering.harvest(simT * 1000);
         act.hop = false;
     }
     let lift = 0;
@@ -207,5 +211,5 @@ window.__poc = {
     enterMap: (id, sp) => world.enter(id, sp),
     cast: () => input.press('cast'),
     strike: () => input.press('strike'),
-    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, player: player.state, playerApi: player,
+    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, player: player.state, playerApi: player,
 };

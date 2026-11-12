@@ -18,7 +18,7 @@ const MODES = {
 };
 export const STATION_PROMPT = {
     campfire: 'G — Cook or rest at the campfire', hearth: 'G — Cook at the hearth',
-    alchemy: 'G — Brew at the cauldron', workbench: 'G — Craft at the workbench',
+    alchemy: 'G — Brew at the cauldron', workbench: 'G — Craft at the workbench', chest: 'G — Open the chest',
 };
 const CSS = `
 #camp { position: fixed; inset: 0; z-index: 8; display: none; place-items: center; background: #05060acc;

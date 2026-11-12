@@ -4,6 +4,7 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { flat, mulberry32, faceShade, colliderAt, pushOut, shadows, Particles } from '../engine/lib.js';
+import { buildChest } from '../game/chest.js';
 
 const R = 8;          // inner radius
 const STEP = 0.5;     // how high a foot can step up
@@ -240,6 +241,11 @@ export function createTower() {
     }
     solid(1, { ax: -6.6, az: 2.0, bx: -6.6, bz: 3.4, r: 0.25 }, 1.6);
 
+    // Eldrin's storage chest (amo chestContents, saved with him).
+    const CH = { x: -2.6, z: 3.1 };
+    buildChest(H, CH.x, 0, CH.z, Math.PI);
+    solid(1, { x: CH.x, z: CH.z, r: 0.6 }, 0.9);
+
     // Door (west wall) and its torches.
     const DOOR_A = Math.PI;
     box(H, 0.3, 2.9, 1.9, M.dark, -R + 0.05, 1.45, 0);
@@ -455,7 +461,10 @@ export function createTower() {
         triggers: [{ x: -R + 0.9, z: 0, r: 0.9, yMax: 1, yMin: -0.5, label: 'Leave the tower', to: 'outdoor', spawn: 'door' }],
         spawns: { door: { x: -R + 3.0, y: 0, z: 0, facing: Math.PI / 2 } },
         hittables: [],
-        stations: [{ mode: 'hearth', pos: new THREE.Vector3(FP.x - 1.3, 0, FP.z) }],   // the hall's fireplace
+        stations: [
+            { mode: 'hearth', pos: new THREE.Vector3(FP.x - 1.3, 0, FP.z) },   // the hall's fireplace
+            { mode: 'chest', key: 'eldrin_tower_hall', title: "Eldrin's Chest", pos: new THREE.Vector3(CH.x, 0, CH.z - 0.9) },
+        ],
         fx,
         update(t, dt, ctx) {
             const cur = levelOf(ctx.player.pos.y);
