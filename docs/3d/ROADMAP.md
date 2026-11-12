@@ -46,6 +46,14 @@ Status: **2.1 gathering done** (38 spots in the glade: herbs, mushrooms, berries
 | Item tooltips, use/consume, potions | B + R |
 
 ## Phase 3 — The 3D Forge (characters)
+Decided with the user (2026-11-12): **both** a dedicated Forge page (to author characters for the game — the
+lore cast used by the campaigns, saved as data) **and** an in-game creator used when starting a **multiplayer**
+game with a DIY character. Campaigns play as lore characters (as in amo); multiplayer as your own.
+Slices: 3.1 a character is data — one builder turns a definition into the 3D model (Eldrin re-expressed as a
+definition) · 3.2 the parts library (body builds, faces, hair, facial hair, outfits, boots, gloves, palettes) ·
+3.3 the Forge page (3D turntable preview, part and colour pickers, randomize, save/export to the cast) ·
+3.4 the in-game creator (multiplayer New Game → create your character; campaigns → the lore cast) ·
+3.5 equipment shows on the body (armor slots override outfit pieces).
 | amo | Kind |
 |---|---|
 | LPC Forge v2 → **3D Forge**: our own parts library (bodies, faces, hair, outfits, armor per slot, weapons), palettes, save as JSON | N |
