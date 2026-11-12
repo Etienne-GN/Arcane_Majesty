@@ -16,6 +16,7 @@ import { loadGame, saveGame, deleteSave } from './game/save.js';
 import { createLoot } from './game/loot.js';
 import { createInventory } from './game/inventory.js';
 import { createSheet } from './game/sheet.js';
+import { createHotbar } from './game/hotbar.js';
 import { createCharacter } from './content/models/eldrin.js';
 import { createOutdoor } from './content/glade.js';
 import { createTower } from './content/eldrinTower.js';
@@ -48,8 +49,9 @@ stats.setTalents(talentRules.talentsFor('eldrin'));   // amo: gifted wand, staff
 const savedAt = loadGame(stats);
 const loot = createLoot({ stats, hud });
 const sheet = createSheet({ stats });
+const hotbar = createHotbar({ stats, hud });
 const inventory = createInventory({
-    stats, hud,
+    stats, hud, hotbar,
     onDrop: id => {   // a dropped item lands in front of Eldrin as a pickup
         const p = player.state;
         loot.drop([{ id, chance: 1 }], p.pos.clone().set(p.pos.x + Math.sin(p.facing) * 1.8, p.pos.y, p.pos.z + Math.cos(p.facing) * 1.8));
@@ -109,6 +111,8 @@ function tick(dt) {
     if (act.keys.includes('F3')) perf.toggle();
     if (act.inventory) inventory.toggle();
     if (act.sheet) sheet.toggle();
+    if (act.hotbar >= 0 && !player.state.dead) hotbar.use(act.hotbar);
+    hotbar.update(dt);
     if (inventory.open || sheet.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
     const map = world.current;
     let lift = 0;
@@ -141,5 +145,5 @@ window.__poc = {
     enterMap: (id, sp) => world.enter(id, sp),
     cast: () => input.press('cast'),
     strike: () => input.press('strike'),
-    loot, inventory, sheet,
+    loot, inventory, sheet, hotbar,
 };

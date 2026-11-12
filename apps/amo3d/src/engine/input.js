@@ -16,7 +16,9 @@ export function createInput({ canvas, cam }) {
         if (e.code === 'Space') e.preventDefault();
         if (!e.repeat) {
             if (e.code === 'Space') pressed.add('hop');
-            if (e.code === 'KeyF' || e.code === 'Digit1') pressed.add('cast');
+            if (e.code === 'KeyF') pressed.add('cast');
+            const slot = ['Digit1', 'Digit2', 'Digit3', 'Digit4'].indexOf(e.code);
+            if (slot >= 0) pressed.add(`hotbar:${slot}`);
             if (e.code === 'KeyR') pressed.add('strike');
             pressed.add(`key:${e.code}`);
         }
@@ -72,6 +74,7 @@ export function createInput({ canvas, cam }) {
             if (edge(1)) pressed.add('strike');
             if (edge(8) || edge(3)) pressed.add('inventory');
             if (edge(9)) pressed.add('sheet');
+            [12, 15, 13, 14].forEach((bi, i) => { if (edge(bi)) pressed.add(`hotbar:${i}`); });   // D-pad up, right, down, left
             if (edge(0) || edge(2) || edge(7)) lastDevice = 'gamepad';
             padPrev = pad.buttons.map(x => x.pressed);
         }
@@ -81,7 +84,7 @@ export function createInput({ canvas, cam }) {
 
         const len = Math.hypot(mx, my);
         if (len > 1) { mx /= len; my /= len; }
-        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), strike: pressed.has('strike'), inventory: pressed.has('inventory'), sheet: pressed.has('sheet'), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
+        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), strike: pressed.has('strike'), inventory: pressed.has('inventory'), sheet: pressed.has('sheet'), hotbar: [0, 1, 2, 3].findIndex(i => pressed.has(`hotbar:${i}`)), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
         pressed.clear();
         return out;
     }

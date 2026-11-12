@@ -40,7 +40,7 @@ const CSS = `
 #inv .close { float: right; }
 @media (max-width: 640px) { #inv .cols { grid-template-columns: 1fr; } }`;
 
-export function createInventory({ stats, hud, onDrop }) {
+export function createInventory({ stats, hud, onDrop, hotbar = null }) {
     const style = document.createElement('style');
     style.textContent = CSS;
     document.head.append(style);
@@ -123,6 +123,7 @@ export function createInventory({ stats, hud, onDrop }) {
                     return true;
                 });
             }
+            if (hotbar?.canHotbar(id)) act('To hotbar', () => { hotbar.assign(id); hud.message(`${def.name} on the hotbar`); return true; }, true);
             act('Drop', () => {   // amo's removeItem returns nothing, so check the satchel first
                 if (!stats.inventory.some(i => i.id === id)) return true;
                 stats.removeItem(id, 1);
