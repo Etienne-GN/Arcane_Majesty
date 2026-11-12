@@ -2,11 +2,14 @@
 // (PlayerStats.distributePoint), weapon and element mastery against the talent ceilings
 // (mastery.js), and the spells Eldrin knows (spells.js: tier, mana cost, cooldown, damage).
 // Pauses the game while open, like the satchel.
-import { mastery as M, spells as spellRules, weapons as weaponRules } from '@rules';
+import { mastery as M, spells as spellRules, weapons as weaponRules, styles as styleRules, styleData, items as itemRules } from '@rules';
 
 const { pointsFor, levelOf, MAX_LEVEL } = M;
 const { SPELLS, TIER_NAMES, spellDamageAt } = spellRules;
 const { WEAPON_TYPES } = weaponRules;
+const { stylesFor, STYLE_SKILLS } = styleData;
+const { skillState, handTypes, practising, knowsStyle } = styleRules;
+const STATE_TEXT = { ready: 'ready', mastery: 'needs mastery', weapon: 'weapon not in hand', style: 'style not learned' };
 const ATTRS = [['strength', 'Strength', 'melee damage'], ['intelligence', 'Intelligence', '+8 mana, spell damage'],
     ['stamina', 'Stamina', '+8 health'], ['agility', 'Agility', 'speed, Vigor, critical hits']];
 
@@ -113,8 +116,45 @@ export function createSheet({ stats }) {
         }
 
         cols.append(a, m, sp);
-        panel.append(cols);
+        panel.append(cols, stylesSection());
         root.append(panel);
+    }
+
+    // Styles of the weapons in hand (empty hands carry Eldrin's staff): progress, which one is being
+    // practised (kills train it), and each skill's state — amo's styles.js.
+    function stylesSection() {
+        const s = stats, st = s.styles;
+        const box = el('div');
+        box.append(el('h3', null, 'Fighting styles'));
+        box.firstChild.style.marginTop = '16px';
+        const inHand = handTypes(s.equipment, itemRules.ITEMS);
+        if (!s.equipment.weapon) { inHand.delete('fists'); inHand.add('staff'); }
+        for (const weapon of inHand) {
+            const list = stylesFor(weapon);
+            if (!list.length) continue;
+            const current = practising(st, weapon);
+            for (const style of list) {
+                const row = el('div', 'row');
+                row.style.alignItems = 'flex-start';
+                const left = el('div');
+                const pct = Math.min(100, Math.floor(st.progress[style.id] ?? 0));
+                left.append(el('div', null, `${style.name} · ${WEAPON_TYPES[weapon].label}${knowsStyle(st, style.id) ? ' · learned' : ` · ${pct}%`}`), el('div', 'sub', style.blurb));
+                for (const skillId of style.skills) {
+                    const k = STYLE_SKILLS[skillId];
+                    const state = skillState(st, skillId, s.weaponLevel(weapon), true);
+                    left.append(el('div', 'sub', `· ${k.name} (mastery ${k.unlock}) — ${state === 'mastery' ? `needs mastery ${k.unlock}` : STATE_TEXT[state]}`));
+                }
+                row.append(left);
+                if (style.id === current) row.append(el('div', 'sub', 'practising'));
+                else if (!knowsStyle(st, style.id)) {
+                    const b = el('button', null, 'Practise');
+                    b.onclick = () => { st.practising[weapon] = style.id; render(); };
+                    row.append(b);
+                }
+                box.append(row);
+            }
+        }
+        return box;
     }
 
     function toggle() {

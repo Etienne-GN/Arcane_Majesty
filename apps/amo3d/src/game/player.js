@@ -2,7 +2,7 @@
 // and hop come from amo's movementRules; the fireball from amo's SPELLS; getting hurt uses amo's
 // 800 ms invulnerability and the hop's i-frames.
 import * as THREE from 'three';
-import { movementRules, weapons, mastery, items as itemRules } from '@rules';
+import { movementRules, weapons, mastery, items as itemRules, styles as styleRules } from '@rules';
 import { FIREBALL } from './fireball.js';
 
 const { MOVE, tickVigor, canSprint, spendHop, moveSpeed, hopLanding } = movementRules;
@@ -116,6 +116,14 @@ export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTun
             const killed = !h.alive;
             if (h.kind !== 'shadow') hud.floater(h.pos.clone().setY(h.pos.y + 1.9), `${dmg}`, '#ffe0a0');
             const before = lvl, after = stats.gainWeaponPoints(type, mastery.hitGain(killed));
+            if (killed) {   // a kill also practises the weapon's current style (amo C3)
+                const sid = styleRules.practising(stats.styles, type);
+                if (sid) {
+                    const was = styleRules.knowsStyle(stats.styles, sid);
+                    styleRules.practiceGain(stats.styles, sid, mastery.hitGain(true));
+                    if (!was && styleRules.knowsStyle(stats.styles, sid)) hud.banner('A fighting style learned');
+                }
+            }
             if (after > before) hud.banner(`${W.label} mastery ${after}`);
             any = true;
         }
