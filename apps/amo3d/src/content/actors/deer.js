@@ -111,12 +111,13 @@ export function createDeer({ home, stag = false, rng, map }) {
         return false;
     }
 
-    function update(dt, { player, fx }) {
+    function update(dt, { player, fx, dropLoot }) {
         const toPlayer = Math.hypot(player.pos.x - pos.x, player.pos.z - pos.z);
         s.timer -= dt;
         let want = 0, lookAtPlayer = false, grazing = false;
 
         if (s.state === 'dead') {
+            if (s.deadT === 0) dropLoot?.([{ id: 'deer_meat', chance: 1 }, { id: 'bone_fragment', chance: 0.5 }], pos.clone(), rng);   // venison for the fire
             s.deadT += dt;
             const k = Math.min(1, s.deadT / 0.6);
             d.root.rotation.z = (Math.PI / 2) * k * k;
@@ -206,7 +207,7 @@ export function createDeer({ home, stag = false, rng, map }) {
     }
 
     bakeRig(d.root);
-    return { root: d.root, pos, update, hit, get alive() { return s.state !== 'dead'; } };
+    return { kind: 'deer', root: d.root, pos, update, hit, get alive() { return s.state !== 'dead'; } };
 }
 
 function turn(a, b, k) {

@@ -11,6 +11,7 @@ import { createDeer } from './actors/deer.js';
 import { createShadows } from './actors/shadowSoldier.js';
 import { createWolves } from './actors/wolf.js';
 import { bakeStatic } from '../engine/batch.js';
+import { buildCampfire } from '../game/campfire.js';
 
 export const WATER = -1.2;
 export const WORLD_R = 98;
@@ -431,6 +432,7 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
             scene.fog.far = (230 - 105 * moodK) * quality.fogFar;
             sky.material.uniforms.bottom.value.copy(scene.fog.color);
             eldrin.update(t, dt, moodK);
+            map.campfire?.update(t);
             shadows.update(dt);
             sun.position.copy(ctx.player.pos).add(SUN_OFFSET);
             sun.target.position.copy(ctx.player.pos);
@@ -502,6 +504,12 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
         spots.push({ type, x, z });
     }
     map.gatherSpots = spots;
+
+    // ---------- a campfire a few steps from the start ----------
+    let fireAt = { x: 4, z: -5 };
+    for (let i = 0; i < 40 && map.blockedAt(fireAt.x, fireAt.z, 1.2); i++) fireAt = { x: 4 + (rng() - 0.5) * 8, z: -5 + (rng() - 0.5) * 8 };
+    map.campfire = buildCampfire(scene, fireAt, heightAt(fireAt.x, fireAt.z));
+    addCollider({ x: fireAt.x, z: fireAt.z, r: 0.6, kind: 'hop' }, 0.6);
 
     // Batch every static mesh into one draw per material (phones care about draw calls).
     sky.userData.dynamic = true;
