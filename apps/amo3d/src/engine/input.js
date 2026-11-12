@@ -17,6 +17,7 @@ export function createInput({ canvas, cam }) {
         if (!e.repeat) {
             if (e.code === 'Space') pressed.add('hop');
             if (e.code === 'KeyF' || e.code === 'Digit1') pressed.add('cast');
+            if (e.code === 'KeyR') pressed.add('strike');
             pressed.add(`key:${e.code}`);
         }
         keys.add(e.code);
@@ -32,14 +33,18 @@ export function createInput({ canvas, cam }) {
     canvas.addEventListener('pointerdown', e => {
         if (e.pointerType === 'touch') return;
         if (e.button === 2) { pressed.add('cast'); return; }
-        drag = { x: e.clientX, y: e.clientY };
+        drag = { x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY, t0: performance.now() };
         canvas.setPointerCapture(e.pointerId);
     });
-    canvas.addEventListener('pointerup', () => { drag = null; });
+    canvas.addEventListener('pointerup', e => {
+        // A quick click that didn't move the camera is a strike.
+        if (drag && e.button === 0 && Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < 6 && performance.now() - drag.t0 < 300) pressed.add('strike');
+        drag = null;
+    });
     canvas.addEventListener('pointermove', e => {
         if (!drag) return;
         cam.orbit(-(e.clientX - drag.x) * 0.006, (e.clientY - drag.y) * 0.004);
-        drag = { x: e.clientX, y: e.clientY };
+        drag.x = e.clientX; drag.y = e.clientY;
     });
     canvas.addEventListener('wheel', e => { e.preventDefault(); cam.zoom(e.deltaY > 0 ? 1.1 : 0.9); }, { passive: false });
 
@@ -64,6 +69,7 @@ export function createInput({ canvas, cam }) {
             const edge = i => b(i) && !padPrev[i];
             if (edge(0)) pressed.add('hop');
             if (edge(2) || edge(7)) pressed.add('cast');
+            if (edge(1)) pressed.add('strike');
             if (edge(0) || edge(2) || edge(7)) lastDevice = 'gamepad';
             padPrev = pad.buttons.map(x => x.pressed);
         }
@@ -73,7 +79,7 @@ export function createInput({ canvas, cam }) {
 
         const len = Math.hypot(mx, my);
         if (len > 1) { mx /= len; my /= len; }
-        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
+        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), strike: pressed.has('strike'), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
         pressed.clear();
         return out;
     }

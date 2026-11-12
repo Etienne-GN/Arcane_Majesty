@@ -247,7 +247,7 @@ export function createCharacter() {
     }
 
     // speed in m/s, sprinting bool, hopK 0..1 progress (null when grounded), castK 0..1 (null when not casting)
-    function update(dt, { speed, sprinting, hopK, castK = null }) {
+    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null }) {
         t += dt;
         const ease = k => 1 - Math.exp(-dt * k);
         amp += (Math.min(1, speed / 4) - amp) * ease(10);
@@ -288,6 +288,15 @@ export function createCharacter() {
             arms.L.upper.rotation.x = arms.L.upper.rotation.x * (1 - w) - 0.6 * w;
             spine.rotation.x += 0.12 * w;
             spine.rotation.y += -0.25 * w;
+        }
+        // Strike: a short sweeping blow with the staff, right to left, the body twisting into it.
+        if (strikeK != null) {
+            const k = Math.min(1, strikeK), w = Math.sin(k * Math.PI);
+            arms.R.upper.rotation.x = arms.R.upper.rotation.x * (1 - w) - 1.3 * w;
+            arms.R.upper.rotation.z = -0.12 - 0.9 * w + 1.5 * w * k;
+            arms.R.fore.rotation.x = -0.75 * (1 - w) - 0.3 * w;
+            spine.rotation.y += (0.5 - 1.1 * k) * w;
+            spine.rotation.x += 0.1 * w;
         }
         M.crystal.emissive.copy(calm).lerp(blaze, castK != null ? Math.sin(Math.min(1, castK) * Math.PI) : 0);
 

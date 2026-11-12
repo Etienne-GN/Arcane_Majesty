@@ -87,14 +87,15 @@ function tick(dt) {
     if (act.keys.includes('F3')) perf.toggle();
     const map = world.current;
     let lift = 0;
-    if (!world.step(dt)) lift = player.step(dt, act);
+    const ctx = { player: player.state, camera, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill };
+    if (!world.step(dt)) lift = player.step(dt, act, ctx);
     const p = player.state;
     cam.update(dt, p.pos, lift, map.terrain ? map.heightAt : null);
     if (map.levelName && !p.hop && p.vy === 0) {
         const lv = map.levelName(p.pos.y);
         if (lv !== lastLevel) { hud.banner(`${map.name} — ${lv}`); lastLevel = lv; }
     }
-    map.update(simT, dt, { player: p, camera, fx: map.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill });
+    map.update(simT, dt, ctx);
     fireballs.update(dt, map, map.hittables);
     hud.update(dt, { stats, player: p, camera, spell: FIREBALL });
 }
@@ -113,4 +114,5 @@ window.__poc = {
     get map() { return world.current; },
     enterMap: (id, sp) => world.enter(id, sp),
     cast: () => input.press('cast'),
+    strike: () => input.press('strike'),
 };

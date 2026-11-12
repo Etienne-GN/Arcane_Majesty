@@ -17,13 +17,14 @@ export function createTouchControls({ input, cam }) {
         #touch .cast { right: 26px; bottom: 120px; width: 84px; height: 84px;
             background: radial-gradient(circle at 50% 45%, #ffd27a 0, #ff7a20 30%, #7a1f08 70%, #2a0c04 100%); }
         #touch .hop { right: 124px; bottom: 34px; width: 70px; height: 70px; }
-        #touch .sprint { right: 26px; bottom: 26px; width: 70px; height: 70px; }`;
+        #touch .sprint { right: 26px; bottom: 26px; width: 70px; height: 70px; }
+        #touch .strike { right: 124px; bottom: 124px; width: 70px; height: 70px; }`;
     document.head.append(css);
 
     const root = document.createElement('div');
     root.id = 'touch';
     root.innerHTML = '<div class="stick"><div class="knob"></div></div>'
-        + '<div class="btn cast">FIRE</div><div class="btn hop">HOP</div><div class="btn sprint">RUN</div>';
+        + '<div class="btn cast">FIRE</div><div class="btn strike">HIT</div><div class="btn hop">HOP</div><div class="btn sprint">RUN</div>';
     document.body.append(root);
     document.body.classList.add('touch-mode');
     const stick = root.querySelector('.stick'), knob = root.querySelector('.knob');
@@ -85,6 +86,7 @@ export function createTouchControls({ input, cam }) {
     };
     button('.cast', () => input.press('cast'));
     button('.hop', () => input.press('hop'));
+    button('.strike', () => input.press('strike'));
     button('.sprint', () => { input.touch.sprint = true; }, () => { input.touch.sprint = false; });
 
     return root;

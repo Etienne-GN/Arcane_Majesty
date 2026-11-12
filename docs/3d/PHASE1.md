@@ -39,4 +39,4 @@ mastery — on desktop and on the phone.
 - Phase 0 done (2026-11-12): rules package, engine/game/content split, input (keyboard, gamepad,
   touch), quality presets (F2), perf overlay (F3), saving via amo's SaveManager, Android build,
   batching. Galaxy S25 Ultra: 60 fps locked on high. Still owed: a mid-range phone test.
-- Phase 1: not started.
+- Phase 1: slice 1 done (staff strike: click / R / pad B / touch HIT; amo damage, cooldown, hitGain mastery; shields block it). Next: slice 2, loot.
