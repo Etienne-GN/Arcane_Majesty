@@ -4,7 +4,9 @@
 // Continue / New Game fly the camera down to Eldrin and hand over control.
 import * as THREE from 'three';
 import { ELDRIN, toWorld } from '../content/eldrinVale.js';
-import titleTrack from "../../../../assets/music/Eldoria's Prophecy/01 - Echoes of Stone.mp3?url";
+import titleTrack from '../../media/title_echoes_of_stone.mp3?url';   // the master the user supplied
+
+const VOLUME = 0.5;   // the title music plays at 50%
 
 const SIGIL = `<svg viewBox="-100 -100 200 200" width="100%" height="100%" fill="none" stroke="currentColor">
   <circle r="92" stroke-width="1.2"/><circle r="84" stroke-width=".6" stroke-dasharray="2 5"/>
@@ -144,7 +146,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         if (stage !== 'flying') {
             shot(t, camera.position);
             camera.lookAt(look);
-            if (stage === 'menu') music.volume = Math.min(0.8, music.volume + dt * 0.25);
+            if (stage === 'menu') music.volume = Math.min(VOLUME, music.volume + dt * 0.25);
             return true;
         }
         // Fly down to Eldrin's camera and hand over.
@@ -153,7 +155,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         gameCamera.update(dt);   // keeps the game camera's target fresh
         camera.position.lerpVectors(flight.from, gameCamera.position, e);
         camera.lookAt(flight.look.clone().lerp(gameCamera.target, e));
-        music.volume = Math.max(0.15, 0.8 * (1 - k));
+        music.volume = Math.max(VOLUME * 0.2, VOLUME * (1 - k));
         if (k >= 1) {
             active = false;
             clearInterval(emberTimer);
