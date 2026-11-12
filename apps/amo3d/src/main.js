@@ -18,6 +18,7 @@ import { createInventory } from './game/inventory.js';
 import { createSheet } from './game/sheet.js';
 import { createHotbar } from './game/hotbar.js';
 import { createSkills } from './game/skills.js';
+import { createArchery } from './game/archery.js';
 import { createCharacter } from './content/models/eldrin.js';
 import { createOutdoor } from './content/glade.js';
 import { createTower } from './content/eldrinTower.js';
@@ -76,6 +77,7 @@ const world = createMapManager({
         fireballs.setScene(map.scene);
         loot.clear();
         loot.setScene(map.scene);
+        archery?.setScene(map.scene);
         Object.assign(cam, { yaw: (sp.facing ?? 0) + Math.PI, pitch: map.camera.pitch, dist: map.camera.dist, maxDist: map.camera.maxDist });
         cam.snapTo(player.state.pos);
         world.maps.outdoor?.shadows?.setVisible(id === 'outdoor');
@@ -92,6 +94,7 @@ const handOf = id => id ? { type: weaponRules.typeOf(ITEMS[id]) === 'fists' && I
 const showWeapons = () => hero.setWeapons(handOf(stats.equipment.weapon), handOf(stats.equipment.offHand));
 stats.onEquipChange(showWeapons);
 const skills = createSkills({ stats, player, hud, cam, world });
+const archery = createArchery({ stats, player, hud, cam, world, loot });
 showWeapons();
 
 // ---------- saving ----------
@@ -114,6 +117,7 @@ function tick(dt) {
     if (act.inventory) inventory.toggle();
     if (act.sheet) sheet.toggle();
     if (act.hotbar >= 0 && !player.state.dead) hotbar.use(act.hotbar);
+    if (act.strike && archery.armed()) { archery.shoot(); act.strike = false; }   // a bow or crossbow shoots instead
     hotbar.update(dt);
     if (act.skill >= 0 && !inventory.open && !sheet.open) skills.use(act.skill);
     skills.update(dt);
@@ -131,7 +135,9 @@ function tick(dt) {
     map.update(simT, dt, ctx);
     fireballs.update(dt, map, map.hittables);
     loot.update(dt, player.state, map);
+    archery.update(dt);
     hud.update(dt, { stats, player: p, camera, spell: FIREBALL });
+    if (archery.armed()) hud.ui.speed.textContent += ` · ${archery.ready()} ready (+${archery.spare()} in the satchel)`;
 }
 
 if (savedAt && world.maps && ['outdoor', 'tower'].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
@@ -149,5 +155,5 @@ window.__poc = {
     enterMap: (id, sp) => world.enter(id, sp),
     cast: () => input.press('cast'),
     strike: () => input.press('strike'),
-    loot, inventory, sheet, hotbar, skills, player: player.state, playerApi: player,
+    loot, inventory, sheet, hotbar, skills, archery, player: player.state, playerApi: player,
 };

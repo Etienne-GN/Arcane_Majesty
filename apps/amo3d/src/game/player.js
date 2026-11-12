@@ -31,7 +31,7 @@ const angleDiff = (a, b) => ((((b - a) + Math.PI) % (Math.PI * 2)) + Math.PI * 2
 export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTuning }) {
     const p = {
         pos: new THREE.Vector3(), vy: 0, facing: 0, hop: null, cast: null, speed: 0, sprinting: false,
-        invuln: 0, knock: new THREE.Vector3(), sinceHurt: 99, dead: null, strike: null, strikeCd: 0, spin: null,
+        invuln: 0, knock: new THREE.Vector3(), sinceHurt: 99, dead: null, strike: null, strikeCd: 0, spin: null, shot: null,
         buffs: {},   // statusId → { left (s), tick (ms) } — amo STATUS_DEFS buffs
     };
     hero.root.rotation.order = 'YXZ';
@@ -281,8 +281,9 @@ export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTun
         hero.root.position.copy(p.pos);
         hero.root.position.y += lift;
         if (p.spin) { p.spin.t += dt / 0.4; if (p.spin.t >= 1) p.spin = null; }
+        if (p.shot) { p.shot.t += dt / 0.3; if (p.shot.t >= 1) p.shot = null; }
         hero.root.rotation.y = p.facing + (p.spin ? p.spin.t * Math.PI * 2 : 0);
-        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : null, strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust });
+        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : p.shot ? p.shot.t : null, strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust });
 
         // Doors.
         let nearLabel = null, inside = false;
@@ -305,6 +306,7 @@ export function createPlayer({ stats, hero, cam, world, hud, fireballs, spellTun
         statsMult: () => buffMult('statsMult'),
         playStrike: () => { p.strike = { t: 0, hit: true, type: 'staff', thrust: false }; },
         playSpin: () => { p.spin = { t: 0 }; },
+        playShot: () => { p.shot = { t: 0 }; },
         get lastCtx() { return lastCtx; },
     };
 }
