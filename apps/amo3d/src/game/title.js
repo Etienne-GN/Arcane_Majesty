@@ -6,7 +6,8 @@ import * as THREE from 'three';
 import { ELDRIN, toWorld } from '../content/eldrinVale.js';
 import titleTrack from '../../media/title_echoes_of_stone.mp3?url';   // the master the user supplied
 
-const VOLUME = 0.2;   // the title music plays at 20%
+const VOLUME = 0.15;      // the title music plays at 15%
+const PLAY_VOLUME = 0.01; // and stays at 1% once you are playing
 
 const SIGIL = `<svg viewBox="-100 -100 200 200" width="100%" height="100%" fill="none" stroke="currentColor">
   <circle r="92" stroke-width="1.2"/><circle r="84" stroke-width=".6" stroke-dasharray="2 5"/>
@@ -155,7 +156,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         gameCamera.update(dt);   // keeps the game camera's target fresh
         camera.position.lerpVectors(flight.from, gameCamera.position, e);
         camera.lookAt(flight.look.clone().lerp(gameCamera.target, e));
-        music.volume = Math.max(VOLUME * 0.2, VOLUME * (1 - k));
+        music.volume = Math.max(PLAY_VOLUME, VOLUME * (1 - k));
         if (k >= 1) {
             active = false;
             clearInterval(emberTimer);
