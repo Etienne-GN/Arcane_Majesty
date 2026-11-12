@@ -95,6 +95,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
     }
     const cont = button('CONTINUE', () => start(), !hasSave);
     button('NEW GAME', () => onNewGame());
+    button('THE FORGE', () => { location.href = 'forge.html'; });
     button('OPTIONS', () => showPanel([`Graphics quality: ${quality.name}`, 'F2 cycles low / medium / high at any time (the game reloads).',
         'F3 shows frames per second.', 'Controls: WASD, mouse, gamepad or touch — see the help in the corner.']));
     button('CREDITS', () => showPanel(['ARCANE MAJESTY', 'A world told first in music — the albums are the canon.',
