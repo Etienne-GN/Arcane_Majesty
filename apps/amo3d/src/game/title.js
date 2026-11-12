@@ -6,7 +6,7 @@ import * as THREE from 'three';
 import { ELDRIN, toWorld } from '../content/eldrinVale.js';
 import titleTrack from '../../media/title_echoes_of_stone.mp3?url';   // the master the user supplied
 
-const VOLUME = 0.5;   // the title music plays at 50%
+const VOLUME = 0.2;   // the title music plays at 20%
 
 const SIGIL = `<svg viewBox="-100 -100 200 200" width="100%" height="100%" fill="none" stroke="currentColor">
   <circle r="92" stroke-width="1.2"/><circle r="84" stroke-width=".6" stroke-dasharray="2 5"/>
