@@ -57,10 +57,31 @@ stats.maxMana = 10 + stats.attributes.intelligence * 8;   // amo's formula, re-d
 stats.mana = stats.maxMana;
 stats.vigor = stats.maxVigor;
 stats.learnSpell('fireball');
-stats.setTalents(talentRules.talentsFor('eldrin'));   // amo: gifted wand, staff, elemental; trained bo, light, dark
 const savedAt = loadGame(stats);
+// Who you play: the campaign plays Eldrin (lore cast); "your own hero" comes from the Forge's creator
+// (forge.html?mode=create) and is kept in the save (stats.flags.hero: name, class, look).
+if (params.get('hero') === 'new') {
+    try { const h = JSON.parse(localStorage.getItem('amo3d.newHero')); if (h?.look) (stats.flags ??= {}).hero = h; } catch { /* none */ }
+}
+const heroDef = stats.flags?.hero ?? null;
+stats.setTalents(heroDef ? talentRules.talentsFor(null, heroDef.classId) : talentRules.talentsFor('eldrin'));   // amo talents: the class, or Eldrin's own
+const HERO_NAME = heroDef?.name || eldrinCast.name;
+// A new hero starts with their class's kit (amo giveStartKit): the cheapest weapon of the first gifted
+// weapon type, a shield if gifted with shields (amo adds the archer kit); only magic classes keep the fireball.
+if (params.get('hero') === 'new' && heroDef) {
+    const T = talentRules.CLASSES[heroDef.classId]?.talents ?? {};
+    const gifted = Object.keys(T).filter(k => T[k] === 'gifted');
+    const cheapest = type => Object.values(itemRules.ITEMS)
+        .filter(d => d.slot === 'weapon' && weaponRules.typeOf(d) === type)
+        .sort((a, b) => (a.tier ?? 1) - (b.tier ?? 1) || (a.buyPrice ?? 0) - (b.buyPrice ?? 0))[0];
+    const mainType = gifted.find(t => !['shield', 'fists', 'elemental', 'light', 'dark'].includes(t) && cheapest(t));
+    const main = mainType && cheapest(mainType);
+    const shield = gifted.includes('shield') && weaponRules.WEAPON_TYPES[mainType]?.hands === 1 ? cheapest('shield') : null;
+    if (!gifted.some(g => ['wand', 'staff', 'elemental', 'light', 'dark'].includes(g))) stats.spells.fireball = 0;
+    stats.giveStartKit({ weapon: main?.id, offHand: shield?.id });   // archers also get amo's archer kit from this
+}
 const loot = createLoot({ stats, hud });
-const sheet = createSheet({ stats });
+const sheet = createSheet({ stats, name: HERO_NAME });
 const hotbar = createHotbar({ stats, hud });
 const inventory = createInventory({
     stats, hud, hotbar,
@@ -70,7 +91,7 @@ const inventory = createInventory({
     },
 });
 
-const hero = createCharacter(eldrinCast.look);   // campaigns play as the lore cast
+const hero = createCharacter(heroDef?.look ?? eldrinCast.look);   // the campaign plays the lore cast
 const fireballs = createFireballs({
     PX, tuning: SPELL_TUNING,
     onDamage: (pos, dmg, killed, burning) => hud.floater(pos, `${dmg}${burning ? ' 🔥' : ''}${killed ? ' ✝' : ''}`, killed ? '#ffd27a' : '#ff8a4a'),
@@ -98,7 +119,7 @@ const world = createMapManager({
         save();
     },
 });
-const player = createPlayer({ stats, hero, cam, world, hud, fireballs, spellTuning: SPELL_TUNING });
+const player = createPlayer({ name: HERO_NAME, stats, hero, cam, world, hud, fireballs, spellTuning: SPELL_TUNING });
 
 // What Eldrin holds follows his equipment (amo's equip events).
 const ITEMS = itemRules.ITEMS;

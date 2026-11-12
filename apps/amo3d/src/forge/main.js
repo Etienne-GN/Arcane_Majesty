@@ -4,6 +4,11 @@
 import * as THREE from 'three';
 import { createCharacter, DEFAULT_LOOK } from '../content/models/character.js';
 import { HAIR_STYLES, FACIAL_STYLES } from '../content/models/parts/hair.js';
+import { talents as talentRules } from '@rules';
+
+// ?mode=create: the in-game creator — make your own hero (name, class, look) and begin a game.
+const CREATE = new URLSearchParams(location.search).get('mode') === 'create';
+const { CLASSES } = talentRules;
 
 // ---------- scene ----------
 const stage = document.getElementById('stage');
@@ -60,7 +65,7 @@ renderer.domElement.addEventListener('wheel', e => { e.preventDefault(); view.di
 
 // ---------- the character being made ----------
 const clone = o => JSON.parse(JSON.stringify(o));
-let def = { id: 'new_character', name: 'New Character', lore: '', look: clone(DEFAULT_LOOK) };
+let def = { id: 'new_character', name: CREATE ? '' : 'New Character', lore: '', classId: 'mage', look: clone(DEFAULT_LOOK) };
 let model = null, pose = 'idle', weapon = 'staff';
 
 function rebuild() {
@@ -110,7 +115,8 @@ function chips(options, path, onPick = v => set(path, v)) {
     const draw = () => {
         wrap.textContent = '';
         for (const o of options) {
-            const c = el('span', { className: `chip${(path ? get(path) : null) === o ? ' on' : ''}` }, o);
+            const label = path === 'classId' ? CLASSES[o].name : o;
+            const c = el('span', { className: `chip${(path ? get(path) : null) === o ? ' on' : ''}` }, label);
             c.onclick = () => { onPick(o); draw(); };
             wrap.append(c);
         }
@@ -121,13 +127,24 @@ function chips(options, path, onPick = v => set(path, v)) {
 
 function render() {
     box.textContent = '';
-    box.append(el('h2', {}, 'Identity'));
+    box.append(el('h2', {}, CREATE ? 'Your hero' : 'Identity'));
     box.append(textField('Name', 'name'));
-    const idRow = textField('Id (file name)', 'id');
-    box.append(idRow);
-    const lore = el('textarea', { placeholder: 'Who they are, in a line or two…', value: def.lore ?? '' });
-    lore.oninput = () => { def.lore = lore.value; };
-    box.append(lore);
+    if (CREATE) {
+        box.append(el('h2', {}, 'Class'));
+        const blurb = el('div', { className: 'sub' });
+        const showBlurb = () => {
+            const c = CLASSES[def.classId];
+            const gifted = Object.entries(c.talents).filter(([, v]) => v === 'gifted').map(([k]) => k).join(', ');
+            blurb.textContent = `${c.blurb} Gifted: ${gifted}.`;
+        };
+        box.append(chips(Object.keys(CLASSES), 'classId', v => { def.classId = v; showBlurb(); }), blurb);
+        showBlurb();
+    } else {
+        box.append(textField('Id (file name)', 'id'));
+        const lore = el('textarea', { placeholder: 'Who they are, in a line or two…', value: def.lore ?? '' });
+        lore.oninput = () => { def.lore = lore.value; };
+        box.append(lore);
+    }
 
     box.append(el('h2', {}, 'Body'));
     box.append(slider('Height', 'look.build.height', 0.85, 1.15), slider('Build', 'look.build.width', 0.85, 1.2));
@@ -155,6 +172,22 @@ function render() {
     box.append(chips(['idle', 'walk', 'run', 'cast', 'strike'], null, v => { pose = v; }));
     box.append(chips(['staff', 'wand', 'sword', 'axe', 'spear', 'bow', 'none'], null, v => { weapon = v; rebuild(); }));
 
+    if (CREATE) {
+        const row = el('div', { className: 'row' });
+        const rnd = el('button', {}, 'Randomize');
+        rnd.onclick = () => { randomize(); render(); rebuild(); };
+        const go = el('button', { className: 'main' }, 'Begin your journey');
+        go.onclick = () => {
+            if (!def.name.trim()) { document.getElementById('status').textContent = 'Give your hero a name first.'; return; }
+            try { localStorage.setItem('amo3d.newHero', JSON.stringify({ name: def.name.trim(), classId: def.classId, look: def.look })); } catch { /* storage blocked */ }
+            location.href = 'index.html?new=1&play=1&hero=new';
+        };
+        const back = el('button', {}, 'Back');
+        back.onclick = () => { location.href = 'index.html'; };
+        row.append(rnd, go, back);
+        box.append(el('h2', {}, 'Ready?'), row, el('div', { id: 'status' }));
+        return;
+    }
     box.append(el('h2', {}, 'Cast'));
     const row = el('div', { className: 'row' });
     const rnd = el('button', {}, 'Randomize');

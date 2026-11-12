@@ -33,7 +33,7 @@ const CSS = `
 #sheet .close { float: right; }
 @media (max-width: 760px) { #sheet .cols { grid-template-columns: 1fr; } }`;
 
-export function createSheet({ stats }) {
+export function createSheet({ stats, name = 'Eldrin' }) {
     const style = document.createElement('style');
     style.textContent = CSS;
     document.head.append(style);
@@ -64,7 +64,7 @@ export function createSheet({ stats }) {
         const panel = el('div', 'panel');
         const close = el('button', 'ghost close', 'Close ✕');
         close.onclick = toggle;
-        panel.append(close, el('h2', null, 'Eldrin'));
+        panel.append(close, el('h2', null, name));
         panel.append(el('div', 'meta', `Level ${s.level} · ${s.xp} / ${s.xpToNextLevel} XP · ${s.attributePoints ?? 0} attribute point(s) · ${s.skillPoints ?? 0} skill point(s)`));
         const cols = el('div', 'cols');
 
