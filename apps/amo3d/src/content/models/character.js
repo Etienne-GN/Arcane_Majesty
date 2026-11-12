@@ -34,21 +34,42 @@ function coatPanel(thetaStart, thetaLength, len, material) {
     return { joint, geo, base: geo.attributes.position.array.slice() };
 }
 
-export function createCharacter() {
+// A look definition (content/cast/*.json, the Forge): build, skin, eyes, hair, facial hair, outfit colours.
+// Anything left out falls back to Eldrin's look.
+export const DEFAULT_LOOK = {
+    build: { height: 1, width: 1 },
+    skin: '#e2b48f', eyes: '#5ab8f0',
+    hair: { style: 'tousled', color: '#3a2418' },
+    facialHair: { style: 'stubble', color: '#a07a62' },
+    outfit: { coat: '#a3141f', collar: '#7a0f17', trim: '#d4a84a', vest: '#1c1714', shirt: '#16120f',
+        pants: '#221c18', leather: '#5a3520', leatherDark: '#3e2416' },
+};
+const merge = look => ({
+    ...DEFAULT_LOOK, ...look,
+    build: { ...DEFAULT_LOOK.build, ...look?.build },
+    hair: { ...DEFAULT_LOOK.hair, ...look?.hair },
+    facialHair: { ...DEFAULT_LOOK.facialHair, ...look?.facialHair },
+    outfit: { ...DEFAULT_LOOK.outfit, ...look?.outfit },
+});
+const darker = (hex, k) => new THREE.Color(hex).multiplyScalar(k);
+
+export function createCharacter(lookIn = DEFAULT_LOOK) {
+    const L = merge(lookIn), O = L.outfit;
+    const eye = new THREE.Color(L.eyes);
     const M = {
-        skin: mat(0xe2b48f),
-        stubble: mat(0xa07a62),
-        hair: mat(0x3a2418),
-        eye: new THREE.MeshStandardMaterial({ color: 0x5ab8f0, emissive: 0x2a8fd0, emissiveIntensity: 0.6 }),
-        brow: mat(0x2a1a12),
-        coat: mat(0xa3141f, { side: THREE.DoubleSide, roughness: 0.75 }),
-        coatDark: mat(0x7a0f17, { side: THREE.DoubleSide }),
-        gold: mat(0xd4a84a, { metalness: 0.7, roughness: 0.35 }),
-        vest: mat(0x1c1714, { roughness: 0.6 }),
-        shirt: mat(0x16120f),
-        leather: mat(0x5a3520),
-        leatherDark: mat(0x3e2416),
-        pants: mat(0x221c18),
+        skin: mat(L.skin),
+        stubble: mat(L.facialHair.color),
+        hair: mat(L.hair.color),
+        eye: new THREE.MeshStandardMaterial({ color: eye, emissive: eye.clone().multiplyScalar(0.7), emissiveIntensity: 0.6 }),
+        brow: mat(darker(L.hair.color, 0.75)),
+        coat: mat(O.coat, { side: THREE.DoubleSide, roughness: 0.75 }),
+        coatDark: mat(O.collar, { side: THREE.DoubleSide }),
+        gold: mat(O.trim, { metalness: 0.7, roughness: 0.35 }),
+        vest: mat(O.vest, { roughness: 0.6 }),
+        shirt: mat(O.shirt),
+        leather: mat(O.leather),
+        leatherDark: mat(O.leatherDark),
+        pants: mat(O.pants),
         wood: mat(0x6b4a2b),
         crystal: new THREE.MeshStandardMaterial({
             color: 0x7ff5e6, emissive: 0x3ce0d0, emissiveIntensity: 2.2, flatShading: true, roughness: 0.2,
@@ -165,9 +186,8 @@ export function createCharacter() {
     skull.scale.set(0.92, 1.08, 1);
     head.add(skull);
     // Stubble: a darker shell over the jaw.
-    const jaw = mesh(new THREE.SphereGeometry(0.123, 12, 8, Math.PI * 0.2, Math.PI * 0.6, Math.PI * 0.6, Math.PI * 0.25), M.stubble, 0, 0.13, 0.003);
-    jaw.scale.set(0.93, 1.08, 1.01);
-    head.add(jaw);
+    const jaw = L.facialHair.style === 'none' ? null : mesh(new THREE.SphereGeometry(0.123, 12, 8, Math.PI * 0.2, Math.PI * 0.6, Math.PI * 0.6, Math.PI * 0.25), M.stubble, 0, 0.13, 0.003);
+    if (jaw) { jaw.scale.set(0.93, 1.08, 1.01); head.add(jaw); }
     head.add(mesh(new THREE.BoxGeometry(0.022, 0.05, 0.03), M.skin, 0, 0.12, 0.118));            // nose
     for (const s of [1, -1]) {
         head.add(mesh(new THREE.SphereGeometry(0.016, 6, 5), M.eye, s * 0.042, 0.15, 0.103));
@@ -231,6 +251,7 @@ export function createCharacter() {
 
     root.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     bakeRig(root);
+    body.scale.set(L.build.width, L.build.height, L.build.width);   // build: taller / broader
 
     // main / off: { type, accent } (amo weapon type + the item's colour) or null.
     function setWeapons(main, off) {

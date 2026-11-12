@@ -23,7 +23,8 @@ import { createArchery } from './game/archery.js';
 import { createGathering } from './game/gathering.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createChests } from './game/chest.js';
-import { createCharacter } from './content/models/eldrin.js';
+import { createCharacter } from './content/models/character.js';
+import eldrinCast from './content/cast/eldrin.json';
 import { setPlatesVisible } from './content/actors/enemyCore.js';
 import { createTitle } from './game/title.js';
 import { hasSave } from './game/save.js';
@@ -69,7 +70,7 @@ const inventory = createInventory({
     },
 });
 
-const hero = createCharacter();
+const hero = createCharacter(eldrinCast.look);   // campaigns play as the lore cast
 const fireballs = createFireballs({
     PX, tuning: SPELL_TUNING,
     onDamage: (pos, dmg, killed, burning) => hud.floater(pos, `${dmg}${burning ? ' 🔥' : ''}${killed ? ' ✝' : ''}`, killed ? '#ffd27a' : '#ff8a4a'),

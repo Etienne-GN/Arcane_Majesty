@@ -54,6 +54,7 @@ definition) · 3.2 the parts library (body builds, faces, hair, facial hair, out
 3.3 the Forge page (3D turntable preview, part and colour pickers, randomize, save/export to the cast) ·
 3.4 the in-game creator (multiplayer New Game → create your character; campaigns → the lore cast) ·
 3.5 equipment shows on the body (armor slots override outfit pieces).
+Status: **3.1 done** (content/models/character.js builds any look definition — build, skin, eyes, hair, facial hair, outfit colours; Eldrin is content/cast/eldrin.json). Next: 3.2 the parts library.
 | amo | Kind |
 |---|---|
 | LPC Forge v2 → **3D Forge**: our own parts library (bodies, faces, hair, outfits, armor per slot, weapons), palettes, save as JSON | N |
