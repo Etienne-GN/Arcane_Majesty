@@ -37,6 +37,24 @@ export function buildArch(scene, x, y, z, ry) {
     return veil;
 }
 
+// The terrain height of a region (pure: the game and the editor both use it).
+export function regionHeight(def) {
+    const half = def.half ?? 90, WATER = def.water ?? -1.2, EDGE = half - 6, T = def.terrain ?? {}, path = def.path ?? [];
+    return function heightAt(x, z) {
+        let h = (fbm(x * (T.scale ?? 0.02) + 31, z * (T.scale ?? 0.02) - 17) - 0.5) * (T.relief ?? 10) + (T.base ?? 0.5);
+        for (const f of def.features ?? []) {
+            const d = Math.hypot(x - f.x, z - f.z);
+            if (f.type === 'lake') h -= smoothstep(f.r, f.r * 0.25, d) * (f.depth ?? 5);
+            else if (f.type === 'hill') h += smoothstep(f.r, 0, d) * f.h;
+            else if (f.type === 'clearing') h += (0.4 - h) * smoothstep(f.r, f.r * 0.5, d);
+        }
+        const pd = path.length > 1 ? segDist(x, z, path) : Infinity;
+        if (pd < 4) h += (Math.max(h, WATER + 1) - h) * smoothstep(4, 1.5, pd) - smoothstep(3, 0, pd) * 0.15;
+        h += smoothstep(EDGE - 18, EDGE + 4, Math.max(Math.abs(x), Math.abs(z))) * (T.rim ?? 22) * (0.6 + 0.8 * fbm(x * 0.05, z * 0.05));   // a wall of hills
+        return h;
+    };
+}
+
 export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
     const scene = new THREE.Scene();
     const rng = mulberry32(def.seed ?? 7);
@@ -46,19 +64,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     const path = def.path ?? [];
 
     // ---------- terrain ----------
-    function heightAt(x, z) {
-        let h = (fbm(x * (T.scale ?? 0.02) + 31, z * (T.scale ?? 0.02) - 17) - 0.5) * (T.relief ?? 10) + (T.base ?? 0.5);
-        for (const f of def.features ?? []) {
-            const d = Math.hypot(x - f.x, z - f.z);
-            if (f.type === 'lake') h -= smoothstep(f.r, f.r * 0.25, d) * (f.depth ?? 5);
-            else if (f.type === 'hill') h += smoothstep(f.r, 0, d) * f.h;
-            else if (f.type === 'clearing') h += (0.4 - h) * smoothstep(f.r, f.r * 0.5, d);
-        }
-        const pd = path.length ? segDist(x, z, path) : Infinity;
-        if (pd < 4) h += (Math.max(h, WATER + 1) - h) * smoothstep(4, 1.5, pd) - smoothstep(3, 0, pd) * 0.15;
-        h += smoothstep(EDGE - 18, EDGE + 4, Math.max(Math.abs(x), Math.abs(z))) * (T.rim ?? 22) * (0.6 + 0.8 * fbm(x * 0.05, z * 0.05));   // a wall of hills
-        return h;
-    }
+    const heightAt = regionHeight(def);
 
     const SIZE = half * 2, SEG = Math.round(SIZE / 1.2);
     const tGeo = new THREE.PlaneGeometry(SIZE, SIZE, SEG, SEG).rotateX(-Math.PI / 2);
@@ -72,7 +78,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         if (h < WATER + 0.35) col.copy(cSand);
         else if (h > 7 + n * 3) col.copy(cRock);
         else col.copy(cA).lerp(cB, n);
-        if (path.length && segDist(x, z, path) < 1.6) col.lerp(cDirt, 0.85);
+        if (path.length > 1 && segDist(x, z, path) < 1.6) col.lerp(cDirt, 0.85);
         colors.set([col.r, col.g, col.b], i * 3);
     }
     tGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
@@ -118,7 +124,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
 
     // ---------- links (archways to other regions) and reserved ground ----------
     const links = def.links ?? [];
-    const reserved = (x, z, m = 0) => links.some(l => Math.hypot(l.x - x, l.z - z) < 7 + m) || (path.length && segDist(x, z, path) < 2.2 + m)
+    const reserved = (x, z, m = 0) => links.some(l => Math.hypot(l.x - x, l.z - z) < 7 + m) || (path.length > 1 && segDist(x, z, path) < 2.2 + m)
         || (def.features ?? []).some(f => f.type === 'clearing' && Math.hypot(f.x - x, f.z - z) < f.r * 0.6);
     const addCollider = (c, height) => { const y0 = heightAt(c.x, c.z); colliders.push({ ...c, y0: y0 - 0.5, y1: y0 + height }); };
 
@@ -176,7 +182,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     const ferns = [];
     for (let i = 0; i < 6000 && ferns.length < 2500 * quality.foliage; i++) {
         const x = (rng() - 0.5) * SIZE * 0.9, z = (rng() - 0.5) * SIZE * 0.9, h = heightAt(x, z);
-        if (h < WATER + 0.3 || h > 6 || (path.length && segDist(x, z, path) < 1.4)) continue;
+        if (h < WATER + 0.3 || h > 6 || (path.length > 1 && segDist(x, z, path) < 1.4)) continue;
         ferns.push([x, h, z]);
     }
     const fern = new THREE.InstancedMesh(new THREE.ConeGeometry(0.09, 0.4, 3).translate(0, 0.18, 0), flat(0xffffff), Math.max(1, ferns.length));

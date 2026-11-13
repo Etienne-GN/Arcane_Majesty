@@ -5,16 +5,18 @@ import { join } from 'node:path';
 
 const rules = fileURLToPath(new URL('../../packages/rules/index.js', import.meta.url));
 const castDir = fileURLToPath(new URL('./src/content/cast', import.meta.url));
+const regionDir = fileURLToPath(new URL('./src/content/regions', import.meta.url));
 
-// Dev-only API for the Forge page: list the cast, and save a character into src/content/cast/<id>.json.
-function castApi() {
+// Dev-only APIs: the Forge's cast (src/content/cast) and the editor's regions (src/content/regions).
+// GET lists the JSON files, POST saves one as <id>.json.
+function jsonDirApi(route, dir, label) {
     return {
-        name: 'forge-cast-api',
+        name: `json-api-${label}`,
         configureServer(server) {
-            server.middlewares.use('/api/cast', (req, res) => {
+            server.middlewares.use(route, (req, res) => {
                 const send = (code, body) => { res.statusCode = code; res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(body)); };
                 if (req.method === 'GET') {
-                    const list = readdirSync(castDir).filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(join(castDir, f), 'utf8')));
+                    const list = readdirSync(dir).filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(join(dir, f), 'utf8')));
                     return send(200, list);
                 }
                 if (req.method === 'POST') {
@@ -24,8 +26,8 @@ function castApi() {
                         try {
                             const def = JSON.parse(raw);
                             if (!/^[a-z0-9_]{1,40}$/.test(def.id ?? '')) return send(400, { error: 'id must be lowercase letters, digits or _' });
-                            writeFileSync(join(castDir, `${def.id}.json`), `${JSON.stringify(def, null, 2)}\n`);
-                            send(200, { saved: `src/content/cast/${def.id}.json` });
+                            writeFileSync(join(dir, `${def.id}.json`), `${JSON.stringify(def, null, 2)}\n`);
+                            send(200, { saved: `src/content/${label}/${def.id}.json` });
                         } catch (e) { send(400, { error: String(e.message) }); }
                     });
                     return;
@@ -42,9 +44,9 @@ export default defineConfig({
         // amo's engine-free rules, shared through packages/rules — no copies.
         alias: { '@rules': rules },
     },
-    plugins: [castApi()],
+    plugins: [jsonDirApi('/api/cast', castDir, 'cast'), jsonDirApi('/api/region', regionDir, 'regions')],
     build: {
-        rollupOptions: { input: { main: 'index.html', forge: 'forge.html' } },
+        rollupOptions: { input: { main: 'index.html', forge: 'forge.html', editor: 'editor.html' } },
     },
     server: {
         port: 5190,

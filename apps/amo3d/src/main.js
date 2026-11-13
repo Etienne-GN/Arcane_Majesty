@@ -26,7 +26,8 @@ import { wornLook } from './game/wardrobe.js';
 import { createMapView } from './game/mapview.js';
 import { createTravel } from './game/travel.js';
 import { buildRegion } from './engine/region.js';
-import whisperWood from './content/regions/whisper_wood.json';
+// Every region file is a map (content/regions/*.json → buildRegion).
+const REGIONS = Object.fromEntries(Object.values(import.meta.glob('./content/regions/*.json', { eager: true, import: 'default' })).map(d => [d.id, d]));
 import { hideAllPlates } from './content/actors/enemyCore.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createChests } from './game/chest.js';
@@ -127,7 +128,10 @@ const fireballs = createFireballs({
 // ---------- maps ----------
 let lastLevel = '';
 const world = createMapManager({
-    builders: { outdoor: () => createOutdoor({ quality }), tower: createTower, whisper_wood: () => buildRegion(whisperWood, { quality }) },
+    builders: {
+        outdoor: () => createOutdoor({ quality }), tower: createTower,
+        ...Object.fromEntries(Object.keys(REGIONS).map(id => [id, () => buildRegion(REGIONS[id], { quality })])),
+    },
     fade: hud.ui.fade, fadeText: hud.ui.fadeText,
     onEnter(map, id, sp) {
         player.place(sp);
@@ -165,7 +169,7 @@ travel = createTravel({
     stats, hud, world, player,
     allGates: () => [
         ...(world.maps.outdoor?.gates ?? []).map(g => ({ ...g, map: 'outdoor' })),
-        ...(whisperWood.gates ?? []).map(g => ({ ...g, map: 'whisper_wood' })),
+        ...Object.values(REGIONS).flatMap(r => (r.gates ?? []).map(g => ({ ...g, map: r.id }))),
     ],
 });
 const campfire = createCampfire({
@@ -276,7 +280,8 @@ function tick(dt) {
     if (archery.armed()) hud.ui.speed.textContent += ` · ${archery.ready()} ready (+${archery.spare()} in the satchel)`;
 }
 
-if (savedAt && world.maps && ['outdoor', 'tower', 'whisper_wood'].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
+if (REGIONS[params.get('region')]) world.enter(params.get('region'), 'start');   // the editor's "Play here"
+else if (savedAt && world.maps && ['outdoor', 'tower', ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
 else world.enter('outdoor', 'start');
 const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.current.scene, camera); perf.frame(); } });
 
