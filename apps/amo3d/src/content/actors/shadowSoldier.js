@@ -341,7 +341,7 @@ export function createShadows({ scene, map, rng, posts }) {
                         if (!s.hitDone && s.swingT >= SWING * 0.6) {
                             s.hitDone = true;
                             const ang = Math.abs(((((Math.atan2(P.x - pos.x, P.z - pos.z) - s.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI);
-                            if (toP < REACH + 0.45 && ang < 1.25) ctx.hurtPlayer(DEF.damage, pos);
+                            if (toP < REACH + 0.45 && ang < 1.25) ctx.hurtPlayer(Math.round(DEF.damage * (ctx.voidMult ?? 1)), pos);   // void creatures hit 20% harder at night (amo)
                         }
                         if (s.swingT >= SWING) { s.state = 'recover'; s.swingT = 0; }
                     } else if (s.swingT >= RECOVER) {

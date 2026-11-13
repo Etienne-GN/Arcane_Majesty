@@ -12,6 +12,7 @@ import { createShadows } from './actors/shadowSoldier.js';
 import { createWolves } from './actors/wolf.js';
 import { bakeStatic } from '../engine/batch.js';
 import { buildCampfire } from '../game/campfire.js';
+import { skyState, createWeather } from '../engine/sky.js';
 
 export const WATER = -1.2;
 export const WORLD_R = 98;
@@ -95,6 +96,8 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
     scene.add(hemi);
     const valeFog = new THREE.Color(0x7f948a);
     let moodK = 0;
+    const weatherFx = createWeather(scene, quality);
+    const fogTmp = new THREE.Color();
     const sun = new THREE.DirectionalLight(0xfff0d0, 2.8);
     sun.castShadow = true;
     sun.castShadow = quality.shadows;
@@ -425,16 +428,23 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
             // The vale has its own mood: dimmer sun, closer greener mist, shafts of light, fireflies.
             const mk = eldrin.mood(ctx.player.pos.x, ctx.player.pos.z);
             moodK += (mk - moodK) * Math.min(1, dt * 1.5);
-            sun.intensity = 2.8 - 1.3 * moodK;
-            hemi.intensity = 1.1 - 0.45 * moodK;
-            scene.fog.color.copy(horizon).lerp(valeFog, moodK);
-            scene.fog.near = 55 - 37 * moodK;
-            scene.fog.far = (230 - 105 * moodK) * quality.fogFar;
+            // Time of day and weather (amo gameClock + weatherAt, passed in ctx), then the vale's mood on top.
+            const S = skyState(ctx.hour ?? 9, ctx.weather ?? 'clear');
+            const flash = weatherFx.update(dt, S, ctx.weather ?? 'clear', ctx.camera);
+            sun.color.copy(S.sun);
+            sun.intensity = S.sunI * (1 - 0.46 * moodK);
+            hemi.intensity = S.hemiI * (1 - 0.4 * moodK) + flash;
+            fogTmp.copy(valeFog).multiplyScalar(0.25 + 0.75 * S.day);   // the vale's green mist dims at night
+            scene.fog.color.copy(S.bottom).lerp(fogTmp, moodK * 0.8);
+            scene.background.copy(scene.fog.color);
+            scene.fog.near = (55 - 37 * moodK) * S.fogMul;
+            scene.fog.far = (230 - 105 * moodK) * quality.fogFar * S.fogMul;
+            sky.material.uniforms.top.value.copy(S.top);
             sky.material.uniforms.bottom.value.copy(scene.fog.color);
             eldrin.update(t, dt, moodK);
             map.campfire?.update(t);
             shadows.update(dt);
-            sun.position.copy(ctx.player.pos).add(SUN_OFFSET);
+            sun.position.copy(ctx.player.pos).add(S.dir);
             sun.target.position.copy(ctx.player.pos);
             sky.position.copy(ctx.camera.position);
         },

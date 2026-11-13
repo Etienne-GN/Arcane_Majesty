@@ -1,6 +1,7 @@
 // Arcane Majesty 3D — boot. Wires the engine (renderer, input, camera, maps, loop), the game
 // (an amo character sheet, the player controller, spells, HUD, saving) and the content (maps).
 import * as THREE from 'three';
+import { gameClock as clockRules, weather as weatherRules } from '@rules';
 import { movementRules, PlayerStats as PS, items as itemRules, weapons as weaponRules, talents as talentRules } from '@rules';
 import { pickQuality, nextQuality } from './engine/quality.js';
 import { createRenderer } from './engine/renderer.js';
@@ -190,13 +191,25 @@ const gameCam = {
     update(dt) { const save = camera.position.clone(); cam.update(dt, player.state.pos, 0, world.current.terrain ? world.current.heightAt : null); this.position.copy(camera.position); camera.position.copy(save); },
 };
 
+// The world clock (amo gameClock) and the weather (amo weatherAt over the forest table).
+const GLADE_WEATHER = { id: 'thaloria_glade', biome: 'forest' };
+const clockEl = document.createElement('div');
+clockEl.className = 'hud';
+clockEl.style.cssText = 'right:18px;top:54px;font-size:13px;opacity:.85;letter-spacing:.05em';
+document.body.append(clockEl);
+let weatherOverride = params.get('weather');
+function clock(min = stats.gameMinutes ?? clockRules.START_MINUTES) {
+    const weather = world.current?.terrain ? (weatherOverride || weatherRules.weatherAt(GLADE_WEATHER, min).id) : 'clear';
+    return { minutes: min, hour: clockRules.gameHour(min), weather, voidMult: clockRules.isNight(min) ? clockRules.NIGHT_DAMAGE_MULT : 1 };
+}
+
 let simT = 0;
 function tick(dt) {
     simT += dt;
     if (title?.active) {
         input.poll(dt);   // drain input while the title owns the screen
         title.update(dt, gameCam);
-        world.current.update(simT, dt, { player: { pos: title.focus, dead: true, speed: 0 }, camera, fx: world.current.fx ?? fireballs, hurtPlayer: () => false, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop });
+        world.current.update(simT, dt, { ...clock(19.4 * 60), weather: 'clear', player: { pos: title.focus, dead: true, speed: 0 }, camera, fx: world.current.fx ?? fireballs, hurtPlayer: () => false, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop });
         return;
     }
     const act = input.poll(dt);
@@ -222,7 +235,8 @@ function tick(dt) {
         act.hop = false;
     }
     let lift = 0;
-    const ctx = { player: player.state, camera, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop };
+    clockRules.advanceClock(stats, dt * 1000);   // amo: one real minute = one game hour
+    const ctx = { ...clock(), player: player.state, camera, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop };
     if (!world.step(dt)) lift = player.step(dt, act, ctx);
     const p = player.state;
     cam.update(dt, p.pos, lift, map.terrain ? map.heightAt : null);
@@ -236,6 +250,8 @@ function tick(dt) {
     loot.update(dt, player.state, map);
     archery.update(dt);
     hud.update(dt, { stats, player: p, camera, spell: FIREBALL });
+    const c = clock();
+    clockEl.textContent = `${clockRules.clockLabel(c.minutes)} · ${weatherRules.WEATHER[c.weather] ?? c.weather}`;
     if (archery.armed()) hud.ui.speed.textContent += ` · ${archery.ready()} ready (+${archery.spare()} in the satchel)`;
 }
 
@@ -253,6 +269,8 @@ window.__poc = {
     get map() { return world.current; },
     enterMap: (id, sp) => world.enter(id, sp),
     cast: () => input.press('cast'),
+    setTime: h => { stats.gameMinutes = Math.floor((stats.gameMinutes ?? 0) / 1440) * 1440 + h * 60; },
+    setWeather: w => { weatherOverride = w; },
     strike: () => input.press('strike'),
     loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, player: player.state, playerApi: player,
 };
