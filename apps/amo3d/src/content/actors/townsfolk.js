@@ -102,6 +102,7 @@ export function createTownsfolk({ scene, W, H, resolve = null }) {
                 const px = p.pos.x - P.x, pz = p.pos.z - P.z, pd = Math.hypot(px, pz);
                 if (pd < 0.75 && pd > 1e-3) { p.pos.x = P.x + (px / pd) * 0.75; p.pos.z = P.z + (pz / pd) * 0.75; }
                 p.shown = true;
+                p.activity = w.activity;
                 const near = Math.hypot(p.pos.x - P.x, p.pos.z - P.z) < NEAR;
                 p.far.visible = !near;
                 if (!near) { p.far.position.copy(p.pos); p.far.rotation.y = p.facing; if (p.model) p.model.root.visible = false; }

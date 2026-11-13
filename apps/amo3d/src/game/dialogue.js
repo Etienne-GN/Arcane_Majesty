@@ -116,6 +116,7 @@ export function createDialogue({ stats, hud, onShop, onQuest, onTeach }) {
             return;
         }
         if (npc.isShop) {
+            if (person.activity && person.activity !== 'work') { say(person, 'Closed — come back in the morning.'); return; }   // amo: only while working
             if (!flags()[talkedKey]) { flags()[talkedKey] = true; start(npc.dialogue, () => onShop?.(npc, person)); }
             else onShop?.(npc, person);
             return;
