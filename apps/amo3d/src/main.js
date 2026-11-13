@@ -23,6 +23,7 @@ import { createSkills } from './game/skills.js';
 import { createArchery } from './game/archery.js';
 import { createGathering } from './game/gathering.js';
 import { wornLook } from './game/wardrobe.js';
+import { createMapView } from './game/mapview.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createChests } from './game/chest.js';
 import { createCharacter } from './content/models/character.js';
@@ -131,6 +132,7 @@ const world = createMapManager({
         loot.setScene(map.scene);
         archery?.setScene(map.scene);
         gathering?.setMap(map);
+        mapView?.setMap(map, id);
         Object.assign(cam, { yaw: (sp.facing ?? 0) + Math.PI, pitch: map.camera.pitch, dist: map.camera.dist, maxDist: map.camera.maxDist });
         cam.snapTo(player.state.pos);
         world.maps.outdoor?.shadows?.setVisible(id === 'outdoor');
@@ -152,6 +154,7 @@ const skills = createSkills({ stats, player, hud, cam, world });
 const archery = createArchery({ stats, player, hud, cam, world, loot });
 const gathering = createGathering({ stats, hud });
 const chests = createChests({ stats, hud });
+const mapView = createMapView({ stats, hud });
 const campfire = createCampfire({
     stats, hud,
     onRest: () => { stats.health = stats.maxHealth; stats.mana = stats.maxMana; stats.vigor = stats.maxVigor; stats.vigorWinded = false; save(); },
@@ -217,12 +220,14 @@ function tick(dt) {
     if (act.keys.includes('F3')) perf.toggle();
     if (act.inventory) inventory.toggle();
     if (act.sheet) sheet.toggle();
+    if (act.map) mapView.toggle();
+    mapView.update(player.state, cam.yaw);
     if (act.hotbar >= 0 && !player.state.dead) hotbar.use(act.hotbar);
     if (act.strike && archery.armed()) { archery.shoot(); act.strike = false; }   // a bow or crossbow shoots instead
     hotbar.update(dt);
     if (act.skill >= 0 && !inventory.open && !sheet.open) skills.use(act.skill);
     skills.update(dt);
-    if (inventory.open || sheet.open || campfire.open || chests.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
+    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
     const pp = player.state.pos;
@@ -272,5 +277,5 @@ window.__poc = {
     setTime: h => { stats.gameMinutes = Math.floor((stats.gameMinutes ?? 0) / 1440) * 1440 + h * 60; },
     setWeather: w => { weatherOverride = w; },
     strike: () => input.press('strike'),
-    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, player: player.state, playerApi: player,
+    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, player: player.state, playerApi: player,
 };

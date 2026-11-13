@@ -531,6 +531,18 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
     sky.userData.dynamic = true;
     shard.userData.dynamic = true;
     for (const h of map.hittables) if (h.root) h.root.userData.dynamic = true;
+    // What the world map draws: trees, and named places.
+    map.mapInfo = {
+        half: 120, water: WATER,
+        trees: trees.map(t => [t.x, t.z, t.kind === 'pine' ? 1 : 0]),
+        landmarks: [
+            { name: "Eldrin's Tower", x: ELDRIN.T.x, z: ELDRIN.T.z, icon: 'tower' },
+            { name: 'Standing Stones', x: STONES.x, z: STONES.z, icon: 'stones' },
+            { name: 'The Lake', x: LAKE.x, z: LAKE.z, icon: 'water' },
+            { name: 'Campfire', x: map.campfire.pos.x, z: map.campfire.pos.z, icon: 'fire' },
+            ...(map.den ? [{ name: 'Wolf Den', x: map.den.x, z: map.den.z, icon: 'den' }] : []),
+        ],
+    };
     map.batch = bakeStatic(scene);
     // A walk grid for actors' pathfinding (amo A* on it — engine/nav.js).
     map.nav = createNav({ colliders, passable: (x, z) => heightAt(x, z) >= WATER - 0.5 && Math.hypot(x, z) <= WORLD_R - 1 });
