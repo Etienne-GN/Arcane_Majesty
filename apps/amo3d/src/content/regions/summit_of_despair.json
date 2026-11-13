@@ -1,6 +1,6 @@
 {
   "id": "summit_of_despair",
-  "name": "Summit of Despair",
+  "name": "Summit of Despair \u2014 the Approach",
   "lore": "Act II (Song 4): the frozen high pass east of Thaloria, where the Aether runs thin. Layout from amo's summit_of_despair map (trail north; Widow's Overlook west; the Rime Hollow east; Malphas at the top \u2014 the boss is not in 3D yet).",
   "seed": 404,
   "half": 95,
@@ -245,7 +245,7 @@
       "icon": "stones"
     },
     {
-      "name": "The Summit",
+      "name": "The foot of the mountain",
       "x": 0,
       "z": -63,
       "icon": "tower"
@@ -262,11 +262,13 @@
       "toSpawn": "from_summit"
     },
     {
-      "label": "Over the pass to the Sylvan Sanctuary",
+      "label": "The climb \u2014 the mountain itself",
       "x": -7,
       "z": -74,
       "facing": 0,
-      "spawn": "from_sanctuary"
+      "spawn": "from_summit_peak",
+      "to": "the_summit",
+      "toSpawn": "start"
     }
   ],
   "start": {

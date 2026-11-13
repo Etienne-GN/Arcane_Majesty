@@ -44,6 +44,7 @@ import { createOutdoor } from './content/glade.js';
 import { createTower } from './content/eldrinTower.js';
 import { createThaloria, INTERIOR_IDS } from './content/thaloria.js';
 import { createEastRoad, EAST_ROAD_GATES } from './content/eastRoad.js';
+import { createMountain } from './content/mountain.js';
 import { createInterior } from './content/interior.js';
 import THALORIA_DOORS from '../../amo/src/data/maps/interiors/doors.json';
 // amo's Thaloria interiors, each built on first entry; inner doors (the inn's cellar) lead on and back.
@@ -150,6 +151,7 @@ const world = createMapManager({
         outdoor: () => createOutdoor({ quality }), tower: createTower, thaloria: () => createThaloria({ quality }),
         ...interiorBuilders,
         east_road: () => createEastRoad({ quality }),
+        the_summit: () => createMountain({ quality }),
         ...Object.fromEntries(Object.keys(REGIONS).map(id => [id, () => buildRegion(REGIONS[id], { quality })])),
     },
     fade: hud.ui.fade, fadeText: hud.ui.fadeText,
@@ -302,6 +304,7 @@ function tick(dt) {
         if (station?.mode === 'chest') { if (station.seed && !stats.chestContents[station.key]) stats.chestContents[station.key] = station.seed.map(id => ({ id, qty: 1 })); chests.toggle(station.key, station.title); }
         else if (station?.mode === 'sign') { dialogue.start([{ speaker: '', text: station.text }]); quests.manager.onReadSign(station.id ?? null); }
         else if (station?.mode === 'gate') travel.useGate(station.key);
+        else if (station?.mode === 'cairn') { stats.respawnPoint = { map: map.id, spawn: station.key }; hud.banner('A cairn — if you fall, you will come back here'); save(); }
         else if (station) campfire.toggle(station.mode);
         else if (person) dialogue.talk(person, clock());
         else gathering.harvest(simT * 1000);
@@ -309,10 +312,10 @@ function tick(dt) {
     }
     let lift = 0;
     clockRules.advanceClock(stats, dt * 1000);   // amo: one real minute = one game hour
-    const ctx = { ...clock(), attunedGates: stats.attunedGates, player: player.state, camera, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop };
+    const ctx = { ...clock(), message: hud.message, attunedGates: stats.attunedGates, player: player.state, camera, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop };
     if (!world.step(dt)) lift = player.step(dt, act, ctx);
     const p = player.state;
-    cam.update(dt, p.pos, lift, map.terrain ? map.heightAt : null);
+    cam.update(dt, p.pos, lift, map.heightAt ?? null);   // the camera never sinks into the ground or the mountain
     if (gatherText && !hud.ui.prompt.textContent) { hud.ui.prompt.textContent = gatherText; hud.ui.prompt.style.opacity = 1; }
     if (map.levelName && !p.hop && p.vy === 0) {
         const lv = map.levelName(p.pos.y);
@@ -330,7 +333,7 @@ function tick(dt) {
 }
 
 if (REGIONS[params.get('region')]) world.enter(params.get('region'), 'start');   // the editor's "Play here"
-else if (savedAt && world.maps && ['outdoor', 'tower', 'thaloria', 'east_road', ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
+else if (savedAt && world.maps && ['outdoor', 'tower', 'thaloria', 'east_road', 'the_summit', ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
 else world.enter('outdoor', 'start');
 const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.current.scene, camera); perf.frame(); } });
 

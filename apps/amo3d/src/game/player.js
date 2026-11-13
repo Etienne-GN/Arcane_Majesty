@@ -269,14 +269,39 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             }
 
             // Ground: terrain snaps; indoors, step up small ledges and fall down stair wells.
+            // Walking down a slope steps down (up to 0.4 m); anything more is a fall — and on maps with
+            // fallDamage (the mountain), a long fall hurts or kills.
+            // On a too-steep face (the mountain) you slide down it; the whole drop counts as a fall.
+            const land = g => {
+                const drop = (p.fallFrom ?? g) - g;
+                p.fallFrom = null;
+                if (m.fallDamage && drop > 4) {
+                    const dmg = drop >= 22 ? stats.maxHealth * 2 : Math.round((drop - 4) * stats.maxHealth / 18);
+                    p.invuln = 0;
+                    hurt(dmg, { x: p.pos.x + 0.01, z: p.pos.z });
+                    p.knock.set(0, 0, 0);
+                    if (stats.health <= 0) hud.message('The mountain takes him…');
+                }
+            };
+            const sl = !m.terrain && m.slopeAt ? m.slopeAt(p.pos.x, p.pos.z) : null;
+            if (sl && sl.k > m.maxSlope && p.vy === 0) {
+                if (p.fallFrom == null) { p.fallFrom = p.pos.y; hud.message('You slip!'); }
+                p.slide = Math.min(14, (p.slide ?? 3) + dt * 18);
+                p.pos.x += sl.dx * p.slide * dt; p.pos.z += sl.dz * p.slide * dt;
+                p.pos.y = m.groundAt(p.pos.x, p.pos.z, p.pos.y + 0.6);
+                p.speed = p.slide;
+            } else {
+            if (p.slide) { p.slide = 0; if (p.vy === 0) land(p.pos.y); }
             const g = m.groundAt(p.pos.x, p.pos.z, p.pos.y);
-            if (m.terrain || (g !== null && g >= p.pos.y - 0.05)) { p.pos.y = g; p.vy = 0; }
+            if (m.terrain || (g !== null && g >= p.pos.y - (p.vy === 0 ? 0.4 : 0.05))) { p.pos.y = g; p.vy = 0; }
             else {
+                if (p.vy === 0 && p.fallFrom == null) p.fallFrom = p.pos.y;
                 p.vy -= GRAVITY * dt;
                 p.pos.y += p.vy * dt;
-                if (g !== null && p.pos.y <= g) { p.pos.y = g; p.vy = 0; }
+                if (g !== null && p.pos.y <= g) { p.pos.y = g; p.vy = 0; land(g); }
             }
-            if (p.pos.y < -30) place(m.spawns[Object.keys(m.spawns)[0]]);
+            }
+            if (p.pos.y < -60) place(m.spawns[Object.keys(m.spawns)[0]]);
         }
 
         hero.root.position.copy(p.pos);
