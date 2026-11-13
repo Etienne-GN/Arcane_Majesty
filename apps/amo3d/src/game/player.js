@@ -28,7 +28,7 @@ const INVINCIBLE_S = 0.8;                      // amo's Player.INVINCIBLE_DURATI
 
 const angleDiff = (a, b) => ((((b - a) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI;
 
-export function createPlayer({ name = 'Eldrin', stats, hero, cam, world, hud, fireballs, spellTuning }) {
+export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, world, hud, fireballs, spellTuning }) {
     const p = {
         pos: new THREE.Vector3(), vy: 0, facing: 0, hop: null, cast: null, speed: 0, sprinting: false,
         invuln: 0, knock: new THREE.Vector3(), sinceHurt: 99, dead: null, strike: null, strikeCd: 0, spin: null, shot: null,
@@ -97,7 +97,8 @@ export function createPlayer({ name = 'Eldrin', stats, hero, cam, world, hud, fi
         return true;
     }
 
-    function onKill(xp, at) {
+    function onKill(xp, at, type) {
+        if (type) hooks.onKill?.(type);
         const before = stats.level;
         stats.gainXp(xp);   // amo's PlayerStats: levels, skill and attribute points
         hud.floater(at, `+${xp} XP`, '#c9b6ff');

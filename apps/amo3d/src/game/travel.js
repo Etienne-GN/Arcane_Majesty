@@ -41,7 +41,7 @@ export function buildMonolith(scene, gate, y) {
     };
 }
 
-export function createTravel({ stats, hud, world, player, allGates }) {
+export function createTravel({ stats, hud, world, player, allGates, onAttune }) {
     const css = document.createElement('style');
     css.textContent = `
 #travel { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #04060ccc; font-family: Georgia, serif; color: #e6ecff; }
@@ -101,6 +101,7 @@ export function createTravel({ stats, hud, world, player, allGates }) {
         if (!g) return;
         if (!stats.attunedGates.includes(id)) {
             stats.attunedGates.push(id);
+            onAttune?.(id);
             hud.banner(`Attuned: ${g.label}`);
             return;
         }

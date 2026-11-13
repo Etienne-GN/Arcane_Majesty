@@ -27,6 +27,7 @@ import { createMapView } from './game/mapview.js';
 import { createTravel } from './game/travel.js';
 import { createDialogue } from './game/dialogue.js';
 import { createShop } from './game/shop.js';
+import { createQuests } from './game/quests.js';
 import { buildRegion } from './engine/region.js';
 // Every region file is a map (content/regions/*.json → buildRegion).
 const REGIONS = Object.fromEntries(Object.values(import.meta.glob('./content/regions/*.json', { eager: true, import: 'default' })).map(d => [d.id, d]));
@@ -61,7 +62,7 @@ const perf = createPerf(renderer, quality);
 const hud = createHud();
 
 // ---------- the hero: an amo character sheet ----------
-const stats = new PS.PlayerStats();
+const stats = PS.playerStats;   // amo's shared character sheet (amo's questManager works on it)
 stats.attributes.agility = 10;
 stats.attributes.intelligence = 12;
 stats.maxMana = 10 + stats.attributes.intelligence * 8;   // amo's formula, re-derived after setting INT
@@ -91,7 +92,7 @@ if (params.get('hero') === 'new' && heroDef) {
     if (!gifted.some(g => ['wand', 'staff', 'elemental', 'light', 'dark'].includes(g))) stats.spells.fireball = 0;
     stats.giveStartKit({ weapon: main?.id, offHand: shield?.id });   // archers also get amo's archer kit from this
 }
-const loot = createLoot({ stats, hud });
+const loot = createLoot({ stats, hud, onPickup: id => quests?.onPickup(id) });
 const sheet = createSheet({ stats, name: HERO_NAME });
 const hotbar = createHotbar({ stats, hud });
 const inventory = createInventory({
@@ -155,7 +156,8 @@ const world = createMapManager({
     },
 });
 let travel = null;
-const player = createPlayer({ name: HERO_NAME, stats, hero, cam, world, hud, fireballs, spellTuning: SPELL_TUNING });
+const questHooks = {};
+const player = createPlayer({ hooks: questHooks, name: HERO_NAME, stats, hero, cam, world, hud, fireballs, spellTuning: SPELL_TUNING });
 
 // What Eldrin holds follows his equipment (amo's equip events).
 const ITEMS = itemRules.ITEMS;
@@ -165,28 +167,31 @@ stats.onEquipChange(slot => { if (slot === 'head' || slot === 'body') { dressHer
 stats.onEquipChange(showWeapons);
 const skills = createSkills({ stats, player, hud, cam, world });
 const archery = createArchery({ stats, player, hud, cam, world, loot });
-const gathering = createGathering({ stats, hud });
+const gathering = createGathering({ stats, hud, onGather: (id, n) => quests?.onGather(id, n) });
 const chests = createChests({ stats, hud });
 const mapView = createMapView({ stats, hud });
 const shop = createShop({ stats, hud, save: () => save() });
+const quests = createQuests({ stats, hud });
+questHooks.onKill = quests.onKill;
 const thaloriaBias = () => 'neutral';   // amo: Thaloria's currencyBias
 const dialogue = createDialogue({
     stats, hud,
     onShop: npc => shop.openFor(npc, thaloriaBias()),
-    onQuest: id => hud.banner(`New quest: ${id}`),
+    onQuest: id => quests.start(id),
+    onTalked: (npcId, name, start) => quests.afterTalk(npcId, name, start),
     onTeach: () => {},
 });
 const projTmp = new THREE.Vector3();
 const project = (x, y, z) => { projTmp.set(x, y, z).project(camera); return { x: (projTmp.x * 0.5 + 0.5) * innerWidth, y: (-projTmp.y * 0.5 + 0.5) * innerHeight, visible: projTmp.z < 1 }; };
 travel = createTravel({
-    stats, hud, world, player,
+    stats, hud, world, player, onAttune: id => quests.onAttune(id),
     allGates: () => [
         ...(world.maps.outdoor?.gates ?? []).map(g => ({ ...g, map: 'outdoor' })),
         ...Object.values(REGIONS).flatMap(r => (r.gates ?? []).map(g => ({ ...g, map: r.id }))),
     ],
 });
 const campfire = createCampfire({
-    stats, hud,
+    stats, hud, onCraft: id => quests?.onCook(id),
     onRest: () => { stats.health = stats.maxHealth; stats.mana = stats.maxMana; stats.vigor = stats.maxVigor; stats.vigorWinded = false; save(); },
 });
 hud.ui.prompt.style.pointerEvents = 'auto';   // touch: tap the prompt to gather
@@ -251,6 +256,7 @@ function tick(dt) {
     if (act.inventory) inventory.toggle();
     if (act.sheet) sheet.toggle();
     if (act.map) mapView.toggle();
+    if (act.journal) quests.toggle();
     if (act.tear) travel.tear();
     mapView.update(player.state, cam.yaw);
     if (act.hotbar >= 0 && !player.state.dead) hotbar.use(act.hotbar);
@@ -259,7 +265,7 @@ function tick(dt) {
     if (act.skill >= 0 && !inventory.open && !sheet.open) skills.use(act.skill);
     skills.update(dt);
     dialogue.update(dt, camera, project);
-    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
+    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
     const pp = player.state.pos;
@@ -315,5 +321,5 @@ window.__poc = {
     setTime: h => { stats.gameMinutes = Math.floor((stats.gameMinutes ?? 0) / 1440) * 1440 + h * 60; },
     setWeather: w => { weatherOverride = w; },
     strike: () => input.press('strike'),
-    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, player: player.state, playerApi: player,
+    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, player: player.state, playerApi: player,
 };

@@ -266,7 +266,7 @@ export function createShadows({ scene, map, rng, posts }) {
 
         function die(ctx) {
             s.state = 'dead'; s.deadT = 0; s.hp = 0; s.fx = {};
-            ctx?.onKill?.(DEF.xpReward, pos.clone().setY(pos.y + 2.4));
+            ctx?.onKill?.(DEF.xpReward, pos.clone().setY(pos.y + 2.4), TYPE);
             ctx?.dropLoot?.(DEF.lootTable, pos.clone(), rng);
             for (let i = 0; i < 90; i++) {
                 const a = rng() * 6.28, sp = 0.6 + rng() * 2.2;

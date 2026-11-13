@@ -48,7 +48,7 @@ function buildNode(type, rng) {
     return g;
 }
 
-export function createGathering({ stats, hud }) {
+export function createGathering({ stats, hud, onGather }) {
     let nodes = [], scene = null, nearest = null;
     const rng = Math.random;
 
@@ -76,8 +76,10 @@ export function createGathering({ stats, hud }) {
         const got = rollHarvest(n.def, rng);
         let full = false;
         for (const { id, qty } of got) {
-            if (stats.addItem(id, qty)) hud.floater(n.pos.clone().setY(n.pos.y + 1.2), `+${qty} ${ITEMS[id]?.name ?? id}`, '#bfe6a0');
-            else full = true;
+            if (stats.addItem(id, qty)) {
+                onGather?.(id, qty);
+                hud.floater(n.pos.clone().setY(n.pos.y + 1.2), `+${qty} ${ITEMS[id]?.name ?? id}`, '#bfe6a0');
+            } else full = true;
         }
         if (full) hud.message('Your satchel is full');
         n.readyAt = now + type.regrowMs;

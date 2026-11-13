@@ -59,7 +59,7 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
     function die(ctx) {
         if (s.dead) return;
         s.dead = true; s.deadT = 0; s.hp = 0; s.fx = {};
-        ctx?.onKill?.(DEF.xpReward, pos.clone().setY(pos.y + 1.6));
+        ctx?.onKill?.(DEF.xpReward, pos.clone().setY(pos.y + 1.6), type);
         ctx?.dropLoot?.(DEF.lootTable, pos.clone(), rng);
     }
 

@@ -7,7 +7,7 @@ import { items as itemRules } from '@rules';
 const { ITEMS } = itemRules;
 const PICK_R = 1.1, LIFETIME = 120;
 
-export function createLoot({ stats, hud }) {
+export function createLoot({ stats, hud, onPickup }) {
     const group = new THREE.Group();
     const drops = [];
     const gem = new THREE.OctahedronGeometry(0.16, 0);
@@ -54,6 +54,7 @@ export function createLoot({ stats, hud }) {
             if (d.t > LIFETIME) { remove(i); continue; }
             if (!player.dead && d.pop >= 1 && Math.hypot(player.pos.x - d.pos.x, player.pos.z - d.pos.z) < PICK_R) {
                 if (stats.addItem(d.id, 1)) {
+                    onPickup?.(d.id);
                     hud.floater(d.mesh.position.clone().setY(d.mesh.position.y + 0.6), `+ ${ITEMS[d.id].name}`, `#${new THREE.Color(ITEMS[d.id].color ?? 0xffffff).getHexString()}`);
                     remove(i);
                 } else if (fullWarned <= 0) {

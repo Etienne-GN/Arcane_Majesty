@@ -74,7 +74,7 @@ export function buildCampfire(scene, at, groundY) {
     };
 }
 
-export function createCampfire({ stats, hud, onRest }) {
+export function createCampfire({ stats, hud, onRest, onCraft }) {
     const style = document.createElement('style');
     style.textContent = CSS;
     document.head.append(style);
@@ -99,6 +99,7 @@ export function createCampfire({ stats, hud, onRest }) {
             stats.craftCounts = { cooking: 0, alchemy: 0, ...(stats.craftCounts ?? {}) };
             stats.craftCounts[M.kind]++;
         }
+        onCraft?.(r.output);
         hud.message(bonus ? `${r.label} — a double batch` : r.label);
         render();
     }

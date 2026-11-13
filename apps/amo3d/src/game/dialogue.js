@@ -7,7 +7,7 @@ import { dialogues as D, barks as B, styleData } from '@rules';
 
 const { DIALOGUES } = D;
 
-export function createDialogue({ stats, hud, onShop, onQuest, onTeach }) {
+export function createDialogue({ stats, hud, onShop, onQuest, onTeach, onTalked }) {
     const css = document.createElement('style');
     css.textContent = `
 #dlg { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); width: min(760px, 94vw); z-index: 9; display: none;
@@ -123,7 +123,7 @@ export function createDialogue({ stats, hud, onShop, onQuest, onTeach }) {
         }
         const key = flags()[talkedKey] ? npc.afterDialogue ?? npc.dialogue : npc.dialogue;
         flags()[talkedKey] = true;
-        start(key ?? [{ speaker: name, text: '…' }]);
+        start(key ?? [{ speaker: name, text: '…' }], () => onTalked?.(npc.id, name, lines => start(lines)));
     }
 
     return {
