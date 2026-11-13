@@ -1,0 +1,179 @@
+{
+  "id": "whisper_wood",
+  "name": "Whisper-Wood",
+  "lore": "A dark forest where the planar veil thins (world_lore.md).",
+  "seed": 2024,
+  "half": 85,
+  "water": -1.2,
+  "terrain": {
+    "scale": 0.022,
+    "relief": 9,
+    "base": 0.6,
+    "rim": 24
+  },
+  "palette": {
+    "grassA": "#3e5e32",
+    "grassB": "#5a763c",
+    "dirt": "#5a4a32",
+    "rock": "#5a5650",
+    "shore": "#4a4434",
+    "undergrowth": "#3a6a30",
+    "stone": "#5a5852",
+    "water": "#1a2e36"
+  },
+  "mood": {
+    "fog": "#4e6458",
+    "fogNear": 10,
+    "fogFar": 95,
+    "fogMix": 0.6,
+    "light": 0.8,
+    "motes": "#9ab8ff",
+    "nightFloor": 0.55
+  },
+  "features": [
+    {
+      "type": "clearing",
+      "x": 0,
+      "z": 0,
+      "r": 15
+    },
+    {
+      "type": "lake",
+      "x": 30,
+      "z": -26,
+      "r": 15,
+      "depth": 5
+    },
+    {
+      "type": "hill",
+      "x": -30,
+      "z": 34,
+      "r": 18,
+      "h": 5
+    }
+  ],
+  "path": [
+    [
+      -62,
+      0
+    ],
+    [
+      -42,
+      6
+    ],
+    [
+      -20,
+      -3
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      16,
+      9
+    ],
+    [
+      32,
+      4
+    ]
+  ],
+  "trees": {
+    "count": 950,
+    "gaps": 0.36,
+    "sizeVar": 0.9,
+    "kinds": {
+      "pine": 0.55,
+      "broad": 0.3,
+      "dead": 0.15
+    },
+    "colors": {
+      "pine": "#24482c",
+      "broad": "#33582c"
+    },
+    "trunk": {
+      "dead": "#4a4440"
+    }
+  },
+  "rocks": 70,
+  "gather": {
+    "mushroom": 10,
+    "herb": 6,
+    "wood": 6,
+    "berry": 4
+  },
+  "gates": [
+    {
+      "id": "wood_monolith",
+      "label": "Monolith of Whisper-Wood",
+      "x": 5,
+      "z": -5
+    }
+  ],
+  "actors": [
+    {
+      "type": "wolves",
+      "den": {
+        "x": -24,
+        "z": 30
+      },
+      "count": 4
+    },
+    {
+      "type": "shadows",
+      "posts": [
+        {
+          "x": 24,
+          "z": 14
+        },
+        {
+          "x": 38,
+          "z": -4
+        }
+      ]
+    },
+    {
+      "type": "deer",
+      "homes": [
+        {
+          "x": -34,
+          "z": -24
+        },
+        {
+          "x": 12,
+          "z": 36
+        }
+      ]
+    }
+  ],
+  "landmarks": [
+    {
+      "name": "The Clearing",
+      "x": 0,
+      "z": 0,
+      "icon": "stones"
+    },
+    {
+      "name": "Black Water",
+      "x": 30,
+      "z": -26,
+      "icon": "water"
+    }
+  ],
+  "links": [
+    {
+      "label": "To Thaloria Glade",
+      "x": -62,
+      "z": 0,
+      "facing": 1.5708,
+      "spawn": "from_glade",
+      "to": "outdoor",
+      "toSpawn": "from_wood"
+    }
+  ],
+  "start": {
+    "x": -58,
+    "z": 0,
+    "facing": 1.5708
+  }
+}

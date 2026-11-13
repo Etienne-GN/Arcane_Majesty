@@ -9,7 +9,7 @@ const REVEAL_M = 34;          // you see far in 3D: reveal this many metres arou
 const PX_PER_M = 2;           // map canvas resolution
 const MINI_R = 40;            // metres shown around you on the minimap
 
-const ICON = { tower: '♜', stones: '◈', water: '≈', fire: '✦', den: '⚠' };
+const ICON = { tower: '♜', stones: '◈', water: '≈', fire: '✦', den: '⚠', gate: '⌂' };
 
 export function createMapView({ stats, hud }) {
     const css = document.createElement('style');

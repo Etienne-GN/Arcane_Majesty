@@ -25,6 +25,9 @@ import { createGathering } from './game/gathering.js';
 import { wornLook } from './game/wardrobe.js';
 import { createMapView } from './game/mapview.js';
 import { createTravel } from './game/travel.js';
+import { buildRegion } from './engine/region.js';
+import whisperWood from './content/regions/whisper_wood.json';
+import { hideAllPlates } from './content/actors/enemyCore.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createChests } from './game/chest.js';
 import { createCharacter } from './content/models/character.js';
@@ -124,7 +127,7 @@ const fireballs = createFireballs({
 // ---------- maps ----------
 let lastLevel = '';
 const world = createMapManager({
-    builders: { outdoor: () => createOutdoor({ quality }), tower: createTower },
+    builders: { outdoor: () => createOutdoor({ quality }), tower: createTower, whisper_wood: () => buildRegion(whisperWood, { quality }) },
     fade: hud.ui.fade, fadeText: hud.ui.fadeText,
     onEnter(map, id, sp) {
         player.place(sp);
@@ -136,8 +139,9 @@ const world = createMapManager({
         mapView?.setMap(map, id);
         Object.assign(cam, { yaw: (sp.facing ?? 0) + Math.PI, pitch: map.camera.pitch, dist: map.camera.dist, maxDist: map.camera.maxDist });
         cam.snapTo(player.state.pos);
-        world.maps.outdoor?.shadows?.setVisible(id === 'outdoor');
-        setPlatesVisible(id === 'outdoor');
+        for (const m of Object.values(world.maps)) m.shadows?.setVisible(m === map);
+        setPlatesVisible(true);
+        hideAllPlates();
         lastLevel = map.levelName?.(player.state.pos.y) ?? '';
         hud.banner(lastLevel ? `${map.name} — ${lastLevel}` : map.name);
         save();
@@ -157,7 +161,13 @@ const archery = createArchery({ stats, player, hud, cam, world, loot });
 const gathering = createGathering({ stats, hud });
 const chests = createChests({ stats, hud });
 const mapView = createMapView({ stats, hud });
-travel = createTravel({ stats, hud, world, player });
+travel = createTravel({
+    stats, hud, world, player,
+    allGates: () => [
+        ...(world.maps.outdoor?.gates ?? []).map(g => ({ ...g, map: 'outdoor' })),
+        ...(whisperWood.gates ?? []).map(g => ({ ...g, map: 'whisper_wood' })),
+    ],
+});
 const campfire = createCampfire({
     stats, hud,
     onRest: () => { stats.health = stats.maxHealth; stats.mana = stats.maxMana; stats.vigor = stats.maxVigor; stats.vigorWinded = false; save(); },
@@ -266,7 +276,7 @@ function tick(dt) {
     if (archery.armed()) hud.ui.speed.textContent += ` · ${archery.ready()} ready (+${archery.spare()} in the satchel)`;
 }
 
-if (savedAt && world.maps && ['outdoor', 'tower'].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
+if (savedAt && world.maps && ['outdoor', 'tower', 'whisper_wood'].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
 else world.enter('outdoor', 'start');
 const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.current.scene, camera); perf.frame(); } });
 

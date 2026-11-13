@@ -13,6 +13,9 @@ const { STATUS_DEFS } = statuses;
 export const PX = 32;
 
 let plateLayer = null;
+const allPlates = [];
+// On a map change: blank every plate (only the current map's actors update theirs).
+export function hideAllPlates() { for (const p of allPlates) p.style.opacity = 0; }
 function plates() {
     if (!plateLayer) {
         plateLayer = document.createElement('div');
@@ -41,6 +44,7 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
     barBox.append(bar);
     plate.append(label, barBox);
     plates().append(plate);
+    allPlates.push(plate);
 
     const fxMult = field => Object.keys(s.fx).reduce((m, id) => m * (STATUS_DEFS[id]?.[field] ?? 1), 1);
     const stunned = () => Object.keys(s.fx).some(id => STATUS_DEFS[id]?.stunned);

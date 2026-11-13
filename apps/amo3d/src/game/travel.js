@@ -41,7 +41,7 @@ export function buildMonolith(scene, gate, y) {
     };
 }
 
-export function createTravel({ stats, hud, world, player }) {
+export function createTravel({ stats, hud, world, player, allGates }) {
     const css = document.createElement('style');
     css.textContent = `
 #travel { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #04060ccc; font-family: Georgia, serif; color: #e6ecff; }
@@ -59,7 +59,7 @@ export function createTravel({ stats, hud, world, player }) {
     let open = false, tearCd = 0, channel = null;
     stats.attunedGates ??= [];
 
-    const gates = () => world.maps.outdoor?.gates ?? [];
+    const gates = () => allGates();   // every known gate, with the map it stands on
     const tearRules = () => {
         const mastery = !!stats.masteries?.aetheric_comprehension;
         return { pct: mastery ? 0.75 : 0.85, cd: mastery ? 45 : 60 };
@@ -89,8 +89,8 @@ export function createTravel({ stats, hud, world, player }) {
     function close() { open = false; root.classList.remove('open'); }
 
     function arrive(g) {
-        world.go('outdoor', `gate:${g.id}`, () => {
-            stats.respawnPoint = { map: 'outdoor', spawn: `gate:${g.id}`, label: g.label };
+        world.go(g.map ?? 'outdoor', `gate:${g.id}`, () => {
+            stats.respawnPoint = { map: g.map ?? 'outdoor', spawn: `gate:${g.id}`, label: g.label };
         });
         hud.banner(`Arrived: ${g.label}`);
     }

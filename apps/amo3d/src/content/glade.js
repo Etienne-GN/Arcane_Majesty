@@ -15,12 +15,14 @@ import { buildCampfire } from '../game/campfire.js';
 import { skyState, createWeather } from '../engine/sky.js';
 import { createNav } from '../engine/nav.js';
 import { buildMonolith } from '../game/travel.js';
+import { buildArch } from '../engine/region.js';
 
 export const WATER = -1.2;
 export const WORLD_R = 98;
 const LAKE = { x: -36, z: -28, r: 22 };
 const STONES = { x: -16, z: 22, r: 6.5 };
 const PEN = { x: 9, z: 8, hw: 5, hd: 4 };
+const ARCH = { x: 28, z: -55 };   // the way south-east, to Whisper-Wood (dry, level ground on the rim)
 
 function rawHeight(x, z) {
     const d = Math.hypot(x, z);
@@ -69,7 +71,7 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
         return k < 0.75 && Math.hypot(x - tx * k, z - tz * k) < 3 + k * 14;
     };
     const reserved = (x, z) =>
-        Math.hypot(x, z) < 6 || near(x, z, STONES, STONES.r + 3) || valeReserved(x, z) || roadDist(x, z) < 2.4
+        Math.hypot(x, z) < 6 || near(x, z, STONES, STONES.r + 3) || near(x, z, ARCH, 7) || valeReserved(x, z) || roadDist(x, z) < 2.4
         || (Math.abs(x - PEN.x) < PEN.hw + 2 && Math.abs(z - PEN.z) < PEN.hd + 2);
 
     // ---------- sky, fog, light ----------
@@ -549,6 +551,13 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
         map.spawns[`gate:${g.id}`] = { x: g.x + 1.7, z: g.z, facing: Math.PI / 2 };   // arrive beside the stone
         return { g, m: buildMonolith(scene, g, heightAt(g.x, g.z)) };
     });
+    // The archway east to Whisper-Wood.
+    const archRy = Math.atan2(-ARCH.x, -ARCH.z);   // it faces the middle of the glade
+    const archVeil = buildArch(scene, ARCH.x, heightAt(ARCH.x, ARCH.z), ARCH.z, archRy);
+    for (const s of [-1, 1]) addCollider({ x: ARCH.x + Math.cos(archRy) * 1.8 * s, z: ARCH.z - Math.sin(archRy) * 1.8 * s, r: 0.5, kind: 'wall' }, 4);
+    map.triggers.push({ x: ARCH.x, z: ARCH.z, r: 1.2, label: 'To Whisper-Wood', to: 'whisper_wood', spawn: 'from_glade' });
+    map.spawns.from_wood = { x: ARCH.x + Math.sin(archRy) * 3.2, z: ARCH.z + Math.cos(archRy) * 3.2, facing: archRy };
+    animated.push(t => { archVeil.material.opacity = 0.14 + Math.sin(t * 2) * 0.06; });
 
     // Batch every static mesh into one draw per material (phones care about draw calls).
     sky.userData.dynamic = true;
@@ -563,6 +572,7 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
             { name: 'Standing Stones', x: STONES.x, z: STONES.z, icon: 'stones' },
             { name: 'The Lake', x: LAKE.x, z: LAKE.z, icon: 'water' },
             { name: 'Campfire', x: map.campfire.pos.x, z: map.campfire.pos.z, icon: 'fire' },
+            { name: '→ Whisper-Wood', x: ARCH.x, z: ARCH.z, icon: 'gate' },
             ...(map.den ? [{ name: 'Wolf Den', x: map.den.x, z: map.den.z, icon: 'den' }] : []),
         ],
     };

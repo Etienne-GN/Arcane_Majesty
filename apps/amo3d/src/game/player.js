@@ -175,7 +175,7 @@ export function createPlayer({ name = 'Eldrin', stats, hero, cam, world, hud, fi
             p.dead.t += dt;
             hero.root.rotation.x = -Math.min(1, p.dead.t / 0.6) * Math.PI / 2 * 0.95;
             hero.root.position.y = p.pos.y + 0.12 * Math.min(1, p.dead.t / 0.6);
-            if (p.dead.t > 2.6) world.go('outdoor', world.maps.outdoor?.spawns?.[stats.respawnPoint?.spawn] ? stats.respawnPoint.spawn : 'start', revive);   // back at the last gate
+            if (p.dead.t > 2.6) world.go(stats.respawnPoint?.map ?? 'outdoor', stats.respawnPoint?.spawn ?? 'start', revive);   // back at the last gate
             return 0;
         }
         // Out of a fight for a while, Eldrin catches his breath (POC rule).
