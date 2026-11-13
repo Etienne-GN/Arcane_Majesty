@@ -43,6 +43,7 @@ import { hasSave } from './game/save.js';
 import { createOutdoor } from './content/glade.js';
 import { createTower } from './content/eldrinTower.js';
 import { createThaloria, INTERIOR_IDS } from './content/thaloria.js';
+import { createEastRoad, EAST_ROAD_GATES } from './content/eastRoad.js';
 import { createInterior } from './content/interior.js';
 import THALORIA_DOORS from '../../amo/src/data/maps/interiors/doors.json';
 // amo's Thaloria interiors, each built on first entry; inner doors (the inn's cellar) lead on and back.
@@ -148,6 +149,7 @@ const world = createMapManager({
     builders: {
         outdoor: () => createOutdoor({ quality }), tower: createTower, thaloria: () => createThaloria({ quality }),
         ...interiorBuilders,
+        east_road: () => createEastRoad({ quality }),
         ...Object.fromEntries(Object.keys(REGIONS).map(id => [id, () => buildRegion(REGIONS[id], { quality })])),
     },
     fade: hud.ui.fade, fadeText: hud.ui.fadeText,
@@ -166,6 +168,8 @@ const world = createMapManager({
         hideAllPlates();
         lastLevel = map.levelName?.(player.state.pos.y) ?? '';
         codex?.visited(id, map.name);
+        // amo: entering Thaloria starts Act I's main quest, Odyssey's Dawn.
+        if (id === 'thaloria' && !stats.questLog?.main_odysseys_dawn) quests.start('main_odysseys_dawn');
         hud.banner(lastLevel ? `${map.name} — ${lastLevel}` : map.name);
         save();
     },
@@ -203,6 +207,7 @@ travel = createTravel({
     stats, hud, world, player, onAttune: id => quests.onAttune(id),
     allGates: () => [
         ...(world.maps.outdoor?.gates ?? []).map(g => ({ ...g, map: 'outdoor' })),
+        ...EAST_ROAD_GATES.map(g => ({ ...g, map: 'east_road' })),
         ...Object.values(REGIONS).flatMap(r => (r.gates ?? []).map(g => ({ ...g, map: r.id }))),
     ],
 });
@@ -295,7 +300,7 @@ function tick(dt) {
     const gatherText = station ? STATION_PROMPT[station.mode] : person ? `G — Talk${personName ? ` to the ${personName}` : ''}` : gathering.update(simT * 1000, player.state);
     if (gatherText && (act.gather || (act.hop && input.device === 'gamepad'))) {
         if (station?.mode === 'chest') { if (station.seed && !stats.chestContents[station.key]) stats.chestContents[station.key] = station.seed.map(id => ({ id, qty: 1 })); chests.toggle(station.key, station.title); }
-        else if (station?.mode === 'sign') dialogue.start([{ speaker: '', text: station.text }]);
+        else if (station?.mode === 'sign') { dialogue.start([{ speaker: '', text: station.text }]); quests.manager.onReadSign(station.id ?? null); }
         else if (station?.mode === 'gate') travel.useGate(station.key);
         else if (station) campfire.toggle(station.mode);
         else if (person) dialogue.talk(person, clock());
@@ -325,7 +330,7 @@ function tick(dt) {
 }
 
 if (REGIONS[params.get('region')]) world.enter(params.get('region'), 'start');   // the editor's "Play here"
-else if (savedAt && world.maps && ['outdoor', 'tower', 'thaloria', ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
+else if (savedAt && world.maps && ['outdoor', 'tower', 'thaloria', 'east_road', ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
 else world.enter('outdoor', 'start');
 const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.current.scene, camera); perf.frame(); } });
 

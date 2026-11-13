@@ -266,8 +266,8 @@ export function createThaloria({ quality }) {
     const eastCells = wallCells.filter(([, y, outer]) => outer && Math.abs(y - east.y) < 8).map(([x]) => x);
     const ex = wx(Math.max(...eastCells)), ez = wz(east.y) + 0.5;
     const eveil = buildArch(scene, ex, 0, ez, -Math.PI / 2);
-    map.triggers.push({ x: ex, z: ez, r: 1.4, label: 'The East Gate — the winter road to the Summit', to: 'summit_of_despair', spawn: 'from_thaloria' });
-    map.spawns.from_summit = { x: ex - 4, z: ez, facing: -Math.PI / 2 };
+    map.triggers.push({ x: ex, z: ez, r: 1.4, label: 'The East Gate — the winter road', to: 'east_road', spawn: 'from_thaloria' });
+    map.spawns.from_east_road = { x: ex - 4, z: ez, facing: -Math.PI / 2 };
 
     // Doors into the buildings (amo doors.json): walk up to one to go in.
     for (const d of DOORS.thaloria ?? []) {

@@ -8,7 +8,7 @@ import * as THREE from 'three';
 import { createEnemyCore, PX } from './enemyCore.js';
 import { flat } from '../../engine/lib.js';
 
-const NAMES = { gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend' };
+const NAMES = { gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker' };
 const TUNE = { sight: 2.6, reach: 2, speed: 1.4 };
 
 function body(type) {
@@ -34,6 +34,15 @@ function body(type) {
         add(new THREE.SphereGeometry(0.2, 8, 6), M, 0, 1.65, 0);
         for (const s of [1, -1]) { const a = add(new THREE.ConeGeometry(0.08, 0.8, 5), M, s * 0.38, 1.1, 0.1); a.rotation.z = s * 2.4; }
         parts.eyes = add(new THREE.BoxGeometry(0.2, 0.03, 0.02), new THREE.MeshBasicMaterial({ color: 0x9ae8ff, toneMapped: false, transparent: true }), 0, 1.68, 0.18);
+    } else if (type === 'void_stalker') {   // a low, lean shadow-hound with violet spines
+        const M = flat(0x1e1828), spine = new THREE.MeshStandardMaterial({ color: 0x5a2a8a, emissive: 0x6a2aaa, emissiveIntensity: 0.8, flatShading: true });
+        const b = add(new THREE.CylinderGeometry(0.28, 0.22, 1.2, 7).rotateX(Math.PI / 2), M, 0, 0.75, 0); b.scale.set(0.9, 0.8, 1);
+        add(new THREE.ConeGeometry(0.22, 0.6, 6).rotateX(Math.PI / 2), M, 0, 0.82, 0.8);
+        for (let i = 0; i < 5; i++) add(new THREE.ConeGeometry(0.06, 0.32, 4), spine, 0, 1.02, -0.45 + i * 0.22).rotation.x = -0.4;
+        for (const [x, z] of [[0.18, 0.4], [-0.18, 0.4], [0.18, -0.4], [-0.18, -0.4]]) add(new THREE.CylinderGeometry(0.06, 0.04, 0.6, 5), M, x, 0.3, z);
+        add(new THREE.ConeGeometry(0.08, 0.6, 4).rotateX(-1.9), M, 0, 0.85, -0.75);
+        parts.eyes = add(new THREE.BoxGeometry(0.22, 0.03, 0.02), new THREE.MeshBasicMaterial({ color: 0xc86aff, toneMapped: false }), 0, 0.92, 1.0);
+        parts.legs = root.children.filter(o => o.position.y === 0.3);
     } else {   // crag_fiend
         const M = flat(0x5a6458), dark = flat(0x3a4038);
         const t = add(new THREE.DodecahedronGeometry(0.75, 0), M, 0, 1.4, 0); t.scale.set(1.1, 1.0, 0.85);
@@ -126,6 +135,10 @@ function createBeast({ scene, map, rng, type, home }) {
             root.position.y = pos.y + 0.25 + Math.sin(ai.t * 2) * 0.12;
             parts.mat.opacity = Math.max(0.12, Math.min(0.6, 0.6 - (toP - 3) * 0.05)) + (tell ? 0.25 : 0) + s.flash;
             parts.mat.emissiveIntensity = 0.4 + (tell ? 1.4 : 0);
+        } else if (type === 'void_stalker') {   // a crouch before the lunge
+            root.position.y = pos.y - (tell ? 0.15 : 0);
+            root.rotation.x = ai.state === 'strike' ? -0.2 : tell ? 0.15 : 0;
+            parts.legs.forEach((l, i) => { l.rotation.x = Math.sin(ai.t * 10 + i * Math.PI / 2) * 0.5 * Math.min(1, ai.speed / 2); });
         } else {   // the brute's arms rise on the wind-up and slam
             const lift = tell ? -2.2 * Math.min(1, 1 - ai.timer / 0.7) : ai.state === 'strike' ? 0.3 : Math.sin(ai.t * 2.4) * 0.15 * Math.min(1, ai.speed);
             parts.armL.rotation.x = lift; parts.armR.rotation.x = lift;
