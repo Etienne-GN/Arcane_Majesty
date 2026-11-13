@@ -102,7 +102,8 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
     sun.castShadow = true;
     sun.castShadow = quality.shadows;
     sun.shadow.mapSize.set(quality.shadowMap, quality.shadowMap);
-    Object.assign(sun.shadow.camera, { left: -32, right: 32, top: 32, bottom: -32, near: 1, far: 160 });
+    const SR = quality.shadowRange ?? 48;   // shadows reach this far around the player (quality preset)
+    Object.assign(sun.shadow.camera, { left: -SR, right: SR, top: SR, bottom: -SR, near: 1, far: 320 });
     sun.shadow.bias = -0.0004;
     sun.shadow.normalBias = 0.04;
     scene.add(sun, sun.target);
@@ -444,8 +445,11 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
             eldrin.update(t, dt, moodK);
             map.campfire?.update(t);
             shadows.update(dt);
-            sun.position.copy(ctx.player.pos).add(S.dir);
-            sun.target.position.copy(ctx.player.pos);
+            // Follow the player, snapped to whole shadow-map texels so edges don't shimmer while walking.
+            const texel = (2 * SR) / quality.shadowMap;
+            const fx = Math.round(ctx.player.pos.x / texel) * texel, fz = Math.round(ctx.player.pos.z / texel) * texel;
+            sun.target.position.set(fx, ctx.player.pos.y, fz);
+            sun.position.copy(sun.target.position).addScaledVector(S.dir.normalize(), 140);
             sky.position.copy(ctx.camera.position);
         },
     };

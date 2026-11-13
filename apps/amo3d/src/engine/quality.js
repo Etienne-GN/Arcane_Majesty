@@ -2,8 +2,8 @@
 // overrides, and F2 cycles (remembered per device).
 export const PRESETS = {
     low: { name: 'low', pixelRatio: 1, antialias: false, shadows: false, shadowMap: 512, foliage: 0.3, particles: 0.5, fogFar: 0.75 },
-    medium: { name: 'medium', pixelRatio: 1.5, antialias: true, shadows: true, shadowMap: 1024, foliage: 0.6, particles: 0.8, fogFar: 0.9 },
-    high: { name: 'high', pixelRatio: 2, antialias: true, shadows: true, shadowMap: 2048, foliage: 1, particles: 1, fogFar: 1 },
+    medium: { name: 'medium', pixelRatio: 1.5, antialias: true, shadows: true, shadowMap: 2048, shadowRange: 48, foliage: 0.6, particles: 0.8, fogFar: 0.9 },
+    high: { name: 'high', pixelRatio: 2, antialias: true, shadows: true, shadowMap: 4096, shadowRange: 72, foliage: 1, particles: 1, fogFar: 1 },
 };
 const ORDER = ['low', 'medium', 'high'];
 const KEY = 'amo3d.quality';
