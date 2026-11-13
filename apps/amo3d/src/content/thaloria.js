@@ -13,6 +13,7 @@ import { createNav } from '../engine/nav.js';
 import { bakeStatic } from '../engine/batch.js';
 import { buildArch } from '../engine/region.js';
 import { treeKinds } from './models/flora.js';
+import { createTownsfolk } from './actors/townsfolk.js';
 
 const ROOFS = {   // roof piece family → colour and shape
     scale_red: { color: 0xa83a2a, shape: 'gable' }, dome_gray: { color: 0x8a8e96, shape: 'dome' },
@@ -269,6 +270,7 @@ export function createThaloria({ quality }) {
     for (const st of D.spawns.stations ?? []) map.stations.push({ mode: st.type === 'hearth' ? 'hearth' : 'alchemy', pos: new THREE.Vector3(wx(st.x), 0, wz(st.y)) });
 
     map.batch = bakeStatic(scene);
+    map.town = createTownsfolk({ scene, W, H });   // added after batching: they move
     map.nav = createNav({ colliders, passable: map.passable, half });
     map.mapInfo = {
         half, water: -99, trees: trees.map(t => [t.x, t.z, 0]),
@@ -283,6 +285,7 @@ export function createThaloria({ quality }) {
         for (const l of lampLights) l.intensity = night * 10;
         veil.material.opacity = 0.14 + Math.sin(t * 2) * 0.06;
         for (const h of map.hittables) h.update(dt, ctx);
+        map.town.update(dt, ctx);
     };
     return map;
 }

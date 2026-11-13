@@ -144,7 +144,7 @@ const world = createMapManager({
         mapView?.setMap(map, id);
         Object.assign(cam, { yaw: (sp.facing ?? 0) + Math.PI, pitch: map.camera.pitch, dist: map.camera.dist, maxDist: map.camera.maxDist });
         cam.snapTo(player.state.pos);
-        for (const m of Object.values(world.maps)) m.shadows?.setVisible(m === map);
+        for (const m of Object.values(world.maps)) { m.shadows?.setVisible(m === map); m.town?.setVisible(m === map); }
         setPlatesVisible(true);
         hideAllPlates();
         lastLevel = map.levelName?.(player.state.pos.y) ?? '';
