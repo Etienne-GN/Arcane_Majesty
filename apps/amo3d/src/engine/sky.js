@@ -34,7 +34,7 @@ export function skyState(hour, weather = 'clear') {
         ? new THREE.Vector3(Math.cos(arc) * 55, el * 60 + 6, 25)
         : new THREE.Vector3(-30, 55, -35);
     s.night = 1 - s.day;
-    const wet = weather === 'rain' ? 0.6 : weather === 'storm' ? 0.85 : 0;
+    const wet = weather === 'rain' ? 0.6 : weather === 'storm' ? 0.85 : weather === 'snow' ? 0.5 : 0;
     if (wet) {
         const lum = (s.bottom.r + s.bottom.g + s.bottom.b) / 3;
         s.top.lerp(GREY.clone().multiplyScalar(lum * 1.1), wet);
@@ -84,15 +84,18 @@ export function createWeather(scene, quality = { particles: 1 }) {
             stars.material.opacity = Math.max(0, s.night - (weather === 'clear' ? 0 : 0.8)) * 0.9;
             moon.position.copy(camera.position).add(new THREE.Vector3(-150, 260, -170));
             moon.material.opacity = stars.material.opacity;
-            const wet = weather === 'rain' ? 0.55 : weather === 'storm' ? 0.8 : 0;
+            const snow = weather === 'snow';
+            const wet = weather === 'rain' ? 0.55 : weather === 'storm' ? 0.8 : snow ? 0.9 : 0;
+            rain.material.color.setHex(snow ? 0xffffff : 0xaab8c8);
             rain.material.opacity += (wet - rain.material.opacity) * Math.min(1, dt * 0.8);
             rain.visible = rain.material.opacity > 0.01;
             if (rain.visible) {
-                const fall = (weather === 'storm' ? 26 : 19) * t, slant = weather === 'storm' ? 0.35 : 0.12;
+                const fall = (snow ? 2.6 : weather === 'storm' ? 26 : 19) * t, slant = snow ? 0.05 : weather === 'storm' ? 0.35 : 0.12, len = snow ? 0.07 : 0.7;
                 for (let i = 0; i < R; i++) {
-                    const x = seed[i * 3] + camera.position.x, z = seed[i * 3 + 2] + camera.position.z;
+                    const drift = snow ? Math.sin(t * 0.8 + i) * 0.6 + t * 0.9 : 0;
+                    const x = seed[i * 3] + camera.position.x + drift, z = seed[i * 3 + 2] + camera.position.z;
                     const y = camera.position.y + 14 - ((seed[i * 3 + 1] + fall) % 24);
-                    rp.set([x, y, z, x + slant, y - 0.7, z], i * 6);
+                    rp.set([x, y, z, x + slant, y - len, z], i * 6);
                 }
                 rainGeo.attributes.position.needsUpdate = true;
             }

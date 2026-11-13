@@ -262,11 +262,12 @@ export function createThaloria({ quality }) {
     map.triggers.push({ x: gx, z: gz, r: 1.4, label: "The West Gate — the road to Eldrin's Tower", to: 'outdoor', spawn: 'from_thaloria' });
     map.spawns.from_glade = { x: gx + 4, z: gz, facing: Math.PI / 2 };
     map.spawns.start = map.spawns.from_glade;
-    // The East Gate stays shut for now (the winter road comes later): a portcullis.
+    // The East Gate: the winter road east — for now straight up to the Summit of Despair (the East Road between comes later).
     const eastCells = wallCells.filter(([, y, outer]) => outer && Math.abs(y - east.y) < 8).map(([x]) => x);
     const ex = wx(Math.max(...eastCells)), ez = wz(east.y) + 0.5;
-    for (let i = -1; i <= 1; i++) { const bar = new THREE.Mesh(new THREE.BoxGeometry(0.12, 4.6, 0.12), flat(0x2a2a2e)); bar.position.set(ex, 2.3, ez + i * 0.7); scene.add(bar); }
-    add({ ax: ex, az: ez - 1.6, bx: ex, bz: ez + 1.6, r: 0.3, kind: 'wall' }, 5);
+    const eveil = buildArch(scene, ex, 0, ez, -Math.PI / 2);
+    map.triggers.push({ x: ex, z: ez, r: 1.4, label: 'The East Gate — the winter road to the Summit', to: 'summit_of_despair', spawn: 'from_thaloria' });
+    map.spawns.from_summit = { x: ex - 4, z: ez, facing: -Math.PI / 2 };
 
     // Doors into the buildings (amo doors.json): walk up to one to go in.
     for (const d of DOORS.thaloria ?? []) {
@@ -292,7 +293,7 @@ export function createThaloria({ quality }) {
         windowMat.emissiveIntensity = night * 1.4;            // lit windows after dusk
         lampMat.emissiveIntensity = 0.3 + night * 2.2;
         for (const l of lampLights) l.intensity = night * 10;
-        veil.material.opacity = 0.14 + Math.sin(t * 2) * 0.06;
+        veil.material.opacity = eveil.material.opacity = 0.14 + Math.sin(t * 2) * 0.06;
         for (const h of map.hittables) h.update(dt, ctx);
         map.town.update(dt, ctx);
     };

@@ -250,7 +250,7 @@ clockEl.style.cssText = 'right:18px;top:54px;font-size:13px;opacity:.85;letter-s
 document.body.append(clockEl);
 let weatherOverride = params.get('weather');
 function clock(min = stats.gameMinutes ?? clockRules.START_MINUTES) {
-    const weather = world.current?.terrain ? (weatherOverride || weatherRules.weatherAt(GLADE_WEATHER, min).id) : 'clear';
+    const weather = world.current?.terrain ? (weatherOverride || weatherRules.weatherAt(world.current.weatherDef ?? GLADE_WEATHER, min).id) : 'clear';
     return { minutes: min, hour: clockRules.gameHour(min), weather, voidMult: clockRules.isNight(min) ? clockRules.NIGHT_DAMAGE_MULT : 1 };
 }
 

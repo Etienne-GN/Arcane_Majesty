@@ -12,6 +12,7 @@ import { createWolves } from '../content/actors/wolf.js';
 import { createShadows } from '../content/actors/shadowSoldier.js';
 import { createDeer } from '../content/actors/deer.js';
 import { buildMonolith } from '../game/travel.js';
+import { createBeasts } from '../content/actors/beast.js';
 
 const segDist = (x, z, pts) => {
     let best = Infinity;
@@ -40,6 +41,7 @@ export function buildArch(scene, x, y, z, ry) {
 // The terrain height of a region (pure: the game and the editor both use it).
 export function regionHeight(def) {
     const half = def.half ?? 90, WATER = def.water ?? -1.2, EDGE = half - 6, T = def.terrain ?? {}, path = def.path ?? [];
+    const trails = [path, ...(def.branches ?? [])].filter(p => p.length > 1);
     return function heightAt(x, z) {
         let h = (fbm(x * (T.scale ?? 0.02) + 31, z * (T.scale ?? 0.02) - 17) - 0.5) * (T.relief ?? 10) + (T.base ?? 0.5);
         for (const f of def.features ?? []) {
@@ -48,8 +50,9 @@ export function regionHeight(def) {
             else if (f.type === 'hill') h += smoothstep(f.r, 0, d) * f.h;
             else if (f.type === 'clearing') h += (0.4 - h) * smoothstep(f.r, f.r * 0.5, d);
         }
-        const pd = path.length > 1 ? segDist(x, z, path) : Infinity;
-        if (pd < 4) h += (Math.max(h, WATER + 1) - h) * smoothstep(4, 1.5, pd) - smoothstep(3, 0, pd) * 0.15;
+        const pd = trails.length ? Math.min(...trails.map(p => segDist(x, z, p))) : Infinity;
+        if (T.carveTo !== undefined) { if (pd < 7) h += (T.carveTo - h) * smoothstep(7, 2.5, pd); }   // a trail cut through the rock
+        else if (pd < 4) h += (Math.max(h, WATER + 1) - h) * smoothstep(4, 1.5, pd) - smoothstep(3, 0, pd) * 0.15;
         h += smoothstep(EDGE - 18, EDGE + 4, Math.max(Math.abs(x), Math.abs(z))) * (T.rim ?? 22) * (0.6 + 0.8 * fbm(x * 0.05, z * 0.05));   // a wall of hills
         return h;
     };
@@ -62,6 +65,8 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     const T = def.terrain ?? {}, P = def.palette ?? {};
     const colliders = [];
     const path = def.path ?? [];
+    const trails = [path, ...(def.branches ?? [])].filter(p => p.length > 1);
+    const trailDist = (x, z) => (trails.length ? Math.min(...trails.map(p => segDist(x, z, p))) : Infinity);
 
     // ---------- terrain ----------
     const heightAt = regionHeight(def);
@@ -78,7 +83,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         if (h < WATER + 0.35) col.copy(cSand);
         else if (h > 7 + n * 3) col.copy(cRock);
         else col.copy(cA).lerp(cB, n);
-        if (path.length > 1 && segDist(x, z, path) < 1.6) col.lerp(cDirt, 0.85);
+        if (trailDist(x, z) < 1.6) col.lerp(cDirt, 0.85);
         colors.set([col.r, col.g, col.b], i * 3);
     }
     tGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
@@ -98,7 +103,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
 
     // ---------- links (archways to other regions) and reserved ground ----------
     const links = def.links ?? [];
-    const reserved = (x, z, m = 0) => links.some(l => Math.hypot(l.x - x, l.z - z) < 7 + m) || (path.length > 1 && segDist(x, z, path) < 2.2 + m)
+    const reserved = (x, z, m = 0) => links.some(l => Math.hypot(l.x - x, l.z - z) < 7 + m) || (trailDist(x, z) < 2.2 + m)
         || (def.features ?? []).some(f => f.type === 'clearing' && Math.hypot(f.x - x, f.z - z) < f.r * 0.6);
     const addCollider = (c, height) => { const y0 = heightAt(c.x, c.z); colliders.push({ ...c, y0: y0 - 0.5, y1: y0 + height }); };
 
@@ -156,7 +161,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     const ferns = [];
     for (let i = 0; i < 6000 && ferns.length < 2500 * quality.foliage; i++) {
         const x = (rng() - 0.5) * SIZE * 0.9, z = (rng() - 0.5) * SIZE * 0.9, h = heightAt(x, z);
-        if (h < WATER + 0.3 || h > 6 || (path.length > 1 && segDist(x, z, path) < 1.4)) continue;
+        if (h < WATER + 0.3 || h > 6 || (trailDist(x, z) < 1.4)) continue;
         ferns.push([x, h, z]);
     }
     const fern = new THREE.InstancedMesh(new THREE.ConeGeometry(0.09, 0.4, 3).translate(0, 0.18, 0), flat(0xffffff), Math.max(1, ferns.length));
@@ -209,7 +214,8 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         const y = heightAt(l.x, l.z);
         const veil = buildArch(scene, l.x, y, l.z, l.facing ?? 0);
         for (const s of [-1, 1]) addCollider({ x: l.x + Math.cos(l.facing ?? 0) * 1.8 * s, z: l.z - Math.sin(l.facing ?? 0) * 1.8 * s, r: 0.5, kind: 'wall' }, 4);
-        map.triggers.push({ x: l.x, z: l.z, r: 1.2, label: l.label, to: l.to, spawn: l.toSpawn });
+        if (l.to) map.triggers.push({ x: l.x, z: l.z, r: 1.2, label: l.label, to: l.to, spawn: l.toSpawn });
+        else { veil.material.color.setHex(0x8a8a8a); map.triggers.push({ x: l.x, z: l.z, r: 1.6, label: `${l.label} (the way is not open yet)`, to: null }); }
         map.spawns[l.spawn] = { x: l.x + Math.sin(l.facing ?? 0) * 3.2, z: l.z + Math.cos(l.facing ?? 0) * 3.2, facing: l.facing ?? 0 };
         l._veil = veil;
     }
@@ -220,10 +226,17 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         for (let i = 0; i < 3000 && n < count; i++) {
             const x = (rng() - 0.5) * SIZE * 0.85, z = (rng() - 0.5) * SIZE * 0.85, h = heightAt(x, z);
             if (h < WATER + 0.4 || h > 8 || reserved(x, z) || map.blockedAt(x, z, 1.1) || map.gatherSpots.some(s => Math.hypot(s.x - x, s.z - z) < 4)) continue;
-            map.gatherSpots.push({ type, x, z });
+            map.gatherSpots.push({ type, x, z, yields: def.gatherYields?.[type] });
             n++;
         }
     }
+
+    // Signs to read (amo spawns.signs).
+    for (const sg of def.signs ?? []) {
+        const post = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.35, 0.08), flat(0x8a7a5a)); post.position.set(sg.x, heightAt(sg.x, sg.z) + 0.5, sg.z); post.castShadow = true; scene.add(post);
+        map.stations.push({ mode: 'sign', text: sg.text, pos: new THREE.Vector3(sg.x, heightAt(sg.x, sg.z), sg.z) });
+    }
+    map.weatherDef = { id: def.id, biome: def.biome ?? 'temperate' };
 
     // Monoliths (fast travel gates).
     map.gates = (def.gates ?? []).map(g => ({ ...g }));
@@ -239,12 +252,13 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         if (a.type === 'wolves') map.hittables.push(...createWolves({ scene, map, rng, den: a.den, count: a.count ?? 3 }));
         else if (a.type === 'deer') a.homes.forEach((home, i) => { const d = createDeer({ home, stag: i === 0, rng, map }); scene.add(d.root); map.hittables.push(d); });
         else if (a.type === 'shadows') { map.shadows = createShadows({ scene, map, rng, posts: a.posts }); map.hittables.push(...map.shadows.list); }
+        else if (a.type === 'beasts') map.hittables.push(...createBeasts({ scene, map, rng, type: a.kind, posts: a.posts }));
     }
     for (const h of map.hittables) if (h.root) h.root.userData.dynamic = true;
     map.batch = bakeStatic(scene);
     map.nav = createNav({ colliders, passable: map.passable, half });
     map.mapInfo = {
-        half, water: WATER, trees: trees.map(t => [t.x, t.z, t.kind === 'pine' || t.kind === 'dead' ? 1 : 0]),
+        half, water: WATER, ground: [1, 3, 5].map(i => parseInt((P.grassA ?? '#4d7a35').slice(i, i + 2), 16)), trees: trees.map(t => [t.x, t.z, t.kind === 'pine' || t.kind === 'dead' ? 1 : 0]),
         landmarks: [...(def.landmarks ?? []), ...links.map(l => ({ name: l.label.replace(/^To /, '→ '), x: l.x, z: l.z, icon: 'gate' })), ...map.gates.map(g => ({ name: g.label, x: g.x, z: g.z, icon: 'stones' }))],
     };
 

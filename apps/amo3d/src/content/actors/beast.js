@@ -1,0 +1,147 @@
+// Creatures for any amo ENEMY_TYPES entry that has a body here — built on the shared enemy core
+// (stats, affinities, statuses, XP, loot, nameplate, respawn). Bodies:
+//   gloom_beak  — a dark eagle that circles high, then dives at you
+//   frost_shade — a pale wraith of ice, nearly invisible against the snow until it is close
+//   crag_fiend  — a hulking stone brute, slow, hits hard
+// AI: idle / wander near home → notice → close in (pathfinding) → wind-up (a tell) → strike → recover.
+import * as THREE from 'three';
+import { createEnemyCore, PX } from './enemyCore.js';
+import { flat } from '../../engine/lib.js';
+
+const NAMES = { gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend' };
+const TUNE = { sight: 2.6, reach: 2, speed: 1.4 };
+
+function body(type) {
+    const root = new THREE.Group(), parts = {};
+    const add = (geo, m, x = 0, y = 0, z = 0, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; parent.add(o); return o; };
+    if (type === 'gloom_beak') {
+        const M = flat(0x2a3446), wingM = flat(0x1c2230, { side: THREE.DoubleSide }), beak = flat(0xc8a03a);
+        const b = add(new THREE.SphereGeometry(0.32, 8, 6), M); b.scale.set(0.8, 0.7, 1.4);
+        add(new THREE.SphereGeometry(0.17, 8, 6), M, 0, 0.12, 0.42);
+        add(new THREE.ConeGeometry(0.06, 0.2, 5).rotateX(Math.PI / 2), beak, 0, 0.08, 0.62);
+        for (const s of [1, -1]) {
+            const pivot = new THREE.Group(); pivot.position.set(s * 0.2, 0.08, 0); root.add(pivot);
+            const w = add(new THREE.PlaneGeometry(1.3, 0.55).translate(s * 0.65, 0, 0).rotateX(-Math.PI / 2), wingM, 0, 0, 0, pivot);
+            w.castShadow = true;
+            parts[s > 0 ? 'wingL' : 'wingR'] = pivot;
+        }
+        add(new THREE.ConeGeometry(0.16, 0.45, 4).rotateX(-Math.PI / 2), M, 0, 0, -0.55);
+        parts.eyes = add(new THREE.BoxGeometry(0.18, 0.03, 0.02), new THREE.MeshBasicMaterial({ color: 0xffd040, toneMapped: false }), 0, 0.17, 0.56);
+    } else if (type === 'frost_shade') {
+        const M = new THREE.MeshStandardMaterial({ color: 0xcfe8ff, emissive: 0x6ab0ff, emissiveIntensity: 0.4, transparent: true, opacity: 0.35, flatShading: true, depthWrite: false });
+        parts.mat = M;
+        add(new THREE.ConeGeometry(0.42, 1.5, 7, 1, true).translate(0, 0.75, 0), M);
+        add(new THREE.SphereGeometry(0.2, 8, 6), M, 0, 1.65, 0);
+        for (const s of [1, -1]) { const a = add(new THREE.ConeGeometry(0.08, 0.8, 5), M, s * 0.38, 1.1, 0.1); a.rotation.z = s * 2.4; }
+        parts.eyes = add(new THREE.BoxGeometry(0.2, 0.03, 0.02), new THREE.MeshBasicMaterial({ color: 0x9ae8ff, toneMapped: false, transparent: true }), 0, 1.68, 0.18);
+    } else {   // crag_fiend
+        const M = flat(0x5a6458), dark = flat(0x3a4038);
+        const t = add(new THREE.DodecahedronGeometry(0.75, 0), M, 0, 1.4, 0); t.scale.set(1.1, 1.0, 0.85);
+        add(new THREE.DodecahedronGeometry(0.32, 0), dark, 0, 2.25, 0.2);
+        for (const s of [1, -1]) {
+            const arm = new THREE.Group(); arm.position.set(s * 0.85, 1.75, 0); root.add(arm);
+            add(new THREE.DodecahedronGeometry(0.38, 0), M, 0, -0.55, 0, arm);
+            add(new THREE.DodecahedronGeometry(0.42, 0), dark, 0, -1.1, 0.1, arm);
+            parts[s > 0 ? 'armL' : 'armR'] = arm;
+            add(new THREE.CylinderGeometry(0.28, 0.32, 0.8, 6), dark, s * 0.38, 0.4, 0);
+        }
+        parts.eyes = add(new THREE.BoxGeometry(0.3, 0.05, 0.02), new THREE.MeshBasicMaterial({ color: 0xff7a2a, toneMapped: false }), 0, 2.3, 0.5);
+    }
+    return { root, parts };
+}
+
+export function createBeasts({ scene, map, rng, type, posts }) {
+    return posts.map(post => createBeast({ scene, map, rng, type, home: post }));
+}
+
+function createBeast({ scene, map, rng, type, home }) {
+    const { root, parts } = body(type);
+    scene.add(root);
+    const pos = new THREE.Vector3(home.x, map.heightAt(home.x, home.z), home.z);
+    const core = createEnemyCore({ type, name: NAMES[type] ?? type, pos, rng, respawnS: 30 });
+    const DEF = core.DEF, s = core.s;
+    const SIGHT = (DEF.sightRange / PX) * TUNE.sight, REACH = (DEF.attackRange / PX) * TUNE.reach + (type === 'crag_fiend' ? 0.6 : 0);
+    const SPEED = Math.min(6.5, (DEF.speed / PX) * TUNE.speed);
+    const ai = { state: 'idle', timer: rng() * 3, heading: rng() * 6.28, speed: 0, cd: 1 + rng(), t: rng() * 10, target: null, hit: false };
+    const navKey = {};
+    const flyer = type === 'gloom_beak';
+    const turn = (want, k) => { const d = ((((want - ai.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI; ai.heading += d * Math.min(1, k); };
+
+    function update(dt, ctx) {
+        ai.t += dt;
+        if (!core.tick(dt, ctx)) {   // dead: topple / fall, then respawn at home
+            const k = Math.min(1, s.deadT / 0.6);
+            root.rotation.z = (Math.PI / 2) * k;
+            root.position.y = map.heightAt(pos.x, pos.z) + (flyer ? 0.2 : 0);
+            root.visible = s.deadT < 10;
+            if (s.deadT > core.respawnS) { core.revive(); pos.set(home.x, map.heightAt(home.x, home.z), home.z); root.rotation.z = 0; root.visible = true; ai.state = 'idle'; }
+            core.updatePlate(ctx.camera, flyer ? 3.4 : 2.8);
+            return;
+        }
+        const P = ctx.player.pos, toP = Math.hypot(P.x - pos.x, P.z - pos.z), ang = Math.atan2(P.x - pos.x, P.z - pos.z);
+        const fromHome = Math.hypot(pos.x - home.x, pos.z - home.z);
+        ai.cd -= dt;
+        let want = 0;
+        if (core.stunned()) { if (ai.state === 'windup' || ai.state === 'strike') ai.state = 'chase'; }
+        else if (ai.state === 'idle' || ai.state === 'wander') {
+            if (!ctx.player.dead && toP < SIGHT) { ai.state = 'notice'; ai.timer = 0.5; }
+            else if (ai.state === 'idle' && (ai.timer -= dt) <= 0) { const a = rng() * 6.28, r = 2 + rng() * 6; ai.target = { x: home.x + Math.cos(a) * r, z: home.z + Math.sin(a) * r }; ai.state = 'wander'; }
+            else if (ai.state === 'wander') { turn(Math.atan2(ai.target.x - pos.x, ai.target.z - pos.z), dt * 3); want = SPEED * 0.35; if (Math.hypot(ai.target.x - pos.x, ai.target.z - pos.z) < 0.8) { ai.state = 'idle'; ai.timer = 2 + rng() * 3; } }
+        } else if (ai.state === 'notice') { turn(ang, dt * 8); if ((ai.timer -= dt) <= 0) ai.state = 'chase'; }
+        else if (ai.state === 'return') { const h = map.nav ? map.nav.aim(pos, home, navKey, dt) : home; turn(Math.atan2(h.x - pos.x, h.z - pos.z), dt * 5); want = SPEED * 0.7; if (fromHome < 1.5) { ai.state = 'idle'; s.hp = Math.min(DEF.health, s.hp + 10); } }
+        else if (ctx.player.dead || fromHome > 30 || toP > SIGHT * 2) ai.state = 'return';
+        else if (ai.state === 'chase') {
+            const g = toP > REACH + 1 && map.nav && !flyer ? map.nav.aim(pos, P, navKey, dt) : P;
+            turn(Math.atan2(g.x - pos.x, g.z - pos.z), dt * 7);
+            if (toP > REACH) want = SPEED;
+            else if (ai.cd <= 0) { ai.state = 'windup'; ai.timer = type === 'crag_fiend' ? 0.7 : 0.4; ai.hit = false; }
+        } else if (ai.state === 'windup') { turn(ang, dt * 8); if ((ai.timer -= dt) <= 0) { ai.state = 'strike'; ai.timer = 0.3; } }
+        else if (ai.state === 'strike') {
+            want = flyer ? SPEED * 1.6 : SPEED * 0.6;
+            if (!ai.hit && toP < REACH + 0.6) { ai.hit = true; ctx.hurtPlayer(Math.round(DEF.damage * (ctx.voidMult ?? 1)), pos); }
+            if ((ai.timer -= dt) <= 0) { ai.state = 'recover'; ai.timer = 0.6; }
+        } else if (ai.state === 'recover') { if ((ai.timer -= dt) <= 0) { ai.state = 'chase'; ai.cd = 1.4 + rng() * 1.2; } }
+        s.engaged = !['idle', 'wander', 'return'].includes(ai.state);
+
+        ai.speed += (want * core.fxMult('speedMult') - ai.speed) * Math.min(1, dt * 6);
+        const px = pos.x, pz = pos.z;
+        pos.x += Math.sin(ai.heading) * ai.speed * dt;
+        pos.z += Math.cos(ai.heading) * ai.speed * dt;
+        if (!flyer) { map.resolve(pos, 0.5); if (map.blockedAt(pos.x, pos.z, 0.4) === 'wall' && !map.passable(pos.x, pos.z)) { pos.x = px; pos.z = pz; } }
+        const d = Math.hypot(pos.x - P.x, pos.z - P.z);
+        if (d < 0.8 && d > 1e-4) { pos.x = P.x + (pos.x - P.x) / d * 0.8; pos.z = P.z + (pos.z - P.z) / d * 0.8; }
+        pos.y = map.heightAt(pos.x, pos.z);
+
+        // Animate.
+        root.position.copy(pos);
+        root.rotation.y = ai.heading;
+        const tell = ai.state === 'windup';
+        if (flyer) {   // circle high, drop to dive
+            const alt = ai.state === 'strike' ? 1.0 : tell ? 2.0 : 3.2 + Math.sin(ai.t * 1.3) * 0.4;
+            root.position.y = pos.y + alt;
+            const flap = Math.sin(ai.t * (tell ? 4 : 9)) * (ai.state === 'strike' ? 0.15 : 0.6);
+            parts.wingL.rotation.z = flap; parts.wingR.rotation.z = -flap;
+            root.rotation.x = ai.state === 'strike' ? 0.5 : tell ? -0.3 : 0;
+        } else if (type === 'frost_shade') {   // drift, and show itself only up close
+            root.position.y = pos.y + 0.25 + Math.sin(ai.t * 2) * 0.12;
+            parts.mat.opacity = Math.max(0.12, Math.min(0.6, 0.6 - (toP - 3) * 0.05)) + (tell ? 0.25 : 0) + s.flash;
+            parts.mat.emissiveIntensity = 0.4 + (tell ? 1.4 : 0);
+        } else {   // the brute's arms rise on the wind-up and slam
+            const lift = tell ? -2.2 * Math.min(1, 1 - ai.timer / 0.7) : ai.state === 'strike' ? 0.3 : Math.sin(ai.t * 2.4) * 0.15 * Math.min(1, ai.speed);
+            parts.armL.rotation.x = lift; parts.armR.rotation.x = lift;
+            root.position.y = pos.y + Math.abs(Math.sin(ai.t * 4)) * 0.06 * Math.min(1, ai.speed);
+        }
+        parts.eyes.material.color?.setRGB?.(tell ? 2 : 1, tell ? 1.4 : 1, tell ? 0.6 : 1);
+        core.updatePlate(ctx.camera, flyer ? 4.2 : type === 'crag_fiend' ? 3.0 : 2.4);
+    }
+
+    return {
+        pos, kind: type, root,
+        get alive() { return !s.dead; },
+        get engaged() { return s.engaged; },
+        get debug() { return { state: ai.state, hp: s.hp }; },
+        update,
+        hit: (...a) => { const r = core.hit(...a); if (!s.dead && (ai.state === 'idle' || ai.state === 'wander')) ai.state = 'chase'; return r; },
+        reset: () => { if (!s.dead) { ai.state = 'return'; s.fx = {}; } },
+    };
+}

@@ -55,6 +55,7 @@ body.title-on #minimap { display: none; }`;
             else if (h < info.water + 0.35) col = [176, 156, 110];
             else if (h > 17) col = [226, 232, 236];
             else if (h > 6) col = [118, 112, 104];
+            else if (info.ground) { const k = Math.max(0, Math.min(1, (h + 1) / 7)); col = info.ground.map((v, i) => v * (0.85 + 0.15 * k)); }   // the region's own colour
             else { const k = Math.max(0, Math.min(1, (h + 1) / 7)); col = [70 + 40 * k, 112 + 30 * k, 52 + 20 * k]; }
             const shade = 0.85 + 0.15 * Math.max(-1, Math.min(1, (map.heightAt(x - 1, z - 1) - h) * 0.6));
             const i = (py * size + px) * 4;

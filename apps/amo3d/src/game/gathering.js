@@ -41,6 +41,10 @@ function buildNode(type, rng) {
             add(new THREE.CircleGeometry(0.8, 14).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0x9fd6e8, transparent: true, opacity: 0.3 }), 0, 0.02, 0);
             for (let i = 0; i < 6; i++) add(new THREE.SphereGeometry(0.06, 6, 3, 0, Math.PI * 2, 0, Math.PI / 2), flat(0x2a2a3a), (rng() - 0.5) * 1.0, 0.0, (rng() - 0.5) * 1.0).scale.set(1.4, 0.6, 1);
             break;
+        case 'crystal':
+            add(new THREE.DodecahedronGeometry(0.4, 0), flat(0x8a8e96), 0, 0.2, 0);
+            for (let i = 0; i < 5; i++) { const c = add(new THREE.OctahedronGeometry(0.12), new THREE.MeshStandardMaterial({ color: 0xbfe8ff, emissive: 0x6ac8ff, emissiveIntensity: 0.8, flatShading: true }), (rng() - 0.5) * 0.5, 0.45 + rng() * 0.2, (rng() - 0.5) * 0.5); c.scale.y = 2.2; c.rotation.z = (rng() - 0.5) * 0.6; }
+            break;
         case 'reeds':
             for (let i = 0; i < 14; i++) { const r = add(new THREE.ConeGeometry(0.025, 1.2 + rng() * 0.5, 3), flat(0x9aab5c), (rng() - 0.5) * 0.7, 0.6, (rng() - 0.5) * 0.7); r.rotation.set((rng() - 0.5) * 0.3, 0, (rng() - 0.5) * 0.3); }
             break;
@@ -62,7 +66,7 @@ export function createGathering({ stats, hud, onGather }) {
             mesh.position.set(spot.x, spot.type === 'shallows' ? Math.max(y, -1.2) : y, spot.z);
             mesh.rotation.y = rng() * 6.28;
             scene.add(mesh);
-            nodes.push({ def: { type: spot.type }, mesh, pos: mesh.position, readyAt: 0 });
+            nodes.push({ def: { type: spot.type, ...(spot.yields ? { yields: spot.yields } : {}) }, mesh, pos: mesh.position, readyAt: 0 });
         }
     }
 

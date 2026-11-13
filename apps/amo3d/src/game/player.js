@@ -294,7 +294,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             if (d < t.r + 3) nearLabel = t.label;
             if (d < t.r) {
                 inside = true;
-                if (!triggerLock) world.go(t.to, t.spawn);
+                if (!triggerLock && t.to) world.go(t.to, t.spawn);
             }
         }
         if (!inside) triggerLock = false;
