@@ -35,7 +35,7 @@ export function createOutdoorShell(scene, { quality, mood = {} }) {
     const moodFog = new THREE.Color(M.fog ?? '#c9d6d4'), fogCol = new THREE.Color();
 
     return {
-        sun, hemi,
+        sun, hemi, sky,   // sky: the dome, for maps that tint it (the mountain's clouds)
         // Returns the sky state (for anything else that wants the hour: lamps, windows…).
         update(dt, ctx) {
             const S = skyState(ctx.hour ?? 9, ctx.weather ?? 'clear');

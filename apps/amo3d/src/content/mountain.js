@@ -28,41 +28,93 @@ function base(x, z) {
     return h;
 }
 
-// The trail: control points (x, z) with what the stretch after each one is like.
+// The trail: irregular control points (x, z) with what the stretch after each one is like. A spline runs
+// through them and wanders a little either side (wig), so it never reads as a regular zigzag: long rising
+// traverses, a bend round the east spur, a cave through a shoulder, a tight run of hairpins, the rope
+// bridge, the pass; then down the steeper north flank the same way to the river.
 const ROUTE = [
     { x: 0, z: 89, kind: 'safe' },
-    { x: 0, z: 78, kind: 'exposed', plateau: 7, cairn: true, name: 'Base camp' },
-    { x: -40, z: 68, kind: 'safe', plateau: 5 },
-    { x: 32, z: 57, kind: 'exposed', plateau: 5 },
-    { x: -36, z: 45, kind: 'cave', plateau: 6, cairn: true, name: 'The Shelf of Sighs' },
-    { x: 8, z: 37, kind: 'bridge' },
-    { x: 38, z: 28, kind: 'exposed', plateau: 5 },
-    { x: -22, z: 16, kind: 'safe', plateau: 5, cairn: true, name: "The Widow's Ledge" },
-    { x: 14, z: 5, kind: 'safe' },
-    { x: 0, z: -6, kind: 'exposed', plateau: 11, cairn: true, name: 'The Summit Pass', summit: true },
-    { x: 34, z: -22, kind: 'safe', plateau: 5 },
-    { x: -30, z: -36, kind: 'cave', plateau: 5 },
-    { x: 20, z: -50, kind: 'exposed', plateau: 5 },
-    { x: -34, z: -64, kind: 'safe', plateau: 7, cairn: true, name: 'The Riverwatch' },
+    { x: 4, z: 79, kind: 'exposed', plateau: 7, cairn: true, name: 'Base camp', wig: 3 },
+    { x: 34, z: 73, kind: 'exposed', wig: 3 },
+    { x: 56, z: 62, kind: 'safe', plateau: 5 },
+    { x: 50, z: 50, kind: 'safe', wig: 1.5 },
+    { x: 30, z: 53, kind: 'cave' },
+    { x: 12, z: 46, kind: 'exposed', wig: 2.5 },
+    { x: -8, z: 54, kind: 'exposed', wig: 2.5 },
+    { x: -34, z: 58, kind: 'safe', plateau: 5, wig: 2 },
+    { x: -55, z: 48, kind: 'safe', wig: 1.5 },
+    { x: -50, z: 36, kind: 'cave', plateau: 6, cairn: true, name: 'The Shelf of Sighs' },
+    { x: -28, z: 38, kind: 'exposed', wig: 2 },
+    { x: -12, z: 32, kind: 'safe', wig: 1 },
+    { x: -32, z: 25, kind: 'safe', wig: 1 },
+    { x: -14, z: 17, kind: 'exposed', wig: 1 },
+    { x: -36, z: 9, kind: 'safe', plateau: 5, cairn: true, name: "The Widow's Ledge", wig: 2 },
+    { x: -10, z: 6, kind: 'bridge' },
+    { x: 14, z: 4, kind: 'exposed', wig: 2 },
+    { x: 36, z: 0, kind: 'safe', plateau: 5, wig: 1.5 },
+    { x: 26, z: -9, kind: 'exposed', wig: 1.5 },
+    { x: 0, z: -6, kind: 'exposed', plateau: 11, cairn: true, name: 'The Summit Pass', summit: true, wig: 2 },
+    { x: -24, z: -14, kind: 'safe', wig: 2 },
+    { x: -48, z: -22, kind: 'cave', plateau: 5 },
+    { x: -40, z: -35, kind: 'exposed', wig: 2.5 },
+    { x: -14, z: -37, kind: 'safe', wig: 2 },
+    { x: 10, z: -41, kind: 'exposed', plateau: 5, wig: 2.5 },
+    { x: 34, z: -37, kind: 'safe', wig: 1.5 },
+    { x: 50, z: -47, kind: 'exposed', wig: 1.5 },
+    { x: 36, z: -57, kind: 'safe', plateau: 6, cairn: true, name: 'The Cloudbreak', wig: 2.5 },
+    { x: 12, z: -55, kind: 'exposed', wig: 2.5 },
+    { x: -12, z: -60, kind: 'safe', wig: 1.5 },
+    { x: -30, z: -66, kind: 'safe', plateau: 7, cairn: true, name: 'The Riverwatch', wig: 2 },
     { x: 0, z: -72, kind: 'end' },
 ];
 
 function trail() {
-    const pts = [];
-    for (let i = 0; i < ROUTE.length - 1; i++) {
-        const a = ROUTE[i], b = ROUTE[i + 1], L = Math.hypot(b.x - a.x, b.z - a.z), n = Math.ceil(L / 0.6);
-        for (let k = 0; k < n; k++) {
-            const f = k / n, x = a.x + (b.x - a.x) * f, z = a.z + (b.z - a.z) * f;
-            pts.push({ x, z, seg: i, f, kind: a.kind, dirx: (b.x - a.x) / L, dirz: (b.z - a.z) / L, h: base(x, z) - 1.2 });
+    // A dense Catmull-Rom spline through the control points (straight across the bridge), nudged sideways by
+    // a slow wobble that is zero at every control point, then resampled every 0.6 m.
+    const C = ROUTE, dense = [];
+    const cr = (a, b, c, d, t) => 0.5 * (2 * b + (c - a) * t + (2 * a - 5 * b + 4 * c - d) * t * t + (3 * b - a - 3 * c + d) * t * t * t);
+    for (let i = 0; i < C.length - 1; i++) {
+        const p0 = C[Math.max(0, i - 1)], p1 = C[i], p2 = C[i + 1], p3 = C[Math.min(C.length - 1, i + 2)], straight = p1.kind === 'bridge';
+        for (let k = 0; k < 160; k++) {
+            const t = k / 160;
+            dense.push({ seg: i, f: t, x: straight ? p1.x + (p2.x - p1.x) * t : cr(p0.x, p1.x, p2.x, p3.x, t), z: straight ? p1.z + (p2.z - p1.z) * t : cr(p0.z, p1.z, p2.z, p3.z, t) });
         }
     }
-    // Smooth the heights so the climb is even, and keep the route always passable.
-    for (let pass = 0; pass < 4; pass++) for (let i = 0; i < pts.length; i++) {
-        const w = 12, lo = Math.max(0, i - w), hi = Math.min(pts.length - 1, i + w);
-        let s = 0; for (let j = lo; j <= hi; j++) s += pts[j].h;
-        pts[i].hs = s / (hi - lo + 1);
+    dense.push({ seg: C.length - 2, f: 1, x: C[C.length - 1].x, z: C[C.length - 1].z });
+    for (let i = 0; i < dense.length; i++) {
+        const d = dense[i], a = dense[Math.max(0, i - 1)], b = dense[Math.min(dense.length - 1, i + 1)], L = Math.hypot(b.x - a.x, b.z - a.z) || 1;
+        d.nx = -(b.z - a.z) / L; d.nz = (b.x - a.x) / L;
     }
-    pts.forEach(p => { p.h = p.hs ?? p.h; p.h = Math.max(p.h, 0.4); });
+    let arc = 0;
+    for (let i = 0; i < dense.length; i++) {
+        const d = dense[i];
+        if (i) arc += Math.hypot(d.x - dense[i - 1].x, d.z - dense[i - 1].z);
+        const w = (C[d.seg].wig ?? 0) * Math.sin(Math.PI * d.f) * (Math.sin(arc * 0.23 + d.seg * 1.7) * 0.65 + Math.sin(arc * 0.091 + d.seg) * 0.35);
+        d.wx = d.x + d.nx * w; d.wz = d.z + d.nz * w;
+    }
+    const pts = [];
+    let acc = 0.6;
+    for (let i = 1; i < dense.length; i++) {
+        const a = dense[i - 1], b = dense[i];
+        acc += Math.hypot(b.wx - a.wx, b.wz - a.wz);
+        if (acc >= 0.6 || i === dense.length - 1) { acc = 0; pts.push({ x: b.wx, z: b.wz, seg: b.seg, f: b.f, kind: C[b.seg].kind }); }
+    }
+    pts.unshift({ x: C[0].x, z: C[0].z, seg: 0, f: 0, kind: C[0].kind });
+    for (let i = 0; i < pts.length; i++) {
+        const a = pts[Math.max(0, i - 2)], b = pts[Math.min(pts.length - 1, i + 2)], L = Math.hypot(b.x - a.x, b.z - a.z) || 1;
+        pts[i].dirx = (b.x - a.x) / L; pts[i].dirz = (b.z - a.z) / L; pts[i].h = base(pts[i].x, pts[i].z) - 1.2;
+    }
+    // Cap the grade (where the ground is steeper the trail is cut into the rock or built up on a ledge):
+    // the mean of the tightest upper and lower envelopes with slope G, then a light smoothing.
+    const G = 0.62, n = pts.length, d = i => Math.hypot(pts[i].x - pts[i - 1].x, pts[i].z - pts[i - 1].z);
+    const up = pts.map(p => p.h), lo = pts.map(p => p.h);
+    for (let i = 1; i < n; i++) { up[i] = Math.min(up[i], up[i - 1] + G * d(i)); lo[i] = Math.max(lo[i], lo[i - 1] - G * d(i)); }
+    for (let i = n - 2; i >= 0; i--) { up[i] = Math.min(up[i], up[i + 1] + G * d(i + 1)); lo[i] = Math.max(lo[i], lo[i + 1] - G * d(i + 1)); }
+    pts.forEach((p, i) => { p.h = (up[i] + lo[i]) / 2; });
+    for (let pass = 0; pass < 3; pass++) {
+        const hs = pts.map((_, i) => { const lo2 = Math.max(0, i - 6), hi2 = Math.min(n - 1, i + 6); let s = 0; for (let j = lo2; j <= hi2; j++) s += pts[j].h; return s / (hi2 - lo2 + 1); });
+        pts.forEach((p, i) => { p.h = Math.max(hs[i], 0.4); });
+    }
     pts.forEach((p, i) => { p.t = i / (pts.length - 1); });
     return pts;
 }
@@ -278,7 +330,7 @@ export function createMountain({ quality }) {
     const creatureMap = { ...map, heightAt: (x, z) => groundAt(x, z, 1e3), passable: (x, z) => onTrail(x, z) || plateaus.some(pl => Math.hypot(x - pl.x, z - pl.z) < pl.plateau - 1) };
     map.hittables.push(...createBeasts({ scene, map: creatureMap, rng, type: 'gloom_beak', posts: pick('exposed', 4) }));
     map.hittables.push(...createBeasts({ scene, map: creatureMap, rng, type: 'frost_shade', posts: pick('cave', 4) }));
-    const fiendAt = plateaus.find(pl => pl.x === -40) ?? plateaus[1];
+    const fiendAt = plateaus.find(pl => pl.x === -34) ?? plateaus[1];
     map.hittables.push(...createBeasts({ scene, map: creatureMap, rng, type: 'crag_fiend', posts: [{ x: fiendAt.x, z: fiendAt.z }] }));
 
     map.cameraCeiling = (x, z, y) => { const n = nearest(x, z, SHELF + 1); return n && n.p.kind === 'cave' && Math.abs(y - n.p.h) < 1.5 ? n.p.h + 2.9 : null; };
@@ -295,8 +347,45 @@ export function createMountain({ quality }) {
     // Wind: gusts on the exposed stretches push you toward the drop (warned first).
     let gustT = 8, gust = 0, warned = false;
     const shell = createOutdoorShell(scene, { quality, mood: { fog: '#c8d2dc', fogNear: 30, fogFar: 280, fogMix: 0.55, light: 0.85, nightFloor: 0.45 } });
+    // The cloud band: the higher you climb the thicker the fog, until you break through around 80 m; from
+    // the pass you look out over a sea of cloud that hides the valleys (and the edges of the world).
+    const CLOUD_LO = 50, CLOUD_HI = 76, cloudTex = (() => {
+        const c = document.createElement('canvas'); c.width = c.height = 256;
+        const g = c.getContext('2d'), r = mulberry32(77);
+        for (let k = 0; k < 140; k++) {
+            const x = r() * 256, y = r() * 256, rad = 14 + r() * 46, gr = g.createRadialGradient(x, y, 0, x, y, rad);
+            gr.addColorStop(0, `rgba(255,255,255,${0.18 + r() * 0.22})`); gr.addColorStop(1, 'rgba(255,255,255,0)');
+            for (const [ox, oy] of [[0, 0], [256, 0], [-256, 0], [0, 256], [0, -256]]) { g.fillStyle = gr; g.save(); g.translate(ox, oy); g.fillRect(x - rad, y - rad, rad * 2, rad * 2); g.restore(); }
+        }
+        const tx = new THREE.CanvasTexture(c); tx.wrapS = tx.wrapT = THREE.RepeatWrapping; tx.repeat.set(5, 5); return tx;
+    })();
+    const clouds = [62, 68, 73].map((y, i) => {
+        const tx = cloudTex.clone(); tx.needsUpdate = true; tx.offset.set(i * 0.37, i * 0.21);
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(HALF * 7, HALF * 7).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ map: tx, color: 0xf2f4f8, transparent: true, opacity: 0.85, depthWrite: false, fog: false, side: THREE.DoubleSide }));
+        m.position.y = y; m.renderOrder = 2; scene.add(m);
+        return { m, y, tx, speed: 0.004 + i * 0.002 };
+    });
+    const cloudWhite = new THREE.Color(0xdfe4ea);
+    map.fogAt = y => {   // 0 = clear air, 1 = inside the cloud
+        if (y < CLOUD_LO - 25) return 0;
+        if (y < CLOUD_LO) return 0.55 * smoothstep(CLOUD_LO - 25, CLOUD_LO, y);
+        if (y < CLOUD_HI) return 0.55 + 0.45 * smoothstep(CLOUD_LO, CLOUD_LO + 10, y);
+        return 1 - smoothstep(CLOUD_HI, CLOUD_HI + 8, y);
+    };
     map.update = (t, dt, ctx) => {
         shell.update(dt, ctx);
+        {
+            const cy = ctx.camera?.position.y ?? ctx.player.pos.y, k = map.fogAt(cy), above = cy > CLOUD_HI + 4;
+            scene.fog.near = THREE.MathUtils.lerp(above ? 60 : 30, 0.5, k);
+            scene.fog.far = THREE.MathUtils.lerp(above ? 520 : 240, 16, Math.pow(k, 0.7));
+            scene.fog.color.lerp(cloudWhite, k * 0.8);
+            scene.background.copy(scene.fog.color);
+            shell.sky.material.uniforms.top.value.lerp(scene.fog.color, k); shell.sky.material.uniforms.bottom.value.copy(scene.fog.color);   // inside the cloud there is no sky
+            for (const c of clouds) {
+                c.tx.offset.x += c.speed * dt; c.tx.offset.y += c.speed * 0.4 * dt;
+                c.m.material.opacity = 0.85 * smoothstep(2, 9, Math.abs(cy - c.y));   // no flat sheet when you pass through
+            }
+        }
         footVeil.material.opacity = 0.14 + Math.sin(t * 2) * 0.06;
         for (const l of caveLights) l.intensity = 9 + Math.sin(t * 2 + l.position.x) * 2;
         const pl = ctx.player, n = nearest(pl.pos.x, pl.pos.z, 4);
