@@ -24,6 +24,7 @@ import { createArchery } from './game/archery.js';
 import { createGathering } from './game/gathering.js';
 import { wornLook } from './game/wardrobe.js';
 import { createMapView } from './game/mapview.js';
+import { createTravel } from './game/travel.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createChests } from './game/chest.js';
 import { createCharacter } from './content/models/character.js';
@@ -142,6 +143,7 @@ const world = createMapManager({
         save();
     },
 });
+let travel = null;
 const player = createPlayer({ name: HERO_NAME, stats, hero, cam, world, hud, fireballs, spellTuning: SPELL_TUNING });
 
 // What Eldrin holds follows his equipment (amo's equip events).
@@ -155,6 +157,7 @@ const archery = createArchery({ stats, player, hud, cam, world, loot });
 const gathering = createGathering({ stats, hud });
 const chests = createChests({ stats, hud });
 const mapView = createMapView({ stats, hud });
+travel = createTravel({ stats, hud, world, player });
 const campfire = createCampfire({
     stats, hud,
     onRest: () => { stats.health = stats.maxHealth; stats.mana = stats.maxMana; stats.vigor = stats.maxVigor; stats.vigorWinded = false; save(); },
@@ -221,13 +224,14 @@ function tick(dt) {
     if (act.inventory) inventory.toggle();
     if (act.sheet) sheet.toggle();
     if (act.map) mapView.toggle();
+    if (act.tear) travel.tear();
     mapView.update(player.state, cam.yaw);
     if (act.hotbar >= 0 && !player.state.dead) hotbar.use(act.hotbar);
     if (act.strike && archery.armed()) { archery.shoot(); act.strike = false; }   // a bow or crossbow shoots instead
     hotbar.update(dt);
     if (act.skill >= 0 && !inventory.open && !sheet.open) skills.use(act.skill);
     skills.update(dt);
-    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
+    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
     const pp = player.state.pos;
@@ -235,13 +239,14 @@ function tick(dt) {
     const gatherText = station ? STATION_PROMPT[station.mode] : gathering.update(simT * 1000, player.state);
     if (gatherText && (act.gather || (act.hop && input.device === 'gamepad'))) {
         if (station?.mode === 'chest') chests.toggle(station.key, station.title);
+        else if (station?.mode === 'gate') travel.useGate(station.key);
         else if (station) campfire.toggle(station.mode);
         else gathering.harvest(simT * 1000);
         act.hop = false;
     }
     let lift = 0;
     clockRules.advanceClock(stats, dt * 1000);   // amo: one real minute = one game hour
-    const ctx = { ...clock(), player: player.state, camera, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop };
+    const ctx = { ...clock(), attunedGates: stats.attunedGates, player: player.state, camera, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop };
     if (!world.step(dt)) lift = player.step(dt, act, ctx);
     const p = player.state;
     cam.update(dt, p.pos, lift, map.terrain ? map.heightAt : null);
@@ -254,6 +259,7 @@ function tick(dt) {
     fireballs.update(dt, map, map.hittables);
     loot.update(dt, player.state, map);
     archery.update(dt);
+    travel.update(dt, map.fx ?? fireballs);
     hud.update(dt, { stats, player: p, camera, spell: FIREBALL });
     const c = clock();
     clockEl.textContent = `${clockRules.clockLabel(c.minutes)} · ${weatherRules.WEATHER[c.weather] ?? c.weather}`;
@@ -277,5 +283,5 @@ window.__poc = {
     setTime: h => { stats.gameMinutes = Math.floor((stats.gameMinutes ?? 0) / 1440) * 1440 + h * 60; },
     setWeather: w => { weatherOverride = w; },
     strike: () => input.press('strike'),
-    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, player: player.state, playerApi: player,
+    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, player: player.state, playerApi: player,
 };

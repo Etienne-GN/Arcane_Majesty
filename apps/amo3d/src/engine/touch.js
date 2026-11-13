@@ -20,6 +20,7 @@ export function createTouchControls({ input, cam }) {
         #touch .sprint { right: 26px; bottom: 26px; width: 70px; height: 70px; }
         #touch .hero { left: 84px; top: 70px; width: 58px; height: 58px; font-size: 12px; }
         #touch .map { left: 150px; top: 70px; width: 58px; height: 58px; font-size: 12px; }
+        #touch .tear { left: 216px; top: 70px; width: 58px; height: 58px; font-size: 12px; border-color: #9abaff; }
         #touch .bag { left: 18px; top: 70px; width: 58px; height: 58px; font-size: 12px; }
         #touch .strike { right: 124px; bottom: 124px; width: 70px; height: 70px; }`;
     document.head.append(css);
@@ -27,7 +28,7 @@ export function createTouchControls({ input, cam }) {
     const root = document.createElement('div');
     root.id = 'touch';
     root.innerHTML = '<div class="stick"><div class="knob"></div></div>'
-        + '<div class="btn bag">BAG</div><div class="btn map">MAP</div><div class="btn hero">HERO</div><div class="btn cast">FIRE</div><div class="btn strike">HIT</div><div class="btn hop">HOP</div><div class="btn sprint">RUN</div>';
+        + '<div class="btn bag">BAG</div><div class="btn tear">TEAR</div><div class="btn map">MAP</div><div class="btn hero">HERO</div><div class="btn cast">FIRE</div><div class="btn strike">HIT</div><div class="btn hop">HOP</div><div class="btn sprint">RUN</div>';
     document.body.append(root);
     document.body.classList.add('touch-mode');
     const stick = root.querySelector('.stick'), knob = root.querySelector('.knob');
@@ -92,6 +93,7 @@ export function createTouchControls({ input, cam }) {
     button('.strike', () => input.press('strike'));
     button('.bag', () => input.press('inventory'));
     button('.map', () => input.press('map'));
+    button('.tear', () => input.press('tear'));
     button('.hero', () => input.press('sheet'));
     button('.sprint', () => { input.touch.sprint = true; }, () => { input.touch.sprint = false; });
 

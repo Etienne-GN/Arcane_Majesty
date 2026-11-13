@@ -14,6 +14,7 @@ import { bakeStatic } from '../engine/batch.js';
 import { buildCampfire } from '../game/campfire.js';
 import { skyState, createWeather } from '../engine/sky.js';
 import { createNav } from '../engine/nav.js';
+import { buildMonolith } from '../game/travel.js';
 
 export const WATER = -1.2;
 export const WORLD_R = 98;
@@ -445,6 +446,7 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
             sky.material.uniforms.bottom.value.copy(scene.fog.color);
             eldrin.update(t, dt, moodK);
             map.campfire?.update(t);
+            for (const { g, m } of monoliths) m.update(t, (ctx.attunedGates ?? []).includes(g.id));
             shadows.update(dt);
             // Follow the player, snapped to whole shadow-map texels so edges don't shimmer while walking.
             const texel = (2 * SR) / quality.shadowMap;
@@ -526,6 +528,27 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
     map.campfire = buildCampfire(scene, fireAt, heightAt(fireAt.x, fireAt.z));
     addCollider({ x: fireAt.x, z: fireAt.z, r: 0.6, kind: 'hop' }, 0.6);
     map.stations = [{ mode: 'campfire', pos: map.campfire.pos }, ...eldrin.stations];
+
+    // ---------- rift-gate monoliths (fast travel, amo attunedGates) ----------
+    const freeNear = (x, z) => {
+        for (let i = 0; i < 60; i++) {
+            const a = rng() * 6.28, r = i * 0.25;
+            const px = x + Math.cos(a) * r, pz = z + Math.sin(a) * r;
+            if (!map.blockedAt(px, pz, 1.6) && heightAt(px, pz) > WATER + 0.3) return { x: px, z: pz };
+        }
+        return { x, z };
+    };
+    map.gates = [
+        { id: 'glade_monolith', label: 'Glade Monolith', ...freeNear(-5, 6) },
+        { id: 'stones_monolith', label: 'Monolith of the Stones', ...freeNear(STONES.x + 10, STONES.z - 2) },
+        { id: 'vale_monolith', label: "Monolith below Eldrin's Tower", ...freeNear(STAIR_BASE.x + 4, STAIR_BASE.z + 4) },
+    ];
+    const monoliths = map.gates.map(g => {
+        addCollider({ x: g.x, z: g.z, r: 0.55, kind: 'wall' }, 3.2);
+        map.stations.push({ mode: 'gate', key: g.id, pos: new THREE.Vector3(g.x, heightAt(g.x, g.z), g.z) });
+        map.spawns[`gate:${g.id}`] = { x: g.x + 1.7, z: g.z, facing: Math.PI / 2 };   // arrive beside the stone
+        return { g, m: buildMonolith(scene, g, heightAt(g.x, g.z)) };
+    });
 
     // Batch every static mesh into one draw per material (phones care about draw calls).
     sky.userData.dynamic = true;
