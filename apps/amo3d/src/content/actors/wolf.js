@@ -76,6 +76,8 @@ function createWolf({ scene, map, rng, home, tint }) {
     const SIGHT = (DEF.sightRange / PX) * TUNE.sight, REACH = (DEF.attackRange / PX) * TUNE.reach, CHASE = (DEF.speed / PX) * TUNE.speed;
     const ai = { state: 'idle', timer: rng() * 3, heading: rng() * 6.28, speed: 0, phase: rng() * 6, target: null, attackCd: 1 + rng() * 2, t: 0, orbit: rng() < 0.5 ? 1 : -1, lunge: 0, bit: false };
     const prev = new THREE.Vector3();
+    const navKey = {};
+    const steer = (target, dt) => (map.nav ? map.nav.aim(pos, target, navKey, dt) : target);
 
     const turn = (want, k) => {
         const diff = ((((want - ai.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI;
@@ -123,13 +125,13 @@ function createWolf({ scene, map, rng, home, tint }) {
             turn(angToP, dt * 8);
             if ((ai.timer -= dt) <= 0) ai.state = 'chase';
         } else if (ai.state === 'return') {
-            turn(Math.atan2(home.x - pos.x, home.z - pos.z), dt * 5);
+            { const h = steer(home, dt); turn(Math.atan2(h.x - pos.x, h.z - pos.z), dt * 5); }
             want = 3;
             if (fromHome < 1) { ai.state = 'idle'; s.hp = Math.min(DEF.health, s.hp + 8); }
         } else if (ctx.player.dead || fromHome > 24 || toP > SIGHT * 2.2) {
             ai.state = 'return';
         } else if (ai.state === 'chase' || ai.state === 'circle') {
-            turn(angToP, dt * 8);
+            { const g = toP > REACH + 2.2 ? steer(P, dt) : P; turn(Math.atan2(g.x - pos.x, g.z - pos.z), dt * 8); }
             if (toP > REACH + 2.2) { ai.state = 'chase'; want = CHASE; }
             else if (ai.attackCd <= 0) { ai.state = 'windup'; ai.timer = 0.35; ai.bit = false; }
             else {   // circle the prey at a little distance

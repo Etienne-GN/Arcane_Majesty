@@ -212,6 +212,8 @@ export function createShadows({ scene, map, rng, posts }) {
         const bar = plate.lastElementChild.firstElementChild;
 
         const dir = new THREE.Vector3(), prev = new THREE.Vector3(), tmp = new THREE.Vector3();
+        const navKey = {}; let navDt = 0;
+        const steer = target => (map.nav ? map.nav.aim(pos, target, navKey, navDt) : target);
         let lastCtx = null;   // fireball hits arrive without a ctx
 
         // Statuses on this soldier — amo STATUS_DEFS (dotDmg/dotInterval, stunned, speedMult, damageTakenMult).
@@ -276,6 +278,7 @@ export function createShadows({ scene, map, rng, posts }) {
 
         function update(dt, ctx) {
             lastCtx = ctx;
+            navDt = dt;
             s.t += dt;
             const P = ctx.player.pos;
             const toP = Math.hypot(P.x - pos.x, P.z - pos.z);
@@ -307,7 +310,7 @@ export function createShadows({ scene, map, rng, posts }) {
                         s.state = 'patrol';
                     } else if (s.state === 'patrol') {
                         want = 1.1;
-                        face(s.target, dt * 4);
+                        face(steer(s.target), dt * 4);
                         if (Math.hypot(s.target.x - pos.x, s.target.z - pos.z) < 0.5) { s.state = 'idle'; s.timer = 2 + rng() * 3; }
                     }
                 } else if (s.state === 'notice') {
@@ -315,13 +318,13 @@ export function createShadows({ scene, map, rng, posts }) {
                     if ((s.notice -= dt) <= 0) s.state = 'chase';
                 } else if (s.state === 'return') {
                     want = 2.2;
-                    face(post, dt * 5);
+                    face(steer(post), dt * 5);
                     if (fromPost < 0.8) { s.state = 'idle'; s.hp = Math.min(DEF.health, s.hp + 10); }
                     if (playerUp && toP < SIGHT * 0.7) s.state = 'chase';
                 } else if (!playerUp || fromPost > 26 || toP > SIGHT * 2) {
                     s.state = 'return';
                 } else if (s.state === 'chase' || s.state === 'strafe') {
-                    face(P, dt * 7);
+                    face(toP > REACH + 0.8 ? steer(P) : P, dt * 7);   // around trees and rocks when they are in the way
                     // React to a cast: raise the shield.
                     if (ctx.player.cast && ctx.player.cast.t < 0.25 && s.guardT < -0.5 && rng() < 0.6) s.guardT = 1.1;
                     if (toP > REACH + 0.8) { s.state = 'chase'; want = CHASE; }

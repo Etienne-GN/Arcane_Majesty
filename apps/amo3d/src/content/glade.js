@@ -13,6 +13,7 @@ import { createWolves } from './actors/wolf.js';
 import { bakeStatic } from '../engine/batch.js';
 import { buildCampfire } from '../game/campfire.js';
 import { skyState, createWeather } from '../engine/sky.js';
+import { createNav } from '../engine/nav.js';
 
 export const WATER = -1.2;
 export const WORLD_R = 98;
@@ -531,6 +532,8 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
     shard.userData.dynamic = true;
     for (const h of map.hittables) if (h.root) h.root.userData.dynamic = true;
     map.batch = bakeStatic(scene);
+    // A walk grid for actors' pathfinding (amo A* on it — engine/nav.js).
+    map.nav = createNav({ colliders, passable: (x, z) => heightAt(x, z) >= WATER - 0.5 && Math.hypot(x, z) <= WORLD_R - 1 });
 
     return map;
 }

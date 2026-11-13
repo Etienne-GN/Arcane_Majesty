@@ -63,7 +63,7 @@ Status: **3.1 done** (content/models/character.js builds any look definition —
 | townsfolkLooks.js → townsfolk built from the parts library | B |
 
 ## Phase 4 — World pipeline
-Status: **4.1 day/night & weather done** (engine/sky.js: keyframed sky dawn→day→golden→dusk→night, sun arc and moonlight, stars, moon; rain and storms with streaks and lightning; amo gameClock 24-min day + weatherAt forest table; void creatures +20% at night; HUD clock; the title shot is fixed at golden hour; ?weather=clear|rain|storm). Next: 4.2 NPC/enemy pathfinding (walkGrid/pathfind), 4.3 map & minimap.
+Status: **4.1 day/night & weather done** (engine/sky.js: keyframed sky dawn→day→golden→dusk→night, sun arc and moonlight, stars, moon; rain and storms with streaks and lightning; amo gameClock 24-min day + weatherAt forest table; void creatures +20% at night; HUD clock; the title shot is fixed at golden hour; ?weather=clear|rain|storm). **4.2 pathfinding done** (engine/nav.js: 1 m walk grid from colliders + water, amo findPath A*, aim() = straight when clear else the farthest visible waypoint; wolves and soldiers chase/return/patrol with it; ~0.3 ms a route). Shadows reach 72 m on high. Next: 4.3 world map & minimap.
 | amo | Kind |
 |---|---|
 | Region format, region chunks, streaming (regionFormat, regionChunks, worldLayout) → 3D regions + LOD | R + N |
