@@ -20,6 +20,11 @@ function jsonDirApi(route, dir, label) {
                     return send(200, list);
                 }
                 if (req.method === 'POST') {
+                    // Only our own pages may write: a JSON body (cross-site forms can't send that without a
+                    // CORS preflight, which this server doesn't answer) from this server's own origin.
+                    const origin = req.headers.origin;
+                    if (!/^application\/json\b/.test(req.headers['content-type'] ?? '')) return send(415, { error: 'JSON only' });
+                    if (origin && new URL(origin).host !== req.headers.host) return send(403, { error: 'cross-origin write refused' });
                     let raw = '';
                     req.on('data', c => { raw += c; if (raw.length > 100_000) req.destroy(); });
                     req.on('end', () => {
