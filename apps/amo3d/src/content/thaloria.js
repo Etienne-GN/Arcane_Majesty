@@ -270,7 +270,7 @@ export function createThaloria({ quality }) {
     for (const st of D.spawns.stations ?? []) map.stations.push({ mode: st.type === 'hearth' ? 'hearth' : 'alchemy', pos: new THREE.Vector3(wx(st.x), 0, wz(st.y)) });
 
     map.batch = bakeStatic(scene);
-    map.town = createTownsfolk({ scene, W, H });   // added after batching: they move
+    map.town = createTownsfolk({ scene, W, H, resolve: (pos, r) => pushOut(colliders.filter(c => c.ax !== undefined), pos, r) });   // added after batching: they move
     map.nav = createNav({ colliders, passable: map.passable, half });
     map.mapInfo = {
         half, water: -99, trees: trees.map(t => [t.x, t.z, 0]),

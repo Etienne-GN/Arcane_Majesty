@@ -35,7 +35,7 @@ function lookFor(r) {
     }
 }
 
-export function createTownsfolk({ scene, W, H }) {
+export function createTownsfolk({ scene, W, H, resolve = null }) {
     const town = TF.getTown('thaloria');
     const toX = px => px / 32 - W / 2, toZ = py => py / 32 - H / 2;
     const FACING = { down: 0, up: Math.PI, right: Math.PI / 2, left: -Math.PI / 2 };
@@ -89,6 +89,8 @@ export function createTownsfolk({ scene, W, H }) {
                 }
                 const tx = toX(w.x), tz = toZ(w.y);
                 if (!p.shown || Math.hypot(tx - p.pos.x, tz - p.pos.z) > 4) p.pos.set(tx, 0, tz);   // appear / out of a door: no sliding
+                // amo's spots sit on 2D tiles; a few fall inside our 3D houses' walls — step out of them.
+                if (resolve) { resolve(p.pos, 0.3); }
                 const dx = tx - p.pos.x, dz = tz - p.pos.z, d = Math.hypot(dx, dz);
                 const k = Math.min(1, dt * 6);
                 p.pos.x += dx * k; p.pos.z += dz * k;
@@ -119,7 +121,12 @@ export function createTownsfolk({ scene, W, H }) {
             }
         },
         setVisible(v) { labels.style.display = v ? '' : 'none'; },
-        // The named person closest to a point (for talking — slice 5.3).
+        // Anyone close enough to talk to (named people first).
+        nearestPerson(pos, within = 2.2) {
+            let best = null, bd = within;
+            for (const p of people) if (p.shown) { const d = Math.hypot(p.pos.x - pos.x, p.pos.z - pos.z) - (p.r.npc ? 0.4 : 0); if (d < bd) { bd = d; best = p; } }
+            return best;
+        },
         nearestNamed(pos, within = 2.4) {
             let best = null, bd = within;
             for (const p of people) if (p.shown && p.r.npc) { const d = Math.hypot(p.pos.x - pos.x, p.pos.z - pos.z); if (d < bd) { bd = d; best = p; } }

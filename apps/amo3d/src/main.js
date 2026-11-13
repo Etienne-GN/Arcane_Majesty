@@ -25,6 +25,7 @@ import { createGathering } from './game/gathering.js';
 import { wornLook } from './game/wardrobe.js';
 import { createMapView } from './game/mapview.js';
 import { createTravel } from './game/travel.js';
+import { createDialogue } from './game/dialogue.js';
 import { buildRegion } from './engine/region.js';
 // Every region file is a map (content/regions/*.json → buildRegion).
 const REGIONS = Object.fromEntries(Object.values(import.meta.glob('./content/regions/*.json', { eager: true, import: 'default' })).map(d => [d.id, d]));
@@ -166,6 +167,14 @@ const archery = createArchery({ stats, player, hud, cam, world, loot });
 const gathering = createGathering({ stats, hud });
 const chests = createChests({ stats, hud });
 const mapView = createMapView({ stats, hud });
+const dialogue = createDialogue({
+    stats, hud,
+    onShop: npc => hud.message(`${npc.shopName ?? 'The shop'} — shops arrive in the next slice`),
+    onQuest: id => hud.banner(`New quest: ${id}`),
+    onTeach: () => {},
+});
+const projTmp = new THREE.Vector3();
+const project = (x, y, z) => { projTmp.set(x, y, z).project(camera); return { x: (projTmp.x * 0.5 + 0.5) * innerWidth, y: (-projTmp.y * 0.5 + 0.5) * innerHeight, visible: projTmp.z < 1 }; };
 travel = createTravel({
     stats, hud, world, player,
     allGates: () => [
@@ -246,16 +255,20 @@ function tick(dt) {
     hotbar.update(dt);
     if (act.skill >= 0 && !inventory.open && !sheet.open) skills.use(act.skill);
     skills.update(dt);
-    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
+    dialogue.update(dt, camera, project);
+    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
     const pp = player.state.pos;
     const station = (map.stations ?? []).find(st => Math.hypot(st.pos.x - pp.x, st.pos.z - pp.z) < 2.3 && Math.abs(st.pos.y - pp.y) < 1.6);
-    const gatherText = station ? STATION_PROMPT[station.mode] : gathering.update(simT * 1000, player.state);
+    const person = !station && map.town ? map.town.nearestPerson(pp) : null;
+    const personName = person?.r.npc ? person.r.npc.name.replace(/^./, c => c.toUpperCase()) : null;
+    const gatherText = station ? STATION_PROMPT[station.mode] : person ? `G — Talk${personName ? ` to the ${personName}` : ''}` : gathering.update(simT * 1000, player.state);
     if (gatherText && (act.gather || (act.hop && input.device === 'gamepad'))) {
         if (station?.mode === 'chest') chests.toggle(station.key, station.title);
         else if (station?.mode === 'gate') travel.useGate(station.key);
         else if (station) campfire.toggle(station.mode);
+        else if (person) dialogue.talk(person, clock());
         else gathering.harvest(simT * 1000);
         act.hop = false;
     }
@@ -299,5 +312,5 @@ window.__poc = {
     setTime: h => { stats.gameMinutes = Math.floor((stats.gameMinutes ?? 0) / 1440) * 1440 + h * 60; },
     setWeather: w => { weatherOverride = w; },
     strike: () => input.press('strike'),
-    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, player: player.state, playerApi: player,
+    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, player: player.state, playerApi: player,
 };
