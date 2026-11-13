@@ -253,6 +253,19 @@ export function createMountain({ quality }) {
         for (const sd of [-1, 1]) ropePts[sd < 0 ? 0 : 1].push(new THREE.Vector3(p.x - p.dirz * 0.95 * sd, y + 1.0, p.z + p.dirx * 0.95 * sd));
     });
     for (const pts of ropePts) scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), rope));
+    // The ropes are railings: you can't step off the side of the bridge.
+    // Anchor posts at both bridgeheads, with a short railing running back along the ledge.
+    const postMat = flat(0x5a3a22), dA = [A.dirx, A.dirz];
+    for (const pts of ropePts) for (const [q, sgn] of [[pts[0], -1], [pts[pts.length - 1], 1]]) {
+        const y = q.y - 1.0, ex = q.x + dA[0] * 2.4 * sgn, ez = q.z + dA[1] * 2.4 * sgn;
+        for (const [px, pz] of [[q.x, q.z], [ex, ez]]) { const post = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.11, 1.4, 6), postMat); post.position.set(px, y + 0.5, pz); post.castShadow = true; scene.add(post); }
+        scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([q, new THREE.Vector3(ex, y + 1.0, ez)]), rope));
+        colliders.push({ ax: q.x, az: q.z, bx: ex, bz: ez, r: 0.2, kind: 'wall', y0: y - 3, y1: y + 2 });
+    }
+    for (const pts of ropePts) for (let i = 0; i < pts.length - 1; i += 2) {
+        const a = pts[i], b = pts[Math.min(pts.length - 1, i + 2)];
+        colliders.push({ ax: a.x, az: a.z, bx: b.x, bz: b.z, r: 0.2, kind: 'wall', y0: Math.min(a.y, b.y) - 3, y1: Math.max(a.y, b.y) + 1 });
+    }
     // The stone bridge over the river, and the Sanctuary's gate beyond (closed for now).
     const stone = flat(0x8a8680);
     const bankN = heightAt(0, -72.3), bankS = heightAt(0, -86.7);
