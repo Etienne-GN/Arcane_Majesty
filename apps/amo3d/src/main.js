@@ -28,6 +28,7 @@ import { createTravel } from './game/travel.js';
 import { createDialogue } from './game/dialogue.js';
 import { createShop } from './game/shop.js';
 import { createQuests } from './game/quests.js';
+import { createCodex } from './game/codex.js';
 import { buildRegion } from './engine/region.js';
 // Every region file is a map (content/regions/*.json → buildRegion).
 const REGIONS = Object.fromEntries(Object.values(import.meta.glob('./content/regions/*.json', { eager: true, import: 'default' })).map(d => [d.id, d]));
@@ -164,6 +165,7 @@ const world = createMapManager({
         setPlatesVisible(true);
         hideAllPlates();
         lastLevel = map.levelName?.(player.state.pos.y) ?? '';
+        codex?.visited(id, map.name);
         hud.banner(lastLevel ? `${map.name} — ${lastLevel}` : map.name);
         save();
     },
@@ -185,7 +187,8 @@ const chests = createChests({ stats, hud });
 const mapView = createMapView({ stats, hud });
 const shop = createShop({ stats, hud, save: () => save() });
 const quests = createQuests({ stats, hud });
-questHooks.onKill = quests.onKill;
+const codex = createCodex({ stats });
+questHooks.onKill = type => { quests.onKill(type); codex.killed(type); };
 const thaloriaBias = () => 'neutral';   // amo: Thaloria's currencyBias
 const dialogue = createDialogue({
     stats, hud, day: () => clockRules.gameDay(stats.gameMinutes ?? 0), save: () => save(),
@@ -270,6 +273,8 @@ function tick(dt) {
     if (act.sheet) sheet.toggle();
     if (act.map) mapView.toggle();
     if (act.journal) quests.toggle();
+    if (act.codex) codex.toggle();
+    for (const h of world.current.hittables ?? []) if (h.engaged) codex.seen(h.kind === 'shadow' ? 'mirror_shade' : h.kind);
     if (act.tear) travel.tear();
     mapView.update(player.state, cam.yaw);
     if (act.hotbar >= 0 && !player.state.dead) hotbar.use(act.hotbar);
@@ -278,7 +283,7 @@ function tick(dt) {
     if (act.skill >= 0 && !inventory.open && !sheet.open) skills.use(act.skill);
     skills.update(dt);
     dialogue.update(dt, camera, project);
-    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
+    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
     const pp = player.state.pos;
@@ -337,5 +342,5 @@ window.__poc = {
     setTime: h => { stats.gameMinutes = Math.floor((stats.gameMinutes ?? 0) / 1440) * 1440 + h * 60; },
     setWeather: w => { weatherOverride = w; },
     strike: () => input.press('strike'),
-    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, player: player.state, playerApi: player,
+    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, player: player.state, playerApi: player,
 };
