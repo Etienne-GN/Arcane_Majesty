@@ -3,11 +3,11 @@
 // click: finish the line, then the next one; choices are buttons (or 1–4). The game pauses meanwhile.
 // talk(person) follows amo's GameScene._talkToNpc: first the greeting, afterwards the after-dialogue;
 // shops greet once, then open (onShop); teachers offer their style; anyone else answers with a bark.
-import { dialogues as D, barks as B, styleData } from '@rules';
+import { dialogues as D, barks as B, styleData, styles as ST, spellLearning as SL, spells as SP, weapons as WP } from '@rules';
 
 const { DIALOGUES } = D;
 
-export function createDialogue({ stats, hud, onShop, onQuest, onTeach, onTalked }) {
+export function createDialogue({ stats, hud, onShop, onQuest, onTeach, onTalked, day = () => 0, save }) {
     const css = document.createElement('style');
     css.textContent = `
 #dlg { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); width: min(760px, 94vw); z-index: 9; display: none;
@@ -63,6 +63,7 @@ export function createDialogue({ stats, hud, onShop, onQuest, onTeach, onTalked 
     function choose(c) {
         if (c.setFlag) flags()[c.setFlag] = true;
         if (c.startQuest) onQuest?.(c.startQuest);
+        c.onPick?.();
         if (c.next) { const done = onDone; close(false); start(c.next, done); return; }
         advance(true);
     }
@@ -108,12 +109,45 @@ export function createDialogue({ stats, hud, onShop, onQuest, onTeach, onTalked 
         }
         const talkedKey = `talked_${npc.id}`;
         const name = npc.name.replace(/^./, c => c.toUpperCase());
+        // Teachers — amo's lessons: one a day, each dearer than the last, only during working hours.
         if (npc.teaches || npc.teachesElement) {
-            const style = styleData.STYLES[npc.teaches];
-            start([{ speaker: name, text: style ? `I teach the ${style.name} style — ${style.blurb.toLowerCase()} A lesson a day, if you have the coin.` : 'The old words still answer to those who listen. I can teach you, in time.' }],
-                () => onTeach?.(npc));
-            flags()[talkedKey] = true;
-            return;
+            onTalked?.(npc.id, name, null);
+            if (person.activity && person.activity !== 'work') { say(person, `I teach during working hours.`); return; }
+            const line = (text, choices) => start([{ speaker: name, text, ...(choices ? { choices } : {}) }]);
+            const d = day();
+            if (npc.teaches) {
+                const st = styleData.STYLES[npc.teaches], weapon = WP.WEAPON_TYPES[st.weapon].label.toLowerCase();
+                const c = ST.lessonCheck(stats.styles, st.id, d, stats.gold);
+                if (c.reason === 'known') return line(`You know all I can teach you of ${st.name}. Now go and use it.`);
+                if (c.reason === 'today') return line('Enough for today. Come back tomorrow.');
+                if (c.reason === 'gold') return line(`A lesson in ${st.name} is ${c.price} gold. Come back when you have it.`);
+                return line(`I can teach you the ${st.name} style of the ${weapon}. ${st.blurb} A lesson is ${c.price} gold.`, [
+                    { text: `Take a lesson (${c.price} gold)`, onPick: () => {
+                        stats.gold -= ST.takeLesson(stats.styles, st.id, d);
+                        hud.banner(`${st.name} +35% (now ${Math.floor(stats.styles.progress[st.id])}%)`);
+                        save?.();
+                    } },
+                    { text: 'Not now' },
+                ]);
+            }
+            const el = npc.teachesElement;
+            stats.spellLessons ??= {}; stats.spellLessonDay ??= {};
+            const c = SL.spellLessonCheck(stats.spellLessons, stats.spellLessonDay, el, d, stats.gold, stats.spells);
+            if (c.reason === 'none') return line(`I have taught you every ${el} spell I know.`);
+            if (c.reason === 'today') return line('Enough for today. Come back tomorrow.');
+            if (c.reason === 'gold') return line(`A lesson is ${c.price} gold. Come back when you have it.`);
+            const spellName = SP.SPELLS[c.spell].name;
+            return line(`I can teach you ${spellName}, a spell of ${el} magic. A lesson is ${c.price} gold.`, [
+                { text: `Take a lesson (${c.price} gold)`, onPick: () => {
+                    stats.gold -= c.price;
+                    stats.spellLessons[el] = (stats.spellLessons[el] ?? 0) + 1;
+                    stats.spellLessonDay[el] = d;
+                    stats.learnSpell(c.spell);
+                    hud.banner(`${spellName} learned`);
+                    save?.();
+                } },
+                { text: 'Not now' },
+            ]);
         }
         if (npc.isShop) {
             if (person.activity && person.activity !== 'work') { say(person, 'Closed — come back in the morning.'); return; }   // amo: only while working

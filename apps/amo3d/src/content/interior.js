@@ -136,7 +136,7 @@ export function createInterior({ id, def, exitTo, innerDoors = {} }) {
         colliders.push({ x: wx(c.x), z: wz(c.y), r: 0.55, kind: 'wall', y0: -1, y1: 1 });
         map.stations.push({ mode: 'chest', key: `${id}_${i}`, title: 'Chest', seed: c.items ?? [], pos: new THREE.Vector3(wx(c.x), 0, wz(c.y) + (walk(c.x, c.y + 1) ? 0.9 : -0.9)) });
     });
-    for (const sg of def.spawns?.signs ?? []) map.stations.push({ mode: 'sign', text: sg.text, pos: new THREE.Vector3(wx(sg.x), 0, wz(sg.y)) });
+    for (const sg of (def.spawns?.signs ?? []).filter(sg => sg.text)) map.stations.push({ mode: 'sign', text: sg.text, pos: new THREE.Vector3(wx(sg.x), 0, wz(sg.y)) });
 
     // People who are in this room right now (amo's townsfolk with mapId === this interior).
     map.town = createTownsfolk({ scene, W, H, mapId: id, resolve: (pos, r) => pushOut(colliders, pos, r) });

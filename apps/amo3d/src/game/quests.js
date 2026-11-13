@@ -72,7 +72,7 @@ export function createQuests({ stats, hud }) {
         afterTalk(npcId, name, startDialogue) {
             questManager.onTalk(npcId);
             const q = questManager.offerFor(npcId, () => true);
-            if (!q) return;
+            if (!q || !startDialogue) return;
             startDialogue([{ speaker: name, text: q.offer ?? q.description, choices: [
                 { text: `Accept — ${q.title}`, startQuest: q.id },
                 { text: 'Not now.' },

@@ -188,7 +188,7 @@ const quests = createQuests({ stats, hud });
 questHooks.onKill = quests.onKill;
 const thaloriaBias = () => 'neutral';   // amo: Thaloria's currencyBias
 const dialogue = createDialogue({
-    stats, hud,
+    stats, hud, day: () => clockRules.gameDay(stats.gameMinutes ?? 0), save: () => save(),
     onShop: npc => shop.openFor(npc, thaloriaBias()),
     onQuest: id => quests.start(id),
     onTalked: (npcId, name, start) => quests.afterTalk(npcId, name, start),
@@ -282,8 +282,10 @@ function tick(dt) {
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
     const pp = player.state.pos;
-    const station = (map.stations ?? []).find(st => Math.hypot(st.pos.x - pp.x, st.pos.z - pp.z) < 2.3 && Math.abs(st.pos.y - pp.y) < 1.6);
-    const person = !station && map.town ? map.town.nearestPerson(pp) : null;
+    let station = (map.stations ?? []).find(st => Math.hypot(st.pos.x - pp.x, st.pos.z - pp.z) < 2.3 && Math.abs(st.pos.y - pp.y) < 1.6);
+    let person = map.town ? map.town.nearestPerson(pp) : null;
+    // Whichever is closer wins: a person standing by a chest or sign is still someone to talk to.
+    if (station && person) { if (Math.hypot(person.pos.x - pp.x, person.pos.z - pp.z) < Math.hypot(station.pos.x - pp.x, station.pos.z - pp.z)) station = null; else person = null; }
     const personName = person?.r.npc ? person.r.npc.name.replace(/^./, c => c.toUpperCase()) : null;
     const gatherText = station ? STATION_PROMPT[station.mode] : person ? `G — Talk${personName ? ` to the ${personName}` : ''}` : gathering.update(simT * 1000, player.state);
     if (gatherText && (act.gather || (act.hop && input.device === 'gamepad'))) {
