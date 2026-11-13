@@ -72,5 +72,9 @@ export * as regionFormat from '../../apps/amo/src/systems/regionFormat.js';
 export * as regionChunks from '../../apps/amo/src/systems/regionChunks.js';
 export * as worldLayout from '../../apps/amo/src/systems/worldLayout.js';
 
+// ---- places (pure data: amo's city layout, its people and their spots) ----
+export * as thaloriaMap from '../../apps/amo/src/data/maps/regions/thaloria.js';
+export * as thaloriaTown from '../../apps/amo/src/data/townsfolk/thaloria.js';
+
 // ---- persistence ----
 export * as SaveManager from '../../apps/amo/src/systems/SaveManager.js';
