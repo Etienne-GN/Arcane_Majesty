@@ -38,6 +38,7 @@ import { createTitle } from './game/title.js';
 import { hasSave } from './game/save.js';
 import { createOutdoor } from './content/glade.js';
 import { createTower } from './content/eldrinTower.js';
+import { createThaloria } from './content/thaloria.js';
 
 // ---- 3D-only tuning (amo's own files are untouched) ----
 movementRules.MOVE.SPRINT_DRAIN_PER_S = 7;                              // amo: 20 → ~14 s of sprint instead of 5
@@ -129,7 +130,7 @@ const fireballs = createFireballs({
 let lastLevel = '';
 const world = createMapManager({
     builders: {
-        outdoor: () => createOutdoor({ quality }), tower: createTower,
+        outdoor: () => createOutdoor({ quality }), tower: createTower, thaloria: () => createThaloria({ quality }),
         ...Object.fromEntries(Object.keys(REGIONS).map(id => [id, () => buildRegion(REGIONS[id], { quality })])),
     },
     fade: hud.ui.fade, fadeText: hud.ui.fadeText,
@@ -281,7 +282,7 @@ function tick(dt) {
 }
 
 if (REGIONS[params.get('region')]) world.enter(params.get('region'), 'start');   // the editor's "Play here"
-else if (savedAt && world.maps && ['outdoor', 'tower', ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
+else if (savedAt && world.maps && ['outdoor', 'tower', 'thaloria', ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
 else world.enter('outdoor', 'start');
 const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.current.scene, camera); perf.frame(); } });
 

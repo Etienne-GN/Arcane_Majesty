@@ -14,9 +14,11 @@ export function createNav({ colliders, passable, half = 100, cell = 1, clearance
     for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) mask[y * n + x] = passable(centre(x), centre(y)) ? 1 : 0;
     for (const c of colliders) {   // circles and segments, grown by the walker's clearance
         if (c.kind !== 'wall' && c.kind !== 'hop') continue;
-        const pts = c.ax !== undefined
-            ? Array.from({ length: Math.ceil(Math.hypot(c.bx - c.ax, c.bz - c.az) / 0.5) + 1 }, (_, k, arr) => [c.ax + (c.bx - c.ax) * k / (arr.length - 1), c.az + (c.bz - c.az) * k / (arr.length - 1)])
-            : [[c.x, c.z]];
+        let pts = [[c.x, c.z]];
+        if (c.ax !== undefined) {   // a segment: sample it every half metre
+            const steps = Math.max(1, Math.ceil(Math.hypot(c.bx - c.ax, c.bz - c.az) / 0.5));
+            pts = Array.from({ length: steps + 1 }, (_, k) => [c.ax + (c.bx - c.ax) * k / steps, c.az + (c.bz - c.az) * k / steps]);
+        }
         const r = c.r + clearance;
         for (const [px, pz] of pts) {
             for (let y = toCell(pz - r); y <= toCell(pz + r); y++) for (let x = toCell(px - r); x <= toCell(px + r); x++) {

@@ -83,6 +83,7 @@ Slices: 5.1 Thaloria's streets, walls and buildings in 3D, the West Gate road to
 (amo townsfolk + schedules) built with the character builder · 5.3 dialogue + named NPCs · 5.4 shops · 5.5 quests,
 journal, bounty board · 5.6 Thaloria's interiors (inn, temple, smithy…) · 5.7 Summit of Despair · 5.8 music per region,
 codex, campaigns.
+Status: **5.1 Thaloria done** (content/thaloria.js: amo's tile grid → grass / roads / paved square; 616 wall pieces → the city wall with merlons; roof+front-wall clusters → ~50 houses with amo's roof (gable, hip, dome) and wall styles, doors and windows where amo has them; the bell tower, temple dome, manor; garden trees, bushes, flowers, knight statues, street lamps lit at night, market stalls, the fountain; the West Gate to the glade (a new archway on the glade's north rim), the East Gate shut; amo's hearth and alchemy stations; nav grid, map and landmarks). Next: 5.2 Thaloria's 40 residents.
 | amo | Kind |
 |---|---|
 | **Thaloria** (city), Summit of Despair, Whisper-Wood, Iron Hollow… — from the lore DB locations | N |
