@@ -14,6 +14,7 @@ import { bakeStatic } from '../engine/batch.js';
 import { buildArch } from '../engine/region.js';
 import { treeKinds } from './models/flora.js';
 import { createTownsfolk } from './actors/townsfolk.js';
+import DOORS from '../../../amo/src/data/maps/interiors/doors.json';
 
 const ROOFS = {   // roof piece family → colour and shape
     scale_red: { color: 0xa83a2a, shape: 'gable' }, dome_gray: { color: 0x8a8e96, shape: 'dome' },
@@ -28,6 +29,7 @@ const WALLS = {   // wall piece family → plaster / stone colour and trim
 };
 const family = (name, table) => Object.keys(table).sort((a, b) => b.length - a.length).find(k => name.includes(k));
 
+export const INTERIOR_IDS = new Set();
 export function createThaloria({ quality }) {
     const scene = new THREE.Scene();
     const D = thaloriaMap.default;
@@ -266,6 +268,13 @@ export function createThaloria({ quality }) {
     for (let i = -1; i <= 1; i++) { const bar = new THREE.Mesh(new THREE.BoxGeometry(0.12, 4.6, 0.12), flat(0x2a2a2e)); bar.position.set(ex, 2.3, ez + i * 0.7); scene.add(bar); }
     add({ ax: ex, az: ez - 1.6, bx: ex, bz: ez + 1.6, r: 0.3, kind: 'wall' }, 5);
 
+    // Doors into the buildings (amo doors.json): walk up to one to go in.
+    for (const d of DOORS.thaloria ?? []) {
+        if (!INTERIOR_IDS.has(d.interior)) continue;
+        const x = wx(d.x), z = wz(d.y) + 1.0;
+        map.triggers.push({ x, z, r: 0.75, label: d.label, to: d.interior, spawn: 'enter' });
+        map.spawns[`door:${d.interior}`] = { x, z: z + 1.6, facing: 0 };
+    }
     // Stations amo puts in Thaloria (the hearth and alchemy table by the market).
     for (const st of D.spawns.stations ?? []) map.stations.push({ mode: st.type === 'hearth' ? 'hearth' : 'alchemy', pos: new THREE.Vector3(wx(st.x), 0, wz(st.y)) });
 

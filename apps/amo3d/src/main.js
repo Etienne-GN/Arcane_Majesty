@@ -41,7 +41,19 @@ import { createTitle } from './game/title.js';
 import { hasSave } from './game/save.js';
 import { createOutdoor } from './content/glade.js';
 import { createTower } from './content/eldrinTower.js';
-import { createThaloria } from './content/thaloria.js';
+import { createThaloria, INTERIOR_IDS } from './content/thaloria.js';
+import { createInterior } from './content/interior.js';
+import THALORIA_DOORS from '../../amo/src/data/maps/interiors/doors.json';
+// amo's Thaloria interiors, each built on first entry; inner doors (the inn's cellar) lead on and back.
+const INTERIORS = Object.fromEntries(Object.entries(import.meta.glob('../../amo/src/data/maps/interiors/thaloria_*.js', { eager: true, import: 'MAP' }))
+    .map(([path, def]) => [path.split('/').pop().replace('.js', ''), def]));
+const parentOf = {};
+for (const d of THALORIA_DOORS.thaloria ?? []) if (INTERIORS[d.interior]) { INTERIOR_IDS.add(d.interior); parentOf[d.interior] = { map: 'thaloria', spawn: `door:${d.interior}` }; }
+for (const [id, def] of Object.entries(INTERIORS)) for (const d of def.spawns?.doors ?? []) if (INTERIORS[d.interior]) parentOf[d.interior] = { map: id, spawn: `door:${d.interior}` };
+const interiorBuilders = Object.fromEntries(Object.keys(parentOf).map(id => [id, () => createInterior({
+    id, def: INTERIORS[id], exitTo: parentOf[id],
+    innerDoors: Object.fromEntries((INTERIORS[id].spawns?.doors ?? []).filter(d => parentOf[d.interior]).map(d => [d.interior, d.interior])),
+})]));
 
 // ---- 3D-only tuning (amo's own files are untouched) ----
 movementRules.MOVE.SPRINT_DRAIN_PER_S = 7;                              // amo: 20 → ~14 s of sprint instead of 5
@@ -134,6 +146,7 @@ let lastLevel = '';
 const world = createMapManager({
     builders: {
         outdoor: () => createOutdoor({ quality }), tower: createTower, thaloria: () => createThaloria({ quality }),
+        ...interiorBuilders,
         ...Object.fromEntries(Object.keys(REGIONS).map(id => [id, () => buildRegion(REGIONS[id], { quality })])),
     },
     fade: hud.ui.fade, fadeText: hud.ui.fadeText,
@@ -274,7 +287,8 @@ function tick(dt) {
     const personName = person?.r.npc ? person.r.npc.name.replace(/^./, c => c.toUpperCase()) : null;
     const gatherText = station ? STATION_PROMPT[station.mode] : person ? `G — Talk${personName ? ` to the ${personName}` : ''}` : gathering.update(simT * 1000, player.state);
     if (gatherText && (act.gather || (act.hop && input.device === 'gamepad'))) {
-        if (station?.mode === 'chest') chests.toggle(station.key, station.title);
+        if (station?.mode === 'chest') { if (station.seed && !stats.chestContents[station.key]) stats.chestContents[station.key] = station.seed.map(id => ({ id, qty: 1 })); chests.toggle(station.key, station.title); }
+        else if (station?.mode === 'sign') dialogue.start([{ speaker: '', text: station.text }]);
         else if (station?.mode === 'gate') travel.useGate(station.key);
         else if (station) campfire.toggle(station.mode);
         else if (person) dialogue.talk(person, clock());
@@ -304,7 +318,7 @@ function tick(dt) {
 }
 
 if (REGIONS[params.get('region')]) world.enter(params.get('region'), 'start');   // the editor's "Play here"
-else if (savedAt && world.maps && ['outdoor', 'tower', 'thaloria', ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
+else if (savedAt && world.maps && ['outdoor', 'tower', 'thaloria', ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
 else world.enter('outdoor', 'start');
 const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.current.scene, camera); perf.frame(); } });
 

@@ -35,7 +35,7 @@ function lookFor(r) {
     }
 }
 
-export function createTownsfolk({ scene, W, H, resolve = null }) {
+export function createTownsfolk({ scene, W, H, resolve = null, mapId = 'thaloria' }) {
     const town = TF.getTown('thaloria');
     const toX = px => px / 32 - W / 2, toZ = py => py / 32 - H / 2;
     const FACING = { down: 0, up: Math.PI, right: Math.PI / 2, left: -Math.PI / 2 };
@@ -80,7 +80,7 @@ export function createTownsfolk({ scene, W, H, resolve = null }) {
             const minutes = ctx.minutes ?? 600, P = ctx.player.pos;
             for (const p of people) {
                 const w = SCH.whereAt(p.r, minutes, town);
-                const out = !w || w.mapId !== 'thaloria' || !w.visible;
+                const out = !w || w.mapId !== mapId || !w.visible;
                 if (out) {
                     p.shown = false; p.far.visible = false;
                     if (p.model) p.model.root.visible = false;
