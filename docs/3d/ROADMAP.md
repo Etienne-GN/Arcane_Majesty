@@ -77,6 +77,12 @@ Status: **4.1 day/night & weather done** (engine/sky.js: keyframed sky dawn→da
 | In-browser map editor (place props, paint terrain) | N |
 
 ## Phase 5 — Content: places and people
+Plan (2026-11-13): Thaloria is built **from amo's own city data** (data/maps/regions/thaloria.js — tile grid,
+~2000 named wall/roof/door pieces, door fronts, gates, landmarks; 1 tile = 1 m), so 2D and 3D match street for street.
+Slices: 5.1 Thaloria's streets, walls and buildings in 3D, the West Gate road to Eldrin's Tower · 5.2 its 40 residents
+(amo townsfolk + schedules) built with the character builder · 5.3 dialogue + named NPCs · 5.4 shops · 5.5 quests,
+journal, bounty board · 5.6 Thaloria's interiors (inn, temple, smithy…) · 5.7 Summit of Despair · 5.8 music per region,
+codex, campaigns.
 | amo | Kind |
 |---|---|
 | **Thaloria** (city), Summit of Despair, Whisper-Wood, Iron Hollow… — from the lore DB locations | N |
