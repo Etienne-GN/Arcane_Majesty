@@ -21,6 +21,7 @@ import { createHotbar } from './game/hotbar.js';
 import { createSkills } from './game/skills.js';
 import { createArchery } from './game/archery.js';
 import { createGathering } from './game/gathering.js';
+import { wornLook } from './game/wardrobe.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createChests } from './game/chest.js';
 import { createCharacter } from './content/models/character.js';
@@ -91,7 +92,26 @@ const inventory = createInventory({
     },
 });
 
-const hero = createCharacter(heroDef?.look ?? eldrinCast.look);   // the campaign plays the lore cast
+// The hero's body is rebuilt when what they wear changes (game/wardrobe.js); `hero` always points at it.
+const BASE_LOOK = heroDef?.look ?? eldrinCast.look;   // the campaign plays the lore cast
+let model = createCharacter(wornLook(BASE_LOOK, stats.equipment));
+const hero = {
+    get root() { return model.root; },
+    update: (...a) => model.update(...a),
+    crystalWorld: v => model.crystalWorld(v),
+    setWeapons: (a, b) => model.setWeapons(a, b),
+    get mainType() { return model.mainType; },
+};
+function dressHero() {
+    const old = model;
+    model = createCharacter(wornLook(BASE_LOOK, stats.equipment));
+    model.root.rotation.order = 'YXZ';
+    model.root.position.copy(old.root.position);
+    model.root.rotation.copy(old.root.rotation);
+    model.root.visible = old.root.visible;
+    old.root.parent?.add(model.root);
+    old.root.parent?.remove(old.root);
+}
 const fireballs = createFireballs({
     PX, tuning: SPELL_TUNING,
     onDamage: (pos, dmg, killed, burning) => hud.floater(pos, `${dmg}${burning ? ' 🔥' : ''}${killed ? ' ✝' : ''}`, killed ? '#ffd27a' : '#ff8a4a'),
@@ -125,6 +145,7 @@ const player = createPlayer({ name: HERO_NAME, stats, hero, cam, world, hud, fir
 const ITEMS = itemRules.ITEMS;
 const handOf = id => id ? { type: weaponRules.typeOf(ITEMS[id]) === 'fists' && ITEMS[id]?.slot === 'offHand' ? 'shield' : weaponRules.typeOf(ITEMS[id]), accent: ITEMS[id]?.color } : null;
 const showWeapons = () => hero.setWeapons(handOf(stats.equipment.weapon), handOf(stats.equipment.offHand));
+stats.onEquipChange(slot => { if (slot === 'head' || slot === 'body') { dressHero(); showWeapons(); } });
 stats.onEquipChange(showWeapons);
 const skills = createSkills({ stats, player, hud, cam, world });
 const archery = createArchery({ stats, player, hud, cam, world, loot });

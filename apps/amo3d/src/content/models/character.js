@@ -234,12 +234,29 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         head.add(brow);
         head.add(mesh(new THREE.SphereGeometry(0.025, 5, 4), M.skin, s * 0.112, 0.13, -0.005));   // ears
     }
-    buildHair(L.hood ? 'short' : L.hair.style, head, M.hair);   // parts library (a hood keeps the hair close)
+    const covered = L.hood || L.headgear?.type === 'helmet';
+    buildHair(covered ? 'short' : L.hair.style, head, M.hair);   // parts library (a hood or helmet keeps the hair close)
+    const hoodM = L.hoodColor ? mat(L.hoodColor, { side: THREE.DoubleSide }) : M.coatDark;
     if (L.hood) {   // a sphere shell with the face cut away, and a pointed back
-        head.add(mesh(new THREE.SphereGeometry(0.165, 12, 8, Math.PI * 0.78, Math.PI * 1.44, 0, Math.PI * 0.66), M.coatDark, 0, 0.13, -0.01));
-        const tip = mesh(new THREE.ConeGeometry(0.08, 0.18, 6), M.coatDark, 0, 0.2, -0.14);
+        head.add(mesh(new THREE.SphereGeometry(0.165, 12, 8, Math.PI * 0.78, Math.PI * 1.44, 0, Math.PI * 0.66), hoodM, 0, 0.13, -0.01));
+        const tip = mesh(new THREE.ConeGeometry(0.08, 0.18, 6), hoodM, 0, 0.2, -0.14);
         tip.rotation.x = -1.1;
         head.add(tip);
+    }
+
+    // Headgear from equipment: a helmet (cap, rim, nose guard) or a wide-brimmed hat.
+    if (L.headgear) {
+        const gm = mat(L.headgear.color ?? '#9aa0a8', { metalness: L.headgear.type === 'helmet' ? 0.5 : 0, roughness: 0.5 });
+        if (L.headgear.type === 'helmet') {
+            const capM = mesh(new THREE.SphereGeometry(0.15, 12, 8, 0, Math.PI * 2, 0, Math.PI * 0.55), gm, 0, 0.14, 0);
+            capM.scale.set(1, 1.08, 1.05);
+            head.add(capM);
+            head.add(mesh(new THREE.TorusGeometry(0.148, 0.014, 4, 16).rotateX(Math.PI / 2), gm, 0, 0.165, 0));
+            head.add(mesh(new THREE.BoxGeometry(0.025, 0.09, 0.02), gm, 0, 0.13, 0.15));
+        } else {
+            head.add(mesh(new THREE.CylinderGeometry(0.27, 0.27, 0.02, 18), gm, 0, 0.235, 0));
+            head.add(mesh(new THREE.CylinderGeometry(0.11, 0.13, 0.13, 12), gm, 0, 0.3, 0));
+        }
     }
 
     // ---- arms: red sleeves, gold-worked leather bracers ----
