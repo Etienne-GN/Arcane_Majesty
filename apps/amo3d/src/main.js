@@ -332,7 +332,7 @@ function tick(dt) {
     if (archery.armed()) hud.ui.speed.textContent += ` · ${archery.ready()} ready (+${archery.spare()} in the satchel)`;
 }
 
-if (REGIONS[params.get('region')]) world.enter(params.get('region'), 'start');   // the editor's "Play here"
+if (REGIONS[params.get('region')] || ['the_summit', 'thaloria', 'east_road', 'outdoor'].includes(params.get('region'))) world.enter(params.get('region'), 'start');   // the editor's "Play here"
 else if (savedAt && world.maps && ['outdoor', 'tower', 'thaloria', 'east_road', 'the_summit', ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
 else world.enter('outdoor', 'start');
 const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.current.scene, camera); perf.frame(); } });
