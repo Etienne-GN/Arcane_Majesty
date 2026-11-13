@@ -57,5 +57,6 @@ export default defineConfig({
         port: 5190,
         strictPort: true,
         fs: { allow: ['../..'] },
+        watch: { ignored: ['**/tools/.out/**', '**/android/**'] },   // screenshots and test browser profiles
     },
 });

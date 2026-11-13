@@ -316,6 +316,8 @@ function tick(dt) {
     if (!world.step(dt)) lift = player.step(dt, act, ctx);
     const p = player.state;
     cam.update(dt, p.pos, lift, map.heightAt ?? null);   // the camera never sinks into the ground or the mountain
+    const ceil = map.cameraCeiling?.(p.pos.x, p.pos.z, p.pos.y);   // under a cave roof: pull in below it
+    if (ceil != null && camera.position.y > ceil) { const t = cam.target; camera.position.lerpVectors(t, camera.position, Math.max(0.2, (ceil - t.y) / (camera.position.y - t.y))); camera.lookAt(t); }
     if (gatherText && !hud.ui.prompt.textContent) { hud.ui.prompt.textContent = gatherText; hud.ui.prompt.style.opacity = 1; }
     if (map.levelName && !p.hop && p.vy === 0) {
         const lv = map.levelName(p.pos.y);

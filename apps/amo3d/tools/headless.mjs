@@ -3,13 +3,14 @@
 // usage: node shoot.mjs <outdir> <script-json>
 // script: [["wait",ms],["down","KeyW"],["up","KeyW"],["shot","name"],["eval","js"]]
 import { spawn } from 'node:child_process';
-import { writeFileSync, mkdtempSync } from 'node:fs';
+import { writeFileSync, mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 const [outDir, scriptJson] = process.argv.slice(2);
 const script = JSON.parse(scriptJson);
 const port = 9333;
-const profile = mkdtempSync(join(outDir, 'prof-'));
+const profile = mkdtempSync(join(tmpdir(), 'amo3d-prof-'));   // outside the watched tree; removed at the end
 const chrome = spawn('google-chrome', [
     '--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`,
     '--window-size=1280,720', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist',
@@ -54,4 +55,6 @@ for (const [op, arg] of script) {
 }
 ws.close();
 chrome.kill();
+await sleep(500);
+try { rmSync(profile, { recursive: true, force: true }); } catch {}
 process.exit(0);
