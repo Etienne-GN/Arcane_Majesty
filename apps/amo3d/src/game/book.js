@@ -7,7 +7,8 @@
 import { PlayerStats as PS, spells as SP, styleData, styles as styleRules, weapons as weaponRules, mastery as M } from '@rules';
 
 const { MASTERY_DEFS } = PS, { SPELLS, TIER_NAMES, spellTooltip } = SP, { STYLES, STYLE_SKILLS } = styleData;
-const CASTABLE = new Set(['fireball']);
+import { CASTABLE as CAST_LIST } from './fireball.js';
+const CASTABLE = new Set(CAST_LIST);
 const TABS = [['skills', 'Skills'], ['spells', 'Spells'], ['styles', 'Styles']];
 
 export function createBook({ stats, hud, save }) {
@@ -61,14 +62,17 @@ export function createBook({ stats, hud, save }) {
 
     function spells(p) {
         const known = Object.values(SPELLS).filter(s => (stats.spells?.[s.id] ?? 0) > 0 && !s.id.startsWith('kill_') && !s.id.startsWith('take_'));
-        p.append(el('div', 'sub', 'The spells you know. In this world only the Fireball can be cast for now — the others are learned and waiting.'));
+        p.append(el('div', 'sub', 'The spells you know. Choose the one your cast button throws (F / right-click / FIRE). Bolts and the Fireball can be cast; area, self and ground spells are coming.'));
         p.append(el('h3', null, `Known (${known.length})`));
         if (!known.length) p.append(el('div', 'x', 'None yet — the priest in Thaloria teaches spells, and scrolls drop from elites.'));
         for (const s of known) {
             const lvl = stats.spells[s.id], row = el('div', 'e'), body = el('div', 'body');
             const t = el('div', 't', s.name); t.append(el('small', null, `${s.element ?? ''} · ${TIER_NAMES?.[lvl - 1] ?? `tier ${lvl}`}`));
             body.append(t, el('div', 'x', spellTooltip(s, lvl, stats.attributes.intelligence)), el('div', 'lore', s.lore ?? ''));
-            row.append(body, CASTABLE.has(s.id) ? tag('Castable', '#ffb070') : tag('Not castable yet', '#8a8aa0'));
+            const active = (stats.flags?.activeSpell ?? 'fireball') === s.id;
+            if (!CASTABLE.has(s.id)) row.append(body, tag('Not castable yet', '#8a8aa0'));
+            else if (active) row.append(body, tag('On your cast button', '#ffd76a'));
+            else { const b = el('button', 'buy', 'Use'); b.onclick = () => { (stats.flags ??= {}).activeSpell = s.id; hud.banner(`${s.name} — ready to cast`); save?.(); render(); }; row.append(body, b); }
             p.append(row);
         }
         const rest = Object.values(SPELLS).filter(s => !(stats.spells?.[s.id] > 0) && !s.id.startsWith('kill_') && !s.id.startsWith('take_'));

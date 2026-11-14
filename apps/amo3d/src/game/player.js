@@ -7,7 +7,8 @@ import * as THREE from 'three';
 import { movementRules, weapons, mastery, items as itemRules, styles as styleRules, statuses } from '@rules';
 
 const { STATUS_DEFS } = statuses;
-import { FIREBALL } from './fireball.js';
+import { FIREBALL, CASTABLE } from './fireball.js';
+import { spells as spellRules } from '@rules';
 
 const { MOVE, tickVigor, canSprint, spendHop, moveSpeed, hopLanding } = movementRules;
 const { WEAPON_TYPES, typeOf } = weapons;
@@ -119,16 +120,23 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         for (const h of world.maps.outdoor?.hittables ?? []) h.reset?.();
     }
 
+    function activeSpell() {
+        const id = stats.flags?.activeSpell;
+        return CASTABLE.includes(id) && spellRules.SPELLS[id] ? spellRules.SPELLS[id] : FIREBALL;
+    }
     function tryCast() {
         if (p.cast) return;
-        if (!stats.canCastSpell(FIREBALL.id)) return hud.message('Fireball is not ready');
-        const cost = stats.getSpellManaCost(FIREBALL.id);
+        // The spell on the cast button: chosen in the Book (stats.flags.activeSpell), the Fireball by default.
+        const sp = activeSpell();
+        if (!stats.spells?.[sp.id]) return hud.message(`You don't know ${sp.name} yet`);
+        if (!stats.canCastSpell(sp.id)) return hud.message(`${sp.name} is not ready`);
+        const cost = stats.getSpellManaCost(sp.id);
         if (stats.mana < cost) return hud.message('Not enough mana');
         stats.mana -= cost;
-        stats.startSpellCooldown(FIREBALL.id);
+        stats.startSpellCooldown(sp.id);
         // Options → Aim: where the camera looks, or where Eldrin faces.
         const aim = settings.aim === 'facing' ? new THREE.Vector3(Math.sin(p.facing), 0, Math.cos(p.facing)) : cam.forward();
-        p.cast = { t: 0, fired: false, aim };
+        p.cast = { t: 0, fired: false, aim, spell: sp };
         p.facing = Math.atan2(aim.x, aim.z);
     }
 
@@ -219,10 +227,14 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
                 hero.root.updateMatrixWorld(true);
                 const origin = hero.crystalWorld(new THREE.Vector3());
                 // Aim to land at the end of its range (a targeted_aoe spell in amo).
-                const range = (FIREBALL.range[0] / PX) * spellTuning.rangeMult;
+                const sp = c.spell ?? FIREBALL, lvl = Math.max(1, stats.spells?.[sp.id] ?? 1);
+                const range = ((sp.range?.[lvl - 1] ?? 200) / PX) * spellTuning.rangeMult;
                 sfx.cast();
-                fireballs.cast(origin, tmp.copy(c.aim).setY(-(origin.y - p.pos.y) / range).normalize(), 1, stats.attributes.intelligence);
-                hooks.onCast?.(origin, tmp);   // online: the others see it
+                // An area spell lands at the end of its range; a bolt flies level, at chest height.
+                if (sp.targetingType === 'targeted_aoe') tmp.copy(c.aim).setY(-(origin.y - p.pos.y) / range).normalize();
+                else tmp.copy(c.aim).setY(-(origin.y - p.pos.y - 1.1) / range).normalize();
+                fireballs.cast(origin, tmp, lvl, stats.attributes.intelligence, { spell: sp });
+                hooks.onCast?.(origin, tmp, sp.id);   // online: the others see it
             }
             if (c.t >= 1) p.cast = null;
         }
@@ -341,7 +353,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
     }
 
     return {
-        state: p, place, step, hurt, onKill, revive, addBuff,
+        state: p, place, step, hurt, onKill, revive, addBuff, activeSpell,
         statsMult: () => buffMult('statsMult'),
         playStrike: () => { p.strike = { t: 0, hit: true, type: 'staff', thrust: false }; },
         playSpin: () => { p.spin = { t: 0 }; },

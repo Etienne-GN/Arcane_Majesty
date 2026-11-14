@@ -15,7 +15,7 @@ export function createHud() {
     const ui = {
         vFill: $('vigor-fill'), vBar: $('vigor'), vNum: $('vigor-num'),
         mFill: $('mana-fill'), mNum: $('mana-num'), hFill: $('hp-fill'), hNum: $('hp-num'), lvl: $('lvl'), hurt: $('hurt'),
-        speed: $('speed'), slotCd: $('slot-cd'), slot: $('slot'), slotCost: $('slot-cost'),
+        speed: $('speed'), slotName: $('slot-name'), slotCd: $('slot-cd'), slot: $('slot'), slotCost: $('slot-cost'),
         banner: $('banner'), prompt: $('prompt'), msg: $('msg'), fade: $('fade'), fadeText: $('fade-text'), floaters: $('floaters'),
     };
     let bannerT = 0, msgT = 0, hurtK = 0;
@@ -68,6 +68,14 @@ export function createHud() {
             ui.slotCd.style.height = `${Math.min(1, cd / spell.cooldown[0]) * 100}%`;
             ui.slot.classList.toggle('dry', s.mana < s.getSpellManaCost(spell.id));
             ui.slotCost.textContent = s.getSpellManaCost(spell.id);
+            if (ui.slotName.textContent !== spell.name) {   // the chosen spell's name, colour by element
+                ui.slotName.textContent = spell.name;
+                const tb = document.querySelector('#touch .fire'); if (tb) tb.textContent = spell.name.split(' ')[0].toUpperCase().slice(0, 7);
+                // The fiery slot, turned to the spell's element.
+                const HUE = { fire: 0, arcane: 230, lightning: 40, shadow: 260, void: 270, earth: 15, water: 180, ice: 170, air: 110, light: 45, nature: 90 };
+                const f = `hue-rotate(${HUE[spell.element] ?? 230}deg)${spell.element === 'light' || spell.element === 'lightning' ? ' saturate(.6) brightness(1.3)' : ''}`;
+                ui.slot.style.filter = f; if (tb) tb.style.filter = f;
+            }
 
             const list = Object.entries(player.buffs ?? {});
             const key = list.map(([id, b]) => `${id}:${Math.ceil(b.left)}`).join('|');

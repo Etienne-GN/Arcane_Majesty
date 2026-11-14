@@ -6,6 +6,8 @@
 import { io } from 'socket.io-client';
 import * as THREE from 'three';
 import { settings } from '../engine/settings.js';
+import { spells as spellRules } from '@rules';
+const { SPELLS } = spellRules;
 
 export function createNet({ world, player, getLook, getWeapons, getName, getLevel, createCharacter, hud, fireballs, hurtSelf }) {
     const css = document.createElement('style');
@@ -106,7 +108,7 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
             const r = remotes.get(a.id);
             if (!r || a.kind !== 'fireball') return;
             casts++;
-            fireballs?.cast(new THREE.Vector3(a.origin.x, a.origin.y, a.origin.z), new THREE.Vector3(a.dir.x, a.dir.y, a.dir.z), 1, 10, { cosmetic: true });
+            fireballs?.cast(new THREE.Vector3(a.origin.x, a.origin.y, a.origin.z), new THREE.Vector3(a.dir.x, a.dir.y, a.dir.z), 1, 10, { cosmetic: true, spell: SPELLS[a.spell] ?? SPELLS.fireball });
         });
     }
     function disconnect() { socket?.disconnect(); socket = null; clearRemotes(); stat.textContent = ''; }
@@ -130,7 +132,7 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
     let lastMap = world.id, lastLookKey = '';
     return {
         connect, disconnect, openChat,
-        cast(origin, dir) { if (socket?.connected) socket.emit('player:act', { kind: 'fireball', origin: { x: origin.x, y: origin.y, z: origin.z }, dir: { x: dir.x, y: dir.y, z: dir.z } }); },
+        cast(origin, dir, spell = 'fireball') { if (socket?.connected) socket.emit('player:act', { kind: 'fireball', spell, origin: { x: origin.x, y: origin.y, z: origin.z }, dir: { x: dir.x, y: dir.y, z: dir.z } }); },
         get online() { return !!socket?.connected; },
         get isHost() { return isHost(); },
         // Everyone a creature may go for: this hero and the others on this map.

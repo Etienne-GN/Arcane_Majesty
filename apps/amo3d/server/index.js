@@ -120,7 +120,7 @@ io.on('connection', socket => {
         if (!p || now - lastAct < 150 || a.kind !== 'fireball') return;
         lastAct = now;
         const d = vec(a.dir), len = Math.hypot(d.x, d.y, d.z) || 1;
-        socket.to(p.map).emit('player:act', { id: p.id, kind: 'fireball', origin: vec(a.origin), dir: { x: d.x / len, y: d.y / len, z: d.z / len } });
+        socket.to(p.map).emit('player:act', { id: p.id, kind: 'fireball', spell: typeof a.spell === 'string' && /^[a-z_]{1,32}$/.test(a.spell) ? a.spell : 'fireball', origin: vec(a.origin), dir: { x: d.x / len, y: d.y / len, z: d.z / len } });
     });
 
     // ---- shared creatures (6.3) ----

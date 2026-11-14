@@ -20,7 +20,7 @@ import { createPerf } from './engine/perf.js';
 import { startLoop } from './engine/loop.js';
 import { createHud } from './game/hud.js';
 import { createPlayer, PX } from './game/player.js';
-import { createFireballs, FIREBALL } from './game/fireball.js';
+import { createFireballs, FIREBALL, CASTABLE } from './game/fireball.js';
 import { loadGame, saveGame, deleteSave, activeSlot, setActiveSlot, firstEmptySlot, slotInfo } from './game/save.js';
 import { createSlots } from './game/slots.js';
 import { createLoot } from './game/loot.js';
@@ -81,6 +81,18 @@ const interiorBuilders = Object.fromEntries(Object.keys(parentOf).map(id => [id,
     innerDoors: Object.fromEntries((INTERIORS[id].spawns?.doors ?? []).filter(d => parentOf[d.interior]).map(d => [d.interior, d.interior])),
 })]));
 
+// God mode (testing) knows every castable spell at its top tier; turning it off forgets the ones it lent.
+function godSpells() {
+    const lent = stats.flags.godSpells ?? [];
+    if (settings.god && !lent.length) {
+        stats.flags.godSpells = CASTABLE.filter(id => !(stats.spells[id] > 0));
+        for (const id of stats.flags.godSpells) stats.spells[id] = 3;
+    } else if (!settings.god && lent.length) {
+        for (const id of lent) stats.spells[id] = 0;
+        stats.flags.godSpells = [];
+        if (!stats.spells[stats.flags.activeSpell]) stats.flags.activeSpell = 'fireball';
+    }
+}
 // ---- 3D-only tuning (amo's own files are untouched) ----
 // Eldrin's own staff and coat, as items you can take off (and put back on).
 Object.assign(itemRules.ITEMS, {
@@ -194,6 +206,7 @@ function dressHero() {
 }
 const fireballs = createFireballs({
     PX, tuning: SPELL_TUNING,
+    onHeal: n => { stats.health = Math.min(stats.maxHealth, stats.health + n); hud.floater(player.state.pos.clone().setY(player.state.pos.y + 2.2), `+${n}`, '#7ae07a'); },
     onDamage: (pos, dmg, killed, burning) => hud.floater(pos, `${dmg}${burning ? ' 🔥' : ''}${killed ? ' ✝' : ''}`, killed ? '#ffd27a' : '#ff8a4a'),
     onShake: a => cam.kick(a),
 });
@@ -331,7 +344,7 @@ const net = createNet({ world, player, createCharacter, hud, fireballs, hurtSelf
     getLook: () => wornLook(BASE_LOOK, stats.equipment), getWeapons: () => handOf(stats.equipment.weapon)?.type ?? 'fists',
     getName: () => settings.onlineName || HERO_NAME, getLevel: () => stats.level });
 stats.onEquipChange(() => net.refresh());
-questHooks.onCast = (origin, dir) => net.cast(origin, dir);
+questHooks.onCast = (origin, dir, spellId) => net.cast(origin, dir, spellId);
 const options = createOptions({ quality, onQuality: name => { save(); setQualityName(name); location.reload(); }, onFps: v => perf.set(v), onOnline: v => (v ? net.connect() : net.disconnect()) });
 if (settings.online) net.connect();
 if (settings.showFps) perf.set(true);
@@ -421,7 +434,7 @@ function tick(dt) {
     if (act.skill >= 0 && !inventory.open && !sheet.open) skills.use(act.skill);
     skills.update(dt);
     dialogue.update(dt, camera, project);
-    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open || book.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
+    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open || book.open) { hud.update(dt, { stats, player: player.state, camera, spell: player.activeSpell() }); return; }   // paused
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
     const pp = player.state.pos;
@@ -464,10 +477,11 @@ function tick(dt) {
     loot.update(dt, player.state, map);
     archery.update(dt);
     travel.update(dt, map.fx ?? fireballs);
+    godSpells();
     if (settings.god) { stats.health = stats.maxHealth; stats.mana = stats.maxMana; stats.vigor = stats.maxVigor; stats.vigorWinded = false; }   // god mode: endless
     // Footsteps: what is underfoot decides the sound.
     if (p.speed > 0.6 && !p.hop && !p.dead && p.vy === 0) sfx.step(map.weatherDef?.biome === 'snow' || map.id === 'the_summit' ? 'snow' : (map.terrain ? 'grass' : 'stone'), p.sprinting);
-    hud.update(dt, { stats, player: p, camera, spell: FIREBALL });
+    hud.update(dt, { stats, player: p, camera, spell: player.activeSpell() });
     const c = clock();
     clockEl.textContent = `${clockRules.clockLabel(c.minutes)} · ${weatherRules.WEATHER[c.weather] ?? c.weather}`;
     if (archery.armed()) hud.ui.speed.textContent += `${hud.ui.speed.textContent ? ' · ' : ''}${archery.ready()} arrows ready (+${archery.spare()} in the satchel)`;
@@ -492,5 +506,5 @@ window.__poc = {
     setTime: h => { stats.gameMinutes = Math.floor((stats.gameMinutes ?? 0) / 1440) * 1440 + h * 60; },
     setWeather: w => { weatherOverride = w; },
     strike: () => input.press('strike'),
-    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, player: player.state, playerApi: player,
+    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, fireballs, player: player.state, playerApi: player,
 };
