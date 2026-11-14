@@ -47,7 +47,13 @@ const vec = o => { o = obj(o); return { x: num(o.x, -2000, 2000), y: num(o.y, -5
 const inMap = map => [...players.values()].filter(o => o.map === map);
 // The map's host (6.3): whoever has been there longest runs its creatures and streams them to the others.
 const hostOf = map => inMap(map).sort((x, y) => x.since - y.since)[0] ?? null;
-const announceHost = map => { const h = hostOf(map); if (h) io.to(map).emit('map:host', { id: h.id }); };
+const hosts = new Map();     // map id → current host id
+const announceHost = map => {
+    const h = hostOf(map);
+    if ((h?.id ?? null) !== (hosts.get(map) ?? null)) snaps.delete(map);   // a new host: nothing the old one said counts
+    if (h) { hosts.set(map, h.id); io.to(map).emit('map:host', { id: h.id }); } else hosts.delete(map);
+};
+const MAX_CREATURE_SPEED = 15;   // m/s — no creature in amo moves faster; anything quicker is not to be believed
 
 io.on('connection', socket => {
     let lastMove = 0, lastChat = 0, lastJoin = 0, lastUpdate = 0, lastAct = 0, lastSnap = 0, hitsWindow = 0, hitsT = 0, strikeT = 0;
@@ -123,10 +129,17 @@ io.on('connection', socket => {
         const p = players.get(socket.id);
         const now = Date.now();
         if (!isHost(p) || now - lastSnap < 70 || !Array.isArray(a.list) || a.list.length > 400) return;
+        if (!a.list.every(e => Array.isArray(e) && Number.isInteger(e[0]) && e[0] >= 0 && e[0] <= 400)) return;
         lastSnap = now;
         const list = a.list.filter(e => Array.isArray(e) && e.length === 8).map(e => e.map(v => num(+v, -1e5, 1e5)));
-        const m = snaps.get(p.map) ?? new Map();
-        for (const [i, ...v] of list) m.set(i, v);
+        // Each snapshot replaces the last. A creature that jumped further than it could have run since the
+        // previous one is not trusted to strike for two seconds.
+        const prev = snaps.get(p.map), m = new Map();
+        for (const [i, ...v] of list) {
+            const was = prev?.get(i), dt = was ? (now - was.t) / 1000 : 0;
+            const jumped = was && Math.hypot(v[0] - was.v[0], v[2] - was.v[2]) > MAX_CREATURE_SPEED * Math.max(dt, 0.07) + 1;
+            m.set(i, { v, t: now, untrustedUntil: jumped ? now + 2000 : (was?.untrustedUntil ?? 0) });
+        }
         snaps.set(p.map, m);
         socket.to(p.map).emit('enemy:snap', { list });
     });
@@ -154,8 +167,9 @@ io.on('connection', socket => {
         const now = Date.now();
         if (!isHost(p) || now - strikeT < 30) return;
         strikeT = now;
-        const q = players.get(a.target), c = snaps.get(p.map)?.get(num(a.i, 0, 400) | 0);
-        if (!q || q.map !== p.map || !c || c[6]) return;
+        if (!Number.isInteger(a.i) || a.i < 0 || a.i > 400) return;
+        const q = players.get(a.target), e = snaps.get(p.map)?.get(a.i), c = e?.v;
+        if (!q || q.map !== p.map || !c || c[6] || now < e.untrustedUntil || now - e.t > 1500) return;   // dead, teleported, or stale
         if (Math.hypot(c[0] - q.move.x, c[2] - q.move.z) > 6) return;   // nowhere near: not a real blow
         if (now - (q.lastHurt ?? 0) < 400) return;
         q.lastHurt = now;
