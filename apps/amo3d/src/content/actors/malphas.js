@@ -152,6 +152,12 @@ export function createMalphas({ scene, map, at, rng = Math.random }) {
             say('wall', 'The wind howls round the pass and throws you back. There is no leaving while he stands.', ctx);
         }
         const pct = s.hp / DEF.health;
+        // A hero of their own cannot break him yet: near the end he laughs, the storm takes him, and he is whole again.
+        if (ctx.customHero && pct <= 0.15) {
+            ctx.message?.('Malphas: "Not you. Not yet. You are not the one this winter is waiting for." — the storm swallows him, and when it clears he is gone.');
+            reset();
+            return;
+        }
         if (pct <= 0.75 && !st.said.p75) { say('p75', 'Malphas: "Look closer, scholar. Which of us is real? Which of you is?"  (Aether Sight: an illusion casts no shadow.)', ctx); spawnIllusions(2, ctx); }
         if (pct <= 0.5 && !st.enraged) { st.enraged = true; say('p50', 'Malphas: "The cold remembers everyone who turned back. It will remember you." — the winter closes in.', ctx); ctx.shake?.(0.4); if (st.illusions.every(i => i.gone)) spawnIllusions(2, ctx); }
         if (pct <= 0.25 && st.phase < 3) { st.phase = 3; st.rainCd = 1.2; st.tpCd = 3.8; say('p25', 'Malphas: "Every step you climbed, I was the voice that said: stop."', ctx); }

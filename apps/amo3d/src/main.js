@@ -108,6 +108,24 @@ if (params.get('hero') === 'new') {
     try { const h = JSON.parse(localStorage.getItem('amo3d.newHero')); if (h?.look) (stats.flags ??= {}).hero = h; } catch { /* none */ }
 }
 const heroDef = stats.flags?.hero ?? null;
+// ---- a hero of your own (the creator): a newcomer to Thaloria, not Eldrin ----
+// Wakes at the inn; a letter grants them the empty fine house on the guild road (thaloria_house_noble_c,
+// where no resident lives) — their home and respawn point. Eldrin's Tower is barred to them, Eldrin
+// finds their house locked, and Malphas cannot be beaten yet. Eldrin's story quests do not start.
+const CUSTOM = !!heroDef;
+const PLAYER_HOME = 'thaloria_house_noble_c';
+function lockDoors(map, id) {
+    for (const t of map.triggers ?? []) {
+        if (t.to === 'tower' || t._was === 'tower') {
+            if (CUSTOM) { t._was = 'tower'; t.to = null; t.label = "Eldrin's Tower — the door is barred"; }
+        }
+        if (t.to === PLAYER_HOME || t._was === PLAYER_HOME) {
+            t._was = PLAYER_HOME;
+            if (CUSTOM && stats.flags.newcomer) { t.to = PLAYER_HOME; t.label = 'Your house'; }
+            else { t.to = null; t.label = CUSTOM ? 'A fine house — the door is locked (for now)' : 'A fine house — locked'; }
+        }
+    }
+}
 stats.setTalents(heroDef ? talentRules.talentsFor(null, heroDef.classId) : talentRules.talentsFor('eldrin'));   // amo talents: the class, or Eldrin's own
 const HERO_NAME = heroDef?.name || eldrinCast.name;
 // A new hero starts with their class's kit (amo giveStartKit): the cheapest weapon of the first gifted
@@ -188,12 +206,16 @@ const world = createMapManager({
         hideAllPlates();
         lastLevel = map.levelName?.(player.state.pos.y) ?? '';
         codex?.visited(id, map.name);
-        // amo: entering Thaloria starts Act I's main quest, Odyssey's Dawn.
-        if (id === 'thaloria' && !stats.questLog?.main_odysseys_dawn) quests.start('main_odysseys_dawn');
-        // The mountain: Malphas haunts the pass ahead (amo's Act II main quest).
-        if (id === 'the_summit' && !stats.questLog?.main_whisperer_of_doubt) quests.start('main_whisperer_of_doubt');
-        // The Sanctuary: the Elemental's trial (Song 5).
-        if (id === 'sylvan_sanctuary' && !stats.questLog?.main_elementals_trial) quests.start('main_elementals_trial');
+        if (!CUSTOM) {   // Eldrin's story — a hero of your own is not part of it
+            // amo: entering Thaloria starts Act I's main quest, Odyssey's Dawn.
+            if (id === 'thaloria' && !stats.questLog?.main_odysseys_dawn) quests.start('main_odysseys_dawn');
+            // The mountain: Malphas haunts the pass ahead (amo's Act II main quest).
+            if (id === 'the_summit' && !stats.questLog?.main_whisperer_of_doubt) quests.start('main_whisperer_of_doubt');
+            // The Sanctuary: the Elemental's trial (Song 5).
+            if (id === 'sylvan_sanctuary' && !stats.questLog?.main_elementals_trial) quests.start('main_elementals_trial');
+        }
+        lockDoors(map, id);
+        if (CUSTOM && id === 'thaloria_inn' && !stats.flags.newcomer) newcomerMorning();
         hud.banner(lastLevel ? `${map.name} — ${lastLevel}` : map.name);
         save();
     },
@@ -237,6 +259,20 @@ const dialogue = createDialogue({
     onTalked: (npcId, name, start) => quests.afterTalk(npcId, name, start),
     onTeach: () => {},
 });
+// The newcomer's first morning at the inn: the letter under the door, and a home.
+function newcomerMorning() {
+    stats.flags.newcomer = true;
+    setTimeout(() => dialogue.start([
+        { speaker: '', text: 'You arrived in Thaloria last night, soaked through, and took the last room at the inn. Morning now — grey light, the smell of bread from below.' },
+        { speaker: '', text: 'A letter has been slipped under the door, sealed with the town\'s crest.' },
+        { speaker: 'The letter', text: '"To the traveller in the east room. The fine house on the guild road has stood empty since its owner walked the East Road and did not come back. The council grants it to anyone who will answer the bounty board. Ask nothing more of us, and we will ask nothing more of you."' },
+        { speaker: '', text: 'A heavy iron key is tucked inside. A house of your own — your home in Thaloria. (If you fall, you will wake there.)' },
+    ], () => {
+        stats.respawnPoint = { map: PLAYER_HOME, spawn: 'enter', label: 'Your house' };
+        hud.banner('A house of your own');
+        save();
+    }), 1200);
+}
 const projTmp = new THREE.Vector3();
 const project = (x, y, z) => { projTmp.set(x, y, z).project(camera); return { x: (projTmp.x * 0.5 + 0.5) * innerWidth, y: (-projTmp.y * 0.5 + 0.5) * innerHeight, visible: projTmp.z < 1 }; };
 travel = createTravel({
@@ -387,7 +423,7 @@ function tick(dt) {
     let lift = 0;
     clockRules.advanceClock(stats, dt * 1000);   // amo: one real minute = one game hour
     const ctx = { ...clock(), message: hud.message, attunedGates: stats.attunedGates, player: player.state, camera,
-        flags: (stats.flags ??= {}), shake: a => cam.kick(a), players: net.targets(), hurtRemote: (id, dmg, from) => net.hurtRemote(id, dmg, from),
+        flags: (stats.flags ??= {}), shake: a => cam.kick(a), customHero: CUSTOM, players: net.targets(), hurtRemote: (id, dmg, from) => net.hurtRemote(id, dmg, from),
         drainVigor: n => { stats.vigor = Math.max(0, stats.vigor - n); },
         onRetreat: () => { stats.flags.malphas_retreated = true; save(); }, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop };
     if (!world.step(dt)) lift = player.step(dt, act, ctx);
@@ -415,6 +451,7 @@ function tick(dt) {
 
 if (REGIONS[params.get('region')] || ['the_summit', 'thaloria', 'east_road', 'outdoor', 'sylvan_sanctuary', 'tower'].includes(params.get('region'))) world.enter(params.get('region'), 'start');   // the editor's "Play here"
 else if (savedAt && world.maps && ['outdoor', 'tower', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
+else if (CUSTOM) world.enter('thaloria_inn', 'enter');   // a hero of your own wakes at the inn
 else world.enter('outdoor', 'start');
 const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.current.scene, camera); perf.frame(); } });
 
