@@ -132,13 +132,14 @@ io.on('connection', socket => {
         if (!a.list.every(e => Array.isArray(e) && Number.isInteger(e[0]) && e[0] >= 0 && e[0] <= 400)) return;
         lastSnap = now;
         const list = a.list.filter(e => Array.isArray(e) && e.length === 8).map(e => e.map(v => num(+v, -1e5, 1e5)));
-        // Each snapshot replaces the last. A creature that jumped further than it could have run since the
-        // previous one is not trusted to strike for two seconds.
-        const prev = snaps.get(p.map), m = new Map();
+        // Each creature keeps its history across snapshots (one left out keeps its last place). A creature that
+        // jumped further than it could have run, or that appears with no recent history (new, or left out and
+        // brought back), is not trusted to strike for two seconds.
+        const m = snaps.get(p.map) ?? new Map();
         for (const [i, ...v] of list) {
-            const was = prev?.get(i), dt = was ? (now - was.t) / 1000 : 0;
-            const jumped = was && Math.hypot(v[0] - was.v[0], v[2] - was.v[2]) > MAX_CREATURE_SPEED * Math.max(dt, 0.07) + 1;
-            m.set(i, { v, t: now, untrustedUntil: jumped ? now + 2000 : (was?.untrustedUntil ?? 0) });
+            const was = m.get(i), fresh = was && now - was.t <= 1500, dt = fresh ? (now - was.t) / 1000 : 0;
+            const jumped = fresh && Math.hypot(v[0] - was.v[0], v[2] - was.v[2]) > MAX_CREATURE_SPEED * Math.max(dt, 0.07) + 1;
+            m.set(i, { v, t: now, untrustedUntil: !fresh || jumped ? now + 2000 : was.untrustedUntil });
         }
         snaps.set(p.map, m);
         socket.to(p.map).emit('enemy:snap', { list });
