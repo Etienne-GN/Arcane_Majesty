@@ -114,6 +114,9 @@ Status: **5.1 Thaloria done** (content/thaloria.js: amo's tile grid → grass / 
 | PC build (Tauri or Electron), Android release build, performance passes | N |
 | Game manual (docs/manual) updated for 3D | B |
 
+
+Status: **7.1 readability done (2026-11-14)**: one type scale — every UI font is calc(Npx × var(--ui)), sizes raised (nothing under 14 px; body text 15–18), --ui 1 on laptops, 1.15/1.3 on tall screens, 1.1 on phones; the dev title and the speed readout are gone from the HUD (speed with ?perf=1); the keyboard help is a card on H (a hint fades after 25 s), never on touch; the title's logo glides up and shrinks when the menu opens (two columns on short screens), TAP TO BEGIN on touch; world-map names scale with the canvas. **7.2 touch rework done**: compact bars top-left with only the filled hotbar slots under them; MENU (top right, beside the minimap) opens a sheet of big tiles — Satchel, Hero, Map, Journal, Codex, Aetheric Tear; tap the minimap for the world map; FIRE / HIT / HOP under the right thumb, style skills beside them (only the learned ones); push the stick past its ring to sprint (the RUN button is gone); the door/gather prompt is a tappable pill; everything steps aside while a menu or conversation is open. Next: save slots, options (audio, controls), credits, gamepad focus in every menu, PC + Android release builds, the manual.
+
 ## Not ported (2D-only tooling)
 LPC sprite ledger, sprite catalogue pipeline, LPC atlas, tile map generators, mapPaint/mapTexture,
 CharacterRenderer/lpcPalettes — replaced by the 3D Forge and the 3D world pipeline.

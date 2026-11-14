@@ -3,6 +3,11 @@ import * as THREE from 'three';
 import { statuses } from '@rules';
 
 const { STATUS_DEFS } = statuses;
+const PERF = new URLSearchParams(location.search).has('perf');
+
+// H toggles the controls card; the little hint fades after a while.
+addEventListener('keydown', e => { if (e.code === 'KeyH' && !e.repeat && !/INPUT|TEXTAREA/.test(document.activeElement?.tagName)) document.body.classList.toggle('help-on'); });
+setTimeout(() => { const h = document.getElementById('help-hint'); if (h) h.style.opacity = 0; }, 25000);
 
 export function createHud() {
     const $ = id => document.getElementById(id);
@@ -15,6 +20,7 @@ export function createHud() {
     let bannerT = 0, msgT = 0, hurtK = 0;
     // Status icons (buffs and debuffs on Eldrin): amo label, tint and time left.
     const icons = document.createElement('div');
+    icons.id = 'statusfx';
     icons.style.cssText = 'position:fixed;left:18px;bottom:236px;display:flex;flex-wrap:wrap;gap:6px;max-width:300px;pointer-events:none;z-index:4';
     document.body.append(icons);
     let iconKey = '';
@@ -48,7 +54,7 @@ export function createHud() {
             ui.lvl.textContent = `Level ${s.level} · ${s.xp} / ${s.xpToNextLevel} XP`;
             ui.mFill.style.width = `${(s.mana / s.maxMana) * 100}%`;
             ui.mNum.textContent = `${Math.round(s.mana)} / ${s.maxMana}${s.fatigueFraction > 0 ? ` · fatigue ${Math.round(s.fatigueFraction * 100)}%` : ''}`;
-            ui.speed.textContent = `${player.speed.toFixed(1)} m/s${player.hop ? ' · hop' : ''}${player.sprinting ? ' · sprint' : ''}`;
+            ui.speed.textContent = PERF ? `${player.speed.toFixed(1)} m/s${player.hop ? ' · hop' : ''}${player.sprinting ? ' · sprint' : ''}` : '';   // a debug readout: ?perf=1
             const cd = s.spellCooldowns[spell.id] ?? 0;
             ui.slotCd.style.height = `${Math.min(1, cd / spell.cooldown[0]) * 100}%`;
             ui.slot.classList.toggle('dry', s.mana < s.getSpellManaCost(spell.id));
@@ -63,7 +69,7 @@ export function createHud() {
                     const d = STATUS_DEFS[id];
                     const tag = document.createElement('div');
                     const tint = `#${(d?.tint ?? 0xcccccc).toString(16).padStart(6, '0')}`;
-                    tag.style.cssText = `font:12px Georgia,serif;color:#eee6d2;padding:3px 8px;border-radius:7px;background:#000a;border:1px solid ${tint};text-shadow:0 1px 2px #000`;
+                    tag.style.cssText = `font:calc(14px * var(--ui, 1)) Georgia,serif;color:#eee6d2;padding:3px 8px;border-radius:7px;background:#000a;border:1px solid ${tint};text-shadow:0 1px 2px #000`;
                     tag.textContent = `${d?.label ?? id} ${Math.ceil(b.left)}s`;
                     icons.append(tag);
                 }

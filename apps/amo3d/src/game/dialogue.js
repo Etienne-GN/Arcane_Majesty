@@ -12,16 +12,16 @@ export function createDialogue({ stats, hud, onShop, onQuest, onTeach, onTalked,
     css.textContent = `
 #dlg { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); width: min(760px, 94vw); z-index: 9; display: none;
     padding: 16px 20px 14px; border: 1px solid #f3d88b66; border-radius: 10px; background: linear-gradient(180deg, #1a1620f2, #0e0b12f6);
-    font: 17px/1.5 Georgia, serif; color: #eee6d2; box-shadow: 0 8px 30px #000b; cursor: pointer; }
+    font: calc(19px * var(--ui, 1))/1.5 Georgia, serif; color: #eee6d2; box-shadow: 0 8px 30px #000b; cursor: pointer; }
 #dlg.open { display: block; }
-#dlg .who { color: #f3d88b; letter-spacing: .12em; font-size: 14px; text-transform: uppercase; margin-bottom: 6px; }
-#dlg .more { position: absolute; right: 14px; bottom: 8px; font-size: 12px; opacity: .6; animation: blink 1.2s infinite; }
+#dlg .who { color: #f3d88b; letter-spacing: .12em; font-size: calc(16px * var(--ui, 1)); text-transform: uppercase; margin-bottom: 6px; }
+#dlg .more { position: absolute; right: 14px; bottom: 8px; font-size: calc(14px * var(--ui, 1)); opacity: .6; animation: blink 1.2s infinite; }
 @keyframes blink { 50% { opacity: .15; } }
 #dlg .choices { margin-top: 10px; display: grid; gap: 6px; }
-#dlg .choices button { text-align: left; font: 15px Georgia, serif; color: #eee6d2; background: #2a1c10; border: 1px solid #f3d88b55; border-radius: 6px; padding: 7px 10px; cursor: pointer; }
+#dlg .choices button { text-align: left; font: calc(17px * var(--ui, 1)) Georgia, serif; color: #eee6d2; background: #2a1c10; border: 1px solid #f3d88b55; border-radius: 6px; padding: 7px 10px; cursor: pointer; }
 #dlg .choices button:hover { border-color: #f3d88b; }
 .bubble { position: fixed; left: 0; top: 0; z-index: 5; pointer-events: none; max-width: 240px; padding: 6px 10px; border-radius: 9px;
-    background: #f6efe0; color: #2a2018; font: 14px Georgia, serif; box-shadow: 0 3px 10px #0008; transition: opacity .4s; }`;
+    background: #f6efe0; color: #2a2018; font: calc(16px * var(--ui, 1)) Georgia, serif; box-shadow: 0 3px 10px #0008; transition: opacity .4s; }`;
     document.head.append(css);
     const root = document.createElement('div');
     root.id = 'dlg';

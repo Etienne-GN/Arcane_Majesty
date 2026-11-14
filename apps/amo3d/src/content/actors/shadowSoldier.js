@@ -205,7 +205,7 @@ export function createShadows({ scene, map, rng, posts }) {
             fx: {}, deadT: 0, notice: 0, target: null, lunge: 0, seen: false, t: 0,
         };
         const plate = document.createElement('div');
-        plate.innerHTML = `<div style="font:13px Georgia,serif;color:#e6d6ff;text-shadow:0 1px 3px #000;letter-spacing:.06em;text-align:center">Shadow Soldier <span style="opacity:.6;font-size:11px">· ${(affinityOf(TYPE).family ?? '').replace(/^./, c => c.toUpperCase())}-touched</span></div>
+        plate.innerHTML = `<div style="font:calc(15px * var(--ui, 1)) Georgia,serif;color:#e6d6ff;text-shadow:0 1px 3px #000;letter-spacing:.06em;text-align:center">Shadow Soldier <span style="opacity:.6;font-size:calc(14px * var(--ui, 1))">· ${(affinityOf(TYPE).family ?? '').replace(/^./, c => c.toUpperCase())}-touched</span></div>
             <div style="width:110px;height:6px;margin:3px auto 0;border:1px solid #c9b6ff88;border-radius:4px;background:#0009;overflow:hidden"><div style="height:100%;width:100%;background:linear-gradient(90deg,#5a1a8a,#a64aff)"></div></div>`;
         plate.style.cssText = 'position:absolute;left:0;top:0;opacity:0;transition:opacity .3s;white-space:nowrap';
         plates.append(plate);

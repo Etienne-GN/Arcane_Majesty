@@ -35,7 +35,7 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
     const plate = document.createElement('div');
     plate.style.cssText = 'position:absolute;left:0;top:0;opacity:0;transition:opacity .3s;white-space:nowrap;text-align:center';
     const label = document.createElement('div');
-    label.style.cssText = 'font:13px Georgia,serif;color:#f0e6d2;text-shadow:0 1px 3px #000;letter-spacing:.06em';
+    label.style.cssText = 'font:calc(15px * var(--ui, 1)) Georgia,serif;color:#f0e6d2;text-shadow:0 1px 3px #000;letter-spacing:.06em';
     label.textContent = name + (family.family ? ` · ${family.family[0].toUpperCase()}${family.family.slice(1)}` : '');
     const barBox = document.createElement('div');
     barBox.style.cssText = 'width:100px;height:6px;margin:3px auto 0;border:1px solid #eee6d288;border-radius:4px;background:#0009;overflow:hidden';

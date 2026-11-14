@@ -2,7 +2,7 @@
 // clamped game dt), worst frame time, draw calls, triangles, and the quality preset.
 export function createPerf(renderer, quality) {
     const el = document.createElement('div');
-    el.style.cssText = 'position:fixed;right:18px;top:34px;z-index:6;pointer-events:none;font:12px/1.5 monospace;'
+    el.style.cssText = 'position:fixed;right:18px;top:34px;z-index:6;pointer-events:none;font:calc(14px * var(--ui, 1))/1.5 monospace;'
         + 'color:#cfe;background:#0009;padding:6px 9px;border-radius:6px;white-space:pre;display:none';
     document.body.append(el);
     let on = new URLSearchParams(location.search).get('perf') === '1';

@@ -13,13 +13,13 @@ export function createQuests({ stats, hud }) {
 #journal { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #05060acc; font-family: Georgia, serif; color: #eee6d2; }
 #journal.open { display: grid; }
 #journal .panel { width: min(680px, 94vw); max-height: 88vh; overflow: auto; padding: 18px 22px; border: 1px solid #f3d88b66; border-radius: 14px; background: linear-gradient(160deg, #201a14ee, #0e0b08f4); }
-#journal h2 { margin: 0 0 10px; font-weight: normal; letter-spacing: .16em; color: #f3d88b; font-size: 20px; }
-#journal h3 { margin: 14px 0 6px; font-weight: normal; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+#journal h2 { margin: 0 0 10px; font-weight: normal; letter-spacing: .16em; color: #f3d88b; font-size: calc(24px * var(--ui, 1)); }
+#journal h3 { margin: 14px 0 6px; font-weight: normal; font-size: calc(14px * var(--ui, 1)); letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
 #journal .q { padding: 10px 12px; margin-bottom: 8px; border-radius: 8px; background: #ffffff0a; border: 1px solid #ffffff14; }
-#journal .t { font-size: 16px; } #journal .t small { font-size: 11px; opacity: .6; letter-spacing: .1em; text-transform: uppercase; margin-left: 6px; }
-#journal .d { font-size: 13px; opacity: .75; margin: 4px 0 6px; }
-#journal .s { font-size: 13px; } #journal .s.done { opacity: .5; text-decoration: line-through; }
-#journal .close { float: right; font: 13px Georgia, serif; color: #eee6d2; background: transparent; border: 1px solid #eee6d255; border-radius: 7px; padding: 6px 12px; cursor: pointer; }`;
+#journal .t { font-size: calc(18px * var(--ui, 1)); } #journal .t small { font-size: calc(14px * var(--ui, 1)); opacity: .6; letter-spacing: .1em; text-transform: uppercase; margin-left: 6px; }
+#journal .d { font-size: calc(15px * var(--ui, 1)); opacity: .75; margin: 4px 0 6px; }
+#journal .s { font-size: calc(15px * var(--ui, 1)); } #journal .s.done { opacity: .5; text-decoration: line-through; }
+#journal .close { float: right; font: calc(15px * var(--ui, 1)) Georgia, serif; color: #eee6d2; background: transparent; border: 1px solid #eee6d255; border-radius: 7px; padding: 6px 12px; cursor: pointer; }`;
     document.head.append(css);
     const root = document.createElement('div');
     root.id = 'journal';

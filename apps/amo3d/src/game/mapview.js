@@ -19,10 +19,9 @@ export function createMapView({ stats, hud }) {
 #worldmap { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #05060ae0; font-family: Georgia, serif; color: #eee6d2; }
 #worldmap.open { display: grid; }
 #worldmap .frame { position: relative; padding: 14px; border: 1px solid #f3d88b66; border-radius: 12px; background: #16121bf0; }
-#worldmap h2 { margin: 0 0 8px; font-weight: normal; letter-spacing: .14em; color: #f3d88b; font-size: 18px; }
+#worldmap h2 { margin: 0 0 8px; font-weight: normal; letter-spacing: .14em; color: #f3d88b; font-size: calc(20px * var(--ui, 1)); }
 #worldmap canvas { display: block; width: min(78vh, 86vw); height: min(78vh, 86vw); border-radius: 6px; }
-#worldmap .hint { font-size: 12px; opacity: .6; margin-top: 6px; }
-body.touch-mode #minimap { width: 120px; height: 120px; top: 70px; }
+#worldmap .hint { font-size: calc(14px * var(--ui, 1)); opacity: .6; margin-top: 6px; }
 body.title-on #minimap { display: none; }`;
     document.head.append(css);
     const mini = document.createElement('canvas');
@@ -33,7 +32,7 @@ body.title-on #minimap { display: none; }`;
     const frame = document.createElement('div'); frame.className = 'frame';
     const title = document.createElement('h2');
     const big = document.createElement('canvas'); big.width = 900; big.height = 900;
-    const hint = document.createElement('div'); hint.className = 'hint'; hint.textContent = 'M or Esc to close';
+    const hint = document.createElement('div'); hint.className = 'hint'; hint.textContent = document.body.classList.contains('touch-mode') || matchMedia('(pointer: coarse)').matches ? 'Tap to close' : 'M or Esc to close';
     frame.append(title, big, hint);
     overlay.append(frame);
     overlay.addEventListener('pointerdown', () => toggle());
@@ -155,12 +154,12 @@ body.title-on #minimap { display: none; }`;
         drawFog(g, -half, -half, half, half, scale, -half, -half);
         const scr = (x, z) => [(x + half) * scale, (z + half) * scale];
         dots(g, scr);
-        g.font = '15px Georgia'; g.textAlign = 'center';
+        g.font = `${Math.round(S * 0.034)}px Georgia`; g.textAlign = 'center'; g.lineJoin = 'round'; g.lineWidth = Math.max(3, S * 0.006); g.strokeStyle = '#000c';   // sized to the canvas, so the names read at any screen size
         for (const l of mapRef.mapInfo.landmarks) {
             const cx = Math.floor((l.x + half) / (F.FOG_CELL * TILE)), cz = Math.floor((l.z + half) / (F.FOG_CELL * TILE));
             if (!F.isCellExplored(fog, cx, cz)) continue;
             const [sx, sy] = scr(l.x, l.z);
-            g.fillStyle = '#000a'; g.fillText(`${ICON[l.icon] ?? '•'} ${l.name}`, sx + 1, sy + 1);
+            g.strokeText(`${ICON[l.icon] ?? '•'} ${l.name}`, sx, sy);
             g.fillStyle = '#f3e2b0'; g.fillText(`${ICON[l.icon] ?? '•'} ${l.name}`, sx, sy);
         }
         const [px, py] = scr(player.pos.x, player.pos.z);

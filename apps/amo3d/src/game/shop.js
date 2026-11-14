@@ -15,17 +15,17 @@ export function createShop({ stats, hud, save }) {
 #shop { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #05060acc; font-family: Georgia, serif; color: #eee6d2; }
 #shop.open { display: grid; }
 #shop .panel { width: min(900px, 95vw); max-height: 90vh; overflow: auto; padding: 16px 20px; border: 1px solid #f3d88b66; border-radius: 14px; background: linear-gradient(160deg, #1b1720ee, #0e0c12f2); }
-#shop h2 { margin: 0; font-weight: normal; letter-spacing: .16em; color: #f3d88b; font-size: 20px; }
-#shop .purse { font-size: 15px; margin: 4px 0 12px; }
+#shop h2 { margin: 0; font-weight: normal; letter-spacing: .16em; color: #f3d88b; font-size: calc(24px * var(--ui, 1)); }
+#shop .purse { font-size: calc(17px * var(--ui, 1)); margin: 4px 0 12px; }
 #shop .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-#shop h3 { margin: 0 0 6px; font-weight: normal; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
-#shop .row { display: flex; align-items: center; gap: 8px; padding: 6px 8px; margin-bottom: 4px; border-radius: 7px; background: #ffffff0a; border: 1px solid #ffffff14; font-size: 13px; cursor: pointer; }
+#shop h3 { margin: 0 0 6px; font-weight: normal; font-size: calc(14px * var(--ui, 1)); letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+#shop .row { display: flex; align-items: center; gap: 8px; padding: 6px 8px; margin-bottom: 4px; border-radius: 7px; background: #ffffff0a; border: 1px solid #ffffff14; font-size: calc(15px * var(--ui, 1)); cursor: pointer; }
 #shop .row:hover { border-color: #f3d88b; }
 #shop .row.poor { opacity: .45; }
 #shop .row .n { flex: 1; } #shop .row .q { opacity: .6; }
 #shop .gem { width: 10px; height: 10px; border-radius: 3px; transform: rotate(45deg); }
-#shop .desc { min-height: 34px; margin-top: 10px; font-size: 13px; opacity: .8; }
-#shop .close { float: right; font: 13px Georgia, serif; color: #eee6d2; background: transparent; border: 1px solid #eee6d255; border-radius: 7px; padding: 6px 12px; cursor: pointer; }
+#shop .desc { min-height: 34px; margin-top: 10px; font-size: calc(15px * var(--ui, 1)); opacity: .8; }
+#shop .close { float: right; font: calc(15px * var(--ui, 1)) Georgia, serif; color: #eee6d2; background: transparent; border: 1px solid #eee6d255; border-radius: 7px; padding: 6px 12px; cursor: pointer; }
 @media (max-width: 640px) { #shop .cols { grid-template-columns: 1fr; } }`;
     document.head.append(css);
     const root = document.createElement('div');
@@ -94,7 +94,7 @@ export function createShop({ stats, hud, save }) {
             const cost = E.shopPrice(e, bias);
             left.append(row(e.id, `${ITEMS[e.id].name}${(e.qty ?? 1) > 1 ? ` ×${e.qty}` : ''}`, price(cost, e.currency), (stats[e.currency] ?? 0) < cost, () => buy(e)));
         }
-        right.append(el('h3', null, 'Your satchel — click to sell'));
+        right.append(el('h3', null, matchMedia('(pointer: coarse)').matches ? 'Your satchel — tap to sell' : 'Your satchel — click to sell'));
         const sellable = stats.inventory.filter(i => (ITEMS[i.id]?.sellPrice ?? 0) > 0);
         if (!sellable.length) right.append(el('div', 'q', 'Nothing they would buy.'));
         for (const it of sellable) right.append(row(it.id, `${ITEMS[it.id].name}${it.qty > 1 ? ` ×${it.qty}` : ''}`, price(ITEMS[it.id].sellPrice, E.itemCurrency(it.id)), false, () => sell(it.id)));

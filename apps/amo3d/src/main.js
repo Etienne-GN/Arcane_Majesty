@@ -258,7 +258,8 @@ const gameCam = {
 const GLADE_WEATHER = { id: 'thaloria_glade', biome: 'forest' };
 const clockEl = document.createElement('div');
 clockEl.className = 'hud';
-clockEl.style.cssText = 'right:18px;top:54px;font-size:13px;opacity:.85;letter-spacing:.05em';
+clockEl.id = 'clock';
+clockEl.style.cssText = 'right:18px;top:54px;font-size:calc(15px * var(--ui, 1));opacity:.85;letter-spacing:.05em';
 document.body.append(clockEl);
 let weatherOverride = params.get('weather');
 function clock(min = stats.gameMinutes ?? clockRules.START_MINUTES) {
@@ -336,7 +337,7 @@ function tick(dt) {
     hud.update(dt, { stats, player: p, camera, spell: FIREBALL });
     const c = clock();
     clockEl.textContent = `${clockRules.clockLabel(c.minutes)} · ${weatherRules.WEATHER[c.weather] ?? c.weather}`;
-    if (archery.armed()) hud.ui.speed.textContent += ` · ${archery.ready()} ready (+${archery.spare()} in the satchel)`;
+    if (archery.armed()) hud.ui.speed.textContent += `${hud.ui.speed.textContent ? ' · ' : ''}${archery.ready()} arrows ready (+${archery.spare()} in the satchel)`;
 }
 
 if (REGIONS[params.get('region')] || ['the_summit', 'thaloria', 'east_road', 'outdoor'].includes(params.get('region'))) world.enter(params.get('region'), 'start');   // the editor's "Play here"

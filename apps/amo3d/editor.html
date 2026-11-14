@@ -5,23 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Region Editor — Arcane Majesty</title>
     <style>
-        :root { --gold: #f3d88b; --ink: #eee6d2; }
+        /* One type scale for every menu and HUD element (Phase 7): sizes are calc(Npx * var(--ui)). */
+        :root { --ui: 1; }
+        @media (min-height: 1000px) { :root { --ui: 1.15; } }
+        @media (min-height: 1400px) { :root { --ui: 1.3; } }
+        @media (pointer: coarse) { :root { --ui: 1.1; } }   /* phone pixels are small: everything a size up */
+                :root { --gold: #f3d88b; --ink: #eee6d2; }
         html, body { margin: 0; height: 100%; background: #0d0b10; color: var(--ink); font-family: Georgia, 'Times New Roman', serif; overflow: hidden; }
         #view { position: fixed; inset: 0 360px 0 0; display: grid; place-items: center; }
         #view canvas { max-width: 96%; max-height: 96%; cursor: crosshair; image-rendering: auto; border-radius: 6px; box-shadow: 0 6px 30px #000a; }
         #side { position: fixed; top: 0; right: 0; bottom: 0; width: 360px; overflow-y: auto; background: #16121bee; border-left: 1px solid #f3d88b44; padding: 14px 16px 30px; box-sizing: border-box; }
-        h1 { margin: 0; font-weight: normal; letter-spacing: .18em; color: var(--gold); font-size: 20px; }
-        h2 { font-weight: normal; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; opacity: .7; margin: 16px 0 6px; }
-        .sub { font-size: 12px; opacity: .65; }
-        label { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 13px; margin: 5px 0; }
-        input[type=text], input[type=number], select { width: 150px; background: #0008; color: var(--ink); border: 1px solid #eee6d244; border-radius: 6px; padding: 4px 6px; font: 13px Georgia, serif; }
+        h1 { margin: 0; font-weight: normal; letter-spacing: .18em; color: var(--gold); font-size: calc(24px * var(--ui, 1)); }
+        h2 { font-weight: normal; font-size: calc(14px * var(--ui, 1)); letter-spacing: .14em; text-transform: uppercase; opacity: .7; margin: 16px 0 6px; }
+        .sub { font-size: calc(14px * var(--ui, 1)); opacity: .65; }
+        label { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: calc(15px * var(--ui, 1)); margin: 5px 0; }
+        input[type=text], input[type=number], select { width: 150px; background: #0008; color: var(--ink); border: 1px solid #eee6d244; border-radius: 6px; padding: 4px 6px; font: calc(15px * var(--ui, 1)) Georgia, serif; }
         input[type=color] { width: 44px; height: 24px; border: 1px solid #eee6d244; border-radius: 6px; background: none; padding: 0; }
         .tools { display: flex; flex-wrap: wrap; gap: 5px; }
-        .tool { padding: 5px 9px; border-radius: 12px; border: 1px solid #eee6d244; font-size: 12px; cursor: pointer; background: #0006; }
+        .tool { padding: 5px 9px; border-radius: 12px; border: 1px solid #eee6d244; font-size: calc(14px * var(--ui, 1)); cursor: pointer; background: #0006; }
         .tool.on { border-color: var(--gold); background: #f3d88b26; }
-        button { font: 13px Georgia, serif; padding: 7px 12px; border-radius: 7px; cursor: pointer; border: 1px solid #f3d88b88; background: #2a1c10; color: var(--ink); margin: 3px 3px 0 0; }
+        button { font: calc(15px * var(--ui, 1)) Georgia, serif; padding: 7px 12px; border-radius: 7px; cursor: pointer; border: 1px solid #f3d88b88; background: #2a1c10; color: var(--ink); margin: 3px 3px 0 0; }
         button.main { background: var(--gold); color: #1b1406; border: 0; }
-        #status { font-size: 12px; margin-top: 8px; min-height: 16px; }
+        #status { font-size: calc(14px * var(--ui, 1)); margin-top: 8px; min-height: 16px; }
     </style>
 </head>
 <body>

@@ -30,17 +30,17 @@ export function createChests({ stats, hud }) {
 #chest.open { display: grid; }
 #chest .panel { width: min(860px, 94vw); max-height: 90vh; overflow: auto; padding: 18px 22px; border: 1px solid #f3d88b66; border-radius: 14px;
     background: linear-gradient(160deg, #1b1720ee, #0e0c12f2); }
-#chest h2 { margin: 0 0 10px; font-weight: normal; letter-spacing: .14em; font-size: 20px; color: #f3d88b; }
+#chest h2 { margin: 0 0 10px; font-weight: normal; letter-spacing: .14em; font-size: calc(24px * var(--ui, 1)); color: #f3d88b; }
 #chest .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-#chest h3 { margin: 0 0 8px; font-weight: normal; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+#chest h3 { margin: 0 0 8px; font-weight: normal; font-size: calc(14px * var(--ui, 1)); letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
 #chest .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px; }
-#chest .item { position: relative; padding: 8px; border-radius: 8px; background: #ffffff0d; border: 1px solid #ffffff1a; cursor: pointer; font-size: 12px; min-height: 36px; }
+#chest .item { position: relative; padding: 8px; border-radius: 8px; background: #ffffff0d; border: 1px solid #ffffff1a; cursor: pointer; font-size: calc(14px * var(--ui, 1)); min-height: 36px; }
 #chest .item:hover { border-color: #f3d88b; }
 #chest .free { opacity: .25; cursor: default; }
 #chest .gem { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; transform: rotate(45deg); }
-#chest .qty { position: absolute; right: 6px; bottom: 4px; font-size: 11px; opacity: .8; }
-#chest .hint { font-size: 12px; opacity: .6; margin: 10px 0 0; }
-#chest button { float: right; font: 13px Georgia, serif; color: #eee6d2; background: transparent; border: 1px solid #eee6d255; border-radius: 7px; padding: 7px 14px; cursor: pointer; }
+#chest .qty { position: absolute; right: 6px; bottom: 4px; font-size: calc(14px * var(--ui, 1)); opacity: .8; }
+#chest .hint { font-size: calc(14px * var(--ui, 1)); opacity: .6; margin: 10px 0 0; }
+#chest button { float: right; font: calc(15px * var(--ui, 1)) Georgia, serif; color: #eee6d2; background: transparent; border: 1px solid #eee6d255; border-radius: 7px; padding: 7px 14px; cursor: pointer; }
 @media (max-width: 640px) { #chest .cols { grid-template-columns: 1fr; } }`;
     document.head.append(style);
     const root = document.createElement('div');

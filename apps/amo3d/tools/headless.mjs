@@ -10,10 +10,12 @@ import { join } from 'node:path';
 const [outDir, scriptJson] = process.argv.slice(2);
 const script = JSON.parse(scriptJson);
 const port = 9333;
+// HL_W / HL_H / HL_DPR / HL_TOUCH=1: emulate a phone (the S25 Ultra in landscape is ~915×412 at DPR 3.5).
+const W = +(process.env.HL_W ?? 1280), H = +(process.env.HL_H ?? 720), DPR = +(process.env.HL_DPR ?? 1), TOUCH = process.env.HL_TOUCH === '1';
 const profile = mkdtempSync(join(tmpdir(), 'amo3d-prof-'));   // outside the watched tree; removed at the end
 const chrome = spawn('google-chrome', [
     '--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`,
-    '--window-size=1280,720', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist',
+    `--window-size=${W},${H}`, '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist',
     'about:blank',
 ], { stdio: 'ignore' });
 
@@ -36,8 +38,10 @@ const send = (method, params = {}) => new Promise(r => { const i = ++id; pending
 
 await send('Runtime.enable');
 await send('Page.enable');
-await send('Emulation.setDeviceMetricsOverride', { width: 1280, height: 720, deviceScaleFactor: 1, mobile: false });
-await send('Page.navigate', { url: 'http://localhost:5190/' });
+await send('Emulation.setDeviceMetricsOverride', { width: W, height: H, deviceScaleFactor: DPR, mobile: TOUCH });
+if (TOUCH) await send('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 });
+if (TOUCH) await send('Emulation.setEmitTouchEventsForMouse', { enabled: true, configuration: 'mobile' });
+await send('Page.navigate', { url: `http://localhost:5190/${TOUCH ? '?touch=1' : ''}` });
 await sleep(4000);
 
 const keyInfo = code => ({ code, key: code.startsWith('Key') ? code.slice(3).toLowerCase() : code === 'Space' ? ' ' : code, windowsVirtualKeyCode: code.startsWith('Key') ? code.charCodeAt(3) : code === 'Space' ? 32 : code.startsWith('Shift') ? 16 : 0 });

@@ -15,11 +15,11 @@ const toM = px => (px / 32) * 2;   // amo pixels → metres, with the 3D reach t
 const CSS = `
 #skills { position: fixed; left: 50%; bottom: 92px; transform: translateX(-50%); display: flex; gap: 8px; z-index: 4; }
 #skills .sk { position: relative; width: 92px; padding: 5px 6px; border-radius: 8px; border: 1px solid #c9b6ff66; background: #0009;
-    font: 11px Georgia, serif; color: #eee6d2; text-align: center; pointer-events: auto; cursor: pointer; overflow: hidden; }
+    font: calc(14px * var(--ui, 1)) Georgia, serif; color: #eee6d2; text-align: center; pointer-events: auto; cursor: pointer; overflow: hidden; }
 #skills .sk.off { opacity: .35; }
-#skills .sk .key { position: absolute; left: 4px; top: 1px; font-size: 10px; opacity: .7; }
+#skills .sk .key { position: absolute; left: 4px; top: 1px; font-size: calc(13px * var(--ui, 1)); opacity: .7; }
 #skills .sk .cd { position: absolute; left: 0; right: 0; bottom: 0; background: #000b; }
-body.touch-mode #skills { bottom: auto; top: 14px; }`;
+`;
 
 export function createSkills({ stats, player, hud, cam, world }) {
     const style = document.createElement('style');

@@ -58,7 +58,7 @@ export function createTownsfolk({ scene, W, H, resolve = null, mapId = 'thaloria
         if (r.npc) {
             label = document.createElement('div');
             label.textContent = r.npc.name.replace(/^./, c => c.toUpperCase());
-            label.style.cssText = 'position:absolute;left:0;top:0;font:13px Georgia,serif;color:#f3e2b0;text-shadow:0 1px 3px #000;opacity:0;transition:opacity .3s;white-space:nowrap';
+            label.style.cssText = 'position:absolute;left:0;top:0;font:calc(15px * var(--ui, 1)) Georgia,serif;color:#f3e2b0;text-shadow:0 1px 3px #000;opacity:0;transition:opacity .3s;white-space:nowrap';
             labels.append(label);
         }
         return { r, look, far, model: null, pos: new THREE.Vector3(), facing: 0, speed: 0, shown: false, label, height: bodyH + 0.5 };

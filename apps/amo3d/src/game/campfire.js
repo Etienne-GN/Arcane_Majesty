@@ -26,14 +26,14 @@ const CSS = `
 #camp.open { display: grid; }
 #camp .panel { width: min(760px, 94vw); max-height: 90vh; overflow: auto; padding: 18px 22px; border: 1px solid #ff9a4a66;
     border-radius: 14px; background: linear-gradient(160deg, #24160fee, #0e0a08f2); box-shadow: 0 10px 40px #000a, 0 0 60px #ff7a2a22; }
-#camp h2 { margin: 0 0 4px; font-weight: normal; letter-spacing: .14em; font-size: 20px; color: #ffc27a; }
-#camp .meta { font-size: 13px; opacity: .75; margin-bottom: 12px; }
+#camp h2 { margin: 0 0 4px; font-weight: normal; letter-spacing: .14em; font-size: calc(24px * var(--ui, 1)); color: #ffc27a; }
+#camp .meta { font-size: calc(15px * var(--ui, 1)); opacity: .75; margin-bottom: 12px; }
 #camp .row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 10px; margin-bottom: 6px;
-    border-radius: 8px; background: #ffffff0a; border: 1px solid #ffffff14; font-size: 14px; }
+    border-radius: 8px; background: #ffffff0a; border: 1px solid #ffffff14; font-size: calc(16px * var(--ui, 1)); }
 #camp .row.cant { opacity: .5; }
-#camp .sub { font-size: 12px; opacity: .7; }
+#camp .sub { font-size: calc(14px * var(--ui, 1)); opacity: .7; }
 #camp .ok { color: #bfe6a0; } #camp .no { color: #ff9a8a; }
-#camp button { font: 13px Georgia, serif; color: #1b1406; background: #ffc27a; border: 0; border-radius: 7px; padding: 6px 14px; cursor: pointer; }
+#camp button { font: calc(15px * var(--ui, 1)) Georgia, serif; color: #1b1406; background: #ffc27a; border: 0; border-radius: 7px; padding: 6px 14px; cursor: pointer; }
 #camp button[disabled] { opacity: .4; cursor: default; }
 #camp button.ghost { background: transparent; color: #eee6d2; border: 1px solid #eee6d255; }
 #camp .top { display: flex; gap: 8px; float: right; }`;

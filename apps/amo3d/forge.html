@@ -5,28 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>The Forge — Arcane Majesty</title>
     <style>
-        :root { --gold: #f3d88b; --ink: #eee6d2; --panel: #16121bee; }
+        /* One type scale for every menu and HUD element (Phase 7): sizes are calc(Npx * var(--ui)). */
+        :root { --ui: 1; }
+        @media (min-height: 1000px) { :root { --ui: 1.15; } }
+        @media (min-height: 1400px) { :root { --ui: 1.3; } }
+        @media (pointer: coarse) { :root { --ui: 1.1; } }   /* phone pixels are small: everything a size up */
+                :root { --gold: #f3d88b; --ink: #eee6d2; --panel: #16121bee; }
         html, body { margin: 0; height: 100%; background: #0d0b10; color: var(--ink); font-family: Georgia, 'Times New Roman', serif; overflow: hidden; }
         #stage { position: fixed; inset: 0 360px 0 0; }
         #stage canvas { display: block; width: 100%; height: 100%; cursor: grab; }
         #side { position: fixed; top: 0; right: 0; bottom: 0; width: 360px; overflow-y: auto; background: var(--panel);
             border-left: 1px solid #f3d88b44; padding: 16px 18px 30px; box-sizing: border-box; }
-        h1 { margin: 0; font-weight: normal; letter-spacing: .2em; color: var(--gold); font-size: 22px; }
-        .sub { font-size: 12px; opacity: .65; margin: 2px 0 14px; }
-        h2 { font-weight: normal; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; opacity: .7; margin: 18px 0 8px; }
-        label { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 13px; margin: 6px 0; }
-        input[type=text], select { flex: 1; max-width: 190px; background: #0008; color: var(--ink); border: 1px solid #eee6d244; border-radius: 6px; padding: 5px 7px; font: 13px Georgia, serif; }
+        h1 { margin: 0; font-weight: normal; letter-spacing: .2em; color: var(--gold); font-size: calc(26px * var(--ui, 1)); }
+        .sub { font-size: calc(14px * var(--ui, 1)); opacity: .65; margin: 2px 0 14px; }
+        h2 { font-weight: normal; font-size: calc(14px * var(--ui, 1)); letter-spacing: .14em; text-transform: uppercase; opacity: .7; margin: 18px 0 8px; }
+        label { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: calc(15px * var(--ui, 1)); margin: 6px 0; }
+        input[type=text], select { flex: 1; max-width: 190px; background: #0008; color: var(--ink); border: 1px solid #eee6d244; border-radius: 6px; padding: 5px 7px; font: calc(15px * var(--ui, 1)) Georgia, serif; }
         input[type=color] { width: 46px; height: 26px; border: 1px solid #eee6d244; border-radius: 6px; background: none; padding: 0; }
         input[type=range] { flex: 1; max-width: 190px; accent-color: var(--gold); }
         .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-        .chip { padding: 5px 10px; border-radius: 14px; border: 1px solid #eee6d244; font-size: 12px; cursor: pointer; background: #0006; }
+        .chip { padding: 5px 10px; border-radius: 14px; border: 1px solid #eee6d244; font-size: calc(14px * var(--ui, 1)); cursor: pointer; background: #0006; }
         .chip.on { border-color: var(--gold); background: #f3d88b26; color: #fff4d0; }
         .row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-        button { font: 13px Georgia, serif; padding: 8px 14px; border-radius: 7px; cursor: pointer; border: 1px solid #f3d88b88; background: #2a1c10; color: var(--ink); }
+        button { font: calc(15px * var(--ui, 1)) Georgia, serif; padding: 8px 14px; border-radius: 7px; cursor: pointer; border: 1px solid #f3d88b88; background: #2a1c10; color: var(--ink); }
         button.main { background: var(--gold); color: #1b1406; border: 0; }
-        #status { font-size: 12px; margin-top: 10px; min-height: 16px; color: #bfe6a0; }
-        textarea { width: 100%; box-sizing: border-box; height: 52px; background: #0008; color: var(--ink); border: 1px solid #eee6d244; border-radius: 6px; font: 12px Georgia, serif; padding: 6px; }
-        #hint { position: fixed; left: 16px; bottom: 14px; font-size: 12px; opacity: .6; pointer-events: none; }
+        #status { font-size: calc(14px * var(--ui, 1)); margin-top: 10px; min-height: 16px; color: #bfe6a0; }
+        textarea { width: 100%; box-sizing: border-box; height: 52px; background: #0008; color: var(--ink); border: 1px solid #eee6d244; border-radius: 6px; font: calc(14px * var(--ui, 1)) Georgia, serif; padding: 6px; }
+        #hint { position: fixed; left: 16px; bottom: 14px; font-size: calc(14px * var(--ui, 1)); opacity: .6; pointer-events: none; }
         @media (max-width: 760px) {
             #stage { inset: 0 0 50% 0; }
             #side { top: 50%; width: 100%; border-left: 0; border-top: 1px solid #f3d88b44; }

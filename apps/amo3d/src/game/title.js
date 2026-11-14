@@ -33,18 +33,29 @@ const CSS = `
 #titlescreen .sub { position: absolute; left: 0; right: 0; top: calc(30% + clamp(52px, 11vw, 128px)); text-align: center;
     letter-spacing: .5em; text-indent: .5em; font-size: clamp(11px, 1.6vw, 16px); color: #e8d6a8; opacity: 0; transition: opacity 2s 1.2s; }
 #titlescreen.lit .sub { opacity: .85; }
-#titlescreen .press { position: absolute; left: 0; right: 0; bottom: 18%; text-align: center; letter-spacing: .3em; font-size: 15px;
+#titlescreen .press { position: absolute; left: 0; right: 0; bottom: 18%; text-align: center; letter-spacing: .3em; font-size: calc(17px * var(--ui, 1));
     animation: breathe 2.4s ease-in-out infinite; }
 @keyframes breathe { 50% { opacity: .35; } }
 #titlescreen .menu { position: absolute; left: 0; right: 0; bottom: 12%; display: none; flex-direction: column; align-items: center; gap: 10px; }
 #titlescreen.menu-on .menu { display: flex; }
 #titlescreen.menu-on .press { display: none; }
-#titlescreen .menu button { min-width: 240px; padding: 11px 26px; font: 17px Georgia, serif; letter-spacing: .18em; color: #f3e2b0; cursor: pointer;
+/* With the menu up, the title glides to the top and shrinks so nothing overlaps (Phase 7). */
+#titlescreen h1 { transition: opacity 2.6s ease, transform 3s ease, top .8s ease, font-size .8s ease; }
+#titlescreen.menu-on h1 { top: 7%; font-size: clamp(28px, 5vw, 64px); }
+#titlescreen.menu-on .sub { opacity: 0; }
+#titlescreen.menu-on .sigil { top: 24%; width: min(36vh, 50vw); }
+@media (max-height: 560px) {
+    #titlescreen.menu-on h1 { top: 4%; font-size: clamp(24px, 4.2vw, 44px); }
+    #titlescreen .menu { bottom: 6%; display: none; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 760px; margin: 0 auto; }
+    #titlescreen.menu-on .menu { display: flex; }
+    #titlescreen .menu button { min-width: 300px; padding: 9px 18px; }
+}
+#titlescreen .menu button { min-width: 240px; padding: 11px 26px; font: calc(19px * var(--ui, 1)) Georgia, serif; letter-spacing: .18em; color: #f3e2b0; cursor: pointer;
     background: linear-gradient(180deg, #2a1c10cc, #120a06cc); border: 1px solid #f3d88b66; border-radius: 3px; transition: all .25s; }
 #titlescreen .menu button:hover, #titlescreen .menu button:focus { border-color: #f3d88b; box-shadow: 0 0 18px #f3a84a55; outline: none; color: #fff6d8; }
 #titlescreen .menu button[disabled] { opacity: .35; cursor: default; box-shadow: none; }
 #titlescreen .panel { position: absolute; left: 50%; bottom: 12%; transform: translateX(-50%); width: min(520px, 90vw); padding: 18px 22px; display: none;
-    background: #120a06e6; border: 1px solid #f3d88b66; border-radius: 6px; font: 14px/1.6 Georgia, serif; color: #eee6d2; text-align: center; }
+    background: #120a06e6; border: 1px solid #f3d88b66; border-radius: 6px; font: calc(16px * var(--ui, 1))/1.6 Georgia, serif; color: #eee6d2; text-align: center; }
 #titlescreen .panel.on { display: block; }
 #titlescreen .panel button { margin-top: 12px; }
 #titlescreen .ember { position: absolute; bottom: -10px; width: 3px; height: 3px; border-radius: 50%; background: #ffb060; box-shadow: 0 0 6px #ff8a2a;
@@ -61,7 +72,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
     const sigil = document.createElement('div'); sigil.className = 'sigil'; sigil.innerHTML = SIGIL;   // static markup
     const h1 = document.createElement('h1'); h1.textContent = 'ARCANE MAJESTY';
     const sub = document.createElement('div'); sub.className = 'sub'; sub.textContent = "ELDORIA'S PROPHECY";
-    const press = document.createElement('div'); press.className = 'press'; press.textContent = 'PRESS ANY KEY';
+    const press = document.createElement('div'); press.className = 'press'; press.textContent = matchMedia('(pointer: coarse)').matches || new URLSearchParams(location.search).get('touch') === '1' ? 'TAP TO BEGIN' : 'PRESS ANY KEY';
     const menu = document.createElement('div'); menu.className = 'menu';
     const panel = document.createElement('div'); panel.className = 'panel';
     root.append(sigil, h1, sub, press, menu, panel);
@@ -87,7 +98,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         for (const l of lines) { const p = document.createElement('div'); p.textContent = l; panel.append(p); }
         const back = document.createElement('button');
         back.textContent = 'BACK';
-        back.style.cssText = 'padding:7px 20px;font:13px Georgia,serif;letter-spacing:.15em;color:#f3e2b0;background:#2a1c10;border:1px solid #f3d88b66;cursor:pointer';
+        back.style.cssText = 'padding:7px 20px;font:calc(15px * var(--ui, 1)) Georgia,serif;letter-spacing:.15em;color:#f3e2b0;background:#2a1c10;border:1px solid #f3d88b66;cursor:pointer';
         back.onclick = () => { panel.classList.remove('on'); menu.style.display = ''; };
         panel.append(back);
         panel.classList.add('on');

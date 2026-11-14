@@ -16,25 +16,25 @@ const CSS = `
 #inv.open { display: grid; }
 #inv .panel { width: min(860px, 94vw); max-height: 90vh; overflow: auto; padding: 18px 22px; border: 1px solid #f3d88b66;
     border-radius: 14px; background: linear-gradient(160deg, #1b1720ee, #0e0c12f2); box-shadow: 0 10px 40px #000a; }
-#inv h2 { margin: 0 0 4px; font-weight: normal; letter-spacing: .14em; font-size: 20px; color: #f3d88b; }
-#inv .meta { font-size: 13px; opacity: .75; margin-bottom: 14px; }
+#inv h2 { margin: 0 0 4px; font-weight: normal; letter-spacing: .14em; font-size: calc(24px * var(--ui, 1)); color: #f3d88b; }
+#inv .meta { font-size: calc(15px * var(--ui, 1)); opacity: .75; margin-bottom: 14px; }
 #inv .cols { display: grid; grid-template-columns: 230px 1fr; gap: 18px; }
-#inv h3 { margin: 0 0 8px; font-weight: normal; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+#inv h3 { margin: 0 0 8px; font-weight: normal; font-size: calc(14px * var(--ui, 1)); letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
 #inv .slot { display: flex; align-items: center; gap: 8px; padding: 6px 8px; margin-bottom: 5px; border-radius: 8px;
-    background: #ffffff0a; border: 1px solid #ffffff14; cursor: pointer; font-size: 13px; min-height: 22px; }
-#inv .slot .lbl { width: 72px; opacity: .55; font-size: 11px; letter-spacing: .05em; }
+    background: #ffffff0a; border: 1px solid #ffffff14; cursor: pointer; font-size: calc(15px * var(--ui, 1)); min-height: 22px; }
+#inv .slot .lbl { width: 72px; opacity: .55; font-size: calc(14px * var(--ui, 1)); letter-spacing: .05em; }
 #inv .slot.empty { cursor: default; opacity: .6; }
 #inv .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px; }
 #inv .item { position: relative; padding: 8px; border-radius: 8px; background: #ffffff0d; border: 1px solid #ffffff1a;
-    cursor: pointer; font-size: 12px; min-height: 38px; }
+    cursor: pointer; font-size: calc(14px * var(--ui, 1)); min-height: 38px; }
 #inv .item.sel, #inv .slot.sel { border-color: #f3d88b; background: #f3d88b1c; }
 #inv .item.free { cursor: default; opacity: .25; }
 #inv .gem { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; transform: rotate(45deg); }
-#inv .qty { position: absolute; right: 6px; bottom: 4px; font-size: 11px; opacity: .8; }
+#inv .qty { position: absolute; right: 6px; bottom: 4px; font-size: calc(14px * var(--ui, 1)); opacity: .8; }
 #inv .detail { margin-top: 14px; padding: 12px 14px; border-radius: 10px; background: #ffffff08; border: 1px solid #ffffff12; min-height: 70px; }
-#inv .detail .name { font-size: 16px; margin-bottom: 4px; }
-#inv .detail .desc { font-size: 13px; opacity: .8; margin-bottom: 10px; }
-#inv button { font: 13px Georgia, serif; color: #1b1406; background: #f3d88b; border: 0; border-radius: 7px; padding: 7px 14px;
+#inv .detail .name { font-size: calc(18px * var(--ui, 1)); margin-bottom: 4px; }
+#inv .detail .desc { font-size: calc(15px * var(--ui, 1)); opacity: .8; margin-bottom: 10px; }
+#inv button { font: calc(15px * var(--ui, 1)) Georgia, serif; color: #1b1406; background: #f3d88b; border: 0; border-radius: 7px; padding: 7px 14px;
     margin-right: 8px; cursor: pointer; }
 #inv button.ghost { background: transparent; color: #eee6d2; border: 1px solid #eee6d255; }
 #inv .close { float: right; }

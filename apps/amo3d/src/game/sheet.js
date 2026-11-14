@@ -19,16 +19,16 @@ const CSS = `
 #sheet.open { display: grid; }
 #sheet .panel { width: min(900px, 94vw); max-height: 90vh; overflow: auto; padding: 18px 22px; border: 1px solid #f3d88b66;
     border-radius: 14px; background: linear-gradient(160deg, #1b1720ee, #0e0c12f2); box-shadow: 0 10px 40px #000a; }
-#sheet h2 { margin: 0 0 4px; font-weight: normal; letter-spacing: .14em; font-size: 20px; color: #f3d88b; }
-#sheet .meta { font-size: 13px; opacity: .75; margin-bottom: 14px; }
+#sheet h2 { margin: 0 0 4px; font-weight: normal; letter-spacing: .14em; font-size: calc(24px * var(--ui, 1)); color: #f3d88b; }
+#sheet .meta { font-size: calc(15px * var(--ui, 1)); opacity: .75; margin-bottom: 14px; }
 #sheet .cols { display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 18px; }
-#sheet h3 { margin: 0 0 8px; font-weight: normal; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+#sheet h3 { margin: 0 0 8px; font-weight: normal; font-size: calc(14px * var(--ui, 1)); letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
 #sheet .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 8px; margin-bottom: 5px;
-    border-radius: 8px; background: #ffffff0a; border: 1px solid #ffffff14; font-size: 13px; }
-#sheet .sub { font-size: 11px; opacity: .55; }
+    border-radius: 8px; background: #ffffff0a; border: 1px solid #ffffff14; font-size: calc(15px * var(--ui, 1)); }
+#sheet .sub { font-size: calc(14px * var(--ui, 1)); opacity: .55; }
 #sheet .bar { height: 4px; border-radius: 2px; background: #0008; margin-top: 4px; overflow: hidden; }
 #sheet .bar > div { height: 100%; background: linear-gradient(90deg, #8a6a2a, #f3d88b); }
-#sheet button { font: 13px Georgia, serif; color: #1b1406; background: #f3d88b; border: 0; border-radius: 7px; padding: 3px 10px; cursor: pointer; }
+#sheet button { font: calc(15px * var(--ui, 1)) Georgia, serif; color: #1b1406; background: #f3d88b; border: 0; border-radius: 7px; padding: 3px 10px; cursor: pointer; }
 #sheet button.ghost { background: transparent; color: #eee6d2; border: 1px solid #eee6d255; padding: 7px 14px; }
 #sheet .close { float: right; }
 @media (max-width: 760px) { #sheet .cols { grid-template-columns: 1fr; } }`;

@@ -47,9 +47,9 @@ export function createTravel({ stats, hud, world, player, allGates, onAttune }) 
 #travel { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #04060ccc; font-family: Georgia, serif; color: #e6ecff; }
 #travel.open { display: grid; }
 #travel .panel { width: min(420px, 90vw); padding: 18px 22px; border: 1px solid #6a9aff88; border-radius: 12px; background: linear-gradient(160deg, #10162aee, #080a14f4); box-shadow: 0 0 50px #4a6aff33; }
-#travel h2 { margin: 0 0 4px; font-weight: normal; letter-spacing: .16em; color: #9abaff; font-size: 18px; }
-#travel .sub { font-size: 12px; opacity: .7; margin-bottom: 12px; }
-#travel button { display: block; width: 100%; margin: 6px 0; padding: 10px; font: 15px Georgia, serif; color: #e6ecff; background: #1a2240; border: 1px solid #6a9aff66; border-radius: 7px; cursor: pointer; text-align: left; }
+#travel h2 { margin: 0 0 4px; font-weight: normal; letter-spacing: .16em; color: #9abaff; font-size: calc(20px * var(--ui, 1)); }
+#travel .sub { font-size: calc(14px * var(--ui, 1)); opacity: .7; margin-bottom: 12px; }
+#travel button { display: block; width: 100%; margin: 6px 0; padding: 10px; font: calc(17px * var(--ui, 1)) Georgia, serif; color: #e6ecff; background: #1a2240; border: 1px solid #6a9aff66; border-radius: 7px; cursor: pointer; text-align: left; }
 #travel button:hover { border-color: #9abaff; }
 #travel button.ghost { background: transparent; text-align: center; }`;
     document.head.append(css);
