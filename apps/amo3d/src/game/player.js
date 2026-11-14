@@ -97,8 +97,8 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         return true;
     }
 
-    function onKill(xp, at, type) {
-        if (type) hooks.onKill?.(type);
+    function onKill(xp, at, type, extra = {}) {
+        if (type) hooks.onKill?.(type, extra);
         const before = stats.level;
         stats.gainXp(xp);   // amo's PlayerStats: levels, skill and attribute points
         hud.floater(at, `+${xp} XP`, '#c9b6ff');

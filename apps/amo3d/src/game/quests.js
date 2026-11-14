@@ -78,7 +78,7 @@ export function createQuests({ stats, hud }) {
                 { text: 'Not now.' },
             ] }]);
         },
-        onKill: type => questManager.onKill(type),
+        onKill: (type, ctx = {}) => questManager.onKill(type, ctx),
         onGather: (id, n) => questManager.onGather(id, n),
         onAttune: id => questManager.onAttune(id),
         onPickup: id => { questManager.onPickup(id); questManager.recheck(); },

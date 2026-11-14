@@ -6,7 +6,7 @@
 //   top right   — the minimap (tap: world map), the clock, and one MENU button that opens a sheet of
 //                 big tiles: Satchel, Hero, Map, Journal, Codex, Aetheric Tear
 // Everything steps aside while a menu or a conversation is open.
-const MODALS = '#inv.open,#sheet.open,#journal.open,#codex.open,#shop.open,#chest.open,#camp.open,#worldmap.open,#dlg.open,#travel.open,#tmenu.open';
+const MODALS = '#inv.open,#sheet.open,#journal.open,#codex.open,#shop.open,#chest.open,#camp.open,#worldmap.open,#dlg.open,#travel.open,#tmenu.open,#bounty.open';
 
 export function createTouchControls({ input, cam }) {
     const forced = new URLSearchParams(location.search).get('touch') === '1';

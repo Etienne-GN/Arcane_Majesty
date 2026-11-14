@@ -6,7 +6,7 @@
 // Eldrin's Tower (here: the glade).
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { thaloriaMap, regionFormat } from '@rules';
+import { thaloriaMap, regionFormat, bounties as BOUNTIES } from '@rules';
 import { flat, colliderAt, pushOut, smoothstep, fbm } from '../engine/lib.js';
 import { createOutdoorShell } from '../engine/outdoor.js';
 import { createNav } from '../engine/nav.js';
@@ -275,6 +275,23 @@ export function createThaloria({ quality }) {
         const x = wx(d.x), z = wz(d.y) + 1.0;
         map.triggers.push({ x, z, r: 0.75, label: d.label, to: d.interior, spawn: 'enter' });
         map.spawns[`door:${d.interior}`] = { x, z: z + 1.6, facing: 0 };
+    }
+    // The bounty board (amo spawns.bountyBoards): a notice board with pinned papers; its bounties are for the
+    // region it names (the East Road).
+    for (const bb of (D.spawns.bountyBoards ?? []).slice(0, 1)) {
+        const x = wx(bb.x), z = wz(bb.y) + 0.5, board = new THREE.Group();
+        const wood = flat(0x6a4a2a), dark = flat(0x3a2818);
+        for (const sx of [-0.85, 0.85]) { const post = new THREE.Mesh(new THREE.BoxGeometry(0.14, 2.3, 0.14), dark); post.position.set(sx, 1.15, 0); post.castShadow = true; board.add(post); }
+        const panel = new THREE.Mesh(new THREE.BoxGeometry(1.9, 1.1, 0.08), wood); panel.position.y = 1.55; panel.castShadow = true; board.add(panel);
+        const roof = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.08, 0.5), dark); roof.position.set(0, 2.2, 0.05); roof.rotation.x = -0.25; board.add(roof);
+        const paper = flat(0xe8dcc0);
+        [[-0.6, 1.75, 0.1], [-0.1, 1.6, -0.06], [0.45, 1.78, 0.08], [0.6, 1.3, -0.1], [-0.35, 1.25, 0.05]].forEach(([px, py, r]) => {
+            const sh = new THREE.Mesh(new THREE.PlaneGeometry(0.42, 0.34), paper); sh.position.set(px, py, 0.05); sh.rotation.z = r; board.add(sh);
+        });
+        board.position.set(x, 0, z);
+        scene.add(board);
+        colliders.push({ ax: x - 0.95, az: z, bx: x + 0.95, bz: z, r: 0.2, kind: 'wall', y0: -1, y1: 2.5 });
+        map.stations.push({ mode: 'board', key: BOUNTIES.boardIdFor('thaloria'), region: bb.region ?? 'thaloria', place: 'Thaloria', pos: new THREE.Vector3(x, 0, z + 0.9) });
     }
     // Stations amo puts in Thaloria (the hearth and alchemy table by the market).
     for (const st of D.spawns.stations ?? []) map.stations.push({ mode: st.type === 'hearth' ? 'hearth' : 'alchemy', pos: new THREE.Vector3(wx(st.x), 0, wz(st.y)) });

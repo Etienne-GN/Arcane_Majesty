@@ -19,6 +19,8 @@ import { createCharacter } from './models/character.js';
 
 const D = eastRoadMap.default;
 const W = D.width, H = D.height;
+import DOORS from '../../../amo/src/data/maps/interiors/doors.json';
+const HOLLOW_DOORS = DOORS.east_road ?? [];
 export const EAST_ROAD_GATES = (D.spawns.riftGates ?? []).map(g => ({ id: g.id, label: g.label, x: g.x - W / 2 + 0.5, z: g.y - H / 2 + 0.5 }));
 
 export function createEastRoad({ quality }) {
@@ -168,10 +170,33 @@ export function createEastRoad({ quality }) {
         return { g, m: buildMonolith(scene, g, heightAt(g.x, g.z)) };
     });
 
+    // ---------- the Hollow: a cave mouth in a rock outcrop (amo doors.json → east_road_cave) ----------
+    for (const d of HOLLOW_DOORS) {
+        const x = wx(d.x), z = wz(d.y), y = heightAt(x, z);
+        // Face the open side (the walkable neighbour).
+        const open = [[0, 1, 0], [0, -1, Math.PI], [1, 0, Math.PI / 2], [-1, 0, -Math.PI / 2]].find(([dx, dy]) => grid[d.y + dy]?.[d.x + dx] !== 1) ?? [0, 1, 0];
+        const face = open[2], fx = Math.sin(face), fz = Math.cos(face);
+        const rock = flat(0x6a6660), dark = new THREE.MeshBasicMaterial({ color: 0x050506 });
+        for (let k = 0; k < 9; k++) {
+            const a = face + Math.PI + (k / 8 - 0.5) * 2.6, r = 1.6 + (k % 3) * 0.5;
+            const b = new THREE.Mesh(new THREE.DodecahedronGeometry(1.1 + (k % 4) * 0.35, 0), rock);
+            b.position.set(x + Math.sin(a) * r - fx * 0.6, y + 0.6 + (k % 2) * 0.9, z + Math.cos(a) * r - fz * 0.6);
+            b.rotation.set(k, k * 2, k * 0.5); b.castShadow = b.receiveShadow = true; scene.add(b);
+            add({ x: b.position.x, z: b.position.z, r: 1.0, kind: 'wall' }, 3);
+        }
+        const top = new THREE.Mesh(new THREE.DodecahedronGeometry(1.9, 0), rock); top.position.set(x - fx * 0.9, y + 2.6, z - fz * 0.9); top.castShadow = true; scene.add(top);
+        const mouth = new THREE.Mesh(new THREE.CircleGeometry(1.0, 10), dark); mouth.scale.set(1, 1.3, 1); mouth.position.set(x + fx * 0.15, y + 1.1, z + fz * 0.15); mouth.rotation.y = face; scene.add(mouth);
+        map.triggers.push({ x: x + fx * 0.6, z: z + fz * 0.6, r: 1.0, label: d.label, to: d.interior, spawn: 'enter' });
+        map.spawns[`door:${d.interior}`] = { x: x + fx * 2.4, z: z + fz * 2.4, facing: face };
+    }
+
     // ---------- void-stalkers ----------
-    const stalkers = (D.spawns.enemies ?? []).filter(e => e.type === 'void_stalker').map(e => ({ x: wx(e.x), z: wz(e.y) }));
+    // ---------- creatures: amo's whole East Road roster — void-stalkers, root-wraiths, blight-ents, the sentinel ----------
     map.batch = bakeStatic(scene);
-    map.hittables.push(...createBeasts({ scene, map, rng, type: 'void_stalker', posts: stalkers }));
+    for (const type of [...new Set((D.spawns.enemies ?? []).map(e => e.type))]) {
+        const posts = D.spawns.enemies.filter(e => e.type === type).map(e => ({ x: wx(e.x), z: wz(e.y) }));
+        map.hittables.push(...createBeasts({ scene, map, rng: Math.random, type, posts, rareFrom: D }));   // elites rolled fresh each time, as in amo
+    }
 
     // ---------- Oren, the chronicler, at the shepherd's lean-to ----------
     map.people = [];

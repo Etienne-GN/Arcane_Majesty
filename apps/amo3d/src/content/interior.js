@@ -36,6 +36,14 @@ function piece(name, M) {
     else if (name.includes('potted')) { cyl(0.18, 0.14, 0.3, M.clay, 0, 0.15); const b = new THREE.Mesh(new THREE.IcosahedronGeometry(0.3, 0), flat(name.includes('flower') ? 0x5a8a3a : 0x3f6a2c)); b.position.y = 0.55; g.add(b); if (name.includes('flower')) for (let i = 0; i < 4; i++) { const f = new THREE.Mesh(new THREE.OctahedronGeometry(0.05), flat(0xe88ab0)); f.position.set(Math.cos(i * 1.6) * 0.2, 0.7, Math.sin(i * 1.6) * 0.2); g.add(f); } block = 0.25; }
     else if (name.includes('banner')) { box(0.7, 1.2, 0.03, M.red, 0, 1.6, -0.45); box(0.25, 0.25, 0.04, M.gold, 0, 1.7, -0.43); block = 0; }
     else if (name.includes('rail_post') || name.includes('two_tier')) { box(1.0, 0.08, 0.5, M.wood, 0, 1.0); box(1.0, 1.0, 0.08, M.dark, 0, 0.5, 0.2); }   // the inn's bar counter
+    else if (name.includes('boulder')) {   // caves: a rough stone, or a cluster of them
+        const n = name.includes('cluster') ? 3 : 1;
+        for (let i = 0; i < n; i++) { const b = new THREE.Mesh(new THREE.DodecahedronGeometry(name.includes('upright') ? 0.45 : 0.4 + i * 0.08, 0), name.includes('dark') ? M.rockDark : M.rock); b.position.set((i - (n - 1) / 2) * 0.45, 0.32, (i % 2) * 0.25); b.scale.y = name.includes('upright') ? 1.8 : 0.8; b.rotation.set(i, i * 2, 0); b.castShadow = b.receiveShadow = true; g.add(b); }
+        block = 0.45;
+    } else if (name.includes('mushroom')) {   // a glowing cluster
+        for (let i = 0; i < 5; i++) { const a = i * 1.3, r = 0.12 + (i % 2) * 0.12; cyl(0.02, 0.03, 0.18 + i * 0.03, M.linen, Math.cos(a) * r, 0.1, Math.sin(a) * r, 5); const c = new THREE.Mesh(new THREE.SphereGeometry(0.08 + (i % 3) * 0.02, 7, 4, 0, Math.PI * 2, 0, Math.PI / 2), M.glowcap); c.position.set(Math.cos(a) * r, 0.2 + i * 0.03, Math.sin(a) * r); g.add(c); }
+        light = { color: 0x7ad8c8, i: 3, y: 0.5 }; block = 0;
+    }
     else { box(0.6, 0.6, 0.6, M.wood); }
     return { g, light, block };
 }
@@ -46,12 +54,14 @@ export function createInterior({ id, def, exitTo, innerDoors = {} }) {
     const tiles = def.tiles, H = tiles.length, W = tiles[0].length;
     const wx = x => x - W / 2 + 0.5, wz = y => y - H / 2 + 0.5;
     const names = def.sheetDecorations.flatMap(gp => gp.items.map(i => i.name));
-    const floorColor = pickColor(names.filter(n => n.includes('floor')), FLOORS, 0x8a7a68);
-    const wallColor = pickColor(names.filter(n => n.includes('wall')), WALLS, 0xb8a888);
+    const isCave = id.includes('cave');
+    const floorColor = isCave ? 0x3e3c3a : pickColor(names.filter(n => n.includes('floor')), FLOORS, 0x8a7a68);
+    const wallColor = isCave ? 0x4e4c4a : pickColor(names.filter(n => n.includes('wall')), WALLS, 0xb8a888);
     const M = {
         wood: flat(0x8a5e3a), dark: flat(0x4a301c), gold: flat(0xc9a44c, { metalness: 0.5, roughness: 0.4 }), iron: flat(0x3a3a3e, { metalness: 0.5 }),
         red: flat(0x8a2a2a), blue: flat(0x2a4a8a), green: flat(0x2a6a3a), linen: flat(0xe8e0d0), pewter: flat(0xb0b4b8, { metalness: 0.6 }),
         cloth: flat(0x8a3a3a), burlap: flat(0xb89a6a), clay: flat(0xa8603a), flame: new THREE.MeshBasicMaterial({ color: 0xffc04a, toneMapped: false }),
+        rock: flat(0x5a5854), rockDark: flat(0x3a3a3e), glowcap: new THREE.MeshStandardMaterial({ color: 0x9af0e0, emissive: 0x3ab8a8, emissiveIntensity: 1.4, flatShading: true }),
     };
     const colliders = [];
     const walk = (x, y) => y >= 0 && x >= 0 && y < H && x < W && tiles[y][x] !== 1;
@@ -76,7 +86,19 @@ export function createInterior({ id, def, exitTo, innerDoors = {} }) {
     scene.add(walls);
     const trim = new THREE.InstancedMesh(new THREE.BoxGeometry(1.02, 0.25, 1.02), flat(0x3a2a1c), wallCells.length);
     wallCells.forEach(([x, y], i) => trim.setMatrixAt(i, m4.compose(v.set(wx(x), 0.12, wz(y)), q, s.set(1, 1, 1))));
-    scene.add(trim);
+    if (!isCave) scene.add(trim);   // a cave has no skirting
+    if (isCave) {   // rough boulders heaped along the walls, so the room reads as rock
+        const rocks = new THREE.InstancedMesh(new THREE.DodecahedronGeometry(0.7, 0), M.rock, wallCells.length * 2);
+        let n = 0;
+        const rr = (k => () => ((k = (k * 16807) % 2147483647) / 2147483647))(7);
+        for (const [x, y] of wallCells.filter(([, y]) => y < H - 2)) for (let j = 0; j < 2; j++) {   // not on the near wall, where the camera looks in
+            const sc = 0.8 + rr() * 0.8;
+            rocks.setMatrixAt(n++, m4.compose(v.set(wx(x) + (rr() - 0.5) * 0.8, j * 1.1 + rr() * 0.5, wz(y) + (rr() - 0.5) * 0.8), q.clone().setFromEuler(new THREE.Euler(rr() * 3, rr() * 3, rr() * 3)), s.set(sc, sc * (0.7 + rr() * 0.6), sc)));
+        }
+        rocks.count = n;
+        rocks.castShadow = rocks.receiveShadow = true;
+        scene.add(rocks);
+    }
 
     // Furniture.
     const lights = [];
@@ -91,8 +113,8 @@ export function createInterior({ id, def, exitTo, innerDoors = {} }) {
         if (block > 0 && it.blocking !== false) colliders.push({ x: wx(it.x), z: wz(it.y), r: block, kind: 'wall', y0: -1, y1: 2 });
         if (light) { const l = new THREE.PointLight(light.color, light.i, 7, 1.6); l.position.set(wx(it.x), light.y, wz(it.y)); scene.add(l); lights.push(l); }
     }
-    scene.add(new THREE.HemisphereLight(0xffe8c8, 0x2a2018, 0.9));
-    const fill = new THREE.PointLight(0xffd8a0, 10, Math.max(W, H) * 1.4, 1.2);
+    scene.add(isCave ? new THREE.HemisphereLight(0x9ab0c8, 0x24242a, 0.75) : new THREE.HemisphereLight(0xffe8c8, 0x2a2018, 0.9));   // a cave: cold and dim, lit by its mushrooms and the daylight at the mouth
+    const fill = new THREE.PointLight(isCave ? 0xa8c0d8 : 0xffd8a0, isCave ? 12 : 10, Math.max(W, H) * 1.4, 1.2);
     fill.position.set(0, 2.6, 0);
     fill.castShadow = true;
     scene.add(fill);

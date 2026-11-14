@@ -5,7 +5,7 @@
 //   nameplate  — name + health bar over its head while it is engaged or hurt
 // Actors (wolf.js…) supply a model, an AI step and an animation, and call these.
 import * as THREE from 'three';
-import { enemies, enemyAffinities, statuses } from '@rules';
+import { enemies, enemyAffinities, statuses, elites as EL } from '@rules';
 
 const { ENEMY_TYPES } = enemies;
 const { affinityMult, affinityOf } = enemyAffinities;
@@ -16,6 +16,10 @@ let plateLayer = null;
 const allPlates = [];
 // On a map change: blank every plate (only the current map's actors update theirs).
 export function hideAllPlates() { for (const p of allPlates) p.style.opacity = 0; }
+// Once a frame, after the current map has updated: any plate whose creature did not update this frame (one
+// left behind on another map) is hidden.
+let plateFrame = 0;
+export function sweepPlates() { for (const p of allPlates) if (p._f !== plateFrame && p.style.opacity !== '0') p.style.opacity = 0; plateFrame++; }
 function plates() {
     if (!plateLayer) {
         plateLayer = document.createElement('div');
@@ -26,8 +30,13 @@ function plates() {
 }
 export function setPlatesVisible(v) { if (plateLayer) plateLayer.style.display = v ? '' : 'none'; }
 
-export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS = 20, def = null }) {
-    const DEF = def ?? ENEMY_TYPES[type];   // def: a creature amo keeps outside ENEMY_TYPES (its boss)
+// elite: { affixes, rareDrop } — amo's elites (data/elites.js): eliteStats (×2.5 health, ×1.4 damage, ×3 XP),
+// a second loot roll and a rare regional drop, a gold nameplate; swift = permanently hastened, warded = a mana
+// ward every 20 s, vampiric = heals 30% of what it deals (onDealt); arcane and thorned are named only (amo's
+// 3D creatures have no spell kits yet).
+export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS = 20, def = null, elite = null }) {
+    const BASE = def ?? ENEMY_TYPES[type];   // def: a creature amo keeps outside ENEMY_TYPES (its boss)
+    const DEF = elite ? { ...BASE, ...EL.eliteStats({ health: BASE.health, damage: BASE.damage, xpReward: BASE.xpReward, goldDrop: BASE.goldDrop ?? 0 }) } : BASE;
     const family = affinityOf(type);
     const s = { hp: DEF.health, fx: {}, dead: false, deadT: 0, flash: 0, seen: false, engaged: false };
     let lastCtx = null;
@@ -36,9 +45,10 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
     plate.style.cssText = 'position:absolute;left:0;top:0;opacity:0;transition:opacity .3s;white-space:nowrap;text-align:center';
     const label = document.createElement('div');
     label.style.cssText = 'font:calc(15px * var(--ui, 1)) Georgia,serif;color:#f0e6d2;text-shadow:0 1px 3px #000;letter-spacing:.06em';
-    label.textContent = name + (family.family ? ` · ${family.family[0].toUpperCase()}${family.family.slice(1)}` : '');
+    label.textContent = (elite ? `Elite ${name} — ${elite.affixes.map(a => EL.AFFIX_LABELS[a]).join(', ')}` : name) + (family.family ? ` · ${family.family[0].toUpperCase()}${family.family.slice(1)}` : '');
+    if (elite) { label.style.color = '#ffd76a'; }
     const barBox = document.createElement('div');
-    barBox.style.cssText = 'width:100px;height:6px;margin:3px auto 0;border:1px solid #eee6d288;border-radius:4px;background:#0009;overflow:hidden';
+    barBox.style.cssText = `width:${elite ? 130 : 100}px;height:6px;margin:3px auto 0;border:1px solid ${elite ? '#ffd76a' : '#eee6d288'};border-radius:4px;background:#0009;overflow:hidden`;
     const bar = document.createElement('div');
     bar.style.cssText = 'height:100%;width:100%;background:linear-gradient(90deg,#8a2a1a,#e06a4a)';
     barBox.append(bar);
@@ -59,8 +69,9 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
     function die(ctx) {
         if (s.dead) return;
         s.dead = true; s.deadT = 0; s.hp = 0; s.fx = {};
-        ctx?.onKill?.(DEF.xpReward, pos.clone().setY(pos.y + 1.6), type);
+        ctx?.onKill?.(DEF.xpReward, pos.clone().setY(pos.y + 1.6), type, { isElite: !!elite });
         ctx?.dropLoot?.(DEF.lootTable, pos.clone(), rng);
+        if (elite) { ctx?.dropLoot?.(DEF.lootTable, pos.clone(), rng); if (elite.rareDrop) ctx?.dropLoot?.([{ id: elite.rareDrop, chance: 1 }], pos.clone(), rng); }
     }
 
     // element: the hit's element for amo's affinity table (fireballs pass burnMs → 'fire').
@@ -82,6 +93,10 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
         lastCtx = ctx;
         s.flash = Math.max(0, s.flash - dt);
         if (s.dead) { s.deadT += dt; return false; }
+        if (elite) {
+            if (elite.affixes.includes('swift') && !s.fx.hastened) s.fx.hastened = { left: Infinity, tick: 0 };
+            if (elite.affixes.includes('warded') && (s.wardT = (s.wardT ?? 0) - dt) <= 0) { s.wardT = 20; addStatus('mana_ward'); }
+        }
         for (const [id, f] of Object.entries(s.fx)) {
             const B = STATUS_DEFS[id];
             f.left -= dt;
@@ -103,6 +118,7 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
 
     const tmp = new THREE.Vector3();
     function updatePlate(camera, height, hide = false) {
+        plate._f = plateFrame;
         const show = !hide && !s.dead && (s.engaged || (s.seen && s.hp < DEF.health));
         tmp.set(pos.x, pos.y + height, pos.z).project(camera);
         const on = tmp.z < 1 && Math.abs(tmp.x) < 1.1 && Math.abs(tmp.y) < 1.1;
@@ -111,7 +127,9 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
         bar.style.width = `${Math.max(0, s.hp / DEF.health) * 100}%`;
     }
 
-    function revive() { Object.assign(s, { hp: DEF.health, fx: {}, dead: false, deadT: 0, seen: false, engaged: false }); }
+    function revive() { Object.assign(s, { hp: DEF.health, fx: {}, dead: false, deadT: 0, seen: false, engaged: false, wardT: 0 }); }
+    // A blow it landed: vampiric elites drink 30% of it back (amo Enemy).
+    function onDealt(dmg) { if (elite?.affixes.includes('vampiric') && !s.dead) s.hp = Math.min(DEF.health, s.hp + Math.round(dmg * 0.3)); }
 
-    return { DEF, s, hit, tick, die, addStatus, fxMult, stunned, updatePlate, revive, respawnS, get lastCtx() { return lastCtx; } };
+    return { DEF, s, hit, tick, die, addStatus, fxMult, stunned, updatePlate, revive, respawnS, elite, onDealt, get lastCtx() { return lastCtx; } };
 }

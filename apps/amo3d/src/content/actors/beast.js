@@ -7,8 +7,9 @@
 import * as THREE from 'three';
 import { createEnemyCore, PX } from './enemyCore.js';
 import { flat } from '../../engine/lib.js';
+import { elites as EL } from '@rules';
 
-const NAMES = { gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker' };
+const NAMES = { gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
 const TUNE = { sight: 2.6, reach: 2, speed: 1.4 };
 
 function body(type) {
@@ -43,6 +44,38 @@ function body(type) {
         add(new THREE.ConeGeometry(0.08, 0.6, 4).rotateX(-1.9), M, 0, 0.85, -0.75);
         parts.eyes = add(new THREE.BoxGeometry(0.22, 0.03, 0.02), new THREE.MeshBasicMaterial({ color: 0xc86aff, toneMapped: false }), 0, 0.92, 1.0);
         parts.legs = root.children.filter(o => o.position.y === 0.3);
+    } else if (type === 'blight_ent') {   // an ancient tree fused with rot: grey-brown trunk, sick canopy, branch arms
+        const bark = flat(0x5a4a3a), rot = flat(0x4a5a2a), spot = new THREE.MeshStandardMaterial({ color: 0x8a4aaa, emissive: 0x5a2a7a, emissiveIntensity: 0.6, flatShading: true });
+        add(new THREE.CylinderGeometry(0.42, 0.62, 2.2, 7), bark, 0, 1.1, 0);
+        for (const [x, y, z, r] of [[0, 2.6, 0, 0.9], [-0.5, 2.3, 0.2, 0.6], [0.55, 2.4, -0.1, 0.65]]) add(new THREE.IcosahedronGeometry(r, 0), rot, x, y, z);
+        for (let k = 0; k < 6; k++) add(new THREE.SphereGeometry(0.09, 5, 4), spot, Math.cos(k * 1.1) * 0.75, 2.3 + (k % 3) * 0.2, Math.sin(k * 1.1) * 0.7);
+        for (const s of [1, -1]) {
+            const arm = new THREE.Group(); arm.position.set(s * 0.5, 1.75, 0); root.add(arm);
+            const a = add(new THREE.CylinderGeometry(0.1, 0.16, 1.2, 5), bark, s * 0.25, -0.5, 0.1, arm); a.rotation.z = s * 0.4;
+            add(new THREE.ConeGeometry(0.14, 0.4, 4), bark, s * 0.5, -1.15, 0.15, arm);
+            parts[s > 0 ? 'armL' : 'armR'] = arm;
+            const r = add(new THREE.ConeGeometry(0.16, 0.6, 4), bark, s * 0.45, 0.2, 0.1); r.rotation.z = s * 2.6;   // roots
+        }
+        parts.eyes = add(new THREE.BoxGeometry(0.32, 0.05, 0.02), new THREE.MeshBasicMaterial({ color: 0xc8ff5a, toneMapped: false }), 0, 1.75, 0.45);
+    } else if (type === 'root_wraith') {   // a small, fast knot of living vine, drifting low
+        const vine = new THREE.MeshStandardMaterial({ color: 0x4a8a3a, emissive: 0x1a4a1a, emissiveIntensity: 0.5, flatShading: true });
+        parts.knot = add(new THREE.TorusKnotGeometry(0.22, 0.07, 40, 5, 2, 3), vine, 0, 0.6, 0);
+        for (let k = 0; k < 5; k++) { const t = add(new THREE.ConeGeometry(0.04, 0.55, 4), vine, Math.cos(k * 1.26) * 0.2, 0.3, Math.sin(k * 1.26) * 0.2); t.rotation.set(Math.PI + Math.sin(k) * 0.5, 0, Math.cos(k) * 0.5); }
+        parts.eyes = add(new THREE.BoxGeometry(0.14, 0.03, 0.02), new THREE.MeshBasicMaterial({ color: 0xe8ff8a, toneMapped: false }), 0, 0.66, 0.26);
+    } else if (type === 'corrupted_sentinel') {   // a guardian statue gone sour: weathered stone, violet cracks
+        const stone = flat(0x7a7680), dark = flat(0x4a4650), crack = new THREE.MeshBasicMaterial({ color: 0xa86aff, toneMapped: false });
+        add(new THREE.BoxGeometry(1.0, 1.2, 0.6), stone, 0, 1.5, 0);
+        add(new THREE.BoxGeometry(0.55, 0.55, 0.5), stone, 0, 2.4, 0.02);
+        add(new THREE.BoxGeometry(1.2, 0.25, 0.75), dark, 0, 2.15, 0);
+        for (const [x, y] of [[-0.2, 1.6], [0.15, 1.3], [0.05, 1.9]]) add(new THREE.BoxGeometry(0.04, 0.4, 0.02), crack, x, y, 0.31).rotation.z = x * 3;
+        for (const s of [1, -1]) {
+            const arm = new THREE.Group(); arm.position.set(s * 0.7, 2.0, 0); root.add(arm);
+            add(new THREE.BoxGeometry(0.32, 0.9, 0.32), stone, 0, -0.45, 0, arm);
+            add(new THREE.BoxGeometry(0.42, 0.42, 0.42), dark, 0, -1.0, 0.05, arm);
+            parts[s > 0 ? 'armL' : 'armR'] = arm;
+            add(new THREE.BoxGeometry(0.36, 0.9, 0.4), dark, s * 0.26, 0.45, 0);
+        }
+        parts.eyes = add(new THREE.BoxGeometry(0.34, 0.05, 0.02), crack, 0, 2.45, 0.28);
     } else {   // crag_fiend
         const M = flat(0x5a6458), dark = flat(0x3a4038);
         const t = add(new THREE.DodecahedronGeometry(0.75, 0), M, 0, 1.4, 0); t.scale.set(1.1, 1.0, 0.85);
@@ -59,17 +92,25 @@ function body(type) {
     return { root, parts };
 }
 
-export function createBeasts({ scene, map, rng, type, posts }) {
-    return posts.map(post => createBeast({ scene, map, rng, type, home: post }));
+// amo's elites: at most one per six spawns, each spawn an 8% chance (eliteCap / rollElite / pickAffixes);
+// rareFrom: the map definition whose gathering pools give the elite's rare drop (eliteRareDrop).
+export function createBeasts({ scene, map, rng, type, posts, rareFrom = null }) {
+    const cap = EL.eliteCap(posts.length);
+    let count = 0;
+    return posts.map(post => {
+        const elite = EL.rollElite(rng, count, cap) ? (count++, { affixes: EL.pickAffixes(rng), rareDrop: EL.eliteRareDrop(rareFrom, rng) }) : null;
+        return createBeast({ scene, map, rng, type, home: post, elite });
+    });
 }
 
-function createBeast({ scene, map, rng, type, home }) {
+function createBeast({ scene, map, rng, type, home, elite = null }) {
     const { root, parts } = body(type);
     scene.add(root);
+    if (elite) root.scale.setScalar(1.2);
     const pos = new THREE.Vector3(home.x, map.heightAt(home.x, home.z), home.z);
-    const core = createEnemyCore({ type, name: NAMES[type] ?? type, pos, rng, respawnS: 30 });
+    const core = createEnemyCore({ type, name: NAMES[type] ?? type, pos, rng, respawnS: 30, elite });
     const DEF = core.DEF, s = core.s;
-    const SIGHT = (DEF.sightRange / PX) * TUNE.sight, REACH = (DEF.attackRange / PX) * TUNE.reach + (type === 'crag_fiend' ? 0.6 : 0);
+    const SIGHT = (DEF.sightRange / PX) * TUNE.sight, REACH = (DEF.attackRange / PX) * TUNE.reach + (['crag_fiend', 'blight_ent', 'corrupted_sentinel'].includes(type) ? 0.6 : 0);
     const SPEED = Math.min(6.5, (DEF.speed / PX) * TUNE.speed);
     const ai = { state: 'idle', timer: rng() * 3, heading: rng() * 6.28, speed: 0, cd: 1 + rng(), t: rng() * 10, target: null, hit: false };
     const navKey = {};
@@ -103,11 +144,11 @@ function createBeast({ scene, map, rng, type, home }) {
             const g = toP > REACH + 1 && map.nav && !flyer ? map.nav.aim(pos, P, navKey, dt) : P;
             turn(Math.atan2(g.x - pos.x, g.z - pos.z), dt * 7);
             if (toP > REACH) want = SPEED;
-            else if (ai.cd <= 0) { ai.state = 'windup'; ai.timer = type === 'crag_fiend' ? 0.7 : 0.4; ai.hit = false; }
+            else if (ai.cd <= 0) { ai.state = 'windup'; ai.timer = ['crag_fiend', 'blight_ent', 'corrupted_sentinel'].includes(type) ? 0.7 : 0.4; ai.hit = false; }
         } else if (ai.state === 'windup') { turn(ang, dt * 8); if ((ai.timer -= dt) <= 0) { ai.state = 'strike'; ai.timer = 0.3; } }
         else if (ai.state === 'strike') {
             want = flyer ? SPEED * 1.6 : SPEED * 0.6;
-            if (!ai.hit && toP < REACH + 0.6) { ai.hit = true; ctx.hurtPlayer(Math.round(DEF.damage * (ctx.voidMult ?? 1)), pos); }
+            if (!ai.hit && toP < REACH + 0.6) { ai.hit = true; const d = Math.round(DEF.damage * (ctx.voidMult ?? 1)); if (ctx.hurtPlayer(d, pos)) core.onDealt(d); }
             if ((ai.timer -= dt) <= 0) { ai.state = 'recover'; ai.timer = 0.6; }
         } else if (ai.state === 'recover') { if ((ai.timer -= dt) <= 0) { ai.state = 'chase'; ai.cd = 1.4 + rng() * 1.2; } }
         s.engaged = !['idle', 'wander', 'return'].includes(ai.state);
@@ -139,7 +180,11 @@ function createBeast({ scene, map, rng, type, home }) {
             root.position.y = pos.y - (tell ? 0.15 : 0);
             root.rotation.x = ai.state === 'strike' ? -0.2 : tell ? 0.15 : 0;
             parts.legs.forEach((l, i) => { l.rotation.x = Math.sin(ai.t * 10 + i * Math.PI / 2) * 0.5 * Math.min(1, ai.speed / 2); });
-        } else {   // the brute's arms rise on the wind-up and slam
+        } else if (type === 'root_wraith') {   // drift low and spin; coil up before the lash
+            root.position.y = pos.y + 0.15 + Math.sin(ai.t * 4) * 0.08;
+            parts.knot.rotation.y += dt * (tell ? 9 : 3);
+            parts.knot.scale.setScalar(tell ? 0.8 : 1);
+        } else {   // the brute's arms rise on the wind-up and slam (crag-fiend, blight-ent, sentinel)
             const lift = tell ? -2.2 * Math.min(1, 1 - ai.timer / 0.7) : ai.state === 'strike' ? 0.3 : Math.sin(ai.t * 2.4) * 0.15 * Math.min(1, ai.speed);
             parts.armL.rotation.x = lift; parts.armR.rotation.x = lift;
             root.position.y = pos.y + Math.abs(Math.sin(ai.t * 4)) * 0.06 * Math.min(1, ai.speed);
@@ -149,7 +194,7 @@ function createBeast({ scene, map, rng, type, home }) {
     }
 
     return {
-        pos, kind: type, root,
+        pos, kind: type, root, elite,
         get alive() { return !s.dead; },
         get engaged() { return s.engaged; },
         get debug() { return { state: ai.state, hp: s.hp }; },

@@ -1,7 +1,7 @@
 // Arcane Majesty 3D — boot. Wires the engine (renderer, input, camera, maps, loop), the game
 // (an amo character sheet, the player controller, spells, HUD, saving) and the content (maps).
 import * as THREE from 'three';
-import { gameClock as clockRules, weather as weatherRules } from '@rules';
+import { gameClock as clockRules, weather as weatherRules, eastRoadMap, thaloriaMap } from '@rules';
 import { movementRules, PlayerStats as PS, items as itemRules, weapons as weaponRules, talents as talentRules } from '@rules';
 import { pickQuality, nextQuality } from './engine/quality.js';
 import { createRenderer } from './engine/renderer.js';
@@ -32,8 +32,9 @@ import { createCodex } from './game/codex.js';
 import { buildRegion } from './engine/region.js';
 // Every region file is a map (content/regions/*.json → buildRegion).
 const REGIONS = Object.fromEntries(Object.values(import.meta.glob('./content/regions/*.json', { eager: true, import: 'default' })).map(d => [d.id, d]));
-import { hideAllPlates } from './content/actors/enemyCore.js';
+import { sweepPlates, hideAllPlates } from './content/actors/enemyCore.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
+import { createBountyBoard } from './game/bounty.js';
 import { createChests } from './game/chest.js';
 import { createCharacter } from './content/models/character.js';
 import eldrinCast from './content/cast/eldrin.json';
@@ -48,10 +49,11 @@ import { createMountain } from './content/mountain.js';
 import { createInterior } from './content/interior.js';
 import THALORIA_DOORS from '../../amo/src/data/maps/interiors/doors.json';
 // amo's Thaloria interiors, each built on first entry; inner doors (the inn's cellar) lead on and back.
-const INTERIORS = Object.fromEntries(Object.entries(import.meta.glob('../../amo/src/data/maps/interiors/thaloria_*.js', { eager: true, import: 'MAP' }))
+const INTERIORS = Object.fromEntries(Object.entries(import.meta.glob(['../../amo/src/data/maps/interiors/thaloria_*.js', '../../amo/src/data/maps/interiors/east_road_cave.js'], { eager: true, import: 'MAP' }))
     .map(([path, def]) => [path.split('/').pop().replace('.js', ''), def]));
 const parentOf = {};
 for (const d of THALORIA_DOORS.thaloria ?? []) if (INTERIORS[d.interior]) { INTERIOR_IDS.add(d.interior); parentOf[d.interior] = { map: 'thaloria', spawn: `door:${d.interior}` }; }
+for (const d of THALORIA_DOORS.east_road ?? []) if (INTERIORS[d.interior]) parentOf[d.interior] = { map: 'east_road', spawn: `door:${d.interior}` };   // the Hollow
 for (const [id, def] of Object.entries(INTERIORS)) for (const d of def.spawns?.doors ?? []) if (INTERIORS[d.interior]) parentOf[d.interior] = { map: id, spawn: `door:${d.interior}` };
 const interiorBuilders = Object.fromEntries(Object.keys(parentOf).map(id => [id, () => createInterior({
     id, def: INTERIORS[id], exitTo: parentOf[id],
@@ -195,8 +197,9 @@ const chests = createChests({ stats, hud });
 const mapView = createMapView({ stats, hud });
 const shop = createShop({ stats, hud, save: () => save() });
 const quests = createQuests({ stats, hud });
+const bountyBoard = createBountyBoard({ stats, hud, save: () => save() });
 const codex = createCodex({ stats });
-questHooks.onKill = type => { quests.onKill(type); codex.killed(type); };
+questHooks.onKill = (type, extra = {}) => { quests.onKill(type, { ...extra, mapId: world.current?.id ?? null }); codex.killed(type); };   // mapId: bounty kills count in their region only
 const thaloriaBias = () => 'neutral';   // amo: Thaloria's currencyBias
 const dialogue = createDialogue({
     stats, hud, day: () => clockRules.gameDay(stats.gameMinutes ?? 0), save: () => save(),
@@ -293,7 +296,7 @@ function tick(dt) {
     if (act.skill >= 0 && !inventory.open && !sheet.open) skills.use(act.skill);
     skills.update(dt);
     dialogue.update(dt, camera, project);
-    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
+    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
     const pp = player.state.pos;
@@ -307,6 +310,7 @@ function tick(dt) {
         if (station?.mode === 'chest') { if (station.seed && !stats.chestContents[station.key]) stats.chestContents[station.key] = station.seed.map(id => ({ id, qty: 1 })); chests.toggle(station.key, station.title); }
         else if (station?.mode === 'sign') { dialogue.start([{ speaker: '', text: station.text }]); quests.manager.onReadSign(station.id ?? null); }
         else if (station?.mode === 'gate') travel.useGate(station.key);
+        else if (station?.mode === 'board') bountyBoard.use({ key: station.key, place: station.place, regionDef: station.region === 'east_road' ? eastRoadMap.default : thaloriaMap.default });
         else if (station?.mode === 'cairn') { stats.respawnPoint = { map: map.id, spawn: station.key }; hud.banner('A cairn — if you fall, you will come back here'); save(); }
         else if (station) campfire.toggle(station.mode);
         else if (person) dialogue.talk(person, clock());
@@ -330,6 +334,7 @@ function tick(dt) {
         if (lv !== lastLevel) { hud.banner(`${map.name} — ${lv}`); lastLevel = lv; }
     }
     map.update(simT, dt, ctx);
+    sweepPlates();
     fireballs.update(dt, map, map.hittables);
     loot.update(dt, player.state, map);
     archery.update(dt);
