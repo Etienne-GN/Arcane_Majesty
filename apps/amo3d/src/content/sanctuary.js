@@ -19,7 +19,9 @@ import { createBeasts, dailyRng } from './actors/beast.js';
 import { createCharacter } from './models/character.js';
 
 const ID = 'sylvan_sanctuary';
-const FORD = { x: 0, z: 30 }, HUT = { x: 0, z: -14 }, RIM = { x: 54, z: -18 }, CACHE = { x: -60, z: -8 };
+import SANCTUARY from './regions/sylvan_sanctuary.json';
+// Where the Sanctuary's own pieces stand (the region file's `places`; drag them in the region editor).
+const { ford: FORD, hut: HUT, rim: RIM, cache: CACHE } = SANCTUARY.places;
 
 export const SANCTUARY_QUESTS = {
     main_elementals_trial: {
@@ -51,33 +53,8 @@ export const SANCTUARY_QUESTS = {
 };
 export function registerSanctuaryQuests(stats) { stats.generatedQuests ??= {}; Object.assign(stats.generatedQuests, JSON.parse(JSON.stringify(SANCTUARY_QUESTS))); }
 
-const DEF = {
-    id: ID, name: 'The Sylvan Sanctuary', seed: 505, half: 80, water: -1.4, biome: 'temperate',
-    terrain: { scale: 0.025, relief: 5, base: 0.9, rim: 30, snowLine: 13, rockLine: 9 },
-    palette: { grassA: '#4f8a3a', grassB: '#7ab84a', dirt: '#7a6a48', rock: '#7a7a72', shore: '#5a7a4a', undergrowth: '#5a9a3a', stone: '#8a8a7a', snow: '#e8eef2', water: '#2a6a6a' },
-    mood: { fog: '#cfe8c8', fogNear: 30, fogFar: 170, fogMix: 0.45, light: 1.05, nightFloor: 0.5, motes: '#d8ffb0' },
-    features: [
-        { type: 'river', pts: [[-90, 37], [-60, 33], [-30, 34], [0, 30], [28, 27], [56, 31], [90, 35]], w: 7, depth: 14 },   // the river (deep: it even cuts the rim, so the ford is the only crossing) across the valley; the path fords it
-        { type: 'clearing', x: HUT.x, z: HUT.z, r: 15 }, { type: 'clearing', x: RIM.x, z: RIM.z, r: 12 }, { type: 'clearing', x: 0, z: 56, r: 12 },
-    ],
-    path: [[0, 60], [5, 50], [-3, 42], [FORD.x, FORD.z], [-7, 14], [4, 2], [HUT.x, HUT.z + 6], [HUT.x, HUT.z - 8], [-6, -38], [3, -58], [0, -70]],
-    branches: [[[4, 2], [26, -6], [RIM.x - 8, RIM.z]]],
-    trees: { count: 230, gaps: 0.25, sizeVar: 0.7, kinds: { broad: 0.55, birch: 0.25, pine: 0.2 }, colors: { broad: '#3f8a34', pine: '#2f5a3a' } },
-    rocks: 50,
-    gather: { herb: 4, wood: 2 },
-    tints: [{ x: RIM.x, z: RIM.z, r: 22, color: '#6a6a62', k: 0.75 }],   // the Corrupted Rim greys the green
-    actors: [{ type: 'deer', homes: [{ x: -24, z: 4 }, { x: 22, z: 50 }] }],
-    landmarks: [
-        { name: 'The Ford', x: FORD.x, z: FORD.z, icon: 'stones' },
-        { name: "The Hermit's Hut", x: HUT.x, z: HUT.z, icon: 'tower' },
-        { name: 'The Corrupted Rim', x: RIM.x, z: RIM.z, icon: 'den' },
-    ],
-    links: [
-        { label: 'Back over the pass — the Summit', x: 0, z: 58, facing: Math.PI, spawn: 'from_summit', to: 'the_summit', toSpawn: 'from_sanctuary' },
-        { label: 'Down toward the Fire Gate', x: 0, z: -72, facing: 0, spawn: 'from_fire_gate' },
-    ],
-    start: { x: 0, z: 50, facing: Math.PI },
-};
+const DEF = SANCTUARY;   // content/regions/sylvan_sanctuary.json — editable in the region editor
+
 
 // The forest Elemental: a height of wood and water and green light; branches for arms; no face — a stillness of
 // bark and leaf and river-light.
@@ -192,7 +169,7 @@ export function createSanctuary({ quality }) {
         text: 'Under rotted canvas, wrapped in oilcloth: a talisman of river-stone and old silver, still faintly warm — the Hermit\'s. You take it.',
         onUse: ({ quests }) => quests.manager.onTalk('hermit_cache') });
     const hidden = [];
-    const route = [[-7, 14], [-22, 10], [-36, 4], [-48, -2], [CACHE.x + 3, CACHE.z]];
+    const route = DEF.hiddenPath ?? [[FORD.x - 7, FORD.z - 16], [CACHE.x + 3, CACHE.z]];
     const glowMat = new THREE.MeshBasicMaterial({ color: 0xb8ffe0, transparent: true, opacity: 0, toneMapped: false, depthWrite: false });
     for (let i = 0; i < route.length - 1; i++) for (let f = 0; f < 1; f += 0.12) {
         const x = route[i][0] + (route[i + 1][0] - route[i][0]) * f, z = route[i][1] + (route[i + 1][1] - route[i][1]) * f;
