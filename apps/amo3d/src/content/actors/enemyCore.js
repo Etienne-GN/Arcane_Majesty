@@ -26,8 +26,8 @@ function plates() {
 }
 export function setPlatesVisible(v) { if (plateLayer) plateLayer.style.display = v ? '' : 'none'; }
 
-export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS = 20 }) {
-    const DEF = ENEMY_TYPES[type];
+export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS = 20, def = null }) {
+    const DEF = def ?? ENEMY_TYPES[type];   // def: a creature amo keeps outside ENEMY_TYPES (its boss)
     const family = affinityOf(type);
     const s = { hp: DEF.health, fx: {}, dead: false, deadT: 0, flash: 0, seen: false, engaged: false };
     let lastCtx = null;
@@ -102,8 +102,8 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
     }
 
     const tmp = new THREE.Vector3();
-    function updatePlate(camera, height) {
-        const show = !s.dead && (s.engaged || (s.seen && s.hp < DEF.health));
+    function updatePlate(camera, height, hide = false) {
+        const show = !hide && !s.dead && (s.engaged || (s.seen && s.hp < DEF.health));
         tmp.set(pos.x, pos.y + height, pos.z).project(camera);
         const on = tmp.z < 1 && Math.abs(tmp.x) < 1.1 && Math.abs(tmp.y) < 1.1;
         plate.style.opacity = show && on ? 1 : 0;

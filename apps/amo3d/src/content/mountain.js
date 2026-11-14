@@ -10,6 +10,7 @@ import { flat, colliderAt, pushOut, fbm, mulberry32, smoothstep } from '../engin
 import { createOutdoorShell } from '../engine/outdoor.js';
 import { buildArch } from '../engine/region.js';
 import { createBeasts } from './actors/beast.js';
+import { createMalphas } from './actors/malphas.js';
 
 const HALF = 95, CELL = 0.5, STEP = 0.5, SHELF = 1.8, RAVINE_X = 74, ZC = -6;
 
@@ -346,6 +347,11 @@ export function createMountain({ quality }) {
     const fiendAt = plateaus.find(pl => pl.x === -34) ?? plateaus[1];
     map.hittables.push(...createBeasts({ scene, map: creatureMap, rng, type: 'crag_fiend', posts: [{ x: fiendAt.x, z: fiendAt.z }] }));
 
+    // Malphas waits on the Summit Pass.
+    const passPl = plateaus.find(pl => pl.summit);
+    const malphas = createMalphas({ scene, map, at: { x: passPl.x, y: passPl.h, z: passPl.z }, rng });
+    map.hittables.push(malphas);
+    map.malphas = malphas;
     map.cameraCeiling = (x, z, y) => { const n = nearest(x, z, SHELF + 1); return n && n.p.kind === 'cave' && Math.abs(y - n.p.h) < 1.5 ? n.p.h + 2.9 : null; };
     map.trail = P; map.plateaus = plateaus; map.onTrail = onTrail;
     map.mapInfo = {
@@ -392,8 +398,10 @@ export function createMountain({ quality }) {
             scene.fog.near = THREE.MathUtils.lerp(above ? 60 : 30, 0.5, k);
             scene.fog.far = THREE.MathUtils.lerp(above ? 520 : 240, 16, Math.pow(k, 0.7));
             scene.fog.color.lerp(cloudWhite, k * 0.8);
+            const wo = malphas.whiteout;   // the winter he carries closes in as he weakens
+            if (wo > 0) { scene.fog.near = Math.min(scene.fog.near, 2); scene.fog.far = Math.min(scene.fog.far, THREE.MathUtils.lerp(scene.fog.far, 34, wo)); scene.fog.color.lerp(cloudWhite, wo * 0.7); }
             scene.background.copy(scene.fog.color);
-            shell.sky.material.uniforms.top.value.lerp(scene.fog.color, k); shell.sky.material.uniforms.bottom.value.copy(scene.fog.color);   // inside the cloud there is no sky
+            shell.sky.material.uniforms.top.value.lerp(scene.fog.color, Math.max(k, wo)); shell.sky.material.uniforms.bottom.value.copy(scene.fog.color);   // inside the cloud there is no sky
             for (const c of clouds) {
                 c.tx.offset.x += c.speed * dt; c.tx.offset.y += c.speed * 0.4 * dt;
                 c.m.material.opacity = 0.85 * smoothstep(2, 9, Math.abs(cy - c.y));   // no flat sheet when you pass through
