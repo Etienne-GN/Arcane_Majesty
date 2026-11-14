@@ -1,3 +1,4 @@
+import { settings } from '../engine/settings.js';
 // The player: an amo character sheet (PlayerStats) driving a 3D body. Movement, Vigor, sprint
 // and hop come from amo's movementRules; the fireball from amo's SPELLS; getting hurt uses amo's
 // 800 ms invulnerability and the hop's i-frames.
@@ -68,6 +69,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
 
     function hurt(dmg, from) {
         if (p.dead) return false;
+        if (settings.god) return false;   // god mode (Options): nothing hurts
         if (p.hop && p.hop.t * MOVE.HOP_MS < MOVE.HOP_IFRAME_MS) {   // amo's hop i-frames: a dodge
             hud.floater(p.pos.clone().setY(p.pos.y + 2.1), 'Dodged', '#9fd0ff');
             return false;
@@ -122,7 +124,8 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         if (stats.mana < cost) return hud.message('Not enough mana');
         stats.mana -= cost;
         stats.startSpellCooldown(FIREBALL.id);
-        const aim = cam.forward();
+        // Options → Aim: where the camera looks, or where Eldrin faces.
+        const aim = settings.aim === 'facing' ? new THREE.Vector3(Math.sin(p.facing), 0, Math.cos(p.facing)) : cam.forward();
         p.cast = { t: 0, fired: false, aim };
         p.facing = Math.atan2(aim.x, aim.z);
     }
@@ -276,7 +279,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             const land = g => {
                 const drop = (p.fallFrom ?? g) - g;
                 p.fallFrom = null;
-                if (m.fallDamage && drop > 4) {
+                if (m.fallDamage && drop > 4 && !settings.god) {
                     const dmg = drop >= 22 ? stats.maxHealth * 2 : Math.round((drop - 4) * stats.maxHealth / 18);
                     p.invuln = 0;
                     hurt(dmg, { x: p.pos.x + 0.01, z: p.pos.z });

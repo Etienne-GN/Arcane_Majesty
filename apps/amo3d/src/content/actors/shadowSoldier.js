@@ -1,3 +1,4 @@
+import { settings } from '../../engine/settings.js';
 // Shadow Soldiers: shadow-made humans in a soldier's shape — sword, kite shield, translucent
 // black with a violet rim, red eyes, dark fumes pouring off them.
 // Stats are amo's ENEMY_TYPES.mirror_shade (a Void-touched shade); fire damage goes through
@@ -241,7 +242,7 @@ export function createShadows({ scene, map, rng, posts }) {
             if (net.puppet) { net.sendHit?.({ dmg, burnMs, status, element: 'fire', from: from ? { x: from.x, y: from.y, z: from.z } : null }); s.flash = 0.2; s.seen = true; return 'handled'; }
             if (attacker) by.add(attacker); else byMe = true;
             const mult = affinityMult(TYPE, 'fire');
-            let amount = Math.max(1, Math.round(dmg * mult * fxMult('damageTakenMult')));
+            let amount = settings.god && !attacker ? 9999 : Math.max(1, Math.round(dmg * mult * fxMult('damageTakenMult')));
             // A raised shield turns fire that comes from the front.
             const toFrom = Math.atan2(from.x - pos.x, from.z - pos.z);
             const off = Math.abs(((((toFrom - s.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI);

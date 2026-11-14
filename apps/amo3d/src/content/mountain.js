@@ -11,6 +11,7 @@ import { createOutdoorShell } from '../engine/outdoor.js';
 import { buildArch } from '../engine/region.js';
 import { createBeasts } from './actors/beast.js';
 import { createMalphas } from './actors/malphas.js';
+import { settings } from '../engine/settings.js';
 
 const HALF = 95, CELL = 0.5, STEP = 0.5, SHELF = 1.8, RAVINE_X = 74, ZC = -6;
 
@@ -396,7 +397,7 @@ export function createMountain({ quality }) {
     map.update = (t, dt, ctx) => {
         shell.update(dt, ctx);
         // The gate opens once Malphas has fled: over the pass to an impossible green.
-        const open = !!ctx.flags?.malphas_retreated;
+        const open = !!ctx.flags?.malphas_retreated || settings.god;   // god mode: the way is open for testing
         sanctuaryGate.to = open ? 'sylvan_sanctuary' : null;
         sanctuaryGate.label = open ? 'Over the pass — the Sylvan Sanctuary' : 'The Sylvan Sanctuary (the way is not open yet)';
         gate.material.color.setHex(open ? 0xa8e8a0 : 0x8a9a7a);

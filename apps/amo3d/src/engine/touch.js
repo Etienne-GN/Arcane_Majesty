@@ -76,11 +76,13 @@ export function createTouchControls({ input, cam }) {
         const b = document.createElement('button');
         if (action === 'tear') b.className = 'tear';
         b.innerHTML = `${label}<small>${sub}</small>`;
-        b.addEventListener('click', e => { e.stopPropagation(); sheet.classList.remove('open'); input.press(action); });
+        b.addEventListener('click', e => { e.stopPropagation(); if (performance.now() - openedAt < 300) return; sheet.classList.remove('open'); input.press(action); });
         grid.append(b);
     }
     sheet.append(grid);
-    sheet.addEventListener('click', () => sheet.classList.remove('open'));
+    // Close on a tap of the backdrop — but not the click that follows the very tap that opened it.
+    let openedAt = 0;
+    sheet.addEventListener('click', e => { if (e.target === sheet && performance.now() - openedAt > 400) sheet.classList.remove('open'); });
     document.body.append(sheet);
 
     const sticks = new Map();   // pointerId → { kind: 'move' | 'look', x0, y0, x, y }
@@ -148,7 +150,7 @@ export function createTouchControls({ input, cam }) {
     button('.fire', () => input.press('cast'));
     button('.hop', () => input.press('hop'));
     button('.hit', () => input.press('strike'));
-    button('.menu', () => sheet.classList.add('open'));
+    button('.menu', () => { openedAt = performance.now(); sheet.classList.add('open'); });
 
     // Step aside while a menu or a conversation is open (and let go of the stick).
     setInterval(() => {

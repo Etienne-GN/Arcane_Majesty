@@ -1,3 +1,5 @@
+import { settings } from '../engine/settings.js';
+const GOD_PLACES = [['outdoor', 'Thaloria Glade'], ['thaloria', 'Thaloria'], ['east_road', 'The Thalorian Wilds'], ['summit_of_despair', 'Summit — the Approach'], ['the_summit', 'Summit of Despair — the mountain'], ['sylvan_sanctuary', 'The Sylvan Sanctuary'], ['whisper_wood', 'Whisper-Wood']];
 // Fast travel — amo's rules: rift-gate monoliths are attuned by touching them (stats.attunedGates);
 // at an attuned gate you can travel to any other attuned gate. The Aetheric Tear (T / gamepad R3-hold…
 // / touch TEAR) opens the same travel from anywhere: 85% of max mana (75% with Aetheric Comprehension),
@@ -79,6 +81,14 @@ export function createTravel({ stats, hud, world, player, allGates, onAttune }) 
             b.onclick = () => { close(); onPick(g); };
             panel.append(b);
         }
+        if (settings.god) {   // god mode (testing): straight to any map's start
+            const h3 = document.createElement('div'); h3.className = 'sub'; h3.textContent = 'God mode — any map:'; panel.append(h3);
+            for (const [id, label] of GOD_PLACES) {
+                const b = document.createElement('button'); b.textContent = `⚡ ${label}`;
+                b.onclick = () => { close(); world.go(id, 'start'); hud.banner(label); };
+                panel.append(b);
+            }
+        }
         const c = document.createElement('button'); c.className = 'ghost'; c.textContent = 'Cancel';
         c.onclick = close;
         panel.append(c);
@@ -111,11 +121,11 @@ export function createTravel({ stats, hud, world, player, allGates, onAttune }) 
     // The Aetheric Tear: from anywhere, at a price.
     function tear() {
         if (player.state.dead || channel) return;
-        if (tearCd > 0) return hud.message(`Aetheric Tear on cooldown (${Math.ceil(tearCd)}s)`);
+        if (tearCd > 0 && !settings.god) return hud.message(`Aetheric Tear on cooldown (${Math.ceil(tearCd)}s)`);
         const { pct, cd } = tearRules();
         const cost = Math.floor(stats.maxMana * pct);
         if (stats.manaExhausted || stats.mana < cost) return hud.message(`Not enough mana for the Aetheric Tear (${Math.round(pct * 100)}% needed)`);
-        if (!stats.attunedGates.length) return hud.message('No attuned rift gates — touch a monolith first');
+        if (!stats.attunedGates.length && !settings.god) return hud.message('No attuned rift gates — touch a monolith first');
         show('AETHERIC TEAR', `Tear the world open to an attuned gate — ${cost} mana.`, null, g => {
             channel = { t: 0, g, cost, cd };
             hud.message('The air splits…');

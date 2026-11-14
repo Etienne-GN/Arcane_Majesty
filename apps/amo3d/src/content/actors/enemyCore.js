@@ -6,6 +6,7 @@
 // Actors (wolf.js…) supply a model, an AI step and an animation, and call these.
 import * as THREE from 'three';
 import { enemies, enemyAffinities, statuses, elites as EL } from '@rules';
+import { settings } from '../../engine/settings.js';
 
 const { ENEMY_TYPES } = enemies;
 const { affinityMult, affinityOf } = enemyAffinities;
@@ -90,7 +91,7 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
             return 'handled';
         }
         if (attacker) s.by.add(attacker); else s.byMe = true;
-        const amount = Math.max(1, Math.round(dmg * (element ? affinityMult(type, element) : 1) * fxMult('damageTakenMult')));
+        const amount = settings.god && !attacker ? 9999 : Math.max(1, Math.round(dmg * (element ? affinityMult(type, element) : 1) * fxMult('damageTakenMult')));   // god mode: every blow of yours lands for 9999
         if (burnMs) addStatus('burning', burnMs);
         if (status) addStatus(status.id, status.ms);
         s.hp -= amount;

@@ -387,6 +387,7 @@ function tick(dt) {
     loot.update(dt, player.state, map);
     archery.update(dt);
     travel.update(dt, map.fx ?? fireballs);
+    if (settings.god) { stats.health = stats.maxHealth; stats.mana = stats.maxMana; stats.vigor = stats.maxVigor; stats.vigorWinded = false; }   // god mode: endless
     hud.update(dt, { stats, player: p, camera, spell: FIREBALL });
     const c = clock();
     clockEl.textContent = `${clockRules.clockLabel(c.minutes)} · ${weatherRules.WEATHER[c.weather] ?? c.weather}`;

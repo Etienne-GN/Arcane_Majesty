@@ -61,6 +61,11 @@ export function createOptions({ quality, onQuality, onFps, onOnline }) {
         p.append(el('h3', null, 'Sound'));
         p.append(slider('Music', 'music', 0, 1, 0.05, v => `${Math.round(v * 100)}%`));
 
+        p.append(el('h3', null, 'Combat'));
+        p.append(seg('Fireball aim', [['camera', 'Where I look'], ['facing', 'Where Eldrin faces']], settings.aim ?? 'camera', v => setSetting('aim', v)));
+        p.append(seg('God mode (testing)', [[false, 'Off'], [true, 'On']], !!settings.god, v => setSetting('god', v)));
+        p.append(el('div', 'note', 'God mode: no damage, endless mana and Vigor, every blow lands for 9999, falls don\'t hurt, and boss gates open (the world map can travel anywhere). Quests are left as they are.'));
+
         p.append(el('h3', null, 'Camera'));
         p.append(slider('Turn speed', 'camSens', 0.4, 2, 0.1, v => `${v.toFixed(1)}×`));
         p.append(seg('Vertical', [[false, 'Normal'], [true, 'Inverted']], settings.invertY, v => setSetting('invertY', v)));
