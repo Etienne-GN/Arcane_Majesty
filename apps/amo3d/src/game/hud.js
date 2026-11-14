@@ -1,3 +1,4 @@
+import { sfx } from '../engine/sfx.js';
 // HUD: bars, the spell slot, banners, messages, the door prompt, damage floaters, hurt vignette.
 import * as THREE from 'three';
 import { statuses } from '@rules';
@@ -27,11 +28,18 @@ export function createHud() {
     const floaters = [];
     const tmp = new THREE.Vector3();
 
+    // Game Over (amo GameOverScene): a dark veil, a line, and where you will wake.
+    const over = document.createElement('div');
+    over.style.cssText = 'position:fixed;inset:0;z-index:7;pointer-events:none;display:grid;place-items:center;background:radial-gradient(ellipse at center,#1a0606c0,#000e);opacity:0;transition:opacity 1.2s;font-family:Georgia,serif;text-align:center;color:#e8d6c0';
+    over.innerHTML = '<div><div class="t" style="font-size:calc(40px * var(--ui,1));letter-spacing:.3em;color:#c8443a">FALLEN</div><div class="s" style="margin-top:10px;font-size:calc(17px * var(--ui,1));opacity:.85"></div></div>';
+    document.body.append(over);
+    let overT = 0;
     return {
         ui,
+        gameOver(name, where) { sfx.death(); over.querySelector('.s').textContent = `${name} falls… and wakes ${where ? `at ${where}` : 'at the last place of rest'}.`; over.style.opacity = 1; overT = 3.4; },
         banner(text) { ui.banner.textContent = text; ui.banner.style.opacity = 1; bannerT = 2.5; },
         message(text) { ui.msg.textContent = text; ui.msg.style.opacity = 1; msgT = 1.4; },
-        hurt() { hurtK = 0.75; },
+        hurt() { hurtK = 0.75; sfx.hurt(); },
         prompt(label) {
             ui.prompt.textContent = label ? `⟶ ${label}` : '';
             ui.prompt.style.opacity = label ? 1 : 0;
@@ -46,6 +54,7 @@ export function createHud() {
         },
 
         update(dt, { stats: s, player, camera, spell }) {
+            if (overT > 0 && (overT -= dt) <= 0) over.style.opacity = 0;
             ui.vFill.style.width = `${(s.vigor / s.maxVigor) * 100}%`;
             ui.vBar.classList.toggle('winded', s.vigorWinded);
             ui.vNum.textContent = `${Math.round(s.vigor)} / ${s.maxVigor}${s.vigorWinded ? ' · winded' : ''}`;

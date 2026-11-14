@@ -1,3 +1,4 @@
+import { sfx } from '../engine/sfx.js';
 // Fireball: projectile + trail + explosion, driven by amo's SPELLS.fireball numbers.
 import * as THREE from 'three';
 import { spells } from '@rules';
@@ -58,6 +59,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake }) {
     }
 
     function explode(p, normal, map, hittables) {
+        sfx.boom();
         const radius = (spellRadius(FIREBALL, 1) / PX) * tuning.radiusMult;
         const flash = new THREE.Sprite(glowMat());
         flash.position.copy(p).addScaledVector(normal, 0.4);

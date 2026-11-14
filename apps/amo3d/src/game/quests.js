@@ -1,3 +1,4 @@
+import { sfx } from '../engine/sfx.js';
 // Quests — amo's questManager unchanged (it works on amo's shared playerStats, which the 3D game uses):
 // givers offer their quest after talking (QUESTS[...].offer), progress comes from the game's events
 // (kills, gathering, attuning, pickups, cooking, talking), rewards are amo's. The journal (J / touch QST)
@@ -30,7 +31,7 @@ export function createQuests({ stats, hud }) {
     questManager.onQuestEvent((id, step, progress) => {
         const q = questManager.questDef(id);
         if (!q) return;
-        if (progress === -1) hud.banner(`Quest complete — ${q.title}`);
+        if (progress === -1) { hud.banner(`Quest complete — ${q.title}`); sfx.quest(); }
         else if (step === null) hud.banner(`New quest — ${q.title}`);
         else hud.message(`${q.title}: ${QR.questSteps(q).find(s => s.id === step)?.label ?? step} (${progress})`);
         if (open) render();

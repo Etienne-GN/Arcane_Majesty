@@ -1,3 +1,4 @@
+import { sfx } from '../../engine/sfx.js';
 // Wolves — amo's ENEMY_TYPES.wolf (28 HP, 8 damage, fast, sharp-eyed, drops herbs or a potion).
 // A pack lives at a den: they wander, notice you, close in fast, circle, and take turns at a
 // crouch-then-lunge bite (a tell you can hop through). Body and AI here; rules in enemyCore.js.
@@ -134,7 +135,7 @@ function createWolf({ scene, map, rng, home, tint }) {
         if (core.stunned()) {
             if (ai.state === 'windup' || ai.state === 'lunge') ai.state = 'chase';
         } else if (ai.state === 'idle' || ai.state === 'wander') {
-            if (!T.dead && toP < SIGHT) { ai.state = 'notice'; ai.timer = 0.45; }
+            if (!T.dead && toP < SIGHT) { ai.state = 'notice'; ai.timer = 0.45; sfx.growl(); }
             else if (ai.state === 'idle' && (ai.timer -= dt) <= 0) {
                 const a = rng() * 6.28, r = 1 + rng() * 4;
                 ai.target = { x: home.x + Math.cos(a) * r, z: home.z + Math.sin(a) * r };

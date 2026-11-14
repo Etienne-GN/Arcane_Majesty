@@ -8,6 +8,9 @@ import { settings } from './engine/settings.js';
 import { createOptions } from './game/options.js';
 import { createPadNav } from './engine/padnav.js';
 import { createNet } from './game/net.js';
+import { sfx } from './engine/sfx.js';
+// Every button in every menu clicks.
+addEventListener('click', e => { if (e.target.closest?.('button, #tmenu button, .tool')) sfx.click(); }, true);
 import { createRenderer } from './engine/renderer.js';
 import { createOrbitCamera } from './engine/camera.js';
 import { createInput } from './engine/input.js';
@@ -40,6 +43,7 @@ const REGIONS = Object.fromEntries(Object.values(import.meta.glob('./content/reg
 import { sweepPlates, hideAllPlates } from './content/actors/enemyCore.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createBountyBoard } from './game/bounty.js';
+import { createBook } from './game/book.js';
 import { createChests } from './game/chest.js';
 import { createCharacter } from './content/models/character.js';
 import eldrinCast from './content/cast/eldrin.json';
@@ -253,6 +257,7 @@ const shop = createShop({ stats, hud, save: () => save() });
 const quests = createQuests({ stats, hud });
 registerSanctuaryQuests(stats);   // game quests from the campaign spec, run by amo's quest manager as generated quests
 const bountyBoard = createBountyBoard({ stats, hud, save: () => save() });
+const book = createBook({ stats, hud, save: () => save() });
 const codex = createCodex({ stats });
 questHooks.onKill = (type, extra = {}) => { quests.onKill(type, { ...extra, mapId: world.current?.id ?? null }); codex.killed(type); };   // mapId: bounty kills count in their region only
 const thaloriaBias = () => 'neutral';   // amo: Thaloria's currencyBias
@@ -390,10 +395,11 @@ function tick(dt) {
     if (act.journal) quests.toggle();
     if (act.codex) codex.toggle();
     if (act.options) options.toggle(true);
+    if (act.book) book.toggle(true);
     if (act.chat) net.openChat();
     net.update(dt, camera);
     for (const h of world.current.hittables ?? []) if (h.engaged) codex.seen(h.kind === 'shadow' ? 'mirror_shade' : h.kind);
-    const menuOpen = inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open;
+    const menuOpen = inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open || book.open;
     if (menuOpen) { act.hotbar = -1; act.skill = -1; act.tear = false; act.strike = false; }   // the D-pad and buttons drive the menu, not the hotbar
     if (act.tear) travel.tear();
     mapView.update(player.state, cam.yaw);
@@ -403,7 +409,7 @@ function tick(dt) {
     if (act.skill >= 0 && !inventory.open && !sheet.open) skills.use(act.skill);
     skills.update(dt);
     dialogue.update(dt, camera, project);
-    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
+    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open || book.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
     const pp = player.state.pos;
@@ -447,6 +453,8 @@ function tick(dt) {
     archery.update(dt);
     travel.update(dt, map.fx ?? fireballs);
     if (settings.god) { stats.health = stats.maxHealth; stats.mana = stats.maxMana; stats.vigor = stats.maxVigor; stats.vigorWinded = false; }   // god mode: endless
+    // Footsteps: what is underfoot decides the sound.
+    if (p.speed > 0.6 && !p.hop && !p.dead && p.vy === 0) sfx.step(map.weatherDef?.biome === 'snow' || map.id === 'the_summit' ? 'snow' : (map.terrain ? 'grass' : 'stone'), p.sprinting);
     hud.update(dt, { stats, player: p, camera, spell: FIREBALL });
     const c = clock();
     clockEl.textContent = `${clockRules.clockLabel(c.minutes)} · ${weatherRules.WEATHER[c.weather] ?? c.weather}`;

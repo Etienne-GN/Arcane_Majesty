@@ -1,3 +1,4 @@
+import { sfx } from '../../engine/sfx.js';
 import { settings } from '../../engine/settings.js';
 // Shadow Soldiers: shadow-made humans in a soldier's shape — sword, kite shield, translucent
 // black with a violet rim, red eyes, dark fumes pouring off them.
@@ -263,6 +264,7 @@ export function createShadows({ scene, map, rng, posts }) {
             }
             s.hp -= amount;
             s.flash = 0.2;
+            sfx.hit();
             s.seen = true;
             ctx?.floater(pos.clone().setY(pos.y + 2.2), blocked ? `Blocked ${amount}` : `${amount}${burnMs && !blocked ? ' 🔥' : ''}`, blocked ? '#c9b6ff' : '#ff8a4a');
             if (s.state !== 'windup' && s.state !== 'swing') s.state = 'chase';

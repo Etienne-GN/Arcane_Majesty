@@ -1,3 +1,4 @@
+import { sfx } from '../engine/sfx.js';
 // Loot: an enemy's amo lootTable is rolled on death; each item lands as a glowing, bobbing pickup
 // (tinted with the item's own colour) with a beam of light so it can be found in the grass.
 // Walking over it puts it in the satchel through PlayerStats.addItem (satchel capacity applies).
@@ -54,6 +55,7 @@ export function createLoot({ stats, hud, onPickup }) {
             if (d.t > LIFETIME) { remove(i); continue; }
             if (!player.dead && d.pop >= 1 && Math.hypot(player.pos.x - d.pos.x, player.pos.z - d.pos.z) < PICK_R) {
                 if (stats.addItem(d.id, 1)) {
+                    sfx.pickup();
                     onPickup?.(d.id);
                     hud.floater(d.mesh.position.clone().setY(d.mesh.position.y + 0.6), `+ ${ITEMS[d.id].name}`, `#${new THREE.Color(ITEMS[d.id].color ?? 0xffffff).getHexString()}`);
                     remove(i);

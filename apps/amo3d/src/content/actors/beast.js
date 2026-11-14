@@ -1,3 +1,4 @@
+import { sfx } from '../../engine/sfx.js';
 // Creatures for any amo ENEMY_TYPES entry that has a body here — built on the shared enemy core
 // (stats, affinities, statuses, XP, loot, nameplate, respawn). Bodies:
 //   gloom_beak  — a dark eagle that circles high, then dives at you
@@ -168,7 +169,7 @@ function createBeast({ scene, map, rng, type, home, elite = null }) {
         let want = 0;
         if (core.stunned()) { if (ai.state === 'windup' || ai.state === 'strike') ai.state = 'chase'; }
         else if (ai.state === 'idle' || ai.state === 'wander') {
-            if (!T.dead && toP < SIGHT) { ai.state = 'notice'; ai.timer = 0.5; }
+            if (!T.dead && toP < SIGHT) { ai.state = 'notice'; ai.timer = 0.5; if (toP < 18) sfx.growl(); }
             else if (ai.state === 'idle' && (ai.timer -= dt) <= 0) { const a = rng() * 6.28, r = 2 + rng() * 6; ai.target = { x: home.x + Math.cos(a) * r, z: home.z + Math.sin(a) * r }; ai.state = 'wander'; }
             else if (ai.state === 'wander') { turn(Math.atan2(ai.target.x - pos.x, ai.target.z - pos.z), dt * 3); want = SPEED * 0.35; if (Math.hypot(ai.target.x - pos.x, ai.target.z - pos.z) < 0.8) { ai.state = 'idle'; ai.timer = 2 + rng() * 3; } }
         } else if (ai.state === 'notice') { turn(ang, dt * 8); if ((ai.timer -= dt) <= 0) ai.state = 'chase'; }

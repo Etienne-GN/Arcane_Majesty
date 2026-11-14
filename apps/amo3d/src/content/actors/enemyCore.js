@@ -1,3 +1,4 @@
+import { sfx } from '../../engine/sfx.js';
 // Shared enemy core: everything an enemy does with amo's rules, apart from its body and its AI.
 //   stats      — ENEMY_TYPES[type] (health, damage, speed, sight, attackRange, xpReward, lootTable)
 //   hit        — affinities (fire etc.), statuses (STATUS_DEFS: dots, stuns, slows, damageTakenMult)
@@ -33,7 +34,7 @@ export function setPlatesVisible(v) { if (plateLayer) plateLayer.style.display =
 
 // elite: { affixes, rareDrop } — amo's elites (data/elites.js): eliteStats (×2.5 health, ×1.4 damage, ×3 XP),
 // a second loot roll and a rare regional drop, a gold nameplate; swift = permanently hastened, warded = a mana
-// ward every 20 s, vampiric = heals 30% of what it deals (onDealt); arcane and thorned are named only (amo's
+// ward every 20 s, vampiric = heals 30% of what it deals (onDealt); arcane fires a bolt every 6 s at whoever it fights, thorned turns 15% of every blow back on the striker (amo's
 // 3D creatures have no spell kits yet).
 export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS = 20, def = null, elite = null }) {
     const BASE = def ?? ENEMY_TYPES[type];   // def: a creature amo keeps outside ENEMY_TYPES (its boss)
@@ -91,11 +92,16 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
             return 'handled';
         }
         if (attacker) s.by.add(attacker); else s.byMe = true;
+        if (elite?.affixes.includes('thorned') && !attacker && ctx?.hurtPlayer) {   // thorns: part of your blow comes back
+            const back = Math.max(1, Math.round(dmg * 0.15));
+            if (from && Math.hypot(from.x - pos.x, from.z - pos.z) < 4) ctx.hurtPlayer(back, pos);
+        }
         const amount = settings.god && !attacker ? 9999 : Math.max(1, Math.round(dmg * (element ? affinityMult(type, element) : 1) * fxMult('damageTakenMult')));   // god mode: every blow of yours lands for 9999
         if (burnMs) addStatus('burning', burnMs);
         if (status) addStatus(status.id, status.ms);
         s.hp -= amount;
         s.flash = 0.2;
+        sfx.hit();
         s.seen = true;
         ctx?.floater(pos.clone().setY(pos.y + 1.5), `${amount}${burnMs ? ' 🔥' : ''}`, '#ff8a4a');
         if (s.hp <= 0) die(ctx);
@@ -107,6 +113,15 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
         lastCtx = ctx;
         s.flash = Math.max(0, s.flash - dt);
         if (s.dead) { s.deadT += dt; return false; }
+        if (elite?.affixes.includes('arcane') && s.engaged && !net.puppet && (s.boltT = (s.boltT ?? 4) - dt) <= 0) {   // an arcane bolt at the player
+            s.boltT = 6;
+            const P = ctx.player.pos;
+            if (!ctx.player.dead && Math.hypot(P.x - pos.x, P.z - pos.z) < 14) {
+                ctx.fx?.fire?.emit?.({ x: pos.x, y: pos.y + 1.6, z: pos.z, vx: (P.x - pos.x) * 2, vy: 1, vz: (P.z - pos.z) * 2, life: 0.4, size: [0.5, 0.1], c0: [0.6, 0.4, 1, 1], c1: [0.3, 0.1, 1, 0] });
+                ctx.floater?.(P.clone().setY(P.y + 2.4), 'arcane bolt', '#b89aff');
+                ctx.hurtPlayer(Math.round(DEF.damage * 0.6), pos);
+            }
+        }
         if (elite) {
             if (elite.affixes.includes('swift') && !s.fx.hastened) s.fx.hastened = { left: Infinity, tick: 0 };
             if (elite.affixes.includes('warded') && (s.wardT = (s.wardT ?? 0) - dt) <= 0) { s.wardT = 20; addStatus('mana_ward'); }

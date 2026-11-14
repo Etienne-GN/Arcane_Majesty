@@ -1,3 +1,4 @@
+import { sfx } from '../engine/sfx.js';
 import { settings } from '../engine/settings.js';
 // The player: an amo character sheet (PlayerStats) driving a 3D body. Movement, Vigor, sprint
 // and hop come from amo's movementRules; the fireball from amo's SPELLS; getting hurt uses amo's
@@ -95,6 +96,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             p.dead = { t: 0 };
             p.cast = null; p.hop = null;
             hud.message(`${name} falls…`);
+            hud.gameOver?.(name, stats.respawnPoint?.label);
         }
         return true;
     }
@@ -104,7 +106,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         const before = stats.level;
         stats.gainXp(xp);   // amo's PlayerStats: levels, skill and attribute points
         hud.floater(at, `+${xp} XP`, '#c9b6ff');
-        if (stats.level > before) hud.banner(`Level ${stats.level}`);
+        if (stats.level > before) { hud.banner(`Level ${stats.level}`); sfx.levelUp(); } else sfx.kill();
     }
 
     function revive() {
@@ -179,7 +181,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             p.dead.t += dt;
             hero.root.rotation.x = -Math.min(1, p.dead.t / 0.6) * Math.PI / 2 * 0.95;
             hero.root.position.y = p.pos.y + 0.12 * Math.min(1, p.dead.t / 0.6);
-            if (p.dead.t > 2.6) world.go(stats.respawnPoint?.map ?? 'outdoor', stats.respawnPoint?.spawn ?? 'start', revive);   // back at the last gate
+            if (p.dead.t > 3.6) world.go(stats.respawnPoint?.map ?? 'outdoor', stats.respawnPoint?.spawn ?? 'start', revive);   // back at the last gate
             return 0;
         }
         // Out of a fight for a while, Eldrin catches his breath (POC rule).
@@ -200,6 +202,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         if (act.strike && !p.strike && !p.cast && p.strikeCd <= 0 && !p.hop) {
             const type = strikeType(stats);
             p.strike = { t: 0, hit: false, type, thrust: WEAPON_TYPES[type].anim === 'thrust' };
+            sfx.swing();
             p.strikeCd = ((WEAPON_TYPES[type].cooldown / 1000) * mastery.levelCooldownMult(stats.weaponLevel(type)) + STRIKE_TIME * 0.6) * buffMult('swingMult');
         }
         if (p.strike) {
@@ -217,6 +220,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
                 const origin = hero.crystalWorld(new THREE.Vector3());
                 // Aim to land at the end of its range (a targeted_aoe spell in amo).
                 const range = (FIREBALL.range[0] / PX) * spellTuning.rangeMult;
+                sfx.cast();
                 fireballs.cast(origin, tmp.copy(c.aim).setY(-(origin.y - p.pos.y) / range).normalize(), 1, stats.attributes.intelligence);
                 hooks.onCast?.(origin, tmp);   // online: the others see it
             }
@@ -226,6 +230,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         if (act.hop && !p.hop && spendHop(stats)) {
             const hd = moving ? dir.clone() : new THREE.Vector3(Math.sin(p.facing), 0, Math.cos(p.facing));
             const distPx = hopLanding({ x: p.pos.x * PX, y: p.pos.z * PX }, { x: hd.x, y: hd.z }, blockedPx);
+            sfx.hop();
             p.hop = { t: 0, from: p.pos.clone(), to: p.pos.clone().addScaledVector(hd, distPx / PX), baseY: p.pos.y };
             p.facing = Math.atan2(hd.x, hd.z);
         }
@@ -327,7 +332,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             if (d < t.r + 3) nearLabel = t.label;
             if (d < t.r) {
                 inside = true;
-                if (!triggerLock && t.to) world.go(t.to, t.spawn);
+                if (!triggerLock && t.to) { sfx.door(); world.go(t.to, t.spawn); }
             }
         }
         if (!inside) triggerLock = false;

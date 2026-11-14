@@ -1,3 +1,4 @@
+import { sfx } from '../engine/sfx.js';
 // Shops — amo's ShopScene rules: a merchant's catalogue (items.js MERCHANT_CATALOG or CATALOGS[npc.catalog]),
 // filtered as amo does (unknown items, recipes already known, spells/manuals already learned, rank-gated
 // entries); prices in gold or glint (economy.itemCurrency), the map's currency bias (economy.shopPrice);
@@ -45,6 +46,7 @@ export function createShop({ stats, hud, save }) {
     };
 
     function buy(e) {
+        sfx.coin();
         const cost = E.shopPrice(e, bias), cur = e.currency;
         if ((stats[cur] ?? 0) < cost) { desc = `Not enough ${CUR[cur].name}.`; return render(); }
         if (!stats.addItem(e.id, e.qty ?? 1)) { desc = 'Your satchel is full.'; return render(); }
@@ -53,6 +55,7 @@ export function createShop({ stats, hud, save }) {
         render();
     }
     function sell(id) {
+        sfx.coin();
         const def = ITEMS[id];
         if (!def?.sellPrice) return;
         const cur = E.itemCurrency(id);

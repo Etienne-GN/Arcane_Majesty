@@ -6,7 +6,7 @@
 //   top right   — the minimap (tap: world map), the clock, and one MENU button that opens a sheet of
 //                 big tiles: Satchel, Hero, Map, Journal, Codex, Aetheric Tear
 // Everything steps aside while a menu or a conversation is open.
-const MODALS = '#inv.open,#sheet.open,#journal.open,#codex.open,#shop.open,#chest.open,#camp.open,#worldmap.open,#dlg.open,#travel.open,#tmenu.open,#bounty.open,#options.open';
+const MODALS = '#inv.open,#sheet.open,#journal.open,#codex.open,#shop.open,#chest.open,#camp.open,#worldmap.open,#dlg.open,#travel.open,#tmenu.open,#bounty.open,#options.open,#book.open';
 
 export function createTouchControls({ input, cam }) {
     const forced = new URLSearchParams(location.search).get('touch') === '1';
@@ -69,7 +69,7 @@ export function createTouchControls({ input, cam }) {
     const sheet = document.createElement('div');
     sheet.id = 'tmenu';
     const tiles = [['inventory', 'Satchel', 'items · equipment'], ['sheet', 'Hero', 'attributes · mastery'], ['map', 'Map', 'the world'],
-        ['journal', 'Journal', 'quests'], ['codex', 'Codex', 'creatures · places'], ['tear', 'Aetheric Tear', 'travel to a gate'], ['chat', 'Chat', 'talk to players online'], ['options', 'Options', 'graphics · sound · camera · online']];
+        ['journal', 'Journal', 'quests'], ['codex', 'Codex', 'creatures · places'], ['book', 'Book', 'skills · spells · styles'], ['tear', 'Aetheric Tear', 'travel to a gate'], ['chat', 'Chat', 'talk to players online'], ['options', 'Options', 'graphics · sound · camera · online']];
     const grid = document.createElement('div');
     grid.className = 'grid';
     for (const [action, label, sub] of tiles) {
