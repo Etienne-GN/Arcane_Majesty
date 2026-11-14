@@ -12,6 +12,8 @@
         @media (pointer: coarse) { :root { --ui: 1.1; } }   /* phone pixels are small: everything a size up */
                 html, body { margin: 0; height: 100%; overflow: hidden; background: #10141a; font-family: Georgia, 'Times New Roman', serif; }
         canvas { display: block; touch-action: none; cursor: grab; }
+        /* Every menu panel scrolls with a finger (the game surface underneath takes no touches while a menu is open). */
+        .panel, #tmenu .grid { touch-action: pan-y; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
         canvas:active { cursor: grabbing; }
         .hud { position: fixed; pointer-events: none; color: #eee6d2; text-shadow: 0 1px 3px #000c; }
         #status { left: 18px; bottom: 18px; width: 260px; }
