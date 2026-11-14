@@ -10,6 +10,8 @@ import { Server } from 'socket.io';
 const PORT = +(process.env.AMO3D_PORT ?? 3003);
 const MAX_PLAYERS = 32;
 const players = new Map();   // socket.id → state
+const snaps = new Map();     // map id → the host's latest creature snapshot (index → [x, y, z, heading, state, hp, dead])
+const MAX_STRIKE = 60;       // amo's hardest-hitting creature, elite (×1.4) and with room to spare
 
 const httpServer = createServer((req, res) => {
     if (req.url === '/status') {
@@ -123,6 +125,9 @@ io.on('connection', socket => {
         if (!isHost(p) || now - lastSnap < 70 || !Array.isArray(a.list) || a.list.length > 400) return;
         lastSnap = now;
         const list = a.list.filter(e => Array.isArray(e) && e.length === 8).map(e => e.map(v => num(+v, -1e5, 1e5)));
+        const m = snaps.get(p.map) ?? new Map();
+        for (const [i, ...v] of list) m.set(i, v);
+        snaps.set(p.map, m);
         socket.to(p.map).emit('enemy:snap', { list });
     });
     on('enemy:hit', a => {   // a player → the host: their blow on creature `i`
@@ -141,13 +146,20 @@ io.on('connection', socket => {
         if (!isHost(p) || !Array.isArray(a.by)) return;
         for (const id of a.by.slice(0, 32)) { const q = players.get(id); if (q && q.map === p.map) io.to(id).emit('enemy:credit', { i: num(a.i, 0, 400) | 0 }); }
     });
-    on('player:strike', a => {   // host → a player: a creature's blow landed on them
+    // host → a player: creature `i` landed a blow on them. The host is a client, so the claim is checked against
+    // its own last snapshot: that creature must be alive and within reach of the target; damage is capped and
+    // each player can be struck at most every 0.4 s.
+    on('player:strike', a => {
         const p = players.get(socket.id);
         const now = Date.now();
         if (!isHost(p) || now - strikeT < 30) return;
         strikeT = now;
-        const q = players.get(a.target);
-        if (q && q.map === p.map) io.to(q.id).emit('player:hurt', { dmg: num(a.dmg, 0, 500), from: vec(a.from) });
+        const q = players.get(a.target), c = snaps.get(p.map)?.get(num(a.i, 0, 400) | 0);
+        if (!q || q.map !== p.map || !c || c[6]) return;
+        if (Math.hypot(c[0] - q.move.x, c[2] - q.move.z) > 6) return;   // nowhere near: not a real blow
+        if (now - (q.lastHurt ?? 0) < 400) return;
+        q.lastHurt = now;
+        io.to(q.id).emit('player:hurt', { dmg: num(a.dmg, 0, MAX_STRIKE), from: { x: c[0], y: c[1], z: c[2] } });
     });
 
     on('chat:send', c => {
@@ -165,6 +177,7 @@ io.on('connection', socket => {
         socket.to(p.map).emit('player:left', { id: p.id });
         players.delete(socket.id);
         announceHost(p.map);   // the next player takes over the creatures
+        if (!inMap(p.map).length) snaps.delete(p.map);
         console.log(`[-] ${p.name} (${players.size} online)`);
     });
 });

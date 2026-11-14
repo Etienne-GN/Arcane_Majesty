@@ -139,7 +139,12 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
             if (!socket?.connected || !remotes.size) return [me];
             return [me, ...[...remotes.entries()].map(([id, r]) => ({ id, pos: r.model.root.position, dead: !!r.target.dead }))];
         },
-        hurtRemote(id, dmg, from) { if (!socket?.connected) return false; socket.emit('player:strike', { target: id, dmg, from: { x: from.x, y: from.y, z: from.z } }); return true; },
+        hurtRemote(id, dmg, from) {   // from: the striking creature's position — the server checks it against our snapshot
+            if (!socket?.connected) return false;
+            const i = creatures().findIndex(h => h.pos === from || (h.pos.x === from.x && h.pos.z === from.z));
+            socket.emit('player:strike', { target: id, i, dmg, from: { x: from.x, y: from.y, z: from.z } });
+            return true;
+        },
         get remoteCasts() { return casts; },
         // The hero changed clothes or weapons, or levelled up.
         refresh() { if (socket?.connected) socket.emit('player:update', { look: getLook(), weapon: getWeapons(), level: getLevel() }); },
