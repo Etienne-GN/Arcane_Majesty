@@ -299,8 +299,17 @@ clockEl.id = 'clock';
 clockEl.style.cssText = 'right:18px;top:54px;font-size:calc(15px * var(--ui, 1));opacity:.85;letter-spacing:.05em';
 document.body.append(clockEl);
 let weatherOverride = params.get('weather');
+// amo's weather is fixed by map and clock, so every new game (Day 0, 08:00) used to open in the same rain.
+// Each save now carries its own weather seed (amo's table and spell lengths unchanged), and a new journey
+// begins with three clear hours.
+stats.flags ??= {};
+if (stats.flags.weatherSeed == null) {
+    stats.flags.weatherSeed = Math.floor(Math.random() * 1e6);
+    stats.flags.clearUntil = (stats.gameMinutes ?? clockRules.START_MINUTES) + 180;
+}
+const weatherOf = (def, min) => (min < (stats.flags.clearUntil ?? 0) ? 'clear' : weatherRules.weatherAt({ ...def, id: `${def.id}#${stats.flags.weatherSeed}` }, min).id);
 function clock(min = stats.gameMinutes ?? clockRules.START_MINUTES) {
-    const weather = world.current?.terrain ? (weatherOverride || weatherRules.weatherAt(world.current.weatherDef ?? GLADE_WEATHER, min).id) : 'clear';
+    const weather = world.current?.terrain ? (weatherOverride || weatherOf(world.current.weatherDef ?? GLADE_WEATHER, min)) : 'clear';
     return { minutes: min, hour: clockRules.gameHour(min), weather, voidMult: clockRules.isNight(min) ? clockRules.NIGHT_DAMAGE_MULT : 1 };
 }
 
