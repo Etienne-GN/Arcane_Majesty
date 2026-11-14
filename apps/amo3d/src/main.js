@@ -67,6 +67,15 @@ const interiorBuilders = Object.fromEntries(Object.keys(parentOf).map(id => [id,
 })]));
 
 // ---- 3D-only tuning (amo's own files are untouched) ----
+// Eldrin's own staff and coat, as items you can take off (and put back on).
+Object.assign(itemRules.ITEMS, {
+    eldrin_staff: { id: 'eldrin_staff', name: "Eldrin's Staff", description: 'Ash wood bound in old silver, a pale crystal at its head. The focus he has carried since the tower. +2 INT.',
+        color: 0x6a4a2e, icon: 'itm_wand_01', stackable: false, slot: 'weapon', tier: 1, weaponType: 'staff', rarity: 'uncommon', stats: { intelligence: 2 }, buyPrice: 0, sellPrice: 0,
+        onUse: st => st.equipItem('eldrin_staff') },
+    eldrin_coat: { id: 'eldrin_coat', name: "Eldrin's Coat", description: 'A long red scholar\'s coat with a high collar and gold trim, over a dark vest. Worn at every desk and on every road.',
+        color: 0xa3141f, icon: 'itm_mantua', stackable: false, slot: 'body', tier: 1, rarity: 'uncommon', keepsLook: true, stats: {}, buyPrice: 0, sellPrice: 0,
+        onUse: st => st.equipItem('eldrin_coat') },
+});
 movementRules.MOVE.SPRINT_DRAIN_PER_S = 7;                              // amo: 20 → ~14 s of sprint instead of 5
 const SPELL_TUNING = { rangeMult: 3, speedMult: 1.6, radiusMult: 2 };   // 2D screen distances feel short in 3D
 
@@ -196,7 +205,17 @@ const player = createPlayer({ hooks: questHooks, name: HERO_NAME, stats, hero, c
 // What Eldrin holds follows his equipment (amo's equip events).
 const ITEMS = itemRules.ITEMS;
 const handOf = id => id ? { type: weaponRules.typeOf(ITEMS[id]) === 'fists' && ITEMS[id]?.slot === 'offHand' ? 'shield' : weaponRules.typeOf(ITEMS[id]), accent: ITEMS[id]?.color } : null;
-const showWeapons = () => hero.setWeapons(handOf(stats.equipment.weapon), handOf(stats.equipment.offHand));
+const showWeapons = () => hero.setWeapons(handOf(stats.equipment.weapon) ?? false, handOf(stats.equipment.offHand));   // false: bare hands
+// The campaign's Eldrin starts in his own coat with his staff (new games, and saves from before they were items).
+if (!heroDef && !stats.flags?.eldrinKit) {
+    (stats.flags ??= {}).eldrinKit = true;
+    for (const [slot, id] of [['weapon', 'eldrin_staff'], ['body', 'eldrin_coat']]) {
+        if (stats.equipment[slot]) continue;
+        stats.addItem?.(id, 1) ?? stats.inventory.push({ id, count: 1 });
+        stats.equipItem(id);   // amo's own equip: stats applied, the slot set, the hero re-dressed
+    }
+}
+dressHero(); showWeapons();
 stats.onEquipChange(slot => { if (slot === 'head' || slot === 'body') { dressHero(); showWeapons(); } });
 stats.onEquipChange(showWeapons);
 const skills = createSkills({ stats, player, hud, cam, world });
@@ -252,7 +271,7 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) save(
 // camera belongs to the title, and the vale's mood is on.
 // Online (Phase 6): the hero as others see them — their worn look, weapon, name and level.
 const net = createNet({ world, player, createCharacter, hud, fireballs, hurtSelf: (dmg, from) => player.hurt(dmg, from),
-    getLook: () => wornLook(BASE_LOOK, stats.equipment), getWeapons: () => handOf(stats.equipment.weapon)?.type ?? 'staff',
+    getLook: () => wornLook(BASE_LOOK, stats.equipment), getWeapons: () => handOf(stats.equipment.weapon)?.type ?? 'fists',
     getName: () => settings.onlineName || HERO_NAME, getLevel: () => stats.level });
 stats.onEquipChange(() => net.refresh());
 questHooks.onCast = (origin, dir) => net.cast(origin, dir);

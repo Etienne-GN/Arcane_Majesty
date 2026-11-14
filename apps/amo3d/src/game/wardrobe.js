@@ -18,7 +18,10 @@ export function wornLook(base, equipment) {
         else if (/helm/.test(n)) look.headgear = { type: 'helmet', color: hex(head.color) };
         else if (/hat|cap/.test(n)) look.headgear = { type: 'hat', color: hex(head.color) };
     }
-    if (body) {
+    // Nothing on the body: the linen under-things (shirt and three-quarter trousers).
+    if (!body) Object.assign(look.outfit, { style: 'linen', coat: '#d8ccb0', collar: '#c4b896', pants: '#cfc2a4', pantsDark: '#9a8e74', trim: '#c4b896' });
+    else if (body.keepsLook) { /* an outfit that is the character's own (Eldrin's coat): the base look */ }
+    else if (body) {
         const n = `${equipment.body} ${body.name}`.toLowerCase();
         const style = /robe/.test(n) ? 'robe' : /tunic/.test(n) ? 'tunic' : /armou?r|mail|plate|hide/.test(n) ? 'armour' : null;
         if (/cloak/.test(n) && !style) { look.cape = true; look.outfit.collar = hex(body.color); }

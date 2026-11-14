@@ -71,7 +71,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         shirt: mat(O.shirt),
         leather: mat(O.leather),
         leatherDark: mat(O.leatherDark),
-        pants: mat(O.pants),
+        pants: mat(O.pants), pantsDark: mat(O.pantsDark ?? O.pants),
         wood: mat(0x6b4a2b),
         crystal: new THREE.MeshStandardMaterial({
             color: 0x7ff5e6, emissive: 0x3ce0d0, emissiveIntensity: 2.2, flatShading: true, roughness: 0.2,
@@ -93,12 +93,19 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     for (const [side, x] of [['L', 0.1], ['R', -0.1]]) {
         const thigh = limb(0.45, 0.085, 0.07, M.pants);
         thigh.position.set(x, -0.02, 0);
-        const shin = limb(0.45, 0.07, 0.055, M.pants);
+        const linen = O.style === 'linen';   // under-things: three-quarter linen trousers, bare feet
+        const shin = limb(0.45, 0.07, 0.055, linen ? M.skin : M.pants);
         shin.position.y = -0.45;
         thigh.add(shin);
-        shin.add(mesh(new THREE.CylinderGeometry(0.08, 0.072, 0.3, 7), M.leather, 0, -0.27, 0));       // boot shaft
-        shin.add(mesh(new THREE.CylinderGeometry(0.085, 0.085, 0.04, 7), M.leatherDark, 0, -0.12, 0)); // boot cuff
-        shin.add(mesh(new THREE.BoxGeometry(0.13, 0.1, 0.26), M.leatherDark, 0, -0.45, 0.04));
+        if (linen) {
+            shin.add(mesh(new THREE.CylinderGeometry(0.082, 0.078, 0.16, 7), M.pants, 0, -0.06, 0));   // the trouser leg ends below the knee
+            shin.add(mesh(new THREE.CylinderGeometry(0.084, 0.084, 0.02, 7), M.pantsDark, 0, -0.14, 0));
+            shin.add(mesh(new THREE.BoxGeometry(0.1, 0.06, 0.22), M.skin, 0, -0.46, 0.04));               // bare foot
+        } else {
+            shin.add(mesh(new THREE.CylinderGeometry(0.08, 0.072, 0.3, 7), M.leather, 0, -0.27, 0));       // boot shaft
+            shin.add(mesh(new THREE.CylinderGeometry(0.085, 0.085, 0.04, 7), M.leatherDark, 0, -0.12, 0)); // boot cuff
+            shin.add(mesh(new THREE.BoxGeometry(0.13, 0.1, 0.26), M.leatherDark, 0, -0.45, 0.04));
+        }
         hips.add(thigh);
         legs[side] = { thigh, shin };
     }
@@ -109,14 +116,16 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         robe:     { open: 0.0, len: 0.93, sash: true },
         tunic:    { open: 0.02, len: 0.44, straps: true },
         armour:   { open: 0.02, len: 0.4, plate: true },
+        linen:    { open: 0.0, len: 0, bare: true },   // nothing worn over the linen shirt
     };
     const cut = CUTS[O.style] ?? CUTS.longcoat;
     M.steel = mat('#9aa0a8', { metalness: 0.75, roughness: 0.35 });
     // Coat skirt: two front flaps that follow the legs, and a back panel that flares.
     const fl = Math.PI * (0.5 + (0.11 - cut.open));   // closed cuts overlap at the front
-    const flapL = coatPanel(Math.PI * cut.open, fl, cut.len, M.coat);
-    const flapR = coatPanel(Math.PI * 2 - Math.PI * cut.open - fl, fl, cut.len, M.coat);
-    const back = coatPanel(Math.PI * 0.61, Math.PI * 0.78, cut.len + 0.02, M.coat);
+    const skirtLen = cut.bare ? 0.12 : cut.len;   // the linen shirt just covers the hips
+    const flapL = coatPanel(Math.PI * cut.open, fl, skirtLen, M.coat);
+    const flapR = coatPanel(Math.PI * 2 - Math.PI * cut.open - fl, fl, skirtLen, M.coat);
+    const back = coatPanel(Math.PI * 0.61, Math.PI * 0.78, skirtLen + 0.02, M.coat);
     for (const p of [flapL, flapR, back]) { p.joint.position.y = 0.04; hips.add(p.joint); }
     // Gold hem along the front edges of the flaps.
     for (const [p, th] of cut.hem ? [[flapL, Math.PI * 0.11], [flapR, Math.PI * 1.89]] : []) {
@@ -187,12 +196,20 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         spine.add(strap);
         spine.add(mesh(new THREE.BoxGeometry(0.035, 0.03, 0.025), M.gold, s * 0.07, 0.36, 0.172));
     }
-    // Wide belt, big gold buckle, satchel with a gold clasp on the left hip.
-    spine.add(mesh(new THREE.CylinderGeometry(0.192, 0.19, cut.sash ? 0.11 : 0.08, 10), cut.sash ? M.coatDark : M.leather, 0, 0.02, 0));
+    // Wide belt, big gold buckle, satchel with a gold clasp on the left hip (the linen shirt: a drawstring only).
+    if (cut.bare) {
+        spine.add(mesh(new THREE.CylinderGeometry(0.19, 0.188, 0.025, 10), M.pantsDark, 0, 0.0, 0));
+        const laces = mesh(new THREE.BoxGeometry(0.008, 0.12, 0.008), M.pantsDark, 0, 0.47, 0.142);
+        spine.add(laces);   // the shirt's open neck lacing
+    }
+    if (!cut.bare) spine.add(mesh(new THREE.CylinderGeometry(0.192, 0.19, cut.sash ? 0.11 : 0.08, 10), cut.sash ? M.coatDark : M.leather, 0, 0.02, 0));
     if (cut.sash) spine.add(mesh(new THREE.BoxGeometry(0.06, 0.3, 0.015), M.coatDark, 0.08, -0.12, 0.17));   // sash tail
-    spine.add(mesh(new THREE.BoxGeometry(0.075, 0.075, 0.02), M.gold, 0, 0.02, 0.148));
-    spine.add(mesh(new THREE.BoxGeometry(0.045, 0.045, 0.022), M.leather, 0, 0.02, 0.15));
+    if (!cut.bare) {
+        spine.add(mesh(new THREE.BoxGeometry(0.075, 0.075, 0.02), M.gold, 0, 0.02, 0.148));
+        spine.add(mesh(new THREE.BoxGeometry(0.045, 0.045, 0.022), M.leather, 0, 0.02, 0.15));
+    }
     const satchel = new THREE.Group();
+    satchel.visible = !cut.bare;
     satchel.position.set(0.13, -0.07, 0.13);
     satchel.rotation.y = 0.5;
     satchel.add(mesh(new THREE.BoxGeometry(0.17, 0.15, 0.07), M.leather));
@@ -294,9 +311,12 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     function setWeapons(main, off) {
         mainMount.clear();
         offMount.clear();
-        const m = buildWeapon(main?.type ?? 'staff', { accent: main?.accent, crystalMat: (main?.type ?? 'staff') === 'staff' ? M.crystal : null });
-        mainMount.add(m.group);
-        crystal = m.crystal; tip = m.tip; mainType = main?.type ?? 'staff';
+        if (main === false) { crystal = null; tip = null; mainType = 'fists'; }   // nothing in hand (spells leave from the hand)
+        else {
+            const m = buildWeapon(main?.type ?? 'staff', { accent: main?.accent, crystalMat: (main?.type ?? 'staff') === 'staff' ? M.crystal : null });
+            mainMount.add(m.group);
+            crystal = m.crystal; tip = m.tip; mainType = main?.type ?? 'staff';
+        }
         offType = off?.type ?? null;
         if (off) {
             const o = buildWeapon(off.type, { accent: off.accent });
