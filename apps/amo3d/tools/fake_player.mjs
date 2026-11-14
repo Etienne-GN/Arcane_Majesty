@@ -10,9 +10,11 @@ s.on('connect', () => {
     console.log('connected', s.id);
     s.emit('player:join', { name: 'Test Wanderer', level: 3, look, weapon: 'sword', map, move: { x: +cx, y: 0, z: +cz, facing: 0 } });
     setTimeout(() => s.emit('chat:send', { text: 'Hello from the road!' }), 1500);
+    setInterval(() => s.emit('player:act', { kind: 'fireball', origin: { x: +cx, y: 1.6, z: +cz }, dir: { x: 1, y: -0.05, z: 0.3 } }), 3000);   // a fireball every 3 s
 });
 s.on('players:init', l => console.log('others here:', l.map(p => p.name).join(', ') || 'none'));
 s.on('chat:message', m => console.log('chat', m.name, ':', m.text));
+s.on('player:act', a => console.log('saw', a.kind, 'from', a.id));
 const timer = setInterval(() => {
     t += 0.1;
     s.emit('player:move', { map, x: +cx + Math.cos(t * 0.6) * 3, y: 0, z: +cz + Math.sin(t * 0.6) * 3, facing: t * 0.6 + Math.PI, speed: 2.4 });

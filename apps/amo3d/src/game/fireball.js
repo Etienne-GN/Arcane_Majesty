@@ -32,7 +32,8 @@ export function createFireballs({ PX, tuning, onDamage, onShake }) {
 
     function setScene(scene) { scene.add(group); }
 
-    function cast(origin, dir, level, int) {
+    // cosmetic: another player's fireball (online) — flies and bursts the same, hurts nothing here.
+    function cast(origin, dir, level, int, { cosmetic = false } = {}) {
         const light = ballLights.find(l => !balls.some(b => b.light === l)) ?? ballLights[0];
         const core = new THREE.Mesh(coreGeo, new THREE.MeshBasicMaterial({ color: 0xfff1c4, toneMapped: false }));
         const halo = new THREE.Sprite(glowMat()); halo.scale.setScalar(1.9);
@@ -42,7 +43,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake }) {
         const b = {
             pos: origin.clone(), vel: dir.clone().multiplyScalar((FIREBALL.projectileSpeed / PX) * tuning.speedMult),
             traveled: 0, range: (FIREBALL.range[level - 1] / PX) * tuning.rangeMult,
-            core, halo, inner, light, level, int, t: 0,
+            core, halo, inner, light, level, int, t: 0, cosmetic,
         };
         balls.push(b);
         // Muzzle puff.
@@ -121,7 +122,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake }) {
                 const what = map.projectileHit(b.pos);
                 if (what) hit = { normal: what === 'ground' ? (map.terrain ? map.groundNormal(b.pos.x, b.pos.z) : UP.clone()) : b.vel.clone().normalize().negate() };
                 for (const h of hittables) {   // an upright body: radius 0.6, feet to 2.1 m
-                    if (h.alive && Math.hypot(h.pos.x - b.pos.x, h.pos.z - b.pos.z) < 0.6 && b.pos.y > h.pos.y && b.pos.y < h.pos.y + 2.1) {
+                    if (!b.cosmetic && h.alive && Math.hypot(h.pos.x - b.pos.x, h.pos.z - b.pos.z) < 0.6 && b.pos.y > h.pos.y && b.pos.y < h.pos.y + 2.1) {
                         hit = { normal: b.vel.clone().normalize().negate() };
                     }
                 }
@@ -143,7 +144,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake }) {
             if (R() < 0.6) smoke.emit({ x: b.pos.x, y: b.pos.y, z: b.pos.z, vx: (R() - 0.5) * 0.3, vy: 0.5, vz: (R() - 0.5) * 0.3,
                 drag: 1, life: 0.9, size: [0.25, 0.8], c0: [0.18, 0.15, 0.13, 0.35], c1: [0.1, 0.1, 0.1, 0] });
             if (hit) {
-                explode(b.pos.clone(), hit.normal, map, hittables);
+                explode(b.pos.clone(), hit.normal, map, b.cosmetic ? [] : hittables);
                 group.remove(b.core, b.halo, b.inner);
                 b.light.intensity = 0;
                 balls.splice(i, 1);

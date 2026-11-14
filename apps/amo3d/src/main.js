@@ -251,10 +251,11 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) save(
 // While it shows, Eldrin waits out of sight at the foot of his tower (enemies ignore him), the
 // camera belongs to the title, and the vale's mood is on.
 // Online (Phase 6): the hero as others see them — their worn look, weapon, name and level.
-const net = createNet({ world, player, createCharacter, hud,
+const net = createNet({ world, player, createCharacter, hud, fireballs,
     getLook: () => wornLook(BASE_LOOK, stats.equipment), getWeapons: () => handOf(stats.equipment.weapon)?.type ?? 'staff',
     getName: () => settings.onlineName || HERO_NAME, getLevel: () => stats.level });
 stats.onEquipChange(() => net.refresh());
+questHooks.onCast = (origin, dir) => net.cast(origin, dir);
 const options = createOptions({ quality, onQuality: name => { save(); setQualityName(name); location.reload(); }, onFps: v => perf.set(v), onOnline: v => (v ? net.connect() : net.disconnect()) });
 if (settings.online) net.connect();
 if (settings.showFps) perf.set(true);
@@ -401,5 +402,5 @@ window.__poc = {
     setTime: h => { stats.gameMinutes = Math.floor((stats.gameMinutes ?? 0) / 1440) * 1440 + h * 60; },
     setWeather: w => { weatherOverride = w; },
     strike: () => input.press('strike'),
-    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, player: player.state, playerApi: player,
+    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, player: player.state, playerApi: player,
 };

@@ -7,7 +7,7 @@ import { io } from 'socket.io-client';
 import * as THREE from 'three';
 import { settings } from '../engine/settings.js';
 
-export function createNet({ world, player, getLook, getWeapons, getName, getLevel, createCharacter, hud }) {
+export function createNet({ world, player, getLook, getWeapons, getName, getLevel, createCharacter, hud, fireballs }) {
     const css = document.createElement('style');
     css.textContent = `
 #chat { position: fixed; left: 18px; bottom: 230px; width: min(420px, 60vw); z-index: 6; pointer-events: none; font-family: Georgia, serif; }
@@ -28,7 +28,7 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
     const stat = document.createElement('div'); stat.id = 'netstat'; document.body.append(stat);
     const plates = document.createElement('div'); plates.style.cssText = 'position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:4'; document.body.append(plates);
 
-    let socket = null, sendT = 0;
+    let socket = null, sendT = 0, casts = 0;
     const remotes = new Map();   // id → { model, plate, target, data, scene }
     const tmp = new THREE.Vector3();
 
@@ -58,6 +58,7 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
         const r = remotes.get(id);
         if (!r) return;
         r.scene.remove(r.model.root); r.plate.remove();
+        r.model.root.traverse(o => { o.geometry?.dispose(); (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => m?.dispose?.()); });   // free the old model
         remotes.delete(id);
     }
     const clearRemotes = () => { for (const id of [...remotes.keys()]) removeRemote(id); };
@@ -93,6 +94,12 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
             addRemote(d);
         });
         socket.on('chat:message', ({ name, text }) => say(text, name));
+        socket.on('player:act', a => {
+            const r = remotes.get(a.id);
+            if (!r || a.kind !== 'fireball') return;
+            casts++;
+            fireballs?.cast(new THREE.Vector3(a.origin.x, a.origin.y, a.origin.z), new THREE.Vector3(a.dir.x, a.dir.y, a.dir.z), 1, 10, { cosmetic: true });
+        });
     }
     function disconnect() { socket?.disconnect(); socket = null; clearRemotes(); stat.textContent = ''; }
     const count = () => { if (socket?.connected) stat.textContent = `● online · ${remotes.size + 1} here`; };
@@ -115,7 +122,9 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
     let lastMap = world.id, lastLookKey = '';
     return {
         connect, disconnect, openChat,
+        cast(origin, dir) { if (socket?.connected) socket.emit('player:act', { kind: 'fireball', origin: { x: origin.x, y: origin.y, z: origin.z }, dir: { x: dir.x, y: dir.y, z: dir.z } }); },
         get online() { return !!socket?.connected; },
+        get remoteCasts() { return casts; },
         // The hero changed clothes or weapons, or levelled up.
         refresh() { if (socket?.connected) socket.emit('player:update', { look: getLook(), weapon: getWeapons(), level: getLevel() }); },
         update(dt, camera) {

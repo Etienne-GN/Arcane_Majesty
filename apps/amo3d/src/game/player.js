@@ -215,6 +215,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
                 // Aim to land at the end of its range (a targeted_aoe spell in amo).
                 const range = (FIREBALL.range[0] / PX) * spellTuning.rangeMult;
                 fireballs.cast(origin, tmp.copy(c.aim).setY(-(origin.y - p.pos.y) / range).normalize(), 1, stats.attributes.intelligence);
+                hooks.onCast?.(origin, tmp);   // online: the others see it
             }
             if (c.t >= 1) p.cast = null;
         }

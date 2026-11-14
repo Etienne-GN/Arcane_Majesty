@@ -42,8 +42,14 @@ const pub = p => ({ id: p.id, name: p.name, level: p.level, look: p.look, weapon
 io.on('connection', socket => {
     let lastMove = 0, lastChat = 0;
 
+    let lastJoin = 0, lastUpdate = 0;
     socket.on('player:join', (j = {}) => {
+        const now = Date.now();
+        if (now - lastJoin < 1000) return;   // one join a second at most
+        lastJoin = now;
         if (players.size >= MAX_PLAYERS && !players.has(socket.id)) { socket.emit('server:full'); socket.disconnect(true); return; }
+        const old = players.get(socket.id);
+        if (old) { socket.to(old.map).emit('player:left', { id: old.id }); socket.leave(old.map); }   // a repeated join leaves the old room cleanly
         const p = {
             id: socket.id, name: str(j.name, 24, '') || `Wanderer ${socket.id.slice(0, 4)}`, level: num(j.level, 1, 99, 1),
             look: cleanLook(j.look), weapon: str(j.weapon, 20, 'staff'), map: mapId(j.map), move: cleanMove(j.move),
@@ -77,11 +83,28 @@ io.on('connection', socket => {
 
     socket.on('player:update', (u = {}) => {   // a new look, weapon or level
         const p = players.get(socket.id);
-        if (!p) return;
+        const now = Date.now();
+        if (!p || now - lastUpdate < 500) return;   // at most two a second (each one rebuilds a model on every client)
+        lastUpdate = now;
+        const before = JSON.stringify([p.look, p.weapon, p.level]);
         if (u.look !== undefined) p.look = cleanLook(u.look);
         if (u.weapon !== undefined) p.weapon = str(u.weapon, 20, 'staff');
         if (u.level !== undefined) p.level = num(u.level, 1, 99, p.level);
+        if (JSON.stringify([p.look, p.weapon, p.level]) === before) return;   // nothing changed: nothing to send
         socket.to(p.map).emit('player:updated', { id: p.id, look: p.look, weapon: p.weapon, level: p.level });
+    });
+
+    // Something seen by the room (6.2): a spell cast — origin and direction — replayed as a harmless copy by
+    // the others. Players never damage each other.
+    let lastAct = 0;
+    socket.on('player:act', (a = {}) => {
+        const p = players.get(socket.id);
+        const now = Date.now();
+        if (!p || now - lastAct < 150 || a.kind !== 'fireball') return;
+        lastAct = now;
+        const v = (o = {}) => ({ x: num(o.x, -2000, 2000), y: num(o.y, -500, 500), z: num(o.z, -2000, 2000) });
+        const d = v(a.dir), len = Math.hypot(d.x, d.y, d.z) || 1;
+        socket.to(p.map).emit('player:act', { id: p.id, kind: 'fireball', origin: v(a.origin), dir: { x: d.x / len, y: d.y / len, z: d.z / len } });
     });
 
     socket.on('chat:send', (c = {}) => {
