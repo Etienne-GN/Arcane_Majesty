@@ -121,7 +121,11 @@ function lockDoors(map, id) {
         }
         if (t.to === PLAYER_HOME || t._was === PLAYER_HOME) {
             t._was = PLAYER_HOME;
-            if (CUSTOM && stats.flags.newcomer) { t.to = PLAYER_HOME; t.label = 'Your house'; }
+            if (CUSTOM && stats.flags.newcomer) {
+                t.to = PLAYER_HOME; t.label = 'Your house';
+                const lm = map.mapInfo?.landmarks;   // on the map and minimap too
+                if (lm && !lm.some(l => l.name === 'Your house')) { lm.push({ name: 'Your house', x: t.x, z: t.z, icon: 'tower', always: true }); map._mapArtStale = true; }
+            }
             else { t.to = null; t.label = CUSTOM ? 'A fine house — the door is locked (for now)' : 'A fine house — locked'; }
         }
     }

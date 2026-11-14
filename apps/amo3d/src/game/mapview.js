@@ -157,7 +157,7 @@ body.title-on #minimap { display: none; }`;
         g.font = `${Math.round(S * 0.034)}px Georgia`; g.textAlign = 'center'; g.lineJoin = 'round'; g.lineWidth = Math.max(3, S * 0.006); g.strokeStyle = '#000c';   // sized to the canvas, so the names read at any screen size
         for (const l of mapRef.mapInfo.landmarks) {
             const cx = Math.floor((l.x + half) / (F.FOG_CELL * TILE)), cz = Math.floor((l.z + half) / (F.FOG_CELL * TILE));
-            if (!F.isCellExplored(fog, cx, cz)) continue;
+            if (!l.always && !F.isCellExplored(fog, cx, cz)) continue;   // always: a place you were told about (your house)
             const [sx, sy] = scr(l.x, l.z);
             g.strokeText(`${ICON[l.icon] ?? '•'} ${l.name}`, sx, sy);
             g.fillStyle = '#f3e2b0'; g.fillText(`${ICON[l.icon] ?? '•'} ${l.name}`, sx, sy);
