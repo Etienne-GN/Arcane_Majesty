@@ -6,6 +6,7 @@ import { movementRules, PlayerStats as PS, items as itemRules, weapons as weapon
 import { pickQuality, nextQuality, setQualityName } from './engine/quality.js';
 import { settings } from './engine/settings.js';
 import { createOptions } from './game/options.js';
+import { createPadNav } from './engine/padnav.js';
 import { createRenderer } from './engine/renderer.js';
 import { createOrbitCamera } from './engine/camera.js';
 import { createInput } from './engine/input.js';
@@ -250,6 +251,7 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) save(
 // camera belongs to the title, and the vale's mood is on.
 const options = createOptions({ quality, onQuality: name => { save(); setQualityName(name); location.reload(); }, onFps: v => perf.set(v) });
 if (settings.showFps) perf.set(true);
+createPadNav();   // gamepad: D-pad / stick moves through any open menu, A presses, B backs out
 // Save slots: a new journey goes into the active slot if it is empty, else the first empty one; when all
 // three are full the slots screen asks which to replace.
 let newKind = 'eldrin';
@@ -313,6 +315,8 @@ function tick(dt) {
     if (act.codex) codex.toggle();
     if (act.options) options.toggle(true);
     for (const h of world.current.hittables ?? []) if (h.engaged) codex.seen(h.kind === 'shadow' ? 'mirror_shade' : h.kind);
+    const menuOpen = inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open;
+    if (menuOpen) { act.hotbar = -1; act.skill = -1; act.tear = false; act.strike = false; }   // the D-pad and buttons drive the menu, not the hotbar
     if (act.tear) travel.tear();
     mapView.update(player.state, cam.yaw);
     if (act.hotbar >= 0 && !player.state.dead) hotbar.use(act.hotbar);
