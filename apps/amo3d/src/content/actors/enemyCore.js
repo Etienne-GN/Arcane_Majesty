@@ -38,7 +38,7 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
     const BASE = def ?? ENEMY_TYPES[type];   // def: a creature amo keeps outside ENEMY_TYPES (its boss)
     const DEF = elite ? { ...BASE, ...EL.eliteStats({ health: BASE.health, damage: BASE.damage, xpReward: BASE.xpReward, goldDrop: BASE.goldDrop ?? 0 }) } : BASE;
     const family = affinityOf(type);
-    const s = { hp: DEF.health, fx: {}, dead: false, deadT: 0, flash: 0, seen: false, engaged: false };
+    const s = { hp: DEF.health, fx: {}, dead: false, deadT: 0, flash: 0, seen: false, engaged: false, by: new Set(), byMe: false };
     let lastCtx = null;
 
     const plate = document.createElement('div');
@@ -66,17 +66,30 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
         s.fx[id] = { left: Math.max(cur?.left ?? 0, (ms ?? def.duration) / 1000), tick: cur?.tick ?? 0 };
     }
 
-    function die(ctx) {
-        if (s.dead) return;
-        s.dead = true; s.deadT = 0; s.hp = 0; s.fx = {};
+    // Online (Phase 6.3): the map's host runs this creature; everyone else holds a puppet (net.puppet) whose hits
+    // go to the host (net.sendHit). The host credits each player who hurt it (s.by); its own reward needs its own blow.
+    const net = { puppet: false, networked: false, sendHit: null, onDied: null };
+    function reward(ctx) {
         ctx?.onKill?.(DEF.xpReward, pos.clone().setY(pos.y + 1.6), type, { isElite: !!elite });
         ctx?.dropLoot?.(DEF.lootTable, pos.clone(), rng);
         if (elite) { ctx?.dropLoot?.(DEF.lootTable, pos.clone(), rng); if (elite.rareDrop) ctx?.dropLoot?.([{ id: elite.rareDrop, chance: 1 }], pos.clone(), rng); }
     }
+    function die(ctx) {
+        if (s.dead) return;
+        s.dead = true; s.deadT = 0; s.hp = 0; s.fx = {};
+        if (s.byMe || !net.networked) reward(ctx);
+        if (net.networked) net.onDied?.([...s.by]);
+    }
 
     // element: the hit's element for amo's affinity table (fireballs pass burnMs → 'fire').
-    function hit(dmg, from, burnMs, ctx = lastCtx, status = null, element = burnMs ? 'fire' : null) {
+    function hit(dmg, from, burnMs, ctx = lastCtx, status = null, element = burnMs ? 'fire' : null, attacker = null) {
         if (s.dead) return 'handled';
+        if (net.puppet) {   // not ours to run: the host applies it (and shows the true health)
+            net.sendHit?.({ dmg, burnMs, status, element, from: from ? { x: from.x, y: from.y, z: from.z } : null });
+            s.flash = 0.2; s.seen = true;
+            return 'handled';
+        }
+        if (attacker) s.by.add(attacker); else s.byMe = true;
         const amount = Math.max(1, Math.round(dmg * (element ? affinityMult(type, element) : 1) * fxMult('damageTakenMult')));
         if (burnMs) addStatus('burning', burnMs);
         if (status) addStatus(status.id, status.ms);
@@ -127,9 +140,9 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
         bar.style.width = `${Math.max(0, s.hp / DEF.health) * 100}%`;
     }
 
-    function revive() { Object.assign(s, { hp: DEF.health, fx: {}, dead: false, deadT: 0, seen: false, engaged: false, wardT: 0 }); }
+    function revive() { Object.assign(s, { hp: DEF.health, fx: {}, dead: false, deadT: 0, seen: false, engaged: false, wardT: 0, by: new Set(), byMe: false }); }
     // A blow it landed: vampiric elites drink 30% of it back (amo Enemy).
     function onDealt(dmg) { if (elite?.affixes.includes('vampiric') && !s.dead) s.hp = Math.min(DEF.health, s.hp + Math.round(dmg * 0.3)); }
 
-    return { DEF, s, hit, tick, die, addStatus, fxMult, stunned, updatePlate, revive, respawnS, elite, onDealt, get lastCtx() { return lastCtx; } };
+    return { DEF, s, hit, tick, die, addStatus, fxMult, stunned, updatePlate, revive, respawnS, elite, onDealt, net, reward, get lastCtx() { return lastCtx; } };
 }

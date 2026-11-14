@@ -15,7 +15,7 @@
 import * as THREE from 'three';
 import { buildRegion } from '../engine/region.js';
 import { flat } from '../engine/lib.js';
-import { createBeasts } from './actors/beast.js';
+import { createBeasts, dailyRng } from './actors/beast.js';
 import { createCharacter } from './models/character.js';
 
 const ID = 'sylvan_sanctuary';
@@ -161,8 +161,8 @@ export function createSanctuary({ quality }) {
         const mnd = new THREE.Mesh(new THREE.DodecahedronGeometry(0.6, 0), rot); mnd.position.set(x + 1.5, H(x + 1.5, z) + 0.1, z - 1); mnd.scale.y = 0.4; scene.add(mnd);
     }
     const rimPosts = k => Array.from({ length: k }, (_, i) => ({ x: RIM.x + Math.cos(i * 2.1) * 6, z: RIM.z + Math.sin(i * 2.1) * 6 }));
-    map.hittables.push(...createBeasts({ scene, map, rng: Math.random, type: 'blight_ent', posts: rimPosts(2) }));
-    map.hittables.push(...createBeasts({ scene, map, rng: Math.random, type: 'root_wraith', posts: rimPosts(3) }));
+    map.hittables.push(...createBeasts({ scene, map, rng: dailyRng('sanctuary:blight_ent'), type: 'blight_ent', posts: rimPosts(2) }));
+    map.hittables.push(...createBeasts({ scene, map, rng: dailyRng('sanctuary:root_wraith'), type: 'root_wraith', posts: rimPosts(3) }));
 
     // The Hermit's hut and the Hermit.
     const hut = buildHut(scene, HUT.x, HUT.z, H(HUT.x, HUT.z), colliders);

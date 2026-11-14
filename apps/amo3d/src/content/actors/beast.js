@@ -92,6 +92,15 @@ function body(type) {
     return { root, parts };
 }
 
+// A random stream seeded by a name and the calendar day: the same creatures (elites included) for every player
+// on a map today, a new roll tomorrow.
+export function dailyRng(name) {
+    let h = 2166136261 ^ Math.floor(Date.now() / 86400000);
+    for (const c of name) h = Math.imul(h ^ c.charCodeAt(0), 16777619);
+    let a = h >>> 0;
+    return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+}
+
 // amo's elites: at most one per six spawns, each spawn an 8% chance (eliteCap / rollElite / pickAffixes);
 // rareFrom: the map definition whose gathering pools give the elite's rare drop (eliteRareDrop).
 export function createBeasts({ scene, map, rng, type, posts, rareFrom = null }) {
@@ -117,6 +126,27 @@ function createBeast({ scene, map, rng, type, home, elite = null }) {
     const flyer = type === 'gloom_beak';
     const turn = (want, k) => { const d = ((((want - ai.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI; ai.heading += d * Math.min(1, k); };
 
+    // Online puppet: follow the host's snapshots ([x, y, z, heading, state, hp, dead]).
+    const STATES = ['idle', 'wander', 'notice', 'chase', 'windup', 'strike', 'recover', 'return'];
+    let snap = null;
+    function puppetStep(dt) {
+        if (!snap) return;
+        const k = 1 - Math.exp(-dt * 10);
+        pos.x += (snap[0] - pos.x) * k; pos.z += (snap[2] - pos.z) * k; pos.y = map.heightAt(pos.x, pos.z);
+        const d = ((((snap[3] - ai.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI;
+        ai.heading += d * k;
+        ai.state = STATES[snap[4]] ?? 'idle';
+        ai.speed = ai.state === 'chase' || ai.state === 'wander' || ai.state === 'return' ? SPEED * 0.6 : 0;
+        s.engaged = !['idle', 'wander', 'return'].includes(ai.state);
+    }
+    function applySnapshot(v) {
+        snap = v;
+        s.hp = v[5];
+        if (v[6] && !s.dead) { s.dead = true; s.deadT = 0; s.hp = 0; }
+        else if (!v[6] && s.dead) { core.revive(); pos.set(v[0], map.heightAt(v[0], v[2]), v[2]); root.rotation.z = 0; root.visible = true; }
+    }
+    const snapshot = () => [+pos.x.toFixed(2), +pos.y.toFixed(2), +pos.z.toFixed(2), +ai.heading.toFixed(2), Math.max(0, STATES.indexOf(ai.state)), Math.round(s.hp), s.dead ? 1 : 0];
+
     function update(dt, ctx) {
         ai.t += dt;
         if (!core.tick(dt, ctx)) {   // dead: topple / fall, then respawn at home
@@ -124,22 +154,26 @@ function createBeast({ scene, map, rng, type, home, elite = null }) {
             root.rotation.z = (Math.PI / 2) * k;
             root.position.y = map.heightAt(pos.x, pos.z) + (flyer ? 0.2 : 0);
             root.visible = s.deadT < 10;
-            if (s.deadT > core.respawnS) { core.revive(); pos.set(home.x, map.heightAt(home.x, home.z), home.z); root.rotation.z = 0; root.visible = true; ai.state = 'idle'; }
+            if (!core.net.puppet && s.deadT > core.respawnS) { core.revive(); pos.set(home.x, map.heightAt(home.x, home.z), home.z); root.rotation.z = 0; root.visible = true; ai.state = 'idle'; }
             core.updatePlate(ctx.camera, flyer ? 3.4 : 2.8);
             return;
         }
-        const P = ctx.player.pos, toP = Math.hypot(P.x - pos.x, P.z - pos.z), ang = Math.atan2(P.x - pos.x, P.z - pos.z);
+        // Who it goes for: the nearest living player (online: anyone on this map; ctx.players).
+        const T = (ctx.players ?? [{ id: 'me', pos: ctx.player.pos, dead: ctx.player.dead }]).reduce((b, q) => (!q.dead && (!b || Math.hypot(q.pos.x - pos.x, q.pos.z - pos.z) < Math.hypot(b.pos.x - pos.x, b.pos.z - pos.z)) ? q : b), null) ?? { id: 'me', pos: ctx.player.pos, dead: true };
+        const P = T.pos, toP = Math.hypot(P.x - pos.x, P.z - pos.z), ang = Math.atan2(P.x - pos.x, P.z - pos.z);
         const fromHome = Math.hypot(pos.x - home.x, pos.z - home.z);
+        if (core.net.puppet) puppetStep(dt);
+        else {
         ai.cd -= dt;
         let want = 0;
         if (core.stunned()) { if (ai.state === 'windup' || ai.state === 'strike') ai.state = 'chase'; }
         else if (ai.state === 'idle' || ai.state === 'wander') {
-            if (!ctx.player.dead && toP < SIGHT) { ai.state = 'notice'; ai.timer = 0.5; }
+            if (!T.dead && toP < SIGHT) { ai.state = 'notice'; ai.timer = 0.5; }
             else if (ai.state === 'idle' && (ai.timer -= dt) <= 0) { const a = rng() * 6.28, r = 2 + rng() * 6; ai.target = { x: home.x + Math.cos(a) * r, z: home.z + Math.sin(a) * r }; ai.state = 'wander'; }
             else if (ai.state === 'wander') { turn(Math.atan2(ai.target.x - pos.x, ai.target.z - pos.z), dt * 3); want = SPEED * 0.35; if (Math.hypot(ai.target.x - pos.x, ai.target.z - pos.z) < 0.8) { ai.state = 'idle'; ai.timer = 2 + rng() * 3; } }
         } else if (ai.state === 'notice') { turn(ang, dt * 8); if ((ai.timer -= dt) <= 0) ai.state = 'chase'; }
         else if (ai.state === 'return') { const h = map.nav ? map.nav.aim(pos, home, navKey, dt) : home; turn(Math.atan2(h.x - pos.x, h.z - pos.z), dt * 5); want = SPEED * 0.7; if (fromHome < 1.5) { ai.state = 'idle'; s.hp = Math.min(DEF.health, s.hp + 10); } }
-        else if (ctx.player.dead || fromHome > 30 || toP > SIGHT * 2) ai.state = 'return';
+        else if (T.dead || fromHome > 30 || toP > SIGHT * 2) ai.state = 'return';
         else if (ai.state === 'chase') {
             const g = toP > REACH + 1 && map.nav && !flyer ? map.nav.aim(pos, P, navKey, dt) : P;
             turn(Math.atan2(g.x - pos.x, g.z - pos.z), dt * 7);
@@ -148,7 +182,7 @@ function createBeast({ scene, map, rng, type, home, elite = null }) {
         } else if (ai.state === 'windup') { turn(ang, dt * 8); if ((ai.timer -= dt) <= 0) { ai.state = 'strike'; ai.timer = 0.3; } }
         else if (ai.state === 'strike') {
             want = flyer ? SPEED * 1.6 : SPEED * 0.6;
-            if (!ai.hit && toP < REACH + 0.6) { ai.hit = true; const d = Math.round(DEF.damage * (ctx.voidMult ?? 1)); if (ctx.hurtPlayer(d, pos)) core.onDealt(d); }
+            if (!ai.hit && toP < REACH + 0.6) { ai.hit = true; const d = Math.round(DEF.damage * (ctx.voidMult ?? 1)); if (T.id === 'me' ? ctx.hurtPlayer(d, pos) : ctx.hurtRemote?.(T.id, d, pos)) core.onDealt(d); }
             if ((ai.timer -= dt) <= 0) { ai.state = 'recover'; ai.timer = 0.6; }
         } else if (ai.state === 'recover') { if ((ai.timer -= dt) <= 0) { ai.state = 'chase'; ai.cd = 1.4 + rng() * 1.2; } }
         s.engaged = !['idle', 'wander', 'return'].includes(ai.state);
@@ -161,6 +195,7 @@ function createBeast({ scene, map, rng, type, home, elite = null }) {
         const d = Math.hypot(pos.x - P.x, pos.z - P.z);
         if (d < 0.8 && d > 1e-4) { pos.x = P.x + (pos.x - P.x) / d * 0.8; pos.z = P.z + (pos.z - P.z) / d * 0.8; }
         pos.y = map.heightAt(pos.x, pos.z);
+        }
 
         // Animate.
         root.position.copy(pos);
@@ -200,6 +235,10 @@ function createBeast({ scene, map, rng, type, home, elite = null }) {
         get debug() { return { state: ai.state, hp: s.hp }; },
         update,
         hit: (...a) => { const r = core.hit(...a); if (!s.dead && (ai.state === 'idle' || ai.state === 'wander')) ai.state = 'chase'; return r; },
+        // Online: the host applies another player's blow; snapshots out and in; kill credit.
+        net: core.net, snapshot, applySnapshot,
+        hitFromNet: (h, attacker) => { core.hit(h.dmg, h.from ? new THREE.Vector3(h.from.x, h.from.y, h.from.z) : pos, h.burnMs, core.lastCtx, h.status, h.element, attacker); if (!s.dead && (ai.state === 'idle' || ai.state === 'wander')) ai.state = 'chase'; },
+        credit: () => core.reward(core.lastCtx),
         reset: () => { if (!s.dead) { ai.state = 'return'; s.fx = {}; } },
     };
 }

@@ -7,7 +7,7 @@ import { io } from 'socket.io-client';
 import * as THREE from 'three';
 import { settings } from '../engine/settings.js';
 
-export function createNet({ world, player, getLook, getWeapons, getName, getLevel, createCharacter, hud, fireballs }) {
+export function createNet({ world, player, getLook, getWeapons, getName, getLevel, createCharacter, hud, fireballs, hurtSelf }) {
     const css = document.createElement('style');
     css.textContent = `
 #chat { position: fixed; left: 18px; bottom: 230px; width: min(420px, 60vw); z-index: 6; pointer-events: none; font-family: Georgia, serif; }
@@ -28,7 +28,9 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
     const stat = document.createElement('div'); stat.id = 'netstat'; document.body.append(stat);
     const plates = document.createElement('div'); plates.style.cssText = 'position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:4'; document.body.append(plates);
 
-    let socket = null, sendT = 0, casts = 0;
+    let socket = null, sendT = 0, casts = 0, hostId = null, snapT = 0;
+    const creatures = () => (world.current.hittables ?? []).filter(h => h.snapshot);   // the same order on every client
+    const isHost = () => !socket?.connected || !remotes.size || hostId === socket.id;
     const remotes = new Map();   // id → { model, plate, target, data, scene }
     const tmp = new THREE.Vector3();
 
@@ -94,6 +96,12 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
             addRemote(d);
         });
         socket.on('chat:message', ({ name, text }) => say(text, name));
+        // ---- shared creatures (6.3): the map's host runs them; everyone else follows its snapshots ----
+        socket.on('map:host', ({ id }) => { hostId = id; });
+        socket.on('enemy:snap', ({ list }) => { if (isHost()) return; const cs = creatures(); for (const [i, ...v] of list) cs[i]?.applySnapshot(v); });
+        socket.on('enemy:hit', ({ i, attacker, h }) => { if (isHost()) creatures()[i]?.hitFromNet(h, attacker); });
+        socket.on('enemy:credit', ({ i }) => creatures()[i]?.credit());
+        socket.on('player:hurt', ({ dmg, from }) => hurtSelf?.(dmg, new THREE.Vector3(from.x, from.y, from.z)));
         socket.on('player:act', a => {
             const r = remotes.get(a.id);
             if (!r || a.kind !== 'fireball') return;
@@ -124,6 +132,14 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
         connect, disconnect, openChat,
         cast(origin, dir) { if (socket?.connected) socket.emit('player:act', { kind: 'fireball', origin: { x: origin.x, y: origin.y, z: origin.z }, dir: { x: dir.x, y: dir.y, z: dir.z } }); },
         get online() { return !!socket?.connected; },
+        get isHost() { return isHost(); },
+        // Everyone a creature may go for: this hero and the others on this map.
+        targets() {
+            const me = { id: 'me', pos: player.state.pos, dead: !!player.state.dead };
+            if (!socket?.connected || !remotes.size) return [me];
+            return [me, ...[...remotes.entries()].map(([id, r]) => ({ id, pos: r.model.root.position, dead: !!r.target.dead }))];
+        },
+        hurtRemote(id, dmg, from) { if (!socket?.connected) return false; socket.emit('player:strike', { target: id, dmg, from: { x: from.x, y: from.y, z: from.z } }); return true; },
         get remoteCasts() { return casts; },
         // The hero changed clothes or weapons, or levelled up.
         refresh() { if (socket?.connected) socket.emit('player:update', { look: getLook(), weapon: getWeapons(), level: getLevel() }); },
@@ -147,6 +163,16 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
                 r.plate.style.opacity = on ? 1 : 0;
                 r.plate.style.transform = `translate(${(tmp.x * 0.5 + 0.5) * innerWidth}px, ${(-tmp.y * 0.5 + 0.5) * innerHeight}px) translate(-50%, -100%)`;
             }
+            // Creatures: host or puppet, wired to the server; the host streams them ~8 times a second.
+            const shared = socket.connected && remotes.size > 0, host = isHost(), cs = creatures();
+            cs.forEach((h, i) => {
+                h.net.networked = shared;
+                h.net.puppet = shared && !host;
+                h.net.sendHit = hit => socket.emit('enemy:hit', { i, h: hit });
+                h.net.onDied = by => { if (by.length) socket.emit('enemy:killed', { i, by }); };
+            });
+            snapT -= dt;
+            if (shared && host && snapT <= 0 && cs.length) { snapT = 0.12; socket.emit('enemy:snap', { list: cs.map((h, i) => [i, ...h.snapshot()]) }); }
             const key = JSON.stringify([getWeapons(), getLevel()]);
             if (key !== lastLookKey) { lastLookKey = key; this.refresh?.(); }
         },

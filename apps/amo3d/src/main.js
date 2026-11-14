@@ -251,7 +251,7 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) save(
 // While it shows, Eldrin waits out of sight at the foot of his tower (enemies ignore him), the
 // camera belongs to the title, and the vale's mood is on.
 // Online (Phase 6): the hero as others see them — their worn look, weapon, name and level.
-const net = createNet({ world, player, createCharacter, hud, fireballs,
+const net = createNet({ world, player, createCharacter, hud, fireballs, hurtSelf: (dmg, from) => player.hurt(dmg, from),
     getLook: () => wornLook(BASE_LOOK, stats.equipment), getWeapons: () => handOf(stats.equipment.weapon)?.type ?? 'staff',
     getName: () => settings.onlineName || HERO_NAME, getLevel: () => stats.level });
 stats.onEquipChange(() => net.refresh());
@@ -359,7 +359,7 @@ function tick(dt) {
     let lift = 0;
     clockRules.advanceClock(stats, dt * 1000);   // amo: one real minute = one game hour
     const ctx = { ...clock(), message: hud.message, attunedGates: stats.attunedGates, player: player.state, camera,
-        flags: (stats.flags ??= {}), shake: a => cam.kick(a),
+        flags: (stats.flags ??= {}), shake: a => cam.kick(a), players: net.targets(), hurtRemote: (id, dmg, from) => net.hurtRemote(id, dmg, from),
         drainVigor: n => { stats.vigor = Math.max(0, stats.vigor - n); },
         onRetreat: () => { stats.flags.malphas_retreated = true; save(); }, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop };
     if (!world.step(dt)) lift = player.step(dt, act, ctx);

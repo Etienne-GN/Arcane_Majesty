@@ -11,7 +11,7 @@ import { createNav } from '../engine/nav.js';
 import { bakeStatic } from '../engine/batch.js';
 import { buildArch } from '../engine/region.js';
 import { treeKinds } from './models/flora.js';
-import { createBeasts } from './actors/beast.js';
+import { createBeasts, dailyRng } from './actors/beast.js';
 import { buildMonolith } from '../game/travel.js';
 import { buildCampfire } from '../game/campfire.js';
 import { buildChest } from '../game/chest.js';
@@ -195,7 +195,7 @@ export function createEastRoad({ quality }) {
     map.batch = bakeStatic(scene);
     for (const type of [...new Set((D.spawns.enemies ?? []).map(e => e.type))]) {
         const posts = D.spawns.enemies.filter(e => e.type === type).map(e => ({ x: wx(e.x), z: wz(e.y) }));
-        map.hittables.push(...createBeasts({ scene, map, rng: Math.random, type, posts, rareFrom: D }));   // elites rolled fresh each time, as in amo
+        map.hittables.push(...createBeasts({ scene, map, rng: dailyRng(`east_road:${type}`), type, posts, rareFrom: D }));   // elites: a new roll every day, the same for every player online
     }
 
     // ---------- Oren, the chronicler, at the shepherd's lean-to ----------
