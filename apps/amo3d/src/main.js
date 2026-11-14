@@ -56,6 +56,17 @@ import { createThaloria, INTERIOR_IDS } from './content/thaloria.js';
 import { createEastRoad, EAST_ROAD_GATES } from './content/eastRoad.js';
 import { createMountain } from './content/mountain.js';
 import { createSanctuary, registerSanctuaryQuests } from './content/sanctuary.js';
+import { populate } from './content/actors/animals.js';
+import { dailyRng } from './content/actors/beast.js';
+// Animals per map (amo ENEMY_TYPES): [type, count, near (landmark or point), radius].
+const ANIMALS = {
+    outdoor: [['rabbit', 5], ['forest_fox', 2], ['crow', 4], ['feral_boar', 2], ['sheep', 4, { x: 0, z: 0 }, 35], ['goat', 2, { x: 0, z: 0 }, 35]],
+    thaloria: [['chicken', 6, 'Thaloria Market', 9], ['pig', 2, 'Thaloria Market', 10], ['crow', 3]],
+    east_road: [['rabbit', 4], ['forest_fox', 2], ['crow', 5], ['feral_boar', 3], ['black_bear', 1], ['cow', 3, 'The Shepherd\'s Lean-to', 14], ['sheep', 4, 'The Shepherd\'s Lean-to', 14]],
+    summit_of_despair: [['crow', 3], ['goat', 3]],
+    sylvan_sanctuary: [['rabbit', 5], ['forest_fox', 2]],
+    whisper_wood: [['forest_fox', 2], ['rabbit', 3], ['grizzly_bear', 1], ['crow', 4]],
+};
 import { createInterior } from './content/interior.js';
 import THALORIA_DOORS from '../../amo/src/data/maps/interiors/doors.json';
 // amo's Thaloria interiors, each built on first entry; inner doors (the inn's cellar) lead on and back.
@@ -200,6 +211,7 @@ const world = createMapManager({
     },
     fade: hud.ui.fade, fadeText: hud.ui.fadeText,
     onEnter(map, id, sp) {
+        if (!map._animals && ANIMALS[id]) { map._animals = true; populate(map, map.scene, ANIMALS[id], dailyRng); }
         player.place(sp);
         fireballs.setScene(map.scene);
         loot.clear();
