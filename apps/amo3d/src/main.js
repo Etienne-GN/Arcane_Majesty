@@ -60,7 +60,7 @@ import { populate } from './content/actors/animals.js';
 import { dailyRng } from './content/actors/beast.js';
 // Animals per map (amo ENEMY_TYPES): [type, count, near (landmark or point), radius].
 const ANIMALS = {
-    outdoor: [['rabbit', 5], ['forest_fox', 2], ['crow', 4], ['feral_boar', 2], ['sheep', 4, { x: 0, z: 0 }, 35], ['goat', 2, { x: 0, z: 0 }, 35]],
+    outdoor: [['rabbit', 5], ['forest_fox', 2], ['crow', 4], ['feral_boar', 2]],
     thaloria: [['chicken', 6, 'Thaloria Market', 9], ['pig', 2, 'Thaloria Market', 10], ['crow', 3]],
     east_road: [['rabbit', 4], ['forest_fox', 2], ['crow', 5], ['feral_boar', 3], ['black_bear', 1], ['cow', 3, 'The Shepherd\'s Lean-to', 14], ['sheep', 4, 'The Shepherd\'s Lean-to', 14]],
     summit_of_despair: [['crow', 3], ['goat', 3]],
