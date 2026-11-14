@@ -16,7 +16,8 @@ import { startLoop } from './engine/loop.js';
 import { createHud } from './game/hud.js';
 import { createPlayer, PX } from './game/player.js';
 import { createFireballs, FIREBALL } from './game/fireball.js';
-import { loadGame, saveGame, deleteSave } from './game/save.js';
+import { loadGame, saveGame, deleteSave, activeSlot, setActiveSlot, firstEmptySlot, slotInfo } from './game/save.js';
+import { createSlots } from './game/slots.js';
 import { createLoot } from './game/loot.js';
 import { createInventory } from './game/inventory.js';
 import { createSheet } from './game/sheet.js';
@@ -249,9 +250,23 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) save(
 // camera belongs to the title, and the vale's mood is on.
 const options = createOptions({ quality, onQuality: name => { save(); setQualityName(name); location.reload(); }, onFps: v => perf.set(v) });
 if (settings.showFps) perf.set(true);
+// Save slots: a new journey goes into the active slot if it is empty, else the first empty one; when all
+// three are full the slots screen asks which to replace.
+let newKind = 'eldrin';
+const beginNew = () => { location.href = newKind === 'hero' ? 'forge.html?mode=create' : `${location.pathname}?new=1&play=1`; };
+const slots = createSlots({ onPlay: () => { location.href = `${location.pathname}?play=1`; }, onNew: () => beginNew() });
+function startNewJourney(kind) {
+    newKind = kind;
+    if (!hasSave(activeSlot())) return beginNew();
+    const empty = firstEmptySlot();
+    if (empty >= 0) { setActiveSlot(empty); return beginNew(); }
+    slots.toggle(true, 'new');
+}
+const activeInfo = slotInfo(activeSlot());
 const title = SHOW_TITLE ? createTitle({
-    camera, hasSave: hadSave, quality, onOptions: () => options.toggle(true),
-    onNewGame: () => { save(); location.href = `${location.pathname}?new=1&play=1`; },
+    camera, hasSave: hadSave, quality, onOptions: () => options.toggle(true), onSlots: () => slots.toggle(true),
+    continueLabel: activeInfo ? `CONTINUE — ${activeInfo.name.toUpperCase()}, LV ${activeInfo.level}` : 'CONTINUE',
+    onNewGame: kind => startNewJourney(kind),
     onStart: () => { player.state.dead = null; hero.root.visible = true; },
 }) : null;
 let titleSpot = null;

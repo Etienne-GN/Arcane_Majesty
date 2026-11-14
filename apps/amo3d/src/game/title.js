@@ -64,7 +64,7 @@ const CSS = `
 @keyframes rise { to { transform: translate(var(--dx), -105vh); opacity: 0; } }
 body.title-on .hud, body.title-on #hotbar, body.title-on #skills, body.title-on #touch, body.title-on #floaters { display: none !important; }`;
 
-export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQuality, onOptions }) {
+export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQuality, onOptions, onSlots, continueLabel = 'CONTINUE' }) {
     const style = document.createElement('style');
     style.textContent = CSS;
     document.head.append(style);
@@ -106,9 +106,10 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         panel.classList.add('on');
         menu.style.display = 'none';
     }
-    const cont = button('CONTINUE', () => start(), !hasSave);
-    button('CAMPAIGN — ELDRIN', () => onNewGame());
-    button('YOUR OWN HERO', () => { location.href = 'forge.html?mode=create'; });
+    const cont = button(continueLabel, () => start(), !hasSave);
+    button('CAMPAIGN — ELDRIN', () => onNewGame('eldrin'));
+    button('YOUR OWN HERO', () => onNewGame('hero'));
+    button('SAVE SLOTS', () => onSlots?.());
     button('THE FORGE', () => { location.href = 'forge.html'; });
     button('OPTIONS', () => onOptions?.());
     button('CREDITS', () => showPanel(['ARCANE MAJESTY', 'A world told first in music — the albums are the canon.',
