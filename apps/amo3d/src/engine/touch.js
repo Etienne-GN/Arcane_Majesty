@@ -23,11 +23,11 @@ export function createTouchControls({ input, cam }) {
         #touch .btn { position: absolute; border-radius: 50%; display: grid; place-items: center; color: #fff6e0;
             font: ${u(15)} Georgia, serif; letter-spacing: .08em; border: 2px solid #f3d88bcc; background: #0b0a10a8; box-shadow: 0 2px 8px #0008; }
         #touch .btn.on { background: #f3d88b66; transform: scale(.94); }
-        #touch .fire { right: 20px; bottom: 20px; width: 92px; height: 92px; font-size: ${u(16)};
+        #touch .fire { right: calc(20px + env(safe-area-inset-right, 0px)); bottom: 20px; width: 92px; height: 92px; font-size: ${u(16)};
             background: radial-gradient(circle at 50% 45%, #ffd27a 0, #ff7a20 32%, #7a1f08 72%, #2a0c04 100%); text-shadow: 0 1px 3px #000; }
-        #touch .hit { right: 126px; bottom: 22px; width: 68px; height: 68px; }
-        #touch .hop { right: 30px; bottom: 126px; width: 68px; height: 68px; }
-        #touch .menu { right: 132px; top: 12px; width: 54px; height: 54px; border-radius: 14px; font-size: ${u(13)}; }
+        #touch .hit { right: calc(126px + env(safe-area-inset-right, 0px)); bottom: 22px; width: 68px; height: 68px; }
+        #touch .hop { right: calc(30px + env(safe-area-inset-right, 0px)); bottom: 126px; width: 68px; height: 68px; }
+        #touch .menu { right: calc(132px + env(safe-area-inset-right, 0px)); top: 12px; width: 54px; height: 54px; border-radius: 14px; font-size: ${u(13)}; }
         #tmenu { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #05060acc; font-family: Georgia, serif; }
         #tmenu.open { display: grid; }
         #tmenu .grid { display: grid; grid-template-columns: repeat(3, minmax(120px, 190px)); gap: 12px; padding: 16px; }
@@ -37,20 +37,20 @@ export function createTouchControls({ input, cam }) {
         #tmenu button.tear { border-color: #9abaff; color: #cfe0ff; }
 
         /* The rest of the HUD, rearranged for a phone. */
-        body.touch-mode #status { left: 12px; top: 10px; bottom: auto; width: 200px; }
+        body.touch-mode #status { left: calc(12px + env(safe-area-inset-left, 0px)); top: 10px; bottom: auto; width: 200px; }
         body.touch-mode #status .label { margin-top: 3px; font-size: ${u(12)}; }
         body.touch-mode #status .bar { height: 8px; margin-top: 2px; }
         body.touch-mode #lvl, body.touch-mode #slot, body.touch-mode #slot-name { display: none; }
-        body.touch-mode #statusfx { left: 12px !important; bottom: auto !important; top: 196px; }
-        body.touch-mode #hotbar { top: 132px; left: 12px; bottom: auto; transform: none; flex-direction: row; z-index: 6; }
+        body.touch-mode #statusfx { left: calc(12px + env(safe-area-inset-left, 0px)) !important; bottom: auto !important; top: 196px; }
+        body.touch-mode #hotbar { top: 132px; left: calc(12px + env(safe-area-inset-left, 0px)); bottom: auto; transform: none; flex-direction: row; z-index: 6; }
         body.touch-mode #hotbar .hs { width: 46px; height: 46px; }
         body.touch-mode #hotbar .hs.empty { display: none; }   /* only slots with something in them */
-        body.touch-mode #skills { top: auto; bottom: 26px; left: auto; right: 206px; transform: none; z-index: 6; }
+        body.touch-mode #skills { top: auto; bottom: 26px; left: auto; right: calc(206px + env(safe-area-inset-right, 0px)); transform: none; z-index: 6; }
         body.touch-mode #skills .sk { width: 82px; padding: 8px 6px; }
         body.touch-mode #skills .sk.off { display: none; }
         body.touch-mode #skills .sk .key { display: none; }
-        body.touch-mode #minimap { width: 108px; height: 108px; top: 12px; right: 12px; z-index: 6; pointer-events: auto; }
-        body.touch-mode #clock { right: 12px !important; top: 124px !important; font-size: ${u(13)} !important; }
+        body.touch-mode #minimap { width: 108px; height: 108px; top: 12px; right: calc(12px + env(safe-area-inset-right, 0px)); z-index: 6; pointer-events: auto; }
+        body.touch-mode #clock { right: calc(12px + env(safe-area-inset-right, 0px)) !important; top: 124px !important; font-size: ${u(13)} !important; }
         body.touch-mode #banner { top: 18px; font-size: ${u(22)}; }
         body.touch-mode #msg { bottom: 132px; max-width: 60vw; text-align: center; }
         body.touch-mode #prompt { top: auto; bottom: 26%; z-index: 6; max-width: 56vw; font-size: ${u(15)}; text-align: center; padding: 8px 16px; border-radius: 22px; background: #0b0a10c8; border: 1px solid #f3d88b88; }
