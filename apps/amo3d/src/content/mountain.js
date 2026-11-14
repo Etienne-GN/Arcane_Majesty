@@ -319,7 +319,9 @@ export function createMountain({ quality }) {
     };
     const footVeil = buildArch(scene, 0, base(0, 93), 93, Math.PI);
     map.triggers.push({ x: 0, z: 93, r: 1.4, yMin: -5, yMax: 6, label: 'Back down to the approach', to: 'summit_of_despair', spawn: 'from_summit_peak' });
-    map.triggers.push({ x: 0, z: -90, r: 1.8, yMin: -5, yMax: 8, label: 'The Sylvan Sanctuary (the way is not open yet)', to: null });
+    const sanctuaryGate = { x: 0, z: -90, r: 1.8, yMin: -5, yMax: 8, label: 'The Sylvan Sanctuary (the way is not open yet)', to: null, spawn: 'from_summit' };
+    map.triggers.push(sanctuaryGate);
+    map.spawns.from_sanctuary = { x: 0, z: -86, y: 1.2, facing: 0 };
     map.spawns.start = { x: 0, z: 90, y: base(0, 90), facing: Math.PI };
 
     // Cairns at the named plateaus.
@@ -393,6 +395,11 @@ export function createMountain({ quality }) {
     };
     map.update = (t, dt, ctx) => {
         shell.update(dt, ctx);
+        // The gate opens once Malphas has fled: over the pass to an impossible green.
+        const open = !!ctx.flags?.malphas_retreated;
+        sanctuaryGate.to = open ? 'sylvan_sanctuary' : null;
+        sanctuaryGate.label = open ? 'Over the pass — the Sylvan Sanctuary' : 'The Sylvan Sanctuary (the way is not open yet)';
+        gate.material.color.setHex(open ? 0xa8e8a0 : 0x8a9a7a);
         {
             const cy = ctx.camera?.position.y ?? ctx.player.pos.y, k = map.fogAt(cy), above = cy > CLOUD_HI + 4;
             scene.fog.near = THREE.MathUtils.lerp(above ? 60 : 30, 0.5, k);

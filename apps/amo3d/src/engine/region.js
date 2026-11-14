@@ -49,6 +49,7 @@ export function regionHeight(def) {
             if (f.type === 'lake') h -= smoothstep(f.r, f.r * 0.25, d) * (f.depth ?? 5);
             else if (f.type === 'hill') h += smoothstep(f.r, 0, d) * f.h;
             else if (f.type === 'clearing') h += (0.4 - h) * smoothstep(f.r, f.r * 0.5, d);
+            else if (f.type === 'river') h -= smoothstep(f.w, f.w * 0.3, segDist(x, z, f.pts)) * (f.depth ?? 4);   // a channel along a polyline
         }
         const pd = trails.length ? Math.min(...trails.map(p => segDist(x, z, p))) : Infinity;
         if (T.carveTo !== undefined) { if (pd < 7) h += (T.carveTo - h) * smoothstep(7, 2.5, pd); }   // a trail cut through the rock
@@ -75,14 +76,16 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     const tGeo = new THREE.PlaneGeometry(SIZE, SIZE, SEG, SEG).rotateX(-Math.PI / 2);
     const tp = tGeo.attributes.position, colors = new Float32Array(tp.count * 3);
     const cA = new THREE.Color(P.grassA ?? '#4d7a35'), cB = new THREE.Color(P.grassB ?? '#7aa04a'), cDirt = new THREE.Color(P.dirt ?? '#6e5a3c'),
-        cRock = new THREE.Color(P.rock ?? '#77726b'), cSand = new THREE.Color(P.shore ?? '#8a7a5a'), col = new THREE.Color();
+        cRock = new THREE.Color(P.rock ?? '#77726b'), cSand = new THREE.Color(P.shore ?? '#8a7a5a'), col = new THREE.Color(), cSnow = P.snow ? new THREE.Color(P.snow) : null;
     for (let i = 0; i < tp.count; i++) {
         const x = tp.getX(i), z = tp.getZ(i), h = heightAt(x, z);
         tp.setY(i, h);
         const n = fbm(x * 0.08, z * 0.08, 3);
         if (h < WATER + 0.35) col.copy(cSand);
-        else if (h > 7 + n * 3) col.copy(cRock);
+        else if (cSnow && h > (T.snowLine ?? 14) + n * 4) col.copy(cSnow);   // palette.snow: snow above terrain.snowLine
+        else if (h > (T.rockLine ?? 7) + n * 3) col.copy(cRock);
         else col.copy(cA).lerp(cB, n);
+        for (const z0 of def.tints ?? []) { const d = Math.hypot(x - z0.x, z - z0.z); if (d < z0.r) col.lerp(new THREE.Color(z0.color), (z0.k ?? 0.8) * smoothstep(z0.r, z0.r * 0.4, d)); }   // tints: coloured ground zones
         if (trailDist(x, z) < 1.6) col.lerp(cDirt, 0.85);
         colors.set([col.r, col.g, col.b], i * 3);
     }

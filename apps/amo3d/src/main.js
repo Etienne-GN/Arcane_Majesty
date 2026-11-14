@@ -46,6 +46,7 @@ import { createTower } from './content/eldrinTower.js';
 import { createThaloria, INTERIOR_IDS } from './content/thaloria.js';
 import { createEastRoad, EAST_ROAD_GATES } from './content/eastRoad.js';
 import { createMountain } from './content/mountain.js';
+import { createSanctuary, registerSanctuaryQuests } from './content/sanctuary.js';
 import { createInterior } from './content/interior.js';
 import THALORIA_DOORS from '../../amo/src/data/maps/interiors/doors.json';
 // amo's Thaloria interiors, each built on first entry; inner doors (the inn's cellar) lead on and back.
@@ -154,6 +155,7 @@ const world = createMapManager({
         ...interiorBuilders,
         east_road: () => createEastRoad({ quality }),
         the_summit: () => createMountain({ quality }),
+        sylvan_sanctuary: () => createSanctuary({ quality }),
         ...Object.fromEntries(Object.keys(REGIONS).map(id => [id, () => buildRegion(REGIONS[id], { quality })])),
     },
     fade: hud.ui.fade, fadeText: hud.ui.fadeText,
@@ -176,6 +178,8 @@ const world = createMapManager({
         if (id === 'thaloria' && !stats.questLog?.main_odysseys_dawn) quests.start('main_odysseys_dawn');
         // The mountain: Malphas haunts the pass ahead (amo's Act II main quest).
         if (id === 'the_summit' && !stats.questLog?.main_whisperer_of_doubt) quests.start('main_whisperer_of_doubt');
+        // The Sanctuary: the Elemental's trial (Song 5).
+        if (id === 'sylvan_sanctuary' && !stats.questLog?.main_elementals_trial) quests.start('main_elementals_trial');
         hud.banner(lastLevel ? `${map.name} — ${lastLevel}` : map.name);
         save();
     },
@@ -197,6 +201,7 @@ const chests = createChests({ stats, hud });
 const mapView = createMapView({ stats, hud });
 const shop = createShop({ stats, hud, save: () => save() });
 const quests = createQuests({ stats, hud });
+registerSanctuaryQuests(stats);   // game quests from the campaign spec, run by amo's quest manager as generated quests
 const bountyBoard = createBountyBoard({ stats, hud, save: () => save() });
 const codex = createCodex({ stats });
 questHooks.onKill = (type, extra = {}) => { quests.onKill(type, { ...extra, mapId: world.current?.id ?? null }); codex.killed(type); };   // mapId: bounty kills count in their region only
@@ -308,12 +313,12 @@ function tick(dt) {
     const gatherText = station ? STATION_PROMPT[station.mode] : person ? `G — Talk${personName ? ` to the ${personName}` : ''}` : gathering.update(simT * 1000, player.state);
     if (gatherText && (act.gather || (act.hop && input.device === 'gamepad'))) {
         if (station?.mode === 'chest') { if (station.seed && !stats.chestContents[station.key]) stats.chestContents[station.key] = station.seed.map(id => ({ id, qty: 1 })); chests.toggle(station.key, station.title); }
-        else if (station?.mode === 'sign') { dialogue.start([{ speaker: '', text: station.text }]); quests.manager.onReadSign(station.id ?? null); }
+        else if (station?.mode === 'sign') { dialogue.start([{ speaker: '', text: station.text }]); quests.manager.onReadSign(station.id ?? null); station.onUse?.({ quests, stats }); }
         else if (station?.mode === 'gate') travel.useGate(station.key);
         else if (station?.mode === 'board') bountyBoard.use({ key: station.key, place: station.place, regionDef: station.region === 'east_road' ? eastRoadMap.default : thaloriaMap.default });
         else if (station?.mode === 'cairn') { stats.respawnPoint = { map: map.id, spawn: station.key }; hud.banner('A cairn — if you fall, you will come back here'); save(); }
         else if (station) campfire.toggle(station.mode);
-        else if (person) dialogue.talk(person, clock());
+        else if (person) { if (person.r.onTalk) person.r.onTalk({ start: dialogue.start, quests, stats, hud, save }); else dialogue.talk(person, clock()); }   // onTalk: a map's own conversation (the Sanctuary)
         else gathering.harvest(simT * 1000);
         act.hop = false;
     }
@@ -345,8 +350,8 @@ function tick(dt) {
     if (archery.armed()) hud.ui.speed.textContent += `${hud.ui.speed.textContent ? ' · ' : ''}${archery.ready()} arrows ready (+${archery.spare()} in the satchel)`;
 }
 
-if (REGIONS[params.get('region')] || ['the_summit', 'thaloria', 'east_road', 'outdoor'].includes(params.get('region'))) world.enter(params.get('region'), 'start');   // the editor's "Play here"
-else if (savedAt && world.maps && ['outdoor', 'tower', 'thaloria', 'east_road', 'the_summit', ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
+if (REGIONS[params.get('region')] || ['the_summit', 'thaloria', 'east_road', 'outdoor', 'sylvan_sanctuary'].includes(params.get('region'))) world.enter(params.get('region'), 'start');   // the editor's "Play here"
+else if (savedAt && world.maps && ['outdoor', 'tower', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
 else world.enter('outdoor', 'start');
 const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.current.scene, camera); perf.frame(); } });
 
