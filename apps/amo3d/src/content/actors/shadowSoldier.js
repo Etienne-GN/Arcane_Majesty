@@ -215,6 +215,9 @@ export function createShadows({ scene, map, rng, posts }) {
         const navKey = {}; let navDt = 0;
         const steer = target => (map.nav ? map.nav.aim(pos, target, navKey, navDt) : target);
         let lastCtx = null;   // fireball hits arrive without a ctx
+        // Online (6.3): host runs it; elsewhere a puppet following snapshots; blows go to the host; credit per player.
+        const net = { puppet: false, networked: false, sendHit: null, onDied: null }, by = new Set();
+        let byMe = false, snap = null;
 
         // Statuses on this soldier — amo STATUS_DEFS (dotDmg/dotInterval, stunned, speedMult, damageTakenMult).
         const fxMult = field => Object.keys(s.fx).reduce((m, id) => m * (STATUS_DEFS[id]?.[field] ?? 1), 1);
@@ -233,8 +236,10 @@ export function createShadows({ scene, map, rng, posts }) {
             return Math.abs(diff);
         }
 
-        function hit(dmg, from, burnMs, ctx = lastCtx, status = null) {
+        function hit(dmg, from, burnMs, ctx = lastCtx, status = null, attacker = null) {
             if (s.state === 'dead') return 'handled';
+            if (net.puppet) { net.sendHit?.({ dmg, burnMs, status, element: 'fire', from: from ? { x: from.x, y: from.y, z: from.z } : null }); s.flash = 0.2; s.seen = true; return 'handled'; }
+            if (attacker) by.add(attacker); else byMe = true;
             const mult = affinityMult(TYPE, 'fire');
             let amount = Math.max(1, Math.round(dmg * mult * fxMult('damageTakenMult')));
             // A raised shield turns fire that comes from the front.
@@ -266,8 +271,15 @@ export function createShadows({ scene, map, rng, posts }) {
 
         function die(ctx) {
             s.state = 'dead'; s.deadT = 0; s.hp = 0; s.fx = {};
+            if (byMe || !net.networked) reward(ctx);
+            if (net.networked && by.size) net.onDied?.([...by]);
+            dissolve();
+        }
+        function reward(ctx) {
             ctx?.onKill?.(DEF.xpReward, pos.clone().setY(pos.y + 2.4), TYPE);
             ctx?.dropLoot?.(DEF.lootTable, pos.clone(), rng);
+        }
+        function dissolve() {
             for (let i = 0; i < 90; i++) {
                 const a = rng() * 6.28, sp = 0.6 + rng() * 2.2;
                 smoke.emit({ x: pos.x + (rng() - 0.5) * 0.6, y: pos.y + 0.3 + rng() * 1.6, z: pos.z + (rng() - 0.5) * 0.6,
@@ -276,13 +288,36 @@ export function createShadows({ scene, map, rng, posts }) {
             }
         }
 
+        const STATES = ['idle', 'patrol', 'notice', 'chase', 'strafe', 'windup', 'swing', 'recover', 'return', 'dead'];
+        function puppetStep(dt) {
+            if (!snap) return;
+            const k = 1 - Math.exp(-dt * 10);
+            pos.x += (snap[0] - pos.x) * k; pos.z += (snap[2] - pos.z) * k; pos.y = map.heightAt(pos.x, pos.z);
+            const dh = ((((snap[3] - s.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI;
+            s.heading += dh * k;
+            const st = STATES[snap[4]] ?? 'idle';
+            if (st === 'swing' && s.state !== 'swing') s.swingT = 0;
+            if (st !== 'dead') s.state = st;
+            s.swingT += dt;
+            s.speed = ['chase', 'patrol', 'return'].includes(s.state) ? 2.2 : s.state === 'strafe' ? 1.3 : 0;
+            s.guard += ((s.state === 'strafe' ? 1 : 0) - s.guard) * Math.min(1, dt * 6);
+        }
+        function applySnapshot(v) {
+            snap = v; s.hp = v[5];
+            if (v[6] && s.state !== 'dead') { s.state = 'dead'; s.deadT = 0; s.hp = 0; dissolve(); }
+            else if (!v[6] && s.state === 'dead') respawn();
+        }
+        const snapshot = () => [+pos.x.toFixed(2), +pos.y.toFixed(2), +pos.z.toFixed(2), +s.heading.toFixed(2), Math.max(0, STATES.indexOf(s.state)), Math.round(s.hp), s.state === 'dead' ? 1 : 0];
+
         function update(dt, ctx) {
             lastCtx = ctx;
             navDt = dt;
             s.t += dt;
-            const P = ctx.player.pos;
+            const T = (ctx.players ?? [{ id: 'me', pos: ctx.player.pos, dead: ctx.player.dead }]).reduce((b, q) => (!q.dead && (!b || Math.hypot(q.pos.x - pos.x, q.pos.z - pos.z) < Math.hypot(b.pos.x - pos.x, b.pos.z - pos.z)) ? q : b), null) ?? { id: 'me', pos: ctx.player.pos, dead: true };
+            const P = T.pos;
             const toP = Math.hypot(P.x - pos.x, P.z - pos.z);
             const fromPost = Math.hypot(pos.x - post.x, pos.z - post.z);
+            if (net.puppet && s.state !== 'dead') { puppetStep(dt); animate(dt); emitFumes(dt); updatePlate(ctx); return; }
             let want = 0;
             s.attackCd -= dt;
             s.guardT -= dt;
@@ -296,12 +331,12 @@ export function createShadows({ scene, map, rng, posts }) {
                 d.M.eye.transparent = true;
                 d.body.position.y = -0.5 * k;
                 d.root.visible = k < 1;
-                if (s.deadT > 18) respawn();
+                if (s.deadT > 18 && !net.puppet) respawn();
             } else if (isStunned()) {
                 if (s.state === 'windup' || s.state === 'swing') { s.state = 'chase'; s.attackCd = 0.8; }
                 s.guardT = 0;
             } else {
-                const playerUp = !ctx.player.dead;
+                const playerUp = !T.dead;
                 if (s.state === 'idle' || s.state === 'patrol') {
                     if (playerUp && toP < SIGHT) { s.state = 'notice'; s.notice = 0.6; }
                     else if (s.state === 'idle' && (s.timer -= dt) <= 0) {
@@ -326,7 +361,7 @@ export function createShadows({ scene, map, rng, posts }) {
                 } else if (s.state === 'chase' || s.state === 'strafe') {
                     face(toP > REACH + 0.8 ? steer(P) : P, dt * 7);   // around trees and rocks when they are in the way
                     // React to a cast: raise the shield.
-                    if (ctx.player.cast && ctx.player.cast.t < 0.25 && s.guardT < -0.5 && rng() < 0.6) s.guardT = 1.1;
+                    if (T.id === 'me' && ctx.player.cast && ctx.player.cast.t < 0.25 && s.guardT < -0.5 && rng() < 0.6) s.guardT = 1.1;
                     if (toP > REACH + 0.8) { s.state = 'chase'; want = CHASE; }
                     else if (s.attackCd <= 0 && s.stagger <= 0) { s.state = 'windup'; s.swingT = 0; s.hitDone = false; }
                     else {
@@ -344,7 +379,7 @@ export function createShadows({ scene, map, rng, posts }) {
                         if (!s.hitDone && s.swingT >= SWING * 0.6) {
                             s.hitDone = true;
                             const ang = Math.abs(((((Math.atan2(P.x - pos.x, P.z - pos.z) - s.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI);
-                            if (toP < REACH + 0.45 && ang < 1.25) ctx.hurtPlayer(Math.round(DEF.damage * (ctx.voidMult ?? 1)), pos);   // void creatures hit 20% harder at night (amo)
+                            if (toP < REACH + 0.45 && ang < 1.25) { const dmg = Math.round(DEF.damage * (ctx.voidMult ?? 1)); if (T.id === 'me') ctx.hurtPlayer(dmg, pos); else ctx.hurtRemote?.(T.id, dmg, pos); }   // void creatures hit 20% harder at night (amo)
                         }
                         if (s.swingT >= SWING) { s.state = 'recover'; s.swingT = 0; }
                     } else if (s.swingT >= RECOVER) {
@@ -497,6 +532,7 @@ export function createShadows({ scene, map, rng, posts }) {
 
         function respawn() {
             Object.assign(s, { state: 'idle', hp: DEF.health, timer: 2, fx: {}, guard: 0, guardT: 0, seen: false, deadT: 0 });
+            by.clear(); byMe = false;
             pos.set(post.x, map.heightAt(post.x, post.z), post.z);
             for (const m of [d.M.body, d.M.plate]) m.opacity = 0.84;
             d.M.cloth.opacity = 0.75;
@@ -513,6 +549,9 @@ export function createShadows({ scene, map, rng, posts }) {
             get alive() { return s.state !== 'dead'; },
             get engaged() { return s.state !== 'dead' && s.state !== 'idle' && s.state !== 'patrol' && s.state !== 'return'; },
             update, hit, reset: () => { if (s.state !== 'dead') { s.state = 'return'; s.fx = {}; } },
+            net, snapshot, applySnapshot,
+            hitFromNet: (h, attacker) => hit(h.dmg, h.from ? new THREE.Vector3(h.from.x, h.from.y, h.from.z) : pos, h.burnMs, lastCtx, h.status, attacker),
+            credit: () => reward(lastCtx),
             get statuses() { return Object.keys(s.fx); },
         };
     }

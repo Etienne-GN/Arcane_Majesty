@@ -84,6 +84,26 @@ function createWolf({ scene, map, rng, home, tint }) {
         ai.heading += diff * Math.min(1, k);
     };
 
+    // Online puppet: follow the host's snapshots ([x, y, z, heading, state, hp, dead]).
+    const STATES = ['idle', 'wander', 'notice', 'chase', 'circle', 'windup', 'lunge', 'recover', 'return'];
+    let snap = null;
+    function puppetStep(dt) {
+        if (!snap) return;
+        const k = 1 - Math.exp(-dt * 10);
+        pos.x += (snap[0] - pos.x) * k; pos.z += (snap[2] - pos.z) * k; pos.y = map.heightAt(pos.x, pos.z);
+        const dh = ((((snap[3] - ai.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI;
+        ai.heading += dh * k;
+        ai.state = STATES[snap[4]] ?? 'idle';
+        ai.speed = ['chase', 'wander', 'return', 'circle'].includes(ai.state) ? 3 : ai.state === 'lunge' ? 6 : 0;
+        s.engaged = !['idle', 'wander', 'return'].includes(ai.state);
+    }
+    function applySnapshot(v) {
+        snap = v; s.hp = v[5];
+        if (v[6] && !s.dead) { s.dead = true; s.deadT = 0; s.hp = 0; }
+        else if (!v[6] && s.dead) { core.revive(); pos.set(v[0], map.heightAt(v[0], v[2]), v[2]); d.root.rotation.z = 0; d.root.visible = true; }
+    }
+    const snapshot = () => [+pos.x.toFixed(2), +pos.y.toFixed(2), +pos.z.toFixed(2), +ai.heading.toFixed(2), Math.max(0, STATES.indexOf(ai.state)), Math.round(s.hp), s.dead ? 1 : 0];
+
     function update(dt, ctx) {
         const alive = core.tick(dt, ctx);
         if (!alive) {
@@ -91,7 +111,7 @@ function createWolf({ scene, map, rng, home, tint }) {
             d.root.rotation.z = (Math.PI / 2) * k;
             d.root.position.set(pos.x, pos.y + 0.2 * k - Math.max(0, s.deadT - 8) * 0.2, pos.z);
             d.root.visible = s.deadT < 12;
-            if (s.deadT > core.respawnS) {
+            if (!core.net.puppet && s.deadT > core.respawnS) {
                 core.revive();
                 pos.set(home.x, map.heightAt(home.x, home.z), home.z);
                 d.root.rotation.z = 0; d.root.visible = true;
@@ -102,16 +122,19 @@ function createWolf({ scene, map, rng, home, tint }) {
         }
         ai.t += dt;
         ai.attackCd -= dt;
-        const P = ctx.player.pos;
+        // The nearest living player (online: anyone on this map).
+        const T = (ctx.players ?? [{ id: 'me', pos: ctx.player.pos, dead: ctx.player.dead }]).reduce((b, q) => (!q.dead && (!b || Math.hypot(q.pos.x - pos.x, q.pos.z - pos.z) < Math.hypot(b.pos.x - pos.x, b.pos.z - pos.z)) ? q : b), null) ?? { id: 'me', pos: ctx.player.pos, dead: true };
+        const P = T.pos;
         const toP = Math.hypot(P.x - pos.x, P.z - pos.z);
         const fromHome = Math.hypot(pos.x - home.x, pos.z - home.z);
         const angToP = Math.atan2(P.x - pos.x, P.z - pos.z);
         let want = 0, dirAng = ai.heading;
+        if (core.net.puppet) { puppetStep(dt); } else {
 
         if (core.stunned()) {
             if (ai.state === 'windup' || ai.state === 'lunge') ai.state = 'chase';
         } else if (ai.state === 'idle' || ai.state === 'wander') {
-            if (!ctx.player.dead && toP < SIGHT) { ai.state = 'notice'; ai.timer = 0.45; }
+            if (!T.dead && toP < SIGHT) { ai.state = 'notice'; ai.timer = 0.45; }
             else if (ai.state === 'idle' && (ai.timer -= dt) <= 0) {
                 const a = rng() * 6.28, r = 1 + rng() * 4;
                 ai.target = { x: home.x + Math.cos(a) * r, z: home.z + Math.sin(a) * r };
@@ -128,7 +151,7 @@ function createWolf({ scene, map, rng, home, tint }) {
             { const h = steer(home, dt); turn(Math.atan2(h.x - pos.x, h.z - pos.z), dt * 5); }
             want = 3;
             if (fromHome < 1) { ai.state = 'idle'; s.hp = Math.min(DEF.health, s.hp + 8); }
-        } else if (ctx.player.dead || fromHome > 24 || toP > SIGHT * 2.2) {
+        } else if (T.dead || fromHome > 24 || toP > SIGHT * 2.2) {
             ai.state = 'return';
         } else if (ai.state === 'chase' || ai.state === 'circle') {
             { const g = toP > REACH + 2.2 ? steer(P, dt) : P; turn(Math.atan2(g.x - pos.x, g.z - pos.z), dt * 8); }
@@ -147,7 +170,7 @@ function createWolf({ scene, map, rng, home, tint }) {
             want = 8.5;
             if (!ai.bit && toP < REACH + 0.5) {
                 const off = Math.abs(((((angToP - ai.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI);
-                if (off < 1.0) { ai.bit = true; ctx.hurtPlayer(DEF.damage, pos); }
+                if (off < 1.0) { ai.bit = true; if (T.id === 'me') ctx.hurtPlayer(DEF.damage, pos); else ctx.hurtRemote?.(T.id, DEF.damage, pos); }
             }
             if ((ai.timer -= dt) <= 0) { ai.state = 'recover'; ai.timer = 0.5; }
         } else if (ai.state === 'recover') {
@@ -169,6 +192,7 @@ function createWolf({ scene, map, rng, home, tint }) {
         map.resolve(pos, 0.35);
         if (map.blockedAt(pos.x, pos.z, 0.3, pos.y) === 'wall' && map.heightAt(pos.x, pos.z) < -1.8) pos.copy(prev);
         pos.y = map.heightAt(pos.x, pos.z);
+        }
 
         // Animate: trot / gallop, crouch on the windup, stretch on the lunge.
         d.root.position.copy(pos);
@@ -198,5 +222,8 @@ function createWolf({ scene, map, rng, home, tint }) {
         update,
         hit: (...args) => { const r = core.hit(...args); if (!s.dead && ai.state !== 'lunge') { ai.state = 'chase'; } return r; },
         reset: () => { if (!s.dead) { ai.state = 'return'; s.fx = {}; } },
+        net: core.net, snapshot, applySnapshot,
+        hitFromNet: (h, attacker) => { core.hit(h.dmg, h.from ? new THREE.Vector3(h.from.x, h.from.y, h.from.z) : pos, h.burnMs, core.lastCtx, h.status, h.element, attacker); if (!s.dead && ai.state !== 'lunge') ai.state = 'chase'; },
+        credit: () => core.reward(core.lastCtx),
     };
 }
