@@ -125,26 +125,73 @@ export function createMountain({ quality }) {
     const scene = new THREE.Scene();
     const rng = mulberry32(911);
     const P = trail();
+    const bridgeSeg = ROUTE.findIndex(c => c.kind === 'bridge');
+    const inGap = p => p.seg === bridgeSeg && p.f > 0.32 && p.f < 0.62;
     const plateaus = ROUTE.map((c, i) => {
         if (!c.plateau) return null;
         const p = P.reduce((b, q2) => (Math.hypot(q2.x - c.x, q2.z - c.z) < Math.hypot(b.x - c.x, b.z - c.z) ? q2 : b), P[0]);
         return { ...c, h: p.h, i };
     }).filter(Boolean);
 
+    // Side paths. Goat tracks: steep scrambles that cut between two legs of the trail (a shortcut, exposed).
+    // False trails: at a hairpin, a ledge runs straight on and ends at a drop — a dead end (a view, sometimes
+    // a herb or a crystal). They are trail points too (seg -1), so they are carved, walkable and safe to stand on.
+    const branchPts = [], branches = [];
+    const line = (a, b, h0, h1, kind, tag) => {
+        const L = Math.hypot(b.x - a.x, b.z - a.z), n = Math.max(2, Math.ceil(L / 0.6)), dirx = (b.x - a.x) / L, dirz = (b.z - a.z) / L, pts = [];
+        for (let k = 0; k <= n; k++) { const f = k / n; pts.push({ x: a.x + (b.x - a.x) * f, z: a.z + (b.z - a.z) * f, h: h0 + (h1 - h0) * f, seg: -1, f, kind, dirx, dirz, branch: tag }); }
+        branchPts.push(...pts);
+        return pts;
+    };
+    {   // goat tracks: pairs of trail points close in plan, one leg above the other, joinable at a scramble's grade
+        const taken = [];
+        for (let i = 40; i < P.length - 80 && branches.filter(b => b.kind === 'goat').length < 4; i += 7) {
+            if (taken.some(t => Math.abs(t - i) < 120) || plateaus.some(pl => Math.hypot(P[i].x - pl.x, P[i].z - pl.z) < pl.plateau + 4)) continue;
+            let best = null;
+            for (let j = i + 70; j < Math.min(P.length, i + 420); j += 3) {
+                const d = Math.hypot(P[j].x - P[i].x, P[j].z - P[i].z), dh = Math.abs(P[j].h - P[i].h);
+                if (d < 9 || d > 24 || dh < 5 || dh / d > 0.95 || P[j].seg === bridgeSeg || P[i].seg === bridgeSeg) continue;
+                if (plateaus.some(pl => Math.hypot(P[j].x - pl.x, P[j].z - pl.z) < pl.plateau + 4)) continue;
+                if (!best || d < best.d) best = { j, d };
+            }
+            if (!best) continue;
+            taken.push(i, best.j);
+            branches.push({ kind: 'goat', pts: line(P[i], P[best.j], P[i].h, P[best.j].h, 'exposed', 'goat'), from: i, to: best.j });
+        }
+    }
+    {   // false trails: straight on past a hairpin
+        for (let k = 1; k < ROUTE.length - 2 && branches.filter(b => b.kind === 'dead').length < 5; k++) {
+            const a = ROUTE[k - 1], c = ROUTE[k], b = ROUTE[k + 1];
+            if (c.summit || c.kind === 'bridge' || a.kind === 'bridge') continue;
+            const ux = c.x - a.x, uz = c.z - a.z, ul = Math.hypot(ux, uz), vx = b.x - c.x, vz = b.z - c.z, vl = Math.hypot(vx, vz);
+            if ((ux * vx + uz * vz) / (ul * vl) > -0.2) continue;   // only sharp turns
+            const pc = plateaus.find(pl => pl.i === k), h = pc ? pc.h : base(c.x, c.z) - 1.2, r = (pc?.plateau ?? 3) - 0.5;
+            const start = { x: c.x + (ux / ul) * r, z: c.z + (uz / ul) * r }, end = { x: c.x + (ux / ul) * (r + 15), z: c.z + (uz / ul) * (r + 15) };
+            if (Math.abs(end.x) > RAVINE_X - 6 || Math.abs(end.z) > 82) continue;
+            branches.push({ kind: 'dead', pts: line(start, end, h, h + 1.2, 'exposed', 'dead'), end });
+        }
+    }
+    const ALL = P.concat(branchPts);
+
     const B = 4, buckets = new Map();
-    P.forEach((p, i) => { const k = `${Math.floor(p.x / B)},${Math.floor(p.z / B)}`; (buckets.get(k) ?? buckets.set(k, []).get(k)).push(i); });
+    ALL.forEach((p, i) => { const k = `${Math.floor(p.x / B)},${Math.floor(p.z / B)}`; (buckets.get(k) ?? buckets.set(k, []).get(k)).push(i); });
     function nearest(x, z, within = 9) {
         let best = null, bd = within;
         const cx = Math.floor(x / B), cz = Math.floor(z / B), n = Math.ceil(within / B);
         for (let dz = -n; dz <= n; dz++) for (let dx = -n; dx <= n; dx++) for (const i of buckets.get(`${cx + dx},${cz + dz}`) ?? []) {
-            const d = Math.hypot(P[i].x - x, P[i].z - z);
-            if (d < bd) { bd = d; best = P[i]; }
+            const d = Math.hypot(ALL[i].x - x, ALL[i].z - z);
+            if (d < bd) { bd = d; best = ALL[i]; }
         }
         return best ? { p: best, d: bd } : null;
     }
-    const bridgeSeg = ROUTE.findIndex(c => c.kind === 'bridge');
-    const inGap = p => p.seg === bridgeSeg && p.f > 0.32 && p.f < 0.62;
-    P.forEach(p => { p.walled = p.kind === 'cave'; });
+    // Where a fallen climber comes to: the nearest bit of path (main trail or side path) not above them.
+    function landingBelow(x, y, z) {
+        let best = null, bd = Infinity;
+        for (const q of ALL) { if (q.h > y + 0.6) continue; const d = Math.hypot(q.x - x, q.z - z) + (y - q.h) * 0.3; if (d < bd) { bd = d; best = q; } }
+        if (!best) for (const q of ALL) { const d = Math.hypot(q.x - x, q.z - z); if (d < bd) { bd = d; best = q; } }   // lower than every path (a ditch at the foot): the nearest one
+        return best;
+    }
+    ALL.forEach(p => { p.walled = p.kind === 'cave'; });
 
     // ---------- the height field ----------
     const downhill = p => { const e = 1, gx = base(p.x + e, p.z) - base(p.x - e, p.z), gz = base(p.x, p.z + e) - base(p.x, p.z - e); const nx = -p.dirz, nz = p.dirx; return nx * -gx + nz * -gz > 0 ? [nx, nz] : [-nx, -nz]; };
@@ -214,7 +261,7 @@ export function createMountain({ quality }) {
     parapet.castShadow = parapet.receiveShadow = true;
     scene.add(parapet);
     // Exposed stretches: only a few leaning stakes mark the edge.
-    const stakes = P.filter((p, i) => p.kind === 'exposed' && i % 8 === 0 && !plateaus.some(pl => Math.hypot(p.x - pl.x, p.z - pl.z) < pl.plateau));
+    const stakes = [...P.filter((p, i) => p.kind === 'exposed' && i % 8 === 0), ...branchPts.filter((p, i) => i % 6 === 0)].filter(p => !plateaus.some(pl => Math.hypot(p.x - pl.x, p.z - pl.z) < pl.plateau));
     const stakeMesh = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.05, 0.06, 1.0, 5).translate(0, 0.5, 0), flat(0x5a3a22), stakes.length);
     stakes.forEach((p, i) => { const [ox, oz] = downhill(p); stakeMesh.setMatrixAt(i, m4.compose(v.set(p.x + ox * (SHELF - 0.2), p.h, p.z + oz * (SHELF - 0.2)), q.setFromAxisAngle(new THREE.Vector3(1, 0, 0), (rng() - 0.5) * 0.4), s.set(1, 1, 1))); });
     stakeMesh.castShadow = true;
@@ -356,7 +403,27 @@ export function createMountain({ quality }) {
     map.hittables.push(malphas);
     map.malphas = malphas;
     map.cameraCeiling = (x, z, y) => { const n = nearest(x, z, SHELF + 1); return n && n.p.kind === 'cave' && Math.abs(y - n.p.h) < 1.5 ? n.p.h + 2.9 : null; };
-    map.trail = P; map.plateaus = plateaus; map.onTrail = onTrail;
+    map.trail = P; map.plateaus = plateaus; map.onTrail = onTrail; map.branches = branches;
+    // Dead ends end in something: a herb or a crystal on the last ledge, now and then.
+    branches.filter(b => b.kind === 'dead').forEach((b, k) => { if (k % 2 === 0) map.gatherSpots.push({ type: k % 4 === 0 ? 'crystal' : 'herb', x: b.end.x, z: b.end.z, y: b.pts.at(-1).h, yields: k % 4 === 0 ? undefined : 'mountain_herbs' }); });
+    let offT = 0;
+    map.recoverFall = (pl, dt, ctx) => {   // after a fall, never left stranded: set back on the path below
+        if (pl.dead || pl.hop || pl.vy !== 0) { offT = 0; return; }
+        // Standing on solid ground of the route — the path, a plateau, a bridge, the valley floors — at its height.
+        const x = pl.pos.x, z = pl.pos.z, y = pl.pos.y, n = nearest(x, z, SHELF);
+        const onRoute = (n && n.d < SHELF - 0.05 && Math.abs(y - n.p.h) < 1.2)
+            || plateaus.some(pp => Math.hypot(x - pp.x, z - pp.z) < pp.plateau - 0.8 && Math.abs(y - pp.h) < 1.5)
+            || deckAt(x, z) !== null || stoneDeck(x, z) !== null || ((z > 84 || z < -84) && y > -1);
+        if (onRoute) { offT = 0; return; }
+        offT += dt;
+        if (offT < 1.4) return;
+        offT = 0;
+        const q = landingBelow(pl.pos.x, pl.pos.y, pl.pos.z);
+        if (!q) return;
+        pl.pos.set(q.x, q.h + 0.05, q.z);
+        pl.slide = 0; pl.fallFrom = null; pl.knock.set(0, 0, 0);
+        ctx.message?.('You tumble down to the path below.');
+    };
     map.mapInfo = {
         half: HALF, water: -1.6, ground: [232, 238, 244], trees: [],
         landmarks: [
@@ -371,7 +438,7 @@ export function createMountain({ quality }) {
     const shell = createOutdoorShell(scene, { quality, mood: { fog: '#c8d2dc', fogNear: 30, fogFar: 280, fogMix: 0.55, light: 0.85, nightFloor: 0.45 } });
     // The cloud band: the higher you climb the thicker the fog, until you break through around 80 m; from
     // the pass you look out over a sea of cloud that hides the valleys (and the edges of the world).
-    const CLOUD_LO = 50, CLOUD_HI = 76, cloudTex = (() => {
+    const CLOUD_LO = 34, CLOUD_HI = 74, cloudTex = (() => {
         const c = document.createElement('canvas'); c.width = c.height = 256;
         const g = c.getContext('2d'), r = mulberry32(77);
         for (let k = 0; k < 140; k++) {
@@ -381,7 +448,7 @@ export function createMountain({ quality }) {
         }
         const tx = new THREE.CanvasTexture(c); tx.wrapS = tx.wrapT = THREE.RepeatWrapping; tx.repeat.set(5, 5); return tx;
     })();
-    const clouds = [62, 68, 73].map((y, i) => {
+    const clouds = [44, 58, 71].map((y, i) => {
         const tx = cloudTex.clone(); tx.needsUpdate = true; tx.offset.set(i * 0.37, i * 0.21);
         const m = new THREE.Mesh(new THREE.PlaneGeometry(HALF * 7, HALF * 7).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ map: tx, color: 0xf2f4f8, transparent: true, opacity: 0.85, depthWrite: false, fog: false, side: THREE.DoubleSide }));
         m.position.y = y; m.renderOrder = 2; scene.add(m);
@@ -389,13 +456,14 @@ export function createMountain({ quality }) {
     });
     const cloudWhite = new THREE.Color(0xdfe4ea);
     map.fogAt = y => {   // 0 = clear air, 1 = inside the cloud
-        if (y < CLOUD_LO - 25) return 0;
-        if (y < CLOUD_LO) return 0.55 * smoothstep(CLOUD_LO - 25, CLOUD_LO, y);
-        if (y < CLOUD_HI) return 0.55 + 0.45 * smoothstep(CLOUD_LO, CLOUD_LO + 10, y);
+        if (y < 6) return 0;
+        if (y < CLOUD_LO) return 0.6 * smoothstep(6, CLOUD_LO, y);   // a haze that thickens from the first switchbacks
+        if (y < CLOUD_HI) return 0.6 + 0.4 * smoothstep(CLOUD_LO, CLOUD_LO + 12, y);
         return 1 - smoothstep(CLOUD_HI, CLOUD_HI + 8, y);
     };
     map.update = (t, dt, ctx) => {
         shell.update(dt, ctx);
+        map.recoverFall(ctx.player, dt, ctx);
         // The gate opens once Malphas has fled: over the pass to an impossible green.
         const open = !!ctx.flags?.malphas_retreated || settings.god;   // god mode: the way is open for testing
         sanctuaryGate.to = open ? 'sylvan_sanctuary' : null;

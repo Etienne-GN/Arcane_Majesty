@@ -291,9 +291,13 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             if (sl && sl.k > m.maxSlope && p.vy === 0) {
                 if (p.fallFrom == null) { p.fallFrom = p.pos.y; hud.message('You slip!'); }
                 p.slide = Math.min(14, (p.slide ?? 3) + dt * 18);
+                const bx = p.pos.x, bz = p.pos.z, by = p.pos.y;
                 p.pos.x += sl.dx * p.slide * dt; p.pos.z += sl.dz * p.slide * dt;
                 p.pos.y = m.groundAt(p.pos.x, p.pos.z, p.pos.y + 0.6);
                 p.speed = p.slide;
+                // Sliding into a pocket (no real progress): stop, and land where you are.
+                p.slideStall = Math.hypot(p.pos.x - bx, p.pos.y - by, p.pos.z - bz) < 0.02 ? (p.slideStall ?? 0) + dt : 0;
+                if (p.slideStall > 0.4) { p.slideStall = 0; p.slide = 0; land(p.pos.y); }
             } else {
             if (p.slide) { p.slide = 0; if (p.vy === 0) land(p.pos.y); }
             const g = m.groundAt(p.pos.x, p.pos.z, p.pos.y);
