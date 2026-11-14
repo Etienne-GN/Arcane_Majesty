@@ -10,6 +10,7 @@ export function createPerf(renderer, quality) {
 
     return {
         toggle() { on = !on; },
+        set(v) { on = !!v; },
         get fps() { return fps; },
         frame() {
             const now = performance.now(), ms = now - last;

@@ -24,3 +24,5 @@ export function nextQuality(q) {
     try { localStorage.setItem(KEY, next.name); } catch { /* storage blocked */ }
     return next;
 }
+
+export function setQualityName(name) { try { localStorage.setItem(KEY, name); } catch { /* storage blocked */ } }

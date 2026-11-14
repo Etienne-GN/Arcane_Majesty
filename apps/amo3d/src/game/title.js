@@ -1,3 +1,4 @@
+import { settings, onSettingChange } from '../engine/settings.js';
 // Title screen & main menu (Phase 1.5). Rendered live: the camera drifts around Eldrin's tower in
 // the vale's dusk mood, ARCANE MAJESTY rises in gold over a slowly turning sigil, embers float up,
 // and "Echoes of Stone" plays (it starts on the first key/tap — browsers block sound before that).
@@ -63,7 +64,7 @@ const CSS = `
 @keyframes rise { to { transform: translate(var(--dx), -105vh); opacity: 0; } }
 body.title-on .hud, body.title-on #hotbar, body.title-on #skills, body.title-on #touch, body.title-on #floaters { display: none !important; }`;
 
-export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQuality }) {
+export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQuality, onOptions }) {
     const style = document.createElement('style');
     style.textContent = CSS;
     document.head.append(style);
@@ -81,6 +82,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
     requestAnimationFrame(() => root.classList.add('lit'));
 
     const music = new Audio(titleTrack);
+    onSettingChange(k => { if (k !== 'music') return; music.volume = (stage === 'flying' || !active ? PLAY_VOLUME : VOLUME) * settings.music; });
     music.loop = true;
     music.volume = 0;
     let active = true, stage = 'press', t = 0, flight = null;
@@ -108,8 +110,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
     button('CAMPAIGN — ELDRIN', () => onNewGame());
     button('YOUR OWN HERO', () => { location.href = 'forge.html?mode=create'; });
     button('THE FORGE', () => { location.href = 'forge.html'; });
-    button('OPTIONS', () => showPanel([`Graphics quality: ${quality.name}`, 'F2 cycles low / medium / high at any time (the game reloads).',
-        'F3 shows frames per second.', 'Controls: WASD, mouse, gamepad or touch — see the help in the corner.']));
+    button('OPTIONS', () => onOptions?.());
     button('CREDITS', () => showPanel(['ARCANE MAJESTY', 'A world told first in music — the albums are the canon.',
         'Music: Eldoria\'s Prophecy — "Echoes of Stone".', 'Every model, effect and landscape here is built in code: no borrowed art.']));
 
@@ -160,7 +161,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         if (stage !== 'flying') {
             shot(t, camera.position);
             camera.lookAt(look);
-            if (stage === 'menu') music.volume = Math.min(VOLUME, music.volume + dt * 0.25);
+            if (stage === 'menu') music.volume = Math.min(VOLUME * settings.music, music.volume + dt * 0.25);
             return true;
         }
         // Fly down to Eldrin's camera and hand over.
@@ -169,7 +170,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         gameCamera.update(dt);   // keeps the game camera's target fresh
         camera.position.lerpVectors(flight.from, gameCamera.position, e);
         camera.lookAt(flight.look.clone().lerp(gameCamera.target, e));
-        music.volume = Math.max(PLAY_VOLUME, VOLUME * (1 - k));
+        music.volume = Math.max(PLAY_VOLUME, VOLUME * (1 - k)) * settings.music;
         if (k >= 1) {
             active = false;
             clearInterval(emberTimer);

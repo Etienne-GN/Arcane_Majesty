@@ -6,7 +6,7 @@
 //   top right   — the minimap (tap: world map), the clock, and one MENU button that opens a sheet of
 //                 big tiles: Satchel, Hero, Map, Journal, Codex, Aetheric Tear
 // Everything steps aside while a menu or a conversation is open.
-const MODALS = '#inv.open,#sheet.open,#journal.open,#codex.open,#shop.open,#chest.open,#camp.open,#worldmap.open,#dlg.open,#travel.open,#tmenu.open,#bounty.open';
+const MODALS = '#inv.open,#sheet.open,#journal.open,#codex.open,#shop.open,#chest.open,#camp.open,#worldmap.open,#dlg.open,#travel.open,#tmenu.open,#bounty.open,#options.open';
 
 export function createTouchControls({ input, cam }) {
     const forced = new URLSearchParams(location.search).get('touch') === '1';
@@ -30,7 +30,7 @@ export function createTouchControls({ input, cam }) {
         #touch .menu { right: calc(132px + env(safe-area-inset-right, 0px)); top: 12px; width: 54px; height: 54px; border-radius: 14px; font-size: ${u(13)}; }
         #tmenu { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #05060acc; font-family: Georgia, serif; }
         #tmenu.open { display: grid; }
-        #tmenu .grid { display: grid; grid-template-columns: repeat(3, minmax(120px, 190px)); gap: 12px; padding: 16px; }
+        #tmenu .grid { display: grid; grid-template-columns: repeat(4, minmax(110px, 170px)); gap: 12px; padding: 16px; }
         #tmenu button { padding: 18px 10px; border-radius: 14px; border: 1px solid #f3d88b88; background: linear-gradient(160deg, #1c1824f2, #0d0b12f8);
             color: #f3e2b0; font: ${u(18)} Georgia, serif; letter-spacing: .06em; }
         #tmenu button small { display: block; margin-top: 4px; font-size: ${u(13)}; color: #cfc6b0; opacity: .8; }
@@ -69,7 +69,7 @@ export function createTouchControls({ input, cam }) {
     const sheet = document.createElement('div');
     sheet.id = 'tmenu';
     const tiles = [['inventory', 'Satchel', 'items · equipment'], ['sheet', 'Hero', 'attributes · mastery'], ['map', 'Map', 'the world'],
-        ['journal', 'Journal', 'quests'], ['codex', 'Codex', 'creatures · places'], ['tear', 'Aetheric Tear', 'travel to a gate']];
+        ['journal', 'Journal', 'quests'], ['codex', 'Codex', 'creatures · places'], ['tear', 'Aetheric Tear', 'travel to a gate'], ['options', 'Options', 'graphics · sound · camera']];
     const grid = document.createElement('div');
     grid.className = 'grid';
     for (const [action, label, sub] of tiles) {
@@ -104,7 +104,7 @@ export function createTouchControls({ input, cam }) {
         const s = sticks.get(e.pointerId);
         if (!s) return;
         if (s.kind === 'look') {
-            cam.orbit(-(e.clientX - s.x) * 0.008, (e.clientY - s.y) * 0.005);
+            cam.orbit(-(e.clientX - s.x) * 0.008, (e.clientY - s.y) * 0.005);   // turn speed / invert: settings, applied in cam.orbit
         } else {
             let dx = e.clientX - s.x0, dy = e.clientY - s.y0;
             const len = Math.hypot(dx, dy), max = 55;

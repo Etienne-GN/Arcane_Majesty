@@ -3,7 +3,9 @@
 import * as THREE from 'three';
 import { gameClock as clockRules, weather as weatherRules, eastRoadMap, thaloriaMap } from '@rules';
 import { movementRules, PlayerStats as PS, items as itemRules, weapons as weaponRules, talents as talentRules } from '@rules';
-import { pickQuality, nextQuality } from './engine/quality.js';
+import { pickQuality, nextQuality, setQualityName } from './engine/quality.js';
+import { settings } from './engine/settings.js';
+import { createOptions } from './game/options.js';
 import { createRenderer } from './engine/renderer.js';
 import { createOrbitCamera } from './engine/camera.js';
 import { createInput } from './engine/input.js';
@@ -245,8 +247,10 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) save(
 // ---------- title screen ----------
 // While it shows, Eldrin waits out of sight at the foot of his tower (enemies ignore him), the
 // camera belongs to the title, and the vale's mood is on.
+const options = createOptions({ quality, onQuality: name => { save(); setQualityName(name); location.reload(); }, onFps: v => perf.set(v) });
+if (settings.showFps) perf.set(true);
 const title = SHOW_TITLE ? createTitle({
-    camera, hasSave: hadSave, quality,
+    camera, hasSave: hadSave, quality, onOptions: () => options.toggle(true),
     onNewGame: () => { save(); location.href = `${location.pathname}?new=1&play=1`; },
     onStart: () => { player.state.dead = null; hero.root.visible = true; },
 }) : null;
@@ -292,6 +296,7 @@ function tick(dt) {
     if (act.map) mapView.toggle();
     if (act.journal) quests.toggle();
     if (act.codex) codex.toggle();
+    if (act.options) options.toggle(true);
     for (const h of world.current.hittables ?? []) if (h.engaged) codex.seen(h.kind === 'shadow' ? 'mirror_shade' : h.kind);
     if (act.tear) travel.tear();
     mapView.update(player.state, cam.yaw);
@@ -301,7 +306,7 @@ function tick(dt) {
     if (act.skill >= 0 && !inventory.open && !sheet.open) skills.use(act.skill);
     skills.update(dt);
     dialogue.update(dt, camera, project);
-    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
+    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open) { hud.update(dt, { stats, player: player.state, camera, spell: FIREBALL }); return; }   // paused
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
     const pp = player.state.pos;

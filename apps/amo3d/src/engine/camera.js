@@ -1,13 +1,15 @@
 // Third-person orbit camera: follows a focus point, orbits by yaw/pitch, zooms, shakes,
 // and never dips under the ground.
 import * as THREE from 'three';
+import { settings } from './settings.js';
 
 export function createOrbitCamera(camera) {
     const tmp = new THREE.Vector3();
     const cam = {
         yaw: Math.PI, pitch: 0.38, dist: 8, maxDist: 22, shake: 0, target: new THREE.Vector3(),
 
-        orbit(dYaw, dPitch) {
+        orbit(dYaw, dPitch) {   // every turn input (mouse, keys, stick, touch) comes through here: the player's turn speed and invert apply
+            dYaw *= settings.camSens; dPitch *= settings.camSens * (settings.invertY ? -1 : 1);
             cam.yaw += dYaw;
             cam.pitch = THREE.MathUtils.clamp(cam.pitch + dPitch, 0.05, 1.35);
         },
