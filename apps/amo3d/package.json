@@ -9,9 +9,12 @@
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
     "android": "vite build && cap sync android && cd android && ANDROID_HOME=${ANDROID_HOME:-/opt/android-sdk} ./gradlew assembleDebug -q",
-    "android:install": "adb install -r android/app/build/outputs/apk/debug/app-debug.apk"
+    "android:install": "adb install -r android/app/build/outputs/apk/debug/app-debug.apk",
+    "server": "node server/index.js"
   },
   "dependencies": {
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "three": "0.187.0"
   },
   "devDependencies": {

@@ -103,6 +103,8 @@ Status: **5.1 Thaloria done** (content/thaloria.js: amo's tile grid → grass / 
 | NetworkManager, RemotePlayer → 3D remote players | B |
 | **ServerSelectScene**, **OnlineCharacterScene**, **ChatScene** | B |
 
+Status: **6.1 presence + chat done (2026-11-14)**: apps/amo3d/server/index.js (npm run server, port 3003) on amo's server model — a room per map, moves relayed (position, facing, speed, sprint, hop, cast, strike), each player's Forge look / weapon / level, chat to the room, /status; every message checked and rate-limited. game/net.js: Options → Online (name, server, on/off); others drawn as full 3D characters from their own look, eased between updates, nameplates; chat (Enter / MENU → Chat); "● online · N here". Phone app: mixed content + cleartext allowed for the LAN server. tools/fake_player.mjs for tests. Next: 6.2 see each other's fights (fireballs, strikes, hits), 6.3 shared enemies (server-run, amo's ENEMY_TYPES), 6.4 online characters / server list.
+
 ## Phase 7 — Menus, platforms, polish
 | amo | Kind |
 |---|---|
@@ -116,6 +118,12 @@ Status: **5.1 Thaloria done** (content/thaloria.js: amo's tile grid → grass / 
 
 
 Status: **7.1 readability done (2026-11-14)**: one type scale — every UI font is calc(Npx × var(--ui)), sizes raised (nothing under 14 px; body text 15–18), --ui 1 on laptops, 1.15/1.3 on tall screens, 1.1 on phones; the dev title and the speed readout are gone from the HUD (speed with ?perf=1); the keyboard help is a card on H (a hint fades after 25 s), never on touch; the title's logo glides up and shrinks when the menu opens (two columns on short screens), TAP TO BEGIN on touch; world-map names scale with the canvas. **7.2 touch rework done**: compact bars top-left with only the filled hotbar slots under them; MENU (top right, beside the minimap) opens a sheet of big tiles — Satchel, Hero, Map, Journal, Codex, Aetheric Tear; tap the minimap for the world map; FIRE / HIT / HOP under the right thumb, style skills beside them (only the learned ones); push the stick past its ring to sprint (the RUN button is gone); the door/gather prompt is a tappable pill; everything steps aside while a menu or conversation is open. **7.3 options done**: game/options.js (title OPTIONS, touch MENU → Options, O): graphics Low/Medium/High (saves, reloads), text size Normal/Large/Larger (×1/1.15/1.3 on the --ui scale), FPS shown/hidden, music volume (scales the title 15% / in-game 1%), camera turn speed and invert vertical (applied in cam.orbit for every input), the controls for keyboard/gamepad or touch; engine/settings.js remembers them per device. Android: immersive full screen, drawn under the cutout, screen kept on, HUD clear of the cutout. **7.4 save slots done**: three slots on amo's SaveManager (slot 1 keeps the old key, so existing saves are slot 1); title SAVE SLOTS screen (who, level, place, when; Play / New / Delete with a second confirm), CONTINUE names the active slot; a new campaign or hero goes into the active slot if empty, else the first empty one, else the screen asks which to replace. **7.5 gamepad in menus done**: engine/padnav.js — in any open panel (and the title menu) the D-pad / left stick moves a gold focus ring to the nearest button in that direction, A presses (or advances a conversation), B backs out, left/right nudges sliders; the press that opened a panel is ignored; the hotbar, skills, strike and Tear no longer fire while a menu is open. Next: credits, PC + Android release builds, the manual.
+
+## Phase 8 — More customisation in the Forge (user order 2026-11-14: after multiplayer)
+More parts, shapes and colours for heroes in forge.html — to plan when Phase 6 is done.
+
+## Phase 9 — The campaign, chapters 6–12 (after the Forge)
+One chapter per pass from the campaign spec, the book and the lore DB (amo's maps are stubs): 6 Treachery's Bite (the Fire Gate, Oren's betrayal), 7 The Solitary Path (the Descent), 8 Inferno's Trial (the Inferno Labyrinth), 9 Eldoria's Heartbeat (the Ruins of Eldoria), 10 Heart of War (the Heartstone Chamber, the Ancient Door), 11 The Weight of Eternity, 12 Dawn's Embrace (Eldrin's Tower). The user's music per region as each place is built.
 
 ## Not ported (2D-only tooling)
 LPC sprite ledger, sprite catalogue pipeline, LPC atlas, tile map generators, mapPaint/mapTexture,

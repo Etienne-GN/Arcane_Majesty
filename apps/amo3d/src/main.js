@@ -7,6 +7,7 @@ import { pickQuality, nextQuality, setQualityName } from './engine/quality.js';
 import { settings } from './engine/settings.js';
 import { createOptions } from './game/options.js';
 import { createPadNav } from './engine/padnav.js';
+import { createNet } from './game/net.js';
 import { createRenderer } from './engine/renderer.js';
 import { createOrbitCamera } from './engine/camera.js';
 import { createInput } from './engine/input.js';
@@ -249,7 +250,13 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) save(
 // ---------- title screen ----------
 // While it shows, Eldrin waits out of sight at the foot of his tower (enemies ignore him), the
 // camera belongs to the title, and the vale's mood is on.
-const options = createOptions({ quality, onQuality: name => { save(); setQualityName(name); location.reload(); }, onFps: v => perf.set(v) });
+// Online (Phase 6): the hero as others see them — their worn look, weapon, name and level.
+const net = createNet({ world, player, createCharacter, hud,
+    getLook: () => wornLook(BASE_LOOK, stats.equipment), getWeapons: () => handOf(stats.equipment.weapon)?.type ?? 'staff',
+    getName: () => settings.onlineName || HERO_NAME, getLevel: () => stats.level });
+stats.onEquipChange(() => net.refresh());
+const options = createOptions({ quality, onQuality: name => { save(); setQualityName(name); location.reload(); }, onFps: v => perf.set(v), onOnline: v => (v ? net.connect() : net.disconnect()) });
+if (settings.online) net.connect();
 if (settings.showFps) perf.set(true);
 createPadNav();   // gamepad: D-pad / stick moves through any open menu, A presses, B backs out
 // Save slots: a new journey goes into the active slot if it is empty, else the first empty one; when all
@@ -314,6 +321,8 @@ function tick(dt) {
     if (act.journal) quests.toggle();
     if (act.codex) codex.toggle();
     if (act.options) options.toggle(true);
+    if (act.chat) net.openChat();
+    net.update(dt, camera);
     for (const h of world.current.hittables ?? []) if (h.engaged) codex.seen(h.kind === 'shadow' ? 'mirror_shade' : h.kind);
     const menuOpen = inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open;
     if (menuOpen) { act.hotbar = -1; act.skill = -1; act.tear = false; act.strike = false; }   // the D-pad and buttons drive the menu, not the hotbar

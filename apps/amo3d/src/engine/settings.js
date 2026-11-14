@@ -1,7 +1,7 @@
 // Player settings (Phase 7 options), remembered per device: music volume, text size, camera sensitivity,
 // invert vertical, show FPS. Graphics quality keeps its own key (engine/quality.js).
 const KEY = 'amo3d.settings';
-const DEFAULTS = { music: 1, textSize: 1, camSens: 1, invertY: false, showFps: false };
+const DEFAULTS = { music: 1, textSize: 1, camSens: 1, invertY: false, showFps: false, online: false, server: '', onlineName: '' };
 const listeners = [];
 
 export const settings = { ...DEFAULTS };

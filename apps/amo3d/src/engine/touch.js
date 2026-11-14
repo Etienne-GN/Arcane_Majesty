@@ -69,7 +69,7 @@ export function createTouchControls({ input, cam }) {
     const sheet = document.createElement('div');
     sheet.id = 'tmenu';
     const tiles = [['inventory', 'Satchel', 'items · equipment'], ['sheet', 'Hero', 'attributes · mastery'], ['map', 'Map', 'the world'],
-        ['journal', 'Journal', 'quests'], ['codex', 'Codex', 'creatures · places'], ['tear', 'Aetheric Tear', 'travel to a gate'], ['options', 'Options', 'graphics · sound · camera']];
+        ['journal', 'Journal', 'quests'], ['codex', 'Codex', 'creatures · places'], ['tear', 'Aetheric Tear', 'travel to a gate'], ['chat', 'Chat', 'talk to players online'], ['options', 'Options', 'graphics · sound · camera · online']];
     const grid = document.createElement('div');
     grid.className = 'grid';
     for (const [action, label, sub] of tiles) {

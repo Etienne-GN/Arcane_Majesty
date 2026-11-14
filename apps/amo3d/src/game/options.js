@@ -2,7 +2,7 @@
 // sensitivity and invert, FPS counter, and the controls for keyboard, touch and gamepad.
 import { settings, setSetting } from '../engine/settings.js';
 
-export function createOptions({ quality, onQuality, onFps }) {
+export function createOptions({ quality, onQuality, onFps, onOnline }) {
     const css = document.createElement('style');
     css.textContent = `
 #options { position: fixed; inset: 0; z-index: 25; display: none; place-items: center; background: #05060acc; font-family: Georgia, serif; color: #eee6d2; }
@@ -65,16 +65,30 @@ export function createOptions({ quality, onQuality, onFps }) {
         p.append(slider('Turn speed', 'camSens', 0.4, 2, 0.1, v => `${v.toFixed(1)}×`));
         p.append(seg('Vertical', [[false, 'Normal'], [true, 'Inverted']], settings.invertY, v => setSetting('invertY', v)));
 
+        p.append(el('h3', null, 'Online'));
+        const field = (label, key, ph) => {
+            const row = el('div', 'row'), inp = el('input');
+            Object.assign(inp, { type: 'text', value: settings[key] ?? '', placeholder: ph, maxLength: 60 });
+            inp.style.cssText = 'width:min(240px,46vw);padding:7px 9px;font:inherit;color:#fff;background:#0b0a10;border:1px solid #eee6d244;border-radius:7px';
+            inp.onchange = () => setSetting(key, inp.value.trim());
+            row.append(el('span', null, label), inp);
+            return row;
+        };
+        p.append(field('Your name', 'onlineName', 'your hero\'s name'));
+        p.append(field('Server', 'server', `${location.hostname || 'address'}:3003`));
+        p.append(seg('Play online', [[false, 'Off'], [true, 'On']], !!settings.online, v => { setSetting('online', v); onOnline?.(v); }));
+        p.append(el('div', 'note', 'Everyone on the same server and the same map sees each other. Start the server with npm run server on the host.'));
+
         p.append(el('h3', null, 'Controls'));
         const keys = el('div', 'keys');
         const rows = touch() ? [
             ['Left half', 'move — push past the ring to sprint'], ['Right half', 'drag to turn the camera, pinch to zoom'],
             ['FIRE / HIT / HOP', 'fireball, strike, hop (hop through a swing to dodge it)'], ['Skills', 'beside the action buttons, once learned'],
-            ['MENU', 'satchel, hero, map, journal, codex, Aetheric Tear, options'], ['Minimap', 'tap for the world map'], ['Prompt', 'tap it to talk, open, gather'],
+            ['MENU', 'satchel, hero, map, journal, codex, Aetheric Tear, chat, options'], ['Minimap', 'tap for the world map'], ['Prompt', 'tap it to talk, open, gather'],
         ] : [
             ['WASD', 'move'], ['Shift', 'sprint'], ['Space', 'hop (through a swing to dodge it)'], ['F / right-click', 'fireball'], ['Click / R', 'strike'],
             ['1–4', 'hotbar'], ['Z X V', 'style skills'], ['G', 'talk, open, gather'], ['I / Tab', 'satchel'], ['C', 'character'], ['M', 'map'],
-            ['J', 'journal'], ['K', 'codex'], ['T', 'Aetheric Tear'], ['O', 'options'], ['H', 'controls card'], ['Drag mouse / wheel', 'turn / zoom the camera'], ['Q / E', 'turn the camera'],
+            ['J', 'journal'], ['K', 'codex'], ['T', 'Aetheric Tear'], ['O', 'options'], ['Enter', 'chat (online)'], ['H', 'controls card'], ['Drag mouse / wheel', 'turn / zoom the camera'], ['Q / E', 'turn the camera'],
             ['Gamepad', 'left stick move, right stick camera, A hop, RB/LT skills'],
         ];
         for (const [k, d] of rows) keys.append(el('b', null, k), el('span', null, d));
