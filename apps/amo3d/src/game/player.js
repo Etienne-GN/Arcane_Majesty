@@ -186,7 +186,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         const id = stats.flags?.activeSpell;
         return CASTABLE.includes(id) && spellRules.SPELLS[id] ? spellRules.SPELLS[id] : FIREBALL;
     }
-    function tryCast(spellId = null) {
+    function tryCast(spellId = null, hand = null) {
         if (p.cast) return;
         // The spell on the cast button: chosen in the Book (stats.flags.activeSpell), the Fireball by default.
         const sp = spellId && CASTABLE.includes(spellId) && spellRules.SPELLS[spellId] ? spellRules.SPELLS[spellId] : activeSpell();
@@ -200,7 +200,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         const aim = settings.aim === 'facing' ? new THREE.Vector3(Math.sin(p.facing), 0, Math.cos(p.facing)) : cam.forward();
         // The big spells take an incantation: longer, rooted, the staff raised to the sky (Master takes a little longer).
         const tier = Math.max(1, stats.spells[sp.id] ?? 1), incant = INCANT.has(sp.id);
-        p.cast = { t: 0, fired: false, aim, spell: sp, incant, dur: incant ? 1.25 + 0.15 * (tier - 1) : CAST_TIME, release: incant ? 0.8 : CAST_RELEASE };
+        p.cast = { t: 0, fired: false, aim, spell: sp, incant, hand: hand ?? 'R', dur: incant ? 1.25 + 0.15 * (tier - 1) : CAST_TIME, release: incant ? 0.8 : CAST_RELEASE };
         p.facing = Math.atan2(aim.x, aim.z);
     }
 
@@ -274,7 +274,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         stats.tickMana(ms);
         stats.tickSpellCooldowns(ms);
 
-        if (act.cast) tryCast(act.castSpell);
+        if (act.cast) tryCast(act.castSpell, act.castHand);
         if (act.strike && !p.strike && !p.cast && p.strikeCd <= 0 && !p.hop) {
             const type = act.strikeType ? (act.strikeType === 'bow' || act.strikeType === 'crossbow' || act.strikeType === 'shield' ? 'fists' : act.strikeType) : strikeType(stats);
             p.strike = { t: 0, hit: false, type, thrust: WEAPON_TYPES[type].anim === 'thrust', hand: act.strikeHand ?? 'R' };
@@ -292,13 +292,13 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             if (c.incant && !c.fired) {   // still aiming while you chant; motes gather into the staff
                 if (settings.aim !== 'facing') c.aim = cam.forward();
                 hero.root.updateMatrixWorld(true);
-                fireballs.channel?.(c.spell, p.pos, hero.crystalWorld(new THREE.Vector3()), c.t / c.release, dt);
+                fireballs.channel?.(c.spell, p.pos, hero.crystalWorld(new THREE.Vector3(), c.hand), c.t / c.release, dt);
             }
             p.facing += angleDiff(p.facing, Math.atan2(c.aim.x, c.aim.z)) * Math.min(1, dt * 20);
             if (!c.fired && c.t >= c.release) {
                 c.fired = true;
                 hero.root.updateMatrixWorld(true);
-                const origin = hero.crystalWorld(new THREE.Vector3());
+                const origin = hero.crystalWorld(new THREE.Vector3(), c.hand);
                 // Aim to land at the end of its range (a targeted_aoe spell in amo).
                 const sp = c.spell ?? FIREBALL, lvl = Math.max(1, stats.spells?.[sp.id] ?? 1);
                 const range = ((sp.range?.[lvl - 1] ?? 200) / PX) * spellTuning.rangeMult;
@@ -425,7 +425,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         if (p.spin) { p.spin.t += dt / 0.4; if (p.spin.t >= 1) p.spin = null; }
         if (p.shot) { p.shot.t += dt / 0.3; if (p.shot.t >= 1) p.shot = null; }
         hero.root.rotation.y = p.facing + (p.spin ? p.spin.t * Math.PI * 2 : 0);
-        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : p.shot ? p.shot.t : null, incant: !!p.cast?.incant, strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust, strikeHand: p.strike?.hand ?? 'R' });
+        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : p.shot ? p.shot.t : null, incant: !!p.cast?.incant, castHand: p.cast?.hand ?? 'R', strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust, strikeHand: p.strike?.hand ?? 'R' });
 
         // Doors.
         let nearLabel = null, inside = false;

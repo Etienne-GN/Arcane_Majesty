@@ -301,7 +301,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     const offMount = new THREE.Group();
     offMount.position.set(0.06, -0.2, 0.05);
     arms.L.fore.add(offMount);
-    let crystal = null, tip = null, mainType = 'staff', offType = null;
+    let crystal = null, tip = null, offTip = null, mainType = 'staff', offType = null;
 
     root.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     bakeRig(root);
@@ -317,12 +317,13 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             mainMount.add(m.group);
             crystal = m.crystal; tip = m.tip; mainType = main?.type ?? 'staff';
         }
-        offType = off?.type ?? null;
-        if (off) {
-            const o = buildWeapon(off.type, { accent: off.accent });
-            if (off.type === 'shield') o.group.rotation.set(0, 0, 0);
-            else o.group.rotation.x = 0.75;
+        offType = off?.type ?? null; offTip = null;
+        if (off) {   // a shield rides the forearm; a weapon sits in the hand, like the right one
+            const o = buildWeapon(off.type, { accent: off.accent, crystalMat: off.type === 'staff' ? M.crystal : null });
+            if (off.type === 'shield') { o.group.rotation.set(0, 0, 0); offMount.position.set(0.06, -0.2, 0.05); }
+            else { o.group.rotation.x = 0.75; offMount.position.set(0, -0.31, 0); }
             offMount.add(o.group);
+            offTip = o.tip ?? null;
         }
         mainMount.rotation.x = mainType === 'bow' || mainType === 'crossbow' ? 0.1 : 0.75;
         for (const g of [mainMount, offMount]) g.traverse(o => { if (o.isMesh) o.castShadow = true; });
@@ -344,7 +345,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     }
 
     // speed in m/s, sprinting bool, hopK 0..1 progress (null when grounded), castK 0..1 (null when not casting)
-    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false, incant = false, strikeHand = 'R' }) {
+    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false, incant = false, strikeHand = 'R', castHand = 'R' }) {
         t += dt;
         const ease = k => 1 - Math.exp(-dt * k);
         amp += (Math.min(1, speed / 4) - amp) * ease(10);
@@ -376,55 +377,67 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         spine.rotation.y = g * s * 0.08 * amp;
         head.rotation.x = -spine.rotation.x * 0.6;
 
+        // A weapon carried in the left hand is held like the right one (forearm up), not swinging free.
+        const offArmed = !!offType && offType !== 'shield' && offType !== 'fists';
+        if (offArmed) arms.L.fore.rotation.x = -0.75;
+        mainMount.rotation.x = mainType === 'bow' || mainType === 'crossbow' ? 0.1 : 0.75;
+        offMount.rotation.x = 0;
+        // Which arm does the work: the casting / striking hand (A), the other (B); sz mirrors left and right.
+        const side = h => ({ A: arms[h], B: arms[h === 'R' ? 'L' : 'R'], sz: h === 'R' ? 1 : -1, mount: h === 'R' ? mainMount : offMount, fore0: h === 'R' || offArmed ? -0.75 : arms.L.fore.rotation.x });
+
         // Cast: the staff arm thrusts forward, the body leans in, the crystal flares orange.
         let blazeK = castK != null ? Math.sin(Math.min(1, castK) * Math.PI) : 0;
         if (castK != null && incant) {
             // The incantation: both hands lift the staff high, the head tips back to the sky, the staff sways as
             // the words go on; then it comes down and points, and the spell is loosed.
+            const { A, B, sz, mount, fore0 } = side(castHand);
             const k = Math.min(1, castK), sm = (a, b) => { const x = Math.min(1, Math.max(0, (k - a) / (b - a))); return x * x * (3 - 2 * x); };
             const up = sm(0, 0.2) * (1 - sm(0.7, 0.8)), fwd = sm(0.7, 0.8) * (1 - sm(0.86, 1)), rest = 1 - up - fwd;
             const sway = Math.sin(t * 6) * 0.07 * up;
-            arms.R.upper.rotation.x = arms.R.upper.rotation.x * rest - 2.75 * up - 1.55 * fwd;
-            arms.L.upper.rotation.x = arms.L.upper.rotation.x * rest - 2.65 * up - 1.1 * fwd;
-            arms.R.upper.rotation.z = -0.12 + 0.32 * up + sway;
-            arms.L.upper.rotation.z = 0.12 - 0.32 * up + sway;
-            arms.R.fore.rotation.x = -0.75 * (1 - up) - 0.3 * up - 0.1 * fwd;
-            arms.L.fore.rotation.x = arms.L.fore.rotation.x * (1 - up) - 0.35 * up;
+            A.upper.rotation.x = A.upper.rotation.x * rest - 2.75 * up - 1.55 * fwd;
+            B.upper.rotation.x = B.upper.rotation.x * rest - 2.65 * up - 1.1 * fwd;
+            A.upper.rotation.z = sz * (-0.12 + 0.32 * up) + sway;
+            B.upper.rotation.z = sz * (0.12 - 0.32 * up) + sway;
+            A.fore.rotation.x = fore0 * (1 - up) - 0.3 * up - 0.1 * fwd;
+            B.fore.rotation.x = B.fore.rotation.x * (1 - up) - 0.35 * up;
             spine.rotation.x += -0.22 * up + 0.2 * fwd;
             head.rotation.x += -0.6 * up;
-            mainMount.rotation.x = 0.75 + 2.4 * up + 0.7 * fwd;   // the staff stands up to the sky, then points
+            mount.rotation.x += 2.4 * up + 0.7 * fwd;   // the staff stands up to the sky, then points
             blazeK = Math.min(1, k * 1.4);
         } else if (castK != null) {
+            const { A, B, sz, fore0 } = side(castHand);
             const w = Math.sin(Math.min(1, castK) * Math.PI);
-            arms.R.upper.rotation.x = arms.R.upper.rotation.x * (1 - w) - 1.5 * w;
-            arms.R.upper.rotation.z = -0.12 - 0.15 * w;
-            arms.R.fore.rotation.x = -0.75 * (1 - w) - 0.15 * w;
-            arms.L.upper.rotation.x = arms.L.upper.rotation.x * (1 - w) - 0.6 * w;
+            A.upper.rotation.x = A.upper.rotation.x * (1 - w) - 1.5 * w;
+            A.upper.rotation.z = sz * (-0.12 - 0.15 * w);
+            A.fore.rotation.x = fore0 * (1 - w) - 0.15 * w;
+            B.upper.rotation.x = B.upper.rotation.x * (1 - w) - 0.6 * w;
             spine.rotation.x += 0.12 * w;
-            spine.rotation.y += -0.25 * w;
+            spine.rotation.y += sz * -0.25 * w;
         }
-        // Strike: a short sweeping blow with the staff, right to left, the body twisting into it.
-        if (strikeK != null && strikeHand === 'L') {   // the left hand: a straight jab, the body turning into it
+        // Strike: with a weapon, a sweeping blow (or a stab for thrusting weapons) from that hand, the body
+        // twisting into it; an empty left hand jabs.
+        if (strikeK != null) {
+            const { A, sz, mount, fore0 } = side(strikeHand);
             const k = Math.min(1, strikeK), w = Math.sin(k * Math.PI);
-            arms.L.upper.rotation.x = arms.L.upper.rotation.x * (1 - w) - 1.5 * w;
-            arms.L.upper.rotation.z = 0.12 - 0.1 * w;
-            arms.L.fore.rotation.x = arms.L.fore.rotation.x * (1 - w) - 0.05 * w;
-            spine.rotation.y += 0.3 * w;
-            spine.rotation.x += 0.12 * w;
-        } else if (strikeK != null && thrust) {   // spears, daggers, bo: a straight stab forward
-            const k = Math.min(1, strikeK), w = Math.sin(k * Math.PI);
-            arms.R.upper.rotation.x = arms.R.upper.rotation.x * (1 - w) - 1.45 * w;
-            arms.R.upper.rotation.z = -0.12;
-            arms.R.fore.rotation.x = -0.75 * (1 - w) - 0.05 * w;
-            mainMount.rotation.x = 0.75 + 0.8 * w;
-            spine.rotation.x += 0.18 * w;
-        } else if (strikeK != null) {
-            const k = Math.min(1, strikeK), w = Math.sin(k * Math.PI);
-            arms.R.upper.rotation.x = arms.R.upper.rotation.x * (1 - w) - 1.3 * w;
-            arms.R.upper.rotation.z = -0.12 - 0.9 * w + 1.5 * w * k;
-            arms.R.fore.rotation.x = -0.75 * (1 - w) - 0.3 * w;
-            spine.rotation.y += (0.5 - 1.1 * k) * w;
-            spine.rotation.x += 0.1 * w;
+            if (strikeHand === 'L' && !offArmed) {
+                A.upper.rotation.x = A.upper.rotation.x * (1 - w) - 1.5 * w;
+                A.upper.rotation.z = 0.12 - 0.1 * w;
+                A.fore.rotation.x = A.fore.rotation.x * (1 - w) - 0.05 * w;
+                spine.rotation.y += 0.3 * w;
+                spine.rotation.x += 0.12 * w;
+            } else if (thrust) {
+                A.upper.rotation.x = A.upper.rotation.x * (1 - w) - 1.45 * w;
+                A.upper.rotation.z = sz * -0.12;
+                A.fore.rotation.x = fore0 * (1 - w) - 0.05 * w;
+                mount.rotation.x += 0.8 * w;
+                spine.rotation.x += 0.18 * w;
+            } else {
+                A.upper.rotation.x = A.upper.rotation.x * (1 - w) - 1.3 * w;
+                A.upper.rotation.z = sz * (-0.12 - 0.9 * w + 1.5 * w * k);
+                A.fore.rotation.x = fore0 * (1 - w) - 0.3 * w;
+                spine.rotation.y += sz * (0.5 - 1.1 * k) * w;
+                spine.rotation.x += 0.1 * w;
+            }
         }
         M.crystal.emissive.copy(calm).lerp(blaze, blazeK);
 
@@ -439,5 +452,5 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         M.crystal.emissiveIntensity = 1.8 + Math.sin(t * 3) * 0.6;
     }
 
-    return { root, update, setWeapons, get mainType() { return mainType; }, crystalWorld: v => (tip ?? arms.R.fore).getWorldPosition(v) };
+    return { root, update, setWeapons, get mainType() { return mainType; }, crystalWorld: (v, hand = 'R') => (hand === 'L' ? (offTip ?? arms.L.fore) : (tip ?? arms.R.fore)).getWorldPosition(v) };
 }

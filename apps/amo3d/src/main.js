@@ -205,7 +205,7 @@ let model = createCharacter(wornLook(BASE_LOOK, stats.equipment));
 const hero = {
     get root() { return model.root; },
     update: (...a) => model.update(...a),
-    crystalWorld: v => model.crystalWorld(v),
+    crystalWorld: (v, hand) => model.crystalWorld(v, hand),
     setWeapons: (a, b) => model.setWeapons(a, b),
     get mainType() { return model.mainType; },
 };
@@ -312,7 +312,7 @@ function handAction(side, act) {
         if ((t === 'bow' || t === 'crossbow') && archery.armed()) archery.shoot();
         else if (t === 'shield') hud.message('Block: not in 3D yet');
         else { act.strike = true; act.strikeType = t; act.strikeHand = side; }
-    } else if (a.startsWith('spell:')) { act.cast = true; act.castSpell = a.slice(6); }
+    } else if (a.startsWith('spell:')) { act.cast = true; act.castSpell = a.slice(6); act.castHand = side; }
     else if (a.startsWith('skill:')) skills.useId(a.slice(6), t);
 }
 let handsTick = 0;

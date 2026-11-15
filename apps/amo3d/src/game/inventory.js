@@ -1,11 +1,11 @@
 // Inventory & equipment screen (I / Tab / gamepad View / touch BAG). An HTML overlay over the live
 // game, which pauses while it is open. Every action is amo's: PlayerStats.equipItem (both hands,
 // refuses if what comes off would not fit), unequipItem, useItem, removeItem.
-import { items as itemRules } from '@rules';
+import { items as itemRules, weapons as weaponRules } from '@rules';
 
 const { ITEMS } = itemRules;
 const SLOTS = [
-    ['weapon', 'Main hand'], ['offHand', 'Off hand'], ['head', 'Head'], ['body', 'Body'],
+    ['weapon', 'Right hand'], ['offHand', 'Left hand'], ['head', 'Head'], ['body', 'Body'],
     ['accessory1', 'Accessory'], ['accessory2', 'Accessory'], ['quiver', 'Quiver'],
 ];
 const hex = c => `#${(c ?? 0x8855ff).toString(16).padStart(6, '0')}`;
@@ -105,12 +105,27 @@ export function createInventory({ stats, hud, onDrop, hotbar = null }) {
             b.onclick = () => { const r = fn(); if (r === false) hud.message('That will not fit in the satchel'); render(); };
             box.append(b);
         };
+        const twoHands = d => weaponRules.WEAPON_TYPES[weaponRules.typeOf(d)]?.hands === 2;
         if (selected.from === 'slot') {
             act('Unequip', () => { const ok = stats.unequipItem(selected.slot); if (ok) selected = null; return ok; });
+            // A one-handed weapon can change hands; a one-handed weapon in the other hand takes its place (a shield goes to the satchel).
+            if ((selected.slot === 'weapon' || selected.slot === 'offHand') && def.slot === 'weapon' && !twoHands(def)) {
+                const toLeft = selected.slot === 'weapon';
+                act(`Move to the ${toLeft ? 'left' : 'right'} hand`, () => {
+                    const here = stats.equipment[selected.slot], there = stats.equipment[toLeft ? 'offHand' : 'weapon'];
+                    const thereDef = there && ITEMS[there];
+                    if (!stats.unequipItem(selected.slot)) return false;
+                    if (there && !stats.unequipItem(toLeft ? 'offHand' : 'weapon')) { stats.equipItem(here, toLeft ? 'main' : 'off'); return false; }
+                    stats.equipItem(here, toLeft ? 'off' : 'main');
+                    if (there && thereDef?.slot === 'weapon' && !twoHands(thereDef)) stats.equipItem(there, toLeft ? 'main' : 'off');
+                    selected = { from: 'slot', slot: toLeft ? 'offHand' : 'weapon' };
+                    return true;
+                });
+            }
         } else {
             if (def.slot === 'weapon') {
-                act('Equip — main hand', () => stats.equipItem(id, 'main'));
-                act('Equip — off hand', () => stats.equipItem(id, 'off'), true);
+                if (twoHands(def)) act('Equip — both hands', () => stats.equipItem(id, 'main'));
+                else { act('Equip — right hand', () => stats.equipItem(id, 'main')); act('Equip — left hand', () => stats.equipItem(id, 'off')); }
             } else if (def.slot) {
                 act('Equip', () => stats.equipItem(id));
             } else if (def.onUse) {
