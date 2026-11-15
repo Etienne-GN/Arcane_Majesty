@@ -8,6 +8,7 @@ import { movementRules, weapons, mastery, items as itemRules, styles as styleRul
 
 const { STATUS_DEFS } = statuses;
 import { FIREBALL, CASTABLE, isBolt } from './fireball.js';
+import { INCANT } from './spectacle.js';
 import { spells as spellRules } from '@rules';
 
 const { MOVE, tickVigor, canSprint, spendHop, moveSpeed, hopLanding } = movementRules;
@@ -197,7 +198,9 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         stats.startSpellCooldown(sp.id);
         // Options → Aim: where the camera looks, or where Eldrin faces.
         const aim = settings.aim === 'facing' ? new THREE.Vector3(Math.sin(p.facing), 0, Math.cos(p.facing)) : cam.forward();
-        p.cast = { t: 0, fired: false, aim, spell: sp };
+        // The big spells take an incantation: longer, rooted, the staff raised to the sky (Master takes a little longer).
+        const tier = Math.max(1, stats.spells[sp.id] ?? 1), incant = INCANT.has(sp.id);
+        p.cast = { t: 0, fired: false, aim, spell: sp, incant, dur: incant ? 1.25 + 0.15 * (tier - 1) : CAST_TIME, release: incant ? 0.8 : CAST_RELEASE };
         p.facing = Math.atan2(aim.x, aim.z);
     }
 
@@ -285,9 +288,14 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         }
         if (p.cast) {
             const c = p.cast;
-            c.t += dt / CAST_TIME;
+            c.t += dt / c.dur;
+            if (c.incant && !c.fired) {   // still aiming while you chant; motes gather into the staff
+                if (settings.aim !== 'facing') c.aim = cam.forward();
+                hero.root.updateMatrixWorld(true);
+                fireballs.channel?.(c.spell, p.pos, hero.crystalWorld(new THREE.Vector3()), c.t / c.release, dt);
+            }
             p.facing += angleDiff(p.facing, Math.atan2(c.aim.x, c.aim.z)) * Math.min(1, dt * 20);
-            if (!c.fired && c.t >= CAST_RELEASE) {
+            if (!c.fired && c.t >= c.release) {
                 c.fired = true;
                 hero.root.updateMatrixWorld(true);
                 const origin = hero.crystalWorld(new THREE.Vector3());
@@ -346,7 +354,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             if (moving) {
                 const wading = !!m.wading?.(p.pos.x, p.pos.z);
                 // Analog sticks walk slower when pushed less; full tilt = amo's speed.
-                const speed = (moveSpeed(baseSpeed(), stats.fatigueFraction, wading ? 0.6 : 1, p.sprinting) / PX) * (p.cast ? 0.45 : 1) * Math.max(0.35, push) * buffMult('speedMult');
+                const speed = (moveSpeed(baseSpeed(), stats.fatigueFraction, wading ? 0.6 : 1, p.sprinting) / PX) * (p.cast ? (p.cast.incant && !p.cast.fired ? 0 : 0.45) : 1) * Math.max(0.35, push) * buffMult('speedMult');
                 tryPos.copy(p.pos).addScaledVector(dir, speed * dt);
                 m.resolve(tryPos, PLAYER_R);
                 if (!passable(tryPos.x, tryPos.z)) {
@@ -417,7 +425,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         if (p.spin) { p.spin.t += dt / 0.4; if (p.spin.t >= 1) p.spin = null; }
         if (p.shot) { p.shot.t += dt / 0.3; if (p.shot.t >= 1) p.shot = null; }
         hero.root.rotation.y = p.facing + (p.spin ? p.spin.t * Math.PI * 2 : 0);
-        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : p.shot ? p.shot.t : null, strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust });
+        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : p.shot ? p.shot.t : null, incant: !!p.cast?.incant, strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust });
 
         // Doors.
         let nearLabel = null, inside = false;

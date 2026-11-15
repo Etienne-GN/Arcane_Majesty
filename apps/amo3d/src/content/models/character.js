@@ -344,7 +344,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     }
 
     // speed in m/s, sprinting bool, hopK 0..1 progress (null when grounded), castK 0..1 (null when not casting)
-    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false }) {
+    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false, incant = false }) {
         t += dt;
         const ease = k => 1 - Math.exp(-dt * k);
         amp += (Math.min(1, speed / 4) - amp) * ease(10);
@@ -377,7 +377,24 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         head.rotation.x = -spine.rotation.x * 0.6;
 
         // Cast: the staff arm thrusts forward, the body leans in, the crystal flares orange.
-        if (castK != null) {
+        let blazeK = castK != null ? Math.sin(Math.min(1, castK) * Math.PI) : 0;
+        if (castK != null && incant) {
+            // The incantation: both hands lift the staff high, the head tips back to the sky, the staff sways as
+            // the words go on; then it comes down and points, and the spell is loosed.
+            const k = Math.min(1, castK), sm = (a, b) => { const x = Math.min(1, Math.max(0, (k - a) / (b - a))); return x * x * (3 - 2 * x); };
+            const up = sm(0, 0.2) * (1 - sm(0.7, 0.8)), fwd = sm(0.7, 0.8) * (1 - sm(0.86, 1)), rest = 1 - up - fwd;
+            const sway = Math.sin(t * 6) * 0.07 * up;
+            arms.R.upper.rotation.x = arms.R.upper.rotation.x * rest - 2.75 * up - 1.55 * fwd;
+            arms.L.upper.rotation.x = arms.L.upper.rotation.x * rest - 2.65 * up - 1.1 * fwd;
+            arms.R.upper.rotation.z = -0.12 + 0.32 * up + sway;
+            arms.L.upper.rotation.z = 0.12 - 0.32 * up + sway;
+            arms.R.fore.rotation.x = -0.75 * (1 - up) - 0.3 * up - 0.1 * fwd;
+            arms.L.fore.rotation.x = arms.L.fore.rotation.x * (1 - up) - 0.35 * up;
+            spine.rotation.x += -0.22 * up + 0.2 * fwd;
+            head.rotation.x += -0.6 * up;
+            mainMount.rotation.x = 0.75 + 2.4 * up + 0.7 * fwd;   // the staff stands up to the sky, then points
+            blazeK = Math.min(1, k * 1.4);
+        } else if (castK != null) {
             const w = Math.sin(Math.min(1, castK) * Math.PI);
             arms.R.upper.rotation.x = arms.R.upper.rotation.x * (1 - w) - 1.5 * w;
             arms.R.upper.rotation.z = -0.12 - 0.15 * w;
@@ -402,7 +419,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             spine.rotation.y += (0.5 - 1.1 * k) * w;
             spine.rotation.x += 0.1 * w;
         }
-        M.crystal.emissive.copy(calm).lerp(blaze, castK != null ? Math.sin(Math.min(1, castK) * Math.PI) : 0);
+        M.crystal.emissive.copy(calm).lerp(blaze, blazeK);
 
         // Coat: front flaps follow the thighs, the back panel flares with speed.
         flapL.joint.rotation.x = Math.min(0.2, legs.L.thigh.rotation.x * 0.8) - air * 0.3;

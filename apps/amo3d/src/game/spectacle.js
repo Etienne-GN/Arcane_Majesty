@@ -6,6 +6,9 @@
 import * as THREE from 'three';
 
 const R = Math.random;
+// The big ones: an incantation before they land (player.js lengthens the cast and raises the staff to the sky).
+export const INCANT = new Set(['fire_rain', 'flame_wall', 'fire_nova', 'ember_bloom', 'earth_pillar', 'mud_wall', 'thornwall', 'spike_field', 'tremor',
+    'blizzard_shard', 'cyclone', 'drying_wind', 'maelstrom', 'geyser', 'thunder_clap', 'static_field', 'void_pulse', 'arcane_burst']);
 const mat = (c, o = {}) => new THREE.MeshStandardMaterial({ color: c, flatShading: true, roughness: 0.8, ...o });
 const glow = (c, op = 0.9) => new THREE.MeshBasicMaterial({ color: c, transparent: true, opacity: op, toneMapped: false, depthWrite: false });
 
@@ -159,10 +162,41 @@ export function createSpectacle({ group, fx, shake, explodeAt, getMap }) {
     // Spells that share a set-piece.
     Object.assign(SET, { ember_bloom: SET.fire_nova, mud_trap: SET.tremor, quagmire: null, luminance: SET.arcane_burst, phantom_script: SET.arcane_burst, aetheric_inscription: SET.arcane_burst, hush: SET.void_pulse });
 
+    // The incantation: a rune circle under the caster, motes of the element spiralling up into the staff.
+    let circle = null;
+    function channel(feet, top, color, k, dt) {
+        if (!circle || circle.parent !== group) {
+            circle = new THREE.Group();
+            const ring = new THREE.Mesh(new THREE.RingGeometry(1.15, 1.3, 48), glow(color, 0.85)); ring.rotation.x = -Math.PI / 2; circle.add(ring);
+            const inner = new THREE.Mesh(new THREE.RingGeometry(0.75, 0.8, 6), glow(color, 0.7)); inner.rotation.x = -Math.PI / 2; circle.add(inner);
+            for (let i = 0; i < 6; i++) { const a = (i / 6) * Math.PI * 2, g = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.01, 0.3), glow(color, 0.9)); g.position.set(Math.cos(a) * 1.0, 0, Math.sin(a) * 1.0); g.rotation.y = -a; circle.add(g); }
+            group.add(circle);
+            circle.userData.t = 0;
+        }
+        circle.userData.t = 0.25;   // kept alive while channelling
+        circle.position.set(feet.x, feet.y + 0.06, feet.z);
+        circle.rotation.y += dt * 1.5;
+        circle.scale.setScalar(0.3 + Math.min(1, k * 2) * 0.7);
+        const c = new THREE.Color(color);
+        for (let i = 0; i < 4; i++) {
+            const a = R() * Math.PI * 2, d = 1 + R() * 0.6, x = feet.x + Math.cos(a) * d, z = feet.z + Math.sin(a) * d, y = feet.y + 0.2;
+            const life = 0.55;
+            fx.sparks.emit({ x, y, z, vx: (top.x - x) / life, vy: (top.y - y) / life, vz: (top.z - z) / life, drag: 0, life, size: [0.1, 0.03], c0: [c.r, c.g, c.b, 1], c1: [1, 1, 1, 0] });
+        }
+        fx.fire.emit({ x: top.x, y: top.y, z: top.z, vx: (R() - 0.5), vy: 0.8, vz: (R() - 0.5), drag: 2, life: 0.35, size: [0.5 + k * 0.6, 0.05], c0: [c.r, c.g, c.b, 1], c1: [c.r * 0.5, c.g * 0.5, c.b * 0.5, 0] });
+    }
+    function updateCircle(dt) {
+        if (!circle || circle.parent !== group) return;
+        circle.userData.t -= dt;
+        if (circle.userData.t <= 0) { group.remove(circle); circle = null; }
+    }
+
     return {
+        channel,
         // Returns true when the set-piece replaces the plain blast props.
         area(id, p, r, tier, dir, from, hit) { const f = SET[id]; return f ? !!f(p, r, 1 + 0.3 * (tier - 1), dir, from, hit) : false; },
         update(dt) {
+            updateCircle(dt);
             for (let i = live.length - 1; i >= 0; i--) {
                 const e = live[i]; e.t += dt;
                 const k = Math.min(1, e.t / e.life);

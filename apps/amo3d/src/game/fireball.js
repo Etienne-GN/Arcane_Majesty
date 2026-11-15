@@ -411,5 +411,6 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         fire.update(dt); sparks.update(dt); smoke.update(dt);
     }
 
-    return { setScene, cast, blastAt, update, fire, active: () => balls.length, get balls() { return balls; } };
+    const channel = (spell, feet, top, k, dt) => spectacle.channel(feet, top, palOf(spell)[3], k, dt);
+    return { setScene, cast, blastAt, update, channel, fire, active: () => balls.length, get balls() { return balls; } };
 }
