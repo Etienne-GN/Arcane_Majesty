@@ -89,8 +89,13 @@ function godSpells() {
     if (settings.god && !lent.length) {
         stats.flags.godSpells = CASTABLE.filter(id => !(stats.spells[id] > 0));
         for (const id of stats.flags.godSpells) stats.spells[id] = 3;
+        stats.flags.godSkills = Object.fromEntries(Object.values(stats.skills).map(k => [k.id, k.level]));   // skills too, at their top level
+        for (const k of Object.values(stats.skills)) k.level = k.maxLevel;
+        if (!stats.flags.godSpells.length) stats.flags.godSpells = ['_'];
     } else if (!settings.god && lent.length) {
-        for (const id of lent) stats.spells[id] = 0;
+        for (const id of lent) if (id !== '_') stats.spells[id] = 0;
+        for (const [id, lv] of Object.entries(stats.flags.godSkills ?? {})) if (stats.skills[id]) stats.skills[id].level = lv;
+        stats.flags.godSkills = null;
         stats.flags.godSpells = [];
         if (!stats.spells[stats.flags.activeSpell]) stats.flags.activeSpell = 'fireball';
     }
@@ -208,6 +213,7 @@ function dressHero() {
 }
 const fireballs = createFireballs({
     PX, tuning: SPELL_TUNING,
+    dmgMult: () => 1 + (stats.skills?.arcane_mastery?.level ?? 0) * 0.10,   // amo Arcane Mastery: +10% spell damage a level
     onHeal: n => { stats.health = Math.min(stats.maxHealth, stats.health + n); hud.floater(player.state.pos.clone().setY(player.state.pos.y + 2.2), `+${n}`, '#7ae07a'); },
     onDamage: (pos, dmg, killed, burning) => hud.floater(pos, `${dmg}${burning ? ' 🔥' : ''}${killed ? ' ✝' : ''}`, killed ? '#ffd27a' : '#ff8a4a'),
     onShake: a => cam.kick(a),
@@ -258,7 +264,8 @@ const world = createMapManager({
 let travel = null;
 const questHooks = {};
 const player = createPlayer({ hooks: questHooks, name: HERO_NAME, stats, hero, cam, world, hud, fireballs, spellTuning: SPELL_TUNING,
-    auraFx: sp => fireballs.blastAt(player.state.pos.clone(), sp, 1, 10, [], { cosmetic: true }) });   // a self spell: its element bursts round the caster
+    auraFx: sp => fireballs.blastAt(player.state.pos.clone(), sp, 1, 10, [], { cosmetic: true }),
+    blinkFx: (from, to) => { sfx.cast(); for (const at of [from, to]) fireballs.blastAt(at.clone(), spellsAll.SPELLS.mana_dart, 1, 10, [], { cosmetic: true, small: true }); } });   // a self spell: its element bursts round the caster
 
 // What Eldrin holds follows his equipment (amo's equip events).
 const ITEMS = itemRules.ITEMS;
@@ -424,6 +431,7 @@ function tick(dt) {
     if (act.options) options.toggle(true);
     if (act.book) book.toggle(true);
     if (act.quit) pause.toggle(true);
+    if (act.blink) player.blink();
     if (act.chat) net.openChat();
     net.update(dt, camera);
     for (const h of world.current.hittables ?? []) if (h.engaged) codex.seen(h.kind === 'shadow' ? 'mirror_shade' : h.kind);

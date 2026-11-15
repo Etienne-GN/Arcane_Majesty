@@ -6,8 +6,8 @@ import { statuses } from '@rules';
 const { STATUS_DEFS } = statuses;
 const PERF = new URLSearchParams(location.search).has('perf');
 
-// H toggles the controls card; the little hint fades after a while.
-addEventListener('keydown', e => { if (e.code === 'KeyH' && !e.repeat && !/INPUT|TEXTAREA/.test(document.activeElement?.tagName)) document.body.classList.toggle('help-on'); });
+// F1 toggles the controls card; the little hint fades after a while.
+addEventListener('keydown', e => { if (e.code === 'F1' && !e.repeat && !/INPUT|TEXTAREA/.test(document.activeElement?.tagName)) document.body.classList.toggle('help-on'); });
 setTimeout(() => { const h = document.getElementById('help-hint'); if (h) h.style.opacity = 0; }, 25000);
 
 export function createHud() {

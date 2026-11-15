@@ -148,7 +148,8 @@ export function createTouchControls({ input, cam }) {
         el.addEventListener('pointerleave', up);
     };
     button('.fire', () => input.press('cast'));
-    button('.hop', () => input.press('hop'));
+    let lastHop = 0;   // double-tap HOP: Blink-Step
+    button('.hop', () => { const now = performance.now(); if (now - lastHop < 320) { input.press('blink'); lastHop = 0; } else { input.press('hop'); lastHop = now; } });
     button('.hit', () => input.press('strike'));
     button('.menu', () => { openedAt = performance.now(); sheet.classList.add('open'); });
 

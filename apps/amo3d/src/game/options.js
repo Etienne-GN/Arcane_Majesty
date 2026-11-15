@@ -89,13 +89,13 @@ export function createOptions({ quality, onQuality, onFps, onOnline }) {
         const keys = el('div', 'keys');
         const rows = touch() ? [
             ['Left half', 'move — push past the ring to sprint'], ['Right half', 'drag to turn the camera, pinch to zoom'],
-            ['FIRE / HIT / HOP', 'fireball, strike, hop (hop through a swing to dodge it)'], ['Skills', 'beside the action buttons, once learned'],
+            ['CAST / HIT / HOP', 'your spell, strike, hop (hop through a swing to dodge it)'], ['Double-tap HOP', 'Blink-Step (once learned)'], ['Skills', 'beside the action buttons, once learned'],
             ['MENU', 'satchel, hero, map, journal, codex, book, Aetheric Tear, chat, options, quit'], ['Back button', 'pause · save · quit'], ['Minimap', 'tap for the world map'], ['Prompt', 'tap it to talk, open, gather'],
         ] : [
             ['WASD', 'move'], ['Shift', 'sprint'], ['Space', 'hop (through a swing to dodge it)'], ['F / right-click', 'fireball'], ['Click / R', 'strike'],
             ['1–4', 'hotbar'], ['Z X V', 'style skills'], ['G', 'talk, open, gather'], ['I / Tab', 'satchel'], ['C', 'character'], ['M', 'map'],
-            ['J', 'journal'], ['K', 'codex'], ['T', 'Aetheric Tear'], ['O', 'options'], ['B', 'the Book: skills, spells, styles'], ['Esc', 'pause · save · quit'], ['Enter', 'chat (online)'], ['H', 'controls card'], ['Drag mouse / wheel', 'turn / zoom the camera'], ['Q / E', 'turn the camera'],
-            ['Gamepad', 'left stick move, right stick camera, A hop, RB/LT skills'],
+            ['J', 'journal'], ['K', 'codex'], ['T', 'Aetheric Tear'], ['O', 'options'], ['B', 'the Book: skills, spells, styles'], ['Esc', 'pause · save · quit'], ['Enter', 'chat (online)'], ['H', 'Blink-Step (once learned)'], ['F1', 'controls card'], ['Drag mouse / wheel', 'turn / zoom the camera'], ['Q / E', 'turn the camera'],
+            ['Gamepad', 'left stick move, right stick camera, A hop, RB/LT skills, Back Blink-Step'],
         ];
         for (const [k, d] of rows) keys.append(el('b', null, k), el('span', null, d));
         p.append(keys);

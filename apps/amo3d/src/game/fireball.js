@@ -70,7 +70,7 @@ function buildShape(id, pal) {
     return { g, spin, trail, light };
 }
 
-export function createFireballs({ PX, tuning, onDamage, onShake, onHeal }) {
+export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult = () => 1 }) {
     const group = new THREE.Group();
     const fire = new Particles(2000);
     const sparks = new Particles(600);
@@ -141,7 +141,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal }) {
         else for (let i = 0; i < 26; i++) emit(b.pos, 4, 0.4, 0.5, b.pal);
         if (target && !b.cosmetic && (b.spell.id === 'ice_prison' || b.spell.id === 'eclipse_mark')) mark(b.spell.id, target);
         if (!target || b.cosmetic) return;
-        const sp = b.spell, dmg = spellDamageAt(sp, b.level, b.int);
+        const sp = b.spell, dmg = spellDamageAt(sp, b.level, b.int, dmgMult());
         const st = scaledStatus(sp, b.level), roll = st && R() < st.chance;
         const burn = roll && st.id === 'burning' ? st.duration : 0, status = roll && st.id !== 'burning' ? { id: st.id, ms: st.duration } : null;
         target.hit(dmg, b.pos, burn, undefined, status, sp.element);
@@ -212,7 +212,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal }) {
             if (!h.alive) continue;
             const dist = Math.hypot(h.pos.x - p.x, h.pos.y + 1 - p.y, h.pos.z - p.z);
             if (dist > radius + 0.6) continue;
-            const dmg = spellDamageAt(spell, lvl, ball?.int ?? 12);
+            const dmg = spellDamageAt(spell, lvl, ball?.int ?? 12, dmgMult());
             const st = scaledStatus(spell, lvl);
             const burn = st && R() < st.chance ? st.duration : 0;
             const killed = h.hit(dmg, p, burn);
@@ -250,8 +250,9 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal }) {
         arcane: () => ({ m: new THREE.Mesh(new THREE.SphereGeometry(1, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xb89aff, transparent: true, opacity: 0.35, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false })), dome: true, one: true }),
         fire: () => { const m = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.8, 6), new THREE.MeshBasicMaterial({ color: 0xff8a30, transparent: true, opacity: 0.85, toneMapped: false })); return { m, rise: 1, flicker: true }; },
     };
-    function blastAt(point, spell, level, int, hittables, { cosmetic = false } = {}) {
-        const pal = palOf(spell), el = spell.element === 'void' ? 'shadow' : spell.element, r = ((spellRadius(spell, level) ?? 40) / PX) * tuning.radiusMult;
+    function blastAt(point, spell, level, int, hittables, { cosmetic = false, small = false } = {}) {
+        const pal = palOf(spell), el = spell.element === 'void' ? 'shadow' : spell.element, r = small ? 0.6 : ((spellRadius(spell, level) ?? 40) / PX) * tuning.radiusMult;
+        if (small) { for (let i = 0; i < 40; i++) emit(point.clone().setY(point.y + 1), 3, 0.4, 0.5, pal); blastLight.color.setHex(pal[3]); blastLight.position.copy(point).setY(point.y + 1); blastLight.intensity = 50; return; }
         sfx.boom();
         // ring on the ground + a flash of the element
         const ring = new THREE.Mesh(ringGeo, new THREE.MeshBasicMaterial({ color: pal[3], transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
@@ -276,7 +277,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal }) {
         for (const h of hittables) {
             if (!h.alive || h.kind === 'deer') continue;
             if (Math.hypot(h.pos.x - point.x, h.pos.z - point.z) > r + 0.5) continue;
-            const dmg = withDamage ? spellDamageAt(spell, level, int) : 0;
+            const dmg = withDamage ? spellDamageAt(spell, level, int, dmgMult()) : 0;
             const st = scaledStatus(spell, level), roll = st && R() < st.chance;
             const burn = roll && st.id === 'burning' ? st.duration : 0, status = roll && st.id !== 'burning' ? { id: st.id, ms: st.duration > 0 ? st.duration : 8000 } : null;
             if (dmg > 0 || status || burn) {

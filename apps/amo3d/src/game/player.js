@@ -31,7 +31,7 @@ const INVINCIBLE_S = 0.8;                      // amo's Player.INVINCIBLE_DURATI
 
 const angleDiff = (a, b) => ((((b - a) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI;
 
-export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, world, hud, fireballs, spellTuning, auraFx = null }) {
+export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, world, hud, fireballs, spellTuning, auraFx = null, blinkFx = null }) {
     const p = {
         pos: new THREE.Vector3(), vy: 0, facing: 0, hop: null, cast: null, speed: 0, sprinting: false,
         invuln: 0, knock: new THREE.Vector3(), sinceHurt: 99, dead: null, strike: null, strikeCd: 0, spin: null, shot: null,
@@ -95,7 +95,16 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             cam.kick(0.1);
             return false;
         }
-        dmg = Math.max(1, Math.round(dmg * buffMult('damageTakenMult') * (1 - (stats.spells?.stone_skin ? ([0.08, 0.14, 0.2][stats.spells.stone_skin - 1] ?? 0.08) : 0))));   // Stone Skin: passive
+        // amo Player.takeDamage: Arcane Ward (10%/lv) + Stone Skin (8/14/20%), together at most 75%; then Mana-Shield.
+        const wardRed = (stats.skills?.arcane_ward?.level ?? 0) * 0.10, skinRed = stats.spells?.stone_skin ? ([0.08, 0.14, 0.2][stats.spells.stone_skin - 1] ?? 0.08) : 0;
+        dmg = Math.max(1, Math.round(dmg * buffMult('damageTakenMult') * (1 - Math.min(0.75, wardRed + skinRed))));
+        const shieldLv = stats.skills?.mana_shield?.level ?? 0;
+        if (shieldLv > 0 && stats.mana > 0) {   // 30/50/70% of the blow paid with mana, 2 mana a point
+            const take = Math.min(Math.floor(dmg * [0.3, 0.5, 0.7][shieldLv - 1]), Math.floor(stats.mana / 2));
+            stats.mana -= take * 2; dmg -= take;
+            if (take > 0) hud.floater(p.pos.clone().setY(p.pos.y + 2.4), `shield −${take}`, '#6aa8f0');
+            if (dmg <= 0) { p.invuln = INVINCIBLE_S; return false; }
+        }
         if (p.ward > 0) {   // Aetheric Ward soaks the blow, then breaks
             const soak = Math.min(p.ward, dmg); p.ward -= soak; dmg -= soak;
             hud.floater(p.pos.clone().setY(p.pos.y + 2.1), `ward −${soak}`, '#9ab8ff');
@@ -141,12 +150,36 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
     function castSelf(sp, lvl) {
         const st = sp.applyStatus, pos = p.pos.clone().setY(p.pos.y + 2.2);
         if (sp.id === 'aetheric_ward') { p.ward = [25, 45, 70][lvl - 1] ?? 25; addBuff('warded', 1e9); hud.floater(pos, `ward ${p.ward}`, '#9ab8ff'); }
-        else if (sp.id === 'shadow_veil') { p.veil = (sp.duration?.[lvl - 1] ?? 2000) / 1000; hud.floater(pos, 'veiled', '#c8a8ff'); }
+        else if (sp.id === 'shadow_veil') { p.veil = (sp.duration?.[lvl - 1] ?? 2000) / 1000 + (stats.skills?.shadow_step?.level ?? 0);   // + Shadow Step
+            hud.floater(pos, 'veiled', '#c8a8ff'); }
         else if (sp.id === 'tempest_step') { const d = ([80, 110, 145][lvl - 1] ?? 80) / PX; const tx = p.pos.x + Math.sin(p.facing) * d, tz = p.pos.z + Math.cos(p.facing) * d; if (!map().blockedAt(tx, tz, PLAYER_R, p.pos.y)) { p.pos.x = tx; p.pos.z = tz; } addBuff('blessed', st?.duration ?? 4000); }
         else if (sp.id === 'cleanse') { let n = 0; for (const id of Object.keys(p.buffs)) if (BAD.has(id)) { delete p.buffs[id]; n++; } hud.floater(pos, n ? `cleansed ${n}` : 'cleansed', '#e8f4ff'); }
         else if (sp.id === 'arcane_circle') { p.circle = { x: p.pos.x, z: p.pos.z, left: (sp.duration?.[lvl - 1] ?? 60000) / 1000 }; hud.floater(pos, 'arcane circle', '#c8a8ff'); }
         else if (st) { addBuff(st.id, st.duration > 0 ? st.duration : 30000); hud.floater(pos, STATUS_DEFS[st.id]?.label ?? st.id, '#9fe0a0'); }
         auraFx?.(sp);
+    }
+    // Blink-Step (amo skill, H / double-tap HOP / gamepad Back): an aether dash where you face — 8 mana,
+    // 60 / 80 / 105 px; blocked by walls (it stops at the last clear spot); a blink of invulnerability.
+    function blink() {
+        const lv = stats.skills?.blink_step?.level ?? 0;
+        if (p.dead || p.cast) return false;
+        if (!lv) { hud.message('Blink-Step not yet learned — the Book, Skills'); return false; }
+        if (stats.manaExhausted) { hud.message('Too exhausted to Blink-Step'); return false; }
+        if (stats.mana < 8) { hud.message('Not enough mana'); return false; }
+        const dist = ([60, 80, 105][lv - 1] ?? 60) / PX, from = p.pos.clone();
+        let d = 0;
+        for (let k = 0.25; k <= dist; k += 0.25) {
+            const x = from.x + Math.sin(p.facing) * k, z = from.z + Math.cos(p.facing) * k;
+            if (map().blockedAt(x, z, PLAYER_R, p.pos.y) || (map().stepBlocked && map().stepBlocked(x, z, p.pos.y))) break;
+            d = k;
+        }
+        if (d < 0.5) { hud.message('No room to blink'); return false; }
+        stats.mana -= 8;
+        p.pos.x = from.x + Math.sin(p.facing) * d; p.pos.z = from.z + Math.cos(p.facing) * d;
+        if (map().groundAt) p.pos.y = map().groundAt(p.pos.x, p.pos.z, p.pos.y + 0.5);
+        p.invuln = Math.max(p.invuln, 0.25); p.knock.set(0, 0, 0);
+        blinkFx?.(from, p.pos.clone());
+        return true;
     }
     function activeSpell() {
         const id = stats.flags?.activeSpell;
@@ -180,8 +213,12 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             const dx = h.pos.x - p.pos.x, dz = h.pos.z - p.pos.z, d = Math.hypot(dx, dz);
             if (d > reach || d < 1e-4 || (dx * fx + dz * fz) / d < 0.35 || Math.abs(h.pos.y - p.pos.y) > 1.5) continue;
             const lvl = stats.weaponLevel(type);
-            const base = 8 + stats.attributes.strength * 2 + Math.floor(Math.random() * 6) - 2;
-            const dmg = Math.max(1, Math.floor(base * W.dmgMult * mastery.levelDamageMult(lvl) * buffMult('statsMult')));
+            // amo CombatManager: base + Basic Strike (+3/lv) + Power Slash (+6/lv); a crit (8% + 1.2%/AGI + Keen Eye 5%/lv) hits ×1.6
+            const sk = id => stats.skills?.[id]?.level ?? 0;
+            const base = 8 + stats.attributes.strength * 2 + Math.floor(Math.random() * 6) - 2 + sk('basic_strike') * 3 + sk('power_slash') * 6;
+            const crit = Math.random() < 0.08 + stats.attributes.agility * 0.012 + sk('keen_eye') * 0.05;
+            const dmg = Math.max(1, Math.floor(base * W.dmgMult * mastery.levelDamageMult(lvl) * buffMult('statsMult') * (crit ? 1.6 : 1)));
+            if (crit) hud.floater(h.pos.clone().setY(h.pos.y + 2.3), 'Critical!', '#ffd76a');
             h.hit(dmg, p.pos, 0, ctx);
             const killed = !h.alive;
             if (h.kind === 'deer') hud.floater(h.pos.clone().setY(h.pos.y + 1.9), `${dmg}`, '#ffe0a0');
@@ -399,7 +436,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
     }
 
     return {
-        state: p, place, step, hurt, onKill, revive, addBuff, activeSpell,
+        state: p, place, step, hurt, onKill, revive, addBuff, activeSpell, blink,
         statsMult: () => buffMult('statsMult'),
         playStrike: () => { p.strike = { t: 0, hit: true, type: 'staff', thrust: false }; },
         playSpin: () => { p.spin = { t: 0 }; },

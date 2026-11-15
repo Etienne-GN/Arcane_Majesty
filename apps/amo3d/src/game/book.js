@@ -43,7 +43,27 @@ export function createBook({ stats, hud, save }) {
     const tag = (text, color) => { const t = el('span', 'tag', text); t.style.color = color; t.style.borderColor = color; return t; };
 
     function skills(p) {
-        p.append(el('div', 'sub', `Resonance Insights to spend: ${stats.resonanceInsights ?? 0} — earned by deepening an element's resonance.`));
+        // amo's skill list (PlayerStats.skills), bought with skill points — one a level; requirements from amo (canUnlock).
+        p.append(el('h3', null, `Skills — ${stats.skillPoints ?? 0} skill point${stats.skillPoints === 1 ? '' : 's'} to spend`));
+        const reqText = r => !r ? '' : [r.level && `level ${r.level}`, r.strength && `STR ${r.strength}`, r.intelligence && `INT ${r.intelligence}`, r.agility && `AGI ${r.agility}`, r.stamina && `STA ${r.stamina}`,
+            ...Object.entries(r.resonance ?? {}).map(([e, v]) => `${e} resonance ${v}`)].filter(Boolean).join(' · ');
+        const KEYS = { blink_step: 'H · double-tap HOP · gamepad Back' };
+        for (const k of Object.values(stats.skills ?? {})) {
+            if (k.id === 'basic_strike' && k.level >= k.maxLevel) continue;
+            const row = el('div', 'e'), body = el('div', 'body');
+            const t = el('div', 't', k.name); t.append(el('small', null, `level ${k.level} / ${k.maxLevel}`));
+            body.append(t, el('div', 'x', k.description.replace(' [H]', '').replace(' [V]', '')));
+            if (KEYS[k.id] && k.level > 0) body.append(el('div', 'lore', `Use: ${KEYS[k.id]}`));
+            if (k.id === 'aetheric_sight') body.append(el('div', 'lore', 'Its active use comes with enemy magic; the level is kept.'));
+            const can = stats.canUnlock?.(k.id);
+            if (!can && k.level < k.maxLevel && k.requirements) body.append(el('div', 'lore', `Needs: ${reqText(k.requirements)}`));
+            row.append(body);
+            if (k.level >= k.maxLevel) row.append(tag('Mastered', '#9fe0a0'));
+            else { const b = el('button', 'buy', k.level ? 'Improve' : 'Learn'); b.disabled = !can || (stats.skillPoints ?? 0) <= 0; b.onclick = () => { if (stats.upgradeSkill(k.id)) { hud.banner(`${k.name} — level ${stats.skills[k.id].level}`); save?.(); render(); } }; row.append(b); }
+            p.append(row);
+        }
+        p.append(el('h3', null, `Masteries — ${stats.resonanceInsights ?? 0} Resonance Insight${stats.resonanceInsights === 1 ? '' : 's'}`));
+        p.append(el('div', 'sub', 'Earned by deepening an element\'s resonance.'));
         for (const d of Object.values(MASTERY_DEFS)) {
             const owned = !!stats.masteries?.[d.id], row = el('div', 'e'), body = el('div', 'body');
             const t = el('div', 't', d.name); t.append(el('small', null, `${d.cost} insight${d.cost > 1 ? 's' : ''}`));

@@ -23,6 +23,7 @@ export function createInput({ canvas, cam }) {
             const sk = ['KeyZ', 'KeyX', 'KeyV'].indexOf(e.code);
             if (sk >= 0) pressed.add(`skill:${sk}`);
             if (e.code === 'KeyR') pressed.add('strike');
+            if (e.code === 'KeyH') pressed.add('blink');   // Blink-Step (amo: H)
             if (e.code === 'KeyG' || e.code === 'Enter') pressed.add('gather');
             pressed.add(`key:${e.code}`);
         }
@@ -76,7 +77,8 @@ export function createInput({ canvas, cam }) {
             if (edge(0)) pressed.add('hop');
             if (edge(2) || edge(7)) pressed.add('cast');
             if (edge(1)) pressed.add('strike');
-            if (edge(8) || edge(3)) pressed.add('inventory');
+            if (edge(3)) pressed.add('inventory');
+            if (edge(8)) pressed.add('blink');   // Back / Select: Blink-Step
             if (edge(9)) pressed.add('sheet');
             [5, 6, 11].forEach((bi, i) => { if (edge(bi)) pressed.add(`skill:${i}`); });
             [12, 15, 13, 14].forEach((bi, i) => { if (edge(bi)) pressed.add(`hotbar:${i}`); });   // D-pad up, right, down, left
@@ -89,7 +91,7 @@ export function createInput({ canvas, cam }) {
 
         const len = Math.hypot(mx, my);
         if (len > 1) { mx /= len; my /= len; }
-        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), strike: pressed.has('strike'), gather: pressed.has('gather'), inventory: pressed.has('inventory'), sheet: pressed.has('sheet'), map: pressed.has('map'), tear: pressed.has('tear'), journal: pressed.has('journal'), codex: pressed.has('codex'), options: pressed.has('options'), chat: pressed.has('chat'), book: pressed.has('book'), quit: pressed.has('quit'), hotbar: [0, 1, 2, 3].findIndex(i => pressed.has(`hotbar:${i}`)), skill: [0, 1, 2].findIndex(i => pressed.has(`skill:${i}`)), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
+        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), strike: pressed.has('strike'), gather: pressed.has('gather'), inventory: pressed.has('inventory'), sheet: pressed.has('sheet'), map: pressed.has('map'), tear: pressed.has('tear'), journal: pressed.has('journal'), codex: pressed.has('codex'), options: pressed.has('options'), chat: pressed.has('chat'), book: pressed.has('book'), quit: pressed.has('quit'), blink: pressed.has('blink'), hotbar: [0, 1, 2, 3].findIndex(i => pressed.has(`hotbar:${i}`)), skill: [0, 1, 2].findIndex(i => pressed.has(`skill:${i}`)), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
         pressed.clear();
         return out;
     }
