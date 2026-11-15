@@ -308,7 +308,31 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     body.scale.set(L.build.width, L.build.height, L.build.width);   // build: taller / broader
 
     // main / off: { type, accent } (amo weapon type + the item's colour) or null.
+    // Swords sheathe: a scabbard on the opposite hip; after a while without a swing the sword goes into it, and the
+    // next swing draws it (sheath[h]: { holder, group, home: the group's in-hand rotation }).
+    const SHEATHE_AFTER = 5;
+    const sheath = { R: null, L: null };
+    function buildScabbard(h) {
+        const holder = new THREE.Group();
+        const sx = h === 'R' ? 1 : -1;   // a right-hand sword hangs on the left hip
+        holder.position.set(0.2 * sx, 0.03, -0.03);
+        holder.rotation.set(Math.PI + 0.55, 0, -0.18 * sx);   // pointing down and back
+        const leather = new THREE.MeshStandardMaterial({ color: 0x3a2214, flatShading: true, roughness: 0.8 });
+        const sc = new THREE.Mesh(new THREE.BoxGeometry(0.075, 0.82, 0.03), leather);
+        sc.position.y = 0.52; holder.add(sc);
+        const chape = new THREE.Mesh(new THREE.ConeGeometry(0.04, 0.08, 4), M.gold ?? leather); chape.position.y = 0.97; chape.scale.z = 0.4; holder.add(chape);
+        const throat = new THREE.Mesh(new THREE.BoxGeometry(0.085, 0.04, 0.04), M.gold ?? leather); throat.position.y = 0.12; holder.add(throat);
+        hips.add(holder);
+        return holder;
+    }
+    function setSheathed(h, on) {
+        const sh = sheath[h]; if (!sh || sh.on === on) return;
+        sh.on = on;
+        if (on) { sh.holder.add(sh.group); sh.group.position.set(0, 0.04, 0); sh.group.rotation.set(0, Math.PI / 2, 0); }
+        else { (h === 'R' ? mainMount : offMount).add(sh.group); sh.group.position.set(0, 0, 0); sh.group.rotation.copy(sh.home); }
+    }
     function setWeapons(main, off) {
+        for (const h of ['R', 'L']) if (sheath[h]) { sheath[h].group.removeFromParent(); hips.remove(sheath[h].holder); sheath[h] = null; }
         mainMount.clear();
         offMount.clear();
         if (main === false) { crystal = null; tip = null; mainType = 'fists'; }   // nothing in hand (spells leave from the hand)
@@ -316,6 +340,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             const m = buildWeapon(main?.type ?? 'staff', { accent: main?.accent, crystalMat: (main?.type ?? 'staff') === 'staff' ? M.crystal : null });
             mainMount.add(m.group);
             crystal = m.crystal; tip = m.tip; mainType = main?.type ?? 'staff';
+            if (mainType === 'sword') { m.group.rotation.y = Math.PI / 2; sheath.R = { holder: buildScabbard('R'), group: m.group, home: m.group.rotation.clone(), on: false, last: -99 }; }   // the edge leads the cut
         }
         offType = off?.type ?? null; offTip = null;
         if (off) {   // a shield rides the forearm; a weapon sits in the hand, like the right one
@@ -324,9 +349,11 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             else { o.group.rotation.x = 0.75; offMount.position.set(0, -0.31, 0); }
             offMount.add(o.group);
             offTip = o.tip ?? null;
+            if (off.type === 'sword') { o.group.rotation.y = Math.PI / 2; sheath.L = { holder: buildScabbard('L'), group: o.group, home: o.group.rotation.clone(), on: false, last: -99 }; }
         }
         mainMount.rotation.x = mainType === 'bow' || mainType === 'crossbow' ? 0.1 : 0.75;
         for (const g of [mainMount, offMount]) g.traverse(o => { if (o.isMesh) o.castShadow = true; });
+        for (const h of ['R', 'L']) if (sheath[h]) setSheathed(h, true);   // a sword starts in its scabbard
     }
     setWeapons(null, null);
 
@@ -395,8 +422,14 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             A.fore.rotation.x = -0.6;
             setMount(h, GUARD_MOUNT);
         };
-        if (BLADE.has(mainType)) guard('R');
-        if (BLADE.has(offType)) guard('L');
+        // Swords: a swing draws (at once); five seconds without one, back in the scabbard.
+        for (const h of ['R', 'L']) {
+            const sh = sheath[h]; if (!sh) continue;
+            if (strikeK != null && strikeHand === h) { sh.last = t; setSheathed(h, false); }
+            else if (!sh.on && t - sh.last > SHEATHE_AFTER) setSheathed(h, true);
+        }
+        if (BLADE.has(mainType) && !sheath.R?.on) guard('R');
+        if (BLADE.has(offType) && !sheath.L?.on) guard('L');
         const side = h => ({ A: arms[h], B: arms[h === 'R' ? 'L' : 'R'], sz: h === 'R' ? 1 : -1, mount: h === 'R' ? mainMount : offMount, fore0: h === 'R' || offArmed ? -0.75 : arms.L.fore.rotation.x });
 
         // Cast: the staff arm thrusts forward, the body leans in, the crystal flares orange.
@@ -481,6 +514,6 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         M.crystal.emissiveIntensity = 1.8 + Math.sin(t * 3) * 0.6;
     }
 
-    return { root, update, setWeapons, get mainType() { return mainType; }, bladeWorld: (hand, base, tipV) => { const m = hand === 'L' ? offMount : mainMount, tp = hand === 'L' ? offTip : tip; if (!tp) return false; m.getWorldPosition(base); tp.getWorldPosition(tipV); return true; },
+    return { root, update, setWeapons, setSheathed, get mainType() { return mainType; }, bladeWorld: (hand, base, tipV) => { const m = hand === 'L' ? offMount : mainMount, tp = hand === 'L' ? offTip : tip; if (!tp) return false; m.getWorldPosition(base); tp.getWorldPosition(tipV); return true; },
         crystalWorld: (v, hand = 'R') => (hand === 'L' ? (offTip ?? arms.L.fore) : (tip ?? arms.R.fore)).getWorldPosition(v) };
 }
