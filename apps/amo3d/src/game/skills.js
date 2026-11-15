@@ -75,7 +75,9 @@ export function createSkills({ stats, player, hud, cam, world }) {
 
     function use(i) {
         const { weapon, skills } = bar();
-        const id = skills[i];
+        return useId(skills[i], weapon);
+    }
+    function useId(id, weapon) {
         const k = STYLE_SKILLS[id];
         if (!k) return false;
         const state = skillState(stats.styles, id, stats.weaponLevel(weapon), true);
@@ -114,5 +116,5 @@ export function createSkills({ stats, player, hud, cam, world }) {
         });
     }
 
-    return { use, update };
+    return { use, useId, update };
 }

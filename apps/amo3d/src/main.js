@@ -45,6 +45,7 @@ import { sweepPlates, hideAllPlates } from './content/actors/enemyCore.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createBountyBoard } from './game/bounty.js';
 import { createBook } from './game/book.js';
+import { createHands } from './game/hands.js';
 import { createPause } from './game/pause.js';
 import { createChests } from './game/chest.js';
 import { createCharacter } from './content/models/character.js';
@@ -301,7 +302,21 @@ const shop = createShop({ stats, hud, save: () => save() });
 const quests = createQuests({ stats, hud });
 registerSanctuaryQuests(stats);   // game quests from the campaign spec, run by amo's quest manager as generated quests
 const bountyBoard = createBountyBoard({ stats, hud, save: () => save() });
-const book = createBook({ stats, hud, save: () => save() });
+// Two-hand actions (Options): each hand's action button and the arch that cycles its favourites.
+const hands = createHands({ stats, hud, isTouch: document.body.classList.contains('touch-mode') });
+hands.onAct = side => input.press(`hand${side}`);
+function handAction(side, act) {
+    const t = hands.handType(side), a = hands.current(side);
+    if (!t || !a) return;
+    if (a === 'hit') {
+        if ((t === 'bow' || t === 'crossbow') && archery.armed()) archery.shoot();
+        else if (t === 'shield') hud.message('Block: not in 3D yet');
+        else { act.strike = true; act.strikeType = t; }
+    } else if (a.startsWith('spell:')) { act.cast = true; act.castSpell = a.slice(6); }
+    else if (a.startsWith('skill:')) skills.useId(a.slice(6), t);
+}
+let handsTick = 0;
+const book = createBook({ stats, hud, save: () => save(), hands });
 const pause = createPause({ hud, save: () => save() });
 const codex = createCodex({ stats });
 questHooks.onKill = (type, extra = {}) => { quests.onKill(type, { ...extra, mapId: world.current?.id ?? null }); codex.killed(type); };   // mapId: bounty kills count in their region only
@@ -453,6 +468,14 @@ function tick(dt) {
     const menuOpen = inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open || book.open || pause.open;
     if (menuOpen) { act.hotbar = -1; act.skill = -1; act.tear = false; act.strike = false; }   // the D-pad and buttons drive the menu, not the hotbar
     if (act.tear) travel.tear();
+    if (settings.hands && !menuOpen && !player.state.dead) {
+        act.skill = -1;
+        if (act.cycleL) hands.cycle('L');
+        if (act.cycleR) hands.cycle('R');
+        if (act.handL) handAction('L', act);
+        if (act.handR) handAction('R', act);
+    }
+    if ((handsTick -= dt) <= 0) { handsTick = 0.1; hands.render(); }
     mapView.update(player.state, cam.yaw);
     if (act.hotbar >= 0 && !player.state.dead) hotbar.use(act.hotbar);
     if (act.strike && archery.armed()) { archery.shoot(); act.strike = false; }   // a bow or crossbow shoots instead

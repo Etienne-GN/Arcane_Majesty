@@ -23,7 +23,7 @@ const SIGN = { fire: 'fireball', water: 'water_conjure', ice: 'frostbite', earth
 const LEARN = { scroll: 'a scroll', npc: 'a teacher', chest: 'a chest', quest: 'a quest', drop: 'an enemy\'s drop' };
 const STAR = '<svg viewBox="0 0 24 24" class="sicon"><circle cx="12" cy="12" r="11" fill="#3a0e08" stroke="#e8c878"/><path d="M12 4 L14 10 L20 10 L15 14 L17 20 L12 16.5 L7 20 L9 14 L4 10 L10 10Z" fill="#ffd76a"/></svg>';
 
-export function createBook({ stats, hud, save }) {
+export function createBook({ stats, hud, save, hands = null }) {
     const css = document.createElement('style');
     css.textContent = `
 #book { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #05060ad0; color: #3a2814; font-family: 'IM Fell English', Georgia, serif; }
@@ -60,6 +60,11 @@ export function createBook({ stats, hud, save }) {
 #book .stats { font-size: calc(14px * var(--ui, 1)); color: #5a3a1a; letter-spacing: .02em; margin: 6px 0; padding: 4px 0; border-top: 1px dashed #8a6a3a77; border-bottom: 1px dashed #8a6a3a77; }
 #book .btn { margin-bottom: 4px; font: calc(17px * var(--ui, 1)) 'IM Fell English', Georgia, serif; padding: 8px 16px; margin-top: 10px; border-radius: 6px; cursor: pointer; color: #fff0d0; border: 1px solid #4a1e0a; background: linear-gradient(#8a3a1a, #5a200c); }
 #book h2 .side { margin: 0 0 0 auto; flex: none; } #book h2 .btn.side { padding: 6px 18px; }
+#book .more { flex: none; width: 34px; height: 30px; border-radius: 6px; border: 1px solid #8a6a3a77; background: #fff6; color: #4a2a10; font: bold 18px Georgia, serif; cursor: pointer; line-height: 1; }
+#book .hb { flex: none; font: bold calc(12px * var(--ui, 1)) Georgia, serif; color: #fff4dc; background: #8a3a1a; border-radius: 4px; padding: 1px 5px; }
+#book .favmenu { margin: 0 0 6px 50px; display: flex; flex-direction: column; gap: 4px; }
+#book .favmenu button { text-align: left; font: calc(16px * var(--ui, 1)) 'IM Fell English', Georgia, serif; padding: 6px 10px; border-radius: 6px; border: 1px solid #8a6a3a88; background: #fff8; color: #3a2010; cursor: pointer; }
+#book .favmenu button.on { background: #f3d88b; border-color: #8a3a1a; }
 #book .btn[disabled] { opacity: .45; cursor: default; }
 #book .tag { display: inline-block; font-family: Caveat, cursive; font-size: calc(19px * var(--ui, 1)); color: #3a6a2a; margin-top: 8px; white-space: nowrap; }
 #book .e { padding: 6px 0 8px; border-bottom: 1px dotted #8a6a3a55; display: flex; gap: 10px; align-items: flex-start; }
@@ -85,6 +90,37 @@ export function createBook({ stats, hud, save }) {
     const tierOf = s => stats.spells?.[s.id] ?? 0;
     const tierName = l => TIER_NAMES?.[l - 1] ?? `tier ${l}`;
     const active = () => stats.flags?.activeSpell ?? 'fireball';
+    // Two-hand actions (Options): equipping and favourites go through the hands; ⋯ opens a row's favourite menu.
+    const two = () => !!hands?.enabled;
+    const SIDE = { R: 'Right hand', L: 'Left hand' };
+    const wlabel = t => weaponRules.WEAPON_TYPES[t]?.label ?? t;
+    const isActive = s => two() ? ['R', 'L'].some(sd => hands.current(sd) === `spell:${s.id}`) : active() === s.id;
+    function equipSpell(s) {
+        if (two()) { const sd = hands.magicHand(); if (!sd) return hud.message('Hold a staff or wand to cast spells'); hands.equip(sd, `spell:${s.id}`); }
+        else (stats.flags ??= {}).activeSpell = s.id;
+        hud.banner(`${s.name} — ready to cast`); save?.(); render();
+    }
+    let menuFor = null;
+    function favBits(row, action, list, only = null) {   // only: a weapon row manages just that weapon's favourites
+        const key = `${only ?? ''}|${action}`;   // hand badges, the ⋯ button, and its menu under the row when open
+        if (!two()) return;
+        for (const sd of ['R', 'L']) { const t = hands.handType(sd); if (t && hands.canHold(t, action) && hands.isFav(t, action)) { const b = el('span', 'hb', sd); b.title = `A favourite of the ${SIDE[sd].toLowerCase()} (${wlabel(t)})`; row.append(b); } }
+        const more = el('button', 'more', '⋯'); more.title = 'Favourites';
+        more.onclick = e => { e.stopPropagation(); menuFor = menuFor === key ? null : key; render(); };
+        row.append(more);
+        if (menuFor !== key) return;
+        const m = el('div', 'favmenu'), seen = new Set();
+        for (const sd of ['R', 'L']) {
+            const t = hands.handType(sd);
+            if (!t || !hands.canHold(t, action) || seen.has(t) || (only && t !== only)) continue;
+            seen.add(t);
+            const on = hands.isFav(t, action), b = el('button', on ? 'on' : '', `${on ? '★' : '☆'} ${on ? 'Favourite of' : 'Add to'} the ${wlabel(t).toLowerCase()} (${SIDE[sd].toLowerCase()})`);
+            b.onclick = e => { e.stopPropagation(); if (hands.toggleFav(t, action)) save?.(); render(); };
+            m.append(b);
+        }
+        if (!seen.size) m.append(el('div', 'sub', action.startsWith('spell:') ? 'Hold a staff or wand to make it a favourite.' : 'Nothing in your hands can do this.'));
+        list.append(m);
+    }
 
     // ---- spells ----
     function spellRow(s, list) {
@@ -93,13 +129,14 @@ export function createBook({ stats, hud, save }) {
         const nm = el('div', 'nm', s.name);
         nm.append(el('small', null, k ? `${tierName(tierOf(s))}${s.passive ? ' · always on' : ''}` : 'not yet learned'));
         row.append(nm);
-        if (k && active() === s.id) row.append(el('span', 'star', '★'));
+        if (k && isActive(s)) row.append(el('span', 'star', '★'));
         if (k) row.append(el('span', 'pips', '●'.repeat(tierOf(s)) + '○'.repeat(Math.max(0, 3 - tierOf(s)))));
-        row.onclick = () => {   // tap to read it; tap it again to put it on the cast button
-            if (sel === s.id && k && CASTABLE.has(s.id) && !s.passive && active() !== s.id) { (stats.flags ??= {}).activeSpell = s.id; hud.banner(`${s.name} — ready to cast`); save?.(); }
+        row.onclick = () => {   // tap to read it; tap it again to equip it
+            if (sel === s.id && k && CASTABLE.has(s.id) && !s.passive && !isActive(s)) { equipSpell(s); return; }
             sel = s.id; render();
         };
         list.append(row);
+        if (k && CASTABLE.has(s.id) && !s.passive) favBits(row, `spell:${s.id}`, list);
     }
     function spellPage(p, s) {
         if (!s) { p.append(el('div', 'hand', 'Choose a spell on the left to read about it.')); return; }
@@ -112,8 +149,8 @@ export function createBook({ stats, hud, save }) {
         const side = t => { const x = el('span', 'tag side', t); h.append(x); };
         if (k && s.passive) side('Always on');
         else if (k && !CASTABLE.has(s.id)) side('Not castable yet');
-        else if (k && active() === s.id) side('★ Equipped');
-        else if (k) { const b = el('button', 'btn side', 'Equip'); b.onclick = () => { (stats.flags ??= {}).activeSpell = s.id; hud.banner(`${s.name} — ready to cast`); save?.(); render(); }; h.append(b); }
+        else if (k && isActive(s)) side('★ Equipped');
+        else if (k) { const b = el('button', 'btn side', 'Equip'); b.onclick = () => equipSpell(s); h.append(b); }
         const mana = s.manaCost?.[lvl - 1];
         p.append(el('div', 'stats', `${mana != null ? `Mana ${mana} · ` : ''}${spellTooltip(s, lvl, stats.attributes.intelligence)}`));
         if (s.lore) p.append(el('div', 'hand', s.lore));
@@ -125,10 +162,33 @@ export function createBook({ stats, hud, save }) {
             return;
         }
     }
+    // What the things in your hands can do besides spells: their basic blow and their style's skills.
+    function handActions(L) {
+        const seen = new Set();
+        for (const sd of ['R', 'L']) {
+            const t = hands.handType(sd);
+            if (!t || seen.has(t)) continue;
+            seen.add(t);
+            L.append(el('h3', null, `${SIDE[sd]} — ${wlabel(t)}`));
+            const acts = ['hit', ...Object.values(STYLE_SKILLS).filter(k => STYLES[k.style]?.weapon === t).map(k => `skill:${k.id}`)];
+            for (const a of acts) {
+                const row = el('div', 'row');
+                row.append(svg(hands.glyph(t, a)));
+                const nm = el('div', 'nm', hands.label(t, a));
+                nm.append(el('small', null, a === 'hit' ? 'the weapon\'s own blow' : STYLE_SKILLS[a.slice(6)]?.desc ?? ''));
+                row.append(nm);
+                if (['R', 'L'].some(x => hands.handType(x) === t && hands.current(x) === a)) row.append(el('span', 'star', '★'));
+                row.onclick = () => { menuFor = menuFor === `${t}|${a}` ? null : `${t}|${a}`; render(); };
+                L.append(row);
+                favBits(row, a, L, t);
+            }
+        }
+    }
     function knownPages(L, R) {
         const list = ALL.filter(known);
-        L.append(el('h2', null, 'The Spells I Know'));
-        L.append(el('div', 'sub', 'Tap a spell to read it, tap it again to put it on your cast button (★).'));
+        L.append(el('h2', null, two() ? 'In My Hands' : 'The Spells I Know'));
+        L.append(el('div', 'sub', two() ? 'Tap a spell to read it, tap it again to equip it (★). ⋯ makes it a favourite of what you hold — tap the arch over an action button to cycle them.' : 'Tap a spell to read it, tap it again to put it on your cast button (★).'));
+        if (two()) { handActions(L); L.append(el('h2', null, 'The Spells I Know')); }
         if (!list.length) L.append(el('div', 'hand', 'None yet — the priest in Thaloria teaches spells, and scrolls drop from elites.'));
         for (const e of ORDER) {
             const of = list.filter(s => (s.element ?? 'arcane') === e);
@@ -136,7 +196,7 @@ export function createBook({ stats, hud, save }) {
             L.append(el('h3', null, ELEMENTS[e].name));
             for (const s of of) spellRow(s, L);
         }
-        if (!sel || !SPELLS[sel] || !known(SPELLS[sel])) sel = list.find(s => s.id === active())?.id ?? list[0]?.id ?? null;
+        if (!sel || !SPELLS[sel] || !known(SPELLS[sel])) sel = list.find(s => isActive(s))?.id ?? list[0]?.id ?? null;
         spellPage(R, SPELLS[sel]);
     }
     function elementPages(e, L, R) {

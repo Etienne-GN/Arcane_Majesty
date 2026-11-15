@@ -64,6 +64,7 @@ export function createOptions({ quality, onQuality, onFps, onOnline }) {
 
         p.append(el('h3', null, 'Combat'));
         p.append(seg('Fireball aim', [['camera', 'Where I look'], ['facing', 'Where Eldrin faces']], settings.aim ?? 'camera', v => setSetting('aim', v)));
+        p.append(seg('Two-hand actions', [[true, 'On'], [false, 'Off (classic)']], settings.hands !== false, v => setSetting('hands', v)));
         p.append(seg('God mode (testing)', [[false, 'Off'], [true, 'On']], !!settings.god, v => setSetting('god', v)));
         p.append(el('div', 'note', 'God mode: no damage, endless mana and Vigor, every blow lands for 9999, falls don\'t hurt, and boss gates open (the world map can travel anywhere). Quests are left as they are.'));
 

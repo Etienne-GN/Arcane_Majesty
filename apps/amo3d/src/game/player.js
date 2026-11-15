@@ -186,10 +186,10 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         const id = stats.flags?.activeSpell;
         return CASTABLE.includes(id) && spellRules.SPELLS[id] ? spellRules.SPELLS[id] : FIREBALL;
     }
-    function tryCast() {
+    function tryCast(spellId = null) {
         if (p.cast) return;
         // The spell on the cast button: chosen in the Book (stats.flags.activeSpell), the Fireball by default.
-        const sp = activeSpell();
+        const sp = spellId && CASTABLE.includes(spellId) && spellRules.SPELLS[spellId] ? spellRules.SPELLS[spellId] : activeSpell();
         if (!stats.spells?.[sp.id]) return hud.message(`You don't know ${sp.name} yet`);
         if (!stats.canCastSpell(sp.id)) return hud.message(`${sp.name} is not ready`);
         const cost = stats.getSpellManaCost(sp.id);
@@ -274,9 +274,9 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         stats.tickMana(ms);
         stats.tickSpellCooldowns(ms);
 
-        if (act.cast) tryCast();
+        if (act.cast) tryCast(act.castSpell);
         if (act.strike && !p.strike && !p.cast && p.strikeCd <= 0 && !p.hop) {
-            const type = strikeType(stats);
+            const type = act.strikeType ? (act.strikeType === 'bow' || act.strikeType === 'crossbow' || act.strikeType === 'shield' ? 'fists' : act.strikeType) : strikeType(stats);
             p.strike = { t: 0, hit: false, type, thrust: WEAPON_TYPES[type].anim === 'thrust' };
             sfx.swing();
             p.strikeCd = ((WEAPON_TYPES[type].cooldown / 1000) * mastery.levelCooldownMult(stats.weaponLevel(type)) + STRIKE_TIME * 0.6) * buffMult('swingMult');
