@@ -1,6 +1,7 @@
 // Options (O / touch MENU → Options / the title's OPTIONS): graphics quality, music volume, text size, camera
 // sensitivity and invert, FPS counter, and the controls for keyboard, touch and gamepad.
 import { settings, setSetting } from '../engine/settings.js';
+import { checkForUpdate, openDownload, latestKnown, lastError, VERSION } from './updates.js';
 
 export function createOptions({ quality, onQuality, onFps, onOnline }) {
     const css = document.createElement('style');
@@ -85,6 +86,19 @@ export function createOptions({ quality, onQuality, onFps, onOnline }) {
         p.append(field('Server', 'server', `${location.hostname || 'address'}:3003`));
         p.append(seg('Play online', [[false, 'Off'], [true, 'On']], !!settings.online, v => { setSetting('online', v); onOnline?.(v); }));
         p.append(el('div', 'note', 'Everyone on the same server and the same map sees each other. Start the server with npm run server on the host.'));
+
+        // The app's version, and the newest release on GitHub (CI builds it from a tag; the download installs over this one).
+        p.append(el('h3', null, 'Version'));
+        const ver = el('div', 'note', `This is version ${VERSION}.`);
+        const chk = el('button', null, 'Check for updates');
+        chk.style.cssText = 'margin: 4px 0 8px; padding: 8px 14px; border-radius: 8px; font: inherit; cursor: pointer;';
+        chk.onclick = async () => {
+            ver.textContent = 'Asking GitHub…';
+            const u = await checkForUpdate({ force: true });
+            if (u) { ver.textContent = `Version ${u.version} is available.`; chk.textContent = `Download version ${u.version}`; chk.onclick = () => openDownload(u); }
+            else ver.textContent = lastError() ? `Could not reach GitHub (${lastError()}).` : `You have the newest version${latestKnown() ? ` (${latestKnown()})` : ''}.`;
+        };
+        p.append(ver, chk);
 
         p.append(el('h3', null, 'Controls'));
         const keys = el('div', 'keys');

@@ -4,6 +4,7 @@ import { settings, onSettingChange } from '../engine/settings.js';
 // and "Echoes of Stone" plays (it starts on the first key/tap — browsers block sound before that).
 // Continue / New Game fly the camera down to Eldrin and hand over control.
 import * as THREE from 'three';
+import { checkForUpdate, openDownload, isPhone, VERSION } from './updates.js';
 import { ELDRIN, toWorld } from '../content/eldrinVale.js';
 import titleTrack from '../../media/title_echoes_of_stone.mp3?url';   // the master the user supplied
 
@@ -155,6 +156,12 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         'BUILT WITH', 'Claude (Anthropic) — code written from the directors\' prompts', 'Three.js · Vite · Capacitor', ' ',
         'Every model, effect and landscape here is built in code: no borrowed art.']));
     credits.classList.add('link');
+    // A newer release on GitHub (phone builds made by CI only): offer it under the menu.
+    if (isPhone() && VERSION !== 'dev') checkForUpdate().then(u => {
+        if (!u) return;
+        const up = button(`UPDATE — VERSION ${u.version}`, () => openDownload(u));
+        up.classList.add('link'); up.style.color = '#ffd76a';
+    });
     if (!hasSave) cont.style.display = 'none';   // no save yet: no Continue at all
 
     function wake() {

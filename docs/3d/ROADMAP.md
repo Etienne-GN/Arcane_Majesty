@@ -138,3 +138,5 @@ CharacterRenderer/lpcPalettes — replaced by the 3D Forge and the 3D world pipe
 ## How we work
 One small slice per pass, playable, tested headless (`tools/headless.mjs`, `__poc.advance`), checked on
 the phone (`tools/device_eval.mjs`), committed on branch `3d`.
+
+**Releases (2026-11-15)**: push a tag `amo3d-vX.Y.Z` → `.github/workflows/amo3d-apk.yml` builds the APK (version name X.Y.Z, code X·10000+Y·100+Z, signed with the secret `AMO3D_KEYSTORE_B64` = the dev machine's debug keystore so it installs over existing installs and keeps saves) and publishes a GitHub release. The app (src/game/updates.js) checks GitHub's releases: the title screen offers a newer one (CI builds only), Options → Version checks on demand; the download opens in the phone's browser. Local builds report version 'dev' (versionCode 1: install them with `adb install -r -d` over a release).
