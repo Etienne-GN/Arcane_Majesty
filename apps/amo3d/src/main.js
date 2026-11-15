@@ -320,7 +320,15 @@ let handsTick = 0;
 const book = createBook({ stats, hud, save: () => save(), hands });
 const skillBook = createBook({ stats, hud, save: () => save(), hands, kind: 'skills' });
 const pause = createPause({ hud, save: () => save() });
-const codex = createCodex({ stats });
+const codex = createCodex({ stats, hud, getPlace: () => world.current?.name ?? null });
+// Writing up the codex: at a campfire or a table — it takes a while (a quarter hour a page, an hour at most).
+function writeCodex() {
+    const n = codex.writeUp();
+    if (!n) { hud.message('Nothing new to write up'); return; }
+    clockRules.advanceClock(stats, Math.min(60, 15 * n) * 1000);
+    sfx.pageTurn?.(); hud.banner(`Codex — ${n} page${n > 1 ? 's' : ''} written up`); save();
+}
+const dropLoot = (table, at) => { const n = loot.drop(table, at); codex.dropped(loot.lastIds); return n; };
 questHooks.onKill = (type, extra = {}) => { quests.onKill(type, { ...extra, mapId: world.current?.id ?? null }); codex.killed(type); };   // mapId: bounty kills count in their region only
 const thaloriaBias = () => 'neutral';   // amo: Thaloria's currencyBias
 const dialogue = createDialogue({
@@ -355,7 +363,7 @@ travel = createTravel({
     ],
 });
 const campfire = createCampfire({
-    stats, hud, onCraft: id => quests?.onCook(id),
+    stats, hud, onCraft: id => quests?.onCook(id), codexPending: () => codex.pending(), onWriteCodex: () => writeCodex(),
     onRest: () => { stats.health = stats.maxHealth; stats.mana = stats.maxMana; stats.vigor = stats.maxVigor; stats.vigorWinded = false; save(); },
 });
 hud.ui.prompt.style.pointerEvents = 'auto';   // touch: tap the prompt to gather
@@ -505,6 +513,7 @@ function tick(dt) {
         else if (station?.mode === 'sign') { dialogue.start([{ speaker: '', text: station.text }]); quests.manager.onReadSign(station.id ?? null); station.onUse?.({ quests, stats }); }
         else if (station?.mode === 'gate') travel.useGate(station.key);
         else if (station?.mode === 'board') bountyBoard.use({ key: station.key, place: station.place, regionDef: station.region === 'east_road' ? eastRoadMap.default : thaloriaMap.default });
+        else if (station?.mode === 'desk') writeCodex();
         else if (station?.mode === 'cairn') { stats.respawnPoint = { map: map.id, spawn: station.key }; hud.banner('A cairn — if you fall, you will come back here'); save(); }
         else if (station) campfire.toggle(station.mode);
         else if (person) { if (person.r.onTalk) person.r.onTalk({ start: dialogue.start, quests, stats, hud, save }); else dialogue.talk(person, clock()); }   // onTalk: a map's own conversation (the Sanctuary)
@@ -516,7 +525,7 @@ function tick(dt) {
     const ctx = { ...clock(), message: hud.message, attunedGates: stats.attunedGates, player: player.state, camera,
         flags: (stats.flags ??= {}), shake: a => cam.kick(a), customHero: CUSTOM, players: net.targets(), hurtRemote: (id, dmg, from) => net.hurtRemote(id, dmg, from),
         drainVigor: n => { stats.vigor = Math.max(0, stats.vigor - n); },
-        onRetreat: () => { stats.flags.malphas_retreated = true; save(); }, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop };
+        onRetreat: () => { stats.flags.malphas_retreated = true; save(); }, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot };
     if (!world.step(dt)) lift = player.step(dt, act, ctx);
     const p = player.state;
     cam.update(dt, p.pos, lift, map.heightAt ?? null);   // the camera never sinks into the ground or the mountain

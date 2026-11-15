@@ -15,8 +15,9 @@ export function createLoot({ stats, hud, onPickup }) {
     const beamGeo = new THREE.CylinderGeometry(0.05, 0.22, 2.6, 8, 1, true).translate(0, 1.3, 0);
     let fullWarned = 0;
 
+    let lastIds = [];   // what the last roll dropped (the codex notes it against the creature just beaten)
     function drop(table, at, rng = Math.random) {
-        let n = 0;
+        let n = 0; lastIds = [];
         for (const entry of table ?? []) {
             if (rng() >= entry.chance || !ITEMS[entry.id]) continue;
             const color = new THREE.Color(ITEMS[entry.id].color ?? 0xffffff);
@@ -26,7 +27,7 @@ export function createLoot({ stats, hud, onPickup }) {
             const pos = new THREE.Vector3(at.x + Math.cos(a) * r, at.y, at.z + Math.sin(a) * r);
             mesh.position.copy(pos); beam.position.copy(pos);
             group.add(mesh, beam);
-            drops.push({ id: entry.id, pos, mesh, beam, t: 0, pop: 0 });
+            drops.push({ id: entry.id, pos, mesh, beam, t: 0, pop: 0 }); lastIds.push(entry.id);
             n++;
         }
         return n;
@@ -67,7 +68,7 @@ export function createLoot({ stats, hud, onPickup }) {
         }
     }
 
-    return {
+    return { get lastIds() { return lastIds; }, 
         drop, update,
         setScene(scene) { scene.add(group); },
         clear() { while (drops.length) remove(drops.length - 1); },

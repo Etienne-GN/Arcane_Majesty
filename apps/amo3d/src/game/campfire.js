@@ -18,7 +18,7 @@ const MODES = {
 };
 export const STATION_PROMPT = {
     campfire: 'G — Cook or rest at the campfire', hearth: 'G — Cook at the hearth',
-    alchemy: 'G — Brew at the cauldron', workbench: 'G — Craft at the workbench', chest: 'G — Open the chest', gate: 'G — Touch the monolith', sign: 'G — Read', cairn: 'G — Touch the cairn', board: 'G — Read the bounty board',
+    alchemy: 'G — Brew at the cauldron', workbench: 'G — Craft at the workbench', chest: 'G — Open the chest', gate: 'G — Touch the monolith', sign: 'G — Read', cairn: 'G — Touch the cairn', board: 'G — Read the bounty board', desk: 'G — Sit and write up the codex',
 };
 const CSS = `
 #camp { position: fixed; inset: 0; z-index: 8; display: none; place-items: center; background: #05060acc;
@@ -74,7 +74,7 @@ export function buildCampfire(scene, at, groundY) {
     };
 }
 
-export function createCampfire({ stats, hud, onRest, onCraft }) {
+export function createCampfire({ stats, hud, onRest, onCraft, codexPending = () => 0, onWriteCodex = null }) {
     const style = document.createElement('style');
     style.textContent = CSS;
     document.head.append(style);
@@ -113,6 +113,8 @@ export function createCampfire({ stats, hud, onRest, onCraft }) {
             const rest = el('button', null, 'Rest by the fire');
             rest.onclick = () => { onRest(); hud.message('You rest. Health, mana and Vigor return. Game saved.'); render(); };
             top.append(rest);
+            const n = codexPending();   // notes on creatures met, to write up in the codex by the fire
+            if (n && onWriteCodex) { const w = el('button', null, `Write up the codex (${n} page${n > 1 ? 's' : ''})`); w.onclick = () => { onWriteCodex(); render(); }; top.append(w); }
         }
         const close = el('button', 'ghost', 'Close ✕');
         close.onclick = () => toggle();

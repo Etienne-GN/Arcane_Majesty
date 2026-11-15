@@ -102,9 +102,11 @@ export function createInterior({ id, def, exitTo, innerDoors = {} }) {
 
     // Furniture.
     const lights = [];
+    const desks = [];
     for (const gp of def.sheetDecorations) for (const it of gp.items) {
         if (it.name.includes('floor') || it.name.includes('wall')) continue;
         const { g, light, block } = piece(it.name, M);
+        if (it.name.includes('table') && !it.name.includes('lamp')) desks.push(new THREE.Vector3(wx(it.x), 0, wz(it.y)));   // somewhere to sit and write
         // Face away from the nearest wall.
         const face = !walk(it.x, it.y - 1) ? 0 : !walk(it.x, it.y + 1) ? Math.PI : !walk(it.x - 1, it.y) ? Math.PI / 2 : !walk(it.x + 1, it.y) ? -Math.PI / 2 : 0;
         g.position.set(wx(it.x), 0, wz(it.y));
@@ -158,6 +160,7 @@ export function createInterior({ id, def, exitTo, innerDoors = {} }) {
         colliders.push({ x: wx(c.x), z: wz(c.y), r: 0.55, kind: 'wall', y0: -1, y1: 1 });
         map.stations.push({ mode: 'chest', key: `${id}_${i}`, title: 'Chest', seed: c.items ?? [], pos: new THREE.Vector3(wx(c.x), 0, wz(c.y) + (walk(c.x, c.y + 1) ? 0.9 : -0.9)) });
     });
+    for (const pos of desks.slice(0, 3)) map.stations.push({ mode: 'desk', pos });
     for (const sg of (def.spawns?.signs ?? []).filter(sg => sg.text)) map.stations.push({ mode: 'sign', text: sg.text, pos: new THREE.Vector3(wx(sg.x), 0, wz(sg.y)) });
 
     // People who are in this room right now (amo's townsfolk with mapId === this interior).
