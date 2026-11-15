@@ -30,6 +30,7 @@ android {
     }
     buildTypes {
         release {
+            signingConfig signingConfigs.debug   // the same key as the phones' installs (CI: the repo secret), so releases install over them
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
