@@ -24,7 +24,9 @@ const SIGN = { fire: 'fireball', water: 'water_conjure', ice: 'frostbite', earth
 const LEARN = { scroll: 'a scroll', npc: 'a teacher', chest: 'a chest', quest: 'a quest', drop: 'an enemy\'s drop' };
 const STAR = '<svg viewBox="0 0 24 24" class="sicon"><circle cx="12" cy="12" r="11" fill="#3a0e08" stroke="#e8c878"/><path d="M12 4 L14 10 L20 10 L15 14 L17 20 L12 16.5 L7 20 L9 14 L4 10 L10 10Z" fill="#ffd76a"/></svg>';
 
-export function createBook({ stats, hud, save, hands = null }) {
+export function createBook({ stats, hud, save, hands = null, kind = 'spells' }) {
+    // Two books share this code: the Spellbook (B) and the book of Skills (N) — skills, masteries, fighting styles.
+    const ID = kind === 'skills' ? 'skillbook' : 'book';
     const css = document.createElement('style');
     css.textContent = `
 #book { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #05060ad0; color: #3a2814; font-family: 'IM Fell English', Georgia, serif; }
@@ -80,14 +82,16 @@ export function createBook({ stats, hud, save, hands = null }) {
 #book .rib { flex: 0 1 auto; min-width: 0; overflow: hidden; }
 @media (max-width: 1100px) { #book .rib span { display: none; } #book .rib.on span { display: inline; } #book .rib { padding: 0 6px 4px; } }
 @media (max-height: 480px) { #book .tome { height: calc(100vh - 30px); margin-top: 28px; } #book .page { padding: 10px 14px; } #book .sdraw { max-height: 34vh; } }`;
+    css.textContent = css.textContent.replaceAll('#book', `#${ID}`)
+        + (kind === 'skills' ? `\n#${ID} .tome { background: linear-gradient(135deg, #1e3a28, #12281a 60%, #0a1a10); box-shadow: 0 10px 40px #000c, inset 0 0 0 2px #4a7a4a, inset 0 0 0 5px #0a1a10, inset 0 0 0 6px #b08040; }` : '');
     document.head.append(css);
     const root = document.createElement('div');
-    root.id = 'book';
+    root.id = ID;
     document.body.append(root);
     root.addEventListener('click', e => { if (e.target === root) toggle(false); });
     const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; };
     const svg = html => { const s = document.createElement('span'); s.innerHTML = html; return s.firstChild; };
-    let tab = 'known', sel = null;
+    let tab = kind === 'skills' ? 'skills' : 'known', sel = null;
 
     const known = s => (stats.spells?.[s.id] ?? 0) > 0;
     const tierOf = s => stats.spells?.[s.id] ?? 0;
@@ -237,7 +241,7 @@ export function createBook({ stats, hud, save, hands = null }) {
         L.append(el('div', 'sub', `${stats.skillPoints ?? 0} skill point${stats.skillPoints === 1 ? '' : 's'} to spend — one each level.`));
         const reqText = r => !r ? '' : [r.level && `level ${r.level}`, r.strength && `STR ${r.strength}`, r.intelligence && `INT ${r.intelligence}`, r.agility && `AGI ${r.agility}`, r.stamina && `STA ${r.stamina}`,
             ...Object.entries(r.resonance ?? {}).map(([e, v]) => `${e} resonance ${v}`)].filter(Boolean).join(' · ');
-        const KEYS = { blink_step: 'H · double-tap HOP · gamepad Back' };
+        const KEYS = { blink_step: 'H · double-tap HOP · gamepad Back' }, rows = [];
         for (const k of Object.values(stats.skills ?? {})) {
             if (k.id === 'basic_strike' && k.level >= k.maxLevel) continue;
             const row = el('div', 'e'), body = el('div', 'body');
@@ -250,10 +254,16 @@ export function createBook({ stats, hud, save, hands = null }) {
             row.append(body);
             if (k.level >= k.maxLevel) row.append(el('span', 'tag', 'Mastered'));
             else { const b = el('button', 'btn', k.level ? 'Improve' : 'Learn'); b.disabled = !can || (stats.skillPoints ?? 0) <= 0; b.onclick = () => { if (stats.upgradeSkill(k.id)) { hud.banner(`${k.name} — level ${stats.skills[k.id].level}`); save?.(); render(); } }; row.append(b); }
-            L.append(row);
+            rows.push(row);
         }
-        R.append(el('h2', null, 'Masteries'));
-        R.append(el('div', 'sub', `${stats.resonanceInsights ?? 0} Resonance Insight${stats.resonanceInsights === 1 ? '' : 's'} — earned by deepening an element's resonance.`));
+        spread(rows, L, R);
+    }
+    // A long list runs on from the left page to the right one.
+    const spread = (rows, L, R) => { const half = Math.ceil((rows.length + 1) / 2); rows.forEach((r, i) => (i < half - 1 ? L : R).append(r)); };
+    function masteryPages(L, R) {
+        const rows = [];
+        L.append(el('h2', null, 'Masteries'));
+        L.append(el('div', 'sub', `${stats.resonanceInsights ?? 0} Resonance Insight${stats.resonanceInsights === 1 ? '' : 's'} — earned by deepening an element's resonance.`));
         for (const d of Object.values(MASTERY_DEFS)) {
             const owned = !!stats.masteries?.[d.id], row = el('div', 'e'), body = el('div', 'body');
             const t = el('div', 't', d.name); t.append(el('small', null, `${d.cost} insight${d.cost > 1 ? 's' : ''}`));
@@ -262,8 +272,9 @@ export function createBook({ stats, hud, save, hands = null }) {
             row.append(body);
             if (owned) row.append(el('span', 'tag', 'Learned'));
             else { const b = el('button', 'btn', 'Learn'); b.disabled = (stats.resonanceInsights ?? 0) < d.cost; b.onclick = () => { if (stats.unlockMastery(d.id)) { hud.banner(d.name); save?.(); render(); } }; row.append(b); }
-            R.append(row);
+            rows.push(row);
         }
+        spread(rows, L, R);
     }
 
     // ---- fighting styles ----
@@ -301,9 +312,13 @@ export function createBook({ stats, hud, save, hands = null }) {
             b.onclick = () => { tab = id; replacing = null; menuFor = null; render(); };
             rb.append(b);
         };
-        add('known', 'Known', '#7a2a1a', STAR);
-        for (const e of ORDER) add(e, ELEMENTS[e].name, ELEMENTS[e].d, iconSVG({ id: SIGN[e], element: e }));
+        if (kind === 'spells') {
+            add('known', 'Known', '#7a2a1a', STAR);
+            for (const e of ORDER) add(e, ELEMENTS[e].name, ELEMENTS[e].d, iconSVG({ id: SIGN[e], element: e }));
+            return rb;
+        }
         add('skills', 'Skills', '#2a4a3a', '<svg viewBox="0 0 24 24" class="sicon"><circle cx="12" cy="12" r="11" fill="#16301e" stroke="#e8c878"/><path d="M12 4 V20 M6 10 L12 4 L18 10 M7 15 H17" fill="none" stroke="#fff4dc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+        add('masteries', 'Masteries', '#5a3a6a', '<svg viewBox="0 0 24 24" class="sicon"><circle cx="12" cy="12" r="11" fill="#2a1a36" stroke="#e8c878"/><path d="M12 3 L14.2 9.5 L21 9.6 L15.6 13.6 L17.6 20.4 L12 16.3 L6.4 20.4 L8.4 13.6 L3 9.6 L9.8 9.5Z" fill="none" stroke="#fff4dc" stroke-width="1.5" stroke-linejoin="round"/></svg>');
         add('styles', 'Styles', '#3a3a5a', '<svg viewBox="0 0 24 24" class="sicon"><circle cx="12" cy="12" r="11" fill="#1e1e36" stroke="#e8c878"/><path d="M5 19 L17 7 M17 7 L19 5 M14 6 L18 10 M19 19 L7 7 M7 7 L5 5 M10 6 L6 10" fill="none" stroke="#fff4dc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>');
         return rb;
     }
@@ -314,6 +329,7 @@ export function createBook({ stats, hud, save, hands = null }) {
         if (tab === 'known') knownPages(L, R);
         else if (ELEMENTS[tab]) elementPages(tab, L, R);
         else if (tab === 'skills') skillPages(L, R);
+        else if (tab === 'masteries') masteryPages(L, R);
         else stylePages(L, R);
         pages.append(L, el('div', 'spine'), R);
         tome.append(signets(), pages, close);
@@ -321,12 +337,13 @@ export function createBook({ stats, hud, save, hands = null }) {
     }
     function toggle(on = !root.classList.contains('open'), which = null) {
         if (which) tab = which === 'spells' ? 'known' : which;
+        if (on) { replacing = null; menuFor = null; }
         root.classList.toggle('open', on);
         if (on) render();
     }
     addEventListener('keydown', e => {
         if (/INPUT|TEXTAREA/.test(document.activeElement?.tagName)) return;
-        if (e.code === 'KeyB' && !document.body.classList.contains('title-on')) toggle();
+        if (e.code === (kind === 'skills' ? 'KeyN' : 'KeyB') && !document.body.classList.contains('title-on')) toggle();
         else if (e.code === 'Escape' && root.classList.contains('open')) toggle(false);
     });
     return { toggle, get open() { return root.classList.contains('open'); } };

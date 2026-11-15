@@ -2,7 +2,7 @@
 // left stick moves a gold focus ring to the nearest button in that direction, A presses it, B backs out
 // (Escape), and left/right nudges a focused slider. Gameplay input is paused while a menu is open, so the
 // two never fight.
-const PANELS = ['#pause.open', '#options.open', '#book.open', '#slots.open', '#bounty.open', '#inv.open', '#sheet.open', '#journal.open', '#codex.open', '#shop.open',
+const PANELS = ['#pause.open', '#options.open', '#book.open', '#skillbook.open', '#slots.open', '#bounty.open', '#inv.open', '#sheet.open', '#journal.open', '#codex.open', '#shop.open',
     '#chest.open', '#camp.open', '#travel.open', '#worldmap.open', '#dlg.open', '#tmenu.open', '#titlescreen.menu-on'];
 
 export function createPadNav() {
