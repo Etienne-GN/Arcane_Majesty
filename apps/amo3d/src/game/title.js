@@ -145,7 +145,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
     cont.classList.add('primary');
     const newGame = button('NEW GAME', () => showNewGame());
     if (!hasSave) newGame.classList.add('primary');   // nothing to continue: New Game is the main action
-    button('SAVE SLOTS', () => onSlots?.());
+    button('SAVES', () => onSlots?.());
     button('THE FORGE', () => { location.href = 'forge.html'; });
     button('OPTIONS', () => onOptions?.());
     const credits = button('CREDITS', () => showPanel(['ARCANE MAJESTY', 'A world told first in music — the albums are the canon.', ' ',
@@ -229,5 +229,5 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
     // Where the world's mood and shadows centre while the title shows: the foot of the tower.
     const fp = toWorld(0, -9);
     const focus = new THREE.Vector3(fp.x, ELDRIN.TY, fp.z);
-    return { update, get active() { return active; }, start, wake, music, focus };
+    return { update, get active() { return active; }, start, wake, music, focus, showNewGame };
 }

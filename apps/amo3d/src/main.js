@@ -21,7 +21,7 @@ import { startLoop } from './engine/loop.js';
 import { createHud } from './game/hud.js';
 import { createPlayer, PX } from './game/player.js';
 import { createFireballs, FIREBALL, CASTABLE } from './game/fireball.js';
-import { loadGame, saveGame, deleteSave, activeSlot, setActiveSlot, firstEmptySlot, slotInfo } from './game/save.js';
+import { loadGame, saveGame, deleteSave, activeSlot, setActiveSlot, slotInfo, addSave } from './game/save.js';
 import { createSlots } from './game/slots.js';
 import { createLoot } from './game/loot.js';
 import { createInventory } from './game/inventory.js';
@@ -109,7 +109,7 @@ const SPELL_TUNING = { rangeMult: 3, speedMult: 1.6, radiusMult: 2 };   // 2D sc
 
 const params = new URLSearchParams(location.search);
 const hadSave = hasSave();
-if (params.get('new') === '1') deleteSave();
+if (params.get('new') === '1') deleteSave(activeSlot(), { keepEntry: true });   // a new journey in this save: clear it, keep it in the list
 const SHOW_TITLE = params.get('play') !== '1' && params.get('new') !== '1';
 
 // ---------- engine ----------
@@ -355,18 +355,16 @@ createPadNav();   // gamepad: D-pad / stick moves through any open menu, A press
 // three are full the slots screen asks which to replace.
 let newKind = 'eldrin';
 const beginNew = () => { location.href = newKind === 'hero' ? 'forge.html?mode=create' : `${location.pathname}?new=1&play=1`; };
-const slots = createSlots({ onPlay: () => { location.href = `${location.pathname}?play=1`; }, onNew: () => beginNew() });
+const slots = createSlots({ onPlay: () => { location.href = `${location.pathname}?play=1`; }, onNew: () => { newKind = 'eldrin'; title?.showNewGame?.() ?? beginNew(); } });
 function startNewJourney(kind) {
     newKind = kind;
-    if (!hasSave(activeSlot())) return beginNew();
-    const empty = firstEmptySlot();
-    if (empty >= 0) { setActiveSlot(empty); return beginNew(); }
-    slots.toggle(true, 'new');
+    if (!hasSave(activeSlot())) return beginNew();   // the current save is empty: use it
+    setActiveSlot(addSave()); beginNew();             // otherwise a new save at the end of the list — never overwrite
 }
 const activeInfo = slotInfo(activeSlot());
 const title = SHOW_TITLE ? createTitle({
     camera, hasSave: hadSave, quality, onOptions: () => options.toggle(true), onSlots: () => slots.toggle(true),
-    continueLabel: activeInfo ? `CONTINUE — ${activeInfo.name.toUpperCase()}, LV ${activeInfo.level}` : 'CONTINUE',
+    continueLabel: activeInfo && !activeInfo.empty ? `CONTINUE — ${activeInfo.hero.toUpperCase()}, LV ${activeInfo.level}` : 'CONTINUE',
     onNewGame: kind => startNewJourney(kind),
     onStart: () => { player.state.dead = null; hero.root.visible = true; },
 }) : null;
