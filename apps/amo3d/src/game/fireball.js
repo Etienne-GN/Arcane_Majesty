@@ -10,7 +10,10 @@ const { SPELLS, spellDamageAt, scaledStatus, spellRadius } = spells;
 import { Particles, radialTexture } from '../engine/lib.js';
 
 export const FIREBALL = SPELLS.fireball;
-export const CASTABLE = ['fireball', ...Object.values(SPELLS).filter(sp => sp.targetingType === 'targeted_directional').map(sp => sp.id)];
+// Castable: bolts (targeted_directional), area spells (targeted_aoe — the Fireball flies, the rest land where you
+// aim) and spells on yourself (self). Stone Skin is passive (it works while known).
+export const CASTABLE = Object.values(SPELLS).filter(sp => ['targeted_directional', 'targeted_aoe', 'self'].includes(sp.targetingType) && !sp.id.startsWith('kill_') && !sp.id.startsWith('take_')).map(sp => sp.id);
+export const isBolt = sp => sp.id === 'fireball' || sp.targetingType === 'targeted_directional';
 // Element palettes: [core, glow start, glow end, light]
 const PAL = {
     fire: [0xfff1c4, [1, 0.72, 0.3], [0.85, 0.18, 0.02], 0xff8a30], arcane: [0xe8e0ff, [0.7, 0.6, 1], [0.3, 0.2, 0.9], 0x9a7aff],
@@ -177,6 +180,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal }) {
         ring.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), normal);
         group.add(ring);
         blasts.push({ t: 0, flash, ring, radius });
+        blastLight.color.setHex(0xff9a40);
         blastLight.position.copy(p).addScaledVector(normal, 0.8);
         blastLight.intensity = 160;
 
@@ -232,8 +236,75 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal }) {
         group.add(m);
         marks.push({ m, target, t: 0, life: id === 'ice_prison' ? 3 : 6 });
     }
+    // ---- area spells: a blast where they land, in the element's look; lasting ones leave a zone ----
+    // props by element: what rises out of the ground (or falls on it) at the blast.
+    const zones = [], props = [];
+    const PROP = {
+        earth: () => { const m = new THREE.Mesh(new THREE.ConeGeometry(0.18 + R() * 0.12, 0.9 + R() * 0.8, 5), new THREE.MeshStandardMaterial({ color: 0x7a6a58, flatShading: true })); return { m, rise: 1 }; },
+        ice: () => { const m = new THREE.Mesh(new THREE.OctahedronGeometry(0.2, 0), new THREE.MeshStandardMaterial({ color: 0xcfeeff, emissive: 0x4a9ad8, emissiveIntensity: 0.6, transparent: true, opacity: 0.85, flatShading: true })); m.scale.set(0.7, 2.4, 0.7); return { m, rise: 1 }; },
+        nature: () => { const m = new THREE.Mesh(new THREE.ConeGeometry(0.06, 1.2, 4), new THREE.MeshStandardMaterial({ color: 0x3f7a2c, flatShading: true })); m.rotation.z = (R() - 0.5) * 0.8; return { m, rise: 1, sway: true }; },
+        water: () => { const m = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.4, 2.2, 8, 1, true), new THREE.MeshStandardMaterial({ color: 0x6ac8ff, emissive: 0x2a6aa8, emissiveIntensity: 0.4, transparent: true, opacity: 0.55, side: THREE.DoubleSide })); return { m, rise: 1, one: true }; },
+        wind: () => { const m = new THREE.Mesh(new THREE.TorusGeometry(0.6, 0.03, 4, 18), new THREE.MeshBasicMaterial({ color: 0xf0fff4, transparent: true, opacity: 0.5 })); m.rotation.x = Math.PI / 2; return { m, spin: true }; },
+        lightning: () => { const pts = []; for (let i = 0; i <= 8; i++) pts.push(new THREE.Vector3((R() - 0.5) * 0.5, 7 - i * 0.9, (R() - 0.5) * 0.5)); return { m: new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0xffffff, toneMapped: false })), flash: true }; },
+        shadow: () => ({ m: new THREE.Mesh(new THREE.SphereGeometry(1, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0x1a0828, transparent: true, opacity: 0.5, side: THREE.DoubleSide })), dome: true, one: true }),
+        arcane: () => ({ m: new THREE.Mesh(new THREE.SphereGeometry(1, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xb89aff, transparent: true, opacity: 0.35, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false })), dome: true, one: true }),
+        fire: () => { const m = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.8, 6), new THREE.MeshBasicMaterial({ color: 0xff8a30, transparent: true, opacity: 0.85, toneMapped: false })); return { m, rise: 1, flicker: true }; },
+    };
+    function blastAt(point, spell, level, int, hittables, { cosmetic = false } = {}) {
+        const pal = palOf(spell), el = spell.element === 'void' ? 'shadow' : spell.element, r = ((spellRadius(spell, level) ?? 40) / PX) * tuning.radiusMult;
+        sfx.boom();
+        // ring on the ground + a flash of the element
+        const ring = new THREE.Mesh(ringGeo, new THREE.MeshBasicMaterial({ color: pal[3], transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+        ring.position.copy(point).setY(point.y + 0.08); ring.rotation.x = -Math.PI / 2; group.add(ring);
+        const flash = new THREE.Sprite(glowMat()); flash.material.color.setHex(pal[3]); flash.position.copy(point).setY(point.y + 0.6); group.add(flash);
+        blasts.push({ t: 0, flash, ring, radius: r });
+        blastLight.color.setHex(pal[3]); blastLight.position.copy(point).setY(point.y + 1); blastLight.intensity = 90;
+        for (let i = 0; i < 60; i++) emit(point.clone().setY(point.y + 0.3), 2 + r * 2, 0.6, 0.7, pal);
+        const mk = PROP[el] ?? PROP.arcane, n = mk === PROP.water || mk === PROP.shadow || mk === PROP.arcane ? 1 : Math.round(6 + r * 3);
+        for (let i = 0; i < n; i++) {
+            const pr = mk(), a = (i / n) * Math.PI * 2 + R(), d = pr.one ? 0 : r * (0.25 + R() * 0.7);
+            pr.m.position.set(point.x + Math.cos(a) * d, point.y, point.z + Math.sin(a) * d);
+            if (pr.dome) pr.m.scale.setScalar(0.1);
+            group.add(pr.m);
+            props.push({ ...pr, t: 0, life: spell.duration ? spell.duration[level - 1] / 1000 : 1.4, r, y0: point.y, base: pr.m.scale.clone() });
+        }
+        if (cosmetic) return;
+        hitArea(point, r, spell, level, int, hittables, true);
+        if (spell.duration) zones.push({ point: point.clone(), r, spell, level, int, left: spell.duration[level - 1] / 1000, tick: 1 });
+    }
+    function hitArea(point, r, spell, level, int, hittables, withDamage) {
+        for (const h of hittables) {
+            if (!h.alive || h.kind === 'deer') continue;
+            if (Math.hypot(h.pos.x - point.x, h.pos.z - point.z) > r + 0.5) continue;
+            const dmg = withDamage ? spellDamageAt(spell, level, int) : 0;
+            const st = scaledStatus(spell, level), roll = st && R() < st.chance;
+            const burn = roll && st.id === 'burning' ? st.duration : 0, status = roll && st.id !== 'burning' ? { id: st.id, ms: st.duration > 0 ? st.duration : 8000 } : null;
+            if (dmg > 0 || status || burn) {
+                h.hit(Math.max(dmg, withDamage ? 1 : 0) || 1, point, burn, undefined, status, spell.element);
+                if (dmg > 0) onDamage?.(h.pos.clone().setY(h.pos.y + 1.9), dmg, !h.alive, burn > 0);
+            }
+        }
+    }
+
     const tmp = new THREE.Vector3();
     function update(dt, map, hittables) {
+        for (let i = zones.length - 1; i >= 0; i--) {   // a lasting zone re-applies its effect every second (no extra damage)
+            const z = zones[i]; z.left -= dt; z.tick -= dt;
+            if (z.tick <= 0) { z.tick = 1; for (const h of hittables) if (h.alive && h.kind !== 'deer' && Math.hypot(h.pos.x - z.point.x, h.pos.z - z.point.z) < z.r) { const st = scaledStatus(z.spell, z.level); if (st) h.hit(1, z.point, st.id === 'burning' ? st.duration : 0, undefined, st.id !== 'burning' ? { id: st.id, ms: 1500 } : null, z.spell.element); } }
+            if (z.left <= 0) zones.splice(i, 1);
+        }
+        for (let i = props.length - 1; i >= 0; i--) {
+            const pr = props[i]; pr.t += dt;
+            const k = pr.t / pr.life, grow = Math.min(1, pr.t * 6), fade = Math.max(0, Math.min(1, (pr.life - pr.t) / 0.5));
+            if (pr.rise) pr.m.position.y = pr.y0 - 0.9 + grow * 0.9 + (pr.flicker ? Math.sin(pr.t * 30) * 0.05 : 0);
+            if (pr.dome) pr.m.scale.setScalar(pr.r * Math.min(1, pr.t * 4));
+            if (pr.spin) { pr.m.rotation.z += dt * 8; pr.m.position.y = pr.y0 + (pr.t * 2 % 2); pr.m.scale.setScalar(0.5 + (pr.t * 2 % 1)); }
+            if (pr.sway) pr.m.rotation.x = Math.sin(pr.t * 3) * 0.2;
+            if (pr.flash) pr.m.visible = R() < 0.6;
+            if (pr.flicker) pr.m.scale.set(1, 1 + Math.sin(pr.t * 25) * 0.25, 1);
+            pr.m.traverse(o => { if (o.material) { o.material.transparent = true; o.material.opacity = (o.material.userData.base ??= o.material.opacity) * fade; } });
+            if (k >= 1) { group.remove(pr.m); props.splice(i, 1); }
+        }
         for (let i = marks.length - 1; i >= 0; i--) {
             const k = marks[i]; k.t += dt;
             k.m.position.set(k.target.pos.x, k.target.pos.y + (k.m.userData.float ?? 0), k.target.pos.z);
@@ -322,5 +393,5 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal }) {
         fire.update(dt); sparks.update(dt); smoke.update(dt);
     }
 
-    return { setScene, cast, update, fire, active: () => balls.length, get balls() { return balls; } };
+    return { setScene, cast, blastAt, update, fire, active: () => balls.length, get balls() { return balls; } };
 }

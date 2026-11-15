@@ -257,7 +257,8 @@ const world = createMapManager({
 });
 let travel = null;
 const questHooks = {};
-const player = createPlayer({ hooks: questHooks, name: HERO_NAME, stats, hero, cam, world, hud, fireballs, spellTuning: SPELL_TUNING });
+const player = createPlayer({ hooks: questHooks, name: HERO_NAME, stats, hero, cam, world, hud, fireballs, spellTuning: SPELL_TUNING,
+    auraFx: sp => fireballs.blastAt(player.state.pos.clone(), sp, 1, 10, [], { cosmetic: true }) });   // a self spell: its element bursts round the caster
 
 // What Eldrin holds follows his equipment (amo's equip events).
 const ITEMS = itemRules.ITEMS;
@@ -480,6 +481,17 @@ function tick(dt) {
     archery.update(dt);
     travel.update(dt, map.fx ?? fireballs);
     godSpells();
+    // Shadow Veil: the hero half-vanishes while it lasts.
+    { const veiled = player.state.veil > 0;
+      if (veiled !== !!hero._veiled) {
+        hero._veiled = veiled;
+        hero.root.traverse(o => {
+          if (!o.material) return;
+          const m = o.material, u = m.userData;
+          if (veiled) { u.veilT = m.transparent; u.veilO = m.opacity; m.transparent = true; m.opacity = 0.3; }
+          else if (u.veilO !== undefined) { m.transparent = u.veilT; m.opacity = u.veilO; delete u.veilO; }
+        });
+      } }
     if (settings.god) { stats.health = stats.maxHealth; stats.mana = stats.maxMana; stats.vigor = stats.maxVigor; stats.vigorWinded = false; }   // god mode: endless
     // Footsteps: what is underfoot decides the sound.
     if (p.speed > 0.6 && !p.hop && !p.dead && p.vy === 0) sfx.step(map.weatherDef?.biome === 'snow' || map.id === 'the_summit' ? 'snow' : (map.terrain ? 'grass' : 'stone'), p.sprinting);

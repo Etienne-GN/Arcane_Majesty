@@ -137,7 +137,7 @@ body.touch-mode #netstat { right: calc(12px + env(safe-area-inset-right, 0px)); 
         get isHost() { return isHost(); },
         // Everyone a creature may go for: this hero and the others on this map.
         targets() {
-            const me = { id: 'me', pos: player.state.pos, dead: !!player.state.dead };
+            const me = { id: 'me', pos: player.state.pos, dead: !!player.state.dead || player.state.veil > 0 };   // Shadow Veil: they lose you
             if (!socket?.connected || !remotes.size) return [me];
             return [me, ...[...remotes.entries()].map(([id, r]) => ({ id, pos: r.model.root.position, dead: !!r.target.dead }))];
         },

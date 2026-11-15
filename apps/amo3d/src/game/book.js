@@ -62,7 +62,7 @@ export function createBook({ stats, hud, save }) {
 
     function spells(p) {
         const known = Object.values(SPELLS).filter(s => (stats.spells?.[s.id] ?? 0) > 0 && !s.id.startsWith('kill_') && !s.id.startsWith('take_'));
-        p.append(el('div', 'sub', 'The spells you know. Choose the one your cast button throws (F / right-click / FIRE). Bolts and the Fireball can be cast; area, self and ground spells are coming.'));
+        p.append(el('div', 'sub', 'The spells you know. Choose the one on your cast button (F / right-click / the big touch button): bolts fly where you aim, area spells land on the enemy nearest your aim, spells on yourself take effect at once. Stone Skin works on its own once learned.'));
         p.append(el('h3', null, `Known (${known.length})`));
         if (!known.length) p.append(el('div', 'x', 'None yet — the priest in Thaloria teaches spells, and scrolls drop from elites.'));
         for (const s of known) {
@@ -70,7 +70,8 @@ export function createBook({ stats, hud, save }) {
             const t = el('div', 't', s.name); t.append(el('small', null, `${s.element ?? ''} · ${TIER_NAMES?.[lvl - 1] ?? `tier ${lvl}`}`));
             body.append(t, el('div', 'x', spellTooltip(s, lvl, stats.attributes.intelligence)), el('div', 'lore', s.lore ?? ''));
             const active = (stats.flags?.activeSpell ?? 'fireball') === s.id;
-            if (!CASTABLE.has(s.id)) row.append(body, tag('Not castable yet', '#8a8aa0'));
+            if (s.passive) row.append(body, tag('Always on', '#9fe0a0'));
+            else if (!CASTABLE.has(s.id)) row.append(body, tag('Not castable yet', '#8a8aa0'));
             else if (active) row.append(body, tag('On your cast button', '#ffd76a'));
             else { const b = el('button', 'buy', 'Use'); b.onclick = () => { (stats.flags ??= {}).activeSpell = s.id; hud.banner(`${s.name} — ready to cast`); save?.(); render(); }; row.append(body, b); }
             p.append(row);

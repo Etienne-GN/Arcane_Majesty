@@ -7,7 +7,7 @@ import * as THREE from 'three';
 import { movementRules, weapons, mastery, items as itemRules, styles as styleRules, statuses } from '@rules';
 
 const { STATUS_DEFS } = statuses;
-import { FIREBALL, CASTABLE } from './fireball.js';
+import { FIREBALL, CASTABLE, isBolt } from './fireball.js';
 import { spells as spellRules } from '@rules';
 
 const { MOVE, tickVigor, canSprint, spendHop, moveSpeed, hopLanding } = movementRules;
@@ -31,7 +31,7 @@ const INVINCIBLE_S = 0.8;                      // amo's Player.INVINCIBLE_DURATI
 
 const angleDiff = (a, b) => ((((b - a) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI;
 
-export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, world, hud, fireballs, spellTuning }) {
+export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, world, hud, fireballs, spellTuning, auraFx = null }) {
     const p = {
         pos: new THREE.Vector3(), vy: 0, facing: 0, hop: null, cast: null, speed: 0, sprinting: false,
         invuln: 0, knock: new THREE.Vector3(), sinceHurt: 99, dead: null, strike: null, strikeCd: 0, spin: null, shot: null,
@@ -50,11 +50,21 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         for (const [id, b] of Object.entries(p.buffs)) {
             b.left -= dt;
             const def = STATUS_DEFS[id];
+            if (def?.regenAmt) {   // regen: health back over time
+                b.regenT = (b.regenT ?? 0) + dt * 1000;
+                while (b.regenT >= (def.regenInterval ?? 1000)) { b.regenT -= def.regenInterval ?? 1000; stats.health = Math.min(stats.maxHealth, stats.health + def.regenAmt); }
+            }
             if (def?.manaRegen) {
                 b.tick += dt * 1000;
                 while (b.tick >= (def.regenInterval ?? 1000)) { b.tick -= def.regenInterval ?? 1000; stats.mana = Math.min(stats.maxMana, stats.mana + def.manaRegen); }
             }
             if (b.left <= 0) delete p.buffs[id];
+        }
+        if (p.veil > 0) p.veil -= dt;
+        if (p.circle) {   // the arcane circle: mana back while you stand in it
+            p.circle.left -= dt;
+            if (Math.hypot(p.pos.x - p.circle.x, p.pos.z - p.circle.z) < 2.5) stats.mana = Math.min(stats.maxMana, stats.mana + 5 * dt);
+            if (p.circle.left <= 0) p.circle = null;
         }
     }
 
@@ -85,7 +95,13 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             cam.kick(0.1);
             return false;
         }
-        dmg = Math.max(1, Math.round(dmg * buffMult('damageTakenMult')));
+        dmg = Math.max(1, Math.round(dmg * buffMult('damageTakenMult') * (1 - (stats.spells?.stone_skin ? ([0.08, 0.14, 0.2][stats.spells.stone_skin - 1] ?? 0.08) : 0))));   // Stone Skin: passive
+        if (p.ward > 0) {   // Aetheric Ward soaks the blow, then breaks
+            const soak = Math.min(p.ward, dmg); p.ward -= soak; dmg -= soak;
+            hud.floater(p.pos.clone().setY(p.pos.y + 2.1), `ward −${soak}`, '#9ab8ff');
+            if (p.ward <= 0) { delete p.buffs.warded; hud.message('Your Aetheric Ward breaks.'); }
+            if (dmg <= 0) { p.invuln = 0.3; return false; }
+        }
         stats.health = Math.max(0, stats.health - dmg);
         p.invuln = INVINCIBLE_S;
         p.sinceHurt = 0;
@@ -120,6 +136,18 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         for (const h of world.maps.outdoor?.hittables ?? []) h.reset?.();
     }
 
+    // Spells on yourself (amo Player: barkskin, mends, ward, veil, tempest step, cleanse, arcane circle…).
+    const BAD = new Set(['burning', 'poison', 'cold', 'frozen', 'shocked', 'wet', 'dried', 'dirty', 'silenced', 'entangled', 'cursed', 'void_tainted', 'marked', 'hushed', 'dazed', 'crippled', 'sundered', 'bleeding', 'snared']);
+    function castSelf(sp, lvl) {
+        const st = sp.applyStatus, pos = p.pos.clone().setY(p.pos.y + 2.2);
+        if (sp.id === 'aetheric_ward') { p.ward = [25, 45, 70][lvl - 1] ?? 25; addBuff('warded', 1e9); hud.floater(pos, `ward ${p.ward}`, '#9ab8ff'); }
+        else if (sp.id === 'shadow_veil') { p.veil = (sp.duration?.[lvl - 1] ?? 2000) / 1000; hud.floater(pos, 'veiled', '#c8a8ff'); }
+        else if (sp.id === 'tempest_step') { const d = ([80, 110, 145][lvl - 1] ?? 80) / PX; const tx = p.pos.x + Math.sin(p.facing) * d, tz = p.pos.z + Math.cos(p.facing) * d; if (!map().blockedAt(tx, tz, PLAYER_R, p.pos.y)) { p.pos.x = tx; p.pos.z = tz; } addBuff('blessed', st?.duration ?? 4000); }
+        else if (sp.id === 'cleanse') { let n = 0; for (const id of Object.keys(p.buffs)) if (BAD.has(id)) { delete p.buffs[id]; n++; } hud.floater(pos, n ? `cleansed ${n}` : 'cleansed', '#e8f4ff'); }
+        else if (sp.id === 'arcane_circle') { p.circle = { x: p.pos.x, z: p.pos.z, left: (sp.duration?.[lvl - 1] ?? 60000) / 1000 }; hud.floater(pos, 'arcane circle', '#c8a8ff'); }
+        else if (st) { addBuff(st.id, st.duration > 0 ? st.duration : 30000); hud.floater(pos, STATUS_DEFS[st.id]?.label ?? st.id, '#9fe0a0'); }
+        auraFx?.(sp);
+    }
     function activeSpell() {
         const id = stats.flags?.activeSpell;
         return CASTABLE.includes(id) && spellRules.SPELLS[id] ? spellRules.SPELLS[id] : FIREBALL;
@@ -230,11 +258,29 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
                 const sp = c.spell ?? FIREBALL, lvl = Math.max(1, stats.spells?.[sp.id] ?? 1);
                 const range = ((sp.range?.[lvl - 1] ?? 200) / PX) * spellTuning.rangeMult;
                 sfx.cast();
+                if (sp.targetingType === 'self') { castSelf(sp, lvl); hooks.onCast?.(origin, tmp.set(0, 0, 0), sp.id); }
+                else if (!isBolt(sp)) {   // an area spell lands where you aim — or on the enemy nearest your aim, within range
+                    const fx = c.aim.x, fz = c.aim.z;
+                    let best = null, bs = Infinity;
+                    for (const h of map().hittables ?? []) {
+                        if (!h.alive || h.kind === 'deer') continue;
+                        const dx = h.pos.x - p.pos.x, dz = h.pos.z - p.pos.z, d = Math.hypot(dx, dz);
+                        if (d > range || d < 0.5) continue;
+                        const off = 1 - (dx * fx + dz * fz) / d;   // 0 = dead ahead
+                        if (off < 0.35 && off * 10 + d * 0.1 < bs) { bs = off * 10 + d * 0.1; best = h; }
+                    }
+                    const at = best ? best.pos.clone() : p.pos.clone().add(new THREE.Vector3(fx, 0, fz).multiplyScalar(range * 0.85));
+                    at.y = map().groundAt ? map().groundAt(at.x, at.z, at.y + 3) : (map().heightAt?.(at.x, at.z) ?? at.y);
+                    fireballs.blastAt(at, sp, lvl, stats.attributes.intelligence, map().hittables ?? []);
+                    hooks.onCast?.(at, tmp.set(0, 0, 0), sp.id);
+                }
+                else {
                 // An area spell lands at the end of its range; a bolt flies level, at chest height.
                 if (sp.targetingType === 'targeted_aoe') tmp.copy(c.aim).setY(-(origin.y - p.pos.y) / range).normalize();
                 else tmp.copy(c.aim).setY(-(origin.y - p.pos.y - 1.1) / range).normalize();
                 fireballs.cast(origin, tmp, lvl, stats.attributes.intelligence, { spell: sp });
                 hooks.onCast?.(origin, tmp, sp.id);   // online: the others see it
+                }
             }
             if (c.t >= 1) p.cast = null;
         }
