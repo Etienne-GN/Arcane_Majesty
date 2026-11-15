@@ -1,6 +1,7 @@
 // Arcane Majesty 3D — boot. Wires the engine (renderer, input, camera, maps, loop), the game
 // (an amo character sheet, the player controller, spells, HUD, saving) and the content (maps).
 import * as THREE from 'three';
+import { spells as spellsAll } from '@rules';
 import { gameClock as clockRules, weather as weatherRules, eastRoadMap, thaloriaMap } from '@rules';
 import { movementRules, PlayerStats as PS, items as itemRules, weapons as weaponRules, talents as talentRules } from '@rules';
 import { pickQuality, nextQuality, setQualityName } from './engine/quality.js';
@@ -507,5 +508,5 @@ window.__poc = {
     setTime: h => { stats.gameMinutes = Math.floor((stats.gameMinutes ?? 0) / 1440) * 1440 + h * 60; },
     setWeather: w => { weatherOverride = w; },
     strike: () => input.press('strike'),
-    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, fireballs, player: player.state, playerApi: player,
+    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, fireballs, SPELLS: spellsAll.SPELLS, player: player.state, playerApi: player,
 };

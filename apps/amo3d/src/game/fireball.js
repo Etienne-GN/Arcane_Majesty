@@ -18,10 +18,54 @@ const PAL = {
     void: [0x6a3a8a, [0.45, 0.2, 0.7], [0.1, 0.02, 0.2], 0x7a3aff], earth: [0xc8a070, [0.7, 0.55, 0.35], [0.35, 0.25, 0.15], 0xc89a60],
     water: [0xd8f4ff, [0.5, 0.85, 1], [0.15, 0.4, 0.8], 0x6ac8ff], ice: [0xeaffff, [0.7, 0.95, 1], [0.3, 0.6, 0.9], 0x9ae0ff],
     air: [0xf0fff4, [0.8, 1, 0.85], [0.4, 0.7, 0.5], 0xc8ffd8], light: [0xfffbe0, [1, 0.95, 0.7], [0.9, 0.75, 0.3], 0xfff0a0],
-    nature: [0xd8ffc0, [0.6, 0.95, 0.4], [0.2, 0.5, 0.1], 0x9aff6a],
+    nature: [0xd8ffc0, [0.6, 0.95, 0.4], [0.2, 0.5, 0.1], 0x9aff6a], wind: [0xf0fff4, [0.85, 1, 0.9], [0.5, 0.75, 0.6], 0xd8ffe8],
 };
 const palOf = sp => PAL[sp.element] ?? PAL.arcane;
 const FAN = { triple_dart: 3, needle_volley: 5, rubble_spray: 4 };
+const PIERCE = new Set(['phantom_dart', 'torrent_lance']);   // passes through the first target and goes on (amo lore)
+
+// Each spell's own body, built pointing down +Z (it is turned along its flight): spin = roll about the flight
+// axis, tumble = free rotation, flicker = re-jagged each frame (lightning). trail: fire | spark | dust | drops | smoke | air | none.
+function buildShape(id, pal) {
+    const g = new THREE.Group(), glow = c => new THREE.MeshBasicMaterial({ color: c, toneMapped: false, transparent: true, opacity: 0.95 });
+    const std = (c, o = {}) => new THREE.MeshStandardMaterial({ color: c, flatShading: true, roughness: 0.7, ...o });
+    const ice = std(0xcfeeff, { emissive: 0x4a9ad8, emissiveIntensity: 0.6, transparent: true, opacity: 0.85, roughness: 0.15, metalness: 0.1 });
+    const water = std(0x6ac8ff, { emissive: 0x2a6aa8, emissiveIntensity: 0.5, transparent: true, opacity: 0.7, roughness: 0.05 });
+    const rock = std(0x7a6a58), add = (geo, m, z = 0, x = 0, y = 0) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); g.add(o); return o; };
+    const dart = (len, r, m) => { const o = add(new THREE.OctahedronGeometry(r, 0), m); o.scale.set(1, 1, len / r / 2); return o; };
+    const bolt = (len, w) => { const pts = []; for (let i = 0; i <= 8; i++) pts.push(new THREE.Vector3((Math.random() - 0.5) * w, (Math.random() - 0.5) * w, -len / 2 + (len * i) / 8)); const l = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: 0xffffff, toneMapped: false })); g.add(l); return l; };
+    // A blade of air or water: an arc standing across the flight (seen whole from behind the caster), bowed forward.
+    const crescent = (r, tube, m) => { const o = add(new THREE.TorusGeometry(r, tube, 4, 18, Math.PI * 0.95), m); o.rotation.set(0, 0, Math.PI * 0.025 + Math.PI); o.scale.set(1, 0.55, 1); o.position.z = -r * 0.25; return o; };
+    const streaks = (n, len, m) => { for (let i = 0; i < n; i++) { const st = add(new THREE.BoxGeometry(0.012, 0.012, len), m, -len * 0.4, (i - (n - 1) / 2) * 0.09, Math.sin(i) * 0.04); st.material = m; } };
+    let spin = 'roll', trail = 'spark', light = true;
+    switch (id) {
+        case 'fireball': return null;   // the original burning knot
+        case 'mana_dart': case 'triple_dart': dart(0.55, 0.07, glow(0xc8b8ff)); dart(0.75, 0.035, glow(0xffffff)); break;
+        case 'seeker_dart': dart(0.55, 0.07, glow(0x9ad8ff)); add(new THREE.TorusGeometry(0.12, 0.012, 4, 12), glow(0xc8b8ff), -0.05); trail = 'spark'; break;
+        case 'needle_volley': add(new THREE.CylinderGeometry(0.008, 0.016, 0.6, 4).rotateX(Math.PI / 2), glow(0xe8e0ff)); light = false; break;
+        case 'phantom_dart': { const m = glow(0xd8d0ff); m.opacity = 0.4; dart(0.7, 0.09, m); dart(1.1, 0.05, glow(0xffffff)).material.opacity = 0.35; trail = 'air'; break; }
+        case 'counterspell': { const r = add(new THREE.TorusGeometry(0.18, 0.02, 4, 24), glow(0xfff0c0)); r.rotation.x = 0; add(new THREE.OctahedronGeometry(0.07, 0), glow(0xffffff)); for (let i = 0; i < 4; i++) add(new THREE.BoxGeometry(0.02, 0.1, 0.01), glow(0xfff0c0), 0, Math.cos(i * 1.57) * 0.11, Math.sin(i * 1.57) * 0.11).rotation.z = i * 1.57; break; }
+        case 'flame_lance': { add(new THREE.ConeGeometry(0.07, 0.8, 6).rotateX(Math.PI / 2), glow(0xfff1c4), 0.1); add(new THREE.ConeGeometry(0.14, 1.1, 6).rotateX(-Math.PI / 2), glow(0xff7a20), -0.35).material.opacity = 0.6; trail = 'fire'; break; }
+        case 'arc_bolt': case 'chain_lightning': bolt(0.9, 0.18); bolt(0.7, 0.12); add(new THREE.SphereGeometry(0.08, 6, 5), glow(0xeaf4ff)); spin = 'flicker'; trail = 'spark'; break;
+        case 'lightning_lance': bolt(2.2, 0.16); bolt(2.0, 0.1); bolt(1.6, 0.22); spin = 'flicker'; trail = 'spark'; break;
+        case 'eclipse_mark': add(new THREE.CircleGeometry(0.16, 20), new THREE.MeshBasicMaterial({ color: 0x08040c, side: THREE.DoubleSide })); add(new THREE.RingGeometry(0.16, 0.21, 24), glow(0xd8b8ff), -0.01).material.side = THREE.DoubleSide; spin = 'face'; trail = 'smoke'; break;
+        case 'shadow_bolt': add(new THREE.IcosahedronGeometry(0.16, 0), std(0x1a1024, { emissive: 0x3a1a5a, emissiveIntensity: 0.8 })); add(new THREE.SphereGeometry(0.07, 6, 5), glow(0xb87aff)); spin = 'tumble'; trail = 'smoke'; break;
+        case 'life_drain': { const d = add(new THREE.SphereGeometry(0.1, 8, 6), glow(0xd81a3a)); d.scale.set(1, 1, 1.8); add(new THREE.SphereGeometry(0.05, 6, 5), glow(0xff8a9a), 0.06); trail = 'smoke'; break; }
+        case 'rubble_spray': for (let i = 0; i < 3; i++) add(new THREE.DodecahedronGeometry(0.07 + i * 0.02, 0), rock, (i - 1) * 0.12, (Math.random() - 0.5) * 0.12, (Math.random() - 0.5) * 0.12); spin = 'tumble'; trail = 'dust'; light = false; break;
+        case 'stone_cannon': add(new THREE.DodecahedronGeometry(0.24, 0), std(0x6a5a4a, { emissive: 0x6a2a0a, emissiveIntensity: 0.5 })); spin = 'tumble'; trail = 'dust'; break;   // glows from friction (lore)
+        case 'rock_bullet': add(new THREE.DodecahedronGeometry(0.11, 0), rock).scale.set(1, 1, 1.4); spin = 'tumble'; trail = 'dust'; light = false; break;
+        case 'frost_shard': add(new THREE.OctahedronGeometry(0.1, 0), ice).scale.set(0.8, 0.8, 3.2); add(new THREE.OctahedronGeometry(0.05, 0), ice, -0.12, 0.06, 0).scale.set(0.7, 0.7, 2.4); trail = 'spark'; break;
+        case 'glacial_spike': add(new THREE.ConeGeometry(0.16, 1.2, 6).rotateX(Math.PI / 2), ice); for (let i = 0; i < 3; i++) add(new THREE.ConeGeometry(0.05, 0.4, 4).rotateX(Math.PI / 2), ice, -0.3, Math.cos(i * 2.1) * 0.12, Math.sin(i * 2.1) * 0.12); trail = 'spark'; break;
+        case 'ice_prison': for (let i = 0; i < 5; i++) { const c = add(new THREE.OctahedronGeometry(0.07, 0), ice, (Math.random() - 0.5) * 0.1, Math.cos(i * 1.26) * 0.1, Math.sin(i * 1.26) * 0.1); c.scale.set(0.7, 0.7, 2); c.rotation.set(Math.random(), Math.random(), 0); } spin = 'tumble'; trail = 'spark'; break;
+        case 'water_blade': crescent(0.28, 0.035, water); add(new THREE.SphereGeometry(0.03, 5, 4), glow(0xd8f4ff), 0, 0.25, 0); trail = 'drops'; spin = 'face'; break;
+        case 'tidal_bolt': add(new THREE.SphereGeometry(0.18, 10, 8), water); add(new THREE.SphereGeometry(0.1, 8, 6), glow(0xd8f4ff)).material.opacity = 0.35; spin = 'tumble'; trail = 'drops'; break;
+        case 'torrent_lance': { const c = add(new THREE.CylinderGeometry(0.06, 0.1, 1.6, 8).rotateX(Math.PI / 2), water); c.position.z = -0.2; add(new THREE.ConeGeometry(0.1, 0.35, 8).rotateX(Math.PI / 2), water, 0.75); trail = 'drops'; break; }
+        case 'wind_knife': { const m = glow(0xf4fff8); m.opacity = 0.8; crescent(0.2, 0.022, m); const sm = glow(0xffffff); sm.opacity = 0.45; streaks(3, 0.5, sm); trail = 'air'; light = false; spin = 'face'; break; }
+        case 'gale_slash': { const m = glow(0xf4fff8); m.opacity = 0.75; crescent(0.45, 0.035, m); const m2 = glow(0xe8fff0); m2.opacity = 0.5; crescent(0.34, 0.018, m2); const sm = glow(0xffffff); sm.opacity = 0.4; streaks(5, 0.7, sm); trail = 'air'; light = false; spin = 'face'; break; }
+        default: dart(0.5, 0.08, glow(pal[0]));
+    }
+    return { g, spin, trail, light };
+}
 
 export function createFireballs({ PX, tuning, onDamage, onShake, onHeal }) {
     const group = new THREE.Group();
@@ -60,18 +104,22 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal }) {
         const pal = palOf(spell), aoe = spell.targetingType === 'targeted_aoe';
         const light = ballLights.find(l => !balls.some(b => b.light === l)) ?? ballLights[0];
         light.color.setHex(pal[3]);
-        const core = new THREE.Mesh(coreGeo, new THREE.MeshBasicMaterial({ color: pal[0], toneMapped: false }));
-        if (!aoe) core.scale.set(0.6, 0.6, 1.6);
-        const halo = new THREE.Sprite(glowMat()); halo.scale.setScalar(aoe ? 1.9 : 1.1);
+        const shape = buildShape(spell.id, pal);
+        const core = shape ? shape.g : new THREE.Mesh(coreGeo, new THREE.MeshBasicMaterial({ color: pal[0], toneMapped: false }));
+        const halo = new THREE.Sprite(glowMat()); halo.scale.setScalar(aoe ? 1.9 : 0.7);
         halo.material.color.setRGB(...pal[1]);
-        const inner = new THREE.Sprite(glowMat()); inner.scale.setScalar(aoe ? 0.8 : 0.5);
+        if (shape && !shape.light) halo.visible = false;
+        if (shape && ['dust', 'drops', 'air'].includes(shape.trail)) halo.material.opacity = 0.35;
+        const inner = new THREE.Sprite(glowMat()); inner.scale.setScalar(aoe ? 0.8 : 0.3);
         inner.material.color.setHex(pal[0]);
+        if (shape) inner.visible = false;
         group.add(core, halo, inner);
+        if (shape && !shape.light) light.color.setHex(0x000000);
         const speed = spell.projectileSpeed ?? (aoe ? 420 : 520);
         const b = {
             pos: origin.clone(), vel: dir.clone().multiplyScalar((speed / PX) * tuning.speedMult),
             traveled: 0, range: ((spell.range?.[level - 1] ?? 200) / PX) * tuning.rangeMult,
-            core, halo, inner, light, level, int, t: 0, cosmetic, spell, pal, aoe,
+            core, halo, inner, light, level, int, t: 0, cosmetic, spell, pal, aoe, shape, hitSet: new Set(),
         };
         balls.push(b);
         for (let i = 0; i < 14; i++) emit(origin, 2.5, 0.35, 0.45, pal);   // muzzle puff
@@ -84,7 +132,11 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal }) {
     // A bolt strikes one target (or the ground): a small burst, the damage, and the spell's quirk.
     function strike(b, target, hittables) {
         sfx.hit();
-        for (let i = 0; i < 26; i++) emit(b.pos, 4, 0.4, 0.5, b.pal);
+        const tr = b.shape?.trail;
+        if (tr === 'dust') for (let i = 0; i < 18; i++) { const v = new THREE.Vector3(R() - 0.5, R() * 0.8, R() - 0.5).multiplyScalar(5); sparks.emit({ x: b.pos.x, y: b.pos.y, z: b.pos.z, vx: v.x, vy: v.y, vz: v.z, grav: 14, drag: 0.4, life: 0.6, size: [0.09, 0.05], c0: [0.5, 0.42, 0.34, 1], c1: [0.4, 0.34, 0.28, 0] }); smoke.emit({ x: b.pos.x, y: b.pos.y, z: b.pos.z, vx: v.x * 0.2, vy: 0.5, vz: v.z * 0.2, drag: 1.5, life: 0.9, size: [0.3, 0.8], c0: [0.45, 0.4, 0.34, 0.5], c1: [0.4, 0.36, 0.3, 0] }); }
+        else if (tr === 'drops') for (let i = 0; i < 24; i++) { const v = new THREE.Vector3(R() - 0.5, R(), R() - 0.5).multiplyScalar(4); sparks.emit({ x: b.pos.x, y: b.pos.y, z: b.pos.z, vx: v.x, vy: v.y, vz: v.z, grav: 12, drag: 0.4, life: 0.6, size: [0.08, 0.03], c0: [0.7, 0.9, 1, 1], c1: [0.3, 0.6, 1, 0] }); }
+        else for (let i = 0; i < 26; i++) emit(b.pos, 4, 0.4, 0.5, b.pal);
+        if (target && !b.cosmetic && (b.spell.id === 'ice_prison' || b.spell.id === 'eclipse_mark')) mark(b.spell.id, target);
         if (!target || b.cosmetic) return;
         const sp = b.spell, dmg = spellDamageAt(sp, b.level, b.int);
         const st = scaledStatus(sp, b.level), roll = st && R() < st.chance;
@@ -165,8 +217,32 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal }) {
         void map;
     }
 
+    // After-effects on the one hit: Ice Prison grows crystals round them, Eclipse Mark hangs its sigil over them.
+    const marks = [];
+    function mark(id, target) {
+        const m = new THREE.Group();
+        if (id === 'ice_prison') {
+            const ice = new THREE.MeshStandardMaterial({ color: 0xcfeeff, emissive: 0x4a9ad8, emissiveIntensity: 0.6, transparent: true, opacity: 0.8, flatShading: true, roughness: 0.1 });
+            for (let i = 0; i < 9; i++) { const a = i * 0.7, c = new THREE.Mesh(new THREE.ConeGeometry(0.12 + R() * 0.08, 0.8 + R() * 0.8, 5), ice); c.position.set(Math.cos(a) * 0.55, 0.4, Math.sin(a) * 0.55); c.rotation.set((R() - 0.5) * 0.6, 0, (R() - 0.5) * 0.6); m.add(c); }
+        } else {
+            const ring = new THREE.Mesh(new THREE.RingGeometry(0.3, 0.38, 32), new THREE.MeshBasicMaterial({ color: 0xc8a8ff, transparent: true, side: THREE.DoubleSide, toneMapped: false }));
+            const disc = new THREE.Mesh(new THREE.CircleGeometry(0.3, 32), new THREE.MeshBasicMaterial({ color: 0x0a0410, transparent: true, opacity: 0.85, side: THREE.DoubleSide }));
+            m.add(disc, ring); m.userData.float = 2.6;
+        }
+        group.add(m);
+        marks.push({ m, target, t: 0, life: id === 'ice_prison' ? 3 : 6 });
+    }
     const tmp = new THREE.Vector3();
     function update(dt, map, hittables) {
+        for (let i = marks.length - 1; i >= 0; i--) {
+            const k = marks[i]; k.t += dt;
+            k.m.position.set(k.target.pos.x, k.target.pos.y + (k.m.userData.float ?? 0), k.target.pos.z);
+            if (k.m.userData.float) k.m.rotation.y += dt * 1.5;
+            else k.m.scale.setScalar(Math.min(1, k.t * 5));
+            const fade = Math.max(0, Math.min(1, (k.life - k.t) / 0.6));
+            k.m.traverse(o => { if (o.material) { o.material.transparent = true; o.material.opacity = (o.material.userData.base ??= o.material.opacity) * fade; } });
+            if (k.t >= k.life || !k.target.alive) { group.remove(k.m); marks.splice(i, 1); }
+        }
         for (let i = balls.length - 1; i >= 0; i--) {
             const b = balls[i];
             b.t += dt;
@@ -183,8 +259,9 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal }) {
                 const what = map.projectileHit(b.pos);
                 if (what) hit = { normal: what === 'ground' ? (map.terrain ? map.groundNormal(b.pos.x, b.pos.z) : UP.clone()) : b.vel.clone().normalize().negate() };
                 for (const h of hittables) {   // an upright body: radius 0.6, feet to 2.1 m
-                    if (!b.cosmetic && h.alive && Math.hypot(h.pos.x - b.pos.x, h.pos.z - b.pos.z) < 0.6 && b.pos.y > h.pos.y && b.pos.y < h.pos.y + 2.1) {
-                        hit = { normal: b.vel.clone().normalize().negate(), target: h };
+                    if (!b.cosmetic && h.alive && !b.hitSet.has(h) && Math.hypot(h.pos.x - b.pos.x, h.pos.z - b.pos.z) < 0.6 && b.pos.y > h.pos.y && b.pos.y < h.pos.y + 2.1) {
+                        if (PIERCE.has(b.spell.id) && b.hitSet.size < 3) { b.hitSet.add(h); strike(b, h, hittables); }   // goes on through
+                        else hit = { normal: b.vel.clone().normalize().negate(), target: h };
                     }
                 }
                 if (!hit && b.traveled >= b.range) hit = { normal: UP.clone() };
@@ -192,12 +269,27 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal }) {
             b.core.position.copy(b.pos);
             b.halo.position.copy(b.pos);
             b.inner.position.copy(b.pos);
-            b.halo.scale.setScalar(1.7 + Math.sin(b.t * 40) * 0.25);
-            b.core.rotation.set(b.t * 9, b.t * 7, 0);
+            if (b.shape) {   // turned along its flight, then its own motion
+                b.core.lookAt(tmp.copy(b.pos).add(b.vel));
+                const sp = b.shape.spin;
+                if (sp === 'roll') b.core.rotateZ(b.t * 14);
+                else if (sp === 'tumble') b.core.rotation.set(b.t * 11, b.t * 7, b.t * 5);
+                else if (sp === 'flicker') for (const c of b.core.children) if (c.isLine) { const a = c.geometry.attributes.position; for (let k = 1; k < a.count - 1; k++) { a.setX(k, (R() - 0.5) * 0.2); a.setY(k, (R() - 0.5) * 0.2); } a.needsUpdate = true; }
+                b.halo.scale.setScalar((b.aoe ? 1.7 : 0.7) + Math.sin(b.t * 40) * 0.1);
+            } else {
+                b.halo.scale.setScalar(1.7 + Math.sin(b.t * 40) * 0.25);
+                b.core.rotation.set(b.t * 9, b.t * 7, 0);
+            }
             b.light.position.copy(b.pos);
             b.light.intensity = 28 + Math.sin(b.t * 50) * 6;
-            // Trail.
-            for (let k = 0; k < 4; k++) {
+            // Trail: by the spell's nature.
+            const tr = b.shape?.trail ?? 'fire';
+            if (tr === 'dust') { if (R() < 0.7) smoke.emit({ x: b.pos.x, y: b.pos.y, z: b.pos.z, vx: (R() - 0.5) * 0.5, vy: 0.2, vz: (R() - 0.5) * 0.5, drag: 2, life: 0.5, size: [0.15, 0.45], c0: [0.45, 0.38, 0.3, 0.5], c1: [0.4, 0.35, 0.3, 0] }); }
+            else if (tr === 'drops') { for (let k = 0; k < 3; k++) sparks.emit({ x: b.pos.x, y: b.pos.y, z: b.pos.z, vx: (R() - 0.5) * 1.5, vy: R() * 0.8, vz: (R() - 0.5) * 1.5, grav: 9, drag: 0.5, life: 0.45, size: [0.07, 0.03], c0: [0.6, 0.85, 1, 0.9], c1: [0.3, 0.6, 1, 0] }); }
+            else if (tr === 'smoke') { for (let k = 0; k < 2; k++) smoke.emit({ x: b.pos.x + (R() - 0.5) * 0.1, y: b.pos.y, z: b.pos.z + (R() - 0.5) * 0.1, vx: (R() - 0.5) * 0.3, vy: 0.2, vz: (R() - 0.5) * 0.3, drag: 1.5, life: 0.7, size: [0.2, 0.5], c0: [...b.pal[2].map(v => v * 0.6), 0.6], c1: [0.05, 0.02, 0.08, 0] }); }
+            else if (tr === 'air') { if (R() < 0.5) fire.emit({ x: b.pos.x, y: b.pos.y, z: b.pos.z, vx: (R() - 0.5) * 0.4, vy: (R() - 0.5) * 0.4, vz: (R() - 0.5) * 0.4, drag: 3, life: 0.25, size: [0.25, 0.05], c0: [...b.pal[1], 0.25], c1: [...b.pal[2], 0] }); }
+            else if (tr === 'spark') { for (let k = 0; k < 2; k++) sparks.emit({ x: b.pos.x, y: b.pos.y, z: b.pos.z, vx: (R() - 0.5) * 1.2, vy: (R() - 0.5) * 1.2, vz: (R() - 0.5) * 1.2, drag: 2, life: 0.3, size: [0.07, 0.02], c0: [...b.pal[1], 1], c1: [...b.pal[2], 0] }); }
+            if (tr === 'fire') for (let k = 0; k < 4; k++) {
                 fire.emit({ x: b.pos.x + (R() - 0.5) * 0.2, y: b.pos.y + (R() - 0.5) * 0.2, z: b.pos.z + (R() - 0.5) * 0.2,
                     vx: (R() - 0.5) * 0.6, vy: 0.4 + R() * 0.6, vz: (R() - 0.5) * 0.6, drag: 2, life: 0.3 + R() * 0.25,
                     size: [b.aoe ? 0.55 : 0.32, 0.05], c0: [...b.pal[1], 0.95], c1: [...b.pal[2], 0] });
