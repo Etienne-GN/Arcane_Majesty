@@ -344,7 +344,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     }
 
     // speed in m/s, sprinting bool, hopK 0..1 progress (null when grounded), castK 0..1 (null when not casting)
-    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false, incant = false }) {
+    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false, incant = false, strikeHand = 'R' }) {
         t += dt;
         const ease = k => 1 - Math.exp(-dt * k);
         amp += (Math.min(1, speed / 4) - amp) * ease(10);
@@ -404,7 +404,14 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             spine.rotation.y += -0.25 * w;
         }
         // Strike: a short sweeping blow with the staff, right to left, the body twisting into it.
-        if (strikeK != null && thrust) {   // spears, daggers, bo: a straight stab forward
+        if (strikeK != null && strikeHand === 'L') {   // the left hand: a straight jab, the body turning into it
+            const k = Math.min(1, strikeK), w = Math.sin(k * Math.PI);
+            arms.L.upper.rotation.x = arms.L.upper.rotation.x * (1 - w) - 1.5 * w;
+            arms.L.upper.rotation.z = 0.12 - 0.1 * w;
+            arms.L.fore.rotation.x = arms.L.fore.rotation.x * (1 - w) - 0.05 * w;
+            spine.rotation.y += 0.3 * w;
+            spine.rotation.x += 0.12 * w;
+        } else if (strikeK != null && thrust) {   // spears, daggers, bo: a straight stab forward
             const k = Math.min(1, strikeK), w = Math.sin(k * Math.PI);
             arms.R.upper.rotation.x = arms.R.upper.rotation.x * (1 - w) - 1.45 * w;
             arms.R.upper.rotation.z = -0.12;

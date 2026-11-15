@@ -311,7 +311,7 @@ function handAction(side, act) {
     if (a === 'hit') {
         if ((t === 'bow' || t === 'crossbow') && archery.armed()) archery.shoot();
         else if (t === 'shield') hud.message('Block: not in 3D yet');
-        else { act.strike = true; act.strikeType = t; }
+        else { act.strike = true; act.strikeType = t; act.strikeHand = side; }
     } else if (a.startsWith('spell:')) { act.cast = true; act.castSpell = a.slice(6); }
     else if (a.startsWith('skill:')) skills.useId(a.slice(6), t);
 }

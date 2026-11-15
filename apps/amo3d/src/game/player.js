@@ -277,7 +277,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         if (act.cast) tryCast(act.castSpell);
         if (act.strike && !p.strike && !p.cast && p.strikeCd <= 0 && !p.hop) {
             const type = act.strikeType ? (act.strikeType === 'bow' || act.strikeType === 'crossbow' || act.strikeType === 'shield' ? 'fists' : act.strikeType) : strikeType(stats);
-            p.strike = { t: 0, hit: false, type, thrust: WEAPON_TYPES[type].anim === 'thrust' };
+            p.strike = { t: 0, hit: false, type, thrust: WEAPON_TYPES[type].anim === 'thrust', hand: act.strikeHand ?? 'R' };
             sfx.swing();
             p.strikeCd = ((WEAPON_TYPES[type].cooldown / 1000) * mastery.levelCooldownMult(stats.weaponLevel(type)) + STRIKE_TIME * 0.6) * buffMult('swingMult');
         }
@@ -425,7 +425,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         if (p.spin) { p.spin.t += dt / 0.4; if (p.spin.t >= 1) p.spin = null; }
         if (p.shot) { p.shot.t += dt / 0.3; if (p.shot.t >= 1) p.shot = null; }
         hero.root.rotation.y = p.facing + (p.spin ? p.spin.t * Math.PI * 2 : 0);
-        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : p.shot ? p.shot.t : null, incant: !!p.cast?.incant, strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust });
+        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : p.shot ? p.shot.t : null, incant: !!p.cast?.incant, strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust, strikeHand: p.strike?.hand ?? 'R' });
 
         // Doors.
         let nearLabel = null, inside = false;
