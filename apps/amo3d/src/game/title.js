@@ -45,12 +45,22 @@ const CSS = `
 #titlescreen.menu-on h1 { top: 7%; font-size: clamp(28px, 5vw, 64px); }
 #titlescreen.menu-on .sub { opacity: 0; }
 #titlescreen.menu-on .sigil { top: 24%; width: min(36vh, 50vw); }
-@media (max-height: 560px) {
+@media (max-height: 560px) {   /* a phone on its side: two columns of three, low on the screen */
     #titlescreen.menu-on h1 { top: 4%; font-size: clamp(24px, 4.2vw, 44px); }
-    #titlescreen .menu { bottom: 6%; display: none; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 760px; margin: 0 auto; }
+    #titlescreen .menu { bottom: 5%; display: none; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 640px; margin: 0 auto; }
     #titlescreen.menu-on .menu { display: flex; }
-    #titlescreen .menu button { min-width: 300px; padding: 9px 18px; }
+    #titlescreen .menu button { min-width: 290px; padding: 9px 18px; }
+    #titlescreen .panel { bottom: 4%; max-height: 80vh; overflow-y: auto; }
 }
+#titlescreen .menu, #titlescreen .menu button { opacity: 1; visibility: visible; z-index: 2; }   /* always drawn, never faded */
+#titlescreen .panel .ph { letter-spacing: .3em; color: #f3d88b; font-size: calc(20px * var(--ui, 1)); margin-bottom: 6px; }
+#titlescreen .panel .pg { letter-spacing: .2em; font-size: calc(13px * var(--ui, 1)); opacity: .65; margin: 12px 0 4px; text-align: left; }
+#titlescreen .panel button.choice { display: block; width: 100%; margin: 6px 0 0; padding: 12px 14px; text-align: left; cursor: pointer; color: #f3e2b0;
+    background: linear-gradient(180deg, #2a1c10, #120a06); border: 1px solid #f3d88b66; border-radius: 6px; font: inherit; }
+#titlescreen .panel button.choice:hover, #titlescreen .panel button.choice:focus { border-color: #f3d88b; outline: none; box-shadow: 0 0 14px #f3a84a55; }
+#titlescreen .panel .ct { display: block; font-size: calc(19px * var(--ui, 1)); letter-spacing: .08em; }
+#titlescreen .panel .cs { display: block; font-size: calc(14px * var(--ui, 1)); opacity: .7; margin-top: 2px; }
+#titlescreen .panel button.back { margin-top: 14px; padding: 7px 20px; font: calc(15px * var(--ui, 1)) Georgia, serif; letter-spacing: .15em; color: #f3e2b0; background: #2a1c10; border: 1px solid #f3d88b66; cursor: pointer; }
 #titlescreen .menu button { min-width: 240px; padding: 11px 26px; font: calc(19px * var(--ui, 1)) Georgia, serif; letter-spacing: .18em; color: #f3e2b0; cursor: pointer;
     background: linear-gradient(180deg, #2a1c10cc, #120a06cc); border: 1px solid #f3d88b66; border-radius: 3px; transition: all .25s; }
 #titlescreen .menu button:hover, #titlescreen .menu button:focus { border-color: #f3d88b; box-shadow: 0 0 18px #f3a84a55; outline: none; color: #fff6d8; }
@@ -106,9 +116,30 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         panel.classList.add('on');
         menu.style.display = 'none';
     }
+    // New Game: the campaigns (only Eldrin's for now — more will join the list), or a hero of your own.
+    const CAMPAIGNS = [{ id: 'eldrin', title: "Eldoria's Prophecy", sub: 'Campaign — play Eldrin Nightshade, from the tower to the Heartstone' }];
+    function showNewGame() {
+        panel.textContent = '';
+        const h = document.createElement('div'); h.className = 'ph'; h.textContent = 'NEW GAME'; panel.append(h);
+        const choice = (title, sub, fn) => {
+            const b = document.createElement('button'); b.className = 'choice';
+            b.innerHTML = '<span class="ct"></span><span class="cs"></span>';
+            b.querySelector('.ct').textContent = title; b.querySelector('.cs').textContent = sub;
+            b.onclick = fn; panel.append(b); return b;
+        };
+        const g1 = document.createElement('div'); g1.className = 'pg'; g1.textContent = 'CAMPAIGNS'; panel.append(g1);
+        const first = CAMPAIGNS.map(c => choice(c.title, c.sub, () => onNewGame(c.id)))[0];
+        const g2 = document.createElement('div'); g2.className = 'pg'; g2.textContent = 'FREE PLAY'; panel.append(g2);
+        choice('Your Own Hero', 'Make a character in the Forge and arrive in Thaloria as a newcomer', () => onNewGame('hero'));
+        const back = document.createElement('button'); back.className = 'back'; back.textContent = 'BACK';
+        back.onclick = () => { panel.classList.remove('on'); menu.style.display = ''; };
+        panel.append(back);
+        panel.classList.add('on');
+        menu.style.display = 'none';
+        first?.focus();
+    }
     const cont = button(continueLabel, () => start(), !hasSave);
-    button('CAMPAIGN — ELDRIN', () => onNewGame('eldrin'));
-    button('YOUR OWN HERO', () => onNewGame('hero'));
+    button('NEW GAME', () => showNewGame());
     button('SAVE SLOTS', () => onSlots?.());
     button('THE FORGE', () => { location.href = 'forge.html'; });
     button('OPTIONS', () => onOptions?.());
