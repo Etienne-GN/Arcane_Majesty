@@ -126,7 +126,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     const flapL = coatPanel(Math.PI * cut.open, fl, skirtLen, M.coat);
     const flapR = coatPanel(Math.PI * 2 - Math.PI * cut.open - fl, fl, skirtLen, M.coat);
     const back = coatPanel(Math.PI * 0.61, Math.PI * 0.78, skirtLen + 0.02, M.coat);
-    for (const p of [flapL, flapR, back]) { p.joint.position.y = 0.04; hips.add(p.joint); }
+    for (const p of [flapL, flapR, back]) { p.joint.position.y = 0.04; p.joint.visible = !cut.bare; hips.add(p.joint); }   // the linen shirt: no flared hem (it read as a petticoat)
     // Gold hem along the front edges of the flaps.
     for (const [p, th] of cut.hem ? [[flapL, Math.PI * 0.11], [flapR, Math.PI * 1.89]] : []) {
         const edge = mesh(new THREE.BoxGeometry(0.025, 0.78, 0.025), M.gold);
