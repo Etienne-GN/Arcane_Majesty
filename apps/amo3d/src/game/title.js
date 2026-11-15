@@ -149,8 +149,8 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
     button('THE FORGE', () => { location.href = 'forge.html'; });
     button('OPTIONS', () => onOptions?.());
     const credits = button('CREDITS', () => showPanel(['ARCANE MAJESTY', 'A world told first in music — the albums are the canon.', ' ',
-        'DIRECTED AND PRODUCED BY', 'Etienne Gagne Nadeau', 'Thomas Gagne', ' ',
-        'CREATIVE DIRECTION, DECISIONS AND PROMPTS', 'Etienne Gagne Nadeau', ' ',
+        'CREATED, DIRECTED AND PRODUCED BY', 'Etienne Gagne Nadeau', 'Thomas Gagne', ' ',
+        'PROMPTS', 'Etienne Gagne Nadeau', ' ',
         'MUSIC', 'Eldoria\'s Prophecy — "Echoes of Stone"', ' ',
         'BUILT WITH', 'Claude (Anthropic) — code written from the directors\' prompts', 'Three.js · Vite · Capacitor', ' ',
         'Every model, effect and landscape here is built in code: no borrowed art.']));
