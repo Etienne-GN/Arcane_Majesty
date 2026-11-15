@@ -308,7 +308,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
                     }
                     const at = best ? best.pos.clone() : p.pos.clone().add(new THREE.Vector3(fx, 0, fz).multiplyScalar(range * 0.85));
                     at.y = map().groundAt ? map().groundAt(at.x, at.z, at.y + 3) : (map().heightAt?.(at.x, at.z) ?? at.y);
-                    fireballs.blastAt(at, sp, lvl, stats.attributes.intelligence, map().hittables ?? []);
+                    fireballs.blastAt(at, sp, lvl, stats.attributes.intelligence, map().hittables ?? [], { dir: new THREE.Vector3(fx, 0, fz), from: p.pos.clone() });
                     hooks.onCast?.(at, tmp.set(0, 0, 0), sp.id);
                 }
                 else {

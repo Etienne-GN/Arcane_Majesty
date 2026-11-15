@@ -4,6 +4,7 @@ import { sfx } from '../engine/sfx.js';
 // targeted_aoe (Fireball) bursts over an area; directional bolts hit the one they strike. Quirks: Triple Dart
 // and Needle Volley fire a fan, Seeker Dart homes, Life Drain heals the caster, Chain Lightning jumps.
 import * as THREE from 'three';
+import { createSpectacle } from './spectacle.js';
 import { spells } from '@rules';
 
 const { SPELLS, spellDamageAt, scaledStatus, spellRadius } = spells;
@@ -70,7 +71,7 @@ function buildShape(id, pal) {
     return { g, spin, trail, light };
 }
 
-export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult = () => 1 }) {
+export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult = () => 1, onSpellHit = null }) {
     const group = new THREE.Group();
     const fire = new Particles(2000);
     const sparks = new Particles(600);
@@ -92,6 +93,13 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
     const decalGeo = new THREE.CircleGeometry(1, 28);
     const UP = new THREE.Vector3(0, 1, 0);
     const R = Math.random;
+
+    let lastMap = null;
+    // Set-pieces (walls, pillars, meteors, tornados…) for the area spells; their creatures/colliders come from the map.
+    const spectacle = createSpectacle({ group, fx: { fire, sparks, smoke }, shake: a => onShake?.(a), getMap: () => lastMap,
+        explodeAt: (p, sc = 1) => explode(p, UP, lastMap, [], { spell: FIREBALL, level: 1, cosmetic: true, scale: sc }) });
+    // Spells grow with their tier: Novice ×1, Adept ×1.35, Master ×1.7 — and the Fireball is half again as big.
+    const sizeOf = (spell, level) => (1 + 0.35 * (Math.max(1, level) - 1)) * (spell.id === 'fireball' ? 1.5 : 1);
 
     function setScene(scene) { scene.add(group); }
 
@@ -116,6 +124,8 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         const inner = new THREE.Sprite(glowMat()); inner.scale.setScalar(aoe ? 0.8 : 0.3);
         inner.material.color.setHex(pal[0]);
         if (shape) inner.visible = false;
+        const sz = sizeOf(spell, level);
+        core.scale.multiplyScalar(sz); halo.scale.multiplyScalar(sz); inner.scale.multiplyScalar(sz);
         group.add(core, halo, inner);
         if (shape && !shape.light) light.color.setHex(0x000000);
         const speed = spell.projectileSpeed ?? (aoe ? 420 : 520);
@@ -146,6 +156,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         const burn = roll && st.id === 'burning' ? st.duration : 0, status = roll && st.id !== 'burning' ? { id: st.id, ms: st.duration } : null;
         target.hit(dmg, b.pos, burn, undefined, status, sp.element);
         onDamage?.(target.pos.clone().setY(target.pos.y + 1.9), dmg, !target.alive, burn > 0);
+        onSpellHit?.(sp, target);
         if (sp.id === 'life_drain') onHeal?.(Math.round(dmg * 0.5));
         if (sp.id === 'chain_lightning') {   // jumps to the two nearest others within 6 m, weaker each time
             let from = target, d = dmg;
@@ -171,7 +182,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
     function explode(p, normal, map, hittables, ball = null) {
         sfx.boom();
         const spell = ball?.spell ?? FIREBALL, lvl = ball?.level ?? 1;
-        const radius = (spellRadius(spell, lvl) / PX) * tuning.radiusMult;
+        const radius = (spellRadius(spell, lvl) / PX) * tuning.radiusMult * (ball?.scale ?? 1), big = ball?.scale ?? sizeOf(spell, lvl);
         const flash = new THREE.Sprite(glowMat());
         flash.position.copy(p).addScaledVector(normal, 0.4);
         group.add(flash);
@@ -184,7 +195,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         blastLight.position.copy(p).addScaledVector(normal, 0.8);
         blastLight.intensity = 160;
 
-        for (let i = 0; i < 90; i++) emitFire(p.clone().addScaledVector(normal, 0.3), 3 + radius * 2.2, 0.75, 1.0 + R() * 0.5);
+        for (let i = 0; i < 90 * big; i++) emitFire(p.clone().addScaledVector(normal, 0.3), 3 + radius * 2.2, 0.75, (1.0 + R() * 0.5) * big);
         for (let i = 0; i < 45; i++) {
             const v = new THREE.Vector3(R() - 0.5, R() * 0.8, R() - 0.5).normalize().addScaledVector(normal, 0.6).normalize().multiplyScalar(6 + R() * 8);
             sparks.emit({ x: p.x, y: p.y + 0.2, z: p.z, vx: v.x, vy: v.y, vz: v.z, grav: 14, drag: 0.6, life: 0.6 + R() * 0.6,
@@ -205,7 +216,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
             decals.push({ mesh: d, t: 0 });
             if (decals.length > 14) { const old = decals.shift(); group.remove(old.mesh); }
         }
-        onShake?.(0.22);
+        onShake?.(0.22 * big);
 
         // Damage: amo's formula and burning roll, to everything in the blast.
         for (const h of hittables) {
@@ -217,6 +228,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
             const burn = st && R() < st.chance ? st.duration : 0;
             const killed = h.hit(dmg, p, burn);
             if (killed !== 'handled') onDamage?.(h.pos.clone().setY(h.pos.y + 1.9), dmg, killed, burn > 0);
+            if (!ball?.cosmetic) onSpellHit?.(spell, h);
         }
         void map;
     }
@@ -250,7 +262,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         arcane: () => ({ m: new THREE.Mesh(new THREE.SphereGeometry(1, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xb89aff, transparent: true, opacity: 0.35, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false })), dome: true, one: true }),
         fire: () => { const m = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.8, 6), new THREE.MeshBasicMaterial({ color: 0xff8a30, transparent: true, opacity: 0.85, toneMapped: false })); return { m, rise: 1, flicker: true }; },
     };
-    function blastAt(point, spell, level, int, hittables, { cosmetic = false, small = false } = {}) {
+    function blastAt(point, spell, level, int, hittables, { cosmetic = false, small = false, dir = null, from = null } = {}) {
         const pal = palOf(spell), el = spell.element === 'void' ? 'shadow' : spell.element, r = small ? 0.6 : ((spellRadius(spell, level) ?? 40) / PX) * tuning.radiusMult;
         if (small) { for (let i = 0; i < 40; i++) emit(point.clone().setY(point.y + 1), 3, 0.4, 0.5, pal); blastLight.color.setHex(pal[3]); blastLight.position.copy(point).setY(point.y + 1); blastLight.intensity = 50; return; }
         sfx.boom();
@@ -261,7 +273,10 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         blasts.push({ t: 0, flash, ring, radius: r });
         blastLight.color.setHex(pal[3]); blastLight.position.copy(point).setY(point.y + 1); blastLight.intensity = 90;
         for (let i = 0; i < 60; i++) emit(point.clone().setY(point.y + 0.3), 2 + r * 2, 0.6, 0.7, pal);
-        const mk = PROP[el] ?? PROP.arcane, n = mk === PROP.water || mk === PROP.shadow || mk === PROP.arcane ? 1 : Math.round(6 + r * 3);
+        const aim = dir ? new THREE.Vector3(dir.x, 0, dir.z).normalize() : new THREE.Vector3(0, 0, 1);
+        const tick = (pt, rr, frac) => { if (!cosmetic) hitArea(pt, rr, spell, level, int, lastMap?.hittables ?? hittables, true, frac); };
+        const staged = spectacle.area(spell.id, point, r, level, aim, from, tick);
+        const mk = PROP[el] ?? PROP.arcane, n = staged ? 0 : mk === PROP.water || mk === PROP.shadow || mk === PROP.arcane ? 1 : Math.round(6 + r * 3);
         for (let i = 0; i < n; i++) {
             const pr = mk(), a = (i / n) * Math.PI * 2 + R(), d = pr.one ? 0 : r * (0.25 + R() * 0.7);
             pr.m.position.set(point.x + Math.cos(a) * d, point.y, point.z + Math.sin(a) * d);
@@ -273,22 +288,24 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         hitArea(point, r, spell, level, int, hittables, true);
         if (spell.duration) zones.push({ point: point.clone(), r, spell, level, int, left: spell.duration[level - 1] / 1000, tick: 1 });
     }
-    function hitArea(point, r, spell, level, int, hittables, withDamage) {
+    function hitArea(point, r, spell, level, int, hittables, withDamage, mult = 1) {
         for (const h of hittables) {
             if (!h.alive || h.kind === 'deer') continue;
             if (Math.hypot(h.pos.x - point.x, h.pos.z - point.z) > r + 0.5) continue;
-            const dmg = withDamage ? spellDamageAt(spell, level, int, dmgMult()) : 0;
+            const dmg = withDamage ? Math.round(spellDamageAt(spell, level, int, dmgMult()) * mult) : 0;
             const st = scaledStatus(spell, level), roll = st && R() < st.chance;
             const burn = roll && st.id === 'burning' ? st.duration : 0, status = roll && st.id !== 'burning' ? { id: st.id, ms: st.duration > 0 ? st.duration : 8000 } : null;
             if (dmg > 0 || status || burn) {
                 h.hit(Math.max(dmg, withDamage ? 1 : 0) || 1, point, burn, undefined, status, spell.element);
                 if (dmg > 0) onDamage?.(h.pos.clone().setY(h.pos.y + 1.9), dmg, !h.alive, burn > 0);
+                if (withDamage) onSpellHit?.(spell, h);
             }
         }
     }
 
     const tmp = new THREE.Vector3();
     function update(dt, map, hittables) {
+        lastMap = map; spectacle.update(dt);
         for (let i = zones.length - 1; i >= 0; i--) {   // a lasting zone re-applies its effect every second (no extra damage)
             const z = zones[i]; z.left -= dt; z.tick -= dt;
             if (z.tick <= 0) { z.tick = 1; for (const h of hittables) if (h.alive && h.kind !== 'deer' && Math.hypot(h.pos.x - z.point.x, h.pos.z - z.point.z) < z.r) { const st = scaledStatus(z.spell, z.level); if (st) h.hit(1, z.point, st.id === 'burning' ? st.duration : 0, undefined, st.id !== 'burning' ? { id: st.id, ms: 1500 } : null, z.spell.element); } }

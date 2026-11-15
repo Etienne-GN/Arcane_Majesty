@@ -1,7 +1,7 @@
 // Arcane Majesty 3D — boot. Wires the engine (renderer, input, camera, maps, loop), the game
 // (an amo character sheet, the player controller, spells, HUD, saving) and the content (maps).
 import * as THREE from 'three';
-import { spells as spellsAll } from '@rules';
+import { spells as spellsAll, mastery as masteryRules } from '@rules';
 import { gameClock as clockRules, weather as weatherRules, eastRoadMap, thaloriaMap } from '@rules';
 import { movementRules, PlayerStats as PS, items as itemRules, weapons as weaponRules, talents as talentRules } from '@rules';
 import { pickQuality, nextQuality, setQualityName } from './engine/quality.js';
@@ -214,6 +214,8 @@ function dressHero() {
 const fireballs = createFireballs({
     PX, tuning: SPELL_TUNING,
     dmgMult: () => 1 + (stats.skills?.arcane_mastery?.level ?? 0) * 0.10,   // amo Arcane Mastery: +10% spell damage a level
+    // amo: a spell's hit grows the feel for its element (hitGain); the element's level lifts its spells' tiers.
+    onSpellHit: (sp, h) => { if (h.kind === 'deer' || !sp.element) return; stats.gainElementPoints(sp.element, masteryRules.hitGain(!h.alive, h.level ?? 1, stats.level)); },
     onHeal: n => { stats.health = Math.min(stats.maxHealth, stats.health + n); hud.floater(player.state.pos.clone().setY(player.state.pos.y + 2.2), `+${n}`, '#7ae07a'); },
     onDamage: (pos, dmg, killed, burning) => hud.floater(pos, `${dmg}${burning ? ' 🔥' : ''}${killed ? ' ✝' : ''}`, killed ? '#ffd27a' : '#ff8a4a'),
     onShake: a => cam.kick(a),
@@ -356,6 +358,12 @@ const net = createNet({ world, player, createCharacter, hud, fireballs, hurtSelf
     getName: () => settings.onlineName || HERO_NAME, getLevel: () => stats.level });
 stats.onEquipChange(() => net.refresh());
 questHooks.onCast = (origin, dir, spellId) => net.cast(origin, dir, spellId);
+// A spell rises a tier (or is discovered) through use: say so.
+stats.onSpellEvent((id, lvl, isNew) => {
+    const sp = spellsAll.SPELLS[id]; if (!sp || stats.flags?.godSpells?.includes(id)) return;
+    hud.banner(isNew ? `New spell — ${sp.name}` : `${sp.name} — ${spellsAll.TIER_NAMES?.[lvl - 1] ?? `tier ${lvl}`}`);
+    sfx.levelUp();
+});
 const options = createOptions({ quality, onQuality: name => { save(); setQualityName(name); location.reload(); }, onFps: v => perf.set(v), onOnline: v => (v ? net.connect() : net.disconnect()) });
 if (settings.online) net.connect();
 if (settings.showFps) perf.set(true);
