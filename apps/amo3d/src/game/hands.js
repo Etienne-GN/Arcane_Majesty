@@ -222,10 +222,11 @@ body.hands-on #slot, body.hands-on #slot-name { display: none !important; }`;
     document.body.append(root);
     const part = (cls, side, kind) => {
         const e = document.createElement('div'); e.className = cls; root.append(e);
-        if (kind === 'act') {
-            e.addEventListener('pointerdown', ev => { ev.stopPropagation(); ev.preventDefault(); e.classList.add('on'); onAct(side); });
-            const up = () => e.classList.remove('on');
-            e.addEventListener('pointerup', up); e.addEventListener('pointercancel', up); e.addEventListener('pointerleave', up);
+        if (kind === 'act') {   // down / move / up: a tap acts, a hold with a spell aims it (drag toward the target)
+            e.addEventListener('pointerdown', ev => { ev.stopPropagation(); ev.preventDefault(); try { e.setPointerCapture(ev.pointerId); } catch { /* synthetic */ } e.classList.add('on'); onAct(side, 'down', ev.clientX, ev.clientY); });
+            e.addEventListener('pointermove', ev => { if (e.classList.contains('on')) onAct(side, 'move', ev.clientX, ev.clientY); });
+            const up = () => { if (!e.classList.contains('on')) return; e.classList.remove('on'); onAct(side, 'up'); };
+            e.addEventListener('pointerup', up); e.addEventListener('pointercancel', up);
         } else {   // the arch: tap, double-tap, hold for the fan (slide onto an item, let go)
             e.addEventListener('pointerdown', ev => { ev.stopPropagation(); ev.preventDefault(); try { e.setPointerCapture(ev.pointerId); } catch { /* synthetic */ } e.classList.add('on'); cycleDown(side, 'touch', ev.clientX, ev.clientY); });
             e.addEventListener('pointermove', ev => { if (fan) aimPoint(ev.clientX, ev.clientY); });

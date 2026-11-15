@@ -186,7 +186,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         const id = stats.flags?.activeSpell;
         return CASTABLE.includes(id) && spellRules.SPELLS[id] ? spellRules.SPELLS[id] : FIREBALL;
     }
-    function tryCast(spellId = null, hand = null) {
+    function tryCast(spellId = null, hand = null, target = null) {
         if (p.cast) return;
         // The spell on the cast button: chosen in the Book (stats.flags.activeSpell), the Fireball by default.
         const sp = spellId && CASTABLE.includes(spellId) && spellRules.SPELLS[spellId] ? spellRules.SPELLS[spellId] : activeSpell();
@@ -197,10 +197,12 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         stats.mana -= cost;
         stats.startSpellCooldown(sp.id);
         // Options → Aim: where the camera looks, or where Eldrin faces.
-        const aim = settings.aim === 'facing' ? new THREE.Vector3(Math.sin(p.facing), 0, Math.cos(p.facing)) : cam.forward();
+        // A held, aimed cast (aiming.js) faces its target.
+        const toT = target ? new THREE.Vector3(target.x - p.pos.x, 0, target.z - p.pos.z) : null;
+        const aim = toT && toT.lengthSq() > 0.01 ? toT.normalize() : settings.aim === 'facing' ? new THREE.Vector3(Math.sin(p.facing), 0, Math.cos(p.facing)) : cam.forward();
         // The big spells take an incantation: longer, rooted, the staff raised to the sky (Master takes a little longer).
         const tier = Math.max(1, stats.spells[sp.id] ?? 1), incant = INCANT.has(sp.id);
-        p.cast = { t: 0, fired: false, aim, spell: sp, incant, hand: hand ?? 'R', dur: incant ? 1.25 + 0.15 * (tier - 1) : CAST_TIME, release: incant ? 0.8 : CAST_RELEASE };
+        p.cast = { t: 0, fired: false, aim, spell: sp, incant, hand: hand ?? 'R', dur: incant ? 1.25 + 0.15 * (tier - 1) : CAST_TIME, release: incant ? 0.8 : CAST_RELEASE, target: target ? target.clone() : null };
         p.facing = Math.atan2(aim.x, aim.z);
     }
 
@@ -274,7 +276,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         stats.tickMana(ms);
         stats.tickSpellCooldowns(ms);
 
-        if (act.cast) tryCast(act.castSpell, act.castHand);
+        if (act.cast) tryCast(act.castSpell, act.castHand, act.castAt);
         if (act.strike && !p.strike && !p.cast && p.strikeCd <= 0 && !p.hop) {
             const type = act.strikeType ? (act.strikeType === 'bow' || act.strikeType === 'crossbow' || act.strikeType === 'shield' ? 'fists' : act.strikeType) : strikeType(stats);
             p.strike = { t: 0, hit: false, type, thrust: WEAPON_TYPES[type].anim === 'thrust', hand: act.strikeHand ?? 'R' };
@@ -295,7 +297,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             const c = p.cast;
             c.t += dt / c.dur;
             if (c.incant && !c.fired) {   // still aiming while you chant; motes gather into the staff
-                if (settings.aim !== 'facing') c.aim = cam.forward();
+                if (settings.aim !== 'facing' && !c.target) c.aim = cam.forward();
                 hero.root.updateMatrixWorld(true);
                 fireballs.channel?.(c.spell, p.pos, hero.crystalWorld(new THREE.Vector3(), c.hand), c.t / c.release, dt);
             }
@@ -319,14 +321,15 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
                         const off = 1 - (dx * fx + dz * fz) / d;   // 0 = dead ahead
                         if (off < 0.35 && off * 10 + d * 0.1 < bs) { bs = off * 10 + d * 0.1; best = h; }
                     }
-                    const at = best ? best.pos.clone() : p.pos.clone().add(new THREE.Vector3(fx, 0, fz).multiplyScalar(range * 0.85));
+                    const at = c.target ? c.target.clone() : best ? best.pos.clone() : p.pos.clone().add(new THREE.Vector3(fx, 0, fz).multiplyScalar(range * 0.85));
                     at.y = map().groundAt ? map().groundAt(at.x, at.z, at.y + 3) : (map().heightAt?.(at.x, at.z) ?? at.y);
                     fireballs.blastAt(at, sp, lvl, stats.attributes.intelligence, map().hittables ?? [], { dir: new THREE.Vector3(fx, 0, fz), from: p.pos.clone() });
                     hooks.onCast?.(at, tmp.set(0, 0, 0), sp.id);
                 }
                 else {
                 // An area spell lands at the end of its range; a bolt flies level, at chest height.
-                if (sp.targetingType === 'targeted_aoe') tmp.copy(c.aim).setY(-(origin.y - p.pos.y) / range).normalize();
+                if (c.target) tmp.set(c.target.x - origin.x, c.target.y + (sp.targetingType === 'targeted_aoe' ? 0 : 1.1) - origin.y, c.target.z - origin.z).normalize();   // straight at the ring
+                else if (sp.targetingType === 'targeted_aoe') tmp.copy(c.aim).setY(-(origin.y - p.pos.y) / range).normalize();
                 else tmp.copy(c.aim).setY(-(origin.y - p.pos.y - 1.1) / range).normalize();
                 fireballs.cast(origin, tmp, lvl, stats.attributes.intelligence, { spell: sp });
                 hooks.onCast?.(origin, tmp, sp.id);   // online: the others see it

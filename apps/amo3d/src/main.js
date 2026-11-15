@@ -46,6 +46,7 @@ import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createBountyBoard } from './game/bounty.js';
 import { createBook } from './game/book.js';
 import { createHands } from './game/hands.js';
+import { createAiming } from './game/aiming.js';
 import { createPause } from './game/pause.js';
 import { createChests } from './game/chest.js';
 import { createCharacter } from './content/models/character.js';
@@ -246,6 +247,7 @@ const world = createMapManager({
         if (!map._animals && ANIMALS[id]) { map._animals = true; populate(map, map.scene, ANIMALS[id], dailyRng); }
         player.place(sp);
         fireballs.setScene(map.scene);
+        aiming?.setScene(map.scene);
         loot.clear();
         loot.setScene(map.scene);
         archery?.setScene(map.scene);
@@ -305,7 +307,29 @@ registerSanctuaryQuests(stats);   // game quests from the campaign spec, run by 
 const bountyBoard = createBountyBoard({ stats, hud, save: () => save() });
 // Two-hand actions (Options): each hand's action button and the arch that cycles its favourites.
 const hands = createHands({ stats, hud, input, isTouch: document.body.classList.contains('touch-mode') });
-hands.onAct = side => input.press(`hand${side}`);
+// Spell targeting (aiming.js): hold a hand's button with a spell on it, a ring on the ground follows the finger /
+// mouse / right stick; let go to cast there. A tap casts at once as before.
+const aiming = createAiming({ camera, cam, input, getPlayer: () => player.state, getMap: () => world.current, PX, tuning: SPELL_TUNING });
+const touchAt = { L: { x: 0, y: 0 }, R: { x: 0, y: 0 } }, mouseAt = { x: innerWidth / 2, y: innerHeight / 2 };
+addEventListener('mousemove', e => { mouseAt.x = e.clientX; mouseAt.y = e.clientY; if (aiming.pending) aiming.move(e.clientX, e.clientY); });
+hands.onAct = (side, kind, x, y) => {
+    if (kind === 'move') { aiming.move(x, y); return; }
+    if (kind === 'down') { touchAt[side] = { x, y }; input.press(`hand${side}:down:touch`); } else input.press(`hand${side}:up`);
+};
+function handDown(side, how, act) {
+    const a = hands.current(side);
+    if (a?.startsWith('spell:')) {
+        const at = how === 'touch' ? touchAt[side] : mouseAt;
+        if (aiming.down(side, a.slice(6), stats.spells?.[a.slice(6)] ?? 1, how, at.x, at.y)) return;   // wait for the release
+    }
+    handAction(side, act);
+}
+function handUp(side, act) {
+    if (!aiming.pending || aiming.side !== side) return;
+    const target = aiming.up(side), a = hands.current(side);
+    if (!a?.startsWith('spell:')) return;
+    act.cast = true; act.castSpell = a.slice(6); act.castHand = side; act.castAt = target;   // target null: a tap, cast as usual
+}
 function handAction(side, act) {
     const t = hands.handType(side), a = hands.current(side);
     if (!t || !a) return;
@@ -486,8 +510,11 @@ function tick(dt) {
             if (kind === 'up') hands.cycleUp(side); else hands.cycleDown(side, kind === 'pad' ? 'pad' : 'key');
         }
         if (hands.fanOpen) act.hotbar = -1;   // 1–3 pick in a key-held fan
-        if (act.handL) handAction('L', act);
-        if (act.handR) handAction('R', act);
+        for (const h of act.hand) {   // 'handR:down:mouse' · 'handL:up'
+            const [k, kind, how] = h.split(':'), side = k[4];
+            if (kind === 'down') handDown(side, how, act); else handUp(side, act);
+        }
+        aiming.update(dt);
     }
     hands.update();
     if ((handsTick -= dt) <= 0) { handsTick = 0.1; hands.render(); document.body.classList.toggle('blink-on', (stats.skills?.blink_step?.level ?? 0) > 0); }
@@ -582,5 +609,5 @@ window.__poc = {
     setTime: h => { stats.gameMinutes = Math.floor((stats.gameMinutes ?? 0) / 1440) * 1440 + h * 60; },
     setWeather: w => { weatherOverride = w; },
     strike: () => input.press('strike'),
-    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, fireballs, SPELLS: spellsAll.SPELLS, player: player.state, playerApi: player,
+    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, fireballs, aiming, SPELLS: spellsAll.SPELLS, player: player.state, playerApi: player,
 };
