@@ -58,7 +58,7 @@ export function createBook({ stats, hud, save }) {
 #book .star { color: #b8801a; font-size: calc(16px * var(--ui, 1)); }
 #book .sdraw { width: 100%; max-height: 38vh; display: block; margin: 0 auto 4px; }
 #book .stats { font-size: calc(14px * var(--ui, 1)); color: #5a3a1a; letter-spacing: .02em; margin: 6px 0; padding: 4px 0; border-top: 1px dashed #8a6a3a77; border-bottom: 1px dashed #8a6a3a77; }
-#book .btn { font: calc(17px * var(--ui, 1)) 'IM Fell English', Georgia, serif; padding: 8px 16px; margin-top: 10px; border-radius: 6px; cursor: pointer; color: #fff0d0; border: 1px solid #4a1e0a; background: linear-gradient(#8a3a1a, #5a200c); }
+#book .btn { margin-bottom: 4px; font: calc(17px * var(--ui, 1)) 'IM Fell English', Georgia, serif; padding: 8px 16px; margin-top: 10px; border-radius: 6px; cursor: pointer; color: #fff0d0; border: 1px solid #4a1e0a; background: linear-gradient(#8a3a1a, #5a200c); }
 #book .btn[disabled] { opacity: .45; cursor: default; }
 #book .tag { display: inline-block; font-family: Caveat, cursive; font-size: calc(19px * var(--ui, 1)); color: #3a6a2a; margin-top: 8px; white-space: nowrap; }
 #book .e { padding: 6px 0 8px; border-bottom: 1px dotted #8a6a3a55; display: flex; gap: 10px; align-items: flex-start; }
@@ -94,7 +94,10 @@ export function createBook({ stats, hud, save }) {
         row.append(nm);
         if (k && active() === s.id) row.append(el('span', 'star', '★'));
         if (k) row.append(el('span', 'pips', '●'.repeat(tierOf(s)) + '○'.repeat(Math.max(0, 3 - tierOf(s)))));
-        row.onclick = () => { sel = s.id; render(); };
+        row.onclick = () => {   // tap to read it; tap it again to put it on the cast button
+            if (sel === s.id && k && CASTABLE.has(s.id) && !s.passive && active() !== s.id) { (stats.flags ??= {}).activeSpell = s.id; hud.banner(`${s.name} — ready to cast`); save?.(); }
+            sel = s.id; render();
+        };
         list.append(row);
     }
     function spellPage(p, s) {
@@ -104,25 +107,26 @@ export function createBook({ stats, hud, save }) {
         const h = el('h2'); h.append(svg(iconSVG(s)), document.createTextNode(s.name)); p.append(h);
         const how = s.targetingType === 'targeted_directional' ? ' · a bolt' : s.targetingType === 'targeted_aoe' ? ' · lands where you aim' : s.targetingType === 'self' ? ' · on yourself' : '';
         p.append(el('div', 'sub', `${E.name} · ${k ? tierName(lvl) : 'not yet learned'}${how}`));
+        // On the phone the page is short: the cast button comes first, above the stats and the story.
+        if (k && s.passive) p.append(el('div', 'tag', 'Always on.'));
+        else if (k && !CASTABLE.has(s.id)) p.append(el('div', 'tag', 'Not castable yet.'));
+        else if (k && active() === s.id) p.append(el('div', 'tag', '★ On your cast button.'));
+        else if (k) { const b = el('button', 'btn', 'Put it on the cast button'); b.onclick = () => { (stats.flags ??= {}).activeSpell = s.id; hud.banner(`${s.name} — ready to cast`); save?.(); render(); }; p.append(b); }
         const mana = s.manaCost?.[lvl - 1];
         p.append(el('div', 'stats', `${mana != null ? `Mana ${mana} · ` : ''}${spellTooltip(s, lvl, stats.attributes.intelligence)}`));
         if (s.lore) p.append(el('div', 'hand', s.lore));
+        if (k && lvl < 3 && s.discoverCondition) p.append(el('div', 'sub', `It grows stronger as you cast ${en} spells.`));
         if (!k) {
             const ways = (s.learnFrom ?? []).map(w => LEARN[w] ?? w);
             const grow = s.discoverCondition ? `it comes on its own as your feel for ${en} deepens — cast ${en} spells` : '';
             p.append(el('div', 'hand', `To learn it: ${[ways.length ? `from ${ways.join(', ')}` : '', grow].filter(Boolean).join(', or ') || 'unknown'}.`));
             return;
         }
-        if (lvl < 3 && s.discoverCondition) p.append(el('div', 'sub', `It grows stronger as you cast ${en} spells.`));
-        if (s.passive) p.append(el('div', 'tag', 'Always on.'));
-        else if (!CASTABLE.has(s.id)) p.append(el('div', 'tag', 'Not castable yet.'));
-        else if (active() === s.id) p.append(el('div', 'tag', '★ On your cast button.'));
-        else { const b = el('button', 'btn', 'Put it on the cast button'); b.onclick = () => { (stats.flags ??= {}).activeSpell = s.id; hud.banner(`${s.name} — ready to cast`); save?.(); render(); }; p.append(b); }
     }
     function knownPages(L, R) {
         const list = ALL.filter(known);
         L.append(el('h2', null, 'The Spells I Know'));
-        L.append(el('div', 'sub', 'Tap a spell to read it. ★ is the one on your cast button (F / right-click / the big button).'));
+        L.append(el('div', 'sub', 'Tap a spell to read it, tap it again to put it on your cast button (★).'));
         if (!list.length) L.append(el('div', 'hand', 'None yet — the priest in Thaloria teaches spells, and scrolls drop from elites.'));
         for (const e of ORDER) {
             const of = list.filter(s => (s.element ?? 'arcane') === e);
