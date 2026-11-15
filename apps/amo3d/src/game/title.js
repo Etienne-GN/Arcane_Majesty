@@ -37,34 +37,37 @@ const CSS = `
 #titlescreen .press { position: absolute; left: 0; right: 0; bottom: 18%; text-align: center; letter-spacing: .3em; font-size: calc(17px * var(--ui, 1));
     animation: breathe 2.4s ease-in-out infinite; }
 @keyframes breathe { 50% { opacity: .35; } }
-#titlescreen .menu { position: absolute; left: 0; right: 0; bottom: 12%; display: none; flex-direction: column; align-items: center; gap: 10px; }
-#titlescreen.menu-on .menu { display: flex; }
+/* The menu (Phase 7 polish): Continue full width and gold, two even columns below, Credits as a quiet link. */
+#titlescreen .menu { position: absolute; left: 50%; transform: translateX(-50%); bottom: 9%; width: min(560px, 90vw); display: none;
+    grid-template-columns: 1fr 1fr; gap: 10px; }
+#titlescreen.menu-on .menu { display: grid; }
 #titlescreen.menu-on .press { display: none; }
-/* With the menu up, the title glides to the top and shrinks so nothing overlaps (Phase 7). */
+#titlescreen .menu, #titlescreen .menu button { opacity: 1; visibility: visible; }
+#titlescreen .menu button { padding: 12px 10px; font: calc(17px * var(--ui, 1)) Georgia, serif; letter-spacing: .2em; color: #f3e2b0; cursor: pointer;
+    background: linear-gradient(180deg, #2a1c10d8, #120a06d8); border: 1px solid #f3d88b55; border-radius: 4px; transition: border-color .25s, box-shadow .25s, color .25s;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#titlescreen .menu button.primary { grid-column: 1 / -1; padding: 14px 10px; font-size: calc(19px * var(--ui, 1)); color: #1e1406;
+    background: linear-gradient(180deg, #f6e3a4, #d2a64e); border-color: #fff0c0; box-shadow: 0 0 22px #f3a84a44; }
+#titlescreen .menu button.link { grid-column: 1 / -1; justify-self: center; padding: 4px 14px; background: none; border: none; box-shadow: none;
+    font-size: calc(14px * var(--ui, 1)); letter-spacing: .3em; color: #e8d6a8; opacity: .75; }
+#titlescreen .menu button:hover, #titlescreen .menu button:focus { border-color: #f3d88b; box-shadow: 0 0 18px #f3a84a55; outline: none; color: #fff6d8; }
+#titlescreen .menu button.primary:hover, #titlescreen .menu button.primary:focus { color: #1e1406; box-shadow: 0 0 28px #f3c84a88; }
+#titlescreen .menu button.link:hover, #titlescreen .menu button.link:focus { box-shadow: none; opacity: 1; text-decoration: underline; }
+/* With the menu up, the title glides to the top and shrinks so nothing overlaps. */
 #titlescreen h1 { transition: opacity 2.6s ease, transform 3s ease, top .8s ease, font-size .8s ease; }
-#titlescreen.menu-on h1 { top: 7%; font-size: clamp(28px, 5vw, 64px); }
+#titlescreen.menu-on h1 { top: 8%; font-size: clamp(28px, 5vw, 64px); }
 #titlescreen.menu-on .sub { opacity: 0; }
-#titlescreen.menu-on .sigil { top: 24%; width: min(36vh, 50vw); }
-@media (max-height: 560px) {   /* a phone on its side: two columns of three, low on the screen */
-    #titlescreen.menu-on h1 { top: 4%; font-size: clamp(24px, 4.2vw, 44px); }
-    #titlescreen .menu { bottom: 5%; display: none; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; max-width: 640px; margin: 0 auto; }
-    #titlescreen.menu-on .menu { display: flex; }
-    #titlescreen .menu button { min-width: 290px; padding: 9px 18px; }
+#titlescreen.menu-on .sigil { top: 26%; width: min(36vh, 50vw); }
+@media (min-height: 700px) and (min-aspect-ratio: 1/1) {   /* a tall desktop screen: one centred column */
+    #titlescreen .menu { width: 340px; grid-template-columns: 1fr; bottom: 10%; }
+}
+@media (max-height: 560px) {   /* a phone on its side */
+    #titlescreen.menu-on h1 { top: 5%; font-size: clamp(24px, 4.2vw, 44px); }
+    #titlescreen .menu { bottom: 4%; width: min(520px, 62vw); gap: 7px; }
+    #titlescreen .menu button { padding: 9px 8px; }
+    #titlescreen .menu button.primary { padding: 10px 8px; }
     #titlescreen .panel { bottom: 4%; max-height: 80vh; overflow-y: auto; }
 }
-#titlescreen .menu, #titlescreen .menu button { opacity: 1; visibility: visible; z-index: 2; }   /* always drawn, never faded */
-#titlescreen .panel .ph { letter-spacing: .3em; color: #f3d88b; font-size: calc(20px * var(--ui, 1)); margin-bottom: 6px; }
-#titlescreen .panel .pg { letter-spacing: .2em; font-size: calc(13px * var(--ui, 1)); opacity: .65; margin: 12px 0 4px; text-align: left; }
-#titlescreen .panel button.choice { display: block; width: 100%; margin: 6px 0 0; padding: 12px 14px; text-align: left; cursor: pointer; color: #f3e2b0;
-    background: linear-gradient(180deg, #2a1c10, #120a06); border: 1px solid #f3d88b66; border-radius: 6px; font: inherit; }
-#titlescreen .panel button.choice:hover, #titlescreen .panel button.choice:focus { border-color: #f3d88b; outline: none; box-shadow: 0 0 14px #f3a84a55; }
-#titlescreen .panel .ct { display: block; font-size: calc(19px * var(--ui, 1)); letter-spacing: .08em; }
-#titlescreen .panel .cs { display: block; font-size: calc(14px * var(--ui, 1)); opacity: .7; margin-top: 2px; }
-#titlescreen .panel button.back { margin-top: 14px; padding: 7px 20px; font: calc(15px * var(--ui, 1)) Georgia, serif; letter-spacing: .15em; color: #f3e2b0; background: #2a1c10; border: 1px solid #f3d88b66; cursor: pointer; }
-#titlescreen .menu button { min-width: 240px; padding: 11px 26px; font: calc(19px * var(--ui, 1)) Georgia, serif; letter-spacing: .18em; color: #f3e2b0; cursor: pointer;
-    background: linear-gradient(180deg, #2a1c10cc, #120a06cc); border: 1px solid #f3d88b66; border-radius: 3px; transition: all .25s; }
-#titlescreen .menu button:hover, #titlescreen .menu button:focus { border-color: #f3d88b; box-shadow: 0 0 18px #f3a84a55; outline: none; color: #fff6d8; }
-#titlescreen .menu button[disabled] { opacity: .35; cursor: default; box-shadow: none; }
 #titlescreen .panel { position: absolute; left: 50%; bottom: 12%; transform: translateX(-50%); width: min(520px, 90vw); padding: 18px 22px; display: none;
     background: #120a06e6; border: 1px solid #f3d88b66; border-radius: 6px; font: calc(16px * var(--ui, 1))/1.6 Georgia, serif; color: #eee6d2; text-align: center; }
 #titlescreen .panel.on { display: block; }
@@ -139,16 +142,20 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         first?.focus();
     }
     const cont = button(continueLabel, () => start(), !hasSave);
-    button('NEW GAME', () => showNewGame());
+    cont.classList.add('primary');
+    const newGame = button('NEW GAME', () => showNewGame());
+    if (!hasSave) newGame.classList.add('primary');   // nothing to continue: New Game is the main action
     button('SAVE SLOTS', () => onSlots?.());
     button('THE FORGE', () => { location.href = 'forge.html'; });
     button('OPTIONS', () => onOptions?.());
-    button('CREDITS', () => showPanel(['ARCANE MAJESTY', 'A world told first in music — the albums are the canon.', ' ',
+    const credits = button('CREDITS', () => showPanel(['ARCANE MAJESTY', 'A world told first in music — the albums are the canon.', ' ',
         'DIRECTED AND PRODUCED BY', 'Etienne Gagne Nadeau', 'Thomas Gagne', ' ',
         'CREATIVE DIRECTION, DECISIONS AND PROMPTS', 'Etienne Gagne Nadeau', ' ',
         'MUSIC', 'Eldoria\'s Prophecy — "Echoes of Stone"', ' ',
         'BUILT WITH', 'Claude (Anthropic) — code written from the directors\' prompts', 'Three.js · Vite · Capacitor', ' ',
         'Every model, effect and landscape here is built in code: no borrowed art.']));
+    credits.classList.add('link');
+    if (!hasSave) cont.style.display = 'none';   // no save yet: no Continue at all
 
     function wake() {
         if (stage !== 'press') return;
