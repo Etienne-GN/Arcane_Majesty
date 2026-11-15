@@ -151,7 +151,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
     const credits = button('CREDITS', () => showPanel(['ARCANE MAJESTY', 'A world told first in music — the albums are the canon.', ' ',
         'CREATED, DIRECTED AND PRODUCED BY', 'Etienne Gagne Nadeau', 'Thomas Gagne', ' ',
         'PROMPTS', 'Etienne Gagne Nadeau', ' ',
-        'MUSIC', 'Eldoria\'s Prophecy — "Echoes of Stone"', ' ',
+        'MUSIC', 'Eldoria\'s Prophecy — "Echoes of Stone"', 'Made with Suno', ' ',
         'BUILT WITH', 'Claude (Anthropic) — code written from the directors\' prompts', 'Three.js · Vite · Capacitor', ' ',
         'Every model, effect and landscape here is built in code: no borrowed art.']));
     credits.classList.add('link');
