@@ -10,6 +10,7 @@ export function createInput({ canvas, cam }) {
     const keys = new Set();
     const pressed = new Set();          // edge-triggered actions waiting for the next poll
     const touch = { x: 0, y: 0, sprint: false };
+    const fan = { open: false, x: 0, y: 0 };   // a hand's fan is open: the right stick points into it instead of turning the camera
     let padPrev = [];
     let lastDevice = 'keyboard';
 
@@ -21,8 +22,8 @@ export function createInput({ canvas, cam }) {
             const two = settings.hands;   // two-hand actions: F right hand, R left hand, Z / C cycle left / right
             if (two && e.code === 'KeyF') pressed.add('handR');
             if (two && e.code === 'KeyR') pressed.add('handL');
-            if (two && e.code === 'KeyZ') pressed.add('cycleL');
-            if (two && e.code === 'KeyC') pressed.add('cycleR');
+            if (two && e.code === 'KeyZ') pressed.add('cycleL:down');
+            if (two && e.code === 'KeyC') pressed.add('cycleR:down');
             if (!two && e.code === 'KeyF') pressed.add('cast');
             const slot = ['Digit1', 'Digit2', 'Digit3', 'Digit4'].indexOf(e.code);
             if (slot >= 0) pressed.add(`hotbar:${slot}`);
@@ -36,7 +37,7 @@ export function createInput({ canvas, cam }) {
         keys.add(e.code);
         lastDevice = 'keyboard';
     });
-    addEventListener('keyup', e => keys.delete(e.code));
+    addEventListener('keyup', e => { keys.delete(e.code); if (settings.hands && e.code === 'KeyZ') pressed.add('cycleL:up'); if (settings.hands && e.code === 'KeyC') pressed.add('cycleR:up'); });
     addEventListener('blur', () => { keys.clear(); Object.assign(touch, { x: 0, y: 0, sprint: false }); });
     const held = (...codes) => codes.some(c => keys.has(c));
 
@@ -77,7 +78,7 @@ export function createInput({ canvas, cam }) {
             const b = i => !!pad.buttons[i]?.pressed;
             const lx = dz(pad.axes[0] ?? 0), ly = dz(pad.axes[1] ?? 0), rx = dz(pad.axes[2] ?? 0), ry = dz(pad.axes[3] ?? 0);
             if (lx || ly) { mx = lx; my = -ly; lastDevice = 'gamepad'; }
-            if (rx || ry) cam.orbit(-rx * dt * 2.6, ry * dt * 1.6);
+            if (fan.open) { fan.x = rx; fan.y = ry; } else if (rx || ry) cam.orbit(-rx * dt * 2.6, ry * dt * 1.6);
             const two = settings.hands;   // two-hand actions: LT / RT act (X / B too), LB / RB cycle; sprint on the left-stick click
             if ((b(4) && !two) || b(10)) sprint = true;
             const edge = i => b(i) && !padPrev[i];
@@ -85,8 +86,11 @@ export function createInput({ canvas, cam }) {
             if (two) {
                 if (edge(7) || edge(2)) pressed.add('handR');
                 if (edge(6) || edge(1)) pressed.add('handL');
-                if (edge(4)) pressed.add('cycleL');
-                if (edge(5)) pressed.add('cycleR');
+                const rel = i => !b(i) && padPrev[i];
+                if (edge(4)) pressed.add('cycleL:pad');
+                if (edge(5)) pressed.add('cycleR:pad');
+                if (rel(4)) pressed.add('cycleL:up');
+                if (rel(5)) pressed.add('cycleR:up');
             } else {
                 if (edge(2) || edge(7)) pressed.add('cast');
                 if (edge(1)) pressed.add('strike');
@@ -105,7 +109,7 @@ export function createInput({ canvas, cam }) {
 
         const len = Math.hypot(mx, my);
         if (len > 1) { mx /= len; my /= len; }
-        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), strike: pressed.has('strike'), gather: pressed.has('gather'), inventory: pressed.has('inventory'), sheet: pressed.has('sheet'), map: pressed.has('map'), tear: pressed.has('tear'), journal: pressed.has('journal'), codex: pressed.has('codex'), options: pressed.has('options'), chat: pressed.has('chat'), book: pressed.has('book'), quit: pressed.has('quit'), blink: pressed.has('blink'), handL: pressed.has('handL'), handR: pressed.has('handR'), cycleL: pressed.has('cycleL'), cycleR: pressed.has('cycleR'), hotbar: [0, 1, 2, 3].findIndex(i => pressed.has(`hotbar:${i}`)), skill: [0, 1, 2].findIndex(i => pressed.has(`skill:${i}`)), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
+        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), strike: pressed.has('strike'), gather: pressed.has('gather'), inventory: pressed.has('inventory'), sheet: pressed.has('sheet'), map: pressed.has('map'), tear: pressed.has('tear'), journal: pressed.has('journal'), codex: pressed.has('codex'), options: pressed.has('options'), chat: pressed.has('chat'), book: pressed.has('book'), quit: pressed.has('quit'), blink: pressed.has('blink'), handL: pressed.has('handL'), handR: pressed.has('handR'), cycle: [...pressed].filter(p => p.startsWith('cycle')), hotbar: [0, 1, 2, 3].findIndex(i => pressed.has(`hotbar:${i}`)), skill: [0, 1, 2].findIndex(i => pressed.has(`skill:${i}`)), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
         pressed.clear();
         return out;
     }
@@ -114,6 +118,7 @@ export function createInput({ canvas, cam }) {
         poll,
         press: action => pressed.add(action),   // touch buttons and tests
         touch,
+        fan,
         keys,
         get device() { return lastDevice; },
         set device(d) { lastDevice = d; },

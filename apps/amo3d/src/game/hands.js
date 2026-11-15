@@ -1,6 +1,7 @@
 // Two-hand controls (Options → Controls → "Two-hand actions"). Each hand has an action button showing what it
 // does now, and above it an arch that shows what comes next (the next action in colour, the one after in grey);
-// tapping the arch cycles that hand's favourites, and the action button follows.
+// the arch (or Z / C, or LB / RB): tap — the next favourite; double-tap — back one; hold — a fan of the others,
+// pick one by sliding onto it (touch), moving the mouse or pressing 1–3 (keys), or the right stick (gamepad), and let go.
 //   What a hand can do comes from what it holds: fists punch, a staff or wand hits and casts spells, other weapons
 //   their basic blow and their style's skills.
 //   Favourites belong to the kind of thing held (stats.flags.favs[type], e.g. 'staff'), not to the hand: move the
@@ -16,9 +17,10 @@ import { settings } from '../engine/settings.js';
 
 const { WEAPON_TYPES, typeOf } = weaponRules, { STYLES, STYLE_SKILLS } = styleData, { SPELLS } = SP;
 const MAGIC = new Set(['staff', 'wand']);
-export const MAX_FAVS = 6;
+export const MAX_FAVS = 4;   // the action in hand plus three in the fan
+const HOLD_MS = 280, DOUBLE_MS = 300;
 
-export function createHands({ stats, hud, isTouch }) {
+export function createHands({ stats, hud, isTouch, input }) {
     // ---- what each hand holds ----
     const typeOfItem = id => {
         const def = id ? itemRules.ITEMS[id] : null;
@@ -42,19 +44,94 @@ export function createHands({ stats, hud, isTouch }) {
         if (!type) return [];
         const all = (flags().favs ??= {});
         if (!all[type]) all[type] = MAGIC.has(type) ? [`spell:${stats.flags?.activeSpell && CASTABLE.includes(stats.flags.activeSpell) ? stats.flags.activeSpell : 'fireball'}`, 'hit'] : ['hit'];
-        all[type] = all[type].filter(a => canHold(type, a) && (!a.startsWith('spell:') || (stats.spells?.[a.slice(6)] ?? 0) > 0));
+        all[type] = all[type].filter(a => canHold(type, a) && (!a.startsWith('spell:') || (stats.spells?.[a.slice(6)] ?? 0) > 0)).slice(0, MAX_FAVS);
         if (!all[type].length) all[type] = ['hit'];
         return all[type];
     }
     const selOf = type => { const s = (flags().favSel ??= {}); const n = favs(type).length; return ((s[type] ?? 0) % n + n) % n; };
     const current = side => { const t = handType(side); return t ? favs(t)[selOf(t)] : null; };
-    function cycle(side) {
+    function step(side, d) {
         const t = handType(side); if (!t) return;
         const list = favs(t);
         if (list.length < 2) { hud.message('Add favourites in the Book — the ⋯ beside a spell'); return; }
-        flags().favSel[t] = (selOf(t) + 1) % list.length;
+        (flags().favSel ??= {})[t] = (selOf(t) + d + list.length) % list.length;
         render(true);
     }
+    const cycle = side => step(side, 1);
+
+    // ---- tap / double-tap / hold on a cycle control ----
+    // A tap moves on at once (no waiting to see if a second comes); a second tap soon after takes it back two,
+    // so a double-tap lands one before where you started.
+    let press = null, lastTap = { side: null, at: 0 }, fan = null;
+    function cycleDown(side, how, x = 0, y = 0) {
+        if (press && performance.now() - press.at < 4000) return;   // (a release lost to a menu opening frees it after a while)
+        if (fan) pickFan(-1);
+        press = { side, how, at: performance.now(), x, y };
+    }
+    function cycleUp(side) {
+        if (!press || press.side !== side) return;
+        const p = press; press = null;
+        if (fan) { pickFan(); return; }
+        const now = performance.now();
+        if (lastTap.side === side && now - lastTap.at < DOUBLE_MS) { step(side, -2); lastTap.at = 0; }
+        else { step(side, 1); lastTap = { side, at: now }; }
+        void p;
+    }
+    function update() {
+        if (press && !fan && performance.now() - press.at > HOLD_MS) openFan(press.side, press.how);
+        if (fan && fan.how === 'pad' && input?.fan) { const { x, y } = input.fan; if (Math.hypot(x, y) > 0.5) aimDir(x, -y); }
+    }
+    // The fan: the other favourites in an arc over the hand's button.
+    const CENTER = { R: [46, 46], L: [154, 42] }, ANGLES = { R: [94, 128, 162], L: [62, 100, 138] }, RAD = 150;
+    function openFan(side, how) {
+        const t = handType(side); if (!t) return;
+        const list = favs(t), i = selOf(t);
+        if (list.length < 2) { hud.message('Add favourites in the Book — the ⋯ beside a spell'); press = null; return; }
+        const others = list.map((a, j) => ({ a, j })).filter(o => o.j !== i);
+        const [cr, cb] = CENTER[side];
+        fanEl.textContent = '';
+        const items = others.map((o, k) => {
+            const ang = ANGLES[side][k] * Math.PI / 180, dx = Math.cos(ang) * RAD, dy = Math.sin(ang) * RAD;
+            const e = document.createElement('div'); e.className = 'fi';
+            e.style.right = `${cr - dx - 30}px`; e.style.bottom = `${cb + dy - 30}px`;
+            e.innerHTML = `${glyph(t, o.a)}<span class="nm">${label(t, o.a)}</span>${how === 'key' ? `<span class="key">${k + 1}</span>` : ''}`;
+            fanEl.append(e);
+            return { ...o, e, ang, dx, dy };
+        });
+        fan = { side, how, t, items, pick: -1, mx: 0, my: 0 };
+        root.classList.add('fanning');
+        if (input) input.fan.open = true;
+    }
+    function highlight(k) {
+        if (!fan) return;
+        fan.pick = k;
+        fan.items.forEach((it, j) => it.e.classList.toggle('hl', j === k));
+    }
+    // Pointing in a direction (mouse movement, a stick): the item whose angle is nearest.
+    function aimDir(dx, dy) {
+        if (!fan) return;
+        const a = Math.atan2(dy, dx);
+        let best = -1, bd = Infinity;
+        fan.items.forEach((it, j) => { const d = Math.abs(Math.atan2(Math.sin(a - it.ang), Math.cos(a - it.ang))); if (d < bd) { bd = d; best = j; } });
+        highlight(bd < 0.8 ? best : -1);
+    }
+    // A finger on the screen: the item under it (or nearest, within reach).
+    function aimPoint(x, y) {
+        if (!fan) return;
+        let best = -1, bd = 70;
+        fan.items.forEach((it, j) => { const r = it.e.getBoundingClientRect(), d = Math.hypot(x - (r.left + r.width / 2), y - (r.top + r.height / 2)); if (d < bd) { bd = d; best = j; } });
+        highlight(best);
+    }
+    function pickFan(k = fan?.pick ?? -1) {
+        if (!fan) return;
+        const f = fan; fan = null;
+        root.classList.remove('fanning'); fanEl.textContent = '';
+        if (input) { input.fan.open = false; input.fan.x = input.fan.y = 0; }
+        if (k >= 0 && f.items[k]) { (flags().favSel ??= {})[f.t] = f.items[k].j; render(true); }
+    }
+    // Keys while a key-held fan is open: 1–3 pick at once; the mouse's movement points.
+    addEventListener('keydown', e => { if (!fan || fan.how !== 'key') return; const k = ['Digit1', 'Digit2', 'Digit3'].indexOf(e.code); if (k >= 0 && fan.items[k]) { e.stopImmediatePropagation(); press = null; pickFan(k); } }, true);
+    addEventListener('mousemove', e => { if (!fan || fan.how !== 'key') return; fan.mx += e.movementX; fan.my += e.movementY; if (Math.hypot(fan.mx, fan.my) > 24) aimDir(fan.mx, -fan.my); });
     // Favourites from the Book.
     const isFav = (type, action) => favs(type).includes(action);
     function toggleFav(type, action) {
@@ -118,6 +195,13 @@ body.modal-open #hands { display: none !important; }
 #hands .L { right: 116px; bottom: 4px; width: 76px; height: 76px; }
 #hands .La { right: 112px; bottom: 96px; width: 84px; height: 44px; }
 #hands .La .n1 { width: 26px; height: 26px; } #hands .La .n2 { width: 18px; height: 18px; }
+#hands .fan { position: absolute; right: 0; bottom: 0; width: 0; height: 0; }
+#hands .fi { position: absolute; width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; border: 2px solid #f3d88b99; background: #0b0a10d8; box-shadow: 0 2px 10px #000a; transition: transform .08s; }
+#hands .fi .sicon { width: 80%; height: 80%; }
+#hands .fi .nm { position: absolute; left: 50%; top: 100%; transform: translateX(-50%); white-space: nowrap; font-size: ${u(12)}; color: #fff3d8; text-shadow: 0 1px 3px #000; }
+#hands .fi .key { position: absolute; left: -4px; top: -4px; font-size: ${u(11)}; color: #f3d88b; background: #0b0a10cc; border-radius: 6px; padding: 0 4px; }
+#hands .fi.hl { transform: scale(1.22); border-color: #ffd76a; box-shadow: 0 0 16px #ffd76aaa; }
+#hands.fanning .act, #hands.fanning .arch { opacity: .3; }
 body:not(.touch-mode) #hands { transform: scale(.82); transform-origin: 100% 100%; }
 body.touch-mode.hands-on #touch .fire, body.touch-mode.hands-on #touch .hit { display: none; }
 body.touch-mode.hands-on #touch .hop { right: calc(228px + env(safe-area-inset-right, 0px)); bottom: 20px; width: 64px; height: 64px; }
@@ -129,13 +213,21 @@ body.hands-on #slot, body.hands-on #slot-name { display: none !important; }`;
     document.body.append(root);
     const part = (cls, side, kind) => {
         const e = document.createElement('div'); e.className = cls; root.append(e);
-        e.addEventListener('pointerdown', ev => { ev.stopPropagation(); ev.preventDefault(); e.classList.add('on'); (kind === 'act' ? onAct : cycle)(side); });
-        const up = () => e.classList.remove('on');
-        e.addEventListener('pointerup', up); e.addEventListener('pointercancel', up); e.addEventListener('pointerleave', up);
+        if (kind === 'act') {
+            e.addEventListener('pointerdown', ev => { ev.stopPropagation(); ev.preventDefault(); e.classList.add('on'); onAct(side); });
+            const up = () => e.classList.remove('on');
+            e.addEventListener('pointerup', up); e.addEventListener('pointercancel', up); e.addEventListener('pointerleave', up);
+        } else {   // the arch: tap, double-tap, hold for the fan (slide onto an item, let go)
+            e.addEventListener('pointerdown', ev => { ev.stopPropagation(); ev.preventDefault(); try { e.setPointerCapture(ev.pointerId); } catch { /* synthetic */ } e.classList.add('on'); cycleDown(side, 'touch', ev.clientX, ev.clientY); });
+            e.addEventListener('pointermove', ev => { if (fan) aimPoint(ev.clientX, ev.clientY); });
+            const up = () => { e.classList.remove('on'); cycleUp(side); };
+            e.addEventListener('pointerup', up); e.addEventListener('pointercancel', up);
+        }
         return e;
     };
     let onAct = () => {};
     const btn = { R: part('act R', 'R', 'act'), Ra: part('arch Ra', 'R', 'arch'), L: part('act L', 'L', 'act'), La: part('arch La', 'L', 'arch') };
+    const fanEl = document.createElement('div'); fanEl.className = 'fan'; root.append(fanEl);
 
     let last = '';
     function render(flash = false) {
@@ -155,13 +247,13 @@ body.hands-on #slot, body.hands-on #slot-name { display: none !important; }`;
             b.title = `${side === 'R' ? 'Right' : 'Left'} hand (${WEAPON_TYPES[t]?.label ?? t}): ${label(t, cur)}`;
             const n1 = list.length > 1 ? list[(i + 1) % list.length] : null, n2 = list.length > 2 ? list[(i + 2) % list.length] : null;
             a.innerHTML = `<div class="row">${n1 ? `<span class="n1">${glyph(t, n1)}</span>` : ''}${n2 ? `<span class="n2">${glyph(t, n2, true)}</span>` : ''}${!n1 ? '<span style="color:#f3d88b88;font-size:12px">—</span>' : ''}</div>`;
-            a.title = n1 ? `Next: ${label(t, n1)} (${isTouch ? 'tap' : side === 'R' ? 'C' : 'Z'})` : 'Add favourites in the Book';
+            a.title = n1 ? `Next: ${label(t, n1)} — ${isTouch ? 'tap' : side === 'R' ? 'C' : 'Z'}: next · double: back · hold: all` : 'Add favourites in the Book';
         }
         if (flash && prev) for (const a of [btn.Ra, btn.La]) { a.classList.remove('flash'); void a.offsetWidth; a.classList.add('flash'); }
     }
 
     return {
-        handType, favs, current, cycle, isFav, toggleFav, equip, magicHand, label, glyph, canHold, render,
+        handType, favs, current, cycle, cycleDown, cycleUp, update, get fanOpen() { return !!fan; }, isFav, toggleFav, equip, magicHand, label, glyph, canHold, render,
         set onAct(fn) { onAct = fn; },
         get enabled() { return !!settings.hands; },
     };

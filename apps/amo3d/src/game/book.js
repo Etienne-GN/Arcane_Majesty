@@ -187,7 +187,7 @@ export function createBook({ stats, hud, save, hands = null }) {
     function knownPages(L, R) {
         const list = ALL.filter(known);
         L.append(el('h2', null, two() ? 'In My Hands' : 'The Spells I Know'));
-        L.append(el('div', 'sub', two() ? 'Tap a spell to read it, tap it again to equip it (★). ⋯ makes it a favourite of what you hold — tap the arch over an action button to cycle them.' : 'Tap a spell to read it, tap it again to put it on your cast button (★).'));
+        L.append(el('div', 'sub', two() ? 'Tap a spell to read it, tap it again to equip it (★). ⋯ makes it a favourite of what you hold (four at most). The arch over an action button: tap — next, double-tap — back, hold — all of them.' : 'Tap a spell to read it, tap it again to put it on your cast button (★).'));
         if (two()) { handActions(L); L.append(el('h2', null, 'The Spells I Know')); }
         if (!list.length) L.append(el('div', 'hand', 'None yet — the priest in Thaloria teaches spells, and scrolls drop from elites.'));
         for (const e of ORDER) {

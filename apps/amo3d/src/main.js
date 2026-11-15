@@ -303,7 +303,7 @@ const quests = createQuests({ stats, hud });
 registerSanctuaryQuests(stats);   // game quests from the campaign spec, run by amo's quest manager as generated quests
 const bountyBoard = createBountyBoard({ stats, hud, save: () => save() });
 // Two-hand actions (Options): each hand's action button and the arch that cycles its favourites.
-const hands = createHands({ stats, hud, isTouch: document.body.classList.contains('touch-mode') });
+const hands = createHands({ stats, hud, input, isTouch: document.body.classList.contains('touch-mode') });
 hands.onAct = side => input.press(`hand${side}`);
 function handAction(side, act) {
     const t = hands.handType(side), a = hands.current(side);
@@ -470,11 +470,15 @@ function tick(dt) {
     if (act.tear) travel.tear();
     if (settings.hands && !menuOpen && !player.state.dead) {
         act.skill = -1;
-        if (act.cycleL) hands.cycle('L');
-        if (act.cycleR) hands.cycle('R');
+        for (const c of act.cycle) {   // 'cycleL:down' (key), 'cycleL:pad', 'cycleL:up'
+            const side = c[5], kind = c.slice(7);
+            if (kind === 'up') hands.cycleUp(side); else hands.cycleDown(side, kind === 'pad' ? 'pad' : 'key');
+        }
+        if (hands.fanOpen) act.hotbar = -1;   // 1–3 pick in a key-held fan
         if (act.handL) handAction('L', act);
         if (act.handR) handAction('R', act);
     }
+    hands.update();
     if ((handsTick -= dt) <= 0) { handsTick = 0.1; hands.render(); }
     mapView.update(player.state, cam.yaw);
     if (act.hotbar >= 0 && !player.state.dead) hotbar.use(act.hotbar);
