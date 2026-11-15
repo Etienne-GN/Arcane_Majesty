@@ -59,6 +59,7 @@ export function createBook({ stats, hud, save }) {
 #book .sdraw { width: 100%; max-height: 38vh; display: block; margin: 0 auto 4px; }
 #book .stats { font-size: calc(14px * var(--ui, 1)); color: #5a3a1a; letter-spacing: .02em; margin: 6px 0; padding: 4px 0; border-top: 1px dashed #8a6a3a77; border-bottom: 1px dashed #8a6a3a77; }
 #book .btn { margin-bottom: 4px; font: calc(17px * var(--ui, 1)) 'IM Fell English', Georgia, serif; padding: 8px 16px; margin-top: 10px; border-radius: 6px; cursor: pointer; color: #fff0d0; border: 1px solid #4a1e0a; background: linear-gradient(#8a3a1a, #5a200c); }
+#book h2 .side { margin: 0 0 0 auto; flex: none; } #book h2 .btn.side { padding: 6px 18px; }
 #book .btn[disabled] { opacity: .45; cursor: default; }
 #book .tag { display: inline-block; font-family: Caveat, cursive; font-size: calc(19px * var(--ui, 1)); color: #3a6a2a; margin-top: 8px; white-space: nowrap; }
 #book .e { padding: 6px 0 8px; border-bottom: 1px dotted #8a6a3a55; display: flex; gap: 10px; align-items: flex-start; }
@@ -107,11 +108,12 @@ export function createBook({ stats, hud, save }) {
         const h = el('h2'); h.append(svg(iconSVG(s)), document.createTextNode(s.name)); p.append(h);
         const how = s.targetingType === 'targeted_directional' ? ' · a bolt' : s.targetingType === 'targeted_aoe' ? ' · lands where you aim' : s.targetingType === 'self' ? ' · on yourself' : '';
         p.append(el('div', 'sub', `${E.name} · ${k ? tierName(lvl) : 'not yet learned'}${how}`));
-        // On the phone the page is short: the cast button comes first, above the stats and the story.
-        if (k && s.passive) p.append(el('div', 'tag', 'Always on.'));
-        else if (k && !CASTABLE.has(s.id)) p.append(el('div', 'tag', 'Not castable yet.'));
-        else if (k && active() === s.id) p.append(el('div', 'tag', '★ On your cast button.'));
-        else if (k) { const b = el('button', 'btn', 'Put it on the cast button'); b.onclick = () => { (stats.flags ??= {}).activeSpell = s.id; hud.banner(`${s.name} — ready to cast`); save?.(); render(); }; p.append(b); }
+        // Equip sits on the name's line, at the right.
+        const side = t => { const x = el('span', 'tag side', t); h.append(x); };
+        if (k && s.passive) side('Always on');
+        else if (k && !CASTABLE.has(s.id)) side('Not castable yet');
+        else if (k && active() === s.id) side('★ Equipped');
+        else if (k) { const b = el('button', 'btn side', 'Equip'); b.onclick = () => { (stats.flags ??= {}).activeSpell = s.id; hud.banner(`${s.name} — ready to cast`); save?.(); render(); }; h.append(b); }
         const mana = s.manaCost?.[lvl - 1];
         p.append(el('div', 'stats', `${mana != null ? `Mana ${mana} · ` : ''}${spellTooltip(s, lvl, stats.attributes.intelligence)}`));
         if (s.lore) p.append(el('div', 'hand', s.lore));
