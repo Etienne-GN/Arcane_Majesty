@@ -44,6 +44,7 @@ import { sweepPlates, hideAllPlates } from './content/actors/enemyCore.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createBountyBoard } from './game/bounty.js';
 import { createBook } from './game/book.js';
+import { createPause } from './game/pause.js';
 import { createChests } from './game/chest.js';
 import { createCharacter } from './content/models/character.js';
 import eldrinCast from './content/cast/eldrin.json';
@@ -283,6 +284,7 @@ const quests = createQuests({ stats, hud });
 registerSanctuaryQuests(stats);   // game quests from the campaign spec, run by amo's quest manager as generated quests
 const bountyBoard = createBountyBoard({ stats, hud, save: () => save() });
 const book = createBook({ stats, hud, save: () => save() });
+const pause = createPause({ hud, save: () => save() });
 const codex = createCodex({ stats });
 questHooks.onKill = (type, extra = {}) => { quests.onKill(type, { ...extra, mapId: world.current?.id ?? null }); codex.killed(type); };   // mapId: bounty kills count in their region only
 const thaloriaBias = () => 'neutral';   // amo: Thaloria's currencyBias
@@ -421,10 +423,11 @@ function tick(dt) {
     if (act.codex) codex.toggle();
     if (act.options) options.toggle(true);
     if (act.book) book.toggle(true);
+    if (act.quit) pause.toggle(true);
     if (act.chat) net.openChat();
     net.update(dt, camera);
     for (const h of world.current.hittables ?? []) if (h.engaged) codex.seen(h.kind === 'shadow' ? 'mirror_shade' : h.kind);
-    const menuOpen = inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open || book.open;
+    const menuOpen = inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open || book.open || pause.open;
     if (menuOpen) { act.hotbar = -1; act.skill = -1; act.tear = false; act.strike = false; }   // the D-pad and buttons drive the menu, not the hotbar
     if (act.tear) travel.tear();
     mapView.update(player.state, cam.yaw);
@@ -434,7 +437,7 @@ function tick(dt) {
     if (act.skill >= 0 && !inventory.open && !sheet.open) skills.use(act.skill);
     skills.update(dt);
     dialogue.update(dt, camera, project);
-    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open || book.open) { hud.update(dt, { stats, player: player.state, camera, spell: player.activeSpell() }); return; }   // paused
+    if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open || book.open || pause.open) { hud.update(dt, { stats, player: player.state, camera, spell: player.activeSpell() }); return; }   // paused
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
     const pp = player.state.pos;
