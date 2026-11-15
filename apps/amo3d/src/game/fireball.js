@@ -305,7 +305,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
 
     const tmp = new THREE.Vector3();
     function update(dt, map, hittables) {
-        lastMap = map; spectacle.update(dt);
+        lastMap = map; spectacle.update(dt); updateTrail(dt);
         for (let i = zones.length - 1; i >= 0; i--) {   // a lasting zone re-applies its effect every second (no extra damage)
             const z = zones[i]; z.left -= dt; z.tick -= dt;
             if (z.tick <= 0) { z.tick = 1; for (const h of hittables) if (h.alive && h.kind !== 'deer' && Math.hypot(h.pos.x - z.point.x, h.pos.z - z.point.z) < z.r) { const st = scaledStatus(z.spell, z.level); if (st) h.hit(1, z.point, st.id === 'burning' ? st.duration : 0, undefined, st.id !== 'burning' ? { id: st.id, ms: 1500 } : null, z.spell.element); } }
@@ -411,6 +411,30 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         fire.update(dt); sparks.update(dt); smoke.update(dt);
     }
 
+    // A blade's swing leaves a fading streak: each frame of the cut adds a segment from near the hilt to the tip.
+    const TRAIL_N = 24, trailPos = new Float32Array(TRAIL_N * 2 * 3), trailCol = new Float32Array(TRAIL_N * 2 * 4), trailSamples = [];
+    const trailGeo = new THREE.BufferGeometry();
+    trailGeo.setAttribute('position', new THREE.BufferAttribute(trailPos, 3));
+    trailGeo.setAttribute('color', new THREE.BufferAttribute(trailCol, 4));
+    const idx = []; for (let i = 0; i < TRAIL_N - 1; i++) { const a = i * 2; idx.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+    trailGeo.setIndex(idx);
+    const trailMesh = new THREE.Mesh(trailGeo, new THREE.MeshBasicMaterial({ vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, toneMapped: false }));
+    trailMesh.frustumCulled = false; group.add(trailMesh);
+    function slash(a, b) { trailSamples.push({ a: a.clone(), b: b.clone(), age: 0 }); if (trailSamples.length > TRAIL_N) trailSamples.shift(); }
+    function updateTrail(dt) {
+        for (const s of trailSamples) s.age += dt;
+        while (trailSamples.length && trailSamples[0].age > 0.16) trailSamples.shift();
+        const n = trailSamples.length;
+        for (let i = 0; i < TRAIL_N; i++) {
+            const s = trailSamples[Math.min(i, n - 1)], f = s && i < n ? Math.max(0, 1 - s.age / 0.16) * (i / Math.max(1, n - 1)) : 0;
+            for (const [j, p] of [[0, s?.a], [1, s?.b]]) {
+                const o = (i * 2 + j) * 3, c = (i * 2 + j) * 4;
+                trailPos[o] = p?.x ?? 0; trailPos[o + 1] = p?.y ?? -999; trailPos[o + 2] = p?.z ?? 0;
+                trailCol[c] = 0.85 * f; trailCol[c + 1] = 0.9 * f; trailCol[c + 2] = 1 * f; trailCol[c + 3] = f * (j ? 0.9 : 0.1);
+            }
+        }
+        trailGeo.attributes.position.needsUpdate = true; trailGeo.attributes.color.needsUpdate = true;
+    }
     const channel = (spell, feet, top, k, dt) => spectacle.channel(feet, top, palOf(spell)[3], k, dt);
-    return { setScene, cast, blastAt, update, channel, fire, active: () => balls.length, get balls() { return balls; } };
+    return { setScene, cast, blastAt, update, channel, slash, fire, active: () => balls.length, get balls() { return balls; } };
 }

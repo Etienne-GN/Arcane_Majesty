@@ -206,6 +206,7 @@ const hero = {
     get root() { return model.root; },
     update: (...a) => model.update(...a),
     crystalWorld: (v, hand) => model.crystalWorld(v, hand),
+    bladeWorld: (h, a, b) => model.bladeWorld(h, a, b),
     setWeapons: (a, b) => model.setWeapons(a, b),
     get mainType() { return model.mainType; },
 };

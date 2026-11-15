@@ -283,6 +283,11 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         }
         if (p.strike) {
             p.strike.t += dt / STRIKE_TIME;
+            if (p.strike.t > 0.3 && p.strike.t < 0.62 && hero.bladeWorld && !p.strike.thrust && ['sword', 'greatsword', 'dagger', 'axe', 'mace'].includes(p.strike.type)) {   // the cut leaves a streak behind the blade
+                hero.root.updateMatrixWorld(true);
+                const a = new THREE.Vector3(), b = new THREE.Vector3();
+                if (hero.bladeWorld(p.strike.hand ?? 'R', a, b)) fireballs.slash?.(a.lerp(b, 0.3), b);
+            }
             if (!p.strike.hit && p.strike.t >= STRIKE_HIT) { p.strike.hit = true; strikeHits(ctx); }
             if (p.strike.t >= 1) p.strike = null;
         }

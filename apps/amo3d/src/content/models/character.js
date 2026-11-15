@@ -331,6 +331,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     setWeapons(null, null);
 
     let phase = 0, amp = 0, run = 0, air = 0, t = 0;
+    const GUARD_MOUNT = 2.75;   // a blade at rest: pointing ahead and a little down
     const calm = new THREE.Color(0x3ce0d0), blaze = new THREE.Color(0xff7a20);
 
     function ripple(panel, k) {
@@ -376,6 +377,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         spine.rotation.x = 0.06 * amp + 0.16 * run + air * 0.15 + breathe * 0.015;
         spine.rotation.y = g * s * 0.08 * amp;
         head.rotation.x = -spine.rotation.x * 0.6;
+        head.rotation.y = 0;
 
         // A weapon carried in the left hand is held like the right one (forearm up), not swinging free.
         const offArmed = !!offType && offType !== 'shield' && offType !== 'fists';
@@ -383,6 +385,18 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         mainMount.rotation.x = mainType === 'bow' || mainType === 'crossbow' ? 0.1 : 0.75;
         offMount.rotation.x = 0;
         // Which arm does the work: the casting / striking hand (A), the other (B); sz mirrors left and right.
+        // Blades (swords, daggers, axes, maces) rest in a low guard: arm a little forward, blade angled ahead and down.
+        const BLADE = new Set(['sword', 'greatsword', 'dagger', 'axe', 'mace']);
+        const setMount = (h, a) => { if (h === 'R') mainMount.rotation.x = a; else offMount.rotation.x = a - 0.75; };
+        const guard = h => {
+            const A = arms[h], sz = h === 'R' ? 1 : -1;
+            A.upper.rotation.x = A.upper.rotation.x * 0.5 - 0.3;
+            A.upper.rotation.z = sz * -0.22;
+            A.fore.rotation.x = -0.6;
+            setMount(h, GUARD_MOUNT);
+        };
+        if (BLADE.has(mainType)) guard('R');
+        if (BLADE.has(offType)) guard('L');
         const side = h => ({ A: arms[h], B: arms[h === 'R' ? 'L' : 'R'], sz: h === 'R' ? 1 : -1, mount: h === 'R' ? mainMount : offMount, fore0: h === 'R' || offArmed ? -0.75 : arms.L.fore.rotation.x });
 
         // Cast: the staff arm thrusts forward, the body leans in, the crystal flares orange.
@@ -419,7 +433,22 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         if (strikeK != null) {
             const { A, sz, mount, fore0 } = side(strikeHand);
             const k = Math.min(1, strikeK), w = Math.sin(k * Math.PI);
-            if (strikeHand === 'L' && !offArmed) {
+            const bladeType = strikeHand === 'R' ? mainType : offType;
+            if (BLADE.has(bladeType) && !thrust) {
+                // A slash in three beats: wind the blade back over the shoulder, cut down and across the body as the
+                // torso turns into it, then come back to guard. sm = smoothstep between two moments.
+                const sm = (a, b) => { const x = Math.min(1, Math.max(0, (k - a) / (b - a))); return x * x * (3 - 2 * x); };
+                const wind = sm(0, 0.28), cut = sm(0.3, 0.55), back = sm(0.62, 1);
+                const lerp = (a, b, c, d) => a + (b - a) * wind + (c - b) * cut + (d - c) * back;   // guard → wound → cut → guard
+                const ux0 = A.upper.rotation.x;
+                A.upper.rotation.x = lerp(ux0, -2.5, -1.0, ux0);
+                A.upper.rotation.z = sz * lerp(-0.22, -1.1, 0.85, -0.22);   // out to the side, then right across the body
+                A.fore.rotation.x = lerp(-0.6, -1.3, -0.15, -0.6);
+                setMount(strikeHand, lerp(GUARD_MOUNT, 3.3, 2.8, GUARD_MOUNT));   // the blade rides the arm: up and back over the shoulder, then across (never dipping down)
+                spine.rotation.y += sz * lerp(0, 0.6, -0.7, 0);
+                spine.rotation.x += lerp(0, -0.08, 0.2, 0);
+                head.rotation.y = -spine.rotation.y * 0.5;
+            } else if (strikeHand === 'L' && !offArmed) {
                 A.upper.rotation.x = A.upper.rotation.x * (1 - w) - 1.5 * w;
                 A.upper.rotation.z = 0.12 - 0.1 * w;
                 A.fore.rotation.x = A.fore.rotation.x * (1 - w) - 0.05 * w;
@@ -452,5 +481,6 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         M.crystal.emissiveIntensity = 1.8 + Math.sin(t * 3) * 0.6;
     }
 
-    return { root, update, setWeapons, get mainType() { return mainType; }, crystalWorld: (v, hand = 'R') => (hand === 'L' ? (offTip ?? arms.L.fore) : (tip ?? arms.R.fore)).getWorldPosition(v) };
+    return { root, update, setWeapons, get mainType() { return mainType; }, bladeWorld: (hand, base, tipV) => { const m = hand === 'L' ? offMount : mainMount, tp = hand === 'L' ? offTip : tip; if (!tp) return false; m.getWorldPosition(base); tp.getWorldPosition(tipV); return true; },
+        crystalWorld: (v, hand = 'R') => (hand === 'L' ? (offTip ?? arms.L.fore) : (tip ?? arms.R.fore)).getWorldPosition(v) };
 }
