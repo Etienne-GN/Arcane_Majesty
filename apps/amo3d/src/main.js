@@ -86,14 +86,21 @@ const interiorBuilders = Object.fromEntries(Object.keys(parentOf).map(id => [id,
 // God mode (testing) knows every castable spell at its top tier; turning it off forgets the ones it lent.
 function godSpells() {
     const lent = stats.flags.godSpells ?? [];
-    if (settings.god && !lent.length) {
+    if (settings.god && lent.length) {   // already on: lend what is still missing (new castable spells, an old save's shorter list)
+        for (const id of CASTABLE) if (!(stats.spells[id] > 0)) { stats.spells[id] = 3; lent.push(id); }
+        for (const id of CASTABLE) if (stats.spells[id] < 3) { (stats.flags.godTiers ??= {})[id] ??= stats.spells[id]; stats.spells[id] = 3; }
+    } else if (settings.god) {
         stats.flags.godSpells = CASTABLE.filter(id => !(stats.spells[id] > 0));
         for (const id of stats.flags.godSpells) stats.spells[id] = 3;
+        stats.flags.godTiers = {};   // spells you know below Master: raised while god mode lasts
+        for (const id of CASTABLE) if (stats.spells[id] < 3) { stats.flags.godTiers[id] = stats.spells[id]; stats.spells[id] = 3; }
         stats.flags.godSkills = Object.fromEntries(Object.values(stats.skills).map(k => [k.id, k.level]));   // skills too, at their top level
         for (const k of Object.values(stats.skills)) k.level = k.maxLevel;
         if (!stats.flags.godSpells.length) stats.flags.godSpells = ['_'];
     } else if (!settings.god && lent.length) {
         for (const id of lent) if (id !== '_') stats.spells[id] = 0;
+        for (const [id, lv] of Object.entries(stats.flags.godTiers ?? {})) stats.spells[id] = lv;
+        stats.flags.godTiers = null;
         for (const [id, lv] of Object.entries(stats.flags.godSkills ?? {})) if (stats.skills[id]) stats.skills[id].level = lv;
         stats.flags.godSkills = null;
         stats.flags.godSpells = [];
