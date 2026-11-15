@@ -14,6 +14,7 @@ import '@fontsource/caveat/700.css';
 import { PlayerStats as PS, spells as SP, styleData, styles as styleRules, weapons as weaponRules } from '@rules';
 import { CASTABLE as CAST_LIST } from './fireball.js';
 import { ELEMENTS, iconSVG, drawingSVG } from './spellIcons.js';
+import { MAX_FAVS } from './hands.js';
 
 const { MASTERY_DEFS } = PS, { SPELLS, TIER_NAMES, spellTooltip } = SP, { STYLES, STYLE_SKILLS } = styleData;
 const CASTABLE = new Set(CAST_LIST);
@@ -64,6 +65,8 @@ export function createBook({ stats, hud, save, hands = null }) {
 #book .hb { flex: none; font: bold calc(12px * var(--ui, 1)) Georgia, serif; color: #fff4dc; background: #8a3a1a; border-radius: 4px; padding: 1px 5px; }
 #book .favmenu { margin: 0 0 6px 50px; display: flex; flex-direction: column; gap: 4px; }
 #book .favmenu button { text-align: left; font: calc(16px * var(--ui, 1)) 'IM Fell English', Georgia, serif; padding: 6px 10px; border-radius: 6px; border: 1px solid #8a6a3a88; background: #fff8; color: #3a2010; cursor: pointer; }
+#book .favmenu.replace { margin-left: 0; padding: 8px; border: 1px dashed #8a3a1a; border-radius: 8px; background: #f3d88b33; }
+#book .favmenu button.rep { display: flex; align-items: center; gap: 8px; } #book .favmenu button.rep .sicon { width: 26px; height: 26px; flex: none; }
 #book .favmenu button.on { background: #f3d88b; border-color: #8a3a1a; }
 #book .btn[disabled] { opacity: .45; cursor: default; }
 #book .tag { display: inline-block; font-family: Caveat, cursive; font-size: calc(19px * var(--ui, 1)); color: #3a6a2a; margin-top: 8px; white-space: nowrap; }
@@ -96,11 +99,28 @@ export function createBook({ stats, hud, save, hands = null }) {
     const wlabel = t => weaponRules.WEAPON_TYPES[t]?.label ?? t;
     const isActive = s => two() ? ['R', 'L'].some(sd => hands.current(sd) === `spell:${s.id}`) : active() === s.id;
     function equipSpell(s) {
-        if (two()) { const sd = hands.magicHand(); if (!sd) return hud.message('Hold a staff or wand to cast spells'); hands.equip(sd, `spell:${s.id}`); }
+        if (two()) {
+            const sd = hands.magicHand(); if (!sd) return hud.message('Hold a staff or wand to cast spells');
+            if (hands.equip(sd, `spell:${s.id}`) === 'full') { replacing = { type: hands.handType(sd), action: `spell:${s.id}`, equip: true }; sel = s.id; render(); return; }
+        }
         else (stats.flags ??= {}).activeSpell = s.id;
         hud.banner(`${s.name} — ready to cast`); save?.(); render();
     }
-    let menuFor = null;
+    let menuFor = null, replacing = null;   // replacing: { type, action, equip } — a full list asks which favourite to give up
+    function replaceBox(into) {
+        if (!replacing) return;
+        const { type, action, equip } = replacing, box = el('div', 'favmenu replace');
+        box.append(el('div', 'sub', `The ${wlabel(type).toLowerCase()} already has ${MAX_FAVS} favourites. Replace which with ${hands.label(type, action)}?`));
+        for (const old of hands.favs(type)) {
+            const b = el('button', 'rep');
+            b.append(svg(hands.glyph(type, old)), document.createTextNode(hands.label(type, old)));
+            b.onclick = e => { e.stopPropagation(); if (hands.replaceFav(type, old, action, equip)) { hud.banner(`${hands.label(type, action)} — in place of ${hands.label(type, old)}`); save?.(); } replacing = null; menuFor = null; render(); };
+            box.append(b);
+        }
+        const c = el('button', null, 'Cancel'); c.onclick = e => { e.stopPropagation(); replacing = null; render(); }; box.append(c);
+        into.append(box);
+        setTimeout(() => box.scrollIntoView({ block: 'nearest', behavior: 'smooth' }), 0);   // on a phone it may start below the fold
+    }
     function favBits(row, action, list, only = null) {   // only: a weapon row manages just that weapon's favourites
         const key = `${only ?? ''}|${action}`;   // hand badges, the ⋯ button, and its menu under the row when open
         if (!two()) return;
@@ -115,11 +135,12 @@ export function createBook({ stats, hud, save, hands = null }) {
             if (!t || !hands.canHold(t, action) || seen.has(t) || (only && t !== only)) continue;
             seen.add(t);
             const on = hands.isFav(t, action), b = el('button', on ? 'on' : '', `${on ? '★' : '☆'} ${on ? 'Favourite of' : 'Add to'} the ${wlabel(t).toLowerCase()} (${SIDE[sd].toLowerCase()})`);
-            b.onclick = e => { e.stopPropagation(); if (hands.toggleFav(t, action)) save?.(); render(); };
+            b.onclick = e => { e.stopPropagation(); if (!on && hands.favs(t).length >= MAX_FAVS) { replacing = { type: t, action, equip: false }; render(); return; } if (hands.toggleFav(t, action)) save?.(); render(); };
             m.append(b);
         }
         if (!seen.size) m.append(el('div', 'sub', action.startsWith('spell:') ? 'Hold a staff or wand to make it a favourite.' : 'Nothing in your hands can do this.'));
         list.append(m);
+        if (replacing && replacing.action === action && seen.has(replacing.type) && !replacing.equip) replaceBox(list);
     }
 
     // ---- spells ----
@@ -151,6 +172,7 @@ export function createBook({ stats, hud, save, hands = null }) {
         else if (k && !CASTABLE.has(s.id)) side('Not castable yet');
         else if (k && isActive(s)) side('★ Equipped');
         else if (k) { const b = el('button', 'btn side', 'Equip'); b.onclick = () => equipSpell(s); h.append(b); }
+        if (replacing?.equip && replacing.action === `spell:${s.id}`) replaceBox(p);
         const mana = s.manaCost?.[lvl - 1];
         p.append(el('div', 'stats', `${mana != null ? `Mana ${mana} · ` : ''}${spellTooltip(s, lvl, stats.attributes.intelligence)}`));
         if (s.lore) p.append(el('div', 'hand', s.lore));
@@ -276,7 +298,7 @@ export function createBook({ stats, hud, save, hands = null }) {
             const b = el('button', `rib${tab === id ? ' on' : ''}`); b.style.setProperty('--rc', color); b.title = label;
             if (icon) b.append(svg(icon));
             b.append(el('span', null, label));
-            b.onclick = () => { tab = id; render(); };
+            b.onclick = () => { tab = id; replacing = null; menuFor = null; render(); };
             rb.append(b);
         };
         add('known', 'Known', '#7a2a1a', STAR);

@@ -147,8 +147,17 @@ export function createHands({ stats, hud, isTouch, input }) {
     function equip(side, action) {
         const t = handType(side); if (!t || !canHold(t, action)) return false;
         const list = favs(t);
-        if (!list.includes(action)) { if (list.length >= MAX_FAVS) list[selOf(t)] = action; else list.push(action); }
+        if (!list.includes(action)) { if (list.length >= MAX_FAVS) return 'full'; list.push(action); }   // full: the Book asks which to replace
         (flags().favSel ??= {})[t] = list.indexOf(action);
+        render(true);
+        return true;
+    }
+    // Put an action in place of another favourite (the Book's "Replace which?"); equip: make it the hand's action too.
+    function replaceFav(type, old, action, equip = false) {
+        const list = favs(type), i = list.indexOf(old);
+        if (i < 0 || list.includes(action)) return false;
+        list[i] = action;
+        if (equip) (flags().favSel ??= {})[type] = i;
         render(true);
         return true;
     }
@@ -253,7 +262,7 @@ body.hands-on #slot, body.hands-on #slot-name { display: none !important; }`;
     }
 
     return {
-        handType, favs, current, cycle, cycleDown, cycleUp, update, get fanOpen() { return !!fan; }, isFav, toggleFav, equip, magicHand, label, glyph, canHold, render,
+        handType, favs, current, replaceFav, cycle, cycleDown, cycleUp, update, get fanOpen() { return !!fan; }, isFav, toggleFav, equip, magicHand, label, glyph, canHold, render,
         set onAct(fn) { onAct = fn; },
         get enabled() { return !!settings.hands; },
     };
