@@ -159,12 +159,12 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         else if (st) { addBuff(st.id, st.duration > 0 ? st.duration : 30000); hud.floater(pos, STATUS_DEFS[st.id]?.label ?? st.id, '#9fe0a0'); }
         auraFx?.(sp);
     }
-    // Blink-Step (amo skill, H / double-tap HOP / gamepad Back): an aether dash where you face — 8 mana,
+    // Blink-Step (amo skill, H / the touch BLINK button / gamepad B in two-hand mode, Back): an aether dash where you face — 8 mana,
     // 60 / 80 / 105 px; blocked by walls (it stops at the last clear spot); a blink of invulnerability.
     function blink() {
         const lv = stats.skills?.blink_step?.level ?? 0;
         if (p.dead || p.cast) return false;
-        if (!lv) { hud.message('Blink-Step not yet learned — the Book, Skills'); return false; }
+        if (!lv) { hud.message('Blink-Step not yet learned — the book of Skills (N)'); return false; }
         if (stats.manaExhausted) { hud.message('Too exhausted to Blink-Step'); return false; }
         if (stats.mana < 8) { hud.message('Not enough mana'); return false; }
         const dist = ([60, 80, 105][lv - 1] ?? 60) / PX, from = p.pos.clone();

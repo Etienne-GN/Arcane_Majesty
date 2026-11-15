@@ -1,7 +1,7 @@
 // On-screen controls for phones and tablets (Phase 7 rework). Shown on touch devices (or ?touch=1).
 //   left half   — a floating joystick; push it past its ring to sprint
 //   right half  — drag to turn the camera, pinch to zoom
-//   bottom right — the action cluster under the right thumb: FIRE (big), HIT, HOP; style skills beside it
+//   bottom right — the action cluster under the right thumb: FIRE (big), HIT, HOP, BLINK once learned; style skills beside it
 //   top left    — compact bars, then the hotbar (consumables)
 //   top right   — the minimap (tap: world map), the clock, and one MENU button that opens a sheet of
 //                 big tiles: Satchel, Hero, Map, Journal, Codex, Aetheric Tear
@@ -27,6 +27,9 @@ export function createTouchControls({ input, cam }) {
             background: radial-gradient(circle at 50% 45%, #ffd27a 0, #ff7a20 32%, #7a1f08 72%, #2a0c04 100%); text-shadow: 0 1px 3px #000; }
         #touch .hit { right: calc(126px + env(safe-area-inset-right, 0px)); bottom: 22px; width: 68px; height: 68px; }
         #touch .hop { right: calc(30px + env(safe-area-inset-right, 0px)); bottom: 126px; width: 68px; height: 68px; }
+        #touch .blink { display: none; right: calc(108px + env(safe-area-inset-right, 0px)); bottom: 134px; width: 58px; height: 58px; font-size: ${u(12)}; border-color: #9abaffcc; color: #dce8ff; }
+        body.blink-on #touch .blink { display: grid; }
+        body.touch-mode.hands-on #touch .blink { right: calc(232px + env(safe-area-inset-right, 0px)); bottom: 96px; }
         #touch .menu { right: calc(132px + env(safe-area-inset-right, 0px)); top: 12px; width: 54px; height: 54px; border-radius: 14px; font-size: ${u(13)}; }
         #tmenu { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #05060acc; font-family: Georgia, serif; }
         #tmenu.open { display: grid; }
@@ -60,7 +63,7 @@ export function createTouchControls({ input, cam }) {
     const root = document.createElement('div');
     root.id = 'touch';
     root.innerHTML = '<div class="stick"><div class="knob"></div></div>'
-        + '<div class="btn menu">MENU</div><div class="btn fire">FIRE</div><div class="btn hit">HIT</div><div class="btn hop">HOP</div>';
+        + '<div class="btn menu">MENU</div><div class="btn fire">FIRE</div><div class="btn hit">HIT</div><div class="btn hop">HOP</div><div class="btn blink">BLINK</div>';
     document.body.append(root);
     document.body.classList.add('touch-mode');
     const stick = root.querySelector('.stick'), knob = root.querySelector('.knob');
@@ -148,8 +151,8 @@ export function createTouchControls({ input, cam }) {
         el.addEventListener('pointerleave', up);
     };
     button('.fire', () => input.press('cast'));
-    let lastHop = 0;   // double-tap HOP: Blink-Step
-    button('.hop', () => { const now = performance.now(); if (now - lastHop < 320) { input.press('blink'); lastHop = 0; } else { input.press('hop'); lastHop = now; } });
+    button('.hop', () => input.press('hop'));
+    button('.blink', () => input.press('blink'));   // Blink-Step: its own button, shown once it is learned (body.blink-on)
     button('.hit', () => input.press('strike'));
     button('.menu', () => { openedAt = performance.now(); sheet.classList.add('open'); });
 

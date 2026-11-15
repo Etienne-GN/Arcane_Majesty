@@ -482,7 +482,7 @@ function tick(dt) {
         if (act.handR) handAction('R', act);
     }
     hands.update();
-    if ((handsTick -= dt) <= 0) { handsTick = 0.1; hands.render(); }
+    if ((handsTick -= dt) <= 0) { handsTick = 0.1; hands.render(); document.body.classList.toggle('blink-on', (stats.skills?.blink_step?.level ?? 0) > 0); }
     mapView.update(player.state, cam.yaw);
     if (act.hotbar >= 0 && !player.state.dead) hotbar.use(act.hotbar);
     if (act.strike && archery.armed()) { archery.shoot(); act.strike = false; }   // a bow or crossbow shoots instead

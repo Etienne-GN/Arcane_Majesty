@@ -241,7 +241,7 @@ export function createBook({ stats, hud, save, hands = null, kind = 'spells' }) 
         L.append(el('div', 'sub', `${stats.skillPoints ?? 0} skill point${stats.skillPoints === 1 ? '' : 's'} to spend — one each level.`));
         const reqText = r => !r ? '' : [r.level && `level ${r.level}`, r.strength && `STR ${r.strength}`, r.intelligence && `INT ${r.intelligence}`, r.agility && `AGI ${r.agility}`, r.stamina && `STA ${r.stamina}`,
             ...Object.entries(r.resonance ?? {}).map(([e, v]) => `${e} resonance ${v}`)].filter(Boolean).join(' · ');
-        const KEYS = { blink_step: 'H · double-tap HOP · gamepad Back' }, rows = [];
+        const KEYS = { blink_step: 'H · the BLINK button · gamepad B (or Back)' }, rows = [];
         for (const k of Object.values(stats.skills ?? {})) {
             if (k.id === 'basic_strike' && k.level >= k.maxLevel) continue;
             const row = el('div', 'e'), body = el('div', 'body');

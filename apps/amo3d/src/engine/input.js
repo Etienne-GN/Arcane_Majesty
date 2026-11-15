@@ -79,13 +79,14 @@ export function createInput({ canvas, cam }) {
             const lx = dz(pad.axes[0] ?? 0), ly = dz(pad.axes[1] ?? 0), rx = dz(pad.axes[2] ?? 0), ry = dz(pad.axes[3] ?? 0);
             if (lx || ly) { mx = lx; my = -ly; lastDevice = 'gamepad'; }
             if (fan.open) { fan.x = rx; fan.y = ry; } else if (rx || ry) cam.orbit(-rx * dt * 2.6, ry * dt * 1.6);
-            const two = settings.hands;   // two-hand actions: LT / RT act (X / B too), LB / RB cycle; sprint on the left-stick click
+            const two = settings.hands;   // two-hand actions: LT / RT act (X too), LB / RB cycle, B Blink-Step; sprint on the left-stick click
             if ((b(4) && !two) || b(10)) sprint = true;
             const edge = i => b(i) && !padPrev[i];
             if (edge(0)) pressed.add('hop');
             if (two) {
                 if (edge(7) || edge(2)) pressed.add('handR');
-                if (edge(6) || edge(1)) pressed.add('handL');
+                if (edge(6)) pressed.add('handL');
+                if (edge(1)) pressed.add('blink');   // B: Blink-Step (LT is the left hand)
                 const rel = i => !b(i) && padPrev[i];
                 if (edge(4)) pressed.add('cycleL:pad');
                 if (edge(5)) pressed.add('cycleR:pad');
