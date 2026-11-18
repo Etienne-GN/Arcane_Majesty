@@ -1,0 +1,77 @@
+apply plugin: 'com.android.application'
+
+def localVersionCode() {
+    try {
+        def p = ['git', 'describe', '--tags', '--abbrev=0', '--match', 'amo3d-v*'].execute(null, rootProject.projectDir)
+        def out = p.text.trim(); p.waitFor()
+        def v = out.replace('amo3d-v', '').tokenize('.').collect { it.toInteger() } + [0, 0, 0]
+        return v[0] * 10000 + v[1] * 100 + v[2] + 1
+    } catch (ignored) { return 1 }
+}
+
+android {
+    namespace = "com.arcanemajesty.amo3d"
+    compileSdk = rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "com.arcanemajesty.amo3d"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        // CI sets these from the tag (amo3d-v1.2.3 → name 1.2.3, code 10203). A local build takes the latest tag's code
+        // plus one (so it installs over that release, and the next release installs over it) and the name 'dev'.
+        versionCode((System.getenv('AMO_VERSION_CODE') ?: String.valueOf(localVersionCode())).toInteger())
+        versionName(System.getenv('AMO_VERSION_NAME') ?: 'dev')
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        aaptOptions {
+             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
+             // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
+            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
+        }
+    }
+    // CI signs with the same key as the phone's installs (a repo secret), so a release installs over them and keeps saves.
+    signingConfigs {
+        debug {
+            if (System.getenv('AMO_KEYSTORE')) {
+                storeFile file(System.getenv('AMO_KEYSTORE'))
+                storePassword 'android'
+                keyAlias 'androiddebugkey'
+                keyPassword 'android'
+            }
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug   // the same key as the phones' installs (CI: the repo secret), so releases install over them
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    flatDir{
+        dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
+    implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
+    implementation project(':capacitor-android')
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+    implementation project(':capacitor-cordova-android-plugins')
+}
+
+apply from: 'capacitor.build.gradle'
+
+try {
+    def servicesJSON = file('google-services.json')
+    if (servicesJSON.text) {
+        apply plugin: 'com.google.gms.google-services'
+    }
+} catch(Exception e) {
+    logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
+}

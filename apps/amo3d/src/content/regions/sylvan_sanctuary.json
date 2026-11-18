@@ -1,0 +1,281 @@
+{
+  "id": "sylvan_sanctuary",
+  "name": "The Sylvan Sanctuary",
+  "builder": "sanctuary",
+  "lore": "Act II (Song 5): the impossible early-spring valley over the pass \u2014 the Elemental waits at the ford, the Hermit at the heart of the green. Extra pieces (the Elemental, the hut, the Rim, the hidden path) are built by content/sanctuary.js at the places below.",
+  "seed": 505,
+  "half": 80,
+  "water": -1.4,
+  "biome": "temperate",
+  "terrain": {
+    "scale": 0.025,
+    "relief": 5,
+    "base": 0.9,
+    "rim": 30,
+    "snowLine": 13,
+    "rockLine": 9
+  },
+  "palette": {
+    "grassA": "#4f8a3a",
+    "grassB": "#7ab84a",
+    "dirt": "#7a6a48",
+    "rock": "#7a7a72",
+    "shore": "#5a7a4a",
+    "undergrowth": "#5a9a3a",
+    "stone": "#8a8a7a",
+    "snow": "#e8eef2",
+    "water": "#2a6a6a"
+  },
+  "mood": {
+    "fog": "#cfe8c8",
+    "fogNear": 30,
+    "fogFar": 170,
+    "fogMix": 0.45,
+    "light": 1.05,
+    "nightFloor": 0.5,
+    "motes": "#d8ffb0"
+  },
+  "features": [
+    {
+      "type": "river",
+      "pts": [
+        [
+          -90,
+          37
+        ],
+        [
+          -60,
+          33
+        ],
+        [
+          -30,
+          34
+        ],
+        [
+          0,
+          30
+        ],
+        [
+          28,
+          27
+        ],
+        [
+          56,
+          31
+        ],
+        [
+          90,
+          35
+        ]
+      ],
+      "w": 7,
+      "depth": 14
+    },
+    {
+      "type": "clearing",
+      "x": 0,
+      "z": -14,
+      "r": 15
+    },
+    {
+      "type": "clearing",
+      "x": 54,
+      "z": -18,
+      "r": 12
+    },
+    {
+      "type": "clearing",
+      "x": 0,
+      "z": 56,
+      "r": 12
+    }
+  ],
+  "path": [
+    [
+      0,
+      60
+    ],
+    [
+      5,
+      50
+    ],
+    [
+      -3,
+      42
+    ],
+    [
+      0,
+      30
+    ],
+    [
+      -7,
+      14
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      0,
+      -8
+    ],
+    [
+      0,
+      -22
+    ],
+    [
+      -6,
+      -38
+    ],
+    [
+      3,
+      -58
+    ],
+    [
+      0,
+      -70
+    ]
+  ],
+  "branches": [
+    [
+      [
+        4,
+        2
+      ],
+      [
+        26,
+        -6
+      ],
+      [
+        46,
+        -18
+      ]
+    ]
+  ],
+  "trees": {
+    "count": 230,
+    "gaps": 0.25,
+    "sizeVar": 0.7,
+    "kinds": {
+      "broad": 0.55,
+      "birch": 0.25,
+      "pine": 0.2
+    },
+    "colors": {
+      "broad": "#3f8a34",
+      "pine": "#2f5a3a"
+    }
+  },
+  "rocks": 50,
+  "gather": {
+    "herb": 4,
+    "wood": 2
+  },
+  "tints": [
+    {
+      "x": 54,
+      "z": -18,
+      "r": 22,
+      "color": "#6a6a62",
+      "k": 0.75
+    }
+  ],
+  "actors": [
+    {
+      "type": "deer",
+      "homes": [
+        {
+          "x": -24,
+          "z": 4
+        },
+        {
+          "x": 22,
+          "z": 50
+        }
+      ]
+    }
+  ],
+  "landmarks": [
+    {
+      "name": "The Ford",
+      "x": 0,
+      "z": 30,
+      "icon": "stones"
+    },
+    {
+      "name": "The Hermit's Hut",
+      "x": 0,
+      "z": -14,
+      "icon": "tower"
+    },
+    {
+      "name": "The Corrupted Rim",
+      "x": 54,
+      "z": -18,
+      "icon": "den"
+    }
+  ],
+  "links": [
+    {
+      "label": "Back over the pass \u2014 the Summit",
+      "x": 0,
+      "z": 58,
+      "facing": 3.141592653589793,
+      "spawn": "from_summit",
+      "to": "the_summit",
+      "toSpawn": "from_sanctuary"
+    },
+    {
+      "label": "Down toward the Fire Gate",
+      "x": 0,
+      "z": -72,
+      "facing": 0,
+      "spawn": "from_fire_gate"
+    }
+  ],
+  "start": {
+    "x": 0,
+    "z": 50,
+    "facing": 3.141592653589793
+  },
+  "places": {
+    "ford": {
+      "x": 0,
+      "z": 30
+    },
+    "hut": {
+      "x": 0,
+      "z": -14
+    },
+    "rim": {
+      "x": 54,
+      "z": -18
+    },
+    "cache": {
+      "x": -60,
+      "z": -8
+    }
+  },
+  "hiddenPath": [
+    [
+      -7,
+      14
+    ],
+    [
+      -22,
+      10
+    ],
+    [
+      -36,
+      4
+    ],
+    [
+      -48,
+      -2
+    ],
+    [
+      -57,
+      -8
+    ]
+  ]
+}

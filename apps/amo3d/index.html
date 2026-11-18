@@ -2,15 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Arcane Majesty 3D — POC</title>
     <style>
-        html, body { margin: 0; height: 100%; overflow: hidden; background: #10141a; font-family: Georgia, 'Times New Roman', serif; }
+        /* One type scale for every menu and HUD element (Phase 7): sizes are calc(Npx * var(--ui)). */
+        :root { --ui: 1; }
+        @media (min-height: 1000px) { :root { --ui: 1.15; } }
+        @media (min-height: 1400px) { :root { --ui: 1.3; } }
+        @media (pointer: coarse) { :root { --ui: 1.1; } }   /* phone pixels are small: everything a size up */
+                html, body { margin: 0; height: 100%; overflow: hidden; background: #10141a; font-family: Georgia, 'Times New Roman', serif; }
         canvas { display: block; touch-action: none; cursor: grab; }
+        /* Every menu panel scrolls with a finger (the game surface underneath takes no touches while a menu is open). */
+        .panel, #tmenu .grid { touch-action: pan-y; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
         canvas:active { cursor: grabbing; }
         .hud { position: fixed; pointer-events: none; color: #eee6d2; text-shadow: 0 1px 3px #000c; }
         #status { left: 18px; bottom: 18px; width: 260px; }
-        .label { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; opacity: .85; display: flex; justify-content: space-between; margin-top: 8px; }
+        .label { font-size: calc(15px * var(--ui, 1)); letter-spacing: .08em; text-transform: uppercase; opacity: .85; display: flex; justify-content: space-between; margin-top: 8px; }
         .bar { height: 10px; border: 1px solid #eee6d288; border-radius: 6px; background: #0008; overflow: hidden; margin-top: 4px; }
         .bar > div { height: 100%; width: 100%; transition: background .2s; }
         #vigor-fill { background: linear-gradient(90deg, #3d8f4a, #8fd16a); }
@@ -18,29 +25,31 @@
         #hp-fill { background: linear-gradient(90deg, #8a1f1f, #e05a4a); }
         #hurt { position: fixed; inset: 0; pointer-events: none; opacity: 0; background: radial-gradient(ellipse at center, transparent 45%, #a0000088 100%); }
         #mana-fill { background: linear-gradient(90deg, #2d4f9a, #6aa8f0); }
-        #speed { font-size: 13px; margin-top: 8px; opacity: .85; }
+        #speed { font-size: calc(15px * var(--ui, 1)); margin-top: 8px; opacity: .85; }
         #slot { left: 50%; bottom: 22px; transform: translateX(-50%); width: 58px; height: 58px; border: 2px solid #f3d88b; border-radius: 10px;
             background: radial-gradient(circle at 50% 45%, #ffd27a 0, #ff7a20 30%, #7a1f08 70%, #2a0c04 100%); overflow: hidden; box-shadow: 0 0 14px #ff7a2066; }
         #slot.dry { filter: grayscale(.85) brightness(.6); }
         #slot-cd { position: absolute; left: 0; right: 0; bottom: 0; height: 0; background: #000a; }
-        #slot-key { position: absolute; left: 4px; top: 1px; font-size: 12px; color: #fff; }
-        #slot-cost { position: absolute; right: 4px; bottom: 1px; font-size: 12px; color: #9fd0ff; }
-        #slot-name { position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; opacity: .75; }
-        #help { right: 18px; bottom: 18px; font-size: 13px; line-height: 1.6; text-align: right; opacity: .85; }
+        #slot-key { position: absolute; left: 4px; top: 1px; font-size: calc(14px * var(--ui, 1)); color: #fff; }
+        #slot-cost { position: absolute; right: 4px; bottom: 1px; font-size: calc(14px * var(--ui, 1)); color: #9fd0ff; }
+        #slot-name { position: fixed; left: 50%; bottom: 84px; transform: translateX(-50%); font-size: calc(14px * var(--ui, 1)); letter-spacing: .1em; text-transform: uppercase; opacity: .75; }
+        #help { right: 18px; bottom: 18px; display: none; background: #0b0a10d8; padding: 12px 16px; border-radius: 10px; border: 1px solid #f3d88b44; font-size: calc(15px * var(--ui, 1)); line-height: 1.6; text-align: right; opacity: .85; }
+        body.help-on #help { display: block; }
+        #help-hint { right: 18px; bottom: 18px; opacity: .7; transition: opacity 1s; }
+        body.touch-mode #help, body.touch-mode #help-hint { display: none !important; }
         #help b { color: #f3d88b; font-weight: normal; }
-        #title { left: 18px; top: 14px; font-size: 22px; letter-spacing: .12em; }
-        #title small { display: block; font-size: 12px; letter-spacing: .05em; opacity: .7; margin-top: 2px; }
-        #fps { right: 18px; top: 14px; font-size: 12px; opacity: .6; font-family: monospace; }
-        #banner { left: 50%; top: 70px; transform: translateX(-50%); font-size: 28px; letter-spacing: .14em; opacity: 0; transition: opacity .6s; white-space: nowrap; }
-        #prompt { left: 50%; top: 58%; transform: translateX(-50%); font-size: 16px; letter-spacing: .08em; color: #f3d88b; opacity: 0; transition: opacity .3s; }
-        #msg { left: 50%; bottom: 110px; transform: translateX(-50%); font-size: 15px; color: #ffb08a; opacity: 0; transition: opacity .3s; }
+        #title { left: 18px; top: 14px; font-size: calc(26px * var(--ui, 1)); letter-spacing: .12em; }
+        #title small { display: block; font-size: calc(14px * var(--ui, 1)); letter-spacing: .05em; opacity: .7; margin-top: 2px; }
+        #fps { right: 18px; top: 14px; font-size: calc(14px * var(--ui, 1)); opacity: .6; font-family: monospace; }
+        #banner { left: 50%; top: 70px; transform: translateX(-50%); font-size: calc(32px * var(--ui, 1)); letter-spacing: .14em; opacity: 0; transition: opacity .6s; white-space: nowrap; }
+        #prompt { left: 50%; top: 58%; transform: translateX(-50%); font-size: calc(18px * var(--ui, 1)); letter-spacing: .08em; color: #f3d88b; opacity: 0; transition: opacity .3s; }
+        #msg { left: 50%; bottom: 110px; transform: translateX(-50%); font-size: calc(17px * var(--ui, 1)); color: #ffb08a; opacity: 0; transition: opacity .3s; }
         #fade { position: fixed; inset: 0; background: #000; opacity: 0; pointer-events: none; display: grid; place-items: center; color: #eee6d2; letter-spacing: .2em; }
         #floaters { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
-        .floater { position: absolute; left: 0; top: 0; font-size: 22px; font-weight: bold; text-shadow: 0 2px 4px #000, 0 0 8px #000a; white-space: nowrap; }
+        .floater { position: absolute; left: 0; top: 0; font-size: calc(26px * var(--ui, 1)); font-weight: bold; text-shadow: 0 2px 4px #000, 0 0 8px #000a; white-space: nowrap; }
     </style>
 </head>
 <body>
-    <div id="title" class="hud">ARCANE MAJESTY — 3D<small>proof of concept · rules imported from amo</small></div>
     <div id="fps" class="hud"></div>
     <div id="banner" class="hud"></div>
     <div id="prompt" class="hud"></div>
@@ -57,10 +66,11 @@
     </div>
     <div id="slot-name" class="hud">Fireball</div>
     <div id="slot" class="hud"><div id="slot-cd"></div><span id="slot-key">F</span><span id="slot-cost"></span></div>
+    <div id="help-hint" class="hud"><b style="color:#f3d88b;font-weight:normal">F1</b> — controls</div>
     <div id="help" class="hud">
-        <b>WASD</b> move · <b>Shift</b> sprint · <b>Space</b> hop · <b>F / right-click</b> fireball<br />
+        <b>WASD</b> move · <b>Shift</b> sprint · <b>Space</b> hop · <b>F / right-click</b> fireball · <b>click / R</b> strike · <b>I / Tab</b> satchel · <b>C</b> character · <b>1–4</b> hotbar · <b>Z X V</b> style skills · <b>G</b> gather · <b>M</b> map · <b>T</b> Aetheric Tear · <b>H</b> Blink-Step · <b>J</b> journal · <b>K</b> codex<br />
         <b>drag mouse</b> orbit camera · <b>wheel</b> zoom · <b>Q / E</b> turn camera<br />
-        hop through a sword swing to dodge it · shields block fireballs from the front
+        hop through a sword swing to dodge it · shields block fireballs from the front<br /><b>F1</b> hide
     </div>
     <div id="hurt"></div>
     <div id="floaters"></div>

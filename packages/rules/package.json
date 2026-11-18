@@ -1,0 +1,11 @@
+{
+  "name": "@arcane/rules",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Arcane Majesty's engine-free game rules, shared by the 2D and 3D clients (and later the server).",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test_rules.mjs"
+  }
+}

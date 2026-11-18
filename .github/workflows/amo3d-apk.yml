@@ -1,0 +1,79 @@
+# Arcane Majesty 3D — builds the Android APK when a tag like amo3d-v0.2.0 is pushed, and publishes it as a GitHub
+# release. The app checks these releases for updates (apps/amo3d/src/game/updates.js).
+# Signing: the secret AMO3D_KEYSTORE_B64 holds the keystore the phones' installs are signed with (base64), so a release
+# installs over an existing install and keeps its saves.
+name: amo3d APK
+
+on:
+  push:
+    tags: ['amo3d-v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/amo3d
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/amo3d/package-lock.json
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      # The Ubuntu runners ship the Android SDK (ANDROID_HOME); Gradle fetches any missing platform itself.
+
+      - name: Version from the tag
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          VER="${TAG#amo3d-v}"
+          [ "$VER" = "$TAG" ] && VER="0.0.0"
+          IFS=. read -r MA MI PA <<< "$VER"
+          echo "AMO_VERSION_NAME=$VER" >> "$GITHUB_ENV"
+          echo "AMO_VERSION_CODE=$(( ${MA:-0} * 10000 + ${MI:-0} * 100 + ${PA:-0} ))" >> "$GITHUB_ENV"
+          echo "VITE_APP_VERSION=$VER" >> "$GITHUB_ENV"
+
+      - name: Signing key
+        env:
+          KEYSTORE_B64: ${{ secrets.AMO3D_KEYSTORE_B64 }}
+        run: |
+          if [ -n "$KEYSTORE_B64" ]; then
+            echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/amo3d.keystore"
+            echo "AMO_KEYSTORE=$RUNNER_TEMP/amo3d.keystore" >> "$GITHUB_ENV"
+          else
+            echo "::warning::No AMO3D_KEYSTORE_B64 secret — the APK is signed with a throwaway key and will not install over an existing install."
+          fi
+
+      - run: npm ci
+      - run: npx vite build
+      - run: npx cap sync android
+      - name: Build the APK
+        run: cd android && ./gradlew assembleRelease --no-daemon -q   # not debuggable, no WebView inspection
+      - name: Name it
+        run: cp android/app/build/outputs/apk/release/app-release.apk "ArcaneMajesty3D-${AMO_VERSION_NAME}.apk"
+
+      - name: Publish the release
+        if: startsWith(github.ref, 'refs/tags/amo3d-v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" "ArcaneMajesty3D-${AMO_VERSION_NAME}.apk" \
+            --title "Arcane Majesty 3D ${AMO_VERSION_NAME}" \
+            --notes "Android build of Arcane Majesty 3D, version ${AMO_VERSION_NAME}. Download the APK on the phone and install it over the previous one (the app also offers it: title screen and Options → Version)." \
+            --target "$GITHUB_SHA"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ArcaneMajesty3D-${{ env.AMO_VERSION_NAME }}
+          path: apps/amo3d/ArcaneMajesty3D-*.apk
