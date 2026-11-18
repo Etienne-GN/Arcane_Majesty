@@ -61,7 +61,7 @@ export function buildHouse({ w = 6, d = 5, h = 3.2, wall = 0xd8ccb0, roof = 0x8a
     return g;
 }
 
-export function buildProp(type, { len = 4, color = 0x8a3a2a } = {}) {
+export function buildProp(type, { len = 4, color = 0x8a3a2a, dark: blackStone = false } = {}) {
     const g = new THREE.Group(), wood = 0x6b4a2b, dark = 0x3a2a1a;
     switch (type) {
         case 'stall':   // a market stall: counter, four posts, a striped awning
@@ -97,7 +97,7 @@ export function buildProp(type, { len = 4, color = 0x8a3a2a } = {}) {
             if (!color || color === 0x8a3a2a) box(g, 0.95, 0.28, 0.95, stone, 0, 0.3 + h + 0.14, 0);   // a capital (a broken column has none)
             break; }
         case 'ruin_wall': { const n = Math.max(2, Math.round(len / 1.1));
-            for (let i = 0; i < n; i++) { const hh = 1.2 + ((i * 7) % 5) * 0.45; box(g, len / n + 0.02, hh, 0.7, i % 2 ? 0xa8a294 : 0xb4ae9e, -len / 2 + (i + 0.5) * (len / n), hh / 2, 0, (i % 3 - 1) * 0.02); }
+            for (let i = 0; i < n; i++) { const hh = (blackStone ? 0.5 : 1.2) + ((i * 7) % 5) * (blackStone ? 0.22 : 0.45); box(g, len / n + 0.02, hh, 0.7, blackStone ? (i % 2 ? 0x1e1c22 : 0x26232a) : i % 2 ? 0xa8a294 : 0xb4ae9e, -len / 2 + (i + 0.5) * (len / n), hh / 2, 0, (i % 3 - 1) * 0.02); }
             break; }
         case 'steps': for (let i = 0; i < 4; i++) box(g, len, 0.25, 0.7, 0xaaa496, 0, 0.12 + i * 0.25, -i * 0.6);
             break;
@@ -197,9 +197,41 @@ export function buildProp(type, { len = 4, color = 0x8a3a2a } = {}) {
             const fl = new THREE.Mesh(new THREE.ConeGeometry(0.55, 1.6, 7), mat(0xffa040, { emissive: 0xff6a20, emissiveIntensity: 2, transparent: true, opacity: 0.85 })); fl.position.y = 2.5; g.add(fl);
             g.userData.light = { y: 2.5, x: 0, color: 0xff6a20 };
             break; }
+        // ---- the Ruins of Eldoria ----
+        case 'arch': {   // a standing arch of black stone
+            const st = mat(0x22202a, { roughness: 0.7 });
+            for (const sx of [-1, 1]) { const p = new THREE.Mesh(new THREE.BoxGeometry(0.9, 5, 0.9), st); p.position.set(sx * 2.2, 2.5, 0); p.castShadow = true; g.add(p); }
+            const top = new THREE.Mesh(new THREE.TorusGeometry(2.2, 0.45, 4, 12, Math.PI), st); top.position.y = 5; top.castShadow = true; g.add(top);
+            break; }
+        case 'keeper': {   // a keeper who stood so long the standing became stone: a hooded figure grown into a pillar
+            const st = mat(0x2a2830, { roughness: 0.6 });
+            const pil = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.75, 4.4, 7), st); pil.position.y = 2.2; pil.castShadow = true; g.add(pil);
+            const hood = new THREE.Mesh(new THREE.ConeGeometry(0.5, 0.9, 7), st); hood.position.y = 4.75; g.add(hood);
+            const face = new THREE.Mesh(new THREE.SphereGeometry(0.3, 7, 5), mat(0x18161c)); face.position.set(0, 4.35, 0.3); g.add(face);
+            box(g, 1.4, 0.3, 0.5, st, 0, 3.2, 0.32);   // folded arms, worn into the stone
+            box(g, 0.12, 2.2, 0.08, 0x3a3842, 0, 1.6, 0.6);   // the staff they held, become a ridge
+            break; }
+        case 'dead_gate': {   // the approach: a gate whose runes have gone dark, sealed by a silence
+            const st = mat(0x1a1820, { roughness: 0.5 });
+            for (const sx of [-1, 1]) { const p = new THREE.Mesh(new THREE.BoxGeometry(1.4, 6.5, 1.4), st); p.position.set(sx * 3, 3.25, 0); p.castShadow = true; g.add(p);
+                for (let k = 0; k < 5; k++) box(g, 0.5, 0.07, 0.05, 0x3a3a48, sx * 3, 1.2 + k * 1.0, 0.73, (k % 2 - 0.5) * 0.4); }   // runes, dead and grey
+            box(g, 7.6, 1.2, 1.6, st, 0, 7.0, 0);
+            break; }
+        case 'pedestal': box(g, 1.6, 0.4, 1.6, 0x26232a, 0, 0.2, 0); box(g, 0.9, 1.1, 0.9, 0x2e2a32, 0, 0.95, 0); box(g, 1.1, 0.12, 1.1, 0x3a3640, 0, 1.56, 0);
+            box(g, 0.5, 0.06, 0.5, 0x6a5a8a, 0, 1.65, 0, 0, { emissive: 0x4a3a8a, emissiveIntensity: 0.8 }); break;   // where the Heart Stone lay — a faint glow remains
+        case 'ancient_door': {   // a door older than the valley: two vast leaves in a frame, covered in runes no one can read
+            const st = mat(0x16141a, { roughness: 0.4, metalness: 0.2 });
+            box(g, 9, 12, 2, st, 0, 6, -0.6);
+            for (const sx of [-1, 1]) {
+                box(g, 2.9, 9, 0.5, mat(0x221e28, { roughness: 0.35, metalness: 0.3 }), sx * 1.5, 4.5, 0.5);
+                for (let r = 0; r < 7; r++) for (let c = 0; c < 3; c++) box(g, 0.36, 0.36, 0.06, 0x5a4a7a, sx * (0.6 + c * 0.8), 1.2 + r * 1.15, 0.78, ((r + c) % 3) * 0.5, { emissive: 0x3a2a6a, emissiveIntensity: 0.9 });
+            }
+            box(g, 0.2, 9, 0.6, 0x0a080c, 0, 4.5, 0.55);   // the seam where the leaves meet
+            g.userData.light = { y: 5, x: 0, color: 0x6a4aaa, i: 8, r: 14 };
+            break; }
         default: box(g, 0.5, 0.5, 0.5, 0x8a867e, 0, 0.25, 0);
     }
     return g;
 }
 // Footprint radius for a prop's collider (0 = walk through).
-export const PROP_R = { stall: 1.2, well: 1.0, lamp: 0.15, cart: 1.0, barrel: 0.4, crate: 0.45, bench: 0, signpost: 0.15, fence: 0, column: 0.45, ruin_wall: 0, steps: 0, platform: 0, pier: 0, boat: 0.9, glow: 0, mine: 2.6, heap: 2.4, chimney: 1.2, rails: 0, weeping_stone: 0.8, flowers: 0, keep: 0, stone_wall: 0, glass_stair: 0, runestone: 0.5, flame_gate: 0, golem: 1.0, crucible: 0 };
+export const PROP_R = { stall: 1.2, well: 1.0, lamp: 0.15, cart: 1.0, barrel: 0.4, crate: 0.45, bench: 0, signpost: 0.15, fence: 0, column: 0.45, ruin_wall: 0, steps: 0, platform: 0, pier: 0, boat: 0.9, glow: 0, mine: 2.6, heap: 2.4, chimney: 1.2, rails: 0, weeping_stone: 0.8, flowers: 0, keep: 0, stone_wall: 0, glass_stair: 0, runestone: 0.5, flame_gate: 0, golem: 1.0, crucible: 0, arch: 0, keeper: 0.7, dead_gate: 0, pedestal: 0.9, ancient_door: 0 };

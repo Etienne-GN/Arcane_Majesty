@@ -1,0 +1,472 @@
+{
+  "id": "ruins_of_eldoria",
+  "name": "The Ruins of Eldoria",
+  "lore": "A graveyard of the golden age \u2014 low black-stone walls, foundations, a few standing arches; the ruins of a vigil, not a city, where keepers stood so long their standing became architecture. The approach is a rune-dead gate sealed by Voraun's silence. Beyond lies the Heartstone Chamber, where the Heart Stone of Creation was hidden, and the Ancient Door \u2014 older than the valley, older than the keeping \u2014 with runes no one can read; the Shadow Balrog guards it (lore DB: Ruins of Eldoria, Heartstone Chamber, The Ancient Door). The Balrog and the chamber's dark entity come with the campaign.",
+  "seed": 12121,
+  "half": 72,
+  "water": -3,
+  "terrain": {
+    "scale": 0.02,
+    "relief": 5,
+    "base": 0.6,
+    "rim": 26
+  },
+  "palette": {
+    "grassA": "#4a5040",
+    "grassB": "#5a5e48",
+    "dirt": "#3a3630",
+    "rock": "#3a3840",
+    "shore": "#3a3630",
+    "road": "#2e2c30",
+    "undergrowth": "#3a4430"
+  },
+  "tints": [
+    {
+      "x": 0,
+      "z": -40,
+      "r": 22,
+      "color": "#26242c",
+      "k": 0.7
+    }
+  ],
+  "mood": {
+    "fog": "#5e6068",
+    "fogNear": 18,
+    "fogFar": 130,
+    "fogMix": 0.55,
+    "light": 0.72,
+    "motes": "#a898d8",
+    "nightFloor": 0.42
+  },
+  "features": [
+    {
+      "type": "clearing",
+      "x": 0,
+      "z": 0,
+      "r": 40
+    },
+    {
+      "type": "clearing",
+      "x": 0,
+      "z": -44,
+      "r": 16
+    }
+  ],
+  "path": [
+    [
+      0,
+      66
+    ],
+    [
+      0,
+      40
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      -26
+    ]
+  ],
+  "undergrowth": 0.5,
+  "props": [
+    {
+      "type": "ruin_wall",
+      "x": -30,
+      "z": 6.0,
+      "ry": 0,
+      "len": 10,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": -30,
+      "z": 14.0,
+      "ry": 0,
+      "len": 6.0,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": -35.0,
+      "z": 10,
+      "ry": 1.5708,
+      "len": 8,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": -25.0,
+      "z": 10,
+      "ry": 1.5708,
+      "len": 4.0,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": -14,
+      "z": 23.0,
+      "ry": 0,
+      "len": 8,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": -14,
+      "z": 29.0,
+      "ry": 0,
+      "len": 4.8,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": -18.0,
+      "z": 26,
+      "ry": 1.5708,
+      "len": 6,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": -10.0,
+      "z": 26,
+      "ry": 1.5708,
+      "len": 3.0,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": 18,
+      "z": 18.0,
+      "ry": 0,
+      "len": 12,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": 18,
+      "z": 26.0,
+      "ry": 0,
+      "len": 7.199999999999999,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": 12.0,
+      "z": 22,
+      "ry": 1.5708,
+      "len": 8,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": 24.0,
+      "z": 22,
+      "ry": 1.5708,
+      "len": 4.0,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": 30,
+      "z": -1.0,
+      "ry": 0,
+      "len": 8,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": 30,
+      "z": 9.0,
+      "ry": 0,
+      "len": 4.8,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": 26.0,
+      "z": 4,
+      "ry": 1.5708,
+      "len": 10,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": 34.0,
+      "z": 4,
+      "ry": 1.5708,
+      "len": 5.0,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": -34,
+      "z": -19.5,
+      "ry": 0,
+      "len": 9,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": -34,
+      "z": -12.5,
+      "ry": 0,
+      "len": 5.3999999999999995,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": -38.5,
+      "z": -16,
+      "ry": 1.5708,
+      "len": 7,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": -29.5,
+      "z": -16,
+      "ry": 1.5708,
+      "len": 3.5,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": 14,
+      "z": -9.0,
+      "ry": 0,
+      "len": 7,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": 14,
+      "z": -3.0,
+      "ry": 0,
+      "len": 4.2,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": 10.5,
+      "z": -6,
+      "ry": 1.5708,
+      "len": 6,
+      "dark": true
+    },
+    {
+      "type": "ruin_wall",
+      "x": 17.5,
+      "z": -6,
+      "ry": 1.5708,
+      "len": 3.0,
+      "dark": true
+    },
+    {
+      "type": "arch",
+      "x": -6,
+      "z": 40,
+      "ry": 0,
+      "clear": 4
+    },
+    {
+      "type": "arch",
+      "x": 8,
+      "z": 10,
+      "ry": 0.3,
+      "clear": 4
+    },
+    {
+      "type": "arch",
+      "x": -22,
+      "z": -2,
+      "ry": 1.2,
+      "clear": 4
+    },
+    {
+      "type": "arch",
+      "x": 26,
+      "z": -14,
+      "ry": -0.4,
+      "clear": 4
+    },
+    {
+      "type": "keeper",
+      "x": 5,
+      "z": 34,
+      "ry": -1.5708,
+      "clear": 3
+    },
+    {
+      "type": "keeper",
+      "x": -5,
+      "z": 27,
+      "ry": 1.5708,
+      "clear": 3
+    },
+    {
+      "type": "keeper",
+      "x": 5,
+      "z": 20,
+      "ry": -1.5708,
+      "clear": 3
+    },
+    {
+      "type": "keeper",
+      "x": -5,
+      "z": 13,
+      "ry": 1.5708,
+      "clear": 3
+    },
+    {
+      "type": "keeper",
+      "x": 5,
+      "z": 6,
+      "ry": -1.5708,
+      "clear": 3
+    },
+    {
+      "type": "keeper",
+      "x": -5,
+      "z": -1,
+      "ry": 1.5708,
+      "clear": 3
+    },
+    {
+      "type": "keeper",
+      "x": 5,
+      "z": -8,
+      "ry": -1.5708,
+      "clear": 3
+    },
+    {
+      "type": "keeper",
+      "x": -5,
+      "z": -15,
+      "ry": 1.5708,
+      "clear": 3
+    },
+    {
+      "type": "dead_gate",
+      "x": 0,
+      "z": 54,
+      "clear": 8
+    },
+    {
+      "type": "steps",
+      "x": 0,
+      "z": -30,
+      "ry": 3.1416,
+      "len": 8
+    },
+    {
+      "type": "pedestal",
+      "x": 0,
+      "z": -40,
+      "clear": 6
+    },
+    {
+      "type": "ancient_door",
+      "x": 0,
+      "z": -56,
+      "clear": 10
+    }
+  ],
+  "signs": [
+    {
+      "x": 3,
+      "z": 50,
+      "text": "The runes on the gate are dead \u2014 not broken, not worn: silenced, as if someone had told them to stop. The air here holds no sound for long."
+    },
+    {
+      "x": 3,
+      "z": -36,
+      "text": "An empty pedestal at the bottom of the steps. The stone still remembers a light; it is cold to the touch, and yet it hums."
+    }
+  ],
+  "trees": {
+    "count": 120,
+    "gaps": 0.6,
+    "sizeVar": 0.8,
+    "kinds": {
+      "dead": 0.6,
+      "pine": 0.4
+    },
+    "trunk": {
+      "dead": "#3a3632"
+    }
+  },
+  "rocks": 90,
+  "gather": {
+    "herb": 3,
+    "crystal": 2,
+    "mushroom": 3
+  },
+  "gates": [
+    {
+      "id": "ruins_monolith",
+      "label": "Monolith of the Ruins",
+      "x": -12,
+      "z": 50
+    }
+  ],
+  "actors": [
+    {
+      "type": "shadows",
+      "posts": [
+        {
+          "x": -30,
+          "z": -20
+        },
+        {
+          "x": 28,
+          "z": -24
+        }
+      ]
+    }
+  ],
+  "landmarks": [
+    {
+      "name": "The rune-dead gate",
+      "x": 0,
+      "z": 54,
+      "icon": "gate"
+    },
+    {
+      "name": "The keepers' way",
+      "x": 0,
+      "z": 14,
+      "icon": "stones"
+    },
+    {
+      "name": "The Heartstone Chamber",
+      "x": 0,
+      "z": -40,
+      "icon": "tower"
+    },
+    {
+      "name": "The Ancient Door",
+      "x": 0,
+      "z": -56,
+      "icon": "den"
+    }
+  ],
+  "links": [
+    {
+      "label": "Back to the Inferno Labyrinth",
+      "x": 0,
+      "z": 66,
+      "facing": 3.1416,
+      "spawn": "from_labyrinth",
+      "to": "inferno_labyrinth",
+      "toSpawn": "from_ruins"
+    }
+  ],
+  "start": {
+    "x": 0,
+    "z": 60,
+    "facing": 3.1416
+  }
+}

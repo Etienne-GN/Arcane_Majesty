@@ -274,6 +274,9 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
             pl.position.set(pr.x + (L.x ?? 0) * Math.cos(pr.ry ?? 0), y + L.y, pr.z - (L.x ?? 0) * Math.sin(pr.ry ?? 0)); scene.add(pl); propLights++;
         }
         if (pr.type === 'keep') { for (const [ax, az, bx, bz] of [[-4, -4, 4, -4], [4, -4, 4, 4], [4, 4, -4, 4], [-4, 4, -4, -4]]) { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), T = (lx, lz) => [pr.x + lx * c + lz * sn, pr.z - lx * sn + lz * c], [a1, a2] = T(ax, az), [b1, b2] = T(bx, bz); colliders.push({ ax: a1, az: a2, bx: b1, bz: b2, r: 0.3, kind: 'wall', y0: y - 1, y1: y + 12 }); } }
+        else if (pr.type === 'arch' || pr.type === 'dead_gate' || pr.type === 'ancient_door') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), off = pr.type === 'arch' ? 2.2 : pr.type === 'dead_gate' ? 3 : 0;
+            if (off) for (const sx of [-1, 1]) addCollider({ x: pr.x + sx * off * c, z: pr.z - sx * off * sn, r: 0.7, kind: 'wall' }, 6);
+            else colliders.push({ ax: pr.x - 4.5 * c, az: pr.z + 4.5 * sn, bx: pr.x + 4.5 * c, bz: pr.z - 4.5 * sn, r: 1.0, kind: 'wall', y0: y - 1, y1: y + 12 }); }
         else if (pr.type === 'stone_wall') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.6, kind: 'wall', y0: y - 1, y1: y + 4 }); }
         else if (pr.type === 'ruin_wall') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.4, kind: 'wall', y0: y - 1, y1: y + 3 }); }
         else if (pr.type === 'fence') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.15, kind: 'hop', y0: y - 1, y1: y + 1.1 }); }

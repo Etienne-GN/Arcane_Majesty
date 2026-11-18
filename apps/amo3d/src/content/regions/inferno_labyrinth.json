@@ -164,6 +164,14 @@
     [
       30,
       -34
+    ],
+    [
+      40,
+      -46
+    ],
+    [
+      44,
+      -62
     ]
   ],
   "props": [
@@ -293,6 +301,17 @@
       "spawn": "from_fire_gate",
       "to": "fire_gate",
       "toSpawn": "from_labyrinth"
+    },
+    {
+      "label": "Out through the mountain's heart \u2014 the Ruins of Eldoria",
+      "x": 44,
+      "z": -62,
+      "facing": 0,
+      "spawn": "from_ruins",
+      "to": "ruins_of_eldoria",
+      "toSpawn": "from_labyrinth",
+      "requires": "xarathos_destroyed",
+      "lockedLabel": "A way through the heart of the mountain \u2014 the Pyre-Lord bars it"
     }
   ],
   "start": {

@@ -46,8 +46,18 @@ Stones, the Hidden Cabin) are remote wilderness. The campaign runs from the Sylv
 - [x] **8. The Fire Gate → the Inferno Labyrinth** (campaign) — open the Sanctuary's "way down toward the Fire Gate":
       a black-glass stair with heat-holding runes into the mountain's heart; then magma rivers, the gate of flame,
       the obsidian golem trial (Xarathos's territory).
-- [ ] **9. The Ruins of Eldoria → the Heartstone Chamber → the Ancient Door** (campaign) — low black-stone walls,
+- [x] **9. The Ruins of Eldoria → the Heartstone Chamber → the Ancient Door** (campaign) — low black-stone walls,
       foundations, a few arches (a vigil, not a city); the chamber; the door with unreadable runes.
+- [ ] **11. Thaloria, the great city** (user, 2026-11-18, with the Eldoria's Prophecy album cover as the reference) —
+      Thaloria is the biggest city in Eldoria. The cover shows a towering gothic citadel-cathedral (one great central spire,
+      a crowd of pinnacles and turrets, tall arched windows, a great arched entrance) standing on a sheer cliff above a
+      river gorge; waterfalls pour off the cliff and the citadel's undercroft; ships sail the river below; red-roofed
+      halls on the green terraces beside it; snowy peaks, sea of cloud and evening sun behind. Plan: keep today's walled
+      town (its 17 interiors, doors and 41 residents' schedules depend on it) as the lower city, and add (a) the citadel on a
+      raised cliff at the city's north edge, visible from everywhere, (b) the river gorge below it with waterfalls and
+      ships, (c) the city spread wider (more districts, terraces), (d) a lookout from the glade road framing it like the
+      cover. Check the lore DB (Thaloria: the scholarly kingdom of libraries and archives) — the citadel can be the great
+      library-palace; the Forbidden Archive lives inside it.
 - [ ] **10. Later, other planes:** the Scarlands (New Ravenspire, the Obsidian Gate), the Forbidden Archive (Thaloria),
       the Sanguine Vaults, Nythoria, the Great Rift, Auroria.
 
@@ -62,6 +72,7 @@ Stones, the Hidden Cabin) are remote wilderness. The campaign runs from the Sylv
 - 2026-11-18 (pass 2): the Emerald Fields built (south link from Lake Aethera): bright open meadows; the Weeping Stones — seven monoliths with weeping faces turned inward, wildflower offerings (props `weeping_stone`, `flowers`); the Hidden Cabin, swept, "K · A" carved in the door frame; deer and a wolf pack (the werewolf Guardians come with the races step).
 - 2026-11-18 (pass 2): Duskmeet (north of Whisper-Wood: dark timber houses, an iron horseshoe over every door, lanterns lit all night, The Last Lamp inn, shadow-men in the trees) and Graywatch (east of Whisper-Wood: a square stone keep with merlons, arrow slits, a grey banner and a watch-light, curtain walls, barracks, the reddish edge of the Scarlands with void-stalkers beyond). Whisper-Wood now links north (Duskmeet), east (Graywatch) and south (the Crossroads' north road). New props: keep, stone_wall; houses can have `horseshoe` and `lantern`. Released as amo3d-v0.5.0. World network now: Glade ↔ Thaloria ↔ East Road ↔ Summit approach ↔ Iron Hollow; East Road ↔ Crossroads ↔ Lake Aethera ↔ Emerald Fields; Crossroads ↔ Port Silver; Crossroads ↔ Whisper-Wood ↔ Glade / Duskmeet / Graywatch.
 - 2026-11-18 (pass 2): the Fire Gate (snow giving way to ash; the black-glass stair with heat-holding runes, runestones, the first landing) and the Inferno Labyrinth (magma rivers that burn — region `lava`, the gate of flame, the ring of obsidian golems for the trial, the crucible on its dais) built. The Sanctuary's way down now opens once the Hermit has taught Aether Sight (link `requires` a flag — main.js lockDoors; god mode opens all). Still owed for the campaign chapters: Oren's betrayal at the first landing, the golem trial, Magma-Eaters, Cinder-Souls, Xarathos the Pyre-Lord.
+- 2026-11-18 (pass 2): the Ruins of Eldoria built (beyond the Labyrinth's crucible; opens once Xarathos is destroyed — flag `xarathos_destroyed`): the rune-dead gate, low black foundations, standing arches, a line of hooded keepers grown into pillars, steps down to the Heartstone Chamber's empty pedestal, the Ancient Door with its violet runes. Owed for the campaign: the dark entity in the chamber, the Shadow Balrog at the door. Next: step 11, Thaloria.
 
 ## DB sync owed (game-only additions, for the user)
 - The Corrupted Rim, the Hermit's camp (from the Sanctuary).
