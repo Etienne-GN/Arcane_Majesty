@@ -57,7 +57,7 @@ The lore DB already has 7: **Werewolf** (Guardians of the Wild, the Emerald Fiel
 - [ ] Tools as hand items: torch, pickaxe, fishing rod, lantern.
 - [ ] The claymore item uses the new claymore model in the game (it still draws as the greatsword).
 - [ ] Shops and loot for the new clothes and weapons; crafting recipes for them.
-- [ ] ★ **A checkout step at merchants** (and other traders): put several items in a basket to buy or sell, review the total, then confirm — no more one-click purchases.
+- [x] ★ **A checkout step at merchants** (2026-11-18) (and other traders): put several items in a basket to buy or sell, review the total, then confirm — no more one-click purchases.
 
 ## 9. Multiplayer (parked 2026-11-14 — don't forget)
 - [ ] Test the shared wolves and shadow soldiers (coded, untested).
