@@ -140,6 +140,20 @@ export function createEastRoad({ quality }) {
         map.spawns[west ? 'from_thaloria' : 'from_summit'] = { x: x + (west ? 3.5 : -3.5), z, facing: west ? Math.PI / 2 : -Math.PI / 2 };
     }
     map.spawns.start = map.spawns.from_thaloria;
+    // A fork south to the Crossroads (the Heartlands): an arch a few steps off the road, about halfway along.
+    {
+        let fork = null;
+        for (let dx = 0; dx < 50 && !fork; dx++) for (const x of [Math.floor(W / 2) + dx, Math.floor(W / 2) - dx]) {
+            const y = grid.findIndex(row => row[x] === 2); if (y < 0) continue;
+            for (let off = 5; off < 12 && !fork; off++) if (grid[y + off]?.[x] === 0 && grid[y + off + 2]?.[x] === 0 && !water.has(`${x},${y + off}`)) fork = { x: wx(x), z: wz(y + off) };
+            if (fork) break;
+        }
+        if (fork) {
+            veils.push(buildArch(scene, fork.x, heightAt(fork.x, fork.z), fork.z, 0));
+            map.triggers.push({ x: fork.x, z: fork.z, r: 1.3, label: 'The road south to the Crossroads', to: 'the_crossroads', spawn: 'from_east_road' });
+            map.spawns.from_crossroads = { x: fork.x, z: fork.z - 3, facing: Math.PI };
+        }
+    }
 
     // ---------- places: waystone and lean-to (signs), chests, campfires, gathering, the monolith ----------
     for (const sg of D.spawns.signs ?? []) {

@@ -13,6 +13,7 @@ import { createShadows } from '../content/actors/shadowSoldier.js';
 import { createDeer } from '../content/actors/deer.js';
 import { buildMonolith } from '../game/travel.js';
 import { createBeasts } from '../content/actors/beast.js';
+import { buildHouse, buildProp, PROP_R } from '../content/models/buildings.js';
 
 const segDist = (x, z, pts) => {
     let best = Infinity;
@@ -23,6 +24,14 @@ const segDist = (x, z, pts) => {
     }
     return best;
 };
+
+// Settlements (region files): roads are polylines { pts, w, kind: 'road' | 'paved' }; buildings are footprints
+// { x, z, w, d, ry } that the ground is levelled under.
+const roadInfo = (def, x, z) => { let best = null; for (const r of def.roads ?? []) { const d = segDist(x, z, r.pts); if (d < (r.w ?? 3) / 2 && (!best || d < best.d)) best = { d, kind: r.kind ?? 'road' }; } return best; };
+function rectDist(b, x, z) {   // distance from a point to a building's (rotated) footprint
+    const c = Math.cos(-(b.ry ?? 0)), s = Math.sin(-(b.ry ?? 0)), lx = (x - b.x) * c - (z - b.z) * s, lz = (x - b.x) * s + (z - b.z) * c;
+    return Math.hypot(Math.max(Math.abs(lx) - (b.w ?? 6) / 2, 0), Math.max(Math.abs(lz) - (b.d ?? 5) / 2, 0));
+}
 
 // An archway marking a link to another region.
 export function buildArch(scene, x, y, z, ry) {
@@ -41,7 +50,9 @@ export function buildArch(scene, x, y, z, ry) {
 // The terrain height of a region (pure: the game and the editor both use it).
 export function regionHeight(def) {
     const half = def.half ?? 90, WATER = def.water ?? -1.2, EDGE = half - 6, T = def.terrain ?? {}, path = def.path ?? [];
-    const trails = [path, ...(def.branches ?? [])].filter(p => p.length > 1);
+    const trails = [path, ...(def.branches ?? []), ...(def.roads ?? []).map(r => r.pts)].filter(p => p.length > 1);
+    const pads = new Map();   // each building's level: the raw ground at its centre
+    const raw = (x, z) => { let h = (fbm(x * (T.scale ?? 0.02) + 31, z * (T.scale ?? 0.02) - 17) - 0.5) * (T.relief ?? 10) + (T.base ?? 0.5); for (const f of def.features ?? []) { if (f.type === 'hill') h += smoothstep(f.r, 0, Math.hypot(x - f.x, z - f.z)) * f.h; else if (f.type === 'clearing') h += (0.4 - h) * smoothstep(f.r, f.r * 0.5, Math.hypot(x - f.x, z - f.z)); } return h; };
     return function heightAt(x, z) {
         let h = (fbm(x * (T.scale ?? 0.02) + 31, z * (T.scale ?? 0.02) - 17) - 0.5) * (T.relief ?? 10) + (T.base ?? 0.5);
         for (const f of def.features ?? []) {
@@ -54,6 +65,11 @@ export function regionHeight(def) {
         const pd = trails.length ? Math.min(...trails.map(p => segDist(x, z, p))) : Infinity;
         if (T.carveTo !== undefined) { if (pd < 7) h += (T.carveTo - h) * smoothstep(7, 2.5, pd); }   // a trail cut through the rock
         else if (pd < 4) h += (Math.max(h, WATER + 1) - h) * smoothstep(4, 1.5, pd) - smoothstep(3, 0, pd) * 0.15;
+        for (const b of def.buildings ?? []) {   // level ground under and just round every building
+            const d = rectDist(b, x, z); if (d > 4) continue;
+            if (!pads.has(b)) pads.set(b, b.y ?? Math.max(raw(b.x, b.z), WATER + 0.6));
+            h += (pads.get(b) - h) * smoothstep(4, 0.6, d);
+        }
         h += smoothstep(EDGE - 18, EDGE + 4, Math.max(Math.abs(x), Math.abs(z))) * (T.rim ?? 22) * (0.6 + 0.8 * fbm(x * 0.05, z * 0.05));   // a wall of hills
         return h;
     };
@@ -66,7 +82,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     const T = def.terrain ?? {}, P = def.palette ?? {};
     const colliders = [];
     const path = def.path ?? [];
-    const trails = [path, ...(def.branches ?? [])].filter(p => p.length > 1);
+    const trails = [path, ...(def.branches ?? []), ...(def.roads ?? []).map(r => r.pts)].filter(p => p.length > 1);
     const trailDist = (x, z) => (trails.length ? Math.min(...trails.map(p => segDist(x, z, p))) : Infinity);
 
     // ---------- terrain ----------
@@ -76,7 +92,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     const tGeo = new THREE.PlaneGeometry(SIZE, SIZE, SEG, SEG).rotateX(-Math.PI / 2);
     const tp = tGeo.attributes.position, colors = new Float32Array(tp.count * 3);
     const cA = new THREE.Color(P.grassA ?? '#4d7a35'), cB = new THREE.Color(P.grassB ?? '#7aa04a'), cDirt = new THREE.Color(P.dirt ?? '#6e5a3c'),
-        cRock = new THREE.Color(P.rock ?? '#77726b'), cSand = new THREE.Color(P.shore ?? '#8a7a5a'), col = new THREE.Color(), cSnow = P.snow ? new THREE.Color(P.snow) : null;
+        cRock = new THREE.Color(P.rock ?? '#77726b'), cRoad = new THREE.Color(P.road ?? '#9a8466'), cPaved = new THREE.Color(P.paved ?? '#a8a49a'), cSand = new THREE.Color(P.shore ?? '#8a7a5a'), col = new THREE.Color(), cSnow = P.snow ? new THREE.Color(P.snow) : null;
     for (let i = 0; i < tp.count; i++) {
         const x = tp.getX(i), z = tp.getZ(i), h = heightAt(x, z);
         tp.setY(i, h);
@@ -86,7 +102,9 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         else if (h > (T.rockLine ?? 7) + n * 3) col.copy(cRock);
         else col.copy(cA).lerp(cB, n);
         for (const z0 of def.tints ?? []) { const d = Math.hypot(x - z0.x, z - z0.z); if (d < z0.r) col.lerp(new THREE.Color(z0.color), (z0.k ?? 0.8) * smoothstep(z0.r, z0.r * 0.4, d)); }   // tints: coloured ground zones
-        if (trailDist(x, z) < 1.6) col.lerp(cDirt, 0.85);
+        const rd = roadInfo(def, x, z);
+        if (rd) col.copy(rd.kind === 'paved' ? cPaved : cRoad).offsetHSL(0, 0, (n - 0.5) * 0.06);
+        else if (trailDist(x, z) < 1.6) col.lerp(cDirt, 0.85);
         colors.set([col.r, col.g, col.b], i * 3);
     }
     tGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
@@ -107,6 +125,8 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     // ---------- links (archways to other regions) and reserved ground ----------
     const links = def.links ?? [];
     const reserved = (x, z, m = 0) => links.some(l => Math.hypot(l.x - x, l.z - z) < 7 + m) || (trailDist(x, z) < 2.2 + m)
+        || (def.buildings ?? []).some(b => rectDist(b, x, z) < 3 + m) || (def.roads ?? []).some(r => segDist(x, z, r.pts) < (r.w ?? 3) / 2 + 1.5 + m)
+        || (def.props ?? []).some(pr => Math.hypot(pr.x - x, pr.z - z) < 2 + m)
         || (def.features ?? []).some(f => f.type === 'clearing' && Math.hypot(f.x - x, f.z - z) < f.r * 0.6);
     const addCollider = (c, height) => { const y0 = heightAt(c.x, c.z); colliders.push({ ...c, y0: y0 - 0.5, y1: y0 + height }); };
 
@@ -234,6 +254,23 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         }
     }
 
+    // Settlement buildings and street props.
+    for (const b of def.buildings ?? []) {
+        const g = buildHouse(b), y = heightAt(b.x, b.z);
+        g.position.set(b.x, y, b.z); g.rotation.y = b.ry ?? 0; scene.add(g);
+        const c = Math.cos(b.ry ?? 0), sn = Math.sin(b.ry ?? 0), hw = (b.w ?? 6) / 2, hd = (b.d ?? 5) / 2;
+        const corner = (lx, lz) => [b.x + lx * c + lz * sn, b.z - lx * sn + lz * c];
+        const k = [corner(-hw, -hd), corner(hw, -hd), corner(hw, hd), corner(-hw, hd)];
+        for (let i = 0; i < 4; i++) { const [ax, az] = k[i], [bx, bz] = k[(i + 1) % 4]; colliders.push({ ax, az, bx, bz, r: 0.2, kind: 'wall', y0: y - 1, y1: y + (b.h ?? 3.2) + 3 }); }
+        if (b.sign) map.stations.push({ mode: 'sign', text: b.signText ?? b.sign, pos: new THREE.Vector3(...[corner(0.95, hd + 0.8)].map(([px, pz]) => [px, y, pz])[0]) });
+    }
+    for (const pr of def.props ?? []) {
+        const g = buildProp(pr.type, pr), y = heightAt(pr.x, pr.z);
+        g.position.set(pr.x, y, pr.z); g.rotation.y = pr.ry ?? 0; scene.add(g);
+        if (pr.type === 'fence') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.15, kind: 'hop', y0: y - 1, y1: y + 1.1 }); }
+        else if (PROP_R[pr.type]) addCollider({ x: pr.x, z: pr.z, r: PROP_R[pr.type], kind: 'wall' }, 2.5);
+    }
+
     // Signs to read (amo spawns.signs).
     for (const sg of def.signs ?? []) {
         const post = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.35, 0.08), flat(0x8a7a5a)); post.position.set(sg.x, heightAt(sg.x, sg.z) + 0.5, sg.z); post.castShadow = true; scene.add(post);
@@ -262,7 +299,9 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     map.nav = createNav({ colliders, passable: map.passable, half });
     map.mapInfo = {
         half, water: WATER, ground: [1, 3, 5].map(i => parseInt((P.grassA ?? '#4d7a35').slice(i, i + 2), 16)), trees: trees.map(t => [t.x, t.z, t.kind === 'pine' || t.kind === 'dead' ? 1 : 0]),
-        landmarks: [...(def.landmarks ?? []), ...links.map(l => ({ name: l.label.replace(/^To /, '→ '), x: l.x, z: l.z, icon: 'gate' })), ...map.gates.map(g => ({ name: g.label, x: g.x, z: g.z, icon: 'stones' }))],
+        groundAt: (x, z) => roadInfo(def, x, z)?.kind ?? null,
+        buildings: (def.buildings ?? []).map(b => { const r = Math.abs(Math.sin(b.ry ?? 0)) > 0.7, w = (r ? b.d : b.w) ?? 6, d = (r ? b.w : b.d) ?? 5; return { x0: b.x - w / 2, z0: b.z - d / 2, x1: b.x + w / 2, z1: b.z + d / 2 }; }),
+        landmarks: [...(def.landmarks ?? []), ...(def.buildings ?? []).filter(b => b.name).map(b => ({ name: b.name, x: b.x, z: b.z, icon: 'house' })), ...links.map(l => ({ name: l.label.replace(/^To /, '→ '), x: l.x, z: l.z, icon: 'gate' })), ...map.gates.map(g => ({ name: g.label, x: g.x, z: g.z, icon: 'stones' }))],
     };
 
     map.update = (t, dt, ctx) => {
