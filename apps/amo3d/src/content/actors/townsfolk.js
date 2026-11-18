@@ -27,7 +27,12 @@ function lookFor(r) {
         case 'guard': return o('armour', '#2f4a7a', '#1f3050', { headgear: { type: 'helmet', color: '#9aa0a8' }, cape: true });
         case 'priest': return o('robe', '#e8e0d0', '#c8a050', { hood: (h & 1) === 1, hoodColor: '#e8e0d0' });
         case 'noble': return o('longcoat', pick(['#5a2a6a', '#2a4a3a', '#6a1a2a', '#2a3a6a'], h, 2), '#2a1a2a', { cape: (h & 2) === 2 });
-        case 'child': return { ...o('tunic', pick(['#c86a3a', '#3a8ac8', '#6aa83a', '#c8a83a'], h, 2), '#5a3a22'), build: { height: 0.68, width: 0.82 } };
+        case 'child': {
+            const l = o('tunic', pick(['#c86a3a', '#3a8ac8', '#6aa83a', '#c8a83a'], h, 2), '#5a3a22');
+            l.build = { height: 0.68, width: 0.82 };
+            l.body = { preset: 'child' };
+            return l;
+        }
         case 'beggar': return o('robe', '#5a4a3a', '#3a2a1a', { hood: true, hoodColor: '#4a3a2a' });
         case 'drunk': return o('tunic', '#7a5a3a', '#4a3a22');
         case 'merchant': return o('tunic', pick(['#8a5a2a', '#2a6a5a', '#6a2a2a', '#4a4a6a'], h, 2), '#3a2a1a');

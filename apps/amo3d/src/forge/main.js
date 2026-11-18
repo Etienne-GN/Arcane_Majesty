@@ -1,9 +1,15 @@
-// The Forge — design characters for Arcane Majesty from our own parts. A turntable preview of the
-// real game model (content/models/character.js), pickers for every part of a look definition,
-// randomize, and save into src/content/cast/<id>.json (through the dev server's /api/cast).
+// The Forge — a character creator for Arcane Majesty built from the game's own part library.
+// Left rail: every slot. Centre: the live game model on a turntable. Right: the items and colours
+// for the selected slot, role archetypes, body presets, preview poses and save/export controls.
 import * as THREE from 'three';
-import { createCharacter, DEFAULT_LOOK } from '../content/models/character.js';
+import { createCharacter } from '../content/models/character.js';
+import {
+    BODY_PRESETS, DEFAULT_LOOK, HANDHELD, HAND_ITEM, PART_SLOTS,
+    handSpec, normalizeLook,
+} from '../content/models/look.js';
+import { PART_CATALOG, partDef } from '../content/models/parts/index.js';
 import { HAIR_STYLES, FACIAL_STYLES } from '../content/models/parts/hair.js';
+import { ARCHETYPES, ARCHETYPE_ORDER } from '../content/models/archetypes.js';
 import { talents as talentRules } from '@rules';
 
 // ?mode=create: the in-game creator — make your own hero (name, class, look) and begin a game.
@@ -65,190 +71,494 @@ renderer.domElement.addEventListener('wheel', e => { e.preventDefault(); view.di
 
 // ---------- the character being made ----------
 const clone = o => JSON.parse(JSON.stringify(o));
-let def = { id: 'new_character', name: CREATE ? '' : 'New Character', lore: '', classId: 'mage', look: clone(DEFAULT_LOOK) };
-let model = null, pose = 'idle', weapon = 'staff';
+let def = {
+    id: 'new_character',
+    name: CREATE ? '' : 'New Character',
+    lore: '',
+    classId: 'mage',
+    look: clone(DEFAULT_LOOK),
+};
+let model = null;
+let pose = 'idle';
+let previewHand = 'R';
+let selectedSlot = 'body';
+const locks = new Set();
+
+const SLOT_LABELS = {
+    body: 'Body', face: 'Face', hair: 'Hair', facialHair: 'Facial hair',
+    torso: 'Torso', legs: 'Legs', feet: 'Feet', arms: 'Arms', shoulders: 'Shoulders',
+    waist: 'Waist', neck: 'Neck', headgear: 'Headgear', cape: 'Cape', back: 'Back',
+    accessory: 'Accessory', left: 'Left hand', right: 'Right hand',
+};
+const RAIL_GROUPS = [
+    ['Body', ['body', 'face', 'hair', 'facialHair']],
+    ['Worn', ['headgear', 'torso', 'legs', 'feet', 'arms', 'shoulders', 'waist', 'neck', 'cape', 'back', 'accessory']],
+    ['Hands', ['left', 'right']],
+];
+const COLOR_LABELS = {
+    primary: 'Main', collar: 'Collar', trim: 'Trim', vest: 'Vest', shirt: 'Shirt',
+    leather: 'Leather', steel: 'Steel', dark: 'Dark', sleeve: 'Sleeve', accent: 'Accent',
+};
+const HAND_TILE = {
+    staff: '#6b4a2b', wand: '#6b4a2b', sword: '#c9d3e0', greatsword: '#c9d3e0', claymore: '#c9d3e0', dagger: '#c9d3e0',
+    axe: '#8d99a6', mace: '#8d99a6', spear: '#8d99a6', halberd: '#8d99a6', bo: '#6b4a2b', bow: '#6b4a2b',
+    crossbow: '#6b4a2b', shield: '#8f2630',
+};
+const title = s => (s ? s[0].toUpperCase() + s.slice(1).replace(/_/g, ' ') : '');
+const partList = slot => (slot === 'left' || slot === 'right' ? HANDHELD : PART_CATALOG[slot] ?? []);
+const currentId = slot => def.look.parts[slot]?.id ?? 'none';
+const currentItem = slot => {
+    if (slot === 'body') return BODY_PRESETS[def.look.body.preset]?.label ?? 'Adult';
+    if (slot === 'face') return 'Eyes';
+    if (slot === 'hair') return title(def.look.hair.style);
+    if (slot === 'facialHair') return title(def.look.facialHair.style);
+    if (slot === 'left' || slot === 'right') return HAND_ITEM[currentId(slot)]?.label ?? 'None';
+    return partDef(slot, currentId(slot))?.label ?? 'None';
+};
+
+function disposeModel() {
+    if (!model) return;
+    scene.remove(model.root);
+    model.root.traverse(o => {
+        if (!o.isMesh) return;
+        o.geometry?.dispose();
+        const mats = Array.isArray(o.material) ? o.material : [o.material];
+        for (const m of mats) m?.dispose?.();
+    });
+    model = null;
+}
 
 function rebuild() {
-    if (model) scene.remove(model.root);
+    def.look = normalizeLook(def.look);
+    disposeModel();
     model = createCharacter(def.look);
-    model.setWeapons(weapon === 'none' ? null : { type: weapon, accent: 0x7ff5e6 }, weapon === 'sword' ? { type: 'shield', accent: new THREE.Color(def.look.outfit.coat).getHex() } : null);
-    if (weapon === 'none') model.setWeapons({ type: 'fists' }, null);
+    model.setWeapons(handSpec(def.look.parts.right), handSpec(def.look.parts.left));
     model.root.traverse(o => { if (o.isMesh) o.castShadow = true; });
     scene.add(model.root);
 }
 
-// ---------- controls ----------
+// ---------- small DOM helpers ----------
+const rail = document.getElementById('slots');
 const box = document.getElementById('controls');
-const el = (tag, attrs = {}, text) => { const e = document.createElement(tag); Object.assign(e, attrs); if (text != null) e.textContent = text; return e; };
-const set = (path, value) => {
-    const keys = path.split('.');
-    let o = def;
-    for (const k of keys.slice(0, -1)) o = o[k] ??= {};
-    o[keys.at(-1)] = value;
-    rebuild();
+const el = (tag, attrs = {}, text) => {
+    const e = document.createElement(tag);
+    Object.assign(e, attrs);
+    if (text != null) e.textContent = text;
+    return e;
 };
-const get = path => path.split('.').reduce((o, k) => o?.[k], def);
+const statusEl = () => document.getElementById('status');
 
-function textField(label, path) {
-    const l = el('label', {}, label);
-    const i = el('input', { type: 'text', value: get(path) ?? '' });
-    i.oninput = () => { const keys = path.split('.'); let o = def; for (const k of keys.slice(0, -1)) o = o[k]; o[keys.at(-1)] = i.value; };
-    l.append(i);
-    return l;
-}
-function color(label, path) {
-    const l = el('label', {}, label);
-    const i = el('input', { type: 'color', value: get(path) });
-    i.oninput = () => set(path, i.value);
-    l.append(i);
-    return l;
-}
-function slider(label, path, min, max) {
-    const l = el('label', {}, label);
-    const i = el('input', { type: 'range', min, max, step: 0.01, value: get(path) });
-    i.oninput = () => set(path, Number(i.value));
-    l.append(i);
-    return l;
-}
-function chips(options, path, onPick = v => set(path, v)) {
+function chipRow(pairs, getActive, onPick) {
     const wrap = el('div', { className: 'chips' });
     const draw = () => {
         wrap.textContent = '';
-        for (const o of options) {
-            const label = path === 'classId' ? CLASSES[o].name : o;
-            const c = el('span', { className: `chip${(path ? get(path) : null) === o ? ' on' : ''}` }, label);
-            c.onclick = () => { onPick(o); draw(); };
+        for (const [value, label] of pairs) {
+            const c = el('span', { className: `chip${getActive() === value ? ' on' : ''}` }, label);
+            c.onclick = () => { onPick(value); draw(); };
             wrap.append(c);
         }
     };
     draw();
     return wrap;
 }
+function colorField(label, value, onInput) {
+    const l = el('label', {}, label);
+    const i = el('input', { type: 'color', value });
+    i.oninput = () => onInput(i.value);
+    l.append(i);
+    return l;
+}
+function textField(label, value, onInput) {
+    const l = el('label', {}, label);
+    const i = el('input', { type: 'text', value: value ?? '' });
+    i.oninput = () => onInput(i.value);
+    l.append(i);
+    return l;
+}
+function slider(label, value, min, max, onInput) {
+    const l = el('label', {}, label);
+    const i = el('input', { type: 'range', min, max, step: 0.01, value });
+    i.oninput = () => onInput(Number(i.value));
+    l.append(i);
+    return l;
+}
 
-function render() {
-    box.textContent = '';
-    box.append(el('h2', {}, CREATE ? 'Your hero' : 'Identity'));
-    box.append(textField('Name', 'name'));
+// ---------- slot changes ----------
+function selectItem(slot, item) {
+    if (!item) return;
+    def.look.parts[slot] = { id: item.id };
+    if (item.colors) def.look.parts[slot].colors = { ...item.colors };
+    if ((slot === 'left' || slot === 'right') && item.id !== 'none') def.look.parts[slot].accent = '#7ff5e6';
+    rebuild();
+    renderRail();
+    renderSide();
+}
+function setColor(slot, key, value) {
+    if (slot === 'left' || slot === 'right') {
+        def.look.parts[slot].accent = value;
+    } else {
+        const part = def.look.parts[slot] ??= {};
+        part.colors = { ...(part.colors ?? {}), [key]: value };
+    }
+    rebuild();
+    const tile = box.querySelector('.card.on .tile');
+    if (tile) {
+        tile.style.background = (slot === 'left' || slot === 'right')
+            ? value
+            : (key === 'primary' ? value : (def.look.parts[slot]?.colors?.primary ?? value));
+    }
+}
+
+// ---------- rail ----------
+function renderRail() {
+    const top = rail.scrollTop;
+    rail.textContent = '';
+    for (const [group, slots] of RAIL_GROUPS) {
+        rail.append(el('h3', {}, group));
+        for (const slot of slots) {
+            const row = el('div', { className: 'slotrow' });
+            const button = el('button', { className: `slot${selectedSlot === slot ? ' active' : ''}`, type: 'button' });
+            button.append(el('span', { className: 'name' }, SLOT_LABELS[slot]), el('span', { className: 'item' }, currentItem(slot)));
+            button.onclick = () => {
+                selectedSlot = slot;
+                renderRail();
+                renderSide();
+                const h = box.querySelector('#slot-heading');
+                if (h) box.scrollTop += h.getBoundingClientRect().top - box.getBoundingClientRect().top - 8;
+            };
+            const lock = el('button', { className: `lock${locks.has(slot) ? ' on' : ''}`, type: 'button', title: 'Lock this slot when randomizing' }, 'L');
+            lock.onclick = e => {
+                e.stopPropagation();
+                locks.has(slot) ? locks.delete(slot) : locks.add(slot);
+                lock.classList.toggle('on', locks.has(slot));
+            };
+            row.append(button, lock);
+            rail.append(row);
+        }
+    }
+    rail.scrollTop = top;
+}
+
+// ---------- side: identity ----------
+function identitySection() {
+    const frag = document.createDocumentFragment();
+    frag.append(el('h2', {}, CREATE ? 'Your hero' : 'Identity'));
+    frag.append(textField('Name', def.name, v => { def.name = v; }));
     if (CREATE) {
-        box.append(el('h2', {}, 'Class'));
-        const blurb = el('div', { className: 'sub' });
+        frag.append(el('h2', {}, 'Class'));
+        const blurb = el('div', { className: 'note' });
         const showBlurb = () => {
-            const c = CLASSES[def.classId];
-            const gifted = Object.entries(c.talents).filter(([, v]) => v === 'gifted').map(([k]) => k).join(', ');
+            const c = CLASSES[def.classId] ?? CLASSES.mage;
+            const gifted = Object.entries(c.talents).filter(([, v]) => v === 'gifted').map(([k]) => title(k)).join(', ');
             blurb.textContent = `${c.blurb} Gifted: ${gifted}.`;
         };
-        box.append(chips(Object.keys(CLASSES), 'classId', v => { def.classId = v; showBlurb(); }), blurb);
+        frag.append(chipRow(
+            Object.keys(CLASSES).map(id => [id, CLASSES[id].name]),
+            () => def.classId,
+            v => { def.classId = v; showBlurb(); },
+        ), blurb);
         showBlurb();
     } else {
-        box.append(textField('Id (file name)', 'id'));
+        frag.append(textField('Id (file name)', def.id, v => { def.id = v; }));
         const lore = el('textarea', { placeholder: 'Who they are, in a line or two…', value: def.lore ?? '' });
         lore.oninput = () => { def.lore = lore.value; };
-        box.append(lore);
+        frag.append(lore);
     }
+    frag.append(el('h2', {}, 'Start from an archetype'));
+    frag.append(chipRow(
+        ARCHETYPE_ORDER.map(id => [id, ARCHETYPES[id].label]),
+        () => '',
+        id => loadArchetype(id),
+    ));
+    return frag;
+}
 
-    box.append(el('h2', {}, 'Body'));
-    box.append(slider('Height', 'look.build.height', 0.85, 1.15), slider('Build', 'look.build.width', 0.85, 1.2));
-    box.append(color('Skin', 'look.skin'), color('Eyes', 'look.eyes'));
+// ---------- side: selected slot ----------
+function bodySection() {
+    const frag = document.createDocumentFragment();
+    frag.append(el('h2', { id: 'slot-heading' }, 'Body'));
+    const presets = Object.keys(BODY_PRESETS).map(id => [id, BODY_PRESETS[id].label]);
+    frag.append(chipRow(presets, () => def.look.body.preset, id => {
+        def.look.body.preset = id;
+        rebuild(); renderRail(); renderSide();
+    }));
+    frag.append(slider('Height', def.look.body.height, 0.85, 1.15, v => { def.look.body.height = v; rebuild(); }));
+    frag.append(slider('Build', def.look.body.width, 0.85, 1.2, v => { def.look.body.width = v; rebuild(); }));
+    frag.append(colorField('Skin', def.look.body.skin, v => { def.look.body.skin = v; rebuild(); }));
+    return frag;
+}
+function faceSection() {
+    const frag = document.createDocumentFragment();
+    frag.append(el('h2', { id: 'slot-heading' }, 'Face'));
+    frag.append(colorField('Eye colour', def.look.face.eyes, v => { def.look.face.eyes = v; rebuild(); }));
+    frag.append(el('div', { className: 'note' }, 'Scars and markings are not in the part library yet.'));
+    return frag;
+}
+function hairSection() {
+    const frag = document.createDocumentFragment();
+    frag.append(el('h2', { id: 'slot-heading' }, 'Hair'));
+    frag.append(chipRow(HAIR_STYLES.map(s => [s, title(s)]), () => def.look.hair.style, v => {
+        def.look.hair.style = v;
+        rebuild(); renderRail(); renderSide();
+    }));
+    frag.append(colorField('Hair colour', def.look.hair.color, v => { def.look.hair.color = v; rebuild(); }));
+    return frag;
+}
+function facialHairSection() {
+    const frag = document.createDocumentFragment();
+    frag.append(el('h2', { id: 'slot-heading' }, 'Facial hair'));
+    frag.append(chipRow(FACIAL_STYLES.map(s => [s, title(s)]), () => def.look.facialHair.style, v => {
+        def.look.facialHair.style = v;
+        rebuild(); renderRail(); renderSide();
+    }));
+    frag.append(colorField('Colour', def.look.facialHair.color, v => { def.look.facialHair.color = v; rebuild(); }));
+    return frag;
+}
 
-    box.append(el('h2', {}, 'Hair'));
-    box.append(chips(HAIR_STYLES, 'look.hair.style'), color('Hair colour', 'look.hair.color'));
-    box.append(el('h2', {}, 'Facial hair'));
-    box.append(chips(FACIAL_STYLES, 'look.facialHair.style'), color('Colour', 'look.facialHair.color'));
-
-    box.append(el('h2', {}, 'Outfit'));
-    box.append(chips(['longcoat', 'robe', 'tunic', 'armour'], 'look.outfit.style'));
-    const extras = el('div', { className: 'chips' });
-    extras.style.marginTop = '8px';
-    for (const k of ['hood', 'cape']) {
-        const c = el('span', { className: `chip${def.look[k] ? ' on' : ''}` }, k);
-        c.onclick = () => { set(`look.${k}`, !def.look[k]); c.classList.toggle('on', !!def.look[k]); };
-        extras.append(c);
+function itemGrid(slot) {
+    const grid = el('div', { className: 'grid' });
+    for (const item of partList(slot)) {
+        const selected = currentId(slot) === item.id;
+        const card = el('button', { className: `card${selected ? ' on' : ''}`, type: 'button' });
+        const tile = el('span', { className: `tile${item.id === 'none' ? ' none' : ''}` });
+        if (item.id !== 'none') {
+            tile.style.background = selected
+                ? (def.look.parts[slot]?.colors?.primary ?? def.look.parts[slot]?.accent ?? HAND_TILE[item.id] ?? '#3a3342')
+                : (item.colors?.primary ?? HAND_TILE[item.id] ?? '#3a3342');
+        }
+        const label = el('span', { className: 'label' }, item.label);
+        if (item.id !== 'none' && (item.colors || HAND_TILE[item.id])) {
+            label.append(el('span', { className: 'meta' }, item.colors ? 'cloth' : 'weapon'));
+        }
+        card.append(tile, label);
+        card.onclick = () => selectItem(slot, item);
+        grid.append(card);
     }
-    box.append(extras);
-    for (const [k, label] of [['coat', 'Coat'], ['collar', 'Collar & lining'], ['trim', 'Trim (metal)'], ['vest', 'Vest'], ['shirt', 'Shirt'],
-        ['pants', 'Trousers'], ['leather', 'Leather'], ['leatherDark', 'Boots & dark leather']]) box.append(color(label, `look.outfit.${k}`));
+    return grid;
+}
 
-    box.append(el('h2', {}, 'Preview'));
-    box.append(chips(['idle', 'walk', 'run', 'cast', 'strike'], null, v => { pose = v; }));
-    box.append(chips(['staff', 'wand', 'sword', 'axe', 'spear', 'bow', 'none'], null, v => { weapon = v; rebuild(); }));
+function colorSection(slot) {
+    const part = def.look.parts[slot] ?? {};
+    if (slot === 'left' || slot === 'right') {
+        if (!part.id || part.id === 'none') return null;
+        const frag = document.createDocumentFragment();
+        frag.append(el('h3', {}, 'Colour'));
+        frag.append(colorField('Accent', part.accent ?? '#7ff5e6', v => setColor(slot, 'accent', v)));
+        return frag;
+    }
+    const item = partDef(slot, part.id);
+    const keys = Object.keys({ ...(item?.colors ?? {}), ...(part.colors ?? {}) });
+    if (!keys.length) return null;
+    const frag = document.createDocumentFragment();
+    frag.append(el('h3', {}, 'Colours'));
+    const wrap = el('div', { className: 'swatches' });
+    for (const k of keys) {
+        const value = part.colors?.[k] ?? item?.colors?.[k];
+        if (!value) continue;
+        wrap.append(colorField(COLOR_LABELS[k] ?? title(k), value, v => setColor(slot, k, v)));
+    }
+    frag.append(wrap);
+    return frag;
+}
 
+function slotSection() {
+    const frag = document.createDocumentFragment();
+    if (selectedSlot === 'body') { frag.append(bodySection()); return frag; }
+    if (selectedSlot === 'face') { frag.append(faceSection()); return frag; }
+    if (selectedSlot === 'hair') { frag.append(hairSection()); return frag; }
+    if (selectedSlot === 'facialHair') { frag.append(facialHairSection()); return frag; }
+    frag.append(el('h2', { id: 'slot-heading' }, SLOT_LABELS[selectedSlot]));
+    frag.append(itemGrid(selectedSlot));
+    const colors = colorSection(selectedSlot);
+    if (colors) frag.append(colors);
+    if (selectedSlot === 'left' || selectedSlot === 'right') {
+        frag.append(el('div', { className: 'note' }, 'Both hands use the same catalogue. A left-handed character simply holds the weapon in the left hand. A shield rides the forearm and can go in either hand.'));
+    }
+    return frag;
+}
+
+// ---------- side: preview + actions ----------
+function previewSection() {
+    const frag = document.createDocumentFragment();
+    frag.append(el('h2', {}, 'Preview'));
+    const VIEWS = { front: 0, side: Math.PI / 2, back: Math.PI };
+    frag.append(chipRow(
+        [['front', 'Front'], ['side', 'Side'], ['back', 'Back'], ['spin', 'Spin']],
+        () => (view.spin ? 'spin' : ''),
+        v => {
+            if (v === 'spin') { view.spin = true; return; }
+            view.spin = false;
+            view.yaw = VIEWS[v];
+        },
+    ));
+    frag.append(chipRow(
+        [['idle', 'Idle'], ['walk', 'Walk'], ['run', 'Run'], ['cast', 'Cast'], ['strike', 'Strike']],
+        () => pose,
+        v => { pose = v; },
+    ));
+    frag.append(chipRow([['R', 'Right hand'], ['L', 'Left hand']], () => previewHand, v => { previewHand = v; }));
+    return frag;
+}
+
+function actionsSection() {
+    const frag = document.createDocumentFragment();
+    frag.append(el('h2', {}, CREATE ? 'Ready?' : 'Cast'));
+    const row = el('div', { className: 'row' });
+    const rnd = el('button', { type: 'button' }, 'Randomize');
+    rnd.onclick = () => { randomize(); rebuild(); renderRail(); renderSide(); };
+    row.append(rnd);
     if (CREATE) {
-        const row = el('div', { className: 'row' });
-        const rnd = el('button', {}, 'Randomize');
-        rnd.onclick = () => { randomize(); render(); rebuild(); };
-        const go = el('button', { className: 'main' }, 'Begin your journey');
+        const go = el('button', { className: 'main', type: 'button' }, 'Begin your journey');
         go.onclick = () => {
-            if (!def.name.trim()) { document.getElementById('status').textContent = 'Give your hero a name first.'; return; }
-            try { localStorage.setItem('amo3d.newHero', JSON.stringify({ name: def.name.trim(), classId: def.classId, look: def.look })); } catch { /* storage blocked */ }
+            if (!def.name.trim()) { const s = statusEl(); if (s) s.textContent = 'Give your hero a name first.'; return; }
+            try {
+                localStorage.setItem('amo3d.newHero', JSON.stringify({ name: def.name.trim(), classId: def.classId, look: normalizeLook(def.look) }));
+            } catch { /* storage blocked */ }
             location.href = 'index.html?new=1&play=1&hero=new';
         };
-        const back = el('button', {}, 'Back');
+        const back = el('button', { type: 'button' }, 'Back');
         back.onclick = () => { location.href = 'index.html'; };
-        row.append(rnd, go, back);
-        box.append(el('h2', {}, 'Ready?'), row, el('div', { id: 'status' }));
-        return;
+        row.append(go, back);
+    } else {
+        const save = el('button', { className: 'main', type: 'button' }, 'Save to the cast');
+        save.onclick = saveCast;
+        const exp = el('button', { type: 'button' }, 'Export JSON');
+        exp.onclick = () => {
+            def.look = normalizeLook(def.look);
+            const a = el('a', { href: URL.createObjectURL(new Blob([JSON.stringify(def, null, 2)], { type: 'application/json' })), download: `${def.id}.json` });
+            a.click();
+        };
+        row.append(save, exp);
     }
-    box.append(el('h2', {}, 'Cast'));
-    const row = el('div', { className: 'row' });
-    const rnd = el('button', {}, 'Randomize');
-    rnd.onclick = () => { randomize(); render(); rebuild(); };
-    const save = el('button', { className: 'main' }, 'Save to the cast');
-    save.onclick = saveCast;
-    const exp = el('button', {}, 'Export JSON');
-    exp.onclick = () => {
-        const a = el('a', { href: URL.createObjectURL(new Blob([JSON.stringify(def, null, 2)], { type: 'application/json' })), download: `${def.id}.json` });
-        a.click();
-    };
-    row.append(rnd, save, exp);
-    box.append(row);
-    const load = el('select');
-    load.append(el('option', { value: '' }, 'Open a cast member…'));
-    fetch('api/cast').then(r => r.json()).then(list => {
-        for (const c of list) load.append(el('option', { value: JSON.stringify(c) }, c.name ?? c.id));
-    }).catch(() => load.append(el('option', { value: '' }, '(cast list needs the dev server)')));
-    load.onchange = () => {
-        if (!load.value) return;
-        const c = JSON.parse(load.value);
-        def = { ...c, look: { ...clone(DEFAULT_LOOK), ...c.look } };
-        render(); rebuild();
-    };
-    const lr = el('label', {}, 'Open');
-    lr.append(load);
-    box.append(lr, el('div', { id: 'status' }));
+    frag.append(row);
+    if (!CREATE) {
+        const load = el('select');
+        load.append(el('option', { value: '' }, 'Open a cast member…'));
+        fetch('api/cast').then(r => r.json()).then(list => {
+            for (const c of list) load.append(el('option', { value: JSON.stringify(c) }, c.name ?? c.id));
+        }).catch(() => load.append(el('option', { value: '' }, '(cast list needs the dev server)')));
+        load.onchange = () => {
+            if (!load.value) return;
+            const c = JSON.parse(load.value);
+            def = { ...c, look: normalizeLook(c.look) };
+            rebuild(); renderRail(); renderSide();
+        };
+        const lr = el('label', {}, 'Open');
+        lr.append(load);
+        frag.append(lr);
+    }
+    frag.append(el('div', { id: 'status' }));
+    return frag;
+}
+
+function renderSide() {
+    const top = box.scrollTop;
+    box.textContent = '';
+    box.append(identitySection(), slotSection(), previewSection(), actionsSection());
+    box.scrollTop = top;
+}
+
+// ---------- archetypes, randomize, save ----------
+function loadArchetype(id) {
+    const a = ARCHETYPES[id];
+    if (!a) return;
+    def.look = normalizeLook(clone(a.look));
+    if (!def.name.trim()) def.name = a.name;
+    if (!CREATE) def.lore = a.lore;
+    rebuild();
+    renderRail();
+    renderSide();
 }
 
 const pick = a => a[Math.floor(Math.random() * a.length)];
-const hsl = (h, s, l) => `#${new THREE.Color().setHSL(h, s, l).getHexString()}`;
+const hsl = (h, s, l) => `#${new THREE.Color().setHSL((h + 1) % 1, s, l).getHexString()}`;
+const shade = (hex, f) => {
+    const c = new THREE.Color(hex);
+    return `#${c.clone().multiplyScalar(f).getHexString()}`;
+};
+
 function randomize() {
     const SKIN = ['#f1c9a5', '#e2b48f', '#c98f6a', '#a8704a', '#7a4e32', '#5a3a26'];
     const HAIR = ['#1a1410', '#3a2418', '#5a3a22', '#8a5a2a', '#d9b25a', '#a8452a', '#8a8a8a', '#e8e4da'];
-    const hair = pick(HAIR), base = Math.random();
-    def.look = {
-        build: { height: +(0.92 + Math.random() * 0.16).toFixed(2), width: +(0.9 + Math.random() * 0.25).toFixed(2) },
-        skin: pick(SKIN), eyes: pick(['#5ab8f0', '#4fd06a', '#8a6a3a', '#3a5a8a', '#9a7a4a', '#7a3ac0']),
-        hair: { style: pick(HAIR_STYLES), color: hair },
-        facialHair: { style: pick(FACIAL_STYLES), color: hair },
-        hood: Math.random() < 0.25, cape: Math.random() < 0.3,
-        outfit: {
-            style: pick(['longcoat', 'robe', 'tunic', 'armour']),
-            coat: hsl(base, 0.55, 0.32), collar: hsl(base, 0.55, 0.2), trim: pick(['#d4a84a', '#c8ccd4', '#b87333']),
-            vest: hsl((base + 0.5) % 1, 0.25, 0.12), shirt: hsl(base, 0.1, 0.1), pants: hsl((base + 0.1) % 1, 0.15, 0.14),
-            leather: pick(['#5a3520', '#6e4a2c', '#3a2a1a']), leatherDark: '#3e2416',
-        },
-    };
+    const EYES = ['#5ab8f0', '#4fd06a', '#8a6a3a', '#3a5a8a', '#9a7a4a', '#7a3ac0'];
+    const LEATHER = ['#5a3520', '#6e4a2c', '#3a2a1a', '#4a2e1c'];
+    const CLOTH = ['#8f2630', '#283a5e', '#3d5136', '#4a2450', '#6a5a4a', '#7a4a2a', '#2a4a4a', '#5a4a6a'];
+    const TRIM = ['#d4a84a', '#c8ccd4', '#b87333', '#c9a84e'];
+    const hue = Math.random();
+
+    if (!locks.has('body')) {
+        const preset = pick(['adult_male', 'adult_male', 'adult_female', 'adult_female', 'child', 'elder']);
+        def.look.body.preset = preset;
+        def.look.body.height = +(0.95 + Math.random() * 0.1).toFixed(2);
+        def.look.body.width = +(0.95 + Math.random() * 0.1).toFixed(2);
+        def.look.body.skin = pick(SKIN);
+    }
+    if (!locks.has('face')) def.look.face.eyes = pick(EYES);
+    if (!locks.has('hair')) {
+        def.look.hair.style = pick(HAIR_STYLES);
+        def.look.hair.color = pick(HAIR);
+    }
+    if (!locks.has('facialHair')) {
+        def.look.facialHair.style = pick(FACIAL_STYLES);
+        def.look.facialHair.color = def.look.hair.color;
+    }
+
+    const noneChance = { headgear: 0.45, cape: 0.55, back: 0.35, accessory: 0.6, neck: 0.4, shoulders: 0.15 };
+    for (const slot of PART_SLOTS) {
+        if (slot === 'left' || slot === 'right' || locks.has(slot)) continue;
+        const list = PART_CATALOG[slot];
+        const none = Math.random() < (noneChance[slot] ?? 0.03);
+        const item = none ? list.find(i => i.id === 'none') : pick(list.filter(i => i.id !== 'none'));
+        const entry = { id: item.id };
+        if (item.colors) {
+            entry.colors = { ...item.colors };
+            if (slot === 'torso') {
+                entry.colors.primary = hsl(hue + Math.random() * 0.12, 0.4 + Math.random() * 0.2, 0.2 + Math.random() * 0.14);
+                entry.colors.collar = shade(entry.colors.primary, 0.55);
+                if (entry.colors.sleeve) entry.colors.sleeve = entry.colors.primary;
+            }
+            if (slot === 'legs' && item.id === 'skirt') entry.colors.primary = pick(CLOTH);
+            if (slot === 'feet') entry.colors.primary = pick(LEATHER);
+            if (slot === 'waist') entry.colors.primary = item.id === 'sash' ? pick(CLOTH) : pick(LEATHER);
+            if (slot === 'back') entry.colors.primary = pick(LEATHER);
+            if (slot === 'shoulders') entry.colors.primary = item.id === 'steel_pauldrons' ? pick(['#8d99a6', '#7a808a', '#5a6070']) : pick(LEATHER);
+            if (slot === 'arms') {
+                entry.colors.sleeve = def.look.parts.torso?.colors?.primary ?? pick(CLOTH);
+                entry.colors.primary = pick(LEATHER);
+            }
+            if (entry.colors.trim && !['headgear', 'accessory', 'neck'].includes(slot)) entry.colors.trim = pick(TRIM);
+            if (slot === 'headgear' && item.id === 'wizard_hat') entry.colors.trim = '#ffcf6a';
+        }
+        def.look.parts[slot] = entry;
+    }
+
+    if (!locks.has('right')) {
+        const weapons = HANDHELD.filter(i => !['none', 'shield'].includes(i.id));
+        def.look.parts.right = { id: pick(weapons).id, accent: hsl(hue, 0.6, 0.75) };
+    }
+    if (!locks.has('left')) {
+        const off = ['none', 'none', 'shield', 'shield', 'dagger', 'sword'];
+        const id = pick(off);
+        def.look.parts.left = id === 'none' ? { id } : { id, accent: hsl(hue + 0.5, 0.5, 0.6) };
+    }
 }
 
 async function saveCast() {
-    const status = document.getElementById('status');
+    def.look = normalizeLook(def.look);
     def.id = (def.id || def.name || 'character').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 40);
+    const status = statusEl();
     try {
         const r = await fetch('api/cast', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(def) });
         const j = await r.json();
-        status.style.color = r.ok ? '#bfe6a0' : '#ff9a8a';
-        status.textContent = r.ok ? `Saved — ${j.saved}` : `Not saved: ${j.error}`;
+        if (status) {
+            status.style.color = r.ok ? '#bfe6a0' : '#ff9a8a';
+            status.textContent = r.ok ? `Saved — ${j.saved}` : `Not saved: ${j.error}`;
+        }
     } catch {
-        status.style.color = '#ff9a8a';
-        status.textContent = 'Saving needs the dev server (npm run dev). Use Export JSON instead.';
+        if (status) {
+            status.style.color = '#ff9a8a';
+            status.textContent = 'Saving needs the dev server (npm run dev). Use Export JSON instead.';
+        }
     }
 }
 
@@ -265,12 +575,46 @@ renderer.setAnimationLoop(now => {
         idle: { speed: 0 }, walk: { speed: 2.2 }, run: { speed: 6, sprinting: true },
         cast: { speed: 0, castK: cyc }, strike: { speed: 0, strikeK: cyc },
     }[pose];
-    model.update(dt, { sprinting: false, hopK: null, ...P });
-    camera.position.set(Math.sin(view.yaw) * Math.cos(view.pitch) * view.dist, 1.15 + Math.sin(view.pitch) * view.dist, Math.cos(view.yaw) * Math.cos(view.pitch) * view.dist);
-    camera.lookAt(0, 1.05, 0);
+    model?.update(dt, { sprinting: false, hopK: null, ...P, castHand: previewHand, strikeHand: previewHand });
+    const preset = BODY_PRESETS[def.look.body.preset] ?? BODY_PRESETS.adult_male;
+    const focusY = 1.05 * preset.height * (def.look.body.height ?? 1);
+    camera.position.set(Math.sin(view.yaw) * Math.cos(view.pitch) * view.dist, focusY + 0.1 + Math.sin(view.pitch) * view.dist, Math.cos(view.yaw) * Math.cos(view.pitch) * view.dist);
+    camera.lookAt(0, focusY, 0);
     renderer.render(scene, camera);
 });
 
-render();
+document.getElementById('forge-sub').textContent = CREATE ? 'Make your hero' : 'Characters for Arcane Majesty';
 rebuild();
-window.__forge = { get def() { return def; }, randomize: () => { randomize(); render(); rebuild(); }, saveCast };
+renderRail();
+renderSide();
+function modelBounds() {
+    if (!model) return null;
+    const box = new THREE.Box3().setFromObject(model.root);
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z]) {
+        const v = new THREE.Vector3(x, y, z).project(camera);
+        minX = Math.min(minX, (v.x * 0.5 + 0.5) * stage.clientWidth);
+        maxX = Math.max(maxX, (v.x * 0.5 + 0.5) * stage.clientWidth);
+        minY = Math.min(minY, (-v.y * 0.5 + 0.5) * stage.clientHeight);
+        maxY = Math.max(maxY, (-v.y * 0.5 + 0.5) * stage.clientHeight);
+    }
+    return { minX, minY, maxX, maxY, w: stage.clientWidth, h: stage.clientHeight, world: box.getSize(new THREE.Vector3()).toArray() };
+}
+
+window.__forge = {
+    get def() { return def; },
+    get model() { return model; },
+    rebuild,
+    bounds: modelBounds,
+    randomize: () => { randomize(); rebuild(); renderRail(); renderSide(); },
+    loadArchetype,
+    saveCast,
+    setSlot: id => { selectedSlot = id; renderRail(); renderSide(); },
+    setPart: (slot, id) => {
+        const item = (slot === 'left' || slot === 'right') ? HAND_ITEM[id] : partDef(slot, id);
+        if (item) selectItem(slot, item);
+    },
+    setPose: id => { pose = id; },
+    setView: opts => Object.assign(view, opts),
+    look: () => normalizeLook(def.look),
+};

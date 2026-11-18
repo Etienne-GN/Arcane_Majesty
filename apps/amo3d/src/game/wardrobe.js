@@ -14,7 +14,8 @@ export function wornLook(base, equipment) {
     const head = ITEMS[equipment.head], body = ITEMS[equipment.body];
     if (head) {
         const n = `${equipment.head} ${head.name}`.toLowerCase();
-        if (/cowl|hood/.test(n)) { look.hood = true; look.hoodColor = hex(head.color); }
+        if (head.hatStyle) look.headgear = { type: 'hat', style: head.hatStyle, color: hex(head.color) };
+        else if (/cowl|hood/.test(n)) { look.hood = true; look.hoodColor = hex(head.color); }
         else if (/helm/.test(n)) look.headgear = { type: 'helmet', color: hex(head.color) };
         else if (/hat|cap/.test(n)) look.headgear = { type: 'hat', color: hex(head.color) };
     }

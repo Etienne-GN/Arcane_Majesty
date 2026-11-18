@@ -1,0 +1,152 @@
+// The look schema for the 3D Forge and the game. A character is a base body plus one item per
+// slot. Old looks (outfit.style, hood, cape, headgear, build) are normalized into the same shape,
+// so cast files, townsfolk and equipment keep working.
+import * as THREE from 'three';
+
+export const BODY_PRESETS = {
+    adult_male:   { label: 'Adult male',   height: 1.00, width: 1.00, head: 1.00, shoulders: 1.00, hips: 1.00, limb: 1.00, stoop: 0 },
+    adult_female: { label: 'Adult female', height: 0.97, width: 0.92, head: 0.98, shoulders: 0.90, hips: 1.06, limb: 0.97, stoop: 0 },
+    child:        { label: 'Child',        height: 0.68, width: 0.84, head: 1.22, shoulders: 0.82, hips: 0.90, limb: 0.82, stoop: 0 },
+    elder:        { label: 'Elder',        height: 0.96, width: 0.95, head: 1.00, shoulders: 0.95, hips: 1.00, limb: 0.95, stoop: 0.12 },
+};
+
+// Both hands pick from this same list. There is no dominance: a left-handed character simply
+// holds its weapon in `left`.
+const clone = o => JSON.parse(JSON.stringify(o ?? {}));
+
+export const HANDHELD = [
+    { id: 'none', label: 'None' },
+    { id: 'staff', label: 'Staff' },
+    { id: 'wand', label: 'Wand' },
+    { id: 'sword', label: 'Sword' },
+    { id: 'greatsword', label: 'Greatsword' },
+    { id: 'claymore', label: 'Claymore' },
+    { id: 'dagger', label: 'Dagger' },
+    { id: 'axe', label: 'Axe' },
+    { id: 'mace', label: 'Mace' },
+    { id: 'spear', label: 'Spear' },
+    { id: 'halberd', label: 'Halberd' },
+    { id: 'bo', label: 'Bo staff' },
+    { id: 'bow', label: 'Bow' },
+    { id: 'crossbow', label: 'Crossbow' },
+    { id: 'shield', label: 'Shield' },
+];
+
+export const HAND_ITEM = Object.fromEntries(HANDHELD.map(h => [h.id, h]));
+
+export const PART_SLOTS = [
+    'torso', 'legs', 'feet', 'arms', 'shoulders', 'waist', 'neck',
+    'headgear', 'cape', 'back', 'accessory', 'left', 'right',
+];
+
+const STYLE_SLOTS = {
+    longcoat: { torso: 'longcoat', legs: 'trousers', feet: 'boots', arms: 'bracers', shoulders: 'pauldron', waist: 'belt', back: 'satchel' },
+    robe:     { torso: 'robe',     legs: 'trousers', feet: 'boots', arms: 'sleeves', shoulders: 'none',    waist: 'sash', back: 'satchel' },
+    tunic:    { torso: 'tunic',    legs: 'trousers', feet: 'boots', arms: 'sleeves', shoulders: 'none',    waist: 'belt', back: 'satchel' },
+    armour:   { torso: 'armour',   legs: 'trousers', feet: 'boots', arms: 'sleeves', shoulders: 'steel_pauldrons', waist: 'belt', back: 'satchel' },
+    linen:    { torso: 'linen',    legs: 'linen_trousers', feet: 'bare', arms: 'sleeves', shoulders: 'none', waist: 'none', back: 'none' },
+}
+const defined = o => Object.fromEntries(Object.entries(o).filter(([, v]) => v != null));
+
+function mergeParts(base, extra) {
+    const out = clone(base);
+    for (const [slot, entry] of Object.entries(extra ?? {})) {
+        if (!entry || typeof entry !== 'object') continue;
+        out[slot] = { ...(out[slot] ?? {}), ...entry, colors: { ...(out[slot]?.colors ?? {}), ...(entry.colors ?? {}) } };
+    }
+    return out;
+}
+
+function applyOutfit(parts, o, look) {
+    if (!o) return;
+    const style = STYLE_SLOTS[o.style] ? o.style : 'longcoat';
+    const slots = STYLE_SLOTS[style];
+    for (const [slot, id] of Object.entries(slots)) parts[slot] = { ...(parts[slot] ?? {}), id };
+    const colors = {
+        torso: { primary: o.coat, collar: o.collar, trim: o.trim, vest: o.vest, shirt: o.shirt, leather: o.leather, steel: '#9aa0a8' },
+        legs: { primary: o.pants, dark: o.pantsDark ?? o.pants },
+        feet: { primary: o.leather, dark: o.leatherDark },
+        arms: { primary: o.leather, trim: o.trim, sleeve: o.coat },
+        shoulders: { primary: o.leatherDark, trim: o.trim, steel: '#9aa0a8' },
+        waist: { primary: style === 'robe' ? o.collar : o.leather, trim: o.trim },
+        back: { primary: o.leather, dark: o.leatherDark, trim: o.trim },
+    };
+    for (const [slot, c] of Object.entries(colors)) {
+        if (parts[slot]) parts[slot].colors = { ...(parts[slot].colors ?? {}), ...defined(c) };
+    }
+    if (look?.hood) parts.headgear = { id: 'hood', colors: { primary: look.hoodColor ?? o.collar ?? '#241c4a' } };
+    else if (look?.headgear) {
+        const h = look.headgear;
+        const id = h.type === 'helmet' ? 'helmet' : h.type === 'hat' && h.style === 'wizard' ? 'wizard_hat' : h.type === 'hat' ? 'wide_hat' : 'none';
+        parts.headgear = { id, colors: h.color ? { primary: h.color, trim: '#d4a84a' } : {} };
+    }
+    if (look?.cape) parts.cape = { id: 'travelling_cloak', colors: { primary: o.collar ?? '#2a1a2a', trim: o.trim ?? '#d4a84a' } };
+}
+
+/** Canonical look: body + face + hair + one part per slot. Accepts legacy and new looks. */
+export function normalizeLook(lookIn = {}) {
+    const look = lookIn ?? {};
+    const parts = mergeParts(
+        { torso: { id: 'longcoat', colors: { primary: '#a3141f', collar: '#7a0f17', trim: '#d4a84a', vest: '#1c1714', shirt: '#16120f', leather: '#5a3520', steel: '#9aa0a8' } },
+          legs: { id: 'trousers', colors: { primary: '#221c18', dark: '#221c18' } },
+          feet: { id: 'boots', colors: { primary: '#5a3520', dark: '#3e2416' } },
+          arms: { id: 'bracers', colors: { primary: '#5a3520', trim: '#d4a84a', sleeve: '#a3141f' } },
+          shoulders: { id: 'pauldron', colors: { primary: '#3e2416', trim: '#d4a84a', steel: '#9aa0a8' } },
+          waist: { id: 'belt', colors: { primary: '#5a3520', trim: '#d4a84a', dark: '#3e2416' } },
+          neck: { id: 'none' },
+          headgear: { id: 'none' },
+          cape: { id: 'none' },
+          back: { id: 'satchel', colors: { primary: '#5a3520', dark: '#3e2416', trim: '#d4a84a' } },
+          accessory: { id: 'none' },
+          left: { id: 'none' },
+          right: { id: 'staff', accent: '#7ff5e6' },
+        },
+        look.parts
+    );
+    applyOutfit(parts, look.outfit, look);
+    if (look.hands) {
+        for (const h of ['left', 'right']) {
+            if (look.hands[h]) parts[h] = { ...(parts[h] ?? {}), ...look.hands[h] };
+        }
+    }
+    const body = {
+        preset: 'adult_male', height: 1, width: 1, skin: '#e2b48f',
+        ...(look.body ?? {}),
+    };
+    if (look.build) {
+        if (look.build.height != null) body.height = look.build.height;
+        if (look.build.width != null) body.width = look.build.width;
+    }
+    if (look.skin) body.skin = look.skin;
+    if (!BODY_PRESETS[body.preset]) body.preset = 'adult_male';
+
+    const face = { eyes: '#5ab8f0', ...(look.face ?? {}) };
+    if (look.eyes) face.eyes = look.eyes;
+    const hair = { style: 'tousled', color: '#3a2418', ...(look.hair ?? {}) };
+    const facialHair = { style: 'stubble', color: '#a07a62', ...(look.facialHair ?? {}) };
+    return { body, face, hair, facialHair, parts };
+}
+
+/** Weapons have no dominance: the id is the weapon type, or null for an empty hand. */
+export function handType(id) {
+    return !id || id === 'none' ? null : id;
+}
+
+export function handSpec(entry, fallbackAccent = '#7ff5e6') {
+    const type = handType(entry?.id);
+    if (!type) return null;
+    return { type, accent: new THREE.Color(entry?.accent ?? fallbackAccent).getHex() };
+}
+
+export const DEFAULT_OUTFIT = {
+    style: 'longcoat', coat: '#a3141f', collar: '#7a0f17', trim: '#d4a84a', vest: '#1c1714', shirt: '#16120f',
+    pants: '#221c18', leather: '#5a3520', leatherDark: '#3e2416',
+};
+
+export const DEFAULT_LOOK = normalizeLook({
+    body: { preset: 'adult_male', height: 1, width: 1, skin: '#e2b48f' },
+    face: { eyes: '#5ab8f0' },
+    hair: { style: 'tousled', color: '#3a2418' },
+    facialHair: { style: 'stubble', color: '#a07a62' },
+    outfit: DEFAULT_OUTFIT,
+});

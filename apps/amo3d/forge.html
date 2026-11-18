@@ -5,45 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>The Forge — Arcane Majesty</title>
     <style>
-        /* One type scale for every menu and HUD element (Phase 7): sizes are calc(Npx * var(--ui)). */
-        :root { --ui: 1; }
-        @media (min-height: 1000px) { :root { --ui: 1.15; } }
-        @media (min-height: 1400px) { :root { --ui: 1.3; } }
-        @media (pointer: coarse) { :root { --ui: 1.1; } }   /* phone pixels are small: everything a size up */
-                :root { --gold: #f3d88b; --ink: #eee6d2; --panel: #16121bee; }
+        :root { --ui: 1; --gold: #f3d88b; --ink: #eee6d2; --muted: #a99f8c; --panel: #16121bee; --panel-2: #201a26; --line: #f3d88b33; }
+        @media (min-height: 1000px) { :root { --ui: 1.12; } }
+        @media (min-height: 1400px) { :root { --ui: 1.26; } }
+        @media (pointer: coarse) { :root { --ui: 1.08; } }
+        * { box-sizing: border-box; }
         html, body { margin: 0; height: 100%; background: #0d0b10; color: var(--ink); font-family: Georgia, 'Times New Roman', serif; overflow: hidden; }
-        #stage { position: fixed; inset: 0 360px 0 0; }
+        #rail { position: fixed; top: 0; left: 0; bottom: 0; width: 224px; overflow-y: auto; background: #100d14f2; border-right: 1px solid var(--line); padding: 16px 10px 24px; }
+        #stage { position: fixed; inset: 0 392px 0 224px; }
         #stage canvas { display: block; width: 100%; height: 100%; cursor: grab; }
-        #side { position: fixed; top: 0; right: 0; bottom: 0; width: 360px; overflow-y: auto; background: var(--panel);
-            border-left: 1px solid #f3d88b44; padding: 16px 18px 30px; box-sizing: border-box; }
-        h1 { margin: 0; font-weight: normal; letter-spacing: .2em; color: var(--gold); font-size: calc(26px * var(--ui, 1)); }
-        .sub { font-size: calc(14px * var(--ui, 1)); opacity: .65; margin: 2px 0 14px; }
-        h2 { font-weight: normal; font-size: calc(14px * var(--ui, 1)); letter-spacing: .14em; text-transform: uppercase; opacity: .7; margin: 18px 0 8px; }
-        label { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: calc(15px * var(--ui, 1)); margin: 6px 0; }
-        input[type=text], select { flex: 1; max-width: 190px; background: #0008; color: var(--ink); border: 1px solid #eee6d244; border-radius: 6px; padding: 5px 7px; font: calc(15px * var(--ui, 1)) Georgia, serif; }
-        input[type=color] { width: 46px; height: 26px; border: 1px solid #eee6d244; border-radius: 6px; background: none; padding: 0; }
+        #side { position: fixed; top: 0; right: 0; bottom: 0; width: 392px; overflow-y: auto; background: var(--panel); border-left: 1px solid var(--line); padding: 16px 18px 30px; }
+        h1 { margin: 0 0 2px 4px; font-weight: normal; letter-spacing: .18em; color: var(--gold); font-size: calc(20px * var(--ui, 1)); }
+        .sub { margin: 0 0 14px 4px; font-size: calc(12px * var(--ui, 1)); opacity: .55; letter-spacing: .04em; }
+        h2 { font-weight: normal; font-size: calc(12px * var(--ui, 1)); letter-spacing: .16em; text-transform: uppercase; opacity: .65; margin: 18px 0 8px; }
+        h3 { font-weight: normal; font-size: calc(11px * var(--ui, 1)); letter-spacing: .18em; text-transform: uppercase; opacity: .45; margin: 16px 0 6px 4px; }
+        label { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: calc(14px * var(--ui, 1)); margin: 6px 0; }
+        input[type=text], select, textarea { flex: 1; max-width: 210px; background: #0008; color: var(--ink); border: 1px solid #eee6d244; border-radius: 6px; padding: 5px 7px; font: calc(14px * var(--ui, 1)) Georgia, serif; }
+        textarea { width: 100%; max-width: none; height: 54px; box-sizing: border-box; resize: vertical; }
+        input[type=color] { width: 40px; height: 24px; border: 1px solid #eee6d244; border-radius: 6px; background: none; padding: 0; }
         input[type=range] { flex: 1; max-width: 190px; accent-color: var(--gold); }
         .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-        .chip { padding: 5px 10px; border-radius: 14px; border: 1px solid #eee6d244; font-size: calc(14px * var(--ui, 1)); cursor: pointer; background: #0006; }
+        .chip { padding: 4px 9px; border-radius: 13px; border: 1px solid #eee6d244; font-size: calc(13px * var(--ui, 1)); cursor: pointer; background: #0006; user-select: none; }
+        .chip:hover { border-color: #f3d88b88; }
         .chip.on { border-color: var(--gold); background: #f3d88b26; color: #fff4d0; }
         .row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-        button { font: calc(15px * var(--ui, 1)) Georgia, serif; padding: 8px 14px; border-radius: 7px; cursor: pointer; border: 1px solid #f3d88b88; background: #2a1c10; color: var(--ink); }
+        button { font: calc(14px * var(--ui, 1)) Georgia, serif; padding: 7px 12px; border-radius: 7px; cursor: pointer; border: 1px solid #f3d88b88; background: #2a1c10; color: var(--ink); }
         button.main { background: var(--gold); color: #1b1406; border: 0; }
-        #status { font-size: calc(14px * var(--ui, 1)); margin-top: 10px; min-height: 16px; color: #bfe6a0; }
-        textarea { width: 100%; box-sizing: border-box; height: 52px; background: #0008; color: var(--ink); border: 1px solid #eee6d244; border-radius: 6px; font: calc(14px * var(--ui, 1)) Georgia, serif; padding: 6px; }
-        #hint { position: fixed; left: 16px; bottom: 14px; font-size: calc(14px * var(--ui, 1)); opacity: .6; pointer-events: none; }
-        @media (max-width: 760px) {
-            #stage { inset: 0 0 50% 0; }
-            #side { top: 50%; width: 100%; border-left: 0; border-top: 1px solid #f3d88b44; }
+        #status { font-size: calc(13px * var(--ui, 1)); margin-top: 10px; min-height: 16px; color: #bfe6a0; }
+        #hint { position: fixed; left: 50%; transform: translateX(-50%); bottom: 12px; font-size: calc(12px * var(--ui, 1)); opacity: .5; pointer-events: none; text-align: center; }
+        #slots { display: flex; flex-direction: column; gap: 2px; }
+        .slotrow { display: flex; align-items: stretch; gap: 2px; }
+        .slot { flex: 1; display: grid; grid-template-columns: 1fr; gap: 1px; text-align: left; padding: 5px 7px; border: 1px solid transparent; border-radius: 6px; background: transparent; }
+        .slot:hover { background: #ffffff08; }
+        .slot.active { background: #f3d88b1c; border-color: #f3d88b66; }
+        .slot .name { font-size: calc(11px * var(--ui, 1)); text-transform: uppercase; letter-spacing: .13em; opacity: .5; }
+        .slot .item { font-size: calc(13px * var(--ui, 1)); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .lock { width: 22px; padding: 0; border: 0; background: transparent; color: #eee6d244; font-size: 10px; cursor: pointer; }
+        .lock.on { color: var(--gold); }
+        .section { margin-top: 8px; }
+        .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+        .card { position: relative; display: flex; align-items: center; gap: 8px; padding: 6px; text-align: left; background: var(--panel-2); border: 1px solid #ffffff10; border-radius: 7px; overflow: hidden; }
+        .card:hover { border-color: #f3d88b66; }
+        .card.on { border-color: var(--gold); background: #f3d88b1c; }
+        .tile { width: 26px; height: 26px; border-radius: 5px; flex: 0 0 auto; border: 1px solid #0006; background: #3a3342; }
+        .tile.none { background: repeating-linear-gradient(45deg, #2a2530, #2a2530 4px, #332d3a 4px, #332d3a 8px); }
+        .card .label { font-size: calc(12px * var(--ui, 1)); line-height: 1.15; overflow: hidden; text-overflow: ellipsis; }
+        .card .meta { font-size: 10px; opacity: .45; display: block; }
+        .swatches { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 10px; margin-top: 8px; }
+        .swatches label { margin: 0; font-size: calc(12px * var(--ui, 1)); }
+        .swatches input[type=color] { width: 34px; height: 22px; }
+        .note { font-size: calc(12px * var(--ui, 1)); opacity: .55; line-height: 1.5; }
+        .divider { height: 1px; background: var(--line); margin: 14px 0; }
+        @media (max-width: 980px) {
+            #rail { right: 0; bottom: auto; width: auto; height: 112px; overflow-x: auto; overflow-y: hidden; padding: 10px 12px; border-right: 0; border-bottom: 1px solid var(--line); }
+            #rail h1, #rail .sub, #rail h3 { display: none; }
+            #slots { flex-direction: row; }
+            .slotrow { min-width: 132px; }
+            #stage { inset: 112px 44% 0 0; }
+            #side { top: 112px; width: 44%; border-left: 1px solid var(--line); border-top: 0; }
+        }
+        @media (max-width: 720px) and (orientation: portrait) {
+            #stage { inset: 112px 0 48% 0; }
+            #side { top: 52%; width: 100%; border-left: 0; border-top: 1px solid var(--line); }
         }
     </style>
 </head>
 <body>
-    <div id="stage"></div>
-    <div id="hint">drag to turn · wheel to zoom · the character idles, walks or casts on the buttons</div>
-    <aside id="side">
+    <aside id="rail">
         <h1>THE FORGE</h1>
-        <div class="sub" id="forge-sub">Characters for Arcane Majesty — built from our own parts</div>
+        <div class="sub" id="forge-sub">Characters for Arcane Majesty</div>
+        <div id="slots"></div>
+    </aside>
+    <div id="stage"></div>
+    <div id="hint">drag to turn · wheel to zoom · choose a slot, then an item</div>
+    <aside id="side">
         <div id="controls"></div>
     </aside>
     <script type="module" src="/src/forge/main.js"></script>

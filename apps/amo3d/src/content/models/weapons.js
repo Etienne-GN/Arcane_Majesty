@@ -85,6 +85,45 @@ export function buildWeapon(type, { accent = 0x8855ff, crystalMat = null } = {})
             tip.position.set(0, 0.6, 0);
             break;
         }
+        case 'halberd': {
+            // A two-metre polearm, gripped a third of the way up like the spear: ash shaft and iron butt-cap; at the
+            // top a broad crescent axe blade, a back hook and a long top spike, bound on with iron langets.
+            part(g, new THREE.CylinderGeometry(0.021, 0.025, 2.1, 7), WOOD(), 0, 0.3, 0);
+            part(g, new THREE.CylinderGeometry(0.03, 0.026, 0.07, 7), DARK(), 0, -0.73, 0);                       // butt-cap
+            for (const sx of [1, -1]) part(g, new THREE.BoxGeometry(0.008, 0.3, 0.03), STEEL(), sx * 0.024, 1.22, 0);   // langets
+            const blade = new THREE.Shape();
+            blade.moveTo(0.02, 1.25); blade.lineTo(0.12, 1.17); blade.quadraticCurveTo(0.24, 1.2, 0.25, 1.33);
+            blade.quadraticCurveTo(0.26, 1.46, 0.17, 1.55); blade.lineTo(0.02, 1.47); blade.closePath();
+            const axeGeo = new THREE.ExtrudeGeometry(blade, { depth: 0.012, bevelEnabled: false }); axeGeo.translate(0, 0, -0.006);
+            part(g, axeGeo, STEEL());
+            const hook = new THREE.Shape();
+            hook.moveTo(-0.02, 1.33); hook.lineTo(-0.15, 1.36); hook.lineTo(-0.19, 1.46); hook.lineTo(-0.11, 1.41); hook.lineTo(-0.02, 1.42); hook.closePath();
+            const hookGeo = new THREE.ExtrudeGeometry(hook, { depth: 0.012, bevelEnabled: false }); hookGeo.translate(0, 0, -0.006);
+            part(g, hookGeo, STEEL());
+            const spike = part(g, new THREE.ConeGeometry(0.035, 0.36, 4), STEEL(), 0, 1.66, 0); spike.scale.z = 0.4;
+            part(g, new THREE.CylinderGeometry(0.03, 0.03, 0.05, 7), mat(accent), 0, 1.06, 0);                   // a coloured binding below the head
+            tip.position.set(0, 1.84, 0);
+            break;
+        }
+        case 'claymore': {
+            // A great two-handed sword: a long leather grip for both hands, a pommel, a crossguard whose arms slope up
+            // toward the blade and end in four-ball clusters, and a long tapering blade with a fuller.
+            part(g, new THREE.CylinderGeometry(0.019, 0.021, 0.3, 7), LEATHER(), 0, 0.03, 0);
+            part(g, new THREE.SphereGeometry(0.034, 7, 5), mat(accent), 0, -0.14, 0);                             // pommel
+            part(g, new THREE.BoxGeometry(0.07, 0.04, 0.045), GOLD(), 0, 0.2, 0);                                // guard block
+            for (const sx of [1, -1]) {
+                const arm = part(g, new THREE.BoxGeometry(0.17, 0.026, 0.03), GOLD(), sx * 0.11, 0.24, 0, 0, 0, sx * 0.55);
+                arm.castShadow = true;
+                for (const [dx, dy] of [[0, 0], [0.025, 0.012], [-0.012, 0.028], [0.012, -0.022]]) part(g, new THREE.SphereGeometry(0.013, 6, 4), GOLD(), sx * (0.185 + dx), 0.3 + dy, 0);
+            }
+            const bl = new THREE.Shape();
+            bl.moveTo(-0.032, 0.22); bl.lineTo(0.032, 0.22); bl.lineTo(0.026, 1.28); bl.lineTo(0, 1.4); bl.lineTo(-0.026, 1.28); bl.closePath();
+            const blGeo = new THREE.ExtrudeGeometry(bl, { depth: 0.012, bevelEnabled: false }); blGeo.translate(0, 0, -0.006);
+            part(g, blGeo, STEEL());
+            part(g, new THREE.BoxGeometry(0.012, 0.8, 0.014), DARK(), 0, 0.68, 0);                                // fuller
+            tip.position.set(0, 1.4, 0);
+            break;
+        }
         case 'axe': {
             part(g, new THREE.CylinderGeometry(0.02, 0.024, 0.75, 6), WOOD(), 0, 0.27, 0);
             const head = new THREE.Shape();

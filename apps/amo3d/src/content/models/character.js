@@ -1,11 +1,12 @@
-// Eldrin, built in code: a joint hierarchy of simple meshes, animated in code —
-// idle, walk, sprint, hop, cast. Long red coat with a high collar and gold trim, dark
-// vest with gold filigree, crossed leather straps, wide belt with a gold buckle, a
-// satchel, gold-worked bracers, tousled dark hair, stubble, blue eyes — and his staff.
+// A character built in code: a joint hierarchy of simple meshes, animated in code — idle, walk,
+// sprint, hop, cast, strike. The body is a bare skin rig; clothing and gear are independent parts
+// (content/models/parts) mounted on its sockets. Both hands accept any handheld item.
 import * as THREE from 'three';
 import { bakeRig } from '../../engine/batch.js';
 import { buildWeapon } from './weapons.js';
 import { buildHair, buildFacialHair } from './parts/hair.js';
+import { DEFAULT_LOOK, normalizeLook, BODY_PRESETS, handSpec } from './look.js';
+import { PART_CATALOG, partDef, COVERING_HEADGEAR } from './parts/index.js';
 
 const mat = (color, opts = {}) =>
     new THREE.MeshStandardMaterial({ color, flatShading: true, roughness: 0.85, ...opts });
@@ -35,43 +36,32 @@ function coatPanel(thetaStart, thetaLength, len, material) {
     return { joint, geo, base: geo.attributes.position.array.slice() };
 }
 
-// A look definition (content/cast/*.json, the Forge): build, skin, eyes, hair, facial hair, outfit colours.
-// Anything left out falls back to Eldrin's look.
-export const DEFAULT_LOOK = {
-    build: { height: 1, width: 1 },
-    skin: '#e2b48f', eyes: '#5ab8f0',
-    hair: { style: 'tousled', color: '#3a2418' },
-    facialHair: { style: 'stubble', color: '#a07a62' },
-    hood: false, cape: false,
-    outfit: { style: 'longcoat', coat: '#a3141f', collar: '#7a0f17', trim: '#d4a84a', vest: '#1c1714', shirt: '#16120f',
-        pants: '#221c18', leather: '#5a3520', leatherDark: '#3e2416' },
-};
-const merge = look => ({
-    ...DEFAULT_LOOK, ...look,
-    build: { ...DEFAULT_LOOK.build, ...look?.build },
-    hair: { ...DEFAULT_LOOK.hair, ...look?.hair },
-    facialHair: { ...DEFAULT_LOOK.facialHair, ...look?.facialHair },
-    outfit: { ...DEFAULT_LOOK.outfit, ...look?.outfit },
-});
 const darker = (hex, k) => new THREE.Color(hex).multiplyScalar(k);
 
+function ripple(panel, k, time, amp) {
+    const pos = panel.geo.attributes.position.array, b = panel.base;
+    for (let i = 0; i < pos.length; i += 3) {
+        const depth = -b[i + 1] / 0.8;
+        const w = Math.sin(time * (4 + 5 * amp) + b[i] * 9 + depth * 4) * 0.035 * depth * k;
+        pos[i] = b[i] * (1 + w); pos[i + 2] = b[i + 2] * (1 + w);
+    }
+    panel.geo.attributes.position.needsUpdate = true;
+    panel.geo.computeVertexNormals();
+}
+
 export function createCharacter(lookIn = DEFAULT_LOOK) {
-    const L = merge(lookIn), O = L.outfit;
-    const eye = new THREE.Color(L.eyes);
+    const L = normalizeLook(lookIn);
+    const bodyDef = L.body;
+    const P = BODY_PRESETS[bodyDef.preset] ?? BODY_PRESETS.adult_male;
+    const eye = new THREE.Color(L.face.eyes);
     const M = {
-        skin: mat(L.skin),
-        stubble: mat(L.facialHair.color),
+        skin: mat(bodyDef.skin),
         hair: mat(L.hair.color),
+        stubble: mat(L.facialHair.color),
         eye: new THREE.MeshStandardMaterial({ color: eye, emissive: eye.clone().multiplyScalar(0.7), emissiveIntensity: 0.6 }),
         brow: mat(darker(L.hair.color, 0.75)),
-        coat: mat(O.coat, { side: THREE.DoubleSide, roughness: 0.75 }),
-        coatDark: mat(O.collar, { side: THREE.DoubleSide }),
-        gold: mat(O.trim, { metalness: 0.7, roughness: 0.35 }),
-        vest: mat(O.vest, { roughness: 0.6 }),
-        shirt: mat(O.shirt),
-        leather: mat(O.leather),
-        leatherDark: mat(O.leatherDark),
-        pants: mat(O.pants), pantsDark: mat(O.pantsDark ?? O.pants),
+        gold: mat('#d4a84a', { metalness: 0.7, roughness: 0.35 }),
+        steel: mat('#9aa0a8', { metalness: 0.75, roughness: 0.35 }),
         wood: mat(0x6b4a2b),
         crystal: new THREE.MeshStandardMaterial({
             color: 0x7ff5e6, emissive: 0x3ce0d0, emissiveIntensity: 2.2, flatShading: true, roughness: 0.2,
@@ -86,153 +76,40 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     const hips = new THREE.Group();
     hips.position.y = 0.95;
     body.add(hips);
-    hips.add(mesh(new THREE.CylinderGeometry(0.17, 0.16, 0.18, 8), M.pants));
+    const legEntry = L.parts.legs;
+    let hipMat = M.skin;
+    if (legEntry?.id && legEntry.id !== 'none') {
+        const legDef = partDef('legs', legEntry.id);
+        if (legDef) {
+            const legColors = { ...(legDef.colors ?? {}), ...(legEntry.colors ?? {}) };
+            if (legColors.primary) {
+                hipMat = mat(legColors.primary, { roughness: 0.9 });
+            }
+        }
+    }
+    const hipMesh = mesh(new THREE.CylinderGeometry(0.17, 0.16, 0.18, 8), hipMat);
+    hips.add(hipMesh);
 
-    // Legs: dark trousers, tall brown boots.
+    // Bare legs. Feet are added by the feet slot.
     const legs = {};
     for (const [side, x] of [['L', 0.1], ['R', -0.1]]) {
-        const thigh = limb(0.45, 0.085, 0.07, M.pants);
+        const thigh = limb(0.45, 0.085, 0.07, M.skin);
         thigh.position.set(x, -0.02, 0);
-        const linen = O.style === 'linen';   // under-things: three-quarter linen trousers, bare feet
-        const shin = limb(0.45, 0.07, 0.055, linen ? M.skin : M.pants);
+        const shin = limb(0.45, 0.07, 0.055, M.skin);
         shin.position.y = -0.45;
         thigh.add(shin);
-        if (linen) {
-            shin.add(mesh(new THREE.CylinderGeometry(0.082, 0.078, 0.16, 7), M.pants, 0, -0.06, 0));   // the trouser leg ends below the knee
-            shin.add(mesh(new THREE.CylinderGeometry(0.084, 0.084, 0.02, 7), M.pantsDark, 0, -0.14, 0));
-            shin.add(mesh(new THREE.BoxGeometry(0.1, 0.06, 0.22), M.skin, 0, -0.46, 0.04));               // bare foot
-        } else {
-            shin.add(mesh(new THREE.CylinderGeometry(0.08, 0.072, 0.3, 7), M.leather, 0, -0.27, 0));       // boot shaft
-            shin.add(mesh(new THREE.CylinderGeometry(0.085, 0.085, 0.04, 7), M.leatherDark, 0, -0.12, 0)); // boot cuff
-            shin.add(mesh(new THREE.BoxGeometry(0.13, 0.1, 0.26), M.leatherDark, 0, -0.45, 0.04));
-        }
         hips.add(thigh);
         legs[side] = { thigh, shin };
-    }
-
-    // Outfit cut (parts library): how open the front is, how long the skirt, what shows on the chest.
-    const CUTS = {
-        longcoat: { open: 0.11, len: 0.78, lapels: true, vest: true, collar: true, straps: true, hem: true },
-        robe:     { open: 0.0, len: 0.93, sash: true },
-        tunic:    { open: 0.02, len: 0.44, straps: true },
-        armour:   { open: 0.02, len: 0.4, plate: true },
-        linen:    { open: 0.0, len: 0, bare: true },   // nothing worn over the linen shirt
-    };
-    const cut = CUTS[O.style] ?? CUTS.longcoat;
-    M.steel = mat('#9aa0a8', { metalness: 0.75, roughness: 0.35 });
-    // Coat skirt: two front flaps that follow the legs, and a back panel that flares.
-    const fl = Math.PI * (0.5 + (0.11 - cut.open));   // closed cuts overlap at the front
-    const skirtLen = cut.bare ? 0.12 : cut.len;   // the linen shirt just covers the hips
-    const flapL = coatPanel(Math.PI * cut.open, fl, skirtLen, M.coat);
-    const flapR = coatPanel(Math.PI * 2 - Math.PI * cut.open - fl, fl, skirtLen, M.coat);
-    const back = coatPanel(Math.PI * 0.61, Math.PI * 0.78, skirtLen + 0.02, M.coat);
-    for (const p of [flapL, flapR, back]) { p.joint.position.y = 0.04; p.joint.visible = !cut.bare; hips.add(p.joint); }   // the linen shirt: no flared hem (it read as a petticoat)
-    // Gold hem along the front edges of the flaps.
-    for (const [p, th] of cut.hem ? [[flapL, Math.PI * 0.11], [flapR, Math.PI * 1.89]] : []) {
-        const edge = mesh(new THREE.BoxGeometry(0.025, 0.78, 0.025), M.gold);
-        edge.position.set(Math.sin(th) * 0.26, -0.39, Math.cos(th) * 0.26);
-        edge.rotation.x = -0.14 * Math.sign(Math.cos(th));
-        p.joint.add(edge);
     }
 
     // ---- torso ----
     const spine = new THREE.Group();
     spine.position.y = 0.06;
     hips.add(spine);
-    const chestGeo = new THREE.CylinderGeometry(0.215, 0.18, 0.56, 10);
+    const chestGeo = new THREE.CylinderGeometry(0.21, 0.175, 0.56, 10);
     chestGeo.translate(0, 0.28, 0);
     chestGeo.scale(1, 1, 0.74);
-    spine.add(new THREE.Mesh(chestGeo, M.coat));
-    // Open front: dark vest with gold filigree, a dark shirt and a V of skin at the throat.
-    if (cut.vest) {
-        spine.add(mesh(new THREE.BoxGeometry(0.17, 0.46, 0.06), M.vest, 0, 0.27, 0.125));
-        for (const [y, w] of [[0.16, 0.12], [0.26, 0.1], [0.36, 0.12], [0.44, 0.08]]) {
-            spine.add(mesh(new THREE.BoxGeometry(w, 0.012, 0.01), M.gold, 0, y, 0.158));
-        }
-        spine.add(mesh(new THREE.BoxGeometry(0.012, 0.36, 0.01), M.gold, 0, 0.28, 0.158));
-    }
-    if (cut.plate) {   // breastplate with a trim ridge, steel pauldrons on both shoulders
-        const plate = mesh(new THREE.CylinderGeometry(0.225, 0.19, 0.42, 10, 1, false, -Math.PI * 0.45, Math.PI * 0.9), M.steel, 0, 0.32, 0.005);
-        plate.scale.set(1, 1, 0.8);
-        spine.add(plate);
-        spine.add(mesh(new THREE.BoxGeometry(0.03, 0.4, 0.02), M.gold, 0, 0.32, 0.175));
-        for (const sg of [1, -1]) {
-            const pd = mesh(new THREE.SphereGeometry(0.12, 8, 5, 0, Math.PI * 2, 0, Math.PI / 2), M.steel, sg * 0.25, 0.52, 0);
-            pd.scale.set(1.05, 0.75, 1.1);
-            pd.rotation.z = -sg * 0.3;
-            spine.add(pd);
-        }
-    }
-    const throat = mesh(new THREE.ConeGeometry(0.06, 0.13, 3), M.skin, 0, 0.5, 0.135);
-    throat.rotation.x = Math.PI;
-    spine.add(throat);
-    // Lapels: red wedges along the V, edged in gold.
-    for (const s of cut.lapels ? [1, -1] : []) {
-        const lapel = mesh(new THREE.BoxGeometry(0.07, 0.36, 0.03), M.coat, s * 0.1, 0.33, 0.135);
-        lapel.rotation.z = s * 0.28;
-        spine.add(lapel);
-        const trim = mesh(new THREE.BoxGeometry(0.012, 0.37, 0.012), M.gold, s * 0.073, 0.33, 0.152);
-        trim.rotation.z = s * 0.28;
-        spine.add(trim);
-    }
-    // High popped collar: two flared wedges behind the neck.
-    for (const s of cut.collar ? [1, -1] : []) {
-        const collar = mesh(new THREE.BoxGeometry(0.15, 0.17, 0.03), M.coatDark, s * 0.09, 0.62, -0.02);
-        collar.rotation.set(-0.25, s * 0.9, s * -0.25);
-        spine.add(collar);
-        const ce = mesh(new THREE.BoxGeometry(0.15, 0.012, 0.035), M.gold, s * 0.095, 0.705, -0.04);
-        ce.rotation.set(-0.25, s * 0.9, s * -0.25);
-        spine.add(ce);
-    }
-    if (cut.collar) {
-        const collarBack = mesh(new THREE.BoxGeometry(0.2, 0.18, 0.03), M.coatDark, 0, 0.63, -0.1);
-        collarBack.rotation.x = -0.3;
-        spine.add(collarBack);
-    }
-    // Crossed leather straps with small gold buckles.
-    for (const s of cut.straps ? [1, -1] : []) {
-        const strap = mesh(new THREE.BoxGeometry(0.035, 0.6, 0.02), M.leather, s * 0.02, 0.29, 0.16);
-        strap.rotation.z = s * 0.55;
-        spine.add(strap);
-        spine.add(mesh(new THREE.BoxGeometry(0.035, 0.03, 0.025), M.gold, s * 0.07, 0.36, 0.172));
-    }
-    // Wide belt, big gold buckle, satchel with a gold clasp on the left hip (the linen shirt: a drawstring only).
-    if (cut.bare) {
-        spine.add(mesh(new THREE.CylinderGeometry(0.19, 0.188, 0.025, 10), M.pantsDark, 0, 0.0, 0));
-        const laces = mesh(new THREE.BoxGeometry(0.008, 0.12, 0.008), M.pantsDark, 0, 0.47, 0.142);
-        spine.add(laces);   // the shirt's open neck lacing
-    }
-    if (!cut.bare) spine.add(mesh(new THREE.CylinderGeometry(0.192, 0.19, cut.sash ? 0.11 : 0.08, 10), cut.sash ? M.coatDark : M.leather, 0, 0.02, 0));
-    if (cut.sash) spine.add(mesh(new THREE.BoxGeometry(0.06, 0.3, 0.015), M.coatDark, 0.08, -0.12, 0.17));   // sash tail
-    if (!cut.bare) {
-        spine.add(mesh(new THREE.BoxGeometry(0.075, 0.075, 0.02), M.gold, 0, 0.02, 0.148));
-        spine.add(mesh(new THREE.BoxGeometry(0.045, 0.045, 0.022), M.leather, 0, 0.02, 0.15));
-    }
-    const satchel = new THREE.Group();
-    satchel.visible = !cut.bare;
-    satchel.position.set(0.13, -0.07, 0.13);
-    satchel.rotation.y = 0.5;
-    satchel.add(mesh(new THREE.BoxGeometry(0.17, 0.15, 0.07), M.leather));
-    satchel.add(mesh(new THREE.BoxGeometry(0.175, 0.08, 0.075), M.leatherDark, 0, 0.04, 0.005));
-    satchel.add(mesh(new THREE.BoxGeometry(0.03, 0.05, 0.02), M.gold, 0, 0.01, 0.045));
-    spine.add(satchel);
-    // Left shoulder: leather and gold ornament.
-    if (O.style === 'longcoat' || !O.style) {
-        const pauldron = mesh(new THREE.SphereGeometry(0.1, 8, 5, 0, Math.PI * 2, 0, Math.PI / 2), M.leatherDark, 0.24, 0.53, 0);
-        pauldron.scale.set(1, 0.7, 1.1);
-        spine.add(pauldron);
-        spine.add(mesh(new THREE.TorusGeometry(0.06, 0.012, 4, 10), M.gold, 0.25, 0.55, 0.05));
-    }
-    // Cape: hangs from the shoulders and flares with speed (animated with the coat's back panel).
-    let cape = null;
-    if (L.cape) {
-        cape = new THREE.Group();
-        cape.position.set(0, 0.56, -0.17);
-        spine.add(cape);
-        const cg = new THREE.PlaneGeometry(0.52, 1.15, 2, 6).translate(0, -0.575, 0);
-        cape.add(new THREE.Mesh(cg, M.coatDark));
-        cape.add(mesh(new THREE.BoxGeometry(0.5, 0.04, 0.03), M.gold, 0, 0, 0.01));
-    }
+    spine.add(new THREE.Mesh(chestGeo, M.skin));
 
     // ---- head ----
     const head = new THREE.Group();
@@ -242,7 +119,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     const skull = mesh(new THREE.SphereGeometry(0.12, 12, 10), M.skin, 0, 0.13, 0);
     skull.scale.set(0.92, 1.08, 1);
     head.add(skull);
-    buildFacialHair(L.facialHair.style, head, M.stubble);   // parts library
+    buildFacialHair(L.facialHair.style, head, M.stubble);
     head.add(mesh(new THREE.BoxGeometry(0.022, 0.05, 0.03), M.skin, 0, 0.12, 0.118));            // nose
     for (const s of [1, -1]) {
         head.add(mesh(new THREE.SphereGeometry(0.016, 6, 5), M.eye, s * 0.042, 0.15, 0.103));
@@ -251,65 +128,67 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         head.add(brow);
         head.add(mesh(new THREE.SphereGeometry(0.025, 5, 4), M.skin, s * 0.112, 0.13, -0.005));   // ears
     }
-    const covered = L.hood || L.headgear?.type === 'helmet';
-    buildHair(covered ? 'short' : L.hair.style, head, M.hair);   // parts library (a hood or helmet keeps the hair close)
-    const hoodM = L.hoodColor ? mat(L.hoodColor, { side: THREE.DoubleSide }) : M.coatDark;
-    if (L.hood) {   // a sphere shell with the face cut away, and a pointed back
-        head.add(mesh(new THREE.SphereGeometry(0.165, 12, 8, Math.PI * 0.78, Math.PI * 1.44, 0, Math.PI * 0.66), hoodM, 0, 0.13, -0.01));
-        const tip = mesh(new THREE.ConeGeometry(0.08, 0.18, 6), hoodM, 0, 0.2, -0.14);
-        tip.rotation.x = -1.1;
-        head.add(tip);
-    }
+    const covered = COVERING_HEADGEAR.has(L.parts.headgear?.id);
+    buildHair(covered ? 'short' : L.hair.style, head, M.hair);
 
-    // Headgear from equipment: a helmet (cap, rim, nose guard) or a wide-brimmed hat.
-    if (L.headgear) {
-        const gm = mat(L.headgear.color ?? '#9aa0a8', { metalness: L.headgear.type === 'helmet' ? 0.5 : 0, roughness: 0.5 });
-        if (L.headgear.type === 'helmet') {
-            const capM = mesh(new THREE.SphereGeometry(0.15, 12, 8, 0, Math.PI * 2, 0, Math.PI * 0.55), gm, 0, 0.14, 0);
-            capM.scale.set(1, 1.08, 1.05);
-            head.add(capM);
-            head.add(mesh(new THREE.TorusGeometry(0.148, 0.014, 4, 16).rotateX(Math.PI / 2), gm, 0, 0.165, 0));
-            head.add(mesh(new THREE.BoxGeometry(0.025, 0.09, 0.02), gm, 0, 0.13, 0.15));
-        } else {
-            head.add(mesh(new THREE.CylinderGeometry(0.27, 0.27, 0.02, 18), gm, 0, 0.235, 0));
-            head.add(mesh(new THREE.CylinderGeometry(0.11, 0.13, 0.13, 12), gm, 0, 0.3, 0));
-        }
-    }
-
-    // ---- arms: red sleeves, gold-worked leather bracers ----
+    // ---- arms: bare skin; sleeves/bracers are parts ----
     const arms = {};
     for (const [side, x] of [['L', 0.25], ['R', -0.25]]) {
-        const upper = limb(0.31, 0.068, 0.058, M.coat);
+        const upper = limb(0.31, 0.068, 0.058, M.skin);
         upper.position.set(x, 0.5, 0);
-        const fore = limb(0.29, 0.058, 0.05, M.coat);
+        const fore = limb(0.29, 0.058, 0.05, M.skin);
         fore.position.y = -0.31;
         upper.add(fore);
-        fore.add(mesh(new THREE.CylinderGeometry(0.064, 0.058, 0.17, 8), M.leather, 0, -0.18, 0));
-        for (const y of [-0.1, -0.18, -0.26]) fore.add(mesh(new THREE.CylinderGeometry(0.066, 0.066, 0.014, 8), M.gold, 0, y, 0));
+        upper.add(mesh(new THREE.SphereGeometry(0.08, 8, 6), M.skin, 0, 0, 0));
         fore.add(mesh(new THREE.SphereGeometry(0.048, 7, 5), M.skin, 0, -0.32, 0));
-        upper.add(mesh(new THREE.SphereGeometry(0.083, 8, 6), M.coat));
         spine.add(upper);
         arms[side] = { upper, fore };
     }
 
-    // ---- weapon mounts: right hand (main) and left forearm (off hand) ----
-    // Empty hands still carry Eldrin's own staff.
+    // Body presets: proportions, not just a uniform scale.
+    const H = bodyDef.height * P.height, W = bodyDef.width * P.width;
+    for (const side of ['L', 'R']) {
+        arms[side].upper.position.x = (side === 'L' ? 1 : -1) * 0.25 * P.shoulders;
+        arms[side].upper.scale.y = P.limb;
+        legs[side].thigh.position.x = (side === 'L' ? 1 : -1) * 0.1 * P.hips;
+        legs[side].thigh.scale.y = P.limb;
+    }
+    hipMesh.scale.x = P.hips;
+    head.scale.setScalar(P.head);
+    body.scale.set(W, H, W);
+
+    // ---- parts ----
+    const hooks = [];
+    const ctx = {
+        look: L, preset: P, mats: M, mat, mesh, darker, root, body, hips, spine, head, arms, legs,
+        torsoPrimary: L.parts.torso?.colors?.primary ?? '#a3141f',
+        add: (parent, geo, material, x = 0, y = 0, z = 0) => { const m = mesh(geo, material, x, y, z); parent.add(m); return m; },
+        makePanel: coatPanel,
+        ripple,
+        onUpdate: fn => hooks.push(fn),
+    };
+    for (const slot of Object.keys(PART_CATALOG)) {
+        const entry = L.parts[slot];
+        if (!entry?.id || entry.id === 'none') continue;
+        const def = partDef(slot, entry.id);
+        if (!def) continue;   // unknown slot content from an old look: skip it
+        const colors = { ...(def.colors ?? {}), ...(entry.colors ?? {}) };
+        const res = def.build({ ...ctx, colors, slot, entry });
+        if (res?.update) hooks.push(res.update);
+    }
+
+    // ---- weapon mounts: each hand has a grip and a forearm mount ----
     const mainMount = new THREE.Group();
-    mainMount.position.y = -0.31;
-    mainMount.rotation.x = 0.75;
-    arms.R.fore.add(mainMount);
     const offMount = new THREE.Group();
-    offMount.position.set(0.06, -0.2, 0.05);
+    arms.R.fore.add(mainMount);
     arms.L.fore.add(offMount);
-    let crystal = null, tip = null, offTip = null, mainType = 'staff', offType = null;
+    let crystal = null, tip = null, offTip = null, mainType = 'fists', offType = null;
 
     root.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
     bakeRig(root);
-    body.scale.set(L.build.width, L.build.height, L.build.width);   // build: taller / broader
 
-    // main / off: { type, accent } (amo weapon type + the item's colour) or null.
-    // Swords sheathe: a scabbard on the opposite hip; after a while without a swing the sword goes into it, and the
-    // next swing draws it (sheath[h]: { holder, group, home: the group's in-hand rotation }).
+    // main / off: { type, accent } (amo weapon type + the item's colour), false for an empty main
+    // hand, or null for an empty off hand. Shields can go in either hand.
     const SHEATHE_AFTER = 5;
     const sheath = { R: null, L: null };
     function buildScabbard(h) {
@@ -320,8 +199,8 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         const leather = new THREE.MeshStandardMaterial({ color: 0x3a2214, flatShading: true, roughness: 0.8 });
         const sc = new THREE.Mesh(new THREE.BoxGeometry(0.075, 0.82, 0.03), leather);
         sc.position.y = 0.52; holder.add(sc);
-        const chape = new THREE.Mesh(new THREE.ConeGeometry(0.04, 0.08, 4), M.gold ?? leather); chape.position.y = 0.97; chape.scale.z = 0.4; holder.add(chape);
-        const throat = new THREE.Mesh(new THREE.BoxGeometry(0.085, 0.04, 0.04), M.gold ?? leather); throat.position.y = 0.12; holder.add(throat);
+        const chape = new THREE.Mesh(new THREE.ConeGeometry(0.04, 0.08, 4), M.gold); chape.position.y = 0.97; chape.scale.z = 0.4; holder.add(chape);
+        const throat = new THREE.Mesh(new THREE.BoxGeometry(0.085, 0.04, 0.04), M.gold); throat.position.y = 0.12; holder.add(throat);
         hips.add(holder);
         return holder;
     }
@@ -335,42 +214,42 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         for (const h of ['R', 'L']) if (sheath[h]) { sheath[h].group.removeFromParent(); hips.remove(sheath[h].holder); sheath[h] = null; }
         mainMount.clear();
         offMount.clear();
-        if (main === false) { crystal = null; tip = null; mainType = 'fists'; }   // nothing in hand (spells leave from the hand)
+        // Each hand: grip mount for weapons, forearm mount for shields.
+        const mount = (grp, type, isMain) => {
+            if (type === 'shield') {
+                grp.position.set(0.06, -0.2, 0.05);
+                grp.rotation.set(0, 0, 0);
+            } else {
+                grp.position.set(0, -0.31, 0);
+                grp.rotation.set(isMain ? (type === 'bow' || type === 'crossbow' ? 0.1 : 0.75) : 0, 0, 0);
+            }
+        };
+        if (!main) { crystal = null; tip = null; mainType = 'fists'; mount(mainMount, 'fists', true); }
         else {
-            const m = buildWeapon(main?.type ?? 'staff', { accent: main?.accent, crystalMat: (main?.type ?? 'staff') === 'staff' ? M.crystal : null });
+            const type = main?.type ?? 'staff';
+            const m = buildWeapon(type, { accent: main?.accent, crystalMat: type === 'staff' ? M.crystal : null });
             mainMount.add(m.group);
-            crystal = m.crystal; tip = m.tip; mainType = main?.type ?? 'staff';
-            if (mainType === 'sword') { m.group.rotation.y = Math.PI / 2; sheath.R = { holder: buildScabbard('R'), group: m.group, home: m.group.rotation.clone(), on: false, last: -99 }; }   // the edge leads the cut
+            crystal = m.crystal; tip = m.tip; mainType = type;
+            mount(mainMount, type, true);
+            if (type === 'sword') { m.group.rotation.y = Math.PI / 2; sheath.R = { holder: buildScabbard('R'), group: m.group, home: m.group.rotation.clone(), on: false, last: -99 }; }
         }
         offType = off?.type ?? null; offTip = null;
-        if (off) {   // a shield rides the forearm; a weapon sits in the hand, like the right one
+        if (off) {
             const o = buildWeapon(off.type, { accent: off.accent, crystalMat: off.type === 'staff' ? M.crystal : null });
-            if (off.type === 'shield') { o.group.rotation.set(0, 0, 0); offMount.position.set(0.06, -0.2, 0.05); }
-            else { o.group.rotation.x = 0.75; offMount.position.set(0, -0.31, 0); }
             offMount.add(o.group);
+            mount(offMount, off.type, false);
+            if (off.type !== 'shield') o.group.rotation.x = 0.75;
             offTip = o.tip ?? null;
             if (off.type === 'sword') { o.group.rotation.y = Math.PI / 2; sheath.L = { holder: buildScabbard('L'), group: o.group, home: o.group.rotation.clone(), on: false, last: -99 }; }
-        }
-        mainMount.rotation.x = mainType === 'bow' || mainType === 'crossbow' ? 0.1 : 0.75;
+        } else mount(offMount, 'fists', false);
         for (const g of [mainMount, offMount]) g.traverse(o => { if (o.isMesh) o.castShadow = true; });
         for (const h of ['R', 'L']) if (sheath[h]) setSheathed(h, true);   // a sword starts in its scabbard
     }
-    setWeapons(null, null);
+    setWeapons(handSpec(L.parts.right) ?? false, handSpec(L.parts.left));
 
     let phase = 0, amp = 0, run = 0, air = 0, t = 0;
     const GUARD_MOUNT = 2.75;   // a blade at rest: pointing ahead and a little down
     const calm = new THREE.Color(0x3ce0d0), blaze = new THREE.Color(0xff7a20);
-
-    function ripple(panel, k) {
-        const pos = panel.geo.attributes.position.array, b = panel.base;
-        for (let i = 0; i < pos.length; i += 3) {
-            const depth = -b[i + 1] / 0.8;
-            const w = Math.sin(t * (4 + 5 * amp) + b[i] * 9 + depth * 4) * 0.035 * depth * k;
-            pos[i] = b[i] * (1 + w); pos[i + 2] = b[i + 2] * (1 + w);
-        }
-        panel.geo.attributes.position.needsUpdate = true;
-        panel.geo.computeVertexNormals();
-    }
 
     // speed in m/s, sprinting bool, hopK 0..1 progress (null when grounded), castK 0..1 (null when not casting)
     function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false, incant = false, strikeHand = 'R', castHand = 'R' }) {
@@ -401,19 +280,22 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         arms.R.fore.rotation.x = -0.75;
 
         body.position.y = g * (Math.abs(c) * 0.06 - 0.03) * amp - air * 0.06;
-        spine.rotation.x = 0.06 * amp + 0.16 * run + air * 0.15 + breathe * 0.015;
+        spine.rotation.x = 0.06 * amp + 0.16 * run + air * 0.15 + breathe * 0.015 + P.stoop;
         spine.rotation.y = g * s * 0.08 * amp;
         head.rotation.x = -spine.rotation.x * 0.6;
         head.rotation.y = 0;
 
+        for (const fn of hooks) fn({ t, dt, amp, run, air, legs, arms, spine, head });
+
         // A weapon carried in the left hand is held like the right one (forearm up), not swinging free.
         const offArmed = !!offType && offType !== 'shield' && offType !== 'fists';
         if (offArmed) arms.L.fore.rotation.x = -0.75;
-        mainMount.rotation.x = mainType === 'bow' || mainType === 'crossbow' ? 0.1 : 0.75;
+        const mainShield = mainType === 'shield';
+        mainMount.rotation.x = mainShield ? 0 : mainType === 'bow' || mainType === 'crossbow' ? 0.1 : 0.75;
         offMount.rotation.x = 0;
         // Which arm does the work: the casting / striking hand (A), the other (B); sz mirrors left and right.
         // Blades (swords, daggers, axes, maces) rest in a low guard: arm a little forward, blade angled ahead and down.
-        const BLADE = new Set(['sword', 'greatsword', 'dagger', 'axe', 'mace']);
+        const BLADE = new Set(['sword', 'greatsword', 'claymore', 'dagger', 'axe', 'mace']);   // polearms (spear, halberd) stand upright instead
         const setMount = (h, a) => { if (h === 'R') mainMount.rotation.x = a; else offMount.rotation.x = a - 0.75; };
         const guard = h => {
             const A = arms[h], sz = h === 'R' ? 1 : -1;
@@ -437,7 +319,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         if (castK != null && incant) {
             // The incantation: both hands lift the staff high, the head tips back to the sky, the staff sways as
             // the words go on; then it comes down and points, and the spell is loosed.
-            const { A, B, sz, mount, fore0 } = side(castHand);
+            const { A, B, sz, mount: m, fore0 } = side(castHand);
             const k = Math.min(1, castK), sm = (a, b) => { const x = Math.min(1, Math.max(0, (k - a) / (b - a))); return x * x * (3 - 2 * x); };
             const up = sm(0, 0.2) * (1 - sm(0.7, 0.8)), fwd = sm(0.7, 0.8) * (1 - sm(0.86, 1)), rest = 1 - up - fwd;
             const sway = Math.sin(t * 6) * 0.07 * up;
@@ -449,7 +331,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             B.fore.rotation.x = B.fore.rotation.x * (1 - up) - 0.35 * up;
             spine.rotation.x += -0.22 * up + 0.2 * fwd;
             head.rotation.x += -0.6 * up;
-            mount.rotation.x += 2.4 * up + 0.7 * fwd;   // the staff stands up to the sky, then points
+            m.rotation.x += 2.4 * up + 0.7 * fwd;   // the staff stands up to the sky, then points
             blazeK = Math.min(1, k * 1.4);
         } else if (castK != null) {
             const { A, B, sz, fore0 } = side(castHand);
@@ -464,7 +346,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         // Strike: with a weapon, a sweeping blow (or a stab for thrusting weapons) from that hand, the body
         // twisting into it; an empty left hand jabs.
         if (strikeK != null) {
-            const { A, sz, mount, fore0 } = side(strikeHand);
+            const { A, sz, mount: m, fore0 } = side(strikeHand);
             const k = Math.min(1, strikeK), w = Math.sin(k * Math.PI);
             const bladeType = strikeHand === 'R' ? mainType : offType;
             if (BLADE.has(bladeType) && !thrust) {
@@ -491,7 +373,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
                 A.upper.rotation.x = A.upper.rotation.x * (1 - w) - 1.45 * w;
                 A.upper.rotation.z = sz * -0.12;
                 A.fore.rotation.x = fore0 * (1 - w) - 0.05 * w;
-                mount.rotation.x += 0.8 * w;
+                m.rotation.x += 0.8 * w;
                 spine.rotation.x += 0.18 * w;
             } else {
                 A.upper.rotation.x = A.upper.rotation.x * (1 - w) - 1.3 * w;
@@ -502,18 +384,15 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             }
         }
         M.crystal.emissive.copy(calm).lerp(blaze, blazeK);
-
-        // Coat: front flaps follow the thighs, the back panel flares with speed.
-        flapL.joint.rotation.x = Math.min(0.2, legs.L.thigh.rotation.x * 0.8) - air * 0.3;
-        flapR.joint.rotation.x = Math.min(0.2, legs.R.thigh.rotation.x * 0.8) - air * 0.3;
-        back.joint.rotation.x = 0.04 + amp * 0.22 + run * 0.35 + air * 0.35 + Math.sin(t * 3.1) * 0.02;
-        if (cape) cape.rotation.x = 0.06 + amp * 0.3 + run * 0.45 + air * 0.4 + Math.sin(t * 2.7) * 0.03;
-        ripple(back, 0.4 + amp);
+        M.crystal.emissiveIntensity = 1.8 + Math.sin(t * 3) * 0.6;
 
         if (crystal) crystal.rotation.y += dt * 1.5;
-        M.crystal.emissiveIntensity = 1.8 + Math.sin(t * 3) * 0.6;
     }
 
-    return { root, update, setWeapons, setSheathed, get mainType() { return mainType; }, bladeWorld: (hand, base, tipV) => { const m = hand === 'L' ? offMount : mainMount, tp = hand === 'L' ? offTip : tip; if (!tp) return false; m.getWorldPosition(base); tp.getWorldPosition(tipV); return true; },
-        crystalWorld: (v, hand = 'R') => (hand === 'L' ? (offTip ?? arms.L.fore) : (tip ?? arms.R.fore)).getWorldPosition(v) };
+    return {
+        root, update, setWeapons, setSheathed,
+        get mainType() { return mainType; },
+        bladeWorld: (hand, base, tipV) => { const m = hand === 'L' ? offMount : mainMount, tp = hand === 'L' ? offTip : tip; if (!tp) return false; m.getWorldPosition(base); tp.getWorldPosition(tipV); return true; },
+        crystalWorld: (v, hand = 'R') => (hand === 'L' ? (offTip ?? arms.L.fore) : (tip ?? arms.R.fore)).getWorldPosition(v),
+    };
 }
