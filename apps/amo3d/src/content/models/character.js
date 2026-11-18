@@ -191,6 +191,8 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     // hand, or null for an empty off hand. Shields can go in either hand.
     const SHEATHE_AFTER = 5;
     const EDGED = new Set(['sword', 'greatsword', 'claymore', 'dagger', 'axe']);   // turned in the hand so they cut edge-first
+    // An axe has one edge (its blade is modelled on +x): turn it so that edge faces ahead, away from the wielder.
+    const edgeTurn = type => (type === 'axe' ? -Math.PI / 2 : Math.PI / 2);
     const sheath = { R: null, L: null };
     function buildScabbard(h) {
         const holder = new THREE.Group();
@@ -232,7 +234,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             mainMount.add(m.group);
             crystal = m.crystal; tip = m.tip; mainType = type;
             mount(mainMount, type, true);
-            if (EDGED.has(type)) m.group.rotation.y = Math.PI / 2;   // the edge leads the cut, not the flat
+            if (EDGED.has(type)) m.group.rotation.y = edgeTurn(type);   // the edge leads the cut, not the flat
             if (type === 'sword') { sheath.R = { holder: buildScabbard('R'), group: m.group, home: m.group.rotation.clone(), on: false, last: -99 }; }
         }
         offType = off?.type ?? null; offTip = null;
@@ -242,7 +244,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             mount(offMount, off.type, false);
             if (off.type !== 'shield') o.group.rotation.x = 0.75;
             offTip = o.tip ?? null;
-            if (EDGED.has(off.type)) o.group.rotation.y = (o.group.rotation.y || 0) + Math.PI / 2;
+            if (EDGED.has(off.type)) o.group.rotation.y = (o.group.rotation.y || 0) + edgeTurn(off.type);
             if (off.type === 'sword') { sheath.L = { holder: buildScabbard('L'), group: o.group, home: o.group.rotation.clone(), on: false, last: -99 }; }
         } else mount(offMount, 'fists', false);
         for (const g of [mainMount, offMount]) g.traverse(o => { if (o.isMesh) o.castShadow = true; });
@@ -332,7 +334,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             if (!g) continue;
             const k = strikeK != null && strikeHand === h ? Math.min(1, strikeK) : -1;
             const swing = k < 0 ? 0 : Math.min(1, k / 0.18) * Math.min(1, (1 - k) / 0.2);
-            g.position.y = -ch * (1 - swing);
+            g.position.set(0, 1, 0).applyQuaternion(g.quaternion).multiplyScalar(-ch * (1 - swing));   // along the handle (the left hand's mount is tilted)
         }
         if ((BLADE.has(mainType) || REST[mainType]) && !sheath.R?.on) guard('R', mainType);
         if ((BLADE.has(offType) || REST[offType]) && !sheath.L?.on) guard('L', offType);
