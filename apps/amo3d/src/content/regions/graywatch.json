@@ -1,0 +1,269 @@
+{
+  "id": "graywatch",
+  "name": "Graywatch",
+  "lore": "A stone border keep standing between the Scarlands and Whisper-Wood, built to watch for shadow-touched creatures creeping out of the dark forest. Sparse garrison, long nights (lore DB: Graywatch, in The Scarlands).",
+  "seed": 9393,
+  "half": 70,
+  "water": -2.5,
+  "terrain": {
+    "scale": 0.024,
+    "relief": 8,
+    "base": 0.8,
+    "rim": 20
+  },
+  "palette": {
+    "grassA": "#5a5a3e",
+    "grassB": "#6e6a48",
+    "dirt": "#5e5038",
+    "rock": "#6a645c",
+    "shore": "#5a5448",
+    "road": "#6a5c48",
+    "paved": "#7a756c",
+    "water": "#2a3a40"
+  },
+  "tints": [
+    {
+      "x": 44,
+      "z": 0,
+      "r": 34,
+      "color": "#7a5a44",
+      "k": 0.6
+    },
+    {
+      "x": 60,
+      "z": 30,
+      "r": 24,
+      "color": "#6a4436",
+      "k": 0.5
+    }
+  ],
+  "mood": {
+    "fog": "#8a8478",
+    "fogNear": 24,
+    "fogFar": 150,
+    "fogMix": 0.5,
+    "light": 0.84,
+    "nightFloor": 0.42
+  },
+  "features": [
+    {
+      "type": "clearing",
+      "x": 0,
+      "z": 0,
+      "r": 32
+    },
+    {
+      "type": "hill",
+      "x": 0,
+      "z": -4,
+      "r": 14,
+      "h": 2.5
+    }
+  ],
+  "path": [
+    [
+      -64,
+      0
+    ],
+    [
+      -40,
+      2
+    ],
+    [
+      -14,
+      2
+    ],
+    [
+      0,
+      8
+    ],
+    [
+      14,
+      2
+    ],
+    [
+      40,
+      0
+    ],
+    [
+      64,
+      0
+    ]
+  ],
+  "buildings": [
+    {
+      "x": -10,
+      "z": 10,
+      "w": 7,
+      "d": 4.5,
+      "h": 3,
+      "ry": 3.1416,
+      "stone": true,
+      "roof": "#3a3430",
+      "name": "The barracks"
+    },
+    {
+      "x": 10,
+      "z": 10,
+      "w": 5,
+      "d": 4,
+      "h": 2.8,
+      "ry": 3.1416,
+      "stone": true,
+      "roof": "#3a3430"
+    }
+  ],
+  "props": [
+    {
+      "type": "keep",
+      "x": 0,
+      "z": -4,
+      "clear": 20
+    },
+    {
+      "type": "stone_wall",
+      "x": -15,
+      "z": -4,
+      "ry": 1.5708,
+      "len": 20
+    },
+    {
+      "type": "stone_wall",
+      "x": 15,
+      "z": -4,
+      "ry": 1.5708,
+      "len": 20
+    },
+    {
+      "type": "stone_wall",
+      "x": -8,
+      "z": -14,
+      "len": 14
+    },
+    {
+      "type": "stone_wall",
+      "x": 8,
+      "z": -14,
+      "len": 14
+    },
+    {
+      "type": "lamp",
+      "x": -4,
+      "z": 6
+    },
+    {
+      "type": "lamp",
+      "x": 4,
+      "z": 6
+    },
+    {
+      "type": "barrel",
+      "x": -6,
+      "z": 4
+    },
+    {
+      "type": "crate",
+      "x": 6,
+      "z": 4
+    },
+    {
+      "type": "cart",
+      "x": -20,
+      "z": 6,
+      "ry": 1.4
+    }
+  ],
+  "signs": [
+    {
+      "x": -3,
+      "z": 6.5,
+      "text": "GRAYWATCH \u2014 the Border Watch. West: Whisper-Wood; report anything shadow-touched that comes out of the trees. East: the Scarlands. Sparse garrison, long nights \u2014 volunteers welcome."
+    }
+  ],
+  "trees": {
+    "count": 220,
+    "gaps": 0.55,
+    "sizeVar": 0.8,
+    "kinds": {
+      "pine": 0.4,
+      "dead": 0.45,
+      "broad": 0.15
+    },
+    "trunk": {
+      "dead": "#4a4440"
+    }
+  },
+  "rocks": 120,
+  "gather": {
+    "mineral": 4,
+    "herb": 3,
+    "wood": 3
+  },
+  "gates": [
+    {
+      "id": "graywatch_monolith",
+      "label": "Monolith of Graywatch",
+      "x": -22,
+      "z": -16
+    }
+  ],
+  "actors": [
+    {
+      "type": "shadows",
+      "posts": [
+        {
+          "x": -46,
+          "z": -26
+        },
+        {
+          "x": -44,
+          "z": 28
+        }
+      ]
+    },
+    {
+      "type": "beasts",
+      "kind": "void_stalker",
+      "posts": [
+        {
+          "x": 48,
+          "z": -30
+        },
+        {
+          "x": 52,
+          "z": 30
+        }
+      ]
+    }
+  ],
+  "landmarks": [
+    {
+      "name": "Graywatch Keep",
+      "x": 0,
+      "z": -4,
+      "icon": "tower"
+    },
+    {
+      "name": "The Scarlands",
+      "x": 50,
+      "z": 0,
+      "icon": "den"
+    }
+  ],
+  "links": [
+    {
+      "label": "West into Whisper-Wood",
+      "x": -64,
+      "z": 0,
+      "facing": 1.5708,
+      "spawn": "from_wood",
+      "to": "whisper_wood",
+      "toSpawn": "from_graywatch"
+    }
+  ],
+  "start": {
+    "x": -58,
+    "z": 0,
+    "facing": 1.5708
+  }
+}

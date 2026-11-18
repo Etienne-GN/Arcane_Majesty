@@ -169,11 +169,90 @@
       "spawn": "from_glade",
       "to": "outdoor",
       "toSpawn": "from_wood"
+    },
+    {
+      "label": "North to Duskmeet",
+      "x": 0,
+      "z": -72,
+      "facing": 0,
+      "spawn": "from_duskmeet",
+      "to": "duskmeet",
+      "toSpawn": "from_wood"
+    },
+    {
+      "label": "East to Graywatch",
+      "x": 72,
+      "z": 0,
+      "facing": -1.5708,
+      "spawn": "from_graywatch",
+      "to": "graywatch",
+      "toSpawn": "from_wood"
+    },
+    {
+      "label": "South to the Crossroads",
+      "x": 0,
+      "z": 72,
+      "facing": 3.1416,
+      "spawn": "from_crossroads",
+      "to": "the_crossroads",
+      "toSpawn": "from_wood"
     }
   ],
   "start": {
     "x": -58,
     "z": 0,
     "facing": 1.5708
-  }
+  },
+  "branches": [
+    [
+      [
+        0,
+        0
+      ],
+      [
+        -4,
+        -24
+      ],
+      [
+        2,
+        -48
+      ],
+      [
+        0,
+        -72
+      ]
+    ],
+    [
+      [
+        32,
+        4
+      ],
+      [
+        52,
+        2
+      ],
+      [
+        72,
+        0
+      ]
+    ],
+    [
+      [
+        0,
+        0
+      ],
+      [
+        6,
+        24
+      ],
+      [
+        2,
+        48
+      ],
+      [
+        0,
+        72
+      ]
+    ]
+  ]
 }

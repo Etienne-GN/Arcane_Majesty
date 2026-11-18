@@ -1,0 +1,350 @@
+{
+  "id": "duskmeet",
+  "name": "Duskmeet",
+  "lore": "A small frontier hamlet on the northern edge of Whisper-Wood; its residents keep lanterns lit all night and nail iron horseshoes above every door. A last stop before the dark (lore DB: Duskmeet, in Whisper-Wood).",
+  "seed": 9191,
+  "half": 64,
+  "water": -1.6,
+  "terrain": {
+    "scale": 0.022,
+    "relief": 7,
+    "base": 0.6,
+    "rim": 20
+  },
+  "palette": {
+    "grassA": "#3e5a32",
+    "grassB": "#566e3c",
+    "dirt": "#5a4a32",
+    "rock": "#5a5650",
+    "shore": "#4a4434",
+    "road": "#5e4e38",
+    "paved": "#6a665c",
+    "undergrowth": "#33582c",
+    "water": "#1a2e36"
+  },
+  "mood": {
+    "fog": "#56645c",
+    "fogNear": 14,
+    "fogFar": 110,
+    "fogMix": 0.55,
+    "light": 0.78,
+    "motes": "#ffd890",
+    "nightFloor": 0.5
+  },
+  "features": [
+    {
+      "type": "clearing",
+      "x": 0,
+      "z": 0,
+      "r": 26
+    }
+  ],
+  "path": [],
+  "roads": [
+    {
+      "pts": [
+        [
+          0,
+          58
+        ],
+        [
+          0,
+          30
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          -40
+        ],
+        [
+          0,
+          -58
+        ]
+      ],
+      "w": 3.6,
+      "kind": "road"
+    },
+    {
+      "pts": [
+        [
+          -22,
+          0
+        ],
+        [
+          24,
+          0
+        ]
+      ],
+      "w": 3,
+      "kind": "road"
+    }
+  ],
+  "buildings": [
+    {
+      "x": -14,
+      "z": -8,
+      "w": 5,
+      "d": 4.5,
+      "h": 2.9,
+      "ry": 0,
+      "wall": "#8a7a62",
+      "roof": "#3a3a32",
+      "timber": "#2a2018",
+      "horseshoe": true,
+      "lantern": true
+    },
+    {
+      "x": -4,
+      "z": -10,
+      "w": 9,
+      "d": 6,
+      "h": 3.4,
+      "ry": 0,
+      "wall": "#7a6a54",
+      "roof": "#2e322a",
+      "timber": "#2a2018",
+      "horseshoe": true,
+      "lantern": true,
+      "stone": true,
+      "sign": "The Last Lamp",
+      "signText": "THE LAST LAMP \u2014 a hearth, a bed, a bolted door. Keep your lantern lit; the wood is close.",
+      "name": "The Last Lamp (inn)"
+    },
+    {
+      "x": 8,
+      "z": -9,
+      "w": 5,
+      "d": 4.5,
+      "h": 2.9,
+      "ry": 0,
+      "wall": "#8a806a",
+      "roof": "#3a3a32",
+      "timber": "#2a2018",
+      "horseshoe": true,
+      "lantern": true
+    },
+    {
+      "x": 18,
+      "z": -7,
+      "w": 6,
+      "d": 4.5,
+      "h": 2.9,
+      "ry": 0,
+      "wall": "#8a7a62",
+      "roof": "#2e322a",
+      "timber": "#2a2018",
+      "horseshoe": true,
+      "lantern": true
+    },
+    {
+      "x": -12,
+      "z": 9,
+      "w": 5,
+      "d": 4.5,
+      "h": 2.9,
+      "ry": 3.1416,
+      "wall": "#7a6a54",
+      "roof": "#3a3a32",
+      "timber": "#2a2018",
+      "horseshoe": true,
+      "lantern": true
+    },
+    {
+      "x": 2,
+      "z": 10,
+      "w": 6,
+      "d": 4.5,
+      "h": 2.9,
+      "ry": 3.1416,
+      "wall": "#8a806a",
+      "roof": "#2e322a",
+      "timber": "#2a2018",
+      "horseshoe": true,
+      "lantern": true
+    },
+    {
+      "x": 14,
+      "z": 9,
+      "w": 5,
+      "d": 4.5,
+      "h": 2.9,
+      "ry": 3.1416,
+      "wall": "#8a7a62",
+      "roof": "#3a3a32",
+      "timber": "#2a2018",
+      "horseshoe": true,
+      "lantern": true
+    }
+  ],
+  "props": [
+    {
+      "type": "lamp",
+      "x": -6,
+      "z": 3
+    },
+    {
+      "type": "lamp",
+      "x": 6,
+      "z": 3
+    },
+    {
+      "type": "lamp",
+      "x": -6,
+      "z": -3
+    },
+    {
+      "type": "lamp",
+      "x": 6,
+      "z": -3
+    },
+    {
+      "type": "lamp",
+      "x": -18,
+      "z": 2
+    },
+    {
+      "type": "lamp",
+      "x": 20,
+      "z": -2
+    },
+    {
+      "type": "lamp",
+      "x": 0,
+      "z": 20
+    },
+    {
+      "type": "lamp",
+      "x": 0,
+      "z": -20
+    },
+    {
+      "type": "lamp",
+      "x": -2,
+      "z": 40
+    },
+    {
+      "type": "lamp",
+      "x": 2,
+      "z": -40
+    },
+    {
+      "type": "well",
+      "x": -1,
+      "z": 0
+    },
+    {
+      "type": "fence",
+      "x": -26,
+      "z": 0,
+      "ry": 1.5708,
+      "len": 14
+    },
+    {
+      "type": "fence",
+      "x": 26,
+      "z": 0,
+      "ry": 1.5708,
+      "len": 14
+    },
+    {
+      "type": "barrel",
+      "x": -8,
+      "z": -6
+    },
+    {
+      "type": "crate",
+      "x": 9,
+      "z": 6
+    },
+    {
+      "type": "bench",
+      "x": 4,
+      "z": -3.5
+    },
+    {
+      "type": "signpost",
+      "x": 3,
+      "z": 5
+    }
+  ],
+  "signs": [
+    {
+      "x": 3.5,
+      "z": 5.6,
+      "text": "DUSKMEET \u2014 keep a lamp burning till dawn. South: Whisper-Wood. North: the road beyond the trees. Iron over every door; no one asks why."
+    }
+  ],
+  "trees": {
+    "count": 700,
+    "gaps": 0.34,
+    "sizeVar": 0.9,
+    "kinds": {
+      "pine": 0.6,
+      "broad": 0.25,
+      "dead": 0.15
+    },
+    "colors": {
+      "pine": "#24482c",
+      "broad": "#33582c"
+    },
+    "trunk": {
+      "dead": "#4a4440"
+    }
+  },
+  "rocks": 50,
+  "gather": {
+    "mushroom": 6,
+    "herb": 4,
+    "wood": 5
+  },
+  "gates": [
+    {
+      "id": "duskmeet_monolith",
+      "label": "Monolith of Duskmeet",
+      "x": -10,
+      "z": 22
+    }
+  ],
+  "actors": [
+    {
+      "type": "shadows",
+      "posts": [
+        {
+          "x": -40,
+          "z": -36
+        },
+        {
+          "x": 40,
+          "z": 38
+        }
+      ]
+    }
+  ],
+  "landmarks": [
+    {
+      "name": "Duskmeet",
+      "x": 0,
+      "z": 0,
+      "icon": "stones"
+    }
+  ],
+  "links": [
+    {
+      "label": "South into Whisper-Wood",
+      "x": 0,
+      "z": 58,
+      "facing": 3.1416,
+      "spawn": "from_wood",
+      "to": "whisper_wood",
+      "toSpawn": "from_duskmeet"
+    }
+  ],
+  "start": {
+    "x": 0,
+    "z": 52,
+    "facing": 3.1416
+  }
+}

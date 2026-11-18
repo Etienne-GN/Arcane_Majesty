@@ -268,7 +268,9 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     for (const pr of def.props ?? []) {
         const g = buildProp(pr.type, pr), y = pr.float ? Math.max(heightAt(pr.x, pr.z), WATER - 0.3) : heightAt(pr.x, pr.z);   // float: boats ride the water
         g.position.set(pr.x, y, pr.z); g.rotation.y = pr.ry ?? 0; scene.add(g);
-        if (pr.type === 'ruin_wall') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.4, kind: 'wall', y0: y - 1, y1: y + 3 }); }
+        if (pr.type === 'keep') { for (const [ax, az, bx, bz] of [[-4, -4, 4, -4], [4, -4, 4, 4], [4, 4, -4, 4], [-4, 4, -4, -4]]) { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), T = (lx, lz) => [pr.x + lx * c + lz * sn, pr.z - lx * sn + lz * c], [a1, a2] = T(ax, az), [b1, b2] = T(bx, bz); colliders.push({ ax: a1, az: a2, bx: b1, bz: b2, r: 0.3, kind: 'wall', y0: y - 1, y1: y + 12 }); } }
+        else if (pr.type === 'stone_wall') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.6, kind: 'wall', y0: y - 1, y1: y + 4 }); }
+        else if (pr.type === 'ruin_wall') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.4, kind: 'wall', y0: y - 1, y1: y + 3 }); }
         else if (pr.type === 'fence') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.15, kind: 'hop', y0: y - 1, y1: y + 1.1 }); }
         else if (PROP_R[pr.type]) addCollider({ x: pr.x, z: pr.z, r: PROP_R[pr.type], kind: 'wall' }, 2.5);
     }

@@ -18,7 +18,7 @@ function prism(w, h, d) {   // a gable roof: triangular section along x
 }
 
 // A house: w × d footprint, h wall height. wall/roof/timber colours; roof 'gable' | 'hip'; stone: a stone ground floor.
-export function buildHouse({ w = 6, d = 5, h = 3.2, wall = 0xd8ccb0, roof = 0x8a3a2a, timber = 0x4a3220, stone = false, roofType = 'gable', sign = null, chimney = true, seed = 1 } = {}) {
+export function buildHouse({ w = 6, d = 5, h = 3.2, wall = 0xd8ccb0, roof = 0x8a3a2a, timber = 0x4a3220, stone = false, roofType = 'gable', sign = null, chimney = true, horseshoe = false, lantern = false, seed = 1 } = {}) {
     const g = new THREE.Group();
     box(g, w, h, d, stone ? 0x8a867e : wall, 0, h / 2, 0);
     if (stone) box(g, w + 0.06, 1.2, d + 0.06, 0x77736c, 0, 0.6, 0);
@@ -47,6 +47,11 @@ export function buildHouse({ w = 6, d = 5, h = 3.2, wall = 0xd8ccb0, roof = 0x8a
         for (const sx of [-1, 1]) box(g, 0.35, 0.8, 0.05, 0x3a5a3a, x + sx * 0.58, h * 0.55, d / 2 + 0.07);
     }
     for (const sx of [-1, 1]) box(g, 0.08, 0.7, 0.7, 0xffd890, sx * (w / 2 + 0.03), h * 0.55, 0, 0, { emissive: 0x3a2a10, emissiveIntensity: 0.6 });
+    if (horseshoe) {   // an iron horseshoe nailed above the door, points up
+        const hs = new THREE.Mesh(new THREE.TorusGeometry(0.16, 0.035, 4, 10, Math.PI * 1.4), mat(0x3a3a3a, { metalness: 0.7, roughness: 0.4 }));
+        hs.rotation.z = -Math.PI * 0.2 + Math.PI; hs.position.set(0, 2.15, d / 2 + 0.08); g.add(hs);
+    }
+    if (lantern) { box(g, 0.06, 0.06, 0.4, 0x2a2420, -0.85, 2.0, d / 2 + 0.22); box(g, 0.22, 0.3, 0.22, 0xffd890, -0.85, 1.75, d / 2 + 0.4, 0, { emissive: 0xffb860, emissiveIntensity: 1.4 }); }   // lit all night
     if (sign) {   // a hanging sign on an iron bracket beside the door
         box(g, 0.08, 0.08, 0.9, 0x2a2420, 0.95, 2.5, d / 2 + 0.45);
         const s = box(g, 0.9, 0.55, 0.06, 0x8a5a2a, 0.95, 2.1, d / 2 + 0.78);
@@ -138,9 +143,26 @@ export function buildProp(type, { len = 4, color = 0x8a3a2a } = {}) {
                 f.position.set(Math.cos(a) * r, 0.12, Math.sin(a) * r); g.add(f);
                 box(g, 0.02, 0.12, 0.02, 0x4a7a2a, Math.cos(a) * r, 0.05, Math.sin(a) * r);
             } break;
+        case 'keep': {   // a square stone keep: tapering walls, arrow slits, crenellations, a wooden door, a banner
+            const st = 0x7a766e, h = 11;
+            box(g, 8, h, 8, st, 0, h / 2, 0); box(g, 8.6, 1.4, 8.6, 0x6a665e, 0, 0.7, 0);
+            for (let i = 0; i < 4; i++) for (let j = -1; j <= 1; j++) {
+                const a = i * Math.PI / 2, sx = Math.sin(a), sz = Math.cos(a);
+                box(g, 1.2, 1.0, 0.6, st, sx * 3.9 + sz * j * 3, h + 0.5, sz * 3.9 - sx * j * 3, a);   // merlons
+                box(g, 0.18, 1.1, 0.1, 0x1a1816, sx * 4.02 + sz * j * 2.2, h * 0.62, sz * 4.02 - sx * j * 2.2, a);   // arrow slits
+            }
+            box(g, 1.6, 2.6, 0.2, 0x4a2e1a, 0, 1.3, 4.05);
+            box(g, 0.08, 3, 0.08, 0x2a2420, 2.8, h + 2.5, 2.8);
+            box(g, 1.2, 0.8, 0.04, 0x5a6a7a, 3.42, h + 3.4, 2.8);   // a grey banner
+            box(g, 0.4, 0.4, 0.4, 0xffd890, 0, h * 0.62, 4.1, 0, { emissive: 0xffb860, emissiveIntensity: 1.2 });   // a watch-light
+            break; }
+        case 'stone_wall': { const n = Math.max(2, Math.round(len / 1.4));
+            box(g, len, 3, 1.1, 0x7a766e, 0, 1.5, 0);
+            for (let i = 0; i < n; i += 1) if (i % 2 === 0) box(g, len / n * 0.9, 0.8, 1.2, 0x7a766e, -len / 2 + (i + 0.5) * (len / n), 3.4, 0);
+            break; }
         default: box(g, 0.5, 0.5, 0.5, 0x8a867e, 0, 0.25, 0);
     }
     return g;
 }
 // Footprint radius for a prop's collider (0 = walk through).
-export const PROP_R = { stall: 1.2, well: 1.0, lamp: 0.15, cart: 1.0, barrel: 0.4, crate: 0.45, bench: 0, signpost: 0.15, fence: 0, column: 0.45, ruin_wall: 0, steps: 0, platform: 0, pier: 0, boat: 0.9, glow: 0, mine: 2.6, heap: 2.4, chimney: 1.2, rails: 0, weeping_stone: 0.8, flowers: 0 };
+export const PROP_R = { stall: 1.2, well: 1.0, lamp: 0.15, cart: 1.0, barrel: 0.4, crate: 0.45, bench: 0, signpost: 0.15, fence: 0, column: 0.45, ruin_wall: 0, steps: 0, platform: 0, pier: 0, boat: 0.9, glow: 0, mine: 2.6, heap: 2.4, chimney: 1.2, rails: 0, weeping_stone: 0.8, flowers: 0, keep: 0, stone_wall: 0 };

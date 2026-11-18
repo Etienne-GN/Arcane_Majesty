@@ -411,6 +411,15 @@
       "spawn": "from_port",
       "to": "port_silver",
       "toSpawn": "from_crossroads"
+    },
+    {
+      "label": "North to Whisper-Wood",
+      "x": 0,
+      "z": -66,
+      "facing": 0,
+      "spawn": "from_wood",
+      "to": "whisper_wood",
+      "toSpawn": "from_crossroads"
     }
   ],
   "start": {
