@@ -70,8 +70,8 @@ export function regionHeight(def) {
             if (!pads.has(b)) pads.set(b, b.y ?? Math.max(raw(b.x, b.z), WATER + 0.6));
             h += (pads.get(b) - h) * smoothstep(4, 0.6, d);
         }
-        const ex = T.openEast && x > 0 ? 0 : Math.abs(x);   // openEast: no hills on the east edge — the sea runs to the horizon
-        h += smoothstep(EDGE - 18, EDGE + 4, Math.max(ex, Math.abs(z))) * (T.rim ?? 22) * (0.6 + 0.8 * fbm(x * 0.05, z * 0.05));   // a wall of hills
+        const ex = T.openEast && x > 0 ? 0 : Math.abs(x), ez = T.openSouth && z > 0 ? 0 : Math.abs(z);   // openSouth: a cliff edge, the view open   // openEast: no hills on the east edge — the sea runs to the horizon
+        h += smoothstep(EDGE - 18, EDGE + 4, Math.max(ex, ez)) * (T.rim ?? 22) * (0.6 + 0.8 * fbm(x * 0.05, z * 0.05));   // a wall of hills
         return h;
     };
 }
@@ -255,6 +255,8 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         }
     }
 
+    // Doors: plain triggers into interiors (no archway), each with an arrival spawn.
+    for (const d of def.doors ?? []) { map.triggers.push({ x: d.x, z: d.z, r: d.r ?? 1.4, label: d.label, to: d.to, spawn: d.toSpawn, requires: d.requires, lockedLabel: d.lockedLabel }); if (d.spawn) map.spawns[d.spawn] = { x: d.x, z: d.z + (d.out ?? 3), facing: d.facing ?? 0 }; }
     // Settlement buildings and street props.
     for (const b of def.buildings ?? []) {
         const g = buildHouse(b), y = heightAt(b.x, b.z);
@@ -273,7 +275,11 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
             const L = g.userData.light, pl = new THREE.PointLight(L.color ?? 0xffb860, L.i ?? 10, L.r ?? 9, 1.6);
             pl.position.set(pr.x + (L.x ?? 0) * Math.cos(pr.ry ?? 0), y + L.y, pr.z - (L.x ?? 0) * Math.sin(pr.ry ?? 0)); scene.add(pl); propLights++;
         }
-        if (pr.type === 'keep') { for (const [ax, az, bx, bz] of [[-4, -4, 4, -4], [4, -4, 4, 4], [4, 4, -4, 4], [-4, 4, -4, -4]]) { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), T = (lx, lz) => [pr.x + lx * c + lz * sn, pr.z - lx * sn + lz * c], [a1, a2] = T(ax, az), [b1, b2] = T(bx, bz); colliders.push({ ax: a1, az: a2, bx: b1, bz: b2, r: 0.3, kind: 'wall', y0: y - 1, y1: y + 12 }); } }
+        if (pr.type === 'citadel') {   // the great keep and its terrace hall
+            for (const [x0, z0, x1, z1] of [[-22, -15, 22, 15], [22, 11.5, 38, 20.5]]) { const X0 = pr.x + x0, X1 = pr.x + x1, Z0 = pr.z + z0, Z1 = pr.z + z1;
+                for (const [ax, az, bx, bz] of [[X0, Z0, X1, Z0], [X1, Z0, X1, Z1], [X1, Z1, X0, Z1], [X0, Z1, X0, Z0]]) colliders.push({ ax, az, bx, bz, r: 0.4, kind: 'wall', y0: y - 1, y1: y + 40 }); }
+        }
+        else if (pr.type === 'keep') { for (const [ax, az, bx, bz] of [[-4, -4, 4, -4], [4, -4, 4, 4], [4, 4, -4, 4], [-4, 4, -4, -4]]) { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), T = (lx, lz) => [pr.x + lx * c + lz * sn, pr.z - lx * sn + lz * c], [a1, a2] = T(ax, az), [b1, b2] = T(bx, bz); colliders.push({ ax: a1, az: a2, bx: b1, bz: b2, r: 0.3, kind: 'wall', y0: y - 1, y1: y + 12 }); } }
         else if (pr.type === 'arch' || pr.type === 'dead_gate' || pr.type === 'ancient_door') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), off = pr.type === 'arch' ? 2.2 : pr.type === 'dead_gate' ? 3 : 0;
             if (off) for (const sx of [-1, 1]) addCollider({ x: pr.x + sx * off * c, z: pr.z - sx * off * sn, r: 0.7, kind: 'wall' }, 6);
             else colliders.push({ ax: pr.x - 4.5 * c, az: pr.z + 4.5 * sn, bx: pr.x + 4.5 * c, bz: pr.z - 4.5 * sn, r: 1.0, kind: 'wall', y0: y - 1, y1: y + 12 }); }

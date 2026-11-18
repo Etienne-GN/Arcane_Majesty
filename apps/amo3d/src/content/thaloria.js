@@ -58,6 +58,7 @@ export function createThaloria({ quality }) {
         const hills = smoothstep(2, 14, out) * (6 + 6 * fbm(x * 0.05, z * 0.05));
         if (z >= -H / 2) return hills;
         const gN = -z - H / 2, side = smoothstep(W / 2 + 4, W / 2 + 16, Math.abs(x));
+        if (Math.abs(x) < 1.9 && gN < 19) return 1.5 * smoothstep(0, 2, gN);   // the bridge deck over the gorge
         const gorge = -7.5 * smoothstep(3, 8, gN) * (1 - smoothstep(15, 19, gN)) + smoothstep(16, 23, gN) * (CLIFF + 2 * fbm(x * 0.08, 3));
         return gorge * (1 - side) + Math.max(hills, gorge) * side;
     }
@@ -106,6 +107,14 @@ export function createThaloria({ quality }) {
             const foam = new THREE.Mesh(new THREE.CircleGeometry(w * 0.9, 10).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xf4fbff, transparent: true, opacity: 0.7 }));
             foam.position.set(x, RIVER + 0.05, -H / 2 - 20); scene.add(foam);
         }
+        // the North Gate's bridge: a stone deck on arches over the river, and a stair cut zigzag up the cliff face
+        const stone = flat(0xb8a886), dark = flat(0x8a7e6a);
+        const deck = new THREE.Mesh(new THREE.BoxGeometry(4.2, 0.6, 19), stone); deck.position.set(0, 1.2, -H / 2 - 9.5); deck.castShadow = deck.receiveShadow = true; scene.add(deck);
+        for (const sx of [-1, 1]) { const rail = new THREE.Mesh(new THREE.BoxGeometry(0.4, 1.0, 19), dark); rail.position.set(sx * 2.1, 2.0, -H / 2 - 9.5); scene.add(rail);
+            colliders.push({ ax: sx * 2.0, az: -H / 2, bx: sx * 2.0, bz: -H / 2 - 19, r: 0.25, kind: 'wall', y0: -1, y1: 3 }); }
+        for (const k of [-H / 2 - 5, -H / 2 - 14]) { const pier = new THREE.Mesh(new THREE.BoxGeometry(3.4, 6, 3), dark); pier.position.set(0, -2, k); scene.add(pier); }
+        for (let i = 0; i < 12; i++) { const st = new THREE.Mesh(new THREE.BoxGeometry(3, 0.5, 1.4), stone); st.position.set((i % 2 ? 1 : -1) * 3 + (i % 2 ? -1 : 1) * (i % 4 < 2 ? 0 : 0), 1.5 + i * 2.1, -H / 2 - 20.2 - (i % 2) * 0.4); st.castShadow = true; scene.add(st); }   // the cliff stair
+        const gate = buildArch(scene, 0, 0, -H / 2 + 0.5, 0); void gate;
         for (const [x, ry] of [[-30, 1.4], [18, -1.7]]) { const b = buildProp('boat'); b.scale.setScalar(2.2); b.position.set(x, RIVER - 0.2, -H / 2 - 13); b.rotation.y = ry; scene.add(b);
             const mast = new THREE.Mesh(new THREE.BoxGeometry(0.2, 6, 0.2), flat(0x4a3220)); mast.position.set(x, RIVER + 3.4, -H / 2 - 13); scene.add(mast);
             const sail = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 3.6), new THREE.MeshStandardMaterial({ color: 0xe8dcc0, side: THREE.DoubleSide, flatShading: true })); sail.position.set(x, RIVER + 4.2, -H / 2 - 13); sail.rotation.y = ry + Math.PI / 2; scene.add(sail); }
@@ -113,7 +122,7 @@ export function createThaloria({ quality }) {
 
     // ---------- the city wall ----------
     const wallCells = [];
-    for (const [k, names] of pieces) if (names.some(isWall)) { const [x, y] = k.split(',').map(Number); wallCells.push([x, y, names.includes('wall_stone_circular_gray')]); }
+    for (const [k, names] of pieces) if (names.some(isWall)) { const [x, y] = k.split(',').map(Number); if (Math.abs(wx(x)) < 2.4 && wz(y) < -H / 2 + 3) continue; wallCells.push([x, y, names.includes('wall_stone_circular_gray')]); }   // the North Gate: a gap at the middle of the north wall
     const stone = new THREE.InstancedMesh(new THREE.BoxGeometry(1.02, 1, 1.02), flat(0xffffff), wallCells.length);
     const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), v = new THREE.Vector3(), s = new THREE.Vector3();
     const merlons = [];
@@ -299,6 +308,9 @@ export function createThaloria({ quality }) {
     const gx = wx(Math.min(...rowCells)) + 0.5, gz = wz(west.y) + 0.5;
     const veil = buildArch(scene, gx, 0, gz, Math.PI / 2);
     map.triggers.push({ x: gx, z: gz, r: 1.4, label: "The West Gate — the road to Eldrin's Tower", to: 'outdoor', spawn: 'from_thaloria' });
+    // The North Gate: over the bridge, up the cliff stair to the Citadel.
+    map.triggers.push({ x: 0, z: -H / 2 - 18, r: 1.6, label: 'Up the cliff stair — the Citadel', to: 'citadel_plateau', spawn: 'from_thaloria' });
+    map.spawns.from_citadel = { x: 0, z: -H / 2 + 3, facing: 0 };
     map.spawns.from_glade = { x: gx + 4, z: gz, facing: Math.PI / 2 };
     map.spawns.start = map.spawns.from_glade;
     // The East Gate: the winter road east — for now straight up to the Summit of Despair (the East Road between comes later).

@@ -1,0 +1,200 @@
+{
+  "id": "citadel_plateau",
+  "name": "The Citadel of Thaloria",
+  "lore": "The terrace of the Citadel, the great library-palace of Thaloria \u2014 the scholarly kingdom of libraries and archives (lore DB: Thaloria) \u2014 on its cliff above the river gorge, after the Eldoria's Prophecy cover. Inside: the Great Library, and the Forbidden Archive.",
+  "seed": 13131,
+  "half": 70,
+  "water": -30,
+  "terrain": {
+    "scale": 0.02,
+    "relief": 3,
+    "base": 0.6,
+    "rim": 24,
+    "openSouth": true
+  },
+  "palette": {
+    "grassA": "#5a8a3c",
+    "grassB": "#82a84e",
+    "dirt": "#8a7a5a",
+    "rock": "#8a7e6a",
+    "shore": "#8a7a5a",
+    "road": "#b8a886",
+    "paved": "#c8bca4"
+  },
+  "mood": {
+    "fog": "#e0d0b8",
+    "fogNear": 60,
+    "fogFar": 300,
+    "fogMix": 0.25,
+    "light": 1.1,
+    "nightFloor": 0.45
+  },
+  "features": [
+    {
+      "type": "clearing",
+      "x": 0,
+      "z": 0,
+      "r": 70
+    }
+  ],
+  "path": [],
+  "roads": [
+    {
+      "pts": [
+        [
+          0,
+          58
+        ],
+        [
+          0,
+          30
+        ],
+        [
+          0,
+          12
+        ]
+      ],
+      "w": 6,
+      "kind": "paved"
+    },
+    {
+      "pts": [
+        [
+          -30,
+          20
+        ],
+        [
+          30,
+          20
+        ]
+      ],
+      "w": 5,
+      "kind": "paved"
+    }
+  ],
+  "props": [
+    {
+      "type": "citadel",
+      "x": 0,
+      "z": -10,
+      "clear": 48
+    },
+    {
+      "type": "stone_wall",
+      "x": -33,
+      "z": 52,
+      "len": 58
+    },
+    {
+      "type": "stone_wall",
+      "x": 33,
+      "z": 52,
+      "len": 58
+    },
+    {
+      "type": "lamp",
+      "x": -4,
+      "z": 40
+    },
+    {
+      "type": "lamp",
+      "x": 4,
+      "z": 40
+    },
+    {
+      "type": "lamp",
+      "x": -4,
+      "z": 24
+    },
+    {
+      "type": "lamp",
+      "x": 4,
+      "z": 24
+    },
+    {
+      "type": "bench",
+      "x": -12,
+      "z": 22
+    },
+    {
+      "type": "bench",
+      "x": 12,
+      "z": 22
+    },
+    {
+      "type": "signpost",
+      "x": 6,
+      "z": 50
+    }
+  ],
+  "signs": [
+    {
+      "x": 6.5,
+      "z": 50.6,
+      "text": "THE CITADEL OF THALORIA \u2014 the Great Library within. Readers welcome from the first bell to the last. Below: the cliff stair and the bridge to the city."
+    }
+  ],
+  "doors": [
+    {
+      "x": 0,
+      "z": 6.6,
+      "label": "The Great Library",
+      "to": "citadel_library",
+      "toSpawn": "enter",
+      "spawn": "from_library",
+      "out": 4,
+      "facing": 0
+    }
+  ],
+  "trees": {
+    "count": 60,
+    "gaps": 0.6,
+    "kinds": {
+      "broad": 0.5,
+      "pine": 0.5
+    }
+  },
+  "rocks": 20,
+  "gather": {
+    "herb": 3
+  },
+  "gates": [
+    {
+      "id": "citadel_monolith",
+      "label": "Monolith of the Citadel",
+      "x": -20,
+      "z": 34
+    }
+  ],
+  "actors": [],
+  "landmarks": [
+    {
+      "name": "The Citadel",
+      "x": 0,
+      "z": -10,
+      "icon": "tower"
+    },
+    {
+      "name": "The Great Library",
+      "x": 0,
+      "z": 5,
+      "icon": "house"
+    }
+  ],
+  "links": [
+    {
+      "label": "Down the cliff stair \u2014 Thaloria",
+      "x": 0,
+      "z": 58,
+      "facing": 3.1416,
+      "spawn": "from_thaloria",
+      "to": "thaloria",
+      "toSpawn": "from_citadel"
+    }
+  ],
+  "start": {
+    "x": 0,
+    "z": 52,
+    "facing": 3.1416
+  }
+}
