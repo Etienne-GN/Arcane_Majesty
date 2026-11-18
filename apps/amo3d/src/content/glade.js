@@ -541,10 +541,9 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
         }
         return { x, z };
     };
+    // One monolith for the whole glade (there were three — one is plenty in a place this size).
     map.gates = [
         { id: 'glade_monolith', label: 'Glade Monolith', ...freeNear(-5, 6) },
-        { id: 'stones_monolith', label: 'Monolith of the Stones', ...freeNear(STONES.x + 10, STONES.z - 2) },
-        { id: 'vale_monolith', label: "Monolith below Eldrin's Tower", ...freeNear(STAIR_BASE.x + 4, STAIR_BASE.z + 4) },
     ];
     const monoliths = map.gates.map(g => {
         addCollider({ x: g.x, z: g.z, r: 0.55, kind: 'wall' }, 3.2);

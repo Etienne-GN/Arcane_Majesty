@@ -301,6 +301,10 @@ export function createThaloria({ quality }) {
     map.nav = createNav({ colliders, passable: map.passable, half });
     map.mapInfo = {
         half, water: -99, trees: trees.map(t => [t.x, t.z, 0]),
+        // For the chart: streets and the paved square, every building's footprint, the city wall.
+        groundAt: (x, z) => { if (!inside(x, z)) return null; const t = tileAt(x, z); return t === 2 ? 'road' : t === 3 ? 'paved' : null; },
+        buildings: houses.map(h => ({ x0: wx(h.x0) - 0.5, z0: wz(h.y0) - 0.5, x1: wx(h.x1) + 0.5, z1: wz(h.y1) + 0.5 })),
+        walls: wallCells.map(([x, y]) => [wx(x), wz(y)]),
         landmarks: (D.spawns.landmarks ?? []).map(l => ({ name: l.name, x: wx(l.x), z: wz(l.y), icon: l.id.includes('gate') ? 'gate' : l.id.includes('temple') || l.id.includes('bell') ? 'tower' : 'stones' })),
     };
     const shell = createOutdoorShell(scene, { quality, mood: { fog: '#c9d6d4', fogNear: 60, fogFar: 260, fogMix: 0.3, light: 1, nightFloor: 0.45 } });

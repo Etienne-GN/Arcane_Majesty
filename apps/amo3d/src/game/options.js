@@ -70,6 +70,7 @@ export function createOptions({ quality, onQuality, onFps, onOnline }) {
         p.append(el('div', 'note', 'God mode: no damage, endless mana and Vigor, every blow lands for 9999, falls don\'t hurt, and boss gates open (the world map can travel anywhere). Quests are left as they are.'));
 
         p.append(el('h3', null, 'Camera'));
+        p.append(seg('Minimap', [[false, 'Turns with the camera'], [true, 'North up']], !!settings.miniNorth, v => setSetting('miniNorth', v)));
         p.append(slider('Turn speed', 'camSens', 0.4, 2, 0.1, v => `${v.toFixed(1)}×`));
         p.append(seg('Vertical', [[false, 'Normal'], [true, 'Inverted']], settings.invertY, v => setSetting('invertY', v)));
 

@@ -35,7 +35,8 @@ The lore DB already has 7: **Werewolf** (Guardians of the Wild, the Emerald Fiel
 - [ ] Targeting polish: an aim line for bolts, the ring snapping to enemies.
 
 ## 5. World & maps ★
-- [ ] **Map and minimap refresh** (asked earlier): a nicer world map, fog of war, markers, legends.
+- [x] **Map and minimap refresh** (2026-11-18): a parchment chart (ink shorelines, watercolour water, inked trees, hatched rock, blank parchment where unexplored; towns show streets, buildings and walls), a leather frame, a compass and a scale, drawn icons, labelled exits, pan and zoom, tap-to-set waypoints; the minimap is a bronze ring with N, turns with the camera (Options: north up), and shows the waypoint or a rim arrow with the distance.
+- [ ] Maps for the other places: let each region give the chart its roads and buildings, as Thaloria does (`mapInfo.groundAt`, `buildings`, `walls`).
 - [ ] **New regions from the lore** (38 DB locations; built so far: Thaloria Glade, Eldrin's Tower, Thaloria city and its interiors, the East Road and the Hollow, the Summit and the mountain, the Sylvan Sanctuary, Whisper-Wood). Missing: the Emerald Fields and the Weeping Stones, the Heartlands (Lake Aethera, Silverrun River, the Crossroads, the Sunken Temple), the Scarlands (Graywatch, New Ravenspire, the Obsidian Gate), the Silver Coast and Port Silver, the Sanguine Vaults, Iron Hollow, the Forbidden Archive, Nythoria, the Great Rift.
 - [ ] Dungeons and caves with puzzles; interiors for the new towns.
 - [ ] Region editor: painting tools, place props, test spawns.
@@ -56,6 +57,7 @@ The lore DB already has 7: **Werewolf** (Guardians of the Wild, the Emerald Fiel
 - [ ] Tools as hand items: torch, pickaxe, fishing rod, lantern.
 - [ ] The claymore item uses the new claymore model in the game (it still draws as the greatsword).
 - [ ] Shops and loot for the new clothes and weapons; crafting recipes for them.
+- [ ] ★ **A checkout step at merchants** (and other traders): put several items in a basket to buy or sell, review the total, then confirm — no more one-click purchases.
 
 ## 9. Multiplayer (parked 2026-11-14 — don't forget)
 - [ ] Test the shared wolves and shadow soldiers (coded, untested).
@@ -68,5 +70,4 @@ The lore DB already has 7: **Werewolf** (Guardians of the Wild, the Emerald Fiel
 - [ ] A proper release signing key (today's is the debug key), and a store listing later.
 - [ ] PC build (Electron or the browser), and a test on a mid-range phone.
 - [ ] The player manual for 3D.
-- [ ] The 2D sprite tools (`apps/tool_suite`): archive them with the 2D game, or keep them?
 - [ ] CLAUDE.md: the DB counts are outdated (7 races now, not 6).
