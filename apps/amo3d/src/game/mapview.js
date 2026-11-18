@@ -45,8 +45,9 @@ function icon(g, kind, x, y, s, col = INK) {
 export function createMapView({ stats, hud }) {
     const css = document.createElement('style');
     css.textContent = `
-#minimap { position: fixed; right: 18px; top: 78px; width: 170px; height: 170px; border-radius: 50%; overflow: hidden; z-index: 4; pointer-events: none;
-    box-shadow: 0 0 0 3px #6a4a22, 0 0 0 5px #c8963a, 0 0 0 7px #3a2410, 0 5px 16px #000b; }
+#minimap { position: fixed; right: 18px; top: 78px; width: 170px; height: 170px; border-radius: 50%; overflow: hidden; z-index: 4; pointer-events: auto;
+    box-shadow: 0 0 0 3px #6a4a22, 0 0 0 5px #c8963a, 0 0 0 7px #3a2410, 0 5px 16px #000b; cursor: pointer; }
+#minimap:hover { box-shadow: 0 0 0 3px #8a6a32, 0 0 0 5px #f3d88b, 0 0 0 7px #3a2410, 0 5px 16px #000b; }
 #worldmap { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #05060ad8; font-family: 'IM Fell English', Georgia, serif; color: #f1e4c8; }
 #worldmap.open { display: grid; }
 #worldmap .frame { position: relative; display: flex; flex-direction: column; width: min(1040px, 96vw); height: min(680px, calc(100vh - 20px)); box-sizing: border-box; padding: 10px 12px 10px;
@@ -66,6 +67,8 @@ body.title-on #minimap { display: none; }
     const mini = document.createElement('canvas');
     mini.id = 'minimap'; mini.width = 340; mini.height = 340;
     document.body.append(mini);
+    mini.title = 'Open the map (M)';
+    mini.addEventListener('click', e => { e.stopPropagation(); toggle(); });   // click the minimap: the world map (touch taps it too)
 
     const overlay = document.createElement('div'); overlay.id = 'worldmap';
     const frame = document.createElement('div'); frame.className = 'frame';
