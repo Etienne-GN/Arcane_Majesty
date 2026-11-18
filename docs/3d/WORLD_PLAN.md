@@ -27,10 +27,10 @@ northern edge; Graywatch keeps the border between the Scarlands and Whisper-Wood
 Stones, the Hidden Cabin) are remote wilderness. The campaign runs from the Sylvan Sanctuary down to the Fire Gate.
 
 ## Steps
-- [x] **0. Settlements in region files** (built, not yet checked headless) — `engine/region.js` learns `buildings` (house footprints with walls, roofs,
+- [x] **0. Settlements in region files** — `engine/region.js` learns `buildings` (house footprints with walls, roofs,
       doors, a sign), `roads` (polylines painted on the ground), and `props` (market stalls, well, lamp posts, fences,
       signposts, carts). They show on the chart and collide. Optional: a few idle townsfolk from the Forge archetypes.
-- [ ] **1. The Crossroads** (Heartlands) — the hub village: a worn stone inn, a weathered market square, four roads.
+- [x] **1. The Crossroads** (Heartlands) — the hub village: a worn stone inn, a weathered market square, four roads.
       A link from the East Road (a fork south), plus roads toward Lake Aethera, Port Silver and Whisper-Wood.
 - [ ] **2. Lake Aethera & the Sunken Temple** — a huge still lake like polished silver; the temple half-submerged in the
       shallows, carved in a forgotten script (outside first; the inside as a later dungeon).
@@ -54,6 +54,8 @@ Stones, the Hidden Cabin) are remote wilderness. The campaign runs from the Sylv
 ## Progress notes
 (Write here what was done, problems found, and anything the next pass must know.)
 - 2026-11-18 (pass 1, stopped at usage limit): step 0 code is in (content/models/buildings.js; engine/region.js has roads, buildings, props, chart data). Step 1 is written but NOT tested: content/regions/the_crossroads.json, plus an East Road fork arch (eastRoad.js) → 'the_crossroads'. NEXT: headless test (enterMap('the_crossroads','from_east_road'), then walk the roads, check buildings, collisions and the map), fix what's wrong, tick step 1, then step 2. Only link to maps that exist (no links yet to the Lake, Port Silver or Duskmeet).
+
+- 2026-11-18 (pass 2): Crossroads checked headless (village, square, stalls, inn, map chart all fine); undergrowth no longer grows through roads, paving or floors; the East Road fork arch works both ways. Crossroads links so far: only west to the East Road — add south (Lake Aethera), east (Port Silver), north (Duskmeet/Whisper-Wood) as those maps exist.
 
 ## DB sync owed (game-only additions, for the user)
 - The Corrupted Rim, the Hermit's camp (from the Sanctuary).

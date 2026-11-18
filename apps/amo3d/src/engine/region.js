@@ -184,7 +184,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     const ferns = [];
     for (let i = 0; i < 6000 && ferns.length < 2500 * quality.foliage; i++) {
         const x = (rng() - 0.5) * SIZE * 0.9, z = (rng() - 0.5) * SIZE * 0.9, h = heightAt(x, z);
-        if (h < WATER + 0.3 || h > 6 || (trailDist(x, z) < 1.4)) continue;
+        if (h < WATER + 0.3 || h > 6 || (trailDist(x, z) < 1.4) || roadInfo(def, x, z) || (def.buildings ?? []).some(b => rectDist(b, x, z) < 0.6)) continue;   // nothing growing through roads, paving or floors
         ferns.push([x, h, z]);
     }
     const fern = new THREE.InstancedMesh(new THREE.ConeGeometry(0.09, 0.4, 3).translate(0, 0.18, 0), flat(0xffffff), Math.max(1, ferns.length));
