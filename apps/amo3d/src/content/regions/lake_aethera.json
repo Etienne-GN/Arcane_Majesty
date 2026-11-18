@@ -292,6 +292,15 @@
       "spawn": "from_crossroads",
       "to": "the_crossroads",
       "toSpawn": "from_lake"
+    },
+    {
+      "label": "To the Emerald Fields",
+      "x": 0,
+      "z": 74,
+      "facing": 3.1416,
+      "spawn": "from_fields",
+      "to": "emerald_fields",
+      "toSpawn": "from_lake"
     }
   ],
   "start": {

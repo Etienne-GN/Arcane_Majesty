@@ -123,9 +123,24 @@ export function buildProp(type, { len = 4, color = 0x8a3a2a } = {}) {
             for (let i = 0; i < n; i++) box(g, 1.1, 0.06, 0.18, 0x4a3220, 0, 0.03, -len / 2 + i * (len / n));
             for (const sx of [-1, 1]) box(g, 0.06, 0.08, len, 0x3a3430, sx * 0.4, 0.09, 0, 0, { metalness: 0.6, roughness: 0.4 });
             break; }
+        case 'weeping_stone': {   // a standing monolith carved with a weeping face, worn smooth by the wind
+            const st = 0x8a8a82, worn = 0x6a6a64;
+            const slab = new THREE.Mesh(new THREE.BoxGeometry(1.3, 4.2, 0.7), mat(st)); slab.position.y = 2.1; slab.rotation.z = 0.03; slab.castShadow = true; g.add(slab);
+            const crown = new THREE.Mesh(new THREE.SphereGeometry(0.66, 7, 5, 0, Math.PI * 2, 0, Math.PI / 2), mat(st)); crown.scale.set(1, 0.5, 0.55); crown.position.y = 4.2; g.add(crown);
+            for (const sx of [-1, 1]) {
+                box(g, 0.26, 0.12, 0.06, worn, sx * 0.28, 3.3, 0.36, sx * 0.25);   // closed, downturned eyes
+                box(g, 0.07, 1.1, 0.04, worn, sx * 0.3, 2.65, 0.37);               // a tear worn into the stone
+            }
+            box(g, 0.34, 0.08, 0.05, worn, 0, 2.6, 0.37, 0);   // a sorrowful mouth
+            break; }
+        case 'flowers': for (let i = 0; i < 9; i++) {   // a little offering of wildflowers
+                const a = i * 2.4, r = 0.15 + (i % 3) * 0.12, f = new THREE.Mesh(new THREE.SphereGeometry(0.07, 5, 4), mat([0xe8e0f0, 0xd8a8e8, 0xf0d860, 0xe88a9a][i % 4]));
+                f.position.set(Math.cos(a) * r, 0.12, Math.sin(a) * r); g.add(f);
+                box(g, 0.02, 0.12, 0.02, 0x4a7a2a, Math.cos(a) * r, 0.05, Math.sin(a) * r);
+            } break;
         default: box(g, 0.5, 0.5, 0.5, 0x8a867e, 0, 0.25, 0);
     }
     return g;
 }
 // Footprint radius for a prop's collider (0 = walk through).
-export const PROP_R = { stall: 1.2, well: 1.0, lamp: 0.15, cart: 1.0, barrel: 0.4, crate: 0.45, bench: 0, signpost: 0.15, fence: 0, column: 0.45, ruin_wall: 0, steps: 0, platform: 0, pier: 0, boat: 0.9, glow: 0, mine: 2.6, heap: 2.4, chimney: 1.2, rails: 0 };
+export const PROP_R = { stall: 1.2, well: 1.0, lamp: 0.15, cart: 1.0, barrel: 0.4, crate: 0.45, bench: 0, signpost: 0.15, fence: 0, column: 0.45, ruin_wall: 0, steps: 0, platform: 0, pier: 0, boat: 0.9, glow: 0, mine: 2.6, heap: 2.4, chimney: 1.2, rails: 0, weeping_stone: 0.8, flowers: 0 };

@@ -1,0 +1,362 @@
+{
+  "id": "emerald_fields",
+  "name": "The Emerald Fields",
+  "lore": "A remote, untamed wilderness of the south where Kael and Anya hid in exile after emerging from the Underworld; the Hidden Cabin, their sanctuary of peace before tragedy struck; and in the south the Weeping Stones, seven monoliths with weeping faces worn smooth by the wind, raised by no one remembers whom, where locals leave wildflowers (lore DB: The Emerald Fields, The Hidden Cabin, The Weeping Stones). The noble werewolf pack, the Guardians of the Wild, roams here (they come with the races).",
+  "seed": 8181,
+  "half": 90,
+  "water": -1.6,
+  "terrain": {
+    "scale": 0.014,
+    "relief": 9,
+    "base": 0.8,
+    "rim": 18
+  },
+  "palette": {
+    "grassA": "#3e8a3a",
+    "grassB": "#7ab84a",
+    "dirt": "#6a5a3a",
+    "rock": "#7a786c",
+    "shore": "#8a7a5a",
+    "road": "#7a6a48",
+    "water": "#2a5a5a"
+  },
+  "mood": {
+    "fog": "#d8e8d0",
+    "fogNear": 50,
+    "fogFar": 240,
+    "fogMix": 0.25,
+    "light": 1.08,
+    "motes": "#f0f0b0",
+    "nightFloor": 0.5
+  },
+  "features": [
+    {
+      "type": "clearing",
+      "x": 8,
+      "z": 40,
+      "r": 26
+    },
+    {
+      "type": "clearing",
+      "x": -48,
+      "z": -30,
+      "r": 18
+    },
+    {
+      "type": "hill",
+      "x": 40,
+      "z": -20,
+      "r": 30,
+      "h": 7
+    },
+    {
+      "type": "hill",
+      "x": -30,
+      "z": 20,
+      "r": 26,
+      "h": 5
+    },
+    {
+      "type": "lake",
+      "x": 50,
+      "z": 50,
+      "r": 14,
+      "depth": 3
+    }
+  ],
+  "tints": [
+    {
+      "x": 8,
+      "z": 40,
+      "r": 14,
+      "color": "#8ab860",
+      "k": 0.5
+    },
+    {
+      "x": -10,
+      "z": -10,
+      "r": 30,
+      "color": "#b8d070",
+      "k": 0.25
+    }
+  ],
+  "path": [
+    [
+      0,
+      -84
+    ],
+    [
+      -4,
+      -64
+    ],
+    [
+      -18,
+      -48
+    ],
+    [
+      -40,
+      -34
+    ],
+    [
+      -48,
+      -30
+    ]
+  ],
+  "branches": [
+    [
+      [
+        -4,
+        -64
+      ],
+      [
+        6,
+        -40
+      ],
+      [
+        4,
+        -10
+      ],
+      [
+        8,
+        20
+      ],
+      [
+        8,
+        31
+      ]
+    ]
+  ],
+  "buildings": [
+    {
+      "x": -50,
+      "z": -28,
+      "w": 5,
+      "d": 4,
+      "h": 2.6,
+      "ry": 0.6,
+      "wall": "#8a6a44",
+      "roof": "#4a5a3a",
+      "timber": 5913122,
+      "chimney": true,
+      "name": "The Hidden Cabin"
+    }
+  ],
+  "props": [
+    {
+      "type": "weeping_stone",
+      "x": 17.0,
+      "z": 40.0,
+      "ry": -1.571,
+      "clear": 9
+    },
+    {
+      "type": "flowers",
+      "x": 15.6,
+      "z": 40.0
+    },
+    {
+      "type": "weeping_stone",
+      "x": 13.61,
+      "z": 47.04,
+      "ry": -2.468,
+      "clear": 9
+    },
+    {
+      "type": "flowers",
+      "x": 12.74,
+      "z": 45.94
+    },
+    {
+      "type": "weeping_stone",
+      "x": 6.0,
+      "z": 48.77,
+      "ry": 2.917,
+      "clear": 9
+    },
+    {
+      "type": "flowers",
+      "x": 6.31,
+      "z": 47.41
+    },
+    {
+      "type": "weeping_stone",
+      "x": -0.11,
+      "z": 43.9,
+      "ry": 2.02,
+      "clear": 9
+    },
+    {
+      "type": "flowers",
+      "x": 1.15,
+      "z": 43.3
+    },
+    {
+      "type": "weeping_stone",
+      "x": -0.11,
+      "z": 36.1,
+      "ry": 1.122,
+      "clear": 9
+    },
+    {
+      "type": "flowers",
+      "x": 1.15,
+      "z": 36.7
+    },
+    {
+      "type": "weeping_stone",
+      "x": 6.0,
+      "z": 31.23,
+      "ry": 0.224,
+      "clear": 9
+    },
+    {
+      "type": "flowers",
+      "x": 6.31,
+      "z": 32.59
+    },
+    {
+      "type": "weeping_stone",
+      "x": 13.61,
+      "z": 32.96,
+      "ry": -0.673,
+      "clear": 9
+    },
+    {
+      "type": "flowers",
+      "x": 12.74,
+      "z": 34.06
+    },
+    {
+      "type": "fence",
+      "x": -47,
+      "z": -22,
+      "ry": 0.6,
+      "len": 8
+    },
+    {
+      "type": "bench",
+      "x": -46,
+      "z": -31,
+      "ry": 2.2
+    },
+    {
+      "type": "flowers",
+      "x": -48,
+      "z": -25
+    },
+    {
+      "type": "flowers",
+      "x": -45,
+      "z": -27
+    },
+    {
+      "type": "barrel",
+      "x": -53,
+      "z": -25
+    },
+    {
+      "type": "flowers",
+      "x": 8,
+      "z": 40,
+      "clear": 12
+    },
+    {
+      "type": "flowers",
+      "x": -50,
+      "z": -28.5,
+      "clear": 10
+    }
+  ],
+  "signs": [
+    {
+      "x": -45.5,
+      "z": -29,
+      "text": "Carved small into the door frame, two names worn almost smooth: K \u00b7 A. The cabin is swept, as if someone still comes back."
+    }
+  ],
+  "trees": {
+    "count": 360,
+    "gaps": 0.62,
+    "sizeVar": 1.0,
+    "kinds": {
+      "broad": 0.6,
+      "birch": 0.3,
+      "pine": 0.1
+    },
+    "colors": {
+      "broad": "#2e6a2a"
+    }
+  },
+  "rocks": 50,
+  "gather": {
+    "herb": 9,
+    "berry": 7,
+    "mushroom": 4,
+    "wood": 4
+  },
+  "gates": [
+    {
+      "id": "fields_monolith",
+      "label": "Monolith of the Emerald Fields",
+      "x": 4,
+      "z": -70
+    }
+  ],
+  "actors": [
+    {
+      "type": "deer",
+      "homes": [
+        {
+          "x": 30,
+          "z": -30
+        },
+        {
+          "x": -40,
+          "z": 40
+        },
+        {
+          "x": 50,
+          "z": 20
+        }
+      ]
+    },
+    {
+      "type": "wolves",
+      "den": {
+        "x": 60,
+        "z": -60
+      },
+      "count": 3
+    }
+  ],
+  "landmarks": [
+    {
+      "name": "The Weeping Stones",
+      "x": 8,
+      "z": 40,
+      "icon": "stones"
+    },
+    {
+      "name": "The Emerald Fields",
+      "x": 20,
+      "z": -10,
+      "icon": "dot"
+    }
+  ],
+  "links": [
+    {
+      "label": "To Lake Aethera",
+      "x": 0,
+      "z": -84,
+      "facing": 0,
+      "spawn": "from_lake",
+      "to": "lake_aethera",
+      "toSpawn": "from_fields"
+    }
+  ],
+  "start": {
+    "x": 0,
+    "z": -78,
+    "facing": 0
+  }
+}

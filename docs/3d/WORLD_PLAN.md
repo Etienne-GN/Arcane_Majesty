@@ -37,7 +37,7 @@ Stones, the Hidden Cabin) are remote wilderness. The campaign runs from the Sylv
 - [x] **3. The Silverrun & Port Silver** — the river road east, then the coastal town: a grey-sand harbour, piers,
       fishing boats, a market.
 - [x] **4. Iron Hollow** — a grim mining town in the northern foothills: mine mouths, slag heaps, a tavern.
-- [ ] **5. The Emerald Fields** — untamed grassland; the Weeping Stones (seven monoliths with weeping faces, south)
+- [x] **5. The Emerald Fields** — untamed grassland; the Weeping Stones (seven monoliths with weeping faces, south)
       and the Hidden Cabin (Kael and Anya's exile home).
 - [ ] **6. Duskmeet** — a frontier hamlet on Whisper-Wood's northern edge: lanterns lit all night, iron horseshoes
       over every door. Linked from Whisper-Wood.
@@ -59,6 +59,7 @@ Stones, the Hidden Cabin) are remote wilderness. The campaign runs from the Sylv
 - 2026-11-18 (pass 2): Lake Aethera built (region lake_aethera.json; south link from the Crossroads): a still silver lake (region `waterLook`), the Sunken Temple in the shallows (platform with lit script, a ring of columns, broken ones, fallen walls, lights under the water), a fisher's pier, hut and boats, a monolith. New props: column, ruin_wall, steps, platform, pier, boat, glow; props can keep trees back (`clear`). Temple interior is a later dungeon.
 - 2026-11-18 (pass 2): Port Silver built (east link from the Crossroads): the Silverrun runs into the sea beside the town; a grey-sand harbour with two piers and floating boats (prop `float`), The Salt Cask tavern, the harbour master, a warehouse, a fish market; the sea runs to the horizon (terrain `openEast`). Released as amo3d-v0.4.0 with the Crossroads and Lake Aethera.
 - 2026-11-18 (pass 2): Iron Hollow built (a side path west off the Summit approach's trail, `branches` + link): grim stone houses with dark roofs, The Grinding Wheel tavern, the foreman's house, the ore shed, the North and Coal Shafts (prop `mine`), rails and ore carts, slag heaps, a smelter chimney, lamps, crag-fiends on the high slopes, mineral nodes. Lake Aethera got fishing and reed nodes, Port Silver fishing.
+- 2026-11-18 (pass 2): the Emerald Fields built (south link from Lake Aethera): bright open meadows; the Weeping Stones — seven monoliths with weeping faces turned inward, wildflower offerings (props `weeping_stone`, `flowers`); the Hidden Cabin, swept, "K · A" carved in the door frame; deer and a wolf pack (the werewolf Guardians come with the races step).
 
 ## DB sync owed (game-only additions, for the user)
 - The Corrupted Rim, the Hermit's camp (from the Sanctuary).
