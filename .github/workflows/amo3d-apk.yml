@@ -65,18 +65,24 @@ jobs:
       - name: Name it
         run: cp android/app/build/outputs/apk/release/app-release.apk "ArcaneMajesty3D-${AMO_VERSION_NAME}.apk"
 
+      - name: Keep the APK (even if publishing fails)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ArcaneMajesty3D-${{ env.AMO_VERSION_NAME }}
+          path: apps/amo3d/ArcaneMajesty3D-*.apk
+
       - name: Publish the release
         if: startsWith(github.ref, 'refs/tags/amo3d-v')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           node tools/changelog.mjs "$GITHUB_REF_NAME" > "$RUNNER_TEMP/notes.md"
-          gh release create "$GITHUB_REF_NAME" "ArcaneMajesty3D-${AMO_VERSION_NAME}.apk" \
+          for try in 1 2 3 4; do   # GitHub has refused the token once (HTTP 403); try again before failing
+            if gh release create "$GITHUB_REF_NAME" "ArcaneMajesty3D-${AMO_VERSION_NAME}.apk" \
             --title "Arcane Majesty 3D ${AMO_VERSION_NAME}" \
             --notes-file "$RUNNER_TEMP/notes.md" \
-            --target "$GITHUB_SHA"
+            --target "$GITHUB_SHA"; then exit 0; fi
+            sleep $((try * 20))
+          done
+          exit 1
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ArcaneMajesty3D-${{ env.AMO_VERSION_NAME }}
-          path: apps/amo3d/ArcaneMajesty3D-*.apk
