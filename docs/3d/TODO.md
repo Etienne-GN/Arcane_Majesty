@@ -16,7 +16,8 @@ game-only lore gets `origin: "game"`.
 The lore DB already has 7: **Werewolf** (Guardians of the Wild, the Emerald Fields pack), **Aurorian** (elven, of light), **Nythorian** (elven kin of the Underworld: Seraphina, Malakar, Valen), **Fallen Aurorian** (Xarathos, Acheron), **Human**, **Shapeshifter** (Vexis), **Ancient Entity**.
 - [ ] Decide: **dwarves are not in the lore yet** — add them as new canon (DB + world_lore), or leave them out?
 - [ ] A race slot on the body: ears, skin and eye tones, build, glow (Aurorian light, Nythorian shadow), horns or marks for the Fallen.
-- [ ] Werewolves: a werewolf body (digitigrade legs, muzzle, fur), and maybe the human ↔ wolf form change.
+- [x] Werewolves (2026-11-18): the Guardians of the Wild in the Emerald Fields (content/actors/werewolf.js) — upright wolf-men on digitigrade legs, an Alpha; neutral, they warn you off their ground, hunt Void-corruption, and the whole pack turns on you if you strike one. Codex entry 'Guardian of the Wild'.
+- [ ] Werewolves, later: playable (the human ↔ wolf change), the Vexis story beat (he turns the pack against Kael), werewolf townsfolk or a pack village.
 - [ ] Race traits in the rules (affinities, small stat leanings), playable races in New Game, race-specific NPCs and places.
 
 ## 3. Fighting styles & moves ★

@@ -321,12 +321,26 @@
       ]
     },
     {
-      "type": "wolves",
+      "type": "werewolves",
       "den": {
-        "x": 60,
-        "z": -60
+        "x": 44,
+        "z": -36
       },
-      "count": 3
+      "count": 5
+    },
+    {
+      "type": "beasts",
+      "kind": "void_stalker",
+      "posts": [
+        {
+          "x": 66,
+          "z": -12
+        },
+        {
+          "x": 70,
+          "z": -58
+        }
+      ]
     }
   ],
   "landmarks": [
@@ -341,6 +355,12 @@
       "x": 20,
       "z": -10,
       "icon": "dot"
+    },
+    {
+      "name": "The Guardians' ground",
+      "x": 44,
+      "z": -36,
+      "icon": "den"
     }
   ],
   "links": [

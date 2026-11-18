@@ -13,6 +13,7 @@ import { createShadows } from '../content/actors/shadowSoldier.js';
 import { createDeer } from '../content/actors/deer.js';
 import { buildMonolith } from '../game/travel.js';
 import { createBeasts } from '../content/actors/beast.js';
+import { createWerewolves } from '../content/actors/werewolf.js';
 import { buildHouse, buildProp, PROP_R } from '../content/models/buildings.js';
 
 const segDist = (x, z, pts) => {
@@ -311,6 +312,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         if (a.type === 'wolves') map.hittables.push(...createWolves({ scene, map, rng, den: a.den, count: a.count ?? 3 }));
         else if (a.type === 'deer') a.homes.forEach((home, i) => { const d = createDeer({ home, stag: i === 0, rng, map }); scene.add(d.root); map.hittables.push(d); });
         else if (a.type === 'shadows') { map.shadows = createShadows({ scene, map, rng, posts: a.posts }); map.hittables.push(...map.shadows.list); }
+        else if (a.type === 'werewolves') map.hittables.push(...createWerewolves({ scene, map, rng, den: a.den, count: a.count ?? 4 }));
         else if (a.type === 'beasts') map.hittables.push(...createBeasts({ scene, map, rng, type: a.kind, posts: a.posts }));
     }
     for (const h of map.hittables) if (h.root) h.root.userData.dynamic = true;

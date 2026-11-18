@@ -7,6 +7,10 @@ import { affinityOf } from './enemyAffinities.js';
 import { scaleEnemyStats } from './levelBands.js';
 
 export const BESTIARY_LORE = {
+    werewolf: {
+        name: 'Guardian of the Wild', threat: 'HIGH',
+        desc: 'A werewolf of the Emerald Fields pack: tall, grey-furred, walking upright on wolf\'s legs. Not a monster — a territorial guardian that hunts Void-corruption wherever it seeps into the wild. They mistook Kael for a plague once; it ended in an uneasy truce. Leave them their ground and they leave you yours.',
+    },
     blight_ent: {
         name: 'Blight-Ent',
         threat: 'MEDIUM',
