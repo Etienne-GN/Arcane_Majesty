@@ -109,9 +109,23 @@ export function buildProp(type, { len = 4, color = 0x8a3a2a } = {}) {
             break; }
         case 'glow': { for (let i = 0; i < 4; i++) { const o = new THREE.Mesh(new THREE.SphereGeometry(0.22, 8, 6), mat(0x9ad8ff, { emissive: 0x6ac8ff, emissiveIntensity: 2.2, transparent: true, opacity: 0.85 }));
                 o.position.set(Math.cos(i * 1.7) * 1.4, -0.8 - i * 0.15, Math.sin(i * 1.7) * 1.4); g.add(o); } g.userData.glow = true; break; }
+        // ---- mining ----
+        case 'mine': {   // a tunnel mouth cut into a rock face, shored with timber, dark inside
+            const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(4.2, 0), mat(0x5a5650)); rock.scale.set(1.4, 0.9, 1); rock.position.set(0, 1.6, -2.4); rock.castShadow = true; g.add(rock);
+            box(g, 2.4, 2.8, 1.2, 0x0a0806, 0, 1.4, 0.4);
+            for (const sx of [-1, 1]) box(g, 0.25, 3.0, 0.25, 0x4a3220, sx * 1.3, 1.5, 1.1);
+            box(g, 3.0, 0.3, 0.3, 0x4a3220, 0, 3.0, 1.1);
+            box(g, 0.6, 0.4, 0.06, 0x8a6a3a, 0, 3.4, 1.25);   // a board over the mouth
+            break; }
+        case 'heap': { const c = new THREE.Mesh(new THREE.ConeGeometry(2.6, 2.2, 7), mat(0x2e2a28)); c.position.y = 1.1; c.castShadow = c.receiveShadow = true; g.add(c); break; }
+        case 'chimney': box(g, 1.4, 7, 1.4, 0x6a4a3a, 0, 3.5, 0); box(g, 1.7, 0.4, 1.7, 0x4a3428, 0, 7.1, 0); box(g, 3, 1.6, 2.4, 0x5a5048, 0, 0.8, 1.2); break;   // a smelter
+        case 'rails': { const n = Math.max(2, Math.round(len / 0.6));
+            for (let i = 0; i < n; i++) box(g, 1.1, 0.06, 0.18, 0x4a3220, 0, 0.03, -len / 2 + i * (len / n));
+            for (const sx of [-1, 1]) box(g, 0.06, 0.08, len, 0x3a3430, sx * 0.4, 0.09, 0, 0, { metalness: 0.6, roughness: 0.4 });
+            break; }
         default: box(g, 0.5, 0.5, 0.5, 0x8a867e, 0, 0.25, 0);
     }
     return g;
 }
 // Footprint radius for a prop's collider (0 = walk through).
-export const PROP_R = { stall: 1.2, well: 1.0, lamp: 0.15, cart: 1.0, barrel: 0.4, crate: 0.45, bench: 0, signpost: 0.15, fence: 0, column: 0.45, ruin_wall: 0, steps: 0, platform: 0, pier: 0, boat: 0.9, glow: 0 };
+export const PROP_R = { stall: 1.2, well: 1.0, lamp: 0.15, cart: 1.0, barrel: 0.4, crate: 0.45, bench: 0, signpost: 0.15, fence: 0, column: 0.45, ruin_wall: 0, steps: 0, platform: 0, pier: 0, boat: 0.9, glow: 0, mine: 2.6, heap: 2.4, chimney: 1.2, rails: 0 };

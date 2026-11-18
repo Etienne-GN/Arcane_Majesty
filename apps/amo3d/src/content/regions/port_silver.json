@@ -373,7 +373,8 @@
   "gather": {
     "herb": 4,
     "wood": 4,
-    "berry": 3
+    "berry": 3,
+    "fishing": 4
   },
   "gates": [
     {

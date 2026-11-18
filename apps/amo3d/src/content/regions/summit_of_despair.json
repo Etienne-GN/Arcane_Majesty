@@ -122,6 +122,28 @@
         35,
         -49
       ]
+    ],
+    [
+      [
+        0,
+        21
+      ],
+      [
+        -24,
+        24
+      ],
+      [
+        -50,
+        20
+      ],
+      [
+        -78,
+        18
+      ],
+      [
+        -86,
+        18
+      ]
     ]
   ],
   "trees": {
@@ -269,6 +291,15 @@
       "spawn": "from_summit_peak",
       "to": "the_summit",
       "toSpawn": "start"
+    },
+    {
+      "label": "Down to Iron Hollow",
+      "x": -86,
+      "z": 18,
+      "facing": 1.5708,
+      "spawn": "from_iron_hollow",
+      "to": "iron_hollow",
+      "toSpawn": "from_summit"
     }
   ],
   "start": {

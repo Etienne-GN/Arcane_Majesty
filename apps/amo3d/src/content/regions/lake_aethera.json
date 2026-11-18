@@ -242,7 +242,9 @@
     "herb": 6,
     "wood": 5,
     "berry": 4,
-    "mushroom": 3
+    "mushroom": 3,
+    "fishing": 4,
+    "reeds": 4
   },
   "gates": [
     {

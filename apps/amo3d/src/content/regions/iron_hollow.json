@@ -1,0 +1,410 @@
+{
+  "id": "iron_hollow",
+  "name": "Iron Hollow",
+  "lore": "A grim mining settlement in the northern mountain foothills; its tunnels yield iron and coal, fueling Eldoria's forges. Hard folk, hard lives, and a tavern called The Grinding Wheel (lore DB: Iron Hollow, in Thaloria).",
+  "seed": 7171,
+  "half": 72,
+  "water": -2.5,
+  "biome": "temperate",
+  "terrain": {
+    "scale": 0.026,
+    "relief": 14,
+    "base": 1.2,
+    "rim": 30,
+    "rockLine": 4
+  },
+  "palette": {
+    "grassA": "#5a6446",
+    "grassB": "#6e7456",
+    "dirt": "#5a4c3c",
+    "rock": "#5e5a54",
+    "shore": "#5a5448",
+    "road": "#6a5c4a",
+    "paved": "#7a756c",
+    "water": "#2a3a40"
+  },
+  "mood": {
+    "fog": "#8a8c8c",
+    "fogNear": 22,
+    "fogFar": 150,
+    "fogMix": 0.5,
+    "light": 0.82,
+    "motes": "#3a3430",
+    "nightFloor": 0.4
+  },
+  "features": [
+    {
+      "type": "clearing",
+      "x": 0,
+      "z": 6,
+      "r": 30
+    },
+    {
+      "type": "hill",
+      "x": -30,
+      "z": -44,
+      "r": 26,
+      "h": 11
+    },
+    {
+      "type": "hill",
+      "x": 30,
+      "z": -46,
+      "r": 24,
+      "h": 10
+    },
+    {
+      "type": "hill",
+      "x": -46,
+      "z": 30,
+      "r": 20,
+      "h": 7
+    }
+  ],
+  "path": [],
+  "roads": [
+    {
+      "pts": [
+        [
+          66,
+          0
+        ],
+        [
+          40,
+          2
+        ],
+        [
+          14,
+          4
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          -14,
+          8
+        ]
+      ],
+      "w": 4,
+      "kind": "road"
+    },
+    {
+      "pts": [
+        [
+          0,
+          6
+        ],
+        [
+          -4,
+          -10
+        ],
+        [
+          -14,
+          -26
+        ]
+      ],
+      "w": 3,
+      "kind": "road"
+    },
+    {
+      "pts": [
+        [
+          0,
+          6
+        ],
+        [
+          8,
+          -10
+        ],
+        [
+          18,
+          -26
+        ]
+      ],
+      "w": 3,
+      "kind": "road"
+    },
+    {
+      "pts": [
+        [
+          -8,
+          6
+        ],
+        [
+          10,
+          6
+        ]
+      ],
+      "w": 10,
+      "kind": "paved"
+    }
+  ],
+  "buildings": [
+    {
+      "x": -6,
+      "z": 17,
+      "w": 10,
+      "d": 7,
+      "h": 3.8,
+      "ry": 3.1416,
+      "stone": true,
+      "roof": "#2e2a28",
+      "roofType": "hip",
+      "sign": "The Grinding Wheel",
+      "signText": "THE GRINDING WHEEL \u2014 ale for the shift's end. Leave the dust at the door.",
+      "name": "The Grinding Wheel (tavern)"
+    },
+    {
+      "x": 10,
+      "z": 17,
+      "w": 6,
+      "d": 5,
+      "ry": 3.1416,
+      "stone": true,
+      "roof": "#3a3430"
+    },
+    {
+      "x": 21,
+      "z": 15,
+      "w": 6,
+      "d": 5,
+      "ry": 3.1416,
+      "stone": true,
+      "roof": "#2e2a28"
+    },
+    {
+      "x": -20,
+      "z": 16,
+      "w": 6,
+      "d": 5,
+      "ry": 3.1416,
+      "stone": true,
+      "roof": "#3a3430"
+    },
+    {
+      "x": 14,
+      "z": -4,
+      "w": 7,
+      "d": 5,
+      "stone": true,
+      "roof": "#2e2a28",
+      "name": "The foreman's house"
+    },
+    {
+      "x": -18,
+      "z": -3,
+      "w": 8,
+      "d": 5,
+      "wall": "#8a8070",
+      "roof": "#3a3430",
+      "chimney": true,
+      "name": "The ore shed"
+    }
+  ],
+  "props": [
+    {
+      "type": "mine",
+      "x": -16,
+      "z": -30,
+      "ry": 0.4,
+      "clear": 6
+    },
+    {
+      "type": "mine",
+      "x": 20,
+      "z": -30,
+      "ry": -0.4,
+      "clear": 6
+    },
+    {
+      "type": "rails",
+      "x": -9,
+      "z": -18,
+      "ry": 0.5,
+      "len": 14
+    },
+    {
+      "type": "rails",
+      "x": 13,
+      "z": -18,
+      "ry": -0.55,
+      "len": 14
+    },
+    {
+      "type": "cart",
+      "x": -6,
+      "z": -12,
+      "ry": 0.5
+    },
+    {
+      "type": "cart",
+      "x": 11,
+      "z": -13,
+      "ry": 2.6
+    },
+    {
+      "type": "heap",
+      "x": -34,
+      "z": -18
+    },
+    {
+      "type": "heap",
+      "x": -30,
+      "z": -10,
+      "clear": 3
+    },
+    {
+      "type": "heap",
+      "x": 34,
+      "z": -16
+    },
+    {
+      "type": "chimney",
+      "x": 30,
+      "z": 2,
+      "ry": 1.5708,
+      "clear": 5
+    },
+    {
+      "type": "barrel",
+      "x": -12,
+      "z": 13
+    },
+    {
+      "type": "barrel",
+      "x": -11.2,
+      "z": 13.6
+    },
+    {
+      "type": "crate",
+      "x": -22,
+      "z": -8
+    },
+    {
+      "type": "crate",
+      "x": -23,
+      "z": -7
+    },
+    {
+      "type": "crate",
+      "x": 9,
+      "z": -9
+    },
+    {
+      "type": "lamp",
+      "x": -8,
+      "z": 1
+    },
+    {
+      "type": "lamp",
+      "x": 10,
+      "z": 1
+    },
+    {
+      "type": "lamp",
+      "x": -12,
+      "z": -22
+    },
+    {
+      "type": "lamp",
+      "x": 15,
+      "z": -22
+    },
+    {
+      "type": "bench",
+      "x": 0,
+      "z": 12
+    },
+    {
+      "type": "signpost",
+      "x": 4,
+      "z": 1
+    }
+  ],
+  "signs": [
+    {
+      "x": 4.5,
+      "z": 1.6,
+      "text": "IRON HOLLOW \u2014 the North Shaft and the Coal Shaft. No lamps unlit below ground. No one goes down alone."
+    }
+  ],
+  "trees": {
+    "count": 140,
+    "gaps": 0.6,
+    "sizeVar": 0.7,
+    "kinds": {
+      "pine": 0.7,
+      "dead": 0.3
+    },
+    "colors": {
+      "pine": "#2a3a2a"
+    }
+  },
+  "rocks": 140,
+  "gather": {
+    "wood": 3,
+    "herb": 2,
+    "mineral": 6
+  },
+  "gates": [
+    {
+      "id": "hollow_monolith",
+      "label": "Monolith of Iron Hollow",
+      "x": 28,
+      "z": 22
+    }
+  ],
+  "actors": [
+    {
+      "type": "beasts",
+      "kind": "crag_fiend",
+      "posts": [
+        {
+          "x": -34,
+          "z": -46
+        },
+        {
+          "x": 36,
+          "z": -46
+        }
+      ]
+    }
+  ],
+  "landmarks": [
+    {
+      "name": "Iron Hollow",
+      "x": 0,
+      "z": 6,
+      "icon": "stones"
+    },
+    {
+      "name": "The North Shaft",
+      "x": -16,
+      "z": -30,
+      "icon": "den"
+    },
+    {
+      "name": "The Coal Shaft",
+      "x": 20,
+      "z": -30,
+      "icon": "den"
+    }
+  ],
+  "links": [
+    {
+      "label": "Up to the Summit of Despair",
+      "x": 66,
+      "z": 0,
+      "facing": -1.5708,
+      "spawn": "from_summit",
+      "to": "summit_of_despair",
+      "toSpawn": "from_iron_hollow"
+    }
+  ],
+  "start": {
+    "x": 60,
+    "z": 0,
+    "facing": -1.5708
+  }
+}
