@@ -1,0 +1,433 @@
+{
+  "id": "port_silver",
+  "name": "Port Silver",
+  "lore": "A bustling coastal town on Eldoria's eastern shore, where the Silverrun empties into the sea: a grey-sand harbour for fishing vessels and the rare merchant ship, known for its salty ale and quiet neutrality (lore DB: Port Silver, in The Silver Coast; Silverrun River, in The Heartlands).",
+  "seed": 6161,
+  "half": 82,
+  "water": -1.0,
+  "terrain": {
+    "scale": 0.02,
+    "relief": 5,
+    "base": 0.8,
+    "rim": 16,
+    "openEast": true
+  },
+  "palette": {
+    "grassA": "#5e7e46",
+    "grassB": "#7e9658",
+    "dirt": "#7a6a50",
+    "rock": "#7a7a74",
+    "shore": "#a4a29a",
+    "road": "#9a9080",
+    "paved": "#a6a29a",
+    "water": "#3a6a82"
+  },
+  "waterLook": {
+    "opacity": 0.86,
+    "roughness": 0.18,
+    "metalness": 0.3
+  },
+  "mood": {
+    "fog": "#c4d0d8",
+    "fogNear": 30,
+    "fogFar": 190,
+    "fogMix": 0.4,
+    "light": 1.0,
+    "nightFloor": 0.45
+  },
+  "features": [
+    {
+      "type": "lake",
+      "x": 120,
+      "z": 0,
+      "r": 96,
+      "depth": 10
+    },
+    {
+      "type": "river",
+      "pts": [
+        [
+          -82,
+          -46
+        ],
+        [
+          -50,
+          -36
+        ],
+        [
+          -20,
+          -30
+        ],
+        [
+          10,
+          -34
+        ],
+        [
+          40,
+          -36
+        ]
+      ],
+      "w": 7,
+      "depth": 4
+    },
+    {
+      "type": "clearing",
+      "x": 8,
+      "z": 6,
+      "r": 30
+    },
+    {
+      "type": "hill",
+      "x": -54,
+      "z": 46,
+      "r": 22,
+      "h": 6
+    }
+  ],
+  "path": [],
+  "roads": [
+    {
+      "pts": [
+        [
+          -76,
+          0
+        ],
+        [
+          -40,
+          2
+        ],
+        [
+          -12,
+          0
+        ],
+        [
+          24,
+          0
+        ]
+      ],
+      "w": 4,
+      "kind": "road"
+    },
+    {
+      "pts": [
+        [
+          6,
+          0
+        ],
+        [
+          30,
+          0
+        ]
+      ],
+      "w": 12,
+      "kind": "paved"
+    },
+    {
+      "pts": [
+        [
+          12,
+          -14
+        ],
+        [
+          12,
+          18
+        ]
+      ],
+      "w": 4,
+      "kind": "paved"
+    },
+    {
+      "pts": [
+        [
+          24,
+          -14
+        ],
+        [
+          24,
+          16
+        ]
+      ],
+      "w": 3,
+      "kind": "paved"
+    }
+  ],
+  "buildings": [
+    {
+      "x": 3,
+      "z": -11,
+      "w": 9,
+      "d": 6,
+      "h": 4,
+      "stone": true,
+      "roof": "#4a5a6a",
+      "roofType": "hip",
+      "sign": "The Salt Cask",
+      "signText": "THE SALT CASK \u2014 salty ale, hot fish stew. All flags drink here; quarrels are taken outside.",
+      "name": "The Salt Cask (tavern)"
+    },
+    {
+      "x": 18,
+      "z": -11,
+      "w": 7,
+      "d": 5,
+      "wall": "#d0ccc0",
+      "roof": "#4a5a6a",
+      "name": "The harbour master"
+    },
+    {
+      "x": 3,
+      "z": 12,
+      "w": 7,
+      "d": 5,
+      "ry": 3.1416,
+      "wall": "#d8d0bc",
+      "roof": "#6a4a3a"
+    },
+    {
+      "x": 18,
+      "z": 12,
+      "w": 7,
+      "d": 5,
+      "ry": 3.1416,
+      "wall": "#ccc4b0",
+      "roof": "#4a5a6a"
+    },
+    {
+      "x": -10,
+      "z": -10,
+      "w": 6,
+      "d": 5,
+      "wall": "#d8ccb4",
+      "roof": "#7a3a2a"
+    },
+    {
+      "x": -10,
+      "z": 11,
+      "w": 6,
+      "d": 5,
+      "ry": 3.1416,
+      "wall": "#e0d8c4",
+      "roof": "#6a4a3a"
+    },
+    {
+      "x": 31,
+      "z": 14,
+      "w": 10,
+      "d": 6,
+      "ry": 3.1416,
+      "wall": "#b8b0a0",
+      "roof": "#5a5a5a",
+      "chimney": false,
+      "name": "The warehouse"
+    }
+  ],
+  "props": [
+    {
+      "type": "pier",
+      "x": 33,
+      "z": -6,
+      "ry": 1.5708,
+      "len": 16,
+      "clear": 4
+    },
+    {
+      "type": "pier",
+      "x": 33,
+      "z": 5,
+      "ry": 1.5708,
+      "len": 12,
+      "clear": 4
+    },
+    {
+      "type": "boat",
+      "x": 42,
+      "z": -9,
+      "ry": 0,
+      "float": true
+    },
+    {
+      "type": "boat",
+      "x": 46,
+      "z": -3,
+      "ry": 0.2,
+      "float": true
+    },
+    {
+      "type": "boat",
+      "x": 40,
+      "z": 8,
+      "ry": 3.0,
+      "float": true
+    },
+    {
+      "type": "boat",
+      "x": 52,
+      "z": 2,
+      "ry": 1.4,
+      "float": true
+    },
+    {
+      "type": "stall",
+      "x": 14,
+      "z": -4.5,
+      "color": "#3a6a8a"
+    },
+    {
+      "type": "stall",
+      "x": 22,
+      "z": -4.5,
+      "color": "#d8c8a0"
+    },
+    {
+      "type": "stall",
+      "x": 14,
+      "z": 4.5,
+      "ry": 3.1416,
+      "color": "#8a3a2a"
+    },
+    {
+      "type": "barrel",
+      "x": 28,
+      "z": -3
+    },
+    {
+      "type": "barrel",
+      "x": 28.8,
+      "z": -3.8
+    },
+    {
+      "type": "barrel",
+      "x": 29.2,
+      "z": 9
+    },
+    {
+      "type": "crate",
+      "x": 27,
+      "z": 8
+    },
+    {
+      "type": "crate",
+      "x": 27.8,
+      "z": 9.2
+    },
+    {
+      "type": "crate",
+      "x": 26.6,
+      "z": 9.8
+    },
+    {
+      "type": "cart",
+      "x": -2,
+      "z": 4,
+      "ry": 0.2
+    },
+    {
+      "type": "lamp",
+      "x": 7,
+      "z": -5.5
+    },
+    {
+      "type": "lamp",
+      "x": 7,
+      "z": 5.5
+    },
+    {
+      "type": "lamp",
+      "x": 30,
+      "z": -5.5
+    },
+    {
+      "type": "lamp",
+      "x": 30,
+      "z": 5.5
+    },
+    {
+      "type": "well",
+      "x": -2,
+      "z": -4
+    },
+    {
+      "type": "bench",
+      "x": 26,
+      "z": -12
+    }
+  ],
+  "signs": [
+    {
+      "x": 31,
+      "z": -1,
+      "text": "PORT SILVER \u2014 the harbour of the Silver Coast. Every flag is welcome on this quay; every quarrel is not. Mooring by the day, fish by the basket."
+    }
+  ],
+  "trees": {
+    "count": 300,
+    "gaps": 0.5,
+    "sizeVar": 0.8,
+    "kinds": {
+      "broad": 0.4,
+      "pine": 0.4,
+      "birch": 0.2
+    }
+  },
+  "rocks": 60,
+  "gather": {
+    "herb": 4,
+    "wood": 4,
+    "berry": 3
+  },
+  "gates": [
+    {
+      "id": "port_monolith",
+      "label": "Monolith of Port Silver",
+      "x": -16,
+      "z": 16
+    }
+  ],
+  "actors": [
+    {
+      "type": "deer",
+      "homes": [
+        {
+          "x": -54,
+          "z": 44
+        }
+      ]
+    }
+  ],
+  "landmarks": [
+    {
+      "name": "Port Silver",
+      "x": 16,
+      "z": 0,
+      "icon": "stones"
+    },
+    {
+      "name": "The Silverrun",
+      "x": -30,
+      "z": -32,
+      "icon": "water"
+    },
+    {
+      "name": "The harbour",
+      "x": 42,
+      "z": 0,
+      "icon": "water"
+    }
+  ],
+  "links": [
+    {
+      "label": "To the Crossroads",
+      "x": -76,
+      "z": 0,
+      "facing": 1.5708,
+      "spawn": "from_crossroads",
+      "to": "the_crossroads",
+      "toSpawn": "from_port"
+    }
+  ],
+  "start": {
+    "x": -70,
+    "z": 0,
+    "facing": 1.5708
+  }
+}

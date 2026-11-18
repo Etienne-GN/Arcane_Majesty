@@ -402,6 +402,15 @@
       "spawn": "from_lake",
       "to": "lake_aethera",
       "toSpawn": "from_crossroads"
+    },
+    {
+      "label": "To Port Silver",
+      "x": 64,
+      "z": 0,
+      "facing": -1.5708,
+      "spawn": "from_port",
+      "to": "port_silver",
+      "toSpawn": "from_crossroads"
     }
   ],
   "start": {

@@ -70,7 +70,8 @@ export function regionHeight(def) {
             if (!pads.has(b)) pads.set(b, b.y ?? Math.max(raw(b.x, b.z), WATER + 0.6));
             h += (pads.get(b) - h) * smoothstep(4, 0.6, d);
         }
-        h += smoothstep(EDGE - 18, EDGE + 4, Math.max(Math.abs(x), Math.abs(z))) * (T.rim ?? 22) * (0.6 + 0.8 * fbm(x * 0.05, z * 0.05));   // a wall of hills
+        const ex = T.openEast && x > 0 ? 0 : Math.abs(x);   // openEast: no hills on the east edge — the sea runs to the horizon
+        h += smoothstep(EDGE - 18, EDGE + 4, Math.max(ex, Math.abs(z))) * (T.rim ?? 22) * (0.6 + 0.8 * fbm(x * 0.05, z * 0.05));   // a wall of hills
         return h;
     };
 }
@@ -265,7 +266,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         if (b.sign) map.stations.push({ mode: 'sign', text: b.signText ?? b.sign, pos: new THREE.Vector3(...[corner(0.95, hd + 0.8)].map(([px, pz]) => [px, y, pz])[0]) });
     }
     for (const pr of def.props ?? []) {
-        const g = buildProp(pr.type, pr), y = heightAt(pr.x, pr.z);
+        const g = buildProp(pr.type, pr), y = pr.float ? Math.max(heightAt(pr.x, pr.z), WATER - 0.3) : heightAt(pr.x, pr.z);   // float: boats ride the water
         g.position.set(pr.x, y, pr.z); g.rotation.y = pr.ry ?? 0; scene.add(g);
         if (pr.type === 'ruin_wall') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.4, kind: 'wall', y0: y - 1, y1: y + 3 }); }
         else if (pr.type === 'fence') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.15, kind: 'hop', y0: y - 1, y1: y + 1.1 }); }

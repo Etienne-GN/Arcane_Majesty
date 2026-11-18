@@ -34,7 +34,7 @@ Stones, the Hidden Cabin) are remote wilderness. The campaign runs from the Sylv
       A link from the East Road (a fork south), plus roads toward Lake Aethera, Port Silver and Whisper-Wood.
 - [x] **2. Lake Aethera & the Sunken Temple** — a huge still lake like polished silver; the temple half-submerged in the
       shallows, carved in a forgotten script (outside first; the inside as a later dungeon).
-- [ ] **3. The Silverrun & Port Silver** — the river road east, then the coastal town: a grey-sand harbour, piers,
+- [x] **3. The Silverrun & Port Silver** — the river road east, then the coastal town: a grey-sand harbour, piers,
       fishing boats, a market.
 - [ ] **4. Iron Hollow** — a grim mining town in the northern foothills: mine mouths, slag heaps, a tavern.
 - [ ] **5. The Emerald Fields** — untamed grassland; the Weeping Stones (seven monoliths with weeping faces, south)
@@ -57,6 +57,7 @@ Stones, the Hidden Cabin) are remote wilderness. The campaign runs from the Sylv
 
 - 2026-11-18 (pass 2): Crossroads checked headless (village, square, stalls, inn, map chart all fine); undergrowth no longer grows through roads, paving or floors; the East Road fork arch works both ways. Crossroads links so far: only west to the East Road — add south (Lake Aethera), east (Port Silver), north (Duskmeet/Whisper-Wood) as those maps exist.
 - 2026-11-18 (pass 2): Lake Aethera built (region lake_aethera.json; south link from the Crossroads): a still silver lake (region `waterLook`), the Sunken Temple in the shallows (platform with lit script, a ring of columns, broken ones, fallen walls, lights under the water), a fisher's pier, hut and boats, a monolith. New props: column, ruin_wall, steps, platform, pier, boat, glow; props can keep trees back (`clear`). Temple interior is a later dungeon.
+- 2026-11-18 (pass 2): Port Silver built (east link from the Crossroads): the Silverrun runs into the sea beside the town; a grey-sand harbour with two piers and floating boats (prop `float`), The Salt Cask tavern, the harbour master, a warehouse, a fish market; the sea runs to the horizon (terrain `openEast`). Released as amo3d-v0.4.0 with the Crossroads and Lake Aethera.
 
 ## DB sync owed (game-only additions, for the user)
 - The Corrupted Rim, the Hermit's camp (from the Sanctuary).
