@@ -190,6 +190,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     // main / off: { type, accent } (amo weapon type + the item's colour), false for an empty main
     // hand, or null for an empty off hand. Shields can go in either hand.
     const SHEATHE_AFTER = 5;
+    const EDGED = new Set(['sword', 'greatsword', 'claymore', 'dagger', 'axe']);   // turned in the hand so they cut edge-first
     const sheath = { R: null, L: null };
     function buildScabbard(h) {
         const holder = new THREE.Group();
@@ -231,7 +232,8 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             mainMount.add(m.group);
             crystal = m.crystal; tip = m.tip; mainType = type;
             mount(mainMount, type, true);
-            if (type === 'sword') { m.group.rotation.y = Math.PI / 2; sheath.R = { holder: buildScabbard('R'), group: m.group, home: m.group.rotation.clone(), on: false, last: -99 }; }
+            if (EDGED.has(type)) m.group.rotation.y = Math.PI / 2;   // the edge leads the cut, not the flat
+            if (type === 'sword') { sheath.R = { holder: buildScabbard('R'), group: m.group, home: m.group.rotation.clone(), on: false, last: -99 }; }
         }
         offType = off?.type ?? null; offTip = null;
         if (off) {
@@ -240,7 +242,8 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             mount(offMount, off.type, false);
             if (off.type !== 'shield') o.group.rotation.x = 0.75;
             offTip = o.tip ?? null;
-            if (off.type === 'sword') { o.group.rotation.y = Math.PI / 2; sheath.L = { holder: buildScabbard('L'), group: o.group, home: o.group.rotation.clone(), on: false, last: -99 }; }
+            if (EDGED.has(off.type)) o.group.rotation.y = (o.group.rotation.y || 0) + Math.PI / 2;
+            if (off.type === 'sword') { sheath.L = { holder: buildScabbard('L'), group: o.group, home: o.group.rotation.clone(), on: false, last: -99 }; }
         } else mount(offMount, 'fists', false);
         for (const g of [mainMount, offMount]) g.traverse(o => { if (o.isMesh) o.castShadow = true; });
         for (const h of ['R', 'L']) if (sheath[h]) setSheathed(h, true);   // a sword starts in its scabbard
@@ -297,12 +300,24 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         // Blades (swords, daggers, axes, maces) rest in a low guard: arm a little forward, blade angled ahead and down.
         const BLADE = new Set(['sword', 'greatsword', 'claymore', 'dagger', 'axe', 'mace']);   // polearms (spear, halberd) stand upright instead
         const setMount = (h, a) => { if (h === 'R') mainMount.rotation.x = a; else offMount.rotation.x = a - 0.75; };
-        const guard = h => {
-            const A = arms[h], sz = h === 'R' ? 1 : -1;
-            A.upper.rotation.x = A.upper.rotation.x * 0.5 - 0.3;
-            A.upper.rotation.z = sz * -0.22;
-            A.fore.rotation.x = -0.6;
-            setMount(h, GUARD_MOUNT);
+        // How each kind is carried at rest (k = how much of the walking arm-swing stays; x / z the arm, fore the
+        // elbow, mount the wrist): swords in a low guard; a dagger in a reverse grip, blade down from the fist; axes
+        // and maces hanging at the side, head down by the knee; a bow upright beside the leg; a crossbow pointing down
+        // and ahead. The slash starts from and returns to this.
+        const REST = {
+            sword: { k: 0.5, x: -0.3, z: -0.22, fore: -0.6, mount: GUARD_MOUNT }, greatsword: { k: 0.5, x: -0.3, z: -0.22, fore: -0.6, mount: GUARD_MOUNT },
+            claymore: { k: 0.5, x: -0.3, z: -0.22, fore: -0.6, mount: GUARD_MOUNT },
+            dagger: { k: 0.6, x: -0.12, z: -0.2, fore: -0.55, mount: 3.8 },
+            axe: { k: 0.7, x: 0.04, z: -0.14, fore: -0.22, mount: 3.0 }, mace: { k: 0.7, x: 0.04, z: -0.14, fore: -0.22, mount: 3.0 },
+            bow: { k: 0.6, x: -0.08, z: -0.3, fore: -0.42, mount: 1.0 }, crossbow: { k: 0.5, x: -0.1, z: -0.15, fore: -0.45, mount: 2.45 },
+        };
+        const restOf = type => REST[type] ?? REST.sword;
+        const guard = (h, type) => {
+            const A = arms[h], sz = h === 'R' ? 1 : -1, r = restOf(type);
+            A.upper.rotation.x = A.upper.rotation.x * r.k + r.x;
+            A.upper.rotation.z = sz * r.z;
+            A.fore.rotation.x = r.fore;
+            setMount(h, r.mount);
         };
         // Swords: a swing draws (at once); five seconds without one, back in the scabbard.
         for (const h of ['R', 'L']) {
@@ -310,8 +325,8 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             if (strikeK != null && strikeHand === h) { sh.last = t; setSheathed(h, false); }
             else if (!sh.on && t - sh.last > SHEATHE_AFTER) setSheathed(h, true);
         }
-        if (BLADE.has(mainType) && !sheath.R?.on) guard('R');
-        if (BLADE.has(offType) && !sheath.L?.on) guard('L');
+        if ((BLADE.has(mainType) || REST[mainType]) && !sheath.R?.on) guard('R', mainType);
+        if ((BLADE.has(offType) || REST[offType]) && !sheath.L?.on) guard('L', offType);
         const side = h => ({ A: arms[h], B: arms[h === 'R' ? 'L' : 'R'], sz: h === 'R' ? 1 : -1, mount: h === 'R' ? mainMount : offMount, fore0: h === 'R' || offArmed ? -0.75 : arms.L.fore.rotation.x });
 
         // Cast: the staff arm thrusts forward, the body leans in, the crystal flares orange.
@@ -357,9 +372,10 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
                 const lerp = (a, b, c, d) => a + (b - a) * wind + (c - b) * cut + (d - c) * back;   // guard → wound → cut → guard
                 const ux0 = A.upper.rotation.x;
                 A.upper.rotation.x = lerp(ux0, -2.5, -1.0, ux0);
-                A.upper.rotation.z = sz * lerp(-0.22, -1.1, 0.85, -0.22);   // out to the side, then right across the body
-                A.fore.rotation.x = lerp(-0.6, -1.3, -0.15, -0.6);
-                setMount(strikeHand, lerp(GUARD_MOUNT, 3.3, 2.8, GUARD_MOUNT));   // the blade rides the arm: up and back over the shoulder, then across (never dipping down)
+                const r0 = restOf(bladeType);
+                A.upper.rotation.z = sz * lerp(r0.z, -1.1, 0.85, r0.z);   // out to the side, then right across the body
+                A.fore.rotation.x = lerp(r0.fore, -1.3, -0.15, r0.fore);
+                setMount(strikeHand, lerp(r0.mount, 3.3, 2.8, r0.mount));   // the blade rides the arm: up and back over the shoulder, then across (never dipping down)
                 spine.rotation.y += sz * lerp(0, 0.6, -0.7, 0);
                 spine.rotation.x += lerp(0, -0.08, 0.2, 0);
                 head.rotation.y = -spine.rotation.y * 0.5;

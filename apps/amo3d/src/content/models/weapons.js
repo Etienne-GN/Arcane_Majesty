@@ -145,18 +145,37 @@ export function buildWeapon(type, { accent = 0x8855ff, crystalMat = null } = {})
             tip.position.set(0.05, 0, 0);
             break;
         }
-        case 'bow': case 'crossbow': {
-            if (type === 'bow') {
-                const curve = new THREE.QuadraticBezierCurve3(new THREE.Vector3(0, -0.6, 0), new THREE.Vector3(0, 0, 0.32), new THREE.Vector3(0, 0.6, 0));
-                part(g, new THREE.TubeGeometry(curve, 12, 0.018, 5), WOOD(), 0, 0.1, 0);
-                part(g, new THREE.CylinderGeometry(0.003, 0.003, 1.2, 3), mat(0xeeeeee), 0, 0.1, 0);
-                part(g, new THREE.CylinderGeometry(0.025, 0.025, 0.12, 6), mat(accent), 0, 0.1, 0.32);
-            } else {
-                part(g, new THREE.BoxGeometry(0.06, 0.06, 0.6), WOOD(), 0, 0.05, 0.2);
-                part(g, new THREE.BoxGeometry(0.6, 0.03, 0.04), DARK(), 0, 0.05, 0.42);
-                part(g, new THREE.BoxGeometry(0.05, 0.05, 0.05), mat(accent), 0, 0.02, 0.0);
+        case 'bow': {
+            // A recurve bow gripped at the middle: the wrapped grip in the hand, the limbs sweeping back toward the
+            // archer and flicking forward at the tips, the string behind the grip at brace height.
+            const limb = sy => new THREE.CatmullRomCurve3([new THREE.Vector3(0, sy * 0.07, 0.0), new THREE.Vector3(0, sy * 0.32, -0.06),
+                new THREE.Vector3(0, sy * 0.58, -0.15), new THREE.Vector3(0, sy * 0.7, -0.15), new THREE.Vector3(0, sy * 0.76, -0.1)]);
+            for (const sy of [1, -1]) part(g, new THREE.TubeGeometry(limb(sy), 16, 0.016, 6), WOOD());
+            part(g, new THREE.CylinderGeometry(0.024, 0.024, 0.16, 7), LEATHER(), 0, 0, 0.0);                          // grip
+            part(g, new THREE.CylinderGeometry(0.026, 0.026, 0.02, 7), mat(accent), 0, 0.09, 0);
+            part(g, new THREE.CylinderGeometry(0.026, 0.026, 0.02, 7), mat(accent), 0, -0.09, 0);
+            const string = part(g, new THREE.CylinderGeometry(0.0025, 0.0025, 1.36, 3), mat(0xece4d0), 0, 0, -0.135);   // from tip to tip
+            string.scale.y = 1;
+            tip.position.set(0, 0.05, 0.05);
+            break;
+        }
+        case 'crossbow': {
+            // A crossbow carried by its grip: the wooden stock running forward, a steel prod across the front with its
+            // string drawn back to the nut, the trigger under the stock and a stirrup at the nose.
+            part(g, new THREE.BoxGeometry(0.05, 0.06, 0.66), WOOD(), 0, 0.03, 0.2);                                   // stock
+            part(g, new THREE.BoxGeometry(0.055, 0.1, 0.16), WOOD(), 0, -0.01, -0.17);                                // butt
+            part(g, new THREE.BoxGeometry(0.012, 0.05, 0.02), DARK(), 0, -0.03, 0.02);                                // trigger
+            const prod = new THREE.CatmullRomCurve3([new THREE.Vector3(-0.3, 0.07, 0.42), new THREE.Vector3(-0.14, 0.07, 0.5), new THREE.Vector3(0, 0.07, 0.53),
+                new THREE.Vector3(0.14, 0.07, 0.5), new THREE.Vector3(0.3, 0.07, 0.42)]);
+            part(g, new THREE.TubeGeometry(prod, 14, 0.013, 5), STEEL());
+            for (const sx of [1, -1]) {   // the string, from each prod tip back to the nut
+                const a = new THREE.Vector3(sx * 0.3, 0.07, 0.42), b = new THREE.Vector3(0, 0.07, 0.24), m = a.clone().add(b).multiplyScalar(0.5);
+                const str = part(g, new THREE.CylinderGeometry(0.0025, 0.0025, a.distanceTo(b), 3), mat(0xece4d0), m.x, m.y, m.z);
+                str.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), b.clone().sub(a).normalize());
             }
-            tip.position.set(0, 0.1, 0.4);
+            part(g, new THREE.TorusGeometry(0.04, 0.008, 4, 10, Math.PI), STEEL(), 0, 0.03, 0.56, 0, 0, Math.PI);      // stirrup
+            part(g, new THREE.BoxGeometry(0.03, 0.03, 0.03), mat(accent), 0, 0.075, 0.24);                            // nut
+            tip.position.set(0, 0.08, 0.55);
             break;
         }
         default: // fists: nothing in hand
