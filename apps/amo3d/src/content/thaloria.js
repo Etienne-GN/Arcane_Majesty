@@ -14,6 +14,8 @@ import { bakeStatic } from '../engine/batch.js';
 import { buildArch } from '../engine/region.js';
 import { treeKinds } from './models/flora.js';
 import { createTownsfolk } from './actors/townsfolk.js';
+import { buildCitadel } from './models/citadel.js';
+import { buildProp } from './models/buildings.js';
 import DOORS from '../../../../packages/rules/src/data/maps/interiors/doors.json';
 
 const ROOFS = {   // roof piece family → colour and shape
@@ -48,20 +50,28 @@ export function createThaloria({ quality }) {
 
     // ---------- ground: inside flat, outside rising into wooded hills ----------
     const inside = (x, z) => Math.abs(x) <= W / 2 && Math.abs(z) <= H / 2;
+    // North of the wall the land drops into the river gorge, then rises as a sheer cliff to the citadel's plateau
+    // (the Eldoria's Prophecy cover).
+    const CLIFF = 26, RIVER = -4;
     function heightAt(x, z) {
         const out = Math.max(Math.abs(x) - W / 2, Math.abs(z) - H / 2, 0);
-        return smoothstep(2, 14, out) * (6 + 6 * fbm(x * 0.05, z * 0.05));
+        const hills = smoothstep(2, 14, out) * (6 + 6 * fbm(x * 0.05, z * 0.05));
+        if (z >= -H / 2) return hills;
+        const gN = -z - H / 2, side = smoothstep(W / 2 + 4, W / 2 + 16, Math.abs(x));
+        const gorge = -7.5 * smoothstep(3, 8, gN) * (1 - smoothstep(15, 19, gN)) + smoothstep(16, 23, gN) * (CLIFF + 2 * fbm(x * 0.08, 3));
+        return gorge * (1 - side) + Math.max(hills, gorge) * side;
     }
     const tileAt = (x, z) => { const tx = Math.floor(x + W / 2), ty = Math.floor(z + H / 2); return tx >= 0 && ty >= 0 && tx < W && ty < H ? grid[ty][tx] : 1; };
     const SIZE = half * 2;
     const ground = new THREE.PlaneGeometry(SIZE, SIZE, SIZE, SIZE).rotateX(-Math.PI / 2).toNonIndexed();
     const gp = ground.attributes.position, gc = new Float32Array(gp.count * 3), col = new THREE.Color();
-    const C = { grass: new THREE.Color(0x5a8a3a), grass2: new THREE.Color(0x6e9a46), road: new THREE.Color(0x9a8466), street: new THREE.Color(0xa8a49a), out: new THREE.Color(0x4d7a35) };
+    const C = { grass: new THREE.Color(0x5a8a3a), grass2: new THREE.Color(0x6e9a46), road: new THREE.Color(0x9a8466), street: new THREE.Color(0xa8a49a), out: new THREE.Color(0x4d7a35), cliff: new THREE.Color(0x8a7e6a), bank: new THREE.Color(0x6a6450) };
     for (let i = 0; i < gp.count; i += 3) {
         const cx = (gp.getX(i) + gp.getX(i + 1) + gp.getX(i + 2)) / 3, cz = (gp.getZ(i) + gp.getZ(i + 1) + gp.getZ(i + 2)) / 3;
         const t = inside(cx, cz) ? tileAt(cx, cz) : -1;
         if (t === 2) col.copy(C.road).offsetHSL(0, 0, (fbm(cx * 0.6, cz * 0.6, 2) - 0.5) * 0.06);
         else if (t === 3) col.copy(C.street).offsetHSL(0, 0, ((Math.floor(cx) + Math.floor(cz)) % 2 ? 0.03 : -0.02) + (fbm(cx, cz, 2) - 0.5) * 0.05);
+        else if (t === -1 && cz < -H / 2 - 3 && Math.abs(cx) < W / 2 + 10) col.copy(heightAt(cx, cz) > 3 && heightAt(cx, cz) < CLIFF - 1 ? C.cliff : heightAt(cx, cz) < RIVER + 1 ? C.bank : C.out);   // the gorge: banks, cliff face
         else if (t === -1) col.copy(C.out).lerp(C.grass2, fbm(cx * 0.08, cz * 0.08, 3));
         else col.copy(C.grass).lerp(C.grass2, fbm(cx * 0.1, cz * 0.1, 3));
         for (let k = 0; k < 3; k++) { gp.setY(i + k, heightAt(gp.getX(i + k), gp.getZ(i + k))); gc.set([col.r, col.g, col.b], (i + k) * 3); }
@@ -71,6 +81,35 @@ export function createThaloria({ quality }) {
     const groundMesh = new THREE.Mesh(ground, flat(0xffffff, { vertexColors: true }));
     groundMesh.receiveShadow = true;
     scene.add(groundMesh);
+
+    // ---------- beyond the north wall: the river gorge, the cliff, the plateau and the Citadel ----------
+    {
+        const river = new THREE.Mesh(new THREE.PlaneGeometry(SIZE + 120, 70).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0x2a6a8a, roughness: 0.15, metalness: 0.3, transparent: true, opacity: 0.9 }));
+        river.position.set(0, RIVER, -H / 2 - 30); scene.add(river);
+        // the plateau beyond the map's edge (seen, not walked): a wide shelf of land at the cliff's height
+        const PW = 360, PD = 220, pl = new THREE.PlaneGeometry(PW, PD, 72, 44).rotateX(-Math.PI / 2), pp = pl.attributes.position, pc = new Float32Array(pp.count * 3);
+        const z0 = -half - PD / 2 + 0.5;
+        for (let i = 0; i < pp.count; i++) {
+            const x = pp.getX(i), z = pp.getZ(i) + z0, back = smoothstep(-half - 30, -half - 200, z);
+            const edge = smoothstep(-half + 1, -half - 4, z);   // meets the cliff top at the map's edge
+            pp.setY(i, (CLIFF + 2 * fbm(x * 0.08, 3)) * edge + back * (40 + 50 * fbm(x * 0.01, z * 0.01, 3)) + 6 * fbm(x * 0.04, z * 0.04));
+            const c = back > 0.6 ? C.cliff : C.out; pc.set([c.r, c.g, c.b], i * 3);
+        }
+        pl.setAttribute('color', new THREE.BufferAttribute(pc, 3)); pl.computeVertexNormals();
+        const plateau = new THREE.Mesh(pl, flat(0xffffff, { vertexColors: true })); plateau.position.z = z0; plateau.receiveShadow = true; scene.add(plateau);
+        const cit = buildCitadel(); cit.position.set(0, CLIFF, -half - 18); scene.add(cit);
+        // waterfalls pouring off the cliff and out of the undercroft into the gorge
+        const fallMat = new THREE.MeshStandardMaterial({ color: 0xdfeef4, emissive: 0x8ab8c8, emissiveIntensity: 0.25, transparent: true, opacity: 0.75, side: THREE.DoubleSide });
+        for (const [x, w] of [[-9, 4], [4, 6], [26, 3], [-38, 2.5]]) {
+            const fall = new THREE.Mesh(new THREE.PlaneGeometry(w, CLIFF - RIVER + 1), fallMat);
+            fall.position.set(x, (CLIFF + RIVER) / 2, -H / 2 - 22.5); fall.rotation.x = -0.12; scene.add(fall);
+            const foam = new THREE.Mesh(new THREE.CircleGeometry(w * 0.9, 10).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xf4fbff, transparent: true, opacity: 0.7 }));
+            foam.position.set(x, RIVER + 0.05, -H / 2 - 20); scene.add(foam);
+        }
+        for (const [x, ry] of [[-30, 1.4], [18, -1.7]]) { const b = buildProp('boat'); b.scale.setScalar(2.2); b.position.set(x, RIVER - 0.2, -H / 2 - 13); b.rotation.y = ry; scene.add(b);
+            const mast = new THREE.Mesh(new THREE.BoxGeometry(0.2, 6, 0.2), flat(0x4a3220)); mast.position.set(x, RIVER + 3.4, -H / 2 - 13); scene.add(mast);
+            const sail = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 3.6), new THREE.MeshStandardMaterial({ color: 0xe8dcc0, side: THREE.DoubleSide, flatShading: true })); sail.position.set(x, RIVER + 4.2, -H / 2 - 13); sail.rotation.y = ry + Math.PI / 2; scene.add(sail); }
+    }
 
     // ---------- the city wall ----------
     const wallCells = [];
@@ -300,12 +339,12 @@ export function createThaloria({ quality }) {
     map.town = createTownsfolk({ scene, W, H, resolve: (pos, r) => pushOut(colliders.filter(c => c.ax !== undefined), pos, r) });   // added after batching: they move
     map.nav = createNav({ colliders, passable: map.passable, half });
     map.mapInfo = {
-        half, water: -99, trees: trees.map(t => [t.x, t.z, 0]),
+        half, water: RIVER, trees: trees.map(t => [t.x, t.z, 0]),
         // For the chart: streets and the paved square, every building's footprint, the city wall.
         groundAt: (x, z) => { if (!inside(x, z)) return null; const t = tileAt(x, z); return t === 2 ? 'road' : t === 3 ? 'paved' : null; },
         buildings: houses.map(h => ({ x0: wx(h.x0) - 0.5, z0: wz(h.y0) - 0.5, x1: wx(h.x1) + 0.5, z1: wz(h.y1) + 0.5 })),
         walls: wallCells.map(([x, y]) => [wx(x), wz(y)]),
-        landmarks: (D.spawns.landmarks ?? []).map(l => ({ name: l.name, x: wx(l.x), z: wz(l.y), icon: l.id.includes('gate') ? 'gate' : l.id.includes('temple') || l.id.includes('bell') ? 'tower' : 'stones' })),
+        landmarks: [...(D.spawns.landmarks ?? []).map(l => ({ name: l.name, x: wx(l.x), z: wz(l.y), icon: l.id.includes('gate') ? 'gate' : l.id.includes('temple') || l.id.includes('bell') ? 'tower' : 'stones' })), { name: 'The Citadel (across the gorge)', x: 0, z: -half + 3, icon: 'tower', always: true }],
     };
     const shell = createOutdoorShell(scene, { quality, mood: { fog: '#c9d6d4', fogNear: 60, fogFar: 260, fogMix: 0.3, light: 1, nightFloor: 0.45 } });
     map.update = (t, dt, ctx) => {
