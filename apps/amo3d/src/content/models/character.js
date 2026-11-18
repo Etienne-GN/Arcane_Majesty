@@ -375,7 +375,21 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             const { A, sz, mount: m, fore0 } = side(strikeHand);
             const k = Math.min(1, strikeK), w = Math.sin(k * Math.PI);
             const bladeType = strikeHand === 'R' ? mainType : offType;
-            if (BLADE.has(bladeType) && !thrust) {
+            if (bladeType === 'axe' || bladeType === 'mace') {
+                // A chop: the arm lifts the head up and back behind the shoulder (the grip sliding to the end of the
+                // handle), then brings it down in front in one vertical arc, edge first, the body leaning into it.
+                const sm = (a, b) => { const x = Math.min(1, Math.max(0, (k - a) / (b - a))); return x * x * (3 - 2 * x); };
+                const wind = sm(0, 0.3), cut = sm(0.32, 0.5), back = sm(0.62, 1), r0 = restOf(bladeType);
+                const lerp = (a, b, c, d) => a + (b - a) * wind + (c - b) * cut + (d - c) * back;   // rest → raised → struck → rest
+                const ux0 = A.upper.rotation.x;
+                A.upper.rotation.x = lerp(ux0, -2.85, -1.2, ux0);
+                A.upper.rotation.z = sz * lerp(r0.z, -0.28, 0.12, r0.z);
+                A.fore.rotation.x = lerp(r0.fore, -1.55, -0.12, r0.fore);
+                setMount(strikeHand, lerp(r0.mount, 1.9, 2.05, r0.mount));   // behind the head → over the top → stops level in front, at the target
+                spine.rotation.x += lerp(0, -0.12, 0.32, 0);
+                spine.rotation.y += sz * lerp(0, 0.22, -0.12, 0);
+                head.rotation.x += lerp(0, -0.1, 0.18, 0);
+            } else if (BLADE.has(bladeType) && !thrust) {
                 // A slash in three beats: wind the blade back over the shoulder, cut down and across the body as the
                 // torso turns into it, then come back to guard. sm = smoothstep between two moments.
                 const sm = (a, b) => { const x = Math.min(1, Math.max(0, (k - a) / (b - a))); return x * x * (3 - 2 * x); };
