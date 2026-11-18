@@ -20,6 +20,8 @@ jobs:
         working-directory: apps/amo3d
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # the whole history and tags, for the changelog
 
       - uses: actions/setup-node@v4
         with:
@@ -68,9 +70,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          node tools/changelog.mjs "$GITHUB_REF_NAME" > "$RUNNER_TEMP/notes.md"
           gh release create "$GITHUB_REF_NAME" "ArcaneMajesty3D-${AMO_VERSION_NAME}.apk" \
             --title "Arcane Majesty 3D ${AMO_VERSION_NAME}" \
-            --notes "Android build of Arcane Majesty 3D, version ${AMO_VERSION_NAME}. Download the APK on the phone and install it over the previous one (the app also offers it: title screen and Options → Version)." \
+            --notes-file "$RUNNER_TEMP/notes.md" \
             --target "$GITHUB_SHA"
 
       - uses: actions/upload-artifact@v4
