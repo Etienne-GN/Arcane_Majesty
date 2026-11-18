@@ -13,6 +13,7 @@ import com.getcapacitor.BridgeActivity;
 public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        registerPlugin(ApkUpdater.class);   // in-app updates from GitHub releases
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);   // no dimming mid-fight
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
