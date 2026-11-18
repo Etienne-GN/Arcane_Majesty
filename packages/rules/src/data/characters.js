@@ -1,0 +1,64 @@
+// Each character entry maps to a loaded spritesheet + anim profile.
+// animPrefix is the key prefix used for animation names (e.g. "eldrin" → "eldrin_walk_down").
+export const CHARACTERS = [
+    {
+        id:          'eldrin',
+        startKit:    { weapon: 'novice_staff', spells: ['fireball', 'tidal_bolt'] },   // Combat C1/C2: what a new game starts holding and knowing
+        name:        'Eldrin',
+        class:       'Blind Prophet',
+        description: 'Activated by Vorgos in the Epoch of Silence to secure the Heart Stone of Creation — a cure for a wound the world has not yet suffered.',
+        animPrefix:  'eldrin',
+        animProfile: 'lpc_eldrin',
+        spriteKey:   'eldrin_walk',
+        idleFrame:   26,
+        tint:        null,
+    },
+    {
+        id:          'eldrin_forge',
+        startKit:    { weapon: 'novice_staff', spells: ['fireball', 'tidal_bolt'] },   // Combat C1/C2: what a new game starts holding and knowing
+        name:        'Eldrin',
+        class:       'Blind Prophet (Forge)',
+        description: 'The same Eldrin, rendered from the lpc-forge composition — a variant skin, not a different character.',
+        animPrefix:  'eldrin_forge',
+        animProfile: 'lpc_eldrin_forge',
+        spriteKey:   'eldrin_forge_idle',
+        idleFrame:   2,
+        tint:        null,
+    },
+    {
+        id:          'kael',
+        startKit:    { weapon: 'longsword' },   // Combat C1/C2: what a new game starts holding and knowing
+        name:        'Kael',
+        class:       'Living Lock',
+        description: "Descendant of Acheron's most loyal servant — his bloodline was chosen to carry the Aurorian Spark so the Thirst could never fully consume Acheron's divine light.",
+        animPrefix:  'kael',
+        animProfile: 'lpc_kael',
+        spriteKey:   'kael_idle',
+        idleFrame:   2,
+        tint:        null,
+    },
+    {
+        id:          'anya',
+        startKit:    { weapon: 'willow_wand', spells: ['mana_dart', 'shadow_bolt'] },   // Combat C1/C2: what a new game starts holding and knowing
+        name:        'Anya',
+        class:       'Void Echo',
+        description: 'Torn from Auroria by Vorgos at the moment of the Great Darkness and cast into the Underworld — her sacrifice sealed Nyktoros and made her the Silent Guardian of the prison.',
+        animPrefix:  'anya',
+        animProfile: 'lpc_anya',
+        spriteKey:   'anya_idle',
+        idleFrame:   2,
+        tint:        null,
+    },
+    {
+        id:          'seraphina',
+        startKit:    { weapon: 'etched_shortsword', offHand: 'crude_dagger', spells: ['shadow_bolt'] },   // Combat C1/C2: what a new game starts holding and knowing
+        name:        'Seraphina',
+        class:       'Queen of Carnage',
+        description: 'A rebel who stood against Malakar during the Shadow Civil War. In the Age of Shadows she founds the Shadow Legion and becomes its ruthless queen.',
+        animPrefix:  'seraphina',
+        animProfile: 'lpc_seraphina',
+        spriteKey:   'seraphina_idle',
+        idleFrame:   2,
+        tint:        null,
+    },
+];

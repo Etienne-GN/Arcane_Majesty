@@ -1,6 +1,7 @@
 // @arcane/rules — the game rules both Arcane Majesty clients share.
 //
-// The modules still live in apps/amo/src (so 2D work on main merges cleanly); this file is
+// The modules live here, in packages/rules/src — copied out of the 2D game (apps/amo/src) when the 2D
+// game was archived (2026-11-18); apps/amo is frozen and nothing here imports it any more. This file is
 // the boundary: what is listed here is engine-free (no Phaser, no Three.js, no DOM at import
 // time) and is what the 3D client — and later the server — may use. test_rules.mjs proves it
 // by importing everything in plain Node.
@@ -9,74 +10,74 @@
 // `movementRules.MOVE`, `movementRules.hopLanding(…)`.
 
 // ---- character ----
-export * as PlayerStats from '../../apps/amo/src/systems/PlayerStats.js';
-export * as mastery from '../../apps/amo/src/systems/mastery.js';
-export * as styles from '../../apps/amo/src/systems/styles.js';
-export * as spellLearning from '../../apps/amo/src/systems/spellLearning.js';
-export * as weapons from '../../apps/amo/src/systems/weapons.js';
-export * as ammo from '../../apps/amo/src/systems/ammo.js';
-export * as hotbar from '../../apps/amo/src/systems/hotbar.js';
-export * as talents from '../../apps/amo/src/data/talents.js';
-export * as upgrades from '../../apps/amo/src/data/upgrades.js';
-export * as levelBands from '../../apps/amo/src/data/levelBands.js';
-export * as characters from '../../apps/amo/src/data/characters.js';
+export * as PlayerStats from './src/systems/PlayerStats.js';
+export * as mastery from './src/systems/mastery.js';
+export * as styles from './src/systems/styles.js';
+export * as spellLearning from './src/systems/spellLearning.js';
+export * as weapons from './src/systems/weapons.js';
+export * as ammo from './src/systems/ammo.js';
+export * as hotbar from './src/systems/hotbar.js';
+export * as talents from './src/data/talents.js';
+export * as upgrades from './src/data/upgrades.js';
+export * as levelBands from './src/data/levelBands.js';
+export * as characters from './src/data/characters.js';
 
 // ---- movement ----
-export * as movementRules from '../../apps/amo/src/systems/movementRules.js';
+export * as movementRules from './src/systems/movementRules.js';
 
 // ---- combat & magic ----
-export * as StatusManager from '../../apps/amo/src/systems/StatusManager.js';
-export * as statuses from '../../apps/amo/src/data/statuses.js';
-export * as spells from '../../apps/amo/src/data/spells.js';
-export * as styleData from '../../apps/amo/src/data/styles.js';
-export * as enemyMagic from '../../apps/amo/src/data/enemyMagic.js';
-export * as enemyAffinities from '../../apps/amo/src/data/enemyAffinities.js';
-export * as elites from '../../apps/amo/src/data/elites.js';
-export * as bestiary from '../../apps/amo/src/data/bestiary.js';
-export * as enemies from '../../apps/amo/src/data/worldMap.js';            // ENEMY_TYPES (+ the 2D prologue map)
-export * as targetInfo from '../../apps/amo/src/systems/targetInfo.js';
-export * as reactions from '../../apps/amo/src/systems/reactions.js';
+export * as StatusManager from './src/systems/StatusManager.js';
+export * as statuses from './src/data/statuses.js';
+export * as spells from './src/data/spells.js';
+export * as styleData from './src/data/styles.js';
+export * as enemyMagic from './src/data/enemyMagic.js';
+export * as enemyAffinities from './src/data/enemyAffinities.js';
+export * as elites from './src/data/elites.js';
+export * as bestiary from './src/data/bestiary.js';
+export * as enemies from './src/data/worldMap.js';            // ENEMY_TYPES (+ the 2D prologue map)
+export * as targetInfo from './src/systems/targetInfo.js';
+export * as reactions from './src/systems/reactions.js';
 
 // ---- economy & crafting ----
-export * as items from '../../apps/amo/src/data/items.js';
-export * as economy from '../../apps/amo/src/data/economy.js';
-export * as craftingRecipes from '../../apps/amo/src/data/craftingRecipes.js';
-export * as recipeScrolls from '../../apps/amo/src/data/recipeScrolls.js';
-export * as gathering from '../../apps/amo/src/data/gathering.js';
-export * as stations from '../../apps/amo/src/data/stations.js';
+export * as items from './src/data/items.js';
+export * as economy from './src/data/economy.js';
+export * as craftingRecipes from './src/data/craftingRecipes.js';
+export * as recipeScrolls from './src/data/recipeScrolls.js';
+export * as gathering from './src/data/gathering.js';
+export * as stations from './src/data/stations.js';
 
 // ---- quests, story, people ----
-export * as QuestManager from '../../apps/amo/src/systems/QuestManager.js';
-export * as CampaignManager from '../../apps/amo/src/systems/CampaignManager.js';
-export * as quests from '../../apps/amo/src/data/quests.js';
-export * as questRules from '../../apps/amo/src/data/questRules.js';
-export * as bounties from '../../apps/amo/src/data/bounties.js';
-export * as dialogues from '../../apps/amo/src/data/dialogues.js';
-export * as npcs from '../../apps/amo/src/data/npcs.js';
-export * as stories from '../../apps/amo/src/data/stories.js';
-export * as barks from '../../apps/amo/src/systems/barks.js';
+export * as QuestManager from './src/systems/QuestManager.js';
+export * as CampaignManager from './src/systems/CampaignManager.js';
+export * as quests from './src/data/quests.js';
+export * as questRules from './src/data/questRules.js';
+export * as bounties from './src/data/bounties.js';
+export * as dialogues from './src/data/dialogues.js';
+export * as npcs from './src/data/npcs.js';
+export * as stories from './src/data/stories.js';
+export * as barks from './src/systems/barks.js';
 
 // ---- world ----
-export * as gameClock from '../../apps/amo/src/systems/gameClock.js';
-export * as weather from '../../apps/amo/src/data/weather.js';
-export * as schedules from '../../apps/amo/src/systems/schedules.js';
-export * as pathfind from '../../apps/amo/src/systems/pathfind.js';
-export * as walkGrid from '../../apps/amo/src/systems/walkGrid.js';
-export * as fog from '../../apps/amo/src/systems/fog.js';
-export * as crowd from '../../apps/amo/src/systems/crowd.js';
-export * as respawn from '../../apps/amo/src/systems/respawn.js';
-export * as WorldState from '../../apps/amo/src/systems/WorldState.js';
-export * as mapMarkers from '../../apps/amo/src/systems/mapMarkers.js';
-export * as interiors from '../../apps/amo/src/systems/interiors.js';
-export * as regionFormat from '../../apps/amo/src/systems/regionFormat.js';
-export * as regionChunks from '../../apps/amo/src/systems/regionChunks.js';
-export * as worldLayout from '../../apps/amo/src/systems/worldLayout.js';
+export * as gameClock from './src/systems/gameClock.js';
+export * as weather from './src/data/weather.js';
+export * as schedules from './src/systems/schedules.js';
+export * as pathfind from './src/systems/pathfind.js';
+export * as walkGrid from './src/systems/walkGrid.js';
+export * as fog from './src/systems/fog.js';
+export * as crowd from './src/systems/crowd.js';
+export * as respawn from './src/systems/respawn.js';
+export * as WorldState from './src/systems/WorldState.js';
+export * as mapMarkers from './src/systems/mapMarkers.js';
+export * as interiors from './src/systems/interiors.js';
+export * as regionFormat from './src/systems/regionFormat.js';
+export * as regionChunks from './src/systems/regionChunks.js';
+export * as worldLayout from './src/systems/worldLayout.js';
 
 // ---- places (pure data: amo's city layout, its people and their spots) ----
-export * as thaloriaMap from '../../apps/amo/src/data/maps/regions/thaloria.js';
-export * as eastRoadMap from '../../apps/amo/src/data/maps/regions/east_road.js';
-export * as thaloriaTown from '../../apps/amo/src/data/townsfolk/thaloria.js';
-export * as townsfolk from '../../apps/amo/src/data/townsfolk/index.js';   // getTown('thaloria'): residents, places, routes
+export * as thaloriaMap from './src/data/maps/regions/thaloria.js';
+export * as eastRoadMap from './src/data/maps/regions/east_road.js';
+export * as thaloriaTown from './src/data/townsfolk/thaloria.js';
+export * as townsfolk from './src/data/townsfolk/index.js';   // getTown('thaloria'): residents, places, routes
 
 // ---- persistence ----
-export * as SaveManager from '../../apps/amo/src/systems/SaveManager.js';
+export * as SaveManager from './src/systems/SaveManager.js';

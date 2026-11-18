@@ -14,7 +14,7 @@ import { bakeStatic } from '../engine/batch.js';
 import { buildArch } from '../engine/region.js';
 import { treeKinds } from './models/flora.js';
 import { createTownsfolk } from './actors/townsfolk.js';
-import DOORS from '../../../amo/src/data/maps/interiors/doors.json';
+import DOORS from '../../../../packages/rules/src/data/maps/interiors/doors.json';
 
 const ROOFS = {   // roof piece family → colour and shape
     scale_red: { color: 0xa83a2a, shape: 'gable' }, dome_gray: { color: 0x8a8e96, shape: 'dome' },

@@ -19,7 +19,7 @@ import { createCharacter } from './models/character.js';
 
 const D = eastRoadMap.default;
 const W = D.width, H = D.height;
-import DOORS from '../../../amo/src/data/maps/interiors/doors.json';
+import DOORS from '../../../../packages/rules/src/data/maps/interiors/doors.json';
 const HOLLOW_DOORS = DOORS.east_road ?? [];
 export const EAST_ROAD_GATES = (D.spawns.riftGates ?? []).map(g => ({ id: g.id, label: g.label, x: g.x - W / 2 + 0.5, z: g.y - H / 2 + 0.5 }));
 

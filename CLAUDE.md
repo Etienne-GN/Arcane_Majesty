@@ -1,7 +1,7 @@
 # Arcane Majesty — CLAUDE.md
 
 ## Project Overview
-Arcane Majesty is a transmedia dark-fantasy universe combining narrative concept albums, deep lore, a Neo4j knowledge graph, a 2D top-down Action RPG (Phaser 3), and written novels. Music is the primary medium; the Neo4j DB is the source of truth for lore.
+Arcane Majesty is a transmedia dark-fantasy universe combining narrative concept albums, deep lore, a Neo4j knowledge graph, a 3D Action RPG (Three.js, Android via Capacitor — `apps/amo3d`), and written novels. The earlier 2D game (Phaser 3, `apps/amo`) is **archived**. Music is the primary medium; the Neo4j DB is the source of truth for lore.
 
 ## Key Files
 - **Pitch / Social Media Blurb →** `pitch.md`
@@ -12,11 +12,12 @@ Arcane Majesty is a transmedia dark-fantasy universe combining narrative concept
 - **Album Canon Checkup (ACC) →** `data/lore/xmls/acc/`
 - **Album Production Process →** `data/lore/xmls/album_production_process.md`
 - **Book →** `books/eldorias_prophecy/` (README, manuscript, canon, outlines)
-- **Game README →** `apps/amo/README.md`
+- **Game README →** `apps/amo3d/README.md` · roadmap `docs/3d/ROADMAP.md`
+- **Game rules & data →** `packages/rules/` (`@rules`; items, spells, enemies, quests, maps — copied from the 2D game, edited here)
 
 ## Commands
 
-**Game (Phaser 3):** `cd apps/amo && npm run dev` (dev server) — see `apps/amo/README.md`
+**Game (3D):** `cd apps/amo3d && npm run dev` (dev server, port 5190) · `npm run android` (APK) — see `apps/amo3d/README.md`. Releases: push a tag `amo3d-vX.Y.Z` (CI builds the APK).
 
 **Neo4j (dedicated VM "scarif", host 192.168.0.159):**
 - Browser UI: `http://192.168.0.159:7474` (sign in `neo4j`/password)
@@ -30,7 +31,9 @@ Arcane Majesty is a transmedia dark-fantasy universe combining narrative concept
 
 ## Repo Map
 ```
-apps/amo          Game (Phaser 3 + Socket.io) — src/, server/, public/
+apps/amo3d        The game (Three.js + Capacitor) — src/, server/, android/
+packages/rules    Game rules and data shared by the game (and later the server)
+apps/amo          ARCHIVED 2D game (Phaser 3) — frozen, tag amo2d-final; never edit
 apps/compendium   Static lore compendium web app
 books/eldorias_prophecy/  Novel: manuscript/, canon/, outlines/
 data/lore/        World-building source of truth (see below)
@@ -39,6 +42,9 @@ archives/         Historical exports, prototypes, per-song XML archives
 assets/           art + music
 data/scripts/     Neo4j + conversion scripts
 ```
+
+## The 2D game is archived
+`apps/amo` (the Phaser 2D game) is obsolete and frozen since 2026-11-18 — **never modify anything under `apps/amo/`**, data files included. The 3D game no longer imports it: its rules and data live in `packages/rules/src` — add or change items, spells, enemies and quests there (or in `apps/amo3d`). `apps/tool_suite` (LPC sprite tools) still reads `apps/amo` for its 2D sprite library; that is read-only use.
 
 ## Lore Source of Truth
 **The Neo4j graph on scarif is the authoritative lore record** — always verify against it before writing new lore. `world_lore.md` and the album XMLs mirror subsets of it; when they disagree, the DB wins (and the doc should be fixed).

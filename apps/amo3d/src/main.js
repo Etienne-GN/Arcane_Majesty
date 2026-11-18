@@ -72,9 +72,9 @@ const ANIMALS = {
     whisper_wood: [['forest_fox', 2], ['rabbit', 3], ['grizzly_bear', 1], ['crow', 4]],
 };
 import { createInterior } from './content/interior.js';
-import THALORIA_DOORS from '../../amo/src/data/maps/interiors/doors.json';
+import THALORIA_DOORS from '../../../packages/rules/src/data/maps/interiors/doors.json';
 // amo's Thaloria interiors, each built on first entry; inner doors (the inn's cellar) lead on and back.
-const INTERIORS = Object.fromEntries(Object.entries(import.meta.glob(['../../amo/src/data/maps/interiors/thaloria_*.js', '../../amo/src/data/maps/interiors/east_road_cave.js'], { eager: true, import: 'MAP' }))
+const INTERIORS = Object.fromEntries(Object.entries(import.meta.glob(['../../../packages/rules/src/data/maps/interiors/thaloria_*.js', '../../../packages/rules/src/data/maps/interiors/east_road_cave.js'], { eager: true, import: 'MAP' }))
     .map(([path, def]) => [path.split('/').pop().replace('.js', ''), def]));
 const parentOf = {};
 for (const d of THALORIA_DOORS.thaloria ?? []) if (INTERIORS[d.interior]) { INTERIOR_IDS.add(d.interior); parentOf[d.interior] = { map: 'thaloria', spawn: `door:${d.interior}` }; }
@@ -109,7 +109,7 @@ function godSpells() {
         if (!stats.spells[stats.flags.activeSpell]) stats.flags.activeSpell = 'fireball';
     }
 }
-// ---- 3D-only tuning (amo's own files are untouched) ----
+// ---- 3D-only items and tuning (the 2D game, apps/amo, is archived: never edit it — add here instead) ----
 // Eldrin's own staff and coat, as items you can take off (and put back on).
 Object.assign(itemRules.ITEMS, {
     eldrin_staff: { id: 'eldrin_staff', name: "Eldrin's Staff", description: 'Ash wood bound in old silver, a pale crystal at its head. The focus he has carried since the tower. +2 INT.',
@@ -118,7 +118,12 @@ Object.assign(itemRules.ITEMS, {
     eldrin_coat: { id: 'eldrin_coat', name: "Eldrin's Coat", description: 'A long red scholar\'s coat with a high collar and gold trim, over a dark vest. Worn at every desk and on every road.',
         color: 0xa3141f, icon: 'itm_mantua', stackable: false, slot: 'body', tier: 1, rarity: 'uncommon', keepsLook: true, stats: {}, buyPrice: 0, sellPrice: 0,
         onUse: st => st.equipItem('eldrin_coat') },
+    // The Wizard's Hat (3D only — the 2D game is archived): sold by the merchant for glint.
+    wizards_hat: { id: 'wizards_hat', name: "Wizard's Hat", description: 'A tall pointed hat of midnight felt, its brim dusted with faint stars. +2 INT, +1 STA.',
+        color: 0x2a2350, hatStyle: 'wizard', icon: 'itm_headgear_01', stackable: false, slot: 'head', tier: 2, rarity: 'uncommon',
+        stats: { intelligence: 2, stamina: 1 }, buyPrice: 140, sellPrice: 45, onUse: st => st.equipItem('wizards_hat') },
 });
+{ const i = itemRules.MERCHANT_CATALOG.findIndex(e => e.id === 'scholars_cowl'); itemRules.MERCHANT_CATALOG.splice(i + 1, 0, { id: 'wizards_hat', price: 140, currency: 'glint' }); }
 movementRules.MOVE.SPRINT_DRAIN_PER_S = 7;                              // amo: 20 → ~14 s of sprint instead of 5
 const SPELL_TUNING = { rangeMult: 3, speedMult: 1.6, radiusMult: 2 };   // 2D screen distances feel short in 3D
 
