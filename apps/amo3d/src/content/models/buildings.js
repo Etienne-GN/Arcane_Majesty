@@ -160,9 +160,46 @@ export function buildProp(type, { len = 4, color = 0x8a3a2a } = {}) {
             box(g, len, 3, 1.1, 0x7a766e, 0, 1.5, 0);
             for (let i = 0; i < n; i += 1) if (i % 2 === 0) box(g, len / n * 0.9, 0.8, 1.2, 0x7a766e, -len / 2 + (i + 0.5) * (len / n), 3.4, 0);
             break; }
+        // ---- the Fire Gate and the Inferno Labyrinth ----
+        case 'glass_stair': {   // a wide stair of black glass going down, worn hollow in the middle, runes that hold heat
+            const glass = mat(0x0c0a10, { roughness: 0.08, metalness: 0.6 });
+            for (let i = 0; i < 10; i++) {
+                const st = new THREE.Mesh(new THREE.BoxGeometry(len, 0.4, 1.1), glass); st.position.set(0, -i * 0.4, -i * 1.05); st.castShadow = st.receiveShadow = true; g.add(st);
+                if (i % 2 === 0) for (const sx of [-1, 1]) box(g, 0.5, 0.06, 0.12, 0xff6a20, sx * (len / 2 - 0.5), -i * 0.4 + 0.21, -i * 1.05, 0, { emissive: 0xff4a10, emissiveIntensity: 1.6 });
+            }
+            for (const sx of [-1, 1]) { const p = new THREE.Mesh(new THREE.BoxGeometry(1.2, 5.5, 1.2), glass); p.position.set(sx * (len / 2 + 0.8), 2.4, 0.4); p.castShadow = true; g.add(p);
+                for (let k = 0; k < 4; k++) box(g, 0.08, 0.6, 0.06, 0xff6a20, sx * (len / 2 + 0.8), 0.9 + k * 1.1, 1.02, 0, { emissive: 0xff4a10, emissiveIntensity: 1.8 }); }
+            box(g, len + 3.4, 1.0, 1.4, glass, 0, 5.4, 0.4);
+            g.userData.light = { y: 1.2, x: 0, color: 0xff6a20 };
+            break; }
+        case 'runestone': { const st = new THREE.Mesh(new THREE.BoxGeometry(1.0, 2.6, 0.6), mat(0x1a1618, { roughness: 0.3 })); st.position.y = 1.3; st.rotation.z = 0.05; st.castShadow = true; g.add(st);
+            for (let k = 0; k < 3; k++) box(g, 0.5, 0.08, 0.04, 0xff6a20, 0, 0.8 + k * 0.6, 0.32, (k - 1) * 0.3, { emissive: 0xff4a10, emissiveIntensity: 1.8 }); break; }
+        case 'flame_gate': {   // an arch of black glass with a curtain of standing flame
+            const glass = mat(0x0c0a10, { roughness: 0.1, metalness: 0.5 });
+            for (const sx of [-1, 1]) { const p = new THREE.Mesh(new THREE.BoxGeometry(1.0, 6, 1.0), glass); p.position.set(sx * 2.6, 3, 0); p.castShadow = true; g.add(p); }
+            box(g, 6.4, 1.0, 1.1, glass, 0, 6.3, 0);
+            for (let i = 0; i < 9; i++) { const f = new THREE.Mesh(new THREE.ConeGeometry(0.34, 3.6 + (i % 3) * 0.9, 6), mat(i % 2 ? 0xff7a20 : 0xffc060, { emissive: i % 2 ? 0xff4a10 : 0xff9a30, emissiveIntensity: 1.6, transparent: true, opacity: 0.8 }));
+                f.position.set(-2 + i * 0.5, 1.8 + (i % 3) * 0.4, 0); g.add(f); }
+            g.userData.light = { y: 2.5, x: 0, color: 0xff7a20 };
+            break; }
+        case 'golem': {   // an obsidian golem, still as a statue: blocky limbs, a cracked chest glowing within
+            const ob = mat(0x14121a, { roughness: 0.2, metalness: 0.4 });
+            const part = (w, h, d, x, y, z) => { const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), ob); m.position.set(x, y, z); m.castShadow = true; g.add(m); };
+            part(1.6, 1.8, 1.1, 0, 2.6, 0); part(1.0, 0.8, 0.9, 0, 3.9, 0.05);
+            for (const sx of [-1, 1]) { part(0.6, 1.7, 0.6, sx * 1.15, 2.4, 0); part(0.7, 1.6, 0.7, sx * 0.5, 0.8, 0); }
+            box(g, 0.6, 0.6, 0.05, 0xff6a20, 0, 2.7, 0.56, 0.4, { emissive: 0xff4a10, emissiveIntensity: 2 });
+            for (const sx of [-1, 1]) box(g, 0.16, 0.08, 0.05, 0xffa040, sx * 0.22, 4.0, 0.51, 0, { emissive: 0xff7a20, emissiveIntensity: 2.2 });
+            break; }
+        case 'crucible': {   // the heart-chamber: a round basalt dais in a ring of fire, a brazier at its centre
+            const dais = new THREE.Mesh(new THREE.CylinderGeometry(len, len + 0.6, 0.8, 16), mat(0x1e1a1c)); dais.position.y = 0.4; dais.receiveShadow = true; g.add(dais);
+            const ring = new THREE.Mesh(new THREE.TorusGeometry(len + 0.9, 0.25, 6, 32), mat(0xff6a20, { emissive: 0xff4a10, emissiveIntensity: 2 })); ring.rotation.x = Math.PI / 2; ring.position.y = 0.3; g.add(ring);
+            const br = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.4, 1.0, 8), mat(0x2a2420, { metalness: 0.6 })); br.position.y = 1.3; g.add(br);
+            const fl = new THREE.Mesh(new THREE.ConeGeometry(0.55, 1.6, 7), mat(0xffa040, { emissive: 0xff6a20, emissiveIntensity: 2, transparent: true, opacity: 0.85 })); fl.position.y = 2.5; g.add(fl);
+            g.userData.light = { y: 2.5, x: 0, color: 0xff6a20 };
+            break; }
         default: box(g, 0.5, 0.5, 0.5, 0x8a867e, 0, 0.25, 0);
     }
     return g;
 }
 // Footprint radius for a prop's collider (0 = walk through).
-export const PROP_R = { stall: 1.2, well: 1.0, lamp: 0.15, cart: 1.0, barrel: 0.4, crate: 0.45, bench: 0, signpost: 0.15, fence: 0, column: 0.45, ruin_wall: 0, steps: 0, platform: 0, pier: 0, boat: 0.9, glow: 0, mine: 2.6, heap: 2.4, chimney: 1.2, rails: 0, weeping_stone: 0.8, flowers: 0, keep: 0, stone_wall: 0 };
+export const PROP_R = { stall: 1.2, well: 1.0, lamp: 0.15, cart: 1.0, barrel: 0.4, crate: 0.45, bench: 0, signpost: 0.15, fence: 0, column: 0.45, ruin_wall: 0, steps: 0, platform: 0, pier: 0, boat: 0.9, glow: 0, mine: 2.6, heap: 2.4, chimney: 1.2, rails: 0, weeping_stone: 0.8, flowers: 0, keep: 0, stone_wall: 0, glass_stair: 0, runestone: 0.5, flame_gate: 0, golem: 1.0, crucible: 0 };

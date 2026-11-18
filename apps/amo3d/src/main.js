@@ -164,6 +164,11 @@ const CUSTOM = !!heroDef;
 const PLAYER_HOME = 'thaloria_house_noble_c';
 function lockDoors(map, id) {
     for (const t of map.triggers ?? []) {
+        if (t.requires) {   // a way that opens with the story (a flag), or in god mode
+            t._to ??= t.to; t._label ??= t.label;
+            const open = settings.god || !!stats.flags?.[t.requires];
+            t.to = open ? t._to : null; t.label = open ? t._label : (t.lockedLabel ?? `${t._label} — not yet`);
+        }
         if (t.to === 'tower' || t._was === 'tower') {
             if (CUSTOM) { t._was = 'tower'; t.to = null; t.label = "Eldrin's Tower — the door is barred"; }
         }
@@ -345,7 +350,7 @@ function handAction(side, act) {
     } else if (a.startsWith('spell:')) { act.cast = true; act.castSpell = a.slice(6); act.castHand = side; }
     else if (a.startsWith('skill:')) skills.useId(a.slice(6), t);
 }
-let handsTick = 0;
+let handsTick = 0, lavaTick = 0;
 const book = createBook({ stats, hud, save: () => save(), hands });
 const skillBook = createBook({ stats, hud, save: () => save(), hands, kind: 'skills' });
 const pause = createPause({ hud, save: () => save() });
@@ -524,6 +529,9 @@ function tick(dt) {
     hands.update();
     if ((handsTick -= dt) <= 0) { handsTick = 0.1; hands.render(); document.body.classList.toggle('blink-on', (stats.skills?.blink_step?.level ?? 0) > 0); }
     mapView.update(player.state, cam.yaw);
+    if (world.current.lava != null && !player.state.dead && !settings.god && player.state.pos.y < world.current.lava + 0.35) {   // magma: it burns
+        lavaTick -= dt; if (lavaTick <= 0) { lavaTick = 0.5; player.hurt(9, player.state.pos.clone()); hud.message('The magma burns!'); }
+    }
     if (act.hotbar >= 0 && !player.state.dead) hotbar.use(act.hotbar);
     if (act.strike && archery.armed()) { archery.shoot(); act.strike = false; }   // a bow or crossbow shoots instead
     hotbar.update(dt);

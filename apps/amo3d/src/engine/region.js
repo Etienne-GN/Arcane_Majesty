@@ -114,7 +114,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     terrain.receiveShadow = true;
     scene.add(terrain);
     if ((def.features ?? []).some(f => f.type === 'lake')) {
-        const water = new THREE.Mesh(new THREE.PlaneGeometry(SIZE, SIZE).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: P.water ?? 0x24485a, transparent: true, opacity: def.waterLook?.opacity ?? 0.85, roughness: def.waterLook?.roughness ?? 0.1, metalness: def.waterLook?.metalness ?? 0.2 }));   // waterLook: a still, mirror-like lake
+        const water = new THREE.Mesh(new THREE.PlaneGeometry(SIZE, SIZE).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: P.water ?? 0x24485a, transparent: true, opacity: def.waterLook?.opacity ?? 0.85, roughness: def.waterLook?.roughness ?? 0.1, metalness: def.waterLook?.metalness ?? 0.2, emissive: def.waterLook?.emissive ?? 0x000000, emissiveIntensity: def.waterLook?.glow ?? 0 }));   // emissive: lava   // waterLook: a still, mirror-like lake
         water.position.y = WATER;
         scene.add(water);
     }
@@ -183,7 +183,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     rocks.castShadow = rocks.receiveShadow = true;
     scene.add(rocks);
     const ferns = [];
-    for (let i = 0; i < 6000 && ferns.length < 2500 * quality.foliage; i++) {
+    for (let i = 0; i < 6000 && ferns.length < 2500 * quality.foliage * (def.undergrowth ?? 1); i++) {   // undergrowth: 0 for barren places
         const x = (rng() - 0.5) * SIZE * 0.9, z = (rng() - 0.5) * SIZE * 0.9, h = heightAt(x, z);
         if (h < WATER + 0.3 || h > 6 || (trailDist(x, z) < 1.4) || roadInfo(def, x, z) || (def.buildings ?? []).some(b => rectDist(b, x, z) < 0.6)) continue;   // nothing growing through roads, paving or floors
         ferns.push([x, h, z]);
@@ -238,7 +238,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         const y = heightAt(l.x, l.z);
         const veil = buildArch(scene, l.x, y, l.z, l.facing ?? 0);
         for (const s of [-1, 1]) addCollider({ x: l.x + Math.cos(l.facing ?? 0) * 1.8 * s, z: l.z - Math.sin(l.facing ?? 0) * 1.8 * s, r: 0.5, kind: 'wall' }, 4);
-        if (l.to) map.triggers.push({ x: l.x, z: l.z, r: 1.2, label: l.label, to: l.to, spawn: l.toSpawn });
+        if (l.to) map.triggers.push({ x: l.x, z: l.z, r: 1.2, label: l.label, to: l.to, spawn: l.toSpawn, requires: l.requires, lockedLabel: l.lockedLabel });   // requires: a story flag before it opens
         else { veil.material.color.setHex(0x8a8a8a); map.triggers.push({ x: l.x, z: l.z, r: 1.6, label: `${l.label} (the way is not open yet)`, to: null }); }
         map.spawns[l.spawn] = { x: l.x + Math.sin(l.facing ?? 0) * 3.2, z: l.z + Math.cos(l.facing ?? 0) * 3.2, facing: l.facing ?? 0 };
         l._veil = veil;
@@ -265,9 +265,14 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         for (let i = 0; i < 4; i++) { const [ax, az] = k[i], [bx, bz] = k[(i + 1) % 4]; colliders.push({ ax, az, bx, bz, r: 0.2, kind: 'wall', y0: y - 1, y1: y + (b.h ?? 3.2) + 3 }); }
         if (b.sign) map.stations.push({ mode: 'sign', text: b.signText ?? b.sign, pos: new THREE.Vector3(...[corner(0.95, hd + 0.8)].map(([px, pz]) => [px, y, pz])[0]) });
     }
+    let propLights = 0;
     for (const pr of def.props ?? []) {
         const g = buildProp(pr.type, pr), y = pr.float ? Math.max(heightAt(pr.x, pr.z), WATER - 0.3) : heightAt(pr.x, pr.z);   // float: boats ride the water
         g.position.set(pr.x, y, pr.z); g.rotation.y = pr.ry ?? 0; scene.add(g);
+        if (g.userData.light && propLights < 10) {   // lamps, lava stairs, braziers light their surroundings (a few per map)
+            const L = g.userData.light, pl = new THREE.PointLight(L.color ?? 0xffb860, L.i ?? 10, L.r ?? 9, 1.6);
+            pl.position.set(pr.x + (L.x ?? 0) * Math.cos(pr.ry ?? 0), y + L.y, pr.z - (L.x ?? 0) * Math.sin(pr.ry ?? 0)); scene.add(pl); propLights++;
+        }
         if (pr.type === 'keep') { for (const [ax, az, bx, bz] of [[-4, -4, 4, -4], [4, -4, 4, 4], [4, 4, -4, 4], [-4, 4, -4, -4]]) { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), T = (lx, lz) => [pr.x + lx * c + lz * sn, pr.z - lx * sn + lz * c], [a1, a2] = T(ax, az), [b1, b2] = T(bx, bz); colliders.push({ ax: a1, az: a2, bx: b1, bz: b2, r: 0.3, kind: 'wall', y0: y - 1, y1: y + 12 }); } }
         else if (pr.type === 'stone_wall') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.6, kind: 'wall', y0: y - 1, y1: y + 4 }); }
         else if (pr.type === 'ruin_wall') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.4, kind: 'wall', y0: y - 1, y1: y + 3 }); }
@@ -281,6 +286,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         map.stations.push({ mode: 'sign', text: sg.text, pos: new THREE.Vector3(sg.x, heightAt(sg.x, sg.z), sg.z) });
     }
     map.weatherDef = { id: def.id, biome: def.biome ?? 'temperate' };
+    map.lava = def.lava ? WATER : null;   // the 'water' here burns (main.js hurts whoever wades in)
 
     // Monoliths (fast travel gates).
     map.gates = (def.gates ?? []).map(g => ({ ...g }));

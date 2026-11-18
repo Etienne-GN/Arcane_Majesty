@@ -1,0 +1,305 @@
+{
+  "id": "inferno_labyrinth",
+  "name": "The Inferno Labyrinth",
+  "lore": "Xarathos's territory beneath the Fire Gate: magma rivers, a gate of flame that calls the one who comes by their given name, the obsidian golem puzzle-trial, Magma-Eaters and Cinder-Souls, and the heart-chamber crucible where the Pyre-Lord waits (lore DB: Inferno Labyrinth; event: Xarathos Destroyed in the Crucible). The trial, the creatures and the Pyre-Lord come with the campaign chapter.",
+  "seed": 11111,
+  "half": 70,
+  "water": -0.6,
+  "biome": "temperate",
+  "terrain": {
+    "scale": 0.03,
+    "relief": 10,
+    "base": 1.4,
+    "rim": 38,
+    "rockLine": -10
+  },
+  "palette": {
+    "grassA": "#2a2224",
+    "grassB": "#3a2e2c",
+    "dirt": "#241c1c",
+    "rock": "#2e2628",
+    "shore": "#4a2a1a",
+    "road": "#1e1818",
+    "water": "#a8300c",
+    "undergrowth": "#2a1a14"
+  },
+  "waterLook": {
+    "opacity": 0.97,
+    "roughness": 0.85,
+    "metalness": 0.0,
+    "emissive": 16731664,
+    "glow": 0.75
+  },
+  "mood": {
+    "fog": "#3a1a12",
+    "fogNear": 10,
+    "fogFar": 90,
+    "fogMix": 0.7,
+    "light": 0.55,
+    "motes": "#ff9a40",
+    "nightFloor": 0.4
+  },
+  "features": [
+    {
+      "type": "river",
+      "pts": [
+        [
+          -70,
+          24
+        ],
+        [
+          -36,
+          20
+        ],
+        [
+          -10,
+          30
+        ],
+        [
+          20,
+          22
+        ],
+        [
+          46,
+          30
+        ],
+        [
+          70,
+          26
+        ]
+      ],
+      "w": 6,
+      "depth": 5
+    },
+    {
+      "type": "river",
+      "pts": [
+        [
+          20,
+          22
+        ],
+        [
+          24,
+          0
+        ],
+        [
+          16,
+          -24
+        ],
+        [
+          30,
+          -50
+        ],
+        [
+          40,
+          -70
+        ]
+      ],
+      "w": 5,
+      "depth": 5
+    },
+    {
+      "type": "lake",
+      "x": 34,
+      "z": -34,
+      "r": 13,
+      "depth": 5
+    },
+    {
+      "type": "clearing",
+      "x": -30,
+      "z": -10,
+      "r": 12
+    },
+    {
+      "type": "clearing",
+      "x": 34,
+      "z": -34,
+      "r": 9
+    },
+    {
+      "type": "clearing",
+      "x": 0,
+      "z": 56,
+      "r": 10
+    }
+  ],
+  "path": [
+    [
+      0,
+      64
+    ],
+    [
+      -2,
+      46
+    ],
+    [
+      -6,
+      34
+    ],
+    [
+      -14,
+      22
+    ],
+    [
+      -24,
+      6
+    ],
+    [
+      -30,
+      -10
+    ],
+    [
+      -18,
+      -24
+    ],
+    [
+      4,
+      -30
+    ],
+    [
+      22,
+      -34
+    ],
+    [
+      30,
+      -34
+    ]
+  ],
+  "props": [
+    {
+      "type": "flame_gate",
+      "x": -12,
+      "z": 20,
+      "ry": 0.9,
+      "clear": 6
+    },
+    {
+      "type": "crucible",
+      "x": 34,
+      "z": -34,
+      "len": 6,
+      "clear": 10
+    },
+    {
+      "type": "runestone",
+      "x": -3,
+      "z": 44
+    },
+    {
+      "type": "runestone",
+      "x": 4,
+      "z": 40
+    },
+    {
+      "type": "runestone",
+      "x": -36,
+      "z": -2
+    },
+    {
+      "type": "runestone",
+      "x": -24,
+      "z": -20
+    },
+    {
+      "type": "golem",
+      "x": -23.0,
+      "z": -10.0,
+      "ry": -1.571,
+      "clear": 3
+    },
+    {
+      "type": "golem",
+      "x": -26.5,
+      "z": -3.94,
+      "ry": -2.618,
+      "clear": 3
+    },
+    {
+      "type": "golem",
+      "x": -33.5,
+      "z": -3.94,
+      "ry": 2.618,
+      "clear": 3
+    },
+    {
+      "type": "golem",
+      "x": -37.0,
+      "z": -10.0,
+      "ry": 1.571,
+      "clear": 3
+    },
+    {
+      "type": "golem",
+      "x": -33.5,
+      "z": -16.06,
+      "ry": 0.524,
+      "clear": 3
+    },
+    {
+      "type": "golem",
+      "x": -26.5,
+      "z": -16.06,
+      "ry": -0.524,
+      "clear": 3
+    }
+  ],
+  "signs": [
+    {
+      "x": -9,
+      "z": 24,
+      "text": "The flames lean toward you as you come near, and in the roar there is a voice that knows your given name."
+    }
+  ],
+  "trees": {
+    "count": 0,
+    "kinds": {
+      "dead": 1
+    }
+  },
+  "rocks": 180,
+  "gather": {
+    "mineral": 6,
+    "crystal": 3
+  },
+  "gates": [],
+  "actors": [],
+  "landmarks": [
+    {
+      "name": "The gate of flame",
+      "x": -12,
+      "z": 20,
+      "icon": "fire"
+    },
+    {
+      "name": "The obsidian trial",
+      "x": -30,
+      "z": -10,
+      "icon": "stones"
+    },
+    {
+      "name": "The crucible",
+      "x": 34,
+      "z": -34,
+      "icon": "fire"
+    }
+  ],
+  "links": [
+    {
+      "label": "Up the black-glass stair \u2014 the Fire Gate",
+      "x": 0,
+      "z": 64,
+      "facing": 3.1416,
+      "spawn": "from_fire_gate",
+      "to": "fire_gate",
+      "toSpawn": "from_labyrinth"
+    }
+  ],
+  "start": {
+    "x": 0,
+    "z": 58,
+    "facing": 3.1416
+  },
+  "undergrowth": 0,
+  "lava": true
+}

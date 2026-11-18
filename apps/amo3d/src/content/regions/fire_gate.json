@@ -1,0 +1,222 @@
+{
+  "id": "fire_gate",
+  "name": "The Fire Gate",
+  "lore": "The black-glass entrance to the Inferno Labyrinth: a stair of black glass worn by centuries, runes that hold heat and hunger, leading down into the mountain's heart. Where the snow-line gives way to ash \u2014 the site of Oren's betrayal at the first landing (lore DB: Fire Gate; event: Oren's Betrayal at the Fire Gate). The betrayal itself comes with the campaign chapter.",
+  "seed": 10101,
+  "half": 70,
+  "water": -30,
+  "biome": "snow",
+  "terrain": {
+    "scale": 0.024,
+    "relief": 12,
+    "base": 1.0,
+    "rim": 30,
+    "rockLine": 3,
+    "snowLine": 5
+  },
+  "palette": {
+    "grassA": "#4a4644",
+    "grassB": "#5a5450",
+    "dirt": "#3a3432",
+    "rock": "#3e3a38",
+    "shore": "#3a3432",
+    "snow": "#dfe4e8",
+    "road": "#2e2a2a"
+  },
+  "tints": [
+    {
+      "x": 0,
+      "z": 56,
+      "r": 44,
+      "color": "#dfe4e8",
+      "k": 0.85
+    },
+    {
+      "x": 0,
+      "z": 0,
+      "r": 40,
+      "color": "#3a3634",
+      "k": 0.7
+    },
+    {
+      "x": 0,
+      "z": -34,
+      "r": 30,
+      "color": "#2a2220",
+      "k": 0.85
+    }
+  ],
+  "mood": {
+    "fog": "#5a4e4a",
+    "fogNear": 20,
+    "fogFar": 140,
+    "fogMix": 0.55,
+    "light": 0.8,
+    "motes": "#ff8a40",
+    "nightFloor": 0.45
+  },
+  "features": [
+    {
+      "type": "clearing",
+      "x": 0,
+      "z": -20,
+      "r": 20
+    },
+    {
+      "type": "hill",
+      "x": -36,
+      "z": -30,
+      "r": 26,
+      "h": 16
+    },
+    {
+      "type": "hill",
+      "x": 36,
+      "z": -30,
+      "r": 26,
+      "h": 16
+    }
+  ],
+  "path": [
+    [
+      0,
+      64
+    ],
+    [
+      4,
+      44
+    ],
+    [
+      -3,
+      24
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      0,
+      -12
+    ]
+  ],
+  "props": [
+    {
+      "type": "glass_stair",
+      "x": 0,
+      "z": -18,
+      "len": 6,
+      "clear": 10
+    },
+    {
+      "type": "runestone",
+      "x": -6,
+      "z": -8,
+      "ry": 0.3
+    },
+    {
+      "type": "runestone",
+      "x": 6,
+      "z": -8,
+      "ry": -0.3
+    },
+    {
+      "type": "runestone",
+      "x": -9,
+      "z": 4,
+      "ry": 0.5
+    },
+    {
+      "type": "runestone",
+      "x": 9,
+      "z": 4,
+      "ry": -0.5
+    },
+    {
+      "type": "ruin_wall",
+      "x": -10,
+      "z": -14,
+      "ry": 1.4,
+      "len": 5
+    },
+    {
+      "type": "ruin_wall",
+      "x": 10,
+      "z": -14,
+      "ry": -1.4,
+      "len": 5
+    }
+  ],
+  "signs": [
+    {
+      "x": 3,
+      "z": -5,
+      "text": "Cut into the glass beside the first landing, letters that are warm to the touch: WHO GOES DOWN IS NAMED. WHO IS NAMED IS WEIGHED."
+    }
+  ],
+  "trees": {
+    "count": 40,
+    "gaps": 0.7,
+    "sizeVar": 0.6,
+    "kinds": {
+      "dead": 0.7,
+      "pine": 0.3
+    },
+    "trunk": {
+      "dead": "#2a2624"
+    }
+  },
+  "rocks": 160,
+  "gather": {
+    "mineral": 5,
+    "crystal": 2
+  },
+  "gates": [
+    {
+      "id": "firegate_monolith",
+      "label": "Monolith of the Fire Gate",
+      "x": -8,
+      "z": 30
+    }
+  ],
+  "actors": [],
+  "landmarks": [
+    {
+      "name": "The Fire Gate",
+      "x": 0,
+      "z": -18,
+      "icon": "fire"
+    },
+    {
+      "name": "The first landing",
+      "x": 0,
+      "z": -8,
+      "icon": "stones"
+    }
+  ],
+  "links": [
+    {
+      "label": "Up toward the Sylvan Sanctuary",
+      "x": 0,
+      "z": 64,
+      "facing": 3.1416,
+      "spawn": "from_sanctuary",
+      "to": "sylvan_sanctuary",
+      "toSpawn": "from_fire_gate"
+    },
+    {
+      "label": "Down the black-glass stair \u2014 the Inferno Labyrinth",
+      "x": 0,
+      "z": -30,
+      "facing": 0,
+      "spawn": "from_labyrinth",
+      "to": "inferno_labyrinth",
+      "toSpawn": "from_fire_gate"
+    }
+  ],
+  "start": {
+    "x": 0,
+    "z": 58,
+    "facing": 3.1416
+  },
+  "undergrowth": 0.25
+}

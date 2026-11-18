@@ -230,7 +230,11 @@
       "x": 0,
       "z": -72,
       "facing": 0,
-      "spawn": "from_fire_gate"
+      "spawn": "from_fire_gate",
+      "to": "fire_gate",
+      "toSpawn": "from_sanctuary",
+      "requires": "aether_sight",
+      "lockedLabel": "Down toward the Fire Gate \u2014 the valley will not let you pass yet"
     }
   ],
   "start": {
