@@ -85,9 +85,33 @@ export function buildProp(type, { len = 4, color = 0x8a3a2a } = {}) {
         case 'crate': box(g, 0.8, 0.8, 0.8, 0x8a6a3a, 0, 0.4, 0); box(g, 0.82, 0.1, 0.82, dark, 0, 0.75, 0); break;
         case 'bench': box(g, 1.6, 0.08, 0.45, wood, 0, 0.45, 0); for (const sx of [-1, 1]) box(g, 0.08, 0.45, 0.4, dark, sx * 0.7, 0.22, 0); break;
         case 'signpost': box(g, 0.14, 2.4, 0.14, wood, 0, 1.2, 0); for (const [y, r] of [[2.0, 0.4], [1.6, -0.6], [1.25, 1.6]]) box(g, 1.1, 0.24, 0.05, 0x8a6a3a, 0.4 * Math.cos(r), y, 0.4 * Math.sin(r), r); break;
+        // ---- ruins (old pale stone, weathered) ----
+        case 'column': { const h = len > 0 && len !== 4 ? len : 4.5, stone = 0xb8b2a4;
+            box(g, 0.9, 0.3, 0.9, stone, 0, 0.15, 0);
+            const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.38, h, 8), mat(stone)); shaft.position.y = 0.3 + h / 2; shaft.castShadow = true; g.add(shaft);
+            if (!color || color === 0x8a3a2a) box(g, 0.95, 0.28, 0.95, stone, 0, 0.3 + h + 0.14, 0);   // a capital (a broken column has none)
+            break; }
+        case 'ruin_wall': { const n = Math.max(2, Math.round(len / 1.1));
+            for (let i = 0; i < n; i++) { const hh = 1.2 + ((i * 7) % 5) * 0.45; box(g, len / n + 0.02, hh, 0.7, i % 2 ? 0xa8a294 : 0xb4ae9e, -len / 2 + (i + 0.5) * (len / n), hh / 2, 0, (i % 3 - 1) * 0.02); }
+            break; }
+        case 'steps': for (let i = 0; i < 4; i++) box(g, len, 0.25, 0.7, 0xaaa496, 0, 0.12 + i * 0.25, -i * 0.6);
+            break;
+        case 'platform': box(g, len, 1.0, len * 0.8, 0xa8a294, 0, 0.5, 0); box(g, len * 0.7, 0.6, len * 0.55, 0xb4ae9e, 0, 1.3, 0);
+            for (let i = 0; i < 6; i++) box(g, 0.5, 0.05, 0.08, 0x6a8a9a, -len * 0.25 + i * len * 0.1, 1.62, 0, 0, { emissive: 0x3a6a8a, emissiveIntensity: 0.6 });   // carvings in a forgotten script, faintly lit
+            break;
+        case 'pier': { const n = Math.max(2, Math.round(len / 0.5));
+            for (let i = 0; i < n; i++) box(g, 1.8, 0.08, 0.45, i % 2 ? 0x7a5a3a : 0x6b4a2b, 0, 0.55, i * 0.5);
+            for (let i = 0; i <= len; i += 2) for (const sx of [-1, 1]) box(g, 0.14, 2.2, 0.14, 0x3a2a1a, sx * 0.85, -0.4, i);
+            break; }
+        case 'boat': { const hull = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.45, 3.2, 8, 1, true, 0, Math.PI), mat(0x6b4a2b, { side: THREE.DoubleSide }));
+            hull.rotation.z = Math.PI / 2; hull.rotation.y = Math.PI / 2; hull.position.y = 0.55; hull.castShadow = true; g.add(hull);
+            box(g, 1.1, 0.06, 0.25, 0x7a5a3a, 0, 0.45, 0); box(g, 0.06, 0.06, 1.6, 0x3a2a1a, 0.4, 0.6, 0.2, 0.3);   // a thwart and an oar
+            break; }
+        case 'glow': { for (let i = 0; i < 4; i++) { const o = new THREE.Mesh(new THREE.SphereGeometry(0.22, 8, 6), mat(0x9ad8ff, { emissive: 0x6ac8ff, emissiveIntensity: 2.2, transparent: true, opacity: 0.85 }));
+                o.position.set(Math.cos(i * 1.7) * 1.4, -0.8 - i * 0.15, Math.sin(i * 1.7) * 1.4); g.add(o); } g.userData.glow = true; break; }
         default: box(g, 0.5, 0.5, 0.5, 0x8a867e, 0, 0.25, 0);
     }
     return g;
 }
 // Footprint radius for a prop's collider (0 = walk through).
-export const PROP_R = { stall: 1.2, well: 1.0, lamp: 0.15, cart: 1.0, barrel: 0.4, crate: 0.45, bench: 0, signpost: 0.15, fence: 0 };
+export const PROP_R = { stall: 1.2, well: 1.0, lamp: 0.15, cart: 1.0, barrel: 0.4, crate: 0.45, bench: 0, signpost: 0.15, fence: 0, column: 0.45, ruin_wall: 0, steps: 0, platform: 0, pier: 0, boat: 0.9, glow: 0 };

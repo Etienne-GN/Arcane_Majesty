@@ -32,7 +32,7 @@ Stones, the Hidden Cabin) are remote wilderness. The campaign runs from the Sylv
       signposts, carts). They show on the chart and collide. Optional: a few idle townsfolk from the Forge archetypes.
 - [x] **1. The Crossroads** (Heartlands) — the hub village: a worn stone inn, a weathered market square, four roads.
       A link from the East Road (a fork south), plus roads toward Lake Aethera, Port Silver and Whisper-Wood.
-- [ ] **2. Lake Aethera & the Sunken Temple** — a huge still lake like polished silver; the temple half-submerged in the
+- [x] **2. Lake Aethera & the Sunken Temple** — a huge still lake like polished silver; the temple half-submerged in the
       shallows, carved in a forgotten script (outside first; the inside as a later dungeon).
 - [ ] **3. The Silverrun & Port Silver** — the river road east, then the coastal town: a grey-sand harbour, piers,
       fishing boats, a market.
@@ -56,6 +56,7 @@ Stones, the Hidden Cabin) are remote wilderness. The campaign runs from the Sylv
 - 2026-11-18 (pass 1, stopped at usage limit): step 0 code is in (content/models/buildings.js; engine/region.js has roads, buildings, props, chart data). Step 1 is written but NOT tested: content/regions/the_crossroads.json, plus an East Road fork arch (eastRoad.js) → 'the_crossroads'. NEXT: headless test (enterMap('the_crossroads','from_east_road'), then walk the roads, check buildings, collisions and the map), fix what's wrong, tick step 1, then step 2. Only link to maps that exist (no links yet to the Lake, Port Silver or Duskmeet).
 
 - 2026-11-18 (pass 2): Crossroads checked headless (village, square, stalls, inn, map chart all fine); undergrowth no longer grows through roads, paving or floors; the East Road fork arch works both ways. Crossroads links so far: only west to the East Road — add south (Lake Aethera), east (Port Silver), north (Duskmeet/Whisper-Wood) as those maps exist.
+- 2026-11-18 (pass 2): Lake Aethera built (region lake_aethera.json; south link from the Crossroads): a still silver lake (region `waterLook`), the Sunken Temple in the shallows (platform with lit script, a ring of columns, broken ones, fallen walls, lights under the water), a fisher's pier, hut and boats, a monolith. New props: column, ruin_wall, steps, platform, pier, boat, glow; props can keep trees back (`clear`). Temple interior is a later dungeon.
 
 ## DB sync owed (game-only additions, for the user)
 - The Corrupted Rim, the Hermit's camp (from the Sanctuary).

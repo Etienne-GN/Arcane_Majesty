@@ -113,7 +113,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     terrain.receiveShadow = true;
     scene.add(terrain);
     if ((def.features ?? []).some(f => f.type === 'lake')) {
-        const water = new THREE.Mesh(new THREE.PlaneGeometry(SIZE, SIZE).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: P.water ?? 0x24485a, transparent: true, opacity: 0.85, roughness: 0.1, metalness: 0.2 }));
+        const water = new THREE.Mesh(new THREE.PlaneGeometry(SIZE, SIZE).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: P.water ?? 0x24485a, transparent: true, opacity: def.waterLook?.opacity ?? 0.85, roughness: def.waterLook?.roughness ?? 0.1, metalness: def.waterLook?.metalness ?? 0.2 }));   // waterLook: a still, mirror-like lake
         water.position.y = WATER;
         scene.add(water);
     }
@@ -126,7 +126,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     const links = def.links ?? [];
     const reserved = (x, z, m = 0) => links.some(l => Math.hypot(l.x - x, l.z - z) < 7 + m) || (trailDist(x, z) < 2.2 + m)
         || (def.buildings ?? []).some(b => rectDist(b, x, z) < 3 + m) || (def.roads ?? []).some(r => segDist(x, z, r.pts) < (r.w ?? 3) / 2 + 1.5 + m)
-        || (def.props ?? []).some(pr => Math.hypot(pr.x - x, pr.z - z) < 2 + m)
+        || (def.props ?? []).some(pr => Math.hypot(pr.x - x, pr.z - z) < (pr.clear ?? 2) + m)   // clear: keep trees back from a prop (a pier's view)
         || (def.features ?? []).some(f => f.type === 'clearing' && Math.hypot(f.x - x, f.z - z) < f.r * 0.6);
     const addCollider = (c, height) => { const y0 = heightAt(c.x, c.z); colliders.push({ ...c, y0: y0 - 0.5, y1: y0 + height }); };
 
@@ -267,7 +267,8 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     for (const pr of def.props ?? []) {
         const g = buildProp(pr.type, pr), y = heightAt(pr.x, pr.z);
         g.position.set(pr.x, y, pr.z); g.rotation.y = pr.ry ?? 0; scene.add(g);
-        if (pr.type === 'fence') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.15, kind: 'hop', y0: y - 1, y1: y + 1.1 }); }
+        if (pr.type === 'ruin_wall') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.4, kind: 'wall', y0: y - 1, y1: y + 3 }); }
+        else if (pr.type === 'fence') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.15, kind: 'hop', y0: y - 1, y1: y + 1.1 }); }
         else if (PROP_R[pr.type]) addCollider({ x: pr.x, z: pr.z, r: PROP_R[pr.type], kind: 'wall' }, 2.5);
     }
 

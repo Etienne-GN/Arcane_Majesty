@@ -1,0 +1,300 @@
+{
+  "id": "lake_aethera",
+  "name": "Lake Aethera",
+  "lore": "The largest body of fresh water in Eldoria, cradled in the Heartlands; its surface unnervingly still, reflecting the sky like polished silver. The Sunken Temple rests in its shallows: ancient ruins older than the Crimson Covenant, carved in a forgotten script; fishermen speak of lights beneath the water at dusk (lore DB: Lake Aethera, The Sunken Temple).",
+  "seed": 5151,
+  "half": 80,
+  "water": -1.0,
+  "terrain": {
+    "scale": 0.02,
+    "relief": 6,
+    "base": 0.6,
+    "rim": 16
+  },
+  "palette": {
+    "grassA": "#587e3a",
+    "grassB": "#7e9e4a",
+    "dirt": "#6e5a3c",
+    "rock": "#7a7468",
+    "shore": "#a89a78",
+    "road": "#9c8664",
+    "water": "#a8c4d4"
+  },
+  "waterLook": {
+    "opacity": 0.78,
+    "roughness": 0.06,
+    "metalness": 0.45
+  },
+  "mood": {
+    "fog": "#d0d8dc",
+    "fogNear": 35,
+    "fogFar": 210,
+    "fogMix": 0.35,
+    "light": 1.0,
+    "motes": "#bfe0ff",
+    "nightFloor": 0.45
+  },
+  "features": [
+    {
+      "type": "lake",
+      "x": 10,
+      "z": 10,
+      "r": 50,
+      "depth": 6
+    },
+    {
+      "type": "clearing",
+      "x": -36,
+      "z": -32,
+      "r": 12
+    },
+    {
+      "type": "hill",
+      "x": 52,
+      "z": -50,
+      "r": 22,
+      "h": 6
+    },
+    {
+      "type": "hill",
+      "x": -56,
+      "z": 40,
+      "r": 20,
+      "h": 5
+    }
+  ],
+  "path": [
+    [
+      0,
+      -74
+    ],
+    [
+      -6,
+      -60
+    ],
+    [
+      -18,
+      -50
+    ],
+    [
+      -30,
+      -40
+    ],
+    [
+      -26,
+      -28
+    ]
+  ],
+  "buildings": [
+    {
+      "x": -40,
+      "z": -35,
+      "w": 5,
+      "d": 4,
+      "h": 2.8,
+      "ry": 0.8,
+      "wall": "#b8a888",
+      "roof": "#5a4a3a",
+      "chimney": true,
+      "name": "The fisher's hut"
+    }
+  ],
+  "props": [
+    {
+      "type": "pier",
+      "x": -24,
+      "z": -24,
+      "ry": 0.785,
+      "len": 9,
+      "clear": 9
+    },
+    {
+      "type": "boat",
+      "x": -33,
+      "z": -26,
+      "ry": 2.1,
+      "clear": 4
+    },
+    {
+      "type": "boat",
+      "x": -30,
+      "z": -31,
+      "ry": 1.2,
+      "clear": 4
+    },
+    {
+      "type": "barrel",
+      "x": -37,
+      "z": -31
+    },
+    {
+      "type": "crate",
+      "x": -38.5,
+      "z": -30
+    },
+    {
+      "type": "platform",
+      "x": -12.6,
+      "z": -12.6,
+      "ry": 0.785,
+      "len": 8
+    },
+    {
+      "type": "column",
+      "x": -18.5,
+      "z": -12.6,
+      "len": 6
+    },
+    {
+      "type": "column",
+      "x": -12.6,
+      "z": -18.5,
+      "len": 6
+    },
+    {
+      "type": "column",
+      "x": -6.7,
+      "z": -12.6,
+      "len": 3.2,
+      "color": "broken"
+    },
+    {
+      "type": "column",
+      "x": -12.6,
+      "z": -6.7,
+      "len": 6
+    },
+    {
+      "type": "column",
+      "x": -16.8,
+      "z": -8.4,
+      "len": 2.4,
+      "color": "broken"
+    },
+    {
+      "type": "column",
+      "x": -8.4,
+      "z": -16.8,
+      "len": 6
+    },
+    {
+      "type": "column",
+      "x": -8.4,
+      "z": -8.4,
+      "len": 4.4,
+      "color": "broken"
+    },
+    {
+      "type": "column",
+      "x": -16.8,
+      "z": -16.8,
+      "len": 6
+    },
+    {
+      "type": "ruin_wall",
+      "x": -4.5,
+      "z": -18,
+      "ry": 0.785,
+      "len": 6
+    },
+    {
+      "type": "ruin_wall",
+      "x": -19,
+      "z": -4.5,
+      "ry": 0.785,
+      "len": 5
+    },
+    {
+      "type": "glow",
+      "x": -4,
+      "z": -4
+    },
+    {
+      "type": "glow",
+      "x": -20,
+      "z": -9
+    },
+    {
+      "type": "glow",
+      "x": -9,
+      "z": -21
+    }
+  ],
+  "signs": [
+    {
+      "x": -27,
+      "z": -27,
+      "text": "Mind the pier. The old ones say the temple was here before the lake. The fishermen say they see lights beneath the water at dusk \u2014 and do not fish here after dark."
+    }
+  ],
+  "trees": {
+    "count": 420,
+    "gaps": 0.46,
+    "sizeVar": 0.9,
+    "kinds": {
+      "broad": 0.55,
+      "birch": 0.35,
+      "pine": 0.1
+    }
+  },
+  "rocks": 70,
+  "gather": {
+    "herb": 6,
+    "wood": 5,
+    "berry": 4,
+    "mushroom": 3
+  },
+  "gates": [
+    {
+      "id": "lake_monolith",
+      "label": "Monolith of Lake Aethera",
+      "x": -30,
+      "z": -48
+    }
+  ],
+  "actors": [
+    {
+      "type": "deer",
+      "homes": [
+        {
+          "x": -56,
+          "z": 40
+        },
+        {
+          "x": 48,
+          "z": -48
+        }
+      ]
+    }
+  ],
+  "landmarks": [
+    {
+      "name": "Lake Aethera",
+      "x": 18,
+      "z": 18,
+      "icon": "water"
+    },
+    {
+      "name": "The Sunken Temple",
+      "x": -12.6,
+      "z": -12.6,
+      "icon": "tower"
+    }
+  ],
+  "links": [
+    {
+      "label": "To the Crossroads",
+      "x": 0,
+      "z": -74,
+      "facing": 0,
+      "spawn": "from_crossroads",
+      "to": "the_crossroads",
+      "toSpawn": "from_lake"
+    }
+  ],
+  "start": {
+    "x": 0,
+    "z": -68,
+    "facing": 0
+  }
+}

@@ -5,57 +5,408 @@
   "seed": 4141,
   "half": 72,
   "water": -1.6,
-  "terrain": { "scale": 0.018, "relief": 5, "base": 0.7, "rim": 14 },
-  "palette": { "grassA": "#5f8a3c", "grassB": "#8aa84e", "dirt": "#7a6444", "rock": "#7a7266", "shore": "#8a7a5a", "road": "#9c8664", "paved": "#aaa59a", "water": "#2a4a5a" },
-  "mood": { "fog": "#c8d4c8", "fogNear": 40, "fogFar": 200, "fogMix": 0.3, "light": 1.05, "nightFloor": 0.45 },
+  "terrain": {
+    "scale": 0.018,
+    "relief": 5,
+    "base": 0.7,
+    "rim": 14
+  },
+  "palette": {
+    "grassA": "#5f8a3c",
+    "grassB": "#8aa84e",
+    "dirt": "#7a6444",
+    "rock": "#7a7266",
+    "shore": "#8a7a5a",
+    "road": "#9c8664",
+    "paved": "#aaa59a",
+    "water": "#2a4a5a"
+  },
+  "mood": {
+    "fog": "#c8d4c8",
+    "fogNear": 40,
+    "fogFar": 200,
+    "fogMix": 0.3,
+    "light": 1.05,
+    "nightFloor": 0.45
+  },
   "features": [
-    { "type": "clearing", "x": 0, "z": 0, "r": 34 },
-    { "type": "hill", "x": -44, "z": 40, "r": 20, "h": 4 },
-    { "type": "hill", "x": 46, "z": -42, "r": 22, "h": 5 },
-    { "type": "lake", "x": 44, "z": 40, "r": 9, "depth": 3 }
+    {
+      "type": "clearing",
+      "x": 0,
+      "z": 0,
+      "r": 34
+    },
+    {
+      "type": "hill",
+      "x": -44,
+      "z": 40,
+      "r": 20,
+      "h": 4
+    },
+    {
+      "type": "hill",
+      "x": 46,
+      "z": -42,
+      "r": 22,
+      "h": 5
+    },
+    {
+      "type": "lake",
+      "x": 44,
+      "z": 40,
+      "r": 9,
+      "depth": 3
+    }
   ],
   "path": [],
   "roads": [
-    { "pts": [[-64, 0], [-30, 1], [0, 0], [30, -1], [64, 0]], "w": 4, "kind": "road" },
-    { "pts": [[0, -64], [1, -30], [0, 0], [-1, 30], [0, 64]], "w": 4, "kind": "road" },
-    { "pts": [[-12, 0], [12, 0]], "w": 16, "kind": "paved" },
-    { "pts": [[0, -11], [0, 11]], "w": 14, "kind": "paved" }
+    {
+      "pts": [
+        [
+          -64,
+          0
+        ],
+        [
+          -30,
+          1
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          30,
+          -1
+        ],
+        [
+          64,
+          0
+        ]
+      ],
+      "w": 4,
+      "kind": "road"
+    },
+    {
+      "pts": [
+        [
+          0,
+          -64
+        ],
+        [
+          1,
+          -30
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          -1,
+          30
+        ],
+        [
+          0,
+          64
+        ]
+      ],
+      "w": 4,
+      "kind": "road"
+    },
+    {
+      "pts": [
+        [
+          -12,
+          0
+        ],
+        [
+          12,
+          0
+        ]
+      ],
+      "w": 16,
+      "kind": "paved"
+    },
+    {
+      "pts": [
+        [
+          0,
+          -11
+        ],
+        [
+          0,
+          11
+        ]
+      ],
+      "w": 14,
+      "kind": "paved"
+    }
   ],
   "buildings": [
-    { "x": 16, "z": -15, "w": 11, "d": 7, "h": 4.2, "stone": true, "roof": "#5a4a3a", "roofType": "hip", "sign": "The Worn Stone", "signText": "THE WORN STONE — beds, bread and ale. Travellers from every road welcome.", "name": "The Worn Stone (inn)" },
-    { "x": -15, "z": -14, "w": 7, "d": 5, "wall": "#d8ccb0", "roof": "#8a3a2a" },
-    { "x": -26, "z": -13, "w": 6, "d": 5, "wall": "#e0d4b8", "roof": "#6a4a30" },
-    { "x": 31, "z": -13, "w": 6, "d": 5, "wall": "#d0c4a4", "roof": "#7a3428" },
-    { "x": 15, "z": 14, "w": 7, "d": 6, "ry": 3.1416, "wall": "#dcd0b0", "roof": "#6a4a30" },
-    { "x": -15, "z": 14, "w": 8, "d": 6, "ry": 3.1416, "wall": "#d4c8a8", "roof": "#8a3a2a", "sign": "Smith", "signText": "The Crossroads smithy — shoes for horses and blades for travellers.", "name": "The smithy" },
-    { "x": -27, "z": 14, "w": 6, "d": 5, "ry": 3.1416, "wall": "#e0d4b8", "roof": "#7a3428" }
+    {
+      "x": 16,
+      "z": -15,
+      "w": 11,
+      "d": 7,
+      "h": 4.2,
+      "stone": true,
+      "roof": "#5a4a3a",
+      "roofType": "hip",
+      "sign": "The Worn Stone",
+      "signText": "THE WORN STONE \u2014 beds, bread and ale. Travellers from every road welcome.",
+      "name": "The Worn Stone (inn)"
+    },
+    {
+      "x": -15,
+      "z": -14,
+      "w": 7,
+      "d": 5,
+      "wall": "#d8ccb0",
+      "roof": "#8a3a2a"
+    },
+    {
+      "x": -26,
+      "z": -13,
+      "w": 6,
+      "d": 5,
+      "wall": "#e0d4b8",
+      "roof": "#6a4a30"
+    },
+    {
+      "x": 31,
+      "z": -13,
+      "w": 6,
+      "d": 5,
+      "wall": "#d0c4a4",
+      "roof": "#7a3428"
+    },
+    {
+      "x": 15,
+      "z": 14,
+      "w": 7,
+      "d": 6,
+      "ry": 3.1416,
+      "wall": "#dcd0b0",
+      "roof": "#6a4a30"
+    },
+    {
+      "x": -15,
+      "z": 14,
+      "w": 8,
+      "d": 6,
+      "ry": 3.1416,
+      "wall": "#d4c8a8",
+      "roof": "#8a3a2a",
+      "sign": "Smith",
+      "signText": "The Crossroads smithy \u2014 shoes for horses and blades for travellers.",
+      "name": "The smithy"
+    },
+    {
+      "x": -27,
+      "z": 14,
+      "w": 6,
+      "d": 5,
+      "ry": 3.1416,
+      "wall": "#e0d4b8",
+      "roof": "#7a3428"
+    }
   ],
   "props": [
-    { "type": "well", "x": 0, "z": 0 },
-    { "type": "stall", "x": -7, "z": -6, "color": "#a83a2a" },
-    { "type": "stall", "x": 7, "z": -6, "color": "#3a6a8a" },
-    { "type": "stall", "x": -7, "z": 6, "ry": 3.1416, "color": "#8a6a2a" },
-    { "type": "stall", "x": 7, "z": 6, "ry": 3.1416, "color": "#5a3a7a" },
-    { "type": "signpost", "x": 5, "z": 11.5 },
-    { "type": "lamp", "x": -11, "z": -9 }, { "type": "lamp", "x": 11, "z": -9 }, { "type": "lamp", "x": -11, "z": 9 }, { "type": "lamp", "x": 11, "z": 9 },
-    { "type": "cart", "x": 24, "z": -6, "ry": 0.3 },
-    { "type": "barrel", "x": 22.5, "z": -10.5 }, { "type": "barrel", "x": 23.4, "z": -11.2 }, { "type": "crate", "x": 10, "z": -11 },
-    { "type": "bench", "x": -4, "z": -10.5 }, { "type": "bench", "x": 4, "z": 10.5, "ry": 3.1416 },
-    { "type": "fence", "x": -44, "z": -16, "len": 22 }, { "type": "fence", "x": -44, "z": 16, "len": 22 },
-    { "type": "fence", "x": 44, "z": 16, "len": 20 }, { "type": "fence", "x": 44, "z": -16, "len": 20 },
-    { "type": "cart", "x": -36, "z": 6, "ry": 1.6 }
+    {
+      "type": "well",
+      "x": 0,
+      "z": 0
+    },
+    {
+      "type": "stall",
+      "x": -7,
+      "z": -6,
+      "color": "#a83a2a"
+    },
+    {
+      "type": "stall",
+      "x": 7,
+      "z": -6,
+      "color": "#3a6a8a"
+    },
+    {
+      "type": "stall",
+      "x": -7,
+      "z": 6,
+      "ry": 3.1416,
+      "color": "#8a6a2a"
+    },
+    {
+      "type": "stall",
+      "x": 7,
+      "z": 6,
+      "ry": 3.1416,
+      "color": "#5a3a7a"
+    },
+    {
+      "type": "signpost",
+      "x": 5,
+      "z": 11.5
+    },
+    {
+      "type": "lamp",
+      "x": -11,
+      "z": -9
+    },
+    {
+      "type": "lamp",
+      "x": 11,
+      "z": -9
+    },
+    {
+      "type": "lamp",
+      "x": -11,
+      "z": 9
+    },
+    {
+      "type": "lamp",
+      "x": 11,
+      "z": 9
+    },
+    {
+      "type": "cart",
+      "x": 24,
+      "z": -6,
+      "ry": 0.3
+    },
+    {
+      "type": "barrel",
+      "x": 22.5,
+      "z": -10.5
+    },
+    {
+      "type": "barrel",
+      "x": 23.4,
+      "z": -11.2
+    },
+    {
+      "type": "crate",
+      "x": 10,
+      "z": -11
+    },
+    {
+      "type": "bench",
+      "x": -4,
+      "z": -10.5
+    },
+    {
+      "type": "bench",
+      "x": 4,
+      "z": 10.5,
+      "ry": 3.1416
+    },
+    {
+      "type": "fence",
+      "x": -44,
+      "z": -16,
+      "len": 22
+    },
+    {
+      "type": "fence",
+      "x": -44,
+      "z": 16,
+      "len": 22
+    },
+    {
+      "type": "fence",
+      "x": 44,
+      "z": 16,
+      "len": 20
+    },
+    {
+      "type": "fence",
+      "x": 44,
+      "z": -16,
+      "len": 20
+    },
+    {
+      "type": "cart",
+      "x": -36,
+      "z": 6,
+      "ry": 1.6
+    }
   ],
   "signs": [
-    { "x": 5.6, "z": 12.2, "text": "THE CROSSROADS — West: the East Road and Thaloria. North: Whisper-Wood. East: the Silverrun to Port Silver. South: Lake Aethera." }
+    {
+      "x": 5.6,
+      "z": 12.2,
+      "text": "THE CROSSROADS \u2014 West: the East Road and Thaloria. North: Whisper-Wood. East: the Silverrun to Port Silver. South: Lake Aethera."
+    }
   ],
-  "trees": { "count": 260, "gaps": 0.55, "sizeVar": 0.8, "kinds": { "broad": 0.6, "birch": 0.25, "pine": 0.15 } },
+  "trees": {
+    "count": 260,
+    "gaps": 0.55,
+    "sizeVar": 0.8,
+    "kinds": {
+      "broad": 0.6,
+      "birch": 0.25,
+      "pine": 0.15
+    }
+  },
   "rocks": 30,
-  "gather": { "herb": 5, "wood": 4, "berry": 5 },
-  "gates": [{ "id": "crossroads_monolith", "label": "Monolith of the Crossroads", "x": -9, "z": 24 }],
-  "actors": [{ "type": "deer", "homes": [{ "x": -46, "z": 38 }, { "x": 40, "z": -40 }] }],
-  "landmarks": [{ "name": "The Crossroads", "x": 0, "z": 4, "icon": "stones" }],
-  "links": [
-    { "label": "To the East Road", "x": -64, "z": 0, "facing": 1.5708, "spawn": "from_east_road", "to": "east_road", "toSpawn": "from_crossroads" }
+  "gather": {
+    "herb": 5,
+    "wood": 4,
+    "berry": 5
+  },
+  "gates": [
+    {
+      "id": "crossroads_monolith",
+      "label": "Monolith of the Crossroads",
+      "x": -9,
+      "z": 24
+    }
   ],
-  "start": { "x": -58, "z": 0, "facing": 1.5708 }
+  "actors": [
+    {
+      "type": "deer",
+      "homes": [
+        {
+          "x": -46,
+          "z": 38
+        },
+        {
+          "x": 40,
+          "z": -40
+        }
+      ]
+    }
+  ],
+  "landmarks": [
+    {
+      "name": "The Crossroads",
+      "x": 0,
+      "z": 4,
+      "icon": "stones"
+    }
+  ],
+  "links": [
+    {
+      "label": "To the East Road",
+      "x": -64,
+      "z": 0,
+      "facing": 1.5708,
+      "spawn": "from_east_road",
+      "to": "east_road",
+      "toSpawn": "from_crossroads"
+    },
+    {
+      "label": "To Lake Aethera",
+      "x": 0,
+      "z": 66,
+      "facing": 3.1416,
+      "spawn": "from_lake",
+      "to": "lake_aethera",
+      "toSpawn": "from_crossroads"
+    }
+  ],
+  "start": {
+    "x": -58,
+    "z": 0,
+    "facing": 1.5708
+  }
 }
