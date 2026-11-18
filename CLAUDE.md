@@ -44,7 +44,7 @@ data/scripts/     Neo4j + conversion scripts
 ```
 
 ## The 2D game is archived
-`apps/amo` (the Phaser 2D game) is obsolete and frozen since 2026-11-18 — **never modify anything under `apps/amo/`**, data files included. The 3D game no longer imports it: its rules and data live in `packages/rules/src` — add or change items, spells, enemies and quests there (or in `apps/amo3d`). `apps/tool_suite` (LPC sprite tools) still reads `apps/amo` for its 2D sprite library; that is read-only use.
+`apps/amo` (the Phaser 2D game) is obsolete and frozen since 2026-11-18 — **never modify anything under `apps/amo/`**, data files included. The 3D game no longer imports it: its rules and data live in `packages/rules/src` — add or change items, spells, enemies and quests there (or in `apps/amo3d`). `apps/tool_suite` (the LPC sprite tools) is 2D tooling and is archived with it — not used by the 3D game.
 
 ## Lore Source of Truth
 **The Neo4j graph on scarif is the authoritative lore record** — always verify against it before writing new lore. `world_lore.md` and the album XMLs mirror subsets of it; when they disagree, the DB wins (and the doc should be fixed).
