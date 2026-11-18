@@ -125,13 +125,26 @@ export function buildWeapon(type, { accent = 0x8855ff, crystalMat = null } = {})
             break;
         }
         case 'axe': {
-            part(g, new THREE.CylinderGeometry(0.02, 0.024, 0.75, 6), WOOD(), 0, 0.27, 0);
-            const head = new THREE.Shape();
-            head.moveTo(0, 0.06); head.quadraticCurveTo(0.2, 0.16, 0.22, 0); head.quadraticCurveTo(0.2, -0.16, 0, -0.06); head.lineTo(0, 0.06);
-            part(g, new THREE.ExtrudeGeometry(head, { depth: 0.02, bevelEnabled: false }), STEEL(), 0.02, 0.6, -0.01);
-            part(g, new THREE.BoxGeometry(0.05, 0.1, 0.05), DARK(), 0, 0.6, 0);
-            part(g, new THREE.CylinderGeometry(0.026, 0.026, 0.1, 6), mat(accent), 0, 0.02, 0);
-            tip.position.set(0.2, 0.6, 0);
+            // A bearded war axe: an ash haft flaring to a knob at the butt; at the top an iron socket round the haft,
+            // a flat poll behind it, and the blade — narrow at the cheek, flaring to a straight cutting edge with a
+            // toe up and a beard sweeping down — with a bright honed strip along the edge.
+            part(g, new THREE.CylinderGeometry(0.019, 0.023, 0.74, 7), WOOD(), 0, 0.27, 0);
+            part(g, new THREE.CylinderGeometry(0.027, 0.02, 0.05, 7), WOOD(), 0, -0.11, 0);                     // butt knob
+            part(g, new THREE.CylinderGeometry(0.024, 0.024, 0.14, 7), LEATHER(), 0, 0.02, 0);                  // grip wrap
+            part(g, new THREE.BoxGeometry(0.055, 0.1, 0.05), DARK(), 0, 0.6, 0);                                // socket
+            part(g, new THREE.BoxGeometry(0.035, 0.06, 0.042), DARK(), -0.04, 0.6, 0);                          // poll
+            const bit = new THREE.Shape();
+            bit.moveTo(0.026, 0.635); bit.lineTo(0.09, 0.645); bit.lineTo(0.17, 0.69);                         // top of the cheek up to the toe
+            bit.quadraticCurveTo(0.185, 0.6, 0.165, 0.5);                                                       // the cutting edge
+            bit.quadraticCurveTo(0.12, 0.52, 0.08, 0.575); bit.lineTo(0.026, 0.57); bit.closePath();             // the beard back to the socket
+            const bitGeo = new THREE.ExtrudeGeometry(bit, { depth: 0.016, bevelEnabled: true, bevelSize: 0.004, bevelThickness: 0.004, bevelSegments: 1 }); bitGeo.translate(0, 0, -0.008);
+            bitGeo.translate(-0.026, -0.6, 0); bitGeo.scale(1.25, 1.25, 1); bitGeo.translate(0.026, 0.6, 0);   // a proper war axe head, not a hatchet
+            part(g, bitGeo, STEEL());
+            const sc = (x, y) => new THREE.Vector3(0.026 + (x - 0.026) * 1.25, 0.6 + (y - 0.6) * 1.25, 0);
+            const hone = new THREE.CatmullRomCurve3([sc(0.17, 0.69), sc(0.181, 0.6), sc(0.165, 0.5)]);
+            part(g, new THREE.TubeGeometry(hone, 8, 0.005, 4), mat(0xf2f4f8, { metalness: 0.9, roughness: 0.15 }));
+            part(g, new THREE.CylinderGeometry(0.025, 0.025, 0.02, 7), mat(accent), 0, 0.53, 0);               // a coloured band under the head
+            tip.position.set(0.22, 0.6, 0);
             break;
         }
         case 'shield': {

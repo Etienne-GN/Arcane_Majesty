@@ -300,6 +300,8 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         // Blades (swords, daggers, axes, maces) rest in a low guard: arm a little forward, blade angled ahead and down.
         const BLADE = new Set(['sword', 'greatsword', 'claymore', 'dagger', 'axe', 'mace']);   // polearms (spear, halberd) stand upright instead
         const setMount = (h, a) => { if (h === 'R') mainMount.rotation.x = a; else offMount.rotation.x = a - 0.75; };
+        // (choke: carried short — the hand just under the head, the handle hanging below; a swing slides the grip back
+        // to the end of the handle.)
         // How each kind is carried at rest (k = how much of the walking arm-swing stays; x / z the arm, fore the
         // elbow, mount the wrist): swords in a low guard; a dagger in a reverse grip, blade down from the fist; axes
         // and maces hanging at the side, head down by the knee; a bow upright beside the leg; a crossbow pointing down
@@ -308,7 +310,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             sword: { k: 0.5, x: -0.3, z: -0.22, fore: -0.6, mount: GUARD_MOUNT }, greatsword: { k: 0.5, x: -0.3, z: -0.22, fore: -0.6, mount: GUARD_MOUNT },
             claymore: { k: 0.5, x: -0.3, z: -0.22, fore: -0.6, mount: GUARD_MOUNT },
             dagger: { k: 0.6, x: -0.12, z: -0.2, fore: -0.55, mount: 3.8 },
-            axe: { k: 0.7, x: 0.04, z: -0.14, fore: -0.22, mount: 3.0 }, mace: { k: 0.7, x: 0.04, z: -0.14, fore: -0.22, mount: 3.0 },
+            axe: { k: 0.7, x: 0.0, z: -0.2, fore: -0.38, mount: 1.15, choke: 0.44 }, mace: { k: 0.7, x: 0.0, z: -0.2, fore: -0.38, mount: 1.15, choke: 0.42 },
             bow: { k: 0.6, x: -0.08, z: -0.3, fore: -0.42, mount: 1.0 }, crossbow: { k: 0.5, x: -0.1, z: -0.15, fore: -0.45, mount: 2.45 },
         };
         const restOf = type => REST[type] ?? REST.sword;
@@ -324,6 +326,13 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
             const sh = sheath[h]; if (!sh) continue;
             if (strikeK != null && strikeHand === h) { sh.last = t; setSheathed(h, false); }
             else if (!sh.on && t - sh.last > SHEATHE_AFTER) setSheathed(h, true);
+        }
+        for (const [h, type, m] of [['R', mainType, mainMount], ['L', offType, offMount]]) {   // choked grip: slide along the handle
+            const ch = REST[type]?.choke, g = ch && m.children.find(c => c.isGroup || c.isMesh);
+            if (!g) continue;
+            const k = strikeK != null && strikeHand === h ? Math.min(1, strikeK) : -1;
+            const swing = k < 0 ? 0 : Math.min(1, k / 0.18) * Math.min(1, (1 - k) / 0.2);
+            g.position.y = -ch * (1 - swing);
         }
         if ((BLADE.has(mainType) || REST[mainType]) && !sheath.R?.on) guard('R', mainType);
         if ((BLADE.has(offType) || REST[offType]) && !sheath.L?.on) guard('L', offType);
