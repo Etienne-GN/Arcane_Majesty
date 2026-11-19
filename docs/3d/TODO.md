@@ -27,12 +27,13 @@ The lore DB already has 7: **Werewolf** (Guardians of the Wild, the Emerald Fiel
 - [x] **Combat feel** (0.17.0): three-blow combos — the second comes back the other way, the third is the weapon's finisher (sword lunge, greatsword/halberd cleave, dagger stab, axe chop, mace/staff overhead slam, spear long lunge, bo spin, fists haymaker; ×1.6, throws them back); every blow makes them flinch; a press during recovery is kept 0.35 s.
 - [x] Per-weapon attacks (0.17.0): spear and bo thrusts levelled at the foe (they pointed at the sky), greatsword and claymore swung with both hands; shield **Block** (0.15.0).
 - [x] Dual-wielding (0.17.0): a weapon in each hand — the strike key alternates hands, the finisher is a cross-cut with both blades.
-- [ ] Still: bow draw and crossbow reload animations; dual-wand overpower; one favourites list per weapon type (two of the same share it); a dodge roll (the hop's i-frames are the dodge today); hit-stop; enemy telegraphs on every creature.
+- [x] (0.18.0) Bow loosed from full draw, crossbow kick and crank; a dodge (hop with the stick held while something hunts you within 7 m: a low dive, untouchable all the way); hit-stop on finishers, parries and perfect blocks (engine/hitstop.js); a red tell-fan on the ground under every creature winding up a blow; the left hand keeps its own favourites when both hands hold the same kind of weapon.
+- [ ] Still: dual-wand overpower.
 - [ ] Favourites polish: skills in the Spellbook-style ⋯ menus, and style skills on the hands.
 
 ## 4. Magic
-- [ ] Enemy magic, and Void Aegis to block it.
-- [ ] Dispels: Unravel and Purifying Sweep.
+- [x] Enemy magic (0.18.0, content/actors/enemyMagic3d.js on amo's ENEMY_KITS): casters shape spells (a ring fills at their feet, they stand still; a stun, silence or hush breaks it), bolts fly at you (dodge, block, parry, deflect), hexes (curse, silence — no spells — and Unweave, which strips your buffs), wards, empowerment, quickening and mending on their allies (bubbles, embers, sparks); dungeon bosses raise the Void Aegis (blows do a third) at half and a quarter health.
+- [x] Dispels (0.18.0): Unravel and Purifying Sweep tear away wards and the Void Aegis (Unravel hurts again for each); Counterspell and Unravel break a spell being shaped.
 - [ ] Aetheric Sight's active use.
 - [ ] Set-pieces for the remaining area spells, and the incantation for more of them.
 - [ ] Targeting polish: an aim line for bolts, the ring snapping to enemies.
@@ -57,8 +58,10 @@ The lore DB already has 7: **Werewolf** (Guardians of the Wild, the Emerald Fiel
 
 ## 8. Skills, items & economy
 - [ ] Field Notes skill in the Skills book.
-- [ ] Tools as hand items: torch, pickaxe, fishing rod, lantern.
-- [ ] The claymore item uses the new claymore model in the game (it still draws as the greatsword).
+- [x] Tools (0.18.0): gathering takes out the tool the node needs (pickaxe, axe, sickle, rod) and works it, or kneels to pick; the Torch (merchant, 6 gold) held in the left hand lights the dark (a light every scene keeps at zero, so lighting it never rebuilds shaders). Lantern: not yet.
+- [x] The claymore draws as the claymore (0.18.0).
+- [x] Story rewards (0.18.0): chapters 6–12 give the Umbral Dagger, Manual: Shadow, a Crystalline Rod, a Heartwood Bracer, the Arcane Sceptre, a Void Pendant and the Staff of the First Covenant, with glint.
+- [x] Werewolf change animation (0.18.0): doubled over and shaking, dark smoke and fur as the body turns, up with a roar (or a long breath).
 - [ ] Shops and loot for the new clothes and weapons; crafting recipes for them.
 - [x] ★ **A checkout step at merchants** (2026-11-18) (and other traders): put several items in a basket to buy or sell, review the total, then confirm — no more one-click purchases.
 

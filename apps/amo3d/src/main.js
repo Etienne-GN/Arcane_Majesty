@@ -42,6 +42,8 @@ import { buildRegion } from './engine/region.js';
 // Every region file is a map (content/regions/*.json → buildRegion).
 const REGIONS = Object.fromEntries(Object.values(import.meta.glob('./content/regions/*.json', { eager: true, import: 'default' })).map(d => [d.id, d]));
 import { sweepPlates, hideAllPlates, coreOf } from './content/actors/enemyCore.js';
+import { scale as hitStopScale } from './engine/hitstop.js';
+import { updateEnemyMagic, debugMagic } from './content/actors/enemyMagic3d.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createBountyBoard } from './game/bounty.js';
 import { createBook } from './game/book.js';
@@ -244,7 +246,7 @@ const fireballs = createFireballs({
     // amo: a spell's hit grows the feel for its element (hitGain); the element's level lifts its spells' tiers.
     onSpellHit: (sp, h) => { if (h.kind === 'deer' || !sp.element) return; stats.gainElementPoints(sp.element, masteryRules.hitGain(!h.alive, h.level ?? 1, stats.level)); },
     onHeal: n => { stats.health = Math.min(stats.maxHealth, stats.health + n); hud.floater(player.state.pos.clone().setY(player.state.pos.y + 2.2), `+${n}`, '#7ae07a'); },
-    onDamage: (pos, dmg, killed, burning) => hud.floater(pos, `${dmg}${burning ? ' 🔥' : ''}${killed ? ' ✝' : ''}`, killed ? '#ffd27a' : '#ff8a4a'),
+    onDamage: (pos, dmg, killed, burning, text = null) => hud.floater(pos, text ?? `${dmg}${burning ? ' 🔥' : ''}${killed ? ' ✝' : ''}`, text ? '#d8c8ff' : killed ? '#ffd27a' : '#ff8a4a'),
     onShake: a => cam.kick(a),
 });
 
@@ -267,6 +269,7 @@ const world = createMapManager({
         if (!map._animals && ANIMALS[id]) { map._animals = true; populate(map, map.scene, ANIMALS[id], dailyRng); }
         player.place(sp);
         fireballs.setScene(map.scene);
+        map.scene.add(torchLight);   // always there (a light count that never changes: no shader rebuilds), lit only by a torch
         aiming?.setScene(map.scene);
         loot.clear();
         loot.setScene(map.scene);
@@ -303,7 +306,16 @@ const player = createPlayer({ hooks: questHooks, name: HERO_NAME, stats, hero, c
 
 // What Eldrin holds follows his equipment (amo's equip events).
 const ITEMS = itemRules.ITEMS;
-const handOf = id => id ? { type: weaponRules.typeOf(ITEMS[id]) === 'fists' && ITEMS[id]?.slot === 'offHand' ? 'shield' : weaponRules.typeOf(ITEMS[id]), accent: ITEMS[id]?.color } : null;
+const handOf = id => id ? { type: id === 'claymore' ? 'claymore' : id === 'torch' ? 'torch' : weaponRules.typeOf(ITEMS[id]) === 'fists' && ITEMS[id]?.slot === 'offHand' ? 'shield' : weaponRules.typeOf(ITEMS[id]), accent: ITEMS[id]?.color } : null;   // the claymore has its own model (a greatsword in the rules)
+// The torch (left hand): a warm flickering light that walks with you. It lives in every scene at zero strength so the
+// number of lights never changes when you light it.
+const torchLight = new THREE.PointLight(0xffa050, 0, 11, 1.5);
+function updateTorch(t) {
+    const lit = stats.equipment.offHand === 'torch' && !player.state.dead;
+    const p = player.state.pos, f = player.state.facing;
+    torchLight.position.set(p.x + Math.sin(f) * 0.3 + Math.cos(f) * 0.35, p.y + 1.7, p.z + Math.cos(f) * 0.3 - Math.sin(f) * 0.35);
+    torchLight.intensity = lit ? 9 * (0.85 + Math.sin(t * 13) * 0.08 + Math.sin(t * 29.7) * 0.06) : 0;
+}
 const showWeapons = () => hero.setWeapons(handOf(stats.equipment.weapon) ?? false, handOf(stats.equipment.offHand));   // false: bare hands
 // The campaign's Eldrin starts in his own coat with his staff (new games, and saves from before they were items).
 if (!heroDef && !stats.flags?.eldrinKit) {
@@ -319,7 +331,24 @@ stats.onEquipChange(slot => { if (slot === 'head' || slot === 'body') { dressHer
 stats.onEquipChange(showWeapons);
 const skills = createSkills({ stats, player, hud, cam, world, archery: () => archery });
 const archery = createArchery({ stats, player, hud, cam, world, loot });
-const gathering = createGathering({ stats, hud, onGather: (id, n) => quests?.onGather(id, n) });
+// Working a node: the tool it needs comes out in the right hand (a pickaxe at the ore, the axe at the deadwood, the
+// sickle at the reeds, the rod at the water), the hero turns to it and swings, cuts or casts — or kneels to pick by
+// hand — then puts it away.
+const TOOL_MODEL = { iron_pickaxe: 'pickaxe', iron_axe: 'axe', sickle: 'sickle', fishing_rod: 'rod' };
+const TOOL_MOVE = { pickaxe: ['overhead', 0.75], axe: ['chop', 0.7], sickle: ['sidelong', 0.6], rod: ['raise', 0.9] };
+let toolTimer = null;
+function workNode(tool, type, at) {
+    const model = TOOL_MODEL[tool];
+    const p = player.state; p.facing = Math.atan2(at.x - p.pos.x, at.z - p.pos.z);
+    player.addBuff('shaping', 900);
+    if (model) {
+        hero.setWeapons({ type: model }, handOf(stats.equipment.offHand));
+        const [pose, dur] = TOOL_MOVE[model]; player.playMove(pose, dur, 'R');
+        if (model !== 'rod') setTimeout(() => { skills.vfx.burst(at.clone().setY(at.y + 0.4), type === 'mineral' ? 0xffe0a0 : 0xc8a070, 14, 2.5); skills.vfx.puff(at, 8, undefined, 0.6); sfx[type === 'mineral' ? 'parry' : 'hit']?.(); }, dur * 520);
+        clearTimeout(toolTimer); toolTimer = setTimeout(showWeapons, 1300);
+    } else player.playMove('vanish', 0.8, 'R');   // kneel and pick
+}
+const gathering = createGathering({ stats, hud, onGather: (id, n) => quests?.onGather(id, n), onWork: workNode });
 const chests = createChests({ stats, hud });
 const mapView = createMapView({ stats, hud });
 const shop = createShop({ stats, hud, save: () => save() });
@@ -362,7 +391,7 @@ function handAction(side, act) {
     } else if (a.startsWith('spell:')) { act.cast = true; act.castSpell = a.slice(6); act.castHand = side; }
     else if (a.startsWith('skill:')) skills.useId(a.slice(6), t, side);
 }
-let handsTick = 0, lavaTick = 0;
+let handsTick = 0, lavaTick = 0, shifting = false;
 const book = createBook({ stats, hud, save: () => save(), hands });
 const skillBook = createBook({ stats, hud, save: () => save(), hands, kind: 'skills' });
 const pause = createPause({ hud, save: () => save() });
@@ -501,6 +530,7 @@ function clock(min = stats.gameMinutes ?? clockRules.START_MINUTES) {
 
 let simT = 0;
 function tick(dt) {
+    dt = hitStopScale(dt);   // a heavy blow holds the world a moment
     simT += dt;
     if (title?.active) {
         input.poll(dt);   // drain input while the title owns the screen
@@ -524,10 +554,22 @@ function tick(dt) {
     if (act.shift && !player.state.dead) {   // the change: human ↔ wolf
         if (!WEREWOLF) hud.message('Only the Guardians of the Wild can take the wolf form.');
         else if (player.state.cast) { /* not mid-spell */ }
-        else {
-            stats.flags.wolfForm = !stats.flags.wolfForm;
-            player.setWolf(stats.flags.wolfForm); dressHero(); cam.kick?.(0.4); sfx.growl?.();
-            hud.message(stats.flags.wolfForm ? 'You let the wolf out — faster, claws like knives; no spells in this shape. (V again to change back)' : 'You come back to yourself.');
+        else if (!shifting) {
+            // The change takes a moment: doubled over and shaking, a burst of dark smoke and fur as the body turns,
+            // then up again — with a roar as the wolf, a long breath as yourself. Rooted while it happens.
+            const toWolf = !stats.flags.wolfForm;
+            shifting = true; player.addBuff('shaping', 1100); player.playMove('change', 0.5, 'R'); sfx.growl?.();
+            setTimeout(() => {
+                stats.flags.wolfForm = toWolf;
+                player.setWolf(toWolf); dressHero(); cam.kick?.(0.45);
+                const P = player.state.pos;
+                skills.vfx.puff(P, 34, toWolf ? [0.2, 0.17, 0.15] : [0.35, 0.33, 0.3], 1.2);
+                skills.vfx.burst(P.clone().setY(P.y + 1.2), toWolf ? 0x8a6a4a : 0xd8d0c0, 30, 3.5, { up: 2.5, grav: 4 });
+                skills.vfx.shock(P, 2.6, toWolf ? 0xb07040 : 0xe0d8c8);
+                player.playMove(toWolf ? 'roar' : 'vanish', 0.6, 'R'); if (toWolf) sfx.roar?.();
+                hud.message(toWolf ? 'You let the wolf out — faster, claws like knives; no spells in this shape. (V again to change back)' : 'You come back to yourself.');
+                shifting = false;
+            }, 500);
         }
     }
     if (act.chat) net.openChat();
@@ -590,7 +632,8 @@ function tick(dt) {
     const ctx = { ...clock(), message: hud.message, attunedGates: stats.attunedGates, player: player.state, camera,
         flags: (stats.flags ??= {}), shake: a => cam.kick(a), customHero: CUSTOM, players: net.targets(), hurtRemote: (id, dmg, from) => net.hurtRemote(id, dmg, from),
         drainVigor: n => { stats.vigor = Math.max(0, stats.vigor - n); },
-        onRetreat: () => { stats.flags.malphas_retreated = true; save(); }, map: world.current, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot };
+        onRetreat: () => { stats.flags.malphas_retreated = true; save(); }, map: world.current, coreOf,
+        playerStatus: (id, ms) => player.addBuff(id, ms), dispelPlayer: () => player.dispelSelf(), fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot };
     if (!world.step(dt)) lift = player.step(dt, act, ctx);
     const p = player.state;
     cam.update(dt, p.pos, lift, map.heightAt ?? null);   // the camera never sinks into the ground or the mountain
@@ -603,6 +646,8 @@ function tick(dt) {
     }
     map.update(simT, dt, ctx);
     chapters?.update(dt, { ...ctx, t: simT });
+    updateEnemyMagic(dt, ctx);
+    updateTorch(simT);   // enemy bolts in flight, their wards and the Void Aegis
     sweepPlates();
     fireballs.update(dt, map, map.hittables);
     loot.update(dt, player.state, map);
@@ -639,7 +684,7 @@ const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.c
 // Handle for headless checks.
 window.__poc = {
     player: player.state, stats, input, cam, quality, save, skills, playerApi: player, quests,
-    advance: s => loop.advance(s), showWeapons: () => showWeapons(), coreOf,
+    advance: s => loop.advance(s), showWeapons: () => showWeapons(), coreOf, debugMagic,
     hurtPlayer: player.hurt,
     keys: input.keys,
     get maps() { return world.maps; },
@@ -649,5 +694,5 @@ window.__poc = {
     setTime: h => { stats.gameMinutes = Math.floor((stats.gameMinutes ?? 0) / 1440) * 1440 + h * 60; },
     setWeather: w => { weatherOverride = w; },
     strike: () => input.press('strike'),
-    loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, fireballs, aiming, SPELLS: spellsAll.SPELLS, player: player.state, playerApi: player,
+    workNode, loot, inventory, sheet, hotbar, skills, archery, title, gathering, campfire, chests, mapView, travel, dialogue, shop, quests, codex, net, fireballs, aiming, SPELLS: spellsAll.SPELLS, player: player.state, playerApi: player,
 };

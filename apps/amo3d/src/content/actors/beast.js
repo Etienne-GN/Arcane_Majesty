@@ -330,6 +330,7 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
             root.position.y = pos.y + Math.abs(Math.sin(ai.t * 4)) * 0.06 * Math.min(1, ai.speed);
         }
         parts.eyes.material.color?.setRGB?.(tell ? 2 : 1, tell ? 1.4 : 1, tell ? 0.6 : 1);
+        core.tell(ai.state === 'windup', ai.heading, REACH);   // the tell: a red fan where the blow will fall
         core.updatePlate(ctx.camera, flyer ? 4.2 : type === 'crag_fiend' ? 3.0 : 2.4);
     }
 

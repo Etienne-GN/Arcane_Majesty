@@ -65,6 +65,7 @@ export function createDuelist({ scene, map, at, look, name, def, scale = 1, body
         pos.y = map.heightAt(pos.x, pos.z);
         model.root.position.copy(pos); model.root.rotation.y = ai.heading;
         model.update(dt, { speed: move, sprinting: move > 3, hopK: null, castK, strikeK, strikeHand: 'R' });
+        core.tell(ai.state === 'windup', ai.heading, reach + 0.7);
         core.updatePlate(ctx.camera, plateY ?? 2.4 * scale);
     }
     function endChannel() { ai.state = 'recover'; ai.timer = 0.6; if (ring) ring.visible = false; channel?.end?.(api); }

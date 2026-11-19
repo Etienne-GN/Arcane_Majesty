@@ -337,5 +337,5 @@ export function createSkills({ stats, player, hud, cam, world, archery = () => n
         else if (fin.around) vfx.arc(p.pos, p.facing, 2, { from: -Math.PI, to: Math.PI, width: 0.4 });
         if (hits.length) vfx.burst(at, 0xfff0c0, 18, 4); else sfx.whoosh();
     };
-    return { use, useId, update };
+    return { use, useId, update, vfx };
 }

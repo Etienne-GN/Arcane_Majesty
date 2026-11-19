@@ -100,12 +100,12 @@ export function createBook({ stats, hud, save, hands = null, kind = 'spells' }) 
     // Two-hand actions (Options): equipping and favourites go through the hands; ⋯ opens a row's favourite menu.
     const two = () => !!hands?.enabled;
     const SIDE = { R: 'Right hand', L: 'Left hand' };
-    const wlabel = t => weaponRules.WEAPON_TYPES[t]?.label ?? t;
+    const wlabel = t => weaponRules.WEAPON_TYPES[hands?.base?.(t) ?? t]?.label ?? t;
     const isActive = s => two() ? ['R', 'L'].some(sd => hands.current(sd) === `spell:${s.id}`) : active() === s.id;
     function equipSpell(s) {
         if (two()) {
             const sd = hands.magicHand(); if (!sd) return hud.message('Hold a staff or wand to cast spells');
-            if (hands.equip(sd, `spell:${s.id}`) === 'full') { replacing = { type: hands.handType(sd), action: `spell:${s.id}`, equip: true }; sel = s.id; render(); return; }
+            if (hands.equip(sd, `spell:${s.id}`) === 'full') { replacing = { type: hands.slotKey(sd), action: `spell:${s.id}`, equip: true }; sel = s.id; render(); return; }
         }
         else (stats.flags ??= {}).activeSpell = s.id;
         hud.banner(`${s.name} — ready to cast`); save?.(); render();
@@ -128,14 +128,14 @@ export function createBook({ stats, hud, save, hands = null, kind = 'spells' }) 
     function favBits(row, action, list, only = null) {   // only: a weapon row manages just that weapon's favourites
         const key = `${only ?? ''}|${action}`;   // hand badges, the ⋯ button, and its menu under the row when open
         if (!two()) return;
-        for (const sd of ['R', 'L']) { const t = hands.handType(sd); if (t && hands.canHold(t, action) && hands.isFav(t, action)) { const b = el('span', 'hb', sd); b.title = `A favourite of the ${SIDE[sd].toLowerCase()} (${wlabel(t)})`; row.append(b); } }
+        for (const sd of ['R', 'L']) { const t = hands.slotKey(sd); if (t && hands.canHold(t, action) && hands.isFav(t, action)) { const b = el('span', 'hb', sd); b.title = `A favourite of the ${SIDE[sd].toLowerCase()} (${wlabel(t)})`; row.append(b); } }
         const more = el('button', 'more', '⋯'); more.title = 'Favourites';
         more.onclick = e => { e.stopPropagation(); menuFor = menuFor === key ? null : key; render(); };
         row.append(more);
         if (menuFor !== key) return;
         const m = el('div', 'favmenu'), seen = new Set();
         for (const sd of ['R', 'L']) {
-            const t = hands.handType(sd);
+            const t = hands.slotKey(sd);
             if (!t || !hands.canHold(t, action) || seen.has(t) || (only && t !== only)) continue;
             seen.add(t);
             const on = hands.isFav(t, action), b = el('button', on ? 'on' : '', `${on ? '★' : '☆'} ${on ? 'Favourite of' : 'Add to'} the ${wlabel(t).toLowerCase()} (${SIDE[sd].toLowerCase()})`);
@@ -192,18 +192,18 @@ export function createBook({ stats, hud, save, hands = null, kind = 'spells' }) 
     function handActions(L) {
         const seen = new Set();
         for (const sd of ['R', 'L']) {
-            const t = hands.handType(sd);
+            const t = hands.slotKey(sd);
             if (!t || seen.has(t)) continue;
             seen.add(t);
             L.append(el('h3', null, `${SIDE[sd]} — ${wlabel(t)}`));
-            const acts = ['hit', ...Object.values(STYLE_SKILLS).filter(k => STYLES[k.style]?.weapon === t).map(k => `skill:${k.id}`)];
+            const acts = ['hit', ...Object.values(STYLE_SKILLS).filter(k => STYLES[k.style]?.weapon === hands.base(t)).map(k => `skill:${k.id}`)];
             for (const a of acts) {
                 const row = el('div', 'row');
                 row.append(svg(hands.glyph(t, a)));
                 const nm = el('div', 'nm', hands.label(t, a));
                 nm.append(el('small', null, a === 'hit' ? 'the weapon\'s own blow' : STYLE_SKILLS[a.slice(6)]?.desc ?? ''));
                 row.append(nm);
-                if (['R', 'L'].some(x => hands.handType(x) === t && hands.current(x) === a)) row.append(el('span', 'star', '★'));
+                if (['R', 'L'].some(x => hands.slotKey(x) === t && hands.current(x) === a)) row.append(el('span', 'star', '★'));
                 row.onclick = () => { menuFor = menuFor === `${t}|${a}` ? null : `${t}|${a}`; render(); };
                 L.append(row);
                 favBits(row, a, L, t);

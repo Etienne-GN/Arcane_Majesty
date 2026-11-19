@@ -157,6 +157,7 @@ function createAnimal({ scene, map, rng, type, home }) {
             d.parts.head.rotation.x = ai.state === 'idle' && (DEF.grazes || type === 'rabbit') ? 0.6 + Math.sin(ai.t) * 0.1 : ai.state === 'windup' ? 0.3 : 0;
             if (d.parts.tail) d.parts.tail.rotation.y = Math.sin(ai.t * 4) * 0.3;
         }
+        core.tell(ai.state === 'windup', ai.heading, REACH);
         core.updatePlate(ctx.camera, K.h * 2 + 0.6);
     }
     return {

@@ -156,6 +156,7 @@ function createWerewolf({ scene, map, rng, home, den, alpha, coat, pack }) {
         parts.tail.rotation.y = Math.sin(ai.t * 3) * 0.3;
         parts.hips.position.y = 1.05 + Math.abs(Math.sin(ph)) * 0.05 * run;
         parts.eyes.color.setRGB(tell || hostile() ? 2 : 1, tell || hostile() ? 0.6 : 0.75, 0.25);
+        core.tell(ai.state === 'windup', ai.heading, REACH);
         core.updatePlate(ctx.camera, alpha ? 3.4 : 2.9);
     }
 

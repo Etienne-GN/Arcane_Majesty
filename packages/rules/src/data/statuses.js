@@ -111,6 +111,7 @@ export const STATUS_DEFS = {
     },
     // ── Combat C3: fighting-style effects (data/styles.js) ───────────────────
     // On whoever is hit
+    shaping: { id: 'shaping', label: 'Casting', duration: 1000, tint: null, speedMult: 0 },   // 3D: a creature rooted while it shapes a spell
     staggered: { id: 'staggered', label: 'Staggered', duration: 400, tint: null, speedMult: 0, stunned: true },   // 3D: knocked back, a moment off balance
     dazed:    { id: 'dazed',    label: 'Dazed',    duration: 2000, tint: 0xffee99, speedMult: 0, stunned: true },
     crippled: { id: 'crippled', label: 'Crippled', duration: 4000, tint: 0xbb9977, speedMult: 0.5 },

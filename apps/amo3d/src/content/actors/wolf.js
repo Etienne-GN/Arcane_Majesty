@@ -212,6 +212,7 @@ function createWolf({ scene, map, rng, home, tint }) {
         d.head.rotation.x = crouch * 0.35 + (ai.state === 'notice' ? -0.5 : 0);
         d.tail.rotation.x = ai.state === 'idle' ? Math.sin(ai.t * 2) * 0.15 : -0.4 * amp;
         for (const m of [d.M.fur]) m.emissive.setRGB(s.flash * 3, s.flash * 0.6, 0);
+        core.tell(ai.state === 'windup', ai.heading, REACH);
         core.updatePlate(ctx.camera, 1.4);
     }
 

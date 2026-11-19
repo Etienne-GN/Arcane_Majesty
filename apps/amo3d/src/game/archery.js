@@ -45,7 +45,8 @@ export function createArchery({ stats, player, hud, cam, world, loot }) {
         cd = (W.cooldown / 1000) * M.levelCooldownMult(stats.weaponLevel(type));
         const aim = cam.forward();
         p.facing = Math.atan2(aim.x, aim.z);
-        player.playShot();
+        // The bow: loosed from full draw, the string hand flies back; the crossbow kicks, then is cranked again.
+        if (type === 'crossbow') player.playMove('xbow', Math.max(0.5, cd), 'R'); else player.playMove('loose', 0.45, 'R');
         const from = p.pos.clone().setY(p.pos.y + 1.45).addScaledVector(aim, 0.5);
         const mesh = makeArrow(AMMO[id]?.type);
         mesh.position.copy(from);

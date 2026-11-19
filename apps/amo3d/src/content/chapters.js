@@ -21,7 +21,19 @@ import { createCharacter } from './models/character.js';
 import { normalizeLook } from './models/look.js';
 import { buildBalrog } from './models/balrog.js';
 
-const Q = (id, title, description, steps, next) => ({ id, title, type: 'main', description, steps: steps.map(([sid, label]) => ({ id: sid, type: 'talk', target: sid, label, required: 1 })), reward: { xp: 400, items: [] }, next });
+// What each chapter leaves in your hands (existing items, no new lore): the shadow's dagger from the landing, a manual
+// for walking in the dark, a crystal rod out of the fire, a heartwood bracer from the keepers' way, a sceptre from the
+// Ancient Door, and at the end the staff of a keeper.
+const REWARDS = {
+    main_treacherys_bite: { xp: 400, glint: 60, items: ['umbral_dagger'] },
+    main_solitary_path: { xp: 400, glint: 60, items: ['manual_shadow'] },
+    main_infernos_trial: { xp: 500, glint: 90, items: ['crystalline_rod'] },
+    main_eldorias_heartbeat: { xp: 500, glint: 90, items: ['heartwood_bracer'] },
+    main_heart_of_war: { xp: 700, glint: 140, items: ['arcane_sceptre'] },
+    main_weight_of_eternity: { xp: 500, glint: 100, items: ['void_pendant'] },
+    main_dawns_embrace: { xp: 900, glint: 250, items: ['staff_of_first_covenant'] },
+};
+const Q = (id, title, description, steps, next) => ({ id, title, type: 'main', description, steps: steps.map(([sid, label]) => ({ id: sid, type: 'talk', target: sid, label, required: 1 })), reward: REWARDS[id] ?? { xp: 400, items: [] }, next });
 export const CHAPTER_QUESTS = {
     main_treacherys_bite: Q('main_treacherys_bite', "Treachery's Bite", 'Oren went ahead to the Fire Gate to look at the stair. Find him at the first landing.',
         [['ch6_oren', "Find Oren at the Fire Gate's first landing"], ['ch6_betrayal', 'Survive the dagger that the shadows bring']], 'main_solitary_path'),
@@ -38,7 +50,7 @@ export const CHAPTER_QUESTS = {
     main_dawns_embrace: Q('main_dawns_embrace', "Dawn's Embrace", 'Bring the Stone home to the tower, and draw the ward of the keeping round it.',
         [['ch12_ward', 'Draw the ward of the keeping in your tower']], null),
 };
-export function registerChapterQuests(stats) { stats.generatedQuests ??= {}; for (const [id, q] of Object.entries(CHAPTER_QUESTS)) stats.generatedQuests[id] ??= JSON.parse(JSON.stringify(q)); }
+export function registerChapterQuests(stats) { stats.generatedQuests ??= {}; for (const [id, q] of Object.entries(CHAPTER_QUESTS)) { stats.generatedQuests[id] ??= JSON.parse(JSON.stringify(q)); stats.generatedQuests[id].reward = JSON.parse(JSON.stringify(q.reward)); } }   // rewards refreshed in older saves
 
 const LOOKS = {
     oren: normalizeLook({ body: { preset: 'adult_male', skin: '#d8b08a' }, hair: { style: 'short', color: '#6a5a4a' }, facialHair: { style: 'beard', color: '#6a5a4a' },

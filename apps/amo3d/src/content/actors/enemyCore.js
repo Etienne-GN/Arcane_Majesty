@@ -7,6 +7,7 @@ import { sfx } from '../../engine/sfx.js';
 // Actors (wolf.js…) supply a model, an AI step and an animation, and call these.
 import * as THREE from 'three';
 import { enemies, enemyAffinities, statuses, elites as EL } from '@rules';
+import { attachCaster } from './enemyMagic3d.js';
 import { settings } from '../../engine/settings.js';
 
 const { ENEMY_TYPES } = enemies;
@@ -116,7 +117,7 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
     function tick(dt, ctx) {
         lastCtx = ctx;
         s.flash = Math.max(0, s.flash - dt);
-        if (s.dead) { s.deadT += dt; return false; }
+        if (s.dead) { s.deadT += dt; if (api.caster?.casting) api.caster.interrupt(); return false; }
         if (elite?.affixes.includes('arcane') && s.engaged && !net.puppet && (s.boltT = (s.boltT ?? 4) - dt) <= 0) {   // an arcane bolt at the player
             s.boltT = 6;
             const P = ctx.player.pos;
@@ -133,6 +134,10 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
         for (const [id, f] of Object.entries(s.fx)) {
             const B = STATUS_DEFS[id];
             f.left -= dt;
+            if (B?.regenAmt && s.hp < DEF.health) {   // Mend (enemy magic): health back over time
+                f.regen = (f.regen ?? 0) + dt * 1000;
+                while (f.regen >= (B.regenInterval ?? 1000)) { f.regen -= B.regenInterval ?? 1000; s.hp = Math.min(DEF.health, s.hp + B.regenAmt); }
+            }
             if (B?.dotDmg) {
                 f.tick += dt * 1000;
                 if (f.tick >= B.dotInterval) {
@@ -149,6 +154,10 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
             if (!m?.blockedAt || m.blockedAt(nx, nz, 0.4, pos.y) !== 'wall') { pos.x = nx; pos.z = nz; } else s.push.x = s.push.z = 0;
             const k = Math.exp(-dt * 7); s.push.x *= k; s.push.z *= k;
             if (Math.hypot(s.push.x, s.push.z) < 0.3) s.push = null;
+        }
+        if (api.caster) {   // enemy magic: its body is found once (for the height of its rings and bubbles)
+            if (!api.caster.root) api.caster.root = (ctx.map?.hittables ?? []).find(h => h.pos === pos)?.root ?? null;
+            api.caster.tick(dt, ctx);
         }
         if (s.fx.burning && rng() < dt * 25) ctx.fx.fire.emit({ x: pos.x + (rng() - 0.5) * 0.5, y: pos.y + 0.5 + rng() * 0.4, z: pos.z + (rng() - 0.5) * 0.5,
             vx: 0, vy: 1 + rng(), vz: 0, life: 0.45, size: [0.3, 0.05], c0: [1, 0.6, 0.15, 0.9], c1: [0.8, 0.15, 0.02, 0] });
@@ -178,7 +187,10 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
         s.push = { x: dx / d * v, z: dz / d * v };
         addStatus('staggered', 400);
     }
-    const api = { DEF, s, hit, tick, die, addStatus, fxMult, stunned, updatePlate, revive, respawnS, elite, onDealt, net, reward, shove, pos, get lastCtx() { return lastCtx; } };
+    // The tell (every creature that winds up a blow): drawn by enemyMagic3d as a red fan that fills until it strikes.
+    function tell(on, heading, reach) { if (!on || s.dead) { s.tell = null; return; } if (!s.tell) s.tell = { t: 0 }; s.tell.heading = heading; s.tell.reach = reach; }
+    const api = { DEF, s, hit, tick, die, addStatus, fxMult, stunned, updatePlate, revive, respawnS, elite, onDealt, net, reward, shove, pos, tell, get lastCtx() { return lastCtx; } };
+    api.caster = attachCaster(api, type, pos, null, { boss: !!elite?.boss && !def });   // amo ENEMY_KITS; dungeon bosses raise the Void Aegis
     registry.set(pos, api);
     return api;
 }

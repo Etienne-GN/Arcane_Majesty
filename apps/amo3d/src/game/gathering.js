@@ -52,7 +52,7 @@ function buildNode(type, rng) {
     return g;
 }
 
-export function createGathering({ stats, hud, onGather }) {
+export function createGathering({ stats, hud, onGather, onWork = null }) {
     let nodes = [], scene = null, nearest = null;
     const rng = Math.random;
 
@@ -77,6 +77,7 @@ export function createGathering({ stats, hud, onGather }) {
         if (!n || now < n.readyAt) return false;
         const { type, tool } = resolveNode(n.def);
         if (!hasTool(tool)) { hud.message(`${type.label}: needs the ${ITEMS[tool]?.name ?? tool}`); return false; }
+        onWork?.(tool, n.def.type, n.pos);   // the hero takes out the tool and works the node (main.js)
         const got = rollHarvest(n.def, rng);
         let full = false;
         for (const { id, qty } of got) {

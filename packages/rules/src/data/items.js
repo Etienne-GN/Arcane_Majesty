@@ -51,6 +51,7 @@ export const MERCHANT_CATALOG = [
     { id: 'iron_pickaxe',          price: 36,  currency: 'gold' },
     { id: 'fishing_rod',           price: 25,  currency: 'gold' },
     { id: 'sickle',                price: 22,  currency: 'gold' },
+    { id: 'torch',                 price: 6,   currency: 'gold' },
     { id: 'sea_salt',              price: 5,   currency: 'gold' },
     { id: 'scholars_cowl',         price: 60,  currency: 'gold' },
     { id: 'scholars_tunic',        price: 70,  currency: 'gold' },
@@ -945,6 +946,13 @@ export const ITEMS = {
         description: 'Required to gather Wood nodes.',
         color: 0x888888, icon: 'itm_scythe', stackable: false, buyPrice: 45, sellPrice: 15,
         onUse: () => false,
+    },
+    // 3D: held in the left hand, it lights the way (dungeons, caves, the night).
+    torch: {
+        id: 'torch', name: 'Torch',
+        description: 'Pitch-soaked rags on a stick. Held in the left hand, it lights the dark around you.',
+        color: 0xff9a3a, icon: 'itm_wand_01', stackable: false, slot: 'offHand', buyPrice: 8, sellPrice: 2,
+        onUse: (stats) => stats.equipItem('torch'),
     },
     iron_pickaxe: {
         id: 'iron_pickaxe', name: 'Iron Pickaxe',

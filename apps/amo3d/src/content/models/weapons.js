@@ -191,6 +191,42 @@ export function buildWeapon(type, { accent = 0x8855ff, crystalMat = null } = {})
             tip.position.set(0, 0.08, 0.55);
             break;
         }
+        // Tools (gathering, game/gathering.js) and the torch.
+        case 'pickaxe': {   // an ash haft with a two-pointed iron head
+            part(g, new THREE.CylinderGeometry(0.018, 0.022, 0.7, 7), WOOD(), 0, 0.25, 0);
+            part(g, new THREE.CylinderGeometry(0.023, 0.023, 0.13, 7), LEATHER(), 0, 0.0, 0);
+            part(g, new THREE.BoxGeometry(0.05, 0.07, 0.05), DARK(), 0, 0.6, 0);
+            const pick = new THREE.CatmullRomCurve3([new THREE.Vector3(-0.24, 0.52, 0), new THREE.Vector3(-0.1, 0.61, 0), new THREE.Vector3(0.1, 0.61, 0), new THREE.Vector3(0.24, 0.52, 0)]);
+            part(g, new THREE.TubeGeometry(pick, 10, 0.016, 5), STEEL());
+            part(g, new THREE.ConeGeometry(0.017, 0.06, 5), STEEL(), 0.26, 0.5, 0, 0, 0, Math.PI * 0.75);
+            part(g, new THREE.ConeGeometry(0.017, 0.06, 5), STEEL(), -0.26, 0.5, 0, 0, 0, -Math.PI * 0.75);
+            tip.position.set(0.25, 0.5, 0);
+            break;
+        }
+        case 'sickle': {   // a short wooden grip and a crescent blade
+            part(g, new THREE.CylinderGeometry(0.018, 0.02, 0.2, 6), WOOD(), 0, 0.05, 0);
+            const arc = new THREE.TorusGeometry(0.14, 0.012, 4, 14, Math.PI * 1.15);
+            part(g, arc, STEEL(), 0.12, 0.2, 0, 0, 0, -0.3);
+            tip.position.set(0.24, 0.3, 0);
+            break;
+        }
+        case 'rod': {   // a long, thin rod, a reel near the grip, a line from the tip
+            part(g, new THREE.CylinderGeometry(0.006, 0.016, 1.7, 5), WOOD(), 0, 0.75, 0);
+            part(g, new THREE.CylinderGeometry(0.03, 0.03, 0.02, 8), DARK(), 0.03, 0.1, 0, 0, 0, Math.PI / 2);
+            part(g, new THREE.CylinderGeometry(0.0015, 0.0015, 0.9, 3), mat(0xeeeeee), 0, 1.15, 0.05, 0.4, 0, 0);
+            tip.position.set(0, 1.6, 0);
+            break;
+        }
+        case 'torch': {   // a stick, pitch-soaked rags at its head, a flame
+            part(g, new THREE.CylinderGeometry(0.018, 0.022, 0.5, 6), WOOD(), 0, 0.15, 0);
+            part(g, new THREE.CylinderGeometry(0.035, 0.028, 0.1, 7), mat(0x3a2a1a), 0, 0.42, 0);
+            const flame = new THREE.MeshBasicMaterial({ color: 0xffa040, transparent: true, opacity: 0.9, toneMapped: false, blending: THREE.AdditiveBlending, depthWrite: false });
+            const f1 = part(g, new THREE.ConeGeometry(0.05, 0.16, 7), flame, 0, 0.54, 0); f1.castShadow = false;
+            const f2 = part(g, new THREE.ConeGeometry(0.03, 0.11, 6), new THREE.MeshBasicMaterial({ color: 0xfff0a0, toneMapped: false, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, depthWrite: false }), 0, 0.53, 0); f2.castShadow = false;
+            g.userData.flame = [f1, f2];
+            tip.position.set(0, 0.56, 0);
+            break;
+        }
         default: // fists: nothing in hand
             break;
     }

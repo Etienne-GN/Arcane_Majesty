@@ -276,7 +276,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     const calm = new THREE.Color(0x3ce0d0), blaze = new THREE.Color(0xff7a20);
 
     // speed in m/s, sprinting bool, hopK 0..1 progress (null when grounded), castK 0..1 (null when not casting)
-    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false, incant = false, strikeHand = 'R', castHand = 'R', blockK = null, move = null, strikeCombo = 1 }) {
+    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false, incant = false, strikeHand = 'R', castHand = 'R', blockK = null, move = null, strikeCombo = 1, rollK = null }) {
         t += dt;
         const ease = k => 1 - Math.exp(-dt * k);
         amp += (Math.min(1, speed / 4) - amp) * ease(10);
@@ -574,12 +574,40 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
                     wmount(h2, lerp(2.75, 3.2, 2.7, 2.75));
                 }
                 spine.rotation.x += lerp(0, -0.15, 0.3, 0); crouch(0.4 * cut * (1 - back));
+            } else if (id === 'loose') {   // the bow arm out, the string hand at the cheek — loosed, it flies back past the ear
+                const v = 1 - sm(0.7, 1), rel = sm(0.05, 0.22);
+                A.upper.rotation.x += (-1.55 - A.upper.rotation.x) * v; A.upper.rotation.z = sz * 0.05 * v; A.fore.rotation.x += (-0.05 - A.fore.rotation.x) * v;
+                wmount(H, 1.0 + (1.6 - 1.0) * v);   // the bow upright before you
+                B.upper.rotation.x += (-1.45 + 0.35 * rel - B.upper.rotation.x) * v; B.upper.rotation.z = -sz * (-0.25 - 0.5 * rel) * v; B.fore.rotation.x += (-2.1 + 0.6 * rel - B.fore.rotation.x) * v;
+                spine.rotation.y += sz * 0.35 * v; head.rotation.y = -sz * 0.3 * v;
+            } else if (id === 'xbow') {   // the kick of the shot, then the crossbow lowered and the crank wound
+                const kick = sm(0, 0.06) * (1 - sm(0.06, 0.2)), low = sm(0.15, 0.3) * (1 - sm(0.85, 1)), crank = Math.sin(k * Math.PI * 10) * low;
+                A.upper.rotation.x += (-1.2 + 0.3 * kick - A.upper.rotation.x) * (kick + low * 0) + (-0.55 - A.upper.rotation.x) * low;
+                A.fore.rotation.x += (-0.9 - A.fore.rotation.x) * low; wmount(H, 2.45 + 0.5 * low);
+                B.upper.rotation.x += (-0.85 + crank * 0.3 - B.upper.rotation.x) * low; B.upper.rotation.z = -sz * (0.1 + crank * 0.15) * low; B.fore.rotation.x += (-1.5 + crank * 0.4 - B.fore.rotation.x) * low;
+                spine.rotation.x += 0.2 * low - 0.1 * kick; head.rotation.x += 0.35 * low;
+            } else if (id === 'change') {   // the change taking hold: doubled over, arms clutched to the chest, shaking
+                const v = sm(0, 0.35), sh = Math.sin(t * 55) * 0.07 * v;
+                spine.rotation.x += 0.75 * v + sh; head.rotation.x += 0.4 * v - sh;
+                for (const [Ar, zs] of [[A, sz], [B, -sz]]) { Ar.upper.rotation.x += (-0.9 - Ar.upper.rotation.x) * v; Ar.upper.rotation.z += (zs * 0.55 - Ar.upper.rotation.z) * v + sh; Ar.fore.rotation.x += (-2.0 - Ar.fore.rotation.x) * v; }
+                crouch(0.6 * v);
             } else if (id === 'land') {   // Leaping Strike: arms swept up through the jump, crashing down on landing
                 const up = sm(0, 0.35) * (1 - sm(0.6, 0.75)), down = sm(0.6, 0.75) * (1 - sm(0.85, 1));
                 for (const Ar of [A, B]) { Ar.upper.rotation.x += (-2.8 - Ar.upper.rotation.x) * up + (-0.6 - Ar.upper.rotation.x) * down; }
                 crouch(down * 0.9); spine.rotation.x += 0.4 * down - 0.2 * up;
             }
         }
+        // A dodge: dropped low and pitched forward into a tucked dive along the ground, then up again (a full
+        // somersault reads badly in a long coat).
+        if (rollK != null) {
+            const k = Math.min(1, rollK), w = Math.sin(k * Math.PI);
+            hips.rotation.x = 0.75 * w;
+            body.position.y -= 0.36 * w;
+            legs.L.thigh.rotation.x = -1.3 * w; legs.L.shin.rotation.x = 1.9 * w;
+            legs.R.thigh.rotation.x = 0.6 * w; legs.R.shin.rotation.x = 0.9 * w;
+            for (const Ar of [arms.L, arms.R]) { Ar.upper.rotation.x = -1.0 * w; Ar.fore.rotation.x = -1.5 * w; }
+            head.rotation.x = -0.4 * w;
+        } else if (hips.rotation.x !== 0) hips.rotation.x = 0;
         M.crystal.emissive.copy(calm).lerp(blaze, blazeK);
         M.crystal.emissiveIntensity = 1.8 + Math.sin(t * 3) * 0.6;
 

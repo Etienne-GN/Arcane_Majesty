@@ -9,6 +9,8 @@ import { spells } from '@rules';
 
 const { SPELLS, spellDamageAt, scaledStatus, spellRadius } = spells;
 import { Particles, radialTexture } from '../engine/lib.js';
+import { coreOf } from '../content/actors/enemyCore.js';
+import { dispel as dispelCore } from '../content/actors/enemyMagic3d.js';
 
 export const FIREBALL = SPELLS.fireball;
 // Castable: bolts (targeted_directional), area spells (targeted_aoe — the Fireball flies, the rest land where you
@@ -154,6 +156,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         const sp = b.spell, dmg = Math.max(1, Math.round(spellDamageAt(sp, b.level, b.int, dmgMult()) * (b.mult ?? 1)));
         const st = scaledStatus(sp, b.level), roll = st && R() < st.chance;
         const burn = roll && st.id === 'burning' ? st.duration : 0, status = roll && st.id !== 'burning' ? { id: st.id, ms: st.duration } : null;
+        counter(sp, target, dmg);
         target.hit(dmg, b.pos, burn, undefined, status, sp.element);
         onDamage?.(target.pos.clone().setY(target.pos.y + 1.9), dmg, !target.alive, burn > 0);
         onSpellHit?.(sp, target);
@@ -288,6 +291,22 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         hitArea(point, r, spell, level, int, hittables, true, mult);
         if (spell.duration) zones.push({ point: point.clone(), r, spell, level, int, left: spell.duration[level - 1] / 1000, tick: 1 });
     }
+    // Unravel / Purifying Sweep (dispel) tear a creature's magical buffs away — a ward, the Void Aegis — and Unravel
+    // hurts it again for each (dispelBonus); Counterspell and Unravel (interrupt) break a spell it is shaping.
+    function counter(spell, h, dmg) {
+        if (!spell.dispel && !spell.interrupt) return;
+        const core = coreOf(h.pos);
+        if (!core || core.s.dead) return;
+        const at = h.pos.clone().setY(h.pos.y + 2.3);
+        if (spell.interrupt && core.caster?.casting) core.caster.interrupt(core.lastCtx);
+        if (spell.dispel) {
+            const gone = dispelCore(core);
+            if (gone.length) {
+                onDamage?.(at, 0, false, false, `Dispelled ${gone.join(', ')}`);
+                if (spell.dispelBonus && dmg > 0) h.hit(Math.max(1, Math.round(dmg * spell.dispelBonus * gone.length)), at, 0, undefined, null, spell.element);
+            }
+        }
+    }
     function hitArea(point, r, spell, level, int, hittables, withDamage, mult = 1) {
         for (const h of hittables) {
             if (!h.alive || h.kind === 'deer') continue;
@@ -295,6 +314,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
             const dmg = withDamage ? Math.round(spellDamageAt(spell, level, int, dmgMult()) * mult) : 0;
             const st = scaledStatus(spell, level), roll = st && R() < st.chance;
             const burn = roll && st.id === 'burning' ? st.duration : 0, status = roll && st.id !== 'burning' ? { id: st.id, ms: st.duration > 0 ? st.duration : 8000 } : null;
+            if (withDamage) counter(spell, h, dmg);
             if (dmg > 0 || status || burn) {
                 h.hit(Math.max(dmg, withDamage ? 1 : 0) || 1, point, burn, undefined, status, spell.element);
                 if (dmg > 0) onDamage?.(h.pos.clone().setY(h.pos.y + 1.9), dmg, !h.alive, burn > 0);

@@ -25,6 +25,7 @@ export function createHands({ stats, hud, isTouch, input }) {
     const typeOfItem = id => {
         const def = id ? itemRules.ITEMS[id] : null;
         if (!def) return 'fists';
+        if (def.id === 'torch') return null;   // a torch is held, not used
         if (def.slot === 'offHand') return WEAPON_TYPES[def.weaponType] ? def.weaponType : 'shield';
         return typeOf(def);
     };
@@ -34,7 +35,12 @@ export function createHands({ stats, hud, isTouch, input }) {
         return WEAPON_TYPES[r]?.hands === 2 ? null : typeOfItem(stats.equipment.offHand);   // a two-handed weapon takes both hands
     }
     const flags = () => (stats.flags ??= {});
+    // Favourites belong to the kind of weapon held; with the same kind in both hands, the left keeps its own list
+    // (key 'sword:L'). base(key) is the weapon kind.
+    const base = k => k?.split(':')[0] ?? k;
+    const slotKey = side => { const t = handType(side); return t && side === 'L' && t === handType('R') ? `${t}:L` : t; };
     const canHold = (type, action) => {
+        type = base(type);
         if (action === 'hit') return true;
         if (action.startsWith('spell:')) return MAGIC.has(type) && CASTABLE.includes(action.slice(6));
         if (action.startsWith('skill:')) { const k = STYLE_SKILLS[action.slice(6)]; return !!k && STYLES[k.style]?.weapon === type; }
@@ -43,15 +49,15 @@ export function createHands({ stats, hud, isTouch, input }) {
     function favs(type) {
         if (!type) return [];
         const all = (flags().favs ??= {});
-        if (!all[type]) all[type] = MAGIC.has(type) ? [`spell:${stats.flags?.activeSpell && CASTABLE.includes(stats.flags.activeSpell) ? stats.flags.activeSpell : 'fireball'}`, 'hit'] : ['hit'];
+        if (!all[type]) all[type] = MAGIC.has(base(type)) ? [`spell:${stats.flags?.activeSpell && CASTABLE.includes(stats.flags.activeSpell) ? stats.flags.activeSpell : 'fireball'}`, 'hit'] : ['hit'];
         all[type] = all[type].filter(a => canHold(type, a) && (!a.startsWith('spell:') || (stats.spells?.[a.slice(6)] ?? 0) > 0)).slice(0, MAX_FAVS);
         if (!all[type].length) all[type] = ['hit'];
         return all[type];
     }
     const selOf = type => { const s = (flags().favSel ??= {}); const n = favs(type).length; return ((s[type] ?? 0) % n + n) % n; };
-    const current = side => { const t = handType(side); return t ? favs(t)[selOf(t)] : null; };
+    const current = side => { const t = slotKey(side); return t ? favs(t)[selOf(t)] : null; };
     function step(side, d) {
-        const t = handType(side); if (!t) return;
+        const t = slotKey(side); if (!t) return;
         const list = favs(t);
         if (list.length < 2) { hud.message('Add favourites in the Book — the ⋯ beside a spell'); return; }
         (flags().favSel ??= {})[t] = (selOf(t) + d + list.length) % list.length;
@@ -84,7 +90,7 @@ export function createHands({ stats, hud, isTouch, input }) {
     // The fan: the other favourites in an arc over the hand's button.
     const CENTER = { R: [46, 46], L: [154, 42] }, ANGLES = { R: [94, 128, 162], L: [62, 100, 138] }, RAD = 150;
     function openFan(side, how) {
-        const t = handType(side); if (!t) return;
+        const t = slotKey(side); if (!t) return;
         const list = favs(t), i = selOf(t);
         if (list.length < 2) { hud.message('Add favourites in the Book — the ⋯ beside a spell'); press = null; return; }
         const others = list.map((a, j) => ({ a, j })).filter(o => o.j !== i);
@@ -145,7 +151,7 @@ export function createHands({ stats, hud, isTouch, input }) {
     }
     // The Book's Equip: make it this hand's action now (added to its favourites if it isn't one).
     function equip(side, action) {
-        const t = handType(side); if (!t || !canHold(t, action)) return false;
+        const t = slotKey(side); if (!t || !canHold(t, action)) return false;
         const list = favs(t);
         if (!list.includes(action)) { if (list.length >= MAX_FAVS) return 'full'; list.push(action); }   // full: the Book asks which to replace
         (flags().favSel ??= {})[t] = list.indexOf(action);
@@ -165,6 +171,7 @@ export function createHands({ stats, hud, isTouch, input }) {
 
     // ---- names and glyphs ----
     const label = (type, action) => {
+        type = base(type);
         if (!action) return '';
         if (action === 'hit') return type === 'staff' || type === 'wand' ? 'Hit' : WEAPON_TYPES[type]?.basic ?? 'Hit';
         if (action.startsWith('spell:')) return SPELLS[action.slice(6)]?.name ?? '';
@@ -174,6 +181,7 @@ export function createHands({ stats, hud, isTouch, input }) {
     const FIST = 'M7 13 V9 Q7 7.5 8.5 7.5 Q10 7.5 10 9 V8 Q10 6.5 11.5 6.5 Q13 6.5 13 8 V8.5 Q13 7 14.5 7 Q16 7 16 8.5 V10 Q16 9 17 9 Q18 9 18 10.5 V14 Q18 18 13.5 18 H11 Q7 18 7 13Z';
     const SWING = 'M5 18 Q8 6 19 5 M19 5 L15 5.5 M19 5 L18 9 M7 20 L4 17';
     function glyph(type, action, grey = false) {
+        type = base(type);
         if (!action) return '';
         if (action.startsWith('spell:')) { const s = SPELLS[action.slice(6)]; return s ? iconSVG(s, { locked: grey }) : ''; }
         if (action === 'hit') return coin('#5a3a1a', type === 'fists' ? FIST : SWING, grey);
@@ -245,16 +253,16 @@ body.hands-on #slot, body.hands-on #slot-name { display: none !important; }`;
         document.body.classList.toggle('hands-on', on);
         if (!on) return;
         const keyR = isTouch ? '' : 'F', keyL = isTouch ? '' : 'R';
-        const state = ['R', 'L'].map(s => { const t = handType(s); return t ? `${t}|${favs(t).join(',')}|${selOf(t)}` : '-'; }).join('/') + Object.keys(stats.spells ?? {}).length;
+        const state = ['R', 'L'].map(s => { const t = slotKey(s); return t ? `${t}|${favs(t).join(',')}|${selOf(t)}` : '-'; }).join('/') + Object.keys(stats.spells ?? {}).length;
         if (state === last && !flash) return;
         const prev = last; last = state;
         for (const side of ['R', 'L']) {
-            const t = handType(side), b = btn[side], a = btn[`${side}a`];
+            const t = slotKey(side), b = btn[side], a = btn[`${side}a`];
             b.style.display = a.style.display = t ? '' : 'none';
             if (!t) continue;
             const list = favs(t), i = selOf(t), cur = list[i];
             b.innerHTML = `${glyph(t, cur)}<span class="nm">${label(t, cur)}</span>${(side === 'R' ? keyR : keyL) ? `<span class="key">${side === 'R' ? keyR : keyL}</span>` : ''}`;
-            b.title = `${side === 'R' ? 'Right' : 'Left'} hand (${WEAPON_TYPES[t]?.label ?? t}): ${label(t, cur)}`;
+            b.title = `${side === 'R' ? 'Right' : 'Left'} hand (${WEAPON_TYPES[base(t)]?.label ?? t}): ${label(t, cur)}`;
             const n1 = list.length > 1 ? list[(i + 1) % list.length] : null, n2 = list.length > 2 ? list[(i + 2) % list.length] : null;
             a.innerHTML = `<div class="row">${n1 ? `<span class="n1">${glyph(t, n1)}</span>` : ''}${n2 ? `<span class="n2">${glyph(t, n2, true)}</span>` : ''}${!n1 ? '<span style="color:#f3d88b88;font-size:12px">—</span>' : ''}</div>`;
             a.title = n1 ? `Next: ${label(t, n1)} — ${isTouch ? 'tap' : side === 'R' ? 'C' : 'Z'}: next · double: back · hold: all` : 'Add favourites in the Book';
@@ -263,7 +271,7 @@ body.hands-on #slot, body.hands-on #slot-name { display: none !important; }`;
     }
 
     return {
-        handType, favs, current, replaceFav, cycle, cycleDown, cycleUp, update, get fanOpen() { return !!fan; }, isFav, toggleFav, equip, magicHand, label, glyph, canHold, render,
+        handType, slotKey, base, favs, current, replaceFav, cycle, cycleDown, cycleUp, update, get fanOpen() { return !!fan; }, isFav, toggleFav, equip, magicHand, label, glyph, canHold, render,
         set onAct(fn) { onAct = fn; },
         get enabled() { return !!settings.hands; },
     };

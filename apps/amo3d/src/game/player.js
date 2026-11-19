@@ -10,6 +10,7 @@ const { STATUS_DEFS } = statuses;
 import { FIREBALL, CASTABLE, isBolt } from './fireball.js';
 import { INCANT } from './spectacle.js';
 import { coreOf } from '../content/actors/enemyCore.js';
+import { hitStop } from '../engine/hitstop.js';
 import { spells as spellRules } from '@rules';
 
 const { MOVE, tickVigor, canSprint, spendHop, moveSpeed, hopLanding } = movementRules;
@@ -97,7 +98,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
     function hurt(dmg, from) {
         if (p.dead) return false;
         if (settings.god) return false;   // god mode (Options): nothing hurts
-        if (p.hop && p.hop.t * MOVE.HOP_MS < MOVE.HOP_IFRAME_MS) {   // amo's hop i-frames: a dodge
+        if (p.hop && (p.hop.roll || p.hop.t * MOVE.HOP_MS < MOVE.HOP_IFRAME_MS)) {   // amo's hop i-frames: a dodge (a roll: all the way)
             hud.floater(p.pos.clone().setY(p.pos.y + 2.1), 'Dodged', '#9fd0ff');
             return false;
         }
@@ -105,7 +106,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         // The shield raised (tap the shield hand): from the front, a perfect block in its first quarter-second
         // (nothing gets through, the attacker reels), then 70% of the blow stopped.
         if (p.block && ((from.x - p.pos.x) * Math.sin(p.facing) + (from.z - p.pos.z) * Math.cos(p.facing)) > 0) {
-            if (p.block.t < 0.25) { p.invuln = 0.3; hud.floater(p.pos.clone().setY(p.pos.y + 2.1), 'Perfect block!', '#f3d88b'); p.block.perfect = from; sfx.parry?.(); return false; }
+            if (p.block.t < 0.25) { hitStop(0.06); p.invuln = 0.3; hud.floater(p.pos.clone().setY(p.pos.y + 2.1), 'Perfect block!', '#f3d88b'); p.block.perfect = from; sfx.parry?.(); return false; }
             dmg = Math.max(1, Math.round(dmg * 0.3)); hud.floater(p.pos.clone().setY(p.pos.y + 2.1), 'Blocked', '#d8d0bc');
         }
         const front = ((from.x - p.pos.x) * Math.sin(p.facing) + (from.z - p.pos.z) * Math.cos(p.facing)) > 0;
@@ -121,7 +122,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         // Parry: the next blow from the front does nothing, the attacker is dazed, and a Riposte hits harder.
         if (p.buffs.parrying && front) {
             delete p.buffs.parrying;
-            p.invuln = 0.3; p.riposteT = 2; p.perfectFrom = far ? null : from;
+            p.invuln = 0.3; p.riposteT = 2; p.perfectFrom = far ? null : from; hitStop(0.06);
             hud.floater(p.pos.clone().setY(p.pos.y + 2.1), 'Parried', '#f3d88b');
             sfx.parry?.(); cam.kick(0.1);
             return false;
@@ -221,6 +222,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
     function tryCast(spellId = null, hand = null, target = null) {
         if (p.cast) return;
         if (p.wolf) return hud.message('In wolf form you cannot cast — change back first (V).');
+        if (p.buffs.silenced) return hud.message('You are silenced — no spell will take shape.');
         // The spell on the cast button: chosen in the Book (stats.flags.activeSpell), the Fireball by default.
         const sp = spellId && CASTABLE.includes(spellId) && spellRules.SPELLS[spellId] ? spellRules.SPELLS[spellId] : activeSpell();
         if (!stats.spells?.[sp.id]) return hud.message(`You don't know ${sp.name} yet`);
@@ -278,7 +280,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             any = true;
         }
         if (any) { cam.kick(fin ? 0.22 : 0.08); if (p.buffs.vanished) { delete p.buffs.vanished; p.veil = 0; } }
-        if (fin) api.onFinisher?.(type, fin, hitList);
+        if (fin) { api.onFinisher?.(type, fin, hitList); if (any) hitStop(0.07); }
     }
 
     function passable(x, z) {
@@ -403,9 +405,15 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
 
         if (act.hop && !p.hop && spendHop(stats)) {
             const hd = moving ? dir.clone() : new THREE.Vector3(Math.sin(p.facing), 0, Math.cos(p.facing));
-            const distPx = hopLanding({ x: p.pos.x * PX, y: p.pos.z * PX }, { x: hd.x, y: hd.z }, blockedPx);
+            // In a fight (something hunting you within 7 m), a hop with the stick held is a dodge roll: low, a little
+            // longer, untouchable all the way.
+            const roll = moving && !p.wolf && (m.hittables ?? []).some(h => h.alive && h.engaged && Math.hypot(h.pos.x - p.pos.x, h.pos.z - p.pos.z) < 7);
+            const distPx = hopLanding({ x: p.pos.x * PX, y: p.pos.z * PX }, { x: hd.x, y: hd.z }, blockedPx) * (roll ? 1.15 : 1);
+            const toP = p.pos.clone().addScaledVector(hd, distPx / PX);
+            if (roll && blockedPx(toP.x * PX, toP.z * PX)) toP.copy(p.pos).addScaledVector(hd, distPx / 1.15 / PX);
             sfx.hop();
-            p.hop = { t: 0, from: p.pos.clone(), to: p.pos.clone().addScaledVector(hd, distPx / PX), baseY: p.pos.y };
+            p.hop = { t: 0, from: p.pos.clone(), to: toP, baseY: p.pos.y, roll };
+            p.strike = null; p.move = null;
             p.facing = Math.atan2(hd.x, hd.z);
         }
 
@@ -418,7 +426,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             const g = m.groundAt(p.pos.x, p.pos.z, h.baseY);
             if (g !== null && g >= h.baseY - 0.6) h.baseY = g;
             p.pos.y = h.baseY;
-            lift = Math.sin(Math.PI * h.t) * HOP_LIFT_M;
+            lift = Math.sin(Math.PI * h.t) * HOP_LIFT_M * (h.roll ? 0.15 : 1);
             p.speed = Math.hypot(h.to.x - h.from.x, h.to.z - h.from.z) / (MOVE.HOP_MS / 1000);
             if (h.t >= 1) p.hop = null;
         } else {
@@ -503,7 +511,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         p.blockCd = Math.max(0, (p.blockCd ?? 0) - dt);
         if (p.shot) { p.shot.t += dt / 0.3; if (p.shot.t >= 1) p.shot = null; }
         hero.root.rotation.y = p.facing + (p.spin ? p.spin.t * Math.PI * 2 * (p.spin.turns ?? 1) : 0);
-        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : p.shot ? p.shot.t : null, incant: !!p.cast?.incant, castHand: p.cast?.hand ?? 'R', strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust, strikeHand: p.strike?.hand ?? 'R', strikeCombo: p.strike?.combo ?? 1, blockK: p.block ? Math.min(1, p.block.t / 0.12) : null, move: p.move ? { id: p.move.id, k: p.move.t, hand: p.move.hand } : null });
+        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop && !p.hop.roll ? p.hop.t : null, rollK: p.hop?.roll ? p.hop.t : null, castK: p.cast ? p.cast.t : p.shot ? p.shot.t : null, incant: !!p.cast?.incant, castHand: p.cast?.hand ?? 'R', strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust, strikeHand: p.strike?.hand ?? 'R', strikeCombo: p.strike?.combo ?? 1, blockK: p.block ? Math.min(1, p.block.t / 0.12) : null, move: p.move ? { id: p.move.id, k: p.move.t, hand: p.move.hand } : null });
 
         // Doors.
         let nearLabel = null, inside = false;
@@ -533,6 +541,8 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         raiseShield() { if (p.dead || p.cast || p.block || (p.blockCd ?? 0) > 0) return false; p.block = { t: 0 }; p.blockCd = 1.2; return true; },
         takePerfect() { const f = p.block?.perfect ?? p.perfectFrom; if (p.block) p.block.perfect = null; p.perfectFrom = null; return f ?? null; },
         buffMult,
+        // Unweave (enemy magic): your magical buffs torn away — wards, blessings, swiftness. Returns how many.
+        dispelSelf() { let n = 0; for (const id of Object.keys(p.buffs)) { const d = STATUS_DEFS[id]; if (d?.magical && d.buff) { delete p.buffs[id]; n++; } } if (p.ward > 0) { p.ward = 0; n++; } return n; },
         // Vanish: your next hit does double damage (and the shadows let go of you).
         consumeVanish() { if (!p.buffs.vanished) return 1; delete p.buffs.vanished; p.veil = 0; return 2; },
         consumeRiposte() { if (!(p.riposteT > 0)) return false; p.riposteT = 0; return true; },
