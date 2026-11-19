@@ -51,7 +51,7 @@ a citadel on a cliff, waterfalls into a misty river valley, mountains behind.
 - [ ] **N-1** The geography rule: each Nythorian place is the umbral twin of the Eldorian place in the same space (same
       landforms, different surface and builders).
 - [ ] **N-2** Old Ravenspire stands on the twin of Thaloria's citadel cliff.
-- [ ] **N-3** In 501 AGD it is a ruin (the picture's silhouette, broken); the picture as it is shows it before its fall.
+- [x] **N-3** (agreed by the user 2026-11-19; still goes through the Phase 10 canon check) In 501 AGD it is a ruin (the picture's silhouette, broken). **The picture shows Ravenspire before 0 GD**: the Resistance's stronghold of the last years before the Great Darkness (Seraphina and Valen founded the Resistance there ~10 BGD; it falls at 0 GD, when the Legion of Souls rises).
 - [ ] **N-4** Nythoria's sky: a black eclipsed sun with a silver corona, in grey and violet (canon only says "shadow and
       silence").
 - [ ] **N-5** Twin sites for the other places (proposals):
