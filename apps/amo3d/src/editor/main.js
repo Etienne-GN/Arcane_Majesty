@@ -282,3 +282,6 @@ function refresh() {
 refresh();
 fetch('api/region').then(r => r.json()).then(list => { if (list[0]) { def = { ...clone(BLANK), ...list[0] }; dirtyTerrain = true; refresh(); } }).catch(() => {});
 window.__editor = { get def() { return def; }, openPreview, get preview() { return preview; }, setTool: t => { tool = t; refresh(); }, add: (x, z) => { add(x, z); refresh(); }, refresh };
+
+// Back to the game (the title's Workshop opens this page).
+{ const a = document.createElement('a'); a.href = 'index.html'; a.textContent = '← Game'; a.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:50;padding:5px 10px;font:14px Georgia,serif;color:#f3e2b0;background:#120a06d8;border:1px solid #f3d88b66;border-radius:4px;text-decoration:none'; document.body.append(a); }

@@ -10,10 +10,12 @@ import { createEnemyCore, PX } from './enemyCore.js';
 import { flat } from '../../engine/lib.js';
 import { elites as EL } from '@rules';
 
-export const NAMES = { grave_wraith: 'Grave-Wraith', cursed_knight: 'Cursed Knight', lava_elemental: 'Magma-Eater', ember_imp: 'Cinder-Soul', stone_golem: 'Obsidian Golem', cave_bat: 'Cave Bat', blind_stalker: 'Blind Stalker', deep_horror: 'Deep Horror', gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
+import { body2, NAMES2, FLYERS2, PLATE2 } from './bodies2.js';
+export const NAMES = { ...NAMES2, grave_wraith: 'Grave-Wraith', cursed_knight: 'Cursed Knight', lava_elemental: 'Magma-Eater', ember_imp: 'Cinder-Soul', stone_golem: 'Obsidian Golem', cave_bat: 'Cave Bat', blind_stalker: 'Blind Stalker', deep_horror: 'Deep Horror', gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
 const TUNE = { sight: 2.6, reach: 2, speed: 1.4 };
 
 function body(type) {
+    const b2 = body2(type); if (b2) return b2;   // the newer families (bodies2.js)
     const root = new THREE.Group(), parts = {};
     const add = (geo, m, x = 0, y = 0, z = 0, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; parent.add(o); return o; };
     if (type === 'grave_wraith') {   // a pale hooded ghost of the old vigil, trailing into mist
@@ -207,11 +209,12 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
     const pos = new THREE.Vector3(home.x, map.heightAt(home.x, home.z), home.z);
     const core = createEnemyCore({ type, name: name ?? NAMES[type] ?? type, pos, rng, respawnS: elite?.boss ? 1e9 : 30, elite });   // a boss stays dead
     const DEF = core.DEF, s = core.s;
-    const SIGHT = (DEF.sightRange / PX) * TUNE.sight, REACH = (DEF.attackRange / PX) * TUNE.reach + (['crag_fiend', 'blight_ent', 'corrupted_sentinel', 'deep_horror', 'lava_elemental', 'stone_golem', 'cursed_knight'].includes(type) ? 0.6 : 0);
+    const SIGHT = (DEF.sightRange / PX) * TUNE.sight, REACH0 = (DEF.attackRange / PX) * TUNE.reach + (['crag_fiend', 'blight_ent', 'corrupted_sentinel', 'deep_horror', 'lava_elemental', 'stone_golem', 'cursed_knight'].includes(type) ? 0.6 : 0);
+    const REACH = NAMES2[type] ? Math.min(REACH0, 2.8) : REACH0;   // casters with a long amo range strike only up close (their spells do the rest)
     const SPEED = Math.min(6.5, (DEF.speed / PX) * TUNE.speed);
     const ai = { state: 'idle', timer: rng() * 3, heading: rng() * 6.28, speed: 0, cd: 1 + rng(), t: rng() * 10, target: null, hit: false };
     const navKey = {};
-    const flyer = type === 'gloom_beak' || type === 'cave_bat';
+    const flyer = type === 'gloom_beak' || type === 'cave_bat' || FLYERS2.has(type);
     const isBoss = !!elite?.boss; let strikes = 0, slam = false, ring = null;   // a boss slams every third attack: a ring on the ground, then everything in it is hit
     const turn = (want, k) => { const d = ((((want - ai.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI; ai.heading += d * Math.min(1, k); };
 
@@ -316,7 +319,14 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
             root.position.y = pos.y + 0.25 + Math.sin(ai.t * 2) * 0.12;
             parts.mat.opacity = Math.max(0.12, Math.min(0.6, 0.6 - (toP - 3) * 0.05)) + (tell ? 0.25 : 0) + s.flash;
             parts.mat.emissiveIntensity = 0.4 + (tell ? 1.4 : 0);
-        } else if (type === 'void_stalker' || type === 'blind_stalker') {   // a crouch before the lunge
+        } else if (parts.kind === 'drift') {   // drift and flicker; brighten on the wind-up (ice revenant)
+            root.position.y = pos.y + 0.2 + Math.sin(ai.t * 2.2) * 0.12;
+            parts.mat.opacity = 0.55 + Math.sin(ai.t * 1.7) * 0.1 + (tell ? 0.3 : 0) + s.flash;
+            parts.mat.emissiveIntensity = 0.6 + (tell ? 1.2 : 0);
+        } else if (parts.kind === 'hover') {   // a floating construct: bobbing, its rings turning (faster on the wind-up)
+            root.position.y = pos.y + 0.15 + Math.sin(ai.t * 1.6) * 0.12;
+            parts.spin.rotation.y += dt * (tell ? 6 : 1.2); parts.spin.rotation.z = Math.sin(ai.t * 0.7) * 0.2;
+        } else if (type === 'void_stalker' || type === 'blind_stalker' || parts.kind === 'legs') {   // a crouch before the lunge
             root.position.y = pos.y - (tell ? 0.15 : 0);
             root.rotation.x = ai.state === 'strike' ? -0.2 : tell ? 0.15 : 0;
             parts.legs.forEach((l, i) => { l.rotation.x = Math.sin(ai.t * 10 + i * Math.PI / 2) * 0.5 * Math.min(1, ai.speed / 2); });
@@ -331,7 +341,7 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
         }
         parts.eyes.material.color?.setRGB?.(tell ? 2 : 1, tell ? 1.4 : 1, tell ? 0.6 : 1);
         core.tell(ai.state === 'windup', ai.heading, REACH);   // the tell: a red fan where the blow will fall
-        core.updatePlate(ctx.camera, flyer ? 4.2 : type === 'crag_fiend' ? 3.0 : 2.4);
+        core.updatePlate(ctx.camera, flyer ? 4.2 : type === 'crag_fiend' ? 3.0 : PLATE2[type] ?? 2.4);
     }
 
     return {

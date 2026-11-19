@@ -52,7 +52,8 @@ The lore DB already has 7: **Werewolf** (Guardians of the Wild, the Emerald Fiel
 - [ ] Lore DB sync owed for game-only places: the Corrupted Rim, the Hermit's camp (`origin: "game"`).
 
 ## 7. Creatures
-- [ ] Only ~20 of the 115 creature types have 3D bodies (wolves, shadow soldiers, the summit beasts, the East Road roster, Malphas, 11 animals, deer). Build the rest as regions need them: spiders, golems, wraiths, imps, elementals, the frost and ember families, bats, crabs…
+- [x] (0.19.0) 14 more bodies (content/actors/bodies2.js): Giant Spider and the Spider Queen (a boss in Whisper-Wood), Frost Bear, Ice Revenant, Glacier Crab and Wendigo (the Summit), Ash Crawler and Cinder Hawk (the Fire Gate), Forge Daemon (the Inferno halls), Plague Rat (Graywatch), Rot Toad (Whisper-Wood, Lake Aethera), Dark Druid and Mushroom Shaman (Whisper-Wood, casters), Arcane Sentinel (the Keepers' Vaults); spiders in the Deep Shaft too.
+- [ ] ~70 creature types still without a body (birds, small animals, the swamp and arcane families' rest, skeleton archers…); their own codex sketches (today a body plan per family).
 - [ ] More bosses, one per campaign act.
 - [ ] Codex: a Field Notes skill (auto write-up — the hook exists), more sketch body plans.
 

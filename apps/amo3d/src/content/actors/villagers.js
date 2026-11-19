@@ -11,7 +11,7 @@ import { gameClock as clockRules } from '@rules';
 
 const ROLE_ARCH = { merchant: 'trader', innkeeper: 'civilian', guard: 'guard', soldier: 'soldier', miner: 'peasant', fisher: 'peasant', farmer: 'peasant', noble: 'noble', child: 'child', mage: 'mage' };
 
-function lookFor(p, i) {
+export function lookFor(p, i) {   // (the Forge's cast list reads it too)
     const A = ARCHETYPES[p.archetype ?? ROLE_ARCH[p.role] ?? 'civilian'] ?? ARCHETYPES.civilian;
     const base = JSON.parse(JSON.stringify(A.look ?? A));
     base.body = { ...(base.body ?? {}), ...(p.body ?? {}) };

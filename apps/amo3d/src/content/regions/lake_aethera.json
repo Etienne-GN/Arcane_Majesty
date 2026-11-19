@@ -224,7 +224,7 @@
     {
       "x": -27,
       "z": -27,
-      "text": "Mind the pier. The old ones say the temple was here before the lake. The fishermen say they see lights beneath the water at dusk \u2014 and do not fish here after dark."
+      "text": "Mind the pier. The old ones say the temple was here before the lake. The fishermen say they see lights beneath the water at dusk — and do not fish here after dark."
     }
   ],
   "trees": {
@@ -265,6 +265,20 @@
         {
           "x": 48,
           "z": -48
+        }
+      ]
+    },
+    {
+      "type": "beasts",
+      "kind": "rot_toad",
+      "posts": [
+        {
+          "x": -27,
+          "z": -37
+        },
+        {
+          "x": 41,
+          "z": -33
         }
       ]
     }

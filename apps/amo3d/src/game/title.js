@@ -146,7 +146,30 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
     const newGame = button('NEW GAME', () => showNewGame());
     if (!hasSave) newGame.classList.add('primary');   // nothing to continue: New Game is the main action
     button('SAVES', () => onSlots?.());
-    button('THE FORGE', () => { location.href = 'forge.html'; });
+    // The Workshop: the makers' pages — the Forge (heroes, and every NPC of the game to look at and leave notes on),
+    // the Bestiary (every creature, with notes), the Land Editor (the regions). Notes and edits save only through the
+    // dev server (npm run dev on the PC); on a phone the pages open to look.
+    function showWorkshop() {
+        panel.textContent = '';
+        const head = document.createElement('div'); head.textContent = 'THE WORKSHOP'; head.style.cssText = 'letter-spacing:.3em;margin-bottom:10px;color:#f3d88b';
+        panel.append(head);
+        for (const [label, sub, href] of [['THE FORGE', 'Make a hero — or open any NPC of the game and leave notes on it', 'forge.html'],
+            ['THE BESTIARY', 'Every creature on its turntable, with notes', 'bestiary.html'], ['THE LAND EDITOR', 'The regions: paint, place, test', 'editor.html']]) {
+            const b = document.createElement('button');
+            b.innerHTML = `${label}<br><small style="letter-spacing:.05em;opacity:.75;font-size:.72em">${sub}</small>`;
+            b.style.cssText = 'display:block;width:100%;margin:6px 0;padding:9px 10px;font:calc(16px * var(--ui, 1)) Georgia,serif;letter-spacing:.18em;color:#f3e2b0;background:linear-gradient(180deg,#2a1c10d8,#120a06d8);border:1px solid #f3d88b55;border-radius:4px;cursor:pointer';
+            b.onclick = () => { location.href = href; };
+            panel.append(b);
+        }
+        if (isPhone()) { const n = document.createElement('div'); n.textContent = 'Notes and edits save only from the dev server on the PC.'; n.style.cssText = 'opacity:.7;font-size:.85em;margin-top:6px'; panel.append(n); }
+        const back = document.createElement('button'); back.textContent = 'BACK';
+        back.style.cssText = 'margin-top:10px;padding:7px 20px;font:calc(15px * var(--ui, 1)) Georgia,serif;letter-spacing:.15em;color:#f3e2b0;background:#2a1c10;border:1px solid #f3d88b66;cursor:pointer';
+        back.onclick = () => { panel.classList.remove('on'); menu.style.display = ''; };
+        panel.append(back);
+        panel.classList.add('on'); menu.style.display = 'none';
+        panel.querySelector('button')?.focus();
+    }
+    button('WORKSHOP', () => showWorkshop());
     button('OPTIONS', () => onOptions?.());
     const credits = button('CREDITS', () => showPanel(['ARCANE MAJESTY', 'A world told first in music — the albums are the canon.', ' ',
         'CREATED, DIRECTED AND PRODUCED BY', 'Etienne Gagne Nadeau', 'Thomas Gagne', ' ',

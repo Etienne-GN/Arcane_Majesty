@@ -11,6 +11,7 @@ import { PART_CATALOG, partDef } from '../content/models/parts/index.js';
 import { HAIR_STYLES, FACIAL_STYLES } from '../content/models/parts/hair.js';
 import { ARCHETYPES, ARCHETYPE_ORDER } from '../content/models/archetypes.js';
 import { talents as talentRules } from '@rules';
+import { npcCast } from '../content/castList.js';
 
 // ?mode=create: the in-game creator — make your own hero (name, class, look) and begin a game.
 const CREATE = new URLSearchParams(location.search).get('mode') === 'create';
@@ -445,13 +446,30 @@ function actionsSection() {
     if (!CREATE) {
         const load = el('select');
         load.append(el('option', { value: '' }, 'Open a cast member…'));
+        // Every NPC as the game dresses them (content/castList.js), by place — open one to look at it and leave notes.
+        const groups = {};
+        for (const n of NPCS) (groups[n.group] ??= []).push(n);
+        for (const [g, list] of Object.entries(groups)) {
+            const og = el('optgroup'); og.label = `${g} (${list.length})`;
+            for (const n of list) og.append(el('option', { value: `npc:${n.id}`, selected: npcRef?.id === n.id }, n.name));
+            load.append(og);
+        }
         fetch('api/cast').then(r => r.json()).then(list => {
-            for (const c of list) load.append(el('option', { value: JSON.stringify(c) }, c.name ?? c.id));
-        }).catch(() => load.append(el('option', { value: '' }, '(cast list needs the dev server)')));
+            const og = el('optgroup'); og.label = 'Saved heroes (src/content/cast)';
+            for (const c of list) og.append(el('option', { value: JSON.stringify(c) }, c.name ?? c.id));
+            load.append(og);
+        }).catch(() => {});
         load.onchange = () => {
             if (!load.value) return;
-            const c = JSON.parse(load.value);
-            def = { ...c, look: normalizeLook(c.look) };
+            if (load.value.startsWith('npc:')) {
+                const n = NPCS.find(x => x.id === load.value.slice(4));
+                npcRef = n;
+                def = { ...def, id: n.id, name: n.name.split(' — ')[0], look: normalizeLook(JSON.parse(JSON.stringify(n.look))) };
+            } else {
+                npcRef = null;
+                const c = JSON.parse(load.value);
+                def = { ...c, look: normalizeLook(c.look) };
+            }
             rebuild(); renderRail(); renderSide();
         };
         const lr = el('label', {}, 'Open');
@@ -462,10 +480,52 @@ function actionsSection() {
     return frag;
 }
 
+// ---------- NPC notes (the Forge's cast list) ----------
+// What you want changed on a person, saved to src/content/npc_notes/<id>.json through /api/npcnotes (dev server).
+// Claude reads them ("process the NPC notes"), makes the change, replies and marks each done.
+const NPCS = CREATE ? [] : npcCast();
+let npcRef = null, npcNotes = {};
+const noteStatus = msg => { const e = statusEl(); if (e) e.textContent = msg; };
+fetch('api/npcnotes').then(r => r.json()).then(list => { for (const n of list) npcNotes[n.id] = n; if (npcRef) renderSide(); }).catch(() => {});
+async function saveNpcNotes(id) {
+    try {
+        const r = await fetch('api/npcnotes', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(npcNotes[id]) });
+        if (!r.ok) throw new Error((await r.json()).error);
+        noteStatus('Notes saved');
+    } catch (e) { noteStatus(`Notes not saved — they need the dev server (${e.message})`); }
+}
+function notesSection() {
+    const frag = document.createDocumentFragment();
+    if (!npcRef) return frag;
+    frag.append(el('h2', {}, `Notes for Claude — ${npcRef.name}`));
+    frag.append(el('div', { className: 'hint' }, `${npcRef.group}. Say what to change on this person (clothes, colours, build, hair…). Saved to src/content/npc_notes/${npcRef.id}.json.`));
+    const ta = el('textarea'); ta.rows = 3; ta.placeholder = 'e.g. give him a grey beard and a leather apron';
+    ta.style.cssText = 'width:100%;box-sizing:border-box;font:inherit;background:#1a1410;color:#eee6d2;border:1px solid #f3d88b55;border-radius:4px;padding:6px';
+    const add = el('button', { type: 'button', className: 'main' }, 'Add note');
+    add.onclick = () => {
+        const text = ta.value.trim(); if (!text) return;
+        const n = (npcNotes[npcRef.id] ??= { id: npcRef.id, name: npcRef.name, group: npcRef.group, notes: [] });
+        n.notes.push({ text, at: new Date().toISOString(), status: 'open' });
+        saveNpcNotes(npcRef.id); renderSide();
+    };
+    frag.append(ta, add);
+    for (const [i, n] of (npcNotes[npcRef.id]?.notes ?? []).entries()) {
+        const row = el('div', { className: 'hint' });
+        row.style.cssText = `margin-top:6px;padding:6px;border-left:3px solid ${n.status === 'done' ? '#6a9a5a' : '#f3d88b'};background:#0006`;
+        row.append(el('div', {}, `${n.status === 'done' ? '✓ ' : '• '}${n.text}`));
+        if (n.reply) row.append(el('div', {}, `Claude: ${n.reply}`));
+        const del = el('button', { type: 'button' }, 'Remove'); del.style.cssText = 'margin-top:4px;font-size:12px';
+        del.onclick = () => { npcNotes[npcRef.id].notes.splice(i, 1); saveNpcNotes(npcRef.id); renderSide(); };
+        row.append(del);
+        frag.append(row);
+    }
+    return frag;
+}
+
 function renderSide() {
     const top = box.scrollTop;
     box.textContent = '';
-    box.append(identitySection(), slotSection(), previewSection(), actionsSection());
+    box.append(notesSection(), identitySection(), slotSection(), previewSection(), actionsSection());
     box.scrollTop = top;
 }
 

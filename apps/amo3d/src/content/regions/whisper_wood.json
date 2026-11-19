@@ -144,6 +144,70 @@
           "z": 36
         }
       ]
+    },
+    {
+      "type": "beasts",
+      "kind": "giant_spider",
+      "posts": [
+        {
+          "x": -64,
+          "z": 54
+        },
+        {
+          "x": -27,
+          "z": -37
+        },
+        {
+          "x": 29,
+          "z": 4
+        }
+      ]
+    },
+    {
+      "type": "beasts",
+      "kind": "dark_druid",
+      "posts": [
+        {
+          "x": -22,
+          "z": 32
+        }
+      ]
+    },
+    {
+      "type": "beasts",
+      "kind": "mushroom_shaman",
+      "posts": [
+        {
+          "x": 41,
+          "z": -33
+        }
+      ]
+    },
+    {
+      "type": "beasts",
+      "kind": "rot_toad",
+      "posts": [
+        {
+          "x": 24,
+          "z": -4
+        },
+        {
+          "x": 54,
+          "z": 39
+        }
+      ]
+    },
+    {
+      "type": "beasts",
+      "kind": "spider_queen",
+      "posts": [
+        {
+          "x": -48,
+          "z": 2,
+          "boss": true,
+          "name": "The Spider Queen"
+        }
+      ]
     }
   ],
   "landmarks": [

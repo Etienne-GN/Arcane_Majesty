@@ -14,7 +14,7 @@ const pick = (arr, h, salt = 0) => arr[(h >>> salt) % arr.length];
 const SKIN = ['#f1c9a5', '#e2b48f', '#c98f6a', '#a8704a', '#7a4e32'];
 const HAIR = ['#1a1410', '#3a2418', '#5a3a22', '#8a5a2a', '#d9b25a', '#a8452a', '#8a8a8a'];
 
-function lookFor(r) {
+export function lookFor(r) {   // (the Forge's cast list reads it too)
     const h = hash(r.id), hair = pick(HAIR, h, 3);
     const base = {
         skin: pick(SKIN, h), eyes: pick(['#5a7ab0', '#6a5a3a', '#4a8a5a', '#3a3a4a'], h, 7),

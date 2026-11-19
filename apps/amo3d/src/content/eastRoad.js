@@ -3,6 +3,7 @@
 // wall, gargoyles), and its spawns — the Old Waystone (the Trader's rumour), the Shepherd's Lean-to with
 // Oren (Odyssey's Dawn), journal-page chests (the Innkeeper's saddlebags), campfires, gathering, the
 // East Road Monolith, void-stalkers. West exit: Thaloria's East Gate; east exit: the climb to the Summit.
+import { OREN_ROAD } from './storyLooks.js';
 import * as THREE from 'three';
 import { eastRoadMap, regionFormat } from '@rules';
 import { flat, colliderAt, pushOut, fbm, mulberry32 } from '../engine/lib.js';
@@ -215,8 +216,7 @@ export function createEastRoad({ quality }) {
     // ---------- Oren, the chronicler, at the shepherd's lean-to ----------
     map.people = [];
     for (const n of D.spawns.npcs ?? []) {
-        const look = { skin: '#d8b090', eyes: '#6a5a3a', hair: { style: 'short', color: '#7a6a5a' }, facialHair: { style: 'beard', color: '#8a7a6a' },
-            outfit: { style: 'longcoat', coat: '#6a5a3a', collar: '#3a2a1a', trim: '#a88a5a', vest: '#4a3a2a', shirt: '#d8d0c0', pants: '#3a3430', leather: '#5a3a22', leatherDark: '#3a2618' }, cape: true };
+        const look = OREN_ROAD;
         const c = createCharacter(look);
         c.setWeapons({ type: 'staff', accent: 0x8a6a3a }, null);
         const x = wx(n.x), z = wz(n.y);

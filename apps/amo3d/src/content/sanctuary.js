@@ -12,6 +12,7 @@
 //     Valley"); the Hermit's old camp past the western rim, reached by a hidden path only the sight shows
 //     (side "The Hermit's Debt"); the way down toward the Fire Gate (closed for now).
 // Quests are registered as generated quests, so amo's quest manager runs them unchanged.
+import { HERMIT } from './storyLooks.js';
 import * as THREE from 'three';
 import { buildRegion } from '../engine/region.js';
 import { flat } from '../engine/lib.js';
@@ -143,8 +144,7 @@ export function createSanctuary({ quality }) {
 
     // The Hermit's hut and the Hermit.
     const hut = buildHut(scene, HUT.x, HUT.z, H(HUT.x, HUT.z), colliders);
-    const hermit = createCharacter({ skin: '#7a5a3e', eyes: '#5aa8b0', hair: { style: 'long', color: '#c8c4b8' }, facialHair: { style: 'beard', color: '#c8c4b8' },
-        outfit: { style: 'robe', coat: '#4a6a3a', collar: '#2e4a26', trim: '#8a7a4a', vest: '#3a4a2a', shirt: '#b8b0a0', pants: '#3a3a30', leather: '#5a3a22', leatherDark: '#3a2618' } });
+    const hermit = createCharacter(HERMIT);
     hermit.setWeapons({ type: 'staff', accent: 0x6a8a4a }, null);
     hermit.root.position.set(HUT.x + 0.9, H(HUT.x, HUT.z), HUT.z + 1.5);
     hermit.root.rotation.y = 0.3;

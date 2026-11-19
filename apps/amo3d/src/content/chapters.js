@@ -52,22 +52,7 @@ export const CHAPTER_QUESTS = {
 };
 export function registerChapterQuests(stats) { stats.generatedQuests ??= {}; for (const [id, q] of Object.entries(CHAPTER_QUESTS)) { stats.generatedQuests[id] ??= JSON.parse(JSON.stringify(q)); stats.generatedQuests[id].reward = JSON.parse(JSON.stringify(q.reward)); } }   // rewards refreshed in older saves
 
-const LOOKS = {
-    oren: normalizeLook({ body: { preset: 'adult_male', skin: '#d8b08a' }, hair: { style: 'short', color: '#6a5a4a' }, facialHair: { style: 'beard', color: '#6a5a4a' },
-        parts: { torso: { id: 'tunic', colors: { primary: '#5a4a38', collar: '#3a2e22', trim: '#a89070' } }, legs: { id: 'trousers', colors: { primary: '#3a3028' } }, feet: { id: 'boots', colors: { primary: '#4a3424', dark: '#2a1e14' } },
-            arms: { id: 'sleeves' }, shoulders: { id: 'none' }, headgear: { id: 'none' }, cape: { id: 'travelling_cloak', colors: { primary: '#4a4a3a', trim: '#8a7a5a' } }, back: { id: 'satchel' }, right: { id: 'dagger', accent: '#8a5aff' }, left: { id: 'none' } } }),
-    xarathos: normalizeLook({ body: { preset: 'adult_male', race: 'fallen_aurorian', skin: '#a89c94', height: 1.1 }, face: { eyes: '#ff6a30' }, hair: { style: 'long', color: '#2a2420' }, facialHair: { style: 'none' },
-        parts: { torso: { id: 'robe', colors: { primary: '#5a1a12', collar: '#2a0a08', trim: '#ff8a30' } }, legs: { id: 'trousers', colors: { primary: '#1a1010' } }, feet: { id: 'boots', colors: { primary: '#1a1010', dark: '#0a0606' } },
-            arms: { id: 'sleeves' }, shoulders: { id: 'steel_pauldrons', colors: { primary: '#2a1a1a', trim: '#ff7a20' } }, headgear: { id: 'crown', colors: { primary: '#ff9a30', trim: '#ff3a10' } }, right: { id: 'staff', accent: '#ff6a20' }, left: { id: 'none' } } }),
-    voraun: normalizeLook({ body: { preset: 'adult_male', skin: '#8a8490', height: 1.08 }, face: { eyes: '#d8d8e0' }, hair: { style: 'short', color: '#1a1a1e' }, facialHair: { style: 'none' },
-        parts: { torso: { id: 'plate_cuirass', colors: { primary: '#1a1a1e', steel: '#4a4a52', trim: '#6a6a74' } }, legs: { id: 'trousers', colors: { primary: '#141418' } }, feet: { id: 'sabatons', colors: { primary: '#3a3a42' } },
-            arms: { id: 'gauntlets', colors: { primary: '#3a3a42', sleeve: '#2a2a30' } }, shoulders: { id: 'steel_pauldrons', colors: { primary: '#3a3a42', trim: '#5a5a64' } }, headgear: { id: 'hood', colors: { primary: '#121216' } }, cape: { id: 'travelling_cloak', colors: { primary: '#101014', trim: '#3a3a42' } }, right: { id: 'sword', accent: '#5a3a8a' }, left: { id: 'none' } } }),
-    balrog: normalizeLook({ body: { preset: 'adult_male', race: 'fallen_aurorian', skin: '#16121c', width: 1.25 }, face: { eyes: '#ff5a20' }, hair: { style: 'none', color: '#000000' }, facialHair: { style: 'none' },
-        parts: { torso: { id: 'armour', colors: { primary: '#0e0c12', steel: '#1e1a24', trim: '#ff5a20' } }, legs: { id: 'trousers', colors: { primary: '#0e0c12' } }, feet: { id: 'bare' }, arms: { id: 'bare' },
-            shoulders: { id: 'steel_pauldrons', colors: { primary: '#1e1a24', trim: '#ff5a20' } }, headgear: { id: 'great_helm', colors: { primary: '#1a1620', trim: '#ff5a20' } }, cape: { id: 'travelling_cloak', colors: { primary: '#08060a', trim: '#2a1a1a' } }, right: { id: 'sword', accent: '#ff5a20' }, left: { id: 'none' } } }),
-    vorgos: normalizeLook({ body: { preset: 'elder', skin: '#b8b8c0', height: 1.12 }, face: { eyes: '#e8f0ff' }, hair: { style: 'long', color: '#c8c8d0' }, facialHair: { style: 'beard', color: '#c8c8d0' },
-        parts: { torso: { id: 'robe', colors: { primary: '#6a6a74', collar: '#4a4a54', trim: '#c8d0e0' } }, headgear: { id: 'hood', colors: { primary: '#5a5a64' } }, right: { id: 'staff', accent: '#c8e0ff' }, left: { id: 'none' }, feet: { id: 'bare' } } }),
-};
+import { LOOKS } from './storyLooks.js';   // the story's people (the Forge's cast list reads them too)
 
 export function createChapters({ stats, hud, dialogue, quests, save, player, world, relock, cam }) {
     const flags = () => (stats.flags ??= {});

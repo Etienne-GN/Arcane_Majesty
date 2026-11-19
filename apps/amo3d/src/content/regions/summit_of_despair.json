@@ -1,7 +1,7 @@
 {
   "id": "summit_of_despair",
-  "name": "Summit of Despair \u2014 the Approach",
-  "lore": "Act II (Song 4): the frozen high pass east of Thaloria, where the Aether runs thin. Layout from amo's summit_of_despair map (trail north; Widow's Overlook west; the Rime Hollow east; Malphas at the top \u2014 the boss is not in 3D yet).",
+  "name": "Summit of Despair — the Approach",
+  "lore": "Act II (Song 4): the frozen high pass east of Thaloria, where the Aether runs thin. Layout from amo's summit_of_despair map (trail north; Widow's Overlook west; the Rime Hollow east; Malphas at the top — the boss is not in 3D yet).",
   "seed": 404,
   "half": 95,
   "water": -9,
@@ -172,7 +172,7 @@
     {
       "x": 6,
       "z": 22,
-      "text": "A scout's journal, half-frozen: \"...the whispering thing arrived before the cold got the rest of us. Tell the Archivists \u2014 it feeds on doubt, not blood...\""
+      "text": "A scout's journal, half-frozen: \"...the whispering thing arrived before the cold got the rest of us. Tell the Archivists — it feeds on doubt, not blood...\""
     }
   ],
   "gates": [
@@ -245,6 +245,50 @@
           "z": 55
         }
       ]
+    },
+    {
+      "type": "beasts",
+      "kind": "ice_revenant",
+      "posts": [
+        {
+          "x": -64,
+          "z": 54
+        },
+        {
+          "x": -27,
+          "z": -37
+        }
+      ]
+    },
+    {
+      "type": "beasts",
+      "kind": "frost_bear",
+      "posts": [
+        {
+          "x": 29,
+          "z": 4
+        }
+      ]
+    },
+    {
+      "type": "beasts",
+      "kind": "wendigo",
+      "posts": [
+        {
+          "x": -22,
+          "z": 32
+        }
+      ]
+    },
+    {
+      "type": "beasts",
+      "kind": "glacier_crab",
+      "posts": [
+        {
+          "x": 24,
+          "z": 17
+        }
+      ]
     }
   ],
   "landmarks": [
@@ -284,7 +328,7 @@
       "toSpawn": "from_summit"
     },
     {
-      "label": "The climb \u2014 the mountain itself",
+      "label": "The climb — the mountain itself",
       "x": -7,
       "z": -74,
       "facing": 0,

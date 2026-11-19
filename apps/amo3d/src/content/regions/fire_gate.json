@@ -1,7 +1,7 @@
 {
   "id": "fire_gate",
   "name": "The Fire Gate",
-  "lore": "The black-glass entrance to the Inferno Labyrinth: a stair of black glass worn by centuries, runes that hold heat and hunger, leading down into the mountain's heart. Where the snow-line gives way to ash \u2014 the site of Oren's betrayal at the first landing (lore DB: Fire Gate; event: Oren's Betrayal at the Fire Gate). The betrayal itself comes with the campaign chapter.",
+  "lore": "The black-glass entrance to the Inferno Labyrinth: a stair of black glass worn by centuries, runes that hold heat and hunger, leading down into the mountain's heart. Where the snow-line gives way to ash — the site of Oren's betrayal at the first landing (lore DB: Fire Gate; event: Oren's Betrayal at the Fire Gate). The betrayal itself comes with the campaign chapter.",
   "seed": 10101,
   "half": 70,
   "water": -30,
@@ -178,7 +178,40 @@
       "z": 30
     }
   ],
-  "actors": [],
+  "actors": [
+    {
+      "type": "beasts",
+      "kind": "ash_crawler",
+      "posts": [
+        {
+          "x": -64,
+          "z": 54
+        },
+        {
+          "x": -27,
+          "z": -37
+        },
+        {
+          "x": 29,
+          "z": 4
+        }
+      ]
+    },
+    {
+      "type": "beasts",
+      "kind": "cinder_hawk",
+      "posts": [
+        {
+          "x": -22,
+          "z": 32
+        },
+        {
+          "x": 24,
+          "z": 17
+        }
+      ]
+    }
+  ],
   "landmarks": [
     {
       "name": "The Fire Gate",
@@ -204,7 +237,7 @@
       "toSpawn": "from_fire_gate"
     },
     {
-      "label": "Down the black-glass stair \u2014 the Inferno Labyrinth",
+      "label": "Down the black-glass stair — the Inferno Labyrinth",
       "x": 0,
       "z": -30,
       "facing": 0,

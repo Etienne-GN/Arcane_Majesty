@@ -177,7 +177,7 @@
     {
       "x": -3,
       "z": 6.5,
-      "text": "GRAYWATCH \u2014 the Border Watch. West: Whisper-Wood; report anything shadow-touched that comes out of the trees. East: the Scarlands. Sparse garrison, long nights \u2014 volunteers welcome."
+      "text": "GRAYWATCH — the Border Watch. West: Whisper-Wood; report anything shadow-touched that comes out of the trees. East: the Scarlands. Sparse garrison, long nights — volunteers welcome."
     }
   ],
   "trees": {
@@ -232,6 +232,28 @@
         {
           "x": 52,
           "z": 30
+        }
+      ]
+    },
+    {
+      "type": "beasts",
+      "kind": "plague_rat",
+      "posts": [
+        {
+          "x": -64,
+          "z": 54
+        },
+        {
+          "x": -27,
+          "z": -37
+        },
+        {
+          "x": 29,
+          "z": 4
+        },
+        {
+          "x": -22,
+          "z": 32
         }
       ]
     }

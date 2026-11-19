@@ -170,3 +170,6 @@ function renderSide() {
 
 loadNotes().then(() => show(MOBS.find(m => m.id === location.hash.slice(1)) ?? MOBS[0]));
 window.__bestiary = { get actors() { return actors; }, get holder() { return holder; }, MOBS, show: id => show(MOBS.find(m => m.id === id)), get notes() { return notes; }, setMode: k => { mode = k; } };
+
+// Back to the game (the title's Workshop opens this page).
+{ const a = document.createElement('a'); a.href = 'index.html'; a.textContent = '← Game'; a.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:50;padding:5px 10px;font:14px Georgia,serif;color:#f3e2b0;background:#120a06d8;border:1px solid #f3d88b66;border-radius:4px;text-decoration:none'; document.body.append(a); }
