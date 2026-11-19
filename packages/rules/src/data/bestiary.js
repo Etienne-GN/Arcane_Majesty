@@ -7,6 +7,8 @@ import { affinityOf } from './enemyAffinities.js';
 import { scaleEnemyStats } from './levelBands.js';
 
 export const BESTIARY_LORE = {
+    grave_wraith: { name: 'Grave-Wraith', threat: 'MEDIUM', desc: 'A pale hooded shade of the vigil beneath the Ruins of Eldoria — a keeper who stood so long that, when the body went, the standing stayed.' },
+    cursed_knight: { name: 'Cursed Knight', threat: 'HIGH', desc: 'A knight of the old keeping in rusted plate, who never lay down. It still walks its round in the vaults, and still draws on anyone who did not give the word.' },
     lava_elemental: { name: 'Magma-Eater', threat: 'HIGH', desc: 'A hunched crawler of black crust over molten rock, one of the creatures of Xarathos\'s Labyrinth. It eats the fire of the deep and breathes it out again.' },
     ember_imp: { name: 'Cinder-Soul', threat: 'MEDIUM', desc: 'A drifting wraith of embers and smoke that haunts the Inferno Labyrinth. Some say they were travellers once, who answered when the gate of flame called them by name.' },
     stone_golem: { name: 'Obsidian Golem', threat: 'HIGH', desc: 'Blocks of black glass bound around a burning core — the guardians of the Labyrinth\'s trial. Slow, patient, and very hard to break.' },

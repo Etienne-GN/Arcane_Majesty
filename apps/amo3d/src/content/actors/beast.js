@@ -10,13 +10,34 @@ import { createEnemyCore, PX } from './enemyCore.js';
 import { flat } from '../../engine/lib.js';
 import { elites as EL } from '@rules';
 
-const NAMES = { lava_elemental: 'Magma-Eater', ember_imp: 'Cinder-Soul', stone_golem: 'Obsidian Golem', cave_bat: 'Cave Bat', blind_stalker: 'Blind Stalker', deep_horror: 'Deep Horror', gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
+const NAMES = { grave_wraith: 'Grave-Wraith', cursed_knight: 'Cursed Knight', lava_elemental: 'Magma-Eater', ember_imp: 'Cinder-Soul', stone_golem: 'Obsidian Golem', cave_bat: 'Cave Bat', blind_stalker: 'Blind Stalker', deep_horror: 'Deep Horror', gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
 const TUNE = { sight: 2.6, reach: 2, speed: 1.4 };
 
 function body(type) {
     const root = new THREE.Group(), parts = {};
     const add = (geo, m, x = 0, y = 0, z = 0, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; parent.add(o); return o; };
-    if (type === 'lava_elemental') {   // a Magma-Eater: a hunched crawler of black crust over molten rock, a wide glowing maw
+    if (type === 'grave_wraith') {   // a pale hooded ghost of the old vigil, trailing into mist
+        const M = new THREE.MeshStandardMaterial({ color: 0xd8e0f0, emissive: 0x8a9ac8, emissiveIntensity: 0.5, transparent: true, opacity: 0.55, flatShading: true, depthWrite: false });
+        parts.mat = M;
+        add(new THREE.ConeGeometry(0.4, 1.5, 8, 1, true).translate(0, 0.75, 0), M);
+        add(new THREE.SphereGeometry(0.22, 8, 6, 0, Math.PI * 2, 0, Math.PI * 0.6), M, 0, 1.55, 0);   // the hood
+        for (const s of [1, -1]) { const a = add(new THREE.ConeGeometry(0.07, 0.75, 5), M, s * 0.36, 1.1, 0.15); a.rotation.set(-0.6, 0, s * 2.3); }
+        parts.eyes = add(new THREE.BoxGeometry(0.16, 0.03, 0.02), new THREE.MeshBasicMaterial({ color: 0xbfe0ff, toneMapped: false, transparent: true }), 0, 1.5, 0.2);
+    } else if (type === 'cursed_knight') {   // a knight of the vigil who never lay down: rusted plate, a broken helm, a notched sword
+        const steel = flat(0x5a5650), rust = flat(0x6a4a34), dark = flat(0x1a1818);
+        add(new THREE.BoxGeometry(0.62, 0.75, 0.38), steel, 0, 1.35, 0);
+        add(new THREE.BoxGeometry(0.66, 0.2, 0.42), rust, 0, 1.0, 0);
+        add(new THREE.CylinderGeometry(0.17, 0.19, 0.34, 8), steel, 0, 1.95, 0);
+        add(new THREE.BoxGeometry(0.22, 0.03, 0.02), dark, 0, 1.96, 0.19);   // the visor slit
+        for (const s of [1, -1]) {
+            const arm = new THREE.Group(); arm.position.set(s * 0.4, 1.65, 0); root.add(arm);
+            add(new THREE.BoxGeometry(0.18, 0.65, 0.18), steel, 0, -0.32, 0, arm);
+            if (s > 0) { const blade = add(new THREE.BoxGeometry(0.06, 1.0, 0.12), flat(0x8a8a86), 0, -0.95, 0.25, arm); blade.rotation.x = 1.2; }
+            parts[s > 0 ? 'armL' : 'armR'] = arm;
+            add(new THREE.BoxGeometry(0.2, 0.9, 0.22), rust, s * 0.16, 0.45, 0);
+        }
+        parts.eyes = add(new THREE.BoxGeometry(0.18, 0.025, 0.02), new THREE.MeshBasicMaterial({ color: 0x8ac8ff, toneMapped: false }), 0, 1.96, 0.2);
+    } else if (type === 'lava_elemental') {   // a Magma-Eater: a hunched crawler of black crust over molten rock, a wide glowing maw
         const crust = flat(0x1e1a1a), glow = new THREE.MeshStandardMaterial({ color: 0xff6a20, emissive: 0xff4a10, emissiveIntensity: 1.6, flatShading: true });
         const b = add(new THREE.DodecahedronGeometry(0.7, 0), crust, 0, 1.0, 0); b.scale.set(1.2, 0.8, 1.1);
         for (let k = 0; k < 6; k++) add(new THREE.BoxGeometry(0.05, 0.35, 0.03), glow, Math.cos(k) * 0.55, 1.0 + Math.sin(k * 2) * 0.2, Math.sin(k) * 0.5).rotation.z = k;
@@ -186,7 +207,7 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
     const pos = new THREE.Vector3(home.x, map.heightAt(home.x, home.z), home.z);
     const core = createEnemyCore({ type, name: name ?? NAMES[type] ?? type, pos, rng, respawnS: elite?.boss ? 1e9 : 30, elite });   // a boss stays dead
     const DEF = core.DEF, s = core.s;
-    const SIGHT = (DEF.sightRange / PX) * TUNE.sight, REACH = (DEF.attackRange / PX) * TUNE.reach + (['crag_fiend', 'blight_ent', 'corrupted_sentinel', 'deep_horror', 'lava_elemental', 'stone_golem'].includes(type) ? 0.6 : 0);
+    const SIGHT = (DEF.sightRange / PX) * TUNE.sight, REACH = (DEF.attackRange / PX) * TUNE.reach + (['crag_fiend', 'blight_ent', 'corrupted_sentinel', 'deep_horror', 'lava_elemental', 'stone_golem', 'cursed_knight'].includes(type) ? 0.6 : 0);
     const SPEED = Math.min(6.5, (DEF.speed / PX) * TUNE.speed);
     const ai = { state: 'idle', timer: rng() * 3, heading: rng() * 6.28, speed: 0, cd: 1 + rng(), t: rng() * 10, target: null, hit: false };
     const navKey = {};
@@ -288,6 +309,9 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
         } else if (type === 'ember_imp') {   // a Cinder-Soul drifts and flickers, flaring on the wind-up
             root.position.y = pos.y + 0.3 + Math.sin(ai.t * 3) * 0.15;
             parts.mat.emissiveIntensity = 1.0 + Math.sin(ai.t * 17) * 0.25 + (tell ? 1.4 : 0) + s.flash * 3;
+        } else if (type === 'grave_wraith') {   // drift and fade; brighten on the wind-up
+            root.position.y = pos.y + 0.2 + Math.sin(ai.t * 2.2) * 0.12;
+            parts.mat.opacity = 0.45 + Math.sin(ai.t * 1.3) * 0.12 + (tell ? 0.3 : 0) + s.flash;
         } else if (type === 'frost_shade') {   // drift, and show itself only up close
             root.position.y = pos.y + 0.25 + Math.sin(ai.t * 2) * 0.12;
             parts.mat.opacity = Math.max(0.12, Math.min(0.6, 0.6 - (toP - 3) * 0.05)) + (tell ? 0.25 : 0) + s.flash;

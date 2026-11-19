@@ -29,4 +29,15 @@ export const DUNGEONS = {
         exit: { to: 'inferno_labyrinth', spawn: 'from_halls_gate', label: 'Back out through the gate of flame' },
         down: { to: 'inferno_labyrinth', spawn: 'from_halls', label: 'Out of the halls — the way to the crucible' },
     },
+    // The Keepers' Vaults under the Ruins of Eldoria (lore DB: Ruins of Eldoria — a graveyard of the golden age, the
+    // ruins of a vigil where keepers stood so long their standing became architecture). Game-only (origin: game).
+    ruins_vaults: {
+        id: 'ruins_vaults', name: "The Keepers' Vaults", seed: 8808, size: 34, rooms: 9, theme: 'crypt',
+        enemies: { kinds: ['grave_wraith', 'grave_wraith', 'cursed_knight'], per: [1, 3] },
+        boss: { kind: 'cursed_knight', name: 'The Hollow Keeper' },
+        chests: ['spectral_dust', 'ancient_scroll', 'health_potion', 'mana_potion', 'soul_gem_mana', 'gold_circlet', 'great_helm'],
+        chestRooms: 3,
+        exit: { to: 'ruins_of_eldoria', spawn: 'from_vaults_gate', label: "Up to the keepers' way" },
+        down: { to: 'ruins_of_eldoria', spawn: 'from_vaults', label: 'Up the far stair — beside the Heartstone Chamber' },
+    },
 };

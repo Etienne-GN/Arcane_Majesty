@@ -18,7 +18,7 @@ import { buildChest } from '../game/chest.js';
 const THEMES = {
     mine: { floor: [0x5a4e42, 0x665848], wall: 0x6a5e50, wallTop: 0x4a4238, fog: 0x0c0a08, torch: 0xffa850, ambient: 0x6a5a48, timber: 0x5a3e24 },
     inferno: { floor: [0x4a3e3a, 0x564842], wall: 0x3e3644, wallTop: 0x5a4e5e, fog: 0x2a1008, torch: 0xff7a30, ambient: 0xb87a5a, timber: 0x2a2020, cracks: 0xc8481a },
-    crypt: { floor: [0x3e3c44, 0x4a4850], wall: 0x34323a, wallTop: 0x24222a, fog: 0x08080c, torch: 0xa8c8ff, ambient: 0x4a4a5a, timber: 0x3a3430 },
+    crypt: { floor: [0x5a5862, 0x66646e], wall: 0x4e4c58, wallTop: 0x6a6876, fog: 0x0e0e16, torch: 0xb8d0ff, ambient: 0x8a8aa8, timber: 0x3a3430 },
 };
 
 function rngFrom(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
@@ -115,6 +115,20 @@ export function buildDungeon(def) {
             const beam = new THREE.Mesh(new THREE.BoxGeometry(ew ? 0.2 : 1.9, 0.2, ew ? 1.9 : 0.2), timber); beam.position.set(wx(i), H - 0.4, wz(j)); scene.add(beam);
         }
     }
+    if (def.theme === 'crypt') {   // stone coffins along the room walls, candles on their lids
+        const stone = flat(0x7a7682), lid = flat(0x8a8692), wax = new THREE.MeshBasicMaterial({ color: 0xfff0c0, toneMapped: false });
+        for (const r of rooms) {
+            if (r === entry) continue;
+            for (let i = r.x; i < r.x + r.w; i += 2) {
+                if (rng() < 0.35) continue;
+                const x = wx(i), z = wz(r.y) - 0.4;
+                const c = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.6, 1.7), stone); c.position.set(x, 0.3, z); c.castShadow = true; scene.add(c);
+                const l = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.12, 1.8), lid); l.position.set(x, 0.66, z); scene.add(l);
+                const cd = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.16, 5), wax); cd.position.set(x + 0.3, 0.8, z + 0.6); scene.add(cd);
+                colliders.push({ x, z, r: 0.75, kind: 'wall', y0: -1, y1: 0.8 });
+            }
+        }
+    }
     // torches: one or two per room on a wall (lights capped), a brazier in the boss room
     const torchMat = new THREE.MeshStandardMaterial({ color: 0xffd090, emissive: T.torch, emissiveIntensity: 2 });
     for (const r of rooms) {
@@ -181,8 +195,9 @@ export function buildDungeon(def) {
     for (const r of rooms) {
         if (r === entry || r === boss) continue;
         const n = lo + Math.floor(rng() * (hi - lo + 1));
-        const posts = [...Array(n)].map(() => ({ x: wx(r.x + Math.floor(rng() * r.w)), z: wz(r.y + Math.floor(rng() * r.h)) }));
-        map.hittables.push(...createBeasts({ scene, map, rng, type: kinds[Math.floor(rng() * kinds.length)], posts }));
+        const byKind = {};   // each creature its own kind (from the weighted list), so rooms mix
+        for (let k = 0; k < n; k++) (byKind[kinds[Math.floor(rng() * kinds.length)]] ??= []).push({ x: wx(r.x + Math.floor(rng() * r.w)), z: wz(r.y + Math.floor(rng() * r.h)) });
+        for (const [type, posts] of Object.entries(byKind)) map.hittables.push(...createBeasts({ scene, map, rng, type, posts }));
     }
     // chests in a few rooms (and always one by the boss), a desk to write up the codex in the way in
     const chestRooms = rooms.filter(r => r !== entry).sort(() => rng() - 0.5).slice(0, def.chestRooms ?? 2);
