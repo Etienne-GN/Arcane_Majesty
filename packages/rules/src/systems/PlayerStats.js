@@ -103,7 +103,7 @@ export class PlayerStats {
         this.satchelTier = 1;
 
         // Equipment slots
-        this.equipment = { head: null, body: null, weapon: null, offHand: null, accessory1: null, accessory2: null, quiver: null };
+        this.equipment = { head: null, body: null, arms: null, legs: null, feet: null, shoulders: null, back: null, weapon: null, offHand: null, accessory1: null, accessory2: null, quiver: null };   // one item per body part
         this.moveSlots = { attack: null, second: null };   // Combat C1: null = the default move
         this.quiverLoad = [];                              // Combat C5: arrows ready, one { id, qty } per compartment
         this.mastery = { weapons: {}, elements: {} };   // Combat C2: points, grown by use
@@ -917,7 +917,7 @@ export class PlayerStats {
         this.skillPoints = 0;
         this.attributePoints = 0;
         this.satchelTier = 1;
-        this.equipment = { head: null, body: null, weapon: null, offHand: null, accessory1: null, accessory2: null, quiver: null };
+        this.equipment = { head: null, body: null, arms: null, legs: null, feet: null, shoulders: null, back: null, weapon: null, offHand: null, accessory1: null, accessory2: null, quiver: null };   // one item per body part
         this.moveSlots = { attack: null, second: null };   // Combat C1: null = the default move
         this.quiverLoad = [];                              // Combat C5: arrows ready, one { id, qty } per compartment
         this.mastery = { weapons: {}, elements: {} };   // Combat C2: points, grown by use

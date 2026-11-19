@@ -113,6 +113,7 @@ export function normalizeLook(lookIn = {}) {
         look.parts
     );
     applyOutfit(parts, look.outfit, look);
+    for (const [slot, w] of Object.entries(look.wear ?? {})) parts[slot] = { ...w, colors: { ...(w.colors ?? {}) } };   // worn items: one part each
     if (look.hands) {
         for (const h of ['left', 'right']) {
             if (look.hands[h]) parts[h] = { ...(parts[h] ?? {}), ...look.hands[h] };

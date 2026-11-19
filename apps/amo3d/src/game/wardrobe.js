@@ -32,5 +32,15 @@ export function wornLook(base, equipment) {
             look.outfit.collar = shade(body.color, 0.65);
         }
     }
+    // Items made for the new body slots (and head/body items that name a part): `wear` is the part id it puts on,
+    // `wearSlot` the part slot when it differs from the equipment slot; `colors` override the part's own.
+    const PART_OF = { head: 'headgear', body: 'torso', arms: 'arms', legs: 'legs', feet: 'feet', shoulders: 'shoulders', back: 'back' };
+    for (const [slot, part] of Object.entries(PART_OF)) {
+        const it = ITEMS[equipment[slot]];
+        if (!it?.wear) continue;
+        look.wear ??= {};
+        look.wear[it.wearSlot ?? part] = { id: it.wear, colors: it.wearColors ?? {} };
+        if (part === 'headgear') { delete look.headgear; look.hood = false; }
+    }
     return look;
 }

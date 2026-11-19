@@ -72,7 +72,7 @@ export function kindOf(def) {
     if (!def) return '';
     const rar = def.rarity && def.rarity !== 'common' ? `${def.rarity[0].toUpperCase()}${def.rarity.slice(1)} · ` : '';
     if (def.slot === 'weapon') { const t = typeOf(def), W = WEAPON_TYPES[t]; return `${rar}${W?.label ?? t} · ${W?.hands === 2 ? 'both hands' : 'either hand'}`; }
-    const SL = { head: 'Worn on the head', body: 'Worn on the body', accessory: 'Accessory — ring or amulet', offHand: 'Left hand', quiver: 'Quiver' };
+    const SL = { head: 'Worn on the head', body: 'Worn on the body', accessory: 'Accessory — ring or amulet', offHand: 'Left hand', quiver: 'Quiver', arms: 'Worn on the arms', legs: 'Worn on the legs', feet: 'Worn on the feet', shoulders: 'Worn on the shoulders', back: 'Worn on the back' };
     if (def.slot) return `${rar}${SL[def.slot] ?? def.slot}`;
     if (def.spellOf) return `${rar}Spell scroll — read it to learn`;
     if (def.manualOf) return `${rar}Fighting manual — read it to learn`;

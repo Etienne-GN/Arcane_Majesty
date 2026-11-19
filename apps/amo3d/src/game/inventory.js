@@ -11,8 +11,10 @@ import { itemIconSVG, glyphSVG, kindOf, groupOf } from './itemIcons.js';
 const { ITEMS } = itemRules;
 // The figure's slots: where each sits round it (grid column / row), and the shape shown while it is empty.
 const WORN = [
-    ['head', 'Head', 2, 1, 'itm_headgear_01'], ['weapon', 'Right hand', 1, 2, 'sword'], ['body', 'Body', 2, 2, 'itm_leather_armor'],
-    ['offHand', 'Left hand', 3, 2, 'shield'], ['accessory1', 'Accessory', 1, 3, 'itm_ring_01'], ['quiver', 'Quiver', 2, 3, 'ammo'], ['accessory2', 'Accessory', 3, 3, 'itm_necklace_01'],
+    ['shoulders', 'Shoulders', 1, 1, 'itm_leather_armor'], ['head', 'Head', 2, 1, 'itm_headgear_01'], ['back', 'Back', 3, 1, 'itm_leather_armor'],
+    ['weapon', 'Right hand', 1, 2, 'sword'], ['body', 'Body', 2, 2, 'itm_leather_armor'], ['offHand', 'Left hand', 3, 2, 'shield'],
+    ['arms', 'Arms', 1, 3, 'itm_leather_armor'], ['legs', 'Legs', 2, 3, 'itm_leather_armor'], ['accessory1', 'Accessory', 3, 3, 'itm_ring_01'],
+    ['quiver', 'Quiver', 1, 4, 'ammo'], ['feet', 'Feet', 2, 4, 'itm_leather_armor'], ['accessory2', 'Accessory', 3, 4, 'itm_necklace_01'],
 ];
 const FILTERS = [['all', 'All'], ['weapons', 'Weapons'], ['wear', 'Wear'], ['use', 'Potions & food'], ['learning', 'Scrolls & books'], ['materials', 'Materials']];
 const STAT = { strength: 'STR', intelligence: 'INT', stamina: 'STA', agility: 'AGI', maxHealth: 'Health', maxMana: 'Mana', defense: 'Defence', speed: 'Speed' };
