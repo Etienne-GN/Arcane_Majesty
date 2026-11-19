@@ -88,6 +88,8 @@ export const PROLOGUE_MAP = [
 ];
 
 export const ENEMY_TYPES = {
+    // 3D: the Guardians of the Wild (apps/amo3d content/actors/werewolf.js keeps its own copy of these numbers)
+    werewolf: { health: 120, damage: 14, speed: 120, sightRange: 160, attackRange: 30, xpReward: 70, patrolRadius: 160, lootTable: [{ id: 'wolf_pelt', chance: 0.5 }, { id: 'forest_herb', chance: 0.3 }] },
     wisp: {
         spriteKey: 'spr_wisp',
         health: 18, damage: 5, speed: 85, sightRange: 100,

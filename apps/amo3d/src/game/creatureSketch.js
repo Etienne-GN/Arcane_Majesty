@@ -6,6 +6,7 @@
 const has = (k, ...w) => w.some(x => k.includes(x));
 function planOf(k) {
     if (has(k, 'void_general')) return 'general';
+    if (has(k, 'werewolf')) return 'werewolf';
     if (has(k, 'spider', 'crab')) return 'spider';
     if (has(k, 'crow', 'hawk', 'eagle', 'beak', 'vulture', 'heron', 'bird', 'turkey', 'chicken', 'bat', 'moth')) return 'bird';
     if (has(k, 'ent', 'treant', 'vine', 'mushroom', 'amanita')) return 'tree';
@@ -63,7 +64,12 @@ const crawler = k => `<path d="M60 84 Q70 62 104 62 Q138 62 148 80 Q130 92 104 9
 const general = () => `<path d="M74 108 Q70 70 82 46 Q90 30 104 28 Q118 30 126 46 Q138 70 134 108Z" ${S(2.2)}/><path d="M92 30 Q84 14 74 10 M116 30 Q124 14 134 10" ${S(2)}/>`
     + `<path d="M96 42 l4 2 M108 44 l4 -2" ${S(2.4)}/><path d="M82 60 Q60 66 50 54 M126 60 Q150 62 158 48" ${S(2)}/><path d="M158 48 L170 20" ${S(2.2)}/>`
     + `<path d="M40 30 l6 4 M44 50 l8 0 M160 80 l8 2 M150 96 l8 4" ${S(1)} opacity=".6"/>` + hatch(78, 132, 108);
-const PLANS = { quad, bird, spider, tree, brute, spirit, humanoid, crawler, general };
+// An upright wolf-man: a long muzzle, pricked ears, a mane, bent wolf's legs, clawed hands, a tail.
+const werewolf = () => `<path d="M96 30 L84 34 Q80 38 86 40 L96 40" ${S(2)}/><path d="M96 28 Q104 22 112 28 L114 44 Q104 48 96 42Z" ${S(2)}/><path d="M100 24 L98 14 L104 22 M108 24 L112 14 L112 24" ${S(1.8)}/><circle cx="100" cy="31" r="1.4" ${F(1)}/>`
+    + `<path d="M98 46 Q86 52 88 68 Q90 80 104 82 Q118 80 120 66 Q120 50 110 46" ${S(2.2)}/><path d="M96 48 Q92 44 100 42 M112 44 Q118 46 116 52" ${S(1.2)}/>`
+    + `<path d="M90 54 Q76 64 74 80 M74 80 l-3 4 M74 80 l0 5 M74 80 l3 4 M118 54 Q132 64 134 80 M134 80 l-3 4 M134 80 l0 5 M134 80 l3 4" ${S(1.8)}/>`
+    + `<path d="M96 82 L92 94 L100 102 L96 108 M112 82 L116 94 L108 102 L112 108 M92 108 H100 M108 108 H116" ${S(2)}/><path d="M118 78 Q134 86 140 100" ${S(1.8)}/>` + hatch(90, 118, 84);
+const PLANS = { werewolf, quad, bird, spider, tree, brute, spirit, humanoid, crawler, general };
 
 let uid = 0;
 export function sketchSVG(kind, { faint = false } = {}) {
