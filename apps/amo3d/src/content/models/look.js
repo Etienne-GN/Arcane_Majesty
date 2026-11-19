@@ -10,6 +10,15 @@ export const BODY_PRESETS = {
     elder:        { label: 'Elder',        height: 0.96, width: 0.95, head: 1.00, shoulders: 0.95, hips: 1.00, limb: 0.95, stoop: 0.12 },
 };
 
+// Races (lore DB: Human, Aurorian, Nythorian, Fallen Aurorian; the Werewolf is its own creature, no dwarves in the
+// lore). A race shapes the ears and the skin's glow, and gives starting colours the player can still change.
+export const RACES = {
+    human:           { label: 'Human',           ears: 'round',  skin: '#e2b48f', eyes: '#5ab8f0', hair: '#3a2418', glow: null },
+    aurorian:        { label: 'Aurorian',        ears: 'elven',  skin: '#f4e6d8', eyes: '#f0d070', hair: '#f2e6c0', glow: { color: '#ffe8b0', k: 0.22 }, lore: 'Elven beings of pure light.' },
+    nythorian:       { label: 'Nythorian',       ears: 'elven',  skin: '#8a7c94', eyes: '#d8dce8', hair: '#1a1622', glow: { color: '#7a5aaa', k: 0.12 }, lore: 'Elven kin of the Underworld.' },
+    fallen_aurorian: { label: 'Fallen Aurorian', ears: 'elven',  skin: '#a89c94', eyes: '#ff6a30', hair: '#2a2420', glow: { color: '#a8301a', k: 0.1 }, veins: '#ff5a20', lore: 'Aurorians corrupted by the Void.' },
+};
+
 // Both hands pick from this same list. There is no dominance: a left-handed character simply
 // holds its weapon in `left`.
 const clone = o => JSON.parse(JSON.stringify(o ?? {}));
@@ -110,7 +119,7 @@ export function normalizeLook(lookIn = {}) {
         }
     }
     const body = {
-        preset: 'adult_male', height: 1, width: 1, skin: '#e2b48f',
+        preset: 'adult_male', race: 'human', height: 1, width: 1, skin: '#e2b48f',
         ...(look.body ?? {}),
     };
     if (look.build) {
@@ -119,6 +128,7 @@ export function normalizeLook(lookIn = {}) {
     }
     if (look.skin) body.skin = look.skin;
     if (!BODY_PRESETS[body.preset]) body.preset = 'adult_male';
+    if (!RACES[body.race]) body.race = 'human';
 
     const face = { eyes: '#5ab8f0', ...(look.face ?? {}) };
     if (look.eyes) face.eyes = look.eyes;

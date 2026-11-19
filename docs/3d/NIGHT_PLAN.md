@@ -15,7 +15,7 @@ decision, note it under "For the user", and go on to the next step.
 - If something keeps failing after two honest tries, write it down here and move on. Don't loop.
 
 ## Steps
-- [ ] **1. Elves (races)** — a race choice on the character body (Forge + New Game hero + townsfolk): Human,
+- [x] **1. Elves (races)** — a race choice on the character body (Forge + New Game hero + townsfolk): Human,
       Aurorian (elven, beings of light: pointed ears, pale luminous skin, light hair, a faint glow, gold-white eyes),
       Nythorian (elven kin of the Underworld: pointed ears, ashen-violet skin, dark hair, silver eyes, a shadow aura).
       Lore DB races: Aurorian (Anya), Nythorian (Seraphina, Malakar, Valen, Draven), Fallen Aurorian (Xarathos,
@@ -33,6 +33,7 @@ decision, note it under "For the user", and go on to the next step.
       Flurry of Blows, Aimed Shot), shield Block.
 
 ## Progress notes
+- Step 1 done: `RACES` in content/models/look.js (human, aurorian, nythorian, fallen_aurorian: ears, skin glow, starting colours, Fallen's glowing veins); character.js builds pointed ears / glow / veins; the Forge Body panel has a Race picker (your own hero gets it through the Forge). Not done: elf townsfolk (no lore place for them yet in the built world — Nythorians belong to New Ravenspire).
 
 ## For the user (decisions skipped tonight)
 - Dwarves: not in the lore DB — add them as new canon? (skipped)

@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { bakeRig } from '../../engine/batch.js';
 import { buildWeapon } from './weapons.js';
 import { buildHair, buildFacialHair } from './parts/hair.js';
-import { DEFAULT_LOOK, normalizeLook, BODY_PRESETS, handSpec } from './look.js';
+import { DEFAULT_LOOK, normalizeLook, BODY_PRESETS, RACES, handSpec } from './look.js';
 import { PART_CATALOG, partDef, COVERING_HEADGEAR } from './parts/index.js';
 
 const mat = (color, opts = {}) =>
@@ -55,7 +55,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     const P = BODY_PRESETS[bodyDef.preset] ?? BODY_PRESETS.adult_male;
     const eye = new THREE.Color(L.face.eyes);
     const M = {
-        skin: mat(bodyDef.skin),
+        skin: (() => { const R = RACES[bodyDef.race] ?? RACES.human, m = mat(bodyDef.skin); if (R.glow) { m.emissive = new THREE.Color(R.glow.color); m.emissiveIntensity = R.glow.k; } return m; })(),   // a race's inner light
         hair: mat(L.hair.color),
         stubble: mat(L.facialHair.color),
         eye: new THREE.MeshStandardMaterial({ color: eye, emissive: eye.clone().multiplyScalar(0.7), emissiveIntensity: 0.6 }),
@@ -126,7 +126,14 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         const brow = mesh(new THREE.BoxGeometry(0.045, 0.011, 0.012), M.brow, s * 0.043, 0.178, 0.108);
         brow.rotation.z = s * -0.18;
         head.add(brow);
-        head.add(mesh(new THREE.SphereGeometry(0.025, 5, 4), M.skin, s * 0.112, 0.13, -0.005));   // ears
+        if ((RACES[bodyDef.race] ?? RACES.human).ears === 'elven') {   // long pointed ears, swept back and up
+            const ear = mesh(new THREE.ConeGeometry(0.026, 0.13, 5), M.skin, s * 0.118, 0.15, -0.02);
+            ear.rotation.set(-0.5, 0, s * -1.05); head.add(ear);
+        } else head.add(mesh(new THREE.SphereGeometry(0.025, 5, 4), M.skin, s * 0.112, 0.13, -0.005));   // ears
+    }
+    if (RACES[bodyDef.race]?.veins) {   // the Fallen: Void-cracks glowing under the skin of the face
+        const vein = new THREE.MeshBasicMaterial({ color: RACES[bodyDef.race].veins, toneMapped: false });
+        for (const [x, y, r] of [[0.06, 0.1, 0.5], [-0.07, 0.08, -0.6], [0.03, 0.2, -0.3], [-0.04, 0.03, 0.4]]) { const v = mesh(new THREE.BoxGeometry(0.006, 0.05, 0.004), vein, x, y, 0.106); v.rotation.z = r; head.add(v); }
     }
     const covered = COVERING_HEADGEAR.has(L.parts.headgear?.id);
     buildHair(covered ? 'short' : L.hair.style, head, M.hair);

@@ -4,7 +4,7 @@
 import * as THREE from 'three';
 import { createCharacter } from '../content/models/character.js';
 import {
-    BODY_PRESETS, DEFAULT_LOOK, HANDHELD, HAND_ITEM, PART_SLOTS,
+    BODY_PRESETS, RACES, DEFAULT_LOOK, HANDHELD, HAND_ITEM, PART_SLOTS,
     handSpec, normalizeLook,
 } from '../content/models/look.js';
 import { PART_CATALOG, partDef } from '../content/models/parts/index.js';
@@ -108,7 +108,7 @@ const title = s => (s ? s[0].toUpperCase() + s.slice(1).replace(/_/g, ' ') : '')
 const partList = slot => (slot === 'left' || slot === 'right' ? HANDHELD : PART_CATALOG[slot] ?? []);
 const currentId = slot => def.look.parts[slot]?.id ?? 'none';
 const currentItem = slot => {
-    if (slot === 'body') return BODY_PRESETS[def.look.body.preset]?.label ?? 'Adult';
+    if (slot === 'body') return `${RACES[def.look.body.race]?.label ?? 'Human'} · ${BODY_PRESETS[def.look.body.preset]?.label ?? 'Adult'}`;
     if (slot === 'face') return 'Eyes';
     if (slot === 'hair') return title(def.look.hair.style);
     if (slot === 'facialHair') return title(def.look.facialHair.style);
@@ -282,6 +282,16 @@ function bodySection() {
         def.look.body.preset = id;
         rebuild(); renderRail(); renderSide();
     }));
+    frag.append(el('h2', {}, 'Race'));
+    const races = Object.keys(RACES).map(id => [id, RACES[id].label]);
+    frag.append(chipRow(races, () => def.look.body.race ?? 'human', id => {   // a race brings its colours (still changeable)
+        const R = RACES[id];
+        def.look.body.race = id; def.look.body.skin = R.skin;
+        def.look.face = { ...(def.look.face ?? {}), eyes: R.eyes };
+        def.look.hair = { ...(def.look.hair ?? {}), color: R.hair };
+        rebuild(); renderRail(); renderSide();
+    }));
+    if (RACES[def.look.body.race]?.lore) frag.append(el('div', { className: 'hint' }, RACES[def.look.body.race].lore));
     frag.append(slider('Height', def.look.body.height, 0.85, 1.15, v => { def.look.body.height = v; rebuild(); }));
     frag.append(slider('Build', def.look.body.width, 0.85, 1.2, v => { def.look.body.width = v; rebuild(); }));
     frag.append(colorField('Skin', def.look.body.skin, v => { def.look.body.skin = v; rebuild(); }));
