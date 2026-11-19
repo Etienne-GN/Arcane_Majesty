@@ -61,7 +61,10 @@ jobs:
       - run: npx vite build
       - run: npx cap sync android
       - name: Build the APK
-        run: cd android && ./gradlew assembleRelease --no-daemon -q   # not debuggable, no WebView inspection
+        run: |   # not debuggable, no WebView inspection; Maven Central sometimes drops a download — try again before failing
+          cd android
+          for try in 1 2 3; do ./gradlew assembleRelease --no-daemon -q && exit 0; echo "build attempt $try failed, retrying"; sleep $((try * 30)); done
+          exit 1
       - name: Name it
         run: cp android/app/build/outputs/apk/release/app-release.apk "ArcaneMajesty3D-${AMO_VERSION_NAME}.apk"
 
