@@ -10,13 +10,45 @@ import { createEnemyCore, PX } from './enemyCore.js';
 import { flat } from '../../engine/lib.js';
 import { elites as EL } from '@rules';
 
-const NAMES = { gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
+const NAMES = { cave_bat: 'Cave Bat', blind_stalker: 'Blind Stalker', deep_horror: 'Deep Horror', gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
 const TUNE = { sight: 2.6, reach: 2, speed: 1.4 };
 
 function body(type) {
     const root = new THREE.Group(), parts = {};
     const add = (geo, m, x = 0, y = 0, z = 0, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; parent.add(o); return o; };
-    if (type === 'gloom_beak') {
+    if (type === 'cave_bat') {   // a leathery bat of the deep places: big ears, red eyes, ragged wings
+        const M = flat(0x2a2224), wingM = flat(0x3a2a2a, { side: THREE.DoubleSide });
+        const b = add(new THREE.SphereGeometry(0.16, 7, 5), M); b.scale.set(0.9, 0.8, 1.2);
+        for (const s of [1, -1]) add(new THREE.ConeGeometry(0.05, 0.16, 4), M, s * 0.07, 0.17, 0.1);
+        for (const s of [1, -1]) {
+            const pivot = new THREE.Group(); pivot.position.set(s * 0.1, 0.04, 0); root.add(pivot);
+            const g = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0.12), new THREE.Vector3(s * 0.55, 0, 0.15), new THREE.Vector3(s * 0.45, 0, -0.1), new THREE.Vector3(s * 0.3, 0, -0.18), new THREE.Vector3(0, 0, -0.1)]);
+            g.setIndex(s > 0 ? [0, 1, 2, 0, 2, 3, 0, 3, 4] : [0, 2, 1, 0, 3, 2, 0, 4, 3]); g.computeVertexNormals();
+            add(g, wingM, 0, 0, 0, pivot);
+            parts[s > 0 ? 'wingL' : 'wingR'] = pivot;
+        }
+        parts.eyes = add(new THREE.BoxGeometry(0.1, 0.025, 0.02), new THREE.MeshBasicMaterial({ color: 0xff3a2a, toneMapped: false }), 0, 0.06, 0.18);
+    } else if (type === 'blind_stalker') {   // a pale eyeless hound that hunts by sound: long skull, a glowing maw
+        const M = flat(0xb8b0a4), dark = flat(0x7a726a);
+        const b = add(new THREE.CylinderGeometry(0.26, 0.2, 1.1, 7).rotateX(Math.PI / 2), M, 0, 0.7, 0); b.scale.set(0.85, 0.75, 1);
+        add(new THREE.ConeGeometry(0.2, 0.7, 6).rotateX(Math.PI / 2), M, 0, 0.75, 0.8);
+        for (let i = 0; i < 6; i++) add(new THREE.BoxGeometry(0.05, 0.06, 0.04), dark, 0, 0.9, -0.4 + i * 0.16);   // the knuckled spine
+        for (const [x, z] of [[0.17, 0.38], [-0.17, 0.38], [0.17, -0.38], [-0.17, -0.38]]) add(new THREE.CylinderGeometry(0.05, 0.035, 0.6, 5), M, x, 0.3, z);
+        add(new THREE.ConeGeometry(0.05, 0.5, 4).rotateX(-1.9), M, 0, 0.78, -0.7);
+        parts.eyes = add(new THREE.BoxGeometry(0.14, 0.05, 0.05), new THREE.MeshBasicMaterial({ color: 0xd8ff8a, toneMapped: false }), 0, 0.66, 1.1);   // no eyes — the maw glows
+        parts.legs = root.children.filter(o => o.position.y === 0.3);
+    } else if (type === 'deep_horror') {   // a mass of grey flesh and tentacles from below the deepest workings, one great eye
+        const M = flat(0x8a7484), dark = flat(0x5a4858), eye = new THREE.MeshBasicMaterial({ color: 0xffe060, toneMapped: false });
+        const b = add(new THREE.IcosahedronGeometry(0.9, 1), M, 0, 1.2, 0); b.scale.set(1.1, 0.9, 1);
+        for (let k = 0; k < 6; k++) { const a = k / 6 * Math.PI * 2, t = add(new THREE.ConeGeometry(0.18, 1.1, 5), dark, Math.cos(a) * 0.75, 0.45, Math.sin(a) * 0.75); t.rotation.set(Math.sin(a) * 0.9 + Math.PI, 0, -Math.cos(a) * 0.9); }
+        for (const s of [1, -1]) {   // two long grasping tentacles
+            const arm = new THREE.Group(); arm.position.set(s * 0.85, 1.5, 0.2); root.add(arm);
+            add(new THREE.CylinderGeometry(0.1, 0.2, 1.4, 6), M, 0, -0.6, 0.1, arm);
+            add(new THREE.ConeGeometry(0.12, 0.5, 5), dark, 0, -1.45, 0.15, arm).rotation.x = Math.PI;
+            parts[s > 0 ? 'armL' : 'armR'] = arm;
+        }
+        parts.eyes = add(new THREE.SphereGeometry(0.24, 10, 8), eye, 0, 1.45, 0.78);
+    } else if (type === 'gloom_beak') {
         const M = flat(0x2a3446), wingM = flat(0x1c2230, { side: THREE.DoubleSide }), beak = flat(0xc8a03a);
         const b = add(new THREE.SphereGeometry(0.32, 8, 6), M); b.scale.set(0.8, 0.7, 1.4);
         add(new THREE.SphereGeometry(0.17, 8, 6), M, 0, 0.12, 0.42);
@@ -122,11 +154,12 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
     const pos = new THREE.Vector3(home.x, map.heightAt(home.x, home.z), home.z);
     const core = createEnemyCore({ type, name: name ?? NAMES[type] ?? type, pos, rng, respawnS: elite?.boss ? 1e9 : 30, elite });   // a boss stays dead
     const DEF = core.DEF, s = core.s;
-    const SIGHT = (DEF.sightRange / PX) * TUNE.sight, REACH = (DEF.attackRange / PX) * TUNE.reach + (['crag_fiend', 'blight_ent', 'corrupted_sentinel'].includes(type) ? 0.6 : 0);
+    const SIGHT = (DEF.sightRange / PX) * TUNE.sight, REACH = (DEF.attackRange / PX) * TUNE.reach + (['crag_fiend', 'blight_ent', 'corrupted_sentinel', 'deep_horror'].includes(type) ? 0.6 : 0);
     const SPEED = Math.min(6.5, (DEF.speed / PX) * TUNE.speed);
     const ai = { state: 'idle', timer: rng() * 3, heading: rng() * 6.28, speed: 0, cd: 1 + rng(), t: rng() * 10, target: null, hit: false };
     const navKey = {};
-    const flyer = type === 'gloom_beak';
+    const flyer = type === 'gloom_beak' || type === 'cave_bat';
+    const isBoss = !!elite?.boss; let strikes = 0, slam = false, ring = null;   // a boss slams every third attack: a ring on the ground, then everything in it is hit
     const turn = (want, k) => { const d = ((((want - ai.heading) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI; ai.heading += d * Math.min(1, k); };
 
     // Online puppet: follow the host's snapshots ([x, y, z, heading, state, hp, dead]).
@@ -153,6 +186,7 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
     function update(dt, ctx) {
         ai.t += dt;
         if (!core.tick(dt, ctx)) {   // dead: topple / fall, then respawn at home
+            if (ring) ring.visible = false;
             const k = Math.min(1, s.deadT / 0.6);
             root.rotation.z = (Math.PI / 2) * k;
             root.position.y = map.heightAt(pos.x, pos.z) + (flyer ? 0.2 : 0);
@@ -181,13 +215,22 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
             const g = toP > REACH + 1 && map.nav && !flyer ? map.nav.aim(pos, P, navKey, dt) : P;
             turn(Math.atan2(g.x - pos.x, g.z - pos.z), dt * 7);
             if (toP > REACH) want = SPEED;
-            else if (ai.cd <= 0) { ai.state = 'windup'; ai.timer = ['crag_fiend', 'blight_ent', 'corrupted_sentinel'].includes(type) ? 0.7 : 0.4; ai.hit = false; }
-        } else if (ai.state === 'windup') { turn(ang, dt * 8); if ((ai.timer -= dt) <= 0) { ai.state = 'strike'; ai.timer = 0.3; } }
+            else if (ai.cd <= 0) {
+                ai.state = 'windup'; ai.timer = ['crag_fiend', 'blight_ent', 'corrupted_sentinel', 'deep_horror'].includes(type) ? 0.7 : 0.4; ai.hit = false;
+                slam = isBoss && ++strikes % 3 === 0;
+                if (slam) {   // the tell: a long wind-up and a red ring spreading on the floor
+                    ai.timer = 1.2;
+                    ring ??= new THREE.Mesh(new THREE.RingGeometry(0.85, 1, 32).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xff3a1a, transparent: true, opacity: 0.6, toneMapped: false, depthWrite: false }));
+                    ring.position.set(pos.x, pos.y + 0.05, pos.z); ring.scale.setScalar(0.3); ring.visible = true; scene.add(ring);
+                }
+            }
+        } else if (ai.state === 'windup') { turn(ang, dt * (slam ? 2 : 8)); if (slam && ring) { ring.position.set(pos.x, pos.y + 0.05, pos.z); ring.scale.setScalar(Math.min(3.6, ring.scale.x + dt * 3)); } if ((ai.timer -= dt) <= 0) { ai.state = 'strike'; ai.timer = 0.3; } }
         else if (ai.state === 'strike') {
             want = flyer ? SPEED * 1.6 : SPEED * 0.6;
-            if (!ai.hit && toP < REACH + 0.6) { ai.hit = true; const d = Math.round(DEF.damage * (ctx.voidMult ?? 1)); if (T.id === 'me' ? ctx.hurtPlayer(d, pos) : ctx.hurtRemote?.(T.id, d, pos)) core.onDealt(d); }
+            if (slam && !ai.hit) { ai.hit = true; if (ring) ring.visible = false; ctx.shake?.(0.6); if (toP < 3.6) { const d = Math.round(DEF.damage * 1.6 * (ctx.voidMult ?? 1)); if (T.id === 'me' ? ctx.hurtPlayer(d, pos) : ctx.hurtRemote?.(T.id, d, pos)) core.onDealt(d); } }
+            else if (!ai.hit && toP < REACH + 0.6) { ai.hit = true; const d = Math.round(DEF.damage * (ctx.voidMult ?? 1)); if (T.id === 'me' ? ctx.hurtPlayer(d, pos) : ctx.hurtRemote?.(T.id, d, pos)) core.onDealt(d); }
             if ((ai.timer -= dt) <= 0) { ai.state = 'recover'; ai.timer = 0.6; }
-        } else if (ai.state === 'recover') { if ((ai.timer -= dt) <= 0) { ai.state = 'chase'; ai.cd = 1.4 + rng() * 1.2; } }
+        } else if (ai.state === 'recover') { slam = false; if ((ai.timer -= dt) <= 0) { ai.state = 'chase'; ai.cd = 1.4 + rng() * 1.2; } }
         s.engaged = !['idle', 'wander', 'return'].includes(ai.state);
 
         ai.speed += (want * core.fxMult('speedMult') - ai.speed) * Math.min(1, dt * 6);
@@ -204,8 +247,8 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
         root.position.copy(pos);
         root.rotation.y = ai.heading;
         const tell = ai.state === 'windup';
-        if (flyer) {   // circle high, drop to dive
-            const alt = ai.state === 'strike' ? 1.0 : tell ? 2.0 : 3.2 + Math.sin(ai.t * 1.3) * 0.4;
+        if (flyer) {   // circle high, drop to dive (a cave bat flutters low, under the roof)
+            const lowK = type === 'cave_bat' ? 0.45 : 1, alt = (ai.state === 'strike' ? 1.0 : tell ? 2.0 : 3.2 + Math.sin(ai.t * 1.3) * 0.4) * lowK;
             root.position.y = pos.y + alt;
             const flap = Math.sin(ai.t * (tell ? 4 : 9)) * (ai.state === 'strike' ? 0.15 : 0.6);
             parts.wingL.rotation.z = flap; parts.wingR.rotation.z = -flap;
@@ -214,7 +257,7 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
             root.position.y = pos.y + 0.25 + Math.sin(ai.t * 2) * 0.12;
             parts.mat.opacity = Math.max(0.12, Math.min(0.6, 0.6 - (toP - 3) * 0.05)) + (tell ? 0.25 : 0) + s.flash;
             parts.mat.emissiveIntensity = 0.4 + (tell ? 1.4 : 0);
-        } else if (type === 'void_stalker') {   // a crouch before the lunge
+        } else if (type === 'void_stalker' || type === 'blind_stalker') {   // a crouch before the lunge
             root.position.y = pos.y - (tell ? 0.15 : 0);
             root.rotation.x = ai.state === 'strike' ? -0.2 : tell ? 0.15 : 0;
             parts.legs.forEach((l, i) => { l.rotation.x = Math.sin(ai.t * 10 + i * Math.PI / 2) * 0.5 * Math.min(1, ai.speed / 2); });

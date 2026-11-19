@@ -7,6 +7,9 @@ import { affinityOf } from './enemyAffinities.js';
 import { scaleEnemyStats } from './levelBands.js';
 
 export const BESTIARY_LORE = {
+    cave_bat: { name: 'Cave Bat', threat: 'LOW', desc: 'Leather-winged bats of the deep workings, red-eyed and quick. One is a nuisance; a cloud of them in a dark gallery is something else.' },
+    blind_stalker: { name: 'Blind Stalker', threat: 'MEDIUM', desc: 'A pale, eyeless hound of the deep places. It hunts by sound and smell, and its maw glows faintly in the dark — walk softly and it may pass you by.' },
+    deep_horror: { name: 'Deep Horror', threat: 'HIGH', desc: 'Grey flesh and grasping tentacles round one great yellow eye, from somewhere below the deepest workings. The miners never saw it; they only heard the props crack.' },
     werewolf: {
         name: 'Guardian of the Wild', threat: 'HIGH',
         desc: 'A werewolf of the Emerald Fields pack: tall, grey-furred, walking upright on wolf\'s legs. Not a monster — a territorial guardian that hunts Void-corruption wherever it seeps into the wild. They mistook Kael for a plague once; it ended in an uneasy truce. Leave them their ground and they leave you yours.',
