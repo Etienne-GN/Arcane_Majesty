@@ -20,7 +20,7 @@ decision, note it under "For the user", and go on to the next step.
       Nythorian (elven kin of the Underworld: pointed ears, ashen-violet skin, dark hair, silver eyes, a shadow aura).
       Lore DB races: Aurorian (Anya), Nythorian (Seraphina, Malakar, Valen, Draven), Fallen Aurorian (Xarathos,
       Acheron: Aurorian features with corruption — cracked skin, dark veins). Codex/codex-free. No dwarves.
-- [ ] **2. Clothing** — more garments per Forge slot (torso: gambeson, chain shirt, plate cuirass, leather jerkin,
+- [x] **2. Clothing** — more garments per Forge slot (torso: gambeson, chain shirt, plate cuirass, leather jerkin,
       tabard, gown; legs: skirt, greaves; feet: sandals, riding boots, sabatons; arms: gloves, gauntlets; head:
       circlet, crown, coif, great helm, feathered cap; shoulders: fur mantle; back: quiver, cloak variants), metal tints;
       new wearable items in `packages/rules` mapped to these parts so equipping shows on Eldrin; a few sold in shops.
@@ -34,6 +34,8 @@ decision, note it under "For the user", and go on to the next step.
 
 ## Progress notes
 - Step 1 done: `RACES` in content/models/look.js (human, aurorian, nythorian, fallen_aurorian: ears, skin glow, starting colours, Fallen's glowing veins); character.js builds pointed ears / glow / veins; the Forge Body panel has a Race picker (your own hero gets it through the Forge). Not done: elf townsfolk (no lore place for them yet in the built world — Nythorians belong to New Ravenspire).
+- Step 2 done (2026-11-19 morning): 18 new Forge garments; per the user, **one item per body part** — equipment slots arms, legs, feet, shoulders, back beside head/body (PlayerStats.equipment; old saves load with them empty); 24 wearable items with `wear` (Forge part id) in packages/rules items.js; ARMOURER_CATALOG (CATALOGS.armourer); wardrobe.js maps each slot to its part (look.wear, applied after the outfit in normalizeLook); the satchel figure has the new slots.
+- User asks (morning): werewolves **playable**; the Aetheric Tear in God mode reaches **every** map — done (travel.js builds the list from all region files).
 
 ## For the user (decisions skipped tonight)
 - Dwarves: not in the lore DB — add them as new canon? (skipped)
