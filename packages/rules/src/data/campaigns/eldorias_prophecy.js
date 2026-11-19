@@ -6,7 +6,8 @@
 // chapters span two maps each, and chapters 11-12 revisit maps chapters
 // 1-9 already opened).
 //
-// Ten of twelve chapters point at scaffolding maps/quests (src/data/maps/
+// 3D (2026-11-19): chapters 6–12 are real — apps/amo3d content/chapters.js (main_* quests, scenes).
+// Ten of twelve chapters pointed at scaffolding maps/quests (src/data/maps/
 // _stubs.js, quests.js's "Campaign spine scaffolding" section) — replaced
 // one chapter at a time as real content lands. Chapters 1 and 4 are real
 // today: main_read_the_erasure (echoes_of_stone) and
@@ -73,7 +74,7 @@ export const ELDORIAS_PROPHECY = {
             id: 'ch06_treacherys_bite', song: 6, act: 2,
             title: "Treachery's Bite",
             maps: ['fire_gate'],
-            quests: ['stub_ch06_treacherys_bite'],
+            quests: ['main_treacherys_bite'],
             // Bible names "Umbral Dagger" — no such item exists yet.
             unlocks: [],
             boss: 'oren',
@@ -82,7 +83,7 @@ export const ELDORIAS_PROPHECY = {
             id: 'ch07_the_solitary_path', song: 7, act: 2,
             title: 'The Solitary Path',
             maps: ['the_descent'],
-            quests: ['stub_ch07_the_solitary_path'],
+            quests: ['main_solitary_path'],
             // Bible names "Silent Guardian passive" — no such skill exists yet.
             unlocks: [],
             boss: null, // survival gauntlet, no boss
@@ -91,7 +92,7 @@ export const ELDORIAS_PROPHECY = {
             id: 'ch08_infernos_trial', song: 8, act: 2,
             title: "Inferno's Trial",
             maps: ['inferno_labyrinth'],
-            quests: ['stub_ch08_infernos_trial'],
+            quests: ['main_infernos_trial'],
             // Bible names "Runic Focus" — no such item/skill exists yet.
             unlocks: [],
             boss: 'xarathos',
@@ -100,7 +101,7 @@ export const ELDORIAS_PROPHECY = {
             id: 'ch09_eldorias_heartbeat', song: 9, act: 3,
             title: "Eldoria's Heartbeat",
             maps: ['ruins_of_eldoria'],
-            quests: ['stub_ch09_eldorias_heartbeat'],
+            quests: ['main_eldorias_heartbeat'],
             // Bible names "Aetheric Witness" — no such mechanic exists yet.
             unlocks: [],
             boss: 'voraun', // rune-dead gate puzzle, not yet a real fight
@@ -109,7 +110,7 @@ export const ELDORIAS_PROPHECY = {
             id: 'ch10_heart_of_war', song: 10, act: 3,
             title: 'Heart of War',
             maps: ['heartstone_chamber', 'ancient_door'],
-            quests: ['stub_ch10_heart_of_war'],
+            quests: ['main_heart_of_war'],
             // Bible names "Heartstone + ward" — no such item/mechanic exists yet.
             unlocks: [],
             boss: 'shadow_balrog',
@@ -118,7 +119,7 @@ export const ELDORIAS_PROPHECY = {
             id: 'ch11_the_weight_of_eternity', song: 11, act: 3,
             title: 'The Weight of Eternity',
             maps: ['ruins_of_eldoria', 'thaloria'],
-            quests: ['stub_ch11_the_weight_of_eternity'],
+            quests: ['main_weight_of_eternity'],
             unlocks: [],
             boss: null, // "the heaviest scene in the campaign" — no combat
         },
@@ -126,7 +127,7 @@ export const ELDORIAS_PROPHECY = {
             id: 'ch12_dawns_embrace', song: 12, act: 3,
             title: "Dawn's Embrace",
             maps: ['eldrin_tower'],
-            quests: ['stub_ch12_dawns_embrace'],
+            quests: ['main_dawns_embrace'],
             // Bible names "permanent ward + post-game Rift-Gates" — the
             // campaign's own finale reward; left ungranted until real.
             unlocks: [],

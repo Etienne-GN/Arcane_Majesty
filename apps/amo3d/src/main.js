@@ -63,6 +63,7 @@ import { createThaloria, INTERIOR_IDS } from './content/thaloria.js';
 import { createEastRoad, EAST_ROAD_GATES } from './content/eastRoad.js';
 import { createMountain } from './content/mountain.js';
 import { createSanctuary, registerSanctuaryQuests } from './content/sanctuary.js';
+import { createChapters, registerChapterQuests } from './content/chapters.js';
 import { populate } from './content/actors/animals.js';
 import { dailyRng } from './content/actors/beast.js';
 // Animals per map (amo ENEMY_TYPES): [type, count, near (landmark or point), radius].
@@ -288,6 +289,7 @@ const world = createMapManager({
             if (id === 'sylvan_sanctuary' && !stats.questLog?.main_elementals_trial) quests.start('main_elementals_trial');
         }
         lockDoors(map, id);
+        if (!CUSTOM) chapters?.enter(map, id);   // Eldoria's Prophecy, chapters 6–12: the story's scenes on this map
         if (CUSTOM && id === 'thaloria_inn' && !stats.flags.newcomer) newcomerMorning();
         hud.banner(lastLevel ? `${map.name} — ${lastLevel}` : map.name);
         save();
@@ -322,7 +324,8 @@ const chests = createChests({ stats, hud });
 const mapView = createMapView({ stats, hud });
 const shop = createShop({ stats, hud, save: () => save() });
 const quests = createQuests({ stats, hud });
-registerSanctuaryQuests(stats);   // game quests from the campaign spec, run by amo's quest manager as generated quests
+registerSanctuaryQuests(stats);
+registerChapterQuests(stats);   // Eldoria's Prophecy, chapters 6–12   // game quests from the campaign spec, run by amo's quest manager as generated quests
 const bountyBoard = createBountyBoard({ stats, hud, save: () => save() });
 // Two-hand actions (Options): each hand's action button and the arch that cycles its favourites.
 const hands = createHands({ stats, hud, input, isTouch: document.body.classList.contains('touch-mode') });
@@ -381,6 +384,8 @@ const dialogue = createDialogue({
     onTalked: (npcId, name, start) => quests.afterTalk(npcId, name, start),
     onTeach: () => {},
 });
+let chapters = null;   // created below, once the world and the player exist
+
 // The newcomer's first morning at the inn: the letter under the door, and a home.
 function newcomerMorning() {
     stats.flags.newcomer = true;
@@ -561,7 +566,8 @@ function tick(dt) {
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
     const pp = player.state.pos;
-    let station = (map.stations ?? []).find(st => Math.hypot(st.pos.x - pp.x, st.pos.z - pp.z) < 2.3 && Math.abs(st.pos.y - pp.y) < 1.6);
+    let station = (map.stations ?? []).filter(st => Math.hypot(st.pos.x - pp.x, st.pos.z - pp.z) < 2.3 && Math.abs(st.pos.y - pp.y) < 1.6)
+        .reduce((b, st) => (!b || Math.hypot(st.pos.x - pp.x, st.pos.z - pp.z) < Math.hypot(b.pos.x - pp.x, b.pos.z - pp.z) ? st : b), null);   // the nearest, when two are close
     let person = map.town ? map.town.nearestPerson(pp) : null;
     // Whichever is closer wins: a person standing by a chest or sign is still someone to talk to.
     if (station && person) { if (Math.hypot(person.pos.x - pp.x, person.pos.z - pp.z) < Math.hypot(station.pos.x - pp.x, station.pos.z - pp.z)) station = null; else person = null; }
@@ -596,6 +602,7 @@ function tick(dt) {
         if (lv !== lastLevel) { hud.banner(`${map.name} — ${lv}`); lastLevel = lv; }
     }
     map.update(simT, dt, ctx);
+    chapters?.update(dt, { ...ctx, t: simT });
     sweepPlates();
     fireballs.update(dt, map, map.hittables);
     loot.update(dt, player.state, map);
@@ -622,6 +629,7 @@ function tick(dt) {
     if (archery.armed()) hud.ui.speed.textContent += `${hud.ui.speed.textContent ? ' · ' : ''}${archery.ready()} arrows ready (+${archery.spare()} in the satchel)`;
 }
 
+chapters = createChapters({ stats, hud, dialogue, quests, save: () => save(), player, world, cam, relock: m => lockDoors(m, world.id) });
 if (REGIONS[params.get('region')] || ['the_summit', 'thaloria', 'east_road', 'outdoor', 'sylvan_sanctuary', 'tower'].includes(params.get('region'))) world.enter(params.get('region'), 'start');   // the editor's "Play here"
 else if (savedAt && world.maps && ['outdoor', 'tower', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'citadel_library', 'forbidden_archive', ...Object.keys(DUNGEONS), ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
 else if (CUSTOM) world.enter('thaloria_inn', 'enter');   // a hero of your own wakes at the inn
@@ -630,7 +638,7 @@ const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.c
 
 // Handle for headless checks.
 window.__poc = {
-    player: player.state, stats, input, cam, quality, save, skills, playerApi: player,
+    player: player.state, stats, input, cam, quality, save, skills, playerApi: player, quests,
     advance: s => loop.advance(s),
     hurtPlayer: player.hurt,
     keys: input.keys,

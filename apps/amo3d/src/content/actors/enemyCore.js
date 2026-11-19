@@ -47,7 +47,7 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
     plate.style.cssText = 'position:absolute;left:0;top:0;opacity:0;transition:opacity .3s;white-space:nowrap;text-align:center';
     const label = document.createElement('div');
     label.style.cssText = 'font:calc(15px * var(--ui, 1)) Georgia,serif;color:#f0e6d2;text-shadow:0 1px 3px #000;letter-spacing:.06em';
-    label.textContent = (elite?.boss ? `${name} (${elite.affixes.map(a => EL.AFFIX_LABELS[a]).join(', ')})` : elite ? `Elite ${name} — ${elite.affixes.map(a => EL.AFFIX_LABELS[a]).join(', ')}` : name) + (family.family ? ` · ${family.family[0].toUpperCase()}${family.family.slice(1)}` : '');
+    label.textContent = (elite?.boss ? (elite.affixes.length ? `${name} (${elite.affixes.map(a => EL.AFFIX_LABELS[a]).join(', ')})` : name) : elite ? `Elite ${name} — ${elite.affixes.map(a => EL.AFFIX_LABELS[a]).join(', ')}` : name) + (family.family ? ` · ${family.family[0].toUpperCase()}${family.family.slice(1)}` : '');
     if (elite) { label.style.color = '#ffd76a'; }
     const barBox = document.createElement('div');
     barBox.style.cssText = `width:${elite ? 130 : 100}px;height:6px;margin:3px auto 0;border:1px solid ${elite ? '#ffd76a' : '#eee6d288'};border-radius:4px;background:#0009;overflow:hidden`;

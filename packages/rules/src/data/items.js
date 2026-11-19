@@ -135,6 +135,15 @@ export const ARMOURER_CATALOG = [
 export const CATALOGS = { cartographer: CARTOGRAPHER_CATALOG, guild: GUILD_CATALOG, armourer: ARMOURER_CATALOG };
 
 export const ITEMS = {
+    // ── Eldoria's Prophecy: the story's own things (never sold, never dropped) ──
+    eldrins_journal: {
+        id: 'eldrins_journal', name: "Eldrin's Journal", description: 'Forty years of notes on the erasure, and the coordinates the vision gave: where the Heartstone was hidden.',
+        color: 0x6a4a2a, icon: 'itm_book', stackable: false, quest: true, buyPrice: 0, sellPrice: 0,
+    },
+    heartstone: {
+        id: 'heartstone', name: 'The Heart Stone of Creation', description: 'Warm in the hand, and heavier than a stone that size should be. It read your hand before it let you take it. It is yours to keep — for a long time.',
+        color: 0xffd890, icon: 'itm_glowing_dust', stackable: false, quest: true, buyPrice: 0, sellPrice: 0,
+    },
     // ── Clothing and armour, one body part each (3D) ─────────────────────────
     gambeson: {
         id: 'gambeson', name: "Gambeson", description: "A quilted padded coat. Warm, and it turns a glancing blow.",
