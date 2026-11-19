@@ -6,6 +6,7 @@ import { join } from 'node:path';
 const rules = fileURLToPath(new URL('../../packages/rules/index.js', import.meta.url));
 const castDir = fileURLToPath(new URL('./src/content/cast', import.meta.url));
 const regionDir = fileURLToPath(new URL('./src/content/regions', import.meta.url));
+const mobNotesDir = fileURLToPath(new URL('./src/content/mob_notes', import.meta.url));   // the Bestiary page's notes
 
 // Dev-only APIs: the Forge's cast (src/content/cast) and the editor's regions (src/content/regions).
 // GET lists the JSON files, POST saves one as <id>.json.
@@ -49,9 +50,9 @@ export default defineConfig({
         // amo's engine-free rules, shared through packages/rules — no copies.
         alias: { '@rules': rules },
     },
-    plugins: [jsonDirApi('/api/cast', castDir, 'cast'), jsonDirApi('/api/region', regionDir, 'regions')],
+    plugins: [jsonDirApi('/api/cast', castDir, 'cast'), jsonDirApi('/api/region', regionDir, 'regions'), jsonDirApi('/api/mobnotes', mobNotesDir, 'mob_notes')],
     build: {
-        rollupOptions: { input: { main: 'index.html', forge: 'forge.html', editor: 'editor.html' } },
+        rollupOptions: { input: { main: 'index.html', forge: 'forge.html', editor: 'editor.html', bestiary: 'bestiary.html' } },
     },
     server: {
         port: 5190,

@@ -10,7 +10,7 @@ import { createEnemyCore, PX } from './enemyCore.js';
 import { flat } from '../../engine/lib.js';
 import { elites as EL } from '@rules';
 
-const NAMES = { grave_wraith: 'Grave-Wraith', cursed_knight: 'Cursed Knight', lava_elemental: 'Magma-Eater', ember_imp: 'Cinder-Soul', stone_golem: 'Obsidian Golem', cave_bat: 'Cave Bat', blind_stalker: 'Blind Stalker', deep_horror: 'Deep Horror', gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
+export const NAMES = { grave_wraith: 'Grave-Wraith', cursed_knight: 'Cursed Knight', lava_elemental: 'Magma-Eater', ember_imp: 'Cinder-Soul', stone_golem: 'Obsidian Golem', cave_bat: 'Cave Bat', blind_stalker: 'Blind Stalker', deep_horror: 'Deep Horror', gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
 const TUNE = { sight: 2.6, reach: 2, speed: 1.4 };
 
 function body(type) {

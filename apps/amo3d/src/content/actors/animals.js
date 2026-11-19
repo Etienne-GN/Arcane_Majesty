@@ -7,7 +7,7 @@ import { createEnemyCore, PX } from './enemyCore.js';
 import { flat } from '../../engine/lib.js';
 import { sfx } from '../../engine/sfx.js';
 
-const NAMES = { rabbit: 'Rabbit', forest_fox: 'Fox', crow: 'Crow', feral_boar: 'Feral Boar', black_bear: 'Black Bear', grizzly_bear: 'Grizzly Bear',
+export const NAMES = { rabbit: 'Rabbit', forest_fox: 'Fox', crow: 'Crow', feral_boar: 'Feral Boar', black_bear: 'Black Bear', grizzly_bear: 'Grizzly Bear',
     sheep: 'Sheep', cow: 'Cow', pig: 'Pig', chicken: 'Chicken', goat: 'Goat' };
 // size (body length), height of the back, colours, and a few features
 const KINDS = {

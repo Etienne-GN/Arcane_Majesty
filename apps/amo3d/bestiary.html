@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bestiary — Arcane Majesty</title>
+    <style>
+        :root { --gold: #f3d88b; --ink: #eee6d2; --muted: #a99f8c; --line: #f3d88b33; }
+        * { box-sizing: border-box; }
+        html, body { margin: 0; height: 100%; background: #0d0b10; color: var(--ink); font-family: Georgia, 'Times New Roman', serif; overflow: hidden; }
+        #rail { position: fixed; top: 0; left: 0; bottom: 0; width: 240px; overflow-y: auto; background: #100d14f2; border-right: 1px solid var(--line); padding: 14px 10px 24px; }
+        #stage { position: fixed; inset: 0 400px 0 240px; }
+        #stage canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+        #side { position: fixed; top: 0; right: 0; bottom: 0; width: 400px; overflow-y: auto; background: #16121bee; border-left: 1px solid var(--line); padding: 16px 18px 30px; }
+        h1 { margin: 0 0 2px 4px; font-weight: normal; letter-spacing: .18em; color: var(--gold); font-size: 20px; }
+        .sub { margin: 0 0 12px 4px; font-size: 12px; opacity: .55; }
+        h3 { font-weight: normal; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; opacity: .45; margin: 14px 0 6px 4px; }
+        .mob { display: flex; justify-content: space-between; align-items: center; padding: 6px 9px; border-radius: 7px; cursor: pointer; font-size: 14px; }
+        .mob:hover { background: #ffffff0c; } .mob.on { background: #f3d88b22; color: #fff4d0; }
+        .badge { font-size: 11px; padding: 1px 7px; border-radius: 9px; background: #c8503a; color: #fff; } .badge.done { background: #4a7a3a; }
+        h2 { margin: 0; font-weight: normal; color: var(--gold); font-size: 24px; }
+        .meta { font-size: 13px; color: var(--muted); margin: 4px 0 10px; }
+        .lore { font-style: italic; line-height: 1.4; font-size: 14px; margin: 8px 0 12px; }
+        .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 12px; font-size: 13px; margin-bottom: 14px; }
+        .stats span:nth-child(odd) { color: var(--muted); }
+        .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 12px; }
+        .chip { padding: 4px 10px; border-radius: 13px; border: 1px solid #eee6d244; font-size: 13px; cursor: pointer; background: #0006; user-select: none; }
+        .chip.on { border-color: var(--gold); background: #f3d88b26; }
+        textarea { width: 100%; height: 76px; background: #0008; color: var(--ink); border: 1px solid #eee6d244; border-radius: 6px; padding: 7px; font: 14px Georgia, serif; resize: vertical; }
+        button { font: 14px Georgia, serif; padding: 7px 14px; border-radius: 7px; border: 1px solid #f3d88b88; background: linear-gradient(#6a4a1a, #3e2a0c); color: #fff3d8; cursor: pointer; margin-top: 6px; }
+        .note { border: 1px solid #eee6d222; border-radius: 8px; padding: 8px 10px; margin: 8px 0; font-size: 14px; line-height: 1.35; background: #0004; }
+        .note.done { opacity: .5; } .note.done .t { text-decoration: line-through; }
+        .note .when { font-size: 11px; color: var(--muted); margin-top: 4px; display: flex; gap: 10px; align-items: center; }
+        .note .when a { color: #f3d88b; cursor: pointer; }
+        .note .reply { margin-top: 6px; padding: 6px 8px; border-left: 2px solid #f3d88b66; font-size: 13px; color: #d8d0bc; }
+        #status { font-size: 12px; margin-top: 6px; min-height: 1.2em; }
+        #hint { position: fixed; left: 250px; bottom: 10px; font-size: 12px; opacity: .5; }
+    </style>
+</head>
+<body>
+    <div id="rail"><h1>BESTIARY</h1><div class="sub">Every creature, as the game builds it</div><div id="list"></div></div>
+    <div id="stage"></div>
+    <div id="side"></div>
+    <div id="hint">Drag to turn · wheel to zoom · notes save into the repo (src/content/mob_notes)</div>
+    <script type="module" src="./src/bestiary/main.js"></script>
+</body>
+</html>
