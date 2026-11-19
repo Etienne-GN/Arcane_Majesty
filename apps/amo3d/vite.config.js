@@ -24,6 +24,10 @@ function jsonDirApi(route, dir, label) {
                     // Only our own pages may write: a JSON body (cross-site forms can't send that without a
                     // CORS preflight, which this server doesn't answer) from this server's own origin.
                     const origin = req.headers.origin;
+                    // Only when reached as this machine (blocks DNS-rebinding pages, whose Host is their own name).
+                    const local = h => /^(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/.test(h ?? '');
+                    if (!local(req.headers.host)) return send(403, { error: 'writes only from localhost' });
+                    if (origin && !local(new URL(origin).host)) return send(403, { error: 'cross-origin write refused' });
                     if (!/^application\/json\b/.test(req.headers['content-type'] ?? '')) return send(415, { error: 'JSON only' });
                     if (origin && new URL(origin).host !== req.headers.host) return send(403, { error: 'cross-origin write refused' });
                     let raw = '';
