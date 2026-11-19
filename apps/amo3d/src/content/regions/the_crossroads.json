@@ -426,5 +426,76 @@
     "x": -58,
     "z": 0,
     "facing": 1.5708
-  }
+  },
+  "people": [
+    {
+      "name": "Innkeeper of the Worn Stone",
+      "role": "innkeeper",
+      "price": 8,
+      "greeting": "Four roads and one hearth \u2014 the Worn Stone. A bed and a hot supper, 8 gold.",
+      "x": 16,
+      "z": -9.9,
+      "facing": 0
+    },
+    {
+      "name": "Pedlar",
+      "role": "merchant",
+      "x": -7,
+      "z": -4.2,
+      "facing": 0,
+      "greeting": "Rope, bread, potions, a good knife \u2014 whatever the road takes from you, I sell back."
+    },
+    {
+      "name": "Clothier",
+      "role": "merchant",
+      "catalog": "armourer",
+      "x": 7,
+      "z": -4.2,
+      "facing": 0,
+      "greeting": "Wool from the Heartlands, leather from the south, mail from the smithy behind me. Try it on."
+    },
+    {
+      "name": "Smith",
+      "role": "merchant",
+      "catalog": "armourer",
+      "greeting": "Mail, plate, a helm that will turn a blade. Steel is dear and worth it.",
+      "x": -15,
+      "z": 9.4,
+      "facing": 3.1416
+    },
+    {
+      "name": "Carter",
+      "role": "farmer",
+      "x": -4,
+      "z": 3,
+      "facing": 1.6,
+      "wander": 4,
+      "lines": [
+        "West to Thaloria, east to the coast, south to the lake. North is Whisper-Wood \u2014 I go round it.",
+        "The lake road is quiet. Too quiet, my wife says. She says that about everything."
+      ]
+    },
+    {
+      "name": "Well-keeper",
+      "role": "villager",
+      "archetype": "peasant",
+      "x": 1.6,
+      "z": 1.4,
+      "facing": -2.4,
+      "lines": [
+        "Every road in the Heartlands comes through here sooner or later. So does every rumour.",
+        "They say a stone-faced old wizard from the west passed through once. Didn't pay for his water either."
+      ]
+    },
+    {
+      "name": "Guard",
+      "role": "guard",
+      "x": -40,
+      "z": 2,
+      "facing": 1.57,
+      "lines": [
+        "Keep to the road after dark. Things come out of the north wood."
+      ]
+    }
+  ]
 }

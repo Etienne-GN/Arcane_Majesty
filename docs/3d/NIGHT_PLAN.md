@@ -24,7 +24,7 @@ decision, note it under "For the user", and go on to the next step.
       tabard, gown; legs: skirt, greaves; feet: sandals, riding boots, sabatons; arms: gloves, gauntlets; head:
       circlet, crown, coif, great helm, feathered cap; shoulders: fur mantle; back: quiver, cloak variants), metal tints;
       new wearable items in `packages/rules` mapped to these parts so equipping shows on Eldrin; a few sold in shops.
-- [ ] **3. Life in the new places** — townsfolk (Forge archetypes) with simple day routines in the Crossroads, Port
+- [x] **3. Life in the new places** — townsfolk (Forge archetypes) with simple day routines in the Crossroads, Port
       Silver, Iron Hollow, Duskmeet, Graywatch; an innkeeper (rest) and a merchant (shop with the checkout) in each
       town; a few lore-flavoured barks.
 - [ ] **4. The rest of Thaloria** — a lookout on the glade road framing the Citadel like the album cover; the city
@@ -37,6 +37,7 @@ decision, note it under "For the user", and go on to the next step.
 - Step 2 done (2026-11-19 morning): 18 new Forge garments; per the user, **one item per body part** — equipment slots arms, legs, feet, shoulders, back beside head/body (PlayerStats.equipment; old saves load with them empty); 24 wearable items with `wear` (Forge part id) in packages/rules items.js; ARMOURER_CATALOG (CATALOGS.armourer); wardrobe.js maps each slot to its part (look.wear, applied after the outfit in normalizeLook); the satchel figure has the new slots.
 - User asks (morning): werewolves **playable**; the Aetheric Tear in God mode reaches **every** map — done (travel.js builds the list from all region files).
 - Playable werewolves (user, morning): race `werewolf` in RACES (human form: amber eyes; `fur`); the wolf form = body.wolf in character.js (muzzle, fangs, wolf ears, mane, claws, tail; no hair/beard); the change V / R3 / touch WOLF (only for werewolf heroes; stats.flags.wolfForm, kept in the save); wolf form: ×1.3 speed, ×1.8 strike damage, no casting; hat, gloves, boots, cloak come off (wardrobe.js). Forge preview switch Human/Wolf form. Not yet: a change animation, werewolf-only skills.
+- Step 3 done: content/actors/villagers.js (region `people`: Forge archetype looks, stand or stroll, G to talk; merchant → shop with `catalog`; innkeeper → a room: gold, full rest, clock to 7:00; others → their own lines). 26 people in the Crossroads, Port Silver, Iron Hollow, Duskmeet, Graywatch (clothier, smith, sailmaker and quartermaster sell the armourer catalogue). Names are roles, no new canon characters.
 
 ## For the user (decisions skipped tonight)
 - Dwarves: not in the lore DB — add them as new canon? (skipped)

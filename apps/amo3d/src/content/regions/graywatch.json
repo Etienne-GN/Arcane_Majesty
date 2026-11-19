@@ -265,5 +265,48 @@
     "x": -58,
     "z": 0,
     "facing": 1.5708
-  }
+  },
+  "people": [
+    {
+      "name": "Quartermaster",
+      "role": "merchant",
+      "catalog": "armourer",
+      "greeting": "Watch kit: mail, helms, good boots. Garrison price for anyone who stands a shift.",
+      "x": -10,
+      "z": 6.15,
+      "facing": 3.1416
+    },
+    {
+      "name": "Sergeant of the Watch",
+      "role": "guard",
+      "archetype": "soldier",
+      "x": 0,
+      "z": 3,
+      "facing": 3.1,
+      "lines": [
+        "Sparse garrison, long nights. We watch the forest; the forest watches back.",
+        "Shadow-touched things come out of Whisper-Wood. We put them down before they reach the villages."
+      ]
+    },
+    {
+      "name": "Sentry",
+      "role": "guard",
+      "x": -14,
+      "z": -14.5,
+      "facing": 1.57,
+      "lines": [
+        "East is the Scarlands. Nothing grows right out there."
+      ]
+    },
+    {
+      "name": "Sentry",
+      "role": "guard",
+      "x": 14,
+      "z": -14.5,
+      "facing": -1.57,
+      "lines": [
+        "Eyes on the trees. Always."
+      ]
+    }
+  ]
 }

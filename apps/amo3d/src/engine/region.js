@@ -14,6 +14,7 @@ import { createDeer } from '../content/actors/deer.js';
 import { buildMonolith } from '../game/travel.js';
 import { createBeasts } from '../content/actors/beast.js';
 import { createWerewolves } from '../content/actors/werewolf.js';
+import { createVillagers } from '../content/actors/villagers.js';
 import { buildHouse, buildProp, PROP_R } from '../content/models/buildings.js';
 
 const segDist = (x, z, pts) => {
@@ -325,7 +326,9 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         landmarks: [...(def.landmarks ?? []), ...(def.buildings ?? []).filter(b => b.name).map(b => ({ name: b.name, x: b.x, z: b.z, icon: 'house' })), ...links.map(l => ({ name: l.label.replace(/^To /, '→ '), x: l.x, z: l.z, icon: 'gate' })), ...map.gates.map(g => ({ name: g.label, x: g.x, z: g.z, icon: 'stones' }))],
     };
 
+    if (def.people?.length) map.town = createVillagers({ scene, map, people: def.people, rng });   // townsfolk: merchants, innkeepers, villagers
     map.update = (t, dt, ctx) => {
+        map.town?.update?.(dt);
         for (const h of map.hittables) h.update(dt, ctx);
         map.shadows?.update(dt);
         const S = shell.update(dt, ctx);

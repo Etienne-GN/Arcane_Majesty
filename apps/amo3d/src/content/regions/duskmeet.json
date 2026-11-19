@@ -346,5 +346,49 @@
     "x": 0,
     "z": 52,
     "facing": 3.1416
-  }
+  },
+  "people": [
+    {
+      "name": "Keeper of the Last Lamp",
+      "role": "innkeeper",
+      "price": 8,
+      "greeting": "Last lamp before the dark. A bed, a bolted door, and the lantern stays lit. 8 gold.",
+      "x": -4,
+      "z": -5.4,
+      "facing": 0
+    },
+    {
+      "name": "Chandler",
+      "role": "merchant",
+      "x": 6,
+      "z": 3.5,
+      "facing": -1.6,
+      "greeting": "Lamp oil, candles, iron nails, horseshoes. Everything a sensible soul needs in Duskmeet."
+    },
+    {
+      "name": "Lamplighter",
+      "role": "villager",
+      "archetype": "peasant",
+      "x": -6,
+      "z": 4,
+      "facing": 0,
+      "wander": 6,
+      "lines": [
+        "Every lamp lit till dawn. Every one. My father missed one once.",
+        "Iron over the door. No one says why. No one has to."
+      ]
+    },
+    {
+      "name": "Old woman",
+      "role": "villager",
+      "archetype": "civilian",
+      "x": 1,
+      "z": -3,
+      "facing": 3.1,
+      "lines": [
+        "The shadows in the trees have no faces. If you see one with a face, run.",
+        "Graywatch is east, through the wood. The soldiers there drink our ale and call us superstitious."
+      ]
+    }
+  ]
 }

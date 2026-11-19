@@ -406,5 +406,58 @@
     "x": 60,
     "z": 0,
     "facing": -1.5708
-  }
+  },
+  "people": [
+    {
+      "name": "Keeper of the Grinding Wheel",
+      "role": "innkeeper",
+      "price": 6,
+      "greeting": "Miners pay six gold for a bed and a bowl. So do you.",
+      "x": -6,
+      "z": 11.9,
+      "facing": 3.1416
+    },
+    {
+      "name": "Ore-trader",
+      "role": "merchant",
+      "greeting": "Pickaxes, lamps, potions for the lungs. Ore, I buy; I don't give it away.",
+      "x": -18,
+      "z": 1.1,
+      "facing": 0
+    },
+    {
+      "name": "Foreman",
+      "role": "guard",
+      "archetype": "soldier",
+      "lines": [
+        "The deep shaft is closed. Something down there cracks the props at night.",
+        "Crag-fiends on the slopes. Stone that walks. Don't go up there unarmed."
+      ],
+      "x": 14,
+      "z": 0.1,
+      "facing": 0
+    },
+    {
+      "name": "Miner",
+      "role": "miner",
+      "x": 4,
+      "z": 4,
+      "facing": 3.1,
+      "wander": 4,
+      "lines": [
+        "Twelve hours under, and the rock still hums when you put your ear to it.",
+        "Up the east path is the Summit of Despair. Nobody goes up there for the view."
+      ]
+    },
+    {
+      "name": "Miner",
+      "role": "miner",
+      "x": -10,
+      "z": 6,
+      "facing": 0.5,
+      "lines": [
+        "Pay's bad, ale's worse, and I wouldn't live anywhere else."
+      ]
+    }
+  ]
 }

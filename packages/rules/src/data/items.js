@@ -152,28 +152,28 @@ export const ITEMS = {
     },
     chain_shirt: {
         id: 'chain_shirt', name: "Chain Shirt", description: "Riveted mail to mid-thigh. Heavy on the shoulders, hard to cut through.",
-        color: 0x8a8e96, icon: 'itm_leather_armor', stackable: false, slot: 'body', tier: 2, rarity: 'uncommon',
+        color: 0x8a8e96, icon: 'itm_iron_armor', stackable: false, slot: 'body', tier: 2, rarity: 'uncommon',
         wear: 'chain_shirt', wearColors: { primary: '#8a8e96' },   // 3D: the Forge part it puts on
         stats: { stamina: 2 }, buyPrice: 110, sellPrice: 36,
         onUse: (stats) => stats.equipItem('chain_shirt'),
     },
     knights_tabard: {
         id: 'knights_tabard', name: "Knight’s Tabard", description: "Mail under a long blue tabard with a gold sigil, as the Thalorian guard wear it.",
-        color: 0x2a4a8a, icon: 'itm_leather_armor', stackable: false, slot: 'body', tier: 2, rarity: 'uncommon',
+        color: 0x2a4a8a, icon: 'itm_iron_armor', stackable: false, slot: 'body', tier: 2, rarity: 'uncommon',
         wear: 'tabard', wearColors: { primary: '#2a4a8a' },   // 3D: the Forge part it puts on
         stats: { stamina: 2, strength: 1 }, buyPrice: 140, sellPrice: 46,
         onUse: (stats) => stats.equipItem('knights_tabard'),
     },
     plate_cuirass: {
         id: 'plate_cuirass', name: "Plate Cuirass", description: "A polished breastplate and backplate with tassets over a padded coat.",
-        color: 0xb8bcc4, icon: 'itm_leather_armor', stackable: false, slot: 'body', tier: 3, rarity: 'rare',
+        color: 0xb8bcc4, icon: 'itm_iron_armor', stackable: false, slot: 'body', tier: 3, rarity: 'rare',
         wear: 'plate_cuirass', wearColors: { primary: '#b8bcc4' },   // 3D: the Forge part it puts on
         stats: { stamina: 3, strength: 1 }, buyPrice: 260, sellPrice: 86,
         onUse: (stats) => stats.equipItem('plate_cuirass'),
     },
     silk_gown: {
         id: 'silk_gown', name: "Silk Gown", description: "A fitted gown to the ground with a gold neckline. Court wear, not road wear.",
-        color: 0x6a2a5a, icon: 'itm_leather_armor', stackable: false, slot: 'body', tier: 2, rarity: 'uncommon',
+        color: 0x6a2a5a, icon: 'itm_mantua', stackable: false, slot: 'body', tier: 2, rarity: 'uncommon',
         wear: 'gown', wearColors: { primary: '#6a2a5a' },   // 3D: the Forge part it puts on
         stats: { intelligence: 2 }, buyPrice: 120, sellPrice: 40,
         onUse: (stats) => stats.equipItem('silk_gown'),
@@ -201,7 +201,7 @@ export const ITEMS = {
     },
     gold_circlet: {
         id: 'gold_circlet', name: "Gold Circlet", description: "A thin gold band with a pale gem that holds a little light.",
-        color: 0xe8c878, icon: 'itm_headgear_01', stackable: false, slot: 'head', tier: 2, rarity: 'uncommon',
+        color: 0xe8c878, icon: 'itm_ring_02', stackable: false, slot: 'head', tier: 2, rarity: 'uncommon',
         wear: 'circlet', wearColors: { primary: '#e8c878' },   // 3D: the Forge part it puts on
         stats: { intelligence: 2 }, buyPrice: 160, sellPrice: 53,
         onUse: (stats) => stats.equipItem('gold_circlet'),
@@ -215,7 +215,7 @@ export const ITEMS = {
     },
     steel_gauntlets: {
         id: 'steel_gauntlets', name: "Steel Gauntlets", description: "Steel vambraces and articulated gauntlets over mail sleeves.",
-        color: 0xa8acb4, icon: 'itm_leather_armor', stackable: false, slot: 'arms', tier: 2, rarity: 'uncommon',
+        color: 0xa8acb4, icon: 'itm_iron_armor', stackable: false, slot: 'arms', tier: 2, rarity: 'uncommon',
         wear: 'gauntlets', wearColors: { primary: '#a8acb4' },   // 3D: the Forge part it puts on
         stats: { strength: 1, stamina: 1 }, buyPrice: 90, sellPrice: 30,
         onUse: (stats) => stats.equipItem('steel_gauntlets'),
@@ -264,7 +264,7 @@ export const ITEMS = {
     },
     sabatons: {
         id: 'sabatons', name: "Sabatons", description: "Steel foot armour in overlapping lames, greaves up the shin.",
-        color: 0xa8acb4, icon: 'itm_leather_armor', stackable: false, slot: 'feet', tier: 3, rarity: 'rare',
+        color: 0xa8acb4, icon: 'itm_iron_armor', stackable: false, slot: 'feet', tier: 3, rarity: 'rare',
         wear: 'sabatons', wearColors: { primary: '#a8acb4' },   // 3D: the Forge part it puts on
         stats: { stamina: 2 }, buyPrice: 120, sellPrice: 40,
         onUse: (stats) => stats.equipItem('sabatons'),
@@ -278,28 +278,28 @@ export const ITEMS = {
     },
     steel_pauldrons: {
         id: 'steel_pauldrons', name: "Steel Pauldrons", description: "A pair of steel pauldrons trimmed in brass.",
-        color: 0x9aa0a8, icon: 'itm_leather_armor', stackable: false, slot: 'shoulders', tier: 2, rarity: 'uncommon',
+        color: 0x9aa0a8, icon: 'itm_iron_armor', stackable: false, slot: 'shoulders', tier: 2, rarity: 'uncommon',
         wear: 'steel_pauldrons', wearColors: { primary: '#9aa0a8' },   // 3D: the Forge part it puts on
         stats: { stamina: 2 }, buyPrice: 95, sellPrice: 31,
         onUse: (stats) => stats.equipItem('steel_pauldrons'),
     },
     fur_mantle: {
         id: 'fur_mantle', name: "Fur Mantle", description: "A thick fur collar clasped at the throat. The Graywatch nights are long.",
-        color: 0x6a5a48, icon: 'itm_leather_armor', stackable: false, slot: 'shoulders', tier: 1, rarity: 'common',
+        color: 0x6a5a48, icon: 'itm_fur', stackable: false, slot: 'shoulders', tier: 1, rarity: 'common',
         wear: 'fur_mantle', wearColors: { primary: '#6a5a48' },   // 3D: the Forge part it puts on
         stats: { stamina: 1 }, buyPrice: 45, sellPrice: 15,
         onUse: (stats) => stats.equipItem('fur_mantle'),
     },
     travelling_cloak: {
         id: 'travelling_cloak', name: "Travelling Cloak", description: "A long wool cloak for the road.",
-        color: 0x2a1a2a, icon: 'itm_leather_armor', stackable: false, slot: 'back', tier: 1, rarity: 'common',
+        color: 0x2a1a2a, icon: 'itm_mantua', stackable: false, slot: 'back', tier: 1, rarity: 'common',
         wear: 'travelling_cloak', wearSlot: 'cape', wearColors: { primary: '#2a1a2a' },   // 3D: the Forge part it puts on
         stats: { stamina: 1 }, buyPrice: 35, sellPrice: 11,
         onUse: (stats) => stats.equipItem('travelling_cloak'),
     },
     backpack_item: {
         id: 'backpack_item', name: "Pack", description: "A canvas pack on two straps.",
-        color: 0x5a4a32, icon: 'itm_leather_armor', stackable: false, slot: 'back', tier: 1, rarity: 'common',
+        color: 0x5a4a32, icon: 'itm_pouch', stackable: false, slot: 'back', tier: 1, rarity: 'common',
         wear: 'backpack', wearColors: { primary: '#5a4a32' },   // 3D: the Forge part it puts on
         stats: { stamina: 1 }, buyPrice: 30, sellPrice: 10,
         onUse: (stats) => stats.equipItem('backpack_item'),

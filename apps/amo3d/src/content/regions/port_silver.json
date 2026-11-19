@@ -430,5 +430,66 @@
     "x": -70,
     "z": 0,
     "facing": 1.5708
-  }
+  },
+  "people": [
+    {
+      "name": "Keeper of the Salt Cask",
+      "role": "innkeeper",
+      "price": 10,
+      "greeting": "Salt fish, dark ale, a hammock that only rocks a little. 10 gold.",
+      "x": 3,
+      "z": -6.4,
+      "facing": 0
+    },
+    {
+      "name": "Fishwife",
+      "role": "merchant",
+      "x": 14,
+      "z": -2.7,
+      "facing": 0,
+      "greeting": "Caught this morning where the Silverrun meets the sea. Fresh, or my name is not what it is."
+    },
+    {
+      "name": "Sailmaker",
+      "role": "merchant",
+      "catalog": "armourer",
+      "x": 22,
+      "z": -2.7,
+      "facing": 0,
+      "greeting": "Oilskin, cloaks, sea boots \u2014 and from the warehouse, mail off a ship that never came for it."
+    },
+    {
+      "name": "Harbour master",
+      "role": "guard",
+      "archetype": "noble",
+      "lines": [
+        "Every boat in and out, written in my book. The sea keeps no records; somebody must.",
+        "Upriver the water is silver. Here it's grey. Same water. Don't ask me."
+      ],
+      "x": 18,
+      "z": -6.9,
+      "facing": 0
+    },
+    {
+      "name": "Dockhand",
+      "role": "fisher",
+      "x": 26,
+      "z": 2,
+      "facing": 1.6,
+      "wander": 5,
+      "lines": [
+        "Ships from the far coast talk of black sails. Sailors talk of a lot of things."
+      ]
+    },
+    {
+      "name": "Net-mender",
+      "role": "fisher",
+      "x": -6,
+      "z": 2,
+      "facing": 0,
+      "lines": [
+        "Mind the nets. Mind the gulls more."
+      ]
+    }
+  ]
 }
