@@ -11,9 +11,9 @@ import * as THREE from 'three';
 import { createCharacter } from '../models/character.js';
 import { createEnemyCore } from './enemyCore.js';
 
-export function createDuelist({ scene, map, at, look, name, def, scale = 1, reach = 1.8, speed = 3.2, windup = 0.45,
+export function createDuelist({ scene, map, at, look, name, def, scale = 1, body = null, plateY = null, reach = 1.8, speed = 3.2, windup = 0.45,
     lowAt = 0, onLow = null, takeMult = null, onHit = null, channel = null, aura = null, rng = Math.random }) {
-    const model = createCharacter(look);
+    const model = body ?? createCharacter(look);   // body: a model of its own (the Balrog), same interface
     model.root.scale.setScalar(scale);
     scene.add(model.root);
     const pos = new THREE.Vector3(at.x, map.heightAt(at.x, at.z), at.z);
@@ -65,7 +65,7 @@ export function createDuelist({ scene, map, at, look, name, def, scale = 1, reac
         pos.y = map.heightAt(pos.x, pos.z);
         model.root.position.copy(pos); model.root.rotation.y = ai.heading;
         model.update(dt, { speed: move, sprinting: move > 3, hopK: null, castK, strikeK, strikeHand: 'R' });
-        core.updatePlate(ctx.camera, 2.4 * scale);
+        core.updatePlate(ctx.camera, plateY ?? 2.4 * scale);
     }
     function endChannel() { ai.state = 'recover'; ai.timer = 0.6; if (ring) ring.visible = false; channel?.end?.(api); }
 

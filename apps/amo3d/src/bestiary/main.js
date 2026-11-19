@@ -13,6 +13,8 @@ import { createDeer } from '../content/actors/deer.js';
 import { createShadows } from '../content/actors/shadowSoldier.js';
 import { createMalphas } from '../content/actors/malphas.js';
 import { setPlatesVisible } from '../content/actors/enemyCore.js';
+import { createDuelist } from '../content/actors/duelist.js';
+import { buildBalrog } from '../content/models/balrog.js';
 
 const ET = worldMap.ENEMY_TYPES, LORE = B.BESTIARY_LORE ?? {};
 // Every creature: id, label, group, and how to make one at the origin.
@@ -21,6 +23,7 @@ const MOBS = [
     { id: 'werewolf', name: 'Guardian of the Wild', group: 'Monsters', make: (scene, map, rng) => createWerewolves({ scene, map, rng, den: { x: 0, z: 0 }, count: 1 }) },
     { id: 'shadow', name: 'Shadow-man', group: 'Monsters', make: (scene, map, rng) => createShadows({ scene, map, rng, posts: [{ x: 0, z: 0 }] }).list },
     { id: 'malphas', name: 'Malphas', group: 'Bosses', make: (scene, map, rng) => [createMalphas({ scene, map, at: { x: 0, y: 0, z: 0 }, rng })] },
+    { id: 'shadow_balrog', name: 'The Shadow Balrog', group: 'Bosses', make: (scene, map) => [createDuelist({ scene, map, at: { x: 0, z: 0, facing: 0 }, body: buildBalrog(), plateY: 8.2, name: 'The Shadow Balrog', reach: 4.2, speed: 2.2, windup: 0.8, def: { id: 'shadow_balrog', health: 9999, damage: 26, xpReward: 0, goldDrop: 0, lootTable: [] } })] },
     { id: 'boss_slam', name: 'Any boss (elite, slam)', group: 'Bosses', make: (scene, map, rng) => createBeasts({ scene, map, rng, type: 'crag_fiend', posts: [{ x: 0, z: 0, boss: true, name: 'A boss' }] }) },
     { id: 'wolf', name: 'Wolf', group: 'Animals', make: (scene, map, rng) => createWolves({ scene, map, rng, den: { x: 0, z: 0 }, count: 1 }) },
     { id: 'deer', name: 'Deer', group: 'Animals', make: (scene, map, rng) => { const d = createDeer({ home: { x: 0, z: 0 }, stag: true, rng, map }); scene.add(d.root); return [d]; } },

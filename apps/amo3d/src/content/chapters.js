@@ -19,6 +19,7 @@ import * as THREE from 'three';
 import { createDuelist } from './actors/duelist.js';
 import { createCharacter } from './models/character.js';
 import { normalizeLook } from './models/look.js';
+import { buildBalrog } from './models/balrog.js';
 
 const Q = (id, title, description, steps, next) => ({ id, title, type: 'main', description, steps: steps.map(([sid, label]) => ({ id: sid, type: 'talk', target: sid, label, required: 1 })), reward: { xp: 400, items: [] }, next });
 export const CHAPTER_QUESTS = {
@@ -192,12 +193,12 @@ export function createChapters({ stats, hud, dialogue, quests, save, player, wor
             ], () => { st.voraun = 'fight'; hud.message('Voraun, the Silent Executioner'); });
         }
         function startBalrog() {
-            balrog = createDuelist({ scene: map.scene, map, at: { x: 0, z: -51, facing: Math.PI }, look: LOOKS.balrog, name: 'The Shadow Balrog', scale: 2.6, reach: 3.6, speed: 2.2, windup: 0.8,
+            balrog = createDuelist({ scene: map.scene, map, at: { x: 0, z: -51, facing: Math.PI }, body: buildBalrog(), scale: 1.45, plateY: 11.5, name: 'The Shadow Balrog', reach: 5.6, speed: 2.6, windup: 0.85,
                 def: { id: 'shadow_balrog', health: 9999, damage: 26, xpReward: 900, goldDrop: 0, lootTable: [] }, aura: 0xff4a10,
                 takeMult: h => { st.absorbed++; h.label = 'taken, the way the floor takes a spill'; return 0; } });
             map.hittables.push(balrog);
             say([
-                'Before the Ancient Door the dark stands up. It is taller than the door. It is older than the keeping. It does not speak.',
+                'Before the Ancient Door the dark stands up — wings of shadow, a sword of fire, a whip that burns. It is nearly as tall as the door. It is older than the keeping. It does not speak.',
                 'The Hermit\'s words come back to you: it cannot be commanded, and it cannot be bargained with.',
             ], () => { st.balrog = 'fight'; st.t = 0; hud.message('The Shadow Balrog'); });
         }
