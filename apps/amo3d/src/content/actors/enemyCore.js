@@ -47,7 +47,7 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
     plate.style.cssText = 'position:absolute;left:0;top:0;opacity:0;transition:opacity .3s;white-space:nowrap;text-align:center';
     const label = document.createElement('div');
     label.style.cssText = 'font:calc(15px * var(--ui, 1)) Georgia,serif;color:#f0e6d2;text-shadow:0 1px 3px #000;letter-spacing:.06em';
-    label.textContent = (elite ? `Elite ${name} — ${elite.affixes.map(a => EL.AFFIX_LABELS[a]).join(', ')}` : name) + (family.family ? ` · ${family.family[0].toUpperCase()}${family.family.slice(1)}` : '');
+    label.textContent = (elite?.boss ? `${name} (${elite.affixes.map(a => EL.AFFIX_LABELS[a]).join(', ')})` : elite ? `Elite ${name} — ${elite.affixes.map(a => EL.AFFIX_LABELS[a]).join(', ')}` : name) + (family.family ? ` · ${family.family[0].toUpperCase()}${family.family.slice(1)}` : '');
     if (elite) { label.style.color = '#ffd76a'; }
     const barBox = document.createElement('div');
     barBox.style.cssText = `width:${elite ? 130 : 100}px;height:6px;margin:3px auto 0;border:1px solid ${elite ? '#ffd76a' : '#eee6d288'};border-radius:4px;background:#0009;overflow:hidden`;
@@ -93,7 +93,7 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
         }
         if (attacker) s.by.add(attacker); else s.byMe = true;
         if (elite?.affixes.includes('thorned') && !attacker && ctx?.hurtPlayer) {   // thorns: part of your blow comes back
-            const back = Math.max(1, Math.round(dmg * 0.15));
+            const back = Math.min(25, Math.max(1, Math.round(dmg * 0.15)));   // capped: a huge blow never kills you on the thorns
             if (from && Math.hypot(from.x - pos.x, from.z - pos.z) < 4) ctx.hurtPlayer(back, pos);
         }
         const amount = settings.god && !attacker ? 9999 : Math.max(1, Math.round(dmg * (element ? affinityMult(type, element) : 1) * fxMult('damageTakenMult')));   // god mode: every blow of yours lands for 9999

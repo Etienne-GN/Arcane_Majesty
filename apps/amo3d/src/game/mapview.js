@@ -104,7 +104,7 @@ body.title-on #minimap { display: none; }
         for (let py = 0; py < size; py++) for (let px = 0; px < size; px++) {
             const h = H[py * size + px], k = kind(h);
             const gr = info.groundAt?.(px / PX_PER_M - half, py / PX_PER_M - half);   // a map's own ground: roads, paving
-            let col = gr === 'road' ? [196, 172, 128] : gr === 'paved' ? [206, 200, 186] : k === 0 ? [120, 158, 176] : k === 1 ? [150, 184, 190] : k === 2 ? [222, 200, 150] : k === 5 ? [240, 236, 226] : k === 4 ? [176, 160, 132] : tint;
+            let col = gr === 'rock' ? [74, 64, 54] : gr === 'road' ? [196, 172, 128] : gr === 'paved' ? [206, 200, 186] : k === 0 ? [120, 158, 176] : k === 1 ? [150, 184, 190] : k === 2 ? [222, 200, 150] : k === 5 ? [240, 236, 226] : k === 4 ? [176, 160, 132] : tint;
             const hx = H[py * size + Math.max(0, px - 1)], hy = H[Math.max(0, py - 1) * size + px];
             const shade = 0.9 + 0.1 * Math.max(-1, Math.min(1, ((hx - h) + (hy - h)) * 0.5));
             let ink = 0;

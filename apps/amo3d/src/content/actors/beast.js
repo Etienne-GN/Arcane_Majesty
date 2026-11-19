@@ -108,17 +108,19 @@ export function createBeasts({ scene, map, rng, type, posts, rareFrom = null }) 
     const cap = EL.eliteCap(posts.length);
     let count = 0;
     return posts.map(post => {
-        const elite = EL.rollElite(rng, count, cap) ? (count++, { affixes: EL.pickAffixes(rng), rareDrop: EL.eliteRareDrop(rareFrom, rng) }) : null;
-        return createBeast({ scene, map, rng, type, home: post, elite });
+        // post.boss: a dungeon's boss — always elite, bigger, with its own name (post.name)
+        const elite = post.boss ? { affixes: EL.pickAffixes(rng), rareDrop: EL.eliteRareDrop(rareFrom, rng), boss: true }
+            : EL.rollElite(rng, count, cap) ? (count++, { affixes: EL.pickAffixes(rng), rareDrop: EL.eliteRareDrop(rareFrom, rng) }) : null;
+        return createBeast({ scene, map, rng, type, home: post, elite, name: post.name });
     });
 }
 
-function createBeast({ scene, map, rng, type, home, elite = null }) {
+function createBeast({ scene, map, rng, type, home, elite = null, name = null }) {
     const { root, parts } = body(type);
     scene.add(root);
-    if (elite) root.scale.setScalar(1.2);
+    if (elite) root.scale.setScalar(elite.boss ? 1.7 : 1.2);
     const pos = new THREE.Vector3(home.x, map.heightAt(home.x, home.z), home.z);
-    const core = createEnemyCore({ type, name: NAMES[type] ?? type, pos, rng, respawnS: 30, elite });
+    const core = createEnemyCore({ type, name: name ?? NAMES[type] ?? type, pos, rng, respawnS: elite?.boss ? 1e9 : 30, elite });   // a boss stays dead
     const DEF = core.DEF, s = core.s;
     const SIGHT = (DEF.sightRange / PX) * TUNE.sight, REACH = (DEF.attackRange / PX) * TUNE.reach + (['crag_fiend', 'blight_ent', 'corrupted_sentinel'].includes(type) ? 0.6 : 0);
     const SPEED = Math.min(6.5, (DEF.speed / PX) * TUNE.speed);
