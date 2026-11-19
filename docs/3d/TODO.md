@@ -4,6 +4,9 @@ Everything still to do, grouped by area. ★ = the user asked for it. Check item
 history stays in `ROADMAP.md`. Lore rule: verify against the Neo4j DB before inventing anything, and new
 game-only lore gets `origin: "game"`.
 
+## 0. ⚠️ CANON CHECK PENDING ★★ (decided 2026-11-19 — must be done before any lore DB sync)
+- [ ] Run a canon check on every item of `docs/3d/LORE_REVIEW.md` (226 items: what the game has that the lore DB doesn't) against the DB, the album XMLs / ACC, the book canon and `world_lore.md`. **First the 4 possible conflicts** (Vorgos called "the warlord" on the Cleaver of Vorgos; the Arcane Covenant vs the DB's Crimson Covenant; Voraun as a duelist in the Ruins; the Shadow Balrog's look), then the new names (Valdric, the Asran Academy, the Arcane Covenant, the Twilight Order, the Rift-Gates, the Border Watch, 0 GD, the Star-Guard, Silvara…), then the rest. Our decisions must stay coherent with the established lore; the user approves each verdict before the DB sync (`origin: "game"`) and the game fixes.
+
 ## 1. Characters & clothing ★
 - [ ] **More garments in every Forge slot** (today ~1–4 each). Torso: gambeson, chain shirt, plate cuirass, leather jerkin, tabard, gown/dress, vest, apron, priest's vestment. Legs: skirts, kilts, greaves, breeches, hose. Feet: sandals, riding boots, sabatons. Arms: gloves, gauntlets, vambraces. Shoulders: mantle, fur collar, plate pauldrons. Waist: pouches, tassets, rope belt. Neck: amulets, scarves, gorget. Head: circlet, crown, coif, great helm, kettle hat, feathered cap, veils. Back: quiver, cloak variants, banner pole, backpack.
 - [ ] Patterns and finishes: trim, embroidery, studs, wear and dirt, metal tints (iron, steel, bronze, gold, blackened).

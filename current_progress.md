@@ -53,6 +53,9 @@ This document tracks the current state of the project and serves as a quick-refe
     - All duplicate non-chorus verses across all 8 albums identified and replaced with unique, meter-matched lyrics.
     - Zero structural verse duplications remaining in the codebase.
 
+## ⚠️ Pending: canon check of the 3D game's content (since 2026-11-19)
+Everything the 3D game has that the lore DB doesn't is gathered in `docs/3d/LORE_REVIEW.md` (226 items). **Before anything is added to the DB, every item gets a canon check** against the DB, the album XMLs / ACC, the book canon, `world_lore.md` and the design docs in `data/lore/` (bestiary, magic system, equipment tiers…). First the 4 possible conflicts (the "warlord" Vorgos on the Cleaver of Vorgos; the Arcane vs Crimson Covenant; Voraun as a duelist in the Ruins; the Shadow Balrog's look), then the new names (Valdric, the Asran Academy, the Twilight Order, the Rift-Gates, the Border Watch, Silvara…). Each verdict is approved by the user; only then the DB sync (`origin: "game"`).
+
 ## 5. Novel Adaptations & Game Design Progress
 - **Eldoria's Prophecy Novel:** First complete draft (~89k words, prologue + 23 chapters + interludes + epilogue), audited and polished.
 - **Crimson Covenant Novel:** First complete draft (~108k words, prologue + 13 chapters + 3 interludes + epilogue), complete in English (`CRIMSON_COVENANT_FULL.md`) and French (`CRIMSON_COVENANT_FR_FULL.md`), with full canon files (`characters.md`, `events.md`, `locations.md`, `magic.md`, `fidelity-log.md`) and outline.

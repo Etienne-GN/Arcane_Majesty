@@ -15,6 +15,11 @@ def status(name):
 out=[]
 P=out.append
 P("# Lore review — what the game has that the lore DB doesn't\n")
+P("""> ## ⚠️ STATUS: PENDING — a canon check must be run before anything goes into the DB
+> Decided 2026-11-19 with the user: **every item below gets a canon check** against the established lore (the Neo4j DB, the album XMLs and ACC checkups in `data/lore/xmls/`, the book canon in `books/eldorias_prophecy/canon/`, `world_lore.md`) **in a later session**, and our decisions must be coherent with it.
+> **First: the four "Possible conflicts" below** (Vorgos the "warlord", Arcane vs Crimson Covenant, Voraun as a duelist in the Ruins, the Shadow Balrog's look), then the summary's new names (Valdric, the Asran Academy, the Arcane Covenant, the Twilight Order, the Rift-Gates, the Border Watch, 0 GD, the Star-Guard, Silvara…), then everything else.
+> For each item: canon says / the game says / verdict (keep, rename, rewrite, drop) — then the user approves, and only then the DB sync (`origin: "game"`) and the game fixes.
+""")
 P("_Gathered 2026-11-19 from the 3D game (`apps/amo3d`), its rules (`packages/rules`), and compared with the Neo4j lore DB on scarif (read only — nothing was written). The DB today: 38 locations, 19 characters, 7 races, 10 organizations, 3 artifacts, 4 prophecies, 38 events, 10 regions (11 nodes already carry `origin: \"game\"`, listed at the end)._\n")
 P("**How to review:** tick a box to keep an item as it is (it goes into the DB with `origin: \"game\"`), write a note after it to change it, or strike it (`~~…~~`) to drop it (it then goes out of the game too, or gets renamed). Items marked 📖 are already in the book (canon) but not in the DB. Nothing is added to the DB until you say so.\n")
 P("## Summary — the decisions that matter most\n")
