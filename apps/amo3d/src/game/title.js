@@ -1,31 +1,30 @@
 import { settings, onSettingChange } from '../engine/settings.js';
 // Title screen & main menu (Phase 1.5). Rendered live: the camera drifts around Eldrin's tower in
-// the vale's dusk mood, ARCANE MAJESTY rises in gold over a slowly turning sigil, embers float up,
+// the vale's dusk mood, ARCANE MAJESTY rises in gold over the Arcane Majesty emblem, embers float up,
 // and "Echoes of Stone" plays (it starts on the first key/tap — browsers block sound before that).
 // Continue / New Game fly the camera down to Eldrin and hand over control.
 import * as THREE from 'three';
 import { checkForUpdate, openDownload, isPhone, VERSION } from './updates.js';
 import { ELDRIN, toWorld } from '../content/eldrinVale.js';
 import titleTrack from '../../media/title_echoes_of_stone.mp3?url';   // the master the user supplied
+import sigilUrl from '../../media/title_sigil.webp?url';
 
 const VOLUME = 0.15;      // the title music plays at 15%
 const PLAY_VOLUME = 0.01; // and stays at 1% once you are playing
 
-const SIGIL = `<svg viewBox="-100 -100 200 200" width="100%" height="100%" fill="none" stroke="currentColor">
-  <circle r="92" stroke-width="1.2"/><circle r="84" stroke-width=".6" stroke-dasharray="2 5"/>
-  <circle r="58" stroke-width="1"/><circle r="30" stroke-width=".8"/>
-  <polygon points="0,-84 72.7,42 -72.7,42" stroke-width=".9"/><polygon points="0,84 72.7,-42 -72.7,-42" stroke-width=".9"/>
-  <g stroke-width="1.4">${Array.from({ length: 12 }, (_, i) => { const a = (i / 12) * Math.PI * 2; return `<line x1="${(Math.cos(a) * 62).toFixed(1)}" y1="${(Math.sin(a) * 62).toFixed(1)}" x2="${(Math.cos(a) * 80).toFixed(1)}" y2="${(Math.sin(a) * 80).toFixed(1)}"/>`; }).join('')}</g>
-</svg>`;
+// The emblem behind the title: the Arcane Majesty monogram, its ring and clouds (from the user's AM_LOGO.png, cut from
+// its black ground and turned gold).
+const SIGIL = `<img src="${sigilUrl}" alt="" draggable="false" style="width:100%;height:100%;object-fit:contain">`;
 
 const CSS = `
 #titlescreen { position: fixed; inset: 0; z-index: 20; font-family: 'Cinzel', Georgia, 'Times New Roman', serif; color: #f3e2b0;
     background: radial-gradient(ellipse at 50% 55%, transparent 35%, #0a0610cc 100%), linear-gradient(180deg, #3a1a4a55, #ff8a3a22 55%, #10081888);
     transition: opacity 1.4s; overflow: hidden; user-select: none; }
 #titlescreen.gone { opacity: 0; pointer-events: none; }
-#titlescreen .sigil { position: absolute; left: 50%; top: 36%; width: min(62vh, 80vw); aspect-ratio: 1; transform: translate(-50%, -50%);
-    color: #f3d88b; opacity: .22; animation: spin 90s linear infinite; filter: drop-shadow(0 0 6px #f3d88b); }
-@keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+#titlescreen .sigil { position: absolute; left: 50%; top: 36%; width: min(66vh, 84vw); aspect-ratio: 1024 / 907; transform: translate(-50%, -50%);
+    opacity: .3; animation: glow 7s ease-in-out infinite; filter: drop-shadow(0 0 10px #f3a84a88); pointer-events: none;
+    transition: top .8s ease, width .8s ease; }
+@keyframes glow { 50% { opacity: .42; filter: drop-shadow(0 0 22px #f3c86aaa); } }
 #titlescreen h1 { position: absolute; left: 0; right: 0; top: 30%; margin: 0; text-align: center; font-weight: normal;
     font-size: clamp(34px, 8vw, 96px); letter-spacing: .22em; text-indent: .22em;
     background: linear-gradient(180deg, #fff3c4 0%, #f3d88b 40%, #b8862e 75%, #6e4a14 100%); -webkit-background-clip: text; background-clip: text;
@@ -86,11 +85,11 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
     root.id = 'titlescreen';
     const sigil = document.createElement('div'); sigil.className = 'sigil'; sigil.innerHTML = SIGIL;   // static markup
     const h1 = document.createElement('h1'); h1.textContent = 'ARCANE MAJESTY';
-    const sub = document.createElement('div'); sub.className = 'sub'; sub.textContent = "ELDORIA'S PROPHECY";
+    const sub = document.createElement('div'); sub.className = 'sub'; sub.textContent = '';   // no subtitle: Eldoria's Prophecy is a campaign (chosen in New Game), not the game's name
     const press = document.createElement('div'); press.className = 'press'; press.textContent = matchMedia('(pointer: coarse)').matches || new URLSearchParams(location.search).get('touch') === '1' ? 'TAP TO BEGIN' : 'PRESS ANY KEY';
     const menu = document.createElement('div'); menu.className = 'menu';
     const panel = document.createElement('div'); panel.className = 'panel';
-    root.append(sigil, h1, sub, press, menu, panel);
+    root.append(sigil, h1, press, menu, panel);
     document.body.append(root);
     document.body.classList.add('title-on');   // the game HUD waits until you play
     requestAnimationFrame(() => root.classList.add('lit'));
