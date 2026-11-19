@@ -689,3 +689,6 @@ window.__forge = {
     setView: opts => Object.assign(view, opts),
     look: () => normalizeLook(def.look),
 };
+
+// Back to the game (the title's Workshop opens this page).
+{ const a = document.createElement('a'); a.href = 'index.html'; a.textContent = '← Game'; a.style.cssText = 'position:absolute;left:10px;top:10px;z-index:5;padding:5px 10px;font:14px Georgia,serif;color:#f3e2b0;background:#120a06d8;border:1px solid #f3d88b66;border-radius:4px;text-decoration:none'; (document.getElementById('stage') ?? document.body).append(a); }   // inside the model view: clear of the rail on any layout
