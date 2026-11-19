@@ -345,5 +345,6 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
         hitFromNet: (h, attacker) => { core.hit(h.dmg, h.from ? new THREE.Vector3(h.from.x, h.from.y, h.from.z) : pos, h.burnMs, core.lastCtx, h.status, h.element, attacker); if (!s.dead && (ai.state === 'idle' || ai.state === 'wander')) ai.state = 'chase'; },
         credit: () => core.reward(core.lastCtx),
         reset: () => { if (!s.dead) { ai.state = 'return'; s.fx = {}; } },
+        provoke: () => { if (!s.dead && ['idle', 'wander', 'return', 'notice'].includes(ai.state)) ai.state = 'chase'; },   // a taunt
     };
 }

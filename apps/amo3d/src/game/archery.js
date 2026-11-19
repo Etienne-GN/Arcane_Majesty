@@ -34,9 +34,10 @@ export function createArchery({ stats, player, hud, cam, world, loot }) {
         return g;
     }
 
-    function shoot() {
+    // opts (style skills): mult, rangeMult, status { id, ms }, pierce — a skill shot ignores the bow's own cooldown
+    function shoot(opts = null) {
         const p = player.state;
-        if (!armed() || cd > 0 || p.dead || p.cast) return false;
+        if (!armed() || (cd > 0 && !opts) || p.dead || p.cast) return false;
         const type = weaponType(), W = WEAPON_TYPES[type];
         let id = stats.takeAmmo(W.ammo);
         if (!id && stats.refillQuiver(W.ammo)) id = stats.takeAmmo(W.ammo);
@@ -49,8 +50,9 @@ export function createArchery({ stats, player, hud, cam, world, loot }) {
         const mesh = makeArrow(AMMO[id]?.type);
         mesh.position.copy(from);
         group.add(mesh);
-        const range = (W.range / 32) * 3;   // 3D tuning, as for the fireball
-        shafts.push({ id, type, mesh, pos: from, vel: aim.clone().multiplyScalar(SPEED).setY(1.2), travelled: 0, range, stuck: 0 });
+        const range = (W.range / 32) * 3 * (opts?.rangeMult ?? 1);   // 3D tuning, as for the fireball
+        if (opts) mesh.scale.setScalar(1.25);
+        shafts.push({ id, type, mesh, pos: from, vel: aim.clone().multiplyScalar(SPEED * (opts?.rangeMult ? 1.2 : 1)).setY(1.2), travelled: 0, range, stuck: 0, opts, struck: new Set() });
         return true;
     }
 
@@ -83,9 +85,10 @@ export function createArchery({ stats, player, hud, cam, world, loot }) {
                 s.pos.add(tmp);
                 s.travelled += tmp.length();
                 for (const h of m.hittables ?? []) {
-                    if (!h.alive || Math.hypot(h.pos.x - s.pos.x, h.pos.z - s.pos.z) > 0.5 || s.pos.y < h.pos.y || s.pos.y > h.pos.y + 2.1) continue;
-                    const dmg = damage(s.id, s.type);
-                    h.hit(dmg, player.state.pos, 0, player.lastCtx, AMMO[s.id]?.status ? { id: AMMO[s.id].status } : null);
+                    if (!h.alive || s.struck.has(h) || Math.hypot(h.pos.x - s.pos.x, h.pos.z - s.pos.z) > 0.5 || s.pos.y < h.pos.y || s.pos.y > h.pos.y + 2.1) continue;
+                    const dmg = Math.max(1, Math.round(damage(s.id, s.type) * (s.opts?.mult ?? 1)));
+                    h.hit(dmg, player.state.pos, 0, player.lastCtx, s.opts?.status ?? (AMMO[s.id]?.status ? { id: AMMO[s.id].status } : null));
+                    s.struck.add(h);
                     if (h.kind === 'deer') hud.floater(h.pos.clone().setY(h.pos.y + 1.9), `${dmg}`, '#ffe0a0');
                     const killed = !h.alive;
                     recordHit(h, s.id, killed);
@@ -94,6 +97,7 @@ export function createArchery({ stats, player, hud, cam, world, loot }) {
                         for (let n = 0; n < back.qty; n++) loot.drop([{ id: back.id, chance: 1 }], h.pos);
                         h._ammoIn = null;
                     }
+                    if (s.opts?.pierce) continue;   // through, to the next in the row
                     group.remove(s.mesh); shafts.splice(i, 1);
                     done = true;
                     break;

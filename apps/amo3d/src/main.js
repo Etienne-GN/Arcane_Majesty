@@ -315,7 +315,7 @@ if (!heroDef && !stats.flags?.eldrinKit) {
 dressHero(); showWeapons();
 stats.onEquipChange(slot => { if (slot === 'head' || slot === 'body') { dressHero(); showWeapons(); } });
 stats.onEquipChange(showWeapons);
-const skills = createSkills({ stats, player, hud, cam, world });
+const skills = createSkills({ stats, player, hud, cam, world, archery: () => archery });
 const archery = createArchery({ stats, player, hud, cam, world, loot });
 const gathering = createGathering({ stats, hud, onGather: (id, n) => quests?.onGather(id, n) });
 const chests = createChests({ stats, hud });
@@ -354,7 +354,7 @@ function handAction(side, act) {
     if (!t || !a) return;
     if (a === 'hit') {
         if ((t === 'bow' || t === 'crossbow') && archery.armed()) archery.shoot();
-        else if (t === 'shield') hud.message('Block: not in 3D yet');
+        else if (t === 'shield') player.raiseShield();   // raised for a moment: a perfect block if the blow lands at once
         else { act.strike = true; act.strikeType = t; act.strikeHand = side; }
     } else if (a.startsWith('spell:')) { act.cast = true; act.castSpell = a.slice(6); act.castHand = side; }
     else if (a.startsWith('skill:')) skills.useId(a.slice(6), t);
@@ -555,6 +555,7 @@ function tick(dt) {
     hotbar.update(dt);
     if (act.skill >= 0 && !inventory.open && !sheet.open) skills.use(act.skill);
     skills.update(dt);
+    { const f = player.takePerfect(); if (f) { const h = (world.current.hittables ?? []).filter(x => x.alive).sort((a, b) => a.pos.distanceTo(f) - b.pos.distanceTo(f))[0]; if (h && h.pos.distanceTo(f) < 3) h.hit(1, player.state.pos, 0, player.lastCtx, { id: 'dazed', ms: 1500 }); } }   // a perfect block: the attacker reels
     dialogue.update(dt, camera, project);
     if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open || book.open || skillBook.open || pause.open) { hud.update(dt, { stats, player: player.state, camera, spell: player.activeSpell() }); return; }   // paused
     const map = world.current;
@@ -629,7 +630,7 @@ const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.c
 
 // Handle for headless checks.
 window.__poc = {
-    player: player.state, stats, input, cam, quality, save,
+    player: player.state, stats, input, cam, quality, save, skills, playerApi: player,
     advance: s => loop.advance(s),
     hurtPlayer: player.hurt,
     keys: input.keys,

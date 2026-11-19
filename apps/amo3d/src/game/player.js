@@ -88,6 +88,12 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             return false;
         }
         if (p.invuln > 0) return false;
+        // The shield raised (tap the shield hand): from the front, a perfect block in its first quarter-second
+        // (nothing gets through, the attacker reels), then 70% of the blow stopped.
+        if (p.block && ((from.x - p.pos.x) * Math.sin(p.facing) + (from.z - p.pos.z) * Math.cos(p.facing)) > 0) {
+            if (p.block.t < 0.25) { p.invuln = 0.3; hud.floater(p.pos.clone().setY(p.pos.y + 2.1), 'Perfect block!', '#f3d88b'); p.block.perfect = from; sfx.parry?.(); return false; }
+            dmg = Math.max(1, Math.round(dmg * 0.3)); hud.floater(p.pos.clone().setY(p.pos.y + 2.1), 'Blocked', '#d8d0bc');
+        }
         // Parry: the next blow from the front does nothing (amo 'parrying').
         if (p.buffs.parrying && ((from.x - p.pos.x) * Math.sin(p.facing) + (from.z - p.pos.z) * Math.cos(p.facing)) > 0) {
             delete p.buffs.parrying;
@@ -432,9 +438,11 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         hero.root.position.copy(p.pos);
         hero.root.position.y += lift;
         if (p.spin) { p.spin.t += dt / 0.4; if (p.spin.t >= 1) p.spin = null; }
+        if (p.block) { p.block.t += dt; if (p.block.t > 0.9) p.block = null; }
+        p.blockCd = Math.max(0, (p.blockCd ?? 0) - dt);
         if (p.shot) { p.shot.t += dt / 0.3; if (p.shot.t >= 1) p.shot = null; }
         hero.root.rotation.y = p.facing + (p.spin ? p.spin.t * Math.PI * 2 : 0);
-        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : p.shot ? p.shot.t : null, incant: !!p.cast?.incant, castHand: p.cast?.hand ?? 'R', strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust, strikeHand: p.strike?.hand ?? 'R' });
+        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : p.shot ? p.shot.t : null, incant: !!p.cast?.incant, castHand: p.cast?.hand ?? 'R', strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust, strikeHand: p.strike?.hand ?? 'R', blockK: p.block ? Math.min(1, p.block.t / 0.12) : null });
 
         // Doors.
         let nearLabel = null, inside = false;
@@ -458,6 +466,8 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         statsMult: () => buffMult('statsMult'),
         playStrike: () => { p.strike = { t: 0, hit: true, type: 'staff', thrust: false }; },
         playSpin: () => { p.spin = { t: 0 }; },
+        raiseShield() { if (p.dead || p.cast || p.block || (p.blockCd ?? 0) > 0) return false; p.block = { t: 0 }; p.blockCd = 1.2; return true; },
+        takePerfect() { const f = p.block?.perfect; if (p.block) p.block.perfect = null; return f ?? null; },
         playShot: () => { p.shot = { t: 0 }; },
         get lastCtx() { return lastCtx; },
     };

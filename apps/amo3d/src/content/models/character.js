@@ -276,7 +276,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     const calm = new THREE.Color(0x3ce0d0), blaze = new THREE.Color(0xff7a20);
 
     // speed in m/s, sprinting bool, hopK 0..1 progress (null when grounded), castK 0..1 (null when not casting)
-    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false, incant = false, strikeHand = 'R', castHand = 'R' }) {
+    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false, incant = false, strikeHand = 'R', castHand = 'R', blockK = null }) {
         t += dt;
         const ease = k => 1 - Math.exp(-dt * k);
         amp += (Math.min(1, speed / 4) - amp) * ease(10);
@@ -357,6 +357,10 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         }
         if ((BLADE.has(mainType) || REST[mainType]) && !sheath.R?.on) guard('R', mainType);
         if ((BLADE.has(offType) || REST[offType]) && !sheath.L?.on) guard('L', offType);
+        if (blockK != null) {   // the shield up: the arm across the body, the shield in front of the chest
+            const h = mainShield ? 'R' : 'L', A = arms[h], sz = h === 'R' ? 1 : -1;
+            A.upper.rotation.x = -1.35 * blockK; A.upper.rotation.z = sz * 0.55 * blockK; A.fore.rotation.x = -1.1 * blockK;
+        }
         const side = h => ({ A: arms[h], B: arms[h === 'R' ? 'L' : 'R'], sz: h === 'R' ? 1 : -1, mount: h === 'R' ? mainMount : offMount, fore0: h === 'R' || offArmed ? -0.75 : arms.L.fore.rotation.x });
 
         // Cast: the staff arm thrusts forward, the body leans in, the crystal flares orange.
