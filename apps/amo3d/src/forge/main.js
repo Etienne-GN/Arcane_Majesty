@@ -292,6 +292,7 @@ function bodySection() {
         rebuild(); renderRail(); renderSide();
     }));
     if (RACES[def.look.body.race]?.lore) frag.append(el('div', { className: 'hint' }, RACES[def.look.body.race].lore));
+    if (def.look.body.race === 'werewolf') frag.append(chipRow([['human', 'Human form'], ['wolf', 'Wolf form']], () => def.look.body.wolf ? 'wolf' : 'human', v => { def.look.body.wolf = v === 'wolf'; rebuild(); renderSide(); }));   // preview only
     frag.append(slider('Height', def.look.body.height, 0.85, 1.15, v => { def.look.body.height = v; rebuild(); }));
     frag.append(slider('Build', def.look.body.width, 0.85, 1.2, v => { def.look.body.width = v; rebuild(); }));
     frag.append(colorField('Skin', def.look.body.skin, v => { def.look.body.skin = v; rebuild(); }));

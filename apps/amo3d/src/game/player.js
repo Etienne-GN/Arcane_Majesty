@@ -188,6 +188,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
     }
     function tryCast(spellId = null, hand = null, target = null) {
         if (p.cast) return;
+        if (p.wolf) return hud.message('In wolf form you cannot cast — change back first (V).');
         // The spell on the cast button: chosen in the Book (stats.flags.activeSpell), the Fireball by default.
         const sp = spellId && CASTABLE.includes(spellId) && spellRules.SPELLS[spellId] ? spellRules.SPELLS[spellId] : activeSpell();
         if (!stats.spells?.[sp.id]) return hud.message(`You don't know ${sp.name} yet`);
@@ -222,7 +223,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             const sk = id => stats.skills?.[id]?.level ?? 0;
             const base = 8 + stats.attributes.strength * 2 + Math.floor(Math.random() * 6) - 2 + sk('basic_strike') * 3 + sk('power_slash') * 6;
             const crit = Math.random() < 0.08 + stats.attributes.agility * 0.012 + sk('keen_eye') * 0.05;
-            const dmg = Math.max(1, Math.floor(base * W.dmgMult * mastery.levelDamageMult(lvl) * buffMult('statsMult') * (crit ? 1.6 : 1)));
+            const dmg = Math.max(1, Math.floor(base * W.dmgMult * mastery.levelDamageMult(lvl) * buffMult('statsMult') * (crit ? 1.6 : 1) * (p.wolf ? 1.8 : 1)));   // claws
             if (crit) hud.floater(h.pos.clone().setY(h.pos.y + 2.3), 'Critical!', '#ffd76a');
             h.hit(dmg, p.pos, 0, ctx);
             const killed = !h.alive;
@@ -362,7 +363,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             if (moving) {
                 const wading = !!m.wading?.(p.pos.x, p.pos.z);
                 // Analog sticks walk slower when pushed less; full tilt = amo's speed.
-                const speed = (moveSpeed(baseSpeed(), stats.fatigueFraction, wading ? 0.6 : 1, p.sprinting) / PX) * (p.cast ? (p.cast.incant && !p.cast.fired ? 0 : 0.45) : 1) * Math.max(0.35, push) * buffMult('speedMult');
+                const speed = (moveSpeed(baseSpeed(), stats.fatigueFraction, wading ? 0.6 : 1, p.sprinting) / PX) * (p.cast ? (p.cast.incant && !p.cast.fired ? 0 : 0.45) : 1) * Math.max(0.35, push) * buffMult('speedMult') * (p.wolf ? 1.3 : 1);   // the wolf form runs faster
                 tryPos.copy(p.pos).addScaledVector(dir, speed * dt);
                 m.resolve(tryPos, PLAYER_R);
                 if (!passable(tryPos.x, tryPos.z)) {
@@ -452,6 +453,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
     }
 
     return {
+        setWolf(on) { p.wolf = !!on; },
         state: p, place, step, hurt, onKill, revive, addBuff, activeSpell, blink,
         statsMult: () => buffMult('statsMult'),
         playStrike: () => { p.strike = { t: 0, hit: true, type: 'staff', thrust: false }; },

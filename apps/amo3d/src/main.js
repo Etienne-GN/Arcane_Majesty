@@ -213,7 +213,10 @@ const inventory = createInventory({
 
 // The hero's body is rebuilt when what they wear changes (game/wardrobe.js); `hero` always points at it.
 const BASE_LOOK = heroDef?.look ?? eldrinCast.look;   // the campaign plays the lore cast
-let model = createCharacter(wornLook(BASE_LOOK, stats.equipment));
+// A werewolf hero (Forge race) can take the wolf form: V / R3 / the WOLF button (stats.flags.wolfForm).
+const WEREWOLF = BASE_LOOK?.body?.race === 'werewolf';
+const heroLook = () => wornLook(BASE_LOOK, { ...stats.equipment, _wolf: WEREWOLF && !!stats.flags?.wolfForm });
+let model = createCharacter(heroLook());
 const hero = {
     get root() { return model.root; },
     update: (...a) => model.update(...a),
@@ -224,7 +227,7 @@ const hero = {
 };
 function dressHero() {
     const old = model;
-    model = createCharacter(wornLook(BASE_LOOK, stats.equipment));
+    model = createCharacter(heroLook());
     model.root.rotation.order = 'YXZ';
     model.root.position.copy(old.root.position);
     model.root.rotation.copy(old.root.rotation);
@@ -422,7 +425,7 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) save(
 // camera belongs to the title, and the vale's mood is on.
 // Online (Phase 6): the hero as others see them — their worn look, weapon, name and level.
 const net = createNet({ world, player, createCharacter, hud, fireballs, hurtSelf: (dmg, from) => player.hurt(dmg, from),
-    getLook: () => wornLook(BASE_LOOK, stats.equipment), getWeapons: () => handOf(stats.equipment.weapon)?.type ?? 'fists',
+    getLook: heroLook, getWeapons: () => handOf(stats.equipment.weapon)?.type ?? 'fists',
     getName: () => settings.onlineName || HERO_NAME, getLevel: () => stats.level });
 stats.onEquipChange(() => net.refresh());
 questHooks.onCast = (origin, dir, spellId) => net.cast(origin, dir, spellId);
@@ -509,6 +512,15 @@ function tick(dt) {
     if (act.skillbook) skillBook.toggle(true);
     if (act.quit) pause.toggle(true);
     if (act.blink) player.blink();
+    if (act.shift && !player.state.dead) {   // the change: human ↔ wolf
+        if (!WEREWOLF) hud.message('Only the Guardians of the Wild can take the wolf form.');
+        else if (player.state.cast) { /* not mid-spell */ }
+        else {
+            stats.flags.wolfForm = !stats.flags.wolfForm;
+            player.setWolf(stats.flags.wolfForm); dressHero(); cam.kick?.(0.4); sfx.growl?.();
+            hud.message(stats.flags.wolfForm ? 'You let the wolf out — faster, claws like knives; no spells in this shape. (V again to change back)' : 'You come back to yourself.');
+        }
+    }
     if (act.chat) net.openChat();
     net.update(dt, camera);
     for (const h of world.current.hittables ?? []) if (h.engaged) codex.seen(h.kind === 'shadow' ? 'mirror_shade' : h.kind);
@@ -529,7 +541,7 @@ function tick(dt) {
         aiming.update(dt);
     }
     hands.update();
-    if ((handsTick -= dt) <= 0) { handsTick = 0.1; hands.render(); document.body.classList.toggle('blink-on', (stats.skills?.blink_step?.level ?? 0) > 0); }
+    if ((handsTick -= dt) <= 0) { handsTick = 0.1; hands.render(); document.body.classList.toggle('blink-on', (stats.skills?.blink_step?.level ?? 0) > 0); document.body.classList.toggle('wolf-on', WEREWOLF); player.setWolf(WEREWOLF && !!stats.flags?.wolfForm); }
     mapView.update(player.state, cam.yaw);
     if (world.current.lava != null && !player.state.dead && !settings.god && player.state.pos.y < world.current.lava + 0.35) {   // magma: it burns
         lavaTick -= dt; if (lavaTick <= 0) { lavaTick = 0.5; player.hurt(9, player.state.pos.clone()); hud.message('The magma burns!'); }

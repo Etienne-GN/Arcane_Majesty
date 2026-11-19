@@ -42,5 +42,12 @@ export function wornLook(base, equipment) {
         look.wear[it.wearSlot ?? part] = { id: it.wear, colors: it.wearColors ?? {} };
         if (part === 'headgear') { delete look.headgear; look.hood = false; }
     }
+    // A werewolf in wolf form (stats.flags.wolfForm): the fur body; hat, gloves, boots and cloak come off.
+    if (look.body) look.body.wolf = false;   // the Forge's preview switch never sticks: the game decides
+    if (equipment._wolf) {
+        look.body = { ...(look.body ?? {}), wolf: true };
+        look.wear = { ...(look.wear ?? {}), headgear: { id: 'none' }, arms: { id: 'bare' }, feet: { id: 'bare' }, cape: { id: 'none' }, back: { id: 'none' } };
+        delete look.headgear; look.hood = false; look.cape = false;
+    }
     return look;
 }

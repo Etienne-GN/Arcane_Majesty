@@ -31,6 +31,7 @@ export function createInput({ canvas, cam }) {
             if (sk >= 0 && !two) pressed.add(`skill:${sk}`);
             if (e.code === 'KeyR' && !two) pressed.add('strike');
             if (e.code === 'KeyH') pressed.add('blink');   // Blink-Step (amo: H)
+            if (e.code === 'KeyV') pressed.add('shift');   // a werewolf's change
             if (e.code === 'KeyG' || e.code === 'Enter') pressed.add('gather');
             pressed.add(`key:${e.code}`);
         }
@@ -95,6 +96,7 @@ export function createInput({ canvas, cam }) {
                 if (up(7) || up(2)) pressed.add('handR:up');
                 if (up(6)) pressed.add('handL:up');
                 if (edge(1)) pressed.add('blink');   // B: Blink-Step (LT is the left hand)
+                if (edge(11)) pressed.add('shift');   // R3: a werewolf's change
                 const rel = i => !b(i) && padPrev[i];
                 if (edge(4)) pressed.add('cycleL:pad');
                 if (edge(5)) pressed.add('cycleR:pad');
@@ -118,7 +120,7 @@ export function createInput({ canvas, cam }) {
 
         const len = Math.hypot(mx, my);
         if (len > 1) { mx /= len; my /= len; }
-        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), strike: pressed.has('strike'), gather: pressed.has('gather'), inventory: pressed.has('inventory'), sheet: pressed.has('sheet'), map: pressed.has('map'), tear: pressed.has('tear'), journal: pressed.has('journal'), codex: pressed.has('codex'), options: pressed.has('options'), chat: pressed.has('chat'), book: pressed.has('book'), skillbook: pressed.has('skillbook'), quit: pressed.has('quit'), blink: pressed.has('blink'), hand: [...pressed].filter(p => p.startsWith('handL:') || p.startsWith('handR:')), cycle: [...pressed].filter(p => p.startsWith('cycle')), hotbar: [0, 1, 2, 3].findIndex(i => pressed.has(`hotbar:${i}`)), skill: [0, 1, 2].findIndex(i => pressed.has(`skill:${i}`)), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
+        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), strike: pressed.has('strike'), gather: pressed.has('gather'), inventory: pressed.has('inventory'), sheet: pressed.has('sheet'), map: pressed.has('map'), tear: pressed.has('tear'), journal: pressed.has('journal'), codex: pressed.has('codex'), options: pressed.has('options'), chat: pressed.has('chat'), book: pressed.has('book'), skillbook: pressed.has('skillbook'), quit: pressed.has('quit'), blink: pressed.has('blink'), shift: pressed.has('shift'), hand: [...pressed].filter(p => p.startsWith('handL:') || p.startsWith('handR:')), cycle: [...pressed].filter(p => p.startsWith('cycle')), hotbar: [0, 1, 2, 3].findIndex(i => pressed.has(`hotbar:${i}`)), skill: [0, 1, 2].findIndex(i => pressed.has(`skill:${i}`)), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
         pressed.clear();
         return out;
     }

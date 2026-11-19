@@ -55,7 +55,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     const P = BODY_PRESETS[bodyDef.preset] ?? BODY_PRESETS.adult_male;
     const eye = new THREE.Color(L.face.eyes);
     const M = {
-        skin: (() => { const R = RACES[bodyDef.race] ?? RACES.human, m = mat(bodyDef.skin); if (R.glow) { m.emissive = new THREE.Color(R.glow.color); m.emissiveIntensity = R.glow.k; } return m; })(),   // a race's inner light
+        skin: (() => { const R = RACES[bodyDef.race] ?? RACES.human, m = mat(bodyDef.wolf ? (R.fur ?? '#6a5e54') : bodyDef.skin); if (R.glow) { m.emissive = new THREE.Color(R.glow.color); m.emissiveIntensity = R.glow.k; } return m; })(),   // a race's inner light
         hair: mat(L.hair.color),
         stubble: mat(L.facialHair.color),
         eye: new THREE.MeshStandardMaterial({ color: eye, emissive: eye.clone().multiplyScalar(0.7), emissiveIntensity: 0.6 }),
@@ -119,14 +119,16 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     const skull = mesh(new THREE.SphereGeometry(0.12, 12, 10), M.skin, 0, 0.13, 0);
     skull.scale.set(0.92, 1.08, 1);
     head.add(skull);
-    buildFacialHair(L.facialHair.style, head, M.stubble);
+    if (!bodyDef.wolf) buildFacialHair(L.facialHair.style, head, M.stubble);
     head.add(mesh(new THREE.BoxGeometry(0.022, 0.05, 0.03), M.skin, 0, 0.12, 0.118));            // nose
     for (const s of [1, -1]) {
         head.add(mesh(new THREE.SphereGeometry(0.016, 6, 5), M.eye, s * 0.042, 0.15, 0.103));
         const brow = mesh(new THREE.BoxGeometry(0.045, 0.011, 0.012), M.brow, s * 0.043, 0.178, 0.108);
         brow.rotation.z = s * -0.18;
         head.add(brow);
-        if ((RACES[bodyDef.race] ?? RACES.human).ears === 'elven') {   // long pointed ears, swept back and up
+        if (bodyDef.wolf) {   // the wolf form: tall pointed wolf ears on top of the head
+            const ear = mesh(new THREE.ConeGeometry(0.04, 0.12, 4), M.skin, s * 0.07, 0.27, -0.03); ear.rotation.z = s * -0.25; head.add(ear);
+        } else if ((RACES[bodyDef.race] ?? RACES.human).ears === 'elven') {   // long pointed ears, swept back and up
             const ear = mesh(new THREE.ConeGeometry(0.026, 0.13, 5), M.skin, s * 0.118, 0.15, -0.02);
             ear.rotation.set(-0.5, 0, s * -1.05); head.add(ear);
         } else head.add(mesh(new THREE.SphereGeometry(0.025, 5, 4), M.skin, s * 0.112, 0.13, -0.005));   // ears
@@ -135,8 +137,17 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         const vein = new THREE.MeshBasicMaterial({ color: RACES[bodyDef.race].veins, toneMapped: false });
         for (const [x, y, r] of [[0.06, 0.1, 0.5], [-0.07, 0.08, -0.6], [0.03, 0.2, -0.3], [-0.04, 0.03, 0.4]]) { const v = mesh(new THREE.BoxGeometry(0.006, 0.05, 0.004), vein, x, y, 0.106); v.rotation.z = r; head.add(v); }
     }
+    if (bodyDef.wolf) {   // the wolf form: a long muzzle and black nose, fangs, a mane down the neck, claws, a tail
+        const dark = mat(darker((RACES[bodyDef.race] ?? RACES.werewolf).fur ?? '#6a5e54', 0.6));
+        head.add(mesh(new THREE.BoxGeometry(0.1, 0.08, 0.17), M.skin, 0, 0.08, 0.17));
+        head.add(mesh(new THREE.BoxGeometry(0.04, 0.035, 0.04), mat('#111111'), 0, 0.115, 0.255));
+        head.add(mesh(new THREE.BoxGeometry(0.085, 0.03, 0.14), dark, 0, 0.035, 0.16));
+        for (const s of [1, -1]) { const f = mesh(new THREE.ConeGeometry(0.008, 0.035, 3), mat('#f0e8d8'), s * 0.03, 0.03, 0.235); f.rotation.x = Math.PI; head.add(f); }
+        const mane = mesh(new THREE.SphereGeometry(0.17, 8, 6), dark, 0, 0.02, -0.06); mane.scale.set(1.15, 0.9, 1.1); head.add(mane);
+        const tail = mesh(new THREE.ConeGeometry(0.07, 0.55, 6), M.skin, 0, -0.05, -0.2); tail.rotation.x = -2.3; hips.add(tail);
+    }
     const covered = COVERING_HEADGEAR.has(L.parts.headgear?.id);
-    buildHair(covered ? 'short' : L.hair.style, head, M.hair);
+    if (!bodyDef.wolf) buildHair(covered ? 'short' : L.hair.style, head, M.hair);
 
     // ---- arms: bare skin; sleeves/bracers are parts ----
     const arms = {};
@@ -148,6 +159,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         upper.add(fore);
         upper.add(mesh(new THREE.SphereGeometry(0.08, 8, 6), M.skin, 0, 0, 0));
         fore.add(mesh(new THREE.SphereGeometry(0.048, 7, 5), M.skin, 0, -0.32, 0));
+        if (bodyDef.wolf) for (const c of [-0.025, 0, 0.025]) { const k = mesh(new THREE.ConeGeometry(0.008, 0.06, 3), mat('#f0e8d8'), c, -0.38, 0.03); k.rotation.x = Math.PI * 0.9; fore.add(k); }   // claws
         spine.add(upper);
         arms[side] = { upper, fore };
     }

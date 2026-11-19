@@ -16,6 +16,7 @@ export const RACES = {
     human:           { label: 'Human',           ears: 'round',  skin: '#e2b48f', eyes: '#5ab8f0', hair: '#3a2418', glow: null },
     aurorian:        { label: 'Aurorian',        ears: 'elven',  skin: '#f4e6d8', eyes: '#f0d070', hair: '#f2e6c0', glow: { color: '#ffe8b0', k: 0.22 }, lore: 'Elven beings of pure light.' },
     nythorian:       { label: 'Nythorian',       ears: 'elven',  skin: '#8a7c94', eyes: '#d8dce8', hair: '#1a1622', glow: { color: '#7a5aaa', k: 0.12 }, lore: 'Elven kin of the Underworld.' },
+    werewolf:        { label: 'Werewolf',        ears: 'round',  skin: '#d8b08a', eyes: '#e8a830', hair: '#4a3a2e', glow: null, lore: 'Guardians of the Wild — they can take the wolf form (Shift).', fur: '#6a5e54' },
     fallen_aurorian: { label: 'Fallen Aurorian', ears: 'elven',  skin: '#a89c94', eyes: '#ff6a30', hair: '#2a2420', glow: { color: '#a8301a', k: 0.1 }, veins: '#ff5a20', lore: 'Aurorians corrupted by the Void.' },
 };
 

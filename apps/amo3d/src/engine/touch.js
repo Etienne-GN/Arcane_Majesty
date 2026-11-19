@@ -29,6 +29,9 @@ export function createTouchControls({ input, cam }) {
         #touch .hop { right: calc(30px + env(safe-area-inset-right, 0px)); bottom: 126px; width: 68px; height: 68px; }
         #touch .blink { display: none; right: calc(108px + env(safe-area-inset-right, 0px)); bottom: 134px; width: 58px; height: 58px; font-size: ${u(12)}; border-color: #9abaffcc; color: #dce8ff; }
         body.blink-on #touch .blink { display: grid; }
+        #touch .wolf { display: none; right: calc(108px + env(safe-area-inset-right, 0px)); bottom: 200px; width: 58px; height: 58px; font-size: ${u(12)}; border-color: #e8a830cc; color: #ffe0a0; }
+        body.wolf-on #touch .wolf { display: grid; }
+        body.touch-mode.hands-on #touch .wolf { right: calc(232px + env(safe-area-inset-right, 0px)); bottom: 162px; }
         body.touch-mode.hands-on #touch .blink { right: calc(232px + env(safe-area-inset-right, 0px)); bottom: 96px; }
         #touch .menu { right: calc(132px + env(safe-area-inset-right, 0px)); top: 12px; width: 54px; height: 54px; border-radius: 14px; font-size: ${u(13)}; }
         #tmenu { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #05060acc; font-family: Georgia, serif; }
@@ -63,7 +66,7 @@ export function createTouchControls({ input, cam }) {
     const root = document.createElement('div');
     root.id = 'touch';
     root.innerHTML = '<div class="stick"><div class="knob"></div></div>'
-        + '<div class="btn menu">MENU</div><div class="btn fire">FIRE</div><div class="btn hit">HIT</div><div class="btn hop">HOP</div><div class="btn blink">BLINK</div>';
+        + '<div class="btn menu">MENU</div><div class="btn fire">FIRE</div><div class="btn hit">HIT</div><div class="btn hop">HOP</div><div class="btn blink">BLINK</div><div class="btn wolf">WOLF</div>';
     document.body.append(root);
     document.body.classList.add('touch-mode');
     const stick = root.querySelector('.stick'), knob = root.querySelector('.knob');
@@ -152,6 +155,7 @@ export function createTouchControls({ input, cam }) {
     };
     button('.fire', () => input.press('cast'));
     button('.hop', () => input.press('hop'));
+    button('.wolf', () => input.press('shift'));   // a werewolf hero's change (body.wolf-on)
     button('.blink', () => input.press('blink'));   // Blink-Step: its own button, shown once it is learned (body.blink-on)
     button('.hit', () => input.press('strike'));
     button('.menu', () => { openedAt = performance.now(); sheet.classList.add('open'); });
