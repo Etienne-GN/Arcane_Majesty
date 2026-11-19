@@ -78,9 +78,9 @@ export function createCitadelLibrary() {
         groundNormal: () => new THREE.Vector3(0, 1, 0),
         triggers: [
             { x: 0, z: L / 2 - 1, r: 1.2, label: 'Out to the Citadel terrace', to: 'citadel_plateau', spawn: 'from_library' },
-            { x: 0, z: -L / 2 + 1.6, r: 1.4, label: 'The Forbidden Archive — sealed', to: null },
+            { x: 0, z: -L / 2 + 1.6, r: 1.4, label: 'The Forbidden Archive', to: 'forbidden_archive', spawn: 'enter', requires: 'archive_unsealed', lockedLabel: 'The Forbidden Archive — sealed by order of the Keeper' },
         ],
-        spawns: { enter: { x: 0, z: L / 2 - 3, facing: Math.PI }, start: { x: 0, z: L / 2 - 3, facing: Math.PI } },
+        spawns: { enter: { x: 0, z: L / 2 - 3, facing: Math.PI }, start: { x: 0, z: L / 2 - 3, facing: Math.PI }, from_archive: { x: 0, z: -L / 2 + 4, facing: 0 } },
         hittables: [], gatherSpots: [], gates: [],
         stations: [
             { mode: 'desk', pos: new THREE.Vector3(-3, 0, 7) }, { mode: 'desk', pos: new THREE.Vector3(3, 0, -7) },
@@ -89,4 +89,52 @@ export function createCitadelLibrary() {
         update(t) { for (const L0 of lights) L0.l.intensity = L0.base * (1 + Math.sin(t * 7 + L0.seed) * 0.04); },
     };
     return map;
+}
+
+// The Forbidden Archive — behind the sealed door at the end of the Great Library (lore DB: The Forbidden Archive,
+// where Elara revealed Kael's lineage). A round vaulted room: iron shelves of chained books, a warding circle glowing
+// in the floor, a lectern with a great book of bloodlines open on it. Sealed until the campaign opens it
+// (flag archive_unsealed; God mode opens every way).
+export function createForbiddenArchive() {
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0c0a10);
+    scene.fog = new THREE.Fog(0x16121e, 10, 36);
+    const R = 9, colliders = [], lights = [];
+    const box = (w, h, d, c, x, y, z, ry = 0, o = {}) => { const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), o.mat ?? flat(c)); b.position.set(x, y, z); b.rotation.y = ry; b.castShadow = !o.noShadow; b.receiveShadow = true; scene.add(b); return b; };
+    const floor = new THREE.Mesh(new THREE.CircleGeometry(R, 24).rotateX(-Math.PI / 2), flat(0x3a3440)); floor.receiveShadow = true; scene.add(floor);
+    const wall = new THREE.Mesh(new THREE.CylinderGeometry(R + 0.4, R + 0.4, 9, 24, 1, true), new THREE.MeshStandardMaterial({ color: 0x4a4250, side: THREE.BackSide, flatShading: true })); wall.position.y = 4.5; scene.add(wall);
+    const ward = new THREE.MeshStandardMaterial({ color: 0x8a6aff, emissive: 0x6a4aff, emissiveIntensity: 1.4, flatShading: true });
+    for (const [r, w] of [[3.2, 0.08], [2.4, 0.05]]) { const ring = new THREE.Mesh(new THREE.TorusGeometry(r, w, 3, 40), ward); ring.rotation.x = Math.PI / 2; ring.position.y = 0.03; scene.add(ring); }
+    for (let i = 0; i < 7; i++) { const a = i / 7 * Math.PI * 2, g = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.02, 0.12), ward); g.position.set(Math.cos(a) * 2.8, 0.03, Math.sin(a) * 2.8); g.rotation.y = -a; scene.add(g); }   // runes
+    const spines = [0x4a1a1a, 0x1a2a4a, 0x2a3a1a, 0x3a2a1a, 0x2a1a3a];
+    for (let i = 0; i < 12; i++) {   // iron shelves round the wall, books chained to them
+        const a = i / 12 * Math.PI * 2; if (Math.abs(Math.sin(a)) < 0.3 && Math.cos(a) > 0) continue;   // the door, to the east (+z after rotation below)
+        const x = Math.sin(a) * (R - 0.6), z = Math.cos(a) * (R - 0.6);
+        if (z > R - 2) continue;   // leave the doorway clear
+        box(2.2, 4.8, 0.6, 0x2a2a30, x, 2.4, z, a);
+        for (let r = 0; r < 4; r++) for (let b = 0; b < 5; b++) { const bx = -0.8 + b * 0.4; box(0.3, 0.8, 0.4, spines[(i + r + b) % 5], x + Math.cos(a) * bx - Math.sin(a) * 0.1, 0.7 + r * 1.1, z - Math.sin(a) * bx - Math.cos(a) * 0.1, a, { noShadow: true }); }
+        box(2.2, 0.04, 0.04, 0x8a8a92, x - Math.sin(a) * 0.32, 2.0, z - Math.cos(a) * 0.32, a, { noShadow: true });   // the chain across
+        colliders.push({ x, z, r: 1.1, kind: 'wall', y0: -1, y1: 5 });
+    }
+    // the lectern and the book of bloodlines, open
+    box(0.7, 1.1, 0.5, 0x3a2418, 0, 0.55, -1.2); const book = box(1.0, 0.08, 0.7, 0xe8dcc0, 0, 1.18, -1.2); book.rotation.x = -0.25;
+    colliders.push({ x: 0, z: -1.2, r: 0.6, kind: 'wall', y0: -1, y1: 1.4 });
+    for (const [x, z] of [[-3.5, -3.5], [3.5, -3.5], [0, 4.5]]) { const l = new THREE.PointLight(0xb89aff, 14, 16, 1.4); l.position.set(x, 4, z); scene.add(l); lights.push(l); }
+    const candle = new THREE.PointLight(0xffc070, 5, 6, 1.6); candle.position.set(0.5, 1.6, -1.2); scene.add(candle);
+    scene.add(new THREE.HemisphereLight(0xe8e0ff, 0x2a2430, 0.9));
+    const inside = (x, z, r) => Math.hypot(x, z) < R - 0.9 - r;
+    return {
+        id: 'forbidden_archive', name: 'The Forbidden Archive', scene, colliders, terrain: false,
+        camera: { maxDist: 9, pitch: 0.8, dist: 7.5 },
+        groundAt: () => 0, passable: () => true, stepBlocked: () => false,
+        blockedAt(x, z, r, y = 0) { if (!inside(x, z, r)) return 'wall'; const c = colliderAt(colliders, x, z, r, y); return c ? c.kind : null; },
+        resolve(pos, r) { pushOut(colliders, pos, r); const d = Math.hypot(pos.x, pos.z), m = R - 0.9 - r; if (d > m) { pos.x *= m / d; pos.z *= m / d; } },
+        projectileHit(p) { if (p.y < 0.03) return 'ground'; if (!inside(p.x, p.z, 0)) return 'wall'; const c = colliderAt(colliders, p.x, p.z, 0.15, p.y); return c ? 'object' : null; },
+        groundNormal: () => new THREE.Vector3(0, 1, 0),
+        triggers: [{ x: 0, z: R - 1.4, r: 1.2, label: 'Back to the Great Library', to: 'citadel_library', spawn: 'from_archive' }],
+        spawns: { enter: { x: 0, z: R - 3, facing: Math.PI }, start: { x: 0, z: R - 3, facing: Math.PI } },
+        hittables: [], gatherSpots: [], gates: [],
+        stations: [{ mode: 'sign', text: 'The great book lies open at a page of lineages, the ink gone brown with age: names joined by lines, generation after generation, and near the bottom a line that has been scratched out and written in again in a newer hand.', pos: new THREE.Vector3(0, 0, -0.2) }],
+        update(t) { ward.emissiveIntensity = 1.2 + Math.sin(t * 1.5) * 0.3; lights.forEach((l, i) => { l.intensity = 14 + Math.sin(t * 2 + i) * 1.5; }); },
+    };
 }

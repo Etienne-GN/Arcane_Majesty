@@ -1,0 +1,891 @@
+{
+  "id": "thaloria_lower",
+  "name": "The Lower Town of Thaloria",
+  "lore": "The district that grew outside Thaloria's south wall when the city ran out of room: scribes' houses, booksellers, an inn for scholars and pilgrims \u2014 Thaloria is the scholarly kingdom of libraries and archives (lore DB: Thaloria). Game-only district (origin: game).",
+  "seed": 15151,
+  "half": 70,
+  "water": -3,
+  "terrain": {
+    "scale": 0.018,
+    "relief": 3,
+    "base": 0.4,
+    "rim": 20
+  },
+  "palette": {
+    "grassA": "#4d7a35",
+    "grassB": "#6a9a44",
+    "dirt": "#7a6a4a",
+    "rock": "#8a7e6a",
+    "shore": "#7a6a4a",
+    "road": "#9a8a6a",
+    "paved": "#b8ac90"
+  },
+  "mood": {
+    "fog": "#d8d8c8",
+    "fogNear": 60,
+    "fogFar": 240,
+    "fogMix": 0.25,
+    "light": 1.05,
+    "nightFloor": 0.45
+  },
+  "features": [
+    {
+      "type": "clearing",
+      "x": 0,
+      "z": 0,
+      "r": 60
+    }
+  ],
+  "path": [],
+  "roads": [
+    {
+      "pts": [
+        [
+          0,
+          -66
+        ],
+        [
+          0,
+          50
+        ]
+      ],
+      "w": 5,
+      "kind": "paved"
+    },
+    {
+      "pts": [
+        [
+          -46,
+          -24
+        ],
+        [
+          46,
+          -24
+        ]
+      ],
+      "w": 4,
+      "kind": "paved"
+    },
+    {
+      "pts": [
+        [
+          -46,
+          24
+        ],
+        [
+          46,
+          24
+        ]
+      ],
+      "w": 4,
+      "kind": "paved"
+    }
+  ],
+  "buildings": [
+    {
+      "x": -9,
+      "z": -44,
+      "w": 6,
+      "d": 5,
+      "h": 3.2,
+      "ry": 1.5708,
+      "wall": "#d8ccb0",
+      "roof": "#5a4a44",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": 9,
+      "z": -44,
+      "w": 6,
+      "d": 5,
+      "h": 3.6,
+      "ry": -1.5708,
+      "wall": "#cfc2a4",
+      "roof": "#5a4a44",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": -9,
+      "z": -35,
+      "w": 8,
+      "d": 5,
+      "h": 4.6,
+      "ry": 1.5708,
+      "wall": "#cfc2a4",
+      "roof": "#5a4a44",
+      "timber": "#4a3220",
+      "chimney": false,
+      "name": "The Inkwell (inn)",
+      "sign": "The Inkwell",
+      "signText": "THE INKWELL \u2014 beds for scholars, pilgrims and anyone who pays",
+      "stone": true
+    },
+    {
+      "x": 9,
+      "z": -35,
+      "w": 7,
+      "d": 5,
+      "h": 3.2,
+      "ry": -1.5708,
+      "wall": "#d8ccb0",
+      "roof": "#7a4a2a",
+      "timber": "#4a3220",
+      "chimney": true,
+      "name": "Booksellers\u2019 Row",
+      "sign": "Books",
+      "signText": "BOOKS BOUGHT AND SOLD \u2014 copies made to order"
+    },
+    {
+      "x": -9,
+      "z": -26,
+      "w": 5,
+      "d": 5,
+      "h": 3.6,
+      "ry": 1.5708,
+      "wall": "#d8ccb0",
+      "roof": "#7a4a2a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": 9,
+      "z": -26,
+      "w": 7,
+      "d": 5,
+      "h": 4.2,
+      "ry": -1.5708,
+      "wall": "#cfc2a4",
+      "roof": "#9a5a3a",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": -9,
+      "z": -17,
+      "w": 6,
+      "d": 5,
+      "h": 3.6,
+      "ry": 1.5708,
+      "wall": "#d8ccb0",
+      "roof": "#6a3a2a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": 9,
+      "z": -17,
+      "w": 7,
+      "d": 5,
+      "h": 3.6,
+      "ry": -1.5708,
+      "wall": "#e0d4b8",
+      "roof": "#5a4a44",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": -9,
+      "z": 10,
+      "w": 6,
+      "d": 5,
+      "h": 4.2,
+      "ry": 1.5708,
+      "wall": "#e0d4b8",
+      "roof": "#7a4a2a",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": 9,
+      "z": 10,
+      "w": 7,
+      "d": 5,
+      "h": 3.6,
+      "ry": -1.5708,
+      "wall": "#e0d4b8",
+      "roof": "#9a5a3a",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": -9,
+      "z": 19,
+      "w": 7,
+      "d": 5,
+      "h": 3.6,
+      "ry": 1.5708,
+      "wall": "#e0d4b8",
+      "roof": "#7a4a2a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": 9,
+      "z": 19,
+      "w": 5,
+      "d": 5,
+      "h": 3.6,
+      "ry": -1.5708,
+      "wall": "#c8b896",
+      "roof": "#6a3a2a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": -9,
+      "z": 28,
+      "w": 5,
+      "d": 5,
+      "h": 4.2,
+      "ry": 1.5708,
+      "wall": "#c8b896",
+      "roof": "#9a5a3a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": 9,
+      "z": 28,
+      "w": 6,
+      "d": 5,
+      "h": 3.6,
+      "ry": -1.5708,
+      "wall": "#cfc2a4",
+      "roof": "#9a5a3a",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": -9,
+      "z": 37,
+      "w": 7,
+      "d": 5,
+      "h": 3.6,
+      "ry": 1.5708,
+      "wall": "#c8b896",
+      "roof": "#5a4a44",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": 9,
+      "z": 37,
+      "w": 5,
+      "d": 5,
+      "h": 3.2,
+      "ry": -1.5708,
+      "wall": "#e0d4b8",
+      "roof": "#7a4a2a",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": -9,
+      "z": 46,
+      "w": 5,
+      "d": 5,
+      "h": 3.6,
+      "ry": 1.5708,
+      "wall": "#d8ccb0",
+      "roof": "#5a4a44",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": 9,
+      "z": 46,
+      "w": 6,
+      "d": 5,
+      "h": 3.2,
+      "ry": -1.5708,
+      "wall": "#d8ccb0",
+      "roof": "#5a4a44",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": -24,
+      "z": -31,
+      "w": 7,
+      "d": 5,
+      "h": 4.2,
+      "ry": 0,
+      "wall": "#cfc2a4",
+      "roof": "#6a3a2a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": -24,
+      "z": -17,
+      "w": 6,
+      "d": 5,
+      "h": 3.6,
+      "ry": 3.1416,
+      "wall": "#cfc2a4",
+      "roof": "#9a5a3a",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": -33,
+      "z": -31,
+      "w": 5,
+      "d": 5,
+      "h": 3.6,
+      "ry": 0,
+      "wall": "#d4c4a8",
+      "roof": "#8a3a2a",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": -33,
+      "z": -17,
+      "w": 6,
+      "d": 5,
+      "h": 4.2,
+      "ry": 3.1416,
+      "wall": "#d8ccb0",
+      "roof": "#9a5a3a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": -42,
+      "z": -31,
+      "w": 7,
+      "d": 5,
+      "h": 3.2,
+      "ry": 0,
+      "wall": "#c8b896",
+      "roof": "#6a3a2a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": -42,
+      "z": -17,
+      "w": 5,
+      "d": 5,
+      "h": 4.2,
+      "ry": 3.1416,
+      "wall": "#d4c4a8",
+      "roof": "#7a4a2a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": 24,
+      "z": -31,
+      "w": 5,
+      "d": 5,
+      "h": 3.2,
+      "ry": 0,
+      "wall": "#d8ccb0",
+      "roof": "#5a4a44",
+      "timber": "#4a3220",
+      "chimney": true,
+      "name": "The tailor",
+      "sign": "Tailor",
+      "signText": "CLOTH, CLOAKS AND MAIL \u2014 fitted while you wait"
+    },
+    {
+      "x": 24,
+      "z": -17,
+      "w": 5,
+      "d": 5,
+      "h": 3.2,
+      "ry": 3.1416,
+      "wall": "#e0d4b8",
+      "roof": "#6a3a2a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": 33,
+      "z": -31,
+      "w": 6,
+      "d": 5,
+      "h": 3.2,
+      "ry": 0,
+      "wall": "#cfc2a4",
+      "roof": "#9a5a3a",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": 33,
+      "z": -17,
+      "w": 7,
+      "d": 5,
+      "h": 3.2,
+      "ry": 3.1416,
+      "wall": "#e0d4b8",
+      "roof": "#6a3a2a",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": 42,
+      "z": -31,
+      "w": 6,
+      "d": 5,
+      "h": 3.2,
+      "ry": 0,
+      "wall": "#cfc2a4",
+      "roof": "#5a4a44",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": 42,
+      "z": -17,
+      "w": 7,
+      "d": 5,
+      "h": 3.2,
+      "ry": 3.1416,
+      "wall": "#cfc2a4",
+      "roof": "#8a3a2a",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": -24,
+      "z": 17,
+      "w": 8,
+      "d": 5,
+      "h": 4.2,
+      "ry": 0,
+      "wall": "#c8b896",
+      "roof": "#7a4a2a",
+      "timber": "#4a3220",
+      "chimney": true,
+      "name": "The scriptorium",
+      "stone": true
+    },
+    {
+      "x": -24,
+      "z": 31,
+      "w": 5,
+      "d": 5,
+      "h": 4.2,
+      "ry": 3.1416,
+      "wall": "#d4c4a8",
+      "roof": "#7a4a2a",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": -33,
+      "z": 17,
+      "w": 7,
+      "d": 5,
+      "h": 4.2,
+      "ry": 0,
+      "wall": "#c8b896",
+      "roof": "#9a5a3a",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": -33,
+      "z": 31,
+      "w": 6,
+      "d": 5,
+      "h": 3.2,
+      "ry": 3.1416,
+      "wall": "#d8ccb0",
+      "roof": "#7a4a2a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": -42,
+      "z": 17,
+      "w": 6,
+      "d": 5,
+      "h": 4.2,
+      "ry": 0,
+      "wall": "#c8b896",
+      "roof": "#8a3a2a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": -42,
+      "z": 31,
+      "w": 6,
+      "d": 5,
+      "h": 4.2,
+      "ry": 3.1416,
+      "wall": "#c8b896",
+      "roof": "#7a4a2a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": 24,
+      "z": 17,
+      "w": 6,
+      "d": 5,
+      "h": 3.2,
+      "ry": 0,
+      "wall": "#d8ccb0",
+      "roof": "#9a5a3a",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": 24,
+      "z": 31,
+      "w": 6,
+      "d": 5,
+      "h": 4.2,
+      "ry": 3.1416,
+      "wall": "#c8b896",
+      "roof": "#7a4a2a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": 33,
+      "z": 17,
+      "w": 5,
+      "d": 5,
+      "h": 3.6,
+      "ry": 0,
+      "wall": "#c8b896",
+      "roof": "#7a4a2a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": 33,
+      "z": 31,
+      "w": 6,
+      "d": 5,
+      "h": 3.6,
+      "ry": 3.1416,
+      "wall": "#d8ccb0",
+      "roof": "#6a3a2a",
+      "timber": "#4a3220",
+      "chimney": true
+    },
+    {
+      "x": 42,
+      "z": 17,
+      "w": 7,
+      "d": 5,
+      "h": 3.2,
+      "ry": 0,
+      "wall": "#cfc2a4",
+      "roof": "#6a3a2a",
+      "timber": "#4a3220",
+      "chimney": false
+    },
+    {
+      "x": 42,
+      "z": 31,
+      "w": 5,
+      "d": 5,
+      "h": 4.2,
+      "ry": 3.1416,
+      "wall": "#cfc2a4",
+      "roof": "#9a5a3a",
+      "timber": "#4a3220",
+      "chimney": false
+    }
+  ],
+  "props": [
+    {
+      "type": "stall",
+      "x": -4,
+      "z": -4,
+      "ry": 0
+    },
+    {
+      "type": "stall",
+      "x": 4,
+      "z": -4,
+      "ry": 0
+    },
+    {
+      "type": "stall",
+      "x": -4,
+      "z": 4,
+      "ry": 3.1416
+    },
+    {
+      "type": "stall",
+      "x": 4,
+      "z": 4,
+      "ry": 3.1416
+    },
+    {
+      "type": "well",
+      "x": 0,
+      "z": 0
+    },
+    {
+      "type": "signpost",
+      "x": 3,
+      "z": -52
+    },
+    {
+      "type": "lamp",
+      "x": -3.4,
+      "z": -56
+    },
+    {
+      "type": "lamp",
+      "x": 3.4,
+      "z": -50
+    },
+    {
+      "type": "lamp",
+      "x": -3.4,
+      "z": -44
+    },
+    {
+      "type": "lamp",
+      "x": 3.4,
+      "z": -38
+    },
+    {
+      "type": "lamp",
+      "x": -3.4,
+      "z": -32
+    },
+    {
+      "type": "lamp",
+      "x": 3.4,
+      "z": -26
+    },
+    {
+      "type": "lamp",
+      "x": -3.4,
+      "z": -20
+    },
+    {
+      "type": "lamp",
+      "x": 3.4,
+      "z": -14
+    },
+    {
+      "type": "lamp",
+      "x": -3.4,
+      "z": -8
+    },
+    {
+      "type": "lamp",
+      "x": 3.4,
+      "z": -2
+    },
+    {
+      "type": "lamp",
+      "x": -3.4,
+      "z": 4
+    },
+    {
+      "type": "lamp",
+      "x": 3.4,
+      "z": 10
+    },
+    {
+      "type": "lamp",
+      "x": -3.4,
+      "z": 16
+    },
+    {
+      "type": "lamp",
+      "x": 3.4,
+      "z": 22
+    },
+    {
+      "type": "lamp",
+      "x": -3.4,
+      "z": 28
+    },
+    {
+      "type": "lamp",
+      "x": 3.4,
+      "z": 34
+    },
+    {
+      "type": "lamp",
+      "x": -3.4,
+      "z": 40
+    },
+    {
+      "type": "lamp",
+      "x": 3.4,
+      "z": 46
+    },
+    {
+      "type": "barrel",
+      "x": -6,
+      "z": -30
+    },
+    {
+      "type": "crate",
+      "x": 6,
+      "z": -38
+    },
+    {
+      "type": "cart",
+      "x": -14,
+      "z": -20,
+      "ry": 1.4
+    },
+    {
+      "type": "bench",
+      "x": -6,
+      "z": 8,
+      "ry": 0
+    }
+  ],
+  "signs": [
+    {
+      "x": 3.5,
+      "z": -51.4,
+      "text": "THE LOWER TOWN \u2014 north: the South Gate and the city; the market square ahead; Booksellers' Row and the Inkwell on the main street."
+    }
+  ],
+  "trees": {
+    "count": 90,
+    "gaps": 0.7,
+    "kinds": {
+      "broad": 0.7,
+      "birch": 0.3
+    }
+  },
+  "rocks": 10,
+  "gather": {
+    "herb": 2
+  },
+  "gates": [],
+  "actors": [],
+  "people": [
+    {
+      "name": "Keeper of the Inkwell",
+      "role": "innkeeper",
+      "price": 10,
+      "greeting": "The Inkwell: clean sheets, a lamp to read by, and quiet after the ninth bell. 10 gold.",
+      "x": -4.8,
+      "z": -35,
+      "facing": 1.5708
+    },
+    {
+      "name": "Bookseller",
+      "role": "merchant",
+      "greeting": "Herbals, star-charts, a primer of the old runes, and a copy of anything in the Library \u2014 for a price, and a wait.",
+      "x": 4.8,
+      "z": -35,
+      "facing": -1.5708
+    },
+    {
+      "name": "Tailor",
+      "role": "merchant",
+      "catalog": "armourer",
+      "greeting": "Cloaks, gowns, a good gambeson \u2014 and mail for the ones who walk the roads.",
+      "x": 24,
+      "z": -26.8,
+      "facing": 0
+    },
+    {
+      "name": "Market trader",
+      "role": "merchant",
+      "x": -4,
+      "z": -2.2,
+      "facing": 0,
+      "greeting": "Bread from the Heartlands, herbs from the glade, potions from a cousin who knows what she's doing."
+    },
+    {
+      "name": "Scribe",
+      "role": "villager",
+      "archetype": "mage",
+      "x": -24,
+      "z": 21.5,
+      "facing": 0,
+      "wander": 3,
+      "lines": [
+        "Thaloria copies everything. The originals stay in the Citadel; the copies go out into the world.",
+        "The Forbidden Archive? Every scribe has a theory. Mine is that it's full of very dull tax ledgers."
+      ]
+    },
+    {
+      "name": "Student",
+      "role": "villager",
+      "archetype": "civilian",
+      "x": 4,
+      "z": 10,
+      "facing": 3.1,
+      "wander": 6,
+      "lines": [
+        "Three years of runes and I can read one door-sign. My master says that's fast.",
+        "They say the Keeper of the Archive hasn't opened it in a lifetime."
+      ]
+    },
+    {
+      "name": "Watchman",
+      "role": "guard",
+      "x": 2.6,
+      "z": -56,
+      "facing": 3.1416,
+      "lines": [
+        "The Lower Town grew outside the walls when the city ran out of room. Mind your purse after dark."
+      ]
+    },
+    {
+      "name": "Lamplighter",
+      "role": "villager",
+      "archetype": "peasant",
+      "x": -3,
+      "z": 30,
+      "facing": 1.6,
+      "wander": 8,
+      "lines": [
+        "Up at dusk, down at dawn. The Citadel windows light themselves \u2014 I do the rest."
+      ]
+    }
+  ],
+  "landmarks": [
+    {
+      "name": "The market square",
+      "x": 0,
+      "z": 0,
+      "icon": "stones"
+    },
+    {
+      "name": "The Inkwell (inn)",
+      "x": -9,
+      "z": -35,
+      "icon": "house"
+    },
+    {
+      "name": "Booksellers' Row",
+      "x": 9,
+      "z": -35,
+      "icon": "house"
+    }
+  ],
+  "links": [
+    {
+      "label": "North \u2014 the South Gate of Thaloria",
+      "x": 0,
+      "z": -64,
+      "facing": 0,
+      "spawn": "from_thaloria",
+      "to": "thaloria",
+      "toSpawn": "from_lower"
+    }
+  ],
+  "start": {
+    "x": 0,
+    "z": -58,
+    "facing": 3.1416
+  }
+}

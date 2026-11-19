@@ -27,7 +27,7 @@ decision, note it under "For the user", and go on to the next step.
 - [x] **3. Life in the new places** — townsfolk (Forge archetypes) with simple day routines in the Crossroads, Port
       Silver, Iron Hollow, Duskmeet, Graywatch; an innkeeper (rest) and a merchant (shop with the checkout) in each
       town; a few lore-flavoured barks.
-- [ ] **4. The rest of Thaloria** — a lookout on the glade road framing the Citadel like the album cover; the city
+- [x] **4. The rest of Thaloria** — a lookout on the glade road framing the Citadel like the album cover; the city
       spread wider (an outer district outside the walls); the Forbidden Archive interior (sealed until the campaign).
 - [ ] **5. If time remains** — fighting style skills still "not in 3D yet" (start with Piercing Lunge, Leaping Strike,
       Flurry of Blows, Aimed Shot), shield Block.
@@ -38,6 +38,7 @@ decision, note it under "For the user", and go on to the next step.
 - User asks (morning): werewolves **playable**; the Aetheric Tear in God mode reaches **every** map — done (travel.js builds the list from all region files).
 - Playable werewolves (user, morning): race `werewolf` in RACES (human form: amber eyes; `fur`); the wolf form = body.wolf in character.js (muzzle, fangs, wolf ears, mane, claws, tail; no hair/beard); the change V / R3 / touch WOLF (only for werewolf heroes; stats.flags.wolfForm, kept in the save); wolf form: ×1.3 speed, ×1.8 strike damage, no casting; hat, gloves, boots, cloak come off (wardrobe.js). Forge preview switch Human/Wolf form. Not yet: a change animation, werewolf-only skills.
 - Step 3 done: content/actors/villagers.js (region `people`: Forge archetype looks, stand or stroll, G to talk; merchant → shop with `catalog`; innkeeper → a room: gold, full rest, clock to 7:00; others → their own lines). 26 people in the Crossroads, Port Silver, Iron Hollow, Duskmeet, Graywatch (clothier, smith, sailmaker and quartermaster sell the armourer catalogue). Names are roles, no new canon characters.
+- Step 4 done: the North Gate fixed (gap in the wall's real line, the bridge corridor past the map edge); the South Gate → the Lower Town (regions/thaloria_lower.json: 42 houses on a main street and two cross streets, market square, the Inkwell inn, Booksellers' Row, the scriptorium, the tailor, 8 people); the Lookout on a raised mound on the western hills (thaloria.js LOOK; the Citadel over the cliff — the cliff's shoulder still hides the gorge from there); the Forbidden Archive (citadelLibrary.js createForbiddenArchive: chained books, ward circle, the book of lineages) behind the Library's door, sealed until flag `archive_unsealed` (God mode opens it). No werewolf villagers (user).
 
 ## For the user (decisions skipped tonight)
 - Dwarves: not in the lore DB — add them as new canon? (skipped)

@@ -53,7 +53,12 @@ export function createThaloria({ quality }) {
     // North of the wall the land drops into the river gorge, then rises as a sheer cliff to the citadel's plateau
     // (the Eldoria's Prophecy cover).
     const CLIFF = 26, RIVER = -4;
+    const LOOK = { x: -71, z: -44, y: null };   // the Lookout (built below): its platform is the ground there
     function heightAt(x, z) {
+        if (LOOK.y != null) { const d = Math.hypot(x - LOOK.x, z - LOOK.z); if (d < 3.5) return LOOK.y; if (d < 14) return Math.max(raw(x, z), LOOK.y - (d - 3.5) * 0.8); }   // the Lookout's mound
+        return raw(x, z);
+    }
+    function raw(x, z) {
         const out = Math.max(Math.abs(x) - W / 2, Math.abs(z) - H / 2, 0);
         const hills = smoothstep(2, 14, out) * (6 + 6 * fbm(x * 0.05, z * 0.05));
         if (z >= -H / 2) return hills;
@@ -62,6 +67,7 @@ export function createThaloria({ quality }) {
         const gorge = -7.5 * smoothstep(3, 8, gN) * (1 - smoothstep(15, 19, gN)) + smoothstep(16, 23, gN) * (CLIFF + 2 * fbm(x * 0.08, 3));
         return gorge * (1 - side) + Math.max(hills, gorge) * side;
     }
+    { let m = -99; for (let a = 0; a < 6.28; a += 0.8) for (const r of [0, 2, 3.6]) m = Math.max(m, raw(LOOK.x + Math.cos(a) * r, LOOK.z + Math.sin(a) * r)); LOOK.y = m + 7; }   // raised to see over the cliff's shoulder
     const tileAt = (x, z) => { const tx = Math.floor(x + W / 2), ty = Math.floor(z + H / 2); return tx >= 0 && ty >= 0 && tx < W && ty < H ? grid[ty][tx] : 1; };
     const SIZE = half * 2;
     const ground = new THREE.PlaneGeometry(SIZE, SIZE, SIZE, SIZE).rotateX(-Math.PI / 2).toNonIndexed();
@@ -120,9 +126,21 @@ export function createThaloria({ quality }) {
     }
 
     // ---------- the city wall ----------
-    const wallCells = []; let northWallZ = -H / 2;   // the North Gate: where the gap is cut
-    for (const [k, names] of pieces) if (names.some(isWall)) { const [x, y] = k.split(',').map(Number); if (Math.abs(wx(x)) < 2.4 && wz(y) < -H / 2 + 9) { northWallZ = Math.max(northWallZ, wz(y)); continue; } wallCells.push([x, y, names.includes('wall_stone_circular_gray')]); }   // the North Gate: a gap at the middle of the north wall
+    const wallCells = []; let northWallZ = -H / 2, southWallZ = H / 2;   // the North Gate: where the gap is cut
+    for (const [k, names] of pieces) if (names.some(isWall)) { const [x, y] = k.split(',').map(Number); if (Math.abs(wx(x)) < 2.4 && wz(y) < -H / 2 + 9) { northWallZ = Math.max(northWallZ, wz(y)); continue; }
+        if (Math.abs(wx(x)) < 2.4 && wz(y) > H / 2 - 9) { southWallZ = Math.min(southWallZ, wz(y)); continue; }   // the South Gate, to the Lower Town
+        wallCells.push([x, y, names.includes('wall_stone_circular_gray')]); }   // the North Gate: a gap at the middle of the north wall
     buildArch(scene, 0, 0, northWallZ, 0);   // the North Gate's arch, in the wall's own line
+    buildArch(scene, 0, 0, southWallZ, Math.PI);   // the South Gate
+    // The Lookout: a stone platform on the western hills, framing the Citadel above the gorge as on the old
+    // painting of Eldoria's Prophecy — a bench, a low parapet, a signpost.
+    {
+        const y0 = LOOK.y - 0.5;
+        const plat = new THREE.Mesh(new THREE.CylinderGeometry(3.4, 3.8, 6, 10), flat(0x9a8e76)); plat.position.set(LOOK.x, y0 + 0.5 - 3, LOOK.z); plat.receiveShadow = true; scene.add(plat);
+        const par = new THREE.Mesh(new THREE.TorusGeometry(3.3, 0.22, 4, 18, Math.PI * 1.1), flat(0x8a7e68)); par.rotation.x = -Math.PI / 2; par.rotation.z = Math.PI * 0.95; par.position.set(LOOK.x, y0 + 0.95, LOOK.z); scene.add(par);
+        const bench = buildProp('bench'); bench.position.set(LOOK.x - 1, y0 + 0.7, LOOK.z + 1.2); bench.rotation.y = Math.atan2(-LOOK.x, -98 - LOOK.z) + Math.PI; scene.add(bench);
+        const post = buildProp('signpost'); post.position.set(LOOK.x + 2.2, y0 + 0.7, LOOK.z + 2.2); scene.add(post);
+    }
     const stone = new THREE.InstancedMesh(new THREE.BoxGeometry(1.02, 1, 1.02), flat(0xffffff), wallCells.length);
     const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), v = new THREE.Vector3(), s = new THREE.Vector3();
     const merlons = [];
@@ -309,6 +327,10 @@ export function createThaloria({ quality }) {
     const gx = wx(Math.min(...rowCells)) + 0.5, gz = wz(west.y) + 0.5;
     const veil = buildArch(scene, gx, 0, gz, Math.PI / 2);
     map.triggers.push({ x: gx, z: gz, r: 1.4, label: "The West Gate — the road to Eldrin's Tower", to: 'outdoor', spawn: 'from_thaloria' });
+    // The South Gate: out to the Lower Town. The Lookout's sign.
+    map.triggers.push({ x: 0, z: southWallZ + 7, r: 1.6, label: 'The South Gate — the Lower Town', to: 'thaloria_lower', spawn: 'from_thaloria' });
+    map.spawns.from_lower = { x: 0, z: southWallZ - 3, facing: Math.PI };
+    map.stations.push({ mode: 'sign', text: 'THE LOOKOUT. From here the Citadel stands as it does on the old painting: above the gorge, the falls white beneath it, the peaks behind. Painters come at sunset. Scholars come to argue about which window is the Archive.', pos: new THREE.Vector3(LOOK.x + 2.2, heightAt(LOOK.x + 2.2, LOOK.z + 2.2), LOOK.z + 2.2) });
     // The North Gate: over the bridge, up the cliff stair to the Citadel.
     map.triggers.push({ x: 0, z: -H / 2 - 18, r: 1.6, label: 'Up the cliff stair — the Citadel', to: 'citadel_plateau', spawn: 'from_thaloria' });
     map.spawns.from_citadel = { x: 0, z: -H / 2 + 3, facing: 0 };
@@ -357,7 +379,7 @@ export function createThaloria({ quality }) {
         groundAt: (x, z) => { if (!inside(x, z)) return null; const t = tileAt(x, z); return t === 2 ? 'road' : t === 3 ? 'paved' : null; },
         buildings: houses.map(h => ({ x0: wx(h.x0) - 0.5, z0: wz(h.y0) - 0.5, x1: wx(h.x1) + 0.5, z1: wz(h.y1) + 0.5 })),
         walls: wallCells.map(([x, y]) => [wx(x), wz(y)]),
-        landmarks: [...(D.spawns.landmarks ?? []).map(l => ({ name: l.name, x: wx(l.x), z: wz(l.y), icon: l.id.includes('gate') ? 'gate' : l.id.includes('temple') || l.id.includes('bell') ? 'tower' : 'stones' })), { name: 'The Citadel (across the gorge)', x: 0, z: -half + 3, icon: 'tower', always: true }],
+        landmarks: [...(D.spawns.landmarks ?? []).map(l => ({ name: l.name, x: wx(l.x), z: wz(l.y), icon: l.id.includes('gate') ? 'gate' : l.id.includes('temple') || l.id.includes('bell') ? 'tower' : 'stones' })), { name: 'The Citadel (across the gorge)', x: 0, z: -half + 3, icon: 'tower', always: true }, { name: 'The Lookout', x: -71, z: -44, icon: 'stones', always: true }],
     };
     const shell = createOutdoorShell(scene, { quality, mood: { fog: '#c9d6d4', fogNear: 60, fogFar: 260, fogMix: 0.3, light: 1, nightFloor: 0.45 } });
     map.update = (t, dt, ctx) => {

@@ -46,7 +46,7 @@ import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createBountyBoard } from './game/bounty.js';
 import { createBook } from './game/book.js';
 import { createHands } from './game/hands.js';
-import { createCitadelLibrary } from './content/citadelLibrary.js';
+import { createCitadelLibrary, createForbiddenArchive } from './content/citadelLibrary.js';
 import { createAiming } from './game/aiming.js';
 import { createPause } from './game/pause.js';
 import { createChests } from './game/chest.js';
@@ -255,6 +255,7 @@ const world = createMapManager({
         the_summit: () => createMountain({ quality }),
         sylvan_sanctuary: () => createSanctuary({ quality }),
         citadel_library: () => createCitadelLibrary(),
+        forbidden_archive: () => createForbiddenArchive(),
         ...Object.fromEntries(Object.keys(REGIONS).filter(id => !REGIONS[id].builder).map(id => [id, () => buildRegion(REGIONS[id], { quality })])),   // regions with a builder (the Sanctuary) keep their own code
     },
     fade: hud.ui.fade, fadeText: hud.ui.fadeText,
@@ -618,7 +619,7 @@ function tick(dt) {
 }
 
 if (REGIONS[params.get('region')] || ['the_summit', 'thaloria', 'east_road', 'outdoor', 'sylvan_sanctuary', 'tower'].includes(params.get('region'))) world.enter(params.get('region'), 'start');   // the editor's "Play here"
-else if (savedAt && world.maps && ['outdoor', 'tower', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'citadel_library', ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
+else if (savedAt && world.maps && ['outdoor', 'tower', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'citadel_library', 'forbidden_archive', ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
 else if (CUSTOM) world.enter('thaloria_inn', 'enter');   // a hero of your own wakes at the inn
 else world.enter('outdoor', 'start');
 const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.current.scene, camera); perf.frame(); } });

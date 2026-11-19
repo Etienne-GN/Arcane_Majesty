@@ -1,7 +1,7 @@
 import { settings } from '../engine/settings.js';
 // God mode (testing): every map — the hand-built ones, then every region file (new maps join by themselves).
 const REGION_FILES = import.meta.glob('../content/regions/*.json', { eager: true, import: 'default' });
-const GOD_PLACES = [['outdoor', 'Thaloria Glade'], ['thaloria', 'Thaloria'], ['east_road', 'The Thalorian Wilds'], ['the_summit', 'Summit of Despair — the mountain'], ['sylvan_sanctuary', 'The Sylvan Sanctuary'], ['citadel_library', 'The Great Library'],
+const GOD_PLACES = [['outdoor', 'Thaloria Glade'], ['thaloria', 'Thaloria'], ['east_road', 'The Thalorian Wilds'], ['the_summit', 'Summit of Despair — the mountain'], ['sylvan_sanctuary', 'The Sylvan Sanctuary'], ['citadel_library', 'The Great Library'], ['forbidden_archive', 'The Forbidden Archive'],
     ...Object.values(REGION_FILES).filter(r => r?.id && r.id !== 'sylvan_sanctuary').map(r => [r.id, r.name ?? r.id]).sort((a, b) => a[1].localeCompare(b[1]))];
 // Fast travel — amo's rules: rift-gate monoliths are attuned by touching them (stats.attunedGates);
 // at an attuned gate you can travel to any other attuned gate. The Aetheric Tear (T / gamepad R3-hold…
