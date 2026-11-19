@@ -7,6 +7,8 @@ dropped: each amo screen and system has a phase. Rules come over through `packag
 Legend: **R** = rules already shared via `@rules` · **B** = rebuild (Phaser-bound in amo) ·
 **N** = new for 3D.
 
+> **⚠️ Pending, must not be forgotten — [Phase 10](#phase-10--lore-canon-check-and-the-db-sync-pending-since-2026-11-19):** the canon check of everything the game has that the lore DB doesn't (`docs/3d/LORE_REVIEW.md`), before any lore DB sync.
+
 ## Phase 0 — Foundations ✅ (2026-11-12)
 Rules package, engine/game/content split, input (keyboard, gamepad, touch), quality presets,
 perf overlay, saving (SaveManager, **R**), Android build, batching. Owed: mid-range phone test.
@@ -130,6 +132,17 @@ More parts, shapes and colours for heroes in forge.html — to plan when Phase 6
 
 ## Phase 9 — The campaign, chapters 6–12 (after the Forge)
 One chapter per pass from the campaign spec, the book and the lore DB (amo's maps are stubs): 6 Treachery's Bite (the Fire Gate, Oren's betrayal), 7 The Solitary Path (the Descent), 8 Inferno's Trial (the Inferno Labyrinth), 9 Eldoria's Heartbeat (the Ruins of Eldoria), 10 Heart of War (the Heartstone Chamber, the Ancient Door), 11 The Weight of Eternity, 12 Dawn's Embrace (Eldrin's Tower). The user's music per region as each place is built.
+
+## Phase 10 — Lore canon check and the DB sync (pending since 2026-11-19)
+The game has grown places, people, institutions, creatures, items and story details that the lore DB doesn't have. They are gathered in `docs/3d/LORE_REVIEW.md` (226 items; regenerate with `data/scripts/lore_review/`). **Nothing goes into the official lore until each item has passed a canon check and the user has approved the verdict.** In a dedicated session:
+
+| Step | What | Against |
+|---|---|---|
+| 10.1 | **The 4 possible conflicts**: the Cleaver of Vorgos calls Vorgos "the warlord" (DB: Universal Sentinel, Master Narrator); the game's Arcane Covenant vs the DB's Crimson Covenant; Voraun as a duelist in the Ruins (ch. 9); the Shadow Balrog's look (0.16.1 model) | the DB, album XMLs + ACC (`data/lore/xmls/`), the book canon, `world_lore.md` |
+| 10.2 | **The new names**: Valdric, the Asran Academy, the Arcane Covenant, the Twilight Order, the Rift-Gate network, the Border Watch, 0 GD and the Star-Guard (book, not DB), Silvara, the Citadel and the Great Library, the Lower Town, the dungeons and their bosses, playable werewolves | the same, plus `current_progress.md` constants and `data/lore/*.md` (bestiary, magic system, equipment tiers…) |
+| 10.3 | **Everything else in the report**: regions' lore lines and signs, villagers' lines, 116 creatures (the DB has no Creature label: decide whether it gets one), named items, quests, spell flavour text, chapter details | the same |
+| 10.4 | For each item: *canon says / the game says / verdict* (keep · rename · rewrite · drop) → **the user approves** | — |
+| 10.5 | Apply: the approved items into the DB with `origin: "game"`; the game's text, names and content fixed where the verdict says so; `LORE_REVIEW.md` regenerated and closed | the DB (writes only after approval) |
 
 ## Not ported (2D-only tooling)
 LPC sprite ledger, sprite catalogue pipeline, LPC atlas, tile map generators, mapPaint/mapTexture,
