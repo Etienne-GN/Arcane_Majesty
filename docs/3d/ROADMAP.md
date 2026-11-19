@@ -142,7 +142,17 @@ The game has grown places, people, institutions, creatures, items and story deta
 | 10.2 | **The new names**: Valdric, the Asran Academy, the Arcane Covenant, the Twilight Order, the Rift-Gate network, the Border Watch, 0 GD and the Star-Guard (book, not DB), Silvara, the Citadel and the Great Library, the Lower Town, the dungeons and their bosses, playable werewolves | the same, plus `current_progress.md` constants and `data/lore/*.md` (bestiary, magic system, equipment tiers…) |
 | 10.3 | **Everything else in the report**: regions' lore lines and signs, villagers' lines, 116 creatures (the DB has no Creature label: decide whether it gets one), named items, quests, spell flavour text, chapter details | the same |
 | 10.4 | For each item: *canon says / the game says / verdict* (keep · rename · rewrite · drop) → **the user approves** | — |
+| 10.4b | **Nythoria's decisions** (N-1 … N-6 in `docs/3d/NYTHORIA_PLAN.md`): the twin-geography rule, Ravenspire on Thaloria's twin site, its ruined state in 501 AGD, the eclipse sky, the twin sites of the other places, which era the maps show | the same |
 | 10.5 | Apply: the approved items into the DB with `origin: "game"`; the game's text, names and content fixed where the verdict says so; `LORE_REVIEW.md` regenerated and closed | the DB (writes only after approval) |
+
+## Phase 11 — Nythoria (planned 2026-11-19 — `docs/3d/NYTHORIA_PLAN.md`)
+The Umbral Plane shares Eldoria's space (`world_lore.md`), so its maps are **umbral twins** of Eldoria's: the same
+landforms, with ash ground, dead trees, black water under mist, ruins and Nythorian gothic building, and an eclipsed
+sun. **First map: Ravenspire (Ancestral Ruins) on the twin of Thaloria's citadel cliff**, after the user's picture
+(`assets/art/concept/ravenspire_nythoria.jpeg`), in ruins for 501 AGD. Steps N0 (decisions approved with Phase 10) → N1
+(the plane: sky, palette, twin building, Nythorian kit) → N2 (Ravenspire) → N3 (the Obsidian Gate and the Scarlands)
+→ N4 (the Surface: the Shadow-Vale, the Black Well, the Obsidian Citadel) → N5 (the Underworld, the Shadow Realm) → N6
+(its people and creatures, after the canon check).
 
 ## Not ported (2D-only tooling)
 LPC sprite ledger, sprite catalogue pipeline, LPC atlas, tile map generators, mapPaint/mapTexture,
