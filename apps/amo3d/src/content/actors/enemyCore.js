@@ -30,6 +30,10 @@ function plates() {
     }
     return plateLayer;
 }
+// Every living core by its position vector (the same Vector3 its actor moves): the style skills reach a creature's
+// statuses and knockback through it (coreOf(h.pos)), whatever kind of body it has.
+const registry = new WeakMap();
+export const coreOf = pos => registry.get(pos) ?? null;
 export function setPlatesVisible(v) { if (plateLayer) plateLayer.style.display = v ? '' : 'none'; }
 
 // elite: { affixes, rareDrop } — amo's elites (data/elites.js): eliteStats (×2.5 health, ×1.4 damage, ×3 XP),
@@ -140,6 +144,12 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
             }
             if (f.left <= 0) delete s.fx[id];
         }
+        if (s.push) {   // thrown back (a haymaker, a windmill): slides, stopped by walls
+            const m = ctx.map, nx = pos.x + s.push.x * dt, nz = pos.z + s.push.z * dt;
+            if (!m?.blockedAt || m.blockedAt(nx, nz, 0.4, pos.y) !== 'wall') { pos.x = nx; pos.z = nz; } else s.push.x = s.push.z = 0;
+            const k = Math.exp(-dt * 7); s.push.x *= k; s.push.z *= k;
+            if (Math.hypot(s.push.x, s.push.z) < 0.3) s.push = null;
+        }
         if (s.fx.burning && rng() < dt * 25) ctx.fx.fire.emit({ x: pos.x + (rng() - 0.5) * 0.5, y: pos.y + 0.5 + rng() * 0.4, z: pos.z + (rng() - 0.5) * 0.5,
             vx: 0, vy: 1 + rng(), vz: 0, life: 0.45, size: [0.3, 0.05], c0: [1, 0.6, 0.15, 0.9], c1: [0.8, 0.15, 0.02, 0] });
         return true;
@@ -160,5 +170,15 @@ export function createEnemyCore({ type, name, pos, rng = Math.random, respawnS =
     // A blow it landed: vampiric elites drink 30% of it back (amo Enemy).
     function onDealt(dmg) { if (elite?.affixes.includes('vampiric') && !s.dead) s.hp = Math.min(DEF.health, s.hp + Math.round(dmg * 0.3)); }
 
-    return { DEF, s, hit, tick, die, addStatus, fxMult, stunned, updatePlate, revive, respawnS, elite, onDealt, net, reward, get lastCtx() { return lastCtx; } };
+    // Knocked back from `from` with `power` (amo knock, px/s): heavier creatures (more health) go less far; a moment's stagger.
+    function shove(from, power) {
+        if (s.dead || net.puppet || !power) return;
+        const dx = pos.x - from.x, dz = pos.z - from.z, d = Math.hypot(dx, dz) || 1;
+        const v = (power / 32) * 2.4 * Math.min(1, Math.sqrt(60 / Math.max(60, DEF.health))) * (elite?.boss ? 0.25 : 1);
+        s.push = { x: dx / d * v, z: dz / d * v };
+        addStatus('staggered', 400);
+    }
+    const api = { DEF, s, hit, tick, die, addStatus, fxMult, stunned, updatePlate, revive, respawnS, elite, onDealt, net, reward, shove, pos, get lastCtx() { return lastCtx; } };
+    registry.set(pos, api);
+    return api;
 }

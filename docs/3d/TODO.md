@@ -21,11 +21,13 @@ The lore DB already has 7: **Werewolf** (Guardians of the Wild, the Emerald Fiel
 - [ ] Race traits in the rules (affinities, small stat leanings), playable races in New Game, race-specific NPCs and places.
 
 ## 3. Fighting styles & moves ★
-- [ ] **14 style skills still say "not in 3D yet"**: Shadowstep, Piercing Lunge, Leaping Strike, Run Through, Flurry of Blows, Taunt, Aimed Shot, Snare, Mark Prey, Headshot, Pierce, Snap Cast, Chain, Release.
-- [ ] Give the 25 "buff / strike" skills their own animations and effects (Parry, Riposte, Backstab, Grab & Throw, Headbutt, Whirlwind…), not the generic strike.
-- [ ] Per-weapon attacks: spear thrust and sweep, bo flurries, two-handed greatsword and claymore swings, bow draw and aim, crossbow reload, shield **Block**.
-- [ ] Dual-wielding rules: the same weapon type in both hands (one favourites list today), dual-wand overpower, dual-sword specials, off-hand attack animations.
-- [ ] Combat feel: combos, power attacks, dodge or roll, hit reactions and stagger, enemy telegraphs on every creature.
+- [x] **The 14 style skills that said "not in 3D yet"** (2026-11-19, 0.15.0): Shadowstep, Piercing Lunge, Leaping Strike, Run Through, Flurry of Blows, Taunt, Aimed Shot, Snare, Mark Prey, Headshot, Pierce, Snap Cast, Chain, Release.
+- [x] **Every style skill has its own move and effect** (2026-11-19, 0.17.0): a pose per skill in `models/character.js` (`move`: parry, riposte, guard, cleave, overhead, sidelong, chop, stab, haymaker, grab, headbutt, roar, wall, twirl, channel, raise, flourish, aim, vanish, beckon, spinhigh, land, cross); the blow lands on the move's impact frame; `game/skillFx.js` draws bursts, shock-waves, ground cracks, sweep arcs, stance auras (Rage embers, the Shield Wall pane, Deflect's whirling ring, Channel's gathering motes, Echo's orbiting sparks, Taunt's pulse) and marks on creatures (dazed stars, blood, roots, the hunter's mark, cracked armour, a limp). New sounds: parry, whoosh, roar, smash, puff.
+- [x] **The stances do what they say** (0.17.0): Perfect Block (every blow nothing, attacker dazed), Shield Wall (front blows ×0.15), Deflect Arrows (nothing from range), Parry dazes the attacker and opens a 2 s Riposte window (×1.5), Backstab ×3 from behind, Vanish hides you (creatures lose you) and doubles the next hit, Echo repeats a spell at half power, Overload ×1.4 spell damage for ×1.5 mana; knockback for Haymaker, Grab & Throw (to the side), Windmill, Release, Snap Cast (`enemyCore.shove`, heavier creatures go less far, a stagger).
+- [x] **Combat feel** (0.17.0): three-blow combos — the second comes back the other way, the third is the weapon's finisher (sword lunge, greatsword/halberd cleave, dagger stab, axe chop, mace/staff overhead slam, spear long lunge, bo spin, fists haymaker; ×1.6, throws them back); every blow makes them flinch; a press during recovery is kept 0.35 s.
+- [x] Per-weapon attacks (0.17.0): spear and bo thrusts levelled at the foe (they pointed at the sky), greatsword and claymore swung with both hands; shield **Block** (0.15.0).
+- [x] Dual-wielding (0.17.0): a weapon in each hand — the strike key alternates hands, the finisher is a cross-cut with both blades.
+- [ ] Still: bow draw and crossbow reload animations; dual-wand overpower; one favourites list per weapon type (two of the same share it); a dodge roll (the hop's i-frames are the dodge today); hit-stop; enemy telegraphs on every creature.
 - [ ] Favourites polish: skills in the Spellbook-style ⋯ menus, and style skills on the hands.
 
 ## 4. Magic

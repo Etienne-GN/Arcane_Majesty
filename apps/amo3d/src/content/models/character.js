@@ -276,7 +276,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     const calm = new THREE.Color(0x3ce0d0), blaze = new THREE.Color(0xff7a20);
 
     // speed in m/s, sprinting bool, hopK 0..1 progress (null when grounded), castK 0..1 (null when not casting)
-    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false, incant = false, strikeHand = 'R', castHand = 'R', blockK = null }) {
+    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false, incant = false, strikeHand = 'R', castHand = 'R', blockK = null, move = null, strikeCombo = 1 }) {
         t += dt;
         const ease = k => 1 - Math.exp(-dt * k);
         amp += (Math.min(1, speed / 4) - amp) * ease(10);
@@ -345,7 +345,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         // Swords: a swing draws (at once); five seconds without one, back in the scabbard.
         for (const h of ['R', 'L']) {
             const sh = sheath[h]; if (!sh) continue;
-            if (strikeK != null && strikeHand === h) { sh.last = t; setSheathed(h, false); }
+            if ((strikeK != null && strikeHand === h) || (move && ((move.hand ?? 'R') === h || move.id === 'cross')) || (move && blockK == null && h === 'R' && move.id !== 'wall')) { sh.last = t; setSheathed(h, false); }   // a skill's move draws too
             else if (!sh.on && t - sh.last > SHEATHE_AFTER) setSheathed(h, true);
         }
         for (const [h, type, m] of [['R', mainType, mainMount], ['L', offType, offMount]]) {   // choked grip: slide along the handle
@@ -421,12 +421,17 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
                 const ux0 = A.upper.rotation.x;
                 A.upper.rotation.x = lerp(ux0, -2.5, -1.0, ux0);
                 const r0 = restOf(bladeType);
-                A.upper.rotation.z = sz * lerp(r0.z, -1.1, 0.85, r0.z);   // out to the side, then right across the body
+                const rev = strikeCombo === 2 ? -1 : 1;   // a combo's second blow: the backhand, across and back out
+                A.upper.rotation.z = sz * (rev > 0 ? lerp(r0.z, -1.1, 0.85, r0.z) : lerp(r0.z, 0.85, -1.1, r0.z));   // out to the side, then right across the body (or back)
                 A.fore.rotation.x = lerp(r0.fore, -1.3, -0.15, r0.fore);
                 setMount(strikeHand, lerp(r0.mount, 3.3, 2.8, r0.mount));   // the blade rides the arm: up and back over the shoulder, then across (never dipping down)
-                spine.rotation.y += sz * lerp(0, 0.6, -0.7, 0);
+                spine.rotation.y += sz * rev * lerp(0, 0.6, -0.7, 0);
                 spine.rotation.x += lerp(0, -0.08, 0.2, 0);
                 head.rotation.y = -spine.rotation.y * 0.5;
+                if (bladeType === 'greatsword' || bladeType === 'claymore') {   // two hands on the hilt: the other arm follows
+                    const B2 = arms[strikeHand === 'R' ? 'L' : 'R'];
+                    B2.upper.rotation.x = A.upper.rotation.x * 0.92; B2.upper.rotation.z = A.upper.rotation.z * 0.8; B2.fore.rotation.x = A.fore.rotation.x;
+                }
             } else if (strikeHand === 'L' && !offArmed) {
                 A.upper.rotation.x = A.upper.rotation.x * (1 - w) - 1.5 * w;
                 A.upper.rotation.z = 0.12 - 0.1 * w;
@@ -437,7 +442,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
                 A.upper.rotation.x = A.upper.rotation.x * (1 - w) - 1.45 * w;
                 A.upper.rotation.z = sz * -0.12;
                 A.fore.rotation.x = fore0 * (1 - w) - 0.05 * w;
-                m.rotation.x += 0.8 * w;
+                m.rotation.x += (bladeType === 'spear' || bladeType === 'bo' || bladeType === 'halberd' ? 1.9 : 0.8) * w;   // a polearm levelled at the foe
                 spine.rotation.x += 0.18 * w;
             } else {
                 A.upper.rotation.x = A.upper.rotation.x * (1 - w) - 1.3 * w;
@@ -445,6 +450,134 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
                 A.fore.rotation.x = fore0 * (1 - w) - 0.3 * w;
                 spine.rotation.y += sz * (0.5 - 1.1 * k) * w;
                 spine.rotation.x += 0.1 * w;
+            }
+        }
+        // A style skill's own move (move = { id, k 0..1, hand }): each pose winds up, lands its moment, and comes back.
+        if (move) {
+            const { A, B, sz, mount: m } = side(move.hand ?? 'R'), k = Math.min(1, move.k);
+            const sm = (a, b) => { const x = Math.min(1, Math.max(0, (k - a) / (b - a))); return x * x * (3 - 2 * x); };
+            const hold = (a, b) => sm(0, a) * (1 - sm(b, 1));   // up by a, held, down from b
+            const crouch = v => { body.position.y -= 0.1 * v; for (const L of [legs.L, legs.R]) { L.thigh.rotation.x -= 0.45 * v; L.shin.rotation.x += 0.85 * v; } spine.rotation.x += 0.12 * v; };
+            const wmount = (h, a) => setMount(h, a);
+            const id = move.id, H = move.hand ?? 'R', Bh = H === 'R' ? 'L' : 'R';
+            if (id === 'parry') {   // the blade swept up across the face, flat, to catch the blow
+                const v = hold(0.15, 0.85);
+                A.upper.rotation.x += (-1.75 - A.upper.rotation.x) * v; A.upper.rotation.z += (sz * 0.55 - A.upper.rotation.z) * v;
+                A.fore.rotation.x += (-1.25 - A.fore.rotation.x) * v; wmount(H, 2.75 + (2.0 - 2.75) * v);
+                spine.rotation.y += sz * -0.2 * v; crouch(0.3 * v);
+            } else if (id === 'riposte' || id === 'stab') {   // a coil back, then a lunge: the point driven in (a backstab low and upward)
+                const back = sm(0, 0.3) * (1 - sm(0.32, 0.45)), go = sm(0.32, 0.45) * (1 - sm(0.7, 1)), low = id === 'stab';
+                A.upper.rotation.x += (0.5 - A.upper.rotation.x) * back + ((low ? -1.0 : -1.5) - A.upper.rotation.x) * go;
+                A.upper.rotation.z = sz * (-0.25 * back - 0.08 * go);
+                A.fore.rotation.x += (-1.6 - A.fore.rotation.x) * back + ((low ? -0.6 : -0.1) - A.fore.rotation.x) * go;
+                wmount(H, 2.75 + 0.35 * back + ((low ? 2.9 : 2.7) - 2.75) * go);   // the point ahead, level (a spear or a sword alike)
+                spine.rotation.y += sz * (0.45 * back - 0.3 * go); spine.rotation.x += 0.25 * go - 0.08 * back;
+                legs[Bh].thigh.rotation.x -= 0.7 * go; legs[Bh].shin.rotation.x += 0.4 * go; legs[H].thigh.rotation.x += 0.35 * go;
+                if (low) crouch(0.5 * go + 0.3 * back);
+            } else if (id === 'guard') {   // Steady Advance: knees bent, blade forward, the shoulder behind it
+                const v = hold(0.2, 0.8);
+                crouch(0.45 * v); A.upper.rotation.x += (-0.95 - A.upper.rotation.x) * v; A.fore.rotation.x += (-0.9 - A.fore.rotation.x) * v;
+                wmount(H, 2.75 + (2.0 - 2.75) * v); B.upper.rotation.x += (-0.7 - B.upper.rotation.x) * v; B.fore.rotation.x += (-1.2 - B.fore.rotation.x) * v;
+                spine.rotation.y += sz * 0.3 * v;
+            } else if (id === 'cleave' || id === 'sweep') {   // both hands: the blade far back to one side, then one great flat sweep across
+                const wind = sm(0, 0.35), cut = sm(0.37, 0.58), back = sm(0.7, 1);
+                const lerp = (a, b, c, d) => a + (b - a) * wind + (c - b) * cut + (d - c) * back;
+                for (const [Ar, zs] of [[A, sz], [B, -sz]]) { Ar.upper.rotation.x = lerp(Ar.upper.rotation.x, -1.45, -1.35, Ar.upper.rotation.x); Ar.fore.rotation.x = lerp(Ar.fore.rotation.x, -0.9, -0.3, Ar.fore.rotation.x); }
+                A.upper.rotation.z = sz * lerp(-0.2, -1.2, 1.0, -0.2); B.upper.rotation.z = -sz * lerp(0.1, -0.2, 0.9, 0.1);
+                wmount(H, lerp(2.75, 2.5, 2.5, 2.75));   // the blade flat
+                spine.rotation.y += sz * lerp(0, 1.1, -1.15, 0); head.rotation.y = -spine.rotation.y * 0.4; crouch(0.35 * (wind + cut) * (1 - back));
+            } else if (id === 'overhead') {   // both hands high over the head, then down in one crushing blow, knees giving with it
+                const wind = sm(0, 0.38), cut = sm(0.4, 0.55), back = sm(0.72, 1);
+                const lerp = (a, b, c, d) => a + (b - a) * wind + (c - b) * cut + (d - c) * back;
+                for (const Ar of [A, B]) { const x0 = Ar.upper.rotation.x, f0 = Ar.fore.rotation.x; Ar.upper.rotation.x = lerp(x0, -3.0, -0.9, x0); Ar.fore.rotation.x = lerp(f0, -0.5, -0.2, f0); }
+                A.upper.rotation.z = sz * lerp(-0.2, 0.25, 0.3, -0.2); B.upper.rotation.z = -sz * lerp(0.12, 0.3, 0.35, 0.12);
+                wmount(H, lerp(1.15, 2.0, 2.1, 1.15));
+                spine.rotation.x += lerp(0, -0.3, 0.45, 0); head.rotation.x += lerp(0, -0.2, 0.25, 0); crouch(cut * (1 - back) * 0.7);
+            } else if (id === 'sidelong') {   // a flat blow at head height, from far out to the side
+                const wind = sm(0, 0.3), cut = sm(0.32, 0.5), back = sm(0.65, 1);
+                const lerp = (a, b, c, d) => a + (b - a) * wind + (c - b) * cut + (d - c) * back;
+                const x0 = A.upper.rotation.x; A.upper.rotation.x = lerp(x0, -1.6, -1.55, x0); A.upper.rotation.z = sz * lerp(-0.2, -1.5, 0.9, -0.2);
+                A.fore.rotation.x = lerp(A.fore.rotation.x, -1.4, -0.1, A.fore.rotation.x); wmount(H, lerp(1.15, 1.7, 1.8, 1.15));
+                spine.rotation.y += sz * lerp(0, 0.8, -0.8, 0);
+            } else if (id === 'chop') {   // diagonal: from high over the shoulder down across to the far hip
+                const wind = sm(0, 0.3), cut = sm(0.32, 0.5), back = sm(0.65, 1);
+                const lerp = (a, b, c, d) => a + (b - a) * wind + (c - b) * cut + (d - c) * back;
+                const x0 = A.upper.rotation.x; A.upper.rotation.x = lerp(x0, -2.9, -0.7, x0); A.upper.rotation.z = sz * lerp(-0.2, -0.7, 0.75, -0.2);
+                A.fore.rotation.x = lerp(A.fore.rotation.x, -1.5, -0.2, A.fore.rotation.x); wmount(H, lerp(1.15, 1.9, 2.2, 1.15));
+                spine.rotation.y += sz * lerp(0, 0.4, -0.6, 0); spine.rotation.x += lerp(0, -0.1, 0.35, 0);
+            } else if (id === 'haymaker') {   // the fist far back, the body wound away, then a great hook across
+                const wind = sm(0, 0.4), cut = sm(0.42, 0.58), back = sm(0.72, 1);
+                const lerp = (a, b, c, d) => a + (b - a) * wind + (c - b) * cut + (d - c) * back;
+                const x0 = A.upper.rotation.x; A.upper.rotation.x = lerp(x0, 0.5, -1.55, x0); A.upper.rotation.z = sz * lerp(-0.12, -0.9, 0.7, -0.12);
+                A.fore.rotation.x = lerp(A.fore.rotation.x, -1.7, -0.5, A.fore.rotation.x);
+                B.upper.rotation.x += (-1.2 - B.upper.rotation.x) * (wind * (1 - back)); B.fore.rotation.x += (-1.8 - B.fore.rotation.x) * (wind * (1 - back));   // the other fist guards the chin
+                spine.rotation.y += sz * lerp(0, 0.75, -0.75, 0); spine.rotation.x += lerp(0, -0.05, 0.25, 0);
+                legs[H].thigh.rotation.x += 0.3 * cut * (1 - back); legs[Bh].thigh.rotation.x -= 0.5 * cut * (1 - back);
+            } else if (id === 'grab') {   // both hands out to seize it, then heaved up and over to the side
+                const reach = sm(0, 0.3), lift = sm(0.35, 0.6), back = sm(0.75, 1);
+                for (const [Ar, zs] of [[A, sz], [B, -sz]]) {
+                    const x0 = Ar.upper.rotation.x;
+                    Ar.upper.rotation.x = x0 + (-1.45 - x0) * reach + (-2.6 + 1.45) * lift + (x0 + 2.6) * back;
+                    Ar.upper.rotation.z = zs * (-0.1 + 0.25 * reach - 0.15 * lift) ; Ar.fore.rotation.x = -0.3 - 0.6 * lift * (1 - back);
+                }
+                spine.rotation.x += 0.3 * reach * (1 - lift) - 0.35 * lift * (1 - back); spine.rotation.y += sz * 1.0 * lift * (1 - back); crouch(0.5 * reach * (1 - lift));
+            } else if (id === 'headbutt') {   // reared back — then the brow driven forward
+                const rear = sm(0, 0.35) * (1 - sm(0.38, 0.5)), snap = sm(0.38, 0.5) * (1 - sm(0.65, 1));
+                spine.rotation.x += -0.4 * rear + 0.6 * snap; head.rotation.x += -0.3 * rear + 0.45 * snap;
+                for (const Ar of [A, B]) { Ar.upper.rotation.x += (0.35 - Ar.upper.rotation.x) * snap + (-0.8 - Ar.upper.rotation.x) * rear; Ar.fore.rotation.x += (-1.6 - Ar.fore.rotation.x) * rear; }
+                legs[Bh].thigh.rotation.x -= 0.5 * snap;
+            } else if (id === 'roar') {   // Rage, Rampage, Frenzy: arms flung wide, chest up, the head thrown back
+                const v = hold(0.25, 0.75), shake = Math.sin(t * 40) * 0.05 * v;
+                for (const [Ar, zs] of [[A, sz], [B, -sz]]) { Ar.upper.rotation.x += (-0.55 - Ar.upper.rotation.x) * v; Ar.upper.rotation.z += (zs * -1.25 - Ar.upper.rotation.z) * v + shake; Ar.fore.rotation.x += (-1.1 - Ar.fore.rotation.x) * v; }
+                spine.rotation.x += -0.32 * v; head.rotation.x += -0.5 * v + shake; crouch(0.25 * v);
+            } else if (id === 'wall') {   // Shield Wall, Perfect Block: braced low behind the shield
+                const v = hold(0.15, 0.85), Sh = mainType === 'shield' ? 'R' : 'L', S = arms[Sh], ss = Sh === 'R' ? 1 : -1;
+                S.upper.rotation.x = -1.4 * v + S.upper.rotation.x * (1 - v); S.upper.rotation.z = ss * 0.5 * v; S.fore.rotation.x = -1.15 * v + S.fore.rotation.x * (1 - v);
+                crouch(0.6 * v); spine.rotation.x += 0.1 * v;
+            } else if (id === 'twirl') {   // Deflect Arrows: the staff whirled overhead
+                const v = hold(0.15, 0.85);
+                A.upper.rotation.x += (-2.6 - A.upper.rotation.x) * v; A.upper.rotation.z = sz * -0.2 * v; A.fore.rotation.x += (-0.4 - A.fore.rotation.x) * v;
+                m.rotation.y = v > 0.02 ? t * 22 : 0; wmount(H, 1.57 * v + 0.75 * (1 - v));
+            } else if (id === 'channel') {   // Channel: both hands on the staff before you, head bowed
+                const v = hold(0.2, 0.8);
+                for (const Ar of [A, B]) { Ar.upper.rotation.x += (-0.85 - Ar.upper.rotation.x) * v; Ar.fore.rotation.x += (-0.9 - Ar.fore.rotation.x) * v; }
+                A.upper.rotation.z = sz * 0.3 * v; B.upper.rotation.z = -sz * 0.3 * v; head.rotation.x += 0.4 * v; wmount(H, 0.75 - 0.6 * v);
+            } else if (id === 'raise') {   // Overload, Echo, Steady Aim's cousin: the staff or wand thrust high to the sky
+                const v = hold(0.2, 0.8);
+                A.upper.rotation.x += (-2.9 - A.upper.rotation.x) * v; A.fore.rotation.x += (-0.15 - A.fore.rotation.x) * v; A.upper.rotation.z = sz * 0.1 * v;
+                head.rotation.x += -0.45 * v; spine.rotation.x += -0.15 * v;
+            } else if (id === 'flourish') {   // Echo: the wand traces a circle
+                const v = hold(0.1, 0.9), a = k * Math.PI * 4;
+                A.upper.rotation.x += (-1.3 + Math.sin(a) * 0.35 - A.upper.rotation.x) * v; A.upper.rotation.z += (sz * (-0.2 + Math.cos(a) * 0.35) - A.upper.rotation.z) * v; A.fore.rotation.x += (-0.4 - A.fore.rotation.x) * v;
+            } else if (id === 'aim') {   // Steady Aim: the crossbow brought to the shoulder, the cheek on the stock
+                const v = hold(0.2, 0.8);
+                A.upper.rotation.x += (-1.45 - A.upper.rotation.x) * v; A.upper.rotation.z = sz * 0.25 * v; A.fore.rotation.x += (-0.5 - A.fore.rotation.x) * v; wmount(H, 2.45 + (1.6 - 2.45) * v);
+                B.upper.rotation.x += (-1.3 - B.upper.rotation.x) * v; B.upper.rotation.z = -sz * -0.35 * v; B.fore.rotation.x += (-1.1 - B.fore.rotation.x) * v; head.rotation.y = sz * 0.25 * v; head.rotation.x += 0.15 * v;
+            } else if (id === 'vanish') {   // dropped low, cloak drawn round
+                const v = hold(0.15, 0.7);
+                crouch(0.9 * v); for (const [Ar, zs] of [[A, sz], [B, -sz]]) { Ar.upper.rotation.x += (-1.1 - Ar.upper.rotation.x) * v; Ar.upper.rotation.z += (zs * 0.6 - Ar.upper.rotation.z) * v; Ar.fore.rotation.x += (-1.9 - Ar.fore.rotation.x) * v; }
+                head.rotation.x += 0.35 * v;
+            } else if (id === 'beckon') {   // Taunt: the weapon (or shield) beaten on, the other hand calling them in
+                const v = hold(0.15, 0.85), beat = Math.max(0, Math.sin(k * Math.PI * 6));
+                B.upper.rotation.x += (-1.4 - B.upper.rotation.x) * v; B.fore.rotation.x += (-0.4 - 1.2 * beat - B.fore.rotation.x) * v; B.upper.rotation.z = -sz * -0.2 * v;
+                spine.rotation.x += -0.2 * v; head.rotation.x += -0.2 * v;
+            } else if (id === 'spinhigh') {   // Windmill, Whirlwind: the weapon out wide (the body spins with player.playSpin)
+                const v = hold(0.1, 0.9);
+                A.upper.rotation.x += (-1.5 - A.upper.rotation.x) * v; A.upper.rotation.z = sz * -1.3 * v; A.fore.rotation.x += (-0.1 - A.fore.rotation.x) * v; wmount(H, 2.8);   // the blade straight out along the arm
+                B.upper.rotation.z = -sz * -1.0 * v; crouch(0.3 * v);
+            } else if (id === 'cross') {   // two blades: both raised out wide, then cut down across each other
+                const wind = sm(0, 0.35), cut = sm(0.37, 0.56), back = sm(0.7, 1);
+                const lerp = (a, b, c, d) => a + (b - a) * wind + (c - b) * cut + (d - c) * back;
+                for (const [Ar, zs, h2] of [[arms.R, 1, 'R'], [arms.L, -1, 'L']]) {
+                    const x0 = Ar.upper.rotation.x, f0 = Ar.fore.rotation.x;
+                    Ar.upper.rotation.x = lerp(x0, -2.5, -1.1, x0); Ar.upper.rotation.z = zs * lerp(-0.2, -1.0, 0.75, -0.2); Ar.fore.rotation.x = lerp(f0, -1.2, -0.2, f0);
+                    wmount(h2, lerp(2.75, 3.2, 2.7, 2.75));
+                }
+                spine.rotation.x += lerp(0, -0.15, 0.3, 0); crouch(0.4 * cut * (1 - back));
+            } else if (id === 'land') {   // Leaping Strike: arms swept up through the jump, crashing down on landing
+                const up = sm(0, 0.35) * (1 - sm(0.6, 0.75)), down = sm(0.6, 0.75) * (1 - sm(0.85, 1));
+                for (const Ar of [A, B]) { Ar.upper.rotation.x += (-2.8 - Ar.upper.rotation.x) * up + (-0.6 - Ar.upper.rotation.x) * down; }
+                crouch(down * 0.9); spine.rotation.x += 0.4 * down - 0.2 * up;
             }
         }
         M.crystal.emissive.copy(calm).lerp(blaze, blazeK);

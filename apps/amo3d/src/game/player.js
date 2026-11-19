@@ -9,6 +9,7 @@ import { movementRules, weapons, mastery, items as itemRules, styles as styleRul
 const { STATUS_DEFS } = statuses;
 import { FIREBALL, CASTABLE, isBolt } from './fireball.js';
 import { INCANT } from './spectacle.js';
+import { coreOf } from '../content/actors/enemyCore.js';
 import { spells as spellRules } from '@rules';
 
 const { MOVE, tickVigor, canSprint, spendHop, moveSpeed, hopLanding } = movementRules;
@@ -22,6 +23,17 @@ const strikeType = stats => {
     return t === 'bow' || t === 'crossbow' ? 'fists' : t;
 };
 const reachOf = type => (WEAPON_TYPES[type].reach / 32) * 2 + 0.4;   // 3D tuning, like the fireball's range
+// Combos: blows struck one after another (within COMBO_S of the last) chain; the second comes back the other way,
+// the third is the weapon's finisher — its own move (models/character.js poses), harder, and it throws them back.
+// With a weapon in each hand the finisher is a cross-cut with both.
+const COMBO_S = 0.75;
+const FINISHER = {
+    sword: { pose: 'riposte', dur: 0.45, hitAt: 0.42 }, claymore: { pose: 'cleave', dur: 0.6, hitAt: 0.5 }, greatsword: { pose: 'cleave', dur: 0.6, hitAt: 0.5 },
+    dagger: { pose: 'stab', dur: 0.4, hitAt: 0.4 }, axe: { pose: 'chop', dur: 0.55, hitAt: 0.42 }, mace: { pose: 'overhead', dur: 0.6, hitAt: 0.52 },
+    spear: { pose: 'riposte', dur: 0.5, hitAt: 0.42, reach: 1.25 }, halberd: { pose: 'cleave', dur: 0.6, hitAt: 0.5 }, bo: { pose: 'spinhigh', dur: 0.5, hitAt: 0.5, spin: 1, around: true },
+    staff: { pose: 'overhead', dur: 0.55, hitAt: 0.52 }, fists: { pose: 'haymaker', dur: 0.55, hitAt: 0.52 },
+    dual: { pose: 'cross', dur: 0.55, hitAt: 0.5 },
+};
 
 export const PX = 32;                          // amo pixels per metre (a 16 px tile = 0.5 m)
 const PLAYER_R = 0.35;
@@ -43,6 +55,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
     const dir = new THREE.Vector3(), tryPos = new THREE.Vector3(), tmp = new THREE.Vector3();
     let triggerLock = false;
     let lastCtx = null;
+    const echoes = [];   // Echo (Quickcast): spells that happen again a moment later
 
     // ---- buffs (amo STATUS_DEFS fields: damageTakenMult, statsMult, swingMult, speedMult, manaRegen) ----
     const buffMult = field => Object.keys(p.buffs).reduce((m, id) => m * (STATUS_DEFS[id]?.[field] ?? 1), 1);
@@ -62,6 +75,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             if (b.left <= 0) delete p.buffs[id];
         }
         if (p.veil > 0) p.veil -= dt;
+        if (p.riposteT > 0) p.riposteT -= dt;
         if (p.circle) {   // the arcane circle: mana back while you stand in it
             p.circle.left -= dt;
             if (Math.hypot(p.pos.x - p.circle.x, p.pos.z - p.circle.z) < 2.5) stats.mana = Math.min(stats.maxMana, stats.mana + 5 * dt);
@@ -94,14 +108,26 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             if (p.block.t < 0.25) { p.invuln = 0.3; hud.floater(p.pos.clone().setY(p.pos.y + 2.1), 'Perfect block!', '#f3d88b'); p.block.perfect = from; sfx.parry?.(); return false; }
             dmg = Math.max(1, Math.round(dmg * 0.3)); hud.floater(p.pos.clone().setY(p.pos.y + 2.1), 'Blocked', '#d8d0bc');
         }
-        // Parry: the next blow from the front does nothing (amo 'parrying').
-        if (p.buffs.parrying && ((from.x - p.pos.x) * Math.sin(p.facing) + (from.z - p.pos.z) * Math.cos(p.facing)) > 0) {
-            delete p.buffs.parrying;
-            p.invuln = 0.3;
-            hud.floater(p.pos.clone().setY(p.pos.y + 2.1), 'Parried', '#f3d88b');
-            cam.kick(0.1);
+        const front = ((from.x - p.pos.x) * Math.sin(p.facing) + (from.z - p.pos.z) * Math.cos(p.facing)) > 0;
+        const far = Math.hypot(from.x - p.pos.x, from.z - p.pos.z) > 3.5;   // an arrow, a bolt, a spell — not a blow
+        // Perfect Block (Bulwark): for a moment every blow does nothing and the attacker reels.
+        if (p.buffs.perfect_block) {
+            p.invuln = 0.3; p.perfectFrom = far ? null : from; sfx.parry?.(); cam.kick(0.1);
+            hud.floater(p.pos.clone().setY(p.pos.y + 2.1), 'Perfect block!', '#f3d88b');
             return false;
         }
+        // Deflect Arrows (Spinning Staff): the staff whirls — nothing from far away gets through.
+        if (p.buffs.deflecting && far) { p.invuln = 0.15; hud.floater(p.pos.clone().setY(p.pos.y + 2.1), 'Deflected', '#cfe8b0'); sfx.parry?.(); return false; }
+        // Parry: the next blow from the front does nothing, the attacker is dazed, and a Riposte hits harder.
+        if (p.buffs.parrying && front) {
+            delete p.buffs.parrying;
+            p.invuln = 0.3; p.riposteT = 2; p.perfectFrom = far ? null : from;
+            hud.floater(p.pos.clone().setY(p.pos.y + 2.1), 'Parried', '#f3d88b');
+            sfx.parry?.(); cam.kick(0.1);
+            return false;
+        }
+        // Shield Wall (Bulwark): from the front, blows do almost nothing.
+        if (p.buffs.shield_wall && front) { dmg = Math.max(1, Math.round(dmg * 0.15)); hud.floater(p.pos.clone().setY(p.pos.y + 2.4), 'Shield wall', '#aab8e0'); }
         // amo Player.takeDamage: Arcane Ward (10%/lv) + Stone Skin (8/14/20%), together at most 75%; then Mana-Shield.
         const wardRed = (stats.skills?.arcane_ward?.level ?? 0) * 0.10, skinRed = stats.spells?.stone_skin ? ([0.08, 0.14, 0.2][stats.spells.stone_skin - 1] ?? 0.08) : 0;
         dmg = Math.max(1, Math.round(dmg * buffMult('damageTakenMult') * (1 - Math.min(0.75, wardRed + skinRed))));
@@ -199,7 +225,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         const sp = spellId && CASTABLE.includes(spellId) && spellRules.SPELLS[spellId] ? spellRules.SPELLS[spellId] : activeSpell();
         if (!stats.spells?.[sp.id]) return hud.message(`You don't know ${sp.name} yet`);
         if (!stats.canCastSpell(sp.id)) return hud.message(`${sp.name} is not ready`);
-        const cost = stats.getSpellManaCost(sp.id);
+        const cost = Math.round(stats.getSpellManaCost(sp.id) * buffMult('manaCostMult'));   // Overload: dearer
         if (stats.mana < cost) return hud.message('Not enough mana');
         stats.mana -= cost;
         stats.startSpellCooldown(sp.id);
@@ -215,23 +241,28 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
 
     // Staff strike: amo's melee damage (8 + 2×STR ± a little, × the weapon's dmgMult × mastery bonus),
     // hits everything in a frontal arc; each hit teaches the staff (amo's hitGain, gainWeaponPoints).
-    function strikeHits(ctx) {
+    // A finisher (fin) hits harder, reaches a little farther (spear) or all around (bo), and throws them back; every
+    // blow makes them flinch (a small knock).
+    function strikeHits(ctx, type = p.strike.type, fin = null) {
         const m = map();
         const fx = Math.sin(p.facing), fz = Math.cos(p.facing);
-        const type = p.strike.type, W = WEAPON_TYPES[type], reach = reachOf(type);
+        const W = WEAPON_TYPES[type], reach = reachOf(type) * (fin?.reach ?? 1) + (fin ? 0.3 : 0);
         let any = false;
+        const hitList = [];
         for (const h of m.hittables ?? []) {
             if (!h.alive) continue;
             const dx = h.pos.x - p.pos.x, dz = h.pos.z - p.pos.z, d = Math.hypot(dx, dz);
-            if (d > reach || d < 1e-4 || (dx * fx + dz * fz) / d < 0.35 || Math.abs(h.pos.y - p.pos.y) > 1.5) continue;
+            if (d > reach || d < 1e-4 || (!fin?.around && (dx * fx + dz * fz) / d < 0.35) || Math.abs(h.pos.y - p.pos.y) > 1.5) continue;
+            hitList.push(h);
             const lvl = stats.weaponLevel(type);
             // amo CombatManager: base + Basic Strike (+3/lv) + Power Slash (+6/lv); a crit (8% + 1.2%/AGI + Keen Eye 5%/lv) hits ×1.6
             const sk = id => stats.skills?.[id]?.level ?? 0;
             const base = 8 + stats.attributes.strength * 2 + Math.floor(Math.random() * 6) - 2 + sk('basic_strike') * 3 + sk('power_slash') * 6;
             const crit = Math.random() < 0.08 + stats.attributes.agility * 0.012 + sk('keen_eye') * 0.05;
-            const dmg = Math.max(1, Math.floor(base * W.dmgMult * mastery.levelDamageMult(lvl) * buffMult('statsMult') * (crit ? 1.6 : 1) * (p.wolf ? 1.8 : 1)));   // claws
+            const dmg = Math.max(1, Math.floor(base * W.dmgMult * mastery.levelDamageMult(lvl) * buffMult('statsMult') * (crit ? 1.6 : 1) * (p.wolf ? 1.8 : 1) * (p.buffs.vanished ? 2 : 1) * (fin ? 1.6 : 1)));   // claws; out of a Vanish, double; a finisher
             if (crit) hud.floater(h.pos.clone().setY(h.pos.y + 2.3), 'Critical!', '#ffd76a');
             h.hit(dmg, p.pos, 0, ctx);
+            if (h.alive) coreOf(h.pos)?.shove(p.pos, fin ? 230 : 45);   // they flinch; a finisher throws them
             const killed = !h.alive;
             if (h.kind === 'deer') hud.floater(h.pos.clone().setY(h.pos.y + 1.9), `${dmg}`, '#ffe0a0');
             const before = lvl, after = stats.gainWeaponPoints(type, mastery.hitGain(killed));
@@ -246,7 +277,8 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
             if (after > before) hud.banner(`${W.label} mastery ${after}`);
             any = true;
         }
-        if (any) cam.kick(0.08);
+        if (any) { cam.kick(fin ? 0.22 : 0.08); if (p.buffs.vanished) { delete p.buffs.vanished; p.veil = 0; } }
+        if (fin) api.onFinisher?.(type, fin, hitList);
     }
 
     function passable(x, z) {
@@ -259,6 +291,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         lastCtx = ctx;
         p.strikeCd = Math.max(0, p.strikeCd - dt);
         tickBuffs(dt);
+        for (let i = echoes.length - 1; i >= 0; i--) if ((echoes[i].t -= dt) <= 0) { const e = echoes.splice(i, 1)[0]; if (!p.dead) e.fn(); }
         const ms = dt * 1000;
         p.invuln = Math.max(0, p.invuln - dt);
         p.sinceHurt += dt;
@@ -284,11 +317,32 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         stats.tickSpellCooldowns(ms);
 
         if (act.cast) tryCast(act.castSpell, act.castHand, act.castAt);
-        if (act.strike && !p.strike && !p.cast && p.strikeCd <= 0 && !p.hop) {
+        p.comboT = Math.max(0, (p.comboT ?? 0) - dt);
+        // A press made while the last blow is still recovering is kept a moment, so a quick tap-tap-tap makes a combo.
+        if (act.strike) p.strikeBuf = { t: 0.35, type: act.strikeType, hand: act.strikeHand };
+        if (p.strikeBuf && (p.strikeBuf.t -= dt) <= 0) p.strikeBuf = null;
+        if (p.strikeBuf && !p.strike && !p.move && !p.cast && p.strikeCd <= 0 && !p.hop) {
+            const sb = p.strikeBuf; p.strikeBuf = null;
+            act = { ...act, strikeType: sb.type, strikeHand: sb.hand };
             const type = act.strikeType ? (act.strikeType === 'bow' || act.strikeType === 'crossbow' || act.strikeType === 'shield' ? 'fists' : act.strikeType) : strikeType(stats);
-            p.strike = { t: 0, hit: false, type, thrust: WEAPON_TYPES[type].anim === 'thrust', hand: act.strikeHand ?? 'R' };
-            sfx.swing();
-            p.strikeCd = ((WEAPON_TYPES[type].cooldown / 1000) * mastery.levelCooldownMult(stats.weaponLevel(type)) + STRIKE_TIME * 0.6) * buffMult('swingMult');
+            const offId = stats.equipment.offHand, offT = offId ? typeOf(itemRules.ITEMS[offId]) : null;
+            const dual = !p.wolf && WEAPON_TYPES[type]?.hands !== 2 && offT && WEAPON_TYPES[offT] && !['shield', 'fists', 'bow', 'crossbow'].includes(offT) && !['fists', 'wand', 'staff'].includes(type);
+            p.combo = p.comboT > 0 && (p.combo ?? 0) < 3 ? (p.combo ?? 0) + 1 : 1;
+            const swingK = buffMult('swingMult'), cdS = ((WEAPON_TYPES[type].cooldown / 1000) * mastery.levelCooldownMult(stats.weaponLevel(type)) + STRIKE_TIME * 0.6) * swingK;
+            const F = p.combo === 3 && !p.wolf ? FINISHER[dual ? 'dual' : type] : null;
+            if (F) {   // the third blow: the finisher
+                p.move = { id: F.pose, t: 0, dur: F.dur * swingK, hand: act.strikeHand ?? 'R', hitAt: F.hitAt, fin: F, strikeType: type, hit: false };
+                if (F.spin) p.spin = { t: 0, dur: F.dur * swingK, turns: F.spin };
+                p.combo = 0; p.comboT = 0;
+                sfx.whoosh?.();
+                p.strikeCd = F.dur * swingK + 0.1;
+            } else {
+                // With two weapons, the plain strike key alternates hands; the second blow comes back the other way.
+                const hand = act.strikeHand ?? (dual && p.combo === 2 ? 'L' : 'R');
+                p.strike = { t: 0, hit: false, type: hand === 'L' && dual ? offT : type, thrust: WEAPON_TYPES[hand === 'L' && dual ? offT : type].anim === 'thrust', hand, combo: p.combo };
+                sfx.swing();
+                p.strikeCd = cdS;
+            }
         }
         if (p.strike) {
             p.strike.t += dt / STRIKE_TIME;
@@ -298,7 +352,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
                 if (hero.bladeWorld(p.strike.hand ?? 'R', a, b)) fireballs.slash?.(a.lerp(b, 0.3), b);
             }
             if (!p.strike.hit && p.strike.t >= STRIKE_HIT) { p.strike.hit = true; strikeHits(ctx); }
-            if (p.strike.t >= 1) p.strike = null;
+            if (p.strike.t >= 1) { p.strike = null; p.comboT = COMBO_S; }
         }
         if (p.cast) {
             const c = p.cast;
@@ -331,6 +385,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
                     const at = c.target ? c.target.clone() : best ? best.pos.clone() : p.pos.clone().add(new THREE.Vector3(fx, 0, fz).multiplyScalar(range * 0.85));
                     at.y = map().groundAt ? map().groundAt(at.x, at.z, at.y + 3) : (map().heightAt?.(at.x, at.z) ?? at.y);
                     fireballs.blastAt(at, sp, lvl, stats.attributes.intelligence, map().hittables ?? [], { dir: new THREE.Vector3(fx, 0, fz), from: p.pos.clone() });
+                    if (p.buffs.echoing) { const d = new THREE.Vector3(fx, 0, fz), fr = p.pos.clone(); echoes.push({ t: 0.45, fn: () => fireballs.blastAt(at, sp, lvl, stats.attributes.intelligence, map().hittables ?? [], { dir: d, from: fr, mult: 0.5 }) }); }
                     hooks.onCast?.(at, tmp.set(0, 0, 0), sp.id);
                 }
                 else {
@@ -340,6 +395,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
                 else tmp.copy(c.aim).setY(-(origin.y - p.pos.y - 1.1) / range).normalize();
                 fireballs.cast(origin, tmp, lvl, stats.attributes.intelligence, { spell: sp });
                 hooks.onCast?.(origin, tmp, sp.id);   // online: the others see it
+                if (p.buffs.echoing) { const o = origin.clone(), d = tmp.clone(); echoes.push({ t: 0.35, fn: () => fireballs.cast(o, d, lvl, stats.attributes.intelligence, { spell: sp, mult: 0.5 }) }); }
                 }
             }
             if (c.t >= 1) p.cast = null;
@@ -437,12 +493,17 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
 
         hero.root.position.copy(p.pos);
         hero.root.position.y += lift;
-        if (p.spin) { p.spin.t += dt / 0.4; if (p.spin.t >= 1) p.spin = null; }
+        if (p.spin) { p.spin.t += dt / (p.spin.dur ?? 0.4); if (p.spin.t >= 1) p.spin = null; }
+        if (p.move) {
+            p.move.t += dt / p.move.dur;
+            if (p.move.fin && !p.move.hit && p.move.t >= p.move.hitAt) { p.move.hit = true; strikeHits(ctx, p.move.strikeType, p.move.fin); }
+            if (p.move.t >= 1) p.move = null;
+        }
         if (p.block) { p.block.t += dt; if (p.block.t > 0.9) p.block = null; }
         p.blockCd = Math.max(0, (p.blockCd ?? 0) - dt);
         if (p.shot) { p.shot.t += dt / 0.3; if (p.shot.t >= 1) p.shot = null; }
-        hero.root.rotation.y = p.facing + (p.spin ? p.spin.t * Math.PI * 2 : 0);
-        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : p.shot ? p.shot.t : null, incant: !!p.cast?.incant, castHand: p.cast?.hand ?? 'R', strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust, strikeHand: p.strike?.hand ?? 'R', blockK: p.block ? Math.min(1, p.block.t / 0.12) : null });
+        hero.root.rotation.y = p.facing + (p.spin ? p.spin.t * Math.PI * 2 * (p.spin.turns ?? 1) : 0);
+        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop ? p.hop.t : null, castK: p.cast ? p.cast.t : p.shot ? p.shot.t : null, incant: !!p.cast?.incant, castHand: p.cast?.hand ?? 'R', strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust, strikeHand: p.strike?.hand ?? 'R', strikeCombo: p.strike?.combo ?? 1, blockK: p.block ? Math.min(1, p.block.t / 0.12) : null, move: p.move ? { id: p.move.id, k: p.move.t, hand: p.move.hand } : null });
 
         // Doors.
         let nearLabel = null, inside = false;
@@ -460,15 +521,23 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         return lift;
     }
 
-    return {
+    const api = {
+        onFinisher: null,   // (type, finisher, hits) — skills.js shows it
         setWolf(on) { p.wolf = !!on; },
         state: p, place, step, hurt, onKill, revive, addBuff, activeSpell, blink,
         statsMult: () => buffMult('statsMult'),
         playStrike: () => { p.strike = { t: 0, hit: true, type: 'staff', thrust: false }; },
         playSpin: () => { p.spin = { t: 0 }; },
+        playMove(id, dur = 0.6, hand = 'R') { p.move = { id, t: 0, dur, hand }; p.strike = null; },   // a style skill's own pose (character.js move)
+        spinFor(sec, turns = 1) { p.spin = { t: 0, dur: sec, turns }; },
         raiseShield() { if (p.dead || p.cast || p.block || (p.blockCd ?? 0) > 0) return false; p.block = { t: 0 }; p.blockCd = 1.2; return true; },
-        takePerfect() { const f = p.block?.perfect; if (p.block) p.block.perfect = null; return f ?? null; },
+        takePerfect() { const f = p.block?.perfect ?? p.perfectFrom; if (p.block) p.block.perfect = null; p.perfectFrom = null; return f ?? null; },
+        buffMult,
+        // Vanish: your next hit does double damage (and the shadows let go of you).
+        consumeVanish() { if (!p.buffs.vanished) return 1; delete p.buffs.vanished; p.veil = 0; return 2; },
+        consumeRiposte() { if (!(p.riposteT > 0)) return false; p.riposteT = 0; return true; },
         playShot: () => { p.shot = { t: 0 }; },
         get lastCtx() { return lastCtx; },
     };
+    return api;
 }

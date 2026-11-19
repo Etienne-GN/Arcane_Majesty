@@ -41,7 +41,7 @@ import { createCodex } from './game/codex.js';
 import { buildRegion } from './engine/region.js';
 // Every region file is a map (content/regions/*.json → buildRegion).
 const REGIONS = Object.fromEntries(Object.values(import.meta.glob('./content/regions/*.json', { eager: true, import: 'default' })).map(d => [d.id, d]));
-import { sweepPlates, hideAllPlates } from './content/actors/enemyCore.js';
+import { sweepPlates, hideAllPlates, coreOf } from './content/actors/enemyCore.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createBountyBoard } from './game/bounty.js';
 import { createBook } from './game/book.js';
@@ -240,7 +240,7 @@ function dressHero() {
 }
 const fireballs = createFireballs({
     PX, tuning: SPELL_TUNING,
-    dmgMult: () => 1 + (stats.skills?.arcane_mastery?.level ?? 0) * 0.10,   // amo Arcane Mastery: +10% spell damage a level
+    dmgMult: () => (1 + (stats.skills?.arcane_mastery?.level ?? 0) * 0.10) * (player?.buffMult?.('spellMult') ?? 1),   // amo Arcane Mastery: +10% spell damage a level; Overload ×1.4
     // amo: a spell's hit grows the feel for its element (hitGain); the element's level lifts its spells' tiers.
     onSpellHit: (sp, h) => { if (h.kind === 'deer' || !sp.element) return; stats.gainElementPoints(sp.element, masteryRules.hitGain(!h.alive, h.level ?? 1, stats.level)); },
     onHeal: n => { stats.health = Math.min(stats.maxHealth, stats.health + n); hud.floater(player.state.pos.clone().setY(player.state.pos.y + 2.2), `+${n}`, '#7ae07a'); },
@@ -360,7 +360,7 @@ function handAction(side, act) {
         else if (t === 'shield') player.raiseShield();   // raised for a moment: a perfect block if the blow lands at once
         else { act.strike = true; act.strikeType = t; act.strikeHand = side; }
     } else if (a.startsWith('spell:')) { act.cast = true; act.castSpell = a.slice(6); act.castHand = side; }
-    else if (a.startsWith('skill:')) skills.useId(a.slice(6), t);
+    else if (a.startsWith('skill:')) skills.useId(a.slice(6), t, side);
 }
 let handsTick = 0, lavaTick = 0;
 const book = createBook({ stats, hud, save: () => save(), hands });
@@ -590,7 +590,7 @@ function tick(dt) {
     const ctx = { ...clock(), message: hud.message, attunedGates: stats.attunedGates, player: player.state, camera,
         flags: (stats.flags ??= {}), shake: a => cam.kick(a), customHero: CUSTOM, players: net.targets(), hurtRemote: (id, dmg, from) => net.hurtRemote(id, dmg, from),
         drainVigor: n => { stats.vigor = Math.max(0, stats.vigor - n); },
-        onRetreat: () => { stats.flags.malphas_retreated = true; save(); }, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot };
+        onRetreat: () => { stats.flags.malphas_retreated = true; save(); }, map: world.current, fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot };
     if (!world.step(dt)) lift = player.step(dt, act, ctx);
     const p = player.state;
     cam.update(dt, p.pos, lift, map.heightAt ?? null);   // the camera never sinks into the ground or the mountain
@@ -639,7 +639,7 @@ const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.c
 // Handle for headless checks.
 window.__poc = {
     player: player.state, stats, input, cam, quality, save, skills, playerApi: player, quests,
-    advance: s => loop.advance(s),
+    advance: s => loop.advance(s), showWeapons: () => showWeapons(), coreOf,
     hurtPlayer: player.hurt,
     keys: input.keys,
     get maps() { return world.maps; },

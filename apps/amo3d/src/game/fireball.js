@@ -104,14 +104,14 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
     function setScene(scene) { scene.add(group); }
 
     // cosmetic: another player's fireball (online) — flies and bursts the same, hurts nothing here.
-    function cast(origin, dir, level, int, { cosmetic = false, spell = FIREBALL } = {}) {
+    function cast(origin, dir, level, int, { cosmetic = false, spell = FIREBALL, mult = 1 } = {}) {
         const n = FAN[spell.id] ?? 1;
         for (let k = 0; k < n; k++) {
             const a = n > 1 ? (k - (n - 1) / 2) * 0.16 : 0, d = dir.clone().applyAxisAngle(UP, a);
-            launch(origin, d, level, int, cosmetic, spell);
+            launch(origin, d, level, int, cosmetic, spell, mult);
         }
     }
-    function launch(origin, dir, level, int, cosmetic, spell) {
+    function launch(origin, dir, level, int, cosmetic, spell, mult = 1) {
         const pal = palOf(spell), aoe = spell.targetingType === 'targeted_aoe';
         const light = ballLights.find(l => !balls.some(b => b.light === l)) ?? ballLights[0];
         light.color.setHex(pal[3]);
@@ -132,7 +132,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         const b = {
             pos: origin.clone(), vel: dir.clone().multiplyScalar((speed / PX) * tuning.speedMult),
             traveled: 0, range: ((spell.range?.[level - 1] ?? 200) / PX) * tuning.rangeMult,
-            core, halo, inner, light, level, int, t: 0, cosmetic, spell, pal, aoe, shape, hitSet: new Set(),
+            core, halo, inner, light, level, int, t: 0, cosmetic, spell, pal, aoe, shape, hitSet: new Set(), mult,
         };
         balls.push(b);
         for (let i = 0; i < 14; i++) emit(origin, 2.5, 0.35, 0.45, pal);   // muzzle puff
@@ -151,7 +151,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         else for (let i = 0; i < 26; i++) emit(b.pos, 4, 0.4, 0.5, b.pal);
         if (target && !b.cosmetic && (b.spell.id === 'ice_prison' || b.spell.id === 'eclipse_mark')) mark(b.spell.id, target);
         if (!target || b.cosmetic) return;
-        const sp = b.spell, dmg = spellDamageAt(sp, b.level, b.int, dmgMult());
+        const sp = b.spell, dmg = Math.max(1, Math.round(spellDamageAt(sp, b.level, b.int, dmgMult()) * (b.mult ?? 1)));
         const st = scaledStatus(sp, b.level), roll = st && R() < st.chance;
         const burn = roll && st.id === 'burning' ? st.duration : 0, status = roll && st.id !== 'burning' ? { id: st.id, ms: st.duration } : null;
         target.hit(dmg, b.pos, burn, undefined, status, sp.element);
@@ -223,7 +223,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
             if (!h.alive) continue;
             const dist = Math.hypot(h.pos.x - p.x, h.pos.y + 1 - p.y, h.pos.z - p.z);
             if (dist > radius + 0.6) continue;
-            const dmg = spellDamageAt(spell, lvl, ball?.int ?? 12, dmgMult());
+            const dmg = Math.max(1, Math.round(spellDamageAt(spell, lvl, ball?.int ?? 12, dmgMult()) * (ball?.mult ?? 1)));
             const st = scaledStatus(spell, lvl);
             const burn = st && R() < st.chance ? st.duration : 0;
             const killed = h.hit(dmg, p, burn);
@@ -262,7 +262,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
         arcane: () => ({ m: new THREE.Mesh(new THREE.SphereGeometry(1, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2), new THREE.MeshBasicMaterial({ color: 0xb89aff, transparent: true, opacity: 0.35, side: THREE.DoubleSide, blending: THREE.AdditiveBlending, depthWrite: false })), dome: true, one: true }),
         fire: () => { const m = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.8, 6), new THREE.MeshBasicMaterial({ color: 0xff8a30, transparent: true, opacity: 0.85, toneMapped: false })); return { m, rise: 1, flicker: true }; },
     };
-    function blastAt(point, spell, level, int, hittables, { cosmetic = false, small = false, dir = null, from = null } = {}) {
+    function blastAt(point, spell, level, int, hittables, { cosmetic = false, small = false, dir = null, from = null, mult = 1 } = {}) {
         const pal = palOf(spell), el = spell.element === 'void' ? 'shadow' : spell.element, r = small ? 0.6 : ((spellRadius(spell, level) ?? 40) / PX) * tuning.radiusMult;
         if (small) { for (let i = 0; i < 40; i++) emit(point.clone().setY(point.y + 1), 3, 0.4, 0.5, pal); blastLight.color.setHex(pal[3]); blastLight.position.copy(point).setY(point.y + 1); blastLight.intensity = 50; return; }
         sfx.boom();
@@ -285,7 +285,7 @@ export function createFireballs({ PX, tuning, onDamage, onShake, onHeal, dmgMult
             props.push({ ...pr, t: 0, life: spell.duration ? spell.duration[level - 1] / 1000 : 1.4, r, y0: point.y, base: pr.m.scale.clone() });
         }
         if (cosmetic) return;
-        hitArea(point, r, spell, level, int, hittables, true);
+        hitArea(point, r, spell, level, int, hittables, true, mult);
         if (spell.duration) zones.push({ point: point.clone(), r, spell, level, int, left: spell.duration[level - 1] / 1000, tick: 1 });
     }
     function hitArea(point, r, spell, level, int, hittables, withDamage, mult = 1) {
