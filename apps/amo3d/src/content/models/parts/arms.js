@@ -37,5 +37,26 @@ export const ARMS = [
         },
     },
     { id: 'bare', label: 'Bare', build() {} },
+    {
+        id: 'gloves', label: 'Leather gloves',
+        colors: { primary: '#4a3020', sleeve: '#6a5a4a' },
+        build(ctx) {   // sleeves and short leather gloves with a cuff
+            sleeves(ctx, ctx.mat(ctx.colors.sleeve ?? ctx.torsoPrimary, { side: THREE.DoubleSide, roughness: 0.85 }));
+            const lea = ctx.mat(ctx.colors.primary, { roughness: 0.75 });
+            for (const side of ['L', 'R']) { const fore = ctx.arms[side].fore; ctx.add(fore, new THREE.CylinderGeometry(0.07, 0.06, 0.08, 8), lea, 0, -0.24, 0); ctx.add(fore, new THREE.SphereGeometry(0.055, 7, 5), lea, 0, -0.32, 0); }
+        },
+    },
+    {
+        id: 'gauntlets', label: 'Steel gauntlets',
+        colors: { primary: '#a8acb4', sleeve: '#8a8e96' },
+        build(ctx) {   // mail sleeves, steel vambraces and articulated gauntlets
+            sleeves(ctx, ctx.mat(ctx.colors.sleeve, { side: THREE.DoubleSide, metalness: 0.7, roughness: 0.55 }));
+            const steel = ctx.mat(ctx.colors.primary, { metalness: 0.8, roughness: 0.3 });
+            for (const side of ['L', 'R']) { const { upper, fore } = ctx.arms[side];
+                ctx.add(fore, new THREE.CylinderGeometry(0.07, 0.062, 0.2, 8), steel, 0, -0.12, 0);
+                ctx.add(fore, new THREE.BoxGeometry(0.1, 0.09, 0.1), steel, 0, -0.32, 0);
+                ctx.add(upper, new THREE.SphereGeometry(0.06, 7, 5), steel, 0, -0.31, 0); }
+        },
+    },
     { id: 'none', label: 'None', build() {} },
 ];

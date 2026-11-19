@@ -29,4 +29,4 @@ export function partDef(slot, id) {
     return PART_CATALOG[slot]?.find(p => p.id === id) ?? null;
 }
 
-export const COVERING_HEADGEAR = new Set(['hood', 'helmet']);
+export const COVERING_HEADGEAR = new Set(['hood', 'helmet', 'coif', 'great_helm']);

@@ -37,5 +37,15 @@ export const BACK = [
             }
         },
     },
+    {
+        id: 'quiver', label: 'Quiver',
+        colors: { primary: '#5a3a22', trim: '#c8b48a' },
+        build(ctx) {   // a leather quiver slung across the back, arrow fletchings showing over the shoulder
+            const q = new THREE.Group(); q.position.set(-0.1, 0.32, -0.17); q.rotation.z = 0.45; ctx.spine.add(q);
+            ctx.add(q, new THREE.CylinderGeometry(0.055, 0.05, 0.5, 8), ctx.mat(ctx.colors.primary, { roughness: 0.8 }));
+            for (let i = 0; i < 5; i++) { const a = i * 1.2; ctx.add(q, new THREE.ConeGeometry(0.018, 0.07, 3), ctx.mat(ctx.colors.trim), Math.cos(a) * 0.025, 0.29, Math.sin(a) * 0.025); }
+            const strap = ctx.add(ctx.spine, new THREE.BoxGeometry(0.03, 0.62, 0.02), ctx.mat(ctx.colors.primary), 0.02, 0.3, 0.16); strap.rotation.z = -0.55;
+        },
+    },
     { id: 'none', label: 'None', build() {} },
 ];

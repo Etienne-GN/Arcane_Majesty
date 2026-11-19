@@ -139,4 +139,74 @@ export const TORSO = [
             skirt(ctx, { open: 0.0, len: 0.34, material: shirt });
         },
     },
+    {
+        id: 'gambeson', label: 'Gambeson',
+        colors: { primary: '#b8a47a', collar: '#8a7654', trim: '#6a5a42' },
+        build(ctx) {   // a quilted padded coat: stitched in horizontal rolls, a high collar
+            const pad = ctx.mat(ctx.colors.primary, { side: THREE.DoubleSide, roughness: 0.95 }), seam = ctx.mat(ctx.colors.trim, { roughness: 0.9 });
+            const c = ctx.add(ctx.spine, chest(), pad); c.scale.set(1.08, 1, 1.12);
+            for (let y = 0.08; y < 0.52; y += 0.07) { const r = ctx.add(ctx.spine, new THREE.TorusGeometry(0.205, 0.008, 3, 16), seam, 0, y, 0); r.rotation.x = Math.PI / 2; r.scale.set(1.05, 0.82, 1); }
+            ctx.add(ctx.spine, new THREE.CylinderGeometry(0.09, 0.1, 0.08, 10), ctx.mat(ctx.colors.collar), 0, 0.55, 0.02);
+            skirt(ctx, { open: 0.0, len: 0.42, material: pad });
+        },
+    },
+    {
+        id: 'chain_shirt', label: 'Chain shirt',
+        colors: { primary: '#8a8e96', trim: '#4a3a2a' },
+        build(ctx) {   // mail: grey rings, a leather edging at the neck, a mail skirt to mid-thigh
+            const mail = ctx.mat(ctx.colors.primary, { side: THREE.DoubleSide, metalness: 0.7, roughness: 0.55 }), dark = ctx.mat(ctx.darker(ctx.colors.primary, 0.6), { metalness: 0.6 });
+            const c = ctx.add(ctx.spine, chest(), mail); c.scale.set(1.05, 1, 1.08);
+            for (let y = 0.06; y < 0.52; y += 0.035) { const r = ctx.add(ctx.spine, new THREE.TorusGeometry(0.2, 0.004, 3, 18), dark, 0, y, 0); r.rotation.x = Math.PI / 2; r.scale.set(1.06, 0.8, 1); }
+            ctx.add(ctx.spine, new THREE.TorusGeometry(0.09, 0.015, 4, 12).rotateX(Math.PI / 2), ctx.mat(ctx.colors.trim), 0, 0.53, 0.02);
+            skirt(ctx, { open: 0.0, len: 0.36, material: mail });
+        },
+    },
+    {
+        id: 'plate_cuirass', label: 'Plate cuirass',
+        colors: { primary: '#5a4a3a', steel: '#b8bcc4', trim: '#d4a84a' },
+        build(ctx) {   // a polished breastplate and backplate over a padded coat, a ridge down the middle, tassets
+            const under = ctx.mat(ctx.colors.primary, { side: THREE.DoubleSide, roughness: 0.9 }), steel = ctx.mat(ctx.colors.steel, { metalness: 0.5, roughness: 0.35 }), gold = ctx.mat(ctx.colors.trim, { metalness: 0.6, roughness: 0.35 });
+            ctx.add(ctx.spine, chest(), under);
+            const front = ctx.add(ctx.spine, new THREE.CylinderGeometry(0.235, 0.2, 0.46, 12, 1, false, -Math.PI * 0.5, Math.PI), steel, 0, 0.3, 0.005); front.scale.set(1, 1, 0.85);
+            const back = ctx.add(ctx.spine, new THREE.CylinderGeometry(0.23, 0.2, 0.46, 12, 1, false, Math.PI * 0.5, Math.PI), steel, 0, 0.3, 0); back.scale.set(1, 1, 0.8);
+            ctx.add(ctx.spine, new THREE.BoxGeometry(0.02, 0.44, 0.03), steel, 0, 0.3, 0.19);
+            ctx.add(ctx.spine, new THREE.TorusGeometry(0.2, 0.012, 4, 18, Math.PI).rotateX(Math.PI / 2), gold, 0, 0.53, 0);
+            for (let i = 0; i < 3; i++) ctx.add(ctx.hips, new THREE.CylinderGeometry(0.23 + i * 0.01, 0.24 + i * 0.012, 0.08, 12, 1, true), steel, 0, -0.03 - i * 0.075, 0);
+            throat(ctx);
+        },
+    },
+    {
+        id: 'leather_jerkin', label: 'Leather jerkin',
+        colors: { primary: '#6a4428', collar: '#4a2e18', trim: '#b89a5a', shirt: '#d8d0c0' },
+        build(ctx) {   // a sleeveless leather jerkin laced up the front over a pale shirt
+            const lea = ctx.mat(ctx.colors.primary, { side: THREE.DoubleSide, roughness: 0.75 }), dark = ctx.mat(ctx.colors.collar, { roughness: 0.8 });
+            ctx.add(ctx.spine, chest(), ctx.mat(ctx.colors.shirt, { roughness: 0.95 }));
+            const j = ctx.add(ctx.spine, chest(), lea); j.scale.set(1.06, 0.92, 1.06); j.position.y = 0.02;
+            for (let y = 0.14; y < 0.46; y += 0.06) for (const sx of [-1, 1]) ctx.add(ctx.spine, new THREE.BoxGeometry(0.05, 0.008, 0.01), dark, sx * 0.012, y, 0.17).rotation.z = sx * 0.6;
+            skirt(ctx, { open: 0.04, len: 0.3, material: lea });
+        },
+    },
+    {
+        id: 'tabard', label: 'Tabard',
+        colors: { primary: '#2a4a8a', collar: '#1a2a5a', trim: '#e8d8a0', steel: '#8a8e96' },
+        build(ctx) {   // a knight's tabard over mail: a long cloth panel front and back with a gold sigil
+            const mail = ctx.mat(ctx.colors.steel, { metalness: 0.7, roughness: 0.55 }), cloth = ctx.mat(ctx.colors.primary, { side: THREE.DoubleSide, roughness: 0.9 }), gold = ctx.mat(ctx.colors.trim, { metalness: 0.5, roughness: 0.4 });
+            ctx.add(ctx.spine, chest(), mail);
+            for (const sz of [1, -1]) { ctx.add(ctx.spine, new THREE.BoxGeometry(0.3, 0.55, 0.02), cloth, 0, 0.27, sz * 0.165); ctx.add(ctx.hips, new THREE.BoxGeometry(0.28, 0.55, 0.02), cloth, 0, -0.25, sz * 0.17); }
+            const sig = ctx.add(ctx.spine, new THREE.OctahedronGeometry(0.06, 0), gold, 0, 0.32, 0.18); sig.scale.z = 0.2;
+            throat(ctx);
+        },
+    },
+    {
+        id: 'gown', label: 'Gown',
+        colors: { primary: '#6a2a5a', collar: '#4a1a3a', trim: '#e8c878' },
+        build(ctx) {   // a fitted bodice with a gold neckline and a full skirt to the ground
+            const silk = ctx.mat(ctx.colors.primary, { side: THREE.DoubleSide, roughness: 0.55 }), gold = ctx.mat(ctx.colors.trim, { metalness: 0.6, roughness: 0.35 });
+            const b = ctx.add(ctx.spine, chest(), silk); b.scale.set(1.04, 1, 1.08);
+            ctx.add(ctx.spine, new THREE.TorusGeometry(0.14, 0.01, 4, 16, Math.PI).rotateX(Math.PI / 2), gold, 0, 0.5, 0.02);
+            ctx.add(ctx.spine, new THREE.CylinderGeometry(0.19, 0.19, 0.03, 12), gold, 0, 0.02, 0);
+            skirt(ctx, { open: 0.0, len: 1.0, material: silk });
+            throat(ctx);
+        },
+    },
 ];

@@ -27,5 +27,14 @@ export const SHOULDERS = [
             }
         },
     },
+    {
+        id: 'fur_mantle', label: 'Fur mantle',
+        colors: { primary: '#6a5a48', trim: '#c8b48a' },
+        build(ctx) {   // a thick fur collar across the shoulders, clasped at the front
+            const fur = ctx.mat(ctx.colors.primary, { roughness: 1 });
+            const m = ctx.add(ctx.spine, new THREE.TorusGeometry(0.2, 0.075, 6, 16), fur, 0, 0.55, -0.01); m.rotation.x = Math.PI / 2; m.scale.set(1.25, 1, 1);
+            ctx.add(ctx.spine, new THREE.SphereGeometry(0.025, 6, 4), ctx.mat(ctx.colors.trim, { metalness: 0.7 }), 0, 0.53, 0.18);
+        },
+    },
     { id: 'none', label: 'None', build() {} },
 ];
