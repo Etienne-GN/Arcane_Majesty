@@ -17,14 +17,33 @@ import { buildChest } from '../game/chest.js';
 
 const THEMES = {
     mine: { floor: [0x5a4e42, 0x665848], wall: 0x6a5e50, wallTop: 0x4a4238, fog: 0x0c0a08, torch: 0xffa850, ambient: 0x6a5a48, timber: 0x5a3e24 },
+    inferno: { floor: [0x4a3e3a, 0x564842], wall: 0x3e3644, wallTop: 0x5a4e5e, fog: 0x2a1008, torch: 0xff7a30, ambient: 0xb87a5a, timber: 0x2a2020, cracks: 0xc8481a },
     crypt: { floor: [0x3e3c44, 0x4a4850], wall: 0x34323a, wallTop: 0x24222a, fog: 0x08080c, torch: 0xa8c8ff, ambient: 0x4a4a5a, timber: 0x3a3430 },
 };
 
 function rngFrom(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 
 // The layout: a grid of cells (1 = floor), rooms [{ x, y, w, h, cx, cy }].
-export function layoutDungeon({ seed = 1, size = 36, rooms: want = 8 }) {
+export function layoutDungeon({ seed = 1, size = 36, rooms: want = 8, layout = 'rooms' }) {
     const rng = rngFrom(seed), grid = Array.from({ length: size }, () => new Uint8Array(size)), rooms = [];
+    if (layout === 'maze') {   // a true maze: passages carved cell by cell (recursive backtracker), then a few open halls cut into it
+        const stack = [[1, 1]]; grid[1][1] = 1;
+        while (stack.length) {
+            const [x, y] = stack[stack.length - 1];
+            const next = [[2, 0], [-2, 0], [0, 2], [0, -2]].map(([a, b]) => [x + a, y + b, x + a / 2, y + b / 2]).filter(([nx, ny]) => nx > 0 && ny > 0 && nx < size - 1 && ny < size - 1 && !grid[ny][nx]);
+            if (!next.length) { stack.pop(); continue; }
+            const [nx, ny, mx, my] = next[Math.floor(rng() * next.length)];
+            grid[my][mx] = 1; grid[ny][nx] = 1; stack.push([nx, ny]);
+        }
+        for (let k = 0; k < 10; k++) { const x = 1 + 2 * Math.floor(rng() * ((size - 3) / 2)), y = 1 + 2 * Math.floor(rng() * ((size - 3) / 2)); if (rng() < 0.5 && grid[y][x + 2]) grid[y][x + 1] = 1; else if (grid[y + 2]?.[x]) grid[y + 1][x] = 1; }   // a few loops
+        const hall = (x, y, w, h) => { for (let j = y; j < y + h; j++) for (let i = x; i < x + w; i++) grid[j][i] = 1; rooms.push({ x, y, w, h, cx: x + Math.floor(w / 2), cy: y + Math.floor(h / 2) }); };
+        hall(1, 1, 3, 3);   // the way in, in a corner
+        for (let tries = 0; tries < 200 && rooms.length < want; tries++) {
+            const w = 3 + Math.floor(rng() * 3), h = 3 + Math.floor(rng() * 3), x = 1 + Math.floor(rng() * (size - w - 2)), y = 1 + Math.floor(rng() * (size - h - 2));
+            if (rooms.some(r => x < r.x + r.w + 3 && x + w + 3 > r.x && y < r.y + r.h + 3 && y + h + 3 > r.y)) continue;
+            hall(x, y, w, h);
+        }
+    } else {
     for (let tries = 0; tries < 400 && rooms.length < want; tries++) {
         const w = 3 + Math.floor(rng() * 4), h = 3 + Math.floor(rng() * 4);
         const x = 1 + Math.floor(rng() * (size - w - 2)), y = 1 + Math.floor(rng() * (size - h - 2));
@@ -32,6 +51,7 @@ export function layoutDungeon({ seed = 1, size = 36, rooms: want = 8 }) {
         rooms.push({ x, y, w, h, cx: x + Math.floor(w / 2), cy: y + Math.floor(h / 2) });
     }
     for (const r of rooms) for (let j = r.y; j < r.y + r.h; j++) for (let i = r.x; i < r.x + r.w; i++) grid[j][i] = 1;
+    }
     // Join them: each room to its nearest already-joined one (a tree), then a couple of extra links (loops).
     const carve = (a, b) => {
         const horizFirst = rng() < 0.5;
@@ -42,8 +62,10 @@ export function layoutDungeon({ seed = 1, size = 36, rooms: want = 8 }) {
         }
     };
     const joined = [rooms[0]];
+    if (layout !== 'maze') {
     for (const r of rooms.slice(1)) { const n = joined.reduce((b, q) => Math.hypot(q.cx - r.cx, q.cy - r.cy) < Math.hypot(b.cx - r.cx, b.cy - r.cy) ? q : b); carve(n, r); joined.push(r); }
     for (let k = 0; k < 2 && rooms.length > 3; k++) carve(rooms[Math.floor(rng() * rooms.length)], rooms[Math.floor(rng() * rooms.length)]);
+    }
     // The boss room: the one farthest from the way in, by walking distance.
     const dist = Array.from({ length: size }, () => new Int32Array(size).fill(-1)), q = [[rooms[0].cx, rooms[0].cy]];
     dist[rooms[0].cy][rooms[0].cx] = 0;
@@ -69,6 +91,7 @@ export function buildDungeon(def) {
         if (!grid[j][i]) continue;
         const g = new THREE.PlaneGeometry(C, C).rotateX(-Math.PI / 2).translate(wx(i), 0, wz(j));
         col.setHex(T.floor[(i * 7 + j * 3) % 2]).multiplyScalar(0.85 + rng() * 0.3);
+        if (T.cracks && rng() < 0.06) col.setHex(T.cracks).multiplyScalar(0.55 + rng() * 0.25);   // the floor cracked open on the fire below
         g.setAttribute('color', new THREE.BufferAttribute(new Float32Array([...Array(g.attributes.position.count)].flatMap(() => [col.r, col.g, col.b])), 3));
         geos.push(g);
     }
@@ -148,7 +171,7 @@ export function buildDungeon(def) {
         const dx = wx(boss.x + boss.w - 1), dz = wz(boss.y + boss.h - 1);
         const hole = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.05, 1.6), new THREE.MeshBasicMaterial({ color: 0x050403 })); hole.position.set(dx, 0.03, dz); scene.add(hole);
         for (let s = 0; s < 3; s++) { const st = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.12, 0.4), flat(0x5a5048)); st.position.set(dx, -0.1 - s * 0.25, dz - 0.5 + s * 0.4); scene.add(st); }
-        downT = { x: dx, z: dz, r: 0.9, label: def.down.label, to: def.boss ? null : def.down.to, spawn: 'from_above', _to: def.down.to };
+        downT = { x: dx, z: dz, r: 0.9, label: def.down.label, to: def.boss ? null : def.down.to, spawn: def.down.spawn ?? 'from_above', _to: def.down.to };
         if (def.boss) downT.label = `${def.down.label} — ${def.boss.name} bars the way`;
         map.triggers.push(downT);
         map.spawns.from_below = { x: dx - 2, z: dz - 2, facing: Math.PI };

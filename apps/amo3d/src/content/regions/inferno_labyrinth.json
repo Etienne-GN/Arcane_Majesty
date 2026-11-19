@@ -290,6 +290,12 @@
       "x": 34,
       "z": -34,
       "icon": "fire"
+    },
+    {
+      "name": "The Labyrinth's halls",
+      "x": 24,
+      "z": -28,
+      "icon": "door"
     }
   ],
   "links": [
@@ -320,5 +326,29 @@
     "facing": 3.1416
   },
   "undergrowth": 0,
-  "lava": true
+  "lava": true,
+  "doors": [
+    {
+      "x": -10.6,
+      "z": 21.2,
+      "r": 1.6,
+      "label": "Through the gate of flame \u2014 the Labyrinth's halls",
+      "to": "inferno_halls",
+      "toSpawn": "enter",
+      "spawn": "from_halls_gate",
+      "out": 3,
+      "facing": 0.9
+    },
+    {
+      "x": 24,
+      "z": -28,
+      "r": 1.3,
+      "label": "Back into the Labyrinth's halls",
+      "to": "inferno_halls",
+      "toSpawn": "from_below",
+      "spawn": "from_halls",
+      "out": 2.5,
+      "facing": 2.2
+    }
+  ]
 }

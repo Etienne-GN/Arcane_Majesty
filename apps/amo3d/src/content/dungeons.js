@@ -18,4 +18,15 @@ export const DUNGEONS = {
         chestRooms: 3,
         exit: { to: 'iron_hollow_shaft_1', spawn: 'from_below', label: 'Back up to the old workings' },
     },
+    // The Inferno Labyrinth's halls (lore DB: Inferno Labyrinth — magma rivers, a gate of flame that calls you by
+    // your given name, the obsidian golem trial, Magma-Eaters and Cinder-Souls). Through the gate of flame; out the
+    // far side by the crucible. The Pyre-Lord himself waits for the campaign.
+    inferno_halls: {
+        id: 'inferno_halls', name: 'The Inferno Labyrinth — the halls', seed: 6606, size: 33, rooms: 6, layout: 'maze', theme: 'inferno',
+        enemies: { kinds: ['lava_elemental', 'ember_imp', 'ember_imp'], per: [1, 2] },
+        boss: { kind: 'stone_golem', name: 'The Obsidian Warden' },
+        chests: ['ember_stone', 'ember_stone', 'health_potion', 'mana_potion', 'soul_gem_mana', 'heart_crystal'],
+        exit: { to: 'inferno_labyrinth', spawn: 'from_halls_gate', label: 'Back out through the gate of flame' },
+        down: { to: 'inferno_labyrinth', spawn: 'from_halls', label: 'Out of the halls — the way to the crucible' },
+    },
 };

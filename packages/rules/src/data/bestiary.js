@@ -7,6 +7,9 @@ import { affinityOf } from './enemyAffinities.js';
 import { scaleEnemyStats } from './levelBands.js';
 
 export const BESTIARY_LORE = {
+    lava_elemental: { name: 'Magma-Eater', threat: 'HIGH', desc: 'A hunched crawler of black crust over molten rock, one of the creatures of Xarathos\'s Labyrinth. It eats the fire of the deep and breathes it out again.' },
+    ember_imp: { name: 'Cinder-Soul', threat: 'MEDIUM', desc: 'A drifting wraith of embers and smoke that haunts the Inferno Labyrinth. Some say they were travellers once, who answered when the gate of flame called them by name.' },
+    stone_golem: { name: 'Obsidian Golem', threat: 'HIGH', desc: 'Blocks of black glass bound around a burning core — the guardians of the Labyrinth\'s trial. Slow, patient, and very hard to break.' },
     cave_bat: { name: 'Cave Bat', threat: 'LOW', desc: 'Leather-winged bats of the deep workings, red-eyed and quick. One is a nuisance; a cloud of them in a dark gallery is something else.' },
     blind_stalker: { name: 'Blind Stalker', threat: 'MEDIUM', desc: 'A pale, eyeless hound of the deep places. It hunts by sound and smell, and its maw glows faintly in the dark — walk softly and it may pass you by.' },
     deep_horror: { name: 'Deep Horror', threat: 'HIGH', desc: 'Grey flesh and grasping tentacles round one great yellow eye, from somewhere below the deepest workings. The miners never saw it; they only heard the props crack.' },

@@ -10,13 +10,45 @@ import { createEnemyCore, PX } from './enemyCore.js';
 import { flat } from '../../engine/lib.js';
 import { elites as EL } from '@rules';
 
-const NAMES = { cave_bat: 'Cave Bat', blind_stalker: 'Blind Stalker', deep_horror: 'Deep Horror', gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
+const NAMES = { lava_elemental: 'Magma-Eater', ember_imp: 'Cinder-Soul', stone_golem: 'Obsidian Golem', cave_bat: 'Cave Bat', blind_stalker: 'Blind Stalker', deep_horror: 'Deep Horror', gloom_beak: 'Gloom-Beak', frost_shade: 'Frost-Shade', crag_fiend: 'Crag-Fiend', void_stalker: 'Void-Stalker', blight_ent: 'Blight-Ent', root_wraith: 'Root-Wraith', corrupted_sentinel: 'Corrupted Sentinel' };
 const TUNE = { sight: 2.6, reach: 2, speed: 1.4 };
 
 function body(type) {
     const root = new THREE.Group(), parts = {};
     const add = (geo, m, x = 0, y = 0, z = 0, parent = root) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; parent.add(o); return o; };
-    if (type === 'cave_bat') {   // a leathery bat of the deep places: big ears, red eyes, ragged wings
+    if (type === 'lava_elemental') {   // a Magma-Eater: a hunched crawler of black crust over molten rock, a wide glowing maw
+        const crust = flat(0x1e1a1a), glow = new THREE.MeshStandardMaterial({ color: 0xff6a20, emissive: 0xff4a10, emissiveIntensity: 1.6, flatShading: true });
+        const b = add(new THREE.DodecahedronGeometry(0.7, 0), crust, 0, 1.0, 0); b.scale.set(1.2, 0.8, 1.1);
+        for (let k = 0; k < 6; k++) add(new THREE.BoxGeometry(0.05, 0.35, 0.03), glow, Math.cos(k) * 0.55, 1.0 + Math.sin(k * 2) * 0.2, Math.sin(k) * 0.5).rotation.z = k;
+        add(new THREE.BoxGeometry(0.6, 0.18, 0.2), glow, 0, 0.85, 0.72);   // the maw
+        for (const s of [1, -1]) {
+            const arm = new THREE.Group(); arm.position.set(s * 0.75, 1.2, 0.2); root.add(arm);
+            add(new THREE.DodecahedronGeometry(0.3, 0), crust, 0, -0.45, 0.1, arm);
+            add(new THREE.ConeGeometry(0.18, 0.5, 5), glow, 0, -0.85, 0.2, arm).rotation.x = Math.PI;
+            parts[s > 0 ? 'armL' : 'armR'] = arm;
+            add(new THREE.CylinderGeometry(0.2, 0.26, 0.6, 6), crust, s * 0.4, 0.3, -0.1);
+        }
+        parts.eyes = add(new THREE.BoxGeometry(0.4, 0.05, 0.02), new THREE.MeshBasicMaterial({ color: 0xffd060, toneMapped: false }), 0, 1.25, 0.75);
+    } else if (type === 'ember_imp') {   // a Cinder-Soul: a drifting wraith of embers and smoke, burning eyes
+        const M = new THREE.MeshStandardMaterial({ color: 0xff8a3a, emissive: 0xff4a10, emissiveIntensity: 1.2, transparent: true, opacity: 0.75, flatShading: true, depthWrite: false });
+        const smoke = new THREE.MeshStandardMaterial({ color: 0x2a2220, transparent: true, opacity: 0.6, flatShading: true, depthWrite: false });
+        parts.mat = M;
+        add(new THREE.ConeGeometry(0.34, 1.2, 7, 1, true).translate(0, 0.6, 0), smoke);
+        add(new THREE.IcosahedronGeometry(0.26, 0), M, 0, 1.25, 0);
+        for (let k = 0; k < 5; k++) add(new THREE.TetrahedronGeometry(0.07, 0), M, Math.cos(k * 1.3) * 0.3, 0.4 + k * 0.18, Math.sin(k * 1.3) * 0.3);
+        parts.eyes = add(new THREE.BoxGeometry(0.18, 0.04, 0.02), new THREE.MeshBasicMaterial({ color: 0xfff0a0, toneMapped: false, transparent: true }), 0, 1.3, 0.24);
+    } else if (type === 'stone_golem') {   // an Obsidian Golem: blocks of black glass, a cracked chest glowing within
+        const ob = new THREE.MeshStandardMaterial({ color: 0x3a3446, roughness: 0.3, metalness: 0.2, flatShading: true }), glow = new THREE.MeshBasicMaterial({ color: 0xff6a20, toneMapped: false });
+        add(new THREE.BoxGeometry(1.4, 1.5, 0.9), ob, 0, 1.6, 0); add(new THREE.BoxGeometry(0.8, 0.7, 0.7), ob, 0, 2.7, 0.05);
+        add(new THREE.BoxGeometry(0.5, 0.5, 0.04), glow, 0, 1.7, 0.47).rotation.z = 0.4;
+        for (const s of [1, -1]) {
+            const arm = new THREE.Group(); arm.position.set(s * 0.95, 2.1, 0); root.add(arm);
+            add(new THREE.BoxGeometry(0.5, 1.2, 0.5), ob, 0, -0.6, 0, arm); add(new THREE.BoxGeometry(0.6, 0.55, 0.6), ob, 0, -1.3, 0.05, arm);
+            parts[s > 0 ? 'armL' : 'armR'] = arm;
+            add(new THREE.BoxGeometry(0.55, 0.9, 0.6), ob, s * 0.38, 0.45, 0);
+        }
+        parts.eyes = add(new THREE.BoxGeometry(0.4, 0.07, 0.02), glow, 0, 2.8, 0.41);
+    } else if (type === 'cave_bat') {   // a leathery bat of the deep places: big ears, red eyes, ragged wings
         const M = flat(0x2a2224), wingM = flat(0x3a2a2a, { side: THREE.DoubleSide });
         const b = add(new THREE.SphereGeometry(0.16, 7, 5), M); b.scale.set(0.9, 0.8, 1.2);
         for (const s of [1, -1]) add(new THREE.ConeGeometry(0.05, 0.16, 4), M, s * 0.07, 0.17, 0.1);
@@ -154,7 +186,7 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
     const pos = new THREE.Vector3(home.x, map.heightAt(home.x, home.z), home.z);
     const core = createEnemyCore({ type, name: name ?? NAMES[type] ?? type, pos, rng, respawnS: elite?.boss ? 1e9 : 30, elite });   // a boss stays dead
     const DEF = core.DEF, s = core.s;
-    const SIGHT = (DEF.sightRange / PX) * TUNE.sight, REACH = (DEF.attackRange / PX) * TUNE.reach + (['crag_fiend', 'blight_ent', 'corrupted_sentinel', 'deep_horror'].includes(type) ? 0.6 : 0);
+    const SIGHT = (DEF.sightRange / PX) * TUNE.sight, REACH = (DEF.attackRange / PX) * TUNE.reach + (['crag_fiend', 'blight_ent', 'corrupted_sentinel', 'deep_horror', 'lava_elemental', 'stone_golem'].includes(type) ? 0.6 : 0);
     const SPEED = Math.min(6.5, (DEF.speed / PX) * TUNE.speed);
     const ai = { state: 'idle', timer: rng() * 3, heading: rng() * 6.28, speed: 0, cd: 1 + rng(), t: rng() * 10, target: null, hit: false };
     const navKey = {};
@@ -216,7 +248,7 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
             turn(Math.atan2(g.x - pos.x, g.z - pos.z), dt * 7);
             if (toP > REACH) want = SPEED;
             else if (ai.cd <= 0) {
-                ai.state = 'windup'; ai.timer = ['crag_fiend', 'blight_ent', 'corrupted_sentinel', 'deep_horror'].includes(type) ? 0.7 : 0.4; ai.hit = false;
+                ai.state = 'windup'; ai.timer = ['crag_fiend', 'blight_ent', 'corrupted_sentinel', 'deep_horror', 'lava_elemental', 'stone_golem'].includes(type) ? 0.7 : 0.4; ai.hit = false;
                 slam = isBoss && ++strikes % 3 === 0;
                 if (slam) {   // the tell: a long wind-up and a red ring spreading on the floor
                     ai.timer = 1.2;
@@ -253,6 +285,9 @@ function createBeast({ scene, map, rng, type, home, elite = null, name = null })
             const flap = Math.sin(ai.t * (tell ? 4 : 9)) * (ai.state === 'strike' ? 0.15 : 0.6);
             parts.wingL.rotation.z = flap; parts.wingR.rotation.z = -flap;
             root.rotation.x = ai.state === 'strike' ? 0.5 : tell ? -0.3 : 0;
+        } else if (type === 'ember_imp') {   // a Cinder-Soul drifts and flickers, flaring on the wind-up
+            root.position.y = pos.y + 0.3 + Math.sin(ai.t * 3) * 0.15;
+            parts.mat.emissiveIntensity = 1.0 + Math.sin(ai.t * 17) * 0.25 + (tell ? 1.4 : 0) + s.flash * 3;
         } else if (type === 'frost_shade') {   // drift, and show itself only up close
             root.position.y = pos.y + 0.25 + Math.sin(ai.t * 2) * 0.12;
             parts.mat.opacity = Math.max(0.12, Math.min(0.6, 0.6 - (toP - 3) * 0.05)) + (tell ? 0.25 : 0) + s.flash;
