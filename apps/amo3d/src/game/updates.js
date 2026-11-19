@@ -19,9 +19,11 @@ let cached = null;
 export async function checkForUpdate({ force = false } = {}) {
     if (cached && !force) return cached.update;
     try {
-        const r = await fetch(`https://api.github.com/repos/${REPO}/releases?per_page=15`, { headers: { Accept: 'application/vnd.github+json' } });
+        const r = await fetch(`https://api.github.com/repos/${REPO}/releases?per_page=50`, { headers: { Accept: 'application/vnd.github+json' } });
         if (!r.ok) throw new Error(`GitHub ${r.status}`);
-        const rel = (await r.json()).find(x => !x.draft && !x.prerelease && x.tag_name?.startsWith(PREFIX));
+        // The highest version, not the first listed: GitHub orders by tag name, where 0.9.0 sorts before 0.15.0.
+        const rel = (await r.json()).filter(x => !x.draft && !x.prerelease && x.tag_name?.startsWith(PREFIX) && x.assets?.some(a => a.name.endsWith('.apk')))
+            .reduce((best, x) => (!best || newer(x.tag_name, best.tag_name) ? x : best), null);
         const apk = rel?.assets?.find(a => a.name.endsWith('.apk'));
         const latest = rel ? rel.tag_name.slice(PREFIX.length) : null;
         const update = rel && apk && (VERSION === 'dev' || newer(latest, VERSION)) ? { version: latest, url: apk.browser_download_url, page: rel.html_url, notes: rel.body ?? '' } : null;
