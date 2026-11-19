@@ -114,15 +114,15 @@ export function createThaloria({ quality }) {
             colliders.push({ ax: sx * 2.0, az: -H / 2, bx: sx * 2.0, bz: -H / 2 - 19, r: 0.25, kind: 'wall', y0: -1, y1: 3 }); }
         for (const k of [-H / 2 - 5, -H / 2 - 14]) { const pier = new THREE.Mesh(new THREE.BoxGeometry(3.4, 6, 3), dark); pier.position.set(0, -2, k); scene.add(pier); }
         for (let i = 0; i < 12; i++) { const st = new THREE.Mesh(new THREE.BoxGeometry(3, 0.5, 1.4), stone); st.position.set((i % 2 ? 1 : -1) * 3 + (i % 2 ? -1 : 1) * (i % 4 < 2 ? 0 : 0), 1.5 + i * 2.1, -H / 2 - 20.2 - (i % 2) * 0.4); st.castShadow = true; scene.add(st); }   // the cliff stair
-        const gate = buildArch(scene, 0, 0, -H / 2 + 0.5, 0); void gate;
         for (const [x, ry] of [[-30, 1.4], [18, -1.7]]) { const b = buildProp('boat'); b.scale.setScalar(2.2); b.position.set(x, RIVER - 0.2, -H / 2 - 13); b.rotation.y = ry; scene.add(b);
             const mast = new THREE.Mesh(new THREE.BoxGeometry(0.2, 6, 0.2), flat(0x4a3220)); mast.position.set(x, RIVER + 3.4, -H / 2 - 13); scene.add(mast);
             const sail = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 3.6), new THREE.MeshStandardMaterial({ color: 0xe8dcc0, side: THREE.DoubleSide, flatShading: true })); sail.position.set(x, RIVER + 4.2, -H / 2 - 13); sail.rotation.y = ry + Math.PI / 2; scene.add(sail); }
     }
 
     // ---------- the city wall ----------
-    const wallCells = [];
-    for (const [k, names] of pieces) if (names.some(isWall)) { const [x, y] = k.split(',').map(Number); if (Math.abs(wx(x)) < 2.4 && wz(y) < -H / 2 + 3) continue; wallCells.push([x, y, names.includes('wall_stone_circular_gray')]); }   // the North Gate: a gap at the middle of the north wall
+    const wallCells = []; let northWallZ = -H / 2;   // the North Gate: where the gap is cut
+    for (const [k, names] of pieces) if (names.some(isWall)) { const [x, y] = k.split(',').map(Number); if (Math.abs(wx(x)) < 2.4 && wz(y) < -H / 2 + 9) { northWallZ = Math.max(northWallZ, wz(y)); continue; } wallCells.push([x, y, names.includes('wall_stone_circular_gray')]); }   // the North Gate: a gap at the middle of the north wall
+    buildArch(scene, 0, 0, northWallZ, 0);   // the North Gate's arch, in the wall's own line
     const stone = new THREE.InstancedMesh(new THREE.BoxGeometry(1.02, 1, 1.02), flat(0xffffff), wallCells.length);
     const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), v = new THREE.Vector3(), s = new THREE.Vector3();
     const merlons = [];
@@ -282,6 +282,7 @@ export function createThaloria({ quality }) {
     scene.add(props);
 
     // ---------- gates ----------
+    const outside = (x, z) => (Math.abs(x) > W / 2 + 10 || Math.abs(z) > H / 2 + 10) && !(Math.abs(x) < 1.9 && z < 0 && z > -H / 2 - 20);   // the bridge corridor north
     const map = {
         id: 'thaloria', name: 'Thaloria', scene, heightAt, terrain: true, colliders,
         camera: { maxDist: 22, pitch: 0.42, dist: 8.5 },
@@ -289,10 +290,10 @@ export function createThaloria({ quality }) {
         blockedAt(x, z, r, y = heightAt(x, z)) {
             const c = colliderAt(colliders, x, z, r, y);
             if (c) return c.kind;
-            return Math.abs(x) > W / 2 + 10 || Math.abs(z) > H / 2 + 10 ? 'wall' : null;
+            return outside(x, z) ? 'wall' : null;
         },
         resolve: (pos, r) => pushOut(colliders, pos, r),
-        passable: (x, z) => Math.abs(x) <= W / 2 + 10 && Math.abs(z) <= H / 2 + 10,
+        passable: (x, z) => !outside(x, z),
         projectileHit(p) {
             if (p.y < heightAt(p.x, p.z) + 0.05) return 'ground';
             const c = colliderAt(colliders, p.x, p.z, 0.15, p.y);
