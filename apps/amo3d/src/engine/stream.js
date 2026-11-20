@@ -58,7 +58,7 @@ export function stampHeights(worldH, stamps, B = 60) {
 // Hooks for a real world (content/world/eldoria.js): spawn {x,z,facing}; clearAt(x,z) — no trees here (roads, a town's
 // plateau); groundColor(x,z,h,col) — paint a road or a place (return true when painted); places [{name,x,z}] — markers
 // standing where a place will be built (W2.1), named when you come near.
-export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], stamps = [], mood = null, quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
+export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], stamps = [], chart = null, mood = null, quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
     const scene = new THREE.Scene();
     const shell = createOutdoorShell(scene, { quality, mood: mood ?? { fog: '#c8d4d8', fogNear: 160, fogFar: 700, fogMix: 0.55 } });
     const half = size / 2, NT = Math.ceil(size / TILE);
@@ -290,7 +290,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         projectileHit(p) { if (p.y < heightAt(p.x, p.z) + 0.05) return 'ground'; const c = colliderAt(coll(p.x, p.z), p.x, p.z, 0.15, p.y); return c && p.y >= c.y0 + 0.5 ? 'object' : null; },
         groundNormal(x, z) { const e = 0.3; return new THREE.Vector3(heightAt(x - e, z) - heightAt(x + e, z), 2 * e, heightAt(x, z - e) - heightAt(x, z + e)).normalize(); },
         triggers: [], stations: [], hittables: [], gatherSpots: [], gates: [], spawns: { start: { x: 0, z: 0, facing: 0 } },   // (moved to dry, low ground below) stations: [], hittables: [], gatherSpots: [], gates: [],
-        mapInfo: null, weatherDef: { id, biome: 'temperate' },
+        mapInfo: null, weatherDef: { id, biome: 'temperate' },   // (a world's chart: set below from `chart`)
         stamps, streamStats: () => ({ tiles: tiles.size, queue: queue.length, built: stats.built, lastMs: +stats.lastMs.toFixed(1), maxMs: +stats.maxMs.toFixed(1), fps, worstFrameMs: +worst.toFixed(1) }),
         update(t, dt, ctx) {
             frame++;
@@ -320,6 +320,12 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         for (const t of st.map.triggers ?? []) if (!st.drop?.has(t.to)) map.triggers.push({ ...t, x: t.x + st.ox, z: t.z + st.oz });
         for (const s2 of st.map.stations ?? []) if (s2.pos) map.stations.push({ ...s2, pos: s2.pos.clone().add(new THREE.Vector3(st.ox, st.oy, st.oz)) });
         for (const [k, sp] of Object.entries(st.map.spawns ?? {})) map.spawns[`${st.id}:${k}`] = { ...sp, x: sp.x + st.ox, z: sp.z + st.oz };
+    }
+    // The chart (game/mapview.js): the land painted coarse, the stamped places' own charts laid on top; landmarks are
+    // the world's places and every stamped place's own, moved into world coordinates.
+    if (chart) {
+        const landmarks = [...markers.map(m => ({ x: m.x, z: m.z, name: m.name })), ...stamps.flatMap(st => (st.map.mapInfo?.landmarks ?? []).map(l => ({ ...l, x: l.x + st.ox, z: l.z + st.oz })))];
+        map.mapInfo = { half, water: WATER, snowH: 62, rockH: 40, ...chart, landmarks, stamps };
     }
     map.refreshLife = refreshLife;   // after anything is added to a stamp's hittables (main.js: each place's animals)
     refreshLife();

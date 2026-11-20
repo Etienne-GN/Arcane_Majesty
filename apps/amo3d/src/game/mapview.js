@@ -11,9 +11,9 @@ import '@fontsource/im-fell-english/400.css';
 import { fog as F } from '@rules';
 import { settings } from '../engine/settings.js';
 
-const TILE = 0.5;             // metres per amo tile
+let TILE = 0.5;               // metres per amo tile (per map: mapInfo.tileM — the open world charts its fog coarser)
 const REVEAL_M = 34;          // you see far in 3D: reveal this many metres around you
-const PX_PER_M = 2;           // map art resolution
+let PX_PER_M = 2;             // map art resolution (per map: mapInfo.pxPerM — the open world is painted coarse, its places laid on top)
 const MINI_R = 40;            // metres shown around you on the minimap
 const PARCH = [228, 211, 168], INK = '#3a2a18';
 const STATION = { campfire: 'fire', hearth: 'hearth', alchemy: 'flask', workbench: 'anvil', board: 'board', gate: 'stones', cairn: 'cairn' };
@@ -93,12 +93,13 @@ body.title-on #minimap { display: none; }
     const view = { cx: 0, cz: 0, zoom: 1, follow: false };
 
     // ---- the chart, painted once per place ----
-    function paint(map) {
+    function paint(map, PX_PER_M = map.mapInfo.pxPerM ?? 2) {
         const info = map.mapInfo, half = info.half, size = Math.round(half * 2 * PX_PER_M);
         const c = document.createElement('canvas'); c.width = c.height = size;
         const g = c.getContext('2d'), img = g.createImageData(size, size), H = new Float32Array(size * size);
         for (let py = 0; py < size; py++) for (let px = 0; px < size; px++) H[py * size + px] = map.heightAt(px / PX_PER_M - half, py / PX_PER_M - half);
-        const kind = h => h < info.water - 0.6 ? 0 : h < info.water ? 1 : h < info.water + 0.35 ? 2 : h > 17 ? 5 : h > 6 ? 4 : 3;
+        const SNOW = info.snowH ?? 17, ROCK = info.rockH ?? 6;
+        const kind = h => h < info.water - 0.6 ? 0 : h < info.water ? 1 : h < info.water + 0.35 ? 2 : h > SNOW ? 5 : h > ROCK ? 4 : 3;
         const tint = info.ground ? info.ground.map((v, i) => PARCH[i] * 0.72 + v * 0.28) : [PARCH[0] * 0.8 + 120 * 0.2, PARCH[1] * 0.8 + 150 * 0.2, PARCH[2] * 0.8 + 80 * 0.2];
         let seed = 7; const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
         for (let py = 0; py < size; py++) for (let px = 0; px < size; px++) {
@@ -131,14 +132,23 @@ body.title-on #minimap { display: none; }
         for (const [x, z] of info.walls ?? []) { g.beginPath(); g.arc(P(x), P(z), 0.62 * PX_PER_M + 0.4, 0, Math.PI * 2); g.fill(); }
         // Trees, inked: a little triangle for a pine, a round crown for a broadleaf.
         g.strokeStyle = '#3e4a26'; g.fillStyle = '#5a6a32'; g.lineWidth = 0.9;
-        for (const [x, z, pine] of info.trees) {
+        for (const [x, z, pine] of info.trees ?? []) {
             const sx = (x + half) * PX_PER_M, sy = (z + half) * PX_PER_M;
             g.beginPath();
             if (pine) { g.moveTo(sx, sy - 3); g.lineTo(sx + 2.2, sy + 2); g.lineTo(sx - 2.2, sy + 2); g.closePath(); }
             else g.arc(sx, sy, 2.4, 0, Math.PI * 2);
             g.globalAlpha = 0.55; g.fill(); g.globalAlpha = 1; g.stroke();
         }
-        return { canvas: c, half, size };
+        // The open world: each stamped place's own chart, laid over the coarse land inside its footprint.
+        const stamps = (info.stamps ?? []).filter(st => st.map.mapInfo).map(st => ({ st, art: paint(st.map) }));
+        return { canvas: c, half, size, stamps };
+    }
+    // Draw the stamped places' charts: worldToScreen(x, z) → [sx, sy], k = screen px per metre.
+    function drawStamps(g, worldToScreen, k) {
+        for (const { st, art: a } of art.stamps ?? []) {
+            const ppm = st.map.mapInfo.pxPerM ?? 2, [sx, sy] = worldToScreen(st.X0, st.Z0);
+            g.drawImage(a.canvas, (st.rect[0] + a.half) * ppm, (st.rect[1] + a.half) * ppm, (st.rect[2] - st.rect[0]) * ppm, (st.rect[3] - st.rect[1]) * ppm, sx, sy, (st.X1 - st.X0) * k, (st.Z1 - st.Z0) * k);
+        }
     }
     function fogFor(map, id) {
         const tiles = (map.mapInfo.half * 2) / TILE;
@@ -184,6 +194,7 @@ body.title-on #minimap { display: none; }
         mapRef = map; mapId = id;
         mini.style.display = map.mapInfo ? '' : 'none';
         if (!map.mapInfo) { art = null; fog = null; return; }
+        TILE = map.mapInfo.tileM ?? 0.5; PX_PER_M = map.mapInfo.pxPerM ?? 2;
         if (!art || art.map !== map) art = { ...paint(map), map };
         fog = fogFor(map, id);
         refreshFog();
@@ -221,6 +232,7 @@ body.title-on #minimap { display: none; }
         const ox = player.pos.x - MINI_R * 1.45, oz = player.pos.z - MINI_R * 1.45, span = MINI_R * 2 * 1.45;   // a little extra so corners stay filled when turned
         const sOff = (c - MINI_R * 1.45 * scale);
         g.drawImage(art.canvas, (ox + art.half) * PX_PER_M, (oz + art.half) * PX_PER_M, span * PX_PER_M, span * PX_PER_M, sOff, sOff, span * scale, span * scale);
+        drawStamps(g, (x, z) => [sOff + (x - ox) * scale, sOff + (z - oz) * scale], scale);
         g.imageSmoothingEnabled = true;
         g.drawImage(fogImg, (ox + art.half) / cellM(), (oz + art.half) / cellM(), span / cellM(), span / cellM(), sOff, sOff, span * scale, span * scale);
         const scr = (x, z) => [c + (x - player.pos.x) * scale, c + (z - player.pos.z) * scale];
@@ -276,6 +288,7 @@ body.title-on #minimap { display: none; }
         const [x0, y0] = scr(-half, -half);
         g.imageSmoothingEnabled = z < PX_PER_M * 1.5;
         g.drawImage(art.canvas, x0, y0, half * 2 * z, half * 2 * z);
+        drawStamps(g, scr, z);
         g.imageSmoothingEnabled = true;
         g.drawImage(fogImg, x0, y0, half * 2 * z, half * 2 * z);
         // an inked border round the charted land
