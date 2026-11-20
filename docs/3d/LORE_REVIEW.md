@@ -33,6 +33,7 @@ These are the new names that would add real canon: places, peoples, institutions
 - [ ] **Cleaver of Vorgos** (legendary item, items.js): “The warlord Vorgos's legendary blade.” The DB has Vorgos as the *Universal Sentinel; Master Narrator* — not a warlord. Rename the item, or rewrite its line.
 - [ ] **“the Crimson Covenant” (DB) vs “the Arcane Covenant” (game)** — two different covenants, or one? If one, the game's items and Silvara's line should use the canon name.
 - [ ] **Voraun fought in the Ruins (ch. 9)** — the DB calls Voraun “a subtraction in the Aether; quiet, patient, disciplined”; the game makes him a duelist who turns spells back until the Heartstone's ward burns him. Check against the book.
+- [ ] **The Heartstone's direction**: the DB places the Heartstone Chamber at x=800 — *west* of Thaloria (x=1100) and Eldrin's Tower (x=1200) — while the book's compass points *east*, over the mountains, and the game follows the book. The Fire Gate, the Inferno Labyrinth and the Ruins of Eldoria have no position in the DB. The DB's x/y look inherited from the 2D world map; they must be settled before they become the open world's layout.
 - [ ] **The Balrog fight's look** (0.16.1 model: a winged giant of shadow and fire with a flame sword and whip) — the DB says only *The Shadow Balrog*; check the look against the album and book.
 
 ## 1. Places
@@ -288,7 +289,7 @@ The DB has 3 artifacts (the Crystal Focus, the Forbidden Tome, the Heartstone of
 - [ ] **Odyssey's Dawn** (main) — The tower is sealed behind you. Leave Thaloria by the East Gate and follow the Compass east along the winter road.
 - [ ] **Trader's Rumor** (side) — A stranger on the East Road asked the Trader one polite question: had he heard of "the Anchor"? Find the waystone where the stranger stopped.
 - [ ] **The Scholar's Saddlebags** (side) — Your saddlebag split on the East Road and your field notes scattered. Gather three pages and bring them back to the Innkeeper, who kept the rest.
-- [ ] **Read the Erasure** (main) — Examine the strata along the tower wall — something in the stone has been tidied away.
+- [ ] **Read the Erasure** (main) — In the study at the top of your tower: the strata cores, where something in the stone has been tidied away — and a letter you keep coming back to.
 - [ ] **The Elemental's Trial**, **Seeds of the Valley** (blight at the Corrupted Rim), **The Hermit's Debt** (the old camp; reward a resonance amulet) — the Sylvan Sanctuary (3D)
 - [ ] **Bounties** — Thaloria's board posts three East Road hunts a day (generated, no lore)
 

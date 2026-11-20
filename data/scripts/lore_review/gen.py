@@ -44,6 +44,7 @@ P("## Possible conflicts with canon — look at these first\n")
 P("""- [ ] **Cleaver of Vorgos** (legendary item, items.js): “The warlord Vorgos's legendary blade.” The DB has Vorgos as the *Universal Sentinel; Master Narrator* — not a warlord. Rename the item, or rewrite its line.
 - [ ] **“the Crimson Covenant” (DB) vs “the Arcane Covenant” (game)** — two different covenants, or one? If one, the game's items and Silvara's line should use the canon name.
 - [ ] **Voraun fought in the Ruins (ch. 9)** — the DB calls Voraun “a subtraction in the Aether; quiet, patient, disciplined”; the game makes him a duelist who turns spells back until the Heartstone's ward burns him. Check against the book.
+- [ ] **The Heartstone's direction**: the DB places the Heartstone Chamber at x=800 — *west* of Thaloria (x=1100) and Eldrin's Tower (x=1200) — while the book's compass points *east*, over the mountains, and the game follows the book. The Fire Gate, the Inferno Labyrinth and the Ruins of Eldoria have no position in the DB. The DB's x/y look inherited from the 2D world map; they must be settled before they become the open world's layout.
 - [ ] **The Balrog fight's look** (0.16.1 model: a winged giant of shadow and fire with a flame sword and whip) — the DB says only *The Shadow Balrog*; check the look against the album and book.
 """)
 # ---------- places ----------
