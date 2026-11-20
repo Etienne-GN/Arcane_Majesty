@@ -274,7 +274,18 @@ const world = createMapManager({
         ...Object.fromEntries(Object.keys(REGIONS).filter(id => !REGIONS[id].builder).map(id => [id, () => buildRegion(REGIONS[id], { quality })])),   // regions with a builder (the Sanctuary) keep their own code
     },
     fade: hud.ui.fade, fadeText: hud.ui.fadeText,
+    // The open world (W2.4): once you have walked in it, a way back to one of its stamped places (an interior's door, the
+    // tower's stair) brings you back into the open world at that place's own arrival point.
+    redirect(id, sp, from) {
+        if (!stats.flags?.openWorld || from === 'eldoria' || id === 'eldoria') return null;
+        const ow = world?.maps?.eldoria;
+        if (!ow?.stamps?.some(st => st.id === id)) return null;
+        const key = `${id}:${sp}`;
+        return { id: 'eldoria', spawn: ow.spawns[key] ? key : `${id}:start` };
+    },
     onEnter(map, id, sp) {
+        if (id === 'eldoria') (stats.flags ??= {}).openWorld = true;
+        else if (map === world?.maps?.[id] && world?.maps?.eldoria?.stamps?.some(st => st.id === id) && stats.flags) stats.flags.openWorld = false;   // an old map of the corner, entered on purpose (god mode)
         if (!map._animals && ANIMALS[id]) { map._animals = true; populate(map, map.scene, ANIMALS[id], dailyRng); }
         if (!map._animals && map.stamps) {   // the open world: each stamped place's animals, in its own frame (engine/stream.js)
             map._animals = true;
@@ -297,14 +308,8 @@ const world = createMapManager({
         hideAllPlates();
         lastLevel = map.levelName?.(player.state.pos.y) ?? '';
         codex?.visited(id, map.name);
-        if (!CUSTOM) {   // Eldrin's story — a hero of your own is not part of it
-            // amo: entering Thaloria starts Act I's main quest, Odyssey's Dawn.
-            if (id === 'thaloria' && !stats.questLog?.main_odysseys_dawn && !stats.questLog?.main_read_the_erasure) quests.start('main_odysseys_dawn');   // (old saves; a new campaign reaches it through chapters 1–3, content/prologue.js)
-            // The mountain: Malphas haunts the pass ahead (amo's Act II main quest).
-            if (id === 'the_summit' && !stats.questLog?.main_whisperer_of_doubt) quests.start('main_whisperer_of_doubt');
-            // The Sanctuary: the Elemental's trial (Song 5).
-            if (id === 'sylvan_sanctuary' && !stats.questLog?.main_elementals_trial) quests.start('main_elementals_trial');
-        }
+        placeStory(id);
+        if (map.stamps) map.onPlace = (pid, name) => { placeStory(pid); hud.banner(name); codex?.visited(pid, name); };   // the open world: a place walked into
         lockDoors(map, id);
         if (!CUSTOM) prologue?.enter(map, id);   // chapters 1–2 and the threads between 3–6
         if (!CUSTOM) chapters?.enter(map, id);   // Eldoria's Prophecy, chapters 6–12: the story's scenes on this map
@@ -313,6 +318,16 @@ const world = createMapManager({
         save();
     },
 });
+// Entering a place starts its part of the story (a map loaded, or — in the open world — the place walked into).
+function placeStory(id) {
+    if (CUSTOM) return;   // Eldrin's story — a hero of your own is not part of it
+    // amo: entering Thaloria starts Act I's main quest, Odyssey's Dawn.
+    if (id === 'thaloria' && !stats.questLog?.main_odysseys_dawn && !stats.questLog?.main_read_the_erasure) quests.start('main_odysseys_dawn');   // (old saves; a new campaign reaches it through chapters 1–3, content/prologue.js)
+    // The mountain: Malphas haunts the pass ahead (amo's Act II main quest).
+    if (id === 'the_summit' && !stats.questLog?.main_whisperer_of_doubt) quests.start('main_whisperer_of_doubt');
+    // The Sanctuary: the Elemental's trial (Song 5).
+    if (id === 'sylvan_sanctuary' && !stats.questLog?.main_elementals_trial) quests.start('main_elementals_trial');
+}
 let travel = null;
 const questHooks = {};
 const player = createPlayer({ hooks: questHooks, name: HERO_NAME, stats, hero, cam, world, hud, fireballs, spellTuning: SPELL_TUNING,

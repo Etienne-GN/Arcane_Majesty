@@ -297,6 +297,9 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             const P = ctx.player.pos;
             stream(P.x, P.z);
             for (const st of stamps) {   // a stamped place's creatures, while the player is within reach of it
+                const inside = inRect(st, P.x, P.z, 4);
+                if (inside && !st.inside) map.onPlace?.(st.id, st.map.name ?? st.id);   // walked into a place (main.js: its story, its banner)
+                st.inside = inside;
                 st.awake = inRect(st, P.x, P.z, 220);
                 if (!st.awake || !st.map.hittables?.length) continue;
                 st.lctx = localCtx(st, ctx);

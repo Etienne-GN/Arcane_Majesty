@@ -6,12 +6,15 @@
 //   triggers:[{x,z,r,label,to,spawn,yMin?,yMax?}], groundAt(x,z,y), blockedAt(x,z,r,y), resolve(pos,r),
 //   projectileHit(p), groundNormal(x,z), hittables:[], update(t,dt,ctx), levelName?(y), wading?(x,z),
 //   stepBlocked?(x,z,y), heightAt?(x,z) }
-export function createMapManager({ builders, fade, fadeText, onEnter }) {
+// redirect(id, spawnName, fromId) → { id, spawn } | null: a place now inside the open world is entered there instead.
+export function createMapManager({ builders, fade, fadeText, onEnter, redirect = null }) {
     const maps = {};
     let current = null, currentId = null;
     let transition = null;
 
     function enter(id, spawnName, at = null) {
+        const r = !at && redirect?.(id, spawnName, currentId);
+        if (r) { id = r.id; spawnName = r.spawn; }
         current = maps[id] ??= builders[id]();
         currentId = id;
         const sp = at ?? current.spawns[spawnName];
@@ -31,7 +34,7 @@ export function createMapManager({ builders, fade, fadeText, onEnter }) {
         if (!transition) return false;
         transition.t += dt;
         if (!transition.swapped && transition.t >= 0.35) {
-            if (!maps[transition.to] && !transition.loading) {   // paint "Loading…" once before building
+            if (!maps[redirect?.(transition.to, transition.spawn, currentId)?.id ?? transition.to] && !transition.loading) {   // paint "Loading…" once before building
                 transition.loading = true;
                 fadeText.textContent = 'Loading…';
                 return true;
