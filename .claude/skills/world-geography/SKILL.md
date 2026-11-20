@@ -36,6 +36,13 @@ Coordinates: x east, z south (north is −z); metres; 1 DB unit = 5.5 m; world ~
   the glade's `out` mask) **and** the place's own terrain notched (see passes).
 - The open world has **no slope limit**: the player walks up anything. Gate with colliders, not slopes.
 
+- **No right angles, ever.** No rectangular valleys, plateaus or pits. Place footprints are rounded, wobbling
+  superellipses (`round`, `wobble` on the stamp; squarer only for a walled city); outlines and blends follow
+  `edgeDist`, never a rect.
+- **Paths are logical.** A road never climbs a steep slope: roads are smooth curves (Catmull-Rom), their bed
+  smoothed and held to ~10% grade, the land cut and filled along them (`graded()` in eldoria.js). Check the steepest
+  stretch per road after any terrain change (aim ≤ 15%).
+
 ## Setting a place into the world (stamps)
 `prepStamp({ id, map | make+heightAt, ox, oy, oz, rect, drop, ... })`:
 - **rect** (local): crop *inside the old map's border rim* only for ordinary regions (auto: first rise of 5 m above
