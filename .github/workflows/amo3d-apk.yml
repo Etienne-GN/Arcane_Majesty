@@ -91,11 +91,14 @@ jobs:
 
 
   # The desktop app (Electron, apps/amo3d/desktop): the same web build in its own window — a portable Windows .exe and
-  # a Linux AppImage, attached to the release the APK job published. Linux also starts it once on a virtual screen and
-  # keeps a screenshot (an artifact) to show it runs.
+  # a Linux AppImage. Built with a read-only token from a committed lockfile (npm ci); a separate small job, the only
+  # one allowed to write, attaches them to the release the APK job published. Linux also starts it once on a virtual
+  # screen and keeps a screenshot (an artifact) to show it runs.
   desktop:
     needs: apk
     if: startsWith(github.ref, 'refs/tags/amo3d-v')
+    permissions:
+      contents: read
     strategy:
       fail-fast: false
       matrix:
@@ -112,7 +115,9 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: apps/amo3d/package-lock.json
+          cache-dependency-path: |
+            apps/amo3d/package-lock.json
+            apps/amo3d/desktop/package-lock.json
 
       - name: Version from the tag
         run: |
@@ -127,7 +132,7 @@ jobs:
         run: |
           rm -rf desktop/app && cp -r dist desktop/app
           cd desktop
-          npm install --no-audit --no-fund
+          npm ci --no-audit --no-fund
           npm pkg set version="$AMO_VERSION_NAME"
           npx electron-builder --publish never
 
@@ -139,18 +144,34 @@ jobs:
           test -s "$RUNNER_TEMP/desktop.png"
           cp "$RUNNER_TEMP/desktop.png" release/
 
-      - name: Keep the screenshot
-        if: runner.os == 'Linux'
+      - name: Keep the builds
         uses: actions/upload-artifact@v4
         with:
-          name: desktop-screenshot
-          path: apps/amo3d/desktop/release/desktop.png
+          name: desktop-${{ runner.os }}
+          path: |
+            apps/amo3d/desktop/release/ArcaneMajesty3D-*.exe
+            apps/amo3d/desktop/release/ArcaneMajesty3D-*.AppImage
+            apps/amo3d/desktop/release/desktop.png
+          if-no-files-found: error
 
+  desktop-release:
+    needs: desktop
+    if: startsWith(github.ref, 'refs/tags/amo3d-v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: desktop-*
+          merge-multiple: true
+          path: builds
       - name: Attach to the release
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
-          cd desktop/release
+          cd builds
           files=$(ls ArcaneMajesty3D-* 2>/dev/null | grep -E '\.(exe|AppImage)$')
           [ -n "$files" ] || { echo "no desktop build found"; ls -la; exit 1; }
           for try in 1 2 3 4; do
