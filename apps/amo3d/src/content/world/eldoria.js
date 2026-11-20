@@ -40,6 +40,11 @@ const smooth = (a, b, v) => { const t = Math.max(0, Math.min(1, (v - a) / (b - a
 const RIDGE = feat('ranges', /Summit/).world, FIREMT = feat('ranges', /Fire Gate/).world, RIVER = feat('rivers', /gorge/).world;
 const COAST = LAYOUT.features.coast.world, ROADS = LAYOUT.features.roads.map(r => r.world);
 const SANCT = place('Sylvan Sanctuary'), CITY = place('Thaloria'), CITADEL = place('The Citadel of Thaloria'), GLADE = place("Thaloria Glade (Eldrin's Tower's vale)"), PASS = place('Summit of Despair'), FIRE = place('Fire Gate');
+// The glade's range (offsets from the vale, metres): [x, z, height, radius]. The city lies north-west (~870 m); the road
+// leaves south.
+const GLADE_PEAKS = [[-400, 30, 150, 150], [-260, -290, 125, 140], [170, -320, 170, 160], [440, -60, 140, 150], [690, -270, 110, 140], [-610, -150, 95, 140], [330, 260, 85, 130]];
+const GLADE_SADDLES = [[-620, -120], [-430, 40], [-250, -300], [190, -330], [460, -40], [700, -260]];
+function polyDistLocal(pts, x, z) { return polyDist(pts, x, z); }
 const NORTH_EDGE = W([0, 45])[1], SOUTH_EDGE = W([0, 1090])[1];
 
 // The coast's x at a given z (the line runs north–south down the east side).
@@ -70,11 +75,23 @@ export function eldoriaHeight(x, z) {
     if (dC < 520) h = h + (10 + fbm(x * 0.02, z * 0.02, 2) * 4 - h) * smooth(520, 200, dC);
     const dK = Math.hypot(x - CITADEL.x, (z - (CITADEL.z - 120)) * 0.8);
     if (dK < 360) h = h + (29 + fbm(x * 0.01, z * 0.01, 2) * 6 - h) * smooth(360, 150, dK);
-    // the glade's vale (Eldrin's Tower, stamped): wooded hills round it rise to meet its rim, so it sits hidden in a hollow
+    // The glade's mountains: a small range round Eldrin's vale, and the vale is the crater of one of them. The crater's
+    // outer flanks fall from its snowy rim to the foothills; its neighbours stand higher, snow-capped, joined by rugged
+    // saddles; the south stays open (the pass cut through the rim, and the road down to the city).
     const dG = Math.hypot(x - GLADE.x, z - GLADE.z);
-    if (dG < 560) {
-        const out = smooth(30, 10, Math.abs(x - (GLADE.x - 16))) * smooth(GLADE.z + 80, GLADE.z + 140, z);   // the way out of the vale, south (its notch)
-        h = h + (24 + fbm(x * 0.008, z * 0.008, 3) * 14 - h) * smooth(560, 170, dG) * (1 - 0.85 * out);
+    if (dG < 1500) {
+        const lx = x - GLADE.x, lz = z - GLADE.z;
+        const rug = 0.8 + 0.4 * Math.pow(1 - Math.abs(fbm(x * 0.006 + 31, z * 0.006 - 17, 3) * 2 - 1), 2);
+        // the crater: a cone whose top is the vale's rim (the stamp fills its inside)
+        let m = 6 + 44 * Math.pow(1 - smooth(122, 400, dG), 1.4) * (0.85 + 0.3 * fbm(x * 0.02, z * 0.02, 2));
+        // its neighbours: peaks, and the saddles between them
+        for (const [px, pz, ph, pr] of GLADE_PEAKS) m = Math.max(m, ph * Math.exp(-((lx - px) ** 2 + (lz - pz) ** 2) / (pr * pr)) * rug);
+        m = Math.max(m, 55 * Math.exp(-Math.pow(polyDistLocal(GLADE_SADDLES, lx, lz) / 110, 2)) * rug);
+        // the way out, south: the pass through the rim and the valley below it stay low
+        const out = smooth(40, 12, Math.abs(lx + 16)) * smooth(80, 150, lz);
+        m = m * (1 - 0.8 * out) + 8 * out;
+        const k = smooth(1500, 900, dG);   // the range fades into the land around
+        h = h + (m - h) * k;
     }
     // the Sylvan Sanctuary: a sheltered valley below the pass's north side (the game's impossible spring)
     const dS = Math.hypot(x - SANCT.x, z - SANCT.z);
@@ -142,6 +159,8 @@ export function createEldoriaWorld({ quality } = {}) {
         groundColor: (x, z, h, col) => {
             if (h < WATER + 0.8) return false;
             if (roadDist(x, z) < 3.2) { col.set('#8a7454'); return true; }   // the roads
+            const dG = Math.hypot(x - GLADE.x, z - GLADE.z);   // the glade's range: snow down to its crater's rim, bare rock below the snow
+            if (dG < 1300) { const nz = fbm(x * 0.03, z * 0.03, 2) * 8; if (h > 40 + nz) { col.set('#e6eaee'); return true; } if (h > 26 + nz) { col.set(h > 33 + nz ? '#6e6862' : '#7d7568'); return true; } }
             const dF = Math.hypot(x - FIRE.x, z - FIRE.z);
             if (dF < 700 && h > 30) { col.set(dF < 350 ? '#3a3634' : '#5a5450'); return true; }   // ash on the Fire Gate's slopes
             return false;
