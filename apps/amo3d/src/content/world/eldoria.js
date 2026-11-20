@@ -20,6 +20,8 @@ import { createSanctuary } from '../sanctuary.js';
 import { buildRegion, regionHeight, buildArch } from '../../engine/region.js';
 import { settings } from '../../engine/settings.js';
 import * as THREE from 'three';
+// A region joins the open world without the square wall of hills that hid its old map's edge (its terrain.rim).
+const noRim = d => ({ ...d, terrain: { ...(d.terrain ?? {}), rim: 0 } });
 const REGION_DEFS = Object.fromEntries(Object.values(import.meta.glob('../regions/*.json', { eager: true, import: 'default' })).map(d => [d.id, d]));
 
 const WATER = -2;
@@ -272,7 +274,7 @@ function makeStamps(quality) {
     const out = [prepStamp({ id: 'thaloria', map: createThaloriaCity({ quality }), ox: CITY.x, oy: 2, oz: CITY.z, rect: [-188, -78, 188, 262], drop: new Set(IN_WORLD), round: 3.2, wobble: 0.04 })];   // (a walled city: a squarer outline, still no sharp corner)
     // The Lower Town, out of the South Gate; the Citadel's plateau, at the top of the cliff stair (their own region maps).
     try {
-        const lazy = id => ({ make: () => buildRegion(REGION_DEFS[id], { quality }), heightAt: regionHeight(REGION_DEFS[id]) });   // built when you come near
+        const lazy = id => ({ make: () => buildRegion(noRim(REGION_DEFS[id]), { quality }), heightAt: regionHeight(noRim(REGION_DEFS[id])) });   // built when you come near
         out.push(prepStamp({ id: 'thaloria_lower', ...lazy('thaloria_lower'), ox: CITY.x, oy: 2, oz: CITY.z + 262 + 56, rect: [-52, -52, 52, 52], drop: new Set(IN_WORLD), round: 4, blend: 120 }));   // (cropped inside its old rim; level with the city)
         out.push(prepStamp({ id: 'citadel_plateau', ...lazy('citadel_plateau'), ox: CITY.x, oy: 30, oz: CITY.z - 74 - 71, rect: [-52, -52, 52, 70], drop: new Set(IN_WORLD) , round: 4 }));   // (level with the cliff top; its south edge meets it)
     } catch (e) { console.warn('[eldoria] stamp failed (Thaloria\'s neighbours)', e); }
@@ -331,14 +333,14 @@ function makeStamps(quality) {
     // (content/chapters.js), so they stay behind their doors until those scenes are ported.)
     for (const [id, name] of [['summit_of_despair', 'Summit of Despair — the Approach'], ['whisper_wood', 'Whisper-Wood'], ['the_crossroads', 'The Crossroads'], ['iron_hollow', 'Iron Hollow'], ['duskmeet', 'Duskmeet'], ['graywatch', 'Graywatch'], ['lake_aethera', 'Lake Aethera'], ['port_silver', 'Port Silver'], ['emerald_fields', 'The Emerald Fields']]) {
         try {
-            const H = regionHeight(REGION_DEFS[id]), at = place(name), H0 = H(0, 0), half = REGION_DEFS[id].half ?? 90;   // (its ground, without building it)
+            const DEF = noRim(REGION_DEFS[id]), H = regionHeight(DEF), at = place(name), H0 = H(0, 0), half = REGION_DEFS[id].half ?? 90;   // (its ground, without building it)
             const base = Math.max(H0, (REGION_DEFS[id].water ?? -1.2) + 1.5);   // (a lake's floor is not the ground: measure from its water line)
             const reach = (dx, dz) => { for (let r = 8; r < half; r += 2) if (H(dx * r, dz * r) > base + 5) return Math.max(24, r - 4); return half - 6; };
             const rect = [-reach(-1, 0), -reach(0, -1), reach(1, 0), reach(0, 1)];
             const lake = (REGION_DEFS[id].features ?? []).some(f => f.type === 'lake');
             // a region with a lake sits with its water at the world's sea level (the world's water fills it; its own sheet goes)
             const oy = lake ? WATER - (REGION_DEFS[id].water ?? -1.2) : Math.max(WATER + 3 - H0, eldoriaHeight(at.x, at.z) - H0);
-            out.push(prepStamp({ id, make: () => buildRegion(REGION_DEFS[id], { quality }), heightAt: H, ox: at.x, oy, oz: at.z, rect, drop: new Set(IN_WORLD), blend: 100 }));   // (a wider ring: its banks gentle where it meets the land)
+            out.push(prepStamp({ id, make: () => buildRegion(DEF, { quality }), heightAt: H, ox: at.x, oy, oz: at.z, rect, drop: new Set(IN_WORLD), blend: 100 }));   // (a wider ring: its banks gentle where it meets the land)
         } catch (e) { console.warn('[eldoria] stamp failed', id, e); }
     }
     const more = [
