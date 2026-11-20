@@ -673,7 +673,7 @@ function tick(dt) {
         playerStatus: (id, ms) => player.addBuff(id, ms), dispelPlayer: () => player.dispelSelf(), fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot };
     if (!world.step(dt)) lift = player.step(dt, act, ctx);
     const p = player.state;
-    cam.update(dt, p.pos, lift, map.heightAt ?? null);   // the camera never sinks into the ground or the mountain
+    cam.update(dt, p.pos, lift, map.heightAt ?? null, map.blockedAt ? (x, z, r, y) => map.blockedAt(x, z, r, y) === 'wall' : null);   // the camera never sinks into the ground or the mountain, nor behind a wall
     if (cam.firstPerson !== fpShown) { fpShown = cam.firstPerson; hero.root.visible = !fpShown && !player.state.dead; }   // first person: Eldrin's own body out of the way
     const ceil = map.cameraCeiling?.(p.pos.x, p.pos.z, p.pos.y);   // under a cave roof: pull in below it
     if (ceil != null && camera.position.y > ceil) { const t = cam.target; camera.position.lerpVectors(t, camera.position, Math.max(0.2, (ceil - t.y) / (camera.position.y - t.y))); camera.lookAt(t); }

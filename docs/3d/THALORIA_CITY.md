@@ -69,8 +69,10 @@ in a walled garden. Missing:
   table by the market, the Lookout sign on the bridge, the townsfolk walking their old schedules remapped into the new
   streets and climbing the hill, the roads re-routed to the East, South and West Gates, the Lower Town moved south of the
   wall and the Citadel's plateau to the far side of the bridge, the world's land rolling the hill on beyond the walls).
-- **T4 next**: stalls, carts, wells, lanterns, smoke, banners, guards on the wall, stairs drawn on the steep lanes,
-  townsfolk routes along the street network.
+- **T4 first pass done**: market stalls with striped awnings, crates and barrels, wells in the squares, lanterns along the
+  high and main streets (lit at dusk), blue banners on the gatehouses, stone steps on the steep lanes; the camera now
+  pulls in front of a wall (it no longer passes through houses). Still to do: chimney smoke, guards on the wall, carts,
+  townsfolk routes along the street network (they still cut corners between their remapped spots).
 
 ## Canon notes (Phase 10)
 New names (the college's name, quarters, streets, squares) go through the canon check before they are lore. The book

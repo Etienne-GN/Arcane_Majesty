@@ -123,7 +123,7 @@ export function createThaloriaCity({ quality }) {
     }
 
     // ---------- buildings: merged per material ----------
-    const parts = { stone: [], ashlar: [], plaster: [], timber: [], slate: [], tile: [], window: [], door: [], dark: [], lead: [] };
+    const parts = { stone: [], ashlar: [], plaster: [], timber: [], slate: [], tile: [], window: [], door: [], dark: [], lead: [], wood: [], awningR: [], awningB: [], awningY: [], lamp: [], banner: [] };
     const tmpM = new THREE.Matrix4(), q4 = new THREE.Quaternion(), Y = new THREE.Vector3(0, 1, 0), sc = new THREE.Vector3(), pv = new THREE.Vector3();
     // a box in a building's frame: (lx along its front, ly up, lz into it from its front) → world
     function box(list, B, lx, ly, lz, w, h, d, extraRy = 0) {
@@ -246,10 +246,59 @@ export function createThaloriaCity({ quality }) {
       for (const t of [0.25, 0.5, 0.75]) box(parts.stone, { ...B, h: RIVER - 1 }, 0, 0, B.d * t, 3.4, BRIDGE.h - 1.2 - RIVER + 1, 2.6);
       wallSeg(BRIDGE.x - 2.5, BRIDGE.z0, BRIDGE.x - 2.5, BRIDGE.z1, BRIDGE.h - 1, BRIDGE.h + 2, 0.2); wallSeg(BRIDGE.x + 2.5, BRIDGE.z0, BRIDGE.x + 2.5, BRIDGE.z1, BRIDGE.h - 1, BRIDGE.h + 2, 0.2); }
 
+    // ---------- T4: the street's life ----------
+    const at = (x, z) => ({ x, z, w: 1, d: 1, a: 0, h: heightAt(x, z) });
+    const put = (list, x, z, w, h, d, y = 0, ry = 0) => { const g = new THREE.BoxGeometry(w, h, d); g.rotateY(ry); g.translate(x, heightAt(x, z) + y + h / 2, z); list.push(g); };
+    const cyl = (list, x, z, r, h, y = 0, seg = 8) => { const g = new THREE.CylinderGeometry(r, r, h, seg); g.translate(x, heightAt(x, z) + y + h / 2, z); list.push(g); };
+    // stairs: stone steps on the steep stretches of the lanes
+    for (const sg of SEGS) {
+        if (!sg.stair) continue;
+        const L = Math.hypot(sg.bx - sg.ax, sg.bz - sg.az), ry = -Math.atan2(sg.bz - sg.az, sg.bx - sg.ax);
+        for (let d = 0.3; d < L; d += 0.6) { const x = sg.ax + (sg.bx - sg.ax) * d / L, z = sg.az + (sg.bz - sg.az) * d / L; put(parts.stone, x, z, 0.62, 0.22, sg.w * 0.9, -0.12, ry); }
+    }
+    // the market: stalls round the square (posts, a counter, a striped awning), crates and barrels; a well in every small square
+    const AW = [parts.awningR, parts.awningB, parts.awningY];
+    for (const q of PLAN.squares) {
+        const n = q.name === 'market' ? 10 : 0;
+        for (let k = 0; k < n; k++) {
+            const a = k / n * Math.PI * 2 + 0.3, r = q.r - 4, x = q.x + Math.cos(a) * r, z = q.z + Math.sin(a) * r, ry = -a + Math.PI / 2;
+            if (Math.hypot(x - L.market_hall.x, z - L.market_hall.z) < 16) continue;
+            for (const [dx, dz] of [[-1.3, -0.9], [1.3, -0.9], [-1.3, 0.9], [1.3, 0.9]]) { const c = Math.cos(-ry), s2 = Math.sin(-ry); put(parts.wood, x + dx * c - dz * s2, z + dx * s2 + dz * c, 0.12, 2.3, 0.12); }
+            put(parts.wood, x, z, 2.8, 0.9, 1.0, 0, ry);
+            put(AW[k % 3], x, z, 3.0, 0.08, 2.2, 2.3, ry);
+            for (let b = 0; b < 3; b++) { const bx = x + Math.cos(a + 0.4 + b * 0.25) * 2.2, bz = z + Math.sin(a + 0.4 + b * 0.25) * 2.2; b % 2 ? cyl(parts.wood, bx, bz, 0.32, 0.8) : put(parts.wood, bx, bz, 0.6, 0.55, 0.6, 0, a); }
+            colliders.push({ x, z, r: 1.6, kind: 'wall', y0: heightAt(x, z) - 1, y1: heightAt(x, z) + 2.4 });
+        }
+        if (q.name !== 'college') {   // a well: a stone ring, two posts, a little roof
+            const x = q.x + (q.name === 'market' ? 9 : 0), z = q.z + (q.name === 'market' ? -9 : 0);
+            cyl(parts.stone, x, z, 1.1, 0.9, 0, 10); cyl(parts.dark, x, z, 0.8, 0.92, 0.01, 10);
+            put(parts.wood, x - 1, z, 0.14, 2.2, 0.14); put(parts.wood, x + 1, z, 0.14, 2.2, 0.14); put(parts.slate, x, z, 2.6, 0.12, 1.6, 2.2);
+            colliders.push({ x, z, r: 1.2, kind: 'wall', y0: heightAt(x, z) - 1, y1: heightAt(x, z) + 2.3 });
+        }
+    }
+    // lanterns along the high streets and the main streets (their glass lit at dusk)
+    for (const st2 of PLAN.streets) {
+        if (st2.kind !== 'high' && st2.kind !== 'main') continue;
+        const p = st2.pts;
+        for (let i = 2; i < p.length - 1; i += 4) {
+            const [ax, az] = p[i], [bx, bz] = p[i + 1], L2 = Math.hypot(bx - ax, bz - az) || 1, side = i % 8 < 4 ? 1 : -1;
+            const x = ax - (bz - az) / L2 * (st2.w / 2 + 0.4) * side, z = az + (bx - ax) / L2 * (st2.w / 2 + 0.4) * side;
+            if (padsNear(x, z).some(pp => inQuad(pp.q, x, z))) continue;
+            put(parts.dark, x, z, 0.12, 3.2, 0.12); put(parts.lamp, x, z, 0.32, 0.42, 0.32, 3.2); put(parts.dark, x, z, 0.42, 0.08, 0.42, 3.62);
+        }
+    }
+    // banners on the gatehouses (the city's colours: blue and silver)
+    for (const gt of Object.values(PLAN.gates)) {
+        const tx = -Math.sin(gt.a), tz = Math.cos(gt.a), h = cityGround(gt.x, gt.z) - 1;
+        for (const sgn of [-1, 1]) { const x = gt.x + tx * 5.2 * sgn - Math.cos(gt.a) * 3.6, z = gt.z + tz * 5.2 * sgn - Math.sin(gt.a) * 3.6; const g = new THREE.BoxGeometry(1.4, 4, 0.06); g.rotateY(-gt.a + Math.PI / 2); g.translate(x, h + WH + 1, z); parts.banner.push(g); }
+    }
+
     // the materials (windows warm at dusk), and the merged meshes
     const M = {
         stone: flat(0x7a776f), ashlar: flat(0x9a968c), plaster: flat(0xd8d0bc), timber: flat(0x4a3424), slate: flat(0x5e6874), tile: flat(0x8a4a32),
         window: new THREE.MeshStandardMaterial({ color: 0x2a2a30, emissive: 0xffb050, emissiveIntensity: 0, flatShading: true }), dark: flat(0x26262c), door: flat(0x4a3020), lead: flat(0x5a6068),
+        wood: flat(0x6a4a2c), awningR: flat(0xa83a2a), awningB: flat(0x3a5a8a), awningY: flat(0xc8a040), banner: flat(0x2a4a8a),
+        lamp: new THREE.MeshStandardMaterial({ color: 0x3a3428, emissive: 0xffc070, emissiveIntensity: 0, flatShading: true }),
     };
     for (const [k, list] of Object.entries(parts)) {
         if (!list.length) continue;
@@ -334,7 +383,7 @@ export function createThaloriaCity({ quality }) {
         groundNormal: () => new THREE.Vector3(0, 1, 0),
         weatherDef: { id: 'thaloria', biome: 'temperate' },
         town,
-        update(t, dt, ctx) { const S = shell.update(dt, ctx); winMat.emissiveIntensity = (S?.night ?? 0) * 1.3; town.update(dt, ctx); },
+        update(t, dt, ctx) { const S = shell.update(dt, ctx), n = S?.night ?? 0; winMat.emissiveIntensity = n * 1.3; M.lamp.emissiveIntensity = n * 2.4; town.update(dt, ctx); },
     };
     // the chart: streets, squares, every building's footprint, the wall
     const bxs = []; for (const p of padList) { const xs = p.q.map(c => c[0]), zs = p.q.map(c => c[1]); bxs.push({ x0: Math.min(...xs), z0: Math.min(...zs), x1: Math.max(...xs), z1: Math.max(...zs) }); }

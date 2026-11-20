@@ -39,7 +39,8 @@ export function createOrbitCamera(camera) {
 
         snapTo(focus) { cam.target.copy(focus).setY(focus.y + 1.4); },
 
-        update(dt, focus, lift = 0, groundAt = null) {
+        // blockedAt(x, z, r, y) (the map's): a wall between the player and the camera pulls the camera in front of it.
+        update(dt, focus, lift = 0, groundAt = null, blockedAt = null) {
             const k = 1 - Math.exp(-dt * 10);
             if (cam.firstPerson) {   // the eye at the head, looking where the camera faces
                 cam.target.set(focus.x, focus.y + 1.62 + lift * 0.5, focus.z);
@@ -50,10 +51,17 @@ export function createOrbitCamera(camera) {
                 return;
             }
             cam.target.lerp(tmp.set(focus.x, focus.y + 1.4 + lift * 0.5, focus.z), k);
-            const cp = Math.cos(cam.pitch) * cam.dist;
+            let dist = cam.dist;
+            if (blockedAt) {   // the nearest wall along the line out to the camera (sampled every ~0.5 m)
+                const n = Math.ceil(cam.dist / 0.5), cx = Math.sin(cam.yaw) * Math.cos(cam.pitch), cy = Math.sin(cam.pitch), cz = Math.cos(cam.yaw) * Math.cos(cam.pitch);
+                for (let i = 2; i <= n; i++) { const d = i / n * cam.dist; if (blockedAt(cam.target.x + cx * d, cam.target.z + cz * d, 0.2, cam.target.y + cy * d)) { dist = Math.max(1.2, d - 0.6); break; } }
+            }
+            cam.shown = cam.shown === undefined ? dist : cam.shown + (dist - cam.shown) * Math.min(1, dt * (dist < cam.shown ? 18 : 3));   // in fast, back out slowly
+            dist = Math.min(dist, cam.shown);
+            const cp = Math.cos(cam.pitch) * dist;
             camera.position.set(
                 cam.target.x + Math.sin(cam.yaw) * cp,
-                cam.target.y + Math.sin(cam.pitch) * cam.dist,
+                cam.target.y + Math.sin(cam.pitch) * dist,
                 cam.target.z + Math.cos(cam.yaw) * cp,
             );
             if (groundAt) camera.position.y = Math.max(camera.position.y, groundAt(camera.position.x, camera.position.z) + 0.6);
