@@ -55,6 +55,9 @@ Coordinates: x east, z south (north is −z); metres; 1 DB unit = 5.5 m; world ~
   are built within `BUILD_R` (450 m), one a frame. Hand-built maps (Thaloria, glade…) are eager — they cost entry time.
 - **drop**: `IN_WORLD` — exits to places already in the world vanish (their veils too; plain arches stay).
 - A place's inside always wins over a neighbour's blending ring (60 m). Adjacent places: leave a small gap.
+- **A mountain place** (a climb, a peak): `blend: 260, blendUp: true` — its flanks carry on outward as the massif's
+  shoulders and only ever add to the land (no slab standing on a plain); paint matching rock/snow round it in
+  `groundColor`; `dropWater` when its own water sheet no longer has a ravine to lie in.
 - **passes**: `buildRegion(def, { shape })` cuts a notch through the rim toward each neighbour so it shows in the
   place's own mesh; `heightAt` must be the shaped one too.
 - **story gates**: crest walls (segment colliders on the rim square, gaps at passes) + a gate of flame on a pass whose

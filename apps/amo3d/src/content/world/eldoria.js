@@ -295,7 +295,7 @@ function makeStamps(quality) {
             const map = make();
             const oy0 = anchor ? eldoriaHeight(at.x + anchor[0], at.z + anchor[1]) - map.heightAt(anchor[0], anchor[1]) : fitOy(map, at.x, at.z, rect);
             const oy = Math.max(minOy, oy0);   // (a floor never below the sea)
-            out.push(prepStamp({ id, map, ox: at.x, oy, oz: at.z, rect, drop: new Set([...drop, ...IN_WORLD]), dropIf: t => /Sylvan Sanctuary/.test(t.label ?? '') && id === 'the_summit', wake: id === 'the_summit' ? 0 : 220 }));   // the mountain thinks anyone off its trail has fallen: it wakes only when you are on it
+            out.push(prepStamp({ id, map, ox: at.x, oy, oz: at.z, rect, drop: new Set([...drop, ...IN_WORLD]), dropIf: t => /Sylvan Sanctuary/.test(t.label ?? '') && id === 'the_summit', wake: id === 'the_summit' ? 0 : 220, ...(id === 'the_summit' ? { blend: 260, blendUp: true, round: 2.3, wobble: 0.12, dropWater: true } : {}) }));   // the Summit: its flanks carry on 260 m as the massif's shoulders   // the mountain thinks anyone off its trail has fallen: it wakes only when you are on it
         } catch (e) { console.warn('[eldoria] stamp failed', id, e); }
     }
     return out;
@@ -318,6 +318,8 @@ export function createEldoriaWorld({ quality } = {}) {
         groundColor: (x, z, h, col) => {
             if (h < WATER + 0.8) return false;
             if (roadDist(x, z) < 3.2) { col.set('#8a7454'); return true; }   // the roads
+            const dP = Math.hypot(x - PASS.x, z - PASS.z);   // the Summit's massif: bare rock above the trees, snow on the heights (as the mountain's own)
+            if (dP < 420) { const nz = fbm(x * 0.03, z * 0.03, 2) * 10; if (h > 92 + nz) { col.set('#e4e8ec'); return true; } if (h > 44 + nz) { col.set(h > 70 + nz ? '#6a6660' : '#7a756c'); return true; } }
             const dG = Math.hypot(x - GLADE.x, z - GLADE.z);   // the glade's range: snow down to its crater's rim, bare rock below the snow
             if (dG < 1300) { const nz = fbm(x * 0.03, z * 0.03, 2) * 8; if (h > 40 + nz) { col.set('#e6eaee'); return true; } if (h > 26 + nz) { col.set(h > 33 + nz ? '#6e6862' : '#7d7568'); return true; } }
             const dL = Math.hypot(x - LAB.x, z - LAB.z);   // the fire mountain: a snow-capped volcano

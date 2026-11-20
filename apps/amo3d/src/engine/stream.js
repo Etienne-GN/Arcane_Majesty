@@ -79,17 +79,19 @@ export function stampHeights(worldH, stamps, B = 60) {
     };
     function rawStamp(x, z) {
         for (const st of stamps) if (inShape(st, x, z)) return hOf(st)(x - st.ox, z - st.oz) + st.oy;   // inside a place: its own ground
-        let best = null, bd = B;   // in the ring round places: blend from the nearest one's edge to the land
+        let best = null, bd = Infinity;   // in the ring round places (B m, or a place's own st.blend): blend from the nearest one's edge to the land
         for (const st of stamps) {
-            if (!inRect(st, x, z, B)) continue;
+            const Bs = st.blend ?? B;
+            if (!inRect(st, x, z, Bs)) continue;
             const d = edgeDist(st, x, z);
-            if (d < bd) { bd = d; best = st; }
+            if (d < Bs && d < bd) { bd = d; best = st; }
         }
         if (!best) return worldH(x, z);
         // the place's ground at the nearest edge point (stepped back along the line to its middle)
         const st = best, L = Math.hypot(x - st.cx, z - st.cz) || 1, back = Math.min(L, bd + 1), ex = x - (x - st.cx) / L * back, ez = z - (z - st.cz) / L * back;
         const edge = hOf(st)(ex - st.ox, ez - st.oz) + st.oy;
-        return edge + (worldH(x, z) - edge) * sm(0, B, bd);
+        const Bb = best.blend ?? B, w = worldH(x, z);
+        return best.blendUp ? Math.max(w, edge + (w - edge) * sm(0, Bb, bd)) : edge + (w - edge) * sm(0, Bb, bd);   // (blendUp: a mountain's flanks only ever add to the land)
     }
 }
 
@@ -203,6 +205,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             const mats = [].concat(o.material).filter(Boolean);
             // a painted backdrop (unfogged, made to hide an old map's edge): the world is the backdrop now
             if (mats.some(m => m.fog === false && !m.isShaderMaterial) && Math.max(box.max.x - box.min.x, box.max.z - box.min.z, box.max.y - box.min.y) > 150) { drop.push(o); return; }   // (not a waterfall or a light shaft: those are small, and shaders)
+            if (st.dropWater && box.max.y - box.min.y < 0.05 && mats.some(m => m.transparent)) { drop.push(o); return; }   // (a place whose own water no longer has anywhere to lie)
             // a flat sheet of water at the world's water level: the world's own water covers it
             if (box.max.y - box.min.y < 0.05 && Math.abs(box.min.y - WATER) < 0.6 && mats.some(m => m.transparent)) { drop.push(o); return; }
             if (box.min.x < st.X0 - 0.5 || box.max.x > st.X1 + 0.5 || box.min.z < st.Z0 - 0.5 || box.max.z > st.Z1 + 0.5 || o.userData.ground || (box.max.x - box.min.x) * (box.max.z - box.min.z) > st.ha * st.hb)
