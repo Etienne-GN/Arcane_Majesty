@@ -34,11 +34,12 @@ features = {
 for group in ('ranges', 'rivers', 'roads'):
     for f in features[group]: f['world'] = [W(x, y) for x, y in f['db']]
 features['coast']['world'] = [W(x, y) for x, y in features['coast']['db']]
-issues = [
-    {'place': 'The Forbidden Archive', 'db': [900, 120], 'note': "1.1 km north-west of Thaloria in the DB; the book has it 'beneath the college', the game under the Citadel — in the city (proposed: 1100,190)"},
-    {'place': "Eldrin's Tower", 'db': [1200, 300], 'note': "south-east of Thaloria in the DB; the game reaches it by the city's West Gate. Either the open world follows the DB (the glade south-east, a gate on that side), or the DB moves west (proposed: 1000,230)"},
-]
-out = {'scale_m_per_db_unit': SCALE, 'origin_db': [CX, CY], 'axes': 'x east, z south (north is -z)', 'size_m': [round((1600 - 100) * SCALE), round((1100 - 40) * SCALE)], 'places': places, 'features': features, 'issues': issues}
+# Settled with the user (2026-11-20): the Forbidden Archive is in the city, beneath the Citadel (DB corrected 900,120 →
+# 1100,190); Eldrin's Tower stays south-east of the city as the DB has it — in the open world the glade lies that way,
+# and the city's gate to it moves to that side.
+issues = []
+DECISIONS = ['The Forbidden Archive: in the city, beneath the Citadel (DB corrected 2026-11-20)', "Eldrin's Tower: south-east of Thaloria as the DB has it; the city's gate to the glade moves to that side in the open world"]
+out = {'scale_m_per_db_unit': SCALE, 'origin_db': [CX, CY], 'axes': 'x east, z south (north is -z)', 'size_m': [round((1600 - 100) * SCALE), round((1100 - 40) * SCALE)], 'places': places, 'features': features, 'issues': issues, 'decisions': DECISIONS}
 os.makedirs(os.path.join(ROOT, 'docs/3d/world'), exist_ok=True)
 json.dump(out, open(os.path.join(ROOT, 'docs/3d/world/eldoria_layout.json'), 'w'), indent=1, ensure_ascii=False)
 # The review map: 1 px = 1 DB unit (+ margins); a km grid.

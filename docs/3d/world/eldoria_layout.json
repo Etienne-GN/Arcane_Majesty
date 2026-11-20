@@ -59,12 +59,12 @@
    "name": "The Forbidden Archive",
    "origin": "album",
    "db": [
-    900,
-    120
+    1100,
+    190
    ],
    "world": [
-    275,
-    -2448
+    1375,
+    -2062
    ],
    "in": [
     "Thaloria"
@@ -860,22 +860,9 @@
    }
   ]
  },
- "issues": [
-  {
-   "place": "The Forbidden Archive",
-   "db": [
-    900,
-    120
-   ],
-   "note": "1.1 km north-west of Thaloria in the DB; the book has it 'beneath the college', the game under the Citadel — in the city (proposed: 1100,190)"
-  },
-  {
-   "place": "Eldrin's Tower",
-   "db": [
-    1200,
-    300
-   ],
-   "note": "south-east of Thaloria in the DB; the game reaches it by the city's West Gate. Either the open world follows the DB (the glade south-east, a gate on that side), or the DB moves west (proposed: 1000,230)"
-  }
+ "issues": [],
+ "decisions": [
+  "The Forbidden Archive: in the city, beneath the Citadel (DB corrected 2026-11-20)",
+  "Eldrin's Tower: south-east of Thaloria as the DB has it; the city's gate to the glade moves to that side in the open world"
  ]
 }
