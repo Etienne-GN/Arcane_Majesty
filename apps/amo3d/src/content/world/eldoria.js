@@ -41,7 +41,29 @@ function polyDist(pts, x, z) {
 }
 const smooth = (a, b, v) => { const t = Math.max(0, Math.min(1, (v - a) / (b - a))); return t * t * (3 - 2 * t); };
 
-const RIDGE = feat('ranges', /Summit/).world, FIREMT = feat('ranges', /Fire Gate/).world, RIVER = feat('rivers', /gorge/).world;
+// A river's course is a smooth curve through the layout's points (Catmull-Rom every ~12 m) — no sharp bends.
+function smoothCourse(pts, step = 12) {
+    const out = [];
+    for (let i = 0; i < pts.length - 1; i++) {
+        const p0 = pts[Math.max(0, i - 1)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(pts.length - 1, i + 2)], n = Math.max(1, Math.ceil(Math.hypot(p2[0] - p1[0], p2[1] - p1[1]) / step));
+        for (let k = 0; k < n; k++) { const t = k / n, t2 = t * t, t3 = t2 * t, f = (a, b, c, d) => 0.5 * (2 * b + (-a + c) * t + (2 * a - 5 * b + 4 * c - d) * t2 + (-a + 3 * b - 3 * c + d) * t3); out.push([f(p0[0], p1[0], p2[0], p3[0]), f(p0[1], p1[1], p2[1], p3[1])]); }
+    }
+    out.push(pts[pts.length - 1]); return out;
+}
+const RIDGE = feat('ranges', /Summit/).world, FIREMT = feat('ranges', /Fire Gate/).world, RIVER = smoothCourse(feat('rivers', /gorge/).world);
+// The river's distance, fast: its segments bucketed in 64 m cells (it is hundreds of points once smoothed).
+const RIV_GRID = new Map(), RIV_CELL = 64, RIV_REACH = 260;
+for (let i = 0; i < RIVER.length - 1; i++) {
+    const [ax, az] = RIVER[i], [bx, bz] = RIVER[i + 1];
+    for (let cx = Math.floor((Math.min(ax, bx) - RIV_REACH) / RIV_CELL); cx <= Math.floor((Math.max(ax, bx) + RIV_REACH) / RIV_CELL); cx++)
+        for (let cz = Math.floor((Math.min(az, bz) - RIV_REACH) / RIV_CELL); cz <= Math.floor((Math.max(az, bz) + RIV_REACH) / RIV_CELL); cz++) { const k = cx + ',' + cz; (RIV_GRID.get(k) ?? RIV_GRID.set(k, []).get(k)).push(i); }
+}
+function riverDist(x, z) {
+    const list = RIV_GRID.get(Math.floor(x / RIV_CELL) + ',' + Math.floor(z / RIV_CELL)); if (!list) return Infinity;
+    let best = Infinity;
+    for (const i of list) { const [ax, az] = RIVER[i], [bx, bz] = RIVER[i + 1], dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1, t = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / L2)); best = Math.min(best, Math.hypot(x - ax - dx * t, z - az - dz * t)); }
+    return best;
+}
 const COAST = LAYOUT.features.coast.world, ROADS = LAYOUT.features.roads.map(r => r.world);
 const SANCT = place('Sylvan Sanctuary'), CITY = place('Thaloria'), CITADEL = place('The Citadel of Thaloria'), GLADE = place("Thaloria Glade (Eldrin's Tower's vale)"), PASS = place('Summit of Despair'), FIRE = place('Fire Gate');
 // The glade's range (offsets from the vale, metres): [x, z, height, radius]. The city lies north-west (~870 m); the road
@@ -127,9 +149,12 @@ export function eldoriaHeight(x, z) {
     const dS = Math.hypot(x - SANCT.x, z - SANCT.z);
     if (dS < 520) h = h + (9 + fbm(x * 0.008, z * 0.008, 2) * 3 - h) * smooth(520, 200, dS);
     // the river and its banks; a sheer gorge through Thaloria
-    const dW = polyDist(RIVER, x, z);
+    const dW = riverDist(x, z);
     const gorge = smooth(700, 250, Math.min(dC, dK));
     const bank = 7 + 33 * (1 - gorge);   // narrow, steep banks in the gorge; wide, soft ones elsewhere
+    // its valley (away from the gorge): a broad floor of meadows a few metres above the water, slopes rising gently to
+    // the land on either side over ~200 m
+    if (dW < 230 && gorge < 0.5) { const floor = WATER + 2.5 + Math.max(0, dW - 30) * 0.05; h = h + (Math.min(h, floor + (dW / 230) ** 2 * 30) - h) * smooth(230, 40, dW) * (1 - gorge * 2); }
     if (dW < bank + 10) h = (WATER - 1.4) + (h - (WATER - 1.4)) * smooth(6, bank, dW);
     // the sea: east of the coast, past the south edge; high mountains closing the north
     const cx = coastX(z);
@@ -320,7 +345,7 @@ export function createEldoriaWorld({ quality } = {}) {
         mood: { fog: '#c8d2d8', fogNear: 180, fogFar: 760, fogMix: 0.5 },
         places,
         chart: { pxPerM: 0.0625, tileM: 4, detail: true, groundAt: (x, z) => (roadDist(x, z) < 6 ? 'road' : null) },
-        clearAt: (x, z) => roadDist(x, z) < 5 || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || polyDist(RIVER, x, z) < 9,
+        clearAt: (x, z) => roadDist(x, z) < 5 || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || riverDist(x, z) < 9,
         groundColor: (x, z, h, col) => {
             if (h < WATER + 0.8) return false;
             if (roadDist(x, z) < 3.2) { col.set('#8a7454'); return true; }   // the roads
