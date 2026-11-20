@@ -46,6 +46,8 @@ in a walled garden. Missing:
 - **Size ~350 × 300 m** inside the walls (300–400 buildings).
 - **Stone & slate scholar-city**: grey stone, blue-grey slate, timber-framed upper floors, many towers and spires.
 
+- **Relief** (asked by the user): the city stands on a real hill — 8 m at the lowest gate to 36 m at the college's crown (rock under the college), the temple's knoll west of it with a hollow between, the land falling south and east; gate roads and the high street are ramps held to 16% (the ground cut and walled along them, at most ~3.5 m); lanes steeper than 14% are stairs.
+
 ## Building it (stages, each playable)
 - **T1 — the plan**: the hill, the wall ring, the street network, the plots and quarters, generated (deterministic) and
   drawn as a plan image for review before anything is built.

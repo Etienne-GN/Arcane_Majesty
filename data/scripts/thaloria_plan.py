@@ -19,10 +19,23 @@ R = random.Random(1100)   # Thaloria's DB x — the same city every run
 # ---------- the hill and the wall ring ----------
 C = (0.0, 95.0)                        # the ring's middle
 CROWN = (12.0, 22.0)                   # the hill's crown: the college (near the gorge, above the Citadel's cliff)
-HILL_H, HILL_R = 22.0, 230.0
+HILL_H, HILL_R = 36.0, 250.0
+KNOLL = (-100.0, 62.0)                 # the temple's knoll
+def _n(x, z):   # a little value noise (deterministic)
+    def h(i, j): v = math.sin(i * 127.1 + j * 311.7) * 43758.5453; return v - math.floor(v)
+    i, j = math.floor(x), math.floor(z); fx, fz = x - i, z - j; ux, uz = fx * fx * (3 - 2 * fx), fz * fz * (3 - 2 * fz)
+    return (h(i, j) * (1 - ux) + h(i + 1, j) * ux) * (1 - uz) + (h(i, j + 1) * (1 - ux) + h(i + 1, j + 1) * ux) * uz
 def ground(x, z):
-    d = math.hypot(x - CROWN[0], (z - CROWN[1]) * 0.85)
-    return HILL_H * max(0.0, 1 - (d / HILL_R) ** 1.6) + 2.0
+    """The city's hill (metres above its lowest street): the crown (the college) high above the gorge, the temple's
+    knoll west of it with a hollow between, the land falling south and east toward the Lower Town and the river."""
+    d = math.hypot(x - CROWN[0], (z - CROWN[1]) * 0.8)
+    h = HILL_H * max(0.0, 1 - (d / HILL_R) ** 1.35)
+    h += 9 * math.exp(-((x - KNOLL[0]) ** 2 + (z - KNOLL[1]) ** 2) / 45 ** 2)                  # the knoll
+    h -= 5 * math.exp(-((x + 50) ** 2 / 30 ** 2 + (z - 60) ** 2 / 55 ** 2))                    # the hollow between
+    h += 3.5 * math.exp(-((x - CROWN[0]) ** 2 + (z - CROWN[1]) ** 2) / 26 ** 2)               # the rock under the college
+    h += (_n(x * 0.035, z * 0.035) - 0.5) * 3.0                                                 # the ground's own unevenness
+    h -= max(0.0, (x - 60) * 0.03) + max(0.0, (z - 150) * 0.05)                                # falling away east and south
+    return h + 2.0
 
 def ring_r(a):
     """The wall's radius at angle a (radians, from C): an ellipse that wanders, flattened along the gorge (north)."""
@@ -212,6 +225,15 @@ for iid, qt in WANT:
     cand = [i for i, p in enumerate(PLOTS) if p['quarter'] == qt and i not in used and p['w'] > 6.5] or [i for i in range(len(PLOTS)) if i not in used]
     i = R.choice(cand); used.add(i); PLOTS[i]['interior'] = iid
 
+for st_ in STREETS:
+    p = st_['pts']; seg = [math.hypot(p[i + 1][0] - p[i][0], p[i + 1][1] - p[i][1]) or 0.01 for i in range(len(p) - 1)]
+    if st_["kind"] in ("high", "main"):   # carts climb them: a ramp held to 16% (steep, as hill towns' streets are), the ground cut and walled along it
+        h = [ground(*q) for q in p]
+        for i in range(1, len(h)): h[i] = max(h[i - 1] - 0.16 * seg[i - 1], min(h[i - 1] + 0.16 * seg[i - 1], h[i]))
+        for i in range(len(h) - 2, -1, -1): h[i] = max(h[i + 1] - 0.16 * seg[i], min(h[i + 1] + 0.16 * seg[i], h[i]))
+        st_['bed'] = [round(v, 2) for v in h]; st_['stairs'] = []
+    else:   # lanes and streets: where they climb steeper than 14%, stairs (per segment)
+        st_['stairs'] = [i for i in range(len(p) - 1) if abs(ground(*p[i + 1]) - ground(*p[i])) / seg[i] > 0.14]
 plan = {'about': 'Thaloria city plan (data/scripts/thaloria_plan.py); local metres, x east, z south', 'crown': CROWN, 'hill': {'h': HILL_H, 'r': HILL_R},
         'wall': [(round(x, 1), round(z, 1)) for x, z in WALL], 'towers': [(round(x, 1), round(z, 1)) for x, z in towers], 'gates': gates,
         'squares': SQUARES, 'streets': STREETS, 'landmarks': [{'kind': k, 'id': i, 'x': x, 'z': z, 'w': w, 'd': d, 'a': round(a, 3), 'interior': it} for k, i, x, z, w, d, a, it in LANDMARKS],
@@ -224,13 +246,19 @@ X0, Z0 = -200, -80
 W_, H_ = int(400 * S + 2 * PAD), int(360 * S + 2 * PAD)
 img = Image.new('RGB', (W_, H_), (232, 222, 196)); g = ImageDraw.Draw(img)
 P = lambda x, z: (PAD + (x - X0) * S, PAD + (z - Z0) * S)
-for zz in range(-80, 280, 4):   # the hill, shaded
-    for xx in range(-200, 200, 4):
-        h = ground(xx, zz); c = int(200 + h * 1.6)
-        g.rectangle([P(xx, zz), P(xx + 4, zz + 4)], fill=(c - 10, c - 14, c - 40))
+for zz in range(-80, 280, 2):   # the hill: hillshade (light from the north-west) and a contour every 2 m
+    for xx in range(-200, 200, 2):
+        h = ground(xx, zz); sh = (ground(xx - 2, zz - 2) - h) * 9; c = int(150 + h * 2.4 + sh)
+        col = (min(255, c), min(255, c - 4), min(255, c - 30))
+        if int(h / 2) != int(ground(xx + 2, zz) / 2) or int(h / 2) != int(ground(xx, zz + 2) / 2): col = (110, 95, 70) if int(h / 2) % 5 else (80, 64, 44)
+        g.rectangle([P(xx, zz), P(xx + 2, zz + 2)], fill=col)
 g.rectangle([P(-200, -80), P(200, -52)], fill=(120, 150, 170))   # the gorge
 g.text(P(-190, -74), 'the gorge (the Silverrun) — the Citadel beyond', fill=(30, 40, 60))
-for s in STREETS: g.line([P(*p) for p in s['pts']], fill=(206, 190, 150), width=max(2, int(s['w'] * S)))
+for s in STREETS:
+    g.line([P(*p) for p in s['pts']], fill=(206, 190, 150), width=max(2, int(s['w'] * S)))
+    for i in s.get('stairs', []):   # stairs: hatched across the street
+        (ax, az), (bx, bz) = s['pts'][i], s['pts'][i + 1]; L = math.hypot(bx - ax, bz - az) or 1; nx, nz = -(bz - az) / L * s['w'] / 2, (bx - ax) / L * s['w'] / 2
+        for k in range(0, 5): t = k / 4; cx, cz = ax + (bx - ax) * t, az + (bz - az) * t; g.line([P(cx + nx, cz + nz), P(cx - nx, cz - nz)], fill=(90, 70, 50), width=1)
 for sq in SQUARES: g.ellipse([P(sq['x'] - sq['r'], sq['z'] - sq['r']), P(sq['x'] + sq['r'], sq['z'] + sq['r'])], fill=(214, 200, 166))
 QC = {'scholars': (120, 124, 140), 'market': (150, 120, 96), 'temple': (130, 110, 130), 'gate': (140, 126, 104), 'crafts': (128, 112, 92), 'town': (136, 128, 116)}
 for p in PLOTS:
@@ -243,6 +271,6 @@ g.line([P(*p) for p in WALL + WALL[:1]], fill=(70, 66, 60), width=int(2.2 * S))
 for t in towers: g.ellipse([P(t[0] - 4, t[1] - 4), P(t[0] + 4, t[1] + 4)], fill=(80, 76, 70))
 for k, v in gates.items():
     g.rectangle([P(v['x'] - 5, v['z'] - 5), P(v['x'] + 5, v['z'] + 5)], fill=(160, 60, 40)); g.text(P(v['x'] + 7, v['z'] - 4), f'{k} gate', fill=(120, 30, 20))
-g.text((PAD, H_ - 30), f"Thaloria — plan T1 · {len(PLOTS)} houses · {len(plan['landmarks'])} landmarks · {len(towers)} towers · grid 1 px = {1 / S:.2f} m · red dot: a house you can enter", fill=(40, 30, 20))
+g.text((PAD, H_ - 30), f"Thaloria — plan T1 · relief {min(ground(x, z) for x, z in WALL):.0f}–{max(ground(p['x'], p['z']) for p in PLOTS):.0f} m (contour 2 m; dark every 10 m; hatched: stairs) · {len(PLOTS)} houses · {len(plan['landmarks'])} landmarks · {len(towers)} towers · grid 1 px = {1 / S:.2f} m · red dot: a house you can enter", fill=(40, 30, 20))
 img.save(os.path.join(ROOT, 'docs/3d/world/thaloria_plan.png'))
 print('houses', len(PLOTS), 'streets', len(STREETS), 'towers', len(towers), 'quarters', {q: sum(1 for p in PLOTS if p['quarter'] == q) for q in QC})
