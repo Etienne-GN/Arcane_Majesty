@@ -69,7 +69,13 @@ function coastX(z) {
 
 export function eldoriaHeight(x, z) {
     // gentle land
-    let h = 7 + fbm(x * 0.0011, z * 0.0011, 4) * 24 + fbm(x * 0.006, z * 0.006, 2) * 3;
+    // the land between places: broad swells; in some country ridged chains of foothills with valleys between, in other
+    // country open plains (a slow mask decides which); rolling ground; the small unevenness underfoot
+    // (fbm lives mostly in 0.27–0.75: stretched to the full 0–1 so crests are crests and valleys are valleys)
+    const N = v => Math.max(0, Math.min(1, (v - 0.5) * 2.3 + 0.5));
+    const hilly = smooth(0.42, 0.62, fbm(x * 0.0006 + 40, z * 0.0006 - 12, 2));
+    const chains = Math.pow(1 - Math.abs(N(fbm(x * 0.0042 + 11, z * 0.0042 + 3, 4)) * 2 - 1), 2.2) * 38 * hilly;
+    let h = 4 + N(fbm(x * 0.0011, z * 0.0011, 4)) * 22 + chains + (N(fbm(x * 0.0025, z * 0.0025, 3)) - 0.5) * 18 + (fbm(x * 0.02, z * 0.02, 2) - 0.5) * 3;
     // the Summit's ridge, rugged, its pass dipping at the Summit
     const dR = polyDist(RIDGE, x, z);
     if (dR < 900) {
