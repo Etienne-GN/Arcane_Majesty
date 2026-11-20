@@ -213,6 +213,9 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
                 for (const m of mats) { if (m.isShaderMaterial) { m.clippingPlanes = planes; m.needsUpdate = true; } else shapeClip(m, st); }   // its ground cut to the rounded footprint
         });
         for (const o of drop) o.parent?.remove(o);
+        // whatever lives and moves is never batched: creatures, townsfolk (their roots tagged)
+        for (const h of st.map.hittables ?? []) if (h.root) h.root.userData.dynamic = true;
+        for (const p of st.map.town?.people ?? st.map.people ?? []) for (const o of [p.root, p.model?.root, p.far, p.group, p.mesh]) if (o?.userData) o.userData.dynamic = true;
         if (st.batch !== false) staticBatch(g);
         rebucket(st);
     const gone = [], kept = [];

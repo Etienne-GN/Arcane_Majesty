@@ -70,6 +70,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
 
     // Local forward is +z; the character's left is +x.
     const root = new THREE.Group();
+    root.userData.dynamic = true;   // a character moves: never merged into the scenery (the open world's static batching)
     const body = new THREE.Group();
     root.add(body);
 
