@@ -3,12 +3,12 @@ export const DIALOGUES = {
     // ── Hermit ────────────────────────────────────────────────────────────────
 
     hermit_intro: [
-        { speaker: 'Hermit', text: 'Halt. These woods have not seen a robed scholar since the last Covenant survey team — and that was before the darkness spread.' },
+        { speaker: 'Hermit', text: 'Halt. These woods have not seen a robed scholar since the last Concord survey team — and that was before the darkness spread.' },
         { speaker: 'Hermit', text: 'You carry the mark of Vorgos upon you. The resonance signature is unmistakable. The Stormbringer has placed his hand on the board.' },
         { speaker: 'Eldrin', text: 'You know of Vorgos? The vision I had—' },
         { speaker: 'Hermit', text: 'I know more than the Tower ever taught you. The archives you studied were curated. Certain entries were removed. The Gap at 0 GD? That is not a record-keeping error. That is a deliberate erasure.' },
         { speaker: 'Eldrin', text: 'The Great Darkness. Every historian treats it as a myth.' },
-        { speaker: 'Hermit', text: 'It was real. Vorgos sealed the Void Gate at 0 GD at immeasurable cost. Someone does not want that remembered. The stone markers in this forest — read them. The truth is older than the Covenant.' },
+        { speaker: 'Hermit', text: 'It was real. Vorgos sealed the Void Gate at 0 GD at immeasurable cost. Someone does not want that remembered. The stone markers in this forest — read them. The truth is older than the Concord.' },
         { speaker: 'Hermit', text: 'The Heartstone of Creation lies beyond this forest. A Cosmic Insulator, not a treasure. It must be secured before the shadow finds it.' },
         { speaker: 'Hermit', text: 'But first — prove yourself. The shadow-creatures have taken the eastern ruins. They grow bolder each night. Clear them, attune to the Monolith north of here, and come back to me.' },
     ],
@@ -26,7 +26,7 @@ export const DIALOGUES = {
     ],
 
     hermit_hut_greeting: [
-        { speaker: 'Hermit', text: 'Come in. Mind the books — some of those stacks are older than the Covenant itself.' },
+        { speaker: 'Hermit', text: 'Come in. Mind the books — some of those stacks are older than the Concord itself.' },
         { speaker: 'Hermit', text: 'I have spent forty years collecting what the Tower saw fit to burn. The Gap at 0 GD is not a footnote, Eldrin. It is the whole story.' },
         { speaker: 'Hermit', text: 'Rest if you need it. There is a chest in the corner — take what is useful. You will need your strength for what comes next.' },
     ],
@@ -112,7 +112,7 @@ export const DIALOGUES = {
 
     silvara_lore: [
         { speaker: 'Silvara', text: 'You want to know about the ruins? I have camped near them for two seasons.' },
-        { speaker: 'Silvara', text: 'The stonework is Covenant-era — maybe older. The sigils are not decorative. I had a scholar from the capital look at them once. He went pale and left the same day.' },
+        { speaker: 'Silvara', text: 'The stonework is Concord-era — maybe older. The sigils are not decorative. I had a scholar from the capital look at them once. He went pale and left the same day.' },
         { speaker: 'Silvara', text: 'Whatever happened at 0 GD, it left a scar on the land itself. The resonance here is wrong. Too dense in places, absent in others. Like the world held its breath and never fully exhaled.' },
     ],
 
@@ -150,14 +150,14 @@ export const DIALOGUES = {
         { speaker: null, text: 'The Void General collapses inward. The void-form unravels, scattering into particles of dead resonance.' },
         { speaker: 'Eldrin', text: 'It was right about one thing. That was not the end — it was a message.' },
         { speaker: 'Eldrin', text: 'The Void is testing the perimeter. Probing for weakness. This forest was a probe.' },
-        { speaker: null, text: 'A shard of crystallized resonance remains — dense, cold, humming at a frequency that predates the Covenant.' },
+        { speaker: null, text: 'A shard of crystallized resonance remains — dense, cold, humming at a frequency that predates the Concord.' },
         { speaker: 'Eldrin', text: 'The path forward is east. The Heartstone is waiting. And something else is waiting for it to be found.' },
     ],
 
     // ── Lore items ────────────────────────────────────────────────────────────
 
     ancient_scroll_read: [
-        { speaker: null, text: 'The scroll crumbles at the edges. The script is pre-Covenant — the Old Aetheric hand, written before the standardization.' },
+        { speaker: null, text: 'The scroll crumbles at the edges. The script is pre-Concord — the Old Aetheric hand, written before the standardization.' },
         { speaker: null, text: '"The Rift-Gate network was not built. It was discovered. The original pathways exist in the resonance itself — we only learned to read the doors that were already there."' },
         { speaker: null, text: '"The surveyor who first mapped the network refused to publish his full findings. His notes reference a thirteenth gate. No other record of it exists."' },
     ],

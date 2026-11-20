@@ -57,7 +57,7 @@ export const BESTIARY_LORE = {
     scout: {
         name: 'Void Scout',
         threat: 'MODERATE',
-        desc: 'Humanoid — possibly once a Covenant soldier or survey team member. Void-touched past recovery, but retaining enough tactical instinct to function as patrol units. They carry corrupted equipment and remember formation discipline.',
+        desc: 'Humanoid — possibly once a Concord soldier or survey team member. Void-touched past recovery, but retaining enough tactical instinct to function as patrol units. They carry corrupted equipment and remember formation discipline.',
     },
     treant: {
         name: 'Corrupted Treant',

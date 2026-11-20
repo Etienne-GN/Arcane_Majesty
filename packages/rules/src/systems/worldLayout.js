@@ -8,7 +8,7 @@ export const WORLD_ANCHORS = {
     eldrin_tower:       { x: 1200, y: 300, lore: "Eldrin's Tower" },
     summit_of_despair:  { x: 1400, y: 200, lore: 'Summit of Despair' },
     sylvan_sanctuary:   { x: 1300, y: 120, lore: 'Sylvan Sanctuary' },
-    heartstone_chamber: { x: 800,  y: 350, lore: 'Heartstone Chamber' },
+    heartstone_chamber: { x: 1540, y: 200, lore: 'Heartstone Chamber' },   // corrected in the DB 2026-11-20 (east, as the songs and the book say)
 };
 
 export const STEP = 90;   // lore px between a map and a neighbour placed beside it

@@ -2,7 +2,7 @@
 
 > ## ⚠️ STATUS: PENDING — a canon check must be run before anything goes into the DB
 > Decided 2026-11-19 with the user: **every item below gets a canon check** against the established lore (the Neo4j DB, the album XMLs and ACC checkups in `data/lore/xmls/`, the book canon in `books/eldorias_prophecy/canon/`, `world_lore.md`) **in a later session**, and our decisions must be coherent with it.
-> **First: the four "Possible conflicts" below** (Vorgos the "warlord", Arcane vs Crimson Covenant, Voraun as a duelist in the Ruins, the Shadow Balrog's look), then the summary's new names (Valdric, the Asran Academy, the Arcane Covenant, the Twilight Order, the Rift-Gates, the Border Watch, 0 GD, the Star-Guard, Silvara…), then everything else.
+> **The five conflicts are resolved (2026-11-20).** Next: the summary's new names (Valdric, the Asran Academy, the Arcane Covenant, the Twilight Order, the Rift-Gates, the Border Watch, 0 GD, the Star-Guard, Silvara…), then everything else.
 > For each item: canon says / the game says / verdict (keep, rename, rewrite, drop) — then the user approves, and only then the DB sync (`origin: "game"`) and the game fixes.
 
 _Gathered 2026-11-19 from the 3D game (`apps/amo3d`), its rules (`packages/rules`), and compared with the Neo4j lore DB on scarif (read only — nothing was written). The DB today: 38 locations, 19 characters, 7 races, 10 organizations, 3 artifacts, 4 prophecies, 38 events, 10 regions (11 nodes already carry `origin: "game"`, listed at the end)._
@@ -28,13 +28,13 @@ These are the new names that would add real canon: places, peoples, institutions
 - [ ] **Werewolves as a playable race**, with a human ↔ wolf change; the neutral pack of the Emerald Fields (the Guardians of the Wild are album canon; the playable form is game-only).
 - [ ] **116 creature kinds** — no creature is in the DB at all. Decide whether the DB should get a `Creature` label, or keep creatures game-side only.
 
-## Possible conflicts with canon — look at these first
+## Possible conflicts with canon — ✅ all five resolved (2026-11-20, verdicts approved by the user)
 
-- [ ] **Cleaver of Vorgos** (legendary item, items.js): “The warlord Vorgos's legendary blade.” The DB has Vorgos as the *Universal Sentinel; Master Narrator* — not a warlord. Rename the item, or rewrite its line.
-- [ ] **“the Crimson Covenant” (DB) vs “the Arcane Covenant” (game)** — two different covenants, or one? If one, the game's items and Silvara's line should use the canon name.
-- [ ] **Voraun fought in the Ruins (ch. 9)** — the DB calls Voraun “a subtraction in the Aether; quiet, patient, disciplined”; the game makes him a duelist who turns spells back until the Heartstone's ward burns him. Check against the book.
-- [ ] **The Heartstone's direction**: the DB places the Heartstone Chamber at x=800 — *west* of Thaloria (x=1100) and Eldrin's Tower (x=1200) — while the book's compass points *east*, over the mountains, and the game follows the book. The Fire Gate, the Inferno Labyrinth and the Ruins of Eldoria have no position in the DB. The DB's x/y look inherited from the 2D world map; they must be settled before they become the open world's layout.
-- [ ] **The Balrog fight's look** (0.16.1 model: a winged giant of shadow and fire with a flame sword and whip) — the DB says only *The Shadow Balrog*; check the look against the album and book.
+- [x] **Cleaver of Vorgos** → renamed **The Warlord's Cleaver** ("A nameless warlord's legendary blade"); canon Vorgos is the Universal Sentinel and Master Narrator. (Item id kept for saves.)
+- [x] **Arcane Covenant vs Crimson Covenant** → the game's order is now **the Arcane Concord** (Staff of the First Concord, Blade of the Concord, Concord-era stonework, the Concord survey teams…); the Crimson Covenant stays Acheron's.
+- [x] **Voraun fought in the Ruins** → no conflict: the DB's backstory (runic reflection, shadow-blade across the ward, burned by the ward at the Ruins) matches the game.
+- [x] **The Shadow Balrog's look** → reworked to canon: a shadow rising from a pool of darkness on the floor, long clawed arms, a jagged crown, pale eyes, drinking the light; no fire, wings, sword or whip.
+- [x] **The Heartstone's direction** → the songs ("coordinates set east", "a mountain pass east of Thaloria"), the book and the game all say east; the DB corrected (positions only): Heartstone Chamber 800,350 → 1540,200; new positions Fire Gate 1440,100 · Inferno Labyrinth 1480,130 · Ruins of Eldoria 1530,190 · The Ancient Door 1545,195.
 
 ## 1. Places
 
@@ -209,7 +209,7 @@ The DB has no creature label. 116 kinds are in the game's rules (`ENEMY_TYPES`, 
 - [ ] **Forest Wolf** (`wolf`, threat MODERATE) ★ — Corrupted pack predators. Void-taint has overwritten their natural behavior — they move as shadows, driven not by hunger but by the Void General's will. The pack structure remains intact but serves a darker command.
 - [ ] **Shadow Sprite** (`shadow_sprite`, threat MODERATE) — Void-born constructs that take the shape of forest creatures. Nothing natural underneath — formed entirely from structured void-matter. They cluster near ruins, feeding on residual resonance. Close contact causes resonance bleed.
 - [ ] **Void Stalker** (`void_stalker`, threat HIGH) ★ — A mature void construct — persistent, patient, resistant to physical force. The Stalkers near the boss arena are sentinels, not random encounters. They mark the boundary of the Void General's sphere of influence.
-- [ ] **Void Scout** (`scout`, threat MODERATE) — Humanoid — possibly once a Covenant soldier or survey team member. Void-touched past recovery, but retaining enough tactical instinct to function as patrol units. They carry corrupted equipment and remember formation discipline.
+- [ ] **Void Scout** (`scout`, threat MODERATE) — Humanoid — possibly once a Concord soldier or survey team member. Void-touched past recovery, but retaining enough tactical instinct to function as patrol units. They carry corrupted equipment and remember formation discipline.
 - [ ] **Corrupted Treant** (`treant`, threat HIGH) — Ancient forest guardians whose resonance core has been inverted by void-taint. Originally protective entities — their corruption marks how deeply the Void's influence has spread into the forest's living substrate.
 - [ ] **Blight-Ent** (`blight_ent`, threat MEDIUM) ★ — An ancient tree fused with Nythorian rot. Slow and heavy-handed; when struck it sheds spores that dampen the mana of anyone breathing them.
 - [ ] **Root-Wraith** (`root_wraith`, threat LOW) ★ — A small, fast knot of living vine. It lashes out to entangle, and holds a scholar still long enough for worse things to arrive.
@@ -235,12 +235,12 @@ The DB has 3 artifacts (the Crystal Focus, the Forbidden Tome, the Heartstone of
 
 - [ ] **Void Channel** (epic) — Channels void-energy into spells. +9 INT, +3 AGI. [Void-Touched] [Lore: 20% void pulse on hit]
 - [ ] **Arcane Sceptre** (epic) — Pure arcane authority. +8 INT, +3 STA. [Flame-Kissed] [Lore: 25% chain-lightning arc]
-- [ ] **Staff of the First Covenant** (legendary) — Forged at the founding of the Arcane Covenant. +12 INT, +4 AGI. [+25% all spell damage]
+- [ ] **Staff of the First Concord** (legendary) — Forged at the founding of the Arcane Concord. +12 INT, +4 AGI. [+25% all spell damage]
 - [ ] **Heartwood Resonator** (legendary) — Resonates with the forest's living heartbeat. +10 INT, +5 STA. [+50% mana regen]
 - [ ] **Void-Slicer** (epic) — A blade that cuts through reality. Hits cost 2 MP, +35% arcane. +7 INT, +5 STR. [Void-Touched] [Lore: 20% void stun]
 - [ ] **Arcane War-Blade** (epic) — Battle-tested arcane fury. Hits cost 2 MP, +35% arcane. +6 INT, +6 STR. [Flame-Kissed] [Lore: 20% arcane burst hits 2 more]
-- [ ] **Blade of the Covenant** (legendary) — One of the original Covenant weapons. Hits cost 2 MP, deal +35% arcane. +9 INT, +7 STR. [Blade strikes grant 2 MP if INT > 12]
-- [ ] **Cleaver of Vorgos** (legendary) — The warlord Vorgos's legendary blade. Hits cost 2 MP, deal +35% arcane. +12 STR, +4 INT. [3× damage vs enemies below 30% HP]
+- [ ] **Blade of the Concord** (legendary) — One of the original Concord weapons. Hits cost 2 MP, deal +35% arcane. +9 INT, +7 STR. [Blade strikes grant 2 MP if INT > 12]
+- [ ] **The Warlord's Cleaver** (legendary) — A nameless warlord's legendary blade. Hits cost 2 MP, deal +35% arcane. +12 STR, +4 INT. [3× damage vs enemies below 30% HP]
 - [ ] **Midnight Reaver** (epic) — Cuts through shadow and flesh alike. Double-hit costs 1 MP. +7 AGI, +4 STR. [Vampiric] [Lore: 25% shadow clone second strike]
 - [ ] **Ecliptic Stiletto** (epic) — Eclipse-forged precision weapon. Double-hit costs 1 MP. +6 AGI, +5 INT. [Void-Touched] [Lore: 20% eclipse mark — next hit 2×]
 - [ ] **The Twilight Fang** (legendary) — Fang of the Twilight Order. Augmented double-hit costs 1 MP. +9 AGI, +5 INT. [Enemies killed in Shadow Veil drop +50% Glint]
@@ -274,7 +274,7 @@ The DB has 3 artifacts (the Crystal Focus, the Forbidden Tome, the Heartstone of
 - [ ] **Silvara's Supply Run** (side) — The merchant Silvara needs raw materials from the forest to restock her supplies.
 - [ ] **Echoes of the Ancient Ones** (side) — Weathered signs throughout the forest hold fragments of a forgotten story. Find them all.
 - [ ] **Initiation of the Twilight Order** (hidden) — A shadow-marked stone pulses with dark energy. Its inscription demands proof of mastery over shadow.
-- [ ] **The Covenant Scholar** (hidden) — An ancient tome sealed by magical locks responds to your growing mastery of the arcane arts.
+- [ ] **The Concord Scholar** (hidden) — An ancient tome sealed by magical locks responds to your growing mastery of the arcane arts.
 - [ ] **The Hunter's Trial** (hidden) — An ancient training ground for forest hunters. Complete the trial to claim its forgotten prize.
 - [ ] **Void-Touched Beasts** (side) — The forest wildlife has been twisted by void-corruption. Hunt the corrupted beasts before the taint spreads further.
 - [ ] **The Hermit's Offering** (side) — The Hermit spoke of void shards — crystallized corruption that resonates with fire. Collect them and return to him.

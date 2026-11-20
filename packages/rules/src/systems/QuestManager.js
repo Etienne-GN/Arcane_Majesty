@@ -20,8 +20,8 @@ const MEMORY_FRAGMENTS = {
         text:  "Heard in the veil — 'You have walked in my shadow. The veil remembers every soul it touches. You are marked now, scholar. The darkness knows your name.'"
     },
     hidden_covenant_scholar: {
-        title: 'Covenant Fragment I',
-        text:  "Arcane inscription — 'The Staff of First Covenant was not forged. It grew — from the first seed of structured arcane intention ever placed in Eldoria. The Covenant did not make it. It made the Covenant.'"
+        title: 'Concord Fragment I',
+        text:  "Arcane inscription — 'The Staff of the First Concord was not forged. It grew — from the first seed of structured arcane intention ever placed in Eldoria. The Concord did not make it. It made the Concord.'"
     },
     hidden_hunters_trial: {
         title: "Hunter's Mark",

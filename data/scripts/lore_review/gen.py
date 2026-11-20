@@ -17,7 +17,7 @@ P=out.append
 P("# Lore review — what the game has that the lore DB doesn't\n")
 P("""> ## ⚠️ STATUS: PENDING — a canon check must be run before anything goes into the DB
 > Decided 2026-11-19 with the user: **every item below gets a canon check** against the established lore (the Neo4j DB, the album XMLs and ACC checkups in `data/lore/xmls/`, the book canon in `books/eldorias_prophecy/canon/`, `world_lore.md`) **in a later session**, and our decisions must be coherent with it.
-> **First: the four "Possible conflicts" below** (Vorgos the "warlord", Arcane vs Crimson Covenant, Voraun as a duelist in the Ruins, the Shadow Balrog's look), then the summary's new names (Valdric, the Asran Academy, the Arcane Covenant, the Twilight Order, the Rift-Gates, the Border Watch, 0 GD, the Star-Guard, Silvara…), then everything else.
+> **The five conflicts are resolved (2026-11-20).** Next: the summary's new names (Valdric, the Asran Academy, the Arcane Covenant, the Twilight Order, the Rift-Gates, the Border Watch, 0 GD, the Star-Guard, Silvara…), then everything else.
 > For each item: canon says / the game says / verdict (keep, rename, rewrite, drop) — then the user approves, and only then the DB sync (`origin: "game"`) and the game fixes.
 """)
 P("_Gathered 2026-11-19 from the 3D game (`apps/amo3d`), its rules (`packages/rules`), and compared with the Neo4j lore DB on scarif (read only — nothing was written). The DB today: 38 locations, 19 characters, 7 races, 10 organizations, 3 artifacts, 4 prophecies, 38 events, 10 regions (11 nodes already carry `origin: \"game\"`, listed at the end)._\n")
@@ -40,12 +40,12 @@ P("""These are the new names that would add real canon: places, peoples, institu
 - [ ] **Werewolves as a playable race**, with a human ↔ wolf change; the neutral pack of the Emerald Fields (the Guardians of the Wild are album canon; the playable form is game-only).
 - [ ] **116 creature kinds** — no creature is in the DB at all. Decide whether the DB should get a `Creature` label, or keep creatures game-side only.
 """)
-P("## Possible conflicts with canon — look at these first\n")
-P("""- [ ] **Cleaver of Vorgos** (legendary item, items.js): “The warlord Vorgos's legendary blade.” The DB has Vorgos as the *Universal Sentinel; Master Narrator* — not a warlord. Rename the item, or rewrite its line.
-- [ ] **“the Crimson Covenant” (DB) vs “the Arcane Covenant” (game)** — two different covenants, or one? If one, the game's items and Silvara's line should use the canon name.
-- [ ] **Voraun fought in the Ruins (ch. 9)** — the DB calls Voraun “a subtraction in the Aether; quiet, patient, disciplined”; the game makes him a duelist who turns spells back until the Heartstone's ward burns him. Check against the book.
-- [ ] **The Heartstone's direction**: the DB places the Heartstone Chamber at x=800 — *west* of Thaloria (x=1100) and Eldrin's Tower (x=1200) — while the book's compass points *east*, over the mountains, and the game follows the book. The Fire Gate, the Inferno Labyrinth and the Ruins of Eldoria have no position in the DB. The DB's x/y look inherited from the 2D world map; they must be settled before they become the open world's layout.
-- [ ] **The Balrog fight's look** (0.16.1 model: a winged giant of shadow and fire with a flame sword and whip) — the DB says only *The Shadow Balrog*; check the look against the album and book.
+P("## Possible conflicts with canon — ✅ all five resolved (2026-11-20, verdicts approved by the user)\n")
+P("""- [x] **Cleaver of Vorgos** → renamed **The Warlord's Cleaver** ("A nameless warlord's legendary blade"); canon Vorgos is the Universal Sentinel and Master Narrator. (Item id kept for saves.)
+- [x] **Arcane Covenant vs Crimson Covenant** → the game's order is now **the Arcane Concord** (Staff of the First Concord, Blade of the Concord, Concord-era stonework, the Concord survey teams…); the Crimson Covenant stays Acheron's.
+- [x] **Voraun fought in the Ruins** → no conflict: the DB's backstory (runic reflection, shadow-blade across the ward, burned by the ward at the Ruins) matches the game.
+- [x] **The Shadow Balrog's look** → reworked to canon: a shadow rising from a pool of darkness on the floor, long clawed arms, a jagged crown, pale eyes, drinking the light; no fire, wings, sword or whip.
+- [x] **The Heartstone's direction** → the songs ("coordinates set east", "a mountain pass east of Thaloria"), the book and the game all say east; the DB corrected (positions only): Heartstone Chamber 800,350 → 1540,200; new positions Fire Gate 1440,100 · Inferno Labyrinth 1480,130 · Ruins of Eldoria 1530,190 · The Ancient Door 1545,195.
 """)
 # ---------- places ----------
 P("## 1. Places\n")

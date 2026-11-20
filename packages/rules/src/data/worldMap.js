@@ -951,7 +951,7 @@ export const CAMPFIRE_POSITIONS = [
 
 export const SIGN_POSITIONS = [
     { x: 5,  y: 2,  text: 'The Forest Hunt\n\nBeware the shadow-creatures that emerged after the Great Darkness. They grow bolder each passing night.' },
-    { x: 10, y: 4,  text: 'Traveler — seek the hermit who dwells beyond the ancient stones. He carries knowledge older than the Covenant.' },
+    { x: 10, y: 4,  text: 'Traveler — seek the hermit who dwells beyond the ancient stones. He carries knowledge older than the Concord.' },
     { x: 27, y: 19, text: 'WARNING: The Void Wraith stirs in the southern glades. Its corruption has spread far. Approach only if you are prepared to face the darkness.' },
 ];
 

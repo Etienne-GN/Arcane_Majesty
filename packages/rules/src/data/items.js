@@ -1264,8 +1264,8 @@ export const ITEMS = {
         onUse: (stats) => stats.equipItem('arcane_sceptre'),
     },
     staff_of_first_covenant: {
-        id: 'staff_of_first_covenant', name: 'Staff of the First Covenant',
-        description: 'Forged at the founding of the Arcane Covenant. +12 INT, +4 AGI. [+25% all spell damage]',
+        id: 'staff_of_first_covenant', name: 'Staff of the First Concord',
+        description: 'Forged at the founding of the Arcane Concord. +12 INT, +4 AGI. [+25% all spell damage]',
         color: 0xffd700, stackable: false, icon: 'itm_wand_02', slot: 'weapon', tier: 5, weaponType: 'staff', rarity: 'legendary',
         stats: { intelligence: 12, agility: 4 }, passive: 'spell_amplifier', sellPrice: 999,
         onUse: (stats) => stats.equipItem('staff_of_first_covenant'),
@@ -1361,15 +1361,15 @@ export const ITEMS = {
         onUse: (stats) => stats.equipItem('arcane_war_blade'),
     },
     blade_of_the_covenant: {
-        id: 'blade_of_the_covenant', name: 'Blade of the Covenant',
-        description: 'One of the original Covenant weapons. Hits cost 2 MP, deal +35% arcane. +9 INT, +7 STR. [Blade strikes grant 2 MP if INT > 12]',
+        id: 'blade_of_the_covenant', name: 'Blade of the Concord',
+        description: 'One of the original Concord weapons. Hits cost 2 MP, deal +35% arcane. +9 INT, +7 STR. [Blade strikes grant 2 MP if INT > 12]',
         color: 0xffd700, stackable: false, icon: 'itm_sword_02', slot: 'weapon', tier: 5, weaponType: 'spell_blade', rarity: 'legendary',
         stats: { intelligence: 9, strength: 7 }, passive: 'mana_on_hit', sellPrice: 999,
         onUse: (stats) => stats.equipItem('blade_of_the_covenant'),
     },
     cleaver_of_vorgos: {
-        id: 'cleaver_of_vorgos', name: 'Cleaver of Vorgos',
-        description: "The warlord Vorgos's legendary blade. Hits cost 2 MP, deal +35% arcane. +12 STR, +4 INT. [3× damage vs enemies below 30% HP]",
+        id: 'cleaver_of_vorgos', name: "The Warlord's Cleaver",   // (id kept for saves; canon Vorgos is the Universal Sentinel, not a warlord — canon check 2026-11-20)
+        description: "A nameless warlord's legendary blade. Hits cost 2 MP, deal +35% arcane. +12 STR, +4 INT. [3× damage vs enemies below 30% HP]",
         color: 0xffd700, stackable: false, icon: 'itm_sword_02', slot: 'weapon', tier: 5, weaponType: 'spell_blade', rarity: 'legendary',
         stats: { strength: 12, intelligence: 4 }, passive: 'execute_strike', sellPrice: 999,
         onUse: (stats) => stats.equipItem('cleaver_of_vorgos'),

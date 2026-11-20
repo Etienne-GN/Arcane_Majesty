@@ -14,7 +14,7 @@ export const MASTERY_DEFS = {
         id: 'aetheric_comprehension', cost: 3,
         name: 'Aetheric Comprehension',
         description: 'Aetheric Tear cooldown 60s → 45s, mana cost 85% → 75%.',
-        lore: '"The first record of spatial tearing predates the Covenant by 200 years." — Archive Fragment',
+        lore: '"The first record of spatial tearing predates the Concord by 200 years." — Archive Fragment',
     },
     spatial_attunement: {
         id: 'spatial_attunement', cost: 5,
@@ -32,7 +32,7 @@ export const MASTERY_DEFS = {
         id: 'mana_efficiency', cost: 2,
         name: 'Mana Efficiency',
         description: 'All spells cost 10% less mana.',
-        lore: '"The masters wasted nothing." — Covenant Training Manual',
+        lore: '"The masters wasted nothing." — Concord Training Manual',
     },
     void_sense: {
         id: 'void_sense', cost: 3,

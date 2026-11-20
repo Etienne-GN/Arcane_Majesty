@@ -61,7 +61,7 @@ export const QUESTS = {
 
     hidden_covenant_scholar: {
         id: 'hidden_covenant_scholar',
-        title: 'The Covenant Scholar',
+        title: 'The Concord Scholar',
         type: 'hidden',
         description: 'An ancient tome sealed by magical locks responds to your growing mastery of the arcane arts.',
         steps: [
