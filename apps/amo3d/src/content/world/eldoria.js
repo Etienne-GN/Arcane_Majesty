@@ -18,6 +18,7 @@ import { createEastRoad } from '../eastRoad.js';
 import { createMountain } from '../mountain.js';
 import { createSanctuary } from '../sanctuary.js';
 import { createAnimals, NAMES as ANIMAL_NAMES } from '../actors/animals.js';
+import { createDeer } from '../actors/deer.js';
 import { createBeasts, NAMES as BEAST_NAMES } from '../actors/beast.js';
 import { buildRegion, regionHeight, buildArch } from '../../engine/region.js';
 import { settings } from '../../engine/settings.js';
@@ -434,6 +435,7 @@ export function createEldoriaWorld({ quality } = {}) {
         spawnWild: (kind, type, posts, rng) => {
             const sc = world?.scene; if (!sc) return [];
             try {
+                if (kind === 'animal' && type === 'deer') return posts.map((home, i) => { const d = createDeer({ home, stag: i === 0 && rng() < 0.4, rng, map: world }); sc.add(d.root); return d; });   // (deer: their own model)
                 if (kind === 'animal' && ANIMAL_NAMES[type]) return createAnimals({ scene: sc, map: world, rng, type, posts });
                 if (kind === 'beast' && BEAST_NAMES[type]) return createBeasts({ scene: sc, map: world, rng, type, posts });
             } catch (e) { console.warn('[wild] could not spawn', type, e); }

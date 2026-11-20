@@ -61,6 +61,7 @@ import { createCharacter } from './content/models/character.js';
 import eldrinCast from './content/cast/eldrin.json';
 import { setPlatesVisible } from './content/actors/enemyCore.js';
 import { createTitle } from './game/title.js';
+import { ELDRIN as ELDRIN_V, toWorld as vToWorld } from './content/eldrinVale.js';
 import { hasSave } from './game/save.js';
 import { createOutdoor } from './content/glade.js';
 import { createTower } from './content/eldrinTower.js';
@@ -531,12 +532,22 @@ const COVER = { from: [250, 14, 112], to: [-30, 12, 60], drift: 6 };
 const coverFocus = new THREE.Vector3();
 function titleFocus() {   // where the world streams and builds round while the title shows: the cover's foreground (or the old tower)
     if (world.id !== 'eldoria') return title.focus;
+    if (!TITLE_COVER) { const gl = world.current.stamps?.find(s2 => s2.id === 'outdoor'); if (gl) return coverFocus.copy(title.focus).add(gl.off); }
     const c = world.current.spawns?.['place:The Citadel of Thaloria'] ?? world.current.spawns?.['thaloria:north_gate'];
     if (!c) return title.focus;
     return coverFocus.set(c.x - 60, world.current.heightAt(c.x - 60, c.z + 40), c.z + 40);
 }
+// For now the title swings round Eldrin's Tower (asked 2026-11-20); the cover shot below is kept for later (TITLE_COVER).
+const TITLE_COVER = false;
 function coverShot(time, pos, look) {
     if (world.id !== 'eldoria') return false;
+    if (!TITLE_COVER) {   // the tower's shot (title.js), moved to where the glade sits in the open world
+        const gl = world.current.stamps?.find(s2 => s2.id === 'outdoor'); if (!gl) return false;
+        const a = Math.sin(time * 0.045) * 0.75, p = vToWorld(Math.sin(a) * 33, -Math.cos(a) * 33);
+        pos.set(p.x + gl.ox, ELDRIN_V.TY + 8 + Math.sin(time * 0.11) * 1.5 + gl.oy, p.z + gl.oz);
+        look.set(ELDRIN_V.T.x + gl.ox, ELDRIN_V.TY + 9 + Math.sin(time * 0.07) * 1.2 + gl.oy, ELDRIN_V.T.z + gl.oz);
+        return true;
+    }
     const st = world.current.stamps?.find(s2 => s2.id === 'citadel_plateau'); if (!st) return false;
     const a = Math.sin(time * 0.05) * COVER.drift;
     pos.set(st.ox + COVER.from[0] + a, st.oy + COVER.from[1] + Math.sin(time * 0.09) * 1.5, st.oz + COVER.from[2] - a * 0.4);
@@ -591,7 +602,7 @@ function tick(dt) {
     if (title?.active) {
         input.poll(dt);   // drain input while the title owns the screen
         title.update(dt, gameCam);
-        world.current.update(simT, dt, { ...clock((world.id === 'eldoria' ? 18.4 : 19.4) * 60), weather: 'clear', player: { pos: titleFocus(), dead: true, speed: 0 }, camera, fx: world.current.fx ?? fireballs, hurtPlayer: () => false, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop });
+        world.current.update(simT, dt, { ...clock((world.id === 'eldoria' && TITLE_COVER ? 18.4 : 19.4) * 60), weather: 'clear', player: { pos: titleFocus(), dead: true, speed: 0 }, camera, fx: world.current.fx ?? fireballs, hurtPlayer: () => false, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop });
         return;
     }
     const act = input.poll(dt);
