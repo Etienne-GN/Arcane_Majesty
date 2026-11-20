@@ -77,7 +77,7 @@ export function createHud() {
                 ui.slot.style.filter = f; if (tb) tb.style.filter = f;
             }
 
-            const list = Object.entries(player.buffs ?? {});
+            const list = Object.entries(player.buffs ?? {}).filter(([id]) => id !== 'shaping');   // (shaping: an internal hold — a change, a scene — not a status to show)
             const key = list.map(([id, b]) => `${id}:${Math.ceil(b.left)}`).join('|');
             if (key !== iconKey) {
                 iconKey = key;

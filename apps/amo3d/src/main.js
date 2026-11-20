@@ -67,6 +67,8 @@ import { createEastRoad, EAST_ROAD_GATES } from './content/eastRoad.js';
 import { createMountain } from './content/mountain.js';
 import { createSanctuary, registerSanctuaryQuests } from './content/sanctuary.js';
 import { createChapters, registerChapterQuests } from './content/chapters.js';
+import { createPrologue, registerPrologueQuests } from './content/prologue.js';
+import { createVision } from './content/vision.js';
 import { populate } from './content/actors/animals.js';
 import { dailyRng } from './content/actors/beast.js';
 // Animals per map (amo ENEMY_TYPES): [type, count, near (landmark or point), radius].
@@ -263,6 +265,7 @@ const world = createMapManager({
         citadel_library: () => createCitadelLibrary(),
         forbidden_archive: () => createForbiddenArchive(),
         ...Object.fromEntries(Object.keys(DUNGEONS).map(id => [id, () => buildDungeon(DUNGEONS[id])])),
+        vision: () => createVision(),   // chapter 2: what the storm shows Eldrin
         umbral_test: () => buildRegion(umbralTwin(REGIONS.lake_aethera, { id: 'umbral_test', name: 'Umbral twin (test) — Lake Aethera', ruins: 12, spires: 1 }), { quality }),   // Nythoria N1: the engine's test (god mode only; names nothing)   // the dungeons, a level each
         ...Object.fromEntries(Object.keys(REGIONS).filter(id => !REGIONS[id].builder).map(id => [id, () => buildRegion(REGIONS[id], { quality })])),   // regions with a builder (the Sanctuary) keep their own code
     },
@@ -294,6 +297,7 @@ const world = createMapManager({
             if (id === 'sylvan_sanctuary' && !stats.questLog?.main_elementals_trial) quests.start('main_elementals_trial');
         }
         lockDoors(map, id);
+        if (!CUSTOM) prologue?.enter(map, id);   // chapters 1–2 and the threads between 3–6
         if (!CUSTOM) chapters?.enter(map, id);   // Eldoria's Prophecy, chapters 6–12: the story's scenes on this map
         if (CUSTOM && id === 'thaloria_inn' && !stats.flags.newcomer) newcomerMorning();
         hud.banner(lastLevel ? `${map.name} — ${lastLevel}` : map.name);
@@ -356,6 +360,7 @@ const mapView = createMapView({ stats, hud });
 const shop = createShop({ stats, hud, save: () => save() });
 const quests = createQuests({ stats, hud });
 registerSanctuaryQuests(stats);
+registerPrologueQuests(stats);   // chapters 1–2 (the study, the vision)
 registerChapterQuests(stats);   // Eldoria's Prophecy, chapters 6–12   // game quests from the campaign spec, run by amo's quest manager as generated quests
 const bountyBoard = createBountyBoard({ stats, hud, save: () => save() });
 // Two-hand actions (Options): each hand's action button and the arch that cycles its favourites.
@@ -416,6 +421,7 @@ const dialogue = createDialogue({
     onTeach: () => {},
 });
 let chapters = null;   // created below, once the world and the player exist
+let prologue = null;   // chapters 1–2 (content/prologue.js), likewise
 
 // The newcomer's first morning at the inn: the letter under the door, and a home.
 function newcomerMorning() {
@@ -648,6 +654,7 @@ function tick(dt) {
     }
     map.update(simT, dt, ctx);
     chapters?.update(dt, { ...ctx, t: simT });
+    if (!CUSTOM) prologue?.update(dt, { ...ctx, t: simT });
     updateEnemyMagic(dt, ctx);
     updateTorch(simT);   // enemy bolts in flight, their wards and the Void Aegis
     sweepPlates();
@@ -676,6 +683,7 @@ function tick(dt) {
     if (archery.armed()) hud.ui.speed.textContent += `${hud.ui.speed.textContent ? ' · ' : ''}${archery.ready()} arrows ready (+${archery.spare()} in the satchel)`;
 }
 
+prologue = createPrologue({ stats, hud, dialogue, quests, save: () => save(), player, world, sfx });
 chapters = createChapters({ stats, hud, dialogue, quests, save: () => save(), player, world, cam, relock: m => lockDoors(m, world.id) });
 if (REGIONS[params.get('region')] || ['the_summit', 'thaloria', 'east_road', 'outdoor', 'sylvan_sanctuary', 'tower'].includes(params.get('region'))) world.enter(params.get('region'), 'start');   // the editor's "Play here"
 else if (savedAt && world.maps && ['outdoor', 'tower', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'citadel_library', 'forbidden_archive', ...Object.keys(DUNGEONS), ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);

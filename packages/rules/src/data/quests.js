@@ -285,9 +285,10 @@ export const QUESTS = {
         id: 'main_read_the_erasure',
         title: 'Read the Erasure',
         type: 'main',
-        description: 'Examine the strata along the tower wall — something in the stone has been tidied away.',
+        description: 'In the study at the top of your tower: the strata cores, where something in the stone has been tidied away — and a letter you keep coming back to.',
         steps: [
-            { id: 'read_strata_wall', type: 'read_signs', target: 'any', label: 'Examine the Strata Wall', required: 1 },
+            { id: 'read_strata_wall', type: 'read_signs', target: 'ch1_strata', label: 'Examine the strata cores on your desk (the study, top of the tower)', required: 1 },
+            { id: 'read_letter', type: 'read_signs', target: 'ch1_letter', label: 'Read the letter from Silverrun', required: 1 },
         ],
         reward: { glint: 0, xp: 30, items: [] },
     },
