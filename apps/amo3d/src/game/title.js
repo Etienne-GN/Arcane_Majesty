@@ -1,3 +1,4 @@
+import { suspendAudio } from '../engine/sfx.js';
 import { settings, onSettingChange } from '../engine/settings.js';
 // Title screen & main menu (Phase 1.5). Rendered live: the camera drifts around Eldrin's tower in
 // the vale's dusk mood, ARCANE MAJESTY rises in gold over the Arcane Majesty emblem, embers float up,
@@ -97,6 +98,11 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
     const music = new Audio(titleTrack);
     onSettingChange(k => { if (k !== 'music') return; music.volume = (stage === 'flying' || !active ? PLAY_VOLUME : VOLUME) * settings.music; });
     music.loop = true;
+    // In the background (the app switched away, the phone locked) the music stops; back, it plays on where it was.
+    let bgPlaying = false;
+    const toBackground = hidden => { if (hidden) { bgPlaying = !music.paused; music.pause(); suspendAudio(true); } else { suspendAudio(false); if (bgPlaying) music.play().catch(() => {}); } };
+    document.addEventListener('visibilitychange', () => toBackground(document.hidden));
+    if (window.Capacitor?.isNativePlatform?.()) import('@capacitor/app').then(({ App }) => { App.addListener('pause', () => toBackground(true)); App.addListener('resume', () => toBackground(false)); });
     music.volume = 0;
     let active = true, stage = 'press', t = 0, flight = null;
 

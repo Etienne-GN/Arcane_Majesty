@@ -724,7 +724,7 @@ const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.c
 // Handle for headless checks.
 window.__poc = {
     player: player.state, stats, input, cam, quality, save, skills, playerApi: player, quests,
-    advance: s => loop.advance(s), showWeapons: () => showWeapons(), coreOf, debugMagic,
+    advance: s => loop.advance(s), renderer, camera, tickOnly: dt => tick(dt), showWeapons: () => showWeapons(), coreOf, debugMagic,
     hurtPlayer: player.hurt,
     keys: input.keys,
     get maps() { return world.maps; },

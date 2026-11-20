@@ -78,7 +78,7 @@ export function createThaloriaCity({ quality }) {
     const boxColl = (x, z, w, d, a, y0, y1) => { const q = corners(x, z, w, d, a); for (let i = 0; i < 4; i++) wallSeg(q[i][0], q[i][1], q[(i + 1) % 4][0], q[(i + 1) % 4][1], y0, y1); };
 
     // ---------- the ground: the hill, streets graded to their beds, house pads, the gorge ----------
-    const X0 = -190, X1 = 190, Z0 = -80, Z1 = 262, STEP = 1.5, NX = Math.round((X1 - X0) / STEP), NZ = Math.round((Z1 - Z0) / STEP);
+    const X0 = -190, X1 = 190, Z0 = -80, Z1 = 262, STEP = 2.5, NX = Math.round((X1 - X0) / STEP), NZ = Math.round((Z1 - Z0) / STEP);
     const pads = [];   // house floors: { x, z, w, d, a, h }
     for (const p of PLAN.plots) p.h = cityGround(p.x + Math.cos(p.a) * p.d / 2, p.z + Math.sin(p.a) * p.d / 2);   // its floor: the ground at its door
     const HF = new Float32Array((NX + 1) * (NZ + 1)), KIND = new Uint8Array((NX + 1) * (NZ + 1));   // kind: 0 yard, 1 street, 2 square, 3 stone (under buildings)
@@ -99,7 +99,8 @@ export function createThaloriaCity({ quality }) {
         if (fx < 0 || fz < 0 || fx >= NX || fz >= NZ) return gorge(x, z, cityGround(x, z));
         const i = Math.floor(fx), j = Math.floor(fz), u = fx - i, v = fz - j, k = j * (NX + 1) + i;
         let h = (HF[k] * (1 - u) + HF[k + 1] * u) * (1 - v) + (HF[k + NX + 1] * (1 - u) + HF[k + NX + 2] * u) * v;
-        for (const p of padsNear(x, z)) if (inQuad(p.q, x, z)) h = p.h;   // inside a building: its floor
+        const pc = padGrid.get(Math.floor(x / 16) + ',' + Math.floor(z / 16));   // inside a building: its floor (its own cell is enough — pads are small)
+        if (pc) for (const p of pc) if (inQuad(p.q, x, z)) { h = p.h; break; }
         return h;
     }
     // the ground mesh, coloured: cobbles in the streets, paving on the squares, earth and grass in the yards
@@ -302,15 +303,31 @@ export function createThaloriaCity({ quality }) {
         wood: flat(0x6a4a2c), awningR: flat(0xa83a2a), awningB: flat(0x3a5a8a), awningY: flat(0xc8a040), banner: flat(0x2a4a8a),
         lamp: new THREE.MeshStandardMaterial({ color: 0x3a3428, emissive: 0xffc070, emissiveIntensity: 0, flatShading: true }),
     };
+    // Merged for the phone: every plain colour into one vertex-coloured mesh per 80 m block (the camera and the shadow
+    // pass skip the blocks they cannot see; one draw each), the glowing parts (windows, lanterns) their own per block.
+    const CHUNK = 80, chunks = new Map(), col = new THREE.Color();
     for (const [k, list] of Object.entries(parts)) {
-        if (!list.length) continue;
-        const g = mergeGeometries(list.map(x => { const n = x.index ? x.toNonIndexed() : x; for (const k of Object.keys(n.attributes)) if (k !== 'position' && k !== 'normal') n.deleteAttribute(k); if (!n.attributes.normal) n.computeVertexNormals(); return n; }), false); list.forEach(x => x.dispose());   // (flat colours: position and normal only)
-        const m = new THREE.Mesh(g, M[k]); m.castShadow = k !== 'window' && k !== 'dark'; m.receiveShadow = true; scene.add(m);
+        const glow = k === 'window' || k === 'lamp';
+        for (const x of list) {
+            const n = x.index ? x.toNonIndexed() : x;
+            for (const a of Object.keys(n.attributes)) if (a !== 'position' && a !== 'normal') n.deleteAttribute(a);
+            if (!n.attributes.normal) n.computeVertexNormals();
+            if (!glow) { col.copy(M[k].color); const cs = new Float32Array(n.attributes.position.count * 3); for (let i = 0; i < cs.length; i += 3) { cs[i] = col.r; cs[i + 1] = col.g; cs[i + 2] = col.b; } n.setAttribute('color', new THREE.BufferAttribute(cs, 3)); }
+            n.computeBoundingSphere(); const c = n.boundingSphere.center;
+            const key = `${Math.floor(c.x / CHUNK)},${Math.floor(c.z / CHUNK)}:${glow ? k : 'plain'}`;
+            (chunks.get(key) ?? chunks.set(key, []).get(key)).push(n);
+        }
+    }
+    const plainMat = flat(0xffffff, { vertexColors: true });
+    for (const [key, list] of chunks) {
+        const kind = key.split(':')[1], g = mergeGeometries(list, false); list.forEach(x => x.dispose());
+        const m = new THREE.Mesh(g, kind === 'plain' ? plainMat : M[kind]); m.castShadow = kind === 'plain'; m.receiveShadow = true; scene.add(m);
     }
 
     // ---------- trees: in the yards behind the houses, the cloister, the manor's garden ----------
+    const CROWN_MED = mergeGeometries([new THREE.IcosahedronGeometry(1.9, 1).translate(0, 3.8, 0), new THREE.IcosahedronGeometry(1.2, 0).translate(0.9, 3.2, 0.4)].map(g => { g.deleteAttribute('uv'); return g; }));   // a yard tree's crown: a third of the forest one's triangles
     { const K = treeKinds(), pts = [];
-      for (let k = 0; k < 2600 && pts.length < 260; k++) {
+      for (let k = 0; k < 2600 && pts.length < 170; k++) {
           const x = -175 + rng() * 350, z = -40 + rng() * 290;
           if (!insideWall(x, z, 6)) continue;
           const n = nearestSeg(x, z); if (n && n.d < 3) continue;
@@ -319,7 +336,7 @@ export function createThaloriaCity({ quality }) {
           pts.push([x, z, heightAt(x, z), 0.55 + rng() * 0.35, rng() * 6.28]);
       }
       for (const part of ['trunk', 'crown']) {
-          const im = new THREE.InstancedMesh(K.broad[part], flat(part === 'trunk' ? K.broad.trunkColor : 0xffffff), pts.length), c = new THREE.Color();
+          const im = new THREE.InstancedMesh(part === 'crown' ? CROWN_MED : K.broad[part], flat(part === 'trunk' ? K.broad.trunkColor : 0xffffff), pts.length), c = new THREE.Color();
           pts.forEach(([x, z, h, s, r], i) => { q4.setFromAxisAngle(Y, r); tmpM.compose(pv.set(x, h - 0.1, z), q4, sc.setScalar(s)); im.setMatrixAt(i, tmpM); if (part === 'crown') im.setColorAt(i, c.setHSL(0.27 + rng() * 0.04, 0.42, 0.27 + rng() * 0.06)); });
           im.castShadow = true; scene.add(im);
       }
@@ -372,14 +389,16 @@ export function createThaloriaCity({ quality }) {
         if (moving || padsNear(px, pz).some(p => inQuad(p.q, px, pz))) [px, pz] = onStreet(px, pz);   // walking, or inside a house: on the street
         return [px, pz];
     }
-    const town = createTownsfolk({ scene, W: 128, H: 112, resolve: (pos, r) => pushOut(colliders.filter(c => c.ax !== undefined && Math.abs(c.ax - pos.x) < 20 && Math.abs(c.az - pos.z) < 20), pos, r), remap, heightAt });
+    const segGrid = new Map();   // the walls (segment colliders) in 20 m cells — the townsfolk check only their own cell's
+    for (const c of colliders) if (c.ax !== undefined) for (const [x, z] of [[c.ax, c.az], [c.bx, c.bz]]) { const k = Math.floor(x / 20) + ',' + Math.floor(z / 20); const l = segGrid.get(k) ?? segGrid.set(k, []).get(k); if (!l.includes(c)) l.push(c); }
+    const town = createTownsfolk({ scene, W: 128, H: 112, resolve: (pos, r) => pushOut(segGrid.get(Math.floor(pos.x / 20) + ',' + Math.floor(pos.z / 20)) ?? [], pos, r), remap, heightAt });
 
     // chimney smoke: a slow grey column from two dozen chimneys (a few sprites each, cycling)
     const smokeTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'), gr = g.createRadialGradient(32, 32, 2, 32, 32, 30); gr.addColorStop(0, 'rgba(200,200,205,0.55)'); gr.addColorStop(1, 'rgba(200,200,205,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();
     const smoke = [];
-    for (let k = 0; k < chimneys.length; k += Math.max(1, Math.floor(chimneys.length / 24))) {
+    for (let k = 0; k < chimneys.length; k += Math.max(1, Math.floor(chimneys.length / 14))) {
         const [x, y, z] = chimneys[k];
-        for (let i = 0; i < 5; i++) { const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: smokeTex, transparent: true, depthWrite: false })); sp.userData.dynamic = true; scene.add(sp); smoke.push({ sp, x, y, z, t: i / 5 }); }
+        for (let i = 0; i < 3; i++) { const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: smokeTex, transparent: true, depthWrite: false })); sp.userData.dynamic = true; scene.add(sp); smoke.push({ sp, x, y, z, t: i / 3 }); }
     }
     const winMat = M.window;
     const map = {
@@ -394,7 +413,7 @@ export function createThaloriaCity({ quality }) {
         weatherDef: { id: 'thaloria', biome: 'temperate' },
         town,
         update(t, dt, ctx) { const S = shell.update(dt, ctx), n = S?.night ?? 0; winMat.emissiveIntensity = n * 1.3; M.lamp.emissiveIntensity = n * 2.4; town.update(dt, ctx);
-            for (const p of smoke) { p.t = (p.t + dt * 0.12) % 1; p.sp.position.set(p.x + p.t * 1.5, p.y + p.t * 7, p.z + p.t * 0.6); p.sp.scale.setScalar(0.8 + p.t * 3); p.sp.material.opacity = 0.5 * Math.sin(p.t * Math.PI); } },
+            const PP = ctx.player.pos; for (const p of smoke) { p.sp.visible = Math.abs(p.x - PP.x) < 160 && Math.abs(p.z - PP.z) < 160; if (!p.sp.visible) continue; p.t = (p.t + dt * 0.12) % 1; p.sp.position.set(p.x + p.t * 1.5, p.y + p.t * 7, p.z + p.t * 0.6); p.sp.scale.setScalar(0.8 + p.t * 3); p.sp.material.opacity = 0.5 * Math.sin(p.t * Math.PI); } },
     };
     // the chart: streets, squares, every building's footprint, the wall
     const bxs = []; for (const p of padList) { const xs = p.q.map(c => c[0]), zs = p.q.map(c => c[1]); bxs.push({ x0: Math.min(...xs), z0: Math.min(...zs), x1: Math.max(...xs), z1: Math.max(...zs) }); }

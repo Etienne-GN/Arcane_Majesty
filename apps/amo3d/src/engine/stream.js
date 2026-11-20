@@ -9,6 +9,7 @@
 //   · no floating origin: at Eldoria's planned size (±3.75 km) float precision stays ~0.5 mm — not needed yet.
 // The map object has the same shape as a region's, so the player, the camera and the HUD use it unchanged.
 import * as THREE from 'three';
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { flat, mulberry32, colliderAt, pushOut, fbm } from './lib.js';
 import { createOutdoorShell } from './outdoor.js';
 import { treeKinds } from '../content/models/flora.js';
@@ -143,6 +144,30 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         m.customProgramCacheKey = () => 'shapeClip:' + st.id;
         m.needsUpdate = true;
     }
+    // A built place's unchanging pieces merged by material (a region map is hundreds of small meshes: one draw call each
+    // on a phone). Left alone: anything dynamic (tagged, or under a tagged group), instanced, skinned, transparent, or
+    // a material used by fewer than four meshes (most things that animate have their own).
+    function staticBatch(g) {
+        const groups = new Map(), m4 = new THREE.Matrix4(), inv = new THREE.Matrix4().copy(g.matrixWorld).invert();
+        g.updateMatrixWorld(true);
+        g.traverse(o => {
+            if (!o.isMesh || o.isInstancedMesh || o.isSkinnedMesh || Array.isArray(o.material) || o.material.transparent || o.morphTargetInfluences) return;
+            for (let p = o; p && p !== g; p = p.parent) if (p.userData.dynamic || p.userData.veil) return;
+            const mt = o.material, look = mt.isShaderMaterial ? mt.uuid : [mt.type, mt.color?.getHexString(), mt.emissive?.getHexString(), mt.emissiveIntensity, mt.vertexColors, mt.flatShading, mt.side, mt.map?.uuid, mt.roughness, mt.metalness].join('/');   // same look, whatever the object
+            const key = look + '|' + Object.keys(o.geometry.attributes).sort().join(',') + '|' + (o.geometry.index ? 'i' : 'n');
+            (groups.get(key) ?? groups.set(key, []).get(key)).push(o);
+        });
+        for (const list of groups.values()) {
+            if (list.length < 4) continue;
+            const geos = list.map(o => { m4.multiplyMatrices(inv, o.matrixWorld); return o.geometry.clone().applyMatrix4(m4); });
+            let merged = null; try { merged = mergeGeometries(geos, false); } catch { merged = null; }
+            geos.forEach(x => x.dispose());
+            if (!merged) continue;
+            const m = new THREE.Mesh(merged, list[0].material); m.castShadow = list.some(o => o.castShadow); m.receiveShadow = list.some(o => o.receiveShadow);
+            for (const o of list) o.parent?.remove(o);
+            g.add(m);
+        }
+    }
     // A stamp joins the world (at once, or — a lazy one — when you come near): its content moved in; its ground and water
     // clipped to the rect; its colliders bucketed by tile; its doors, signs, arrival points and landmarks moved into world
     // coordinates; its exits to places now in the world dropped (with their veils); its life awake; the tiles under it
@@ -184,6 +209,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
                 for (const m of mats) { if (m.isShaderMaterial) { m.clippingPlanes = planes; m.needsUpdate = true; } else shapeClip(m, st); }   // its ground cut to the rounded footprint
         });
         for (const o of drop) o.parent?.remove(o);
+        if (st.batch !== false) staticBatch(g);
         rebucket(st);
     const gone = [], kept = [];
         for (const t of st.map.triggers ?? []) {
@@ -292,7 +318,10 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
 
     // Trees and rocks for a near tile (seeded by the tile, so they are the same every time it is built).
     const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), v = new THREE.Vector3(), sc = new THREE.Vector3(), Y = new THREE.Vector3(0, 1, 0);
-    function tileFlora(t) {
+    // Far trees (tiles two or three away): one coarse crown each, no trunk, no shadow — a tenth of the triangles.
+    const CHEAP = { pine: new THREE.ConeGeometry(1.5, 5.0, 5).translate(0, 3.0, 0), broad: new THREE.IcosahedronGeometry(2.0, 0).translate(0, 3.7, 0) };
+    function tileFlora(t, cheap = false) {
+        t.cheap = cheap;
         const rng = mulberry32(seed + t.tx * 7919 + t.tz * 104729);
         const x0 = t.tx * TILE - half, z0 = t.tz * TILE - half;
         const byKind = { pine: [], broad: [] };
@@ -309,14 +338,14 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         for (const [kind, list] of Object.entries(byKind)) {
             if (!list.length) continue;
             const Kd = K[kind];
-            const trunks = new THREE.InstancedMesh(Kd.trunk, flat(Kd.trunkColor), list.length), crowns = new THREE.InstancedMesh(Kd.crown, flat(0xffffff), list.length);
+            const trunks = cheap ? null : new THREE.InstancedMesh(Kd.trunk, flat(Kd.trunkColor), list.length), crowns = new THREE.InstancedMesh(cheap ? CHEAP[kind] : Kd.crown, flat(0xffffff), list.length);
             list.forEach((tr, i) => {
                 q.setFromAxisAngle(Y, tr.r); m4.compose(v.set(tr.x, tr.h - 0.1, tr.z), q, sc.setScalar(tr.s));
-                trunks.setMatrixAt(i, m4); crowns.setMatrixAt(i, m4);
+                trunks?.setMatrixAt(i, m4); crowns.setMatrixAt(i, m4);
                 crowns.setColorAt(i, kind === 'pine' ? col.setHSL(0.33, 0.4, 0.18 + tr.tint * 0.06) : col.setHSL(0.25 + tr.tint * 0.05, 0.45, 0.25));
                 t.colliders.push({ x: tr.x, z: tr.z, r: Kd.r * tr.s, kind: 'wall', y0: tr.h - 0.5, y1: tr.h + 5 * tr.s });
             });
-            for (const im of [trunks, crowns]) { im.castShadow = im.receiveShadow = true; im.userData.dynamic = true; scene.add(im); t.trees.push(im); }
+            for (const im of [trunks, crowns]) { if (!im) continue; im.castShadow = !cheap; im.receiveShadow = !cheap; im.userData.dynamic = true; scene.add(im); t.trees.push(im); }
         }
     }
 
@@ -326,8 +355,9 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         t.mesh = new THREE.Mesh(tileGeometry(t.tx, t.tz, LOD(lod)), terrainMat);
         t.mesh.receiveShadow = lod <= 1; t.mesh.userData.dynamic = true;
         scene.add(t.mesh);
-        const wantTrees = lod <= 2;
-        if (wantTrees && !t.trees.length) tileFlora(t);
+        const wantTrees = lod <= 2, cheap = lod >= 2;
+        if (wantTrees && t.trees.length && t.cheap !== cheap) dropFlora(t);   // near ↔ far: rebuilt at the other detail
+        if (wantTrees && !t.trees.length) tileFlora(t, cheap);
         if (!wantTrees && t.trees.length) dropFlora(t);
         t.lod = lod; t.pending = false;
         const ms = performance.now() - t0; stats.lastMs = ms; stats.maxMs = Math.max(stats.maxMs * 0.995, ms); stats.built++;
@@ -402,6 +432,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             let building = false;
             for (const st of stamps) {   // a stamped place's creatures, while the player is within reach of it
                 if (!st.built) { if (!building && inRect(st, P.x, P.z, BUILD_R)) { building = true; integrate(st); } continue; }   // a lazy place: built as you come near (one a frame)
+                st.group.visible = inRect(st, P.x, P.z, 450);   // far places are hidden (they are in the fog by then; a phone draws only what is near)
                 const inside = inRect(st, P.x, P.z, 4);
                 if (inside && !st.inside) map.onPlace?.(st.id, st.map.name ?? st.id, st);   // walked into a place (main.js: its story, its banner)
                 st.inside = inside;

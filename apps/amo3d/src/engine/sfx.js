@@ -17,6 +17,8 @@ function ac() {
     master.gain.value = 0.5 * (settings.sfx ?? 1);
     return ctx;
 }
+// The app sent to the background (Android): every sound stops; brought back, it resumes.
+export function suspendAudio(on) { if (!ctx) return; if (on) ctx.suspend?.(); else ctx.resume?.(); }
 // Browsers only allow sound after a gesture: wake the context on the first one.
 for (const ev of ['pointerdown', 'keydown']) addEventListener(ev, () => ac(), { once: true, capture: true });
 
