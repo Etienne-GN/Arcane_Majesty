@@ -312,7 +312,7 @@ export function createEldoriaWorld({ quality } = {}) {
         spawn: gladeStart ?? { x: GLADE.x + 30, z: GLADE.z + 20, facing: toCity },
         mood: { fog: '#c8d2d8', fogNear: 180, fogFar: 760, fogMix: 0.5 },
         places,
-        chart: { pxPerM: 0.0625, tileM: 4, groundAt: (x, z) => (roadDist(x, z) < 6 ? 'road' : null) },
+        chart: { pxPerM: 0.0625, tileM: 4, detail: true, groundAt: (x, z) => (roadDist(x, z) < 6 ? 'road' : null) },
         clearAt: (x, z) => roadDist(x, z) < 5 || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || polyDist(RIVER, x, z) < 9,
         groundColor: (x, z, h, col) => {
             if (h < WATER + 0.8) return false;

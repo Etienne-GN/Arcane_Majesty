@@ -302,7 +302,9 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             if (fbm(x * 0.012 + 3, z * 0.012 + 9, 3) < 0.5) continue;   // woods and clearings
             if (clearAt && clearAt(x, z)) continue;   // roads, a town's ground
             if (stamped(x, z)) continue;   // a stamped place brings its own
-            byKind[h > 18 || rng() < 0.4 ? 'pine' : 'broad'].push({ x, z, h, s: 0.8 + rng() * 0.6, r: rng() * 6.28, tint: rng() });
+            const kind = h > 18 || rng() < 0.4 ? 'pine' : 'broad';
+            byKind[kind].push({ x, z, h, s: 0.8 + rng() * 0.6, r: rng() * 6.28, tint: rng() });
+            (t.treePts ??= []).push([x, z, kind === 'pine']);   // (the minimap draws them)
         }
         for (const [kind, list] of Object.entries(byKind)) {
             if (!list.length) continue;
@@ -330,7 +332,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         t.lod = lod; t.pending = false;
         const ms = performance.now() - t0; stats.lastMs = ms; stats.maxMs = Math.max(stats.maxMs * 0.995, ms); stats.built++;
     }
-    function dropFlora(t) { for (const im of t.trees) { scene.remove(im); im.dispose(); } t.trees = []; t.colliders = []; }
+    function dropFlora(t) { for (const im of t.trees) { scene.remove(im); im.dispose(); } t.trees = []; t.colliders = []; t.treePts = []; }
     function drop(key, t) { if (t.mesh) { scene.remove(t.mesh); t.mesh.geometry.dispose(); } dropFlora(t); tiles.delete(key); }
 
     let cx = null, cz = null;
@@ -388,6 +390,8 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         groundNormal(x, z) { const e = 0.3; return new THREE.Vector3(heightAt(x - e, z) - heightAt(x + e, z), 2 * e, heightAt(x, z - e) - heightAt(x, z + e)).normalize(); },
         triggers: [], stations: [], hittables: [], gatherSpots: [], gates: [], spawns: { start: { x: 0, z: 0, facing: 0 } },   // (moved to dry, low ground below) stations: [], hittables: [], gatherSpots: [], gates: [],
         mapInfo: null, weatherDef: { id, biome: 'temperate' },   // (a world's chart: set below from `chart`)
+        // the trees standing now in an area (the minimap)
+        treesIn(x0, z0, x1, z1) { const out = []; for (const t of tiles.values()) for (const p of t.treePts ?? []) if (p[0] > x0 && p[0] < x1 && p[1] > z0 && p[1] < z1) out.push(p); return out; },
         stamps, streamStats: () => ({ tiles: tiles.size, queue: queue.length, built: stats.built, lastMs: +stats.lastMs.toFixed(1), maxMs: +stats.maxMs.toFixed(1), fps, worstFrameMs: +worst.toFixed(1) }),
         update(t, dt, ctx) {
             frame++;

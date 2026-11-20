@@ -218,6 +218,53 @@ body.title-on #minimap { display: none; }
         g.fillStyle = '#3a2410'; g.fillText(text, x, y);
     }
 
+    // ---- detail round you (a world's chart is coarse): 128 m squares at 1 px/m, painted a few rows a frame ----
+    const DCELL = 128, detail = new Map();
+    let detailFor = null;
+    function detailStep(px, pz) {
+        const info = mapRef.mapInfo; if (!info?.detail) return;
+        if (detailFor !== mapRef) { detail.clear(); detailFor = mapRef; }
+        const cx = Math.floor(px / DCELL), cz = Math.floor(pz / DCELL);
+        let budget = 1300;   // samples a frame (a 128 m square fills in ~2 s)
+        for (let r = 0; r <= 1 && budget > 0; r++) for (let dz = -r; dz <= r && budget > 0; dz++) for (let dx = -r; dx <= r && budget > 0; dx++) {
+            const k = `${cx + dx},${cz + dz}`;
+            let d = detail.get(k);
+            if (!d) { const c = document.createElement('canvas'); c.width = c.height = DCELL; d = { x0: (cx + dx) * DCELL, z0: (cz + dz) * DCELL, c, row: 0, H: new Float32Array((DCELL + 1) * (DCELL + 1)), img: c.getContext('2d').createImageData(DCELL, DCELL) }; detail.set(k, d); }
+            while (d.row < DCELL && budget > 0) { paintRow(d, info); budget -= DCELL * 2; }
+        }
+        if (detail.size > 40) for (const [k, d] of detail) if (Math.abs(d.x0 / DCELL - cx) > 3 || Math.abs(d.z0 / DCELL - cz) > 3) detail.delete(k);
+    }
+    function paintRow(d, info) {
+        const y = d.row, W = DCELL, H = d.H, h = (i, j) => H[j * (W + 1) + i];
+        if (y === 0) for (let i = 0; i <= W; i++) H[i] = mapRef.heightAt(d.x0 + i, d.z0);
+        for (let i = 0; i <= W; i++) H[(y + 1) * (W + 1) + i] = mapRef.heightAt(d.x0 + i, d.z0 + y + 1);
+        const SNOW = info.snowH ?? 17, ROCK = info.rockH ?? 6, wl = info.water;
+        for (let i = 0; i < W; i++) {
+            const v = h(i, y + 1), dx = h(i + 1, y + 1) - v, dz = h(i, y + 1) - h(i, y), slope = Math.hypot(dx, dz);
+            const gr = info.groundAt?.(d.x0 + i, d.z0 + y);
+            let col = gr === 'road' ? [196, 172, 128] : v < wl - 0.6 ? [120, 158, 176] : v < wl ? [150, 184, 190] : v < wl + 0.5 ? [222, 200, 150]
+                : v > SNOW ? [240, 236, 226] : slope > 1.2 || v > ROCK ? [150, 138, 118] : [PARCH[0] * 0.8 + 24, PARCH[1] * 0.8 + 30, PARCH[2] * 0.8 + 16];
+            const shade = 0.88 + 0.14 * Math.max(-1, Math.min(1, -(dx + dz) * 0.6));   // light from the north-west
+            let ink = (v >= wl && (h(i + 1, y + 1) < wl || h(i, y) < wl)) ? 0.75 : 0;   // the shoreline in ink
+            if (Math.floor(v / 10) !== Math.floor(h(i + 1, y + 1) / 10) || Math.floor(v / 10) !== Math.floor(h(i, y) / 10)) ink = Math.max(ink, 0.22);   // a contour every 10 m
+            const o = (y * W + i) * 4;
+            for (let j = 0; j < 3; j++) d.img.data[o + j] = Math.max(0, Math.min(255, col[j] * shade)) * (1 - ink) + [58, 42, 24][j] * ink;
+            d.img.data[o + 3] = 255;
+        }
+        d.row++;
+        if (d.row === DCELL || d.row % 16 === 0) d.c.getContext('2d').putImageData(d.img, 0, 0);
+    }
+    function drawDetail(g, worldToScreen, k, x0, z0, x1, z1) {
+        for (const d of detail.values()) {
+            if (!d.row || d.x0 > x1 || d.x0 + DCELL < x0 || d.z0 > z1 || d.z0 + DCELL < z0) continue;
+            const [sx, sy] = worldToScreen(d.x0, d.z0);
+            g.drawImage(d.c, 0, 0, DCELL, d.row, sx, sy, DCELL * k, d.row * k);
+        }
+        if (!mapRef.treesIn) return;   // the trees standing round you
+        g.fillStyle = 'rgba(70,90,40,0.75)';
+        for (const [x, z, pine] of mapRef.treesIn(x0, z0, x1, z1)) { const [sx, sy] = worldToScreen(x, z); g.beginPath(); g.arc(sx, sy, pine ? 1.6 : 2.2, 0, Math.PI * 2); g.fill(); }
+    }
+
     // ---- minimap ----
     function update(player, camYaw) {
         lastPlayer = player;
@@ -234,6 +281,8 @@ body.title-on #minimap { display: none; }
         const ox = player.pos.x - MINI_R * 1.45, oz = player.pos.z - MINI_R * 1.45, span = MINI_R * 2 * 1.45;   // a little extra so corners stay filled when turned
         const sOff = (c - MINI_R * 1.45 * scale);
         g.drawImage(art.canvas, (ox + art.half) * PX_PER_M, (oz + art.half) * PX_PER_M, span * PX_PER_M, span * PX_PER_M, sOff, sOff, span * scale, span * scale);
+        detailStep(player.pos.x, player.pos.z);
+        drawDetail(g, (x, z) => [sOff + (x - ox) * scale, sOff + (z - oz) * scale], scale, ox, oz, ox + span, oz + span);
         drawStamps(g, (x, z) => [sOff + (x - ox) * scale, sOff + (z - oz) * scale], scale);
         g.imageSmoothingEnabled = true;
         g.drawImage(fogImg, (ox + art.half) / cellM(), (oz + art.half) / cellM(), span / cellM(), span / cellM(), sOff, sOff, span * scale, span * scale);
@@ -290,6 +339,7 @@ body.title-on #minimap { display: none; }
         const [x0, y0] = scr(-half, -half);
         g.imageSmoothingEnabled = z < PX_PER_M * 1.5;
         g.drawImage(art.canvas, x0, y0, half * 2 * z, half * 2 * z);
+        if (z > 0.6) { const [wx0, wz0] = [view.cx - W / 2 / z, view.cz - Hh / 2 / z]; drawDetail(g, scr, z, wx0, wz0, wx0 + W / z, wz0 + Hh / z); }   // zoomed in: the detail painted round you
         drawStamps(g, scr, z);
         g.imageSmoothingEnabled = true;
         g.drawImage(fogImg, x0, y0, half * 2 * z, half * 2 * z);
