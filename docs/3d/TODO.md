@@ -80,5 +80,6 @@ The lore DB already has 7: **Werewolf** (Guardians of the Wild, the Emerald Fiel
 - [ ] Repo visibility: stay public, or go private plus a public releases-only repo (the app needs no key that way).
 - [ ] A proper release signing key (today's is the debug key), and a store listing later.
 - [ ] PC build (Electron or the browser), and a test on a mid-range phone.
-- [ ] The player manual for 3D.
+- [x] The player manual for 3D (2026-11-19): `apps/amo3d/manual.html`, shipped in the game (title → HOW TO PLAY): controls for keyboard, gamepad and touch, the hands, combat, styles, magic, enemies, the world, living there, the story, menus, options, the Workshop.
+- [x] CI: actions/setup-java v5 (the deprecation warning).
 - [ ] CLAUDE.md: the DB counts are outdated (7 races now, not 6).

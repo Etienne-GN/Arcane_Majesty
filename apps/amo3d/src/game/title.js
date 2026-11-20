@@ -178,6 +178,8 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
         'BUILT WITH', 'Claude (Anthropic) — code written from the directors\' prompts', 'Three.js · Vite · Capacitor', ' ',
         'Every model, effect and landscape here is built in code: no borrowed art.']));
     credits.classList.add('link');
+    const howto = button('HOW TO PLAY', () => { location.href = 'manual.html'; });   // the player's manual (manual.html)
+    howto.classList.add('link');
     // A newer release on GitHub (phone builds made by CI only): offer it under the menu.
     if (isPhone() && VERSION !== 'dev') checkForUpdate().then(u => {
         if (!u) return;

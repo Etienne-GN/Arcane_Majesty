@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arcane Majesty — How to Play</title>
+<style>
+  :root { --ink: #eee6d2; --gold: #f3d88b; --dim: #b8ad94; --bg: #0d0a10; --panel: #17121c; --line: #f3d88b33; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: radial-gradient(ellipse at 50% -10%, #2a1a3a, var(--bg) 60%) fixed; color: var(--ink); font: 17px/1.6 Georgia, 'Times New Roman', serif; }
+  header { text-align: center; padding: 42px 16px 18px; }
+  header h1 { margin: 0; font-weight: normal; letter-spacing: .24em; color: var(--gold); font-size: clamp(26px, 5vw, 46px); }
+  header p { margin: 8px 0 0; color: var(--dim); letter-spacing: .12em; }
+  nav { position: sticky; top: 0; z-index: 2; background: #0d0a10ee; border-bottom: 1px solid var(--line); padding: 8px 12px; display: flex; flex-wrap: wrap; gap: 6px 14px; justify-content: center; font-size: 14px; letter-spacing: .08em; }
+  nav a { color: var(--dim); text-decoration: none; } nav a:hover { color: var(--gold); }
+  main { max-width: 900px; margin: 0 auto; padding: 8px 16px 80px; }
+  section { margin: 34px 0; scroll-margin-top: 110px; }
+  h2 { font-weight: normal; color: var(--gold); letter-spacing: .14em; border-bottom: 1px solid var(--line); padding-bottom: 6px; font-size: 22px; }
+  h3 { font-weight: normal; color: var(--gold); margin: 22px 0 6px; font-size: 18px; letter-spacing: .06em; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 15.5px; }
+  th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid #ffffff12; vertical-align: top; }
+  th { color: var(--gold); font-weight: normal; letter-spacing: .06em; }
+  td:first-child { white-space: nowrap; color: var(--gold); }
+  kbd { display: inline-block; padding: 0 6px; border: 1px solid #f3d88b66; border-radius: 4px; background: #241c2a; font: 14px Georgia, serif; color: var(--ink); }
+  .note { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 12px 0; color: var(--dim); }
+  ul { padding-left: 22px; } li { margin: 4px 0; }
+  a.back { position: fixed; left: 10px; bottom: 10px; z-index: 3; padding: 6px 12px; color: var(--ink); background: #120a06e6; border: 1px solid #f3d88b66; border-radius: 4px; text-decoration: none; font-size: 14px; }
+  @media (max-width: 600px) { body { font-size: 16px; } td:first-child { white-space: normal; } }
+</style>
+</head>
+<body>
+<header><h1>ARCANE MAJESTY</h1><p>How to play</p></header>
+<nav>
+  <a href="#start">Getting started</a><a href="#controls">Controls</a><a href="#hands">Your hands</a><a href="#combat">Combat</a>
+  <a href="#styles">Fighting styles</a><a href="#magic">Magic</a><a href="#enemies">Enemies</a><a href="#world">The world</a>
+  <a href="#life">Living there</a><a href="#story">The story</a><a href="#menus">Books &amp; menus</a><a href="#options">Options &amp; saves</a><a href="#workshop">The Workshop</a>
+</nav>
+<main>
+
+<section id="start">
+<h2>Getting started</h2>
+<p><b>New Game</b> offers the campaign — <i>Eldoria's Prophecy</i>, as Eldrin Nightshade, scholar of Thaloria — or a hero of your own made in the Forge. Eldrin's story begins in his tower above the glade: climb to the study at the top, and read what is on the desk.</p>
+<p>The <b>journal</b> (<kbd>J</kbd>) always says what to do next; a banner names the next place when a chapter ends. The map (<kbd>M</kbd>, or tap the minimap) shows where you are and where the ways out lead.</p>
+<div class="note">On a phone the game updates itself: when a new release is out, the title screen offers it.</div>
+</section>
+
+<section id="controls">
+<h2>Controls</h2>
+<h3>Keyboard and mouse</h3>
+<table>
+<tr><th>Key</th><th>What it does</th></tr>
+<tr><td><kbd>W A S D</kbd></td><td>Move (arrows too) · <kbd>Shift</kbd> sprint (it spends Vigor)</td></tr>
+<tr><td><kbd>Space</kbd></td><td>Hop — a short jump that dodges a blow. <b>In a fight, with a direction held, it becomes a dodge dive</b>: low, a little longer, untouchable all the way</td></tr>
+<tr><td>Mouse</td><td>Drag to turn the camera · wheel to zoom · <kbd>Q</kbd> / <kbd>E</kbd> turn it too</td></tr>
+<tr><td>Left / right click · <kbd>F</kbd> / <kbd>R</kbd></td><td>The right and left hand's action (see <a href="#hands">Your hands</a>). Hold to aim a spell, release to cast</td></tr>
+<tr><td><kbd>C</kbd> / <kbd>Z</kbd></td><td>Next favourite action for the right / left hand (double-tap: back · hold: all of them in a fan)</td></tr>
+<tr><td><kbd>1</kbd>–<kbd>4</kbd></td><td>Hotbar (potions, food)</td></tr>
+<tr><td><kbd>G</kbd> / <kbd>Enter</kbd></td><td>Talk, read, open, gather — whatever is nearest</td></tr>
+<tr><td><kbd>H</kbd></td><td>Blink-Step (once learned)</td></tr>
+<tr><td><kbd>V</kbd></td><td>A werewolf's change, human ↔ wolf</td></tr>
+<tr><td><kbd>I</kbd> / <kbd>Tab</kbd></td><td>Satchel and equipment</td></tr>
+<tr><td><kbd>P</kbd></td><td>Character sheet</td></tr>
+<tr><td><kbd>B</kbd> · <kbd>N</kbd></td><td>The Book (spells, styles, your hands' favourites) · the Skills book</td></tr>
+<tr><td><kbd>J</kbd> · <kbd>K</kbd> · <kbd>M</kbd></td><td>Journal · Codex · Map</td></tr>
+<tr><td><kbd>T</kbd></td><td>Aetheric Tear — travel between attuned rift-gates from anywhere</td></tr>
+<tr><td><kbd>O</kbd> · <kbd>Esc</kbd></td><td>Options · pause / close a window · <kbd>F1</kbd> the key card</td></tr>
+</table>
+<p class="note">With <b>Two-hand actions</b> turned off (Options), the classic keys apply: <kbd>F</kbd> casts, <kbd>R</kbd> strikes, <kbd>Z X V</kbd> are the three style skills, <kbd>C</kbd> the character sheet.</p>
+<h3>Gamepad</h3>
+<table>
+<tr><td>Left stick</td><td>Move · click it to sprint</td></tr>
+<tr><td>Right stick</td><td>Camera (while a fan is open: point at an action)</td></tr>
+<tr><td>A</td><td>Hop / dodge dive · talk and gather when something is near</td></tr>
+<tr><td>RT / LT</td><td>Right / left hand (hold to aim with the right stick)</td></tr>
+<tr><td>RB / LB</td><td>Next favourite for the right / left hand (hold: the fan)</td></tr>
+<tr><td>B</td><td>Blink-Step · back out of menus</td></tr>
+<tr><td>Y · Start · Back</td><td>Satchel · character sheet · Blink-Step</td></tr>
+<tr><td>D-pad</td><td>Hotbar · moves the focus in menus (A presses, B backs out)</td></tr>
+<tr><td>R3</td><td>A werewolf's change</td></tr>
+</table>
+<h3>Touch</h3>
+<ul>
+<li>The left half of the screen is the stick — push past its ring to sprint. Drag the right half to turn the camera.</li>
+<li>Under your right thumb: a button per hand (its action shown), the arch above it shows the next favourite — tap the arch to change, hold for all of them.</li>
+<li><b>MENU</b> (top right) opens everything else: Satchel, Hero, Map, Journal, Codex, the Book, the Aetheric Tear, Options. Tap the minimap for the map. When something can be talked to or gathered, a pill appears — tap it.</li>
+</ul>
+</section>
+
+<section id="hands">
+<h2>Your hands</h2>
+<p>Each hand does what the thing in it does: a sword cuts, a staff casts or strikes, a shield blocks, a bow shoots, an empty hand punches. A hand keeps up to four <b>favourite actions</b> for the kind of thing it holds — its plain blow, the skills of its fighting style, the spells it can cast — and you switch between them with the arch (<kbd>C</kbd> / <kbd>Z</kbd>). Set favourites in the Book (the ⋯ beside any spell or skill). With the same kind of weapon in both hands, each hand keeps its own list.</p>
+</section>
+
+<section id="combat">
+<h2>Combat</h2>
+<ul>
+<li><b>Combos.</b> Strike again as a blow ends and they chain: the second comes back the other way, the third is the weapon's <b>finisher</b> — a lunge with a sword or spear, a great cleave with a greatsword, a slam with a mace or staff, a spin with a bo, a haymaker with fists — harder, and it throws them back. Tap in rhythm: a press made while a blow recovers is kept a moment.</li>
+<li><b>Two weapons.</b> With a weapon in each hand the strike alternates hands, and the finisher is a cross-cut with both.</li>
+<li><b>Dodge.</b> The hop's first instant cannot be touched; in a fight, with a direction held, it is a low dive that cannot be touched at all.</li>
+<li><b>Shields.</b> Use the shield hand to raise it: catch a blow from the front at once for a <b>perfect block</b> (nothing gets through, the attacker reels); later in the guard it still stops most of it. Blows from behind are not blocked.</li>
+<li><b>Read the tell.</b> A creature about to strike shows a red fan on the ground where the blow will fall — step out of it.</li>
+<li>Enemies flinch when hit; heavy blows throw them back and make the world hold still for an instant.</li>
+<li>Out of a fight for a while, you get your breath back. If you fall, you wake at the last cairn or gate you rested at.</li>
+</ul>
+</section>
+
+<section id="styles">
+<h2>Fighting styles</h2>
+<p>Every weapon has a style (Guard for the sword, Reaver for the greatsword, Shadow for the dagger, Lancer for the spear, Crusher for the mace, Berserker for the axe, Bulwark for the shield, Brawler for fists, Hunter for the bow, Marksman for the crossbow, Quickcast for the wand, Channeler for the staff, Spinning Staff for the bo). You learn a style by fighting with the weapon, from a teacher, or from a manual; each has three skills that open with your mastery of the weapon (2, 5, 8).</p>
+<ul>
+<li><b>Stances</b> change the fight for a while: Parry (the next blow from the front does nothing and dazes the attacker — and a Riposte straight after hits half again as hard), Shield Wall, Perfect Block, Deflect Arrows (nothing from afar gets through), Steady Advance, Rage, Rampage, Frenzy, Vanish (they lose you; your next hit does double), Channel, Overload (stronger spells, dearer), Echo (every spell happens again at half power), Steady Aim.</li>
+<li><b>Strikes</b> each have their own move: Cleave, Backstab (three times as strong from behind), Bone Breaker (slows), Stunning Blow, Shatter Armour (they take more), Bleeding Chop, Haymaker and Grab &amp; Throw (they fly), Headbutt, and the spear's lunges, the bo's flurries and windmills, the bow's and crossbow's skill shots, the wand's Snap Cast and Chain, the staff's Release.</li>
+<li>What a skill did shows on the creature: stars when dazed, roots when snared, blood, cracked armour, the hunter's red mark.</li>
+</ul>
+</section>
+
+<section id="magic">
+<h2>Magic</h2>
+<p>Spells are learned from scrolls, tomes, teachers and by living through their element. A staff or wand casts them; each rises in tier as you use its element. Bolts fly where you aim; area spells land on the enemy nearest your aim (hold the hand to place the ring yourself); self spells ward, heal, hide or hasten you. The great spells take an incantation — longer, rooted, worth it.</p>
+<ul>
+<li><b>Against enemy casters:</b> stun, silence or hush a caster while it shapes a spell to break it; <b>Counterspell</b> interrupts; <b>Unravel</b> and <b>Purifying Sweep</b> tear away their wards — and a boss's Void Aegis.</li>
+</ul>
+</section>
+
+<section id="enemies">
+<h2>Enemies</h2>
+<ul>
+<li><b>Casters</b> stop to shape a spell — a ring fills at their feet. Their bolts can be sidestepped, blocked, parried or deflected; their hexes curse, silence (no spells for a while) or strip your buffs; they ward, strengthen, quicken and heal each other.</li>
+<li><b>Elites</b> wear a gold nameplate and extra powers (swift, warded, vampiric, arcane, thorned) and drop more.</li>
+<li><b>Bosses</b> guard the deep places; a boss under half its health may raise the <b>Void Aegis</b> — a violet bubble that turns most of your blows aside until you dispel it.</li>
+<li>The <b>Codex</b> (<kbd>K</kbd>) keeps a page for every creature you meet; sit at a desk to write them up.</li>
+</ul>
+</section>
+
+<section id="world">
+<h2>The world</h2>
+<ul>
+<li>Ways out of a map are archways (or doors); some open only when the story reaches them.</li>
+<li><b>Rift-gates</b> (monoliths): touch one to attune it; travel between attuned gates there, or from anywhere with the Aetheric Tear (<kbd>T</kbd>, costs most of your mana). <b>Cairns</b> on the mountain are places to come back to if you fall.</li>
+<li>Day and night turn (a game day is about 24 minutes); the weather changes; the cold of the heights bites without warmth.</li>
+<li>Dungeons go down in levels; a chart fills in as you explore, and the boss in the farthest room bars the stairs down.</li>
+</ul>
+</section>
+
+<section id="life">
+<h2>Living there</h2>
+<ul>
+<li><b>Gathering</b> (<kbd>G</kbd> at a node): herbs and mushrooms by hand; ore with a pickaxe, deadwood with an axe, reeds with a sickle, fish with a rod — you will see the tool come out.</li>
+<li><b>Campfires and stations:</b> cook, rest, brew, craft. <b>Merchants</b> take a basket of things to buy or sell; innkeepers let a room for the night.</li>
+<li><b>The Torch</b> (6 gold at the merchant), held in the left hand, lights the dark around you — for caves, dungeons and the night.</li>
+<li><b>Werewolves</b> (a Forge race) can take the wolf form: faster, claws like knives, no spells.</li>
+</ul>
+</section>
+
+<section id="story">
+<h2>The story</h2>
+<p><i>Eldoria's Prophecy</i> follows Eldrin Nightshade from his tower to the Heartstone of Creation, in twelve chapters. Each chapter ends by naming where the next begins; the journal keeps the thread. A hero of your own lives in the same world without the campaign — a house in the Lower Town, the inns and roads and dungeons, the bounties.</p>
+</section>
+
+<section id="menus">
+<h2>Books and menus</h2>
+<ul>
+<li><b>The Book</b> (<kbd>B</kbd>): your spells (choose what each hand casts), your styles and their skills, what your hands can do and their favourites.</li>
+<li><b>The Skills book</b> (<kbd>N</kbd>): masteries bought with Resonance Insights.</li>
+<li><b>Satchel</b> (<kbd>I</kbd>): equipment by body part, both hands, food, potions; select an item, then equip, use or drop it.</li>
+<li><b>Journal</b> (<kbd>J</kbd>), <b>Codex</b> (<kbd>K</kbd>), <b>Map</b> (<kbd>M</kbd> — pan, zoom, tap to set a waypoint).</li>
+</ul>
+</section>
+
+<section id="options">
+<h2>Options and saves</h2>
+<ul>
+<li><b>Options</b> (<kbd>O</kbd>, or from the title): graphics (Low / Medium / High), text size, FPS, music and effects volume, camera speed and invert, the aim (camera or facing), two-hand actions, god mode for testing.</li>
+<li><b>Three save slots</b> (title → Saves); the game saves as you go — at doors, cairns, gates and campfires.</li>
+</ul>
+</section>
+
+<section id="workshop">
+<h2>The Workshop</h2>
+<p>From the title screen: <b>the Forge</b> (make a hero — or open any person of the game and leave notes on them), <b>the Bestiary</b> (every creature on its turntable, with notes), <b>the Land Editor</b> (the regions). Notes and edits save only through the development server on the PC.</p>
+</section>
+
+</main>
+<a class="back" href="index.html">← Game</a>
+</body>
+</html>
