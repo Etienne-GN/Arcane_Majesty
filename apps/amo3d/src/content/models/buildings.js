@@ -3,6 +3,7 @@
 // windows, a chimney, an optional hanging sign; and the furniture of a village street — market stalls, a well,
 // lamp posts, fences, carts, barrels, crates, benches, signposts. Each returns a group whose footprint centre is
 // at its origin (y = 0 is the ground), facing +z (its door side).
+import { umbralSpire, umbralArch, umbralColumn } from './umbral.js';
 import * as THREE from 'three';
 import { buildCitadel } from './citadel.js';
 
@@ -231,9 +232,12 @@ export function buildProp(type, { len = 4, color = 0x8a3a2a, dark: blackStone = 
             g.userData.light = { y: 5, x: 0, color: 0x6a4aaa, i: 8, r: 14 };
             break; }
         case 'citadel': g.add(buildCitadel()); break;
+        case 'umbral_spire': { const sp = umbralSpire(Math.round((len ?? 4) * 7)); g.add(sp); g.userData.light = sp.userData.light; break; }   // the Umbral Plane's kit (models/umbral.js)
+        case 'umbral_arch': g.add(umbralArch(Math.round((len ?? 4) * 5))); break;
+        case 'umbral_column': g.add(umbralColumn(Math.round((len ?? 4) * 3))); break;
         default: box(g, 0.5, 0.5, 0.5, 0x8a867e, 0, 0.25, 0);
     }
     return g;
 }
 // Footprint radius for a prop's collider (0 = walk through).
-export const PROP_R = { stall: 1.2, well: 1.0, lamp: 0.15, cart: 1.0, barrel: 0.4, crate: 0.45, bench: 0, signpost: 0.15, fence: 0, column: 0.45, ruin_wall: 0, steps: 0, platform: 0, pier: 0, boat: 0.9, glow: 0, mine: 2.6, heap: 2.4, chimney: 1.2, rails: 0, weeping_stone: 0.8, flowers: 0, keep: 0, stone_wall: 0, glass_stair: 0, runestone: 0.5, flame_gate: 0, golem: 1.0, crucible: 0, arch: 0, keeper: 0.7, dead_gate: 0, pedestal: 0.9, ancient_door: 0, citadel: 0 };
+export const PROP_R = { stall: 1.2, well: 1.0, lamp: 0.15, cart: 1.0, barrel: 0.4, crate: 0.45, bench: 0, signpost: 0.15, fence: 0, column: 0.45, ruin_wall: 0, steps: 0, platform: 0, pier: 0, boat: 0.9, glow: 0, mine: 2.6, heap: 2.4, chimney: 1.2, rails: 0, weeping_stone: 0.8, flowers: 0, keep: 0, stone_wall: 0, glass_stair: 0, runestone: 0.5, flame_gate: 0, golem: 1.0, crucible: 0, arch: 0, keeper: 0.7, dead_gate: 0, pedestal: 0.9, ancient_door: 0, citadel: 0, umbral_spire: 3.2, umbral_arch: 0, umbral_column: 0.6 };

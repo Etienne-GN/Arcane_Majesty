@@ -19,7 +19,18 @@ const KEYS = [
 ];
 const GREY = C(0x7d848c);
 
-export function skyState(hour, weather = 'clear') {
+// The Umbral Plane (Nythoria — DB: "the Umbral Plane of shadow and silence"): no true day, a sun forever eclipsed — a
+// black disc in a silver corona — high in a grey sky; the light breathes a little over the hours, never warm.
+function umbralState(hour) {
+    const k = 0.5 + 0.5 * Math.sin((hour - 6) / 24 * Math.PI * 2);   // its slow tide: a little brighter at "noon"
+    return {
+        top: C(0x14151c).lerp(C(0x23242e), k), bottom: C(0x3a3c47).lerp(C(0x4c4e5a), k), sun: C(0xc4cce6), sunI: 0.95 + 0.35 * k, hemiI: 0.62 + 0.15 * k,
+        fogMul: 1, day: 0.35 + 0.25 * k, night: 0.65 - 0.25 * k, dir: new THREE.Vector3(-44, 21, -50),   // low over the horizon: in view, long shadows
+    };
+}
+
+export function skyState(hour, weather = 'clear', plane = null) {
+    if (plane === 'nythoria') return umbralState(hour);
     let i = 0;
     while (i < KEYS.length - 2 && hour >= KEYS[i + 1].h) i++;
     const a = KEYS[i], b = KEYS[i + 1], k = (hour - a.h) / (b.h - a.h);

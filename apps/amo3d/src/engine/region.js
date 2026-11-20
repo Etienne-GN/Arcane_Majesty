@@ -121,6 +121,31 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         scene.add(water);
     }
 
+    // ---------- ruins (an umbral twin's ruinsAuto: black-stone walls, columns, arches, a broken spire) ----------
+    const props = [...(def.props ?? [])];
+    if (def.ruinsAuto) {
+        const R0 = def.ruinsAuto, want = [['umbral_spire', R0.spires ?? 0, 30], ['umbral_arch', R0.arches ?? 0, 12], ['ruin_wall', R0.walls ?? 0, 7], ['umbral_column', R0.columns ?? 0, 6]];
+        for (const [type, n, gap] of want) {
+            for (let i = 0, k = 0; i < 2000 && k < n; i++) {
+                const x = (rng() - 0.5) * SIZE * 0.8, z = (rng() - 0.5) * SIZE * 0.8, h = heightAt(x, z);
+                if (h < WATER + 0.8 || h > 10 || trailDist(x, z) < 4 || props.some(p => Math.hypot(p.x - x, p.z - z) < gap)) continue;
+                const e = 1.2, slope = Math.abs(heightAt(x + e, z) - heightAt(x - e, z)) + Math.abs(heightAt(x, z + e) - heightAt(x, z - e));
+                if (slope > (type === 'umbral_spire' ? 0.8 : 1.6)) continue;   // on fairly level ground
+                props.push({ type, x, z, ry: rng() * Math.PI * 2, len: type === 'ruin_wall' ? 3 + rng() * 5 : 1 + rng() * 9, dark: true, clear: type === 'umbral_spire' ? 7 : 2.5 });
+                k++;
+            }
+        }
+    }
+
+    // ---------- mist lying on the water and the low ground (mood.mist) ----------
+    let mist = null;
+    if ((def.mood ?? {}).mist) {
+        const c = document.createElement('canvas'); c.width = c.height = 256; const g2 = c.getContext('2d');
+        for (let i = 0; i < 220; i++) { const x = Math.random() * 256, y = Math.random() * 256, r = 12 + Math.random() * 40, gr = g2.createRadialGradient(x, y, 0, x, y, r); gr.addColorStop(0, 'rgba(255,255,255,0.18)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); g2.fillStyle = gr; g2.fillRect(x - r, y - r, r * 2, r * 2); }
+        const tex = new THREE.CanvasTexture(c); tex.wrapS = tex.wrapT = THREE.RepeatWrapping; tex.repeat.set(SIZE / 40, SIZE / 40);
+        mist = [0.3, 0.85, 1.5].map((dy, i) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(SIZE, SIZE).rotateX(-Math.PI / 2), new THREE.MeshBasicMaterial({ map: i ? tex.clone() : tex, color: 0xa4a4b2, transparent: true, opacity: 0.36 - i * 0.1, depthWrite: false, fog: true })); m.position.y = WATER + dy; m.renderOrder = 2; m.userData.dynamic = true; if (i) { m.material.map.repeat.set(SIZE / (55 + i * 20), SIZE / (55 + i * 20)); m.material.map.needsUpdate = true; } scene.add(m); return m; });
+    }
+
     // ---------- light, sky, mood ----------
     const M = def.mood ?? {};
     const shell = createOutdoorShell(scene, { quality, mood: M });
@@ -129,7 +154,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     const links = def.links ?? [];
     const reserved = (x, z, m = 0) => links.some(l => Math.hypot(l.x - x, l.z - z) < 7 + m) || (trailDist(x, z) < 2.2 + m)
         || (def.buildings ?? []).some(b => rectDist(b, x, z) < 3 + m) || (def.roads ?? []).some(r => segDist(x, z, r.pts) < (r.w ?? 3) / 2 + 1.5 + m)
-        || (def.props ?? []).some(pr => Math.hypot(pr.x - x, pr.z - z) < (pr.clear ?? 2) + m)   // clear: keep trees back from a prop (a pier's view)
+        || props.some(pr => Math.hypot(pr.x - x, pr.z - z) < (pr.clear ?? 2) + m)   // clear: keep trees back from a prop (a pier's view)
         || (def.features ?? []).some(f => f.type === 'clearing' && Math.hypot(f.x - x, f.z - z) < f.r * 0.6);
     const addCollider = (c, height) => { const y0 = heightAt(c.x, c.z); colliders.push({ ...c, y0: y0 - 0.5, y1: y0 + height }); };
 
@@ -270,7 +295,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         if (b.sign) map.stations.push({ mode: 'sign', text: b.signText ?? b.sign, pos: new THREE.Vector3(...[corner(0.95, hd + 0.8)].map(([px, pz]) => [px, y, pz])[0]) });
     }
     let propLights = 0;
-    for (const pr of def.props ?? []) {
+    for (const pr of props) {
         const g = buildProp(pr.type, pr), y = pr.float ? Math.max(heightAt(pr.x, pr.z), WATER - 0.3) : heightAt(pr.x, pr.z);   // float: boats ride the water
         g.position.set(pr.x, y, pr.z); g.rotation.y = pr.ry ?? 0; scene.add(g);
         if (g.userData.light && propLights < 10) {   // lamps, lava stairs, braziers light their surroundings (a few per map)
@@ -282,7 +307,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
                 for (const [ax, az, bx, bz] of [[X0, Z0, X1, Z0], [X1, Z0, X1, Z1], [X1, Z1, X0, Z1], [X0, Z1, X0, Z0]]) colliders.push({ ax, az, bx, bz, r: 0.4, kind: 'wall', y0: y - 1, y1: y + 40 }); }
         }
         else if (pr.type === 'keep') { for (const [ax, az, bx, bz] of [[-4, -4, 4, -4], [4, -4, 4, 4], [4, 4, -4, 4], [-4, 4, -4, -4]]) { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), T = (lx, lz) => [pr.x + lx * c + lz * sn, pr.z - lx * sn + lz * c], [a1, a2] = T(ax, az), [b1, b2] = T(bx, bz); colliders.push({ ax: a1, az: a2, bx: b1, bz: b2, r: 0.3, kind: 'wall', y0: y - 1, y1: y + 12 }); } }
-        else if (pr.type === 'arch' || pr.type === 'dead_gate' || pr.type === 'ancient_door') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), off = pr.type === 'arch' ? 2.2 : pr.type === 'dead_gate' ? 3 : 0;
+        else if (pr.type === 'arch' || pr.type === 'umbral_arch' || pr.type === 'dead_gate' || pr.type === 'ancient_door') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), off = pr.type === 'arch' || pr.type === 'umbral_arch' ? 2.1 : pr.type === 'dead_gate' ? 3 : 0;
             if (off) for (const sx of [-1, 1]) addCollider({ x: pr.x + sx * off * c, z: pr.z - sx * off * sn, r: 0.7, kind: 'wall' }, 6);
             else colliders.push({ ax: pr.x - 4.5 * c, az: pr.z + 4.5 * sn, bx: pr.x + 4.5 * c, bz: pr.z - 4.5 * sn, r: 1.0, kind: 'wall', y0: y - 1, y1: y + 12 }); }
         else if (pr.type === 'stone_wall') { const c = Math.cos(pr.ry ?? 0), sn = Math.sin(pr.ry ?? 0), l = (pr.len ?? 4) / 2; colliders.push({ ax: pr.x - l * c, az: pr.z + l * sn, bx: pr.x + l * c, bz: pr.z - l * sn, r: 0.6, kind: 'wall', y0: y - 1, y1: y + 4 }); }
@@ -334,6 +359,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         const S = shell.update(dt, ctx);
         for (const { g, m } of monoliths) m.update(t, (ctx.attunedGates ?? []).includes(g.id));
         for (const l of links) l._veil.material.opacity = 0.14 + Math.sin(t * 2) * 0.06;
+        if (mist) mist.forEach((m, i) => { m.material.map.offset.set(t * (0.004 + i * 0.002), t * (0.002 - i * 0.0015)); });
         if (motes) {
             motes.seed.forEach(([x, y, z, ph], i) => motes.mp.set([x + Math.sin(t * 0.3 + ph) * 2, heightAt(x, z) + 0.6 + y + Math.sin(t * 0.7 + ph) * 0.5, z + Math.cos(t * 0.25 + ph) * 2], i * 3));
             motes.pts.geometry.attributes.position.needsUpdate = true;
