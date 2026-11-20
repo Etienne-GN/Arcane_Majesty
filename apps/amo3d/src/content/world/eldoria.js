@@ -154,12 +154,12 @@ const STORY = [
 const IN_WORLD = ['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'thaloria_lower', 'citadel_plateau', 'summit_of_despair', 'whisper_wood', 'the_crossroads', 'iron_hollow', 'duskmeet', 'graywatch', 'lake_aethera', 'port_silver', 'emerald_fields', 'fire_gate', 'inferno_labyrinth', 'ruins_of_eldoria'];
 function makeStamps(quality) {
     // Thaloria's footprint stops at the gorge's far cliff top: the Citadel's plateau beyond is its own place now.
-    const out = [prepStamp({ id: 'thaloria', map: createThaloria({ quality }), ox: CITY.x, oy: 2, oz: CITY.z, rect: [-78, -80, 78, 66], drop: new Set(IN_WORLD) })];
+    const out = [prepStamp({ id: 'thaloria', map: createThaloria({ quality }), ox: CITY.x, oy: 2, oz: CITY.z, rect: [-78, -80, 78, 66], drop: new Set(IN_WORLD), round: 6, wobble: 0.03 })];   // (a walled city: a squarer outline, still no sharp corner)
     // The Lower Town, out of the South Gate; the Citadel's plateau, at the top of the cliff stair (their own region maps).
     try {
         const lazy = id => ({ make: () => buildRegion(REGION_DEFS[id], { quality }), heightAt: regionHeight(REGION_DEFS[id]) });   // built when you come near
-        out.push(prepStamp({ id: 'thaloria_lower', ...lazy('thaloria_lower'), ox: CITY.x, oy: 2, oz: CITY.z + 66 + 54, rect: [-52, -52, 52, 52], drop: new Set(IN_WORLD) }));   // (cropped inside its old rim; level with the city)
-        out.push(prepStamp({ id: 'citadel_plateau', ...lazy('citadel_plateau'), ox: CITY.x, oy: 28, oz: CITY.z - 80 - 71, rect: [-52, -52, 52, 70], drop: new Set(IN_WORLD) }));   // (level with the cliff top; its south edge meets it)
+        out.push(prepStamp({ id: 'thaloria_lower', ...lazy('thaloria_lower'), ox: CITY.x, oy: 2, oz: CITY.z + 66 + 54, rect: [-52, -52, 52, 52], drop: new Set(IN_WORLD) , round: 4 }));   // (cropped inside its old rim; level with the city)
+        out.push(prepStamp({ id: 'citadel_plateau', ...lazy('citadel_plateau'), ox: CITY.x, oy: 28, oz: CITY.z - 80 - 71, rect: [-52, -52, 52, 70], drop: new Set(IN_WORLD) , round: 4 }));   // (level with the cliff top; its south edge meets it)
     } catch (e) { console.warn('[eldoria] stamp failed (Thaloria\'s neighbours)', e); }
     // The story's three (chapters 6–11 stage their scenes here — content/chapters.js runs them in the place's frame):
     // each keeps its own rim of rock, with a pass cut through it toward each neighbour, an invisible wall along the crest

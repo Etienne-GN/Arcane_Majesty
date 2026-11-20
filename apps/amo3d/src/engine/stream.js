@@ -36,10 +36,23 @@ export function continentHeight(size) {
 // own coordinates), drop: Set of trigger targets that are now part of the world (walked to, not loaded) }.
 // prepStamp fills in the world rect; stampHeights wraps the world's height so the place's ground rules inside its rect
 // and blends back to the world over B metres outside it.
+// Nature has no right angles: a place's footprint is not its rect but a rounded, wobbling shape inside it — a
+// superellipse (st.round: 2.4 soft … 6 nearly square, for a walled city) whose radius wanders with the angle (st.wobble).
 export function prepStamp(st) {
     st.X0 = st.ox + st.rect[0]; st.Z0 = st.oz + st.rect[1]; st.X1 = st.ox + st.rect[2]; st.Z1 = st.oz + st.rect[3];
+    st.cx = (st.X0 + st.X1) / 2; st.cz = (st.Z0 + st.Z1) / 2; st.ha = (st.X1 - st.X0) / 2; st.hb = (st.Z1 - st.Z0) / 2;
+    st.round ??= 2.6; st.wobble ??= 0.07;
+    let h = 0; for (const c of st.id) h = (h * 31 + c.charCodeAt(0)) % 9973; st.seedA = h / 9973 * 6.283;
     return st;
 }
+// How far outside the footprint (metres, negative inside).
+export function edgeDist(st, x, z) {
+    const u = (x - st.cx) / st.ha, v = (z - st.cz) / st.hb, n = st.round, s0 = st.seedA, th = Math.atan2(v, u);
+    const rho = Math.pow(Math.pow(Math.abs(u), n) + Math.pow(Math.abs(v), n), 1 / n);
+    const wob = 1 - st.wobble * (0.6 + 0.5 * Math.sin(3 * th + s0) + 0.3 * Math.sin(5 * th + 2 * s0) + 0.2 * Math.sin(7 * th + 3 * s0)) / 1.6;
+    return (rho / wob - 1) * Math.min(st.ha, st.hb);
+}
+const inShape = (st, x, z, m = 0) => inRect(st, x, z, m) && edgeDist(st, x, z) <= m;
 const hOf = st => st.heightAt ?? st.map.heightAt;
 const BUILD_R = 450;   // a lazy place is built when you come this near its footprint
 const inRect = (st, x, z, m = 0) => x >= st.X0 - m && x <= st.X1 + m && z >= st.Z0 - m && z <= st.Z1 + m;
@@ -64,15 +77,17 @@ export function stampHeights(worldH, stamps, B = 60) {
         return rawStamp(x, z);
     };
     function rawStamp(x, z) {
-        for (const st of stamps) if (inRect(st, x, z)) return hOf(st)(x - st.ox, z - st.oz) + st.oy;   // inside a place: its own ground
+        for (const st of stamps) if (inShape(st, x, z)) return hOf(st)(x - st.ox, z - st.oz) + st.oy;   // inside a place: its own ground
         let best = null, bd = B;   // in the ring round places: blend from the nearest one's edge to the land
         for (const st of stamps) {
             if (!inRect(st, x, z, B)) continue;
-            const cx = Math.max(st.X0, Math.min(st.X1, x)), cz = Math.max(st.Z0, Math.min(st.Z1, z)), d = Math.hypot(x - cx, z - cz);
-            if (d < bd) { bd = d; best = { st, cx, cz }; }
+            const d = edgeDist(st, x, z);
+            if (d < bd) { bd = d; best = st; }
         }
         if (!best) return worldH(x, z);
-        const { st, cx, cz } = best, edge = hOf(st)(cx - st.ox, cz - st.oz) + st.oy;
+        // the place's ground at the nearest edge point (stepped back along the line to its middle)
+        const st = best, L = Math.hypot(x - st.cx, z - st.cz) || 1, back = Math.min(L, bd + 1), ex = x - (x - st.cx) / L * back, ez = z - (z - st.cz) / L * back;
+        const edge = hOf(st)(ex - st.ox, ez - st.oz) + st.oy;
         return edge + (worldH(x, z) - edge) * sm(0, B, bd);
     }
 }
@@ -102,10 +117,32 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     // Under a stamped place the world's own ground sinks out of sight (the place's detailed ground shows), ramping down
     // over the rect's first metres so the seam stays tight.
     function sinkAt(x, z) {
-        for (const st of stamps) if (st.built && inRect(st, x, z)) return 8 * sm(0, 6, Math.min(x - st.X0, st.X1 - x, z - st.Z0, st.Z1 - z));
+        for (const st of stamps) if (st.built && inShape(st, x, z)) return 8 * sm(0, 6, -edgeDist(st, x, z));
         return 0;
     }
-    const stamped = (x, z, m = 4) => stamps.some(st => inRect(st, x, z, m));
+    const stamped = (x, z, m = 4) => stamps.some(st => inShape(st, x, z, m));
+    // A material cut to a place's rounded footprint (fragments outside it are discarded) — same shape as edgeDist.
+    function shapeClip(m, st) {
+        if (m.userData.shapeClip) return; m.userData.shapeClip = true;
+        const prev = m.onBeforeCompile;
+        m.onBeforeCompile = (sh, r) => {
+            prev?.(sh, r);
+            Object.assign(sh.uniforms, { uSC: { value: new THREE.Vector4(st.cx, st.cz, st.ha, st.hb) }, uSP: { value: new THREE.Vector3(st.round, st.wobble, st.seedA) } });
+            sh.vertexShader = 'varying vec3 vSW;\n' + sh.vertexShader.replace('#include <project_vertex>', `#include <project_vertex>
+                vec4 sw = vec4(transformed, 1.0);
+                #ifdef USE_INSTANCING
+                    sw = instanceMatrix * sw;
+                #endif
+                vSW = (modelMatrix * sw).xyz;`);
+            sh.fragmentShader = 'varying vec3 vSW;\nuniform vec4 uSC;\nuniform vec3 uSP;\n' + sh.fragmentShader.replace('void main() {', `void main() {
+                vec2 q = (vSW.xz - uSC.xy) / uSC.zw; float n = uSP.x, th = atan(q.y, q.x);
+                float rho = pow(pow(abs(q.x), n) + pow(abs(q.y), n), 1.0 / n);
+                float wob = 1.0 - uSP.y * (0.6 + 0.5 * sin(3.0 * th + uSP.z) + 0.3 * sin(5.0 * th + 2.0 * uSP.z) + 0.2 * sin(7.0 * th + 3.0 * uSP.z)) / 1.6;
+                if (rho / wob > 1.0) discard;`);
+        };
+        m.customProgramCacheKey = () => 'shapeClip:' + st.id;
+        m.needsUpdate = true;
+    }
     // A stamp joins the world (at once, or — a lazy one — when you come near): its content moved in; its ground and water
     // clipped to the rect; its colliders bucketed by tile; its doors, signs, arrival points and landmarks moved into world
     // coordinates; its exits to places now in the world dropped (with their veils); its life awake; the tiles under it
@@ -143,8 +180,8 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             if (mats.some(m => m.fog === false && !m.isShaderMaterial) && Math.max(box.max.x - box.min.x, box.max.z - box.min.z, box.max.y - box.min.y) > 150) { drop.push(o); return; }   // (not a waterfall or a light shaft: those are small, and shaders)
             // a flat sheet of water at the world's water level: the world's own water covers it
             if (box.max.y - box.min.y < 0.05 && Math.abs(box.min.y - WATER) < 0.6 && mats.some(m => m.transparent)) { drop.push(o); return; }
-            if (box.min.x < st.X0 - 0.5 || box.max.x > st.X1 + 0.5 || box.min.z < st.Z0 - 0.5 || box.max.z > st.Z1 + 0.5)
-                for (const m of mats) { m.clippingPlanes = planes; m.needsUpdate = true; }
+            if (box.min.x < st.X0 - 0.5 || box.max.x > st.X1 + 0.5 || box.min.z < st.Z0 - 0.5 || box.max.z > st.Z1 + 0.5 || o.userData.ground || (box.max.x - box.min.x) * (box.max.z - box.min.z) > st.ha * st.hb)
+                for (const m of mats) { if (m.isShaderMaterial) { m.clippingPlanes = planes; m.needsUpdate = true; } else shapeClip(m, st); }   // its ground cut to the rounded footprint
         });
         for (const o of drop) o.parent?.remove(o);
         rebucket(st);
