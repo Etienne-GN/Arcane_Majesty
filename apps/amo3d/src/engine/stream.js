@@ -31,7 +31,8 @@ export function continentHeight(size) {
     };
 }
 
-// Stamps (W2.2): an existing place map set into the world. { id, map, ox, oy, oz, rect: [x0, z0, x1, z1] (the place's
+// Stamps (W2.2): an existing place map set into the world. Lazy stamps give { make: () => map, heightAt: pure local
+// height } and are built only when the player comes within BUILD_R of them (their ground is known from the start). { id, map, ox, oy, oz, rect: [x0, z0, x1, z1] (the place's
 // own coordinates), drop: Set of trigger targets that are now part of the world (walked to, not loaded) }.
 // prepStamp fills in the world rect; stampHeights wraps the world's height so the place's ground rules inside its rect
 // and blends back to the world over B metres outside it.
@@ -39,6 +40,8 @@ export function prepStamp(st) {
     st.X0 = st.ox + st.rect[0]; st.Z0 = st.oz + st.rect[1]; st.X1 = st.ox + st.rect[2]; st.Z1 = st.oz + st.rect[3];
     return st;
 }
+const hOf = st => st.heightAt ?? st.map.heightAt;
+const BUILD_R = 450;   // a lazy place is built when you come this near its footprint
 const inRect = (st, x, z, m = 0) => x >= st.X0 - m && x <= st.X1 + m && z >= st.Z0 - m && z <= st.Z1 + m;
 const sm = (a, b, v) => { const t = Math.max(0, Math.min(1, (v - a) / (b - a))); return t * t * (3 - 2 * t); };
 // A stamp's paths [[ax, az, bx, bz, halfWidth]] (local): a trail cut through an old map's border, from a (inside) out
@@ -49,7 +52,7 @@ function cutPaths(st, worldH, x, z, h) {
         const t = Math.max(0, Math.min(1, ((lx - ax) * dx + (lz - az) * dz) / L2));
         const d = Math.hypot(lx - (ax + dx * t), lz - (az + dz * t));
         if (d > w * 2.2) continue;
-        const ha = st.map.heightAt(ax, az) + st.oy, hb = worldH(bx + st.ox, bz + st.oz);
+        const ha = hOf(st)(ax, az) + st.oy, hb = worldH(bx + st.ox, bz + st.oz);
         const floor = ha + (hb - ha) * t, k = 1 - sm(w, w * 2.2, d);
         h = Math.min(h, h + (floor - h) * k);
     }
@@ -61,7 +64,7 @@ export function stampHeights(worldH, stamps, B = 60) {
         return rawStamp(x, z);
     };
     function rawStamp(x, z) {
-        for (const st of stamps) if (inRect(st, x, z)) return st.map.heightAt(x - st.ox, z - st.oz) + st.oy;   // inside a place: its own ground
+        for (const st of stamps) if (inRect(st, x, z)) return hOf(st)(x - st.ox, z - st.oz) + st.oy;   // inside a place: its own ground
         let best = null, bd = B;   // in the ring round places: blend from the nearest one's edge to the land
         for (const st of stamps) {
             if (!inRect(st, x, z, B)) continue;
@@ -69,7 +72,7 @@ export function stampHeights(worldH, stamps, B = 60) {
             if (d < bd) { bd = d; best = { st, cx, cz }; }
         }
         if (!best) return worldH(x, z);
-        const { st, cx, cz } = best, edge = st.map.heightAt(cx - st.ox, cz - st.oz) + st.oy;
+        const { st, cx, cz } = best, edge = hOf(st)(cx - st.ox, cz - st.oz) + st.oy;
         return edge + (worldH(x, z) - edge) * sm(0, B, bd);
     }
 }
@@ -99,13 +102,19 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     // Under a stamped place the world's own ground sinks out of sight (the place's detailed ground shows), ramping down
     // over the rect's first metres so the seam stays tight.
     function sinkAt(x, z) {
-        for (const st of stamps) if (inRect(st, x, z)) return 8 * sm(0, 6, Math.min(x - st.X0, st.X1 - x, z - st.Z0, st.Z1 - z));
+        for (const st of stamps) if (st.built && inRect(st, x, z)) return 8 * sm(0, 6, Math.min(x - st.X0, st.X1 - x, z - st.Z0, st.Z1 - z));
         return 0;
     }
     const stamped = (x, z, m = 4) => stamps.some(st => inRect(st, x, z, m));
-    // Each stamp's content moved into the world; its ground and water clipped to the rect; its colliders bucketed by tile.
+    // A stamp joins the world (at once, or — a lazy one — when you come near): its content moved in; its ground and water
+    // clipped to the rect; its colliders bucketed by tile; its doors, signs, arrival points and landmarks moved into world
+    // coordinates; its exits to places now in the world dropped (with their veils); its life awake; the tiles under it
+    // rebuilt so the world's ground sinks out of sight there.
     const stampColl = new Map();
-    for (const st of stamps) {
+    function integrate(st) {
+        if (st.built) return st;
+        const t0 = performance.now();
+        if (!st.map) st.map = st.make();
         const g = new THREE.Group(); g.position.set(st.ox, st.oy, st.oz); g.name = 'stamp:' + st.id;
         st.group = g; st.off = new THREE.Vector3(st.ox, st.oy, st.oz); st.lpos = new THREE.Vector3(); st.lcam = new THREE.PerspectiveCamera();
         for (const o of [...st.map.scene.children]) if (!o.userData.shell) g.add(o);
@@ -134,8 +143,32 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             const tz0 = Math.floor((Math.min(...zs) - c.r + half) / TILE), tz1 = Math.floor((Math.max(...zs) + c.r + half) / TILE);
             for (let tz = tz0; tz <= tz1; tz++) for (let tx = tx0; tx <= tx1; tx++) { const k = `${tx},${tz}`; (stampColl.get(k) ?? stampColl.set(k, []).get(k)).push(w); }
         }
+        const gone = [], kept = [];
+        for (const t of st.map.triggers ?? []) {
+            if (st.drop?.has(t.to) || st.dropIf?.(t)) { gone.push(t); continue; }   // exits to places now in the world are gone: you walk
+            kept.push(t); map.triggers.push({ ...t, x: t.x + st.ox, z: t.z + st.oz });
+        }
+        // their veils go too: a plain stone arch is left (a veil goes when a dropped exit is the nearest way to it)
+        const veils = []; st.group.traverse(o => { if (o.userData.veil) veils.push(o); });
+        for (const v of veils) {
+            const p = v.getWorldPosition(new THREE.Vector3()).sub(st.off);
+            const near = list => Math.min(Infinity, ...list.map(t => Math.hypot(t.x - p.x, t.z - p.z)));
+            const dg = near(gone);
+            if (dg < 20 && dg <= near(kept)) v.parent?.remove(v);
+        }
+        for (const s2 of st.map.stations ?? []) if (s2.pos) map.stations.push({ ...s2, pos: s2.pos.clone().add(new THREE.Vector3(st.ox, st.oy, st.oz)) });
+        for (const [k, sp] of Object.entries(st.map.spawns ?? {})) map.spawns[`${st.id}:${k}`] = { ...sp, x: sp.x + st.ox, z: sp.z + st.oz };
+        if (map.mapInfo) map.mapInfo.landmarks.push(...(st.map.mapInfo?.landmarks ?? []).map(l => ({ ...l, x: l.x + st.ox, z: l.z + st.oz })));
+        st.built = true;
+        for (const t of tiles.values()) {   // the tiles under it, rebuilt now (its ground sinks; first in the queue)
+            const x0 = t.tx * TILE - half, z0 = t.tz * TILE - half;
+            if (t.lod !== null && x0 < st.X1 && x0 + TILE > st.X0 && z0 < st.Z1 && z0 + TILE > st.Z0) queue.unshift({ t, lod: t.lod, d: 0 });
+        }
+        refreshLife();
+        map.onStampBuilt?.(st);
+        st.buildMs = Math.round(performance.now() - t0);
+        return st;
     }
-
     // Life in a stamped place (W2.3): its creatures keep living in the place's own coordinates (their bodies ride the
     // stamp's group); each frame near it they see a player and camera moved into their frame, and anything they hand back
     // (a blow's origin, loot, a kill) is moved out again. The world's hittables are proxies at world positions: a hit's
@@ -165,7 +198,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     let lives = [];   // { px, h, wpos, st }
     function refreshLife() {
         lives = [];
-        for (const st of stamps) for (const h of st.map.hittables ?? []) lives.push({ ...proxyOf(st, h), st });
+        for (const st of stamps) if (st.built) for (const h of st.map.hittables ?? []) lives.push({ ...proxyOf(st, h), st });
         map.hittables.length = 0; map.hittables.push(...lives.map(l => l.px));
     }
 
@@ -315,7 +348,9 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             frame++;
             const P = ctx.player.pos;
             stream(P.x, P.z);
+            let building = false;
             for (const st of stamps) {   // a stamped place's creatures, while the player is within reach of it
+                if (!st.built) { if (!building && inRect(st, P.x, P.z, BUILD_R)) { building = true; integrate(st); } continue; }   // a lazy place: built as you come near (one a frame)
                 const inside = inRect(st, P.x, P.z, 4);
                 if (inside && !st.inside) map.onPlace?.(st.id, st.map.name ?? st.id);   // walked into a place (main.js: its story, its banner)
                 st.inside = inside;
@@ -340,46 +375,30 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         },
         onLeave() { hud.style.display = 'none'; },
     };
-    // A stamped place's doors, signs and arrival points, moved into the world.
-    for (const st of stamps) {
-        const gone = [], kept = [];
-        for (const t of st.map.triggers ?? []) {
-            if (st.drop?.has(t.to) || st.dropIf?.(t)) { gone.push(t); continue; }   // exits to places now in the world are gone: you walk
-            kept.push(t); map.triggers.push({ ...t, x: t.x + st.ox, z: t.z + st.oz });
-        }
-        // their veils go too: a plain stone arch is left (a veil goes when a dropped exit is the nearest way to it)
-        const veils = []; st.group.traverse(o => { if (o.userData.veil) veils.push(o); });
-        for (const v of veils) {
-            const p = v.getWorldPosition(new THREE.Vector3()).sub(st.off);
-            const near = list => Math.min(Infinity, ...list.map(t => Math.hypot(t.x - p.x, t.z - p.z)));
-            const dg = near(gone);
-            if (dg < 20 && dg <= near(kept)) v.parent?.remove(v);
-        }
-        for (const s2 of st.map.stations ?? []) if (s2.pos) map.stations.push({ ...s2, pos: s2.pos.clone().add(new THREE.Vector3(st.ox, st.oy, st.oz)) });
-        for (const [k, sp] of Object.entries(st.map.spawns ?? {})) map.spawns[`${st.id}:${k}`] = { ...sp, x: sp.x + st.ox, z: sp.z + st.oz };
-    }
     // The chart (game/mapview.js): the land painted coarse, the stamped places' own charts laid on top; landmarks are
     // the world's places and every stamped place's own, moved into world coordinates.
     if (chart) {
-        const landmarks = [...markers.map(m => ({ x: m.x, z: m.z, name: m.name })), ...stamps.flatMap(st => (st.map.mapInfo?.landmarks ?? []).map(l => ({ ...l, x: l.x + st.ox, z: l.z + st.oz })))];
+        const landmarks = markers.map(m => ({ x: m.x, z: m.z, name: m.name }));   // (each place's own join when it is built)
         map.mapInfo = { half, water: WATER, snowH: 62, rockH: 40, ...chart, landmarks, stamps };
     }
     // The townsfolk of every stamped place, as one town (main.js talks to map.town.nearestPerson).
     const personProxy = (st, p) => new Proxy(p, { get(t, k) { if (k === 'pos') return t.pos.clone().add(st.off); const v = Reflect.get(t, k); return typeof v === 'function' ? v.bind(t) : v; } });
-    if (stamps.some(st => st.map.town)) map.town = {
+    map.town = {
         nearestPerson(pos, within) {
             for (const st of stamps) {
-                if (!st.map.town || !inRect(st, pos.x, pos.z, 10)) continue;
+                if (!st.built || !st.map.town || !inRect(st, pos.x, pos.z, 10)) continue;
                 const p = st.map.town.nearestPerson(pos.clone().sub(st.off), within);
                 if (p) return personProxy(st, p);
             }
             return null;
         },
-        setVisible(v) { for (const st of stamps) st.map.town?.setVisible?.(v); },
+        setVisible(v) { for (const st of stamps) if (st.built) st.map.town?.setVisible?.(v); },
         update() {},
     };
     map.refreshLife = refreshLife;   // after anything is added to a stamp's hittables (main.js: each place's animals)
-    refreshLife();
+    map.ensureStamp = id => { const st = stamps.find(s2 => s2.id === id); return st ? integrate(st) : null; };   // (a door or a save arriving there)
+    // Built at once: places given already built, and lazy ones near the arrival point; the rest as you come near.
+    for (const st of stamps) if (!st.make) integrate(st);   // (lazy ones: the first frames build those near you, one a frame)
     for (const p of places) {   // every place on the world map can be arrived at (god mode's list: "place:<name>"), a little off its centre on dry ground
         let x = p.x, z = p.z;
         for (let r = 0, k = 0; r < 60 && (heightAt(x, z) < WATER + 0.5 || colliderAt(coll(x, z), x, z, 0.6, heightAt(x, z))); r += 3, k++) { x = p.x + Math.cos(k * 2.4) * r; z = p.z + Math.sin(k * 2.4) * r; }

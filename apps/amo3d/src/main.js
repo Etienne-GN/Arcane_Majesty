@@ -278,9 +278,10 @@ const world = createMapManager({
     // every way into one of those places — a door, a stair, a gate, a cairn, an old save — arrives in the open world at
     // that place's own arrival point (or the saved spot, moved into world coordinates). Their old standalone maps retire.
     redirect(id, sp, from, at) {
+        if (id === 'eldoria' && typeof sp === 'string' && sp.includes(':')) { world.maps.eldoria?.ensureStamp?.(sp.split(':')[0]); return null; }   // arriving at a place not built yet: build it first
         if (!OPEN_WORLD_IDS.has(id)) return null;
         const ow = (world.maps.eldoria ??= createEldoriaWorld({ quality }));
-        const st = ow.stamps.find(s2 => s2.id === id);
+        const st = ow.ensureStamp(id);   // (built now if it was waiting for you to come near)
         if (!st) return null;
         if (at) return { id: 'eldoria', at: { ...at, x: at.x + st.ox, z: at.z + st.oz, y: undefined } };
         const key = `${id}:${sp}`;
@@ -290,8 +291,9 @@ const world = createMapManager({
         if (!map._animals && ANIMALS[id]) { map._animals = true; populate(map, map.scene, ANIMALS[id], dailyRng); }
         if (!map._animals && map.stamps) {   // the open world: each stamped place's animals, in its own frame (engine/stream.js)
             map._animals = true;
-            for (const st of map.stamps) if (ANIMALS[st.id]) populate(st.map, st.group, ANIMALS[st.id], dailyRng);
+            for (const st of map.stamps) if (st.built && ANIMALS[st.id]) populate(st.map, st.group, ANIMALS[st.id], dailyRng);
             map.refreshLife?.();
+            map.onStampBuilt = st => { if (ANIMALS[st.id]) { populate(st.map, st.group, ANIMALS[st.id], dailyRng); map.refreshLife(); } };   // a place built as you come near: its animals too
         }
         player.place(sp);
         fireballs.setScene(map.scene);

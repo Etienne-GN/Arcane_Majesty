@@ -140,11 +140,12 @@ body.title-on #minimap { display: none; }
             g.globalAlpha = 0.55; g.fill(); g.globalAlpha = 1; g.stroke();
         }
         // The open world: each stamped place's own chart, laid over the coarse land inside its footprint.
-        const stamps = (info.stamps ?? []).filter(st => st.map.mapInfo).map(st => ({ st, art: paint(st.map) }));
+        const stamps = (info.stamps ?? []).filter(st => st.built && st.map.mapInfo).map(st => ({ st, art: paint(st.map) }));
         return { canvas: c, half, size, stamps };
     }
     // Draw the stamped places' charts: worldToScreen(x, z) → [sx, sy], k = screen px per metre.
     function drawStamps(g, worldToScreen, k) {
+        for (const st of mapRef?.mapInfo?.stamps ?? []) if (st.built && st.map.mapInfo && !art.stamps.some(a => a.st === st)) art.stamps.push({ st, art: paint(st.map) });   // a place built since (as you came near)
         for (const { st, art: a } of art.stamps ?? []) {
             const ppm = st.map.mapInfo.pxPerM ?? 2, [sx, sy] = worldToScreen(st.X0, st.Z0);
             g.drawImage(a.canvas, (st.rect[0] + a.half) * ppm, (st.rect[1] + a.half) * ppm, (st.rect[2] - st.rect[0]) * ppm, (st.rect[3] - st.rect[1]) * ppm, sx, sy, (st.X1 - st.X0) * k, (st.Z1 - st.Z0) * k);

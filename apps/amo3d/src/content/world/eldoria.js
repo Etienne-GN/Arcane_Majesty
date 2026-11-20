@@ -17,7 +17,7 @@ import { createOutdoor } from '../glade.js';
 import { createEastRoad } from '../eastRoad.js';
 import { createMountain } from '../mountain.js';
 import { createSanctuary } from '../sanctuary.js';
-import { buildRegion } from '../../engine/region.js';
+import { buildRegion, regionHeight } from '../../engine/region.js';
 const REGION_DEFS = Object.fromEntries(Object.values(import.meta.glob('../regions/*.json', { eager: true, import: 'default' })).map(d => [d.id, d]));
 
 const WATER = -2;
@@ -124,17 +124,32 @@ function fitOy(map, ox, oz, [x0, z0, x1, z1]) {
     return sum / n;
 }
 // Every exit that led from one of these places to another of them is gone in the open world: you walk there.
-const IN_WORLD = ['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'thaloria_lower', 'citadel_plateau'];
+const IN_WORLD = ['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'thaloria_lower', 'citadel_plateau', 'summit_of_despair', 'whisper_wood', 'the_crossroads', 'iron_hollow', 'duskmeet', 'graywatch', 'lake_aethera', 'port_silver', 'emerald_fields'];
 function makeStamps(quality) {
     // Thaloria's footprint stops at the gorge's far cliff top: the Citadel's plateau beyond is its own place now.
     const out = [prepStamp({ id: 'thaloria', map: createThaloria({ quality }), ox: CITY.x, oy: 2, oz: CITY.z, rect: [-78, -80, 78, 66], drop: new Set(IN_WORLD) })];
     // The Lower Town, out of the South Gate; the Citadel's plateau, at the top of the cliff stair (their own region maps).
     try {
-        const low = buildRegion(REGION_DEFS.thaloria_lower, { quality });
-        out.push(prepStamp({ id: 'thaloria_lower', map: low, ox: CITY.x, oy: 2, oz: CITY.z + 66 + 54, rect: [-52, -52, 52, 52], drop: new Set(IN_WORLD) }));   // (cropped inside its old rim; level with the city)
-        const cit = buildRegion(REGION_DEFS.citadel_plateau, { quality });
-        out.push(prepStamp({ id: 'citadel_plateau', map: cit, ox: CITY.x, oy: 28, oz: CITY.z - 80 - 71, rect: [-52, -52, 52, 70], drop: new Set(IN_WORLD) }));   // (level with the cliff top; its south edge meets it)
+        const lazy = id => ({ make: () => buildRegion(REGION_DEFS[id], { quality }), heightAt: regionHeight(REGION_DEFS[id]) });   // built when you come near
+        out.push(prepStamp({ id: 'thaloria_lower', ...lazy('thaloria_lower'), ox: CITY.x, oy: 2, oz: CITY.z + 66 + 54, rect: [-52, -52, 52, 52], drop: new Set(IN_WORLD) }));   // (cropped inside its old rim; level with the city)
+        out.push(prepStamp({ id: 'citadel_plateau', ...lazy('citadel_plateau'), ox: CITY.x, oy: 28, oz: CITY.z - 80 - 71, rect: [-52, -52, 52, 70], drop: new Set(IN_WORLD) }));   // (level with the cliff top; its south edge meets it)
     } catch (e) { console.warn('[eldoria] stamp failed (Thaloria\'s neighbours)', e); }
+    // The other regions on the road: each set at its world-map place, cropped just inside its old rim (measured: the
+    // first rise of 5 m above its middle along each axis), its middle at the land's height (never below the sea).
+    // (Not yet: the Fire Gate, the Inferno Labyrinth and the Ruins — chapters 6–11 stage their scenes on those maps
+    // (content/chapters.js), so they stay behind their doors until those scenes are ported.)
+    for (const [id, name] of [['summit_of_despair', 'Summit of Despair — the Approach'], ['whisper_wood', 'Whisper-Wood'], ['the_crossroads', 'The Crossroads'], ['iron_hollow', 'Iron Hollow'], ['duskmeet', 'Duskmeet'], ['graywatch', 'Graywatch'], ['lake_aethera', 'Lake Aethera'], ['port_silver', 'Port Silver'], ['emerald_fields', 'The Emerald Fields']]) {
+        try {
+            const H = regionHeight(REGION_DEFS[id]), at = place(name), H0 = H(0, 0), half = REGION_DEFS[id].half ?? 90;   // (its ground, without building it)
+            const base = Math.max(H0, (REGION_DEFS[id].water ?? -1.2) + 1.5);   // (a lake's floor is not the ground: measure from its water line)
+            const reach = (dx, dz) => { for (let r = 8; r < half; r += 2) if (H(dx * r, dz * r) > base + 5) return Math.max(24, r - 4); return half - 6; };
+            const rect = [-reach(-1, 0), -reach(0, -1), reach(1, 0), reach(0, 1)];
+            const lake = (REGION_DEFS[id].features ?? []).some(f => f.type === 'lake');
+            // a region with a lake sits with its water at the world's sea level (the world's water fills it; its own sheet goes)
+            const oy = lake ? WATER - (REGION_DEFS[id].water ?? -1.2) : Math.max(WATER + 3 - H0, eldoriaHeight(at.x, at.z) - H0);
+            out.push(prepStamp({ id, make: () => buildRegion(REGION_DEFS[id], { quality }), heightAt: H, ox: at.x, oy, oz: at.z, rect, drop: new Set(IN_WORLD) }));
+        } catch (e) { console.warn('[eldoria] stamp failed', id, e); }
+    }
     const more = [
         // [id, build, where, rect (cropped inside the old map's border walls), dropped exits, anchor: the local point set
         //  at the land's height]
