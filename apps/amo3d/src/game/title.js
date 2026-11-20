@@ -93,6 +93,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
     root.append(sigil, h1, press, menu, panel);
     document.body.append(root);
     document.body.classList.add('title-on');   // the game HUD waits until you play
+    document.body.classList.add('booted'); setTimeout(() => document.getElementById('boot')?.remove(), 900);   // the loading logo fades out
     requestAnimationFrame(() => root.classList.add('lit'));
 
     const music = new Audio(titleTrack);

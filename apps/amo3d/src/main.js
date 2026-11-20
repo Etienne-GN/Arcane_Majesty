@@ -524,6 +524,7 @@ function startNewJourney(kind) {
     setActiveSlot(addSave()); beginNew();             // otherwise a new save at the end of the list — never overwrite
 }
 const activeInfo = slotInfo(activeSlot());
+if (!SHOW_TITLE) { document.body.classList.add('booted'); setTimeout(() => document.getElementById('boot')?.remove(), 900); }   // no title screen (Play here, tests): the loading logo goes at once
 const title = SHOW_TITLE ? createTitle({
     camera, hasSave: hadSave, quality, onOptions: () => options.toggle(true), onSlots: () => slots.toggle(true),
     continueLabel: activeInfo && !activeInfo.empty ? `CONTINUE — ${activeInfo.hero.toUpperCase()}, LV ${activeInfo.level}` : 'CONTINUE',

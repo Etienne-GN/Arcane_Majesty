@@ -16,6 +16,12 @@
         .panel, #tmenu .grid { touch-action: pan-y; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
         canvas:active { cursor: grabbing; }
         .hud { position: fixed; pointer-events: none; color: #eee6d2; text-shadow: 0 1px 3px #000c; }
+        /* While the game loads: nothing of the HUD, just the logo on the dark (the title screen takes over when ready). */
+        body:not(.booted) .hud, body:not(.booted) #hotbar, body:not(.booted) #skills, body:not(.booted) #touch { display: none !important; }
+        #boot { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: #07060b; transition: opacity .7s ease; }
+        #boot img { width: min(52vh, 70vw); opacity: .9; animation: bootGlow 2.4s ease-in-out infinite; filter: drop-shadow(0 0 18px #c9a2ff55); }
+        @keyframes bootGlow { 50% { opacity: .55; filter: drop-shadow(0 0 32px #c9a2ffaa); } }
+        body.booted #boot { opacity: 0; pointer-events: none; }
         #status { left: 18px; bottom: 18px; width: 260px; }
         .label { font-size: calc(15px * var(--ui, 1)); letter-spacing: .08em; text-transform: uppercase; opacity: .85; display: flex; justify-content: space-between; margin-top: 8px; }
         .bar { height: 10px; border: 1px solid #eee6d288; border-radius: 6px; background: #0008; overflow: hidden; margin-top: 4px; }
@@ -50,6 +56,7 @@
     </style>
 </head>
 <body>
+    <div id="boot"><img src="./media/title_sigil.webp" alt="" draggable="false" /></div>
     <div id="fps" class="hud"></div>
     <div id="banner" class="hud"></div>
     <div id="prompt" class="hud"></div>
