@@ -35,6 +35,7 @@ function plates() {
 // statuses and knockback through it (coreOf(h.pos)), whatever kind of body it has.
 const registry = new WeakMap();
 export const coreOf = pos => registry.get(pos) ?? null;
+export const registerCore = (pos, core) => registry.set(pos, core);   // an alias (the open world's stamped places: a creature seen at world coordinates)
 export function setPlatesVisible(v) { if (plateLayer) plateLayer.style.display = v ? '' : 'none'; }
 
 // elite: { affixes, rareDrop } — amo's elites (data/elites.js): eliteStats (×2.5 health, ×1.4 damage, ×3 XP),

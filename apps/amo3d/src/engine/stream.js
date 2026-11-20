@@ -12,6 +12,7 @@ import * as THREE from 'three';
 import { flat, mulberry32, colliderAt, pushOut, fbm } from './lib.js';
 import { createOutdoorShell } from './outdoor.js';
 import { treeKinds } from '../content/models/flora.js';
+import { coreOf, registerCore } from '../content/actors/enemyCore.js';
 
 const TILE = 128, VIEW = 6, BUDGET = 2, WATER = -2;
 const LOD = d => (d <= 1 ? 48 : d <= 3 ? 16 : 6);   // segments per tile edge by ring distance
@@ -87,6 +88,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     const stampColl = new Map();
     for (const st of stamps) {
         const g = new THREE.Group(); g.position.set(st.ox, st.oy, st.oz); g.name = 'stamp:' + st.id;
+        st.group = g; st.off = new THREE.Vector3(st.ox, st.oy, st.oz); st.lpos = new THREE.Vector3(); st.lcam = new THREE.PerspectiveCamera();
         for (const o of [...st.map.scene.children]) if (!o.userData.shell) g.add(o);
         scene.add(g); g.updateMatrixWorld(true);
         const planes = [new THREE.Plane(new THREE.Vector3(1, 0, 0), -st.X0), new THREE.Plane(new THREE.Vector3(-1, 0, 0), st.X1), new THREE.Plane(new THREE.Vector3(0, 0, 1), -st.Z0), new THREE.Plane(new THREE.Vector3(0, 0, -1), st.Z1)];
@@ -113,6 +115,39 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             const tz0 = Math.floor((Math.min(...zs) - c.r + half) / TILE), tz1 = Math.floor((Math.max(...zs) + c.r + half) / TILE);
             for (let tz = tz0; tz <= tz1; tz++) for (let tx = tx0; tx <= tx1; tx++) { const k = `${tx},${tz}`; (stampColl.get(k) ?? stampColl.set(k, []).get(k)).push(w); }
         }
+    }
+
+    // Life in a stamped place (W2.3): its creatures keep living in the place's own coordinates (their bodies ride the
+    // stamp's group); each frame near it they see a player and camera moved into their frame, and anything they hand back
+    // (a blow's origin, loot, a kill) is moved out again. The world's hittables are proxies at world positions: a hit's
+    // origin is moved into the creature's frame; coreOf(proxy.pos) reaches its core (with shove translated).
+    const toWorld = (st, a) => (a && a.isVector3 ? a.clone().add(st.off) : a);
+    const toLocal = (st, a) => (a && a.isVector3 ? a.clone().sub(st.off) : a);
+    function proxyOf(st, h) {
+        const wpos = new THREE.Vector3().copy(h.pos).add(st.off);
+        const core = coreOf(h.pos);
+        if (core) registerCore(wpos, { ...core, pos: wpos, shove: (from, p) => core.shove(toLocal(st, from), p) });
+        const hit = (dmg, from, burn, ctx, ...rest) => h.hit(dmg, toLocal(st, from), burn, st.lctx ?? ctx, ...rest);
+        const px = new Proxy(h, { get(t, k) { if (k === 'pos') return wpos; if (k === 'hit') return hit; if (k === 'update') return () => {}; if (k === '_stamp') return st; const v = Reflect.get(t, k); return typeof v === 'function' ? v.bind(t) : v; } });
+        return { px, h, wpos };
+    }
+    function localCtx(st, ctx) {
+        st.lpos.copy(ctx.player.pos).sub(st.off);
+        if (!st.lplayer || st.lplayerOf !== ctx.player) {
+            st.lplayerOf = ctx.player;
+            st.lplayer = new Proxy(ctx.player, { get(t, k) { if (k === 'pos') return st.lpos; const v = Reflect.get(t, k); return typeof v === 'function' ? (...a) => v.apply(t, a.map(x => toWorld(st, x))) : v; } });
+        }
+        if (ctx.camera) { st.lcam.copy(ctx.camera); st.lcam.position.sub(st.off); st.lcam.updateMatrixWorld(); }
+        const L = Object.create(ctx);
+        L.player = st.lplayer; L.camera = ctx.camera ? st.lcam : ctx.camera;
+        for (const k of ['hurtPlayer', 'floater', 'onKill', 'dropLoot', 'hurtRemote']) if (typeof ctx[k] === 'function') { const f = ctx[k]; L[k] = (...a) => f(...a.map(x => toWorld(st, x))); }
+        return L;
+    }
+    let lives = [];   // { px, h, wpos, st }
+    function refreshLife() {
+        lives = [];
+        for (const st of stamps) for (const h of st.map.hittables ?? []) lives.push({ ...proxyOf(st, h), st });
+        map.hittables.length = 0; map.hittables.push(...lives.map(l => l.px));
     }
 
     // One tile's terrain: a (seg+1)² grid of heights plus a skirt round its edge, dropped 6 m.
@@ -261,6 +296,13 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             frame++;
             const P = ctx.player.pos;
             stream(P.x, P.z);
+            for (const st of stamps) {   // a stamped place's creatures, while the player is within reach of it
+                st.awake = inRect(st, P.x, P.z, 220);
+                if (!st.awake || !st.map.hittables?.length) continue;
+                st.lctx = localCtx(st, ctx);
+                for (const h of st.map.hittables) h.update(dt, st.lctx);
+            }
+            for (const l of lives) l.wpos.copy(l.h.pos).add(l.st.off);
             shell.update(dt, ctx);
             fpsT += dt; fpsN++; worst = Math.max(worst * 0.98, dt * 1000);
             if (fpsT >= 1) { fps = Math.round(fpsN / fpsT); fpsT = 0; fpsN = 0; }
@@ -279,6 +321,8 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         for (const s2 of st.map.stations ?? []) if (s2.pos) map.stations.push({ ...s2, pos: s2.pos.clone().add(new THREE.Vector3(st.ox, st.oy, st.oz)) });
         for (const [k, sp] of Object.entries(st.map.spawns ?? {})) map.spawns[`${st.id}:${k}`] = { ...sp, x: sp.x + st.ox, z: sp.z + st.oz };
     }
+    map.refreshLife = refreshLife;   // after anything is added to a stamp's hittables (main.js: each place's animals)
+    refreshLife();
     if (spawn) map.spawns.start = spawn;
     // Arrive on dry, low ground near the centre (unless the world says where).
     if (!spawn) for (let r = 0, a = 0; r < half * 0.6; r += 6, a += 2.4) { const x = Math.cos(a) * r, z = Math.sin(a) * r, h = heightAt(x, z); if (h > WATER + 2 && h < 16) { map.spawns.start = { x, z, facing: 0 }; break; } }

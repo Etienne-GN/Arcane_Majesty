@@ -276,6 +276,11 @@ const world = createMapManager({
     fade: hud.ui.fade, fadeText: hud.ui.fadeText,
     onEnter(map, id, sp) {
         if (!map._animals && ANIMALS[id]) { map._animals = true; populate(map, map.scene, ANIMALS[id], dailyRng); }
+        if (!map._animals && map.stamps) {   // the open world: each stamped place's animals, in its own frame (engine/stream.js)
+            map._animals = true;
+            for (const st of map.stamps) if (ANIMALS[st.id]) populate(st.map, st.group, ANIMALS[st.id], dailyRng);
+            map.refreshLife?.();
+        }
         player.place(sp);
         fireballs.setScene(map.scene);
         map.scene.add(torchLight);   // always there (a light count that never changes: no shader rebuilds), lit only by a torch
