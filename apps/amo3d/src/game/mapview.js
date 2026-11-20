@@ -89,7 +89,7 @@ body.title-on #minimap { display: none; }
     overlay.addEventListener('pointerdown', e => { if (e.target === overlay) toggle(); });
     document.body.append(overlay);
 
-    let art = null, fog = null, mapRef = null, mapId = null, open = false, lastPlayer = null;
+    let drawRaf = 0, art = null, fog = null, mapRef = null, mapId = null, open = false, lastPlayer = null;
     const view = { cx: 0, cz: 0, zoom: 1, follow: false };
 
     // ---- the chart, painted once per place ----
@@ -106,6 +106,10 @@ body.title-on #minimap { display: none; }
             const h = H[py * size + px], k = kind(h);
             const gr = info.groundAt?.(px / PX_PER_M - half, py / PX_PER_M - half);   // a map's own ground: roads, paving
             let col = gr === 'rock' ? [74, 64, 54] : gr === 'road' ? [196, 172, 128] : gr === 'paved' ? [206, 200, 186] : k === 0 ? [120, 158, 176] : k === 1 ? [150, 184, 190] : k === 2 ? [222, 200, 150] : k === 5 ? [240, 236, 226] : k === 4 ? [176, 160, 132] : tint;
+            if (info.biomeAt && (k === 3 || k === 4) && !gr) {   // a world's lands tinted by their biome (a wash of its greens over the parchment)
+                const b = info.biomeAt(px / PX_PER_M - half, py / PX_PER_M - half), bc = b.gA, f = 0.38 * Math.min(1, b.strength * 1.4 + 0.3);
+                col = [col[0] * (1 - f) + bc.r * 255 * f, col[1] * (1 - f) + bc.g * 255 * f, col[2] * (1 - f) + bc.b * 255 * f];
+            }
             const hx = H[py * size + Math.max(0, px - 1)], hy = H[Math.max(0, py - 1) * size + px];
             const shade = 0.9 + 0.1 * Math.max(-1, Math.min(1, ((hx - h) + (hy - h)) * 0.5));
             let ink = 0;
@@ -174,15 +178,16 @@ body.title-on #minimap { display: none; }
 
     // Everything worth a mark: landmarks, exits (named after where they go), stations.
     function markers() {
-        const out = [];
-        for (const l of mapRef.mapInfo.landmarks ?? []) out.push({ x: l.x, z: l.z, name: l.name, icon: /house/i.test(l.name) ? 'house' : l.icon ?? 'dot', always: l.always, label: true });
+        const out = [];   // tier: 0 world (shown from afar), 1 region, 2 local (only zoomed in)
+        for (const p of mapRef.mapInfo.places ?? []) out.push({ x: p.x, z: p.z, name: p.name, icon: 'stones', always: true, label: true, tier: 0, big: true });
+        for (const l of mapRef.mapInfo.landmarks ?? []) out.push({ x: l.x, z: l.z, name: l.name, icon: /house/i.test(l.name) ? 'house' : l.icon ?? 'dot', always: l.always, label: true, tier: mapRef.mapInfo.places ? 1 : 0 });
         for (const t of mapRef.triggers ?? []) {
             if (!t.to || !t.label) continue;
             const door = t.spawn === 'enter', generic = /^(an? |the )?(house|home|door|building)$/i.test(t.label.replace(/^→\s*/, ''));
-            if (door) out.push({ x: t.x, z: t.z, name: t.label, icon: 'door', label: !generic, small: true });   // a way into a building
-            else out.push({ x: t.x, z: t.z, name: t.label.startsWith('→') ? t.label : `→ ${t.label.replace(/^(To |The road to )/i, '')}`, icon: 'exit', label: true });
+            if (door) out.push({ x: t.x, z: t.z, name: t.label, icon: 'door', label: !generic, small: true, tier: 2 });   // a way into a building
+            else out.push({ x: t.x, z: t.z, name: t.label.startsWith('→') ? t.label : `→ ${t.label.replace(/^(To |The road to )/i, '')}`, icon: 'exit', label: true, tier: 1 });
         }
-        for (const s of mapRef.stations ?? []) if (STATION[s.mode] && s.pos) out.push({ x: s.pos.x, z: s.pos.z, name: s.title ?? s.mode, icon: STATION[s.mode], label: false });
+        for (const s of mapRef.stations ?? []) if (STATION[s.mode] && s.pos) out.push({ x: s.pos.x, z: s.pos.z, name: s.title ?? s.mode, icon: STATION[s.mode], label: false, tier: 2 });
         return out;
     }
 
@@ -221,18 +226,23 @@ body.title-on #minimap { display: none; }
     // ---- detail round you (a world's chart is coarse): 128 m squares at 1 px/m, painted a few rows a frame ----
     const DCELL = 128, detail = new Map();
     let detailFor = null;
-    function detailStep(px, pz) {
-        const info = mapRef.mapInfo; if (!info?.detail) return;
+    // (rings: how many cells out from (px, pz); budget: samples this call. Returns true while cells are still being painted.)
+    function detailStep(px, pz, rings = 1, budget = 1300, keep = 3) {
+        const info = mapRef.mapInfo; if (!info?.detail) return false;
         if (detailFor !== mapRef) { detail.clear(); detailFor = mapRef; }
         const cx = Math.floor(px / DCELL), cz = Math.floor(pz / DCELL);
-        let budget = 1300;   // samples a frame (a 128 m square fills in ~2 s)
-        for (let r = 0; r <= 1 && budget > 0; r++) for (let dz = -r; dz <= r && budget > 0; dz++) for (let dx = -r; dx <= r && budget > 0; dx++) {
+        let pending = false;
+        for (let r = 0; r <= rings; r++) for (let dz = -r; dz <= r; dz++) for (let dx = -r; dx <= r; dx++) {
+            if (Math.max(Math.abs(dx), Math.abs(dz)) !== r) continue;
+            if (budget <= 0) { pending = true; continue; }
             const k = `${cx + dx},${cz + dz}`;
             let d = detail.get(k);
             if (!d) { const c = document.createElement('canvas'); c.width = c.height = DCELL; d = { x0: (cx + dx) * DCELL, z0: (cz + dz) * DCELL, c, row: 0, H: new Float32Array((DCELL + 1) * (DCELL + 1)), img: c.getContext('2d').createImageData(DCELL, DCELL) }; detail.set(k, d); }
             while (d.row < DCELL && budget > 0) { paintRow(d, info); budget -= DCELL * 2; }
+            if (d.row < DCELL) pending = true;
         }
-        if (detail.size > 40) for (const [k, d] of detail) if (Math.abs(d.x0 / DCELL - cx) > 3 || Math.abs(d.z0 / DCELL - cz) > 3) detail.delete(k);
+        if (detail.size > 90) for (const [k, d] of detail) if (Math.abs(d.x0 / DCELL - cx) > keep + 1 || Math.abs(d.z0 / DCELL - cz) > keep + 1) detail.delete(k);
+        return pending;
     }
     function paintRow(d, info) {
         const y = d.row, W = DCELL, H = d.H, h = (i, j) => H[j * (W + 1) + i];
@@ -324,6 +334,7 @@ body.title-on #minimap { display: none; }
     }
 
     // ---- the world map ----
+    const maxZoom = () => Math.max(fitZoom() * 12, 8);   // down to street level (8 px a metre)
     const fitZoom = () => { const r = stage.getBoundingClientRect(); return Math.min(r.width, r.height) / (art.half * 2) * 0.96; };
     function draw() {
         if (!art || !open) return;
@@ -339,7 +350,11 @@ body.title-on #minimap { display: none; }
         const [x0, y0] = scr(-half, -half);
         g.imageSmoothingEnabled = z < PX_PER_M * 1.5;
         g.drawImage(art.canvas, x0, y0, half * 2 * z, half * 2 * z);
-        if (z > 0.6) { const [wx0, wz0] = [view.cx - W / 2 / z, view.cz - Hh / 2 / z]; drawDetail(g, scr, z, wx0, wz0, wx0 + W / z, wz0 + Hh / z); }   // zoomed in: the detail painted round you
+        if (z > 0.35 && art.half > 400) {   // zoomed in on a world: the land in detail where you look (painted a few cells a frame)
+            const [wx0, wz0] = [view.cx - W / 2 / z, view.cz - Hh / 2 / z], rings = Math.min(5, Math.ceil(Math.max(W, Hh) / z / DCELL / 2) + 1);
+            if (detailStep(view.cx, view.cz, rings, 9000, rings + 1)) { cancelAnimationFrame(drawRaf); drawRaf = requestAnimationFrame(draw); }
+            drawDetail(g, scr, z, wx0, wz0, wx0 + W / z, wz0 + Hh / z);
+        } else if (z > 0.6) { const [wx0, wz0] = [view.cx - W / 2 / z, view.cz - Hh / 2 / z]; drawDetail(g, scr, z, wx0, wz0, wx0 + W / z, wz0 + Hh / z); }
         drawStamps(g, scr, z);
         g.imageSmoothingEnabled = true;
         g.drawImage(fogImg, x0, y0, half * 2 * z, half * 2 * z);
@@ -347,12 +362,17 @@ body.title-on #minimap { display: none; }
         g.strokeStyle = 'rgba(58,42,24,0.5)'; g.lineWidth = 2; g.strokeRect(x0, y0, half * 2 * z, half * 2 * z);
         const iconPx = Math.max(6, Math.min(10, z * 1.6)), textPx = Math.max(12, Math.min(17, 10 + z * 1.2));
         const placed = [];   // labels already written, so names never pile up on each other
-        for (const m of markers().sort((a, b) => (a.small ? 1 : 0) - (b.small ? 1 : 0))) {
+        const world = art.half > 400, tierMax = !world ? 2 : z < 0.12 ? 0 : z < 1.2 ? 1 : 2;   // a world's map shows more the closer you look
+        if (world && z < 0.2) for (const b of mapRef.mapInfo.biomeLabels ?? []) {   // from afar: the lands by their biome, in faint italic
+            const [sx, sy] = scr(b.x, b.z); g.font = `italic ${Math.round(13 + 6 * (0.2 - z) / 0.2)}px 'IM Fell English', Georgia, serif`; g.textAlign = 'center'; g.fillStyle = 'rgba(58,42,24,0.55)'; g.fillText(b.name, sx, sy + 22);
+        }
+        for (const m of markers().sort((a, b) => (a.tier ?? 0) - (b.tier ?? 0) || (a.small ? 1 : 0) - (b.small ? 1 : 0))) {
+            if ((m.tier ?? 0) > tierMax) continue;
             if (!m.always && !seenAt(m.x, m.z)) continue;
             const [sx, sy] = scr(m.x, m.z), ip = m.small ? iconPx * 0.7 : iconPx;
             icon(g, m.icon, sx, sy, ip);
             if (!m.label) continue;
-            const ly = sy - ip - 5, tp = m.small ? textPx * 0.85 : textPx, w = m.name.length * tp * 0.5;
+            const ly = sy - ip - 5, tp = m.big && world ? textPx * 1.15 : m.small ? textPx * 0.85 : textPx, w = m.name.length * tp * 0.5;
             if (placed.some(p => Math.abs(p.x - sx) < (p.w + w) / 2 && Math.abs(p.y - ly) < tp)) continue;
             placed.push({ x: sx, y: ly, w });
             label(g, m.name, sx, ly, tp);
@@ -396,7 +416,7 @@ body.title-on #minimap { display: none; }
             const [a, b] = [...ptrs.values()], d = Math.hypot(a.x - b.x, a.y - b.y);
             p.x = e.clientX; p.y = e.clientY;
             const d2 = Math.hypot(...(([q, w]) => [q.x - w.x, q.y - w.y])([...ptrs.values()]));
-            if (pinch) { view.zoom = Math.max(fitZoom() * 0.8, Math.min(fitZoom() * 12, view.zoom * d2 / pinch)); draw(); }
+            if (pinch) { view.zoom = Math.max(fitZoom() * 0.8, Math.min(maxZoom(), view.zoom * d2 / pinch)); draw(); }
             pinch = d2; void d; moved += 10; return;
         }
         const dx = e.clientX - p.x, dy = e.clientY - p.y; moved += Math.abs(dx) + Math.abs(dy);
@@ -418,7 +438,7 @@ body.title-on #minimap { display: none; }
         draw();
     });
     stage.addEventListener('pointercancel', e => { ptrs.delete(e.pointerId); pinch = null; });
-    stage.addEventListener('wheel', e => { e.preventDefault(); view.zoom = Math.max(fitZoom() * 0.8, Math.min(fitZoom() * 12, view.zoom * (e.deltaY > 0 ? 0.88 : 1.14))); draw(); }, { passive: false });
+    stage.addEventListener('wheel', e => { e.preventDefault(); view.zoom = Math.max(fitZoom() * 0.8, Math.min(maxZoom(), view.zoom * (e.deltaY > 0 ? 0.88 : 1.14))); draw(); }, { passive: false });
 
     function toggle() {
         if (!art) return hud.message('No map indoors');

@@ -1,0 +1,28 @@
+{
+ "id": "inferno",
+ "name": "Inferno",
+ "description": "The caldera of the Inferno Labyrinth: black rock, lava, no life that is kind.",
+ "radius": 380,
+ "palette": {
+  "grassA": "#2a2224",
+  "grassB": "#3a2e2c",
+  "rock": "#2e2628",
+  "dirt": "#241c1c"
+ },
+ "vegetation": {
+  "density": 0.1,
+  "kinds": {
+   "dead": 1
+  }
+ },
+ "creatures": [],
+ "mood": {
+  "fog": "#3a1a12",
+  "fogNear": 45,
+  "fogFar": 360,
+  "fogMix": 0.7,
+  "light": 0.55,
+  "nightFloor": 0.4
+ },
+ "wildlife": []
+}

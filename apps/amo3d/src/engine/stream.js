@@ -534,8 +534,8 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     // The chart (game/mapview.js): the land painted coarse, the stamped places' own charts laid on top; landmarks are
     // the world's places and every stamped place's own, moved into world coordinates.
     if (chart) {
-        const landmarks = markers.map(m => ({ x: m.x, z: m.z, name: m.name }));   // (each place's own join when it is built)
-        map.mapInfo = { half, water: WATER, snowH: 62, rockH: 40, ...chart, landmarks, stamps };
+        const landmarks = [];   // (each place's own join when it is built; the world's places are mapInfo.places)
+        map.mapInfo = { half, water: WATER, snowH: 62, rockH: 40, ...chart, landmarks, stamps, places: places.map(p => ({ x: p.x, z: p.z, name: p.name })), biomeAt };
     }
     // The townsfolk of every stamped place, as one town (main.js talks to map.town.nearestPerson).
     const personProxy = (st, p) => new Proxy(p, { get(t, k) { if (k === 'pos') return t.pos.clone().add(st.off); const v = Reflect.get(t, k); return typeof v === 'function' ? v.bind(t) : v; } });

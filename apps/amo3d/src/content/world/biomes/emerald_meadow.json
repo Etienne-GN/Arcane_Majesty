@@ -1,0 +1,48 @@
+{
+ "id": "emerald_meadow",
+ "name": "Emerald meadow",
+ "description": "The bright fields of the west: wide meadows, birch groves, a clear light.",
+ "radius": 750,
+ "palette": {
+  "grassA": "#3e8a3a",
+  "grassB": "#7ab84a",
+  "rock": "#7a786c",
+  "dirt": "#6a5a3a"
+ },
+ "vegetation": {
+  "density": 1.14,
+  "kinds": {
+   "broad": 0.6,
+   "birch": 0.3,
+   "pine": 0.1
+  },
+  "colors": {
+   "broad": "#2e6a2a"
+  }
+ },
+ "creatures": [
+  "void_stalker"
+ ],
+ "mood": {
+  "fog": "#d8e8d0",
+  "fogNear": 200,
+  "fogFar": 960,
+  "fogMix": 0.25,
+  "light": 1.08,
+  "nightFloor": 0.5
+ },
+ "wildlife": [
+  [
+   "deer",
+   3
+  ],
+  [
+   "rabbit",
+   4
+  ],
+  [
+   "crow",
+   2
+  ]
+ ]
+}

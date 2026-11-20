@@ -1,0 +1,45 @@
+{
+ "id": "lakeshore",
+ "name": "Lakeshore",
+ "description": "Round Lake Aethera: reeds and birches, broadleaves, a pale blue air.",
+ "radius": 600,
+ "palette": {
+  "grassA": "#587e3a",
+  "grassB": "#7e9e4a",
+  "rock": "#7a7468",
+  "dirt": "#6e5a3c"
+ },
+ "vegetation": {
+  "density": 1.89,
+  "kinds": {
+   "broad": 0.55,
+   "birch": 0.35,
+   "pine": 0.1
+  }
+ },
+ "creatures": [
+  "rot_toad"
+ ],
+ "mood": {
+  "fog": "#d0d8dc",
+  "fogNear": 140,
+  "fogFar": 840,
+  "fogMix": 0.35,
+  "light": 1.0,
+  "nightFloor": 0.45
+ },
+ "wildlife": [
+  [
+   "deer",
+   2
+  ],
+  [
+   "rabbit",
+   3
+  ],
+  [
+   "crow",
+   2
+  ]
+ ]
+}

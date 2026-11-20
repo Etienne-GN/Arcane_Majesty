@@ -360,56 +360,51 @@ function makeStamps(quality) {
     return out;
 }
 
-// ---------- biomes: every place's own spreads over its country and blends with its neighbours' ----------
-// A region's biome is its own map's (palette, trees, mood); the hand-built places get theirs here. Each holds full strength
-// over its place and fades over R metres beyond; the ordinary land keeps a little weight everywhere, so open country between
-// places stays itself. The fog of a small map is spread out (×4) so a misty wood feels misty without blinding the open world.
-const BASE_BIOME = { gA: '#4d7a35', gB: '#7aa04a', rock: '#77726b', density: 1, kinds: { pine: 0.4, broad: 0.6 }, mood: { fog: '#c8d2d8', fogNear: 180, fogFar: 760, fogMix: 0.5, light: 1, nightFloor: 0.45 } };
-const HAND_BIOMES = {
-    outdoor: { gA: '#4d8a3a', gB: '#86b04e', rock: '#7a7a72', density: 1.3, kinds: { broad: 0.5, pine: 0.35, birch: 0.15 }, mood: { fog: '#cfe0c8', fogNear: 120, fogFar: 600, fogMix: 0.45, light: 1, nightFloor: 0.5 }, R: 500 },
-    thaloria: { gA: '#5a8a3c', gB: '#7aa04a', rock: '#8a7e6a', density: 0.55, kinds: { broad: 0.6, birch: 0.2, pine: 0.2 }, mood: { fog: '#c8d0d4', fogNear: 150, fogFar: 700, fogMix: 0.4, light: 1.05, nightFloor: 0.45 }, R: 450 },
-    east_road: { gA: '#4a7234', gB: '#6a9040', rock: '#7a7468', density: 1.4, kinds: { pine: 0.5, broad: 0.4, dead: 0.1 }, mood: { fog: '#b8c4c0', fogNear: 110, fogFar: 520, fogMix: 0.5, light: 0.95, nightFloor: 0.45 }, R: 600 },
-    the_summit: { gA: '#6a7a5a', gB: '#8a9470', rock: '#6a6a72', density: 0.7, kinds: { pine: 0.8, dead: 0.2 }, colors: { pine: '#34463e' }, mood: { fog: '#c8d0dc', fogNear: 90, fogFar: 480, fogMix: 0.6, light: 0.9, nightFloor: 0.45 }, R: 450 },
-};
-const BIOME_R = { whisper_wood: 900, duskmeet: 850, emerald_fields: 750, lake_aethera: 600, fire_gate: 420, inferno_labyrinth: 380, ruins_of_eldoria: 450, thaloria_lower: 220, citadel_plateau: 220, sylvan_sanctuary: 420 };
-function regionBiome(id) {
-    const d = REGION_DEFS[id]; if (!d) return null;
-    const p = d.palette ?? {}, t = d.trees ?? {}, m = d.mood ?? {}, area = (2 * (d.half ?? 90)) ** 2;
-    return { gA: p.grassA ?? BASE_BIOME.gA, gB: p.grassB ?? BASE_BIOME.gB, rock: p.rock ?? BASE_BIOME.rock,
-        density: Math.max(0.1, Math.min(2.2, ((t.count ?? 200) / area) / 0.0067 * (1 - (t.gaps ?? 0.5) * 0.5))), kinds: t.kinds ?? BASE_BIOME.kinds, colors: t.colors, trunk: t.trunk,
-        mood: { fog: m.fog ?? BASE_BIOME.mood.fog, fogNear: Math.max(45, (m.fogNear ?? 50) * 4), fogFar: Math.max(300, (m.fogFar ?? 200) * 4), fogMix: m.fogMix ?? 0.5, light: m.light ?? 1, nightFloor: m.nightFloor ?? 0.45 } };
-}
+// ---------- biomes (content/world/biomes/*.json — the registry; biome_maps/eldoria.json — which place has which, and
+// free zones) ----------
+// Each biome: palette, vegetation (density, kinds, colours, trunks), wildlife, creatures, mood, radius. A place's biome
+// holds full strength over it and fades over its radius beyond; a zone paints a biome anywhere (x, z, r); the map's base
+// biome keeps a little weight everywhere, so open country between places stays itself. Edited in the Land Editor.
+export const BIOMES = Object.fromEntries(Object.values(import.meta.glob('./biomes/*.json', { eager: true, import: 'default' })).map(b => [b.id, b]));
+import BIOME_MAP from './biome_maps/eldoria.json';
+export { BIOME_MAP };
 function makeBiomes(stamps) {
+    const mk = (b, x, z, core, R) => ({ b, x, z, core, R, gA: new THREE.Color(b.palette.grassA), gB: new THREE.Color(b.palette.grassB), rock: new THREE.Color(b.palette.rock), fog: new THREE.Color(b.mood.fog) });
     const srcs = [];
-    for (const st of stamps) {
-        const b = HAND_BIOMES[st.id] ?? regionBiome(st.id); if (!b) continue;
-        srcs.push({ b, x: st.cx, z: st.cz, core: Math.min(st.ha, st.hb) * 0.9, R: b.R ?? BIOME_R[st.id] ?? 600, gA: new THREE.Color(b.gA), gB: new THREE.Color(b.gB), rock: new THREE.Color(b.rock), fog: new THREE.Color(b.mood.fog) });
-    }
-    const base = { b: BASE_BIOME, gA: new THREE.Color(BASE_BIOME.gA), gB: new THREE.Color(BASE_BIOME.gB), rock: new THREE.Color(BASE_BIOME.rock), fog: new THREE.Color(BASE_BIOME.mood.fog) };
+    for (const st of stamps) { const b = BIOMES[BIOME_MAP.places?.[st.id]]; if (b) srcs.push(mk(b, st.cx, st.cz, Math.min(st.ha, st.hb) * 0.9, b.radius ?? 600)); }
+    for (const zn of BIOME_MAP.zones ?? []) { const b = BIOMES[zn.biome]; if (b) srcs.push(mk(b, zn.x, zn.z, zn.r * 0.6, zn.r)); }
+    const baseB = BIOMES[BIOME_MAP.base] ?? Object.values(BIOMES)[0], base = mk(baseB, 0, 0, 0, 1), baseW = BIOME_MAP.baseWeight ?? 0.18;
     const cache = new Map(), CELL = 24;
     function at(cx, cz) {
         const key = cx + ',' + cz; let r = cache.get(key); if (r) return r;
-        const x = cx * CELL, z = cz * CELL, ws = [[base, 0.18]];
+        const x = cx * CELL, z = cz * CELL, ws = [[base, baseW]];
         for (const s0 of srcs) { const d = Math.max(0, Math.hypot(x - s0.x, z - s0.z) - s0.core); if (d < s0.R * 1.6) ws.push([s0, Math.exp(-2.5 * (d / s0.R) ** 2)]); }
         const tot = ws.reduce((a, w) => a + w[1], 0);
         r = { gA: new THREE.Color(0, 0, 0), gB: new THREE.Color(0, 0, 0), rock: new THREE.Color(0, 0, 0), fogC: new THREE.Color(0, 0, 0), density: 0, kinds: {}, mood: { fogNear: 0, fogFar: 0, fogMix: 0, light: 0, nightFloor: 0 } };
         let top = null, tw = 0;
         for (const [s0, w0] of ws) {
-            const w = w0 / tot;
+            const w = w0 / tot, B = s0.b;
             for (const k of ['gA', 'gB', 'rock']) { r[k].r += s0[k].r * w; r[k].g += s0[k].g * w; r[k].b += s0[k].b * w; }
             r.fogC.r += s0.fog.r * w; r.fogC.g += s0.fog.g * w; r.fogC.b += s0.fog.b * w;
-            r.density += s0.b.density * w;
-            for (const [k, v] of Object.entries(s0.b.kinds)) r.kinds[k] = (r.kinds[k] ?? 0) + v * w;
-            for (const k of Object.keys(r.mood)) r.mood[k] += (s0.b.mood[k] ?? BASE_BIOME.mood[k]) * w;
-            if (w > tw) { tw = w; top = s0.b; }
+            r.density += (B.vegetation?.density ?? 1) * w;
+            for (const [k, v] of Object.entries(B.vegetation?.kinds ?? {})) r.kinds[k] = (r.kinds[k] ?? 0) + v * w;
+            for (const k of Object.keys(r.mood)) r.mood[k] += (B.mood?.[k] ?? baseB.mood[k]) * w;
+            if (w > tw) { tw = w; top = B; }
         }
         const ks = Object.values(r.kinds).reduce((a, v) => a + v, 0) || 1; for (const k of Object.keys(r.kinds)) r.kinds[k] /= ks;
-        r.colors = tw > 0.4 ? top.colors : null; r.trunk = tw > 0.4 ? top.trunk : null;   // a place's own tree colours where it dominates
+        r.biome = top; r.strength = tw;   // the biome that rules here (the map's tint; wildlife)
+        r.colors = tw > 0.4 ? top.vegetation?.colors : null; r.trunk = tw > 0.4 ? top.vegetation?.trunk : null;
         cache.set(key, r); return r;
     }
     return (x, z) => at(Math.round(x / CELL), Math.round(z / CELL));
 }
 
+// The map's far view names the lands by their biome: one label per biome, at the middle of its places.
+function biomeLabels(stamps) {
+    const acc = {};
+    for (const st of stamps) { const id = BIOME_MAP.places?.[st.id]; if (!id || !BIOMES[id]) continue; const a = acc[id] ??= { x: 0, z: 0, n: 0 }; a.x += st.cx; a.z += st.cz; a.n++; }
+    return Object.entries(acc).map(([id, a]) => ({ name: BIOMES[id].name, x: a.x / a.n, z: a.z / a.n }));
+}
 export function createEldoriaWorld({ quality } = {}) {
     const stamps = makeStamps(quality);
     const heightAt = graded(stampHeights(eldoriaHeight, stamps, 60), stamps);   // (roads graded into the land last)
@@ -423,7 +418,7 @@ export function createEldoriaWorld({ quality } = {}) {
         spawn: gladeStart ?? { x: GLADE.x + 30, z: GLADE.z + 20, facing: toCity },
         mood: { fog: '#c8d2d8', fogNear: 180, fogFar: 760, fogMix: 0.5 },
         places, biomeAt,
-        chart: { pxPerM: 0.0625, tileM: 4, detail: true, groundAt: (x, z) => (roadDist(x, z) < 6 ? 'road' : null) },
+        chart: { pxPerM: 0.0625, tileM: 4, detail: true, biomeLabels: biomeLabels(stamps), groundAt: (x, z) => (roadDist(x, z) < 6 ? 'road' : null) },
         clearAt: (x, z) => roadDist(x, z) < 5 || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || riverDist(x, z) < 9,
         groundColor: (x, z, h, col) => {
             if (h < WATER + 0.8) return false;

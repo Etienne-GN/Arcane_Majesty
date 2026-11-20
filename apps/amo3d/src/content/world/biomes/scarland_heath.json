@@ -1,0 +1,45 @@
+{
+ "id": "scarland_heath",
+ "name": "Scarland heath",
+ "description": "The Scarlands about Graywatch: a dry, grey heath, dead trees, rats in the ruins.",
+ "radius": 650,
+ "palette": {
+  "grassA": "#5a5a3e",
+  "grassB": "#6e6a48",
+  "rock": "#6a645c",
+  "dirt": "#5e5038"
+ },
+ "vegetation": {
+  "density": 1.21,
+  "kinds": {
+   "pine": 0.4,
+   "dead": 0.45,
+   "broad": 0.15
+  },
+  "trunk": {
+   "dead": "#4a4440"
+  }
+ },
+ "creatures": [
+  "plague_rat",
+  "void_stalker"
+ ],
+ "mood": {
+  "fog": "#8a8478",
+  "fogNear": 96,
+  "fogFar": 600,
+  "fogMix": 0.5,
+  "light": 0.84,
+  "nightFloor": 0.42
+ },
+ "wildlife": [
+  [
+   "crow",
+   4
+  ],
+  [
+   "feral_boar",
+   2
+  ]
+ ]
+}

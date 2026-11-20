@@ -1,0 +1,27 @@
+{
+ "id": "eldoria",
+ "base": "temperate_meadow",
+ "baseWeight": 0.18,
+ "places": {
+  "thaloria": "tended_country",
+  "thaloria_lower": "tended_country",
+  "citadel_plateau": "tended_country",
+  "outdoor": "lush_vale",
+  "east_road": "east_forest",
+  "the_summit": "alpine",
+  "summit_of_despair": "alpine",
+  "sylvan_sanctuary": "sylvan_spring",
+  "whisper_wood": "whisper_forest",
+  "duskmeet": "whisper_forest",
+  "emerald_fields": "emerald_meadow",
+  "lake_aethera": "lakeshore",
+  "port_silver": "coastland",
+  "graywatch": "scarland_heath",
+  "iron_hollow": "iron_hills",
+  "fire_gate": "ash_lands",
+  "inferno_labyrinth": "inferno",
+  "ruins_of_eldoria": "ruined_moor",
+  "the_crossroads": "temperate_meadow"
+ },
+ "zones": []
+}

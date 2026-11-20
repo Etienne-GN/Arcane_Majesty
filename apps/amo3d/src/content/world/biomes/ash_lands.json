@@ -1,0 +1,40 @@
+{
+ "id": "ash_lands",
+ "name": "Ash lands",
+ "description": "About the Fire Gate: ash on the snow, dead trees, a smoulder in the air.",
+ "radius": 420,
+ "palette": {
+  "grassA": "#4a4644",
+  "grassB": "#5a5450",
+  "rock": "#3e3a38",
+  "dirt": "#3a3432"
+ },
+ "vegetation": {
+  "density": 0.2,
+  "kinds": {
+   "dead": 0.7,
+   "pine": 0.3
+  },
+  "trunk": {
+   "dead": "#2a2624"
+  }
+ },
+ "creatures": [
+  "ash_crawler",
+  "cinder_hawk"
+ ],
+ "mood": {
+  "fog": "#5a4e4a",
+  "fogNear": 80,
+  "fogFar": 560,
+  "fogMix": 0.55,
+  "light": 0.8,
+  "nightFloor": 0.45
+ },
+ "wildlife": [
+  [
+   "crow",
+   2
+  ]
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "id": "iron_hills",
+ "name": "Iron hills",
+ "description": "The mining country of Iron Hollow: grey-green slopes, dark pines, slag and smoke.",
+ "radius": 500,
+ "palette": {
+  "grassA": "#5a6446",
+  "grassB": "#6e7456",
+  "rock": "#5e5a54",
+  "dirt": "#5a4c3c"
+ },
+ "vegetation": {
+  "density": 0.71,
+  "kinds": {
+   "pine": 0.7,
+   "dead": 0.3
+  },
+  "colors": {
+   "pine": "#2a3a2a"
+  }
+ },
+ "creatures": [
+  "crag_fiend"
+ ],
+ "mood": {
+  "fog": "#8a8c8c",
+  "fogNear": 88,
+  "fogFar": 600,
+  "fogMix": 0.5,
+  "light": 0.82,
+  "nightFloor": 0.4
+ },
+ "wildlife": [
+  [
+   "crow",
+   3
+  ]
+ ]
+}

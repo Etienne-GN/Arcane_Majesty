@@ -1,0 +1,43 @@
+{
+ "id": "tended_country",
+ "name": "Tended country",
+ "description": "Thaloria's lands: kept fields and orchards, few woods, the roads busy.",
+ "radius": 450,
+ "palette": {
+  "grassA": "#4d7a35",
+  "grassB": "#6a9a44",
+  "rock": "#8a7e6a",
+  "dirt": "#7a6a4a"
+ },
+ "vegetation": {
+  "density": 0.55,
+  "kinds": {
+   "broad": 0.6,
+   "birch": 0.2,
+   "pine": 0.2
+  }
+ },
+ "creatures": [],
+ "mood": {
+  "fog": "#d8d8c8",
+  "fogNear": 240,
+  "fogFar": 960,
+  "fogMix": 0.25,
+  "light": 1.05,
+  "nightFloor": 0.45
+ },
+ "wildlife": [
+  [
+   "crow",
+   3
+  ],
+  [
+   "sheep",
+   2
+  ],
+  [
+   "cow",
+   1
+  ]
+ ]
+}

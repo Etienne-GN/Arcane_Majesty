@@ -1,0 +1,60 @@
+{
+ "id": "whisper_forest",
+ "name": "Whisper forest",
+ "description": "The dark, misty woods of Whisper-Wood and Duskmeet: close pines, dead trunks, drifting motes, things that watch.",
+ "radius": 880,
+ "palette": {
+  "grassA": "#3e5e32",
+  "grassB": "#5a763c",
+  "rock": "#5a5650",
+  "dirt": "#5a4a32"
+ },
+ "vegetation": {
+  "density": 2.2,
+  "kinds": {
+   "pine": 0.55,
+   "broad": 0.3,
+   "dead": 0.15
+  },
+  "colors": {
+   "pine": "#24482c",
+   "broad": "#33582c"
+  },
+  "trunk": {
+   "dead": "#4a4440"
+  }
+ },
+ "creatures": [
+  "dark_druid",
+  "giant_spider",
+  "mushroom_shaman",
+  "rot_toad",
+  "spider_queen"
+ ],
+ "mood": {
+  "fog": "#4e6458",
+  "fogNear": 45,
+  "fogFar": 380,
+  "fogMix": 0.6,
+  "light": 0.8,
+  "nightFloor": 0.55
+ },
+ "wildlife": [
+  [
+   "forest_fox",
+   2
+  ],
+  [
+   "rabbit",
+   3
+  ],
+  [
+   "grizzly_bear",
+   1
+  ],
+  [
+   "crow",
+   4
+  ]
+ ]
+}

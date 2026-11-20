@@ -1,0 +1,51 @@
+{
+ "id": "east_forest",
+ "name": "Eastern forest",
+ "description": "The Thalorian Wilds along the East Road: thick mixed forest, a few dead trunks, bears and boars.",
+ "radius": 600,
+ "palette": {
+  "grassA": "#4a7234",
+  "grassB": "#6a9040",
+  "rock": "#7a7468",
+  "dirt": "#5e4e36"
+ },
+ "vegetation": {
+  "density": 1.4,
+  "kinds": {
+   "pine": 0.5,
+   "broad": 0.4,
+   "dead": 0.1
+  }
+ },
+ "creatures": [],
+ "mood": {
+  "fog": "#b8c4c0",
+  "fogNear": 110,
+  "fogFar": 520,
+  "fogMix": 0.5,
+  "light": 0.95,
+  "nightFloor": 0.45
+ },
+ "wildlife": [
+  [
+   "rabbit",
+   4
+  ],
+  [
+   "forest_fox",
+   2
+  ],
+  [
+   "crow",
+   5
+  ],
+  [
+   "feral_boar",
+   3
+  ],
+  [
+   "black_bear",
+   1
+  ]
+ ]
+}

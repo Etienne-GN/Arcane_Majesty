@@ -1,0 +1,46 @@
+{
+ "id": "temperate_meadow",
+ "name": "Temperate meadow",
+ "description": "The ordinary green country of Eldoria between its places: rolling meadows, copses of oak and pine.",
+ "radius": 600,
+ "palette": {
+  "grassA": "#4d7a35",
+  "grassB": "#7aa04a",
+  "rock": "#77726b",
+  "dirt": "#6e5a3c"
+ },
+ "vegetation": {
+  "density": 1.0,
+  "kinds": {
+   "pine": 0.4,
+   "broad": 0.6
+  }
+ },
+ "creatures": [],
+ "mood": {
+  "fog": "#c8d2d8",
+  "fogNear": 180,
+  "fogFar": 760,
+  "fogMix": 0.5,
+  "light": 1,
+  "nightFloor": 0.45
+ },
+ "wildlife": [
+  [
+   "rabbit",
+   3
+  ],
+  [
+   "crow",
+   3
+  ],
+  [
+   "forest_fox",
+   1
+  ],
+  [
+   "deer",
+   1
+  ]
+ ]
+}

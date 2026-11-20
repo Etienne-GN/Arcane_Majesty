@@ -8,6 +8,8 @@ const castDir = fileURLToPath(new URL('./src/content/cast', import.meta.url));
 const regionDir = fileURLToPath(new URL('./src/content/regions', import.meta.url));
 const mobNotesDir = fileURLToPath(new URL('./src/content/mob_notes', import.meta.url));   // the Bestiary page's notes
 const npcNotesDir = fileURLToPath(new URL('./src/content/npc_notes', import.meta.url));   // the Forge's notes on each NPC
+const biomesDir = fileURLToPath(new URL('./src/content/world/biomes', import.meta.url));
+const biomeMapsDir = fileURLToPath(new URL('./src/content/world/biome_maps', import.meta.url));
 
 // Dev-only APIs: the Forge's cast (src/content/cast) and the editor's regions (src/content/regions).
 // GET lists the JSON files, POST saves one as <id>.json.
@@ -55,7 +57,7 @@ export default defineConfig({
         // amo's engine-free rules, shared through packages/rules — no copies.
         alias: { '@rules': rules },
     },
-    plugins: [jsonDirApi('/api/cast', castDir, 'cast'), jsonDirApi('/api/region', regionDir, 'regions'), jsonDirApi('/api/mobnotes', mobNotesDir, 'mob_notes'), jsonDirApi('/api/npcnotes', npcNotesDir, 'npc_notes')],
+    plugins: [jsonDirApi('/api/cast', castDir, 'cast'), jsonDirApi('/api/region', regionDir, 'regions'), jsonDirApi('/api/mobnotes', mobNotesDir, 'mob_notes'), jsonDirApi('/api/npcnotes', npcNotesDir, 'npc_notes'), jsonDirApi('/api/biomes', biomesDir, 'biomes'), jsonDirApi('/api/biomemaps', biomeMapsDir, 'biome_maps')],
     build: {
         rollupOptions: { input: { main: 'index.html', forge: 'forge.html', editor: 'editor.html', bestiary: 'bestiary.html', manual: 'manual.html' } },
     },

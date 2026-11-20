@@ -1,0 +1,37 @@
+{
+ "id": "ruined_moor",
+ "name": "Ruined moor",
+ "description": "Round the Ruins of Eldoria: a grey moor, dead and stunted trees, an old sorrow.",
+ "radius": 450,
+ "palette": {
+  "grassA": "#4a5040",
+  "grassB": "#5a5e48",
+  "rock": "#3a3840",
+  "dirt": "#3a3630"
+ },
+ "vegetation": {
+  "density": 0.6,
+  "kinds": {
+   "dead": 0.6,
+   "pine": 0.4
+  },
+  "trunk": {
+   "dead": "#3a3632"
+  }
+ },
+ "creatures": [],
+ "mood": {
+  "fog": "#5e6068",
+  "fogNear": 72,
+  "fogFar": 520,
+  "fogMix": 0.55,
+  "light": 0.72,
+  "nightFloor": 0.42
+ },
+ "wildlife": [
+  [
+   "crow",
+   3
+  ]
+ ]
+}

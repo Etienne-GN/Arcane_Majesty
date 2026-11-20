@@ -1,0 +1,47 @@
+{
+ "id": "lush_vale",
+ "name": "Lush vale",
+ "description": "Eldrin's vale: deep green grass, broadleaves and birches, still water, a soft light.",
+ "radius": 500,
+ "palette": {
+  "grassA": "#4d8a3a",
+  "grassB": "#86b04e",
+  "rock": "#7a7a72",
+  "dirt": "#6e5a3c"
+ },
+ "vegetation": {
+  "density": 1.3,
+  "kinds": {
+   "broad": 0.5,
+   "pine": 0.35,
+   "birch": 0.15
+  }
+ },
+ "creatures": [],
+ "mood": {
+  "fog": "#cfe0c8",
+  "fogNear": 120,
+  "fogFar": 600,
+  "fogMix": 0.45,
+  "light": 1,
+  "nightFloor": 0.5
+ },
+ "wildlife": [
+  [
+   "rabbit",
+   5
+  ],
+  [
+   "forest_fox",
+   2
+  ],
+  [
+   "crow",
+   4
+  ],
+  [
+   "feral_boar",
+   2
+  ]
+ ]
+}

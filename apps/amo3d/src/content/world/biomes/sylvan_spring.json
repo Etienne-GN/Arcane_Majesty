@@ -1,0 +1,47 @@
+{
+ "id": "sylvan_spring",
+ "name": "Sylvan spring",
+ "description": "The impossible green of the Sanctuary: an endless spring, flowers in nameless colours.",
+ "radius": 420,
+ "palette": {
+  "grassA": "#4f8a3a",
+  "grassB": "#7ab84a",
+  "rock": "#7a7a72",
+  "dirt": "#7a6a48"
+ },
+ "vegetation": {
+  "density": 1.17,
+  "kinds": {
+   "broad": 0.55,
+   "birch": 0.25,
+   "pine": 0.2
+  },
+  "colors": {
+   "broad": "#3f8a34",
+   "pine": "#2f5a3a"
+  }
+ },
+ "creatures": [],
+ "mood": {
+  "fog": "#cfe8c8",
+  "fogNear": 120,
+  "fogFar": 680,
+  "fogMix": 0.45,
+  "light": 1.05,
+  "nightFloor": 0.5
+ },
+ "wildlife": [
+  [
+   "rabbit",
+   5
+  ],
+  [
+   "forest_fox",
+   2
+  ],
+  [
+   "deer",
+   2
+  ]
+ ]
+}
