@@ -98,7 +98,7 @@ export function stampHeights(worldH, stamps, B = 60) {
 // Hooks for a real world (content/world/eldoria.js): spawn {x,z,facing}; clearAt(x,z) — no trees here (roads, a town's
 // plateau); groundColor(x,z,h,col) — paint a road or a place (return true when painted); places [{name,x,z}] — markers
 // standing where a place will be built (W2.1), named when you come near.
-export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], stamps = [], chart = null, mood = null, quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
+export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], stamps = [], chart = null, mood = null, biomeAt = null, quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
     const scene = new THREE.Scene();
     const shell = createOutdoorShell(scene, { quality, mood: mood ?? { fog: '#c8d4d8', fogNear: 160, fogFar: 700, fogMix: 0.55 } });
     const half = size / 2, NT = Math.ceil(size / TILE);
@@ -156,17 +156,40 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         g.traverse(o => {
             if (!o.isMesh || o.isInstancedMesh || o.isSkinnedMesh || Array.isArray(o.material) || o.material.transparent || o.morphTargetInfluences) return;
             for (let p = o; p && p !== g; p = p.parent) if (p.userData.dynamic || p.userData.veil) return;
-            const mt = o.material, look = mt.isShaderMaterial ? mt.uuid : [mt.type, mt.color?.getHexString(), mt.emissive?.getHexString(), mt.emissiveIntensity, mt.vertexColors, mt.flatShading, mt.side, mt.map?.uuid, mt.roughness, mt.metalness].join('/');   // same look, whatever the object
+            const mt = o.material;
+            // plain, unlit-free pieces (a colour, no texture, no glow): coloured per vertex and merged per 64 m block, whatever
+            // their colour — a forest of trees each its own green becomes a few meshes
+            const plain = mt.isMeshStandardMaterial && !mt.map && !(mt.emissive && mt.emissive.getHex() && mt.emissiveIntensity > 0);
+            if (plain) {
+                const c = new THREE.Vector3(); o.getWorldPosition(c);
+                const key = 'plain|' + mt.flatShading + '|' + mt.side + '|' + Math.floor(c.x / 64) + ',' + Math.floor(c.z / 64);
+                (groups.get(key) ?? groups.set(key, []).get(key)).push(o); return;
+            }
+            const look = mt.isShaderMaterial ? mt.uuid : [mt.type, mt.color?.getHexString(), mt.emissive?.getHexString(), mt.emissiveIntensity, mt.vertexColors, mt.flatShading, mt.side, mt.map?.uuid, mt.roughness, mt.metalness].join('/');   // same look, whatever the object
             const key = look + '|' + Object.keys(o.geometry.attributes).sort().join(',') + '|' + (o.geometry.index ? 'i' : 'n');
             (groups.get(key) ?? groups.set(key, []).get(key)).push(o);
         });
-        for (const list of groups.values()) {
-            if (list.length < 4) continue;
-            const geos = list.map(o => { m4.multiplyMatrices(inv, o.matrixWorld); return o.geometry.clone().applyMatrix4(m4); });
+        const plainMats = new Map();
+        for (const [key, list] of groups) {
+            const plain = key.startsWith('plain|');
+            if (list.length < (plain ? 2 : 4)) continue;
+            const geos = list.map(o => {
+                m4.multiplyMatrices(inv, o.matrixWorld); let g2 = o.geometry.clone().applyMatrix4(m4);
+                if (!plain) return g2;
+                if (g2.index) g2 = g2.toNonIndexed();
+                const c = o.material.color, n = g2.attributes.position.count, vc = g2.attributes.color, cs = new Float32Array(n * 3);
+                for (let i = 0; i < n; i++) { const k = o.material.vertexColors && vc ? [vc.getX(i), vc.getY(i), vc.getZ(i)] : [1, 1, 1]; cs[i * 3] = c.r * k[0]; cs[i * 3 + 1] = c.g * k[1]; cs[i * 3 + 2] = c.b * k[2]; }
+                for (const a of Object.keys(g2.attributes)) if (a !== 'position' && a !== 'normal') g2.deleteAttribute(a);
+                if (!g2.attributes.normal) g2.computeVertexNormals();
+                g2.setAttribute('color', new THREE.BufferAttribute(cs, 3));
+                return g2;
+            });
             let merged = null; try { merged = mergeGeometries(geos, false); } catch { merged = null; }
             geos.forEach(x => x.dispose());
             if (!merged) continue;
-            const m = new THREE.Mesh(merged, list[0].material); m.castShadow = list.some(o => o.castShadow); m.receiveShadow = list.some(o => o.receiveShadow);
+            let mat = list[0].material;
+            if (plain) { const mk = key.split('|').slice(0, 3).join('|'); mat = plainMats.get(mk) ?? plainMats.set(mk, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: list[0].material.flatShading, side: list[0].material.side, roughness: list[0].material.roughness, metalness: list[0].material.metalness })).get(mk); }
+            const m = new THREE.Mesh(merged, mat); m.castShadow = list.some(o => o.castShadow); m.receiveShadow = list.some(o => o.receiveShadow);
             for (const o of list) o.parent?.remove(o);
             g.add(m);
         }
@@ -217,6 +240,10 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         for (const h of st.map.hittables ?? []) if (h.root) h.root.userData.dynamic = true;
         for (const p of st.map.town?.people ?? st.map.people ?? []) for (const o of [p.root, p.model?.root, p.far, p.group, p.mesh]) if (o?.userData) o.userData.dynamic = true;
         if (st.batch !== false) staticBatch(g);
+        g.traverse(o => {   // a place's own forest at middle detail (its full crowns are three times the triangles)
+            if (!o.isInstancedMesh) return;
+            for (const k of ['pine', 'broad', 'birch']) if (o.geometry === K[k]?.crown && MID[k]) o.geometry = MID[k];
+        });
         rebucket(st);
     const gone = [], kept = [];
         for (const t of st.map.triggers ?? []) {
@@ -273,7 +300,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         for (const k of ['hurtPlayer', 'floater', 'onKill', 'dropLoot', 'hurtRemote']) if (typeof ctx[k] === 'function') { const f = ctx[k]; L[k] = (...a) => f(...a.map(x => toWorld(st, x))); }
         return L;
     }
-    let lives = [];   // { px, h, wpos, st }
+    let lives = [], cullT = 0;   // { px, h, wpos, st }
     function refreshLife() {
         lives = [];
         for (const st of stamps) if (st.built) for (const h of st.map.hittables ?? []) lives.push({ ...proxyOf(st, h), st });
@@ -302,7 +329,8 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             if (groundColor && groundColor(x0 + i * step, z0 + j * step, h, col)) { /* painted by the world */ }
             else if (h < WATER + 0.8) col.copy(cSand);
             else if (h > 62 + nz * 10) col.copy(cSnow);
-            else if (slope > 0.75 || h > 40 + nz * 8) col.copy(cRock);
+            else if (slope > 0.75 || h > 40 + nz * 8) col.copy(biomeAt ? biomeAt(x0 + i * step, z0 + j * step).rock : cRock);
+            else if (biomeAt) { const b = biomeAt(x0 + i * step, z0 + j * step); col.copy(b.gA).lerp(b.gB, nz); }   // the land's biome (a place's, spreading and blending)
             else col.copy(cGrassA).lerp(cGrassB, nz);
             colr.set([col.r, col.g, col.b], k * 3);
         }
@@ -326,30 +354,51 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     // Trees and rocks for a near tile (seeded by the tile, so they are the same every time it is built).
     const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), v = new THREE.Vector3(), sc = new THREE.Vector3(), Y = new THREE.Vector3(0, 1, 0);
     // Far trees (tiles two or three away): one coarse crown each, no trunk, no shadow — a tenth of the triangles.
+    // Middle trees (the eight tiles round yours): a single crown, a third of the triangles; full detail only on your own tile.
+    const MID = { pine: mergeGeometries([new THREE.ConeGeometry(1.5, 2.6, 6).translate(0, 2.6, 0), new THREE.ConeGeometry(1.0, 2.2, 6).translate(0, 4.0, 0)].map(g => { g.deleteAttribute('uv'); return g; })), broad: (() => { const g = new THREE.IcosahedronGeometry(2.0, 1).translate(0, 3.7, 0); g.deleteAttribute('uv'); return g; })(), birch: (() => { const g = new THREE.IcosahedronGeometry(1.5, 1).scale(1, 1.4, 1).translate(0, 4.0, 0); g.deleteAttribute('uv'); return g; })() };
     const CHEAP = { pine: new THREE.ConeGeometry(1.5, 5.0, 5).translate(0, 3.0, 0), broad: new THREE.IcosahedronGeometry(2.0, 0).translate(0, 3.7, 0) };
-    function tileFlora(t, cheap = false) {
-        t.cheap = cheap;
+    function tileFlora(t, cheap = false, mid = false) {
+        t.cheap = cheap; t.mid = mid;
         const rng = mulberry32(seed + t.tx * 7919 + t.tz * 104729);
         const x0 = t.tx * TILE - half, z0 = t.tz * TILE - half;
-        const byKind = { pine: [], broad: [] };
-        for (let i = 0; i < 220; i++) {
+        const byKind = { pine: [], broad: [], birch: [], dead: [] };
+        const B = biomeAt ? biomeAt(x0 + TILE / 2, z0 + TILE / 2) : null;   // the tile's biome: how many trees, which kinds, their colours
+        const tries = Math.round(220 * Math.min(1.6, B ? B.density : 1)), kinds = B ? B.kinds : { pine: 0.4, broad: 0.6 };
+        const pick = (h, r) => { if (h > 18 && r < 0.6) return kinds.dead > 0.3 && r < kinds.dead ? 'dead' : 'pine'; let acc = 0; for (const k of ['pine', 'broad', 'birch', 'dead']) { acc += kinds[k] ?? 0; if (r < acc) return k; } return 'broad'; };
+        for (let i = 0; i < tries; i++) {
             const x = x0 + rng() * TILE, z = z0 + rng() * TILE, h = heightAt(x, z);
             if (h < WATER + 1 || h > 38) continue;
             if (fbm(x * 0.012 + 3, z * 0.012 + 9, 3) < 0.5) continue;   // woods and clearings
             if (clearAt && clearAt(x, z)) continue;   // roads, a town's ground
             if (stamped(x, z)) continue;   // a stamped place brings its own
-            const kind = h > 18 || rng() < 0.4 ? 'pine' : 'broad';
+            const kind = pick(h, rng());
             byKind[kind].push({ x, z, h, s: 0.8 + rng() * 0.6, r: rng() * 6.28, tint: rng() });
-            (t.treePts ??= []).push([x, z, kind === 'pine']);   // (the minimap draws them)
+            (t.treePts ??= []).push([x, z, kind === 'pine' || kind === 'dead']);   // (the minimap draws them)
+        }
+        if (cheap) {   // far: two batches only — cones (pines; dead trees in grey-brown) and rounds (broadleaves, birches)
+            const groups = { pine: [...byKind.pine.map(t2 => [t2, 'pine']), ...byKind.dead.map(t2 => [t2, 'dead'])], broad: [...byKind.broad.map(t2 => [t2, 'broad']), ...byKind.birch.map(t2 => [t2, 'birch'])] };
+            for (const [g, list] of Object.entries(groups)) {
+                if (!list.length) continue;
+                const im = new THREE.InstancedMesh(CHEAP[g], flat(0xffffff), list.length);
+                list.forEach(([tr, kind], i) => {
+                    q.setFromAxisAngle(Y, tr.r); m4.compose(v.set(tr.x, tr.h - 0.1, tr.z), q, sc.setScalar(tr.s * (kind === 'dead' ? 0.7 : 1))); im.setMatrixAt(i, m4);
+                    const tc = B?.colors?.[kind];
+                    im.setColorAt(i, kind === 'dead' ? col.setHex(0x4a4038) : tc ? col.set(tc) : kind === 'pine' ? col.setHSL(0.33, 0.4, 0.18 + tr.tint * 0.06) : kind === 'birch' ? col.setHSL(0.2, 0.5, 0.36) : col.setHSL(0.25 + tr.tint * 0.05, 0.45, 0.25));
+                    t.colliders.push({ x: tr.x, z: tr.z, r: K[kind].r * tr.s, kind: 'wall', y0: tr.h - 0.5, y1: tr.h + 5 * tr.s });
+                });
+                im.userData.dynamic = true; scene.add(im); t.trees.push(im);
+            }
+            return;
         }
         for (const [kind, list] of Object.entries(byKind)) {
             if (!list.length) continue;
-            const Kd = K[kind];
-            const trunks = cheap ? null : new THREE.InstancedMesh(Kd.trunk, flat(Kd.trunkColor), list.length), crowns = new THREE.InstancedMesh(cheap ? CHEAP[kind] : Kd.crown, flat(0xffffff), list.length);
+            const Kd = K[kind], cheapGeo = CHEAP[kind === 'birch' ? 'broad' : kind === 'dead' ? null : kind], noCrown = kind === 'dead';
+            const trunks = cheap && !noCrown ? null : new THREE.InstancedMesh(Kd.trunk, flat(B?.trunk?.[kind] ?? Kd.trunkColor), list.length), crowns = noCrown ? null : new THREE.InstancedMesh(mid && MID[kind] ? MID[kind] : Kd.crown, flat(0xffffff), list.length);
+            const tint = B?.colors?.[kind] ? new THREE.Color(B.colors[kind]) : null;
             list.forEach((tr, i) => {
                 q.setFromAxisAngle(Y, tr.r); m4.compose(v.set(tr.x, tr.h - 0.1, tr.z), q, sc.setScalar(tr.s));
-                trunks?.setMatrixAt(i, m4); crowns.setMatrixAt(i, m4);
-                crowns.setColorAt(i, kind === 'pine' ? col.setHSL(0.33, 0.4, 0.18 + tr.tint * 0.06) : col.setHSL(0.25 + tr.tint * 0.05, 0.45, 0.25));
+                trunks?.setMatrixAt(i, m4); crowns?.setMatrixAt(i, m4);
+                if (crowns) crowns.setColorAt(i, tint ? col.copy(tint).offsetHSL(0, 0, (tr.tint - 0.5) * 0.06) : kind === 'pine' ? col.setHSL(0.33, 0.4, 0.18 + tr.tint * 0.06) : kind === 'birch' ? col.setHSL(0.2 + tr.tint * 0.04, 0.5, 0.36) : col.setHSL(0.25 + tr.tint * 0.05, 0.45, 0.25));
                 t.colliders.push({ x: tr.x, z: tr.z, r: Kd.r * tr.s, kind: 'wall', y0: tr.h - 0.5, y1: tr.h + 5 * tr.s });
             });
             for (const im of [trunks, crowns]) { if (!im) continue; im.castShadow = !cheap; im.receiveShadow = !cheap; im.userData.dynamic = true; scene.add(im); t.trees.push(im); }
@@ -362,9 +411,9 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         t.mesh = new THREE.Mesh(tileGeometry(t.tx, t.tz, LOD(lod)), terrainMat);
         t.mesh.receiveShadow = lod <= 1; t.mesh.userData.dynamic = true;
         scene.add(t.mesh);
-        const wantTrees = lod <= 2, cheap = lod >= 2;
-        if (wantTrees && t.trees.length && t.cheap !== cheap) dropFlora(t);   // near ↔ far: rebuilt at the other detail
-        if (wantTrees && !t.trees.length) tileFlora(t, cheap);
+        const wantTrees = lod <= 2, cheap = lod >= 2, mid = lod === 1;
+        if (wantTrees && t.trees.length && (t.cheap !== cheap || t.mid !== mid)) dropFlora(t);   // near ↔ middle ↔ far: rebuilt at the other detail
+        if (wantTrees && !t.trees.length) tileFlora(t, cheap, mid);
         if (!wantTrees && t.trees.length) dropFlora(t);
         t.lod = lod; t.pending = false;
         const ms = performance.now() - t0; stats.lastMs = ms; stats.maxMs = Math.max(stats.maxMs * 0.995, ms); stats.built++;
@@ -408,7 +457,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     const hud = document.createElement('div');
     hud.style.cssText = 'position:fixed;left:8px;top:8px;z-index:30;font:12px monospace;color:#e8f0e0;background:#0008;padding:4px 7px;border-radius:4px;pointer-events:none;display:none';
     document.body.append(hud);
-    let fpsT = 0, fpsN = 0, fps = 0, worst = 0;
+    let fpsT = 0, fpsN = 0, fps = 0, worst = 0, moodNow = null; const curFog = new THREE.Color(mood?.fog ?? '#c8d4d8');
 
     const EDGE = half - 20;
     const map = {
@@ -455,6 +504,21 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
                 else for (const h of st.map.hittables ?? []) h.update(dt, st.lctx);
             }
             for (const l of lives) l.wpos.copy(l.h.pos).add(l.st.off);
+            if ((cullT -= dt) <= 0) {   // creatures far off aren't drawn; only near ones cast shadows (a body is a dozen meshes)
+                cullT = 0.3;
+                for (const l of lives) {
+                    const r = l.h.root; if (!r) continue;
+                    const d = Math.hypot(l.wpos.x - P.x, l.wpos.z - P.z), vis = d < 110, sh = d < 35;
+                    r.visible = vis && (l.h.alive !== false || d < 60);
+                    if (vis && l.shadow !== sh) { l.shadow = sh; r.traverse(o => { if (o.isMesh) o.castShadow = sh; }); }
+                }
+            }
+            if (biomeAt) {   // the mood drifts toward the biome where you stand
+                const b = biomeAt(P.x, P.z), cur = moodNow ??= { ...b.mood }, k = Math.min(1, dt * 0.6);
+                for (const key of ['fogNear', 'fogFar', 'fogMix', 'light', 'nightFloor']) cur[key] += (b.mood[key] - cur[key]) * k;
+                curFog.lerp(b.fogC, k);
+                shell.setMood({ ...cur, fog: '#' + curFog.getHexString() });
+            }
             shell.update(dt, ctx);
             fpsT += dt; fpsN++; worst = Math.max(worst * 0.98, dt * 1000);
             if (fpsT >= 1) { fps = Math.round(fpsN / fpsT); fpsT = 0; fpsN = 0; }

@@ -66,6 +66,8 @@ export function createOutdoorShell(scene, { quality, mood = {} }) {
 
     return {
         sun, hemi, sky,   // sky: the dome, for maps that tint it (the mountain's clouds)
+        // The open world's biomes: the mood drifts with where you stand (fog colour, near/far, mix, light).
+        setMood(m) { Object.assign(M, m); if (m.fog) moodFog.set(m.fog); },
         // Returns the sky state (for anything else that wants the hour: lamps, windows…).
         update(dt, ctx) {
             const S = skyState(ctx.hour ?? 9, umbral ? 'clear' : (ctx.weather ?? 'clear'), M.plane ?? null);
