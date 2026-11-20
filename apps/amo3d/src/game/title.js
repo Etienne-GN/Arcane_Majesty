@@ -78,7 +78,8 @@ const CSS = `
 @keyframes rise { to { transform: translate(var(--dx), -105vh); opacity: 0; } }
 body.title-on .hud, body.title-on #hotbar, body.title-on #skills, body.title-on #touch, body.title-on #floaters { display: none !important; }`;
 
-export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQuality, onOptions, onSlots, continueLabel = 'CONTINUE' }) {
+// coverShot(time, outPos, outLook) → true: the open world's shot (the Eldoria's Prophecy cover — the Citadel over the gorge).
+export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQuality, onOptions, onSlots, continueLabel = 'CONTINUE', coverShot = null }) {
     const style = document.createElement('style');
     style.textContent = CSS;
     document.head.append(style);
@@ -228,6 +229,7 @@ export function createTitle({ camera, hasSave, quality, onStart, onNewGame, onQu
     // The cinematic: a slow eased swing around the tower, looking up at it.
     const T = ELDRIN.T, look = new THREE.Vector3();
     function shot(time, out) {
+        if (coverShot?.(time, out, look)) return out;
         const a = Math.sin(time * 0.045) * 0.75;   // swing back and forth across the vale
         const p = toWorld(Math.sin(a) * 33, -Math.cos(a) * 33);
         out.set(p.x, ELDRIN.TY + 8 + Math.sin(time * 0.11) * 1.5, p.z);

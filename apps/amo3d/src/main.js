@@ -525,8 +525,27 @@ function startNewJourney(kind) {
 }
 const activeInfo = slotInfo(activeSlot());
 if (!SHOW_TITLE) { document.body.classList.add('booted'); setTimeout(() => document.getElementById('boot')?.remove(), 900); }   // no title screen (Play here, tests): the loading logo goes at once
+// The title over the open world: the Eldoria's Prophecy cover — from the west cliff of the gorge, high, the river below,
+// the Citadel on its cliff across it, the valley and the mountains behind; a slow drift. (COVER: tuned by eye.)
+const COVER = { from: [-175, 22, 135], to: [-70, 20, -60], drift: 10 };
+const coverFocus = new THREE.Vector3();
+function titleFocus() {   // where the world streams and builds round while the title shows: the cover's foreground (or the old tower)
+    if (world.id !== 'eldoria') return title.focus;
+    const c = world.current.spawns?.['place:The Citadel of Thaloria'] ?? world.current.spawns?.['thaloria:north_gate'];
+    if (!c) return title.focus;
+    return coverFocus.set(c.x - 60, world.current.heightAt(c.x - 60, c.z + 40), c.z + 40);
+}
+function coverShot(time, pos, look) {
+    if (world.id !== 'eldoria') return false;
+    const st = world.current.stamps?.find(s2 => s2.id === 'citadel_plateau'); if (!st) return false;
+    const a = Math.sin(time * 0.05) * COVER.drift;
+    pos.set(st.ox + COVER.from[0] + a, st.oy + COVER.from[1] + Math.sin(time * 0.09) * 1.5, st.oz + COVER.from[2] - a * 0.4);
+    look.set(st.ox + COVER.to[0], st.oy + COVER.to[1], st.oz + COVER.to[2]);
+    return true;
+}
 const title = SHOW_TITLE ? createTitle({
     camera, hasSave: hadSave, quality, onOptions: () => options.toggle(true), onSlots: () => slots.toggle(true),
+    coverShot: (time, pos, look) => coverShot(time, pos, look),
     continueLabel: activeInfo && !activeInfo.empty ? `CONTINUE — ${activeInfo.hero.toUpperCase()}, LV ${activeInfo.level}` : 'CONTINUE',
     onNewGame: kind => startNewJourney(kind),
     onStart: () => { player.state.dead = null; hero.root.visible = true; },
@@ -572,7 +591,7 @@ function tick(dt) {
     if (title?.active) {
         input.poll(dt);   // drain input while the title owns the screen
         title.update(dt, gameCam);
-        world.current.update(simT, dt, { ...clock(19.4 * 60), weather: 'clear', player: { pos: title.focus, dead: true, speed: 0 }, camera, fx: world.current.fx ?? fireballs, hurtPlayer: () => false, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop });
+        world.current.update(simT, dt, { ...clock(19.4 * 60), weather: 'clear', player: { pos: titleFocus(), dead: true, speed: 0 }, camera, fx: world.current.fx ?? fireballs, hurtPlayer: () => false, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop });
         return;
     }
     const act = input.poll(dt);
