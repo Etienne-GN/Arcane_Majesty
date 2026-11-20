@@ -89,3 +89,72 @@ jobs:
           done
           exit 1
 
+
+  # The desktop app (Electron, apps/amo3d/desktop): the same web build in its own window — a portable Windows .exe and
+  # a Linux AppImage, attached to the release the APK job published. Linux also starts it once on a virtual screen and
+  # keeps a screenshot (an artifact) to show it runs.
+  desktop:
+    needs: apk
+    if: startsWith(github.ref, 'refs/tags/amo3d-v')
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: apps/amo3d
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: apps/amo3d/package-lock.json
+
+      - name: Version from the tag
+        run: |
+          VER="${GITHUB_REF_NAME#amo3d-v}"
+          echo "AMO_VERSION_NAME=$VER" >> "$GITHUB_ENV"
+          echo "VITE_APP_VERSION=$VER" >> "$GITHUB_ENV"
+
+      - run: npm ci
+      - run: npx vite build
+
+      - name: Build the desktop app
+        run: |
+          rm -rf desktop/app && cp -r dist desktop/app
+          cd desktop
+          npm install --no-audit --no-fund
+          npm pkg set version="$AMO_VERSION_NAME"
+          npx electron-builder --publish never
+
+      - name: Start it once (Linux, virtual screen)
+        if: runner.os == 'Linux'
+        run: |
+          cd desktop
+          AMO_SHOT="$RUNNER_TEMP/desktop.png" timeout 90 xvfb-run -a npx electron . --no-sandbox 2>&1 | tail -20 || true
+          test -s "$RUNNER_TEMP/desktop.png"
+          cp "$RUNNER_TEMP/desktop.png" release/
+
+      - name: Keep the screenshot
+        if: runner.os == 'Linux'
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-screenshot
+          path: apps/amo3d/desktop/release/desktop.png
+
+      - name: Attach to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd desktop/release
+          files=$(ls ArcaneMajesty3D-* 2>/dev/null | grep -E '\.(exe|AppImage)$')
+          [ -n "$files" ] || { echo "no desktop build found"; ls -la; exit 1; }
+          for try in 1 2 3 4; do
+            if gh release upload "$GITHUB_REF_NAME" $files --clobber; then exit 0; fi
+            sleep $((try * 20))
+          done
+          exit 1

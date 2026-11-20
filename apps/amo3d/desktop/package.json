@@ -1,0 +1,22 @@
+{
+  "name": "arcane-majesty",
+  "productName": "Arcane Majesty",
+  "version": "0.0.0",
+  "description": "Arcane Majesty — the desktop app",
+  "main": "main.cjs",
+  "private": true,
+  "author": "Arcane Majesty",
+  "devDependencies": {
+    "electron": "33.2.1",
+    "electron-builder": "25.1.8"
+  },
+  "build": {
+    "appId": "com.arcanemajesty.desktop",
+    "productName": "Arcane Majesty",
+    "directories": { "output": "release" },
+    "files": ["main.cjs", "app/**"],
+    "artifactName": "ArcaneMajesty3D-${version}-${os}.${ext}",
+    "win": { "target": ["portable"] },
+    "linux": { "target": ["AppImage"], "category": "Game" }
+  }
+}
