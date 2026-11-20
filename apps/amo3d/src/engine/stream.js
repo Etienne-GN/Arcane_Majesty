@@ -301,9 +301,12 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
                 if (inside && !st.inside) map.onPlace?.(st.id, st.map.name ?? st.id);   // walked into a place (main.js: its story, its banner)
                 st.inside = inside;
                 st.awake = inRect(st, P.x, P.z, 220);
-                if (!st.awake || !st.map.hittables?.length) continue;
+                if (!st.awake) continue;
                 st.lctx = localCtx(st, ctx);
-                for (const h of st.map.hittables) h.update(dt, st.lctx);
+                // the place's own life: its creatures, townsfolk, lamps, fires, trials — all in its frame (its sky and fog
+                // belong to its old scene, which is no longer drawn)
+                if (st.map.update) st.map.update(t, dt, st.lctx);
+                else for (const h of st.map.hittables ?? []) h.update(dt, st.lctx);
             }
             for (const l of lives) l.wpos.copy(l.h.pos).add(l.st.off);
             shell.update(dt, ctx);
@@ -330,6 +333,20 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         const landmarks = [...markers.map(m => ({ x: m.x, z: m.z, name: m.name })), ...stamps.flatMap(st => (st.map.mapInfo?.landmarks ?? []).map(l => ({ ...l, x: l.x + st.ox, z: l.z + st.oz })))];
         map.mapInfo = { half, water: WATER, snowH: 62, rockH: 40, ...chart, landmarks, stamps };
     }
+    // The townsfolk of every stamped place, as one town (main.js talks to map.town.nearestPerson).
+    const personProxy = (st, p) => new Proxy(p, { get(t, k) { if (k === 'pos') return t.pos.clone().add(st.off); const v = Reflect.get(t, k); return typeof v === 'function' ? v.bind(t) : v; } });
+    if (stamps.some(st => st.map.town)) map.town = {
+        nearestPerson(pos, within) {
+            for (const st of stamps) {
+                if (!st.map.town || !inRect(st, pos.x, pos.z, 10)) continue;
+                const p = st.map.town.nearestPerson(pos.clone().sub(st.off), within);
+                if (p) return personProxy(st, p);
+            }
+            return null;
+        },
+        setVisible(v) { for (const st of stamps) st.map.town?.setVisible?.(v); },
+        update() {},
+    };
     map.refreshLife = refreshLife;   // after anything is added to a stamp's hittables (main.js: each place's animals)
     refreshLife();
     if (spawn) map.spawns.start = spawn;
