@@ -83,7 +83,8 @@ export function eldoriaHeight(x, z) {
     // (open) and another toward the Ruins (the way Xarathos barred); the Fire Gate in the valley at its western foot.
     const dL = Math.hypot(x - LAB.x, z - LAB.z);
     if (dL < 700) {
-        let ring = 150 * Math.exp(-Math.pow((dL - 165) / 95, 2)) * (0.85 + 0.3 * fbm(x * 0.005, z * 0.005, 2));
+        const crag = 0.62 + 0.7 * Math.pow(1 - Math.abs(fbm(x * 0.009 + 51, z * 0.009 - 23, 3) * 2 - 1), 2.2);   // jagged crests and spurs, not a dome
+        let ring = 155 * Math.exp(-Math.pow((dL - 165) / 85, 2)) * crag + 40 * Math.exp(-Math.pow((dL - 260) / 120, 2)) * fbm(x * 0.012, z * 0.012, 2);
         for (const to of [FIRE, RUINS]) {   // the gorges through the caldera's wall
             const g = gorgeMask(LAB, to, x, z, 14);
             ring *= 1 - 0.9 * g;
@@ -263,8 +264,13 @@ export function createEldoriaWorld({ quality } = {}) {
             if (roadDist(x, z) < 3.2) { col.set('#8a7454'); return true; }   // the roads
             const dG = Math.hypot(x - GLADE.x, z - GLADE.z);   // the glade's range: snow down to its crater's rim, bare rock below the snow
             if (dG < 1300) { const nz = fbm(x * 0.03, z * 0.03, 2) * 8; if (h > 40 + nz) { col.set('#e6eaee'); return true; } if (h > 26 + nz) { col.set(h > 33 + nz ? '#6e6862' : '#7d7568'); return true; } }
-            const dF = Math.hypot(x - FIRE.x, z - FIRE.z);
-            if (dF < 700 && h > 30) { col.set(dF < 350 ? '#3a3634' : '#5a5450'); return true; }   // ash on the Fire Gate's slopes
+            const dL = Math.hypot(x - LAB.x, z - LAB.z);   // the fire mountain: a snow-capped volcano
+            if (dL < 520 && h > 14) {
+                const nz = fbm(x * 0.04, z * 0.04, 2), steep = Math.abs(eldoriaHeight(x + 3, z) - h) + Math.abs(eldoriaHeight(x, z + 3) - h) > 4.5;
+                if (dL < 120) { col.set(nz > 0.62 ? '#8a2a12' : nz > 0.5 ? '#4a2a22' : '#3a2a26'); return true; }   // the caldera's inner faces, embers glowing in the cracks
+                if (h > 96 + nz * 18 && !steep) { col.set('#e2e6ea'); return true; }   // snow on the heights (as on the Fire Gate's rim)
+                col.set(steep ? '#2e2a2a' : nz > 0.55 ? '#5a5450' : '#4a4442'); return true;   // basalt on the steep, ash on the slopes
+            }
             return false;
         },
     });
