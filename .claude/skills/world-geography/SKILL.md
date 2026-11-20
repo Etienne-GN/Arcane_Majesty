@@ -39,6 +39,11 @@ Coordinates: x east, z south (north is −z); metres; 1 DB unit = 5.5 m; world ~
 - **No right angles, ever.** No rectangular valleys, plateaus or pits. Place footprints are rounded, wobbling
   superellipses (`round`, `wobble` on the stamp; squarer only for a walled city); outlines and blends follow
   `edgeDist`, never a rect.
+- **Roads follow valleys** (user, 2026-11-20: "a dead straight ravine splitting a mountain", "the path high in the sky
+  dropping straight to the lower city"): route a road *around* peaks, never through them; the land eases off within
+  ~150 m of roads (`roadNear` → `vale`); a road's profile is pinned to a place's ground where it enters (no step at the
+  edge); its bed may cut ≤ 12 m / rise ≤ 5 m; a place a road enters gets a wide ring (`blend` 100–150). Check each
+  road's steepest stretch *and where it is* (the `road3.json` recipe: grade + nearest place + distance).
 - **Paths are logical.** A road never climbs a steep slope: roads are smooth curves (Catmull-Rom), their bed
   smoothed and held to ~10% grade, the land cut and filled along them (`graded()` in eldoria.js). Check the steepest
   stretch per road after any terrain change (aim ≤ 15%).

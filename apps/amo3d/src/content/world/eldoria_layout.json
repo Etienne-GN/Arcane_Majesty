@@ -728,7 +728,7 @@
     ]
    },
    {
-    "what": "the glade's pass → round to Thaloria's South Gate",
+    "what": "the glade's pass → south out of the range, round below its peaks, up through the Lower Town to Thaloria's South Gate",
     "db": [
      [
       1207,
@@ -736,19 +736,23 @@
      ],
      [
       1205,
-      352
+      356
      ],
      [
-      1170,
-      352
+      1182,
+      374
      ],
      [
-      1130,
-      330
+      1140,
+      377
      ],
      [
-      1096.5,
-      246.6
+      1110,
+      335
+     ],
+     [
+      1101,
+      270
      ]
     ],
     "world": [
@@ -758,19 +762,23 @@
      ],
      [
       1952,
-      -1172
+      -1150
      ],
      [
-      1760,
-      -1172
+      1826,
+      -1050
      ],
      [
-      1540,
-      -1292
+      1595,
+      -1034
      ],
      [
-      1356,
-      -1751
+      1430,
+      -1265
+     ],
+     [
+      1380,
+      -1622
      ]
     ]
    },

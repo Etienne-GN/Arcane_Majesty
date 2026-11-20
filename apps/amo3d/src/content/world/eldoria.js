@@ -71,6 +71,11 @@ const SANCT = place('Sylvan Sanctuary'), CITY = place('Thaloria'), CITADEL = pla
 const GLADE_PEAKS = [[-400, 30, 150, 150], [-260, -290, 125, 140], [170, -320, 170, 160], [440, -60, 140, 150], [690, -270, 110, 140], [-610, -150, 95, 140], [330, 260, 85, 130]];
 const GLADE_SADDLES = [[-620, -120], [-430, 40], [-250, -300], [190, -330], [460, -40], [700, -260]];
 function polyDistLocal(pts, x, z) { return polyDist(pts, x, z); }
+let GLADE_ROAD = null;   // the glade road's course (its smooth curve), the first time it is needed
+function gladeRoadDist(x, z) {
+    if (!GLADE_ROAD) { const r = LAYOUT.features.roads.find(q => /glade/.test(q.what)); GLADE_ROAD = r ? smoothCourse(r.world, 16) : []; }
+    return GLADE_ROAD.length ? polyDist(GLADE_ROAD, x, z) : Infinity;
+}
 const LAB = place('Inferno Labyrinth'), RUINS = place('Ruins of Eldoria');
 // 1 along the straight way from a to b (beyond a's footprint), fading over w metres to its sides.
 function gorgeMask(a, b, x, z, w) {
@@ -96,8 +101,11 @@ export function eldoriaHeight(x, z) {
     // (fbm lives mostly in 0.27–0.75: stretched to the full 0–1 so crests are crests and valleys are valleys)
     const N = v => Math.max(0, Math.min(1, (v - 0.5) * 2.3 + 0.5));
     const hilly = smooth(0.42, 0.62, fbm(x * 0.0006 + 40, z * 0.0006 - 12, 2));
-    const chains = Math.pow(1 - Math.abs(N(fbm(x * 0.0042 + 11, z * 0.0042 + 3, 4)) * 2 - 1), 2.2) * 38 * hilly;
-    let h = 4 + N(fbm(x * 0.0011, z * 0.0011, 4)) * 22 + chains + (N(fbm(x * 0.0025, z * 0.0025, 3)) - 0.5) * 18 + (fbm(x * 0.02, z * 0.02, 2) - 0.5) * 3;
+    // roads follow valleys: within ~150 m of a road the foothills and the rolling ground ease off (the land shaped round
+    // the way people travel, so a road never has to climb over a crest)
+    const vale = smooth(160, 35, roadNear(x, z));
+    const chains = Math.pow(1 - Math.abs(N(fbm(x * 0.0042 + 11, z * 0.0042 + 3, 4)) * 2 - 1), 2.2) * 38 * hilly * (1 - 0.9 * vale);
+    let h = 4 + N(fbm(x * 0.0011, z * 0.0011, 4)) * 22 + chains + (N(fbm(x * 0.0025, z * 0.0025, 3)) - 0.5) * 18 * (1 - 0.7 * vale) + (fbm(x * 0.02, z * 0.02, 2) - 0.5) * 3;
     // the Summit's ridge, rugged, its pass dipping at the Summit
     const dR = polyDist(RIDGE, x, z);
     if (dR < 900) {
@@ -123,8 +131,8 @@ export function eldoriaHeight(x, z) {
     if (dFG < 420) h = h + (9 + fbm(x * 0.01, z * 0.01, 2) * 4 - h) * smooth(420, 140, dFG) * (1 - smooth(260, 120, dL));
     // Thaloria (the city is stamped in, W2.2): low hills round it; the Citadel's plateau carries on north of the gorge
     // Thaloria's hill carries on beyond its walls and rolls down into the land (no pedestal under the city)
-    const dC = Math.hypot(x - CITY.x, (z - (CITY.z + 95)) * 1.1);
-    if (dC < 560 && z > CITY.z - 50) h = h + (cityGround(x - CITY.x, z - CITY.z) + 2 - h) * smooth(560, 230, dC);
+    const dC = Math.hypot(x - CITY.x, (z - (CITY.z + 95)) * 1.1), cityW = dC < 560 && z > CITY.z - 50 ? smooth(560, 230, dC) : 0;
+    if (cityW > 0) h = h + (cityGround(x - CITY.x, z - CITY.z) + 2 - h) * cityW;
     const dK = Math.hypot(x - CITADEL.x, (z - (CITADEL.z - 120)) * 0.8);
     if (dK < 360) h = h + (29 + fbm(x * 0.01, z * 0.01, 2) * 6 - h) * smooth(360, 150, dK);
     // The glade's mountains: a small range round Eldrin's vale, and the vale is the crater of one of them. The crater's
@@ -140,9 +148,9 @@ export function eldoriaHeight(x, z) {
         for (const [px, pz, ph, pr] of GLADE_PEAKS) m = Math.max(m, ph * Math.exp(-((lx - px) ** 2 + (lz - pz) ** 2) / (pr * pr)) * rug);
         m = Math.max(m, 55 * Math.exp(-Math.pow(polyDistLocal(GLADE_SADDLES, lx, lz) / 110, 2)) * rug);
         // the way out, south: the pass through the rim and the valley below it stay low
-        const out = smooth(40, 12, Math.abs(lx + 16)) * smooth(80, 150, lz);
+        const gr = gladeRoadDist(x, z), out = smooth(46, 14, gr) * smooth(70, 130, dG);   // the way out: a valley winding with the road (not a straight cut)
         m = m * (1 - 0.8 * out) + 8 * out;
-        const k = smooth(1500, 900, dG);   // the range fades into the land around
+        const k = smooth(1500, 900, dG) * (1 - cityW);   // the range fades into the land around (and gives way to the city's hill)
         h = h + (m - h) * k;
     }
     // the Sylvan Sanctuary: a sheltered valley below the pass's north side (the game's impossible spring)
@@ -201,6 +209,21 @@ function nearestRoad(x, z, reach = 20) {
     return best;
 }
 const roadDist = (x, z) => nearestRoad(x, z, 12)?.d ?? Infinity;
+// How near a road is (for shaping the land round roads): from a 24 m grid of cached distances, interpolated.
+const NEAR_CELL = 24, NEAR = new Map();
+function nearAt(i, j) {
+    const k = i + ',' + j; let v = NEAR.get(k);
+    if (v === undefined) {
+        const x = i * NEAR_CELL, z = j * NEAR_CELL; v = 400;
+        for (const c of ROAD_CURVES) for (let p = 0; p < c.length; p += 2) { const d = Math.hypot(c[p][0] - x, c[p][1] - z); if (d < v) v = d; }
+        NEAR.set(k, v);
+    }
+    return v;
+}
+function roadNear(x, z) {
+    const fx = x / NEAR_CELL, fz = z / NEAR_CELL, i = Math.floor(fx), j = Math.floor(fz), u = fx - i, w = fz - j;
+    return (nearAt(i, j) * (1 - u) + nearAt(i + 1, j) * u) * (1 - w) + (nearAt(i, j + 1) * (1 - u) + nearAt(i + 1, j + 1) * u) * w;
+}
 // The roads' beds, from the land as it is (places included); held to the grade; then the land graded to them.
 function graded(ground, stamps) {
     const inPlace = (x, z) => stamps.some(st => x > st.X0 - 4 && x < st.X1 + 4 && z > st.Z0 - 4 && z < st.Z1 + 4 && edgeDist(st, x, z) < 2);
@@ -208,16 +231,21 @@ function graded(ground, stamps) {
         let h = c.map(([x, z]) => ground(x, z));
         const W = 6;   // ±48 m smoothing
         h = h.map((_, i) => { let s0 = 0, n = 0; for (let k = -W; k <= W; k++) { const v = h[i + k]; if (v !== undefined) { s0 += v; n++; } } return s0 / n; });
-        const g = ROAD_GRADE * ROAD_STEP;
-        for (let i = 1; i < h.length; i++) h[i] = Math.max(h[i - 1] - g, Math.min(h[i - 1] + g, h[i]));
-        for (let i = h.length - 2; i >= 0; i--) h[i] = Math.max(h[i + 1] - g, Math.min(h[i + 1] + g, h[i]));
-        return h.map(v => Math.max(v, WATER + 0.6));   // (a causeway over water)
+        const g = ROAD_GRADE * ROAD_STEP, pin = c.map(([x, z]) => inPlace(x, z));   // inside a place the road is the place's own ground: pinned
+        c.forEach(([x, z], i) => { if (pin[i]) h[i] = ground(x, z); });
+        for (let i = 1; i < h.length; i++) if (!pin[i]) h[i] = Math.max(h[i - 1] - g, Math.min(h[i - 1] + g, h[i]));
+        for (let i = h.length - 2; i >= 0; i--) if (!pin[i]) h[i] = Math.max(h[i + 1] - g, Math.min(h[i + 1] + g, h[i]));
+        const g0 = c.map(([x, z]) => ground(x, z));   // never cut deeper than 12 m (a cutting) nor raised more than 5 m (an embankment)
+        return h.map((v, i) => pin[i] ? v : Math.max(WATER + 0.6, Math.min(g0[i] + 5, Math.max(g0[i] - 12, v))));   // (a causeway over water)
     });
+    const placeEdge = (x, z) => { let d = Infinity; for (const st of stamps) if (x > st.X0 - 30 && x < st.X1 + 30 && z > st.Z0 - 30 && z < st.Z1 + 30) d = Math.min(d, edgeDist(st, x, z)); return d; };
     return (x, z) => {
         const h = ground(x, z), r = nearestRoad(x, z, 16);
-        if (!r || r.d > 16 || inPlace(x, z)) return h;
+        if (!r || r.d > 16) return h;
+        const pe = placeEdge(x, z);
+        if (pe < 2) return h;   // a place keeps its own streets
         const b = beds[r.ri], bed = b[r.pi] + (b[r.pi + 1] - b[r.pi]) * r.t;
-        return h + (bed - h) * (1 - smooth(4, 16, r.d));   // flat across 8 m, its banks out to 16 m
+        return h + (bed - h) * (1 - smooth(4, 16, r.d));   // flat across 8 m, banks out to 16 m (its profile already meets a place's ground where it enters)
     };
 }
 
@@ -245,7 +273,7 @@ function makeStamps(quality) {
     // The Lower Town, out of the South Gate; the Citadel's plateau, at the top of the cliff stair (their own region maps).
     try {
         const lazy = id => ({ make: () => buildRegion(REGION_DEFS[id], { quality }), heightAt: regionHeight(REGION_DEFS[id]) });   // built when you come near
-        out.push(prepStamp({ id: 'thaloria_lower', ...lazy('thaloria_lower'), ox: CITY.x, oy: 2, oz: CITY.z + 262 + 56, rect: [-52, -52, 52, 52], drop: new Set(IN_WORLD) , round: 4 }));   // (cropped inside its old rim; level with the city)
+        out.push(prepStamp({ id: 'thaloria_lower', ...lazy('thaloria_lower'), ox: CITY.x, oy: 2, oz: CITY.z + 262 + 56, rect: [-52, -52, 52, 52], drop: new Set(IN_WORLD), round: 4, blend: 120 }));   // (cropped inside its old rim; level with the city)
         out.push(prepStamp({ id: 'citadel_plateau', ...lazy('citadel_plateau'), ox: CITY.x, oy: 30, oz: CITY.z - 74 - 71, rect: [-52, -52, 52, 70], drop: new Set(IN_WORLD) , round: 4 }));   // (level with the cliff top; its south edge meets it)
     } catch (e) { console.warn('[eldoria] stamp failed (Thaloria\'s neighbours)', e); }
     // The story's three (chapters 6–11 stage their scenes here — content/chapters.js runs them in the place's frame):
@@ -310,7 +338,7 @@ function makeStamps(quality) {
             const lake = (REGION_DEFS[id].features ?? []).some(f => f.type === 'lake');
             // a region with a lake sits with its water at the world's sea level (the world's water fills it; its own sheet goes)
             const oy = lake ? WATER - (REGION_DEFS[id].water ?? -1.2) : Math.max(WATER + 3 - H0, eldoriaHeight(at.x, at.z) - H0);
-            out.push(prepStamp({ id, make: () => buildRegion(REGION_DEFS[id], { quality }), heightAt: H, ox: at.x, oy, oz: at.z, rect, drop: new Set(IN_WORLD) }));
+            out.push(prepStamp({ id, make: () => buildRegion(REGION_DEFS[id], { quality }), heightAt: H, ox: at.x, oy, oz: at.z, rect, drop: new Set(IN_WORLD), blend: 100 }));   // (a wider ring: its banks gentle where it meets the land)
         } catch (e) { console.warn('[eldoria] stamp failed', id, e); }
     }
     const more = [
@@ -326,7 +354,7 @@ function makeStamps(quality) {
             const map = make();
             const oy0 = anchor ? eldoriaHeight(at.x + anchor[0], at.z + anchor[1]) - map.heightAt(anchor[0], anchor[1]) : fitOy(map, at.x, at.z, rect);
             const oy = Math.max(minOy, oy0);   // (a floor never below the sea)
-            out.push(prepStamp({ id, map, ox: at.x, oy, oz: at.z, rect, drop: new Set([...drop, ...IN_WORLD]), dropIf: t => /Sylvan Sanctuary/.test(t.label ?? '') && id === 'the_summit', wake: id === 'the_summit' ? 0 : 220, ...(id === 'the_summit' ? { blend: 260, blendUp: true, round: 2.3, wobble: 0.12, dropWater: true } : {}) }));   // the Summit: its flanks carry on 260 m as the massif's shoulders   // the mountain thinks anyone off its trail has fallen: it wakes only when you are on it
+            out.push(prepStamp({ id, map, ox: at.x, oy, oz: at.z, rect, drop: new Set([...drop, ...IN_WORLD]), dropIf: t => /Sylvan Sanctuary/.test(t.label ?? '') && id === 'the_summit', wake: id === 'the_summit' ? 0 : 220, ...(id === 'east_road' ? { blend: 150 } : {}), ...(id === 'the_summit' ? { blend: 260, blendUp: true, round: 2.3, wobble: 0.12, dropWater: true } : {}) }));   // the Summit: its flanks carry on 260 m as the massif's shoulders   // the mountain thinks anyone off its trail has fallen: it wakes only when you are on it
         } catch (e) { console.warn('[eldoria] stamp failed', id, e); }
     }
     return out;
