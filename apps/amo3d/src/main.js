@@ -33,7 +33,7 @@ import { createArchery } from './game/archery.js';
 import { createGathering } from './game/gathering.js';
 import { wornLook } from './game/wardrobe.js';
 import { createMapView } from './game/mapview.js';
-import { createTravel } from './game/travel.js';
+import { createTravel, OPEN_WORLD_IDS } from './game/travel.js';
 import { createDialogue } from './game/dialogue.js';
 import { createShop } from './game/shop.js';
 import { createQuests } from './game/quests.js';
@@ -274,18 +274,19 @@ const world = createMapManager({
         ...Object.fromEntries(Object.keys(REGIONS).filter(id => !REGIONS[id].builder).map(id => [id, () => buildRegion(REGIONS[id], { quality })])),   // regions with a builder (the Sanctuary) keep their own code
     },
     fade: hud.ui.fade, fadeText: hud.ui.fadeText,
-    // The open world (W2.4): once you have walked in it, a way back to one of its stamped places (an interior's door, the
-    // tower's stair) brings you back into the open world at that place's own arrival point.
-    redirect(id, sp, from) {
-        if (!stats.flags?.openWorld || from === 'eldoria' || id === 'eldoria') return null;
-        const ow = world?.maps?.eldoria;
-        if (!ow?.stamps?.some(st => st.id === id)) return null;
+    // The open world: Thaloria's corner (the glade, the city, the East Road, the mountain, the Sanctuary) is one land now;
+    // every way into one of those places — a door, a stair, a gate, a cairn, an old save — arrives in the open world at
+    // that place's own arrival point (or the saved spot, moved into world coordinates). Their old standalone maps retire.
+    redirect(id, sp, from, at) {
+        if (!OPEN_WORLD_IDS.has(id)) return null;
+        const ow = (world.maps.eldoria ??= createEldoriaWorld({ quality }));
+        const st = ow.stamps.find(s2 => s2.id === id);
+        if (!st) return null;
+        if (at) return { id: 'eldoria', at: { ...at, x: at.x + st.ox, z: at.z + st.oz, y: undefined } };
         const key = `${id}:${sp}`;
         return { id: 'eldoria', spawn: ow.spawns[key] ? key : `${id}:start` };
     },
     onEnter(map, id, sp) {
-        if (id === 'eldoria') (stats.flags ??= {}).openWorld = true;
-        else if (map === world?.maps?.[id] && world?.maps?.eldoria?.stamps?.some(st => st.id === id) && stats.flags) stats.flags.openWorld = false;   // an old map of the corner, entered on purpose (god mode)
         if (!map._animals && ANIMALS[id]) { map._animals = true; populate(map, map.scene, ANIMALS[id], dailyRng); }
         if (!map._animals && map.stamps) {   // the open world: each stamped place's animals, in its own frame (engine/stream.js)
             map._animals = true;
@@ -328,6 +329,7 @@ function placeStory(id) {
     // The Sanctuary: the Elemental's trial (Song 5).
     if (id === 'sylvan_sanctuary' && !stats.questLog?.main_elementals_trial) quests.start('main_elementals_trial');
 }
+let fpShown = false;   // the camera's first-person view, last applied to the hero's body
 let travel = null;
 const questHooks = {};
 const player = createPlayer({ hooks: questHooks, name: HERO_NAME, stats, hero, cam, world, hud, fireballs, spellTuning: SPELL_TUNING,
@@ -464,9 +466,9 @@ function newcomerMorning() {
 const projTmp = new THREE.Vector3();
 const project = (x, y, z) => { projTmp.set(x, y, z).project(camera); return { x: (projTmp.x * 0.5 + 0.5) * innerWidth, y: (-projTmp.y * 0.5 + 0.5) * innerHeight, visible: projTmp.z < 1 }; };
 travel = createTravel({
-    stats, hud, world, player, onAttune: id => quests.onAttune(id),
+    stats, hud, world, player, onAttune: id => quests.onAttune(id), interiors: Object.keys(interiorBuilders),
     allGates: () => [
-        ...(world.maps.outdoor?.gates ?? []).map(g => ({ ...g, map: 'outdoor' })),
+        ...(world.maps.eldoria?.stamps?.find(st => st.id === 'outdoor')?.map.gates ?? world.maps.outdoor?.gates ?? []).map(g => ({ ...g, map: 'outdoor' })),
         ...EAST_ROAD_GATES.map(g => ({ ...g, map: 'east_road' })),
         ...Object.values(REGIONS).flatMap(r => (r.gates ?? []).map(g => ({ ...g, map: r.id }))),
     ],
@@ -575,6 +577,7 @@ function tick(dt) {
     if (act.keys.includes('F3')) perf.toggle();
     if (act.inventory) inventory.toggle();
     if (act.sheet) sheet.toggle();
+    if (act.camCycle) cam.cycle();   // R3: first person, then three distances
     if (act.map) mapView.toggle();
     if (act.journal) quests.toggle();
     if (act.codex) codex.toggle();
@@ -669,6 +672,7 @@ function tick(dt) {
     if (!world.step(dt)) lift = player.step(dt, act, ctx);
     const p = player.state;
     cam.update(dt, p.pos, lift, map.heightAt ?? null);   // the camera never sinks into the ground or the mountain
+    if (cam.firstPerson !== fpShown) { fpShown = cam.firstPerson; hero.root.visible = !fpShown && !player.state.dead; }   // first person: Eldrin's own body out of the way
     const ceil = map.cameraCeiling?.(p.pos.x, p.pos.z, p.pos.y);   // under a cave roof: pull in below it
     if (ceil != null && camera.position.y > ceil) { const t = cam.target; camera.position.lerpVectors(t, camera.position, Math.max(0.2, (ceil - t.y) / (camera.position.y - t.y))); camera.lookAt(t); }
     if (gatherText && !hud.ui.prompt.textContent) { hud.ui.prompt.textContent = gatherText; hud.ui.prompt.style.opacity = 1; }

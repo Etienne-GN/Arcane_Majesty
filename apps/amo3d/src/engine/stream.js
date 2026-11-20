@@ -41,8 +41,26 @@ export function prepStamp(st) {
 }
 const inRect = (st, x, z, m = 0) => x >= st.X0 - m && x <= st.X1 + m && z >= st.Z0 - m && z <= st.Z1 + m;
 const sm = (a, b, v) => { const t = Math.max(0, Math.min(1, (v - a) / (b - a))); return t * t * (3 - 2 * t); };
+// A stamp's paths [[ax, az, bx, bz, halfWidth]] (local): a trail cut through an old map's border, from a (inside) out
+// to b (in the blend ring), its floor running straight from the place's ground at a to the land's at b.
+function cutPaths(st, worldH, x, z, h) {
+    for (const [ax, az, bx, bz, w] of st.paths ?? []) {
+        const lx = x - st.ox, lz = z - st.oz, dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz;
+        const t = Math.max(0, Math.min(1, ((lx - ax) * dx + (lz - az) * dz) / L2));
+        const d = Math.hypot(lx - (ax + dx * t), lz - (az + dz * t));
+        if (d > w * 2.2) continue;
+        const ha = st.map.heightAt(ax, az) + st.oy, hb = worldH(bx + st.ox, bz + st.oz);
+        const floor = ha + (hb - ha) * t, k = 1 - sm(w, w * 2.2, d);
+        h = Math.min(h, h + (floor - h) * k);
+    }
+    return h;
+}
 export function stampHeights(worldH, stamps, B = 60) {
     return (x, z) => {
+        for (const st of stamps) if (st.paths && inRect(st, x, z, B)) return cutPaths(st, worldH, x, z, rawStamp(x, z));
+        return rawStamp(x, z);
+    };
+    function rawStamp(x, z) {
         for (const st of stamps) {
             if (inRect(st, x, z)) return st.map.heightAt(x - st.ox, z - st.oz) + st.oy;
             if (inRect(st, x, z, B)) {
@@ -52,7 +70,7 @@ export function stampHeights(worldH, stamps, B = 60) {
             }
         }
         return worldH(x, z);
-    };
+    }
 }
 
 // Hooks for a real world (content/world/eldoria.js): spawn {x,z,facing}; clearAt(x,z) — no trees here (roads, a town's
@@ -99,7 +117,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             if (box.min.x > st.X1 || box.max.x < st.X0 || box.min.z > st.Z1 || box.max.z < st.Z0) { drop.push(o); return; }
             const mats = [].concat(o.material).filter(Boolean);
             // a painted backdrop (unfogged, made to hide an old map's edge): the world is the backdrop now
-            if (mats.some(m => m.fog === false)) { drop.push(o); return; }
+            if (mats.some(m => m.fog === false && !m.isShaderMaterial) && Math.max(box.max.x - box.min.x, box.max.z - box.min.z, box.max.y - box.min.y) > 150) { drop.push(o); return; }   // (not a waterfall or a light shaft: those are small, and shaders)
             // a flat sheet of water at the world's water level: the world's own water covers it
             if (box.max.y - box.min.y < 0.05 && Math.abs(box.min.y - WATER) < 0.6 && mats.some(m => m.transparent)) { drop.push(o); return; }
             if (box.min.x < st.X0 - 0.5 || box.max.x > st.X1 + 0.5 || box.min.z < st.Z0 - 0.5 || box.max.z > st.Z1 + 0.5)
@@ -300,7 +318,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
                 const inside = inRect(st, P.x, P.z, 4);
                 if (inside && !st.inside) map.onPlace?.(st.id, st.map.name ?? st.id);   // walked into a place (main.js: its story, its banner)
                 st.inside = inside;
-                st.awake = inRect(st, P.x, P.z, 220);
+                st.awake = inRect(st, P.x, P.z, st.wake ?? 220);   // (a place can ask to wake only when you are on it: the mountain's fall recovery)
                 if (!st.awake) continue;
                 st.lctx = localCtx(st, ctx);
                 // the place's own life: its creatures, townsfolk, lamps, fires, trials — all in its frame (its sky and fog
@@ -349,6 +367,11 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     };
     map.refreshLife = refreshLife;   // after anything is added to a stamp's hittables (main.js: each place's animals)
     refreshLife();
+    for (const p of places) {   // every place on the world map can be arrived at (god mode's list: "place:<name>"), a little off its centre on dry ground
+        let x = p.x, z = p.z;
+        for (let r = 0, k = 0; r < 60 && (heightAt(x, z) < WATER + 0.5 || colliderAt(coll(x, z), x, z, 0.6, heightAt(x, z))); r += 3, k++) { x = p.x + Math.cos(k * 2.4) * r; z = p.z + Math.sin(k * 2.4) * r; }
+        map.spawns[`place:${p.name}`] = { x, z, facing: 0 };
+    }
     if (spawn) map.spawns.start = spawn;
     // Arrive on dry, low ground near the centre (unless the world says where).
     if (!spawn) for (let r = 0, a = 0; r < half * 0.6; r += 6, a += 2.4) { const x = Math.cos(a) * r, z = Math.sin(a) * r, h = heightAt(x, z); if (h > WATER + 2 && h < 16) { map.spawns.start = { x, z, facing: 0 }; break; } }

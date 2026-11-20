@@ -187,7 +187,7 @@ export function createPrologue({ stats, hud, dialogue, quests, save, player, wor
             scene = null;
             const f = flags();
             // A new campaign starts at chapter 1 (saves already past it are left as they are).
-            if ((id === 'outdoor' || id === 'tower') && !stats.questLog?.main_read_the_erasure && !stats.questLog?.main_odysseys_dawn && !f.vision_seen) {
+            if ((id === 'outdoor' || id === 'tower' || id === 'eldoria') && !stats.questLog?.main_read_the_erasure && !stats.questLog?.main_odysseys_dawn && !f.vision_seen) {
                 begin('main_read_the_erasure'); hud.banner('Echoes of Stone');
             }
             if (id === 'tower') { if (!map._prologue) map._prologue = study(map); scene = map._prologue; }

@@ -156,7 +156,7 @@ body.title-on #minimap { display: none; }
         return F.decodeFog(stats.explored[id], tiles, tiles);
     }
     // The fog as one small image (a pixel per fog cell) of blank parchment, scaled up with smoothing.
-    let fogImg = null;
+    let fogImg = null, godShown = false;
     function refreshFog() {
         fogImg ??= document.createElement('canvas');
         fogImg.width = fog.cw; fogImg.height = fog.ch;
@@ -164,12 +164,12 @@ body.title-on #minimap { display: none; }
         for (let z = 0; z < fog.ch; z++) for (let x = 0; x < fog.cw; x++) {
             const i = (z * fog.cw + x) * 4;
             img.data[i] = PARCH[0] - 10; img.data[i + 1] = PARCH[1] - 12; img.data[i + 2] = PARCH[2] - 14;
-            img.data[i + 3] = F.isCellExplored(fog, x, z) ? 0 : 246;
+            img.data[i + 3] = settings.god || F.isCellExplored(fog, x, z) ? 0 : 246;   // god mode: the whole map uncovered
         }
         g.putImageData(img, 0, 0);
     }
     const cellM = () => F.FOG_CELL * TILE;
-    const seenAt = (x, z) => !fog || F.isCellExplored(fog, Math.floor((x + art.half) / cellM()), Math.floor((z + art.half) / cellM()));
+    const seenAt = (x, z) => !fog || settings.god || F.isCellExplored(fog, Math.floor((x + art.half) / cellM()), Math.floor((z + art.half) / cellM()));
 
     // Everything worth a mark: landmarks, exits (named after where they go), stations.
     function markers() {
@@ -223,6 +223,7 @@ body.title-on #minimap { display: none; }
         if (!fog || !art) return;
         const tiles = x => (x + art.half) / TILE;
         if (F.revealAround(fog, tiles(player.pos.x), tiles(player.pos.z), REVEAL_M / TILE).length) { stats.explored[mapId] = F.encodeFog(fog); refreshFog(); }
+        if (!!settings.god !== godShown) { godShown = !!settings.god; refreshFog(); }   // god mode switched: uncover / cover again
         const g = mini.getContext('2d'), S = mini.width, c = S / 2, scale = S / (MINI_R * 2);
         const look = Math.atan2(-Math.cos(camYaw), -Math.sin(camYaw));   // the camera's forward on the north-up chart
         const rot = settings.miniNorth ? 0 : -Math.PI / 2 - look;        // turn the chart so the camera looks up

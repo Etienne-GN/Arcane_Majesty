@@ -2,9 +2,21 @@ import { settings } from '../engine/settings.js';
 // God mode (testing): every map — the hand-built ones, then every region file (new maps join by themselves).
 import { DUNGEONS } from '../content/dungeons.js';
 const REGION_FILES = import.meta.glob('../content/regions/*.json', { eager: true, import: 'default' });
-const GOD_PLACES = [['outdoor', 'Thaloria Glade'], ['thaloria', 'Thaloria'], ['east_road', 'The Thalorian Wilds'], ['the_summit', 'Summit of Despair — the mountain'], ['sylvan_sanctuary', 'The Sylvan Sanctuary'], ['citadel_library', 'The Great Library'], ['forbidden_archive', 'The Forbidden Archive'], ...Object.values(DUNGEONS).map(d => [d.id, d.name]),
-    ...Object.values(REGION_FILES).filter(r => r?.id && r.id !== 'sylvan_sanctuary').map(r => [r.id, r.name ?? r.id]).sort((a, b) => a[1].localeCompare(b[1])),
-    ['umbral_test', 'Umbral twin (test) — Lake Aethera'], ['stream_test', 'Open world test (W1) — a 4 km continent'], ['eldoria', 'Eldoria — the open world (W2, in progress)']];   // Nythoria N1: the plane's engine test
+import LAYOUT from '../content/world/eldoria_layout.json';
+// The places now inside the open world: their old standalone maps are retired (main.js redirects every way into them).
+export const OPEN_WORLD_IDS = new Set(['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary']);
+const STAMP_OF = { 'Thaloria': 'thaloria', "Thaloria Glade (Eldrin's Tower's vale)": 'outdoor', 'The East Road (Thalorian Wilds)': 'east_road', 'Summit of Despair': 'the_summit', 'Sylvan Sanctuary': 'sylvan_sanctuary' };
+const pretty = id => id.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+// God mode's destinations, in sections: [title, [[mapId, spawn, label]…]].
+function godSections(interiors) {
+    const world = LAYOUT.places.map(p => ['eldoria', STAMP_OF[p.name] ? `${STAMP_OF[p.name]}:start` : `place:${p.name}`, p.name]).sort((a, b) => a[2].localeCompare(b[2]));
+    const beyond = [['tower', 'start', "Eldrin's Tower (inside)"], ['citadel_library', 'start', 'The Great Library'], ['forbidden_archive', 'start', 'The Forbidden Archive'],
+        ...Object.values(DUNGEONS).map(d => [d.id, 'start', d.name]),
+        ...Object.values(REGION_FILES).filter(r => r?.id && !OPEN_WORLD_IDS.has(r.id)).map(r => [r.id, 'start', r.name ?? r.id]).sort((a, b) => a[2].localeCompare(b[2]))];
+    const inside = interiors.map(id => [id, 'start', pretty(id)]).sort((a, b) => a[2].localeCompare(b[2]));
+    const tests = [['umbral_test', 'start', 'Umbral twin (test) — Lake Aethera'], ['stream_test', 'start', 'Open world test (W1) — a 4 km continent']];
+    return [['Eldoria — the open world', world], ['Beyond the open world (their own maps)', beyond], ['Interiors', inside], ['Tests', tests]];
+}
 // Fast travel — amo's rules: rift-gate monoliths are attuned by touching them (stats.attunedGates);
 // at an attuned gate you can travel to any other attuned gate. The Aetheric Tear (T / gamepad R3-hold…
 // / touch TEAR) opens the same travel from anywhere: 85% of max mana (75% with Aetheric Comprehension),
@@ -48,7 +60,7 @@ export function buildMonolith(scene, gate, y) {
     };
 }
 
-export function createTravel({ stats, hud, world, player, allGates, onAttune }) {
+export function createTravel({ stats, hud, world, player, allGates, onAttune, interiors = [] }) {
     const css = document.createElement('style');
     css.textContent = `
 #travel { position: fixed; inset: 0; z-index: 9; display: none; place-items: center; background: #04060ccc; font-family: Georgia, serif; color: #e6ecff; }
@@ -87,11 +99,13 @@ export function createTravel({ stats, hud, world, player, allGates, onAttune }) 
             panel.append(b);
         }
         if (settings.god) {   // god mode (testing): straight to any map's start
-            const h3 = document.createElement('div'); h3.className = 'sub'; h3.textContent = 'God mode — any map:'; panel.append(h3);
-            for (const [id, label] of GOD_PLACES) {
-                const b = document.createElement('button'); b.textContent = `⚡ ${label}`;
-                b.onclick = () => { close(); world.go(id, 'start'); hud.banner(label); };
-                panel.append(b);
+            for (const [title, list] of godSections(interiors)) {   // god mode (testing): every destination
+                const h3 = document.createElement('div'); h3.className = 'sub'; h3.textContent = `God mode — ${title}:`; panel.append(h3);
+                for (const [id, sp, label] of list) {
+                    const b = document.createElement('button'); b.textContent = `⚡ ${label}`;
+                    b.onclick = () => { close(); world.go(id, sp); hud.banner(label); };
+                    panel.append(b);
+                }
             }
         }
         const c = document.createElement('button'); c.className = 'ghost'; c.textContent = 'Cancel';

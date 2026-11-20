@@ -29,7 +29,9 @@ function rawHeight(x, z) {
     const d = Math.hypot(x, z);
     let h = (fbm(x * 0.018 + 10, z * 0.018 + 10) - 0.5) * 14 + 0.6;
     h *= 0.25 + 0.75 * smoothstep(12, 45, d);                                  // gentle meadow at spawn
-    h += smoothstep(72, 104, d) * 30 * (0.55 + 0.9 * fbm(x * 0.05, z * 0.05)); // mountain rim
+    // mountain rim — with a notch beyond the Thaloria arch: the vale's way out into the open world (a pass to the south)
+    const notch = smoothstep(16, 6, Math.abs(x - ARCH_THALORIA.x)) * smoothstep(ARCH_THALORIA.z - 4, ARCH_THALORIA.z + 14, z);
+    h += smoothstep(72, 104, d) * 30 * (0.55 + 0.9 * fbm(x * 0.05, z * 0.05)) * (1 - 0.92 * notch);
     h -= smoothstep(LAKE.r, LAKE.r * 0.25, Math.hypot(x - LAKE.x, z - LAKE.z)) * 6.5;
     return h;
 }

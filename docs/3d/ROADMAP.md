@@ -155,8 +155,15 @@ sun. **First map: Ravenspire (Ancestral Ruins) on the twin of Thaloria's citadel
 (its people and creatures, after the canon check).
 
 ## Phase 12 — The open world (decided 2026-11-20 — `docs/3d/OPEN_WORLD_PLAN.md`)
-One seamless overworld per plane (interiors, dungeons and the other realms behind doors). **Scale: ~10 minutes on foot from Eldrin's Tower to the Fire Gate** → Eldoria ~7.5 × 5.5 km (about BotW), 1 DB unit ≈ 5.5 m; Nythoria its twin later. Design now, build every new map to fit the world, fuse once the phone proves it. Stages: W0 the world map (blocked on Phase 10: the DB's positions put the Heartstone west, the book east) · W1 the streaming prototype on a test continent, measured on the phone (go / no-go) · W2 Thaloria's corner seamless · W3 the rest of Thaloria's region · W4 the other regions as their albums come in · W5 Nythoria's overworld.
+One seamless overworld per plane (interiors, dungeons and the other realms behind doors). **Scale: ~10 minutes on foot from Eldrin's Tower to the Fire Gate** → Eldoria ~7.5 × 5.5 km (about BotW), 1 DB unit ≈ 5.5 m; Nythoria its twin later. Design now, build every new map to fit the world, fuse once the phone proves it. Stages: W0 the world map (drafted; the eastern route settled with the DB corrected) · W1 the streaming prototype ✅ go (60 fps, 17 ms worst on the phone) · W2 Thaloria's corner seamless (in progress: the land, the places stamped in, their life, the chart) · W3 the rest of Thaloria's region · W4 the other regions as their albums come in · W5 Nythoria's overworld.
 
+
+## Phase 13 — Beyond walking: water, mounts, maps, camera (asked by the user 2026-11-20, to plan later)
+- **Water**: boats and sailing ships (sails, wind), fishing, swimming and diving — underwater exploration as a real part of the world.
+- **Mounts**: horses for sure; maybe a way to fly.
+- **The map, zoomable**: world → region → local, one chart you zoom through (god mode: everything uncovered).
+- **Camera**: zoom all the way in to first person; more freedom up and down when zoomed out in third person.
+The open world's terrain and tile streaming should keep room for these: a water level and sea floor worth exploring, mounts' speed (streaming budget at a gallop or in flight).
 ## Not ported (2D-only tooling)
 LPC sprite ledger, sprite catalogue pipeline, LPC atlas, tile map generators, mapPaint/mapTexture,
 CharacterRenderer/lpcPalettes — replaced by the 3D Forge and the 3D world pipeline.

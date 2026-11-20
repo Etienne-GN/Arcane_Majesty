@@ -6,15 +6,15 @@
 //   triggers:[{x,z,r,label,to,spawn,yMin?,yMax?}], groundAt(x,z,y), blockedAt(x,z,r,y), resolve(pos,r),
 //   projectileHit(p), groundNormal(x,z), hittables:[], update(t,dt,ctx), levelName?(y), wading?(x,z),
 //   stepBlocked?(x,z,y), heightAt?(x,z) }
-// redirect(id, spawnName, fromId) → { id, spawn } | null: a place now inside the open world is entered there instead.
+// redirect(id, spawnName, fromId, at) → { id, spawn, at } | null: a place now inside the open world is entered there instead.
 export function createMapManager({ builders, fade, fadeText, onEnter, redirect = null }) {
     const maps = {};
     let current = null, currentId = null;
     let transition = null;
 
     function enter(id, spawnName, at = null) {
-        const r = !at && redirect?.(id, spawnName, currentId);
-        if (r) { id = r.id; spawnName = r.spawn; }
+        const r = redirect?.(id, spawnName, currentId, at);
+        if (r) { id = r.id; spawnName = r.spawn; at = r.at ?? null; }
         current = maps[id] ??= builders[id]();
         currentId = id;
         const sp = at ?? current.spawns[spawnName];

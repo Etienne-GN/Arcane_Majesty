@@ -59,7 +59,7 @@ export function eldoriaHeight(x, z) {
     if (dR < 900) {
         const rug = 0.75 + 0.5 * Math.pow(1 - Math.abs(fbm(x * 0.004 + 7, z * 0.004 - 3, 3) * 2 - 1), 2);
         let r = 108 * Math.exp(-Math.pow(dR / 210, 2)) * rug;
-        r *= 1 - 0.42 * Math.exp(-Math.pow(Math.hypot(x - PASS.x, z - PASS.z) / 230, 2));   // the pass
+        r *= 1 + 0.3 * Math.exp(-Math.pow(Math.hypot(x - PASS.x, z - PASS.z) / 300, 2));   // the Summit's massif (its own map, stamped: the trail climbs it)
         h = Math.max(h, h * 0.4 + r);
     }
     // the Fire Gate's mountain
@@ -70,9 +70,12 @@ export function eldoriaHeight(x, z) {
     if (dC < 520) h = h + (10 + fbm(x * 0.02, z * 0.02, 2) * 4 - h) * smooth(520, 200, dC);
     const dK = Math.hypot(x - CITADEL.x, (z - (CITADEL.z - 120)) * 0.8);
     if (dK < 360) h = h + (29 + fbm(x * 0.01, z * 0.01, 2) * 6 - h) * smooth(360, 150, dK);
-    // the glade's vale (Eldrin's Tower)
+    // the glade's vale (Eldrin's Tower, stamped): wooded hills round it rise to meet its rim, so it sits hidden in a hollow
     const dG = Math.hypot(x - GLADE.x, z - GLADE.z);
-    if (dG < 420) h = h + (5 + fbm(x * 0.01, z * 0.01, 2) * 2 - h) * smooth(420, 140, dG) * 0.8;
+    if (dG < 560) {
+        const out = smooth(30, 10, Math.abs(x - (GLADE.x - 16))) * smooth(GLADE.z + 80, GLADE.z + 140, z);   // the way out of the vale, south (its notch)
+        h = h + (24 + fbm(x * 0.008, z * 0.008, 3) * 14 - h) * smooth(560, 170, dG) * (1 - 0.85 * out);
+    }
     // the Sylvan Sanctuary: a sheltered valley below the pass's north side (the game's impossible spring)
     const dS = Math.hypot(x - SANCT.x, z - SANCT.z);
     if (dS < 520) h = h + (9 + fbm(x * 0.008, z * 0.008, 2) * 3 - h) * smooth(520, 200, dS);
@@ -106,16 +109,17 @@ function makeStamps(quality) {
     const more = [
         // [id, build, where, rect (cropped inside the old map's border walls), dropped exits, anchor: the local point set
         //  at the land's height]
-        ['outdoor', () => createOutdoor({ quality }), GLADE, [-75, -75, 75, 75], ['thaloria'], [0, 0]],
+        ['outdoor', () => createOutdoor({ quality }), GLADE, [-118, -118, 118, 118], ['thaloria'], null, 3],   // the whole vale: its cliffs, ridges and the waterfall
         ['east_road', () => createEastRoad({ quality }), EAST_ROAD, [-94, -78, 94, 78], ['thaloria', 'the_summit'], null],
-        ['the_summit', () => createMountain({ quality }), PASS, [-94, -94, 94, 92], [], [0, 88]],
+        ['the_summit', () => createMountain({ quality }), PASS, [-70, -92, 70, 90], [], [0, 88]],
         ['sylvan_sanctuary', () => createSanctuary({ quality }), SANCT, [-55, -55, 55, 55], [], [0, 0]],
     ];
-    for (const [id, make, at, rect, drop, anchor] of more) {
+    for (const [id, make, at, rect, drop, anchor, minOy = -Infinity] of more) {
         try {
             const map = make();
-            const oy = anchor ? eldoriaHeight(at.x + anchor[0], at.z + anchor[1]) - map.heightAt(anchor[0], anchor[1]) : fitOy(map, at.x, at.z, rect);
-            out.push(prepStamp({ id, map, ox: at.x, oy, oz: at.z, rect, drop: new Set(drop) }));
+            const oy0 = anchor ? eldoriaHeight(at.x + anchor[0], at.z + anchor[1]) - map.heightAt(anchor[0], anchor[1]) : fitOy(map, at.x, at.z, rect);
+            const oy = Math.max(minOy, oy0);   // (a floor never below the sea)
+            out.push(prepStamp({ id, map, ox: at.x, oy, oz: at.z, rect, drop: new Set(drop), wake: id === 'the_summit' ? 0 : 220 }));   // the mountain thinks anyone off its trail has fallen: it wakes only when you are on it
         } catch (e) { console.warn('[eldoria] stamp failed', id, e); }
     }
     return out;

@@ -11,7 +11,7 @@ export function createInput({ canvas, cam }) {
     const pressed = new Set();          // edge-triggered actions waiting for the next poll
     const touch = { x: 0, y: 0, sprint: false };
     const fan = { open: false, x: 0, y: 0 };   // a hand's fan is open: the right stick points into it instead of turning the camera
-    let padPrev = [];
+    let padPrev = [], r3Down = null;   // R3: a click cycles the camera; held, its old action (a werewolf's change / skill 3)
     let lastDevice = 'keyboard';
 
     addEventListener('keydown', e => {
@@ -96,7 +96,6 @@ export function createInput({ canvas, cam }) {
                 if (up(7) || up(2)) pressed.add('handR:up');
                 if (up(6)) pressed.add('handL:up');
                 if (edge(1)) pressed.add('blink');   // B: Blink-Step (LT is the left hand)
-                if (edge(11)) pressed.add('shift');   // R3: a werewolf's change
                 const rel = i => !b(i) && padPrev[i];
                 if (edge(4)) pressed.add('cycleL:pad');
                 if (edge(5)) pressed.add('cycleR:pad');
@@ -109,7 +108,12 @@ export function createInput({ canvas, cam }) {
             if (edge(3)) pressed.add('inventory');
             if (edge(8)) pressed.add('blink');   // Back / Select: Blink-Step
             if (edge(9)) pressed.add('sheet');
-            if (!two) [5, 6, 11].forEach((bi, i) => { if (edge(bi)) pressed.add(`skill:${i}`); });
+            if (!two) [5, 6].forEach((bi, i) => { if (edge(bi)) pressed.add(`skill:${i}`); });
+            // R3 (the right stick's click): a quick click cycles the camera — first person, near, middle, far; held half a
+            // second it does what it always did (two hands: a werewolf's change; one hand: the third skill)
+            if (edge(11)) r3Down = { t: performance.now(), fired: false };
+            if (r3Down && b(11) && !r3Down.fired && performance.now() - r3Down.t > 450) { r3Down.fired = true; pressed.add(two ? 'shift' : 'skill:2'); }
+            if (r3Down && !b(11)) { if (!r3Down.fired) pressed.add('camcycle'); r3Down = null; }
             [12, 15, 13, 14].forEach((bi, i) => { if (edge(bi)) pressed.add(`hotbar:${i}`); });   // D-pad up, right, down, left
             if (edge(0) || edge(2) || edge(7)) lastDevice = 'gamepad';
             padPrev = pad.buttons.map(x => x.pressed);
@@ -120,7 +124,7 @@ export function createInput({ canvas, cam }) {
 
         const len = Math.hypot(mx, my);
         if (len > 1) { mx /= len; my /= len; }
-        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), strike: pressed.has('strike'), gather: pressed.has('gather'), inventory: pressed.has('inventory'), sheet: pressed.has('sheet'), map: pressed.has('map'), tear: pressed.has('tear'), journal: pressed.has('journal'), codex: pressed.has('codex'), options: pressed.has('options'), chat: pressed.has('chat'), book: pressed.has('book'), skillbook: pressed.has('skillbook'), quit: pressed.has('quit'), blink: pressed.has('blink'), shift: pressed.has('shift'), hand: [...pressed].filter(p => p.startsWith('handL:') || p.startsWith('handR:')), cycle: [...pressed].filter(p => p.startsWith('cycle')), hotbar: [0, 1, 2, 3].findIndex(i => pressed.has(`hotbar:${i}`)), skill: [0, 1, 2].findIndex(i => pressed.has(`skill:${i}`)), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
+        const out = { move: { x: mx, y: my }, sprint, hop: pressed.has('hop'), cast: pressed.has('cast'), strike: pressed.has('strike'), gather: pressed.has('gather'), inventory: pressed.has('inventory'), sheet: pressed.has('sheet'), map: pressed.has('map'), tear: pressed.has('tear'), journal: pressed.has('journal'), codex: pressed.has('codex'), options: pressed.has('options'), chat: pressed.has('chat'), book: pressed.has('book'), skillbook: pressed.has('skillbook'), quit: pressed.has('quit'), blink: pressed.has('blink'), shift: pressed.has('shift'), camCycle: pressed.has('camcycle'), hand: [...pressed].filter(p => p.startsWith('handL:') || p.startsWith('handR:')), cycle: [...pressed].filter(p => p.startsWith('cycle')), hotbar: [0, 1, 2, 3].findIndex(i => pressed.has(`hotbar:${i}`)), skill: [0, 1, 2].findIndex(i => pressed.has(`skill:${i}`)), keys: [...pressed].filter(p => p.startsWith('key:')).map(p => p.slice(4)) };
         pressed.clear();
         return out;
     }

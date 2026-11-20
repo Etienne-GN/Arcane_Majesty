@@ -25,6 +25,7 @@ features = {
     'rivers': [{'what': "the river along the range's northern foot (the Sanctuary's bridge), round its western end, through Thaloria's gorge, down past the Silverrun to Lake Aethera", 'db': [[1420, 140], [1330, 140], [1250, 150], [1190, 178], [1115, 188], [1085, 188], [1040, 230], [980, 300], [850, 400], [700, 430], [600, 450]]}],
     'coast': {'what': 'the east coast (the Silver Coast)', 'db': [[1600, 260], [1570, 400], [1540, 550], [1560, 700], [1600, 820]]},
     'roads': [{'what': 'Thaloria → the East Road → the Approach', 'db': [[1100, 196], [1180, 214], [1250, 218], [1350, 232]]},
+              {'what': "the glade's pass → round to Thaloria's South Gate", 'db': [[1207, 336], [1205, 352], [1170, 352], [1120, 300], [1100, 214]]},
               {'what': 'Thaloria → the Crossroads', 'db': [[1100, 225], [900, 420], [700, 550]]},
               {'what': 'the Crossroads → Port Silver', 'db': [[700, 550], [1100, 560], [1500, 550]]},
               {'what': 'the Crossroads → the Emerald Fields', 'db': [[700, 550], [450, 600], [200, 650]]},
