@@ -94,7 +94,7 @@ export function createTownsfolk({ scene, W, H, resolve = null, mapId = 'thaloria
                     continue;
                 }
                 let tx = toX(w.x), tz = toZ(w.y);
-                if (remap) [tx, tz] = remap(tx, tz);
+                if (remap) [tx, tz] = remap(tx, tz, w.moving);   // (walking: kept to the streets)
                 if (!p.shown || Math.hypot(tx - p.pos.x, tz - p.pos.z) > 4) p.pos.set(tx, 0, tz);   // appear / out of a door: no sliding
                 // amo's spots sit on 2D tiles; a few fall inside our 3D houses' walls — step out of them.
                 if (resolve) { resolve(p.pos, 0.3); }

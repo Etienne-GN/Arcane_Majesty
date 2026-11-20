@@ -385,6 +385,8 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             return null;
         },
         resolve: (pos, r) => pushOut(coll(pos.x, pos.z), pos, r),
+        // the camera stops only at walls (buildings, the city wall, towers), not at every tree trunk
+        camBlockedAt: (x, z, y) => !!colliderAt(coll(x, z).filter(c => c.ax !== undefined || c.r > 2), x, z, 0.2, y),
         passable: (x, z) => heightAt(x, z) >= WATER - 0.7 && Math.max(Math.abs(x), Math.abs(z)) <= EDGE,
         projectileHit(p) { if (p.y < heightAt(p.x, p.z) + 0.05) return 'ground'; const c = colliderAt(coll(p.x, p.z), p.x, p.z, 0.15, p.y); return c && p.y >= c.y0 + 0.5 ? 'object' : null; },
         groundNormal(x, z) { const e = 0.3; return new THREE.Vector3(heightAt(x - e, z) - heightAt(x + e, z), 2 * e, heightAt(x, z - e) - heightAt(x, z + e)).normalize(); },

@@ -148,7 +148,7 @@ export function createThaloriaCity({ quality }) {
     function footprint(B) { const q = corners(B.x, B.z, B.w, B.d, B.a); padList.push({ q, h: B.h, x: B.x, z: B.z, r: Math.hypot(B.w, B.d) / 2 }); boxColl(B.x, B.z, B.w, B.d, B.a, B.h - 0.5, B.h + 40); return q; }
     // the plinth: stone down to the lowest ground under it (the hill steps under the houses)
     function plinth(B) { let lo = B.h; for (const [x, z] of corners(B.x, B.z, B.w, B.d, B.a)) lo = Math.min(lo, cityGround(x, z)); if (B.h - lo > 0.2) box(parts.stone, { ...B, h: lo - 0.3 }, 0, 0, B.d / 2, B.w, B.h - lo + 0.3, B.d); }
-    let lit = 0;
+    let lit = 0; const chimneys = [];
     for (const P of PLAN.plots) {
         const B = { x: P.x, z: P.z, w: P.w - 0.05, d: P.d, a: P.a, h: P.h };
         footprint(B); plinth(B);
@@ -173,7 +173,9 @@ export function createThaloriaCity({ quality }) {
         // the roof: steep, its ridge along the street or a gable facing it; a chimney
         const alongFront = P.w > 6.8 || rng() < 0.5, rise = (alongFront ? B.d + jutTop : B.w) * 0.62;
         gableRoof(!scholars && rng() < 0.2 ? parts.tile : parts.slate, B, 0, top, (B.d - jutTop) / 2 - jutTop / 2, B.w, B.d + jutTop, rise, alongFront);
-        box(parts.stone, B, (rng() - 0.5) * B.w * 0.6, top + rise * 0.5, B.d * (0.3 + rng() * 0.4), 0.7, rise * 0.8 + 0.8, 0.7);
+        { const lx = (rng() - 0.5) * B.w * 0.6, lz = B.d * (0.3 + rng() * 0.4), ch = rise * 0.8 + 0.8;
+          box(parts.stone, B, lx, top + rise * 0.5, lz, 0.7, ch, 0.7);
+          const fx = Math.cos(B.a), fz = Math.sin(B.a); chimneys.push([B.x - fz * lx - fx * (lz - B.d / 2), B.h + top + rise * 0.5 + ch, B.z + fx * lx - fz * (lz - B.d / 2)]); }
     }
     const padGrid = new Map();
     padList.forEach(p => { const k = Math.floor(p.x / 16) + ',' + Math.floor(p.z / 16); (padGrid.get(k) ?? padGrid.set(k, []).get(k)).push(p); });
@@ -362,15 +364,23 @@ export function createThaloriaCity({ quality }) {
     const G = PLAN.gates, sq = Object.fromEntries(PLAN.squares.map(q => [q.name, q]));
     anchors.push([old(80, 92), [sq.market.x, sq.market.z]], [old(63, 52), [sq.college.x, sq.college.z]], [old(119, 54), [G.east.x - 8, G.east.z]], [old(8, 54), [G.west.x + 8, G.west.z]], [old(64, 110), [G.south.x, G.south.z - 8]], [old(64, 2), [G.north.x, G.north.z + 8]]);
     const base = (x, z) => [x * 2.3, 95 + z * 2.3];
-    function remap(x, z) {
+    const onStreet = (px, pz) => { const n = nearestSeg(px, pz); if (!n) return [px, pz]; const s2 = n.s; return [s2.ax + (s2.bx - s2.ax) * n.t, s2.az + (s2.bz - s2.az) * n.t]; };
+    function remap(x, z, moving = false) {
         let sx = 0, sz = 0, sw = 0;
         for (const [[ox, oz], [nx, nz]] of anchors) { const w = 1 / ((x - ox) ** 2 + (z - oz) ** 2 + 16); const [bx, bz] = base(ox, oz); sx += w * (nx - bx); sz += w * (nz - bz); sw += w; }
         let [px, pz] = base(x, z); px += sx / sw; pz += sz / sw;
-        if (padsNear(px, pz).some(p => inQuad(p.q, px, pz))) { const n = nearestSeg(px, pz); if (n) { const s2 = n.s; px = s2.ax + (s2.bx - s2.ax) * n.t; pz = s2.az + (s2.bz - s2.az) * n.t; } }
+        if (moving || padsNear(px, pz).some(p => inQuad(p.q, px, pz))) [px, pz] = onStreet(px, pz);   // walking, or inside a house: on the street
         return [px, pz];
     }
     const town = createTownsfolk({ scene, W: 128, H: 112, resolve: (pos, r) => pushOut(colliders.filter(c => c.ax !== undefined && Math.abs(c.ax - pos.x) < 20 && Math.abs(c.az - pos.z) < 20), pos, r), remap, heightAt });
 
+    // chimney smoke: a slow grey column from two dozen chimneys (a few sprites each, cycling)
+    const smokeTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'), gr = g.createRadialGradient(32, 32, 2, 32, 32, 30); gr.addColorStop(0, 'rgba(200,200,205,0.55)'); gr.addColorStop(1, 'rgba(200,200,205,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();
+    const smoke = [];
+    for (let k = 0; k < chimneys.length; k += Math.max(1, Math.floor(chimneys.length / 24))) {
+        const [x, y, z] = chimneys[k];
+        for (let i = 0; i < 5; i++) { const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: smokeTex, transparent: true, depthWrite: false })); sp.userData.dynamic = true; scene.add(sp); smoke.push({ sp, x, y, z, t: i / 5 }); }
+    }
     const winMat = M.window;
     const map = {
         id: 'thaloria', name: 'Thaloria', scene, heightAt, terrain: true, colliders, triggers, spawns, stations, hittables: [], gatherSpots: [], gates: [],
@@ -383,7 +393,8 @@ export function createThaloriaCity({ quality }) {
         groundNormal: () => new THREE.Vector3(0, 1, 0),
         weatherDef: { id: 'thaloria', biome: 'temperate' },
         town,
-        update(t, dt, ctx) { const S = shell.update(dt, ctx), n = S?.night ?? 0; winMat.emissiveIntensity = n * 1.3; M.lamp.emissiveIntensity = n * 2.4; town.update(dt, ctx); },
+        update(t, dt, ctx) { const S = shell.update(dt, ctx), n = S?.night ?? 0; winMat.emissiveIntensity = n * 1.3; M.lamp.emissiveIntensity = n * 2.4; town.update(dt, ctx);
+            for (const p of smoke) { p.t = (p.t + dt * 0.12) % 1; p.sp.position.set(p.x + p.t * 1.5, p.y + p.t * 7, p.z + p.t * 0.6); p.sp.scale.setScalar(0.8 + p.t * 3); p.sp.material.opacity = 0.5 * Math.sin(p.t * Math.PI); } },
     };
     // the chart: streets, squares, every building's footprint, the wall
     const bxs = []; for (const p of padList) { const xs = p.q.map(c => c[0]), zs = p.q.map(c => c[1]); bxs.push({ x0: Math.min(...xs), z0: Math.min(...zs), x1: Math.max(...xs), z1: Math.max(...zs) }); }
