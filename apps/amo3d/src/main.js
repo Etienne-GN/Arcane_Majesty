@@ -527,7 +527,7 @@ const activeInfo = slotInfo(activeSlot());
 if (!SHOW_TITLE) { document.body.classList.add('booted'); setTimeout(() => document.getElementById('boot')?.remove(), 900); }   // no title screen (Play here, tests): the loading logo goes at once
 // The title over the open world: the Eldoria's Prophecy cover — from the west cliff of the gorge, high, the river below,
 // the Citadel on its cliff across it, the valley and the mountains behind; a slow drift. (COVER: tuned by eye.)
-const COVER = { from: [-175, 22, 135], to: [-70, 20, -60], drift: 10 };
+const COVER = { from: [250, 14, 112], to: [-30, 12, 60], drift: 6 };
 const coverFocus = new THREE.Vector3();
 function titleFocus() {   // where the world streams and builds round while the title shows: the cover's foreground (or the old tower)
     if (world.id !== 'eldoria') return title.focus;

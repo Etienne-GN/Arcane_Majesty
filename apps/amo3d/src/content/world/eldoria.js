@@ -85,6 +85,7 @@ function gorgeMask(a, b, x, z, w) {
     const along = (x - a.x) * ux + (z - a.z) * uz, lat = Math.abs(-(x - a.x) * uz + (z - a.z) * ux);
     return along > 0 && along < L ? smooth(w * 1.8, w, lat) : 0;
 }
+const WEST_PEAKS = [[850, -2390, 230, 330], [1010, -2530, 290, 360], [760, -2240, 170, 280], [1160, -2470, 200, 300], [640, -2420, 190, 260]];   // [x, z, height, radius]
 const NORTH_EDGE = W([0, 45])[1], SOUTH_EDGE = W([0, 1090])[1];
 
 // The coast's x at a given z (the line runs north–south down the east side).
@@ -166,6 +167,12 @@ export function eldoriaHeight(x, z) {
     // the land on either side over ~200 m
     if (dW < 230 && gorge < 0.5) { const floor = WATER + 2.5 + Math.max(0, dW - 30) * 0.05; h = h + (Math.min(h, floor + (dW / 230) ** 2 * 30) - h) * smooth(230, 40, dW) * (1 - gorge * 2); }
     if (dW < bank + 10) h = (WATER - 1.4) + (h - (WATER - 1.4)) * smooth(6, bank, dW);
+    // The peaks west of Thaloria (behind the Citadel as the cover sees it, the iron hills' high crests): sharp, craggy
+    // horns standing over the river's valley — the land's standard for a mountain seen from afar.
+    for (const [px, pz, ph, pr] of WEST_PEAKS) {
+        const d = Math.hypot(x - px, z - pz);
+        if (d < pr) { const crag = 0.75 + 0.5 * Math.pow(1 - Math.abs(fbm(x * 0.012 + px, z * 0.012 + pz, 3) * 2 - 1), 2); h = Math.max(h, h + ph * Math.pow(1 - d / pr, 1.7) * crag); }
+    }
     // the sea: east of the coast, past the south edge; high mountains closing the north
     const cx = coastX(z);
     if (x > cx - 160) h = h + (WATER - 10 - h) * smooth(cx - 160, cx + 60, x);
@@ -271,12 +278,12 @@ const STORY = [
 const IN_WORLD = ['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'thaloria_lower', 'citadel_plateau', 'summit_of_despair', 'whisper_wood', 'the_crossroads', 'iron_hollow', 'duskmeet', 'graywatch', 'lake_aethera', 'port_silver', 'emerald_fields', 'fire_gate', 'inferno_labyrinth', 'ruins_of_eldoria'];
 function makeStamps(quality) {
     // Thaloria: the scholar-city on its hill (content/thaloriaCity.js, from the plan), the gorge on its north side.
-    const out = [prepStamp({ id: 'thaloria', map: createThaloriaCity({ quality }), ox: CITY.x, oy: 2, oz: CITY.z, rect: [-188, -78, 188, 262], drop: new Set(IN_WORLD), round: 3.2, wobble: 0.04 })];   // (a walled city: a squarer outline, still no sharp corner)
+    const out = [prepStamp({ id: 'thaloria', map: createThaloriaCity({ quality }), ox: CITY.x, oy: 2, oz: CITY.z, rect: [-188, -126, 188, 262], drop: new Set(IN_WORLD), round: 3.2, wobble: 0.04 })];   // (a walled city: a squarer outline, still no sharp corner)
     // The Lower Town, out of the South Gate; the Citadel's plateau, at the top of the cliff stair (their own region maps).
     try {
         const lazy = id => ({ make: () => buildRegion(noRim(REGION_DEFS[id]), { quality }), heightAt: regionHeight(noRim(REGION_DEFS[id])) });   // built when you come near
         out.push(prepStamp({ id: 'thaloria_lower', ...lazy('thaloria_lower'), ox: CITY.x, oy: 2, oz: CITY.z + 262 + 56, rect: [-52, -52, 52, 52], drop: new Set(IN_WORLD), round: 4, blend: 120 }));   // (cropped inside its old rim; level with the city)
-        out.push(prepStamp({ id: 'citadel_plateau', ...lazy('citadel_plateau'), ox: CITY.x, oy: 30, oz: CITY.z - 74 - 71, rect: [-52, -52, 52, 70], drop: new Set(IN_WORLD) , round: 4 }));   // (level with the cliff top; its south edge meets it)
+        out.push(prepStamp({ id: 'citadel_plateau', ...lazy('citadel_plateau'), ox: CITY.x, oy: 36, oz: CITY.z - 122 - 71, rect: [-52, -52, 52, 70], drop: new Set(IN_WORLD) , round: 4 }));   // (level with the cliff top; its south edge meets it)
     } catch (e) { console.warn('[eldoria] stamp failed (Thaloria\'s neighbours)', e); }
     // The story's three (chapters 6–11 stage their scenes here — content/chapters.js runs them in the place's frame):
     // each keeps its own rim of rock, with a pass cut through it toward each neighbour, an invisible wall along the crest

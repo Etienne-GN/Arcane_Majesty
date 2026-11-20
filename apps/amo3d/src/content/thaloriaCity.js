@@ -58,16 +58,16 @@ const insideWall = (x, z, m = 0) => { const w = ringR(x, z); return w.d < w.r - 
 
 // The gorge on the north: the hill breaks off in a cliff to the river, the far side rises as the Citadel's cliff to
 // its plateau (28 m above the city's base); the North Gate's bridge spans it.
-const NORTH = -48, RIVER = -6, CIT_H = 28, BRIDGE_X = PLAN.gates.north.x;
+const NORTH = -48, RIVER = -6, CIT_H = 34, GW = 72, BRIDGE_X = PLAN.gates.north.x;   // GW: the gorge's width (the cover's wide river between the cliffs)
 function gorge(x, z, h) {
     const gN = NORTH - z;   // metres north of the wall's line
     if (gN <= -2) return h;
-    const fall = sm(-2, 5, gN), rise = sm(17, 24, gN);
+    const fall = sm(-2, 6, gN), rise = sm(GW - 8, GW, gN);
     let g = h * (1 - fall) + RIVER * fall;
     g = g * (1 - rise) + (CIT_H + 1.5 * vnoise(x * 0.08, 3)) * rise;
     return g;
 }
-const BRIDGE = { x: BRIDGE_X, z0: NORTH + 2, z1: NORTH - 26, h: cityGround(BRIDGE_X, NORTH + 6) };
+const BRIDGE = { x: BRIDGE_X, z0: NORTH + 2, z1: NORTH - GW - 2, h: cityGround(BRIDGE_X, NORTH + 6) };
 
 export function createThaloriaCity({ quality }) {
     const scene = new THREE.Scene();
@@ -78,7 +78,7 @@ export function createThaloriaCity({ quality }) {
     const boxColl = (x, z, w, d, a, y0, y1) => { const q = corners(x, z, w, d, a); for (let i = 0; i < 4; i++) wallSeg(q[i][0], q[i][1], q[(i + 1) % 4][0], q[(i + 1) % 4][1], y0, y1); };
 
     // ---------- the ground: the hill, streets graded to their beds, house pads, the gorge ----------
-    const X0 = -190, X1 = 190, Z0 = -80, Z1 = 262, STEP = 2.5, NX = Math.round((X1 - X0) / STEP), NZ = Math.round((Z1 - Z0) / STEP);
+    const X0 = -190, X1 = 190, Z0 = -80 - 48, Z1 = 262, STEP = 2.5, NX = Math.round((X1 - X0) / STEP), NZ = Math.round((Z1 - Z0) / STEP);
     const pads = [];   // house floors: { x, z, w, d, a, h }
     for (const p of PLAN.plots) p.h = cityGround(p.x + Math.cos(p.a) * p.d / 2, p.z + Math.sin(p.a) * p.d / 2);   // its floor: the ground at its door
     const HF = new Float32Array((NX + 1) * (NZ + 1)), KIND = new Uint8Array((NX + 1) * (NZ + 1));   // kind: 0 yard, 1 street, 2 square, 3 stone (under buildings)
@@ -246,7 +246,7 @@ export function createThaloriaCity({ quality }) {
     { const B = { x: BRIDGE.x, z: (BRIDGE.z0 + BRIDGE.z1) / 2, w: 5, d: BRIDGE.z0 - BRIDGE.z1, a: Math.PI / 2, h: BRIDGE.h - 1.2 };
       box(parts.stone, B, 0, 0, B.d / 2, 5, 1.2, B.d);
       for (const s of [-1, 1]) box(parts.stone, B, s * 2.35, 1.2, B.d / 2, 0.3, 1.1, B.d);
-      for (const t of [0.25, 0.5, 0.75]) box(parts.stone, { ...B, h: RIVER - 1 }, 0, 0, B.d * t, 3.4, BRIDGE.h - 1.2 - RIVER + 1, 2.6);
+      for (const t of [0.14, 0.32, 0.5, 0.68, 0.86]) box(parts.stone, { ...B, h: RIVER - 1 }, 0, 0, B.d * t, 3.4, BRIDGE.h - 1.2 - RIVER + 1, 2.6);
       wallSeg(BRIDGE.x - 2.5, BRIDGE.z0, BRIDGE.x - 2.5, BRIDGE.z1, BRIDGE.h - 1, BRIDGE.h + 2, 0.2); wallSeg(BRIDGE.x + 2.5, BRIDGE.z0, BRIDGE.x + 2.5, BRIDGE.z1, BRIDGE.h - 1, BRIDGE.h + 2, 0.2); }
 
     // ---------- T4: the street's life ----------
@@ -294,6 +294,16 @@ export function createThaloriaCity({ quality }) {
     for (const gt of Object.values(PLAN.gates)) {
         const tx = -Math.sin(gt.a), tz = Math.cos(gt.a), h = cityGround(gt.x, gt.z) - 1;
         for (const sgn of [-1, 1]) { const x = gt.x + tx * 5.2 * sgn - Math.cos(gt.a) * 3.6, z = gt.z + tz * 5.2 * sgn - Math.sin(gt.a) * 3.6; const g = new THREE.BoxGeometry(1.4, 4, 0.06); g.rotateY(-gt.a + Math.PI / 2); g.translate(x, h + WH + 1, z); parts.banner.push(g); }
+    }
+
+    // ---------- waterfalls pouring off the Citadel's cliff into the gorge (as on the old painting), foam where they land ----------
+    const fallMat = new THREE.MeshStandardMaterial({ color: 0xdfeef4, emissive: 0x8ab8c8, emissiveIntensity: 0.3, transparent: true, opacity: 0.78, side: THREE.DoubleSide, depthWrite: false });
+    const foamMat = new THREE.MeshBasicMaterial({ color: 0xf4fbff, transparent: true, opacity: 0.7, depthWrite: false });
+    const falls = [];
+    for (const [dx, w] of [[-34, 4], [-12, 6], [18, 3], [46, 2.5]]) {
+        const x = BRIDGE.x + dx, zc = NORTH - GW + 2.5, top = CIT_H + 0.5, H = top - RIVER;
+        const f2 = new THREE.Mesh(new THREE.PlaneGeometry(w, H, 1, 6), fallMat); f2.position.set(x, RIVER + H / 2, zc); f2.rotation.x = -0.1; scene.add(f2);
+        const foam = new THREE.Mesh(new THREE.CircleGeometry(w * 0.9, 12).rotateX(-Math.PI / 2), foamMat); foam.position.set(x, RIVER + 4.2, zc + 3); scene.add(foam); falls.push(foam);
     }
 
     // the materials (windows warm at dusk), and the merged meshes
