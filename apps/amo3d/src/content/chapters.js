@@ -63,6 +63,15 @@ export function createChapters({ stats, hud, dialogue, quests, save, player, wor
     const near = (p, x, z, r) => Math.hypot(p.x - x, p.z - z) < r;
     const built = new WeakSet();
     let scene = null;   // the current map's chapter scene: { update(dt, ctx) }
+    // The open world: a place's scene runs in the place's own coordinates — the player as it sees them (frame.off: the
+    // place's offset in the world; null on a map of its own).
+    let frame = null;
+    const meLocal = new THREE.Vector3();
+    const me = () => {
+        if (!frame) return player.state;
+        meLocal.copy(player.state.pos).sub(frame.off);
+        return new Proxy(player.state, { get: (t, k) => (k === 'pos' ? meLocal : Reflect.get(t, k)) });
+    };
 
     function begin(id) { if (!stats.questLog?.[id]) quests.start(id); }
 
@@ -91,7 +100,7 @@ export function createChapters({ stats, hud, dialogue, quests, save, player, wor
             });
         }
         return { update(dt, ctx) {
-            const p = player.state;
+            const p = me();
             if (flags().oren_betrayal) return;
             if (st.phase === 'fight' && p.dead) { st.phase = 'wait'; oren.hold(true); oren.heal(); }   // fell: he waits at the landing again
             if (st.phase === 'fight' && stats.health < stats.maxHealth * 0.3) endFight();
@@ -130,7 +139,7 @@ export function createChapters({ stats, hud, dialogue, quests, save, player, wor
                 broken: () => { st.counters++; st.vulnerable = 4; xar.stun(3.5); cam?.kick(0.4); hud.message(st.counters === 1 ? 'The rune-drain counter — his own hunger turns on him! Strike now.' : 'Turned back again!'); } } });
         xar.hold(true); map.hittables.push(xar);
         return { update(dt, ctx) {
-            const p = player.state, f = flags();
+            const p = me(), f = flags();
             if (f.xarathos_destroyed) return;
             st.vulnerable = Math.max(0, st.vulnerable - dt);
             if (!f.halls_walked) {   // the crucible's fire walls off the valley path: the way is through the halls
@@ -252,7 +261,7 @@ export function createChapters({ stats, hud, dialogue, quests, save, player, wor
             test();
         }
         return { update(dt, ctx) {
-            const p = player.state, f = flags();
+            const p = me(), f = flags();
             glow.opacity += ((f.ruins_gate_woken ? 0.9 : 0) - glow.opacity) * Math.min(1, dt * 2);
             stone.rotation.y += dt; stone.visible = !f.heartstone_taken; stoneLight.intensity = stone.visible ? 8 + Math.sin(ctx.t ?? 0) : 0;
             if (vorgos) { vorgos.update(dt, { speed: 0, sprinting: false, hopK: null }); if (st.storm) st.storm.rotation.y += dt * 0.6; }
@@ -323,8 +332,8 @@ export function createChapters({ stats, hud, dialogue, quests, save, player, wor
     const BUILDERS = { fire_gate: fireGate, inferno_halls: halls, inferno_labyrinth: crucible, ruins_of_eldoria: ruins, tower };
     return {
         // A map is entered: build its chapter scene once (only once the story has reached it).
-        enter(map, id) {
-            scene = null;
+        enter(map, id, placeFrame = null) {
+            scene = null; frame = placeFrame;
             const f = flags();
             if (id === 'fire_gate' && f.aether_sight) begin('main_treacherys_bite');
             if (!BUILDERS[id]) return;

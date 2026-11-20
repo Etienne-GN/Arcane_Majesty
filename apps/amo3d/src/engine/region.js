@@ -79,7 +79,8 @@ export function regionHeight(def) {
     };
 }
 
-export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
+// shape (optional): (heightAt) => heightAt — the open world reshapes a region's own ground (a pass cut through its rim).
+export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 }, shape = null } = {}) {
     const scene = new THREE.Scene();
     const rng = mulberry32(def.seed ?? 7);
     const half = def.half ?? 90, WATER = def.water ?? -1.2, EDGE = half - 6;
@@ -90,7 +91,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     const trailDist = (x, z) => (trails.length ? Math.min(...trails.map(p => segDist(x, z, p))) : Infinity);
 
     // ---------- terrain ----------
-    const heightAt = regionHeight(def);
+    const heightAt = shape ? shape(regionHeight(def)) : regionHeight(def);
 
     const SIZE = half * 2, SEG = Math.round(SIZE / 1.2);
     const tGeo = new THREE.PlaneGeometry(SIZE, SIZE, SEG, SEG).rotateX(-Math.PI / 2);

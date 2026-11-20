@@ -312,7 +312,7 @@ const world = createMapManager({
         lastLevel = map.levelName?.(player.state.pos.y) ?? '';
         codex?.visited(id, map.name);
         placeStory(id);
-        if (map.stamps) map.onPlace = (pid, name) => { placeStory(pid); hud.banner(name); codex?.visited(pid, name); };   // the open world: a place walked into
+        if (map.stamps) map.onPlace = (pid, name, st) => { placeStory(pid); hud.banner(name); codex?.visited(pid, name); if (!CUSTOM) chapters?.enter(st.map, pid, { off: st.off }); };   // the open world: a place walked into (and its chapter scene, in its frame)
         lockDoors(map, id);
         if (!CUSTOM) prologue?.enter(map, id);   // chapters 1–2 and the threads between 3–6
         if (!CUSTOM) chapters?.enter(map, id);   // Eldoria's Prophecy, chapters 6–12: the story's scenes on this map

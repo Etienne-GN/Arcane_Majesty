@@ -17,7 +17,9 @@ import { createOutdoor } from '../glade.js';
 import { createEastRoad } from '../eastRoad.js';
 import { createMountain } from '../mountain.js';
 import { createSanctuary } from '../sanctuary.js';
-import { buildRegion, regionHeight } from '../../engine/region.js';
+import { buildRegion, regionHeight, buildArch } from '../../engine/region.js';
+import { settings } from '../../engine/settings.js';
+import * as THREE from 'three';
 const REGION_DEFS = Object.fromEntries(Object.values(import.meta.glob('../regions/*.json', { eager: true, import: 'default' })).map(d => [d.id, d]));
 
 const WATER = -2;
@@ -47,6 +49,13 @@ const SANCT = place('Sylvan Sanctuary'), CITY = place('Thaloria'), CITADEL = pla
 const GLADE_PEAKS = [[-400, 30, 150, 150], [-260, -290, 125, 140], [170, -320, 170, 160], [440, -60, 140, 150], [690, -270, 110, 140], [-610, -150, 95, 140], [330, 260, 85, 130]];
 const GLADE_SADDLES = [[-620, -120], [-430, 40], [-250, -300], [190, -330], [460, -40], [700, -260]];
 function polyDistLocal(pts, x, z) { return polyDist(pts, x, z); }
+const LAB = place('Inferno Labyrinth'), RUINS = place('Ruins of Eldoria');
+// 1 along the straight way from a to b (beyond a's footprint), fading over w metres to its sides.
+function gorgeMask(a, b, x, z, w) {
+    const dx = b.x - a.x, dz = b.z - a.z, L = Math.hypot(dx, dz), ux = dx / L, uz = dz / L;
+    const along = (x - a.x) * ux + (z - a.z) * uz, lat = Math.abs(-(x - a.x) * uz + (z - a.z) * ux);
+    return along > 0 && along < L ? smooth(w * 1.8, w, lat) : 0;
+}
 const NORTH_EDGE = W([0, 45])[1], SOUTH_EDGE = W([0, 1090])[1];
 
 // The coast's x at a given z (the line runs north–south down the east side).
@@ -70,8 +79,19 @@ export function eldoriaHeight(x, z) {
         h = Math.max(h, h * 0.4 + r);
     }
     // the Fire Gate's mountain
-    const dF = polyDist(FIREMT, x, z);
-    if (dF < 800) h = Math.max(h, h * 0.4 + 138 * Math.exp(-Math.pow(dF / 230, 2)) * (0.85 + 0.3 * fbm(x * 0.005, z * 0.005, 2)));
+    // The fire mountain: a caldera, the Inferno Labyrinth in its hollow; a gorge through its wall toward the Fire Gate
+    // (open) and another toward the Ruins (the way Xarathos barred); the Fire Gate in the valley at its western foot.
+    const dL = Math.hypot(x - LAB.x, z - LAB.z);
+    if (dL < 700) {
+        let ring = 150 * Math.exp(-Math.pow((dL - 165) / 95, 2)) * (0.85 + 0.3 * fbm(x * 0.005, z * 0.005, 2));
+        for (const to of [FIRE, RUINS]) {   // the gorges through the caldera's wall
+            const g = gorgeMask(LAB, to, x, z, 14);
+            ring *= 1 - 0.9 * g;
+        }
+        h = Math.max(h, h * 0.4 + ring);
+    }
+    const dFG = Math.hypot(x - FIRE.x, z - FIRE.z);
+    if (dFG < 420) h = h + (9 + fbm(x * 0.01, z * 0.01, 2) * 4 - h) * smooth(420, 140, dFG) * (1 - smooth(260, 120, dL));
     // Thaloria (the city is stamped in, W2.2): low hills round it; the Citadel's plateau carries on north of the gorge
     const dC = Math.hypot(x - CITY.x, z - CITY.z);
     if (dC < 520) h = h + (10 + fbm(x * 0.02, z * 0.02, 2) * 4 - h) * smooth(520, 200, dC);
@@ -123,8 +143,14 @@ function fitOy(map, ox, oz, [x0, z0, x1, z1]) {
     for (let t = 0; t <= 1.0001; t += 0.05) for (const [x, z] of [[x0 + (x1 - x0) * t, z0], [x0 + (x1 - x0) * t, z1], [x0, z0 + (z1 - z0) * t], [x1, z0 + (z1 - z0) * t]]) { sum += eldoriaHeight(x + ox, z + oz) - map.heightAt(x, z); n++; }
     return sum / n;
 }
+// The story's three places: their passes (to: where the way leads; requires: the story flag that opens it).
+const STORY = [
+    { id: 'fire_gate', name: 'Fire Gate', floor: 10, ways: [{ to: () => place('Sylvan Sanctuary'), requires: 'aether_sight' }, { to: () => place('Inferno Labyrinth') }] },
+    { id: 'inferno_labyrinth', name: 'Inferno Labyrinth', floor: 26, ways: [{ to: () => place('Fire Gate') }, { to: () => place('Ruins of Eldoria'), requires: 'xarathos_destroyed' }] },
+    { id: 'ruins_of_eldoria', name: 'Ruins of Eldoria', ways: [{ to: () => place('Inferno Labyrinth') }] },
+];
 // Every exit that led from one of these places to another of them is gone in the open world: you walk there.
-const IN_WORLD = ['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'thaloria_lower', 'citadel_plateau', 'summit_of_despair', 'whisper_wood', 'the_crossroads', 'iron_hollow', 'duskmeet', 'graywatch', 'lake_aethera', 'port_silver', 'emerald_fields'];
+const IN_WORLD = ['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'thaloria_lower', 'citadel_plateau', 'summit_of_despair', 'whisper_wood', 'the_crossroads', 'iron_hollow', 'duskmeet', 'graywatch', 'lake_aethera', 'port_silver', 'emerald_fields', 'fire_gate', 'inferno_labyrinth', 'ruins_of_eldoria'];
 function makeStamps(quality) {
     // Thaloria's footprint stops at the gorge's far cliff top: the Citadel's plateau beyond is its own place now.
     const out = [prepStamp({ id: 'thaloria', map: createThaloria({ quality }), ox: CITY.x, oy: 2, oz: CITY.z, rect: [-78, -80, 78, 66], drop: new Set(IN_WORLD) })];
@@ -134,6 +160,55 @@ function makeStamps(quality) {
         out.push(prepStamp({ id: 'thaloria_lower', ...lazy('thaloria_lower'), ox: CITY.x, oy: 2, oz: CITY.z + 66 + 54, rect: [-52, -52, 52, 52], drop: new Set(IN_WORLD) }));   // (cropped inside its old rim; level with the city)
         out.push(prepStamp({ id: 'citadel_plateau', ...lazy('citadel_plateau'), ox: CITY.x, oy: 28, oz: CITY.z - 80 - 71, rect: [-52, -52, 52, 70], drop: new Set(IN_WORLD) }));   // (level with the cliff top; its south edge meets it)
     } catch (e) { console.warn('[eldoria] stamp failed (Thaloria\'s neighbours)', e); }
+    // The story's three (chapters 6–11 stage their scenes here — content/chapters.js runs them in the place's frame):
+    // each keeps its own rim of rock, with a pass cut through it toward each neighbour, an invisible wall along the crest
+    // elsewhere, and on a pass the story has not opened yet, a gate of flame (the Fire Gate: once the Elemental has given
+    // you the aether-sight; the Ruins: once Xarathos is destroyed).
+    for (const S of STORY) {
+        try {
+            const def = REGION_DEFS[S.id], H = regionHeight(def), at = place(S.name), half = (def.half ?? 70) - 2, H0 = H(0, 0);
+            const ways = S.ways.map(w => ({ ...w, a: Math.atan2(w.to().z - at.z, w.to().x - at.x) }));
+            const shape = Hf => (x, z) => {   // the passes, cut through the rim down to the floor
+                let h = Hf(x, z); const r = Math.hypot(x, z);
+                if (r > 30) for (const w of ways) {
+                    const ca = Math.cos(w.a), sa = Math.sin(w.a), along = x * ca + z * sa, lat = Math.abs(-x * sa + z * ca);
+                    if (along > 0) { const k = smooth(11, 6, lat) * smooth(30, 42, r); h = h + (H0 + 0.3 - h) * k; }
+                }
+                return h;
+            };
+            const Hs = shape(H), oy = Math.max(WATER + 3 - H0, (S.floor ?? eldoriaHeight(at.x, at.z)) - H0);
+            const st = prepStamp({ id: S.id, make: () => storyPlace(S, def, shape, ways, half), heightAt: Hs, ox: at.x, oy, oz: at.z, rect: [-half, -half, half, half], drop: new Set(IN_WORLD) });
+            st.tick = ctx => { for (const g of st.gates ?? []) { const open = settings.god || !!ctx.flags?.[g.requires]; if (open === g.open) continue; g.open = open; const i = st.map.colliders.indexOf(g.wall); if (open && i >= 0) st.map.colliders.splice(i, 1); if (!open && i < 0) st.map.colliders.push(g.wall); if (g.veil) g.veil.visible = !open; } };
+            st.onBuilt = map => { st.gates = map._gates; };
+            out.push(st);
+        } catch (e) { console.warn('[eldoria] stamp failed', S.id, e); }
+    }
+    function storyPlace(S, def, shape, ways, half) {
+        const map = buildRegion(def, { quality, shape });
+        // the crest wall: the square of the rim, broken where a pass goes through (a wall of flame across a closed one)
+        const R = half - 8, gaps = ways.map(w => ({ w, p: { x: Math.cos(w.a) * R / Math.max(Math.abs(Math.cos(w.a)), Math.abs(Math.sin(w.a))), z: Math.sin(w.a) * R / Math.max(Math.abs(Math.cos(w.a)), Math.abs(Math.sin(w.a))) } }));
+        const corners = [[-R, -R], [R, -R], [R, R], [-R, R], [-R, -R]];
+        for (let c = 0; c < 4; c++) {
+            const [ax, az] = corners[c], [bx, bz] = corners[c + 1], n = 12;
+            for (let i = 0; i < n; i++) {
+                const x0 = ax + (bx - ax) * i / n, z0 = az + (bz - az) * i / n, x1 = ax + (bx - ax) * (i + 1) / n, z1 = az + (bz - az) * (i + 1) / n;
+                const mx = (x0 + x1) / 2, mz = (z0 + z1) / 2;
+                if (gaps.some(g => Math.hypot(g.p.x - mx, g.p.z - mz) < 11)) continue;
+                map.colliders.push({ ax: x0, az: z0, bx: x1, bz: z1, r: 0.6, kind: 'wall', y0: -60, y1: 200 });
+            }
+        }
+        map._gates = [];
+        for (const { w, p } of gaps) {
+            if (!w.requires) continue;
+            const ca = Math.cos(w.a), sa = Math.sin(w.a);
+            const wall = { ax: p.x + sa * 11, az: p.z - ca * 11, bx: p.x - sa * 11, bz: p.z + ca * 11, r: 0.8, kind: 'wall', y0: -60, y1: 200 };
+            const veil = buildArch(map.scene, p.x, map.heightAt(p.x, p.z), p.z, Math.atan2(ca, sa) + Math.PI / 2);   // an arch across the pass
+            veil.userData.veil = false; veil.material.color?.setHex?.(0xff7a2a); veil.scale.set(3, 1.6, 1);   // its veil a wall of flame (it stays: not a door)
+            map.colliders.push(wall);
+            map._gates.push({ requires: w.requires, wall, veil, open: false });
+        }
+        return map;
+    }
     // The other regions on the road: each set at its world-map place, cropped just inside its old rim (measured: the
     // first rise of 5 m above its middle along each axis), its middle at the land's height (never below the sea).
     // (Not yet: the Fire Gate, the Inferno Labyrinth and the Ruins — chapters 6–11 stage their scenes on those maps

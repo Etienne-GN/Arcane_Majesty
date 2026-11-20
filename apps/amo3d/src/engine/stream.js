@@ -110,7 +110,20 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     // clipped to the rect; its colliders bucketed by tile; its doors, signs, arrival points and landmarks moved into world
     // coordinates; its exits to places now in the world dropped (with their veils); its life awake; the tiles under it
     // rebuilt so the world's ground sinks out of sight there.
-    const stampColl = new Map();
+    // A place's colliders, bucketed by tile in world coordinates — again whenever its list changes (a story's barrier,
+    // a gate of flame opening).
+    function rebucket(st) {
+        st.coll = new Map(); st.collN = (st.map.colliders ?? []).length;
+        for (const c of st.map.colliders ?? []) {
+            const w = { ...c, y0: (c.y0 ?? -1) + st.oy, y1: (c.y1 ?? 4) + st.oy };
+            let xs, zs;
+            if (c.ax !== undefined) { w.ax += st.ox; w.bx += st.ox; w.az += st.oz; w.bz += st.oz; xs = [w.ax, w.bx]; zs = [w.az, w.bz]; }
+            else { w.x += st.ox; w.z += st.oz; xs = [w.x]; zs = [w.z]; }
+            const tx0 = Math.floor((Math.min(...xs) - c.r + half) / TILE), tx1 = Math.floor((Math.max(...xs) + c.r + half) / TILE);
+            const tz0 = Math.floor((Math.min(...zs) - c.r + half) / TILE), tz1 = Math.floor((Math.max(...zs) + c.r + half) / TILE);
+            for (let tz = tz0; tz <= tz1; tz++) for (let tx = tx0; tx <= tx1; tx++) { const k = `${tx},${tz}`; (st.coll.get(k) ?? st.coll.set(k, []).get(k)).push(w); }
+        }
+    }
     function integrate(st) {
         if (st.built) return st;
         const t0 = performance.now();
@@ -134,16 +147,8 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
                 for (const m of mats) { m.clippingPlanes = planes; m.needsUpdate = true; }
         });
         for (const o of drop) o.parent?.remove(o);
-        for (const c of st.map.colliders ?? []) {
-            const w = { ...c, y0: (c.y0 ?? -1) + st.oy, y1: (c.y1 ?? 4) + st.oy };
-            let xs, zs;
-            if (c.ax !== undefined) { w.ax += st.ox; w.bx += st.ox; w.az += st.oz; w.bz += st.oz; xs = [w.ax, w.bx]; zs = [w.az, w.bz]; }
-            else { w.x += st.ox; w.z += st.oz; xs = [w.x]; zs = [w.z]; }
-            const tx0 = Math.floor((Math.min(...xs) - c.r + half) / TILE), tx1 = Math.floor((Math.max(...xs) + c.r + half) / TILE);
-            const tz0 = Math.floor((Math.min(...zs) - c.r + half) / TILE), tz1 = Math.floor((Math.max(...zs) + c.r + half) / TILE);
-            for (let tz = tz0; tz <= tz1; tz++) for (let tx = tx0; tx <= tx1; tx++) { const k = `${tx},${tz}`; (stampColl.get(k) ?? stampColl.set(k, []).get(k)).push(w); }
-        }
-        const gone = [], kept = [];
+        rebucket(st);
+    const gone = [], kept = [];
         for (const t of st.map.triggers ?? []) {
             if (st.drop?.has(t.to) || st.dropIf?.(t)) { gone.push(t); continue; }   // exits to places now in the world are gone: you walk
             kept.push(t); map.triggers.push({ ...t, x: t.x + st.ox, z: t.z + st.oz });
@@ -160,11 +165,14 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         for (const [k, sp] of Object.entries(st.map.spawns ?? {})) map.spawns[`${st.id}:${k}`] = { ...sp, x: sp.x + st.ox, z: sp.z + st.oz };
         if (map.mapInfo) map.mapInfo.landmarks.push(...(st.map.mapInfo?.landmarks ?? []).map(l => ({ ...l, x: l.x + st.ox, z: l.z + st.oz })));
         st.built = true;
+        st.map.scene = st.group;   // anything added to the place later (a chapter's actors) joins it in the world
+        st.hitN = (st.map.hittables ?? []).length;
         for (const t of tiles.values()) {   // the tiles under it, rebuilt now (its ground sinks; first in the queue)
             const x0 = t.tx * TILE - half, z0 = t.tz * TILE - half;
             if (t.lod !== null && x0 < st.X1 && x0 + TILE > st.X0 && z0 < st.Z1 && z0 + TILE > st.Z0) queue.unshift({ t, lod: t.lod, d: 0 });
         }
         refreshLife();
+        st.onBuilt?.(st.map);
         map.onStampBuilt?.(st);
         st.buildMs = Math.round(performance.now() - t0);
         return st;
@@ -317,7 +325,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     let frame = 0;
     function coll(x, z) {
         const tx = Math.floor((x + half) / TILE), tz = Math.floor((z + half) / TILE), out = [];
-        for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) { const k = `${tx + dx},${tz + dz}`, t = tiles.get(k); if (t) for (const c of t.colliders) out.push(c); const sc2 = stampColl.get(k); if (sc2) for (const c of sc2) out.push(c); }
+        for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) { const k = `${tx + dx},${tz + dz}`, t = tiles.get(k); if (t) for (const c of t.colliders) out.push(c); for (const st of stamps) { const sc2 = st.built && st.coll.get(k); if (sc2) for (const c of sc2) out.push(c); } }
         return out;
     }
 
@@ -352,11 +360,14 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             for (const st of stamps) {   // a stamped place's creatures, while the player is within reach of it
                 if (!st.built) { if (!building && inRect(st, P.x, P.z, BUILD_R)) { building = true; integrate(st); } continue; }   // a lazy place: built as you come near (one a frame)
                 const inside = inRect(st, P.x, P.z, 4);
-                if (inside && !st.inside) map.onPlace?.(st.id, st.map.name ?? st.id);   // walked into a place (main.js: its story, its banner)
+                if (inside && !st.inside) map.onPlace?.(st.id, st.map.name ?? st.id, st);   // walked into a place (main.js: its story, its banner)
                 st.inside = inside;
                 st.awake = inRect(st, P.x, P.z, st.wake ?? 220);   // (a place can ask to wake only when you are on it: the mountain's fall recovery)
                 if (!st.awake) continue;
                 st.lctx = localCtx(st, ctx);
+                st.tick?.(st.lctx);   // the place's own world-level life (a gate of flame opening with the story)
+                if ((st.map.colliders ?? []).length !== st.collN) rebucket(st);
+                if ((st.map.hittables ?? []).length !== st.hitN) { st.hitN = st.map.hittables.length; refreshLife(); }   // (a chapter's duelist came or went)
                 // the place's own life: its creatures, townsfolk, lamps, fires, trials — all in its frame (its sky and fog
                 // belong to its old scene, which is no longer drawn)
                 if (st.map.update) st.map.update(t, dt, st.lctx);
