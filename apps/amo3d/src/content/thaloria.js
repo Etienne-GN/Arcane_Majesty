@@ -266,10 +266,10 @@ export function createThaloria({ quality }) {
     const K = treeKinds();
     const trees = byName(n => n.startsWith('tree'));
     for (const part of ['trunk', 'crown']) {
-        const im = inst(K.broad[part], flat(part === 'trunk' ? K.broad.trunkColor : 0xffffff), trees, (t, i) => { m4.compose(v.set(t.x, 0, t.z), q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), i * 1.7), s.setScalar(0.32 + (i % 4) * 0.04)); });   // amo's tree_bush pieces: small garden trees
+        const im = inst(K.broad[part], flat(part === 'trunk' ? K.broad.trunkColor : 0xffffff), trees, (t, i) => { m4.compose(v.set(t.x, 0, t.z), q.setFromAxisAngle(new THREE.Vector3(0, 1, 0), i * 1.7), s.setScalar((t.n.includes('dark') ? 0.7 : 0.6) + ((i * 7) % 5) * 0.05)); });   // amo's tree_bush pieces — real street and garden trees in 3D (the 2D sprites were small; at a third of a tree they read as dwarfs)
         if (part === 'crown') trees.forEach((t, i) => im?.setColorAt(i, col.setHSL(t.n.includes('dark') ? 0.3 : 0.26, 0.45, t.n.includes('dark') ? 0.24 : 0.32)));
     }
-    trees.forEach(t => add({ x: t.x, z: t.z, r: 0.15, kind: 'wall' }, 2));
+    trees.forEach(t => add({ x: t.x, z: t.z, r: 0.3, kind: 'wall' }, 5));
     // Knight statues, street lamps, market stalls, barrels.
     const props = new THREE.Group();
     const box = (w, h, d, c, x, y, z) => { const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), flat(c)); o.position.set(x, y, z); o.castShadow = true; props.add(o); return o; };
