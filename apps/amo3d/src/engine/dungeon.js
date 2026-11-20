@@ -83,7 +83,7 @@ export function buildDungeon(def) {
     const wx = i => i * C - half + C / 2, wz = j => j * C - half + C / 2;
     const cellOf = v => Math.floor((v + half) / C);
     const floorAt = (x, z) => !!grid[cellOf(z)]?.[cellOf(x)];
-    const colliders = [], lights = [], H = 2.1;   // low walls: the camera looks down into the rooms
+    const colliders = [], lights = [], H = 2.9, VAULT = 7;   // walls the camera still looks down over; the cave's vault high and dark above (spells fly free under it)
 
     // floor: uneven flags (vertex colours), merged
     const geos = [], col = new THREE.Color();
@@ -146,7 +146,7 @@ export function buildDungeon(def) {
     const blockedCell = (x, z, r) => [[0, 0], [r, 0], [-r, 0], [0, r], [0, -r]].some(([a, b]) => !floorAt(x + a, z + b));
     const map = {
         id: def.id, name: def.name, scene, colliders, terrain: false,
-        camera: { maxDist: 11, pitch: 0.95, dist: 9 },
+        camera: { maxDist: 11, pitch: 1.12, dist: 9 },
         heightAt: () => 0, groundAt: () => 0,
         passable: (x, z) => floorAt(x, z),
         blockedAt(x, z, r = 0.4, y = 0) { if (blockedCell(x, z, r)) return 'wall'; const c = colliderAt(colliders, x, z, r, y); return c ? c.kind : null; },
@@ -162,7 +162,7 @@ export function buildDungeon(def) {
                 if (d < r && d > 1e-6) { pos.x = qx + dx / d * r; pos.z = qz + dz / d * r; }
             }
         },
-        projectileHit(p) { if (p.y < 0.03) return 'ground'; if (!floorAt(p.x, p.z) || p.y > H) return 'wall'; const c = colliderAt(colliders, p.x, p.z, 0.15, p.y); return c ? 'object' : null; },
+        projectileHit(p) { if (p.y < 0.03) return 'ground'; if (!floorAt(p.x, p.z) || p.y > VAULT) return 'wall'; const c = colliderAt(colliders, p.x, p.z, 0.15, p.y); return c ? 'object' : null; },
         groundNormal: () => new THREE.Vector3(0, 1, 0),
         triggers: [], spawns: {}, stations: [], hittables: [], gatherSpots: [], gates: [],
         mapInfo: { half, dungeon: true, water: -99, trees: [], rocks: [], walls: [], buildings: [], landmarks: [], groundAt: (x, z) => floorAt(x, z) ? 'paved' : 'rock' },
