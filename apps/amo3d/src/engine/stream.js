@@ -9,6 +9,7 @@
 //   · no floating origin: at Eldoria's planned size (±3.75 km) float precision stays ~0.5 mm — not needed yet.
 // The map object has the same shape as a region's, so the player, the camera and the HUD use it unchanged.
 import * as THREE from 'three';
+import { settings } from './settings.js';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { flat, mulberry32, colliderAt, pushOut, fbm } from './lib.js';
 import { createOutdoorShell } from './outdoor.js';
@@ -522,7 +523,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             shell.update(dt, ctx);
             fpsT += dt; fpsN++; worst = Math.max(worst * 0.98, dt * 1000);
             if (fpsT >= 1) { fps = Math.round(fpsN / fpsT); fpsT = 0; fpsN = 0; }
-            hud.style.display = '';
+            hud.style.display = settings.showFps ? '' : 'none';   // the open world's readout: only with the performance counters (Options / F3)
             let near = null, nd = 90;
             for (const mk of markers) { const d = Math.hypot(mk.x - P.x, mk.z - P.z); if (d < nd) { nd = d; near = mk; } }
             if (near) nameEl.textContent = near.name;

@@ -577,7 +577,7 @@ function tick(dt) {
     }
     const act = input.poll(dt);
     if (act.keys.includes('F2')) { save(); nextQuality(quality); location.reload(); return; }
-    if (act.keys.includes('F3')) perf.toggle();
+    if (act.keys.includes('F3')) { settings.showFps = !settings.showFps; perf.set(settings.showFps); }   // the counters and the open world's readout together
     if (act.inventory) inventory.toggle();
     if (act.sheet) sheet.toggle();
     if (act.camCycle) cam.cycle();   // R3: first person, then three distances
