@@ -1,0 +1,206 @@
+// The open world's streaming engine — stage W1 of docs/3d/OPEN_WORLD_PLAN.md: a prototype on a test continent (no
+// lore), to measure on the phone whether a seamless world holds up.
+//   · the world is cut into TILE-metre tiles; only those within VIEW tiles of the player exist;
+//   · level of detail by distance: near tiles ~2.7 m between vertices, middle ~8 m, far ~21 m; every tile carries a
+//     skirt (its edge dropped 6 m) so the seams between levels never show a crack;
+//   · tiles are built off the critical path: at most BUDGET per frame, the nearest first (no stutter when walking);
+//   · trees and rocks: instanced per near tile, with their colliders; far tiles are bare (the fog hides them);
+//   · one water plane follows the player;
+//   · no floating origin: at Eldoria's planned size (±3.75 km) float precision stays ~0.5 mm — not needed yet.
+// The map object has the same shape as a region's, so the player, the camera and the HUD use it unchanged.
+import * as THREE from 'three';
+import { flat, mulberry32, colliderAt, pushOut, fbm } from './lib.js';
+import { createOutdoorShell } from './outdoor.js';
+import { treeKinds } from '../content/models/flora.js';
+
+const TILE = 128, VIEW = 6, BUDGET = 2, WATER = -2;
+const LOD = d => (d <= 1 ? 48 : d <= 3 ? 16 : 6);   // segments per tile edge by ring distance
+
+// The test continent: rolling land, a ridged mountain range, valleys, a coast all round (size × size metres).
+export function continentHeight(size) {
+    const half = size / 2;
+    return (x, z) => {
+        const r = Math.max(Math.abs(x), Math.abs(z)) / half;   // 0 at the centre, 1 at the edge
+        const coast = Math.min(1, Math.max(0, (1 - r) * 6));     // the land falls into the sea near the edge
+        const base = fbm(x * 0.0016, z * 0.0016, 5) * 46 - 6;
+        const rm = fbm(x * 0.0007 + 31, z * 0.0007 - 17, 2);      // where the mountains are
+        const ridge = Math.pow(1 - Math.abs(fbm(x * 0.0032 + 9, z * 0.0032 + 4, 4) * 2 - 1), 2.5) * 170 * Math.min(1, Math.max(0, rm - 0.38) * 4);
+        const valley = -Math.pow(Math.max(0, 0.08 - Math.abs(fbm(x * 0.0011 - 5, z * 0.0011 + 8, 3) - 0.5)) / 0.08, 2) * 9;   // winding valleys
+        return (base + ridge + valley) * coast + (WATER - 6) * (1 - coast);
+    };
+}
+
+export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
+    const scene = new THREE.Scene();
+    const shell = createOutdoorShell(scene, { quality, mood: { fog: '#c8d4d8', fogNear: 160, fogFar: 700, fogMix: 0.55 } });
+    const half = size / 2, NT = Math.ceil(size / TILE);
+    const tiles = new Map();   // key → { tx, tz, lod, mesh, trees: [], colliders: [] }
+    const queue = [];
+    const K = treeKinds();
+    const terrainMat = flat(0xffffff, { vertexColors: true });
+    const cGrassA = new THREE.Color('#4d7a35'), cGrassB = new THREE.Color('#7aa04a'), cRock = new THREE.Color('#77726b'), cSand = new THREE.Color('#9a8a62'), cSnow = new THREE.Color('#e8ecf0'), col = new THREE.Color();
+    const water = new THREE.Mesh(new THREE.PlaneGeometry(VIEW * TILE * 2.4, VIEW * TILE * 2.4).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0x2a5068, transparent: true, opacity: 0.85, roughness: 0.15, metalness: 0.2 }));
+    water.position.y = WATER; water.userData.dynamic = true; scene.add(water);
+    const stats = { built: 0, lastMs: 0, maxMs: 0 };
+
+    // One tile's terrain: a (seg+1)² grid of heights plus a skirt round its edge, dropped 6 m.
+    function tileGeometry(tx, tz, seg) {
+        const x0 = tx * TILE - half, z0 = tz * TILE - half, step = TILE / seg, n = seg + 1;
+        const border = [];
+        for (let i = 0; i < seg; i++) border.push([i, 0]);
+        for (let j = 0; j < seg; j++) border.push([seg, j]);
+        for (let i = seg; i > 0; i--) border.push([i, seg]);
+        for (let j = seg; j > 0; j--) border.push([0, j]);
+        const pos = new Float32Array((n * n + border.length) * 3), colr = new Float32Array((n * n + border.length) * 3);
+        const H = new Float32Array(n * n);
+        for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
+            const x = x0 + i * step, z = z0 + j * step, h = heightAt(x, z), k = j * n + i;
+            H[k] = h; pos.set([x, h, z], k * 3);
+        }
+        for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {   // colour by height and slope
+            const k = j * n + i, h = H[k];
+            const hx = H[j * n + Math.min(seg, i + 1)] - H[j * n + Math.max(0, i - 1)], hz = H[Math.min(seg, j + 1) * n + i] - H[Math.max(0, j - 1) * n + i];
+            const slope = Math.hypot(hx, hz) / (2 * step);
+            const nz = fbm((x0 + i * step) * 0.02, (z0 + j * step) * 0.02, 2);
+            if (h < WATER + 0.8) col.copy(cSand);
+            else if (h > 62 + nz * 10) col.copy(cSnow);
+            else if (slope > 0.75 || h > 40 + nz * 8) col.copy(cRock);
+            else col.copy(cGrassA).lerp(cGrassB, nz);
+            colr.set([col.r, col.g, col.b], k * 3);
+        }
+        border.forEach(([i, j], b) => { const k = j * n + i, o = (n * n + b) * 3; pos.set([pos[k * 3], pos[k * 3 + 1] - 6, pos[k * 3 + 2]], o); colr.set([colr[k * 3], colr[k * 3 + 1], colr[k * 3 + 2]], o); });
+        const idx = [];
+        for (let j = 0; j < seg; j++) for (let i = 0; i < seg; i++) { const a = j * n + i, b = a + 1, c = a + n, d = c + 1; idx.push(a, c, b, b, c, d); }
+        border.forEach(([i, j], b) => {   // the skirt: each edge vertex joined to its dropped twin
+            const [i2, j2] = border[(b + 1) % border.length];
+            const a = j * n + i, a2 = j2 * n + i2, d = n * n + b, d2 = n * n + (b + 1) % border.length;
+            idx.push(a, d, a2, a2, d, d2);
+        });
+        const g = new THREE.BufferGeometry();
+        g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+        g.setAttribute('color', new THREE.BufferAttribute(colr, 3));
+        g.setIndex(idx);
+        g.computeVertexNormals();
+        g.computeBoundingSphere();
+        return g;
+    }
+
+    // Trees and rocks for a near tile (seeded by the tile, so they are the same every time it is built).
+    const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), v = new THREE.Vector3(), sc = new THREE.Vector3(), Y = new THREE.Vector3(0, 1, 0);
+    function tileFlora(t) {
+        const rng = mulberry32(seed + t.tx * 7919 + t.tz * 104729);
+        const x0 = t.tx * TILE - half, z0 = t.tz * TILE - half;
+        const byKind = { pine: [], broad: [] };
+        for (let i = 0; i < 220; i++) {
+            const x = x0 + rng() * TILE, z = z0 + rng() * TILE, h = heightAt(x, z);
+            if (h < WATER + 1 || h > 38) continue;
+            if (fbm(x * 0.012 + 3, z * 0.012 + 9, 3) < 0.5) continue;   // woods and clearings
+            byKind[h > 18 || rng() < 0.4 ? 'pine' : 'broad'].push({ x, z, h, s: 0.8 + rng() * 0.6, r: rng() * 6.28, tint: rng() });
+        }
+        for (const [kind, list] of Object.entries(byKind)) {
+            if (!list.length) continue;
+            const Kd = K[kind];
+            const trunks = new THREE.InstancedMesh(Kd.trunk, flat(Kd.trunkColor), list.length), crowns = new THREE.InstancedMesh(Kd.crown, flat(0xffffff), list.length);
+            list.forEach((tr, i) => {
+                q.setFromAxisAngle(Y, tr.r); m4.compose(v.set(tr.x, tr.h - 0.1, tr.z), q, sc.setScalar(tr.s));
+                trunks.setMatrixAt(i, m4); crowns.setMatrixAt(i, m4);
+                crowns.setColorAt(i, kind === 'pine' ? col.setHSL(0.33, 0.4, 0.18 + tr.tint * 0.06) : col.setHSL(0.25 + tr.tint * 0.05, 0.45, 0.25));
+                t.colliders.push({ x: tr.x, z: tr.z, r: Kd.r * tr.s, kind: 'wall', y0: tr.h - 0.5, y1: tr.h + 5 * tr.s });
+            });
+            for (const im of [trunks, crowns]) { im.castShadow = im.receiveShadow = true; im.userData.dynamic = true; scene.add(im); t.trees.push(im); }
+        }
+    }
+
+    function build(t, lod) {
+        const t0 = performance.now();
+        if (t.mesh) { scene.remove(t.mesh); t.mesh.geometry.dispose(); }
+        t.mesh = new THREE.Mesh(tileGeometry(t.tx, t.tz, LOD(lod)), terrainMat);
+        t.mesh.receiveShadow = lod <= 1; t.mesh.userData.dynamic = true;
+        scene.add(t.mesh);
+        const wantTrees = lod <= 2;
+        if (wantTrees && !t.trees.length) tileFlora(t);
+        if (!wantTrees && t.trees.length) dropFlora(t);
+        t.lod = lod; t.pending = false;
+        const ms = performance.now() - t0; stats.lastMs = ms; stats.maxMs = Math.max(stats.maxMs * 0.995, ms); stats.built++;
+    }
+    function dropFlora(t) { for (const im of t.trees) { scene.remove(im); im.dispose(); } t.trees = []; t.colliders = []; }
+    function drop(key, t) { if (t.mesh) { scene.remove(t.mesh); t.mesh.geometry.dispose(); } dropFlora(t); tiles.delete(key); }
+
+    let cx = null, cz = null;
+    function stream(px, pz) {
+        const tx = Math.floor((px + half) / TILE), tz = Math.floor((pz + half) / TILE);
+        if (tx !== cx || tz !== cz) {   // the player crossed into another tile: what should exist, at what detail
+            cx = tx; cz = tz;
+            const want = new Map();
+            for (let dz = -VIEW; dz <= VIEW; dz++) for (let dx = -VIEW; dx <= VIEW; dx++) {
+                const x = tx + dx, z = tz + dz, d = Math.max(Math.abs(dx), Math.abs(dz));
+                if (x < 0 || z < 0 || x >= NT || z >= NT || Math.hypot(dx, dz) > VIEW + 0.5) continue;
+                want.set(`${x},${z}`, { x, z, d });
+            }
+            for (const [key, t] of tiles) if (!want.has(key)) drop(key, t);
+            queue.length = 0;
+            for (const [key, w] of want) {
+                let t = tiles.get(key);
+                if (!t) { t = { tx: w.x, tz: w.z, lod: null, mesh: null, trees: [], colliders: [] }; tiles.set(key, t); }
+                const lod = w.d <= 1 ? w.d : w.d <= 3 ? 2 : 4;
+                if (t.lod === null || LOD(t.lod) !== LOD(lod) || (lod <= 2) !== (t.lod <= 2)) queue.push({ t, lod, d: w.d });
+            }
+            queue.sort((a, b) => a.d - b.d);
+        }
+        for (let n = 0; n < BUDGET && queue.length; n++) { const job = queue.shift(); build(job.t, job.lod); }
+        water.position.set(px, WATER, pz);
+    }
+
+    // Colliders near a point: only the 3×3 tiles round it (thousands of trees are loaded; a check touches ~a hundred).
+    let frame = 0;
+    function coll(x, z) {
+        const tx = Math.floor((x + half) / TILE), tz = Math.floor((z + half) / TILE), out = [];
+        for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) { const t = tiles.get(`${tx + dx},${tz + dz}`); if (t) for (const c of t.colliders) out.push(c); }
+        return out;
+    }
+
+    const hud = document.createElement('div');
+    hud.style.cssText = 'position:fixed;left:8px;top:8px;z-index:30;font:12px monospace;color:#e8f0e0;background:#0008;padding:4px 7px;border-radius:4px;pointer-events:none;display:none';
+    document.body.append(hud);
+    let fpsT = 0, fpsN = 0, fps = 0, worst = 0;
+
+    const EDGE = half - 20;
+    const map = {
+        id, name, scene, heightAt, terrain: true, get colliders() { return []; },   // (per point: coll(x, z))
+        camera: { maxDist: 30, pitch: 0.38, dist: 9 },
+        groundAt: (x, z) => heightAt(x, z),
+        wading: (x, z) => heightAt(x, z) < WATER - 0.05,
+        blockedAt(x, z, r, y = heightAt(x, z)) {
+            const c = colliderAt(coll(x, z), x, z, r, y); if (c) return c.kind;
+            if (heightAt(x, z) < WATER - 0.7 || Math.max(Math.abs(x), Math.abs(z)) > EDGE) return 'wall';
+            return null;
+        },
+        resolve: (pos, r) => pushOut(coll(pos.x, pos.z), pos, r),
+        passable: (x, z) => heightAt(x, z) >= WATER - 0.7 && Math.max(Math.abs(x), Math.abs(z)) <= EDGE,
+        projectileHit(p) { if (p.y < heightAt(p.x, p.z) + 0.05) return 'ground'; const c = colliderAt(coll(p.x, p.z), p.x, p.z, 0.15, p.y); return c && p.y >= c.y0 + 0.5 ? 'object' : null; },
+        groundNormal(x, z) { const e = 0.3; return new THREE.Vector3(heightAt(x - e, z) - heightAt(x + e, z), 2 * e, heightAt(x, z - e) - heightAt(x, z + e)).normalize(); },
+        triggers: [], spawns: { start: { x: 0, z: 0, facing: 0 } },   // (moved to dry, low ground below) stations: [], hittables: [], gatherSpots: [], gates: [],
+        mapInfo: null, weatherDef: { id, biome: 'temperate' },
+        streamStats: () => ({ tiles: tiles.size, queue: queue.length, built: stats.built, lastMs: +stats.lastMs.toFixed(1), maxMs: +stats.maxMs.toFixed(1), fps, worstFrameMs: +worst.toFixed(1) }),
+        update(t, dt, ctx) {
+            frame++;
+            const P = ctx.player.pos;
+            stream(P.x, P.z);
+            shell.update(dt, ctx);
+            fpsT += dt; fpsN++; worst = Math.max(worst * 0.98, dt * 1000);
+            if (fpsT >= 1) { fps = Math.round(fpsN / fpsT); fpsT = 0; fpsN = 0; }
+            hud.style.display = '';
+            hud.textContent = `W1 stream · ${fps} fps · worst ${worst.toFixed(0)} ms · tiles ${tiles.size} (queue ${queue.length}) · build ${stats.lastMs.toFixed(1)}/${stats.maxMs.toFixed(1)} ms · ${(Math.hypot(P.x, P.z) / 1000).toFixed(2)} km from centre`;
+        },
+        onLeave() { hud.style.display = 'none'; },
+    };
+    // Arrive on dry, low ground near the centre.
+    for (let r = 0, a = 0; r < half * 0.6; r += 6, a += 2.4) { const x = Math.cos(a) * r, z = Math.sin(a) * r, h = heightAt(x, z); if (h > WATER + 2 && h < 16) { map.spawns.start = { x, z, facing: 0 }; break; } }
+    // The readout hides itself when this map is no longer the one updating.
+    let lastUpdate = 0; const watch = setInterval(() => { if (performance.now() - lastUpdate > 600) hud.style.display = 'none'; }, 500);
+    map.dispose = () => clearInterval(watch);
+    const upd = map.update; map.update = (t, dt, ctx) => { lastUpdate = performance.now(); upd(t, dt, ctx); };
+    // the first ring at once, so the player never lands on nothing
+    stream(map.spawns.start.x, map.spawns.start.z); while (queue.length && queue[0].d <= 1) { const job = queue.shift(); build(job.t, job.lod); }
+    return map;
+}
