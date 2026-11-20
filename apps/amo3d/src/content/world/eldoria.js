@@ -121,6 +121,8 @@ function fitOy(map, ox, oz, [x0, z0, x1, z1]) {
     for (let t = 0; t <= 1.0001; t += 0.05) for (const [x, z] of [[x0 + (x1 - x0) * t, z0], [x0 + (x1 - x0) * t, z1], [x0, z0 + (z1 - z0) * t], [x1, z0 + (z1 - z0) * t]]) { sum += eldoriaHeight(x + ox, z + oz) - map.heightAt(x, z); n++; }
     return sum / n;
 }
+// Every exit that led from one of these places to another of them is gone in the open world: you walk there.
+const IN_WORLD = ['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary'];
 function makeStamps(quality) {
     const out = [prepStamp({ id: 'thaloria', map: createThaloria({ quality }), ox: CITY.x, oy: 2, oz: CITY.z, rect: [-78, -135, 78, 68], drop: new Set(['outdoor', 'east_road']) })];
     const more = [
@@ -136,7 +138,7 @@ function makeStamps(quality) {
             const map = make();
             const oy0 = anchor ? eldoriaHeight(at.x + anchor[0], at.z + anchor[1]) - map.heightAt(anchor[0], anchor[1]) : fitOy(map, at.x, at.z, rect);
             const oy = Math.max(minOy, oy0);   // (a floor never below the sea)
-            out.push(prepStamp({ id, map, ox: at.x, oy, oz: at.z, rect, drop: new Set(drop), wake: id === 'the_summit' ? 0 : 220 }));   // the mountain thinks anyone off its trail has fallen: it wakes only when you are on it
+            out.push(prepStamp({ id, map, ox: at.x, oy, oz: at.z, rect, drop: new Set([...drop, ...IN_WORLD]), dropIf: t => /Sylvan Sanctuary/.test(t.label ?? '') && id === 'the_summit', wake: id === 'the_summit' ? 0 : 220 }));   // the mountain thinks anyone off its trail has fallen: it wakes only when you are on it
         } catch (e) { console.warn('[eldoria] stamp failed', id, e); }
     }
     return out;

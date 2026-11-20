@@ -341,7 +341,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     };
     // A stamped place's doors, signs and arrival points, moved into the world.
     for (const st of stamps) {
-        for (const t of st.map.triggers ?? []) if (!st.drop?.has(t.to)) map.triggers.push({ ...t, x: t.x + st.ox, z: t.z + st.oz });
+        for (const t of st.map.triggers ?? []) if (!st.drop?.has(t.to) && !st.dropIf?.(t)) map.triggers.push({ ...t, x: t.x + st.ox, z: t.z + st.oz });   // (exits to places now in the world are gone: you walk)
         for (const s2 of st.map.stations ?? []) if (s2.pos) map.stations.push({ ...s2, pos: s2.pos.clone().add(new THREE.Vector3(st.ox, st.oy, st.oz)) });
         for (const [k, sp] of Object.entries(st.map.spawns ?? {})) map.spawns[`${st.id}:${k}`] = { ...sp, x: sp.x + st.ox, z: sp.z + st.oz };
     }
