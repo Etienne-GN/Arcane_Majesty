@@ -12,7 +12,7 @@
 import LAYOUT from './eldoria_layout.json';
 import { fbm } from '../../engine/lib.js';
 import { createStreamWorld, prepStamp, stampHeights, edgeDist } from '../../engine/stream.js';
-import { createThaloria } from '../thaloria.js';
+import { createThaloriaCity, cityGround } from '../thaloriaCity.js';
 import { createOutdoor } from '../glade.js';
 import { createEastRoad } from '../eastRoad.js';
 import { createMountain } from '../mountain.js';
@@ -94,8 +94,9 @@ export function eldoriaHeight(x, z) {
     const dFG = Math.hypot(x - FIRE.x, z - FIRE.z);
     if (dFG < 420) h = h + (9 + fbm(x * 0.01, z * 0.01, 2) * 4 - h) * smooth(420, 140, dFG) * (1 - smooth(260, 120, dL));
     // Thaloria (the city is stamped in, W2.2): low hills round it; the Citadel's plateau carries on north of the gorge
-    const dC = Math.hypot(x - CITY.x, z - CITY.z);
-    if (dC < 520) h = h + (10 + fbm(x * 0.02, z * 0.02, 2) * 4 - h) * smooth(520, 200, dC);
+    // Thaloria's hill carries on beyond its walls and rolls down into the land (no pedestal under the city)
+    const dC = Math.hypot(x - CITY.x, (z - (CITY.z + 95)) * 1.1);
+    if (dC < 560 && z > CITY.z - 50) h = h + (cityGround(x - CITY.x, z - CITY.z) + 2 - h) * smooth(560, 230, dC);
     const dK = Math.hypot(x - CITADEL.x, (z - (CITADEL.z - 120)) * 0.8);
     if (dK < 360) h = h + (29 + fbm(x * 0.01, z * 0.01, 2) * 6 - h) * smooth(360, 150, dK);
     // The glade's mountains: a small range round Eldrin's vale, and the vale is the crater of one of them. The crater's
@@ -208,13 +209,13 @@ const STORY = [
 // Every exit that led from one of these places to another of them is gone in the open world: you walk there.
 const IN_WORLD = ['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'thaloria_lower', 'citadel_plateau', 'summit_of_despair', 'whisper_wood', 'the_crossroads', 'iron_hollow', 'duskmeet', 'graywatch', 'lake_aethera', 'port_silver', 'emerald_fields', 'fire_gate', 'inferno_labyrinth', 'ruins_of_eldoria'];
 function makeStamps(quality) {
-    // Thaloria's footprint stops at the gorge's far cliff top: the Citadel's plateau beyond is its own place now.
-    const out = [prepStamp({ id: 'thaloria', map: createThaloria({ quality }), ox: CITY.x, oy: 2, oz: CITY.z, rect: [-78, -80, 78, 66], drop: new Set(IN_WORLD), round: 6, wobble: 0.03 })];   // (a walled city: a squarer outline, still no sharp corner)
+    // Thaloria: the scholar-city on its hill (content/thaloriaCity.js, from the plan), the gorge on its north side.
+    const out = [prepStamp({ id: 'thaloria', map: createThaloriaCity({ quality }), ox: CITY.x, oy: 2, oz: CITY.z, rect: [-188, -78, 188, 262], drop: new Set(IN_WORLD), round: 3.2, wobble: 0.04 })];   // (a walled city: a squarer outline, still no sharp corner)
     // The Lower Town, out of the South Gate; the Citadel's plateau, at the top of the cliff stair (their own region maps).
     try {
         const lazy = id => ({ make: () => buildRegion(REGION_DEFS[id], { quality }), heightAt: regionHeight(REGION_DEFS[id]) });   // built when you come near
-        out.push(prepStamp({ id: 'thaloria_lower', ...lazy('thaloria_lower'), ox: CITY.x, oy: 2, oz: CITY.z + 66 + 54, rect: [-52, -52, 52, 52], drop: new Set(IN_WORLD) , round: 4 }));   // (cropped inside its old rim; level with the city)
-        out.push(prepStamp({ id: 'citadel_plateau', ...lazy('citadel_plateau'), ox: CITY.x, oy: 28, oz: CITY.z - 80 - 71, rect: [-52, -52, 52, 70], drop: new Set(IN_WORLD) , round: 4 }));   // (level with the cliff top; its south edge meets it)
+        out.push(prepStamp({ id: 'thaloria_lower', ...lazy('thaloria_lower'), ox: CITY.x, oy: 2, oz: CITY.z + 262 + 56, rect: [-52, -52, 52, 52], drop: new Set(IN_WORLD) , round: 4 }));   // (cropped inside its old rim; level with the city)
+        out.push(prepStamp({ id: 'citadel_plateau', ...lazy('citadel_plateau'), ox: CITY.x, oy: 30, oz: CITY.z - 74 - 71, rect: [-52, -52, 52, 70], drop: new Set(IN_WORLD) , round: 4 }));   // (level with the cliff top; its south edge meets it)
     } catch (e) { console.warn('[eldoria] stamp failed (Thaloria\'s neighbours)', e); }
     // The story's three (chapters 6–11 stage their scenes here — content/chapters.js runs them in the place's frame):
     // each keeps its own rim of rock, with a pass cut through it toward each neighbour, an invisible wall along the crest

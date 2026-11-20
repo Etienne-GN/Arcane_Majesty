@@ -40,7 +40,8 @@ export function lookFor(r) {   // (the Forge's cast list reads it too)
     }
 }
 
-export function createTownsfolk({ scene, W, H, resolve = null, mapId = 'thaloria' }) {
+// remap(x, z) → [x, z]: their spots (amo's 2D tiles) moved into a rebuilt city; heightAt: its ground (they walk the hill).
+export function createTownsfolk({ scene, W, H, resolve = null, mapId = 'thaloria', remap = null, heightAt = null }) {
     const town = TF.getTown('thaloria');
     const toX = px => px / 32 - W / 2, toZ = py => py / 32 - H / 2;
     const FACING = { down: 0, up: Math.PI, right: Math.PI / 2, left: -Math.PI / 2 };
@@ -92,7 +93,8 @@ export function createTownsfolk({ scene, W, H, resolve = null, mapId = 'thaloria
                     if (p.label) p.label.style.opacity = 0;
                     continue;
                 }
-                const tx = toX(w.x), tz = toZ(w.y);
+                let tx = toX(w.x), tz = toZ(w.y);
+                if (remap) [tx, tz] = remap(tx, tz);
                 if (!p.shown || Math.hypot(tx - p.pos.x, tz - p.pos.z) > 4) p.pos.set(tx, 0, tz);   // appear / out of a door: no sliding
                 // amo's spots sit on 2D tiles; a few fall inside our 3D houses' walls — step out of them.
                 if (resolve) { resolve(p.pos, 0.3); }
@@ -106,6 +108,7 @@ export function createTownsfolk({ scene, W, H, resolve = null, mapId = 'thaloria
                 // Keep a body's width from the player (nobody walks through you).
                 const px = p.pos.x - P.x, pz = p.pos.z - P.z, pd = Math.hypot(px, pz);
                 if (pd < 0.75 && pd > 1e-3) { p.pos.x = P.x + (px / pd) * 0.75; p.pos.z = P.z + (pz / pd) * 0.75; }
+                if (heightAt) p.pos.y = heightAt(p.pos.x, p.pos.z);
                 p.shown = true;
                 p.activity = w.activity;
                 const near = Math.hypot(p.pos.x - P.x, p.pos.z - P.z) < NEAR;

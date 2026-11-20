@@ -15,7 +15,7 @@ SCALE, CX, CY = 5.5, 850, 565
 W = lambda x, y: (round((x - CX) * SCALE), round((y - CY) * SCALE))
 places = [{'name': n, 'origin': o, 'db': [x, y], 'world': W(x, y), 'in': [p for p in ins if p]} for n, o, x, y, ins in rows]
 # Game places with no DB node, placed by their neighbours (DB units).
-GAME = [("Thaloria Glade (Eldrin's Tower's vale)", 1210, 315), ('The East Road (Thalorian Wilds)', 1250, 218), ('Summit of Despair — the Approach', 1350, 230), ('The Citadel of Thaloria', 1100, 185), ('The Lower Town of Thaloria', 1100, 225)]
+GAME = [("Thaloria Glade (Eldrin's Tower's vale)", 1210, 315), ('The East Road (Thalorian Wilds)', 1250, 218), ('Summit of Despair — the Approach', 1350, 230), ('The Citadel of Thaloria', 1100, 173.5), ('The Lower Town of Thaloria', 1100, 257.7)]
 for n, x, y in GAME: places.append({'name': n, 'origin': 'game (no DB node)', 'db': [x, y], 'world': W(x, y), 'in': ['Thaloria']})
 # Land features (unnamed, drafted): Thaloria's eastern range with the Summit pass; the Fire Gate's mountain; the river
 # from the range through Thaloria's gorge down past the Silverrun to Lake Aethera; the east coast; the roads.
@@ -24,9 +24,9 @@ features = {
                {'what': "the Fire Gate's mountain (the Labyrinth inside)", 'db': [[1430, 70], [1470, 110], [1490, 150]]}],
     'rivers': [{'what': "the river along the range's northern foot (the Sanctuary's bridge), round its western end, through Thaloria's gorge, down past the Silverrun to Lake Aethera", 'db': [[1420, 140], [1330, 140], [1250, 150], [1190, 178], [1115, 188], [1085, 188], [1040, 230], [980, 300], [850, 400], [700, 430], [600, 450]]}],
     'coast': {'what': 'the east coast (the Silver Coast)', 'db': [[1600, 260], [1570, 400], [1540, 550], [1560, 700], [1600, 820]]},
-    'roads': [{'what': 'Thaloria → the East Road → the Approach', 'db': [[1100, 196], [1180, 214], [1250, 218], [1350, 232]]},
-              {'what': "the glade's pass → round to Thaloria's South Gate", 'db': [[1207, 336], [1205, 352], [1170, 352], [1120, 300], [1100, 214]]},
-              {'what': 'Thaloria → the Crossroads', 'db': [[1100, 225], [900, 420], [700, 550]]},
+    'roads': [{'what': 'Thaloria (the East Gate) → the East Road → the Approach', 'db': [[1135.3, 214.4], [1180, 214], [1250, 218], [1350, 232]]},
+              {'what': "the glade's pass → round to Thaloria's South Gate", 'db': [[1207, 336], [1205, 352], [1170, 352], [1130, 330], [1096.5, 246.6]]},
+              {'what': 'Thaloria (the West Gate) → the Crossroads', 'db': [[1068.1, 223.0], [1000, 260], [900, 420], [700, 550]]},
               {'what': 'the Crossroads → Port Silver', 'db': [[700, 550], [1100, 560], [1500, 550]]},
               {'what': 'the Crossroads → the Emerald Fields', 'db': [[700, 550], [450, 600], [200, 650]]},
               {'what': 'the Crossroads → Graywatch', 'db': [[700, 550], [900, 780], [1050, 950]]},

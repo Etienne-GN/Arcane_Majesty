@@ -59,6 +59,19 @@ in a walled garden. Missing:
   story position moved; the chart and minimap from the plan.
 - **T4 — life**: stalls, carts, wells, lanterns lit at dusk, smoke, banners, guards on the wall, snow.
 
+## Status
+- **T1 done** (plan), **T2 done** (content/thaloriaCity.js: 334 houses — stone ground floors, timber-framed jettied upper
+  floors outside the scholars' quarter, slate and some tile roofs, chimneys, windows lit at dusk, plinths stepping down
+  the hill — the college with its library hall, cloister ranges and corner tower, the leaning bell tower, the temple with
+  its spire, the market hall's arcades, the guild hall, manor, barracks and inn, the wall with 17 towers and four
+  gatehouses, the high bridge over the gorge to the Citadel; trees in the yards; all merged per material),
+  **T3 done** (the 17 doors with their labels — locked where no interior exists, the bounty board, hearth and alchemy
+  table by the market, the Lookout sign on the bridge, the townsfolk walking their old schedules remapped into the new
+  streets and climbing the hill, the roads re-routed to the East, South and West Gates, the Lower Town moved south of the
+  wall and the Citadel's plateau to the far side of the bridge, the world's land rolling the hill on beyond the walls).
+- **T4 next**: stalls, carts, wells, lanterns, smoke, banners, guards on the wall, stairs drawn on the steep lanes,
+  townsfolk routes along the street network.
+
 ## Canon notes (Phase 10)
 New names (the college's name, quarters, streets, squares) go through the canon check before they are lore. The book
 puts Eldrin's tower in the scholars' quarter; the game and the DB keep it in its vale south-east of the city (settled

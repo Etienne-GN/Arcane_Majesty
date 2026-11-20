@@ -218,7 +218,7 @@ for s in STREETS:
                 t += (w if placed else 2.0) + (R.choice([0, 0, 0, 0, 0.6]) if placed else 0)   # terraced: wall to wall, now and then a passage
             carry = t - L
 # plain interiors: on houses in the right quarters (the doors face their streets)
-WANT = [('thaloria_smithy', 'crafts'), ('thaloria_alchemist', 'market'), ('thaloria_house_market_a', 'market'), ('thaloria_house_noble_a', 'scholars'),
+WANT = [('thaloria_house_noble_c', 'scholars'), ('thaloria_smithy', 'crafts'), ('thaloria_alchemist', 'market'), ('thaloria_house_market_a', 'market'), ('thaloria_house_noble_a', 'scholars'),
         ('thaloria_house_low_a', 'town'), ('thaloria_house_low_c', 'crafts'), ('thaloria_house_low_e', 'town'), ('thaloria_house_teal', 'temple')]
 used = set()
 for iid, qt in WANT:
