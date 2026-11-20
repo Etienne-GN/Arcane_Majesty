@@ -1,49 +1,49 @@
 {
- "id": "alpine",
- "name": "Alpine",
- "description": "The heights of the Summit range: hardy pines, bare rock, snow above the trees.",
- "radius": 450,
- "palette": {
-  "grassA": "#e6ecf2",
-  "grassB": "#d4dde6",
-  "rock": "#6a6a72",
-  "dirt": "#7a7670"
- },
- "vegetation": {
-  "density": 0.56,
-  "kinds": {
-   "pine": 0.7,
-   "dead": 0.3
+  "id": "alpine",
+  "name": "Alpine",
+  "description": "The heights of the Summit range: hardy pines, bare rock, snow above the trees.",
+  "radius": 450,
+  "palette": {
+    "grassA": "#6e7e5e",
+    "grassB": "#8c9876",
+    "rock": "#6a6a72",
+    "dirt": "#7a7670"
   },
-  "colors": {
-   "pine": "#34463e"
-  }
- },
- "creatures": [
-  "crag_fiend",
-  "frost_bear",
-  "frost_shade",
-  "glacier_crab",
-  "gloom_beak",
-  "ice_revenant",
-  "wendigo"
- ],
- "mood": {
-  "fog": "#b8c4d0",
-  "fogNear": 56,
-  "fogFar": 480,
-  "fogMix": 0.7,
-  "light": 0.75,
-  "nightFloor": 0.45
- },
- "wildlife": [
-  [
-   "crow",
-   3
+  "vegetation": {
+    "density": 0.56,
+    "kinds": {
+      "pine": 0.7,
+      "dead": 0.3
+    },
+    "colors": {
+      "pine": "#34463e"
+    }
+  },
+  "creatures": [
+    "crag_fiend",
+    "frost_bear",
+    "frost_shade",
+    "glacier_crab",
+    "gloom_beak",
+    "ice_revenant",
+    "wendigo"
   ],
-  [
-   "goat",
-   3
+  "mood": {
+    "fog": "#b8c4d0",
+    "fogNear": 56,
+    "fogFar": 480,
+    "fogMix": 0.7,
+    "light": 0.75,
+    "nightFloor": 0.45
+  },
+  "wildlife": [
+    [
+      "crow",
+      3
+    ],
+    [
+      "goat",
+      3
+    ]
   ]
- ]
 }

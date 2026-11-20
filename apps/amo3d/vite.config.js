@@ -59,7 +59,7 @@ export default defineConfig({
     },
     plugins: [jsonDirApi('/api/cast', castDir, 'cast'), jsonDirApi('/api/region', regionDir, 'regions'), jsonDirApi('/api/mobnotes', mobNotesDir, 'mob_notes'), jsonDirApi('/api/npcnotes', npcNotesDir, 'npc_notes'), jsonDirApi('/api/biomes', biomesDir, 'biomes'), jsonDirApi('/api/biomemaps', biomeMapsDir, 'biome_maps')],
     build: {
-        rollupOptions: { input: { main: 'index.html', forge: 'forge.html', editor: 'editor.html', bestiary: 'bestiary.html', manual: 'manual.html' } },
+        rollupOptions: { input: { main: 'index.html', forge: 'forge.html', editor: 'editor.html', bestiary: 'bestiary.html', manual: 'manual.html', biomes: 'biomes.html' } },
     },
     server: {
         port: 5190,

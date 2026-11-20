@@ -283,5 +283,7 @@ refresh();
 fetch('api/region').then(r => r.json()).then(list => { if (list[0]) { def = { ...clone(BLANK), ...list[0] }; dirtyTerrain = true; refresh(); } }).catch(() => {});
 window.__editor = { get def() { return def; }, openPreview, get preview() { return preview; }, setTool: t => { tool = t; refresh(); }, add: (x, z) => { add(x, z); refresh(); }, refresh };
 
+// To the World Biomes editor (Eldoria's lands, their biomes).
+{ const a2 = document.createElement('a'); a2.href = './biomes.html'; a2.textContent = '🌍 World biomes →'; a2.style.cssText = 'position:fixed;left:14px;top:12px;z-index:5;color:#f3d88b;font:15px Georgia;text-decoration:none;background:#0009;padding:6px 10px;border-radius:8px'; document.body.append(a2); }
 // Back to the game (the title's Workshop opens this page).
 { const a = document.createElement('a'); a.href = 'index.html'; a.textContent = '← Game'; a.style.cssText = 'position:fixed;left:8px;bottom:8px;z-index:50;padding:5px 10px;font:14px Georgia,serif;color:#f3e2b0;background:#120a06d8;border:1px solid #f3d88b66;border-radius:4px;text-decoration:none'; document.body.append(a); }
