@@ -11,7 +11,7 @@
 // The rest of Eldoria is gentle land for now (W4 shapes each region). Markers stand where each place will be built (W2.2).
 import LAYOUT from './eldoria_layout.json';
 import { fbm } from '../../engine/lib.js';
-import { createStreamWorld, prepStamp, stampHeights } from '../../engine/stream.js';
+import { createStreamWorld, prepStamp, stampHeights, edgeDist } from '../../engine/stream.js';
 import { createThaloria } from '../thaloria.js';
 import { createOutdoor } from '../glade.js';
 import { createEastRoad } from '../eastRoad.js';
@@ -132,7 +132,62 @@ export function eldoriaHeight(x, z) {
     return h;
 }
 
-const roadDist = (x, z) => { let d = Infinity; for (const r of ROADS) d = Math.min(d, polyDist(r, x, z)); return d; };
+// Roads are laid like real ones: each a smooth curve (Catmull-Rom through the layout's points — no sharp bends), its bed
+// a profile of the land beneath smoothed and held to a 10% grade, the land cut into hillsides and built up over hollows
+// along it (graded() below). A grid of 32 m cells finds the nearest road point fast.
+const ROAD_STEP = 8, ROAD_GRADE = 0.10, ROAD_CELL = 32;
+function curve(pts) {
+    const out = [];
+    for (let i = 0; i < pts.length - 1; i++) {
+        const p0 = pts[Math.max(0, i - 1)], p1 = pts[i], p2 = pts[i + 1], p3 = pts[Math.min(pts.length - 1, i + 2)];
+        const n = Math.max(1, Math.ceil(Math.hypot(p2[0] - p1[0], p2[1] - p1[1]) / ROAD_STEP));
+        for (let k = 0; k < n; k++) {
+            const t = k / n, t2 = t * t, t3 = t2 * t;
+            const f = (a, b, c, d) => 0.5 * (2 * b + (-a + c) * t + (2 * a - 5 * b + 4 * c - d) * t2 + (-a + 3 * b - 3 * c + d) * t3);
+            out.push([f(p0[0], p1[0], p2[0], p3[0]), f(p0[1], p1[1], p2[1], p3[1])]);
+        }
+    }
+    out.push(pts[pts.length - 1]);
+    return out;
+}
+export const ROAD_CURVES = ROADS.map(curve);
+const roadGrid = new Map();   // cell → [[roadIndex, pointIndex]]
+ROAD_CURVES.forEach((c, ri) => c.forEach(([x, z], pi) => { const k = `${Math.floor(x / ROAD_CELL)},${Math.floor(z / ROAD_CELL)}`; (roadGrid.get(k) ?? roadGrid.set(k, []).get(k)).push([ri, pi]); }));
+// The nearest road point within reach: { d, ri, pi, t } (t: along the segment pi → pi+1).
+function nearestRoad(x, z, reach = 20) {
+    let best = null;
+    const cx = Math.floor(x / ROAD_CELL), cz = Math.floor(z / ROAD_CELL), n = Math.ceil(reach / ROAD_CELL);
+    for (let dz = -n; dz <= n; dz++) for (let dx = -n; dx <= n; dx++) for (const [ri, pi] of roadGrid.get(`${cx + dx},${cz + dz}`) ?? []) {
+        const c = ROAD_CURVES[ri];
+        for (const j of [pi - 1, pi]) {
+            if (j < 0 || j >= c.length - 1) continue;
+            const [ax, az] = c[j], [bx, bz] = c[j + 1], ddx = bx - ax, ddz = bz - az, L2 = ddx * ddx + ddz * ddz || 1;
+            const t = Math.max(0, Math.min(1, ((x - ax) * ddx + (z - az) * ddz) / L2)), d = Math.hypot(x - ax - ddx * t, z - az - ddz * t);
+            if (d < reach && (!best || d < best.d)) best = { d, ri, pi: j, t };
+        }
+    }
+    return best;
+}
+const roadDist = (x, z) => nearestRoad(x, z, 12)?.d ?? Infinity;
+// The roads' beds, from the land as it is (places included); held to the grade; then the land graded to them.
+function graded(ground, stamps) {
+    const inPlace = (x, z) => stamps.some(st => x > st.X0 - 4 && x < st.X1 + 4 && z > st.Z0 - 4 && z < st.Z1 + 4 && edgeDist(st, x, z) < 2);
+    const beds = ROAD_CURVES.map(c => {
+        let h = c.map(([x, z]) => ground(x, z));
+        const W = 6;   // ±48 m smoothing
+        h = h.map((_, i) => { let s0 = 0, n = 0; for (let k = -W; k <= W; k++) { const v = h[i + k]; if (v !== undefined) { s0 += v; n++; } } return s0 / n; });
+        const g = ROAD_GRADE * ROAD_STEP;
+        for (let i = 1; i < h.length; i++) h[i] = Math.max(h[i - 1] - g, Math.min(h[i - 1] + g, h[i]));
+        for (let i = h.length - 2; i >= 0; i--) h[i] = Math.max(h[i + 1] - g, Math.min(h[i + 1] + g, h[i]));
+        return h.map(v => Math.max(v, WATER + 0.6));   // (a causeway over water)
+    });
+    return (x, z) => {
+        const h = ground(x, z), r = nearestRoad(x, z, 16);
+        if (!r || r.d > 16 || inPlace(x, z)) return h;
+        const b = beds[r.ri], bed = b[r.pi] + (b[r.pi + 1] - b[r.pi]) * r.t;
+        return h + (bed - h) * (1 - smooth(4, 16, r.d));   // flat across 8 m, its banks out to 16 m
+    };
+}
 
 // The places stamped into the world (W2.2). Thaloria: the city (its own map, content/thaloria.js), set on the gorge
 // with its river at the world's water level; its West and East Gates now open on the land itself.
@@ -247,7 +302,7 @@ function makeStamps(quality) {
 
 export function createEldoriaWorld({ quality } = {}) {
     const stamps = makeStamps(quality);
-    const heightAt = stampHeights(eldoriaHeight, stamps, 60);
+    const heightAt = graded(stampHeights(eldoriaHeight, stamps, 60), stamps);   // (roads graded into the land last)
     const places = LAYOUT.places.map(p => ({ name: p.name, x: p.world[0], z: p.world[1] }));
     const toCity = Math.atan2(CITY.x - GLADE.x, CITY.z - GLADE.z);
     const gl = stamps.find(st => st.id === 'outdoor'), gs = gl?.map.spawns?.start;
