@@ -1,0 +1,881 @@
+{
+ "scale_m_per_db_unit": 5.5,
+ "origin_db": [
+  850,
+  565
+ ],
+ "axes": "x east, z south (north is -z)",
+ "size_m": [
+  8250,
+  5830
+ ],
+ "places": [
+  {
+   "name": "Eldrin's Tower",
+   "origin": "album",
+   "db": [
+    1200,
+    300
+   ],
+   "world": [
+    1925,
+    -1458
+   ],
+   "in": [
+    "Thaloria"
+   ]
+  },
+  {
+   "name": "Thaloria",
+   "origin": "album",
+   "db": [
+    1100,
+    200
+   ],
+   "world": [
+    1375,
+    -2008
+   ],
+   "in": [
+    "Thaloria"
+   ]
+  },
+  {
+   "name": "The Emerald Fields",
+   "origin": "album",
+   "db": [
+    200,
+    650
+   ],
+   "world": [
+    -3575,
+    468
+   ],
+   "in": [
+    "The Emerald Fields"
+   ]
+  },
+  {
+   "name": "The Forbidden Archive",
+   "origin": "album",
+   "db": [
+    900,
+    120
+   ],
+   "world": [
+    275,
+    -2448
+   ],
+   "in": [
+    "Thaloria"
+   ]
+  },
+  {
+   "name": "The Obsidian Gate",
+   "origin": "album",
+   "db": [
+    1450,
+    850
+   ],
+   "world": [
+    3300,
+    1568
+   ],
+   "in": [
+    "Nythoria Surface",
+    "The Scarlands"
+   ]
+  },
+  {
+   "name": "Whisper-Wood",
+   "origin": "album",
+   "db": [
+    500,
+    1050
+   ],
+   "world": [
+    -1925,
+    2668
+   ],
+   "in": [
+    "Whisper-Wood"
+   ]
+  },
+  {
+   "name": "Sanguine Vaults",
+   "origin": "album",
+   "db": [
+    800,
+    900
+   ],
+   "world": [
+    -275,
+    1842
+   ],
+   "in": [
+    "Sanguine Vaults"
+   ]
+  },
+  {
+   "name": "New Ravenspire",
+   "origin": "album",
+   "db": [
+    1200,
+    800
+   ],
+   "world": [
+    1925,
+    1292
+   ],
+   "in": [
+    "The Scarlands"
+   ]
+  },
+  {
+   "name": "Sylvan Sanctuary",
+   "origin": "album",
+   "db": [
+    1300,
+    120
+   ],
+   "world": [
+    2475,
+    -2448
+   ],
+   "in": [
+    "Thaloria"
+   ]
+  },
+  {
+   "name": "Summit of Despair",
+   "origin": "album",
+   "db": [
+    1400,
+    200
+   ],
+   "world": [
+    3025,
+    -2008
+   ],
+   "in": [
+    "Thaloria"
+   ]
+  },
+  {
+   "name": "Heartstone Chamber",
+   "origin": "album",
+   "db": [
+    1540,
+    200
+   ],
+   "world": [
+    3795,
+    -2008
+   ],
+   "in": [
+    "Ruins of Eldoria"
+   ]
+  },
+  {
+   "name": "The Hidden Cabin",
+   "origin": "album",
+   "db": [
+    350,
+    800
+   ],
+   "world": [
+    -2750,
+    1292
+   ],
+   "in": [
+    "The Emerald Fields"
+   ]
+  },
+  {
+   "name": "Port Silver",
+   "origin": "game",
+   "db": [
+    1500,
+    550
+   ],
+   "world": [
+    3575,
+    -82
+   ],
+   "in": [
+    "The Silver Coast"
+   ]
+  },
+  {
+   "name": "The Crossroads",
+   "origin": "game",
+   "db": [
+    700,
+    550
+   ],
+   "world": [
+    -825,
+    -82
+   ],
+   "in": [
+    "The Heartlands"
+   ]
+  },
+  {
+   "name": "Iron Hollow",
+   "origin": "game",
+   "db": [
+    950,
+    80
+   ],
+   "world": [
+    550,
+    -2668
+   ],
+   "in": [
+    "Thaloria"
+   ]
+  },
+  {
+   "name": "Graywatch",
+   "origin": "game",
+   "db": [
+    1050,
+    950
+   ],
+   "world": [
+    1100,
+    2118
+   ],
+   "in": [
+    "The Scarlands"
+   ]
+  },
+  {
+   "name": "The Sunken Temple",
+   "origin": "game",
+   "db": [
+    550,
+    520
+   ],
+   "world": [
+    -1650,
+    -248
+   ],
+   "in": [
+    "The Heartlands"
+   ]
+  },
+  {
+   "name": "Duskmeet",
+   "origin": "game",
+   "db": [
+    400,
+    950
+   ],
+   "world": [
+    -2475,
+    2118
+   ],
+   "in": [
+    "Whisper-Wood"
+   ]
+  },
+  {
+   "name": "The Weeping Stones",
+   "origin": "game",
+   "db": [
+    150,
+    750
+   ],
+   "world": [
+    -3850,
+    1018
+   ],
+   "in": [
+    "The Emerald Fields"
+   ]
+  },
+  {
+   "name": "Lake Aethera",
+   "origin": "game",
+   "db": [
+    600,
+    450
+   ],
+   "world": [
+    -1375,
+    -632
+   ],
+   "in": [
+    "The Heartlands"
+   ]
+  },
+  {
+   "name": "Silverrun River",
+   "origin": "game",
+   "db": [
+    850,
+    400
+   ],
+   "world": [
+    0,
+    -908
+   ],
+   "in": [
+    "The Heartlands"
+   ]
+  },
+  {
+   "name": "Fire Gate",
+   "origin": "album",
+   "db": [
+    1440,
+    100
+   ],
+   "world": [
+    3245,
+    -2558
+   ],
+   "in": [
+    "Thaloria"
+   ]
+  },
+  {
+   "name": "Inferno Labyrinth",
+   "origin": "album",
+   "db": [
+    1480,
+    130
+   ],
+   "world": [
+    3465,
+    -2392
+   ],
+   "in": [
+    "Thaloria"
+   ]
+  },
+  {
+   "name": "Ruins of Eldoria",
+   "origin": "album",
+   "db": [
+    1530,
+    190
+   ],
+   "world": [
+    3740,
+    -2062
+   ],
+   "in": [
+    "Thaloria"
+   ]
+  },
+  {
+   "name": "The Ancient Door",
+   "origin": "album",
+   "db": [
+    1545,
+    195
+   ],
+   "world": [
+    3822,
+    -2035
+   ],
+   "in": [
+    "Ruins of Eldoria"
+   ]
+  },
+  {
+   "name": "Thaloria Glade (Eldrin's Tower's vale)",
+   "origin": "game (no DB node)",
+   "db": [
+    1210,
+    315
+   ],
+   "world": [
+    1980,
+    -1375
+   ],
+   "in": [
+    "Thaloria"
+   ]
+  },
+  {
+   "name": "The East Road (Thalorian Wilds)",
+   "origin": "game (no DB node)",
+   "db": [
+    1250,
+    200
+   ],
+   "world": [
+    2200,
+    -2008
+   ],
+   "in": [
+    "Thaloria"
+   ]
+  },
+  {
+   "name": "Summit of Despair — the Approach",
+   "origin": "game (no DB node)",
+   "db": [
+    1350,
+    230
+   ],
+   "world": [
+    2750,
+    -1842
+   ],
+   "in": [
+    "Thaloria"
+   ]
+  },
+  {
+   "name": "The Citadel of Thaloria",
+   "origin": "game (no DB node)",
+   "db": [
+    1100,
+    185
+   ],
+   "world": [
+    1375,
+    -2090
+   ],
+   "in": [
+    "Thaloria"
+   ]
+  },
+  {
+   "name": "The Lower Town of Thaloria",
+   "origin": "game (no DB node)",
+   "db": [
+    1100,
+    225
+   ],
+   "world": [
+    1375,
+    -1870
+   ],
+   "in": [
+    "Thaloria"
+   ]
+  }
+ ],
+ "features": {
+  "ranges": [
+   {
+    "what": "the Summit's range — an east–west ridge: the trail climbs its south flank from the Approach, crosses the Summit Pass, comes down the north flank to the river and the Sanctuary's bridge (as in the game)",
+    "db": [
+     [
+      1215,
+      178
+     ],
+     [
+      1290,
+      168
+     ],
+     [
+      1360,
+      182
+     ],
+     [
+      1400,
+      178
+     ],
+     [
+      1450,
+      165
+     ]
+    ],
+    "world": [
+     [
+      2008,
+      -2128
+     ],
+     [
+      2420,
+      -2184
+     ],
+     [
+      2805,
+      -2106
+     ],
+     [
+      3025,
+      -2128
+     ],
+     [
+      3300,
+      -2200
+     ]
+    ]
+   },
+   {
+    "what": "the Fire Gate's mountain (the Labyrinth inside)",
+    "db": [
+     [
+      1430,
+      70
+     ],
+     [
+      1470,
+      110
+     ],
+     [
+      1490,
+      150
+     ]
+    ],
+    "world": [
+     [
+      3190,
+      -2722
+     ],
+     [
+      3410,
+      -2502
+     ],
+     [
+      3520,
+      -2282
+     ]
+    ]
+   }
+  ],
+  "rivers": [
+   {
+    "what": "the river along the range's northern foot (the Sanctuary's bridge), round its western end, through Thaloria's gorge, down past the Silverrun to Lake Aethera",
+    "db": [
+     [
+      1420,
+      140
+     ],
+     [
+      1330,
+      140
+     ],
+     [
+      1250,
+      150
+     ],
+     [
+      1190,
+      175
+     ],
+     [
+      1100,
+      200
+     ],
+     [
+      980,
+      300
+     ],
+     [
+      850,
+      400
+     ],
+     [
+      700,
+      430
+     ],
+     [
+      600,
+      450
+     ]
+    ],
+    "world": [
+     [
+      3135,
+      -2338
+     ],
+     [
+      2640,
+      -2338
+     ],
+     [
+      2200,
+      -2282
+     ],
+     [
+      1870,
+      -2145
+     ],
+     [
+      1375,
+      -2008
+     ],
+     [
+      715,
+      -1458
+     ],
+     [
+      0,
+      -908
+     ],
+     [
+      -825,
+      -742
+     ],
+     [
+      -1375,
+      -632
+     ]
+    ]
+   }
+  ],
+  "coast": {
+   "what": "the east coast (the Silver Coast)",
+   "db": [
+    [
+     1600,
+     260
+    ],
+    [
+     1570,
+     400
+    ],
+    [
+     1540,
+     550
+    ],
+    [
+     1560,
+     700
+    ],
+    [
+     1600,
+     820
+    ]
+   ],
+   "world": [
+    [
+     4125,
+     -1678
+    ],
+    [
+     3960,
+     -908
+    ],
+    [
+     3795,
+     -82
+    ],
+    [
+     3905,
+     742
+    ],
+    [
+     4125,
+     1402
+    ]
+   ]
+  },
+  "roads": [
+   {
+    "what": "Thaloria → the East Road → the Approach",
+    "db": [
+     [
+      1100,
+      200
+     ],
+     [
+      1250,
+      200
+     ],
+     [
+      1350,
+      230
+     ]
+    ],
+    "world": [
+     [
+      1375,
+      -2008
+     ],
+     [
+      2200,
+      -2008
+     ],
+     [
+      2750,
+      -1842
+     ]
+    ]
+   },
+   {
+    "what": "Thaloria → the Crossroads",
+    "db": [
+     [
+      1100,
+      225
+     ],
+     [
+      900,
+      420
+     ],
+     [
+      700,
+      550
+     ]
+    ],
+    "world": [
+     [
+      1375,
+      -1870
+     ],
+     [
+      275,
+      -798
+     ],
+     [
+      -825,
+      -82
+     ]
+    ]
+   },
+   {
+    "what": "the Crossroads → Port Silver",
+    "db": [
+     [
+      700,
+      550
+     ],
+     [
+      1100,
+      560
+     ],
+     [
+      1500,
+      550
+     ]
+    ],
+    "world": [
+     [
+      -825,
+      -82
+     ],
+     [
+      1375,
+      -28
+     ],
+     [
+      3575,
+      -82
+     ]
+    ]
+   },
+   {
+    "what": "the Crossroads → the Emerald Fields",
+    "db": [
+     [
+      700,
+      550
+     ],
+     [
+      450,
+      600
+     ],
+     [
+      200,
+      650
+     ]
+    ],
+    "world": [
+     [
+      -825,
+      -82
+     ],
+     [
+      -2200,
+      192
+     ],
+     [
+      -3575,
+      468
+     ]
+    ]
+   },
+   {
+    "what": "the Crossroads → Graywatch",
+    "db": [
+     [
+      700,
+      550
+     ],
+     [
+      900,
+      780
+     ],
+     [
+      1050,
+      950
+     ]
+    ],
+    "world": [
+     [
+      -825,
+      -82
+     ],
+     [
+      275,
+      1182
+     ],
+     [
+      1100,
+      2118
+     ]
+    ]
+   },
+   {
+    "what": "the Crossroads → Duskmeet",
+    "db": [
+     [
+      700,
+      550
+     ],
+     [
+      550,
+      780
+     ],
+     [
+      400,
+      950
+     ]
+    ],
+    "world": [
+     [
+      -825,
+      -82
+     ],
+     [
+      -1650,
+      1182
+     ],
+     [
+      -2475,
+      2118
+     ]
+    ]
+   }
+  ]
+ },
+ "issues": [
+  {
+   "place": "The Forbidden Archive",
+   "db": [
+    900,
+    120
+   ],
+   "note": "1.1 km north-west of Thaloria in the DB; the book has it 'beneath the college', the game under the Citadel — in the city (proposed: 1100,190)"
+  },
+  {
+   "place": "Eldrin's Tower",
+   "db": [
+    1200,
+    300
+   ],
+   "note": "south-east of Thaloria in the DB; the game reaches it by the city's West Gate. Either the open world follows the DB (the glade south-east, a gate on that side), or the DB moves west (proposed: 1000,230)"
+  }
+ ]
+}
