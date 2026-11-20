@@ -290,7 +290,7 @@ const world = createMapManager({
         codex?.visited(id, map.name);
         if (!CUSTOM) {   // Eldrin's story — a hero of your own is not part of it
             // amo: entering Thaloria starts Act I's main quest, Odyssey's Dawn.
-            if (id === 'thaloria' && !stats.questLog?.main_odysseys_dawn) quests.start('main_odysseys_dawn');
+            if (id === 'thaloria' && !stats.questLog?.main_odysseys_dawn && !stats.questLog?.main_read_the_erasure) quests.start('main_odysseys_dawn');   // (old saves; a new campaign reaches it through chapters 1–3, content/prologue.js)
             // The mountain: Malphas haunts the pass ahead (amo's Act II main quest).
             if (id === 'the_summit' && !stats.questLog?.main_whisperer_of_doubt) quests.start('main_whisperer_of_doubt');
             // The Sanctuary: the Elemental's trial (Song 5).

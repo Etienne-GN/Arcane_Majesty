@@ -10,11 +10,13 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read   # each job asks for what it needs; only the publishing jobs may write
 
 jobs:
   apk:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     defaults:
       run:
         working-directory: apps/amo3d
@@ -74,21 +76,40 @@ jobs:
           name: ArcaneMajesty3D-${{ env.AMO_VERSION_NAME }}
           path: apps/amo3d/ArcaneMajesty3D-*.apk
 
+  # Publishing: the only job (with desktop-release) that holds a write token. It installs and builds nothing — it takes
+  # the APK the build job left and writes the release notes from the git history (tools/changelog.mjs, node builtins only).
+  publish:
+    needs: apk
+    if: startsWith(github.ref, 'refs/tags/amo3d-v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: apps/amo3d
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # the whole history and tags, for the changelog
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: ArcaneMajesty3D-*
+          merge-multiple: true
+          path: apps/amo3d
       - name: Publish the release
-        if: startsWith(github.ref, 'refs/tags/amo3d-v')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          VER="${GITHUB_REF_NAME#amo3d-v}"
           node tools/changelog.mjs "$GITHUB_REF_NAME" > "$RUNNER_TEMP/notes.md"
-          for try in 1 2 3 4; do   # GitHub has refused the token once (HTTP 403); try again before failing
-            if gh release create "$GITHUB_REF_NAME" "ArcaneMajesty3D-${AMO_VERSION_NAME}.apk" \
-            --title "Arcane Majesty 3D ${AMO_VERSION_NAME}" \
+          for try in 1 2 3 4; do   # GitHub has refused the token now and then (HTTP 403); try again before failing
+            if gh release create "$GITHUB_REF_NAME" "ArcaneMajesty3D-${VER}.apk" \
+            --title "Arcane Majesty 3D ${VER}" \
             --notes-file "$RUNNER_TEMP/notes.md" \
             --target "$GITHUB_SHA"; then exit 0; fi
             sleep $((try * 20))
           done
           exit 1
-
 
   # The desktop app (Electron, apps/amo3d/desktop): the same web build in its own window — a portable Windows .exe and
   # a Linux AppImage. Built with a read-only token from a committed lockfile (npm ci); a separate small job, the only
@@ -155,7 +176,7 @@ jobs:
           if-no-files-found: error
 
   desktop-release:
-    needs: desktop
+    needs: [desktop, publish]
     if: startsWith(github.ref, 'refs/tags/amo3d-v')
     runs-on: ubuntu-latest
     permissions:
