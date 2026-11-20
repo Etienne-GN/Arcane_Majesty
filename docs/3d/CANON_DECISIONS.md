@@ -1,0 +1,42 @@
+# Canon decisions — the sheet for our decision session (prepared 2026-11-20)
+
+Each new name the game uses, what the lore DB and the book say about it (searched 2026-11-20), and my
+recommendation. **Nothing is written to the DB until you decide.** Tick or change each line; then I sync the approved
+ones (DB nodes get `origin: "game"`, or `"album"` where the albums already say it).
+
+## Already canon — the review was wrong to list them as missing
+| Name | Found | Recommendation |
+|---|---|---|
+| **The Star-Guard** | DB: *Beyond the Veil of Twilight* (Kael "the Star-Guard of Eldoria"), songs *Blood and Shadows*, *Dreamweaver's Call*; the book (9 files) | Canon. Add an `Organization` node "The Star-Guard" (`origin: album`), Kael `MEMBER_OF` it. |
+| **0 GD / AGD** | The book; the DB's songs use "900 AGD" | Canon. Note the epoch in the DB's `Event` timeline (no new node needed). |
+| **The college, the bell tower, the East Gate** | The book (ch01–ch04: the college, its Archive beneath, the bell's "serene inaccuracy", the East Gate at dawn) | Canon (book). |
+
+## ⚠️ One real conflict to settle first
+**Where is the college?** The book: the Forbidden Archive is "iron rooms beneath the college". Our earlier decision put
+the Archive "in the city, beneath the Citadel" (DB position moved). The new city now has *both* a college on its crown
+and the Citadel across the gorge.
+- **Recommendation: the Citadel *is* the college** (the "library-palace", the Great Library inside it, the Archive
+  beneath it — matches the book, the DB move and the album cover). The building on the city's crown becomes the
+  **Archivists' Hall** (the scholars' guild of the city), and the college quarter keeps its name.
+- Alternative: the crown building is the college, and the Citadel is the royal seat (the Archive would move under the
+  crown — DB position change).
+
+## Game names to decide (not in the DB, not in the book)
+| Name | Where it comes from | Recommendation |
+|---|---|---|
+| **Valdric** (siege engineers, miners, assassins, philosophers) | 7 spell descriptions from the 2D game | **Replace** with real places: miners → Iron Hollow, siege engineers/assassins → Graywatch, forests → Whisper-Wood, philosophers → Thaloria. No new land. |
+| **The Asran Academy** (spell tiers, textbooks, banned texts) | 4 spell descriptions | **Rename to the College of Thaloria** — Thaloria is "the scholarly kingdom"; one academy, not two. |
+| **The Arcane Concord** (renamed from "Covenant" earlier) | items, dialogues, a hidden quest | Keep, `origin: game`: the old order of mages who founded the College. Its staff and blade stay. |
+| **The Twilight Order** + the Twilight Fang | a hidden quest, a dagger | **Rename** (it collides with the album *Beyond the Veil of Twilight*): e.g. "the Order of the Grey Hour" / "the Dusk-Fang". |
+| **The Rift-Gate network** (Aetheric Monoliths) | world_lore.md, the game's fast travel | Keep, `origin: game`: an `Artifact`-type entry "The Rift-Gates", discovered not built. |
+| **The Border Watch** of Graywatch | graywatch region | Keep, `origin: game` (`Organization`, `HIDDEN_IN`→ no; `BASED_AT` Graywatch). |
+| **Silvara** (forest merchant-scout) | the archived 2D game, one quest | Keep as a minor game NPC (no DB node) — or drop with the 2D quest. |
+| **The Lower Town, the Thalorian Wilds, the Corrupted Rim, the Hermit's camp, the Summit Pass** | game places | Keep game-side (map names), no DB nodes yet — add them when the album/book needs them. |
+| **Thaloria's quarters** (Scholars', Market, Temple, Crafts, Gate) and **the South, West and North Gates** | the new city plan (today) | Keep as plain descriptive names (not lore). |
+| **The 15 biome names** (whisper forest, ash lands, ruined moor…) | the biome registry (today) | Game-side terms only (the editor's), never presented as lore names. |
+| **The four dungeons and their bosses** | game | Keep game-side; promote any that a chapter uses. |
+| **116 creature kinds** | game | Keep game-side; no `Creature` label in the DB for now. |
+| **Werewolves as a playable race** | game | Keep (the DB has `Race: Werewolf` and the Guardians of the Wild — album canon); the playable change is a game mechanic. |
+
+## Nythoria's open decisions (from NYTHORIA_PLAN.md)
+N-1, N-2, N-4, N-5, N-6 — to go through in the same session; they unblock N2 (old Ravenspire).
