@@ -297,10 +297,10 @@ export function createThaloriaCity({ quality }) {
     }
 
     // ---------- waterfalls pouring off the Citadel's cliff into the gorge (as on the old painting), foam where they land ----------
-    const fallMat = new THREE.MeshStandardMaterial({ color: 0xdfeef4, emissive: 0x8ab8c8, emissiveIntensity: 0.3, transparent: true, opacity: 0.78, side: THREE.DoubleSide, depthWrite: false });
+    const fallMat = new THREE.MeshStandardMaterial({ color: 0xdfeef4, emissive: 0xbfe6f0, emissiveIntensity: 0.7, transparent: true, opacity: 0.88, side: THREE.DoubleSide, depthWrite: false });
     const foamMat = new THREE.MeshBasicMaterial({ color: 0xf4fbff, transparent: true, opacity: 0.7, depthWrite: false });
     const falls = [];
-    for (const [dx, w] of [[-34, 4], [-12, 6], [18, 3], [46, 2.5]]) {
+    for (const [dx, w] of [[-34, 7], [-12, 10], [18, 6], [46, 4.5]]) {
         const x = BRIDGE.x + dx, zc = NORTH - GW + 2.5, top = CIT_H + 0.5, H = top - RIVER;
         const f2 = new THREE.Mesh(new THREE.PlaneGeometry(w, H, 1, 6), fallMat); f2.position.set(x, RIVER + H / 2, zc); f2.rotation.x = -0.1; scene.add(f2);
         const foam = new THREE.Mesh(new THREE.CircleGeometry(w * 0.9, 12).rotateX(-Math.PI / 2), foamMat); foam.position.set(x, RIVER + 4.2, zc + 3); scene.add(foam); falls.push(foam);

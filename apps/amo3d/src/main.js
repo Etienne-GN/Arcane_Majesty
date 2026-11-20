@@ -591,7 +591,7 @@ function tick(dt) {
     if (title?.active) {
         input.poll(dt);   // drain input while the title owns the screen
         title.update(dt, gameCam);
-        world.current.update(simT, dt, { ...clock(19.4 * 60), weather: 'clear', player: { pos: titleFocus(), dead: true, speed: 0 }, camera, fx: world.current.fx ?? fireballs, hurtPlayer: () => false, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop });
+        world.current.update(simT, dt, { ...clock((world.id === 'eldoria' ? 18.4 : 19.4) * 60), weather: 'clear', player: { pos: titleFocus(), dead: true, speed: 0 }, camera, fx: world.current.fx ?? fireballs, hurtPlayer: () => false, floater: hud.floater, onKill: player.onKill, dropLoot: loot.drop });
         return;
     }
     const act = input.poll(dt);

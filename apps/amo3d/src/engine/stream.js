@@ -99,7 +99,7 @@ export function stampHeights(worldH, stamps, B = 60) {
 // Hooks for a real world (content/world/eldoria.js): spawn {x,z,facing}; clearAt(x,z) — no trees here (roads, a town's
 // plateau); groundColor(x,z,h,col) — paint a road or a place (return true when painted); places [{name,x,z}] — markers
 // standing where a place will be built (W2.1), named when you come near.
-export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], stamps = [], chart = null, mood = null, biomeAt = null, quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
+export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], stamps = [], chart = null, mood = null, biomeAt = null, spawnWild = null, quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
     const scene = new THREE.Scene();
     const shell = createOutdoorShell(scene, { quality, mood: mood ?? { fog: '#c8d4d8', fogNear: 160, fogFar: 700, fogMix: 0.55 } });
     const half = size / 2, NT = Math.ceil(size / TILE);
@@ -108,7 +108,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     const K = treeKinds();
     const terrainMat = flat(0xffffff, { vertexColors: true });
     const cGrassA = new THREE.Color('#4d7a35'), cGrassB = new THREE.Color('#7aa04a'), cRock = new THREE.Color('#77726b'), cSand = new THREE.Color('#9a8a62'), cSnow = new THREE.Color('#e8ecf0'), col = new THREE.Color();
-    const water = new THREE.Mesh(new THREE.PlaneGeometry(VIEW * TILE * 2.4, VIEW * TILE * 2.4).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0x2a5068, transparent: true, opacity: 0.85, roughness: 0.15, metalness: 0.2 }));
+    const water = new THREE.Mesh(new THREE.PlaneGeometry(VIEW * TILE * 2.4, VIEW * TILE * 2.4).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0x2c8a98, emissive: 0x0c3a44, emissiveIntensity: 0.6, transparent: true, opacity: 0.84, roughness: 0.12, metalness: 0.15 })   /* Eldoria's rivers: turquoise, as on the cover */);
     water.position.y = WATER; water.userData.dynamic = true; scene.add(water);
     const stats = { built: 0, lastMs: 0, maxMs: 0 };
     // Place markers (W2.1): a tall pale stone with a glow where each place will be built; its name when you are near.
@@ -302,10 +302,40 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         return L;
     }
     let lives = [], cullT = 0;   // { px, h, wpos, st }
+    // Wildlife of the open land (between places): drawn from the biome where it appears — its wildlife (animals, often)
+    // and its creatures (rarer, a few at a time); spawned 90–170 m from you out of sight, gone when you are far.
+    const wild = [];   // { h, kind: 'animal' | 'beast', deadT }
+    let wildT = 0, wildRng = mulberry32(seed * 31 + 7);
+    const pickW = list => { const tot = list.reduce((a, w) => a + (Array.isArray(w) ? w[1] : 1), 0); let r = wildRng() * tot; for (const w of list) { r -= Array.isArray(w) ? w[1] : 1; if (r <= 0) return Array.isArray(w) ? w[0] : w; } return null; };
+    function wildStep(P, dt) {
+        if (!spawnWild || !biomeAt || (wildT -= dt) > 0) return;
+        wildT = 1.5;
+        let changed = false;
+        for (let i = wild.length - 1; i >= 0; i--) {
+            const w = wild[i], d = Math.hypot(w.h.pos.x - P.x, w.h.pos.z - P.z);
+            w.deadT = w.h.alive === false ? (w.deadT ?? 0) + 1.5 : 0;
+            if (d > 260 || w.deadT > 20) { w.h.root?.parent?.remove(w.h.root); wild.splice(i, 1); changed = true; }
+        }
+        const nA = wild.filter(w => w.kind === 'animal').length, nB = wild.filter(w => w.kind === 'beast').length;
+        if (nA < 9 || nB < 3) {
+            const a = wildRng() * Math.PI * 2, r = 90 + wildRng() * 80, x = P.x + Math.cos(a) * r, z = P.z + Math.sin(a) * r, h = heightAt(x, z);
+            if (h > WATER + 0.8 && !stamps.some(st => inShape(st, x, z, 30))) {
+                const B = biomeAt(x, z).biome ?? {};
+                const beast = nB < 3 && (B.creatures?.length ?? 0) > 0 && wildRng() < 0.3;
+                const type = beast ? pickW(B.creatures) : nA < 9 ? pickW(B.wildlife ?? []) : null;
+                if (type) {
+                    const n = beast ? 1 + Math.floor(wildRng() * 2) : 1 + Math.floor(wildRng() * 3), posts = [];
+                    for (let k = 0; k < n; k++) posts.push({ x: x + (wildRng() - 0.5) * 8, z: z + (wildRng() - 0.5) * 8 });
+                    for (const hh of spawnWild(beast ? 'beast' : 'animal', type, posts, wildRng) ?? []) { if (hh.root) hh.root.userData.dynamic = true; wild.push({ h: hh, kind: beast ? 'beast' : 'animal' }); changed = true; }
+                }
+            }
+        }
+        if (changed) refreshLife();
+    }
     function refreshLife() {
         lives = [];
         for (const st of stamps) if (st.built) for (const h of st.map.hittables ?? []) lives.push({ ...proxyOf(st, h), st });
-        map.hittables.length = 0; map.hittables.push(...lives.map(l => l.px));
+        map.hittables.length = 0; map.hittables.push(...lives.map(l => l.px), ...wild.map(w => w.h));
     }
 
     // One tile's terrain: a (seg+1)² grid of heights plus a skirt round its edge, dropped 6 m.
@@ -504,6 +534,8 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
                 if (st.map.update) st.map.update(t, dt, st.lctx);
                 else for (const h of st.map.hittables ?? []) h.update(dt, st.lctx);
             }
+            wildStep(P, dt);
+            for (const w of wild) w.h.update(dt, ctx);
             for (const l of lives) l.wpos.copy(l.h.pos).add(l.st.off);
             if ((cullT -= dt) <= 0) {   // creatures far off aren't drawn; only near ones cast shadows (a body is a dozen meshes)
                 cullT = 0.3;

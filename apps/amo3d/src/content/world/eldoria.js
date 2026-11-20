@@ -17,6 +17,8 @@ import { createOutdoor } from '../glade.js';
 import { createEastRoad } from '../eastRoad.js';
 import { createMountain } from '../mountain.js';
 import { createSanctuary } from '../sanctuary.js';
+import { createAnimals, NAMES as ANIMAL_NAMES } from '../actors/animals.js';
+import { createBeasts, NAMES as BEAST_NAMES } from '../actors/beast.js';
 import { buildRegion, regionHeight, buildArch } from '../../engine/region.js';
 import { settings } from '../../engine/settings.js';
 import * as THREE from 'three';
@@ -422,11 +424,21 @@ export function createEldoriaWorld({ quality } = {}) {
     const toCity = Math.atan2(CITY.x - GLADE.x, CITY.z - GLADE.z);
     const gl = stamps.find(st => st.id === 'outdoor'), gs = gl?.map.spawns?.start;
     const gladeStart = gs ? { ...gs, x: gs.x + gl.ox, z: gs.z + gl.oz } : null;   // the glade's own arrival point
-    return createStreamWorld({
+    let world = null;
+    return world = createStreamWorld({
         id: 'eldoria', name: 'Eldoria — the open world', seed: 501, size: 8400, heightAt, quality, stamps,
         spawn: gladeStart ?? { x: GLADE.x + 30, z: GLADE.z + 20, facing: toCity },
         mood: { fog: '#c8d2d8', fogNear: 180, fogFar: 760, fogMix: 0.5 },
         places, biomeAt,
+        // the open land's wildlife (engine/stream.js wildStep): animals and creatures the game knows, into the world's scene
+        spawnWild: (kind, type, posts, rng) => {
+            const sc = world?.scene; if (!sc) return [];
+            try {
+                if (kind === 'animal' && ANIMAL_NAMES[type]) return createAnimals({ scene: sc, map: world, rng, type, posts });
+                if (kind === 'beast' && BEAST_NAMES[type]) return createBeasts({ scene: sc, map: world, rng, type, posts });
+            } catch (e) { console.warn('[wild] could not spawn', type, e); }
+            return [];
+        },
         chart: { pxPerM: 0.0625, tileM: 4, detail: true, biomeLabels: biomeLabels(stamps), groundAt: (x, z) => (roadDist(x, z) < 6 ? 'road' : null) },
         clearAt: (x, z) => roadDist(x, z) < 5 || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || riverDist(x, z) < 9,
         groundColor: (x, z, h, col) => {
