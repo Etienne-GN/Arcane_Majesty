@@ -30,9 +30,12 @@ export function continentHeight(size) {
     };
 }
 
-export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
+// Hooks for a real world (content/world/eldoria.js): spawn {x,z,facing}; clearAt(x,z) — no trees here (roads, a town's
+// plateau); groundColor(x,z,h,col) — paint a road or a place (return true when painted); places [{name,x,z}] — markers
+// standing where a place will be built (W2.1), named when you come near.
+export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], mood = null, quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
     const scene = new THREE.Scene();
-    const shell = createOutdoorShell(scene, { quality, mood: { fog: '#c8d4d8', fogNear: 160, fogFar: 700, fogMix: 0.55 } });
+    const shell = createOutdoorShell(scene, { quality, mood: mood ?? { fog: '#c8d4d8', fogNear: 160, fogFar: 700, fogMix: 0.55 } });
     const half = size / 2, NT = Math.ceil(size / TILE);
     const tiles = new Map();   // key → { tx, tz, lod, mesh, trees: [], colliders: [] }
     const queue = [];
@@ -42,6 +45,12 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     const water = new THREE.Mesh(new THREE.PlaneGeometry(VIEW * TILE * 2.4, VIEW * TILE * 2.4).rotateX(-Math.PI / 2), new THREE.MeshStandardMaterial({ color: 0x2a5068, transparent: true, opacity: 0.85, roughness: 0.15, metalness: 0.2 }));
     water.position.y = WATER; water.userData.dynamic = true; scene.add(water);
     const stats = { built: 0, lastMs: 0, maxMs: 0 };
+    // Place markers (W2.1): a tall pale stone with a glow where each place will be built; its name when you are near.
+    const markerMat = new THREE.MeshStandardMaterial({ color: 0xe8e0c8, emissive: 0xb8a060, emissiveIntensity: 0.6, flatShading: true });
+    const markers = places.map(p => { const m = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 1.0, 9, 6), markerMat); m.position.set(p.x, heightAt(p.x, p.z) + 4.5, p.z); m.castShadow = true; scene.add(m); return { ...p, m }; });
+    const nameEl = document.createElement('div');
+    nameEl.style.cssText = 'position:fixed;left:50%;top:14%;transform:translateX(-50%);z-index:30;font:calc(20px * var(--ui, 1)) Georgia,serif;letter-spacing:.12em;color:#f3e2b0;text-shadow:0 2px 6px #000;pointer-events:none;opacity:0;transition:opacity .6s';
+    document.body.append(nameEl);
 
     // One tile's terrain: a (seg+1)² grid of heights plus a skirt round its edge, dropped 6 m.
     function tileGeometry(tx, tz, seg) {
@@ -62,7 +71,8 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             const hx = H[j * n + Math.min(seg, i + 1)] - H[j * n + Math.max(0, i - 1)], hz = H[Math.min(seg, j + 1) * n + i] - H[Math.max(0, j - 1) * n + i];
             const slope = Math.hypot(hx, hz) / (2 * step);
             const nz = fbm((x0 + i * step) * 0.02, (z0 + j * step) * 0.02, 2);
-            if (h < WATER + 0.8) col.copy(cSand);
+            if (groundColor && groundColor(x0 + i * step, z0 + j * step, h, col)) { /* painted by the world */ }
+            else if (h < WATER + 0.8) col.copy(cSand);
             else if (h > 62 + nz * 10) col.copy(cSnow);
             else if (slope > 0.75 || h > 40 + nz * 8) col.copy(cRock);
             else col.copy(cGrassA).lerp(cGrassB, nz);
@@ -95,6 +105,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             const x = x0 + rng() * TILE, z = z0 + rng() * TILE, h = heightAt(x, z);
             if (h < WATER + 1 || h > 38) continue;
             if (fbm(x * 0.012 + 3, z * 0.012 + 9, 3) < 0.5) continue;   // woods and clearings
+            if (clearAt && clearAt(x, z)) continue;   // roads, a town's ground
             byKind[h > 18 || rng() < 0.4 ? 'pine' : 'broad'].push({ x, z, h, s: 0.8 + rng() * 0.6, r: rng() * 6.28, tint: rng() });
         }
         for (const [kind, list] of Object.entries(byKind)) {
@@ -190,14 +201,19 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             fpsT += dt; fpsN++; worst = Math.max(worst * 0.98, dt * 1000);
             if (fpsT >= 1) { fps = Math.round(fpsN / fpsT); fpsT = 0; fpsN = 0; }
             hud.style.display = '';
+            let near = null, nd = 90;
+            for (const mk of markers) { const d = Math.hypot(mk.x - P.x, mk.z - P.z); if (d < nd) { nd = d; near = mk; } }
+            if (near) nameEl.textContent = near.name;
+            nameEl.style.opacity = near ? 1 : 0;
             hud.textContent = `W1 stream · ${fps} fps · worst ${worst.toFixed(0)} ms · tiles ${tiles.size} (queue ${queue.length}) · build ${stats.lastMs.toFixed(1)}/${stats.maxMs.toFixed(1)} ms · ${(Math.hypot(P.x, P.z) / 1000).toFixed(2)} km from centre`;
         },
         onLeave() { hud.style.display = 'none'; },
     };
-    // Arrive on dry, low ground near the centre.
-    for (let r = 0, a = 0; r < half * 0.6; r += 6, a += 2.4) { const x = Math.cos(a) * r, z = Math.sin(a) * r, h = heightAt(x, z); if (h > WATER + 2 && h < 16) { map.spawns.start = { x, z, facing: 0 }; break; } }
+    if (spawn) map.spawns.start = spawn;
+    // Arrive on dry, low ground near the centre (unless the world says where).
+    if (!spawn) for (let r = 0, a = 0; r < half * 0.6; r += 6, a += 2.4) { const x = Math.cos(a) * r, z = Math.sin(a) * r, h = heightAt(x, z); if (h > WATER + 2 && h < 16) { map.spawns.start = { x, z, facing: 0 }; break; } }
     // The readout hides itself when this map is no longer the one updating.
-    let lastUpdate = 0; const watch = setInterval(() => { if (performance.now() - lastUpdate > 600) hud.style.display = 'none'; }, 500);
+    let lastUpdate = 0; const watch = setInterval(() => { if (performance.now() - lastUpdate > 600) { hud.style.display = 'none'; nameEl.style.opacity = 0; } }, 500);
     map.dispose = () => clearInterval(watch);
     const upd = map.update; map.update = (t, dt, ctx) => { lastUpdate = performance.now(); upd(t, dt, ctx); };
     // the first ring at once, so the player never lands on nothing

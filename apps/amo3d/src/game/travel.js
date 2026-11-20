@@ -4,7 +4,7 @@ import { DUNGEONS } from '../content/dungeons.js';
 const REGION_FILES = import.meta.glob('../content/regions/*.json', { eager: true, import: 'default' });
 const GOD_PLACES = [['outdoor', 'Thaloria Glade'], ['thaloria', 'Thaloria'], ['east_road', 'The Thalorian Wilds'], ['the_summit', 'Summit of Despair — the mountain'], ['sylvan_sanctuary', 'The Sylvan Sanctuary'], ['citadel_library', 'The Great Library'], ['forbidden_archive', 'The Forbidden Archive'], ...Object.values(DUNGEONS).map(d => [d.id, d.name]),
     ...Object.values(REGION_FILES).filter(r => r?.id && r.id !== 'sylvan_sanctuary').map(r => [r.id, r.name ?? r.id]).sort((a, b) => a[1].localeCompare(b[1])),
-    ['umbral_test', 'Umbral twin (test) — Lake Aethera'], ['stream_test', 'Open world test (W1) — a 4 km continent']];   // Nythoria N1: the plane's engine test
+    ['umbral_test', 'Umbral twin (test) — Lake Aethera'], ['stream_test', 'Open world test (W1) — a 4 km continent'], ['eldoria', 'Eldoria — the open world (W2, in progress)']];   // Nythoria N1: the plane's engine test
 // Fast travel — amo's rules: rift-gate monoliths are attuned by touching them (stats.attunedGates);
 // at an attuned gate you can travel to any other attuned gate. The Aetheric Tear (T / gamepad R3-hold…
 // / touch TEAR) opens the same travel from anywhere: 85% of max mana (75% with Aetheric Comprehension),

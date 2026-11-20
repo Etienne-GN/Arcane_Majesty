@@ -45,6 +45,7 @@ import { sweepPlates, hideAllPlates, coreOf } from './content/actors/enemyCore.j
 import { scale as hitStopScale } from './engine/hitstop.js';
 import { umbralTwin } from './engine/umbralTwin.js';
 import { createStreamWorld } from './engine/stream.js';
+import { createEldoriaWorld } from './content/world/eldoria.js';
 import { updateEnemyMagic, debugMagic } from './content/actors/enemyMagic3d.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createBountyBoard } from './game/bounty.js';
@@ -267,6 +268,7 @@ const world = createMapManager({
         forbidden_archive: () => createForbiddenArchive(),
         ...Object.fromEntries(Object.keys(DUNGEONS).map(id => [id, () => buildDungeon(DUNGEONS[id])])),
         vision: () => createVision(),   // chapter 2: what the storm shows Eldrin
+        eldoria: () => createEldoriaWorld({ quality }),   // the open world, stage W2 (in progress: the land of Thaloria's corner)
         stream_test: () => createStreamWorld({ quality }),   // the open world, stage W1: the streaming prototype (god mode only)
         umbral_test: () => buildRegion(umbralTwin(REGIONS.lake_aethera, { id: 'umbral_test', name: 'Umbral twin (test) — Lake Aethera', ruins: 12, spires: 1 }), { quality }),   // Nythoria N1: the engine's test (god mode only; names nothing)   // the dungeons, a level each
         ...Object.fromEntries(Object.keys(REGIONS).filter(id => !REGIONS[id].builder).map(id => [id, () => buildRegion(REGIONS[id], { quality })])),   // regions with a builder (the Sanctuary) keep their own code

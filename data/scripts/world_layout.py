@@ -22,7 +22,7 @@ for n, x, y in GAME: places.append({'name': n, 'origin': 'game (no DB node)', 'd
 features = {
     'ranges': [{'what': "the Summit's range — an east–west ridge: the trail climbs its south flank from the Approach, crosses the Summit Pass, comes down the north flank to the river and the Sanctuary's bridge (as in the game)", 'db': [[1215, 178], [1290, 168], [1360, 182], [1400, 178], [1450, 165]]},
                {'what': "the Fire Gate's mountain (the Labyrinth inside)", 'db': [[1430, 70], [1470, 110], [1490, 150]]}],
-    'rivers': [{'what': "the river along the range's northern foot (the Sanctuary's bridge), round its western end, through Thaloria's gorge, down past the Silverrun to Lake Aethera", 'db': [[1420, 140], [1330, 140], [1250, 150], [1190, 175], [1100, 200], [980, 300], [850, 400], [700, 430], [600, 450]]}],
+    'rivers': [{'what': "the river along the range's northern foot (the Sanctuary's bridge), round its western end, through Thaloria's gorge, down past the Silverrun to Lake Aethera", 'db': [[1420, 140], [1330, 140], [1250, 150], [1190, 178], [1100, 193], [1040, 230], [980, 300], [850, 400], [700, 430], [600, 450]]}],
     'coast': {'what': 'the east coast (the Silver Coast)', 'db': [[1600, 260], [1570, 400], [1540, 550], [1560, 700], [1600, 820]]},
     'roads': [{'what': 'Thaloria → the East Road → the Approach', 'db': [[1100, 200], [1250, 200], [1350, 230]]},
               {'what': 'Thaloria → the Crossroads', 'db': [[1100, 225], [900, 420], [700, 550]]},
@@ -42,6 +42,8 @@ DECISIONS = ['The Forbidden Archive: in the city, beneath the Citadel (DB correc
 out = {'scale_m_per_db_unit': SCALE, 'origin_db': [CX, CY], 'axes': 'x east, z south (north is -z)', 'size_m': [round((1600 - 100) * SCALE), round((1100 - 40) * SCALE)], 'places': places, 'features': features, 'issues': issues, 'decisions': DECISIONS}
 os.makedirs(os.path.join(ROOT, 'docs/3d/world'), exist_ok=True)
 json.dump(out, open(os.path.join(ROOT, 'docs/3d/world/eldoria_layout.json'), 'w'), indent=1, ensure_ascii=False)
+os.makedirs(os.path.join(ROOT, 'apps/amo3d/src/content/world'), exist_ok=True)
+json.dump(out, open(os.path.join(ROOT, 'apps/amo3d/src/content/world/eldoria_layout.json'), 'w'), indent=1, ensure_ascii=False)   # the game's copy (engine: content/world/eldoria.js)
 # The review map: 1 px = 1 DB unit (+ margins); a km grid.
 M = 60; img = Image.new('RGB', (1600 + M, 1100 + M), (18, 22, 28)); d = ImageDraw.Draw(img)
 P = lambda x, y: (x - 40 + M // 2, y - 20 + M // 2)
