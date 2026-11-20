@@ -46,6 +46,7 @@ export function buildArch(scene, x, y, z, ry) {
     veil.position.y = 1.9; g.add(veil);
     g.userData.dynamic = true;
     scene.add(g);
+    veil.userData.veil = true;   // (the open world takes the veil away when its way leads somewhere you now walk to)
     return veil;
 }
 

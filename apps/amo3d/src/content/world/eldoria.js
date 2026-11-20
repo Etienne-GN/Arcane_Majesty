@@ -17,6 +17,8 @@ import { createOutdoor } from '../glade.js';
 import { createEastRoad } from '../eastRoad.js';
 import { createMountain } from '../mountain.js';
 import { createSanctuary } from '../sanctuary.js';
+import { buildRegion } from '../../engine/region.js';
+const REGION_DEFS = Object.fromEntries(Object.values(import.meta.glob('../regions/*.json', { eager: true, import: 'default' })).map(d => [d.id, d]));
 
 const WATER = -2;
 const S = LAYOUT.scale_m_per_db_unit, [OX, OY] = LAYOUT.origin_db;
@@ -122,9 +124,17 @@ function fitOy(map, ox, oz, [x0, z0, x1, z1]) {
     return sum / n;
 }
 // Every exit that led from one of these places to another of them is gone in the open world: you walk there.
-const IN_WORLD = ['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary'];
+const IN_WORLD = ['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'thaloria_lower', 'citadel_plateau'];
 function makeStamps(quality) {
-    const out = [prepStamp({ id: 'thaloria', map: createThaloria({ quality }), ox: CITY.x, oy: 2, oz: CITY.z, rect: [-78, -135, 78, 68], drop: new Set(['outdoor', 'east_road']) })];
+    // Thaloria's footprint stops at the gorge's far cliff top: the Citadel's plateau beyond is its own place now.
+    const out = [prepStamp({ id: 'thaloria', map: createThaloria({ quality }), ox: CITY.x, oy: 2, oz: CITY.z, rect: [-78, -80, 78, 66], drop: new Set(IN_WORLD) })];
+    // The Lower Town, out of the South Gate; the Citadel's plateau, at the top of the cliff stair (their own region maps).
+    try {
+        const low = buildRegion(REGION_DEFS.thaloria_lower, { quality });
+        out.push(prepStamp({ id: 'thaloria_lower', map: low, ox: CITY.x, oy: 2, oz: CITY.z + 66 + 54, rect: [-52, -52, 52, 52], drop: new Set(IN_WORLD) }));   // (cropped inside its old rim; level with the city)
+        const cit = buildRegion(REGION_DEFS.citadel_plateau, { quality });
+        out.push(prepStamp({ id: 'citadel_plateau', map: cit, ox: CITY.x, oy: 28, oz: CITY.z - 80 - 71, rect: [-52, -52, 52, 70], drop: new Set(IN_WORLD) }));   // (level with the cliff top; its south edge meets it)
+    } catch (e) { console.warn('[eldoria] stamp failed (Thaloria\'s neighbours)', e); }
     const more = [
         // [id, build, where, rect (cropped inside the old map's border walls), dropped exits, anchor: the local point set
         //  at the land's height]

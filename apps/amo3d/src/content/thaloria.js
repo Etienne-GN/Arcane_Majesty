@@ -65,7 +65,15 @@ export function createThaloria({ quality }) {
         const gN = -z - H / 2, side = smoothstep(W / 2 + 4, W / 2 + 16, Math.abs(x));
         if (Math.abs(x) < 1.9 && gN < 19) return 1.5 * smoothstep(0, 2, gN);   // the bridge deck over the gorge
         const gorge = -7.5 * smoothstep(3, 8, gN) * (1 - smoothstep(15, 19, gN)) + smoothstep(16, 23, gN) * (CLIFF + 2 * fbm(x * 0.08, 3));
-        return gorge * (1 - side) + Math.max(hills, gorge) * side;
+        let g = gorge * (1 - side) + Math.max(hills, gorge) * side;
+        // The cliff stair (the open world: walked, not a door): from the bridge's far end it climbs east along the cliff
+        // face, cut into the rock, up to the plateau's edge.
+        if (x > 1.2 && x < 60 && gN > 17 && gN < 25.5) {
+            const k = Math.max(0, Math.min(1, (x - 2) / 52)), stair = 1.5 + k * (CLIFF + 1 - 1.5);
+            const band = smoothstep(25.5, 24, gN) * smoothstep(17, 18.5, gN) * smoothstep(60, 56, x);
+            g = g + (Math.min(g, stair) - g) * band;
+        }
+        return g;
     }
     { let m = -99; for (let a = 0; a < 6.28; a += 0.8) for (const r of [0, 2, 3.6]) m = Math.max(m, raw(LOOK.x + Math.cos(a) * r, LOOK.z + Math.sin(a) * r)); LOOK.y = m + 7; }   // raised to see over the cliff's shoulder
     const tileAt = (x, z) => { const tx = Math.floor(x + W / 2), ty = Math.floor(z + H / 2); return tx >= 0 && ty >= 0 && tx < W && ty < H ? grid[ty][tx] : 1; };

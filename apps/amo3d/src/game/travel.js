@@ -4,8 +4,8 @@ import { DUNGEONS } from '../content/dungeons.js';
 const REGION_FILES = import.meta.glob('../content/regions/*.json', { eager: true, import: 'default' });
 import LAYOUT from '../content/world/eldoria_layout.json';
 // The places now inside the open world: their old standalone maps are retired (main.js redirects every way into them).
-export const OPEN_WORLD_IDS = new Set(['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary']);
-const STAMP_OF = { 'Thaloria': 'thaloria', "Thaloria Glade (Eldrin's Tower's vale)": 'outdoor', 'The East Road (Thalorian Wilds)': 'east_road', 'Summit of Despair': 'the_summit', 'Sylvan Sanctuary': 'sylvan_sanctuary' };
+export const OPEN_WORLD_IDS = new Set(['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'thaloria_lower', 'citadel_plateau']);
+const STAMP_OF = { 'The Lower Town of Thaloria': 'thaloria_lower', 'The Citadel of Thaloria': 'citadel_plateau', 'Thaloria': 'thaloria', "Thaloria Glade (Eldrin's Tower's vale)": 'outdoor', 'The East Road (Thalorian Wilds)': 'east_road', 'Summit of Despair': 'the_summit', 'Sylvan Sanctuary': 'sylvan_sanctuary' };
 const pretty = id => id.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 // God mode's destinations, in sections: [title, [[mapId, spawn, label]…]].
 function godSections(interiors) {

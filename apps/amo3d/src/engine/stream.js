@@ -61,15 +61,16 @@ export function stampHeights(worldH, stamps, B = 60) {
         return rawStamp(x, z);
     };
     function rawStamp(x, z) {
+        for (const st of stamps) if (inRect(st, x, z)) return st.map.heightAt(x - st.ox, z - st.oz) + st.oy;   // inside a place: its own ground
+        let best = null, bd = B;   // in the ring round places: blend from the nearest one's edge to the land
         for (const st of stamps) {
-            if (inRect(st, x, z)) return st.map.heightAt(x - st.ox, z - st.oz) + st.oy;
-            if (inRect(st, x, z, B)) {
-                const cx = Math.max(st.X0, Math.min(st.X1, x)), cz = Math.max(st.Z0, Math.min(st.Z1, z));
-                const edge = st.map.heightAt(cx - st.ox, cz - st.oz) + st.oy, d = Math.hypot(x - cx, z - cz);
-                return edge + (worldH(x, z) - edge) * sm(0, B, d);
-            }
+            if (!inRect(st, x, z, B)) continue;
+            const cx = Math.max(st.X0, Math.min(st.X1, x)), cz = Math.max(st.Z0, Math.min(st.Z1, z)), d = Math.hypot(x - cx, z - cz);
+            if (d < bd) { bd = d; best = { st, cx, cz }; }
         }
-        return worldH(x, z);
+        if (!best) return worldH(x, z);
+        const { st, cx, cz } = best, edge = st.map.heightAt(cx - st.ox, cz - st.oz) + st.oy;
+        return edge + (worldH(x, z) - edge) * sm(0, B, bd);
     }
 }
 
@@ -341,7 +342,19 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     };
     // A stamped place's doors, signs and arrival points, moved into the world.
     for (const st of stamps) {
-        for (const t of st.map.triggers ?? []) if (!st.drop?.has(t.to) && !st.dropIf?.(t)) map.triggers.push({ ...t, x: t.x + st.ox, z: t.z + st.oz });   // (exits to places now in the world are gone: you walk)
+        const gone = [], kept = [];
+        for (const t of st.map.triggers ?? []) {
+            if (st.drop?.has(t.to) || st.dropIf?.(t)) { gone.push(t); continue; }   // exits to places now in the world are gone: you walk
+            kept.push(t); map.triggers.push({ ...t, x: t.x + st.ox, z: t.z + st.oz });
+        }
+        // their veils go too: a plain stone arch is left (a veil goes when a dropped exit is the nearest way to it)
+        const veils = []; st.group.traverse(o => { if (o.userData.veil) veils.push(o); });
+        for (const v of veils) {
+            const p = v.getWorldPosition(new THREE.Vector3()).sub(st.off);
+            const near = list => Math.min(Infinity, ...list.map(t => Math.hypot(t.x - p.x, t.z - p.z)));
+            const dg = near(gone);
+            if (dg < 20 && dg <= near(kept)) v.parent?.remove(v);
+        }
         for (const s2 of st.map.stations ?? []) if (s2.pos) map.stations.push({ ...s2, pos: s2.pos.clone().add(new THREE.Vector3(st.ox, st.oy, st.oz)) });
         for (const [k, sp] of Object.entries(st.map.spawns ?? {})) map.spawns[`${st.id}:${k}`] = { ...sp, x: sp.x + st.ox, z: sp.z + st.oz };
     }
