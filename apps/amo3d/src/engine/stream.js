@@ -30,10 +30,34 @@ export function continentHeight(size) {
     };
 }
 
+// Stamps (W2.2): an existing place map set into the world. { id, map, ox, oy, oz, rect: [x0, z0, x1, z1] (the place's
+// own coordinates), drop: Set of trigger targets that are now part of the world (walked to, not loaded) }.
+// prepStamp fills in the world rect; stampHeights wraps the world's height so the place's ground rules inside its rect
+// and blends back to the world over B metres outside it.
+export function prepStamp(st) {
+    st.X0 = st.ox + st.rect[0]; st.Z0 = st.oz + st.rect[1]; st.X1 = st.ox + st.rect[2]; st.Z1 = st.oz + st.rect[3];
+    return st;
+}
+const inRect = (st, x, z, m = 0) => x >= st.X0 - m && x <= st.X1 + m && z >= st.Z0 - m && z <= st.Z1 + m;
+const sm = (a, b, v) => { const t = Math.max(0, Math.min(1, (v - a) / (b - a))); return t * t * (3 - 2 * t); };
+export function stampHeights(worldH, stamps, B = 60) {
+    return (x, z) => {
+        for (const st of stamps) {
+            if (inRect(st, x, z)) return st.map.heightAt(x - st.ox, z - st.oz) + st.oy;
+            if (inRect(st, x, z, B)) {
+                const cx = Math.max(st.X0, Math.min(st.X1, x)), cz = Math.max(st.Z0, Math.min(st.Z1, z));
+                const edge = st.map.heightAt(cx - st.ox, cz - st.oz) + st.oy, d = Math.hypot(x - cx, z - cz);
+                return edge + (worldH(x, z) - edge) * sm(0, B, d);
+            }
+        }
+        return worldH(x, z);
+    };
+}
+
 // Hooks for a real world (content/world/eldoria.js): spawn {x,z,facing}; clearAt(x,z) — no trees here (roads, a town's
 // plateau); groundColor(x,z,h,col) — paint a road or a place (return true when painted); places [{name,x,z}] — markers
 // standing where a place will be built (W2.1), named when you come near.
-export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], mood = null, quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
+export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], stamps = [], mood = null, quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
     const scene = new THREE.Scene();
     const shell = createOutdoorShell(scene, { quality, mood: mood ?? { fog: '#c8d4d8', fogNear: 160, fogFar: 700, fogMix: 0.55 } });
     const half = size / 2, NT = Math.ceil(size / TILE);
@@ -47,10 +71,49 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     const stats = { built: 0, lastMs: 0, maxMs: 0 };
     // Place markers (W2.1): a tall pale stone with a glow where each place will be built; its name when you are near.
     const markerMat = new THREE.MeshStandardMaterial({ color: 0xe8e0c8, emissive: 0xb8a060, emissiveIntensity: 0.6, flatShading: true });
-    const markers = places.map(p => { const m = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 1.0, 9, 6), markerMat); m.position.set(p.x, heightAt(p.x, p.z) + 4.5, p.z); m.castShadow = true; scene.add(m); return { ...p, m }; });
+    const markers = places.filter(p => !stamps.some(st => inRect(st, p.x, p.z, 10))).map(p => { const m = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 1.0, 9, 6), markerMat); m.position.set(p.x, heightAt(p.x, p.z) + 4.5, p.z); m.castShadow = true; scene.add(m); return { ...p, m }; });
     const nameEl = document.createElement('div');
     nameEl.style.cssText = 'position:fixed;left:50%;top:14%;transform:translateX(-50%);z-index:30;font:calc(20px * var(--ui, 1)) Georgia,serif;letter-spacing:.12em;color:#f3e2b0;text-shadow:0 2px 6px #000;pointer-events:none;opacity:0;transition:opacity .6s';
     document.body.append(nameEl);
+
+    // Under a stamped place the world's own ground sinks out of sight (the place's detailed ground shows), ramping down
+    // over the rect's first metres so the seam stays tight.
+    function sinkAt(x, z) {
+        for (const st of stamps) if (inRect(st, x, z)) return 8 * sm(0, 6, Math.min(x - st.X0, st.X1 - x, z - st.Z0, st.Z1 - z));
+        return 0;
+    }
+    const stamped = (x, z, m = 4) => stamps.some(st => inRect(st, x, z, m));
+    // Each stamp's content moved into the world; its ground and water clipped to the rect; its colliders bucketed by tile.
+    const stampColl = new Map();
+    for (const st of stamps) {
+        const g = new THREE.Group(); g.position.set(st.ox, st.oy, st.oz); g.name = 'stamp:' + st.id;
+        for (const o of [...st.map.scene.children]) if (!o.userData.shell) g.add(o);
+        scene.add(g); g.updateMatrixWorld(true);
+        const planes = [new THREE.Plane(new THREE.Vector3(1, 0, 0), -st.X0), new THREE.Plane(new THREE.Vector3(-1, 0, 0), st.X1), new THREE.Plane(new THREE.Vector3(0, 0, 1), -st.Z0), new THREE.Plane(new THREE.Vector3(0, 0, -1), st.Z1)];
+        const box = new THREE.Box3(), drop = [];
+        g.traverse(o => {
+            if (!o.isMesh && !o.isPoints) return;
+            box.setFromObject(o); if (box.isEmpty()) return;
+            if (box.min.x > st.X1 || box.max.x < st.X0 || box.min.z > st.Z1 || box.max.z < st.Z0) { drop.push(o); return; }
+            const mats = [].concat(o.material).filter(Boolean);
+            // a painted backdrop (unfogged, made to hide an old map's edge): the world is the backdrop now
+            if (mats.some(m => m.fog === false)) { drop.push(o); return; }
+            // a flat sheet of water at the world's water level: the world's own water covers it
+            if (box.max.y - box.min.y < 0.05 && Math.abs(box.min.y - WATER) < 0.6 && mats.some(m => m.transparent)) { drop.push(o); return; }
+            if (box.min.x < st.X0 - 0.5 || box.max.x > st.X1 + 0.5 || box.min.z < st.Z0 - 0.5 || box.max.z > st.Z1 + 0.5)
+                for (const m of mats) { m.clippingPlanes = planes; m.needsUpdate = true; }
+        });
+        for (const o of drop) o.parent?.remove(o);
+        for (const c of st.map.colliders ?? []) {
+            const w = { ...c, y0: (c.y0 ?? -1) + st.oy, y1: (c.y1 ?? 4) + st.oy };
+            let xs, zs;
+            if (c.ax !== undefined) { w.ax += st.ox; w.bx += st.ox; w.az += st.oz; w.bz += st.oz; xs = [w.ax, w.bx]; zs = [w.az, w.bz]; }
+            else { w.x += st.ox; w.z += st.oz; xs = [w.x]; zs = [w.z]; }
+            const tx0 = Math.floor((Math.min(...xs) - c.r + half) / TILE), tx1 = Math.floor((Math.max(...xs) + c.r + half) / TILE);
+            const tz0 = Math.floor((Math.min(...zs) - c.r + half) / TILE), tz1 = Math.floor((Math.max(...zs) + c.r + half) / TILE);
+            for (let tz = tz0; tz <= tz1; tz++) for (let tx = tx0; tx <= tx1; tx++) { const k = `${tx},${tz}`; (stampColl.get(k) ?? stampColl.set(k, []).get(k)).push(w); }
+        }
+    }
 
     // One tile's terrain: a (seg+1)² grid of heights plus a skirt round its edge, dropped 6 m.
     function tileGeometry(tx, tz, seg) {
@@ -64,7 +127,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         const H = new Float32Array(n * n);
         for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
             const x = x0 + i * step, z = z0 + j * step, h = heightAt(x, z), k = j * n + i;
-            H[k] = h; pos.set([x, h, z], k * 3);
+            H[k] = h; pos.set([x, h - sinkAt(x, z), z], k * 3);
         }
         for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {   // colour by height and slope
             const k = j * n + i, h = H[k];
@@ -106,6 +169,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             if (h < WATER + 1 || h > 38) continue;
             if (fbm(x * 0.012 + 3, z * 0.012 + 9, 3) < 0.5) continue;   // woods and clearings
             if (clearAt && clearAt(x, z)) continue;   // roads, a town's ground
+            if (stamped(x, z)) continue;   // a stamped place brings its own
             byKind[h > 18 || rng() < 0.4 ? 'pine' : 'broad'].push({ x, z, h, s: 0.8 + rng() * 0.6, r: rng() * 6.28, tint: rng() });
         }
         for (const [kind, list] of Object.entries(byKind)) {
@@ -166,7 +230,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     let frame = 0;
     function coll(x, z) {
         const tx = Math.floor((x + half) / TILE), tz = Math.floor((z + half) / TILE), out = [];
-        for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) { const t = tiles.get(`${tx + dx},${tz + dz}`); if (t) for (const c of t.colliders) out.push(c); }
+        for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) { const k = `${tx + dx},${tz + dz}`, t = tiles.get(k); if (t) for (const c of t.colliders) out.push(c); const sc2 = stampColl.get(k); if (sc2) for (const c of sc2) out.push(c); }
         return out;
     }
 
@@ -190,9 +254,9 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         passable: (x, z) => heightAt(x, z) >= WATER - 0.7 && Math.max(Math.abs(x), Math.abs(z)) <= EDGE,
         projectileHit(p) { if (p.y < heightAt(p.x, p.z) + 0.05) return 'ground'; const c = colliderAt(coll(p.x, p.z), p.x, p.z, 0.15, p.y); return c && p.y >= c.y0 + 0.5 ? 'object' : null; },
         groundNormal(x, z) { const e = 0.3; return new THREE.Vector3(heightAt(x - e, z) - heightAt(x + e, z), 2 * e, heightAt(x, z - e) - heightAt(x, z + e)).normalize(); },
-        triggers: [], spawns: { start: { x: 0, z: 0, facing: 0 } },   // (moved to dry, low ground below) stations: [], hittables: [], gatherSpots: [], gates: [],
+        triggers: [], stations: [], hittables: [], gatherSpots: [], gates: [], spawns: { start: { x: 0, z: 0, facing: 0 } },   // (moved to dry, low ground below) stations: [], hittables: [], gatherSpots: [], gates: [],
         mapInfo: null, weatherDef: { id, biome: 'temperate' },
-        streamStats: () => ({ tiles: tiles.size, queue: queue.length, built: stats.built, lastMs: +stats.lastMs.toFixed(1), maxMs: +stats.maxMs.toFixed(1), fps, worstFrameMs: +worst.toFixed(1) }),
+        stamps, streamStats: () => ({ tiles: tiles.size, queue: queue.length, built: stats.built, lastMs: +stats.lastMs.toFixed(1), maxMs: +stats.maxMs.toFixed(1), fps, worstFrameMs: +worst.toFixed(1) }),
         update(t, dt, ctx) {
             frame++;
             const P = ctx.player.pos;
@@ -209,6 +273,12 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         },
         onLeave() { hud.style.display = 'none'; },
     };
+    // A stamped place's doors, signs and arrival points, moved into the world.
+    for (const st of stamps) {
+        for (const t of st.map.triggers ?? []) if (!st.drop?.has(t.to)) map.triggers.push({ ...t, x: t.x + st.ox, z: t.z + st.oz });
+        for (const s2 of st.map.stations ?? []) if (s2.pos) map.stations.push({ ...s2, pos: s2.pos.clone().add(new THREE.Vector3(st.ox, st.oy, st.oz)) });
+        for (const [k, sp] of Object.entries(st.map.spawns ?? {})) map.spawns[`${st.id}:${k}`] = { ...sp, x: sp.x + st.ox, z: sp.z + st.oz };
+    }
     if (spawn) map.spawns.start = spawn;
     // Arrive on dry, low ground near the centre (unless the world says where).
     if (!spawn) for (let r = 0, a = 0; r < half * 0.6; r += 6, a += 2.4) { const x = Math.cos(a) * r, z = Math.sin(a) * r, h = heightAt(x, z); if (h > WATER + 2 && h < 16) { map.spawns.start = { x, z, facing: 0 }; break; } }

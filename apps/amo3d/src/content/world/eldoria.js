@@ -11,7 +11,12 @@
 // The rest of Eldoria is gentle land for now (W4 shapes each region). Markers stand where each place will be built (W2.2).
 import LAYOUT from './eldoria_layout.json';
 import { fbm } from '../../engine/lib.js';
-import { createStreamWorld } from '../../engine/stream.js';
+import { createStreamWorld, prepStamp, stampHeights } from '../../engine/stream.js';
+import { createThaloria } from '../thaloria.js';
+import { createOutdoor } from '../glade.js';
+import { createEastRoad } from '../eastRoad.js';
+import { createMountain } from '../mountain.js';
+import { createSanctuary } from '../sanctuary.js';
 
 const WATER = -2;
 const S = LAYOUT.scale_m_per_db_unit, [OX, OY] = LAYOUT.origin_db;
@@ -53,18 +58,18 @@ export function eldoriaHeight(x, z) {
     const dR = polyDist(RIDGE, x, z);
     if (dR < 900) {
         const rug = 0.75 + 0.5 * Math.pow(1 - Math.abs(fbm(x * 0.004 + 7, z * 0.004 - 3, 3) * 2 - 1), 2);
-        let r = 108 * Math.exp(-Math.pow(dR / 280, 2)) * rug;
+        let r = 108 * Math.exp(-Math.pow(dR / 210, 2)) * rug;
         r *= 1 - 0.42 * Math.exp(-Math.pow(Math.hypot(x - PASS.x, z - PASS.z) / 230, 2));   // the pass
         h = Math.max(h, h * 0.4 + r);
     }
     // the Fire Gate's mountain
     const dF = polyDist(FIREMT, x, z);
     if (dF < 800) h = Math.max(h, h * 0.4 + 138 * Math.exp(-Math.pow(dF / 230, 2)) * (0.85 + 0.3 * fbm(x * 0.005, z * 0.005, 2)));
-    // Thaloria's plateau (the city), the Citadel's height across the gorge
+    // Thaloria (the city is stamped in, W2.2): low hills round it; the Citadel's plateau carries on north of the gorge
     const dC = Math.hypot(x - CITY.x, z - CITY.z);
-    if (dC < 620) h = h + (24 - h) * smooth(620, 360, dC);
-    const dK = Math.hypot(x - CITADEL.x, z - CITADEL.z);
-    if (dK < 260) h = h + (38 - h) * smooth(260, 110, dK);
+    if (dC < 520) h = h + (10 + fbm(x * 0.02, z * 0.02, 2) * 4 - h) * smooth(520, 200, dC);
+    const dK = Math.hypot(x - CITADEL.x, (z - (CITADEL.z - 120)) * 0.8);
+    if (dK < 360) h = h + (29 + fbm(x * 0.01, z * 0.01, 2) * 6 - h) * smooth(360, 150, dK);
     // the glade's vale (Eldrin's Tower)
     const dG = Math.hypot(x - GLADE.x, z - GLADE.z);
     if (dG < 420) h = h + (5 + fbm(x * 0.01, z * 0.01, 2) * 2 - h) * smooth(420, 140, dG) * 0.8;
@@ -86,21 +91,54 @@ export function eldoriaHeight(x, z) {
 
 const roadDist = (x, z) => { let d = Infinity; for (const r of ROADS) d = Math.min(d, polyDist(r, x, z)); return d; };
 
+// The places stamped into the world (W2.2). Thaloria: the city (its own map, content/thaloria.js), set on the gorge
+// with its river at the world's water level; its West and East Gates now open on the land itself.
+// The others (the glade, the East Road, the Summit's trail, the Sanctuary) sit at their layout positions, raised or
+// lowered to meet the land best round their edges (oy: the mean gap along the rect's border).
+const EAST_APPROACH = place('Summit of Despair — the Approach'), EAST_ROAD = place('The East Road (Thalorian Wilds)');
+function fitOy(map, ox, oz, [x0, z0, x1, z1]) {
+    let sum = 0, n = 0;
+    for (let t = 0; t <= 1.0001; t += 0.05) for (const [x, z] of [[x0 + (x1 - x0) * t, z0], [x0 + (x1 - x0) * t, z1], [x0, z0 + (z1 - z0) * t], [x1, z0 + (z1 - z0) * t]]) { sum += eldoriaHeight(x + ox, z + oz) - map.heightAt(x, z); n++; }
+    return sum / n;
+}
+function makeStamps(quality) {
+    const out = [prepStamp({ id: 'thaloria', map: createThaloria({ quality }), ox: CITY.x, oy: 2, oz: CITY.z, rect: [-78, -135, 78, 68], drop: new Set(['outdoor', 'east_road']) })];
+    const more = [
+        // [id, build, where, rect (cropped inside the old map's border walls), dropped exits, anchor: the local point set
+        //  at the land's height]
+        ['outdoor', () => createOutdoor({ quality }), GLADE, [-75, -75, 75, 75], ['thaloria'], [0, 0]],
+        ['east_road', () => createEastRoad({ quality }), EAST_ROAD, [-94, -78, 94, 78], ['thaloria', 'the_summit'], null],
+        ['the_summit', () => createMountain({ quality }), PASS, [-94, -94, 94, 92], [], [0, 88]],
+        ['sylvan_sanctuary', () => createSanctuary({ quality }), SANCT, [-55, -55, 55, 55], [], [0, 0]],
+    ];
+    for (const [id, make, at, rect, drop, anchor] of more) {
+        try {
+            const map = make();
+            const oy = anchor ? eldoriaHeight(at.x + anchor[0], at.z + anchor[1]) - map.heightAt(anchor[0], anchor[1]) : fitOy(map, at.x, at.z, rect);
+            out.push(prepStamp({ id, map, ox: at.x, oy, oz: at.z, rect, drop: new Set(drop) }));
+        } catch (e) { console.warn('[eldoria] stamp failed', id, e); }
+    }
+    return out;
+}
+
 export function createEldoriaWorld({ quality } = {}) {
+    const stamps = makeStamps(quality);
+    const heightAt = stampHeights(eldoriaHeight, stamps, 60);
     const places = LAYOUT.places.map(p => ({ name: p.name, x: p.world[0], z: p.world[1] }));
     const toCity = Math.atan2(CITY.x - GLADE.x, CITY.z - GLADE.z);
+    const gl = stamps.find(st => st.id === 'outdoor'), gs = gl?.map.spawns?.start;
+    const gladeStart = gs ? { ...gs, x: gs.x + gl.ox, z: gs.z + gl.oz } : null;   // the glade's own arrival point
     return createStreamWorld({
-        id: 'eldoria', name: 'Eldoria — the open world', seed: 501, size: 8400, heightAt: eldoriaHeight, quality,
-        spawn: { x: GLADE.x + 30, z: GLADE.z + 20, facing: toCity },
+        id: 'eldoria', name: 'Eldoria — the open world', seed: 501, size: 8400, heightAt, quality, stamps,
+        spawn: gladeStart ?? { x: GLADE.x + 30, z: GLADE.z + 20, facing: toCity },
         mood: { fog: '#c8d2d8', fogNear: 180, fogFar: 760, fogMix: 0.5 },
         places,
-        clearAt: (x, z) => roadDist(x, z) < 5 || Math.hypot(x - CITY.x, z - CITY.z) < 380 || Math.hypot(x - CITADEL.x, z - CITADEL.z) < 120 || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || polyDist(RIVER, x, z) < 9,
+        clearAt: (x, z) => roadDist(x, z) < 5 || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || polyDist(RIVER, x, z) < 9,
         groundColor: (x, z, h, col) => {
             if (h < WATER + 0.8) return false;
             if (roadDist(x, z) < 3.2) { col.set('#8a7454'); return true; }   // the roads
             const dF = Math.hypot(x - FIRE.x, z - FIRE.z);
             if (dF < 700 && h > 30) { col.set(dF < 350 ? '#3a3634' : '#5a5450'); return true; }   // ash on the Fire Gate's slopes
-            if (Math.hypot(x - CITY.x, z - CITY.z) < 300) { col.set('#a29a8a'); return true; }   // the city's paved ground (until the city is stamped in)
             return false;
         },
     });

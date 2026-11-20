@@ -60,7 +60,7 @@ export function skyState(hour, weather = 'clear', plane = null) {
 export function createWeather(scene, quality = { particles: 1 }) {
     const group = new THREE.Group();
     group.userData.dynamic = true;
-    scene.add(group);
+    group.userData.shell = true; scene.add(group);
 
     // Stars on a dome, fading in at night; a pale moon.
     const N = 700, sp = new Float32Array(N * 3);

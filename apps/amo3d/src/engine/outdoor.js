@@ -7,6 +7,8 @@ import { radialTexture } from './lib.js';
 
 export function createOutdoorShell(scene, { quality, mood = {} }) {
     const M = mood;
+    // Everything the shell adds is tagged, so the open world can lift a place's own content out of its scene (stamps).
+    const shellAdd = (...os) => { for (const o of os) { o.userData.shell = true; scene.add(o); } };
     const horizon = new THREE.Color(M.fog ?? '#c9d6d4');
     scene.background = horizon.clone();
     scene.fog = new THREE.Fog(horizon.clone(), M.fogNear ?? 50, (M.fogFar ?? 200) * quality.fogFar);
@@ -22,16 +24,16 @@ export function createOutdoorShell(scene, { quality, mood = {} }) {
     }));
     sky.renderOrder = -1;
     sky.userData.dynamic = true;
-    scene.add(sky);
+    shellAdd(sky);
     const hemi = new THREE.HemisphereLight(0xbfd8ff, 0x3a3020, 1);
-    scene.add(hemi);
+    shellAdd(hemi);
     const sun = new THREE.DirectionalLight(0xfff0d0, 2.5);
     const SR = quality.shadowRange ?? 48;
     sun.castShadow = quality.shadows;
     sun.shadow.mapSize.set(quality.shadowMap, quality.shadowMap);
     Object.assign(sun.shadow.camera, { left: -SR, right: SR, top: SR, bottom: -SR, near: 1, far: 320 });
     sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.04;
-    scene.add(sun, sun.target);
+    shellAdd(sun, sun.target);
     const weatherFx = createWeather(scene, quality);
     const moodFog = new THREE.Color(M.fog ?? '#c9d6d4'), fogCol = new THREE.Color();
 
@@ -46,18 +48,18 @@ export function createOutdoorShell(scene, { quality, mood = {} }) {
         const disc = new THREE.Mesh(new THREE.CircleGeometry(20, 48), new THREE.MeshBasicMaterial({ color: 0x050508, fog: false, depthWrite: false, transparent: true, opacity: 1 }));
         disc.renderOrder = 1; corona.renderOrder = 0;
         eclipse.add(corona, disc); eclipse.renderOrder = -1;
-        scene.add(eclipse);
+        shellAdd(eclipse);
         const N = Math.round(700 * (quality.particles ?? 1)), BOX = 40, ap = new Float32Array(N * 3), seed = Float32Array.from({ length: N * 4 }, () => Math.random());
         const ag = new THREE.BufferGeometry(); ag.setAttribute('position', new THREE.BufferAttribute(ap, 3));
         ash = { pts: new THREE.Points(ag, new THREE.PointsMaterial({ map: radialTexture([[0, 'rgba(255,255,255,1)'], [0.5, 'rgba(255,255,255,0.6)'], [1, 'rgba(255,255,255,0)']], 32), color: 0xb0b0bc, size: 0.06, transparent: true, opacity: 0.8, depthWrite: false, alphaTest: 0.02 })), ap, seed, N, BOX };   // round flakes
-        ash.pts.frustumCulled = false; ash.pts.userData.dynamic = true; scene.add(ash.pts);
+        ash.pts.frustumCulled = false; ash.pts.userData.dynamic = true; shellAdd(ash.pts);
         const C = M.crows ?? 14;
         crows = { group: new THREE.Group(), list: [], at: M.crowsAt ?? { x: 0, z: 0 } };
         const wing = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0.12), new THREE.Vector3(0.55, 0.08, -0.05), new THREE.Vector3(0, 0, -0.12), new THREE.Vector3(0, 0, 0.12), new THREE.Vector3(0, 0, -0.12), new THREE.Vector3(-0.55, 0.08, -0.05)]);
         wing.computeVertexNormals();
         const cm = new THREE.MeshBasicMaterial({ color: 0x0a0a0e, side: THREE.DoubleSide });
         for (let i = 0; i < C; i++) { const b = new THREE.Mesh(wing, cm); b.scale.setScalar(1.2 + Math.random() * 0.8); crows.group.add(b); crows.list.push({ b, r: 18 + Math.random() * 30, h: 22 + Math.random() * 18, a: Math.random() * 6.28, w: (0.15 + Math.random() * 0.2) * (Math.random() < 0.5 ? 1 : -1), ph: Math.random() * 6 }); }
-        crows.group.userData.dynamic = true; scene.add(crows.group);
+        crows.group.userData.dynamic = true; shellAdd(crows.group);
     }
     if (umbral) { hemi.color.setHex(0xb8bed4); hemi.groundColor.setHex(0x2a2830); }   // a cold, colourless light
     let tt = 0;

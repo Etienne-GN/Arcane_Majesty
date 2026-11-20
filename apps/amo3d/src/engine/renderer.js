@@ -5,6 +5,7 @@ export function createRenderer(quality) {
     const renderer = new THREE.WebGLRenderer({ antialias: quality.antialias, powerPreference: 'high-performance' });
     renderer.setPixelRatio(Math.min(devicePixelRatio, quality.pixelRatio));
     renderer.setSize(innerWidth, innerHeight);
+    renderer.localClippingEnabled = true;   // the open world clips a stamped place's ground to its footprint
     renderer.shadowMap.enabled = quality.shadows;
     renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
