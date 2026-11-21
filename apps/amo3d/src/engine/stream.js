@@ -16,7 +16,7 @@ import { createOutdoorShell } from './outdoor.js';
 import { treeKinds } from '../content/models/flora.js';
 import { coreOf, registerCore } from '../content/actors/enemyCore.js';
 
-const TILE = 128, VIEW = 6, BUDGET = 2, WATER = -2;
+const TILE = 128, VIEW = 6, BUDGET = 2, WATER = -2, SWIM_DEPTH = 1.35;
 const LOD = d => (d <= 1 ? 48 : d <= 3 ? 16 : 6);   // segments per tile edge by ring distance
 
 // The test continent: rolling land, a ridged mountain range, valleys, a coast all round (size × size metres).
@@ -494,17 +494,19 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     const map = {
         id, name, scene, heightAt, terrain: true, get colliders() { return []; },   // (per point: coll(x, z))
         camera: { maxDist: 30, pitch: 0.38, dist: 9 },
-        groundAt: (x, z) => heightAt(x, z),
+        // Swimming (Phase 13, first pass): deep water no longer stops you — you float, head and shoulders above it.
+        groundAt: (x, z) => Math.max(heightAt(x, z), WATER - SWIM_DEPTH),
         wading: (x, z) => heightAt(x, z) < WATER - 0.05,
+        swimming: (x, z) => heightAt(x, z) < WATER - SWIM_DEPTH + 0.05,
         blockedAt(x, z, r, y = heightAt(x, z)) {
             const c = colliderAt(coll(x, z), x, z, r, y); if (c) return c.kind;
-            if (heightAt(x, z) < WATER - 0.7 || Math.max(Math.abs(x), Math.abs(z)) > EDGE) return 'wall';
+            if (Math.max(Math.abs(x), Math.abs(z)) > EDGE) return 'wall';
             return null;
         },
         resolve: (pos, r) => pushOut(coll(pos.x, pos.z), pos, r),
         // the camera stops only at walls (buildings, the city wall, towers), not at every tree trunk
         camBlockedAt: (x, z, y) => !!colliderAt(coll(x, z).filter(c => c.ax !== undefined || c.r > 2), x, z, 0.2, y),
-        passable: (x, z) => heightAt(x, z) >= WATER - 0.7 && Math.max(Math.abs(x), Math.abs(z)) <= EDGE,
+        passable: (x, z) => Math.max(Math.abs(x), Math.abs(z)) <= EDGE,
         projectileHit(p) { if (p.y < heightAt(p.x, p.z) + 0.05) return 'ground'; const c = colliderAt(coll(p.x, p.z), p.x, p.z, 0.15, p.y); return c && p.y >= c.y0 + 0.5 ? 'object' : null; },
         groundNormal(x, z) { const e = 0.3; return new THREE.Vector3(heightAt(x - e, z) - heightAt(x + e, z), 2 * e, heightAt(x, z - e) - heightAt(x, z + e)).normalize(); },
         triggers: [], stations: [], hittables: [], gatherSpots: [], gates: [], spawns: { start: { x: 0, z: 0, facing: 0 } },   // (moved to dry, low ground below) stations: [], hittables: [], gatherSpots: [], gates: [],
