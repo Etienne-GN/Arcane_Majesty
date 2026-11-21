@@ -97,12 +97,15 @@ body.title-on #minimap { display: none; }
         const info = map.mapInfo, half = info.half, size = Math.round(half * 2 * PX_PER_M);
         const c = document.createElement('canvas'); c.width = c.height = size;
         const g = c.getContext('2d'), img = g.createImageData(size, size), H = new Float32Array(size * size);
-        for (let py = 0; py < size; py++) for (let px = 0; px < size; px++) H[py * size + px] = map.heightAt(px / PX_PER_M - half, py / PX_PER_M - half);
+        // A world's chart is large: painted progressively after you arrive (rows a slice at a time), not all at load.
+        const progressive = half > 400;
+        const heightRow = py => { for (let px = 0; px < size; px++) H[py * size + px] = map.heightAt(px / PX_PER_M - half, py / PX_PER_M - half); };
+        if (!progressive) for (let py = 0; py < size; py++) heightRow(py);
         const SNOW = info.snowH ?? 17, ROCK = info.rockH ?? 6;
         const kind = h => h < info.water - 0.6 ? 0 : h < info.water ? 1 : h < info.water + 0.35 ? 2 : h > SNOW ? 5 : h > ROCK ? 4 : 3;
         const tint = info.ground ? info.ground.map((v, i) => PARCH[i] * 0.72 + v * 0.28) : [PARCH[0] * 0.8 + 120 * 0.2, PARCH[1] * 0.8 + 150 * 0.2, PARCH[2] * 0.8 + 80 * 0.2];
         let seed = 7; const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
-        for (let py = 0; py < size; py++) for (let px = 0; px < size; px++) {
+        const paintRow = py => { for (let px = 0; px < size; px++) {
             const h = H[py * size + px], k = kind(h);
             const gr = info.groundAt?.(px / PX_PER_M - half, py / PX_PER_M - half);   // a map's own ground: roads, paving
             let col = gr === 'rock' ? [74, 64, 54] : gr === 'road' ? [196, 172, 128] : gr === 'paved' ? [206, 200, 186] : k === 0 ? [120, 158, 176] : k === 1 ? [150, 184, 190] : k === 2 ? [222, 200, 150] : k === 5 ? [240, 236, 226] : k === 4 ? [176, 160, 132] : tint;
@@ -121,7 +124,21 @@ body.title-on #minimap { display: none; }
             const noise = (rnd() - 0.5) * 12, i = (py * size + px) * 4;
             for (let j = 0; j < 3; j++) img.data[i + j] = Math.max(0, Math.min(255, col[j] * shade + noise)) * (1 - ink) + [58, 42, 24][j] * ink;
             img.data[i + 3] = 255;
+        } };
+        if (progressive) {
+            g.fillStyle = `rgb(${PARCH.join(',')})`; g.fillRect(0, 0, size, size);
+            let row = 0; heightRow(0); heightRow(1);
+            const slice = () => {   // ~10 ms of rows, then yield to the game
+                const t0 = performance.now(), from = row;
+                while (row < size && performance.now() - t0 < 10) { if (row + 2 < size) heightRow(row + 2); paintRow(row); row++; }
+                g.putImageData(img, 0, 0, 0, from, size, row - from);
+                if (open) draw();
+                if (row < size) setTimeout(slice, 30);
+            };
+            setTimeout(slice, 400);
+            return { canvas: c, half, size, stamps: [] };
         }
+        for (let py = 0; py < size; py++) paintRow(py);
         g.putImageData(img, 0, 0);
         // Buildings as inked blocks with a roof wash, and the city wall as a heavy inked line of stones.
         const P = v => (v + half) * PX_PER_M;
@@ -149,7 +166,7 @@ body.title-on #minimap { display: none; }
     }
     // Draw the stamped places' charts: worldToScreen(x, z) → [sx, sy], k = screen px per metre.
     function drawStamps(g, worldToScreen, k) {
-        for (const st of mapRef?.mapInfo?.stamps ?? []) if (st.built && st.map.mapInfo && !art.stamps.some(a => a.st === st)) art.stamps.push({ st, art: paint(st.map) });   // a place built since (as you came near)
+        for (const st of mapRef?.mapInfo?.stamps ?? []) if (st.built && st.map.mapInfo && !art.stamps.some(a => a.st === st)) { art.stamps.push({ st, art: paint(st.map) }); break; }   // a place built since (as you came near) — one a frame
         for (const { st, art: a } of art.stamps ?? []) {
             const ppm = st.map.mapInfo.pxPerM ?? 2, [sx, sy] = worldToScreen(st.X0, st.Z0);
             g.drawImage(a.canvas, (st.rect[0] + a.half) * ppm, (st.rect[1] + a.half) * ppm, (st.rect[2] - st.rect[0]) * ppm, (st.rect[3] - st.rect[1]) * ppm, sx, sy, (st.X1 - st.X0) * k, (st.Z1 - st.Z0) * k);
