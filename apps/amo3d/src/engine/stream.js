@@ -99,10 +99,17 @@ export function stampHeights(worldH, stamps, B = 60) {
 // Hooks for a real world (content/world/eldoria.js): spawn {x,z,facing}; clearAt(x,z) — no trees here (roads, a town's
 // plateau); groundColor(x,z,h,col) — paint a road or a place (return true when painted); places [{name,x,z}] — markers
 // standing where a place will be built (W2.1), named when you come near.
-export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], stamps = [], chart = null, mood = null, biomeAt = null, spawnWild = null, extraGather = [], quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
+export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], stamps = [], chart = null, mood = null, biomeAt = null, spawnWild = null, extraGather = [], walls = [], quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
     const scene = new THREE.Scene();
     const shell = createOutdoorShell(scene, { quality, mood: mood ?? { fog: '#c8d4d8', fogNear: 160, fogFar: 700, fogMix: 0.55 } });
     const half = size / 2, NT = Math.ceil(size / TILE);
+    // the world's own walls (barriers along mountain crests, a lighthouse…): bucketed by tile once; add() for later ones
+    const wallB = new Map();
+    function addWall(c) {
+        const x0 = Math.min(c.ax ?? c.x, c.bx ?? c.x) - (c.r ?? 1), x1 = Math.max(c.ax ?? c.x, c.bx ?? c.x) + (c.r ?? 1), z0 = Math.min(c.az ?? c.z, c.bz ?? c.z) - (c.r ?? 1), z1 = Math.max(c.az ?? c.z, c.bz ?? c.z) + (c.r ?? 1);
+        for (let tz = Math.floor((z0 + half) / TILE); tz <= Math.floor((z1 + half) / TILE); tz++) for (let tx = Math.floor((x0 + half) / TILE); tx <= Math.floor((x1 + half) / TILE); tx++) { const k = `${tx},${tz}`; if (!wallB.has(k)) wallB.set(k, []); wallB.get(k).push(c); }
+    }
+    for (const c of walls) addWall(c);
     const tiles = new Map();   // key → { tx, tz, lod, mesh, trees: [], colliders: [] }
     const queue = [];
     const K = treeKinds();
@@ -482,7 +489,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     let frame = 0;
     function coll(x, z) {
         const tx = Math.floor((x + half) / TILE), tz = Math.floor((z + half) / TILE), out = [];
-        for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) { const k = `${tx + dx},${tz + dz}`, t = tiles.get(k); if (t) for (const c of t.colliders) out.push(c); for (const st of stamps) { const sc2 = st.built && st.coll.get(k); if (sc2) for (const c of sc2) out.push(c); } }
+        for (let dz = -1; dz <= 1; dz++) for (let dx = -1; dx <= 1; dx++) { const k = `${tx + dx},${tz + dz}`, t = tiles.get(k), wb = wallB.get(k); if (t) for (const c of t.colliders) out.push(c); if (wb) for (const c of wb) out.push(c); for (const st of stamps) { const sc2 = st.built && st.coll.get(k); if (sc2) for (const c of sc2) out.push(c); } }
         return out;
     }
 
@@ -494,6 +501,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     const EDGE = half - 20;
     const map = {
         id, name, scene, heightAt, terrain: true, get colliders() { return []; },   // (per point: coll(x, z))
+        addWall,
         camera: { maxDist: 30, pitch: 0.38, dist: 9 },
         // Swimming (Phase 13, first pass): deep water no longer stops you — you float, head and shoulders above it.
         groundAt: (x, z) => Math.max(heightAt(x, z), WATER - SWIM_DEPTH),

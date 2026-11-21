@@ -129,7 +129,31 @@ const ARCHI = (() => {   // the Sunward Isles: islands scattered in the south-ea
     return { c, isles: out };
 })();
 export const ARCHIPELAGO = ARCHI.c;
+// ---------- The Divide: the north is shut but for the Summit pass ----------
+// The northern range, a spur down to the Summit's ridge's west end, the ridge itself (the one gap: the Summit), then on
+// from its east end, south of the Ruins, to the sea. Beyond: the Sanctuary, the Fire Gate, the Inferno Labyrinth, the Ruins.
+const SPUR = [[1985, -2780], [2000, -2560], [1990, -2360], [2008, -2128]];
+const DIVIDE_EAST = [[3300, -2200], [3480, -1990], [3700, -1890], [3950, -1870], [4400, -1880]];
 // The northern range's foot never comes nearer than ~400 m to a place (more beside it: the cap slopes away smoothly).
+function northFoot(x) { return Math.min(NORTH_FOOT_CAP(x), NORTH_EDGE + 260 + 170 * Math.sin(x * 0.0019 + 0.7) + 90 * Math.sin(x * 0.0051 + 2.1) + 40 * Math.sin(x * 0.013)); }
+export function divideWalls() {
+    const out = [], seg = (pts, skip = () => false, step = 24) => {
+        for (let i = 0; i < pts.length - 1; i++) {
+            const [ax, az] = pts[i], [bx, bz] = pts[i + 1], n = Math.max(1, Math.ceil(Math.hypot(bx - ax, bz - az) / step));
+            for (let k = 0; k < n; k++) {
+                const x0 = ax + (bx - ax) * k / n, z0 = az + (bz - az) * k / n, x1 = ax + (bx - ax) * (k + 1) / n, z1 = az + (bz - az) * (k + 1) / n;
+                if (!skip((x0 + x1) / 2, (z0 + z1) / 2)) out.push({ ax: x0, az: z0, bx: x1, bz: z1, r: 0.8, kind: 'wall', y0: -80, y1: 400 });
+            }
+        }
+    };
+    // the northern range: along its crest-side, ~250 m inside its wandering foot, the whole width of the world
+    const north = []; for (let x = -5600; x <= 5600; x += 40) north.push([x, northFoot(x) - 250]);
+    seg(north);
+    seg([[SPUR[0][0], northFoot(SPUR[0][0]) - 250], ...SPUR]);
+    seg(RIDGE, (x, z) => Math.hypot(x - PASS.x, z - (PASS.z - 120)) < 110);   // the Summit pass (where the trail crosses the crest, north of the Summit's marker): the one way through
+    seg(DIVIDE_EAST);
+    return out;
+}
 const NORTH_FOOT_CAP = (() => {
     const P = LAYOUT.places.filter(p => !p.plane || p.plane === 'Eldoria').map(p => p.world), x0 = -6000, step = 25, n = 481, cap = new Float32Array(n);
     for (let i = 0; i < n; i++) { const x = x0 + i * step; let c = 1e9; for (const [px, pz] of P) c = Math.min(c, pz - 400 + Math.max(0, Math.abs(x - px) - 300) * 0.9); cap[i] = c; }
@@ -216,6 +240,12 @@ export function eldoriaHeight(x, z) {
     // the Sylvan Sanctuary: a sheltered valley below the pass's north side (the game's impossible spring)
     const dS = Math.hypot(x - SANCT.x, z - SANCT.z);
     if (dS < 520) h = h + (9 + fbm(x * 0.008, z * 0.008, 2) * 3 - h) * smooth(520, 200, dS);
+    // the Divide's spur (user, 2026-11-21: the north closed but for the Summit pass): a rugged ridge from the northern
+    // range south to the Summit's ridge's western end, between the Citadel and the Sanctuary (the river cuts a gorge through it)
+    { const dS = polyDist(SPUR, x, z); if (dS < 600) {
+        const rug = 0.7 + 0.6 * Math.pow(1 - Math.abs(fbm(x * 0.005 + 13, z * 0.005 + 29, 3) * 2 - 1), 2);
+        h = Math.max(h, h * 0.4 + 115 * Math.exp(-Math.pow(dS / 170, 2)) * rug);
+    } }
     // the river and its banks; a sheer gorge through Thaloria
     const dW = riverDist(x, z);
     const gorge = smooth(700, 250, Math.min(dC, dK));
@@ -259,7 +289,7 @@ export function eldoriaHeight(x, z) {
       } }
     // the north: high mountains where the land runs on beyond the world (the old straight east coast and south edge are
     // gone: the coast above replaces them)
-    { const foot = Math.min(NORTH_FOOT_CAP(x), NORTH_EDGE + 260 + 170 * Math.sin(x * 0.0019 + 0.7) + 90 * Math.sin(x * 0.0051 + 2.1) + 40 * Math.sin(x * 0.013));   // a wandering foot, kept clear of every place
+    { const foot = northFoot(x);   // a wandering foot, kept clear of every place
       if (z < foot + 50) {
           const rugN = 0.55 + 0.9 * Math.pow(1 - Math.abs(fbm(x * 0.0035 + 91, z * 0.0035 - 41, 4) * 2 - 1), 2);   // craggy crests, saddles between
           const top = 40 + 130 * rugN * smooth(foot + 50, foot - 500, z);
@@ -512,6 +542,7 @@ export function createEldoriaWorld({ quality } = {}) {
     const gladeStart = gs ? { ...gs, x: gs.x + gl.ox, z: gs.z + gl.oz } : null;   // the glade's own arrival point
     let world = null;
     world = createStreamWorld({
+        walls: divideWalls(),
         id: 'eldoria', name: 'Eldoria — the open world', seed: 501, size: 11200, heightAt, quality, stamps,
         spawn: gladeStart ?? { x: GLADE.x + 30, z: GLADE.z + 20, facing: toCity },
         mood: { fog: '#c8d2d8', fogNear: 180, fogFar: 760, fogMix: 0.5 },
@@ -567,7 +598,7 @@ export function createEldoriaWorld({ quality } = {}) {
       }
       const rb = buildBoat(); rb.root.position.set(PORT.x + 96, WATER + 0.1, PORT.z + 24); rb.root.rotation.y = 1.2; g.add(rb.root); moored.push(rb);
       let lh = null; for (let r = 0; r < 160 && !lh; r += 8) for (const sgn of [-1, 1]) { const x = PORT.x + 430 - r * 0.6, z = PORT.z + sgn * (170 + r * 0.3); if (eldoriaHeight(x, z) > WATER + 2) { lh = { x, z }; break; } }
-      if (lh) { const y = heightAt(lh.x, lh.z); const t = new THREE.Mesh(new THREE.CylinderGeometry(2.2, 3, 16, 10), white); t.position.set(lh.x, y + 8, lh.z); t.castShadow = true; g.add(t); box(stone, lh.x, y + 16.5, lh.z, 5, 1, 5); const lt = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, 2.2, 8), lamp); lt.position.set(lh.x, y + 18, lh.z); g.add(lt); const cap = new THREE.Mesh(new THREE.ConeGeometry(2, 2.4, 8), flat(0x8a2a22)); cap.position.set(lh.x, y + 20.3, lh.z); g.add(cap); world.colliders?.push?.({ x: lh.x, z: lh.z, r: 3, kind: 'wall', y0: y - 1, y1: y + 22 }); }
+      if (lh) { const y = heightAt(lh.x, lh.z); const t = new THREE.Mesh(new THREE.CylinderGeometry(2.2, 3, 16, 10), white); t.position.set(lh.x, y + 8, lh.z); t.castShadow = true; g.add(t); box(stone, lh.x, y + 16.5, lh.z, 5, 1, 5); const lt = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, 2.2, 8), lamp); lt.position.set(lh.x, y + 18, lh.z); g.add(lt); const cap = new THREE.Mesh(new THREE.ConeGeometry(2, 2.4, 8), flat(0x8a2a22)); cap.position.set(lh.x, y + 20.3, lh.z); g.add(cap); world.addWall({ x: lh.x, z: lh.z, r: 3, kind: 'wall', y0: y - 1, y1: y + 22 }); }
       world.scene.add(g);
       // the piers are ground: walking (and boarding) on them; the terrain beneath keeps its own shape
       const baseH = world.heightAt, baseG = world.groundAt, baseSwim = world.swimming, baseWade = world.wading;
