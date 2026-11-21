@@ -31,5 +31,13 @@ try {
         console.log(`${st.id.padEnd(20)} jump ${jump.v.toFixed(1).padStart(5)} m @${jump.at}   steepest 1 m step ${step.v.toFixed(1).padStart(5)} m @${step.at}`);
     }
     else if (cmd === 'at') for (const a of args) { const [x, z] = a.split(',').map(Number); console.log(`${a}  ground ${H(x, z).toFixed(2)}  land ${E.eldoriaHeight(x, z).toFixed(2)}  near: ${stamps.map(s => [s.id, edgeDist(s, x, z)]).filter(q => q[1] < 150).map(q => `${q[0]} ${q[1].toFixed(0)}`).join(', ')}`); }
-    else console.log('checks: seams | at x,z …');
+    else if (cmd === 'wading') for (const st of stamps) {   // inside each place: ground under the water but too shallow to swim (you and creatures walk there)
+        const W = -2, SWIM = 1.35; let wade = 0, swim = 0, land = 0, ex = null;
+        for (let x = st.X0; x < st.X1; x += 3) for (let z = st.Z0; z < st.Z1; z += 3) {
+            if (edgeDist(st, x, z) > 0) continue; const h = H(x, z);
+            if (h >= W) land++; else if (h > W - SWIM) { wade++; ex ??= `${Math.round(x)},${Math.round(z)}`; } else swim++;
+        }
+        if (wade + swim) console.log(`${st.id.padEnd(20)} wading ${String(wade * 9).padStart(6)} m²  swimming ${String(swim * 9).padStart(6)} m²  land ${land * 9} m²  e.g. ${ex}`);
+    }
+    else console.log('checks: seams | wading | at x,z …');
 } finally { await vite.close(); }

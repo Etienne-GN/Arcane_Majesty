@@ -132,7 +132,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     // Under a stamped place the world's own ground sinks out of sight (the place's detailed ground shows), ramping down
     // over the rect's first metres so the seam stays tight.
     function sinkAt(x, z) {
-        for (const st of stamps) if (st.built && inShape(st, x, z)) return 8 * sm(0, 6, -edgeDist(st, x, z));
+        for (const st of stamps) if (st.built && inShape(st, x, z)) return 0.12 + 8 * sm(3, 9, -edgeDist(st, x, z));   // (just under the place's ground for its first 3 m: no crack along the outline)
         return 0;
     }
     const stamped = (x, z, m = 4) => stamps.some(st => inShape(st, x, z, m));
@@ -250,10 +250,16 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             if (box.min.x < st.X0 - 0.5 || box.max.x > st.X1 + 0.5 || box.min.z < st.Z0 - 0.5 || box.max.z > st.Z1 + 0.5 || o.userData.ground || (box.max.x - box.min.x) * (box.max.z - box.min.z) > st.ha * st.hb)
                 for (const m of mats) { if (m.isShaderMaterial) { m.clippingPlanes = planes; m.needsUpdate = true; } else shapeClip(m, st); }   // its ground cut to the rounded footprint
         });
-        for (const o of drop) o.parent?.remove(o);
-        // whatever lives and moves is never batched: creatures, townsfolk (their roots tagged)
+        // whatever lives and moves is never batched nor trimmed: creatures, townsfolk (their roots tagged)
         for (const h of st.map.hittables ?? []) if (h.root) h.root.userData.dynamic = true;
         for (const p of st.map.town?.people ?? st.map.people ?? []) for (const o of [p.root, p.model?.root, p.far, p.group, p.mesh]) if (o?.userData) o.userData.dynamic = true;
+        // a prop (a board, a post, a crate…) whose middle lies beyond the outline is taken away whole: uncut, it would hang over the land
+        { const bx = new THREE.Box3(), c = new THREE.Vector3(); g.updateMatrixWorld(true);
+          g.traverse(o => { if (!o.isMesh || o.isInstancedMesh || drop.includes(o)) return; let p = o; while (p && p !== g) { if (p.userData?.dynamic) return; p = p.parent; }
+              const mats = Array.isArray(o.material) ? o.material : [o.material]; if (mats.some(m => m.userData?.shapeClip || m.clippingPlanes?.length)) return;
+              bx.setFromObject(o).getCenter(c); if (edgeDist(st, c.x, c.z) > 0) drop.push(o); }); }
+        for (const o of drop) o.parent?.remove(o);
+        // whatever lives and moves is never batched: creatures, townsfolk (their roots tagged)
         if (st.batch !== false) staticBatch(g, st);
         g.updateMatrixWorld(true);
         const im4 = new THREE.Matrix4(), ip = new THREE.Vector3(), zero = new THREE.Matrix4().makeScale(0, 0, 0);
@@ -513,6 +519,19 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     let fpsT = 0, fpsN = 0, fps = 0, worst = 0, moodNow = null; const curFog = new THREE.Color(mood?.fog ?? '#c8d4d8');
 
     const EDGE = half - 20;
+    // Creatures keep out of the water (user, 2026-11-21: wolves walking about a pond): a step that would take one more
+    // than 0.4 m deep — the world's water, or a place's own deep water — is undone (they turn back at the shore).
+    const DRY = 0.4;
+    function dryBefore(hs) { return hs.map(h => h?.pos ? [h.pos.x, h.pos.y, h.pos.z] : null); }
+    function dryAfter(hs, was, st) {
+        for (let i = 0; i < hs.length; i++) {
+            const h = hs[i], w = was[i]; if (!w || !h.pos || (h.pos.x === w[0] && h.pos.z === w[2])) continue;
+            const ox = st ? st.ox : 0, oz = st ? st.oz : 0, hNew = heightAt(h.pos.x + ox, h.pos.z + oz);
+            const deep = hNew < WATER - DRY && hNew < heightAt(w[0] + ox, w[2] + oz) - 0.01;
+            const own = st && st.map.blockedAt && st.map.blockedAt(h.pos.x, h.pos.z, 0.3) === 'wall' && st.map.blockedAt(w[0], w[2], 0.3) !== 'wall' && (st.map.wading?.(h.pos.x, h.pos.z));
+            if (deep || own) { h.pos.x = w[0]; h.pos.y = w[1]; h.pos.z = w[2]; }
+        }
+    }
     const map = {
         id, name, scene, heightAt, terrain: true, get colliders() { return []; },   // (per point: coll(x, z))
         addWall,
@@ -556,11 +575,13 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
                 if ((st.map.hittables ?? []).length !== st.hitN) { st.hitN = st.map.hittables.length; refreshLife(); }   // (a chapter's duelist came or went)
                 // the place's own life: its creatures, townsfolk, lamps, fires, trials — all in its frame (its sky and fog
                 // belong to its old scene, which is no longer drawn)
+                const hs = st.map.hittables ?? [], was = dryBefore(hs);
                 if (st.map.update) st.map.update(t, dt, st.lctx);
-                else for (const h of st.map.hittables ?? []) h.update(dt, st.lctx);
+                else for (const h of hs) h.update(dt, st.lctx);
+                dryAfter(hs, was, st);
             }
             wildStep(P, dt);
-            for (const w of wild) w.h.update(dt, ctx);
+            { const hs = wild.map(w => w.h), was = dryBefore(hs); for (const w of wild) w.h.update(dt, ctx); dryAfter(hs, was, null); }
             for (const l of lives) l.wpos.copy(l.h.pos).add(l.st.off);
             if ((cullT -= dt) <= 0) {   // creatures far off aren't drawn; only near ones cast shadows (a body is a dozen meshes)
                 cullT = 0.3;
