@@ -75,15 +75,15 @@ export function layoutDungeon({ seed = 1, size = 36, rooms: want = 8, layout = '
 }
 
 export function buildDungeon(def) {
-    const T = THEMES[def.theme] ?? THEMES.mine, C = 2, N = def.size ?? 36, half = (N * C) / 2;
+    const T = THEMES[def.theme] ?? THEMES.mine, C = 3.4, N = def.size ?? 36,   /* cells 3.4 m: halls a body could fight in */ half = (N * C) / 2;
     const { grid, rooms, entry, boss, rng } = layoutDungeon(def);
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(T.fog);
-    scene.fog = new THREE.Fog(T.fog, 22, 70);
+    scene.fog = new THREE.Fog(T.fog, 14, 48);   // the dark closes in: you see your hall, not the whole maze
     const wx = i => i * C - half + C / 2, wz = j => j * C - half + C / 2;
     const cellOf = v => Math.floor((v + half) / C);
     const floorAt = (x, z) => !!grid[cellOf(z)]?.[cellOf(x)];
-    const colliders = [], lights = [], H = 2.9, VAULT = 7;   // walls the camera still looks down over; the cave's vault high and dark above (spells fly free under it)
+    const colliders = [], lights = [], H = 6.5, VAULT = 9;   // walls higher than the tallest beast; spells fly free under the vault   // walls the camera still looks down over; the cave's vault high and dark above (spells fly free under it)
 
     // floor: uneven flags (vertex colours), merged
     const geos = [], col = new THREE.Color();
@@ -146,7 +146,8 @@ export function buildDungeon(def) {
     const blockedCell = (x, z, r) => [[0, 0], [r, 0], [-r, 0], [0, r], [0, -r]].some(([a, b]) => !floorAt(x + a, z + b));
     const map = {
         id: def.id, name: def.name, scene, colliders, terrain: false,
-        camera: { maxDist: 11, pitch: 1.12, dist: 9 },
+        camera: { maxDist: 12, pitch: 0.55, dist: 7.5 },   // behind your shoulder, not over the maze
+        camBlockedAt: (x, z, y) => y < H && !floorAt(x, z),   // the walls stop the camera (it pulls in front of them)
         heightAt: () => 0, groundAt: () => 0,
         passable: (x, z) => floorAt(x, z),
         blockedAt(x, z, r = 0.4, y = 0) { if (blockedCell(x, z, r)) return 'wall'; const c = colliderAt(colliders, x, z, r, y); return c ? c.kind : null; },
