@@ -12,7 +12,8 @@ import PLAN from './world/thaloria_plan.json';
 import { flat, colliderAt, pushOut, mulberry32 } from '../engine/lib.js';
 import { treeKinds } from './models/flora.js';
 import { createOutdoorShell } from '../engine/outdoor.js';
-import { createTownsfolk } from './actors/townsfolk.js';
+import { createTownsfolk, lookFor } from './actors/townsfolk.js';
+import { createCharacter } from './models/character.js';
 import { INTERIOR_IDS } from './thaloria.js';
 import DOORS from '../../../../packages/rules/src/data/maps/interiors/doors.json';
 import { thaloriaMap, bounties as BOUNTIES } from '@rules';
@@ -410,6 +411,34 @@ export function createThaloriaCity({ quality }) {
         const [x, y, z] = chimneys[k];
         for (let i = 0; i < 3; i++) { const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: smokeTex, transparent: true, depthWrite: false })); sp.userData.dynamic = true; scene.add(sp); smoke.push({ sp, x, y, z, t: i / 3 }); }
     }
+    // ---------- T4: guards walking the wall-walk, carts on the high street ----------
+    // The wall-walk: the wall's line, a metre inside, at the top of the wall (as built above).
+    const walk = wall.map(([x, z]) => { const cx0 = 0, cz0 = 95, d = Math.hypot(x - cx0, z - cz0), k = (d - 1.2) / d; return [cx0 + (x - cx0) * k, cz0 + (z - cz0) * k]; });
+    const walkY = walk.map(([x, z], i) => Math.min(cityGround(...wall[i]), cityGround(...wall[(i + 1) % wall.length])) - 1.5 + WH + 1.5);
+    const guards = [];
+    for (let k = 0; k < 6; k++) {
+        const m = createCharacter(lookFor({ role: 'guard', id: 'wallguard' + k }));
+        m.setWeapons({ type: 'spear', accent: 0x2f4a7a }, null); m.root.userData.dynamic = true; scene.add(m.root);
+        guards.push({ m, u: k / 6 * walk.length, dir: k % 2 ? 1 : -1, pause: 0 });
+    }
+    function walkAt(u) { const n = walk.length, i = ((Math.floor(u) % n) + n) % n, j = (i + 1) % n, t = u - Math.floor(u); return [walk[i][0] + (walk[j][0] - walk[i][0]) * t, walkY[i] + (walkY[j] - walkY[i]) * t, walk[i][1] + (walk[j][1] - walk[i][1]) * t]; }
+    // carts: a two-wheeled cart and its ox, going slowly up and down the high street
+    const carts = [];
+    const hs = PLAN.streets.filter(s2 => s2.kind === 'high').flatMap(s2 => s2.pts);
+    const wood2 = flat(0x6a4a2c), dark2 = flat(0x3a2818), ox = flat(0x7a6a58);
+    for (let k = 0; k < 2; k++) {
+        const g2 = new THREE.Group(); g2.userData.dynamic = true;
+        const bed = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.5, 2.4), wood2); bed.position.y = 0.95; g2.add(bed);
+        for (const s3 of [-1, 1]) { const w2 = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.12, 10).rotateZ(Math.PI / 2), dark2); w2.position.set(s3 * 0.85, 0.55, 0); g2.add(w2); }
+        const shaft = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.1, 1.8), dark2); shaft.position.set(0, 0.8, 1.9); g2.add(shaft);
+        const body = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.9, 1.7), ox); body.position.set(0, 1.0, 3.2); g2.add(body);
+        const head = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.5, 0.6), ox); head.position.set(0, 1.25, 4.2); g2.add(head);
+        for (const [lx, lz] of [[-0.3, 2.6], [0.3, 2.6], [-0.3, 3.8], [0.3, 3.8]]) { const l2 = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.6, 0.16), ox); l2.position.set(lx, 0.3, lz); g2.add(l2); }
+        for (let c = 0; c < 3; c++) { const cr = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.4, 0.5), wood2); cr.position.set((c - 1) * 0.45, 1.4, (c % 2) * 0.4 - 0.3); g2.add(cr); }
+        scene.add(g2); carts.push({ g: g2, u: k * hs.length * 0.5, dir: k ? -1 : 1 });
+    }
+    function streetAt(u) { const n = hs.length - 1, uu = Math.max(0, Math.min(n - 0.001, u)), i = Math.floor(uu), t = uu - i; return [hs[i][0] + (hs[i + 1][0] - hs[i][0]) * t, hs[i][1] + (hs[i + 1][1] - hs[i][1]) * t, Math.atan2(hs[i + 1][0] - hs[i][0], hs[i + 1][1] - hs[i][1])]; }
+
     const winMat = M.window;
     const map = {
         id: 'thaloria', name: 'Thaloria', scene, heightAt, terrain: true, colliders, triggers, spawns, stations, hittables: [], gatherSpots: [], gates: [],
@@ -423,6 +452,20 @@ export function createThaloriaCity({ quality }) {
         weatherDef: { id: 'thaloria', biome: 'temperate' },
         town,
         update(t, dt, ctx) { const S = shell.update(dt, ctx), n = S?.night ?? 0; winMat.emissiveIntensity = n * 1.3; M.lamp.emissiveIntensity = n * 2.4; town.update(dt, ctx);
+            const PG = ctx.player.pos;
+            for (const gd of guards) {   // a slow round of the wall, a pause now and then to look out
+                if (gd.pause > 0) { gd.pause -= dt; gd.m.update(dt, { speed: 0, sprinting: false, hopK: null }); continue; }
+                const [ax, ay, az] = walkAt(gd.u); gd.u += gd.dir * dt * 0.09; const [bx, , bz] = walkAt(gd.u);
+                gd.m.root.position.set(ax, ay, az); gd.m.root.rotation.y = Math.atan2(bx - ax, bz - az);
+                gd.m.root.visible = Math.hypot(ax - PG.x, az - PG.z) < 180;
+                if (Math.random() < dt * 0.04) gd.pause = 3 + Math.random() * 4;
+                gd.m.update(dt, { speed: 1.4, sprinting: false, hopK: null });
+            }
+            for (const c of carts) {   // up the high street and back down
+                c.u += c.dir * dt * 0.12; if (c.u > hs.length - 1.01 || c.u < 0) { c.dir *= -1; c.u = Math.max(0, Math.min(hs.length - 1.01, c.u)); }
+                const [x, z, a] = streetAt(c.u); c.g.position.set(x, heightAt(x, z), z); c.g.rotation.y = a + (c.dir < 0 ? Math.PI : 0);
+                c.g.visible = Math.hypot(x - PG.x, z - PG.z) < 200;
+            }
             const PP = ctx.player.pos; for (const p of smoke) { p.sp.visible = Math.abs(p.x - PP.x) < 160 && Math.abs(p.z - PP.z) < 160; if (!p.sp.visible) continue; p.t = (p.t + dt * 0.12) % 1; p.sp.position.set(p.x + p.t * 1.5, p.y + p.t * 7, p.z + p.t * 0.6); p.sp.scale.setScalar(0.8 + p.t * 3); p.sp.material.opacity = 0.5 * Math.sin(p.t * Math.PI); } },
     };
     // the chart: streets, squares, every building's footprint, the wall
