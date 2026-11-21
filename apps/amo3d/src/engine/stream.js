@@ -74,7 +74,7 @@ function cutPaths(st, worldH, x, z, h) {
     return h;
 }
 const RING_MAX = 300;   // the widest a place's blend ring grows (m)
-export function stampHeights(worldH, stamps, B = 60) {
+export function stampHeights(worldH, stamps, B = 60, keepAt = null) {   // keepAt(x, z, h) 0…1: where the land keeps its own height through a ring (rivers, open water)
     return (x, z) => {
         for (const st of stamps) if (st.paths && inRect(st, x, z, B)) return cutPaths(st, worldH, x, z, rawStamp(x, z));
         return rawStamp(x, z);
@@ -95,7 +95,8 @@ export function stampHeights(worldH, stamps, B = 60) {
         // gentle bank wherever the place sits above or below the land, never a steep one
         const Bb = Math.min(RING_MAX, Math.max(st.blend ?? B, Math.abs(w - edge) * 7));
         if (bd >= Bb) return w;
-        return edge + (w - edge) * sm(0, Bb, bd);   // (where the land is lower the ramp only adds — a mountain's flanks; where it is higher it comes down to the edge: never a step)
+        const ring = edge + (w - edge) * sm(0, Bb, bd), keep = keepAt ? keepAt(x, z, w) * sm(4, 40, bd) : 0;   // (at the edge the ring wins: no cliff into the water)
+        return keep > 0 ? ring + (w - ring) * keep : ring;   // (where the land is lower the ramp only adds — a mountain's flanks; where it is higher it comes down to the edge: never a step)
     }
 }
 

@@ -57,7 +57,13 @@ function smoothCourse(pts, step = 12) {
     }
     out.push(pts[pts.length - 1]); return out;
 }
-const RIDGE = feat('ranges', /Summit/).world, FIREMT = feat('ranges', /Fire Gate/).world, RIVER = smoothCourse(feat('rivers', /gorge/).world);
+// The river leaves Thaloria by the gorge's mouth (the city's own river comes out there, ~z -2085 on its west side): a point
+// just outside it, before the course turns south-west (it cut through the city's ground 90 m further south, dammed).
+function riverThroughGorge(pts) {
+    const i = pts.findIndex(([x, z]) => Math.abs(x - 1292) < 2 && Math.abs(z + 2092) < 2);
+    return i < 0 ? pts : [...pts.slice(0, i + 1), [1150, -2086], ...pts.slice(i + 1)];
+}
+const RIDGE = feat('ranges', /Summit/).world, FIREMT = feat('ranges', /Fire Gate/).world, RIVER = smoothCourse(riverThroughGorge(feat('rivers', /gorge/).world));
 // The river's distance, fast: its segments bucketed in 64 m cells (it is hundreds of points once smoothed).
 const RIV_GRID = new Map(), RIV_CELL = 64, RIV_REACH = 260;
 for (let i = 0; i < RIVER.length - 1; i++) {
@@ -99,6 +105,7 @@ const ISLES = [[175, 40, 75, 8], [-230, -160, 95, 13], [60, -310, 45, 6], [-130,
 const lakeShoreR = th => LAKE.R * (1 + 0.16 * Math.sin(3 * th + 0.7) + 0.09 * Math.sin(5 * th + 2.1) + 0.05 * Math.sin(9 * th + 4.0));
 const MARSH = { th: Math.PI, w: 0.75 }, BEACH = { th: Math.PI * 0.25, w: 0.6 };   // the arcs of shore (angle from the lake's middle, half-width)
 const arcK = (th, a) => { const d = Math.atan2(Math.sin(th - a.th), Math.cos(th - a.th)); return smooth(a.w, a.w * 0.4, Math.abs(d)); };
+export const RIVER_COURSE = RIVER;   // (for the checks)
 export function lakeInfo(x, z) {
     const dx = x - LAKE.x, dz = z - LAKE.z, d = Math.hypot(dx, dz), th = Math.atan2(dz, dx), R = lakeShoreR(th);
     return { d, th, R, inside: R - d, marsh: arcK(th, MARSH), beach: arcK(th, BEACH) };
@@ -405,7 +412,7 @@ function graded(ground, stamps) {
         const pe = placeEdge(x, z);
         if (pe < 2) return h;   // a place keeps its own streets
         const b = beds[r.ri], bed = b[r.pi] + (b[r.pi + 1] - b[r.pi]) * r.t;
-        return h + (bed - h) * (1 - smooth(4, 16, r.d));   // flat across 8 m, banks out to 16 m (its profile already meets a place's ground where it enters)
+        return h + (bed - h) * (1 - smooth(4, 16, r.d)) * smooth(6, 20, riverDist(x, z));   // flat across 8 m, banks out to 16 m (its profile already meets a place's ground where it enters); at a river it fords — the channel keeps its depth (no dam)
     };
     fn.beds = beds;   // (for the checks: tools/node_world.mjs roads)
     return fn;
@@ -569,7 +576,9 @@ function biomeLabels(stamps) {
     return Object.entries(acc).map(([id, a]) => ({ name: BIOMES[id].name, x: a.x / a.n, z: a.z / a.n }));
 }
 // The open world's ground: the land, the places set into it, the roads graded in last (also used by tools/node_world.mjs).
-export function worldHeights(stamps) { return graded(stampHeights(eldoriaHeight, stamps, 60), stamps); }
+// (a place's blend ring never fills a river or open water: the land keeps its own height there, fading back over the banks)
+const keepWater = (x, z, h) => Math.max(1 - smooth(8, 34, riverDist(x, z)), smooth(WATER + 0.6, WATER - 1.2, h));
+export function worldHeights(stamps) { return graded(stampHeights(eldoriaHeight, stamps, 60, keepWater), stamps); }
 export function createEldoriaWorld({ quality } = {}) {
     const stamps = makeStamps(quality);
     const heightAt = worldHeights(stamps);

@@ -46,5 +46,26 @@ try {
     });
     else if (cmd === 'road') { const G0 = S.stampHeights(E.eldoriaHeight, stamps, 60); const ri = +args[0], c = E.ROAD_CURVES[ri], b = H.beds[ri], [i0, i1] = (args[1] ?? '0-40').split('-').map(Number);
         for (let i = i0; i <= Math.min(i1, c.length - 1); i++) { const [x, z] = c[i], nr = stamps.map(s => [s.id, edgeDist(s, x, z)]).sort((p, q) => p[1] - q[1])[0]; console.log(`${i} ${Math.round(x)},${Math.round(z)} bed ${b[i].toFixed(1)} placed ${G0(x, z).toFixed(1)} ground ${H(x, z).toFixed(1)} land ${E.eldoriaHeight(x, z).toFixed(1)} (${nr[0]} ${Math.round(nr[1])})`); } }
-    else console.log('checks: seams | wading | roads | road <i> [from-to] | at x,z …');
+    else if (cmd === 'survey') {   // the whole land: lowland cliffs, isolated flooded pits, places in water
+        const S2 = 16, out = { cliff: [], pit: [] }, inPlace = (x, z) => stamps.some(st => edgeDist(st, x, z) < 0);
+        for (let x = -5500; x < 5500; x += S2) for (let z = -5500; z < 5500; z += S2) {
+            const h = H(x, z); if (h < -6) continue;
+            const gx = (H(x + 2, z) - H(x - 2, z)) / 4, gz = (H(x, z + 2) - H(x, z - 2)) / 4, g = Math.hypot(gx, gz);
+            if (g > 1.2 && h < 40 && !inPlace(x, z)) out.cliff.push([x, z, +g.toFixed(1), +h.toFixed(0)]);
+            if (h < -2.3 && h > -6 && !inPlace(x, z)) {   // under the water: a pit if the land rises all round within 40 m
+                let rim = 0; for (let a = 0; a < 6.28; a += 0.785) { let m = h; for (let r = 4; r <= 40; r += 4) m = Math.max(m, H(x + Math.cos(a) * r, z + Math.sin(a) * r)); if (m > -1.5) rim++; }
+                if (rim === 8) out.pit.push([x, z, +h.toFixed(1)]);
+            }
+        }
+        const cl = (l, d = 60) => { const g = []; for (const p of l) { const q = g.find(c => Math.hypot(c[0] - p[0], c[1] - p[1]) < d); if (q) q[3]++; else g.push([p[0], p[1], p[2], 1]); } return g.sort((a, b) => b[3] - a[3]); };
+        console.log('lowland cliffs (clusters, worst first):', JSON.stringify(cl(out.cliff).slice(0, 12)));
+        console.log('isolated pits:', JSON.stringify(cl(out.pit).slice(0, 12)));
+        const under = E.LAYOUT_PLACES?.() ?? []; console.log('places checked separately');
+    }
+    else if (cmd === 'river') {   // along the river's course: where it runs dry (the land above its water)
+        const R = E.RIVER_COURSE; let dry = [];
+        for (let i = 0; i < R.length; i++) { const [x, z] = R[i], h = H(x, z), l = E.eldoriaHeight(x, z); if (h > -2.2) dry.push(`${Math.round(x)},${Math.round(z)} ground ${h.toFixed(1)} land ${l.toFixed(1)}`); }
+        console.log(R.length + ' points; dry: ' + dry.length); for (const d of dry.slice(0, 60)) console.log('  ' + d);
+    }
+    else console.log('checks: seams | wading | roads | road <i> [from-to] | survey | river | at x,z …');
 } finally { await vite.close(); }
