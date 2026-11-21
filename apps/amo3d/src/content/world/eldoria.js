@@ -135,7 +135,7 @@ const ARCHI = (() => {   // the Sunward Isles: islands scattered in the south-ea
     for (let k = 0; k < 22; k++) { const a = rnd() * Math.PI * 2, r = 120 + rnd() * 780; out.push({ x: c.x + Math.cos(a) * r, z: c.z + Math.sin(a) * r * 0.75, r: 35 + rnd() * rnd() * 170, h: 3 + rnd() * rnd() * 34 }); }
     return { c, isles: out };
 })();
-export const ARCHIPELAGO = ARCHI.c;
+export const ARCHIPELAGO = ARCHI.c, ARCHIPELAGO_ISLES = ARCHI.isles;
 // ---------- The Divide: the north is shut but for the Summit pass ----------
 // The northern range, a spur down to the Summit's ridge's west end, the ridge itself (the one gap: the Summit), then on
 // from its east end, south of the Ruins, to the sea. Beyond: the Sanctuary, the Fire Gate, the Inferno Labyrinth, the Ruins.
@@ -177,12 +177,16 @@ const NORTH_FOOT_CAP = (() => {
 })();
 // Port Silver's piers: [dz, length] from the quay (x = PORT.x + 78); their decks are ground you walk on.
 const PIERS = [[-46, 46], [0, 60], [46, 40]], DECK_Y = WATER + 0.9 + 0.125;
+const DECKS = [];   // other walkable decks [x0, z0, x1, z1] at DECK_Y (the isles' hamlet's pier)
 function pierAt(x, z) {
+    for (const [x0, z0, x1, z1] of DECKS) if (x >= x0 && x <= x1 && z >= z0 && z <= z1) return DECK_Y;
     const lx = x - (PORT.x + 78);
     if (lx < -2 || lx > 62) return null;
     for (const [dz, len] of PIERS) if (lx <= len && Math.abs(z - (PORT.z + dz)) < 1.6) return DECK_Y;
     return null;
 }
+// The Sunward Isles: a fishing hamlet on the big low island, a ruin crowning the tallest (unnamed for now: names wait on the canon check)
+const ISLE_HAMLET = ARCHI.isles.reduce((b, I) => (I.h < 8 && I.r > (b?.r ?? 0) ? I : b), null), ISLE_RUIN = ARCHI.isles.reduce((b, I) => (I.h > (b?.h ?? 0) ? I : b), null);
 const NORTH_EDGE = W([0, 45])[1], SOUTH_EDGE = W([0, 1090])[1];
 
 // The coast's x at a given z (the line runs north–south down the east side).
@@ -619,6 +623,7 @@ export function createEldoriaWorld({ quality } = {}) {
                 if (L.marsh > 0.1 && L.inside > -220 && h < WATER + 1.6) { const n = fbm(x * 0.09, z * 0.09, 2); col.set(n > 0.56 ? '#3e5a2a' : n > 0.44 ? '#4a5a30' : '#4a4630'); return true; }   // mud, rushes and sedge
                 if (L.marsh < 0.1 && h < WATER + 1.0 && h >= WATER - 0.2) { col.set('#b8a878'); return true; }   // a sandy margin elsewhere, and round the islands
             } }
+            if (h < WATER + 2.4 && Math.hypot(x - ARCHI.c.x, z - ARCHI.c.z) < 1250) { const n = fbm(x * 0.08, z * 0.08, 2); col.set(n > 0.6 ? '#d6c492' : '#e4d6a8'); return true; }   // the isles' pale beaches
             if ((x < westFoot(z) + 60 || z < northFoot(x) + 60) && h > 30) {   // the western and northern chains: snow only on their summits, bare rock below, high meadows lower
                 const nz = fbm(x * 0.03, z * 0.03, 2) * 12;
                 if (h > 112 + nz) { col.set('#e4e8ec'); return true; }
@@ -660,6 +665,47 @@ export function createEldoriaWorld({ quality } = {}) {
       world.swimming = (x, z) => pierAt(x, z) == null && baseSwim(x, z);
       world.wading = (x, z) => pierAt(x, z) == null && baseWade(x, z);
       const upd = world.update; world.update = (t2, dt, ctx) => { upd(t2, dt, ctx); if (Math.hypot(ctx.player.pos.x - PORT.x, ctx.player.pos.z - PORT.z) < 500) for (const b of moored) b.update(dt, 0); g.visible = Math.hypot(ctx.player.pos.x - PORT.x, ctx.player.pos.z - PORT.z) < 900; };
+    }
+    // ---------- the Sunward Isles: a fishing hamlet (huts, a pier with boats, drying racks) and a ruin on the tallest isle ----------
+    if (ISLE_HAMLET && ISLE_RUIN) {
+        const g = new THREE.Group(), wood = flat(0x6e5236), dark = flat(0x3e2c1c), thatch = flat(0xb89a5a), wall = flat(0xd8ccb0), stone = flat(0x9a948a), moss = flat(0x6a7a5a);
+        const box = (m, x, y, z, w, h, d, ry = 0, rx = 0) => { const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); o.position.set(x, y, z); o.rotation.set(rx, ry, 0); o.castShadow = o.receiveShadow = true; g.add(o); return o; };
+        const H0 = (x, z) => world.heightAt(x, z), I = ISLE_HAMLET, toMain = Math.atan2(ARCHI.c.z - I.z, ARCHI.c.x - I.x) + Math.PI * 0.85;   // the hamlet faces the open water towards the mainland
+        // the huts: on the low ground just above the beach, in an arc
+        let placed = 0;
+        for (let k = 0; k < 40 && placed < 6; k++) {
+            const a = toMain + (k % 9 - 4) * 0.16, r = I.r * (0.35 + 0.07 * Math.floor(k / 9)), x = I.x + Math.cos(a) * r, z = I.z + Math.sin(a) * r, y = H0(x, z);
+            if (y < WATER + 1.4 || y > WATER + 7 || Math.abs(H0(x + 3, z) - H0(x - 3, z)) > 1.6) continue;
+            const ry = -a + Math.PI / 2;
+            box(wall, x, y + 1.3, z, 4.2, 2.6, 3.4, ry);
+            const roof = new THREE.Mesh(new THREE.ConeGeometry(3.4, 2.2, 4), thatch); roof.position.set(x, y + 3.7, z); roof.rotation.y = ry + Math.PI / 4; roof.scale.set(1, 1, 0.85); roof.castShadow = true; g.add(roof);
+            box(dark, x + Math.cos(a) * 1.71, y + 0.9, z + Math.sin(a) * 1.71, 1.0, 1.8, 0.1, ry);   // the door, towards the sea
+            world.addWall({ x, z, r: 2.6, kind: 'wall', y0: y - 1, y1: y + 5 });
+            if (placed % 2 === 0) { for (const s2 of [-1.6, 1.6]) box(wood, x + Math.cos(a + 1.57) * (3.4 + s2), y + 1, z + Math.sin(a + 1.57) * (3.4 + s2), 0.12, 2, 0.12); box(wood, x + Math.cos(a + 1.57) * 3.4, y + 1.9, z + Math.sin(a + 1.57) * 3.4, 0.1, 0.1, 3.4, ry + Math.PI / 2); }   // a drying rack
+            placed++;
+        }
+        // the pier: from the shore towards the mainland, walkable; a rowboat and a sailboat moored
+        let shore = null; for (let r = I.r * 0.3; r < I.r * 1.6 && !shore; r += 2) { const x = I.x + Math.cos(toMain) * r, z = I.z + Math.sin(toMain) * r; if (H0(x, z) < WATER + 0.3) shore = { x, z }; }
+        if (shore) {
+            const dx = Math.sign(Math.cos(toMain)) || -1, x0 = shore.x - dx * 4, x1 = shore.x + dx * 26, z0 = shore.z;
+            box(wood, (x0 + x1) / 2, WATER + 0.9, z0, Math.abs(x1 - x0), 0.25, 3, 0);
+            for (let k = 0; k <= Math.abs(x1 - x0); k += 6) for (const s2 of [-1.3, 1.3]) box(dark, Math.min(x0, x1) + k, WATER - 1, z0 + s2, 0.3, 4, 0.3);
+            DECKS.push([Math.min(x0, x1), z0 - 1.5, Math.max(x0, x1), z0 + 1.5]);
+            const rb = buildBoat(); rb.root.position.set(x1 - dx * 6, WATER + 0.1, z0 + 3.6); rb.root.rotation.y = Math.PI / 2; g.add(rb.root);
+            const sb = buildSailboat({ sail: 0xe8dcc0, trim: 0x2a5a4a }); sb.root.position.set(x1 - dx * 14, WATER + 0.05, z0 - 5); sb.root.rotation.y = Math.PI / 2; g.add(sb.root);
+            for (let k = 0; k < 4; k++) box(wood, shore.x - dx * (2 + k * 1.3), H0(shore.x - dx * (2 + k * 1.3), z0 + 2.5) + 0.35, z0 + 2.5, 0.8, 0.7, 0.8);   // crates on the beach
+        }
+        // the ruin: a ring of standing stones and a broken arch on the tallest isle's crown
+        const R = ISLE_RUIN, top = H0(R.x, R.z);
+        for (let k = 0; k < 9; k++) {
+            const a = k / 9 * Math.PI * 2, x = R.x + Math.cos(a) * 9, z = R.z + Math.sin(a) * 9, y = H0(x, z), tall = k % 3 === 1 ? 1.4 : 3.2 + (k % 2) * 0.8;
+            box(k % 4 === 0 ? moss : stone, x, y + tall / 2 - 0.2, z, 1.3, tall, 0.9, -a, k === 5 ? 0.35 : 0);
+            world.addWall({ x, z, r: 0.9, kind: 'wall', y0: y - 1, y1: y + tall });
+        }
+        for (const s2 of [-2.2, 2.2]) { box(stone, R.x + s2, top + 2.4, R.z, 1.1, 4.8, 1.1); world.addWall({ x: R.x + s2, z: R.z, r: 0.8, kind: 'wall', y0: top - 1, y1: top + 5 }); }
+        box(stone, R.x + 0.6, top + 0.4, R.z + 2.2, 5.6, 0.8, 1.0, 0.25);   // its fallen lintel
+        world.scene.add(g);
+        const upd = world.update; world.update = (t2, dt, ctx) => { upd(t2, dt, ctx); g.visible = Math.hypot(ctx.player.pos.x - ARCHI.c.x, ctx.player.pos.z - ARCHI.c.z) < 1500; };
     }
     return world;
 }

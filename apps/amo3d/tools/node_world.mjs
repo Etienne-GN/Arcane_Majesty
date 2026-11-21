@@ -67,5 +67,6 @@ try {
         for (let i = 0; i < R.length; i++) { const [x, z] = R[i], h = H(x, z), l = E.eldoriaHeight(x, z); if (h > -2.2) dry.push(`${Math.round(x)},${Math.round(z)} ground ${h.toFixed(1)} land ${l.toFixed(1)}`); }
         console.log(R.length + ' points; dry: ' + dry.length); for (const d of dry.slice(0, 60)) console.log('  ' + d);
     }
-    else console.log('checks: seams | wading | roads | road <i> [from-to] | survey | river | at x,z …');
+    else if (cmd === 'isles') { const A = E.ARCHIPELAGO_ISLES; console.log('centre', Math.round(E.ARCHIPELAGO.x), Math.round(E.ARCHIPELAGO.z)); for (const I of A) console.log(`isle ${Math.round(I.x)},${Math.round(I.z)} r ${Math.round(I.r)} h ${I.h.toFixed(0)} ground@centre ${H(I.x, I.z).toFixed(1)}`); }
+    else console.log('checks: seams | wading | roads | road <i> [from-to] | survey | river | isles | at x,z …');
 } finally { await vite.close(); }

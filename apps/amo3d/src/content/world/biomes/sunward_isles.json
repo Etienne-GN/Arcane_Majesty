@@ -1,0 +1,39 @@
+{
+ "id": "sunward_isles",
+ "name": "Sunward Isles",
+ "description": "The archipelago off the south-east: bright sea meadows, pale sand beaches, broadleaf and birch woods on the bigger islands, rock where they rise steeply from the sea.",
+ "radius": 900,
+ "palette": {
+  "grassA": "#6e9a4c",
+  "grassB": "#9ab862",
+  "rock": "#8a8478",
+  "dirt": "#b8a478"
+ },
+ "vegetation": {
+  "density": 0.85,
+  "kinds": {
+   "broad": 0.55,
+   "birch": 0.3,
+   "pine": 0.15
+  }
+ },
+ "creatures": [],
+ "mood": {
+  "fog": "#d0dce4",
+  "fogNear": 140,
+  "fogFar": 820,
+  "fogMix": 0.35,
+  "light": 1.08,
+  "nightFloor": 0.5
+ },
+ "wildlife": [
+  [
+   "crow",
+   3
+  ],
+  [
+   "rabbit",
+   2
+  ]
+ ]
+}
