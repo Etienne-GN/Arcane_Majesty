@@ -23,5 +23,18 @@
   "ruins_of_eldoria": "ruined_moor",
   "the_crossroads": "temperate_meadow"
  },
- "zones": []
+ "zones": [
+  {
+   "x": -1825,
+   "z": -282,
+   "r": 950,
+   "biome": "lakeshore"
+  },
+  {
+   "x": -2420,
+   "z": -282,
+   "r": 330,
+   "biome": "marsh"
+  }
+ ]
 }

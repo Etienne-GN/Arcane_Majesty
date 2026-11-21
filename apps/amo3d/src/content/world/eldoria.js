@@ -89,6 +89,18 @@ function gorgeMask(a, b, x, z, w) {
     return along > 0 && along < L ? smooth(w * 1.8, w, lat) : 0;
 }
 const WEST_PEAKS = [[850, -2390, 230, 330], [1010, -2530, 290, 360], [760, -2240, 170, 280], [1160, -2470, 200, 300], [640, -2420, 190, 260]];   // [x, z, height, radius]
+// Lake Aethera, the great lake (asked 2026-11-20: big, islands, a marsh, a beach): ~1.2 km across, south-west of the
+// Lake Aethera place (which sits on its north-east shore where the river comes in). A wandering shore; deep in the
+// middle; islands (the Sunken Temple's on the east); a reed marsh on the west shore; a sandy beach on the south-east.
+const LAKE_P = place('Lake Aethera'), LAKE = { x: LAKE_P.x - 450, z: LAKE_P.z + 350, R: 600 };
+const ISLES = [[175, 40, 75, 8], [-230, -160, 95, 13], [60, -310, 45, 6], [-130, 240, 55, 9], [330, -120, 30, 4]];   // [dx, dz, r, height]
+const lakeShoreR = th => LAKE.R * (1 + 0.16 * Math.sin(3 * th + 0.7) + 0.09 * Math.sin(5 * th + 2.1) + 0.05 * Math.sin(9 * th + 4.0));
+const MARSH = { th: Math.PI, w: 0.75 }, BEACH = { th: Math.PI * 0.25, w: 0.6 };   // the arcs of shore (angle from the lake's middle, half-width)
+const arcK = (th, a) => { const d = Math.atan2(Math.sin(th - a.th), Math.cos(th - a.th)); return smooth(a.w, a.w * 0.4, Math.abs(d)); };
+export function lakeInfo(x, z) {
+    const dx = x - LAKE.x, dz = z - LAKE.z, d = Math.hypot(dx, dz), th = Math.atan2(dz, dx), R = lakeShoreR(th);
+    return { d, th, R, inside: R - d, marsh: arcK(th, MARSH), beach: arcK(th, BEACH) };
+}
 const NORTH_EDGE = W([0, 45])[1], SOUTH_EDGE = W([0, 1090])[1];
 
 // The coast's x at a given z (the line runs north–south down the east side).
@@ -176,6 +188,21 @@ export function eldoriaHeight(x, z) {
         const d = Math.hypot(x - px, z - pz);
         if (d < pr) { const crag = 0.75 + 0.5 * Math.pow(1 - Math.abs(fbm(x * 0.012 + px, z * 0.012 + pz, 3) * 2 - 1), 2); h = Math.max(h, h + ph * Math.pow(1 - d / pr, 1.7) * crag); }
     }
+    // Lake Aethera: the lake bed, the shore graded to it (a sandy beach, a reed marsh of pools and mud), its islands
+    { const L = lakeInfo(x, z);
+      if (L.inside > -260) {
+          const shoreH = WATER + 0.5 + (fbm(x * 0.02, z * 0.02, 2) - 0.5) * 0.6, bed = WATER - 1.2 - 8 * smooth(0, 160, L.inside) * (1 - 0.7 * L.marsh);
+          if (L.inside > 0) h = bed;   // the water
+          else h = h + (shoreH - h) * smooth(-260, -20, L.inside) * (L.beach > 0.3 ? 1 : 0.85);   // the land slopes gently down to it
+          if (L.marsh > 0.05 && L.inside > -200 && L.inside < 120) {   // the marsh: low ground just above and below the water, pools among mud and reeds
+              const m = WATER + (fbm(x * 0.045 + 7, z * 0.045 - 3, 3) - 0.48) * 2.4;
+              h = h + (m - h) * L.marsh * smooth(-200, -60, L.inside) * smooth(120, 40, L.inside);
+          }
+          for (const [ix, iz, ir, ih] of ISLES) {   // islands: rocky humps, a little beach round each
+              const di = Math.hypot(x - (LAKE.x + ix), z - (LAKE.z + iz)), wob = ir * (1 + 0.2 * Math.sin(Math.atan2(z - LAKE.z - iz, x - LAKE.x - ix) * 3 + ix));
+              if (di < wob * 1.3) h = Math.max(h, WATER - 0.6 + (ih + 0.6) * Math.pow(Math.max(0, 1 - di / (wob * 1.3)), 1.4) * (0.8 + 0.4 * fbm(x * 0.05, z * 0.05, 2)));
+          }
+      } }
     // the sea: east of the coast, past the south edge; high mountains closing the north
     const cx = coastX(z);
     if (x > cx - 160) h = h + (WATER - 10 - h) * smooth(cx - 160, cx + 60, x);
@@ -432,7 +459,9 @@ export function createEldoriaWorld({ quality } = {}) {
         mood: { fog: '#c8d2d8', fogNear: 180, fogFar: 760, fogMix: 0.5 },
         places, biomeAt,
         // fishing along the river: a spot of shallows every ~220 m of its course, on the water's edge
-        extraGather: (() => { const out = []; let acc = 0; for (let i = 1; i < RIVER.length; i++) { const [ax, az] = RIVER[i - 1], [bx, bz] = RIVER[i]; acc += Math.hypot(bx - ax, bz - az); if (acc < 220) continue; acc = 0; const L = Math.hypot(bx - ax, bz - az) || 1, nx = -(bz - az) / L, nz = (bx - ax) / L; for (const side of [1, -1]) { const x = bx + nx * side * 10, z = bz + nz * side * 10; if (heightAt(x, z) > WATER - 0.9 && heightAt(x, z) < WATER + 1.5) { out.push({ type: 'shallows', x, z }); break; } } } return out; })(),
+        extraGather: (() => { const out = [];
+            for (let k = 0; k < 110; k++) { const th = MARSH.th + (k / 110 - 0.5) * MARSH.w * 1.7, r = lakeShoreR(th) - 80 + (k * 37 % 170); const x = LAKE.x + Math.cos(th) * r, z = LAKE.z + Math.sin(th) * r; const hh = eldoriaHeight(x, z); if (hh > WATER - 0.8 && hh < WATER + 1) out.push({ type: k % 7 === 0 ? 'shallows' : 'reeds', x, z }); }
+            /* (above: the marsh's reeds, and fish in its pools) */ let acc = 0; for (let i = 1; i < RIVER.length; i++) { const [ax, az] = RIVER[i - 1], [bx, bz] = RIVER[i]; acc += Math.hypot(bx - ax, bz - az); if (acc < 220) continue; acc = 0; const L = Math.hypot(bx - ax, bz - az) || 1, nx = -(bz - az) / L, nz = (bx - ax) / L; for (const side of [1, -1]) { const x = bx + nx * side * 10, z = bz + nz * side * 10; if (heightAt(x, z) > WATER - 0.9 && heightAt(x, z) < WATER + 1.5) { out.push({ type: 'shallows', x, z }); break; } } } return out; })(),
         // the open land's wildlife (engine/stream.js wildStep): animals and creatures the game knows, into the world's scene
         spawnWild: (kind, type, posts, rng) => {
             const sc = world?.scene; if (!sc) return [];
@@ -444,10 +473,16 @@ export function createEldoriaWorld({ quality } = {}) {
             return [];
         },
         chart: { pxPerM: 0.0625, tileM: 4, detail: true, biomeLabels: biomeLabels(stamps), groundAt: (x, z) => (roadDist(x, z) < 6 ? 'road' : null) },
-        clearAt: (x, z) => roadDist(x, z) < 5 || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || riverDist(x, z) < 9,
+        clearAt: (x, z) => roadDist(x, z) < 5 || (() => { const L = lakeInfo(x, z); return (L.beach > 0.3 && L.inside > -45) || (L.marsh > 0.4 && L.inside > -120 && fbm(x * 0.05, z * 0.05, 2) > 0.45); })() || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || riverDist(x, z) < 9,
         groundColor: (x, z, h, col) => {
+            if (h < WATER + 1.6 && h > WATER - 0.6) { const L = lakeInfo(x, z); if (L.marsh > 0.1 && L.inside > -220 && L.inside < 140) { const n = fbm(x * 0.09, z * 0.09, 2); col.set(n > 0.56 ? '#3e5a2a' : n > 0.44 ? '#4a5a30' : '#4a4630'); return true; } }   // the marsh: mud, rushes, sedge
             if (h < WATER + 0.8) return false;
             if (roadDist(x, z) < 3.2) { col.set('#8a7454'); return true; }   // the roads
+            { const L = lakeInfo(x, z); if (L.inside > -260) {   // round the great lake: its beach, its marsh
+                if (L.beach > 0.3 && L.inside > -40 && h < WATER + 2.5) { col.set('#d8c89a'); return true; }
+                if (L.marsh > 0.1 && L.inside > -220 && h < WATER + 1.6) { const n = fbm(x * 0.09, z * 0.09, 2); col.set(n > 0.56 ? '#3e5a2a' : n > 0.44 ? '#4a5a30' : '#4a4630'); return true; }   // mud, rushes and sedge
+                if (L.marsh < 0.1 && h < WATER + 1.0 && h >= WATER - 0.2) { col.set('#b8a878'); return true; }   // a sandy margin elsewhere, and round the islands
+            } }
             const dP = Math.hypot(x - PASS.x, z - PASS.z);   // the Summit's massif: bare rock above the trees, snow on the heights (as the mountain's own)
             if (dP < 420) { const nz = fbm(x * 0.03, z * 0.03, 2) * 10; if (h > 92 + nz) { col.set('#e4e8ec'); return true; } if (h > 44 + nz) { col.set(h > 70 + nz ? '#6a6660' : '#7a756c'); return true; } }
             const dG = Math.hypot(x - GLADE.x, z - GLADE.z);   // the glade's range: snow down to its crater's rim, bare rock below the snow

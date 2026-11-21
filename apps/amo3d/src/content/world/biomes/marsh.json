@@ -1,0 +1,48 @@
+{
+  "id": "marsh",
+  "name": "Reed marsh",
+  "description": "The marsh on Lake Aethera's west shore: pools among mud and reeds, drowned trees, a low mist, frogs and herons.",
+  "radius": 330,
+  "palette": {
+    "grassA": "#4a5a32",
+    "grassB": "#5e6a3c",
+    "rock": "#5a5a50",
+    "dirt": "#4a4430"
+  },
+  "vegetation": {
+    "density": 0.55,
+    "kinds": {
+      "dead": 0.4,
+      "broad": 0.35,
+      "birch": 0.25
+    },
+    "colors": {
+      "broad": "#3e5a2e",
+      "birch": "#6a7a3a"
+    },
+    "trunk": {
+      "dead": "#3a3a32"
+    }
+  },
+  "creatures": [
+    "rot_toad"
+  ],
+  "mood": {
+    "fog": "#9aa890",
+    "fogNear": 60,
+    "fogFar": 340,
+    "fogMix": 0.6,
+    "light": 0.9,
+    "nightFloor": 0.45
+  },
+  "wildlife": [
+    [
+      "crow",
+      3
+    ],
+    [
+      "rabbit",
+      1
+    ]
+  ]
+}

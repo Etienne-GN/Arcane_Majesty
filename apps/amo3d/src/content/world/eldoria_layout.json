@@ -67,7 +67,7 @@
     -2062
    ],
    "in": [
-    "Thaloria"
+    "The Citadel of Thaloria"
    ]
   },
   {
@@ -129,6 +129,23 @@
    ],
    "in": [
     "The Scarlands"
+   ]
+  },
+  {
+   "name": "The Great Rift",
+   "origin": "album",
+   "db": [
+    1250,
+    960
+   ],
+   "world": [
+    2200,
+    2172
+   ],
+   "in": [
+    "Nythoria",
+    "Auroria",
+    "Eldoria"
    ]
   },
   {
@@ -387,6 +404,21 @@
    ]
   },
   {
+   "name": "The Citadel of Thaloria",
+   "origin": "game",
+   "db": [
+    1100,
+    164.8
+   ],
+   "world": [
+    1375,
+    -2201
+   ],
+   "in": [
+    "Thaloria"
+   ]
+  },
+  {
    "name": "Thaloria Glade (Eldrin's Tower's vale)",
    "origin": "game (no DB node)",
    "db": [
@@ -426,21 +458,6 @@
    "world": [
     2750,
     -1842
-   ],
-   "in": [
-    "Thaloria"
-   ]
-  },
-  {
-   "name": "The Citadel of Thaloria",
-   "origin": "game (no DB node)",
-   "db": [
-    1100,
-    164.8
-   ],
-   "world": [
-    1375,
-    -2201
    ],
    "in": [
     "Thaloria"
@@ -853,15 +870,23 @@
     ]
    },
    {
-    "what": "the Crossroads → the Emerald Fields",
+    "what": "the Crossroads → round the south of Lake Aethera → the Emerald Fields",
     "db": [
      [
       700,
       550
      ],
      [
-      450,
-      600
+      560,
+      640
+     ],
+     [
+      420,
+      680
+     ],
+     [
+      300,
+      670
      ],
      [
       200,
@@ -874,8 +899,16 @@
       -82
      ],
      [
-      -2200,
-      192
+      -1595,
+      412
+     ],
+     [
+      -2365,
+      632
+     ],
+     [
+      -3025,
+      578
      ],
      [
       -3575,

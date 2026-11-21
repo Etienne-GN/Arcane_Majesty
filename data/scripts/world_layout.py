@@ -13,9 +13,10 @@ def q(stmt):
 rows = q("MATCH (l:Location) WHERE l.x IS NOT NULL OPTIONAL MATCH (l)-[:LOCATED_IN]->(p) RETURN l.name, l.origin, l.x, l.y, collect(p.name)")
 SCALE, CX, CY = 5.5, 850, 565
 W = lambda x, y: (round((x - CX) * SCALE), round((y - CY) * SCALE))
-places = [{'name': n, 'origin': o, 'db': [x, y], 'world': W(x, y), 'in': [p for p in ins if p]} for n, o, x, y, ins in rows]
+NYTHORIA = {'Nythoria', 'Nythoria Surface', 'The Shadow Realm', 'The Underworld', 'Underworld'}   # (the other plane's places share Eldoria's x/y as twins: not on Eldoria's map)
+places = [{'name': n, 'origin': o, 'db': [x, y], 'world': W(x, y), 'in': [p for p in ins if p]} for n, o, x, y, ins in rows if not (set(ins) & NYTHORIA and not set(ins) & {'The Scarlands', 'Eldoria'})]
 # Game places with no DB node, placed by their neighbours (DB units).
-GAME = [("Thaloria Glade (Eldrin's Tower's vale)", 1210, 315), ('The East Road (Thalorian Wilds)', 1250, 218), ('Summit of Despair — the Approach', 1350, 230), ('The Citadel of Thaloria', 1100, 164.8), ('The Lower Town of Thaloria', 1100, 257.7)]
+GAME = [("Thaloria Glade (Eldrin's Tower's vale)", 1210, 315), ('The East Road (Thalorian Wilds)', 1250, 218), ('Summit of Despair — the Approach', 1350, 230), ('The Lower Town of Thaloria', 1100, 257.7)]
 for n, x, y in GAME: places.append({'name': n, 'origin': 'game (no DB node)', 'db': [x, y], 'world': W(x, y), 'in': ['Thaloria']})
 # Land features (unnamed, drafted): Thaloria's eastern range with the Summit pass; the Fire Gate's mountain; the river
 # from the range through Thaloria's gorge down past the Silverrun to Lake Aethera; the east coast; the roads.
@@ -28,7 +29,7 @@ features = {
               {'what': "the glade's pass → south out of the range, round below its peaks, up through the Lower Town to Thaloria's South Gate", 'db': [[1207, 336], [1205, 356], [1182, 374], [1140, 377], [1110, 335], [1101, 270]]},
               {'what': 'Thaloria (the West Gate) → the Crossroads', 'db': [[1068.1, 223.0], [1000, 260], [900, 420], [700, 550]]},
               {'what': 'the Crossroads → Port Silver', 'db': [[700, 550], [1100, 560], [1500, 550]]},
-              {'what': 'the Crossroads → the Emerald Fields', 'db': [[700, 550], [450, 600], [200, 650]]},
+              {'what': 'the Crossroads → round the south of Lake Aethera → the Emerald Fields', 'db': [[700, 550], [560, 640], [420, 680], [300, 670], [200, 650]]},
               {'what': 'the Crossroads → Graywatch', 'db': [[700, 550], [900, 780], [1050, 950]]},
               {'what': 'the Crossroads → Duskmeet', 'db': [[700, 550], [550, 780], [400, 950]]}],
 }
