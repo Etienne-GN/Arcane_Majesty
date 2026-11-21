@@ -99,7 +99,7 @@ export function stampHeights(worldH, stamps, B = 60) {
 // Hooks for a real world (content/world/eldoria.js): spawn {x,z,facing}; clearAt(x,z) — no trees here (roads, a town's
 // plateau); groundColor(x,z,h,col) — paint a road or a place (return true when painted); places [{name,x,z}] — markers
 // standing where a place will be built (W2.1), named when you come near.
-export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], stamps = [], chart = null, mood = null, biomeAt = null, spawnWild = null, quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
+export function createStreamWorld({ id = 'stream_test', name = 'Open world test', size = 4096, seed = 4242, heightAt = continentHeight(size), spawn = null, clearAt = null, groundColor = null, places = [], stamps = [], chart = null, mood = null, biomeAt = null, spawnWild = null, extraGather = [], quality = { foliage: 1, shadows: true, shadowMap: 2048, shadowRange: 48, fogFar: 1, particles: 1 } } = {}) {
     const scene = new THREE.Scene();
     const shell = createOutdoorShell(scene, { quality, mood: mood ?? { fog: '#c8d4d8', fogNear: 160, fogFar: 700, fogMix: 0.55 } });
     const half = size / 2, NT = Math.ceil(size / TILE);
@@ -259,6 +259,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             const dg = near(gone);
             if (dg < 20 && dg <= near(kept)) v.parent?.remove(v);
         }
+        for (const gs of st.map.gatherSpots ?? []) map.gatherSpots.push({ ...gs, x: gs.x + st.ox, z: gs.z + st.oz });   // its herbs, wood, ore, fishing
         for (const s2 of st.map.stations ?? []) if (s2.pos) map.stations.push({ ...s2, pos: s2.pos.clone().add(new THREE.Vector3(st.ox, st.oy, st.oz)) });
         for (const [k, sp] of Object.entries(st.map.spawns ?? {})) map.spawns[`${st.id}:${k}`] = { ...sp, x: sp.x + st.ox, z: sp.z + st.oz };
         if (map.mapInfo) map.mapInfo.landmarks.push(...(st.map.mapInfo?.landmarks ?? []).map(l => ({ ...l, x: l.x + st.ox, z: l.z + st.oz })));
@@ -586,6 +587,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         setVisible(v) { for (const st of stamps) if (st.built) st.map.town?.setVisible?.(v); },
         update() {},
     };
+    map.gatherSpots.push(...extraGather);   // the open land's own (the world: fishing along the rivers)
     map.refreshLife = refreshLife;   // after anything is added to a stamp's hittables (main.js: each place's animals)
     map.ensureStamp = id => { const st = stamps.find(s2 => s2.id === id); return st ? integrate(st) : null; };   // (a door or a save arriving there)
     // Built at once: places given already built, and lazy ones near the arrival point; the rest as you come near.

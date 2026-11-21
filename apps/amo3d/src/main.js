@@ -308,7 +308,7 @@ const world = createMapManager({
             map._animals = true;
             for (const st of map.stamps) if (st.built && ANIMALS[st.id]) populate(st.map, st.group, ANIMALS[st.id], dailyRng);
             map.refreshLife?.();
-            map.onStampBuilt = st => { if (ANIMALS[st.id]) { populate(st.map, st.group, ANIMALS[st.id], dailyRng); map.refreshLife(); } };   // a place built as you come near: its animals too
+            map.onStampBuilt = st => { if (ANIMALS[st.id]) { populate(st.map, st.group, ANIMALS[st.id], dailyRng); map.refreshLife(); } if (world.current === map) gathering?.setMap(map); };   // (its gather spots too)   // a place built as you come near: its animals too
         }
         player.place(sp);
         fireballs.setScene(map.scene);

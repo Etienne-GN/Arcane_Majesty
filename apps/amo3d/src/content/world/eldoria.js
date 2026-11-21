@@ -431,6 +431,8 @@ export function createEldoriaWorld({ quality } = {}) {
         spawn: gladeStart ?? { x: GLADE.x + 30, z: GLADE.z + 20, facing: toCity },
         mood: { fog: '#c8d2d8', fogNear: 180, fogFar: 760, fogMix: 0.5 },
         places, biomeAt,
+        // fishing along the river: a spot of shallows every ~220 m of its course, on the water's edge
+        extraGather: (() => { const out = []; let acc = 0; for (let i = 1; i < RIVER.length; i++) { const [ax, az] = RIVER[i - 1], [bx, bz] = RIVER[i]; acc += Math.hypot(bx - ax, bz - az); if (acc < 220) continue; acc = 0; const L = Math.hypot(bx - ax, bz - az) || 1, nx = -(bz - az) / L, nz = (bx - ax) / L; for (const side of [1, -1]) { const x = bx + nx * side * 10, z = bz + nz * side * 10; if (heightAt(x, z) > WATER - 0.9 && heightAt(x, z) < WATER + 1.5) { out.push({ type: 'shallows', x, z }); break; } } } return out; })(),
         // the open land's wildlife (engine/stream.js wildStep): animals and creatures the game knows, into the world's scene
         spawnWild: (kind, type, posts, rng) => {
             const sc = world?.scene; if (!sc) return [];
