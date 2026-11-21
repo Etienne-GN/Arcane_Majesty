@@ -1436,8 +1436,8 @@ export const ITEMS = {
         onUse: (stats) => stats.equipItem('ecliptic_stiletto'),
     },
     twilight_fang: {
-        id: 'twilight_fang', name: 'The Twilight Fang',
-        description: 'Fang of the Twilight Order. Augmented double-hit costs 1 MP. +9 AGI, +5 INT. [Enemies killed in Shadow Veil drop +50% Glint]',
+        id: 'twilight_fang', name: 'The Dusk-Fang',
+        description: 'Fang of the Order of the Grey Hour. Augmented double-hit costs 1 MP. +9 AGI, +5 INT. [Enemies killed in Shadow Veil drop +50% Glint]',
         color: 0xffd700, stackable: false, icon: 'itm_stone_sword', slot: 'weapon', tier: 5, weaponType: 'umbral_dagger', rarity: 'legendary',
         stats: { agility: 9, intelligence: 5 }, passive: 'shadow_harvest', sellPrice: 999,
         onUse: (stats) => stats.equipItem('twilight_fang'),

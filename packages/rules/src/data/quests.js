@@ -49,7 +49,7 @@ export const QUESTS = {
 
     hidden_shadow_initiation: {
         id: 'hidden_shadow_initiation',
-        title: 'Initiation of the Twilight Order',
+        title: 'Initiation of the Order of the Grey Hour',
         type: 'hidden',
         description: 'A shadow-marked stone pulses with dark energy. Its inscription demands proof of mastery over shadow.',
         steps: [

@@ -473,7 +473,7 @@ export function createThaloriaCity({ quality }) {
     map.mapInfo = {
         half: 190, water: RIVER, trees: [], buildings: bxs, walls: wall.filter((_, i) => i % 2 === 0),
         groundAt: (x, z) => { const n = nearestSeg(x, z); if (n && n.d < 0.3) return 'road'; if (PLAN.squares.some(q => Math.hypot(q.x - x, q.z - z) < q.r)) return 'paved'; return null; },
-        landmarks: [...PLAN.landmarks.map(l => ({ name: { college: 'The College', bell_tower: 'The Bell Tower', temple: 'The Temple', market_hall: 'The Market Hall', guild_hall: "The Archivists' Guild", manor: 'The Manor', barracks: 'The Barracks', inn: 'The Inn' }[l.id] ?? l.id, x: l.x, z: l.z, icon: 'house' })),
+        landmarks: [...PLAN.landmarks.map(l => ({ name: { college: "The Scholars' Hall", bell_tower: 'The Bell Tower', temple: 'The Temple', market_hall: 'The Market Hall', guild_hall: "The Archivists' Guild", manor: 'The Manor', barracks: 'The Barracks', inn: 'The Inn' }[l.id] ?? l.id, x: l.x, z: l.z, icon: 'house' })),
             ...Object.entries(PLAN.gates).map(([k, g]) => ({ name: `The ${k[0].toUpperCase() + k.slice(1)} Gate`, x: g.x, z: g.z, icon: 'gate' })), { name: 'The Market', x: PLAN.squares[0].x, z: PLAN.squares[0].z }],
     };
     return map;

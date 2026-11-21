@@ -1,5 +1,15 @@
 # Canon decisions — the sheet for our decision session (prepared 2026-11-20)
 
+## ✅ Decided with the user (2026-11-20) — applied in the game
+- **The Citadel is the college** (the Great Library inside, the Forbidden Archive beneath it). The building on the city's
+  crown is **the Scholars' Hall** (not "Archivists' Hall": the Archivists' Guild already exists).
+- **Valdric is replaced by real places** in the spell descriptions: siege engineer and assassin → Graywatch; miners and
+  quarrying → Iron Hollow; old forests → Whisper-Wood; philosophers → Thalorian; the grandmother → Duskmeet.
+- **The Asran Academy → the College of Thaloria** (4 mentions).
+- **The Twilight Order → the Order of the Grey Hour**; the Twilight Fang → **the Dusk-Fang** (item id kept).
+- Still to decide: the rest of the sheet below (the Concord, the Rift-Gates, the Border Watch, Silvara…) and the DB
+  sync (the Star-Guard node, the Citadel/college node).
+
 Each new name the game uses, what the lore DB and the book say about it (searched 2026-11-20), and my
 recommendation. **Nothing is written to the DB until you decide.** Tick or change each line; then I sync the approved
 ones (DB nodes get `origin: "game"`, or `"album"` where the albums already say it).
