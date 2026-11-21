@@ -19,6 +19,8 @@ import { createMountain } from '../mountain.js';
 import { createSanctuary } from '../sanctuary.js';
 import { createAnimals, NAMES as ANIMAL_NAMES } from '../actors/animals.js';
 import { createDeer } from '../actors/deer.js';
+import { buildSailboat, buildBoat } from '../models/horse.js';
+import { flat } from '../../engine/lib.js';
 import { createBeasts, NAMES as BEAST_NAMES } from '../actors/beast.js';
 import { buildRegion, regionHeight, buildArch } from '../../engine/region.js';
 import { settings } from '../../engine/settings.js';
@@ -101,6 +103,7 @@ export function lakeInfo(x, z) {
     const dx = x - LAKE.x, dz = z - LAKE.z, d = Math.hypot(dx, dz), th = Math.atan2(dz, dx), R = lakeShoreR(th);
     return { d, th, R, inside: R - d, marsh: arcK(th, MARSH), beach: arcK(th, BEACH) };
 }
+const PORT = place('Port Silver');
 const NORTH_EDGE = W([0, 45])[1], SOUTH_EDGE = W([0, 1090])[1];
 
 // The coast's x at a given z (the line runs north–south down the east side).
@@ -203,6 +206,11 @@ export function eldoriaHeight(x, z) {
               if (di < wob * 1.3) h = Math.max(h, WATER - 0.6 + (ih + 0.6) * Math.pow(Math.max(0, 1 - di / (wob * 1.3)), 1.4) * (0.8 + 0.4 * fbm(x * 0.05, z * 0.05, 2)));
           }
       } }
+    // Port Silver's harbour: a bay from the port's quays out to the eastern ocean (the old map's sea, joined to the real one)
+    { const dx = x - PORT.x, dz = z - PORT.z; if (dx > 40 && dx < 520 && Math.abs(dz) < 260) {
+        const w = 75 + dx * 0.25 + 18 * Math.sin(dx * 0.02 + 1.3), k = smooth(w, w * 0.6, Math.abs(dz - 14 * Math.sin(dx * 0.012))) * smooth(40, 90, dx);
+        h = h + (Math.min(h, WATER - 4 - Math.min(6, (dx - 90) * 0.02)) - h) * k;
+    } }
     // the sea: east of the coast, past the south edge; high mountains closing the north
     const cx = coastX(z);
     if (x > cx - 160) h = h + (WATER - 10 - h) * smooth(cx - 160, cx + 60, x);
@@ -374,6 +382,7 @@ function makeStamps(quality) {
             const base = Math.max(H0, (REGION_DEFS[id].water ?? -1.2) + 1.5);   // (a lake's floor is not the ground: measure from its water line)
             const reach = (dx, dz) => { for (let r = 8; r < half; r += 2) if (H(dx * r, dz * r) > base + 5) return Math.max(24, r - 4); return half - 6; };
             const rect = [-reach(-1, 0), -reach(0, -1), reach(1, 0), reach(0, 1)];
+            if (id === 'port_silver') { rect[2] = half - 2; rect[1] = Math.min(rect[1], -60); rect[3] = Math.max(rect[3], 60); }   // the harbour's water runs to its east edge (and on to the sea)
             const lake = (REGION_DEFS[id].features ?? []).some(f => f.type === 'lake');
             // a region with a lake sits with its water at the world's sea level (the world's water fills it; its own sheet goes)
             const oy = lake ? WATER - (REGION_DEFS[id].water ?? -1.2) : Math.max(WATER + 3 - H0, eldoriaHeight(at.x, at.z) - H0);
@@ -453,7 +462,7 @@ export function createEldoriaWorld({ quality } = {}) {
     const gl = stamps.find(st => st.id === 'outdoor'), gs = gl?.map.spawns?.start;
     const gladeStart = gs ? { ...gs, x: gs.x + gl.ox, z: gs.z + gl.oz } : null;   // the glade's own arrival point
     let world = null;
-    return world = createStreamWorld({
+    world = createStreamWorld({
         id: 'eldoria', name: 'Eldoria — the open world', seed: 501, size: 8400, heightAt, quality, stamps,
         spawn: gladeStart ?? { x: GLADE.x + 30, z: GLADE.z + 20, facing: toCity },
         mood: { fog: '#c8d2d8', fogNear: 180, fogFar: 760, fogMix: 0.5 },
@@ -497,4 +506,21 @@ export function createEldoriaWorld({ quality } = {}) {
             return false;
         },
     });
+    // ---------- Port Silver's harbour: piers into the bay, sailing boats moored along them, a lighthouse on the headland ----------
+    { const g = new THREE.Group(), wood = flat(0x6a4e32), dark = flat(0x3e2c1c), stone = flat(0x8a8478), white = flat(0xe6e0d0), lamp = new THREE.MeshStandardMaterial({ color: 0xfff0c0, emissive: 0xffd080, emissiveIntensity: 1.5 });
+      const box = (m, x, y, z, w, h, d, ry = 0) => { const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); o.position.set(x, y, z); o.rotation.y = ry; o.castShadow = o.receiveShadow = true; g.add(o); return o; };
+      const moored = [];
+      for (const [dz, len] of [[-46, 46], [0, 60], [46, 40]]) {
+          const x0 = PORT.x + 78, z = PORT.z + dz;
+          box(wood, x0 + len / 2, WATER + 0.9, z, len, 0.25, 3.2);
+          for (let k = 0; k <= len; k += 6) for (const s2 of [-1.4, 1.4]) box(dark, x0 + k, WATER - 1, z + s2, 0.3, 4, 0.3);
+          for (let k = 0; k < 2; k++) { const b = buildSailboat({ sail: [0xeee6d2, 0xd8c8a8, 0xc8d8e0][(k + Math.round(dz)) % 3 & 3] ?? 0xeee6d2, trim: [0x2a4a6a, 0x6a2a2a, 0x2a5a3a][k] }); b.root.position.set(x0 + 16 + k * 22, WATER + 0.05, z + (k % 2 ? 5.5 : -5.5)); b.root.rotation.y = Math.PI / 2; g.add(b.root); moored.push(b); }
+      }
+      const rb = buildBoat(); rb.root.position.set(PORT.x + 96, WATER + 0.1, PORT.z + 24); rb.root.rotation.y = 1.2; g.add(rb.root); moored.push(rb);
+      let lh = null; for (let r = 0; r < 160 && !lh; r += 8) for (const sgn of [-1, 1]) { const x = PORT.x + 430 - r * 0.6, z = PORT.z + sgn * (170 + r * 0.3); if (eldoriaHeight(x, z) > WATER + 2) { lh = { x, z }; break; } }
+      if (lh) { const y = heightAt(lh.x, lh.z); const t = new THREE.Mesh(new THREE.CylinderGeometry(2.2, 3, 16, 10), white); t.position.set(lh.x, y + 8, lh.z); t.castShadow = true; g.add(t); box(stone, lh.x, y + 16.5, lh.z, 5, 1, 5); const lt = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, 2.2, 8), lamp); lt.position.set(lh.x, y + 18, lh.z); g.add(lt); const cap = new THREE.Mesh(new THREE.ConeGeometry(2, 2.4, 8), flat(0x8a2a22)); cap.position.set(lh.x, y + 20.3, lh.z); g.add(cap); world.colliders?.push?.({ x: lh.x, z: lh.z, r: 3, kind: 'wall', y0: y - 1, y1: y + 22 }); }
+      world.scene.add(g);
+      const upd = world.update; world.update = (t2, dt, ctx) => { upd(t2, dt, ctx); if (Math.hypot(ctx.player.pos.x - PORT.x, ctx.player.pos.z - PORT.z) < 500) for (const b of moored) b.update(dt, 0); g.visible = Math.hypot(ctx.player.pos.x - PORT.x, ctx.player.pos.z - PORT.z) < 900; };
+    }
+    return world;
 }

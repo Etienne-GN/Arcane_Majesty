@@ -444,7 +444,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
                 const wading = !!m.wading?.(p.pos.x, p.pos.z);
                 const swimming = !!m.swimming?.(p.pos.x, p.pos.z);   // deep water: a slow swim, no sprint
                 // Analog sticks walk slower when pushed less; full tilt = amo's speed.
-                const speed = (moveSpeed(baseSpeed(), stats.fatigueFraction, swimming ? 0.42 : wading ? 0.6 : 1, p.sprinting && !swimming) / PX) * (p.cast ? (p.cast.incant && !p.cast.fired ? 0 : 0.45) : 1) * Math.max(0.35, push) * buffMult('speedMult') * (p.wolf ? 1.3 : 1) * (p.mounted?.kind === 'boat' ? 1.9 / 0.42 : p.mounted && !swimming ? 2.4 : 1);   // (a boat: rowing, faster than swimming)   // the wolf form runs faster; on horseback, far faster
+                const speed = (moveSpeed(baseSpeed(), stats.fatigueFraction, swimming ? 0.42 : wading ? 0.6 : 1, p.sprinting && !swimming) / PX) * (p.cast ? (p.cast.incant && !p.cast.fired ? 0 : 0.45) : 1) * Math.max(0.35, push) * buffMult('speedMult') * (p.wolf ? 1.3 : 1) * (p.mounted?.kind === 'boat' ? (p.mounted.speed ?? 1.9 / 0.42) : p.mounted && !swimming ? 2.4 : 1);   // (a boat: rowing, faster than swimming)   // the wolf form runs faster; on horseback, far faster
                 tryPos.copy(p.pos).addScaledVector(dir, speed * dt);
                 if (p.mounted?.kind === 'boat' && !m.swimming?.(tryPos.x, tryPos.z)) tryPos.copy(p.pos);   // a boat stays on deep water
                 m.resolve(tryPos, PLAYER_R);

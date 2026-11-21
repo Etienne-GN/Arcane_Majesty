@@ -362,17 +362,23 @@ function cineCamera(dt) {
 }
 // Eldrin's horse (Phase 13, first pass): it waits where you left it (stats.flags.horse, in the open world); G beside it to
 // ride (2.4× as fast, not in deep water), G again to get down. The open world only.
-import('./content/models/horse.js').then(({ buildHorse, buildBoat, SADDLE_Y }) => { horse.model = buildHorse(); horse.saddle = SADDLE_Y; boat.model = buildBoat(); });
+import('./content/models/horse.js').then(({ buildHorse, buildBoat, buildSailboat, SADDLE_Y }) => { horse.model = buildHorse(); horse.saddle = SADDLE_Y; boat.model = buildBoat(); sailboat.model = buildSailboat(); });
 const horse = { model: null, saddle: 1.15, station: null, scene: null };
 // A rowboat on Lake Aethera (Phase 13, boats): G at its side to row (water only — G again at a shore to step off).
-const boat = { model: null, station: null, scene: null };
-function placeBoat() {
-    const m = world.current; if (!boat.model || world.id !== 'eldoria') return;
-    if (!stats.flags.boat) { const st = m.stamps?.find(s2 => s2.id === 'lake_aethera'); if (!st) return; let best = null; for (let a = 0; a < 6.28; a += 0.2) for (let r = 10; r < 70; r += 3) { const x = st.ox + Math.cos(a) * r, z = st.oz + Math.sin(a) * r, h = m.heightAt(x, z); if (h < -2.6 && h > -3.6) { best = { x, z }; break; } } if (best) stats.flags.boat = best; else return; }
-    if (boat.scene !== m.scene) { boat.scene?.remove(boat.model.root); m.scene.add(boat.model.root); boat.scene = m.scene; }
-    if (player.state.mounted?.kind !== 'boat') {
-        const at = stats.flags.boat; boat.model.root.position.set(at.x, -2.05, at.z);
-        if (!boat.station) { boat.station = { mode: 'boat', title: 'A rowboat', pos: new THREE.Vector3(at.x, m.groundAt(at.x, at.z), at.z) }; m.stations.push(boat.station); }
+const boat = { id: 'boat', model: null, station: null, scene: null, title: 'A rowboat', saddle: 1.35, speed: 1.9 / 0.42, y: -2.05,
+    find: m => { const st = m.stamps?.find(s2 => s2.id === 'lake_aethera'); if (!st) return null; for (let a = 0; a < 6.28; a += 0.2) for (let r = 10; r < 120; r += 3) { const x = st.ox + Math.cos(a) * r, z = st.oz + Math.sin(a) * r, h = m.heightAt(x, z); if (h < -2.6 && h > -4) return { x, z }; } return null; } };
+// A sailing boat moored at Port Silver: board it at the quay, sail the harbour, the eastern ocean and the islands.
+const sailboat = { id: 'sailboat', model: null, station: null, scene: null, title: 'A sailing boat', saddle: 2.1, speed: 4.6 / 0.42, y: -1.95,
+    find: m => { const st = m.stamps?.find(s2 => s2.id === 'port_silver'); if (!st) return null; for (let r = 90; r < 220; r += 4) { const x = st.ox + r, z = st.oz + 10, h = m.heightAt(x, z); if (h < -4) return { x, z }; } return null; } };
+const VESSELS = [boat, sailboat];
+function placeBoat(v = boat) {
+    const m = world.current; if (!v.model || world.id !== 'eldoria') return;
+    const flags = (stats.flags.vessels ??= {}); if (v.id === 'boat' && stats.flags.boat && !flags.boat) flags.boat = stats.flags.boat;
+    if (!flags[v.id]) { const at = v.find(m); if (!at) return; flags[v.id] = at; }
+    if (v.scene !== m.scene) { v.scene?.remove(v.model.root); m.scene.add(v.model.root); v.scene = m.scene; }
+    if (player.state.mounted?.id !== v.id) {
+        const at = flags[v.id]; v.model.root.position.set(at.x, v.y, at.z);
+        if (!v.station) { v.station = { mode: 'boat', vessel: v.id, title: v.title, pos: new THREE.Vector3(at.x, m.groundAt(at.x, at.z), at.z) }; m.stations.push(v.station); }
     }
 }
 function placeHorse() {
@@ -385,13 +391,13 @@ function placeHorse() {
         if (!horse.station) { horse.station = { mode: 'mount', title: 'Your horse', pos: horse.model.root.position }; m.stations.push(horse.station); }
     }
 }
-function toggleBoat(on) {
-    const p = player.state, m = world.current;
-    if (on && !p.mounted) { p.mounted = { kind: 'boat', saddle: 1.35 }; const at = stats.flags.boat; p.pos.set(at.x, m.groundAt(at.x, at.z), at.z); const i = m.stations.indexOf(boat.station); if (i >= 0) m.stations.splice(i, 1); boat.station = null; hud.banner('In the boat — G at a shore to step off'); }
+function toggleBoat(on, id = 'boat') {
+    const p = player.state, m = world.current, v = VESSELS.find(q => q.id === (on ? id : p.mounted?.id)) ?? boat, flags = (stats.flags.vessels ??= {});
+    if (on && !p.mounted) { p.mounted = { kind: 'boat', id: v.id, saddle: v.saddle, speed: v.speed }; const at = flags[v.id]; p.pos.set(at.x, m.groundAt(at.x, at.z), at.z); const i = m.stations.indexOf(v.station); if (i >= 0) m.stations.splice(i, 1); v.station = null; hud.banner(v.id === 'sailboat' ? 'Under sail — G at a shore or a quay to step off' : 'In the boat — G at a shore to step off'); }
     else if (!on && p.mounted?.kind === 'boat') {
-        let shore = null; for (let a = 0; a < 6.28 && !shore; a += 0.4) for (let r = 2; r < 7; r += 1) { const x = p.pos.x + Math.cos(a) * r, z = p.pos.z + Math.sin(a) * r; if (m.heightAt(x, z) > -1.4) { shore = { x, z }; break; } }
-        if (!shore) { hud.message('Row to a shore to step off'); return; }
-        stats.flags.boat = { x: p.pos.x, z: p.pos.z }; p.mounted = null; p.pos.set(shore.x, m.groundAt(shore.x, shore.z), shore.z); placeBoat(); save();
+        let shore = null; for (let a = 0; a < 6.28 && !shore; a += 0.4) for (let r = 2; r < 9; r += 1) { const x = p.pos.x + Math.cos(a) * r, z = p.pos.z + Math.sin(a) * r; if (m.heightAt(x, z) > -1.4) { shore = { x, z }; break; } }
+        if (!shore) { hud.message('Steer to a shore to step off'); return; }
+        flags[v.id] = { x: p.pos.x, z: p.pos.z }; p.mounted = null; p.pos.set(shore.x, m.groundAt(shore.x, shore.z), shore.z); placeBoat(v); save();
     }
 }
 function toggleMount(on) {
@@ -406,7 +412,7 @@ function updateHorse(dt) {
     const p = player.state;
     if (p.mounted && p.mounted.kind !== 'boat') { horse.model.root.position.copy(p.pos); horse.model.root.rotation.y = p.facing; if (world.current.swimming?.(p.pos.x, p.pos.z)) toggleMount(false); }
     horse.model.update(dt, p.mounted && p.mounted.kind !== 'boat' ? p.speed : 0);
-    if (boat.model) { placeBoat(); if (p.mounted?.kind === 'boat') { boat.model.root.position.set(p.pos.x, -2.05, p.pos.z); boat.model.root.rotation.y = p.facing; } boat.model.update(dt, p.mounted?.kind === 'boat' ? p.speed : 0); }
+    for (const v of VESSELS) { if (!v.model) continue; placeBoat(v); const mine = p.mounted?.id === v.id; if (mine) { v.model.root.position.set(p.pos.x, v.y, p.pos.z); v.model.root.rotation.y = p.facing; } v.model.update(dt, mine ? p.speed : 0); }
 }
 let uwShown = false; const uw = document.createElement('div');
 uw.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:4;background:radial-gradient(ellipse at 50% 40%, #2c8a9855, #0a3a44cc);opacity:0;transition:opacity .4s';
@@ -788,7 +794,7 @@ function tick(dt) {
         else if (station?.mode === 'board') bountyBoard.use({ key: station.key, place: station.place, regionDef: station.region === 'east_road' ? eastRoadMap.default : thaloriaMap.default });
         else if (station?.mode === 'desk') writeCodex();
         else if (station?.mode === 'mount') toggleMount(true);
-        else if (station?.mode === 'boat') toggleBoat(true);
+        else if (station?.mode === 'boat') toggleBoat(true, station.vessel);
         else if (station?.mode === 'cairn') { stats.respawnPoint = { map: map.id, spawn: station.key }; hud.banner('A cairn — if you fall, you will come back here'); save(); }
         else if (station) campfire.toggle(station.mode);
         else if (person) { cine = { pos: person.pos.clone(), t: 0 }; if (person.r.onTalk) person.r.onTalk({ start: dialogue.start, quests, stats, hud, save }); else dialogue.talk(person, clock()); }   // onTalk: a map's own conversation (the Sanctuary)
