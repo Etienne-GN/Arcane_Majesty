@@ -135,6 +135,12 @@ export const ARCHIPELAGO = ARCHI.c;
 const SPUR = [[1985, -2780], [2000, -2560], [1990, -2360], [2008, -2128]];
 const DIVIDE_EAST = [[3300, -2200], [3480, -1990], [3700, -1890], [3950, -1870], [4400, -1880]];
 // The northern range's foot never comes nearer than ~400 m to a place (more beside it: the cap slopes away smoothly).
+const WEST_FOOT_CAP = (() => {
+    const P = LAYOUT.places.filter(p => !p.plane || p.plane === 'Eldoria').map(p => p.world), z0 = -6000, step = 25, n = 481, cap = new Float32Array(n);
+    for (let i = 0; i < n; i++) { const z = z0 + i * step; let c = 1e9; for (const [px, pz] of P) c = Math.min(c, px - 450 + Math.max(0, Math.abs(z - pz) - 300) * 0.9); cap[i] = c; }
+    return z => { const f = Math.max(0, Math.min(n - 1.001, (z - z0) / step)), i = Math.floor(f), t = f - i; return cap[i] * (1 - t) + cap[i + 1] * t; };
+})();
+function westFoot(z) { return Math.min(WEST_FOOT_CAP(z), -4300 + 170 * Math.sin(z * 0.0019 + 2.3) + 90 * Math.sin(z * 0.0047 + 0.4) + 40 * Math.sin(z * 0.012)); }
 function northFoot(x) { return Math.min(NORTH_FOOT_CAP(x), NORTH_EDGE + 260 + 170 * Math.sin(x * 0.0019 + 0.7) + 90 * Math.sin(x * 0.0051 + 2.1) + 40 * Math.sin(x * 0.013)); }
 export function divideWalls() {
     const out = [], seg = (pts, skip = () => false, step = 24) => {
@@ -149,6 +155,9 @@ export function divideWalls() {
     // the northern range: along its crest-side, ~250 m inside its wandering foot, the whole width of the world
     const north = []; for (let x = -5600; x <= 5600; x += 40) north.push([x, northFoot(x) - 250]);
     seg(north);
+    // the western range: the same, from the northern range down past the south coast into the sea
+    const west = []; for (let z = -5600; z <= 5600; z += 40) west.push([westFoot(z) - 250, z]);
+    seg(west);
     seg([[SPUR[0][0], northFoot(SPUR[0][0]) - 250], ...SPUR]);
     seg(RIDGE, (x, z) => Math.hypot(x - PASS.x, z - (PASS.z - 120)) < 110);   // the Summit pass (where the trail crosses the crest, north of the Summit's marker): the one way through
     seg(DIVIDE_EAST);
@@ -280,6 +289,14 @@ export function eldoriaHeight(x, z) {
         const w = 75 + dx * 0.25 + 18 * Math.sin(dx * 0.02 + 1.3), k = smooth(w, w * 0.6, Math.abs(dz - 14 * Math.sin(dx * 0.012))) * smooth(40, 90, dx);
         h = h + (Math.min(h, WATER - 4 - Math.min(6, (dx - 90) * 0.02)) - h) * k;
     } }
+    // the west: a craggy range closing the map (user, 2026-11-21), its foot wandering, kept clear of every place; the sea
+    // below cuts it into cliffs where it meets the south coast
+    { const foot = westFoot(z);
+      if (x < foot + 50) {
+          const rugW = 0.55 + 0.9 * Math.pow(1 - Math.abs(fbm(x * 0.0035 - 57, z * 0.0035 + 83, 4) * 2 - 1), 2);
+          const top = 40 + 130 * rugW * smooth(foot + 50, foot - 500, x);
+          h = Math.max(h, h + (top - h) * smooth(foot + 50, foot - 250, x));
+      } }
     // the continent's coast: the ocean beyond it (cliffs where the land is high, beaches where it is low); the islands
     { const dx = x - CONT.cx, dz = z - CONT.cz, d = Math.hypot(dx, dz), R = coastR(Math.atan2(dz, dx));
       if (d > R - 220) h = h + (WATER - 14 - h) * smooth(R - 160, R + 70, d);

@@ -52,7 +52,7 @@ Coordinates: x east, z south (north is −z); metres; 1 DB unit = 5.5 m; world ~
 
 - **The Divide** (user, 2026-11-21): the north is shut but for the Summit pass. `divideWalls()` in eldoria.js = crest
   walls along the northern range (`northFoot(x) - 250`), the `SPUR` (Citadel ↔ Sanctuary), the Summit `RIDGE` (one gap,
-  on the crest north of the Summit's marker) and `DIVIDE_EAST` to the sea. Beyond: the Sanctuary, the Fire Gate, the
+  on the crest north of the Summit's marker) and `DIVIDE_EAST` to the sea; the western range (`westFoot(z) - 250`) closes the west, into the south sea. Beyond: the Sanctuary, the Fire Gate, the
   Inferno Labyrinth, the Ruins, the Heartstone Chamber. World-level walls go through `createStreamWorld({ walls })` /
   `world.addWall(c)` (`map.colliders` is a getter: pushing to it does nothing). Eldoria is a peninsula: sea east and south only.
 
