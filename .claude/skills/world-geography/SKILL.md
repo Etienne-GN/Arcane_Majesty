@@ -44,6 +44,8 @@ Coordinates: x east, z south (north is −z); metres; 1 DB unit = 5.5 m; world ~
   ~150 m of roads (`roadNear` → `vale`); a road's profile is pinned to a place's ground where it enters (no step at the
   edge); its bed may cut ≤ 12 m / rise ≤ 5 m; a place a road enters gets a wide ring (`blend` 100–150). Check each
   road's steepest stretch *and where it is* (the `road3.json` recipe: grade + nearest place + distance).
+- A region's rim (`terrain.rim`, engine/region.js) is a wandering superellipse, never a square; ordinary regions
+  join the world with `rim: 0` (`noRim` in eldoria.js), story places keep theirs as round bowls.
 - **Paths are logical.** A road never climbs a steep slope: roads are smooth curves (Catmull-Rom), their bed
   smoothed and held to ~10% grade, the land cut and filled along them (`graded()` in eldoria.js). Check the steepest
   stretch per road after any terrain change (aim ≤ 15%).

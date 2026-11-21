@@ -74,7 +74,9 @@ export function regionHeight(def) {
             h += (pads.get(b) - h) * smoothstep(4, 0.6, d);
         }
         const ex = T.openEast && x > 0 ? 0 : Math.abs(x), ez = T.openSouth && z > 0 ? 0 : Math.abs(z);   // openSouth: a cliff edge, the view open   // openEast: no hills on the east edge — the sea runs to the horizon
-        h += smoothstep(EDGE - 18, EDGE + 4, Math.max(ex, ez)) * (T.rim ?? 22) * (0.6 + 0.8 * fbm(x * 0.05, z * 0.05));   // a wall of hills
+        // a wall of hills — round, never square (no right angles in nature): a superellipse whose radius wanders
+        const th = Math.atan2(z, x), rr = Math.pow(Math.pow(ex, 2.4) + Math.pow(ez, 2.4), 1 / 2.4) * (1 + 0.07 * Math.sin(3 * th + 1.1) + 0.045 * Math.sin(5 * th + 2.3));
+        h += smoothstep(EDGE - 18, EDGE + 4, rr) * (T.rim ?? 22) * (0.6 + 0.8 * fbm(x * 0.05, z * 0.05));
         return h;
     };
 }
