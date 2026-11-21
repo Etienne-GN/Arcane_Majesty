@@ -291,11 +291,16 @@ export function eldoriaHeight(x, z) {
     } }
     // the west: a craggy range closing the map (user, 2026-11-21), its foot wandering, kept clear of every place; the sea
     // below cuts it into cliffs where it meets the south coast
+    // (a chain, not a plateau: green foothills, a crest of peaks and saddles ~420 m in, high country beyond; snow only on
+    // the highest summits — groundColor)
     { const foot = westFoot(z);
       if (x < foot + 50) {
-          const rugW = 0.55 + 0.9 * Math.pow(1 - Math.abs(fbm(x * 0.0035 - 57, z * 0.0035 + 83, 4) * 2 - 1), 2);
-          const top = 40 + 130 * rugW * smooth(foot + 50, foot - 500, x);
-          h = Math.max(h, h + (top - h) * smooth(foot + 50, foot - 250, x));
+          const crestX = foot - 420, rugW = 0.7 + 0.6 * Math.pow(1 - Math.abs(fbm(x * 0.006 - 57, z * 0.006 + 83, 3) * 2 - 1), 2);
+          const crestH = 58 + 92 * Math.pow(N(fbm(z * 0.0021 + 11, x * 0.0004 - 4, 3)), 1.6);   // summits up to ~150 m, saddles ~60 m
+          const ridge = crestH * Math.exp(-Math.pow((x - crestX) / 290, 2)) * rugW;
+          const hills = 26 * smooth(foot + 50, foot - 260, x) * (0.7 + 0.6 * fbm(x * 0.01, z * 0.01, 2));
+          const beyond = x < crestX ? 48 * smooth(crestX, crestX - 400, x) * (0.8 + 0.4 * fbm(x * 0.004, z * 0.004, 2)) : 0;
+          h = Math.max(h, h + (Math.max(ridge, hills, beyond) - h) * smooth(foot + 50, foot - 200, x));
       } }
     // the continent's coast: the ocean beyond it (cliffs where the land is high, beaches where it is low); the islands
     { const dx = x - CONT.cx, dz = z - CONT.cz, d = Math.hypot(dx, dz), R = coastR(Math.atan2(dz, dx));
@@ -589,6 +594,12 @@ export function createEldoriaWorld({ quality } = {}) {
                 if (L.marsh > 0.1 && L.inside > -220 && h < WATER + 1.6) { const n = fbm(x * 0.09, z * 0.09, 2); col.set(n > 0.56 ? '#3e5a2a' : n > 0.44 ? '#4a5a30' : '#4a4630'); return true; }   // mud, rushes and sedge
                 if (L.marsh < 0.1 && h < WATER + 1.0 && h >= WATER - 0.2) { col.set('#b8a878'); return true; }   // a sandy margin elsewhere, and round the islands
             } }
+            if (x < westFoot(z) + 60 && h > 30) {   // the western chain: snow only on its summits, bare rock below, high meadows lower
+                const nz = fbm(x * 0.03, z * 0.03, 2) * 12;
+                if (h > 112 + nz) { col.set('#e4e8ec'); return true; }
+                if (h > 74 + nz) { col.set(h > 92 + nz ? '#6c6862' : '#7c766c'); return true; }
+                col.set(h > 52 + nz ? '#6e7a52' : '#5e7444'); return true;
+            }
             const dP = Math.hypot(x - PASS.x, z - PASS.z);   // the Summit's massif: bare rock above the trees, snow on the heights (as the mountain's own)
             if (dP < 420) { const nz = fbm(x * 0.03, z * 0.03, 2) * 10; if (h > 92 + nz) { col.set('#e4e8ec'); return true; } if (h > 44 + nz) { col.set(h > 70 + nz ? '#6a6660' : '#7a756c'); return true; } }
             const dG = Math.hypot(x - GLADE.x, z - GLADE.z);   // the glade's range: snow down to its crater's rim, bare rock below the snow
