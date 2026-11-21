@@ -73,6 +73,7 @@ function cutPaths(st, worldH, x, z, h) {
     }
     return h;
 }
+const RING_MAX = 300;   // the widest a place's blend ring grows (m)
 export function stampHeights(worldH, stamps, B = 60) {
     return (x, z) => {
         for (const st of stamps) if (st.paths && inRect(st, x, z, B)) return cutPaths(st, worldH, x, z, rawStamp(x, z));
@@ -80,18 +81,20 @@ export function stampHeights(worldH, stamps, B = 60) {
     };
     function rawStamp(x, z) {
         for (const st of stamps) if (inShape(st, x, z)) return hOf(st)(x - st.ox, z - st.oz) + st.oy;   // inside a place: its own ground
-        let best = null, bd = Infinity;   // in the ring round places (B m, or a place's own st.blend): blend from the nearest one's edge to the land
+        let best = null, bd = Infinity;   // in the ring round places: blend from the nearest one's edge to the land
         for (const st of stamps) {
-            const Bs = st.blend ?? B;
-            if (!inRect(st, x, z, Bs)) continue;
+            if (!inRect(st, x, z, RING_MAX)) continue;
             const d = edgeDist(st, x, z);
-            if (d < Bs && d < bd) { bd = d; best = st; }
+            if (d < RING_MAX && d < bd) { bd = d; best = st; }
         }
         if (!best) return worldH(x, z);
         // the place's ground at the nearest edge point (stepped back along the line to its middle)
-        const st = best, L = Math.hypot(x - st.cx, z - st.cz) || 1, back = Math.min(L, bd + 1), ex = x - (x - st.cx) / L * back, ez = z - (z - st.cz) / L * back;
-        const edge = hOf(st)(ex - st.ox, ez - st.oz) + st.oy;
-        const Bb = best.blend ?? B, w = worldH(x, z);
+        const st = best, L = Math.hypot(x - st.cx, z - st.cz) || 1, back = Math.min(L, bd + 0.05), ex = x - (x - st.cx) / L * back, ez = z - (z - st.cz) / L * back;
+        const edge = hOf(st)(ex - st.ox, ez - st.oz) + st.oy, w = worldH(x, z);
+        // the ring as wide as the difference needs (~7 m of ring a metre of height, at least the place's own blend): a
+        // gentle bank wherever the place sits above or below the land, never a steep one
+        const Bb = Math.min(RING_MAX, Math.max(st.blend ?? B, Math.abs(w - edge) * 7));
+        if (bd >= Bb) return w;
         return edge + (w - edge) * sm(0, Bb, bd);   // (where the land is lower the ramp only adds — a mountain's flanks; where it is higher it comes down to the edge: never a step)
     }
 }
