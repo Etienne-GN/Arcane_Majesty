@@ -57,6 +57,7 @@ export function createOptions({ quality, onQuality, onFps, onOnline }) {
         p.append(seg('Graphics', [['low', 'Low'], ['medium', 'Medium'], ['high', 'High']], quality.name, v => { if (v !== quality.name) onQuality(v); }));
         p.append(el('div', 'note', 'Changing graphics reloads the game (your progress is saved first).'));
         p.append(seg('Text size', [[1, 'Normal'], [1.15, 'Large'], [1.3, 'Larger']], settings.textSize, v => setSetting('textSize', v)));
+        p.append(seg('Coordinates', [[false, 'Hidden'], [true, 'Shown']], settings.showCoords, v => setSetting('showCoords', v)));
         p.append(seg('Frames per second', [[false, 'Hidden'], [true, 'Shown']], settings.showFps, v => { setSetting('showFps', v); onFps?.(v); }));
 
         p.append(el('h3', null, 'Sound'));

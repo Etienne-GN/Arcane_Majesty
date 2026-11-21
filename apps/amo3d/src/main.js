@@ -665,6 +665,11 @@ clockEl.className = 'hud';
 clockEl.id = 'clock';
 clockEl.style.cssText = 'right:18px;top:54px;font-size:calc(15px * var(--ui, 1));opacity:.85;letter-spacing:.05em';
 document.body.append(clockEl);
+let coordT = 0;
+const coordEl = document.createElement('div');   // Options → Coordinates: placed under the minimap or the clock, whichever is lower
+coordEl.className = 'hud'; coordEl.id = 'coords';
+coordEl.style.cssText = 'right:18px;top:260px;font-size:calc(13px * var(--ui, 1));opacity:.85;letter-spacing:.04em;font-variant-numeric:tabular-nums;display:none';
+document.body.append(coordEl);
 let weatherOverride = params.get('weather');
 // amo's weather is fixed by map and clock, so every new game (Day 0, 08:00) used to open in the same rain.
 // Each save now carries its own weather seed (amo's table and spell lengths unchanged), and a new journey
@@ -850,6 +855,16 @@ function tick(dt) {
     hud.update(dt, { stats, player: p, camera, spell: player.activeSpell() });
     const c = clock();
     clockEl.textContent = `${clockRules.clockLabel(c.minutes)} · ${weatherRules.WEATHER[c.weather] ?? c.weather}`;
+    if (settings.showCoords) {   // Options → Coordinates: where you stand (x east, z south, height), metres
+        const pp = player.state.pos;
+        coordEl.textContent = `x ${Math.round(pp.x)} · z ${Math.round(pp.z)} · h ${Math.round(pp.y)}${world.id && world.id !== 'eldoria' ? ' · ' + world.id : ''}`;
+        if ((coordT = (coordT ?? 0) - dt) <= 0) {   // (its place re-measured twice a second: the minimap and the clock move with the layout)
+            coordT = 0.5; let b = clockEl.getBoundingClientRect().bottom; const mm = document.getElementById('minimap');
+            const mr = mm?.getBoundingClientRect(); if (mr && mr.height > 0) b = Math.max(b, mr.bottom);
+            coordEl.style.top = `${Math.round(b + 6)}px`;
+        }
+        coordEl.style.display = '';
+    } else coordEl.style.display = 'none';
     if (archery.armed()) hud.ui.speed.textContent += `${hud.ui.speed.textContent ? ' · ' : ''}${archery.ready()} arrows ready (+${archery.spare()} in the satchel)`;
 }
 
