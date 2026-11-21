@@ -117,7 +117,10 @@ const CONT = (() => {
 function coastR(th) {
     const f = (th + Math.PI) / (Math.PI * 2) * CONT.N, i = Math.floor(f) % CONT.N, t = f - Math.floor(f), base = CONT.rq[i] * (1 - t) + CONT.rq[(i + 1) % CONT.N] * t;
     const n = 0.45 * Math.sin(4 * th + 0.8) + 0.35 * Math.sin(7 * th + 2.6) + 0.25 * Math.sin(13 * th + 1.1) + 0.15 * Math.sin(23 * th + 4.2);   // peninsulas and bays
-    return base + 260 * Math.max(-0.55, n);
+    // a peninsula (user, 2026-11-20): the sea lies east and south; north-east and west of that the coast bends away
+    // past the world's edge and the land runs on (the coast pushed out smoothly, so its ends are natural)
+    const sea = smooth(-1.25, -0.55, th) * smooth(2.95, 2.3, th);
+    return base + 260 * Math.max(-0.55, n) + (1 - sea) * 6000;
 }
 const ARCHI = (() => {   // the Sunward Isles: islands scattered in the south-east ocean
     const a0 = Math.atan2(1, 1.1), r0 = coastR(a0) + 750, c = { x: CONT.cx + Math.cos(a0) * r0, z: CONT.cz + Math.sin(a0) * r0 }, out = [];
@@ -126,6 +129,12 @@ const ARCHI = (() => {   // the Sunward Isles: islands scattered in the south-ea
     return { c, isles: out };
 })();
 export const ARCHIPELAGO = ARCHI.c;
+// The northern range's foot never comes nearer than ~400 m to a place (more beside it: the cap slopes away smoothly).
+const NORTH_FOOT_CAP = (() => {
+    const P = LAYOUT.places.filter(p => !p.plane || p.plane === 'Eldoria').map(p => p.world), x0 = -6000, step = 25, n = 481, cap = new Float32Array(n);
+    for (let i = 0; i < n; i++) { const x = x0 + i * step; let c = 1e9; for (const [px, pz] of P) c = Math.min(c, pz - 400 + Math.max(0, Math.abs(x - px) - 300) * 0.9); cap[i] = c; }
+    return x => { const f = Math.max(0, Math.min(n - 1.001, (x - x0) / step)), i = Math.floor(f), t = f - i; return cap[i] * (1 - t) + cap[i + 1] * t; };
+})();
 // Port Silver's piers: [dz, length] from the quay (x = PORT.x + 78); their decks are ground you walk on.
 const PIERS = [[-46, 46], [0, 60], [46, 40]], DECK_Y = WATER + 0.9 + 0.125;
 function pierAt(x, z) {
@@ -248,11 +257,14 @@ export function eldoriaHeight(x, z) {
           const di = Math.hypot(x - I.x, z - I.z), w = I.r * (1 + 0.22 * Math.sin(Math.atan2(z - I.z, x - I.x) * 3 + I.x * 0.01) + 0.1 * Math.sin(Math.atan2(z - I.z, x - I.x) * 7));
           if (di < w * 1.4) h = Math.max(h, WATER - 3 + (I.h + 3) * Math.pow(Math.max(0, 1 - di / (w * 1.4)), 1.25) * (0.8 + 0.4 * fbm(x * 0.03, z * 0.03, 2)));
       } }
-    // the sea: east of the coast, past the south edge; high mountains closing the north
-    const cx = coastX(z);
-    if (x > cx - 160) h = h + (WATER - 10 - h) * smooth(cx - 160, cx + 60, x);
-    if (z > SOUTH_EDGE - 200) h = h + (WATER - 10 - h) * smooth(SOUTH_EDGE - 200, SOUTH_EDGE, z);
-    // (the north's old wall of mountains is gone: the continent has a coast there now, the iron hills and the west peaks stand inland)
+    // the north: high mountains where the land runs on beyond the world (the old straight east coast and south edge are
+    // gone: the coast above replaces them)
+    { const foot = Math.min(NORTH_FOOT_CAP(x), NORTH_EDGE + 260 + 170 * Math.sin(x * 0.0019 + 0.7) + 90 * Math.sin(x * 0.0051 + 2.1) + 40 * Math.sin(x * 0.013));   // a wandering foot, kept clear of every place
+      if (z < foot + 50) {
+          const rugN = 0.55 + 0.9 * Math.pow(1 - Math.abs(fbm(x * 0.0035 + 91, z * 0.0035 - 41, 4) * 2 - 1), 2);   // craggy crests, saddles between
+          const top = 40 + 130 * rugN * smooth(foot + 50, foot - 500, z);
+          h = Math.max(h, h + (top - h) * smooth(foot + 50, foot - 250, z));
+      } }
     return h;
 }
 
