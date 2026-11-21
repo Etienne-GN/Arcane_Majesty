@@ -360,6 +360,32 @@ function cineCamera(dt) {
     camera.lookAt(cineLook.clone().lerp(look, k));
     player.state.facing = Math.atan2(dx, dz);
 }
+// Eldrin's horse (Phase 13, first pass): it waits where you left it (stats.flags.horse, in the open world); G beside it to
+// ride (2.4× as fast, not in deep water), G again to get down. The open world only.
+import('./content/models/horse.js').then(({ buildHorse, SADDLE_Y }) => { horse.model = buildHorse(); horse.saddle = SADDLE_Y; });
+const horse = { model: null, saddle: 1.15, station: null, scene: null };
+function placeHorse() {
+    const m = world.current; if (!horse.model || world.id !== 'eldoria') return;
+    if (!stats.flags.horse) { const sp = m.spawns['outdoor:start'] ?? m.spawns.start; stats.flags.horse = { x: sp.x + 4, z: sp.z + 3 }; }
+    const at = stats.flags.horse;
+    if (horse.scene !== m.scene) { horse.scene?.remove(horse.model.root); m.scene.add(horse.model.root); horse.scene = m.scene; }
+    if (!player.state.mounted) {
+        horse.model.root.position.set(at.x, m.heightAt(at.x, at.z), at.z);
+        if (!horse.station) { horse.station = { mode: 'mount', title: 'Your horse', pos: horse.model.root.position }; m.stations.push(horse.station); }
+    }
+}
+function toggleMount(on) {
+    const p = player.state;
+    if (on && !p.mounted) { p.mounted = { saddle: horse.saddle }; const i = world.current.stations.indexOf(horse.station); if (i >= 0) world.current.stations.splice(i, 1); horse.station = null; hud.banner('In the saddle — G to get down'); }
+    else if (!on && p.mounted) { p.mounted = null; stats.flags.horse = { x: p.pos.x + Math.cos(p.facing) * 1.6, z: p.pos.z - Math.sin(p.facing) * 1.6 }; placeHorse(); save(); }
+}
+function updateHorse(dt) {
+    if (!horse.model) return;
+    placeHorse();
+    const p = player.state;
+    if (p.mounted) { horse.model.root.position.copy(p.pos); horse.model.root.rotation.y = p.facing; if (world.current.swimming?.(p.pos.x, p.pos.z)) toggleMount(false); }
+    horse.model.update(dt, p.mounted ? p.speed : 0);
+}
 let fpShown = false;   // the camera's first-person view, last applied to the hero's body
 let travel = null;
 const questHooks = {};
@@ -722,19 +748,21 @@ function tick(dt) {
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
     const pp = player.state.pos;
+    if (player.state.mounted && act.gather) { toggleMount(false); act.gather = false; }   // get down from the horse
     let station = (map.stations ?? []).filter(st => Math.hypot(st.pos.x - pp.x, st.pos.z - pp.z) < 2.3 && Math.abs(st.pos.y - pp.y) < 1.6)
         .reduce((b, st) => (!b || Math.hypot(st.pos.x - pp.x, st.pos.z - pp.z) < Math.hypot(b.pos.x - pp.x, b.pos.z - pp.z) ? st : b), null);   // the nearest, when two are close
     let person = map.town ? map.town.nearestPerson(pp) : null;
     // Whichever is closer wins: a person standing by a chest or sign is still someone to talk to.
     if (station && person) { if (Math.hypot(person.pos.x - pp.x, person.pos.z - pp.z) < Math.hypot(station.pos.x - pp.x, station.pos.z - pp.z)) station = null; else person = null; }
     const personName = person?.r.npc ? person.r.npc.name.replace(/^./, c => c.toUpperCase()) : null;
-    const gatherText = station ? STATION_PROMPT[station.mode] : person ? `G — Talk${personName ? ` to the ${personName}` : ''}` : gathering.update(simT * 1000, player.state);
+    const gatherText = player.state.mounted ? 'G — Get down' : station ? STATION_PROMPT[station.mode] : person ? `G — Talk${personName ? ` to the ${personName}` : ''}` : gathering.update(simT * 1000, player.state);
     if (gatherText && (act.gather || (act.hop && input.device === 'gamepad'))) {
         if (station?.mode === 'chest') { seedChest(station); chests.toggle(station.key, station.title); }
         else if (station?.mode === 'sign') { dialogue.start([{ speaker: '', text: station.text }]); quests.manager.onReadSign(station.id ?? null); station.onUse?.({ quests, stats }); }
         else if (station?.mode === 'gate') travel.useGate(station.key);
         else if (station?.mode === 'board') bountyBoard.use({ key: station.key, place: station.place, regionDef: station.region === 'east_road' ? eastRoadMap.default : thaloriaMap.default });
         else if (station?.mode === 'desk') writeCodex();
+        else if (station?.mode === 'mount') toggleMount(true);
         else if (station?.mode === 'cairn') { stats.respawnPoint = { map: map.id, spawn: station.key }; hud.banner('A cairn — if you fall, you will come back here'); save(); }
         else if (station) campfire.toggle(station.mode);
         else if (person) { cine = { pos: person.pos.clone(), t: 0 }; if (person.r.onTalk) person.r.onTalk({ start: dialogue.start, quests, stats, hud, save }); else dialogue.talk(person, clock()); }   // onTalk: a map's own conversation (the Sanctuary)
@@ -750,6 +778,7 @@ function tick(dt) {
         playerStatus: (id, ms) => player.addBuff(id, ms), dispelPlayer: () => player.dispelSelf(), fx: world.current.fx ?? fireballs, hurtPlayer: player.hurt, floater: hud.floater, onKill: player.onKill, dropLoot };
     if (!world.step(dt)) lift = player.step(dt, act, ctx);
     const p = player.state;
+    updateHorse(dt);
     cam.update(dt, p.pos, lift, map.heightAt ?? null, map.camBlockedAt ? (x, z, r, y) => map.camBlockedAt(x, z, y) : null);   // the camera never sinks into the ground or the mountain, nor behind a wall
     if (cam.firstPerson !== fpShown) { fpShown = cam.firstPerson; hero.root.visible = !fpShown && !player.state.dead; }   // first person: Eldrin's own body out of the way
     const ceil = map.cameraCeiling?.(p.pos.x, p.pos.z, p.pos.y);   // under a cave roof: pull in below it

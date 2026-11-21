@@ -434,7 +434,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
                 const wading = !!m.wading?.(p.pos.x, p.pos.z);
                 const swimming = !!m.swimming?.(p.pos.x, p.pos.z);   // deep water: a slow swim, no sprint
                 // Analog sticks walk slower when pushed less; full tilt = amo's speed.
-                const speed = (moveSpeed(baseSpeed(), stats.fatigueFraction, swimming ? 0.42 : wading ? 0.6 : 1, p.sprinting && !swimming) / PX) * (p.cast ? (p.cast.incant && !p.cast.fired ? 0 : 0.45) : 1) * Math.max(0.35, push) * buffMult('speedMult') * (p.wolf ? 1.3 : 1);   // the wolf form runs faster
+                const speed = (moveSpeed(baseSpeed(), stats.fatigueFraction, swimming ? 0.42 : wading ? 0.6 : 1, p.sprinting && !swimming) / PX) * (p.cast ? (p.cast.incant && !p.cast.fired ? 0 : 0.45) : 1) * Math.max(0.35, push) * buffMult('speedMult') * (p.wolf ? 1.3 : 1) * (p.mounted && !swimming ? 2.4 : 1);   // the wolf form runs faster; on horseback, far faster
                 tryPos.copy(p.pos).addScaledVector(dir, speed * dt);
                 m.resolve(tryPos, PLAYER_R);
                 if (!passable(tryPos.x, tryPos.z)) {
@@ -501,7 +501,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         }
 
         hero.root.position.copy(p.pos);
-        hero.root.position.y += lift;
+        hero.root.position.y += lift + (p.mounted ? p.mounted.saddle : 0);   // in the saddle
         if (p.spin) { p.spin.t += dt / (p.spin.dur ?? 0.4); if (p.spin.t >= 1) p.spin = null; }
         if (p.move) {
             p.move.t += dt / p.move.dur;
@@ -512,7 +512,7 @@ export function createPlayer({ hooks = {}, name = 'Eldrin', stats, hero, cam, wo
         p.blockCd = Math.max(0, (p.blockCd ?? 0) - dt);
         if (p.shot) { p.shot.t += dt / 0.3; if (p.shot.t >= 1) p.shot = null; }
         hero.root.rotation.y = p.facing + (p.spin ? p.spin.t * Math.PI * 2 * (p.spin.turns ?? 1) : 0);
-        hero.update(dt, { speed: p.speed, sprinting: p.sprinting, hopK: p.hop && !p.hop.roll ? p.hop.t : null, rollK: p.hop?.roll ? p.hop.t : null, castK: p.cast ? p.cast.t : p.shot ? p.shot.t : null, incant: !!p.cast?.incant, castHand: p.cast?.hand ?? 'R', strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust, strikeHand: p.strike?.hand ?? 'R', strikeCombo: p.strike?.combo ?? 1, blockK: p.block ? Math.min(1, p.block.t / 0.12) : null, move: p.move ? { id: p.move.id, k: p.move.t, hand: p.move.hand } : null });
+        hero.update(dt, { speed: p.mounted ? 0 : p.speed, sprinting: p.sprinting, hopK: p.hop && !p.hop.roll ? p.hop.t : null, rollK: p.hop?.roll ? p.hop.t : null, castK: p.cast ? p.cast.t : p.shot ? p.shot.t : null, incant: !!p.cast?.incant, castHand: p.cast?.hand ?? 'R', strikeK: p.strike ? p.strike.t : null, thrust: !!p.strike?.thrust, strikeHand: p.strike?.hand ?? 'R', strikeCombo: p.strike?.combo ?? 1, blockK: p.block ? Math.min(1, p.block.t / 0.12) : null, move: p.move ? { id: p.move.id, k: p.move.t, hand: p.move.hand } : null });
 
         // Doors.
         let nearLabel = null, inside = false;

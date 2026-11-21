@@ -17,6 +17,7 @@ const MODES = {
     workbench: { title: 'Workbench', verb: 'Craft', kind: null, list: () => craftingRecipes.CRAFTING_RECIPES },
 };
 export const STATION_PROMPT = {
+    mount: 'G — Ride your horse',
     campfire: 'G — Cook or rest at the campfire', hearth: 'G — Cook at the hearth',
     alchemy: 'G — Brew at the cauldron', workbench: 'G — Craft at the workbench', chest: 'G — Open the chest', gate: 'G — Touch the monolith', sign: 'G — Read', cairn: 'G — Touch the cairn', board: 'G — Read the bounty board', desk: 'G — Sit and write up the codex',
 };
