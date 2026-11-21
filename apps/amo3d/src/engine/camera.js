@@ -56,6 +56,10 @@ export function createOrbitCamera(camera) {
                 const n = Math.ceil(cam.dist / 0.5), cx = Math.sin(cam.yaw) * Math.cos(cam.pitch), cy = Math.sin(cam.pitch), cz = Math.cos(cam.yaw) * Math.cos(cam.pitch);
                 for (let i = 2; i <= n; i++) { const d = i / n * cam.dist; if (blockedAt(cam.target.x + cx * d, cam.target.z + cz * d, 0.2, cam.target.y + cy * d)) { dist = Math.max(1.2, d - 0.6); break; } }
             }
+            if (groundAt) {   // the land along the line out to the camera: a hillside between pulls the camera in front of it
+                const n = Math.ceil(dist / 0.5), cx = Math.sin(cam.yaw) * Math.cos(cam.pitch), cy = Math.sin(cam.pitch), cz = Math.cos(cam.yaw) * Math.cos(cam.pitch);
+                for (let i = 3; i <= n; i++) { const d = i / n * dist, x = cam.target.x + cx * d, z = cam.target.z + cz * d; if (cam.target.y + cy * d < groundAt(x, z) + 0.5) { dist = Math.max(1.2, d - 0.8); break; } }
+            }
             cam.shown = cam.shown === undefined ? dist : cam.shown + (dist - cam.shown) * Math.min(1, dt * (dist < cam.shown ? 18 : 3));   // in fast, back out slowly
             dist = Math.min(dist, cam.shown);
             const cp = Math.cos(cam.pitch) * dist;
@@ -64,7 +68,11 @@ export function createOrbitCamera(camera) {
                 cam.target.y + Math.sin(cam.pitch) * dist,
                 cam.target.z + Math.cos(cam.yaw) * cp,
             );
-            if (groundAt) camera.position.y = Math.max(camera.position.y, groundAt(camera.position.x, camera.position.z) + 0.6);
+            if (groundAt) {   // clear of the ground under it and round it (a slope beside the lens would be cut by the near plane)
+                const { x, z } = camera.position; let g = groundAt(x, z);
+                for (let a2 = 0; a2 < 6.28; a2 += 1.05) g = Math.max(g, groundAt(x + Math.cos(a2) * 1.2, z + Math.sin(a2) * 1.2) - 0.25);
+                camera.position.y = Math.max(camera.position.y, g + 0.7);
+            }
             camera.lookAt(cam.target);
             if (cam.shake > 0.001) {
                 camera.position.x += (Math.random() - 0.5) * cam.shake;
