@@ -158,7 +158,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     // A built place's unchanging pieces merged by material (a region map is hundreds of small meshes: one draw call each
     // on a phone). Left alone: anything dynamic (tagged, or under a tagged group), instanced, skinned, transparent, or
     // a material used by fewer than four meshes (most things that animate have their own).
-    function staticBatch(g) {
+    function staticBatch(g, st = null) {
         const groups = new Map(), m4 = new THREE.Matrix4(), inv = new THREE.Matrix4().copy(g.matrixWorld).invert();
         g.updateMatrixWorld(true);
         g.traverse(o => {
@@ -170,7 +170,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             const plain = mt.isMeshStandardMaterial && !mt.map && !(mt.emissive && mt.emissive.getHex() && mt.emissiveIntensity > 0);
             if (plain) {
                 const c = new THREE.Vector3(); o.getWorldPosition(c);
-                const key = 'plain|' + mt.flatShading + '|' + mt.side + '|' + Math.floor(c.x / 64) + ',' + Math.floor(c.z / 64);
+                const key = 'plain|' + mt.flatShading + '|' + mt.side + '|' + (mt.userData.shapeClip ? 'clip' : '') + '|' + Math.floor(c.x / 64) + ',' + Math.floor(c.z / 64);   // (pieces cut to the place's outline merge only with each other)
                 (groups.get(key) ?? groups.set(key, []).get(key)).push(o); return;
             }
             const look = mt.isShaderMaterial ? mt.uuid : [mt.type, mt.color?.getHexString(), mt.emissive?.getHexString(), mt.emissiveIntensity, mt.vertexColors, mt.flatShading, mt.side, mt.map?.uuid, mt.roughness, mt.metalness].join('/');   // same look, whatever the object
@@ -196,7 +196,11 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             geos.forEach(x => x.dispose());
             if (!merged) continue;
             let mat = list[0].material;
-            if (plain) { const mk = key.split('|').slice(0, 3).join('|'); mat = plainMats.get(mk) ?? plainMats.set(mk, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: list[0].material.flatShading, side: list[0].material.side, roughness: list[0].material.roughness, metalness: list[0].material.metalness })).get(mk); }
+            if (plain) {
+                const mk = key.split('|').slice(0, 4).join('|');
+                mat = plainMats.get(mk) ?? plainMats.set(mk, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: list[0].material.flatShading, side: list[0].material.side, roughness: list[0].material.roughness, metalness: list[0].material.metalness })).get(mk);
+                if (st && list[0].material.userData.shapeClip) shapeClip(mat, st);   // the merged ground still cut to the outline (it showed beyond it, floating, at every place's edge)
+            }
             const m = new THREE.Mesh(merged, mat); m.castShadow = list.some(o => o.castShadow); m.receiveShadow = list.some(o => o.receiveShadow);
             for (const o of list) o.parent?.remove(o);
             g.add(m);
@@ -247,7 +251,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         // whatever lives and moves is never batched: creatures, townsfolk (their roots tagged)
         for (const h of st.map.hittables ?? []) if (h.root) h.root.userData.dynamic = true;
         for (const p of st.map.town?.people ?? st.map.people ?? []) for (const o of [p.root, p.model?.root, p.far, p.group, p.mesh]) if (o?.userData) o.userData.dynamic = true;
-        if (st.batch !== false) staticBatch(g);
+        if (st.batch !== false) staticBatch(g, st);
         g.traverse(o => {   // a place's own forest at middle detail (its full crowns are three times the triangles)
             if (!o.isInstancedMesh) return;
             for (const k of ['pine', 'broad', 'birch']) if (o.geometry === K[k]?.crown && MID[k]) o.geometry = MID[k];
