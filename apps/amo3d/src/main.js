@@ -362,8 +362,19 @@ function cineCamera(dt) {
 }
 // Eldrin's horse (Phase 13, first pass): it waits where you left it (stats.flags.horse, in the open world); G beside it to
 // ride (2.4× as fast, not in deep water), G again to get down. The open world only.
-import('./content/models/horse.js').then(({ buildHorse, SADDLE_Y }) => { horse.model = buildHorse(); horse.saddle = SADDLE_Y; });
+import('./content/models/horse.js').then(({ buildHorse, buildBoat, SADDLE_Y }) => { horse.model = buildHorse(); horse.saddle = SADDLE_Y; boat.model = buildBoat(); });
 const horse = { model: null, saddle: 1.15, station: null, scene: null };
+// A rowboat on Lake Aethera (Phase 13, boats): G at its side to row (water only — G again at a shore to step off).
+const boat = { model: null, station: null, scene: null };
+function placeBoat() {
+    const m = world.current; if (!boat.model || world.id !== 'eldoria') return;
+    if (!stats.flags.boat) { const st = m.stamps?.find(s2 => s2.id === 'lake_aethera'); if (!st) return; let best = null; for (let a = 0; a < 6.28; a += 0.2) for (let r = 10; r < 70; r += 3) { const x = st.ox + Math.cos(a) * r, z = st.oz + Math.sin(a) * r, h = m.heightAt(x, z); if (h < -2.6 && h > -3.6) { best = { x, z }; break; } } if (best) stats.flags.boat = best; else return; }
+    if (boat.scene !== m.scene) { boat.scene?.remove(boat.model.root); m.scene.add(boat.model.root); boat.scene = m.scene; }
+    if (player.state.mounted?.kind !== 'boat') {
+        const at = stats.flags.boat; boat.model.root.position.set(at.x, -2.05, at.z);
+        if (!boat.station) { boat.station = { mode: 'boat', title: 'A rowboat', pos: new THREE.Vector3(at.x, m.groundAt(at.x, at.z), at.z) }; m.stations.push(boat.station); }
+    }
+}
 function placeHorse() {
     const m = world.current; if (!horse.model || world.id !== 'eldoria') return;
     if (!stats.flags.horse) { const sp = m.spawns['outdoor:start'] ?? m.spawns.start; stats.flags.horse = { x: sp.x + 4, z: sp.z + 3 }; }
@@ -374,8 +385,18 @@ function placeHorse() {
         if (!horse.station) { horse.station = { mode: 'mount', title: 'Your horse', pos: horse.model.root.position }; m.stations.push(horse.station); }
     }
 }
+function toggleBoat(on) {
+    const p = player.state, m = world.current;
+    if (on && !p.mounted) { p.mounted = { kind: 'boat', saddle: 1.35 }; const at = stats.flags.boat; p.pos.set(at.x, m.groundAt(at.x, at.z), at.z); const i = m.stations.indexOf(boat.station); if (i >= 0) m.stations.splice(i, 1); boat.station = null; hud.banner('In the boat — G at a shore to step off'); }
+    else if (!on && p.mounted?.kind === 'boat') {
+        let shore = null; for (let a = 0; a < 6.28 && !shore; a += 0.4) for (let r = 2; r < 7; r += 1) { const x = p.pos.x + Math.cos(a) * r, z = p.pos.z + Math.sin(a) * r; if (m.heightAt(x, z) > -1.4) { shore = { x, z }; break; } }
+        if (!shore) { hud.message('Row to a shore to step off'); return; }
+        stats.flags.boat = { x: p.pos.x, z: p.pos.z }; p.mounted = null; p.pos.set(shore.x, m.groundAt(shore.x, shore.z), shore.z); placeBoat(); save();
+    }
+}
 function toggleMount(on) {
     const p = player.state;
+    if (!on && p.mounted?.kind === 'boat') return toggleBoat(false);
     if (on && !p.mounted) { p.mounted = { saddle: horse.saddle }; const i = world.current.stations.indexOf(horse.station); if (i >= 0) world.current.stations.splice(i, 1); horse.station = null; hud.banner('In the saddle — G to get down'); }
     else if (!on && p.mounted) { p.mounted = null; stats.flags.horse = { x: p.pos.x + Math.cos(p.facing) * 1.6, z: p.pos.z - Math.sin(p.facing) * 1.6 }; placeHorse(); save(); }
 }
@@ -383,9 +404,13 @@ function updateHorse(dt) {
     if (!horse.model) return;
     placeHorse();
     const p = player.state;
-    if (p.mounted) { horse.model.root.position.copy(p.pos); horse.model.root.rotation.y = p.facing; if (world.current.swimming?.(p.pos.x, p.pos.z)) toggleMount(false); }
-    horse.model.update(dt, p.mounted ? p.speed : 0);
+    if (p.mounted && p.mounted.kind !== 'boat') { horse.model.root.position.copy(p.pos); horse.model.root.rotation.y = p.facing; if (world.current.swimming?.(p.pos.x, p.pos.z)) toggleMount(false); }
+    horse.model.update(dt, p.mounted && p.mounted.kind !== 'boat' ? p.speed : 0);
+    if (boat.model) { placeBoat(); if (p.mounted?.kind === 'boat') { boat.model.root.position.set(p.pos.x, -2.05, p.pos.z); boat.model.root.rotation.y = p.facing; } boat.model.update(dt, p.mounted?.kind === 'boat' ? p.speed : 0); }
 }
+let uwShown = false; const uw = document.createElement('div');
+uw.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:4;background:radial-gradient(ellipse at 50% 40%, #2c8a9855, #0a3a44cc);opacity:0;transition:opacity .4s';
+document.body.append(uw);
 let fpShown = false;   // the camera's first-person view, last applied to the hero's body
 let travel = null;
 const questHooks = {};
@@ -755,7 +780,7 @@ function tick(dt) {
     // Whichever is closer wins: a person standing by a chest or sign is still someone to talk to.
     if (station && person) { if (Math.hypot(person.pos.x - pp.x, person.pos.z - pp.z) < Math.hypot(station.pos.x - pp.x, station.pos.z - pp.z)) station = null; else person = null; }
     const personName = person?.r.npc ? person.r.npc.name.replace(/^./, c => c.toUpperCase()) : null;
-    const gatherText = player.state.mounted ? 'G — Get down' : station ? STATION_PROMPT[station.mode] : person ? `G — Talk${personName ? ` to the ${personName}` : ''}` : gathering.update(simT * 1000, player.state);
+    const gatherText = player.state.mounted ? (player.state.mounted.kind === 'boat' ? 'G — Step ashore' : 'G — Get down') : station ? STATION_PROMPT[station.mode] : person ? `G — Talk${personName ? ` to the ${personName}` : ''}` : gathering.update(simT * 1000, player.state);
     if (gatherText && (act.gather || (act.hop && input.device === 'gamepad'))) {
         if (station?.mode === 'chest') { seedChest(station); chests.toggle(station.key, station.title); }
         else if (station?.mode === 'sign') { dialogue.start([{ speaker: '', text: station.text }]); quests.manager.onReadSign(station.id ?? null); station.onUse?.({ quests, stats }); }
@@ -763,6 +788,7 @@ function tick(dt) {
         else if (station?.mode === 'board') bountyBoard.use({ key: station.key, place: station.place, regionDef: station.region === 'east_road' ? eastRoadMap.default : thaloriaMap.default });
         else if (station?.mode === 'desk') writeCodex();
         else if (station?.mode === 'mount') toggleMount(true);
+        else if (station?.mode === 'boat') toggleBoat(true);
         else if (station?.mode === 'cairn') { stats.respawnPoint = { map: map.id, spawn: station.key }; hud.banner('A cairn — if you fall, you will come back here'); save(); }
         else if (station) campfire.toggle(station.mode);
         else if (person) { cine = { pos: person.pos.clone(), t: 0 }; if (person.r.onTalk) person.r.onTalk({ start: dialogue.start, quests, stats, hud, save }); else dialogue.talk(person, clock()); }   // onTalk: a map's own conversation (the Sanctuary)
@@ -779,6 +805,8 @@ function tick(dt) {
     if (!world.step(dt)) lift = player.step(dt, act, ctx);
     const p = player.state;
     updateHorse(dt);
+    if (player.state.diving) lift += player.state.diving.depth * 2;   // (cam.update halves lift: the camera dives with you)
+    { const under = player.state.diving && camera.position.y < -2.05; if (under !== uwShown) { uwShown = under; uw.style.opacity = under ? 1 : 0; } }   // under water: a blue-green veil
     cam.update(dt, p.pos, lift, map.heightAt ?? null, map.camBlockedAt ? (x, z, r, y) => map.camBlockedAt(x, z, y) : null);   // the camera never sinks into the ground or the mountain, nor behind a wall
     if (cam.firstPerson !== fpShown) { fpShown = cam.firstPerson; hero.root.visible = !fpShown && !player.state.dead; }   // first person: Eldrin's own body out of the way
     const ceil = map.cameraCeiling?.(p.pos.x, p.pos.z, p.pos.y);   // under a cave roof: pull in below it

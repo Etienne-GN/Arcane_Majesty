@@ -277,7 +277,7 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
     const calm = new THREE.Color(0x3ce0d0), blaze = new THREE.Color(0xff7a20);
 
     // speed in m/s, sprinting bool, hopK 0..1 progress (null when grounded), castK 0..1 (null when not casting)
-    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false, incant = false, strikeHand = 'R', castHand = 'R', blockK = null, move = null, strikeCombo = 1, rollK = null }) {
+    function update(dt, { speed, sprinting, hopK, castK = null, strikeK = null, thrust = false, incant = false, strikeHand = 'R', castHand = 'R', blockK = null, move = null, strikeCombo = 1, rollK = null, seated = false }) {
         t += dt;
         const ease = k => 1 - Math.exp(-dt * k);
         amp += (Math.min(1, speed / 4) - amp) * ease(10);
@@ -294,6 +294,8 @@ export function createCharacter(lookIn = DEFAULT_LOOK) {
         legs.R.thigh.rotation.x = g * -s * stride * amp + air * -0.35;
         legs.L.shin.rotation.x = g * amp * (0.12 + (1.0 + 0.5 * run) * Math.max(0, -c)) + air * 1.5;
         legs.R.shin.rotation.x = g * amp * (0.12 + (1.0 + 0.5 * run) * Math.max(0, c)) + air * 0.8;
+        // In the saddle: thighs forward and apart round the horse, shins hanging bent at the stirrups.
+        for (const [k, sd] of [['L', 1], ['R', -1]]) { legs[k].thigh.rotation.z = seated ? sd * 0.42 : 0; if (seated) { legs[k].thigh.rotation.x = -1.3; legs[k].shin.rotation.x = 1.35; } }
 
         // Arms counter-swing; the staff arm moves less.
         const breathe = Math.sin(t * 2.1) * (1 - amp);

@@ -41,3 +41,17 @@ export function buildHorse({ coat = 0x6a4a32, mane = 0x2a1e16 } = {}) {
     }
     return { root, update };
 }
+
+// A rowboat (Phase 13, boats — first pass): a clinker hull, two thwarts, oars that row with speed.
+export function buildBoat() {
+    const root = new THREE.Group(), W = flat(0x7a5a38), D = flat(0x4a3420), add = (geo, m, x, y, z, p = root) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = true; p.add(o); return o; };
+    add(new THREE.BoxGeometry(1.3, 0.12, 3.4), D, 0, 0.0, 0);                      // the bottom
+    for (const s of [-1, 1]) { const side = add(new THREE.BoxGeometry(0.1, 0.5, 3.4), W, s * 0.68, 0.25, 0); side.rotation.z = s * -0.25; }
+    add(new THREE.BoxGeometry(1.2, 0.5, 0.1), W, 0, 0.25, -1.68);                 // the transom
+    const bow = add(new THREE.ConeGeometry(0.7, 1.1, 4), W, 0, 0.25, 2.2); bow.rotation.x = Math.PI / 2; bow.scale.set(1, 1, 0.5);
+    for (const z of [-0.6, 0.6]) add(new THREE.BoxGeometry(1.25, 0.06, 0.3), D, 0, 0.32, z);   // thwarts
+    const oars = [-1, 1].map(s => { const g = new THREE.Group(); g.position.set(s * 0.7, 0.45, 0.1); root.add(g); const o = add(new THREE.BoxGeometry(0.06, 0.06, 2.2), D, s * 0.8, 0, 0, g); o.rotation.y = s * 1.3; add(new THREE.BoxGeometry(0.04, 0.22, 0.5), D, s * 1.75, 0, -0.4, g); return { g, s }; });
+    let t = 0;
+    function update(dt, speed = 0) { t += dt * (1 + speed); for (const o of oars) { o.g.rotation.y = Math.sin(t * 2.2) * 0.5 * Math.min(1, speed / 2); o.g.rotation.z = o.s * (0.1 + Math.max(0, Math.cos(t * 2.2)) * 0.2 * Math.min(1, speed / 2)); } root.rotation.z = Math.sin(t * 0.8) * 0.02; }
+    return { root, update };
+}
