@@ -415,7 +415,7 @@ const STORY = [
 ];
 // Every exit that led from one of these places to another of them is gone in the open world: you walk there.
 const IN_WORLD = ['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'thaloria_lower', 'citadel_plateau', 'summit_of_despair', 'whisper_wood', 'the_crossroads', 'iron_hollow', 'duskmeet', 'graywatch', 'lake_aethera', 'port_silver', 'emerald_fields', 'fire_gate', 'inferno_labyrinth', 'ruins_of_eldoria'];
-function makeStamps(quality) {
+export function makeStamps(quality) {
     // Thaloria: the scholar-city on its hill (content/thaloriaCity.js, from the plan), the gorge on its north side.
     const out = [prepStamp({ id: 'thaloria', map: createThaloriaCity({ quality }), ox: CITY.x, oy: 2, oz: CITY.z, rect: [-188, -126, 188, 262], drop: new Set(IN_WORLD), round: 3.2, wobble: 0.04 })];   // (a walled city: a squarer outline, still no sharp corner)
     // The Lower Town, out of the South Gate; the Citadel's plateau, at the top of the cliff stair (their own region maps).
@@ -554,9 +554,11 @@ function biomeLabels(stamps) {
     for (const st of stamps) { const id = BIOME_MAP.places?.[st.id]; if (!id || !BIOMES[id]) continue; const a = acc[id] ??= { x: 0, z: 0, n: 0 }; a.x += st.cx; a.z += st.cz; a.n++; }
     return Object.entries(acc).map(([id, a]) => ({ name: BIOMES[id].name, x: a.x / a.n, z: a.z / a.n }));
 }
+// The open world's ground: the land, the places set into it, the roads graded in last (also used by tools/node_world.mjs).
+export function worldHeights(stamps) { return graded(stampHeights(eldoriaHeight, stamps, 60), stamps); }
 export function createEldoriaWorld({ quality } = {}) {
     const stamps = makeStamps(quality);
-    const heightAt = graded(stampHeights(eldoriaHeight, stamps, 60), stamps);   // (roads graded into the land last)
+    const heightAt = worldHeights(stamps);
     const biomeAt = makeBiomes(stamps);
     const places = LAYOUT.places.map(p => ({ name: p.name, x: p.world[0], z: p.world[1] }));
     const toCity = Math.atan2(CITY.x - GLADE.x, CITY.z - GLADE.z);

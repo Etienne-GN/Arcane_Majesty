@@ -252,10 +252,17 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         for (const h of st.map.hittables ?? []) if (h.root) h.root.userData.dynamic = true;
         for (const p of st.map.town?.people ?? st.map.people ?? []) for (const o of [p.root, p.model?.root, p.far, p.group, p.mesh]) if (o?.userData) o.userData.dynamic = true;
         if (st.batch !== false) staticBatch(g, st);
+        g.updateMatrixWorld(true);
+        const im4 = new THREE.Matrix4(), ip = new THREE.Vector3(), zero = new THREE.Matrix4().makeScale(0, 0, 0);
         g.traverse(o => {   // a place's own forest at middle detail (its full crowns are three times the triangles)
             if (!o.isInstancedMesh) return;
             for (const k of ['pine', 'broad', 'birch']) if (o.geometry === K[k]?.crown && MID[k]) o.geometry = MID[k];
+            // a tree (or rock) standing on the outline is taken away whole — never sliced by the cut (the land's own forest carries on outside)
+            let hit = false;
+            for (let i = 0; i < o.count; i++) { o.getMatrixAt(i, im4); ip.setFromMatrixPosition(im4).applyMatrix4(o.matrixWorld); if (edgeDist(st, ip.x, ip.z) > -2.5) { o.setMatrixAt(i, zero); hit = true; } }
+            if (hit) o.instanceMatrix.needsUpdate = true;
         });
+        if (st.map.colliders) st.map.colliders = st.map.colliders.filter(c => c.ax !== undefined || c.r > 1.6 || edgeDist(st, c.x + st.ox, c.z + st.oz) <= -2.5);   // (their trunks go with them)
         rebucket(st);
     const gone = [], kept = [];
         for (const t of st.map.triggers ?? []) {
@@ -413,7 +420,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             if (h < WATER + 1 || h > 38) continue;
             if (fbm(x * 0.012 + 3, z * 0.012 + 9, 3) < 0.5) continue;   // woods and clearings
             if (clearAt && clearAt(x, z)) continue;   // roads, a town's ground
-            if (stamped(x, z)) continue;   // a stamped place brings its own
+            if (stamped(x, z, 1)) continue;   // a stamped place brings its own (the land's forest runs right up to its edge)
             const kind = pick(h, rng());
             byKind[kind].push({ x, z, h, s: 0.8 + rng() * 0.6, r: rng() * 6.28, tint: rng() });
             (t.treePts ??= []).push([x, z, kind === 'pine' || kind === 'dead']);   // (the minimap draws them)
