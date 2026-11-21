@@ -133,7 +133,7 @@ export const ARCHIPELAGO = ARCHI.c;
 // The northern range, a spur down to the Summit's ridge's west end, the ridge itself (the one gap: the Summit), then on
 // from its east end, south of the Ruins, to the sea. Beyond: the Sanctuary, the Fire Gate, the Inferno Labyrinth, the Ruins.
 const SPUR = [[1985, -2780], [2000, -2560], [1990, -2360], [2008, -2128]];
-const DIVIDE_EAST = [[3300, -2200], [3480, -1990], [3700, -1890], [3950, -1870], [4400, -1880]];
+const DIVIDE_EAST = [[3300, -2200], [3480, -1990], [3700, -1890], [3950, -1870], [4400, -1880], [5600, -1900]];   // (out to the world's edge: no sailing round it)
 // The northern range's foot never comes nearer than ~400 m to a place (more beside it: the cap slopes away smoothly).
 const WEST_FOOT_CAP = (() => {
     const P = LAYOUT.places.filter(p => !p.plane || p.plane === 'Eldoria').map(p => p.world), z0 = -6000, step = 25, n = 481, cap = new Float32Array(n);
@@ -311,11 +311,16 @@ export function eldoriaHeight(x, z) {
       } }
     // the north: high mountains where the land runs on beyond the world (the old straight east coast and south edge are
     // gone: the coast above replaces them)
+    // (a chain like the west's: green foothills, a crest of summits and saddles ~420 m in, high country beyond; snow only
+    // on the highest summits — groundColor)
     { const foot = northFoot(x);   // a wandering foot, kept clear of every place
       if (z < foot + 50) {
-          const rugN = 0.55 + 0.9 * Math.pow(1 - Math.abs(fbm(x * 0.0035 + 91, z * 0.0035 - 41, 4) * 2 - 1), 2);   // craggy crests, saddles between
-          const top = 40 + 130 * rugN * smooth(foot + 50, foot - 500, z);
-          h = Math.max(h, h + (top - h) * smooth(foot + 50, foot - 250, z));
+          const crestZ = foot - 420, rugN = 0.7 + 0.6 * Math.pow(1 - Math.abs(fbm(x * 0.006 + 91, z * 0.006 - 41, 3) * 2 - 1), 2);
+          const crestH = 62 + 98 * Math.pow(N(fbm(x * 0.0021 - 7, z * 0.0004 + 19, 3)), 1.6);   // summits up to ~160 m, saddles ~62 m
+          const ridge = crestH * Math.exp(-Math.pow((z - crestZ) / 300, 2)) * rugN;
+          const hills = 26 * smooth(foot + 50, foot - 260, z) * (0.7 + 0.6 * fbm(x * 0.01 + 5, z * 0.01, 2));
+          const beyond = z < crestZ ? 50 * smooth(crestZ, crestZ - 400, z) * (0.8 + 0.4 * fbm(x * 0.004 + 3, z * 0.004, 2)) : 0;
+          h = Math.max(h, h + (Math.max(ridge, hills, beyond) - h) * smooth(foot + 50, foot - 200, z));
       } }
     return h;
 }
@@ -323,7 +328,7 @@ export function eldoriaHeight(x, z) {
 // Roads are laid like real ones: each a smooth curve (Catmull-Rom through the layout's points — no sharp bends), its bed
 // a profile of the land beneath smoothed and held to a 10% grade, the land cut into hillsides and built up over hollows
 // along it (graded() below). A grid of 32 m cells finds the nearest road point fast.
-const ROAD_STEP = 8, ROAD_GRADE = 0.10, ROAD_CELL = 32;
+const ROAD_STEP = 8, ROAD_GRADE = 0.13, ROAD_CELL = 32;   // (13%: the steepest approach — off the hill into the Lower Town — needs ~12%)
 function curve(pts) {
     const out = [];
     for (let i = 0; i < pts.length - 1; i++) {
@@ -380,14 +385,21 @@ function graded(ground, stamps) {
         const W = 6;   // ±48 m smoothing
         h = h.map((_, i) => { let s0 = 0, n = 0; for (let k = -W; k <= W; k++) { const v = h[i + k]; if (v !== undefined) { s0 += v; n++; } } return s0 / n; });
         const g = ROAD_GRADE * ROAD_STEP, pin = c.map(([x, z]) => inPlace(x, z));   // inside a place the road is the place's own ground: pinned
+        const nearPlace = (x, z) => stamps.some(st => x > st.X0 - 44 && x < st.X1 + 44 && z > st.Z0 - 44 && z < st.Z1 + 44 && edgeDist(st, x, z) < 40);
+        for (const e of [0, c.length - 1]) if (nearPlace(...c[e])) pin[e] = true;   // a road ending by a place: its end at the ground there (the grade works back from it)
         c.forEach(([x, z], i) => { if (pin[i]) h[i] = ground(x, z); });
-        for (let i = 1; i < h.length; i++) if (!pin[i]) h[i] = Math.max(h[i - 1] - g, Math.min(h[i - 1] + g, h[i]));
-        for (let i = h.length - 2; i >= 0; i--) if (!pin[i]) h[i] = Math.max(h[i + 1] - g, Math.min(h[i + 1] + g, h[i]));
-        const g0 = c.map(([x, z]) => ground(x, z));   // never cut deeper than 12 m (a cutting) nor raised more than 5 m (an embankment)
-        return h.map((v, i) => pin[i] ? v : Math.max(WATER + 0.6, Math.min(g0[i] + 5, Math.max(g0[i] - 12, v))));   // (a causeway over water)
+        const gs = c.map(([x, z], i) => i ? ROAD_GRADE * Math.hypot(x - c[i - 1][0], z - c[i - 1][1]) : 0);   // (the rise allowed between two points: by their real distance)
+        const g0 = c.map(([x, z]) => ground(x, z));   // never cut deeper than 14 m (a cutting) nor raised more than 7 m (an embankment)
+        const bound = i => { if (!pin[i]) h[i] = Math.max(WATER + 0.6, Math.min(g0[i] + 7, Math.max(g0[i] - 14, h[i]))); };   // (a causeway over water)
+        for (let it = 0; it < 6; it++) {   // the grade and the bounds in turn, till both hold (once each left the bounds steepening the grade)
+            for (let i = 1; i < h.length; i++) if (!pin[i]) h[i] = Math.max(h[i - 1] - gs[i], Math.min(h[i - 1] + gs[i], h[i]));
+            for (let i = h.length - 2; i >= 0; i--) if (!pin[i]) h[i] = Math.max(h[i + 1] - gs[i + 1], Math.min(h[i + 1] + gs[i + 1], h[i]));
+            for (let i = 0; i < h.length; i++) bound(i);
+        }
+        return h;
     });
     const placeEdge = (x, z) => { let d = Infinity; for (const st of stamps) if (x > st.X0 - 30 && x < st.X1 + 30 && z > st.Z0 - 30 && z < st.Z1 + 30) d = Math.min(d, edgeDist(st, x, z)); return d; };
-    return (x, z) => {
+    const fn = (x, z) => {
         const h = ground(x, z), r = nearestRoad(x, z, 16);
         if (!r || r.d > 16) return h;
         const pe = placeEdge(x, z);
@@ -395,6 +407,8 @@ function graded(ground, stamps) {
         const b = beds[r.ri], bed = b[r.pi] + (b[r.pi + 1] - b[r.pi]) * r.t;
         return h + (bed - h) * (1 - smooth(4, 16, r.d));   // flat across 8 m, banks out to 16 m (its profile already meets a place's ground where it enters)
     };
+    fn.beds = beds;   // (for the checks: tools/node_world.mjs roads)
+    return fn;
 }
 
 // The places stamped into the world (W2.2). Thaloria: the city (its own map, content/thaloria.js), set on the gorge
@@ -596,7 +610,7 @@ export function createEldoriaWorld({ quality } = {}) {
                 if (L.marsh > 0.1 && L.inside > -220 && h < WATER + 1.6) { const n = fbm(x * 0.09, z * 0.09, 2); col.set(n > 0.56 ? '#3e5a2a' : n > 0.44 ? '#4a5a30' : '#4a4630'); return true; }   // mud, rushes and sedge
                 if (L.marsh < 0.1 && h < WATER + 1.0 && h >= WATER - 0.2) { col.set('#b8a878'); return true; }   // a sandy margin elsewhere, and round the islands
             } }
-            if (x < westFoot(z) + 60 && h > 30) {   // the western chain: snow only on its summits, bare rock below, high meadows lower
+            if ((x < westFoot(z) + 60 || z < northFoot(x) + 60) && h > 30) {   // the western and northern chains: snow only on their summits, bare rock below, high meadows lower
                 const nz = fbm(x * 0.03, z * 0.03, 2) * 12;
                 if (h > 112 + nz) { col.set('#e4e8ec'); return true; }
                 if (h > 74 + nz) { col.set(h > 92 + nz ? '#6c6862' : '#7c766c'); return true; }

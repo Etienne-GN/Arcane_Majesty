@@ -39,5 +39,12 @@ try {
         }
         if (wade + swim) console.log(`${st.id.padEnd(20)} wading ${String(wade * 9).padStart(6)} m²  swimming ${String(swim * 9).padStart(6)} m²  land ${land * 9} m²  e.g. ${ex}`);
     }
-    else console.log('checks: seams | wading | at x,z …');
+    else if (cmd === 'roads') E.ROAD_CURVES.forEach((c, ri) => {   // each road's steepest stretches (8 m), where, and the nearest place
+        const g = []; for (let i = 0; i < c.length - 1; i++) { const [ax, az] = c[i], [bx, bz] = c[i + 1], L = Math.hypot(bx - ax, bz - az) || 1; g.push({ g: Math.abs(H(bx, bz) - H(ax, az)) / L, x: Math.round(ax), z: Math.round(az) }); }
+        g.sort((a, b) => b.g - a.g); const top = g.slice(0, 3).map(q => { const n = stamps.map(s => [s.id, edgeDist(s, q.x, q.z)]).sort((a, b) => a[1] - b[1])[0]; return `${Math.round(q.g * 100)}% @${q.x},${q.z} (${n[0]} ${Math.round(n[1])} m)`; });
+        console.log(`road ${ri} (${c.length} pts): ${top.join(' · ')}`);
+    });
+    else if (cmd === 'road') { const G0 = S.stampHeights(E.eldoriaHeight, stamps, 60); const ri = +args[0], c = E.ROAD_CURVES[ri], b = H.beds[ri], [i0, i1] = (args[1] ?? '0-40').split('-').map(Number);
+        for (let i = i0; i <= Math.min(i1, c.length - 1); i++) { const [x, z] = c[i], nr = stamps.map(s => [s.id, edgeDist(s, x, z)]).sort((p, q) => p[1] - q[1])[0]; console.log(`${i} ${Math.round(x)},${Math.round(z)} bed ${b[i].toFixed(1)} placed ${G0(x, z).toFixed(1)} ground ${H(x, z).toFixed(1)} land ${E.eldoriaHeight(x, z).toFixed(1)} (${nr[0]} ${Math.round(nr[1])})`); } }
+    else console.log('checks: seams | wading | roads | road <i> [from-to] | at x,z …');
 } finally { await vite.close(); }
