@@ -252,7 +252,7 @@ export function eldoriaHeight(x, z) {
     const cx = coastX(z);
     if (x > cx - 160) h = h + (WATER - 10 - h) * smooth(cx - 160, cx + 60, x);
     if (z > SOUTH_EDGE - 200) h = h + (WATER - 10 - h) * smooth(SOUTH_EDGE - 200, SOUTH_EDGE, z);
-    if (z < NORTH_EDGE + 300) h = Math.max(h, h + (160 - h) * smooth(NORTH_EDGE + 300, NORTH_EDGE - 100, z));
+    // (the north's old wall of mountains is gone: the continent has a coast there now, the iron hills and the west peaks stand inland)
     return h;
 }
 
@@ -518,7 +518,7 @@ export function createEldoriaWorld({ quality } = {}) {
             } catch (e) { console.warn('[wild] could not spawn', type, e); }
             return [];
         },
-        chart: { pxPerM: 0.0625, tileM: 4, detail: true, biomeLabels: biomeLabels(stamps), groundAt: (x, z) => (roadDist(x, z) < 6 ? 'road' : null) },
+        chart: { pxPerM: 0.04, tileM: 4, detail: true, biomeLabels: biomeLabels(stamps), groundAt: (x, z) => (roadDist(x, z) < 6 ? 'road' : null) },
         clearAt: (x, z) => roadDist(x, z) < 5 || (() => { const L = lakeInfo(x, z); return (L.beach > 0.3 && L.inside > -45) || (L.marsh > 0.4 && L.inside > -120 && fbm(x * 0.05, z * 0.05, 2) > 0.45); })() || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || riverDist(x, z) < 9,
         groundColor: (x, z, h, col) => {
             if (h < WATER + 1.6 && h > WATER - 0.6) { const L = lakeInfo(x, z); if (L.marsh > 0.1 && L.inside > -220 && L.inside < 140) { const n = fbm(x * 0.09, z * 0.09, 2); col.set(n > 0.56 ? '#3e5a2a' : n > 0.44 ? '#4a5a30' : '#4a4630'); return true; } }   // the marsh: mud, rushes, sedge

@@ -99,7 +99,15 @@ body.title-on #minimap { display: none; }
         const g = c.getContext('2d'), img = g.createImageData(size, size), H = new Float32Array(size * size);
         // A world's chart is large: painted progressively after you arrive (rows a slice at a time), not all at load.
         const progressive = half > 400;
-        const heightRow = py => { for (let px = 0; px < size; px++) H[py * size + px] = map.heightAt(px / PX_PER_M - half, py / PX_PER_M - half); };
+        const sampleRow = py => { for (let px = 0; px < size; px++) H[py * size + px] = map.heightAt(px / PX_PER_M - half, py / PX_PER_M - half); };
+        // a world's chart samples every other row and column and fills the rest between them (a quarter of the work)
+        const heightRow = py => {
+            if (!progressive) return sampleRow(py);
+            if (py % 2) return;   // odd rows: filled when the next even row is done
+            for (let px = 0; px < size; px += 2) H[py * size + px] = map.heightAt(px / PX_PER_M - half, py / PX_PER_M - half);
+            for (let px = 1; px < size; px += 2) H[py * size + px] = (H[py * size + px - 1] + H[py * size + Math.min(size - 1, px + 1) - ((px + 1) >= size ? 1 : 0)]) / 2;
+            if (py >= 2) for (let px = 0; px < size; px++) H[(py - 1) * size + px] = (H[(py - 2) * size + px] + H[py * size + px]) / 2;
+        };
         if (!progressive) for (let py = 0; py < size; py++) heightRow(py);
         const SNOW = info.snowH ?? 17, ROCK = info.rockH ?? 6;
         const kind = h => h < info.water - 0.6 ? 0 : h < info.water ? 1 : h < info.water + 0.35 ? 2 : h > SNOW ? 5 : h > ROCK ? 4 : 3;
@@ -127,13 +135,13 @@ body.title-on #minimap { display: none; }
         } };
         if (progressive) {
             g.fillStyle = `rgb(${PARCH.join(',')})`; g.fillRect(0, 0, size, size);
-            let row = 0; heightRow(0); heightRow(1);
+            let row = 0; heightRow(0); heightRow(2);
             const slice = () => {   // ~10 ms of rows, then yield to the game
                 const t0 = performance.now(), from = row;
-                while (row < size && performance.now() - t0 < 10) { if (row + 2 < size) heightRow(row + 2); paintRow(row); row++; }
+                while (row < size && performance.now() - t0 < 12) { if (row + 3 < size) heightRow(row + 3); paintRow(row); row++; }
                 g.putImageData(img, 0, 0, 0, from, size, row - from);
                 if (open) draw();
-                if (row < size) setTimeout(slice, 30);
+                if (row < size) setTimeout(slice, 16);
             };
             setTimeout(slice, 400);
             return { canvas: c, half, size, stamps: [] };
