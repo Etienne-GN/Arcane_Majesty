@@ -104,6 +104,36 @@ export function lakeInfo(x, z) {
     return { d, th, R, inside: R - d, marsh: arcK(th, MARSH), beach: arcK(th, BEACH) };
 }
 const PORT = place('Port Silver');
+// ---------- the continent's shape (asked 2026-11-20: not a square) and the Sunward Isles ----------
+// The coast at each angle round the land's middle: beyond every place there (+320 m), bulging into peninsulas and bending
+// into bays (never nearer a place than ~170 m), smoothed; the ocean beyond it. Off the south-east, an archipelago.
+const CONT = (() => {
+    const P = LAYOUT.places.map(p => p.world), cx = P.reduce((a, p) => a + p[0], 0) / P.length, cz = P.reduce((a, p) => a + p[1], 0) / P.length, N = 72;
+    let rq = new Float32Array(N).fill(1600);
+    for (const [x, z] of P) { const a = Math.atan2(z - cz, x - cx), d = Math.hypot(x - cx, z - cz) + 320; for (let k = 0; k < N; k++) { const ak = k / N * Math.PI * 2 - Math.PI, da = Math.abs(Math.atan2(Math.sin(a - ak), Math.cos(a - ak))); if (da < 0.3) rq[k] = Math.max(rq[k], d * Math.cos(da)); } }
+    const sm2 = new Float32Array(N); for (let k = 0; k < N; k++) { let s0 = 0; for (let j = -3; j <= 3; j++) s0 += rq[(k + j + N) % N]; sm2[k] = Math.max(rq[k], s0 / 7); }
+    return { cx, cz, N, rq: sm2 };
+})();
+function coastR(th) {
+    const f = (th + Math.PI) / (Math.PI * 2) * CONT.N, i = Math.floor(f) % CONT.N, t = f - Math.floor(f), base = CONT.rq[i] * (1 - t) + CONT.rq[(i + 1) % CONT.N] * t;
+    const n = 0.45 * Math.sin(4 * th + 0.8) + 0.35 * Math.sin(7 * th + 2.6) + 0.25 * Math.sin(13 * th + 1.1) + 0.15 * Math.sin(23 * th + 4.2);   // peninsulas and bays
+    return base + 260 * Math.max(-0.55, n);
+}
+const ARCHI = (() => {   // the Sunward Isles: islands scattered in the south-east ocean
+    const a0 = Math.atan2(1, 1.1), r0 = coastR(a0) + 750, c = { x: CONT.cx + Math.cos(a0) * r0, z: CONT.cz + Math.sin(a0) * r0 }, out = [];
+    let sd = 7; const rnd = () => ((sd = (sd * 16807) % 2147483647) / 2147483647);
+    for (let k = 0; k < 22; k++) { const a = rnd() * Math.PI * 2, r = 120 + rnd() * 780; out.push({ x: c.x + Math.cos(a) * r, z: c.z + Math.sin(a) * r * 0.75, r: 35 + rnd() * rnd() * 170, h: 3 + rnd() * rnd() * 34 }); }
+    return { c, isles: out };
+})();
+export const ARCHIPELAGO = ARCHI.c;
+// Port Silver's piers: [dz, length] from the quay (x = PORT.x + 78); their decks are ground you walk on.
+const PIERS = [[-46, 46], [0, 60], [46, 40]], DECK_Y = WATER + 0.9 + 0.125;
+function pierAt(x, z) {
+    const lx = x - (PORT.x + 78);
+    if (lx < -2 || lx > 62) return null;
+    for (const [dz, len] of PIERS) if (lx <= len && Math.abs(z - (PORT.z + dz)) < 1.6) return DECK_Y;
+    return null;
+}
 const NORTH_EDGE = W([0, 45])[1], SOUTH_EDGE = W([0, 1090])[1];
 
 // The coast's x at a given z (the line runs north–south down the east side).
@@ -211,6 +241,13 @@ export function eldoriaHeight(x, z) {
         const w = 75 + dx * 0.25 + 18 * Math.sin(dx * 0.02 + 1.3), k = smooth(w, w * 0.6, Math.abs(dz - 14 * Math.sin(dx * 0.012))) * smooth(40, 90, dx);
         h = h + (Math.min(h, WATER - 4 - Math.min(6, (dx - 90) * 0.02)) - h) * k;
     } }
+    // the continent's coast: the ocean beyond it (cliffs where the land is high, beaches where it is low); the islands
+    { const dx = x - CONT.cx, dz = z - CONT.cz, d = Math.hypot(dx, dz), R = coastR(Math.atan2(dz, dx));
+      if (d > R - 220) h = h + (WATER - 14 - h) * smooth(R - 160, R + 70, d);
+      if (Math.hypot(x - ARCHI.c.x, z - ARCHI.c.z) < 1200) for (const I of ARCHI.isles) {
+          const di = Math.hypot(x - I.x, z - I.z), w = I.r * (1 + 0.22 * Math.sin(Math.atan2(z - I.z, x - I.x) * 3 + I.x * 0.01) + 0.1 * Math.sin(Math.atan2(z - I.z, x - I.x) * 7));
+          if (di < w * 1.4) h = Math.max(h, WATER - 3 + (I.h + 3) * Math.pow(Math.max(0, 1 - di / (w * 1.4)), 1.25) * (0.8 + 0.4 * fbm(x * 0.03, z * 0.03, 2)));
+      } }
     // the sea: east of the coast, past the south edge; high mountains closing the north
     const cx = coastX(z);
     if (x > cx - 160) h = h + (WATER - 10 - h) * smooth(cx - 160, cx + 60, x);
@@ -463,7 +500,7 @@ export function createEldoriaWorld({ quality } = {}) {
     const gladeStart = gs ? { ...gs, x: gs.x + gl.ox, z: gs.z + gl.oz } : null;   // the glade's own arrival point
     let world = null;
     world = createStreamWorld({
-        id: 'eldoria', name: 'Eldoria — the open world', seed: 501, size: 8400, heightAt, quality, stamps,
+        id: 'eldoria', name: 'Eldoria — the open world', seed: 501, size: 11200, heightAt, quality, stamps,
         spawn: gladeStart ?? { x: GLADE.x + 30, z: GLADE.z + 20, facing: toCity },
         mood: { fog: '#c8d2d8', fogNear: 180, fogFar: 760, fogMix: 0.5 },
         places, biomeAt,
@@ -510,7 +547,7 @@ export function createEldoriaWorld({ quality } = {}) {
     { const g = new THREE.Group(), wood = flat(0x6a4e32), dark = flat(0x3e2c1c), stone = flat(0x8a8478), white = flat(0xe6e0d0), lamp = new THREE.MeshStandardMaterial({ color: 0xfff0c0, emissive: 0xffd080, emissiveIntensity: 1.5 });
       const box = (m, x, y, z, w, h, d, ry = 0) => { const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); o.position.set(x, y, z); o.rotation.y = ry; o.castShadow = o.receiveShadow = true; g.add(o); return o; };
       const moored = [];
-      for (const [dz, len] of [[-46, 46], [0, 60], [46, 40]]) {
+      for (const [dz, len] of PIERS) {
           const x0 = PORT.x + 78, z = PORT.z + dz;
           box(wood, x0 + len / 2, WATER + 0.9, z, len, 0.25, 3.2);
           for (let k = 0; k <= len; k += 6) for (const s2 of [-1.4, 1.4]) box(dark, x0 + k, WATER - 1, z + s2, 0.3, 4, 0.3);
@@ -520,6 +557,12 @@ export function createEldoriaWorld({ quality } = {}) {
       let lh = null; for (let r = 0; r < 160 && !lh; r += 8) for (const sgn of [-1, 1]) { const x = PORT.x + 430 - r * 0.6, z = PORT.z + sgn * (170 + r * 0.3); if (eldoriaHeight(x, z) > WATER + 2) { lh = { x, z }; break; } }
       if (lh) { const y = heightAt(lh.x, lh.z); const t = new THREE.Mesh(new THREE.CylinderGeometry(2.2, 3, 16, 10), white); t.position.set(lh.x, y + 8, lh.z); t.castShadow = true; g.add(t); box(stone, lh.x, y + 16.5, lh.z, 5, 1, 5); const lt = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.4, 2.2, 8), lamp); lt.position.set(lh.x, y + 18, lh.z); g.add(lt); const cap = new THREE.Mesh(new THREE.ConeGeometry(2, 2.4, 8), flat(0x8a2a22)); cap.position.set(lh.x, y + 20.3, lh.z); g.add(cap); world.colliders?.push?.({ x: lh.x, z: lh.z, r: 3, kind: 'wall', y0: y - 1, y1: y + 22 }); }
       world.scene.add(g);
+      // the piers are ground: walking (and boarding) on them; the terrain beneath keeps its own shape
+      const baseH = world.heightAt, baseG = world.groundAt, baseSwim = world.swimming, baseWade = world.wading;
+      world.heightAt = (x, z) => pierAt(x, z) ?? baseH(x, z);
+      world.groundAt = (x, z, y) => pierAt(x, z) ?? baseG(x, z, y);
+      world.swimming = (x, z) => pierAt(x, z) == null && baseSwim(x, z);
+      world.wading = (x, z) => pierAt(x, z) == null && baseWade(x, z);
       const upd = world.update; world.update = (t2, dt, ctx) => { upd(t2, dt, ctx); if (Math.hypot(ctx.player.pos.x - PORT.x, ctx.player.pos.z - PORT.z) < 500) for (const b of moored) b.update(dt, 0); g.visible = Math.hypot(ctx.player.pos.x - PORT.x, ctx.player.pos.z - PORT.z) < 900; };
     }
     return world;
