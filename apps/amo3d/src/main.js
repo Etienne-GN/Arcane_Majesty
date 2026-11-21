@@ -205,11 +205,25 @@ if (params.get('hero') === 'new' && heroDef) {
     const cheapest = type => Object.values(itemRules.ITEMS)
         .filter(d => d.slot === 'weapon' && weaponRules.typeOf(d) === type)
         .sort((a, b) => (a.tier ?? 1) - (b.tier ?? 1) || (a.buyPrice ?? 0) - (b.buyPrice ?? 0))[0];
-    const mainType = gifted.find(t => !['shield', 'fists', 'elemental', 'light', 'dark'].includes(t) && cheapest(t));
-    const main = mainType && cheapest(mainType);
-    const shield = gifted.includes('shield') && weaponRules.WEAPON_TYPES[mainType]?.hands === 1 ? cheapest('shield') : null;
+    let mainType = gifted.find(t => !['shield', 'fists', 'elemental', 'light', 'dark'].includes(t) && cheapest(t));
+    let main = mainType && cheapest(mainType);
+    let off = gifted.includes('shield') && weaponRules.WEAPON_TYPES[mainType]?.hands === 1 ? cheapest('shield') : null;
+    // What the hero holds in the Forge (look.parts.right / .left, ids from look.js HANDHELD) is what they start with:
+    // the weapon hand (the right first, a left-hander's left otherwise) becomes the main hand; the other hand's
+    // shield, torch or one-handed weapon the off hand. Nothing held in the Forge: the class kit above.
+    const forgeItem = hid => hid === 'claymore' || hid === 'greatsword' ? itemRules.ITEMS.claymore : hid === 'torch' ? itemRules.ITEMS.torch
+        : hid === 'halberd' ? cheapest('spear') : weaponRules.WEAPON_TYPES[hid] && hid !== 'fists' ? cheapest(hid) : null;   // no halberd item: the spear
+    const held = [heroDef.look?.parts?.right?.id, heroDef.look?.parts?.left?.id].map(forgeItem);
+    const isOff = d => d && (d.slot === 'offHand' || weaponRules.typeOf(d) === 'shield');
+    const mi = held.findIndex(d => d && !isOff(d));
+    if (mi >= 0 || held.some(isOff)) {
+        if (mi >= 0) { main = held[mi]; mainType = weaponRules.typeOf(main); }
+        const other = held[mi >= 0 ? 1 - mi : held.findIndex(isOff)];
+        off = weaponRules.WEAPON_TYPES[mainType]?.hands === 2 ? null
+            : isOff(other) || (other && weaponRules.WEAPON_TYPES[weaponRules.typeOf(other)]?.hands === 1) ? other : null;
+    }
     if (!gifted.some(g => ['wand', 'staff', 'elemental', 'light', 'dark'].includes(g))) stats.spells.fireball = 0;
-    stats.giveStartKit({ weapon: main?.id, offHand: shield?.id });   // archers also get amo's archer kit from this
+    stats.giveStartKit({ weapon: main?.id, offHand: off?.id });   // archers also get amo's archer kit from this
 }
 const loot = createLoot({ stats, hud, onPickup: id => quests?.onPickup(id) });
 const sheet = createSheet({ stats, name: HERO_NAME });
@@ -590,6 +604,22 @@ if (stats.flags.weatherSeed == null) {
     stats.flags.clearUntil = (stats.gameMinutes ?? clockRules.START_MINUTES) + 180;
 }
 const weatherOf = (def, min) => (min < (stats.flags.clearUntil ?? 0) ? 'clear' : weatherRules.weatherAt({ ...def, id: `${def.id}#${stats.flags.weatherSeed}` }, min).id);
+// A chest's seed (an id, or [id, qty] for a stack) fills it the first time it is opened.
+// TESTING convenience — station.restock (Eldrin's chest, the fighting-style test kit): on every opening, a seed item
+// found nowhere (not in this chest, the satchel or worn) is put back, so saves that opened the chest before get it too.
+function seedChest(station) {
+    if (!station.seed) return;
+    const entries = station.seed.map(e => Array.isArray(e) ? { id: e[0], qty: e[1] } : { id: e, qty: 1 }).filter(e => ITEMS[e.id]);
+    if (!stats.chestContents[station.key]) { stats.chestContents[station.key] = entries.map(e => ({ ...e })); return; }
+    if (!station.restock) return;
+    const box = stats.chestContents[station.key];
+    const worn = new Set(Object.values(stats.equipment));
+    for (const e of entries) {
+        if (box.length >= 24) break;   // chest.js CHEST_SLOTS
+        if (box.some(c => c.id === e.id) || stats.inventory.some(i => i.id === e.id) || worn.has(e.id)) continue;
+        box.push({ ...e });
+    }
+}
 function clock(min = stats.gameMinutes ?? clockRules.START_MINUTES) {
     const weather = world.current?.terrain ? (weatherOverride || weatherOf(world.current.weatherDef ?? GLADE_WEATHER, min)) : 'clear';
     return { minutes: min, hour: clockRules.gameHour(min), weather, voidMult: clockRules.isNight(min) ? clockRules.NIGHT_DAMAGE_MULT : 1 };
@@ -684,7 +714,7 @@ function tick(dt) {
     const personName = person?.r.npc ? person.r.npc.name.replace(/^./, c => c.toUpperCase()) : null;
     const gatherText = station ? STATION_PROMPT[station.mode] : person ? `G — Talk${personName ? ` to the ${personName}` : ''}` : gathering.update(simT * 1000, player.state);
     if (gatherText && (act.gather || (act.hop && input.device === 'gamepad'))) {
-        if (station?.mode === 'chest') { if (station.seed && !stats.chestContents[station.key]) stats.chestContents[station.key] = station.seed.map(id => ({ id, qty: 1 })); chests.toggle(station.key, station.title); }
+        if (station?.mode === 'chest') { seedChest(station); chests.toggle(station.key, station.title); }
         else if (station?.mode === 'sign') { dialogue.start([{ speaker: '', text: station.text }]); quests.manager.onReadSign(station.id ?? null); station.onUse?.({ quests, stats }); }
         else if (station?.mode === 'gate') travel.useGate(station.key);
         else if (station?.mode === 'board') bountyBoard.use({ key: station.key, place: station.place, regionDef: station.region === 'east_road' ? eastRoadMap.default : thaloriaMap.default });

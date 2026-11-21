@@ -29,6 +29,14 @@ const RAMPS = [
 const inRect = (r, x, z) => x >= r.x0 && x <= r.x1 && z >= r.z0 && z <= r.z1;
 const rampH = (r, x) => r.yA + ((x - r.x0) / (r.x1 - r.x0)) * (r.yB - r.yA);
 
+// TESTING (fighting styles): one basic item of every weapon type in packages/rules weapons.js,
+// plus the off-hand shield and torch and ammo for the bow and crossbow. A string is one item, [id, qty] a stack.
+const TEST_WEAPON_KIT = [
+    'willow_wand', 'novice_staff', 'ash_bo', 'hunting_spear', 'crude_dagger', 'longsword', 'claymore',
+    'iron_mace', 'hand_axe', 'wooden_shield', 'carved_shortbow', 'light_crossbow', 'torch',
+    ['basic_arrow', 30], ['bolt', 20],
+];
+
 // Every walkable surface under (x, z): { h, base }.
 function surfacesAt(x, z) {
     const out = [];
@@ -463,7 +471,9 @@ export function createTower() {
         hittables: [],
         stations: [
             { mode: 'hearth', pos: new THREE.Vector3(FP.x - 1.3, 0, FP.z) },   // the hall's fireplace
-            { mode: 'chest', key: 'eldrin_tower_hall', title: "Eldrin's Chest", pos: new THREE.Vector3(CH.x, 0, CH.z - 0.9) },
+            // TESTING: one weapon of every type (+ shield, torch, arrows, bolts) to try the fighting styles;
+            // restock: missing pieces come back on opening, for saves that opened the chest before (main.js).
+            { mode: 'chest', key: 'eldrin_tower_hall', title: "Eldrin's Chest", pos: new THREE.Vector3(CH.x, 0, CH.z - 0.9), seed: TEST_WEAPON_KIT, restock: true },
         ],
         fx,
         update(t, dt, ctx) {
