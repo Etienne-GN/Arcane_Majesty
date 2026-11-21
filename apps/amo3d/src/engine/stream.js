@@ -153,7 +153,9 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
                 vec2 q = (vSW.xz - uSC.xy) / uSC.zw; float n = uSP.x, th = atan(q.y, q.x);
                 float rho = pow(pow(abs(q.x), n) + pow(abs(q.y), n), 1.0 / n);
                 float wob = 1.0 - uSP.y * (0.6 + 0.5 * sin(3.0 * th + uSP.z) + 0.3 * sin(5.0 * th + 2.0 * uSP.z) + 0.2 * sin(7.0 * th + 3.0 * uSP.z)) / 1.6;
-                if (rho / wob > 1.0) discard;`);
+                float dEdge = (rho / wob - 1.0) * min(uSC.z, uSC.w);
+                float rag = 0.5 + 0.25 * sin(vSW.x * 0.37 + vSW.z * 0.11) + 0.15 * sin(vSW.z * 0.83 - vSW.x * 0.29) + 0.1 * sin((vSW.x + vSW.z) * 1.7);
+                if (dEdge > -2.5 * rag) discard;`);
         };
         m.customProgramCacheKey = () => 'shapeClip:' + st.id;
         m.needsUpdate = true;
@@ -273,6 +275,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         });
         if (st.map.colliders) st.map.colliders = st.map.colliders.filter(c => c.ax !== undefined || c.r > 1.6 || edgeDist(st, c.x + st.ox, c.z + st.oz) <= -2.5);   // (their trunks go with them)
         rebucket(st);
+        sampleEdgeColours(st);
     const gone = [], kept = [];
         for (const t of st.map.triggers ?? []) {
             if (st.drop?.has(t.to) || st.dropIf?.(t)) { gone.push(t); continue; }   // exits to places now in the world are gone: you walk
@@ -295,7 +298,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         st.hitN = (st.map.hittables ?? []).length;
         for (const t of tiles.values()) {   // the tiles under it, rebuilt now (its ground sinks; first in the queue)
             const x0 = t.tx * TILE - half, z0 = t.tz * TILE - half;
-            if (t.lod !== null && x0 < st.X1 && x0 + TILE > st.X0 && z0 < st.Z1 && z0 + TILE > st.Z0) queue.unshift({ t, lod: t.lod, d: 0 });
+            if (t.lod !== null && x0 < st.X1 + 36 && x0 + TILE > st.X0 - 36 && z0 < st.Z1 + 36 && z0 + TILE > st.Z0 - 36) { t.reflora = true; queue.unshift({ t, lod: t.lod, d: 0 }); }
         }
         refreshLife();
         st.onBuilt?.(st.map);
@@ -391,6 +394,15 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             else if (slope > 0.75 || h > 40 + nz * 8) col.copy(biomeAt ? biomeAt(x0 + i * step, z0 + j * step).rock : cRock);
             else if (biomeAt) { const b = biomeAt(x0 + i * step, z0 + j * step); col.copy(b.gA).lerp(b.gB, nz); }   // the land's biome (a place's, spreading and blending)
             else col.copy(cGrassA).lerp(cGrassB, nz);
+            const xw = x0 + i * step, zw = z0 + j * step;
+            for (const st of stamps) {   // near a place: its own ground's colours, faded out over ~30 m (no clean line where it was set in)
+                if (!st.edgeCol || !inRect(st, xw, zw, 34)) continue;
+                const d = edgeDist(st, xw, zw) + (fbm(xw * 0.06, zw * 0.06, 2) - 0.5) * 12;
+                if (d > 32) continue;
+                const f = 0.9 * (1 - sm(-3, 32, d)), sec = st.edgeCol[((Math.round((Math.atan2(zw - st.cz, xw - st.cx) + Math.PI) / (Math.PI * 2) * 72) % 72) + 72) % 72];
+                if (sec) col.lerp(tmpC.setRGB(sec[0], sec[1], sec[2]), f);
+                break;
+            }
             colr.set([col.r, col.g, col.b], k * 3);
         }
         border.forEach(([i, j], b) => { const k = j * n + i, o = (n * n + b) * 3; pos.set([pos[k * 3], pos[k * 3 + 1] - 6, pos[k * 3 + 2]], o); colr.set([colr[k * 3], colr[k * 3 + 1], colr[k * 3 + 2]], o); });
@@ -430,9 +442,25 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
             if (fbm(x * 0.012 + 3, z * 0.012 + 9, 3) < 0.5) continue;   // woods and clearings
             if (clearAt && clearAt(x, z)) continue;   // roads, a town's ground
             if (stamped(x, z, 1)) continue;   // a stamped place brings its own (the land's forest runs right up to its edge)
+            if (nearForest(x, z)) continue;   // (round a place's forest the ring below plants instead)
             const kind = pick(h, rng());
             byKind[kind].push({ x, z, h, s: 0.8 + rng() * 0.6, r: rng() * 6.28, tint: rng() });
             (t.treePts ??= []).push([x, z, kind === 'pine' || kind === 'dead']);   // (the minimap draws them)
+        }
+        // a place's forest carries on past its edge: within 40 m, the land's trees as dense as the place's own there, thinning out
+        for (const st of stamps) {
+            if (!st.edgeTrees || !inRect(st, x0 + TILE / 2, z0 + TILE / 2, TILE * 0.71 + 42)) continue;
+            const TRY = 900, aTry = TILE * TILE / TRY;
+            for (let i = 0; i < TRY; i++) {
+                const x = x0 + rng() * TILE, z = z0 + rng() * TILE, d = edgeDist(st, x, z), r = rng();
+                if (d < 1 || d > 40) continue;
+                const q = st.edgeTrees[((Math.round((Math.atan2(z - st.cz, x - st.cx) + Math.PI) / (Math.PI * 2) * 72) % 72) + 72) % 72];
+                if (!q || r > q.dens * aTry * (1 - sm(0, 40, d + (fbm(x * 0.05, z * 0.05, 2) - 0.5) * 16))) continue;
+                const h = heightAt(x, z); if (h < WATER + 1 || h > 38 || (clearAt && clearAt(x, z)) || stamped(x, z, 1)) continue;
+                const k2 = rng(), kind = k2 < q.kinds.pine ? 'pine' : k2 < q.kinds.pine + q.kinds.birch ? 'birch' : 'broad';
+                byKind[kind].push({ x, z, h, s: 0.8 + rng() * 0.6, r: rng() * 6.28, tint: rng() });
+                (t.treePts ??= []).push([x, z, kind === 'pine']);
+            }
         }
         if (cheap) {   // far: two batches only — cones (pines; dead trees in grey-brown) and rounds (broadleaves, birches)
             const groups = { pine: [...byKind.pine.map(t2 => [t2, 'pine']), ...byKind.dead.map(t2 => [t2, 'dead'])], broad: [...byKind.broad.map(t2 => [t2, 'broad']), ...byKind.birch.map(t2 => [t2, 'birch'])] };
@@ -471,7 +499,8 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         t.mesh.receiveShadow = lod <= 1; t.mesh.userData.dynamic = true;
         scene.add(t.mesh);
         const wantTrees = lod <= 2, cheap = lod >= 2, mid = lod === 1;
-        if (wantTrees && t.trees.length && (t.cheap !== cheap || t.mid !== mid)) dropFlora(t);   // near ↔ middle ↔ far: rebuilt at the other detail
+        if (wantTrees && t.trees.length && (t.cheap !== cheap || t.mid !== mid || t.reflora)) dropFlora(t);
+        t.reflora = false;   // near ↔ middle ↔ far: rebuilt at the other detail
         if (wantTrees && !t.trees.length) tileFlora(t, cheap, mid);
         if (!wantTrees && t.trees.length) dropFlora(t);
         t.lod = lod; t.pending = false;
@@ -497,7 +526,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
                 let t = tiles.get(key);
                 if (!t) { t = { tx: w.x, tz: w.z, lod: null, mesh: null, trees: [], colliders: [] }; tiles.set(key, t); }
                 const lod = w.d <= 1 ? w.d : w.d <= 3 ? 2 : 4;
-                if (t.lod === null || LOD(t.lod) !== LOD(lod) || (lod <= 2) !== (t.lod <= 2)) queue.push({ t, lod, d: w.d });
+                if (t.lod === null || LOD(t.lod) !== LOD(lod) || (lod <= 2) !== (t.lod <= 2) || t.reflora) queue.push({ t, lod, d: w.d });
             }
             queue.sort((a, b) => a.d - b.d);
         }
@@ -519,6 +548,44 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     let fpsT = 0, fpsN = 0, fps = 0, worst = 0, moodNow = null; const curFog = new THREE.Color(mood?.fog ?? '#c8d4d8');
 
     const EDGE = half - 20;
+    const tmpC = new THREE.Color();
+    const nearForest = (x, z) => stamps.some(st => st.edgeTrees && inRect(st, x, z, 40) && (() => { const d = edgeDist(st, x, z); if (d > 30) return false; const q = st.edgeTrees[((Math.round((Math.atan2(z - st.cz, x - st.cx) + Math.PI) / (Math.PI * 2) * 72) % 72) + 72) % 72]; return !!q && q.dens > 0.002; })());
+    // A place's ground colours along its edge (72 sectors round it), from its own ground meshes' vertex colours just inside the outline
+    function sampleEdgeColours(st) {
+        const acc = Array.from({ length: 72 }, () => [0, 0, 0, 0]), v = new THREE.Vector3(), c = new THREE.Color();
+        const trees = Array.from({ length: 72 }, () => ({ n: 0, pine: 0, broad: 0, birch: 0 })), im = new THREE.Matrix4();
+        const sector = (x, z) => ((Math.round((Math.atan2(z - st.cz, x - st.cx) + Math.PI) / (Math.PI * 2) * 72) % 72) + 72) % 72;
+        st.group.updateMatrixWorld(true);
+        st.group.traverse(o => {
+            if (o.isInstancedMesh) {   // its trees just inside the outline: how many, which kinds
+                const kind = ['pine', 'broad', 'birch'].find(k => o.geometry === K[k]?.crown || o.geometry === MID[k]); if (!kind) return;
+                for (let i = 0; i < o.count; i++) {
+                    o.getMatrixAt(i, im); if (im.elements[0] === 0 && im.elements[5] === 0) continue;   // (taken away on the outline)
+                    v.setFromMatrixPosition(im).applyMatrix4(o.matrixWorld); const d = edgeDist(st, v.x, v.z); if (d > -2 || d < -27) continue;
+                    const q = trees[sector(v.x, v.z)]; q.n++; q[kind]++;
+                }
+                return;
+            }
+            if (!o.isMesh) return;
+            const m = Array.isArray(o.material) ? o.material[0] : o.material, ca = o.geometry.attributes.color, pa = o.geometry.attributes.position;
+            if (!m?.userData?.shapeClip || !pa) return;
+            const step = Math.max(1, Math.floor(pa.count / 40000));
+            for (let i = 0; i < pa.count; i += step) {
+                v.fromBufferAttribute(pa, i).applyMatrix4(o.matrixWorld);
+                const d = edgeDist(st, v.x, v.z); if (d > -1 || d < -12) continue;
+                if (ca) c.setRGB(ca.getX(i), ca.getY(i), ca.getZ(i)).multiply(m.color ?? c.set(1, 1, 1)); else c.copy(m.color ?? tmpC.set(0.4, 0.5, 0.3));
+                const k = ((Math.round((Math.atan2(v.z - st.cz, v.x - st.cx) + Math.PI) / (Math.PI * 2) * 72) % 72) + 72) % 72, a = acc[k];
+                a[0] += c.r; a[1] += c.g; a[2] += c.b; a[3]++;
+            }
+        });
+        const out = acc.map(a => a[3] ? [a[0] / a[3], a[1] / a[3], a[2] / a[3]] : null);
+        for (let pass = 0; pass < 72 && out.some(q => !q); pass++) for (let k = 0; k < 72; k++) if (!out[k]) out[k] = out[(k + 71) % 72] ?? out[(k + 1) % 72];   // gaps from their neighbours
+        st.edgeCol = out.some(q => q) ? out : null;
+        // trees per m² in each sector's band (25 m deep, a 72nd of the outline long)
+        const per = 2 * Math.PI * Math.sqrt((st.ha * st.ha + st.hb * st.hb) / 2) / 72;
+        st.edgeTrees = trees.map(q => q.n ? { dens: q.n / (per * 25), kinds: { pine: q.pine / q.n, broad: q.broad / q.n, birch: q.birch / q.n } } : null);
+        if (!st.edgeTrees.some(q => q)) st.edgeTrees = null;
+    }
     // Creatures keep out of the water (user, 2026-11-21: wolves walking about a pond): a step that would take one more
     // than 0.4 m deep — the world's water, or a place's own deep water — is undone (they turn back at the shore).
     const DRY = 0.4;
