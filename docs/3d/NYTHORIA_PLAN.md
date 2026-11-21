@@ -48,20 +48,20 @@ a citadel on a cliff, waterfalls into a misty river valley, mountains behind.
 
 ## 2. Decisions to approve (they join the Phase 10 canon check)
 
-- [ ] **N-1** The geography rule: each Nythorian place is the umbral twin of the Eldorian place in the same space (same
+- [x] **N-1** (approved 2026-11-20) The geography rule: each Nythorian place is the umbral twin of the Eldorian place in the same space (same
       landforms, different surface and builders).
-- [ ] **N-2** Old Ravenspire stands on the twin of Thaloria's citadel cliff.
+- [x] **N-2** (approved 2026-11-20 — the cliff across the gorge, where the College stands in Eldoria) Old Ravenspire stands on the twin of Thaloria's citadel cliff.
 - [x] **N-3** (agreed by the user 2026-11-19; still goes through the Phase 10 canon check) In 501 AGD it is a ruin (the picture's silhouette, broken). **The picture shows Ravenspire before 0 GD**: the Resistance's stronghold of the last years before the Great Darkness (Seraphina and Valen founded the Resistance there ~10 BGD; it falls at 0 GD, when the Legion of Souls rises).
-- [ ] **N-4** Nythoria's sky: a black eclipsed sun with a silver corona, in grey and violet (canon only says "shadow and
+- [x] **N-4** (approved 2026-11-20) Nythoria's sky: a black eclipsed sun with a silver corona, in grey and violet (canon only says "shadow and
       silence").
-- [ ] **N-5** Twin sites for the other places (proposals):
+- [x] **N-5** Twin sites (approved 2026-11-20; DB positions set = the twin's x/y): the Black Well ↔ Lake Aethera; the Shadow-Vale ↔ the Crossroads plain; the Obsidian Citadel ↔ the fire mountain's caldera (the Inferno Labyrinth's site); the Great Rift ↔ the Scarlands east of Graywatch (1250, 960); old Ravenspire ↔ the Citadel's cliff (1100, 164.8); the Obsidian Gate keeps its DB position. Original proposals:
   - **the Black Well** ↔ Lake Aethera (a well of the dark where the lake is);
   - **the Shadow-Vale** (where Valen fell) ↔ the Heartlands' plain by the Crossroads;
   - **the Obsidian Citadel** ("built upon the ruins of the old world") ↔ to choose (the Summit range? Iron Hollow's
     hills?);
   - **the Obsidian Gate's Nythorian end** ↔ the Scarlands, east of Graywatch;
   - **the Great Rift** ↔ to place in Eldoria first (the DB has no position for it).
-- [ ] **N-6** Which era the maps show: 501 AGD (Eldrin's time) by default, other eras only through visions or other
+- [x] **N-6** (approved 2026-11-20) Which era the maps show: 501 AGD (Eldrin's time) by default, other eras only through visions or other
       campaigns.
 
 ## 3. How Nythoria maps are made
