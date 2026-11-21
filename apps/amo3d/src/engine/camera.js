@@ -40,7 +40,7 @@ export function createOrbitCamera(camera) {
         snapTo(focus) { cam.target.copy(focus).setY(focus.y + 1.4); },
 
         // blockedAt(x, z, r, y) (the map's): a wall between the player and the camera pulls the camera in front of it.
-        update(dt, focus, lift = 0, groundAt = null, blockedAt = null) {
+        update(dt, focus, lift = 0, groundAt = null, blockedAt = null, floorAt = null) {   // floorAt: the lowest the camera may go (the water's surface); groundAt: the land, for what stands in the way
             const k = 1 - Math.exp(-dt * 10);
             if (cam.firstPerson) {   // the eye at the head, looking where the camera faces
                 cam.target.set(focus.x, focus.y + 1.62 + lift * 0.5, focus.z);
@@ -69,7 +69,7 @@ export function createOrbitCamera(camera) {
                 cam.target.z + Math.cos(cam.yaw) * cp,
             );
             if (groundAt) {   // clear of the ground under it and round it (a slope beside the lens would be cut by the near plane)
-                const { x, z } = camera.position; let g = groundAt(x, z);
+                const { x, z } = camera.position; let g = Math.max(groundAt(x, z), floorAt ? floorAt(x, z) : -Infinity);
                 for (let a2 = 0; a2 < 6.28; a2 += 1.05) g = Math.max(g, groundAt(x + Math.cos(a2) * 1.2, z + Math.sin(a2) * 1.2) - 0.25);
                 camera.position.y = Math.max(camera.position.y, g + 0.7);
             }
