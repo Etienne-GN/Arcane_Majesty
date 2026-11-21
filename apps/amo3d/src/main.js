@@ -346,6 +346,20 @@ function placeStory(id) {
     // The Sanctuary: the Elemental's trial (Song 5).
     if (id === 'sylvan_sanctuary' && !stats.questLog?.main_elementals_trial) quests.start('main_elementals_trial');
 }
+// A conversation's camera: it eases round to frame you and the one you speak with (over your shoulder, close, at eye
+// level), then gives the camera back when the talk ends. Every talk with a person uses it — the Hermit, Oren on the road…
+let cine = null;
+const cineFrom = new THREE.Vector3(), cineLook = new THREE.Vector3();
+function cineCamera(dt) {
+    const P = player.state.pos, N = cine.pos, dx = N.x - P.x, dz = N.z - P.z, d = Math.hypot(dx, dz) || 1, ux = dx / d, uz = dz / d;
+    const want = new THREE.Vector3(P.x - ux * 2.6 + uz * 1.1, P.y + 1.9, P.z - uz * 2.6 - ux * 1.1);   // behind and beside your shoulder
+    if (cine.t === 0) { cineFrom.copy(camera.position); cineLook.copy(cam.target); }
+    cine.t = Math.min(1, cine.t + dt / 0.9); const k = cine.t * cine.t * (3 - 2 * cine.t);
+    camera.position.lerpVectors(cineFrom, want, k);
+    const look = new THREE.Vector3((P.x + N.x) / 2 + ux * 0.6, Math.max(P.y, N.y) + 1.5, (P.z + N.z) / 2 + uz * 0.6);
+    camera.lookAt(cineLook.clone().lerp(look, k));
+    player.state.facing = Math.atan2(dx, dz);
+}
 let fpShown = false;   // the camera's first-person view, last applied to the hero's body
 let travel = null;
 const questHooks = {};
@@ -702,6 +716,8 @@ function tick(dt) {
     skills.update(dt);
     { const f = player.takePerfect(); if (f) { const h = (world.current.hittables ?? []).filter(x => x.alive).sort((a, b) => a.pos.distanceTo(f) - b.pos.distanceTo(f))[0]; if (h && h.pos.distanceTo(f) < 3) h.hit(1, player.state.pos, 0, player.lastCtx, { id: 'dazed', ms: 1500 }); } }   // a perfect block: the attacker reels
     dialogue.update(dt, camera, project);
+    if (cine && !dialogue.open && !shop.open) cine = null;   // the talk is over: the camera goes back
+    if (cine && dialogue.open) cineCamera(dt);
     if (inventory.open || sheet.open || campfire.open || chests.open || mapView.open || travel.open || dialogue.open || shop.open || quests.open || codex.open || bountyBoard.open || options.open || book.open || skillBook.open || pause.open) { hud.update(dt, { stats, player: player.state, camera, spell: player.activeSpell() }); return; }   // paused
     const map = world.current;
     // Gathering: G / Enter / tap the prompt — and gamepad A next to a node (instead of a hop).
@@ -721,7 +737,7 @@ function tick(dt) {
         else if (station?.mode === 'desk') writeCodex();
         else if (station?.mode === 'cairn') { stats.respawnPoint = { map: map.id, spawn: station.key }; hud.banner('A cairn — if you fall, you will come back here'); save(); }
         else if (station) campfire.toggle(station.mode);
-        else if (person) { if (person.r.onTalk) person.r.onTalk({ start: dialogue.start, quests, stats, hud, save }); else dialogue.talk(person, clock()); }   // onTalk: a map's own conversation (the Sanctuary)
+        else if (person) { cine = { pos: person.pos.clone(), t: 0 }; if (person.r.onTalk) person.r.onTalk({ start: dialogue.start, quests, stats, hud, save }); else dialogue.talk(person, clock()); }   // onTalk: a map's own conversation (the Sanctuary)
         else gathering.harvest(simT * 1000);
         act.hop = false;
     }
