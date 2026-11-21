@@ -92,7 +92,7 @@ export function stampHeights(worldH, stamps, B = 60) {
         const st = best, L = Math.hypot(x - st.cx, z - st.cz) || 1, back = Math.min(L, bd + 1), ex = x - (x - st.cx) / L * back, ez = z - (z - st.cz) / L * back;
         const edge = hOf(st)(ex - st.ox, ez - st.oz) + st.oy;
         const Bb = best.blend ?? B, w = worldH(x, z);
-        return best.blendUp ? Math.max(w, edge + (w - edge) * sm(0, Bb, bd)) : edge + (w - edge) * sm(0, Bb, bd);   // (blendUp: a mountain's flanks only ever add to the land)
+        return edge + (w - edge) * sm(0, Bb, bd);   // (where the land is lower the ramp only adds — a mountain's flanks; where it is higher it comes down to the edge: never a step)
     }
 }
 

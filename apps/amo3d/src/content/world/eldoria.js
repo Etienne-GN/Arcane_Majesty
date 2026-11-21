@@ -204,7 +204,7 @@ export function eldoriaHeight(x, z) {
     if (dR < 900) {
         const rug = 0.75 + 0.5 * Math.pow(1 - Math.abs(fbm(x * 0.004 + 7, z * 0.004 - 3, 3) * 2 - 1), 2);
         let r = 108 * Math.exp(-Math.pow(dR / 210, 2)) * rug;
-        r *= 1 + 0.3 * Math.exp(-Math.pow(Math.hypot(x - PASS.x, z - PASS.z) / 300, 2));   // the Summit's massif (its own map, stamped: the trail climbs it)
+        r *= 1 - 0.74 * Math.exp(-Math.pow(Math.hypot(x - PASS.x, (z - (PASS.z - 100)) * 1.3) / 230, 2));   // the pass: the ridge dips to meet the Summit's own mountain (its map, stamped) where the trail crosses the crest
         h = Math.max(h, h * 0.4 + r);
     }
     // the Fire Gate's mountain
@@ -583,7 +583,7 @@ export function createEldoriaWorld({ quality } = {}) {
             } catch (e) { console.warn('[wild] could not spawn', type, e); }
             return [];
         },
-        chart: { pxPerM: 0.04, tileM: 4, detail: true, biomeLabels: biomeLabels(stamps), groundAt: (x, z) => (roadDist(x, z) < 6 ? 'road' : null) },
+        chart: { pxPerM: 0.04, tileM: 4, detail: true, baked: 'eldoria', biomeLabels: biomeLabels(stamps), groundAt: (x, z) => (roadDist(x, z) < 6 ? 'road' : null) },
         clearAt: (x, z) => roadDist(x, z) < 5 || (() => { const L = lakeInfo(x, z); return (L.beach > 0.3 && L.inside > -45) || (L.marsh > 0.4 && L.inside > -120 && fbm(x * 0.05, z * 0.05, 2) > 0.45); })() || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || riverDist(x, z) < 9,
         groundColor: (x, z, h, col) => {
             if (h < WATER + 1.6 && h > WATER - 0.6) { const L = lakeInfo(x, z); if (L.marsh > 0.1 && L.inside > -220 && L.inside < 140) { const n = fbm(x * 0.09, z * 0.09, 2); col.set(n > 0.56 ? '#3e5a2a' : n > 0.44 ? '#4a5a30' : '#4a4630'); return true; } }   // the marsh: mud, rushes, sedge
