@@ -140,6 +140,30 @@ Object.assign(itemRules.ITEMS, {
         color: 0x2a2350, hatStyle: 'wizard', icon: 'itm_headgear_01', stackable: false, slot: 'head', tier: 2, rarity: 'uncommon',
         stats: { intelligence: 2, stamina: 1 }, buyPrice: 140, sellPrice: 45, onUse: st => st.equipItem('wizards_hat') },
 });
+// The heroines of A Tapestry of Souls wear their own outfits as real items (taken off and put back like any other).
+{   const W = (id, name, description, slot, wear, colors, stats, extra = {}) => ({ id, name, description, color: parseInt(colors.primary.slice(1), 16), icon: extra.icon ?? 'itm_leather_armor', stackable: false, slot, tier: 2, rarity: 'rare', wear, wearColors: colors, stats, buyPrice: 0, sellPrice: 60, ...extra, onUse: st => st.equipItem(id) });
+    Object.assign(itemRules.ITEMS, {
+        // Seraphina, the Queen of Carnage
+        carnage_gown: W('carnage_gown', 'Gown of the Queen of Carnage', 'Navy so dark it is black, worked with silver like frost on iron; it moves like a cloak and turns a blade like mail.', 'body', 'gown', { primary: '#141a30', collar: '#0a0a12', trim: '#a8aab4' }, { stamina: 2, agility: 1 }),
+        carnage_skirt: W('carnage_skirt', "Queen's Riding Skirts", 'Long slit skirts over black hose, hemmed in blood-red.', 'legs', 'skirt', { primary: '#10142a', trim: '#6a1a22' }, { agility: 1 }),
+        carnage_crown: W('carnage_crown', 'Crown of Thorned Silver', 'A spiked circlet of dark silver set with blood-red stones — the crown of a queen without a throne.', 'head', 'crown', { primary: '#b0b2bc', trim: '#7a1a2a' }, { intelligence: 1, strength: 1 }, { icon: 'itm_headgear_01' }),
+        carnage_pauldrons: W('carnage_pauldrons', 'Spiked Pauldrons', 'Black steel shoulders wrought like curling thorns.', 'shoulders', 'steel_pauldrons', { primary: '#1c1a22', trim: '#a8aab4' }, { stamina: 1 }),
+        carnage_gauntlets: W('carnage_gauntlets', 'Gauntlets of the Legion', 'Black steel to the elbow, the knuckles ridged.', 'arms', 'gauntlets', { primary: '#2a2832', sleeve: '#141a30' }, { strength: 1 }),
+        carnage_boots: W('carnage_boots', 'Black Boots', 'Tall boots of black leather, steel at the toe.', 'feet', 'boots', { primary: '#16141a', dark: '#0c0a10' }, { agility: 1 }),
+        carnage_cloak: W('carnage_cloak', 'Cloak of the Resistance', 'A long navy-black cloak lined and hemmed in blood-red.', 'back', 'travelling_cloak', { primary: '#0e1226', trim: '#6a1a22' }, { stamina: 1 }, { wearSlot: 'cape' }),
+        carnage_blade: { id: 'carnage_blade', name: "Seraphina's Blade", description: 'A long blade of black steel, its guard a crown of thorns. +2 STR, +1 AGI.', color: 0x2a2832, icon: 'itm_sword_01', stackable: false, slot: 'weapon', tier: 2, weaponType: 'sword', rarity: 'rare', stats: { strength: 2, agility: 1 }, buyPrice: 0, sellPrice: 80, onUse: st => st.equipItem('carnage_blade') },
+        // Anya, the Void-Echo
+        echo_corset: W('echo_corset', "Scholar's Corset", 'Dark leather laced over a pale linen blouse — an Aurorian scholar\'s, battered by the Underworld.', 'body', 'leather_jerkin', { primary: '#2a1e1a', collar: '#3a2420', trim: '#b89a5a', shirt: '#e8e2d8' }, { intelligence: 2, agility: 1 }),
+        echo_skirt: W('echo_skirt', 'Torn Pale Skirts', 'Layers of pale linen, torn ragged at the hem.', 'legs', 'skirt', { primary: '#e2ddd2', trim: '#9a8a6a' }, { agility: 1 }),
+        echo_circlet: W('echo_circlet', 'Aurorian Circlet', 'A thin band of gold with a single drop of light at the brow.', 'head', 'circlet', { primary: '#d8b860', trim: '#f0e0a0' }, { intelligence: 2 }, { icon: 'itm_headgear_01' }),
+        echo_gloves: W('echo_gloves', 'Long Leather Gloves', 'Fingerless at the tips, for casting.', 'arms', 'gloves', { primary: '#2a1e1a', sleeve: '#2a1e1a' }, { intelligence: 1 }),
+        echo_boots: W('echo_boots', 'High Riding Boots', 'Thigh-high boots of dark leather, buckled.', 'feet', 'riding_boots', { primary: '#2a1e18', dark: '#1a1210' }, { agility: 1 }),
+        echo_cloak: W('echo_cloak', 'Void-Touched Cloak', 'Violet-black, its edges fraying into something like smoke.', 'back', 'travelling_cloak', { primary: '#22142e', trim: '#6a4a9a' }, { intelligence: 1 }, { wearSlot: 'cape' }),
+        echo_wand: { id: 'echo_wand', name: 'Wand of Aurorian Light', description: 'Pale wood capped in gold; a mote of starlight hangs at its tip. +2 INT.', color: 0xd8b860, icon: 'itm_wand_01', stackable: false, slot: 'weapon', tier: 2, weaponType: 'wand', rarity: 'rare', stats: { intelligence: 2 }, buyPrice: 0, sellPrice: 80, onUse: st => st.equipItem('echo_wand') },
+    });
+}
+const HEROINE_OUTFITS = { seraphina: ['carnage_gown', 'carnage_skirt', 'carnage_crown', 'carnage_pauldrons', 'carnage_gauntlets', 'carnage_boots', 'carnage_cloak', 'carnage_blade'],
+    anya: ['echo_corset', 'echo_skirt', 'echo_circlet', 'echo_gloves', 'echo_boots', 'echo_cloak', 'echo_wand'] };
 { const i = itemRules.MERCHANT_CATALOG.findIndex(e => e.id === 'scholars_cowl'); itemRules.MERCHANT_CATALOG.splice(i + 1, 0, { id: 'wizards_hat', price: 140, currency: 'glint' }); }
 movementRules.MOVE.SPRINT_DRAIN_PER_S = 7;                              // amo: 20 → ~14 s of sprint instead of 5
 const SPELL_TUNING = { rangeMult: 3, speedMult: 1.6, radiusMult: 2 };   // 2D screen distances feel short in 3D
@@ -229,7 +253,8 @@ if (params.get('hero') === 'new' && heroDef) {
             : isOff(other) || (other && weaponRules.WEAPON_TYPES[weaponRules.typeOf(other)]?.hands === 1) ? other : null;
     }
     if (!gifted.some(g => ['wand', 'staff', 'elemental', 'light', 'dark'].includes(g))) stats.spells.fireball = 0;
-    stats.giveStartKit({ weapon: main?.id, offHand: off?.id });   // archers also get amo's archer kit from this
+    if (HEROINE_OUTFITS[heroDef.id]) { for (const id of HEROINE_OUTFITS[heroDef.id]) { stats.addItem(id, 1); stats.equipItem(id); } }   // a heroine: her own clothes and weapon
+    else stats.giveStartKit({ weapon: main?.id, offHand: off?.id });   // archers also get amo's archer kit from this
 }
 const loot = createLoot({ stats, hud, onPickup: id => quests?.onPickup(id) });
 const sheet = createSheet({ stats, name: HERO_NAME });
@@ -246,7 +271,7 @@ const inventory = createInventory({
 const BASE_LOOK = heroDef?.look ?? eldrinCast.look;   // the campaign plays the lore cast
 // A werewolf hero (Forge race) can take the wolf form: V / R3 / the WOLF button (stats.flags.wolfForm).
 const WEREWOLF = BASE_LOOK?.body?.race === 'werewolf';
-const heroLook = () => wornLook(BASE_LOOK, { ...stats.equipment, _wolf: WEREWOLF && !!stats.flags?.wolfForm }, { ownOutfit: !!heroDef?.campaign });
+const heroLook = () => wornLook(BASE_LOOK, { ...stats.equipment, _wolf: WEREWOLF && !!stats.flags?.wolfForm }, {});
 let model = createCharacter(heroLook());
 const hero = {
     get root() { return model.root; },
