@@ -47,7 +47,7 @@ import { scale as hitStopScale } from './engine/hitstop.js';
 import { umbralTwin } from './engine/umbralTwin.js';
 import { createStreamWorld } from './engine/stream.js';
 import { createEldoriaWorld } from './content/world/eldoria.js';
-import { createNythoriaWorld } from './content/world/nythoria.js';
+import { createNythoriaWorld, NYTHORIA_GATES } from './content/world/nythoria.js';
 import './game/theme.js';   // one look for every menu and panel
 import { updateEnemyMagic, debugMagic } from './content/actors/enemyMagic3d.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
@@ -289,8 +289,6 @@ const world = createMapManager({
         vision: () => createVision(),   // chapter 2: what the storm shows Eldrin
         eldoria: () => createEldoriaWorld({ quality }),   // the open world, stage W2 (in progress: the land of Thaloria's corner)
         nythoria: () => createNythoriaWorld({ quality }),   // the shadow world, through the Obsidian Gate (docs/3d/WORLD_PLAN.md)
-        stream_test: () => createStreamWorld({ quality }),   // the open world, stage W1: the streaming prototype (god mode only)
-        umbral_test: () => buildRegion(umbralTwin(REGIONS.lake_aethera, { id: 'umbral_test', name: 'Umbral twin (test) — Lake Aethera', ruins: 12, spires: 1 }), { quality }),   // Nythoria N1: the engine's test (god mode only; names nothing)   // the dungeons, a level each
         ...Object.fromEntries(Object.keys(REGIONS).filter(id => !REGIONS[id].builder).map(id => [id, () => buildRegion(REGIONS[id], { quality })])),   // regions with a builder (the Sanctuary) keep their own code
     },
     fade: hud.ui.fade, fadeText: hud.ui.fadeText,
@@ -564,6 +562,7 @@ travel = createTravel({
         ...(world.maps.eldoria?.stamps?.find(st => st.id === 'outdoor')?.map.gates ?? world.maps.outdoor?.gates ?? []).map(g => ({ ...g, map: 'outdoor' })),
         ...EAST_ROAD_GATES.map(g => ({ ...g, map: 'east_road' })),
         ...Object.values(REGIONS).flatMap(r => (r.gates ?? []).map(g => ({ ...g, map: r.id }))),
+        ...NYTHORIA_GATES,   // (Nythoria's monoliths: the Tear reaches the shadow world too)
     ],
 });
 const campfire = createCampfire({

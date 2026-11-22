@@ -13,12 +13,21 @@ import { createBeasts, NAMES as BEAST_NAMES } from '../actors/beast.js';
 import { createAnimals, NAMES as ANIMAL_NAMES } from '../actors/animals.js';
 import { createDeer } from '../actors/deer.js';
 import { flat } from '../../engine/lib.js';
+import { buildMonolith } from '../../game/travel.js';
 import { levelAtNythoria } from './bands.js';
 
 const WATER = -2;
 const REGION_DEFS = Object.fromEntries(Object.values(import.meta.glob('../regions/*.json', { eager: true, import: 'default' })).map(d => [d.id, d]));
 const at = name => { const p = LAYOUT.places.find(q => q.name === name); return p ? { x: p.world[0], z: p.world[1] } : null; };
 // the places of Nythoria, at their twins' spots (N-5)
+// Nythoria's Rift-Gate monoliths (the Aetheric Tear reaches them once attuned): by the Gate's twin, in the free towns, at old Ravenspire
+export const NYTHORIA_GATES = [
+    ['nyth_gate_monolith', 'Monolith of the Obsidian Gate (Nythoria)', 'The Obsidian Gate', -30, 14],
+    ['nyth_vale_monolith', 'Monolith of the Shadow-Vale', 'The Crossroads', -14, 22],
+    ['nyth_harbour_monolith', 'Monolith of the shadow harbour', 'Port Silver', -40, 30],
+    ['nyth_miners_monolith', "Monolith of the deep-miners' village", 'Iron Hollow', -20, 26],
+    ['nyth_ravenspire_monolith', 'Monolith of old Ravenspire', 'The Citadel of Thaloria', 0, 52],
+].map(([id, label, place, dx, dz]) => { const p = at(place); return p && { id, label, x: p.x + dx, z: p.z + dz, map: 'nythoria' }; }).filter(Boolean);
 const PLACES = [
     ['The Obsidian Gate', at('The Obsidian Gate')], ['The Great Rift', at('The Great Rift')],
     ['The Shadow-Vale', at('The Crossroads')], ['The Black Well', at('Lake Aethera')],
@@ -112,6 +121,11 @@ export function createNythoriaWorld({ quality } = {}) {
       world.spawns.gate = { x: gate.x - 18, z: gate.z, facing: -Math.PI / 2 };
       world.spawns.vale = { x: vale.x + 2, z: vale.z + 14, facing: Math.PI };   // a new adventurer's start in Nythoria: the Shadow-Vale's town
       const upd = world.update; let t = 0; world.update = (t2, dt, ctx) => { upd(t2, dt, ctx); t += dt; pm.opacity = 0.4 + Math.sin(t * 1.7) * 0.08; portal.rotation.z = Math.sin(t * 0.3) * 0.01; };
+    }
+    // ---------- the Rift-Gate monoliths ----------
+    { const mons = NYTHORIA_GATES.map(g => { const y = heightAt(g.x, g.z); world.stations.push({ mode: 'gate', key: g.id, pos: new THREE.Vector3(g.x, y, g.z) }); world.spawns[`gate:${g.id}`] = { x: g.x + 1.7, z: g.z, facing: Math.PI / 2 }; world.addWall({ x: g.x, z: g.z, r: 0.55, kind: 'wall', y0: y - 1, y1: y + 3.2 }); return { g, m: buildMonolith(world.scene, g, y) }; });
+      world.gates = NYTHORIA_GATES;
+      const updG = world.update; let tg = 0; world.update = (t2, dt, ctx) => { updG(t2, dt, ctx); tg += dt; for (const { g, m } of mons) if (Math.hypot(ctx.player.pos.x - g.x, ctx.player.pos.z - g.z) < 200) m.update(tg, (ctx.attunedGates ?? []).includes(g.id)); };
     }
     // ---------- old Ravenspire, in ruins (N-2, N-3; WORLD_PLAN: the broken silhouette) on the twin of the Citadel's cliff ----------
     { const C = at('The Citadel of Thaloria'), y0 = heightAt(C.x, C.z), g = new THREE.Group(); g.position.set(C.x, 0, C.z);

@@ -3,6 +3,7 @@ import { settings } from '../engine/settings.js';
 import { DUNGEONS } from '../content/dungeons.js';
 const REGION_FILES = import.meta.glob('../content/regions/*.json', { eager: true, import: 'default' });
 import LAYOUT from '../content/world/eldoria_layout.json';
+import { NYTHORIA_GATES } from '../content/world/nythoria.js';
 // The places now inside the open world: their old standalone maps are retired (main.js redirects every way into them).
 export const OPEN_WORLD_IDS = new Set(['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'thaloria_lower', 'citadel_plateau', 'summit_of_despair', 'whisper_wood', 'the_crossroads', 'iron_hollow', 'duskmeet', 'graywatch', 'lake_aethera', 'port_silver', 'emerald_fields', 'new_ravenspire', 'fire_gate', 'inferno_labyrinth', 'ruins_of_eldoria']);   // (every way into one of these arrives in the open world)
 export const STAMP_OF = { 'Fire Gate': 'fire_gate', 'Inferno Labyrinth': 'inferno_labyrinth', 'Ruins of Eldoria': 'ruins_of_eldoria', 'Summit of Despair — the Approach': 'summit_of_despair', 'Iron Hollow': 'iron_hollow', 'Duskmeet': 'duskmeet', 'Graywatch': 'graywatch', 'Lake Aethera': 'lake_aethera', 'Port Silver': 'port_silver', 'The Emerald Fields': 'emerald_fields', 'Whisper-Wood': 'whisper_wood', 'The Crossroads': 'the_crossroads', 'The Lower Town of Thaloria': 'thaloria_lower', 'The Citadel of Thaloria': 'citadel_plateau', 'Thaloria': 'thaloria', "Thaloria Glade (Eldrin's Tower's vale)": 'outdoor', 'The East Road (Thalorian Wilds)': 'east_road', 'Summit of Despair': 'the_summit', 'Sylvan Sanctuary': 'sylvan_sanctuary' };
@@ -14,8 +15,8 @@ function godSections(interiors) {
         ...Object.values(DUNGEONS).map(d => [d.id, 'start', d.name]),
         ...Object.values(REGION_FILES).filter(r => r?.id && !OPEN_WORLD_IDS.has(r.id)).map(r => [r.id, 'start', r.name ?? r.id]).sort((a, b) => a[2].localeCompare(b[2]))];
     const inside = interiors.map(id => [id, 'start', pretty(id)]).sort((a, b) => a[2].localeCompare(b[2]));
-    const tests = [['umbral_test', 'start', 'Umbral twin (test) — Lake Aethera'], ['stream_test', 'start', 'Open world test (W1) — a 4 km continent']];
-    return [['Eldoria — the open world', world], ['Beyond the open world (their own maps)', beyond], ['Interiors', inside], ['Tests', tests]];
+    const nyth = [['nythoria', 'gate', 'The Obsidian Gate (Nythoria)'], ['nythoria', 'vale', 'The Shadow-Vale'], ['nythoria', 'ravenspire', 'Old Ravenspire (ruins)'], ...NYTHORIA_GATES.map(g => ['nythoria', `gate:${g.id}`, g.label])];
+    return [['Eldoria — the open world', world], ['Nythoria — the shadow world', nyth], ['Beyond the open world (their own maps)', beyond], ['Interiors', inside]];
 }
 // Fast travel — amo's rules: rift-gate monoliths are attuned by touching them (stats.attunedGates);
 // at an attuned gate you can travel to any other attuned gate. The Aetheric Tear (T / gamepad R3-hold…
@@ -92,12 +93,14 @@ export function createTravel({ stats, hud, world, player, allGates, onAttune, in
         panel.append(h, s);
         const list = gates().filter(g => stats.attunedGates.includes(g.id) && g.id !== fromGate);
         if (!list.length) { const p = document.createElement('div'); p.className = 'sub'; p.textContent = 'No other attuned gate yet — find more monoliths.'; panel.append(p); }
-        for (const g of list) {
+        const groups = [['Eldoria', list.filter(g => g.map !== 'nythoria')], ['Nythoria — the shadow world', list.filter(g => g.map === 'nythoria')]];   // (by world)
+        for (const [title, gs] of groups) { if (!gs.length) continue; const h3 = document.createElement('div'); h3.className = 'sub'; h3.textContent = title; h3.style.cssText = 'margin-top:10px;letter-spacing:.08em;opacity:.85'; panel.append(h3);
+        for (const g of gs) {
             const b = document.createElement('button');
             b.textContent = `✦ ${g.label}`;
             b.onclick = () => { close(); onPick(g); };
             panel.append(b);
-        }
+        } }
         if (settings.god) {   // god mode (testing): straight to any map's start
             for (const [title, list] of godSections(interiors)) {   // god mode (testing): every destination
                 const h3 = document.createElement('div'); h3.className = 'sub'; h3.textContent = `God mode — ${title}:`; panel.append(h3);
