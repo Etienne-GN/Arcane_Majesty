@@ -21,7 +21,8 @@
   "fire_gate": "ash_lands",
   "inferno_labyrinth": "inferno",
   "ruins_of_eldoria": "ruined_moor",
-  "the_crossroads": "temperate_meadow"
+  "the_crossroads": "temperate_meadow",
+  "new_ravenspire": "scarland_heath"
  },
  "zones": [
   {
@@ -66,6 +67,19 @@
    "r": 620,
    "biome": "ash_lands",
    "note": "divide"
+  },
+  {
+   "x": 2450,
+   "z": 1650,
+   "r": 1150,
+   "biome": "scarland_heath",
+   "note": "scarlands"
+  },
+  {
+   "x": 2200,
+   "z": 2172,
+   "r": 480,
+   "biome": "rift_scar"
   }
  ]
 }

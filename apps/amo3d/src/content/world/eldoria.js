@@ -105,12 +105,18 @@ const ISLES = [[175, 40, 75, 8], [-230, -160, 95, 13], [60, -310, 45, 6], [-130,
 const lakeShoreR = th => LAKE.R * (1 + 0.16 * Math.sin(3 * th + 0.7) + 0.09 * Math.sin(5 * th + 2.1) + 0.05 * Math.sin(9 * th + 4.0));
 const MARSH = { th: Math.PI, w: 0.75 }, BEACH = { th: Math.PI * 0.25, w: 0.6 };   // the arcs of shore (angle from the lake's middle, half-width)
 const arcK = (th, a) => { const d = Math.atan2(Math.sin(th - a.th), Math.cos(th - a.th)); return smooth(a.w, a.w * 0.4, Math.abs(d)); };
-export const RIVER_COURSE = RIVER;   // (for the checks)
+export const RIVER_COURSE = RIVER;
 export function lakeInfo(x, z) {
     const dx = x - LAKE.x, dz = z - LAKE.z, d = Math.hypot(dx, dz), th = Math.atan2(dz, dx), R = lakeShoreR(th);
     return { d, th, R, inside: R - d, marsh: arcK(th, MARSH), beach: arcK(th, BEACH) };
 }
 const PORT = place('Port Silver');
+const RIFT_C = place('The Great Rift'), RIFT = [[RIFT_C.x - 150, RIFT_C.z + 60], [RIFT_C.x - 70, RIFT_C.z + 22], [RIFT_C.x, RIFT_C.z], [RIFT_C.x + 75, RIFT_C.z - 30], [RIFT_C.x + 150, RIFT_C.z - 48]];
+const riftT = (x, z) => { let best = 0, bd = Infinity, acc = 0, tot = 0; for (let i = 0; i < RIFT.length - 1; i++) tot += Math.hypot(RIFT[i + 1][0] - RIFT[i][0], RIFT[i + 1][1] - RIFT[i][1]);
+    for (let i = 0; i < RIFT.length - 1; i++) { const [ax, az] = RIFT[i], [bx, bz] = RIFT[i + 1], L = Math.hypot(bx - ax, bz - az), u = Math.max(0, Math.min(1, ((x - ax) * (bx - ax) + (z - az) * (bz - az)) / (L * L))), d = Math.hypot(x - ax - (bx - ax) * u, z - az - (bz - az) * u); if (d < bd) { bd = d; best = (acc + u * L) / tot; } acc += L; }
+    return best; };
+const OGATE = place('The Obsidian Gate');
+let OGATE_Y = 0;   // (set once the land round it is known: below)
 // ---------- the continent's shape (asked 2026-11-20: not a square) and the Sunward Isles ----------
 // The coast at each angle round the land's middle: beyond every place there (+320 m), bulging into peninsulas and bending
 // into bays (never nearer a place than ~170 m), smoothed; the ocean beyond it. Off the south-east, an archipelago.
@@ -136,6 +142,7 @@ const ARCHI = (() => {   // the Sunward Isles: islands scattered in the south-ea
     return { c, isles: out };
 })();
 export const ARCHIPELAGO = ARCHI.c, ARCHIPELAGO_ISLES = ARCHI.isles;
+export const northFootOf = x => northFoot(x), westFootOf = z => westFoot(z);   // (for the checks)
 // ---------- The Divide: the north is shut but for the Summit pass ----------
 // The northern range, a spur down to the Summit's ridge's west end, the ridge itself (the one gap: the Summit), then on
 // from its east end, south of the Ruins, to the sea. Beyond: the Sanctuary, the Fire Gate, the Inferno Labyrinth, the Ruins.
@@ -300,6 +307,16 @@ export function eldoriaHeight(x, z) {
         const w = 75 + dx * 0.25 + 18 * Math.sin(dx * 0.02 + 1.3), k = smooth(w, w * 0.6, Math.abs(dz - 14 * Math.sin(dx * 0.012))) * smooth(40, 90, dx);
         h = h + (Math.min(h, WATER - 4 - Math.min(6, (dx - 90) * 0.02)) - h) * k;
     } }
+    // the Obsidian Gate's pad: level ground round it
+    { const dg = Math.hypot(x - OGATE.x, z - OGATE.z); if (dg < 90) h = h + (OGATE_Y - h) * smooth(90, 30, dg); }
+    // The Great Rift (docs/3d/WORLD_PLAN.md): the planar scar Vorgos tore at 0 GD — a long jagged chasm across the
+    // Scarlands, its floor just above the water (the world's sea would fill it), crags along its lips
+    { const d = polyDist(RIFT, x, z); if (d < 90) {
+        const t = riftT(x, z), w = 9 + 9 * Math.sin(t * 7.3 + 1.1) * Math.sin(t * 2.1) + 6 * fbm(x * 0.05, z * 0.05, 2) + 5 * Math.sin(Math.PI * t);   // jagged, widest in the middle
+        const lip = 3 * Math.exp(-Math.pow((d - w - 6) / 7, 2)) * (0.6 + 0.8 * fbm(x * 0.09, z * 0.09, 2));
+        h = h + lip;
+        if (d < w + 3) h = h + (WATER + 0.6 + 2 * fbm(x * 0.07, z * 0.07, 2) - h) * smooth(w + 3, w - 4, d);
+    } }
     // the west: a craggy range closing the map (user, 2026-11-21), its foot wandering, kept clear of every place; the sea
     // below cuts it into cliffs where it meets the south coast
     // (a chain, not a plateau: green foothills, a crest of peaks and saddles ~420 m in, high country beyond; snow only on
@@ -439,7 +456,7 @@ const STORY = [
     { id: 'ruins_of_eldoria', name: 'Ruins of Eldoria', ways: [{ to: () => place('Inferno Labyrinth') }] },
 ];
 // Every exit that led from one of these places to another of them is gone in the open world: you walk there.
-const IN_WORLD = ['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'thaloria_lower', 'citadel_plateau', 'summit_of_despair', 'whisper_wood', 'the_crossroads', 'iron_hollow', 'duskmeet', 'graywatch', 'lake_aethera', 'port_silver', 'emerald_fields', 'fire_gate', 'inferno_labyrinth', 'ruins_of_eldoria'];
+const IN_WORLD = ['outdoor', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'thaloria_lower', 'citadel_plateau', 'summit_of_despair', 'whisper_wood', 'the_crossroads', 'iron_hollow', 'duskmeet', 'graywatch', 'lake_aethera', 'port_silver', 'emerald_fields', 'new_ravenspire', 'fire_gate', 'inferno_labyrinth', 'ruins_of_eldoria'];
 export function makeStamps(quality) {
     // Thaloria: the scholar-city on its hill (content/thaloriaCity.js, from the plan), the gorge on its north side.
     const out = [prepStamp({ id: 'thaloria', map: createThaloriaCity({ quality }), ox: CITY.x, oy: 2, oz: CITY.z, rect: [-188, -126, 188, 262], drop: new Set(IN_WORLD), round: 3.2, wobble: 0.04 })];   // (a walled city: a squarer outline, still no sharp corner)
@@ -502,7 +519,7 @@ export function makeStamps(quality) {
     // first rise of 5 m above its middle along each axis), its middle at the land's height (never below the sea).
     // (Not yet: the Fire Gate, the Inferno Labyrinth and the Ruins — chapters 6–11 stage their scenes on those maps
     // (content/chapters.js), so they stay behind their doors until those scenes are ported.)
-    for (const [id, name] of [['summit_of_despair', 'Summit of Despair — the Approach'], ['whisper_wood', 'Whisper-Wood'], ['the_crossroads', 'The Crossroads'], ['iron_hollow', 'Iron Hollow'], ['duskmeet', 'Duskmeet'], ['graywatch', 'Graywatch'], ['lake_aethera', 'Lake Aethera'], ['port_silver', 'Port Silver'], ['emerald_fields', 'The Emerald Fields']]) {
+    for (const [id, name] of [['summit_of_despair', 'Summit of Despair — the Approach'], ['whisper_wood', 'Whisper-Wood'], ['the_crossroads', 'The Crossroads'], ['iron_hollow', 'Iron Hollow'], ['duskmeet', 'Duskmeet'], ['graywatch', 'Graywatch'], ['lake_aethera', 'Lake Aethera'], ['port_silver', 'Port Silver'], ['emerald_fields', 'The Emerald Fields'], ['new_ravenspire', 'New Ravenspire']]) {
         try {
             const DEF = noRim(REGION_DEFS[id]), H = regionHeight(DEF), at = place(name), H0 = H(0, 0), half = REGION_DEFS[id].half ?? 90;   // (its ground, without building it)
             const base = Math.max(H0, (REGION_DEFS[id].water ?? -1.2) + 1.5);   // (a lake's floor is not the ground: measure from its water line)
@@ -542,7 +559,8 @@ export function makeStamps(quality) {
 export const BIOMES = Object.fromEntries(Object.values(import.meta.glob('./biomes/*.json', { eager: true, import: 'default' })).map(b => [b.id, b]));
 import BIOME_MAP from './biome_maps/eldoria.json';
 export { BIOME_MAP };
-function makeBiomes(stamps) {
+const BIOME_MAP_E = BIOME_MAP;
+export function makeBiomes(stamps, BIOME_MAP = BIOME_MAP_E) {   // (a world's biome map: Eldoria's by default; Nythoria passes its own)
     const mk = (b, x, z, core, R) => ({ b, x, z, core, R, gA: new THREE.Color(b.palette.grassA), gB: new THREE.Color(b.palette.grassB), rock: new THREE.Color(b.palette.rock), fog: new THREE.Color(b.mood.fog) });
     const srcs = [];
     for (const st of stamps) { const b = BIOMES[BIOME_MAP.places?.[st.id]]; if (b) srcs.push(mk(b, st.cx, st.cz, Math.min(st.ha, st.hb) * 0.9, b.radius ?? 600)); }
@@ -579,6 +597,7 @@ function biomeLabels(stamps) {
     for (const st of stamps) { const id = BIOME_MAP.places?.[st.id]; if (!id || !BIOMES[id]) continue; const a = acc[id] ??= { x: 0, z: 0, n: 0 }; a.x += st.cx; a.z += st.cz; a.n++; }
     return Object.entries(acc).map(([id, a]) => ({ name: BIOMES[id].name, x: a.x / a.n, z: a.z / a.n }));
 }
+OGATE_Y = (() => { const keep = OGATE.x; OGATE.x = 1e9; let m = 0, n = 0; for (let a = 0; a < 6.28; a += 0.5) { m += eldoriaHeight(keep + Math.cos(a) * 40, OGATE.z + Math.sin(a) * 40); n++; } OGATE.x = keep; return m / n; })();   // the pad at the land's mean height round it
 // The open world's ground: the land, the places set into it, the roads graded in last (also used by tools/node_world.mjs).
 // (a place's blend ring never fills a river or open water: the land keeps its own height there, fading back over the banks)
 const keepWater = (x, z, h) => Math.max(1 - smooth(8, 34, riverDist(x, z)), smooth(WATER + 0.6, WATER - 1.2, h));
@@ -613,7 +632,7 @@ export function createEldoriaWorld({ quality } = {}) {
             return [];
         },
         chart: { pxPerM: 0.04, tileM: 4, detail: true, baked: 'eldoria', biomeLabels: biomeLabels(stamps), groundAt: (x, z) => (roadDist(x, z) < 6 ? 'road' : null) },
-        clearAt: (x, z) => roadDist(x, z) < 5 || (() => { const L = lakeInfo(x, z); return (L.beach > 0.3 && L.inside > -45) || (L.marsh > 0.4 && L.inside > -120 && fbm(x * 0.05, z * 0.05, 2) > 0.45); })() || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || riverDist(x, z) < 9,
+        clearAt: (x, z) => roadDist(x, z) < 5 || (() => { const L = lakeInfo(x, z); return (L.beach > 0.3 && L.inside > -45) || (L.marsh > 0.4 && L.inside > -120 && fbm(x * 0.05, z * 0.05, 2) > 0.45); })() || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || riverDist(x, z) < 9 || polyDist(RIFT, x, z) < 34,   // (nothing grows in the Rift)
         groundColor: (x, z, h, col) => {
             if (h < WATER + 1.6 && h > WATER - 0.6) { const L = lakeInfo(x, z); if (L.marsh > 0.1 && L.inside > -220 && L.inside < 140) { const n = fbm(x * 0.09, z * 0.09, 2); col.set(n > 0.56 ? '#3e5a2a' : n > 0.44 ? '#4a5a30' : '#4a4630'); return true; } }   // the marsh: mud, rushes, sedge
             if (h < WATER + 0.8) return false;
@@ -622,6 +641,10 @@ export function createEldoriaWorld({ quality } = {}) {
                 if (L.beach > 0.3 && L.inside > -40 && h < WATER + 2.5) { col.set('#d8c89a'); return true; }
                 if (L.marsh > 0.1 && L.inside > -220 && h < WATER + 1.6) { const n = fbm(x * 0.09, z * 0.09, 2); col.set(n > 0.56 ? '#3e5a2a' : n > 0.44 ? '#4a5a30' : '#4a4630'); return true; }   // mud, rushes and sedge
                 if (L.marsh < 0.1 && h < WATER + 1.0 && h >= WATER - 0.2) { col.set('#b8a878'); return true; }   // a sandy margin elsewhere, and round the islands
+            } }
+            { const dR = polyDist(RIFT, x, z); if (dR < 140) {   // the Rift's scorched land: ash and black glass, violet cracks near its lips
+                const n = fbm(x * 0.06, z * 0.06, 2), k = smooth(140, 30, dR);
+                if (n * k > 0.32 || dR < 34) { col.set(dR < 34 && fbm(x * 0.2, z * 0.2, 2) > 0.62 ? '#4a2a6a' : n > 0.55 ? '#2a2628' : '#3e3836'); return true; }
             } }
             if (h < WATER + 2.4 && Math.hypot(x - ARCHI.c.x, z - ARCHI.c.z) < 1250) { const n = fbm(x * 0.08, z * 0.08, 2); col.set(n > 0.6 ? '#d6c492' : '#e4d6a8'); return true; }   // the isles' pale beaches
             if ((x < westFoot(z) + 60 || z < northFoot(x) + 60) && h > 30) {   // the western and northern chains: snow only on their summits, bare rock below, high meadows lower
@@ -682,6 +705,37 @@ export function createEldoriaWorld({ quality } = {}) {
               st.group.traverse(o => { if (o.userData?.foamOf === f) o.position.set(f.position.x, WATER + 0.12 - st.oy, faceZ + 3.5 - st.oz); });
           }
       }; }
+    // ---------- the Great Rift's glow (light welling up from the depths) and the Obsidian Gate ----------
+    { const g = new THREE.Group(), glowMat = new THREE.MeshBasicMaterial({ color: 0x7a2ad8, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide });
+      const pts = []; for (let i = 0; i < RIFT.length - 1; i++) { const [ax, az] = RIFT[i], [bx, bz] = RIFT[i + 1], L = Math.hypot(bx - ax, bz - az); for (let d = 0; d < L; d += 7) pts.push([ax + (bx - ax) * d / L, az + (bz - az) * d / L, Math.atan2(bz - az, bx - ax)]); }
+      for (const [x, z, a] of pts) { const t = riftT(x, z), w = Math.max(3, (9 + 9 * Math.sin(t * 7.3 + 1.1) * Math.sin(t * 2.1) + 5 * Math.sin(Math.PI * t)) * 0.7);
+          const q = new THREE.Mesh(new THREE.CircleGeometry(1, 7), glowMat); q.scale.set(4 + Math.random() * 5, w * (0.35 + Math.random() * 0.45), 1); q.rotation.set(-Math.PI / 2, 0, -a + (Math.random() - 0.5) * 0.6); /* pools of light in the depths, not a road */ q.position.set(x, heightAt(x, z) + 0.4, z); g.add(q); }
+      const motes = new THREE.Points(new THREE.BufferGeometry().setAttribute('position', new THREE.Float32BufferAttribute(pts.flatMap(([x, z]) => [x, heightAt(x, z) + Math.random() * 18, z]), 3)), new THREE.PointsMaterial({ color: 0xc89aff, size: 0.18, transparent: true, opacity: 0.8, depthWrite: false, blending: THREE.AdditiveBlending }));
+      g.add(motes);
+      for (const k of [1, 2, 3]) { const [lx, lz] = RIFT[k]; const light = new THREE.PointLight(0xa050ff, 60, 140, 1.3); light.position.set(lx, heightAt(lx, lz) + 5, lz); g.add(light); }   // the chasm lit from within
+      // the Obsidian Gate: a stone pad, two tapering obsidian pillars, a lintel, a shimmering portal between them, braziers
+      const obs = new THREE.MeshStandardMaterial({ color: 0x0e0c14, roughness: 0.15, metalness: 0.4, flatShading: true }), stone = flat(0x3a3640), y0 = heightAt(OGATE.x, OGATE.z);
+      const gate = new THREE.Group(); gate.position.set(OGATE.x, y0, OGATE.z); gate.rotation.y = Math.atan2(OGATE.x - place('New Ravenspire').x, OGATE.z - place('New Ravenspire').z) + Math.PI;   // facing the road from New Ravenspire
+      const mk = (geo, m, x, y, z) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; gate.add(o); return o; };
+      mk(new THREE.CylinderGeometry(14, 15, 1.2, 8), stone, 0, 0.2, 0);
+      for (let i = 0; i < 3; i++) mk(new THREE.BoxGeometry(12 - i * 2, 0.4, 2), stone, 0, 0.9 + i * 0.4, 9 - i * 1.4);   // steps up to it
+      for (const s of [-1, 1]) { mk(new THREE.CylinderGeometry(1.1, 1.7, 16, 6), obs, s * 5.5, 9, 0); mk(new THREE.ConeGeometry(1.2, 3, 6), obs, s * 5.5, 18.5, 0); }
+      mk(new THREE.BoxGeometry(14, 1.6, 2.2), obs, 0, 16.2, 0);
+      const portalTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 128; const x2 = c.getContext('2d'); for (let i = 0; i < 260; i++) { x2.strokeStyle = `rgba(${150 + (i % 5) * 20},${110 + (i % 7) * 15},255,${0.15 + (i % 4) * 0.1})`; x2.beginPath(); x2.arc(64, 64, (i * 7) % 64, i, i + 1.5); x2.stroke(); } const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t; })();
+      const portalMat = new THREE.MeshBasicMaterial({ color: 0xd0b8ff, map: portalTex, transparent: true, opacity: 0.85, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending });
+      const portal = mk(new THREE.PlaneGeometry(9.4, 14.6), portalMat, 0, 8.3, 0);
+      for (const s of [-1, 1]) { mk(new THREE.CylinderGeometry(0.6, 0.8, 1.6, 6), stone, s * 9, 1.6, 4); const fl = mk(new THREE.ConeGeometry(0.5, 1.4, 6), new THREE.MeshBasicMaterial({ color: 0xb06aff }), s * 9, 3, 4); fl.userData.flame = true; }
+      g.add(gate);
+      for (const s of [-1, 1]) world.addWall({ x: OGATE.x + Math.cos(gate.rotation.y) * s * 5.5, z: OGATE.z - Math.sin(gate.rotation.y) * s * 5.5, r: 1.8, kind: 'wall', y0: y0 - 1, y1: y0 + 20 });
+      const gpos = new THREE.Vector3(OGATE.x + Math.sin(gate.rotation.y) * 3, y0 + 1.6, OGATE.z + Math.cos(gate.rotation.y) * 3);
+      world.stations.push({ mode: 'portal', title: 'The Obsidian Gate', to: 'nythoria', spawn: 'gate', pos: gpos });
+      world.spawns.obsidian_gate = { x: OGATE.x + Math.sin(gate.rotation.y) * 18, z: OGATE.z + Math.cos(gate.rotation.y) * 18, facing: gate.rotation.y + Math.PI };   // (arriving back from Nythoria: in front of the Gate)
+      world.scene.add(g);
+      const updR = world.update; let tt = 0;
+      world.update = (t2, dt, ctx) => { updR(t2, dt, ctx); tt += dt; const P = ctx.player.pos, near = Math.hypot(P.x - RIFT_C.x, P.z - RIFT_C.z) < 1500 || Math.hypot(P.x - OGATE.x, P.z - OGATE.z) < 1200; g.visible = near; if (!near) return;
+          portalTex.rotation = tt * 0.4; portalTex.center.set(0.5, 0.5); portalMat.opacity = 0.75 + Math.sin(tt * 2) * 0.1; glowMat.opacity = 0.42 + Math.sin(tt * 1.3) * 0.1;
+          const p = motes.geometry.attributes.position; for (let i = 0; i < p.count; i++) { let y = p.getY(i) + dt * 1.6; const base = heightAt(p.getX(i), p.getZ(i)); if (y > base + 22) y = base; p.setY(i, y); } p.needsUpdate = true; };
+    }
     // ---------- the Sunward Isles: a fishing hamlet (huts, a pier with boats, drying racks) and a ruin on the tallest isle ----------
     if (ISLE_HAMLET && ISLE_RUIN) {
         const g = new THREE.Group(), wood = flat(0x6e5236), dark = flat(0x3e2c1c), thatch = flat(0xb89a5a), wall = flat(0xd8ccb0), stone = flat(0x9a948a), moss = flat(0x6a7a5a);

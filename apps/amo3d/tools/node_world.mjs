@@ -74,5 +74,24 @@ try {
         for (let k = 0; k < 60; k++) { const p = T.route(-150 + rnd() * 300, -100 + rnd() * 350, -150 + rnd() * 300, -100 + rnd() * 350); for (let i = 0; i < p.length - 1; i++) for (let t = 0; t < 1; t += 0.25) { const x = p[i][0] + (p[i + 1][0] - p[i][0]) * t, z = p[i][1] + (p[i + 1][1] - p[i][1]) * t; n++; if (T.streetDist(x, z) > 1) off++; } len += p.length; }
         console.log(`60 random routes, ${len} waypoints; points off the streets (> 1 m beyond a street's edge): ${off}/${n}`);
     }
-    else console.log('checks: seams | wading | roads | road <i> [from-to] | survey | river | isles | streets | at x,z …');
+    else if (cmd === 'size') {   // the land: its area, what lies inside the mountain walls, its span
+        const S2 = 25, wf = E.westFootAt ?? null; let land = 0, inside = 0, x0 = 1e9, x1 = -1e9, z0 = 1e9, z1 = -1e9, isles = 0;
+        for (let x = -5600; x < 5600; x += S2) for (let z = -5600; z < 5600; z += S2) {
+            const h = H(x, z); if (h < -2) continue; land++;
+            if (Math.hypot(x - E.ARCHIPELAGO.x, z - E.ARCHIPELAGO.z) < 1250) isles++;
+            if (h < 60 && z > E.northFootOf(x) - 250 && x > E.westFootOf(z) - 250) { inside++; x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); }
+        }
+        const km2 = n => (n * S2 * S2 / 1e6).toFixed(1);
+        console.log(`land in the world: ${km2(land)} km² · inside the mountain walls (below 60 m): ${km2(inside)} km² · of it the isles ${km2(isles)} km² · span inside the walls ${((x1 - x0) / 1000).toFixed(1)} km east–west × ${((z1 - z0) / 1000).toFixed(1)} km north–south`);
+    }
+    else if (cmd === 'nythoria') {   // build the Nythoria world (no rendering): its stations, spawns, places, a few heights
+        console.error('loading…'); const N = await vite.ssrLoadModule('/src/content/world/nythoria.js'); console.error('loaded; creating…'); const w = N.createNythoriaWorld({ quality: { foliage: 0.3, shadows: false, particles: 0.5, fogFar: 0.75 } });
+        console.log('stations', w.stations.map(s => s.mode + '→' + (s.to ?? '')).join(', '), '· spawns', Object.keys(w.spawns).slice(0, 12).join(', '), '· stamps', w.stamps.map(s => s.id).join(','), '· places', (w.mapInfo?.places ?? []).map(p => p.name).join(' / ')); process.exit(0);
+    }
+    else if (cmd === 'places') {   // each place on the map: a real map set in there, or only a marker
+        const L = (await import('../src/content/world/eldoria_layout.json', { with: { type: 'json' } })).default;
+        for (const p of L.places) { if (p.plane && p.plane !== 'Eldoria') continue; const [x, z] = p.world; const st = stamps.map(s => [s.id, edgeDist(s, x, z)]).sort((a, b) => a[1] - b[1])[0];
+            console.log(`${(st[1] <= 0 ? 'BUILT  ' : 'MARKER ')} ${p.name.padEnd(44)} ${st[1] <= 0 ? '(in ' + st[0] + ')' : '(nearest place ' + st[0] + ', ' + Math.round(st[1]) + ' m)'}${p.origin ? '  [' + p.origin + ']' : ''}`); }
+    }
+    else console.log('checks: seams | wading | roads | road <i> [from-to] | survey | river | isles | streets | places | at x,z …');
 } finally { await vite.close(); }

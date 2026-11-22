@@ -1,0 +1,22 @@
+{
+ "id": "nythoria",
+ "base": "umbral_twin",
+ "baseWeight": 0.25,
+ "places": {},
+ "zones": [
+  {
+   "x": -875,
+   "z": -50,
+   "r": 900,
+   "biome": "umbral_vale",
+   "note": "the Shadow-Vale (the Crossroads twin)"
+  },
+  {
+   "x": 3465,
+   "z": -2392,
+   "r": 700,
+   "biome": "umbral_ash",
+   "note": "the Obsidian Citadel (the fire mountain twin)"
+  }
+ ]
+}

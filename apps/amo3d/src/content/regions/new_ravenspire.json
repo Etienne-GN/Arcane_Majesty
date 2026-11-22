@@ -1,0 +1,880 @@
+{
+ "id": "new_ravenspire",
+ "name": "New Ravenspire",
+ "lore": "The Shadow Legion's fortified capital, founded by Seraphina in Eldoria after the Great Darkness.",
+ "seed": 1292,
+ "half": 105,
+ "water": -6,
+ "terrain": {
+  "scale": 0.02,
+  "relief": 1.0,
+  "base": 0.6,
+  "rim": 0
+ },
+ "palette": {
+  "grassA": "#3e4034",
+  "grassB": "#4c4c3c",
+  "dirt": "#4a4038",
+  "rock": "#4a464c",
+  "shore": "#4a4440",
+  "road": "#4a4448",
+  "paved": "#56525c",
+  "water": "#22262e"
+ },
+ "tints": [
+  {
+   "x": 0,
+   "z": 0,
+   "r": 66,
+   "color": "#4e4a54",
+   "k": 0.75
+  }
+ ],
+ "mood": {
+  "fog": "#6a6470",
+  "fogNear": 40,
+  "fogFar": 300,
+  "fogMix": 0.5,
+  "light": 0.85,
+  "nightFloor": 0.45
+ },
+ "features": [
+  {
+   "type": "clearing",
+   "x": 0,
+   "z": 0,
+   "r": 96
+  }
+ ],
+ "buildings": [
+  {
+   "x": 0,
+   "z": 14,
+   "w": 16,
+   "d": 8,
+   "h": 6,
+   "ry": 0,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#3a3644",
+   "timber": "#1e1a22",
+   "name": "The Spire Hall of the Shadow Legion"
+  },
+  {
+   "x": 30.6,
+   "z": 14.8,
+   "w": 7,
+   "d": 5,
+   "h": 4.6,
+   "ry": 1.122,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#3e3a46",
+   "timber": "#1e1a22",
+   "name": "The Black Raven (inn)"
+  },
+  {
+   "x": 21.2,
+   "z": 26.6,
+   "w": 8,
+   "d": 5,
+   "h": 3.4,
+   "ry": 0.673,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#524e58",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": 7.6,
+   "z": 33.1,
+   "w": 6,
+   "d": 5,
+   "h": 4.6,
+   "ry": 0.224,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#4a4652",
+   "timber": "#1e1a22",
+   "name": "The Legion Armoury"
+  },
+  {
+   "x": -7.6,
+   "z": 33.1,
+   "w": 7,
+   "d": 5,
+   "h": 3.4,
+   "ry": -0.224,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#3e3a46",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": -30.6,
+   "z": 14.8,
+   "w": 6,
+   "d": 5,
+   "h": 3.4,
+   "ry": -1.122,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#4a4652",
+   "timber": "#1e1a22",
+   "name": "The Map-Maker"
+  },
+  {
+   "x": -34.0,
+   "z": 0.0,
+   "w": 7,
+   "d": 5,
+   "h": 4.6,
+   "ry": -1.571,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#3e3a46",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": -30.6,
+   "z": -14.8,
+   "w": 8,
+   "d": 5,
+   "h": 3.4,
+   "ry": -2.02,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#524e58",
+   "timber": "#1e1a22",
+   "name": "The Guild Exchange"
+  },
+  {
+   "x": -21.2,
+   "z": -26.6,
+   "w": 6,
+   "d": 5,
+   "h": 4.6,
+   "ry": -2.468,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#4a4652",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": -7.6,
+   "z": -33.1,
+   "w": 7,
+   "d": 5,
+   "h": 3.4,
+   "ry": -2.917,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#3e3a46",
+   "timber": "#1e1a22",
+   "name": "The Herald's House"
+  },
+  {
+   "x": 7.6,
+   "z": -33.1,
+   "w": 8,
+   "d": 5,
+   "h": 4.6,
+   "ry": -3.366,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#524e58",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": 21.2,
+   "z": -26.6,
+   "w": 6,
+   "d": 5,
+   "h": 3.4,
+   "ry": -3.815,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#4a4652",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": 30.6,
+   "z": -14.8,
+   "w": 7,
+   "d": 5,
+   "h": 4.6,
+   "ry": -4.264,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#3e3a46",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": 47.2,
+   "z": 21.9,
+   "w": 7,
+   "d": 5,
+   "h": 4.6,
+   "ry": 1.137,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#3e3a46",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": 38.1,
+   "z": 35.4,
+   "w": 8,
+   "d": 5,
+   "h": 3.4,
+   "ry": 0.822,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#524e58",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": 25.3,
+   "z": 45.4,
+   "w": 6,
+   "d": 5,
+   "h": 4.6,
+   "ry": 0.508,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#4a4652",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": 10.0,
+   "z": 51.0,
+   "w": 7,
+   "d": 5,
+   "h": 3.4,
+   "ry": 0.194,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#3e3a46",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": -6.2,
+   "z": 51.6,
+   "w": 8,
+   "d": 5,
+   "h": 4.6,
+   "ry": -0.12,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#524e58",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": -21.9,
+   "z": 47.2,
+   "w": 6,
+   "d": 5,
+   "h": 3.4,
+   "ry": -0.434,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#4a4652",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": -51.0,
+   "z": 10.0,
+   "w": 6,
+   "d": 5,
+   "h": 4.6,
+   "ry": -1.377,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#4a4652",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": -51.6,
+   "z": -6.2,
+   "w": 7,
+   "d": 5,
+   "h": 3.4,
+   "ry": -1.691,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#3e3a46",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": -47.2,
+   "z": -21.9,
+   "w": 8,
+   "d": 5,
+   "h": 4.6,
+   "ry": -2.005,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#524e58",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": -38.1,
+   "z": -35.4,
+   "w": 6,
+   "d": 5,
+   "h": 3.4,
+   "ry": -2.319,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#4a4652",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": -25.3,
+   "z": -45.4,
+   "w": 7,
+   "d": 5,
+   "h": 4.6,
+   "ry": -2.633,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#3e3a46",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": -10.0,
+   "z": -51.0,
+   "w": 8,
+   "d": 5,
+   "h": 3.4,
+   "ry": -2.947,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#524e58",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": 6.2,
+   "z": -51.6,
+   "w": 6,
+   "d": 5,
+   "h": 4.6,
+   "ry": -3.262,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#4a4652",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": 21.9,
+   "z": -47.2,
+   "w": 7,
+   "d": 5,
+   "h": 3.4,
+   "ry": -3.576,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#3e3a46",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": 35.4,
+   "z": -38.1,
+   "w": 8,
+   "d": 5,
+   "h": 4.6,
+   "ry": -3.89,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#524e58",
+   "timber": "#1e1a22"
+  },
+  {
+   "x": 45.4,
+   "z": -25.3,
+   "w": 6,
+   "d": 5,
+   "h": 3.4,
+   "ry": -4.204,
+   "stone": true,
+   "roof": "#2a2630",
+   "wall": "#4a4652",
+   "timber": "#1e1a22"
+  }
+ ],
+ "props": [
+  {
+   "type": "keep",
+   "x": 64.7,
+   "z": 26.8,
+   "clear": 8
+  },
+  {
+   "type": "stone_wall",
+   "x": 45.7,
+   "z": 45.7,
+   "ry": -2.356,
+   "len": 53.6
+  },
+  {
+   "type": "keep",
+   "x": 26.8,
+   "z": 64.7,
+   "clear": 8
+  },
+  {
+   "type": "stone_wall",
+   "x": 0.0,
+   "z": 64.7,
+   "ry": -3.142,
+   "len": 53.6
+  },
+  {
+   "type": "keep",
+   "x": -26.8,
+   "z": 64.7,
+   "clear": 8
+  },
+  {
+   "type": "stone_wall",
+   "x": -34.5,
+   "z": 57.0,
+   "ry": 2.356,
+   "len": 21.8
+  },
+  {
+   "type": "stone_wall",
+   "x": -57.0,
+   "z": 34.5,
+   "ry": 2.356,
+   "len": 21.8
+  },
+  {
+   "type": "umbral_arch",
+   "x": -45.7,
+   "z": 45.7,
+   "ry": 2.356,
+   "len": 4
+  },
+  {
+   "type": "keep",
+   "x": -64.7,
+   "z": 26.8,
+   "clear": 8
+  },
+  {
+   "type": "stone_wall",
+   "x": -64.7,
+   "z": 0.0,
+   "ry": 1.571,
+   "len": 53.6
+  },
+  {
+   "type": "keep",
+   "x": -64.7,
+   "z": -26.8,
+   "clear": 8
+  },
+  {
+   "type": "stone_wall",
+   "x": -45.7,
+   "z": -45.7,
+   "ry": 0.785,
+   "len": 53.6
+  },
+  {
+   "type": "keep",
+   "x": -26.8,
+   "z": -64.7,
+   "clear": 8
+  },
+  {
+   "type": "stone_wall",
+   "x": -0.0,
+   "z": -64.7,
+   "ry": 0.0,
+   "len": 53.6
+  },
+  {
+   "type": "keep",
+   "x": 26.8,
+   "z": -64.7,
+   "clear": 8
+  },
+  {
+   "type": "stone_wall",
+   "x": 45.7,
+   "z": -45.7,
+   "ry": -0.785,
+   "len": 53.6
+  },
+  {
+   "type": "keep",
+   "x": 64.7,
+   "z": -26.8,
+   "clear": 8
+  },
+  {
+   "type": "stone_wall",
+   "x": 64.7,
+   "z": -15.9,
+   "ry": -1.571,
+   "len": 21.8
+  },
+  {
+   "type": "stone_wall",
+   "x": 64.7,
+   "z": 15.9,
+   "ry": -1.571,
+   "len": 21.8
+  },
+  {
+   "type": "umbral_arch",
+   "x": 64.7,
+   "z": -0.0,
+   "ry": -1.571,
+   "len": 4
+  },
+  {
+   "type": "umbral_spire",
+   "x": 0,
+   "z": -6,
+   "len": 7,
+   "clear": 6
+  },
+  {
+   "type": "umbral_spire",
+   "x": -9,
+   "z": 2,
+   "len": 5,
+   "clear": 6
+  },
+  {
+   "type": "umbral_spire",
+   "x": 9,
+   "z": 2,
+   "len": 5,
+   "clear": 6
+  },
+  {
+   "type": "umbral_column",
+   "x": 14.0,
+   "z": 7.7,
+   "len": 3
+  },
+  {
+   "type": "umbral_column",
+   "x": 0.4,
+   "z": 16.0,
+   "len": 3
+  },
+  {
+   "type": "umbral_column",
+   "x": -13.7,
+   "z": 8.3,
+   "len": 3
+  },
+  {
+   "type": "umbral_column",
+   "x": -14.0,
+   "z": -7.7,
+   "len": 3
+  },
+  {
+   "type": "umbral_column",
+   "x": -0.4,
+   "z": -16.0,
+   "len": 3
+  },
+  {
+   "type": "umbral_column",
+   "x": 13.7,
+   "z": -8.3,
+   "len": 3
+  },
+  {
+   "type": "lamp",
+   "x": -12.0,
+   "z": 16.3
+  },
+  {
+   "type": "lamp",
+   "x": -19.1,
+   "z": 23.3
+  },
+  {
+   "type": "lamp",
+   "x": -27.6,
+   "z": 31.8
+  },
+  {
+   "type": "lamp",
+   "x": -37.5,
+   "z": 41.7
+  },
+  {
+   "type": "lamp",
+   "x": 20.0,
+   "z": -3.0
+  },
+  {
+   "type": "lamp",
+   "x": 30.0,
+   "z": -3.0
+  },
+  {
+   "type": "lamp",
+   "x": 42.0,
+   "z": -3.0
+  },
+  {
+   "type": "lamp",
+   "x": 56.0,
+   "z": -3.0
+  },
+  {
+   "type": "lamp",
+   "x": 22.0,
+   "z": 0.0
+  },
+  {
+   "type": "lamp",
+   "x": 15.6,
+   "z": 15.6
+  },
+  {
+   "type": "lamp",
+   "x": 0.0,
+   "z": 22.0
+  },
+  {
+   "type": "lamp",
+   "x": -15.6,
+   "z": 15.6
+  },
+  {
+   "type": "lamp",
+   "x": -22.0,
+   "z": 0.0
+  },
+  {
+   "type": "lamp",
+   "x": -15.6,
+   "z": -15.6
+  },
+  {
+   "type": "lamp",
+   "x": -0.0,
+   "z": -22.0
+  },
+  {
+   "type": "lamp",
+   "x": 15.6,
+   "z": -15.6
+  }
+ ],
+ "signs": [
+  {
+   "x": -37.5,
+   "z": 41.5,
+   "text": "NEW RAVENSPIRE \u2014 seat of the Shadow Legion. Founded by Seraphina after the Great Darkness. Inside: the Black Raven (inn), the Legion Armoury, the Map-Maker, the Guild Exchange. East gate: the road to the Obsidian Gate. South: the Great Rift \u2014 keep to the road."
+  }
+ ],
+ "trees": {
+  "count": 40
+ },
+ "rocks": {
+  "count": 12
+ },
+ "gather": [],
+ "gates": [
+  {
+   "id": "new_ravenspire_monolith",
+   "label": "Monolith of New Ravenspire",
+   "x": -14,
+   "z": 26
+  }
+ ],
+ "actors": [],
+ "landmarks": [
+  {
+   "name": "Seraphina's Spires",
+   "x": 0,
+   "z": -6,
+   "icon": "tower"
+  },
+  {
+   "name": "The Spire Hall",
+   "x": 0,
+   "z": 14,
+   "icon": "house"
+  }
+ ],
+ "links": [],
+ "people": [
+  {
+   "name": "Innkeeper of the Black Raven",
+   "role": "innkeeper",
+   "price": 12,
+   "x": 27.4,
+   "z": 13.2,
+   "facing": 3.592,
+   "greeting": "A bed under the Spires, a fire, no questions. The Legion pays its debts here, and so do travellers."
+  },
+  {
+   "name": "Legion Quartermaster",
+   "role": "merchant",
+   "catalog": "armourer",
+   "archetype": "soldier",
+   "colors": {
+    "torso": {
+     "base": "#2a2436"
+    }
+   },
+   "x": 6.8,
+   "z": 29.6,
+   "facing": 4.487,
+   "greeting": "Black steel, made for the Rift's things. Outsiders pay full price \u2014 for now."
+  },
+  {
+   "name": "The Map-Maker",
+   "role": "merchant",
+   "catalog": "cartographer",
+   "x": -27.4,
+   "z": 13.2,
+   "facing": 5.833,
+   "greeting": "Maps of the Scarlands, the Rift's edges \u2014 and a few of the other side, for those with the stomach."
+  },
+  {
+   "name": "Exchange Factor",
+   "role": "merchant",
+   "catalog": "guild",
+   "x": -27.4,
+   "z": -13.2,
+   "facing": 0.45,
+   "greeting": "Goods from both worlds pass through this hall. Mind the prices; mind the company."
+  },
+  {
+   "name": "Market Trader",
+   "role": "merchant",
+   "x": -6,
+   "z": 24,
+   "facing": 3.14,
+   "greeting": "Bread, salt, oil, rope. Even a Legion eats."
+  },
+  {
+   "name": "Herald of the Legion",
+   "role": "soldier",
+   "archetype": "soldier",
+   "colors": {
+    "torso": {
+     "base": "#2a2436"
+    }
+   },
+   "x": -6.8,
+   "z": -29.6,
+   "facing": 1.345,
+   "lines": [
+    "Seraphina led our people out of the dark through the Rift. We built these walls with what we carried.",
+    "The Great Rift still bleeds: things from the other side crawl out of it. The bounty is good for any you put down.",
+    "The Obsidian Gate stands to the east. The Legion guards it, but travellers may pass \u2014 at their own risk.",
+    "Outsiders are welcome while they keep the peace. The Legion remembers who helps it."
+   ]
+  },
+  {
+   "name": "Legion Gate-Warden",
+   "role": "guard",
+   "archetype": "soldier",
+   "colors": {
+    "torso": {
+     "base": "#2a2436"
+    }
+   },
+   "x": -45.4,
+   "z": 36.9,
+   "facing": 2.356,
+   "lines": [
+    "Pass, traveller. Keep your blade sheathed inside the walls.",
+    "The Rift's things grow bolder after dark. Stay on the road."
+   ]
+  },
+  {
+   "name": "Legion Gate-Warden",
+   "role": "guard",
+   "archetype": "soldier",
+   "colors": {
+    "torso": {
+     "base": "#2a2436"
+    }
+   },
+   "x": -36.9,
+   "z": 45.4,
+   "facing": 2.356,
+   "lines": [
+    "Pass, traveller. Keep your blade sheathed inside the walls.",
+    "The Rift's things grow bolder after dark. Stay on the road."
+   ]
+  },
+  {
+   "name": "Legion Gate-Warden",
+   "role": "guard",
+   "archetype": "soldier",
+   "colors": {
+    "torso": {
+     "base": "#2a2436"
+    }
+   },
+   "x": 58.2,
+   "z": 6.0,
+   "facing": 4.712,
+   "lines": [
+    "Pass, traveller. Keep your blade sheathed inside the walls.",
+    "The Rift's things grow bolder after dark. Stay on the road."
+   ]
+  },
+  {
+   "name": "Legion Gate-Warden",
+   "role": "guard",
+   "archetype": "soldier",
+   "colors": {
+    "torso": {
+     "base": "#2a2436"
+    }
+   },
+   "x": 58.2,
+   "z": -6.0,
+   "facing": 4.712,
+   "lines": [
+    "Pass, traveller. Keep your blade sheathed inside the walls.",
+    "The Rift's things grow bolder after dark. Stay on the road."
+   ]
+  }
+ ],
+ "path": [
+  [
+   -56.6,
+   56.6
+  ],
+  [
+   -21.2,
+   21.2
+  ],
+  [
+   0,
+   20
+  ],
+  [
+   30,
+   4
+  ],
+  [
+   80,
+   0
+  ]
+ ],
+ "start": {
+  "x": -51.2,
+  "z": 51.2,
+  "facing": 2.356
+ }
+}

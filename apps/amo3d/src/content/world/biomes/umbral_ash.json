@@ -1,0 +1,35 @@
+{
+ "id": "umbral_ash",
+ "name": "The Obsidian wastes",
+ "description": "Round the Obsidian Citadel: black glass and ash, dead trees, Void horrors drawn to the fortress.",
+ "radius": 650,
+ "palette": {
+  "grassA": "#2e2a30",
+  "grassB": "#3a343a",
+  "rock": "#1e1a20",
+  "dirt": "#2a2426"
+ },
+ "vegetation": {
+  "density": 0.2,
+  "kinds": {
+   "dead": 1
+  },
+  "trunk": {
+   "dead": "#141016"
+  }
+ },
+ "creatures": [
+  "crag_fiend",
+  "void_stalker",
+  "corrupted_sentinel"
+ ],
+ "mood": {
+  "fog": "#3a2e44",
+  "fogNear": 40,
+  "fogFar": 360,
+  "fogMix": 0.65,
+  "light": 0.65,
+  "nightFloor": 0.45
+ },
+ "wildlife": []
+}

@@ -46,6 +46,7 @@ import { scale as hitStopScale } from './engine/hitstop.js';
 import { umbralTwin } from './engine/umbralTwin.js';
 import { createStreamWorld } from './engine/stream.js';
 import { createEldoriaWorld } from './content/world/eldoria.js';
+import { createNythoriaWorld } from './content/world/nythoria.js';
 import { updateEnemyMagic, debugMagic } from './content/actors/enemyMagic3d.js';
 import { createCampfire, STATION_PROMPT } from './game/campfire.js';
 import { createBountyBoard } from './game/bounty.js';
@@ -285,6 +286,7 @@ const world = createMapManager({
         ...Object.fromEntries(Object.keys(DUNGEONS).map(id => [id, () => buildDungeon(DUNGEONS[id])])),
         vision: () => createVision(),   // chapter 2: what the storm shows Eldrin
         eldoria: () => createEldoriaWorld({ quality }),   // the open world, stage W2 (in progress: the land of Thaloria's corner)
+        nythoria: () => createNythoriaWorld({ quality }),   // the shadow world, through the Obsidian Gate (docs/3d/WORLD_PLAN.md)
         stream_test: () => createStreamWorld({ quality }),   // the open world, stage W1: the streaming prototype (god mode only)
         umbral_test: () => buildRegion(umbralTwin(REGIONS.lake_aethera, { id: 'umbral_test', name: 'Umbral twin (test) — Lake Aethera', ruins: 12, spires: 1 }), { quality }),   // Nythoria N1: the engine's test (god mode only; names nothing)   // the dungeons, a level each
         ...Object.fromEntries(Object.keys(REGIONS).filter(id => !REGIONS[id].builder).map(id => [id, () => buildRegion(REGIONS[id], { quality })])),   // regions with a builder (the Sanctuary) keep their own code
@@ -797,6 +799,7 @@ function tick(dt) {
         if (station?.mode === 'chest') { seedChest(station); chests.toggle(station.key, station.title); }
         else if (station?.mode === 'sign') { dialogue.start([{ speaker: '', text: station.text }]); quests.manager.onReadSign(station.id ?? null); station.onUse?.({ quests, stats }); }
         else if (station?.mode === 'gate') travel.useGate(station.key);
+        else if (station?.mode === 'portal') { const to = station.to; world.go(to, station.spawn ?? 'gate'); hud.banner(to === 'nythoria' ? 'Nythoria — the shadow world' : 'Eldoria'); }   // the Obsidian Gate: the same spot, the other world
         else if (station?.mode === 'board') bountyBoard.use({ key: station.key, place: station.place, regionDef: station.region === 'east_road' ? eastRoadMap.default : thaloriaMap.default });
         else if (station?.mode === 'desk') writeCodex();
         else if (station?.mode === 'mount') toggleMount(true);
@@ -873,7 +876,7 @@ function tick(dt) {
 prologue = createPrologue({ stats, hud, dialogue, quests, save: () => save(), player, world, sfx });
 chapters = createChapters({ stats, hud, dialogue, quests, save: () => save(), player, world, cam, relock: m => lockDoors(m, world.id) });
 if (REGIONS[params.get('region')] || ['the_summit', 'thaloria', 'east_road', 'outdoor', 'sylvan_sanctuary', 'tower'].includes(params.get('region'))) world.enter(params.get('region'), 'start');   // the editor's "Play here"
-else if (savedAt && world.maps && ['eldoria', 'outdoor', 'tower', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'citadel_library', 'forbidden_archive', ...Object.keys(DUNGEONS), ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
+else if (savedAt && world.maps && ['eldoria', 'nythoria', 'outdoor', 'tower', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'citadel_library', 'forbidden_archive', ...Object.keys(DUNGEONS), ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
 else if (CUSTOM) world.enter('thaloria_inn', 'enter');   // a hero of your own wakes at the inn
 else world.enter('outdoor', 'start');
 const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.current.scene, camera); perf.frame(); } });

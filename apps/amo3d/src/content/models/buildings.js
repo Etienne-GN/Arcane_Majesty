@@ -22,8 +22,9 @@ function prism(w, h, d) {   // a gable roof: triangular section along x
 // A house: w × d footprint, h wall height. wall/roof/timber colours; roof 'gable' | 'hip'; stone: a stone ground floor.
 export function buildHouse({ w = 6, d = 5, h = 3.2, wall = 0xd8ccb0, roof = 0x8a3a2a, timber = 0x4a3220, stone = false, roofType = 'gable', sign = null, chimney = true, horseshoe = false, lantern = false, seed = 1 } = {}) {
     const g = new THREE.Group();
-    box(g, w, h, d, stone ? 0x8a867e : wall, 0, h / 2, 0);
-    if (stone) box(g, w + 0.06, 1.2, d + 0.06, 0x77736c, 0, 0.6, 0);
+    const ownWall = wall !== 0xd8ccb0;   // (a stone house keeps a wall colour it is given: New Ravenspire's dark stone)
+    box(g, w, h, d, stone ? (ownWall ? wall : 0x8a867e) : wall, 0, h / 2, 0);
+    if (stone) box(g, w + 0.06, 1.2, d + 0.06, ownWall ? timber : 0x77736c, 0, 0.6, 0);
     else box(g, w + 0.08, 0.45, d + 0.08, 0x6a665e, 0, 0.22, 0);                        // stone footing
     if (!stone) {   // timber framing: corner posts, a beam under the eaves, a few braces
         for (const sx of [-1, 1]) for (const sz of [-1, 1]) box(g, 0.18, h, 0.18, timber, sx * (w / 2), h / 2, sz * (d / 2));

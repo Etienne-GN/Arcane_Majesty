@@ -1,0 +1,41 @@
+{
+ "id": "rift_scar",
+ "name": "The Rift's scar",
+ "description": "The land round the Great Rift: scorched ash and black glass, dead trees, a violet light from the chasm, and the shadow things that leak through it \u2014 thicker the nearer you come.",
+ "radius": 480,
+ "palette": {
+  "grassA": "#3a3634",
+  "grassB": "#4a4440",
+  "rock": "#2e2a2e",
+  "dirt": "#3a3230"
+ },
+ "vegetation": {
+  "density": 0.35,
+  "kinds": {
+   "dead": 1
+  },
+  "trunk": {
+   "dead": "#2a2426"
+  }
+ },
+ "creatures": [
+  "void_stalker",
+  "gloom_beak",
+  "root_wraith",
+  "frost_shade"
+ ],
+ "mood": {
+  "fog": "#5a4a6a",
+  "fogNear": 50,
+  "fogFar": 380,
+  "fogMix": 0.6,
+  "light": 0.78,
+  "nightFloor": 0.45
+ },
+ "wildlife": [
+  [
+   "crow",
+   2
+  ]
+ ]
+}

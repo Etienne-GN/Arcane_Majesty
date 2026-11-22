@@ -17,6 +17,7 @@ const MODES = {
     workbench: { title: 'Workbench', verb: 'Craft', kind: null, list: () => craftingRecipes.CRAFTING_RECIPES },
 };
 export const STATION_PROMPT = {
+    portal: 'G — Step through the Obsidian Gate',
     mount: 'G — Ride your horse',
     boat: 'G — Board the boat',
     campfire: 'G — Cook or rest at the campfire', hearth: 'G — Cook at the hearth',

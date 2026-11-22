@@ -1,0 +1,55 @@
+{
+ "id": "umbral_twin",
+ "name": "Umbral wilds",
+ "description": "Nythoria's living land under the eclipse: black-barked trees with violet and silver leaves, pale grey grass, glowing fungi, still black water.",
+ "radius": 900,
+ "palette": {
+  "grassA": "#5c5866",
+  "grassB": "#6e6a7a",
+  "rock": "#3a3640",
+  "dirt": "#4a4450"
+ },
+ "vegetation": {
+  "density": 1.25,
+  "kinds": {
+   "broad": 0.45,
+   "pine": 0.35,
+   "birch": 0.1,
+   "dead": 0.1
+  },
+  "colors": {
+   "broad": "#5a3a7a",
+   "pine": "#2e2a44",
+   "birch": "#9a9ab8"
+  },
+  "trunk": {
+   "broad": "#141018",
+   "pine": "#141018",
+   "birch": "#c8c8d8",
+   "dead": "#1e1a22"
+  }
+ },
+ "creatures": [
+  "void_stalker",
+  "gloom_beak",
+  "root_wraith"
+ ],
+ "mood": {
+  "fog": "#4a4458",
+  "fogNear": 60,
+  "fogFar": 520,
+  "fogMix": 0.55,
+  "light": 0.72,
+  "nightFloor": 0.5
+ },
+ "wildlife": [
+  [
+   "crow",
+   3
+  ],
+  [
+   "deer",
+   1
+  ]
+ ]
+}

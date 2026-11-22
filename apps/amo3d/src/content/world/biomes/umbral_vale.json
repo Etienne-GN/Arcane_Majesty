@@ -1,0 +1,53 @@
+{
+ "id": "umbral_vale",
+ "name": "The Shadow-Vale",
+ "description": "Nythoria's open central plain: pale grass and silver-leaved groves, the gentlest land under the eclipse \u2014 a cradle for new adventurers.",
+ "radius": 700,
+ "palette": {
+  "grassA": "#6a6878",
+  "grassB": "#7c7a8c",
+  "rock": "#4a4650",
+  "dirt": "#5a5460"
+ },
+ "vegetation": {
+  "density": 0.8,
+  "kinds": {
+   "birch": 0.45,
+   "broad": 0.4,
+   "pine": 0.15
+  },
+  "colors": {
+   "broad": "#6a4a8a",
+   "birch": "#b0b0cc",
+   "pine": "#3a3650"
+  },
+  "trunk": {
+   "broad": "#18141c",
+   "birch": "#d8d8e8",
+   "pine": "#18141c"
+  }
+ },
+ "creatures": [],
+ "mood": {
+  "fog": "#5a5468",
+  "fogNear": 80,
+  "fogFar": 600,
+  "fogMix": 0.5,
+  "light": 0.8,
+  "nightFloor": 0.52
+ },
+ "wildlife": [
+  [
+   "rabbit",
+   4
+  ],
+  [
+   "deer",
+   2
+  ],
+  [
+   "crow",
+   2
+  ]
+ ]
+}
