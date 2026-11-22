@@ -68,5 +68,11 @@ try {
         console.log(R.length + ' points; dry: ' + dry.length); for (const d of dry.slice(0, 60)) console.log('  ' + d);
     }
     else if (cmd === 'isles') { const A = E.ARCHIPELAGO_ISLES; console.log('centre', Math.round(E.ARCHIPELAGO.x), Math.round(E.ARCHIPELAGO.z)); for (const I of A) console.log(`isle ${Math.round(I.x)},${Math.round(I.z)} r ${Math.round(I.r)} h ${I.h.toFixed(0)} ground@centre ${H(I.x, I.z).toFixed(1)}`); }
-    else console.log('checks: seams | wading | roads | road <i> [from-to] | survey | river | isles | at x,z …');
+    else if (cmd === 'streets') {   // Thaloria's street graph: connected? and do routes stay on the streets?
+        const T = await vite.ssrLoadModule('/src/content/thaloriaCity.js'); console.log(JSON.stringify(T.streetGraphStats()));
+        let off = 0, n = 0, len = 0; const rnd = (a => () => (a = (a * 16807) % 2147483647) / 2147483647)(7);
+        for (let k = 0; k < 60; k++) { const p = T.route(-150 + rnd() * 300, -100 + rnd() * 350, -150 + rnd() * 300, -100 + rnd() * 350); for (let i = 0; i < p.length - 1; i++) for (let t = 0; t < 1; t += 0.25) { const x = p[i][0] + (p[i + 1][0] - p[i][0]) * t, z = p[i][1] + (p[i + 1][1] - p[i][1]) * t; n++; if (T.streetDist(x, z) > 1) off++; } len += p.length; }
+        console.log(`60 random routes, ${len} waypoints; points off the streets (> 1 m beyond a street's edge): ${off}/${n}`);
+    }
+    else console.log('checks: seams | wading | roads | road <i> [from-to] | survey | river | isles | streets | at x,z …');
 } finally { await vite.close(); }

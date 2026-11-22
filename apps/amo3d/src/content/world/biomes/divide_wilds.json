@@ -1,0 +1,51 @@
+{
+ "id": "divide_wilds",
+ "name": "The wilds beyond the Divide",
+ "description": "North of the Summit's ridge, past the only pass: an older, wilder land — dark pine forest and dead trees over heath, a heavier mist, and the creatures that keep away from the roads of the south.",
+ "radius": 520,
+ "palette": {
+  "grassA": "#4a5a36",
+  "grassB": "#66704a",
+  "rock": "#5e5a52",
+  "dirt": "#5a4a36"
+ },
+ "vegetation": {
+  "density": 1.7,
+  "kinds": {
+   "pine": 0.6,
+   "dead": 0.25,
+   "broad": 0.15
+  },
+  "colors": {
+   "pine": "#2a4630",
+   "broad": "#3a5430"
+  },
+  "trunk": {
+   "dead": "#3e3832"
+  }
+ },
+ "creatures": [
+  "blight_ent",
+  "root_wraith",
+  "crag_fiend",
+  "gloom_beak"
+ ],
+ "mood": {
+  "fog": "#56645c",
+  "fogNear": 60,
+  "fogFar": 460,
+  "fogMix": 0.55,
+  "light": 0.85,
+  "nightFloor": 0.5
+ },
+ "wildlife": [
+  [
+   "crow",
+   3
+  ],
+  [
+   "deer",
+   1
+  ]
+ ]
+}

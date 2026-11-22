@@ -42,6 +42,49 @@ const SEGS = [];   // { ax, az, bx, bz, w, kind, ha, hb (bed heights or null), s
 PLAN.streets.forEach(s => { const p = s.pts; for (let i = 0; i < p.length - 1; i++) SEGS.push({ ax: p[i][0], az: p[i][1], bx: p[i + 1][0], bz: p[i + 1][1], w: s.w, kind: s.kind, ha: s.bed ? s.bed[i] : null, hb: s.bed ? s.bed[i + 1] : null, stair: s.stairs?.includes(i) }); });
 const SG = new Map(), SC = 10;
 SEGS.forEach((s, i) => { const x0 = Math.floor((Math.min(s.ax, s.bx) - 8) / SC), x1 = Math.floor((Math.max(s.ax, s.bx) + 8) / SC), z0 = Math.floor((Math.min(s.az, s.bz) - 8) / SC), z1 = Math.floor((Math.max(s.az, s.bz) + 8) / SC); for (let a = x0; a <= x1; a++) for (let b = z0; b <= z1; b++) { const k = a + ',' + b; (SG.get(k) ?? SG.set(k, []).get(k)).push(i); } });
+// ---------- the street graph: every street point a node, joined along its street; junctions merged (points within 3 m,
+// a street's end to the nearest point of another within 9 m). route(): A* along it — the townsfolk walk real routes. ----------
+const RN = [], RE = [];   // nodes [x, z]; edges: lists of [j, length]
+{
+    const key = new Map(), nodeAt = (x, z) => { for (let i = 0; i < RN.length; i++) if (Math.abs(RN[i][0] - x) < 3 && Math.abs(RN[i][1] - z) < 3) return i; RN.push([x, z]); RE.push([]); return RN.length - 1; };
+    const link = (a, b) => { if (a === b || RE[a].some(e => e[0] === b)) return; const L = Math.hypot(RN[a][0] - RN[b][0], RN[a][1] - RN[b][1]); RE[a].push([b, L]); RE[b].push([a, L]); };
+    const ends = [];
+    for (const st of PLAN.streets) { const ids = st.pts.map(([x, z]) => nodeAt(x, z)); for (let i = 0; i < ids.length - 1; i++) link(ids[i], ids[i + 1]); ends.push(ids[0], ids[ids.length - 1]); }
+    for (const e of ends) { let best = -1, bd = 9; for (let i = 0; i < RN.length; i++) { if (i === e || RE[e].some(q => q[0] === i)) continue; const d = Math.hypot(RN[i][0] - RN[e][0], RN[i][1] - RN[e][1]); if (d < bd) { bd = d; best = i; } } if (best >= 0) link(e, best); }
+}
+const nearestNode = (x, z) => { let b = 0, bd = Infinity; for (let i = 0; i < RN.length; i++) { const d = (RN[i][0] - x) ** 2 + (RN[i][1] - z) ** 2; if (d < bd) { bd = d; b = i; } } return b; };
+export function streetGraphStats() {   // (for the checks) nodes, edges, connected parts
+    const seen = new Int32Array(RN.length).fill(-1); let parts = 0, sizes = [];
+    for (let i = 0; i < RN.length; i++) if (seen[i] < 0) { let n = 0; const st = [i]; seen[i] = parts; while (st.length) { const c = st.pop(); n++; for (const [j] of RE[c]) if (seen[j] < 0) { seen[j] = parts; st.push(j); } } sizes.push(n); parts++; }
+    return { nodes: RN.length, edges: RE.reduce((a, e) => a + e.length, 0) / 2, parts, sizes: sizes.sort((a, b) => b - a) };
+}
+export const streetDist = (x, z) => nearestSeg(x, z)?.d ?? Infinity;
+function astar(a, b) {   // node path a → b, and its length
+    if (a === b) return { path: [a], L: 0 };
+    const g = new Float64Array(RN.length).fill(Infinity), from = new Int32Array(RN.length).fill(-1), open = new Set([a]), h = i => Math.hypot(RN[i][0] - RN[b][0], RN[i][1] - RN[b][1]);
+    g[a] = 0;
+    while (open.size) {
+        let c = -1, cf = Infinity; for (const i of open) { const f2 = g[i] + h(i); if (f2 < cf) { cf = f2; c = i; } }
+        if (c === b) break; open.delete(c);
+        for (const [j, L] of RE[c]) if (g[c] + L < g[j]) { g[j] = g[c] + L; from[j] = c; open.add(j); }
+    }
+    if (!isFinite(g[b])) return null;
+    const path = []; for (let i = b; i !== a; i = from[i]) path.push(i); path.push(a); return { path: path.reverse(), L: g[b] };
+}
+// where a point steps onto the streets: straight out to its nearest street, and that segment's two end nodes
+function entry(x, z) {
+    const n = nearestSeg(x, z); if (!n) { const k = nearestNode(x, z); return { p: RN[k], ends: [[k, 0]] }; }
+    const s2 = n.s, px = s2.ax + (s2.bx - s2.ax) * n.t, pz = s2.az + (s2.bz - s2.az) * n.t;
+    return { p: [px, pz], ends: [[nearestNode(s2.ax, s2.az), Math.hypot(px - s2.ax, pz - s2.az)], [nearestNode(s2.bx, s2.bz), Math.hypot(px - s2.bx, pz - s2.bz)]] };
+}
+export function route(x0, z0, x1, z1) {   // a walk from (x0, z0) to (x1, z1) along the streets: [[x, z]…]
+    const A = entry(x0, z0), B = entry(x1, z1);
+    if (Math.hypot(A.p[0] - B.p[0], A.p[1] - B.p[1]) < 1 || (A.ends[0][0] === B.ends[0][0] && A.ends[1]?.[0] === B.ends[1]?.[0])) return [A.p, B.p, [x1, z1]];   // the same stretch of street
+    let best = null;
+    for (const [a, la] of A.ends) for (const [b, lb] of B.ends) { const r = astar(a, b); if (r && (!best || r.L + la + lb < best.L)) best = { path: r.path, L: r.L + la + lb }; }
+    if (!best) return [[x1, z1]];
+    return [A.p, ...best.path.map(i => RN[i]), B.p, [x1, z1]];
+}
 function nearestSeg(x, z) {
     let best = null;
     for (const i of SG.get(Math.floor(x / SC) + ',' + Math.floor(z / SC)) ?? []) {
@@ -402,7 +445,7 @@ export function createThaloriaCity({ quality }) {
     }
     const segGrid = new Map();   // the walls (segment colliders) in 20 m cells — the townsfolk check only their own cell's
     for (const c of colliders) if (c.ax !== undefined) for (const [x, z] of [[c.ax, c.az], [c.bx, c.bz]]) { const k = Math.floor(x / 20) + ',' + Math.floor(z / 20); const l = segGrid.get(k) ?? segGrid.set(k, []).get(k); if (!l.includes(c)) l.push(c); }
-    const town = createTownsfolk({ scene, W: 128, H: 112, resolve: (pos, r) => pushOut(segGrid.get(Math.floor(pos.x / 20) + ',' + Math.floor(pos.z / 20)) ?? [], pos, r), remap, heightAt });
+    const town = createTownsfolk({ scene, W: 128, H: 112, resolve: (pos, r) => pushOut(segGrid.get(Math.floor(pos.x / 20) + ',' + Math.floor(pos.z / 20)) ?? [], pos, r), remap, heightAt, route });
 
     // chimney smoke: a slow grey column from two dozen chimneys (a few sprites each, cycling)
     const smokeTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'), gr = g.createRadialGradient(32, 32, 2, 32, 32, 30); gr.addColorStop(0, 'rgba(200,200,205,0.55)'); gr.addColorStop(1, 'rgba(200,200,205,0)'); g.fillStyle = gr; g.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c); })();

@@ -41,7 +41,7 @@ export function lookFor(r) {   // (the Forge's cast list reads it too)
 }
 
 // remap(x, z) → [x, z]: their spots (amo's 2D tiles) moved into a rebuilt city; heightAt: its ground (they walk the hill).
-export function createTownsfolk({ scene, W, H, resolve = null, mapId = 'thaloria', remap = null, heightAt = null }) {
+export function createTownsfolk({ scene, W, H, resolve = null, mapId = 'thaloria', remap = null, heightAt = null, route = null }) {
     const town = TF.getTown('thaloria');
     const toX = px => px / 32 - W / 2, toZ = py => py / 32 - H / 2;
     const FACING = { down: 0, up: Math.PI, right: Math.PI / 2, left: -Math.PI / 2 };
@@ -95,14 +95,29 @@ export function createTownsfolk({ scene, W, H, resolve = null, mapId = 'thaloria
                 }
                 let tx = toX(w.x), tz = toZ(w.y);
                 if (remap) [tx, tz] = remap(tx, tz, w.moving);   // (walking: kept to the streets)
-                if (!p.shown || Math.hypot(tx - p.pos.x, tz - p.pos.z) > 4) p.pos.set(tx, 0, tz);   // appear / out of a door: no sliding
+                if (w.moving && route && p.shown) {   // a real walk: along the streets to where the schedule will stop, at a walking pace
+                    if (!p.path) {
+                        let dest = w; for (let m = minutes + 1; m < minutes + 120; m++) { const w2 = SCH.whereAt(p.r, m, town); if (!w2 || w2.mapId !== mapId || !w2.visible || !w2.moving) { if (w2 && w2.mapId === mapId && w2.visible) dest = w2; break; } dest = w2; }
+                        let [dx2, dz2] = [toX(dest.x), toZ(dest.y)]; if (remap) [dx2, dz2] = remap(dx2, dz2, false);
+                        p.path = route(p.pos.x, p.pos.z, dx2, dz2); p.pathI = 0;
+                    }
+                    let step = 1.35 * dt;
+                    while (step > 0 && p.pathI < p.path.length) {
+                        const [qx, qz] = p.path[p.pathI], ddx = qx - p.pos.x, ddz = qz - p.pos.z, dd = Math.hypot(ddx, ddz);
+                        if (dd <= step) { p.pos.x = qx; p.pos.z = qz; step -= dd; p.pathI++; } else { p.pos.x += ddx / dd * step; p.pos.z += ddz / dd * step; step = 0; }
+                    }
+                    if (Math.hypot(tx - p.pos.x, tz - p.pos.z) > 80) { p.pos.set(tx, 0, tz); p.path = null; }   // (far behind — a skip of time: there already)
+                    const nx = p.pathI < p.path?.length ? p.path[p.pathI] : [p.pos.x, p.pos.z];
+                    tx = nx[0]; tz = nx[1];
+                } else if (!w.moving) p.path = null;
+                if (!p.shown || (!p.path && Math.hypot(tx - p.pos.x, tz - p.pos.z) > 4)) p.pos.set(tx, 0, tz);   // appear / out of a door: no sliding
                 // amo's spots sit on 2D tiles; a few fall inside our 3D houses' walls — step out of them.
                 if (resolve) { resolve(p.pos, 0.3); }
                 const dx = tx - p.pos.x, dz = tz - p.pos.z, d = Math.hypot(dx, dz);
-                const k = Math.min(1, dt * 6);
-                p.pos.x += dx * k; p.pos.z += dz * k;
-                p.speed += ((w.moving ? Math.min(3, d / Math.max(dt, 1e-3) * 0.3 + 1.6) : 0) - p.speed) * Math.min(1, dt * 5);
-                const want = w.moving && d > 0.01 ? Math.atan2(dx, dz) : typeof w.facing === 'number' ? w.facing : FACING[w.facing] ?? p.facing;
+                if (!p.path) { const k = Math.min(1, dt * 6); p.pos.x += dx * k; p.pos.z += dz * k; }   // (on a route the walk above moves them)
+                const walking = p.path ? p.pathI < p.path.length : w.moving;
+                p.speed += ((walking ? (p.path ? 1.35 : Math.min(3, d / Math.max(dt, 1e-3) * 0.3 + 1.6)) : 0) - p.speed) * Math.min(1, dt * 5);
+                const want = walking && d > 0.01 ? Math.atan2(dx, dz) : typeof w.facing === 'number' ? w.facing : FACING[w.facing] ?? p.facing;
                 const diff = ((((want - p.facing) + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) - Math.PI;
                 p.facing += diff * Math.min(1, dt * 8);
                 // Keep a body's width from the player (nobody walks through you).

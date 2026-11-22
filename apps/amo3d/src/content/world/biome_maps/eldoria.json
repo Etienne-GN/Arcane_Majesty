@@ -41,6 +41,31 @@
    "z": 2231,
    "r": 1100,
    "biome": "sunward_isles"
+  },
+  {
+   "x": 2480,
+   "z": -2660,
+   "r": 470,
+   "biome": "divide_wilds"
+  },
+  {
+   "x": 2950,
+   "z": -2780,
+   "r": 560,
+   "biome": "divide_wilds"
+  },
+  {
+   "x": 3650,
+   "z": -2250,
+   "r": 420,
+   "biome": "divide_wilds"
+  },
+  {
+   "x": 3380,
+   "z": -2470,
+   "r": 620,
+   "biome": "ash_lands",
+   "note": "divide"
   }
  ]
 }
