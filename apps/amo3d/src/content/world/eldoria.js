@@ -608,7 +608,8 @@ export function createEldoriaWorld({ quality } = {}) {
     const stamps = makeStamps(quality);
     const heightAt = worldHeights(stamps);
     const biomeAt = makeBiomes(stamps);
-    const places = LAYOUT.places.map(p => ({ name: p.name, x: p.world[0], z: p.world[1] }));
+    const BUILT_HERE = new Set(['The Obsidian Gate', 'The Great Rift']);   // (built as features, not stamped places: no marker)
+    const places = LAYOUT.places.map(p => ({ name: p.name, x: p.world[0], z: p.world[1], noMarker: BUILT_HERE.has(p.name) }));
     const toCity = Math.atan2(CITY.x - GLADE.x, CITY.z - GLADE.z);
     const gl = stamps.find(st => st.id === 'outdoor'), gs = gl?.map.spawns?.start;
     const gladeStart = gs ? { ...gs, x: gs.x + gl.ox, z: gs.z + gl.oz } : null;   // the glade's own arrival point
@@ -634,7 +635,7 @@ export function createEldoriaWorld({ quality } = {}) {
             return [];
         },
         chart: { pxPerM: 0.04, tileM: 4, detail: true, baked: 'eldoria', biomeLabels: biomeLabels(stamps), groundAt: (x, z) => (roadDist(x, z) < 6 ? 'road' : null) },
-        clearAt: (x, z) => roadDist(x, z) < 5 || (() => { const L = lakeInfo(x, z); return (L.beach > 0.3 && L.inside > -45) || (L.marsh > 0.4 && L.inside > -120 && fbm(x * 0.05, z * 0.05, 2) > 0.45); })() || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || riverDist(x, z) < 9 || polyDist(RIFT, x, z) < 34,   // (nothing grows in the Rift)
+        clearAt: (x, z) => roadDist(x, z) < 5 || (() => { const L = lakeInfo(x, z); return (L.beach > 0.3 && L.inside > -45) || (L.marsh > 0.4 && L.inside > -120 && fbm(x * 0.05, z * 0.05, 2) > 0.45); })() || Math.hypot(x - GLADE.x, z - GLADE.z) < 70 || riverDist(x, z) < 9 || polyDist(RIFT, x, z) < 34 || Math.hypot(x - OGATE.x, z - OGATE.z) < 26,   // (nothing grows in the Rift, nor on the Gate's pad)
         groundColor: (x, z, h, col) => {
             if (h < WATER + 1.6 && h > WATER - 0.6) { const L = lakeInfo(x, z); if (L.marsh > 0.1 && L.inside > -220 && L.inside < 140) { const n = fbm(x * 0.09, z * 0.09, 2); col.set(n > 0.56 ? '#3e5a2a' : n > 0.44 ? '#4a5a30' : '#4a4630'); return true; } }   // the marsh: mud, rushes, sedge
             if (h < WATER + 0.8) return false;
@@ -722,8 +723,7 @@ export function createEldoriaWorld({ quality } = {}) {
       const obs = new THREE.MeshStandardMaterial({ color: 0x0e0c14, roughness: 0.15, metalness: 0.4, flatShading: true }), stone = flat(0x3a3640), y0 = heightAt(OGATE.x, OGATE.z);
       const gate = new THREE.Group(); gate.position.set(OGATE.x, y0, OGATE.z); gate.rotation.y = Math.atan2(OGATE.x - place('New Ravenspire').x, OGATE.z - place('New Ravenspire').z) + Math.PI;   // facing the road from New Ravenspire
       const mk = (geo, m, x, y, z) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; gate.add(o); return o; };
-      mk(new THREE.CylinderGeometry(14, 15, 1.2, 8), stone, 0, 0.2, 0);
-      for (let i = 0; i < 3; i++) mk(new THREE.BoxGeometry(12 - i * 2, 0.4, 2), stone, 0, 0.9 + i * 0.4, 9 - i * 1.4);   // steps up to it
+      mk(new THREE.CylinderGeometry(14, 15, 1.2, 8), stone, 0, -0.55, 0);   // the pad, flush with the ground (you walk on it)
       for (const s of [-1, 1]) { mk(new THREE.CylinderGeometry(1.1, 1.7, 16, 6), obs, s * 5.5, 9, 0); mk(new THREE.ConeGeometry(1.2, 3, 6), obs, s * 5.5, 18.5, 0); }
       mk(new THREE.BoxGeometry(14, 1.6, 2.2), obs, 0, 16.2, 0);
       const portalTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 128; const x2 = c.getContext('2d'); for (let i = 0; i < 260; i++) { x2.strokeStyle = `rgba(${150 + (i % 5) * 20},${110 + (i % 7) * 15},255,${0.15 + (i % 4) * 0.1})`; x2.beginPath(); x2.arc(64, 64, (i * 7) % 64, i, i + 1.5); x2.stroke(); } const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t; })();
@@ -732,7 +732,7 @@ export function createEldoriaWorld({ quality } = {}) {
       for (const s of [-1, 1]) { mk(new THREE.CylinderGeometry(0.6, 0.8, 1.6, 6), stone, s * 9, 1.6, 4); const fl = mk(new THREE.ConeGeometry(0.5, 1.4, 6), new THREE.MeshBasicMaterial({ color: 0xb06aff }), s * 9, 3, 4); fl.userData.flame = true; }
       g.add(gate);
       for (const s of [-1, 1]) world.addWall({ x: OGATE.x + Math.cos(gate.rotation.y) * s * 5.5, z: OGATE.z - Math.sin(gate.rotation.y) * s * 5.5, r: 1.8, kind: 'wall', y0: y0 - 1, y1: y0 + 20 });
-      const gpos = new THREE.Vector3(OGATE.x + Math.sin(gate.rotation.y) * 3, y0 + 1.6, OGATE.z + Math.cos(gate.rotation.y) * 3);
+      const gpos = new THREE.Vector3(OGATE.x + Math.sin(gate.rotation.y) * 3, y0, OGATE.z + Math.cos(gate.rotation.y) * 3);   // (at the ground: a station must be within 1.6 m of you in height)
       world.stations.push({ mode: 'portal', title: 'The Obsidian Gate', to: 'nythoria', spawn: 'gate', pos: gpos });
       world.spawns.obsidian_gate = { x: OGATE.x + Math.sin(gate.rotation.y) * 18, z: OGATE.z + Math.cos(gate.rotation.y) * 18, facing: gate.rotation.y + Math.PI };   // (arriving back from Nythoria: in front of the Gate)
       world.scene.add(g);

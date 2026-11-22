@@ -23,7 +23,7 @@ const PLACES = [
     ['The Obsidian Gate', at('The Obsidian Gate')], ['The Great Rift', at('The Great Rift')],
     ['The Shadow-Vale', at('The Crossroads')], ['The Black Well', at('Lake Aethera')],
     ['The Obsidian Citadel', at('Inferno Labyrinth')], ['Ravenspire (the ruins)', at('The Citadel of Thaloria')],
-].filter(([, p]) => p).map(([name, p]) => ({ name, x: p.x, z: p.z }));
+].filter(([, p]) => p).map(([name, p]) => ({ name, x: p.x, z: p.z, noMarker: name !== 'The Great Rift' && name !== 'The Shadow-Vale' }));   // (the built ones carry no marker)
 
 export function createNythoriaWorld({ quality } = {}) {
     // the Shadow-Vale's free town: the Crossroads' twin, its own people (Nythorians who stayed)
@@ -66,6 +66,7 @@ export function createNythoriaWorld({ quality } = {}) {
             return [];
         },
         chart: { pxPerM: 0.04, tileM: 4, detail: true },
+        clearAt: (x, z) => Math.hypot(x - gate.x, z - gate.z) < 26 || [['The Citadel of Thaloria', 48], ['Lake Aethera', 22], ['Inferno Labyrinth', 60]].some(([n, r]) => { const p = at(n); return p && Math.hypot(x - p.x, z - p.z) < r; }),   // (no trees on the Gate's pad, in old Ravenspire, at the Black Well, in the Citadel)
         groundColor: (x, z, h, col) => {
             if (h < WATER + 0.9 && h > WATER - 0.4) { col.set('#1e1c24'); return true; }   // black sand at the black water's edge
             return false;
@@ -75,14 +76,14 @@ export function createNythoriaWorld({ quality } = {}) {
     { const y0 = heightAt(gate.x, gate.z), obs = new THREE.MeshStandardMaterial({ color: 0x14121c, roughness: 0.2, metalness: 0.5, flatShading: true }), silver = flat(0x9a98a8);
       const g = new THREE.Group(); g.position.set(gate.x, y0, gate.z); g.rotation.y = Math.PI / 2;
       const mk = (geo, m, x, y, z) => { const o = new THREE.Mesh(geo, m); o.position.set(x, y, z); o.castShadow = o.receiveShadow = true; g.add(o); return o; };
-      mk(new THREE.CylinderGeometry(14, 15, 1.2, 8), silver, 0, 0.2, 0);
+      mk(new THREE.CylinderGeometry(14, 15, 1.2, 8), silver, 0, -0.55, 0);
       for (const s of [-1, 1]) { mk(new THREE.CylinderGeometry(1.1, 1.7, 16, 6), obs, s * 5.5, 9, 0); mk(new THREE.ConeGeometry(1.2, 3, 6), silver, s * 5.5, 18.5, 0); }
       mk(new THREE.BoxGeometry(14, 1.6, 2.2), obs, 0, 16.2, 0);
       const pm = new THREE.MeshBasicMaterial({ color: 0x9a88d0, transparent: true, opacity: 0.45, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending });
       const portal = mk(new THREE.PlaneGeometry(9.4, 14.6), pm, 0, 8.3, 0);
       world.scene.add(g);
       for (const s of [-1, 1]) world.addWall({ x: gate.x, z: gate.z + s * 5.5, r: 1.8, kind: 'wall', y0: y0 - 1, y1: y0 + 20 });
-      world.stations.push({ mode: 'portal', title: 'The Obsidian Gate', to: 'eldoria', spawn: 'obsidian_gate', pos: new THREE.Vector3(gate.x - 3, y0 + 1.6, gate.z) });
+      world.stations.push({ mode: 'portal', title: 'The Obsidian Gate', to: 'eldoria', spawn: 'obsidian_gate', pos: new THREE.Vector3(gate.x - 3, y0, gate.z) });
       world.spawns.gate = { x: gate.x - 18, z: gate.z, facing: -Math.PI / 2 };
       world.spawns.vale = { x: vale.x + 2, z: vale.z + 14, facing: Math.PI };   // a new adventurer's start in Nythoria: the Shadow-Vale's town
       const upd = world.update; let t = 0; world.update = (t2, dt, ctx) => { upd(t2, dt, ctx); t += dt; pm.opacity = 0.4 + Math.sin(t * 1.7) * 0.08; portal.rotation.z = Math.sin(t * 0.3) * 0.01; };

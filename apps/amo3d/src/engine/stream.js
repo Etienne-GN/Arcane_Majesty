@@ -127,7 +127,7 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     const stats = { built: 0, lastMs: 0, maxMs: 0 };
     // Place markers (W2.1): a tall pale stone with a glow where each place will be built; its name when you are near.
     const markerMat = new THREE.MeshStandardMaterial({ color: 0xe8e0c8, emissive: 0xb8a060, emissiveIntensity: 0.6, flatShading: true });
-    const markers = places.filter(p => !stamps.some(st => inRect(st, p.x, p.z, 10))).map(p => { const m = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 1.0, 9, 6), markerMat); let mx = p.x, mz = p.z; for (let r = 0, k = 0; r < 80 && heightAt(mx, mz) < WATER + 0.8; r += 4, k++) { mx = p.x + Math.cos(k * 2.4) * r; mz = p.z + Math.sin(k * 2.4) * r; }   // (on dry ground: a river's name stands on its bank)
+    const markers = places.filter(p => !p.noMarker && !stamps.some(st => inRect(st, p.x, p.z, 10))).map(p => { const m = new THREE.Mesh(new THREE.CylinderGeometry(0.6, 1.0, 9, 6), markerMat); let mx = p.x, mz = p.z; for (let r = 0, k = 0; r < 80 && heightAt(mx, mz) < WATER + 0.8; r += 4, k++) { mx = p.x + Math.cos(k * 2.4) * r; mz = p.z + Math.sin(k * 2.4) * r; }   // (on dry ground: a river's name stands on its bank)
         m.position.set(mx, heightAt(mx, mz) + 4.5, mz); m.castShadow = true; scene.add(m); return { ...p, m }; });
     const nameEl = document.createElement('div');
     nameEl.style.cssText = 'position:fixed;left:50%;top:14%;transform:translateX(-50%);z-index:30;font:calc(20px * var(--ui, 1)) Georgia,serif;letter-spacing:.12em;color:#f3e2b0;text-shadow:0 2px 6px #000;pointer-events:none;opacity:0;transition:opacity .6s';
