@@ -79,6 +79,9 @@ export function createNythoriaWorld({ quality } = {}) {
             { name: 'Mine-Foreman', role: 'civilian', archetype: 'soldier', x: 0, z: -6, facing: 3.14, lines: ['We dig because the hills give iron, and iron buys bread. Under the eclipse, that\'s enough.', 'Something knocks back in the deep tunnels. We\'ve sealed two shafts this year.'] },
         ], "THE DEEP-MINERS' VILLAGE — free miners under the northern hills. Inn, ore-trader, and work for strong arms. The lower shafts are sealed: keep out."),
     ]) if (t) stamps.push(t);
+    // old Ravenspire: a fallen city of Thaloria's scale on the twin of the Citadel's cliff (N-2; data/scripts/ravenspire_plan.py)
+    { const OR = REGION_DEFS.old_ravenspire, C = at('The Citadel of Thaloria');
+      if (OR && C) { const Hh = regionHeight(OR); stamps.push(prepStamp({ id: 'old_ravenspire', make: () => buildRegion(OR, { quality }), heightAt: Hh, ox: C.x, oy: eldoriaHeight(C.x, C.z) - Hh(0, 0), oz: C.z, rect: [-186, -186, 186, 186], blend: 160, round: 2.4 })); } }
     PLACES.push(...[['The shadow harbour', 'Port Silver'], ["The deep-miners' village", 'Iron Hollow']].map(([n, p]) => ({ name: n, ...at(p) })).filter(p => p.x != null));
     const heightAt = (x, z) => eldoriaHeight(x, z);   // (the twin's relief; the town's ground blended in by the engine)
     const biomes = makeBiomes(stamps, NYTHORIA_MAP), biomeAt = (x, z) => biomes(x, z);
@@ -100,7 +103,7 @@ export function createNythoriaWorld({ quality } = {}) {
             return [];
         },
         chart: { pxPerM: 0.04, tileM: 4, detail: true },
-        clearAt: (x, z) => Math.hypot(x - gate.x, z - gate.z) < 26 || [['The Citadel of Thaloria', 48], ['Lake Aethera', 22], ['Inferno Labyrinth', 60]].some(([n, r]) => { const p = at(n); return p && Math.hypot(x - p.x, z - p.z) < r; }),   // (no trees on the Gate's pad, in old Ravenspire, at the Black Well, in the Citadel)
+        clearAt: (x, z) => Math.hypot(x - gate.x, z - gate.z) < 26 || [['Lake Aethera', 22], ['Inferno Labyrinth', 60]].some(([n, r]) => { const p = at(n); return p && Math.hypot(x - p.x, z - p.z) < r; }),   // (no trees on the Gate's pad, in old Ravenspire, at the Black Well, in the Citadel)
         groundColor: (x, z, h, col) => {
             if (h < WATER + 0.9 && h > WATER - 0.4) { col.set('#1e1c24'); return true; }   // black sand at the black water's edge
             return false;
@@ -127,48 +130,7 @@ export function createNythoriaWorld({ quality } = {}) {
       world.gates = NYTHORIA_GATES;
       const updG = world.update; let tg = 0; world.update = (t2, dt, ctx) => { updG(t2, dt, ctx); tg += dt; for (const { g, m } of mons) if (Math.hypot(ctx.player.pos.x - g.x, ctx.player.pos.z - g.z) < 200) m.update(tg, (ctx.attunedGates ?? []).includes(g.id)); };
     }
-    // ---------- old Ravenspire, in ruins (N-2, N-3; WORLD_PLAN: the broken silhouette) on the twin of the Citadel's cliff ----------
-    { const C = at('The Citadel of Thaloria'), y0 = heightAt(C.x, C.z), g = new THREE.Group(); g.position.set(C.x, 0, C.z);
-      const st = flat(0x3a3842), dk = flat(0x2a2830), vine = new THREE.MeshStandardMaterial({ color: 0x3a1a4a, emissive: 0x2a0a3a, emissiveIntensity: 0.4, flatShading: true }),
-            fungus = new THREE.MeshStandardMaterial({ color: 0xb89aff, emissive: 0x8a5aff, emissiveIntensity: 1.2, flatShading: true });
-      let sd = 31; const rnd = () => ((sd = (sd * 16807) % 2147483647) / 2147483647);
-      const H = (x, z) => heightAt(C.x + x, C.z + z);
-      const box = (m, x, z, w, h, d, ry = 0, dy = 0) => { const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); o.position.set(x, H(x, z) + h / 2 - 0.3 + dy, z); o.rotation.y = ry; o.castShadow = o.receiveShadow = true; g.add(o); return o; };
-      const wall = (x, z, r) => world.addWall({ x: C.x + x, z: C.z + z, r, kind: 'wall', y0: y0 - 4, y1: y0 + 30 });
-      // the curtain wall: twelve stretches, three of them breached, the rest broken off at different heights
-      const R = 34;
-      for (let k = 0; k < 12; k++) {
-          const a0 = k / 12 * Math.PI * 2, a1 = (k + 1) / 12 * Math.PI * 2, mx = R * Math.cos((a0 + a1) / 2), mz = R * Math.sin((a0 + a1) / 2), L = 2 * R * Math.sin(Math.PI / 12);
-          if (k === 2 || k === 7 || k === 10) { for (let i = 0; i < 5; i++) box(st, mx + (rnd() - 0.5) * 8, mz + (rnd() - 0.5) * 8, 1 + rnd() * 2, 0.6 + rnd(), 1 + rnd() * 2, rnd() * 3); continue; }   // a breach: its stones lie where they fell
-          const h = 4 + rnd() * 7; box(st, mx, mz, L, h, 2.6, -((a0 + a1) / 2) + Math.PI / 2);
-          for (let i = 0; i < 3; i++) box(dk, mx + (rnd() - 0.5) * L * 0.6, mz + (rnd() - 0.5) * 2, 1.1, 1 + rnd() * 1.6, 1.1, rnd(), h);   // the broken top: a few teeth of stone
-          for (let i = 0; i < 6; i++) wall(mx + Math.cos((a0 + a1) / 2 + Math.PI / 2) * (i / 5 - 0.5) * L, mz + Math.sin((a0 + a1) / 2 + Math.PI / 2) * (i / 5 - 0.5) * L, 1.5);
-          if (rnd() < 0.7) { const v = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.18, h * 0.9, 4), vine); v.position.set(mx * 0.97, H(mx, mz) + h * 0.45, mz * 0.97); v.rotation.z = (rnd() - 0.5) * 0.4; g.add(v); }
-      }
-      // four snapped towers at the corners
-      for (let k = 0; k < 4; k++) { const a = k * Math.PI / 2 + Math.PI / 4, x = (R + 1) * Math.cos(a), z = (R + 1) * Math.sin(a), h = 10 + rnd() * 12;
-          const t = new THREE.Mesh(new THREE.CylinderGeometry(4, 4.6, h, 9), st); t.position.set(x, H(x, z) + h / 2 - 0.5, z); t.castShadow = true; g.add(t);
-          for (let i = 0; i < 5; i++) { const c = new THREE.Mesh(new THREE.ConeGeometry(0.9 + rnd(), 2 + rnd() * 3, 4), dk); const aa = rnd() * 6.28; c.position.set(x + Math.cos(aa) * 3.2, H(x, z) + h + 0.6, z + Math.sin(aa) * 3.2); c.rotation.set(rnd() * 0.5, 0, rnd() * 0.5); g.add(c); }   // the jagged break
-          wall(x, z, 4.6);
-          for (let i = 0; i < 4; i++) box(st, x + (rnd() - 0.5) * 14, z + (rnd() - 0.5) * 14, 1.6 + rnd() * 2, 1 + rnd() * 1.5, 1.6 + rnd() * 2, rnd() * 3);   // its fallen stones
-      }
-      // the great hall, open to the eclipse: four walls and a broken gable, no roof
-      for (const [x, z, w, d] of [[0, -7, 24, 2], [0, 7, 24, 2], [-12, 0, 2, 14], [12, 0, 2, 14]]) { const hb = box(st, x, z, w, 9 + rnd() * 3, d); for (let i = 0; i < Math.round(Math.max(w, d) / 6); i++) { const o = box(new THREE.MeshBasicMaterial({ color: 0x0a0810 }), x + (w > d ? -w / 2 + 3 + i * 6 : (d > w ? (x > 0 ? 1.05 : -1.05) : 0)), z + (d > w ? -d / 2 + 3 + i * 6 : (z > 0 ? 1.05 : -1.05)), w > d ? 1.6 : 0.2, 3.4, w > d ? 0.2 : 1.6, 0, 3); void o; } }
-      for (const [ax, az, bx, bz] of [[-12, -7, 12, -7], [-12, 7, 12, 7], [-12, -7, -12, 7], [12, -7, 12, 7]]) for (let t2 = 0; t2 <= 1; t2 += 0.125) wall(ax + (bx - ax) * t2, az + (bz - az) * t2, 1.3);
-      const gable = new THREE.Mesh(new THREE.ConeGeometry(8, 6, 3), st); gable.scale.set(1, 1, 0.12); gable.position.set(-12, H(-12, 0) + 14, 0); gable.rotation.y = Math.PI / 2; g.add(gable);
-      // the keep, broken off high up
-      { const x = 0, z = -22, h = 28; const k2 = new THREE.Mesh(new THREE.CylinderGeometry(5.5, 6.5, h, 10), st); k2.position.set(x, H(x, z) + h / 2, z); k2.castShadow = true; g.add(k2);
-        for (let i = 0; i < 7; i++) { const c = new THREE.Mesh(new THREE.ConeGeometry(1 + rnd(), 3 + rnd() * 4, 4), dk); const aa = rnd() * 6.28; c.position.set(x + Math.cos(aa) * 4.5, H(x, z) + h + 1, z + Math.sin(aa) * 4.5); c.rotation.set(rnd() * 0.4, 0, rnd() * 0.4); g.add(c); }
-        wall(x, z, 6.5); }
-      // glowing fungus at the feet of the stones
-      for (let i = 0; i < 40; i++) { const a = rnd() * 6.28, r = 6 + rnd() * 32, x = Math.cos(a) * r, z = Math.sin(a) * r; const f2 = new THREE.Mesh(new THREE.IcosahedronGeometry(0.25 + rnd() * 0.35, 0), fungus); f2.position.set(x, H(x, z) + 0.15, z); g.add(f2); }
-      const glow = new THREE.PointLight(0x8a5aff, 18, 60, 1.6); glow.position.set(0, y0 + 4, 0); g.add(glow);
-      world.scene.add(g);
-      world.spawns.ravenspire = { x: C.x, z: C.z + R + 10, facing: Math.PI };
-      world.stations.push({ mode: 'sign', id: 'ravenspire_ruins', title: 'An inscription', pos: new THREE.Vector3(C.x + 6, H(6, 0) + 1.2, C.z + 4),
-          text: 'Cut deep into a fallen lintel of the great hall, half under the vines: "WE HELD UNTIL THE LIGHT WENT OUT." Below it, smaller and newer, scratched by another hand: names, dozens of them, and a date counted from the Darkness. Something has walked through the hall since — the ash on the floor is marked with long, clawed prints.' });
-      const upd2 = world.update; world.update = (t2, dt, ctx) => { upd2(t2, dt, ctx); g.visible = Math.hypot(ctx.player.pos.x - C.x, ctx.player.pos.z - C.z) < 1100; };
-    }
+    world.spawns.ravenspire = (() => { const C = at('The Citadel of Thaloria'); return { x: C.x, z: C.z + 178, facing: Math.PI }; })();   // (old Ravenspire's city: a stamp — see above)
     // ---------- the Black Well: the demonic sanctuary where Acheron discarded the Forbidden Tome (DB), on the Black Lake's shore ----------
     { const W0 = at('Lake Aethera'), W = (() => { for (let r = 0; r < 160; r += 4) for (let a2 = 0; a2 < 6.28; a2 += 0.3) { const x = W0.x + Math.cos(a2) * r, z = W0.z + Math.sin(a2) * r; if (heightAt(x, z) > 0.8 && heightAt(x + 14, z) > 0.3 && heightAt(x - 14, z) > 0.3 && heightAt(x, z + 14) > 0.3 && heightAt(x, z - 14) > 0.3) return { x, z }; } return W0; })();   // (on dry ground by the Black Lake's shore)
       const y0 = heightAt(W.x, W.z), g = new THREE.Group(); g.position.set(W.x, y0, W.z);

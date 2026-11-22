@@ -22,6 +22,22 @@ function prism(w, h, d) {   // a gable roof: triangular section along x
 // A house: w × d footprint, h wall height. wall/roof/timber colours; roof 'gable' | 'hip'; stone: a stone ground floor.
 export function buildHouse({ w = 6, d = 5, h = 3.2, wall = 0xd8ccb0, roof = 0x8a3a2a, timber = 0x4a3220, stone = false, roofType = 'gable', sign = null, chimney = true, horseshoe = false, lantern = false, seed = 1 } = {}) {
     const g = new THREE.Group();
+    if (roofType === 'ruin') {   // a fallen house (old Ravenspire): its four walls standing to uneven, broken heights, window holes, no roof, its stones at its feet
+        let sd = seed * 9301 + 49297; const rnd = () => ((sd = (sd * 16807) % 2147483647) / 2147483647);
+        const T = 0.55;
+        for (const [len, x, z, ry] of [[w, 0, d / 2, 0], [w, 0, -d / 2, 0], [d, w / 2, 0, Math.PI / 2], [d, -w / 2, 0, Math.PI / 2]]) {
+            if (rnd() < 0.18) continue;   // a wall fallen entirely
+            const n = Math.max(2, Math.round(len / 1.3));
+            for (let i = 0; i < n; i++) {
+                const t = -len / 2 + (i + 0.5) * (len / n), hh = h * (0.35 + 0.65 * rnd()) * (i === 0 || i === n - 1 ? 1 : 0.75 + 0.25 * rnd());
+                const win = hh > 3 && (i % 3 === 1);   // a window's gap: the wall below and above it
+                const piece = (y0, y1) => { const bx = new THREE.Mesh(new THREE.BoxGeometry(len / n + 0.02, y1 - y0, T), mat(wall)); bx.position.set(x + Math.cos(ry) * t, (y0 + y1) / 2, z - Math.sin(ry) * t); bx.rotation.y = ry; bx.castShadow = bx.receiveShadow = true; g.add(bx); };
+                if (win) { piece(0, 1.6); if (hh > 3.4) piece(2.9, hh); } else piece(0, hh);
+            }
+        }
+        for (let i = 0; i < 4; i++) { const r = new THREE.Mesh(new THREE.DodecahedronGeometry(0.5 + rnd() * 0.6, 0), mat(timber)); r.position.set((rnd() - 0.5) * w, 0.3, (rnd() - 0.5) * d); r.castShadow = true; g.add(r); }   // fallen stones
+        return g;
+    }
     const ownWall = wall !== 0xd8ccb0;   // (a stone house keeps a wall colour it is given: New Ravenspire's dark stone)
     box(g, w, h, d, stone ? (ownWall ? wall : 0x8a867e) : wall, 0, h / 2, 0);
     if (stone) box(g, w + 0.06, 1.2, d + 0.06, ownWall ? timber : 0x77736c, 0, 0.6, 0);
@@ -147,8 +163,8 @@ export function buildProp(type, { len = 4, color = 0x8a3a2a, dark: blackStone = 
                 box(g, 0.02, 0.12, 0.02, 0x4a7a2a, Math.cos(a) * r, 0.05, Math.sin(a) * r);
             } break;
         case 'keep': {   // a square stone keep: tapering walls, arrow slits, crenellations, a wooden door, a banner
-            const st = 0x7a766e, h = 11;
-            box(g, 8, h, 8, st, 0, h / 2, 0); box(g, 8.6, 1.4, 8.6, 0x6a665e, 0, 0.7, 0);
+            const st = blackStone ? 0x34303c : 0x7a766e, h = blackStone ? 15 : 11;   // (dark: New Ravenspire's black towers, taller)
+            box(g, 8, h, 8, st, 0, h / 2, 0); box(g, 8.6, 1.4, 8.6, blackStone ? 0x2a2630 : 0x6a665e, 0, 0.7, 0);
             for (let i = 0; i < 4; i++) for (let j = -1; j <= 1; j++) {
                 const a = i * Math.PI / 2, sx = Math.sin(a), sz = Math.cos(a);
                 box(g, 1.2, 1.0, 0.6, st, sx * 3.9 + sz * j * 3, h + 0.5, sz * 3.9 - sx * j * 3, a);   // merlons
@@ -160,7 +176,7 @@ export function buildProp(type, { len = 4, color = 0x8a3a2a, dark: blackStone = 
             box(g, 0.4, 0.4, 0.4, 0xffd890, 0, h * 0.62, 4.1, 0, { emissive: 0xffb860, emissiveIntensity: 1.2 });   // a watch-light
             break; }
         case 'stone_wall': { const n = Math.max(2, Math.round(len / 1.4));
-            box(g, len, 3, 1.1, 0x7a766e, 0, 1.5, 0);
+            box(g, len, blackStone ? 6 : 3, 1.1, blackStone ? 0x3a3642 : 0x7a766e, 0, blackStone ? 3 : 1.5, 0);   // (dark: a city's curtain wall, twice as high)
             for (let i = 0; i < n; i += 1) if (i % 2 === 0) box(g, len / n * 0.9, 0.8, 1.2, 0x7a766e, -len / 2 + (i + 0.5) * (len / n), 3.4, 0);
             break; }
         // ---- the Fire Gate and the Inferno Labyrinth ----

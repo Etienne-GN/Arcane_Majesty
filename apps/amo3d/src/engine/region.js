@@ -29,7 +29,31 @@ const segDist = (x, z, pts) => {
 
 // Settlements (region files): roads are polylines { pts, w, kind: 'road' | 'paved' }; buildings are footprints
 // { x, z, w, d, ry } that the ground is levelled under.
-const roadInfo = (def, x, z) => { let best = null; for (const r of def.roads ?? []) { const d = segDist(x, z, r.pts); if (d < (r.w ?? 3) / 2 && (!best || d < best.d)) best = { d, kind: r.kind ?? 'road' }; } return best; };
+// A spatial index per region (a city has hundreds of houses and dozens of streets: every ground point used to test them
+// all): its trails' and roads' segments and its buildings, bucketed in 16 m cells with a margin for the widest query.
+const IDX = new WeakMap(), EMPTY = [], CELL = 16;
+const segD = (x, z, ax, az, bx, bz) => { const dx = bx - ax, dz = bz - az, L2 = dx * dx + dz * dz || 1, t = Math.max(0, Math.min(1, ((x - ax) * dx + (z - az) * dz) / L2)); return Math.hypot(x - ax - dx * t, z - az - dz * t); };
+function bucket(items, box, m) {
+    const g = new Map();
+    for (const it of items) { const [x0, z0, x1, z1] = box(it); for (let i = Math.floor((x0 - m) / CELL); i <= Math.floor((x1 + m) / CELL); i++) for (let j = Math.floor((z0 - m) / CELL); j <= Math.floor((z1 + m) / CELL); j++) { const k = i + ',' + j; (g.get(k) ?? g.set(k, []).get(k)).push(it); } }
+    return (x, z) => g.get(Math.floor(x / CELL) + ',' + Math.floor(z / CELL)) ?? EMPTY;
+}
+function indexOf(def) {
+    let I = IDX.get(def); if (I) return I;
+    const segs = (pts, extra) => pts.slice(0, -1).map((p, i) => ({ ax: p[0], az: p[1], bx: pts[i + 1][0], bz: pts[i + 1][1], ...extra }));
+    const trails = [def.path ?? [], ...(def.branches ?? []), ...(def.roads ?? []).map(r => r.pts)].filter(p => p.length > 1).flatMap(p => segs(p, {}));
+    const roads = (def.roads ?? []).flatMap(r => segs(r.pts, { w: r.w ?? 3, kind: r.kind ?? 'road' }));
+    const sbox = q => [Math.min(q.ax, q.bx), Math.min(q.az, q.bz), Math.max(q.ax, q.bx), Math.max(q.az, q.bz)];
+    const bbox = b => { const r = Math.hypot(b.w ?? 6, b.d ?? 5) / 2; return [b.x - r, b.z - r, b.x + r, b.z + r]; };
+    const tq = bucket(trails, sbox, 12), rq = bucket(roads, q => { const b = sbox(q); return [b[0] - q.w / 2, b[1] - q.w / 2, b[2] + q.w / 2, b[3] + q.w / 2]; }, 1), bq = bucket(def.buildings ?? [], bbox, 9);
+    I = {
+        trailDist: (x, z) => { let d = Infinity; for (const q of tq(x, z)) d = Math.min(d, segD(x, z, q.ax, q.az, q.bx, q.bz)); return trails.length ? d : Infinity; },   // (beyond ~12 m: Infinity — every caller tests less)
+        road: (x, z) => { let best = null; for (const q of rq(x, z)) { const d = segD(x, z, q.ax, q.az, q.bx, q.bz); if (d < q.w / 2 && (!best || d < best.d)) best = { d, kind: q.kind }; } return best; },
+        buildings: bq,
+    };
+    IDX.set(def, I); return I;
+}
+const roadInfo = (def, x, z) => indexOf(def).road(x, z);
 function rectDist(b, x, z) {   // distance from a point to a building's (rotated) footprint
     const c = Math.cos(-(b.ry ?? 0)), s = Math.sin(-(b.ry ?? 0)), lx = (x - b.x) * c - (z - b.z) * s, lz = (x - b.x) * s + (z - b.z) * c;
     return Math.hypot(Math.max(Math.abs(lx) - (b.w ?? 6) / 2, 0), Math.max(Math.abs(lz) - (b.d ?? 5) / 2, 0));
@@ -65,10 +89,10 @@ export function regionHeight(def) {
             else if (f.type === 'clearing') h += (0.4 - h) * smoothstep(f.r, f.r * 0.5, d);
             else if (f.type === 'river') h -= smoothstep(f.w, f.w * 0.3, segDist(x, z, f.pts)) * (f.depth ?? 4);   // a channel along a polyline
         }
-        const pd = trails.length ? Math.min(...trails.map(p => segDist(x, z, p))) : Infinity;
+        const pd = indexOf(def).trailDist(x, z);
         if (T.carveTo !== undefined) { if (pd < 7) h += (T.carveTo - h) * smoothstep(7, 2.5, pd); }   // a trail cut through the rock
         else if (pd < 4) h += (Math.max(h, WATER + 1) - h) * smoothstep(4, 1.5, pd) - smoothstep(3, 0, pd) * 0.15;
-        for (const b of def.buildings ?? []) {   // level ground under and just round every building
+        for (const b of indexOf(def).buildings(x, z)) {   // level ground under and just round every building
             const d = rectDist(b, x, z); if (d > 4) continue;
             if (!pads.has(b)) pads.set(b, b.y ?? Math.max(raw(b.x, b.z), WATER + 0.6));
             h += (pads.get(b) - h) * smoothstep(4, 0.6, d);
@@ -90,7 +114,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     const colliders = [];
     const path = def.path ?? [];
     const trails = [path, ...(def.branches ?? []), ...(def.roads ?? []).map(r => r.pts)].filter(p => p.length > 1);
-    const trailDist = (x, z) => (trails.length ? Math.min(...trails.map(p => segDist(x, z, p))) : Infinity);
+    const trailDist = (x, z) => indexOf(def).trailDist(x, z);
 
     // ---------- terrain ----------
     const heightAt = shape ? shape(regionHeight(def)) : regionHeight(def);
@@ -160,7 +184,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
         return Math.hypot(dx, dz) < 11 + m || (Math.abs(across) < 4 + m && Math.abs(along) < 22);   // round an archway, and a lane through it: no crown over the stone (Duskmeet, 2026-11-22)
     };
     const reserved = (x, z, m = 0) => links.some(l => archClear(l, x, z, m)) || (trailDist(x, z) < 2.2 + m)
-        || (def.buildings ?? []).some(b => rectDist(b, x, z) < 3 + m) || (def.roads ?? []).some(r => segDist(x, z, r.pts) < (r.w ?? 3) / 2 + 1.5 + m)
+        || indexOf(def).buildings(x, z).some(b => rectDist(b, x, z) < 3 + m) || (def.roads ?? []).some(r => segDist(x, z, r.pts) < (r.w ?? 3) / 2 + 1.5 + m)
         || props.some(pr => Math.hypot(pr.x - x, pr.z - z) < (pr.clear ?? 2) + m)   // clear: keep trees back from a prop (a pier's view)
         || (def.features ?? []).some(f => f.type === 'clearing' && Math.hypot(f.x - x, f.z - z) < f.r * 0.6);
     const addCollider = (c, height) => { const y0 = heightAt(c.x, c.z); colliders.push({ ...c, y0: y0 - 0.5, y1: y0 + height }); };
@@ -219,7 +243,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     const ferns = [];
     for (let i = 0; i < (LITE ? 0 : 6000) && ferns.length < 2500 * quality.foliage * (def.undergrowth ?? 1); i++) {   // (low graphics: no undergrowth)   // undergrowth: 0 for barren places
         const x = (rng() - 0.5) * SIZE * 0.9, z = (rng() - 0.5) * SIZE * 0.9, h = heightAt(x, z);
-        if (h < WATER + 0.3 || h > 6 || (trailDist(x, z) < 1.4) || roadInfo(def, x, z) || (def.buildings ?? []).some(b => rectDist(b, x, z) < 0.6)) continue;   // nothing growing through roads, paving or floors
+        if (h < WATER + 0.3 || h > 6 || (trailDist(x, z) < 1.4) || roadInfo(def, x, z) || indexOf(def).buildings(x, z).some(b => rectDist(b, x, z) < 0.6)) continue;   // nothing growing through roads, paving or floors
         ferns.push([x, h, z]);
     }
     const fern = new THREE.InstancedMesh(new THREE.ConeGeometry(0.09, 0.4, 3).translate(0, 0.18, 0), flat(0xffffff), Math.max(1, ferns.length));
@@ -305,7 +329,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     let propLights = 0;
     for (const pr of props) {
         const g = buildProp(pr.type, pr), y = pr.float ? Math.max(heightAt(pr.x, pr.z), WATER - 0.3) : heightAt(pr.x, pr.z);   // float: boats ride the water
-        g.position.set(pr.x, y, pr.z); g.rotation.y = pr.ry ?? 0; scene.add(g);
+        g.position.set(pr.x, y, pr.z); g.rotation.y = pr.ry ?? 0; if (pr.scale) g.scale.setScalar(pr.scale); scene.add(g);   // scale: a prop made grand (the palace spires)
         if (g.userData.light && propLights < 10) {   // lamps, lava stairs, braziers light their surroundings (a few per map)
             const L = g.userData.light, pl = new THREE.PointLight(L.color ?? 0xffb860, L.i ?? 10, L.r ?? 9, 1.6);
             pl.position.set(pr.x + (L.x ?? 0) * Math.cos(pr.ry ?? 0), y + L.y, pr.z - (L.x ?? 0) * Math.sin(pr.ry ?? 0)); scene.add(pl); propLights++;
@@ -327,7 +351,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     // Signs to read (amo spawns.signs).
     for (const sg of def.signs ?? []) {
         const post = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.35, 0.08), flat(0x8a7a5a)); post.position.set(sg.x, heightAt(sg.x, sg.z) + 0.5, sg.z); post.castShadow = true; scene.add(post);
-        map.stations.push({ mode: 'sign', text: sg.text, pos: new THREE.Vector3(sg.x, heightAt(sg.x, sg.z), sg.z) });
+        map.stations.push({ mode: 'sign', id: sg.id, text: sg.text, pos: new THREE.Vector3(sg.x, heightAt(sg.x, sg.z), sg.z) });
     }
     map.weatherDef = { id: def.id, biome: def.biome ?? 'temperate' };
     map.lava = def.lava ? WATER : null;   // the 'water' here burns (main.js hurts whoever wades in)
