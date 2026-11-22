@@ -419,12 +419,16 @@ function actionsSection() {
     const rnd = el('button', { type: 'button' }, 'Randomize');
     rnd.onclick = () => { randomize(); rebuild(); renderRail(); renderSide(); };
     row.append(rnd);
+    if (CREATE) {   // where the journey begins (docs/3d/WORLD_PLAN.md: a free choice; the other world is the harder road)
+        frag.append(el('h3', {}, 'Where you begin'));
+        frag.append(chipRow([['fields', 'The Emerald Fields — Eldoria'], ['vale', 'The Shadow-Vale — Nythoria'], ['thaloria', "Thaloria's inn"]], () => def.start ?? 'fields', v => { def.start = v; }));
+    }
     if (CREATE) {
         const go = el('button', { className: 'main', type: 'button' }, 'Begin your journey');
         go.onclick = () => {
             if (!def.name.trim()) { const s = statusEl(); if (s) s.textContent = 'Give your hero a name first.'; return; }
             try {
-                localStorage.setItem('amo3d.newHero', JSON.stringify({ name: def.name.trim(), classId: def.classId, look: normalizeLook(def.look) }));
+                localStorage.setItem('amo3d.newHero', JSON.stringify({ name: def.name.trim(), classId: def.classId, look: normalizeLook(def.look), start: def.start ?? 'fields' }));
             } catch { /* storage blocked */ }
             location.href = 'index.html?new=1&play=1&hero=new';
         };

@@ -792,5 +792,12 @@
    "w": 3,
    "tag": "village"
   }
- ]
+ ],
+ "spawns": {
+  "village": {
+   "x": 60,
+   "z": 11,
+   "facing": 3.1416
+  }
+ }
 }

@@ -46,5 +46,6 @@ d['people'] += [
 ]
 d['signs'].append(B(x=CX - 4, z=CZ - 16, text='THE FIELDS\' VILLAGE — rest at the inn, gear at the store and the smithy, practice at the training yard. North: the road to the Crossroads. West: the Weeping Stones (let them be).'))
 d['roads'] = d.get('roads', []) + [B(pts=[[0, -70], [20, -46], [40, -22], [CX - 4, CZ - 14], [CX, CZ]], w=3)]
+d['spawns'] = {**d.get('spawns', {}), 'village': {'x': CX, 'z': CZ - 5, 'facing': 3.1416}}   # a new adventurer's start in Eldoria
 json.dump(d, open(P, 'w'), indent=1)
 print('village added:', sum(1 for b in d['buildings'] if b.get('tag') == 'village'), 'buildings,', sum(1 for p in d['people'] if p.get('tag') == 'village'), 'people')

@@ -287,6 +287,7 @@ export function buildRegion(def, { quality = { foliage: 1, shadows: true, shadow
     }
 
     // Doors: plain triggers into interiors (no archway), each with an arrival spawn.
+    for (const [k, sp] of Object.entries(def.spawns ?? {})) map.spawns[k] = { ...sp };   // named arrival points (a starter village…)
     for (const d of def.doors ?? []) { map.triggers.push({ x: d.x, z: d.z, r: d.r ?? 1.4, label: d.label, to: d.to, spawn: d.toSpawn, requires: d.requires, lockedLabel: d.lockedLabel }); if (d.spawn) map.spawns[d.spawn] = { x: d.x, z: d.z + (d.out ?? 3), facing: d.facing ?? 0 }; }
     // Settlement buildings and street props.
     for (const b of def.buildings ?? []) {

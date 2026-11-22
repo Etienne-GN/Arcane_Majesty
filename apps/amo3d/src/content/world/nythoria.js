@@ -83,6 +83,7 @@ export function createNythoriaWorld({ quality } = {}) {
       for (const s of [-1, 1]) world.addWall({ x: gate.x, z: gate.z + s * 5.5, r: 1.8, kind: 'wall', y0: y0 - 1, y1: y0 + 20 });
       world.stations.push({ mode: 'portal', title: 'The Obsidian Gate', to: 'eldoria', spawn: 'obsidian_gate', pos: new THREE.Vector3(gate.x - 3, y0 + 1.6, gate.z) });
       world.spawns.gate = { x: gate.x - 18, z: gate.z, facing: -Math.PI / 2 };
+      world.spawns.vale = { x: vale.x + 2, z: vale.z + 14, facing: Math.PI };   // a new adventurer's start in Nythoria: the Shadow-Vale's town
       const upd = world.update; let t = 0; world.update = (t2, dt, ctx) => { upd(t2, dt, ctx); t += dt; pm.opacity = 0.4 + Math.sin(t * 1.7) * 0.08; portal.rotation.z = Math.sin(t * 0.3) * 0.01; };
     }
     // ---------- old Ravenspire, in ruins (N-2, N-3; WORLD_PLAN: the broken silhouette) on the twin of the Citadel's cliff ----------

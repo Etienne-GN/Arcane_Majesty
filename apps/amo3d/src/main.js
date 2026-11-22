@@ -877,7 +877,12 @@ prologue = createPrologue({ stats, hud, dialogue, quests, save: () => save(), pl
 chapters = createChapters({ stats, hud, dialogue, quests, save: () => save(), player, world, cam, relock: m => lockDoors(m, world.id) });
 if (REGIONS[params.get('region')] || ['the_summit', 'thaloria', 'east_road', 'outdoor', 'sylvan_sanctuary', 'tower'].includes(params.get('region'))) world.enter(params.get('region'), 'start');   // the editor's "Play here"
 else if (savedAt && world.maps && ['eldoria', 'nythoria', 'outdoor', 'tower', 'thaloria', 'east_road', 'the_summit', 'sylvan_sanctuary', 'citadel_library', 'forbidden_archive', ...Object.keys(DUNGEONS), ...Object.keys(interiorBuilders), ...Object.keys(REGIONS)].includes(savedAt.map)) world.enter(savedAt.map, null, savedAt);
-else if (CUSTOM) world.enter('thaloria_inn', 'enter');   // a hero of your own wakes at the inn
+else if (CUSTOM) {   // a hero of your own begins where they chose in the Forge (docs/3d/WORLD_PLAN.md): the Fields' village, the Shadow-Vale, or Thaloria's inn
+    const where = heroDef.start ?? 'thaloria';
+    if (where === 'fields') { stats.respawnPoint ??= { map: 'emerald_fields', spawn: 'village', label: "The Fields' village" }; world.enter('emerald_fields', 'village'); }
+    else if (where === 'vale') { stats.respawnPoint ??= { map: 'nythoria', spawn: 'vale', label: 'The Shadow-Vale' }; world.enter('nythoria', 'vale'); }
+    else world.enter('thaloria_inn', 'enter');   // wakes at the inn (the newcomer's story)
+}
 else world.enter('outdoor', 'start');
 const loop = startLoop({ renderer, tick, render: () => { renderer.render(world.current.scene, camera); perf.frame(); } });
 
