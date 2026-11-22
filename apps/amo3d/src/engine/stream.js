@@ -554,6 +554,8 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
     let fpsT = 0, fpsN = 0, fps = 0, worst = 0, moodNow = null; const curFog = new THREE.Color(mood?.fog ?? '#c8d4d8');
 
     const EDGE = half - 20;
+    // A place with its own water above the world's sea (the glade's lake and pool): inside it, its level counts
+    function placeWater(x, z) { for (const st of stamps) if (st.built && st.map.waterLevel != null && inShape(st, x, z)) return { wl: st.map.waterLevel + st.oy, st }; return null; }
     const tmpC = new THREE.Color();
     const nearForest = (x, z) => stamps.some(st => st.edgeTrees && inRect(st, x, z, 40) && (() => { const d = edgeDist(st, x, z); if (d > 30) return false; const q = st.edgeTrees[((Math.round((Math.atan2(z - st.cz, x - st.cx) + Math.PI) / (Math.PI * 2) * 72) % 72) + 72) % 72]; return !!q && q.dens > 0.002; })());
     // A place's ground colours along its edge (72 sectors round it), from its own ground meshes' vertex colours just inside the outline
@@ -611,12 +613,14 @@ export function createStreamWorld({ id = 'stream_test', name = 'Open world test'
         camera: { maxDist: 30, pitch: 0.38, dist: 9 },
         // Swimming (Phase 13, first pass): deep water no longer stops you — you float, head and shoulders above it.
         groundAt: (x, z) => {   // the land, or a place's own deck above it (the bridge by Eldrin's Tower…), or the water's surface to swim at
-            let g = Math.max(heightAt(x, z), WATER - SWIM_DEPTH);
+            const pw = placeWater(x, z);
+            let g = Math.max(heightAt(x, z), (pw ? pw.wl : WATER) - SWIM_DEPTH);
             for (const st of stamps) if (st.built && st.map.deckAt && inRect(st, x, z)) { const d = st.map.deckAt(x - st.ox, z - st.oz); if (d != null && d + st.oy > g) g = d + st.oy; }
             return g;
         },
-        wading: (x, z) => heightAt(x, z) < WATER - 0.05,
-        swimming: (x, z) => heightAt(x, z) < WATER - SWIM_DEPTH + 0.05,
+        waterAt: (x, z) => placeWater(x, z)?.wl ?? WATER,
+        wading: (x, z) => { const pw = placeWater(x, z); return heightAt(x, z) < (pw ? pw.wl : WATER) - 0.05 || !!(pw && pw.st.map.wading?.(x - pw.st.ox, z - pw.st.oz)); },
+        swimming: (x, z) => { const pw = placeWater(x, z); return heightAt(x, z) < (pw ? pw.wl : WATER) - SWIM_DEPTH + 0.05; },
         blockedAt(x, z, r, y = heightAt(x, z)) {
             const c = colliderAt(coll(x, z), x, z, r, y); if (c) return c.kind;
             if (Math.max(Math.abs(x), Math.abs(z)) > EDGE) return 'wall';

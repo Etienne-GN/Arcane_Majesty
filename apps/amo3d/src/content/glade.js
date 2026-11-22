@@ -407,6 +407,7 @@ export function createOutdoor({ quality = { foliage: 1, shadows: true, shadowMap
             const g = heightAt(x, z), deck = bridgeDeck(x, z, heightAt);
             return deck !== null && deck > g ? deck : g;
         },
+        waterLevel: WATER,   // (its lake and pool sit above the world's sea: the open world asks it — engine/stream.js placeWater)
         wading: (x, z) => heightAt(x, z) < WATER - 0.05 || inStream(x, z),
         blockedAt(x, z, r, y = heightAt(x, z)) {
             const c = colliderAt(colliders, x, z, r, y);

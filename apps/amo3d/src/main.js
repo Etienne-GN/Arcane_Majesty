@@ -822,7 +822,7 @@ function tick(dt) {
     updateHorse(dt);
     if (player.state.diving) lift += player.state.diving.depth * 2;   // (cam.update halves lift: the camera dives with you)
     { const under = player.state.diving && camera.position.y < -2.05; if (under !== uwShown) { uwShown = under; uw.style.opacity = under ? 1 : 0; } }   // under water: a blue-green veil
-    const camFloor = map.heightAt && !p.diving && map.mapInfo?.water != null ? () => map.mapInfo.water + 0.35 : null;   // (above the water's surface, unless you dive — only the camera's lowest point: the water never stands "in the way")
+    const camFloor = map.heightAt && !p.diving && map.mapInfo?.water != null ? (x, z) => (map.waterAt ? map.waterAt(x, z) : map.mapInfo.water) + 0.35 : null;   // (above the water's surface, unless you dive — only the camera's lowest point: the water never stands "in the way")
     cam.update(dt, p.pos, lift, map.heightAt ?? null, map.camBlockedAt ? (x, z, r, y) => map.camBlockedAt(x, z, y) : null, camFloor);   // the camera never sinks into the ground or the mountain, nor behind a wall
     if (cam.firstPerson !== fpShown) { fpShown = cam.firstPerson; hero.root.visible = !fpShown && !player.state.dead; }   // first person: Eldrin's own body out of the way
     const ceil = map.cameraCeiling?.(p.pos.x, p.pos.z, p.pos.y);   // under a cave roof: pull in below it
