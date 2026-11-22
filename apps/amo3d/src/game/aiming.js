@@ -8,32 +8,36 @@
 //   keys F / R — the mouse, if it is over the game; otherwise straight ahead
 import * as THREE from 'three';
 import { spells as SP } from '@rules';
+import { aimTexture, reachTexture, createGroundDecal } from './aimDecal.js';
 
 const HOLD_MS = 200;
 const COLOURS = { fire: 0xff8a30, water: 0x4ab0ff, ice: 0xa8e4ff, earth: 0xc8a070, nature: 0x7ad84a, wind: 0xd8f4e8, lightning: 0xf4e070, shadow: 0xb07aff, arcane: 0xd8b8ff };
 
 export function createAiming({ camera, cam, input, getPlayer, getMap, PX = 32, tuning = { rangeMult: 1, radiusMult: 1 } }) {
     const group = new THREE.Group(); group.visible = false;
-    const ring = new THREE.Mesh(new THREE.RingGeometry(0.86, 1, 48), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9, depthWrite: false, side: THREE.DoubleSide, toneMapped: false }));
-    const fill = new THREE.Mesh(new THREE.CircleGeometry(0.86, 40), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.16, depthWrite: false, side: THREE.DoubleSide, toneMapped: false }));
-    const dot = new THREE.Mesh(new THREE.CircleGeometry(0.12, 16), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.95, depthWrite: false, toneMapped: false }));
-    const reach = new THREE.Mesh(new THREE.RingGeometry(0.985, 1, 96), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.22, depthWrite: false, side: THREE.DoubleSide, toneMapped: false }));
-    for (const m of [ring, fill, dot, reach]) { m.rotation.x = -Math.PI / 2; m.renderOrder = 50; m.material.depthTest = false; }   // always on top of grass and slopes
-    const marker = new THREE.Group(); marker.add(fill, ring, dot);
-    group.add(marker, reach);
+    // the marker and the range: decals lying on the ground (aimDecal.js) — a rune in a soft glow, a faint dotted halo
+    const mark = createGroundDecal(null, 18), reach = createGroundDecal(reachTexture(), 28, true);
+    reach.mat.opacity = 0.35;
+    group.add(mark.mesh, reach.mesh);
     let scene = null;
     const setScene = s => { if (scene) scene.remove(group); scene = s; s.add(group); };
 
     let st = null;   // { side, spell, level, how, t0, active, pos, start: {x, y}, ptr: {x, y} }
     const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), hit = new THREE.Vector3();
-    const groundY = (x, z, y) => { const m = getMap(); return m?.groundAt ? m.groundAt(x, z, y + 3) : (m?.heightAt?.(x, z) ?? y); };
+    const groundY = (x, z, y) => { const m = getMap(); const g = m?.groundAt ? m.groundAt(x, z, y + 3) : (m?.heightAt?.(x, z) ?? y); const w = m?.waterAt ? m.waterAt(x, z) : (m?.mapInfo?.water ?? -Infinity); return Math.max(g, w); };   // (over water: on its surface)
     const rangeOf = () => ((st.spell.range?.[st.level - 1] ?? 200) / PX) * tuning.rangeMult;
-    const radiusOf = () => (st.spell.targetingType === 'targeted_aoe' ? Math.max(0.6, ((st.spell.radius?.[st.level - 1] ?? 40) / PX) * tuning.radiusMult) : 0.45);
+    const radiusOf = () => (st.spell.targetingType === 'targeted_aoe' ? Math.max(0.9, ((st.spell.radius?.[st.level - 1] ?? 40) / PX) * tuning.radiusMult) : 0.8);   // (a bolt: a small rune where it will strike)
     function clampToRange(v) {
         const p = getPlayer().pos, dx = v.x - p.x, dz = v.z - p.z, d = Math.hypot(dx, dz), r = rangeOf();
         if (d > r) { v.x = p.x + dx / d * r; v.z = p.z + dz / d * r; }
         v.y = groundY(v.x, v.z, p.y);
         return v;
+    }
+    // where a ray from the camera meets the ground itself (marching, then halving the step) — not a flat plane at your feet
+    function groundHit(r, out) {
+        let t = 0.5, prev = null; const pt = new THREE.Vector3();
+        for (let i = 0; i < 160 && t < 120; i++, t += 0.25 + t * 0.04) { r.at(t, pt); const g = groundY(pt.x, pt.z, pt.y); if (pt.y < g) { let a = prev ?? 0, b = t; for (let k = 0; k < 12; k++) { const m = (a + b) / 2; r.at(m, pt); if (pt.y < groundY(pt.x, pt.z, pt.y)) b = m; else a = m; } r.at(b, out); return true; } prev = t; }
+        return false;
     }
     const camAxes = () => { const f = cam.forward(); return { f, r: new THREE.Vector3(-f.z, 0, f.x) }; };
 
@@ -53,8 +57,8 @@ export function createAiming({ camera, cam, input, getPlayer, getMap, PX = 32, t
         st.pos.set(p.x + f.x * r * 0.6, p.y, p.z + f.z * r * 0.6);
         clampToRange(st.pos);
         const col = COLOURS[st.spell.element] ?? 0xffffff;
-        for (const m of [ring, fill, dot, reach]) m.material.color.setHex(col);
-        marker.scale.setScalar(radiusOf());
+        mark.mat.map = aimTexture(st.spell.element ?? 'arcane', col); mark.mat.needsUpdate = true;
+        reach.mat.color.setHex(col);
         group.visible = true;
         input.fan.open = true; input.fan.x = input.fan.y = 0;   // the right stick steers the ring, not the camera
     }
@@ -82,14 +86,14 @@ export function createAiming({ camera, cam, input, getPlayer, getMap, PX = 32, t
         } else if (st.how === 'mouse' || (st.how === 'key' && st.moved)) {   // where the pointer meets the ground
             ndc.set((st.ptr.x / innerWidth) * 2 - 1, -(st.ptr.y / innerHeight) * 2 + 1);
             ray.setFromCamera(ndc, camera);
-            plane.constant = -p.y;
-            if (ray.ray.intersectPlane(plane, hit)) st.pos.set(hit.x, p.y, hit.z);
+            if (groundHit(ray.ray, hit)) st.pos.set(hit.x, hit.y, hit.z);
+            else { plane.constant = -p.y; if (ray.ray.intersectPlane(plane, hit)) st.pos.set(hit.x, p.y, hit.z); }
         }
         clampToRange(st.pos);
-        marker.position.set(st.pos.x, st.pos.y + 0.06, st.pos.z);
-        reach.position.set(p.x, groundY(p.x, p.z, p.y) + 0.05, p.z); reach.scale.setScalar(r);
-        const pulse = 1 + Math.sin(performance.now() / 160) * 0.04;
-        ring.scale.setScalar(pulse);
+        const gy = (x, z) => groundY(x, z, p.y), pulse = 1 + Math.sin(performance.now() / 220) * 0.03;
+        mark.place(st.pos.x, st.pos.z, radiusOf() * pulse, gy);   // lies on the ground under it, whatever its slope
+        mark.mesh.rotation.y = 0; mark.mat.opacity = 0.85 + Math.sin(performance.now() / 300) * 0.15;
+        reach.place(p.x, p.z, r, gy, 0.05);
     }
     return { setScene, down, move, up, update, cancel, get aiming() { return !!st?.active; }, get pending() { return !!st; }, get side() { return st?.side ?? null; } };
 }
